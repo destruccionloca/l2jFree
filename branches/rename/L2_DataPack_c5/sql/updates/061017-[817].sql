@@ -1,0 +1,1 @@
+ALTER TABLE `characters` CHANGE `noble` `nobless` DECIMAL( 2, 0 ) DEFAULT '0';
