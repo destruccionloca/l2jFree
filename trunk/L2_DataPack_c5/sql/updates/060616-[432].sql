@@ -1,0 +1,1 @@
+UPDATE `npc` set type='L2OlympiadManager' where `id` in (8688,8690,8769,8770,8771,8772);

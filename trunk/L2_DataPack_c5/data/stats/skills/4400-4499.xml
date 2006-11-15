@@ -1,0 +1,1076 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+<skill id="4400" levels="3" name="Acumen">
+<!-- Done by KID [C5] -->
+  <table name="#mAtkSpd"> 1.15 1.23 1.3 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="abnormal_type" val="casting_time_down"/>  
+  <set name="castRange" val="400"/>
+  <for>
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#mAtkSpd" stackType="mAtkSpeedUp">
+      <mul order="0x50" stat="mAtkSpd" val="#mAtkSpd"/>
+    </effect>
+  </for>
+</skill>
+<skill id="4401" levels="3" name="Empower">
+<!-- Done by KID [C5] -->
+  <table name="#mAtk"> 1.55 1.65 1.75 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="abnormal_type" val="ma_up"/>  
+  <set name="castRange" val="400"/>
+  <for>
+   <effect count="1" name="Buff" time="1200" val="0" stackOrder="#mAtk" stackType="mAtk">
+    <mul order="0x50" stat="mAtk" val="#mAtk"/>
+   </effect>
+  </for>
+</skill>
+<skill id="4402" levels="2" name="Haste">
+<!-- Done by KID [C5] -->
+  <table name="#pAtkSpd"> 1.15 1.33 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="abnormal_type" val="attack_time_down"/>
+  <set name="castRange" val="400"/>
+  <for>
+   <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pAtkSpd" stackType="pAtkSpeedUp">
+     <mul order="0x50" stat="pAtkSpd" val="#pAtkSpd"/>
+   </effect>
+  </for>
+</skill>
+<skill id="4403" levels="3" name="Guidance">
+<!-- Done by KID [C5] -->
+  <table name="#accCombat"> 2 3 4 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="400"/>
+  <for>
+    <effect name="Buff" time="1200" count="1" val="0" stackOrder="#accCombat" stackType="accuracyUp">
+      <add order='0x50' stat='accCombat' val="#accCombat"/>
+    </effect>
+  </for>
+</skill>
+<skill id="4404" levels="3" name="Focus">
+<!-- Done by KID [C5] -->
+  <table name="#rCrit"> 1.2 1.25 1.3 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="1200000"/>
+  <set name="castRange" val="400"/>
+  <for>
+   <effect count="1" name="Buff" time="1200" val="0" stackOrder="#rCrit" stackType="rCrit">
+    <mul order="0x50" stat="rCrit" val="#rCrit"/>
+   </effect>
+  </for>
+</skill>
+<skill id="4405" levels="3" name="Death Whisper">
+<!-- Done by KID [C5] -->
+  <table name="#cAtk"> 1.3 1.4 1.5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="400"/>
+  <for>
+  <effect count="1" name="Buff" time="1200" val="0" stackOrder="#cAtk" stackType="cAtk">
+    <mul order="0x50" stat="cAtk" val="#cAtk"/>
+ </effect>
+</for>
+</skill>
+<skill id="4406" levels="3" name="Agility">
+<!-- Done by KID [C5] -->
+  <table name="#rEvas"> 4 6 8 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="1200000"/>
+  <set name="castRange" val="400"/>
+  <for>
+   <effect count="1" name="Buff" time="1200" val="0" stackOrder="#rEvas" stackType="rEvas">
+    <add order="0x40" stat="rEvas" val="#rEvas"/>
+   </effect>
+  </for>
+</skill>
+<skill id="4407" levels="2" name="Ordinary Monster">
+<!-- lv2: Strong Type Monster -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4408" levels="20" name="name_by_lvl"> 
+<!-- Done by KID [C5] -->
+<!-- 
+ 	lv.1: HP Increase (1x)
+ 	lv.2: HP Medium-High
+ 	lv.3: HP Medium-High
+ 	lv.4: HP High
+ 	lv.5: HP High
+ 	lv.6: HP Very High
+ 	lv.7: HP Very High
+ 	lv.8: HP Increase (1/4x)
+ 	lv.9: HP Increase (1/2x)
+	lv.10: HP Increase (2x)
+	lv.11: HP Increase (3x)
+	lv.12: HP Increase (4x)
+	lv.13: HP Increase (5x)
+	lv.14: HP Increase (6x)
+	lv.15: HP Increase (7x)
+	lv.16: HP Increase (8x)
+	lv.17: HP Increase (9x)
+	lv.18: HP Increase (10x)
+	lv.19: HP Increase (11x)
+	lv.20: HP Increase (12x)
+	-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="SERVER_SIDE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4409" levels="20" name="name_by_lvl">
+<!-- Done by KID [C5] -->
+<!-- 
+ 	lv.1: MP Increase (1x)
+ 	lv.2: MP Medium-High
+ 	lv.3: MP Medium-High
+ 	lv.4: MP High
+ 	lv.5: MP High
+ 	lv.6: MP Very High
+ 	lv.7: MP Very High
+ 	lv.8: MP Increase (1/4x)
+ 	lv.9: MP Increase (1/2x)
+	lv.10: MP Increase (2x)
+	lv.11: MP Increase (3x)
+	lv.12: MP Increase (4x)
+	lv.13: MP Increase (5x)
+	lv.14: MP Increase (6x)
+	lv.15: MP Increase (7x)
+	lv.16: MP Increase (8x)
+	lv.17: MP Increase (9x)
+	lv.18: MP Increase (10x)
+	lv.19: MP Increase (11x)
+	lv.20: MP Increase (12x)
+	-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="SERVER_SIDE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4410" levels="22" name="name_by_lvl">
+<!-- 
+	lv.1: Extremely Weak P. Atk.
+	lv.2: Extremely Weak P. Atk.
+	lv.3: Extremely Weak P. Atk.
+	lv.4: Extremely Weak P. Atk.
+	lv.5: Very Weak P. Atk.
+	lv.6: Very Weak P. Atk.
+ 	lv.7: Weak P. Atk.
+ 	lv.8: Weak P. Atk.
+ 	lv.9: Slightly Weak P. Atk.
+	lv.10: Slightly Weak P. Atk.
+	lv.11: Average P. Atk.
+	lv.12: Slightly Strong P. Atk.
+	lv.13: Slightly Strong P. Atk.
+	lv.14: Strong P. Atk.
+	lv.15: Strong P. Atk.
+	lv.16: Very Strong P. Atk.
+	lv.17: Very Strong P. Atk.
+	lv.18: Extremely Strong P. Atk.
+	lv.19: Extremely Strong P. Atk.
+	lv.20: Extremely Strong P. Atk.
+	lv.21: Extremely Strong P. Atk.
+	lv.22: Ultra Strong P. Atk.
+	-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4411" levels="22" name="name_by_lvl">
+<!-- 
+	lv.1: Extremely Weak M. Atk.
+	lv.2: Extremely Weak M. Atk.
+	lv.3: Extremely Weak M. Atk.
+	lv.4: Extremely Weak M. Atk.
+	lv.5: Very Weak M. Atk.
+	lv.6: Very Weak M. Atk.
+ 	lv.7: Weak M. Atk.
+ 	lv.8: Weak M. Atk.
+ 	lv.9: Slightly Weak M. Atk.
+	lv.10: Slightly Weak M. Atk.
+	lv.11: Average M. Atk.
+	lv.12: Slightly Strong M. Atk.
+	lv.13: Slightly Strong M. Atk.
+	lv.14: Strong M. Atk.
+	lv.15: Strong M. Atk.
+	lv.16: Very Strong M. Atk.
+	lv.17: Very Strong M. Atk.
+	lv.18: Extremely Strong M. Atk.
+	lv.19: Extremely Strong M. Atk.
+	lv.20: Extremely Strong M. Atk.
+	lv.21: Extremely Strong M. Atk.
+	lv.22: Ultra Strong M. Atk.
+	-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4412" levels="22" name="name_by_lvl">
+<!-- 
+	lv.1: Extremely Weak P. Def.
+	lv.2: Extremely Weak P. Def.
+	lv.3: Extremely Weak P. Def.
+	lv.4: Extremely Weak P. Def.
+	lv.5: Very Weak P. Def.
+	lv.6: Very Weak P. Def.
+ 	lv.7: Weak P. Def.
+ 	lv.8: Weak P. Def.
+ 	lv.9: Slightly Weak P. Def.
+	lv.10: Slightly Weak P. Def.
+	lv.11: Average P. Def.
+	lv.12: Slightly Strong P. Def.
+	lv.13: Slightly Strong P. Def.
+	lv.14: Strong P. Def.
+	lv.15: Strong P. Def.
+	lv.16: Very Strong P. Def.
+	lv.17: Very Strong P. Def.
+	lv.18: Extremely Strong P. Def.
+	lv.19: Extremely Strong P. Def.
+	lv.20: Extremely Strong P. Def.
+	lv.21: Extremely Strong P. Def.
+	lv.22: Ultra Strong P. Def.
+	-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4413" levels="22" name="name_by_lvl">
+<!-- 
+	lv.1: Extremely Weak M. Def.
+	lv.2: Extremely Weak M. Def.
+	lv.3: Extremely Weak M. Def.
+	lv.4: Extremely Weak M. Def.
+	lv.5: Very Weak M. Def.
+	lv.6: Very Weak M. Def.
+ 	lv.7: Weak M. Def.
+ 	lv.8: Weak M. Def.
+ 	lv.9: Slightly Weak M. Def.
+	lv.10: Slightly Weak M. Def.
+	lv.11: Average M. Def.
+	lv.12: Slightly Strong M. Def.
+	lv.13: Slightly Strong M. Def.
+	lv.14: Strong M. Def.
+	lv.15: Strong M. Def.
+	lv.16: Very Strong M. Def.
+	lv.17: Very Strong M. Def.
+	lv.18: Extremely Strong M. Def.
+	lv.19: Extremely Strong M. Def.
+	lv.20: Extremely Strong M. Def.
+	lv.21: Extremely Strong M. Def.
+	lv.22: Ultra Strong M. Def.
+	-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4414" levels="3" name="name_by_lvl">
+<!-- 
+	lv.1: Heavy Armor Type
+	lv.2: Standard Type
+	lv.3: Light Armor Type
+	-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4415" levels="20" name="name_by_lvl">
+<!-- 
+	lv.1: Bare Hands
+	lv.2: Bare Hands
+	lv.3: One-handed Sword
+	lv.4: One-handed Sword
+	lv.5: Blunt Weapons
+	lv.6: Blunt Weapons
+ 	lv.7: Daggers
+ 	lv.8: Daggers
+ 	lv.9: Bows
+	lv.10: Bows
+	lv.11: Spears
+	lv.12: Spears
+	lv.13: Two-handed Sword
+	lv.14: Two-handed Sword
+	lv.15: Two-handed Blunt Weapons
+	lv.16: Two-handed Blunt Weapons
+	lv.17: Hand-to-hand weapons
+	lv.18: Hand-to-hand weapons
+	lv.19: Two-Sword Weapons
+	lv.20: Two-Sword Weapons
+	-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4416" levels="23" name="name_by_lvl">
+<!-- 
+	lv.1 Race	Undead
+	lv.2 Race	Magic
+	lv.3 Race	Beasts
+	lv.4 Race	Animals
+	lv.5 Race	Plants
+	lv.6 Race	Humanoids
+	lv.7 Race	Spirits
+	lv.8 Race	Angels
+	lv.9 Race	Demons
+	lv.10 Race Dragons
+	lv.11 Race Giants
+	lv.12 Race Bugs
+	lv.13 Race Fairies
+	lv.14 Humans
+	lv.15 Elves
+	lv.16 Dark Elves
+	lv.17 Orcs
+	lv.18 Dwarves
+	lv.19 Others
+	lv.20 Non-living Beings
+	lv.21 Siege Weapons
+	lv.22 Defending Army
+	lv.23 Mercenaries
+		-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4417" levels="38" name="name_by_lvl">
+<!-- 
+	seems like few new efects by races.. undead meadium, low hight.. etc
+		-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4418" levels="5" name="Fire Attacks">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4419" levels="5" name="Water Attacks">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4420" levels="5" name="Wind Attacks">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4421" levels="5" name="Earth Attacks">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4422" levels="5" name="Dark Attacks">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4423" levels="5" name="Sacred Attacks">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4424" levels="5" name="Resist Hand-to-hand Weapons">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4425" levels="5" name="Resist Blunt Weapons">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4426" levels="5" name="Resist Two-Sword Weapons">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4427" levels="5" name="Resist Swords">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4428" levels="5" name="Resist Two-handed Weapons">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4429" levels="5" name="Greater Resist Fire Attacks">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4430" levels="5" name="Greater Resist Water Attacks">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4431" levels="5" name="Greater Resist Wind Attacks">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4432" levels="5" name="Greater Resist Earth Attacks">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4433" levels="5" name="Greater Resist Sacred Attacks">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4434" levels="5" name="Greater Resist Dark Attacks">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4435" levels="5" name="Greater Resist Shock">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4436" levels="5" name="Greater Resist Poison">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4437" levels="5" name="Greater Resist Bleeding">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4438" levels="5" name="Greater Resist Sleep">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4439" levels="5" name="Greater Resist Hold">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4440" levels="5" name="Greater Resist Paralysis">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4441" levels="5" name="Greater Resist Mental Derangement">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4442" levels="5" name="Greater Resist Hand-to-hand Weapons">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4443" levels="5" name="Greater Resist Blunt Weapons">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4444" levels="5" name="Greater Resist Bow Weapons">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4445" levels="5" name="Greater Resist Spear Weapons">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4446" levels="5" name="Greater Resist Two-Sword Weapons">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4447" levels="5" name="Greater Resist Swords">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4448" levels="5" name="Greater Resist Daggers">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4449" levels="5" name="Greater Resist Two-handed Weapons">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4450" levels="5" name="Shock Attack Weak Point">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4451" levels="5" name="Poison Attack Weak Point">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4452" levels="5" name="Bleed Attack Weak Point">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4453" levels="5" name="Sleep Attack Weak Point">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4454" levels="5" name="Hold Attack Weak Point">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4455" levels="5" name="Paralysis Attack Weak Point">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4456" levels="5" name="Mental Attack Weak Point">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4457" levels="5" name="Hand-to-hand Weapon Weak Point">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4458" levels="5" name="Spear Weapon Weak Point">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4459" levels="5" name="Two-Sword Weapon Weak Point">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4460" levels="5" name="Sword Weak Point">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4461" levels="5" name="Dagger Weak Point">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4462" levels="5" name="Two-handed Weapon Weak Point">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4463" levels="3" name="Surrender To Water">
+  <table name="#mpConsume"> 20 35 65 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="hitTime" val="2000"/>
+  <set name="skillTime" val="2000"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+</skill>
+<skill id="4464" levels="3" name="Surrender To Wind">
+  <table name="#mpConsume"> 20 35 65 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="hitTime" val="2000"/>
+  <set name="skillTime" val="2000"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+</skill>
+<skill id="4465" levels="3" name="Surrender To Earth">
+  <table name="#mpConsume"> 20 35 65 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="hitTime" val="2000"/>
+  <set name="skillTime" val="2000"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+</skill>
+<skill id="4466" levels="3" name="Surrender To Darkness">
+  <table name="#mpConsume"> 20 35 65 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="hitTime" val="2000"/>
+  <set name="skillTime" val="2000"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+</skill>
+<skill id="4467" levels="3" name="Surrender To Light">
+  <table name="#mpConsume"> 20 35 65 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="hitTime" val="2000"/>
+  <set name="skillTime" val="2000"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+</skill>
+<skill id="4468" levels="2" name="Area Buff - Wind Walk">
+<!-- Done by KID [C5] -->
+  <table name="#runSpd"> 20 33 </table>
+  <set name="target" val="TARGET_AURA"/>
+  <set name="skillRadius" val="300"/>
+  <set name="reuseDelay" val="30000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="300"/>
+  <set name="isMagic" val="true"/>
+  <for>
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#runSpd" stackType="SpeedUp">
+      <add order="0x40" stat="runSpd" val="#runSpd"/>
+    </effect>
+  </for>  
+</skill>
+<skill id="4469" levels="1" name="Potion Drinking">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4470" levels="1" name="NPC Spoils">
+<!-- skill.dwarfmagic.254 -->
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="1799"/>
+  <set name="skillTime" val="1799"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+</skill>
+<skill id="4471" levels="12" name="NPC Anger">
+  <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="hitTime" val="1799"/>
+  <set name="skillTime" val="1799"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4472" levels="12" name="NPC Strike Golem">
+  <table name="#mpConsume"> 14 22 31 43 55 68 79 84 89 92 94 95 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="hitTime" val="2500"/>
+  <set name="skillTime" val="2500"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+</skill>
+<skill id="4473" levels="12" name="Shock">
+  <table name="#mpConsume"> 27 44 62 85 109 135 157 168 177 183 187 189 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="hitTime" val="4000"/>
+  <set name="skillTime" val="4000"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="700"/>
+</skill>
+<skill id="4474" levels="5" name="Area Heal - Per">
+<!-- Done by KID [C5] -->
+  <set name="target" val="TARGET_AURA"/>
+  <set name="power" val="500"/>
+  <set name="skillRadius" val="300"/>
+  <set name="reuseDelay" val="30000"/>
+  <set name="skillType" val="HEAL"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="300"/>
+  <set name="isMagic" val="true"/>
+</skill>
+<skill id="4475" levels="1" name="Perfect Resist Bleeding">
+  <set name="mpConsume" val="50"/>
+  <set name="hitTime" val="1500"/>
+  <set name="skillTime" val="1500"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="700"/>
+</skill>
+<skill id="4476" levels="5" name="Silent Move">
+  <table name="#mpConsume"> 13 20 27 35 45 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="target" val="TARGET_AURA"/>
+  <set name="skillRadius" val="300"/>
+  <set name="hitTime" val="1500"/>
+  <set name="skillTime" val="1500"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="300"/>
+</skill>
+<skill id="4477" levels="12" name="NPC Frost Wall">
+<!-- Done by KID [C5] -->
+  <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 113 115 117 </table>
+  <table name="#power"> 48.0 50.0 53.0 55.0 56.0 57.0 59.0 60.0 61.0 62.0 63.0 65.0 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_MULTIFACE"/>
+  <set name="skillRadius" val="120"/>
+  <set name="hitTime" val="3000"/>
+  <set name="element" val="3"/>
+  <set name="reuseDelay" val="15000"/>
+  <set name="skillTime" val="3000"/>
+  <set name="skillType" val="MDAM"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+</skill>
+<skill id="4478" levels="1" name="Ice Fairy Aqua Splash">
+<!-- Done by KID [C5] -->
+  <set name="mpConsume" val="23"/>
+  <set name="power" val="225.0"/>
+  <set name="target" val="TARGET_AREA"/>
+  <set name="skillRadius" val="205"/>
+  <set name="hitTime" val="3299"/>
+  <set name="element" val="3"/>
+  <set name="reuseDelay" val="15000"/>
+  <set name="skillTime" val="3299"/>
+  <set name="skillType" val="MDAM"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="700"/>
+</skill>
+<skill id="4479" levels="1" name="Ice Fairy Resist Water">
+<!-- Done by KID [C5] -->
+  <set name="mpConsume" val="39"/>
+  <set name="power" val="269.0"/>
+  <set name="target" val="TARGET_AREA"/>
+  <set name="skillRadius" val="300"/>
+  <set name="hitTime" val="4000"/>
+  <set name="element" val="3"/>
+  <set name="reuseDelay" val="15000"/>
+  <set name="skillTime" val="4000"/>
+  <set name="skillType" val="MDAM"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="700"/>
+</skill>
+<skill id="4480" levels="1" name="Ice Fairy Curse Gloom">
+<!-- Done by KID [C5] -->
+  <set name="mpConsume" val="117"/>
+  <set name="save" val="3"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="1200"/>
+  <set name="reuseDelay" val="15000"/>
+  <set name="skillTime" val="1200"/>
+  <set name="skillType" val="DEBUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1000"/>
+  <for>
+    <effect count="1" name="Buff" time="120" val="0">
+      <div order="0x50" stat="mDef" val="1.4"/>
+    </effect>
+  </for>
+</skill>
+<skill id="4481" levels="15" name="Ice Fairy Hex">
+<!-- Done by KID [C5] -->
+  <set name="mpConsume" val="117"/>
+  <set name="save" val="4"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="3000"/>
+  <set name="reuseDelay" val="55000"/>
+  <set name="skillTime" val="3000"/>
+  <set name="skillType" val="DEBUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1000"/>
+  <for>
+   <effect count="1" name="Buff" time="120" val="0">
+     <div order="0x50" stat="pDef" val="1.6"/>
+   </effect>
+  </for>
+</skill>
+
+<skill id="4482" levels="14" name="Ice Fairy Silence">
+<!-- Done by KID [C5] -->
+  <set name="save" val="2"/>
+  <set name="power" val="150"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="100"/>
+  <set name="reuseDelay" val="48000"/>
+  <set name="skillTime" val="100"/>
+  <set name="skillType" val="MUTE"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1000"/>
+  <for>
+   <effect count="1" name="Mute" time="150" val="0"/>
+  </for>
+</skill>
+<skill id="4483" levels="12" name="Hold">
+<!-- Done by KID [C5] -->
+  <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150 153 155 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="save" val="5"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_AREA"/>
+  <set name="skillRadius" val="200"/>
+  <set name="hitTime" val="3299"/>
+  <set name="reuseDelay" val="19000"/>
+  <set name="skillTime" val="3299"/>
+  <set name="skillType" val="ROOT"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="30000"/>
+  <set name="castRange" val="-1"/>
+  <set name="displayId" val="1201"/>
+  <for>
+    <effect count="1" name="Root" time="30" val="0" stackOrder="1" stackType="Root"/>
+  </for>
+</skill>
+<skill id="4484" levels="1" name="Eating Follower Heal">
+<!-- Done by KID [C5] -->
+  <set name="power" val="600"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="100"/>
+  <set name="reuseDelay" val="10000"/>
+  <set name="skillTime" val="100"/>
+  <set name="skillType" val="HEAL"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+</skill>
+<skill id="4485" levels="1" name="Eating Follower">
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="3000"/>
+  <set name="skillTime" val="3000"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+</skill>
+<skill id="4486" levels="12" name="Decrease P. Def">
+  <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150 153 155 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="1200"/>
+  <set name="skillTime" val="1200"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+</skill>
+<skill id="4487" levels="12" name="Decrease M. Def.">
+  <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150 153 155 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="1200"/>
+  <set name="skillTime" val="1200"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+</skill>
+<skill id="4488" levels="12" name="Hold">
+  <table name="#mpConsume"> 21 33 47 64 82 101 118 126 133 137 140 142 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4489" levels="12" name="NPC Death MP bomb">
+  <table name="#mpConsume"> 21 33 47 64 82 101 118 126 133 137 140 142 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+<skill id="4490" levels="12" name="NPC Holy Wall">
+  <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 113 115 117 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="5000"/>
+  <set name="skillTime" val="5000"/>  
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+</skill>
+<skill id="4491" levels="12" name="Holy Weapon">
+  <table name="#mpConsume"> 41 66 93 127 164 202 236 252 265 274 280 283 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="3200"/>
+  <set name="skillTime" val="3200"/>  
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="500"/>
+</skill>
+<skill id="4492" levels="12" name="Enlarging Head Curse">
+  <table name="#mpConsume"> 14 22 31 43 55 68 79 84 89 92 94 95 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="1000"/>
+  <set name="skillTime" val="1000"/>  
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+</skill>
+<skill id="4493" levels="12" name="NPC Debuff Shield Slow">
+  <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="2000"/>
+  <set name="skillTime" val="2000"/>  
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="400"/>
+</skill>
+<skill id="4494" levels="1" name="Raid Boss">
+<!--
+  1: If the level of the person who made the greatest contribution is 
+  higher than the level of the raid monster by 3 or more levels, 
+  then the probability of dropping an item or adena will decrease. 
+  If the level difference is nine or more levels, then, the monster 
+  will not drop any item or adena.-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="4495" levels="12" name="BOSS Power Shot">
+  <table name="#mpConsume"> 36 50 69 93 118 143 166 175 182 186 189 192 </table>
+  <table name="#power"> 352.0 949.0 2607.0 6828.0 17184.0 33213.0 51007.0 59177.0 67888.0 77001.0 86359.0 95790.0 </table>
+  <table name="#magicLvl"> 14 24 34 44 54 64 74 79 84 89 94 99 </table>
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="lvlDepend" val="1"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="4500"/>
+  <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
+  <set name="skillTime" val="4500"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="900"/>
+  <for>
+  </for>
+</skill>
+<skill id="4496" levels="12" name="Shock">
+  <table name="#mpConsume"> 36 50 69 93 118 143 166 175 182 186 189 192 </table>
+  <table name="#power"> 176.0 475.0 1304.0 3414.0 8592.0 16607.0 25504.0 29589.0 33944.0 38501.0 43180.0 47895.0 </table>
+  <table name="#magicLvl"> 14 24 34 44 54 64 74 79 84 89 94 99 </table>
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="lvlDepend" val="1"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="save" val="4"/>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="4500"/>
+  <set name="overHit" val="true"/>
+  <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
+  <set name="skillTime" val="4500"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="9000"/>
+  <set name="castRange" val="900"/>
+  <set name="effectType" val="STUN"/>
+  <set name="effectPower" val="80"/>
+  <for>
+	<effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
+  </for>
+</skill>
+<skill id="4497" levels="1" name="Treasure Chest - Level 21">
+  <!-- TODO -->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="4498" levels="1" name="Treasure Chest - Level 22">
+  <!-- TODO -->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="4499" levels="1" name="Treasure Chest - Level 25">
+  <!-- TODO -->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+</list>

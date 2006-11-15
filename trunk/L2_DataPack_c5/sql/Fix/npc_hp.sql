@@ -1,0 +1,1 @@
+UPDATE `npc` SET `hp`=`hp`/2;
