@@ -414,6 +414,12 @@ public final class Config {
     public static boolean GM_DISABLE_TRANSACTION;
     public static int GM_TRANSACTION_MIN;
     public static int GM_TRANSACTION_MAX;
+    /** Minimum level to allow a GM giving damage */
+    public static int     GM_CAN_GIVE_DAMAGE;
+    /** Minimum level to don't give Exp/Sp in party */
+    public static int     GM_DONT_TAKE_EXPSP;
+    /** Minimum level to don't take aggro */
+    public static int     GM_DONT_TAKE_AGGRO;    
     /** GM name color */
     public static boolean   GM_NAME_COLOR_ENABLED;
     public static boolean   GM_TITLE_COLOR_ENABLED;
@@ -473,13 +479,6 @@ public final class Config {
     public static int   KARMA_RATE_DROP_EQUIP;    
     public static int   KARMA_RATE_DROP_EQUIP_WEAPON;    
 
-    /** Zariche Event Configs */
-    public static int   ZARICHE_DROP_RATE;
-    public static int   ZARICHE_STAGE_KILLS;
-    public static int   ZARICHE_DURATION;
-    public static int   ZARICHE_DURATION_LOST;
-    public static int   ZARICHE_DISAPEAR_CHANCE;
-    
     /** Time after which item will auto-destroy */
     public static int     AUTODESTROY_ITEM_AFTER;
     
@@ -547,6 +546,8 @@ public final class Config {
     public static boolean 	    ALLOW_WATER;
     public static boolean       ALLOW_RENTPET;
     public static boolean 	    ALLOW_BOAT;
+    /** Allow cursed weapons ? */
+    public static boolean        ALLOW_CURSED_WEAPONS;    
     
     public static int           PACKET_LIFETIME;
 
@@ -997,6 +998,7 @@ public final class Config {
                 ALLOW_GEODATA_EXPIRATIONTIME    = Integer.parseInt(optionsSettings.getProperty("AllowGeodata_ExpirationTime", "9000000"));
                 ALLOW_GEODATA_CHECK_KNOWN       = Boolean.valueOf(optionsSettings.getProperty("AllowGeodataCheckKnown", "False"));
                 ALLOW_BOAT                      = Boolean.valueOf(optionsSettings.getProperty("AllowBoat", "False"));
+                ALLOW_CURSED_WEAPONS            = Boolean.valueOf(optionsSettings.getProperty("AllowCursedWeapons", "False"));
                 FISHINGMODE                     = optionsSettings.getProperty("FishingMode", "water");                
                
                 ALLOW_L2WALKER_CLIENT           = L2WalkerAllowed.valueOf(optionsSettings.getProperty("AllowL2Walker", "False"));
@@ -1231,8 +1233,8 @@ public final class Config {
 	            PLAYER_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerMpRegenMultiplier", "100"));
 	            PLAYER_CP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerCpRegenMultiplier", "100"));
 
-                RAID_HP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidHpRegenMultiplier", "500")) /100;    
-                RAID_MP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidMpRegenMultiplier", "500")) /100;    
+                RAID_HP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidHpRegenMultiplier", "500"));    
+                RAID_MP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidMpRegenMultiplier", "500"));    
                 RAID_DEFENCE_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidDefenceMultiplier", "500")) /100;    
 	            
 	            STARTING_ADENA      = Integer.parseInt(otherSettings.getProperty("StartingAdena", "100"));
@@ -1286,12 +1288,6 @@ public final class Config {
                 JAIL_IS_PVP       = Boolean.valueOf(otherSettings.getProperty("JailIsPvp", "True"));
                 JAIL_DISABLE_CHAT = Boolean.valueOf(otherSettings.getProperty("JailDisableChat", "True"));
                 
-                ZARICHE_DROP_RATE       = Integer.valueOf(otherSettings.getProperty("ZaricheDropRate", "1"));
-                ZARICHE_DISAPEAR_CHANCE = Integer.valueOf(otherSettings.getProperty("ZaricheDisapearChance", "50"));
-                ZARICHE_STAGE_KILLS     = Integer.valueOf(otherSettings.getProperty("ZaricheStageKills", "10"));
-                ZARICHE_DURATION        = Integer.valueOf(otherSettings.getProperty("ZaricheDuration", "300"));
-                ZARICHE_DURATION_LOST   = Integer.valueOf(otherSettings.getProperty("ZaricheDurationLost", "30"));
-              
                 GM_NAME_COLOUR_ENABLED = Boolean.parseBoolean(otherSettings.getProperty("GMNameColourEnabled", "False"));
                 GM_NAME_COLOUR = Integer.decode("0x" + otherSettings.getProperty("GMNameColour", "00FF00"));
                 
@@ -1604,7 +1600,10 @@ public final class Config {
                 {
                     GM_DISABLE_TRANSACTION = false; 
                 }
-
+                GM_CAN_GIVE_DAMAGE = Integer.parseInt(gmSettings.getProperty("GMCanGiveDamage", "90"));
+                GM_DONT_TAKE_AGGRO = Integer.parseInt(gmSettings.getProperty("GMDontTakeAggro", "90"));
+                GM_DONT_TAKE_EXPSP = Integer.parseInt(gmSettings.getProperty("GMDontGiveExpSp", "90"));
+                
                 GM_NAME_COLOR_ENABLED  = Boolean.parseBoolean(gmSettings.getProperty("GMNameColorEnabled", "True"));
                 GM_NAME_COLOR_ENABLED  = Boolean.parseBoolean(gmSettings.getProperty("GMTitleColorEnabled", "True"));
                 GM_NAME_COLOR          = Integer.decode("0x" + gmSettings.getProperty("GMNameColor", "00FF00"));
@@ -1711,6 +1710,7 @@ public final class Config {
         else if (pName.equalsIgnoreCase("CommunityType")) COMMUNITY_TYPE = pValue;
         else if (pName.equalsIgnoreCase("BBSDefault")) BBS_DEFAULT = pValue;        
         else if (pName.equalsIgnoreCase("AllowBoat")) ALLOW_BOAT = Boolean.valueOf(pValue);
+        else if (pName.equalsIgnoreCase("AllowCursedWeapons")) ALLOW_CURSED_WEAPONS = Boolean.valueOf(pValue);
 
         else if (pName.equalsIgnoreCase("ShowLevelOnCommunityBoard")) SHOW_LEVEL_COMMUNITYBOARD = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("ShowStatusOnCommunityBoard")) SHOW_STATUS_COMMUNITYBOARD = Boolean.valueOf(pValue);
@@ -1778,8 +1778,8 @@ public final class Config {
         else if (pName.equalsIgnoreCase("PlayerMpRegenMultiplier")) PLAYER_MP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
         else if (pName.equalsIgnoreCase("PlayerCpRegenMultiplier")) PLAYER_CP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
 
-        else if (pName.equalsIgnoreCase("RaidHpRegenMultiplier")) RAID_HP_REGEN_MULTIPLIER = Double.parseDouble(pValue) /100;
-        else if (pName.equalsIgnoreCase("RaidMpRegenMultiplier")) RAID_MP_REGEN_MULTIPLIER = Double.parseDouble(pValue) /100;
+        else if (pName.equalsIgnoreCase("RaidHpRegenMultiplier")) RAID_HP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
+        else if (pName.equalsIgnoreCase("RaidMpRegenMultiplier")) RAID_MP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
         else if (pName.equalsIgnoreCase("RaidDefenceMultiplier")) RAID_DEFENCE_MULTIPLIER = Double.parseDouble(pValue) /100;
 
         else if (pName.equalsIgnoreCase("StartingAdena")) STARTING_ADENA = Integer.parseInt(pValue);
@@ -1891,11 +1891,6 @@ public final class Config {
         else if (pName.equalsIgnoreCase("PvPTime")) PVP_TIME = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("GlobalChat")) DEFAULT_GLOBAL_CHAT = pValue;
         else if (pName.equalsIgnoreCase("TradeChat"))  DEFAULT_TRADE_CHAT = pValue;
-        
-        else if (pName.equalsIgnoreCase("ZaricheDropRate")) ZARICHE_DROP_RATE = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("ZaricheDuration")) ZARICHE_DURATION = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("ZaricheDurationLost")) ZARICHE_DURATION_LOST = Integer.parseInt(pValue);
-
         
         else if (pName.equalsIgnoreCase("TvTEvenTeams"))  TVT_EVEN_TEAMS = pValue;
         else if (pName.equalsIgnoreCase("CTFEvenTeams"))  CTF_EVEN_TEAMS = pValue;

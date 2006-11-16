@@ -989,6 +989,13 @@ public final class Formulas
     public final double calcPhysDam(L2Character attacker, L2Character target, L2Skill skill,
                                      boolean shld, boolean crit, boolean dual, boolean ss)
 	{
+       if (attacker instanceof L2PcInstance)
+       {
+           L2PcInstance pcInst = (L2PcInstance)attacker;
+           if (pcInst.isGM() && pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+                   return 0;
+       }
+
 		double damage = attacker.getPAtk(target);
 		double defence = target.getPDef(attacker);
 		if (ss) damage *= 2;
@@ -997,6 +1004,9 @@ public final class Formulas
 			damage += skill.getPower();
 			//damage += skill.getPower() * 0.7 * attacker.getPAtk(target)/defence;
 		}
+		// In C5 summons make 10 % less dmg in PvP.
+        if(attacker instanceof L2Summon && target instanceof L2PcInstance) damage *= 0.9;
+        
         //      damage = damage * attacker.getSTR()*(1 - attacker.getLevel()/100)/60*1.15;
 		if (target instanceof L2NpcInstance)
 		{
@@ -1158,12 +1168,23 @@ public final class Formulas
     public final double calcMagicDam(L2Character attacker, L2Character target, L2Skill skill,
                                         boolean ss, boolean bss, boolean mcrit)
 	{
+       if (attacker instanceof L2PcInstance)
+       {
+           L2PcInstance pcInst = (L2PcInstance)attacker;
+           if (pcInst.isGM() && pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+               return 0;
+       }
+               
 		double mAtk = attacker.getMAtk(target, skill);
 		double mDef = target.getMDef(attacker, skill);
 		if (bss) mAtk *= 4;
 		else if (ss) mAtk *= 2;
 
         double damage = 91 * Math.sqrt(mAtk) / mDef * skill.getPower(attacker);
+       
+        // In C5 summons make 10 % less dmg in PvP.
+        if(attacker instanceof L2Summon && target instanceof L2PcInstance) damage *= 0.9;
+       
         //      if(attacker instanceof L2PcInstance && target instanceof L2PcInstance) damage *= 0.9; // PvP modifier (-10%)
 		
 		// Failure calculation

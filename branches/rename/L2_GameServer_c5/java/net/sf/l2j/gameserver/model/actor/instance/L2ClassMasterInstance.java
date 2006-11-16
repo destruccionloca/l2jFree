@@ -68,7 +68,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
                 return;
             }
             
-            NpcHtmlMessage html = new NpcHtmlMessage(1);
+            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
             sb.append("<html><body>");
             sb.append("Buzz the Cat:<br>");
@@ -137,7 +137,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             if(jobLevel == 3) return; // no more job changes
             
             // prevents changing between same level jobs
-            if(newJobLevel == jobLevel) return;
+            if(newJobLevel != jobLevel + 1) return;
                 
             if (level < 20 && newJobLevel > 0) return;
             if (level < 40 && newJobLevel > 1) return;
@@ -151,7 +151,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             if (newJobLevel == 3) player.sendPacket(new SystemMessage(1606)); // system sound 3rd occupation
             else player.sendPacket(new SystemMessage(1308)); // system sound for 1st and 2nd occupation
             
-            NpcHtmlMessage html = new NpcHtmlMessage(1);
+            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
             sb.append("<html><head><body>");
             sb.append("You have now become a <font color=\"LEVEL\">" + CharTemplateTable.getClassNameById(player.getClassId().getId()) + "</font>.");

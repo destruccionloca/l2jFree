@@ -139,6 +139,7 @@ public class RequestAquireSkill extends ClientBasePacket
             {
                 SystemMessage sm = new SystemMessage(SystemMessage.NOT_ENOUGH_SP_TO_LEARN_SKILL);
                 player.sendPacket(sm);
+                sm = null;
                 return;
             }
         }
@@ -183,11 +184,13 @@ public class RequestAquireSkill extends ClientBasePacket
                 sm.addNumber(costcount);
                 sm.addItemName(costid);
                 sendPacket(sm);
+                sm = null;
             }
             else
             {
                 SystemMessage sm = new SystemMessage(SystemMessage.NOT_ENOUGH_SP_TO_LEARN_SKILL);
                 player.sendPacket(sm);
+                sm = null;
                 return;
             }
         }
@@ -212,6 +215,7 @@ public class RequestAquireSkill extends ClientBasePacket
         SystemMessage sm = new SystemMessage(SystemMessage.LEARNED_SKILL_S1);
         sm.addSkillName(_id);
         player.sendPacket(sm);
+        sm = null;
         
         // update all the shortcuts to this skill
         if (_level > 1)

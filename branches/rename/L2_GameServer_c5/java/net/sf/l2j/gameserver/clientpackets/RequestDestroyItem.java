@@ -29,6 +29,7 @@ import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2World;
@@ -125,10 +126,10 @@ public class RequestDestroyItem extends ClientBasePacket
                 return;
         }
 
-        //Zarich cannot be destroyed
-        if (itemId == 8190 && !activeChar.isGM())
-            return;
-        
+        // Cursed Weapons cannot be destroyed
+        if (CursedWeaponsManager.getInstance().isCursed(itemId))
+           return;
+
         if(!itemToRemove.isStackable() && count > 1)
         {
             Util.handleIllegalPlayerAction(activeChar,"[RequestDestroyItem] count > 1 but item is not stackable! oid: "+_objectId+" owner: "+activeChar.getName(),Config.DEFAULT_PUNISH);

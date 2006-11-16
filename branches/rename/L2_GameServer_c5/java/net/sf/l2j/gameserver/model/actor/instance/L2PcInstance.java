@@ -77,7 +77,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
-import net.sf.l2j.gameserver.instancemanager.ZaricheManager;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.BlockList;
@@ -163,6 +163,7 @@ import net.sf.l2j.gameserver.serverpackets.Snoop;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.StopMove;
+import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.TargetSelected;
 import net.sf.l2j.gameserver.serverpackets.TradeStart;
@@ -216,6 +217,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public static final int STORE_PRIVATE_SELL = 1;
     public static final int STORE_PRIVATE_BUY = 3;
     public static final int STORE_PRIVATE_MANUFACTURE = 5;
+    public static final int STORE_PRIVATE_PACKAGE_SELL = 8;
 
     /** The table containing all minimum level needed for each Expertise (None, D, C, B, A, S)*/
     private static final int[] EXPERTISE_LEVELS = {SkillTreeTable.getInstance().getExpertiseLevel(0), //NONE
@@ -260,6 +262,18 @@ public final class L2PcInstance extends L2PlayableInstance
                 if (cubic.getId() != L2CubicInstance.LIFE_CUBIC) cubic.doAction(target);
             }
         }
+/*        public void doCast(L2Skill skill) 
+        {
+           super.doCast(skill);
+           
+           if(!skill.isOffensive()) return;
+           L2Object[] targets = skill.getTargetList(L2PcInstance.this);
+           // rest of the code doesn't yet support multiple targets
+           L2Character mainTarget = (L2Character) targets[0];
+           for (L2CubicInstance cubic : getCubics().values())
+               if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
+                   cubic.doAction(mainTarget);
+        }       */
     }
 
     private Connection _connection;
@@ -589,8 +603,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _inJail = false;
     private long _jailTimer = 0;
 
-    /** Flag to disable equipment/skills while wearing formal wear **/
-    private boolean _IsWearingFormalWear = false;
+    /* Flag to disable equipment/skills while wearing formal wear **/
+    //private boolean _IsWearingFormalWear = false;
 
     /** Skill casting information (used to queue when several skills are cast in a short time) **/
     public class SkillDat
@@ -2435,18 +2449,19 @@ public final class L2PcInstance extends L2PlayableInstance
             if (item.getItemId()<= 8157 && item.getItemId() >= 8154)
             {
                 IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());
-                
+               
                 if (handler == null) 
                     _log.fine("No item handler registered for item ID " + item.getItemId() + ".");
                 else 
                     handler.useItem(this, item);
             }
             
-            if(newitem.getItemId() == 8190) // Zariche
+            // Cursed Weapon
+            if(CursedWeaponsManager.getInstance().isCursed(newitem.getItemId()))
             {
-                ZaricheManager.getInstance().activateZariche(this, newitem);
+                CursedWeaponsManager.getInstance().activate(this, newitem);
             }
-            
+
             // If over capacity, trop the item 
             if (!isGM() && !_inventory.validateCapacity(0)) 
                 dropItem("InvDrop", newitem, null, true);
@@ -2502,7 +2517,7 @@ public final class L2PcInstance extends L2PlayableInstance
             }
             else sendPacket(new ItemList(this, false));
 
-            //          Auto Use herbs
+            // Auto Use herbs
             if (item.getItemId()<= 8157 && item.getItemId() >= 8154)
             {
                 IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());
@@ -2513,9 +2528,10 @@ public final class L2PcInstance extends L2PlayableInstance
                     handler.useItem(this, item);
             }
             
-            if(item.getItemId() == 8190) // Zariche
+            // Cursed Weapon
+            if(CursedWeaponsManager.getInstance().isCursed(item.getItemId()))
             {
-                ZaricheManager.getInstance().activateZariche(this, item);
+                CursedWeaponsManager.getInstance().activate(this, item);
             }
             
             // If over capacity, trop the item 
@@ -3049,10 +3065,10 @@ public final class L2PcInstance extends L2PlayableInstance
                 // Check if this L2PcInstance is autoAttackable
                 if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started))
                 {
-                    // Player with lvl < 21 can't attack zariche holder
-                    // And Zariche holder  can't attack players with lvl < 21
-                    if ((_isZaricheEquiped && player.getLevel() < 21)
-                            || (player.isZaricheEquiped() && this.getLevel() < 21))
+                    // Player with lvl < 21 can't attack a cursed weapon holder
+                    // And a cursed weapon holder  can't attack players with lvl < 21
+                    if ((isCursedWeaponEquiped() && player.getLevel() < 21)
+                            || (player.isCursedWeaponEquiped() && this.getLevel() < 21))
                     {
                         player.sendPacket(new ActionFailed());
                     } else
@@ -3216,7 +3232,8 @@ public final class L2PcInstance extends L2PlayableInstance
             L2PcInstance temp = (L2PcInstance) target;
             sendPacket(new ActionFailed());
 
-            if (temp.getPrivateStoreType() == STORE_PRIVATE_SELL) sendPacket(new PrivateStoreListSell(
+            if (temp.getPrivateStoreType() == STORE_PRIVATE_SELL || temp.getPrivateStoreType() == STORE_PRIVATE_PACKAGE_SELL)
+                sendPacket(new PrivateStoreListSell(
                                                                                                       this,
                                                                                                       temp));
             else if (temp.getPrivateStoreType() == STORE_PRIVATE_BUY) sendPacket(new PrivateStoreListBuy(
@@ -3322,18 +3339,98 @@ public final class L2PcInstance extends L2PlayableInstance
                 return;
             }
 
+            if (target.getItemId()<= 8157 && target.getItemId() >= 8154)
+            {
+                IItemHandler handler = ItemHandler.getInstance().getItemHandler(target.getItemId());
+                
+                if (handler == null) 
+                    _log.fine("No item handler registered for item ID " + target.getItemId() + ".");
+                else 
+                    handler.useItem(this, target);
+            }
+            
+           if (target.getOwnerId() != 0 && target.getOwnerId() != getObjectId() && !isInLooterParty(target.getOwnerId()))
+            {
+                sendPacket(new ActionFailed());
+                
+                if (target.getItemId() == 57)
+                {
+                    SystemMessage smsg = new SystemMessage(SystemMessage.FAILED_TO_PICKUP_S1_ADENA);
+                    smsg.addNumber(target.getCount());
+                    sendPacket(smsg);
+                }
+                else if (target.getCount() > 1)
+                {
+                    SystemMessage smsg = new SystemMessage(SystemMessage.FAILED_TO_PICKUP_S2_S1_s);
+                    smsg.addItemName(target.getItemId());
+                    smsg.addNumber(target.getCount());
+                    sendPacket(smsg);
+                }
+                else
+                {
+                    SystemMessage smsg = new SystemMessage(SystemMessage.FAILED_TO_PICKUP_S1);
+                    smsg.addItemName(target.getItemId());
+                    sendPacket(smsg);
+                }
+                
+                return;
+            }
+           if(target.getItemLootShedule() != null
+                   && (target.getOwnerId() == getObjectId() || isInLooterParty(target.getOwnerId())))
+               target.resetOwnerTimer();
+
             // Remove the L2ItemInstance from the world and send server->client GetItem packets
             target.pickupMe(this);
         }
+        //Auto Use herbs
+        if (target.getItemId()<= 8157 && target.getItemId() >= 8154)
+        {
+            L2Skill skill = SkillTable.getInstance().getInfo(target.getItemId() - 5910, 1);
+            switch (skill.getId())
+            {
+                case 2244:
+                    if (getCurrentHp() + skill.getPower() >= getMaxHp())
+                        setCurrentHp(getMaxHp());
+                    else setCurrentHp(getCurrentHp() + skill.getPower());
+                    sendPacket(new SystemMessage(SystemMessage.REJUVENATING_HP));
+                    StatusUpdate suhp = new StatusUpdate(getObjectId()); 
+                    suhp.addAttribute(StatusUpdate.CUR_HP, (int)getCurrentHp()); 
+                    sendPacket(suhp);
+                    break;
+                case 2245:
+                    if (getCurrentMp() + skill.getPower() >= getMaxMp())
+                        setCurrentMp(getMaxMp());
+                    else setCurrentMp(getCurrentMp() + skill.getPower());
+                    sendPacket(new SystemMessage(SystemMessage.REJUVENATING_MP));
+                    StatusUpdate sump = new StatusUpdate(getObjectId()); 
+                    sump.addAttribute(StatusUpdate.CUR_MP, (int)getCurrentMp()); 
+                    sendPacket(sump);
+                    break;
+                case 2246:
+                case 2247:
+                    stopEffect(skill.getId());
+                    skill.getEffects(this,this);
+                    SystemMessage message = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT);
+                    message.addSkillName(skill.getId());
+                    sendPacket(message);
+                    break;
+            }
+            MagicSkillUser MSU = new MagicSkillUser(this, this, skill.getId(), skill.getLevel(), skill.getHitTime(), skill.getReuseDelay());
+            sendPacket(MSU);
+            broadcastPacket(MSU);
+            target.decayMe();
+            ItemTable.getInstance().destroyItem("Consume", target, this, null);
+        }
 
         // Check if a Party is in progress
-        if (isInParty()) getParty().distributeItem(this, target);
+        else if (isInParty()) getParty().distributeItem(this, target);
         // Target is adena 
         else if (target.getItemId() == 57 && getInventory().getAdenaInstance() != null)
         {
             addAdena("Pickup", target.getCount(), null, true);
             ItemTable.getInstance().destroyItem("Pickup", target, this, null);
         }
+        
         // Target is regular item 
         else addItem("Pickup", target, null, true);
     }
@@ -3453,6 +3550,7 @@ public final class L2PcInstance extends L2PlayableInstance
         return false;
     }
 
+    /*
     public boolean isWearingFormalWear()
     {
         return _IsWearingFormalWear;
@@ -3462,6 +3560,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         _IsWearingFormalWear = value;
     }
+    */
 
     /**
      * Return the secondary weapon instance (always equiped in the left hand).<BR><BR>
@@ -3565,12 +3664,10 @@ public final class L2PcInstance extends L2PlayableInstance
 				}, 20000);
 			}
 		}
-            }
 
-
-            if (_isZaricheEquiped)
+            if (isCursedWeaponEquiped())
             {
-                ZaricheManager.getInstance().dropZariche(killer);
+                CursedWeaponsManager.getInstance().drop(_cursedWeaponEquipedId, killer);
             }
             else
             {                
@@ -3582,7 +3679,7 @@ public final class L2PcInstance extends L2PlayableInstance
                         ((L2PcInstance) killer).getClan().setReputationScore(((L2PcInstance) killer).getClan().getReputationScore()-1);
                         _clan.setReputationScore(_clan.getReputationScore()+1);
                     }
-                    if(pk == null || !pk.isZaricheEquiped()){
+                    if (pk == null || !pk.isCursedWeaponEquiped())
                         if (Config.ALT_GAME_DELEVEL)
                         {
                             // Reduce the Experience of the L2PcInstance in function of the calculated Death Penalty
@@ -3773,9 +3870,9 @@ public final class L2PcInstance extends L2PlayableInstance
         if (targetPlayer == null) return; // Target player is null
         if (targetPlayer == this) return; // Target player is self
         
-        if (_isZaricheEquiped)
+        if (isCursedWeaponEquiped())
         {
-            ZaricheManager.getInstance().increaseKills();
+            CursedWeaponsManager.getInstance().increaseKills(_cursedWeaponEquipedId);
             return;
         }
         
@@ -4959,7 +5056,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 if (player.isInJail()) player.setJailTimer(rset.getLong("jail_timer"));
                 else player.setJailTimer(0);
                 
-                ZaricheManager.getInstance().checkPlayer(player);
+                CursedWeaponsManager.getInstance().checkPlayer(player);
 
                 player.setNoble(rset.getBoolean("nobless"));
                 player.setVarka(rset.getInt("varka"));
@@ -6104,6 +6201,9 @@ public final class L2PcInstance extends L2PlayableInstance
         if (getClan() != null && attacker != null && getClan().isMember(attacker.getName()))
             return false;
 
+        if(attacker instanceof L2PlayableInstance && ZoneManager.getInstance().checkIfInZonePeace(this)) 
+            return false;
+        
         // Check if the L2PcInstance has Karma
         if (getKarma() > 0 || getPvpFlag() > 0) return true;
 
@@ -6173,7 +6273,7 @@ public final class L2PcInstance extends L2PlayableInstance
             sendPacket(new ActionFailed());
             return;
         }
-
+        /*
         if (isWearingFormalWear() && !skill.isPotion())
         {
             sendPacket(new SystemMessage(SystemMessage.CANNOT_USE_ITEMS_SKILLS_WITH_FORMALWEAR));
@@ -6182,7 +6282,7 @@ public final class L2PcInstance extends L2PlayableInstance
             abortCast();
             return;
         }
-
+        */
         if (inObserverMode())
         {
             sendMessage("Cant use magic in observer mode");
@@ -6362,7 +6462,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         // Check if all casting conditions are completed
-        if (!skill.checkCondition(this))
+        if (!skill.checkCondition(this, false))
         {
             // Send a Server->Client packet ActionFailed to the L2PcInstance
             sendPacket(new ActionFailed());
@@ -6509,7 +6609,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 return;
             }
 
-            if (getObjectId() != spoilerId && !isInSpoilerParty(spoilerId))
+            if (getObjectId() != spoilerId && !isInLooterParty(spoilerId))
             {
                 // Send a System Message to the L2PcInstance
                 sendPacket(new SystemMessage(SystemMessage.SWEEP_NOT_ALLOWED));
@@ -6592,15 +6692,12 @@ public final class L2PcInstance extends L2PlayableInstance
 
     }
 
-    public boolean isInSpoilerParty(int SpoilerId)
+    public boolean isInLooterParty(int LooterId)
     {
-        if (isInParty())
-        {
-            for (L2PcInstance obj : getParty().getPartyMembers())
-            {
-                if (obj.getObjectId() == SpoilerId) return true;
-            }
-        }
+       L2PcInstance looter = (L2PcInstance)L2World.getInstance().findObject(LooterId);
+        
+       if (isInParty() && looter != null) 
+            return getParty().getPartyMembers().contains(looter);
 
         return false;
     }
@@ -8560,9 +8657,9 @@ public final class L2PcInstance extends L2PlayableInstance
             return false;
         }
         
-        if (item.getItemId() == 8190)
+        if (CursedWeaponsManager.getInstance().isCursed(item.getItemId()))
         {
-            // can not trade Zariche
+            // can not trade a cursed weapon
             return false;
         }
         
@@ -8827,9 +8924,6 @@ public final class L2PcInstance extends L2PlayableInstance
         for (L2PcInstance player : _SnoopListener)
             player.removeSnooped(this);
 
-        if (_isZaricheEquiped)
-            ZaricheManager.getInstance().playerLogout();
-        
         // Remove L2Object object from _allObjects of L2World
         L2World.getInstance().removeObject(this);
     }
@@ -9215,7 +9309,8 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     private ScheduledFuture _jailTask;
-    private boolean _isZaricheEquiped = false;
+    private int _powerGrade;
+    private int _cursedWeaponEquipedId = 0;
 
     private class JailTask implements Runnable
     {
@@ -9239,13 +9334,18 @@ public final class L2PcInstance extends L2PlayableInstance
         setCurrentHpMp(getMaxHp(), getMaxMp());
     }
     
-    public boolean isZaricheEquiped()
+    public boolean isCursedWeaponEquiped()
     {
-        return _isZaricheEquiped;
+        return _cursedWeaponEquipedId != 0;
     }
-    
-    public void setZaricheEquiped(boolean value)
+   
+    public void setCursedWeaponEquipedId(int value)
     {
-        _isZaricheEquiped = value;
+        _cursedWeaponEquipedId = value;
+    }
+   
+    public int getCursedWeaponEquipedId()
+    {
+        return _cursedWeaponEquipedId;
     }
 }

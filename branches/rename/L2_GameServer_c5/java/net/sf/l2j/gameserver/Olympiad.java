@@ -402,10 +402,10 @@ public class Olympiad
             return false;
         }
         
-        if (noble.isZaricheEquiped())
+        if (noble.isCursedWeaponEquiped())
         {
-            noble.sendMessage("You can't participate to Olympiad while holding Zariche.");
-            return false;
+           noble.sendMessage("You can't participate to Olympiad while holding a cursed weapon.");
+           return false;
         }
         
         if (!noble.isNoble())

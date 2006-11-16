@@ -72,15 +72,14 @@ public class Heal implements ISkillHandler
             if (target == null || target.isDead())
                 continue;
             
-            //Player holding Zariche can't be healed and can't heal
+            // Player holding a cursed weapon can't be healed and can't heal
             if (target != activeChar)
             {
-                if (target instanceof L2PcInstance && ((L2PcInstance)target).isZaricheEquiped())
-                    continue;
-                else if (player != null && player.isZaricheEquiped())
-                    continue;
+               if (target instanceof L2PcInstance && ((L2PcInstance)target).isCursedWeaponEquiped())
+                   continue;
+               else if (player != null && player.isCursedWeaponEquiped())
+                   continue;
             }
-
             
             double hp = skill.getPower();
             

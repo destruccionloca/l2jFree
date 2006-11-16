@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.GmListTable;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -87,6 +88,7 @@ public class RequestDropItem extends ClientBasePacket
                                 !Config.ALLOW_DISCARDITEM
                                 || Config.LIST_NONDROPPABLE_ITEMS.contains(item.getItemId())
                                 || Config.LIST_NONTRADEABLE_ITEMS.contains(item.getItemId())
+                                && !activeChar.isGM()
                         )
         		        && !activeChar.isGM()
         		)
@@ -105,12 +107,10 @@ public class RequestDropItem extends ClientBasePacket
             }
         }
         
-        //Zariche cannot be dropped
-        if(item.getItemId() == 8190){
-            activeChar.sendPacket(new SystemMessage(SystemMessage.NOTHING_HAPPENED));
-            return;
-        }
-        
+        // Cursed Weapons cannot be dropped
+        if (CursedWeaponsManager.getInstance().isCursed(item.getItemId()))
+           return;
+       
         if(_count > item.getCount()) 
         {
             activeChar.sendPacket(new SystemMessage(SystemMessage.NOTHING_HAPPENED));

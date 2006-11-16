@@ -63,12 +63,13 @@ public class RequestUnEquipItem extends ClientBasePacket
 		if (activeChar == null)
 		    return;
         
-		//Prevent of unequiping Zariche
-		if (_slot == L2Item.SLOT_LR_HAND && activeChar.isZaricheEquiped() && !activeChar.isGM())
-		{
-		    // Message ?
-		    return;
-		}
+        // Prevent of unequiping a cursed weapon
+        if (_slot == L2Item.SLOT_LR_HAND && activeChar.isCursedWeaponEquiped())
+        {
+            // Message ?
+            activeChar.sendMessage("You cant unequip a cursed Weapon.");
+            return;
+        }
         
         // Prevent Stunned player to remove the weapon
         if (activeChar.isStunned() || activeChar.isSleeping())
@@ -117,6 +118,7 @@ public class RequestUnEquipItem extends ClientBasePacket
 	            sm.addItemName(unequiped[0].getItemId());
             }
             activeChar.sendPacket(sm);
+            sm = null;
 		}
 	}
 

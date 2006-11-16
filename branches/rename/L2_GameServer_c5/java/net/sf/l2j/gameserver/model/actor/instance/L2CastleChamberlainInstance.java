@@ -166,7 +166,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
                     }
                 }
 
-                NpcHtmlMessage html = new NpcHtmlMessage(1);
+                NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
                 html.setFile("data/html/chamberlain/" + getTemplate().npcId + "-d.htm");
                 html.replace("%objectId%", String.valueOf(getObjectId()));
                 html.replace("%npcname%", getName());
@@ -266,7 +266,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
             return;
 
         List<SeedProduction> seedes = getCastle().getSeedProduction();
-        NpcHtmlMessage html = new NpcHtmlMessage(1);
+        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
         String r="";
 
         for(SeedProduction seede : seedes)
@@ -292,7 +292,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
             return;
 
         List<CropProcure> crops = getCastle().getManorRewards();
-        NpcHtmlMessage html = new NpcHtmlMessage(1);
+        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
         String r="";
 
         for(CropProcure crop : crops)
@@ -313,7 +313,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 
     private void sendHtmlMessage(L2PcInstance player, String htmlMessage)
     {
-        NpcHtmlMessage html = new NpcHtmlMessage(1);
+        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
         html.setHtml(htmlMessage);
         html.replace("%objectId%", String.valueOf(getObjectId()));
         html.replace("%npcname%", getName());
@@ -334,7 +334,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
                 filename = "data/html/chamberlain/chamberlain.htm";                         // Owner message window
         }
         
-        NpcHtmlMessage html = new NpcHtmlMessage(1);
+        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
         html.setFile(filename);
         html.replace("%objectId%", String.valueOf(getObjectId()));
         html.replace("%npcname%", getName());

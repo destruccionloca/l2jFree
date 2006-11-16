@@ -39,11 +39,15 @@ public class PcStat extends PlayableStat
     {
         L2PcInstance activeChar = getActiveChar();
         // Set new karma
-        if (!activeChar.isZaricheEquiped() && activeChar.getKarma() > 0 && (activeChar.isGM() || !ZoneManager.getInstance().checkIfInZonePvP(activeChar)))
+        if (!activeChar.isCursedWeaponEquiped() && activeChar.getKarma() > 0 && (activeChar.isGM() || !ZoneManager.getInstance().checkIfInZonePvP(activeChar)))
         {
             int karmaLost = activeChar.calculateKarmaLost((int) value);
             if (karmaLost > 0) activeChar.setKarma(activeChar.getKarma() - karmaLost);
         }
+
+        //Player is Gm and acces level is below or equal to GM_DONT_TAKE_EXPSP and is in party, don't give Xp
+        if (getActiveChar().isGM() && getActiveChar().getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP && getActiveChar().isInParty())
+              return false;
 
         if (!super.addExp(value)) return false;
         
@@ -73,6 +77,10 @@ public class PcStat extends PlayableStat
      */
     public boolean addExpAndSp(long addToExp, int addToSp)
     {
+       //Player is Gm and acces level is below or equal to GM_DONT_TAKE_EXPSP and is in party, don't give Xp/Sp
+       if (getActiveChar().isGM() && getActiveChar().getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP && getActiveChar().isInParty())
+            return false;
+
         if (!super.addExpAndSp(addToExp, addToSp)) return false;
 
         // Send a Server->Client System Message to the L2PcInstance

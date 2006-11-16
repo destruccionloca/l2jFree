@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import net.sf.l2j.gameserver.instancemanager.ZaricheManager;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 /**
@@ -182,8 +182,8 @@ public class GMViewCharacterInfo extends ServerBasePacket
          
         writeD(_cha.getNameColor()); 
          
-        if (_cha.isZaricheEquiped())
-            writeD(ZaricheManager.getInstance().getZaricheLevel());
+        if (_cha.isCursedWeaponEquiped())
+            writeD(CursedWeaponsManager.getInstance().getLevel(_cha.getCursedWeaponEquipedId()));
         else
             writeD(0x00); 
 

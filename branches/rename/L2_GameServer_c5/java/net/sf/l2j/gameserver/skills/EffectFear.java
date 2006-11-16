@@ -65,8 +65,9 @@ final class EffectFear extends L2Effect {
 	
     public boolean onActionTime()
     {
-        
-		int posX = getEffected().getX();
+        // Fear skills cannot be used l2pcinstance to l2pcinstance. Heroic Dread is the exception.
+        if(getEffected() instanceof L2PcInstance && getEffector() instanceof L2PcInstance && getSkill().getId() != 1376) return false;
+        int posX = getEffected().getX();
 		int posY = getEffected().getY();
 		int posZ = getEffected().getZ();
 		
@@ -79,7 +80,6 @@ final class EffectFear extends L2Effect {
 			signy=1;
 		posX += signx*FEAR_RANGE;
 		posY += signy*FEAR_RANGE;
-        if (!(getEffected() instanceof L2PcInstance))
         getEffected().setRunning();
 		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,new L2CharPosition(posX,posY,posZ,0));
     	return true;

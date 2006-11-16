@@ -25,16 +25,17 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.TradeController;
-import net.sf.l2j.gameserver.model.L2ItemInstance;
+import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2TradeList;
+import net.sf.l2j.gameserver.model.actor.instance.L2FishermanInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MercManagerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MerchantInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
+import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
@@ -106,8 +107,26 @@ public class RequestBuyItem extends ClientBasePacket
 			    || !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false) 	// Distance is too far
 			        )) return;
 
-		L2MerchantInstance merchant = (target != null && target instanceof L2MerchantInstance) ? (L2MerchantInstance)target : null;
-		
+        boolean ok = true;
+        String htmlFolder = new String();
+
+        if (target != null)
+        {
+        	if (target instanceof L2MerchantInstance)
+        		htmlFolder = "merchant";
+        	else if (target instanceof L2FishermanInstance)
+        		htmlFolder = "fisherman";
+        	else
+        		ok = false;
+        }
+        else
+        	ok = false;
+
+        L2NpcInstance merchant = null;
+
+        if (ok)
+        	merchant = (L2NpcInstance)target;
+
         if (_listId > 1000000) // lease
 		{
 			if (merchant != null && merchant.getTemplate().npcId != _listId-1000000)
@@ -145,6 +164,8 @@ public class RequestBuyItem extends ClientBasePacket
 				Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase invalid quantity of items at the same time.",Config.DEFAULT_PUNISH);
 				SystemMessage sm = new SystemMessage(SystemMessage.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				sendPacket(sm);
+				sm = null;
+				
 				return;
 			}
 
@@ -217,7 +238,6 @@ public class RequestBuyItem extends ClientBasePacket
 		    merchant.getCastle().addToTreasury(tax);
 
 		// Proceed the purchase
-		InventoryUpdate playerIU = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
 		for (int i=0; i < _count; i++)
 		{
 			int itemId = _items[i * 2 + 0];
@@ -225,12 +245,8 @@ public class RequestBuyItem extends ClientBasePacket
 			if (count < 0) count = 0;
 
 			// Add item to Inventory and adjust update packet
-			L2ItemInstance item = player.getInventory().addItem("Buy", itemId, count, player, merchant);
-			if (playerIU != null)
-			{
-				if (item.getCount() > count) playerIU.addModifiedItem(item);
-				else playerIU.addNewItem(item);
-			}
+			player.getInventory().addItem("Buy", itemId, count, player, merchant);
+
 
 /* TODO: Disabled until Leaseholders are rewritten ;-)
 			// Update Leaseholder list
@@ -253,13 +269,23 @@ public class RequestBuyItem extends ClientBasePacket
 			}
 */
 		}
-		// Send update packets
-		if (playerIU != null) player.sendPacket(playerIU);
-		else player.sendPacket(new ItemList(player, false));
+
+       if (merchant != null)
+       {
+           String html = HtmCache.getInstance().getHtm("data/html/"+ htmlFolder +"/" + merchant.getNpcId() + "-bought.htm");
+
+           if (html != null)
+           {
+               NpcHtmlMessage boughtMsg = new NpcHtmlMessage(merchant.getObjectId());
+               boughtMsg.setHtml(html.replaceAll("%objectId%", String.valueOf(merchant.getObjectId())));
+               player.sendPacket(boughtMsg);
+           }
+       }
 		
 		StatusUpdate su = new StatusUpdate(player.getObjectId());
 		su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
 		player.sendPacket(su);
+		player.sendPacket(new ItemList(player, true));
 	}
     
 	/* (non-Javadoc)

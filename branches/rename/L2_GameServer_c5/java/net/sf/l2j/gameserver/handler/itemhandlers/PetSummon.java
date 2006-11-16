@@ -82,11 +82,11 @@ public class PetSummon implements IItemHandler
             return;
         }
         
-        if (activeChar.isZaricheEquiped())
+        if (activeChar.isCursedWeaponEquiped())
         {
-            // You can't mount while weilding Zariche
-            activeChar.sendPacket(new SystemMessage(SystemMessage.STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE));
-        }
+           // You can't mount while weilding a cursed weapon
+           activeChar.sendPacket(new SystemMessage(SystemMessage.STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE));
+        }        
         
         npcId = L2PetDataTable.getPetIdByItemId(item.getItemId());
         

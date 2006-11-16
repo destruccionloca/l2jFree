@@ -88,7 +88,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTeleport;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTest;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTvTEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminUnblockIp;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminZariche;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCursedWeapons;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminZone;
 import net.sf.l2j.gameserver.handler.itemhandlers.AdvQuestItems;
 import net.sf.l2j.gameserver.handler.itemhandlers.BeastSoulShot;
@@ -165,7 +165,7 @@ import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.Manager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
-import net.sf.l2j.gameserver.instancemanager.ZaricheManager;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.AutoChatHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler;
 import net.sf.l2j.gameserver.model.L2PetDataTable;
@@ -366,10 +366,13 @@ public class GameServer
         _sevenSignsEngine.spawnSevenSignsNPC();
         
         Olympiad.getInstance();
+        _log.config("Olympiad initialized");
+        
         Hero.getInstance();
         
         // Init of Zariche manager
-        ZaricheManager.getInstance();
+        CursedWeaponsManager.getInstance();
+        _log.config("CursedWeapons initialized");
         
         // Start to announce online players number
         if(Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
@@ -499,7 +502,7 @@ public class GameServer
         _adminCommandHandler.registerAdminCommandHandler(new AdminSubclass());
         _adminCommandHandler.registerAdminCommandHandler(new AdminTvTEngine());
         _adminCommandHandler.registerAdminCommandHandler(new AdminCTFEngine());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminZariche());
+        _adminCommandHandler.registerAdminCommandHandler(new AdminCursedWeapons());
         _log.config("AdminCommandHandler: Loaded " + _adminCommandHandler.size() + " handlers.");
 
         _userCommandHandler = UserCommandHandler.getInstance();

@@ -41,7 +41,7 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2SiegeGuardAI;
-import net.sf.l2j.gameserver.instancemanager.ZaricheManager;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
@@ -59,7 +59,6 @@ import net.sf.l2j.gameserver.model.actor.knownlist.AttackableKnownList;
 import net.sf.l2j.gameserver.model.base.SoulCrystal;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
-import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
@@ -342,13 +341,16 @@ public class L2Attackable extends L2NpcInstance
      */
     public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
     {
+        /*
         if ((this instanceof L2SiegeGuardInstance) && (attacker instanceof L2SiegeGuardInstance))
             //if((this.getEffect(L2Effect.EffectType.CONFUSION)!=null) && (attacker.getEffect(L2Effect.EffectType.CONFUSION)!=null))
                 return;
-        
+
         if ((this instanceof L2MonsterInstance)&&(attacker instanceof L2MonsterInstance))
-            //if((this.getEffect(L2Effect.EffectType.CONFUSION)!=null) && (attacker.getEffect(L2Effect.EffectType.CONFUSION)!=null))
+            if((this.getEffect(L2Effect.EffectType.CONFUSION)!=null) && (attacker.getEffect(L2Effect.EffectType.CONFUSION)!=null))
                 return;
+        */
+        
         if (this.isEventMob) return;
             
         // Add damage and hate to the attacker AggroInfo of the L2Attackable _aggroList
@@ -589,7 +591,7 @@ public class L2Attackable extends L2NpcInstance
                             L2PcInstance player = (L2PcInstance)attacker;
                             if (isOverhit() && attacker == getOverhitAttacker())
                             {
-                                player.sendMessage("Over-hit!");
+                                player.sendPacket(new SystemMessage(SystemMessage.OVER_HIT));
                                 exp += calculateOverhitExp(exp);
                             }
                         }
@@ -661,8 +663,11 @@ public class L2Attackable extends L2NpcInstance
                         L2PcInstance player = (L2PcInstance)attacker;
                         if (isOverhit() && attacker == getOverhitAttacker())
                         {
-                            player.sendMessage("Over-hit!");
-                            exp += calculateOverhitExp(exp);
+                           int overHitExp = (int)calculateOverhitExp(exp);
+                           SystemMessage sms = new SystemMessage(SystemMessage.ACQUIRED_BONUS_EXPERIENCE_THROUGH_OVER_HIT);
+                           sms.addNumber(overHitExp);
+                           player.sendPacket(sms);
+                           exp += overHitExp;                        
                         }
                     }
 
@@ -1225,8 +1230,8 @@ public class L2Attackable extends L2NpcInstance
              }
          }
 
-         // Check the drop of Zariche
-         ZaricheManager.getInstance().checkDrop(this, player);
+         // Check the drop of a cursed weapon
+         CursedWeaponsManager.getInstance().checkDrop(this, player);
          
          if (!isSeeded() && Config.CATEGORIZE_DROPS)
          {
@@ -1617,9 +1622,8 @@ public class L2Attackable extends L2NpcInstance
             crystalQTY = 0;
             
             L2ItemInstance[] inv = player.getInventory().getItems();
-            for (int index = 0; index < inv.length; index++) 
+            for (L2ItemInstance item : inv)  
             {
-                L2ItemInstance item = inv[index];
                 int itemId = item.getItemId();
                 for (int id : SoulCrystal.SoulCrystalTable)
                 {
@@ -1713,12 +1717,11 @@ public class L2Attackable extends L2NpcInstance
                 // Too many crystals in inventory.
                 if  (crystalQTY > 1)
                 {
-                    player.sendMessage("The soul crystal resonated.");
-                    player.sendPacket(new PlaySound("ItemSound2.broken_key"));                    
+                    player.sendPacket(new SystemMessage(SystemMessage.SOUL_CRYSTAL_ABSORBING_FAILED_RESONATION));
                 }
                 // The soul crystal stage of the player is way too high
                 else if (!doLevelup)
-                    player.sendMessage("The soul crystal has refused to absorb the soul.");
+                    player.sendPacket(new SystemMessage(SystemMessage.SOUL_CRYSTAL_ABSORBING_REFUSED));
                 
                 crystalQTY = 0;
                 continue;
@@ -1736,22 +1739,20 @@ public class L2Attackable extends L2NpcInstance
                 exchangeCrystal(player, crystalOLD, crystalNEW, false);
             }
             // If true and not a boss mob, break the crystal.
-            else if (!isBossMob && (dice >= 100.0 - SoulCrystal.BREAK_CHANCE))
+            else if (!isBossMob && dice >= (100.0 - SoulCrystal.BREAK_CHANCE))
             {
                 // Remove current crystal an give a broken open.
                 if      (crystalNME.startsWith("red"))
                     exchangeCrystal(player, crystalOLD, SoulCrystal.RED_BROKEN_CRYSTAL, true);
-                
                 else if (crystalNME.startsWith("gre"))
                     exchangeCrystal(player, crystalOLD, SoulCrystal.GRN_BROKEN_CYRSTAL, true);
-                
                 else if (crystalNME.startsWith("blu"))
                     exchangeCrystal(player, crystalOLD, SoulCrystal.BLU_BROKEN_CRYSTAL, true);
                 
                 resetAbsorbList();
             }
             else
-                player.sendMessage("The soul crystal has failed to absorb the soul.");
+                player.sendPacket(new SystemMessage(SystemMessage.SOUL_CRYSTAL_ABSORBING_FAILED));
         }
     }
     
@@ -1771,11 +1772,10 @@ public class L2Attackable extends L2NpcInstance
             // Send a sound event and text message to the player
             if(broke)
             {
-                player.sendPacket(new PlaySound("ItemSound3.sys_enchant_failed"));
-                player.sendMessage("The soul crystal scattered itself.");
+                player.sendPacket(new SystemMessage(SystemMessage.SOUL_CRYSTAL_BROKE));
             }
             else
-                player.sendPacket(new PlaySound("ItemSound.quest_itemget"));
+                player.sendPacket(new SystemMessage(SystemMessage.SOUL_CRYSTAL_ABSORBING_SUCCEEDED));
             
             // Send system message
             SystemMessage sms = new SystemMessage(SystemMessage.EARNED_ITEM);

@@ -307,6 +307,7 @@ public class EnterWorld extends ClientBasePacket
                 }
             }
         }
+        sm = null;
 
         SevenSigns.getInstance().sendCurrentPeriodMsg(activeChar);
         Announcements.getInstance().showAnnouncements(activeChar);
@@ -419,6 +420,7 @@ public class EnterWorld extends ClientBasePacket
                     friend.sendPacket(sm);
                 }
 		    }
+            sm = null;            
         } 
 		catch (Exception e) {
             _log.warning("could not restore friend data:"+e);
@@ -450,6 +452,8 @@ public class EnterWorld extends ClientBasePacket
 				clanMembers[i].sendPacket(ps);
 				clanMembers[i].sendPacket(msg);
 			}
+            ps = null;
+            msg = null;            
 		}
 	}
     

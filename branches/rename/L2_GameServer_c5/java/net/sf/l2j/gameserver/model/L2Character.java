@@ -420,11 +420,6 @@ public abstract class L2Character extends L2Object
         if (isAttackingDisabled()) 
             return;
         
-        if ((this instanceof L2PcInstance) && (target instanceof L2PcInstance) && (((L2PcInstance)this).isZaricheEquiped() && target.getLevel() < 21) && (((L2PcInstance)target).isZaricheEquiped() && this.getLevel() < 21))
-        {
-            ((L2PcInstance)this).sendMessage("Cant attack this player, because of the Zariche's effect");
-            return;
-        }
         if ((this instanceof L2PcInstance) && (((L2PcInstance)this).inObserverMode()))
         {
             ((L2PcInstance)this).sendMessage("Cant attack in observer mode");
@@ -612,12 +607,12 @@ public abstract class L2Character extends L2Object
                     weaponInst.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
             if (player != null)
             {
-                if (player.isZaricheEquiped())
+                if (player.isCursedWeaponEquiped())
                 {                    
                     target.setCurrentCp(0); // If hitted by Zariche, Cp is reduced to 0
                 } else if (player.isHero())
                 {
-                    if (target instanceof L2PcInstance && ((L2PcInstance)target).isZaricheEquiped())                        
+                    if (target instanceof L2PcInstance && ((L2PcInstance)target).isCursedWeaponEquiped())                        
                         target.setCurrentCp(0); // If Zariche is hitted by a Hero, Cp is reduced to 0
                 }
             }
@@ -1856,6 +1851,7 @@ public abstract class L2Character extends L2Object
     */
    public final void addEffect(L2Effect newEffect)
    {
+       L2Effect tempEffect = null;
        if(newEffect == null) return;
        
        synchronized (this)
@@ -1868,18 +1864,6 @@ public abstract class L2Character extends L2Object
        }
        synchronized(_effects) 
        {
-           L2Effect tempEffect = null;
-           for (int i=0; i<_effects.size(); i++) 
-           {
-               if (_effects.get(i).getSkill() == newEffect.getSkill().getId()) 
-               {
-                   tempEffect = _effects.get(i).getEffect();
-                   break;
-               }
-           }
-           // Make sure there's no same buff previously 
-           if (tempEffect != null) tempEffect.exit();
-           
         // Remove first Buff if number of buffs > 24
 		L2Skill tempskill = newEffect.getSkill(); 
 		if (getBuffCount() > Config.ALT_GAME_NUMBER_OF_CUMULATED_BUFF && !doesStack(tempskill) && ((
@@ -1890,7 +1874,7 @@ public abstract class L2Character extends L2Object
                 tempskill.getId() != 4267 &&
                 tempskill.getId() != 4270 &&
                 !(tempskill.getId() > 4360  && tempskill.getId() < 4367))
-		) removeFirstBuff(0); // removeFirstBuff(tempskill.getId());
+		) removeFirstBuff(tempskill.getId());
 
        // Add the L2Effect to all effect in progress on the L2Character
         if (!newEffect.getSkill().isToggle()) 
@@ -2045,7 +2029,10 @@ public abstract class L2Character extends L2Object
 		// Currently all effects are cancelled. In this removal, skill.exit() should
 		// actually be used, if the users don't wish to see "effect removed" always
 		// when a timer goes off, even if the buff isn't active any more (has been replaced).
-		if (/*Config.EFFECT_CANCELING &&*/ stackQueue.size() > 1) 
+        // skill.exit() could be used, if the users don't wish to see "effect 
+        // removed" always when a timer goes off, even if the buff isn't active 
+        // any more (has been replaced). but then check e.g. npc hold and raid petrify.
+        if (Config.EFFECT_CANCELING && stackQueue.size() > 1)  
 		{
 			// only keep the current effect, cancel other effects
 			for (int n=0; n<_effects.size(); n++) 
@@ -2085,10 +2072,13 @@ public abstract class L2Character extends L2Object
    {
 		if(effect == null)
 			return;
-		if(!effect.getInUse()) return;
 
 		synchronized(_effects) 
 		{
+            if(!effect.getInUse()) return;
+            effect.setInUse(false);
+           
+            
 			if (effect.getStackType() == "none")
 			{
 				// Remove Func added by this effect from the L2Character Calculator
@@ -5108,6 +5098,10 @@ public abstract class L2Character extends L2Object
                             {
                                 player.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
                                 activeChar.updatePvPStatus(player);
+                            }else if (player instanceof L2Attackable)
+                            {
+                               // notify the AI that she is attacked
+                               player.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
                             }
                         }
                         else

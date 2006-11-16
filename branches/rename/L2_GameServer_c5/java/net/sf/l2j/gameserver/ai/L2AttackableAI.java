@@ -229,6 +229,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             // Check if the target isn't invulnerable
             if (((L2PcInstance)target).isInvul())
                 return false;
+            // Don't take the aggro if the GM has the access level below or equal to GM_DONT_TAKE_AGGRO
+            if (((L2PcInstance)target).isGM() && ((L2PcInstance)target).getAccessLevel() <= Config.GM_DONT_TAKE_AGGRO)
+                 return false;            
             
             // Check if target is an ally
             if (me.getFactionId() == "varka" && ((L2PcInstance)target).getVarka()>0)

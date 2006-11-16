@@ -39,7 +39,7 @@ public class L2FolkInstance extends L2NpcInstance
         
 		if (_classesToTeach == null)
         {
-            NpcHtmlMessage html = new NpcHtmlMessage(1);
+            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
             sb.append("<html><head><body>");
             sb.append("I cannot teach you. My class list is empty.<br> Ask admin to fix it. Need add my npcid and classes to skill_learn.sql.<br>NpcId:"+npcId+", Your classId:"+player.getClassId().getId()+"<br>");
@@ -52,7 +52,7 @@ public class L2FolkInstance extends L2NpcInstance
         
 		if (!getTemplate().canTeach(classId))
         {
-            NpcHtmlMessage html = new NpcHtmlMessage(1);
+            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
             sb.append("<html><head><body>");
             sb.append("I cannot teach you any skills.<br> You must find your current class teachers.");
@@ -82,7 +82,7 @@ public class L2FolkInstance extends L2NpcInstance
         
 		if (counts == 0)
 		{
-            NpcHtmlMessage html = new NpcHtmlMessage(1);
+            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             int minlevel = SkillTreeTable.getInstance().getMinLevelForNewSkill(player, classId);
 		    
 		    if (minlevel > 0)
@@ -121,7 +121,7 @@ public class L2FolkInstance extends L2NpcInstance
         
         if (_classesToTeach == null)
         {
-            NpcHtmlMessage html = new NpcHtmlMessage(1);
+            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
             sb.append("<html><head><body>");
             sb.append("I cannot teach you. My class list is empty.<br> Ask admin to fix it. Need add my npcid and classes to skill_learn.sql.<br>NpcId:"+npcId+", Your classId:"+player.getClassId().getId()+"<br>");
@@ -134,7 +134,7 @@ public class L2FolkInstance extends L2NpcInstance
         
         if (!getTemplate().canTeach(classId))
         {
-            NpcHtmlMessage html = new NpcHtmlMessage(1);
+            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
             sb.append("<html><head><body>");
             sb.append("I cannot teach you any skills.<br> You must find your current class teachers.");
@@ -165,7 +165,7 @@ public class L2FolkInstance extends L2NpcInstance
         if (counts == 0)
         {
             player.sendMessage("there are no enchant skills");
-            NpcHtmlMessage html = new NpcHtmlMessage(1);
+            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             int level = player.getLevel();
             
             if (level < 74)

@@ -76,16 +76,16 @@ public class Continuous implements ISkillHandler
         {
             target = (L2Character)targets[index];
             
-            // Player holding Zariche can't be buffed and can't buff
+            // Player holding a cursed weapon can't be buffed and can't buff
             if (skill.getSkillType() == L2Skill.SkillType.BUFF)
             {
-                if (target != activeChar)
-                {
-                    if (target instanceof L2PcInstance && ((L2PcInstance)target).isZaricheEquiped())
-                        continue;
-                    else if (player != null && player.isZaricheEquiped())
-                        continue;
-                }
+               if (target != activeChar)
+               {
+                   if (target instanceof L2PcInstance && ((L2PcInstance)target).isCursedWeaponEquiped())
+                       continue;
+                   else if (player != null && player.isCursedWeaponEquiped())
+                       continue;
+               }
             }
 
 			if (skill.isOffensive())
