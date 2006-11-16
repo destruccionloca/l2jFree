@@ -74,6 +74,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
@@ -2445,24 +2446,23 @@ public final class L2PcInstance extends L2PlayableInstance
             }
             else sendPacket(new ItemList(this, false));            
             
-            //Auto Use herbs
-            if (item.getItemId()<= 8157 && item.getItemId() >= 8154)
-            {
-                IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());
-               
-                if (handler == null) 
-                    _log.fine("No item handler registered for item ID " + item.getItemId() + ".");
-                else 
-                    handler.useItem(this, item);
-            }
-            
             // Cursed Weapon
             if(CursedWeaponsManager.getInstance().isCursed(newitem.getItemId()))
             {
                 CursedWeaponsManager.getInstance().activate(this, newitem);
             }
-
-            // If over capacity, trop the item 
+            
+           //Auto use herbs - autoloot
+           if ((item.getItemId() > 8599 && item.getItemId() < 8615))
+           {
+                IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());                
+                if (handler == null) 
+                    _log.fine("No item handler registered for item ID " + item.getItemId() + ".");
+                else 
+                    handler.useItem(this, item);
+                
+            }
+           // If over capacity, drop the item
             if (!isGM() && !_inventory.validateCapacity(0)) 
                 dropItem("InvDrop", newitem, null, true);
             
@@ -2517,17 +2517,6 @@ public final class L2PcInstance extends L2PlayableInstance
             }
             else sendPacket(new ItemList(this, false));
 
-            // Auto Use herbs
-            if (item.getItemId()<= 8157 && item.getItemId() >= 8154)
-            {
-                IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());
-                
-                if (handler == null) 
-                    _log.fine("No item handler registered for item ID " + item.getItemId() + ".");
-                else 
-                    handler.useItem(this, item);
-            }
-            
             // Cursed Weapon
             if(CursedWeaponsManager.getInstance().isCursed(item.getItemId()))
             {
@@ -3382,46 +3371,17 @@ public final class L2PcInstance extends L2PlayableInstance
             // Remove the L2ItemInstance from the world and send server->client GetItem packets
             target.pickupMe(this);
         }
-        //Auto Use herbs
-        if (target.getItemId()<= 8157 && target.getItemId() >= 8154)
+        //Auto use herbs - pick up
+       if ((target.getItemId() > 8599 && target.getItemId() < 8615))
         {
-            L2Skill skill = SkillTable.getInstance().getInfo(target.getItemId() - 5910, 1);
-            switch (skill.getId())
-            {
-                case 2244:
-                    if (getCurrentHp() + skill.getPower() >= getMaxHp())
-                        setCurrentHp(getMaxHp());
-                    else setCurrentHp(getCurrentHp() + skill.getPower());
-                    sendPacket(new SystemMessage(SystemMessage.REJUVENATING_HP));
-                    StatusUpdate suhp = new StatusUpdate(getObjectId()); 
-                    suhp.addAttribute(StatusUpdate.CUR_HP, (int)getCurrentHp()); 
-                    sendPacket(suhp);
-                    break;
-                case 2245:
-                    if (getCurrentMp() + skill.getPower() >= getMaxMp())
-                        setCurrentMp(getMaxMp());
-                    else setCurrentMp(getCurrentMp() + skill.getPower());
-                    sendPacket(new SystemMessage(SystemMessage.REJUVENATING_MP));
-                    StatusUpdate sump = new StatusUpdate(getObjectId()); 
-                    sump.addAttribute(StatusUpdate.CUR_MP, (int)getCurrentMp()); 
-                    sendPacket(sump);
-                    break;
-                case 2246:
-                case 2247:
-                    stopEffect(skill.getId());
-                    skill.getEffects(this,this);
-                    SystemMessage message = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT);
-                    message.addSkillName(skill.getId());
-                    sendPacket(message);
-                    break;
-            }
-            MagicSkillUser MSU = new MagicSkillUser(this, this, skill.getId(), skill.getLevel(), skill.getHitTime(), skill.getReuseDelay());
-            sendPacket(MSU);
-            broadcastPacket(MSU);
-            target.decayMe();
+        IItemHandler handler = ItemHandler.getInstance().getItemHandler(target.getItemId());        
+        if (handler == null) 
+            _log.fine("No item handler registered for item ID " + target.getItemId() + ".");
+        else 
+            handler.useItem(this, target);
             ItemTable.getInstance().destroyItem("Consume", target, this, null);
         }
-
+        
         // Check if a Party is in progress
         else if (isInParty()) getParty().distributeItem(this, target);
         // Target is adena 
@@ -7019,7 +6979,13 @@ public final class L2PcInstance extends L2PlayableInstance
                             itemId == 1466 ||
                             itemId == 1467 ||
                             itemId == 1835 ||
-                            itemId == 5789)
+                            itemId == 5789 ||
+                            itemId == 6535 ||
+                            itemId == 6536 ||
+                            itemId == 6537 ||
+                            itemId == 6538 ||
+                            itemId == 6539 ||
+                            itemId == 6540)
                         {
                             handler = ItemHandler.getInstance().getItemHandler(itemId);
 

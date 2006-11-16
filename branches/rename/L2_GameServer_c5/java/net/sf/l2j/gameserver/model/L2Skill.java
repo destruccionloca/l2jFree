@@ -131,6 +131,7 @@ public abstract class L2Skill
         COMBATPOINTHEAL,
         CPHOT,
         MANAHEAL,
+        MANAHEAL_PERCENT,
         MANARECHARGE, 
         MPHOT,
         AGGDAMAGE,
@@ -947,6 +948,11 @@ public abstract class L2Skill
     public final boolean useSpiritShot()
     {
         return isMagic();
+    }
+
+    public final boolean useFishShot()
+    {
+       return ((getSkillType() == SkillType.PUMPING) || (getSkillType() == SkillType.REELING) );
     }
 
     public final int getWeaponsAllowed()
@@ -1871,7 +1877,7 @@ public abstract class L2Skill
         }
         case TARGET_UNLOCKABLE:
         {
-            if(!(target instanceof L2DoorInstance) && !(target instanceof L2ChestInstance)) 
+            if (!(target instanceof L2DoorInstance) && !(target instanceof L2ChestInstance)) 
             {
                 activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
                 return null;

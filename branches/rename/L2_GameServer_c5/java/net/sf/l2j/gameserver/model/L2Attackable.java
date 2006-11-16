@@ -413,27 +413,55 @@ public class L2Attackable extends L2NpcInstance
         
         // Notify the Quest Engine of the L2Attackable death if necessary
         try {
-            if (killer instanceof L2PcInstance || killer instanceof L2SummonInstance) 
-            {
-                // Get the L2PcInstance that killed the L2Attackable
-                L2PcInstance player = killer instanceof L2PcInstance?(L2PcInstance)killer:((L2SummonInstance)killer).getOwner();
-                
-                // Get a table containing all QuestState to modify after the L2Attackable killing
-                QuestState[] quests = player.getQuestsForKills(this);
-                
-                if (quests != null) 
-                {
-                    // Go through table containing all QuestState to modify
-                    for (QuestState qs : quests) 
-                    {
-                        // Notify the Quest Engine of the L2Attackable death
-                        qs.getQuest().notifyKill(this, qs);
-                    }
+           if (killer instanceof L2PcInstance || killer instanceof L2SummonInstance)
+           {
+               L2PcInstance player = killer instanceof L2PcInstance ? (L2PcInstance)killer : ((L2SummonInstance)killer).getOwner();
+               List<QuestState> questList = new FastList<QuestState>(); 
+               
+               if (player.getParty() != null)
+               {
+                   Map<String, List<QuestState>> tempMap = new FastMap<String, List<QuestState>>();
+                   
+                   for (L2PcInstance pl : player.getParty().getPartyMembers())
+                   {
+                       if (pl.getQuestsForKills(this) == null) continue;
+                       
+                       for (QuestState qs : pl.getQuestsForKills(this))
+                       {
+                           if (qs.getQuest().isParty())
+                           {
+                               if (!qs.isCompleted() && !pl.isDead() && Util.checkIfInRange(1150, this, pl, true))
+                                   if (tempMap.get(qs.getQuest().getName()) != null)
+                                       tempMap.get(qs.getQuest().getName()).add(qs);
+                                   else
+                                   {
+                                       List<QuestState> tempList = new FastList<QuestState>();
+                                       tempList.add(qs);
+                                       tempMap.put(qs.getQuest().getName(), tempList);
+                                   }
+                           }
+                           else if (pl == (L2PcInstance)killer)
+                               questList.add(qs);
+                       }
+                   }
+                   
+                   for (List<QuestState> list : tempMap.values())
+                   {
+                       Random rnd = new Random();
+                       questList.add((QuestState)list.toArray()[rnd.nextInt(list.size())]);
+                   }
+               }
+               else
+               {
+                    if (player.getQuestsForKills(this) != null)
+                        for (QuestState qs : player.getQuestsForKills(this))
+                            questList.add(qs);
+               }
+               
+                if (questList != null)
+                    for (QuestState qs : questList)
+                        qs.getQuest().notifyKill(this, qs);           
                 }
-                if (getFactionId() == "varka") player.setVarka(0);
-                if (getFactionId() == "ketra") player.setKetra(0);
-                
-            }
         } 
         catch (Exception e) { _log.log(Level.SEVERE, "", e); }
 
@@ -744,7 +772,7 @@ public class L2Attackable extends L2NpcInstance
                     divisor = 1;
                 
 
-                if (skill != null && (skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.HEAL_PERCENT || skill.getSkillType() == SkillType.MANAHEAL))
+                if (skill != null && (skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.HEAL_PERCENT || skill.getSkillType() == SkillType.MANAHEAL || skill.getSkillType() == SkillType.MANAHEAL_PERCENT))
                 {
                     L2Object[] targetList = skill.getTargetList(actor,true);
 
@@ -1202,34 +1230,6 @@ public class L2Attackable extends L2NpcInstance
              }
          }        
 
-         if (ZoneManager.getInstance().checkIfInNoobieZone(player) || !Config.HERB_DROP_ONLY_IN_NOOBIE_ZONE)
-         {
-             if (Rnd.get() < (player.isMageClass() ? Config.HERB_OF_LIFE_DROP_RATE / 10.F : Config.HERB_OF_LIFE_DROP_RATE))
-             {
-                 RewardItem item = new RewardItem(8154, 1);
-                 if (Config.AUTO_LOOT) player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-                 else DropItem(player, item);
-             }
-             if (Rnd.get() < (player.isMageClass() ? Config.HERB_OF_MANA_DROP_RATE : Config.HERB_OF_MANA_DROP_RATE / 10.F))
-             {
-                RewardItem item = new RewardItem(8155, 1);
-                if (Config.AUTO_LOOT) player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-                else DropItem(player, item);
-             }
-             if (Rnd.get() < (player.isMageClass() ? Config.HERB_OF_POWER_DROP_RATE / 10.F : Config.HERB_OF_POWER_DROP_RATE))
-             {
-                 RewardItem item = new RewardItem(8156, 1);
-                 if (Config.AUTO_LOOT) player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-                 else DropItem(player, item);
-             }
-             if (Rnd.get() < (player.isMageClass() ? Config.HERB_OF_MAGIC_DROP_RATE : Config.HERB_OF_MAGIC_DROP_RATE / 10.F))
-             {
-                 RewardItem item = new RewardItem(8157, 1);
-                 if (Config.AUTO_LOOT) player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-                 else DropItem(player, item);
-             }
-         }
-
          // Check the drop of a cursed weapon
          CursedWeaponsManager.getInstance().checkDrop(this, player);
          
@@ -1252,6 +1252,116 @@ public class L2Attackable extends L2NpcInstance
                  else DropItem(player, item); // drop the item on the ground
             }
          }
+
+         //Instant Item Drop :>
+         if (getTemplate().rateHp == 1) //only mob with 1x HP can drop herbs
+         {
+             int random = Rnd.get(100);
+             if (random < Config.RATE_DROP_MP_HP_HERBS)
+             {                 
+                 RewardItem item = new RewardItem(8600, 1); // Herb of Life 
+                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.doAutoLoot(this, item);
+                 else DropItem(player, item);
+             }
+             random = Rnd.get(100);
+             if (random < Config.RATE_DROP_GREATER_HERBS)
+             {                 
+                 RewardItem item = new RewardItem(8601, 1); // Greater Herb of Life
+                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.doAutoLoot(this, item);
+                 else DropItem(player, item);
+             }
+             random = Rnd.get(1000); // note *10
+             if (random < Config.RATE_DROP_SUPERIOR_HERBS)
+             {                  
+                 RewardItem item = new RewardItem(8602, 1); // Superior Herb of Life
+                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.doAutoLoot(this, item);
+                 else DropItem(player, item);
+             }
+             random = Rnd.get(100);
+             if (random < Config.RATE_DROP_MP_HP_HERBS)
+             {                 
+                 RewardItem item = new RewardItem(8603, 1); // Herb of Manna
+                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.doAutoLoot(this, item);
+                 else DropItem(player, item);
+             }
+             random = Rnd.get(100);
+             if (random < Config.RATE_DROP_GREATER_HERBS)
+             {                 
+                 RewardItem item = new RewardItem(8604, 1); // Greater Herb of Mana
+                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.doAutoLoot(this, item);
+                 else DropItem(player, item);
+             }
+             random = Rnd.get(1000); // note *10
+             if (random < Config.RATE_DROP_SUPERIOR_HERBS)
+             {                 
+                 RewardItem item = new RewardItem(8605, 1); // Superior Herb of Mana 
+                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.doAutoLoot(this, item);
+                 else DropItem(player, item);
+             }             
+             random = Rnd.get(100);
+             if (random < Config.RATE_DROP_COMMON_HERBS)
+             {                 
+                 RewardItem item = new RewardItem(8606, 1); // Herb of Power
+                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS)player.doAutoLoot(this, item);
+                 else DropItem(player, item);
+             }
+             random = Rnd.get(100);
+             if (random < Config.RATE_DROP_COMMON_HERBS)
+             {                 
+                 RewardItem item = new RewardItem(8607, 1); // Herb of Magic
+                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.doAutoLoot(this, item);
+                 else DropItem(player, item);
+             }
+             random = Rnd.get(100);
+             if (random < Config.RATE_DROP_COMMON_HERBS)
+             {                  
+                 RewardItem item = new RewardItem(8608, 1); // Herb of Atk. Spd.
+                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.doAutoLoot(this, item);
+                 else DropItem(player, item);
+             }
+             random = Rnd.get(100);
+             if (random < Config.RATE_DROP_COMMON_HERBS)
+             {                 
+                 RewardItem item = new RewardItem(8609, 1); // Herb of Casting Spd.
+                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.doAutoLoot(this, item);
+                 else DropItem(player, item);
+             }
+             random = Rnd.get(100);
+             if (random < Config.RATE_DROP_COMMON_HERBS)
+             {                 
+                 RewardItem item = new RewardItem(8610, 1); // Herb of Critical Attack
+                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.doAutoLoot(this, item);
+                 else DropItem(player, item);
+             }
+             random = Rnd.get(100);
+             if (random < Config.RATE_DROP_COMMON_HERBS)
+             {                
+                 RewardItem item = new RewardItem(8611, 1);  // Herb of Speed
+                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.doAutoLoot(this, item);
+                 else DropItem(player, item);
+             }
+             random = Rnd.get(1000); // note *10
+             if (random < Config.RATE_DROP_SPECIAL_HERBS)
+             {                  
+                 RewardItem item = new RewardItem(8612, 1); // Herb of Warrior
+                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.doAutoLoot(this, item);
+                 else DropItem(player, item);;
+             }
+             random = Rnd.get(1000); // note *10
+             if (random < Config.RATE_DROP_SPECIAL_HERBS)
+             {                  
+                 RewardItem item = new RewardItem(8613, 1); // Herb of Mystic
+                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.doAutoLoot(this, item);
+                 else DropItem(player, item);
+             }
+             random = Rnd.get(1000); // note *10
+             if (random < Config.RATE_DROP_SPECIAL_HERBS)
+             {                  
+                 RewardItem item = new RewardItem(8614, 1); // Herb of Recovery       
+                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.doAutoLoot(this, item);
+                 else DropItem(player, item);
+             }
+         } 
          
          // Set the table _sweepItems of this L2Attackable
          if (sweepList.size() > 0) _sweepItems = sweepList.toArray(new RewardItem[sweepList.size()]);
@@ -1367,7 +1477,18 @@ public class L2Attackable extends L2NpcInstance
     {
         getAggroList().clear();
     }
-    
+
+    /**
+     * Clears _aggroList hate of the L2Character without removing from the list.<BR><BR>
+     */
+    public void clearHating(L2Character target) 
+    {
+       if (getAggroList().size() == 0) return;
+       AggroInfo ai = _aggroList.get(target);
+       if (ai == null) return;
+       ai.hate = 0;
+     }
+
     /**
      * Return True if a Dwarf use Sweep on the L2Attackable and if item can be spoiled.<BR><BR>
      */

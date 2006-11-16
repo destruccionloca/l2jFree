@@ -115,6 +115,7 @@ public final class Config {
     
     /** Accept auto-loot ? */
     public static boolean AUTO_LOOT;
+    public static boolean AUTO_LOOT_HERBS;
 
     /** Character name template */
     public static String CNAME_TEMPLATE;
@@ -190,6 +191,17 @@ public final class Config {
 
     /** Fast or slow multiply coefficient for skill hit time */
     public static float ALT_GAME_SKILL_HIT_RATE;
+
+    /** Rate Common herbs */
+    public static float   RATE_DROP_COMMON_HERBS;
+    /** Rate MP/HP herbs */
+    public static float   RATE_DROP_MP_HP_HERBS;
+    /** Rate Common herbs */
+    public static float   RATE_DROP_GREATER_HERBS;
+    /** Rate Common herbs */
+    public static float   RATE_DROP_SUPERIOR_HERBS;
+    /** Rate Common herbs */
+    public static float   RATE_DROP_SPECIAL_HERBS;
 
     /** Named mobs. Random spawning mobs with multiples of health and rewards. */
     /** Frequency of spawn */
@@ -452,6 +464,9 @@ public final class Config {
     public static float   RATE_DROP_QUEST;
     public static float   RATE_KARMA_EXP_LOST;	
     public static float   RATE_SIEGE_GUARDS_PRICE;	
+    /** Rate of boxes spawn */
+    public static int     RATE_BOX_SPAWN;
+    /*Alternative Xp/Sp rewards, if not 0, then calculated as 2^((mob.level-player.level) / coef)*/
     public static float   ALT_GAME_EXPONENT_XP;
     public static float   ALT_GAME_EXPONENT_SP;
     /** Config for spawn siege guard**/
@@ -513,13 +528,6 @@ public final class Config {
     /** Jail config **/
     public static boolean JAIL_IS_PVP;
     public static boolean JAIL_DISABLE_CHAT;
-    
-    /** Herbs Drop Rate configs */
-    public static float HERB_OF_LIFE_DROP_RATE;
-    public static float HERB_OF_MANA_DROP_RATE;
-    public static float HERB_OF_POWER_DROP_RATE;
-    public static float HERB_OF_MAGIC_DROP_RATE;
-    public static boolean HERB_DROP_ONLY_IN_NOOBIE_ZONE;
     
     public static String FISHINGMODE;
 
@@ -681,6 +689,8 @@ public final class Config {
     /** Karma Punishment */
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE;
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_SHOP;
+    /** Allow player with karma to use GK ? */
+    public static boolean ALT_GAME_KARMA_PLAYER_CAN_USE_GK;    
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_TELEPORT;
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_TRADE;
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE;
@@ -1316,9 +1326,16 @@ public final class Config {
                 RATE_CRAFT_COST                 = Float.parseFloat(ratesSettings.getProperty("RateCraftCost","1."));
                 RATE_DROP_ITEMS                 = Float.parseFloat(ratesSettings.getProperty("RateDropItems", "1."));
                 RATE_DROP_SPOIL                 = Float.parseFloat(ratesSettings.getProperty("RateDropSpoil", "1."));
+                RATE_BOX_SPAWN                  = Integer.parseInt(ratesSettings.getProperty("RateBoxSpawn","20"));
                 RATE_DROP_QUEST                 = Float.parseFloat(ratesSettings.getProperty("RateDropQuest", "1."));
                 RATE_KARMA_EXP_LOST             = Float.parseFloat(ratesSettings.getProperty("RateKarmaExpLost", "1."));    
-                RATE_SIEGE_GUARDS_PRICE         = Float.parseFloat(ratesSettings.getProperty("RateSiegeGuardsPrice", "1."));    
+                RATE_SIEGE_GUARDS_PRICE         = Float.parseFloat(ratesSettings.getProperty("RateSiegeGuardsPrice", "1."));
+
+                RATE_DROP_COMMON_HERBS          = Float.parseFloat(ratesSettings.getProperty("RateCommonHerbs", "15."));
+                RATE_DROP_MP_HP_HERBS           = Float.parseFloat(ratesSettings.getProperty("RateHpMpHerbs", "10."));                
+                RATE_DROP_GREATER_HERBS         = Float.parseFloat(ratesSettings.getProperty("RateGreaterHerbs", "4."));
+                RATE_DROP_SUPERIOR_HERBS        = Float.parseFloat(ratesSettings.getProperty("RateSuperiorHerbs", "0.8"))*10;                
+                RATE_DROP_SPECIAL_HERBS         = Float.parseFloat(ratesSettings.getProperty("RateSpecialHerbs", "0.2"))*10;
                 
                 PLAYER_DROP_LIMIT               = Integer.parseInt(ratesSettings.getProperty("PlayerDropLimit", "3"));
                 PLAYER_RATE_DROP                = Integer.parseInt(ratesSettings.getProperty("PlayerRateDrop", "5"));
@@ -1343,12 +1360,6 @@ public final class Config {
                SPOIL_LEVEL_DIFFERENCE_LIMIT            = Float.parseFloat(ratesSettings.getProperty("SpoilLevelDifferenceLimit", "5."));
                SPOIL_LEVEL_DIFFERENCE_MULTIPLIER       = Float.parseFloat(ratesSettings.getProperty("SpoilLevelMultiplier", "7."));
                LAST_LEVEL_SPOIL_IS_LEARNED             = Integer.parseInt(ratesSettings.getProperty("LastLevelSpoilIsLearned", "72"));
-               
-               HERB_OF_LIFE_DROP_RATE = Float.valueOf(ratesSettings.getProperty("HerbOfLifeDropRate", "0.05"));
-               HERB_OF_MANA_DROP_RATE = Float.valueOf(ratesSettings.getProperty("HerbOfManaDropRate", "0.05"));
-               HERB_OF_POWER_DROP_RATE = Float.valueOf(ratesSettings.getProperty("HerbOfPowerDropRate", "0.05"));
-               HERB_OF_MAGIC_DROP_RATE = Float.valueOf(ratesSettings.getProperty("HerbOfMagicDropRate", "0.05"));
-               HERB_DROP_ONLY_IN_NOOBIE_ZONE = Boolean.valueOf(ratesSettings.getProperty("HerbDropOnlyInNoobieZone", "False"));    //TODO make noobie zones, so we can set this True
 	        }
 	        catch (Exception e) {
 	            e.printStackTrace();
@@ -1406,8 +1417,10 @@ public final class Config {
 	            IS_CRAFTING_ENABLED     = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
 	            SP_BOOK_NEEDED          = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
 	            AUTO_LOOT               = altSettings.getProperty("AutoLoot").equalsIgnoreCase("True");
+                AUTO_LOOT_HERBS         = altSettings.getProperty("AutoLootHerbs").equalsIgnoreCase("True");
                 ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE    = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanBeKilledInPeaceZone", "false"));
                 ALT_GAME_KARMA_PLAYER_CAN_SHOP                      = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanShop", "true"));
+                ALT_GAME_KARMA_PLAYER_CAN_USE_GK                    = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseGK", "false"));
                 ALT_GAME_KARMA_PLAYER_CAN_TELEPORT                  = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTeleport", "true"));
                 ALT_GAME_KARMA_PLAYER_CAN_TRADE                     = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTrade", "true"));
                 ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE             = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseWareHouse", "true"));
@@ -1672,6 +1685,7 @@ public final class Config {
         else if (pName.equalsIgnoreCase("RateConsumableCost")) RATE_CONSUMABLE_COST = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("RateDropItems")) RATE_DROP_ITEMS = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("RateDropSpoil")) RATE_DROP_SPOIL = Float.parseFloat(pValue);
+        else if (pName.equalsIgnoreCase("RateBoxSpawn")) RATE_BOX_SPAWN = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("RateDropQuest")) RATE_DROP_QUEST = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("RateKarmaExpLost")) RATE_KARMA_EXP_LOST = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("RateSiegeGuardsPrice")) RATE_SIEGE_GUARDS_PRICE = Float.parseFloat(pValue);
@@ -1864,9 +1878,11 @@ public final class Config {
         else if (pName.equalsIgnoreCase("CraftingEnabled")) IS_CRAFTING_ENABLED = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("SpBookNeeded")) SP_BOOK_NEEDED = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AutoLoot")) AUTO_LOOT = Boolean.valueOf(pValue);
+        else if (pName.equalsIgnoreCase("AutoLootHerbs")) AUTO_LOOT_HERBS = Boolean.valueOf(pValue);
 
         else if (pName.equalsIgnoreCase("AltKarmaPlayerCanBeKilledInPeaceZone")) ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AltKarmaPlayerCanShop")) ALT_GAME_KARMA_PLAYER_CAN_SHOP = Boolean.valueOf(pValue);
+        else if (pName.equalsIgnoreCase("AltKarmaPlayerCanUseGK")) ALT_GAME_KARMA_PLAYER_CAN_USE_GK = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AltKarmaPlayerCanTeleport")) ALT_GAME_KARMA_PLAYER_CAN_TELEPORT = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AltKarmaPlayerCanTrade")) ALT_GAME_KARMA_PLAYER_CAN_TRADE = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AltKarmaPlayerCanUseWareHouse")) ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE = Boolean.valueOf(pValue);

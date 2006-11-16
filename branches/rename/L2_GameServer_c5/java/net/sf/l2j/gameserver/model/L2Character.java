@@ -1038,6 +1038,11 @@ public abstract class L2Character extends L2Object
             else if (this instanceof L2Summon)
                 ((L2Summon)this).getOwner().rechargeAutoSoulShot(false, true, true);
         }
+        else if (skill.useFishShot())
+        {
+           if (this instanceof L2PcInstance) 
+             ((L2PcInstance)this).rechargeAutoSoulShot(true, false, false);
+         }
         
         // Get all possible targets of the skill in a table in function of the skill target type
         L2Object[] targets = skill.getTargetList(this);
@@ -1069,7 +1074,7 @@ public abstract class L2Character extends L2Object
  
             if (this instanceof L2PcInstance && target instanceof L2PcInstance && target.getAI().getIntention() == CtrlIntention.AI_INTENTION_ATTACK)
             {
-                if(skill.getSkillType() == SkillType.BUFF || skill.getSkillType() == SkillType.HOT || skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.HEAL_PERCENT || skill.getSkillType() == SkillType.MANAHEAL)
+                if(skill.getSkillType() == SkillType.BUFF || skill.getSkillType() == SkillType.HOT || skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.HEAL_PERCENT || skill.getSkillType() == SkillType.MANAHEAL || skill.getSkillType() == SkillType.MANAHEAL_PERCENT)
                     target.setLastBuffer(this);
  
                 if (((L2PcInstance)this).isInParty() && skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY)
@@ -1870,7 +1875,8 @@ public abstract class L2Character extends L2Object
 				tempskill.getSkillType() == L2Skill.SkillType.BUFF ||
                 tempskill.getSkillType() == L2Skill.SkillType.DEBUFF ||
                 tempskill.getSkillType() == L2Skill.SkillType.REFLECT ||
-                tempskill.getSkillType() == L2Skill.SkillType.HEAL_PERCENT)&& 
+                tempskill.getSkillType() == L2Skill.SkillType.HEAL_PERCENT ||
+                tempskill.getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT)&& 
                 tempskill.getId() != 4267 &&
                 tempskill.getId() != 4270 &&
                 !(tempskill.getId() > 4360  && tempskill.getId() < 4367))
@@ -4681,7 +4687,7 @@ public abstract class L2Character extends L2Object
 
 
    /**
-    * Return the number of skills of type(Buff, Debuff, HEAL_PERCENT) affecting this L2Character.<BR><BR>
+    * Return the number of skills of type(Buff, Debuff, HEAL_PERCENT, MANAHEAL_PERCENT) affecting this L2Character.<BR><BR>
     *
     * @return The number of Buffs affecting this L2Character
     */
@@ -4694,7 +4700,8 @@ public abstract class L2Character extends L2Object
                    if ((e.getSkill().getSkillType() == L2Skill.SkillType.BUFF ||
                        e.getSkill().getSkillType() == L2Skill.SkillType.DEBUFF ||
                        e.getSkill().getSkillType() == L2Skill.SkillType.REFLECT ||
-                       e.getSkill().getSkillType() == L2Skill.SkillType.HEAL_PERCENT) && 
+                       e.getSkill().getSkillType() == L2Skill.SkillType.HEAL_PERCENT ||
+                       e.getSkill().getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT) && 
                        e.getSkill().getId() != 4267 &&
                        e.getSkill().getId() != 4270 &&
                        !(e.getSkill().getId() > 4360  && e.getSkill().getId() < 4367)) { // 7s buffs
@@ -4720,7 +4727,8 @@ public abstract class L2Character extends L2Object
                    if ((e.getSkill().getSkillType() == L2Skill.SkillType.BUFF ||
                        e.getSkill().getSkillType() == L2Skill.SkillType.DEBUFF ||
                        e.getSkill().getSkillType() == L2Skill.SkillType.REFLECT ||
-                       e.getSkill().getSkillType() == L2Skill.SkillType.HEAL_PERCENT) && 
+                       e.getSkill().getSkillType() == L2Skill.SkillType.HEAL_PERCENT ||
+                       e.getSkill().getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT) &&  
                        e.getSkill().getId() != 4267 &&
                        e.getSkill().getId() != 4270 &&
                        !(e.getSkill().getId() > 4360  && e.getSkill().getId() < 4367)) {
