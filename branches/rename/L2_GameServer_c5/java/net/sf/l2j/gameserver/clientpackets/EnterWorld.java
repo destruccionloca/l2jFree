@@ -61,6 +61,7 @@ import net.sf.l2j.gameserver.serverpackets.GameGuardQuery;
 import net.sf.l2j.gameserver.serverpackets.HennaInfo;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.serverpackets.PledgeReceivePowerInfo;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListUpdate;
 import net.sf.l2j.gameserver.serverpackets.PledgeSkillList;
@@ -161,8 +162,11 @@ public class EnterWorld extends ClientBasePacket
             if (Config.GM_STARTUP_AUTO_LIST)
                 GmListTable.getInstance().addGm(activeChar);
         } else {
-            if(activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_NAME_COLOR_ENABLED)
-                activeChar.setNameColor(Config.CLAN_LEADER_NAME_COLOR);
+            if(activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
+                if(Config.CLAN_LEADER_COLORED == Config.ClanLeaderColored.name)
+                    activeChar.setNameColor(Config.CLAN_LEADER_COLOR);
+                else
+                    activeChar.setTitleColor(Config.CLAN_LEADER_COLOR);
         }
         
         if (Config.PLAYER_SPAWN_PROTECTION > 0)
@@ -335,6 +339,7 @@ public class EnterWorld extends ClientBasePacket
         {
 	        	sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
 	        	sendPacket(new PledgeStatusChanged(activeChar.getClan()));
+                sendPacket(new PledgeReceivePowerInfo(activeChar));
     	}
 	
 		if (activeChar.isAlikeDead())

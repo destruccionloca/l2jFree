@@ -40,6 +40,7 @@
     </path>
 
     <target name="init"
+    	depends="clean"
             description="Create the output directories.">
 
         <mkdir dir="${build}"/>
@@ -97,6 +98,11 @@
 		</fileset>
       </copy>
 
+	<copy todir="${build}">
+		<fileset dir="${build.dist.game}">
+			<include name="l2j-gameserver.jar"/>
+		</fileset>
+	</copy>
 
    	<copy todir="${build.dist.game}">
 		<fileset dir="${src}/../lib">

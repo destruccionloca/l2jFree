@@ -124,8 +124,9 @@ public class RequestDestroyItem extends ClientBasePacket
             if (itemToRemove.isHeroitem())
                 return;
         }
-        
-        if (itemId == 8190)
+
+        //Zarich cannot be destroyed
+        if (itemId == 8190 && !activeChar.isGM())
             return;
         
         if(!itemToRemove.isStackable() && count > 1)

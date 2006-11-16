@@ -24,7 +24,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -78,6 +77,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.instancemanager.ZaricheManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.BlockList;
@@ -127,18 +127,17 @@ import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.TvT;
 import net.sf.l2j.gameserver.model.entity.Zone;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
+import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.model.waypoint.WayPointNode;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ChangeWaitType;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
-import net.sf.l2j.gameserver.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.serverpackets.ExFishingEnd;
 import net.sf.l2j.gameserver.serverpackets.ExFishingStart;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadMode;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfo;
-import net.sf.l2j.gameserver.serverpackets.ExRedSky;
 import net.sf.l2j.gameserver.serverpackets.HennaInfo;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
@@ -198,8 +197,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private static final String RESTORE_SKILL_SAVE = "SELECT skill_id,skill_level,effect_count,effect_cur_time FROM character_skills_save WHERE char_obj_id=? AND class_index=?";
     private static final String DELETE_SKILL_SAVE = "DELETE FROM character_skills_save WHERE char_obj_id=? AND class_index=?";
 
-    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,allyId=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,deleteclan=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,varka=?,ketra=?,equiped_with_zariche=?,zariche_pk=?, pledge_type=?, pledge_rank=?, apprentice=?, accademy_lvl=? WHERE obj_id=?"; //,zariche_time=?
-    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, allyId, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, deleteclan, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, newbie, nobless, varka, ketra, equiped_with_zariche, zariche_pk, Pledge_class, pledge_type, pledge_rank, apprentice, accademy_lvl FROM characters WHERE obj_id=?";
+    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,allyId=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,deleteclan=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,varka=?,ketra=?,pledge_type=?, pledge_rank=?, apprentice=?, accademy_lvl=? WHERE obj_id=?"; 
+    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, allyId, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, deleteclan, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, newbie, nobless, varka, ketra, Pledge_class, pledge_type, pledge_rank, apprentice, accademy_lvl FROM characters WHERE obj_id=?";
     private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE char_obj_id=? ORDER BY class_index ASC";
     private static final String ADD_CHAR_SUBCLASS = "INSERT INTO character_subclasses (char_obj_id,class_id,exp,sp,level,class_index) VALUES (?,?,?,?,?,?)";
     private static final String UPDATE_CHAR_SUBCLASS = "UPDATE character_subclasses SET exp=?,sp=?,level=?,class_id=? WHERE char_obj_id=? AND class_index =?";
@@ -292,13 +291,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _pvpFlag;
 
     private boolean _inPvpZone;
-    
-    /** is Equiped with zariche */
-    private boolean _isZaricheEquiped;
-    
-    /** pk while wielding Zariche */
-    private int _zaricheKills;
-    
+   
     /** L2PcInstance's pledge class (knight, Baron, etc.)*/
     private int _pledgeClass;
     
@@ -1723,9 +1716,8 @@ public final class L2PcInstance extends L2PlayableInstance
             _clan.removeClanMember(this.getName());
             SystemMessage msg = new SystemMessage(SystemMessage.CLAN_MEMBER_S1_EXPELLED);
             msg.addString(this.getName());
-            _clan.broadcastToOnlineMembers(msg);
-            
-            _clan.broadcastToOnlineMembers(new PledgeShowMemberListDelete(this.getName()));
+            _clan.broadcastToOnlineMembers(msg);            
+            _clan.broadcastToOtherOnlineMembers(new PledgeShowMemberListDelete(this.getName()),this);
             
             setClan(null);
             setTitle("");
@@ -2386,7 +2378,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
      * @param sendMessage : boolean Specifies whether to send message to Client about this action
      */
-    public void addItem(String process, L2ItemInstance item, L2Object reference, boolean sendMessage)
+    public void addItem(String process, L2ItemInstance item, L2Object reference, boolean sendMessage, boolean UpdateIL)
     {
         if (item.getCount() > 0)
         {
@@ -2437,50 +2429,8 @@ public final class L2PcInstance extends L2PlayableInstance
                 playerIU.addItem(newitem);
                 sendPacket(playerIU);
             }
-            else sendPacket(new ItemList(this, false));
-
-            // Update current load as well
-            StatusUpdate su = new StatusUpdate(getObjectId());
-            su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-            sendPacket(su);
+            else sendPacket(new ItemList(this, false));            
             
-//          In case Item is Zariche - auto use it.
-            if(item.getItemId() == 8190)
-            {
-                
-                setZaricheEquiped(true);
-                //setZaricheTime(Config.ALT_ZARICHE_TIME);
-                setKarma(9999999);
-                if (isInParty()) getParty().oustPartyMember(this);
-                L2ItemInstance[] items = getInventory().equipItemAndRecord(item);
-                //not needed cuz its ng wpn
-                //refreshExpertisePenalty(); 
-                
-                //add zariche skill
-                L2Skill skill = SkillTable.getInstance().getInfo(3603,1);
-                addSkill(skill);
-                
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_EQUIPPED);
-                sm.addItemName(item.getItemId());
-                sendPacket(sm);
-                
-                InventoryUpdate iu = new InventoryUpdate();
-                iu.addItems(Arrays.asList(items));
-                sendPacket(iu);
-                //abortAttack();
-                broadcastUserInfo();
-                ExRedSky packet = new ExRedSky(10);
-                Earthquake eq = new Earthquake(this.getX(), this.getY(), this.getZ(), 
-                                              150, 15);
-                this.broadcastPacket(eq);
-                for (L2PcInstance Player : L2World.getInstance().getAllPlayers())
-                    Player.sendPacket(packet);
-                Announcements.getInstance().announceToAll("Zariche has been picked up!!");
-                
-                setCurrentHpMp(getMaxHp(), getMaxMp());
-                setCurrentCp(getMaxCp());
-                                       
-            }
             //Auto Use herbs
             if (item.getItemId()<= 8157 && item.getItemId() >= 8154)
             {
@@ -2490,6 +2440,22 @@ public final class L2PcInstance extends L2PlayableInstance
                     _log.fine("No item handler registered for item ID " + item.getItemId() + ".");
                 else 
                     handler.useItem(this, item);
+            }
+            
+            if(newitem.getItemId() == 8190) // Zariche
+            {
+                ZaricheManager.getInstance().activateZariche(this, newitem);
+            }
+            
+            // If over capacity, trop the item 
+            if (!isGM() && !_inventory.validateCapacity(0)) 
+                dropItem("InvDrop", newitem, null, true);
+            
+            //Update current load as well
+            if(UpdateIL){            
+                StatusUpdate su = new StatusUpdate(getObjectId());
+                su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
+                sendPacket(su);
             }
         }
     }
@@ -2502,7 +2468,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
      * @param sendMessage : boolean Specifies whether to send message to Client about this action
      */
-    public void addItem(String process, int itemId, int count, L2Object reference, boolean sendMessage)
+    public void addItem(String process, int itemId, int count, L2Object reference, boolean sendMessage, boolean UpdateIL)
     {
         if (count > 0)
         {
@@ -2536,48 +2502,6 @@ public final class L2PcInstance extends L2PlayableInstance
             }
             else sendPacket(new ItemList(this, false));
 
-            // Update current load as well
-            StatusUpdate su = new StatusUpdate(getObjectId());
-            su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-            sendPacket(su);
-            
-//          In case Item is Zariche - auto use it.
-            if(item.getItemId() == 8190)
-            {
-                
-                setZaricheEquiped(true);
-                //setZaricheTime(Config.ALT_ZARICHE_TIME);
-                setKarma(9999999);
-                if (isInParty()) getParty().oustPartyMember(this);
-                L2ItemInstance[] items = getInventory().equipItemAndRecord(item);
-                //not needed cuz its ng wpn
-                //refreshExpertisePenalty(); 
-                
-                //add zariche skill
-                L2Skill skill = SkillTable.getInstance().getInfo(3603,1);
-                addSkill(skill);
-                
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_EQUIPPED);
-                sm.addItemName(item.getItemId());
-                sendPacket(sm);
-                
-                InventoryUpdate iu = new InventoryUpdate();
-                iu.addItems(Arrays.asList(items));
-                sendPacket(iu);
-                //abortAttack();
-                broadcastUserInfo();
-                ExRedSky packet = new ExRedSky(10);
-                Earthquake eq = new Earthquake(this.getX(), this.getY(),this.getZ(), 
-                                              100, 15);
-                this.broadcastPacket(eq);
-                for (L2PcInstance Player : L2World.getInstance().getAllPlayers())
-                    Player.sendPacket(packet);
-                Announcements.getInstance().announceToAll("Zariche has been picked up!!");
-                
-                setCurrentHpMp(getMaxHp(), getMaxMp());
-                setCurrentCp(getMaxCp());
-                                       
-            }
             //          Auto Use herbs
             if (item.getItemId()<= 8157 && item.getItemId() >= 8154)
             {
@@ -2588,9 +2512,35 @@ public final class L2PcInstance extends L2PlayableInstance
                 else 
                     handler.useItem(this, item);
             }
+            
+            if(item.getItemId() == 8190) // Zariche
+            {
+                ZaricheManager.getInstance().activateZariche(this, item);
+            }
+            
+            // If over capacity, trop the item 
+            if (!isGM() && !_inventory.validateCapacity(0)) 
+                dropItem("InvDrop", item, null, true);
+            
+            //Update current load as well
+            if(UpdateIL){            
+                StatusUpdate su = new StatusUpdate(getObjectId());
+                su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
+                sendPacket(su);
+            }
         }
     }
 
+    public void addItem(String process, L2ItemInstance item, L2Object reference, boolean sendMessage)
+    {
+        addItem(process, item, reference, sendMessage, true);
+    }
+    
+    public void addItem(String process, int itemId, int count, L2Object reference, boolean sendMessage)
+    {
+        addItem(process, itemId, count, reference, sendMessage, true);
+    }
+    
     /**
      * Destroy item from inventory and send a Server->Client InventoryUpdate packet to the L2PcInstance.
      * @param process : String Identifier of process triggering this action
@@ -2764,9 +2714,11 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         // Send the StatusUpdate Server->Client Packet to the player with new CUR_LOAD (0x0e) information
+        /* duplicate send by broadcastUserInfo
         StatusUpdate su = new StatusUpdate(getObjectId());
         su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
         sendPacket(su);
+        */
 
         // Send the ItemList Server->Client Packet to the player in order to refresh its Inventory
         ItemList il = new ItemList(getInventory().getItems(), true);
@@ -3095,9 +3047,22 @@ public final class L2PcInstance extends L2PlayableInstance
             else
             {
                 // Check if this L2PcInstance is autoAttackable
-	if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started))
- 		player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-                else player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
+                if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started))
+                {
+                    // Player with lvl < 21 can't attack zariche holder
+                    // And Zariche holder  can't attack players with lvl < 21
+                    if ((_isZaricheEquiped && player.getLevel() < 21)
+                            || (player.isZaricheEquiped() && this.getLevel() < 21))
+                    {
+                        player.sendPacket(new ActionFailed());
+                    } else
+                    {
+                        player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
+                    }
+                } else
+                {
+                    player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
+                }
             }
         }
     }
@@ -3286,7 +3251,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (isInParty()) getParty().distributeItem(this, item, false, target);
         else if (item.getItemId() == 57) addAdena("Loot", item.getCount(), target, true);
-        else addItem("Loot", item.getItemId(), item.getCount(), target, true);
+        else addItem("Loot", item.getItemId(), item.getCount(), target, true, false);
     }
 
     /**
@@ -3544,13 +3509,16 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (killer != null)
         {
-            if (atEvent && killer instanceof L2PcInstance)
+            L2PcInstance pk = null;
+            if (killer instanceof L2PcInstance)
+                pk = (L2PcInstance) killer;
+            
+            if (atEvent && pk != null)
             {
-                L2PcInstance pk = (L2PcInstance) killer;
                 pk.kills.add(getName());
             }
             
-            if (killer instanceof L2PcInstance)
+            if (pk != null)
             {
                 if (((L2PcInstance)killer)._inEventTvT && _inEventTvT)
                 {
@@ -3599,18 +3567,14 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
             }
 
-            onDieDropItem(killer); // Check if any item should be dropped
 
-            if (getZaricheEquiped())
+            if (_isZaricheEquiped)
             {
-                setKarma(0);
-                setZaricheKills(0);
-                setZaricheEquiped(false);
-                removeSkill(SkillTable.getInstance().getInfo(3603, getSkillLevel(3603)));
+                ZaricheManager.getInstance().dropZariche(killer);
             }
             else
-                if (!ArenaManager.getInstance().checkIfInZone(this)
-                        && !JailManager.getInstance().checkIfInZone(this))
+            {                
+                if (!ArenaManager.getInstance().checkIfInZone(this) && !JailManager.getInstance().checkIfInZone(this))
                 {
                     boolean isKillerPc = (killer instanceof L2PcInstance);
                     if (isKillerPc && ((L2PcInstance)killer).getClan() != null && getClan() != null && _clan.isAtWarWith(((L2PcInstance) killer).getClanId()) && _clan.isAttackedBy(((L2PcInstance) killer).getClanId()))
@@ -3618,25 +3582,30 @@ public final class L2PcInstance extends L2PlayableInstance
                         ((L2PcInstance) killer).getClan().setReputationScore(((L2PcInstance) killer).getClan().getReputationScore()-1);
                         _clan.setReputationScore(_clan.getReputationScore()+1);
                     }
-                    if (Config.ALT_GAME_DELEVEL)
-                    {
-                        // Reduce the Experience of the L2PcInstance in function of the calculated Death Penalty
-                        // NOTE: deathPenalty +- Exp will update karma
-                        if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 4)
-                            deathPenalty((killer instanceof L2PcInstance && this.getClan() != null
-                                    && ((L2PcInstance) killer).getClan() != null && ((L2PcInstance) killer).getClan().isAtWarWith(
-                                                                                                                                  this.getClanId())));
+                    if(pk == null || !pk.isZaricheEquiped()){
+                        if (Config.ALT_GAME_DELEVEL)
+                        {
+                            // Reduce the Experience of the L2PcInstance in function of the calculated Death Penalty
+                            // NOTE: deathPenalty +- Exp will update karma
+                            if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 4)
+                                deathPenalty( (pk != null && this.getClan() != null && pk.getClan() != null && pk.getClan().isAtWarWith(this.getClanId())) );
+                            onDieDropItem(killer); // Check if any item should be dropped
+                        }
+                        else onDieUpdateKarma(); // Update karma if delevel is not allowed
                     }
                     else onDieUpdateKarma(); // Update karma if delevel is not allowed
                     
-                    /*L2Clan killerClan = ((L2PcInstance)killer).getClan();
-                    if (killerClan.isAtWarWith(this.getClanId()) && getClan().isAttackedBy(killerClan.getClanId()) && getClan().getReputationScore() > 0)
-                    {
-                        int score = getClan().getReputationScore();
-                        getClan().setReputationScore(score-score/20); //take 5% of clans rep score (this is totally custom :))
-                        killerClan.setReputationScore(killerClan.getReputationScore()+score/20); //give those 5% to anotherClan :)
-                    }*/
+                    if(pk != null) {
+                        L2Clan killerClan = pk.getClan();
+                        if (killerClan.isAtWarWith(this.getClanId()) && getClan().isAttackedBy(killerClan.getClanId()) && getClan().getReputationScore() > 0)
+                        {
+                            int score = getClan().getReputationScore();
+                            getClan().setReputationScore(score-score/20); //take 5% of clans rep score (this is totally custom :))
+                            killerClan.setReputationScore(killerClan.getReputationScore()+score/20); //give those 5% to anotherClan :)
+                        }
+                    }
                 }
+            }
         }
 
         setPvpFlag(0); // Clear the pvp flag
@@ -3667,31 +3636,6 @@ public final class L2PcInstance extends L2PlayableInstance
     
     private void onDieDropItem(L2Character killer)
     {
-        if (getZaricheEquiped())
-        {
-            for (L2ItemInstance itemDrop : getInventory().getItems())
-            {
-                if(itemDrop.getItem().getItemId() == 8190)
-                {
-                    L2ItemInstance[] unequiped = getInventory().unEquipItemInBodySlotAndRecord(itemDrop.getItem().getBodyPart());
-                    InventoryUpdate iu = new InventoryUpdate();
-                    for (int i = 0; i < unequiped.length; i++)
-                    {
-                     iu.addModifiedItem(unequiped[i]);
-                    }
-                    sendPacket(iu);
-                    broadcastUserInfo();
-                    
-                    ItemList il = new ItemList(this, true);
-                    sendPacket(il);
-                    dropItem("DieDrop", itemDrop, killer, true);
-                    //broadcastUserInfo();
-                    return;
-                }
-            }
-        //return;
-        }
-        
         if (atEvent || (TvT._started && _inEventTvT) || (CTF._started && _inEventCTF) || killer == null)
         return;
 
@@ -3820,7 +3764,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (target == null) return;
         if (!(target instanceof L2PlayableInstance)) return;
-	if (_inEventCTF) return;
+        if (_inEventCTF) return;
 
         L2PcInstance targetPlayer = null;
         if (target instanceof L2PcInstance) targetPlayer = (L2PcInstance) target;
@@ -3828,7 +3772,13 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (targetPlayer == null) return; // Target player is null
         if (targetPlayer == this) return; // Target player is self
-
+        
+        if (_isZaricheEquiped)
+        {
+            ZaricheManager.getInstance().increaseKills();
+            return;
+        }
+        
         // If in Arena, do nothing
         if (ArenaManager.getInstance().getArenaIndex(this.getX(), this.getY()) != -1
             || ArenaManager.getInstance().getArenaIndex(target.getX(), target.getY()) != -1) return;
@@ -3865,24 +3815,15 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 if (Config.KARMA_AWARD_PK_KILL)
                 {
-		if (!_inEventTvT)
-                    increasePvpKills();
+                    if (!_inEventTvT)
+                        increasePvpKills();
                 }
             }
             else
             // Target player doesn't have karma
             {
-                if (getZaricheEquiped())
-                {
-                    increaseZaricheKills();                  
-                }
-                else if (!_inEventTvT)
-                {
-                    if (targetPlayer.getPvpFlag() == 0)
-                    {
+                if (!_inEventTvT)
                     increasePkKillsAndKarma(targetPlayer.getLevel());
-                    }
-                }
             }
         }
     }
@@ -3894,28 +3835,10 @@ public final class L2PcInstance extends L2PlayableInstance
     public void increasePvpKills()
     {
         // Add karma to attacker and increase its PK counter
-        setPvpKills(getPvpKills() + 1);
-        if (getZaricheEquiped())    //TODO make sure if adding zariche kills when PvP is ok;
-        {
-            increaseZaricheKills();                  
-        }
+        setPvpKills(getPvpKills() + 1);       
 
         // Send a Server->Client UserInfo packet to attacker with its Karma and PK Counter
         sendPacket(new UserInfo(this));
-    }
-
-    /**
-     * Increase Zariche kills & skill lvl
-     */
-    public void increaseZaricheKills()
-    {
-        setPkKills(getPkKills() + 1);
-        setZaricheKills(getZaricheKills() + 1);
-        if (getZaricheKills() % Config.ZARICHE_STAGE_KILLS == 0)
-        {
-            L2Skill skill = SkillTable.getInstance().getInfo(3603,getZaricheKills()/Config.ZARICHE_STAGE_KILLS);
-            addSkill(skill);
-        }
     }
     
     /**
@@ -3991,7 +3914,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public void updatePvPStatus()
     {
         if (_inEventTvT) return;
-	if (_inEventCTF && CTF._started) return;
+        if (_inEventCTF && CTF._started) return;
 
         if (getPvpFlag() == 0) startPvPFlag();
         if (getPvpFlag() != 0) setlastPvpAttack(System.currentTimeMillis()); //update last pvp ATTACK controller
@@ -4019,7 +3942,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (_expBeforeDeath > 0)
         {
             // Restore the specified % of lost experience.
-            getStat().addExp((int) Math.round((_expBeforeDeath - getExp()) * restorePercent / 100));
+            getStat().addExp(Math.round((_expBeforeDeath - getExp()) * restorePercent / 100));
             _expBeforeDeath = 0;
         }
     }
@@ -4051,7 +3974,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // Calculate the Experience loss
         long lostExp = 0;
-        if (!atEvent && (!_inEventTvT && !TvT._started) && (_inEventCTF && !CTF._started) && (!_inEventCTF && CTF._started) && (!_inEventCTF && CTF._started))
+        if (!atEvent && (!_inEventTvT && !TvT._started) && (!_inEventCTF && !CTF._started))
             if (lvl < Experience.MAX_LEVEL) 
                 lostExp = Math.round((getStat().getExpForLevel(lvl+1) - getStat().getExpForLevel(lvl)) * percentLost /100);
             
@@ -4414,6 +4337,7 @@ public final class L2PcInstance extends L2PlayableInstance
         _clanId = clan.getClanId();
         _clanLeader = getObjectId() == clan.getLeaderId();
         setTitle("");
+        if (Config.DEBUG)
         _log.warning("clan Id succesfuly set: "+_clanId);
 
     }
@@ -4760,16 +4684,16 @@ public final class L2PcInstance extends L2PlayableInstance
                     nbPlayerIG = rset.getInt("nb_player");
                 }
 
-                statement = con.prepareStatement("SELECT maxplayer from record");
+                statement = con.prepareStatement("SELECT max(maxplayer) from record");
                 rset = statement.executeQuery();
                 while (rset.next())
                 {
-                    maxPlayer = rset.getInt("maxplayer");
+                    maxPlayer = rset.getInt("max(maxplayer)");
                 }
 
                 if (nbPlayerIG > maxPlayer)
                 {
-                    statement = con.prepareStatement("UPDATE record SET maxplayer=?, date=NOW()");
+                    statement = con.prepareStatement("insert into record(maxplayer,date) values(?,NOW())");
                     statement.setInt(1, nbPlayerIG);
                     statement.execute();
                     statement.close();
@@ -5034,12 +4958,12 @@ public final class L2PcInstance extends L2PlayableInstance
                 player.setJailTimer(rset.getLong("jail_timer"));
                 if (player.isInJail()) player.setJailTimer(rset.getLong("jail_timer"));
                 else player.setJailTimer(0);
+                
+                ZaricheManager.getInstance().checkPlayer(player);
 
                 player.setNoble(rset.getBoolean("nobless"));
                 player.setVarka(rset.getInt("varka"));
                 player.setKetra(rset.getInt("ketra"));
-                player.setZaricheEquiped(rset.getBoolean("equiped_with_zariche"));
-                player.setZaricheKills(rset.getInt("zariche_pk"));
                 player.setPledgeClass(rset.getInt("Pledge_class"));
                 player.setPledgeType(rset.getInt("pledge_type"));
                 player.setRank(rset.getInt("pledge_rank"));
@@ -5399,7 +5323,7 @@ public final class L2PcInstance extends L2PlayableInstance
             // Get the exp, level, and sp of base class to store in base table
             int currentClassIndex = getClassIndex();
             _classIndex = 0;
-			long exp     = getStat().getExp();
+			long exp = getStat().getExp();
             int level = getStat().getLevel();
             int sp = getStat().getSp();
             _classIndex = currentClassIndex;
@@ -5468,13 +5392,11 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(46, isNoble() ? 1 : 0);
             statement.setInt(47, getVarka());
             statement.setInt(48, getKetra());
-            statement.setInt(49, getZaricheEquiped() ? 1 : 0);
-            statement.setInt(50, getZaricheKills());
-            statement.setInt(51, getPledgeType());
-            statement.setInt(52, getRank());
-            statement.setString(53, getApprentice());
-            statement.setInt(54, getAccademyLvl());
-            statement.setInt(55, getObjectId());
+            statement.setInt(49, getPledgeType());
+            statement.setInt(50, getRank());
+            statement.setString(51, getApprentice());
+            statement.setInt(52, getAccademyLvl());
+            statement.setInt(53, getObjectId());
 
             statement.execute();
             statement.close();
@@ -6547,13 +6469,6 @@ public final class L2PcInstance extends L2PlayableInstance
                 sendPacket(new ActionFailed());
                 return;
             }
-            else if (target instanceof L2PcInstance)
-                if (((L2PcInstance)target).getZaricheEquiped() && !((L2PcInstance)target == this))
-                {
-                //send the action failed so that the skill doens't go off.
-                    sendPacket (new ActionFailed());
-                    return;
-                }
         }
 
         // Check if the skill is Spoil type and if the target isn't already spoiled
@@ -6701,8 +6616,8 @@ public final class L2PcInstance extends L2PlayableInstance
         if (_inEventTvT)
            return true;
 
-	if (_inEventCTF && CTF._started)
-		return true;
+        if (_inEventCTF && CTF._started)
+            return true;
         
         // check for PC->PC Pvp status
         if (target != null && // target not null and
@@ -7755,23 +7670,6 @@ public final class L2PcInstance extends L2PlayableInstance
         return _ketra;
     }
     
-    public void setZaricheEquiped(boolean equiped)
-    {
-        _isZaricheEquiped = equiped;
-    }
-    public boolean getZaricheEquiped()
-    {
-        return _isZaricheEquiped;
-    }
-    public void setZaricheKills(int zaricheKills)
-    {
-        _zaricheKills = zaricheKills;
-    }
-    public int getZaricheKills()
-    {
-        return _zaricheKills;
-    }
-    
     public void setPledgeClass(int classId)
     {
         _pledgeClass = classId;
@@ -8271,6 +8169,14 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void checkWaterState()
     {
+        if(Config.ALLOW_GEODATA && Config.ALLOW_GEODATA_WATER){
+           if(GeoDataRequester.getInstance().getIsInWater(getX(),getY(),(short)getZ())){
+               startWaterTask();
+           }else{
+               stopWaterTask();
+           }
+           return;
+        } 
         //checking if char is  over base level of  water (sea, rivers)
         if (getZ() > -3793)
         {
@@ -8653,7 +8559,13 @@ public final class L2PcInstance extends L2PlayableInstance
 
             return false;
         }
-
+        
+        if (item.getItemId() == 8190)
+        {
+            // can not trade Zariche
+            return false;
+        }
+        
         if (item.isWear())
         {
             Util.handleIllegalPlayerAction(this, "Warning!! Character " + getName() + " tried to "
@@ -8908,7 +8820,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (getClanId() > 0)
             getClan().broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(this), this);
-       //ClanTable.getInstance().getClan(getClanId()).broadcastToOnlineMembers(new PledgeShowMemberListAdd(this));
 
         for (L2PcInstance player : _SnoopedPlayer)
             player.removeSnooper(this);
@@ -8916,6 +8827,9 @@ public final class L2PcInstance extends L2PlayableInstance
         for (L2PcInstance player : _SnoopListener)
             player.removeSnooped(this);
 
+        if (_isZaricheEquiped)
+            ZaricheManager.getInstance().playerLogout();
+        
         // Remove L2Object object from _allObjects of L2World
         L2World.getInstance().removeObject(this);
     }
@@ -9301,6 +9215,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     private ScheduledFuture _jailTask;
+    private boolean _isZaricheEquiped = false;
 
     private class JailTask implements Runnable
     {
@@ -9322,5 +9237,15 @@ public final class L2PcInstance extends L2PlayableInstance
     public void restoreHPMP()
     {
         setCurrentHpMp(getMaxHp(), getMaxMp());
+    }
+    
+    public boolean isZaricheEquiped()
+    {
+        return _isZaricheEquiped;
+    }
+    
+    public void setZaricheEquiped(boolean value)
+    {
+        _isZaricheEquiped = value;
     }
 }

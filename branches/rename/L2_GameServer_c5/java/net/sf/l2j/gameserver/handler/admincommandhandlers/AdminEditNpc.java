@@ -1095,26 +1095,13 @@ public class AdminEditNpc implements IAdminCommandHandler {
                 dropData.setMaxDrop(dropDataList.getInt("max"));
                 dropData.setSweep(dropDataList.getInt("sweep") == 1);
                 dropData.setChance(dropDataList.getInt("chance"));
-
                 int category = dropDataList.getInt("drop_category");
+                dropData.setCategory(category);
                 
-                if ((category == 0) 
-                    || (dropData.isSweep()) 
-                    || (npcData.type.compareToIgnoreCase("L2RaidBoss") == 0) 
-                    || (npcData.type.compareToIgnoreCase("L2Boss") == 0) 
-                   )
-                {
-                    npcData.addDropData(dropData);
-                }
-                //  categorized as full drops and parts for armor/weapon/jewel
-                else
-                {
-                    if (category == 1)
-                        npcData.addFullDropData(dropData);
-                    // other items (miscellaneous like scrolls, potions, mats, etc).
-                    else 
-                        npcData.addMiscDropData(dropData);
-                }
+                if ( (dropData.isSweep()) || (npcData.type.compareToIgnoreCase("L2RaidBoss") == 0) 
+                        || (npcData.type.compareToIgnoreCase("L2Boss") == 0) )
+                    dropData.setCategory(0);
+                npcData.addDropData(dropData);                
             }
             dropDataList.close();
             statement.close();

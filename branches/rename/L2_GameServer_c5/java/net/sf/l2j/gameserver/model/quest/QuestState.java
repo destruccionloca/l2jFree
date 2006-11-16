@@ -39,6 +39,7 @@ import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.QuestList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
+import net.sf.l2j.util.RandomIntGenerator;
 
 /**
  * @author Luis Arias
@@ -582,7 +583,8 @@ public final class QuestState
             return true;
         
         int itemCount = 0;
-        int random = Rnd.get(L2DropData.MAX_CHANCE);
+        //int random = Rnd.get(L2DropData.MAX_CHANCE);
+        int random = RandomIntGenerator.getInstance().getRnd();
         
         while (random < dropChance)
         {

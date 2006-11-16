@@ -70,7 +70,7 @@ public class RequestJoinParty extends ClientBasePacket
             return;
         }
         
-        if (target.getZaricheEquiped() || requestor.getZaricheEquiped())
+        if (target.isZaricheEquiped() || requestor.isZaricheEquiped())
         {
             requestor.sendMessage("A player wielding Zariche can't participate in a party");
             return;

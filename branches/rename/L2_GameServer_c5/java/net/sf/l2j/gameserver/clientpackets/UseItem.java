@@ -159,16 +159,14 @@ public class UseItem extends ClientBasePacket
 
                 }
                 
-//              Don't allow weapon/shield equipment if zariche is equiped
-                if (activeChar.getZaricheEquiped()
-                    && (item.getItem().getBodyPart() == L2Item.SLOT_LR_HAND 
-                            || item.getItem().getBodyPart() == L2Item.SLOT_L_HAND 
-                            || item.getItem().getBodyPart() == L2Item.SLOT_R_HAND))
+                // Don't allow weapon/shield equipment if zariche is equiped
+                if (activeChar.isZaricheEquiped()
+                        && ((bodyPart == L2Item.SLOT_LR_HAND 
+                                || bodyPart == L2Item.SLOT_L_HAND 
+                                || bodyPart == L2Item.SLOT_R_HAND)
+                                || item.getItemId() == 6408)) // Don't allow to put formal wear
                 {
-                        SystemMessage sm = new SystemMessage(SystemMessage.CANNOT_USE_ITEMS_SKILLS_WITH_FORMALWEAR); //TODO should be changed to right msg
-                        activeChar.sendPacket(sm);
-                        return;
-
+                    return;
                 }
                 
                 activeChar.abortCast();

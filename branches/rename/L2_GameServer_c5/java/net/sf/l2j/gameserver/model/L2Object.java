@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.model;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
+import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -204,6 +205,8 @@ public abstract class L2Object
             _IsVisible = false;
             getPosition().setWorldRegion(null);
         }
+        
+        ItemsOnGroundManager.getInstance().removeObject(this);
         
         // this can synchronize on others instancies, so it's out of
         // synchronized, to avoid deadlocks

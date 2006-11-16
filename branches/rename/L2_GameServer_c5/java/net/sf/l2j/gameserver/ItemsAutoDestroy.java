@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
 
@@ -79,6 +80,7 @@ public class ItemsAutoDestroy
                     {
                         L2World.getInstance().removeVisibleObject(item,item.getWorldRegion());
                         L2World.getInstance().removeObject(item);
+                        ItemsOnGroundManager.getInstance().removeObject(item);
                         _items.remove(item);
                     }
                 }

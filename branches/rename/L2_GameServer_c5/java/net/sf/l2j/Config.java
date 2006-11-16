@@ -473,18 +473,22 @@ public final class Config {
     public static int   KARMA_RATE_DROP_EQUIP;    
     public static int   KARMA_RATE_DROP_EQUIP_WEAPON;    
 
+    /** Zariche Event Configs */
+    public static int   ZARICHE_DROP_RATE;
+    public static int   ZARICHE_STAGE_KILLS;
+    public static int   ZARICHE_DURATION;
+    public static int   ZARICHE_DURATION_LOST;
+    public static int   ZARICHE_DISAPEAR_CHANCE;
     
+    /** Time after which item will auto-destroy */
     public static int     AUTODESTROY_ITEM_AFTER;
     
-    public static enum CategoryDropSystem
-    {
-        none,
-        simple,
-        extended_count,
-        extended_items
-    }
+    public static boolean SAVE_DROPPED_ITEM;
     
-    public static CategoryDropSystem CATEGORY_DROP_SYSTEM;
+    public static boolean DROP_OVER_MAX_CHANCE;
+    public static boolean CATEGORIZE_DROPS;
+    public static int CATEGORY2_DROP_LIMIT;
+    public static int CATEGORY3_DROP_LIMIT;
 
     public static int     COORD_SYNCHRONIZE;
     
@@ -503,14 +507,13 @@ public final class Config {
 
     /** Allow Geodata */
     public static boolean ALLOW_GEODATA;
+    public static boolean ALLOW_GEODATA_WATER;
+    public static int ALLOW_GEODATA_EXPIRATIONTIME;
+    public static boolean ALLOW_GEODATA_CHECK_KNOWN;
     
     /** Jail config **/
     public static boolean JAIL_IS_PVP;
     public static boolean JAIL_DISABLE_CHAT;
-    
-    /** Zariche releated configs */
-    public static float ZARICHE_DROP_RATE;
-    public static int ZARICHE_STAGE_KILLS;
     
     /** Herbs Drop Rate configs */
     public static float HERB_OF_LIFE_DROP_RATE;
@@ -590,7 +593,6 @@ public final class Config {
     public static final String  BANNED_IP_XML				= "./config/banned.xml";
     public static final String  HEXID_FILE					= "./config/hexid.txt";
     public static final String  COMMAND_PRIVILEGES_FILE     = "./config/command-privileges.properties";
-    public static final String  AI_FILE     				= "./config/ai.properties";
     public static final String  SEVENSIGNS_FILE             = "./config/sevensigns.properties";    
     /** Properties file for externsions */
     public static final String EXTENSION_FILE               = "./config/extensions.properties";
@@ -686,8 +688,15 @@ public final class Config {
     /** Disable Grade penalty */
     public static boolean GRADE_PENALTY;
     /** Clan leader name color */
-    public static boolean   CLAN_LEADER_NAME_COLOR_ENABLED;
-    public static int       CLAN_LEADER_NAME_COLOR;
+    public static enum ClanLeaderColored
+    {
+        name,
+        title
+    }
+    public static boolean   CLAN_LEADER_COLOR_ENABLED;
+    public static ClanLeaderColored       CLAN_LEADER_COLORED;
+    public static int       CLAN_LEADER_COLOR;
+    public static int       CLAN_LEADER_COLOR_CLAN_LEVEL;
 
     /** Day/Night Status **/
     public static boolean DAY_STATUS_FORCE_CLIENT_UPDATE;
@@ -769,13 +778,15 @@ public final class Config {
     public static int ENCHANT_SAFE_MAX;
     public static int ENCHANT_SAFE_MAX_FULL;
     
-    // Character multipliers
-    /** Multiplier for character HP regeneration */
+    // NPC regen multipliers
     public static double  HP_REGEN_MULTIPLIER;
-    /** Mutilplier for character MP regeneration */
     public static double  MP_REGEN_MULTIPLIER;
-    /** Multiplier for character CP regeneration */
     public static double  CP_REGEN_MULTIPLIER;
+
+    // Player regen multipliers
+    public static double  PLAYER_HP_REGEN_MULTIPLIER;
+    public static double  PLAYER_MP_REGEN_MULTIPLIER;
+    public static double  PLAYER_CP_REGEN_MULTIPLIER;
     
     // Raid Boss multipliers
     /** Multiplier for Raid boss HP regeneration */ 
@@ -852,10 +863,6 @@ public final class Config {
     public static boolean GM_HERO_AURA;
     /** Set the GM invulnerable at startup ? */
     public static boolean GM_STARTUP_INVULNERABLE;
-    
-    /** Alternative AI setting*/
-    public static boolean	AI_ENABLED;
-    public static String	AI_DEFAULT_CLASS;
     
     public static boolean	BYPASS_VALIDATION;
     public static boolean GMAUDIT;
@@ -964,7 +971,12 @@ public final class Config {
                 SERVER_GMONLY                   = Boolean.valueOf(optionsSettings.getProperty("ServerGMOnly", "false"));
                 
                 AUTODESTROY_ITEM_AFTER          = Integer.parseInt(optionsSettings.getProperty("AutoDestroyDroppedItemAfter", "0"));
-                CATEGORY_DROP_SYSTEM            = CategoryDropSystem.valueOf(optionsSettings.getProperty("CategoryDropSystem", "simple")); 
+                SAVE_DROPPED_ITEM              = Boolean.valueOf(optionsSettings.getProperty("SaveDroppedItem", "false"));
+                
+                DROP_OVER_MAX_CHANCE            = Boolean.valueOf(optionsSettings.getProperty("DropOverMaxChance", "true")); 
+                CATEGORIZE_DROPS                = Boolean.valueOf(optionsSettings.getProperty("CategorizeDrops", "true"));
+                CATEGORY2_DROP_LIMIT            = Integer.parseInt(optionsSettings.getProperty("Category2DropLimit", "3"));
+                CATEGORY3_DROP_LIMIT            = Integer.parseInt(optionsSettings.getProperty("Category3DropLimit", "3"));
              
                 COORD_SYNCHRONIZE               = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));
              
@@ -981,6 +993,9 @@ public final class Config {
                 ALLOWFISHING                    = Boolean.valueOf(optionsSettings.getProperty("AllowFishing", "False"));
                 ALLOW_MANOR                     = Boolean.valueOf(optionsSettings.getProperty("AllowManor", "False"));
                 ALLOW_GEODATA                   = Boolean.valueOf(optionsSettings.getProperty("AllowGeodata", "False"));
+                ALLOW_GEODATA_WATER             = Boolean.valueOf(optionsSettings.getProperty("AllowGeodataWater", "False"));
+                ALLOW_GEODATA_EXPIRATIONTIME    = Integer.parseInt(optionsSettings.getProperty("AllowGeodata_ExpirationTime", "9000000"));
+                ALLOW_GEODATA_CHECK_KNOWN       = Boolean.valueOf(optionsSettings.getProperty("AllowGeodataCheckKnown", "False"));
                 ALLOW_BOAT                      = Boolean.valueOf(optionsSettings.getProperty("AllowBoat", "False"));
                 FISHINGMODE                     = optionsSettings.getProperty("FishingMode", "water");                
                
@@ -1212,7 +1227,9 @@ public final class Config {
                 /* if different from 100 (ie 100%) heal rate is modified acordingly */
 	            HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("HpRegenMultiplier", "100"));
 	            MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("MpRegenMultiplier", "100"));
-	            CP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("CpRegenMultiplier", "100"));
+	            PLAYER_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerHpRegenMultiplier", "100"));
+	            PLAYER_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerMpRegenMultiplier", "100"));
+	            PLAYER_CP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerCpRegenMultiplier", "100"));
 
                 RAID_HP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidHpRegenMultiplier", "500")) /100;    
                 RAID_MP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidMpRegenMultiplier", "500")) /100;    
@@ -1269,11 +1286,14 @@ public final class Config {
                 JAIL_IS_PVP       = Boolean.valueOf(otherSettings.getProperty("JailIsPvp", "True"));
                 JAIL_DISABLE_CHAT = Boolean.valueOf(otherSettings.getProperty("JailDisableChat", "True"));
                 
-                ZARICHE_DROP_RATE = Float.valueOf(otherSettings.getProperty("ZaricheDropRate", "1."));
-                ZARICHE_STAGE_KILLS = Integer.valueOf(otherSettings.getProperty("ZaricheStageKills", "30"));
-                
-                /*GM_NAME_COLOUR_ENABLED = Boolean.parseBoolean(otherSettings.getProperty("GMNameColourEnabled", "False"));
-                GM_NAME_COLOUR = Integer.decode("0x" + otherSettings.getProperty("GMNameColour", "00FF00"));*/
+                ZARICHE_DROP_RATE       = Integer.valueOf(otherSettings.getProperty("ZaricheDropRate", "1"));
+                ZARICHE_DISAPEAR_CHANCE = Integer.valueOf(otherSettings.getProperty("ZaricheDisapearChance", "50"));
+                ZARICHE_STAGE_KILLS     = Integer.valueOf(otherSettings.getProperty("ZaricheStageKills", "10"));
+                ZARICHE_DURATION        = Integer.valueOf(otherSettings.getProperty("ZaricheDuration", "300"));
+                ZARICHE_DURATION_LOST   = Integer.valueOf(otherSettings.getProperty("ZaricheDurationLost", "30"));
+              
+                GM_NAME_COLOUR_ENABLED = Boolean.parseBoolean(otherSettings.getProperty("GMNameColourEnabled", "False"));
+                GM_NAME_COLOUR = Integer.decode("0x" + otherSettings.getProperty("GMNameColour", "00FF00"));
                 
 	        }
 	        catch (Exception e)
@@ -1432,8 +1452,10 @@ public final class Config {
 
                 ALT_STRICT_SEVENSIGNS                               = Boolean.parseBoolean(altSettings.getProperty("StrictSevenSigns", "True"));
                 
-                CLAN_LEADER_NAME_COLOR_ENABLED  					= Boolean.parseBoolean(altSettings.getProperty("ClanLeaderNameColorEnabled", "True"));
-                CLAN_LEADER_NAME_COLOR          					= Integer.decode("0x" + altSettings.getProperty("ClanLeaderNameColor", "00FF00"));
+                CLAN_LEADER_COLOR_ENABLED     			       		= Boolean.parseBoolean(altSettings.getProperty("ClanLeaderNameColorEnabled", "True"));
+                CLAN_LEADER_COLORED                  				= ClanLeaderColored.valueOf(altSettings.getProperty("ClanLeaderColored", "name"));
+                CLAN_LEADER_COLOR                                   = Integer.decode("0x" + altSettings.getProperty("ClanLeaderNameColor", "00FF00"));
+                CLAN_LEADER_COLOR_CLAN_LEVEL                        = Integer.parseInt(altSettings.getProperty("ClanLeaderNameColorAtClanLevel", "1"));
                 ALT_BUFF_TIME                                       = Integer.parseInt(altSettings.getProperty("AltBuffTime", "1"));
                 ALT_DANCE_TIME                                       = Integer.parseInt(altSettings.getProperty("AltDanceTime", "1"));
 	            SPAWN_SIEGE_GUARD 									= Boolean.parseBoolean(altSettings.getProperty("SpawnSiegeGuard", "true"));
@@ -1613,24 +1635,7 @@ public final class Config {
 	        {
 	        	_log.warning("Could not load HexID file ("+HEXID_FILE+"). Hopefully login will give us one.");
 	        }
-	        
-	        /** AI Config */
-	        try
-	        {
-	        	Properties aiSettings = new Properties();
-	        	InputStream is = new FileInputStream(new File(AI_FILE));
-	        	aiSettings.load(is);
-	        	is.close();
-	        	
-	        	AI_ENABLED = Boolean.valueOf(aiSettings.getProperty("EnableAI", "false"));
-	        	AI_DEFAULT_CLASS = aiSettings.getProperty("DefaultAI");
-	        }
-	        catch (Exception e)
-	        {
-	        	//e.printStackTrace();
-	        	//throw new Error("Failed to Load " + AI_FILE + " File.");	        	
-	        }
-	        
+   
 	        /** Extensions Config */
 	        try
 	        {
@@ -1640,7 +1645,7 @@ public final class Config {
 	        	extensionSettings.load(is);
 	        	is.close();
 	        	TVT_EVEN_TEAMS = extensionSettings.getProperty("TvTEvenTeams", "BALANCE");
-			CTF_EVEN_TEAMS = extensionSettings.getProperty("CTFEvenTeams", "BALANCE");
+	        	CTF_EVEN_TEAMS = extensionSettings.getProperty("CTFEvenTeams", "BALANCE");
 	        }
 	        catch (Exception e)
 	        {
@@ -1685,6 +1690,7 @@ public final class Config {
         else if (pName.equalsIgnoreCase("KarmaRateDropEquipWeapon")) KARMA_RATE_DROP_EQUIP_WEAPON = Integer.parseInt(pValue);
 
         else if (pName.equalsIgnoreCase("AutoDestroyDroppedItemAfter")) AUTODESTROY_ITEM_AFTER = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("SaveDroppedItem")) SAVE_DROPPED_ITEM = Boolean.valueOf(pValue);
         //else if (pName.equalsIgnoreCase("CategoryDropSystem")) CATEGORY_DROP_SYSTEM = CategoryDropSystem.valueOf(pValue);
         else if (pName.equalsIgnoreCase("CoordSynchronize")) COORD_SYNCHRONIZE = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("DeleteCharAfterDays")) DELETE_DAYS = Integer.parseInt(pValue);
@@ -1767,7 +1773,10 @@ public final class Config {
 
         else if (pName.equalsIgnoreCase("HpRegenMultiplier")) HP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
         else if (pName.equalsIgnoreCase("MpRegenMultiplier")) MP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
-        else if (pName.equalsIgnoreCase("CpRegenMultiplier")) CP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
+        
+        else if (pName.equalsIgnoreCase("PlayerHpRegenMultiplier")) PLAYER_HP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
+        else if (pName.equalsIgnoreCase("PlayerMpRegenMultiplier")) PLAYER_MP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
+        else if (pName.equalsIgnoreCase("PlayerCpRegenMultiplier")) PLAYER_CP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
 
         else if (pName.equalsIgnoreCase("RaidHpRegenMultiplier")) RAID_HP_REGEN_MULTIPLIER = Double.parseDouble(pValue) /100;
         else if (pName.equalsIgnoreCase("RaidMpRegenMultiplier")) RAID_MP_REGEN_MULTIPLIER = Double.parseDouble(pValue) /100;
@@ -1883,8 +1892,13 @@ public final class Config {
         else if (pName.equalsIgnoreCase("GlobalChat")) DEFAULT_GLOBAL_CHAT = pValue;
         else if (pName.equalsIgnoreCase("TradeChat"))  DEFAULT_TRADE_CHAT = pValue;
         
+        else if (pName.equalsIgnoreCase("ZaricheDropRate")) ZARICHE_DROP_RATE = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("ZaricheDuration")) ZARICHE_DURATION = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("ZaricheDurationLost")) ZARICHE_DURATION_LOST = Integer.parseInt(pValue);
+
+        
         else if (pName.equalsIgnoreCase("TvTEvenTeams"))  TVT_EVEN_TEAMS = pValue;
-	else if (pName.equalsIgnoreCase("CTFEvenTeams"))  CTF_EVEN_TEAMS = pValue;
+        else if (pName.equalsIgnoreCase("CTFEvenTeams"))  CTF_EVEN_TEAMS = pValue;
         else return false;
         return true;
     }

@@ -822,9 +822,16 @@ public final class Formulas
 	public final double calcHpRegen(L2Character cha)
 	{
         double init = cha.getTemplate().baseHpReg;
-		double hpRegenMultiplier = cha.isRaid() ? Config.RAID_HP_REGEN_MULTIPLIER : Config.HP_REGEN_MULTIPLIER;
+		double hpRegenMultiplier;
         double hpRegenBonus = 0;
 		
+        if(cha.isRaid())
+           hpRegenMultiplier=Config.RAID_HP_REGEN_MULTIPLIER;
+        else if(cha instanceof L2PcInstance)
+           hpRegenMultiplier=Config.PLAYER_HP_REGEN_MULTIPLIER;
+        else 
+           hpRegenMultiplier=Config.HP_REGEN_MULTIPLIER;
+        
 		if (cha instanceof L2PcInstance)
 		{
             L2PcInstance player = (L2PcInstance) cha;
@@ -845,7 +852,10 @@ public final class Formulas
 			if (player.getInMotherTreeZone()) hpRegenBonus += 2;
 
             // Calculate Movement bonus
-            if (player.isSitting()) hpRegenMultiplier *= 2.5;      // Sitting
+            if (player.isSitting() && player.getLevel() < 41) hpRegenMultiplier = hpRegenMultiplier * 1.5 + (40 - player.getLevel()) * 0.7; // Sitting
+            //if (player.isSitting() && player.getLevel() < 21) hpRegenMultiplier *= 11.4;  // Sitting
+            //else if (player.isSitting() && player.getLevel() < 41) hpRegenMultiplier *= 6.0; // Sitting
+            else if (player.isSitting()) hpRegenMultiplier *= 1.5;      // Sitting
             else if (!player.isRunning()) hpRegenMultiplier *= 1.5; // Not Running
             else if (!player.isMoving()) hpRegenMultiplier *= 1.1; // Staying
             else if (player.isRunning()) hpRegenMultiplier *= 0.7; // Running
@@ -863,9 +873,16 @@ public final class Formulas
 	public final double calcMpRegen(L2Character cha)
 	{
         double init = cha.getTemplate().baseMpReg;
-        double mpRegenMultiplier = cha.isRaid() ? Config.RAID_MP_REGEN_MULTIPLIER : Config.MP_REGEN_MULTIPLIER;
+        double mpRegenMultiplier;
         double mpRegenBonus = 0;
 		
+        if(cha.isRaid())
+            mpRegenMultiplier=Config.RAID_MP_REGEN_MULTIPLIER;
+        else if(cha instanceof L2PcInstance)
+            mpRegenMultiplier=Config.PLAYER_MP_REGEN_MULTIPLIER;
+        else 
+            mpRegenMultiplier=Config.MP_REGEN_MULTIPLIER;
+        
 		if (cha instanceof L2PcInstance)
 		{
 			L2PcInstance player = (L2PcInstance) cha;
@@ -899,7 +916,7 @@ public final class Formulas
 	public final double calcCpRegen(L2Character cha)
 	{
         double init = cha.getTemplate().baseHpReg;
-        double cpRegenMultiplier = Config.CP_REGEN_MULTIPLIER;
+        double cpRegenMultiplier = Config.PLAYER_CP_REGEN_MULTIPLIER;
         double cpRegenBonus = 0;
 
         L2PcInstance player = (L2PcInstance) cha;

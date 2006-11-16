@@ -77,9 +77,7 @@ public final class L2NpcTemplate extends L2CharTemplate
     
     
     /** The table containing all Item that can be dropped by L2NpcInstance using this L2NpcTemplate*/
-    private final List<L2DropData>    _drops       = new FastList<L2DropData>(0);
-    private final List<L2DropData>    _fulldrops       = new FastList<L2DropData>(0);
-    private final List<L2DropData>    _miscdrops       = new FastList<L2DropData>(0);
+    private final List<L2DropData>    _drops       = new FastList<L2DropData>(0);   
     
     /** The table containing all Minions that must be spawn with the L2NpcInstance using this L2NpcTemplate*/
     private final List<L2MinionData>  _minions     = new FastList<L2MinionData>(0);
@@ -170,30 +168,7 @@ public final class L2NpcTemplate extends L2CharTemplate
         } else {
             _drops.add(drop);
         }
-    }
-    
-    // for the first category: Full drops and parts (like fabrics, patterns, edges, etc)
-    // only ONE of all items in this catgory should be dropped per kill .
-    public void addFullDropData(L2DropData drop)
-    {
-        if (drop.isQuestDrop()) {
-//          should never happen here
-        } else {
-            _fulldrops.add(drop);
-        }
-    }
-    
-    // for the second category: mats, potions, scrolls, and other miscellaneous items.
-    // basically, for everything not included in the other two categories.
-    // only ONE of all items in this catgory should be dropped per kill .
-    public void addMiscDropData(L2DropData drop)
-    {
-        if (drop.isQuestDrop()) {
-//          should never happen here
-        } else {
-            _miscdrops.add(drop);
-        }
-    }
+    }        
     
     public void addRaidData(L2MinionData minion)
     {
@@ -232,22 +207,6 @@ public final class L2NpcTemplate extends L2CharTemplate
     }
     
     /**
-     * Return the list of all possible full drops and part drops of this L2NpcTemplate.<BR><BR>
-     */
-    public List<L2DropData> getFullDropData()
-    {
-        return _fulldrops;
-    }
-
-    /**
-     * Return the list of all possible mat & miscellaneous item drops of this L2NpcTemplate.<BR><BR>
-     */
-    public List<L2DropData> getMiscDropData()
-    {
-        return _miscdrops;
-    }
-
-    /**
      * Return the list of all possible item drops of this L2NpcTemplate.<BR>
      * (ie full drops and part drops, mats, miscellaneous & UNCATEGORIZED)<BR><BR>
      */
@@ -255,8 +214,6 @@ public final class L2NpcTemplate extends L2CharTemplate
     {
         List<L2DropData> lst = new FastList<L2DropData>();
         lst.addAll(_drops);
-        lst.addAll(_fulldrops);
-        lst.addAll(_miscdrops);
         return lst;
     }
     
@@ -266,8 +223,6 @@ public final class L2NpcTemplate extends L2CharTemplate
     public void clearAllDropData()
     {
         _drops.clear();
-        _fulldrops.clear();
-        _miscdrops.clear();
     }
 
     /**

@@ -105,8 +105,8 @@ public class RequestDropItem extends ClientBasePacket
             }
         }
         
-        if(item.getItemId() == 8190)
-        {
+        //Zariche cannot be dropped
+        if(item.getItemId() == 8190){
             activeChar.sendPacket(new SystemMessage(SystemMessage.NOTHING_HAPPENED));
             return;
         }

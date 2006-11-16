@@ -680,6 +680,11 @@ public final class L2PetInstance extends L2Summon
             pet.getStat().setSp(rset.getInt("sp"));
 
             pet.getStatus().setCurrentHp(rset.getDouble("curHp"));
+            if(pet.getStatus().getCurrentHp()==0){
+                pet.stopFeed();
+                pet.getStatus().stopHpMpRegeneration();
+                DecayTaskManager.getInstance().addDecayTask(pet,1200000);                
+            }
             pet.getStatus().setCurrentMp(rset.getDouble("curMp"));
             pet.getStatus().setCurrentCp(pet.getMaxCp());
 
@@ -785,7 +790,9 @@ public final class L2PetInstance extends L2Summon
         stopHpMpRegeneration();
         super.unSummon(owner);
         
+        /* if dead - will be restored with hp=0
         if(!isDead())
+        */
             L2World.getInstance().removePet(owner.getObjectId());
     }
 

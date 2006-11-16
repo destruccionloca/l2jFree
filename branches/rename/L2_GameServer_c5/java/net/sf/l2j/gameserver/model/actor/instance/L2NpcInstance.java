@@ -1921,6 +1921,13 @@ public class L2NpcInstance extends L2Character
      */
     public void makeSupportMagic(L2PcInstance player)
     {
+        if (player == null)
+            return;
+        
+        // Prevent Zariche weilder of being buffed
+        if (player.isZaricheEquiped())
+            return;
+        
         int player_level = player.getLevel();        
         int lowestLevel;
         int higestLevel;

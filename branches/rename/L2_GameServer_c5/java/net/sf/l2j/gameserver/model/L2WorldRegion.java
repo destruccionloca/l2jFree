@@ -30,7 +30,6 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.geodata.GeoBlock;
 import net.sf.l2j.util.L2ObjectSet;
 
 
@@ -52,8 +51,7 @@ public final class L2WorldRegion
     private List<L2WorldRegion> _surroundingRegions;
     private int tileX, tileY;
     private Boolean _active = false;   
-    protected ScheduledFuture _neighborsTask = null;
-    private GeoBlock _geoBlock = null;
+    private ScheduledFuture _neighborsTask = null;
 
     public L2WorldRegion(int pTileX, int pTileY)
     {
@@ -72,34 +70,23 @@ public final class L2WorldRegion
             _active = false;
     }
     
-    /** Task of AI and geodata notification */
+    /** Task of AI notification */
     public class NeighborsTask implements Runnable
     {
         private boolean _isActivating;
-        private short _nextNeighbor;
         
         public NeighborsTask(boolean isActivating)
         {
             _isActivating = isActivating;
-            _nextNeighbor = 0;
         }
         
         public void run()
         {
             if (_isActivating)
             {
-                if (_nextNeighbor <= getSurroundingRegions().size())
-                {
-                    L2WorldRegion neighbor = getSurroundingRegions().get(_nextNeighbor);
+                // for each neighbor, if it's not active, activate.
+                for (L2WorldRegion neighbor: getSurroundingRegions())
                     neighbor.setActive(true);
-                    _nextNeighbor++;
-                }
-                
-                if (_nextNeighbor > getSurroundingRegions().size())
-                {
-                    _neighborsTask.cancel(true);
-                    _neighborsTask = null;
-                }
             }
             else
             {
@@ -202,22 +189,12 @@ public final class L2WorldRegion
         // turn the AI on or off to match the region's activation.
         switchAI(value);
         
-        // load in the geodata (if active), or unload the geodata (if inactive)
+        // TODO
+        // turn the geodata on or off to match the region's activation.
         if(value)
-        {
-            if(Config.ALLOW_GEODATA)
-                _geoBlock = new GeoBlock(tileX, tileY);
             _log.fine("Starting Grid " + tileX + ","+ tileY);
-        }
         else
-        {
-            if(Config.ALLOW_GEODATA)
-            {
-                _geoBlock.clearMemory();
-                _geoBlock = null;
-            }
             _log.fine("Stoping Grid " + tileX + ","+ tileY);
-        }
     }
 
     /** Immediately sets self as active and starts a timer to set neighbors as active
@@ -238,7 +215,7 @@ public final class L2WorldRegion
         }
         
         // then, set a timer to activate the neighbors
-        _neighborsTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new NeighborsTask(true), 1000*Config.GRID_NEIGHBOR_TURNON_TIME, 2000);
+        _neighborsTask = ThreadPoolManager.getInstance().scheduleGeneral(new NeighborsTask(true), 1000*Config.GRID_NEIGHBOR_TURNON_TIME);
     }
     
     /** starts a timer to set neighbors (including self) as inactive
@@ -358,19 +335,4 @@ public final class L2WorldRegion
         }
         _log.info("All visible NPC's deleted in Region: " + getName());
     }
-
-    /**
-     * return the geodata block for this region.  
-     * If this block is not active it returns null.
-     */
-    public GeoBlock getGeoBlock()
-    {
-    	if (!_active)
-    		return null;
-    	
-        if (_geoBlock == null)
-        		_geoBlock = new GeoBlock(tileX, tileY);
-                
-        return _geoBlock;
-    }    
 }

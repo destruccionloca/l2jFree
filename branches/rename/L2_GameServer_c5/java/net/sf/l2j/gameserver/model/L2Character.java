@@ -64,6 +64,7 @@ import net.sf.l2j.gameserver.model.actor.stat.CharStat;
 import net.sf.l2j.gameserver.model.actor.status.CharStatus;
 import net.sf.l2j.gameserver.model.entity.Zone;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
+import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.Attack;
@@ -419,7 +420,7 @@ public abstract class L2Character extends L2Object
         if (isAttackingDisabled()) 
             return;
         
-        if ((this instanceof L2PcInstance) && (target instanceof L2PcInstance) && (((L2PcInstance)this).getZaricheEquiped() && target.getLevel() < 21) && (((L2PcInstance)target).getZaricheEquiped() && this.getLevel() < 21))
+        if ((this instanceof L2PcInstance) && (target instanceof L2PcInstance) && (((L2PcInstance)this).isZaricheEquiped() && target.getLevel() < 21) && (((L2PcInstance)target).isZaricheEquiped() && this.getLevel() < 21))
         {
             ((L2PcInstance)this).sendMessage("Cant attack this player, because of the Zariche's effect");
             return;
@@ -429,7 +430,17 @@ public abstract class L2Character extends L2Object
             ((L2PcInstance)this).sendMessage("Cant attack in observer mode");
             sendPacket(new ActionFailed());
             return;
-        } 
+        }
+        if(Config.ALLOW_GEODATA)
+        if ( this instanceof L2PcInstance)
+        {
+            //_log.warning("Do attack L0S_2");
+            if (GeoDataRequester.getInstance().hasAttackLoS(this, target) == false)
+            {
+                sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                return;
+            }   
+        }
 
         // Get the active weapon instance (always equiped in the right hand)
         L2ItemInstance weaponInst = getActiveWeaponInstance();
@@ -513,15 +524,6 @@ public abstract class L2Character extends L2Object
         // Reduce the current CP if TIREDNESS configuration is activated
         if (Config.ALT_GAME_TIREDNESS) 
             setCurrentCp(getCurrentCp() - 10);
-        
-        //clear Cp if atacker is a hero & target has zariche equiped
-        if (target instanceof L2PcInstance && this instanceof L2PcInstance)
-            if (((L2PcInstance)target).getZaricheEquiped())
-            {
-                if (((L2PcInstance)this).isHero())
-                    target.setCurrentCp(0);
-                setCurrentCp(0);
-            }
 
         // Recharge any active auto soulshot tasks for player (or player's summon if one exists).
         if (this instanceof L2PcInstance) 
@@ -555,6 +557,17 @@ public abstract class L2Character extends L2Object
 
         // Set the Attacking Body part to CHEST
         setAttackingBodypart();
+         
+        if(Config.ALLOW_GEODATA)
+        if ( this instanceof L2PcInstance)
+        {
+              //_log.warning("Do attack L0S");
+              if (GeoDataRequester.getInstance().hasAttackLoS(this, target) == false)
+              {
+                  sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                  return;
+              }   
+        }
         
         // Select the type of attack to start
         if (weaponItem == null)
@@ -597,6 +610,17 @@ public abstract class L2Character extends L2Object
             else
                 if (weaponInst != null)
                     weaponInst.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
+            if (player != null)
+            {
+                if (player.isZaricheEquiped())
+                {                    
+                    target.setCurrentCp(0); // If hitted by Zariche, Cp is reduced to 0
+                } else if (player.isHero())
+                {
+                    if (target instanceof L2PcInstance && ((L2PcInstance)target).isZaricheEquiped())                        
+                        target.setCurrentCp(0); // If Zariche is hitted by a Hero, Cp is reduced to 0
+                }
+            }
         }
 
         // If the Server->Client packet Attack contains at least 1 hit, send the Server->Client packet Attack
@@ -3679,6 +3703,14 @@ public abstract class L2Character extends L2Object
 
        // Get the Move Speed of the L2Charcater
        float speed = getStat().getMoveSpeed();
+       
+       if(Config.ALLOW_GEODATA)
+       if (this instanceof L2PcInstance)
+           if ( GeoDataRequester.getInstance().hasLoS(this, x,y,(short)z )  == false)
+           {
+               SystemMessage sm = new SystemMessage(SystemMessage.CANT_SEE_TARGET);    
+               this.sendPacket(sm); 
+           }
 
        // Create and Init a MoveData object
        MoveData m = new MoveData();
@@ -4399,7 +4431,14 @@ public abstract class L2Character extends L2Object
     */
    public void onForcedAttack(L2PcInstance player)
    {
-        if (isInsidePeaceZone(player))
+       if(Config.ALLOW_GEODATA){
+            if ( GeoDataRequester.getInstance().hasLoS(player, player.getTarget().getX(),player.getTarget().getY(),(short)player.getTarget().getZ() )  == false)
+            {
+                SystemMessage sm = new SystemMessage(SystemMessage.CANT_SEE_TARGET);    
+                player.sendPacket(sm); 
+            }
+       }
+       if (isInsidePeaceZone(player))
        {
            // If L2Character or target is in a peace zone, send a system message TARGET_IN_PEACEZONE a Server->Client packet ActionFailed
            player.sendPacket(new SystemMessage(SystemMessage.TARGET_IN_PEACEZONE));

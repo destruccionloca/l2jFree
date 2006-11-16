@@ -41,6 +41,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Condition;
 import net.sf.l2j.gameserver.skills.EffectCharge;
@@ -1243,8 +1244,16 @@ public abstract class L2Skill
                     || skillType == SkillType.UNBLEED
                     || skillType == SkillType.UNPOISON
                     )) {
-        activeChar.startPvPFlag();
+                activeChar.startPvPFlag();
                 activeChar.setlastPvpAttack(System.currentTimeMillis());}
+
+            if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
+                if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
+                {
+                    activeChar.sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                    return null;
+                }   
+       
             // If a target is found, return it in a table else send a system message TARGET_IS_INCORRECT
             return new L2Character[]{target};
             //}
@@ -1356,6 +1365,10 @@ public abstract class L2Skill
                         }
                     }
                     if (!Util.checkIfInRange(radius, activeChar, obj, true)) continue;
+                    
+                    if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
+                        if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
+                            continue;
 
                     if (onlyFirst == false) targetList.add((L2Character) obj);
                     else return new L2Character[] {(L2Character) obj};
@@ -1404,7 +1417,10 @@ public abstract class L2Skill
                     if (skillUserIsL2PcInstance)
                     {
                         L2PcInstance src = (L2PcInstance)activeChar;
-                        
+                        if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
+                            if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
+                                continue;
+                       
                         if(obj instanceof L2PcInstance)
                         { 
                             L2PcInstance trg = (L2PcInstance)obj;
@@ -1510,6 +1526,9 @@ public abstract class L2Skill
                     activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_CANT_FOUND));
                     return null;
                 }
+                if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
+                    if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
+                        continue;
             }
             return targetList.toArray(new L2Character[targetList.size()]);
             //TODO multiface targets all around right now.  need it to just get targets
@@ -1831,6 +1850,12 @@ public abstract class L2Skill
                 activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
                 return null;
             }
+            if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
+                if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
+                {
+                    activeChar.sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                    return null;
+                }   
                             
                 if(onlyFirst==false)
                 {
@@ -1872,7 +1897,13 @@ public abstract class L2Skill
                     activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
                     return null;
                 }
-                
+                if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
+                    if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
+                    {
+                        activeChar.sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                        return null;
+                    }   
+
                 if(onlyFirst==false)
                 {
                     targetList.add(target);

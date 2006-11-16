@@ -32,8 +32,6 @@ import java.util.logging.Level;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.EventDroplist;
 import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.ItemsAutoDestroy;
@@ -43,6 +41,7 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2SiegeGuardAI;
+import net.sf.l2j.gameserver.instancemanager.ZaricheManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
@@ -61,10 +60,12 @@ import net.sf.l2j.gameserver.model.base.SoulCrystal;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
+import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.Util;
+import net.sf.l2j.util.RandomIntGenerator;
 
 /**
  * This class manages all NPC that can be attacked.<BR><BR>
@@ -516,7 +517,7 @@ public class L2Attackable extends L2NpcInstance
                 if (atker != null) getAggroList().remove(atker);
             }
         }
-        
+
         if (!rewards.isEmpty())
         {
             L2Character attacker;
@@ -595,8 +596,8 @@ public class L2Attackable extends L2NpcInstance
 
                         // Distribute the Exp and SP between the L2PcInstance and its L2Summon
                         if (this.isChampion()) {
-                            attacker.addExpAndSp(Config.CHAMPION_REWARDS * (int)attacker.calcStat(Stats.EXPSP_RATE, exp, null, null),
-                                                 Config.CHAMPION_REWARDS * (int)attacker.calcStat(Stats.EXPSP_RATE, sp, null, null));
+                            attacker.addExpAndSp(Math.round(Config.CHAMPION_REWARDS * attacker.calcStat(Stats.EXPSP_RATE, exp, null, null)),
+                                                 (int)(Config.CHAMPION_REWARDS * attacker.calcStat(Stats.EXPSP_RATE, sp, null, null)));
                         }
                         else {
                             attacker.addExpAndSp(Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null)), 
@@ -683,6 +684,13 @@ public class L2Attackable extends L2NpcInstance
         doItemDrop(lastAttacker);
         // Manage drop of Special Events created by GM for a defined period
         doEventDrop(lastAttacker);
+        // Update current load as well
+        L2PcInstance player = null;
+        if (lastAttacker instanceof L2PcInstance) player = (L2PcInstance)lastAttacker;
+        else if (lastAttacker instanceof L2Summon) player = ((L2Summon)lastAttacker).getOwner();
+        StatusUpdate su = new StatusUpdate(player.getObjectId());
+        su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
+        player.sendPacket(su);
     }
     
     
@@ -911,10 +919,8 @@ public class L2Attackable extends L2NpcInstance
      private RewardItem calculateRewardItem(L2PcInstance lastAttacker, L2DropData drop, int levelModifier)
      {
          // Get default drop chance
-         float floatDropChance = drop.getChance();
-         int dropChance;
-
-         int champRate;
+         float dropChance = drop.getChance();
+         int champRate;         
 
          int deepBlueDrop = 1;
          if (Config.DEEPBLUE_DROP_RULES)
@@ -931,8 +937,7 @@ public class L2Attackable extends L2NpcInstance
          if(deepBlueDrop == 0) //avoid div by 0
              deepBlueDrop = 1;
          // Check if we should apply our maths so deep blue mobs will not drop that easy
-         if (Config.DEEPBLUE_DROP_RULES)
-             floatDropChance = (floatDropChance - ((floatDropChance * levelModifier)/100)) / deepBlueDrop;
+         if (Config.DEEPBLUE_DROP_RULES) dropChance = ((drop.getChance() - ((drop.getChance() * levelModifier)/100)) / deepBlueDrop);
 
          if ( this.isChampion() ) {
              champRate = Config.CHAMPION_REWARDS;
@@ -940,79 +945,51 @@ public class L2Attackable extends L2NpcInstance
          else {
              champRate = 1;
          }
+         
+         // Applies Drop rates
+         if (drop.getItemId() == 57) dropChance *= Config.RATE_DROP_ADENA;
+         else if (drop.isSweep()) dropChance *= Config.RATE_DROP_SPOIL;
+         else dropChance *= Config.RATE_DROP_ITEMS;
+
+         // Round drop chance
+         dropChance = Math.round(dropChance) * champRate;
+
+         // Set our limits for chance of drop
+         if (dropChance < 1) dropChance = 1;
+         // if (drop.getItemId() == 57 && dropChance > L2DropData.MAX_CHANCE) dropChance = L2DropData.MAX_CHANCE; // If item is adena, dont drop multiple time
 
          // Get min and max Item quantity that can be dropped in one time
          int minCount = drop.getMinDrop();
          int maxCount = drop.getMaxDrop();
          int itemCount = 0;
-
-         // Applies Drop rates
-         if (drop.getItemId() == 57)
-         {
-             // Always apply Adena rates to count
-             // (This keeps 70% chance for Adena drops)
-             minCount *= Config.RATE_DROP_ADENA;
-             maxCount *= Config.RATE_DROP_ADENA;
-         }
-         else if (drop.isSweep())
-             floatDropChance *= Config.RATE_DROP_SPOIL;
-         else
-             floatDropChance *= Config.RATE_DROP_ITEMS;
-
-         // Round drop chance
-         dropChance = Math.round(floatDropChance);
-
-         dropChance *= champRate;
-         
-         // Set our limits for chance of drop
-         if (dropChance < 1)
-             dropChance = 1;
+         int multiplicator=0;
 
          // Count and chance adjustment for high rate servers
-         if (dropChance > L2DropData.MAX_CHANCE)
+         if (dropChance > L2DropData.MAX_CHANCE && Config.DROP_OVER_MAX_CHANCE)
          {
-             switch (Config.CATEGORY_DROP_SYSTEM)
-             {
-                 case none:
-                 case simple:
-                 {
-                     // Ignore this case
-                     break;
-                 }
-                 case extended_count:
-                 case extended_items:
-                 {
-                     // This method Calculates non-categorized Items. So we can't do anything 
-                     int multiplicator = dropChance / L2DropData.MAX_CHANCE;
-                     
-                     if (minCount < maxCount) itemCount += Rnd.get(minCount * multiplicator, maxCount * multiplicator);
-                     else itemCount += minCount * multiplicator;
-
-                     dropChance -= L2DropData.MAX_CHANCE * multiplicator;
-                     
-                     break;
-                 }
-             }
+             multiplicator = (int)dropChance / L2DropData.MAX_CHANCE;
+             dropChance = dropChance % L2DropData.MAX_CHANCE;
+             if (minCount > maxCount) maxCount = minCount;
          }
 
          // Check if the Item must be dropped
-         int random = Rnd.get(L2DropData.MAX_CHANCE);
-         if (random < dropChance)
+         int random = RandomIntGenerator.getInstance().getRnd();
+         while (random < dropChance)
          {
-             // Get the item quantity dropped
-             if (minCount < maxCount)
-                 itemCount += Rnd.get(minCount, maxCount);
-             else
-                 itemCount += minCount;
+             multiplicator++;             
+             // Prepare for next iteration if dropChance > L2DropData.MAX_CHANCE
+             dropChance -= L2DropData.MAX_CHANCE;
          }
 
-         if (itemCount > 0)
-             return new RewardItem(drop.getItemId(), itemCount);
-         // else if (itemCount == 0 && Config.DEBUG) _log.fine("Roll produced 0 items to drop...");
-
-         return null;
+         if(multiplicator==0) return null;
+         // Get the item quantity dropped
+         if (minCount < maxCount) itemCount += Rnd.get(minCount * multiplicator, maxCount * multiplicator);
+         else if (minCount == maxCount) itemCount += minCount;         
+         
+         return new RewardItem(drop.getItemId(), itemCount);         
      }
 
+     
      /**
       * Calculates quantity of items for specific drop CATEGORY according to current situation <br>
       * Only a max of ONE item from a category is allowed to be dropped.
@@ -1022,29 +999,21 @@ public class L2Attackable extends L2NpcInstance
       * @param deepBlueDrop Factor to divide the drop chance
       * @param levelModifier level modifier in %'s (will be subtracted from drop chance)
       */
-     private RewardItem[] calculateCategorizedRewardItem(L2PcInstance lastAttacker, List<L2DropData> categoryDrops, int levelModifier)
+     private RewardItem calculateCategorizedRewardItem(L2PcInstance lastAttacker, List<L2DropData> categoryDrops, int levelModifier, int category)
      {
-         int sum = 0;
-         int min;
-         int max;
-         int itemCount;
-         int baseCategoryDropChance = 0;
-         int categoryDropChance;
-         int randomIndex;
-         float multiplicator;
-         float floatCategoryDropChance;
-         
          if ((categoryDrops == null) || (categoryDrops.size() == 0))
-             return null;
-         
+                   return null;
+       
          // Get default drop chance for the category (that's the sum of chances for all items in the category) 
          // keep track of the base category chance as it'll be used later, if an item is drop from the category.
          // for everything else, use the total "categoryDropChance"
+         int basecategoryDropChance = 0;          
+         int categoryDropChance = 0;          
          for (L2DropData drop : categoryDrops)
-             baseCategoryDropChance += drop.getChance();
-         
-         floatCategoryDropChance = baseCategoryDropChance;
-         
+             if(drop.getCategory() == category)
+                 basecategoryDropChance += drop.getChance();
+         categoryDropChance = basecategoryDropChance;
+         int champRate;
          int deepBlueDrop = 1;
          if (Config.DEEPBLUE_DROP_RULES)
          {
@@ -1057,180 +1026,66 @@ public class L2Attackable extends L2NpcInstance
          }
          
          if(deepBlueDrop == 0) //avoid div by 0
-             deepBlueDrop = 1;
+          deepBlueDrop = 1;
          // Check if we should apply our maths so deep blue mobs will not drop that easy
-         if (Config.DEEPBLUE_DROP_RULES)
-             floatCategoryDropChance = ((floatCategoryDropChance - ((floatCategoryDropChance * levelModifier)/100)) / deepBlueDrop);
+         if (Config.DEEPBLUE_DROP_RULES) categoryDropChance = ((categoryDropChance - ((categoryDropChance * levelModifier)/100)) / deepBlueDrop);
+
+         if ( this.isChampion() ) {
+             champRate = Config.CHAMPION_REWARDS;
+         }
+         else {
+             champRate = 1;
+         }
          
          // Applies Drop rates
-         floatCategoryDropChance *= Config.RATE_DROP_ITEMS;
-         
+         categoryDropChance *= Config.RATE_DROP_ITEMS;
+
          // Round drop chance
-         categoryDropChance = Math.round(floatCategoryDropChance);
-         
+         categoryDropChance = Math.round(categoryDropChance) * champRate;
+
          // Set our limits for chance of drop
-         if (categoryDropChance < 1)
-             categoryDropChance = 1;
-         
+         if (categoryDropChance < 1) categoryDropChance = 1;
+
          // Check if an Item from this category must be dropped
-         randomIndex = Rnd.get(L2DropData.MAX_CHANCE);
-         if (randomIndex < categoryDropChance)
+         if (RandomIntGenerator.getInstance().getRnd() < categoryDropChance)
          {
-             // recalculate randomIndex to make shure that every item of this category
-             // can be dropped on highrate servers where
-             // categoryDropChance > L2DropData.MAX_CHANCE
-             randomIndex = Rnd.get(baseCategoryDropChance);
-             
-             switch (Config.CATEGORY_DROP_SYSTEM)
+           // ONE of the drops in this category is to be dropped now.  
+           // to see which one will be dropped, weight all items' chances such that 
+           // their sum of chances equals MAX_CHANCE.
+           // since the individual drops have their base chance, we also ought to use the
+           // base category chance for the weight.  So weight = MAX_CHANCE/basecategoryDropChance.  
+           // Then get a single random number within this range.  The first item 
+           // (in order of the list) whose contribution to the sum makes the 
+           // sum greater than the random number, will be dropped.
+           int randomIndex = RandomIntGenerator.getInstance().getRnd();
+           double sum = 0.0;
+           double weight = ((double)(L2DropData.MAX_CHANCE))/basecategoryDropChance;
+             for (L2DropData drop : categoryDrops)
              {
-                 case none:
-                 {
-                     // This should NEVER happen!
-                     return null;
-                 }
-                 case simple:
-                 {
-                     // ONE of the drops in this category is to be dropped now.  
-                     // The first item (in order of the list) whose contribution
-                     // to the sum makes the sum greater than the random number,
-                     // will be dropped.
-                     for (L2DropData drop : categoryDrops)
-                     {
-                         sum += drop.getChance();
-                         
-                         if (sum >= randomIndex) // drop this item and exit the function
-                         {
-                             // Get min and max Item quantity that can be dropped in one time
-                             min = drop.getMinDrop();
-                             max = drop.getMaxDrop();
-                             
-                             // Get the item quantity dropped
-                             if (min < max)
-                                 itemCount = Rnd.get(min, max);
-                             else
-                                 itemCount = min;
-                             
-                             if (itemCount > 0) 
-                                 return new RewardItem[]{new RewardItem(drop.getItemId(), itemCount)};
-                         }
-                     }
-                     return null;
-                 }
-                 case extended_count:
-                 {
-                     // We use a multiplicator to realize high rates.
-                     if (categoryDropChance > L2DropData.MAX_CHANCE)
-                         multiplicator = floatCategoryDropChance / L2DropData.MAX_CHANCE;
+               if(drop.getCategory() != category) continue;
+               sum = sum + (drop.getChance()*weight);
+               
+               if(Config.DEBUG)
+                   _log.info("sum so far: "+sum);
+               
+               if (sum >= randomIndex)       // drop this item and exit the function
+               {
+                     // Get min and max Item quantity that can be dropped in one time
+                     int min = drop.getMinDrop();
+                     int max = drop.getMaxDrop();
+
+                     // Get the item quantity dropped
+                     int itemCount = 0;
+                     if (min < max)
+                         itemCount += Rnd.get(min, max);
+                     else if (min == max)
+                         itemCount += min;
                      else
-                         multiplicator = 1.F;
+                         itemCount++;
                      
-                     // ONE of the drops in this category is to be dropped now.  
-                     // The first item (in order of the list) whose contribution
-                     // to the sum makes the sum greater than the random number,
-                     // will be dropped.
-                     for (L2DropData drop : categoryDrops)
-                     {
-                         sum += drop.getChance();
-                         
-                         if (sum >= randomIndex) // drop this item and exit the function
-                         {
-                             // Get min and max Item quantity that can be dropped in one time
-                             min = (int)(drop.getMinDrop() * multiplicator);
-                             max = (int)(drop.getMaxDrop() * multiplicator);
-                             
-                             // Get the item quantity dropped
-                             if (min < max)
-                                 itemCount = Rnd.get(min, max);
-                             else
-                                 itemCount = min;
-                             
-                             if (itemCount > 0) 
-                                 return new RewardItem[]{new RewardItem(drop.getItemId(), itemCount)};
-                         }
-                     }
-                     return null;
-                 }
-                 case extended_items:
-                 {
-                     // We do multiple drops to realize high rates
-                     FastList<RewardItem> drops = new FastList<RewardItem>();
-                     
-                     // Check if the category has a dropchance bigger than the Maximum chance 
-                     while(categoryDropChance > L2DropData.MAX_CHANCE)
-                     {
-                         // ONE of the drops in this category is to be dropped now.  
-                         // The first item (in order of the list) whose contribution
-                         // to the sum makes the sum greater than the random number,
-                         // will be dropped.
-                         sum = 0;
-                         for (L2DropData drop : categoryDrops)
-                         {
-                             sum += drop.getChance();
-                             
-                             if (sum >= randomIndex) // drop this item and exit the function
-                             {
-                                 // Get min and max Item quantity that can be dropped in one time
-                                 min = drop.getMinDrop();
-                                 max = drop.getMaxDrop();
-                                 
-                                 // Get the item quantity dropped
-                                 if (min < max)
-                                     itemCount = Rnd.get(min, max);
-                                 else
-                                     itemCount = min;
-                                 
-                                 if (itemCount > 0)
-                                 {
-                                     drops.add(new RewardItem(drop.getItemId(), itemCount));
-                                     break;
-                                 }
-                             }
-                         }
-                         
-                         categoryDropChance -= L2DropData.MAX_CHANCE;
-                         
-                         // Calculate a new randomIndex to keep it random ;)
-                         randomIndex = Rnd.get(baseCategoryDropChance);
-                     }
-                     
-                     // Check if an Item from this category must be dropped
-                     if (Rnd.get(L2DropData.MAX_CHANCE) < categoryDropChance)
-                     {
-                         // ONE of the drops in this category is to be dropped now.  
-                         // The first item (in order of the list) whose contribution
-                         // to the sum makes the sum greater than the random number,
-                         // will be dropped.
-                         sum = 0;
-                         for (L2DropData drop : categoryDrops)
-                         {
-                             sum += drop.getChance();
-                             
-                             if (sum >= randomIndex) // drop this item and exit the function
-                             {
-                                 // Get min and max Item quantity that can be dropped in one time
-                                 min = drop.getMinDrop();
-                                 max = drop.getMaxDrop();
-                                 
-                                 // Get the item quantity dropped
-                                 if (min < max)
-                                     itemCount = Rnd.get(min, max);
-                                 else
-                                     itemCount = min;
-                                 
-                                 if (itemCount > 0)
-                                 {
-                                     drops.add(new RewardItem(drop.getItemId(), itemCount));
-                                     break;
-                                 }
-                             }
-                         }
-                     }
-                     
-                     if(drops.size() > 0)
-                         return drops.toArray(new RewardItem[drops.size()]);
-                     else
-                         return null;
-                 }
+                     if (itemCount > 0) 
+                         return new RewardItem(drop.getItemId(), itemCount);
+               }
              }
          }
          return null;
@@ -1282,6 +1137,8 @@ public class L2Attackable extends L2NpcInstance
       */
      public void doItemDrop(L2Character lastAttacker)
      {
+         int DroppedCategery2=0;
+         int DroppedCategory3=0;
          L2PcInstance player = null;
          if (lastAttacker instanceof L2PcInstance) player = (L2PcInstance)lastAttacker;
          else if (lastAttacker instanceof L2Summon) player = ((L2Summon)lastAttacker).getOwner();
@@ -1305,9 +1162,12 @@ public class L2Attackable extends L2NpcInstance
          for (L2DropData drop : drops)
          {
              if (drop == null) continue;
-
+             if( drop.getCategory() == 2 && DroppedCategery2 >= Config.CATEGORY2_DROP_LIMIT) continue;
+             if( drop.getCategory() == 3 && DroppedCategory3 >= Config.CATEGORY3_DROP_LIMIT) continue;
              RewardItem item = calculateRewardItem(player, drop, levelModifier);
              if (item == null) continue;
+             if( drop.getCategory() == 2 ) DroppedCategery2++;
+             if( drop.getCategory() == 3 ) DroppedCategory3++;
              
              if (drop.isSweep())
              {
@@ -1335,41 +1195,7 @@ public class L2Attackable extends L2NpcInstance
                      broadcastPacket(sm);
                  }
              }
-         }
-         
-         //TODO: if (!ZaricheDropped()) or smth like that so 
-         if (Rnd.get(100000) <= Config.ZARICHE_DROP_RATE)
-         {
-        	 Connection con = null;
-        	 try
-        	 {
-        		 con = L2DatabaseFactory.getInstance().getConnection();
-        		 PreparedStatement stmt = con.prepareStatement("SELECT COUNT(item_id) AS cnt FROM items WHERE item_id = '8190'");
-        		 ResultSet res = stmt.executeQuery();
-        		 while (res.next())
-        		 {
-        			 int rowcount = res.getInt(1);
-        			 
-        			 if ((rowcount==0))
-        			 {
-        				 RewardItem item = new RewardItem(8190, 1);
-        				 DropItem(player, item);
-        				 Announcements.getInstance().announceToAll("Zariche has been dropped!!");
-        				 _log.warning("Zariche has been dropped!");
-            		 	}
-        		}
-        		res.close();
-        		stmt.close();
-        	}
-        	catch (SQLException e)
-        	{
-        		_log.warning("Error found in Zariche check: " +e);
-        	}
-        	finally
-        	{
-            		try {con.close();} catch (Exception e) {}
-            	}
-         }
+         }        
 
          if (ZoneManager.getInstance().checkIfInNoobieZone(player) || !Config.HERB_DROP_ONLY_IN_NOOBIE_ZONE)
          {
@@ -1399,32 +1225,27 @@ public class L2Attackable extends L2NpcInstance
              }
          }
 
-         if (!isSeeded())
+         // Check the drop of Zariche
+         ZaricheManager.getInstance().checkDrop(this, player);
+         
+         if (!isSeeded() && Config.CATEGORIZE_DROPS)
          {
-           RewardItem[] items = calculateCategorizedRewardItem(player, getTemplate().getFullDropData(), levelModifier);
-           if (items != null)
+           RewardItem item = calculateCategorizedRewardItem(player, getTemplate().getDropData(), levelModifier, 1);
+           if (item != null)
            {
-               for(RewardItem item : items)
-               {
-                 if (Config.DEBUG) _log.fine("Item id to drop: " + item.getItemId() + " amount: " + item.getCount());
-                 
+                if (Config.DEBUG) _log.fine("Item id to drop: " + item.getItemId() + " amount: " + item.getCount());
                  // Check if the autoLoot mode is active
                  if (Config.AUTO_LOOT) player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
                  else DropItem(player, item); // drop the item on the ground
-               }
-           }
-           items = calculateCategorizedRewardItem(player, getTemplate().getMiscDropData(), levelModifier);
-           if (items != null)
+            }
+           item = calculateCategorizedRewardItem(player, getTemplate().getDropData(), levelModifier, 2);
+           if (item != null)
            {
-               for(RewardItem item : items)
-               {
                  if (Config.DEBUG) _log.fine("Item id to drop: " + item.getItemId() + " amount: " + item.getCount());
-                 
                  // Check if the autoLoot mode is active
                  if (Config.AUTO_LOOT) player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
                  else DropItem(player, item); // drop the item on the ground
-               }
-           }
+            }
          }
          
          // Set the table _sweepItems of this L2Attackable
@@ -1463,7 +1284,8 @@ public class L2Attackable extends L2NpcInstance
          // Go through DateDrop of EventDroplist allNpcDateDrops within the date range
          for (DateDrop drop : EventDroplist.getInstance().getAllDrops())
          {
-             if (Rnd.get(L2DropData.MAX_CHANCE) < drop.chance)
+             //if (Rnd.get(L2DropData.MAX_CHANCE) < drop.chance)
+             if (RandomIntGenerator.getInstance().getRnd() < drop.chance) 
              {
                  RewardItem item = new RewardItem(drop.items[Rnd.get(drop.items.length)], Rnd.get(drop.min, drop.max));
                  if (Config.AUTO_LOOT) player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
@@ -1499,6 +1321,11 @@ public class L2Attackable extends L2NpcInstance
                  break;
          }
          return ditem;
+     }
+     
+     public L2ItemInstance DropItem(L2PcInstance lastAttacker, int itemId, int itemCount)
+     {
+         return DropItem(lastAttacker, new RewardItem(itemId, itemCount));
      }
      
     /**
@@ -2056,8 +1883,7 @@ public class L2Attackable extends L2NpcInstance
 
         // setting up champion mobs
         if (( this instanceof L2MonsterInstance )&&(Config.CHAMPION_FREQUENCY > 0)) {
-            Random rand = new Random();
-            if (rand.nextInt(Config.CHAMPION_FREQUENCY)==0) {
+            if (RandomIntGenerator.getInstance().getRnd()*0.1 <= Config.CHAMPION_FREQUENCY) {
                 this.setChampion(true);
             }
         }

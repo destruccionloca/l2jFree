@@ -402,6 +402,12 @@ public class Olympiad
             return false;
         }
         
+        if (noble.isZaricheEquiped())
+        {
+            noble.sendMessage("You can't participate to Olympiad while holding Zariche.");
+            return false;
+        }
+        
         if (!noble.isNoble())
         {
             sm = new SystemMessage(SystemMessage.ONLY_NOBLESS_CAN_PARTICIPATE_IN_THE_OLYMPIAD);
