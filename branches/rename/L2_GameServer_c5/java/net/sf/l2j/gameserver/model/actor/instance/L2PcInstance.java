@@ -74,6 +74,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
