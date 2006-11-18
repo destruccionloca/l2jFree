@@ -3566,6 +3566,11 @@ public final class L2PcInstance extends L2PlayableInstance
         // Kill the L2PcInstance
         super.doDie(killer);
 
+        if (isCursedWeaponEquiped())
+        {
+            CursedWeaponsManager.getInstance().drop(_cursedWeaponEquipedId, killer);
+        }
+
         if (killer != null)
         {
             L2PcInstance pk = null;
@@ -3589,77 +3594,68 @@ public final class L2PcInstance extends L2PlayableInstance
                         sendMessage("You will be revived and teleported to team spot in 20 seconds!");
                         ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
                         {
-				public void run()
-				{
-					doRevive();
-					teleToLocation(TvT._teamsX.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsY.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsZ.get(TvT._teams.indexOf(_teamNameTvT)));
-				}
-			}, 20000);
+            				public void run()
+            				{
+            					doRevive();
+            					teleToLocation(TvT._teamsX.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsY.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsZ.get(TvT._teams.indexOf(_teamNameTvT)));
+            				}
+            			}, 20000);
                     }
                 }
-
-		else if (((L2PcInstance)killer)._inEventCTF && _inEventCTF)
-		{
-			if (CTF._teleport || CTF._started)
-			{
-				sendMessage("You will be revived and teleported to team flag in 20 seconds!");
-					
-				if (_haveFlagCTF)
-				{
-					CTF._flagsTaken.set(CTF._teams.indexOf(_teamNameHaveFlagCTF), false);
-					CTF.spawnFlag(_teamNameHaveFlagCTF);
-					setTitle(_originalTitleCTF);
-					broadcastUserInfo();
-					_haveFlagCTF = false;
-					Announcements.getInstance().announceToAll(CTF._eventName + "(CTF): " + _teamNameHaveFlagCTF + "'s flag returned.");
-				}
-
-				ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-				{
-					public void run()
-					{
-						doRevive();
-						teleToLocation(CTF._flagsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsZ.get(CTF._teams.indexOf(_teamNameCTF)));
-					}
-				}, 20000);
-			}
-		}
-
-            if (isCursedWeaponEquiped())
+        		else if (((L2PcInstance)killer)._inEventCTF && _inEventCTF)
+        		{
+        			if (CTF._teleport || CTF._started)
+        			{
+        				sendMessage("You will be revived and teleported to team flag in 20 seconds!");
+        					
+        				if (_haveFlagCTF)
+        				{
+        					CTF._flagsTaken.set(CTF._teams.indexOf(_teamNameHaveFlagCTF), false);
+        					CTF.spawnFlag(_teamNameHaveFlagCTF);
+        					setTitle(_originalTitleCTF);
+        					broadcastUserInfo();
+        					_haveFlagCTF = false;
+        					Announcements.getInstance().announceToAll(CTF._eventName + "(CTF): " + _teamNameHaveFlagCTF + "'s flag returned.");
+        				}
+        
+        				ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+        				{
+        					public void run()
+        					{
+        						doRevive();
+        						teleToLocation(CTF._flagsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsZ.get(CTF._teams.indexOf(_teamNameCTF)));
+        					}
+        				}, 20000);
+        			}
+        		}
+            if (!ArenaManager.getInstance().checkIfInZone(this) && !JailManager.getInstance().checkIfInZone(this))
             {
-                CursedWeaponsManager.getInstance().drop(_cursedWeaponEquipedId, killer);
-            }
-            else
-            {                
-                if (!ArenaManager.getInstance().checkIfInZone(this) && !JailManager.getInstance().checkIfInZone(this))
+                boolean isKillerPc = (killer instanceof L2PcInstance);
+                if (isKillerPc && ((L2PcInstance)killer).getClan() != null && getClan() != null && _clan.isAtWarWith(((L2PcInstance) killer).getClanId()) && _clan.isAttackedBy(((L2PcInstance) killer).getClanId()))
                 {
-                    boolean isKillerPc = (killer instanceof L2PcInstance);
-                    if (isKillerPc && ((L2PcInstance)killer).getClan() != null && getClan() != null && _clan.isAtWarWith(((L2PcInstance) killer).getClanId()) && _clan.isAttackedBy(((L2PcInstance) killer).getClanId()))
+                    ((L2PcInstance) killer).getClan().setReputationScore(((L2PcInstance) killer).getClan().getReputationScore()-1);
+                    _clan.setReputationScore(_clan.getReputationScore()+1);
+                }
+                if (pk == null || !pk.isCursedWeaponEquiped())
+                    if (Config.ALT_GAME_DELEVEL)
                     {
-                        ((L2PcInstance) killer).getClan().setReputationScore(((L2PcInstance) killer).getClan().getReputationScore()-1);
-                        _clan.setReputationScore(_clan.getReputationScore()+1);
-                    }
-                    if (pk == null || !pk.isCursedWeaponEquiped())
-                        if (Config.ALT_GAME_DELEVEL)
-                        {
-                            // Reduce the Experience of the L2PcInstance in function of the calculated Death Penalty
-                            // NOTE: deathPenalty +- Exp will update karma
-                            if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 4)
-                                deathPenalty( (pk != null && this.getClan() != null && pk.getClan() != null && pk.getClan().isAtWarWith(this.getClanId())) );
-                            onDieDropItem(killer); // Check if any item should be dropped
-                        }
-                        else onDieUpdateKarma(); // Update karma if delevel is not allowed
+                        // Reduce the Experience of the L2PcInstance in function of the calculated Death Penalty
+                        // NOTE: deathPenalty +- Exp will update karma
+                        if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 4)
+                            deathPenalty( (pk != null && this.getClan() != null && pk.getClan() != null && pk.getClan().isAtWarWith(this.getClanId())) );
+                        onDieDropItem(killer); // Check if any item should be dropped
                     }
                     else onDieUpdateKarma(); // Update karma if delevel is not allowed
-                    
-                    if(pk != null) {
-                        L2Clan killerClan = pk.getClan();
-                        if (killerClan.isAtWarWith(this.getClanId()) && getClan().isAttackedBy(killerClan.getClanId()) && getClan().getReputationScore() > 0)
-                        {
-                            int score = getClan().getReputationScore();
-                            getClan().setReputationScore(score-score/20); //take 5% of clans rep score (this is totally custom :))
-                            killerClan.setReputationScore(killerClan.getReputationScore()+score/20); //give those 5% to anotherClan :)
-                        }
+                }
+                else onDieUpdateKarma(); // Update karma if delevel is not allowed
+                
+                if(pk != null) {
+                    L2Clan killerClan = pk.getClan();
+                    if (killerClan.isAtWarWith(this.getClanId()) && getClan().isAttackedBy(killerClan.getClanId()) && getClan().getReputationScore() > 0)
+                    {
+                        int score = getClan().getReputationScore();
+                        getClan().setReputationScore(score-score/20); //take 5% of clans rep score (this is totally custom :))
+                        killerClan.setReputationScore(killerClan.getReputationScore()+score/20); //give those 5% to anotherClan :)
                     }
                 }
             }

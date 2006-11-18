@@ -174,7 +174,6 @@ public class MapRegionTable
         _pointsWithKarmas[15][0] = 147419;
         _pointsWithKarmas[15][1] = -64980;
         _pointsWithKarmas[15][2] =  -3457;
-        
         //TODO@ add shuttgard point [Luno]        
 	}
 	
@@ -221,7 +220,7 @@ public class MapRegionTable
             case 13: nearestTown = "Heine"; break;
             case 14: nearestTown = "Rune Castle Town"; break;
             case 15: nearestTown = "Goddard"; break;
-            case 16: nearestTown = "Scuttgart"; break;
+            case 16: nearestTown = "Schuttgart"; break;
             default: nearestTown = "Aden Castle Town"; break;
             // TODO@ add shuttgard [Luno]
         }
