@@ -122,8 +122,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
             levelUpClan(player, player.getClanId());
         }
         else if (command.startsWith("Subclass"))
-        {
-            int cmdChoice = Integer.parseInt(command.substring(9, 10).trim());
+        { 
+        	int cmdChoice = Integer.parseInt(command.substring(9, 10).trim());
 
             // Subclasses may not be changed while a skill is in use.
             if (player.isCastingNow() || player.isAllSkillsDisabled())

@@ -180,18 +180,14 @@ public class UseItem extends ClientBasePacket
                 // Equip or unEquip
                 L2ItemInstance[] items = null;
                 boolean isEquiped = item.isEquipped();
-                if (isEquiped)
-                   items = activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
-                else
-                   items = activeChar.getInventory().equipItemAndRecord(item);
-                activeChar.refreshExpertisePenalty();
-                
-                if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
-                    activeChar.CheckIfWeaponIsAllowed();
-
-                // Messages
                 SystemMessage sm = null;
-                if (isEquiped)
+	            L2ItemInstance old = activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
+	            if (old == null)
+	            	old = activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
+
+	            activeChar.checkSSMatch(item, old);
+
+	            if (isEquiped)
                 {
                    if (item.getEnchantLevel() > 0)
                    {
@@ -205,8 +201,11 @@ public class UseItem extends ClientBasePacket
                        sm.addItemName(itemId);
                    }
                    activeChar.sendPacket(sm);
-               } else
-               {
+		            
+                	items = activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
+                }
+                else
+                {
                    if (item.getEnchantLevel() > 0)
                    {
                        sm = new SystemMessage(SystemMessage.S1_S2_EQUIPPED);
@@ -219,8 +218,15 @@ public class UseItem extends ClientBasePacket
                        sm.addItemName(itemId);
                    }
                    activeChar.sendPacket(sm);
+					
+					items = activeChar.getInventory().equipItemAndRecord(item);
                 }
                 sm = null;
+
+                activeChar.refreshExpertisePenalty();
+                
+				if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
+					activeChar.CheckIfWeaponIsAllowed();
 
                 InventoryUpdate iu = new InventoryUpdate();
                 iu.addItems(Arrays.asList(items));

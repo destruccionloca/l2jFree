@@ -153,14 +153,15 @@ public class Mdam implements ISkillHandler
                     + skill.getName() + "(" + skill.getId() + ") to " + name, "damage_mdam");
             }
 
-            boolean abort = Formulas.getInstance().calcAtkBreak(target, target.getStat().getAtkCancel());
-            if (abort)
-            {
-                target.breakAttack();
-                target.breakCast();
-            }
             if (damage > 0)
             {
+                // Manage attack or cast break of the target (calculating rate, sending message...)
+                if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
+                {
+                    target.breakAttack();
+                    target.breakCast();
+                }
+
                 if (activeChar instanceof L2PcInstance)
                 {
                     if (mcrit) activeChar.sendPacket(new SystemMessage(1280));
