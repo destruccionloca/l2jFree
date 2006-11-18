@@ -325,6 +325,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /** ae mother tree */
     private boolean _inMotherTreeZone;
+    
+    private boolean _inClanHall;
 
     /** The number of recommandation obtained by the L2PcInstance */
     private int _recomHave; // how much I was recommended by others
@@ -1400,6 +1402,16 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         return _inMotherTreeZone;
     }
+    
+    public boolean getIsInClanHall()
+    {
+        return _inClanHall;
+    }
+    
+    public void setIsInClanHall(boolean inCH)
+    {
+        _inClanHall = inCH;
+    }
 
     /**
      * Update the _inMotherTreeZone flag and send a message to player.<br><br>
@@ -1449,6 +1461,11 @@ public final class L2PcInstance extends L2PlayableInstance
         setInMotherTreeZone(ZoneManager.getInstance().checkIfInZone(
                                                                     ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.MotherTree),
                                                                     this));
+    }
+    
+    public void revalidateInClanHall()
+    {
+        setIsInClanHall((ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ClanHall),this)) && (ClanHallManager.getInstance().getClanHall(getX(), getY()).getOwnerId() == getClanId()));
     }
 
     public void revalidateZone()

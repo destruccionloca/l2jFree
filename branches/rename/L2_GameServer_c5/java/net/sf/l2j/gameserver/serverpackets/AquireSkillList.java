@@ -50,30 +50,30 @@ public class AquireSkillList extends ServerBasePacket
     
     private static final String _S__A3_AQUIRESKILLLIST = "[S] 8a AquireSkillList";
     private List<Skill> _skills;
-    private boolean _fishingskills;
+    private int _skillsType;
     
 	private class Skill
     {
 		public int _id;
 		public int _nextLevel;
 		public int _maxLevel;
-		public int _spCost;
+		public int _Cost;
 		public int _requirements;
         
-		private Skill(int id, int nextLevel, int maxLevel, int spCost, int requirements)
+		private Skill(int id, int nextLevel, int maxLevel, int Cost, int requirements)
         {
 			_id = id;
 			_nextLevel = nextLevel;
 			_maxLevel = maxLevel;
-			_spCost = spCost;
+			_Cost = Cost;
 			_requirements = requirements;
         }
     }
 
-    public AquireSkillList(boolean FishingSkill)
+    public AquireSkillList(int skillType)
     {
         _skills = new FastList<Skill>();
-        _fishingskills = FishingSkill;
+        _skillsType = skillType;
     }   
     
     public void addSkill(int id, int nextLevel, int maxLevel, int spCost, int requirements)
@@ -89,7 +89,7 @@ public class AquireSkillList extends ServerBasePacket
     final void writeImpl()
     {
         writeC(0x8a);
-        writeD(_fishingskills ? 1 : 0);   //c4
+        writeD(_skillsType);   //c4
         writeD(_skills.size());
 
         for (Skill temp : _skills)
@@ -97,7 +97,7 @@ public class AquireSkillList extends ServerBasePacket
 			writeD(temp._id);
 			writeD(temp._nextLevel);
 			writeD(temp._maxLevel);
-			writeD(temp._spCost);
+			writeD(temp._Cost);
 			writeD(temp._requirements);
         }
     }

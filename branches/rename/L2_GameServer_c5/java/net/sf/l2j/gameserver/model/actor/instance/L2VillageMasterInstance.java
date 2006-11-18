@@ -121,6 +121,10 @@ public final class L2VillageMasterInstance extends L2FolkInstance
         {
             levelUpClan(player, player.getClanId());
         }
+        else if (actualCommand.equalsIgnoreCase("learn_clan_skills"))
+        {
+            showPledgeSkillList(player);
+        }
         else if (command.startsWith("Subclass"))
         { 
         	int cmdChoice = Integer.parseInt(command.substring(9, 10).trim());
@@ -998,6 +1002,55 @@ public final class L2VillageMasterInstance extends L2FolkInstance
         }
 
         return availSubs;
+    }
+    
+    /**
+     * this displays PledgeSkillList to the player.
+     * @param player
+     */
+    public void showPledgeSkillList(L2PcInstance player)
+    {
+        if (Config.DEBUG) 
+            _log.fine("SkillList activated on: "+getObjectId());
+        
+        L2PledgeSkillLearn[] skills = SkillTreeTable.getInstance().getAvailablePledgeSkills(player);
+        AquireSkillList asl = new AquireSkillList(0);
+        int counts = 0;
+        
+        for (L2PledgeSkillLearn s: skills)
+        {
+            int cost = s.getRepCost();
+            counts++;
+            
+            asl.addSkill(s.getId(), s.getLevel(), s.getLevel(), cost, 0);
+        }
+        
+        if (counts == 0)
+        {
+            NpcHtmlMessage html = new NpcHtmlMessage(1);
+            
+            if (player.getClan().getLevel() < 8)
+            {
+                SystemMessage sm = new SystemMessage(607);
+                sm.addNumber(player.getClan().getLevel()+1);
+                player.sendPacket(sm);
+            }
+            else
+            {
+                TextBuilder sb = new TextBuilder();
+                sb.append("<html><head><body>");
+                sb.append("You've learned all skills available for your Clan.<br>");
+                sb.append("</body></html>");
+                html.setHtml(sb.toString());
+                player.sendPacket(html);
+            }
+        } 
+        else 
+        {
+            player.sendPacket(asl);
+        }
+        
+        player.sendPacket(new ActionFailed());
     }
 
     private final String formatClassForDisplay(PlayerClass className)

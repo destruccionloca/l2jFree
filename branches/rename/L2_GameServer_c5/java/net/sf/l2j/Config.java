@@ -907,6 +907,36 @@ public final class Config {
     public static String TVT_EVEN_TEAMS;
     public static String CTF_EVEN_TEAMS;
     
+    /** Clan Hall function related configs*/
+    public static long CH_TELE_FEE_RATIO;
+    public static int CH_TELE1_FEE;
+    public static int CH_TELE2_FEE;
+    public static int CH_TELE3_FEE;
+    public static long CH_ITEM_FEE_RATIO;
+    public static int CH_ITEM1_FEE;
+    public static int CH_ITEM2_FEE;
+    public static int CH_ITEM3_FEE;
+    public static long CH_MPREG_FEE_RATIO;
+    public static int CH_MPREG1_FEE;
+    public static int CH_MPREG2_FEE;
+    public static int CH_MPREG3_FEE;
+    public static long CH_HPREG_FEE_RATIO;
+    public static int CH_HPREG1_FEE;
+    public static int CH_HPREG2_FEE;
+    public static int CH_HPREG3_FEE;
+    public static int CH_HPREG4_FEE;
+    public static long CH_EXPREG_FEE_RATIO;
+    public static int CH_EXPREG1_FEE;
+    public static int CH_EXPREG2_FEE;
+    public static int CH_EXPREG3_FEE;
+    public static int CH_EXPREG4_FEE;
+    public static long CH_SUPPORT_FEE_RATIO;
+    public static int CH_SUPPORT1_FEE;
+    public static int CH_SUPPORT2_FEE;
+    public static int CH_SUPPORT3_FEE;
+    public static int CH_SUPPORT4_FEE;
+    public static int CH_SUPPORT5_FEE;
+    
 	public static void load()
 	{
 			_log.info("loading gameserver config");
@@ -1428,6 +1458,32 @@ public final class Config {
                 ALT_GAME_KARMA_PLAYER_CAN_TELEPORT                  = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTeleport", "true"));
                 ALT_GAME_KARMA_PLAYER_CAN_TRADE                     = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTrade", "true"));
                 ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE             = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseWareHouse", "true"));
+                CH_TELE_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallTeleportFunctionFeeRation", "86400000"));
+                CH_TELE1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallTeleportFunctionFeeLvl1", "86400000"));
+                CH_TELE2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallTeleportFunctionFeeLvl2", "86400000"));
+                CH_TELE3_FEE                    = Integer.valueOf(altSettings.getProperty("ClanHallTeleportFunctionFeeLvl3", "86400000"));
+                CH_SUPPORT_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallSupportFunctionFeeRation", "86400000"));
+                CH_SUPPORT1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl1", "86400000"));
+                CH_SUPPORT2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl2", "86400000"));
+                CH_SUPPORT3_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl3", "86400000"));
+                CH_SUPPORT4_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl4", "86400000"));
+                CH_SUPPORT5_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl5", "86400000"));
+                CH_MPREG_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallMpRegenerationFunctionFeeRation", "86400000"));
+                CH_MPREG1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallMpRegenerationFeeLvl1", "86400000"));
+                CH_MPREG2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallMpRegenerationFeeLvl2", "86400000"));
+                CH_MPREG3_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallMpRegenerationFeeLvl3", "86400000"));
+                CH_HPREG_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallHpRegenerationFunctionFeeRation", "86400000"));
+                CH_HPREG1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallHpRegenerationFeeLvl1", "86400000"));
+                CH_HPREG2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallHpRegenerationFeeLvl2", "86400000"));
+                CH_HPREG3_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallHpRegenerationFeeLvl3", "86400000"));
+                CH_EXPREG_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallExpRegenerationFunctionFeeRation", "86400000"));
+                CH_EXPREG1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallExpRegenerationFeeLvl1", "86400000"));
+                CH_EXPREG2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallExpRegenerationFeeLvl2", "86400000"));
+                CH_EXPREG3_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallExpRegenerationFeeLvl3", "86400000"));
+                CH_ITEM_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallItemCreationFunctionFeeRation", "86400000"));
+                CH_ITEM1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallItemCreationFunctionFeeLvl1", "86400000"));
+                CH_ITEM2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallItemCreationFunctionFeeLvl2", "86400000"));
+                CH_ITEM3_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallItemCreationFunctionFeeLvl3", "86400000"));
                 ALT_GAME_FREE_TELEPORT                              = Boolean.parseBoolean(altSettings.getProperty("AltFreeTeleporting", "False"));
                 ALT_GAME_SUBCLASS_WITHOUT_QUESTS                    = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
                 ALT_GAME_VIEWNPC                    				= Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
