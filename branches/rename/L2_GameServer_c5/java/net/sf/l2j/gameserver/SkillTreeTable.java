@@ -468,7 +468,7 @@ public class SkillTreeTable
         
         for (L2PledgeSkillLearn temp : skills)
         {           
-            if (temp.getBaseLevel() <= cha.getLevel())
+            if (temp.getBaseLevel() <= cha.getClan().getLevel())
             {
                 boolean knownSkill = false;
             

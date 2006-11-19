@@ -79,7 +79,6 @@ import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
-import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.BlockList;
@@ -166,7 +165,6 @@ import net.sf.l2j.gameserver.serverpackets.Snoop;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.StopMove;
-import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.TargetSelected;
 import net.sf.l2j.gameserver.serverpackets.TradeStart;
@@ -1411,6 +1409,8 @@ public final class L2PcInstance extends L2PlayableInstance
     
     public void setIsInClanHall(boolean inCH)
     {
+        if (isGM() && inCH && !_inClanHall) sendMessage("You have entered your clan hall");
+        else if (isGM() && !inCH && _inClanHall) sendMessage("You have left your clan hall");
         _inClanHall = inCH;
     }
 
@@ -1473,6 +1473,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         revalidateInPvpZone();
         revalidateInMotherTreeZone();
+        revalidateInClanHall();
     }
 
     /**

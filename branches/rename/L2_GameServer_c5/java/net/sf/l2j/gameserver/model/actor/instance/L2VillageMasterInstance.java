@@ -436,6 +436,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     public void onAction(L2PcInstance player)
     {
         if (Config.DEBUG) _log.fine("Village Master activated");
+        player.setLastFolkNPC(this);
         super.onAction(player);
     }
 
@@ -1014,10 +1015,10 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     public void showPledgeSkillList(L2PcInstance player)
     {
         if (Config.DEBUG) 
-            _log.fine("SkillList activated on: "+getObjectId());
+            _log.fine("PledgeSkillList activated on: "+getObjectId());
         
         L2PledgeSkillLearn[] skills = SkillTreeTable.getInstance().getAvailablePledgeSkills(player);
-        AquireSkillList asl = new AquireSkillList(0);
+        AquireSkillList asl = new AquireSkillList(2);
         int counts = 0;
         
         for (L2PledgeSkillLearn s: skills)

@@ -398,8 +398,8 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
             }
             else if (actualCommand.equalsIgnoreCase("goto"))
             {
-                if (st.countTokens() <= 0) {return;}
-                int whereTo = Integer.parseInt(st.nextToken());
+                player.sendMessage("The bypass reading works");
+                int whereTo = Integer.parseInt(val);
                 doTeleport(player, whereTo);
                 return;
             }
@@ -488,9 +488,11 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
     
     private void doTeleport(L2PcInstance player, int val)
     {
+        player.sendMessage("doTeleport(L2PcInstance player, int val) is called");
         L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(val);
         if (list != null)
         {
+            player.sendMessage("(list != null)");
             //you cannot teleport to village that is in siege Not sure about this one though
             if (SiegeManager.getInstance().checkIfInZone(list.getLocX(), list.getLocY()))
             {
@@ -499,8 +501,9 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
             }
             else if(player.reduceAdena("Teleport", list.getPrice(), this, true))
             {
-                                if (Config.DEBUG) _log.fine("Teleporting player "+player.getName()+" for CH to new location: "+list.getLocX()+":"+list.getLocY()+":"+list.getLocZ());
-                                player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ());
+                player.sendMessage("(player.reduceAdena(\"Teleport\", list.getPrice(), this, true)");
+                /*if (Config.DEBUG) */_log.fine("Teleporting player "+player.getName()+" for CH to new location: "+list.getLocX()+":"+list.getLocY()+":"+list.getLocZ());
+                player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ());
             }
         }
         else
