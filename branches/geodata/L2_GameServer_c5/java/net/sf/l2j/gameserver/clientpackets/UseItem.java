@@ -100,6 +100,7 @@ public class UseItem extends ClientBasePacket
                 // You cannot do anything else while fishing                
                 SystemMessage sm = new SystemMessage(1471);                
                 getClient().getActiveChar().sendPacket(sm);
+                sm = null;
                 return;                
             }
             
@@ -109,6 +110,7 @@ public class UseItem extends ClientBasePacket
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_CANNOT_BE_USED);
 				sm.addItemName(itemId);
                 getClient().getActiveChar().sendPacket(sm);
+                sm = null;
                 return;
             }
             
@@ -119,6 +121,7 @@ public class UseItem extends ClientBasePacket
                 SystemMessage sm = new SystemMessage(600); // You cannot equip a pet item.
 				sm.addItemName(itemId);
                 getClient().getActiveChar().sendPacket(sm);
+                sm = null;
                 return;
             }
             
@@ -147,6 +150,7 @@ public class UseItem extends ClientBasePacket
                     return;
                 }
                 
+                /* Since c5 you can equip weapon again
                 // Don't allow weapon/shield equipment if wearing formal wear
                 if (activeChar.isWearingFormalWear()
                 	&& (bodyPart == L2Item.SLOT_LR_HAND 
@@ -158,42 +162,71 @@ public class UseItem extends ClientBasePacket
                         return;
 
                 }
-                
-//              Don't allow weapon/shield equipment if zariche is equiped
-                if (activeChar.getZaricheEquiped()
-                    && (item.getItem().getBodyPart() == L2Item.SLOT_LR_HAND 
-                            || item.getItem().getBodyPart() == L2Item.SLOT_L_HAND 
-                            || item.getItem().getBodyPart() == L2Item.SLOT_R_HAND))
+                */
+                // Don't allow weapon/shield equipment if a cursed weapon is equiped
+                if (activeChar.isCursedWeaponEquiped()
+                       && ((bodyPart == L2Item.SLOT_LR_HAND 
+                               || bodyPart == L2Item.SLOT_L_HAND 
+                               || bodyPart == L2Item.SLOT_R_HAND)
+                       || itemId == 6408)) // Don't allow to put formal wear
                 {
-                        SystemMessage sm = new SystemMessage(SystemMessage.CANNOT_USE_ITEMS_SKILLS_WITH_FORMALWEAR); //TODO should be changed to right msg
-                        activeChar.sendPacket(sm);
-                        return;
-
+                   return;
                 }
                 
                 activeChar.abortCast();
                 if (activeChar.getAI().getIntention() == CtrlIntention.AI_INTENTION_CAST)
                     activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
                     
-                L2ItemInstance[] items = activeChar.getInventory().equipItemAndRecord(item);
-                activeChar.refreshExpertisePenalty();
-                
-                if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
-                    activeChar.CheckIfWeaponIsAllowed();
+                // Equip or unEquip
+                L2ItemInstance[] items = null;
+                boolean isEquiped = item.isEquipped();
+                SystemMessage sm = null;
+	            L2ItemInstance old = activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
+	            if (old == null)
+	            	old = activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
 
-                if (item.getEnchantLevel() > 0)
+	            activeChar.checkSSMatch(item, old);
+
+	            if (isEquiped)
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_S2_EQUIPPED);
-                    sm.addNumber(item.getEnchantLevel());
-					sm.addItemName(itemId);
-                    activeChar.sendPacket(sm);
+                   if (item.getEnchantLevel() > 0)
+                   {
+                       sm = new SystemMessage(SystemMessage.EQUIPMENT_S1_S2_REMOVED);
+                       sm.addNumber(item.getEnchantLevel());
+                       sm.addItemName(itemId);
+                   }
+                   else
+                   {
+                       sm = new SystemMessage(SystemMessage.S1_DISARMED);
+                       sm.addItemName(itemId);
+                   }
+                   activeChar.sendPacket(sm);
+		            
+                	items = activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
                 }
                 else
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_EQUIPPED);
-					sm.addItemName(itemId);
-                    activeChar.sendPacket(sm);
+                   if (item.getEnchantLevel() > 0)
+                   {
+                       sm = new SystemMessage(SystemMessage.S1_S2_EQUIPPED);
+                       sm.addNumber(item.getEnchantLevel());
+                       sm.addItemName(itemId);
+                   }
+                   else
+                   {
+                       sm = new SystemMessage(SystemMessage.S1_EQUIPPED);
+                       sm.addItemName(itemId);
+                   }
+                   activeChar.sendPacket(sm);
+					
+					items = activeChar.getInventory().equipItemAndRecord(item);
                 }
+                sm = null;
+
+                activeChar.refreshExpertisePenalty();
+                
+				if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
+					activeChar.CheckIfWeaponIsAllowed();
 
                 InventoryUpdate iu = new InventoryUpdate();
                 iu.addItems(Arrays.asList(items));

@@ -95,6 +95,7 @@ public class RequestAnswerJoinPledge extends ClientBasePacket
 		        
 		        
 		        clan.broadcastToOnlineMembers(sm);
+                sm = null;
 		        
 		        // this activates the clan tab on the new member
 		        activeChar.sendPacket(new PledgeShowMemberListAll(clan, activeChar));
@@ -114,6 +115,7 @@ public class RequestAnswerJoinPledge extends ClientBasePacket
 			SystemMessage sm = new SystemMessage(SystemMessage.S1_REFUSED_TO_JOIN_CLAN);
 			sm.addString(activeChar.getName());
 			requestor.sendPacket(sm);
+            sm = null;
             activeChar.setPledgeType(0);
 		}
 		

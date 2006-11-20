@@ -27,9 +27,10 @@ import java.util.logging.Logger;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.model.L2EnchantSkillLearn;
+import net.sf.l2j.gameserver.model.L2PledgeSkillLearn;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2SkillLearn;
+import net.sf.l2j.gameserver.model.L2EnchantSkillLearn;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
 
@@ -47,6 +48,7 @@ public class SkillTreeTable
     private List<L2SkillLearn> _fishingSkillTrees; //all common skills (teached by Fisherman)
     private List<L2SkillLearn> _expandDwarfCraftSkillTrees; //list of special skill for dwarf (expand dwarf craft) learned by class teacher
     private List<L2EnchantSkillLearn> _enchantSkillTrees; //enchant skill list
+    private List<L2PledgeSkillLearn> _pledgeSkillTrees; //enchant skill list
     
     public static SkillTreeTable getInstance()
     {
@@ -254,6 +256,42 @@ public class SkillTreeTable
         {
             _log.severe("Error while creating enchant skill table: " + e);
         }
+        int count5   = 0;
+        try
+        {
+            _pledgeSkillTrees = new FastList<L2PledgeSkillLearn>();
+            
+            PreparedStatement statement = con.prepareStatement("SELECT skill_id, level, name, clan_lvl, repCost, itemId FROM pledge_skill_trees ORDER BY skill_id, level");
+            ResultSet skilltree4 = statement.executeQuery();
+        
+            int prevSkillId = -1;
+            
+            while (skilltree4.next())
+            {
+                int id = skilltree4.getInt("skill_id");
+                int lvl = skilltree4.getInt("level");
+                String name = skilltree4.getString("name");
+                int baseLvl = skilltree4.getInt("clan_lvl");
+                int sp = skilltree4.getInt("repCost");
+                int itemId = skilltree4.getInt("itemId");
+                                
+                if (prevSkillId != id)
+                    prevSkillId = id;
+            
+                L2PledgeSkillLearn skill = new L2PledgeSkillLearn(id, lvl, baseLvl, name, sp, itemId);
+                
+                _pledgeSkillTrees.add(skill);                    
+            }            
+        
+            skilltree4.close();
+            statement.close();
+            
+            count5 = _pledgeSkillTrees.size();
+        }
+        catch (Exception e)
+        {
+            _log.severe("Error while creating enchant skill table: " + e);
+        }
         finally 
         {
             try { con.close(); } catch (Exception e) {}
@@ -262,6 +300,7 @@ public class SkillTreeTable
         _log.config("FishingSkillTreeTable: Loaded " + count2 + " general skills.");
         _log.config("FishingSkillTreeTable: Loaded " + count3 + " dwarven skills.");
         _log.config("EnchantSkillTreeTable: Loaded " + count4 + " enchant skills.");
+        _log.config("PledgeSkillTreeTable: Loaded " + count5 + " pledge skills");
     }
     
     private Map<ClassId, List<L2SkillLearn>> getSkillTrees()
@@ -410,6 +449,52 @@ public class SkillTreeTable
         }
         //cha.sendMessage("loaded "+ result.size()+" enchant skills for this char(You)");
         return result.toArray(new L2EnchantSkillLearn[result.size()]);
+    }
+    
+    public L2PledgeSkillLearn[] getAvailablePledgeSkills(L2PcInstance cha)
+    {
+        List<L2PledgeSkillLearn> result = new FastList<L2PledgeSkillLearn>();
+        List<L2PledgeSkillLearn> skills = _pledgeSkillTrees;
+        
+        if (skills == null)
+        {
+            // the skilltree for this class is undefined, so we give an empty list
+
+            _log.warning("No clan skills defined!");
+            return new L2PledgeSkillLearn[0];
+        }
+        
+        L2Skill[] oldSkills = cha.getClan().getAllSkills();
+        
+        for (L2PledgeSkillLearn temp : skills)
+        {           
+            if (temp.getBaseLevel() <= cha.getClan().getLevel())
+            {
+                boolean knownSkill = false;
+            
+                for (int j = 0; j < oldSkills.length && !knownSkill; j++)
+                {
+                    if (oldSkills[j].getId() == temp.getId() )
+                    {
+                        knownSkill = true;
+            
+                        if ( oldSkills[j].getLevel() == temp.getLevel()-1)
+                        {
+                            // this is the next level of a skill that we know
+                            result.add(temp);
+                        }
+                    }
+                }
+                
+                if (!knownSkill && temp.getLevel() == 1)
+                {
+                    // this is a new skill
+                    result.add(temp);
+                }
+            }
+        }
+            
+        return result.toArray(new L2PledgeSkillLearn[result.size()]);
     }
     
     /**

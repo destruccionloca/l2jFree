@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.templates.L2Item;
 
 /**
  * This class ...
@@ -54,8 +55,6 @@ public class RequestUnEquipItem extends ClientBasePacket
 
 	void runImpl()
 	{
-        if (_slot == 16384 && getClient().getActiveChar().getZaricheEquiped())
-            return;
 		if (Config.DEBUG) 
             _log.fine("request unequip slot " + _slot);
         
@@ -63,6 +62,14 @@ public class RequestUnEquipItem extends ClientBasePacket
         
 		if (activeChar == null)
 		    return;
+        
+        // Prevent of unequiping a cursed weapon
+        if (_slot == L2Item.SLOT_LR_HAND && activeChar.isCursedWeaponEquiped())
+        {
+            // Message ?
+            activeChar.sendMessage("You cant unequip a cursed Weapon.");
+            return;
+        }
         
         // Prevent Stunned player to remove the weapon
         if (activeChar.isStunned() || activeChar.isSleeping())
@@ -82,6 +89,8 @@ public class RequestUnEquipItem extends ClientBasePacket
             if (unequiped[i].isWear())
                 return;
             
+            activeChar.checkSSMatch(null, unequiped[i]);
+			
 			iu.addModifiedItem(unequiped[i]);
 		}
         
@@ -111,6 +120,7 @@ public class RequestUnEquipItem extends ClientBasePacket
 	            sm.addItemName(unequiped[0].getItemId());
             }
             activeChar.sendPacket(sm);
+            sm = null;
 		}
 	}
 

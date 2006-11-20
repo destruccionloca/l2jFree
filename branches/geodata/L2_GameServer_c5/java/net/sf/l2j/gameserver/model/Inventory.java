@@ -174,7 +174,7 @@ public abstract class Inventory extends ItemContainer
     		getOwner().addStatFuncs(item.getStatFuncs(getOwner()));
     	}
     }
-	
+	/*
     final class FormalWearListener implements PaperdollListener
     {
         public void notifyUnequiped(int slot, L2ItemInstance item)
@@ -223,6 +223,7 @@ public abstract class Inventory extends ItemContainer
             }
         }
     }
+    */
     
     /**
      * Constructor of the inventory
@@ -233,7 +234,7 @@ public abstract class Inventory extends ItemContainer
 		_paperdollListeners = new FastList<PaperdollListener>();
 		addPaperdollListener(new AmmunationListener());
 		addPaperdollListener(new StatsListener());
-        addPaperdollListener(new FormalWearListener());
+//        addPaperdollListener(new FormalWearListener());
 	}
 	
 	protected abstract ItemLocation getEquipLocation();

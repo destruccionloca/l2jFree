@@ -117,7 +117,7 @@ public class PcKnownList extends PlayableKnownList
                 L2Summon summon = (L2Summon) object;
 
                 // Check if the L2PcInstance is the owner of the Pet
-                if (this.equals(summon.getOwner()))
+                if (getActiveChar().equals(summon.getOwner()))
                 {
                     getActiveChar().sendPacket(new PetInfo(summon));
                     if (summon instanceof L2PetInstance)
@@ -205,6 +205,7 @@ public class PcKnownList extends PlayableKnownList
     {
             if (!super.removeKnownObject(object)) return false;
         // Send Server-Client Packet DeleteObject to the L2PcInstance
+            if(getActiveChar().isOnline() == 1)
         getActiveChar().sendPacket(new DeleteObject(object));       	       
        if (Config.CHECK_KNOWN && object instanceof L2NpcInstance) getActiveChar().sendMessage("Removed NPC: "+((L2NpcInstance)object).getName());
         return true;

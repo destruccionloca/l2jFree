@@ -30,9 +30,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
-import net.sf.l2j.gameserver.model.entity.geodata.GeoBlock;
-import net.sf.l2j.gameserver.model.entity.geodata.GeoCell;
-import net.sf.l2j.gameserver.model.entity.geodata.GeoSubCell;
+import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.util.L2ObjectMap;
 import net.sf.l2j.util.Point3D;
 
@@ -266,7 +264,6 @@ public final class L2World
     /**
      * Return the pet instance from the given ownerId.<BR><BR>
      * 
-
      * @param ownerId ID of the owner
      */
     public L2PetInstance getPet(int ownerId)
@@ -585,7 +582,13 @@ public final class L2World
                 // If the visible object is inside the circular area
                 // add the object to the FastList result
                 if (dx*dx + dy*dy < sqRadius)
-                    result.add(_object);
+                    if(Config.ALLOW_GEODATA && Config.ALLOW_GEODATA_CHECK_KNOWN && object instanceof L2PcInstance)
+                    {
+                        if(GeoDataRequester.getInstance().hasLoS(object, _object.getX(), _object.getY(), (short) _object.getZ()))
+                            result.add(_object);
+                    }
+                    else
+                        result.add(_object);
             }
         }
         
@@ -650,7 +653,13 @@ public final class L2World
                 long dz = z1 - z;
                 
                 if (dx*dx + dy*dy + dz*dz < sqRadius)
-                    result.add(_object);
+                    if(Config.ALLOW_GEODATA && Config.ALLOW_GEODATA_CHECK_KNOWN && object instanceof L2PcInstance)
+                    {
+                        if(GeoDataRequester.getInstance().hasLoS(object, _object.getX(), _object.getY(), (short) _object.getZ()))
+                            result.add(_object);
+                    }
+                    else
+                        result.add(_object);
             }
         }
         
@@ -676,80 +685,6 @@ public final class L2World
         return _worldRegions[(x >> SHIFT_BY) + OFFSET_X][(y >> SHIFT_BY) + OFFSET_Y];
     }
     
-    private Boolean hasGeoData(int x, int y, int z)
-    {
-        // cheack the Geodata info from the region's geodata where the passed xyz belong. 
-    	System.out.println("reading info for _worldRegions["+((x >> SHIFT_BY) + OFFSET_X)+"]["+((y >> SHIFT_BY) + OFFSET_Y)+"]");
-    	if (_worldRegions[(x >> SHIFT_BY) + OFFSET_X][(y >> SHIFT_BY) + OFFSET_Y] == null)    			
-    	{
-    		System.out.println("WARNING: null world region in L2World!!!  Returning default data");
-    		return false;
-    	}
-    	
-    	if (!_worldRegions[(x >> SHIFT_BY) + OFFSET_X][(y >> SHIFT_BY) + OFFSET_Y].isActive())
-    	{
-    		// inactive cell = no geodata.
-    		return false;
-    	}
-    	
-		GeoBlock block = _worldRegions[(x >> SHIFT_BY) + OFFSET_X][(y >> SHIFT_BY) + OFFSET_Y].getGeoBlock();
-		if ( (block == null) || !block.hasLoadedCells() )
-		{
-			if (block == null)
-				System.out.println("WARNING: null GeoBlock!!!  Returning default data");
-			return false;
-		}
-		
-		GeoCell cell = block.getGeoCell(x & 0x0FFF, y & 0x0FFF, (short)z);
-		if (cell == null)
-		{
-    		System.out.println("WARNING: null GeoCell!!!  Returning default data");
-			return false;
-		}
-		return true;
-    }
-    
-    public GeoSubCell getGeoInfoNearestFloor(int x, int y, short z)
-    {
-        // get the Geodata info from the region's geodata where the passed xyz belong. 
-    	if ( !hasGeoData(x, y, z) )
-    		return new GeoSubCell(z,(byte)0x00);
-		
-		System.out.println("Checking cell info...");
-		return _worldRegions[(x >> SHIFT_BY) + OFFSET_X][(y >> SHIFT_BY) + OFFSET_Y].getGeoBlock().
-						getGeoCell(x & 0x0FFF, y & 0x0FFF, z).
-						getNearestFloorSubcell((x & 0x07F),(y & 0x07F), z);
-    }
-    
-    public GeoSubCell getGeoInfoNearest(int x, int y, short z)
-    {
-        // get the Geodata info from the region's geodata where the passed xyz belong. 
-    	if ( !hasGeoData(x, y, z) )
-    		return new GeoSubCell(z,(byte)0x00);
-		
-		//System.out.println("Checking cell info...");
-        return _worldRegions[(x >> SHIFT_BY) + OFFSET_X][(y >> SHIFT_BY) + OFFSET_Y].getGeoBlock().
-        				getGeoCell(x & 0x0FFF, y & 0x0FFF, z).
-        				getNearestSubcell((x & 0x07F),(y & 0x07F), z);
-    }
-    
-    public short getGeoInfoNearestZ(int x, int y, short z)
-    {
-    	return getGeoInfoNearest(x,y,z).getZ();
-    }
-    
-    public Boolean getIsInWater(int x, int y, int z)
-    {
-        // get the Geodata info from the region's geodata where the passed xyz belong. 
-    	if ( !hasGeoData(x, y, (short)z) )
-    		return false;
-		
-		//System.out.println("Checking cell info...");
-        return _worldRegions[(x >> SHIFT_BY) + OFFSET_X][(y >> SHIFT_BY) + OFFSET_Y].getGeoBlock().
-        				getGeoCell(x & 0x0FFF, y & 0x0FFF, (short)z).
-        				isWater((x & 0x07F),(y & 0x07F), z);
-    }
-
     /**
      * Check if the current L2WorldRegions of the object is valid according to its position (x,y).<BR><BR>
      * 

@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 /**
@@ -67,7 +68,6 @@ public class GMViewCharacterInfo extends ServerBasePacket
 		writeD(_cha.getClassId().getId());
 		writeD(_cha.getLevel());
 		writeQ(_cha.getExp());
-        writeD(0x28);  // unknown
 		writeD(_cha.getSTR()); 
 		writeD(_cha.getDEX()); 
 		writeD(_cha.getCON());
@@ -177,12 +177,15 @@ public class GMViewCharacterInfo extends ServerBasePacket
         
         writeD(0x00); 
           
-        writeD(0x00); //changes the text above CP on Status Window 
+        writeD(_cha.getPledgeClass()); //changes the text above CP on Status Window 
         writeD(0x00); 
          
         writeD(_cha.getNameColor()); 
          
-        writeD(0x00); 
+        if (_cha.isCursedWeaponEquiped())
+            writeD(CursedWeaponsManager.getInstance().getLevel(_cha.getCursedWeaponEquipedId()));
+        else
+            writeD(0x00); 
 
 	}
 

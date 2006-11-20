@@ -38,8 +38,6 @@ public class RecordTable
 	private int _maxPlayer=0;
 	private String _strDateMaxPlayer=null;
 	
-	private boolean _initialized = true;
-	
 	/**
 	* Not really useful to make an instance of recordtable because data is reloaded each time. 
 	* But it's quite easy to use like this.
@@ -68,7 +66,7 @@ public class RecordTable
 		{
 			try {
 			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT maxplayer, date FROM record");
+			PreparedStatement statement = con.prepareStatement("SELECT maxplayer, date FROM record order by maxplayer desc limit 1");
 			ResultSet recorddata = statement.executeQuery();
 
 			fillRecordTable(recorddata);

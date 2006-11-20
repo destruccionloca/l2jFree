@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.NpcTable;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -68,31 +69,10 @@ public class UserInfo extends ServerBasePacket
     private int _runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd, _flRunSpd, _flWalkSpd, _flyRunSpd,
             _flyWalkSpd;
     private float moveMultiplier;
-    private int _test1, _test2, _test3, _test4, _test5, _test6;
 
-    /**
-     * @param _characters
-     */
-    public UserInfo(L2PcInstance cha, int test1, int test2, int test3, int test4, int test5, int test6)
-    {
-        _cha = cha;
-        _test1 = test1;
-        _test2 = test2;
-        _test3 = test3;
-        _test4 = test4;
-        _test5 = test5;
-        _test6 = test6;
-    }
-    
     public UserInfo(L2PcInstance cha)
     {
         _cha = cha;
-        _test1 = 0;
-        _test2 = 0;
-        _test3 = 0;
-        _test4 = 0;
-        _test5 = 0;
-        _test6 = 0;
     }
 
     final void runImpl()
@@ -247,16 +227,6 @@ public class UserInfo extends ServerBasePacket
         writeC(0x11);
 
         writeD(_cha.getClanPrivileges());
-        if (getClient().getRevision() <= 689)
-        {
-            writeD(0);
-            writeD(0);
-            writeD(0);
-            writeD(0);  
-            writeD(0); 
-            writeD(0);
-            writeD(0);
-        }
 
         writeH(_cha.getRecomLeft()); //c2  recommendations remaining
         writeH(_cha.getRecomHave()); //c2  recommendations received
@@ -288,19 +258,16 @@ public class UserInfo extends ServerBasePacket
         writeD(_cha.getNameColor());
         if (getClient().getRevision() >= 690)
         {
-            writeC(0x01); //C5 ??
-            writeD(_test1); //C5 ??
-            writeC(_test2); //C5 ??
-            writeC(_test3); //C5 ??
-            writeC(_test4); //C5 ??
-            writeC(_test5); //C5 ??
+            writeC(_cha.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window
+            writeD(0x00); // ??
+            writeD(0x00); // ??
             writeD(_cha.getPledgeClass()); //C5 ??
-            writeD(_test6); //C5 ??
+            writeD(0x00); // ??
             writeD(_cha.getTitleColor()); //C5 ??
-            if (_cha.getZaricheKills() > Config.ZARICHE_STAGE_KILLS*10)
-                writeD(10);
+            if (_cha.isCursedWeaponEquiped())
+                writeD(CursedWeaponsManager.getInstance().getLevel(_cha.getCursedWeaponEquipedId()));
             else
-                writeD(_cha.getZaricheKills()/Config.ZARICHE_STAGE_KILLS); //Zariche effect?? ??
+                writeD(0x00);
         }
     }
 

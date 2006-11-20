@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
+import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -412,6 +413,7 @@ public class ItemTable
         else if (itemType.equals("seed"))         item.type = L2EtcItemType.SEED;
         else if (itemType.equals("shot"))         item.type = L2EtcItemType.SHOT;
         else if (itemType.equals("spellbook"))    item.type = L2EtcItemType.SPELLBOOK; // Spellbook, Amulet, Blueprint
+        else if (itemType.equals("herb"))		  item.type = L2EtcItemType.HERB; 
         else if (itemType.equals("arrow"))
         {
             item.type = L2EtcItemType.ARROW;
@@ -618,6 +620,14 @@ public class ItemTable
     {
         // Create and Init the L2ItemInstance corresponding to the Item Identifier
         L2ItemInstance item = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId);
+       
+        if (process.equalsIgnoreCase("loot") && !Config.AUTO_LOOT)
+        {
+            item.setOwnerId(actor.getObjectId());
+            ScheduledFuture itemLootShedule  = ThreadPoolManager.getInstance().scheduleGeneral(new resetOwner(item), 15000);
+            item.setItemLootShedule(itemLootShedule); 
+        }
+                
         if (Config.DEBUG) _log.fine("ItemTable: Item created  oid:" + item.getObjectId()+ " itemid:" + itemId);
         
         // Add the L2ItemInstance object to _allObjects of L2world
@@ -738,4 +748,20 @@ public class ItemTable
             _instance = new ItemTable();
         }
     }
+    
+    protected class resetOwner implements Runnable
+    {
+        L2ItemInstance _item;
+        
+        public resetOwner(L2ItemInstance item)
+        {
+            _item = item;
+        }
+        
+        public void run()
+        {
+            _item.setOwnerId(0);
+            _item.setItemLootShedule(null);
+        }
+    }    
 }

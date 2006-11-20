@@ -129,8 +129,7 @@ public class MultiSellList extends ServerBasePacket
                 writeD(0);
                 writeH(typeP);
                 writeD(ent.getProductCount());
-                writeH(0);
-                
+                writeH(ent.getProductEnchant()); //enchtant lvl
                 
                 for(MultiSellIngredient i : ent.getIngredients())
                 {

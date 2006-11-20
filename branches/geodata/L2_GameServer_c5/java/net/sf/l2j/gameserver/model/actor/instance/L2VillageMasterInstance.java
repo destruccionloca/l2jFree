@@ -28,14 +28,17 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.CharTemplateTable;
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.Olympiad;
+import net.sf.l2j.gameserver.SkillTreeTable;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
+import net.sf.l2j.gameserver.model.L2PledgeSkillLearn;
 import net.sf.l2j.gameserver.model.base.ClassType;
 import net.sf.l2j.gameserver.model.base.PlayerClass;
 import net.sf.l2j.gameserver.model.base.PlayerRace;
 import net.sf.l2j.gameserver.model.base.SubClass;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.serverpackets.AquireSkillList;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
@@ -121,9 +124,13 @@ public final class L2VillageMasterInstance extends L2FolkInstance
         {
             levelUpClan(player, player.getClanId());
         }
-        else if (command.startsWith("Subclass"))
+        else if (actualCommand.equalsIgnoreCase("learn_clan_skills"))
         {
-            int cmdChoice = Integer.parseInt(command.substring(9, 10).trim());
+            showPledgeSkillList(player);
+        }
+        else if (command.startsWith("Subclass"))
+        { 
+        	int cmdChoice = Integer.parseInt(command.substring(9, 10).trim());
 
             // Subclasses may not be changed while a skill is in use.
             if (player.isCastingNow() || player.isAllSkillsDisabled())
@@ -133,7 +140,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
             }
 
             TextBuilder content = new TextBuilder("<html><body>");
-            NpcHtmlMessage html = new NpcHtmlMessage(1);
+            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             Set<PlayerClass> subsAvailable;
 
             int paramOne = 0;
@@ -429,6 +436,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     public void onAction(L2PcInstance player)
     {
         if (Config.DEBUG) _log.fine("Village Master activated");
+        player.setLastFolkNPC(this);
         super.onAction(player);
     }
 
@@ -487,7 +495,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     }
     public void createSubPledge(L2PcInstance player, String clanName, String leaderName, int pledgeType, int minClanLvl)
     {
-        //if (Config.DEBUG)
+        if (Config.DEBUG)
             _log.fine(player.getObjectId() + "(" + player.getName() + ") requested sub clan creation from "
                 + getObjectId() + "(" + getName() + ")");
         
@@ -998,6 +1006,55 @@ public final class L2VillageMasterInstance extends L2FolkInstance
         }
 
         return availSubs;
+    }
+    
+    /**
+     * this displays PledgeSkillList to the player.
+     * @param player
+     */
+    public void showPledgeSkillList(L2PcInstance player)
+    {
+        if (Config.DEBUG) 
+            _log.fine("PledgeSkillList activated on: "+getObjectId());
+        
+        L2PledgeSkillLearn[] skills = SkillTreeTable.getInstance().getAvailablePledgeSkills(player);
+        AquireSkillList asl = new AquireSkillList(2);
+        int counts = 0;
+        
+        for (L2PledgeSkillLearn s: skills)
+        {
+            int cost = s.getRepCost();
+            counts++;
+            
+            asl.addSkill(s.getId(), s.getLevel(), s.getLevel(), cost, 0);
+        }
+        
+        if (counts == 0)
+        {
+            NpcHtmlMessage html = new NpcHtmlMessage(1);
+            
+            if (player.getClan().getLevel() < 8)
+            {
+                SystemMessage sm = new SystemMessage(607);
+                sm.addNumber(player.getClan().getLevel()+1);
+                player.sendPacket(sm);
+            }
+            else
+            {
+                TextBuilder sb = new TextBuilder();
+                sb.append("<html><head><body>");
+                sb.append("You've learned all skills available for your Clan.<br>");
+                sb.append("</body></html>");
+                html.setHtml(sb.toString());
+                player.sendPacket(html);
+            }
+        } 
+        else 
+        {
+            player.sendPacket(asl);
+        }
+        
+        player.sendPacket(new ActionFailed());
     }
 
     private final String formatClassForDisplay(PlayerClass className)

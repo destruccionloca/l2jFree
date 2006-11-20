@@ -71,6 +71,11 @@ public class SystemMessage extends ServerBasePacket
 	public static final int DISSAPEARED_ITEM = 301;
 	public static final int DISSAPEARED_ADENA = 672;
 
+	public static final int SOUL_CRYSTAL_ABSORBING_SUCCEEDED = 974;
+	public static final int SOUL_CRYSTAL_ABSORBING_FAILED = 975;
+	public static final int SOUL_CRYSTAL_BROKE = 976;
+	public static final int SOUL_CRYSTAL_ABSORBING_FAILED_RESONATION = 977;
+	public static final int SOUL_CRYSTAL_ABSORBING_REFUSED = 978;
 	
 	public static final int YOU_DID_S1_DMG = 0x23;
 	public static final int S1_GAVE_YOU_S2_DMG = 0x24;
@@ -116,6 +121,7 @@ public class SystemMessage extends ServerBasePacket
     public static final int CRITICAL_HIT_MAGIC                 = 1280;
 	public static final int SHIELD_DEFENCE_SUCCESSFULL         =  111;
 	public static final int OVER_HIT                           =  361;
+    public static final int ACQUIRED_BONUS_EXPERIENCE_THROUGH_OVER_HIT  =  362;
     public static final int CANT_MOVE_SITTING = 31;
     public static final int SYMBOL_ADDED = 877;
     public static final int CANT_DRAW_SYMBOL = 899;
@@ -247,7 +253,10 @@ public class SystemMessage extends ServerBasePacket
 	public static final int YOU_PICKED_UP_S1 = 30;	
 	public static final int S1_PICKED_UP_S2_S3 = 299;
 	public static final int S1_PICKED_UP_S2 = 300;
-	
+    public static final int FAILED_TO_PICKUP_S1_ADENA = 55;
+    public static final int FAILED_TO_PICKUP_S1 = 56;
+    public static final int FAILED_TO_PICKUP_S2_S1_s = 57;	
+
 	//GM LIST
 	public static final int GM_LIST = 703;
 	public static final int GM_S1 = 704;
@@ -554,6 +563,18 @@ public class SystemMessage extends ServerBasePacket
     public static final int SINCE_YOU_HAVE_CHANGED_YOUR_CLASS_INTO_A_SUB_JOB_YOU_CANNOT_PARTICIPATE_IN_THE_OLYMPIAD = 1692;
     public static final int WHILE_YOU_ARE_ON_THE_WAITING_LIST_YOU_ARE_NOT_ALLOWED_TO_WATCH_THE_GAME = 1693;
 
+    // Unlock
+    public static final int UNABLE_TO_UNLOCK_DOOR = 319;
+    public static final int FAILED_TO_UNLOCK_DOOR = 320;
+    
+    // Cursed weapon related
+    public static final int THERE_IS_S1_HOUR_AND_S2_MINUTE_LEFT_OF_THE_FIXED_USAGE_TIME = 1813;
+    public static final int S2_MINUTE_OF_USAGE_TIME_ARE_LEFT_FOR_S1 = 1814;
+    public static final int S2_WAS_DROPPED_IN_THE_S1_REGION = 1815;
+    public static final int THE_OWNER_OF_S2_HAS_APPEARED_IN_THE_S1_REGION = 1816;
+    public static final int S2_OWNER_HAS_LOGGED_INTO_THE_S1_REGION = 1817;
+    public static final int S1_HAS_DISAPPEARED = 1818;
+
 	/**
 	 * @param _characters
 	 */
@@ -660,5 +681,10 @@ public class SystemMessage extends ServerBasePacket
 	{
 		return _S__7A_SYSTEMMESSAGE;
 	}
+    
+    public int getMessageID()
+    {
+        return _messageId;
+    }    
 }
 	

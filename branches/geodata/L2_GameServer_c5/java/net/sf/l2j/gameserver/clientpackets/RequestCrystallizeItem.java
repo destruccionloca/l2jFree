@@ -94,6 +94,7 @@ public class RequestCrystallizeItem extends ClientBasePacket
             SystemMessage sm = new SystemMessage(
                                                  SystemMessage.CRYSTALLIZE_LEVEL_TOO_LOW);
             activeChar.sendPacket(sm);
+            sm = null;
             ActionFailed af = new ActionFailed();
             activeChar.sendPacket(af);
             return;
@@ -143,6 +144,7 @@ public class RequestCrystallizeItem extends ClientBasePacket
             SystemMessage sm = new SystemMessage(
                                                  SystemMessage.CRYSTALLIZE_LEVEL_TOO_LOW);
             activeChar.sendPacket(sm);
+            sm = null;
             ActionFailed af = new ActionFailed();
             activeChar.sendPacket(af);
             return;
@@ -155,6 +157,7 @@ public class RequestCrystallizeItem extends ClientBasePacket
               SystemMessage sm = new SystemMessage(
                                                    SystemMessage.CRYSTALLIZE_LEVEL_TOO_LOW);
               activeChar.sendPacket(sm);
+              sm = null;
               ActionFailed af = new ActionFailed();
               activeChar.sendPacket(af);
               return;
@@ -166,6 +169,7 @@ public class RequestCrystallizeItem extends ClientBasePacket
             SystemMessage sm = new SystemMessage(
                                                  SystemMessage.CRYSTALLIZE_LEVEL_TOO_LOW);
             activeChar.sendPacket(sm);
+            sm = null;
             ActionFailed af = new ActionFailed();
             activeChar.sendPacket(af);
             return;
@@ -178,6 +182,7 @@ public class RequestCrystallizeItem extends ClientBasePacket
             SystemMessage sm = new SystemMessage(
                                                  SystemMessage.CRYSTALLIZE_LEVEL_TOO_LOW);
             activeChar.sendPacket(sm);
+            sm = null;
             ActionFailed af = new ActionFailed();
             activeChar.sendPacket(af);
             return;
@@ -219,6 +224,7 @@ public class RequestCrystallizeItem extends ClientBasePacket
 		sm.addItemName(crystalId);
 		sm.addNumber(crystalAmount);
 		activeChar.sendPacket(sm);
+        sm = null;
 
 		// send inventory update
 		if (!Config.FORCE_INVENTORY_UPDATE)

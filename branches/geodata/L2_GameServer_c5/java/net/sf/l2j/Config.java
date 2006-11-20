@@ -115,6 +115,7 @@ public final class Config {
     
     /** Accept auto-loot ? */
     public static boolean AUTO_LOOT;
+    public static boolean AUTO_LOOT_HERBS;
 
     /** Character name template */
     public static String CNAME_TEMPLATE;
@@ -190,6 +191,20 @@ public final class Config {
 
     /** Fast or slow multiply coefficient for skill hit time */
     public static float ALT_GAME_SKILL_HIT_RATE;
+
+    /** Rate Common herbs */
+    public static float   RATE_DROP_COMMON_HERBS;
+    /** Rate MP/HP herbs */
+    public static float   RATE_DROP_MP_HP_HERBS;
+    /** Rate Common herbs */
+    public static float   RATE_DROP_GREATER_HERBS;
+    /** Rate Common herbs */
+    public static float   RATE_DROP_SUPERIOR_HERBS;
+    /** Rate Common herbs */
+    public static float   RATE_DROP_SPECIAL_HERBS;
+
+    /** Audo destroy herb time */
+    public static int     HERB_AUTO_DESTROY_TIME;
 
     /** Named mobs. Random spawning mobs with multiples of health and rewards. */
     /** Frequency of spawn */
@@ -414,6 +429,12 @@ public final class Config {
     public static boolean GM_DISABLE_TRANSACTION;
     public static int GM_TRANSACTION_MIN;
     public static int GM_TRANSACTION_MAX;
+    /** Minimum level to allow a GM giving damage */
+    public static int     GM_CAN_GIVE_DAMAGE;
+    /** Minimum level to don't give Exp/Sp in party */
+    public static int     GM_DONT_TAKE_EXPSP;
+    /** Minimum level to don't take aggro */
+    public static int     GM_DONT_TAKE_AGGRO;    
     /** GM name color */
     public static boolean   GM_NAME_COLOR_ENABLED;
     public static boolean   GM_TITLE_COLOR_ENABLED;
@@ -446,6 +467,9 @@ public final class Config {
     public static float   RATE_DROP_QUEST;
     public static float   RATE_KARMA_EXP_LOST;	
     public static float   RATE_SIEGE_GUARDS_PRICE;	
+    /** Rate of boxes spawn */
+    public static int     RATE_BOX_SPAWN;
+    /*Alternative Xp/Sp rewards, if not 0, then calculated as 2^((mob.level-player.level) / coef)*/
     public static float   ALT_GAME_EXPONENT_XP;
     public static float   ALT_GAME_EXPONENT_SP;
     /** Config for spawn siege guard**/
@@ -473,18 +497,15 @@ public final class Config {
     public static int   KARMA_RATE_DROP_EQUIP;    
     public static int   KARMA_RATE_DROP_EQUIP_WEAPON;    
 
-    
+    /** Time after which item will auto-destroy */
     public static int     AUTODESTROY_ITEM_AFTER;
     
-    public static enum CategoryDropSystem
-    {
-        none,
-        simple,
-        extended_count,
-        extended_items
-    }
+    public static boolean SAVE_DROPPED_ITEM;
     
-    public static CategoryDropSystem CATEGORY_DROP_SYSTEM;
+    public static boolean DROP_OVER_MAX_CHANCE;
+    public static boolean CATEGORIZE_DROPS;
+    public static int CATEGORY2_DROP_LIMIT;
+    public static int CATEGORY3_DROP_LIMIT;
 
     public static int     COORD_SYNCHRONIZE;
     
@@ -503,21 +524,13 @@ public final class Config {
 
     /** Allow Geodata */
     public static boolean ALLOW_GEODATA;
+    public static boolean ALLOW_GEODATA_WATER;
+    public static int ALLOW_GEODATA_EXPIRATIONTIME;
+    public static boolean ALLOW_GEODATA_CHECK_KNOWN;
     
     /** Jail config **/
     public static boolean JAIL_IS_PVP;
     public static boolean JAIL_DISABLE_CHAT;
-    
-    /** Zariche releated configs */
-    public static float ZARICHE_DROP_RATE;
-    public static int ZARICHE_STAGE_KILLS;
-    
-    /** Herbs Drop Rate configs */
-    public static float HERB_OF_LIFE_DROP_RATE;
-    public static float HERB_OF_MANA_DROP_RATE;
-    public static float HERB_OF_POWER_DROP_RATE;
-    public static float HERB_OF_MAGIC_DROP_RATE;
-    public static boolean HERB_DROP_ONLY_IN_NOOBIE_ZONE;
     
     public static String FISHINGMODE;
 
@@ -544,6 +557,8 @@ public final class Config {
     public static boolean 	    ALLOW_WATER;
     public static boolean       ALLOW_RENTPET;
     public static boolean 	    ALLOW_BOAT;
+    /** Allow cursed weapons ? */
+    public static boolean        ALLOW_CURSED_WEAPONS;    
     
     public static int           PACKET_LIFETIME;
 
@@ -590,7 +605,6 @@ public final class Config {
     public static final String  BANNED_IP_XML				= "./config/banned.xml";
     public static final String  HEXID_FILE					= "./config/hexid.txt";
     public static final String  COMMAND_PRIVILEGES_FILE     = "./config/command-privileges.properties";
-    public static final String  AI_FILE     				= "./config/ai.properties";
     public static final String  SEVENSIGNS_FILE             = "./config/sevensigns.properties";    
     /** Properties file for externsions */
     public static final String EXTENSION_FILE               = "./config/extensions.properties";
@@ -678,6 +692,8 @@ public final class Config {
     /** Karma Punishment */
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE;
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_SHOP;
+    /** Allow player with karma to use GK ? */
+    public static boolean ALT_GAME_KARMA_PLAYER_CAN_USE_GK;    
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_TELEPORT;
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_TRADE;
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE;
@@ -686,8 +702,15 @@ public final class Config {
     /** Disable Grade penalty */
     public static boolean GRADE_PENALTY;
     /** Clan leader name color */
-    public static boolean   CLAN_LEADER_NAME_COLOR_ENABLED;
-    public static int       CLAN_LEADER_NAME_COLOR;
+    public static enum ClanLeaderColored
+    {
+        name,
+        title
+    }
+    public static boolean   CLAN_LEADER_COLOR_ENABLED;
+    public static ClanLeaderColored       CLAN_LEADER_COLORED;
+    public static int       CLAN_LEADER_COLOR;
+    public static int       CLAN_LEADER_COLOR_CLAN_LEVEL;
 
     /** Day/Night Status **/
     public static boolean DAY_STATUS_FORCE_CLIENT_UPDATE;
@@ -769,13 +792,15 @@ public final class Config {
     public static int ENCHANT_SAFE_MAX;
     public static int ENCHANT_SAFE_MAX_FULL;
     
-    // Character multipliers
-    /** Multiplier for character HP regeneration */
+    // NPC regen multipliers
     public static double  HP_REGEN_MULTIPLIER;
-    /** Mutilplier for character MP regeneration */
     public static double  MP_REGEN_MULTIPLIER;
-    /** Multiplier for character CP regeneration */
     public static double  CP_REGEN_MULTIPLIER;
+
+    // Player regen multipliers
+    public static double  PLAYER_HP_REGEN_MULTIPLIER;
+    public static double  PLAYER_MP_REGEN_MULTIPLIER;
+    public static double  PLAYER_CP_REGEN_MULTIPLIER;
     
     // Raid Boss multipliers
     /** Multiplier for Raid boss HP regeneration */ 
@@ -853,10 +878,6 @@ public final class Config {
     /** Set the GM invulnerable at startup ? */
     public static boolean GM_STARTUP_INVULNERABLE;
     
-    /** Alternative AI setting*/
-    public static boolean	AI_ENABLED;
-    public static String	AI_DEFAULT_CLASS;
-    
     public static boolean	BYPASS_VALIDATION;
     public static boolean GMAUDIT;
     
@@ -885,6 +906,36 @@ public final class Config {
     /** Extension Options */
     public static String TVT_EVEN_TEAMS;
     public static String CTF_EVEN_TEAMS;
+    
+    /** Clan Hall function related configs*/
+    public static long CH_TELE_FEE_RATIO;
+    public static int CH_TELE1_FEE;
+    public static int CH_TELE2_FEE;
+    public static int CH_TELE3_FEE;
+    public static long CH_ITEM_FEE_RATIO;
+    public static int CH_ITEM1_FEE;
+    public static int CH_ITEM2_FEE;
+    public static int CH_ITEM3_FEE;
+    public static long CH_MPREG_FEE_RATIO;
+    public static int CH_MPREG1_FEE;
+    public static int CH_MPREG2_FEE;
+    public static int CH_MPREG3_FEE;
+    public static long CH_HPREG_FEE_RATIO;
+    public static int CH_HPREG1_FEE;
+    public static int CH_HPREG2_FEE;
+    public static int CH_HPREG3_FEE;
+    public static int CH_HPREG4_FEE;
+    public static long CH_EXPREG_FEE_RATIO;
+    public static int CH_EXPREG1_FEE;
+    public static int CH_EXPREG2_FEE;
+    public static int CH_EXPREG3_FEE;
+    public static int CH_EXPREG4_FEE;
+    public static long CH_SUPPORT_FEE_RATIO;
+    public static int CH_SUPPORT1_FEE;
+    public static int CH_SUPPORT2_FEE;
+    public static int CH_SUPPORT3_FEE;
+    public static int CH_SUPPORT4_FEE;
+    public static int CH_SUPPORT5_FEE;
     
 	public static void load()
 	{
@@ -964,7 +1015,12 @@ public final class Config {
                 SERVER_GMONLY                   = Boolean.valueOf(optionsSettings.getProperty("ServerGMOnly", "false"));
                 
                 AUTODESTROY_ITEM_AFTER          = Integer.parseInt(optionsSettings.getProperty("AutoDestroyDroppedItemAfter", "0"));
-                CATEGORY_DROP_SYSTEM            = CategoryDropSystem.valueOf(optionsSettings.getProperty("CategoryDropSystem", "simple")); 
+                SAVE_DROPPED_ITEM              = Boolean.valueOf(optionsSettings.getProperty("SaveDroppedItem", "false"));
+                
+                DROP_OVER_MAX_CHANCE            = Boolean.valueOf(optionsSettings.getProperty("DropOverMaxChance", "true")); 
+                CATEGORIZE_DROPS                = Boolean.valueOf(optionsSettings.getProperty("CategorizeDrops", "true"));
+                CATEGORY2_DROP_LIMIT            = Integer.parseInt(optionsSettings.getProperty("Category2DropLimit", "3"));
+                CATEGORY3_DROP_LIMIT            = Integer.parseInt(optionsSettings.getProperty("Category3DropLimit", "3"));
              
                 COORD_SYNCHRONIZE               = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));
              
@@ -981,7 +1037,11 @@ public final class Config {
                 ALLOWFISHING                    = Boolean.valueOf(optionsSettings.getProperty("AllowFishing", "False"));
                 ALLOW_MANOR                     = Boolean.valueOf(optionsSettings.getProperty("AllowManor", "False"));
                 ALLOW_GEODATA                   = Boolean.valueOf(optionsSettings.getProperty("AllowGeodata", "False"));
+                ALLOW_GEODATA_WATER             = Boolean.valueOf(optionsSettings.getProperty("AllowGeodataWater", "False"));
+                ALLOW_GEODATA_EXPIRATIONTIME    = Integer.parseInt(optionsSettings.getProperty("AllowGeodata_ExpirationTime", "9000000"));
+                ALLOW_GEODATA_CHECK_KNOWN       = Boolean.valueOf(optionsSettings.getProperty("AllowGeodataCheckKnown", "False"));
                 ALLOW_BOAT                      = Boolean.valueOf(optionsSettings.getProperty("AllowBoat", "False"));
+                ALLOW_CURSED_WEAPONS            = Boolean.valueOf(optionsSettings.getProperty("AllowCursedWeapons", "False"));
                 FISHINGMODE                     = optionsSettings.getProperty("FishingMode", "water");                
                
                 ALLOW_L2WALKER_CLIENT           = L2WalkerAllowed.valueOf(optionsSettings.getProperty("AllowL2Walker", "False"));
@@ -1212,10 +1272,12 @@ public final class Config {
                 /* if different from 100 (ie 100%) heal rate is modified acordingly */
 	            HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("HpRegenMultiplier", "100"));
 	            MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("MpRegenMultiplier", "100"));
-	            CP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("CpRegenMultiplier", "100"));
+	            PLAYER_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerHpRegenMultiplier", "100"));
+	            PLAYER_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerMpRegenMultiplier", "100"));
+	            PLAYER_CP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerCpRegenMultiplier", "100"));
 
-                RAID_HP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidHpRegenMultiplier", "500")) /100;    
-                RAID_MP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidMpRegenMultiplier", "500")) /100;    
+                RAID_HP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidHpRegenMultiplier", "500"));    
+                RAID_MP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidMpRegenMultiplier", "500"));    
                 RAID_DEFENCE_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidDefenceMultiplier", "500")) /100;    
 	            
 	            STARTING_ADENA      = Integer.parseInt(otherSettings.getProperty("StartingAdena", "100"));
@@ -1269,11 +1331,8 @@ public final class Config {
                 JAIL_IS_PVP       = Boolean.valueOf(otherSettings.getProperty("JailIsPvp", "True"));
                 JAIL_DISABLE_CHAT = Boolean.valueOf(otherSettings.getProperty("JailDisableChat", "True"));
                 
-                ZARICHE_DROP_RATE = Float.valueOf(otherSettings.getProperty("ZaricheDropRate", "1."));
-                ZARICHE_STAGE_KILLS = Integer.valueOf(otherSettings.getProperty("ZaricheStageKills", "30"));
-                
-                /*GM_NAME_COLOUR_ENABLED = Boolean.parseBoolean(otherSettings.getProperty("GMNameColourEnabled", "False"));
-                GM_NAME_COLOUR = Integer.decode("0x" + otherSettings.getProperty("GMNameColour", "00FF00"));*/
+                GM_NAME_COLOUR_ENABLED = Boolean.parseBoolean(otherSettings.getProperty("GMNameColourEnabled", "False"));
+                GM_NAME_COLOUR = Integer.decode("0x" + otherSettings.getProperty("GMNameColour", "00FF00"));
                 
 	        }
 	        catch (Exception e)
@@ -1300,9 +1359,17 @@ public final class Config {
                 RATE_CRAFT_COST                 = Float.parseFloat(ratesSettings.getProperty("RateCraftCost","1."));
                 RATE_DROP_ITEMS                 = Float.parseFloat(ratesSettings.getProperty("RateDropItems", "1."));
                 RATE_DROP_SPOIL                 = Float.parseFloat(ratesSettings.getProperty("RateDropSpoil", "1."));
+                RATE_BOX_SPAWN                  = Integer.parseInt(ratesSettings.getProperty("RateBoxSpawn","20"));
                 RATE_DROP_QUEST                 = Float.parseFloat(ratesSettings.getProperty("RateDropQuest", "1."));
                 RATE_KARMA_EXP_LOST             = Float.parseFloat(ratesSettings.getProperty("RateKarmaExpLost", "1."));    
-                RATE_SIEGE_GUARDS_PRICE         = Float.parseFloat(ratesSettings.getProperty("RateSiegeGuardsPrice", "1."));    
+                RATE_SIEGE_GUARDS_PRICE         = Float.parseFloat(ratesSettings.getProperty("RateSiegeGuardsPrice", "1."));
+
+                HERB_AUTO_DESTROY_TIME          = Integer.parseInt(ratesSettings.getProperty("AutoDestroyHerbTime","15"))*1000;
+                RATE_DROP_COMMON_HERBS          = Float.parseFloat(ratesSettings.getProperty("RateCommonHerbs", "15."));
+                RATE_DROP_MP_HP_HERBS           = Float.parseFloat(ratesSettings.getProperty("RateHpMpHerbs", "10."));                
+                RATE_DROP_GREATER_HERBS         = Float.parseFloat(ratesSettings.getProperty("RateGreaterHerbs", "4."));
+                RATE_DROP_SUPERIOR_HERBS        = Float.parseFloat(ratesSettings.getProperty("RateSuperiorHerbs", "0.8"))*10;                
+                RATE_DROP_SPECIAL_HERBS         = Float.parseFloat(ratesSettings.getProperty("RateSpecialHerbs", "0.2"))*10;
                 
                 PLAYER_DROP_LIMIT               = Integer.parseInt(ratesSettings.getProperty("PlayerDropLimit", "3"));
                 PLAYER_RATE_DROP                = Integer.parseInt(ratesSettings.getProperty("PlayerRateDrop", "5"));
@@ -1327,12 +1394,6 @@ public final class Config {
                SPOIL_LEVEL_DIFFERENCE_LIMIT            = Float.parseFloat(ratesSettings.getProperty("SpoilLevelDifferenceLimit", "5."));
                SPOIL_LEVEL_DIFFERENCE_MULTIPLIER       = Float.parseFloat(ratesSettings.getProperty("SpoilLevelMultiplier", "7."));
                LAST_LEVEL_SPOIL_IS_LEARNED             = Integer.parseInt(ratesSettings.getProperty("LastLevelSpoilIsLearned", "72"));
-               
-               HERB_OF_LIFE_DROP_RATE = Float.valueOf(ratesSettings.getProperty("HerbOfLifeDropRate", "0.05"));
-               HERB_OF_MANA_DROP_RATE = Float.valueOf(ratesSettings.getProperty("HerbOfManaDropRate", "0.05"));
-               HERB_OF_POWER_DROP_RATE = Float.valueOf(ratesSettings.getProperty("HerbOfPowerDropRate", "0.05"));
-               HERB_OF_MAGIC_DROP_RATE = Float.valueOf(ratesSettings.getProperty("HerbOfMagicDropRate", "0.05"));
-               HERB_DROP_ONLY_IN_NOOBIE_ZONE = Boolean.valueOf(ratesSettings.getProperty("HerbDropOnlyInNoobieZone", "False"));    //TODO make noobie zones, so we can set this True
 	        }
 	        catch (Exception e) {
 	            e.printStackTrace();
@@ -1390,11 +1451,39 @@ public final class Config {
 	            IS_CRAFTING_ENABLED     = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
 	            SP_BOOK_NEEDED          = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
 	            AUTO_LOOT               = altSettings.getProperty("AutoLoot").equalsIgnoreCase("True");
+                AUTO_LOOT_HERBS         = altSettings.getProperty("AutoLootHerbs").equalsIgnoreCase("True");
                 ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE    = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanBeKilledInPeaceZone", "false"));
                 ALT_GAME_KARMA_PLAYER_CAN_SHOP                      = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanShop", "true"));
+                ALT_GAME_KARMA_PLAYER_CAN_USE_GK                    = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseGK", "false"));
                 ALT_GAME_KARMA_PLAYER_CAN_TELEPORT                  = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTeleport", "true"));
                 ALT_GAME_KARMA_PLAYER_CAN_TRADE                     = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTrade", "true"));
                 ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE             = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseWareHouse", "true"));
+                CH_TELE_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallTeleportFunctionFeeRation", "86400000"));
+                CH_TELE1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallTeleportFunctionFeeLvl1", "86400000"));
+                CH_TELE2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallTeleportFunctionFeeLvl2", "86400000"));
+                CH_TELE3_FEE                    = Integer.valueOf(altSettings.getProperty("ClanHallTeleportFunctionFeeLvl3", "86400000"));
+                CH_SUPPORT_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallSupportFunctionFeeRation", "86400000"));
+                CH_SUPPORT1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl1", "86400000"));
+                CH_SUPPORT2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl2", "86400000"));
+                CH_SUPPORT3_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl3", "86400000"));
+                CH_SUPPORT4_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl4", "86400000"));
+                CH_SUPPORT5_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl5", "86400000"));
+                CH_MPREG_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallMpRegenerationFunctionFeeRation", "86400000"));
+                CH_MPREG1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallMpRegenerationFeeLvl1", "86400000"));
+                CH_MPREG2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallMpRegenerationFeeLvl2", "86400000"));
+                CH_MPREG3_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallMpRegenerationFeeLvl3", "86400000"));
+                CH_HPREG_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallHpRegenerationFunctionFeeRation", "86400000"));
+                CH_HPREG1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallHpRegenerationFeeLvl1", "86400000"));
+                CH_HPREG2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallHpRegenerationFeeLvl2", "86400000"));
+                CH_HPREG3_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallHpRegenerationFeeLvl3", "86400000"));
+                CH_EXPREG_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallExpRegenerationFunctionFeeRation", "86400000"));
+                CH_EXPREG1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallExpRegenerationFeeLvl1", "86400000"));
+                CH_EXPREG2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallExpRegenerationFeeLvl2", "86400000"));
+                CH_EXPREG3_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallExpRegenerationFeeLvl3", "86400000"));
+                CH_ITEM_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallItemCreationFunctionFeeRation", "86400000"));
+                CH_ITEM1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallItemCreationFunctionFeeLvl1", "86400000"));
+                CH_ITEM2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallItemCreationFunctionFeeLvl2", "86400000"));
+                CH_ITEM3_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallItemCreationFunctionFeeLvl3", "86400000"));
                 ALT_GAME_FREE_TELEPORT                              = Boolean.parseBoolean(altSettings.getProperty("AltFreeTeleporting", "False"));
                 ALT_GAME_SUBCLASS_WITHOUT_QUESTS                    = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
                 ALT_GAME_VIEWNPC                    				= Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
@@ -1432,8 +1521,10 @@ public final class Config {
 
                 ALT_STRICT_SEVENSIGNS                               = Boolean.parseBoolean(altSettings.getProperty("StrictSevenSigns", "True"));
                 
-                CLAN_LEADER_NAME_COLOR_ENABLED  					= Boolean.parseBoolean(altSettings.getProperty("ClanLeaderNameColorEnabled", "True"));
-                CLAN_LEADER_NAME_COLOR          					= Integer.decode("0x" + altSettings.getProperty("ClanLeaderNameColor", "00FF00"));
+                CLAN_LEADER_COLOR_ENABLED     			       		= Boolean.parseBoolean(altSettings.getProperty("ClanLeaderNameColorEnabled", "True"));
+                CLAN_LEADER_COLORED                  				= ClanLeaderColored.valueOf(altSettings.getProperty("ClanLeaderColored", "name"));
+                CLAN_LEADER_COLOR                                   = Integer.decode("0x" + altSettings.getProperty("ClanLeaderNameColor", "00FF00"));
+                CLAN_LEADER_COLOR_CLAN_LEVEL                        = Integer.parseInt(altSettings.getProperty("ClanLeaderNameColorAtClanLevel", "1"));
                 ALT_BUFF_TIME                                       = Integer.parseInt(altSettings.getProperty("AltBuffTime", "1"));
                 ALT_DANCE_TIME                                       = Integer.parseInt(altSettings.getProperty("AltDanceTime", "1"));
 	            SPAWN_SIEGE_GUARD 									= Boolean.parseBoolean(altSettings.getProperty("SpawnSiegeGuard", "true"));
@@ -1582,7 +1673,10 @@ public final class Config {
                 {
                     GM_DISABLE_TRANSACTION = false; 
                 }
-
+                GM_CAN_GIVE_DAMAGE = Integer.parseInt(gmSettings.getProperty("GMCanGiveDamage", "90"));
+                GM_DONT_TAKE_AGGRO = Integer.parseInt(gmSettings.getProperty("GMDontTakeAggro", "90"));
+                GM_DONT_TAKE_EXPSP = Integer.parseInt(gmSettings.getProperty("GMDontGiveExpSp", "90"));
+                
                 GM_NAME_COLOR_ENABLED  = Boolean.parseBoolean(gmSettings.getProperty("GMNameColorEnabled", "True"));
                 GM_NAME_COLOR_ENABLED  = Boolean.parseBoolean(gmSettings.getProperty("GMTitleColorEnabled", "True"));
                 GM_NAME_COLOR          = Integer.decode("0x" + gmSettings.getProperty("GMNameColor", "00FF00"));
@@ -1613,24 +1707,7 @@ public final class Config {
 	        {
 	        	_log.warning("Could not load HexID file ("+HEXID_FILE+"). Hopefully login will give us one.");
 	        }
-	        
-	        /** AI Config */
-	        try
-	        {
-	        	Properties aiSettings = new Properties();
-	        	InputStream is = new FileInputStream(new File(AI_FILE));
-	        	aiSettings.load(is);
-	        	is.close();
-	        	
-	        	AI_ENABLED = Boolean.valueOf(aiSettings.getProperty("EnableAI", "false"));
-	        	AI_DEFAULT_CLASS = aiSettings.getProperty("DefaultAI");
-	        }
-	        catch (Exception e)
-	        {
-	        	//e.printStackTrace();
-	        	//throw new Error("Failed to Load " + AI_FILE + " File.");	        	
-	        }
-	        
+   
 	        /** Extensions Config */
 	        try
 	        {
@@ -1640,7 +1717,7 @@ public final class Config {
 	        	extensionSettings.load(is);
 	        	is.close();
 	        	TVT_EVEN_TEAMS = extensionSettings.getProperty("TvTEvenTeams", "BALANCE");
-			CTF_EVEN_TEAMS = extensionSettings.getProperty("CTFEvenTeams", "BALANCE");
+	        	CTF_EVEN_TEAMS = extensionSettings.getProperty("CTFEvenTeams", "BALANCE");
 	        }
 	        catch (Exception e)
 	        {
@@ -1668,6 +1745,7 @@ public final class Config {
         else if (pName.equalsIgnoreCase("RateConsumableCost")) RATE_CONSUMABLE_COST = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("RateDropItems")) RATE_DROP_ITEMS = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("RateDropSpoil")) RATE_DROP_SPOIL = Float.parseFloat(pValue);
+        else if (pName.equalsIgnoreCase("RateBoxSpawn")) RATE_BOX_SPAWN = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("RateDropQuest")) RATE_DROP_QUEST = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("RateKarmaExpLost")) RATE_KARMA_EXP_LOST = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("RateSiegeGuardsPrice")) RATE_SIEGE_GUARDS_PRICE = Float.parseFloat(pValue);
@@ -1685,6 +1763,7 @@ public final class Config {
         else if (pName.equalsIgnoreCase("KarmaRateDropEquipWeapon")) KARMA_RATE_DROP_EQUIP_WEAPON = Integer.parseInt(pValue);
 
         else if (pName.equalsIgnoreCase("AutoDestroyDroppedItemAfter")) AUTODESTROY_ITEM_AFTER = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("SaveDroppedItem")) SAVE_DROPPED_ITEM = Boolean.valueOf(pValue);
         //else if (pName.equalsIgnoreCase("CategoryDropSystem")) CATEGORY_DROP_SYSTEM = CategoryDropSystem.valueOf(pValue);
         else if (pName.equalsIgnoreCase("CoordSynchronize")) COORD_SYNCHRONIZE = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("DeleteCharAfterDays")) DELETE_DAYS = Integer.parseInt(pValue);
@@ -1705,6 +1784,7 @@ public final class Config {
         else if (pName.equalsIgnoreCase("CommunityType")) COMMUNITY_TYPE = pValue;
         else if (pName.equalsIgnoreCase("BBSDefault")) BBS_DEFAULT = pValue;        
         else if (pName.equalsIgnoreCase("AllowBoat")) ALLOW_BOAT = Boolean.valueOf(pValue);
+        else if (pName.equalsIgnoreCase("AllowCursedWeapons")) ALLOW_CURSED_WEAPONS = Boolean.valueOf(pValue);
 
         else if (pName.equalsIgnoreCase("ShowLevelOnCommunityBoard")) SHOW_LEVEL_COMMUNITYBOARD = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("ShowStatusOnCommunityBoard")) SHOW_STATUS_COMMUNITYBOARD = Boolean.valueOf(pValue);
@@ -1767,10 +1847,13 @@ public final class Config {
 
         else if (pName.equalsIgnoreCase("HpRegenMultiplier")) HP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
         else if (pName.equalsIgnoreCase("MpRegenMultiplier")) MP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
-        else if (pName.equalsIgnoreCase("CpRegenMultiplier")) CP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
+        
+        else if (pName.equalsIgnoreCase("PlayerHpRegenMultiplier")) PLAYER_HP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
+        else if (pName.equalsIgnoreCase("PlayerMpRegenMultiplier")) PLAYER_MP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
+        else if (pName.equalsIgnoreCase("PlayerCpRegenMultiplier")) PLAYER_CP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
 
-        else if (pName.equalsIgnoreCase("RaidHpRegenMultiplier")) RAID_HP_REGEN_MULTIPLIER = Double.parseDouble(pValue) /100;
-        else if (pName.equalsIgnoreCase("RaidMpRegenMultiplier")) RAID_MP_REGEN_MULTIPLIER = Double.parseDouble(pValue) /100;
+        else if (pName.equalsIgnoreCase("RaidHpRegenMultiplier")) RAID_HP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
+        else if (pName.equalsIgnoreCase("RaidMpRegenMultiplier")) RAID_MP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
         else if (pName.equalsIgnoreCase("RaidDefenceMultiplier")) RAID_DEFENCE_MULTIPLIER = Double.parseDouble(pValue) /100;
 
         else if (pName.equalsIgnoreCase("StartingAdena")) STARTING_ADENA = Integer.parseInt(pValue);
@@ -1855,9 +1938,11 @@ public final class Config {
         else if (pName.equalsIgnoreCase("CraftingEnabled")) IS_CRAFTING_ENABLED = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("SpBookNeeded")) SP_BOOK_NEEDED = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AutoLoot")) AUTO_LOOT = Boolean.valueOf(pValue);
+        else if (pName.equalsIgnoreCase("AutoLootHerbs")) AUTO_LOOT_HERBS = Boolean.valueOf(pValue);
 
         else if (pName.equalsIgnoreCase("AltKarmaPlayerCanBeKilledInPeaceZone")) ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AltKarmaPlayerCanShop")) ALT_GAME_KARMA_PLAYER_CAN_SHOP = Boolean.valueOf(pValue);
+        else if (pName.equalsIgnoreCase("AltKarmaPlayerCanUseGK")) ALT_GAME_KARMA_PLAYER_CAN_USE_GK = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AltKarmaPlayerCanTeleport")) ALT_GAME_KARMA_PLAYER_CAN_TELEPORT = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AltKarmaPlayerCanTrade")) ALT_GAME_KARMA_PLAYER_CAN_TRADE = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AltKarmaPlayerCanUseWareHouse")) ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE = Boolean.valueOf(pValue);
@@ -1884,7 +1969,7 @@ public final class Config {
         else if (pName.equalsIgnoreCase("TradeChat"))  DEFAULT_TRADE_CHAT = pValue;
         
         else if (pName.equalsIgnoreCase("TvTEvenTeams"))  TVT_EVEN_TEAMS = pValue;
-	else if (pName.equalsIgnoreCase("CTFEvenTeams"))  CTF_EVEN_TEAMS = pValue;
+        else if (pName.equalsIgnoreCase("CTFEvenTeams"))  CTF_EVEN_TEAMS = pValue;
         else return false;
         return true;
     }

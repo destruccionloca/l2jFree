@@ -437,20 +437,14 @@ public class L2Spawn
             // Set the calculated position of the L2NpcInstance
             newlocx = p[0];
             newlocy = p[1];
-            if(Config.ALLOW_GEODATA)
-                newlocz = L2World.getInstance().getGeoInfoNearestZ(newlocx,newlocy,(short)p[2]);
-            else
-                newlocz = p[2];
+            newlocz = p[2];
         } 
         else 
         {
             // The L2NpcInstance is spawned at the exact position (Lox, Locy, Locz)
             newlocx = getLocx();
             newlocy = getLocy();
-            if(Config.ALLOW_GEODATA)
-                newlocz = L2World.getInstance().getGeoInfoNearestZ(newlocx,newlocy,(short)getLocz());
-            else
-                newlocz = getLocz();
+            newlocz = getLocz();
         }
         
         for(L2Effect f : mob.getAllEffects())

@@ -1,1 +1,0 @@
-UPDATE `npc` SET `idTemplate`=`c5Template`;

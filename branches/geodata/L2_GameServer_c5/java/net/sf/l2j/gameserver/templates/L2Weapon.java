@@ -18,9 +18,12 @@
  */
 package net.sf.l2j.gameserver.templates;
 
+import java.io.IOException;
 import java.util.List;
 
 import javolution.util.FastList;
+import net.sf.l2j.gameserver.handler.ISkillHandler;
+import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -264,7 +267,7 @@ public final class L2Weapon  extends L2Item
             if (target.isRaid() && (skill.getSkillType() == SkillType.CONFUSION || skill.getSkillType() == SkillType.MUTE || skill.getSkillType() == SkillType.PARALYZE || skill.getSkillType() == SkillType.ROOT)) 
                 continue; // These skills should not work on RaidBoss
 
-            if (!skill.checkCondition(caster)) 
+            if (!skill.checkCondition(caster, true)) 
                 continue; // Skill condition not met
             
             if (target.getEffect(skill.getId()) != null)
@@ -299,14 +302,30 @@ public final class L2Weapon  extends L2Item
             if (target.isRaid() && (skill.getSkillType() == SkillType.CONFUSION || skill.getSkillType() == SkillType.MUTE || skill.getSkillType() == SkillType.PARALYZE || skill.getSkillType() == SkillType.ROOT)) 
                 continue; // These skills should not work on RaidBoss
 
-            if (!skill.checkCondition(caster)) 
+            if (trigger.isToggle() && skill.getSkillType() == SkillType.BUFF)
+            	continue; // No buffing with toggle skills
+            
+            if (!skill.checkCondition(caster, true)) 
                 continue; // Skill condition not met
             
-            if (target.getEffect(skill.getId()) != null)
-                target.getEffect(skill.getId()).exit();
                 //target.removeEffect(target.getEffect(skill.getId()));
-            for (L2Effect e:skill.getEffects(caster, target))
-                effects.add(e);
+            try
+            {
+                // Get the skill handler corresponding to the skill type
+                ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
+
+                L2Character[] targets = new L2Character[1];
+                targets[0] = target;
+                
+                // Launch the magic skill and calculate its effects
+                if (handler != null)                
+                    handler.useSkill(caster, skill, targets);            
+                else
+                    skill.useSkill(caster, targets);
+            }
+            catch (IOException e)
+            {
+            }
         }
         if (effects.size() == 0)
             return _emptyEffectSet;

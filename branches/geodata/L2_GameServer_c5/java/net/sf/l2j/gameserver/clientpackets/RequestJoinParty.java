@@ -70,9 +70,9 @@ public class RequestJoinParty extends ClientBasePacket
             return;
         }
         
-        if (target.getZaricheEquiped() || requestor.getZaricheEquiped())
+        if (target.isCursedWeaponEquiped() || requestor.isCursedWeaponEquiped())
         {
-            requestor.sendMessage("A player wielding Zariche can't participate in a party");
+            requestor.sendMessage("A player wielding a Cursed Weapon can't participate in a party");
             return;
         }
         
@@ -149,6 +149,7 @@ public class RequestJoinParty extends ClientBasePacket
            if (Config.DEBUG)
                _log.warning(requestor.getName() + " already received a party invitation");
 		}
+        msg = null;
 	}
 
 	/**

@@ -35,6 +35,7 @@ import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.PledgeReceiveSubPledgeCreated;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
+import net.sf.l2j.gameserver.serverpackets.PledgeSkillListAdd;
 import net.sf.l2j.gameserver.serverpackets.PledgeStatusChanged;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -906,7 +907,10 @@ public class L2Clan
                 if (temp.isOnline() && temp.getPlayerInstance()!=null)
                 {
                     if (newSkill.getMinPledgeClass() <= temp.getPlayerInstance().getPledgeClass())
+                    {
                         temp.getPlayerInstance().addSkill(newSkill);
+                        temp.getPlayerInstance().sendPacket(new PledgeSkillListAdd(newSkill.getId(), newSkill.getLevel()));
+                    }
                 }
             }
             for (L2ClanMember temp : _subMembers.values())
@@ -1451,6 +1455,7 @@ public class L2Clan
             updateClanInDB();
         }
         _reputationScore = score;
+        broadcastClanStatus();
     }
     public int getReputationScore()
     {

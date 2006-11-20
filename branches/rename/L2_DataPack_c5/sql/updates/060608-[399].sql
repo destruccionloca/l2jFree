@@ -1,1 +1,0 @@
-ALTER TABLE `spawnlist` DROP `delay`;

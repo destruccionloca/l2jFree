@@ -109,7 +109,7 @@ public class MapRegionTable
 			try { con.close(); } catch (Exception e) {}
 		}
         
-        _pointsWithKarmas = new int[14][3];
+        _pointsWithKarmas = new int[16][3];
         //Talking Island
         _pointsWithKarmas[0][0] = -79077;
         _pointsWithKarmas[0][1] = 240355;
@@ -166,6 +166,15 @@ public class MapRegionTable
         _pointsWithKarmas[13][0] = 119536;
         _pointsWithKarmas[13][1] = 218558;
         _pointsWithKarmas[13][2] = -3495;
+         // Rune Castle Town
+        _pointsWithKarmas[14][0] =  42931;
+        _pointsWithKarmas[14][1] = -44733;
+        _pointsWithKarmas[14][2] =  -1326;
+        // Goddard
+        _pointsWithKarmas[15][0] = 147419;
+        _pointsWithKarmas[15][1] = -64980;
+        _pointsWithKarmas[15][2] =  -3457;
+        //TODO@ add shuttgard point [Luno]        
 	}
 	
 	public final int getMapRegion(int posX, int posY)
@@ -211,8 +220,9 @@ public class MapRegionTable
             case 13: nearestTown = "Heine"; break;
             case 14: nearestTown = "Rune Castle Town"; break;
             case 15: nearestTown = "Goddard"; break;
-            case 16: nearestTown = "Scuttgart"; break;
+            case 16: nearestTown = "Schuttgart"; break;
             default: nearestTown = "Aden Castle Town"; break;
+            // TODO@ add shuttgard [Luno]
         }
         
         return nearestTown;
@@ -293,7 +303,10 @@ public class MapRegionTable
             if(player.getKarma() > 1)
             {
                 int closest =  getMapRegion(activeChar.getX(), activeChar.getY());
-                return new Location(_pointsWithKarmas[closest][0], _pointsWithKarmas[closest][1], _pointsWithKarmas[closest][2]);
+                if(closest >= 0 && closest < _pointsWithKarmas.length)
+                   return new Location(_pointsWithKarmas[closest][0], _pointsWithKarmas[closest][1], _pointsWithKarmas[closest][2]);
+                else
+                   return new Location(17817, 170079, -3530);
             }
             
             // Checking if in arena

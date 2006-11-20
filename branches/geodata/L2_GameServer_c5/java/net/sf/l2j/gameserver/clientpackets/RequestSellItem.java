@@ -22,15 +22,17 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.actor.instance.L2FishermanInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MercManagerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MerchantInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
+import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
@@ -107,7 +109,25 @@ public class RequestSellItem extends ClientBasePacket
 			    || !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false) 	// Distance is too far
 			        )) return;
 
-		L2MerchantInstance merchant = (target != null && target instanceof L2MerchantInstance) ? (L2MerchantInstance)target : null;
+        boolean ok = true;
+        String htmlFolder = new String();
+ 
+        if (target != null)
+        {
+        	if (target instanceof L2MerchantInstance)
+        		htmlFolder = "merchant";
+        	else if (target instanceof L2FishermanInstance)
+        		htmlFolder = "fisherman";
+        	else
+        		ok = false;
+        }
+        else
+        	ok = false;
+
+        L2NpcInstance merchant = null;
+
+        if (ok)
+        	merchant = (L2NpcInstance)target;
 
 		if (_listId > 1000000) // lease
 		{
@@ -120,7 +140,6 @@ public class RequestSellItem extends ClientBasePacket
 		
 		long totalPrice = 0;
 		// Proceed the sell
-		InventoryUpdate playerIU = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
 		for (int i = 0; i < _count; i++)
 		{
 			int objectId = _items[i * 3 + 0];
@@ -133,6 +152,7 @@ public class RequestSellItem extends ClientBasePacket
 				Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase over "+Integer.MAX_VALUE+" items at the same time.",  Config.DEFAULT_PUNISH);
 				SystemMessage sm = new SystemMessage(SystemMessage.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				sendPacket(sm);
+				sm = null;
 				return;
 			}
 
@@ -147,7 +167,6 @@ public class RequestSellItem extends ClientBasePacket
             }
 
 			item = player.getInventory().destroyItem("Sell", objectId, count, player, null);
-			if (playerIU != null) playerIU.addItem(item);
 			
 /* TODO: Disabled until Leaseholders are rewritten ;-)
 			int price = item.getReferencePrice()*(int)count/2;
@@ -172,14 +191,20 @@ public class RequestSellItem extends ClientBasePacket
 		}
 		player.addAdena("Sell", (int)totalPrice, merchant, false);
 
-    	// Send inventory update packet
-		if (playerIU != null) player.sendPacket(playerIU);
-		else player.sendPacket(new ItemList(player, false));
+		String html = HtmCache.getInstance().getHtm("data/html/"+ htmlFolder +"/" + merchant.getNpcId() + "-sold.htm");
+
+		if (html != null)
+		{
+            NpcHtmlMessage soldMsg = new NpcHtmlMessage(merchant.getObjectId());
+			soldMsg.setHtml(html.replaceAll("%objectId%", String.valueOf(merchant.getObjectId())));
+			player.sendPacket(soldMsg);
+		}
 
     	// Update current load as well
 		StatusUpdate su = new StatusUpdate(player.getObjectId());
 		su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
 		player.sendPacket(su);
+		player.sendPacket(new ItemList(player, true));
 	}
 
 	/* (non-Javadoc)

@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
+import java.util.List;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,8 +28,10 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.TradeController;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2MercManagerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MerchantInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
@@ -56,7 +59,7 @@ public class RequestWearItem extends ClientBasePacket
     private final int _unknow;
     
     /** List of ItemID to Wear */
-    private final int _listId;
+    private int _listId;
     
     /** Number of Item to Wear */
     private int _count;
@@ -130,9 +133,35 @@ public class RequestWearItem extends ClientBasePacket
         		|| !(target instanceof L2MerchantInstance || target instanceof L2MercManagerInstance)	// Target not a merchant and not mercmanager
 			    || !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false) 	// Distance is too far
 			        )) return;
+        
+        L2TradeList list = null;
 
         // Get the current merchant targeted by the player
 		L2MerchantInstance merchant = (target != null && target instanceof L2MerchantInstance) ? (L2MerchantInstance)target : null;
+		
+		List<L2TradeList> lists = TradeController.getInstance().getBuyListByNpcId(merchant.getNpcId());
+    	
+    	if (lists == null)
+    	{
+    		Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a false BuyList list_id.",Config.DEFAULT_PUNISH);
+    		return;
+    	}
+    	
+    	for (L2TradeList tradeList : lists)
+    	{
+    		if (tradeList.getListId() == _listId)
+    		{
+    			list = tradeList;
+    		}
+    	}
+    	
+    	if (list == null)
+        {
+        	Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a false BuyList list_id.",Config.DEFAULT_PUNISH);
+        	return;
+        }
+        
+        _listId = list.getListId();
 
         // Check if the quantity of Item to Wear
         if(_count < 1 || _listId >= 1000000)
@@ -151,7 +180,13 @@ public class RequestWearItem extends ClientBasePacket
 		for (int i = 0; i < _count; i++)
 		{
 			int itemId = _items[i];
-
+			
+			if (!list.containsItemId(itemId))
+			{
+				Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a false BuyList list_id.",Config.DEFAULT_PUNISH);
+				return;
+			}
+			
             L2Item template = ItemTable.getInstance().getTemplate(itemId);
             weight += template.getWeight();
             slots++;
@@ -190,6 +225,12 @@ public class RequestWearItem extends ClientBasePacket
 		for (int i=0; i < _count; i++)
 		{
 			int itemId = _items[i];
+			
+			if (!list.containsItemId(itemId))
+			{
+				Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a false BuyList list_id.",Config.DEFAULT_PUNISH);
+				return;
+			}
 
 			// If player doesn't own this item : Add this L2ItemInstance to Inventory and set properties lastchanged to ADDED and _wear to True
             // If player already own this item : Return its L2ItemInstance (will not be destroy because property _wear set to False)

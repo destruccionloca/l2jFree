@@ -64,6 +64,7 @@ import net.sf.l2j.gameserver.model.actor.stat.CharStat;
 import net.sf.l2j.gameserver.model.actor.status.CharStatus;
 import net.sf.l2j.gameserver.model.entity.Zone;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
+import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.Attack;
@@ -419,17 +420,22 @@ public abstract class L2Character extends L2Object
         if (isAttackingDisabled()) 
             return;
         
-        if ((this instanceof L2PcInstance) && (target instanceof L2PcInstance) && (((L2PcInstance)this).getZaricheEquiped() && target.getLevel() < 21) && (((L2PcInstance)target).getZaricheEquiped() && this.getLevel() < 21))
-        {
-            ((L2PcInstance)this).sendMessage("Cant attack this player, because of the Zariche's effect");
-            return;
-        }
         if ((this instanceof L2PcInstance) && (((L2PcInstance)this).inObserverMode()))
         {
             ((L2PcInstance)this).sendMessage("Cant attack in observer mode");
             sendPacket(new ActionFailed());
             return;
-        } 
+        }
+        if(Config.ALLOW_GEODATA)
+        if ( this instanceof L2PcInstance)
+        {
+            //_log.warning("Do attack L0S_2");
+            if (GeoDataRequester.getInstance().hasAttackLoS(this, target) == false)
+            {
+                sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                return;
+            }   
+        }
 
         // Get the active weapon instance (always equiped in the right hand)
         L2ItemInstance weaponInst = getActiveWeaponInstance();
@@ -513,15 +519,6 @@ public abstract class L2Character extends L2Object
         // Reduce the current CP if TIREDNESS configuration is activated
         if (Config.ALT_GAME_TIREDNESS) 
             setCurrentCp(getCurrentCp() - 10);
-        
-        //clear Cp if atacker is a hero & target has zariche equiped
-        if (target instanceof L2PcInstance && this instanceof L2PcInstance)
-            if (((L2PcInstance)target).getZaricheEquiped())
-            {
-                if (((L2PcInstance)this).isHero())
-                    target.setCurrentCp(0);
-                setCurrentCp(0);
-            }
 
         // Recharge any active auto soulshot tasks for player (or player's summon if one exists).
         if (this instanceof L2PcInstance) 
@@ -555,6 +552,17 @@ public abstract class L2Character extends L2Object
 
         // Set the Attacking Body part to CHEST
         setAttackingBodypart();
+         
+        if(Config.ALLOW_GEODATA)
+        if ( this instanceof L2PcInstance)
+        {
+              //_log.warning("Do attack L0S");
+              if (GeoDataRequester.getInstance().hasAttackLoS(this, target) == false)
+              {
+                  sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                  return;
+              }   
+        }
         
         // Select the type of attack to start
         if (weaponItem == null)
@@ -597,6 +605,17 @@ public abstract class L2Character extends L2Object
             else
                 if (weaponInst != null)
                     weaponInst.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
+            if (player != null)
+            {
+                if (player.isCursedWeaponEquiped())
+                {                    
+                    target.setCurrentCp(0); // If hitted by Zariche, Cp is reduced to 0
+                } else if (player.isHero())
+                {
+                    if (target instanceof L2PcInstance && ((L2PcInstance)target).isCursedWeaponEquiped())                        
+                        target.setCurrentCp(0); // If Zariche is hitted by a Hero, Cp is reduced to 0
+                }
+            }
         }
 
         // If the Server->Client packet Attack contains at least 1 hit, send the Server->Client packet Attack
@@ -1019,6 +1038,11 @@ public abstract class L2Character extends L2Object
             else if (this instanceof L2Summon)
                 ((L2Summon)this).getOwner().rechargeAutoSoulShot(false, true, true);
         }
+        else if (skill.useFishShot())
+        {
+           if (this instanceof L2PcInstance) 
+             ((L2PcInstance)this).rechargeAutoSoulShot(true, false, false);
+         }
         
         // Get all possible targets of the skill in a table in function of the skill target type
         L2Object[] targets = skill.getTargetList(this);
@@ -1050,7 +1074,7 @@ public abstract class L2Character extends L2Object
  
             if (this instanceof L2PcInstance && target instanceof L2PcInstance && target.getAI().getIntention() == CtrlIntention.AI_INTENTION_ATTACK)
             {
-                if(skill.getSkillType() == SkillType.BUFF || skill.getSkillType() == SkillType.HOT || skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.HEAL_PERCENT || skill.getSkillType() == SkillType.MANAHEAL)
+                if(skill.getSkillType() == SkillType.BUFF || skill.getSkillType() == SkillType.HOT || skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.HEAL_PERCENT || skill.getSkillType() == SkillType.MANAHEAL || skill.getSkillType() == SkillType.MANAHEAL_PERCENT)
                     target.setLastBuffer(this);
  
                 if (((L2PcInstance)this).isInParty() && skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY)
@@ -1832,6 +1856,7 @@ public abstract class L2Character extends L2Object
     */
    public final void addEffect(L2Effect newEffect)
    {
+       L2Effect tempEffect = null;
        if(newEffect == null) return;
        
        synchronized (this)
@@ -1844,29 +1869,18 @@ public abstract class L2Character extends L2Object
        }
        synchronized(_effects) 
        {
-           L2Effect tempEffect = null;
-           for (int i=0; i<_effects.size(); i++) 
-           {
-               if (_effects.get(i).getSkill() == newEffect.getSkill().getId()) 
-               {
-                   tempEffect = _effects.get(i).getEffect();
-                   break;
-               }
-           }
-           // Make sure there's no same buff previously 
-           if (tempEffect != null) tempEffect.exit();
-           
         // Remove first Buff if number of buffs > 24
 		L2Skill tempskill = newEffect.getSkill(); 
 		if (getBuffCount() > Config.ALT_GAME_NUMBER_OF_CUMULATED_BUFF && !doesStack(tempskill) && ((
 				tempskill.getSkillType() == L2Skill.SkillType.BUFF ||
                 tempskill.getSkillType() == L2Skill.SkillType.DEBUFF ||
                 tempskill.getSkillType() == L2Skill.SkillType.REFLECT ||
-                tempskill.getSkillType() == L2Skill.SkillType.HEAL_PERCENT)&& 
+                tempskill.getSkillType() == L2Skill.SkillType.HEAL_PERCENT ||
+                tempskill.getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT)&& 
                 tempskill.getId() != 4267 &&
                 tempskill.getId() != 4270 &&
                 !(tempskill.getId() > 4360  && tempskill.getId() < 4367))
-		) removeFirstBuff(0); // removeFirstBuff(tempskill.getId());
+		) removeFirstBuff(tempskill.getId());
 
        // Add the L2Effect to all effect in progress on the L2Character
         if (!newEffect.getSkill().isToggle()) 
@@ -2021,7 +2035,10 @@ public abstract class L2Character extends L2Object
 		// Currently all effects are cancelled. In this removal, skill.exit() should
 		// actually be used, if the users don't wish to see "effect removed" always
 		// when a timer goes off, even if the buff isn't active any more (has been replaced).
-		if (/*Config.EFFECT_CANCELING &&*/ stackQueue.size() > 1) 
+        // skill.exit() could be used, if the users don't wish to see "effect 
+        // removed" always when a timer goes off, even if the buff isn't active 
+        // any more (has been replaced). but then check e.g. npc hold and raid petrify.
+        if (Config.EFFECT_CANCELING && stackQueue.size() > 1)  
 		{
 			// only keep the current effect, cancel other effects
 			for (int n=0; n<_effects.size(); n++) 
@@ -2061,10 +2078,13 @@ public abstract class L2Character extends L2Object
    {
 		if(effect == null)
 			return;
-		if(!effect.getInUse()) return;
 
 		synchronized(_effects) 
 		{
+            if(!effect.getInUse()) return;
+            effect.setInUse(false);
+           
+            
 			if (effect.getStackType() == "none")
 			{
 				// Remove Func added by this effect from the L2Character Calculator
@@ -3679,6 +3699,14 @@ public abstract class L2Character extends L2Object
 
        // Get the Move Speed of the L2Charcater
        float speed = getStat().getMoveSpeed();
+       
+       if(Config.ALLOW_GEODATA)
+       if (this instanceof L2PcInstance)
+           if ( GeoDataRequester.getInstance().hasLoS(this, x,y,(short)z )  == false)
+           {
+               SystemMessage sm = new SystemMessage(SystemMessage.CANT_SEE_TARGET);    
+               this.sendPacket(sm); 
+           }
 
        // Create and Init a MoveData object
        MoveData m = new MoveData();
@@ -4271,11 +4299,8 @@ public abstract class L2Character extends L2Object
                 target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, this);
                 getAI().clientStartAutoAttack();
 
-                // Calculate if attack is broken
-                boolean abort = Formulas.getInstance().calcAtkBreak(target, target.getStat().getAtkCancel());
-                
                 // Manage attack or cast break of the target (calculating rate, sending message...)
-                if (abort)
+                if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
                 {
                     target.breakAttack();
                     target.breakCast();
@@ -4399,7 +4424,14 @@ public abstract class L2Character extends L2Object
     */
    public void onForcedAttack(L2PcInstance player)
    {
-        if (isInsidePeaceZone(player))
+       if(Config.ALLOW_GEODATA){
+            if ( GeoDataRequester.getInstance().hasLoS(player, player.getTarget().getX(),player.getTarget().getY(),(short)player.getTarget().getZ() )  == false)
+            {
+                SystemMessage sm = new SystemMessage(SystemMessage.CANT_SEE_TARGET);    
+                player.sendPacket(sm); 
+            }
+       }
+       if (isInsidePeaceZone(player))
        {
            // If L2Character or target is in a peace zone, send a system message TARGET_IN_PEACEZONE a Server->Client packet ActionFailed
            player.sendPacket(new SystemMessage(SystemMessage.TARGET_IN_PEACEZONE));
@@ -4652,7 +4684,7 @@ public abstract class L2Character extends L2Object
 
 
    /**
-    * Return the number of skills of type(Buff, Debuff, HEAL_PERCENT) affecting this L2Character.<BR><BR>
+    * Return the number of skills of type(Buff, Debuff, HEAL_PERCENT, MANAHEAL_PERCENT) affecting this L2Character.<BR><BR>
     *
     * @return The number of Buffs affecting this L2Character
     */
@@ -4665,7 +4697,8 @@ public abstract class L2Character extends L2Object
                    if ((e.getSkill().getSkillType() == L2Skill.SkillType.BUFF ||
                        e.getSkill().getSkillType() == L2Skill.SkillType.DEBUFF ||
                        e.getSkill().getSkillType() == L2Skill.SkillType.REFLECT ||
-                       e.getSkill().getSkillType() == L2Skill.SkillType.HEAL_PERCENT) && 
+                       e.getSkill().getSkillType() == L2Skill.SkillType.HEAL_PERCENT ||
+                       e.getSkill().getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT) && 
                        e.getSkill().getId() != 4267 &&
                        e.getSkill().getId() != 4270 &&
                        !(e.getSkill().getId() > 4360  && e.getSkill().getId() < 4367)) { // 7s buffs
@@ -4691,7 +4724,8 @@ public abstract class L2Character extends L2Object
                    if ((e.getSkill().getSkillType() == L2Skill.SkillType.BUFF ||
                        e.getSkill().getSkillType() == L2Skill.SkillType.DEBUFF ||
                        e.getSkill().getSkillType() == L2Skill.SkillType.REFLECT ||
-                       e.getSkill().getSkillType() == L2Skill.SkillType.HEAL_PERCENT) && 
+                       e.getSkill().getSkillType() == L2Skill.SkillType.HEAL_PERCENT ||
+                       e.getSkill().getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT) &&  
                        e.getSkill().getId() != 4267 &&
                        e.getSkill().getId() != 4270 &&
                        !(e.getSkill().getId() > 4360  && e.getSkill().getId() < 4367)) {
@@ -5069,6 +5103,10 @@ public abstract class L2Character extends L2Object
                             {
                                 player.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
                                 activeChar.updatePvPStatus(player);
+                            }else if (player instanceof L2Attackable)
+                            {
+                               // notify the AI that she is attacked
+                               player.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
                             }
                         }
                         else
@@ -5327,7 +5365,7 @@ public abstract class L2Character extends L2Object
    // Property - Public
    public int getAccuracy() { return getStat().getAccuracy(); }
    public final float getAttackSpeedMultiplier() { return getStat().getAttackSpeedMultiplier(); }
-   public final int getAtkCancel() { return getStat().getAtkCancel(); }
+   //public final int getAtkCancel() { return getStat().getAtkCancel(); }
    public int getCON() { return getStat().getCON(); }
    public int getDEX() { return getStat().getDEX(); }
    public final double getCriticalDmg(L2Character target, double init) { return getStat().getCriticalDmg(target, init); }

@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.SkillSpellbookTable;
 import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.SkillTreeTable;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
+import net.sf.l2j.gameserver.model.L2PledgeSkillLearn;
 import net.sf.l2j.gameserver.model.L2ShortCut;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2SkillLearn;
@@ -34,6 +35,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2FishermanInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2VillageMasterInstance;
 import net.sf.l2j.gameserver.serverpackets.ExStorageMaxCount;
 import net.sf.l2j.gameserver.serverpackets.ShortCutRegister;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -53,7 +55,7 @@ public class RequestAquireSkill extends ClientBasePacket
     
     private final int _id;
     private final int _level;
-    private final int _fisherman;
+    private final int _skillType;
     
     /**
      * packet type id 0x6c
@@ -65,16 +67,17 @@ public class RequestAquireSkill extends ClientBasePacket
         super(buf, client);
         _id = readD();
         _level = readD();
-        _fisherman = readD();
+        _skillType = readD();
     }
     
     void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
+        if (player.isGM()) player.sendMessage("Resquest for skill received");
         if (player == null) return;
         
         L2FolkInstance trainer = player.getLastFolkNPC();
-        if (trainer == null) return;
+        if (trainer == null){if (player.isGM()) player.sendMessage("Resquest for skill termintated, cuz wrog Npc"); return;}
         
         int npcid = trainer.getNpcId();
         
@@ -91,7 +94,7 @@ public class RequestAquireSkill extends ClientBasePacket
         int counts = 0;
         int _requiredSp = 10000000;
         
-        if (_fisherman == 0) 
+        if (_skillType == 0) 
         {
             // Skill Learn bug Fix
             L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(player, player.getClassId());
@@ -139,10 +142,11 @@ public class RequestAquireSkill extends ClientBasePacket
             {
                 SystemMessage sm = new SystemMessage(SystemMessage.NOT_ENOUGH_SP_TO_LEARN_SKILL);
                 player.sendPacket(sm);
+                sm = null;
                 return;
             }
         }
-        else if (_fisherman == 1)
+        else if (_skillType == 1)
         {
             int costid = 0;
             int costcount = 0;
@@ -183,17 +187,85 @@ public class RequestAquireSkill extends ClientBasePacket
                 sm.addNumber(costcount);
                 sm.addItemName(costid);
                 sendPacket(sm);
+                sm = null;
             }
             else
             {
                 SystemMessage sm = new SystemMessage(SystemMessage.NOT_ENOUGH_SP_TO_LEARN_SKILL);
                 player.sendPacket(sm);
+                sm = null;
                 return;
             }
         }
+        else if (_skillType == 2) //pledgeskills TODO: Find appropriate system messages.
+        {
+            if (player.isGM()) player.sendMessage("Resquest for PLEDGE skill received");
+            int itemId = 0;
+            int repCost = 100000000;
+            // Skill Learn bug Fix
+            L2PledgeSkillLearn[] skills = SkillTreeTable.getInstance().getAvailablePledgeSkills(player);
+            
+            for (L2PledgeSkillLearn s : skills)
+            {
+                L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
+                
+                if (sk == null || sk != skill)
+                    continue;
+                
+                counts++;
+                itemId = s.getItemId();
+                repCost = s.getRepCost(); 
+            }
+            
+            if (counts == 0)
+            {
+                player.sendMessage("You are trying to learn skill that u can't..");
+                Util.handleIllegalPlayerAction(player, "Player " + player.getName()
+                                               + " tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
+                return;
+            }
+            
+            if (player.getClan().getReputationScore() >= repCost)
+            {
+                if (!player.destroyItemByItemId("Consume", itemId, 1, trainer, false))
+                {
+                    // Haven't spellbook
+                    player.sendPacket(new SystemMessage(SystemMessage.ITEM_MISSING_TO_LEARN_SKILL));
+                    return;
+                }
+                
+                SystemMessage sm = new SystemMessage(SystemMessage.DISSAPEARED_ITEM);
+                sm.addNumber(itemId);
+                sm.addItemName(1);
+                sendPacket(sm);
+                sm = null;
+            }
+            else
+            {
+                //SystemMessage sm = new SystemMessage(SystemMessage.NOT_ENOUGH_SP_TO_LEARN_SKILL);
+                player.sendMessage("Your clan doesn't have enough reputation points to learn this skill");
+                //sm = null;
+                return;
+            }
+            player.getClan().addNewSkill(skill);
+            
+            if (Config.DEBUG) 
+                _log.fine("Learned pledge skill " + _id + " for " + _requiredSp + " SP.");
+            
+            player.getClan().setReputationScore(player.getClan().getReputationScore()-repCost);
+            
+            SystemMessage sm = new SystemMessage(SystemMessage.LEARNED_SKILL_S1);
+            sm.addSkillName(_id);
+            player.sendPacket(sm);
+            sm = null;
+            
+            ((L2VillageMasterInstance)trainer).showPledgeSkillList(player); //Maybe we shoud add a check here...
+            
+            return;
+        }
         else
         {
-            _log.warning("Recived Wrong Packet Data in Aquired Skill - unk1:" +_fisherman);
+            _log.warning("Recived Wrong Packet Data in Aquired Skill - unk1:" +_skillType);
             return;
         }
         
@@ -212,6 +284,7 @@ public class RequestAquireSkill extends ClientBasePacket
         SystemMessage sm = new SystemMessage(SystemMessage.LEARNED_SKILL_S1);
         sm.addSkillName(_id);
         player.sendPacket(sm);
+        sm = null;
         
         // update all the shortcuts to this skill
         if (_level > 1)

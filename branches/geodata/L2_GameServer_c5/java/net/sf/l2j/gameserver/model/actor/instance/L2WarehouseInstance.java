@@ -148,7 +148,13 @@ public final class L2WarehouseInstance extends L2FolkInstance
 
         if (freight != null && getZone() != null)
         {
-            freight.setActiveLocation(getZone().getId());
+        	if (Config.ALT_GAME_FREIGHTS)
+        	{
+                freight.setActiveLocation(0);
+        	} else
+        	{
+        		freight.setActiveLocation(getZone().getId());
+        	}
             player.setActiveWarehouse(freight);
             player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.Freight));
         }
@@ -163,7 +169,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
         // No other chars in the account of this player
         if (player.getAccountChars().size() == 0)
         {
-            NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
+            NpcHtmlMessage npcReply = new NpcHtmlMessage(getObjectId());
 
             TextBuilder replyMSG = new TextBuilder("<html><body>");
             replyMSG.append("You have no other characters to make a freight for.");
@@ -184,7 +190,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
                 return;
             }
 
-            NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
+            NpcHtmlMessage npcReply = new NpcHtmlMessage(getObjectId());
             TextBuilder replyMSG = new TextBuilder("<html><body>");
             replyMSG.append("Select the character for the freight:<br><br>");
             //replyMSG.append("<select>");
@@ -234,7 +240,13 @@ public final class L2WarehouseInstance extends L2FolkInstance
             return;
         }
         PcFreight freight = destChar.getFreight();
-        freight.setActiveLocation(getZone().getId());
+    	if (Config.ALT_GAME_FREIGHTS)
+    	{
+            freight.setActiveLocation(0);
+    	} else
+    	{
+    		freight.setActiveLocation(getZone().getId());
+    	}
         player.setActiveWarehouse(freight);
         player.tempInvetoryDisable();
         destChar.deleteMe();
