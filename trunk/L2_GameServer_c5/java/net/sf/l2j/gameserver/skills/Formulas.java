@@ -24,6 +24,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.SkillTable;
+import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.Inventory;
@@ -37,6 +38,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
+import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.ConditionPlayerState.CheckPlayerState;
@@ -822,9 +824,16 @@ public final class Formulas
 	public final double calcHpRegen(L2Character cha)
 	{
         double init = cha.getTemplate().baseHpReg;
-		double hpRegenMultiplier = cha.isRaid() ? Config.RAID_HP_REGEN_MULTIPLIER : Config.HP_REGEN_MULTIPLIER;
+		double hpRegenMultiplier;
         double hpRegenBonus = 0;
 		
+        if(cha.isRaid())
+           hpRegenMultiplier=Config.RAID_HP_REGEN_MULTIPLIER;
+        else if(cha instanceof L2PcInstance)
+           hpRegenMultiplier=Config.PLAYER_HP_REGEN_MULTIPLIER;
+        else 
+           hpRegenMultiplier=Config.HP_REGEN_MULTIPLIER;
+        
 		if (cha instanceof L2PcInstance)
 		{
             L2PcInstance player = (L2PcInstance) cha;
@@ -840,12 +849,17 @@ public final class Formulas
 				double siegeModifier = this.calcSiegeRegenModifer(player);
 				if (siegeModifier > 0) hpRegenMultiplier *= siegeModifier;
 			}
+            
+            if (player.getIsInClanHall()) if (ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP) != null) hpRegenMultiplier *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP).getLvl()/100;
 
             // Mother Tree effect is calculated at last
 			if (player.getInMotherTreeZone()) hpRegenBonus += 2;
 
             // Calculate Movement bonus
-            if (player.isSitting()) hpRegenMultiplier *= 2.5;      // Sitting
+            if (player.isSitting() && player.getLevel() < 41) hpRegenMultiplier = hpRegenMultiplier * 1.5 + (40 - player.getLevel()) * 0.7; // Sitting
+            //if (player.isSitting() && player.getLevel() < 21) hpRegenMultiplier *= 11.4;  // Sitting
+            //else if (player.isSitting() && player.getLevel() < 41) hpRegenMultiplier *= 6.0; // Sitting
+            else if (player.isSitting()) hpRegenMultiplier *= 1.5;      // Sitting
             else if (!player.isRunning()) hpRegenMultiplier *= 1.5; // Not Running
             else if (!player.isMoving()) hpRegenMultiplier *= 1.1; // Staying
             else if (player.isRunning()) hpRegenMultiplier *= 0.7; // Running
@@ -863,9 +877,16 @@ public final class Formulas
 	public final double calcMpRegen(L2Character cha)
 	{
         double init = cha.getTemplate().baseMpReg;
-        double mpRegenMultiplier = cha.isRaid() ? Config.RAID_MP_REGEN_MULTIPLIER : Config.MP_REGEN_MULTIPLIER;
+        double mpRegenMultiplier;
         double mpRegenBonus = 0;
 		
+        if(cha.isRaid())
+            mpRegenMultiplier=Config.RAID_MP_REGEN_MULTIPLIER;
+        else if(cha instanceof L2PcInstance)
+            mpRegenMultiplier=Config.PLAYER_MP_REGEN_MULTIPLIER;
+        else 
+            mpRegenMultiplier=Config.MP_REGEN_MULTIPLIER;
+        
 		if (cha instanceof L2PcInstance)
 		{
 			L2PcInstance player = (L2PcInstance) cha;
@@ -879,6 +900,8 @@ public final class Formulas
 
             // Mother Tree effect is calculated at last
 			if (player.getInMotherTreeZone()) mpRegenBonus += 1;
+            
+            if (player.getIsInClanHall()) if (ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP) != null) mpRegenMultiplier *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP).getLvl()/100;
 
 			// Calculate Movement bonus
             if (player.isSitting()) mpRegenMultiplier *= 2.5;      // Sitting.
@@ -899,7 +922,7 @@ public final class Formulas
 	public final double calcCpRegen(L2Character cha)
 	{
         double init = cha.getTemplate().baseHpReg;
-        double cpRegenMultiplier = Config.CP_REGEN_MULTIPLIER;
+        double cpRegenMultiplier = Config.PLAYER_CP_REGEN_MULTIPLIER;
         double cpRegenBonus = 0;
 
         L2PcInstance player = (L2PcInstance) cha;
@@ -972,6 +995,13 @@ public final class Formulas
     public final double calcPhysDam(L2Character attacker, L2Character target, L2Skill skill,
                                      boolean shld, boolean crit, boolean dual, boolean ss)
 	{
+       if (attacker instanceof L2PcInstance)
+       {
+           L2PcInstance pcInst = (L2PcInstance)attacker;
+           if (pcInst.isGM() && pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+                   return 0;
+       }
+
 		double damage = attacker.getPAtk(target);
 		double defence = target.getPDef(attacker);
 		if (ss) damage *= 2;
@@ -980,6 +1010,9 @@ public final class Formulas
 			damage += skill.getPower();
 			//damage += skill.getPower() * 0.7 * attacker.getPAtk(target)/defence;
 		}
+		// In C5 summons make 10 % less dmg in PvP.
+        if(attacker instanceof L2Summon && target instanceof L2PcInstance) damage *= 0.9;
+        
         //      damage = damage * attacker.getSTR()*(1 - attacker.getLevel()/100)/60*1.15;
 		if (target instanceof L2NpcInstance)
 		{
@@ -1141,12 +1174,23 @@ public final class Formulas
     public final double calcMagicDam(L2Character attacker, L2Character target, L2Skill skill,
                                         boolean ss, boolean bss, boolean mcrit)
 	{
+       if (attacker instanceof L2PcInstance)
+       {
+           L2PcInstance pcInst = (L2PcInstance)attacker;
+           if (pcInst.isGM() && pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+               return 0;
+       }
+               
 		double mAtk = attacker.getMAtk(target, skill);
 		double mDef = target.getMDef(attacker, skill);
 		if (bss) mAtk *= 4;
 		else if (ss) mAtk *= 2;
 
         double damage = 91 * Math.sqrt(mAtk) / mDef * skill.getPower(attacker);
+       
+        // In C5 summons make 10 % less dmg in PvP.
+        if(attacker instanceof L2Summon && target instanceof L2PcInstance) damage *= 0.9;
+       
         //      if(attacker instanceof L2PcInstance && target instanceof L2PcInstance) damage *= 0.9; // PvP modifier (-10%)
 		
 		// Failure calculation
@@ -1214,15 +1258,33 @@ public final class Formulas
 	}
     
 	/** Returns true in case when ATTACK is canceled due to hit */
-	public final boolean calcAtkBreak(L2Character cha, double cancel)
-	{
-        if (Config.ALT_GAME_CANCEL_CAST && cha.isCastingNow()) return cancel > Rnd.get(100);
-        if (Config.ALT_GAME_CANCEL_BOW && cha.isAttackingNow())
-        {
-            L2Weapon wpn = cha.getActiveWeaponItem();
-            if (wpn != null && wpn.getItemType() == L2WeaponType.BOW) return cancel > Rnd.get(100);
-        }
-        return false;
+   public final boolean calcAtkBreak(L2Character target, double dmg)
+   {
+        double init = 0;
+
+       if (Config.ALT_GAME_CANCEL_CAST && target.isCastingNow()) init = 45;
+       if (Config.ALT_GAME_CANCEL_BOW && target.isAttackingNow())
+       {
+           L2Weapon wpn = target.getActiveWeaponItem();
+           if (wpn != null && wpn.getItemType() == L2WeaponType.BOW) init = 20;
+       }
+
+        if (init <= 0) return false; // No attack break
+
+        // Chance of break is higher with higher dmg
+        init += 5 * Math.sqrt(dmg);  
+
+        // Chance is affected by target MEN
+        init -= (MENbonus[target.getMEN()] * 100 - 100);
+
+        // Calculate all modifiers for ATTACK_CANCEL
+        double rate = target.calcStat(Stats.ATTACK_CANCEL, init, null, null); 
+
+        // Adjust the rate to be between 1 and 99
+        if (rate > 99) rate = 99;
+        else if (rate < 1) rate = 1;
+
+        return Rnd.get(100) < rate;
     }
 	
 	/** Calculate delay (in milliseconds) before next ATTACK */
@@ -1643,9 +1705,9 @@ public final class Formulas
          *  10 - 20      : reduced chance
          *  20 and more  : min chance
          */
-        int value = target.isRaid() ? 120 : 200; // chance is reduced for RaidBoss
-        int lvlDepend = 8;
- 
+        int value = target.isRaid() ? 130 : 170; // chance is reduced for RaidBoss
+        int lvlDepend = 6;
+        
         // TODO: Temporary fix for NPC skills with MagicLevel not set
         // int lvlmodifier = (skill.getMagicLevel() - target.getLevel()) * lvlDepend;
         int lvlmodifier = ((skill.getMagicLevel() > 0 ? skill.getMagicLevel() : attacker.getLevel()) - target.getLevel())

@@ -82,6 +82,12 @@ public class PetSummon implements IItemHandler
             return;
         }
         
+        if (activeChar.isCursedWeaponEquiped())
+        {
+           // You can't mount while weilding a cursed weapon
+           activeChar.sendPacket(new SystemMessage(SystemMessage.STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE));
+        }        
+        
         npcId = L2PetDataTable.getPetIdByItemId(item.getItemId());
         
         if (npcId == 0)

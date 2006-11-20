@@ -198,8 +198,8 @@ INSERT INTO teleport VALUES
 ('Cat DarkOmen Exit',259,-19931,13502,-4905,0),
 ('Cat ForbiddenPath Entrance',260,113865,84543,-6545,0),
 ('Cat ForbiddenPath Exit',261,113429,84540,-6545,0),
-('Necro Saints Entrance',262,-41570,209785,-5089,0),
-('Necro Saints Exit',263,-41567,209292,-5091,0),
+('Necro Sacrifice Entrance',262,-41570,209785,-5089,0),
+('Necro Sacrifice Exit',263,-41567,209292,-5091,0),
 ('Necro Pilgrims Entrance',264,45251,123890,-5415,0),
 ('Necro Pilgrims Exit',265,45250,124366,-5417,0),
 ('Necro Worshippers Entrance',266,111273,174015,-5417,0),
@@ -210,8 +210,8 @@ INSERT INTO teleport VALUES
 ('Necro Ascetics Exit',271,-52716,79106,-4745,0),
 ('Necro Martyrs Entrance',272,118308,132800,-4833,0),
 ('Necro Martyrs Exit',273,117793,132810,-4835,0),
-('Necro Sacrifice Entrance',274,83000,209213,-5443,0),
-('Necro Sacrifice Exit',275,82608,209225,-5443,0),
+('Necro Saints Entrance',274,83000,209213,-5443,0),
+('Necro Saints Exit',275,82608,209225,-5443,0),
 ('Necro Disciples Entrance',276,172251,-17605,-4903,0),
 ('Necro Disciples Exit',277,171902,-17595,-4905,0),
 
@@ -342,7 +342,7 @@ INSERT INTO teleport VALUES
 ('Giran -> Schuttgart',1058,87386,-143246,-1293,87000),
 ('Giran -> Aden',1059,146331,25762,-2018,13000),
 ('Giran -> Antharas Lair',1060,132828,114421,-3725,7000),
-('Giran -> Devils Island',1061,41560,197608,-3311,5700),
+('Giran -> Devils Island',1061,43101,204857,-3758,5700),
 ('Giran -> Brekas Stronghold',1062,79798,130624,-3677,1000),
 ('Heine -> Oren',1063,82956,53162,-1495,50000),
 ('Heine -> Aden',1064,146331,25762,-2018,59000),
@@ -402,3 +402,170 @@ INSERT INTO teleport VALUES
 ('Schuttgart -> Labyrinth of winter',1118,122162,-118893,-2603,3500),
 ('Schuttgart -> Graveyard of disgrace',1119,56095,-118952,-3290,1900),
 ('Schuttgart -> Farbel Ruins',1120,88288,-125692,-3816,2100);
+
+-----------------------------------------------
+--Clan Hall teleports
+-----------------------------------------------
+INSERT INTO `teleport` VALUES ('Dion Territory', '501', '0', '0', '0', '500');
+INSERT INTO `teleport` VALUES ('Execution Grounds', '502', '50568', '152408', '-2656', '500');
+INSERT INTO `teleport` VALUES ('Fortress of Resistance', '503', '47261', '116866', '-2344', '500');
+INSERT INTO `teleport` VALUES ('Cruma Marshlands', '504', '5106', '126916', '-3664', '500');
+INSERT INTO `teleport` VALUES ('Cruma Tower', '505', '17225', '114173', '-3440', '500');
+INSERT INTO `teleport` VALUES ('Mandragora Farm', '506', '38291', '148029', '-3696', '500');
+INSERT INTO `teleport` VALUES ('Town of Dion', '507', '16856', '144673', '-3000', '500');
+INSERT INTO `teleport` VALUES ('Floran Village', '508', '17308', '170368', '-3495', '500');
+INSERT INTO `teleport` VALUES ('Tanor Canyon', '510', '59170', '164817', '-2856', '500');
+INSERT INTO `teleport` VALUES ('Bee Hive', '511', '22944', '182122', '-2640', '500');
+INSERT INTO `teleport` VALUES ('Dion Hills', '512', '29928', '151415', '2392', '500');
+INSERT INTO `teleport` VALUES ('Floran Agricultural Area', '513', '10610', '156322', '-2472', '500');
+INSERT INTO `teleport` VALUES ('Plains of Dion', '514', '630', '179184', '-3720', '500');
+INSERT INTO `teleport` VALUES ('Fortress of Resistance', '515', '45302', '109537', '-2024', '500');
+INSERT INTO `teleport` VALUES ('Arena', '629', '12443', '183467', '-3560', '500');
+INSERT INTO `teleport` VALUES ('Giran Territory', '516', '0', '0', '0', '500');
+INSERT INTO `teleport` VALUES ('Hardin\'s Academy', '517', '105918', '109759', '-3170', '500');
+INSERT INTO `teleport` VALUES ('Dragon Valley', '518', '79745', '115299', '-3720', '500');
+INSERT INTO `teleport` VALUES ('Death Pass', '521', '67933', '117045', '-3544', '500');
+INSERT INTO `teleport` VALUES ('Pirate Tunnel', '522', '41528', '198358', '-4648', '500');
+INSERT INTO `teleport` VALUES ('Giran Harbor', '524', '47938', '186864', '-3420', '500');
+INSERT INTO `teleport` VALUES ('Giran Castle Town', '525', '83475', '147966', '-3404', '500');
+INSERT INTO `teleport` VALUES ('Arena', '526', '73579', '142709', '-3768', '500');
+INSERT INTO `teleport` VALUES ('Breka\'s Stronghold', '528', '85546', '131328', '-3672', '500');
+INSERT INTO `teleport` VALUES ('Gorgon Flower Garden', '529', '113553', '134813', '-3540', '500');
+INSERT INTO `teleport` VALUES ('Gludio Territory', '530', '0', '0', '0', '500');
+INSERT INTO `teleport` VALUES ('Ruins of Despair', '531', '-19120', '136816', '-3762', '500');
+INSERT INTO `teleport` VALUES ('Ruins of Agony', '532', '-42628', '119766', '-3528', '500');
+INSERT INTO `teleport` VALUES ('Wasteland', '533', '-22726', '190368', '-4304', '500');
+INSERT INTO `teleport` VALUES ('The Ant Nest', '534', '-9959', '176184', '-4160', '500');
+INSERT INTO `teleport` VALUES ('Gludin Village', '535', '-80684', '149770', '-3043', '500');
+INSERT INTO `teleport` VALUES ('Gludin Harbor', '536', '-91101', '150344', '-3624', '500');
+INSERT INTO `teleport` VALUES ('Town of Gludio', '537', '-12787', '122779', '-3114', '500');
+INSERT INTO `teleport` VALUES ('Abandoned Camp', '538', '-49853', '147089', '-2784', '500');
+INSERT INTO `teleport` VALUES ('Orc Barracks', '539', '-89763', '105359', '-3576', '500');
+INSERT INTO `teleport` VALUES ('Forgotten Temple', '540', '-53001', '191425', '-3568', '500');
+INSERT INTO `teleport` VALUES ('Fellmere Lake', '541', '-57798', '127629', '-2928', '500');
+INSERT INTO `teleport` VALUES ('Arena', '542', '-87328', '142266', '-3640', '500');
+INSERT INTO `teleport` VALUES ('Windy Hill', '544', '-88539', '83389', '-2864', '500');
+INSERT INTO `teleport` VALUES ('Red Rock Ridge', '545', '-44829', '188171', '-3256', '500');
+INSERT INTO `teleport` VALUES ('Langk Lizardmen Dwellings', '546', '-44763', '203497', '-3592', '500');
+INSERT INTO `teleport` VALUES ('Maille Lizardmen Barracks', '547', '-25283', '106820', '-3416', '500');
+INSERT INTO `teleport` VALUES ('Talking Island', '548', '-84141', '244623', '-3729', '500');
+INSERT INTO `teleport` VALUES ('Talking Island Village', '549', '-84141', '244623', '-3729', '500');
+INSERT INTO `teleport` VALUES ('Cedric\'s Training Hall', '550', '-72674', '256819', '-3112', '500');
+INSERT INTO `teleport` VALUES ('Einhovant\'s School of Magic', '551', '-89041', '248907', '-3568', '500');
+INSERT INTO `teleport` VALUES ('Obelisk of Victory', '552', '-99586', '237637', '-3568', '500');
+INSERT INTO `teleport` VALUES ('Elven Ruins', '553', '-112367', '234703', '-3688', '500');
+INSERT INTO `teleport` VALUES ('Talking Island Harbor', '554', '-96811', '259153', '-3616', '500');
+INSERT INTO `teleport` VALUES ('Talking Island, Western Territory', '555', '-95336', '240478', '-3264', '500');
+INSERT INTO `teleport` VALUES ('Talking Island, Eastern Territory', '556', '-104344', '226217', '-3616', '500');
+INSERT INTO `teleport` VALUES ('Fellmere Harvesting Grounds', '557', '-63736', '101522', '-3552', '500');
+INSERT INTO `teleport` VALUES ('Windmill Hill', '558', '-72417', '173629', '-3648', '500');
+INSERT INTO `teleport` VALUES ('Ruins of Agony Bend', '559', '-50174', '129303', '-2912', '500');
+INSERT INTO `teleport` VALUES ('Evil Hunting Grounds', '560', '-6989', '109503', '-3040', '500');
+INSERT INTO `teleport` VALUES ('Entrance to the Ruins of Despair', '561', '-36652', '135591', '-3160', '500');
+INSERT INTO `teleport` VALUES ('Windawood Manor', '562', '-24794', '156502', '-2880', '500');
+INSERT INTO `teleport` VALUES ('Ol Mahum Checkpoint', '563', '-6661', '201880', '-3632', '500');
+INSERT INTO `teleport` VALUES ('Ant Incubator', '564', '-26489', '195307', '-3928', '500');
+INSERT INTO `teleport` VALUES ('Singing Waterfall', '565', '-111728', '244330', '-3448', '500');
+INSERT INTO `teleport` VALUES ('The Neutral Zone', '566', '-10612', '75881', '-3592', '500');
+INSERT INTO `teleport` VALUES ('Oren Territory', '567', '0', '0', '0', '500');
+INSERT INTO `teleport` VALUES ('Ivory Tower', '581', '85391', '16228', '-3640', '500');
+INSERT INTO `teleport` VALUES ('Town of Oren', '582', '82971', '53207', '-1470', '500');
+INSERT INTO `teleport` VALUES ('Plains of the Lizardmen', '584', '87252', '85514', '-3103', '500');
+INSERT INTO `teleport` VALUES ('Skyshadow Meadow', '585', '89914', '46276', '-3616', '500');
+INSERT INTO `teleport` VALUES ('Shilen\'s Garden', '586', '23863', '11068', '-3720', '500');
+INSERT INTO `teleport` VALUES ('Black Rock Hill', '587', '-29466', '66678', '-3496', '500');
+INSERT INTO `teleport` VALUES ('Spider Nest', '588', '-61095', '75104', '-3383', '500');
+INSERT INTO `teleport` VALUES ('Timak Outpost', '589', '67097', '68815', '-3648', '500');
+INSERT INTO `teleport` VALUES ('Ivory Tower Crater', '590', '85391', '16228', '-3640', '500');
+INSERT INTO `teleport` VALUES ('Forest of Evil', '591', '93218', '16969', '-3904', '500');
+INSERT INTO `teleport` VALUES ('Outlaw Forest', '592', '91539', '-12204', '-2440', '500');
+INSERT INTO `teleport` VALUES ('Misty Mountains', '593', '61740', '94946', '-1488', '500');
+INSERT INTO `teleport` VALUES ('Starlight Waterfall', '594', '58502', '53453', '-3624', '500');
+INSERT INTO `teleport` VALUES ('Undine Waterfall', '595', '-7233', '57006', '-3520', '500');
+INSERT INTO `teleport` VALUES ('The Gods\' Falls', '596', '70456', '6591', '-3632', '500');
+INSERT INTO `teleport` VALUES ('Aden Territory', '597', '0', '0', '0', '500');
+INSERT INTO `teleport` VALUES ('Tower of Insolence', '598', '114649', '11115', '-5100', '500');
+INSERT INTO `teleport` VALUES ('Blazing Swamp', '599', '159455', '-12931', '-2872', '500');
+INSERT INTO `teleport` VALUES ('The Forbidden Gateway', '601', '185319', '20218', '-3264', '500');
+INSERT INTO `teleport` VALUES ('The Giant\'s Cave', '602', '181737', '46469', '-4276', '500');
+INSERT INTO `teleport` VALUES ('The Enchanted Valley', '603', '124904', '61992', '-3973', '500');
+INSERT INTO `teleport` VALUES ('The Cemetery', '604', '167047', '20304', '-3328', '500');
+INSERT INTO `teleport` VALUES ('The Forest of Mirrors', '605', '142065', '81300', '-3000', '500');
+INSERT INTO `teleport` VALUES ('Anghel Waterfall', '606', '166304', '91741', '-3168', '500');
+INSERT INTO `teleport` VALUES ('Town of Aden', '607', '146783', '25808', '-2000', '500');
+INSERT INTO `teleport` VALUES ('Hunters Village', '608', '117088', '76931', '-2670', '500');
+INSERT INTO `teleport` VALUES ('Eastern Border Outpost', '609', '112405', '-16607', '-1864', '500');
+INSERT INTO `teleport` VALUES ('Coliseum', '610', '146440', '46723', '-3400', '500');
+INSERT INTO `teleport` VALUES ('Narsell Lake', '611', '146440', '46723', '-3400', '500');
+INSERT INTO `teleport` VALUES ('Ancient Battleground', '613', '106517', '-2871', '-3454', '500');
+INSERT INTO `teleport` VALUES ('Forsaken Plains', '614', '167285', '37109', '-4008', '500');
+INSERT INTO `teleport` VALUES ('Silent Valley', '615', '170838', '55776', '-5280', '500');
+INSERT INTO `teleport` VALUES ('Hunters Valley', '616', '114306', '86573', '-3112', '500');
+INSERT INTO `teleport` VALUES ('Plains of Glory', '617', '135580', '19467', '-3424', '500');
+INSERT INTO `teleport` VALUES ('Fields of Massacre', '618', '183543', '-14974', '-2768', '500');
+INSERT INTO `teleport` VALUES ('War-Torn Plains', '619', '156898', '11217', '-4032', '500');
+INSERT INTO `teleport` VALUES ('Western Border Outpost', '620', '158141', '-24543', '-1288', '500');
+INSERT INTO `teleport` VALUES ('Innadril Territory', '621', '0', '0', '0', '500');
+INSERT INTO `teleport` VALUES ('Field of Silence', '622', '91088', '182384', '-3192', '500');
+INSERT INTO `teleport` VALUES ('Field of Whispers', '623', '74592', '207656', '-3032', '500');
+INSERT INTO `teleport` VALUES ('Garden of Eva', '624', '84413', '234334', '-3656', '500');
+INSERT INTO `teleport` VALUES ('Alligator Island', '625', '115583', '192261', '-3488', '500');
+INSERT INTO `teleport` VALUES ('Heine', '626', '111455', '219400', '-3546', '500');
+INSERT INTO `teleport` VALUES ('Alligator Beach', '628', '116267', '201177', '-3432', '500');
+INSERT INTO `teleport` VALUES ('Cruise Liner Docks', '715', '111418', '225960', '-3624', '500');
+INSERT INTO `teleport` VALUES ('Schuttgart Territory', '638', '0', '0', '0', '500');
+INSERT INTO `teleport` VALUES ('Strip Mine', '639', '106561', '-173949', '-400', '500');
+INSERT INTO `teleport` VALUES ('Dwarven Village', '640', '115120', '-178224', '-917', '500');
+INSERT INTO `teleport` VALUES ('Spine Mountains', '641', '147493', '-200840', '192', '500');
+INSERT INTO `teleport` VALUES ('Abandoned Coal Mines', '642', '139714', '-177456', '-1536', '500');
+INSERT INTO `teleport` VALUES ('Mithril Mines', '643', '171946', '-173352', '3440', '500');
+INSERT INTO `teleport` VALUES ('Frozen Valley', '644', '112971', '-174924', '-608', '500');
+INSERT INTO `teleport` VALUES ('Western Mining Zone', '645', '128527', '-204036', '-3408', '500');
+INSERT INTO `teleport` VALUES ('Eastern Mining Zone', '646', '175836', '-205837', '-3384', '500');
+INSERT INTO `teleport` VALUES ('Mining Zone Passage', '647', '113826', '-171150', '-160', '500');
+INSERT INTO `teleport` VALUES ('Plunderous Plains', '648', '115298', '-160886', '-1296', '500');
+INSERT INTO `teleport` VALUES ('Frozen Labyrinth', '649', '123037', '-118112', '-2576', '500');
+INSERT INTO `teleport` VALUES ('Pavel Ruins', '651', '91129', '-123951', '-4128', '500');
+INSERT INTO `teleport` VALUES ('Caron\'s Dungeon', '652', '76021', '-110477', '-1704', '500');
+INSERT INTO `teleport` VALUES ('Den of Evil', '653', '68693', '-110438', '-1946', '500');
+INSERT INTO `teleport` VALUES ('Crypts of Disgrace', '654', '47692', '-115745', '-3744', '500');
+INSERT INTO `teleport` VALUES ('Valley of the Lords', '655', '32173', '-122954', '-792', '500');
+INSERT INTO `teleport` VALUES ('Town of Schuttgart', '657', '88249', '-142713', '-1336', '500');
+INSERT INTO `teleport` VALUES ('Ruins of an Old Research Lab', '658', '90418', '-107317', '-3328', '500');
+INSERT INTO `teleport` VALUES ('Frost Lake', '659', '108251', '-120886', '-3744', '500');
+INSERT INTO `teleport` VALUES ('Sky Wagon Relic', '660', '121618', '-141554', '-1496', '500');
+INSERT INTO `teleport` VALUES ('Ice Merchant\'s Hut', '716', '113750', '-109163', '-832', '500');
+INSERT INTO `teleport` VALUES ('Brigand Stronghold', '717', '126272', '-159336', '-1232', '500');
+INSERT INTO `teleport` VALUES ('Goddard Territory', '680', '0', '0', '0', '500');
+INSERT INTO `teleport` VALUES ('Town  of Goddard', '681', '148024', '-55281', '-2728', '500');
+INSERT INTO `teleport` VALUES ('Garden of Beasts', '683', '132997', '-60608', '-2960', '500');
+INSERT INTO `teleport` VALUES ('Hot Springs', '684', '151778', '-106829', '-2888', '500');
+INSERT INTO `teleport` VALUES ('Rainbow Springs Chateau', '685', '139997', '-124860', '-1896', '500');
+INSERT INTO `teleport` VALUES ('Forge of the Gods', '686', '168902', '-116703', '-2417', '500');
+INSERT INTO `teleport` VALUES ('Hall of Flames', '687', '189964', '-116820', '-1624', '500');
+INSERT INTO `teleport` VALUES ('Valakas\' Lair', '688', '215378', '-116635', '-1608', '500');
+INSERT INTO `teleport` VALUES ('Ketra Orc Outpost', '689', '146990', '-67128', '-3640', '500');
+INSERT INTO `teleport` VALUES ('Ketra Orc Village', '690', '149548', '-82014', '-5592', '500');
+INSERT INTO `teleport` VALUES ('Imperial Tomb', '691', '186699', '-75915', '-2826', '500');
+INSERT INTO `teleport` VALUES ('Pilgrim\'s Temple', '692', '168982', '-86455', '-3007', '500');
+INSERT INTO `teleport` VALUES ('Wall of Argos', '693', '165054', '-47861', '-3560', '500');
+INSERT INTO `teleport` VALUES ('Shrine of Loyalty', '694', '190112', '-61776', '-2944', '500');
+INSERT INTO `teleport` VALUES ('Varka Silenos Barracks', '695', '125740', '-40864', '-3736', '500');
+INSERT INTO `teleport` VALUES ('Varka Silenos Village', '696', '108155', '-53670', '-2472', '500');
+INSERT INTO `teleport` VALUES ('Four Sepulchers', '697', '178127', '-84435', '-7215', '500');
+INSERT INTO `teleport` VALUES ('Devil\'s Pass', '698', '102621', '-60798', '-2144', '500');
+INSERT INTO `teleport` VALUES ('The Last Imperial Tomb', '699', '174141', '-88685', '-5112', '500');
+INSERT INTO `teleport` VALUES ('Rune Territory', '700', '0', '0', '0', '500');
+INSERT INTO `teleport` VALUES ('Rune Territory=>Rune Township', '701', '43835', '-47749', '-792', '500');
+INSERT INTO `teleport` VALUES ('Rune Territory=>Rune Harbor', '703', '36839', '-38435', '-3640', '500');
+INSERT INTO `teleport` VALUES ('Rune Territory=>Windtail Waterfall', '704', '40723', '-94881', '-2096', '500');
+INSERT INTO `teleport` VALUES ('Rune Territory=>Beast Farm', '705', '43805', '-88010', '-2780', '500');
+INSERT INTO `teleport` VALUES ('Rune Territory=>Wild Beast Reserve', '706', '55133', '-93217', '-1360', '500');
+INSERT INTO `teleport` VALUES ('Rune Territory=>Valley of Saints', '707', '79981', '-82301', '-3680', '500');
+INSERT INTO `teleport` VALUES ('Rune Territory=>Forest of the Dead', '708', '52107', '-54328', '-3158', '500');
+INSERT INTO `teleport` VALUES ('Rune Territory=>Cursed Village', '709', '57670', '-41672', '-3154', '500');
+INSERT INTO `teleport` VALUES ('Rune Territory=>Fortress of the Dead', '710', '58028', '-24610', '-928', '500');
+INSERT INTO `teleport` VALUES ('Rune Territory=>Swamp of Screams', '711', '69340', '-50203', '-3314', '500');
+INSERT INTO `teleport` VALUES ('Rune Territory=>Monastery of Silence', '712', '125480', '-75834', '-2945', '500');
+INSERT INTO `teleport` VALUES ('Rune Territory=>The Pagan Temple', '713', '35630', '-49748', '-760', '500');
+INSERT INTO `teleport` VALUES ('Rune Territory=>Stakato Nest', '714', '90134', '-45130', '-2168', '500');

@@ -39,6 +39,7 @@ public class L2DropData
 	private int _chance;
     private String _questID = null;
     private String[] _stateID = null;
+    private int _category;
 	
     /**
      * Returns the ID of the item dropped
@@ -203,5 +204,15 @@ public class L2DropData
             return drop.getItemId() == getItemId();
         }
         return false;
+    }
+
+    public void setCategory(int category)
+    {
+        _category = category;        
+    }
+    
+    public int getCategory()
+    {
+        return _category;        
     }
 }

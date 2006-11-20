@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.concurrent.ScheduledFuture;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
@@ -29,6 +30,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
+import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.NullKnownList;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -117,6 +119,7 @@ public final class L2ItemInstance extends L2Object
 	private boolean _existsInDb; // if a record exists in DB.
 	private boolean _storedInDb; // if DB data is up-to-date.
 	
+    private ScheduledFuture itemLootShedule = null;
 	/**
 	 * Constructor of the L2ItemInstance from the objectId and the itemId.
 	 * @param objectId : int designating the ID of the object in the world
@@ -744,6 +747,7 @@ public final class L2ItemInstance extends L2Object
         // synchronized, to avoid deadlocks
         // Add the L2ItemInstance dropped in the world as a visible object
         L2World.getInstance().addVisibleObject(this, getPosition().getWorldRegion(), dropper);
+        ItemsOnGroundManager.getInstance().Save(this,x,y,z);
     }
 
 	/**
@@ -857,4 +861,19 @@ public final class L2ItemInstance extends L2Object
 	{
 		return ""+_item;
 	}
+    
+    public void resetOwnerTimer()
+    {
+       if(itemLootShedule != null)
+           itemLootShedule.cancel(true);
+       itemLootShedule = null;
+    }
+    public void setItemLootShedule(ScheduledFuture sf)
+    {
+       itemLootShedule = sf;
+    }
+    public ScheduledFuture getItemLootShedule()
+    {
+       return itemLootShedule;
+    }    
 }

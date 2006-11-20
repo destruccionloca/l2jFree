@@ -15,6 +15,7 @@
   <set name="skillType" val="CONFUSION"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
+  <set name="effectRange" val="1400"/>
   <set name="isMagic" val="true"/>
   <for>
     <effect count="5" name="Confusion" time="6" val="0"/>
@@ -35,6 +36,7 @@
   <set name="skillType" val="HEAL"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
   <set name="isMagic" val="true"/>
   <for>
    </for>  
@@ -55,6 +57,7 @@
   <set name="skillType" val="HEAL"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
   <set name="isMagic" val="true"/>
   <for>
 </for>    

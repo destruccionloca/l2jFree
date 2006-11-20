@@ -65,8 +65,8 @@ public class Ride extends ServerBasePacket
     {
         L2PcInstance cha = getClient().getActiveChar();
         if (cha == null) return;
-        if(cha.getZaricheEquiped()) //TODO :don't unequip Zariche, although I'm not sure about this one so  here
-            return;
+        // Don't allow ride with Zariche equiped
+        if (cha.isCursedWeaponEquiped()) return;
         // Unequip the weapon
         L2ItemInstance wpn = cha.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
         if (wpn == null) wpn = cha.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
@@ -144,9 +144,7 @@ public class Ride extends ServerBasePacket
     final void writeImpl()
     {
         L2PcInstance cha = getClient().getActiveChar();
-        if (cha == null) return;
-        if(cha.getZaricheEquiped()) //TODO:don't unequip Zariche, although I'm not sure about this one so  here
-            return;
+        if (cha == null) return;        
         writeC(0x86);
         writeD(_id);
         writeD(_bRide);

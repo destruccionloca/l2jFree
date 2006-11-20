@@ -69,6 +69,7 @@ public abstract class IdFactory
         "UPDATE posts                SET post_ownerid = ?  WHERE post_ownerid = ?",
         "UPDATE seven_signs          SET char_obj_id = ?   WHERE char_obj_id = ?",
         "UPDATE topic                SET topic_ownerid = ? WHERE topic_ownerid = ?",
+        "UPDATE ItemsOnGround        SET object_id = ?   WHERE object_id = ?"
 	};
 
     protected static String[] id_checks = 
@@ -96,6 +97,7 @@ public abstract class IdFactory
         "SELECT friend_id   FROM character_friends    WHERE friend_id >= ?   AND friend_id < ?",
         "SELECT player_id   FROM merchant_lease       WHERE player_id >= ?   AND player_id < ?",
         "SELECT char_obj_id FROM seven_signs          WHERE char_obj_id >= ? AND char_obj_id < ?",
+        "SELECT object_id   FROM ItemsOnGround        WHERE object_id >= ?   AND object_id < ?"
 	};
 	
     protected boolean initialized;
@@ -246,6 +248,7 @@ public abstract class IdFactory
             s.executeUpdate("insert into temporaryObjectTable (object_id)" + " select object_id from items");
             s.executeUpdate("insert into temporaryObjectTable (object_id)" + " select clan_id from clan_data");
             //s.executeUpdate("insert into temporaryObjectTable (object_id)" + " select crest_id from clan_data where crest_id > 0");
+            s.executeUpdate("insert into temporaryObjectTable (object_id)" + " select object_id from ItemsOnGround");
             
             ResultSet result = s.executeQuery("select count(object_id) from temporaryObjectTable");
             

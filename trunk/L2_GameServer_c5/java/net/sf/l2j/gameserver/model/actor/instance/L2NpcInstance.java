@@ -111,7 +111,7 @@ public class L2NpcInstance extends L2Character
     private String _BusyMessage = "";
     
     /** True if a Dwarf has used Spoil on this L2NpcInstance */
-    private boolean _IsSpoil;
+    private boolean _IsSpoil = false;
 
     /** The castle index in the array of L2Castle this L2NpcInstance belongs to */
     private int _CastleIndex = -2;
@@ -522,15 +522,15 @@ public class L2NpcInstance extends L2Character
             
             if(!isAutoAttackable(player)) 
             {
-                // Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-                player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-                
                 // Calculate the distance between the L2PcInstance and the L2NpcInstance
                 if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
                 {
                     // player.setCurrentState(L2Character.STATE_INTERACT);
                     // player.setInteractTarget(this);
                     // player.moveTo(this.getX(), this.getY(), this.getZ(), INTERACTION_DISTANCE);
+
+                    // Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+                    player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);                    
                     
                     // Send a Server->Client packet ActionFailed (target is out of interaction range) to the L2PcInstance player
                     player.sendPacket(new ActionFailed());
@@ -606,7 +606,7 @@ public class L2NpcInstance extends L2Character
             }
             
             // Send a Server->Client NpcHtmlMessage() containing the GM console about this L2NpcInstance
-            NpcHtmlMessage html = new NpcHtmlMessage(1);
+            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder html1 = new TextBuilder("<html><body><center><font color=\"LEVEL\">NPC Information</font></center>");
             String className = getClass().getName().substring(43);
             
@@ -670,7 +670,7 @@ public class L2NpcInstance extends L2Character
                 player.sendPacket(su);
             }
             
-            NpcHtmlMessage html = new NpcHtmlMessage(1);
+            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder html1 = new TextBuilder("<html><body>");
             
             html1.append("<br><center><font color=\"LEVEL\">[Combat Stats]</font></center>");
@@ -765,7 +765,7 @@ public class L2NpcInstance extends L2Character
             {
                 player.sendPacket( new ActionFailed() );
                 
-                NpcHtmlMessage html = new NpcHtmlMessage(1);
+                NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
                 html.setFile("data/html/npcbusy.htm");
                 html.replace("%busymessage%", getBusyMessage());
                 html.replace("%npcname%", getName());
@@ -830,7 +830,7 @@ public class L2NpcInstance extends L2Character
                                ThreadPoolManager.getInstance().scheduleGeneral(new destroyTemporalSummon(summon, player), 6000);
                                player.getInventory().addItem("PetUpdate", exchangeItem, 1, player, this);
                                
-                               NpcHtmlMessage adminReply = new NpcHtmlMessage(5);    
+                               NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());    
                                TextBuilder replyMSG = new TextBuilder("<html><body>");
                                replyMSG.append("Congratulations, the evolution suceeded.");
                                replyMSG.append("</body></html>");
@@ -852,7 +852,7 @@ public class L2NpcInstance extends L2Character
                     else
                     {
                         
-                        NpcHtmlMessage adminReply = new NpcHtmlMessage(5);      
+                        NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());      
                         TextBuilder replyMSG = new TextBuilder("<html><body>");
                        
                         replyMSG.append("You will need 20.000.000 and have the pet summoned for the ceremony ...");
@@ -919,7 +919,7 @@ public class L2NpcInstance extends L2Character
                            {
                                ThreadPoolManager.getInstance().scheduleGeneral(new destroyTemporalSummon(summon, player), 6000);
                                player.getInventory().addItem("PetUpdate", exchangeItem, 1, player, this);
-                               NpcHtmlMessage adminReply = new NpcHtmlMessage(5);      
+                               NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());      
                                TextBuilder replyMSG = new TextBuilder("<html><body>");
                              
                                replyMSG.append("Congratulations, the evolution suceeded.");
@@ -941,7 +941,7 @@ public class L2NpcInstance extends L2Character
                         }
                     }else
                     {
-                        NpcHtmlMessage adminReply = new NpcHtmlMessage(5);      
+                        NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());      
                         TextBuilder replyMSG = new TextBuilder("<html><body>");
                        
                          replyMSG.append("You will need 6.000.000 and have the pet summoned for the ceremony ...");
@@ -954,7 +954,7 @@ public class L2NpcInstance extends L2Character
             }
             else if (command.equalsIgnoreCase("TerritoryStatus"))
             {
-                NpcHtmlMessage html = new NpcHtmlMessage(1);
+                NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
                 html.setFile("data/html/territorystaus.htm");
                 html.replace("%objectId%", String.valueOf(getObjectId()));
                 html.replace("%npcname%", getName());
@@ -1086,7 +1086,7 @@ public class L2NpcInstance extends L2Character
                  }
             else if (command.equalsIgnoreCase("exchange"))
                 {
-                    NpcHtmlMessage html = new NpcHtmlMessage(1);
+                NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
                     html.setFile("data/html/merchant/exchange.htm");
                     html.replace("%objectId%", String.valueOf(getObjectId()));
                     player.sendPacket(html);
@@ -1678,7 +1678,7 @@ public class L2NpcInstance extends L2Character
         int npcId = getTemplate().npcId;
         String filename;
         SystemMessage sm;
-        NpcHtmlMessage html = new NpcHtmlMessage(1);
+        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
         
         if (val == 0) // 0 - first buy lottery ticket window
         {
@@ -1921,6 +1921,13 @@ public class L2NpcInstance extends L2Character
      */
     public void makeSupportMagic(L2PcInstance player)
     {
+        if (player == null)
+            return;
+        
+        // Prevent a cursed weapon weilder of being buffed
+        if (player.isCursedWeaponEquiped())
+           return;
+        
         int player_level = player.getLevel();        
         int lowestLevel;
         int higestLevel;
@@ -1961,7 +1968,7 @@ public class L2NpcInstance extends L2Character
             return;
         }
         
-        
+        //L2Skill skill = null;
         // Go through the Helper Buff list define in sql table helper_buff_list and cast skill
         for (L2HelperBuff helperBuffItem : HelperBuffTable.getInstance().getHelperBuffTable())
         {
@@ -2297,7 +2304,7 @@ public class L2NpcInstance extends L2Character
         }
         
         // Send a Server->Client NpcHtmlMessage containing the text of the L2NpcInstance to the L2PcInstance 
-        NpcHtmlMessage html = new NpcHtmlMessage(1);
+        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
         html.setFile(filename);
         
         //String word = "npc-"+npcId+(val>0 ? "-"+val : "" )+"-dialog-append";
@@ -2326,7 +2333,7 @@ public class L2NpcInstance extends L2Character
     public void showChatWindow(L2PcInstance player, String filename)
     {
         // Send a Server->Client NpcHtmlMessage containing the text of the L2NpcInstance to the L2PcInstance 
-        NpcHtmlMessage html = new NpcHtmlMessage(1);
+        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
         html.setFile(filename);
         html.replace("%objectId%",String.valueOf(getObjectId()));
         player.sendPacket(html);

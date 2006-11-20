@@ -83,9 +83,9 @@ public class StatusUpdate extends ServerBasePacket
          * 
          */
         public int id;
-        public int value;
+        public long value;
 
-        Attribute(int pId, int pValue)
+        Attribute(int pId, long pValue)
         {
             this.id = pId;
             this.value = pValue;
@@ -99,6 +99,10 @@ public class StatusUpdate extends ServerBasePacket
     }
 
     public void addAttribute(int id, int level)
+    {
+        _attributes.add(new Attribute(id, level));
+    }
+    public void addAttribute(int id, long level)
     {
         _attributes.add(new Attribute(id, level));
     }
@@ -118,7 +122,10 @@ public class StatusUpdate extends ServerBasePacket
         {
             Attribute temp = _attributes.get(i);
             writeD(temp.id);
-            writeD(temp.value);
+            if(temp.id == EXP)
+                writeQ(temp.value);
+            else
+                writeD((int)temp.value);
         }
     }
 

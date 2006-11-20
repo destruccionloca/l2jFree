@@ -78,7 +78,7 @@ public class L2FishermanInstance extends L2MerchantInstance
     public void showSkillList(L2PcInstance player)
     {       
         L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(player);
-        AquireSkillList asl = new AquireSkillList(true);
+        AquireSkillList asl = new AquireSkillList(1);
         
         int counts = 0;
 
@@ -95,7 +95,7 @@ public class L2FishermanInstance extends L2MerchantInstance
         
         if (counts == 0)
         {
-            NpcHtmlMessage html = new NpcHtmlMessage(1);
+            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             int minlevel = SkillTreeTable.getInstance().getMinLevelForNewSkill(player);
             
 		    if (minlevel > 0)

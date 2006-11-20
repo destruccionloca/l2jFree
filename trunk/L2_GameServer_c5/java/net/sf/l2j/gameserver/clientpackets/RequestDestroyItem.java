@@ -29,6 +29,7 @@ import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2World;
@@ -124,10 +125,11 @@ public class RequestDestroyItem extends ClientBasePacket
             if (itemToRemove.isHeroitem())
                 return;
         }
-        
-        if (itemId == 8190)
-            return;
-        
+
+        // Cursed Weapons cannot be destroyed
+        if (CursedWeaponsManager.getInstance().isCursed(itemId))
+           return;
+
         if(!itemToRemove.isStackable() && count > 1)
         {
             Util.handleIllegalPlayerAction(activeChar,"[RequestDestroyItem] count > 1 but item is not stackable! oid: "+_objectId+" owner: "+activeChar.getName(),Config.DEFAULT_PUNISH);
@@ -145,6 +147,8 @@ public class RequestDestroyItem extends ClientBasePacket
 			InventoryUpdate iu = new InventoryUpdate();
 			for (int i = 0; i < unequiped.length; i++)
 			{
+				activeChar.checkSSMatch(null, unequiped[i]);
+				
 				iu.addModifiedItem(unequiped[i]);
 			}
 			activeChar.sendPacket(iu);

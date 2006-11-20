@@ -371,6 +371,14 @@ public final class L2PetInstance extends L2Summon
             _logPet.warning("trying to pickup wrong target."+object);
             getOwner().sendPacket(new ActionFailed());
             return;
+       }
+       // Herbs
+       if ( ((L2ItemInstance)object).getItemId() > 8599 && ((L2ItemInstance)object).getItemId() < 8615 )   
+       {
+           SystemMessage smsg = new SystemMessage(SystemMessage.FAILED_TO_PICKUP_S1);
+            smsg.addItemName(((L2ItemInstance)object).getItemId());
+            getOwner().sendPacket(smsg);            
+            return;
         }
         
         L2ItemInstance target = (L2ItemInstance) object;
@@ -383,6 +391,36 @@ public final class L2PetInstance extends L2Summon
                 return;
             }
             
+            if (target.getOwnerId() != 0 && target.getOwnerId() != getOwner().getObjectId() && !getOwner().isInLooterParty(target.getOwnerId()))
+            {
+                getOwner().sendPacket(new ActionFailed());
+                
+                if (target.getItemId() == 57)
+                {
+                    SystemMessage smsg = new SystemMessage(SystemMessage.FAILED_TO_PICKUP_S1_ADENA);
+                    smsg.addNumber(target.getCount());
+                    getOwner().sendPacket(smsg);
+                }
+                else if (target.getCount() > 1)
+                {
+                    SystemMessage smsg = new SystemMessage(SystemMessage.FAILED_TO_PICKUP_S2_S1_s);
+                    smsg.addItemName(target.getItemId());
+                    smsg.addNumber(target.getCount());
+                    getOwner().sendPacket(smsg);
+                }
+                else
+                {
+                    SystemMessage smsg = new SystemMessage(SystemMessage.FAILED_TO_PICKUP_S1);
+                    smsg.addItemName(target.getItemId());
+                    getOwner().sendPacket(smsg);
+                }
+                
+                return;
+            }
+            if(target.getItemLootShedule() != null
+                   && (target.getOwnerId() == getOwner().getObjectId() || getOwner().isInLooterParty(target.getOwnerId())))
+               target.resetOwnerTimer();
+
             target.pickupMe(this);
         }
         
@@ -680,6 +718,11 @@ public final class L2PetInstance extends L2Summon
             pet.getStat().setSp(rset.getInt("sp"));
 
             pet.getStatus().setCurrentHp(rset.getDouble("curHp"));
+            if(pet.getStatus().getCurrentHp()==0){
+                pet.stopFeed();
+                pet.getStatus().stopHpMpRegeneration();
+                DecayTaskManager.getInstance().addDecayTask(pet,1200000);                
+            }
             pet.getStatus().setCurrentMp(rset.getDouble("curMp"));
             pet.getStatus().setCurrentCp(pet.getMaxCp());
 
@@ -785,7 +828,9 @@ public final class L2PetInstance extends L2Summon
         stopHpMpRegeneration();
         super.unSummon(owner);
         
+        /* if dead - will be restored with hp=0
         if(!isDead())
+        */
             L2World.getInstance().removePet(owner.getObjectId());
     }
 

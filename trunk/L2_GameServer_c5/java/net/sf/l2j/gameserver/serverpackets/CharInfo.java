@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.NpcTable;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
@@ -249,19 +250,16 @@ public class CharInfo extends ServerBasePacket
         writeD(_cha.getNameColor());
         if (getClient().getRevision() >= 689)
            {
-            writeC(0x01); //C5 ??
-            writeD(2428); //C5 ??
-            writeC(0x00); //C5 ??
-            writeC(0x00); //C5 ??
-            writeC(0x00); //C5 ??
-            writeC(0x00); //C5 ??
+            writeC(_cha.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window
+            writeD(0x00); //C5 ?? //writeD(2428); //C5 ??
+            writeD(0x00); //C5 ??
             writeD(_cha.getPledgeClass()); //C5 ??
             writeD(15530402); //C5 ??
             writeD(_cha.getTitleColor()); //C5 ??
-            if (_cha.getZaricheKills() > Config.ZARICHE_STAGE_KILLS*10)
-                writeD(10);
+            if (_cha.isCursedWeaponEquiped())
+                writeD(CursedWeaponsManager.getInstance().getLevel(_cha.getCursedWeaponEquipedId()));
             else
-                writeD(_cha.getZaricheKills()/Config.ZARICHE_STAGE_KILLS); //Zariche effect?? ??
+                writeD(0x00);
            }
         }
     }

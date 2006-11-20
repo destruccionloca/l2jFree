@@ -197,7 +197,7 @@ public class NpcTable
             
             try 
             {
-                PreparedStatement statement2 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"mobId", "itemId", "min", "max", "sweep", "chance"}) + ", IFNULL(drop_category,1) AS drop_category FROM droplist LEFT JOIN etcitem ON itemId = item_id ORDER BY mobId, chance DESC");
+                PreparedStatement statement2 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"mobId", "itemId", "min", "max", "sweep", "chance"}) + ", IFNULL(drop_category,1) AS drop_category FROM droplist LEFT JOIN etcitem ON itemId = item_id ORDER BY mobId DESC");
                 ResultSet dropData = statement2.executeQuery();
                 L2DropData dropDat = null;
                 L2NpcTemplate npcDat = null;
@@ -218,8 +218,9 @@ public class NpcTable
                     dropDat.setMaxDrop(dropData.getInt("max"));
                     dropDat.setSweep(dropData.getInt("sweep") == 1);
                     dropDat.setChance(dropData.getInt("chance"));
-                    
                     int category = dropData.getInt("drop_category");
+                    dropDat.setCategory(category);
+                    
                     
                     // uncategorized drops: marked as uncategorized, or are sweep, or this is a raidboss
                     // uncategorized allows many drops to be given from the same list
@@ -230,24 +231,10 @@ public class NpcTable
                     // 12372    Baium
                     // 12374    Zaken
                     // 12899    Valakas                
-                    if ((category == 0) 
-                        || (dropDat.isSweep()) 
-                        || (npcDat.type.compareToIgnoreCase("L2RaidBoss") == 0) 
-                        || (npcDat.type.compareToIgnoreCase("L2Boss") == 0) 
-                        || (Config.CATEGORY_DROP_SYSTEM == Config.CategoryDropSystem.none)
-                       )
-                    {
-                        npcDat.addDropData(dropDat);
-                    }
-                    //  categorized as full drops and parts for armor/weapon/jewel
-                    else
-                    {
-                        if (category == 1)
-                            npcDat.addFullDropData(dropDat);
-                        // other items (miscellaneous like scrolls, potions, mats, etc).
-                        else 
-                            npcDat.addMiscDropData(dropDat);
-                    }
+                    if ( (dropDat.isSweep()) || (npcDat.type.compareToIgnoreCase("L2RaidBoss") == 0) 
+                            || (npcDat.type.compareToIgnoreCase("L2Boss") == 0) )
+                        dropDat.setCategory(0);
+                    npcDat.addDropData(dropDat);
                 }
 
                 dropData.close();
@@ -342,7 +329,6 @@ public class NpcTable
 
             npcDat.set("name", NpcData.getString("name"));
             npcDat.set("serverSideName", NpcData.getBoolean("serverSideName"));
-            //npcDat.set("name", "");
             npcDat.set("title",NpcData.getString("title"));
             npcDat.set("serverSideTitle",NpcData.getBoolean("serverSideTitle"));
             npcDat.set("collision_radius", NpcData.getDouble("collision_radius"));
@@ -545,4 +531,26 @@ public class NpcTable
 
         return list.toArray(new L2NpcTemplate[list.size()]);
     }
+    
+    public L2NpcTemplate[] getAllMonstersOfLevel(int lvl)
+    {
+       List<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+        
+       for (L2NpcTemplate t : _npcs.values())
+           if (t.level == lvl && "L2Monster".equals(t.type))
+               list.add(t);
+
+       return list.toArray(new L2NpcTemplate[list.size()]);
+    }
+    
+    public L2NpcTemplate[] getAllNpcStartingWith(String letter)
+    {
+       List<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+           
+       for (L2NpcTemplate t : _npcs.values())
+           if (t.name.startsWith(letter) && "L2Npc".equals(t.type))
+               list.add(t);
+   
+       return list.toArray(new L2NpcTemplate[list.size()]);
+    }    
 }

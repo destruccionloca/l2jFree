@@ -293,7 +293,8 @@ public abstract class L2Summon extends L2PlayableInstance
 
     public synchronized void unSummon(L2PcInstance owner)
     {
-        if (isVisible() && !isDead())
+        //if (isVisible() && !isDead())
+        if (isVisible())
         {
             getAI().stopFollow();
             owner.sendPacket(new PetDelete(getObjectId(), 2));

@@ -125,6 +125,7 @@ public class TradeList
     private L2PcInstance _partner;
     private List<TradeItem> _items;
     private String _title;
+    private boolean _packaged;
 
     private boolean _confirmed = false;
     private boolean _locked = false;
@@ -168,6 +169,16 @@ public class TradeList
     public boolean isConfirmed()
     {
         return _confirmed;
+    }
+
+    public boolean isPackaged()
+    {
+        return _packaged;
+    }
+
+    public void setPackaged(boolean value)
+    {
+    	_packaged = value;
     }
 
     /**
@@ -431,7 +442,7 @@ public class TradeList
      * Confirms TradeList
      * @return : boolean
      */
-    public synchronized boolean Confirm()
+    public boolean Confirm()
     {
         if (_confirmed) return true; // Already confirmed
 
@@ -444,21 +455,31 @@ public class TradeList
                 _log.warning(_partner.getName() + ": Trading partner (" + _partner.getName() + ") is invalid in this trade!");
                 return false;
             }
-            if (partnerList.isConfirmed())
-            {
-                    partnerList.Lock();
-                    this.Lock();
-                    if (!partnerList.Validate()) return false;
-                    if (!this.Validate()) return false;
 
-                    doExchange(partnerList);
-                }
-                else
+            // Synchronization order to avoid deadlock
+            TradeList sync1, sync2;
+            if (getOwner().getObjectId() > partnerList.getOwner().getObjectId())
+                { sync1 = partnerList; sync2 = this; }
+            else { sync1 = this; sync2 = partnerList; }
+
+            synchronized (sync1)
+            { 
+                synchronized (sync2)                 
                 {
                     _confirmed = true;
-                    _partner.onTradeConfirm(_owner);
+                    if (partnerList.isConfirmed())
+                    {
+                        partnerList.Lock();
+                        this.Lock();
+                        if (!partnerList.Validate()) return false;
+                        if (!this.Validate()) return false;
+
+                        doExchange(partnerList);
+                    }
+                    else _partner.onTradeConfirm(_owner);
                 }
             }
+        }
         else _confirmed = true;
 
         return _confirmed;
@@ -690,7 +711,6 @@ public class TradeList
                 Lock();
                 return false;
             }
-            ;
 
             // Proceed with item transfer
             L2ItemInstance newItem = ownerInventory.transferItem("PrivateStore", item.getObjectId(), item.getCount(), playerInventory, _owner, player);

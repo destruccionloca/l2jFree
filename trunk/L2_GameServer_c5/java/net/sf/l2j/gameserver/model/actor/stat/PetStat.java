@@ -24,7 +24,7 @@ public class PetStat extends SummonStat
 
     // =========================================================
     // Method - Public
-    public boolean addExp(int value)
+    public boolean addExp(long value)
     {
         if (!super.addExp(value)) return false;
 

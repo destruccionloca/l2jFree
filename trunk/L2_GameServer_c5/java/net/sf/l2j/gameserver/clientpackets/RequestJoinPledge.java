@@ -59,6 +59,7 @@ public class RequestJoinPledge extends ClientBasePacket
 		{
 			SystemMessage sm = new SystemMessage(SystemMessage.CANNOT_INVITE_YOURSELF);
 			activeChar.sendPacket(sm);
+            sm = null;
 			return;
 		}
 		
@@ -116,6 +117,7 @@ public class RequestJoinPledge extends ClientBasePacket
 					SystemMessage sm = new SystemMessage(SystemMessage.S1_WORKING_WITH_ANOTHER_CLAN);
 					sm.addString(member.getName());
 					activeChar.sendPacket(sm);
+                    sm = null;
 					return;				
 				}
                 else if ((member.getLevel() > 40 || member.getClassId().level() >= 2) && _pledgetype == -1)
@@ -128,6 +130,7 @@ public class RequestJoinPledge extends ClientBasePacket
 					SystemMessage sm = new SystemMessage(SystemMessage.S1_IS_BUSY_TRY_LATER);
 					sm.addString(member.getName());
 					activeChar.sendPacket(sm);
+                    sm = null;
 					return;
 				} 
 				else if (_pledgetype == 0 && clan.getMembers().length >= limit)
@@ -135,6 +138,7 @@ public class RequestJoinPledge extends ClientBasePacket
 					SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
 					sm.addString("The clan is full, you cannot invite any more players."); // haven't found a sysmsg for this one
 					activeChar.sendPacket(sm);
+                    sm = null;
 					return;
 				}
                 else if (clan.getSubPledgeMembersCount(_pledgetype) >= limit)
@@ -142,6 +146,7 @@ public class RequestJoinPledge extends ClientBasePacket
                     SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                     sm.addString("The clan is full, you cannot invite any more players."); // haven't found a sysmsg for this one
                     activeChar.sendPacket(sm);
+                    sm = null;
                     return;
                 }
 				else

@@ -8,6 +8,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="abnormal_type" val="casting_time_down"/>  
   <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
   <for>
     <effect count="1" name="Buff" time="1200" val="0" stackOrder="#mAtkSpd" stackType="mAtkSpeedUp">
       <mul order="0x50" stat="mAtkSpd" val="#mAtkSpd"/>
@@ -22,6 +23,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="abnormal_type" val="ma_up"/>  
   <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
   <for>
    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#mAtk" stackType="mAtk">
     <mul order="0x50" stat="mAtk" val="#mAtk"/>
@@ -36,6 +38,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="abnormal_type" val="attack_time_down"/>
   <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
   <for>
    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pAtkSpd" stackType="pAtkSpeedUp">
      <mul order="0x50" stat="pAtkSpd" val="#pAtkSpd"/>
@@ -49,6 +52,7 @@
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
   <for>
     <effect name="Buff" time="1200" count="1" val="0" stackOrder="#accCombat" stackType="accuracyUp">
       <add order='0x50' stat='accCombat' val="#accCombat"/>
@@ -63,6 +67,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
   <for>
    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#rCrit" stackType="rCrit">
     <mul order="0x50" stat="rCrit" val="#rCrit"/>
@@ -76,6 +81,7 @@
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
   <for>
   <effect count="1" name="Buff" time="1200" val="0" stackOrder="#cAtk" stackType="cAtk">
     <mul order="0x50" stat="cAtk" val="#cAtk"/>
@@ -90,6 +96,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
   <for>
    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#rEvas" stackType="rEvas">
     <add order="0x40" stat="rEvas" val="#rEvas"/>
@@ -102,6 +109,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4408" levels="20" name="name_by_lvl"> 
 <!-- Done by KID [C5] -->
@@ -131,6 +139,7 @@
   <set name="skillType" val="SERVER_SIDE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4409" levels="20" name="name_by_lvl">
 <!-- Done by KID [C5] -->
@@ -160,6 +169,7 @@
   <set name="skillType" val="SERVER_SIDE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4410" levels="22" name="name_by_lvl">
 <!-- 
@@ -190,6 +200,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4411" levels="22" name="name_by_lvl">
 <!-- 
@@ -220,6 +231,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4412" levels="22" name="name_by_lvl">
 <!-- 
@@ -250,6 +262,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4413" levels="22" name="name_by_lvl">
 <!-- 
@@ -280,6 +293,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4414" levels="3" name="name_by_lvl">
 <!-- 
@@ -291,6 +305,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4415" levels="20" name="name_by_lvl">
 <!-- 
@@ -319,6 +334,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4416" levels="23" name="name_by_lvl">
 <!-- 
@@ -350,6 +366,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4417" levels="38" name="name_by_lvl">
 <!-- 
@@ -359,276 +376,322 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4418" levels="5" name="Fire Attacks">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4419" levels="5" name="Water Attacks">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4420" levels="5" name="Wind Attacks">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4421" levels="5" name="Earth Attacks">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4422" levels="5" name="Dark Attacks">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4423" levels="5" name="Sacred Attacks">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4424" levels="5" name="Resist Hand-to-hand Weapons">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4425" levels="5" name="Resist Blunt Weapons">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4426" levels="5" name="Resist Two-Sword Weapons">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4427" levels="5" name="Resist Swords">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4428" levels="5" name="Resist Two-handed Weapons">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4429" levels="5" name="Greater Resist Fire Attacks">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4430" levels="5" name="Greater Resist Water Attacks">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4431" levels="5" name="Greater Resist Wind Attacks">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4432" levels="5" name="Greater Resist Earth Attacks">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4433" levels="5" name="Greater Resist Sacred Attacks">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4434" levels="5" name="Greater Resist Dark Attacks">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4435" levels="5" name="Greater Resist Shock">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4436" levels="5" name="Greater Resist Poison">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4437" levels="5" name="Greater Resist Bleeding">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4438" levels="5" name="Greater Resist Sleep">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4439" levels="5" name="Greater Resist Hold">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4440" levels="5" name="Greater Resist Paralysis">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4441" levels="5" name="Greater Resist Mental Derangement">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4442" levels="5" name="Greater Resist Hand-to-hand Weapons">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4443" levels="5" name="Greater Resist Blunt Weapons">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4444" levels="5" name="Greater Resist Bow Weapons">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4445" levels="5" name="Greater Resist Spear Weapons">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4446" levels="5" name="Greater Resist Two-Sword Weapons">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4447" levels="5" name="Greater Resist Swords">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4448" levels="5" name="Greater Resist Daggers">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4449" levels="5" name="Greater Resist Two-handed Weapons">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4450" levels="5" name="Shock Attack Weak Point">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4451" levels="5" name="Poison Attack Weak Point">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4452" levels="5" name="Bleed Attack Weak Point">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4453" levels="5" name="Sleep Attack Weak Point">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4454" levels="5" name="Hold Attack Weak Point">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4455" levels="5" name="Paralysis Attack Weak Point">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4456" levels="5" name="Mental Attack Weak Point">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4457" levels="5" name="Hand-to-hand Weapon Weak Point">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4458" levels="5" name="Spear Weapon Weak Point">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4459" levels="5" name="Two-Sword Weapon Weak Point">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4460" levels="5" name="Sword Weak Point">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4461" levels="5" name="Dagger Weak Point">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4462" levels="5" name="Two-handed Weapon Weak Point">
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4463" levels="3" name="Surrender To Water">
   <table name="#mpConsume"> 20 35 65 </table>
@@ -639,6 +702,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
 </skill>
 <skill id="4464" levels="3" name="Surrender To Wind">
   <table name="#mpConsume"> 20 35 65 </table>
@@ -649,6 +713,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
 </skill>
 <skill id="4465" levels="3" name="Surrender To Earth">
   <table name="#mpConsume"> 20 35 65 </table>
@@ -659,6 +724,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
 </skill>
 <skill id="4466" levels="3" name="Surrender To Darkness">
   <table name="#mpConsume"> 20 35 65 </table>
@@ -669,6 +735,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
 </skill>
 <skill id="4467" levels="3" name="Surrender To Light">
   <table name="#mpConsume"> 20 35 65 </table>
@@ -679,6 +746,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
 </skill>
 <skill id="4468" levels="2" name="Area Buff - Wind Walk">
 <!-- Done by KID [C5] -->
@@ -689,6 +757,7 @@
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="300"/>
+  <set name="effectRange" val="700"/>>
   <set name="isMagic" val="true"/>
   <for>
     <effect count="1" name="Buff" time="1200" val="0" stackOrder="#runSpd" stackType="SpeedUp">
@@ -701,6 +770,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4470" levels="1" name="NPC Spoils">
 <!-- skill.dwarfmagic.254 -->
@@ -710,6 +780,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
+  <set name="effectRange" val="400"/>
 </skill>
 <skill id="4471" levels="12" name="NPC Anger">
   <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
@@ -720,6 +791,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4472" levels="12" name="NPC Strike Golem">
   <table name="#mpConsume"> 14 22 31 43 55 68 79 84 89 92 94 95 </table>
@@ -730,6 +802,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
+  <set name="effectRange" val="400"/>
 </skill>
 <skill id="4473" levels="12" name="Shock">
   <table name="#mpConsume"> 27 44 62 85 109 135 157 168 177 183 187 189 </table>
@@ -740,6 +813,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="700"/>
+  <set name="effectRange" val="1200"/>
 </skill>
 <skill id="4474" levels="5" name="Area Heal - Per">
 <!-- Done by KID [C5] -->
@@ -750,6 +824,7 @@
   <set name="skillType" val="HEAL"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="300"/>
+  <set name="effectRange" val="700"/>
   <set name="isMagic" val="true"/>
 </skill>
 <skill id="4475" levels="1" name="Perfect Resist Bleeding">
@@ -760,6 +835,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="700"/>
+  <set name="effectRange" val="1100"/>
 </skill>
 <skill id="4476" levels="5" name="Silent Move">
   <table name="#mpConsume"> 13 20 27 35 45 </table>
@@ -771,6 +847,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="300"/>
+  <set name="effectRange" val="700"/>
 </skill>
 <skill id="4477" levels="12" name="NPC Frost Wall">
 <!-- Done by KID [C5] -->
@@ -788,6 +865,7 @@
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
+  <set name="effectRange" val="400"/>
 </skill>
 <skill id="4478" levels="1" name="Ice Fairy Aqua Splash">
 <!-- Done by KID [C5] -->
@@ -803,6 +881,7 @@
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="700"/>
+  <set name="effectRange" val="1100"/>
 </skill>
 <skill id="4479" levels="1" name="Ice Fairy Resist Water">
 <!-- Done by KID [C5] -->
@@ -818,6 +897,7 @@
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="700"/>
+  <set name="effectRange" val="1100"/>
 </skill>
 <skill id="4480" levels="1" name="Ice Fairy Curse Gloom">
 <!-- Done by KID [C5] -->
@@ -832,6 +912,7 @@
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="1000"/>
+  <set name="effectRange" val="1700"/>
   <for>
     <effect count="1" name="Buff" time="120" val="0">
       <div order="0x50" stat="mDef" val="1.4"/>
@@ -850,6 +931,7 @@
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="1000"/>
+  <set name="effectRange" val="1700"/>
   <for>
    <effect count="1" name="Buff" time="120" val="0">
      <div order="0x50" stat="pDef" val="1.6"/>
@@ -869,6 +951,7 @@
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="1000"/>
+  <set name="effectRange" val="1700"/>
   <for>
    <effect count="1" name="Mute" time="150" val="0"/>
   </for>
@@ -889,6 +972,8 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="30000"/>
   <set name="castRange" val="-1"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="1700"/>
   <set name="displayId" val="1201"/>
   <for>
     <effect count="1" name="Root" time="30" val="0" stackOrder="1" stackType="Root"/>
@@ -905,6 +990,7 @@
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
 </skill>
 <skill id="4485" levels="1" name="Eating Follower">
   <set name="target" val="TARGET_ONE"/>
@@ -913,6 +999,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
+  <set name="effectRange" val="1100"/>
 </skill>
 <skill id="4486" levels="12" name="Decrease P. Def">
   <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150 153 155 </table>
@@ -923,6 +1010,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
 </skill>
 <skill id="4487" levels="12" name="Decrease M. Def.">
   <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150 153 155 </table>
@@ -933,6 +1021,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
 </skill>
 <skill id="4488" levels="12" name="Hold">
   <table name="#mpConsume"> 21 33 47 64 82 101 118 126 133 137 140 142 </table>
@@ -941,6 +1030,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4489" levels="12" name="NPC Death MP bomb">
   <table name="#mpConsume"> 21 33 47 64 82 101 118 126 133 137 140 142 </table>
@@ -959,6 +1049,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
+  <set name="effectRange" val="400"/>
 </skill>
 <skill id="4491" levels="12" name="Holy Weapon">
   <table name="#mpConsume"> 41 66 93 127 164 202 236 252 265 274 280 283 </table>
@@ -969,6 +1060,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="500"/>
+  <set name="effectRange" val="1000"/>
 </skill>
 <skill id="4492" levels="12" name="Enlarging Head Curse">
   <table name="#mpConsume"> 14 22 31 43 55 68 79 84 89 92 94 95 </table>
@@ -979,6 +1071,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
+  <set name="effectRange" val="400"/>
 </skill>
 <skill id="4493" levels="12" name="NPC Debuff Shield Slow">
   <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
@@ -989,6 +1082,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
 </skill>
 <skill id="4494" levels="1" name="Raid Boss">
 <!--
@@ -1001,6 +1095,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -1019,6 +1114,7 @@
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
+  <set name="effectRange" val="1450"/>
   <for>
   </for>
 </skill>
@@ -1040,6 +1136,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="9000"/>
   <set name="castRange" val="900"/>
+  <set name="effectRange" val="1450"/>
   <set name="effectType" val="STUN"/>
   <set name="effectPower" val="80"/>
   <for>
@@ -1052,6 +1149,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -1061,6 +1159,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -1070,6 +1169,7 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>

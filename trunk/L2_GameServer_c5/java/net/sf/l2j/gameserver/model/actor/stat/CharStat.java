@@ -105,9 +105,6 @@ public class CharStat
     /** Return the Attack Speed multiplier (base+modifier) of the L2Character to get proper animations. */
     public final float getAttackSpeedMultiplier() { return (float) ((1.1) * getPAtkSpd() / getActiveChar().getTemplate().basePAtkSpd); }
 
-    /** Return the Attack Cancel rate (base+modifier) of the L2Character. */
-    public final int getAtkCancel() { return (int)calcStat(Stats.ATTACK_CANCEL, getActiveChar().getTemplate().baseAttackCancel, null, null); }
-
     /** Return the COM of the L2Character (base+modifier). */
     public final int getCON() { return (int)calcStat(Stats.STAT_CON, getActiveChar().getTemplate().baseCON, null, null); }
 

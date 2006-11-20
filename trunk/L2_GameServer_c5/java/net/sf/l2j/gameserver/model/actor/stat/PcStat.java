@@ -37,20 +37,26 @@ public class PcStat extends PlayableStat
     // Method - Public
     public boolean addExp(long value)
     {
-        if(!getActiveChar().getZaricheEquiped())
+        L2PcInstance activeChar = getActiveChar();
         // Set new karma
-        if (getActiveChar().getKarma() > 0 && (getActiveChar().isGM() || !ZoneManager.getInstance().checkIfInZonePvP(getActiveChar())))
+        if (!activeChar.isCursedWeaponEquiped() && activeChar.getKarma() > 0 && (activeChar.isGM() || !ZoneManager.getInstance().checkIfInZonePvP(activeChar)))
         {
-            int karmaLost = getActiveChar().calculateKarmaLost(value);
-            if (karmaLost > 0) getActiveChar().setKarma(getActiveChar().getKarma() - karmaLost);
+            int karmaLost = activeChar.calculateKarmaLost((int) value);
+            if (karmaLost > 0) activeChar.setKarma(activeChar.getKarma() - karmaLost);
         }
+
+        //Player is Gm and acces level is below or equal to GM_DONT_TAKE_EXPSP and is in party, don't give Xp
+        if (getActiveChar().isGM() && getActiveChar().getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP && getActiveChar().isInParty())
+              return false;
 
         if (!super.addExp(value)) return false;
         
-        //StatusUpdate su = new StatusUpdate(getActiveChar().getObjectId());
-        //su.addAttribute(StatusUpdate.EXP, getExp());
-        getActiveChar().sendPacket(new UserInfo(getActiveChar())); // c5 quick and dirty TODO statsupdate exp 
-        //getActiveChar().sendPacket(su);
+        /* Micht : Use of PetInfo for C5
+        StatusUpdate su = new StatusUpdate(activeChar.getObjectId());
+        su.addAttribute(StatusUpdate.EXP, getExp());
+        activeChar.sendPacket(su);
+        */
+        activeChar.sendPacket(new UserInfo(activeChar));
 
         return true;
     }
@@ -71,6 +77,10 @@ public class PcStat extends PlayableStat
      */
     public boolean addExpAndSp(long addToExp, int addToSp)
     {
+       //Player is Gm and acces level is below or equal to GM_DONT_TAKE_EXPSP and is in party, don't give Xp/Sp
+       if (getActiveChar().isGM() && getActiveChar().getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP && getActiveChar().isInParty())
+            return false;
+
         if (!super.addExpAndSp(addToExp, addToSp)) return false;
 
         // Send a Server->Client System Message to the L2PcInstance

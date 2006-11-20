@@ -39,6 +39,7 @@ public class RequestStartPledgeWar extends ClientBasePacket
             SystemMessage sm = new SystemMessage(1564);
             player.sendPacket(sm);
             player.sendPacket(new ActionFailed());
+            sm = null;
             return;
         }
         else if (!((player.getClanPrivileges() & L2Clan.CP_CL_PLEDGE_WAR) == L2Clan.CP_CL_PLEDGE_WAR))
@@ -60,6 +61,7 @@ public class RequestStartPledgeWar extends ClientBasePacket
             SystemMessage sm = new SystemMessage(1569);
             player.sendPacket(sm);
             player.sendPacket(new ActionFailed());
+            sm = null;
             return;
         }
         //else if(clan.getLevel() < 3)
@@ -68,6 +70,7 @@ public class RequestStartPledgeWar extends ClientBasePacket
             SystemMessage sm = new SystemMessage(1564);
             player.sendPacket(sm);
             player.sendPacket(new ActionFailed());
+            sm = null;
             return;
         }
 

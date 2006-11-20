@@ -24,6 +24,13 @@ public class Wyvern implements IItemHandler
             return;
         }
         
+        if (activeChar.isCursedWeaponEquiped())
+        {
+           // You can't mount while weilding a cursed weapon
+           activeChar.sendPacket(new SystemMessage(SystemMessage.STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE));
+           return;
+        }
+        
         if (itemId == 4425) // wyvern
         {
             if(activeChar.isMounted() || activeChar.getPet() != null){

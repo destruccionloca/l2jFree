@@ -1,6 +1,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
+import javolution.util.FastList;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -68,24 +69,50 @@ public class MultiSellChoose extends ClientBasePacket
         
         L2ItemInstance oldItem = null;
         
-        for(MultiSellIngredient e : entry.getIngredients())
+         // Used only for checking amount of items
+        FastList<MultiSellIngredient> _ingredientsList = new FastList<MultiSellIngredient>();
+        boolean newIng = true;
+        for(MultiSellIngredient e: entry.getIngredients())
+        {
+            newIng = true;
+           
+            for(MultiSellIngredient ex: _ingredientsList)
+            {
+                if(ex.getItemId() == e.getItemId() && ex.getItemEnchant() == e.getItemEnchant())
+                {
+                    ex.setItemCount(ex.getItemCount() + e.getItemCount());
+                    newIng = false;
+                }
+            }
+            if(newIng)
+            {
+                _ingredientsList.add(L2Multisell.getInstance().new MultiSellIngredient(e));
+            }
+        }
+        for(MultiSellIngredient e : _ingredientsList)
         {
             L2ItemInstance item = inv.getItemByItemId(e.getItemId(), oldItem);
             
             if((double)e.getItemCount() * (double)_amount > Integer.MAX_VALUE )
             {
                 player.sendPacket(new SystemMessage(SystemMessage.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED));
+                _ingredientsList.clear();
+                _ingredientsList = null;                
                 return;
             }
             if(item == null || inv.getInventoryItemCount(item.getItemId(), e.getItemEnchant()) < (e.getItemCount() * _amount))
             {
                 player.sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_ITEMS));
+               _ingredientsList.clear();
+               _ingredientsList = null;                
                 return;
             }
             
             oldItem = item;
         }
-        
+
+       _ingredientsList.clear();
+       _ingredientsList = null;        
         /** All ok, remove items and add final product */
         
         for(MultiSellIngredient e : entry.getIngredients())
@@ -119,12 +146,14 @@ public class MultiSellChoose extends ClientBasePacket
             sm.addItemName(entry.getProductId());
             sm.addNumber(entry.getProductCount() * _amount);
             player.sendPacket(sm);
+            sm = null;
         }
         else
         {
             sm = new SystemMessage(SystemMessage.EARNED_ITEM);
             sm.addItemName(entry.getProductId());
             player.sendPacket(sm);
+            sm = null;
         }
     }
     
