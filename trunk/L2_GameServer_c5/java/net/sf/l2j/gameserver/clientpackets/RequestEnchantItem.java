@@ -172,7 +172,7 @@ public class RequestEnchantItem extends ClientBasePacket
         int chance = 0;
         int maxEnchantLevel = 0;
 
-        if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
+        if (item.getItem().getType2() == L2Item.TYPE2_WEAPON) // its a weapon
         {
             maxEnchantLevel = Config.ENCHANT_MAX_WEAPON;
             
@@ -197,7 +197,35 @@ public class RequestEnchantItem extends ClientBasePacket
                     enchantBreak = Config.ENCHANT_BREAK_WEAPON_BLESSED;
                     break;
                 }
-        } else {
+        }
+        else if(item.getItem().getType2() == L2Item.TYPE2_ACCESSORY) // its jewelry 
+        {
+            maxEnchantLevel = Config.ENCHANT_MAX_JEWELRY;
+            
+            for (int scrollId : enchantscrolls)
+                if(scroll.getItemId() == scrollId)
+                {
+                    chance = Config.ENCHANT_CHANCE_JEWELRY;
+                    enchantBreak = Config.ENCHANT_BREAK_JEWELRY;
+                    break;
+                }
+            for (int scrollId : crystalscrolls)
+                if(scroll.getItemId() == scrollId)
+                {
+                    chance = Config.ENCHANT_CHANCE_JEWELRY_CRYSTAL;
+                    enchantBreak = Config.ENCHANT_BREAK_JEWELRY_CRYSTAL;
+                    break;
+                }
+            for (int scrollId : blessedscrolls)
+                if(scroll.getItemId() == scrollId)
+                {
+                    chance = Config.ENCHANT_CHANCE_JEWELRY_BLESSED;
+                    enchantBreak = Config.ENCHANT_BREAK_JEWELRY_BLESSED;
+                    break;
+                }
+        }
+        else // its an armor 
+        {
             maxEnchantLevel = Config.ENCHANT_MAX_ARMOR;
             
             for (int scrollId : enchantscrolls)

@@ -203,9 +203,6 @@ public final class Config {
     /** Rate Common herbs */
     public static float   RATE_DROP_SPECIAL_HERBS;
 
-    /** Audo destroy herb time */
-    public static int     HERB_AUTO_DESTROY_TIME;
-
     /** Named mobs. Random spawning mobs with multiples of health and rewards. */
     /** Frequency of spawn */
     public static int CHAMPION_FREQUENCY;
@@ -327,6 +324,10 @@ public final class Config {
     
     /** How much adena receive characters who pick two or less of the winning number */
     public static int ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;
+
+    /** Alt Settings for devs */
+    public static boolean ALT_DEV_NO_QUESTS;
+    public static boolean ALT_DEV_NO_SPAWNS;
 
     /** Enable Rate Hp  */
     public static boolean ENABLE_RATE_HP;
@@ -499,6 +500,8 @@ public final class Config {
 
     /** Time after which item will auto-destroy */
     public static int     AUTODESTROY_ITEM_AFTER;
+    /** Auto destroy herb time */
+    public static int     HERB_AUTO_DESTROY_TIME;
     
     public static boolean SAVE_DROPPED_ITEM;
     
@@ -767,17 +770,23 @@ public final class Config {
     /** Chance that an item will succesfully be enchanted */
     public static int ENCHANT_CHANCE_WEAPON;
     public static int ENCHANT_CHANCE_ARMOR;
+    public static int ENCHANT_CHANCE_JEWELRY;
     public static int ENCHANT_CHANCE_WEAPON_CRYSTAL;
     public static int ENCHANT_CHANCE_ARMOR_CRYSTAL;
+    public static int ENCHANT_CHANCE_JEWELRY_CRYSTAL;
     public static int ENCHANT_CHANCE_WEAPON_BLESSED;
     public static int ENCHANT_CHANCE_ARMOR_BLESSED;
+    public static int ENCHANT_CHANCE_JEWELRY_BLESSED;
     /** If an enchant fails - will the item break or only reset to 0? */
     public static boolean ENCHANT_BREAK_WEAPON;
     public static boolean ENCHANT_BREAK_ARMOR;
+    public static boolean ENCHANT_BREAK_JEWELRY;
     public static boolean ENCHANT_BREAK_WEAPON_CRYSTAL;
     public static boolean ENCHANT_BREAK_ARMOR_CRYSTAL;
+    public static boolean ENCHANT_BREAK_JEWELRY_CRYSTAL;
     public static boolean ENCHANT_BREAK_WEAPON_BLESSED;
     public static boolean ENCHANT_BREAK_ARMOR_BLESSED;
+    public static boolean ENCHANT_BREAK_JEWELRY_BLESSED;
     
     /** Chance For Soul Crystal to Break **/
     public static int CHANCE_BREAK;
@@ -788,6 +797,7 @@ public final class Config {
     /** Maximum level of enchantment */
     public static int ENCHANT_MAX_WEAPON;
     public static int ENCHANT_MAX_ARMOR;
+    public static int ENCHANT_MAX_JEWELRY;
     /** maximum level of safe enchantment */
     public static int ENCHANT_SAFE_MAX;
     public static int ENCHANT_SAFE_MAX_FULL;
@@ -1015,6 +1025,7 @@ public final class Config {
                 SERVER_GMONLY                   = Boolean.valueOf(optionsSettings.getProperty("ServerGMOnly", "false"));
                 
                 AUTODESTROY_ITEM_AFTER          = Integer.parseInt(optionsSettings.getProperty("AutoDestroyDroppedItemAfter", "0"));
+                HERB_AUTO_DESTROY_TIME          = Integer.parseInt(optionsSettings.getProperty("AutoDestroyHerbTime","15"))*1000;
                 SAVE_DROPPED_ITEM              = Boolean.valueOf(optionsSettings.getProperty("SaveDroppedItem", "false"));
                 
                 DROP_OVER_MAX_CHANCE            = Boolean.valueOf(optionsSettings.getProperty("DropOverMaxChance", "true")); 
@@ -1246,25 +1257,36 @@ public final class Config {
                 WAREHOUSE_SLOTS_CLAN = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForClan", "150"));
                 FREIGHT_SLOTS       = Integer.parseInt(otherSettings.getProperty("MaximumFreightSlots", "20"));
 	            
-	            /* chance to enchant an item */
+	            /* chance to enchant an item normal scroll*/
                 ENCHANT_CHANCE_WEAPON  = Integer.parseInt(otherSettings.getProperty("EnchantChanceWeapon", "65"));
                 ENCHANT_CHANCE_ARMOR  = Integer.parseInt(otherSettings.getProperty("EnchantChanceArmor", "65"));
+                ENCHANT_CHANCE_JEWELRY  = Integer.parseInt(otherSettings.getProperty("EnchantChanceJewelry", "65"));
+                /* item may break normal scroll*/
                 ENCHANT_BREAK_WEAPON  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakWeapon", "True"));
                 ENCHANT_BREAK_ARMOR  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakArmor", "True"));
+                ENCHANT_BREAK_JEWELRY  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakJewelry", "True"));
+                /* chance to enchant an item crystal scroll */
                 ENCHANT_CHANCE_WEAPON_CRYSTAL  = Integer.parseInt(otherSettings.getProperty("EnchantChanceWeaponCrystal", "75"));
                 ENCHANT_CHANCE_ARMOR_CRYSTAL  = Integer.parseInt(otherSettings.getProperty("EnchantChanceArmorCrystal", "75"));
+                ENCHANT_CHANCE_JEWELRY_CRYSTAL  = Integer.parseInt(otherSettings.getProperty("EnchantChanceJewelryCrystal", "75"));
+                /* item may break crystal scroll */
                 ENCHANT_BREAK_WEAPON_CRYSTAL  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakWeaponCrystal", "True"));
                 ENCHANT_BREAK_ARMOR_CRYSTAL  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakArmorCrystal", "True"));
+                ENCHANT_BREAK_JEWELRY_CRYSTAL  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakJewelryCrystal", "True"));
+                /* chance to enchant an item blessed scroll */
                 ENCHANT_CHANCE_WEAPON_BLESSED  = Integer.parseInt(otherSettings.getProperty("EnchantChanceWeaponBlessed", "65"));
                 ENCHANT_CHANCE_ARMOR_BLESSED  = Integer.parseInt(otherSettings.getProperty("EnchantChanceArmorBlessed", "65"));
+                ENCHANT_CHANCE_JEWELRY_BLESSED  = Integer.parseInt(otherSettings.getProperty("EnchantChanceJewelryBlessed", "65"));
+                /* item may break blessed scroll */
                 ENCHANT_BREAK_WEAPON_BLESSED  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakWeaponBlessed", "False"));
                 ENCHANT_BREAK_ARMOR_BLESSED  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakArmorBlessed", "False"));
-
+                ENCHANT_BREAK_JEWELRY_BLESSED  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakJewelryBlessed", "True"));
                 /* enchat hero weapons? */
                 ENCHANT_HERO_WEAPONS  = Boolean.parseBoolean(otherSettings.getProperty("EnchantHeroWeapons", "False"));
 	            /* limit on enchant */
                 ENCHANT_MAX_WEAPON = Integer.parseInt(otherSettings.getProperty("EnchantMaxWeapon", "255"));
                 ENCHANT_MAX_ARMOR = Integer.parseInt(otherSettings.getProperty("EnchantMaxArmor", "255"));
+                ENCHANT_MAX_JEWELRY = Integer.parseInt(otherSettings.getProperty("EnchantMaxJewelry", "255"));
                 /* limit of safe enchant */
                 ENCHANT_SAFE_MAX = Integer.parseInt(otherSettings.getProperty("EnchantSafeMax", "3"));
                 ENCHANT_SAFE_MAX_FULL = Integer.parseInt(otherSettings.getProperty("EnchantSafeMaxFull", "4"));   
@@ -1364,7 +1386,6 @@ public final class Config {
                 RATE_KARMA_EXP_LOST             = Float.parseFloat(ratesSettings.getProperty("RateKarmaExpLost", "1."));    
                 RATE_SIEGE_GUARDS_PRICE         = Float.parseFloat(ratesSettings.getProperty("RateSiegeGuardsPrice", "1."));
 
-                HERB_AUTO_DESTROY_TIME          = Integer.parseInt(ratesSettings.getProperty("AutoDestroyHerbTime","15"))*1000;
                 RATE_DROP_COMMON_HERBS          = Float.parseFloat(ratesSettings.getProperty("RateCommonHerbs", "15."));
                 RATE_DROP_MP_HP_HERBS           = Float.parseFloat(ratesSettings.getProperty("RateHpMpHerbs", "10."));                
                 RATE_DROP_GREATER_HERBS         = Float.parseFloat(ratesSettings.getProperty("RateGreaterHerbs", "4."));
@@ -1435,15 +1456,15 @@ public final class Config {
                 ALT_ATTACK_DELAY        = Float.parseFloat(altSettings.getProperty("AltAttackDelay", "1.00"));
                 ALT_GAME_EXPONENT_XP    = Float.parseFloat(altSettings.getProperty("AltGameExponentXp", "0."));
 	            ALT_GAME_EXPONENT_SP    = Float.parseFloat(altSettings.getProperty("AltGameExponentSp", "0."));
-	            SPAWN_CLASS_MASTER    = Boolean.valueOf(altSettings.getProperty("SpawnClassMaster", "False"));
-                ALLOW_CLASS_MASTER_1  = Boolean.valueOf(altSettings.getProperty("AllowClassMaster1", "False"));
-                ALLOW_CLASS_MASTER_2  = Boolean.valueOf(altSettings.getProperty("AllowClassMaster2", "False"));
-                ALLOW_CLASS_MASTER_3  = Boolean.valueOf(altSettings.getProperty("AllowClassMaster3", "False"));
+	            SPAWN_CLASS_MASTER      = Boolean.valueOf(altSettings.getProperty("SpawnClassMaster", "False"));
+                ALLOW_CLASS_MASTER_1    = Boolean.valueOf(altSettings.getProperty("AllowClassMaster1", "False"));
+                ALLOW_CLASS_MASTER_2    = Boolean.valueOf(altSettings.getProperty("AllowClassMaster2", "False"));
+                ALLOW_CLASS_MASTER_3    = Boolean.valueOf(altSettings.getProperty("AllowClassMaster3", "False"));
 	            ALT_GAME_FREIGHTS       = Boolean.parseBoolean(altSettings.getProperty("AltGameFreights", "false"));
 	            ALT_GAME_FREIGHT_PRICE  = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
 	            ALT_GAME_SKILL_HIT_RATE = Float.parseFloat(altSettings.getProperty("AltGameSkillHitRate", "1."));
-                CHANCE_BREAK = Integer.parseInt(altSettings.getProperty("ChanceToBreak", "10"));
-                CHANCE_LEVEL = Integer.parseInt(altSettings.getProperty("ChanceToLevel", "32"));
+                CHANCE_BREAK            = Integer.parseInt(altSettings.getProperty("ChanceToBreak", "10"));
+                CHANCE_LEVEL            = Integer.parseInt(altSettings.getProperty("ChanceToLevel", "32"));
                 CHAMPION_FREQUENCY      = Integer.parseInt(altSettings.getProperty("ChampionFrequency", "0"));
                 CHAMPION_HP             = Integer.parseInt(altSettings.getProperty("ChampionHp", "7"));
                 CHAMPION_REWARDS        = Integer.parseInt(altSettings.getProperty("ChampionRewards", "8"));
@@ -1458,32 +1479,32 @@ public final class Config {
                 ALT_GAME_KARMA_PLAYER_CAN_TELEPORT                  = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTeleport", "true"));
                 ALT_GAME_KARMA_PLAYER_CAN_TRADE                     = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTrade", "true"));
                 ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE             = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseWareHouse", "true"));
-                CH_TELE_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallTeleportFunctionFeeRation", "86400000"));
-                CH_TELE1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallTeleportFunctionFeeLvl1", "86400000"));
-                CH_TELE2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallTeleportFunctionFeeLvl2", "86400000"));
-                CH_TELE3_FEE                    = Integer.valueOf(altSettings.getProperty("ClanHallTeleportFunctionFeeLvl3", "86400000"));
-                CH_SUPPORT_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallSupportFunctionFeeRation", "86400000"));
-                CH_SUPPORT1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl1", "86400000"));
-                CH_SUPPORT2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl2", "86400000"));
-                CH_SUPPORT3_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl3", "86400000"));
-                CH_SUPPORT4_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl4", "86400000"));
-                CH_SUPPORT5_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl5", "86400000"));
-                CH_MPREG_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallMpRegenerationFunctionFeeRation", "86400000"));
-                CH_MPREG1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallMpRegenerationFeeLvl1", "86400000"));
-                CH_MPREG2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallMpRegenerationFeeLvl2", "86400000"));
-                CH_MPREG3_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallMpRegenerationFeeLvl3", "86400000"));
-                CH_HPREG_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallHpRegenerationFunctionFeeRation", "86400000"));
-                CH_HPREG1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallHpRegenerationFeeLvl1", "86400000"));
-                CH_HPREG2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallHpRegenerationFeeLvl2", "86400000"));
-                CH_HPREG3_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallHpRegenerationFeeLvl3", "86400000"));
-                CH_EXPREG_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallExpRegenerationFunctionFeeRation", "86400000"));
-                CH_EXPREG1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallExpRegenerationFeeLvl1", "86400000"));
-                CH_EXPREG2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallExpRegenerationFeeLvl2", "86400000"));
-                CH_EXPREG3_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallExpRegenerationFeeLvl3", "86400000"));
-                CH_ITEM_FEE_RATIO                     = Long.valueOf(altSettings.getProperty("ClanHallItemCreationFunctionFeeRation", "86400000"));
-                CH_ITEM1_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallItemCreationFunctionFeeLvl1", "86400000"));
-                CH_ITEM2_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallItemCreationFunctionFeeLvl2", "86400000"));
-                CH_ITEM3_FEE                     = Integer.valueOf(altSettings.getProperty("ClanHallItemCreationFunctionFeeLvl3", "86400000"));
+                CH_TELE_FEE_RATIO                                   = Long.valueOf(altSettings.getProperty("ClanHallTeleportFunctionFeeRation", "86400000"));
+                CH_TELE1_FEE                                        = Integer.valueOf(altSettings.getProperty("ClanHallTeleportFunctionFeeLvl1", "86400000"));
+                CH_TELE2_FEE                                        = Integer.valueOf(altSettings.getProperty("ClanHallTeleportFunctionFeeLvl2", "86400000"));
+                CH_TELE3_FEE                                        = Integer.valueOf(altSettings.getProperty("ClanHallTeleportFunctionFeeLvl3", "86400000"));
+                CH_SUPPORT_FEE_RATIO                                = Long.valueOf(altSettings.getProperty("ClanHallSupportFunctionFeeRation", "86400000"));
+                CH_SUPPORT1_FEE                                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl1", "86400000"));
+                CH_SUPPORT2_FEE                                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl2", "86400000"));
+                CH_SUPPORT3_FEE                                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl3", "86400000"));
+                CH_SUPPORT4_FEE                                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl4", "86400000"));
+                CH_SUPPORT5_FEE                                     = Integer.valueOf(altSettings.getProperty("ClanHallSupportFeeLvl5", "86400000"));
+                CH_MPREG_FEE_RATIO                                  = Long.valueOf(altSettings.getProperty("ClanHallMpRegenerationFunctionFeeRation", "86400000"));
+                CH_MPREG1_FEE                                       = Integer.valueOf(altSettings.getProperty("ClanHallMpRegenerationFeeLvl1", "86400000"));
+                CH_MPREG2_FEE                                       = Integer.valueOf(altSettings.getProperty("ClanHallMpRegenerationFeeLvl2", "86400000"));
+                CH_MPREG3_FEE                                       = Integer.valueOf(altSettings.getProperty("ClanHallMpRegenerationFeeLvl3", "86400000"));
+                CH_HPREG_FEE_RATIO                                  = Long.valueOf(altSettings.getProperty("ClanHallHpRegenerationFunctionFeeRation", "86400000"));
+                CH_HPREG1_FEE                                       = Integer.valueOf(altSettings.getProperty("ClanHallHpRegenerationFeeLvl1", "86400000"));
+                CH_HPREG2_FEE                                       = Integer.valueOf(altSettings.getProperty("ClanHallHpRegenerationFeeLvl2", "86400000"));
+                CH_HPREG3_FEE                                       = Integer.valueOf(altSettings.getProperty("ClanHallHpRegenerationFeeLvl3", "86400000"));
+                CH_EXPREG_FEE_RATIO                                 = Long.valueOf(altSettings.getProperty("ClanHallExpRegenerationFunctionFeeRation", "86400000"));
+                CH_EXPREG1_FEE                                      = Integer.valueOf(altSettings.getProperty("ClanHallExpRegenerationFeeLvl1", "86400000"));
+                CH_EXPREG2_FEE                                      = Integer.valueOf(altSettings.getProperty("ClanHallExpRegenerationFeeLvl2", "86400000"));
+                CH_EXPREG3_FEE                                      = Integer.valueOf(altSettings.getProperty("ClanHallExpRegenerationFeeLvl3", "86400000"));
+                CH_ITEM_FEE_RATIO                                   = Long.valueOf(altSettings.getProperty("ClanHallItemCreationFunctionFeeRation", "86400000"));
+                CH_ITEM1_FEE                                        = Integer.valueOf(altSettings.getProperty("ClanHallItemCreationFunctionFeeLvl1", "86400000"));
+                CH_ITEM2_FEE                                        = Integer.valueOf(altSettings.getProperty("ClanHallItemCreationFunctionFeeLvl2", "86400000"));
+                CH_ITEM3_FEE                                        = Integer.valueOf(altSettings.getProperty("ClanHallItemCreationFunctionFeeLvl3", "86400000"));
                 ALT_GAME_FREE_TELEPORT                              = Boolean.parseBoolean(altSettings.getProperty("AltFreeTeleporting", "False"));
                 ALT_GAME_SUBCLASS_WITHOUT_QUESTS                    = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
                 ALT_GAME_VIEWNPC                    				= Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
@@ -1496,7 +1517,7 @@ public final class Config {
                 
                 ALT_STRICT_HERO_SYSTEM                              = Boolean.parseBoolean(altSettings.getProperty("StrictHeroSystem", "True"));
 
-                NONTRADEABLE_ITEMS                            = altSettings.getProperty("UnTradeableItemList","6834,6835,6836,6837,6838,6839,6840,6841,4425");
+                NONTRADEABLE_ITEMS                                  = altSettings.getProperty("UnTradeableItemList","6834,6835,6836,6837,6838,6839,6840,6841,4425");
                 
                 LIST_NONTRADEABLE_ITEMS = new FastList<Integer>();
                 for (String id : NONTRADEABLE_ITEMS.split(",")) {
@@ -1519,6 +1540,9 @@ public final class Config {
                 ALT_LOTTERY_3_NUMBER_RATE                           = Float.parseFloat(altSettings.getProperty("AltLottery3NumberRate","0.2"));
                 ALT_LOTTERY_2_AND_1_NUMBER_PRIZE                    = Integer.parseInt(altSettings.getProperty("AltLottery2and1NumberPrize","200"));
 
+                ALT_DEV_NO_QUESTS                                   = Boolean.parseBoolean(altSettings.getProperty("AltDevNoQuests", "False"));
+                ALT_DEV_NO_SPAWNS                                   = Boolean.parseBoolean(altSettings.getProperty("AltDevNoSpawns", "False"));
+
                 ALT_STRICT_SEVENSIGNS                               = Boolean.parseBoolean(altSettings.getProperty("StrictSevenSigns", "True"));
                 
                 CLAN_LEADER_COLOR_ENABLED     			       		= Boolean.parseBoolean(altSettings.getProperty("ClanLeaderNameColorEnabled", "True"));
@@ -1526,7 +1550,7 @@ public final class Config {
                 CLAN_LEADER_COLOR                                   = Integer.decode("0x" + altSettings.getProperty("ClanLeaderNameColor", "00FF00"));
                 CLAN_LEADER_COLOR_CLAN_LEVEL                        = Integer.parseInt(altSettings.getProperty("ClanLeaderNameColorAtClanLevel", "1"));
                 ALT_BUFF_TIME                                       = Integer.parseInt(altSettings.getProperty("AltBuffTime", "1"));
-                ALT_DANCE_TIME                                       = Integer.parseInt(altSettings.getProperty("AltDanceTime", "1"));
+                ALT_DANCE_TIME                                      = Integer.parseInt(altSettings.getProperty("AltDanceTime", "1"));
 	            SPAWN_SIEGE_GUARD 									= Boolean.parseBoolean(altSettings.getProperty("SpawnSiegeGuard", "true"));
 	            AUTO_LEARN_SKILLS 									= Boolean.parseBoolean(altSettings.getProperty("AutoLearnSkills", "false"));
 	            MAX_PATK_SPEED 										= Integer.parseInt(altSettings.getProperty("MaxPAtkSpeed", "0"));

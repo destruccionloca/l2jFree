@@ -1948,7 +1948,7 @@ public final class L2PcInstance extends L2PlayableInstance
         int lvl = getLevel();
 
         // Remove beginner Lucky skill
-        if (lvl == 5)
+        if (lvl == 10)
         {
             L2Skill skill = SkillTable.getInstance().getInfo(194, 1);
             skill = removeSkill(skill);

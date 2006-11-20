@@ -30,30 +30,30 @@ import net.sf.l2j.gameserver.serverpackets.QuestList;
  */
 public class RequestQuestList extends ClientBasePacket
 {
-	private static final String _C__63_REQUESTQUESTLIST = "[C] 63 RequestQuestList";
-	//private static Logger _log = Logger.getLogger(RequestQuestList.class.getName());
+    private static final String _C__63_REQUESTQUESTLIST = "[C] 63 RequestQuestList";
+    //private static Logger _log = Logger.getLogger(RequestQuestList.class.getName());
 
-	/**
-	 * packet type id 0x63<p>
-	 * format:		c<p>
-	 * @param decrypt
-	 */
-	public RequestQuestList(ByteBuffer buf, ClientThread client)
-	{
-		super(buf, client);
-	}
+    /**
+     * packet type id 0x63<p>
+     * format:      c<p>
+     * @param decrypt
+     */
+    public RequestQuestList(ByteBuffer buf, ClientThread client)
+    {
+        super(buf, client);
+    }
 
-	void runImpl()
-	{
-		QuestList ql = new QuestList();
-		sendPacket(ql);
-	}
+    void runImpl()
+    {
+        QuestList ql = new QuestList();
+        sendPacket(ql);
+    }
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
-	public String getType()
-	{
-		return _C__63_REQUESTQUESTLIST;
-	}
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+     */
+    public String getType()
+    {
+        return _C__63_REQUESTQUESTLIST;
+    }
 }

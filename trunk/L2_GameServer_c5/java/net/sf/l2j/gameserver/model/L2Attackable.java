@@ -458,6 +458,7 @@ public class L2Attackable extends L2NpcInstance
                            if (qs.getQuest().isParty())
                            {
                                if (!qs.isCompleted() && !pl.isDead() && Util.checkIfInRange(1150, this, pl, true))
+                               {
                                    if (tempMap.get(qs.getQuest().getName()) != null)
                                        tempMap.get(qs.getQuest().getName()).add(qs);
                                    else
@@ -466,8 +467,9 @@ public class L2Attackable extends L2NpcInstance
                                        tempList.add(qs);
                                        tempMap.put(qs.getQuest().getName(), tempList);
                                    }
+                               }
                            }
-                           else if (pl == (L2PcInstance)killer)
+                           else if (pl == player)
                                questList.add(qs);
                        }
                    }
@@ -485,10 +487,9 @@ public class L2Attackable extends L2NpcInstance
                             questList.add(qs);
                }
                
-                if (questList != null)
-                    for (QuestState qs : questList)
-                        qs.getQuest().notifyKill(this, qs);           
-                }
+                for (QuestState qs : questList)
+                    qs.getQuest().notifyKill(this, qs);                
+           }
         } 
         catch (Exception e) { _log.log(Level.SEVERE, "", e); }
 
@@ -1465,7 +1466,10 @@ public class L2Attackable extends L2NpcInstance
              ditem.dropMe(this, newX, newY, newZ); 
 
              // Add drop to auto destroy item task
-             if (Config.AUTODESTROY_ITEM_AFTER > 0 || ditem.getItemType() == L2EtcItemType.HERB) ItemsAutoDestroy.getInstance().addItem(ditem);
+             if (Config.AUTODESTROY_ITEM_AFTER > 0 && ditem.getItemType() != L2EtcItemType.HERB
+                   || Config.HERB_AUTO_DESTROY_TIME > 0 && ditem.getItemType() == L2EtcItemType.HERB
+                 )
+               ItemsAutoDestroy.getInstance().addItem(ditem);
              
 
              // If stackable, end loop as entire count is included in 1 instance of item  

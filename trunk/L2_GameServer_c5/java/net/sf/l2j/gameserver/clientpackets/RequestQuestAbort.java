@@ -37,37 +37,37 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class RequestQuestAbort extends ClientBasePacket
 {
-	private static final String _C__64_REQUESTQUESTABORT = "[C] 64 RequestQuestAbort";
-	private static Logger _log = Logger.getLogger(RequestQuestAbort.class.getName());
+    private static final String _C__64_REQUESTQUESTABORT = "[C] 64 RequestQuestAbort";
+    private static Logger _log = Logger.getLogger(RequestQuestAbort.class.getName());
 
-	private final int _QuestID;
-	/**
-	 * packet type id 0x64<p>
-	 */
-	public RequestQuestAbort(ByteBuffer buf, ClientThread client)
-	{
-		super(buf, client);
-		_QuestID = readD();
-	}
+    private final int _QuestID;
+    /**
+     * packet type id 0x64<p>
+     */
+    public RequestQuestAbort(ByteBuffer buf, ClientThread client)
+    {
+        super(buf, client);
+        _QuestID = readD();
+    }
 
-	void runImpl()
-	{
-		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-		    return;
+    void runImpl()
+    {
+        L2PcInstance activeChar = getClient().getActiveChar();
+        if (activeChar == null)
+            return;
         
         Quest qe = QuestManager.getInstance().getQuest(_QuestID);
         if (qe != null)
         {
-    		QuestState qs = activeChar.getQuestState(qe.getName());
+            QuestState qs = activeChar.getQuestState(qe.getName());
             if(qs != null)
             {
-        		qs.exitQuest(true);
-        		SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-        		sm.addString("Quest aborted.");
+                qs.exitQuest(true);
+                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                sm.addString("Quest aborted.");
                 activeChar.sendPacket(sm);
                 sm = null;
-        		QuestList ql = new QuestList();
+                QuestList ql = new QuestList();
                 activeChar.sendPacket(ql);
             } else
             {
@@ -77,13 +77,13 @@ public class RequestQuestAbort extends ClientBasePacket
         {
             if (Config.DEBUG) _log.warning("Quest (id='"+_QuestID+"') not found.");
         }
-	}
+    }
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
-	public String getType()
-	{
-		return _C__64_REQUESTQUESTABORT;
-	}
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+     */
+    public String getType()
+    {
+        return _C__64_REQUESTQUESTABORT;
+    }
 }

@@ -1034,6 +1034,7 @@ public final class Formulas
 					}
 					break;
 				case BLUNT:
+                case BIGBLUNT:
                     defence = target.calcStat(Stats.BLUNT_WPN_RES, defence, target, null);
 					if (target instanceof L2NpcInstance)
 					{
