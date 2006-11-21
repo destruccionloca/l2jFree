@@ -520,6 +520,276 @@ class Quest (JQuest) :
              htmltext = "Item has been succesfully unsealed."
          else:
              htmltext = "You do not have enough materials."
+             
+# Tateossian Necklace
+    if event == "52":
+         if st.getQuestItemsCount(6726) >= 1 and st.getQuestItemsCount(5575) >= 150000:
+             st.takeItems(6726,1)
+             st.takeItems(5575,150000)
+             st.giveItems(920,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Tateossian Earring
+    if event == "53":
+         if st.getQuestItemsCount(6724) >= 1 and st.getQuestItemsCount(5575) >= 150000:
+             st.takeItems(6724,1)
+             st.takeItems(5575,150000)
+             st.giveItems(858,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Tateossian Ring
+    if event == "54":
+         if st.getQuestItemsCount(6725) >= 1 and st.getQuestItemsCount(5575) >= 150000:
+             st.takeItems(6725,1)
+             st.takeItems(5575,150000)
+             st.giveItems(889,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Imperial Crusader Breastplate
+    if event == "55":
+         if st.getQuestItemsCount(6674) >= 1 and st.getQuestItemsCount(5575) >= 300000:
+             st.takeItems(6674,1)
+             st.takeItems(5575,300000)
+             st.giveItems(6373,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Imperial Crusader Gaiters
+    if event == "56":
+         if st.getQuestItemsCount(6675) >= 1 and st.getQuestItemsCount(5575) >= 200000:
+             st.takeItems(6675,1)
+             st.takeItems(5575,200000)
+             st.giveItems(6374,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Imperial Crusader Gauntlets
+    if event == "57":
+         if st.getQuestItemsCount(6676) >= 1 and st.getQuestItemsCount(5575) >= 150000:
+             st.takeItems(6676,1)
+             st.takeItems(5575,150000)
+             st.giveItems(6375,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Imperial Crusader Boots
+    if event == "58":
+         if st.getQuestItemsCount(6677) >= 1 and st.getQuestItemsCount(5575) >= 150000:
+             st.takeItems(6677,1)
+             st.takeItems(5575,150000)
+             st.giveItems(6376,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Imperial Crusader Helmet
+    if event == "59":
+         if st.getQuestItemsCount(6679) >= 1 and st.getQuestItemsCount(5575) >= 150000:
+             st.takeItems(6679,1)
+             st.takeItems(5575,150000)
+             st.giveItems(6378,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Imperial Crusader Shield
+    if event == "60":
+         if st.getQuestItemsCount(6678) >= 1 and st.getQuestItemsCount(5575) >= 150000:
+             st.takeItems(6678,1)
+             st.takeItems(5575,150000)
+             st.giveItems(6377,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Draconic Leather Armor
+    if event == "61":
+         if st.getQuestItemsCount(6680) >= 1 and st.getQuestItemsCount(5575) >= 500000:
+             st.takeItems(6680,1)
+             st.takeItems(5575,500000)
+             st.giveItems(6379,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Draconic Leather Gloves
+    if event == "62":
+         if st.getQuestItemsCount(6681) >= 1 and st.getQuestItemsCount(5575) >= 150000:
+             st.takeItems(6681,1)
+             st.takeItems(5575,150000)
+             st.giveItems(6380,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Draconic Leather Boots
+    if event == "63":
+         if st.getQuestItemsCount(6682) >= 1 and st.getQuestItemsCount(5575) >= 150000:
+             st.takeItems(6682,1)
+             st.takeItems(5575,150000)
+             st.giveItems(6381,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Draconic Leather Helmet
+    if event == "64":
+         if st.getQuestItemsCount(6683) >= 1 and st.getQuestItemsCount(5575) >= 150000:
+             st.takeItems(6683,1)
+             st.takeItems(5575,150000)
+             st.giveItems(6382,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Major Arcana Robe
+    if event == "65":
+         if st.getQuestItemsCount(6684) >= 1 and st.getQuestItemsCount(5575) >= 500000:
+             st.takeItems(6684,1)
+             st.takeItems(5575,500000)
+             st.giveItems(6383,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Major Arcana Gloves
+    if event == "66":
+         if st.getQuestItemsCount(6685) >= 1 and st.getQuestItemsCount(5575) >= 150000:
+             st.takeItems(6685,1)
+             st.takeItems(5575,150000)
+             st.giveItems(6384,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Major Arcana Boots
+    if event == "67":
+         if st.getQuestItemsCount(6686) >= 1 and st.getQuestItemsCount(5575) >= 150000:
+             st.takeItems(6686,1)
+             st.takeItems(5575,150000)
+             st.giveItems(6385,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Major Arcana Circlet
+    if event == "68":
+         if st.getQuestItemsCount(6687) >= 1 and st.getQuestItemsCount(5575) >= 150000:
+             st.takeItems(6687,1)
+             st.takeItems(5575,150000)
+             st.giveItems(6386,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Apella Helm
+    if event == "69":
+         if st.getQuestItemsCount(7870) >= 1 and st.getQuestItemsCount(5575) >= 100000:
+             st.takeItems(7870,1)
+             st.takeItems(5575,100000)
+             st.giveItems(7860,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Apella Plate Armor
+    if event == "70":
+         if st.getQuestItemsCount(7871) >= 1 and st.getQuestItemsCount(5575) >= 350000:
+             st.takeItems(7871,1)
+             st.takeItems(5575,350000)
+             st.giveItems(7861,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Apella Gauntlet
+    if event == "71":
+         if st.getQuestItemsCount(7872) >= 1 and st.getQuestItemsCount(5575) >= 100000:
+             st.takeItems(7872,1)
+             st.takeItems(5575,100000)
+             st.giveItems(7862,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Apella Solleret
+    if event == "72":
+         if st.getQuestItemsCount(7873) >= 1 and st.getQuestItemsCount(5575) >= 100000:
+             st.takeItems(7873,1)
+             st.takeItems(5575,100000)
+             st.giveItems(7863,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Apella Brigandine
+    if event == "73":
+         if st.getQuestItemsCount(7874) >= 1 and st.getQuestItemsCount(5575) >= 350000:
+             st.takeItems(7874,1)
+             st.takeItems(5575,350000)
+             st.giveItems(7864,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Apella Leather Gloves
+    if event == "74":
+         if st.getQuestItemsCount(7875) >= 1 and st.getQuestItemsCount(5575) >= 100000:
+             st.takeItems(7875,1)
+             st.takeItems(5575,100000)
+             st.giveItems(7865,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Apella Boots
+    if event == "75":
+         if st.getQuestItemsCount(7876) >= 1 and st.getQuestItemsCount(5575) >= 100000:
+             st.takeItems(7876,1)
+             st.takeItems(5575,100000)
+             st.giveItems(7866,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Apella Doublet
+    if event == "76":
+         if st.getQuestItemsCount(7877) >= 1 and st.getQuestItemsCount(5575) >= 350000:
+             st.takeItems(7877,1)
+             st.takeItems(5575,350000)
+             st.giveItems(7867,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Apella Silk Gloves
+    if event == "77":
+         if st.getQuestItemsCount(7878) >= 1 and st.getQuestItemsCount(5575) >= 100000:
+             st.takeItems(7878,1)
+             st.takeItems(5575,100000)
+             st.giveItems(7868,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
+
+# Apella Sandals
+    if event == "78":
+         if st.getQuestItemsCount(7879) >= 1 and st.getQuestItemsCount(5575) >= 100000:
+             st.takeItems(7879,1)
+             st.takeItems(5575,100000)
+             st.giveItems(7869,1)
+             htmltext = "Item has been succesfully unsealed."
+         else:
+             htmltext = "You do not have enough materials."
 
     if event == "0":
       htmltext = "Trade has been canceled."
