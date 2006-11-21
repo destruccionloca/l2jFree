@@ -1653,24 +1653,68 @@
   <!-- Instantly and significantly increases P.Def., M.Def., and resistance to buff canceling attacks as well as increases Speed. An equipped shield is required in order to use this skill. Consumes 40 Soul Ores. Effect 3. -->
   <!-- P.Def. +5400, M.Def. +4050, Speed +5, Cancel resistance +??, requires Shield to function -->
   <!-- <set name="mpConsume" val="72"/> -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillTime" val="1000"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="-1"/>
+  <table name="#pDef">1800 3600</table> 
+  <table name="#mDef">1350 2700</table> 
+  <table name="#mpConsume">10 21</table> 
+  <set name="itemConsumeId" val="3031" /> 
+  <set name="itemConsumeCount" val="40" /> 
+  <set name="mpConsume" val="#mpConsume" /> 
+  <set name="power" val="0.0" /> 
+  <set name="target" val="TARGET_SELF" /> 
+  <set name="hitTime" val="1000" /> 
+  <set name="reuseDelay" val="1800000" /> 
+  <set name="skillTime" val="1000" /> 
+  <set name="skillType" val="BUFF" /> 
+  <set name="operateType" val="OP_ACTIVE" /> 
+  <set name="buffDuration" val="30000" /> 
+  <set name="castRange" val="-1" /> 
   <for>
+    <effect count="1" name="Buff" time="30" val="0">
+    <add order="0x40" stat="pDef" val="#pDef" /> 
+    <add order="0x40" stat="mDef" val="#mDef" /> 
+    <add order="0x40" stat="runSpd" val="40" /> 
+    </effect>
   </for>
 </skill>
 <skill id="396" levels="1" name="Heroic Berserker">
   <!-- Temporarily yet significantly increases Accuracy, P. Atk., M. Atk., Atk. Spd., Casting Spd., Speed, resistance to buff canceling attacks and debuff attacks, and the effects of HP regeneration magic. Significantly decreases P. Def., M. Def., and Evasion while the effect lasts. Consumes 40 Soul Ores. -->
   <!-- Accuracy +8, Evasion -8, P.Atk. +500, M.Atk. +500, P.Def. -25%, M.Def. -25, Atk. Speed +100, Casting Spd. +100, Speed +20, Cancel/Debuff resistance +??, Heals are ??% more effective -->
   <!-- <set name="mpConsume" val="72"/> -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillTime" val="1000"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="-1"/>
+  <table name="#Tab-mAtk">1.16</table> 
+  <table name="#Tab-pAtk">1.08</table> 
+  <table name="#Tab-mDef">0.92</table> 
+  <table name="#Tab-pDef">0.84</table> 
+  <table name="#Tab-mAtkSpd">1.16</table> 
+  <table name="#Tab-pAtkSpd">1.08</table> 
+  <table name="#Tab-runSpd">20</table> 
+  <table name="#Tab-rEvas">8</table> 
+  <table name="#mpConsume_Init">10</table> 
+  <table name="#mpConsume">38</table> 
+  <set name="itemConsumeId" val="1785" /> 
+  <set name="itemConsumeCount" val="1" /> 
+  <set name="mpInitialConsume" val="#mpConsume_Init" /> 
+  <set name="mpConsume" val="#mpConsume" /> 
+  <set name="power" val="0.0" /> 
+  <set name="target" val="TARGET_SELF" /> 
+  <set name="hitTime" val="1000" /> 
+  <set name="reuseDelay" val="120000" /> 
+  <set name="skillTime" val="1000" /> 
+  <set name="skillType" val="BUFF" /> 
+  <set name="isMagic" val="true" /> 
+  <set name="operateType" val="OP_ACTIVE" /> 
+  <set name="buffDuration" val="1200" /> 
+  <set name="castRange" val="-1" /> 
   <for>
+	<effect count="1" name="Buff" time="300" val="0">
+	<mul order="0x30" stat="mAtk" val="#Tab-mAtk" /> 
+	<mul order="0x30" stat="pAtk" val="#Tab-pAtk" /> 
+	<mul order="0x30" stat="mDef" val="#Tab-mDef" /> 
+	<mul order="0x30" stat="pDef" val="#Tab-pDef" /> 
+	<mul order="0x30" stat="mAtkSpd" val="#Tab-mAtkSpd" /> 
+	<mul order="0x30" stat="pAtkSpd" val="#Tab-pAtkSpd" /> 
+	<add order="0x40" stat="runSpd" val="#Tab-runSpd" /> 
+	<sub order="0x40" stat="rEvas" val="#Tab-rEvas" /> 
+	</effect>
   </for>
 </skill>
 </list>
