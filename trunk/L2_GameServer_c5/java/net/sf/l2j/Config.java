@@ -1328,7 +1328,7 @@ public final class Config {
 	            
 	            STORE_SKILL_COOLTIME = Boolean.parseBoolean(otherSettings.getProperty("StoreSkillCooltime", "true"));
                 
-	            PET_RENT_NPC =  otherSettings.getProperty("ListPetRentNpc", "7827");
+	            PET_RENT_NPC =  otherSettings.getProperty("ListPetRentNpc", "30827");
 	            LIST_PET_RENT_NPC = new FastList<Integer>();
 	            for (String id : PET_RENT_NPC.split(",")) {
 	                LIST_PET_RENT_NPC.add(Integer.parseInt(id));

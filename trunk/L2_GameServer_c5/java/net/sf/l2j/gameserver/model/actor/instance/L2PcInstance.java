@@ -1466,7 +1466,8 @@ public final class L2PcInstance extends L2PlayableInstance
     
     public void revalidateInClanHall()
     {
-        setIsInClanHall((ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ClanHall),this)) && (ClanHallManager.getInstance().getClanHall(getX(), getY()).getOwnerId() == getClanId()));
+        if (ClanHallManager.getInstance().getClanHall(getX(), getY()) != null)
+                setIsInClanHall((ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ClanHall),this)) && (ClanHallManager.getInstance().getClanHall(getX(), getY()).getOwnerId() == getClanId()));
     }
 
     public void revalidateZone()
@@ -3700,6 +3701,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 
                 if(pk != null) {
                     L2Clan killerClan = pk.getClan();
+                    if (pk.getClan() != null && getClan()!= null)
                     if (killerClan.isAtWarWith(this.getClanId()) && getClan().isAttackedBy(killerClan.getClanId()) && getClan().getReputationScore() > 0)
                     {
                         int score = getClan().getReputationScore();

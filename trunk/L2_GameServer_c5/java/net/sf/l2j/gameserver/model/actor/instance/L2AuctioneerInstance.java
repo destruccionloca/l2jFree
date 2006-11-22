@@ -296,7 +296,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                     String filename = "data/html/auction/AgitBidInfo.htm";
                     NpcHtmlMessage html = new NpcHtmlMessage(1);
                     html.setFile(filename);
-                    Auction a = AuctionManager.getInstance().getAuction(player.getClan().getHasHideout());
+                    Auction a = AuctionManager.getInstance().getAuction(player.getClan().getAuctionBiddedAt());
                     html.replace("%AGIT_NAME%", a.getItemName());
                     html.replace("%OWNER_PLEDGE_NAME%", a.getSellerClanName());
                     html.replace("%OWNER_PLEDGE_MASTER%", a.getSellerName());
