@@ -100,7 +100,7 @@ def give_reward(st,reward) :
 
 class Quest (JQuest) :
 
- def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
+ def __init__(self,id,name,descr,party): JQuest.__init__(self,id,name,descr,party)
 
  def onEvent (self,event,st) :
     id = st.getState() 
@@ -114,7 +114,7 @@ class Quest (JQuest) :
        st.exitQuest(1)
     elif event == "30844-9.htm" :
        st.set("cond","2") 
-    elif len(event) == 4 and int(event) in NPC.keys() :
+    elif len(event) == 5 and int(event) in NPC.keys() :
        if event == "30844" :
           htmltext = "30844-2.htm"
        else :
@@ -154,7 +154,7 @@ class Quest (JQuest) :
      return  
 
 # Quest class and state definition
-QUEST       = Quest(QUEST_NUMBER, str(QUEST_NUMBER)+"_"+QUEST_NAME, QUEST_DESCRIPTION)
+QUEST       = Quest(QUEST_NUMBER, str(QUEST_NUMBER)+"_"+QUEST_NAME, QUEST_DESCRIPTION,True)
 
 CREATED     = State('Start',     QUEST)
 STARTED     = State('Started',   QUEST)

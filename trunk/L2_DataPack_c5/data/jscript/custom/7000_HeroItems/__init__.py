@@ -1,5 +1,4 @@
 # Made by DrLecter
-# Made by DrLecter
 import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState

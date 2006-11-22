@@ -6714,6 +6714,7 @@ INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSide
 (35583,35583,'Walter',0,'Clan Hall Gatekeeper',0,'NPC.a_common_peopleB_MHuman',8.00,23.00,70,'male','L2Doormen',40,3862,1493,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,253,0,0,0,80,120,NULL,0,0,'0'),
 (35585,35585,'Alice',0,'Clan Hall Gatekeeper',0,'NPC.a_traderC_Fhuman',8.00,23.00,70,'female','L2Doormen',40,3862,1493,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,253,0,0,0,80,120,NULL,0,0,'0'),
 (35587,35587,'Neria',0,'Clan Hall Gatekeeper',0,'NPC.a_traderC_Fhuman',8.00,23.00,70,'female','L2Doormen',40,3862,1493,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,253,0,0,0,80,120,NULL,0,0,'0');
+
  
 UPDATE `npc` SET `absorb_level` = 9 WHERE `id` IN (1007,1008,1009,1010,12565,12566,12567,12568,12569,12570);
 

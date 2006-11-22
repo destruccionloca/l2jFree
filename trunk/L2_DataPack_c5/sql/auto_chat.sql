@@ -9,4 +9,3 @@ CREATE TABLE `auto_chat` (
 INSERT INTO `auto_chat` VALUES 
 (1,31093,-1),
 (2,31094,-1);
-

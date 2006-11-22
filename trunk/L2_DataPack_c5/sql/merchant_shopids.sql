@@ -152,52 +152,64 @@ INSERT INTO merchant_shopids VALUES (137,'31318');
 INSERT INTO merchant_shopids VALUES (138,'31319');
 INSERT INTO merchant_shopids VALUES (139,'31338');
 INSERT INTO merchant_shopids VALUES (140,'31339');
-INSERT INTO merchant_shopids VALUES (141,'31346');
+INSERT INTO merchant_shopids VALUES (141,'31366');
 INSERT INTO merchant_shopids VALUES (142,'31578');
 INSERT INTO merchant_shopids VALUES (143,'31579');
-INSERT INTO merchant_shopids VALUES (144,'31669');
+INSERT INTO merchant_shopids VALUES (144,'31696');
 INSERT INTO merchant_shopids VALUES (145,'31366');
 INSERT INTO merchant_shopids VALUES (146,'31445');
-INSERT INTO merchant_shopids VALUES (147,'30149');
-INSERT INTO merchant_shopids VALUES (148,'31414');
+INSERT INTO merchant_shopids VALUES (147,'31386');
+INSERT INTO merchant_shopids VALUES (148,'31438');
 INSERT INTO merchant_shopids VALUES (149,'31413');
 INSERT INTO merchant_shopids VALUES (150,'31419');
 INSERT INTO merchant_shopids VALUES (151,'31666');
 INSERT INTO merchant_shopids VALUES (152,'31431');
-INSERT INTO merchant_shopids VALUES (153,'31386');
-INSERT INTO merchant_shopids VALUES (154,'31438');
-INSERT INTO merchant_shopids VALUES (155,'31413');
-INSERT INTO merchant_shopids VALUES (156,'31419');
-INSERT INTO merchant_shopids VALUES (157,'31666');
-INSERT INTO merchant_shopids VALUES (158,'31431');
-INSERT INTO merchant_shopids VALUES (159,'31954');
-
-INSERT INTO merchant_shopids VALUES (160,'31441');
-INSERT INTO merchant_shopids VALUES (161,'31442');
-INSERT INTO merchant_shopids VALUES (162,'31444');
-INSERT INTO merchant_shopids VALUES (163,'31669');
-INSERT INTO merchant_shopids VALUES (164,'31963');
-
-INSERT INTO merchant_shopids VALUES (165,'31414');
-INSERT INTO merchant_shopids VALUES (166,'31418');
-INSERT INTO merchant_shopids VALUES (167,'31415');
-
-INSERT INTO merchant_shopids VALUES (168,'31423');
-
-INSERT INTO merchant_shopids VALUES (169,'31433');
-INSERT INTO merchant_shopids VALUES (170,'31440');
-
-INSERT INTO merchant_shopids VALUES (5800, '30890');
-INSERT INTO merchant_shopids VALUES (5801, '30890'); 
-INSERT INTO merchant_shopids VALUES (5802, '30891'); 
-INSERT INTO merchant_shopids VALUES (5803, '30891');
-INSERT INTO merchant_shopids VALUES (5804, '30044');
-INSERT INTO merchant_shopids VALUES (5805, '31044'); 
-INSERT INTO merchant_shopids VALUES (5806, '31045'); 
-INSERT INTO merchant_shopids VALUES (5807, '31045');
-INSERT INTO merchant_shopids VALUES (5600, '30892'); 
-INSERT INTO merchant_shopids VALUES (5601, '30893');
-INSERT INTO merchant_shopids VALUES (5710, '31067');
+INSERT INTO merchant_shopids VALUES (153,'31954');
+INSERT INTO merchant_shopids VALUES (154,'31441');
+INSERT INTO merchant_shopids VALUES (155,'31442');
+INSERT INTO merchant_shopids VALUES (156,'31444');
+INSERT INTO merchant_shopids VALUES (157,'31669');
+INSERT INTO merchant_shopids VALUES (158,'31963');
+INSERT INTO merchant_shopids VALUES (159,'31414');
+INSERT INTO merchant_shopids VALUES (160,'31418');
+INSERT INTO merchant_shopids VALUES (161,'31415');
+INSERT INTO merchant_shopids VALUES (162,'31423');
+INSERT INTO merchant_shopids VALUES (163,'31433');
+INSERT INTO merchant_shopids VALUES (164,'31440');
+INSERT INTO merchant_shopids VALUES (165,'31432');
+INSERT INTO merchant_shopids VALUES (166,'31425');
+INSERT INTO merchant_shopids VALUES (167,'31439');
+INSERT INTO merchant_shopids VALUES (168,'31954');
+INSERT INTO merchant_shopids VALUES (169,'31962');
+INSERT INTO merchant_shopids VALUES (170,'31416');
+INSERT INTO merchant_shopids VALUES (171,'31417');
+INSERT INTO merchant_shopids VALUES (172,'31435');
+INSERT INTO merchant_shopids VALUES (5800,'30890');
+INSERT INTO merchant_shopids VALUES (5801,'30890');
+INSERT INTO merchant_shopids VALUES (5802,'30891');
+INSERT INTO merchant_shopids VALUES (5803,'30891');
+INSERT INTO merchant_shopids VALUES (5804,'31044');
+INSERT INTO merchant_shopids VALUES (5805,'31044');
+INSERT INTO merchant_shopids VALUES (5806,'31045');
+INSERT INTO merchant_shopids VALUES (5807,'31045');
+INSERT INTO merchant_shopids VALUES (5600,'30892');
+INSERT INTO merchant_shopids VALUES (5601,'30893');
+INSERT INTO merchant_shopids VALUES (5710,'31067');
+INSERT INTO merchant_shopids VALUES (351,'30047');
+INSERT INTO merchant_shopids VALUES (352,'30387');
+INSERT INTO merchant_shopids VALUES (353,'30879');
+INSERT INTO merchant_shopids VALUES (354,'31351');
+INSERT INTO merchant_shopids VALUES (355,'30003');
+INSERT INTO merchant_shopids VALUES (356,'31562');
+INSERT INTO merchant_shopids VALUES (357,'31563');
+INSERT INTO merchant_shopids VALUES (358,'31564');
+INSERT INTO merchant_shopids VALUES (359,'31414');
+INSERT INTO merchant_shopids VALUES (360,'30149');
+INSERT INTO merchant_shopids VALUES (361,'31415');
+INSERT INTO merchant_shopids VALUES (362,'30138');
+INSERT INTO merchant_shopids VALUES (363,'30560');
+INSERT INTO merchant_shopids VALUES (364,'31424');
+INSERT INTO merchant_shopids VALUES (365,'31565');
 INSERT INTO merchant_shopids VALUES (123161,'35102');
 INSERT INTO merchant_shopids VALUES (123171,'35144');
 INSERT INTO merchant_shopids VALUES (123181,'35228');
@@ -413,42 +425,3 @@ INSERT INTO merchant_shopids VALUES (71027,'gm');
 INSERT INTO merchant_shopids VALUES (71028,'gm');
 INSERT INTO merchant_shopids VALUES (71029,'gm');
 INSERT INTO merchant_shopids VALUES (71030,'gm');
-
--- Boatticketsellers
-INSERT INTO merchant_shopids VALUES (351,'30047'); -- Firon - Talking Island
-INSERT INTO merchant_shopids VALUES (352,'30387'); -- Clancy - Gludin
-INSERT INTO merchant_shopids VALUES (353,'30879'); -- Felton - Giran
-INSERT INTO merchant_shopids VALUES (354,'31351'); -- Volker - Rune 
-
--- Fishermen
-INSERT INTO merchant_shopids VALUES (400,'31562');
-INSERT INTO merchant_shopids VALUES (401,'31563');
-INSERT INTO merchant_shopids VALUES (402,'31564');
-INSERT INTO merchant_shopids VALUES (403,'31565');
-INSERT INTO merchant_shopids VALUES (404,'31566');
-INSERT INTO merchant_shopids VALUES (405,'31567');
-INSERT INTO merchant_shopids VALUES (406,'31568');
-INSERT INTO merchant_shopids VALUES (407,'31569');
-INSERT INTO merchant_shopids VALUES (408,'31570');
-INSERT INTO merchant_shopids VALUES (409,'31571');
-INSERT INTO merchant_shopids VALUES (410,'31572');
-INSERT INTO merchant_shopids VALUES (411,'31573');
-INSERT INTO merchant_shopids VALUES (412,'31574');
-INSERT INTO merchant_shopids VALUES (413,'31575');
-INSERT INTO merchant_shopids VALUES (414,'31576');
-INSERT INTO merchant_shopids VALUES (415,'31577');
-INSERT INTO merchant_shopids VALUES (416,'31578');
-INSERT INTO merchant_shopids VALUES (417,'31579');
-INSERT INTO merchant_shopids VALUES (418,'31616');
-INSERT INTO merchant_shopids VALUES (419,'31696');
-INSERT INTO merchant_shopids VALUES (420,'31697');
-
- -- Varka Town NPC's
-INSERT INTO merchant_shopids VALUES (8132,'31380');
-INSERT INTO merchant_shopids VALUES (8133,'31380');
-INSERT INTO merchant_shopids VALUES (8134,'31380');
-INSERT INTO merchant_shopids VALUES (8135,'31380');
-INSERT INTO merchant_shopids VALUES (8125,'31382');
-INSERT INTO merchant_shopids VALUES (8126,'31382');
-INSERT INTO merchant_shopids VALUES (8127,'31382');
-INSERT INTO merchant_shopids VALUES (8128,'31382');
