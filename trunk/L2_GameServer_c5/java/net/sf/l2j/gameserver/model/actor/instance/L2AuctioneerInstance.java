@@ -139,7 +139,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                 try
                 {
                     int auctionId = Integer.parseInt(val);
-                    player.sendMessage("auction test started");
+                    //player.sendMessage("auction test started");
                     String filename = "data/html/auction/AgitAuctionInfo.htm";
                     Auction a = AuctionManager.getInstance().getAuction(auctionId);
 
@@ -200,7 +200,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             }
             else if (actualCommand.equalsIgnoreCase("bid1"))
             {
-                if (player.getClan().getLevel() < 2)
+                if (player.getClan() != null || player.getClan().getLevel() < 2)
                 {
                     player.sendMessage("Your clan's level needs to be at least 2, before you can bid in an auction");
                     return;
@@ -291,7 +291,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             }
             else if (actualCommand.equalsIgnoreCase("selectedItems"))
             {
-                if (player.getClan().getHasHideout() == 0 && player.getClan().getAuctionBiddedAt() > 0)
+                if (player.getClan() != null && player.getClan().getHasHideout() == 0 && player.getClan().getAuctionBiddedAt() > 0)
                 {
                     String filename = "data/html/auction/AgitBidInfo.htm";
                     NpcHtmlMessage html = new NpcHtmlMessage(1);
@@ -315,7 +315,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                     player.sendPacket(html);
                     return;
                 }
-                else if (AuctionManager.getInstance().getAuction(player.getClan().getHasHideout()) != null)
+                else if (player.getClan() != null && AuctionManager.getInstance().getAuction(player.getClan().getHasHideout()) != null)
                 {
                     String filename = "data/html/auction/AgitSaleInfo.htm";
                     NpcHtmlMessage html = new NpcHtmlMessage(1);
@@ -340,7 +340,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                     player.sendPacket(html);
                     return;
                 }
-                else if(player.getClan().getHasHideout() != 0)
+                else if(player.getClan() != null && player.getClan().getHasHideout() != 0)
                 {
                     int ItemId = player.getClan().getHasHideout();
                     String filename = "data/html/auction/AgitInfo.htm";

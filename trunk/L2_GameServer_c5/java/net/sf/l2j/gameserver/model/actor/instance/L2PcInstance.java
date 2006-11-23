@@ -9327,6 +9327,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     private ScheduledFuture _jailTask;
+    @SuppressWarnings("unused")
     private int _powerGrade;
     private int _cursedWeaponEquipedId = 0;
 
