@@ -220,7 +220,7 @@ public class MapRegionTable
             case 13: nearestTown = "Heine"; break;
             case 14: nearestTown = "Rune Castle Town"; break;
             case 15: nearestTown = "Goddard"; break;
-            case 16: nearestTown = "Schuttgart"; break;
+            case 16: nearestTown = "Town of Schuttgart"; break;
             default: nearestTown = "Aden Castle Town"; break;
             // TODO@ add shuttgard [Luno]
         }

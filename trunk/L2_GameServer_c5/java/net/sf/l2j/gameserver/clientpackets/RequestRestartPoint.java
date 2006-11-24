@@ -99,8 +99,7 @@ public class RequestRestartPoint extends ClientBasePacket
                 	if (castle != null && castle.getSiege().getIsInProgress())
                 	{
                     	//siege in progress            	
-                        if (castle.getSiege().checkIsDefender(activeChar.getClan()))
-                        	isInDefense = true;
+                        isInDefense = (castle.getSiege().checkIsDefender(activeChar.getClan()));
                     }
                     if (activeChar.getClan().getHasCastle() == 0 && !isInDefense)
                     {

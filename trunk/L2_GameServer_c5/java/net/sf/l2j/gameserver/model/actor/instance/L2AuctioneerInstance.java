@@ -7,6 +7,7 @@ import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.model.entity.Auction;
@@ -200,7 +201,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             }
             else if (actualCommand.equalsIgnoreCase("bid1"))
             {
-                if (player.getClan() != null || player.getClan().getLevel() < 2)
+                if (player.getClan() == null || player.getClan().getLevel() < 2)
                 {
                     player.sendMessage("Your clan's level needs to be at least 2, before you can bid in an auction");
                     return;
@@ -440,6 +441,15 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                 }
                 return;
             }
+            else if (actualCommand.equalsIgnoreCase("location"))
+            {
+                NpcHtmlMessage html = new NpcHtmlMessage(1);
+                html.setFile("data/html/auction/location.htm");
+                html.replace("%location%", MapRegionTable.getInstance().getClosestTownName(player));
+                html.replace("%LOCATION%", getPictureName(player));
+                player.sendPacket(html);
+                return;
+            }
             else if (actualCommand.equalsIgnoreCase("start"))
             {
                 showMessageWindow(player);
@@ -474,5 +484,24 @@ public final class L2AuctioneerInstance extends L2FolkInstance
         }
 
         return Cond_All_False;
+    }
+    private String getPictureName(L2PcInstance plyr)
+    {
+        int nearestTownId = MapRegionTable.getInstance().getMapRegion(plyr.getX(), plyr.getY());
+        String nearestTown;
+        
+        switch (nearestTownId)
+        {
+            case 5: nearestTown = "GLUDIO"; break;
+            case 6: nearestTown = "GLUDIN"; break;
+            case 7: nearestTown = "DION"; break;
+            case 8: nearestTown = "GIRAN"; break;
+            case 14: nearestTown = "RUNE"; break;
+            case 15: nearestTown = "GODARD"; break;
+            case 16: nearestTown = "SHUTTGART"; break;
+            default: nearestTown = "ADEN"; break;
+        }
+        
+        return nearestTown;
     }
 }
