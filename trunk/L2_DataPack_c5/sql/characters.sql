@@ -72,6 +72,13 @@ CREATE TABLE IF NOT EXISTS characters (
   power_grade decimal(11,0) DEFAULT NULL,
   nobless decimal(1,0) NOT NULL DEFAULT 0,
   subpledge int(1) NOT NULL DEFAULT 0,
+  varka decimal(5,0) default '0',
+  ketra decimal(5,0) default '0',
+  Pledge_class int(11) NOT NULL default '0',
+  pledge_type int(11) NOT NULL default '0',
+  pledge_rank int(11) NOT NULL default '0',
+  apprentice varchar(35) NOT NULL default '',
+  accademy_lvl int(2) NOT NULL default '0',
   PRIMARY KEY  (obj_Id),
   KEY `clanid` (`clanid`)
 ) ;
