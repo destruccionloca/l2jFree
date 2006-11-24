@@ -274,7 +274,9 @@ $MYG < ../sql/clan_subpledges.sql &> /dev/null
 $MYG < ../sql/clan_privs.sql &> /dev/null
 $MYG < ../sql/clan_wars.sql &> /dev/null
 $MYG < ../sql/clanhall.sql &> /dev/null
+$MYG < ../sql/clanhall_functions.sql &> /dev/null
 $MYG < ../sql/class_list.sql &> /dev/null
+$MYG < ../sql/cursedWeapons.sql &> /dev/null
 $MYG < ../sql/droplist.sql &> /dev/null
 $MYG < ../sql/etcitem.sql &> /dev/null
 $MYG < ../sql/enchant_skill_trees.sql &> /dev/null
@@ -290,6 +292,7 @@ $MYG < ../sql/helper_buff_list.sql &> /dev/null
 $MYG < ../sql/henna.sql &> /dev/null
 $MYG < ../sql/henna_trees.sql &> /dev/null
 $MYG < ../sql/items.sql &> /dev/null
+$MYG < ../sql/itemsOnGround.sql &> /dev/null
 $MYG < ../sql/locations.sql &> /dev/null
 $MYG < ../sql/lvlupgain.sql &> /dev/null
 $MYG < ../sql/mapregion.sql &> /dev/null
@@ -305,6 +308,7 @@ $MYG < ../sql/olympiad_nobles.sql&> /dev/null
 $MYG < ../sql/petitions.sql &> /dev/null
 $MYG < ../sql/pets.sql &> /dev/null
 $MYG < ../sql/pets_stats.sql &> /dev/null
+$MYG < ../sql/pledge_skill_trees.sql &> /dev/null
 $MYG < ../sql/posts.sql &> /dev/null
 $MYG < ../sql/raidboss_spawnlist.sql &> /dev/null
 $MYG < ../sql/random_spawn.sql &> /dev/null

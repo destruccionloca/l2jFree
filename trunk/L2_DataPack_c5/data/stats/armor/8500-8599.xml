@@ -6,15 +6,15 @@
     <add val='25' order='0x10' stat='pDef' />
   </for>
 </item>
-<item id='8552' name="WorldCup Mask">
-<for />
-    <add val='0' order='0x10' stat='pDef' />
-</item>
-<item id='8553' name="Red Mask of Victory">
+<item id='8552' name="Red Mask of Victory">
 <for />
     <add val='0' order='0x10' stat='pDef' />
 </item>
 <item id='8557' name="Blue Party Hat for Event">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+<item id='8558' name="Soaring Bird">
 <for />
     <add val='0' order='0x10' stat='pDef' />
 </item>
