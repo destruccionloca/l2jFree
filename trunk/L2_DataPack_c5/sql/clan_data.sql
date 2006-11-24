@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS clan_data (
   ally_crest_id INT,
   reputation_score INT NOT NULL default 0,
   rank INT NOT NULL default 0,
+  auction_bid_at INT NOT NULL default 0,
   PRIMARY KEY  (clan_id),
   KEY `leader_id` (`leader_id`),
   KEY `ally_id` (`ally_id`)
