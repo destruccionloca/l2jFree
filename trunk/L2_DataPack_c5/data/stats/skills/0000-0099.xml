@@ -815,7 +815,7 @@
   <set name="condition" val="128"/>
   <set name="reuseDelay" val="20000"/>
   <set name="skillTime" val="2000"/>
-  <set name="skillType" val="CHARGEDAM"/>
+  <set name="skillType" val="MDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="500"/>
   <set name="effectRange" val="1000"/>

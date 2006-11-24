@@ -292,7 +292,7 @@ $MYG < ../sql/helper_buff_list.sql &> /dev/null
 $MYG < ../sql/henna.sql &> /dev/null
 $MYG < ../sql/henna_trees.sql &> /dev/null
 $MYG < ../sql/items.sql &> /dev/null
-$MYG < ../sql/itemsOnGround.sql &> /dev/null
+$MYG < ../sql/items_on_ground.sql &> /dev/null
 $MYG < ../sql/locations.sql &> /dev/null
 $MYG < ../sql/lvlupgain.sql &> /dev/null
 $MYG < ../sql/mapregion.sql &> /dev/null
