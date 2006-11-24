@@ -850,7 +850,7 @@ public final class Formulas
 				if (siegeModifier > 0) hpRegenMultiplier *= siegeModifier;
 			}
             
-            if (player.getIsInClanHall()) if (ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP) != null) hpRegenMultiplier *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP).getLvl()/100;
+            if (player.getIsInClanHall() && ClanHallManager.getInstance().getClanHall(player)!= null) if (ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP) != null) hpRegenMultiplier *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP).getLvl()/100;
 
             // Mother Tree effect is calculated at last
 			if (player.getInMotherTreeZone()) hpRegenBonus += 2;
@@ -901,7 +901,7 @@ public final class Formulas
             // Mother Tree effect is calculated at last
 			if (player.getInMotherTreeZone()) mpRegenBonus += 1;
             
-            if (player.getIsInClanHall()) if (ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP) != null) mpRegenMultiplier *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP).getLvl()/100;
+            if (player.getIsInClanHall() && ClanHallManager.getInstance().getClanHall(player)!= null) if (ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP) != null) mpRegenMultiplier *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP).getLvl()/100;
 
 			// Calculate Movement bonus
             if (player.isSitting()) mpRegenMultiplier *= 2.5;      // Sitting.
