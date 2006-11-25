@@ -759,7 +759,7 @@
    <effect count="1" name="Buff" time="120" val="0">
       <mul order="0x50" stat="regHp" val="0.72"/>
       <mul order="0x50" stat="gainHp" val="0.72"/>
-      <mul order="0x50" stat="maxCp" val="0.90"/>.
+      <mul order="0x50" stat="maxCp" val="0.90"/>
    </effect>
 </for>
 </skill> 

@@ -183,7 +183,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="reuseDelay" val="17000"/>
   <set name="castRange" val="600"/>
-  v
+  
   <for>
   </for>
 </skill>

@@ -823,7 +823,7 @@
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  lazing 
+   
   <for>
   </for>
 </skill>
