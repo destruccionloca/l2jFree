@@ -1,4 +1,5 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "skills.dtd">
 <list>
 <skill id="1" levels="37" name="Triple Slash" enchantLevels1="30" enchantLevels2="30">
 <table name="#mpConsume">

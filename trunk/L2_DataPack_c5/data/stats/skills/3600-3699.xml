@@ -1,4 +1,5 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "skills.dtd">
 <list>
 <skill id="3600" levels="9" name="Special Ability: Anger">
   <set name="target" val="TARGET_SELF"/>

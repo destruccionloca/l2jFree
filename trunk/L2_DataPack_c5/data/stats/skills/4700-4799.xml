@@ -1,4 +1,5 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "skills.dtd">
 <list>
 <skill id="4700" levels="13" name="Gift of Queen">
   <table name="#mpConsume"> 122 157 194 202 207 212 215 220 224 229 233 237 242 </table>
