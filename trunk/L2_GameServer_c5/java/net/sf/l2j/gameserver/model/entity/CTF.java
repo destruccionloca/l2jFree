@@ -578,7 +578,7 @@ public class CTF
         }
     }
     
-    private static void clean()
+    public static void cleanCTF()
     {
         for (String team : _teams)
         {
@@ -649,12 +649,12 @@ public class CTF
                                                                     if (player !=  null)
                                                                         player.teleToLocation(_npcX, _npcY, _npcZ);
                                                                 }                                                                
-                                                                clean();
+                                                                cleanCTF();
                                                             }
                                                        }, 20000);
     }
     
-    private static void unspawnFlag(String teamName)
+    public static void unspawnFlag(String teamName)
     {
         int index = _teams.indexOf(teamName);
 
