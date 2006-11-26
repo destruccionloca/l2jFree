@@ -216,6 +216,7 @@ INSERT INTO merchant_shopids VALUES (123181,'35228');
 INSERT INTO merchant_shopids VALUES (123191,'35186');
 INSERT INTO merchant_shopids VALUES (123201,'35276');
 INSERT INTO merchant_shopids VALUES (123211,'35007');
+INSERT INTO merchant_shopids VALUES (127901,'35365');
 INSERT INTO merchant_shopids VALUES (300541,'gm');
 INSERT INTO merchant_shopids VALUES (300540,'gm');
 INSERT INTO merchant_shopids VALUES (300539,'gm');

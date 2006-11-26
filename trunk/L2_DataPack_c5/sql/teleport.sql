@@ -284,6 +284,30 @@ INSERT INTO teleport VALUES
 ('Aden(hall) -> in)',416,148580,4578,-408,0),
 ('Aden(hall) -> outofcastle)',417,147582,8753,-496,0),
 ('Lair Of Valakas',420,208884,-113705,-256,0),
+('Innadril(artifact -> out)', 421, 116046, 247094, -930, 0),
+('Innadril(artifact -> hall)', 422, 116028, 249163, -787, 0),
+('Innadril(artifact -> outofcastle)', 423, 116373, 244729, -1059, 0),
+('Innadril(hall -> artifact)', 424, 116028, 250136, -867, 0),
+('Innadril(hall -> out)', 425, 116046, 247094, -930, 0),
+('Innadril(hall -> outofcastle)', 426, 116373, 244729, -1059, 0),
+('Innadril(out -> artifact)', 427, 116028, 250136, -867, 0),
+('Innadril(out -> hall)', 428, 116028, 249163, -787, 0),
+('Innadril(out -> outofcastle)', 429, 116373, 244729, -1059, 0),
+('Innadril(outofcastle -> artifact)', 430, 116028, 250136, -867, 0),
+('Innadril(outofcastle -> out)', 431, 116046, 247094, -930, 0),
+('Innadril(outofcastle -> hall)', 432, 116028, 249163, -787, 0),
+('Goddard(artifact -> out)', 433, 147466, -48514, -2085, 0),
+('Goddard(artifact -> hall)', 434, 147463, -48504, -2277, 0),
+('Goddard(artifact -> outofcastle)', 435, 147265, -44908, -2085, 0),
+('Goddard(hall -> artifact)', 436, 146165, -50478, -1604, 0),
+('Goddard(hall -> out)', 437, 147466, -48514, -2085, 0),
+('Goddard(hall -> outofcastle)', 438, 147265, -44908, -2085, 0),
+('Goddard(out -> artifact)', 439, 146165, -50478, -1604, 0),
+('Goddard(out -> hall)', 440, 147463, -48504, -2277, 0),
+('Goddard(out -> outofcastle)', 441, 147265, -44908, -2085, 0),
+('Goddard(outofcastle -> artifact)', 442, 146165, -50478, -1604, 0),
+('Goddard(outofcastle -> out)', 443, 147466, -48514, -2085, 0),
+('Goddard(outofcastle -> hall)', 444, 147463, -48504, -2277, 0),
 ('Disciples Necropolis -> Anakim/Lilith',450,184397,-11957,-5493,0),
 ('Anakim/Lilith -> Disciples Necropolis',451,183225,-11911,-4897,0),
 ('TI -> Dark Elven Village',1005,9745,15606,-4574,24000),
@@ -403,9 +427,9 @@ INSERT INTO teleport VALUES
 ('Schuttgart -> Graveyard of disgrace',1119,56095,-118952,-3290,1900),
 ('Schuttgart -> Farbel Ruins',1120,88288,-125692,-3816,2100);
 
------------------------------------------------
---Clan Hall teleports
------------------------------------------------
+-- ---------------------------------------------
+-- Clan Hall teleports
+-- ---------------------------------------------
 INSERT INTO `teleport` VALUES ('Dion Territory', '501', '0', '0', '0', '500');
 INSERT INTO `teleport` VALUES ('Execution Grounds', '502', '50568', '152408', '-2656', '500');
 INSERT INTO `teleport` VALUES ('Fortress of Resistance', '503', '47261', '116866', '-2344', '500');

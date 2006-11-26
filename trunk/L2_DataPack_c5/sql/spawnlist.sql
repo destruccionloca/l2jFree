@@ -37291,3 +37291,55 @@ INSERT INTO `spawnlist` VALUES
 (NULL,'Town of Schuttgart',1,32092,88529,-140816,-1527,0,0,59899,60,0,0),
 (NULL,'Town of Schuttgart',1,31997,86795,-143128,-1341,0,0,21621,60,0,0),
 (NULL,'Town of Schuttgart',1,31998,85129,-142153,-1542,0,0,26997,60,0,0);
+
+-- -------------- --
+-- Goddard Castle --
+-- -------------- --
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35357';
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35356';
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35352';
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35353';
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35354';
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35365';
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35363';
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35367';
+-- Goddard castle NPC's spawn --
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35367, 151665, -45074, -2497, 0, 0, 25030, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35363, 147408, -49296, -2120, 0, 0, 16500, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35365, 147696, -49312, -2275, 0, 0, 16500, 60, 0, 0);
+-- Goddard Doormens spawn --
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35356, 147643, -45661, -2085, 0, 0, 48603, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35356, 147320, -45374, -2085, 0, 0, 20214, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35357, 147513, -46293, -2088, 0, 0, 10221, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35357, 147549, -46097, -2085, 0, 0, 21221, 60, 0, 0);
+-- Goddard Castle GK spawn --
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35352, 147357, -47844, -2277, 0, 0, 54660, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35353, 147265, -44908, -2085, 0, 0, 58419, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35354, 147612, -46075, -2085, 0, 0, 21322, 60, 0, 0);
+-- --------------- --
+-- Innadril Castle --
+-- --------------- --
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35007';
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35303';
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35320';
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35316';
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35308';
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35309';
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35310';
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35312';
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35313';
+DELETE FROM `spawnlist` WHERE `npc_templateid`='35321';
+-- Innadril Castle NPC's spawn --
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35320, 116109, 242183, -1123, 0, 0, 47743, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35316, 116114, 249617, -771, 0, 0, 43703, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35303, 116191, 245319, -1059, 0, 0, 54788, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35312, 116412, 245632, -1059, 0, 0, 19046, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35312, 116358, 245361, -1059, 0, 0, 45953, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35313, 116110, 248226, -803, 0, 0, 22076, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35313, 116124, 247929, -803, 0, 0, 40960, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35007, 115902, 249544, -772, 0, 0, 58211, 60, 0, 0);
+-- Innadril Castle GK spawn --
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35308, 115921, 247246, -875, 0, 0, 49152, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35309, 116169, 248283, -803, 0, 0, 12267, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35310, 116616, 250281, -867, 0, 0, 30972, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, '', 1, 35321, 116373, 244729, -1059, 0, 0, 45016, 60, 0, 0);
