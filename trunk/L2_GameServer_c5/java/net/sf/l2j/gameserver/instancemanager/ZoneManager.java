@@ -69,6 +69,11 @@ public class ZoneManager
         return ZoneManager.getInstance().getZoneType(zoneType).checkIfInZone(x, y);
     }
     
+    public boolean checkIfInZoneIncludeZ(String zoneType, int x, int y, int z)
+    {
+        return ZoneManager.getInstance().getZoneType(zoneType).checkIfInZoneIncludeZ(x, y, z);
+    }
+    
     public boolean checkIfInZonePeace(L2Object obj)
     {
         return checkIfInZonePeace(obj.getX(), obj.getY());
@@ -175,6 +180,7 @@ public class ZoneManager
             String columnNameY1                 = "y1";
             String columnNameY2                 = "y2";
             String columnNameZ                  = "z";
+            String columnNameZ2                 = "z2";
 
             Zone zone;
             while (rs.next())
@@ -182,7 +188,7 @@ public class ZoneManager
                 zone = getZone(rs.getString(columnNameType).trim(), rs.getString(columnNameName).trim());
                 zone.setId(rs.getInt(columnNameId));
                 zone.setTaxById(rs.getInt(columnNameTaxBy));
-                zone.addCoord(rs.getInt(columnNameX1), rs.getInt(columnNameY1), rs.getInt(columnNameX2), rs.getInt(columnNameY2), rs.getInt(columnNameZ));
+                zone.addCoord(rs.getInt(columnNameX1), rs.getInt(columnNameY1), rs.getInt(columnNameX2), rs.getInt(columnNameY2), rs.getInt(columnNameZ), rs.getInt(columnNameZ2));
             }
             statement.close();
 

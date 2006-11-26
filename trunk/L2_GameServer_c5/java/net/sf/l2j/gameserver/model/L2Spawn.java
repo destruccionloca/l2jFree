@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
+import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
@@ -433,18 +434,33 @@ public class L2Spawn
             
             // Calculate the random position in the location area
             int p[] = Territory.getInstance().getRandomPoint(getLocation());
-            
-            // Set the calculated position of the L2NpcInstance
             newlocx = p[0];
             newlocy = p[1];
-            newlocz = p[2];
+            
+            // Set the calculated position of the L2NpcInstance
+            if(Config.ALLOW_GEODATA)
+            {
+                newlocz = GeoDataRequester.getInstance().getGeoInfoNearest(newlocx,newlocy,(short)p[2]).getZ();
+            }
+            else
+            {
+                newlocz = p[2];
+            }
         } 
         else 
         {
             // The L2NpcInstance is spawned at the exact position (Lox, Locy, Locz)
             newlocx = getLocx();
             newlocy = getLocy();
-            newlocz = getLocz();
+            if(Config.ALLOW_GEODATA)
+            {
+                newlocz = GeoDataRequester.getInstance().getGeoInfoNearest(newlocx,newlocy,(short)getLocz()).getZ();
+            }
+            else
+            {
+                newlocz = getLocz();
+            }
+            
         }
         
         for(L2Effect f : mob.getAllEffects())

@@ -117,7 +117,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
         TargetCoord  tCoord;
     // Now check Line of sight
-    if ( GeoDataRequester.getInstance().hasMovementLoS(_actor,target) == true )
+    if ( GeoDataRequester.getInstance().hasMovementLoS(_actor,target).LoS == true )
     {
            moveToPawn( target,range);
     }
@@ -156,8 +156,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                     }
                     else
                     {   
-                                 tCoord = targetRecorder.get(mapPos);
-                        if ( GeoDataRequester.getInstance().hasLoS( _actor, tCoord.x, tCoord.y, (short) tCoord.z) == true )
+                        tCoord = targetRecorder.get(mapPos);
+                        if ( GeoDataRequester.getInstance().hasMovementLoS( _actor, tCoord.x, tCoord.y, (short) tCoord.z).LoS == true )
                         { // increase position by half
                             mapSize = lastMapPos - mapPos;
                             startMapPos = mapPos;

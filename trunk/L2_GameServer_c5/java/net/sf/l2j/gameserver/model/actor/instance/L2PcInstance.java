@@ -8282,48 +8282,6 @@ public final class L2PcInstance extends L2PlayableInstance
         return false;
     }
 
-    public void checkWaterState()
-    {
-        if(Config.ALLOW_GEODATA && Config.ALLOW_GEODATA_WATER){
-           if(GeoDataRequester.getInstance().getIsInWater(getX(),getY(),(short)getZ())){
-               startWaterTask();
-           }else{
-               stopWaterTask();
-           }
-           return;
-        } 
-        //checking if char is  over base level of  water (sea, rivers)
-        if (getZ() > -3793)
-        {
-            stopWaterTask();
-            return;
-        }
-
-        // Check if char is in water or is underground and in water
-        int[] coord;
-        Zone zone = ZoneManager.getInstance().getZone(
-                                                      ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Water),
-                                                      getX(), getY()); //checking if char is in water zone
-
-        if (zone == null)
-            zone = ZoneManager.getInstance().getZoneType(
-                                                         ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Underground)).getZone(
-                                                                                                                              getX(),
-                                                                                                                              getY()); //checking if char is in underground and in water
-
-        if (zone != null)
-        {
-            coord = zone.getCoord(getX(), getY());
-
-            if (coord != null && getZ() > coord[4])
-            {
-                stopWaterTask();
-                return;
-            }
-        }
-
-        startWaterTask();
-    }
 
     public void onPlayerEnter()
     {
@@ -8365,6 +8323,44 @@ public final class L2PcInstance extends L2PlayableInstance
         // Reset MotherTree Zone flag withour sending a message to the client
         setInMotherTreeZone(false, false);
         revalidateZone();
+    }
+
+    public void checkWaterState()
+    {
+        if (ZoneManager.getInstance().checkIfInZoneIncludeZ("Water",getX(),getY(),getZ()))
+        {
+            startWaterTask();
+        }      
+        else
+        {
+            stopWaterTask();
+            return;
+        }
+/*
+        // Check if char is in water or is underground and in water
+        int[] coord;
+        Zone zone = ZoneManager.getInstance().getZone(
+                                                      ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Water),
+                                                      getX(), getY()); //checking if char is in water zone
+
+        if (zone == null)
+            zone = ZoneManager.getInstance().getZoneType(
+                                                         ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Underground)).getZone(
+                                                                                                                              getX(),
+                                                                                                                              getY()); //checking if char is in underground and in water
+
+        if (zone != null)
+        {
+            coord = zone.getCoord(getX(), getY());
+
+            if (coord != null && getZ() > coord[4])
+            {
+                stopWaterTask();
+                return;
+            }
+        }
+
+        startWaterTask(); */
     }
 
     public long getLastAccess()
@@ -8968,7 +8964,8 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             //check the fishing floats x,y,z is in a fishing zone
             //if not the abort fishing mode else continue
-            if (!ZoneManager.getInstance().checkIfInZoneFishing(x, y))
+            if (!ZoneManager.getInstance().checkIfInZoneIncludeZ("Water",x,y,GeoDataRequester.getInstance().getGeoInfoNearest(x, y, (short)z).getZ()))
+            //if (!ZoneManager.getInstance().checkIfInZoneFishing(x, y))
             {
                 //abort fishing
                 this.sendMessage("Your Lure didnt land in a fishing zone.");

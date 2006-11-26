@@ -173,6 +173,7 @@ import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
+import net.sf.l2j.gameserver.model.entity.geodata.PathNodeBinRequester;
 import net.sf.l2j.gameserver.script.faenor.FaenorScriptEngine;
 import net.sf.l2j.gameserver.taskmanager.TaskManager;
 import net.sf.l2j.gameserver.util.DynamicExtension;
@@ -319,8 +320,8 @@ public class GameServer
         
         if (Config.ALLOW_GEODATA)
         {
-        GeoDataRequester.getInstance();
-        _log.config("GeoData initialized");
+            GeoDataRequester.getInstance();
+            _log.config("GeoData initialized");
         }
         TeleportLocationTable.getInstance();
         _log.config("TeleportLocationTable initialized");
@@ -328,9 +329,17 @@ public class GameServer
         _log.config("LevelUpData initialized");
         L2World.getInstance();
         _log.config("World initialized");
-        GeoDataRequester.getInstance().setDefaultExpirationTime(3000); 
+
+        //have to load waterZones before geo ... geo now uses waterzones in checks
+        Manager.loadAll();
+        
+        if (Config.ALLOW_GEODATA)
+        {
+            GeoDataRequester.getInstance().setDefaultExpirationTime(3000); 
+        }
         SpawnTable.getInstance();
         _log.config("SpawnTable initialized");
+        
         RaidBossSpawnManager.getInstance();
         _log.config("Day/Night SpawnMode initialized");
         DayNightSpawnManager.getInstance().notifyChangeMode();
@@ -537,8 +546,6 @@ public class GameServer
         Universe.getInstance();
         _log.config("Universe initialized");
         
-        Manager.loadAll();
-        
         FaenorScriptEngine.getInstance();
         _log.config("ScriptEngine initialized");
         
@@ -571,6 +578,13 @@ public class GameServer
         
         ForumsBBSManager.getInstance();
         _log.config("BBSManager initialized");
+
+        //takes lots of ram .. do it near the end
+        if (Config.ALLOW_GEODATA)
+        {
+           PathNodeBinRequester.getInstance();
+            _log.config("PathNodes initialized");
+        }
         
         _log.config("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
 
@@ -586,6 +600,11 @@ public class GameServer
         long freeMem = (Runtime.getRuntime().maxMemory()-Runtime.getRuntime().totalMemory()+Runtime.getRuntime().freeMemory()) / 1048576; // 1024 * 1024 = 1048576;
         long totalMem = Runtime.getRuntime().maxMemory() / 1048576;
         _log.info("GameServer Started, free memory "+freeMem+" Mb of "+totalMem+" Mb");
+        
+        if (Config.ALLOW_GEODATA)
+        {
+            GeoDataRequester.getInstance().setDefaultExpirationTime(900000); 
+        }
         
         _loginThread = LoginServerThread.getInstance();
         _loginThread.start();

@@ -16,3 +16,18 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
+package net.sf.l2j.gameserver.model.entity.geodata;
+
+
+public class FarPoint
+{
+    public FarPoint()
+    {
+    }
+    
+    public int x;
+    public int y;
+    public short z;
+    public boolean LoS;
+        
+}

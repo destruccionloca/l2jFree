@@ -127,7 +127,7 @@ public class MoveBackwardToLocation extends ClientBasePacket
 			//activeChar.setXYZ(_originX, _originY, _originZ);
 			//activeChar.sendPacket(new CharMoveToLocation(activeChar));
 			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,
-					new L2CharPosition(_targetX, _targetY, _targetZ, 0));
+					new L2CharPosition(_targetX, _targetY, _targetZ+32, 0));
 			
 			if(activeChar.getParty() != null)
 				activeChar.getParty().broadcastToPartyMembers(activeChar,new PartyMemberPosition(activeChar));

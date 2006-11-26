@@ -1518,7 +1518,13 @@ public abstract class L2Skill
             {
                 if (obj == null) continue;
                     if (!Util.checkIfInRange(radius, activeChar, obj, true)) continue;
-                
+				if ( activeChar instanceof L2PcInstance)
+                {
+                	if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
+                	{
+                		continue;
+                	}	
+                }                
                 if(obj instanceof L2Attackable && obj != target)
                 {
                     // Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met

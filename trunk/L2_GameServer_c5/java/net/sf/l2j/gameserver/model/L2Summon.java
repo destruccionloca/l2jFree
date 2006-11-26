@@ -282,6 +282,7 @@ public abstract class L2Summon extends L2PlayableInstance
     public void deleteMe(L2PcInstance owner)
     {   
         getAI().stopFollow();
+        //getAI().stopMoveTask();
         owner.sendPacket(new PetDelete(getObjectId(), 2));
         
         //FIXME: I think it should really drop items to ground and only owner can take for a while
@@ -297,6 +298,7 @@ public abstract class L2Summon extends L2PlayableInstance
         if (isVisible())
         {
             getAI().stopFollow();
+            //getAI().stopMoveTask();
             owner.sendPacket(new PetDelete(getObjectId(), 2));
             store();
             

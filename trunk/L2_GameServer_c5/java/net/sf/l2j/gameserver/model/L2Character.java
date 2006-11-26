@@ -461,6 +461,17 @@ public abstract class L2Character extends L2Object
             if (this instanceof L2PcInstance)
             {
                 // Verify if the bow can be use
+                if(Config.ALLOW_GEODATA)
+                {
+                    //Ranged LoS
+                    
+                    if (GeoDataRequester.getInstance().hasAttackLoS(this,target) == false)
+                    {
+                        sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                        sendPacket(new ActionFailed());
+                        return;
+                    }
+                }
                 if (_disableBowAttackEndTime <= GameTimeController.getGameTicks())
                 {
                     // Verify if L2PcInstance owns enough MP
@@ -3679,14 +3690,14 @@ public abstract class L2Character extends L2Object
        // Get the Move Speed of the L2Charcater
        float speed = getStat().getMoveSpeed();
        
-       if(Config.ALLOW_GEODATA)
+       /*if(Config.ALLOW_GEODATA)
        if (this instanceof L2PcInstance)
            if ( GeoDataRequester.getInstance().hasLoS(this, x,y,(short)z )  == false)
            {
                SystemMessage sm = new SystemMessage(SystemMessage.CANT_SEE_TARGET);    
                this.sendPacket(sm); 
            }
-
+       */
        // Create and Init a MoveData object
        MoveData m = new MoveData();
 
@@ -4411,13 +4422,6 @@ public abstract class L2Character extends L2Object
     */
    public void onForcedAttack(L2PcInstance player)
    {
-       if(Config.ALLOW_GEODATA){
-            if ( GeoDataRequester.getInstance().hasLoS(player, player.getTarget().getX(),player.getTarget().getY(),(short)player.getTarget().getZ() )  == false)
-            {
-                SystemMessage sm = new SystemMessage(SystemMessage.CANT_SEE_TARGET);    
-                player.sendPacket(sm); 
-            }
-       }
        if (isInsidePeaceZone(player))
        {
            // If L2Character or target is in a peace zone, send a system message TARGET_IN_PEACEZONE a Server->Client packet ActionFailed
@@ -4445,11 +4449,22 @@ public abstract class L2Character extends L2Object
            //_log.config("Not within a zone");
            //player.startAttack(this);
 
-           // Send a Server->Client packet MyTargetSelected to start attack
-            player.sendPacket(new MyTargetSelected(getObjectId(), player.getLevel() - getLevel()));
+           if(Config.ALLOW_GEODATA)
+           {
+               if ( GeoDataRequester.getInstance().hasMovementLoS(player, player.getTarget().getX(),player.getTarget().getY(),(short)player.getTarget().getZ()).LoS  == true)
+               {
+                   // Send a Server->Client packet MyTargetSelected to start attack
+                   player.sendPacket(new MyTargetSelected(getObjectId(), player.getLevel() - getLevel()));
 
-           // Notify AI with AI_INTENTION_ATTACK
-           player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
+                   //Notify AI with AI_INTENTION_ATTACK
+                   player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
+               }
+               else
+               {
+                   SystemMessage sm = new SystemMessage(SystemMessage.CANT_SEE_TARGET);    
+                   player.sendPacket(sm); 
+               }
+          }
        }
    }
 
@@ -4786,7 +4801,11 @@ public abstract class L2Character extends L2Object
 			{
 				if (targets[i] instanceof L2Character)
 				{
-					if(!this.isInsideRadius(targets[0],escapeRange,true,false)) continue;
+                    if (GeoDataRequester.getInstance().hasAttackLoS(this, targets[i]) == false )
+                    {
+                       continue;
+                    }
+                    if(!this.isInsideRadius(targets[0],escapeRange,true,false)) continue;
 					else targetList.add((L2Character)targets[i]);
 				}
 				//else

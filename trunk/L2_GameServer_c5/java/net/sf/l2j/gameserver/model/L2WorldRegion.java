@@ -30,6 +30,8 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
+import net.sf.l2j.gameserver.model.entity.geodata.PathNodeBinRequester;
 import net.sf.l2j.util.L2ObjectSet;
 
 
@@ -51,8 +53,12 @@ public final class L2WorldRegion
     private List<L2WorldRegion> _surroundingRegions;
     private int tileX, tileY;
     private Boolean _active = false;   
-    private ScheduledFuture _neighborsTask = null;
-
+    protected ScheduledFuture _neighborsTask = null;
+    public static final int MAP_MIN_X = -131072;
+    public static final int MAP_MAX_X = 228608;
+    public static final int MAP_MIN_Y = -262144;
+    public static final int MAP_MAX_Y = 262144;
+    
     public L2WorldRegion(int pTileX, int pTileY)
     {
         _allPlayers = L2ObjectSet.createL2PlayerSet(); //new L2ObjectHashSet<L2PcInstance>();
@@ -70,23 +76,34 @@ public final class L2WorldRegion
             _active = false;
     }
     
-    /** Task of AI notification */
+    /** Task of AI and geodata notification */
     public class NeighborsTask implements Runnable
     {
         private boolean _isActivating;
+        private short _nextNeighbor;
         
         public NeighborsTask(boolean isActivating)
         {
             _isActivating = isActivating;
+            _nextNeighbor = 0;
         }
         
         public void run()
         {
             if (_isActivating)
             {
-                // for each neighbor, if it's not active, activate.
-                for (L2WorldRegion neighbor: getSurroundingRegions())
+                if (_nextNeighbor <= getSurroundingRegions().size())
+                {
+                    L2WorldRegion neighbor = getSurroundingRegions().get(_nextNeighbor);
                     neighbor.setActive(true);
+                    _nextNeighbor++;
+                }
+                
+                if (_nextNeighbor > getSurroundingRegions().size())
+                {
+                    _neighborsTask.cancel(true);
+                    _neighborsTask = null;
+                }
             }
             else
             {
@@ -189,12 +206,25 @@ public final class L2WorldRegion
         // turn the AI on or off to match the region's activation.
         switchAI(value);
         
-        // TODO
-        // turn the geodata on or off to match the region's activation.
+        // load in the geodata (if active), or unload the geodata (if inactive)
         if(value)
-            _log.fine("Starting Grid " + tileX + ","+ tileY);
+        {
+            if(Config.ALLOW_GEODATA)
+            {
+                //Load Block in memory
+                GeoDataRequester.getInstance().getGeoBlock(tileX, tileY);
+                PathNodeBinRequester.getInstance().getPathNodeBlock((tileX*4096+MAP_MIN_X )+1, (tileY*4096+MAP_MIN_Y)+1);
+                _log.fine("Starting Grid " + tileX + ","+ tileY);
+            }
+        }
         else
+        {
+            if(Config.ALLOW_GEODATA)
+            {
+                //Block will kill itself automaticaly
             _log.fine("Stoping Grid " + tileX + ","+ tileY);
+            }
+        }
     }
 
     /** Immediately sets self as active and starts a timer to set neighbors as active
@@ -215,7 +245,7 @@ public final class L2WorldRegion
         }
         
         // then, set a timer to activate the neighbors
-        _neighborsTask = ThreadPoolManager.getInstance().scheduleGeneral(new NeighborsTask(true), 1000*Config.GRID_NEIGHBOR_TURNON_TIME);
+        _neighborsTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new NeighborsTask(true), 1000*Config.GRID_NEIGHBOR_TURNON_TIME, 2000);
     }
     
     /** starts a timer to set neighbors (including self) as inactive
