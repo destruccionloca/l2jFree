@@ -67,6 +67,10 @@ public class RequestPledgeSetMemberPowerGrade extends ClientBasePacket
                     activeChar.getClan().setRankPrivs(_rank, 0);
                 }
             }
+            else if(member != null)
+            {
+                member.setRank(_rank);
+            }
             else
                 activeChar.sendMessage("the target doesn't belong to your clan");
 		}

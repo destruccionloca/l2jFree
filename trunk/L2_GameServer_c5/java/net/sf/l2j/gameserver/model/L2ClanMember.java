@@ -18,6 +18,9 @@
  */
 package net.sf.l2j.gameserver.model;
 
+import java.sql.PreparedStatement;
+
+import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -159,4 +162,32 @@ public class L2ClanMember
         }
         return _apprentice;
     }
+    public void setRank(int rank)
+    {
+        _rank = rank;
+        updatePledgeRank();
+    }
+    public void updatePledgeRank()
+    {
+        java.sql.Connection con = null;
+        
+        try 
+        {
+            con = L2DatabaseFactory.getInstance().getConnection();
+            PreparedStatement statement = con.prepareStatement("UPDATE characters SET pledge_rank=? WHERE obj_id=?");
+            statement.setInt(1, _rank);
+            statement.setInt(2, getObjectId());
+            statement.execute();
+            statement.close();
+        }
+        catch (Exception e)
+        {
+            //_log.warning("could not set char power_grade:"+e);
+        }
+        finally
+        {
+            try { con.close(); } catch (Exception e) {}
+        }
+    }
+
 }

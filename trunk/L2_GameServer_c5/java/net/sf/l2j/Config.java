@@ -530,6 +530,7 @@ public final class Config {
     public static boolean ALLOW_GEODATA_WATER;
     public static int ALLOW_GEODATA_EXPIRATIONTIME;
     public static boolean ALLOW_GEODATA_CHECK_KNOWN;
+    public static boolean ALLOW_GEODATA_DEBUG;
     
     /** Jail config **/
     public static boolean JAIL_IS_PVP;
@@ -1051,6 +1052,7 @@ public final class Config {
                 ALLOW_GEODATA_WATER             = Boolean.valueOf(optionsSettings.getProperty("AllowGeodataWater", "False"));
                 ALLOW_GEODATA_EXPIRATIONTIME    = Integer.parseInt(optionsSettings.getProperty("AllowGeodata_ExpirationTime", "9000000"));
                 ALLOW_GEODATA_CHECK_KNOWN       = Boolean.valueOf(optionsSettings.getProperty("AllowGeodataCheckKnown", "False"));
+                ALLOW_GEODATA_DEBUG             = Boolean.valueOf(optionsSettings.getProperty("AllowGeodataDebug", "False"));
                 ALLOW_BOAT                      = Boolean.valueOf(optionsSettings.getProperty("AllowBoat", "False"));
                 ALLOW_CURSED_WEAPONS            = Boolean.valueOf(optionsSettings.getProperty("AllowCursedWeapons", "False"));
                 FISHINGMODE                     = optionsSettings.getProperty("FishingMode", "water");                

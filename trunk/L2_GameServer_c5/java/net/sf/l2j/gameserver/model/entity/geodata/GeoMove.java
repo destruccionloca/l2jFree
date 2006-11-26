@@ -1,5 +1,6 @@
 package net.sf.l2j.gameserver.model.entity.geodata;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -168,7 +169,7 @@ public class GeoMove
         {
             if (_actor instanceof L2PcInstance)
             {
-                if (((L2PcInstance)_actor).getAccessLevel() >= 100)
+                if (((L2PcInstance)_actor).getAccessLevel() >= 100 && Config.ALLOW_GEODATA_DEBUG)
                 {
                     _actor.sendMessage("First GeoMove x:" + target.x + " y:" + target.y + " z:" + target.z);
                 }
@@ -180,7 +181,7 @@ public class GeoMove
             {
                 if (_actor instanceof L2PcInstance)
                 {
-                    if (((L2PcInstance)_actor).getAccessLevel() >= 100)
+                    if (((L2PcInstance)_actor).getAccessLevel() >= 100 && Config.ALLOW_GEODATA_DEBUG)
                     {
                         _actor.sendMessage("No LoS on move fp =x:" + fp.x + "  y:" + fp.y + " z:" + fp.z );
                     }
@@ -197,7 +198,7 @@ public class GeoMove
                     targetRecorder = new FastMap<Integer,TargetCoord>();
                     if (_actor instanceof L2PcInstance)
                     {
-                        if (((L2PcInstance)_actor).getAccessLevel() >= 100)
+                        if (((L2PcInstance)_actor).getAccessLevel() >= 100 && Config.ALLOW_GEODATA_DEBUG)
                         {
                             _actor.sendMessage(" New target Recorder");
                         }
@@ -233,7 +234,7 @@ public class GeoMove
                         
                         if (_actor instanceof L2PcInstance)
                         {
-                            if (((L2PcInstance)_actor).getAccessLevel() >= 100)
+                            if (((L2PcInstance)_actor).getAccessLevel() >= 100 && Config.ALLOW_GEODATA_DEBUG)
                             {
                                 _actor.sendMessage(" path==null; FP= x:" + fp.x + "  y:" + fp.y + " z:" + fp.z);
                                 _actor.sendMessage("Time fo find null = "+ (System.currentTimeMillis() - ti)+ "ms");
@@ -257,7 +258,7 @@ public class GeoMove
                                 tCoord.z = p.location.getZ();
                                 if (_actor instanceof L2PcInstance)
                                 {
-                                    if (((L2PcInstance)_actor).getAccessLevel() >= 100)
+                                    if (((L2PcInstance)_actor).getAccessLevel() >= 100 && Config.ALLOW_GEODATA_DEBUG)
                                     {
                                         _actor.sendMessage("path = x:" + tCoord.x + " y:" + tCoord.y + " z:" + tCoord.z);
                                     }
@@ -267,7 +268,7 @@ public class GeoMove
                         }
                         if (_actor instanceof L2PcInstance)
                         {
-                            if (((L2PcInstance)_actor).getAccessLevel() >= 100)
+                            if (((L2PcInstance)_actor).getAccessLevel() >= 100 && Config.ALLOW_GEODATA_DEBUG)
                             {
                                 _actor.sendMessage("Time to find path:" + (System.currentTimeMillis() - ti) + "ms  Total Nodes:" + n.path.getNodes().size());
                             }
@@ -283,7 +284,7 @@ public class GeoMove
         {
             if (_actor instanceof L2PcInstance)
             {
-                if (((L2PcInstance)_actor).getAccessLevel() >= 100)
+                if (((L2PcInstance)_actor).getAccessLevel() >= 100 && Config.ALLOW_GEODATA_DEBUG)
                 {
                     _actor.sendMessage("CheckMovement excep: " + e.getMessage());
                     e.printStackTrace();
@@ -338,7 +339,7 @@ public class GeoMove
             
             if (_actor instanceof L2PcInstance)
             {
-                if (((L2PcInstance)_actor).getAccessLevel() >= 100)
+                if (((L2PcInstance)_actor).getAccessLevel() >= 100 && Config.ALLOW_GEODATA_DEBUG)
                 {
                     _actor.sendMessage("moving to x:" + prevtCoord.x + " y:" + prevtCoord.y + " z:" + prevtCoord.z + " Qsize:" + _queueSize ); 
                 }
@@ -351,7 +352,7 @@ public class GeoMove
             if (_actor instanceof L2PcInstance)
             {
                 _queueSize = 0;
-                if (((L2PcInstance)_actor).getAccessLevel() >= 100)
+                if (((L2PcInstance)_actor).getAccessLevel() >= 100 && Config.ALLOW_GEODATA_DEBUG)
                 {
                     _actor.sendMessage("CheckMap excep : " + e.getMessage());
                 }
