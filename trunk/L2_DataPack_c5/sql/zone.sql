@@ -15,7 +15,7 @@ CREATE TABLE zone (
   taxById INT NOT NULL default 0
 );
 
-insert into zone values (1, 'Arena', 'Giran Arena', 72498, 142271, 73495, 143255, -3774, ,0, 0);
+insert into zone values (1, 'Arena', 'Giran Arena', 72498, 142271, 73495, 143255, -3774, 0, 0);
 insert into zone values (2, 'Arena', 'Gludin Arena', -88410, 142728, -87421, 141730, -3633,0, 0);
 insert into zone values (3, 'Arena', 'Collusieum', 148014, 45304, 150976, 48020, -3410,0, 0);
 insert into zone values (4, 'Arena', 'Monster Track', 11955, 183017, 12937, 184008, -3565,0, 0);
@@ -372,9 +372,9 @@ INSERT INTO `zone` VALUES ('169', 'Fishing', 'Giran North Entrance1', 82480, 143
 INSERT INTO `zone` VALUES ('170', 'Fishing', 'Giran North Entrance2', 82109, 142550, 82211, 142149, 0,0, 0);
 INSERT INTO `zone` VALUES ('171', 'Fishing', 'Giran North Entrance3', 82235, 141780, 82700, 142718, 0,0, 0);
 
--------------------------------------------
---Water Zones
--------------------------------------------
+-- -----------------------------------------
+-- Water Zones
+-- -----------------------------------------
 
 INSERT INTO `zone` VALUES (1, 'Water', '16_21_water1', -131072, 98303, -98304, 131071, -4781, -3781, 0); 
 INSERT INTO `zone` VALUES (2, 'Water', '16_22_water1', -131072, 131072, -98304, 163840, -4781, -3781, 0); 
@@ -566,9 +566,9 @@ INSERT INTO `zone` VALUES (187, 'Water', '22_16_water16', 87187, -58301, 89235, 
 INSERT INTO `zone` VALUES (188, 'Water', '22_17_water1', 65536, -32768, 76800, 0, -4780, -3780, 0);
 INSERT INTO `zone` VALUES (189, 'Water', '22_17_water2', 76800, -32768, 98304, -18432, -4780, -3780, 0);
 
--------------------------------------------
---C5 town and castle spawns
--------------------------------------------
+-- -----------------------------------------
+-- C5 town and castle spawns
+-- -----------------------------------------
 INSERT INTO zone
   (id, type, name, x1, y1, x2, y2, z, taxById)
 VALUES
@@ -619,9 +619,9 @@ INSERT INTO zone
 VALUES
   (9, "Siege Battlefield", "Schuttgart", 73000, -156600, 80740, -147592, 0, 0);
 
----------------------------------
---C5 Clan Halls (these are not correct, but just to avaoid NPEs)
----------------------------------
+-- -------------------------------
+-- C5 Clan Halls (these are not correct, but just to avaoid NPEs)
+-- -------------------------------
 
 INSERT INTO zone
   (id, type, name, x1, y1, x2, y2, z, taxById)
