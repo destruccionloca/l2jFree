@@ -569,8 +569,9 @@ public class GameServer
         } 
         catch (NullPointerException e)
         {
-            _log.warning("Door.csv does not contain the right door info. Update door.csv");
-            e.printStackTrace();
+            _log.warning("There are errors in your Door.csv file. Update door.csv");
+            if (Config.DEBUG)
+               e.printStackTrace();
         }
         
         ClanTable.getInstance();
