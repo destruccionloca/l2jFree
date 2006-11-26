@@ -1156,7 +1156,7 @@ public abstract class L2Skill
         env._skill = this;
         if (!preCondition.test(env))
         {
-            String msg = _preCondition.getMessage();
+            String msg = preCondition.getMessage();
             if (msg != null)
             {
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
