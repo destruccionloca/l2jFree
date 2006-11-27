@@ -106,7 +106,7 @@ public class MoveBackwardToLocation extends ClientBasePacket
 			return;
 		}
 		
-		if (_moveMovement == 0  && !Config.ALLOW_GEODATA) // activeChar.isCastingNow() ||   cursor movement is temporary disabled 
+		if (_moveMovement == 0) // activeChar.isCastingNow() ||   cursor movement is temporary disabled 
 		{
 			activeChar.sendPacket(new ActionFailed());
 		}
