@@ -918,4 +918,7 @@ INSERT INTO `armor` (`item_id`,`name`,`bodypart`,`crystallizable`,`armor_type`,`
   (8541,'Little Harness','hatchling','false','none',160,'steel','none',0,90,10,25,0,0,0,'true'),
   (8552,'Red Mask of Victory','hair','false','none','10','wood','none','0','90','0','0','0','0','0','true'),
   (8557,'Blue Party Hat - For Event','hair','false','none',10,'wood','none',0,90,0,0,0,0,0,'false'),
-  (8558,'Soaring Bird', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false');
+  (8558,'Soaring Bird', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false'),
+  (8660,'Demon Horns', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false'),
+  (8661,'Mask of Spirits', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false'),
+  (8662,'Fairy Antennae - For Event', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false');

@@ -19,4 +19,16 @@
 <for />
     <add val='0' order='0x10' stat='pDef' />
 </item>
+<item id='8660' name="Demon Horns">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+<item id='8661' name="Mask of Spirits">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+<item id='8662' name="Fairy Antennae - For Event">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
 </list>
