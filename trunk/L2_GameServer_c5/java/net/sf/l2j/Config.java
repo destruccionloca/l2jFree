@@ -1547,10 +1547,10 @@ public final class Config {
 
                 ALT_STRICT_SEVENSIGNS                               = Boolean.parseBoolean(altSettings.getProperty("StrictSevenSigns", "True"));
                 
-                CLAN_LEADER_COLOR_ENABLED     			       		= Boolean.parseBoolean(altSettings.getProperty("ClanLeaderNameColorEnabled", "True"));
+                CLAN_LEADER_COLOR_ENABLED     			       		= Boolean.parseBoolean(altSettings.getProperty("ClanLeaderColorEnabled", "True"));
                 CLAN_LEADER_COLORED                  				= ClanLeaderColored.valueOf(altSettings.getProperty("ClanLeaderColored", "name"));
-                CLAN_LEADER_COLOR                                   = Integer.decode("0x" + altSettings.getProperty("ClanLeaderNameColor", "00FF00"));
-                CLAN_LEADER_COLOR_CLAN_LEVEL                        = Integer.parseInt(altSettings.getProperty("ClanLeaderNameColorAtClanLevel", "1"));
+                CLAN_LEADER_COLOR                                   = Integer.decode("0x" + altSettings.getProperty("ClanLeaderColor", "00FFFF"));
+                CLAN_LEADER_COLOR_CLAN_LEVEL                        = Integer.parseInt(altSettings.getProperty("ClanLeaderColorAtClanLevel", "1"));
                 ALT_BUFF_TIME                                       = Integer.parseInt(altSettings.getProperty("AltBuffTime", "1"));
                 ALT_DANCE_TIME                                      = Integer.parseInt(altSettings.getProperty("AltDanceTime", "1"));
 	            SPAWN_SIEGE_GUARD 									= Boolean.parseBoolean(altSettings.getProperty("SpawnSiegeGuard", "true"));
