@@ -35,6 +35,12 @@ public class Zone
         getCoords().add(new int[] {x1, y1, x2, y2, z});
         return getCoords().size() - 1;
     }
+    
+    public final int addCoord(int x1, int y1, int x2, int y2, int z, int z2)
+    {
+        getCoords().add(new int[] {x1, y1, x2, y2, z, z2});
+        return getCoords().size() - 1;
+    }
 
     public final boolean checkIfInZone(L2Object obj)
     {
@@ -44,6 +50,11 @@ public class Zone
     public final boolean checkIfInZone(int x, int y)
     {
         return (getCoord(x, y) != null);
+    }
+    
+    public final boolean checkIfInZone(int x, int y, int z)
+    {
+        return (getCoord(x, y, z) != null);
     }
 
     public final double findDistanceToZone(L2Object obj, boolean includeZAxis)
@@ -113,6 +124,21 @@ public class Zone
             if (coord[2] == 0 && coord[3] == 0) continue;
             if (x >= Math.min(coord[0], coord[2]) && x <= Math.max(coord[0], coord[2])
                 && y >= Math.min(coord[1], coord[3]) && y <= Math.max(coord[1], coord[3])) return coord;
+        }
+        return null;
+    }
+    
+    public final int[] getCoord(int x, int y, int z)
+    {
+        for (int[] coord : getCoords())
+        {
+            if (coord[2] == 0 && coord[3] == 0) continue;
+            if (x >= Math.min(coord[0], coord[2]) && x <= Math.max(coord[0], coord[2])
+                && y >= Math.min(coord[1], coord[3]) && y <= Math.max(coord[1], coord[3]))                
+            {
+                if (z > coord[4] && z < coord[5])
+                return coord;                
+            }
         }
         return null;
     }

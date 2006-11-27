@@ -7,6 +7,7 @@ import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.model.entity.Auction;
@@ -139,7 +140,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                 try
                 {
                     int auctionId = Integer.parseInt(val);
-                    player.sendMessage("auction test started");
+                    //player.sendMessage("auction test started");
                     String filename = "data/html/auction/AgitAuctionInfo.htm";
                     Auction a = AuctionManager.getInstance().getAuction(auctionId);
 
@@ -200,7 +201,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             }
             else if (actualCommand.equalsIgnoreCase("bid1"))
             {
-                if (player.getClan().getLevel() < 2)
+                if (player.getClan() == null || player.getClan().getLevel() < 2)
                 {
                     player.sendMessage("Your clan's level needs to be at least 2, before you can bid in an auction");
                     return;
@@ -291,12 +292,12 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             }
             else if (actualCommand.equalsIgnoreCase("selectedItems"))
             {
-                if (player.getClan().getHasHideout() == 0 && player.getClan().getAuctionBiddedAt() > 0)
+                if (player.getClan() != null && player.getClan().getHasHideout() == 0 && player.getClan().getAuctionBiddedAt() > 0)
                 {
                     String filename = "data/html/auction/AgitBidInfo.htm";
                     NpcHtmlMessage html = new NpcHtmlMessage(1);
                     html.setFile(filename);
-                    Auction a = AuctionManager.getInstance().getAuction(player.getClan().getHasHideout());
+                    Auction a = AuctionManager.getInstance().getAuction(player.getClan().getAuctionBiddedAt());
                     html.replace("%AGIT_NAME%", a.getItemName());
                     html.replace("%OWNER_PLEDGE_NAME%", a.getSellerClanName());
                     html.replace("%OWNER_PLEDGE_MASTER%", a.getSellerName());
@@ -315,7 +316,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                     player.sendPacket(html);
                     return;
                 }
-                else if (AuctionManager.getInstance().getAuction(player.getClan().getHasHideout()) != null)
+                else if (player.getClan() != null && AuctionManager.getInstance().getAuction(player.getClan().getHasHideout()) != null)
                 {
                     String filename = "data/html/auction/AgitSaleInfo.htm";
                     NpcHtmlMessage html = new NpcHtmlMessage(1);
@@ -340,7 +341,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                     player.sendPacket(html);
                     return;
                 }
-                else if(player.getClan().getHasHideout() != 0)
+                else if(player.getClan() != null && player.getClan().getHasHideout() != 0)
                 {
                     int ItemId = player.getClan().getHasHideout();
                     String filename = "data/html/auction/AgitInfo.htm";
@@ -440,6 +441,15 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                 }
                 return;
             }
+            else if (actualCommand.equalsIgnoreCase("location"))
+            {
+                NpcHtmlMessage html = new NpcHtmlMessage(1);
+                html.setFile("data/html/auction/location.htm");
+                html.replace("%location%", MapRegionTable.getInstance().getClosestTownName(player));
+                html.replace("%LOCATION%", getPictureName(player));
+                player.sendPacket(html);
+                return;
+            }
             else if (actualCommand.equalsIgnoreCase("start"))
             {
                 showMessageWindow(player);
@@ -474,5 +484,24 @@ public final class L2AuctioneerInstance extends L2FolkInstance
         }
 
         return Cond_All_False;
+    }
+    private String getPictureName(L2PcInstance plyr)
+    {
+        int nearestTownId = MapRegionTable.getInstance().getMapRegion(plyr.getX(), plyr.getY());
+        String nearestTown;
+        
+        switch (nearestTownId)
+        {
+            case 5: nearestTown = "GLUDIO"; break;
+            case 6: nearestTown = "GLUDIN"; break;
+            case 7: nearestTown = "DION"; break;
+            case 8: nearestTown = "GIRAN"; break;
+            case 14: nearestTown = "RUNE"; break;
+            case 15: nearestTown = "GODARD"; break;
+            case 16: nearestTown = "SHUTTGART"; break;
+            default: nearestTown = "ADEN"; break;
+        }
+        
+        return nearestTown;
     }
 }

@@ -87,6 +87,15 @@ public class ZoneType
         }
         return false;
     }
+    
+    public boolean checkIfInZoneIncludeZ(int x, int y, int z)
+    {
+        for (Zone zone: getZones())
+        {
+            if (zone.checkIfInZone(x, y, z)) return true;
+        }
+        return false;
+    }
 
     // =========================================================
     // Method - Private

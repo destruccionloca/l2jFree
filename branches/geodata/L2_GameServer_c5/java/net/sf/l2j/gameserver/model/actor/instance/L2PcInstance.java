@@ -26,6 +26,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +69,9 @@ import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.communitybbs.BB.Forum;
 import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
 import net.sf.l2j.gameserver.handler.IItemHandler;
+import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
+import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.handler.skillhandlers.SiegeFlag;
 import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
@@ -196,8 +199,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private static final String DELETE_SKILL_FROM_CHAR = "DELETE FROM character_skills WHERE skill_id=? AND char_obj_id=? AND class_index=?";
     private static final String DELETE_CHAR_SKILLS = "DELETE FROM character_skills WHERE char_obj_id=? AND class_index=?";
 
-    private static final String ADD_SKILL_SAVE = "INSERT INTO character_skills_save (char_obj_id,skill_id,skill_level,effect_count,effect_cur_time,class_index) VALUES (?,?,?,?,?,?)";
-    private static final String RESTORE_SKILL_SAVE = "SELECT skill_id,skill_level,effect_count,effect_cur_time FROM character_skills_save WHERE char_obj_id=? AND class_index=?";
+    private static final String ADD_SKILL_SAVE = "INSERT INTO character_skills_save (char_obj_id,skill_id,skill_level,effect_count,effect_cur_time,reuse_delay,restore_type,class_index) VALUES (?,?,?,?,?,?,?,?)";
+    private static final String RESTORE_SKILL_SAVE = "SELECT skill_id,skill_level,effect_count,effect_cur_time, reuse_delay FROM character_skills_save WHERE char_obj_id=? AND class_index=? AND restore_type=?";
     private static final String DELETE_SKILL_SAVE = "DELETE FROM character_skills_save WHERE char_obj_id=? AND class_index=?";
 
     private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,allyId=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,deleteclan=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,varka=?,ketra=?,pledge_type=?, pledge_rank=?, apprentice=?, accademy_lvl=? WHERE obj_id=?"; 
@@ -1466,7 +1469,8 @@ public final class L2PcInstance extends L2PlayableInstance
     
     public void revalidateInClanHall()
     {
-        setIsInClanHall((ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ClanHall),this)) && (ClanHallManager.getInstance().getClanHall(getX(), getY()).getOwnerId() == getClanId()));
+        if (ClanHallManager.getInstance().getClanHall(getX(), getY()) != null)
+                setIsInClanHall((ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ClanHall),this)) && (ClanHallManager.getInstance().getClanHall(getX(), getY()).getOwnerId() == getClanId()));
     }
 
     public void revalidateZone()
@@ -1948,7 +1952,7 @@ public final class L2PcInstance extends L2PlayableInstance
         int lvl = getLevel();
 
         // Remove beginner Lucky skill
-        if (lvl == 5)
+        if (lvl == 10)
         {
             L2Skill skill = SkillTable.getInstance().getInfo(194, 1);
             skill = removeSkill(skill);
@@ -3700,6 +3704,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 
                 if(pk != null) {
                     L2Clan killerClan = pk.getClan();
+                    if (pk.getClan() != null && getClan()!= null)
                     if (killerClan.isAtWarWith(this.getClanId()) && getClan().isAttackedBy(killerClan.getClanId()) && getClan().getReputationScore() > 0)
                     {
                         int score = getClan().getReputationScore();
@@ -5580,22 +5585,54 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.execute();
             statement.close();
 
-            // Loop thru all effects for char and same them each to database
+            // Store all effect data along with calulated remaining
+            // reuse delays for matching skills. 'restore_type'= 0.
             for (L2Effect effect : getAllEffects())
             {
                 if (effect != null && effect.getInUse() && !effect.getSkill().isToggle())
                 {
+                    int skillId = effect.getSkill().getId();
+                    
                     statement = con.prepareStatement(ADD_SKILL_SAVE);
                     statement.setInt(1, getObjectId());
-                    statement.setInt(2, effect.getSkill().getId());
+                    statement.setInt(2, skillId);
                     statement.setInt(3, effect.getSkill().getLevel());
                     statement.setInt(4, effect.getCount());
                     statement.setInt(5, effect.getTime());
-                    statement.setInt(6, getClassIndex());
+                    if (ReuseTimeStamps.containsKey(skillId))
+                    {
+                        TimeStamp t = ReuseTimeStamps.remove(skillId);
+                        statement.setLong(6, t.hasNotPassed() ? t.getReuse() : 0 );
+                    } else
+                    {
+                        statement.setLong(6, 0);
+                    }
+                    statement.setInt(7, 0);
+                    statement.setInt(8, getClassIndex());
                     statement.execute();
                     statement.close();
                 }
             }
+            // Store the reuse delays of remaining skills which
+            // lost effect but still under reuse delay. 'restore_type' 1.
+            for (TimeStamp t : ReuseTimeStamps.values())
+            {
+                if (t.hasNotPassed())
+                {
+                    statement = con.prepareStatement(ADD_SKILL_SAVE);
+                    statement.setInt (1, getObjectId());
+                    statement.setInt (2, t.getSkill());
+                    statement.setInt (3, -1);
+                    statement.setInt (4, -1);
+                    statement.setInt (5, -1);
+                    statement.setLong(6, t.getReuse());
+                    statement.setInt (7, 1);
+                    statement.setInt (8, getClassIndex());
+                    statement.execute();
+                    statement.close();
+                }
+            }
+            ReuseTimeStamps.clear();
         }
         catch (Exception e)
         {
@@ -5826,7 +5863,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     * HRetrieve from the database all skill effects of this L2PcInstance and add them to the player.<BR><BR>
+     * Retrieve from the database all skill effects of this L2PcInstance and add them to the player.<BR><BR>
      */
     public void restoreEffects()
     {
@@ -5838,11 +5875,21 @@ public final class L2PcInstance extends L2PlayableInstance
             con = L2DatabaseFactory.getInstance().getConnection();
             PreparedStatement statement;
 
+            ResultSet rset;
+
+            /**
+            *  Restore Type 0
+            *  These skill were still in effect on the character
+            *  upon logout. Some of which were self casted and 
+            *  might still have had a long reuse delay which also
+            *  is restored.
+            */ 
+
             statement = con.prepareStatement(RESTORE_SKILL_SAVE);
             statement.setInt(1, getObjectId());
             statement.setInt(2, getClassIndex());
-
-            ResultSet rset = statement.executeQuery();
+            statement.setInt(3, 0);
+            rset = statement.executeQuery();
 
             while (rset.next())
             {
@@ -5851,8 +5898,23 @@ public final class L2PcInstance extends L2PlayableInstance
                 int effectCount = rset.getInt("effect_count");
                 int effectCurTime = rset.getInt("effect_cur_time");
 
+                long reuseDelay = rset.getLong("reuse_delay");
+               
+                // Just incase the admin minipulated this table incorrectly :x
+                if(skillId == -1 || effectCount == -1 || effectCurTime == -1 || reuseDelay < 0) continue;
+
                 L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLvl);
-                callSkill(skill, targets);
+                ISkillHandler IHand = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
+                if (IHand != null)
+                    IHand.useSkill(this, skill, targets);
+                else
+                    skill.useSkill(this, targets);
+               
+                if (reuseDelay > 10)
+                {
+                    disableSkill(skillId, reuseDelay);
+                    addTimeStamp(new TimeStamp(skillId, reuseDelay));
+                }
 
                 for (L2Effect effect : getAllEffects())
                 {
@@ -5864,10 +5926,38 @@ public final class L2PcInstance extends L2PlayableInstance
                 }
             }
 
+            rset.close();
+            statement.close();
+
+            /**
+             * Restore Type 1
+             * The remaning skills lost effect upon logout but
+             * were still under a high reuse delay.
+             */
+            statement = con.prepareStatement(RESTORE_SKILL_SAVE);
+            statement.setInt(1, getObjectId());
+            statement.setInt(2, getClassIndex());
+            statement.setInt(3, 1);
+            rset = statement.executeQuery();
+
+            while (rset.next())
+            {
+                int skillId = rset.getInt("skill_id");
+                long reuseDelay = rset.getLong("reuse_delay");
+                
+                if (reuseDelay <= 0) continue;
+
+                disableSkill(skillId, reuseDelay);
+                addTimeStamp(new TimeStamp(skillId, reuseDelay));
+            }
+            rset.close();
+            statement.close();
+
             statement = con.prepareStatement(DELETE_SKILL_SAVE);
             statement.setInt(1, getObjectId());
             statement.setInt(2, getClassIndex());
             statement.executeUpdate();
+            statement.close();
         }
         catch (Exception e)
         {
@@ -8280,48 +8370,6 @@ public final class L2PcInstance extends L2PlayableInstance
         return false;
     }
 
-    public void checkWaterState()
-    {
-        if(Config.ALLOW_GEODATA && Config.ALLOW_GEODATA_WATER){
-           if(GeoDataRequester.getInstance().getIsInWater(getX(),getY(),(short)getZ())){
-               startWaterTask();
-           }else{
-               stopWaterTask();
-           }
-           return;
-        } 
-        //checking if char is  over base level of  water (sea, rivers)
-        if (getZ() > -3793)
-        {
-            stopWaterTask();
-            return;
-        }
-
-        // Check if char is in water or is underground and in water
-        int[] coord;
-        Zone zone = ZoneManager.getInstance().getZone(
-                                                      ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Water),
-                                                      getX(), getY()); //checking if char is in water zone
-
-        if (zone == null)
-            zone = ZoneManager.getInstance().getZoneType(
-                                                         ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Underground)).getZone(
-                                                                                                                              getX(),
-                                                                                                                              getY()); //checking if char is in underground and in water
-
-        if (zone != null)
-        {
-            coord = zone.getCoord(getX(), getY());
-
-            if (coord != null && getZ() > coord[4])
-            {
-                stopWaterTask();
-                return;
-            }
-        }
-
-        startWaterTask();
-    }
 
     public void onPlayerEnter()
     {
@@ -8363,6 +8411,44 @@ public final class L2PcInstance extends L2PlayableInstance
         // Reset MotherTree Zone flag withour sending a message to the client
         setInMotherTreeZone(false, false);
         revalidateZone();
+    }
+
+    public void checkWaterState()
+    {
+        if (ZoneManager.getInstance().checkIfInZoneIncludeZ("Water",getX(),getY(),getZ()))
+        {
+            startWaterTask();
+        }      
+        else
+        {
+            stopWaterTask();
+            return;
+        }
+/*
+        // Check if char is in water or is underground and in water
+        int[] coord;
+        Zone zone = ZoneManager.getInstance().getZone(
+                                                      ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Water),
+                                                      getX(), getY()); //checking if char is in water zone
+
+        if (zone == null)
+            zone = ZoneManager.getInstance().getZoneType(
+                                                         ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Underground)).getZone(
+                                                                                                                              getX(),
+                                                                                                                              getY()); //checking if char is in underground and in water
+
+        if (zone != null)
+        {
+            coord = zone.getCoord(getX(), getY());
+
+            if (coord != null && getZ() > coord[4])
+            {
+                stopWaterTask();
+                return;
+            }
+        }
+
+        startWaterTask(); */
     }
 
     public long getLastAccess()
@@ -8966,7 +9052,8 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             //check the fishing floats x,y,z is in a fishing zone
             //if not the abort fishing mode else continue
-            if (!ZoneManager.getInstance().checkIfInZoneFishing(x, y))
+            if (!ZoneManager.getInstance().checkIfInZoneIncludeZ("Water",x,y,GeoDataRequester.getInstance().getGeoInfoNearest(x, y, (short)z).getZ()))
+            //if (!ZoneManager.getInstance().checkIfInZoneFishing(x, y))
             {
                 //abort fishing
                 this.sendMessage("Your Lure didnt land in a fishing zone.");
@@ -9325,6 +9412,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     private ScheduledFuture _jailTask;
+    @SuppressWarnings("unused")
     private int _powerGrade;
     private int _cursedWeaponEquipedId = 0;
 
@@ -9364,4 +9452,77 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         return _cursedWeaponEquipedId;
     }
+
+   private FastMap<Integer, TimeStamp> ReuseTimeStamps = new FastMap<Integer, TimeStamp>();
+
+   /**
+    * Simple class containing all neccessary information to maintain
+    * valid timestamps and reuse for skills upon relog. Filter this
+    * carefully as it becomes redundant to store reuse for small delays.
+    * @author  Yesod
+    */
+   private class TimeStamp
+   {
+       private int skill;
+       private long reuse;
+       private Date stamp;
+       
+       public TimeStamp(int _skill, long _reuse)
+       {
+           skill = _skill;
+           reuse = _reuse;
+           stamp = new Date(new Date().getTime() + reuse);
+       }
+       
+       public int  getSkill(){ return skill; }     
+       public long getReuse(){ return reuse; }
+       
+       /* Check if the reuse delay has passed and
+        * if it has not then update the stored reuse time
+        * according to what is currently remaining on
+        * the delay. */
+       public boolean hasNotPassed()
+       {
+           Date d = new Date();
+           if(d.before(stamp))
+           {
+               reuse -= d.getTime() - (stamp.getTime() - reuse);
+               return true;
+           }
+           return false;
+       }
+   }
+
+   /**
+    * Index according to skill id the current 
+    * timestamp of use.
+    * @param skillid
+    * @param reuse delay
+    */
+   @Override
+   public void addTimeStamp(int s, int r)
+   {
+       ReuseTimeStamps.put(s, new TimeStamp(s, r));
+   }
+
+   /**
+    * Index according to skill this TimeStamp 
+    * instance for restoration purposes only.
+    * @param TimeStamp
+    */
+   private void addTimeStamp(TimeStamp T)
+   {
+       ReuseTimeStamps.put(T.getSkill(), T);
+   }
+
+   /**
+    * Index according to skill id the current 
+    * timestamp of use.
+    * @param skillid
+    */
+   @Override
+   public void removeTimeStamp(int s)
+   {
+       ReuseTimeStamps.remove(s);
+   }
 }

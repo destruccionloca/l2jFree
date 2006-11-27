@@ -23,8 +23,8 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-
-
+import net.sf.l2j.gameserver.model.entity.geodata.FarPoint;
+import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 
 /**
  * @author littlecrow
@@ -57,8 +57,6 @@ final class EffectFear extends L2Effect {
 	public void onExit() {
 		
 		getEffected().stopFear(this);
-		
-			
 	}
 		
 	
@@ -72,17 +70,25 @@ final class EffectFear extends L2Effect {
 		int posZ = getEffected().getZ();
 		
 //		Random r = L2Character.getRnd();
-		int signx=-1;
+        int signx=-1;
 		int signy=-1;
 		if (getEffected().getX()>getEffector().getX())
 			signx=1;
 		if (getEffected().getY()>getEffector().getY())
 			signy=1;
-		posX += signx*FEAR_RANGE;
+
+        posX += signx*FEAR_RANGE;
 		posY += signy*FEAR_RANGE;
+
         getEffected().setRunning();
-		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,new L2CharPosition(posX,posY,posZ,0));
-    	return true;
+        
+        FarPoint fp;
+        fp = GeoDataRequester.getInstance().hasMovementLoS(getEffected(), posX,posY,(short)getEffected().getZ());
+        
+        getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,
+                 new L2CharPosition(fp.x,fp.y,fp.z,0));
+        
+        return true;
     }
 }
 

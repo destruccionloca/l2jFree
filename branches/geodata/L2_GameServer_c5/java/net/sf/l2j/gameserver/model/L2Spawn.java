@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
+import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
@@ -152,12 +153,12 @@ public class L2Spawn
 		 // The Name of the L2NpcInstance type managed by this L2Spawn
 		 String implementationName = _template.type; // implementing class name
         
-		if (mobTemplate.npcId == 7995)
+		if (mobTemplate.npcId == 30995)
             implementationName = "L2RaceManager";
 		
 		// if (mobTemplate.npcId == 8050)
 		
-		if ((mobTemplate.npcId >= 8046)&&(mobTemplate.npcId <= 8053))
+		if ((mobTemplate.npcId >= 31046)&&(mobTemplate.npcId <= 31053))
             implementationName = "L2SymbolMaker";
 		
 		// Create the generic constructor of L2NpcInstance managed by this L2Spawn
@@ -433,18 +434,33 @@ public class L2Spawn
             
             // Calculate the random position in the location area
             int p[] = Territory.getInstance().getRandomPoint(getLocation());
-            
-            // Set the calculated position of the L2NpcInstance
             newlocx = p[0];
             newlocy = p[1];
-            newlocz = p[2];
+            
+            // Set the calculated position of the L2NpcInstance
+            if(Config.ALLOW_GEODATA)
+            {
+                newlocz = GeoDataRequester.getInstance().getGeoInfoNearest(newlocx,newlocy,(short)p[2]).getZ();
+            }
+            else
+            {
+                newlocz = p[2];
+            }
         } 
         else 
         {
             // The L2NpcInstance is spawned at the exact position (Lox, Locy, Locz)
             newlocx = getLocx();
             newlocy = getLocy();
-            newlocz = getLocz();
+            if(Config.ALLOW_GEODATA)
+            {
+                newlocz = GeoDataRequester.getInstance().getGeoInfoNearest(newlocx,newlocy,(short)getLocz()).getZ();
+            }
+            else
+            {
+                newlocz = getLocz();
+            }
+            
         }
         
         for(L2Effect f : mob.getAllEffects())

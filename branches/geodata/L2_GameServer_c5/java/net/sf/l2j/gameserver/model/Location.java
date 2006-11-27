@@ -24,7 +24,7 @@ package net.sf.l2j.gameserver.model;
  * @version $Revision: 1.1.4.1 $ $Date: 2005/03/27 15:29:33 $
  */
 
-public final class Location
+public class Location
 {
 	private int _x;
 	private int _y;
@@ -59,8 +59,8 @@ public final class Location
 	
 	public int getZ()
 	{
-		return _z;
-	}
+        return _z;
+    }
 	
 	public int getHeading()
 	{

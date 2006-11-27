@@ -23,7 +23,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -48,13 +47,14 @@ public final class L2World
      * note, shifting by 15 will result in regions corresponding to map tiles
      * shifting by 12 divides one tile to 8x8 regions
      */
-    private static final int SHIFT_BY = 12;
+    private static final int SHIFT_BY = 11;
     
     /** Map dimensions */
     public static final int MAP_MIN_X = -131072;
     public static final int MAP_MAX_X = 228608;
-    public static final int MAP_MIN_Y = -262143;
+    public static final int MAP_MIN_Y = -262144;
     public static final int MAP_MAX_Y = 262144;
+    public static final int CELL_OFFSET = 0x7FF;
     
     /** calculated offset used so top left region is 0,0 */
     private static final int OFFSET_X = Math.abs(MAP_MIN_X >> SHIFT_BY);
@@ -584,7 +584,7 @@ public final class L2World
                 if (dx*dx + dy*dy < sqRadius)
                     if(Config.ALLOW_GEODATA && Config.ALLOW_GEODATA_CHECK_KNOWN && object instanceof L2PcInstance)
                     {
-                        if(GeoDataRequester.getInstance().hasLoS(object, _object.getX(), _object.getY(), (short) _object.getZ()))
+                        if(GeoDataRequester.getInstance().hasAttackLoS(object, _object.getX(), _object.getY(), (short) _object.getZ()))
                             result.add(_object);
                     }
                     else
@@ -655,7 +655,7 @@ public final class L2World
                 if (dx*dx + dy*dy + dz*dz < sqRadius)
                     if(Config.ALLOW_GEODATA && Config.ALLOW_GEODATA_CHECK_KNOWN && object instanceof L2PcInstance)
                     {
-                        if(GeoDataRequester.getInstance().hasLoS(object, _object.getX(), _object.getY(), (short) _object.getZ()))
+                        if(GeoDataRequester.getInstance().hasAttackLoS(object, _object.getX(), _object.getY(), (short) _object.getZ()))
                             result.add(_object);
                     }
                     else

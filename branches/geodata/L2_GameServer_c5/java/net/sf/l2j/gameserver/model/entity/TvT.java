@@ -780,7 +780,7 @@ public class TvT
         }
     }
     
-    private static void clean()
+    public static void cleanTvT()
     {
         for (String team : _teams)
         {
@@ -823,15 +823,14 @@ public class TvT
         ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
                                                        {
                                                             public void run()
-                                                            {
+                                                            {                                                                
                                                                 for (L2PcInstance player : _players)
                                                                 {
                                                                     if (player !=  null)
                                                                         player.teleToLocation(_npcX, _npcY, _npcZ);
-                                                                }
-                                                                
-                                                                TvT.clean();
-                                                            }
+                                                                } 
+                                                                cleanTvT();
+                                                             }
                                                        }, 20000);
     }
 

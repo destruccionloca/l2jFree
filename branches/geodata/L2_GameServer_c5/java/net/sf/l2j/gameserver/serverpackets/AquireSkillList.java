@@ -47,7 +47,7 @@ import javolution.util.FastList;
 public class AquireSkillList extends ServerBasePacket
 {
 	//private static Logger _log = Logger.getLogger(AquireSkillList.class.getName());
-    
+
     private static final String _S__A3_AQUIRESKILLLIST = "[S] 8a AquireSkillList";
     private List<Skill> _skills;
     private int _skillsType;

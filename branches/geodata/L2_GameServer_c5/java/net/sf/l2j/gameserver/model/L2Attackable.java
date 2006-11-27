@@ -45,6 +45,7 @@ import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MinionInstance;
@@ -458,6 +459,7 @@ public class L2Attackable extends L2NpcInstance
                            if (qs.getQuest().isParty())
                            {
                                if (!qs.isCompleted() && !pl.isDead() && Util.checkIfInRange(1150, this, pl, true))
+                               {
                                    if (tempMap.get(qs.getQuest().getName()) != null)
                                        tempMap.get(qs.getQuest().getName()).add(qs);
                                    else
@@ -466,8 +468,9 @@ public class L2Attackable extends L2NpcInstance
                                        tempList.add(qs);
                                        tempMap.put(qs.getQuest().getName(), tempList);
                                    }
+                               }
                            }
-                           else if (pl == (L2PcInstance)killer)
+                           else if (pl == player)
                                questList.add(qs);
                        }
                    }
@@ -485,10 +488,9 @@ public class L2Attackable extends L2NpcInstance
                             questList.add(qs);
                }
                
-                if (questList != null)
-                    for (QuestState qs : questList)
-                        qs.getQuest().notifyKill(this, qs);           
-                }
+                for (QuestState qs : questList)
+                    qs.getQuest().notifyKill(this, qs);                
+           }
         } 
         catch (Exception e) { _log.log(Level.SEVERE, "", e); }
 
@@ -1458,14 +1460,18 @@ public class L2Attackable extends L2NpcInstance
              // Randomize drop position  
              int newX = this.getX() + Rnd.get(randDropLim * 2 + 1) - randDropLim;
              int newY = this.getY() + Rnd.get(randDropLim * 2 + 1) - randDropLim;
-             int newZ = Math.max(this.getZ(), lastAttacker.getZ()) + 20; // TODO: temp hack, do somethign nicer when we have geodatas 
+             int newZ = GeoDataRequester.getInstance().getGeoInfoNearest(newX,newY,(short)this.getZ()).getZ();
+             //Math.max(this.getZ(), lastAttacker.getZ()) + 20; // TODO: temp hack, do somethign nicer when we have geodatas
 
              // Init the dropped L2ItemInstance and add it in the world as a visible object at the position where mob was last
              ditem = ItemTable.getInstance().createItem("Loot", item.getItemId(), item.getCount(), lastAttacker, this);
              ditem.dropMe(this, newX, newY, newZ); 
 
              // Add drop to auto destroy item task
-             if (Config.AUTODESTROY_ITEM_AFTER > 0 || ditem.getItemType() == L2EtcItemType.HERB) ItemsAutoDestroy.getInstance().addItem(ditem);
+             if (Config.AUTODESTROY_ITEM_AFTER > 0 && ditem.getItemType() != L2EtcItemType.HERB
+                   || Config.HERB_AUTO_DESTROY_TIME > 0 && ditem.getItemType() == L2EtcItemType.HERB
+                 )
+               ItemsAutoDestroy.getInstance().addItem(ditem);
              
 
              // If stackable, end loop as entire count is included in 1 instance of item  

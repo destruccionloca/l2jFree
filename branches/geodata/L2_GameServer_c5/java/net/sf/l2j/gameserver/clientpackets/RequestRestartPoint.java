@@ -89,11 +89,19 @@ public class RequestRestartPoint extends ClientBasePacket
                         return;
                     }                    
                     loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.ClanHall);
+                    if (ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan())!= null && ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP)!= null)
                     activeChar.restoreExp(ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP).getLvl() / 100);
                 }
                 else if (requestedPointType == 2) // to castle
                 {
-                    if (activeChar.getClan().getHasCastle() == 0)
+                    Boolean isInDefense = false;
+                    Castle castle = CastleManager.getInstance().getCastle(activeChar);                	
+                	if (castle != null && castle.getSiege().getIsInProgress())
+                	{
+                    	//siege in progress            	
+                        isInDefense = (castle.getSiege().checkIsDefender(activeChar.getClan()));
+                    }
+                    if (activeChar.getClan().getHasCastle() == 0 && !isInDefense)
                     {
                         //cheater
                         activeChar.sendMessage("Ohh Cheat dont work? You have a problem now!");
@@ -107,7 +115,7 @@ public class RequestRestartPoint extends ClientBasePacket
                 {
                     L2SiegeClan siegeClan = null;
                     Castle castle = CastleManager.getInstance().getCastle(activeChar);
-                    if (castle!= null && castle.getSiege().getIsInProgress())
+                    if (castle != null && castle.getSiege().getIsInProgress())
                         siegeClan = castle.getSiege().getAttackerClan(activeChar.getClan());
                     if (siegeClan == null || siegeClan.getFlag().size() == 0)
                     {

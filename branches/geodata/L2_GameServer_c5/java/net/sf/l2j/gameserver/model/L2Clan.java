@@ -1145,7 +1145,7 @@ public class L2Clan
             L2ClanMember member;
             
             con = L2DatabaseFactory.getInstance().getConnection();
-            PreparedStatement statement = con.prepareStatement("SELECT clan_name,clan_level,hasCastle,hasHideout,ally_id,ally_name,leader_id,crest_id,crest_large_id,ally_crest_id,reputation_score,rank FROM clan_data where clan_id=?");
+            PreparedStatement statement = con.prepareStatement("SELECT clan_name,clan_level,hasCastle,hasHideout,ally_id,ally_name,leader_id,crest_id,crest_large_id,ally_crest_id,reputation_score,rank, auction_bid_at FROM clan_data where clan_id=?");
             statement.setInt(1, getClanId());
             ResultSet clanData = statement.executeQuery();
             
@@ -1174,6 +1174,7 @@ public class L2Clan
                 
                 setReputationScore(clanData.getInt("reputation_score"));
                 setRank(clanData.getInt("rank"));
+                setAuctionBiddedAt(clanData.getInt("auction_bid_at"));
                 
                 int leaderId = (clanData.getInt("leader_id"));          
                 

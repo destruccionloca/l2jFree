@@ -31,8 +31,8 @@ public class AsyncIOThread extends IOThread implements ICompletionListener
     private static final int Read_State  = 0;
     private static final int Write_State = 1;
     private static int       ToWrite    = 0;
-    String _host;
-    int _port;    
+    private final String _host;
+    private final int _port;    
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.IOThread#getInstance()
@@ -48,13 +48,13 @@ public class AsyncIOThread extends IOThread implements ICompletionListener
      * @param hostname
      * @param port
      */
-    public AsyncIOThread(String hostname, int port)
+    private AsyncIOThread(String hostname, int port)
     {
         super("AIO4J Thread");
-        _host = hostname;
-        _port = port;
-        setDaemon(true);
-        setPriority(Thread.NORM_PRIORITY + 2);
+        this._host = hostname;
+        this._port = port;
+        this.setDaemon(true);
+        this.setPriority(Thread.NORM_PRIORITY + 2);
     }
 
     /* (non-Javadoc)
@@ -100,7 +100,7 @@ public class AsyncIOThread extends IOThread implements ICompletionListener
                 // Listen for client connections.
                 AsyncSocketChannel clientChannel = serverChannel.accept();
                 System.out.println("Conn from " + clientChannel.socket());
-
+                
                 IOCP Iocp = new IOCP(new ClientThread(clientChannel), Read_State);
 
                 ByteBuffer read = ByteBuffer.allocateDirect(8192);

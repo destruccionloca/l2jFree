@@ -145,7 +145,7 @@ public class L2MonsterInstance extends L2Attackable
          */
         switch (getTemplate().npcId)
         {
-            case 12372://Baium
+            case 29020://Baium
             {
                 Earthquake eq = new Earthquake(this.getX(),this.getY(),this.getZ(),30,10);
                 broadcastPacket(eq);
@@ -154,14 +154,14 @@ public class L2MonsterInstance extends L2Attackable
                 _SocialTask = ThreadPoolManager.getInstance().scheduleEffect(new Social(12372), 15000);
                 return;
                     }
-            case 12899://Valakas
+            case 29028://Valakas
             {
                 SocialAction sa = new SocialAction(getObjectId(),3);
                 broadcastPacket(sa);
                 _SocialTask = ThreadPoolManager.getInstance().scheduleEffect(new Social(12899), 26000);
                 return;
             }
-            case 12211://Antharas
+            case 29019://Antharas
             {
                 SocialAction sa = new SocialAction(getObjectId(),3);
                 broadcastPacket(sa);

@@ -2,6 +2,7 @@ package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -35,23 +36,22 @@ public class Fishing implements ISkillHandler
             player.sendPacket(new SystemMessage(1458));
             return;
         }       
-        //if ()
-        //{         
-            //1456  You can't fish while you are on board           
-            //return;
-        //}
+        if (player.isInBoat())
+        {           
+           //1456  You can't fish while you are on board
+            player.sendPacket(new SystemMessage(1456));
+           return;
+       }
         if (activeChar.getZ() >= -3700)
         {
             //You can't fish here
             player.sendPacket(new SystemMessage(1457));
-            //if (!player.isGM())
             return;
         }
-        if (activeChar.getZ() <= -3800)
+        if (ZoneManager.getInstance().checkIfInZoneIncludeZ("Water",player.getX(),player.getY(),player.getZ()))
         {
             //You can't fish in water
             player.sendPacket(new SystemMessage(1455));
-            //if (!player.isGM())
             return;
         }
         L2Weapon weaponItem = player.getActiveWeaponItem();

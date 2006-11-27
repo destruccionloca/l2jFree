@@ -527,6 +527,7 @@ public class Auction
             try { con.close(); } catch (Exception e) {}
         }
         returnItem(_bidders.get(bidder).getClanName(), 57, _bidders.get(bidder).getBid(), true);
+        ClanTable.getInstance().getClanByName(_bidders.get(bidder).getClanName()).setAuctionBiddedAt(0);
         _bidders.remove(bidder);
     }
     

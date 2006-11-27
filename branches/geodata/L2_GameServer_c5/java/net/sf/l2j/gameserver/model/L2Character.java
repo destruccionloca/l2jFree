@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.model;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -461,6 +462,17 @@ public abstract class L2Character extends L2Object
             if (this instanceof L2PcInstance)
             {
                 // Verify if the bow can be use
+                if(Config.ALLOW_GEODATA)
+                {
+                    //Ranged LoS
+                    
+                    if (GeoDataRequester.getInstance().hasAttackLoS(this,target) == false)
+                    {
+                        sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                        sendPacket(new ActionFailed());
+                        return;
+                    }
+                }
                 if (_disableBowAttackEndTime <= GameTimeController.getGameTicks())
                 {
                     // Verify if L2PcInstance owns enough MP
@@ -1182,7 +1194,10 @@ public abstract class L2Character extends L2Object
             sm.addSkillName(magicId);
             sendPacket(sm);
 		}
-		
+
+        // Skill reuse check
+        if (reuseDelay > 30000) addTimeStamp(skill.getId(),reuseDelay);
+
 		// Check if this skill consume mp on start casting
 		int initmpcons = getStat().getMpInitialConsume(skill);
 		if (initmpcons > 0)
@@ -1196,8 +1211,7 @@ public abstract class L2Character extends L2Object
         // Disable the skill during the re-use delay and create a task EnableSkill with Medium priority to enable it at the end of the re-use delay
         if (reuseDelay > 10)
         {
-            disableSkill(skill.getId());
-            ThreadPoolManager.getInstance().scheduleAi(new EnableSkill(skill.getId()), reuseDelay);
+            disableSkill(skill.getId(), reuseDelay);
         }
 
         // launch the magic in skillTime milliseconds
@@ -1228,6 +1242,23 @@ public abstract class L2Character extends L2Object
             onMagicUseTimer(targets, skill);
         }
     }
+
+    /**
+     * Index according to skill id the current timestamp of use.<br><br>
+     * 
+     * @param skill id
+     * @param reuse delay
+     * <BR><B>Overriden in :</B>  (L2PcInstance)
+     */
+    public void addTimeStamp(int s, int r) {/***/}
+
+    /**
+     * Index according to skill id the current timestamp of use.<br><br>
+     * 
+     * @param skill id
+     * <BR><B>Overriden in :</B>  (L2PcInstance)
+     */
+    public void removeTimeStamp(int s) {/***/}
 
     /**
      * Kill the L2Character.<BR><BR>
@@ -1795,19 +1826,11 @@ public abstract class L2Character extends L2Object
 
     /**
      * FastTable containing all active skills effects in progress of a L2Character.
-     * The Integer key of this FastMap is the L2Skill Identifier that has created the effect.
      */
-    class EffectItem {
-       public int _skill;
-       public L2Effect _effect;
-       EffectItem(int skill, L2Effect effect) {_skill=skill; _effect=effect;}
-       int getSkill() { return _skill; }
-       L2Effect getEffect() { return _effect; }
-    }
-    private FastTable<EffectItem> _effects;
+    private FastTable<L2Effect> _effects;
 
     /** The table containing the List of all stacked effect in progress for each Stack group Identifier */
-    protected Map<String, List<Integer>> _stackedEffects;
+    protected Map<String, List<L2Effect>> _stackedEffects;
 
     /** Table EMPTY_EFFECTS shared by all L2Character without effects in progress */
     private static final L2Effect[] EMPTY_EFFECTS = new L2Effect[0];
@@ -1862,16 +1885,16 @@ public abstract class L2Character extends L2Object
        synchronized (this)
        {
            if (_effects == null)
-               _effects = new FastTable<EffectItem>();
+               _effects = new FastTable<L2Effect>();
 
            if (_stackedEffects == null)
-               _stackedEffects = new FastMap<String, List<Integer>>();
+               _stackedEffects = new FastMap<String, List<L2Effect>>();
        }
        synchronized(_effects) 
        {
         // Remove first Buff if number of buffs > 24
 		L2Skill tempskill = newEffect.getSkill(); 
-		if (getBuffCount() > Config.ALT_GAME_NUMBER_OF_CUMULATED_BUFF && !doesStack(tempskill) && ((
+        if (getBuffCount() > Config.ALT_GAME_NUMBER_OF_CUMULATED_BUFF && !doesStack(tempskill) && ((
 				tempskill.getSkillType() == L2Skill.SkillType.BUFF ||
                 tempskill.getSkillType() == L2Skill.SkillType.DEBUFF ||
                 tempskill.getSkillType() == L2Skill.SkillType.REFLECT ||
@@ -1890,35 +1913,22 @@ public abstract class L2Character extends L2Object
             {
                 if (_effects.get(i) != null) 
                 {
-                    int skillid = _effects.get(i).getSkill();
-                    if (!_effects.get(i).getEffect().getSkill().isToggle() && 
+                       int skillid = _effects.get(i).getSkill().getId();
+                       if (!_effects.get(i).getSkill().isToggle() && 
                             (skillid != 4267 && skillid != 4270 && !(skillid > 4360  && skillid < 4367))
                     ) pos++;
                 }
                 else break;
                 }
-            _effects.add(pos, new EffectItem(newEffect.getSkill().getId(), newEffect));
-        }
-        else _effects.addLast(new EffectItem(newEffect.getSkill().getId(), newEffect));
+               _effects.add(pos, newEffect);
+           }
+           else _effects.addLast(newEffect);
 
 //      Check if a stack group is defined for this effect
         if (newEffect.getStackType().equals("none"))
         {
-            tempEffect = null;
-            // Get the effect added to the L2Character _effects
-            for (int i=0; i<_effects.size(); i++) 
-            {
-                if (_effects.get(i).getSkill() == newEffect.getSkill().getId()) 
-                {
-                    tempEffect = _effects.get(i).getEffect();
-                    break;
-                }
-            }
-            
             // Set this L2Effect to In Use
-            if (tempEffect == null) return; 
-                
-            tempEffect.setInUse(true);
+            newEffect.setInUse(true); 
             
             // Add Funcs of this effect to the Calculator set of the L2Character
             addStatFuncs(newEffect.getStatFuncs());
@@ -1929,10 +1939,10 @@ public abstract class L2Character extends L2Object
         }
         
         // Get the list of all stacked effects corresponding to the stack type of the L2Effect to add
-        List<Integer> stackQueue = _stackedEffects.get(newEffect.getStackType());
+        List<L2Effect> stackQueue = _stackedEffects.get(newEffect.getStackType());
         
         if (stackQueue == null)
-            stackQueue = new FastList<Integer>();
+            stackQueue = new FastList<L2Effect>();
         
         if (stackQueue.size() > 0)
         {
@@ -1940,9 +1950,9 @@ public abstract class L2Character extends L2Object
             tempEffect = null;
             for (int i=0; i<_effects.size(); i++) 
             {
-                if (_effects.get(i).getSkill() == stackQueue.get(0)) 
+                if (_effects.get(i) == stackQueue.get(0))  
                 {
-                    tempEffect = _effects.get(i).getEffect();
+                    tempEffect = _effects.get(i);
                     break;
                 }
             }
@@ -1958,7 +1968,7 @@ public abstract class L2Character extends L2Object
         }
         
         // Add the new effect to the stack group selected at its position
-        stackQueue = effectQueueInsert(newEffect.getSkill().getId(), newEffect.getStackOrder(), stackQueue);
+        stackQueue = effectQueueInsert(newEffect, stackQueue);
         
         if (stackQueue == null) return;
         
@@ -1969,9 +1979,9 @@ public abstract class L2Character extends L2Object
        tempEffect = null;
        for (int i=0; i<_effects.size(); i++) 
        {
-           if (_effects.get(i).getSkill() == stackQueue.get(0)) 
+           if (_effects.get(i) == stackQueue.get(0))  
            {
-               tempEffect = _effects.get(i).getEffect();
+               tempEffect = _effects.get(i);
                break;
            }
        }
@@ -2000,37 +2010,26 @@ public abstract class L2Character extends L2Object
     * @param stackQueue The Stack Group in wich the effect must be added
     *
     */
-   private List<Integer> effectQueueInsert(int id, @SuppressWarnings("unused") float stackOrder, List<Integer> stackQueue)
+   private List<L2Effect> effectQueueInsert(L2Effect newStackedEffect, List<L2Effect> stackQueue)
    {
        // Get the L2Effect corresponding to the Effect Identifier from the L2Character _effects
         if(_effects == null) 
             return null;
 
-       L2Effect tempEffect = null;
-       for (int i=0; i<_effects.size(); i++) {
-           if (_effects.get(i).getSkill() == id) {
-               tempEffect = _effects.get(i).getEffect();
-               break;
-           }
-       }
-
        // Create an Iterator to go through the list of stacked effects in progress on the L2Character
-       Iterator<Integer> queueIterator = stackQueue.iterator();
+       Iterator<L2Effect> queueIterator = stackQueue.iterator();
 
        int i = 0;
-       while (queueIterator.hasNext()) {
-           int cur = queueIterator.next();
-           for (int z=0; z<_effects.size(); z++) {
-               if (_effects.get(z).getSkill() == cur) {
-                   if (tempEffect.getStackOrder() < _effects.get(z).getEffect().getStackOrder())
-                       i++;
-                   else break;
-               }
-           }
+       while (queueIterator.hasNext()) 
+       {
+            L2Effect cur = queueIterator.next();
+            if (newStackedEffect.getStackOrder() < cur.getStackOrder())
+                i++;
+            else break;
        }
 
        // Add the new effect to the Stack list in function of its position in the Stack group
-       stackQueue.add(i, id);
+       stackQueue.add(i, newStackedEffect);
 
 		// Currently all effects are cancelled. In this removal, skill.exit() should
 		// actually be used, if the users don't wish to see "effect removed" always
@@ -2043,7 +2042,7 @@ public abstract class L2Character extends L2Object
 			// only keep the current effect, cancel other effects
 			for (int n=0; n<_effects.size(); n++) 
 			{
-				if (_effects.get(n).getSkill() == stackQueue.get(1)) 
+                if (_effects.get(n) == stackQueue.get(1))  
 				{
 					_effects.remove(n);
 					break;
@@ -2081,9 +2080,6 @@ public abstract class L2Character extends L2Object
 
 		synchronized(_effects) 
 		{
-            if(!effect.getInUse()) return;
-            effect.setInUse(false);
-           
             
 			if (effect.getStackType() == "none")
 			{
@@ -2096,21 +2092,21 @@ public abstract class L2Character extends L2Object
 					return;
 			
 				// Get the list of all stacked effects corresponding to the stack type of the L2Effect to add
-				List<Integer> stackQueue = _stackedEffects.get(effect.getStackType());
+                List<L2Effect> stackQueue = _stackedEffects.get(effect.getStackType());
 			
 				if (stackQueue == null || stackQueue.size() < 1)
 					return;
 			
 				// Get the Identifier of the first stacked effect of the Stack group selected
-				int frontEffect = stackQueue.get(0);
+                L2Effect frontEffect = stackQueue.get(0);
 			
 				// Remove the effect from the Stack Group
-				boolean removed = stackQueue.remove((Integer)effect.getSkill().getId());
+                boolean removed = stackQueue.remove(effect);
 			
 				if (removed)
-               {
+                {
 					// Check if the first stacked effect was the effect to remove
-					if (frontEffect == effect.getSkill().getId())
+                    if (frontEffect == effect)
 					{
 						// Remove all its Func objects from the L2Character calculator set
 						removeStatsOwner(effect);
@@ -2121,12 +2117,12 @@ public abstract class L2Character extends L2Object
 							// Add its list of Funcs to the Calculator set of the L2Character
 							for (int i=0; i<_effects.size(); i++) 
 							{
-								if (_effects.get(i).getSkill() == stackQueue.get(0)) 
+                                if (_effects.get(i) == stackQueue.get(0)) 
 								{
 									// Add its list of Funcs to the Calculator set of the L2Character
-									addStatFuncs(_effects.get(i).getEffect().getStatFuncs());
+                                    addStatFuncs(_effects.get(i).getStatFuncs());
 									// Set the effect to In Use
-									_effects.get(i).getEffect().setInUse(true);
+                                    _effects.get(i).setInUse(true);
 									break;
 								}
 							}
@@ -2145,7 +2141,7 @@ public abstract class L2Character extends L2Object
            // The Integer key of _effects is the L2Skill Identifier that has created the effect
 			for (int i=0; i<_effects.size(); i++) 
 			{
-				if (_effects.get(i).getSkill() == effect.getSkill().getId()) 
+                if (_effects.get(i) == effect) 
 				{
 					_effects.remove(i);
 					break;
@@ -2700,7 +2696,7 @@ public abstract class L2Character extends L2Object
    public final L2Effect[] getAllEffects()
    {
        // Create a copy of the effects set
-       FastTable<EffectItem> effects = _effects;
+       FastTable<L2Effect> effects = _effects;
 
        // If no effect found, return EMPTY_EFFECTS
        if (effects == null || effects.isEmpty()) return EMPTY_EFFECTS;
@@ -2710,7 +2706,7 @@ public abstract class L2Character extends L2Object
        L2Effect[] effectArray = new L2Effect[ArraySize];
        for (int i=0; i<ArraySize; i++) {
            if (i > effects.size() || effects.get(i) == null) break;
-           effectArray[i] = effects.get(i).getEffect();
+           effectArray[i] = effects.get(i);
        }
        return effectArray;
    }
@@ -2719,8 +2715,7 @@ public abstract class L2Character extends L2Object
     * Return L2Effect in progress on the L2Character corresponding to the L2Skill Identifier.<BR><BR>
     *
     * <B><U> Concept</U> :</B><BR><BR>
-    * All active skills effects in progress on the L2Character are identified in ConcurrentHashMap(Integer,L2Effect) <B>_effects</B>.
-    * The Integer key of _effects is the L2Skill Identifier that has created the L2Effect.<BR><BR>
+    * All active skills effects in progress on the L2Character are identified in <B>_effects</B>.
     *
     * @param index The L2Skill Identifier of the L2Effect to return from the _effects
     *
@@ -2729,23 +2724,27 @@ public abstract class L2Character extends L2Object
     */
    public final L2Effect getEffect(int index)
    {
-		FastTable<EffectItem> effects = _effects;
-		if (effects == null) return null;
-
+       FastTable<L2Effect> effects = _effects;
+       if (effects == null) return null;
+       
        L2Effect e;
+       L2Effect eventNotInUse = null;
         for (int i=0; i<effects.size(); i++) {
-            e = effects.get(i).getEffect();
-            if (effects.get(i).getSkill() == index) return e;
-       }
-       return null;
+            e = effects.get(i);
+            if (e.getSkill().getId() == index) 
+            {
+               if (e.getInUse()) return e;
+               else eventNotInUse = e;
+            }
+        }
+        return eventNotInUse;
    }
-
+   
    /**
     * Return the first L2Effect in progress on the L2Character created by the L2Skill.<BR><BR>
     *
     * <B><U> Concept</U> :</B><BR><BR>
-    * All active skills effects in progress on the L2Character are identified in ConcurrentHashMap(Integer,L2Effect) <B>_effects</B>.
-    * The Integer key of _effects is the L2Skill Identifier that has created the L2Effect.<BR><BR>
+    * All active skills effects in progress on the L2Character are identified in <B>_effects</B>.
     *
     * @param skill The L2Skill whose effect must be returned
     *
@@ -2754,19 +2753,25 @@ public abstract class L2Character extends L2Object
     */
    public final L2Effect getEffect(L2Skill skill)
    {
-       FastTable<EffectItem> effects = _effects;
+       FastTable<L2Effect> effects = _effects;
        if (effects == null) return null;
-       
-       L2Effect e;
+        
+        L2Effect e;
+        L2Effect eventNotInUse = null;
         for (int i=0; i<effects.size(); i++) {
-            e = effects.get(i).getEffect();
-           if (e.getSkill() == skill) return e;
-       }
-       return null;
+            e = effects.get(i);
+            if (e.getSkill() == skill) 
+            {
+               if (e.getInUse()) return e;
+               else eventNotInUse = e;
+            }
+        }
+        return eventNotInUse;
    }
-
+   
    /**
     * Return the first L2Effect in progress on the L2Character corresponding to the Effect Type (ex : BUFF, STUN, ROOT...).<BR><BR>
+    * 
     *
     * <B><U> Concept</U> :</B><BR><BR>
     * All active skills effects in progress on the L2Character are identified in ConcurrentHashMap(Integer,L2Effect) <B>_effects</B>.
@@ -2779,15 +2784,20 @@ public abstract class L2Character extends L2Object
     */
    public final L2Effect getEffect(L2Effect.EffectType tp)
    {
-		FastTable<EffectItem> effects = _effects;
-		if (effects == null) return null;
-		
-       L2Effect e;
+        FastTable<L2Effect> effects = _effects;
+        if (effects == null) return null;
+
+        L2Effect e;
+        L2Effect eventNotInUse = null;
         for (int i=0; i<effects.size(); i++) {
-            e = effects.get(i).getEffect();
-           if (e.getEffectType() == tp) return e;
-       }
-       return null;
+            e = effects.get(i);
+            if (e.getEffectType() == tp)
+            {
+               if (e.getInUse()) return e;
+               else eventNotInUse = e;
+            }
+        }
+        return eventNotInUse;
    }
    // =========================================================
 
@@ -3700,14 +3710,14 @@ public abstract class L2Character extends L2Object
        // Get the Move Speed of the L2Charcater
        float speed = getStat().getMoveSpeed();
        
-       if(Config.ALLOW_GEODATA)
+       /*if(Config.ALLOW_GEODATA)
        if (this instanceof L2PcInstance)
            if ( GeoDataRequester.getInstance().hasLoS(this, x,y,(short)z )  == false)
            {
                SystemMessage sm = new SystemMessage(SystemMessage.CANT_SEE_TARGET);    
                this.sendPacket(sm); 
            }
-
+       */
        // Create and Init a MoveData object
        MoveData m = new MoveData();
 
@@ -4313,16 +4323,24 @@ public abstract class L2Character extends L2Object
             if (activeWeapon != null)
                 activeWeapon.getSkillEffects(this, target, crit);
             
-            // Check Raidboss attack
-            if (target.isRaid() && getLevel() > target.getLevel() + 8)
-            {
-                L2Skill skill = SkillTable.getInstance().getInfo(4515, 99);
-                
-                if (skill != null)
-                    skill.getEffects(target, this);
-                else
-                    _log.warning("Skill 4515 at level 99 is missing in DP.");
-            }
+           if (target.isRaid())
+           {
+               int level = 0;
+               if (this instanceof L2PcInstance)
+                   level = getLevel();
+               else if (this instanceof L2Summon)
+                   level = ((L2Summon)this).getOwner().getLevel();
+               
+               if (level > target.getLevel() + 8)
+               {
+                   L2Skill skill = SkillTable.getInstance().getInfo(4515, 99);
+                   
+                   if (skill != null)
+                       skill.getEffects(target, this);
+                   else
+                       _log.warning("Skill 4515 at level 99 is missing in DP.");
+               }
+           }
             
             /* COMMENTED OUT BY nexus - 2006-08-17
              * 
@@ -4424,13 +4442,6 @@ public abstract class L2Character extends L2Object
     */
    public void onForcedAttack(L2PcInstance player)
    {
-       if(Config.ALLOW_GEODATA){
-            if ( GeoDataRequester.getInstance().hasLoS(player, player.getTarget().getX(),player.getTarget().getY(),(short)player.getTarget().getZ() )  == false)
-            {
-                SystemMessage sm = new SystemMessage(SystemMessage.CANT_SEE_TARGET);    
-                player.sendPacket(sm); 
-            }
-       }
        if (isInsidePeaceZone(player))
        {
            // If L2Character or target is in a peace zone, send a system message TARGET_IN_PEACEZONE a Server->Client packet ActionFailed
@@ -4458,11 +4469,22 @@ public abstract class L2Character extends L2Object
            //_log.config("Not within a zone");
            //player.startAttack(this);
 
-           // Send a Server->Client packet MyTargetSelected to start attack
-            player.sendPacket(new MyTargetSelected(getObjectId(), player.getLevel() - getLevel()));
+           if(Config.ALLOW_GEODATA)
+           {
+               if ( GeoDataRequester.getInstance().hasMovementLoS(player, player.getTarget().getX(),player.getTarget().getY(),(short)player.getTarget().getZ()).LoS  == true)
+               {
+                   // Send a Server->Client packet MyTargetSelected to start attack
+                   player.sendPacket(new MyTargetSelected(getObjectId(), player.getLevel() - getLevel()));
 
-           // Notify AI with AI_INTENTION_ATTACK
-           player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
+                   //Notify AI with AI_INTENTION_ATTACK
+                   player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
+               }
+               else
+               {
+                   SystemMessage sm = new SystemMessage(SystemMessage.CANT_SEE_TARGET);    
+                   player.sendPacket(sm); 
+               }
+          }
        }
    }
 
@@ -4755,8 +4777,8 @@ public abstract class L2Character extends L2Object
        if (stackType.equals("none")) return false;
 
        for (int i=0; i<_effects.size(); i++) {
-           if (_effects.get(i).getEffect().getStackType() != null &&
-                   _effects.get(i).getEffect().getStackType().equals(stackType)) return true;
+            if (_effects.get(i).getStackType() != null &&
+                    _effects.get(i).getStackType().equals(stackType)) return true;
        }
        return false;
    }
@@ -4799,7 +4821,11 @@ public abstract class L2Character extends L2Object
 			{
 				if (targets[i] instanceof L2Character)
 				{
-					if(!this.isInsideRadius(targets[0],escapeRange,true,false)) continue;
+                    if (GeoDataRequester.getInstance().hasAttackLoS(this, targets[i]) == false )
+                    {
+                       continue;
+                    }
+                    if(!this.isInsideRadius(targets[0],escapeRange,true,false)) continue;
 					else targetList.add((L2Character)targets[i]);
 				}
 				//else
@@ -4977,13 +5003,17 @@ public abstract class L2Character extends L2Object
     * @param skillId The identifier of the L2Skill to enable
     *
     */
-   public synchronized void enableSkill(int skillId)
-   {
-       if (_disabledSkills == null)
-           return;
-
-       _disabledSkills.remove(new Integer(skillId));
-
+    public void enableSkill(int skillId)
+    {
+        if (_disabledSkills == null) return;
+        
+        synchronized (_disabledSkills)
+        {
+            _disabledSkills.remove(new Integer(skillId));
+            
+            if (this instanceof L2PcInstance)
+                removeTimeStamp(skillId);
+        }
    }
 
    /**
@@ -4995,15 +5025,26 @@ public abstract class L2Character extends L2Object
     * @param skillId The identifier of the L2Skill to disable
     *
     */
-   public synchronized void disableSkill(int skillId)
-   {
-       if (_disabledSkills == null)
+    public void disableSkill(int skillId)
+    {
+       if (_disabledSkills == null) _disabledSkills = Collections.synchronizedList(new FastList<Integer>());
+       
+       synchronized (_disabledSkills)
        {
-           _disabledSkills = new FastList<Integer>();
-
+           _disabledSkills.add(skillId);
        }
-       _disabledSkills.add(skillId);
-   }
+    }
+
+   /**
+    * Disable this skill id for the duration of the delay in milliseconds.
+    * @param skillId
+    * @param delay (seconds * 1000)
+    */
+    public void disableSkill(int skillId, long delay)
+    {
+       disableSkill(skillId);
+       if (delay > 10) ThreadPoolManager.getInstance().scheduleAi(new EnableSkill(skillId), delay);
+    }
 
    /**
     * Check if a skill is disabled.<BR><BR>
@@ -5014,20 +5055,18 @@ public abstract class L2Character extends L2Object
     * @param skillId The identifier of the L2Skill to disable
     *
     */
-   public boolean isSkillDisabled(int skillId)
-   {
-       if (isAllSkillsDisabled())
-           return true;
-
-       if (_disabledSkills == null)
-           return false;
+    public boolean isSkillDisabled(int skillId)
+    {
+        if (isAllSkillsDisabled()) return true;
         
-        try {
+        if (_disabledSkills == null) return false;
+        
+        synchronized (_disabledSkills)
+        {
             return _disabledSkills.contains(skillId);
-        } catch (Exception e) {return false;}
-
-   }
-
+        }
+    }
+    
    /**
     * Disable all skills (set _allSkillsDisabled to True).<BR><BR>
     */

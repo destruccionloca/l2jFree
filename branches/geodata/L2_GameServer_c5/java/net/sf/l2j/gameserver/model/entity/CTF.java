@@ -421,10 +421,11 @@ public class CTF
             System.out.println("CTF Engine[finishEvent(" + activeChar.getName() + ")]: finishEventOk() == false");
             return;
         }
-
+        
+        if (_started)
+            unspawnAllFlags();
         _started = false;
         unspawnEventNpc();
-        unspawnAllFlags();
         processTopTeam();
 
         if (_topScore == 0)
@@ -513,11 +514,13 @@ public class CTF
         if (!_joining && !_teleport && !_started)
             return;
         
+        if (_started)
+            unspawnAllFlags();
+        
         _joining = false;
         _teleport = false;
         _started = false;
         unspawnEventNpc();
-        unspawnAllFlags();
         Announcements.getInstance().announceToAll(_eventName + "(CTF): Match aborted!");
         teleportFinish();
     }
@@ -575,7 +578,7 @@ public class CTF
         }
     }
     
-    private static void clean()
+    public static void cleanCTF()
     {
         for (String team : _teams)
         {
@@ -645,14 +648,13 @@ public class CTF
                                                                 {
                                                                     if (player !=  null)
                                                                         player.teleToLocation(_npcX, _npcY, _npcZ);
-                                                                }
-                                                                
-                                                                CTF.clean();
+                                                                }                                                                
+                                                                cleanCTF();
                                                             }
                                                        }, 20000);
     }
     
-    private static void unspawnFlag(String teamName)
+    public static void unspawnFlag(String teamName)
     {
         int index = _teams.indexOf(teamName);
 

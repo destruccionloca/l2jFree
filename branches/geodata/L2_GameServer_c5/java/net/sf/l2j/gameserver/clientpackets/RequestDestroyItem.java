@@ -193,6 +193,9 @@ public class RequestDestroyItem extends ClientBasePacket
 		}
 		
 		L2ItemInstance removedItem = activeChar.getInventory().destroyItem("Destroy", _objectId, count, activeChar, null);
+
+        if(removedItem == null)
+           return;
 		
 		if (!Config.FORCE_INVENTORY_UPDATE)
 		{
