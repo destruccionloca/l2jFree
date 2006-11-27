@@ -335,7 +335,7 @@ public class L2CharacterAI extends AbstractAI
             
             if (_actor instanceof L2PcInstance)
             {
-                if (((L2PcInstance)_actor).getAccessLevel() >= 100)
+                if (((L2PcInstance)_actor).getAccessLevel() >= 100 && Config.ALLOW_GEODATA_DEBUG)
                 {
                     _actor.sendMessage("Move detected x:" +pos.x + " y:" + pos.y + "  z:" + pos.z);
                 }
