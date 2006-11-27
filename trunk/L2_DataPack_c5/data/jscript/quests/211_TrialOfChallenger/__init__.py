@@ -181,16 +181,16 @@ class Quest (JQuest) :
            st.giveItems(WATCHERS_EYE2_ID,1)
            st.playSound("ItemSound.quest_middle")
            st.set("cond","7")
-           st.getPcSpawn().addSpawn(30646,21291,184673,-3313)
-           return "Raldo has spawned at X=21291 Y=184673 Z=-3313"
+           st.getPcSpawn().addSpawn(30646)
+           return "Raldo has spawned"
    elif npcId == 27114 :
         if int(st.get("cond")) == 9 :
            st.set("cond","10")
            st.playSound("ItemSound.quest_middle")
            st.removeRadar(176560,-184969,-3729)
            st.getPcSpawn().removeAllSpawn()
-           st.getPcSpawn().addSpawn(30646,176643,-185803,-3677)
-           return "Raldo has spawned at X=176643 Y=-185803 Z=-3677"
+           st.getPcSpawn().addSpawn(30646)
+           return "Raldo has spawned"
    return
 
 QUEST       = Quest(211,"211_TrialOfChallenger","Trial Of Challenger")

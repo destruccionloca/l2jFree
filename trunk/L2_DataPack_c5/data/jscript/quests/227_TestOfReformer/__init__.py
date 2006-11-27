@@ -174,8 +174,8 @@ class Quest (JQuest) :
     if int(st.get("cond")) == 1 and st.getQuestItemsCount(RIPPED_DIARY) < 7 and st.getQuestItemsCount(BOOK_OF_REFORM) >= 1 :
       if st.getQuestItemsCount(RIPPED_DIARY) == 6 :
         st.set("cond","2")
-        st.getPcSpawn().addSpawn(27128,53668,143283,-3863,300000)
-        return "Aruraune has spawned at X=53668 Y=143283 Z=-3863"
+        st.getPcSpawn().addSpawn(27128)
+        return "Aruraune has spawned"
         st.takeItems(RIPPED_DIARY,st.getQuestItemsCount(RIPPED_DIARY))
       else:
         st.giveItems(RIPPED_DIARY,1)

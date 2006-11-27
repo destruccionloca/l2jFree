@@ -484,8 +484,8 @@ class Quest (JQuest) :
      if npcId in [ 20778, 20779 ] :
        st.playSound("Itemsound.quest_before_battle")
        #st.getPcSpawn().addSpawn(27086)
-       st.getPcSpawn().addSpawn(27086, 11839,-106261,-3550,300000)
-       return "Revenant of Tantos Chief has spawned at X=11839 Y=-106261 Z=-3550"
+       st.getPcSpawn().addSpawn(27086)
+       return "Revenant of Tantos Chief has spawned"
        # Alternate coord. set:
        #st.getPcSpawn().addSpawn(27086,11567,-106785,-3520)
      elif npcId == 27086 :
