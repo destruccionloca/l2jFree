@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS characters (
   Pledge_class int(11) NOT NULL default '0',
   pledge_type int(11) NOT NULL default '0',
   pledge_rank int(11) NOT NULL default '0',
-  apprentice varchar(35) NOT NULL default '',
+  apprentice varchar(35) default NULL,
   accademy_lvl int(2) NOT NULL default '0',
   PRIMARY KEY  (obj_Id),
   KEY `clanid` (`clanid`)
