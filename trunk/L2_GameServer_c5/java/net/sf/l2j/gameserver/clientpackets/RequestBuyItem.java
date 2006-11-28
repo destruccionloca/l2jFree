@@ -162,6 +162,12 @@ public class RequestBuyItem extends ClientBasePacket
             return;
         }
         
+        if (list.getNpcId().equals("gm") && !player.isGM())
+        {
+            Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a modified packet to buy from gmshop.",Config.DEFAULT_PUNISH);
+            return;
+        }
+        
         _listId = list.getListId();
 
         if (_listId > 1000000) // lease

@@ -50,7 +50,7 @@ public class SummonTreasureKey implements ISkillHandler
             else itemToTake.setCount(itemToTake.getCount() - skill.getItemConsume());
 
             // Give items
-            player.addItem("Test", 5197, 1, player, false);
+            player.addItem("Test", 5197, 3, player, false);
         }
         catch (Exception e)
         {
