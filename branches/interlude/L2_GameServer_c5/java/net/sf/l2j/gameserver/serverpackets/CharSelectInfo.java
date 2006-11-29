@@ -39,6 +39,9 @@ public class CharSelectInfo extends ServerBasePacket
 {
     // d SdSddddddddddffdddddddddddddddddddddddddddddddddddddddddddddddffdddcdd ?
     // d SdSddddddddddffdQddddddddddddddddddddddddddddddddddddddddddddddffdddcdd ?
+    // d SdSddddddddddffdQddddddddddddddddddddddddddddddddddddddddddddddddffdddchh chaotic throne
+
+    
     private static final String _S__1F_CHARSELECTINFO = "[S] 1F CharSelectInfo";
 
     private static Logger _log = Logger.getLogger(CharSelectInfo.class.getName());
@@ -148,6 +151,8 @@ public class CharSelectInfo extends ServerBasePacket
             writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_BACK));
             writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LRHAND));
             writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
+            if (getClient().getRevision() >= 729)
+                writeD(0x00); //ct cape ?
             
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
@@ -165,6 +170,8 @@ public class CharSelectInfo extends ServerBasePacket
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
+            if (getClient().getRevision() >= 729)
+                writeD(0x00); //ct cape ?
             
             writeD(charInfoPackage.getHairStyle());
             writeD(charInfoPackage.getHairColor());

@@ -1010,14 +1010,26 @@ public class GeoDataRequester
 
     public boolean hasAttackLoS(L2Object source, L2Object target)
     {
+        if (source == null || target == null)
+        {
+            return false;
+        }
         return hasAttackLoS (source.getObjectId(),  source.getX(),source.getY(), (short)source.getZ() , target.getX(), target.getY(), (short)target.getZ());
     }
     public boolean hasAttackLoS(L2Object source, int targetX , int targetY , int targetZ)
     {
+        if (source == null)
+        {
+            return false;
+        }
         return hasAttackLoS (source.getObjectId(), source.getX(), source.getY(), (short) source.getZ() , targetX, targetY, (short)targetZ);
     }
     public boolean hasAttackLoS(L2Object source, int targetX , int targetY , short targetZ)
     {
+        if (source == null)
+        {
+            return false;
+        }
         return hasAttackLoS (source.getObjectId(), source.getX(), source.getY(), (short) source.getZ() , targetX, targetY, targetZ);
     }
     public boolean hasAttackLoS(int objId, int sourceX, int sourceY, short sourceZ, int targetX , int targetY , short targetZ)

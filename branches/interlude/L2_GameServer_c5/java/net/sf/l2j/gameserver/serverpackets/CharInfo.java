@@ -42,7 +42,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * <p>
  *  dddddSdddddddddddddddddddddddddddffffdddSdddccccccc (h)<p>
  *  dddddSdddddddddddddddddddddddddddffffdddSdddddccccccch
- *  dddddSddddddddddddddddddddddddddddffffdddSdddddccccccch (h) c (dchd) ddc dcc c cddd d 
+ *  dddddSddddddddddddddddddddddddddddffffdddSdddddccccccch (h) c (dchd) ddc dcc c cddd d
+ *  dddddSdddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhddddddddddddddffffdddSdddddccccccch chaotic throne
+
 
  * @version $Revision: 1.7.2.6.2.11 $ $Date: 2005/04/11 10:05:54 $
  */
@@ -171,6 +173,34 @@ public class CharInfo extends ServerBasePacket
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
+        if (getClient().getRevision() >= 729)
+        {
+            writeD(0);            
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+        }
         
         writeD(_cha.getPvpFlag());
         writeD(_cha.getKarma());

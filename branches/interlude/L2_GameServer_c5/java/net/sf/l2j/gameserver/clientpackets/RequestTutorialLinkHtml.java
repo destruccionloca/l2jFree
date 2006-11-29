@@ -23,24 +23,25 @@ import java.nio.ByteBuffer;
 import net.sf.l2j.gameserver.ClientThread;
 
 /**
- * Format: (c) d
+ * 7B 74 00 75 00 74 00 6F 00 72 00 69 00 61 00 6C 
+ * 00 5F 00 63 00 6C 00 6F 00 73 00 65 00 5F 00 32 
+ * 00 00 00 
  * 
- * @author DaDummy
+ * Format: (c) S
+ * 
+ * @author  DaDummy
  */
-public class RequestTutorialQuestionMark extends ClientBasePacket
+public class RequestTutorialLinkHtml extends ClientBasePacket
 {
-    private static final String _C__7D_REQUESTTUTORIALQUESTIONMARK = "[C] 7D RequestTutorialQuestionMark";
-    private int _id;
+    private static final String _C__7B_REQUESTTUTORIALLINKHTML = "[C] 7B equestTutorialLinkHtml";
+    private String _link;
 
-    /**
-     * @param buf
-     * @param client
-     */
-    public RequestTutorialQuestionMark(ByteBuffer buf, ClientThread client)
+    public RequestTutorialLinkHtml(ByteBuffer buf, ClientThread client)
     {
         super(buf, client);
-        _id = readD(); // id
+        _link = readS(); // link
     }
+    
     /**
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
@@ -57,7 +58,7 @@ public class RequestTutorialQuestionMark extends ClientBasePacket
     @Override
     public String getType()
     {
-        return _C__7D_REQUESTTUTORIALQUESTIONMARK;
+        return _C__7B_REQUESTTUTORIALLINKHTML;
     }
 
 }
