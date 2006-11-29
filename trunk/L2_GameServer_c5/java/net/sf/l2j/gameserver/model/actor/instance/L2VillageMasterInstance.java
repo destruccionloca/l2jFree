@@ -513,7 +513,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
             return;
         }
         
-        if (player.getClan().getLevel() <= minClanLvl)
+        if (player.getClan().getLevel() < minClanLvl)
         {
             SystemMessage sm = new SystemMessage(SystemMessage.FAILED_TO_CREATE_CLAN);
             player.sendPacket(sm);
