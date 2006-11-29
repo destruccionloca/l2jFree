@@ -795,6 +795,8 @@ public final class Config {
     public static int CHANCE_LEVEL;
     /** Enchant hero weapons? */
     public static boolean ENCHANT_HERO_WEAPONS;
+    /* Dwarf enchant System? */
+    public static boolean ENCHANT_DWARF_SYSTEM;
     /** Maximum level of enchantment */
     public static int ENCHANT_MAX_WEAPON;
     public static int ENCHANT_MAX_ARMOR;
@@ -1285,6 +1287,8 @@ public final class Config {
                 ENCHANT_BREAK_JEWELRY_BLESSED  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakJewelryBlessed", "True"));
                 /* enchat hero weapons? */
                 ENCHANT_HERO_WEAPONS  = Boolean.parseBoolean(otherSettings.getProperty("EnchantHeroWeapons", "False"));
+                /* enchant dwarf system */
+                ENCHANT_DWARF_SYSTEM  = Boolean.parseBoolean(otherSettings.getProperty("EnchantDwarfSystem", "False"));
 	            /* limit on enchant */
                 ENCHANT_MAX_WEAPON = Integer.parseInt(otherSettings.getProperty("EnchantMaxWeapon", "255"));
                 ENCHANT_MAX_ARMOR = Integer.parseInt(otherSettings.getProperty("EnchantMaxArmor", "255"));
