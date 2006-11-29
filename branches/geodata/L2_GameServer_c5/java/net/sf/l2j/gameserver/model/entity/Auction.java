@@ -215,7 +215,7 @@ public class Auction
 	private int _CurrentBid						= 0;
 	private int _StartingBid					= 0;
     
-    private Map<String, Bidder> _bidders        = new FastMap<String, Bidder>();
+    private Map<Integer, Bidder> _bidders        = new FastMap<Integer, Bidder>();
 
 	// =========================================================
 	// Constructor
@@ -325,7 +325,7 @@ public class Auction
                     this._HighestBidderName = rs.getString("bidderName");
                     this._HighestBidderMaxBid = rs.getInt("maxBid");
                 }
-                _bidders.put(rs.getString("bidderName"), new Bidder(rs.getString("bidderName"), rs.getString("clan_name"), rs.getInt("maxBid"), rs.getLong("time_bid")));
+                _bidders.put(rs.getInt("bidderId"), new Bidder(rs.getString("bidderName"), rs.getString("clan_name"), rs.getInt("maxBid"), rs.getLong("time_bid")));
             }
 
             statement.close();
@@ -374,7 +374,7 @@ public class Auction
 	private void updateInDB(L2PcInstance bidder, int bid)
 	{
 		// Check and remove amount being bid
-		if (!this.takeItem(bidder, this._AdenaId, bid)) return;
+		//if (!this.takeItem(bidder, this._AdenaId, bid)) return;
 
 		java.sql.Connection con = null;
         try
@@ -382,24 +382,28 @@ public class Auction
             con = L2DatabaseFactory.getInstance().getConnection();
             PreparedStatement statement;
 
-            if (this.getHighestBidderId() == bidder.getObjectId())
+            if (this.getBidders().get(bidder.getClan().getName()) != null)
             {
-                statement = con.prepareStatement("UPDATE auction_bid SET bidderId=?, bidderName=?, maxBid=? WHERE auctionId=?");
-                statement.setInt(1, bidder.getObjectId());
-                statement.setString(2, bidder.getName());
+                statement = con.prepareStatement("UPDATE auction_bid SET bidderId=?, bidderName=?, maxBid=?, time_bid=? WHERE auctionId=? AND bidderId=?");
+                statement.setInt(1, bidder.getClanId());
+                statement.setString(2, bidder.getClan().getLeaderName());
                 statement.setInt(3, bid);
-                statement.setInt(4, this.getId());
+                statement.setLong(4, Calendar.getInstance().getTimeInMillis());
+                statement.setInt(5, this.getId());
+                statement.setInt(6, bidder.getClanId());
                 statement.execute();
                 statement.close();
             }
             else
             {
-                statement = con.prepareStatement("INSERT INTO auction_bid (id, auctionId, bidderId, bidderName, maxBid) VALUES (?, ?, ?, ?, ?)");
+                statement = con.prepareStatement("INSERT INTO auction_bid (id, auctionId, bidderId, bidderName, maxBid, clan_name, time_bid) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 statement.setInt(1, IdFactory.getInstance().getNextId());
                 statement.setInt(2, this.getId());
-                statement.setInt(3, bidder.getObjectId());
+                statement.setInt(3, bidder.getClanId());
                 statement.setString(4, bidder.getName());
                 statement.setInt(5, bid);
+                statement.setString(6, bidder.getClan().getName());
+                statement.setLong(7, Calendar.getInstance().getTimeInMillis());
                 statement.execute();
                 statement.close();
                 if (L2World.getInstance().getPlayer(_HighestBidderName) != null)
@@ -407,15 +411,15 @@ public class Auction
             }
 
             // Update internal var
-            this._HighestBidderId = bidder.getObjectId();
+            this._HighestBidderId = bidder.getClanId();
             this._HighestBidderMaxBid = bid;
-            this._HighestBidderName = bidder.getName();
-            if (_bidders.get(_HighestBidderName) == null)
-                _bidders.put(_HighestBidderName, new Bidder(_HighestBidderName, bidder.getClan().getName(), bid, Calendar.getInstance().getTimeInMillis()));
+            this._HighestBidderName = bidder.getClan().getLeaderName();
+            if (_bidders.get(_HighestBidderId) == null)
+                _bidders.put(_HighestBidderId, new Bidder(_HighestBidderName, bidder.getClan().getName(), bid, Calendar.getInstance().getTimeInMillis()));
             else
             {
-                _bidders.get(_HighestBidderName).setBid(bid);
-                _bidders.get(_HighestBidderName).setTimeBid(Calendar.getInstance().getTimeInMillis());
+                _bidders.get(_HighestBidderId).setBid(bid);
+                _bidders.get(_HighestBidderId).setTimeBid(Calendar.getInstance().getTimeInMillis());
             }
             bidder.sendMessage("You have bidded successfully");
         }
@@ -499,12 +503,12 @@ public class Auction
             returnItem(_SellerClanName, 57, _HighestBidderMaxBid, true);
             returnItem(_SellerClanName, 57, ClanHallManager.getInstance().getClanHall(_ItemId).getLease(), false);
         }
-        ClanHallManager.getInstance().getClanHall(_ItemId).setOwner(ClanTable.getInstance().getClanByName(_bidders.get(_HighestBidderName).getClanName()));
+        ClanHallManager.getInstance().getClanHall(_ItemId).setOwner(ClanTable.getInstance().getClanByName(_bidders.get(_HighestBidderId).getClanName()));
         deleteAuctionFromDB();
         removeBids();
     }
     
-    public void cancelBid(String bidder)
+    public void cancelBid(int bidder)
     {
         java.sql.Connection con = null;
         try
@@ -514,7 +518,7 @@ public class Auction
             
             statement = con.prepareStatement("DELETE FROM auction_bid WHERE auctionId=? AND bidderId=?");
             statement.setInt(1, getId());
-            statement.setInt(2, L2World.getInstance().getPlayer(bidder).getObjectId());
+            statement.setInt(2, bidder);
             statement.execute();
         }
         catch (Exception e)
@@ -603,5 +607,5 @@ public class Auction
 
 	public final int getStartingBid() { return this._StartingBid; }
     
-    public final Map<String, Bidder> getBidders(){ return this._bidders; };
+    public final Map<Integer, Bidder> getBidders(){ return this._bidders; };
 }

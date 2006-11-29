@@ -24,6 +24,8 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.RecipeController;
 import net.sf.l2j.gameserver.model.L2RecipeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.util.IllegalPlayerAction;
+import net.sf.l2j.gameserver.util.Util;
 
 /**
  * 
@@ -41,7 +43,8 @@ public class RecipeItemMakeInfo extends ServerBasePacket
     private int _id;
     private L2PcInstance _player;
     private boolean _success;
-
+    private L2RecipeList[] _recipes;
+    
     public RecipeItemMakeInfo(int id, L2PcInstance player, boolean success)
     {
         _id = id;
@@ -64,6 +67,26 @@ public class RecipeItemMakeInfo extends ServerBasePacket
     final void writeImpl()
     {
         L2RecipeList recipe = RecipeController.getInstance().getRecipeById(_id);
+        
+        boolean hasRecipe = false;
+
+        _recipes = _player.getDwarvenRecipeBook();
+        for (L2RecipeList rl: _recipes)
+        {
+            if (rl.getId() == _id)
+                hasRecipe = true;
+        }
+        _recipes = _player.getCommonRecipeBook();
+        for (L2RecipeList rl: _recipes)
+        {
+            if (rl.getId() == _id)
+                hasRecipe = true;
+        }
+        if (!hasRecipe)
+        {
+            Util.handleIllegalPlayerAction(_player,"Player "+_player.getName()+" tried to open itemmakeinfo without having recipe registered - possible packet exploit", IllegalPlayerAction.PUNISH_KICK);
+            return;
+        }
 
         if (recipe != null)
         {
