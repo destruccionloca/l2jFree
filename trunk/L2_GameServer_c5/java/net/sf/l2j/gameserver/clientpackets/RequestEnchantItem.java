@@ -10,6 +10,7 @@ import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.serverpackets.EnchantResult;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
@@ -263,6 +264,19 @@ public class RequestEnchantItem extends ClientBasePacket
                 || (item.getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR 
                         && item.getEnchantLevel() < Config.ENCHANT_SAFE_MAX_FULL))
             chance = 100;
+        
+        else if(activeChar.getRace() == Race.dwarf && Config.ENCHANT_DWARF_SYSTEM)
+        {
+            int _charlevel = activeChar.getLevel();
+            int _itemlevel = item.getEnchantLevel();
+            
+            if(_charlevel>=20 && _itemlevel <= 5)
+                chance = 100;
+            else if(_charlevel>=40 && _itemlevel <= 10)
+                chance = 100;
+            else if(_charlevel>=70 && _itemlevel <= 15)
+                chance = 100;
+        }
         
         if (Rnd.get(100) < chance)
         {

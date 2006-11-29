@@ -599,7 +599,8 @@ public final class Config {
     public static final String  ID_CONFIG_FILE				= "./config/idfactory.properties";
     public static final String  OTHER_CONFIG_FILE			= "./config/other.properties";
     /** Properties file for rates configurations */
-    public static final String  RATES_CONFIG_FILE          = "./config/rates.properties";
+    public static final String  RATES_CONFIG_FILE           = "./config/rates.properties";
+    public static final String  ENCHANT_CONFIG_FILE         = "./config/enchant.properties";
     public static final String  ALT_SETTINGS_FILE			= "./config/altsettings.properties";
     public static final String  PVP_CONFIG_FILE				= "./config/pvp.properties";
     public static final String  GM_ACCESS_FILE				= "./config/GMAccess.properties";
@@ -795,6 +796,8 @@ public final class Config {
     public static int CHANCE_LEVEL;
     /** Enchant hero weapons? */
     public static boolean ENCHANT_HERO_WEAPONS;
+    /* Dwarf enchant System? */
+    public static boolean ENCHANT_DWARF_SYSTEM;
     /** Maximum level of enchantment */
     public static int ENCHANT_MAX_WEAPON;
     public static int ENCHANT_MAX_ARMOR;
@@ -1250,8 +1253,8 @@ public final class Config {
                 INVENTORY_MAXIMUM_DWARF  = Integer.parseInt(otherSettings.getProperty("MaximumSlotsForDwarf", "100"));
 	            INVENTORY_MAXIMUM_GM    = Integer.parseInt(otherSettings.getProperty("MaximumSlotsForGMPlayer", "250"));
               
-               /* Config weight limit */
-               ADD_MAX_LOAD = Integer.parseInt(otherSettings.getProperty("AddWeightLimit", "0"));
+                /* Config weight limit */
+                ADD_MAX_LOAD = Integer.parseInt(otherSettings.getProperty("AddWeightLimit", "0"));
                 
                 /* Inventory slots limits */
                 WAREHOUSE_SLOTS_NO_DWARF = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForNoDwarf", "100"));
@@ -1259,40 +1262,6 @@ public final class Config {
                 WAREHOUSE_SLOTS_CLAN = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForClan", "150"));
                 FREIGHT_SLOTS       = Integer.parseInt(otherSettings.getProperty("MaximumFreightSlots", "20"));
 	            
-	            /* chance to enchant an item normal scroll*/
-                ENCHANT_CHANCE_WEAPON  = Integer.parseInt(otherSettings.getProperty("EnchantChanceWeapon", "65"));
-                ENCHANT_CHANCE_ARMOR  = Integer.parseInt(otherSettings.getProperty("EnchantChanceArmor", "65"));
-                ENCHANT_CHANCE_JEWELRY  = Integer.parseInt(otherSettings.getProperty("EnchantChanceJewelry", "65"));
-                /* item may break normal scroll*/
-                ENCHANT_BREAK_WEAPON  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakWeapon", "True"));
-                ENCHANT_BREAK_ARMOR  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakArmor", "True"));
-                ENCHANT_BREAK_JEWELRY  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakJewelry", "True"));
-                /* chance to enchant an item crystal scroll */
-                ENCHANT_CHANCE_WEAPON_CRYSTAL  = Integer.parseInt(otherSettings.getProperty("EnchantChanceWeaponCrystal", "75"));
-                ENCHANT_CHANCE_ARMOR_CRYSTAL  = Integer.parseInt(otherSettings.getProperty("EnchantChanceArmorCrystal", "75"));
-                ENCHANT_CHANCE_JEWELRY_CRYSTAL  = Integer.parseInt(otherSettings.getProperty("EnchantChanceJewelryCrystal", "75"));
-                /* item may break crystal scroll */
-                ENCHANT_BREAK_WEAPON_CRYSTAL  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakWeaponCrystal", "True"));
-                ENCHANT_BREAK_ARMOR_CRYSTAL  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakArmorCrystal", "True"));
-                ENCHANT_BREAK_JEWELRY_CRYSTAL  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakJewelryCrystal", "True"));
-                /* chance to enchant an item blessed scroll */
-                ENCHANT_CHANCE_WEAPON_BLESSED  = Integer.parseInt(otherSettings.getProperty("EnchantChanceWeaponBlessed", "65"));
-                ENCHANT_CHANCE_ARMOR_BLESSED  = Integer.parseInt(otherSettings.getProperty("EnchantChanceArmorBlessed", "65"));
-                ENCHANT_CHANCE_JEWELRY_BLESSED  = Integer.parseInt(otherSettings.getProperty("EnchantChanceJewelryBlessed", "65"));
-                /* item may break blessed scroll */
-                ENCHANT_BREAK_WEAPON_BLESSED  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakWeaponBlessed", "False"));
-                ENCHANT_BREAK_ARMOR_BLESSED  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakArmorBlessed", "False"));
-                ENCHANT_BREAK_JEWELRY_BLESSED  = Boolean.parseBoolean(otherSettings.getProperty("EnchantBreakJewelryBlessed", "True"));
-                /* enchat hero weapons? */
-                ENCHANT_HERO_WEAPONS  = Boolean.parseBoolean(otherSettings.getProperty("EnchantHeroWeapons", "False"));
-	            /* limit on enchant */
-                ENCHANT_MAX_WEAPON = Integer.parseInt(otherSettings.getProperty("EnchantMaxWeapon", "255"));
-                ENCHANT_MAX_ARMOR = Integer.parseInt(otherSettings.getProperty("EnchantMaxArmor", "255"));
-                ENCHANT_MAX_JEWELRY = Integer.parseInt(otherSettings.getProperty("EnchantMaxJewelry", "255"));
-                /* limit of safe enchant */
-                ENCHANT_SAFE_MAX = Integer.parseInt(otherSettings.getProperty("EnchantSafeMax", "3"));
-                ENCHANT_SAFE_MAX_FULL = Integer.parseInt(otherSettings.getProperty("EnchantSafeMaxFull", "4"));   
-	           
                 /* if different from 100 (ie 100%) heal rate is modified acordingly */
 	            HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("HpRegenMultiplier", "100"));
 	            MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("MpRegenMultiplier", "100"));
@@ -1422,6 +1391,55 @@ public final class Config {
 	            e.printStackTrace();
                 throw new Error("Failed to Load "+RATES_CONFIG_FILE+" File.");
 	        }
+            
+            // enchants
+            try
+            {
+                Properties enchantSettings  = new Properties();
+                InputStream is              = new FileInputStream(new File(ENCHANT_CONFIG_FILE));
+                enchantSettings.load(is);
+                is.close();
+                
+                /* chance to enchant an item normal scroll*/
+                ENCHANT_CHANCE_WEAPON  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeapon", "65"));
+                ENCHANT_CHANCE_ARMOR  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceArmor", "65"));
+                ENCHANT_CHANCE_JEWELRY  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceJewelry", "65"));
+                /* item may break normal scroll*/
+                ENCHANT_BREAK_WEAPON  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakWeapon", "True"));
+                ENCHANT_BREAK_ARMOR  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakArmor", "True"));
+                ENCHANT_BREAK_JEWELRY  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakJewelry", "True"));
+                /* chance to enchant an item crystal scroll */
+                ENCHANT_CHANCE_WEAPON_CRYSTAL  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeaponCrystal", "75"));
+                ENCHANT_CHANCE_ARMOR_CRYSTAL  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceArmorCrystal", "75"));
+                ENCHANT_CHANCE_JEWELRY_CRYSTAL  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceJewelryCrystal", "75"));
+                /* item may break crystal scroll */
+                ENCHANT_BREAK_WEAPON_CRYSTAL  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakWeaponCrystal", "True"));
+                ENCHANT_BREAK_ARMOR_CRYSTAL  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakArmorCrystal", "True"));
+                ENCHANT_BREAK_JEWELRY_CRYSTAL  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakJewelryCrystal", "True"));
+                /* chance to enchant an item blessed scroll */
+                ENCHANT_CHANCE_WEAPON_BLESSED  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeaponBlessed", "65"));
+                ENCHANT_CHANCE_ARMOR_BLESSED  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceArmorBlessed", "65"));
+                ENCHANT_CHANCE_JEWELRY_BLESSED  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceJewelryBlessed", "65"));
+                /* item may break blessed scroll */
+                ENCHANT_BREAK_WEAPON_BLESSED  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakWeaponBlessed", "False"));
+                ENCHANT_BREAK_ARMOR_BLESSED  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakArmorBlessed", "False"));
+                ENCHANT_BREAK_JEWELRY_BLESSED  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakJewelryBlessed", "True"));
+                /* enchat hero weapons? */
+                ENCHANT_HERO_WEAPONS  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantHeroWeapons", "False"));
+                /* enchant dwarf system */
+                ENCHANT_DWARF_SYSTEM  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantDwarfSystem", "False"));
+                /* limit on enchant */
+                ENCHANT_MAX_WEAPON = Integer.parseInt(enchantSettings.getProperty("EnchantMaxWeapon", "255"));
+                ENCHANT_MAX_ARMOR = Integer.parseInt(enchantSettings.getProperty("EnchantMaxArmor", "255"));
+                ENCHANT_MAX_JEWELRY = Integer.parseInt(enchantSettings.getProperty("EnchantMaxJewelry", "255"));
+                /* limit of safe enchant */
+                ENCHANT_SAFE_MAX = Integer.parseInt(enchantSettings.getProperty("EnchantSafeMax", "3"));
+                ENCHANT_SAFE_MAX_FULL = Integer.parseInt(enchantSettings.getProperty("EnchantSafeMaxFull", "4"));   
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                throw new Error("Failed to Load "+ENCHANT_CONFIG_FILE+" File.");
+            }
 	        
 	        // alternative settings
 	        try
