@@ -21,8 +21,11 @@ package net.sf.l2j.loginserver.serverpackets;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javolution.util.FastList;
+import net.sf.l2j.Config;
+import net.sf.l2j.loginserver.LoginServer;
 import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
 
 /**
@@ -214,6 +217,7 @@ public class ServerList extends ServerBasePacket
 				{
 					bits |= 0x02;
 				}
+                bits |= 0x04; /* current client only show testserver */
 				writeD(bits);
 				if(server.brackets)
 				{
