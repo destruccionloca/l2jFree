@@ -16,39 +16,33 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.clientpackets;
-
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.ClientThread;
+package net.sf.l2j.gameserver.serverpackets;
 
 /**
- * Format: (c) d
+ * A3
  * 
- * @author DaDummy
+ * @author  DaDummy
  */
-public class RequestTutorialQuestionMark extends ClientBasePacket
+public class TutorialCloseHtml extends ServerBasePacket
 {
-    private static final String _C__7D_REQUESTTUTORIALQUESTIONMARK = "[C] 7D RequestTutorialQuestionMark";
-    private int _id;
+    private static final String _S__A3_TUTORIALCLOSEHTML = "[S] a3 TutorialCloseHtml";
 
     /**
-     * @param buf
-     * @param client
-     */
-    public RequestTutorialQuestionMark(ByteBuffer buf, ClientThread client)
-    {
-        super(buf, client);
-        _id = readD(); // id
-    }
-    /**
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
      */
     @Override
     void runImpl()
     {
-        // TODO Auto-generated method stub
 
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
+     */
+    @Override
+    void writeImpl()
+    {
+        writeC(0xA3);
     }
 
     /**
@@ -57,7 +51,7 @@ public class RequestTutorialQuestionMark extends ClientBasePacket
     @Override
     public String getType()
     {
-        return _C__7D_REQUESTTUTORIALQUESTIONMARK;
+        return _S__A3_TUTORIALCLOSEHTML;
     }
 
 }

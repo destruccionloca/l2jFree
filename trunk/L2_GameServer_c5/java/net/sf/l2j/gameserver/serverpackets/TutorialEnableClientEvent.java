@@ -16,33 +16,27 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.clientpackets;
-
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.ClientThread;
+package net.sf.l2j.gameserver.serverpackets;
 
 /**
- * Format: (c) d
+ * A2 00 FF 6F 7F 
  * 
- * @author DaDummy
+ * Format: (s) cccc
+ * 
+ * @author  DaDummy
  */
-public class RequestTutorialQuestionMark extends ClientBasePacket
+public class TutorialEnableClientEvent extends ServerBasePacket
 {
-    private static final String _C__7D_REQUESTTUTORIALQUESTIONMARK = "[C] 7D RequestTutorialQuestionMark";
-    private int _id;
-
-    /**
-     * @param buf
-     * @param client
-     */
-    public RequestTutorialQuestionMark(ByteBuffer buf, ClientThread client)
+    private static final String _S__A2_TUTORIALENABLECLIENTEVENT = "[S] a2 TutorialEnableClientEvent";
+    private int _event;
+    
+    public TutorialEnableClientEvent(int event)
     {
-        super(buf, client);
-        _id = readD(); // id
+        _event = event;
     }
+    
     /**
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
      */
     @Override
     void runImpl()
@@ -52,12 +46,25 @@ public class RequestTutorialQuestionMark extends ClientBasePacket
     }
 
     /**
+     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
+     */
+    @Override
+    void writeImpl()
+    {
+        writeC(0xA2);
+        writeC(_event);
+        writeC(0xFF); // unknown
+        writeC(0x6F); // unknown
+        writeC(0x7F); // unknown
+    }
+
+    /**
      * @see net.sf.l2j.gameserver.BasePacket#getType()
      */
     @Override
     public String getType()
     {
-        return _C__7D_REQUESTTUTORIALQUESTIONMARK;
+        return _S__A2_TUTORIALENABLECLIENTEVENT;
     }
 
 }

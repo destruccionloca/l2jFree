@@ -22,25 +22,40 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.gameserver.ClientThread;
 
-/**
- * Format: (c) d
- * 
- * @author DaDummy
+/*
+ * events:
+ * 00 none
+ * 01 Move Char
+ * 02 Move Point of View
+ * 03 ??
+ * 04 ??
+ * 05 ??
+ * 06 ??
+ * 07 ??
+ * 08 Talk to Newbie Helper
  */
-public class RequestTutorialQuestionMark extends ClientBasePacket
-{
-    private static final String _C__7D_REQUESTTUTORIALQUESTIONMARK = "[C] 7D RequestTutorialQuestionMark";
-    private int _id;
 
-    /**
-     * @param buf
-     * @param client
-     */
-    public RequestTutorialQuestionMark(ByteBuffer buf, ClientThread client)
+/**
+ * 7E 01 00 00 00 
+ * 
+ * Format: (c) cccc
+ * 
+ * @author  DaDummy
+ */
+public class RequestTutorialClientEvent extends ClientBasePacket
+{
+    private static final String _C__7E_REQUESTTUTORIALCLIENTEVENT = "[C] 7E RequestTutorialClientEvent";
+    private int _event;
+    
+    public RequestTutorialClientEvent(ByteBuffer buf, ClientThread client)
     {
         super(buf, client);
-        _id = readD(); // id
+        _event = readC(); // event
+        readC(); // unknown
+        readC(); // unknown
+        readC(); // unknown
     }
+
     /**
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
@@ -57,7 +72,7 @@ public class RequestTutorialQuestionMark extends ClientBasePacket
     @Override
     public String getType()
     {
-        return _C__7D_REQUESTTUTORIALQUESTIONMARK;
+        return _C__7E_REQUESTTUTORIALCLIENTEVENT;
     }
 
 }
