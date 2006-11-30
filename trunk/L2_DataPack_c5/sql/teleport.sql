@@ -593,3 +593,4 @@ INSERT INTO `teleport` VALUES ('Rune Territory=>Swamp of Screams', '711', '69340
 INSERT INTO `teleport` VALUES ('Rune Territory=>Monastery of Silence', '712', '125480', '-75834', '-2945', '500');
 INSERT INTO `teleport` VALUES ('Rune Territory=>The Pagan Temple', '713', '35630', '-49748', '-760', '500');
 INSERT INTO `teleport` VALUES ('Rune Territory=>Stakato Nest', '714', '90134', '-45130', '-2168', '500');
+INSERT INTO `teleport` VALUES ("Windy Hill", 1121, -88539, 83389, -2864, 2600);
