@@ -565,17 +565,6 @@ public abstract class L2Character extends L2Object
         // Set the Attacking Body part to CHEST
         setAttackingBodypart();
          
-        if(Config.ALLOW_GEODATA)
-        if ( this instanceof L2PcInstance)
-        {
-              //_log.warning("Do attack L0S");
-              if (GeoDataRequester.getInstance().hasAttackLoS(this, target) == false)
-              {
-                  sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
-                  return;
-              }   
-        }
-        
         // Select the type of attack to start
         if (weaponItem == null)
             hitted = doAttackHitSimple(attack, target);
@@ -3509,7 +3498,10 @@ public abstract class L2Character extends L2Object
        
        //if (getAI() != null)
        //  getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-
+		if(Config.ALLOW_GEODATA)
+		{
+			getAI().stopMoveTask();	
+		}
        // Set the current position (x,y,z), its current L2WorldRegion if necessary and its heading
        // All data are contained in a L2CharPosition object
        if (pos != null)
@@ -3709,15 +3701,6 @@ public abstract class L2Character extends L2Object
 
        // Get the Move Speed of the L2Charcater
        float speed = getStat().getMoveSpeed();
-       
-       /*if(Config.ALLOW_GEODATA)
-       if (this instanceof L2PcInstance)
-           if ( GeoDataRequester.getInstance().hasLoS(this, x,y,(short)z )  == false)
-           {
-               SystemMessage sm = new SystemMessage(SystemMessage.CANT_SEE_TARGET);    
-               this.sendPacket(sm); 
-           }
-       */
        // Create and Init a MoveData object
        MoveData m = new MoveData();
 
@@ -3739,7 +3722,29 @@ public abstract class L2Character extends L2Object
 
        m._xDestination = x;
        m._yDestination = y;
-       m._zDestination = z; // this is what was requested from client
+
+       if (Config.ALLOW_GEODATA && !isFlying())
+       {
+           if ( this instanceof L2PcInstance)
+           {
+               if ( !((L2PcInstance)this).isInWater() || !((L2PcInstance)this).isInBoat() )  
+               {
+                     m._zDestination = GeoDataRequester.getInstance().getGeoInfoNearest(x, y, (short)z).getZ(); // this is what was requested from client
+               }
+               else
+               {
+                   m._zDestination = z;
+               }
+           }
+           else
+           {
+               m._zDestination = GeoDataRequester.getInstance().getGeoInfoNearest(x, y, (short)z).getZ();
+           }
+       }
+       else
+       {
+           m._zDestination = z;
+       }
        m._heading = 0;
 
        m._moveStartTime = GameTimeController.getGameTicks();
