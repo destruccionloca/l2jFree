@@ -3683,6 +3683,7 @@ public final class L2PcInstance extends L2PlayableInstance
         				}, 20000);
         			}
         		}
+            }
             if (!ArenaManager.getInstance().checkIfInZone(this) && !JailManager.getInstance().checkIfInZone(this))
             {
                 boolean isKillerPc = (killer instanceof L2PcInstance);
@@ -3692,6 +3693,7 @@ public final class L2PcInstance extends L2PlayableInstance
                     _clan.setReputationScore(_clan.getReputationScore()+1);
                 }
                 if (pk == null || !pk.isCursedWeaponEquiped())
+                {
                     if (Config.ALT_GAME_DELEVEL)
                     {
                         // Reduce the Experience of the L2PcInstance in function of the calculated Death Penalty
