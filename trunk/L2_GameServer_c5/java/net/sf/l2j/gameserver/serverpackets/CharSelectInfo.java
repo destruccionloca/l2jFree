@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.serverpackets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -219,7 +219,7 @@ public class CharSelectInfo extends ServerBasePacket
         }
         catch (Exception e)
         {
-            _log.warning("Could not restore char info: " + e);
+            _log.warn("Could not restore char info: " + e);
         } 
         finally 
         {

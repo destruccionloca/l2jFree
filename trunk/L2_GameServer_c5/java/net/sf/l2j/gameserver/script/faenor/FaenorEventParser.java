@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.script.faenor;
 
 import java.util.Date;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.script.DateRange;
 import net.sf.l2j.gameserver.script.IntList;
@@ -43,14 +43,14 @@ public class FaenorEventParser extends FaenorParser
     {
         String ID = attribute(eventNode, "ID");
         
-        if (DEBUG) _log.fine("Parsing Event \""+ID+"\"");
+        if (DEBUG) _log.debug("Parsing Event \""+ID+"\"");
         
         eventDates = DateRange.parse(attribute(eventNode, "Active"), DATE_FORMAT);
         
         Date currentDate = new Date();
         if (eventDates.getEndDate().before(currentDate))
         {
-            _log.warning("Event ID: (" + ID + ") has passed... Ignored.");
+            _log.warn("Event ID: (" + ID + ") has passed... Ignored.");
             return;
         }
         
@@ -69,7 +69,7 @@ public class FaenorEventParser extends FaenorParser
 
     private void parseEventMessage(Node sysMsg)
     {
-        if (DEBUG) _log.fine("Parsing Event Message.");
+        if (DEBUG) _log.debug("Parsing Event Message.");
 
         try
         {
@@ -83,14 +83,13 @@ public class FaenorEventParser extends FaenorParser
         } 
         catch (Exception e)
         {
-            _log.warning("Error in event parser.");
-            e.printStackTrace();
+            _log.warn("Error in event parser.",e);
         }
     }
 
     private void parseEventDropList(Node dropList)
     {
-        if (DEBUG) _log.fine("Parsing Droplist.");
+        if (DEBUG) _log.debug("Parsing Droplist.");
         
         for (Node node = dropList.getFirstChild(); node != null; node = node.getNextSibling()) {
             if (isNodeName(node, "AllDrop"))
@@ -102,7 +101,7 @@ public class FaenorEventParser extends FaenorParser
 
     private void parseEventDrop(Node drop)
     {
-        if (DEBUG) _log.fine("Parsing Drop.");
+        if (DEBUG) _log.debug("Parsing Drop.");
         
         try
         {

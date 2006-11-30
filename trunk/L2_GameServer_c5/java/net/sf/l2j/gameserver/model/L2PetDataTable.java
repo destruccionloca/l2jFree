@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
@@ -98,7 +98,7 @@ public class L2PetDataTable
         }
         catch (Exception e)
         {
-            _log.warning("Could not load pets stats: "+ e);
+            _log.warn("Could not load pets stats: "+ e);
         }
         finally
         {
@@ -129,7 +129,7 @@ public class L2PetDataTable
     
     public L2PetData getPetData(int petID, int petLevel)
     {
-        //System.out.println("Getting id "+petID+" level "+ petLevel);
+        //_log.debugr("Getting id "+petID+" level "+ petLevel);
         return petTable.get(petID).get(petLevel);
     }
     

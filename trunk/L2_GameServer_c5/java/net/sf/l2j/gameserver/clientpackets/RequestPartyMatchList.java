@@ -20,13 +20,13 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 import java.util.Collection;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.PartyMatchList;
+
+import org.apache.log4j.Logger;
 
 /**
  * Packetformat  Rev650  cdddddS
@@ -88,11 +88,11 @@ public class RequestPartyMatchList extends ClientBasePacket
 		else if (_status == 3)
 		{
 			// client does not need any more updates
-			if (Config.DEBUG) _log.fine("PartyMatch window was closed.");
+			if (_log.isDebugEnabled()) _log.debug("PartyMatch window was closed.");
 		}
 		else
 		{
-			if (Config.DEBUG) _log.fine("party match status: "+_status);
+			if (_log.isDebugEnabled()) _log.debug("party match status: "+_status);
 		}
 	}
 

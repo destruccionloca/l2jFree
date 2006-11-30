@@ -21,8 +21,6 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -42,6 +40,8 @@ import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.util.Util;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -80,7 +80,7 @@ public class RequestWearItem extends ClientBasePacket
             	_player.destroyWearedItems("Wear", null, true);
                 
             } catch (Throwable e){
-                _log.log(Level.SEVERE, "", e);
+                _log.fatal( "", e);
             }
         }
     }

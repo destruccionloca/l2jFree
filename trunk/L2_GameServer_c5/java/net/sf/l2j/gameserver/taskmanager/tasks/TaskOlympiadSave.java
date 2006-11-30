@@ -1,6 +1,6 @@
 package net.sf.l2j.gameserver.taskmanager.tasks;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.taskmanager.Task;
@@ -30,7 +30,7 @@ public class TaskOlympiadSave extends Task
             _log.info("Olympiad System: Data updated successfully.");
         }
         catch (Exception e) {
-            _log.warning("Olympiad System: Failed to save Olympiad configuration: " + e);
+            _log.warn("Olympiad System: Failed to save Olympiad configuration: " + e);
         }
     }
     

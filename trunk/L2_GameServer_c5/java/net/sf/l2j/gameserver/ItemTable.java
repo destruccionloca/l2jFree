@@ -21,11 +21,10 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastMap;
@@ -47,6 +46,8 @@ import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.templates.StatsSet;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -227,7 +228,7 @@ public class ItemTable
         }
         catch (Exception e)
         {
-            _log.log(Level.WARNING, "data error on item: ", e);
+            _log.warn( "data error on item: ", e);
         }
         finally { try { con.close(); } catch (Exception e) {} }
 
@@ -235,19 +236,19 @@ public class ItemTable
         {
             _armors.put(armor.getItemId(), armor);
         }
-        _log.config("ItemTable: Loaded " + _armors.size() + " Armors.");
+        _log.info("ItemTable: Loaded " + _armors.size() + " Armors.");
         
         for (L2EtcItem item : SkillsEngine.getInstance().loadItems(itemData))
         {
             _etcItems.put(item.getItemId(), item);
         }
-        _log.config("ItemTable: Loaded " + _etcItems.size() + " Items.");
+        _log.info("ItemTable: Loaded " + _etcItems.size() + " Items.");
         
         for (L2Weapon weapon : SkillsEngine.getInstance().loadWeapons(weaponData))
         {
             _weapons.put(weapon.getItemId(), weapon);
         }
-        _log.config("ItemTable: Loaded " + _weapons.size() + " Weapons.");
+        _log.info("ItemTable: Loaded " + _weapons.size() + " Weapons.");
 
         //fillEtcItemsTable();
         //fillArmorsTable();
@@ -431,7 +432,7 @@ public class ItemTable
         }
         else
         {
-            _log.fine("unknown etcitem type:" + itemType);
+            _log.debug("unknown etcitem type:" + itemType);
             item.type = L2EtcItemType.OTHER;
         }
             
@@ -557,7 +558,7 @@ public class ItemTable
         }
         
         // Create a FastLookUp Table called _allTemplates of size : value of the highest item ID
-        if (Config.DEBUG) _log.fine("highest item id used:" + highestId);
+        if (_log.isDebugEnabled()) _log.debug("highest item id used:" + highestId);
         _allTemplates = new L2Item[highestId +1];
         
         // Insert armor item in Fast Look Up Table
@@ -628,7 +629,7 @@ public class ItemTable
             item.setItemLootShedule(itemLootShedule); 
         }
                 
-        if (Config.DEBUG) _log.fine("ItemTable: Item created  oid:" + item.getObjectId()+ " itemid:" + itemId);
+        if (_log.isDebugEnabled()) _log.debug("ItemTable: Item created  oid:" + item.getObjectId()+ " itemid:" + itemId);
         
         // Add the L2ItemInstance object to _allObjects of L2world
         L2World.getInstance().storeObject(item);
@@ -638,10 +639,12 @@ public class ItemTable
         
         if (Config.LOG_ITEMS) 
         {
-            LogRecord record = new LogRecord(Level.INFO, "CREATE:" + process);
-            record.setLoggerName("item");
-            record.setParameters(new Object[]{item, actor, reference});
-            _logItems.log(record);
+            List<Object> param = new ArrayList<Object>();
+            param.add("CREATE:" + process);
+            param.add(item);
+            param.add(actor);
+            param.add(reference);
+            _logItems.info(param);
         }
         
         return item;    
@@ -676,7 +679,7 @@ public class ItemTable
         
         if (temp.getItem() == null)
         {
-            _log.warning("ItemTable: Item Template missing for Id: "+ itemId);
+            _log.warn("ItemTable: Item Template missing for Id: "+ itemId);
         }
         
         return temp;    
@@ -709,10 +712,12 @@ public class ItemTable
 
             if (Config.LOG_ITEMS) 
             {
-                LogRecord record = new LogRecord(Level.INFO, "DELETE:" + process);
-                record.setLoggerName("item");
-                record.setParameters(new Object[]{item, actor, reference});
-                _logItems.log(record);
+                List<Object> param = new ArrayList<Object>();
+                param.add("DELETE:" + process);
+                param.add(item);
+                param.add(actor);
+                param.add(reference);
+                _logItems.info(param);
             }
 
             // if it's a pet control item, delete the pet as well
@@ -730,7 +735,7 @@ public class ItemTable
                 }
                 catch (Exception e)
                 {
-                    _log.log(Level.WARNING, "could not delete pet objectid:", e);
+                    _log.warn( "could not delete pet objectid:", e);
                 }
                 finally
                 {

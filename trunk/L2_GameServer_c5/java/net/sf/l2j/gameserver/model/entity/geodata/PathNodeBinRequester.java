@@ -427,7 +427,7 @@ public class PathNodeBinRequester
 					currentNodeCounter += sectionCounter; 
 	            	//if ( currentNodeCounter % 100000 == 0)
 	            	//{
-	            	//	System.out.println(currentNodeCounter);
+	            	//	_log.debugr(currentNodeCounter);
 	            	//}
 				}	            
 	        }

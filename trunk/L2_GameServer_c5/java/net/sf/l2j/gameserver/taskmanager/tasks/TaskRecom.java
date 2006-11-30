@@ -3,7 +3,7 @@
  */
 package net.sf.l2j.gameserver.taskmanager.tasks;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -42,7 +42,7 @@ public class TaskRecom extends Task
             player.restartRecom();
             player.sendPacket(new UserInfo(player));
         }
-        _log.config("Recommendation Global Task: launched.");
+        _log.info("Recommendation Global Task: launched.");
     }
     
     public void  initializate()

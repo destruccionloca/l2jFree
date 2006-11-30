@@ -33,7 +33,7 @@ import java.security.spec.RSAPublicKeySpec;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -156,7 +156,7 @@ public class LoginServerThread extends Thread
 
 					if (lengthHi < 0 )
 					{
-						_log.finer("LoginServerThread: Login terminated the connection.");
+						_log.debug("LoginServerThread: Login terminated the connection.");
 						break;
 					}
 
@@ -174,7 +174,7 @@ public class LoginServerThread extends Thread
 
 					if (receivedBytes != length-2)
 					{
-						_log.warning("Incomplete Packet is sent to the server, closing connection.(LS)");
+						_log.warn("Incomplete Packet is sent to the server, closing connection.(LS)");
 						break;
 					}
 
@@ -186,23 +186,23 @@ public class LoginServerThread extends Thread
 
 					if (!checksumOk)
 					{
-						_log.warning("Incorrect packet checksum, ignoring packet (LS)");
+						_log.warn("Incorrect packet checksum, ignoring packet (LS)");
 						break;
 					}
 
-					if (Config.DEBUG) 
-						_log.warning("[C]\n"+Util.printData(decrypt));
+					if (_log.isDebugEnabled()) 
+						_log.debug("[C]\n"+Util.printData(decrypt));
 
 					int packetType = decrypt[0]&0xff;
 					switch (packetType)
 					{
 						case 00:
 							InitLS init = new InitLS(decrypt);
-							if (Config.DEBUG) _log.info("Init received");
+							if (_log.isDebugEnabled()) _log.debug("Init received");
 							if(init.getRevision() != REVISION)
 							{
 								//TODO: revision mismatch
-								_log.warning("/!\\ Revision mismatch between LS and GS /!\\");
+								_log.warn("/!\\ Revision mismatch between LS and GS /!\\");
 								break;
 							}
 							try
@@ -211,24 +211,24 @@ public class LoginServerThread extends Thread
 								BigInteger modulus = new BigInteger(init.getRSAKey());
 								RSAPublicKeySpec kspec1 = new RSAPublicKeySpec(modulus, RSAKeyGenParameterSpec.F4);
 								_publicKey = (RSAPublicKey)kfac.generatePublic(kspec1);
-								if (Config.DEBUG) _log.info("RSA key set up");
+								if (_log.isDebugEnabled()) _log.debug("RSA key set up");
 							}
 
 							catch (GeneralSecurityException e)
 							{
-								_log.warning("Troubles while init the public key send by login");
+								_log.warn("Troubles while init the public key send by login");
 								break;
 							}
 							//send the blowfish key through the rsa encryption
 							BlowFishKey bfk = new BlowFishKey(_blowfishKey,_publicKey);
 							sendPacket(bfk);
-							if (Config.DEBUG)_log.info("Sent new blowfish key");
+							if (_log.isDebugEnabled())_log.info("Sent new blowfish key");
 							//now, only accept paket with the new encryption
 							_blowfish = new NewCrypt(_blowfishKey);
-							if (Config.DEBUG)_log.info("Changed blowfish key");
+							if (_log.isDebugEnabled())_log.info("Changed blowfish key");
 							AuthRequest ar = new AuthRequest(_requestID, _acceptAlternate, _hexID, _gameExternalHost, _gameInternalHost, _gamePort, _reserveHost, _maxPlayer);
 							sendPacket(ar);
-							if (Config.DEBUG)_log.info("Sent AuthRequest to login");
+							if (_log.isDebugEnabled())_log.debug("Sent AuthRequest to login");
 							break;
 						case 01:
 							LoginServerFail lsf = new LoginServerFail(decrypt);
@@ -304,7 +304,7 @@ public class LoginServerThread extends Thread
 							{
 								if(par.isAuthed())
 								{
-									if (Config.DEBUG)_log.info("Login accepted player "+wcToRemove.account+" waited("+(GameTimeController.getGameTicks()-wcToRemove.timestamp)+"ms)");
+									if (_log.isDebugEnabled())_log.debug("Login accepted player "+wcToRemove.account+" waited("+(GameTimeController.getGameTicks()-wcToRemove.timestamp)+"ms)");
 									PlayerInGame pig = new PlayerInGame(par.getAccount());
 									sendPacket(pig);
 									CharSelectInfo cl = new CharSelectInfo(wcToRemove.account, wcToRemove.clientThread.getSessionId().playOkID1);
@@ -314,7 +314,7 @@ public class LoginServerThread extends Thread
 								}
 								else
 								{
-									_log.fine("session key is not correct. closing connection");
+									_log.warn("session key is not correct. closing connection");
 									wcToRemove.clientThread.getConnection().sendPacket(new AuthLoginFail(1));
 									//FIXME: should we actually close the connexion?
 								}
@@ -330,7 +330,7 @@ public class LoginServerThread extends Thread
 			}
 			catch (UnknownHostException e)
 			{
-                if (Config.DEBUG) e.printStackTrace();
+                _log.warn(e.getMessage(),e);
 			}
 			catch (IOException e)
 			{
@@ -355,7 +355,7 @@ public class LoginServerThread extends Thread
 
 	public void addWaitingClientAndSendRequest(String acc, ClientThread client, SessionKey key)
 	{
-		if(Config.DEBUG) System.out.println(key);
+		if (_log.isDebugEnabled()) _log.debug(key);
 		WaitingClient wc = new WaitingClient(acc, client, key);
 		_waitingClients.add(wc);
 		PlayerAuthRequest par = new PlayerAuthRequest(acc,key);
@@ -365,8 +365,8 @@ public class LoginServerThread extends Thread
 		}
 		catch (IOException e)
 		{
-			_log.warning("Error while sending player auth request");
-            if (Config.DEBUG) e.printStackTrace();
+			_log.warn("Error while sending player auth request");
+            if ( _log.isDebugEnabled() )_log.debug(e.getMessage(),e);
 		}
 	}
 
@@ -380,8 +380,8 @@ public class LoginServerThread extends Thread
 		}
 		catch (IOException e)
 		{
-			_log.warning("Error while sending logout packet to login");
-			if (Config.DEBUG) e.printStackTrace();
+			_log.warn("Error while sending logout packet to login");
+            if ( _log.isDebugEnabled() ) _log.debug(e.getMessage(),e);
 		}
 	}
 
@@ -399,7 +399,7 @@ public class LoginServerThread extends Thread
 		}
 		catch (IOException e)
 		{
-            if (Config.DEBUG) e.printStackTrace();
+            if (_log.isDebugEnabled()) _log.debug(e.getMessage(),e);
 		}
 	}
 
@@ -422,7 +422,7 @@ public class LoginServerThread extends Thread
 		byte [] array = new byte[size]; 
 		Random rnd = new Random();
 		rnd.nextBytes(array);
-		if (Config.DEBUG)_log.fine("Generated random String:  \""+array+"\"");
+		if (_log.isDebugEnabled())_log.debug("Generated random String:  \""+array+"\"");
 		return array;
 	}
 
@@ -434,7 +434,7 @@ public class LoginServerThread extends Thread
 	{
 		byte[] data = sl.getContent();
 		_blowfish.checksum(data);
-		if (Config.DEBUG) _log.finest("[S]\n"+Util.printData(data));
+		if (_log.isDebugEnabled()) _log.debug("[S]\n"+Util.printData(data));
 		data = _blowfish.crypt(data);
 
 		int len = data.length+2;
@@ -477,7 +477,7 @@ public class LoginServerThread extends Thread
 		}
 		catch (IOException e)
 		{
-            if (Config.DEBUG) e.printStackTrace();
+            if (_log.isDebugEnabled()) _log.debug(e.getMessage(),e);
 		}
 	}
 

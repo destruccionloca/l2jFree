@@ -293,7 +293,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             if(Config.ALLOW_GEODATA)
             if ( me.isAggressive())
             {
-                //_log.warning("get LOS L2attackable AI 2" );
+                //_log.warn("get LOS L2attackable AI 2" );
                 if (GeoDataRequester.getInstance().hasAttackLoS(me, target) == false)
                 {      
                     return false; 
@@ -543,7 +543,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                 z1 = npc.getZ();
             }
 
-            //_log.config("Curent pos ("+getX()+", "+getY()+"), moving to ("+x1+", "+y1+").");
+            //_log.info("Curent pos ("+getX()+", "+getY()+"), moving to ("+x1+", "+y1+").");
             // Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet CharMoveToLocation (broadcast)
             moveTo(x1, y1, z1);
 
@@ -652,7 +652,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             }
             catch (NullPointerException e)
             {
-                //_log.warning("AttackableAI: Attack target is NULL.");
+                //_log.warn("AttackableAI: Attack target is NULL.");
                 setIntention(AI_INTENTION_ACTIVE);
                 return;
             }

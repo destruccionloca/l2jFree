@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers; 
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -50,7 +50,7 @@ public class DrainSoul implements ISkillHandler
             return;
         }
 
-        _log.fine("Soul Crystal casting succeded.");
+        _log.debug("Soul Crystal casting succeded.");
         
         // This is just a dummy skill handler for the soul crystal skill,
         // since the Soul Crystal item handler already does everything.

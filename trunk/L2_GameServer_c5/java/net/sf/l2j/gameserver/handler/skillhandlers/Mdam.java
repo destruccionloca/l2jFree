@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
-import net.sf.l2j.gameserver.lib.Log;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -35,6 +34,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 
+import org.apache.log4j.Logger;
+
 /**
  * This class ...
  * 
@@ -43,7 +44,7 @@ import net.sf.l2j.gameserver.skills.Formulas;
 
 public class Mdam implements ISkillHandler
 {
-    //private static Logger _log = Logger.getLogger(Mdam.class.getName());
+    private static Logger _log = Logger.getLogger(Mdam.class);
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
@@ -148,9 +149,9 @@ public class Mdam implements ISkillHandler
                 if (target instanceof L2PcInstance)
                     name = target.getName() + "(" + target.getObjectId() + ") ";
                 name += target.getLevel() + " lvl";
-                Log.add(activeChar.getName() + "(" + activeChar.getObjectId() + ") "
+                _log.info(activeChar.getName() + "(" + activeChar.getObjectId() + ") "
                     + activeChar.getLevel() + " lvl did damage " + damage + " with skill "
-                    + skill.getName() + "(" + skill.getId() + ") to " + name, "damage_mdam");
+                    + skill.getName() + "(" + skill.getId() + ") to " + name);
             }
 
             if (damage > 0)

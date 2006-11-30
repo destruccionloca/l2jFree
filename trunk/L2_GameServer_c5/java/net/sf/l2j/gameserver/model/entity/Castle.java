@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
@@ -408,8 +408,7 @@ public class Castle
         }
         catch (Exception e)
         {
-            System.out.println("Exception: loadCastleData(): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: loadCastleData(): " + e.getMessage(),e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }
@@ -446,8 +445,7 @@ public class Castle
         }
         catch (Exception e)
         {
-            System.out.println("Exception: loadCastleDoor(): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: loadCastleDoor(): " + e.getMessage(),e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }
@@ -472,8 +470,7 @@ public class Castle
         }
         catch (Exception e)
         {
-            System.out.println("Exception: loadCastleDoorUpgrade(): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: loadCastleDoorUpgrade(): " + e.getMessage(),e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }
@@ -491,8 +488,7 @@ public class Castle
         }
         catch (Exception e)
         {
-            System.out.println("Exception: removeDoorUpgrade(): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: removeDoorUpgrade(): " + e.getMessage(),e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }
@@ -513,8 +509,7 @@ public class Castle
         }
         catch (Exception e)
         {
-            System.out.println("Exception: saveDoorUpgrade(int doorId, int hp, int pDef, int mDef): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: saveDoorUpgrade(int doorId, int hp, int pDef, int mDef): " + e.getMessage(),e);
         } 
         finally 
         {
@@ -582,8 +577,7 @@ public class Castle
         }
         catch (Exception e)
         {
-            System.out.println("Exception: updateOwnerInDB(L2Clan clan): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: updateOwnerInDB(L2Clan clan): " + e.getMessage(),e);
         }
         finally
         {
@@ -752,7 +746,7 @@ public class Castle
             
             statement.close();
 
-            _log.warning("Restored procure from BD");
+            if ( _log.isDebugEnabled())_log.debug("Restored procure from BD");
 
             // restore seed production info
             statement = con.prepareStatement("SELECT * FROM castle_manor_production WHERE castle_id=?"); 
@@ -765,15 +759,14 @@ public class Castle
                 setSeedPrice(rs.getInt("seed_id"),rs.getInt("seed_price"));
             }
 
-            _log.warning("Restored Production from BD");
+            if ( _log.isDebugEnabled())_log.debug("Restored Production from BD");
     
             statement.close();
 
         }
         catch (Exception e)
         {
-            System.out.println("Error restoring manor procure data: " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Error restoring manor procure data: " + e.getMessage(),e);
         }
         finally
         {
@@ -795,8 +788,7 @@ public class Castle
         }
         catch (Exception e)
         {
-            System.out.println("Error removing seed production data: " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Error removing seed production data: " + e.getMessage(),e);
         }
         finally
         {
@@ -829,8 +821,7 @@ public class Castle
         }
         catch (Exception e)
         {
-            System.out.println("Error adding seed production data: " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Error adding seed production data: " + e.getMessage(),e);
         }
         finally
         {
@@ -852,8 +843,7 @@ public class Castle
         }
         catch (Exception e)
         {
-            System.out.println("Error removing seed production data: " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Error removing seed production data: " + e.getMessage(),e);
         }
         finally
         {
@@ -889,8 +879,7 @@ public class Castle
         }
         catch (Exception e)
         {
-            System.out.println("Error adding seed production data: " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Error adding seed production data: " + e.getMessage(),e);
         }
         finally
         {

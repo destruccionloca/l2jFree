@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -244,7 +244,7 @@ public class RequestBuyItem extends ClientBasePacket
 */
             if (price < 0)
             {
-                _log.warning("ERROR, no price found .. wrong buylist ??");
+                _log.warn("ERROR, no price found .. wrong buylist ??");
                 sendPacket(new ActionFailed());
                 return;
             }

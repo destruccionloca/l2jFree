@@ -152,7 +152,7 @@ public class L2NpcInstance extends L2Character
                 SpawnTable.getInstance().deleteSpawn(_oldSpawn, false);
             } 
             catch (Throwable t) {
-                    t.printStackTrace();
+                _log.error(t.getMessage(),t);
                 }
             }
         }
@@ -197,7 +197,7 @@ public class L2NpcInstance extends L2Character
         
         if (template == null)
         {
-            _log.severe("No template for Npc. Please check your datapack is setup correctly.");
+            _log.fatal("No template for Npc. Please check your datapack is setup correctly.");
             return;
         }
         
@@ -473,7 +473,7 @@ public class L2NpcInstance extends L2Character
         // Check if the L2PcInstance already target the L2NpcInstance
         if (this != player.getTarget())
         {
-            if (Config.DEBUG) _log.fine("new target selected:"+getObjectId());
+            if (_log.isDebugEnabled()) _log.debug("new target selected:"+getObjectId());
             
             // Set the target of the L2PcInstance player
             player.setTarget(this);
@@ -846,7 +846,7 @@ public class L2NpcInstance extends L2Character
                            player.sendPacket(il);
                         } catch(Exception e) 
                         {
-                           e.printStackTrace();
+                            _log.error(e.getMessage(),e);
                         }                    
                     }
                     else
@@ -937,7 +937,7 @@ public class L2NpcInstance extends L2Character
                            player.sendPacket(il);
                         } catch(Exception e) 
                         {
-                           e.printStackTrace();                        
+                            _log.error(e.getMessage(),e);                        
                         }
                     }else
                     {
@@ -1571,15 +1571,15 @@ public class L2NpcInstance extends L2Character
             String path = "data/jscript/quests/"+questId+"/"+stateId+".htm";
             content = HtmCache.getInstance().getHtm(path); //TODO path for quests html
             
-            if (Config.DEBUG)
+            if (_log.isDebugEnabled())
             {
                 if (content != null)
                 {
-                    _log.fine("Showing quest window for quest "+questId+" html path: " + path);
+                    _log.debug("Showing quest window for quest "+questId+" html path: " + path);
                 }
                 else
                 {
-                    _log.fine("File not exists for quest "+questId+" html path: " + path);
+                    _log.debug("File not exists for quest "+questId+" html path: " + path);
                 }
             }
         }
@@ -2435,10 +2435,10 @@ public class L2NpcInstance extends L2Character
     {
         //FIXME this is just a temp hack, we should find a better solution
         
-        try { decayMe(); } catch (Throwable t) {_log.severe("deletedMe(): " + t); }
+        try { decayMe(); } catch (Throwable t) {_log.fatal("deletedMe(): " + t); }
         
         // Remove all L2Object from _knownObjects and _knownPlayer of the L2Character then cancel Attak or Cast and notify AI
-        try { getKnownList().removeAllKnownObjects(); } catch (Throwable t) {_log.severe("deletedMe(): " + t); }
+        try { getKnownList().removeAllKnownObjects(); } catch (Throwable t) {_log.fatal("deletedMe(): " + t); }
         
         // Remove L2Object object from _allObjects of L2World
         L2World.getInstance().removeObject(this);

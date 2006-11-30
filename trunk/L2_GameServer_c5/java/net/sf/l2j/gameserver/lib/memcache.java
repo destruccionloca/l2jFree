@@ -1,7 +1,7 @@
 package net.sf.l2j.gameserver.lib;
 
 import java.util.HashMap;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 public class memcache
 {
@@ -44,7 +44,7 @@ public class memcache
 	public void set(String type, String key, int value)
 	{
 		int hash = (type+"->"+key).hashCode();
-//	    _log.fine("Set memcache "+type+"("+key+")["+hash+"] to "+value);
+//	    _log.debug("Set memcache "+type+"("+key+")["+hash+"] to "+value);
 		_hmi.put(hash, value);
 		_last_access.put(hash, System.currentTimeMillis());
 		check_expired();
@@ -58,7 +58,7 @@ public class memcache
 			_last_access.put(hash, System.currentTimeMillis());
 
 		check_expired();
-	    _log.fine("Check exists memcache "+type+"("+key+")["+hash+"] is "+exists);
+	    _log.debug("Check exists memcache "+type+"("+key+")["+hash+"] is "+exists);
 		return exists;
 	}
 
@@ -67,7 +67,7 @@ public class memcache
 		int hash = (type+"->"+key).hashCode();
 		_last_access.put(hash, System.currentTimeMillis());
 		check_expired();
-	    _log.fine("Get memcache "+type+"("+key+")["+hash+"] = "+_hmi.get(hash));
+	    _log.debug("Get memcache "+type+"("+key+")["+hash+"] = "+_hmi.get(hash));
 		return _hmi.get(hash);
 	}
 }

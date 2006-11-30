@@ -51,7 +51,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
 
     public void onAction(L2PcInstance player)
     {
-        if (Config.DEBUG) _log.fine("Warehouse activated");
+        if (_log.isDebugEnabled()) _log.debug("Warehouse activated");
         player.setLastFolkNPC(this);
         super.onAction(player);
     }
@@ -75,7 +75,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
         player.sendPacket(new ActionFailed());
         player.setActiveWarehouse(player.getWarehouse());
 
-        if (Config.DEBUG) _log.fine("Showing stored items");
+        if (_log.isDebugEnabled()) _log.debug("Showing stored items");
         player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.Private));
     }
 
@@ -84,7 +84,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
         player.sendPacket(new ActionFailed());
         player.setActiveWarehouse(player.getWarehouse());
         player.tempInvetoryDisable();
-        if (Config.DEBUG) _log.fine("Showing items to deposit");
+        if (_log.isDebugEnabled()) _log.debug("Showing items to deposit");
 
         player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.Private));
     }
@@ -108,7 +108,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
                 }
                 player.setActiveWarehouse(player.getClan().getWarehouse());
                 player.tempInvetoryDisable();
-                if (Config.DEBUG) _log.fine("Showing items to deposit - clan");
+                if (_log.isDebugEnabled()) _log.debug("Showing items to deposit - clan");
 
                 WareHouseDepositList dl = new WareHouseDepositList(player, WareHouseDepositList.Clan);
                 player.sendPacket(dl);
@@ -129,20 +129,20 @@ public final class L2WarehouseInstance extends L2FolkInstance
             else
             {
                 player.setActiveWarehouse(player.getClan().getWarehouse());
-                if (Config.DEBUG) _log.fine("Showing items to deposit - clan");
+                if (_log.isDebugEnabled()) _log.debug("Showing items to deposit - clan");
                 player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.Clan));
             }
         }
         else
         {
-            _log.warning("no items stored");
+            _log.warn("no items stored");
         }
     }
 
     private void showWithdrawWindowFreight(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());
-        if (Config.DEBUG) _log.fine("Showing freightened items");
+        if (_log.isDebugEnabled()) _log.debug("Showing freightened items");
 
         PcFreight freight = player.getFreight();
 
@@ -160,7 +160,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
         }
         else
         {
-            if (Config.DEBUG) _log.fine("no items freightened");
+            if (_log.isDebugEnabled()) _log.debug("no items freightened");
         }
     }
 
@@ -214,8 +214,8 @@ public final class L2WarehouseInstance extends L2FolkInstance
             npcReply.setHtml(replyMSG.toString());
             player.sendPacket(npcReply);
 
-            if (Config.DEBUG)
-                _log.fine("Showing destination chars to freight - char src: " + player.getName());
+            if (_log.isDebugEnabled())
+                _log.debug("Showing destination chars to freight - char src: " + player.getName());
         }
     }
 
@@ -226,16 +226,16 @@ public final class L2WarehouseInstance extends L2FolkInstance
         if (destChar == null)
         {
             // Something went wrong!
-            if (Config.DEBUG)
-                _log.warning("Error retrieving a target object for char " + player.getName()
+            if (_log.isDebugEnabled())
+                _log.warn("Error retrieving a target object for char " + player.getName()
                     + " - using freight.");
             return;
         }
         if (getZone() == null)
         {
             // Something went wrong too!
-            if (Config.DEBUG)
-                _log.warning("Error retrieving the zone for char " + player.getName()
+            if (_log.isDebugEnabled())
+                _log.warn("Error retrieving the zone for char " + player.getName()
                     + " - using freight.");
             return;
         }
@@ -251,7 +251,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
         player.tempInvetoryDisable();
         destChar.deleteMe();
 
-        if (Config.DEBUG) _log.fine("Showing items to freight");
+        if (_log.isDebugEnabled()) _log.debug("Showing items to freight");
         player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.Freight));
     }
 

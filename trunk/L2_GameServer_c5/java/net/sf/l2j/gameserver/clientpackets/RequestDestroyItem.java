@@ -22,8 +22,6 @@ import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -39,6 +37,8 @@ import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -184,7 +184,7 @@ public class RequestDestroyItem extends ClientBasePacket
 			}
 			catch (Exception e)
 			{
-                _log.log(Level.WARNING, "could not delete pet objectid: ", e);
+                _log.warn( "could not delete pet objectid: ", e);
 			}
 			finally
 			{

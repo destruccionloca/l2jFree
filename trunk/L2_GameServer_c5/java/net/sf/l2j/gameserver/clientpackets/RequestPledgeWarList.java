@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -39,7 +39,7 @@ public class RequestPledgeWarList extends ClientBasePacket
         super(buf, client);
         _page = readD();
         _type = readD();
-        //_log.warning("plegdepowergradelist send, requested");
+        //_log.warn("plegdepowergradelist send, requested");
     }
 
     void runImpl()
@@ -49,7 +49,7 @@ public class RequestPledgeWarList extends ClientBasePacket
         if (clan != null)
         {
             player.sendPacket(new PledgeWarList(clan, _type, _page));
-            //_log.warning("plegdepowergradelist send, privs length: "+privs.length);
+            //_log.warn("plegdepowergradelist send, privs length: "+privs.length);
         }
         
     }

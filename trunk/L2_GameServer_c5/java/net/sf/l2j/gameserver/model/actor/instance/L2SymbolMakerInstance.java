@@ -22,7 +22,6 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import javolution.lang.TextBuilder;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.HennaTreeTable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2HennaInstance;
@@ -137,7 +136,7 @@ public class L2SymbolMakerInstance extends L2FolkInstance
 	 */
 	public void onAction(L2PcInstance player)
 	{
-		if (Config.DEBUG) _log.fine("Symbol Maker activated");
+		if (_log.isDebugEnabled()) _log.debug("Symbol Maker activated");
 		player.setLastFolkNPC(this);
 		super.onAction(player);
 	}

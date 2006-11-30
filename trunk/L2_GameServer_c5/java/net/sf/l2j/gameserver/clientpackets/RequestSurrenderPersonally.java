@@ -1,7 +1,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.ClientThread;

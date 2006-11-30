@@ -18,11 +18,8 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
-import java.util.logging.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
-import net.sf.l2j.gameserver.lib.Log;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -37,6 +34,8 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 
+import org.apache.log4j.Logger;
+
 /**
  * This class ...
  * 
@@ -46,7 +45,7 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
 public class Pdam implements ISkillHandler
 {
     // all the items ids that this handler knowns
-    private static Logger _log = Logger.getLogger(Pdam.class.getName());
+    private static Logger _log = Logger.getLogger(Pdam.class);
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
@@ -64,8 +63,8 @@ public class Pdam implements ISkillHandler
 
         int damage = 0;
 
-        if (Config.DEBUG)
-            if (Config.DEBUG) _log.fine("Begin Skill processing in Pdam.java " + skill.getSkillType());
+        if (_log.isDebugEnabled())
+            if (_log.isDebugEnabled()) _log.debug("Begin Skill processing in Pdam.java " + skill.getSkillType());
 
         for (int index = 0; index < targets.length; index++)
         {
@@ -104,9 +103,9 @@ public class Pdam implements ISkillHandler
                 if (target instanceof L2PcInstance)
                     name = target.getName() + "(" + target.getObjectId() + ") ";
                 name += target.getLevel() + " lvl";
-                Log.add(activeChar.getName() + "(" + activeChar.getObjectId() + ") "
+                _log.info(activeChar.getName() + "(" + activeChar.getObjectId() + ") "
                     + activeChar.getLevel() + " lvl did damage " + damage + " with skill "
-                    + skill.getName() + "(" + skill.getId() + ") to " + name, "damage_pdam");
+                    + skill.getName() + "(" + skill.getId() + ") to " + name);
             }
 
             if (target instanceof L2NpcInstance)

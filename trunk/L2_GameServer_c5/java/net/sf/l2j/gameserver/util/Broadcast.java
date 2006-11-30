@@ -28,13 +28,12 @@
  */
 package net.sf.l2j.gameserver.util;
 
-import java.util.logging.Logger;
-
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -58,7 +57,7 @@ public final class Broadcast
      */
     public static void toPlayersTargettingMyself(L2Character character, ServerBasePacket mov)
     {
-        if (Config.DEBUG) _log.fine("players to notify:" + character.getKnownList().getKnownPlayers().size() + " packet:"+mov.getType());
+        if (_log.isDebugEnabled()) _log.debug("players to notify:" + character.getKnownList().getKnownPlayers().size() + " packet:"+mov.getType());
 
         for (L2PcInstance player : character.getKnownList().getKnownPlayers())
         {
@@ -81,7 +80,7 @@ public final class Broadcast
      */
     public static void toKnownPlayers(L2Character character, ServerBasePacket mov)
     {
-        if (Config.DEBUG) _log.fine("players to notify:" + character.getKnownList().getKnownPlayers().size() + " packet:"+mov.getType());
+        if (_log.isDebugEnabled()) _log.debug("players to notify:" + character.getKnownList().getKnownPlayers().size() + " packet:"+mov.getType());
 
         for (L2PcInstance player : character.getKnownList().getKnownPlayers())
         {
@@ -158,7 +157,7 @@ public final class Broadcast
      */
     public static void toAllOnlinePlayers(ServerBasePacket mov)
     {
-        if (Config.DEBUG) _log.fine("Players to notify: " + L2World.getInstance().getAllPlayersCount() + " (with packet " + mov.getType() + ")");
+        if (_log.isDebugEnabled()) _log.debug("Players to notify: " + L2World.getInstance().getAllPlayersCount() + " (with packet " + mov.getType() + ")");
         
         for (L2PcInstance onlinePlayer : L2World.getInstance().getAllPlayers())
         {

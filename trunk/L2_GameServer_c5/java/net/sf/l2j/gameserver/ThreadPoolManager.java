@@ -27,6 +27,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.log4j.Logger;
+
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.clientpackets.ClientBasePacket;
@@ -65,6 +67,8 @@ import net.sf.l2j.gameserver.clientpackets.ClientBasePacket;
 public class ThreadPoolManager
 {
 	private static ThreadPoolManager _instance;
+    
+    private static Logger _log = Logger.getLogger(ThreadPoolManager.class);
 	
 	private ScheduledThreadPoolExecutor _effectsScheduledThreadPool;
 	private ScheduledThreadPoolExecutor _generalScheduledThreadPool;
@@ -297,13 +301,12 @@ public class ThreadPoolManager
 			_urgentPacketsThreadPool.shutdown();
 			_generalThreadPool.shutdown();
 			//_aiThreadPool.shutdown();
-			System.out.println("All ThreadPools are now stoped");
+			_log.info("All ThreadPools are now stoped");
 			
 		}
 		catch (InterruptedException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            _log.error(e);
 		}
 	}
 

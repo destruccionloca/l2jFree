@@ -27,8 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.WeakHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -51,6 +49,8 @@ import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
+
+import org.apache.log4j.Logger;
 
 public class RecipeController
 {
@@ -84,18 +84,18 @@ public class RecipeController
 				parseList(line);
 				
 			}
-			_log.config("RecipeController: Loaded " + _lists.size() + " Recipes.");
+			_log.info("RecipeController: Loaded " + _lists.size() + " Recipes.");
 		}
 		catch (Exception e)
 		{
 			if (lnr != null)
 
-				_log.log(Level.WARNING, "error while creating recipe controller in linenr: "
+				_log.warn( "error while creating recipe controller in linenr: "
 				         + lnr.getLineNumber(), e);
 
 			else
 
-				_log.warning("No recipes were found in data folder");
+				_log.warn("No recipes were found in data folder");
 
 		}
 		finally
@@ -244,7 +244,7 @@ public class RecipeController
 			else if (recipeTypeString.equalsIgnoreCase("common")) isDwarvenRecipe = false;
 			else
 			{ //prints a helpfull message 
-				_log.warning("Error parsing recipes.csv, unknown recipe type " + recipeTypeString);
+				_log.warn("Error parsing recipes.csv, unknown recipe type " + recipeTypeString);
 				return;
 			}
 			
@@ -283,7 +283,7 @@ public class RecipeController
 		}
 		catch (Exception e)
 		{
-			_log.severe("Exception in RecipeController.parseList() - " + e);
+			_log.fatal("Exception in RecipeController.parseList() - " + e);
 		}
 	}
 	
@@ -437,14 +437,14 @@ public class RecipeController
 
 			if (player == null || target == null)
 			{
-				_log.warning("player or target == null (disconnected?), aborting"+target+player);
+				_log.warn("player or target == null (disconnected?), aborting"+target+player);
 				abort();
 				return;
 			}
 
 			if (player.isOnline()==0 || target.isOnline()==0)
 			{
-				_log.warning("player or target is not online, aborting "+target+player);
+				_log.warn("player or target is not online, aborting "+target+player);
 				abort();
 				return;
 			}

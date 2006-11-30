@@ -84,7 +84,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                     }
                     catch (Exception e2)
                     {
-                        _log.warning("Failed to retrieve cabal from bypass command.");
+                        _log.warn("Failed to retrieve cabal from bypass command.");
                     }
                 }
             }
@@ -403,7 +403,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                     }
                     catch (Exception e)
                     {
-                        _log.warning("SevenSigns: Error occurred while teleporting player: " + e);
+                        _log.warn("SevenSigns: Error occurred while teleporting player: " + e);
                     }
                     break;
                 case 17: // Exchange Seal Stones for Ancient Adena (Type Choice) - SevenSigns 17 x
@@ -454,7 +454,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                     }
                     else
                     {
-                        _log.warning("Problem with HTML text " + SevenSigns.SEVEN_SIGNS_HTML_PATH
+                        _log.warn("Problem with HTML text " + SevenSigns.SEVEN_SIGNS_HTML_PATH
                             + "signs_17.htm: " + path);
                     }
                     break;

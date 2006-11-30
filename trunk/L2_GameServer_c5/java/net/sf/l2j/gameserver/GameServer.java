@@ -19,12 +19,7 @@
 package net.sf.l2j.gameserver;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -45,6 +40,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCTFEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCache;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminChangeAccessLevel;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCreateItem;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCursedWeapons;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDelete;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDoorControl;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEditChar;
@@ -88,7 +84,6 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTeleport;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTest;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTvTEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminUnblockIp;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCursedWeapons;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminZone;
 import net.sf.l2j.gameserver.handler.itemhandlers.AdvQuestItems;
 import net.sf.l2j.gameserver.handler.itemhandlers.BeastSoulShot;
@@ -162,11 +157,11 @@ import net.sf.l2j.gameserver.handler.usercommandhandlers.Time;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.castle;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.stats;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.Manager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
-import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.AutoChatHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler;
 import net.sf.l2j.gameserver.model.L2PetDataTable;
@@ -179,6 +174,8 @@ import net.sf.l2j.gameserver.taskmanager.TaskManager;
 import net.sf.l2j.gameserver.util.DynamicExtension;
 import net.sf.l2j.status.Status;
 import net.sf.l2j.util.RandomIntGenerator;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -229,7 +226,7 @@ public class GameServer
     public GameServer() throws Exception
     {
         gameServer = this;
-        _log.finest("used mem:" + getUsedMemoryMB()+"MB" );
+        if ( _log.isDebugEnabled())_log.debug("used mem:" + getUsedMemoryMB()+"MB" );
 
         if (Config.SERVER_VERSION != null)
         {
@@ -240,12 +237,12 @@ public class GameServer
         _idFactory = IdFactory.getInstance();
         if (!_idFactory.isInitialized())
         {
-            _log.severe("Could not read object IDs from DB. Please Check Your Data.");
+            _log.fatal("Could not read object IDs from DB. Please Check Your Data.");
             throw new Exception("Could not initialize the ID factory");
         }
 
         _threadpools = ThreadPoolManager.getInstance();
-        _log.config("ClientScheduler initialized");
+        if ( _log.isDebugEnabled())_log.debug("ClientScheduler initialized");
 
         new File(Config.DATAPACK_ROOT, "data/clans").mkdirs();
         new File(Config.DATAPACK_ROOT, "data/crests").mkdirs();
@@ -253,7 +250,7 @@ public class GameServer
 
         // start game time control early
         GameTimeController.getInstance();
-        _log.config("TimeController initialized");
+        if ( _log.isDebugEnabled())_log.debug("TimeController initialized");
 
         // keep the references of Singletons to prevent garbage collection
         CharNameTable.getInstance();
@@ -261,7 +258,7 @@ public class GameServer
         _itemTable = ItemTable.getInstance();
         if (!_itemTable.isInitialized())
         {
-            _log.severe("Could not find the extraced files. Please Check Your Data.");
+            _log.fatal("Could not find the extraced files. Please Check Your Data.");
             throw new Exception("Could not initialize the item table");
         }
 
@@ -269,21 +266,21 @@ public class GameServer
         _skillTable = SkillTable.getInstance();
         if (!_skillTable.isInitialized())
         {
-            _log.severe("Could not find the extraced files. Please Check Your Data.");
+            _log.fatal("Could not find the extraced files. Please Check Your Data.");
             throw new Exception("Could not initialize the skill table");
         }
 
         RecipeController.getInstance();
-        _log.config("RecipeController initialized");
+        if ( _log.isDebugEnabled())_log.debug("RecipeController initialized");
 
         SkillTreeTable.getInstance();
-        _log.config("SkillTreeTable initialized");
+        if ( _log.isDebugEnabled())_log.debug("SkillTreeTable initialized");
         FishTable.getInstance();
-        _log.config("FishTable initialized");
+        if ( _log.isDebugEnabled())_log.debug("FishTable initialized");
         SkillSpellbookTable.getInstance();
-        _log.config("SkillSpellbookTable initialized");
+        if ( _log.isDebugEnabled())_log.debug("SkillSpellbookTable initialized");
         CharTemplateTable.getInstance();
-        _log.config("ChatTemplateTable initialized");
+        if ( _log.isDebugEnabled())_log.debug("ChatTemplateTable initialized");
         
         //Call to load caches
         HtmCache.getInstance();
@@ -293,7 +290,7 @@ public class GameServer
         
         if (!_npcTable.isInitialized())
         {
-            _log.severe("Could not find the extraced files. Please Check Your Data.");
+            _log.fatal("Could not find the extraced files. Please Check Your Data.");
             throw new Exception("Could not initialize the npc table");
         }
         
@@ -321,14 +318,14 @@ public class GameServer
         if (Config.ALLOW_GEODATA)
         {
             GeoDataRequester.getInstance();
-            _log.config("GeoData initialized");
+            if ( _log.isDebugEnabled())_log.debug("GeoData initialized");
         }
         TeleportLocationTable.getInstance();
-        _log.config("TeleportLocationTable initialized");
+        if ( _log.isDebugEnabled())_log.debug("TeleportLocationTable initialized");
         LevelUpData.getInstance();
-        _log.config("LevelUpData initialized");
+        if ( _log.isDebugEnabled())_log.debug("LevelUpData initialized");
         L2World.getInstance();
-        _log.config("World initialized");
+        if ( _log.isDebugEnabled())_log.debug("World initialized");
 
         //have to load waterZones before geo ... geo now uses waterzones in checks
         Manager.loadAll();
@@ -338,31 +335,31 @@ public class GameServer
             GeoDataRequester.getInstance().setDefaultExpirationTime(3000); 
         }
         SpawnTable.getInstance();
-        _log.config("SpawnTable initialized");
+        if ( _log.isDebugEnabled())_log.debug("SpawnTable initialized");
         
         RaidBossSpawnManager.getInstance();
-        _log.config("Day/Night SpawnMode initialized");
+        if ( _log.isDebugEnabled())_log.debug("Day/Night SpawnMode initialized");
         DayNightSpawnManager.getInstance().notifyChangeMode();
-        _log.config("RaidBossSpawnManager initialized");
+        if ( _log.isDebugEnabled())_log.debug("RaidBossSpawnManager initialized");
         Announcements.getInstance();
-        _log.config("Announcments initialized");
+        if ( _log.isDebugEnabled())_log.debug("Announcments initialized");
         MapRegionTable.getInstance();
-        _log.config("MapRegionTable initialized");
+        if ( _log.isDebugEnabled())_log.debug("MapRegionTable initialized");
         EventDroplist.getInstance();
-		_log.config("EventDroplist initialized");        
+        if ( _log.isDebugEnabled())_log.debug("EventDroplist initialized");        
         ItemsOnGroundManager.getInstance();
-        _log.config("ItemsOnGroundManager initialized");
+        if ( _log.isDebugEnabled())_log.debug("ItemsOnGroundManager initialized");
         RandomIntGenerator.getInstance();
-        _log.config("RandomIntGenerator initialized");
+        if ( _log.isDebugEnabled())_log.debug("RandomIntGenerator initialized");
         
         if (Config.AUTODESTROY_ITEM_AFTER > 0 || Config.HERB_AUTO_DESTROY_TIME > 0)
         {
             ItemsAutoDestroy.getInstance();
-            _log.config("ItemsAutoDestroy initialized");
+            if ( _log.isDebugEnabled())_log.debug("ItemsAutoDestroy initialized");
         }
         
         MonsterRace.getInstance();
-        _log.config("MonsterRace initialized");
+        if ( _log.isDebugEnabled())_log.debug("MonsterRace initialized");
         
         _doorTable = DoorTable.getInstance();
         StaticObjects.getInstance();
@@ -376,20 +373,20 @@ public class GameServer
         _sevenSignsEngine.spawnSevenSignsNPC();
         
         Olympiad.getInstance();
-        _log.config("Olympiad initialized");
+        if ( _log.isDebugEnabled())_log.debug("Olympiad initialized");
         
         Hero.getInstance();
         
         // Init of Zariche manager
         CursedWeaponsManager.getInstance();
-        _log.config("CursedWeapons initialized");
+        if ( _log.isDebugEnabled())_log.debug("CursedWeapons initialized");
         
         // Start to announce online players number
         if(Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
         OnlinePlayers.getInstance();        
 
-        _log.config("AutoChatHandler: Loaded " + _autoChatHandler.size() + " handlers in total.");
-        _log.config("AutoSpawnHandler: Loaded " + _autoSpawnHandler.size() + " handlers in total.");
+        _log.info("AutoChatHandler: Loaded " + _autoChatHandler.size() + " handlers in total.");
+        _log.info("AutoSpawnHandler: Loaded " + _autoSpawnHandler.size() + " handlers in total.");
 
         _itemHandler = ItemHandler.getInstance();
         _itemHandler.registerItemHandler(new ChristmasTree());
@@ -427,7 +424,7 @@ public class GameServer
         _itemHandler.registerItemHandler(new FishShots());      
         _itemHandler.registerItemHandler(new Wyvern());
         _itemHandler.registerItemHandler(new EnergyStones());
-        _log.config("ItemHandler: Loaded " + _itemHandler.size() + " handlers.");
+        _log.info("ItemHandler: Loaded " + _itemHandler.size() + " handlers.");
 
         _skillHandler = SkillHandler.getInstance();
         _skillHandler.registerSkillHandler(new Pdam());
@@ -456,7 +453,7 @@ public class GameServer
         _skillHandler.registerSkillHandler(new SummonCursedBones());
         _skillHandler.registerSkillHandler(new SummonTreasureKey());
         _skillHandler.registerSkillHandler(new StrSiegeAssault());
-        _log.config("SkillHandler: Loaded " + _skillHandler.size() + " handlers.");
+        _log.info("SkillHandler: Loaded " + _skillHandler.size() + " handlers.");
 
         _adminCommandHandler = AdminCommandHandler.getInstance();
         _adminCommandHandler.registerAdminCommandHandler(new AdminAdmin());
@@ -514,7 +511,7 @@ public class GameServer
         _adminCommandHandler.registerAdminCommandHandler(new AdminTvTEngine());
         _adminCommandHandler.registerAdminCommandHandler(new AdminCTFEngine());
         _adminCommandHandler.registerAdminCommandHandler(new AdminCursedWeapons());
-        _log.config("AdminCommandHandler: Loaded " + _adminCommandHandler.size() + " handlers.");
+        _log.info("AdminCommandHandler: Loaded " + _adminCommandHandler.size() + " handlers.");
 
         _userCommandHandler = UserCommandHandler.getInstance();
         _userCommandHandler.registerUserCommandHandler(new ClanPenalty());
@@ -526,28 +523,28 @@ public class GameServer
         _userCommandHandler.registerUserCommandHandler(new Escape());
         _userCommandHandler.registerUserCommandHandler(new Time());
         _userCommandHandler.registerUserCommandHandler(new ClanWarsList());
-        _log.config("UserCommandHandler: Loaded " + _userCommandHandler.size() + " handlers.");
+        _log.info("UserCommandHandler: Loaded " + _userCommandHandler.size() + " handlers.");
 
         _voicedCommandHandler = VoicedCommandHandler.getInstance();
         _voicedCommandHandler.registerVoicedCommandHandler(new stats());
         _voicedCommandHandler.registerVoicedCommandHandler(new castle());
-        _log.config("VoicedCommandHandler: Loaded " + _voicedCommandHandler.size() + " handlers.");
+        _log.info("VoicedCommandHandler: Loaded " + _voicedCommandHandler.size() + " handlers.");
 
         TaskManager.getInstance();
-        _log.config("TaskManager initialized");
+        if ( _log.isDebugEnabled())_log.debug("TaskManager initialized");
         
         GmListTable.getInstance();
-        _log.config("GmListTable initialized");
+        if ( _log.isDebugEnabled())_log.debug("GmListTable initialized");
 
         // read pet stats from db
         L2PetDataTable.getInstance().loadPetsData(); 
-        _log.config("PetData initialized");
+        if ( _log.isDebugEnabled())_log.debug("PetData initialized");
         
         Universe.getInstance();
-        _log.config("Universe initialized");
+        if ( _log.isDebugEnabled())_log.debug("Universe initialized");
         
         FaenorScriptEngine.getInstance();
-        _log.config("ScriptEngine initialized");
+        if ( _log.isDebugEnabled())_log.debug("ScriptEngine initialized");
         
         _shutdownHandler = Shutdown.getInstance();
         Runtime.getRuntime().addShutdownHook(_shutdownHandler);
@@ -569,31 +566,31 @@ public class GameServer
         } 
         catch (NullPointerException e)
         {
-            _log.warning("There are errors in your Door.csv file. Update door.csv");
-            if (Config.DEBUG)
-               e.printStackTrace();
+            _log.warn("There are errors in your Door.csv file. Update door.csv");
+            if (_log.isDebugEnabled())
+               _log.debug(e);
         }
         
         ClanTable.getInstance();
-        _log.config("Clans initialized");
+        if ( _log.isDebugEnabled())_log.debug("Clans initialized");
         
         ForumsBBSManager.getInstance();
-        _log.config("BBSManager initialized");
+        if ( _log.isDebugEnabled())_log.debug("BBSManager initialized");
 
         //takes lots of ram .. do it near the end
         if (Config.ALLOW_GEODATA)
         {
            PathNodeBinRequester.getInstance();
-            _log.config("PathNodes initialized");
+            _log.info("PathNodes initialized");
         }
         
-        _log.config("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
+        _log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
 
         // initialize the dynamic extension loader
         try {
             DynamicExtension.getInstance();
         } catch (Exception ex) {
-            _log.log(Level.WARNING, "DynamicExtension could not be loaded and initialized", ex);
+            _log.warn( "DynamicExtension could not be loaded and initialized", ex);
         }
 
         System.gc();
@@ -612,27 +609,24 @@ public class GameServer
         
         _selectorThread = SelectorThread.getInstance();
         _selectorThread.start();
-        _log.config("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
+        _log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
     }
     
     public static void main(String[] args) throws Exception
     {
 //      Local Constants
         final String LOG_FOLDER = "log"; // Name of folder for log file
-        final String LOG_NAME   = "./log.cfg"; // Name of log file
-        
+        final String LOG_FOLDER_GAME="game";
         /*** Main ***/
-        // Create log folder
+        // Create log folders
         File logFolder = new File(Config.DATAPACK_ROOT, LOG_FOLDER); 
         logFolder.mkdir();
+        File logFolderGame = new File(logFolder, LOG_FOLDER_GAME); 
+        logFolderGame.mkdir();
         
-        // Create input stream for log file -- or store file data into memory
-        InputStream is =  new FileInputStream(new File(LOG_NAME));  
-        LogManager.getLogManager().readConfiguration(is);
-        is.close();
-        
-        // Initialize config 
+        // Initialize info 
         Config.load();
+        
         L2DatabaseFactory.getInstance();
         gameServer = new GameServer();
         
@@ -641,7 +635,7 @@ public class GameServer
             statusServer.start();
         }
         else {
-            System.out.println("Telnet server is currently disabled.");
+            _log.info("Telnet server is currently disabled.");
         }
     }
 }

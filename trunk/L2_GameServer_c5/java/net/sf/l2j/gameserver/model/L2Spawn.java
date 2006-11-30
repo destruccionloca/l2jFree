@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver.model;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -32,6 +30,8 @@ import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class manages the spawn and respawn of a group of L2NpcInstance that are in the same are and have the same type.
@@ -113,7 +113,7 @@ public class L2Spawn
 			}
 			catch (Exception e)
 			{
-				_log.log(Level.WARNING, "", e);
+				_log.warn( "", e);
 			}
 			
 			_scheduledCount--;
@@ -413,7 +413,7 @@ public class L2Spawn
 		}
 		catch (Exception e)
 		{
-			_log.log(Level.WARNING, "NPC "+_template.npcId+" class not found", e);
+			_log.warn( "NPC "+_template.npcId+" class not found", e);
 		}
 		return mob;
 	}
@@ -495,8 +495,8 @@ public class L2Spawn
         
         _lastSpawn = mob;
         
-        if (Config.DEBUG) 
-            _log.finest("spawned Mob ID: "+_template.npcId+" ,at: "+mob.getX()+" x, "+mob.getY()+" y, "+mob.getZ()+" z");
+        if (_log.isDebugEnabled()) 
+            _log.debug("spawned Mob ID: "+_template.npcId+" ,at: "+mob.getX()+" x, "+mob.getY()+" y, "+mob.getZ()+" z");
         
         // Increase the current number of L2NpcInstance managed by this L2Spawn 
         _currentCount++;
@@ -536,7 +536,7 @@ public class L2Spawn
 	public void setRespawnDelay(int i)
 	{
         if (i<0)
-            _log.warning("respawn delay is negative for spawnId:"+_id);
+            _log.warn("respawn delay is negative for spawnId:"+_id);
 
         if (i<60 && i != 0)
             i=60;

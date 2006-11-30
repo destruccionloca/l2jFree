@@ -3,7 +3,7 @@ package net.sf.l2j.gameserver.instancemanager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -86,7 +86,7 @@ public class SiegeGuardManager {
         }
         catch (Exception e1)
         {
-            _log.warning("Error deleting hired siege guard at " + x +','+y+','+z + ":" + e1);
+            _log.warn("Error deleting hired siege guard at " + x +','+y+','+z + ":" + e1);
         }
         finally
         {
@@ -110,7 +110,7 @@ public class SiegeGuardManager {
         }
         catch (Exception e1)
         {
-            _log.warning("Error deleting hired siege guard for castle " + getCastle().getName() + ":" + e1);
+            _log.warn("Error deleting hired siege guard for castle " + getCastle().getName() + ":" + e1);
         }
         finally
         {
@@ -189,14 +189,14 @@ public class SiegeGuardManager {
                 }
                 else
                 {
-                    _log.warning("Missing npc data in npc table for id: " + rs.getInt("npcId"));
+                    _log.warn("Missing npc data in npc table for id: " + rs.getInt("npcId"));
                 }
             }
             statement.close();
         }
         catch (Exception e1)
         {
-            _log.warning("Error loading siege guard for castle " + getCastle().getName() + ":" + e1);
+            _log.warn("Error loading siege guard for castle " + getCastle().getName() + ":" + e1);
         }
         finally
         {
@@ -230,7 +230,7 @@ public class SiegeGuardManager {
         }
         catch (Exception e1)
         {
-            _log.warning("Error adding siege guard for castle " + getCastle().getName() + ":" + e1);
+            _log.warn("Error adding siege guard for castle " + getCastle().getName() + ":" + e1);
         }
         finally
         {

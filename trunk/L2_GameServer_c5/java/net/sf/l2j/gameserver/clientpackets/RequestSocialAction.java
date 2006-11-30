@@ -19,14 +19,14 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -73,7 +73,7 @@ public class RequestSocialAction extends ClientBasePacket
 				!activeChar.isAllSkillsDisabled() &&
 				activeChar.getAI().getIntention()==CtrlIntention.AI_INTENTION_IDLE)
 		{
-			if (Config.DEBUG) _log.fine("Social Action:" + _actionId);
+			if (_log.isDebugEnabled()) _log.debug("Social Action:" + _actionId);
 			
 			SocialAction atk = new SocialAction(activeChar.getObjectId(), _actionId);
 			

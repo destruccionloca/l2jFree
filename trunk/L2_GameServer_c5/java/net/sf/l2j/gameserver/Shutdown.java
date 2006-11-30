@@ -18,8 +18,8 @@
  */
 package net.sf.l2j.gameserver;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -63,7 +63,7 @@ public class Shutdown extends Thread
     public void startTelnetShutdown(String IP, int seconds, boolean restart)
     {
         Announcements _an = Announcements.getInstance();
-        _log.warning("IP: " + IP + " issued shutdown command. " + _modeText[shutdownMode] + " in "+seconds+ " seconds!");
+        _log.warn("IP: " + IP + " issued shutdown command. " + _modeText[shutdownMode] + " in "+seconds+ " seconds!");
         //_an.announceToAll("Server is " + _modeText[shutdownMode] + " in "+seconds+ " seconds!");
         
         if (restart) {
@@ -98,7 +98,7 @@ public class Shutdown extends Thread
      */
     public void Telnetabort(String IP) {
         Announcements _an = Announcements.getInstance();
-        _log.warning("IP: " + IP + " issued shutdown ABORT. " + _modeText[shutdownMode] + " has been stopped!");
+        _log.warn("IP: " + IP + " issued shutdown ABORT. " + _modeText[shutdownMode] + " has been stopped!");
         _an.announceToAll("Server aborts " + _modeText[shutdownMode] + " and continues normal operation!");
 
         if (_counterInstance != null) {
@@ -210,7 +210,7 @@ public class Shutdown extends Thread
             // gm shutdown: send warnings and then call exit to start shutdown sequence
             countdown();
             // last point where logging is operational :(
-            _log.warning("GM shutdown countdown is over. " + _modeText[shutdownMode] + " NOW!");
+            _log.warn("GM shutdown countdown is over. " + _modeText[shutdownMode] + " NOW!");
             switch (shutdownMode) {
                 case GM_SHUTDOWN:
                     _instance.setMode(GM_SHUTDOWN);
@@ -233,7 +233,7 @@ public class Shutdown extends Thread
      */
     public void startShutdown(L2PcInstance activeChar, int seconds, boolean restart) {
         Announcements _an = Announcements.getInstance();
-        _log.warning("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") issued shutdown command. " + _modeText[shutdownMode] + " in "+seconds+ " seconds!");
+        _log.warn("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") issued shutdown command. " + _modeText[shutdownMode] + " in "+seconds+ " seconds!");
         
         if (restart) {
             shutdownMode = GM_RESTART;
@@ -268,7 +268,7 @@ public class Shutdown extends Thread
      */
     public void abort(L2PcInstance activeChar) {
         Announcements _an = Announcements.getInstance();
-        _log.warning("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") issued shutdown ABORT. " + _modeText[shutdownMode] + " has been stopped!");
+        _log.warn("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") issued shutdown ABORT. " + _modeText[shutdownMode] + " has been stopped!");
         _an.announceToAll("Server aborts " + _modeText[shutdownMode] + " and continues normal operation!");
 
         if (_counterInstance != null) {
@@ -377,13 +377,13 @@ public class Shutdown extends Thread
         try
         {
             Olympiad.getInstance().save();
-            System.err.println("Olympiad System: Data saved!!");
+            _log.info("Olympiad System: Data saved!!");
         }
-        catch(Exception e){e.printStackTrace();}
+        catch(Exception e){_log.error(e.getMessage(),e);}
 
         // Save Cursed Weapons data before closing.
         CursedWeaponsManager.getInstance().saveData();        
-        System.err.println("Data saved. All players disconnected, shutting down.");
+        _log.info("Data saved. All players disconnected, shutting down.");
         
         try {
             int delay = 5000;

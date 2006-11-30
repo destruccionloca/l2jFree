@@ -18,16 +18,11 @@
  */
 package net.sf.l2j.gameserver.model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.WeakHashMap;
-import java.util.logging.Level;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -42,7 +37,6 @@ import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2SiegeGuardAI;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
@@ -428,7 +422,7 @@ public class L2Attackable extends L2NpcInstance
                 levelSoulCrystals(killer);
             }
         }
-        catch (Exception e) { _log.log(Level.SEVERE, "", e); }
+        catch (Exception e) { _log.fatal( "", e); }
         
         // Distribute Exp and SP rewards to L2PcInstance (including Summon owner) that hit the L2Attackable and to their Party members
         if (getHaveToDrop() || getMustRewardExpSP())
@@ -436,7 +430,7 @@ public class L2Attackable extends L2NpcInstance
            try { 
                calculateRewards(killer); 
            } catch (Exception e) 
-               { _log.log(Level.SEVERE, "", e); }
+               { _log.fatal( "", e); }
         }
         
         // Notify the Quest Engine of the L2Attackable death if necessary
@@ -492,7 +486,7 @@ public class L2Attackable extends L2NpcInstance
                     qs.getQuest().notifyKill(this, qs);                
            }
         } 
-        catch (Exception e) { _log.log(Level.SEVERE, "", e); }
+        catch (Exception e) { _log.fatal( "", e); }
 
         this.setChampion(false);
         
@@ -815,7 +809,7 @@ public class L2Attackable extends L2NpcInstance
                         
                         addDamageHate(actor, 0, (int)((target.getLastHealAmount()/divisor)/Config.ALT_BUFFER_HATE));
 
-                        if (Config.DEBUG)
+                        if (_log.isDebugEnabled())
                             System.out.print("Mob detect heal.\n");
                     }
                 }
@@ -827,7 +821,7 @@ public class L2Attackable extends L2NpcInstance
                     {
                         addDamageHate(actor, 0, (int)(((skill.getLevel()*getStat().getMpConsume(skill))/divisor))/Config.ALT_BUFFER_HATE);
 
-                        if (Config.DEBUG)
+                        if (_log.isDebugEnabled())
                             System.out.print("Mob detect buff.\n");
                     }
                 }
@@ -845,7 +839,7 @@ public class L2Attackable extends L2NpcInstance
                             else
                                 addDamageHate(actor, 0, (int)((((getHating(target)-getHating(actor))+800)/divisor))/Config.ALT_BUFFER_HATE);
 
-                            if (Config.DEBUG)
+                            if (_log.isDebugEnabled())
                                 System.out.print("Mob detect party cast.\n");
                         }
                     }
@@ -906,7 +900,7 @@ public class L2Attackable extends L2NpcInstance
                 }
             }
         } 
-        catch (Exception e) { _log.log(Level.SEVERE, "", e); }
+        catch (Exception e) { _log.fatal( "", e); }
     }
     
     /**
@@ -1130,7 +1124,7 @@ public class L2Attackable extends L2NpcInstance
                if(drop.getCategory() != category) continue;
                sum = sum + (drop.getChance()*weight);
                
-               if(Config.DEBUG)
+               if (_log.isDebugEnabled())
                    _log.info("sum so far: "+sum);
                
                if (sum >= randomIndex)       // drop this item and exit the function
@@ -1220,7 +1214,7 @@ public class L2Attackable extends L2NpcInstance
          // Create a table containing all possible drops of this L2Attackable from L2NpcTemplate
          List<L2DropData> drops = new FastList<L2DropData>();
          drops.addAll(npcTemplate.getDropData());
-         if (Config.DEBUG) _log.finer("this npc has "+drops.size()+" drops defined");
+         if (_log.isDebugEnabled()) _log.debug("this npc has "+drops.size()+" drops defined");
 
          // Add Quest drops to the table containing all possible drops of this L2Attackable
          player.fillQuestDrops(this, drops);
@@ -1242,13 +1236,13 @@ public class L2Attackable extends L2NpcInstance
              if (drop.isSweep())
              {
                  if (!isSpoil()) continue; // L2Attackable was not spoiled, skip sweep drop
-                 if (Config.DEBUG) _log.fine("Item id to spoil: " + item.getItemId() + " amount: " + item.getCount());
+                 if (_log.isDebugEnabled()) _log.debug("Item id to spoil: " + item.getItemId() + " amount: " + item.getCount());
                  sweepList.add(item);
              }
              else
              {
                  if (isSeeded() && item.getItemId() != 57) continue; // L2Attackable was seeded, don't ropd other than adena
-                 if (Config.DEBUG) _log.fine("Item id to drop: " + item.getItemId() + " amount: " + item.getCount());
+                 if (_log.isDebugEnabled()) _log.debug("Item id to drop: " + item.getItemId() + " amount: " + item.getCount());
                  
                  // Check if the autoLoot mode is active
                  if (Config.AUTO_LOOT) player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
@@ -1275,7 +1269,7 @@ public class L2Attackable extends L2NpcInstance
            RewardItem item = calculateCategorizedRewardItem(player, getTemplate().getDropData(), levelModifier, 1);
            if (item != null)
            {
-                if (Config.DEBUG) _log.fine("Item id to drop: " + item.getItemId() + " amount: " + item.getCount());
+                if (_log.isDebugEnabled()) _log.debug("Item id to drop: " + item.getItemId() + " amount: " + item.getCount());
                  // Check if the autoLoot mode is active
                  if (Config.AUTO_LOOT) player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
                  else DropItem(player, item); // drop the item on the ground
@@ -1283,7 +1277,7 @@ public class L2Attackable extends L2NpcInstance
            item = calculateCategorizedRewardItem(player, getTemplate().getDropData(), levelModifier, 2);
            if (item != null)
            {
-                 if (Config.DEBUG) _log.fine("Item id to drop: " + item.getItemId() + " amount: " + item.getCount());
+                 if (_log.isDebugEnabled()) _log.debug("Item id to drop: " + item.getItemId() + " amount: " + item.getCount());
                  // Check if the autoLoot mode is active
                  if (Config.AUTO_LOOT) player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
                  else DropItem(player, item); // drop the item on the ground
@@ -1840,7 +1834,7 @@ public class L2Attackable extends L2NpcInstance
                             }
                             catch (NumberFormatException nfe) 
                             {
-                                _log.log(Level.WARNING, "An attempt to identify a soul crystal failed, " +
+                                _log.warn( "An attempt to identify a soul crystal failed, " +
                                                         "verify the names have not changed in etcitem "  +
                                                         "table.", nfe);
                                 
@@ -1852,7 +1846,7 @@ public class L2Attackable extends L2NpcInstance
                             }
                             catch (Exception e)
                             {
-                                e.printStackTrace();
+                                _log.error(e.getMessage(),e);
                                 isSuccess = false;
                                 break;
                             }

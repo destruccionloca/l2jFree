@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -81,7 +81,7 @@ public class RequestExEnchantSkillInfo extends ClientBasePacket
         
         if (skill == null)
         {
-            _log.warning("enchant skill id " + _id + " level " + _level
+            _log.warn("enchant skill id " + _id + " level " + _level
                 + " is undefined. aquireEnchantSkillInfo failed.");
             return;
         }

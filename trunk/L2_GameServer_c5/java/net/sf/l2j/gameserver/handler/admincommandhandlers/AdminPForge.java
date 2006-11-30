@@ -2,6 +2,8 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
+import org.apache.log4j.Logger;
+
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -17,6 +19,7 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
  */
 public class AdminPForge implements IAdminCommandHandler
 {
+    private static Logger _log = Logger.getLogger(AdminPForge.class);
     //private static Logger _log = Logger.getLogger(AdminKick.class.getName());
     private static String[] _adminCommands = {"admin_forge","admin_forge2","admin_forge3" };
     private static final int REQUIRED_LEVEL = Config.GM_MIN;
@@ -29,7 +32,7 @@ public class AdminPForge implements IAdminCommandHandler
         {
     		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
             {
-                //System.out.println("Not required level");
+                //_log.debugr("Not required level");
                 return false;
             }
         }
@@ -146,7 +149,7 @@ public class AdminPForge implements IAdminCommandHandler
               }
               catch(Exception ex)
               {
-            	  ex.printStackTrace();
+                  _log.error(ex.getMessage(),ex);
               }            
         }
         return true;

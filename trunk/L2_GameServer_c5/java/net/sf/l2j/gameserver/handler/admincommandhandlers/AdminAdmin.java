@@ -20,6 +20,8 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
+import org.apache.log4j.Logger;
+
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GmListTable;
@@ -50,6 +52,8 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminAdmin implements IAdminCommandHandler {
+    
+    private static Logger _log = Logger.getLogger(AdminAdmin.class);
 
  private static String[] _adminCommands = {"admin_admin","admin_admin2","admin_play_sounds","admin_play_sound",
                                            "admin_gmliston","admin_gmlistoff","admin_silence",
@@ -125,7 +129,7 @@ public class AdminAdmin implements IAdminCommandHandler {
             {
                 Olympiad.getInstance().save();
             }
-            catch(Exception e){e.printStackTrace();}
+            catch(Exception e){_log.error (e.getMessage(),e);}
             
             activeChar.sendMessage("olympaid stuffs saved!!");
             
@@ -136,7 +140,7 @@ public class AdminAdmin implements IAdminCommandHandler {
             {
                 Olympiad.getInstance().manualSelectHeroes();
             }
-            catch(Exception e){e.printStackTrace();}
+            catch(Exception e){_log.error (e.getMessage(),e);}
             
             activeChar.sendMessage("Heroes formed");
             

@@ -19,14 +19,14 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ExAutoSoulShot;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -65,8 +65,8 @@ public class RequestAutoSoulShot extends ClientBasePacket
                 activeChar.getActiveRequester() == null &&
                 !activeChar.isDead())
         {
-            if (Config.DEBUG) 
-                _log.fine("AutoSoulShot:" + _itemId);
+            if (_log.isDebugEnabled()) 
+                _log.debug("AutoSoulShot:" + _itemId);
 
             L2ItemInstance item = activeChar.getInventory().getItemByItemId(_itemId);
             

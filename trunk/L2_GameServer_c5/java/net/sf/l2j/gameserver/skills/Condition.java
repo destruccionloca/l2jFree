@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.skills;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 
 

@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.MapRegionTable;
@@ -72,7 +72,7 @@ public class RequestRestartPoint extends ClientBasePacket
         
         public void run()
         {
-//        	_log.warning(activeChar.getName()+" request restartpoint "+requestedPointType);
+//        	_log.warn(activeChar.getName()+" request restartpoint "+requestedPointType);
             try
             {
                 Location loc = null;
@@ -160,7 +160,7 @@ public class RequestRestartPoint extends ClientBasePacket
                 activeChar.setIsPendingRevive(true);
                 activeChar.teleToLocation(loc);
             } catch (Throwable e) {
-                //_log.log(Level.SEVERE, "", e);
+                //_log.fatal( "", e);
             }
         }
     }
@@ -183,7 +183,7 @@ public class RequestRestartPoint extends ClientBasePacket
         }
         else if(!activeChar.isAlikeDead())
         {
-        	_log.warning("Living player ["+activeChar.getName()+"] called RestartPointPacket! Ban this player!");
+        	_log.warn("Living player ["+activeChar.getName()+"] called RestartPointPacket! Ban this player!");
         	return;
         }
 

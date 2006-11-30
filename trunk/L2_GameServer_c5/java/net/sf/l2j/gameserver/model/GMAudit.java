@@ -1,11 +1,11 @@
 package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
+
+import org.apache.log4j.Logger;
 
 public class GMAudit {
 private static final Logger _log = Logger.getLogger(GMAudit.class.getName());
@@ -29,7 +29,7 @@ public static void auditGMAction(String gmName, String action, String target, St
             statement.executeUpdate();
             
         } catch (Exception e) {
-        	_log.log(Level.SEVERE, "could not audit GM action:", e);
+        	_log.fatal( "could not audit GM action:", e);
         } finally {
             try {
              statement.close(); 

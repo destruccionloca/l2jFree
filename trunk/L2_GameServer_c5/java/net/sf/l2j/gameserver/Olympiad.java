@@ -38,7 +38,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -182,11 +182,11 @@ public class Olympiad
         }
         catch(IOException e)
         {
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
         }
         catch(SQLException s)
         {
-            s.printStackTrace();
+            _log.error(s.getMessage(),s);
         }
         
         if (_period == 0) init();
@@ -240,7 +240,7 @@ public class Olympiad
                 }
                 break;
                 default:
-                    _log.warning("Olympiad System: Omg something went wrong in loading!! Period = " + _period);
+                    _log.warn("Olympiad System: Omg something went wrong in loading!! Period = " + _period);
                 return;
         }
         
@@ -269,7 +269,7 @@ public class Olympiad
         }
         catch(Exception e)
         {
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
         }
         
         synchronized(this)
@@ -364,7 +364,7 @@ public class Olympiad
                     save();
                 }
                 catch (Exception e) {
-                    _log.warning("Olympiad System: Failed to save Olympiad configuration: " + e);
+                    _log.warn("Olympiad System: Failed to save Olympiad configuration: " + e);
                 }
                 
                 _scheduledValdationTask  = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
@@ -612,7 +612,7 @@ public class Olympiad
                             save();
                         }
                         catch (Exception e) {
-                            _log.warning("Olympiad System: Failed to save Olympiad configuration: " + e);
+                            _log.warn("Olympiad System: Failed to save Olympiad configuration: " + e);
                         }
                         
                         init();
@@ -662,7 +662,7 @@ public class Olympiad
             save();
         }
         catch (Exception e) {
-            _log.warning("Olympiad System: Failed to save Olympiad configuration: " + e);
+            _log.warn("Olympiad System: Failed to save Olympiad configuration: " + e);
         }
         
         _scheduledValdationTask  = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
@@ -906,10 +906,10 @@ public class Olympiad
                 }
             }
         }
-        catch(SQLException e) {_log.warning("Olympiad System: Couldnt save nobles info in db");}
+        catch(SQLException e) {_log.warn("Olympiad System: Couldnt save nobles info in db");}
         finally
         {
-            try{con.close();}catch(Exception e){e.printStackTrace();}
+            try{con.close();}catch(Exception e){_log.error(e.getMessage(),e);}
         }
     }
     
@@ -948,10 +948,10 @@ public class Olympiad
                  rset.close();    
              }
          }
-         catch(SQLException e){_log.warning("Olympiad System: Couldnt heros from db");}
+         catch(SQLException e){_log.warn("Olympiad System: Couldnt heros from db");}
          finally
          {
-             try{con.close();}catch(Exception e){e.printStackTrace();}
+             try{con.close();}catch(Exception e){_log.error(e.getMessage(),e);}
          }
          
     }
@@ -983,10 +983,10 @@ public class Olympiad
              
              return names;
          }
-         catch(SQLException e){_log.warning("Olympiad System: Couldnt heros from db");}
+         catch(SQLException e){_log.warn("Olympiad System: Couldnt heros from db");}
          finally
          {
-             try{con.close();}catch(Exception e){e.printStackTrace();}
+             try{con.close();}catch(Exception e){_log.error(e.getMessage(),e);}
          }
          
          return names;
@@ -1074,10 +1074,10 @@ public class Olympiad
             statement.execute();
             statement.close();
         }
-        catch(SQLException e){_log.warning("Olympiad System: Couldnt delete nobles from db");}
+        catch(SQLException e){_log.warn("Olympiad System: Couldnt delete nobles from db");}
         finally
         {
-            try{con.close();}catch(Exception e){e.printStackTrace();}
+            try{con.close();}catch(Exception e){_log.error(e.getMessage(),e);}
         }
         
         _nobles.clear();
@@ -1133,7 +1133,7 @@ public class Olympiad
             try{
                 sortClassBasedOpponents();
                 _nonClassBasedParticipants = pickOpponents(_nonClassBasedRegisters);
-            }catch(Exception e){e.printStackTrace();}
+            }catch(Exception e){_log.error(e.getMessage(),e);}
             
             int classIndex = 0;
             int nonClassIndex = 0;
@@ -1212,7 +1212,7 @@ public class Olympiad
             {
                 try{
                     instance.validateWinner();
-                }catch(Exception e){e.printStackTrace();}
+                }catch(Exception e){_log.error(e.getMessage(),e);}
             }
             
             //Wait 20 seconds
@@ -1268,7 +1268,7 @@ public class Olympiad
                 
                 try{
                    result = pickOpponents(classed);
-                }catch(Exception e){e.printStackTrace();}
+                }catch(Exception e){_log.error(e.getMessage(),e);}
                 
                 if (result.size() == 0)
                     continue;

@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -98,6 +96,8 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.util.Util;
+
+import org.apache.log4j.Logger;
 
 /**
  * Mother class of all character objects of the world (PC, NPC...)<BR><BR>
@@ -280,14 +280,14 @@ public abstract class L2Character extends L2Object
         
         if (knownPlayers == null) return;
         
-        if (Config.DEBUG) _log.fine("players to notify:" + knownPlayers.size() + " packet:"+mov.getType());
+        if (_log.isDebugEnabled()) _log.debug("players to notify:" + knownPlayers.size() + " packet:"+mov.getType());
 
         try {
         	for (L2PcInstance player : knownPlayers)
         	{
         		if (player == null || player == this) continue;
         		player.sendPacket(mov);
-        		//if(Config.DEVELOPER && !isInsideRadius(player, 3500, false, false)) _log.warning("broadcastPacket: Too far player see event!");
+        		//if(Config.DEVELOPER && !isInsideRadius(player, 3500, false, false)) _log.warn("broadcastPacket: Too far player see event!");
         	}
         } catch (Exception e) { } // this catches occasional NPEs while knownlist is unsynchronized
     }
@@ -364,8 +364,8 @@ public abstract class L2Character extends L2Object
         z += 5;
 
         
-        if (Config.DEBUG) 
-            _log.fine("Teleporting to: " + x + ", " + y + ", " + z);
+        if (_log.isDebugEnabled()) 
+            _log.debug("Teleporting to: " + x + ", " + y + ", " + z);
 
         // Send a Server->Client packet TeleportToLocationt to the L2Character AND to all L2PcInstance in the _KnownPlayers of the L2Character
         broadcastPacket(new TeleportToLocation(this, x, y, z));
@@ -403,8 +403,8 @@ public abstract class L2Character extends L2Object
      */
     protected void doAttack(L2Character target)
     {
-        if (Config.DEBUG) 
-            _log.fine(this.getName()+" doAttack: target="+target);
+        if (_log.isDebugEnabled()) 
+            _log.debug(this.getName()+" doAttack: target="+target);
 
         if (isAlikeDead() || target == null || (this instanceof L2NpcInstance && target.isAlikeDead()) 
                 || (this instanceof L2PcInstance && target.isDead() && !target.isFakeDeath())
@@ -430,7 +430,7 @@ public abstract class L2Character extends L2Object
         if(Config.ALLOW_GEODATA)
         if ( this instanceof L2PcInstance)
         {
-            //_log.warning("Do attack L0S_2");
+            //_log.warn("Do attack L0S_2");
             if (GeoDataRequester.getInstance().hasAttackLoS(this, target) == false)
             {
                 sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
@@ -568,7 +568,7 @@ public abstract class L2Character extends L2Object
         if(Config.ALLOW_GEODATA)
         if ( this instanceof L2PcInstance)
         {
-              //_log.warning("Do attack L0S");
+              //_log.warn("Do attack L0S");
               if (GeoDataRequester.getInstance().hasAttackLoS(this, target) == false)
               {
                   sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
@@ -831,7 +831,7 @@ public abstract class L2Character extends L2Object
         if(getTarget() == null) 
             return false;
         
-        if (Config.DEBUG)
+        if (_log.isDebugEnabled())
         {
             _log.info("doAttackHitByPole: Max radius = " + maxRadius);
             _log.info("doAttackHitByPole: Max angle = " + maxAngleDiff);
@@ -1628,7 +1628,7 @@ public abstract class L2Character extends L2Object
             {
                 enableAllSkills();
             } catch (Throwable e) {
-                _log.log(Level.SEVERE, "", e);
+                _log.fatal( "", e);
             }
         }
     }
@@ -1649,7 +1649,7 @@ public abstract class L2Character extends L2Object
             {
                 enableSkill(_skillId);
             } catch (Throwable e) {
-                _log.log(Level.SEVERE, "", e);
+                _log.fatal( "", e);
             }
         }
     }
@@ -1691,7 +1691,7 @@ public abstract class L2Character extends L2Object
             }
             catch (Throwable e)
             {
-                _log.severe(e.toString());
+                _log.fatal(e.toString());
             }
         }
     }
@@ -1717,7 +1717,7 @@ public abstract class L2Character extends L2Object
             }
             catch (Throwable e)
             {
-                _log.log(Level.SEVERE, "", e);
+                _log.fatal( "", e);
             }
         }
     }
@@ -1746,7 +1746,7 @@ public abstract class L2Character extends L2Object
             }
             catch (Throwable e)
             {
-                _log.log(Level.SEVERE, "", e);
+                _log.fatal( "", e);
             }
         }
     }
@@ -1769,7 +1769,7 @@ public abstract class L2Character extends L2Object
             }
             catch (Throwable t)
             {
-                _log.log(Level.WARNING, "", t);
+                _log.warn( "", t);
             }
         }
     }
@@ -1781,12 +1781,12 @@ public abstract class L2Character extends L2Object
         {
             try
             {
-                // _log.fine("Checking pvp time: " + getlastPvpAttack());
+                // _log.debug("Checking pvp time: " + getlastPvpAttack());
                 // "lastattack: " _lastAttackTime "currenttime: "
                 // System.currentTimeMillis());
                 if (Math.abs(System.currentTimeMillis()-getlastPvpAttack()) > Config.PVP_TIME)
                 {
-                    //  _log.fine("Stopping PvP");
+                    //  _log.debug("Stopping PvP");
                     stopPvPFlag();
                 }
                 else if (Math.abs(System.currentTimeMillis()-getlastPvpAttack()) > Config.PVP_TIME - 5000)
@@ -1802,7 +1802,7 @@ public abstract class L2Character extends L2Object
             }
             catch (Exception e)
             {
-                _log.log(Level.WARNING, "error in pvp flag task:", e);
+                _log.warn( "error in pvp flag task:", e);
             }
         }
     }
@@ -3654,7 +3654,7 @@ public abstract class L2Character extends L2Object
 		final double dy = (y - curY);
        double distance = Math.sqrt(dx*dx + dy*dy);
 
-       if (Config.DEBUG) _log.fine("distance to target:" + distance);
+       if (_log.isDebugEnabled()) _log.debug("distance to target:" + distance);
 
        // Define movement angles needed
        // ^
@@ -3682,7 +3682,7 @@ public abstract class L2Character extends L2Object
                x = curX;
                y = curY;
 
-               if (Config.DEBUG) _log.fine("already in range, no movement needed.");
+               if (_log.isDebugEnabled()) _log.debug("already in range, no movement needed.");
 
                // Notify the AI that the L2Character is arrived at destination
                getAI().notifyEvent(CtrlEvent.EVT_ARRIVED, null);
@@ -3733,8 +3733,8 @@ public abstract class L2Character extends L2Object
        heading += 32768;
        setHeading(heading);
 
-       if (Config.DEBUG)
-           _log.fine("dist:"+ distance +"speed:" + speed + " ttt:" +m._ticksToMove +
+       if (_log.isDebugEnabled())
+           _log.debug("dist:"+ distance +"speed:" + speed + " ttt:" +m._ticksToMove +
                    " dx:"+(int)m._xSpeedTicks + " dy:"+(int)m._ySpeedTicks + " heading:" + heading);
 
        m._xDestination = x;
@@ -3751,7 +3751,7 @@ public abstract class L2Character extends L2Object
        if (m._ticksToMove < 1 )
            m._ticksToMove = 1;
 
-       if (Config.DEBUG) _log.fine("time to target:" + m._ticksToMove);
+       if (_log.isDebugEnabled()) _log.debug("time to target:" + m._ticksToMove);
 
        // Set the L2Character _move object to MoveData object
        _move = m;
@@ -3968,8 +3968,8 @@ public abstract class L2Character extends L2Object
 //     //       update x,y,z with the current calculated position
 //     stopMove();
 //
-//     if (Config.DEBUG)
-//         _log.fine(this.getName() +":: target reached at: x "+getX()+" y "+getY()+ " z:" + getZ());
+//     if (_log.isDebugEnabled())
+//         _log.debug(this.getName() +":: target reached at: x "+getX()+" y "+getY()+ " z:" + getZ());
 //
 //     if (getPawnTarget() != null)
 //     {
@@ -4276,7 +4276,7 @@ public abstract class L2Character extends L2Object
                                 ((L2PcInstance)this).sendMessage("You absorbed " + absorbDamage + " damage.");
                             else if (this instanceof L2Summon && this != null)
                                 ((L2Summon)this).getOwner().sendMessage("Summon absorbed " + absorbDamage + " damage.");
-                            else if (Config.DEBUG)
+                            else if (_log.isDebugEnabled())
                                 _log.info(getName() + " absorbed " + absorbDamage + " damage.");
                         }
                     }
@@ -4338,7 +4338,7 @@ public abstract class L2Character extends L2Object
                    if (skill != null)
                        skill.getEffects(target, this);
                    else
-                       _log.warning("Skill 4515 at level 99 is missing in DP.");
+                       _log.warn("Skill 4515 at level 99 is missing in DP.");
                }
            }
             
@@ -4466,7 +4466,7 @@ public abstract class L2Character extends L2Object
        }
        else
        {
-           //_log.config("Not within a zone");
+           //_log.info("Not within a zone");
            //player.startAttack(this);
 
            if(Config.ALLOW_GEODATA)
@@ -4830,8 +4830,8 @@ public abstract class L2Character extends L2Object
 				}
 				//else
 				//{
-				//	if (Config.DEBUG) 
-				//        _log.warning("Class cast bad: "+targets[i].getClass().toString());
+				//	if (_log.isDebugEnabled()) 
+				//        _log.warn("Class cast bad: "+targets[i].getClass().toString());
 				//}
 			}
 			if(targetList.isEmpty()) 
@@ -4880,8 +4880,8 @@ public abstract class L2Character extends L2Object
                        target.sendPacket(smsg);
                    }
 
-                    if (Config.DEBUG) 
-                        _log.fine("msl: "+getName()+" "+magicId+" "+level+" "+target.getTitle());
+                    if (_log.isDebugEnabled()) 
+                        _log.debug("msl: "+getName()+" "+magicId+" "+level+" "+target.getTitle());
 
                    // Send a Server->Client packet MagicSkillLaunched to the L2Character AND to all L2PcInstance in the _KnownPlayers of the L2Character
                     broadcastPacket(new MagicSkillLaunched(this, magicId, level, target));
@@ -5072,7 +5072,7 @@ public abstract class L2Character extends L2Object
     */
    public void disableAllSkills()
    {
-       if (Config.DEBUG) _log.fine("all skills disabled");
+       if (_log.isDebugEnabled()) _log.debug("all skills disabled");
        _allSkillsDisabled = true;
    }
 
@@ -5081,7 +5081,7 @@ public abstract class L2Character extends L2Object
     */
    public void enableAllSkills()
    {
-       if (Config.DEBUG) _log.fine("all skills enabled");
+       if (_log.isDebugEnabled()) _log.debug("all skills enabled");
        _allSkillsDisabled = false;
    }
 
@@ -5123,7 +5123,7 @@ public abstract class L2Character extends L2Object
                         }   
                         else
                         {
-                            _log.warning("Skill 4515 at level 99 is missing in DP.");
+                            _log.warn("Skill 4515 at level 99 is missing in DP.");
                         }
                     }
 
@@ -5209,7 +5209,7 @@ public abstract class L2Character extends L2Object
         }
         catch (Exception e)
         {
-            _log.log(Level.WARNING, "", e);
+            _log.warn( "", e);
         }
     }
     
@@ -5233,14 +5233,14 @@ public abstract class L2Character extends L2Object
             if (angleDiff >= 360 - maxAngleDiff) angleDiff -= 360;
             if (Math.abs(angleDiff) <= maxAngleDiff)
             {
-                if (Config.DEBUG)
+                if (_log.isDebugEnabled())
                     _log.info("Char " + this.getName() + " is behind " + target.getName());
                 return true;
             }
         }
         else
         {
-            _log.fine("isBehindTarget's target not an L2 Character.");
+            _log.debug("isBehindTarget's target not an L2 Character.");
         }
         return false;
     }
@@ -5354,11 +5354,11 @@ public abstract class L2Character extends L2Object
 
 // public void checkPvPFlag()
 //   {
-//     if (Config.DEBUG) _log.fine("Checking PvpFlag");
+//     if (_log.isDebugEnabled()) _log.debug("Checking PvpFlag");
 //     _PvPRegTask = ThreadPoolManager.getInstance().scheduleLowAtFixedRate(
 //             new PvPFlag(), 1000, 5000);
 //     _PvPRegActive = true;
-//     //  _log.fine("PvP recheck");
+//     //  _log.debug("PvP recheck");
 // }
 //
 

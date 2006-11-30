@@ -4,10 +4,10 @@
 package net.sf.l2j.gameserver.taskmanager;
 
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.taskmanager.TaskManager.ExecutedTask;
+
+import org.apache.log4j.Logger;
 
 
 /**
@@ -20,8 +20,8 @@ public abstract class Task
     
     public void initializate()
     {
-        if (Config.DEBUG)
-            _log.info("Task" + getName() + " inializate");
+        if (_log.isDebugEnabled())
+            _log.debug("Task" + getName() + " inializate");
     }
     
     public ScheduledFuture launchSpecial(ExecutedTask instance)

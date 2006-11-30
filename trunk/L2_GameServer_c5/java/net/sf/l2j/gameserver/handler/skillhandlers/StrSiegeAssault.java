@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.handler.skillhandlers;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
-import net.sf.l2j.gameserver.lib.Log;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -36,13 +35,16 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 
+import org.apache.log4j.Logger;
+
 /** 
  * @author _tomciaaa_ 
  * 
  */ 
 public class StrSiegeAssault implements ISkillHandler 
 { 
-    //private static Logger _log = Logger.getLogger(SiegeFlag.class.getName()); 
+    private static Logger _log = Logger.getLogger(StrSiegeAssault.class); 
+    
     protected SkillType[] _skillIds = {SkillType.STRSIEGEASSUALT}; 
     
     public void useSkill(L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
@@ -105,7 +107,7 @@ public class StrSiegeAssault implements ISkillHandler
                 if (target instanceof L2PcInstance)
                 name = target.getName()+"("+target.getObjectId()+") ";
                 name += target.getLevel()+" lvl";
-                Log.add(activeChar.getName()+"("+activeChar.getObjectId()+") "+activeChar.getLevel()+" lvl did damage "+damage+" with skill "+skill.getName()+"("+skill.getId()+") to "+name,"damage_pdam");
+                _log.info(activeChar.getName()+"("+activeChar.getObjectId()+") "+activeChar.getLevel()+" lvl did damage "+damage+" with skill "+skill.getName()+"("+skill.getId()+") to "+name);
             }
                     target.reduceCurrentHp(damage, activeChar);
                     if (soul && weapon!= null)

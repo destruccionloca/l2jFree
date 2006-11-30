@@ -2,7 +2,6 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.TradeController;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -70,7 +69,7 @@ public final class L2MercManagerInstance extends L2FolkInstance
     private void showBuyWindow(L2PcInstance player, int val)
     {
         player.tempInvetoryDisable();
-        if (Config.DEBUG) _log.fine("Showing buylist");
+        if (_log.isDebugEnabled()) _log.debug("Showing buylist");
         L2TradeList list = TradeController.getInstance().getBuyList(val);
         if ((list != null) && (list.getNpcId().equals(String.valueOf(getNpcId()))))
         {
@@ -79,9 +78,9 @@ public final class L2MercManagerInstance extends L2FolkInstance
         }
         else
         {
-            _log.warning("possible client hacker: " + player.getName()
+            _log.warn("possible client hacker: " + player.getName()
                 + " attempting to buy from GM shop! < Ban him!");
-            _log.warning("buylist id:" + val);
+            _log.warn("buylist id:" + val);
         }
     }
 

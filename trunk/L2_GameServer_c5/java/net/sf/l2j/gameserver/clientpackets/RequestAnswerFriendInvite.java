@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
@@ -90,7 +90,7 @@ public class RequestAnswerFriendInvite extends ClientBasePacket
         		} 
         		catch (Exception e)
         		{
-        		    _log.warning("could not add friend objectid: "+ e);
+        		    _log.warn("could not add friend objectid: "+ e);
         		}
         		finally
         		{

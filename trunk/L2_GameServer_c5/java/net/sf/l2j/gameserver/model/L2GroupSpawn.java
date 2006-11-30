@@ -2,7 +2,6 @@ package net.sf.l2j.gameserver.model;
 
 import java.lang.reflect.Constructor;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Territory;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.lib.Rnd;
@@ -75,8 +74,8 @@ public class L2GroupSpawn extends L2Spawn
 			mob.spawnMe(newlocx, newlocy, newlocz);
 			mob.OnSpawn();
 
-			if (Config.DEBUG) 
-				_log.finest("spawned Mob ID: "+_template.npcId+" ,at: "
+			if (_log.isDebugEnabled()) 
+				_log.debug("spawned Mob ID: "+_template.npcId+" ,at: "
 						+mob.getX()+" x, "+mob.getY()+" y, "+mob.getZ()+" z");
             
 			return mob;
@@ -84,7 +83,7 @@ public class L2GroupSpawn extends L2Spawn
 		}
 		catch (Exception e)
 		{
-			_log.warning("NPC class not found: " + e);
+			_log.warn("NPC class not found: " + e);
 			return null;
 		}		
 	}

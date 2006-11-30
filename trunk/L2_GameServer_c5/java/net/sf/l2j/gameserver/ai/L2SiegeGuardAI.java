@@ -158,7 +158,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
      */
     synchronized void changeIntention(CtrlIntention intention, Object arg0, Object arg1)
     {
-        if (Config.DEBUG)
+        if (_log.isDebugEnabled())
             _log.info("L2SiegeAI.changeIntention(" + intention + ", " + arg0 + ", " + arg1 + ")");
 
         if (intention == AI_INTENTION_IDLE || intention == AI_INTENTION_ACTIVE)
@@ -482,7 +482,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
      */
     private void thinkAttack()
     {
-        if (Config.DEBUG)
+        if (_log.isDebugEnabled())
             _log.info("L2SiegeGuardAI.thinkAttack(); timeout="
                 + (_attack_timeout - GameTimeController.getGameTicks()));
 

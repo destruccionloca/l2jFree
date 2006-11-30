@@ -6,6 +6,8 @@
 
 package net.sf.l2j.gameserver;
 
+import org.apache.log4j.Logger;
+
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.ItemContainer;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -19,7 +21,8 @@ import net.sf.l2j.gameserver.model.entity.Castle;
  *
  */
 public class CastleUpdater implements Runnable {
-
+    
+        private static Logger _log = Logger.getLogger(CastleUpdater.class);
 
 		private L2Clan _clan;
         private int _RunCount = 0;
@@ -64,7 +67,7 @@ public class CastleUpdater implements Runnable {
                     ThreadPoolManager.getInstance().scheduleGeneral(cu, 3600000);
 		        }
 		    } catch (Throwable e) {
-		        e.printStackTrace();
+                _log.error(e);
 		    }
 		}
 }

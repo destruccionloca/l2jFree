@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -85,11 +85,11 @@ public class TeleportLocationTable
 			rset.close();
 			statement.close();
 
-			_log.config("TeleportLocationTable: Loaded " + _teleports.size() + " Teleport Location Templates.");
+			_log.info("TeleportLocationTable: Loaded " + _teleports.size() + " Teleport Location Templates.");
 		}
 		catch (Exception e)
 		{
-			_log.warning("error while creating teleport table "+e);
+			_log.warn("error while creating teleport table "+e);
 		} 
 		finally 
 		{

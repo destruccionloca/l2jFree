@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -61,7 +61,7 @@ public class RequestPledgeSetMemberPowerGrade extends ClientBasePacket
             {
                 member.getPlayerInstance().setRank(_rank);
                 member.getPlayerInstance().sendPacket(new UserInfo(member.getPlayerInstance()));
-                _log.warning("requestSetMemberPower name: "+member.getName());
+                _log.warn("requestSetMemberPower name: "+member.getName());
                 if (activeChar.getClan().getRankPrivs(_rank) == 0)
                 {
                     activeChar.getClan().setRankPrivs(_rank, 0);

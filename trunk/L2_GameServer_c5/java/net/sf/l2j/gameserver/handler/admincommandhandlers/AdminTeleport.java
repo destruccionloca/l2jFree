@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
@@ -142,7 +142,7 @@ public class AdminTeleport implements IAdminCommandHandler
             }
             catch (Exception e)
             {
-                if (Config.DEBUG) _log.info("admin_walk: "+e);
+                if (_log.isDebugEnabled()) _log.info("admin_walk: "+e);
             }
         }
         else if (command.startsWith("admin_move_to"))
@@ -573,10 +573,10 @@ public class AdminTeleport implements IAdminCommandHandler
                 sm.addString("Created " + template1.name + " on " + target.getObjectId() + ".");
                 activeChar.sendPacket(sm);
                 
-                if (Config.DEBUG)
+                if (_log.isDebugEnabled())
                 {
-                    _log.fine("Spawn at X="+spawn.getLocx()+" Y="+spawn.getLocy()+" Z="+spawn.getLocz());
-                    _log.warning("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") moved NPC " + target.getObjectId());
+                    _log.debug("Spawn at X="+spawn.getLocx()+" Y="+spawn.getLocy()+" Z="+spawn.getLocz());
+                    _log.warn("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") moved NPC " + target.getObjectId());
                 }
             }
             catch (Exception e)

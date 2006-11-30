@@ -30,10 +30,8 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javolution.util.FastMap;
-import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.Olympiad;
@@ -47,6 +45,8 @@ import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.StatsSet;
+
+import org.apache.log4j.Logger;
 
 
 public class Hero 
@@ -218,8 +218,8 @@ public class Hero
             con2.close();
         } catch(SQLException e)
         {
-        	_log.warning("Hero System: Couldnt load Heroes");
-        	if (Config.DEBUG) e.printStackTrace();
+        	_log.warn("Hero System: Couldnt load Heroes");
+            _log.error(e.getMessage(),e);
         }
         
         _log.info("Hero System: Loaded " + _heroes.size() + " Heroes.");
@@ -450,11 +450,10 @@ public class Hero
             }
         } catch(SQLException e)
         {
-        	_log.warning("Hero System: Couldnt update Heroes");
-        	if (Config.DEBUG) e.printStackTrace();
+        	_log.warn("Hero System: Couldnt update Heroes",e);
         } finally
         {
-            try{con.close();}catch(Exception e){e.printStackTrace();}
+            try{con.close();}catch(Exception e){_log.error(e.getMessage(),e);}
         }
     }
     
@@ -474,9 +473,9 @@ public class Hero
             statement.execute();
             statement.close();
         }
-        catch(SQLException e){e.printStackTrace();}
+        catch(SQLException e){_log.error(e.getMessage(),e);}
         finally{
-            try{con.close();}catch(SQLException e){e.printStackTrace();}
+            try{con.close();}catch(SQLException e){_log.error(e.getMessage(),e);}
         }
     }
     
@@ -491,9 +490,9 @@ public class Hero
             statement.execute();
             statement.close();
         }
-        catch(SQLException e){e.printStackTrace();}
+        catch(SQLException e){_log.error(e.getMessage(),e);}
         finally{
-            try{con.close();}catch(SQLException e){e.printStackTrace();}
+            try{con.close();}catch(SQLException e){_log.error(e.getMessage(),e);}
         }
     }
 }

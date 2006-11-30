@@ -4,7 +4,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -35,7 +35,7 @@ public class RequestLinkHtml extends ClientBasePacket
 		
 		if(_link.contains("..") || !_link.contains(".htm"))
 		{
-			_log.warning("[RequestLinkHtml] hack? link contains prohibited characters: '"+_link+"', skipped");
+			_log.warn("[RequestLinkHtml] hack? link contains prohibited characters: '"+_link+"', skipped");
 			return;
 		}
 		

@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.serverpackets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2World;
@@ -113,7 +113,7 @@ public class FriendList extends ServerBasePacket
 			statement.close();
 		}
 		catch (Exception e)	{
-			_log.warning("Error found in " + _cha.getName() + "'s FriendList: " + e);
+			_log.warn("Error found in " + _cha.getName() + "'s FriendList: " + e);
 		}
 		finally	{
 			try {con.close();} catch (Exception e) {}

@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.model.quest;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -340,7 +340,7 @@ public final class QuestState
         } 
         catch (Exception e)
         {
-            _log.finer(getPlayer().getName()+": variable "+var+" isn't an integer: " + varint + e);
+            _log.debug(getPlayer().getName()+": variable "+var+" isn't an integer: " + varint + e);
 //	    if (Config.AUTODELETE_INVALID_QUEST_DATA)
 //		exitQuest(true);
         }

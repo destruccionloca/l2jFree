@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -129,7 +129,7 @@ public class SevenSigns
             restoreSevenSignsData();
         }
         catch (Exception e) {
-            _log.severe("SevenSigns: Failed to load configuration: " + e);
+            _log.fatal("SevenSigns: Failed to load configuration: " + e);
         }
         
         _log.info("SevenSigns: Currently in the " + getCurrentPeriodName() + " period!");
@@ -628,8 +628,8 @@ public class SevenSigns
                 sevenDat.set("ancient_adena_amount", rset.getDouble("ancient_adena_amount"));
                 sevenDat.set("contribution_score", rset.getDouble("contribution_score"));
 
-                if (Config.DEBUG)
-                    _log.info("SevenSigns: Loaded data from DB for char ID " + charObjId + " (" + sevenDat.getString("cabal") + ")");
+                if (_log.isDebugEnabled())
+                    _log.debug("SevenSigns: Loaded data from DB for char ID " + charObjId + " (" + sevenDat.getString("cabal") + ")");
                 
                 _signsPlayerData.put(charObjId, sevenDat);
             }
@@ -675,7 +675,7 @@ public class SevenSigns
         }
         catch (SQLException e)
         {
-            _log.severe("SevenSigns: Unable to load Seven Signs data from database: " + e);
+            _log.fatal("SevenSigns: Unable to load Seven Signs data from database: " + e);
         }
         finally
         {
@@ -707,8 +707,8 @@ public class SevenSigns
         Connection con = null;
         PreparedStatement statement = null;
         
-        if (Config.DEBUG)
-            System.out.println("SevenSigns: Saving data to disk.");
+        if (_log.isDebugEnabled())
+            _log.debug("SevenSigns: Saving data to disk.");
         
         try
         {
@@ -737,8 +737,8 @@ public class SevenSigns
                 
                 statement.close();
                 
-                if (Config.DEBUG)
-                    _log.info("SevenSigns: Updated data in database for char ID " + sevenDat.getInteger("char_obj_id") + " (" + sevenDat.getString("cabal") + ")");
+                if (_log.isDebugEnabled())
+                    _log.debug("SevenSigns: Updated data in database for char ID " + sevenDat.getInteger("char_obj_id") + " (" + sevenDat.getString("cabal") + ")");
             }
         
             if (updateSettings) 
@@ -782,14 +782,14 @@ public class SevenSigns
                 statement.close();
                 con.close();
                 
-                if (Config.DEBUG)
-                    _log.info("SevenSigns: Updated data in database.");
+                if (_log.isDebugEnabled())
+                    _log.debug("SevenSigns: Updated data in database.");
                 
             }
         }
         catch (SQLException e)
         {
-            _log.severe("SevenSigns: Unable to save data to database: " + e);
+            _log.fatal("SevenSigns: Unable to save data to database: " + e);
         }
         finally 
         {
@@ -807,8 +807,8 @@ public class SevenSigns
      */
     protected void resetPlayerData()
     {
-        if (Config.DEBUG)
-            _log.info("SevenSigns: Resetting player data for new event period.");
+        if (_log.isDebugEnabled())
+            _log.debug("SevenSigns: Resetting player data for new event period.");
 
         // Reset each player's contribution data as well as seal and cabal.
         for (StatsSet sevenDat : _signsPlayerData.values()) 
@@ -892,12 +892,12 @@ public class SevenSigns
                 statement.close();
                 con.close();
                 
-                if (Config.DEBUG)
+                if (_log.isDebugEnabled())
                     _log.info("SevenSigns: Inserted data in DB for char ID " + currPlayerData.getInteger("char_obj_id") + " (" + currPlayerData.getString("cabal") + ")");
             }
             catch (SQLException e) 
             {
-                _log.severe("SevenSigns: Failed to save data: " + e);
+                _log.fatal("SevenSigns: Failed to save data: " + e);
             }
             finally
             {
@@ -918,7 +918,7 @@ public class SevenSigns
         
         saveSevenSignsData(player, true);
 
-        if (Config.DEBUG) 
+        if (_log.isDebugEnabled()) 
             _log.info("SevenSigns: " + player.getName() + " has joined the " + getCabalName(chosenCabal) + " for the " + getSealName(chosenSeal, false) + "!");
         
         return chosenCabal;
@@ -995,7 +995,7 @@ public class SevenSigns
         
         saveSevenSignsData(player, true);
         
-        if (Config.DEBUG)
+        if (_log.isDebugEnabled())
             _log.info("SevenSigns: " + player.getName() + " contributed " + contribScore + " seal stone points to their cabal.");
         
         return contribScore;
@@ -1108,7 +1108,7 @@ public class SevenSigns
      */
     protected void calcNewSealOwners()
     {
-        if (Config.DEBUG) 
+        if (_log.isDebugEnabled()) 
         {
             _log.info("SevenSigns: (Avarice) Dawn = " + _signsDawnSealTotals.get(SEAL_AVARICE) + ", Dusk = " + _signsDuskSealTotals.get(SEAL_AVARICE));
             _log.info("SevenSigns: (Gnosis) Dawn = " + _signsDawnSealTotals.get(SEAL_GNOSIS) + ", Dusk = " + _signsDuskSealTotals.get(SEAL_GNOSIS));

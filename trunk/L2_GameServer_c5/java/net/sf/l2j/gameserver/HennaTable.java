@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
@@ -75,8 +75,7 @@ public class HennaTable
 			hennadata.close();
 			statement.close();
 			} catch (Exception e) {
-				_log.severe("error while creating henna table " + e);
-				e.printStackTrace();
+				_log.error("error while creating henna table " + e,e);
 			}
 			 
 		} finally {
@@ -109,7 +108,7 @@ public class HennaTable
 			L2Henna template = new L2Henna(hennaDat);
 			_henna.put(id, template);
 		}
-		_log.config("HennaTable: Loaded " + _henna.size() + " Templates.");
+		_log.info("HennaTable: Loaded " + _henna.size() + " Templates.");
 	}
     
 

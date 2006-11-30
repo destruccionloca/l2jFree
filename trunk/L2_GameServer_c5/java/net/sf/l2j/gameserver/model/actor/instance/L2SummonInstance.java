@@ -19,9 +19,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.concurrent.Future;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -29,6 +27,8 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+
+import org.apache.log4j.Logger;
 
 public class L2SummonInstance extends L2Summon
 {
@@ -65,10 +65,10 @@ public class L2SummonInstance extends L2Summon
     	// Otherwise have to destroy items from owner's inventory in order to let summon live.
        	int delay = SUMMON_LIFETIME_INTERVAL / (_itemConsumeSteps + 1);
 
-       	if (Config.DEBUG && (_itemConsumeCount != 0))
-       		_log.warning("L2SummonInstance: Item Consume ID: " + _itemConsumeId + ", Count: " + _itemConsumeCount + ", Rate: " + _itemConsumeSteps + " times.");
-       	if (Config.DEBUG)
-       		_log.warning("L2SummonInstance: Task Delay " + (delay / 1000) + " seconds.");
+       	if (_log.isDebugEnabled() && (_itemConsumeCount != 0))
+       		_log.debug("L2SummonInstance: Item Consume ID: " + _itemConsumeId + ", Count: " + _itemConsumeCount + ", Rate: " + _itemConsumeSteps + " times.");
+       	if (_log.isDebugEnabled())
+       		_log.debug("L2SummonInstance: Task Delay " + (delay / 1000) + " seconds.");
        	
         _summonLifeTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new SummonLifetime(getOwner(), this), delay, delay);
     }
@@ -140,8 +140,8 @@ public class L2SummonInstance extends L2Summon
     
    public synchronized void doDie(L2Character killer)
    {
-           if (Config.DEBUG)
-               _log.warning("L2SummonInstance: " + getTemplate().name + " (" + getOwner().getName() + ") has been killed.");
+           if (_log.isDebugEnabled())
+               _log.warn("L2SummonInstance: " + getTemplate().name + " (" + getOwner().getName() + ") has been killed.");
        
         if (_summonLifeTask != null) {
            _summonLifeTask.cancel(true);
@@ -183,8 +183,8 @@ public class L2SummonInstance extends L2Summon
         
         public void run()
         {
-           	if (Config.DEBUG)
-    			_log.warning("L2SummonInstance: " + _summon.getTemplate().name + " (" + _activeChar.getName() + ") run task.");
+           	if (_log.isDebugEnabled())
+    			_log.warn("L2SummonInstance: " + _summon.getTemplate().name + " (" + _activeChar.getName() + ") run task.");
 
         	// check if life time of summon is ended
             if (_summon.getItemConsumeStepsElapsed() >= _summon.getItemConsumeSteps()) 
@@ -206,8 +206,8 @@ public class L2SummonInstance extends L2Summon
 
 	public void unSummon(L2PcInstance owner)
 	{
-       	if (Config.DEBUG)
-       		_log.warning("L2SummonInstance: " + getTemplate().name + " (" + owner.getName() + ") unsummoned.");
+       	if (_log.isDebugEnabled())
+       		_log.warn("L2SummonInstance: " + getTemplate().name + " (" + owner.getName() + ") unsummoned.");
 
         if (_summonLifeTask != null) {
         	_summonLifeTask.cancel(true);
@@ -223,8 +223,8 @@ public class L2SummonInstance extends L2Summon
 	}
 	public boolean destroyItemByItemId(String process, int itemId, int count, L2Object reference, boolean sendMessage)
 	{
-       	if (Config.DEBUG)
-			_log.warning("L2SummonInstance: " + getTemplate().name + " (" + getOwner().getName() + ") consume.");
+       	if (_log.isDebugEnabled())
+			_log.warn("L2SummonInstance: " + getTemplate().name + " (" + getOwner().getName() + ") consume.");
 	
 		return getOwner().destroyItemByItemId(process, itemId, count, reference, sendMessage);
 	}

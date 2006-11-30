@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -88,7 +88,7 @@ public class AdminUnblockIp implements IAdminCommandHandler
     private boolean unblockIp(String ipAddress, L2PcInstance activeChar)
     {
     	//LoginServerThread.getInstance().unBlockip(ipAddress);
-        _log.warning("IP removed by GM " + activeChar.getName());
+        _log.warn("IP removed by GM " + activeChar.getName());
         return true;
     }
 

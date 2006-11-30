@@ -22,7 +22,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -113,8 +113,8 @@ public final class L2World
     {
         if(_allObjects.get(object.getObjectId()) != null)
         {
-            if (Config.DEBUG)
-                _log.warning("[L2World] objectId "+object.getObjectId()+" already exist in OID map!");
+            if (_log.isDebugEnabled())
+                _log.warn("[L2World] objectId "+object.getObjectId()+" already exist in OID map!");
             return;
         }
 
@@ -343,7 +343,7 @@ public final class L2World
             L2PcInstance tmp = _allPlayers.get(player.getName().toLowerCase());
             if(tmp!= null)
             {
-                _log.warning("Duplicate character!? Closing both characters ("+player.getName()+")");
+                _log.warn("Duplicate character!? Closing both characters ("+player.getName()+")");
                 player.closeNetConnection();
                 tmp.closeNetConnection();
                 return;
@@ -355,7 +355,7 @@ public final class L2World
         // Get all visible objects contained in the _visibleObjects of L2WorldRegions 
         // in a circular area of 2000 units
         L2Object[] visible = getVisibleObjects(object, 2000);
-        if (Config.DEBUG) _log.finest("objects in range:"+visible.length);
+        if (_log.isDebugEnabled()) _log.debug("objects in range:"+visible.length);
         
         // tell the player about the surroundings
         // Go through the visible objects contained in the circular area
@@ -713,7 +713,7 @@ public final class L2World
      */
     private void initRegions()
     {
-        _log.config("L2World: Setting up World Regions");
+        _log.info("L2World: Setting up World Regions");
         
         _worldRegions = new L2WorldRegion[REGIONS_X+1][REGIONS_Y+1];
         
@@ -742,7 +742,7 @@ public final class L2World
             }
         }
         
-        _log.config("L2World: ("+REGIONS_X+" by "+REGIONS_Y+") World Region Grid set up.");
+        _log.info("L2World: ("+REGIONS_X+" by "+REGIONS_Y+") World Region Grid set up.");
         
     }
 

@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -44,7 +44,7 @@ public class RequestPledgeMemberPowerInfo extends ClientBasePacket
 		super(buf, client);
         _not_known  = readD();
         _target = readS();
-        //_log.warning("1.pledge member power info packet started: "+_target);
+        //_log.warn("1.pledge member power info packet started: "+_target);
 	}
 
 	void runImpl()
@@ -56,12 +56,12 @@ public class RequestPledgeMemberPowerInfo extends ClientBasePacket
             if (cm != null && cm.isOnline())
             {
                 getClient().getActiveChar().sendPacket(new PledgeReceivePowerInfo(cm.getPlayerInstance()));
-                //_log.warning("Everything is Ok with this packet: "+_target);
+                //_log.warn("Everything is Ok with this packet: "+_target);
             }            
             //else 
-                //_log.warning("Wtf is worng with this packet");            
+                //_log.warn("Wtf is worng with this packet");            
         }
-        //_log.warning("Wtf is worng with this packet, no clan?!?!?!?!?");
+        //_log.warn("Wtf is worng with this packet, no clan?!?!?!?!?");
 	}
 
 	/* (non-Javadoc)

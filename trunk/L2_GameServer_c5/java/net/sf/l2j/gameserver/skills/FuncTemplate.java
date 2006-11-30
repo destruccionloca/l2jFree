@@ -21,6 +21,8 @@ package net.sf.l2j.gameserver.skills;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author mkizub
  *
@@ -29,6 +31,7 @@ import java.lang.reflect.InvocationTargetException;
  */
 public final class FuncTemplate {
 
+    private static Logger _log = Logger.getLogger(FuncTemplate.class);
 	public Condition _attachCond;
 	public Condition _applayCond;
 	public final Class _func;
@@ -72,13 +75,13 @@ public final class FuncTemplate {
 				f.setCondition(_applayCond);
 			return f;
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+            _log.error(e.getMessage(),e);
 			return null;
 		} catch (InstantiationException e) {
-			e.printStackTrace();
+            _log.error(e.getMessage(),e);
 			return null;
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+            _log.error(e.getMessage(),e);
 			return null;
 		}
 	

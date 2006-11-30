@@ -38,7 +38,6 @@ public class AdminBBS implements IAdminCommandHandler
 	        {
 	    		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 	            {
-	                //System.out.println("Not required level");
 	                return false;
 	            }
 	        }

@@ -25,6 +25,8 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2DropData;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author Luis Arias
  *
@@ -32,6 +34,7 @@ import net.sf.l2j.gameserver.model.L2DropData;
  */
 public class State
 {
+    private static Logger _log = Logger.getLogger(State.class);
 	// TODO - Begins
 	/** Prototype of empty String list */
 	private static final String[] emptyStrList = new String[0];
@@ -108,7 +111,7 @@ public class State
                 _Drops.put(npcId, lst);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
         }
     }
     

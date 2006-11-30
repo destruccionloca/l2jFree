@@ -1,7 +1,7 @@
 package net.sf.l2j.gameserver.instancemanager;
 
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.MapRegionTable;
@@ -21,7 +21,7 @@ public class TownManager
     {
         if (_Instance == null)
         {
-    		System.out.println("Initializing TownManager");
+    		_log.info("Initializing TownManager");
         	_Instance = new TownManager();
         	_Instance.load();
         }

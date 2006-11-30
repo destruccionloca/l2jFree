@@ -4,11 +4,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -17,6 +14,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.stat.CharStat;
 import net.sf.l2j.gameserver.skills.Formulas;
+
+import org.apache.log4j.Logger;
 
 public class CharStatus
 {
@@ -160,7 +159,7 @@ public class CharStatus
 
             // first die (and calculate revards), if currentHp < 0,
             // then overhit may be calculated
-            if (Config.DEBUG) _log.fine("char is dead.");
+            if (_log.isDebugEnabled()) _log.debug("char is dead.");
 
             getActiveChar().abortAttack();
             getActiveChar().abortCast();
@@ -224,7 +223,7 @@ public class CharStatus
     {
         if (_RegTask == null && !getActiveChar().isDead())
         {
-            if (Config.DEBUG) _log.fine("HP/MP/CP regen started");
+            if (_log.isDebugEnabled()) _log.debug("HP/MP/CP regen started");
 
             // Get the Regeneration periode
             int period = Formulas.getInstance().getRegeneratePeriod(getActiveChar());
@@ -246,7 +245,7 @@ public class CharStatus
     {
         if (_RegTask != null)
         {
-            if (Config.DEBUG) _log.fine("HP/MP/CP regen stop");
+            if (_log.isDebugEnabled()) _log.debug("HP/MP/CP regen stop");
 
             // Stop the HP/MP/CP Regeneration task
             _RegTask.cancel(false);
@@ -444,7 +443,7 @@ public class CharStatus
                 else
                     getActiveChar().broadcastStatusUpdate(); //send the StatusUpdate packet
             }
-            catch (Throwable e) { _log.log(Level.SEVERE, "", e); }
+            catch (Throwable e) { _log.fatal( "", e); }
         }
     }
 }

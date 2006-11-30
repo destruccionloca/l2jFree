@@ -1,7 +1,7 @@
 package net.sf.l2j.gameserver.model.quest;
 
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.NpcTable;
@@ -143,7 +143,7 @@ public class QuestPcSpawn
 
                 return spawn.getId();
             }
-          } catch (Exception e1) {_log.warning("Could not spawn Npc " + npcId);}
+          } catch (Exception e1) {_log.warn("Could not spawn Npc " + npcId);}
           
           return 0;
     }

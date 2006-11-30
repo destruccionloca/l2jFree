@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -86,14 +86,14 @@ public class ValidatePosition extends ClientBasePacket
             double dy = _y - realY;
             double diffSq = (dx*dx + dy*dy);
 
-            if (Config.DEVELOPER && false) 
+            if (_log.isDebugEnabled() ) 
                 {
 //                int dxs = (_x - activeChar._lastClientPosition.x); 
 //                int dys = (_y - activeChar._lastClientPosition.y);
 //                int dist = (int)Math.sqrt(dxs*dxs + dys*dys);
 //                int heading = dist > 0 ? (int)(Math.atan2(-dys/dist, -dxs/dist) * 10430.378350470452724949566316381) + 32768 : 0;
-                System.out.println("Client X:" + _x + ", Y:" + _y + ", Z:" + _z + ", H:" + _heading/* + "(" + heading + ")"*/ + ", Dist:" + activeChar.getLastClientDistance(_x, _y, _z));
-                System.out.println("Server X:" + realX + ", Y:" + realY + ", Z:" + realZ + ", H:" + activeChar.getHeading() + ", Dist:" + activeChar.getLastServerDistance(realX, realY, realZ));
+                _log.debug("Client X:" + _x + ", Y:" + _y + ", Z:" + _z + ", H:" + _heading/* + "(" + heading + ")"*/ + ", Dist:" + activeChar.getLastClientDistance(_x, _y, _z));
+                _log.debug("Server X:" + realX + ", Y:" + realY + ", Z:" + realZ + ", H:" + activeChar.getHeading() + ", Dist:" + activeChar.getLastServerDistance(realX, realY, realZ));
                 }
 
             if (diffSq > 0)
@@ -102,14 +102,14 @@ public class ValidatePosition extends ClientBasePacket
                     && (!activeChar.isMoving() // character is not moving, take coordinates from client
                     || !activeChar.validateMovementHeading(_heading))) // Heading changed on client = possible obstacle
                 {
-                    if (Config.DEVELOPER) System.out.println(activeChar.getName() + ": Synchronizing position Client --> Server" + (activeChar.isMoving()?" (collision)":" (stay sync)"));
+                    if (_log.isDebugEnabled()) _log.debug(activeChar.getName() + ": Synchronizing position Client --> Server" + (activeChar.isMoving()?" (collision)":" (stay sync)"));
                     activeChar.setXYZ(_x, _y, _z);
                     activeChar.setHeading(_heading);
                 }
                 else if ((Config.COORD_SYNCHRONIZE & 2) == 2 
                         && diffSq > 10000) // more than can be considered to be result of latency
                 {
-                    if (Config.DEVELOPER) System.out.println(activeChar.getName() + ": Synchronizing position Server --> Client");
+                    if (_log.isDebugEnabled())  _log.debug(activeChar.getName() + ": Synchronizing position Server --> Client");
                     if (activeChar.isInBoat())
                     {
                         sendPacket(new ValidateLocationInVehicle(activeChar));
@@ -146,9 +146,9 @@ public class ValidatePosition extends ClientBasePacket
              if ((dist < 500)&&(dist > 2)) //check it wasnt teleportation, and char isn't there yet
              activeChar.sendPacket(new CharMoveToLocation(activeChar));*/
             
-            if (Config.DEBUG) {
-                _log.fine("client pos: "+ _x + " "+ _y + " "+ _z +" head "+ _heading);
-                _log.fine("server pos: "+ realX + " "+realY+ " "+realZ +" head "+realHeading);
+            if (_log.isDebugEnabled()) {
+                _log.debug("client pos: "+ _x + " "+ _y + " "+ _z +" head "+ _heading);
+                _log.debug("server pos: "+ realX + " "+realY+ " "+realZ +" head "+realHeading);
             }
             
             if (Config.ACTIVATE_POSITION_RECORDER && !activeChar.isFlying() && Universe.getInstance().shouldLog(activeChar.getObjectId()))
@@ -160,7 +160,7 @@ public class ValidatePosition extends ClientBasePacket
                 double dy = _y - realY;
                 double diff2 = (dx*dx + dy*dy);
                 if (diff2 > 1000000) {
-                    if (Config.DEBUG) _log.fine("client/server dist diff "+ (int)Math.sqrt(diff2));
+                    if (_log.isDebugEnabled()) _log.debug("client/server dist diff "+ (int)Math.sqrt(diff2));
                     if (activeChar.isInBoat())
                     {
                         sendPacket(new ValidateLocationInVehicle(activeChar));
@@ -200,7 +200,7 @@ public class ValidatePosition extends ClientBasePacket
 //          obj.removeKnownObject(activeChar);
 //          
 //          }
-//          if (Config.DEBUG) _log.fine("deleted " +delete+" objects");
+//          if (_log.isDebugEnabled()) _log.debug("deleted " +delete+" objects");
 //          }
 //          
 //          
@@ -219,7 +219,7 @@ public class ValidatePosition extends ClientBasePacket
 //          
 //          if (newObjects >0)
 //          {
-//          if (Config.DEBUG) _log.fine("added " + newObjects + " new objects");
+//          if (_log.isDebugEnabled()) _log.debug("added " + newObjects + " new objects");
 //          }
 //          activeChar.updateKnownCounter = 0;  
 //          }

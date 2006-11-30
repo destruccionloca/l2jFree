@@ -18,6 +18,8 @@
  */
 package net.sf.l2j.gameserver.loginserverpackets;
 
+import org.apache.log4j.Logger;
+
 import net.sf.l2j.gameserver.TaskPriority;
 
 /**
@@ -26,6 +28,7 @@ import net.sf.l2j.gameserver.TaskPriority;
  */
 public abstract class LoginServerBasePacket
 {
+    private static Logger _log = Logger.getLogger(LoginServerBasePacket.class);
 	private byte[] _decrypt;
 	private int _off;
 	
@@ -80,7 +83,7 @@ public abstract class LoginServerBasePacket
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            _log.error(e.getMessage(),e);
 		}
 		_off += result.length()*2 + 2;
 		return result;

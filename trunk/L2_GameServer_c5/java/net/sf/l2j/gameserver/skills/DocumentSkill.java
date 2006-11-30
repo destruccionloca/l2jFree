@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.skills;
 
 import java.io.File;
 import java.util.List;
-import java.util.logging.Level;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -82,7 +81,7 @@ final class DocumentSkill extends DocumentBase {
             return tables.get(name)[currentSkill.currentLevel];
         } catch (RuntimeException e)
         {
-            _log.log(Level.SEVERE, "error in table of skill Id "+currentSkill.id, e);
+            _log.fatal( "error in table of skill Id "+currentSkill.id, e);
             return 0;
         }
 	}
@@ -94,7 +93,7 @@ final class DocumentSkill extends DocumentBase {
             return tables.get(name)[idx-1];
         } catch (RuntimeException e)
         {
-            _log.log(Level.SEVERE, "wrong level count in skill Id "+currentSkill.id, e);
+            _log.fatal( "wrong level count in skill Id "+currentSkill.id, e);
             return 0;
         }
 	}
@@ -315,9 +314,9 @@ final class DocumentSkill extends DocumentBase {
 	{
         int count = 0;
         currentSkill.currentSkills = new FastList<L2Skill>(currentSkill.sets.length+currentSkill.enchsets1.length+currentSkill.enchsets2.length);
-        //System.out.println(sets.length);
+        //_log.debugr(sets.length);
 		for (int i=0; i < currentSkill.sets.length; i++)
-        {//System.out.println(i);
+        {//_log.debugr(i);
             try
             {
             currentSkill.currentSkills.add(i, currentSkill.sets[i].getEnum("skillType", SkillType.class).makeSkill(currentSkill.sets[i]));
@@ -325,12 +324,12 @@ final class DocumentSkill extends DocumentBase {
             }
             catch (Exception e)
             {
-                _log.log(Level.SEVERE, "Skill id="+currentSkill.sets[i].getEnum("skillType", SkillType.class).makeSkill(currentSkill.sets[i]).getDisplayId()+"level"+currentSkill.sets[i].getEnum("skillType", SkillType.class).makeSkill(currentSkill.sets[i]).getLevel(), e);
+                _log.fatal( "Skill id="+currentSkill.sets[i].getEnum("skillType", SkillType.class).makeSkill(currentSkill.sets[i]).getDisplayId()+"level"+currentSkill.sets[i].getEnum("skillType", SkillType.class).makeSkill(currentSkill.sets[i]).getLevel(), e);
             }
         }
         int _count = count;
         for (int i=0; i < currentSkill.enchsets1.length; i++)
-        {//System.out.println(i);
+        {//_log.debugr(i);
             try
             {
             currentSkill.currentSkills.add(_count+i, currentSkill.enchsets1[i].getEnum("skillType", SkillType.class).makeSkill(currentSkill.enchsets1[i]));
@@ -338,12 +337,12 @@ final class DocumentSkill extends DocumentBase {
             }
             catch (Exception e)
             {
-                _log.log(Level.SEVERE, "Skill id="+currentSkill.enchsets1[i].getEnum("skillType", SkillType.class).makeSkill(currentSkill.enchsets1[i]).getDisplayId()+" level="+currentSkill.enchsets1[i].getEnum("skillType", SkillType.class).makeSkill(currentSkill.enchsets1[i]).getLevel(), e);
+                _log.fatal( "Skill id="+currentSkill.enchsets1[i].getEnum("skillType", SkillType.class).makeSkill(currentSkill.enchsets1[i]).getDisplayId()+" level="+currentSkill.enchsets1[i].getEnum("skillType", SkillType.class).makeSkill(currentSkill.enchsets1[i]).getLevel(), e);
             }
         }
         _count = count;
         for (int i=0; i < currentSkill.enchsets2.length; i++)
-        {//System.out.println(i);
+        {//_log.debugr(i);
             try
             {
             currentSkill.currentSkills.add(_count+i, currentSkill.enchsets2[i].getEnum("skillType", SkillType.class).makeSkill(currentSkill.enchsets2[i]));
@@ -351,7 +350,7 @@ final class DocumentSkill extends DocumentBase {
             }
             catch (Exception e)
             {
-                _log.log(Level.SEVERE, "Skill id="+currentSkill.enchsets2[i].getEnum("skillType", SkillType.class).makeSkill(currentSkill.enchsets2[i]).getDisplayId()+" level="+currentSkill.enchsets2[i].getEnum("skillType", SkillType.class).makeSkill(currentSkill.enchsets2[i]).getLevel(), e);
+                _log.fatal( "Skill id="+currentSkill.enchsets2[i].getEnum("skillType", SkillType.class).makeSkill(currentSkill.enchsets2[i]).getDisplayId()+" level="+currentSkill.enchsets2[i].getEnum("skillType", SkillType.class).makeSkill(currentSkill.enchsets2[i]).getLevel(), e);
             }
         }
 	}

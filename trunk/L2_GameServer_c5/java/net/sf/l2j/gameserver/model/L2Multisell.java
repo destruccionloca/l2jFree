@@ -5,14 +5,13 @@ package net.sf.l2j.gameserver.model;
 
 import java.io.File;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -36,7 +35,7 @@ public class L2Multisell
             }
         }
 
-        _log.warning("[L2Multisell] cant find list with id: " + id);
+        _log.warn("[L2Multisell] cant find list with id: " + id);
         return null;
     }
 
@@ -259,7 +258,7 @@ public class L2Multisell
         File dir = new File(Config.DATAPACK_ROOT, "data/" + dirname);
         if (!dir.exists())
         {
-            _log.config("Dir " + dir.getAbsolutePath() + " not exists");
+            _log.info("Dir " + dir.getAbsolutePath() + " not exists");
             return;
         }
         File[] files = dir.listFiles();
@@ -289,7 +288,7 @@ public class L2Multisell
             }
             catch (Exception e)
             {
-                _log.log(Level.SEVERE, "Error loading file " + f, e);
+                _log.fatal( "Error loading file " + f, e);
             }
             try
             {
@@ -299,7 +298,7 @@ public class L2Multisell
             }
             catch (Exception e)
             {
-                _log.log(Level.SEVERE, "Error in file " + f, e);
+                _log.fatal( "Error in file " + f, e);
             }
         }
     }

@@ -20,6 +20,8 @@ import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
+import org.apache.log4j.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
@@ -56,7 +58,7 @@ import net.sf.l2j.gameserver.util.DynamicExtension;
 
 public class GameStatusThread extends Thread
 {
-    //private static final Logger _log = Logger.getLogger(AdminTeleport.class.getName());
+    private static final Logger _log = Logger.getLogger(GameStatusThread.class.getName());
     
     private Socket                  _csocket;
     
@@ -376,7 +378,7 @@ public class GameStatusThread extends Thread
                         _usrCommand = _usrCommand.substring(8);
                         if (LoginServer.getInstance().unblockIp(_usrCommand))
                         {
-                            _log.warning("IP removed via TELNET by host: " + _csocket.getInetAddress().getHostAddress());
+                            _log.warn("IP removed via TELNET by host: " + _csocket.getInetAddress().getHostAddress());
                             _print.println("The IP " + _usrCommand + " has been removed from the hack protection list!");
                         }
                         else
@@ -500,7 +502,7 @@ public class GameStatusThread extends Thread
                     	_print.println("Specify a character name.");
                     } catch(Exception e)
                     {
-                        if (Config.DEBUG) e.printStackTrace();
+                        if (_log.isDebugEnabled()) _log.error(e.getMessage(),e);
                     }
                 }
                 else if (_usrCommand.startsWith("unjail"))
@@ -522,7 +524,7 @@ public class GameStatusThread extends Thread
                     	_print.println("Specify a character name.");
                     } catch(Exception e)
                     {
-                        if (Config.DEBUG) e.printStackTrace();
+                        if (_log.isDebugEnabled()) e.printStackTrace();
                     }
                 }
                 else if (_usrCommand.startsWith("debug"))
@@ -807,7 +809,7 @@ public class GameStatusThread extends Thread
        	} catch (SQLException se)
        	{
        		_print.println("SQLException while jailing player");
-            if (Config.DEBUG) se.printStackTrace();
+            if (_log.isDebugEnabled()) se.printStackTrace();
        	} finally
        	{
        		try { con.close(); } catch (Exception e) {}
@@ -840,7 +842,7 @@ public class GameStatusThread extends Thread
        	} catch (SQLException se)
        	{
        		_print.println("SQLException while jailing player");
-            if (Config.DEBUG) se.printStackTrace();
+            if (_log.isDebugEnabled()) se.printStackTrace();
        	} finally
        	{
        		try { con.close(); } catch (Exception e) {}

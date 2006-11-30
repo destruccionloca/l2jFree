@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.Collection;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
@@ -185,7 +185,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
-				if ( Config.DEVELOPER ) System.out.println("Set karma error: "+e);
+				if ( _log.isDebugEnabled() ) _log.debug("Set karma error: "+e);
 				SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
 				activeChar.sendPacket(sm);
 			}
@@ -538,8 +538,8 @@ public class AdminEditChar implements IAdminCommandHandler
 			smA.addString("Successfully Changed karma for "+player.getName()+" from (" + oldKarma + ") to (" + newKarma + ").");		
 			activeChar.sendPacket(smA);			
 			
-			if (Config.DEBUG) 
-				_log.fine("[SET KARMA] [GM]"+activeChar.getName()+" Changed karma for "+player.getName()+" from (" + oldKarma + ") to (" + newKarma + ").");
+			if (_log.isDebugEnabled()) 
+				_log.debug("[SET KARMA] [GM]"+activeChar.getName()+" Changed karma for "+player.getName()+" from (" + oldKarma + ") to (" + newKarma + ").");
 		}
 		else {
 			// tell admin of mistake 
@@ -547,8 +547,8 @@ public class AdminEditChar implements IAdminCommandHandler
 			smA.addString("You must enter a value for karma greater than or equal to 0.");		
 			activeChar.sendPacket(smA);
 			
-			if (Config.DEBUG) 
-				_log.fine("[SET KARMA] ERROR: [GM]"+activeChar.getName()+" entered an incorrect value for new karma: " + newKarma + " for "+player.getName()+".");			
+			if (_log.isDebugEnabled()) 
+				_log.debug("[SET KARMA] ERROR: [GM]"+activeChar.getName()+" entered an incorrect value for new karma: " + newKarma + " for "+player.getName()+".");			
 		}
 	}
 		
@@ -624,8 +624,8 @@ public class AdminEditChar implements IAdminCommandHandler
                            "  Karma: " + karmaval + "  PvP: " + pvpflagval + " / " + pvpkillsval + 
                            "  ClassID: " + ClassId.values()[classidval] + " (" + classidval + ")");
             
-        if (Config.DEBUG) 
-            _log.fine("[GM]"+activeChar.getName()+" changed stats of "+player.getName()+". " +
+        if (_log.isDebugEnabled()) 
+            _log.debug("[GM]"+activeChar.getName()+" changed stats of "+player.getName()+". " +
                       " HP: "+hpval+" MP: "+mpval+" CP: " + cpval + " Karma: "+karmaval+
                       " PvP: "+pvpflagval+" / "+pvpkillsval+ " ClassID: "+classidval);
 		    

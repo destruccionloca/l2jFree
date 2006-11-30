@@ -163,7 +163,7 @@ public class Crypt
 //				buffers[i].put((byte)r.nextInt());
 //		}
 //		// warm
-//		System.out.println("warming...");
+//		_log.debugr("warming...");
 //		for (int i=0; i < 10000000; i++) {
 //			ByteBuffer b = buffers[r.nextInt(buffers.length)];
 //			b.clear();
@@ -173,7 +173,7 @@ public class Crypt
 //		try {Thread.sleep(1000);} catch (Throwable t){}
 //		
 //		// run
-//		System.out.println("started...");
+//		_log.debugr("started...");
 //		long start = System.currentTimeMillis();
 //		for (int i=0; i < 10000000; i++) {
 //			ByteBuffer b = buffers[r.nextInt(buffers.length)];
@@ -181,6 +181,6 @@ public class Crypt
 //			c.decrypt(b);
 //		}
 //		long end = System.currentTimeMillis();
-//		System.out.println("Time "+(end-start)+"ms");
+//		_log.debugr("Time "+(end-start)+"ms");
 //	}
 }

@@ -22,7 +22,7 @@ package net.sf.l2j.gameserver.communitybbs.BB;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
@@ -85,7 +85,7 @@ public class Post
 		}
 		catch (Exception e)
 		{
-			_log.warning("error while saving new Post to db " + e);
+			_log.warn("error while saving new Post to db " + e);
 		}
 		finally
 		{
@@ -133,7 +133,7 @@ public class Post
 		}
 		catch (Exception e)
 		{			
-			e.printStackTrace();
+			_log.error(e.getMessage(),e);
 		}
 		finally
 		{
@@ -176,8 +176,7 @@ public class Post
 		}
 		catch (Exception e)
 		{
-			_log.warning("data error on Post " + t.getForumID() + "/"+t.getID()+" : " + e);
-			e.printStackTrace();
+			_log.warn("data error on Post " + t.getForumID() + "/"+t.getID()+" : " + e,e);
 		}
 		finally
 		{
@@ -210,7 +209,7 @@ public class Post
 		}
 		catch (Exception e)
 		{
-			_log.warning("error while saving new Post to db " + e);
+			_log.warn("error while saving new Post to db " + e);
 		}
 		finally
 		{

@@ -20,13 +20,13 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.BasePacket;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.Connection;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -54,13 +54,13 @@ public abstract class ServerBasePacket extends BasePacket
 	
 	protected ServerBasePacket()
 	{
-		if (Config.DEBUG) _log.fine(getType());
+		if (_log.isDebugEnabled()) _log.debug(getType());
 	}
 	
 	protected ServerBasePacket(Connection con)
 	{
 		super(con);
-		if (Config.DEBUG) _log.fine(getType());
+		if (_log.isDebugEnabled()) _log.debug(getType());
 	}
 	
 	protected final void writeD(int value)
@@ -113,7 +113,7 @@ public abstract class ServerBasePacket extends BasePacket
 		BasePacket bp = super.setConnection(con);
 		if (bp == this)
         {
-//			if (Config.DEVELOPER) System.out.println(getType());
+//			if (Config.DEVELOPER) _log.debugr(getType());
 			runImpl();
         }
 		return bp;
@@ -128,13 +128,13 @@ public abstract class ServerBasePacket extends BasePacket
 			_buf.putShort((short)0);
 			try
 			{
-				if (Config.DEBUG) {
+				if (_log.isDebugEnabled()) {
 					ClientThread client = getClient();
-					_log.finer(getType()+" >>> "+(client==null?"null":client.getLoginName()));
+					_log.debug(getType()+" >>> "+(client==null?"null":client.getLoginName()));
 				}
 				writeImpl();
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, "", e);
+				_log.fatal( "", e);
 				return false;
 			}
 			_buf.flip();

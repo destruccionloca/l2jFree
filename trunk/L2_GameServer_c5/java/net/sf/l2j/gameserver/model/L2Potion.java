@@ -19,10 +19,10 @@
 package net.sf.l2j.gameserver.model;
 
 import java.util.concurrent.Future;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+
+import org.apache.log4j.Logger;
 
 
 /**
@@ -79,7 +79,7 @@ public class L2Potion extends L2Object
 			}
 			catch (Exception e)
 			{
-				_log.warning("Error in hp potion task:"+e);
+				_log.warn("Error in hp potion task:"+e);
 			}
 		}
 	}
@@ -97,7 +97,7 @@ public class L2Potion extends L2Object
 			_potionhpRegTask.cancel(false);
 		}
 		_potionhpRegTask = null;
-		if (Config.DEBUG) _log.fine("Potion HP regen stop");
+		if (_log.isDebugEnabled()) _log.debug("Potion HP regen stop");
 	}
 
 	public void setCurrentHpPotion2()
@@ -172,7 +172,7 @@ public class L2Potion extends L2Object
 			}
 			catch (Exception e)
 			{
-				_log.warning("error in mp potion task:"+e);
+				_log.warn("error in mp potion task:"+e);
 			}
 		}
 	}
@@ -181,7 +181,7 @@ public class L2Potion extends L2Object
 	{
 		_potionmpRegTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(
 				new PotionMpHealing(activeChar), 1000, _milliseconds);
-		if (Config.DEBUG) _log.fine("Potion MP regen Started");
+		if (_log.isDebugEnabled()) _log.debug("Potion MP regen Started");
 	}
 
 	public void stopPotionMpRegeneration()
@@ -192,7 +192,7 @@ public class L2Potion extends L2Object
 		}
 
 		_potionmpRegTask = null;
-		if (Config.DEBUG) _log.fine("Potion MP regen stop");
+		if (_log.isDebugEnabled()) _log.debug("Potion MP regen stop");
 	}
 
 	public void setCurrentMpPotion2()

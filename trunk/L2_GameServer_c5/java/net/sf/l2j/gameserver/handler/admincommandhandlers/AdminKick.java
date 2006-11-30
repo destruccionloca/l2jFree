@@ -22,7 +22,7 @@ public class AdminKick implements IAdminCommandHandler {
         {
     		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
             {
-                //System.out.println("Not required level");
+                //_log.debugr("Not required level");
                 return false;
             }
         }
@@ -32,18 +32,18 @@ public class AdminKick implements IAdminCommandHandler {
         
         if (command.startsWith("admin_kick"))
         {
-            //System.out.println("ADMIN KICK");
+            //_log.debugr("ADMIN KICK");
             StringTokenizer st = new StringTokenizer(command);
-            //System.out.println("Tokens: "+st.countTokens());
+            //_log.debugr("Tokens: "+st.countTokens());
             if (st.countTokens() > 1)
             {
                 st.nextToken();
                 String player = st.nextToken();
-                //System.out.println("Player1 "+player);
+                //_log.debugr("Player1 "+player);
                 L2PcInstance plyr = L2World.getInstance().getPlayer(player);
                 if (plyr != null)
                 {
-                    //System.out.println("Player2 "+plyr.getName());
+                    //_log.debugr("Player2 "+plyr.getName());
                     plyr.logout();
                 }
 				SystemMessage sm = new SystemMessage(614);

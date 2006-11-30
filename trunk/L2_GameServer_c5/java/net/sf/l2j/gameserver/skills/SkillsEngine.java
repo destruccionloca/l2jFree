@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.skills;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -68,7 +68,7 @@ public class SkillsEngine {
 		File dir = new File(Config.DATAPACK_ROOT, dirname);
 		if (!dir.exists())
 		{
-			_log.config("Dir "+dir.getAbsolutePath()+" not exists");
+			_log.info("Dir "+dir.getAbsolutePath()+" not exists");
 			return;
 		}
 		File[] files = dir.listFiles();
@@ -87,7 +87,7 @@ public class SkillsEngine {
 	{
 		if (file == null)
 		{
-			_log.config("File not found: " + file.getName());
+			_log.info("File not found: " + file.getName());
 			return null;
 		}
 		DocumentSkill doc = new DocumentSkill(file);
@@ -109,7 +109,7 @@ public class SkillsEngine {
 				count++;
             }
 		}
-		_log.config("SkillsEngine: Loaded "+count+" Skill templates from XML files.");
+		_log.info("SkillsEngine: Loaded "+count+" Skill templates from XML files.");
 	}
 
     public List<L2Armor> loadArmors(Map<Integer, Item> armorData)

@@ -24,17 +24,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
+
+import org.apache.log4j.Logger;
 
 /**
  * Auto Chat Handler 
@@ -66,10 +66,10 @@ public class AutoChatHandler implements SpawnListener
         java.sql.Connection con = null;
         PreparedStatement statement = null;
         PreparedStatement statement2 = null;
-        PreparedStatement statement3 = null;        
+        //PreparedStatement statement3 = null;        
         ResultSet rs = null;
         ResultSet rs2 = null;
-        ResultSet rs3 = null;
+        //ResultSet rs3 = null;
 
         try
         {
@@ -111,12 +111,12 @@ public class AutoChatHandler implements SpawnListener
 
             statement.close();
 
-            if (Config.DEBUG)
-                _log.config("AutoChatHandler: Loaded " + numLoaded + " chat group(s) from the database.");
+            if (_log.isDebugEnabled())
+                _log.info("AutoChatHandler: Loaded " + numLoaded + " chat group(s) from the database.");
         }
         catch (Exception e)
         {
-            _log.warning("AutoSpawnHandler: Could not restore chat data: " + e);
+            _log.warn("AutoSpawnHandler: Could not restore chat data: " + e);
         }
         finally
         {
@@ -218,8 +218,8 @@ public class AutoChatHandler implements SpawnListener
         _registeredChats.remove(chatInst);
         chatInst.setActive(false);
 
-        if (Config.DEBUG)
-            _log.config("AutoChatHandler: Removed auto chat for NPC ID " + chatInst.getNPCId());
+        if (_log.isDebugEnabled())
+            _log.info("AutoChatHandler: Removed auto chat for NPC ID " + chatInst.getNPCId());
 
         return true;
     }
@@ -304,8 +304,8 @@ public class AutoChatHandler implements SpawnListener
             _defaultDelay = chatDelay;
             _globalChat = isGlobal;
 
-            if (Config.DEBUG)
-                _log.config("AutoChatHandler: Registered auto chat for NPC ID " + _npcId
+            if (_log.isDebugEnabled())
+                _log.info("AutoChatHandler: Registered auto chat for NPC ID " + _npcId
                     + " (Global Chat = " + _globalChat + ").");
 
             setActive(true);
@@ -588,7 +588,7 @@ public class AutoChatHandler implements SpawnListener
                 _chatDelay = chatDelay;
                 _chatTexts = chatTexts;
 
-                if (Config.DEBUG)
+                if (_log.isDebugEnabled())
                     _log.info("AutoChatHandler: Chat definition added for NPC ID "
                         + _npcInstance.getNpcId() + " (Object ID = " + _npcInstance.getObjectId() + ").");
 
@@ -695,7 +695,7 @@ public class AutoChatHandler implements SpawnListener
 
                     if (chatDef == null)
                     {
-                        _log.warning("AutoChatHandler: Auto chat definition is NULL for NPC ID "
+                        _log.warn("AutoChatHandler: Auto chat definition is NULL for NPC ID "
                             + _npcId + ".");
                         return;
                     }
@@ -703,7 +703,7 @@ public class AutoChatHandler implements SpawnListener
                     chatDefinitions = new AutoChatDefinition[] {chatDef};
                 }
 
-                if (Config.DEBUG)
+                if (_log.isDebugEnabled())
                     _log.info("AutoChatHandler: Running auto chat for " + chatDefinitions.length
                         + " instances of NPC ID " + _npcId + "." + " (Global Chat = "
                         + chatInst.isGlobal() + ")");
@@ -800,14 +800,14 @@ public class AutoChatHandler implements SpawnListener
                         for (L2PcInstance nearbyGM : nearbyGMs)
                             nearbyGM.sendPacket(cs);
 
-                        if (Config.DEBUG)
-                            _log.fine("AutoChatHandler: Chat propogation for object ID "
+                        if (_log.isDebugEnabled())
+                            _log.debug("AutoChatHandler: Chat propogation for object ID "
                                 + chatNpc.getObjectId() + " (" + creatureName + ") with text '" + text
                                 + "' sent to " + nearbyPlayers.size() + " nearby players.");
                     }
                     catch (Exception e)
                     {
-                        e.printStackTrace();
+                        _log.error(e.getMessage(),e);
                         return;
                     }
                 }

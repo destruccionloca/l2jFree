@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -63,7 +63,7 @@ public class RequestOustPledgeMember extends ClientBasePacket
 		L2ClanMember member = clan.getClanMember(_target);
 		if (member == null)
 		{
-			_log.warning("target is not member of the clan");
+			_log.warn("target is not member of the clan");
 			return;
 		}
 		

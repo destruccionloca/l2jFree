@@ -19,8 +19,6 @@
 package net.sf.l2j.gameserver.handler.skillhandlers; 
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
@@ -40,6 +38,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
+
+import org.apache.log4j.Logger;
 
 /** 
  * This Handles Disabler skills
@@ -537,14 +537,14 @@ public class Disablers implements ISkillHandler
                                     ISkillHandler Healhandler = SkillHandler.getInstance().getSkillHandler(SkillType.HEAL);
                                     if (Healhandler == null)
                                     {
-                                        _log.severe("Couldn't find skill handler for HEAL.");
+                                        _log.fatal("Couldn't find skill handler for HEAL.");
                                         continue;
                                     }
                                     L2Object tgts[] = new L2Object[]{target};
                                     try {
                                         Healhandler.useSkill(activeChar, skill, tgts);
                                     } catch (IOException e) {
-                                    _log.log(Level.WARNING, "", e);
+                                    _log.warn( "", e);
                                     }
                                   }
                               }//end for                                                              

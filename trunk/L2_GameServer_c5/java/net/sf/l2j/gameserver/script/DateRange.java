@@ -22,12 +22,15 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author Luis Arias
  *
  */
 public class DateRange
 {
+    private static Logger _log = Logger.getLogger(DateRange.class);
 	
     private Date startDate, endDate;
     
@@ -51,8 +54,7 @@ public class DateRange
             } 
             catch (ParseException e)
             {
-                System.err.println("Invalid Date Format.");
-                e.printStackTrace();
+                _log.error("Invalid Date Format.",e);
             }
         }
         return new DateRange(null, null);

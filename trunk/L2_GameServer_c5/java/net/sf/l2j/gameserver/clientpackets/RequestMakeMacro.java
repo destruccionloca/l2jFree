@@ -20,17 +20,19 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2Macro;
 import net.sf.l2j.gameserver.model.L2Macro.L2MacroCmd;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
+import org.apache.log4j.Logger;
+
 public class RequestMakeMacro extends ClientBasePacket
 {
 
 	private final L2Macro _macro;
-    
+    private static Logger _log = Logger.getLogger(ClientBasePacket.class);
+        
 	private static final String _C__C1_REQUESTMAKEMACRO = "[C] C1 RequestMakeMacro";
 	
 	/**
@@ -65,7 +67,7 @@ public class RequestMakeMacro extends ClientBasePacket
 		int _icon = readC();
 		int _count = readC();
 		L2MacroCmd[] commands = new L2MacroCmd[_count];  
-        if (Config.DEBUG) System.out.println("Make macro id:"+_id+"\tname:"+_name+"\tdesc:"+_desc+"\tacronym:"+_acronym+"\ticon:"+_icon+"\tcount:"+_count);
+        if (_log.isDebugEnabled()) _log.debug("Make macro id:"+_id+"\tname:"+_name+"\tdesc:"+_desc+"\tacronym:"+_acronym+"\ticon:"+_icon+"\tcount:"+_count);
         for (int i = 0; i < _count; i++)
         {
             int entry      = readC();
@@ -74,7 +76,7 @@ public class RequestMakeMacro extends ClientBasePacket
             int d2         = readC();
             String command = readS();
 			commands[i] = new L2MacroCmd(entry, type, d1, d2, command);
-            if (Config.DEBUG) System.out.println("entry:"+entry+"\ttype:"+type+"\td1:"+d1+"\td2:"+d2+"\tcommand:"+command);
+            if (_log.isDebugEnabled()) _log.debug("entry:"+entry+"\ttype:"+type+"\td1:"+d1+"\td2:"+d2+"\tcommand:"+command);
         }
 		_macro = new L2Macro(_id, _icon, _name, _desc, _acronym, commands);
 	}

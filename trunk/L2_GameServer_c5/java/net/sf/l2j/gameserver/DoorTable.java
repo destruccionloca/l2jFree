@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.LineNumberReader;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -61,7 +61,7 @@ public class DoorTable
 			lnr = new LineNumberReader(new BufferedReader(new FileReader(doorData)));
 
 			String line = null;
-			_log.warning("Searching clan halls doors:");
+			_log.warn("Searching clan halls doors:");
 
 			while ((line = lnr.readLine()) != null) 
 			{
@@ -76,22 +76,22 @@ public class DoorTable
 				{
 				    clanhall.getDoors().add(door);
 				    door.setClanHall(clanhall);
-                    if (Config.DEBUG)
-                        _log.warning("door "+door.getDoorName()+" attached to ch "+clanhall.getName());
+                    if (_log.isDebugEnabled())
+                        _log.debug("door "+door.getDoorName()+" attached to ch "+clanhall.getName());
 				}
 			}
 
-			_log.config("DoorTable: Loaded " + _staticItems.size() + " Door Templates.");
+			_log.info("DoorTable: Loaded " + _staticItems.size() + " Door Templates.");
 		} 
 		catch (FileNotFoundException e) 
 		{
 			_initialized = false;
-			_log.warning("door.csv is missing in data folder");
+			_log.warn("door.csv is missing in data folder");
 		} 
 		catch (Exception e) 
 		{
 			_initialized = false;
-			_log.warning("error while creating door table " + e);
+			_log.warn("error while creating door table " + e);
 		} 
 		finally 
 		{

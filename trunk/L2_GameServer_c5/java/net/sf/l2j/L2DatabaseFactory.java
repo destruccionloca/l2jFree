@@ -20,8 +20,8 @@ package net.sf.l2j;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
 
@@ -54,7 +54,7 @@ public class L2DatabaseFactory
 			if (Config.DATABASE_MAX_CONNECTIONS < 2)
             {
                 Config.DATABASE_MAX_CONNECTIONS = 2;
-                _log.warning("at least " + Config.DATABASE_MAX_CONNECTIONS + " db connections are required.");
+                _log.warn("at least " + Config.DATABASE_MAX_CONNECTIONS + " db connections are required.");
             }
 
 			PoolConfig config = new PoolConfig();
@@ -101,7 +101,7 @@ public class L2DatabaseFactory
  
 			Class.forName(Config.DATABASE_DRIVER).newInstance();
 
-			if (Config.DEBUG) _log.fine("Database Connection Working");
+			if (_log.isDebugEnabled()) _log.debug("Database Connection Working");
 
 			DataSource unpooled = DataSources.unpooledDataSource(Config.DATABASE_URL, Config.DATABASE_LOGIN, Config.DATABASE_PASSWORD);
 			_source = DataSources.pooledDataSource( unpooled, config);
@@ -116,13 +116,13 @@ public class L2DatabaseFactory
 		}
 		catch (SQLException x)
 		{
-			if (Config.DEBUG) _log.fine("Database Connection FAILED");
+			if (_log.isDebugEnabled()) _log.debug("Database Connection FAILED");
 			// rethrow the exception
 			throw x;
 		}
 		catch (Exception e)
 		{
-			if (Config.DEBUG) _log.fine("Database Connection FAILED");
+			if (_log.isDebugEnabled()) _log.debug("Database Connection FAILED");
 			throw new SQLException("could not init DB connection:"+e);
 		}
 	}
@@ -194,7 +194,7 @@ public class L2DatabaseFactory
 				con=_source.getConnection();
 			} catch (SQLException e)
 			{
-				_log.warning("L2DatabaseFactory: getConnection() failed, trying again "+e);
+				_log.warn("L2DatabaseFactory: getConnection() failed, trying again "+e);
 			}
 		}
 		return con;

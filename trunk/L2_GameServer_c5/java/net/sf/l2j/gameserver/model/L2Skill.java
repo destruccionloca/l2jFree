@@ -21,8 +21,6 @@ package net.sf.l2j.gameserver.model;
 import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.lang.TextBuilder;
 import javolution.util.FastList;
@@ -60,6 +58,8 @@ import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.gameserver.util.Util;
+
+import org.apache.log4j.Logger;
 /**
  * This class...
  * 
@@ -527,7 +527,7 @@ public abstract class L2Skill
                 }
                 catch (Throwable t)
                 {
-                    _log.log(Level.SEVERE, "Bad class "+cls+" to learn skill", t);
+                    _log.fatal( "Bad class "+cls+" to learn skill", t);
                 }
             }
         }
@@ -550,7 +550,7 @@ public abstract class L2Skill
                 }
                 catch (Throwable t)
                 {
-                    _log.log(Level.SEVERE, "Bad teacher id "+npcid+" to teach skill", t);
+                    _log.fatal( "Bad teacher id "+npcid+" to teach skill", t);
                 }
             }
         }

@@ -19,8 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
@@ -28,6 +26,8 @@ import net.sf.l2j.gameserver.BasePacket;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -41,7 +41,7 @@ public abstract class ClientBasePacket extends BasePacket implements Runnable
 	protected ClientBasePacket(ByteBuffer buf, ClientThread client)
 	{
 		super(client);
-		if (Config.DEBUG) _log.fine(getType()+" <<< "+client.getLoginName());
+		if (_log.isDebugEnabled()) _log.debug(getType()+" <<< "+client.getLoginName());
 		_buf = buf;
 		if (Config.ASSERT) assert _buf.position() == 1;
 	}
@@ -54,13 +54,12 @@ public abstract class ClientBasePacket extends BasePacket implements Runnable
 		//assert _isValid;
 		try
 		{
-//            if (Config.DEVELOPER) System.out.println(getType());
             runImpl();
             if (!(this instanceof ValidatePosition || this instanceof Appearing || this instanceof EnterWorld || this instanceof RequestPledgeInfo || this instanceof RequestSkillList || this instanceof RequestQuestList || getClient().getActiveChar() == null)) getClient().getActiveChar().onActionRequest();
 		}
 		catch (Throwable e)
 		{
-			_log.log(Level.SEVERE, "error handling client message "+getType(), e);
+			_log.fatal( "error handling client message "+getType(), e);
 		}
 		
 	}
@@ -104,7 +103,7 @@ public abstract class ClientBasePacket extends BasePacket implements Runnable
 	{
 	    try {
 		return _buf.getDouble();
-	    } catch (Exception e) {e.printStackTrace();}
+	    } catch (Exception e) {_log.error(e.getMessage(),e);}
 	    return 0;
 	}
 

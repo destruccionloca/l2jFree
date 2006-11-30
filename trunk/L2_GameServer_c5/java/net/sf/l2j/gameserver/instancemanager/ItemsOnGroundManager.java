@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver.instancemanager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -29,6 +27,8 @@ import net.sf.l2j.gameserver.ItemsAutoDestroy;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -46,7 +46,7 @@ public class ItemsOnGroundManager
     {
         if (_Instance == null)
         {
-            System.out.println("Initializing ItemsOnGroundManager");
+            _log.info("Initializing ItemsOnGroundManager");
             _Instance = new ItemsOnGroundManager();
             _Instance.load();
         }
@@ -81,10 +81,9 @@ public class ItemsOnGroundManager
             }            
             result.close();
             s.close();
-            System.out.println("Restored " + count + " items on the ground");
+            _log.info("Restored " + count + " items on the ground");
             } catch (Exception e) {
-                _log.log(Level.SEVERE,"error while loading Items on Ground " + e);
-                e.printStackTrace();
+                _log.fatal("error while loading Items on Ground " + e,e);
             }             
         } finally {
             try { con.close(); } catch (Exception e) {}
@@ -113,8 +112,7 @@ public class ItemsOnGroundManager
             statement.execute();
             statement.close();
             } catch (Exception e) {
-                _log.log(Level.SEVERE,"error while inserting into table " + e);
-                e.printStackTrace();
+                _log.fatal("error while inserting into table " + e,e);
             }
              
         } finally {
@@ -136,8 +134,7 @@ public class ItemsOnGroundManager
             statement.execute();
             statement.close();
             } catch (Exception e) {
-                _log.log(Level.SEVERE,"error while inserting into table " + e);
-                e.printStackTrace();
+                _log.fatal("error while inserting into table " + e,e);
             }
              
         } finally {

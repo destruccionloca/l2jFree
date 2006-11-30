@@ -23,7 +23,7 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
@@ -100,12 +100,12 @@ public class FaenorScriptEngine extends ScriptEngine
             }
             catch (ZipException e)
             {
-                e.printStackTrace();
+                _log.error(e.getMessage(),e);
                 continue;
             }
             catch (IOException e)
             {
-                e.printStackTrace();
+                _log.error(e.getMessage(),e);
                 continue;
             }
 
@@ -164,18 +164,18 @@ public class FaenorScriptEngine extends ScriptEngine
             for (ScriptDocument script : scripts)
             {
                 parseScript(script, context);
-                //System.out.println(script.getName());
+                //_log.debugr(script.getName());
             }
         }
         catch (BSFException e)
         {
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
         }
     }
 
     public void parseScript(ScriptDocument script, BSFManager context)
     {
-        if (DEBUG) _log.fine("Parsing Script: " + script.getName());
+        if (DEBUG) _log.debug("Parsing Script: " + script.getName());
 
         Node node = script.getDocument().getFirstChild();
         String parserClass = "faenor.Faenor" + node.getNodeName() + "Parser";
@@ -187,25 +187,23 @@ public class FaenorScriptEngine extends ScriptEngine
         }
         catch (ParserNotCreatedException e)
         {
-            _log.warning("ERROR: No parser registered for Script: " + parserClass);
-            e.printStackTrace();
+            _log.warn("ERROR: No parser registered for Script: " + parserClass,e);
         }
 
         if (parser == null)
         {
-            _log.warning("Unknown Script Type: " + script.getName());
+            _log.warn("Unknown Script Type: " + script.getName());
             return;
         }
 
         try
         {
             parser.parseScript(node, context);
-            _log.fine(script.getName() + "Script Sucessfullty Parsed.");
+            _log.debug(script.getName() + "Script Sucessfullty Parsed.");
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            _log.warning("Script Parsing Failed.");
+            _log.warn("Script Parsing Failed.",e);
         }
     }
 

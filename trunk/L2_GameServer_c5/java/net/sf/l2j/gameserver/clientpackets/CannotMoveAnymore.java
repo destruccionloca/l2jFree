@@ -19,15 +19,15 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.PartyMemberPosition;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -72,8 +72,8 @@ public class CannotMoveAnymore extends ClientBasePacket
 		L2Character player = getClient().getActiveChar();
 		if (player == null)
 		    return;
-		if (Config.DEBUG)
-			_log.fine("client: x:"+_x+" y:"+_y+" z:"+_z+
+		if (_log.isDebugEnabled())
+			_log.debug("client: x:"+_x+" y:"+_y+" z:"+_z+
 					" server x:"+player.getX()+" y:"+player.getY()+" z:"+player.getZ());
 		if (player.getAI() != null)
         {
@@ -84,8 +84,8 @@ public class CannotMoveAnymore extends ClientBasePacket
 
 //		player.stopMove();
 //
-//		if (Config.DEBUG)
-//			_log.fine("client: x:"+_x+" y:"+_y+" z:"+_z+
+//		if (_log.isDebugEnabled())
+//			_log.debug("client: x:"+_x+" y:"+_y+" z:"+_z+
 //					" server x:"+player.getX()+" y:"+player.getZ()+" z:"+player.getZ());
 //		StopMove smwl = new StopMove(player);
 //		getClient().getActiveChar().sendPacket(smwl);

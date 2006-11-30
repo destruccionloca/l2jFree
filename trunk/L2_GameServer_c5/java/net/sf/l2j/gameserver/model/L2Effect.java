@@ -21,8 +21,6 @@ package net.sf.l2j.gameserver.model;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.GameTimeController;
@@ -36,6 +34,8 @@ import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Func;
 import net.sf.l2j.gameserver.skills.FuncTemplate;
 import net.sf.l2j.gameserver.skills.Lambda;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -147,7 +147,7 @@ public abstract class L2Effect
 			}
 			catch (Throwable e)
 			{
-				_log.log(Level.SEVERE, "", e);
+				_log.fatal( "", e);
 			}
 		}
 	}
@@ -199,7 +199,7 @@ public abstract class L2Effect
 		_currentTask = null;
 		_periodfirsttime = newfirsttime;
 		int duration = _period - _periodfirsttime;
-		//_log.warning("Period: "+_period+"-"+_periodfirsttime+"="+duration);
+		//_log.warn("Period: "+_period+"-"+_periodfirsttime+"="+duration);
 		_currentTask = new EffectTask(duration * 1000, -1);
 		_currentFuture = ThreadPoolManager.getInstance().scheduleEffect(
 		                                                             _currentTask, duration * 1000 );

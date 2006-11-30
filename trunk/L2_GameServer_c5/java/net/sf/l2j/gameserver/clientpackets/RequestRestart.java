@@ -19,9 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.model.L2Party;
@@ -31,6 +29,8 @@ import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
 import net.sf.l2j.gameserver.serverpackets.RestartResponse;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -58,7 +58,7 @@ public class RequestRestart extends ClientBasePacket
         L2PcInstance player = getClient().getActiveChar();
         if (player == null)
         {
-            _log.warning("[RequestRestart] activeChar null!?");
+            _log.warn("[RequestRestart] activeChar null!?");
             return;
         }
 
@@ -84,8 +84,8 @@ public class RequestRestart extends ClientBasePacket
 
         if (AttackStanceTaskManager.getInstance().getAttackStanceTask(player))
         {
-            if (Config.DEBUG)
-                _log.fine("Player " + player.getName() + " tried to logout while fighting.");
+            if (_log.isDebugEnabled())
+                _log.debug("Player " + player.getName() + " tried to logout while fighting.");
 
             player.sendPacket(new SystemMessage(SystemMessage.CANT_RESTART_WHILE_FIGHTING));
             player.sendPacket(new ActionFailed());

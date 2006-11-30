@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
 
@@ -73,8 +73,7 @@ public class RecordTable
 			recorddata.close();
 			statement.close();
 			} catch (Exception e) {
-				_log.severe("error while creating record table " + e);
-				e.printStackTrace();
+				_log.error("error while creating record table " + e,e);
 			}
 			 
 		} finally {

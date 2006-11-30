@@ -21,7 +21,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -127,7 +127,7 @@ public class CursedWeapon
                     statement.setInt(2, _itemId);
                     if (statement.executeUpdate() != 1)
                     {
-                        _log.warning("Error while deleting itemId "+ _itemId +" from userId "+ _playerId);
+                        _log.warn("Error while deleting itemId "+ _itemId +" from userId "+ _playerId);
                     }
                     
                     // Delete the skill
@@ -136,7 +136,7 @@ public class CursedWeapon
                     statement.setInt(2, _skillId);
                     if (statement.executeUpdate() != 1)
                     {
-                        _log.warning("Error while deleting skillId "+ _skillId +" from userId "+_playerId);
+                        _log.warn("Error while deleting skillId "+ _skillId +" from userId "+_playerId);
                     }
     
                     // Restore the karma
@@ -146,12 +146,12 @@ public class CursedWeapon
                     statement.setInt(3, _playerId);
                     if (statement.executeUpdate() != 1)
                     {
-                        _log.warning("Error while updating karma & pkkills for userId "+_playerId);
+                        _log.warn("Error while updating karma & pkkills for userId "+_playerId);
                     }
                 }
                 catch (Exception e)
                 {
-                    _log.warning("Could not delete : " + e);
+                    _log.warn("Could not delete : " + e);
                 }
                 finally
                 {
@@ -257,8 +257,8 @@ public class CursedWeapon
         L2Skill skill = SkillTable.getInstance().getInfo(_skillId, level);
         _player.addSkill(skill);
         
-        if (Config.DEBUG)
-            System.out.println("Player "+_player.getName() +" has been awarded with skill "+skill);
+        if (_log.isDebugEnabled())
+            _log.debug("Player "+_player.getName() +" has been awarded with skill "+skill);
     }
     
     
@@ -348,8 +348,8 @@ public class CursedWeapon
     
     public void saveData()
     {
-        if (Config.DEBUG)
-            System.out.println("CursedWeapon: Saving data to disk.");
+        if (_log.isDebugEnabled())
+            _log.debug("CursedWeapon: Saving data to disk.");
 
         Connection con = null;
         PreparedStatement statement = null;
@@ -379,7 +379,7 @@ public class CursedWeapon
         }
         catch (SQLException e)
         {
-            _log.severe("CursedWeapon: Failed to save data: " + e);
+            _log.fatal("CursedWeapon: Failed to save data: " + e);
         }
         finally
         {

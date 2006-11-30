@@ -1,6 +1,6 @@
 package net.sf.l2j.gameserver.model.actor.position;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -54,7 +54,7 @@ public class ObjectPosition
         }
         catch (Exception e)
         {
-            _log.warning("Object Id at bad coords: (x: " + getX() + ", y: " + getY() + ", z: " + getZ() + ").");
+            _log.warn("Object Id at bad coords: (x: " + getX() + ", y: " + getY() + ", z: " + getZ() + ").");
             if (getActiveObject() instanceof L2Character)
                 getActiveObject().decayMe();
             else if (getActiveObject() instanceof L2PcInstance)

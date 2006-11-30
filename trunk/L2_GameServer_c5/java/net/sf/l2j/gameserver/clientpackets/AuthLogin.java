@@ -19,13 +19,13 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.LoginServerThread.SessionKey;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -69,7 +69,7 @@ public class AuthLogin extends ClientBasePacket
 	void runImpl()
 	{
 		SessionKey key = new SessionKey(_loginKey1, _loginKey2, _playKey1, _playKey2);
-		if (Config.DEBUG) {
+		if (_log.isDebugEnabled()) {
 			_log.info("user:" + _loginName);
 			_log.info("key:" + key);
 		}

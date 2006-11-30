@@ -327,7 +327,7 @@ public class PathFindNode
 		    			}
 		    			else
 		    			{
-		    				//System.out.println(((PathNodeLocation)cl).nextNode[i]);
+		    				//_log.debugr(((PathNodeLocation)cl).nextNode[i]);
 		    			}
 	    			}
 	    		}

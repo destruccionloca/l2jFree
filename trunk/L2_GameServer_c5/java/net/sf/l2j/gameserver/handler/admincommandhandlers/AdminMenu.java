@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.sql.PreparedStatement;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -113,19 +113,19 @@ public class AdminMenu implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_kick_menu"))
         {
-            //System.out.println("ADMIN KICK");
+            //_log.debugr("ADMIN KICK");
             StringTokenizer st = new StringTokenizer(command);
-            //System.out.println("Tokens: "+st.countTokens());
+            //_log.debugr("Tokens: "+st.countTokens());
             if (st.countTokens() > 1)
             {
                 st.nextToken();
                 String player = st.nextToken();
-                //System.out.println("Player1 "+player);
+                //_log.debugr("Player1 "+player);
                 L2PcInstance plyr = L2World.getInstance().getPlayer(player);
 				SystemMessage sm = new SystemMessage(614);
 				if (plyr != null)
 				{
-					//System.out.println("Player2 "+plyr.getName());
+					//_log.debugr("Player2 "+plyr.getName());
 					plyr.logout();
 					sm.addString("You kicked " + plyr.getName() + " from the game.");
 				}
@@ -271,7 +271,7 @@ public class AdminMenu implements IAdminCommandHandler
         }
         catch (Exception e)
         {
-            _log.warning("Could not set accessLevl:"+e);
+            _log.warn("Could not set accessLevl:"+e);
         } 
         finally 
         {

@@ -21,8 +21,6 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
@@ -31,6 +29,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.AskJoinFriend;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -117,7 +117,7 @@ public class RequestFriendInvite extends ClientBasePacket{
 		} 
 		catch (Exception e)
 		{
-		    _log.log(Level.WARNING, "could not add friend objectid: ", e);
+		    _log.warn( "could not add friend objectid: ", e);
 		}
 		finally
 		{

@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -93,14 +93,14 @@ public class TradeRequest extends ClientBasePacket
 
         if (player.isProcessingTransaction())
 		{
-			if (Config.DEBUG) _log.fine("already trading with someone");
+			if (_log.isDebugEnabled()) _log.debug("already trading with someone");
 			player.sendPacket(new SystemMessage(SystemMessage.ALREADY_TRADING));
 			return;
 		}
 
 		if (partner.isProcessingRequest() || partner.isProcessingTransaction()) 
 		{
-			_log.fine("transaction already in progress.");
+			_log.debug("transaction already in progress.");
 			SystemMessage sm = new SystemMessage(SystemMessage.S1_IS_BUSY_TRY_LATER);
 			sm.addString(partner.getName());
 			player.sendPacket(sm);

@@ -1,15 +1,17 @@
 package net.sf.l2j.gameserver.model.entity.geodata;
 
+import org.apache.log4j.Logger;
+
+import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.StopMove;
-import javolution.util.FastMap;
 
 
 public class GeoMove
 {
+    private static Logger _log = Logger.getLogger(GeoMove.class);
     public FastMap<Integer,TargetCoord> targetRecorder;
     public int currentTargetId;
     public int currentMoveCounter;
@@ -287,7 +289,7 @@ public class GeoMove
                 if (((L2PcInstance)_actor).getAccessLevel() >= 100 && Config.ALLOW_GEODATA_DEBUG)
                 {
                     _actor.sendMessage("CheckMovement excep: " + e.getMessage());
-                    e.printStackTrace();
+                    _log.error(e.getMessage(),e);
                 }
             }
             return null;

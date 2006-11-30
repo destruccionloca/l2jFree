@@ -1,6 +1,5 @@
 package net.sf.l2j.gameserver.model.actor.status;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
@@ -84,15 +83,15 @@ public class PcStatus extends PlayableStatus
             // Send a System Message to the L2PcInstance
             SystemMessage smsg = new SystemMessage(SystemMessage.S1_GAVE_YOU_S2_DMG);
 
-            if (Config.DEBUG)
-                    _log.fine("Attacker:" + attacker.getName());
+            if (_log.isDebugEnabled())
+                    _log.debug("Attacker:" + attacker.getName());
 
             if (attacker instanceof L2NpcInstance)
             {
                 int mobId = ((L2NpcInstance)attacker).getTemplate().idTemplate;
                 
-                if (Config.DEBUG) 
-                    _log.fine("mob id:" + mobId);
+                if (_log.isDebugEnabled()) 
+                    _log.debug("mob id:" + mobId);
                 
                 smsg.addNpcName(mobId);
             }

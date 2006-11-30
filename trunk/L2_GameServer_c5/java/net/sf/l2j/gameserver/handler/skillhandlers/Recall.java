@@ -1,6 +1,5 @@
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.MapRegionTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -10,9 +9,11 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.log4j.Logger;
+
 public class Recall implements ISkillHandler
 {
-    //private static Logger _log = Logger.getLogger(Recall.class.getName());
+    private static Logger _log = Logger.getLogger(Recall.class.getName());
     protected SkillType[] _skillIds = {SkillType.RECALL};
 
     public void useSkill(@SuppressWarnings("unused") L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, L2Object[] targets)
@@ -57,7 +58,7 @@ public class Recall implements ISkillHandler
                 target.teleToLocation(MapRegionTable.TeleportWhereType.Town);
             }
         } catch (Throwable e) {
-            if (Config.DEBUG) e.printStackTrace();
+            _log.error(e.getMessage(),e);
         }
     }
 

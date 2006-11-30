@@ -237,8 +237,8 @@ public class L2CharacterAI extends AbstractAI
         }
 
         /*
-         if (Config.DEBUG)
-         _log.warning("L2CharacterAI: onIntentionCast -> " + skill + " " + target);
+         if (_log.isDebugEnabled())
+         _log.warn("L2CharacterAI: onIntentionCast -> " + skill + " " + target);
          */
 
         if (_actor.isAllSkillsDisabled())
@@ -263,8 +263,8 @@ public class L2CharacterAI extends AbstractAI
         if (skill.getSkillTime() > 50)
         {
             /*
-             if (Config.DEBUG)
-             _log.warning("L2CharacterAI: onIntentionCast -> stopping current client actions...");
+             if (_log.isDebugEnabled())
+             _log.warn("L2CharacterAI: onIntentionCast -> stopping current client actions...");
              */
 
             // Abort the attack of the L2Character and send Server->Client ActionFailed packet
@@ -863,15 +863,15 @@ public class L2CharacterAI extends AbstractAI
         // Get the distance between the current position of the L2Character and the target (x,y)
         if (target == null)
         {
-            _log.warning("maybeMoveToPawn: target == NULL!");
+            _log.warn("maybeMoveToPawn: target == NULL!");
             return false;
         }
         
         if (!_actor.isInsideRadius(target, offset, false, false))
         {
             /*
-             if (Config.DEBUG)
-             _log.warning("L2CharacterAI: maybeMoveToPawn -> moving to catch target. Casting stopped");
+             if (_log.isDebugEnabled())
+             _log.warn("L2CharacterAI: maybeMoveToPawn -> moving to catch target. Casting stopped");
              */
    	
             if (getFollowTarget() != null) { 
@@ -992,8 +992,8 @@ public class L2CharacterAI extends AbstractAI
         if (target == null)
         {
             /*
-             if (Config.DEBUG)
-             _log.warning("L2CharacterAI: checkTargetLost -> " + target);
+             if (_log.isDebugEnabled())
+             _log.warn("L2CharacterAI: checkTargetLost -> " + target);
              */
 
             // Set the Intention of this AbstractAI to AI_INTENTION_ACTIVE

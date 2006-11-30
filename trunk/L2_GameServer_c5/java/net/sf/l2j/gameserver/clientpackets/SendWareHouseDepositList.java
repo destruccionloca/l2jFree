@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -102,7 +102,7 @@ public class SendWareHouseDepositList extends ClientBasePacket
 			L2ItemInstance item = player.checkItemManipulation(objectId, count, "deposit");
             if (item == null)
             	{
-            	_log.warning("Error depositing a warehouse object for char " + player.getName());
+            	_log.warn("Error depositing a warehouse object for char " + player.getName());
                 _items[i * 2 + 0] = 0;
                 _items[i * 2 + 1] = 0;                
             	continue;
@@ -155,7 +155,7 @@ public class SendWareHouseDepositList extends ClientBasePacket
 
             if (oldItem == null)
             {
-                _log.warning("Error depositing a warehouse object for char " + player.getName());
+                _log.warn("Error depositing a warehouse object for char " + player.getName());
                 continue;
             }            
 
@@ -174,7 +174,7 @@ public class SendWareHouseDepositList extends ClientBasePacket
 			L2ItemInstance newItem = player.getInventory().transferItem("Warehouse", objectId, count, warehouse, player, player.getLastFolkNPC());
             if (newItem == null)
             {
-            	_log.warning("Error depositing a warehouse object for char " + player.getName());
+            	_log.warn("Error depositing a warehouse object for char " + player.getName());
             	continue;
             }
 

@@ -19,12 +19,12 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.serverpackets.PledgeCrest;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -56,7 +56,7 @@ public class RequestPledgeCrest extends ClientBasePacket
 	{
 		if (_crestId == 0)
 		    return;
-		if (Config.DEBUG) _log.fine("crestid " + _crestId + " requested");
+		if (_log.isDebugEnabled()) _log.debug("crestid " + _crestId + " requested");
         
         byte[] data = CrestCache.getInstance().getPledgeCrest(_crestId);
         
@@ -67,7 +67,7 @@ public class RequestPledgeCrest extends ClientBasePacket
 		}
 		else
 		{
-			if (Config.DEBUG) _log.fine("crest is missing:" + _crestId);
+			if (_log.isDebugEnabled()) _log.debug("crest is missing:" + _crestId);
 		}
 	}
 

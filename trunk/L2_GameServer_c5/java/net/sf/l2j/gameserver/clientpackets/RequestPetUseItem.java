@@ -1,9 +1,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
@@ -14,6 +12,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.PetItemList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.log4j.Logger;
 
 public class RequestPetUseItem extends ClientBasePacket
 {
@@ -62,8 +62,8 @@ public class RequestPetUseItem extends ClientBasePacket
             return;
         }
         
-        if (Config.DEBUG) 
-            _log.finest(activeChar.getObjectId()+": pet use item " + _objectId);
+        if (_log.isDebugEnabled()) 
+            _log.debug(activeChar.getObjectId()+": pet use item " + _objectId);
         
         //check if the item matches the pet
         if (item.isEquipable())
@@ -158,11 +158,11 @@ public class RequestPetUseItem extends ClientBasePacket
         }
         else
         {
-            //_log.finest("item not equipable id:"+ item.getItemId());
+            //_log.debug("item not equipable id:"+ item.getItemId());
             IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());
             
             if (handler == null)
-                _log.warning("no itemhandler registered for itemId:" + item.getItemId());
+                _log.warn("no itemhandler registered for itemId:" + item.getItemId());
             else
                 handler.useItem(pet, item);
         }

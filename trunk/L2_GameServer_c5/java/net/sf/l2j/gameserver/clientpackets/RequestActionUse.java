@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -75,8 +75,8 @@ public class RequestActionUse extends ClientBasePacket
         if (activeChar == null)
             return;
         
-        if (Config.DEBUG)
-            _log.finest(activeChar.getName()+" request Action use: id "+_actionId + " 2:" + _ctrlPressed + " 3:"+_shiftPressed);
+        if (_log.isDebugEnabled())
+            _log.debug(activeChar.getName()+" request Action use: id "+_actionId + " 2:" + _ctrlPressed + " 3:"+_shiftPressed);
         
         // dont do anything if player is dead
         if (activeChar.isAlikeDead())
@@ -95,7 +95,7 @@ public class RequestActionUse extends ClientBasePacket
         L2Summon pet = activeChar.getPet();
         L2Object target = activeChar.getTarget();
         
-        if (Config.DEBUG)
+        if (_log.isDebugEnabled())
             _log.info("Requested Action ID: " + String.valueOf(_actionId));
 
         switch (_actionId)
@@ -126,8 +126,8 @@ public class RequestActionUse extends ClientBasePacket
                 else
                     activeChar.sitDown();
                 
-                if (Config.DEBUG) 
-                    _log.fine("new wait type: "+(activeChar.isSitting() ? "STANDING" : "SITTING"));
+                if (_log.isDebugEnabled()) 
+                    _log.debug("new wait type: "+(activeChar.isSitting() ? "STANDING" : "SITTING"));
 
                 break;
             case 1:
@@ -136,8 +136,8 @@ public class RequestActionUse extends ClientBasePacket
                 else
                     activeChar.setRunning();
                 
-                if (Config.DEBUG) 
-                    _log.fine("new move type: "+(activeChar.isRunning() ? "RUNNING" : "WALKIN"));
+                if (_log.isDebugEnabled()) 
+                    _log.debug("new move type: "+(activeChar.isRunning() ? "RUNNING" : "WALKIN"));
                 break;
             case 15:
             case 21: // pet follow/stop
@@ -413,7 +413,7 @@ public class RequestActionUse extends ClientBasePacket
                 useSkill(4708);
                 break;
             default:
-                _log.warning(activeChar.getName()+": unhandled action type "+_actionId);
+                _log.warn(activeChar.getName()+": unhandled action type "+_actionId);
         }
     }
 

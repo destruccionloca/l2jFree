@@ -19,9 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -29,6 +27,8 @@ import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.serverpackets.QuestList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -71,11 +71,11 @@ public class RequestQuestAbort extends ClientBasePacket
                 activeChar.sendPacket(ql);
             } else
             {
-                if (Config.DEBUG) _log.info("Player '"+activeChar.getName()+"' try to abort quest "+qe.getName()+" but he didn't have it started.");
+                if (_log.isDebugEnabled()) _log.info("Player '"+activeChar.getName()+"' try to abort quest "+qe.getName()+" but he didn't have it started.");
             }
         } else
         {
-            if (Config.DEBUG) _log.warning("Quest (id='"+_QuestID+"') not found.");
+            if (_log.isDebugEnabled()) _log.warn("Quest (id='"+_QuestID+"') not found.");
         }
     }
 

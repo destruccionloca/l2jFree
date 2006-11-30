@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
@@ -96,11 +96,11 @@ public class LevelUpData
 			rset.close();
 			statement.close();
 
-			_log.config("LevelUpData: Loaded " + _lvltable.size() + " Character Level Up Templates.");
+			_log.info("LevelUpData: Loaded " + _lvltable.size() + " Character Level Up Templates.");
 		}
 		catch (Exception e)
 		{
-			_log.warning("error while creating Lvl up data table "+e);
+			_log.warn("error while creating Lvl up data table "+e);
 		} 
 		finally 
 		{

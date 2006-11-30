@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -109,7 +109,7 @@ public class CrestCache
 					_bytesBuffLen += content.length;
 				} catch (Exception e)
 				{
-					_log.warning("problem with crest bmp file " + e);
+					_log.warn("problem with crest bmp file " + e);
 				} finally
 				{
 					try
@@ -168,7 +168,7 @@ public class CrestCache
 					statement.close();
 				} catch (SQLException e)
 				{
-					_log.warning("could not update the crest id:"
+					_log.warn("could not update the crest id:"
 							+ e.getMessage());
 				} finally
 				{

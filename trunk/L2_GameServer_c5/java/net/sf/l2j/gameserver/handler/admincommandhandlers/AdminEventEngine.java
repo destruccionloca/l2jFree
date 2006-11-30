@@ -30,6 +30,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
+import org.apache.log4j.Logger;
+
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SpawnTable;
@@ -76,6 +78,7 @@ public class AdminEventEngine implements IAdminCommandHandler {
  private static String tempName = "";
  private static String tempName2 = "";
  private static boolean npcsDeleted = false;
+ private static Logger _log = Logger.getLogger(AdminEventEngine.class);
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
 		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
@@ -114,7 +117,7 @@ public class AdminEventEngine implements IAdminCommandHandler {
                 adminReply.setHtml(replyMSG.toString());
                 activeChar.sendPacket(adminReply); 
                 }
-                catch (Exception e) {System.out.println(e);}
+                catch (Exception e) {_log.error(e);}
             
         }
         else if (command.startsWith("admin_event_del"))
@@ -150,7 +153,7 @@ public class AdminEventEngine implements IAdminCommandHandler {
                 p.println(tempBuffer);
                 file.close();
             }
-            catch (Exception e) {System.out.println(e);}
+            catch (Exception e) {_log.error(e);}
             tempBuffer = "";
             tempName = "";
             showMainPage(activeChar);
@@ -204,7 +207,7 @@ public class AdminEventEngine implements IAdminCommandHandler {
             destroyEventNpcs(); 
             npcsDeleted = true;
             
-            } catch(Exception e) {System.out.println(e);}
+            } catch(Exception e) {_log.error(e);}
             showEventControl(activeChar);
         }
         else if (command.startsWith("admin_event_control_teleport"))

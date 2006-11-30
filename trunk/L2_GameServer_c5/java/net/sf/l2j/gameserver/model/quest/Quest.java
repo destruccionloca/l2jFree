@@ -24,8 +24,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -38,6 +36,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author Luis Arias
@@ -213,7 +213,7 @@ public abstract class Quest
 	 * @return boolean
 	 */
 	private boolean showError(QuestState qs, Throwable t) {
-		_log.log(Level.WARNING, "", t);
+		_log.warn( "", t);
 		if (qs.getPlayer().getAccessLevel() > 0) {
 			StringWriter sw = new StringWriter();
 			PrintWriter pw = new PrintWriter(sw);
@@ -286,7 +286,7 @@ public abstract class Quest
 				// Search quest associated with the ID
 				Quest q = QuestManager.getInstance().getQuest(questId);
 				if (q == null) {
-					_log.finer("Unknown quest "+questId+" for player "+player.getName());
+					_log.debug("Unknown quest "+questId+" for player "+player.getName());
 					if (Config.AUTODELETE_INVALID_QUEST_DATA){
                         invalidQuestData.setInt(1, player.getObjectId());
                         invalidQuestData.setString(2, questId);
@@ -304,7 +304,7 @@ public abstract class Quest
 				// Create an object State containing the state of the quest
 				State state = q.states.get(stateId);
 				if (state == null) {
-					_log.finer("Unknown state "+state+" in quest "+questId+" for player "+player.getName());
+					_log.debug("Unknown state "+state+" in quest "+questId+" for player "+player.getName());
 					if (Config.AUTODELETE_INVALID_QUEST_DATA){
 					    invalidQuestData.setInt(1, player.getObjectId());
                         invalidQuestData.setString(2, questId);
@@ -330,7 +330,7 @@ public abstract class Quest
 				// Get the QuestState saved in the loop before
 				QuestState qs = player.getQuestState(questId);
 				if (qs == null) {
-					_log.finer("Lost variable "+var+" in quest "+questId+" for player "+player.getName());
+					_log.debug("Lost variable "+var+" in quest "+questId+" for player "+player.getName());
 					if (Config.AUTODELETE_INVALID_QUEST_DATA){
 					    invalidQuestDataVar.setInt   (1,player.getObjectId());
                         invalidQuestDataVar.setString(2,questId);
@@ -347,7 +347,7 @@ public abstract class Quest
             statement.close();
 			
 		} catch (Exception e) {
-			_log.log(Level.WARNING, "could not insert char quest:", e);
+			_log.warn( "could not insert char quest:", e);
         } finally {
             try { con.close(); } catch (Exception e) {}
         }
@@ -379,7 +379,7 @@ public abstract class Quest
 	    statement.executeUpdate();
             statement.close();
         } catch (Exception e) {
-			_log.log(Level.WARNING, "could not insert char quest:", e);
+			_log.warn( "could not insert char quest:", e);
         } finally {
             try { con.close(); } catch (Exception e) {}
         }
@@ -413,7 +413,7 @@ public abstract class Quest
 			statement.executeUpdate();
             statement.close();
         } catch (Exception e) {
-			_log.log(Level.WARNING, "could not update char quest:", e);
+			_log.warn( "could not update char quest:", e);
         } finally {
             try { con.close(); } catch (Exception e) {}
         }
@@ -437,7 +437,7 @@ public abstract class Quest
 	    statement.executeUpdate();
             statement.close();
         } catch (Exception e) {
-			_log.log(Level.WARNING, "could not delete char quest:", e);
+			_log.warn( "could not delete char quest:", e);
         } finally {
             try { con.close(); } catch (Exception e) {}
         }
@@ -459,7 +459,7 @@ public abstract class Quest
 			statement.executeUpdate();
             statement.close();
         } catch (Exception e) {
-			_log.log(Level.WARNING, "could not delete char quest:", e);
+			_log.warn( "could not delete char quest:", e);
         } finally {
             try { con.close(); } catch (Exception e) {}
         }

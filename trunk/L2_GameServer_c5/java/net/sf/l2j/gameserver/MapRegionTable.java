@@ -22,7 +22,7 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -92,17 +92,17 @@ public class MapRegionTable
 				{
 					_regions[j][region] = rset.getInt(j+2);
 					count2++;
-					//_log.fine(j+","+region+" -> "+rset.getInt(j+2));
+					//_log.debug(j+","+region+" -> "+rset.getInt(j+2));
 				}
 			}
 			
 			rset.close();
 			statement.close();
-			if (Config.DEBUG) _log.fine(count2 +" mapregion loaded");
+			if (_log.isDebugEnabled()) _log.debug(count2 +" mapregion loaded");
 		}
 		catch (Exception e)
 		{
-			_log.warning("error while creating map region data: "+e);
+			_log.warn("error while creating map region data: "+e);
 		} 
 		finally 
 		{

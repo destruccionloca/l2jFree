@@ -170,10 +170,10 @@ public class L2RaceManagerInstance extends L2NpcInstance
             case SystemMessage.MONSRACE_TICKETS_AVAILABLE_FOR_S1_RACE:
             case SystemMessage.MONSRACE_TICKETS_NOW_AVAILABLE_FOR_S1_RACE:
                 if (state != ACCEPTING_BETS)
-                {//System.out.println("Race Initializing");
+                {//_log.debugr("Race Initializing");
                     state = ACCEPTING_BETS;
                     startRace();
-                }//else{System.out.println("Race open");}
+                }//else{_log.debugr("Race open");}
                 sm.addNumber(raceNumber);
                 break;
             case SystemMessage.MONSRACE_TICKETS_STOP_IN_S1_MINUTES:
@@ -184,7 +184,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
                 minutes--;
                 break;
             case SystemMessage.MONSRACE_TICKET_SALES_CLOSED:
-                //System.out.println("Sales closed");
+                //_log.debugr("Sales closed");
                 sm.addNumber(raceNumber);
                 state = WAITING;
                 minutes = 2;
@@ -195,20 +195,20 @@ public class L2RaceManagerInstance extends L2NpcInstance
                 minutes = 5;
                 break;
             case SystemMessage.MONSRACE_FIRST_PLACE_S1_SECOND_S2:
-                //System.out.println("Placing");
+                //_log.debugr("Placing");
                 state = RACE_END;
                 sm.addNumber(MonsterRace.getInstance().getFirstPlace());
                 sm.addNumber(MonsterRace.getInstance().getSecondPlace());
                 break;
         }
-        //System.out.println("Counter: "+minutes);
-        //System.out.println("State: "+state);
+        //_log.debugr("Counter: "+minutes);
+        //_log.debugr("State: "+state);
         broadcast(sm);
-        //System.out.println("Player's known: "+getKnownPlayers().size());
+        //_log.debugr("Player's known: "+getKnownPlayers().size());
 
         if (type == SystemMessage.MONSRACE_RACE_START)
         {
-            //System.out.println("Starting race");
+            //_log.debugr("Starting race");
             state = STARTING_RACE;
             startRace();
             minutes = 5;

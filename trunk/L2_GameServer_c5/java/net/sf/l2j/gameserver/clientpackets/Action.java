@@ -19,9 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -29,6 +27,8 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -68,8 +68,8 @@ public class Action extends ClientBasePacket
 
 	void runImpl()
 	{
-		if (Config.DEBUG) _log.fine("Action:" + _actionId);
-		if (Config.DEBUG) _log.fine("oid:" + _objectId);
+		if (_log.isDebugEnabled()) _log.debug("Action:" + _actionId);
+		if (_log.isDebugEnabled()) _log.debug("oid:" + _objectId);
         
         // Get the current L2PcInstance of the player
         L2PcInstance activeChar = getClient().getActiveChar();
@@ -104,8 +104,8 @@ public class Action extends ClientBasePacket
 		{
 			activeChar.sendPacket(new ActionFailed());
             
-            if (Config.DEBUG)
-                _log.warning("object not found, oid "+_objectId+ " or player is dead");
+            if (_log.isDebugEnabled())
+                _log.warn("object not found, oid "+_objectId+ " or player is dead");
 		}
 	}
 

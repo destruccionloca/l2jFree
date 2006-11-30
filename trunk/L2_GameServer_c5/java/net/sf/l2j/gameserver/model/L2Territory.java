@@ -9,7 +9,7 @@
 package net.sf.l2j.gameserver.model;
 
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.lib.Rnd;
@@ -62,7 +62,7 @@ public class L2Territory
 	public void print()
 	{
 		for(Point p : _points)
-			System.out.println("("+p.x+","+p.y+")");
+			_log.debug("("+p.x+","+p.y+")");
 	}
 
 	public boolean isIntersect(int x, int y, Point p1, Point p2)
@@ -140,7 +140,7 @@ public class L2Territory
 			    return p;
 			}
 		}
-		_log.warning("Can't make point for territory"+_terr);
+		_log.warn("Can't make point for territory"+_terr);
 		return p;
 	}
     	public int getProcMax()

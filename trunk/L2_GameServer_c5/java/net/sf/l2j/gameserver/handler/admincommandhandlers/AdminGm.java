@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GmListTable;
@@ -67,7 +67,7 @@ public class AdminGm implements IAdminCommandHandler {
             
             activeChar.sendMessage("You no longer have GM status.");
             
-			if (Config.DEBUG) _log.fine("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") turned his GM status off");
+			if (_log.isDebugEnabled()) _log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") turned his GM status off");
 		} 
         else {
             GmListTable.getInstance().addGm(activeChar);
@@ -75,7 +75,7 @@ public class AdminGm implements IAdminCommandHandler {
             
 			activeChar.sendMessage("You now have GM status.");
             
-			if (Config.DEBUG) _log.fine("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") turned his GM status on");
+			if (_log.isDebugEnabled()) _log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") turned his GM status on");
 		}
 	}
 }

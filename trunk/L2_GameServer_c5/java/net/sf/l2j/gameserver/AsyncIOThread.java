@@ -5,7 +5,7 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -73,23 +73,23 @@ public class AsyncIOThread extends IOThread implements ICompletionListener
             if ("*".equals(_host))
             {
                 endpoint = new InetSocketAddress(_port);
-                _log.config("IOCP listening on all available IPs on Port " + _port);
+                _log.info("IOCP listening on all available IPs on Port " + _port);
             }
             else
             {
                 endpoint = new InetSocketAddress(_host, _port);
-                _log.config("IOCP listening on IP: " + _host + " Port " + _port);
+                _log.info("IOCP listening on IP: " + _host + " Port " + _port);
             }
             // Bind to a listening socket addess.
             serverSocket.bind(endpoint);
         }
         catch (AsyncException ax)
         {
-            ax.printStackTrace();
+            _log.error(ax);
         }
         catch (IOException iox)
         {
-            iox.printStackTrace();
+            _log.error(iox);
             return;
         }
 
@@ -99,7 +99,7 @@ public class AsyncIOThread extends IOThread implements ICompletionListener
             {
                 // Listen for client connections.
                 AsyncSocketChannel clientChannel = serverChannel.accept();
-                System.out.println("Conn from " + clientChannel.socket());
+                _log.debug("Conn from " + clientChannel.socket());
                 
                 IOCP Iocp = new IOCP(new ClientThread(clientChannel), Read_State);
 
@@ -110,7 +110,7 @@ public class AsyncIOThread extends IOThread implements ICompletionListener
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                _log.error(e);
             }
         }
     }
@@ -145,7 +145,7 @@ public class AsyncIOThread extends IOThread implements ICompletionListener
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            _log.error (e);
         }
 
         if (iocp._state == Read_State)
@@ -222,7 +222,7 @@ public class AsyncIOThread extends IOThread implements ICompletionListener
             _log.info("ToWrite = "+ToWrite);
             if (pkt.getConnection().getAsyncChannel() == null)
             {
-                _log.warning("getAsyncChannel() == null!!");
+                _log.warn("getAsyncChannel() == null!!");
             }
             IAsyncFuture writeFuture = pkt.getConnection().getAsyncChannel().write(buf);
             // When operation will be done the listener will be notify.
@@ -230,7 +230,7 @@ public class AsyncIOThread extends IOThread implements ICompletionListener
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            _log.error(e);
         }
     }
     

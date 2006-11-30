@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -31,7 +31,7 @@ public class SiegeManager
     {
         if (_Instance == null)
         {
-    		System.out.println("Initializing SiegeManager");
+    		_log.info("Initializing SiegeManager");
         	_Instance = new SiegeManager();
         	_Instance.load();
         }
@@ -139,8 +139,7 @@ public class SiegeManager
         }
         catch (Exception e)
         {
-            System.out.println("Exception: checkIsRegistered(): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: checkIsRegistered(): " + e.getMessage(),e);
         } 
         finally 
         {
@@ -178,8 +177,7 @@ public class SiegeManager
             _Siege_Length = Integer.decode(siegeSettings.getProperty("SiegeLength", "120"));
         } catch (Exception e) {
             //_initialized = false;
-            System.err.println("Error while loading siege data.");
-            e.printStackTrace();
+            _log.error("Error while loading siege data.",e);
         }
     }
 

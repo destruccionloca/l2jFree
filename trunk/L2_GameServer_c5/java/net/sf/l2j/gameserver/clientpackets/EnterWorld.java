@@ -23,7 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Base64;
 import net.sf.l2j.Config;
@@ -106,14 +106,14 @@ public class EnterWorld extends ClientBasePacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
         { 
-            _log.warning("EnterWorld failed! activeChar is null..."); 			
+            _log.warn("EnterWorld failed! activeChar is null..."); 			
 		    return;
         }
 
 		if (L2World.getInstance().findObject(activeChar.getObjectId()) != null) 
         { 
-			if(Config.DEBUG)
-					_log.warning("User already exist in OID map! User "+activeChar.getName()+" is character clone"); 
+			if (_log.isDebugEnabled())
+					_log.warn("User already exist in OID map! User "+activeChar.getName()+" is character clone"); 
                 //activeChar.closeNetConnection(); 
         }
 	 	
@@ -423,7 +423,7 @@ public class EnterWorld extends ClientBasePacket
             sm = null;            
         } 
 		catch (Exception e) {
-            _log.warning("could not restore friend data:"+e);
+            _log.warn("could not restore friend data:"+e);
         } 
 		finally {
             try {con.close();} catch (Exception e){}

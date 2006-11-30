@@ -135,7 +135,7 @@ public abstract class L2Summon extends L2PlayableInstance
         }
         else
         {
-            if (Config.DEBUG) _log.fine("new target selected:"+getObjectId());
+            if (_log.isDebugEnabled()) _log.debug("new target selected:"+getObjectId());
             player.setTarget(this);
             MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
             player.sendPacket(my);

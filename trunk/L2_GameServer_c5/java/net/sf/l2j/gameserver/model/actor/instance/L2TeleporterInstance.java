@@ -25,7 +25,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
  */
 
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.TeleportLocationTable;
@@ -192,13 +192,13 @@ public final class L2TeleporterInstance extends L2FolkInstance
             }            
             else if(player.reduceAdena("Teleport", list.getPrice(), this, true))
 			{
-            					if (Config.DEBUG) _log.fine("Teleporting player "+player.getName()+" to new location: "+list.getLocX()+":"+list.getLocY()+":"+list.getLocZ());
+            					if (_log.isDebugEnabled()) _log.debug("Teleporting player "+player.getName()+" to new location: "+list.getLocX()+":"+list.getLocY()+":"+list.getLocZ());
             	               	player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ());
 			}
 		}
 		else
 		{
-			_log.warning("No teleport destination with id:" +val);
+			_log.warn("No teleport destination with id:" +val);
 		}
 		player.sendPacket( new ActionFailed() );
 	}

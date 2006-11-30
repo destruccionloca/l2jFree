@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
@@ -271,7 +271,7 @@ public class L2TradeList
 			
             if(playerItem == null)
             {
-                _log.warning("L2TradeList: PlayersInv.destroyItem returned NULL!");
+                _log.warn("L2TradeList: PlayersInv.destroyItem returned NULL!");
                 continue;
             }
             
@@ -324,7 +324,7 @@ public class L2TradeList
             statement.executeUpdate();
             statement.close();
         }
-        catch (Exception e) { _log.warning("could not change pet item object id: " + e); }
+        catch (Exception e) { _log.warn("could not change pet item object id: " + e); }
         finally { try { con.close(); } catch (Exception e) {} }
     }
     
@@ -440,7 +440,7 @@ public class L2TradeList
 		        }
                 if (buyerItem.getCount() > Integer.MAX_VALUE / buyerItem.getOwnersPrice())
                 {
-                    _log.warning("Integer Overflow on Cost. Possible Exploit attempt between "+buyer.getName()+" and "+seller.getName()+".");
+                    _log.warn("Integer Overflow on Cost. Possible Exploit attempt between "+buyer.getName()+" and "+seller.getName()+".");
                     return;
                 }
                 //int cost = amount * buyerItem.getOwnersPrice();

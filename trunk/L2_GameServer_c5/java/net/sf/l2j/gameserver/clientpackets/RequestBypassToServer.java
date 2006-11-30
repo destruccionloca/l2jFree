@@ -19,8 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -37,6 +35,8 @@ import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.TvT;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -81,7 +81,7 @@ public class RequestBypassToServer extends ClientBasePacket
 				if (ach != null)
 					ach.useAdminCommand(_command, activeChar);
 				else
-					_log.warning("No handler registered for bypass '"+_command+"'");
+					_log.warn("No handler registered for bypass '"+_command+"'");
 			}
 			else if (_command.equals("come_here") && activeChar.getAccessLevel() >= Config.GM_ACCESSLEVEL)
 			{
@@ -190,7 +190,7 @@ public class RequestBypassToServer extends ClientBasePacket
 					player.processQuestEvent(p.substring(0, idx), p.substring(idx).trim());
 			}
 		} catch (Exception e) {
-			_log.log(Level.WARNING, "Bad RequestBypassToServer: ", e);
+			_log.warn( "Bad RequestBypassToServer: ", e);
 		}
 //		finally
 //		{

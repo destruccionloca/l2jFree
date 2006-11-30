@@ -23,7 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.lang.TextBuilder;
 import javolution.util.FastList;
@@ -151,7 +151,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         }
         else if(command.startsWith("admin_save_npc "))
         {
-            //System.out.println("- " + command);
+            //_log.debugr("- " + command);
             try
             {
                 save_npc_property(command.substring(14).trim());
@@ -191,7 +191,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
                     }
                     catch(Exception e)
                     {
-                        _log.fine("admin_edit_drop parements error: " + command);
+                        _log.debug("admin_edit_drop parements error: " + command);
                     }
                 }
                 else
@@ -248,7 +248,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
                     }
                     catch(Exception e)
                     {
-                        _log.fine("admin_add_drop parements error: " + command);
+                        _log.debug("admin_add_drop parements error: " + command);
                     }
                 }
                 else
@@ -495,7 +495,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         replyMSG.append("<tr><td width=150>Item Name</td><td width=60>Price</td><td width=40>Delete</td></tr>");
         int start = ((page-1) * PAGE_LIMIT);
         int end = Math.min(((page-1) * PAGE_LIMIT) + (PAGE_LIMIT-1), tradeList.getItems().size() - 1);
-        //System.out.println(end);
+        //_log.debugr(end);
         for (L2ItemInstance item : tradeList.getItems(start, end+1))
         {
             replyMSG.append("<tr><td><a action=\"bypass -h admin_editShopItem "+tradeList.getListId()+" "+item.getItemId()+"\">"+item.getItem().getName()+"</a></td>");
@@ -568,7 +568,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             PreparedStatement stmt = con.prepareStatement("INSERT INTO merchant_buylists values ("+itemID+","+price+","+tradeListID+","+order+")");
             stmt.execute();
             stmt.close();
-        }catch (SQLException esql) {esql.printStackTrace();}
+        }catch (SQLException esql) {_log.error(esql.getMessage(),esql);}
     }
     
     private void updateTradeList(int itemID, int price, int tradeListID, int order)
@@ -580,7 +580,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             PreparedStatement stmt = con.prepareStatement("UPDATE merchant_buylists SET `price`='"+price+"' WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
             stmt.execute();
             stmt.close();
-        }catch (SQLException esql) {esql.printStackTrace();}
+        }catch (SQLException esql) {_log.error(esql.getMessage(),esql);}
     }
     
     private void deleteTradeList(int tradeListID, int order)
@@ -592,7 +592,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             PreparedStatement stmt = con.prepareStatement("DELETE FROM merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
             stmt.execute();
             stmt.close();
-        }catch (SQLException esql) {esql.printStackTrace();}
+        }catch (SQLException esql) {_log.error(esql.getMessage(),esql);}
     }
     
     private int  findOrderTradeList(int itemID, int price, int tradeListID)
@@ -606,8 +606,8 @@ public class AdminEditNpc implements IAdminCommandHandler {
             ResultSet rs = stmt.executeQuery();
             rs.first();
             return rs.getInt("order");
-        }catch (SQLException esql) {esql.printStackTrace();}
-        finally{ try {con.close();} catch (SQLException e) {e.printStackTrace();}}
+        }catch (SQLException esql) {_log.error(esql.getMessage(),esql);}
+        finally{ try {con.close();} catch (SQLException e) {_log.error(e.getMessage(),e);}}
         return order;
     }
 
@@ -636,7 +636,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             if (pos >= 0)
             {
                 int tradeListID = Integer.decode((line.substring(pos+target.length()+1)).split("\"")[0]);
-                //System.out.println(tradeListID);
+                //_log.debugr(tradeListID);
                 tradeLists.add(TradeController.getInstance().getBuyList(tradeListID));
             }
         }
@@ -700,7 +700,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
     
     private void save_npc_property(String modifications)
     {
-        //System.out.println("- modifications:" + modifications);
+        //_log.debugr("- modifications:" + modifications);
         
 //      L2NpcTemplate npcData = null;//NpcTable.getInstance().getTemplate()
         StatsSet npcData = new StatsSet();
@@ -716,8 +716,6 @@ public class AdminEditNpc implements IAdminCommandHandler {
                 }
                 String name = st2.nextToken().trim();
                 String value = st2.nextToken().trim();
-                
-                //System.out.println(" - " + name + "=" + value);
                 
                 if(name.equals("id")){
                     npcData.set("npcId", Integer.parseInt(value));
@@ -798,7 +796,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         }
         catch(Exception e)
         {
-            _log.fine("save Npc data error");
+            _log.error("save Npc data error",e);
         }
         
 //      L2NpcTemplate template = new L2NpcTemplate(npcData);
@@ -972,13 +970,13 @@ public class AdminEditNpc implements IAdminCommandHandler {
             }
                 
         }
-        catch(Exception e){ e.printStackTrace(); }
+        catch(Exception e){ _log.error(e.getMessage(),e); }
         finally
         {
             try { con.close(); } catch (Exception e) {}
         }
         
-        //System.out.println("- updateDropData end");
+        //_log.debugr("- updateDropData end");
     }
     
     private void addDropData(L2PcInstance admin, int npcId, int itemId, int min, int max, boolean sweep, int chance)
@@ -1024,7 +1022,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             try { con.close(); } catch (Exception e) {}
         }           
         
-        //System.out.println("- addDropData end");
+        //_log.debugr("- addDropData end");
     }
     
     private void deleteDropData(L2PcInstance admin, int npcId, int itemId)

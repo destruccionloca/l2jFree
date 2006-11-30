@@ -22,7 +22,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -64,7 +64,7 @@ public class AdminCommandHandler
 		String[] ids = handler.getAdminCommandList();
 		for (int i = 0; i < ids.length; i++)
 		{
-			if (Config.DEBUG) _log.fine("Adding handler for command "+ids[i]);
+			if (_log.isDebugEnabled()) _log.debug("Adding handler for command "+ids[i]);
 			_datatable.put(new String(ids[i]), handler);
 		}
 	}
@@ -75,8 +75,8 @@ public class AdminCommandHandler
 		if (adminCommand.indexOf(" ") != -1) {
 			command = adminCommand.substring(0, adminCommand.indexOf(" "));
 		}
-		if (Config.DEBUG)
-			_log.fine("getting handler for command: "+command+
+		if (_log.isDebugEnabled())
+			_log.debug("getting handler for command: "+command+
 					" -> "+(_datatable.get(new String(command)) != null));
 		return _datatable.get(command);
 	}
@@ -156,7 +156,7 @@ public class AdminCommandHandler
         
         if (player.getAccessLevel() < requireLevel)
         {
-            _priviLog.warning("<GM>" + player.getName() + ": have not access level to execute the command '" + command +"'");  
+            _priviLog.warn("<GM>" + player.getName() + ": have not access level to execute the command '" + command +"'");  
             return false;
         }
         

@@ -25,8 +25,6 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -41,6 +39,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -92,7 +91,7 @@ public class CursedWeaponsManager
     }
     private final void load()
     {
-        if (Config.DEBUG)
+        if (_log.isDebugEnabled())
             System.out.print("  Parsing ... ");
         try
         {
@@ -103,8 +102,8 @@ public class CursedWeaponsManager
             File file = new File(Config.DATAPACK_ROOT+"/data/cursedWeapons.xml");
             if (!file.exists())
             {
-                if (Config.DEBUG)
-                    System.out.println("NO FILE");
+                if (_log.isDebugEnabled())
+                    _log.debug("NO FILE");
                 return;
             }
             
@@ -163,21 +162,21 @@ public class CursedWeaponsManager
                 }
             }
 
-            if (Config.DEBUG)
-                System.out.println("OK");
+            if (_log.isDebugEnabled())
+                _log.debug("OK");
         }
         catch (Exception e)
         {
-            _log.log(Level.SEVERE, "Error parsing cursed weapons file.", e);
+            _log.fatal( "Error parsing cursed weapons file.", e);
             
-            if (Config.DEBUG)
-                System.out.println("ERROR");
+            if (_log.isDebugEnabled())
+                _log.debug("ERROR");
             return ;
         }
     }
     private final void restore()
     {
-        if (Config.DEBUG)
+        if (_log.isDebugEnabled())
             System.out.print("  Restoring ... ");
         java.sql.Connection con = null;
         try
@@ -209,15 +208,15 @@ public class CursedWeaponsManager
             rset.close();
             statement.close();
 
-            if (Config.DEBUG)
-                System.out.println("OK");
+            if (_log.isDebugEnabled())
+                _log.debug("OK");
         }
         catch (Exception e)
         {
-            _log.warning("Could not restore CursedWeapons data: " + e);
+            _log.warn("Could not restore CursedWeapons data: " + e);
 
-            if (Config.DEBUG)
-                System.out.println("ERROR");
+            if (_log.isDebugEnabled())
+                _log.debug("ERROR");
             return;
         }
         finally
@@ -227,7 +226,7 @@ public class CursedWeaponsManager
     }
     private final void controlPlayers()
     {
-        if (Config.DEBUG)
+        if (_log.isDebugEnabled())
             System.out.print("  Checking players ... ");
         
         java.sql.Connection con = null;
@@ -262,7 +261,7 @@ public class CursedWeaponsManager
                         statement.setInt(2, itemId);
                         if (statement.executeUpdate() != 1)
                         {
-                            _log.warning("Error while deleting cursed weapon "+itemId+" from userId "+playerId);
+                            _log.warn("Error while deleting cursed weapon "+itemId+" from userId "+playerId);
                         }
                         
                         // Delete the skill
@@ -271,7 +270,7 @@ public class CursedWeaponsManager
                         statement.setInt(2, cw.getSkillId());
                         if (statement.executeUpdate() != 1)
                         {
-                            _log.warning("Error while deleting cursed weapon "+itemId+" skill from userId "+playerId);
+                            _log.warn("Error while deleting cursed weapon "+itemId+" skill from userId "+playerId);
                         }
                     }
                 } catch (SQLException sqlE)
@@ -280,10 +279,10 @@ public class CursedWeaponsManager
         }
         catch (Exception e)
         {
-            _log.warning("Could not check CursedWeapons data: " + e);
+            _log.warn("Could not check CursedWeapons data: " + e);
 
-            if (Config.DEBUG)
-                System.out.println("ERROR");
+            if (_log.isDebugEnabled())
+                _log.debug("ERROR");
             return;
         }
         finally
@@ -291,8 +290,8 @@ public class CursedWeaponsManager
             try { con.close(); } catch (Exception e) {}
         }
 
-        if (Config.DEBUG)
-            System.out.println("DONE");
+        if (_log.isDebugEnabled())
+            _log.debug("DONE");
     }
     
     
@@ -348,7 +347,7 @@ public class CursedWeaponsManager
             
             player.sendPacket(sm);
         }
-        if (Config.DEBUG)
+        if (_log.isDebugEnabled())
             _log.info("MessageID: "+sm.getMessageID());
     }
     
@@ -391,7 +390,7 @@ public class CursedWeaponsManager
         }
         catch (SQLException e)
         {
-            _log.severe("CursedWeaponsManager: Failed to remove data: " + e);
+            _log.fatal("CursedWeaponsManager: Failed to remove data: " + e);
         }
         finally
         {

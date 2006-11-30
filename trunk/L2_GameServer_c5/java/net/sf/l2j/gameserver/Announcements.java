@@ -26,8 +26,6 @@ import java.io.LineNumberReader;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.lang.TextBuilder;
 import javolution.util.FastList;
@@ -39,6 +37,8 @@ import net.sf.l2j.gameserver.script.DateRange;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -79,7 +79,7 @@ public class Announcements
 		}
 		else
 		{
-			_log.config("data/announcements.txt doesn't exist");
+			_log.info("data/announcements.txt doesn't exist");
 		}
 	}
 	
@@ -182,11 +182,11 @@ public class Announcements
 				}
 			}
 			
-			_log.config("Announcements: Loaded " + i + " Announcements.");
+			_log.info("Announcements: Loaded " + i + " Announcements.");
 		}
 		catch (IOException e1)
 		{
-			_log.log(Level.SEVERE, "Error reading announcements", e1);
+			_log.fatal( "Error reading announcements", e1);
 		}
 		finally
 		{
@@ -220,7 +220,7 @@ public class Announcements
 		}
 		catch (IOException e)
 		{
-			_log.warning("saving the announcements file has failed: " + e);
+			_log.warn("saving the announcements file has failed: " + e);
 		}
 	}
 	

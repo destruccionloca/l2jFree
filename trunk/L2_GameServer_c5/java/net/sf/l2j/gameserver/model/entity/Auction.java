@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
@@ -143,8 +143,7 @@ public class Auction
         }
         catch (Exception e)
         {
-            System.out.println("Exception: saveAuctionDate(): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: saveAuctionDate(): " + e.getMessage(),e);
         } 
         finally {try { con.close(); } catch (Exception e) {}}
     }
@@ -296,15 +295,14 @@ public class Auction
         }
         catch (Exception e)
         {
-            System.out.println("Exception: Auction.load(): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: Auction.load(): " + e.getMessage(),e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
 	}
 
 	private void loadBid()
 	{
-        System.out.println("loading bids");
+        _log.debug("loading bids");
         java.sql.Connection con = null;
         try
         {
@@ -332,8 +330,7 @@ public class Auction
         }
         catch (Exception e)
         {
-            System.out.println("Exception: Auction.loadBid(): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: Auction.loadBid(): " + e.getMessage(),e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
 	}
@@ -425,8 +422,7 @@ public class Auction
         }
         catch (Exception e)
         {
-            System.out.println("Exception: Auction.updateInDB(L2PcInstance bidder, int bid): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: Auction.updateInDB(L2PcInstance bidder, int bid): " + e.getMessage(),e);
         }
         finally
         {
@@ -448,8 +444,7 @@ public class Auction
         }
         catch (Exception e)
         {
-            System.out.println("Exception: Auction.deleteFromDB(): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: Auction.deleteFromDB(): " + e.getMessage(),e);
         }
         finally
         {
@@ -477,8 +472,7 @@ public class Auction
         }
         catch (Exception e)
         {
-            System.out.println("Exception: Auction.deleteFromDB(): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: Auction.deleteFromDB(): " + e.getMessage(),e);
         }
         finally
         {
@@ -523,8 +517,7 @@ public class Auction
         }
         catch (Exception e)
         {
-            System.out.println("Exception: Auction.cancelBid(String bidder): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: Auction.cancelBid(String bidder): " + e.getMessage(),e);
         }
         finally
         {
@@ -569,8 +562,7 @@ public class Auction
         }
         catch (Exception e)
         {
-            System.out.println("Exception: Auction.load(): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: Auction.load(): " + e.getMessage(),e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }

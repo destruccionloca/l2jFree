@@ -2,7 +2,7 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.sql.PreparedStatement;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -67,7 +67,7 @@ public class AdminPledge implements IAdminCommandHandler
                 }
                 catch(Exception e)
                 {
-                    _log.warning("Error creating pledge by GM command: "+e);
+                    _log.warn("Error creating pledge by GM command: "+e);
                 }
             }
             else if(action.equals("dismiss"))
@@ -113,7 +113,7 @@ public class AdminPledge implements IAdminCommandHandler
                 }
                 catch (Exception e)
                 {
-                    _log.warning("Error while dissolving clan by GM Command: "+e);
+                    _log.warn("Error while dissolving clan by GM Command: "+e);
                 } 
                 finally 
                 {
@@ -148,7 +148,7 @@ public class AdminPledge implements IAdminCommandHandler
                     }
                     catch (Exception e)
                     {
-                        _log.warning("could not store new clan level with GM comamnd:"+e);
+                        _log.warn("could not store new clan level with GM comamnd:"+e);
                     } 
                     finally 
                     {
@@ -181,7 +181,7 @@ public class AdminPledge implements IAdminCommandHandler
                 }
                 catch(Exception e)
                 {
-                    _log.warning("Error while changing clan level by GM Command: "+e);
+                    _log.warn("Error while changing clan level by GM Command: "+e);
                 }
             }
             else if(action.equals("addskill"))

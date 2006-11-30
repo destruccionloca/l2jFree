@@ -18,14 +18,13 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.logging.Logger;
-
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.RecipeController;
 import net.sf.l2j.gameserver.model.L2RecipeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -98,7 +97,7 @@ public class RecipeItemMakeInfo extends ServerBasePacket
             writeD(_player.getMaxMp());
             writeD(_success ? 1 : 0); // item creation success/failed  
         }
-        else if (Config.DEBUG) _log.info("No recipe found with ID = " + _id);
+        else if (_log.isDebugEnabled()) _log.info("No recipe found with ID = " + _id);
     }
 
     /* (non-Javadoc)

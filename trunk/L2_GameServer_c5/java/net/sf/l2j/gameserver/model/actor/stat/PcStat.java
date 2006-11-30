@@ -3,7 +3,7 @@ package net.sf.l2j.gameserver.model.actor.stat;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -146,14 +146,14 @@ public class PcStat extends PlayableStat
                             statement1.close();
                             
                             getActiveChar().setNewbie(true);
-                            if (Config.DEBUG) _log.info("New newbie character: " + getActiveChar().getCharId());
+                            if (_log.isDebugEnabled()) _log.info("New newbie character: " + getActiveChar().getCharId());
                         };
                         rset.close();
                         statement.close();
                     }
                     catch (SQLException e)
                     {
-                        _log.warning("Could not check character for newbie: " + e);
+                        _log.warn("Could not check character for newbie: " + e);
                     }
                     finally
                     {
@@ -164,7 +164,7 @@ public class PcStat extends PlayableStat
                 if (getActiveChar().getLevel() >= 25 && getActiveChar().isNewbie())
                 {
                     getActiveChar().setNewbie(false);
-                    if (Config.DEBUG) _log.info("Newbie character ended: " + getActiveChar().getCharId());
+                    if (_log.isDebugEnabled()) _log.info("Newbie character ended: " + getActiveChar().getCharId());
                 };
             };
             

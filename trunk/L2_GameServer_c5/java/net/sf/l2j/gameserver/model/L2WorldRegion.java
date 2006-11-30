@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.model;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -151,7 +151,7 @@ public final class L2WorldRegion
                     // it until the grid is made active.
                     //mob.getStatus().stopHpMpRegeneration();
                 }
-            _log.fine(c+ " mobs were turned off");
+            _log.debug(c+ " mobs were turned off");
         }
         else
         {
@@ -165,7 +165,7 @@ public final class L2WorldRegion
                     // start the ai
                     //((L2AttackableAI) mob.getAI()).startAITask();
                 }
-            _log.fine(c+ " mobs were turned on");
+            _log.debug(c+ " mobs were turned on");
         }
         
     }
@@ -214,7 +214,7 @@ public final class L2WorldRegion
                 //Load Block in memory
                 GeoDataRequester.getInstance().getGeoBlock(tileX, tileY);
                 PathNodeBinRequester.getInstance().getPathNodeBlock((tileX*4096+MAP_MIN_X )+1, (tileY*4096+MAP_MIN_Y)+1);
-                _log.fine("Starting Grid " + tileX + ","+ tileY);
+                _log.debug("Starting Grid " + tileX + ","+ tileY);
             }
         }
         else
@@ -222,7 +222,7 @@ public final class L2WorldRegion
             if(Config.ALLOW_GEODATA)
             {
                 //Block will kill itself automaticaly
-            _log.fine("Stoping Grid " + tileX + ","+ tileY);
+            _log.debug("Stoping Grid " + tileX + ","+ tileY);
             }
         }
     }
@@ -347,7 +347,7 @@ public final class L2WorldRegion
      */
     public synchronized void deleteVisibleNpcSpawns()
     {
-        _log.fine("Deleting all visible NPC's in Region: " + getName());
+        _log.debug("Deleting all visible NPC's in Region: " + getName());
         for (L2Object obj : _visibleObjects)
         {
             if (obj instanceof L2NpcInstance)
@@ -360,7 +360,7 @@ public final class L2WorldRegion
                     spawn.stopRespawn();
                     SpawnTable.getInstance().deleteSpawn(spawn, false);
                 }
-                _log.finest("Removed NPC " + target.getObjectId());
+                _log.debug("Removed NPC " + target.getObjectId());
             }
         }
         _log.info("All visible NPC's deleted in Region: " + getName());

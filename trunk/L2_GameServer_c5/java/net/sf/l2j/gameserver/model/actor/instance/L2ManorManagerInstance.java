@@ -1,7 +1,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.lang.TextBuilder;
 import javolution.util.FastList;

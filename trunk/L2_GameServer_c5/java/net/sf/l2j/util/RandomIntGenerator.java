@@ -2,7 +2,11 @@ package net.sf.l2j.util;
 
 import net.sf.l2j.gameserver.model.L2DropData;
 
+import org.apache.log4j.Logger;
+
 public class RandomIntGenerator{
+    
+    private static final Logger _log = Logger.getLogger(RandomIntGenerator.class);
     
     private int low;
     private int high;
@@ -19,7 +23,7 @@ public class RandomIntGenerator{
     {
         if (_Instance == null)
         {
-            System.out.println("Initializing RandomIntGenerator");
+            _log.info("Initializing RandomIntGenerator");
             _Instance = new RandomIntGenerator(0, L2DropData.MAX_CHANCE);
         }
         return _Instance;

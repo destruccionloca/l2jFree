@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver;
 
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.clientpackets.*;
@@ -494,7 +494,7 @@ public class PacketHandler
 //				break;
 			case 0x9d:
 				// RequestSkillCoolTime
-				if (Config.DEBUG) _log.info("Request Skill Cool Time .. ignored");
+				if (_log.isDebugEnabled()) _log.info("Request Skill Cool Time .. ignored");
 				msg = null;
 				break;
 //			case 0x9e:
@@ -682,11 +682,11 @@ public class PacketHandler
                     	msg = new RequestOlympiadMatchList(data, client);
                     	break;
                     case 0x1a:
-                        //_log.warning("RequestPledgePowerGradeList");
+                        //_log.warn("RequestPledgePowerGradeList");
                         msg = new RequestPledgePowerGradeList(data, client);
                         break;
                     case 0x1b:
-                        //_log.warning("RequestPledgeMemberPowerInfo");
+                        //_log.warn("RequestPledgeMemberPowerInfo");
                         msg = new RequestPledgeMemberPowerInfo(data, client);
                         break;
                     case 0x1c:
@@ -719,10 +719,10 @@ public class PacketHandler
                     default: 
                      	msg = null; 
                      	int size = data.remaining(); 
-                     	_log.warning("Unknown Packet: 0xd0:" + Integer.toHexString(id2)); 
+                     	_log.warn("Unknown Packet: 0xd0:" + Integer.toHexString(id2)); 
                      	byte[] array = new byte[size]; 
                      	data.get(array); 
-                        _log.warning(Util.printData(array, size)); 
+                        _log.warn(Util.printData(array, size)); 
                      	break; 
                 }
 				break;
@@ -735,10 +735,10 @@ public class PacketHandler
 			{
 				msg = null;
 				int sz = data.remaining(); 
-				_log.warning("Unknown Packet:" + Integer.toHexString(id));
+				_log.warn("Unknown Packet:" + Integer.toHexString(id));
 				byte[] arr = new byte[sz];
 				data.get(arr);
-                _log.warning(Util.printData(arr, sz));
+                _log.warn(Util.printData(arr, sz));
 				break;
 			}
 		}

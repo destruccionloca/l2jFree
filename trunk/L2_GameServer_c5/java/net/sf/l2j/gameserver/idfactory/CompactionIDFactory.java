@@ -31,7 +31,7 @@ package net.sf.l2j.gameserver.idfactory;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -68,13 +68,12 @@ public class CompactionIDFactory extends IdFactory
                 N = insertUntil(tmp_obj_ids, idx, N, con);
             }
             _curOID++;
-            _log.config("IdFactory: Next usable Object ID is: " + _curOID);
+            _log.info("IdFactory: Next usable Object ID is: " + _curOID);
             initialized = true;
         }
         catch (Exception e1)
         {
-            e1.printStackTrace();
-            _log.severe("ID Factory could not be initialized correctly:" + e1);
+            _log.fatal("ID Factory could not be initialized correctly:" + e1,e1);
         }
         finally
         {
@@ -103,7 +102,7 @@ public class CompactionIDFactory extends IdFactory
             while (rs.next())
             {
                 int badId = rs.getInt(1);
-                _log.severe("Bad ID " + badId + " in DB found by: " + check);
+                _log.fatal("Bad ID " + badId + " in DB found by: " + check);
                 throw new RuntimeException();
             }
             rs.close();
@@ -116,7 +115,7 @@ public class CompactionIDFactory extends IdFactory
         for (int i = 1; i <= hole; i++)
         {
             id = tmp_obj_ids[N - i];
-            System.out.println("Compacting DB object ID=" + id + " into " + (_curOID));
+            _log.debug("Compacting DB object ID=" + id + " into " + (_curOID));
             for (String update : id_updates)
             {
                 PreparedStatement ps = con.prepareStatement(update);

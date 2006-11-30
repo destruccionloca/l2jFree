@@ -3,7 +3,7 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
@@ -41,11 +41,11 @@ public class SkillSpellbookTable
 			spbooks.close();
 			statement.close();
             
-			_log.config("SkillSpellbookTable: Loaded " + _skillSpellbooks.size() + " Spellbooks.");		
+			_log.info("SkillSpellbookTable: Loaded " + _skillSpellbooks.size() + " Spellbooks.");		
 		}
 		catch (Exception e)
 		{
-			_log.warning("Error while loading spellbook data: " +  e);
+			_log.warn("Error while loading spellbook data: " +  e);
 		}
 		finally
 		{

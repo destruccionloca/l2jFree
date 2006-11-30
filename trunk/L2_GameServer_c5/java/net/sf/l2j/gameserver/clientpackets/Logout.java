@@ -21,9 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.SevenSignsFestival;
@@ -35,6 +33,8 @@ import net.sf.l2j.gameserver.serverpackets.FriendList;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -69,7 +69,7 @@ public class Logout extends ClientBasePacket
 
         if(AttackStanceTaskManager.getInstance().getAttackStanceTask(player))
         {
-            if (Config.DEBUG) _log.fine("Player " + player.getName() + " tried to logout while fighting");
+            if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while fighting");
             
             player.sendPacket(new SystemMessage(SystemMessage.CANT_LOGOUT_WHILE_FIGHTING));
             player.sendPacket(new ActionFailed());
@@ -135,7 +135,7 @@ public class Logout extends ClientBasePacket
 		    }
         } 
 		catch (Exception e) {
-            _log.warning("could not restore friend data:"+e);
+            _log.warn("could not restore friend data:"+e);
         } 
 		finally {
             try {con.close();} catch (Exception e){}

@@ -26,6 +26,8 @@ import java.util.zip.ZipFile;
 
 import javolution.util.FastList;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author Luis Arias
  *
@@ -34,6 +36,8 @@ import javolution.util.FastList;
  */
 public class ScriptPackage
 {
+    private static Logger _log = Logger.getLogger(ScriptPackage.class);
+    
     private List<ScriptDocument> scriptFiles;
     private List<String> otherFiles;
     private String name;
@@ -76,8 +80,7 @@ public class ScriptPackage
                     ScriptDocument newScript = new ScriptDocument(entry.getName(), pack.getInputStream(entry)); 
                     scriptFiles.add(newScript);
                 } catch (IOException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
+                    _log.error(e1.getMessage(),e1);
                 }
             }
             else if (!entry.isDirectory())

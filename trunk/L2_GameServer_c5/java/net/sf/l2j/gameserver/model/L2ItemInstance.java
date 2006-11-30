@@ -21,10 +21,11 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -170,10 +171,12 @@ public final class L2ItemInstance extends L2Object
 
 		if (Config.LOG_ITEMS) 
 		{
-			LogRecord record = new LogRecord(Level.INFO, "CHANGE:" + process);
-			record.setLoggerName("item");
-			record.setParameters(new Object[]{this, creator, reference});
-			_logItems.log(record);
+            List<Object> param = new ArrayList<Object>();
+            param.add("CHANGE:" + process);
+            param.add( this);
+            param.add( creator);
+            param.add( reference);
+            org.apache.log4j.Logger.getLogger("item").info(param);            
 		}
 	}
 
@@ -253,10 +256,12 @@ public final class L2ItemInstance extends L2Object
         
 		if (Config.LOG_ITEMS) 
 		{
-			LogRecord record = new LogRecord(Level.INFO, "CHANGE:" + process);
-			record.setLoggerName("item");
-			record.setParameters(new Object[]{this, creator, reference});
-			_logItems.log(record);
+            List  <Object> param= new ArrayList<Object>();
+            param.add("CHANGE:" + process);
+            param.add(this);
+            param.add(creator);
+            param.add(reference);
+			_logItems.info(param);
 		}
 	}
 
@@ -680,7 +685,7 @@ public final class L2ItemInstance extends L2Object
 				int price_buy = rs.getInt("price_buy");
 				L2Item item = ItemTable.getInstance().getTemplate(item_id);
 				if (item == null) {
-					_log.severe("Item item_id="+item_id+" not known, object_id="+objectId);
+					_log.fatal("Item item_id="+item_id+" not known, object_id="+objectId);
 					return null;
 				}
 				inst = new L2ItemInstance(objectId, item);
@@ -696,13 +701,13 @@ public final class L2ItemInstance extends L2Object
 				inst._price_sell = price_sell;
 				inst._price_buy  = price_buy;
 			} else {
-				_log.severe("Item object_id="+objectId+" not found");
+				_log.fatal("Item object_id="+objectId+" not found");
 				return null;
 			}
 			rs.close();
             statement.close();
         } catch (Exception e) {
-			_log.log(Level.SEVERE, "Could not restore item "+objectId+" from DB:", e);
+			_log.fatal( "Could not restore item "+objectId+" from DB:", e);
 		} finally {
 			try { con.close(); } catch (Exception e) {}
 		}
@@ -783,7 +788,7 @@ public final class L2ItemInstance extends L2Object
 			_storedInDb = true;
             statement.close();
         } catch (Exception e) {
-			_log.log(Level.SEVERE, "Could not update item "+getObjectId()+" in DB: Reason: " +
+			_log.fatal("Could not update item "+getObjectId()+" in DB: Reason: " +
                     "Duplicate itemId");
 		} finally {
 			try { con.close(); } catch (Exception e) {}
@@ -821,7 +826,7 @@ public final class L2ItemInstance extends L2Object
 			_storedInDb = true;
             statement.close();
         } catch (Exception e) {
-			_log.log(Level.SEVERE, "Could not insert item "+getObjectId()+" into DB: Reason: " +
+			_log.fatal( "Could not insert item "+getObjectId()+" into DB: Reason: " +
                     "Duplicate itemId" );
 		} finally {
 			try { con.close(); } catch (Exception e) {}
@@ -847,7 +852,7 @@ public final class L2ItemInstance extends L2Object
 			_storedInDb = false;
             statement.close();
         } catch (Exception e) {
-			_log.log(Level.SEVERE, "Could not delete item "+getObjectId()+" in DB:", e);
+			_log.fatal( "Could not delete item "+getObjectId()+" in DB:", e);
 		} finally {
 			try { con.close(); } catch (Exception e) {}
 		}

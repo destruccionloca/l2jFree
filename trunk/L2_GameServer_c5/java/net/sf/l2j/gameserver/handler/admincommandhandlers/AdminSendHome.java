@@ -1,6 +1,6 @@
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-//import java.util.logging.Logger;
+//import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.MapRegionTable;

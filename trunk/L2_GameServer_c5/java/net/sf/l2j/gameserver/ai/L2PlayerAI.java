@@ -71,8 +71,8 @@ public class L2PlayerAI extends L2CharacterAI
     synchronized void changeIntention(CtrlIntention intention, Object arg0, Object arg1)
     {
         /*
-         if (Config.DEBUG)
-         _log.warning("L2PlayerAI: changeIntention -> " + intention + " " + arg0 + " " + arg1);
+         if (_log.isDebugEnabled())
+         _log.warn("L2PlayerAI: changeIntention -> " + intention + " " + arg0 + " " + arg1);
          */
 
         // nothing to do if it does not CAST intention
@@ -90,8 +90,8 @@ public class L2PlayerAI extends L2CharacterAI
         }
 
         /*
-         if (Config.DEBUG)
-         _log.warning("L2PlayerAI: changeIntention -> Saving current intention: " + _intention + " " + _intention_arg0 + " " + _intention_arg1);
+         if (_log.isDebugEnabled())
+         _log.warn("L2PlayerAI: changeIntention -> Saving current intention: " + _intention + " " + _intention_arg0 + " " + _intention_arg1);
          */
 
         // push current intention to stack
@@ -126,8 +126,8 @@ public class L2PlayerAI extends L2CharacterAI
                 }
 
                 /*
-                 if (Config.DEBUG)
-                 _log.warning("L2PlayerAI: onEvtFinishCasting -> " + cmd._intention + " " + cmd._arg0 + " " + cmd._arg1);
+                 if (_log.isDebugEnabled())
+                 _log.warn("L2PlayerAI: onEvtFinishCasting -> " + cmd._intention + " " + cmd._arg0 + " " + cmd._arg1);
                  */
 
                 if (cmd != null) setIntention(cmd.intention, cmd.arg0, cmd.arg1);
@@ -136,8 +136,8 @@ public class L2PlayerAI extends L2CharacterAI
             else
             {
                 /*
-                 if (Config.DEBUG)
-                 _log.warning("L2PlayerAI: no previous intention set... Setting it to IDLE");
+                 if (_log.isDebugEnabled())
+                 _log.warn("L2PlayerAI: no previous intention set... Setting it to IDLE");
                  */
                 // set intention to idle if skill doesn't change intention.
                 setIntention(AI_INTENTION_IDLE);
@@ -192,7 +192,7 @@ public class L2PlayerAI extends L2CharacterAI
     private void thinkCast()
     {
 
-        //if (Config.DEBUG) _log.warning("L2PlayerAI: thinkCast -> Start");
+        //if (_log.isDebugEnabled()) _log.warn("L2PlayerAI: thinkCast -> Start");
 
         if (checkTargetLost(getCastTarget()))
         {
@@ -204,11 +204,11 @@ public class L2PlayerAI extends L2CharacterAI
             return;
         }
 
-        // if (Config.DEBUG) _log.warning("L2PlayerAI: thinkCast -> valid target: " + _cast_target);
+        // if (_log.isDebugEnabled()) _log.warn("L2PlayerAI: thinkCast -> valid target: " + _cast_target);
 
         if (maybeMoveToPawn(getCastTarget(), _actor.getMagicalAttackRange(_skill))) return;
 
-        // if (Config.DEBUG) _log.warning("L2PlayerAI: thinkCast -> no need to move to pawn... " + _actor + " " + _cast_target + " " + _skill);
+        // if (_log.isDebugEnabled()) _log.warn("L2PlayerAI: thinkCast -> no need to move to pawn... " + _actor + " " + _cast_target + " " + _skill);
 
         // - Saves current _cast_target;
         // - Stops the moving client/server side;
@@ -217,7 +217,7 @@ public class L2PlayerAI extends L2CharacterAI
         if (_skill.getSkillTime() > 50) clientStopMoving(null);
         setCastTarget(castTarget);
 
-        // if (Config.DEBUG) _log.warning("L2PlayerAI: thinkCast -> _cast_target: " + _cast_target + " getTarget(): " + _actor.getTarget());
+        // if (_log.isDebugEnabled()) _log.warn("L2PlayerAI: thinkCast -> _cast_target: " + _cast_target + " getTarget(): " + _actor.getTarget());
 
         L2Object oldTarget = _actor.getTarget();
         if (oldTarget != null)
@@ -261,8 +261,8 @@ public class L2PlayerAI extends L2CharacterAI
         if (thinking || _actor.isAllSkillsDisabled()) return;
 
         /*
-         if (Config.DEBUG)
-         _log.warning("L2PlayerAI: onEvtThink -> Check intention");
+         if (_log.isDebugEnabled())
+         _log.warn("L2PlayerAI: onEvtThink -> Check intention");
          */
 
         thinking = true;

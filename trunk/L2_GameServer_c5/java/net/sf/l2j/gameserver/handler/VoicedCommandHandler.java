@@ -19,10 +19,10 @@
 package net.sf.l2j.gameserver.handler;
 
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javolution.util.FastMap;
-import net.sf.l2j.Config;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -56,7 +56,7 @@ public class VoicedCommandHandler
 		String[] ids = handler.getVoicedCommandList();
 		for (int i = 0; i < ids.length; i++)
 		{
-			if (Config.DEBUG) _log.fine("Adding handler for command "+ids[i]);
+			if (_log.isDebugEnabled()) _log.debug("Adding handler for command "+ids[i]);
 			_datatable.put(new String(ids[i]), handler);
 		}
 	}
@@ -67,8 +67,8 @@ public class VoicedCommandHandler
 		if (voicedCommand.indexOf(" ") != -1) {
 			command = voicedCommand.substring(0, voicedCommand.indexOf(" "));
 		}
-		if (Config.DEBUG)
-			_log.fine("getting handler for command: "+command+
+		if (_log.isDebugEnabled())
+			_log.debug("getting handler for command: "+command+
 					" -> "+(_datatable.get(new String(command)) != null));
 		return _datatable.get(command);
 	}

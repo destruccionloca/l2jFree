@@ -30,7 +30,7 @@ package net.sf.l2j.gameserver.idfactory;
 
 import java.util.BitSet;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.util.PrimeFinder;
@@ -86,7 +86,7 @@ public class BitSetIDFactory extends IdFactory
                 int objectID = usedObjectId - FIRST_OID;
                 if (objectID < 0)
                 {
-                    _log.warning("Object ID " + usedObjectId + " in DB is less than minimum ID of " + FIRST_OID);
+                    _log.warn("Object ID " + usedObjectId + " in DB is less than minimum ID of " + FIRST_OID);
                     continue;
                 }
                 freeIds.set(usedObjectId - FIRST_OID);
@@ -99,8 +99,7 @@ public class BitSetIDFactory extends IdFactory
         catch (Exception e)
         {
             initialized = false;
-            _log.severe("BitSet ID Factory could not be initialized correctly");
-            e.printStackTrace();
+            _log.fatal("BitSet ID Factory could not be initialized correctly",e);
         }
     }
     
@@ -111,7 +110,7 @@ public class BitSetIDFactory extends IdFactory
             freeIds.clear(objectID - FIRST_OID);
             freeIdCount.incrementAndGet();
         } else
-            _log.warning("BitSet ID Factory: release objectID "+objectID+" failed (< "+FIRST_OID+")");
+            _log.warn("BitSet ID Factory: release objectID "+objectID+" failed (< "+FIRST_OID+")");
     }
     
     public synchronized int getNextId()
