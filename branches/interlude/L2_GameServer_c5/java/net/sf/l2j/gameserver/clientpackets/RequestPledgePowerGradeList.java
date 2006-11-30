@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -36,7 +36,7 @@ public class RequestPledgePowerGradeList extends ClientBasePacket
     public RequestPledgePowerGradeList(ByteBuffer buf, ClientThread client)
     {
         super(buf, client);
-        //_log.warning("plegdepowergradelist send, requested");
+        //_log.warn("plegdepowergradelist send, requested");
     }
 
     void runImpl()
@@ -47,7 +47,7 @@ public class RequestPledgePowerGradeList extends ClientBasePacket
         {
             RankPrivs[] privs = clan.getAllRankPrivs();
             player.sendPacket(new PledgePowerGradeList(privs));
-            //_log.warning("plegdepowergradelist send, privs length: "+privs.length);
+            //_log.warn("plegdepowergradelist send, privs length: "+privs.length);
         }
         
     }

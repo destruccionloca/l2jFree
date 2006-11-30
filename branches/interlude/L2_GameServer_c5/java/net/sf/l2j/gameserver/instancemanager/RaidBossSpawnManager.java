@@ -29,7 +29,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
@@ -110,7 +110,7 @@ public class RaidBossSpawnManager {
                 }
                 else
                 {
-                    _log.warning("RaidBossSpawnManager: Could not load raidboss #" + rset.getInt("boss_id") + " from DB");
+                    _log.warn("RaidBossSpawnManager: Could not load raidboss #" + rset.getInt("boss_id") + " from DB");
                 }
             }
             
@@ -122,12 +122,12 @@ public class RaidBossSpawnManager {
         }
         catch (SQLException e)
         {
-            _log.warning("RaidBossSpawnManager: Couldnt load raidboss_spawnlist table");
+            _log.warn("RaidBossSpawnManager: Couldnt load raidboss_spawnlist table");
         }
-        catch (Exception e) {e.printStackTrace();}
+        catch (Exception e) {_log.error(e.getMessage(),e);}
         finally
         {
-            try {con.close();} catch(Exception e) {e.printStackTrace();}
+            try {con.close();} catch(Exception e) {_log.error(e.getMessage(),e);}
         }
     }
     
@@ -279,7 +279,7 @@ public class RaidBossSpawnManager {
             catch (Exception e)
             {
                 // problem with storing spawn
-                _log.warning("RaidBossSpawnManager: Could not store raidboss #" + bossId + " in the DB:" + e);
+                _log.warn("RaidBossSpawnManager: Could not store raidboss #" + bossId + " in the DB:" + e);
             }
             finally
             {
@@ -326,7 +326,7 @@ public class RaidBossSpawnManager {
             catch (Exception e)
             {
                 // problem with deleting spawn
-                _log.warning("RaidBossSpawnManager: Could not remove raidboss #" + bossId + " from DB: " + e);
+                _log.warn("RaidBossSpawnManager: Could not remove raidboss #" + bossId + " from DB: " + e);
             }
             finally
             {
@@ -365,10 +365,10 @@ public class RaidBossSpawnManager {
                 
                 statement.close();
             }
-            catch (SQLException e){ _log.warning("RaidBossSpawnManager: Couldnt update raidboss_spawnlist table");}
+            catch (SQLException e){ _log.warn("RaidBossSpawnManager: Couldnt update raidboss_spawnlist table");}
             finally
             {
-                try {con.close();} catch(Exception e) {e.printStackTrace();}
+                try {con.close();} catch(Exception e) {_log.error(e.getMessage(),e);}
             }
         }
     }

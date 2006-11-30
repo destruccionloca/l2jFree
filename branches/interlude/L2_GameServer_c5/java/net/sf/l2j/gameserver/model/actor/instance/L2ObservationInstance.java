@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
@@ -84,7 +83,7 @@ public final class L2ObservationInstance extends L2FolkInstance
 
     public void onAction(L2PcInstance player)
     {
-        if (Config.DEBUG) _log.fine("Teleporter activated");
+        if (_log.isDebugEnabled()) _log.debug("Teleporter activated");
         super.onAction(player);
     }
 

@@ -435,7 +435,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
     public void onAction(L2PcInstance player)
     {
-        if (Config.DEBUG) _log.fine("Village Master activated");
+        if (_log.isDebugEnabled()) _log.debug("Village Master activated");
         player.setLastFolkNPC(this);
         super.onAction(player);
     }
@@ -443,8 +443,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     //Private stuff
     public void createClan(L2PcInstance player, String clanName)
     {
-        if (Config.DEBUG)
-            _log.fine(player.getObjectId() + "(" + player.getName() + ") requested clan creation from "
+        if (_log.isDebugEnabled())
+            _log.debug(player.getObjectId() + "(" + player.getName() + ") requested clan creation from "
                 + getObjectId() + "(" + getName() + ")");
         if (player.getLevel() < 10)
         {
@@ -495,8 +495,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     }
     public void createSubPledge(L2PcInstance player, String clanName, String leaderName, int pledgeType, int minClanLvl)
     {
-        if (Config.DEBUG)
-            _log.fine(player.getObjectId() + "(" + player.getName() + ") requested sub clan creation from "
+        if (_log.isDebugEnabled())
+            _log.debug(player.getObjectId() + "(" + player.getName() + ") requested sub clan creation from "
                 + getObjectId() + "(" + getName() + ")");
         
         if (player.getClanId() == 0)
@@ -611,7 +611,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
         }
         catch (Exception e)
         {
-            _log.warning("could not dissolve clan:" + e);
+            _log.warn("could not dissolve clan:" + e);
         }
         finally
         {
@@ -768,7 +768,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
             }
             catch (Exception e)
             {
-                _log.warning("could not increase clan level:" + e);
+                _log.warn("could not increase clan level:" + e);
             }
             finally
             {
@@ -828,8 +828,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
         if (player.getClanId() == 0) return;
 
-        if (Config.DEBUG)
-            _log.fine(player.getObjectId() + "(" + player.getName() + ") requested ally creation from "
+        if (_log.isDebugEnabled())
+            _log.debug(player.getObjectId() + "(" + player.getName() + ") requested ally creation from "
                 + getObjectId() + "(" + getName() + ")");
 
         if (!player.isClanLeader())
@@ -927,7 +927,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
         }
         catch (Exception e)
         {
-            _log.warning("could not dissolve clan:" + e);
+            _log.warn("could not dissolve clan:" + e);
         }
         finally
         {
@@ -1014,8 +1014,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
      */
     public void showPledgeSkillList(L2PcInstance player)
     {
-        if (Config.DEBUG) 
-            _log.fine("PledgeSkillList activated on: "+getObjectId());
+        if (_log.isDebugEnabled()) 
+            _log.debug("PledgeSkillList activated on: "+getObjectId());
         
         L2PledgeSkillLearn[] skills = SkillTreeTable.getInstance().getAvailablePledgeSkills(player);
         AquireSkillList asl = new AquireSkillList(2);

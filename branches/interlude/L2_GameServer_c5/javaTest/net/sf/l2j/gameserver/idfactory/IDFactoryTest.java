@@ -54,15 +54,12 @@ public class IDFactoryTest extends TestCase
 	protected AtomicInteger count = new AtomicInteger(0), adds = new AtomicInteger(0), removes = new AtomicInteger(0);
 
 	protected static int REQUESTER_THREADS              = 50;
-	protected static int REQUESTER_THREAD_REQUESTS      = 1000;
+	protected static int REQUESTER_THREAD_REQUESTS      = 100;
 	protected static int REQUESTER_THREAD_RANDOM_DELAY  = 30;
 	protected static int RELEASER_THREADS               = 50;
-	protected static int RELEASER_THREAD_RELEASES       = 1000;
+	protected static int RELEASER_THREAD_RELEASES       = 100;
 	protected static int RELEASER_THREAD_RANDOM_DELAY   = 35;
 
-	public static void main(String[] args)
-	{
-	}
 
 	/**
 	 * Constructor for IDFactoryTest.
@@ -71,7 +68,7 @@ public class IDFactoryTest extends TestCase
 	public IDFactoryTest(String arg0)
 	{
 		super(arg0);
-		Config.load();
+		//Config.load();
 		if(FORCED_TYPE != null)
 			Config.IDFACTORY_TYPE = FORCED_TYPE;
 		idFactory   = IdFactory.getInstance();
@@ -85,13 +82,6 @@ public class IDFactoryTest extends TestCase
 		super.setUp();
 		System.out.println("Initial Free ID's: "+IdFactory.FREE_OBJECT_ID_SIZE);
 		System.out.println("IdFactoryType: "+Config.IDFACTORY_TYPE.name());
-		/*long startMemoryUse = getMemoryUse();
-        BitSet freeIds     = new BitSet(0x6FFFFFFF);
-        long endMemoryUse = getMemoryUse();
-        freeIds.clear();
-        long approximateSize = ( endMemoryUse - startMemoryUse ) / (1024*1024);
-
-        System.out.println("Size: "+approximateSize+"Mb.");*/
 	}
 
 	/*
@@ -125,8 +115,8 @@ public class IDFactoryTest extends TestCase
 		}
 		catch (InterruptedException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+            fail (e.getMessage());
 		}
 		System.out.println("Free ID's: "+idFactory.size());
 		System.out.println("Used ID's: "+(IdFactory.FREE_OBJECT_ID_SIZE - idFactory.size()));
@@ -217,7 +207,7 @@ public class IDFactoryTest extends TestCase
 				}
 				catch (InterruptedException e)
 				{
-
+                    fail (e.getMessage());
 				}
 			}
 			if (debug) System.out.println(getName()+ " count is "+myCount.get()+"/100.");
@@ -255,6 +245,7 @@ public class IDFactoryTest extends TestCase
 		}
 		catch (InterruptedException ex){
 			ex.printStackTrace();
+            fail (ex.getMessage());
 		}
 	}
 

@@ -23,9 +23,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
 
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
@@ -37,6 +34,8 @@ import net.sf.l2j.gameserver.model.base.Experience;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.ShowBoard;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.log4j.Logger;
 
 public class FriendsBBSManager extends BaseBBSManager
 {
@@ -232,7 +231,7 @@ public class FriendsBBSManager extends BaseBBSManager
             
             con = L2DatabaseFactory.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement(sqlQuery);
-            ResultSet rset = statement.executeQuery(sqlQuery);
+            statement.executeQuery(sqlQuery);
             statement.close();
         }
         catch (Exception e) {
@@ -310,10 +309,7 @@ public class FriendsBBSManager extends BaseBBSManager
                     
                     if (Config.LOG_CHAT)  
                     { 
-                        LogRecord record = new LogRecord(Level.INFO, ar3); 
-                        record.setLoggerName("chat"); 
-                        record.setParameters(new Object[]{"TELL", "[" + activeChar.getName() + " to "+reciever.getName()+"]"}); 
-                        _logChat.log(record); 
+                        _logChat.info("TELL" + "[" + activeChar.getName() + " to "+reciever.getName()+"]" + ar3); 
                     } 
                     CreatureSay cs = new CreatureSay(activeChar.getObjectId(), Say2.TELL, activeChar.getName(), ar3);
                     if (!reciever.getMessageRefusal())

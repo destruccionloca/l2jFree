@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
@@ -41,7 +40,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             showMessageWindow(player);
         else
             player.sendPacket(new ActionFailed());*/
-        if (Config.DEBUG) _log.fine("Auctioneer activated");
+        if (_log.isDebugEnabled()) _log.debug("Auctioneer activated");
         player.sendPacket(new ActionFailed());
         player.setTarget(this);
         player.setLastFolkNPC(this);
@@ -165,7 +164,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                     html.replace("%AGIT_LINK_BIDLIST%", "bypass -h npc_"+getObjectId()+"_bidlist "+a.getId());
                     html.replace("%AGIT_LINK_RE%", "bypass -h npc_"+getObjectId()+"_bid1 "+a.getId());
                     player.sendPacket(html);
-                    //_log.fine(html.getHTML());
+                    //_log.debug(html.getHTML());
                 }
                 catch (Exception e)
                 {
@@ -226,7 +225,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                     html.replace("%AGIT_AUCTION_MINBID%", String.valueOf(AuctionManager.getInstance().getAuction(Integer.parseInt(val)).getStartingBid()));
                     html.replace("npc_%objectId%_bid", "npc_"+getObjectId()+"_bid "+val);
                     player.sendPacket(html);
-                    //_log.fine(html.getHTML());
+                    //_log.debug(html.getHTML());
                     return;
                 }
                 catch (Exception e)
@@ -254,8 +253,8 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                 html.setFile(filename);
                 html.replace("%itemsField%", items);
                 player.sendPacket(html);
-                //_log.fine(items);
-                //_log.fine(html.getHTML());
+                //_log.debug(items);
+                //_log.debug(html.getHTML());
                 return;
             }
             else if (actualCommand.equalsIgnoreCase("bidlist"))
@@ -287,8 +286,8 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                 html.replace("%x%", val);
                 html.replace("%objectId%", String.valueOf(getObjectId()));
                 player.sendPacket(html);
-                //_log.fine(biders);
-                //_log.fine(html.getHTML());
+                //_log.debug(biders);
+                //_log.debug(html.getHTML());
                 return;
             }
             else if (actualCommand.equalsIgnoreCase("selectedItems"))

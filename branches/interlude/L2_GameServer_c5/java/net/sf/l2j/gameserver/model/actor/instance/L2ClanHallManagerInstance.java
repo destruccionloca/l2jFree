@@ -179,7 +179,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                                 if (st.countTokens() >= 1)
                                 {
                                     int fee;
-                                    _log.fine("Mp editing invoked");
+                                    _log.debug("Mp editing invoked");
                                     val = st.nextToken();
                                     int percent = Integer.valueOf(val);
                                     switch (percent)
@@ -206,7 +206,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                                 if (st.countTokens() >= 1)
                                 {
                                     int fee;
-                                    _log.fine("Mp editing invoked");
+                                    _log.debug("Mp editing invoked");
                                     val = st.nextToken();
                                     int percent = Integer.valueOf(val);
                                     switch (percent)
@@ -230,7 +230,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                                 if (st.countTokens() >= 1)
                                 {
                                     int fee;
-                                    _log.fine("Exp editing invoked");
+                                    _log.debug("Exp editing invoked");
                                     val = st.nextToken();
                                     int percent = Integer.valueOf(val);
                                     switch (percent)
@@ -276,7 +276,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                             {  
                                 if (st.countTokens() >= 1)
                                 {
-                                    _log.fine("Item editing invoked");
+                                    _log.debug("Item editing invoked");
                                     val = st.nextToken();
                                     int lvl = Integer.valueOf(val);
                                     if (!getClanHall().updateFunctions(ClanHall.FUNC_ITEM_CREATE, lvl, 76000, 86400000, Calendar.getInstance().getTimeInMillis()+86400000, (getClanHall().getFunction(ClanHall.FUNC_ITEM_CREATE) == null)))
@@ -288,7 +288,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                                 if (st.countTokens() >= 1)
                                 {
                                     int fee;
-                                    _log.fine("Tele editing invoked");
+                                    _log.debug("Tele editing invoked");
                                     val = st.nextToken();
                                     int lvl = Integer.valueOf(val);
                                     switch (lvl)
@@ -312,7 +312,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                                 if (st.countTokens() >= 1)
                                 {
                                     int fee;
-                                    _log.fine("Support editing invoked");
+                                    _log.debug("Support editing invoked");
                                     val = st.nextToken();
                                     int lvl = Integer.valueOf(val);
                                     switch (lvl)
@@ -502,13 +502,13 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
             else if(player.reduceAdena("Teleport", list.getPrice(), this, true))
             {
                 player.sendMessage("(player.reduceAdena(\"Teleport\", list.getPrice(), this, true)");
-                /*if (Config.DEBUG) */_log.fine("Teleporting player "+player.getName()+" for CH to new location: "+list.getLocX()+":"+list.getLocY()+":"+list.getLocZ());
+                /*if (_log.isDebugEnabled()) */_log.debug("Teleporting player "+player.getName()+" for CH to new location: "+list.getLocX()+":"+list.getLocY()+":"+list.getLocZ());
                 player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ());
             }
         }
         else
         {
-            _log.warning("No teleport destination with id:" +val);
+            _log.warn("No teleport destination with id:" +val);
         }
         player.sendPacket( new ActionFailed() );
     }

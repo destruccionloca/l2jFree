@@ -26,7 +26,7 @@
 package net.sf.l2j.gameserver.taskmanager;
 
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.ThreadPoolManager;

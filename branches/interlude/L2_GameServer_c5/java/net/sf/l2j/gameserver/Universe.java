@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import java.util.zip.GZIPInputStream;
 
 import javax.imageio.ImageIO;
@@ -265,7 +265,7 @@ public class Universe implements java.io.Serializable
         }
         catch (Exception e)
         {
-            _log.warning("cannot create universe.png: " + e);
+            _log.warn("cannot create universe.png: " + e);
         }
     }
 
@@ -308,9 +308,9 @@ public class Universe implements java.io.Serializable
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
         }
-        System.out.println("Total: " + total);
+        _log.info("Total: " + total);
     }
 
     /**
@@ -406,7 +406,7 @@ public class Universe implements java.io.Serializable
         public void run()
         {
             int size = coordList.size();
-            //System.out.println("Univere Map has " + _map.size() + " nodes.");
+            //_log.debugr("Univere Map has " + _map.size() + " nodes.");
             if (size > 100000)
             {
                 flush();
@@ -416,7 +416,7 @@ public class Universe implements java.io.Serializable
 
     public void flush()
     {
-        //System.out.println("Size of dump: "+coordList.size());
+        //_log.debugr("Size of dump: "+coordList.size());
         List<Coord> oldMap = coordList;
         coordList = new LinkedList<Coord>();
         int size = oldMap.size();
@@ -440,7 +440,7 @@ public class Universe implements java.io.Serializable
             FileOutputStream fos = new FileOutputStream("data/universe" + pad + ".fin"); // Save to file 
             DataOutputStream data = new DataOutputStream(fos);
             int count = _map.size();
-            //System.out.println("Size of dump: "+count);
+            //_log.debugr("Size of dump: "+count);
             data.writeInt(count);
 
             if (_map != null)
@@ -461,7 +461,7 @@ public class Universe implements java.io.Serializable
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
         }
     }
 

@@ -25,7 +25,7 @@ import java.io.FileReader;
 import java.io.LineNumberReader;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -47,7 +47,7 @@ public class BoatManager
 	{
 		if (_Instance == null)
 		{
-    		System.out.println("Initializing BoatManager");
+    		_log.info("Initializing BoatManager");
 			_Instance = new BoatManager();
 			_Instance.load();
 		}
@@ -95,22 +95,21 @@ public class BoatManager
 				L2BoatInstance boat = parseLine(line);
 				boat.spawn();
 				_staticItems.put(boat.getObjectId(), boat);
-				if(Config.DEBUG)
+				if (_log.isDebugEnabled())
 				{
-				System.out.println("Boat ID : " + boat.getObjectId());
+				_log.debug("Boat ID : " + boat.getObjectId());
 				}
 			}					
 		} 
 		catch (FileNotFoundException e) 
 		{
 			_initialized = false;			
-			_log.warning("boat.csv is missing in data folder");
+			_log.warn("boat.csv is missing in data folder");
 		} 
 		catch (Exception e) 
 		{
 			_initialized = false;
-			_log.warning("error while creating boat table " + e);
-			e.printStackTrace();
+			_log.warn("error while creating boat table " + e,e);
 		} 
 		finally 
 		{

@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
@@ -172,14 +172,14 @@ public class CharTemplateTable
 		}
 		catch (SQLException e)
 		{
-			_log.warning("error while loading char templates "+e.getMessage());
+			_log.warn("error while loading char templates "+e.getMessage());
 		}
 		finally
 		{
 			try { con.close(); } catch (Exception e) {}
 		}
 
-		_log.config("CharTemplateTable: Loaded " + _templates.size() + " Character Templates.");
+		_log.info("CharTemplateTable: Loaded " + _templates.size() + " Character Templates.");
 	}
 	
 	public L2PcTemplate getTemplate(ClassId classId, boolean female)

@@ -23,9 +23,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
 
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
@@ -39,6 +36,8 @@ import net.sf.l2j.gameserver.model.base.Experience;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.ShowBoard;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.log4j.Logger;
 
 public class RegionBBSManager extends BaseBBSManager
 {
@@ -340,10 +339,7 @@ public class RegionBBSManager extends BaseBBSManager
                     
 					if (Config.LOG_CHAT)  
 					{ 
-						LogRecord record = new LogRecord(Level.INFO, ar3); 
-						record.setLoggerName("chat"); 
-						record.setParameters(new Object[]{"TELL", "[" + activeChar.getName() + " to "+reciever.getName()+"]"}); 
-						_logChat.log(record); 
+						_logChat.info("TELL" + "[" + activeChar.getName() + " to "+reciever.getName()+"]" + ar3); 
 					} 
 					CreatureSay cs = new CreatureSay(activeChar.getObjectId(), Say2.TELL, activeChar.getName(), ar3);
 					if (!reciever.getMessageRefusal())

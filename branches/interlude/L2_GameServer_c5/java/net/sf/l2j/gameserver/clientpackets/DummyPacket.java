@@ -4,7 +4,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
 
@@ -26,7 +26,7 @@ public class DummyPacket extends ClientBasePacket
 
 	public void runImpl()
 	{
-		_log.warning("DummyPacket " + _packetId + " (Length = " + getLength() + ") recieved.");
+		_log.warn("DummyPacket " + _packetId + " (Length = " + getLength() + ") recieved.");
 		//getClient().getConnection().close();
 	}
 

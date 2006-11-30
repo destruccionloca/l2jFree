@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -78,17 +78,17 @@ public class RequestMagicSkillUse extends ClientBasePacket
         // Check the validity of the skill        
 		if (skill != null)
 		{
-           // _log.fine("  skill:"+skill.getName() + " level:"+skill.getLevel() + " passive:"+skill.isPassive());
-           // _log.fine("  range:"+skill.getCastRange()+" targettype:"+skill.getTargetType()+" optype:"+skill.getOperateType()+" power:"+skill.getPower());
-           // _log.fine("  reusedelay:"+skill.getReuseDelay()+" hittime:"+skill.getHitTime());
-           // _log.fine("  currentState:"+activeChar.getCurrentState());   //for debug
+           // _log.debug("  skill:"+skill.getName() + " level:"+skill.getLevel() + " passive:"+skill.isPassive());
+           // _log.debug("  range:"+skill.getCastRange()+" targettype:"+skill.getTargetType()+" optype:"+skill.getOperateType()+" power:"+skill.getPower());
+           // _log.debug("  reusedelay:"+skill.getReuseDelay()+" hittime:"+skill.getHitTime());
+           // _log.debug("  currentState:"+activeChar.getCurrentState());   //for debug
 
             activeChar.useMagic(skill, _ctrlPressed, _shiftPressed);
 		}
 		else
 		{
 			activeChar.sendPacket(new ActionFailed());
-			_log.warning("No skill found!!");
+			_log.warn("No skill found!!");
 		}
 	}
 

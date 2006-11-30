@@ -26,7 +26,7 @@ public abstract class QuestJython extends Quest {
 			  + "import data";
 
 			bsf.exec("jython", "quest", 0, 0, loadingScript);
-		} catch (BSFException e) { e.printStackTrace(); }
+		} catch (BSFException e) { _log.error(e.getMessage(),e); }
 	}
 
 	/**

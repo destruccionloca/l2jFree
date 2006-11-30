@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -60,7 +60,7 @@ public class ProtocolVersion extends ClientBasePacket
 		// this packet is never encrypted
 		if (_version == -2)
 		{
-            if (Config.DEBUG) _log.info("Ping received");
+            if (_log.isDebugEnabled()) _log.info("Ping received");
 			// this is just a ping attempt from the new C2 client
 			getConnection().close();
 			return;
@@ -69,19 +69,19 @@ public class ProtocolVersion extends ClientBasePacket
         {
             _log.info("Client Protocol Revision:" + _version + " is too low. only "+Config.MIN_PROTOCOL_REVISION+" and "+Config.MAX_PROTOCOL_REVISION+" are supported. closing connection.");
             _log.info("Login name name: "+getClient().getLoginName());
-            _log.warning("Wrong Protocol Version "+_version);
+            _log.warn("Wrong Protocol Version "+_version);
 			getConnection().close();
 			return;
         }
         else if (_version > Config.MAX_PROTOCOL_REVISION)
         {
             _log.info("Client Protocol Revision:" + _version + " is too high. only "+Config.MIN_PROTOCOL_REVISION+" and "+Config.MAX_PROTOCOL_REVISION+" are supported. closing connection.");
-            _log.warning("Wrong Protocol Version "+_version);
+            _log.warn("Wrong Protocol Version "+_version);
             getConnection().close();
 			return;
         }
         getClient().setRevision((int)_version);
-        if (Config.DEBUG) _log.fine("Client Protocol Revision is ok:"+_version);
+        if (_log.isDebugEnabled()) _log.debug("Client Protocol Revision is ok:"+_version);
         
 		KeyPacket pk = new KeyPacket();
 		pk.setKey(getConnection().getCryptKey());

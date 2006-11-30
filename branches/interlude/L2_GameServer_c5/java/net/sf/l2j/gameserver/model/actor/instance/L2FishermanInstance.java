@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.model.actor.instance;
 import java.util.StringTokenizer;
 
 import javolution.lang.TextBuilder;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.SkillTreeTable;
 import net.sf.l2j.gameserver.TradeController;
@@ -74,7 +73,7 @@ public class L2FishermanInstance extends L2MerchantInstance
         double taxRate = 0;
         if (getIsInTown()) taxRate = getCastle().getTaxRate();
         player.tempInvetoryDisable();
-        if (Config.DEBUG) _log.fine("Showing buylist");
+        if (_log.isDebugEnabled()) _log.debug("Showing buylist");
         L2TradeList list = TradeController.getInstance().getBuyList(val);
 
         if (list != null && list.getNpcId().equals(String.valueOf(getNpcId())))
@@ -84,9 +83,9 @@ public class L2FishermanInstance extends L2MerchantInstance
         }
         else
         {
-            _log.warning("possible client hacker: " + player.getName()
+            _log.warn("possible client hacker: " + player.getName()
                 + " attempting to buy from GM shop! < Ban him!");
-            _log.warning("buylist id:" + val);
+            _log.warn("buylist id:" + val);
         }
 
         player.sendPacket(new ActionFailed());
@@ -94,11 +93,11 @@ public class L2FishermanInstance extends L2MerchantInstance
 	
 	private void showSellWindow(L2PcInstance player)
     {
-        if (Config.DEBUG) _log.fine("Showing selllist");
+        if (_log.isDebugEnabled()) _log.debug("Showing selllist");
 
         player.sendPacket(new SellList(player));
 
-        if (Config.DEBUG) _log.fine("Showing sell window");
+        if (_log.isDebugEnabled()) _log.debug("Showing sell window");
 
         player.sendPacket(new ActionFailed());
     }

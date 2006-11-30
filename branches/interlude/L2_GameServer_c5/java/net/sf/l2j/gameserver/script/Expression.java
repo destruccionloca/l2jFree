@@ -19,9 +19,11 @@
 package net.sf.l2j.gameserver.script;
 
 import org.apache.bsf.BSFManager;
+import org.apache.log4j.Logger;
 
 public class Expression
 {
+    private static Logger _log = Logger.getLogger(Expression.class);
     private final BSFManager context;
     @SuppressWarnings("unused")
     private final String lang;
@@ -36,7 +38,7 @@ public class Expression
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
             return null;
         }
     }
@@ -49,7 +51,7 @@ public class Expression
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
             return null;
         }
     }
@@ -62,7 +64,7 @@ public class Expression
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
             return null;
         }
     }
@@ -82,7 +84,7 @@ public class Expression
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
         }
     }
 
@@ -94,7 +96,7 @@ public class Expression
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
         }
     }
 

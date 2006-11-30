@@ -5,6 +5,8 @@ import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.taskmanager.Task;
 import net.sf.l2j.gameserver.taskmanager.TaskManager.ExecutedTask;
 
+import org.apache.log4j.Logger;
+
 /**
  * Updates all data for the Seven Signs and Festival of Darkness engines,
  * when time is elapsed.
@@ -13,6 +15,8 @@ import net.sf.l2j.gameserver.taskmanager.TaskManager.ExecutedTask;
  */
 public class TaskSevenSignsUpdate extends Task
 {
+    private static final Logger _log = Logger.getLogger(TaskSevenSignsUpdate.class);
+    
     public static final String NAME = "SevenSignsUpdate";
     
     public String getName()
@@ -28,10 +32,10 @@ public class TaskSevenSignsUpdate extends Task
             if (!SevenSigns.getInstance().isSealValidationPeriod())
                 SevenSignsFestival.getInstance().saveFestivalData(false);
             
-            System.out.println("SevenSigns: Data updated successfully.");
+            _log.info("SevenSigns: Data updated successfully.");
         }
         catch (Exception e) {
-            System.out.println("SevenSigns: Failed to save Seven Signs configuration: " + e);
+            _log.error("SevenSigns: Failed to save Seven Signs configuration: " + e,e);
         }
     }
 }

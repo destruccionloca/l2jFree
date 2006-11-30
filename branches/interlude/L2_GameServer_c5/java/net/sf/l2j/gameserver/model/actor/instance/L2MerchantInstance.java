@@ -55,7 +55,7 @@ public class L2MerchantInstance extends L2FolkInstance
 
     public void onAction(L2PcInstance player)
     {
-        if (Config.DEBUG) _log.fine("Merchant activated");
+        if (_log.isDebugEnabled()) _log.debug("Merchant activated");
         player.sendPacket(new ActionFailed());
         player.setTarget(this);
         player.setLastFolkNPC(this);
@@ -76,7 +76,7 @@ public class L2MerchantInstance extends L2FolkInstance
     {
         player.tempInvetoryDisable();
 
-        if (Config.DEBUG) _log.fine("Showing wearlist");
+        if (_log.isDebugEnabled()) _log.debug("Showing wearlist");
 
         L2TradeList list = TradeController.getInstance().getBuyList(val);
 
@@ -87,7 +87,7 @@ public class L2MerchantInstance extends L2FolkInstance
         }
         else
         {
-            _log.warning("no buylist with id:" + val);
+            _log.warn("no buylist with id:" + val);
             player.sendPacket(new ActionFailed());
         }
     }
@@ -100,7 +100,7 @@ public class L2MerchantInstance extends L2FolkInstance
 
         player.tempInvetoryDisable();
 
-        if (Config.DEBUG) _log.fine("Showing buylist");
+        if (_log.isDebugEnabled()) _log.debug("Showing buylist");
 
         L2TradeList list = TradeController.getInstance().getBuyList(val);
 
@@ -111,9 +111,9 @@ public class L2MerchantInstance extends L2FolkInstance
         }
         else
         {
-            _log.warning("possible client hacker: " + player.getName()
+            _log.warn("possible client hacker: " + player.getName()
                 + " attempting to buy from GM shop! < Ban him!");
-            _log.warning("buylist id:" + val);
+            _log.warn("buylist id:" + val);
         }
 
         player.sendPacket(new ActionFailed());
@@ -121,11 +121,11 @@ public class L2MerchantInstance extends L2FolkInstance
 
     private void showSellWindow(L2PcInstance player)
     {
-        if (Config.DEBUG) _log.fine("Showing selllist");
+        if (_log.isDebugEnabled()) _log.debug("Showing selllist");
 
         player.sendPacket(new SellList(player));
 
-        if (Config.DEBUG) _log.fine("Showing sell window");
+        if (_log.isDebugEnabled()) _log.debug("Showing sell window");
 
         player.sendPacket(new ActionFailed());
     }

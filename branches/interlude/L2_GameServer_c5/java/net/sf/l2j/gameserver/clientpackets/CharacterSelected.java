@@ -19,13 +19,13 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.CharSelected;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -73,13 +73,13 @@ public class CharacterSelected extends ClientBasePacket
 		
 
 		// HAVE TO CREATE THE L2PCINSTANCE HERE TO SET AS ACTIVE
-		if (Config.DEBUG) _log.fine("selected slot:" + _charSlot);
+		if (_log.isDebugEnabled()) _log.debug("selected slot:" + _charSlot);
 		
 		//loadup character from disk
 		L2PcInstance cha = getClient().loadCharFromDisk(_charSlot);
 		if(cha == null)
 		{
-			_log.warning("Character could not be loaded (slot:"+_charSlot+")");
+			_log.warn("Character could not be loaded (slot:"+_charSlot+")");
 			sendPacket(new ActionFailed());
 			return;
 		}
@@ -151,10 +151,10 @@ public class CharacterSelected extends ClientBasePacket
 						(int) (time + diff - System.currentTimeMillis());
 						if (wait > 0)
 						{
-							if (Config.DEBUG) _log.fine("waiting"+ wait);
+							if (_log.isDebugEnabled()) _log.debug("waiting"+ wait);
 							Thread.sleep(wait);
 						}
-						if (Config.DEBUG) _log.fine("sending:"+ time);
+						if (_log.isDebugEnabled()) _log.debug("sending:"+ time);
 						byte[] data = bais.toByteArray();
 						if (data.length != 0)
 						{
@@ -162,7 +162,7 @@ public class CharacterSelected extends ClientBasePacket
 						}
 						else
 						{
-							if (Config.DEBUG) _log.fine("skipping broken data");
+							if (_log.isDebugEnabled()) _log.debug("skipping broken data");
 						}
 
 					}
@@ -180,7 +180,7 @@ public class CharacterSelected extends ClientBasePacket
 		}
 		catch (Exception e)
 		{
-			_log.log(Level.SEVERE, "Error:", e);
+			_log.fatal( "Error:", e);
 		}
 	}
     */

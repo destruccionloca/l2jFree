@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -98,31 +98,31 @@ public class CharacterCreate extends ClientBasePacket
 	{
         if (CharNameTable.getInstance().accountCharNumber(getClient().getLoginName()) >= Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT && Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT != 0)
         {
-            if (Config.DEBUG)
-                _log.fine("Max number of characters reached. Creation failed.");
+            if (_log.isDebugEnabled())
+                _log.debug("Max number of characters reached. Creation failed.");
             CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_TOO_MANY_CHARACTERS);
             sendPacket(ccf);
             return;
         }
         else if (CharNameTable.getInstance().doesCharNameExist(_name))
 		{
-			if (Config.DEBUG)
-				_log.fine("charname: "+ _name + " already exists. creation failed.");
+			if (_log.isDebugEnabled())
+				_log.debug("charname: "+ _name + " already exists. creation failed.");
 			CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_NAME_ALREADY_EXISTS);
 			sendPacket(ccf);
 			return;
 		}
 		else if ((_name.length() < 3) || (_name.length() > 16) || !isAlphaNumeric(_name) || !isValidName(_name))
 		{
-			if (Config.DEBUG) 
-				_log.fine("charname: " + _name + " is invalid. creation failed.");
+			if (_log.isDebugEnabled()) 
+				_log.debug("charname: " + _name + " is invalid. creation failed.");
 			CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_16_ENG_CHARS);
 			sendPacket(ccf);
 			return;
 		}
 
-		if (Config.DEBUG)
-			_log.fine("charname: " + _name + " classId: " + _classId);
+		if (_log.isDebugEnabled())
+			_log.debug("charname: " + _name + " classId: " + _classId);
 		
 		L2PcTemplate template = CharTemplateTable.getInstance().getTemplate(_classId, _sex!=0);
 		if(template == null || template.classBaseLevel > 1) 
@@ -177,7 +177,7 @@ public class CharacterCreate extends ClientBasePacket
             }
             catch (PatternSyntaxException e) // case of illegal pattern
             {
-                _log.warning("ERROR : Character name pattern of config is wrong!");
+                _log.warn("ERROR : Character name pattern of config is wrong!");
                 pattern = Pattern.compile(".*");
             }
             Matcher regexp = pattern.matcher(test);
@@ -190,7 +190,7 @@ public class CharacterCreate extends ClientBasePacket
 	
 	private void initNewChar(ClientThread client, L2PcInstance newChar)
 	{   
-		if (Config.DEBUG) _log.fine("Character init start");
+		if (_log.isDebugEnabled()) _log.debug("Character init start");
 		L2World.getInstance().storeObject(newChar);
 		
 		L2PcTemplate template = newChar.getTemplate();
@@ -254,8 +254,8 @@ public class CharacterCreate extends ClientBasePacket
 			    shortcut = new L2ShortCut(10,0,2,startSkills[i].getId(),1,1);
 			    newChar.registerShortCut(shortcut);
 			}
-			if (Config.DEBUG) 
-				_log.fine("adding starter skill:" + startSkills[i].getId()+ " / "+ startSkills[i].getLevel());
+			if (_log.isDebugEnabled()) 
+				_log.debug("adding starter skill:" + startSkills[i].getId()+ " / "+ startSkills[i].getLevel());
 		}
 		
 		ClientThread.saveCharToDisk(newChar);
@@ -266,7 +266,7 @@ public class CharacterCreate extends ClientBasePacket
 		CharSelectInfo cl =	new CharSelectInfo(client.getLoginName(), client.getSessionId().playOkID1);
 		client.getConnection().sendPacket(cl);
         client.setCharSelection(cl.getCharInfo());
-        if (Config.DEBUG) _log.fine("Character init end");
+        if (_log.isDebugEnabled()) _log.debug("Character init end");
 	}
 	
 	/* (non-Javadoc)

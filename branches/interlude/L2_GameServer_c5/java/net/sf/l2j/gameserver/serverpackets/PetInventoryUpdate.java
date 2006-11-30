@@ -19,11 +19,11 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -58,11 +58,11 @@ public class PetInventoryUpdate extends ServerBasePacket{
 
 	final void runImpl()
 	{
-		if (Config.DEBUG)
+		if (_log.isDebugEnabled())
 		{
 			for (ItemInfo item : _items)
 			{
-				_log.fine("oid:" + Integer.toHexString(item.getObjectId()) +
+				_log.debug("oid:" + Integer.toHexString(item.getObjectId()) +
 						" item:" + item.getItem().getName()+" last change:" + item.getChange());
 			}
 		}

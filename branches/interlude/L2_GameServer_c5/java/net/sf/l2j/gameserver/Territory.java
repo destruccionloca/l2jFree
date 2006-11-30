@@ -11,7 +11,7 @@
 package net.sf.l2j.gameserver;
 
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.lib.SqlUtils;
@@ -55,7 +55,7 @@ public class Territory
 			Integer terr = row[0];
 			if(terr == null)
 			{
-				_log.warning("Null territory!");
+				_log.warn("Null territory!");
 				continue;
 			}
 

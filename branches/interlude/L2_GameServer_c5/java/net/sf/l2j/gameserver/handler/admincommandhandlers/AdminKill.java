@@ -19,7 +19,9 @@
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
+
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -43,7 +45,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class AdminKill implements IAdminCommandHandler 
 {
-    private static Logger _log = Logger.getLogger(AdminKill.class.getName());
+    private static Logger _log = Logger.getLogger(AdminKill.class);
     private static String[] _adminCommands = {"admin_kill", "admin_kill_monster"};
     private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
     
@@ -142,8 +144,8 @@ public class AdminKill implements IAdminCommandHandler
         else
             target.reduceCurrentHp(target.getMaxHp() + 1, activeChar);
 
-        if (Config.DEBUG) 
-            _log.fine("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+")"+
+        if (_log.isDebugEnabled()) 
+            _log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+")"+
                       " killed character "+target.getObjectId());
     }
     

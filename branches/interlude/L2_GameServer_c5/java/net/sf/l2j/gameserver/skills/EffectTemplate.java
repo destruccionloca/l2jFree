@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.skills;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.model.L2Effect;
 
@@ -82,14 +82,13 @@ public final class EffectTemplate
 			//	effect.setCondition(_applayCond);
 			return effect;
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+            _log.error(e.getMessage(),e);
 			return null;
 		} catch (InstantiationException e) {
-			e.printStackTrace();
+            _log.error(e.getMessage(),e);
 			return null;
 		} catch (InvocationTargetException e) {
-            _log.warning("Error creating new instance of Class "+_func+" Exception was:");
-			e.getTargetException().printStackTrace();
+            _log.warn("Error creating new instance of Class "+_func+" Exception was:",e.getTargetException());
 			return null;
 		}
 	

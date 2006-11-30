@@ -19,9 +19,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.Random;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2SiegeGuardAI;
@@ -36,6 +34,8 @@ import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class represents all guards in the world. It inherits all methods from
@@ -99,8 +99,8 @@ public final class L2SiegeGuardInstance extends L2Attackable
         _homeY = getY();
         _homeZ = getZ();
         
-        if (Config.DEBUG)
-            _log.finer(getObjectId()+": Home location set to"+
+        if (_log.isDebugEnabled())
+            _log.debug(getObjectId()+": Home location set to"+
                     " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
     }
     
@@ -122,7 +122,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
     {
         if (!isInsideRadius(_homeX, _homeY, 40, false))
         {
-            if (Config.DEBUG) _log.fine(getObjectId()+": moving home");
+            if (_log.isDebugEnabled()) _log.debug(getObjectId()+": moving home");
             
             clearAggroList();
             
@@ -143,7 +143,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
         
 		if (this != player.getTarget())
 		{
-			if (Config.DEBUG) _log.fine("new target selected:"+getObjectId());
+			if (_log.isDebugEnabled()) _log.debug("new target selected:"+getObjectId());
 			//player.setNewTarget(this);
 			
 			NpcInfo npcInfo = new NpcInfo(this, player);

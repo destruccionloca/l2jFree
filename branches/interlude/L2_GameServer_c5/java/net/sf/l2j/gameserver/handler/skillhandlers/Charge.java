@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;

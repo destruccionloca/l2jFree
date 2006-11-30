@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -194,7 +194,7 @@ public class GameTimeController
                     // calculate sleep time... time needed to next tick minus time it takes to call moveObjects() 
                     int sleepTime = 1 + MILLIS_IN_TICK - ((int) runtime) % MILLIS_IN_TICK;
 
-                    //_log.finest("TICK: "+_gameTicks);
+                    //_log.debug("TICK: "+_gameTicks);
 
                     sleep(sleepTime); // hope other threads will have much more cpu time available now
                     // SelectorThread most of all
@@ -214,7 +214,7 @@ public class GameTimeController
             if (!_timer.isAlive())
             {
                 String time = (new SimpleDateFormat("HH:mm:ss")).format(new Date());
-                _log.warning(time + " TimerThread stop with following error. restart it.");
+                _log.warn(time + " TimerThread stop with following error. restart it.");
                 if (_timer._error != null) _timer._error.printStackTrace();
 
                 _timer = new TimerThread();
@@ -274,12 +274,12 @@ public class GameTimeController
                 if (_isNight) // If is now night
                 {
                     packet = new SunSet(); // Set client day/night state to night
-                    if (Config.DEBUG) _log.fine("SunSet");
+                    if (_log.isDebugEnabled()) _log.debug("SunSet");
                 }
                 else
                 {
                     packet = new SunRise(); // Set client day/night state to day
-                    if (Config.DEBUG) _log.fine("SunRise");
+                    if (_log.isDebugEnabled()) _log.debug("SunRise");
                 }
     
                 for (L2PcInstance player : L2World.getInstance().getAllPlayers())

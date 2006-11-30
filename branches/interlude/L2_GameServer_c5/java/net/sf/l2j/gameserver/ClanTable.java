@@ -21,16 +21,16 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javolution.util.FastMap;
-import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -78,8 +78,7 @@ public class ClanTable
 	            statement.close();
 	        }
 	        catch (Exception e) {
-	            _log.warning("data error on ClanTable: " + e);
-	            e.printStackTrace();
+	            _log.error("data error on ClanTable: " + e,e);
 	        } finally {
 	            try { con.close(); } catch (Exception e) {}
 	        }
@@ -125,7 +124,7 @@ public class ClanTable
             statement.close();
         }
         catch (Exception e) {
-            _log.warning("data error on clan item: " + e);
+            _log.warn("data error on clan item: " + e);
             e.printStackTrace();
         } finally {
             try { con.close(); } catch (Exception e) {}
@@ -160,7 +159,7 @@ public class ClanTable
 			statement.close();
 		}
 		catch (Exception e) {
-			_log.warning("data error on clan item: " + e);
+			_log.error("data error on clan item: " + e,e);
 		} finally {
 			try { con.close(); } catch (Exception e) {}
 		}
@@ -189,7 +188,7 @@ public class ClanTable
         }
         catch (Exception e)
         {
-            _log.warning("error while saving new clan to db "+e);
+            _log.warn("error while saving new clan to db "+e,e);
         }
         finally
         {
@@ -205,7 +204,7 @@ public class ClanTable
             player.setClan(clan);
             player.setClanPrivileges(L2Clan.CP_ALL);
 
-            if (Config.DEBUG) _log.fine("New clan created: "+clan.getClanId() + " " +clan.getName());
+            if (_log.isDebugEnabled()) _log.debug("New clan created: "+clan.getClanId() + " " +clan.getName());
             
             _clans.put(new Integer(clan.getClanId()), clan);
         }
@@ -228,7 +227,7 @@ public class ClanTable
         }
         catch (Exception e)
         {
-            _log.warning("error while saving new clan to db "+e);
+            _log.warn("error while saving new clan to db "+e);
         }
         finally
         {
@@ -259,7 +258,7 @@ public class ClanTable
         }
         catch (Exception e)
         {
-            _log.warning("could not store clans wars data:"+e);
+            _log.warn("could not store clans wars data:"+e);
         } 
         finally 
         {
@@ -313,7 +312,7 @@ public class ClanTable
         }
         catch (Exception e)
         {
-            _log.warning("could not restore clans wars data:"+e);
+            _log.warn("could not restore clans wars data:"+e);
         } 
         finally 
         {
@@ -365,7 +364,7 @@ public class ClanTable
         }
         catch (Exception e)
         {
-            _log.warning("could not restore clan wars data:"+e);
+            _log.warn("could not restore clan wars data:"+e);
         } 
         finally 
         {

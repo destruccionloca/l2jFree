@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.List;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.SkillTable;
@@ -33,6 +31,8 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
+
+import org.apache.log4j.Logger;
 
 public class L2CubicInstance
 {
@@ -229,7 +229,7 @@ public class L2CubicInstance
                 }
                 catch (Exception e)
                 {
-                    _log.log(Level.SEVERE, "", e);
+                    _log.fatal( "", e);
                 }
             }
         }

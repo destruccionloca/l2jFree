@@ -114,7 +114,7 @@ public class EventDroplist
 	    for (DateDrop drop : allNpcDateDrops)
 	    {
 	        Date currentDate = new Date();
-	        //System.out.println("From: "+drop.from+" To: "+drop.to+" Now: "+ currentDate);
+	        //_log.debugr("From: "+drop.from+" To: "+drop.to+" Now: "+ currentDate);
 	        if (drop.dateRange.isWithinRange(currentDate))
 	        {
 	            list.add(drop);

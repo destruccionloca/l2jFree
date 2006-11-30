@@ -3,7 +3,6 @@ package net.sf.l2j.gameserver.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.logging.Level;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
@@ -405,10 +404,10 @@ public class PcInventory extends Inventory
             }
         } 
         catch (Exception e) {
-            _log.log(Level.WARNING, "could not restore inventory:", e);
+            _log.warn( "could not restore inventory:", e);
         } 
         finally {
-            try { con.close(); } catch (Exception e) { _log.warning(""); }
+            try { con.close(); } catch (Exception e) { _log.warn(""); }
         }
         return paperdoll;
     }

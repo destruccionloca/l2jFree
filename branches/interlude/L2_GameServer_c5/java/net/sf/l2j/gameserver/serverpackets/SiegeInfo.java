@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 import java.util.Calendar;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -81,7 +81,7 @@ public class SiegeInfo extends ServerBasePacket
                 writeS(owner.getAllyName());    // Ally Name
             }
             else
-                _log.warning("Null owner for castle: " + _Castle.getName());
+                _log.warn("Null owner for castle: " + _Castle.getName());
         }
         else
         {

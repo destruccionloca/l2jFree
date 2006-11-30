@@ -20,6 +20,8 @@ package net.sf.l2j.gameserver;
 
 import java.lang.reflect.Constructor;
 
+import org.apache.log4j.Logger;
+
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
@@ -28,6 +30,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class MonsterRace
 {
+    private static Logger _log = Logger.getLogger(MonsterRace.class);
     private L2NpcInstance[] monsters;
     private static MonsterRace _instance;
     private Constructor _constructor;
@@ -81,9 +84,8 @@ public class MonsterRace
             } 
             catch (Exception e)
             {
-                e.printStackTrace();
+                _log.error(e.getMessage(),e);
             }
-            //System.out.println("Monster "+i+" is id: "+(id+random));
         }
         newSpeeds();
     }

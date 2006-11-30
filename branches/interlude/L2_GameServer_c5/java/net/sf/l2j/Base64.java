@@ -22,6 +22,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import org.apache.log4j.Logger;
+
 /**
  * Encodes and decodes to and from Base64 notation.
  * 
@@ -60,6 +62,9 @@ public class Base64
     public final static int DONT_BREAK_LINES = 8;
 
     /* ********  P R I V A T E   F I E L D S  ******** */
+    
+    /** Logger */
+    private static Logger _log = Logger.getLogger(Base64.class); 
 
     /** Maximum line length (76) of Base64 output. */
     private final static int MAX_LINE_LENGTH = 76;
@@ -671,12 +676,12 @@ public class Base64
             }
             catch (Exception e)
             {
-                System.out.println("" + source[srcOffset] + ": " + (DECODABET[source[srcOffset]]));
-                System.out.println("" + source[srcOffset + 1] + ": "
+                _log.error("" + source[srcOffset] + ": " + (DECODABET[source[srcOffset]]));
+                _log.error("" + source[srcOffset + 1] + ": "
                     + (DECODABET[source[srcOffset + 1]]));
-                System.out.println("" + source[srcOffset + 2] + ": "
+                _log.error("" + source[srcOffset + 2] + ": "
                     + (DECODABET[source[srcOffset + 2]]));
-                System.out.println("" + source[srcOffset + 3] + ": "
+                _log.error("" + source[srcOffset + 3] + ": "
                     + (DECODABET[source[srcOffset + 3]]));
                 return -1;
             } //e nd catch

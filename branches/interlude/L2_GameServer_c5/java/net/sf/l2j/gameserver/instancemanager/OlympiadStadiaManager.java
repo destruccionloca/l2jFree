@@ -1,7 +1,7 @@
 package net.sf.l2j.gameserver.instancemanager;
 
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -19,7 +19,7 @@ public class OlympiadStadiaManager
     {
         if (_instance == null)
         {
-            System.out.println("Initializing OlympiadStadiaManager");
+            _log.info("Initializing OlympiadStadiaManager");
             _instance = new OlympiadStadiaManager();
             _instance.load();
         }

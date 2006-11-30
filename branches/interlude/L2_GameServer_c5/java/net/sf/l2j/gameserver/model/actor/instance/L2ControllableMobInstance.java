@@ -1,6 +1,5 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2ControllableMobAI;
@@ -101,7 +100,7 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 			
 			// first die (and calculate revards), if currentHp < 0,
 			// then overhit may be calculated
-			if (Config.DEBUG) _log.fine("char is dead.");
+			if (_log.isDebugEnabled()) _log.debug("char is dead.");
 			
 			stopMove(null);
 			

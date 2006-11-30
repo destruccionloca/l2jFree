@@ -23,10 +23,10 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import org.apache.log4j.Logger;
 
 /**
  * This is a class loader for the dynamic extensions used by DynamicExtension class.
@@ -66,7 +66,7 @@ public class JarClassLoader extends ClassLoader {
     			zipStream.readFully(classData, 0, (int) entry.getSize());
     			break;
     		} catch (IOException e) {
-    			log.log(Level.WARNING, jarFile + ":" + e.toString(), e);
+    			log.warn( jarFile + ":" + e.toString(), e);
     			continue;
     		}
     	}

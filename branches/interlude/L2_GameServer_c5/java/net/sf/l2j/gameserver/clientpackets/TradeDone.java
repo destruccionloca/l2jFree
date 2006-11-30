@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -53,7 +53,7 @@ public class TradeDone extends ClientBasePacket
         TradeList trade = player.getActiveTradeList();
         if (trade == null)
         	{
-            _log.warning("player.getTradeList == null in "+getType()+" for player "+player.getName());
+            _log.warn("player.getTradeList == null in "+getType()+" for player "+player.getName());
         	return;
         	}
         if (trade.isLocked()) return;

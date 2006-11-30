@@ -18,11 +18,10 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.logging.Logger;
-
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.log4j.Logger;
 
 /**
  * 0x54 WarehouseWithdrawalList  dh (h dddhh dhhh d)
@@ -54,14 +53,14 @@ public class WareHouseWithdrawalList extends ServerBasePacket
         if (_player.getActiveWarehouse() == null)
         {
             // Something went wrong!
-            _log.warning("error while sending withdraw request to: " + _player.getName());
+            _log.warn("error while sending withdraw request to: " + _player.getName());
             return;
         }
         else _items = _player.getActiveWarehouse().getItems();
         
-        if (Config.DEBUG)
+        if (_log.isDebugEnabled())
             for (L2ItemInstance item : _items)
-                _log.fine("item:" + item.getItem().getName() +
+                _log.debug("item:" + item.getItem().getName() +
                         " type1:" + item.getItem().getType1() + " type2:" + item.getItem().getType2());
     }
     

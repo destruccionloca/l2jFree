@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.Collection;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.lang.TextBuilder;
 import javolution.util.FastList;
@@ -49,6 +47,8 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -116,7 +116,7 @@ public class L2DoorInstance extends L2Character
             } 
             catch (Throwable e) 
             {
-                log.log(Level.SEVERE, "", e);
+                log.fatal( "", e);
             }
         }
     }   
@@ -140,11 +140,11 @@ public class L2DoorInstance extends L2Character
                     closeMe();
                 }
                 
-                if (Config.DEBUG)
+                if (_log.isDebugEnabled())
                     log.info("Auto " + doorAction + " door ID " + _doorId + " (" + _name + ") for " + (_autoActionDelay / 60000) + " minute(s).");
             }
             catch (Exception e) {
-                log.warning("Could not auto open/close door ID " + _doorId + " (" + _name + ")");
+                log.warn("Could not auto open/close door ID " + _doorId + " (" + _name + ")");
             }
         }
     }

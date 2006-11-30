@@ -18,11 +18,10 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.logging.Logger;
-
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.log4j.Logger;
 
 /**
  * 0x53 WareHouseDepositList  dh (h dddhh dhhh d)
@@ -64,7 +63,7 @@ public class WareHouseDepositList extends ServerBasePacket
         writeH(_whtype);        
 		writeD(_playerAdena); 
 		int count = _items.length;
-		if (Config.DEBUG) _log.fine("count:"+count);
+		if (_log.isDebugEnabled()) _log.debug("count:"+count);
 		writeH(count);
 		
 		for (int i = 0; i < count; i++)

@@ -76,9 +76,9 @@ public class AttackRequest extends ClientBasePacket
 					&& activeChar.getPrivateStoreType() ==0 
 					&& activeChar.getActiveRequester() ==null)
 			{
-				//_log.config("Starting ForcedAttack");
+				//_log.info("Starting ForcedAttack");
 				target.onForcedAttack(activeChar);
-				//_log.config("Ending ForcedAttack");				
+				//_log.info("Ending ForcedAttack");				
 			} 
 			else
 			{

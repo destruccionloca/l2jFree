@@ -21,6 +21,8 @@ package net.sf.l2j.gameserver.gameserverpackets;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
 import net.sf.l2j.gameserver.TaskPriority;
 
 /**
@@ -29,6 +31,8 @@ import net.sf.l2j.gameserver.TaskPriority;
  */
 public abstract class GameServerBasePacket
 {
+    private static Logger _log = Logger.getLogger(GameServerBasePacket.class);
+    
 	ByteArrayOutputStream _bao;
 
 	protected GameServerBasePacket()
@@ -79,7 +83,7 @@ public abstract class GameServerBasePacket
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(),e);
 		}
 
 		_bao.write(0);
@@ -94,8 +98,7 @@ public abstract class GameServerBasePacket
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            _log.error(e.getMessage(),e);
 		}
 	}
 

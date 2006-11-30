@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -122,8 +122,8 @@ public class AdminRes implements IAdminCommandHandler
         
 		doResurrect((L2Character)obj);
 		
-		if (Config.DEBUG) 
-			_log.fine("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") resurrected character "+ obj.getObjectId());
+		if (_log.isDebugEnabled()) 
+			_log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") resurrected character "+ obj.getObjectId());
 	}
 	
 	private void handleNonPlayerRes(L2PcInstance activeChar)

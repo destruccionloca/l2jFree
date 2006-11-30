@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 import javolution.util.FastList;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.EventDroplist;
 import net.sf.l2j.gameserver.model.L2DropData;
@@ -34,6 +33,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.bsf.BSFException;
 import org.apache.bsf.BSFManager;
+import org.apache.log4j.Logger;
 
 /**
  * @author Luis Arias
@@ -43,6 +43,7 @@ import org.apache.bsf.BSFManager;
  */
 public class FaenorInterface implements EngineInterface
 {
+    private static Logger _log = Logger.getLogger(FaenorInterface.class);
     private static FaenorInterface _instance;
     
     public static FaenorInterface getInstance()
@@ -101,7 +102,7 @@ public class FaenorInterface implements EngineInterface
         L2NpcTemplate npc = _npcTable.getTemplate(npcID);
         if (npc == null)
         {
-            if (Config.DEBUG) System.out.print("Npc doesnt Exist");
+            _log.warn("Try to add drop to Npc but Npc doesnt Exist (npc = null). npcID="+npcID);
             throw new NullPointerException();
         }
         L2DropData drop = new L2DropData();

@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
@@ -44,7 +43,7 @@ public final class L2TrainerInstance extends L2FolkInstance
      */
     public void onAction(L2PcInstance player)
     {
-        if (Config.DEBUG) _log.fine("Trainer activated");
+        if (_log.isDebugEnabled()) _log.debug("Trainer activated");
         player.setLastFolkNPC(this);
         super.onAction(player);
     }

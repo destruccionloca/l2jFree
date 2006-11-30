@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.instancemanager;
 
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.GameTimeController;
@@ -65,7 +65,7 @@ public class DayNightSpawnManager {
     { 
         if (_dayCreatures.containsKey(spawnDat))
         {
-            _log.warning("DayNightSpawnManager: Spawn already added into day map");
+            _log.warn("DayNightSpawnManager: Spawn already added into day map");
             return;
         }
         else
@@ -76,7 +76,7 @@ public class DayNightSpawnManager {
     {
         if (_nightCreatures.containsKey(spawnDat))
         {
-            _log.warning("DayNightSpawnManager: Spawn already added into night map");
+            _log.warn("DayNightSpawnManager: Spawn already added into night map");
             return;
         }
         else
@@ -129,7 +129,7 @@ public class DayNightSpawnManager {
             }
             
             _log.info("DayNightSpawnManager: Spawning " + i + " day creatures");
-        }catch(Exception e){e.printStackTrace();}
+        }catch(Exception e){_log.error(e.getMessage(),e);}
     }
     
     public void spawnNightCreatures()
@@ -179,7 +179,7 @@ public class DayNightSpawnManager {
             }
             
             _log.info("DayNightSpawnManager: Spawning " + i + " night creatures");
-        }catch(Exception e){e.printStackTrace();}
+        }catch(Exception e){_log.error(e.getMessage(),e);}
     }
     
     private void changeMode(int mode)
@@ -197,7 +197,7 @@ public class DayNightSpawnManager {
                 specialNightBoss(1);
                 break;
                 default:
-                    _log.warning("DayNightSpawnManager: Wrong mode sent");
+                    _log.warn("DayNightSpawnManager: Wrong mode sent");
                 break;
         }
     }
@@ -209,7 +209,7 @@ public class DayNightSpawnManager {
                 changeMode(1);
             else
                 changeMode(0);
-        }catch(Exception e){e.printStackTrace();}
+        }catch(Exception e){_log.error(e.getMessage(),e);}
     }
     
     public void cleanUp()
@@ -243,7 +243,7 @@ public class DayNightSpawnManager {
                 handleHellmans(boss, mode);
             return;
         }
-        }catch(Exception e){e.printStackTrace();}
+        }catch(Exception e){_log.error(e.getMessage(),e);}
     }
     
     private void handleHellmans(L2RaidBossInstance boss, int mode)

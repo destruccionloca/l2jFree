@@ -19,13 +19,13 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MerchantInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -67,7 +67,7 @@ public class SellList extends ServerBasePacket
                                 item.getObjectId() != _char.getPet().getControlItemId()))      // Pet is summoned and not the item that summoned the pet
 				{
 					_selllist.add(item);
-					if (Config.DEBUG) _log.fine("item added to selllist: " + item.getItem().getName());
+					if (_log.isDebugEnabled()) _log.debug("item added to selllist: " + item.getItem().getName());
 				}
 			}
 		}

@@ -19,13 +19,13 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.serverpackets.CharDeleteOk;
 import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -51,7 +51,7 @@ public class CharacterDelete extends ClientBasePacket
 
 	void runImpl()
 	{
-		if (Config.DEBUG) _log.fine("deleting slot:" + _charSlot);
+		if (_log.isDebugEnabled()) _log.debug("deleting slot:" + _charSlot);
 
 		try
 		{
@@ -63,7 +63,7 @@ public class CharacterDelete extends ClientBasePacket
 		}
 		catch (Exception e)
 		{
-			_log.log(Level.SEVERE, "Error:", e);
+			_log.fatal( "Error:", e);
 		}
 		
 		CharDeleteOk cco = new CharDeleteOk();

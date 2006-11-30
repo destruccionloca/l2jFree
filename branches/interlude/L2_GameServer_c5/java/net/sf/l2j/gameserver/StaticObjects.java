@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.LineNumberReader;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -33,7 +33,7 @@ public class StaticObjects
     {
         _staticObjects = new FastMap<Integer,L2StaticObjectInstance>();
         parseData();
-        _log.config("StaticObject: Loaded " + _staticObjects.size() + " StaticObject Templates.");
+        _log.info("StaticObject: Loaded " + _staticObjects.size() + " StaticObject Templates.");
     }
     
     private void parseData()
@@ -56,11 +56,11 @@ public class StaticObjects
         } 
         catch (FileNotFoundException e) 
         {
-            _log.warning("staticobjects.csv is missing in data folder");
+            _log.warn("staticobjects.csv is missing in data folder");
         } 
         catch (Exception e) 
         {
-            _log.warning("error while creating StaticObjects table " + e);
+            _log.warn("error while creating StaticObjects table " + e);
         } 
         finally 
         {

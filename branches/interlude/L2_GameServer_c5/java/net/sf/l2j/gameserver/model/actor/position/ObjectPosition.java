@@ -1,6 +1,6 @@
 package net.sf.l2j.gameserver.model.actor.position;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -54,7 +54,7 @@ public class ObjectPosition
         }
         catch (Exception e)
         {
-            _log.warning("Object Id at bad coords: (x: " + getX() + ", y: " + getY() + ", z: " + getZ() + ").");
+            _log.warn("Object Id at bad coords: (x: " + getX() + ", y: " + getY() + ", z: " + getZ() + ").");
             if (getActiveObject() instanceof L2Character)
                 getActiveObject().decayMe();
             else if (getActiveObject() instanceof L2PcInstance)
@@ -143,10 +143,14 @@ public class ObjectPosition
     
     public final void setZ(int value) 
     { 
-        if(Config.ALLOW_GEODATA)
-            getWorldPosition().setZ(GeoDataRequester.getInstance().getGeoInfoNearest(getWorldPosition().getX(),getWorldPosition().getY(),(short)value).getZ());
-        else
+        //if(Config.ALLOW_GEODATA)
+        //{
+        //    getWorldPosition().setZ(GeoDataRequester.getInstance().getGeoInfoNearest(getWorldPosition().getX(),getWorldPosition().getY(),(short)value).getZ());
+        //}
+        //else
+        //{
             getWorldPosition().setZ(value);
+        //}
     }
 
     public final Point3D getWorldPosition()
@@ -154,13 +158,27 @@ public class ObjectPosition
         if (_WorldPosition == null) _WorldPosition = new Point3D(0, 0, 0);
         return _WorldPosition;       
     }
+    
     public final void setWorldPosition(int x, int y, int z)
     {
-        if(Config.ALLOW_GEODATA)
-            getWorldPosition().setXYZ(x,y,GeoDataRequester.getInstance().getGeoInfoNearest(x,y,(short)z).getZ());
-        else
+        //if(Config.ALLOW_GEODATA)
+        //{
+        //    getWorldPosition().setXYZ(x,y,GeoDataRequester.getInstance().getGeoInfoNearest(x,y,(short)z).getZ());        
+        //}
+        //else
+        //{
             getWorldPosition().setXYZ(x,y,z);
-        
+        //}
+
+        if (getActiveObject() != null && getActiveObject() instanceof L2PcInstance)
+        {
+            ((L2PcInstance)getActiveObject()).revalidateZone();
+         }        
+    }
+
+    public final void setWorldPositionNoGeo(int x, int y, int z)
+    {
+        getWorldPosition().setXYZ(x,y,z);
         if (getActiveObject() != null && getActiveObject() instanceof L2PcInstance)
         {
             ((L2PcInstance)getActiveObject()).revalidateZone();

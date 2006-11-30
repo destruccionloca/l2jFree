@@ -31,17 +31,17 @@ package net.sf.l2j.gameserver.util;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastSet;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.L2MinionData;
 import net.sf.l2j.gameserver.model.actor.instance.L2MinionInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -204,8 +204,8 @@ public class MinionList
 
         monster.spawnMe(newX, newY, master.getZ());
 
-        if (Config.DEBUG)
-            _log.fine("Spawned minion template " + minionTemplate.npcId + " with objid: "
+        if (_log.isDebugEnabled())
+            _log.debug("Spawned minion template " + minionTemplate.npcId + " with objid: "
                 + monster.getObjectId() + " to boss " + master.getObjectId() + " ,at: " + monster.getX()
                 + " x, " + monster.getY() + " y, " + monster.getZ() + " z");
     }

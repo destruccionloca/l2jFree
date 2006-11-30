@@ -40,6 +40,8 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.util.EventData;
 
+import org.apache.log4j.Logger;
+
 /**
  * This class ...
  * 
@@ -48,6 +50,8 @@ import net.sf.l2j.util.EventData;
 
 public class L2Event
 {
+    private static Logger _log = Logger.getLogger(L2Event.class.getName());
+   
     public static String eventName = "";
     public static int teamsNumber = 0;
     public static HashMap<Integer, String> names = new HashMap<Integer, String>();
@@ -161,7 +165,7 @@ public class L2Event
         }
         catch (Exception e)
         {
-            System.out.println(e);
+            _log.error(e);
         }
     }
 
@@ -204,7 +208,7 @@ public class L2Event
         }
         catch (Exception e)
         {
-            System.out.println(e);
+            _log.error(e);
         }
 
     }
@@ -255,7 +259,7 @@ public class L2Event
         }
         catch (Exception e)
         {
-            System.out.println("error when signing in the event:" + e);
+            _log.error("error when signing in the event:" + e.getMessage(),e);
         }
     }
 

@@ -23,14 +23,14 @@ import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.clientpackets.ClientBasePacket;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.WrappedMessage;
 import net.sf.l2j.util.Util;
+
+import org.apache.log4j.Logger;
 
 import com.ibm.io.async.AsyncSocketChannel;
 
@@ -156,8 +156,8 @@ public final class Connection
     public void sendPacket(byte[] data)
     {
         // this is time consuming.. only enable for debugging
-        if (Config.DEBUG && _log.isLoggable(Level.FINEST)) {
-            _log.finest("\n" + Util.printData(data));
+        if ( _log.isDebugEnabled()) {
+            _log.debug("\n" + Util.printData(data));
         }
 
         WrappedMessage msg = new WrappedMessage(data, this);
@@ -220,7 +220,7 @@ public final class Connection
             {
                 LoginServerThread.getInstance().sendLogout(_client.getLoginName());
             }
-        } catch (Throwable t) {_log.log(Level.WARNING, "", t);}
+        } catch (Throwable t) {_log.warn( "", t);}
     }
     
     /**

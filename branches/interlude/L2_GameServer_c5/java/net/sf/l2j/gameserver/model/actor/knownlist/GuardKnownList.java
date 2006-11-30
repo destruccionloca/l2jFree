@@ -1,6 +1,6 @@
 package net.sf.l2j.gameserver.model.actor.knownlist;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
@@ -43,7 +43,7 @@ public class GuardKnownList extends AttackableKnownList
             
             if ( (player.getKarma() > 0) )
             {
-                if (Config.DEBUG) _log.fine(getActiveChar().getObjectId()+": PK "+player.getObjectId()+" entered scan range");
+                if (_log.isDebugEnabled()) _log.debug(getActiveChar().getObjectId()+": PK "+player.getObjectId()+" entered scan range");
                 
                 // Set the L2GuardInstance Intention to AI_INTENTION_ACTIVE
                 if (getActiveChar().getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
@@ -57,7 +57,7 @@ public class GuardKnownList extends AttackableKnownList
             
             if (mob.isAggressive() )
             {
-                if (Config.DEBUG) _log.fine(getActiveChar().getObjectId()+": Aggressive mob "+mob.getObjectId()+" entered scan range");
+                if (_log.isDebugEnabled()) _log.debug(getActiveChar().getObjectId()+": Aggressive mob "+mob.getObjectId()+" entered scan range");
                 
                 // Set the L2GuardInstance Intention to AI_INTENTION_ACTIVE
                 if (getActiveChar().getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)

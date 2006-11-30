@@ -137,8 +137,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 		//	dist2 = _actor.getPlanDistanceSq(getAttackTarget().getX(), getAttackTarget().getY());
 		} 
         catch (NullPointerException e) {
-			_log.warning("Encountered Null Value.");
-			e.printStackTrace();
+			_log.warn("Encountered Null Value.",e);
 		}
 
 		if (!_actor.isMuted()) 
@@ -197,8 +196,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 			max_range = range;
 		} 
         catch (NullPointerException e) {
-			_log.warning("Encountered Null Value.");
-			e.printStackTrace();
+			_log.warn("Encountered Null Value.",e);
 		}
 
 		if (!_actor.isMuted() && dist2 > (range + 20) * (range + 20)) 
@@ -249,8 +247,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 			max_range = range;
 		} 
         catch (NullPointerException e) {
-			_log.warning("Encountered Null Value.");
-			e.printStackTrace();
+			_log.warn("Encountered Null Value.",e);
 		}
 
 		if (!_actor.isMuted() && dist2 > (range + 20) * (range + 20))
@@ -340,8 +337,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 				max_range = range;
 			} 
             catch (NullPointerException e) {
-				_log.warning("Encountered Null Value.");
-				e.printStackTrace();
+				_log.warn("Encountered Null Value.",e);
 			}
 
 			if (!_actor.isMuted() && dist2 > (range + 20) * (range + 20)) 

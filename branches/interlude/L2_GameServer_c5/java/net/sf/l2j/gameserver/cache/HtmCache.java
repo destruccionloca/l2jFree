@@ -7,7 +7,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -146,7 +146,7 @@ public class HtmCache
             }
             catch (Exception e)
             {
-                _log.warning("problem with htm file " + e);
+                _log.warn("problem with htm file " + e);
             }
             finally
             {
@@ -164,7 +164,7 @@ public class HtmCache
         if (content == null)
         {
             content = "<html><body>My text is missing:<br>" + path + "</body></html>";
-            _log.warning("Cache[HTML]: Missing HTML page: " + path);
+            _log.warn("Cache[HTML]: Missing HTML page: " + path);
         }
         
         return content;

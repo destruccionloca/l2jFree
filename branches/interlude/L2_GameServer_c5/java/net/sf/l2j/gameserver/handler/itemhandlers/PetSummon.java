@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.handler.itemhandlers;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
@@ -186,7 +186,7 @@ public class PetSummon implements IItemHandler
             }
             catch (Throwable e)
             {
-                _log.severe(e.toString());
+                _log.fatal(e.toString());
             }
         }
     }
@@ -215,7 +215,7 @@ public class PetSummon implements IItemHandler
             }
             catch (Throwable e)
             {
-                _log.severe(e.toString());
+                _log.fatal(e.toString());
             }
         }
     }

@@ -23,8 +23,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 /**
  * extension loader for l2j
@@ -85,7 +85,7 @@ public class DynamicExtension {
         } catch (FileNotFoundException ex) {
             log.info(ex.getMessage() + ": no extensions to load");
 		} catch (Exception ex) {
-			log.log(Level.WARNING, "could not load properties", ex);
+			log.warn( "could not load properties", ex);
 		}
 		classLoader = new JarClassLoader();
 		for (Object o : prop.keySet()) {
@@ -117,7 +117,7 @@ public class DynamicExtension {
             log.info("Extension " + className + " loaded.");
             loadedExtensions.put(className, obj);
         } catch (Exception ex) {
-            log.log(Level.WARNING, name, ex);
+            log.warn( name, ex);
         }
     }
 
@@ -156,7 +156,7 @@ public class DynamicExtension {
             extension.getMethod("unload", new Class[0]).invoke(obj, new Object[0]);
             log.info("Extension " + className + " unloaded.");
         } catch (Exception ex) {
-            log.log(Level.WARNING, "could not unload " + className, ex);
+            log.warn( "could not unload " + className, ex);
         }
     }
 

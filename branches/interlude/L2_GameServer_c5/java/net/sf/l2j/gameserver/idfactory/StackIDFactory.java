@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Stack;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -58,7 +58,7 @@ public class StackIDFactory extends IdFactory
             {
                 _curOID = tmp_obj_ids[tmp_obj_ids.length-1];
             }
-            System.out.println("Max Id = " + _curOID);
+            _log.debug("Max Id = " + _curOID);
             
             int N = tmp_obj_ids.length;
             for (int idx = 0; idx < N; idx++)
@@ -67,13 +67,12 @@ public class StackIDFactory extends IdFactory
             }
 
             _curOID++;
-            _log.config("IdFactory: Next usable Object ID is: " + _curOID);
+            _log.info("IdFactory: Next usable Object ID is: " + _curOID);
             initialized = true;
         }
         catch (Exception e1)
         {
-			e1.printStackTrace();
-            _log.severe("ID Factory could not be initialized correctly:" + e1);
+            _log.fatal("ID Factory could not be initialized correctly:" + e1,e1);
         }
         finally
         {
@@ -103,7 +102,7 @@ public class StackIDFactory extends IdFactory
             while (rs.next())
             {
                 int badId = rs.getInt(1);
-                _log.severe("Bad ID " + badId + " in DB found by: " + check);
+                _log.fatal("Bad ID " + badId + " in DB found by: " + check);
                 throw new RuntimeException();
             }
             rs.close();
@@ -116,7 +115,7 @@ public class StackIDFactory extends IdFactory
         if (hole > N - idx) hole = N - idx;
         for (int i = 1; i <= hole; i++)
         {
-            //System.out.println("Free ID added " + (_tempOID));
+            //_log.debugr("Free ID added " + (_tempOID));
             _freeOIDStack.push(_tempOID);
             _tempOID++;
             //_curOID++;

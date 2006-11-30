@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -58,7 +58,7 @@ public class SpawnTable
         if (!Config.ALT_DEV_NO_SPAWNS)
             fillSpawnTable();
         else
-            System.out.println("Spawns Disabled");
+            _log.debug("Spawns Disabled");
     }
 
     public Map<Integer, L2Spawn> getSpawnTable()
@@ -129,7 +129,7 @@ public class SpawnTable
                 }
                 else
                 {
-                    _log.warning("SpawnTable: Data missing in NPC table for ID: "
+                    _log.warn("SpawnTable: Data missing in NPC table for ID: "
                         + rset.getInt("npc_templateid") + ".");
                 }
             }
@@ -139,7 +139,7 @@ public class SpawnTable
         catch (Exception e)
         {
             // problem with initializing spawn, go to next one
-            _log.warning("SpawnTable: Spawn could not be initialized: " + e);
+            _log.warn("SpawnTable: Spawn could not be initialized: " + e);
         }
         finally
         {
@@ -152,10 +152,10 @@ public class SpawnTable
             }
         }
 
-        _log.config("SpawnTable: Loaded " + _spawntable.size() + " Npc Spawn Locations.");
+        _log.info("SpawnTable: Loaded " + _spawntable.size() + " Npc Spawn Locations.");
 
-        if (Config.DEBUG)
-            _log.fine("SpawnTable: Spawning completed, total number of NPCs in the world: "
+        if (_log.isDebugEnabled())
+            _log.debug("SpawnTable: Spawning completed, total number of NPCs in the world: "
                 + _npcSpawnCount);
         
     }
@@ -194,7 +194,7 @@ public class SpawnTable
             catch (Exception e)
             {
                 // problem with storing spawn
-                _log.warning("SpawnTable: Could not store spawn in the DB:" + e);
+                _log.warn("SpawnTable: Could not store spawn in the DB:" + e);
             }
             finally
             {
@@ -228,7 +228,7 @@ public class SpawnTable
             catch (Exception e)
             {
                 // problem with deleting spawn
-                _log.warning("SpawnTable: Spawn " + spawn.getId() + " could not be removed from DB: "
+                _log.warn("SpawnTable: Spawn " + spawn.getId() + " could not be removed from DB: "
                     + e);
             }
             finally

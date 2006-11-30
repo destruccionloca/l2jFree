@@ -20,6 +20,8 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
+import org.apache.log4j.Logger;
+
 import net.sf.l2j.gameserver.ClientThread;
 
 /**
@@ -31,6 +33,8 @@ import net.sf.l2j.gameserver.ClientThread;
 public class RequestExFishRanking extends ClientBasePacket
 {
     private static final String _C__D0_1F_REQUESTEXFISHRANKING = "[C] D0:1F RequestExFishRanking";
+    private static Logger _log = Logger.getLogger(RequestExFishRanking.class.getName());
+    
     /**
      * @param buf
      * @param client
@@ -46,7 +50,7 @@ public class RequestExFishRanking extends ClientBasePacket
     @Override
     void runImpl()
     {
-        System.out.println("C5: RequestExFishRanking");
+        _log.debug("C5: RequestExFishRanking");
     }
 
     /**

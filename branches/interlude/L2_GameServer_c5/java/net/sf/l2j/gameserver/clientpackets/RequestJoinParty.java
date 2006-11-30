@@ -19,15 +19,15 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.AskJoinParty;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.log4j.Logger;
 
 /**
  *  sample
@@ -134,8 +134,8 @@ public class RequestJoinParty extends ClientBasePacket
            target.sendPacket(new AskJoinParty(requestor.getName(), _itemDistribution));
            requestor.getParty().increasePendingInvitationNumber();
            
-           if (Config.DEBUG) 
-               _log.fine("sent out a party invitation to:"+target.getName());
+           if (_log.isDebugEnabled()) 
+               _log.debug("sent out a party invitation to:"+target.getName());
            
            msg = new SystemMessage(SystemMessage.YOU_INVITED_S1_TO_PARTY);
            msg.addString(target.getName());
@@ -146,8 +146,8 @@ public class RequestJoinParty extends ClientBasePacket
            msg = new SystemMessage(SystemMessage.S1_IS_BUSY_TRY_LATER);
            requestor.sendPacket(msg);
            
-           if (Config.DEBUG)
-               _log.warning(requestor.getName() + " already received a party invitation");
+           if (_log.isDebugEnabled())
+               _log.warn(requestor.getName() + " already received a party invitation");
 		}
         msg = null;
 	}
@@ -171,8 +171,8 @@ public class RequestJoinParty extends ClientBasePacket
            target.sendPacket(new AskJoinParty(requestor.getName(), _itemDistribution));
            requestor.getParty().increasePendingInvitationNumber();
            
-           if (Config.DEBUG)
-               _log.fine("sent out a party invitation to:"+target.getName());
+           if (_log.isDebugEnabled())
+               _log.debug("sent out a party invitation to:"+target.getName());
            
            msg = new SystemMessage(SystemMessage.YOU_INVITED_S1_TO_PARTY);
            msg.addString(target.getName());
@@ -184,8 +184,8 @@ public class RequestJoinParty extends ClientBasePacket
            msg.addString(target.getName());
            requestor.sendPacket(msg);
            
-           if (Config.DEBUG)
-               _log.warning(requestor.getName() + " already received a party invitation");
+           if (_log.isDebugEnabled())
+               _log.warn(requestor.getName() + " already received a party invitation");
 		}
 	}
 

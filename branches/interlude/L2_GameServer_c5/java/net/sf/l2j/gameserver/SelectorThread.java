@@ -32,8 +32,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -229,12 +229,12 @@ public final class SelectorThread extends IOThread {
 			if ("*".equals(_hostname))
 			{
 				isa = new InetSocketAddress(_port);
-                _log.config("GameServer listening on all available IPs on Port "+_port);
+                _log.info("GameServer listening on all available IPs on Port "+_port);
 			}
 			else
 			{
 				isa = new InetSocketAddress(_hostname, _port);
-                _log.config("GameServer listening on IP: "+_hostname + " Port "+_port);
+                _log.info("GameServer listening on IP: "+_hostname + " Port "+_port);
 			}
 		    ssc.socket().bind(isa, 100);
 		    ssc.configureBlocking(false);
@@ -301,7 +301,7 @@ public final class SelectorThread extends IOThread {
 							break;    						
 	    				default:
 	    					System.err.println("Impossible readyOps="+readyOps);
-	    					_log.severe("Impossible readyOps="+readyOps);
+	    					_log.fatal("Impossible readyOps="+readyOps);
 	    					sk.cancel();
 	    					break;
 	    				}
@@ -314,7 +314,7 @@ public final class SelectorThread extends IOThread {
 				}
 			}
 		} catch (Throwable t) {
-			_log.log(Level.SEVERE, "", t);
+			_log.fatal( "", t);
 			System.exit(1);
 		}
         finally
@@ -368,7 +368,7 @@ public final class SelectorThread extends IOThread {
 		} catch (IOException e) {
             try
             {
-                _log.fine("Error on network write, player "+con.getClient().getActiveChar().getName()+" disconnected?");
+                _log.debug("Error on network write, player "+con.getClient().getActiveChar().getName()+" disconnected?");
             }
             catch(NullPointerException npe)
             {
@@ -512,13 +512,13 @@ public final class SelectorThread extends IOThread {
 		}
         catch (IllegalArgumentException e)
         {
-            _log.log(Level.SEVERE, "Error on parsing input from client: "+con._client.getLoginName(), e);
+            _log.fatal( "Error on parsing input from client: "+con._client.getLoginName(), e);
             releaseBuffer(buf);
             con.readBuffer = null;
             throw e;
         }
         catch (Throwable t) {
-			_log.log(Level.SEVERE, "", t);
+			_log.fatal( "", t);
 			releaseBuffer(buf);
 			con.readBuffer = null;
 			throw t;

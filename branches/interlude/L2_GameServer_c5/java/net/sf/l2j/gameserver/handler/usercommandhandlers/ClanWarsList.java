@@ -108,7 +108,7 @@ public class ClanWarsList implements IUserCommandHandler
 		}
 		catch (Exception e)
 		{
-			//_log.log(Level.WARNING, "Error in attackerlist ",e);
+			//_log.warn( "Error in attackerlist ",e);
 		}
 		finally
 		{

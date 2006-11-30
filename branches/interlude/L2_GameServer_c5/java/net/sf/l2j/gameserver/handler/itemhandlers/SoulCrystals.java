@@ -31,6 +31,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.log4j.Logger;
+
 /**
  * This class ...
  * 
@@ -39,6 +41,8 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class SoulCrystals implements IItemHandler
 {
+    private static Logger _log = Logger.getLogger(SoulCrystals.class);
+    
 	// First line is for Red Soul Crystals, second is Green and third is Blue Soul Crystals,
     // ordered by ascending level, from 0 to 13... 
     private static int[] _itemIds = { 4629, 4630, 4631, 4632, 4633, 4634, 4635, 4636, 4637, 4638, 4639, 5577, 5580, 5908,
@@ -110,7 +114,7 @@ public class SoulCrystals implements IItemHandler
             	_target.addAbsorber(_activeChar, _crystalId);
             	_activeChar.setTarget(_target);
             } catch (Throwable e) {
-                e.printStackTrace();
+                _log.error(e.getMessage(),e);
             }
 		}
 	}

@@ -48,8 +48,12 @@ import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.log4j.Logger;
+
 public class CTF
 {   
+    private static Logger _log = Logger.getLogger(CTF.class);
+    
     public static String _eventName = new String(),
                          _eventDesc = new String(),
                          _topTeam = new String(),
@@ -112,7 +116,7 @@ public class CTF
     {
         if (!checkTeamOk())
         {
-            System.out.println("CTF Engine[addTeam(" + teamName + ")]: checkTeamOk() == false");
+            _log.debug("CTF Engine[addTeam(" + teamName + ")]: checkTeamOk() == false");
             return;
         }
         
@@ -135,13 +139,13 @@ public class CTF
     {
         if (!checkTeamOk() || _teams.isEmpty())
         {
-            System.out.println("CTF Engine[removeTeam(" + teamName + ")]: checkTeamOk() == false");
+            _log.debug("CTF Engine[removeTeam(" + teamName + ")]: checkTeamOk() == false");
             return;
         }
         
         if (teamPlayersCount(teamName) > 0)
         {
-            System.out.println("CTF Engine[removeTeam(" + teamName + ")]: teamPlayersCount(teamName) > 0");
+            _log.debug("CTF Engine[removeTeam(" + teamName + ")]: teamPlayersCount(teamName) > 0");
             return;
         }
         
@@ -209,7 +213,7 @@ public class CTF
     {
         if (!startJoinOk())
         {
-            System.out.println("CTF Engine[startJoin()]: startJoinOk() == false");
+            _log.debug("CTF Engine[startJoin()]: startJoinOk() == false");
             return;
         }
         
@@ -257,7 +261,7 @@ public class CTF
         }
         catch (Exception e)
         {
-            System.out.println("CTF Engine[spawnEventNpc()]: exception: " + e);
+            _log.debug("CTF Engine[spawnEventNpc()]: exception: " + e);
         }
     }
     
@@ -364,7 +368,7 @@ public class CTF
     {
         if (!startEventOk())
         {
-            System.out.println("CTF Engine[startEvent()]: start conditions wrong");
+            _log.debug("CTF Engine[startEvent()]: start conditions wrong");
             return;
         }
         
@@ -418,7 +422,7 @@ public class CTF
     {
         if (!finishEventOk())
         {
-            System.out.println("CTF Engine[finishEvent(" + activeChar.getName() + ")]: finishEventOk() == false");
+            _log.debug("CTF Engine[finishEvent(" + activeChar.getName() + ")]: finishEventOk() == false");
             return;
         }
         
@@ -768,7 +772,7 @@ public class CTF
         }
         catch (Exception e)
         {
-            System.out.println("CTF Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+            _log.debug("CTF Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
         }
     }
     
@@ -992,79 +996,76 @@ public class CTF
     
     public static void dumpData()
     {
-        System.out.println("");
-        System.out.println("");
-        
         if (!_joining && !_teleport && !_started)
         {
-            System.out.println("<<---------------------------------->>");
-            System.out.println(">> CTF Engine infos dump (INACTIVE) <<");
-            System.out.println("<<--^----^^-----^----^^------^^----->>");
+            _log.info("<<---------------------------------->>");
+            _log.info(">> CTF Engine infos dump (INACTIVE) <<");
+            _log.info("<<--^----^^-----^----^^------^^----->>");
         }
         else if (_joining && !_teleport && !_started)
         {
-            System.out.println("<<--------------------------------->>");
-            System.out.println(">> CTF Engine infos dump (JOINING) <<");
-            System.out.println("<<--^----^^-----^----^^------^----->>");
+            _log.info("<<--------------------------------->>");
+            _log.info(">> CTF Engine infos dump (JOINING) <<");
+            _log.info("<<--^----^^-----^----^^------^----->>");
         }
         else if (!_joining && _teleport && !_started)
         {
-            System.out.println("<<---------------------------------->>");
-            System.out.println(">> CTF Engine infos dump (TELEPORT) <<");
-            System.out.println("<<--^----^^-----^----^^------^^----->>");
+            _log.info("<<---------------------------------->>");
+            _log.info(">> CTF Engine infos dump (TELEPORT) <<");
+            _log.info("<<--^----^^-----^----^^------^^----->>");
         }
         else if (!_joining && !_teleport && _started)
         {
-            System.out.println("<<--------------------------------->>");
-            System.out.println(">> CTF Engine infos dump (STARTED) <<");
-            System.out.println("<<--^----^^-----^----^^------^----->>");
+            _log.info("<<--------------------------------->>");
+            _log.info(">> CTF Engine infos dump (STARTED) <<");
+            _log.info("<<--^----^^-----^----^^------^----->>");
         }
 
-        System.out.println("Name: " + _eventName);
-        System.out.println("Desc: " + _eventDesc);
-        System.out.println("Join location: " + _joiningLocationName);
-        System.out.println("Min lvl: " + _minlvl);
-        System.out.println("Max lvl: " + _maxlvl);
-        System.out.println("");
-        System.out.println("##########################");
-        System.out.println("# _teams(Vector<String>) #");
-        System.out.println("##########################");
+        _log.info("Name: " + _eventName);
+        _log.info("Desc: " + _eventDesc);
+        _log.info("Join location: " + _joiningLocationName);
+        _log.info("Min lvl: " + _minlvl);
+        _log.info("Max lvl: " + _maxlvl);
+        _log.info("");
+        _log.info("##########################");
+        _log.info("# _teams(Vector<String>) #");
+        _log.info("##########################");
         
         for (String team : _teams)
-            System.out.println(team);
+            _log.info(team);
 
-        System.out.println("");
-        System.out.println("#########################################");
-        System.out.println("# _playersShuffle(Vector<L2PcInstance>) #");
-        System.out.println("#########################################");
+        _log.info("");
+        _log.info("#########################################");
+        _log.info("# _playersShuffle(Vector<L2PcInstance>) #");
+        _log.info("#########################################");
         
         for (L2PcInstance player : _playersShuffle)
         {
             if (player != null)
-                System.out.println("Name: " + player.getName());
+                _log.info("Name: " + player.getName());
         }
         
-        System.out.println("");
-        System.out.println("##################################");
-        System.out.println("# _players(Vector<L2PcInstance>) #");
-        System.out.println("##################################");
+        _log.info("");
+        _log.info("##################################");
+        _log.info("# _players(Vector<L2PcInstance>) #");
+        _log.info("##################################");
         
         for (L2PcInstance player : _players)
         {
             if (player != null)
-                System.out.println("Name: " + player.getName() + "    Team: " + player._teamNameCTF);
+                _log.info("Name: " + player.getName() + "    Team: " + player._teamNameCTF);
         }
         
-        System.out.println("");
-        System.out.println("#####################################################################");
-        System.out.println("# _savePlayers(Vector<String>) and _savePlayerTeams(Vector<String>) #");
-        System.out.println("#####################################################################");
+        _log.info("");
+        _log.info("#####################################################################");
+        _log.info("# _savePlayers(Vector<String>) and _savePlayerTeams(Vector<String>) #");
+        _log.info("#####################################################################");
         
         for (String player : _savePlayers)
-            System.out.println("Name: " + player + "    Team: " + _savePlayerTeams.get(_savePlayers.indexOf(player)));
+            _log.info("Name: " + player + "    Team: " + _savePlayerTeams.get(_savePlayers.indexOf(player)));
         
-        System.out.println("");
-        System.out.println("");
+        _log.info("");
+        _log.info("");
     }
 
     public static int teamPointsCount(String teamName)

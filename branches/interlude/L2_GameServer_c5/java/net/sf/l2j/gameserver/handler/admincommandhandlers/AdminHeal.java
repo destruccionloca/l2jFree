@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -52,7 +52,7 @@ public class AdminHeal implements IAdminCommandHandler {
             }
             catch (StringIndexOutOfBoundsException e)
             {
-                if ( Config.DEVELOPER ) System.out.println("Heal error: "+e);
+                if ( _log.isDebugEnabled() ) _log.debug("Heal error: "+e);
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                 sm.addString("Incorrect target/radius specified.");
                 activeChar.sendPacket(sm);
@@ -106,8 +106,8 @@ public class AdminHeal implements IAdminCommandHandler {
             L2Character target = (L2Character)obj;
             target.setCurrentHpMp(target.getMaxHp(), target.getMaxMp());
             if ( target instanceof L2PcInstance ) target.setCurrentCp(target.getMaxCp());
-            if (Config.DEBUG) 
-                _log.fine("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") healed character "+target.getName());
+            if (_log.isDebugEnabled()) 
+                _log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") healed character "+target.getName());
         } 
         else {
             SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);

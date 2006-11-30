@@ -18,10 +18,9 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.logging.Logger;
-
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -50,8 +49,8 @@ public class PledgeReceivePowerInfo extends ServerBasePacket
 	{
 		//_clan = clan;
         _cha = activeChar;
-        if (Config.DEBUG)
-        _log.warning("2.pledge member power info packet ending: "+_cha.getName());
+        if (_log.isDebugEnabled())
+        _log.warn("2.pledge member power info packet ending: "+_cha.getName());
 	}	
 	
 	final void runImpl()

@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.lang.TextBuilder;
 import net.sf.l2j.gameserver.Olympiad;
@@ -153,7 +153,7 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
                     player.sendPacket(new MultiSellList(102));
                     break;
                     default:
-                        _logOlymp.warning("Olympiad System: Couldnt send packet for request " + val);
+                        _logOlymp.warn("Olympiad System: Couldnt send packet for request " + val);
                     break;
                         
             }
@@ -233,7 +233,7 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
                     player.sendPacket(new ExHeroList());
                     break;
                     default:
-                        _logOlymp.warning("Olympiad System: Couldnt send packet for request " + val);
+                        _logOlymp.warn("Olympiad System: Couldnt send packet for request " + val);
                     break;
             }
         }

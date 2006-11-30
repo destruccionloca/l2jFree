@@ -24,11 +24,9 @@ import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.HennaTable;
 import net.sf.l2j.gameserver.ItemTable;
@@ -45,6 +43,8 @@ import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.base.SubClass;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.templates.L2Henna;
+
+import org.apache.log4j.Logger;
 
 /**
  * Admin Subclass Restoration
@@ -206,7 +206,7 @@ public class AdminSubclass implements IAdminCommandHandler
             } 
             catch (SQLException sqlx) 
             {
-                _log.severe("//subclass_repair can't connect to the database: " + sqlx);
+                _log.fatal("//subclass_repair can't connect to the database: " + sqlx);
                 return true;
             }
             
@@ -437,7 +437,7 @@ public class AdminSubclass implements IAdminCommandHandler
                             {
                                 currMatrix.addSubSkill(playerSub.getClassIndex(), newSkill);
                                 
-                                if (Config.DEBUG)
+                                if (_log.isDebugEnabled())
                                     sendReport("INFO", "ObjectId(" + currMatrix.getObjectId() + ") Index: " + playerSub.getClassIndex() + " " + 
                                                newSkill.getName() + " Lv:" + newSkill.getLevel());
                                 
@@ -494,7 +494,7 @@ public class AdminSubclass implements IAdminCommandHandler
                             statement.execute();
                             statement.close();
                             
-                            if (Config.DEBUG)
+                            if (_log.isDebugEnabled())
                                 sendReport("INFO", " Index(" + playerSub.getClassIndex() + ") SkId(" + 
                                            currSkill.getId() + ") SkLv(" + currSkill.getLevel() + ") - " + 
                                            currSkill.getName() + " - Player:" + playerMatrix.getPlayerName());
@@ -715,12 +715,12 @@ public class AdminSubclass implements IAdminCommandHandler
         }
         else if (msgType.equals("WARN"))
         {
-            _log.warning(msgContent); 
+            _log.warn(msgContent); 
             sendConsole(Say2.TRADE, msgContent);
         }
         else if (msgType.equals("BAD"))
         {
-            _log.severe(msgContent); 
+            _log.fatal(msgContent); 
             sendConsole(Say2.TRADE, msgContent);
         }
     }

@@ -8,7 +8,7 @@ import java.io.LineNumberReader;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -172,7 +172,7 @@ public class L2Manor
                         crops.add(seed.crop);
                     break;
                 default:
-                    _log.warning("[L2Manor::getCropForCastle] invalid castle index? "+castleId);
+                    _log.warn("[L2Manor::getCropForCastle] invalid castle index? "+castleId);
             }
         }
         
@@ -223,7 +223,7 @@ public class L2Manor
                         seedsID.add(seed.id);
                     break;
                 default:
-                    _log.warning("[L2Manor::getSeedsForCastle] invalid castle index? "+castleId);
+                    _log.warn("[L2Manor::getSeedsForCastle] invalid castle index? "+castleId);
             }
         }
         
@@ -292,17 +292,17 @@ public class L2Manor
                 _seeds.put(seed.id, seed);             
             }
 
-            _log.config("ManorManager: Loaded " + _seeds.size() + " seeds");
+            _log.info("ManorManager: Loaded " + _seeds.size() + " seeds");
         }
         catch (FileNotFoundException e)
         {
             initialized = false;
-            _log.warning("seeds.csv is missing in data folder");
+            _log.warn("seeds.csv is missing in data folder");
         }
         catch (Exception e)
         {
             initialized = false;
-            _log.warning("error while loading seeds: " + e);
+            _log.warn("error while loading seeds: " + e);
         }
         finally
         {

@@ -1,7 +1,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClanTable;
@@ -74,7 +74,7 @@ public class RequestStartPledgeWar extends ClientBasePacket
             return;
         }
 
-        _log.warning("RequestStartPledgeWar, leader: " + clan.getLeaderName() + " clan: "
+        _log.warn("RequestStartPledgeWar, leader: " + clan.getLeaderName() + " clan: "
             + _clan.getName());
 
         //        L2PcInstance leader = L2World.getInstance().getPlayer(clan.getLeaderName());

@@ -3,7 +3,7 @@ package net.sf.l2j.gameserver.instancemanager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
@@ -41,7 +41,7 @@ public class MercTicketManager
     	//CastleManager.getInstance();
         if (_Instance == null)
         {
-    		System.out.println("Initializing MercTicketManager");
+    		_log.info("Initializing MercTicketManager");
             _Instance = new MercTicketManager();
             _Instance.load();
         }
@@ -176,12 +176,11 @@ public class MercTicketManager
 	        }
             statement.close();
 
-            System.out.println("Loaded: " + getDroppedTickets().size() + " Mercenary Tickets");
+            _log.info("Loaded: " + getDroppedTickets().size() + " Mercenary Tickets");
         }
         catch (Exception e)
         {
-            System.out.println("Exception: loadMercenaryData(): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: loadMercenaryData(): " + e.getMessage(),e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }

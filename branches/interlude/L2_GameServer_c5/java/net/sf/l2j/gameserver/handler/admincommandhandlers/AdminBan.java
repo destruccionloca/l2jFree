@@ -24,6 +24,8 @@ import java.sql.SQLException;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
+import org.apache.log4j.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.LoginServerThread;
@@ -40,6 +42,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * @version $Revision: 1.1.6.3 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminBan implements IAdminCommandHandler {
+    
+    private static Logger _log = Logger.getLogger(AdminBan.class);
+    
     //private static Logger _log = Logger.getLogger(AdminBan.class.getName());
     private static String[] _adminCommands = {"admin_ban", "admin_unban","admin_jail","admin_unjail"};
     private static final int REQUIRED_LEVEL = Config.GM_BAN;
@@ -89,7 +94,7 @@ public class AdminBan implements IAdminCommandHandler {
             }
             catch(Exception e)
             {
-                if (Config.DEBUG) e.printStackTrace();
+                _log.error (e.getMessage(),e);
             }
         }
         else if (command.startsWith("admin_jail"))
@@ -116,7 +121,7 @@ public class AdminBan implements IAdminCommandHandler {
                 activeChar.sendMessage("Specify a character name.");
             } catch(Exception e)
             {
-                if (Config.DEBUG) e.printStackTrace();
+                _log.error (e.getMessage(),e);
             }            
         }
         else if (command.startsWith("admin_unjail"))
@@ -137,7 +142,7 @@ public class AdminBan implements IAdminCommandHandler {
                 activeChar.sendMessage("Specify a character name.");
             } catch(Exception e)
             {
-                if (Config.DEBUG) e.printStackTrace();
+                _log.error (e.getMessage(),e);
             }            
         }
         
@@ -173,7 +178,7 @@ public class AdminBan implements IAdminCommandHandler {
     	} catch (SQLException se)
     	{
     		activeChar.sendMessage("SQLException while jailing player");
-            if (Config.DEBUG) se.printStackTrace();
+            _log.error (se.getMessage(),se);
     	} finally
     	{
     		try { con.close(); } catch (Exception e) {}
@@ -206,7 +211,7 @@ public class AdminBan implements IAdminCommandHandler {
     	} catch (SQLException se)
     	{
     		activeChar.sendMessage("SQLException while jailing player");
-            if (Config.DEBUG) se.printStackTrace();
+            _log.error (se.getMessage(),se);
     	} finally
     	{
     		try { con.close(); } catch (Exception e) {}

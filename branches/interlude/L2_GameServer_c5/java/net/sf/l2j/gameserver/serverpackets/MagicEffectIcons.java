@@ -55,7 +55,7 @@ public class MagicEffectIcons extends ServerBasePacket
 	
 	public void addEffect(int skillId, int level, int duration)
 	{
-//		System.out.println("Adding effect icon id="+skillId+", level="+dat+", duration="+duration);
+//		_log.debugr("Adding effect icon id="+skillId+", level="+dat+", duration="+duration);
 		_effects.add(new Effect(skillId, level, duration));		
 	}
 	
@@ -67,7 +67,7 @@ public class MagicEffectIcons extends ServerBasePacket
 	final void writeImpl()
 	{
 		writeC(0x7f);
-//		System.out.println("Sending "+_effects.size()+" icons");
+//		_log.debugr("Sending "+_effects.size()+" icons");
 		
 		writeH(_effects.size());
 	

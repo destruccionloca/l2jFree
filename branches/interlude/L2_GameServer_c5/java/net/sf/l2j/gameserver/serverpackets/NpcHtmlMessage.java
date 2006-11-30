@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.clientpackets.RequestBypassToServer;
@@ -155,7 +155,7 @@ public class NpcHtmlMessage extends ServerBasePacket
 	{
         if(text.length() > 8192)
 		{
-			_log.warning("Html is too long! this will crash the client!");
+			_log.warn("Html is too long! this will crash the client!");
 			_html = "<html><body>Html was too long</body></html>";
 			return;
 		}
@@ -169,7 +169,7 @@ public class NpcHtmlMessage extends ServerBasePacket
 		if (content == null)
 		{
 			setHtml("<html><body>My Text is missing:<br>"+path+"</body></html>");
-			_log.warning("missing html page "+path);
+			_log.warn("missing html page "+path);
 			return false;
 		}
         

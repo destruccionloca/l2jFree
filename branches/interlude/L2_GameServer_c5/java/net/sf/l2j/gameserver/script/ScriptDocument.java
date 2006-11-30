@@ -25,6 +25,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -34,6 +35,7 @@ import org.xml.sax.SAXException;
  */
 public class ScriptDocument
 {
+    private static Logger _log = Logger.getLogger(ScriptDocument.class);
     private Document document; 
     private String _name;
     
@@ -52,15 +54,15 @@ public class ScriptDocument
            Exception  x = sxe;
            if (sxe.getException() != null)
                x = sxe.getException();
-           x.printStackTrace();
+           _log.error(x.getMessage(),x);
 
         } catch (ParserConfigurationException pce) {
             // Parser with specified options can't be built
-            pce.printStackTrace();
+            _log.error(pce.getMessage(),pce);
 
         } catch (IOException ioe) {
            // I/O error
-           ioe.printStackTrace();
+            _log.error(ioe.getMessage(),ioe);
         }
     }
     

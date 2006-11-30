@@ -31,12 +31,15 @@ import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Broadcast;
 
+import org.apache.log4j.Logger;
+
 /**
  * 
  *
  */
 public class Escape implements IUserCommandHandler
 {
+    private static Logger _log = Logger.getLogger(Escape.class);
     private static final int[] COMMAND_IDS = { 52 }; 
     private static final int REQUIRED_LEVEL = Config.GM_ESCAPE;
 
@@ -115,7 +118,7 @@ public class Escape implements IUserCommandHandler
             try 
             {
                 _activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
-            } catch (Throwable e) { if (Config.DEBUG) e.printStackTrace(); }
+            } catch (Throwable e) { _log.error(e.getMessage(),e); }
         }
     }
     

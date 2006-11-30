@@ -20,12 +20,12 @@ package net.sf.l2j.gameserver;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class stores references to all online game masters. (access level > 100)
@@ -65,13 +65,13 @@ public class GmListTable
 	 */
 	public void addGm(L2PcInstance player)
 	{
-		if (Config.DEBUG) _log.fine("added gm: "+player.getName());
+		if (_log.isDebugEnabled()) _log.debug("added gm: "+player.getName());
 		_gmList.add(player);
 	}
 	
 	public void deleteGm(L2PcInstance player)
 	{
-		if (Config.DEBUG) _log.fine("deleted gm: "+player.getName());
+		if (_log.isDebugEnabled()) _log.debug("deleted gm: "+player.getName());
 		_gmList.remove(player);
 	}
 	

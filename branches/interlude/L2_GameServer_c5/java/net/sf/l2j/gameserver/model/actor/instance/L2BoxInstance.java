@@ -252,7 +252,7 @@ public class L2BoxInstance extends L2NpcInstance {
 		}
 		button += "\">";
 		content += "</table><br>"+button+"</body></html>";
-		_log.fine("setHtml("+content+"); items="+nitems);
+		_log.debug("setHtml("+content+"); items="+nitems);
 		html.setHtml(content);
 		player.sendPacket(html);
 
@@ -302,7 +302,7 @@ public class L2BoxInstance extends L2NpcInstance {
 		}
 		button += "\">";
 		content += "</table><br>"+button+"</body></html>";
-		_log.fine("setHtml("+content+"); items="+nitems);
+		_log.debug("setHtml("+content+"); items="+nitems);
 		html.setHtml(content);
 		player.sendPacket(html);
 
@@ -323,7 +323,7 @@ public class L2BoxInstance extends L2NpcInstance {
 			ResultSet rs = statement.executeQuery();
 			while (rs.next())
 			{
-				_log.fine("found: itemid="+rs.getInt("itemid")+", count="+rs.getInt("count"));
+				_log.debug("found: itemid="+rs.getInt("itemid")+", count="+rs.getInt("count"));
 				it.add(new L2BoxItem(rs.getInt("itemid"),rs.getInt("count"),rs.getString("name"),rs.getInt("id"),rs.getInt("enchant")));
 			}
 			rs.close();
@@ -370,7 +370,7 @@ public class L2BoxInstance extends L2NpcInstance {
 			}
 			catch (Exception e)
 			{
-				_log.fine("putInBox "+command+" failed: "+e);
+				_log.debug("putInBox "+command+" failed: "+e);
 			}
 		}
 	}
@@ -462,7 +462,7 @@ public class L2BoxInstance extends L2NpcInstance {
 			}
 			catch (Exception e)
 			{
-				_log.fine("takeOutBox "+command+" failed: "+e);
+				_log.debug("takeOutBox "+command+" failed: "+e);
 			}
 		}
 	}

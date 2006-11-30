@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
@@ -238,9 +238,9 @@ public class AdminExpSp implements IAdminCommandHandler {
         		SystemMessage smA = new SystemMessage(614);
         		smA.addString("Added "+expval+" xp and "+spval+" sp to "+player.getName()+".");
         		activeChar.sendPacket(smA);
-        		if (Config.DEBUG)
+        		if (_log.isDebugEnabled())
                 {
-        			_log.fine("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") added "+expval+
+        			_log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") added "+expval+
         					" xp and "+spval+" sp to "+player.getObjectId()+".");
                 }
         		
@@ -300,9 +300,9 @@ public class AdminExpSp implements IAdminCommandHandler {
                 SystemMessage smA = new SystemMessage(614);
                 smA.addString("Removed "+expval+" xp and "+spval+" sp from "+player.getName()+".");
                 activeChar.sendPacket(smA);
-                if (Config.DEBUG)
+                if (_log.isDebugEnabled())
                 {
-                    _log.fine("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") added "+expval+
+                    _log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") added "+expval+
                             " xp and "+spval+" sp to "+player.getObjectId()+".");
                 }
                 

@@ -23,7 +23,7 @@ import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
 import java.util.concurrent.Future;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
@@ -107,7 +107,7 @@ abstract class AbstractAI implements Ctrl
             }
             catch (Throwable t)
             {
-                //_log.log(Level.WARNING, "", t);
+                //__log.warn( "", t);
             }
         }
     }
@@ -169,7 +169,7 @@ abstract class AbstractAI implements Ctrl
             }
             catch (Throwable t)
             {
-                _log.warning(t.getMessage());
+                _log.warn(t.getMessage());
                 t.printStackTrace();
             }
         }
@@ -289,8 +289,8 @@ abstract class AbstractAI implements Ctrl
     synchronized void changeIntention(CtrlIntention intention, Object arg0, Object arg1)
     {
         /*
-         if (Config.DEBUG)
-         _log.warning("AbstractAI: changeIntention -> " + intention + " " + arg0 + " " + arg1);
+         if (_log.isDebugEnabled())
+         _log.warn("AbstractAI: changeIntention -> " + intention + " " + arg0 + " " + arg1);
          */
 
         _intention = intention;
@@ -340,8 +340,8 @@ abstract class AbstractAI implements Ctrl
         if (!_actor.isVisible() || !_actor.hasAI()) return;
 
         /*
-         if (Config.DEBUG)
-         _log.warning("AbstractAI: setIntention -> " + intention + " " + arg0 + " " + arg1);
+         if (_log.isDebugEnabled())
+         _log.warn("AbstractAI: setIntention -> " + intention + " " + arg0 + " " + arg1);
          */
         
         // Silent move stop if player attack or cast
@@ -450,8 +450,8 @@ abstract class AbstractAI implements Ctrl
         if (!_actor.isVisible() || !_actor.hasAI()) return;
 
         /*
-         if (Config.DEBUG)
-         _log.warning("AbstractAI: notifyEvent -> " + evt + " " + arg0 + " " + arg1);
+         if (_log.isDebugEnabled())
+         _log.warn("AbstractAI: notifyEvent -> " + evt + " " + arg0 + " " + arg1);
          */
 
         switch (evt)
@@ -719,8 +719,8 @@ abstract class AbstractAI implements Ctrl
     protected void clientStopMoving(L2CharPosition pos)
     {
         /*
-         if (Config.DEBUG)
-         _log.warning("clientStopMoving();");
+         if (_log.isDebugEnabled())
+         _log.warn("clientStopMoving();");
          */
 
         // Stop movement of the L2Character

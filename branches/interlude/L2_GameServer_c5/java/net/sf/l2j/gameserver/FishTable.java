@@ -3,13 +3,13 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.FishData;
 import net.sf.l2j.gameserver.model.FishDropData;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author -Nemesiss-
@@ -57,14 +57,14 @@ public class FishTable
         }
         catch (Exception e)
         {
-            _log.log(Level.SEVERE, "error while creating fishes table"+ e);
+            _log.fatal( "error while creating fishes table"+ e);
         }
         finally
         {
             try { con.close(); } catch (Exception e) {}
         }
         //Create Table that contains all fish rewards (drop of fish)
-        _log.config("FishTable: Loaded " + count + " Fishes.");
+        _log.info("FishTable: Loaded " + count + " Fishes.");
         java.sql.Connection con2 = null;
         int count2 = 0;
         try
@@ -91,13 +91,13 @@ public class FishTable
         }
         catch (Exception e)
         {
-            _log.log(Level.SEVERE, "error while creating fish rewards table"+ e);
+            _log.fatal( "error while creating fish rewards table"+ e);
         }
         finally
         {
             try { con2.close(); } catch (Exception e) {}
         }
-        _log.config("FishRewardsTable: Loaded " + count2 + " FishRewards.");
+        _log.info("FishRewardsTable: Loaded " + count2 + " FishRewards.");
 
     }
     /**
@@ -111,7 +111,7 @@ public class FishTable
         if (_Fishs == null)
         {
             // the fish list is empty
-            _log.warning("Fish are not defined !");
+            _log.warn("Fish are not defined !");
             return null;
         }
         for (FishData f: _Fishs)
@@ -121,7 +121,7 @@ public class FishTable
 
             result.add(f);
         }
-        if (result.size() == 0) _log.warning("Cant Find Any Fish!? - Lvl: "+lvl+" Type: " +type);
+        if (result.size() == 0) _log.warn("Cant Find Any Fish!? - Lvl: "+lvl+" Type: " +type);
         return result;
     }
     /**
@@ -134,7 +134,7 @@ public class FishTable
         if (_FishRewards == null)
         {
             // the fish list is empty
-            _log.warning("FishRewards are not defined !");
+            _log.warn("FishRewards are not defined !");
             return null;
         }
         for (FishDropData d: _FishRewards)
@@ -143,7 +143,7 @@ public class FishTable
 
             result.add(d);
         }
-        if (result.size() == 0) _log.warning("Cant Find Any Fish Reward for ItemID: "+fishid);
+        if (result.size() == 0) _log.warn("Cant Find Any Fish Reward for ItemID: "+fishid);
 
         return result;
     }

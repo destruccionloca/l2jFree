@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver;
 
 import java.io.IOException;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  * This class ...

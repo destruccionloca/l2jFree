@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -122,8 +122,7 @@ public class Forum
 		}
 		catch (Exception e)
 		{
-			_log.warning("data error on Forum " + _ForumId + " : " + e);
-			e.printStackTrace();
+			_log.warn("data error on Forum " + _ForumId + " : " + e,e);
 		}
 		finally
 		{
@@ -156,8 +155,7 @@ public class Forum
 		}
 		catch (Exception e)
 		{
-			_log.warning("data error on Forum " + _ForumId + " : " + e);
-			e.printStackTrace();
+			_log.warn("data error on Forum " + _ForumId + " : " + e,e);
 		}
 		finally
 		{
@@ -194,8 +192,7 @@ public class Forum
 		}
 		catch (Exception e)
 		{
-			_log.warning("data error on Forum (children): " + e);
-			e.printStackTrace();
+			_log.warn("data error on Forum (children): " + e,e);
 		}
 		finally
 		{
@@ -320,7 +317,7 @@ public class Forum
 		}
 		catch (Exception e)
 		{
-			_log.warning("error while saving new Forum to db " + e);
+			_log.warn("error while saving new Forum to db " + e);
 		}
 		finally
 		{

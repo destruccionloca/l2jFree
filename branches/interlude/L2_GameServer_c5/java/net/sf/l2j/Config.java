@@ -31,7 +31,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -47,13 +47,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public final class Config {
 
 	protected static Logger _log = Logger.getLogger(Config.class.getName());
-	/** Debug/release mode */
-    public static boolean DEBUG;
     /** Enable/disable assertions */
     public static boolean ASSERT;
-    /** Enable/disable code 'in progress' */
+
+    /** Enable/disable DEVELOPER TREATMENT  */
     public static boolean DEVELOPER;
-    
+
     /** Set if this server is a test server used for development */
     public static boolean TEST_SERVER;
 
@@ -1005,7 +1004,7 @@ public final class Config {
 	        }
 	        catch (Exception e)
 	        {
-	            e.printStackTrace();
+	            _log.error(e.getMessage(),e);
 	            throw new Error("Failed to Load "+CONFIGURATION_FILE+" File.");
 	        }
 
@@ -1018,7 +1017,6 @@ public final class Config {
 
                 EVERYBODY_HAS_ADMIN_RIGHTS      = Boolean.parseBoolean(optionsSettings.getProperty("EverybodyHasAdminRights", "false"));
                              
-                DEBUG                           = Boolean.parseBoolean(optionsSettings.getProperty("Debug", "false"));
                 ASSERT                          = Boolean.parseBoolean(optionsSettings.getProperty("Assert", "false"));
                 DEVELOPER                       = Boolean.parseBoolean(optionsSettings.getProperty("Developer", "false"));
                 TEST_SERVER                     = Boolean.parseBoolean(optionsSettings.getProperty("TestServer", "false"));
@@ -1139,14 +1137,14 @@ public final class Config {
                         }
                         FILTER_LIST.add(line);
                     }
-                    _log.config("Say Filter: Loaded " + FILTER_LIST.size() + " words");
+                    _log.info("Say Filter: Loaded " + FILTER_LIST.size() + " words");
                     }catch (FileNotFoundException e)
                     {
-                        _log.warning("sayfilter.txt is missing in config folder");
+                        _log.warn("sayfilter.txt is missing in config folder");
                     }
                     catch (Exception e)
                     {
-                        _log.warning("error loading say filter: " + e);
+                        _log.warn("error loading say filter: " + e);
                     }
                 }
                 ONLINE_PLAYERS_AT_STARTUP = Boolean.parseBoolean(optionsSettings.getProperty("ShowOnlinePlayersAtStartup","True"));
@@ -1175,7 +1173,7 @@ public final class Config {
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                _log.error(e.getMessage(),e);
                 throw new Error("Failed to Load "+OPTIONS_FILE+" File.");
             }
 	        /*
@@ -1210,7 +1208,7 @@ public final class Config {
 	        }
 	        catch (Exception e)
 	        {
-	            e.printStackTrace();
+                _log.error(e);
 	            throw new Error("Failed to Load "+TELNET_FILE+" File.");
 	        }
 	        
@@ -1229,7 +1227,7 @@ public final class Config {
 	        }
 	        catch (Exception e)
 	        {
-	            e.printStackTrace();
+                _log.error(e);
 	            throw new Error("Failed to Load "+ID_CONFIG_FILE+" File.");
 	        }
 	        
@@ -1330,7 +1328,7 @@ public final class Config {
 	        }
 	        catch (Exception e)
 	        {
-	            e.printStackTrace();
+                _log.error(e);
 	            throw new Error("Failed to Load "+OTHER_CONFIG_FILE+" File.");
 	        }
 	        
@@ -1388,7 +1386,7 @@ public final class Config {
                LAST_LEVEL_SPOIL_IS_LEARNED             = Integer.parseInt(ratesSettings.getProperty("LastLevelSpoilIsLearned", "72"));
 	        }
 	        catch (Exception e) {
-	            e.printStackTrace();
+                _log.error(e);
                 throw new Error("Failed to Load "+RATES_CONFIG_FILE+" File.");
 	        }
             
@@ -1586,7 +1584,7 @@ public final class Config {
 	        }
 	        catch (Exception e)
 	        {
-	            e.printStackTrace();
+                _log.error(e);
 	            throw new Error("Failed to Load "+ALT_SETTINGS_FILE+" File.");
 	        }
             
@@ -1613,7 +1611,7 @@ public final class Config {
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                _log.error(e);
                 throw new Error("Failed to Load "+SEVENSIGNS_FILE+" File.");
             }
 	        
@@ -1655,7 +1653,7 @@ public final class Config {
 	        }
 	        catch (Exception e)
 	        {
-	            e.printStackTrace();
+                _log.error(e);
 	            throw new Error("Failed to Load "+PVP_CONFIG_FILE+" File.");
 	        }
 	        
@@ -1735,7 +1733,7 @@ public final class Config {
 	        }
 	        catch (Exception e)
 	        {
-	            e.printStackTrace();
+                _log.error(e);
 	            throw new Error("Failed to Load "+GM_ACCESS_FILE+" File.");
 	        }
 	        
@@ -1749,7 +1747,7 @@ public final class Config {
 	        }
 	        catch (Exception e)
 	        {
-	        	_log.warning("Could not load HexID file ("+HEXID_FILE+"). Hopefully login will give us one.");
+	        	_log.warn("Could not load HexID file ("+HEXID_FILE+"). Hopefully login will give us one.");
 	        }
    
 	        /** Extensions Config */
@@ -2065,7 +2063,7 @@ public final class Config {
         }
         catch (Exception e)
         {
-            _log.warning("Failed to save hex id to "+fileName+" File.");
+            _log.warn("Failed to save hex id to "+fileName+" File.");
             e.printStackTrace();
         }
 	}

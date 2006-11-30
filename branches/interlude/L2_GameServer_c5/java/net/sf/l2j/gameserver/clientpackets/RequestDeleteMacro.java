@@ -26,7 +26,6 @@ public class RequestDeleteMacro extends ClientBasePacket
 	{
 		super(buf, client);
 		_id = readD();
-		//System.out.println("Delete macro id="+_id);
 	}
 	
 	void runImpl()

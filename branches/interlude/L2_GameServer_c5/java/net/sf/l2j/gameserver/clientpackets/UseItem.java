@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -125,8 +125,8 @@ public class UseItem extends ClientBasePacket
                 return;
             }
             
-            if (Config.DEBUG) 
-                _log.finest(activeChar.getObjectId() + ": use item " + _objectId);
+            if (_log.isDebugEnabled()) 
+                _log.debug(activeChar.getObjectId() + ": use item " + _objectId);
 
             if (item.isEquipable())
             {
@@ -238,7 +238,7 @@ public class UseItem extends ClientBasePacket
             {
                 L2Weapon weaponItem = activeChar.getActiveWeaponItem();
                 int itemid = item.getItemId();
-                //_log.finest("item not equipable id:"+ item.getItemId());
+                //_log.debug("item not equipable id:"+ item.getItemId());
                 if (itemid == 4393) 
                 {
                         activeChar.sendPacket(new ShowCalculator(4393));
@@ -258,7 +258,7 @@ public class UseItem extends ClientBasePacket
                     IItemHandler handler = ItemHandler.getInstance().getItemHandler(itemId);
                     
                     if (handler == null) 
-                        _log.fine("No item handler registered for item ID " + itemId + ".");
+                        _log.debug("No item handler registered for item ID " + itemId + ".");
                     else 
                         handler.useItem(activeChar, item);
                 }

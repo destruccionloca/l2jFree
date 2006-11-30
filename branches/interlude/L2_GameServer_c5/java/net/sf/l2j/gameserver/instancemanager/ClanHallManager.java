@@ -3,7 +3,7 @@ package net.sf.l2j.gameserver.instancemanager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
@@ -23,7 +23,7 @@ public class ClanHallManager
     {
         if (_Instance == null)
         {
-    		System.out.println("Initializing ClanHallManager");
+    		_log.info("Initializing ClanHallManager");
         	_Instance = new ClanHallManager();
         	_Instance.load();
         }
@@ -78,12 +78,11 @@ public class ClanHallManager
 
             statement.close();
 
-            System.out.println("Loaded: " + getClanHalls().size() + " clan halls");
+            _log.info("Loaded: " + getClanHalls().size() + " clan halls");
         }
         catch (Exception e)
         {
-            System.out.println("Exception: ClanHallManager.load(): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: ClanHallManager.load(): " + e.getMessage(),e);
         }
         
         finally {try { con.close(); } catch (Exception e) {}}
@@ -165,7 +164,7 @@ public class ClanHallManager
         	coord = zone.getCoords().get(0);
 		int x1 = coord[0] + (coord[2] - coord[0])/2;
 		int y1 = coord[1] + (coord[3] - coord[1])/2;
-		//_log.warning("ch"+i+":("+x+","+y+") distance "+Util.calculateDistance(x,y,0,coord[0],coord[1]));
+		//_log.warn("ch"+i+":("+x+","+y+") distance "+Util.calculateDistance(x,y,0,coord[0],coord[1]));
 		if (clanHall != null && Util.calculateDistance(x,y,0,x1,y1) < offset){ 
 		    id = i;
 		    offset = (int)Util.calculateDistance(x,y,0,x1,y1);

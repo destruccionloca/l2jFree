@@ -22,7 +22,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
@@ -38,6 +37,8 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
+
+import org.apache.log4j.Logger;
 
 public class ClanHall
 {
@@ -84,7 +85,7 @@ public class ClanHall
                     if (ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().getAdena() >= getLease())
                     {
                         ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().destroyItemByItemId("CH_rental_fee", 57, getLease(), null, null);
-                        System.out.println("deducted "+getLease()+" adena from "+getName()+" owner's cwh for functions");
+                        if (_log.isDebugEnabled() )_log.debug("deducted "+getLease()+" adena from "+getName()+" owner's cwh for functions");
                         updateRentTime(Calendar.getInstance().getTimeInMillis()+ 604800000);
                         ThreadPoolManager.getInstance().scheduleGeneral(new AutoTask(), getPaidUntil() - Calendar.getInstance().getTimeInMillis()); //TODO not sure if this should be like exactly like it :p
                     }
@@ -102,7 +103,7 @@ public class ClanHall
         //Calendar tmp = Calendar.getInstance();
         getPaidUntilCalendar().set(Calendar.MINUTE, 0);
         ThreadPoolManager.getInstance().scheduleGeneral(new AutoTask(), 1000);
-        System.out.println("clan hall lease is gonna be deducted from "+getName()+" owner's cwh at"+_paidUntil.get(Calendar.DAY_OF_MONTH)+"/"+_paidUntil.get(Calendar.MONTH));
+        if (_log.isDebugEnabled() ) _log.debug("clan hall lease is gonna be deducted from "+getName()+" owner's cwh at"+_paidUntil.get(Calendar.DAY_OF_MONTH)+"/"+_paidUntil.get(Calendar.MONTH));
     }
 
 	// =========================================================
@@ -245,13 +246,13 @@ public class ClanHall
         }
         catch (Exception e)
         {
-            System.out.println("Exception: ClanHall.load(): " + e.getMessage());
-            e.printStackTrace();
+            _log.fatal("Exception: ClanHall.load(): " + e.getMessage(),e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
         if (getOwnerId() == 0) //this should never happen, but one never knows ;)
             return;
-        System.out.println("found owner for clanhall: "+getName());
+        if (_log.isDebugEnabled() )
+            _log.debug("found owner for clanhall: "+getName());
         loadFunctions();
         startAutoTask();
 	}
@@ -280,8 +281,7 @@ public class ClanHall
         }
         catch (Exception e)
         {
-            System.out.println("Exception: ClanHall.loadFunctions(): " + e.getMessage());
-            e.printStackTrace();
+            _log.fatal("Exception: ClanHall.loadFunctions(): " + e.getMessage(),e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }
@@ -336,8 +336,7 @@ public class ClanHall
         }
         catch (Exception e)
         {
-            System.out.println("Exception: updateOwnerInDB(L2Clan clan): " + e.getMessage());
-            e.printStackTrace();
+            _log.fatal("Exception: updateOwnerInDB(L2Clan clan): " + e.getMessage(),e);
         }
         finally
         {
@@ -453,15 +452,14 @@ public class ClanHall
         }
         catch (Exception e)
         {
-            System.out.println("Exception: ClanHall.removeFunctions(int functionType): " + e.getMessage());
-            e.printStackTrace();
+            _log.fatal("Exception: ClanHall.removeFunctions(int functionType): " + e.getMessage(),e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }
     
     public boolean updateFunctions(int type, int lvl, int lease, long rate, long time, boolean addNew)
     {
-        _log.fine("Called ClanHall.updateFunctions(int type, int lvl, int lease, long rate, long time, boolean addNew)");
+        if ( _log.isDebugEnabled()) _log.debug("Called ClanHall.updateFunctions(int type, int lvl, int lease, long rate, long time, boolean addNew)");
 
        //===================================== Removes from DB===============
         java.sql.Connection con = null;
@@ -491,7 +489,7 @@ public class ClanHall
                 statement.execute();
                 statement.close();
                 _functions.add(new ClanHallFunction(type, lvl, lease, rate, time, false));
-                _log.fine("INSERT INTO clanhall_functions (hall_id, type, lvl, lease, rate, endTime) VALUES (?,?,?,?,?,?)");
+                _log.debug("INSERT INTO clanhall_functions (hall_id, type, lvl, lease, rate, endTime) VALUES (?,?,?,?,?,?)");
             }
             else
             {
@@ -513,15 +511,14 @@ public class ClanHall
                 statement.close();
                 getFunction(type).setLvl(lvl);
                 getFunction(type).setLease(lease);
-                _log.fine("UPDATE clanhall_functions WHERE hall_id=? AND id=? SET lvl, lease");
+                _log.debug("UPDATE clanhall_functions WHERE hall_id=? AND id=? SET lvl, lease");
             }
             // ============================================================================
 
         }
         catch (Exception e)
         {
-            System.out.println("Exception: ClanHall.updateFunctions(int type, int lvl, int lease, long rate, long time, boolean addNew): " + e.getMessage());
-            e.printStackTrace();
+            _log.fatal ("Exception: ClanHall.updateFunctions(int type, int lvl, int lease, long rate, long time, boolean addNew): " + e.getMessage(),e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
         return true;
@@ -546,8 +543,7 @@ public class ClanHall
         }
         catch (Exception e)
         {
-            System.out.println("Exception: ClanHall.updateRentTime(): " + e.getMessage());
-            e.printStackTrace();
+            _log.fatal ("Exception: ClanHall.updateRentTime(): " + e.getMessage(),e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }
@@ -614,7 +610,7 @@ public class ClanHall
                 if (ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().getAdena() >= _fee && ((_inDebt) && ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().getAdena() >= _fee*2))
                 {
                     ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().destroyItemByItemId("CH_function_fee", 57, _fee, null, null);
-                    System.out.println("deducted "+_fee+" adena from "+getName()+" owner's cwh for functions");
+                    _log.debug( "deducted "+_fee+" adena from "+getName()+" owner's cwh for functions" );
                 }
                 else if (!_inDebt)
                 {
@@ -631,7 +627,7 @@ public class ClanHall
             if (needsUpdating)
                 updateRentTime(false);
             ThreadPoolManager.getInstance().scheduleGeneral(new AutoTask(), 1000);
-            System.out.println("clan hall function fee is gonna be deducted from "+getName()+" owner's cwh at"+_endDate.get(Calendar.DAY_OF_MONTH)+"/"+_endDate.get(Calendar.MONTH)+"for functionId: "+getId());
+            _log.debug( "clan hall function fee is gonna be deducted from "+getName()+" owner's cwh at"+_endDate.get(Calendar.DAY_OF_MONTH)+"/"+_endDate.get(Calendar.MONTH)+"for functionId: "+getId());
         }
         
         public void updateRentTime(boolean inDebt)
@@ -652,8 +648,7 @@ public class ClanHall
             }
             catch (Exception e)
             {
-                System.out.println("Exception: ClanHall.ClanHallFunction.updateRentTime(int functionType): " + e.getMessage());
-                e.printStackTrace();
+                _log.fatal("Exception: ClanHall.ClanHallFunction.updateRentTime(int functionType): " + e.getMessage(),e);
             }
             finally {try { con.close(); } catch (Exception e) {}}
         }
@@ -681,7 +676,7 @@ public class ClanHall
                             ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().destroyItemByItemId("CH_function_fee", 57, _fee, null, null);
                             updateRentTime(false);
                             ThreadPoolManager.getInstance().scheduleGeneral(new AutoTask(), getEndTime()+getRate() - Calendar.getInstance().getTimeInMillis());
-                            System.out.println("deducted "+_fee+" adena from "+getName()+" owner's cwh for functions");
+                            if ( _log.isDebugEnabled() )_log.debug("deducted "+_fee+" adena from "+getName()+" owner's cwh for functions");
                         }
                         else if (!_inDebt)
                         {

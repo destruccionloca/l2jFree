@@ -18,11 +18,10 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.logging.Logger;
-
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.templates.L2Item;
+
+import org.apache.log4j.Logger;
 
 /**
  * 5e 
@@ -130,7 +129,7 @@ public class EquipUpdate extends ServerBasePacket
 				break;
 		}
 		
-		if (Config.DEBUG) _log.fine("body:" +bodypart);
+		if (_log.isDebugEnabled()) _log.debug("body:" +bodypart);
 		writeD(bodypart);
 	}
 

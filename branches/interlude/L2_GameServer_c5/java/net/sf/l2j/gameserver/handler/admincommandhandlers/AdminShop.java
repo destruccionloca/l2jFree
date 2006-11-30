@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.TradeController;
@@ -88,7 +88,7 @@ public class AdminShop implements IAdminCommandHandler {
 		}
 		catch (Exception e)
 		{
-			_log.warning("admin buylist failed:"+command);
+			_log.warn("admin buylist failed:"+command);
 		}
 		
 		L2TradeList list = TradeController.getInstance().getBuyList(val);
@@ -97,11 +97,11 @@ public class AdminShop implements IAdminCommandHandler {
 		{	
 			BuyList bl  = new BuyList(list, activeChar.getAdena());
 			activeChar.sendPacket(bl);
-			if (Config.DEBUG) _log.fine("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") opened GM shop id "+val);
+			if (_log.isDebugEnabled()) _log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") opened GM shop id "+val);
 		}
 		else
 		{
-			_log.warning("no buylist with id:" +val);
+			_log.warn("no buylist with id:" +val);
 		}
 		
 		activeChar.sendPacket( new ActionFailed() );

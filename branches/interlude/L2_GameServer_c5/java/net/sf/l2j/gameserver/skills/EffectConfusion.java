@@ -22,11 +22,12 @@ import java.util.List;
 import java.util.Random;
 
 import javolution.util.FastList;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Object;
+
+import org.apache.log4j.Logger;
 
 
 
@@ -36,6 +37,9 @@ import net.sf.l2j.gameserver.model.L2Object;
  * Implementation of the Confusion Effect
  */
 final class EffectConfusion extends L2Effect {
+    
+    private static final Logger _log = Logger.getLogger(EffectConfusion.class);
+   
 
 	public EffectConfusion(Env env, EffectTemplate template)
 	{
@@ -60,8 +64,8 @@ final class EffectConfusion extends L2Effect {
 	
     public boolean onActionTime()
     {
-    	if (Config.DEBUG)
-    		System.out.println(getEffected());
+    	if (_log.isDebugEnabled())
+    		_log.debug(getEffected());
 		List<L2Character> targetList = new FastList<L2Character>();
 		
 		// Getting the possible targets

@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver;
 
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -48,7 +48,7 @@ public class ItemsAutoDestroy
     {
         if (_instance == null)
         {
-			System.out.println("Initializing ItemsAutoDestroy.");
+			_log.info("Initializing ItemsAutoDestroy.");
             _instance = new ItemsAutoDestroy();
         }
         return _instance;
@@ -64,8 +64,8 @@ public class ItemsAutoDestroy
     {
         public void run()
         {
-        	if (Config.DEBUG)
-        		_log.info("[ItemsAutoDestroy] : "+_items.size()+" items to check.");
+        	if (_log.isDebugEnabled())
+        		_log.debug("[ItemsAutoDestroy] : "+_items.size()+" items to check.");
         	
         	if (_items.isEmpty()) return;
         	
@@ -95,8 +95,8 @@ public class ItemsAutoDestroy
                 }
             }
 
-        	if (Config.DEBUG)
-        		_log.info("[ItemsAutoDestroy] : "+_items.size()+" items remaining.");
+        	if (_log.isDebugEnabled())
+        		_log.debug("[ItemsAutoDestroy] : "+_items.size()+" items remaining.");
         }    
     }
 }

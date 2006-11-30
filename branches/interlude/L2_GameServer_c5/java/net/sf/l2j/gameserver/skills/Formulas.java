@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.skills;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SevenSigns;
@@ -960,7 +960,7 @@ public final class Formulas
 		// Check the distance between the player and the player spawn point, in the center of the arena.
 		double distToCenter = activeChar.getDistance(festivalCenter[0], festivalCenter[1]);
 		
-		if (Config.DEBUG)
+		if (_log.isDebugEnabled())
 			_log.info("Distance: " + distToCenter + ", RegenMulti: " + (distToCenter * 2.5) / 50);
 		
 		return 1.0 - (distToCenter * 0.0005); // Maximum Decreased Regen of ~ -65%;
@@ -1427,7 +1427,7 @@ public final class Formulas
 				value = 3000 + (int) (7000 * ((float) skill.getLevel() / maxLevel));
                 if (mDef > 0 && mAtk > 0) value *= 0.6 * mAtk / mDef;
 				modifier = 20 * target.getMEN() / 3;
-				//_log.fine(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
+				//_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
 				break;
 			case MUTE:
 				mAtk = player.getMAtk(target, skill);
@@ -1435,7 +1435,7 @@ public final class Formulas
 				value = 3000 + (int) (7000 * ((float) skill.getLevel() / maxLevel));
                 if (mDef > 0 && mAtk > 0) value *= 0.6 * mAtk / mDef;
 				modifier = 20 * target.getMEN() / 3;
-				//_log.fine(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
+				//_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
 				break;
 			case MDAM:                
 			case PARALYZE:
@@ -1455,7 +1455,7 @@ public final class Formulas
                     if (value > 90) value = 90;
 					rate = value;
 				}
-				//_log.fine(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
+				//_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
 				break;
 			case SLEEP:
 				mAtk = player.getMAtk(target, skill);
@@ -1475,7 +1475,7 @@ public final class Formulas
                     if (value > 90) value = 90;
 				}
 				rate = value;
-				//_log.fine(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
+				//_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
 				break;
 			case ROOT:
 				mAtk = player.getMAtk(target, skill);
@@ -1527,14 +1527,14 @@ public final class Formulas
 		
 		if (modifier == 0)
 		{
-            _log.warning("Name: " + target.getName()
+            _log.warn("Name: " + target.getName()
                 + " has bad base stat value. Fix datapack or notify dp ppl");
 			modifier = 1;
 		}
 		
 		if (rate == 0)
             rate = (int) (((player.getLevel() - target.getLevel()) + (int) (value / modifier)) * ssmodifier);        
-		//_log.fine(player.getName()+" rate:"+rate);
+		//_log.debug(player.getName()+" rate:"+rate);
 		
 		
 		if (rate > 100) rate = 100;
@@ -1682,8 +1682,8 @@ public final class Formulas
             else rate = rate * ssmodifier / 100;
         }
  
-        if (Config.DEVELOPER)
-            System.out.println(skill.getName()
+        if (_log.isDebugEnabled())
+            _log.debug(skill.getName()
                 + ": "
                 + value
                 + ", "

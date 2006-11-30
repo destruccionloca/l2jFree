@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.handler.voicedcommandhandlers;
 import java.util.Iterator;
 
 import javolution.lang.TextBuilder;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -64,7 +63,7 @@ public class stats implements IVoicedCommandHandler
             
 
         }
-        if (command.equalsIgnoreCase("behind") && Config.DEBUG)
+        if (command.equalsIgnoreCase("behind"))
         {
             L2Object objTarget = activeChar.getTarget();
             if (objTarget != null)

@@ -18,7 +18,7 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -88,7 +88,7 @@ public final class TaskManager
             }
             catch (SQLException e)
             {
-                _log.warning("cannot updated the Global Task " + _id + ": " + e.getMessage());
+                _log.warn("cannot updated the Global Task " + _id + ": " + e.getMessage());
             }
             finally
             {
@@ -217,8 +217,7 @@ public final class TaskManager
             }
             catch (Exception e)
             {
-                _log.severe("error while loading Global Task table " + e);
-                e.printStackTrace();
+                _log.fatal("error while loading Global Task table " + e,e);
             }
 
         }
@@ -291,7 +290,7 @@ public final class TaskManager
 
             if (hour.length != 3)
             {
-                _log.warning("Task " + task.getId() + " has incorrect parameters");
+                _log.warn("Task " + task.getId() + " has incorrect parameters");
                 return false;
             }
 
@@ -307,7 +306,7 @@ public final class TaskManager
             }
             catch (Exception e)
             {
-                _log.warning("Bad parameter on task " + task.getId() + ": " + e.getMessage());
+                _log.warn("Bad parameter on task " + task.getId() + ": " + e.getMessage());
                 return false;
             }
 
@@ -363,7 +362,7 @@ public final class TaskManager
         }
         catch (SQLException e)
         {
-            _log.warning("cannot add the unique task: " + e.getMessage());
+            _log.warn("cannot add the unique task: " + e.getMessage());
         }
         finally
         {
@@ -407,7 +406,7 @@ public final class TaskManager
         }
         catch (SQLException e)
         {
-            _log.warning("cannot add the task:  " + e.getMessage());
+            _log.warn("cannot add the task:  " + e.getMessage());
         }
         finally
         {

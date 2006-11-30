@@ -18,8 +18,10 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-// import java.util.logging.Logger;
+// import org.apache.log4j.Logger;
 import java.util.StringTokenizer;
+
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -57,6 +59,9 @@ public class AdminEncArmor implements IAdminCommandHandler {
 		"admin_setba",// Boot
 		"admin_enchant",
 	};
+    
+    private static Logger _log = Logger.getLogger(AdminEncArmor.class);
+    
 	private static final int REQUIRED_LEVEL = Config.GM_ENCHANT;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar) 
@@ -79,7 +84,7 @@ public class AdminEncArmor implements IAdminCommandHandler {
 				}
 				catch (StringIndexOutOfBoundsException e)
 				{
-					if ( Config.DEVELOPER ) System.out.println("Set helmet enchant error: "+e);
+					if ( _log.isDebugEnabled() ) _log.debug("Set helmet enchant error: "+e);
 					SystemMessage sm = new SystemMessage(614);
 					sm.addString("Please specify new enchant value.");
 					activeChar.sendPacket(sm);
@@ -94,7 +99,7 @@ public class AdminEncArmor implements IAdminCommandHandler {
 				}
 				catch (StringIndexOutOfBoundsException e)
 				{
-					if ( Config.DEVELOPER ) System.out.println("Set chest armor enchant error: "+e);
+					if ( _log.isDebugEnabled() ) _log.debug("Set chest armor enchant error: "+e);
 					SystemMessage sm = new SystemMessage(614);
 					sm.addString("Please specify new enchant value.");
 					activeChar.sendPacket(sm);
@@ -109,7 +114,7 @@ public class AdminEncArmor implements IAdminCommandHandler {
 				}
 				catch (StringIndexOutOfBoundsException e)
 				{
-					if ( Config.DEVELOPER ) System.out.println("Set gloves enchant error: "+e);
+					if ( _log.isDebugEnabled() ) _log.debug("Set gloves enchant error: "+e);
 					SystemMessage sm = new SystemMessage(614);
 					sm.addString("Please specify new enchant value.");
 					activeChar.sendPacket(sm);
@@ -124,7 +129,7 @@ public class AdminEncArmor implements IAdminCommandHandler {
 				}
 				catch (StringIndexOutOfBoundsException e)
 				{
-					if ( Config.DEVELOPER ) System.out.println("Set boots enchant error: "+e);
+					if ( _log.isDebugEnabled() ) _log.debug("Set boots enchant error: "+e);
 					SystemMessage sm = new SystemMessage(614);
 					sm.addString("Please specify new enchant value.");
 					activeChar.sendPacket(sm);
@@ -139,7 +144,7 @@ public class AdminEncArmor implements IAdminCommandHandler {
 				}
 				catch (StringIndexOutOfBoundsException e)
 				{
-					if ( Config.DEVELOPER ) System.out.println("Set leggings enchant error: "+e);
+					if ( _log.isDebugEnabled() ) _log.debug("Set leggings enchant error: "+e);
 					SystemMessage sm = new SystemMessage(614);
 					sm.addString("Please specify new enchant value.");
 					activeChar.sendPacket(sm);
@@ -154,7 +159,7 @@ public class AdminEncArmor implements IAdminCommandHandler {
 				}
 				catch (StringIndexOutOfBoundsException e)
 				{
-					if ( Config.DEVELOPER ) System.out.println("Set shield enchant error: "+e);
+					if ( _log.isDebugEnabled() ) _log.debug("Set shield enchant error: "+e);
 					SystemMessage sm = new SystemMessage(614);
 					sm.addString("Please specify new enchant value.");
 					activeChar.sendPacket(sm);
@@ -169,7 +174,7 @@ public class AdminEncArmor implements IAdminCommandHandler {
 				}
 				catch (StringIndexOutOfBoundsException e)
 				{
-					if ( Config.DEVELOPER ) System.out.println("Set Left Earring enchant error: "+e);
+					if ( _log.isDebugEnabled() ) _log.debug("Set Left Earring enchant error: "+e);
 					SystemMessage sm = new SystemMessage(614);
 					sm.addString("Please specify new enchant value.");
 					activeChar.sendPacket(sm);
@@ -184,7 +189,7 @@ public class AdminEncArmor implements IAdminCommandHandler {
 				}
 				catch (StringIndexOutOfBoundsException e)
 				{
-					if ( Config.DEVELOPER ) System.out.println("Set Right Earring enchant error: "+e);
+					if ( _log.isDebugEnabled() ) _log.debug("Set Right Earring enchant error: "+e);
 					SystemMessage sm = new SystemMessage(614);
 					sm.addString("Please specify new enchant value.");
 					activeChar.sendPacket(sm);
@@ -199,7 +204,7 @@ public class AdminEncArmor implements IAdminCommandHandler {
 				}
 				catch (StringIndexOutOfBoundsException e)
 				{
-					if ( Config.DEVELOPER ) System.out.println("Set Left Ring enchant error: "+e);
+					if ( _log.isDebugEnabled() ) _log.debug("Set Left Ring enchant error: "+e);
 					SystemMessage sm = new SystemMessage(614);
 					sm.addString("Please specify new enchant value.");
 					activeChar.sendPacket(sm);
@@ -214,7 +219,7 @@ public class AdminEncArmor implements IAdminCommandHandler {
 				}
 				catch (StringIndexOutOfBoundsException e)
 				{
-					if ( Config.DEVELOPER ) System.out.println("Set Right Ring enchant error: "+e);
+					if ( _log.isDebugEnabled() ) _log.debug("Set Right Ring enchant error: "+e);
 					SystemMessage sm = new SystemMessage(614);
 					sm.addString("Please specify new enchant value.");
 					activeChar.sendPacket(sm);
@@ -229,7 +234,7 @@ public class AdminEncArmor implements IAdminCommandHandler {
 				}
 				catch (StringIndexOutOfBoundsException e)
 				{
-					if ( Config.DEVELOPER ) System.out.println("Set Necklace enchant error: "+e);
+                    if ( _log.isDebugEnabled() ) _log.debug("Set Necklace enchant error: "+e);
 					SystemMessage sm = new SystemMessage(614);
 					sm.addString("Please specify new enchant value.");
 					activeChar.sendPacket(sm);
@@ -244,7 +249,7 @@ public class AdminEncArmor implements IAdminCommandHandler {
 				}
 				catch (StringIndexOutOfBoundsException e)
 				{
-					if ( Config.DEVELOPER ) System.out.println("Set Underwear enchant error: "+e);
+					if ( _log.isDebugEnabled() ) _log.debug("Set Underwear enchant error: "+e);
 					SystemMessage sm = new SystemMessage(614);
 					sm.addString("Please specify new enchant value.");
 					activeChar.sendPacket(sm);
@@ -259,7 +264,7 @@ public class AdminEncArmor implements IAdminCommandHandler {
 				}
 				catch (StringIndexOutOfBoundsException e)
 				{
-					if ( Config.DEVELOPER ) System.out.println("Set Cloak enchant error: "+e);
+					if ( _log.isDebugEnabled() ) _log.debug("Set Cloak enchant error: "+e);
 					SystemMessage sm = new SystemMessage(614);
 					sm.addString("Please specify new enchant value.");
 					activeChar.sendPacket(sm);

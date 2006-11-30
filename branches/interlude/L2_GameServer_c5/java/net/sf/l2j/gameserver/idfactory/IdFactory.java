@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.idfactory;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -141,7 +141,7 @@ public abstract class IdFactory
             con2 = L2DatabaseFactory.getInstance().getConnection();
             Statement s2 = con2.createStatement();
             s2.executeUpdate("update characters set online=0");
-            _log.info("Updated characters online status.");
+            if (_log.isDebugEnabled())_log.debug("Updated characters online status.");
         }
         catch (SQLException e)
         {
@@ -203,7 +203,7 @@ public abstract class IdFactory
             // }
             
             stmt.close();
-            _log.info("Cleaned " + cleanCount + " elements from database.");
+            if (_log.isDebugEnabled()) _log.debug("Cleaned " + cleanCount + " elements from database.");
         }
         catch (SQLException e)
         {
@@ -255,7 +255,7 @@ public abstract class IdFactory
             result.next();
             int size = result.getInt(1);
             int[] tmp_obj_ids = new int[size];
-            // System.out.println("tmp table size: " + tmp_obj_ids.length);
+            // _log.debugr("tmp table size: " + tmp_obj_ids.length);
             result.close();
             
             result = s.executeQuery("select object_id from temporaryObjectTable ORDER BY object_id");

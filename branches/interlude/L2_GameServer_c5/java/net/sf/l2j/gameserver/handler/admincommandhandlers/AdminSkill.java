@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
@@ -445,8 +445,8 @@ public class AdminSkill implements IAdminCommandHandler {
 			smA.addString("You gave the skill "+skill.getName()+" to "+player.getName()+".");
 			
 			activeChar.sendPacket(smA);
-			if (Config.DEBUG)
-				_log.fine("[GM]"+activeChar.getName()+"gave the skill "+skill.getName()+
+			if (_log.isDebugEnabled())
+				_log.debug("[GM]"+activeChar.getName()+"gave the skill "+skill.getName()+
 						" to "+player.getName()+".");
 		}
 		else
@@ -486,8 +486,8 @@ public class AdminSkill implements IAdminCommandHandler {
 		smA.addString("You removed the skill "+skill.getName()+" from "+player.getName()+".");
 		
 		activeChar.sendPacket(smA);
-		if (Config.DEBUG)
-			_log.fine("[GM]"+activeChar.getName()+"removed the skill "+skill.getName()+
+		if (_log.isDebugEnabled())
+			_log.debug("[GM]"+activeChar.getName()+"removed the skill "+skill.getName()+
 					" from "+player.getName()+".");
 		}
 		else
@@ -511,16 +511,16 @@ public class AdminSkill implements IAdminCommandHandler {
 		
 				MagicSkillUser msk = new MagicSkillUser(activeChar, skillid, 1, skill.getSkillTime() , skill.getReuseDelay());
 				activeChar.broadcastPacket(msk);
-				if (Config.DEBUG) _log.fine("showing self skill, id: "+skill.getId()+" named: "+skill.getName());
+				if (_log.isDebugEnabled()) _log.debug("showing self skill, id: "+skill.getId()+" named: "+skill.getName());
 			}
 			else if (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ONE)
 			{
-				if (Config.DEBUG) _log.fine("showing ATTACK skill, id: "+skill.getId()+" named: "+skill.getName());				
+				if (_log.isDebugEnabled()) _log.debug("showing ATTACK skill, id: "+skill.getId()+" named: "+skill.getName());				
 			}
 		}
 		else
 		{
-			if (Config.DEBUG) _log.fine("no such skill id: "+skillid);
+			if (_log.isDebugEnabled()) _log.debug("no such skill id: "+skillid);
 			ActionFailed af = new ActionFailed();
 			activeChar.broadcastPacket(af);
 		}

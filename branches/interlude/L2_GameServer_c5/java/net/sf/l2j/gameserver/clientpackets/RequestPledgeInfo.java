@@ -19,9 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -29,6 +27,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.PledgeInfo;
 import net.sf.l2j.gameserver.serverpackets.PledgeReceivePowerInfo;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -56,13 +56,13 @@ public class RequestPledgeInfo extends ClientBasePacket
 
 	void runImpl()
 	{
-		if (Config.DEBUG) _log.fine("infos for clan " + _clanId + " requested");
+		if (_log.isDebugEnabled()) _log.debug("infos for clan " + _clanId + " requested");
 
 		L2PcInstance activeChar = getClient().getActiveChar();
 		L2Clan clan = ClanTable.getInstance().getClan(_clanId);
 		if (clan == null)
 		{
-			_log.warning("Clan data for clanId "+ _clanId + " is missing");
+			_log.warn("Clan data for clanId "+ _clanId + " is missing");
 			return; // we have no clan data ?!? should not happen
 		}
 			

@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -74,7 +74,7 @@ public class MoveBackwardToLocation extends ClientBasePacket
 			try {
 				_moveMovement = readD(); // is 0 if cursor keys are used  1 if mouse is used
 			} catch (BufferUnderflowException e) {
-				_log.warning("Incompatible client found: L2Walker? "+client.getActiveChar());
+				_log.warn("Incompatible client found: L2Walker? "+client.getActiveChar());
 			    if (Config.AUTOBAN_L2WALKER_ACC){
 				L2PcInstance activeChar = getClient().getActiveChar();
 				if(activeChar == null)

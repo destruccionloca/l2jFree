@@ -3,7 +3,7 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
@@ -80,8 +80,7 @@ public class HelperBuffTable
             } 
             catch (Exception e) 
             {
-                _log.severe("Table helper_buff_list not found : Update your DataPack" + e);
-                e.printStackTrace();
+                _log.error("Table helper_buff_list not found : Update your DataPack" + e,e);
             }
              
         } 
@@ -134,7 +133,7 @@ public class HelperBuffTable
             _helperBuff.add(template);
         }
         
-        _log.config("Helper Buff Table: Loaded " + _helperBuff.size() + " Templates.");
+        _log.info("Helper Buff Table: Loaded " + _helperBuff.size() + " Templates.");
         
     }
     

@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver.handler.itemhandlers;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.MapRegionTable;
 import net.sf.l2j.gameserver.SkillTable;
@@ -35,6 +34,8 @@ import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.log4j.Logger;
+
 /**
  * This class ...
  * 
@@ -43,6 +44,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class ScrollOfEscape implements IItemHandler
 {
+    private static Logger _log = Logger.getLogger(ScrollOfEscape.class);
     // all the items ids that this handler knowns
     private static int[] _itemIds = { 736, 1830, 1829, 1538, 3958, 5858, 5859,
                                       7117,7118,7119,7120,7121,7122,7123,7124,
@@ -230,7 +232,7 @@ public class ScrollOfEscape implements IItemHandler
                     }
                 }
             } catch (Throwable e) {
-                if (Config.DEBUG) e.printStackTrace();
+                _log.error(e.getMessage(),e);;
             }
         }
     }

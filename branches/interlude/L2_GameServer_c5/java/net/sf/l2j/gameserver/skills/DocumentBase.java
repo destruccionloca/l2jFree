@@ -22,8 +22,6 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -42,6 +40,7 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -77,7 +76,7 @@ abstract class DocumentBase
         }
         catch (Exception e)
         {
-            _log.log(Level.SEVERE, "Error loading file " + file, e);
+            _log.fatal( "Error loading file " + file, e);
             return null;
         }
         try
@@ -86,7 +85,7 @@ abstract class DocumentBase
         }
         catch (Exception e)
         {
-            _log.log(Level.SEVERE, "Error in file " + file, e);
+            _log.fatal( "Error in file " + file, e);
             return null;
         }
         return doc;
@@ -263,7 +262,7 @@ abstract class DocumentBase
             if (n.getNodeType() == Node.ELEMENT_NODE) cond.add(parseCondition(n, template));
         }
         if (cond._conditions == null || cond._conditions.length == 0)
-            _log.severe("Empty <and> condition in " + file);
+            _log.fatal("Empty <and> condition in " + file);
         return cond;
     }
 
@@ -275,7 +274,7 @@ abstract class DocumentBase
             if (n.getNodeType() == Node.ELEMENT_NODE) cond.add(parseCondition(n, template));
         }
         if (cond._conditions == null || cond._conditions.length == 0)
-            _log.severe("Empty <or> condition in " + file);
+            _log.fatal("Empty <or> condition in " + file);
         return cond;
     }
 
@@ -288,7 +287,7 @@ abstract class DocumentBase
                 return new ConditionLogicNot(parseCondition(n, template));
             }
         }
-        _log.severe("Empty <not> condition in " + file);
+        _log.fatal("Empty <not> condition in " + file);
         return null;
     }
 
@@ -375,7 +374,7 @@ abstract class DocumentBase
                 break;
             }
 
-        if (cond == null) _log.severe("Unrecognized <player> condition in " + file);
+        if (cond == null) _log.fatal("Unrecognized <player> condition in " + file);
         return cond;
     }
 
@@ -423,7 +422,7 @@ abstract class DocumentBase
                 cond = joinAnd(cond, new ConditionTargetUsesWeaponKind(mask));
             }
         }
-        if (cond == null) _log.severe("Unrecognized <target> condition in " + file);
+        if (cond == null) _log.fatal("Unrecognized <target> condition in " + file);
         return cond;
     }
 
@@ -482,7 +481,7 @@ abstract class DocumentBase
                 cond = joinAnd(cond, new ConditionSlotItemId(slot, id, enchant));
             }
         }
-        if (cond == null) _log.severe("Unrecognized <using> condition in " + file);
+        if (cond == null) _log.fatal("Unrecognized <using> condition in " + file);
         return cond;
     }
 
@@ -504,7 +503,7 @@ abstract class DocumentBase
                 cond = joinAnd(cond, new ConditionGameChance(val));
             }
         }
-        if (cond == null) _log.severe("Unrecognized <game> condition in " + file);
+        if (cond == null) _log.fatal("Unrecognized <game> condition in " + file);
         return cond;
     }
 

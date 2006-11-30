@@ -3,7 +3,7 @@ package net.sf.l2j.gameserver.instancemanager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -22,7 +22,7 @@ public class ZoneManager
     {
         if (_Instance == null)
         {
-    		System.out.println("Initializing ZoneManager");
+    		_log.info("Initializing ZoneManager");
         	_Instance = new ZoneManager();
         	_Instance.load();
         }
@@ -199,8 +199,7 @@ public class ZoneManager
         }
         catch (Exception e)
         {
-            e.getMessage();
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }

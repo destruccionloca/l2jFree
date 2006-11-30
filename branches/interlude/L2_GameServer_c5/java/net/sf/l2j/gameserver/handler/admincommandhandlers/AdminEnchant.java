@@ -18,6 +18,8 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
+import org.apache.log4j.Logger;
+
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -57,6 +59,8 @@ public class AdminEnchant implements IAdminCommandHandler
                                               "admin_enchant"};
     private static final int REQUIRED_LEVEL = Config.GM_ENCHANT;
 
+    private static Logger _log = Logger.getLogger(AdminEnchant.class);
+    
     public boolean useAdminCommand(String command, L2PcInstance activeChar)
     {
         if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
@@ -111,12 +115,12 @@ public class AdminEnchant implements IAdminCommandHandler
                 }
                 catch (StringIndexOutOfBoundsException e)
                 {
-                    if (Config.DEVELOPER) System.out.println("Set enchant error: " + e);
+                    if (_log.isDebugEnabled()) _log.debug("Set enchant error: " + e);
                     activeChar.sendMessage("Please specify a new enchant value.");
                 }
                 catch (NumberFormatException e)
                 {
-                    if (Config.DEVELOPER) System.out.println("Set enchant error: " + e);
+                    if (_log.isDebugEnabled()) _log.debug("Set enchant error: " + e);
                     activeChar.sendMessage("Please specify a valid new enchant value.");
                 }
             }

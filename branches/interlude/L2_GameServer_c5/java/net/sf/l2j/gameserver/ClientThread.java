@@ -22,8 +22,6 @@ import java.net.Socket;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -35,6 +33,8 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.util.EventData;
+
+import org.apache.log4j.Logger;
 
 import com.ibm.io.async.AsyncSocketChannel;
 
@@ -65,7 +65,7 @@ public final class ClientThread
                     _autoSaveInDB.cancel(false);
                 }
             } catch (Throwable e) {
-                _log.severe(e.toString());
+                _log.fatal(e.toString());
             }
         }
     }
@@ -142,7 +142,7 @@ public final class ClientThread
         }
         catch (Exception e1)
         {
-            _log.log(Level.WARNING, "error while disconnecting client", e1);
+            _log.warn( "error while disconnecting client", e1);
         }
         finally
         {
@@ -162,7 +162,7 @@ public final class ClientThread
         }
         catch(Exception e)
         {
-            _log.warning("Error saving player character: "+e);
+            _log.warn("Error saving player character: "+e);
         }
     }
 
@@ -179,7 +179,7 @@ public final class ClientThread
         if (getActiveChar() != null)
         {
             saveCharToDisk (getActiveChar());
-            if (Config.DEBUG) _log.fine("active Char saved");
+            if (_log.isDebugEnabled()) _log.debug("active Char saved");
             _activeChar = null;
         }
 
@@ -197,7 +197,7 @@ public final class ClientThread
         }
         catch (Exception e)
         {
-            _log.warning("Data error on restoring char: " + e);
+            _log.warn("Data error on restoring char: " + e);
         } 
         finally 
         {
@@ -210,7 +210,7 @@ public final class ClientThread
         if (getActiveChar() != null)
         {
             saveCharToDisk (getActiveChar());
-            if (Config.DEBUG) _log.fine("active Char saved");
+            if (_log.isDebugEnabled()) _log.debug("active Char saved");
             _activeChar = null;
         }
 
@@ -229,7 +229,7 @@ public final class ClientThread
         }
         catch (Exception e)
         {
-            _log.warning("Data error on update delete time of char: " + e);
+            _log.warn("Data error on update delete time of char: " + e);
         } 
         finally 
         {
@@ -242,7 +242,7 @@ public final class ClientThread
         if (getActiveChar() != null)
         {
             saveCharToDisk (getActiveChar());
-            if (Config.DEBUG) _log.fine("active Char saved");
+            if (_log.isDebugEnabled()) _log.debug("active Char saved");
             _activeChar = null;
         }
     
@@ -353,7 +353,7 @@ public final class ClientThread
         }
         catch (Exception e)
         {
-            _log.warning("Data error on deleting char: " + e);
+            _log.warn("Data error on deleting char: " + e);
         } 
         finally 
         {
@@ -388,7 +388,7 @@ public final class ClientThread
         }
         else
         {
-            _log.warning("could not restore in slot:"+ charslot);
+            _log.warn("could not restore in slot:"+ charslot);
         }
         
         //setCharacter(character);
@@ -403,7 +403,7 @@ public final class ClientThread
     {
         if (charslot < 0 || charslot >= _charSlotMapping.size())
         {
-            _log.warning(getLoginName() + " tried to delete Character in slot "+charslot+" but no characters exits at that slot.");
+            _log.warn(getLoginName() + " tried to delete Character in slot "+charslot+" but no characters exits at that slot.");
             return -1;
         }
         Integer objectId = _charSlotMapping.get(charslot);

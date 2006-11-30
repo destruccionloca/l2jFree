@@ -19,11 +19,11 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.RecipeController;
+
+import org.apache.log4j.Logger;
 
 public class RequestRecipeBookOpen extends ClientBasePacket 
 {
@@ -41,7 +41,7 @@ public class RequestRecipeBookOpen extends ClientBasePacket
 	{
 		super(buf, client);
         isDwarvenCraft = (readD() == 0);
-        if (Config.DEBUG) _log.info("RequestRecipeBookOpen : " + (isDwarvenCraft ? "dwarvenCraft" : "commonCraft"));
+        if (_log.isDebugEnabled()) _log.info("RequestRecipeBookOpen : " + (isDwarvenCraft ? "dwarvenCraft" : "commonCraft"));
 	}
 
 	void runImpl()

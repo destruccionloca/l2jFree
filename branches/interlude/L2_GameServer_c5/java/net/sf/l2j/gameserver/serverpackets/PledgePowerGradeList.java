@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Clan.RankPrivs;
@@ -64,7 +64,7 @@ public class PledgePowerGradeList extends ServerBasePacket
         {
             writeD(_privs[i].getRank());
             writeD(_privs[i].getParty());
-            //_log.warning("rank: "+_privs[i].getRank()+" party: "+_privs[i].getParty());
+            //_log.warn("rank: "+_privs[i].getRank()+" party: "+_privs[i].getParty());
         }
         
 	}

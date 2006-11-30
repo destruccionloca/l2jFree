@@ -18,11 +18,10 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.logging.Logger;
-
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -43,12 +42,12 @@ public class PetItemList extends ServerBasePacket
 	
 	final void runImpl()
 	{
-		if (Config.DEBUG)
+		if (_log.isDebugEnabled())
 		{
 			L2ItemInstance[] items = _cha.getInventory().getItems();
 			for (L2ItemInstance temp : items)
 			{
-				_log.fine("item:" + temp.getItem().getName() +
+				_log.debug("item:" + temp.getItem().getName() +
 						" type1:" + temp.getItem().getType1() + " type2:" + temp.getItem().getType2());
 			}
 		}

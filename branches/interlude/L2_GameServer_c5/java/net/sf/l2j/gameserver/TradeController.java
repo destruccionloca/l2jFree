@@ -27,8 +27,8 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -66,7 +66,7 @@ public class TradeController
 		File buylistData = new File(Config.DATAPACK_ROOT, "data/buylists.csv");
 		if (buylistData.exists())
 		{
-			_log.warning("Do, please, remove buylists from data folder and use SQL buylist instead");
+			_log.warn("Do, please, remove buylists from data folder and use SQL buylist instead");
 			String line = null;
 			LineNumberReader lnr = null;
 			int dummyItemCount = 0;
@@ -85,16 +85,16 @@ public class TradeController
 					dummyItemCount += parseList(line);
 				}
 
-				if (Config.DEBUG)
-					_log.fine("created " + dummyItemCount + " Dummy-Items for buylists");
-				_log.config("TradeController: Loaded " + _lists.size() + " Buylists.");
+				if (_log.isDebugEnabled())
+					_log.debug("created " + dummyItemCount + " Dummy-Items for buylists");
+				_log.info("TradeController: Loaded " + _lists.size() + " Buylists.");
 			} catch (Exception e)
 			{
-				_log.log(Level.WARNING, "error while creating trade controller in linenr: " + lnr.getLineNumber(), e);
+				_log.warn("error while creating trade controller in linenr: " + lnr.getLineNumber(), e);
 			}
 		} else
 		{
-			_log.finer("No buylists were found in data folder, using SQL buylist instead");
+			_log.debug("No buylists were found in data folder, using SQL buylist instead");
 			java.sql.Connection con = null;
 			int dummyItemCount = 0;
 			try
@@ -139,7 +139,7 @@ public class TradeController
 							}
 						} catch (Exception e)
 						{
-							_log.warning("TradeController: Problem with buylist " + buy1.getListId() + " item " + itemId);
+							_log.warn("TradeController: Problem with buylist " + buy1.getListId() + " item " + itemId);
 						}
 
 						_lists.put(new Integer(buy1.getListId()), buy1);
@@ -152,14 +152,13 @@ public class TradeController
 				rset1.close();
 				statement1.close();
 
-				if (Config.DEBUG)
-					_log.fine("created " + dummyItemCount + " Dummy-Items for buylists");
-				_log.config("TradeController: Loaded " + _lists.size() + " Buylists.");
+				if (_log.isDebugEnabled())
+					_log.debug("created " + dummyItemCount + " Dummy-Items for buylists");
+				_log.info("TradeController: Loaded " + _lists.size() + " Buylists.");
 			} catch (Exception e)
 			{
 				// problem with initializing spawn, go to next one
-				_log.warning("TradeController: Buylists could not be initialized.");
-				e.printStackTrace();
+				_log.warn("TradeController: Buylists could not be initialized.",e);
 			} finally
 			{
 				try

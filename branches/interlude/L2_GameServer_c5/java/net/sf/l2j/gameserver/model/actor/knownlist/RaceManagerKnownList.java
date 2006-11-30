@@ -42,7 +42,7 @@ public class RaceManagerKnownList extends NpcKnownList
 
         if (object instanceof L2PcInstance)
         {
-            //System.out.println("Sending delete monsrac info.");
+            //_log.debugr("Sending delete monsrac info.");
             DeleteObject obj = null;
             for (int i=0; i<8; i++)
             {

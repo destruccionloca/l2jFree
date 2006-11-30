@@ -19,16 +19,15 @@
 package net.sf.l2j.gameserver.script.faenor;
 
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javolution.util.FastMap;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.script.IntList;
 import net.sf.l2j.gameserver.script.Parser;
 import net.sf.l2j.gameserver.script.ParserFactory;
 import net.sf.l2j.gameserver.script.ScriptEngine;
 
 import org.apache.bsf.BSFManager;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Node;
 
 /**
@@ -43,7 +42,7 @@ public class FaenorWorldDataParser extends FaenorParser
     
     public void parseScript(Node eventNode, BSFManager context)
     {
-        if (Config.DEBUG) System.out.println("Parsing WorldData");
+        if (_log.isDebugEnabled()) _log.debug("Parsing WorldData");
         
         for (Node node = eventNode.getFirstChild(); node != null; node = node.getNextSibling()) {
             
@@ -68,7 +67,7 @@ public class FaenorWorldDataParser extends FaenorParser
 
     private void parsePetData(Node petNode, BSFManager context)
     {
-        //if (Config.DEBUG) System.out.println("Parsing PetData.");
+        //if (_log.isDebugEnabled()) _log.debugr("Parsing PetData.");
 
         PetData petData = new PetData();
         
@@ -91,14 +90,13 @@ public class FaenorWorldDataParser extends FaenorParser
         catch (Exception e)
         {
             petData.petID = -1;
-            _log.warning("Error in pet Data parser.");
-            e.printStackTrace();
+            _log.warn("Error in pet Data parser.",e);
         }
     }
 
     private void parseStat(Node stat, PetData petData)
     {
-        //if (Config.DEBUG) System.out.println("Parsing Pet Statistic.");
+        //if (_log.isDebugEnabled()) _log.debugr("Parsing Pet Statistic.");
 
         try
         {

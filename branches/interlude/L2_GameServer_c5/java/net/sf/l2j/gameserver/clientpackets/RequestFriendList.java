@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
@@ -101,7 +101,7 @@ public class RequestFriendList extends ClientBasePacket
 			statement.close();
 		}
 		catch (Exception e) {
-			_log.warning("Error in /friendlist for " + activeChar + ": " + e);
+			_log.warn("Error in /friendlist for " + activeChar + ": " + e);
 		}
 		finally	{
 			try {con.close();} catch (Exception e) {}

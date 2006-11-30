@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -161,19 +161,19 @@ public class RequestDropItem extends ClientBasePacket
 
 		if (L2Item.TYPE2_QUEST == item.getItem().getType2() && !activeChar.isGM())
 		{
-			if (Config.DEBUG) _log.finest(activeChar.getObjectId()+":player tried to drop quest item");
+			if (_log.isDebugEnabled()) _log.debug(activeChar.getObjectId()+":player tried to drop quest item");
             activeChar.sendPacket(new SystemMessage(SystemMessage.CANNOT_DISCARD_EXCHANGE_ITEM));
             return;
 		}
 		
 		if (!activeChar.isInsideRadius(_x, _y, 150, false) || Math.abs(_z - activeChar.getZ()) > 50)
 		{ 
-			if (Config.DEBUG) _log.finest(activeChar.getObjectId()+": trying to drop too far away");
+			if (_log.isDebugEnabled()) _log.debug(activeChar.getObjectId()+": trying to drop too far away");
             activeChar.sendPacket(new SystemMessage(SystemMessage.CANNOT_DISCARD_DISTANCE_TOO_FAR));
 		    return;
 		}
 
-		if (Config.DEBUG) _log.fine("requested drop item " + _objectId + "("+ item.getCount()+") at "+_x+"/"+_y+"/"+_z);
+		if (_log.isDebugEnabled()) _log.debug("requested drop item " + _objectId + "("+ item.getCount()+") at "+_x+"/"+_y+"/"+_z);
         
 		if (item.isEquipped())
 		{
@@ -194,7 +194,7 @@ public class RequestDropItem extends ClientBasePacket
 		
 		L2ItemInstance dropedItem = activeChar.dropItem("Drop", _objectId, _count, _x, _y, _z, null, false);
 		
-		if (Config.DEBUG) _log.fine("dropping " + _objectId + " item("+_count+") at: " + _x + " " + _y + " " + _z);
+		if (_log.isDebugEnabled()) _log.debug("dropping " + _objectId + " item("+_count+") at: " + _x + " " + _y + " " + _z);
 
 		activeChar.broadcastUserInfo();
 
@@ -207,7 +207,7 @@ public class RequestDropItem extends ClientBasePacket
         if (dropedItem.getItemId() == 57 && dropedItem.getCount() >= 1000000)
         {
             String msg = "Character ("+activeChar.getName()+") has dropped ("+dropedItem.getCount()+")adena at ("+_x+","+_y+","+_z+")";
-            _log.warning(msg);
+            _log.warn(msg);
             GmListTable.broadcastMessageToGMs(msg);
         }
 	}

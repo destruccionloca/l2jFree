@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.templates.L2Item;
@@ -122,8 +122,7 @@ public abstract class BasePacket implements Cloneable {
 	            case (L2ItemInstance.REMOVED): { _change = 3; break;}
 	        }
 			} catch (Exception e) {
-				_log.warning("item == null!!!");
-				e.printStackTrace();
+				_log.warn("item == null!!!",e);
 			}
 		}
 
@@ -140,8 +139,7 @@ public abstract class BasePacket implements Cloneable {
 			_equipped = item.isEquipped() ? 1 : 0;
 			_change = change;
 			} catch (Exception e) {
-				_log.warning("item == null!!!");
-				e.printStackTrace();
+				_log.warn("item == null!!!",e);
 			}
 		}
 		

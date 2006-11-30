@@ -1,7 +1,7 @@
 package net.sf.l2j.gameserver.instancemanager;
 
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -18,12 +18,12 @@ public class QuestManager
     {
         if (_Instance == null)
         {
-    		System.out.println("Initializing QuestManager");
+            if ( _log.isDebugEnabled())_log.debug("Initializing QuestManager");
             _Instance = new QuestManager();
             if (!Config.ALT_DEV_NO_QUESTS)
                _Instance.load();
             else
-                System.out.println("QuestManager Disabled");
+                _log.info("QuestManager Disabled");
         }
         return _Instance;
     }
@@ -57,7 +57,7 @@ public class QuestManager
     private final void load()
     {
         QuestJython.init();
-        System.out.println("Loaded: " + getQuests().size() + " quests");
+        _log.info("Loaded: " + getQuests().size() + " quests");
     }
 
     // =========================================================

@@ -21,8 +21,6 @@ package net.sf.l2j.gameserver.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
@@ -30,6 +28,8 @@ import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.L2Item;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author Advi
@@ -209,7 +209,7 @@ public abstract class ItemContainer
 				L2Item template = ItemTable.getInstance().getTemplate(itemId);
 				if (template == null)
 				{
-					_log.log(Level.WARNING, (actor != null ? "[" + actor.getName() + "] ": "") +  "Invalid ItemId requested: ", itemId);
+					_log.warn( (actor != null ? "[" + actor.getName() + "] ": "") +  "Invalid ItemId requested: " + itemId);
 					return null;
 				}
 
@@ -447,7 +447,7 @@ public abstract class ItemContainer
 	 */
 	public void deleteMe()
 	{
-		try { updateDatabase(); } catch (Throwable t) {_log.log(Level.SEVERE, "deletedMe()", t); }
+		try { updateDatabase(); } catch (Throwable t) {_log.fatal( "deletedMe()", t); }
 		List<L2Object> items = new FastList<L2Object>(_items);
     	_items.clear();
 		
@@ -506,7 +506,7 @@ public abstract class ItemContainer
         }
         catch (Exception e)
         {
-			_log.log(Level.WARNING, "could not restore container:", e);
+			_log.warn( "could not restore container:", e);
         } 
         finally 
         {

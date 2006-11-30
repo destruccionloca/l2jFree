@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -151,8 +151,8 @@ public class RequestExEnchantSkill extends ClientBasePacket
             {
                 player.addSkill(skill);
             
-                if (Config.DEBUG) 
-                    _log.fine("Learned skill " + _id + " for " + _requiredSp + " SP.");
+                if (_log.isDebugEnabled()) 
+                    _log.debug("Learned skill " + _id + " for " + _requiredSp + " SP.");
             
                 player.setSp(player.getSp() - _requiredSp);
                 player.setExp(player.getExp() - _requiredExp);

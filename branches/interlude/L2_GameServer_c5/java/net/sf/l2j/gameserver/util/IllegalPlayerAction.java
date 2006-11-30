@@ -28,13 +28,11 @@
  */
 package net.sf.l2j.gameserver.util;
 
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -77,10 +75,7 @@ public final class IllegalPlayerAction implements Runnable
     
     public void run()
     {
-		LogRecord record = new LogRecord(Level.INFO, "AUDIT:" + _message);
-		record.setLoggerName("audit");
-		record.setParameters(new Object[]{_actor, _punishment});
-		_logAudit.log(record);
+		_logAudit.info("AUDIT:"+ _message + ","+_actor + " "+_punishment);
 
         GmListTable.broadcastMessageToGMs(_message);
 

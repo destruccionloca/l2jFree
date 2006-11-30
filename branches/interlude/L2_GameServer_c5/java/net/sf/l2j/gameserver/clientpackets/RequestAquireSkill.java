@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
  
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -249,8 +249,8 @@ public class RequestAquireSkill extends ClientBasePacket
             }
             player.getClan().addNewSkill(skill);
             
-            if (Config.DEBUG) 
-                _log.fine("Learned pledge skill " + _id + " for " + _requiredSp + " SP.");
+            if (_log.isDebugEnabled()) 
+                _log.debug("Learned pledge skill " + _id + " for " + _requiredSp + " SP.");
             
             player.getClan().setReputationScore(player.getClan().getReputationScore()-repCost);
             
@@ -265,14 +265,14 @@ public class RequestAquireSkill extends ClientBasePacket
         }
         else
         {
-            _log.warning("Recived Wrong Packet Data in Aquired Skill - unk1:" +_skillType);
+            _log.warn("Recived Wrong Packet Data in Aquired Skill - unk1:" +_skillType);
             return;
         }
         
         player.addSkill(skill);
         
-        if (Config.DEBUG) 
-            _log.fine("Learned skill " + _id + " for " + _requiredSp + " SP.");
+        if (_log.isDebugEnabled()) 
+            _log.debug("Learned skill " + _id + " for " + _requiredSp + " SP.");
         
         player.setSp(player.getSp() - _requiredSp);
         player.updateStats();

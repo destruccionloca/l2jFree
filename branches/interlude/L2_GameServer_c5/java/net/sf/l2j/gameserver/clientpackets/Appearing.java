@@ -61,7 +61,7 @@ public class Appearing extends ClientBasePacket
         sendPacket(new UserInfo(activeChar));
         
 //		L2Object[] visible = L2World.getInstance().getVisibleObjects(activeChar, 2000);
-//		if (Config.DEBUG) _log.fine("npc in range:"+visible.length);
+//		if (_log.isDebugEnabled()) _log.debug("npc in range:"+visible.length);
 //		for (int i = 0; i < visible.length; i++)
 //		{
 //			activeChar.addKnownObject(visible[i], null);

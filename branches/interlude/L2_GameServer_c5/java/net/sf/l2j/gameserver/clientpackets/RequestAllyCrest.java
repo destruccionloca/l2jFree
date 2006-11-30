@@ -19,12 +19,12 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.serverpackets.AllyCrest;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class ...
@@ -50,7 +50,7 @@ public class RequestAllyCrest extends ClientBasePacket
 
 	void runImpl()
 	{
-		if (Config.DEBUG) _log.fine("allycrestid " + _crestId + " requested");
+		if (_log.isDebugEnabled()) _log.debug("allycrestid " + _crestId + " requested");
         
         byte[] data = CrestCache.getInstance().getAllyCrest(_crestId);
 
@@ -61,7 +61,7 @@ public class RequestAllyCrest extends ClientBasePacket
 		}
 		else
 		{
-			if (Config.DEBUG) _log.fine("allycrest is missing:" + _crestId);
+			if (_log.isDebugEnabled()) _log.debug("allycrest is missing:" + _crestId);
 		}
 	}
 

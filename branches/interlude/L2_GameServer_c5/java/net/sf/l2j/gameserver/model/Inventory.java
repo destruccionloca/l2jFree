@@ -486,7 +486,7 @@ public abstract class Inventory extends ItemContainer
 	 */
 	private void unEquipItemInBodySlot(int slot)
 	{
-		if (Config.DEBUG) _log.fine("--- unequip body slot:" + slot);
+		if (_log.isDebugEnabled()) _log.debug("--- unequip body slot:" + slot);
 		int pdollSlot = -1;
 		
 		switch (slot)
@@ -690,7 +690,7 @@ public abstract class Inventory extends ItemContainer
 				setPaperdollItem(PAPERDOLL_BACK, item);
 				break;
 			default:
-				_log.warning("unknown body slot:" + targetSlot);
+				_log.warn("unknown body slot:" + targetSlot);
 		}
 	}
     
@@ -796,7 +796,7 @@ public abstract class Inventory extends ItemContainer
        }
        catch (Exception e)
        {
-           _log.warning("Could not restore inventory : " + e);
+           _log.warn("Could not restore inventory : " + e);
        } 
        finally 
        {

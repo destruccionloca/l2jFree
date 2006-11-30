@@ -24,7 +24,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -99,7 +99,7 @@ public class HennaTreeTable
 				hennatree.close();
 				statement2.close();
                 count   += list.size();
-				_log.fine("Henna Tree for Class: " + classId + " has " + list.size() + " Henna Templates.");		
+				_log.debug("Henna Tree for Class: " + classId + " has " + list.size() + " Henna Templates.");		
 			}
 			
 			classlist.close();
@@ -109,15 +109,14 @@ public class HennaTreeTable
 		}
 		catch (Exception e)
 		{
-			_log.warning("error while creating henna tree for classId "+classId + "  "+e);
-			e.printStackTrace();
+			_log.warn("error while creating henna tree for classId "+classId + "  "+e,e);
 		} 
 		finally 
 		{
 			try { con.close(); } catch (Exception e) {}
 		}
 
-        _log.config("HennaTreeTable: Loaded " + count + " Henna Tree Templates.");
+        _log.info("HennaTreeTable: Loaded " + count + " Henna Tree Templates.");
 		
 	}
 	
@@ -130,7 +129,7 @@ public class HennaTreeTable
 		if (henna == null)
 		{
 			// the hennatree for this class is undefined, so we give an empty list
-			_log.warning("Hennatree for class " + classId + " is not defined !");
+			_log.warn("Hennatree for class " + classId + " is not defined !");
 			return new L2HennaInstance[0];
 		}
 		

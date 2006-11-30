@@ -20,9 +20,8 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -101,12 +100,12 @@ public class Say2 extends ClientBasePacket
 
 	void runImpl()
 	{
-		if (Config.DEBUG) 
+		if (_log.isDebugEnabled()) 
 			_log.info("Say2: Msg Type = '" + _type + "' Text = '" + _text + "'.");
 		
 		if(_type >= chatNames.length)
 		{
-			_log.warning("Say2: Invalid type: "+_type);
+			_log.warn("Say2: Invalid type: "+_type);
 			return;
 		}
 		
@@ -114,7 +113,7 @@ public class Say2 extends ClientBasePacket
 				
 		if (activeChar == null)
 		{
-			_log.warning("[Say2.java] Active Character is null.");
+			_log.warn("[Say2.java] Active Character is null.");
 			return;
 		}
 		
@@ -141,15 +140,10 @@ public class Say2 extends ClientBasePacket
 
 		if (Config.LOG_CHAT) 
 		{
-			LogRecord record = new LogRecord(Level.INFO, _text);
-			record.setLoggerName("chat");
-			
 			if (_type == TELL)
-				record.setParameters(new Object[]{chatNames[_type], "[" + activeChar.getName() + " to "+_target+"]"});
+                _logChat.info( chatNames[_type] + "[" + activeChar.getName() + " to "+_target+"] " + _text);
 			else
-				record.setParameters(new Object[]{chatNames[_type], "[" + activeChar.getName() + "]"});
-
-			_logChat.log(record);
+                _logChat.info( chatNames[_type] + "[" + activeChar.getName() + "] " + _text);
 		}
 
 		if(Config.USE_SAY_FILTER) 
@@ -247,7 +241,7 @@ public class Say2 extends ClientBasePacket
 					if (vch != null) 
 						vch.useVoicedCommand(command, activeChar, target);
 					else
-						_log.warning("No handler registered for bypass '"+command+"'");
+						_log.warn("No handler registered for bypass '"+command+"'");
 				}
 			}
             break;

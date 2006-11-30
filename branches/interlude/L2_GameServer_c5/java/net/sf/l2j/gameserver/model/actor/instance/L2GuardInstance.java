@@ -19,9 +19,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.Random;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
@@ -36,6 +34,8 @@ import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class manages all Guards in the world.
@@ -106,8 +106,8 @@ public final class L2GuardInstance extends L2Attackable
         _homeY = getY();
         _homeZ = getZ();
 
-        if (Config.DEBUG)
-            _log.finer(getObjectId()+": Home location set to"+" X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
+        if (_log.isDebugEnabled())
+            _log.debug(getObjectId()+": Home location set to"+" X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
     }
     public int getHomeX() { return _homeX; }
 
@@ -118,7 +118,7 @@ public final class L2GuardInstance extends L2Attackable
     {
         if (!isInsideRadius(_homeX, _homeY, 150, false))
         {
-            if (Config.DEBUG) _log.fine(getObjectId()+": moving hometo" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
+            if (_log.isDebugEnabled()) _log.debug(getObjectId()+": moving hometo" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
             
             clearAggroList();
             
@@ -135,8 +135,8 @@ public final class L2GuardInstance extends L2Attackable
         _homeY = getY();
         _homeZ = getZ();
         
-        if (Config.DEBUG)
-            _log.finer(getObjectId()+": Home location set to"+" X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
+        if (_log.isDebugEnabled())
+            _log.debug(getObjectId()+": Home location set to"+" X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
 
         // check the region where this mob is, do not activate the AI if region is inactive.
         L2WorldRegion region = L2World.getInstance().getRegion(getX(),getY());
@@ -198,7 +198,7 @@ public final class L2GuardInstance extends L2Attackable
             // Set the L2PcInstance Intention to AI_INTENTION_IDLE
             player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
             
-            if (Config.DEBUG) _log.fine(player.getObjectId()+": Targetted guard "+getObjectId());
+            if (_log.isDebugEnabled()) _log.debug(player.getObjectId()+": Targetted guard "+getObjectId());
             
             // Set the target of the L2PcInstance player
             player.setTarget(this);
@@ -216,7 +216,7 @@ public final class L2GuardInstance extends L2Attackable
             // Check if the L2PcInstance is in the _aggroList of the L2GuardInstance
             if (containsTarget(player)) 
             {
-                if (Config.DEBUG) _log.fine(player.getObjectId()+": Attacked guard "+getObjectId());
+                if (_log.isDebugEnabled()) _log.debug(player.getObjectId()+": Attacked guard "+getObjectId());
                 
                 // Set the L2PcInstance Intention to AI_INTENTION_ATTACK
                 player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);

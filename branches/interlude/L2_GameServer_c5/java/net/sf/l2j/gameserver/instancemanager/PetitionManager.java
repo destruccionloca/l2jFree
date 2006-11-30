@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.lang.TextBuilder;
 import javolution.util.FastList;
@@ -81,7 +81,7 @@ public final class PetitionManager
 	{
 		if (_instance == null)
 		{
-			System.out.println("Initializing PetitionManager");
+			_log.info("Initializing PetitionManager");
 			_instance = new PetitionManager();
 		}
 		
@@ -109,7 +109,7 @@ public final class PetitionManager
 			_id = IdFactory.getInstance().getNextId();
 			if(petitionType >= PetitionType.values().length)
 			{
-				_log.warning("PetitionManager:Petition : invalid petition type (received type was +1) : "+ petitionType);
+				_log.warn("PetitionManager:Petition : invalid petition type (received type was +1) : "+ petitionType);
 			}
 			_type = PetitionType.values()[petitionType];
 			_content = petitionText;

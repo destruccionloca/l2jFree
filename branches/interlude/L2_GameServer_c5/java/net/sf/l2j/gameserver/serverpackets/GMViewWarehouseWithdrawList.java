@@ -18,13 +18,12 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.logging.Logger;
-
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
+
+import org.apache.log4j.Logger;
 
 
 /**
@@ -54,9 +53,9 @@ public class GMViewWarehouseWithdrawList extends ServerBasePacket
         _playerName = _cha.getName();
         _money = _cha.getAdena(); 
         
-        if (Config.DEBUG)
+        if (_log.isDebugEnabled())
            for (L2ItemInstance item : _items)
-               _log.fine("item:" + item.getItem().getName() +
+               _log.debug("item:" + item.getItem().getName() +
                         " type1:" + item.getItem().getType1() + " type2:" + item.getItem().getType2());
     }
     
@@ -98,7 +97,7 @@ public class GMViewWarehouseWithdrawList extends ServerBasePacket
        }
        catch(Exception ex)
         {
-           ex.printStackTrace();     
+           _log.error(ex.getMessage(),ex);     
         }
     }
     

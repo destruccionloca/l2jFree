@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -70,8 +70,8 @@ public class AdminInvul implements IAdminCommandHandler {
         	SystemMessage sm = new SystemMessage(614);
         	sm.addString(text);
         	activeChar.sendPacket(sm);
-        	if (Config.DEBUG)
-        		_log.fine("GM: Gm removed invul mode from character "+activeChar.getName()+"("+activeChar.getObjectId()+")");
+        	if (_log.isDebugEnabled())
+        		_log.debug("GM: Gm removed invul mode from character "+activeChar.getName()+"("+activeChar.getObjectId()+")");
 		} else
 		{
 			activeChar.setIsInvul(true);
@@ -79,8 +79,8 @@ public class AdminInvul implements IAdminCommandHandler {
 			SystemMessage sm = new SystemMessage(614);
 			sm.addString(text);
 			activeChar.sendPacket(sm);
-			if (Config.DEBUG) 
-				_log.fine("GM: Gm activated invul mode for character "+activeChar.getName()+"("+activeChar.getObjectId()+")");
+			if (_log.isDebugEnabled()) 
+				_log.debug("GM: Gm activated invul mode for character "+activeChar.getName()+"("+activeChar.getObjectId()+")");
 		}
 	}
 }

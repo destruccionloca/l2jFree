@@ -21,8 +21,8 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
@@ -129,7 +129,7 @@ public class RequestExSetPledgeCrestLarge extends ClientBasePacket
             }
             catch (SQLException e)
             {
-                _log.warning("could not update the large crest id:"+e.getMessage());
+                _log.warn("could not update the large crest id:"+e.getMessage());
             }
             finally
             {

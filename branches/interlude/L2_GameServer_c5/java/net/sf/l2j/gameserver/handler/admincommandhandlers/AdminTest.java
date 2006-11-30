@@ -179,14 +179,14 @@ public class AdminTest implements IAdminCommandHandler
             nodes[i]    = new WayPointNode(IdFactory.getInstance().getNextId());
             nodes[i].setXYZ(0, 0, 0);
         }
-        long start = 0, end = 0;//System.out.println(System.currentTimeMillis());
+        long start = 0, end = 0;//_log.debugr(System.currentTimeMillis());
         start               = System.currentTimeMillis();
         for (WayPointNode node : nodes)
         {
             L2World.getInstance().addVisibleObject(node, L2World.getInstance().getRegion(0, 0), null);
         }
         end                 = System.currentTimeMillis();
-        long timeStore      = new Long(end - start);//System.out.println(System.currentTimeMillis());
+        long timeStore      = new Long(end - start);//_log.debugr(System.currentTimeMillis());
         
         start               = System.currentTimeMillis();
         for (WayPointNode node : nodes)

@@ -168,7 +168,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
     
     private void changeClass(L2PcInstance player, int val)
     {
-        if (Config.DEBUG) _log.fine("Changing class to ClassId:" + val);
+        if (_log.isDebugEnabled()) _log.debug("Changing class to ClassId:" + val);
         player.setClassId(val);
         
         if (player.isSubClassActive()) player.getSubClasses().get(player.getClassIndex()).setClassId(

@@ -3,7 +3,7 @@ package net.sf.l2j.gameserver.instancemanager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
@@ -22,7 +22,7 @@ public class CastleManager
     {
         if (_Instance == null)
         {
-    		System.out.println("Initializing CastleManager");
+    		_log.info("Initializing CastleManager");
             _Instance = new CastleManager();
             _Instance.load();
         }
@@ -100,12 +100,11 @@ public class CastleManager
 
             statement.close();
 
-            System.out.println("Loaded: " + getCastles().size() + " castles");
+            _log.info("Loaded: " + getCastles().size() + " castles");
         }
         catch (Exception e)
         {
-            System.out.println("Exception: loadCastleData(): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: loadCastleData(): " + e.getMessage(),e);
         }
         
         finally {try { con.close(); } catch (Exception e) {}}
