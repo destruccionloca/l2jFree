@@ -47,6 +47,7 @@ import org.apache.log4j.Logger;
  
  * format   h (h dddhhhh hh)	revision 377
  * format   h (h dddhhhd hh)    revision 415
+ * format   h (h dddhhhd hhhhd)  729
  * 
  * @version $Revision: 1.4.2.1.2.4 $ $Date: 2005/03/27 15:29:57 $
  */
@@ -121,6 +122,13 @@ public class ItemList extends ServerBasePacket
 			writeH(temp.getEnchantLevel());	// enchant level
 			//race tickets
 			writeH(temp.getCustomType2());	// item type3
+
+            if (getClient().getRevision() >= 729) // chaotic throne
+            {
+                writeH(0);
+                writeH(0);
+                writeD(0);
+            }
 		}
 	}
 	
