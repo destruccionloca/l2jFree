@@ -297,19 +297,16 @@ public class UserInfo extends ServerBasePacket
         writeD(_cha.GetFishz()); //fishing z
 
         writeD(_cha.getNameColor());
-        if (getClient().getRevision() >= 690)
-        {
-            writeC(_cha.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window
-            writeD(0x00); // ??
-            writeD(0x00); // ??
-            writeD(_cha.getPledgeClass()); //C5 ??
-            writeD(0x00); // ??
-            writeD(_cha.getTitleColor()); //C5 ??
-            if (_cha.isCursedWeaponEquiped())
-                writeD(CursedWeaponsManager.getInstance().getLevel(_cha.getCursedWeaponEquipedId()));
-            else
-                writeD(0x00);
-        }
+        writeC(_cha.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window
+        writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
+        writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_FACE));
+        writeD(_cha.getPledgeClass()); //C5 ??
+        writeD(0x00); // ??
+        writeD(_cha.getTitleColor()); //C5 ??
+        if (_cha.isCursedWeaponEquiped())
+            writeD(CursedWeaponsManager.getInstance().getLevel(_cha.getCursedWeaponEquipedId()));
+        else
+            writeD(0x00);
     }
 
     /* (non-Javadoc)

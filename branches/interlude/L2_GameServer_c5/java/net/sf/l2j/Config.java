@@ -327,7 +327,8 @@ public final class Config {
     /** Alt Settings for devs */
     public static boolean ALT_DEV_NO_QUESTS;
     public static boolean ALT_DEV_NO_SPAWNS;
-
+    public static boolean ALT_POLYMORPH;
+    
     /** Enable Rate Hp  */
     public static boolean ENABLE_RATE_HP;
 
@@ -1569,6 +1570,7 @@ public final class Config {
 
                 ALT_DEV_NO_QUESTS                                   = Boolean.parseBoolean(altSettings.getProperty("AltDevNoQuests", "False"));
                 ALT_DEV_NO_SPAWNS                                   = Boolean.parseBoolean(altSettings.getProperty("AltDevNoSpawns", "False"));
+                ALT_POLYMORPH                                       = Boolean.parseBoolean(altSettings.getProperty("AltPolymorph", "False"));
 
                 ALT_STRICT_SEVENSIGNS                               = Boolean.parseBoolean(altSettings.getProperty("StrictSevenSigns", "True"));
                 
