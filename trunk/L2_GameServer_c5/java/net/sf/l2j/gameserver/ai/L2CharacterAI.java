@@ -213,8 +213,8 @@ public class L2CharacterAI extends AbstractAI
             // Set the AI attack target
             setAttackTarget(target);
             
-            stopFollow();
-            stopMoveTask();
+//            stopFollow();
+//            stopMoveTask();
             
             // Launch the Think Event
             notifyEvent(CtrlEvent.EVT_THINK, null);
