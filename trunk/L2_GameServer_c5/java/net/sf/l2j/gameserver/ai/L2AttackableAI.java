@@ -47,6 +47,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
+import net.sf.l2j.gameserver.model.entity.geodata.GeoMove;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 
@@ -63,6 +64,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
     // private static final int MAX_DRIFT_RANGE = 300;
     private static final int MAX_ATTACK_TIMEOUT = 300; // int ticks, i.e. 30 seconds 
 
+    private GeoMove geomove;
+    
     /** The L2Attackable AI task executed every 1s (call onEvtThink method)*/
     private Future aiTask;
 
@@ -76,18 +79,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
     private boolean thinking; // to prevent recursive thinking
 
     private int aggroRange;
-    private int currentMoveCounter;
-    public int currentTargetId;
-    private FastMap<Integer,TargetCoord> targetRecorder;
-
-     private class TargetCoord
-     {
-     	int targetId;
-     	int x;
-     	int y;
-     	int z;
-     }
-
 
     /**
      * Constructor of L2AttackableAI.<BR><BR>
@@ -111,73 +102,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         onEvtThink();
 
     }
-
-    private synchronized void checkMovement(L2Character target, int range)
-    {
-
-        TargetCoord  tCoord;
-    // Now check Line of sight
-    if ( GeoDataRequester.getInstance().hasMovementLoS(_actor,target).LoS == true )
-    {
-           moveToPawn( target,range);
-    }
-    else
-    {
-        if (targetRecorder.size() > 1)
-        {
-                // try to get best movement path
-                    int failSafeCounter = 0;
-            int mapSize = targetRecorder.size();
-            int mapPos = 0;
-            int startMapPos =targetRecorder.head().getNext().getKey();
-            int lastMapPos = targetRecorder.tail().getPrevious().getKey();
-            boolean keepongoing = true;
-
-            while (keepongoing == true)
-            {
-                if (failSafeCounter > targetRecorder.size() )
-                {
-                    //Woooooooo
-                    keepongoing = false;
-                }
-                failSafeCounter ++;
-                    mapPos = (int) (mapSize  / 2 + startMapPos  + .5 );
-
-                if (mapPos == startMapPos || mapPos == lastMapPos )
-                {
-                     // flush unwanted entries 
-                        for ( int i =targetRecorder.head().getNext().getKey(); i < mapPos ; i ++)
-                        {
-                            targetRecorder.remove(i);
-                        }
-                        tCoord = targetRecorder.get(mapPos);
-                        moveTo(tCoord.x, tCoord.y, tCoord.z);
-                        keepongoing = false;
-                    }
-                    else
-                    {   
-                        tCoord = targetRecorder.get(mapPos);
-                        if ( GeoDataRequester.getInstance().hasMovementLoS( _actor, tCoord.x, tCoord.y, (short) tCoord.z).LoS == true )
-                        { // increase position by half
-                            mapSize = lastMapPos - mapPos;
-                            startMapPos = mapPos;
-                        }
-                        else
-                        { // decrease positon by half
-                            mapSize = lastMapPos - mapPos;
-                              lastMapPos = mapPos;
-                        }
-                    }
-                }
-            }
-            else
-               {
-                    // oh well .. i tried 
-              moveToPawn( target,range);
-           }
-          }
-  }
-    
     /**
      * Return True if the target is autoattackable (depends on the actor type).<BR><BR>
      * 
@@ -210,7 +134,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
      * @param target The targeted L2Object
      * 
      */
-    
     private boolean autoAttackCondition(L2Character target)
     {
         L2Attackable me = (L2Attackable) _actor;
@@ -251,7 +174,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             if (target instanceof L2PcInstance) return ((L2PcInstance) target).getKarma() > 0;
 
             //if (target instanceof L2Summon)
-            //	return ((L2Summon)target).getKarma() > 0;
+            //  return ((L2Summon)target).getKarma() > 0;
 
             // Check if the L2MonsterInstance target is aggressive
             if (target instanceof L2MonsterInstance) return ((L2MonsterInstance) target).isAggressive();
@@ -266,18 +189,20 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             if (target instanceof L2NpcInstance) return false;
 
             // Check if the L2PcInstance target has karma (=PK)
-            if(Config.ALLOW_GEODATA){
-            if (target instanceof L2PcInstance)
+            if(Config.ALLOW_GEODATA)
             {
-               if (GeoDataRequester.getInstance().hasAttackLoS(_actor, target) == true)
-               {
-                   return ((L2PcInstance) target).getKarma() > 0;
-               }
-               else
-               {
-                   return false;
-               }
-            }
+                if (target instanceof L2PcInstance)
+                {
+                    //_log.warning("get LOS L2attackable AI 1" );
+                    if (GeoDataRequester.getInstance().hasMovementLoS( _actor, target).LoS == true)
+                    {
+                        return ((L2PcInstance) target).getKarma() > 0;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
             }else
                if (target instanceof L2PcInstance) return ((L2PcInstance) target).getKarma() > 0;
 
@@ -291,12 +216,14 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
             // Check if the actor is Aggressive
             if(Config.ALLOW_GEODATA)
-            if ( me.isAggressive())
             {
-                //_log.warn("get LOS L2attackable AI 2" );
-                if (GeoDataRequester.getInstance().hasAttackLoS(me, target) == false)
-                {      
-                    return false; 
+                if ( me.isAggressive())
+                {
+                    //_log.warning("get LOS L2attackable AI 2" );
+                    if (GeoDataRequester.getInstance().hasMovementLoS( me, target).LoS == false)
+                    {      
+                        return false; 
+                    }
                 }
             }
             return me.isAggressive();
@@ -307,7 +234,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         // If not idle - create an AI task (schedule onEvtThink repeatedly)
         if (aiTask == null)
         {
-            aiTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(this, 1000, 1000);
+            geomove = null;
+            geomove = new GeoMove(_actor);
+            aiTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(this, 500,1000);
         }
     }
 
@@ -317,6 +246,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         {
             aiTask.cancel(false);
             aiTask = null;
+            geomove.targetRecorder = null;
         }
     }
 
@@ -373,7 +303,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         super.changeIntention(intention, arg0, arg1);
 
         // If not idle - create an AI task (schedule onEvtThink repeatedly)
-		startAITask();
+        startAITask();
     }
 
     /**
@@ -543,9 +473,12 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                 z1 = npc.getZ();
             }
 
-            //_log.info("Curent pos ("+getX()+", "+getY()+"), moving to ("+x1+", "+y1+").");
+            //_log.config("Curent pos ("+getX()+", "+getY()+"), moving to ("+x1+", "+y1+").");
             // Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet CharMoveToLocation (broadcast)
-            moveTo(x1, y1, z1);
+            if ( GeoDataRequester.getInstance().hasMovementLoS( _actor, x1, y1,z1).LoS)
+            {   
+                moveTo(x1, y1, z1);
+            }
 
         }
 
@@ -565,7 +498,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
      * TODO: Manage casting rules to healer mobs (like Ant Nurses)
      * 
      */
-	private void thinkAttack()
+    private void thinkAttack()
     {
         if (_attack_timeout < GameTimeController.getGameTicks())
         {
@@ -603,12 +536,17 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             setIntention(AI_INTENTION_ACTIVE);
 
             _actor.setWalking();
+            if (Config.ALLOW_GEODATA)
+            {
+                geomove.currentMoveCounter = 0;            
+                geomove.targetRecorder = null;
+            }
         }
         else
         {
             if(_actor.isAttackingDisabled()) return;
-        	
-        	// Call all L2Object of its Faction inside the Faction Range
+            
+            // Call all L2Object of its Faction inside the Faction Range
             if (((L2NpcInstance) _actor).getFactionId() != null)
             {
                 String faction_id = ((L2NpcInstance) _actor).getFactionId();
@@ -652,52 +590,11 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             }
             catch (NullPointerException e)
             {
-                //_log.warn("AttackableAI: Attack target is NULL.");
+                //_log.warning("AttackableAI: Attack target is NULL.");
                 setIntention(AI_INTENTION_ACTIVE);
                 return;
             }
 
-            TargetCoord  tCoord;
-            if ( targetRecorder == null)
-          {
-                   targetRecorder = new FastMap<Integer,TargetCoord>();
-          }
-          else
-          {
-       tCoord = targetRecorder.tail().getPrevious().getValue();  
-           if (currentTargetId  != tCoord.targetId )
-           {
-               targetRecorder = null;
-               targetRecorder = new FastMap<Integer,TargetCoord>();
-               currentMoveCounter = 0;
-           }
-      }
-
-           if (targetRecorder.size() > 1)
-           {
-               tCoord = targetRecorder.tail().getPrevious().getValue();
-               if ( !  (tCoord.x == getAttackTarget().getX() && tCoord.y == getAttackTarget().getY() && tCoord.z == getAttackTarget().getZ()))
-               {
-                   currentMoveCounter ++;
-                   tCoord = new TargetCoord();
-                   tCoord.targetId  = getAttackTarget().getObjectId();
-                   tCoord.x = getAttackTarget().getX();
-                   tCoord.y = getAttackTarget().getY();
-                   tCoord.z = getAttackTarget().getZ();
-                   targetRecorder.put(currentMoveCounter,tCoord);
-               }
-           }
-           else
-           {
-               currentMoveCounter ++;
-               tCoord = new TargetCoord();
-               tCoord.targetId  = getAttackTarget().getObjectId();
-               tCoord.x = getAttackTarget().getX();
-               tCoord.y = getAttackTarget().getY();
-               tCoord.z = getAttackTarget().getZ();
-               targetRecorder.put(currentMoveCounter,tCoord);
-           }            
-            
             L2Weapon weapon = _actor.getActiveWeaponItem();
             if (weapon != null && weapon.getItemType() == L2WeaponType.BOW)
             {
@@ -721,7 +618,20 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                             signy=1;
                         posX += Math.round((float)((signx * ((range / 2) + (Rnd.get(range)))) - distance));
                         posY += Math.round((float)((signy * ((range / 2) + (Rnd.get(range)))) - distance));
-                        setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(posX, posY, posZ, 0));
+                        // check if we can move there
+                        if (Config.ALLOW_GEODATA)
+                        {
+                            short newz;
+                            newz = GeoDataRequester.getInstance().getGeoInfoNearest(posX,posY,(short)posZ).getZ();
+                            if ( GeoDataRequester.getInstance().hasMovementLoS(_actor, posX,posY,newz ).LoS == true )
+                            {
+                                setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(posX, posY, newz, 0));
+                            }
+                        }
+                        else
+                        {
+                            setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(posX, posY, posZ, 0));                            
+                        }
                         return;
                     }
                 }
@@ -729,8 +639,19 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
             // Force mobs to attack anybody if confused
             L2Character hated;
-            if (_actor.isConfused()) hated = getAttackTarget();
-            else hated = ((L2Attackable) _actor).getMostHated();
+            if (_actor.isConfused())
+            {
+                hated = getAttackTarget();
+            }
+            else if (getAttackTarget().isConfused() && _actor instanceof L2MonsterInstance && getAttackTarget() instanceof L2MonsterInstance) 
+            {
+                hated = getAttackTarget();
+            }
+            else
+            {
+                hated = ((L2Attackable) _actor).getMostHated();
+            }
+
 
             if (hated == null)
             {
@@ -741,6 +662,11 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             {
                 setAttackTarget(hated);
             }
+            if (Config.ALLOW_GEODATA)
+            {    
+                geomove.currentTargetId = getAttackTarget().getObjectId();
+            }
+            
             // We should calculate new distance cuz mob can have changed the target
             dist2 = _actor.getPlanDistanceSq(hated.getX(), hated.getY()); 
             
@@ -750,7 +676,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             {
                 // check for long ranged skills and heal/buff skills
                 if (!_actor.isMuted() && 
-                	(!Config.ALT_GAME_MOB_ATTACK_AI || (_actor instanceof L2MonsterInstance && Rnd.nextInt(100) <= 5))
+                    (!Config.ALT_GAME_MOB_ATTACK_AI || (_actor instanceof L2MonsterInstance && Rnd.nextInt(100) <= 5))
                    )
                     for (L2Skill sk : skills)
                     {
@@ -791,22 +717,79 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                             }
 
                             clientStopMoving(null);
-                            _accessor.doCast(sk);
+                            if ( _actor.getTarget() != _actor)
+                            {
+                                if (Config.ALLOW_GEODATA)
+                                {
+                                    if (GeoDataRequester.getInstance().hasAttackLoS(_actor,_actor.getTarget()))
+                                    {
+                                        _accessor.doCast(sk);
+                                    }
+                                }
+                                else
+                                {
+                                    _accessor.doCast(sk);
+                                }
+                            }
+                            else
+                            {
+                                _accessor.doCast(sk);
+                            }
                             _actor.setTarget(OldTarget);
                             return;
                         }
                     }
 
                 // Move the actor to Pawn server side AND client side by sending Server->Client packet MoveToPawn (broadcast)
-                if (hated.isMoving()) range -= 100; if (range < 5) range = 5;
-                if(Config.ALLOW_GEODATA){
-                    checkMovement(getAttackTarget(), range);
-                    return;
-                }    
-                else{
-                    moveToPawn(getAttackTarget(), range);
-                    return;
+                //TODO check movements here
+                //moveToPawn(getAttackTarget(), range);
+                 if (hated.isMoving()) range -= 100; if (range < 5) range = 5;  
+                 {
+                     if (!_actor.isMovementDisabled())
+                     {
+                         if (Config.ALLOW_GEODATA)
+                         {
+                             GeoMove.TargetCoord tCoord;
+                             tCoord = geomove.checkMovement(getAttackTarget());
+                             if (tCoord == null)
+                             {
+                                 geomove.targetRecorder = null;
+                                 moveToPawn(getAttackTarget(),range);
+                             }
+                             else
+                             {
+                                 moveTo(tCoord.x, tCoord.y, tCoord.z);
+                             }
+                         }
+                         else
+                         {
+                             moveToPawn(getAttackTarget(),range);
+                         }
+                     }
+                 }
+                 return;
+
+            }
+            // Else, if the actor is muted and far from target, just "move to pawn"
+            else if (_actor.isMuted() && dist2 > (range + 40) * (range + 40))
+            {
+                //TODO check movements here
+                //moveToPawn(getAttackTarget(), range);
+                if (!_actor.isMovementDisabled())
+                {
+                    GeoMove.TargetCoord tCoord;
+                    tCoord = geomove.checkMovement(getAttackTarget());
+                    if (tCoord == null)
+                    {
+                        geomove.targetRecorder = null;
+                        moveToPawn(getAttackTarget(),range);
+                    }
+                    else
+                    {
+                        moveTo(tCoord.x, tCoord.y, tCoord.z);
+                    }
                 }
+                return;
             }
             // Else, if this is close enough to attack
             else 
@@ -856,14 +839,34 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                         }
                     }
                 }
-
-                // Finally, physical attacks
-           		clientStopMoving(null);
-           		_accessor.doAttack(hated);
+                
+               // Finally, physical attacks
+               if (GeoDataRequester.getInstance().hasAttackLoS(_actor,hated ) == false)
+               {
+                    if (!_actor.isMovementDisabled())
+                    {
+                        GeoMove.TargetCoord tCoord;
+                        tCoord = geomove.checkMovement(getAttackTarget());
+                        if (tCoord == null)
+                        {
+                            geomove.targetRecorder = null;
+                            moveToPawn(getAttackTarget(),range);
+                        }
+                        else
+                        {
+                            moveTo(tCoord.x, tCoord.y, tCoord.z);
+                        }
+                    }
+               }
+               else
+               {
+                   clientStopMoving(null);
+                   _accessor.doAttack(hated);
+               }
             }
         }
     }
-
+ 
     /**
      * Manage AI thinking actions of a L2Attackable.<BR><BR>
      */
@@ -917,7 +920,11 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         // Set the Intention to AI_INTENTION_ATTACK
         if (getIntention() != AI_INTENTION_ATTACK)
         {
-            setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
+            if ( attacker != null)
+            {
+                geomove.currentTargetId = attacker.getObjectId(); 
+                setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
+            }
         }
         else if (((L2Attackable) _actor).getMostHated() != getAttackTarget())
         {
@@ -958,7 +965,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             {
                 // Set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance
                 if (!_actor.isRunning()) _actor.setRunning();
-
+                geomove.currentTargetId = target.getObjectId(); 
                 setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
             }
         }

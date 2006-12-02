@@ -58,6 +58,8 @@ public class L2SummonAI extends L2CharacterAI
         }
         if (maybeMoveToPawn(getAttackTarget(), _actor.getPhysicalAttackRange())) return;
         clientStopMoving(null);
+        stopFollow();
+        stopMoveTask();
         _accessor.doAttack(getAttackTarget());
         return;
     }
@@ -65,16 +67,21 @@ public class L2SummonAI extends L2CharacterAI
     private void thinkCast()
     {
         L2Summon summon = (L2Summon) _actor;
+        boolean followStatus; 
         if (checkTargetLost(getCastTarget()))
         {
             setCastTarget(null);
             return;
         }
+        followStatus = summon.getFollowStatus(); 
+        stopFollow();
+        stopMoveTask();
         if (maybeMoveToPawn(getCastTarget(), _actor.getMagicalAttackRange(_skill))) return;
         clientStopMoving(null);
         summon.setFollowStatus(false);
         setIntention(AI_INTENTION_IDLE);
         _accessor.doCast(_skill);
+        summon.setFollowStatus(followStatus);
         return;
     }
 

@@ -663,7 +663,7 @@ public class GeoDataRequester
             fp.y = y;
             fp.z = newZ;
         }
-        else if (targetY==sourceY)   	// Horizontal Line or m=0
+        else if (targetY==sourceY)      // Horizontal Line or m=0
         {
             if (sourceX > targetX)  // west
             {
@@ -1010,14 +1010,26 @@ public class GeoDataRequester
 
     public boolean hasAttackLoS(L2Object source, L2Object target)
     {
+        if (source == null || target == null)
+        {
+            return false;
+        }
         return hasAttackLoS (source.getObjectId(),  source.getX(),source.getY(), (short)source.getZ() , target.getX(), target.getY(), (short)target.getZ());
     }
     public boolean hasAttackLoS(L2Object source, int targetX , int targetY , int targetZ)
     {
+        if (source == null)
+        {
+            return false;
+        }
         return hasAttackLoS (source.getObjectId(), source.getX(), source.getY(), (short) source.getZ() , targetX, targetY, (short)targetZ);
     }
     public boolean hasAttackLoS(L2Object source, int targetX , int targetY , short targetZ)
     {
+        if (source == null)
+        {
+            return false;
+        }
         return hasAttackLoS (source.getObjectId(), source.getX(), source.getY(), (short) source.getZ() , targetX, targetY, targetZ);
     }
     public boolean hasAttackLoS(int objId, int sourceX, int sourceY, short sourceZ, int targetX , int targetY , short targetZ)
@@ -1379,7 +1391,7 @@ public class GeoDataRequester
     {
 
         // get the Geodata info from the region's geodata where the passed xyz belong.
-        //_log.debugr("Checking cell info...");
+        //System.out.println("Checking cell info...");
         GeoBlock geo;
         GeoSubCell cell;
         geo = getGeoBlock(x,y); //load in mem
@@ -1404,7 +1416,7 @@ public class GeoDataRequester
     {
 
         // get the Geodata info from the region's geodata where the passed xyz belong.
-        //_log.debugr("Checking cell info...");
+        //System.out.println("Checking cell info...");
         GeoBlock geo;
         geo = getGeoBlock(x,y); //load in mem
         if (geo != null) // if got geo file

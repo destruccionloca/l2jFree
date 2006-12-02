@@ -35,9 +35,12 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.serverpackets.AutoAttackStop;
+import net.sf.l2j.gameserver.serverpackets.CharMoveToLocation;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 
 /**
@@ -193,6 +196,7 @@ public class L2CharacterAI extends AbstractAI
                 setAttackTarget(target);
 
                 stopFollow();
+                stopMoveTask();
 
                 // Launch the Think Event
                 notifyEvent(CtrlEvent.EVT_THINK, null);
@@ -210,6 +214,7 @@ public class L2CharacterAI extends AbstractAI
             setAttackTarget(target);
             
             stopFollow();
+            stopMoveTask();
             
             // Launch the Think Event
             notifyEvent(CtrlEvent.EVT_THINK, null);
@@ -319,8 +324,34 @@ public class L2CharacterAI extends AbstractAI
         _actor.abortAttack();
 
         // Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet CharMoveToLocation (broadcast)
-        moveTo(pos.x, pos.y, pos.z);
+        
+        moveQueue = 0;
+        if (_actor.isFlying())
+        {
+            moveTo(pos.x, pos.y, pos.z);
+        }
+        else
+        {
+            
+            if (_actor instanceof L2PcInstance)
+            {
+                if (((L2PcInstance)_actor).getAccessLevel() >= 100 && Config.ALLOW_GEODATA_DEBUG)
+                {
+                    _actor.sendMessage("Move detected x:" +pos.x + " y:" + pos.y + "  z:" + pos.z);
+                }
+            }
 
+            if (GeoDataRequester.getInstance().hasMovementLoS(_actor,pos.x,pos.y,(short)pos.z).LoS == false)
+             {
+                 //_log.warning("NO LOS moving to x:" + pos.x + " y:" + pos.y +"  z:" + pos.z) ;
+                 startMoveTask(pos);
+             }
+             else
+             {
+                 //_log.warning("WITH LOS moving to x:" + pos.x + " y:" + pos.y +"  z:" + pos.z);
+                 moveTo(pos.x, pos.y, pos.z);
+             }
+        }
     }
 
     /* (non-Javadoc)
@@ -628,6 +659,11 @@ public class L2CharacterAI extends AbstractAI
      */
     protected void onEvtArrived()
     {
+        if (getIntention() == AI_INTENTION_MOVE_TO && moveQueue > 0 )
+        {
+            return;
+        }
+        
         // If the Intention was AI_INTENTION_MOVE_TO, set the Intention to AI_INTENTION_ACTIVE
         if (getIntention() == AI_INTENTION_MOVE_TO) setIntention(AI_INTENTION_ACTIVE);
 
@@ -745,6 +781,7 @@ public class L2CharacterAI extends AbstractAI
 
             // Stop an AI Follow Task
             stopFollow();
+            stopMoveTask();
 
             // Set the Intention of this AbstractAI to AI_INTENTION_ACTIVE
             setIntention(AI_INTENTION_ACTIVE);
@@ -760,6 +797,7 @@ public class L2CharacterAI extends AbstractAI
 
             // Stop an AI Follow Task
             stopFollow();
+            stopMoveTask();
 
             // Stop the actor movement server side AND client side by sending Server->Client packet StopMove/StopRotation (broadcast)
             clientStopMoving(null);
@@ -782,6 +820,7 @@ public class L2CharacterAI extends AbstractAI
     {
         // Stop an AI Follow Task
         stopFollow();
+        stopMoveTask();
 
         if (!AttackStanceTaskManager.getInstance().getAttackStanceTask(_actor))
             _actor.broadcastPacket(new AutoAttackStop(_actor.getObjectId()));
@@ -803,7 +842,7 @@ public class L2CharacterAI extends AbstractAI
     {
         // Stop an AI Follow Task
         stopFollow();
-
+        stopMoveTask();
         // Kill the actor client side by sending Server->Client packet AutoAttackStop, StopMove/StopRotation, Die (broadcast)
         clientNotifyDead();
 
@@ -822,7 +861,7 @@ public class L2CharacterAI extends AbstractAI
     {
         // Stop an AI Follow Task
         stopFollow();
-
+        stopMoveTask();
         // Stop the actor movement and send Server->Client packet StopMove/StopRotation (broadcast)
         clientStopMoving(null);
 
@@ -873,16 +912,17 @@ public class L2CharacterAI extends AbstractAI
              if (_log.isDebugEnabled())
              _log.warn("L2CharacterAI: maybeMoveToPawn -> moving to catch target. Casting stopped");
              */
-   	
+    
             if (getFollowTarget() != null) { 
                 // prevent attack-follow into peace zones
-            	if(getAttackTarget() != null && _actor instanceof L2PlayableInstance && target instanceof L2PlayableInstance)
+                if(getAttackTarget() != null && _actor instanceof L2PlayableInstance && target instanceof L2PlayableInstance)
                 {
                     if(getAttackTarget() == getFollowTarget()) 
                     {
                         if (((L2PlayableInstance)_actor).isInsidePeaceZone(_actor, target)) 
                         {
                             stopFollow();
+                            stopMoveTask();
                             return true;
                         }
                     }
@@ -890,6 +930,7 @@ public class L2CharacterAI extends AbstractAI
                 // allow larger hit range when the target is moving (check is run only once per second)
                 if (!_actor.isInsideRadius(target, offset + 100, false, false)) return true;
                 stopFollow();
+                stopMoveTask();
                 return false;
             }
             
@@ -899,11 +940,12 @@ public class L2CharacterAI extends AbstractAI
             if (!_actor.isRunning() && !(this instanceof L2PlayerAI)) _actor.setRunning();
 
             stopFollow();
+            stopMoveTask();
             if ((target instanceof L2Character) && !(target instanceof L2DoorInstance))
             {
                 if (((L2Character)target).isMoving()) offset -= 100;
                 if (offset < 5) offset = 5;
-            	startFollow((L2Character) target, offset);
+                startFollow((L2Character) target, offset);
             }
             else
             {
