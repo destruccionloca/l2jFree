@@ -149,7 +149,10 @@ import net.sf.l2j.gameserver.handler.skillhandlers.Unlock;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.ClanPenalty;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.ClanWarsList;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.DisMount;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.Divorce;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.Escape;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.Engage;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.GoToLove;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.Loc;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.Mount;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.PartyInfo;
@@ -157,6 +160,7 @@ import net.sf.l2j.gameserver.handler.usercommandhandlers.Time;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.castle;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.stats;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
+import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
@@ -381,6 +385,13 @@ public class GameServer
         CursedWeaponsManager.getInstance();
         if ( _log.isDebugEnabled())_log.debug("CursedWeapons initialized");
         
+        // Couple manager
+        if(!Config.ALLOW_WEDDING)
+        {
+            CoupleManager.getInstance();
+            if ( _log.isDebugEnabled())_log.debug("CoupleManager initialized");
+        }
+        
         // Start to announce online players number
         if(Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
         OnlinePlayers.getInstance();        
@@ -581,7 +592,7 @@ public class GameServer
         if (Config.ALLOW_GEODATA)
         {
            PathNodeBinRequester.getInstance();
-            _log.info("PathNodes initialized");
+           if ( _log.isDebugEnabled())_log.debug("PathNodes initialized");
         }
         
         _log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());

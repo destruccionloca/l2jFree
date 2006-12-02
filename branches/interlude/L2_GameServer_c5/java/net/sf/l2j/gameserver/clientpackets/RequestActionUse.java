@@ -158,9 +158,9 @@ public class RequestActionUse extends ClientBasePacket
 
                     if (target.isAutoAttackable(activeChar) || _ctrlPressed)
                     {
-                        // Siege Golem (12251)
-                        if ((pet.getNpcId() != 12251) || (target instanceof L2DoorInstance))
-                            pet.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
+                        // Siege Golem (14737)
+                        if (((pet.getNpcId() != 14737) && (pet.getNpcId() != 14768)) || (target instanceof L2DoorInstance))                          
+                                pet.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
                     }
                 }
                 break;

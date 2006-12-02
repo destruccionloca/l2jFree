@@ -39,6 +39,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
+import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance; 
 
 public abstract class L2Summon extends L2PlayableInstance
 {
@@ -562,12 +563,20 @@ public abstract class L2Summon extends L2PlayableInstance
             }
 
             // Check if the target is attackable
-            if (!target.isAttackable() 
-                    && getOwner() != null 
-                    && (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
+            if (target instanceof L2DoorInstance)  
             {
+                if (!target.isAutoAttackable(getOwner())
+                        && getOwner() != null
+                        && (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
                 return;
             }
+            else
+            {
+                if (!target.isAttackable()
+                        && getOwner() != null
+                        && (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
+                return;
+            }             
 
             // Check if a Forced ATTACK is in progress on non-attackable target
             if (!target.isAutoAttackable(this) && !forceUse &&

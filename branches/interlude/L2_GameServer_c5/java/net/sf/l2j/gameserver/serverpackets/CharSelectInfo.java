@@ -152,7 +152,7 @@ public class CharSelectInfo extends ServerBasePacket
             writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LRHAND));
             writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
             if (getClient().getRevision() >= 729)
-                writeD(0x00); //ct cape ?
+                writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_CLOAK));
             
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
@@ -171,7 +171,7 @@ public class CharSelectInfo extends ServerBasePacket
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
             if (getClient().getRevision() >= 729)
-                writeD(0x00); //ct cape ?
+                writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_CLOAK));
             
             writeD(charInfoPackage.getHairStyle());
             writeD(charInfoPackage.getHairColor());

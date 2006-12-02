@@ -139,7 +139,7 @@ public class UserInfo extends ServerBasePacket
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_LRHAND));
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
         if (getClient().getRevision() >= 729)
-            writeD(0x00);
+            writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_CLOAK));
 
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_REAR));
@@ -160,7 +160,7 @@ public class UserInfo extends ServerBasePacket
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
         if (getClient().getRevision() >= 729)
         {
-            writeD(0);            
+            writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_CLOAK));            
             writeH(0);
             writeH(0);
             writeH(0);

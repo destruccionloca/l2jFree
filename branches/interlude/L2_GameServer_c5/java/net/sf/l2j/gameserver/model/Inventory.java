@@ -63,6 +63,7 @@ public abstract class Inventory extends ItemContainer
 	public static final int PAPERDOLL_BACK = 13;
 	public static final int PAPERDOLL_LRHAND = 14;
 	public static final int PAPERDOLL_HAIR = 15;
+    public static final int PAPERDOLL_CLOAK = 16;
     
     //Speed percentage mods
     public static final double MAX_ARMOR_WEIGHT = 12000;
@@ -507,6 +508,8 @@ public abstract class Inventory extends ItemContainer
 		case L2Item.SLOT_BACK:		pdollSlot = PAPERDOLL_BACK;	break;
 		case L2Item.SLOT_FEET:		pdollSlot = PAPERDOLL_FEET;	break;
 		case L2Item.SLOT_UNDERWEAR:	pdollSlot = PAPERDOLL_UNDER;break;
+        case L2Item.SLOT_CLOAK:     pdollSlot = PAPERDOLL_CLOAK;break;
+        
 		case L2Item.SLOT_LR_HAND:
 			setPaperdollItem(PAPERDOLL_LHAND, null);
 			setPaperdollItem(PAPERDOLL_RHAND, null);// this should be the same as in LRHAND
@@ -689,6 +692,9 @@ public abstract class Inventory extends ItemContainer
 			case L2Item.SLOT_BACK:
 				setPaperdollItem(PAPERDOLL_BACK, item);
 				break;
+            case L2Item.SLOT_CLOAK:
+                setPaperdollItem(PAPERDOLL_CLOAK, item);
+                break;
 			default:
 				_log.warn("unknown body slot:" + targetSlot);
 		}

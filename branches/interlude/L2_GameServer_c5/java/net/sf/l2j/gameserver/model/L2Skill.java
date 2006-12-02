@@ -113,7 +113,10 @@ public abstract class L2Skill
         TARGET_PARTY_MEMBER, 
         TARGET_OWNER_PET,
         TARGET_ENEMY_ALLY,
-        TARGET_ENEMY_PET
+        TARGET_ENEMY_PET,
+        TARGET_GATE,
+        TARGET_MOB,
+        TARGET_AREA_MOB
         //TARGET_BOSS
         }
     
@@ -1880,6 +1883,69 @@ public abstract class L2Skill
                     return new L2Character[]{target};
                 
         }
+        case TARGET_MOB:
+        {
+            if(!(target instanceof L2Attackable))
+            {
+                activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
+                return null;
+            }
+            if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
+                if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
+                {
+                    activeChar.sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                    return null;
+                }   
+                            
+                if(onlyFirst==false)
+                {
+                    targetList.add(target);
+                    return targetList.toArray(new L2Object[targetList.size()]);
+                }
+                else
+                    return new L2Character[]{target};
+                
+        }
+        case TARGET_AREA_MOB:
+        {
+            if ((!(target instanceof L2Attackable)))
+            {
+                activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
+                return null;
+            }
+
+            if (onlyFirst == false) targetList.add(target);
+            else return new L2Character[] {target};
+
+            int radius = getSkillRadius();
+            if (target.getKnownList() != null)
+                for (L2Object obj : target.getKnownList().getKnownObjects())
+                {
+                    if (!(obj instanceof L2Attackable) || ((L2Character) obj) == activeChar)
+                        continue;
+
+                    if (!Util.checkIfInRange(radius, target, obj, true)) continue;
+
+                    targetList.add((L2Character) obj);
+                }
+
+            if (targetList.size() == 0) return null;
+            return targetList.toArray(new L2Character[targetList.size()]);
+        }
+        case TARGET_GATE:
+        {
+                           // Check for null target or any other invalid target
+                           if (target == null
+                               || target.isDead()
+                               || !(target instanceof L2DoorInstance))
+                           {
+                               activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
+                               return null;
+                           }
+           
+                           // If a target is found, return it in a table else send a system message TARGET_IS_INCORRECT
+                           return new L2Character[] {target};
+        } 
         case TARGET_UNLOCKABLE:
         {
             if (!(target instanceof L2DoorInstance) && !(target instanceof L2ChestInstance)) 

@@ -22,6 +22,7 @@ package net.sf.l2j.gameserver.skills;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Effect;
+import net.sf.l2j.gameserver.model.L2Summon; 
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.geodata.FarPoint;
 import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
@@ -65,6 +66,14 @@ final class EffectFear extends L2Effect {
     {
         // Fear skills cannot be used l2pcinstance to l2pcinstance. Heroic Dread is the exception.
         if(getEffected() instanceof L2PcInstance && getEffector() instanceof L2PcInstance && getSkill().getId() != 1376) return false;
+
+        if(getEffected() instanceof L2Summon)
+        {
+            // doesn't affect siege golem
+            if (((L2Summon)getEffected()).getNpcId() >= 14737 && ((L2Summon)getEffected()).getNpcId() <= 14767) 
+                return false;
+        } 
+
         int posX = getEffected().getX();
 		int posY = getEffected().getY();
 		int posZ = getEffected().getZ();

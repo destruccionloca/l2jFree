@@ -175,7 +175,7 @@ public class CharInfo extends ServerBasePacket
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
         if (getClient().getRevision() >= 729)
         {
-            writeD(0);            
+            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_CLOAK));            
             writeH(0);
             writeH(0);
             writeH(0);

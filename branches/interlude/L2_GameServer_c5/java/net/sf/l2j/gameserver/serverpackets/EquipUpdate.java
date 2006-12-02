@@ -128,6 +128,9 @@ public class EquipUpdate extends ServerBasePacket
 			case L2Item.SLOT_HAIR:
 				bodypart = 0x0f;
 				break;
+            case L2Item.SLOT_CLOAK:
+                bodypart = 0x10; //TODO: ????
+                break;
 		}
 		
 		if (_log.isDebugEnabled()) _log.debug("body:" +bodypart);

@@ -131,6 +131,7 @@ public class ItemTable
         _slots.put("head",                 L2Item.SLOT_HEAD);
         _slots.put("hair",                 L2Item.SLOT_HAIR);
         _slots.put("underwear",            L2Item.SLOT_UNDERWEAR);
+        _slots.put("cloak",                L2Item.SLOT_CLOAK);
         _slots.put("back",                 L2Item.SLOT_BACK);
         _slots.put("neck",                 L2Item.SLOT_NECK);
         _slots.put("legs",                 L2Item.SLOT_LEGS);
