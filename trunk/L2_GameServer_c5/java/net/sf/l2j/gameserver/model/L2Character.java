@@ -4471,20 +4471,20 @@ public abstract class L2Character extends L2Object
 
            if(Config.ALLOW_GEODATA)
            {
-               if ( GeoDataRequester.getInstance().hasMovementLoS(player, player.getTarget().getX(),player.getTarget().getY(),(short)player.getTarget().getZ()).LoS  == true)
-               {
-                   // Send a Server->Client packet MyTargetSelected to start attack
-                   player.sendPacket(new MyTargetSelected(getObjectId(), player.getLevel() - getLevel()));
-
-                   //Notify AI with AI_INTENTION_ATTACK
-                   player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-               }
-               else
+               if ( GeoDataRequester.getInstance().hasMovementLoS(player, player.getTarget().getX(),player.getTarget().getY(),(short)player.getTarget().getZ()).LoS  == false)
                {
                    SystemMessage sm = new SystemMessage(SystemMessage.CANT_SEE_TARGET);    
-                   player.sendPacket(sm); 
+                   player.sendPacket(sm);
+                   return;
                }
           }
+           
+           // Send a Server->Client packet MyTargetSelected to start attack
+           player.sendPacket(new MyTargetSelected(getObjectId(), player.getLevel() - getLevel()));
+
+           //Notify AI with AI_INTENTION_ATTACK
+           player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
+           
        }
    }
 
