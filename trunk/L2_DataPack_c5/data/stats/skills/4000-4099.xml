@@ -1333,7 +1333,7 @@
   <set name="magicLvl" val="49"/>
   <set name="lvlDepend" val="1"/>
   <set name="power" val="266024.0"/>
-  <set name="target" val="TARGET_ONE"/>
+  <set name="target" val="TARGET_GATE"/>
   <set name="hitTime" val="4800"/>
   <set name="overHit" val="true"/>
   <set name="reuseDelay" val="5000"/>

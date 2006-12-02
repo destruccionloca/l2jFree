@@ -21682,3 +21682,193 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (14834,4121,1),
 (14835,4293,1),
 (14835,4121,1);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (14737, 4079, 1);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (14738, 4079, 1);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (14739, 4079, 1);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (14740, 4079, 1);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (14741, 4079, 1);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (14742, 4079, 1);
+  
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35067, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35068, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35080, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35081, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35109, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35110, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35122, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35123, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35151, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35152, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35164, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35165, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35192, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35194, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35206, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35207, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35236, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35237, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35249, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35250, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35283, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35284, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35296, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35297, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35327, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35328, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35340, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35341, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35519, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35520, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35532, 1230, 14);
+
+INSERT INTO npcskills
+  (npcid, skillid, level)
+VALUES
+  (35533, 1230, 14); 
