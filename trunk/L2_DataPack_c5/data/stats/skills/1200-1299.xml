@@ -768,7 +768,7 @@
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
-  <set name="castRange" val="1400"/>
+  <set name="effectRange" val="1400"/>
   <for>
   </for>
 </skill>
