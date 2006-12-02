@@ -162,6 +162,9 @@ __all__ = [
 '375_WhisperOfDreams2',
 '376_GiantsExploration1',
 '377_GiantsExploration2',
+'378_MagnificentFeast',
+'379_FantasyWine',
+'380_BringOutTheFlavorOfIngredients',
 '381_LetsBecomeARoyalMember',
 '383_SearchingForTreasure',
 '385_YokeofthePast',
@@ -205,7 +208,6 @@ __all__ = [
 '626_ADarkTwilight',
 '627_HeartInSearchOfPower',
 '634_InSearchofDimensionalFragments',
-'635_InTheDimensionalRift',
 '999_C3Tutorial'
 ]
 print ""

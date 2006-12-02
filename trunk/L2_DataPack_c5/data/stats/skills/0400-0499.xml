@@ -432,8 +432,7 @@
 </skill>
 
 <skill id="418" levels="3" name="Quiver of Holding">
-<!-- Done by KID [C5] -->
-  <table name="#maxLoad"> 57000 74000 89000 </table>
+  <table name="#rate"> 1.3 1.4 1.5 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -441,8 +440,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add order="0x40" stat="maxLoad" val="#maxLoad"/>
-  </for>  
+   <mul order="0x30" stat="maxLoad" val="#rate"/>
+  </for>
 </skill>
 
 <skill id="419" levels="4" name="Summon Treasure Key"> 
