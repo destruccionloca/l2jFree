@@ -233,7 +233,7 @@ public abstract class Inventory extends ItemContainer
      */
 	protected Inventory()
 	{
-        _paperdoll = new L2ItemInstance[0x12];
+        _paperdoll = new L2ItemInstance[0x13];
 		_paperdollListeners = new FastList<PaperdollListener>();
 		addPaperdollListener(new AmmunationListener());
 		addPaperdollListener(new StatsListener());
