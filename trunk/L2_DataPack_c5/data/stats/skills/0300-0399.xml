@@ -103,7 +103,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect name="Buff" count="1" val="0">
+    <effect name="Buff" time="120" count="1" val="0">
       <add order="0x40" stat="reflectDam" val="20"/>
     </effect>
   </for>
@@ -729,7 +729,7 @@
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
   <for>
-     <effect count="1" name="Buff" time="1200" val="0">
+     <effect count="1" name="Buff" time="120" val="0">
       <mul order="0x50" stat="regHp" val="1.42"/>
       <mul order="0x50" stat="gainHp" val="1.42"/>
       <add stat="movementRes" val="20" order="0x40"/>
