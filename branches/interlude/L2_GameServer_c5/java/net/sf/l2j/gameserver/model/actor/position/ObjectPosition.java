@@ -7,6 +7,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.L2WorldRegion;
+import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.util.Point3D;
@@ -143,14 +144,33 @@ public class ObjectPosition
     
     public final void setZ(int value) 
     { 
-        //if(Config.ALLOW_GEODATA)
-        //{
-        //    getWorldPosition().setZ(GeoDataRequester.getInstance().getGeoInfoNearest(getWorldPosition().getX(),getWorldPosition().getY(),(short)value).getZ());
-        //}
-        //else
-        //{
+        if(Config.ALLOW_GEODATA)
+        {
+            if (getActiveObject() instanceof L2PcInstance)
+            {    
+                L2PcInstance activechar = (L2PcInstance) getActiveObject();
+                if (activechar.isFlying() || activechar.isInWater()  || activechar.isInBoat())
+                {
+                    getWorldPosition().setZ(value);
+                }
+                else
+                {
+                    getWorldPosition().setZ(GeoDataRequester.getInstance().getGeoInfoNearest(getWorldPosition().getX(),getWorldPosition().getY(),(short)value).getZ());
+                }
+            }
+            else if (getActiveObject() instanceof L2BoatInstance)
+            {
+                getWorldPosition().setZ(value);
+            }
+            else
+            {
+                getWorldPosition().setZ(GeoDataRequester.getInstance().getGeoInfoNearest(getWorldPosition().getX(),getWorldPosition().getY(),(short)value).getZ());
+            }
+        }
+        else
+        {
             getWorldPosition().setZ(value);
-        //}
+        }
     }
 
     public final Point3D getWorldPosition()
@@ -161,15 +181,33 @@ public class ObjectPosition
     
     public final void setWorldPosition(int x, int y, int z)
     {
-        //if(Config.ALLOW_GEODATA)
-        //{
-        //    getWorldPosition().setXYZ(x,y,GeoDataRequester.getInstance().getGeoInfoNearest(x,y,(short)z).getZ());        
-        //}
-        //else
-        //{
+        if(Config.ALLOW_GEODATA)
+        {
+            if (getActiveObject() instanceof L2PcInstance)
+            {    
+                L2PcInstance activechar = (L2PcInstance) getActiveObject();
+                if (activechar.isFlying() || activechar.isInWater()  || activechar.isInBoat())
+                {
+                    getWorldPosition().setXYZ(x,y,z);
+                }
+                else
+                {
+                    getWorldPosition().setXYZ(x,y,GeoDataRequester.getInstance().getGeoInfoNearest(x,y,(short)z).getZ());
+                }
+            }
+            else if (getActiveObject() instanceof L2BoatInstance)
+            {
+                getWorldPosition().setXYZ(x,y,z);
+            }
+            else
+            {
+                getWorldPosition().setXYZ(x,y,GeoDataRequester.getInstance().getGeoInfoNearest(x,y,(short)z).getZ());
+            }
+        }
+       else
+        {
             getWorldPosition().setXYZ(x,y,z);
-        //}
-
+        }
         if (getActiveObject() != null && getActiveObject() instanceof L2PcInstance)
         {
             ((L2PcInstance)getActiveObject()).revalidateZone();
