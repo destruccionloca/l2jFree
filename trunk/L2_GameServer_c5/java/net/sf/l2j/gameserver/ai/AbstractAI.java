@@ -921,8 +921,8 @@ abstract class AbstractAI implements Ctrl
             // Stop the Move Task
             _move_task.cancel(false);
             _move_task = null;
+            _move_target = null;            
         }
-        _move_target = null;
     }
 
     
