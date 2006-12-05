@@ -1719,8 +1719,8 @@
   <set name="effectRange" val="-1"/>
   <set name="isMagic" val="true"/>
   <set name="skill_class" val="#skill_class"/>
-  <set name="need_item_id" val="3031"/>
-  <set name="need_item_count" val="#spiritore"/>
+  <set name="itemConsumeId" val="3031"/>
+  <set name="itemConsumeCount" val="#spiritore"/>
   <set name="create_item_id" val="2508"/>
   <set name="create_item_count" val="#bone"/>
   <set name="random_count" val="4"/>

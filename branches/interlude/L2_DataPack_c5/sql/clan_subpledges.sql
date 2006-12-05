@@ -1,7 +1,7 @@
 -- ----------------------------
 -- Table structure for clan_subpledges
 -- ----------------------------
-CREATE TABLE clan_subpledges (
+CREATE TABLE IF NOT EXISTS clan_subpledges (
   clan_id INT NOT NULL default '0',
   sub_pledge_id INT NOT NULL default '0',
   name varchar(45),

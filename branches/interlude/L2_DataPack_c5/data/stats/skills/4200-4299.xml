@@ -532,7 +532,7 @@
   <set name="lvlDepend" val="1"/>
   <set name="power" val="532048"/>
   <set name="hitTime" val="10000"/>
-  <set name="target" val="TARGET_ONE"/>
+  <set name="target" val="TARGET_GATE"/>
   <set name="skillTime" val="10000"/>
   <set name="reuseDelay" val="10500"/>
   <set name="skillType" val="PDAM"/>
