@@ -54,25 +54,12 @@ public class IDFactoryTest extends TestCase
 	protected AtomicInteger count = new AtomicInteger(0), adds = new AtomicInteger(0), removes = new AtomicInteger(0);
 
 	protected static int REQUESTER_THREADS              = 50;
-	protected static int REQUESTER_THREAD_REQUESTS      = 100;
+	protected static int REQUESTER_THREAD_REQUESTS      = 10;
 	protected static int REQUESTER_THREAD_RANDOM_DELAY  = 30;
 	protected static int RELEASER_THREADS               = 50;
-	protected static int RELEASER_THREAD_RELEASES       = 100;
+	protected static int RELEASER_THREAD_RELEASES       = 10;
 	protected static int RELEASER_THREAD_RANDOM_DELAY   = 35;
 
-
-	/**
-	 * Constructor for IDFactoryTest.
-	 * @param arg0
-	 */
-	public IDFactoryTest(String arg0)
-	{
-		super(arg0);
-		//Config.load();
-		if(FORCED_TYPE != null)
-			Config.IDFACTORY_TYPE = FORCED_TYPE;
-		idFactory   = IdFactory.getInstance();
-	}
 
 	/*
 	 * @see TestCase#setUp()
@@ -80,7 +67,17 @@ public class IDFactoryTest extends TestCase
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		System.out.println("Initial Free ID's: "+IdFactory.FREE_OBJECT_ID_SIZE);
+        Config.load();
+        if(FORCED_TYPE != null)
+            Config.IDFACTORY_TYPE = FORCED_TYPE;
+        idFactory   = IdFactory.getInstance();
+        
+        if ( ! idFactory.isInitialized())
+        {
+            fail ("Unable to initialize factory");
+        }
+
+        System.out.println("Initial Free ID's: "+IdFactory.FREE_OBJECT_ID_SIZE);
 		System.out.println("IdFactoryType: "+Config.IDFACTORY_TYPE.name());
 	}
 

@@ -35,7 +35,7 @@ public class HtmCache
         return _instance;
     }
     
-    public HtmCache()
+    private HtmCache()
     {
         _cache = new FastMap<Integer, String>();
         reload();
