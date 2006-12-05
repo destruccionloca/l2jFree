@@ -40,10 +40,10 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
       
     -->
 
-	<appender class="org.apache.log4j.AsyncAppender" name="ASYNC">
+	<!--appender class="org.apache.log4j.AsyncAppender" name="ASYNC">
         <appender-ref ref="FILELOG"/>
 		<appender-ref ref="CON"/>		
-	</appender>
+	</appender-->
 
     
     <!-- Console appender -->
@@ -208,6 +208,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
 
     <!-- Setup the Root logger -->
     <root>
-        <appender-ref ref="ASYNC"/>
+        <appender-ref ref="FILELOG"/>
+		<appender-ref ref="CON"/>		
     </root>
 </log4j:configuration>
