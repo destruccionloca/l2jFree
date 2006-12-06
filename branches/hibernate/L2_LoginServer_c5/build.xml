@@ -26,7 +26,7 @@
 
     </description>
 
-    <property name="src" location="java"/>
+    <property name="src" location="src/main/java"/>
     <property name="lib" location="lib"/>
     <property name="build" location="build"/>
     <property name="build.classes" location="${build}/classes"/>
@@ -95,14 +95,6 @@
     <target name="dist" depends="jar">
 
     	<copy todir="${build.dist.login}">
-            <fileset dir="${src}">
-                <include name="log.cfg"/>
-                <include name="banned_ip.cfg"/>
-                <include name="console.cfg"/>
-		</fileset>
-      </copy>
-
-    	<copy todir="${build.dist.login}">
 		<fileset dir="${lib}">
 			<include name="*.jar"/>
 		</fileset>
@@ -116,7 +108,7 @@
       </copy>
 
 	<copy todir="${build.dist.login}">
-		<fileset dir="${src}/../lib">
+		<fileset dir="lib">
 			<include name="License*.*"/>
 		</fileset>
 	</copy>
@@ -144,7 +136,7 @@
 
     	<mkdir dir="${build.dist.login}/config" />
     	<copy todir="${build.dist.login}/config">
-		<fileset dir="java/config">
+		<fileset dir="config">
 			<include name="*.*"/>
 		</fileset>
 	</copy>
