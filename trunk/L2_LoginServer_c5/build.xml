@@ -144,7 +144,7 @@
 
     	<mkdir dir="${build.dist.login}/config" />
     	<copy todir="${build.dist.login}/config">
-		<fileset dir="java/config">
+		<fileset dir="config">
 			<include name="*.*"/>
 		</fileset>
 	</copy>
