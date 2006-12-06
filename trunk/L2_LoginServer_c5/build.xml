@@ -26,7 +26,7 @@
 
     </description>
 
-    <property name="src" location="java"/>
+    <property name="src" location="src/main/java"/>
     <property name="lib" location="lib"/>
     <property name="build" location="build"/>
     <property name="build.classes" location="${build}/classes"/>
@@ -108,7 +108,7 @@
       </copy>
 
 	<copy todir="${build.dist.login}">
-		<fileset dir="${src}/../lib">
+		<fileset dir="lib">
 			<include name="License*.*"/>
 		</fileset>
 	</copy>
