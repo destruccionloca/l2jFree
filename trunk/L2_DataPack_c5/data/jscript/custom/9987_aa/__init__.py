@@ -4,7 +4,7 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
-NPC=[8078,8079,8080,8081,8082,8083,8084,8085,8086,8087,8088,8089,8090,8091,8168,8169,8126]
+NPC=[31078,31079,31080,31081,31082,31083,31084,31085,31086,31087,31088,31089,31090,31091,31168,31169,31126]
 
 class Quest (JQuest) :
 

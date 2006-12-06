@@ -706,12 +706,12 @@
   <set name="hitTime" val="6000"/>   
   <set name="reuseDelay" val="300000"/>   
   <set name="skillTime" val="6000"/>   
-  <set name="skillType" val="NEGATE"/>   
+  <set name="skillType" val="DEBUFF"/>   
   <set name="isMagic" val="true"/>   
   <set name="operateType" val="OP_ACTIVE"/>   
   <set name="castRange" val="300"/>
   <set name="effectRange" val="800"/>
-  <set name="negateStats" val="BUFF DEBUFF WEAKNESS"/>   
+  <set name="negateStats" val="DEBUFF WEAKNESS"/>   
   <set name="negatePower" val="5.0"/>   
   <for> 
    <effect count="1" name="Buff" time="120" val="0">   
