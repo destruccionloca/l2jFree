@@ -95,14 +95,6 @@
     <target name="dist" depends="jar">
 
     	<copy todir="${build.dist.login}">
-            <fileset dir="${src}">
-                <include name="log.cfg"/>
-                <include name="banned_ip.cfg"/>
-                <include name="console.cfg"/>
-		</fileset>
-      </copy>
-
-    	<copy todir="${build.dist.login}">
 		<fileset dir="${lib}">
 			<include name="*.jar"/>
 		</fileset>
