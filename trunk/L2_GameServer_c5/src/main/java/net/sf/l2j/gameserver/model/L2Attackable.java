@@ -745,11 +745,17 @@ public class L2Attackable extends L2NpcInstance
         doEventDrop(lastAttacker);
         // Update current load as well
         L2PcInstance player = null;
-        if (lastAttacker instanceof L2PcInstance) player = (L2PcInstance)lastAttacker;
-        else if (lastAttacker instanceof L2Summon) player = ((L2Summon)lastAttacker).getOwner();
-        StatusUpdate su = new StatusUpdate(player.getObjectId());
-        su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
-        player.sendPacket(su);
+        if (lastAttacker instanceof L2PcInstance)
+            player = (L2PcInstance)lastAttacker;
+        else if (lastAttacker instanceof L2Summon)
+            player = ((L2Summon)lastAttacker).getOwner();
+        if(player!=null)
+        {
+            StatusUpdate su = new StatusUpdate(player.getObjectId());
+            su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
+            player.sendPacket(su);
+            su = null;
+        }
     }
     
     
