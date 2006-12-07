@@ -259,8 +259,8 @@ public class UserInfo extends ServerBasePacket
         if (getClient().getRevision() >= 690)
         {
             writeC(_cha.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window
-            writeD(0x00); // ??
-            writeD(0x00); // ??
+            writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
+            writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
             writeD(_cha.getPledgeClass()); //C5 ??
             writeD(0x00); // ??
             writeD(_cha.getTitleColor()); //C5 ??

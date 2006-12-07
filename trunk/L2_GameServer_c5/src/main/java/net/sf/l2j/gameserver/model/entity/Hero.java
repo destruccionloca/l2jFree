@@ -274,7 +274,22 @@ public class Hero
                         iu.addModifiedItem(item);
                     }
                     player.sendPacket(iu);
-                    
+
+                    items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_FACE);
+                    iu = new InventoryUpdate();
+                    for (L2ItemInstance item : items)
+                    {
+                        iu.addModifiedItem(item);
+                    }
+                    player.sendPacket(iu);
+                                         
+                    items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_DHAIR);
+                     iu = new InventoryUpdate();
+                    for (L2ItemInstance item : items)
+                    {
+                        iu.addModifiedItem(item);
+                    }
+                    player.sendPacket(iu);
                     
                     for(L2ItemInstance item : player.getInventory().getAvailableItems(false))
                     {

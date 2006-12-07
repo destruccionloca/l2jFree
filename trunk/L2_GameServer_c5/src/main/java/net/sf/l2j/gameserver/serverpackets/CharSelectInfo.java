@@ -180,11 +180,8 @@ public class CharSelectInfo extends ServerBasePacket
                 writeD(0x00); //c3 auto-select char
             
             writeC(charInfoPackage.getEnchantEffect());
-            if (getClient().getRevision() >= 690) // c5
-            {
-                writeD(0x00);//c5 ??
-                writeD(0x00);//c5 ??
-            }
+            writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
+            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_FACE));
         }
     }
 

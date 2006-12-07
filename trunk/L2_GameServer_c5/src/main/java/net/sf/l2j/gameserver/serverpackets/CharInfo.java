@@ -160,7 +160,7 @@ public class CharInfo extends ServerBasePacket
         else 
             writeD(_cha.getBaseClass());
         
-        writeD(0); // unknown, maybe underwear?
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LHAND));
@@ -252,7 +252,7 @@ public class CharInfo extends ServerBasePacket
            {
             writeC(_cha.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window
             writeD(0x00); //C5 ?? //writeD(2428); //C5 ??
-            writeD(0x00); //C5 ??
+            writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_FACE));
             writeD(_cha.getPledgeClass()); //C5 ??
             writeD(15530402); //C5 ??
             writeD(_cha.getTitleColor()); //C5 ??

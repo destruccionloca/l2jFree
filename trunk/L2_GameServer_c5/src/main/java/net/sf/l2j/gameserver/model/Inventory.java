@@ -62,7 +62,9 @@ public abstract class Inventory extends ItemContainer
 	public static final int PAPERDOLL_FEET = 12;
 	public static final int PAPERDOLL_BACK = 13;
 	public static final int PAPERDOLL_LRHAND = 14;
-	public static final int PAPERDOLL_HAIR = 15;
+    public static final int PAPERDOLL_FACE = 15;
+    public static final int PAPERDOLL_HAIR = 16;
+    public static final int PAPERDOLL_DHAIR = 17;
     
     //Speed percentage mods
     public static final double MAX_ARMOR_WEIGHT = 12000;
@@ -230,7 +232,7 @@ public abstract class Inventory extends ItemContainer
      */
 	protected Inventory()
 	{
-		_paperdoll = new L2ItemInstance[0x10];
+		_paperdoll = new L2ItemInstance[0x12];
 		_paperdollListeners = new FastList<PaperdollListener>();
 		addPaperdollListener(new AmmunationListener());
 		addPaperdollListener(new StatsListener());
@@ -343,6 +345,12 @@ public abstract class Inventory extends ItemContainer
 		L2ItemInstance item = _paperdoll[slot]; 
 		if (item != null)
 			return item.getItemId();
+       else if (slot == PAPERDOLL_HAIR)
+       {
+           item = _paperdoll[PAPERDOLL_DHAIR]; 
+           if (item != null)
+               return item.getItemId();
+       }
 		return 0;
 	}
 
@@ -356,6 +364,12 @@ public abstract class Inventory extends ItemContainer
 		L2ItemInstance item = _paperdoll[slot]; 
 		if (item != null)
 			return item.getObjectId();
+       else if (slot == PAPERDOLL_HAIR)
+       {
+           item = _paperdoll[PAPERDOLL_DHAIR]; 
+           if (item != null)
+               return item.getObjectId();
+       }
 		return 0;
 	}
 
@@ -497,6 +511,12 @@ public abstract class Inventory extends ItemContainer
 		case L2Item.SLOT_R_FINGER:	pdollSlot = PAPERDOLL_RFINGER;	break;
 		case L2Item.SLOT_L_FINGER:	pdollSlot = PAPERDOLL_LFINGER;	break;
 		case L2Item.SLOT_HAIR:		pdollSlot = PAPERDOLL_HAIR;	break;
+        case L2Item.SLOT_FACE:      pdollSlot = PAPERDOLL_FACE; break;
+        case L2Item.SLOT_DHAIR:
+           setPaperdollItem(PAPERDOLL_HAIR, null);
+           setPaperdollItem(PAPERDOLL_FACE, null);// this should be the same as in DHAIR
+           pdollSlot = PAPERDOLL_DHAIR;
+           break;
 		case L2Item.SLOT_HEAD:		pdollSlot = PAPERDOLL_HEAD;	break;
 		case L2Item.SLOT_R_HAND:	pdollSlot = PAPERDOLL_RHAND; break;
 		case L2Item.SLOT_L_HAND:	pdollSlot = PAPERDOLL_LHAND; break;
@@ -681,7 +701,38 @@ public abstract class Inventory extends ItemContainer
 				setPaperdollItem(PAPERDOLL_HEAD, item);
 				break;
 			case L2Item.SLOT_HAIR:
+                if (setPaperdollItem(PAPERDOLL_DHAIR, null) != null)
+                {
+                   setPaperdollItem(PAPERDOLL_DHAIR, null);
+                   setPaperdollItem(PAPERDOLL_HAIR, null);
+                   setPaperdollItem(PAPERDOLL_FACE, null);
+                }
+                else
+                   setPaperdollItem(PAPERDOLL_HAIR, null);
 				setPaperdollItem(PAPERDOLL_HAIR, item);
+                break;
+            case L2Item.SLOT_FACE:
+               if (setPaperdollItem(PAPERDOLL_DHAIR, null) != null)
+               {
+                   setPaperdollItem(PAPERDOLL_DHAIR, null);
+                   setPaperdollItem(PAPERDOLL_HAIR, null);
+                   setPaperdollItem(PAPERDOLL_FACE, null);
+               }
+               else
+                   setPaperdollItem(PAPERDOLL_FACE, null);
+               setPaperdollItem(PAPERDOLL_FACE, item);
+               break;
+            case L2Item.SLOT_DHAIR:
+               if (setPaperdollItem(PAPERDOLL_HAIR, null) != null)
+               {
+                   setPaperdollItem(PAPERDOLL_HAIR, null);
+                   setPaperdollItem(PAPERDOLL_FACE, null);
+               }
+               else
+               {
+                   setPaperdollItem(PAPERDOLL_FACE, null);
+               }               
+               setPaperdollItem(PAPERDOLL_DHAIR, item);
 				break;
 			case L2Item.SLOT_UNDERWEAR:
 				setPaperdollItem(PAPERDOLL_UNDER, item);
