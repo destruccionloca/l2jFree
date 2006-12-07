@@ -48,12 +48,36 @@ public class PledgeShowMemberListAll extends ServerBasePacket
     private L2PcInstance _activeChar;
     private L2ClanMember[] _members;
     private L2ClanMember[] _subMembers;
+    private int _pledgeType;
     
     public PledgeShowMemberListAll(L2Clan clan, L2PcInstance activeChar, int val1, int val2, int val3, int val4, int val5, int val6, int val7)
     {
         _clan = clan;
         _activeChar = activeChar;
         activeChar.sendPacket(new PledgeShowMemberListDeleteAll());
+    }
+
+    final void writeImpl()
+    {
+        
+        _pledgeType = 0;
+        writePledge(0);
+        
+        SubPledge[] subPledge = _clan.getAllSubPledges();
+        for (int i = 0; i<subPledge.length; i++)
+        {
+            _activeChar.sendPacket(new PledgeReceiveSubPledgeCreated(subPledge[i]));
+        }
+        
+        for (L2ClanMember m : _members)
+        {
+            if (m.getPledgeType() == 0) continue;
+            _activeChar.sendPacket(new PledgeShowMemberListAdd(m));
+        }
+
+        // unless this is sent sometimes, the client doesn't recognise the player as the leader
+        _activeChar.sendPacket(new UserInfo(_activeChar));
+                
     }
     
     public PledgeShowMemberListAll(L2Clan clan, L2PcInstance activeChar)
@@ -82,14 +106,14 @@ public class PledgeShowMemberListAll extends ServerBasePacket
         _members = _clan.getMembers();
     }
     
-    final void writeImpl()
+    void writePledge(int mainOrSubpledge)
     {
         if (getClient().getRevision() >= 690)
         {
             writeC(0x53);
-            writeD(0x00); //C5 unkown
+            writeD(mainOrSubpledge); //c5 main clan 0 or any subpledge 1?
             writeD(_clan.getClanId());
-            writeD(0x00); //C5 unkown
+            writeD(_pledgeType); //c5 - possibly pledge type?
             writeS(_clan.getName());
             writeS(_clan.getLeaderName());
             writeD(_clan.getCrestId()); // creast id .. is used again
@@ -105,7 +129,7 @@ public class PledgeShowMemberListAll extends ServerBasePacket
             writeS(_clan.getAllyName());
             writeD(_clan.getAllyCrestId());
             writeD(_clan.isAtWar());// new c3
-            writeD(_members.length);
+            writeD(_clan.getSubPledgeMembersCount(_pledgeType));
             for (L2ClanMember m : _members)
             {
                 writeS(m.getName());

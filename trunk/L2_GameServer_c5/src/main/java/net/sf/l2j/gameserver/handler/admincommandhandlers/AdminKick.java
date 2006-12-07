@@ -45,10 +45,11 @@ public class AdminKick implements IAdminCommandHandler {
                 {
                     //_log.debugr("Player2 "+plyr.getName());
                     plyr.logout();
+                    SystemMessage sm = new SystemMessage(614);
+                    sm.addString("You kicked " + plyr.getName() + " from the game.");
+                    activeChar.sendPacket(sm);
+                    sm = null;
                 }
-				SystemMessage sm = new SystemMessage(614);
-				sm.addString("You kicked " + plyr.getName() + " from the game.");
-				activeChar.sendPacket(sm);
             }
         }
         if (command.startsWith("admin_kick_non_gm"))

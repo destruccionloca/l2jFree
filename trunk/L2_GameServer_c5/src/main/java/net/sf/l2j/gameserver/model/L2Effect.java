@@ -248,7 +248,12 @@ public abstract class L2Effect
 	{
 		return _effected;
 	}
-	
+
+    public boolean isSelfEffect()
+    {
+        return _skill._effectTemplatesSelf != null;
+    }
+
 	public final double calc()
 	{
         Env env = new Env();
