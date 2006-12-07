@@ -23,7 +23,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
 
         if (command.startsWith("RideWyvern"))
         {
-            if (getCastle().getOwnerId() != player.getClanId() || !player.isClanLeader())
+            if (getCastle().getOwnerId() != player.getClanId() && !player.isClanLeader())
             {
                 SystemMessage sm = new SystemMessage(614);
                 sm.addString("To ride a wyvern, you must be the clan leader.");
