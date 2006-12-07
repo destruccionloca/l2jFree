@@ -1,11 +1,13 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.gameserver.model.L2PetDataTable;
+import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.serverpackets.Ride;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
+public class L2WyvernManagerInstance extends L2FolkInstance
 {
 
     public L2WyvernManagerInstance (int objectId, L2NpcTemplate template)
@@ -15,12 +17,6 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
 
     public void onBypassFeedback(L2PcInstance player, String command)
     {
-        int condition = validateCondition(player);
-        if (condition <= Cond_All_False)
-            return;
-        if (condition == Cond_Busy_Because_Of_Siege)
-            return;
-
         if (command.startsWith("RideWyvern"))
         {
             if (getCastle().getOwnerId() != player.getClanId() && !player.isClanLeader())
@@ -31,10 +27,19 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
                 sm = null;
                 return;
             }
-            else if(player.isMounted() && !L2PetDataTable.isStrider(player.getPet().getTemplate().idTemplate) || !player.isMounted())
+            
+            int petItemId=0;
+            
+            if(player.getPet()==null) {
+                   if(player.isMounted()){
+                   L2ItemInstance petItem = (L2ItemInstance)L2World.getInstance().findObject(player.getMountObjectID());
+                   if (petItem!=null) petItemId=petItem.getItemId();}
+            } else petItemId=player.getPet().getControlItemId(); 
+
+            if  ( petItemId==0 || !player.isMounted() || !L2PetDataTable.isStrider(L2PetDataTable.getPetIdByItemId(petItemId)))
             {
                 SystemMessage sm = new SystemMessage(614);
-                sm.addString("To ride a wyvern, one must be riding a strider.");
+                sm.addString("To ride a wyvern, you must be riding a strider.");
                 player.sendPacket(sm);
                 sm = null;
                 return;
@@ -63,26 +68,4 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
             }
         }
     }
-    
-    /*
-         Micht : 06/06/17 : unused
-    private void showMessageWindow(L2PcInstance player)
-    {
-        player.sendPacket( new ActionFailed() );
-        String filename = "data/html/wyvernmanager/wyvernmanager-no.htm";
-        
-        int condition = validateCondition(player);
-        if (condition > Cond_All_False)
-        {
-            if (condition == Cond_Owner)                                     // Clan owns castle
-                filename = "data/html/wyvernmanager/wyvernmanager.htm";      // Owner message window
-        }
-        
-        NpcHtmlMessage html = new NpcHtmlMessage(1);
-        html.setFile(filename);
-        html.replace("%objectId%", String.valueOf(getObjectId()));
-        html.replace("%npcname%", getName());
-        player.sendPacket(html);
-    } 
-    */
 }
