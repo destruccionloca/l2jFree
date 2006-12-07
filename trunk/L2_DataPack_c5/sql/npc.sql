@@ -6764,3 +6764,5 @@ update npc set hp = 22153 where id in(29373);
 -- elder lavasaurous
 update npc set runspd = 40 where id in(21395);
 update npc set wit=35;  
+
+UPDATE `npc` SET `type`='L2WyvernManager' WHERE id IN (31162,31163,31164,31165,31166,31167);
