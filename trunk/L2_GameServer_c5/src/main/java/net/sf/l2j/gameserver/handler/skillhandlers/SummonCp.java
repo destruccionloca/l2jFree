@@ -52,7 +52,7 @@ public class SummonCp implements ISkillHandler
                 itemToTake.setCount(itemToTake.getCount() - skill.getItemConsume());
 
             // Give items
-            player.addItem("Test",5591,20,player,false);
+            player.addItem("Skill",5591,20,player,false);
         }
         catch (Exception e)
         {

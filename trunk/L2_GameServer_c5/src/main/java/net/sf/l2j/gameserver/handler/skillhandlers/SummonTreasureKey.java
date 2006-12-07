@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
+import net.sf.l2j.gameserver.lib.Rnd; 
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -46,11 +47,63 @@ public class SummonTreasureKey implements ISkillHandler
         try
         {
             L2ItemInstance itemToTake = player.getInventory().getItemByItemId(skill.getItemConsumeId());
-            if (itemToTake.getCount() - skill.getItemConsume() <= 0) itemToTake.decayMe();
-            else itemToTake.setCount(itemToTake.getCount() - skill.getItemConsume());
 
+            if(itemToTake.getCount() >= skill.getItemConsume())
+            {
+                player.destroyItem("Consume", skill.getItemConsumeId(), skill.getItemConsume(), player, false);
+            }
+            else
+            {
+                player.sendMessage("Need more Key of Thief.");
+                return;
+            }
+         
+            int item_id = 0;
+            int namber_item = Rnd.get(10);
+            int summon_item_id = Rnd.get(10);
+
+            switch (skill.getLevel())
+            {
+                case 1:
+                {
+                  item_id = 6667;
+                  break;
+                }
+                case 2:
+                {
+                  item_id = 6668;
+                  break;
+                }
+                case 3:
+                {
+                  item_id = 6669;
+                  break;
+                }
+                case 4:
+                {
+                  item_id = 6670;
+                  break;
+                }
+            }
+
+            if (summon_item_id <= 4)
+            {
+              summon_item_id = item_id;
+            }
+            else
+            {
+              if (summon_item_id>= 5 && summon_item_id <= 8)
+                summon_item_id = item_id + 1;
+              else
+                summon_item_id = item_id + 2;
+            }
+
+            if(namber_item <= 5)
+               namber_item = 2;
+            else
+               namber_item = 3; 
             // Give items
-            player.addItem("Test", 5197, 3, player, false);
+            player.addItem("Skill", summon_item_id, namber_item, player, false); 
         }
         catch (Exception e)
         {

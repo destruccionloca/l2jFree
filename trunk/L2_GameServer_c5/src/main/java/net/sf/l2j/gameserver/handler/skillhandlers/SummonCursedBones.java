@@ -50,7 +50,7 @@ public class SummonCursedBones implements ISkillHandler
             else itemToTake.setCount(itemToTake.getCount() - skill.getItemConsume());
 
             // Give items
-            player.addItem("Test", 2508, 20, player, false);
+            player.addItem("Skill", 2508, 20, player, false);
         }
         catch (Exception e)
         {
