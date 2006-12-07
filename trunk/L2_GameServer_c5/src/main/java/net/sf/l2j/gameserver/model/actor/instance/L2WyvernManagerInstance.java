@@ -1,5 +1,6 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.serverpackets.Ride;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -22,11 +23,20 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
 
         if (command.startsWith("RideWyvern"))
         {
-            if(player.isMounted() || player.getPet() != null)
+            if (getCastle().getOwnerId() != player.getClanId() && !player.isClanLeader())
             {
                 SystemMessage sm = new SystemMessage(614);
-                sm.addString("Already Have a Pet or Mounted.");
+                sm.addString("To ride a wyvern, you must be the clan leader.");
                 player.sendPacket(sm);
+                sm = null;
+                return;
+            }
+            else if(player.isMounted() || !L2PetDataTable.isStrider(player.getPet().getTemplate().idTemplate) && !player.isMounted())
+            {
+                SystemMessage sm = new SystemMessage(614);
+                sm.addString("To ride a wyvern, one must be riding a strider.");
+                player.sendPacket(sm);
+                sm = null;
                 return;
             }
             
@@ -35,6 +45,13 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
                     player.getInventory().getItemByItemId(1460).getCount() >= 100)
             {
                 player.getInventory().destroyItemByItemId("Wyvern", 1460, 100, player, player.getTarget());
+                if (player.isMounted())
+                {
+                   Ride dismount= new Ride(player.getObjectId(), Ride.ACTION_DISMOUNT,0);
+                   player.broadcastPacket(dismount);
+                   player.setMountType(0);
+                }
+                if (player.getPet() != null)player.getPet().unSummon(player);                
                 Ride mount = new Ride(player.getObjectId(), Ride.ACTION_MOUNT, 12621);
                 player.sendPacket(mount);
                 player.broadcastPacket(mount);
