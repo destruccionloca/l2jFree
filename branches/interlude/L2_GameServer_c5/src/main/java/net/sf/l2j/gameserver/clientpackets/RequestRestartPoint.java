@@ -90,7 +90,7 @@ public class RequestRestartPoint extends ClientBasePacket
                     }                    
                     loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.ClanHall);
                     if (ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan())!= null && ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP)!= null)
-                    activeChar.restoreExp(ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP).getLvl() / 100);
+                        activeChar.restoreExp(ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP).getLvl());
                 }
                 else if (requestedPointType == 2) // to castle
                 {

@@ -1239,6 +1239,7 @@ public abstract class L2Skill
                     || skillType == SkillType.UNBLEED
                     || skillType == SkillType.UNPOISON
                     || skillType == SkillType.SEED
+                    || skillType == SkillType.COMBATPOINTHEAL                    
                     )))
             {
                 activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));

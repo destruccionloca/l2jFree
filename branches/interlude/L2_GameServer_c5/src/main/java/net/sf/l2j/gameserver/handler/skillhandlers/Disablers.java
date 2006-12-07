@@ -36,6 +36,7 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.base.Experience;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 
@@ -425,7 +426,7 @@ public class Disablers implements ISkillHandler
 					break;
         }*/
           int lvlmodifier= 52+skill.getMagicLevel()*2;
-          if(skill.getMagicLevel()==12) lvlmodifier = 78;
+          if(skill.getMagicLevel()==12) lvlmodifier = (Experience.MAX_LEVEL - 1);
           int landrate = skill.getLandingPercent();
           if((target.getLevel() - lvlmodifier)>0) landrate = 90-4*(target.getLevel()-lvlmodifier);
           if(Rnd.get(100) < landrate)
@@ -551,7 +552,15 @@ public class Disablers implements ISkillHandler
                         }//end else
                     }// end case                                    
                 }//end switch
-            }//end for        
+            }//end for
+        // self Effect :]
+        L2Effect effect = activeChar.getEffect(skill.getId());        
+        if (effect != null && effect.isSelfEffect())        
+        {            
+           //Replace old effect with new one.            
+           effect.exit();        
+        }        
+        skill.getEffectsSelf(activeChar);
         } //end void
         
         private void negateEffect(L2Character target, SkillType type, double power) {

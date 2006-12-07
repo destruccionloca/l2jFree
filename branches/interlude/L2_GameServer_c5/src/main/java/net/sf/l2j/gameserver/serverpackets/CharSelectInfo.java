@@ -115,10 +115,7 @@ public class CharSelectInfo extends ServerBasePacket
             writeF(charInfoPackage.getCurrentMp()); // mp cur
 
             writeD(charInfoPackage.getSp());
-            writeD(charInfoPackage.getExp());
-            if (getClient().getRevision() >= 690)
-                writeD(0x00);  //  ??        
-            
+            writeQ(charInfoPackage.getExp());
             writeD(charInfoPackage.getLevel()); 
             writeD(charInfoPackage.getKarma()); //karma
 
@@ -249,7 +246,7 @@ public class CharSelectInfo extends ServerBasePacket
         charInfopackage.setHairColor(chardata.getInt("haircolor"));
         charInfopackage.setSex(chardata.getInt("sex"));
         
-        charInfopackage.setExp(chardata.getInt("exp"));
+        charInfopackage.setExp(chardata.getLong("exp"));
         charInfopackage.setSp(chardata.getInt("sp"));
         charInfopackage.setKarma(chardata.getInt("karma"));
         charInfopackage.setClanId(chardata.getInt("clanid"));

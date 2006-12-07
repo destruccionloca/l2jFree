@@ -281,6 +281,8 @@ public class GameServer
         if ( _log.isDebugEnabled())_log.debug("SkillSpellbookTable initialized");
         CharTemplateTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("ChatTemplateTable initialized");
+        NobleSkillTable.getInstance();
+        if ( _log.isDebugEnabled())_log.debug("NobleSkillTable initialized");
         
         //Call to load caches
         HtmCache.getInstance();
