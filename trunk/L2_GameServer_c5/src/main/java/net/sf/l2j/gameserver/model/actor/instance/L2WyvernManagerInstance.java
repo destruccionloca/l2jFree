@@ -23,7 +23,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
 
         if (command.startsWith("RideWyvern"))
         {
-            if (getCastle().getOwnerId() != player.getClanId() && !player.isClanLeader())
+            if (getCastle().getOwnerId() != player.getClanId() || !player.isClanLeader())
             {
                 SystemMessage sm = new SystemMessage(614);
                 sm.addString("To ride a wyvern, you must be the clan leader.");
@@ -31,7 +31,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
                 sm = null;
                 return;
             }
-            else if(player.isMounted() || !L2PetDataTable.isStrider(player.getPet().getTemplate().idTemplate) && !player.isMounted())
+            else if(player.isMounted() && !L2PetDataTable.isStrider(player.getPet().getTemplate().idTemplate) || !player.isMounted())
             {
                 SystemMessage sm = new SystemMessage(614);
                 sm.addString("To ride a wyvern, one must be riding a strider.");
