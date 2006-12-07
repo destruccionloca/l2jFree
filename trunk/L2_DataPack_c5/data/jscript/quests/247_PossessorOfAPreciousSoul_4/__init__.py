@@ -48,7 +48,7 @@ class Quest (JQuest) :
    if event == "31745-5.htm" :
      if cond == 2 :
        st.set("cond","0")
-       st.getPlayer().setNoble(True)
+       st.getPlayer().setNoble(1)
        st.giveItems(NOBLESS_TIARA,1)
        st.playSound("ItemSound.quest_finish")
        st.setState(COMPLETED)
