@@ -452,7 +452,16 @@ public class Auction
         }
         for (Bidder b : _bidders.values())
         {
+          if (ClanTable.getInstance().getClanByName(b.getClanName()).getHasHideout() == 0)
+          {             
             returnItem(b.getClanName(), 57, b.getBid(), false);
+            ClanTable.getInstance().getClanByName(b.getClanName()).setAuctionBiddedAt(0);
+          }
+          if (ClanTable.getInstance().getClanByName(b.getClanName()).getHasHideout() != 0)
+          {
+            if (L2World.getInstance().getPlayer(b.getName()) != null)
+              L2World.getInstance().getPlayer(b.getName()).sendMessage("Congratulation you have won ClanHall!");
+          }             
         }
         _bidders.clear();
     }
@@ -545,15 +554,19 @@ public class Auction
 
             con = L2DatabaseFactory.getInstance().getConnection();
 
-            statement = con.prepareStatement("INSERT INTO auction (id, sellerId, sellerName, sellerClanName, itemType, itemId, itemObjectId, startingBid, endDate) VALUES (?,?,?,?,?,?,0,?,?)");
+            statement = con.prepareStatement("INSERT INTO auction (id, sellerId, sellerName, sellerClanName, itemType, itemId, itemObjectId, itemName, itemQuantity, startingBid, currentBid, endDate) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"); 
             statement.setInt(1, getId());
             statement.setInt(2, _SellerId);
             statement.setString(3, _SellerName);
             statement.setString(4, _SellerClanName);
             statement.setString(5, _ItemType);
             statement.setInt(6, _ItemId);
-            statement.setInt(7, _StartingBid);
-            statement.setLong(8, _EndDate.getTimeInMillis());
+            statement.setInt(7, _ItemObjectId);
+            statement.setString(8, _ItemName);
+            statement.setInt(9, _ItemQuantity);
+            statement.setInt(10, _StartingBid);
+            statement.setInt(11, _CurrentBid);
+            statement.setLong(12, _EndDate.getTimeInMillis()); 
             statement.execute();
 
             statement.close();

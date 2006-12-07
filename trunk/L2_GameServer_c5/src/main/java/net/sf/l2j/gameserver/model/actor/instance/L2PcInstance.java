@@ -1471,8 +1471,9 @@ public final class L2PcInstance extends L2PlayableInstance
     
     public void revalidateInClanHall()
     {
-        if (ClanHallManager.getInstance().getClanHall(getX(), getY()) != null)
-                setIsInClanHall((ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ClanHall),this)) && (ClanHallManager.getInstance().getClanHall(getX(), getY()).getOwnerId() == getClanId()));
+        //if (ClanHallManager.getInstance().getClanHall(getX(), getY()) != null)
+        //        setIsInClanHall((ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ClanHall),this)) && (ClanHallManager.getInstance().getClanHall(getX(), getY()).getOwnerId() == getClanId()));
+        setIsInClanHall((ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ClanHall),this)));         
     }
 
     public void revalidateZone()
