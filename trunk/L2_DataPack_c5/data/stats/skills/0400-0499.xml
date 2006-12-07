@@ -2,55 +2,56 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
 <skill id="400" levels="10" name="Tribunal">
-<!-- Done by KID [C5] -->
-  <table name="#mpConsume"> 55 59 62 63 66 68 70 72 74 76 </table>
-  <table name="#power"> 240 262 284 308 332 357 382 407 432 457 </table>
+  <table name="#mpConsume"> 55 58 62 64 66 68 70 72 74 76</table>
+  <table name="#power"> 240.0 262.0 284.0 308.0 332.0 357.0 382.0 407.0 432.0 457.0</table>
+  <table name="#crit"> 0.7 0.7 0.7 0.7 0.7 0.7 0.6 0.6 0.6 0.5 </table>
+  <set name="weaponsAllowed" val="2060"/>
   <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="#power"/>
   <set name="element" val="5"/>
-  <set name="weaponsAllowed" val="2060"/>
-  <set name="power" val="#power"/>
-  <set name="hitTime" val="1290"/>
-  <set name="reuseDelay" val="12000"/>
-  <set name="skillTime" val="1290"/>
   <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="1000"/>
+  <set name="reuseDelay" val="30000"/>
+  <set name="skillTime" val="1000"/>
   <set name="skillType" val="PDAM"/>
+  <set name="overHit" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="10000"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
-  <set name="effectType" val="DEBUFF"/> 
-  <set name="effectPower" val="40"/> 
+  <set name="effectType" val="DEBUFF"/>
+  <set name="effectPower" val="40"/>
   <for>
     <effect count="1" name="Buff" time="10" val="0">
-      <mul stat="cAtk" val="0.5" order="0x30"/> 
+      <mul order="0x30" stat="rCrit" val="#crit"/>
     </effect>
-  </for>  
-</skill>
-
-<skill id="401" levels="10" name="Judgement">
-<!-- Done by KID [C5] -->
-  <table name="#mpConsume"> 55 59 62 63 66 68 70 72 74 76 </table>
-  <table name="#power"> 306 349 379 410 443 475 509 542 576 609 </table>
-  <set name="mpConsume" val="#mpConsume"/>
-  <set name="weaponsAllowed" val="2060"/>
-  <set name="element" val="6"/>
-  <set name="power" val="#power"/>
-  <set name="hitTime" val="1290"/>
-  <set name="reuseDelay" val="12000"/>
-  <set name="skillTime" val="1290"/>
-  <set name="target" val="TARGET_ONE"/>
-  <set name="skillType" val="PDAM"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="40"/>
-  <set name="effectRange" val="400"/>
-  <set name="effectType" val="DEBUFF"/> 
-  <set name="effectPower" val="40"/> 
-  <for>
-    <effect count="1" name="Buff" time="10" val="0">
-      <sub stat="rCrit" val="10" order="0x10"/> 
-   </effect>
   </for>
 </skill>
-
+<skill id="401" levels="10" name="Judgment">
+  <table name="#mpConsume"> 55 58 62 64 66 68 70 72 74 76</table>
+  <table name="#power"> 306.0 349.0 379.0 410.0 443.0 457.0 509.0 542.0 576.0 609.0</table>
+  <set name="weaponsAllowed" val="2060"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="#power"/>
+  <set name="element" val="6"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="1000"/>
+  <set name="reuseDelay" val="30000"/>
+  <set name="skillTime" val="1000"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="overHit" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="10000"/>
+  <set name="castRange" val="40"/>
+  <set name="effectRange" val="400"/>
+  <set name="effectType" val="DEBUFF"/>
+  <set name="effectPower" val="40"/>
+  <for>
+     <effect count="1" name="Buff" time="10" val="0">
+       <mul order="0x30" stat="cAtk" val="0.5"/>
+     </effect>
+  </for>
+</skill>
 <skill id="402" levels="10" name="Arrest">
 <table name="#mpConsume"> 25 27 28 29 30 31 32 33 34 34 </table>
 <table name="#magicLvl"> 53 56 58 60 62 64 66 68 70 72 </table>
