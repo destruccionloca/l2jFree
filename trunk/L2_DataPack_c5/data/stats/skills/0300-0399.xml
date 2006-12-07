@@ -317,7 +317,6 @@
   </for>
 </skill> 
 <skill id="316" levels="1" name="Aegis">
-  <!-- done by roxaz -->
   <set name="target" val="TARGET_SELF"/>
   <set name="power" val="0.0"/>
   <set name="skillType" val="PASSIVE"/>
@@ -328,8 +327,7 @@
     <cond>
 	  <using kind="Shield"/>
     </cond>
-    <mul order="0x30" stat="sDef" val="1.2"/>
-    <mul order="0x30" stat="pDef" val="1.1"/>
+	<add stat="shldAngle" val="180" order="0x40"/> 
   </for>
 </skill>
 <skill id="317" levels="5" name="Focus Attack">
@@ -352,6 +350,7 @@
   </for>
 </skill>
 <skill id="318" levels="1" name="Aegis Stance">
+  <set name="weaponsAllowed" val="2"/> 
   <set name="mpInitialConsume" val="9"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="CONT"/>
@@ -361,7 +360,7 @@
   <for>
     <effect count="0x7fffffff" name="ManaDamOverTime" time="2" val="9">
       <mul stat="sDef" val="0.6" order="0x30"/>
-      <mul stat="pDef" val="1.35" order="0x30"/>
+	  <add stat="shldAngle" val="180" order="0x40"/> 
     </effect>
   </for>
 </skill>

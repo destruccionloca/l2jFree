@@ -447,10 +447,11 @@
 
 <skill id="419" levels="4" name="Summon Treasure Key"> 
 <!-- Done by KID [C5] server side skill -->
-  <table name="#mpConsume"> 330 343 354 366 </table>
-  <table name="#skill_class"> 1 2 3 4 </table>
+  <table name="#mpConsume"> 122 159 183 204 </table>
+  <table name="#itemConsumeCount"> 2 3 4 6 </table>
+  <set name="itemConsumeCount" val="#itemConsumeCount" />
+  <set name="itemConsumeId" val="1661"/> 
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="skill_class" val="#skill_class"/>  
   <set name="hitTime" val="3000"/>
   <set name="skillTime" val="3000"/>
   <set name="reuseDelay" val="15000"/>

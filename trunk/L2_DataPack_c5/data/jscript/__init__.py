@@ -1,7 +1,7 @@
 __all__ = [
 'quests',
-'luxury_shop',
-#'blacksmith',
+#'luxury_shop',
+'blacksmith',
 'custom',
 'teleports',
 'village_master'
