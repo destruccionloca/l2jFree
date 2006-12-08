@@ -130,7 +130,10 @@ public class ItemTable
         _slots.put("fullarmor",            L2Item.SLOT_FULL_ARMOR); 
         _slots.put("head",                 L2Item.SLOT_HEAD);
         _slots.put("hair",                 L2Item.SLOT_HAIR);
+        _slots.put("face",                 L2Item.SLOT_FACE);
+        _slots.put("dhair",                L2Item.SLOT_DHAIR);
         _slots.put("underwear",            L2Item.SLOT_UNDERWEAR);
+        _slots.put("cloak",                L2Item.SLOT_CLOAK);
         _slots.put("back",                 L2Item.SLOT_BACK);
         _slots.put("neck",                 L2Item.SLOT_NECK);
         _slots.put("legs",                 L2Item.SLOT_LEGS);
@@ -346,6 +349,8 @@ public class ItemTable
         item.set.set("sellable", Boolean.valueOf(rset.getString("sellable")));
         if (bodypart == L2Item.SLOT_NECK ||
             bodypart == L2Item.SLOT_HAIR ||
+            bodypart == L2Item.SLOT_FACE ||
+            bodypart == L2Item.SLOT_DHAIR ||            
             (bodypart & L2Item.SLOT_L_EAR) != 0 || 
             (bodypart & L2Item.SLOT_L_FINGER) != 0)
         {
@@ -414,7 +419,7 @@ public class ItemTable
         else if (itemType.equals("seed"))         item.type = L2EtcItemType.SEED;
         else if (itemType.equals("shot"))         item.type = L2EtcItemType.SHOT;
         else if (itemType.equals("spellbook"))    item.type = L2EtcItemType.SPELLBOOK; // Spellbook, Amulet, Blueprint
-        else if (itemType.equals("herb"))		  item.type = L2EtcItemType.HERB; 
+        else if (itemType.equals("herb"))         item.type = L2EtcItemType.HERB; 
         else if (itemType.equals("arrow"))
         {
             item.type = L2EtcItemType.ARROW;

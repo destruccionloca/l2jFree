@@ -612,6 +612,10 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _inJail = false;
     private long _jailTimer = 0;
 
+    private boolean _maried = false;
+    private int _partnerId = 0;
+    private int _coupleId = 0;
+
     /* Flag to disable equipment/skills while wearing formal wear **/
     //private boolean _IsWearingFormalWear = false;
 
@@ -9325,6 +9329,36 @@ public final class L2PcInstance extends L2PlayableInstance
                 + ") for " + getName() + ".");
 
         _queuedSkill = new SkillDat(queuedSkill, ctrlPressed, shiftPressed);
+    }
+    
+    public boolean isMaried()
+    {
+        return _maried;
+    }
+    
+    public void setMaried(boolean state)
+    {
+        _maried = state;
+    }
+    
+    public int getPartnerId()
+    {
+        return _partnerId;
+    }
+    
+    public void setPartnerId(int partnerid)
+    {
+        _partnerId = partnerid;
+    }
+    
+    public int getCoupleId()
+    {
+        return _coupleId;
+    }
+    
+    public void setCoupleId(int coupleId)
+    {
+        _coupleId = coupleId;
     }
 
     public boolean isInJail()

@@ -39,6 +39,9 @@ public class CharSelectInfo extends ServerBasePacket
 {
     // d SdSddddddddddffdddddddddddddddddddddddddddddddddddddddddddddddffdddcdd ?
     // d SdSddddddddddffdQddddddddddddddddddddddddddddddddddddddddddddddffdddcdd ?
+    // d SdSddddddddddffdQddddddddddddddddddddddddddddddddddddddddddddddddffdddchh chaotic throne
+
+    
     private static final String _S__1F_CHARSELECTINFO = "[S] 1F CharSelectInfo";
 
     private static Logger _log = Logger.getLogger(CharSelectInfo.class.getName());
@@ -116,6 +119,7 @@ public class CharSelectInfo extends ServerBasePacket
 
             writeD(charInfoPackage.getSp());
             writeQ(charInfoPackage.getExp());
+            
             writeD(charInfoPackage.getLevel()); 
             writeD(charInfoPackage.getKarma()); //karma
 
@@ -145,6 +149,8 @@ public class CharSelectInfo extends ServerBasePacket
             writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_BACK));
             writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LRHAND));
             writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
+            if (getClient().getRevision() >= 729)
+                writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_CLOAK));
             
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
@@ -162,6 +168,8 @@ public class CharSelectInfo extends ServerBasePacket
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
+            if (getClient().getRevision() >= 729)
+                writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_CLOAK));
             
             writeD(charInfoPackage.getHairStyle());
             writeD(charInfoPackage.getHairColor());
@@ -180,11 +188,8 @@ public class CharSelectInfo extends ServerBasePacket
                 writeD(0x00); //c3 auto-select char
             
             writeC(charInfoPackage.getEnchantEffect());
-            if (getClient().getRevision() >= 690) // c5
-            {
-                writeD(0x00);//c5 ??
-                writeD(0x00);//c5 ??
-            }
+            writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
+            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_FACE));
         }
     }
 
@@ -246,7 +251,7 @@ public class CharSelectInfo extends ServerBasePacket
         charInfopackage.setHairColor(chardata.getInt("haircolor"));
         charInfopackage.setSex(chardata.getInt("sex"));
         
-        charInfopackage.setExp(chardata.getLong("exp"));
+        charInfopackage.setExp(chardata.getInt("exp"));
         charInfopackage.setSp(chardata.getInt("sp"));
         charInfopackage.setKarma(chardata.getInt("karma"));
         charInfopackage.setClanId(chardata.getInt("clanid"));

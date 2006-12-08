@@ -203,6 +203,7 @@ public class Hero
                     hero.set(CLAN_NAME, clanName);
                     hero.set(ALLY_CREST, allyCrest);
                     hero.set(ALLY_NAME, allyName);
+
                 }
                 
                 rset2.close();
@@ -218,7 +219,7 @@ public class Hero
             con2.close();
         } catch(SQLException e)
         {
-        	_log.warn("Hero System: Couldnt load Heroes");
+            _log.warn("Hero System: Couldnt load Heroes");
             _log.error(e.getMessage(),e);
         }
         
@@ -274,7 +275,23 @@ public class Hero
                         iu.addModifiedItem(item);
                     }
                     player.sendPacket(iu);
+
+                    items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_FACE);
+                    iu = new InventoryUpdate();
+                    for (L2ItemInstance item : items)
+                    {
+                        iu.addModifiedItem(item);
+                    }
+                    player.sendPacket(iu);
                     
+                    items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_DHAIR);
+                    iu = new InventoryUpdate();
+                    for (L2ItemInstance item : items)
+                    {
+                        iu.addModifiedItem(item);
+                    }
+                    player.sendPacket(iu);
+
                     
                     for(L2ItemInstance item : player.getInventory().getAvailableItems(false))
                     {
@@ -450,7 +467,7 @@ public class Hero
             }
         } catch(SQLException e)
         {
-        	_log.warn("Hero System: Couldnt update Heroes",e);
+            _log.warn("Hero System: Couldnt update Heroes",e);
         } finally
         {
             try{con.close();}catch(Exception e){_log.error(e.getMessage(),e);}

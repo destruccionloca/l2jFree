@@ -42,7 +42,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * <p>
  *  dddddSdddddddddddddddddddddddddddffffdddSdddccccccc (h)<p>
  *  dddddSdddddddddddddddddddddddddddffffdddSdddddccccccch
- *  dddddSddddddddddddddddddddddddddddffffdddSdddddccccccch (h) c (dchd) ddc dcc c cddd d 
+ *  dddddSddddddddddddddddddddddddddddffffdddSdddddccccccch (h) c (dchd) ddc dcc c cddd d
+ *  dddddSdddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhddddddddddddddffffdddSdddddccccccch chaotic throne
+
 
  * @version $Revision: 1.7.2.6.2.11 $ $Date: 2005/04/11 10:05:54 $
  */
@@ -52,10 +54,14 @@ public class CharInfo extends ServerBasePacket
     private static final String _S__03_CHARINFO = "[S] 03 CharInfo";
     private L2PcInstance _cha;
     private Inventory _inv;
+    private int _rhand, _lhand;
     private int _x, _y, _z, _heading;
     private int _mAtkSpd, _pAtkSpd;
     private int _runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd, _flRunSpd, _flWalkSpd, _flyRunSpd, _flyWalkSpd;
     private float moveMultiplier;
+    private String _name = "";
+    private String _title = "";
+    private boolean _isAttackable;    
     
     /**
      * @param _characters
@@ -70,7 +76,44 @@ public class CharInfo extends ServerBasePacket
         _heading = _cha.getHeading();
         _mAtkSpd = _cha.getMAtkSpd();
         _pAtkSpd = _cha.getPAtkSpd();
+        if (_cha.getPoly().isMorphed() && Config.ALT_POLYMORPH)
+        {
+           _rhand = NpcTable.getInstance().getTemplate(_cha.getPoly().getPolyId()).rhand;
+           _lhand = NpcTable.getInstance().getTemplate(_cha.getPoly().getPolyId()).lhand;
+           
+           if (NpcTable.getInstance().getTemplate(_cha.getPoly().getPolyId()).serverSideName)
+               _name = NpcTable.getInstance().getTemplate(_cha.getPoly().getPolyId()).name;
+   
+           if (NpcTable.getInstance().getTemplate(_cha.getPoly().getPolyId()).serverSideTitle)
+               _title = NpcTable.getInstance().getTemplate(_cha.getPoly().getPolyId()).title;
+           else
+               _title = null;
+           
+           String type = NpcTable.getInstance().getTemplate(_cha.getPoly().getPolyId()).type;
+           
+           if (Config.SHOW_NPC_LVL && "L2Monster".equals(type))
+           {
+               String t = "Lv " + NpcTable.getInstance().getTemplate(_cha.getPoly().getPolyId()).level + (NpcTable.getInstance().getTemplate(_cha.getPoly().getPolyId()).aggroRange > 0 ? "*" : "");
+               if (_title != null)
+                   t += " " + _title;
+               _title = t;
+           }
+           
+           if ("L2Monster".equals(type) || "L2Minion".equals(type) || "L2Chest".equals(type) || "L2RaidBoss".equals(type) ||
+                   "L2Boss".equals(type) || "L2FestivalMonster".equals(type) ||    "L2PenaltyMonster".equals(type))
+               _isAttackable = true;
+           else
+               _isAttackable = false;
+        }
+        else
+        {
+           _rhand = _inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND);
+           _lhand = _inv.getPaperdollItemId(Inventory.PAPERDOLL_LHAND);
+           _name = _cha.getName();
+           _title = _cha.getTitle();
+        }
         //moveMultiplier  = _cha.getMovementSpeedMultiplier();
+
         //_runSpd         = (int)(_cha.getRunSpeed()/moveMultiplier);
         //_walkSpd        = (int)(_cha.getWalkSpeed()/moveMultiplier);
         //_swimRunSpd = _flRunSpd = _flyRunSpd = _runSpd;
@@ -97,7 +140,10 @@ public class CharInfo extends ServerBasePacket
             writeC(0x16);
             writeD(_cha.getObjectId());
             writeD(_cha.getPoly().getPolyId()+1000000);  // npctype id
-            writeD(_cha.getKarma() > 0 ? 1 : 0); 
+            if(Config.ALT_POLYMORPH)
+                writeD(_isAttackable ? 1 : 0);
+            else
+                writeD(_cha.getKarma() > 0 ? 1 : 0); 
             writeD(_x);
             writeD(_y);
             writeD(_z);
@@ -117,27 +163,50 @@ public class CharInfo extends ServerBasePacket
             writeF(_cha.getAttackSpeedMultiplier());
             writeF(NpcTable.getInstance().getTemplate(_cha.getPoly().getPolyId()).collisionRadius);
             writeF(NpcTable.getInstance().getTemplate(_cha.getPoly().getPolyId()).collisionHeight);
-            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND)); // right hand weapon
+            if(Config.ALT_POLYMORPH)
+                writeD(_rhand); // right hand weapon                
+            else
+                writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND)); // right hand weapon
             writeD(0x00);
-            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LHAND)); // left hand weapon
+            if(Config.ALT_POLYMORPH)
+                writeD(_lhand); // left hand weapon
+            else
+                writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LHAND)); // left hand weapon
             writeC(1);  // name above char 1=true ... ??
             writeC(_cha.isRunning() ? 1 : 0);
             writeC(_cha.isInCombat() ? 1 : 0);
             writeC(_cha.isAlikeDead() ? 1 : 0);
             writeC(_cha.getInvisible()); // invisible ?? 0=false  1=true   2=summoned (only works if model has a summon animation)
-            writeS(_cha.getName());
-            writeS(_cha.getTitle());
+            if(Config.ALT_POLYMORPH)
+            {
+                writeS(_name);//_cha.getName());
+                writeS(_title);
+            }
+            else
+            {
+                writeS(_cha.getName());
+                writeS(_cha.getTitle());
+            }
             writeD(0);
             writeD(0);
             writeD(0000);  // hmm karma ??
 
-            writeH(_cha.getAbnormalEffect());  // C2
-            writeH(0x00);  // C2
-            writeD(0);  // C2
-            writeD(0);  // C2
-            writeD(0);  // C2
-            writeD(0);  // C2
-            writeC(0);  // C2
+            writeD(_cha.getAbnormalEffect());  // C2
+            writeD(0000);  // C2
+            writeD(0000);  // C2
+            writeD(0000);  // C2
+            writeD(0000);  // C2
+            writeC(0000);  // C2
+           
+            if(_cha.getTeam()==1)
+                writeC(0x01); //team circle around feet 1= Blue, 2 = red
+            else if(_cha.getTeam()==2)
+                writeC(0x02); //team circle around feet 1= Blue, 2 = red
+            else
+                writeC(0x00); //team circle around feet 1= Blue, 2 = red
+            writeF(0x00);  // C4 i think it is collisionRadius a second time
+            writeF(0x00);  // C4      "        collisionHeight     "
+            writeD(0x00);  // C4 
         }
         else
         {
@@ -160,7 +229,7 @@ public class CharInfo extends ServerBasePacket
         else 
             writeD(_cha.getBaseClass());
         
-        writeD(0); // unknown, maybe underwear?
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LHAND));
@@ -171,6 +240,34 @@ public class CharInfo extends ServerBasePacket
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
+        if (getClient().getRevision() >= 729)
+        {
+            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_CLOAK));            
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+            writeH(0);
+        }
         
         writeD(_cha.getPvpFlag());
         writeD(_cha.getKarma());
@@ -248,19 +345,17 @@ public class CharInfo extends ServerBasePacket
         writeD(_cha.GetFishy());
         writeD(_cha.GetFishz());
         writeD(_cha.getNameColor());
-        if (getClient().getRevision() >= 689)
-           {
-            writeC(_cha.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window
-            writeD(0x00); //C5 ?? //writeD(2428); //C5 ??
-            writeD(0x00); //C5 ??
-            writeD(_cha.getPledgeClass()); //C5 ??
-            writeD(15530402); //C5 ??
-            writeD(_cha.getTitleColor()); //C5 ??
-            if (_cha.isCursedWeaponEquiped())
-                writeD(CursedWeaponsManager.getInstance().getLevel(_cha.getCursedWeaponEquipedId()));
-            else
-                writeD(0x00);
-           }
+
+        writeC(_cha.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window
+        writeD(0x00); //C5 ?? //writeD(2428); //C5 ??
+        writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_FACE));
+        writeD(_cha.getPledgeClass()); //C5 ??
+        writeD(15530402); //C5 ??
+        writeD(_cha.getTitleColor()); //C5 ??
+        if (_cha.isCursedWeaponEquiped())
+            writeD(CursedWeaponsManager.getInstance().getLevel(_cha.getCursedWeaponEquipedId()));
+        else
+            writeD(0x00);
         }
     }
     

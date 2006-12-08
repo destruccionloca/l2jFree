@@ -328,6 +328,8 @@ public final class Config {
     public static boolean ALT_DEV_NO_QUESTS;
     public static boolean ALT_DEV_NO_SPAWNS;
 
+    public static boolean ALT_POLYMORPH;
+
     /** Enable Rate Hp  */
     public static boolean ENABLE_RATE_HP;
 
@@ -530,7 +532,15 @@ public final class Config {
     public static int ALLOW_GEODATA_EXPIRATIONTIME;
     public static boolean ALLOW_GEODATA_CHECK_KNOWN;
     public static boolean ALLOW_GEODATA_DEBUG;
-    
+
+    /** Wedding system */
+    public static boolean ALLOW_WEDDING;
+    public static int WEDDING_PRICE;
+    public static boolean WEDDING_PUNISH_INFIDELITY;
+    public static boolean WEDDING_TELEPORT;
+    public static int WEDDING_TELEPORT_PRICE;
+    public static int WEDDING_TELEPORT_INTERVAL;
+
     /** Jail config **/
     public static boolean JAIL_IS_PVP;
     public static boolean JAIL_DISABLE_CHAT;
@@ -1056,6 +1066,7 @@ public final class Config {
                 ALLOW_GEODATA_DEBUG             = Boolean.valueOf(optionsSettings.getProperty("AllowGeodataDebug", "False"));
                 ALLOW_BOAT                      = Boolean.valueOf(optionsSettings.getProperty("AllowBoat", "False"));
                 ALLOW_CURSED_WEAPONS            = Boolean.valueOf(optionsSettings.getProperty("AllowCursedWeapons", "False"));
+                ALLOW_WEDDING                   = Boolean.valueOf(optionsSettings.getProperty("AllowWedding", "False"));
                 FISHINGMODE                     = optionsSettings.getProperty("FishingMode", "water");                
                
                 ALLOW_L2WALKER_CLIENT           = L2WalkerAllowed.valueOf(optionsSettings.getProperty("AllowL2Walker", "False"));
@@ -1560,6 +1571,7 @@ public final class Config {
 
                 ALT_DEV_NO_QUESTS                                   = Boolean.parseBoolean(altSettings.getProperty("AltDevNoQuests", "False"));
                 ALT_DEV_NO_SPAWNS                                   = Boolean.parseBoolean(altSettings.getProperty("AltDevNoSpawns", "False"));
+                ALT_POLYMORPH                                       = Boolean.parseBoolean(altSettings.getProperty("AltPolymorph", "False"));
 
                 ALT_STRICT_SEVENSIGNS                               = Boolean.parseBoolean(altSettings.getProperty("StrictSevenSigns", "True"));
                 
@@ -1581,6 +1593,12 @@ public final class Config {
 	            GRADE_PENALTY										= Boolean.parseBoolean(altSettings.getProperty("GradePenalty", "true"));
                 ALT_URN_TEMP_FAIL                                   = Integer.parseInt(altSettings.getProperty("UrnTempFail", "10"));
                 ALT_DIFF_CUTOFF                                     = Integer.parseInt(altSettings.getProperty("MobPCExpCutoff", "-10"));
+                
+                WEDDING_PRICE                                       = Integer.parseInt(altSettings.getProperty("WeddingPrice", "500000"));
+                WEDDING_PUNISH_INFIDELITY                           = Boolean.parseBoolean(altSettings.getProperty("WeddingPunishInfidelity", "true"));                
+                WEDDING_TELEPORT                                    = Boolean.parseBoolean(altSettings.getProperty("WeddingTeleport", "true"));
+                WEDDING_TELEPORT_PRICE                              = Integer.parseInt(altSettings.getProperty("WeddingTeleportPrice", "500000"));
+                WEDDING_TELEPORT_INTERVAL                           = Integer.parseInt(altSettings.getProperty("WeddingTeleportInterval", "120"));
 	        }
 	        catch (Exception e)
 	        {

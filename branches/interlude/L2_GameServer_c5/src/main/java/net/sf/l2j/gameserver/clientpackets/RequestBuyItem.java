@@ -164,7 +164,7 @@ public class RequestBuyItem extends ClientBasePacket
         
         if (list.getNpcId().equals("gm") && !player.isGM())
         {
-            Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a modified packet to buy from gmshop.",Config.DEFAULT_PUNISH);
+            Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a modified packet to buy from "+list.getNpcId()+".",Config.DEFAULT_PUNISH);
             return;
         }
         

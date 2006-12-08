@@ -57,7 +57,7 @@ public class PcInventory extends Inventory
                 isDuplicate = true;
                 break;
             }
-			if (!isDuplicate && item.getItem().isSellable() && item.isAvailable(getOwner(), false)) list.add(item);
+            if (!isDuplicate && item.getItem().isSellable() && item.isAvailable(getOwner(), false)) list.add(item);
         }
 
         return list.toArray(new L2ItemInstance[list.size()]);
@@ -71,7 +71,7 @@ public class PcInventory extends Inventory
     {
         List<L2ItemInstance> list = new FastList<L2ItemInstance>();
         for (L2ItemInstance item : _items)
-			if (item != null && item.isAvailable(getOwner(), allowAdena)) list.add(item);
+            if (item != null && item.isAvailable(getOwner(), allowAdena)) list.add(item);
 
         return list.toArray(new L2ItemInstance[list.size()]);
     }
@@ -291,6 +291,7 @@ public class PcInventory extends Inventory
         L2ItemInstance item = super.destroyItemByItemId(process, itemId, count, actor, reference);
         
         if (_adena != null && _adena.getCount() <= 0)
+
             _adena = null;
         
         if (_ancientAdena != null && _ancientAdena.getCount() <= 0) 
@@ -384,7 +385,7 @@ public class PcInventory extends Inventory
 
     public static int[][] restoreVisibleInventory(int objectId)
     {
-        int[][] paperdoll = new int[0x10][3];
+        int[][] paperdoll = new int[0x13][3];
         java.sql.Connection con = null;
         
         try
