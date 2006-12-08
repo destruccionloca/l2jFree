@@ -50,13 +50,18 @@ public class PledgeShowMemberListAll extends ServerBasePacket
     private L2ClanMember[] _subMembers;
     private int _pledgeType;
     
-    public PledgeShowMemberListAll(L2Clan clan, L2PcInstance activeChar, int val1, int val2, int val3, int val4, int val5, int val6, int val7)
+    public PledgeShowMemberListAll(L2Clan clan, L2PcInstance activeChar)
     {
         _clan = clan;
         _activeChar = activeChar;
-        activeChar.sendPacket(new PledgeShowMemberListDeleteAll());
     }
 
+    final void runImpl()
+    {
+        _members = _clan.getMembers();
+    }
+    
+    
     final void writeImpl()
     {
         
@@ -78,32 +83,6 @@ public class PledgeShowMemberListAll extends ServerBasePacket
         // unless this is sent sometimes, the client doesn't recognise the player as the leader
         _activeChar.sendPacket(new UserInfo(_activeChar));
                 
-    }
-    
-    public PledgeShowMemberListAll(L2Clan clan, L2PcInstance activeChar)
-    {
-        _clan = clan;
-        _activeChar = activeChar;
-        activeChar.sendPacket(new PledgeShowMemberListDeleteAll());
-        SubPledge[] subPledge = _clan.getAllSubPledges();
-        //final PledgeReceiveSubPledgeCreated response = new PledgeReceiveSubPledgeCreated(subPledge);
-        for (int i = 0; i<subPledge.length; i++)
-        {
-            activeChar.sendPacket(new PledgeReceiveSubPledgeCreated(subPledge[i]));
-        }
-        _subMembers = _clan.getSubMembers();
-        for (L2ClanMember m : _subMembers)
-        {
-            if (m.getName() == activeChar.getName())
-                activeChar.sendPacket(new PledgeShowMemberListAdd(m, 1));
-            else
-                activeChar.sendPacket(new PledgeShowMemberListAdd(m));
-        }
-    }
-    
-    final void runImpl()
-    {
-        _members = _clan.getMembers();
     }
     
     void writePledge(int mainOrSubpledge)
@@ -166,9 +145,10 @@ public class PledgeShowMemberListAll extends ServerBasePacket
                 writeS(m.getName());
                 writeD(m.getLevel());
                 writeD(m.getClassId());
-                writeD(0); 
-                writeD(1);
+                writeD(0);
+                writeD(m.getObjectId());//writeD(1);
                 writeD(m.isOnline() ? m.getObjectId() : 0); // 1=online 0=offline
+                writeD(0);
             }
         }       
     }
