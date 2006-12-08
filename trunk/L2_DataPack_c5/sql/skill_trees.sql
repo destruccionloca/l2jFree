@@ -3,7 +3,7 @@ CREATE TABLE skill_trees (
   class_id int(10) unsigned NOT NULL default '0',
   skill_id int(10) unsigned NOT NULL default '0',
   level int(10) unsigned NOT NULL default '0',
-  name varchar(30) NOT NULL default '',
+  name varchar(35) NOT NULL default '',
   sp int(10) unsigned NOT NULL default '0',
   min_level int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (class_id,skill_id,level)
@@ -13,12 +13,12 @@ CREATE TABLE skill_trees (
 -- Dumping data for table `skill_trees`
 --
 
-/* GLOSSARY FOR CLASS ID'S (thx Mr_Pleb_Mgoo) - updated by DJ MELERIX
+/* GLOSSARY FOR CLASS ID'S (thx Mr_Pleb_Mgoo) - Updated by DJ MELERIX
 
 HUMANS
 0=Human Fighter       | 1=Human Warrior    | 2=Gladiator        | 3=Warlord          | 4=Human Knight 
 5=Paladin             | 6=Dark Avenger     | 7=Rogue            | 8=Treasure Hunter  | 9=Hawkeye      
-10=Human Mage         | 11=Human Wizard    | 12=Sorcerer        | 13=Necromancer     | 14=Warlock
+10=Human Mage         | 11=Human Wizard    | 12=Sorcerer/ss     | 13=Necromancer     | 14=Warlock
 15=Cleric             | 16=Bishop          | 17=Prophet 
 
 ELVES 
@@ -40,7 +40,7 @@ DWARVES
 
 HUMANS 3rd Professions
 88=Duelist            | 89=Dreadnought     | 90=Phoenix Knight  | 91=Hell Knight     | 92=Sagittarius
-93=Adventurer         | 94=Archmage        | 95=Soultaker       | 96=Arcane Lord     | 97=Cardinal
+93=Adventurer         | 94=Archmage        | 95=Soultaker       | 96=Arcana Lord     | 97=Cardinal
 98=Hierophant
 
 ELVES 3rd Professions
@@ -12496,16 +12496,8 @@ INSERT INTO skill_trees VALUES (53,142,3,'Armor Mastery',550,10);
 INSERT INTO skill_trees VALUES (53,142,4,'Armor Mastery',3300,15);
 INSERT INTO skill_trees VALUES (53,142,5,'Armor Mastery',3300,15);
 INSERT INTO skill_trees VALUES (53,150,1,'Weight Limit',1100,10);
-INSERT INTO skill_trees VALUES (53,254,1,'Spoil',1100,10);
 /* INSERT INTO skill_trees VALUES (53,165,1,'Trade',6700,15); -- where did this come from? */
-INSERT INTO skill_trees VALUES (53,1368,1,'Expand Dwarven Craft',0,5);
-INSERT INTO skill_trees VALUES (53,1368,2,'Expand Dwarven Craft',0,20);
-INSERT INTO skill_trees VALUES (53,1368,3,'Expand Dwarven Craft',0,28);
-INSERT INTO skill_trees VALUES (53,1368,4,'Expand Dwarven Craft',0,36);
-INSERT INTO skill_trees VALUES (53,1368,5,'Expand Dwarven Craft',0,43);
-INSERT INTO skill_trees VALUES (53,1368,6,'Expand Dwarven Craft',0,49);
-INSERT INTO skill_trees VALUES (53,1368,7,'Expand Dwarven Craft',0,55);
-INSERT INTO skill_trees VALUES (53,1368,8,'Expand Dwarven Craft',0,62);
+INSERT INTO skill_trees VALUES (53,254,1,'Spoil',1100,10);
 INSERT INTO skill_trees VALUES (54,34,1,'Bandage',4100,20);
 INSERT INTO skill_trees VALUES (54,100,1,'Stun Attack',1400,20);
 INSERT INTO skill_trees VALUES (54,100,2,'Stun Attack',1400,20);
@@ -13487,7 +13479,6 @@ INSERT INTO skill_trees VALUES (53,239,2,'Expertise C',0,40);
 INSERT INTO skill_trees VALUES (53,239,3,'Expertise B',0,52);
 INSERT INTO skill_trees VALUES (53,239,4,'Expertise A',0,61);
 INSERT INTO skill_trees VALUES (53,239,5,'Expertise S',0,76);
-
 
 -- Skill Mastery (330 STR - 331 INT) (Done by DJ MELERIX)
 
