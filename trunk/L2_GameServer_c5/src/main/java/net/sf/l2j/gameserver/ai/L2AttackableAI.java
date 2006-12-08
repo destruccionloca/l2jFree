@@ -944,8 +944,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         {
             if ( attacker != null)
             {
-                if (Config.ALLOW_GEODATA)
-                    geomove.currentTargetId = attacker.getObjectId();
+                if(geomove == null)
+                    geomove = new GeoMove(_actor);
+                geomove.currentTargetId = attacker.getObjectId(); 
                 setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
             }
         }
