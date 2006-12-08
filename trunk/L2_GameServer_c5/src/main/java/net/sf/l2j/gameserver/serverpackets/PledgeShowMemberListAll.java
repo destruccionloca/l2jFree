@@ -48,51 +48,48 @@ public class PledgeShowMemberListAll extends ServerBasePacket
     private L2PcInstance _activeChar;
     private L2ClanMember[] _members;
     private L2ClanMember[] _subMembers;
-    private int _pledgeType;
+    
+    public PledgeShowMemberListAll(L2Clan clan, L2PcInstance activeChar, int val1, int val2, int val3, int val4, int val5, int val6, int val7)
+    {
+        _clan = clan;
+        _activeChar = activeChar;
+        activeChar.sendPacket(new PledgeShowMemberListDeleteAll());
+    }
     
     public PledgeShowMemberListAll(L2Clan clan, L2PcInstance activeChar)
     {
         _clan = clan;
         _activeChar = activeChar;
+        activeChar.sendPacket(new PledgeShowMemberListDeleteAll());
+        SubPledge[] subPledge = _clan.getAllSubPledges();
+        //final PledgeReceiveSubPledgeCreated response = new PledgeReceiveSubPledgeCreated(subPledge);
+        for (int i = 0; i<subPledge.length; i++)
+        {
+            activeChar.sendPacket(new PledgeReceiveSubPledgeCreated(subPledge[i]));
+        }
+        _subMembers = _clan.getSubMembers();
+        for (L2ClanMember m : _subMembers)
+        {
+            if (m.getName() == activeChar.getName())
+                activeChar.sendPacket(new PledgeShowMemberListAdd(m, 1));
+            else
+                activeChar.sendPacket(new PledgeShowMemberListAdd(m));
+        }
     }
-
+    
     final void runImpl()
     {
         _members = _clan.getMembers();
     }
     
-    
     final void writeImpl()
-    {
-        
-        _pledgeType = 0;
-        writePledge(0);
-        
-        SubPledge[] subPledge = _clan.getAllSubPledges();
-        for (int i = 0; i<subPledge.length; i++)
-        {
-            _activeChar.sendPacket(new PledgeReceiveSubPledgeCreated(subPledge[i]));
-        }
-        
-        for (L2ClanMember m : _members)
-        {
-            if (m.getPledgeType() == 0) continue;
-            _activeChar.sendPacket(new PledgeShowMemberListAdd(m));
-        }
-
-        // unless this is sent sometimes, the client doesn't recognise the player as the leader
-        _activeChar.sendPacket(new UserInfo(_activeChar));
-                
-    }
-    
-    void writePledge(int mainOrSubpledge)
     {
         if (getClient().getRevision() >= 690)
         {
             writeC(0x53);
-            writeD(mainOrSubpledge); //c5 main clan 0 or any subpledge 1?
+            writeD(0x00); //C5 unkown
             writeD(_clan.getClanId());
-            writeD(_pledgeType); //c5 - possibly pledge type?
+            writeD(0x00); //C5 unkown
             writeS(_clan.getName());
             writeS(_clan.getLeaderName());
             writeD(_clan.getCrestId()); // creast id .. is used again
@@ -108,7 +105,7 @@ public class PledgeShowMemberListAll extends ServerBasePacket
             writeS(_clan.getAllyName());
             writeD(_clan.getAllyCrestId());
             writeD(_clan.isAtWar());// new c3
-            writeD(_clan.getSubPledgeMembersCount(_pledgeType));
+            writeD(_members.length);
             for (L2ClanMember m : _members)
             {
                 writeS(m.getName());
@@ -145,10 +142,9 @@ public class PledgeShowMemberListAll extends ServerBasePacket
                 writeS(m.getName());
                 writeD(m.getLevel());
                 writeD(m.getClassId());
-                writeD(0);
-                writeD(m.getObjectId());//writeD(1);
+                writeD(0); 
+                writeD(1);
                 writeD(m.isOnline() ? m.getObjectId() : 0); // 1=online 0=offline
-                writeD(0);
             }
         }       
     }
