@@ -347,11 +347,11 @@ public class ItemTable
         item.set.set("crystal_count", rset.getInt("crystal_count"));
         item.set.set("sellable", Boolean.valueOf(rset.getString("sellable")));
         if (bodypart == L2Item.SLOT_NECK ||
-                bodypart == L2Item.SLOT_HAIR ||
-                bodypart == L2Item.SLOT_FACE ||
-                bodypart == L2Item.SLOT_DHAIR ||
-            (bodypart & L2Item.SLOT_L_EAR) != 0 || 
-            (bodypart & L2Item.SLOT_L_FINGER) != 0)
+            bodypart == L2Item.SLOT_HAIR ||
+            bodypart == L2Item.SLOT_FACE ||
+            bodypart == L2Item.SLOT_DHAIR ||
+           (bodypart & L2Item.SLOT_L_EAR) != 0 || 
+           (bodypart & L2Item.SLOT_L_FINGER) != 0)
         {
             item.set.set("type1", L2Item.TYPE1_WEAPON_RING_EARRING_NECKLACE);
             item.set.set("type2", L2Item.TYPE2_ACCESSORY);

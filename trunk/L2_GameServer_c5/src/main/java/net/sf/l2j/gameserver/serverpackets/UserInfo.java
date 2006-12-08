@@ -59,7 +59,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * but it actually reads
  * dddddSdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddffffddddSdddddcccddh (h) c dc *dddddddd* hhdh ddddc dcc cddd d
  *                                                                                  *...*: here i am not sure at least it looks like it reads that much data (32 bytes), not sure about the format inside because it is not read thanks to the ususal parsing function
-
+ * dddddSddddQddddddddddddddddddddddddddddddddddddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddffffddddSdddddcccddh chaotic throne
  * @version $Revision: 1.14.2.4.2.12 $ $Date: 2005/04/11 10:05:55 $
  */
 public class UserInfo extends ServerBasePacket
@@ -256,19 +256,16 @@ public class UserInfo extends ServerBasePacket
         writeD(_cha.GetFishz()); //fishing z
 
         writeD(_cha.getNameColor());
-        if (getClient().getRevision() >= 690)
-        {
-            writeC(_cha.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window
-            writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
-            writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
-            writeD(_cha.getPledgeClass()); //C5 ??
-            writeD(0x00); // ??
-            writeD(_cha.getTitleColor()); //C5 ??
-            if (_cha.isCursedWeaponEquiped())
-                writeD(CursedWeaponsManager.getInstance().getLevel(_cha.getCursedWeaponEquipedId()));
-            else
-                writeD(0x00);
-        }
+        writeC(_cha.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window
+        writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
+        writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_FACE));
+        writeD(_cha.getPledgeClass()); //C5 ??
+        writeD(0x00); // ??
+        writeD(_cha.getTitleColor()); //C5 ??
+        if (_cha.isCursedWeaponEquiped())
+            writeD(CursedWeaponsManager.getInstance().getLevel(_cha.getCursedWeaponEquipedId()));
+        else
+            writeD(0x00);
     }
 
     /* (non-Javadoc)
