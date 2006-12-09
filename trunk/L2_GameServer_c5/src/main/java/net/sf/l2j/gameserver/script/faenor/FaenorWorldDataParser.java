@@ -27,7 +27,8 @@ import net.sf.l2j.gameserver.script.ParserFactory;
 import net.sf.l2j.gameserver.script.ScriptEngine;
 
 import org.apache.bsf.BSFManager;
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
 
 /**
@@ -36,7 +37,7 @@ import org.w3c.dom.Node;
  */
 public class FaenorWorldDataParser extends FaenorParser
 {
-    static Logger _log = Logger.getLogger(FaenorWorldDataParser.class.getName());
+    static Log _log = LogFactory.getLog(FaenorWorldDataParser.class.getName());
     //Script Types
     private final static String PET_DATA        = "PetData";
     

@@ -23,7 +23,8 @@ import net.sf.l2j.gameserver.script.ParserFactory;
 import net.sf.l2j.gameserver.script.ScriptEngine;
 
 import org.apache.bsf.BSFManager;
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
 
 /**
@@ -32,7 +33,7 @@ import org.w3c.dom.Node;
  */
 public class FaenorQuestParser extends FaenorParser
 {
-    private static Logger _log = Logger.getLogger(FaenorQuestParser.class.getName());
+    private final static Log _log = LogFactory.getLog(FaenorQuestParser.class.getName());
     
     public void parseScript(Node questNode, @SuppressWarnings("unused") BSFManager context)
     {

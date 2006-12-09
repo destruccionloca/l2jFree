@@ -54,7 +54,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public final class L2VillageMasterInstance extends L2FolkInstance
 {
-    //private static Logger _log = Logger.getLogger(L2VillageMasterInstance.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2VillageMasterInstance.class.getName());
 
     private static final int ELIXIR_ITEM_ID = 6319; // Mimir's Elixir (obtained through quest)
     private static final int DESTINY_ITEM_ID = 5011; // Star of Destiny

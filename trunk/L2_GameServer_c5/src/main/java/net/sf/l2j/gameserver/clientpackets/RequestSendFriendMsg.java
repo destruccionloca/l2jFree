@@ -27,7 +27,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.FriendRecvMsg;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Recieve Private (Friend) Message - 0xCC
@@ -43,7 +44,7 @@ import org.apache.log4j.Logger;
 public class RequestSendFriendMsg extends ClientBasePacket
 {
     private static final String _C__CC_REQUESTSENDMSG = "[C] CC RequestSendMsg";
-	private static Logger _logChat = Logger.getLogger("chat");
+	private static Log _logChat = LogFactory.getLog("chat");
     
     private String _message;
     private String _reciever;

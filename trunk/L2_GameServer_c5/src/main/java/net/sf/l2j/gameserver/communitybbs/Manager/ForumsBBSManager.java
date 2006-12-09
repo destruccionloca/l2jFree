@@ -22,7 +22,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -30,9 +29,12 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.communitybbs.BB.Forum;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class ForumsBBSManager extends BaseBBSManager
 {
-	private static Logger _log = Logger.getLogger(ForumsBBSManager.class.getName());
+	private final static Log _log = LogFactory.getLog(ForumsBBSManager.class.getName());
 	private Map<Integer, Forum> _root;
 	private List<Forum> _table;
 	private static ForumsBBSManager _Instance;

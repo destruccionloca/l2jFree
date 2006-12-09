@@ -37,11 +37,12 @@ import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.ShowBoard;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class RegionBBSManager extends BaseBBSManager
 {
-	private static Logger _logChat = Logger.getLogger("chat"); 
+	private static Log _logChat = LogFactory.getLog("chat"); 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.communitybbs.Manager.BaseBBSManager#parsecmd(java.lang.String, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance)
 	 */

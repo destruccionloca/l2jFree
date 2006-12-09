@@ -35,7 +35,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2SymbolMakerInstance extends L2FolkInstance
 {
-	//private static Logger _log = Logger.getLogger(L2SymbolMakerInstance.class.getName());
+	//private final static Log _log = LogFactory.getLog(L2SymbolMakerInstance.class.getName());
 	
 	private double _collisionRadius;   
 	private double _collisionHeight; // this is  positioning the model relative to the ground

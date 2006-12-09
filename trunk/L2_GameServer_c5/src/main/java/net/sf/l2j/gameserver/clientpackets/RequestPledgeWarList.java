@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -27,9 +26,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ManagePledgePower;
 import net.sf.l2j.gameserver.serverpackets.PledgeWarList;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class RequestPledgeWarList extends ClientBasePacket
 {
-    static Logger _log = Logger.getLogger(ManagePledgePower.class.getName());
+    static Log _log = LogFactory.getLog(ManagePledgePower.class.getName());
     static int _type;
     private static final String _C__C0_REQUESTPLEDGEPOWER = "[C] C0 RequestPledgeWarList";
     private int _page;

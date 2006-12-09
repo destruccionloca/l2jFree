@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.serverpackets.RecipeShopItemInfo;
  */
 public class RequestRecipeShopMakeInfo extends ClientBasePacket{
     private static final String _C__B5_RequestRecipeShopMakeInfo = "[C] b5 RequestRecipeShopMakeInfo";
-    //private static Logger _log = Logger.getLogger(RequestRecipeShopMakeInfo.class.getName());
+    //private final static Log _log = LogFactory.getLog(RequestRecipeShopMakeInfo.class.getName());
     
     @SuppressWarnings("unused")
     private final int _playerObjectId;

@@ -21,8 +21,6 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClanTable;
@@ -32,6 +30,10 @@ import net.sf.l2j.gameserver.idfactory.BitSetIDFactory;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Level;
+
 /**
  * This class ...
  * 
@@ -40,9 +42,10 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class RequestSetAllyCrest extends ClientBasePacket
 {
     private static final String _C__87_REQUESTSETALLYCREST = "[C] 87 RequestSetAllyCrest";
-    static Logger _log = Logger.getLogger(RequestSetAllyCrest.class.getName());
+    static Log _log = LogFactory.getLog(RequestSetAllyCrest.class.getName());
             
     private final int _length;
+    
     private final byte[] _data;
     
     public RequestSetAllyCrest(ByteBuffer buf, ClientThread client)
@@ -79,7 +82,7 @@ public class RequestSetAllyCrest extends ClientBasePacket
             
             if (!crestCache.saveAllyCrest(newId,_data))
             {
-                _log.log(Level.INFO, "Error loading crest of ally:" + leaderclan.getAllyName());
+                _log.info( "Error loading crest of ally:" + leaderclan.getAllyName());
                 return;
             }
             

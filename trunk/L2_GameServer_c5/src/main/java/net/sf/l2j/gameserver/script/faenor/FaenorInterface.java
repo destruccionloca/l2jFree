@@ -33,7 +33,8 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.bsf.BSFException;
 import org.apache.bsf.BSFManager;
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Luis Arias
@@ -43,7 +44,7 @@ import org.apache.log4j.Logger;
  */
 public class FaenorInterface implements EngineInterface
 {
-    private static Logger _log = Logger.getLogger(FaenorInterface.class);
+    private final static Log _log = LogFactory.getLog(FaenorInterface.class);
     private static FaenorInterface _instance;
     
     public static FaenorInterface getInstance()

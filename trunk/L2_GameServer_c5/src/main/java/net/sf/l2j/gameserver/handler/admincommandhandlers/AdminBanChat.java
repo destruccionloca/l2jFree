@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -27,6 +25,9 @@ import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class handles following admin commands:
@@ -42,7 +43,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * @version $Revision: 1.1.6.3 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminBanChat implements IAdminCommandHandler {
-	private static Logger _log = Logger.getLogger(AdminBan.class.getName());
+	private final static Log _log = LogFactory.getLog(AdminBan.class.getName());
 	private static String[] _adminCommands = {"admin_banchat", "admin_unbanchat"};
 	private static final int REQUIRED_LEVEL = Config.GM_BAN_CHAT;
 	

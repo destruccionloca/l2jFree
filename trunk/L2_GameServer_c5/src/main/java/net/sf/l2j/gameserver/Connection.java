@@ -30,7 +30,8 @@ import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.WrappedMessage;
 import net.sf.l2j.util.Util;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.ibm.io.async.AsyncSocketChannel;
 
@@ -41,7 +42,7 @@ import com.ibm.io.async.AsyncSocketChannel;
  */
 public final class Connection
 {
-    private static Logger _log = Logger.getLogger(Connection.class.getName());
+    private final static Log _log = LogFactory.getLog(Connection.class.getName());
 
     private Crypt _inCrypt;
     private Crypt _outCrypt;

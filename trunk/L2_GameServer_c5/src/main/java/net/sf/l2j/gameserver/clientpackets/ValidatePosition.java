@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -33,6 +32,9 @@ import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocationInVehicle;
 import net.sf.l2j.util.Point3D;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -40,7 +42,7 @@ import net.sf.l2j.util.Point3D;
  */
 public class ValidatePosition extends ClientBasePacket
 {
-    private static Logger _log = Logger.getLogger(ValidatePosition.class.getName());
+    private final static Log _log = LogFactory.getLog(ValidatePosition.class.getName());
     private static final String _C__48_VALIDATEPOSITION = "[C] 48 ValidatePosition";
     
     /** urgent messages, execute immediatly */

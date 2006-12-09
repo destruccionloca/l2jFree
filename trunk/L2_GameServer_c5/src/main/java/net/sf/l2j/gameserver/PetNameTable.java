@@ -22,7 +22,6 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.apache.log4j.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -31,9 +30,12 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2PetDataTable;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class PetNameTable
 {
-   private static Logger _log = Logger.getLogger(PetNameTable.class.getName());
+   private final static Log _log = LogFactory.getLog(PetNameTable.class.getName());
    
    private static PetNameTable _instance;
    

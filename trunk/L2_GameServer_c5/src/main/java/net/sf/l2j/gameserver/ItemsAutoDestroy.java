@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver;
 
 import java.util.List;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -28,9 +27,12 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class ItemsAutoDestroy
 {
-	protected static Logger _log = Logger.getLogger("ItemsAutoDestroy");
+	protected static Log _log = LogFactory.getLog("ItemsAutoDestroy");
 	private static ItemsAutoDestroy _instance;
 	protected List<L2ItemInstance> _items = null;
 	protected static long _sleep;

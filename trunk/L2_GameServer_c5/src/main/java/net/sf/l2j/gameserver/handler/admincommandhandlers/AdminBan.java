@@ -24,8 +24,6 @@ import java.sql.SQLException;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.LoginServerThread;
@@ -35,6 +33,9 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class handles following admin commands:
  * - kill = kills target L2Character
@@ -43,9 +44,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AdminBan implements IAdminCommandHandler {
     
-    private static Logger _log = Logger.getLogger(AdminBan.class);
+    private final static Log _log = LogFactory.getLog(AdminBan.class);
     
-    //private static Logger _log = Logger.getLogger(AdminBan.class.getName());
+    //private final static Log _log = LogFactory.getLog(AdminBan.class.getName());
     private static String[] _adminCommands = {"admin_ban", "admin_unban","admin_jail","admin_unjail"};
     private static final int REQUIRED_LEVEL = Config.GM_BAN;
 

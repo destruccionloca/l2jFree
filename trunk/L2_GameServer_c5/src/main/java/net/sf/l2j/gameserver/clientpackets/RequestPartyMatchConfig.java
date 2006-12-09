@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.ClientThread;
 public class RequestPartyMatchConfig extends ClientBasePacket
 {
 	private static final String _C__6F_REQUESTPARTYMATCHCONFIG = "[C] 6F RequestPartyMatchConfig";
-	//private static Logger _log = Logger.getLogger(RequestPartyMatchConfig.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestPartyMatchConfig.class.getName());
 
 	private final int _automaticRegistration;
 	private final int _showLevel;

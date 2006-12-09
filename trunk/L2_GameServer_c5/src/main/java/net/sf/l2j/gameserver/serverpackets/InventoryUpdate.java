@@ -23,7 +23,8 @@ import java.util.List;
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -53,7 +54,7 @@ import org.apache.log4j.Logger;
 
 public class InventoryUpdate extends ServerBasePacket
 {
-	private static Logger _log = Logger.getLogger(InventoryUpdate.class.getName());
+	private final static Log _log = LogFactory.getLog(InventoryUpdate.class.getName());
 	private static final String _S__37_INVENTORYUPDATE = "[S] 27 InventoryUpdate";
 	
     private List<ItemInfo> _items;

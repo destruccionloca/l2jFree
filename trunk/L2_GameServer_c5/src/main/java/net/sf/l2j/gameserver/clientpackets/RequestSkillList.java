@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.serverpackets.SkillList;
 public class RequestSkillList extends ClientBasePacket
 {
 	private static final String _C__3F_REQUESTSKILLLIST = "[C] 3F RequestSkillList";
-	//private static Logger _log = Logger.getLogger(RequestSkillList.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestSkillList.class.getName());
     @SuppressWarnings("unused")
 	private final int _unk1;
     @SuppressWarnings("unused")

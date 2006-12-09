@@ -26,12 +26,14 @@
 package net.sf.l2j.gameserver.taskmanager;
 
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.serverpackets.AutoAttackStop;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -41,7 +43,7 @@ import net.sf.l2j.gameserver.serverpackets.AutoAttackStop;
  */
 public class AttackStanceTaskManager
 {
-    protected static Logger _log = Logger.getLogger(AttackStanceTaskManager.class.getName());
+    protected static Log _log = LogFactory.getLog(AttackStanceTaskManager.class.getName());
 
     protected Map<L2Character,Long> _attackStanceTasks = new FastMap<L2Character,Long>().setShared(true);
     

@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -37,6 +36,9 @@ import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -46,7 +48,7 @@ public class RequestCrystallizeItem extends ClientBasePacket
 {
 	private static final String _C__72_REQUESTDCRYSTALLIZEITEM = "[C] 72 RequestCrystallizeItem";
 
-	private static Logger _log = Logger.getLogger(RequestCrystallizeItem.class
+	private final static Log _log = LogFactory.getLog(RequestCrystallizeItem.class
 			.getName());
 
 	private final int _objectId;

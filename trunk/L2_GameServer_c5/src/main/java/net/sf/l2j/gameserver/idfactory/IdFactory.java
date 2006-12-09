@@ -21,10 +21,12 @@ package net.sf.l2j.gameserver.idfactory;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -33,7 +35,7 @@ import net.sf.l2j.L2DatabaseFactory;
  */
 public abstract class IdFactory
 {
-	private static Logger _log = Logger.getLogger(IdFactory.class.getName());
+	private final static Log _log = LogFactory.getLog(IdFactory.class.getName());
 
 	protected static String[] id_updates = 
 	{

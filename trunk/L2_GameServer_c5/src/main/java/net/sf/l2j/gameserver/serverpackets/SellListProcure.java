@@ -13,7 +13,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class SellListProcure extends ServerBasePacket
 {
     private static final String _S__E9_SELLLISTPROCURE = "[S] E9 SellListProcure";
-    //private static Logger _log = Logger.getLogger(SellListProcure.class.getName());
+    //private final static Log _log = LogFactory.getLog(SellListProcure.class.getName());
     
     private final L2PcInstance _char;
     private int _money;

@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AdminChangeAccessLevel implements IAdminCommandHandler
 {
-    //private static Logger _log = Logger.getLogger(AdminChangeAccessLevel.class.getName());
+    //private final static Log _log = LogFactory.getLog(AdminChangeAccessLevel.class.getName());
 
     private static String[] _adminCommands = { "admin_changelvl" };
 

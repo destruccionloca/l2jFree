@@ -48,7 +48,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 */
 public class AdminEffects implements IAdminCommandHandler
 {
-   //private static Logger _log = Logger.getLogger(AdminDelete.class.getName());
+   //private final static Log _log = LogFactory.getLog(AdminDelete.class.getName());
 
    private static String[] _adminCommands = { "admin_invis", "admin_invisible", "admin_vis",
 	   "admin_visible", "admin_earthquake", "admin_bighead", "admin_shrinkhead", 

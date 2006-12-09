@@ -35,7 +35,7 @@ import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 public class RequestPetGetItem extends ClientBasePacket
 {
 
-	//private static Logger _log = Logger.getLogger(RequestPetGetItem.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestPetGetItem.class.getName());
 	private static final String _C__8f_REQUESTPETGETITEM= "[C] 8F RequestPetGetItem";
 	
 	private final int _objectId;

@@ -182,7 +182,7 @@ public class L2ClanMember
         }
         catch (Exception e)
         {
-            //_log.warning("could not set char power_grade:"+e);
+            //_log.warn("could not set char power_grade:"+e);
         }
         finally
         {

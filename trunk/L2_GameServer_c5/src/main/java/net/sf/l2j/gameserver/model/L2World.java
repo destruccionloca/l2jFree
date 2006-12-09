@@ -22,7 +22,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.Logger;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -33,6 +33,9 @@ import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.util.L2ObjectMap;
 import net.sf.l2j.util.Point3D;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -40,7 +43,7 @@ import net.sf.l2j.util.Point3D;
  */
 public final class L2World
 {
-    private static Logger _log = Logger.getLogger(L2World.class.getName());
+    private final static Log _log = LogFactory.getLog(L2World.class.getName());
     
     /*
      * biteshift, defines number of regions

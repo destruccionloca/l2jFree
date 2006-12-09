@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.model;
 
 import java.util.List;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -31,6 +30,9 @@ import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Advi
@@ -119,7 +121,7 @@ public class TradeList
         }
     }
 
-    private static Logger _log = Logger.getLogger(TradeList.class.getName());
+    private final static Log _log = LogFactory.getLog(TradeList.class.getName());
 
     private L2PcInstance _owner;
     private L2PcInstance _partner;

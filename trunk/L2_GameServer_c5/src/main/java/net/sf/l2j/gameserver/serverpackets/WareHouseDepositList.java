@@ -21,7 +21,8 @@ package net.sf.l2j.gameserver.serverpackets;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 0x53 WareHouseDepositList  dh (h dddhh dhhh d)
@@ -34,7 +35,7 @@ public class WareHouseDepositList extends ServerBasePacket
 	public static final int Clan = 2;
 	public static final int Castle = 3; //not sure
 	public static final int Freight = 4; //not sure
-	private static Logger _log = Logger.getLogger(WareHouseDepositList.class.getName());
+	private final static Log _log = LogFactory.getLog(WareHouseDepositList.class.getName());
 	private static final String _S__53_WAREHOUSEDEPOSITLIST = "[S] 41 WareHouseDepositList";
 	private L2PcInstance _player;
 	private int _playerAdena;

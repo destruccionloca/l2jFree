@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 public class RequestJoinSiege extends ClientBasePacket{
     
     private static final String _C__a4_RequestJoinSiege = "[C] a4 RequestJoinSiege";
-    //private static Logger _log = Logger.getLogger(RequestJoinSiege.class.getName());
+    //private final static Log _log = LogFactory.getLog(RequestJoinSiege.class.getName());
 
     private final int _CastleId;
     private final int _IsAttacker;

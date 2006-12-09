@@ -24,7 +24,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -37,7 +38,7 @@ import org.apache.log4j.Logger;
 public class RecipeItemMakeInfo extends ServerBasePacket
 {
     private static final String _S__D7_RECIPEITEMMAKEINFO = "[S] D7 RecipeItemMakeInfo";
-    private static Logger _log = Logger.getLogger(RecipeItemMakeInfo.class.getName());
+    private final static Log _log = LogFactory.getLog(RecipeItemMakeInfo.class.getName());
 
     private int _id;
     private L2PcInstance _player;

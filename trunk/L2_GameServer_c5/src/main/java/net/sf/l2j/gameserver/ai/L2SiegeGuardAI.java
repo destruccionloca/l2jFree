@@ -41,7 +41,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
 /**
  * This class manages AI of L2Attackable.<BR><BR>
  * 
@@ -49,7 +49,7 @@ import org.apache.log4j.Logger;
 public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 {
 
-    //protected static final Logger _log = Logger.getLogger(L2SiegeGuardAI.class.getName());
+    //protected static final Log _log = LogFactory.getLog(L2SiegeGuardAI.class.getName());
 
     private static final int MAX_ATTACK_TIMEOUT = 300; // int ticks, i.e. 30 seconds 
 
@@ -312,7 +312,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
         }
         catch (NullPointerException e)
         {
-            //_log.warning("AttackableAI: Attack target is NULL.");
+            //_log.warn("AttackableAI: Attack target is NULL.");
             _actor.setTarget(null);
             setIntention(AI_INTENTION_IDLE, null, null);
             return;

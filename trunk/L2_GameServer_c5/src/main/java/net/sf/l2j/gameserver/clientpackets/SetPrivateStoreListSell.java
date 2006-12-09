@@ -36,7 +36,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class SetPrivateStoreListSell extends ClientBasePacket
 {
     private static final String _C__74_SETPRIVATESTORELISTSELL = "[C] 74 SetPrivateStoreListSell";
-    //private static Logger _log = Logger.getLogger(SetPrivateStoreListSell.class.getName());
+    //private final static Log _log = LogFactory.getLog(SetPrivateStoreListSell.class.getName());
 
     private int _count;
     private boolean _packageSale;

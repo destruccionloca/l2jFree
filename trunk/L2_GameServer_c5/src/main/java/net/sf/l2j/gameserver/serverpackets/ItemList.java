@@ -21,7 +21,8 @@ package net.sf.l2j.gameserver.serverpackets;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -52,7 +53,7 @@ import org.apache.log4j.Logger;
  */
 public class ItemList extends ServerBasePacket
 {
-	private static Logger _log = Logger.getLogger(ItemList.class.getName());
+	private final static Log _log = LogFactory.getLog(ItemList.class.getName());
 	private static final String _S__27_ITEMLIST = "[S] 1b ItemList";
 	private L2ItemInstance[] _items;
 	private boolean _showWindow;

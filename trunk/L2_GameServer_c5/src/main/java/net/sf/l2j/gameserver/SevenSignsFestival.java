@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -32,6 +31,9 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  *  Seven Signs Festival of Darkness Engine
  *    
@@ -43,7 +45,7 @@ import net.sf.l2j.gameserver.util.Util;
  */
 public class SevenSignsFestival implements SpawnListener 
 {
-    protected static Logger _log = Logger.getLogger(SevenSignsFestival.class.getName());
+    protected static Log _log = LogFactory.getLog(SevenSignsFestival.class.getName());
     private static SevenSignsFestival _instance;
     
     public static final String FESTIVAL_DATA_FILE = "config/signs.properties";

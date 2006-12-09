@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
 
 public class Fishing implements ISkillHandler 
 { 
-    //private static Logger _log = Logger.getLogger(SiegeFlag.class.getName()); 
+    //private final static Log _log = LogFactory.getLog(SiegeFlag.class.getName()); 
     //protected SkillType[] _skillIds = {SkillType.FISHING};
     protected SkillType[] _skillIds = {SkillType.FISHING}; 
     

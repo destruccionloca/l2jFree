@@ -37,7 +37,7 @@ package net.sf.l2j.gameserver.serverpackets;
 public class AskJoinAlly extends ServerBasePacket
 {
 	private static final String _S__a8_ASKJOINALLY_0Xa8 = "[S] a8 AskJoinAlly 0xa8";
-	//private static Logger _log = Logger.getLogger(AskJoinAlly.class.getName());
+	//private final static Log _log = LogFactory.getLog(AskJoinAlly.class.getName());
 
 	private String _requestorName;
     private int _requestorId;

@@ -38,7 +38,8 @@ import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -49,7 +50,7 @@ public class RequestDestroyItem extends ClientBasePacket
 {
 
 	private static final String _C__59_REQUESTDESTROYITEM = "[C] 59 RequestDestroyItem";
-	private static Logger _log = Logger.getLogger(RequestDestroyItem.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestDestroyItem.class.getName());
 
 	private int _objectId;
 	private int _count;

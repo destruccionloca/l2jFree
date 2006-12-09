@@ -47,7 +47,8 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -56,8 +57,8 @@ import org.apache.log4j.Logger;
  */
 public class ItemTable
 {
-    private static Logger _log = Logger.getLogger(ItemTable.class.getName());
-    private static Logger _logItems = Logger.getLogger("item");
+    private final static Log _log = LogFactory.getLog(ItemTable.class.getName());
+    private static Log _logItems = LogFactory.getLog("item");
     
     private static final Map<String, Integer> _materials = new FastMap<String, Integer>();
     private static final Map<String, Integer> _crystalTypes = new FastMap<String, Integer>();

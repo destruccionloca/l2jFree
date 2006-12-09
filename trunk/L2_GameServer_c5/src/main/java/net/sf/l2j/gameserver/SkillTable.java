@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
  */
 public class SkillTable
 {
-	//private static Logger _log = Logger.getLogger(SkillTable.class.getName());
+	//private final static Log _log = LogFactory.getLog(SkillTable.class.getName());
 	private static SkillTable _instance;
 	
 	private Map<Integer, L2Skill> _skills;

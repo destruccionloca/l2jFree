@@ -40,7 +40,7 @@ import net.sf.l2j.gameserver.templates.StatsSet;
  */
 public final class L2FestivalGuideInstance extends L2FolkInstance
 {
-    //private static Logger _log = Logger.getLogger(L2FestivalGuideInstance.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2FestivalGuideInstance.class.getName());
     
     protected int _festivalType; 
     protected int _festivalOracle;

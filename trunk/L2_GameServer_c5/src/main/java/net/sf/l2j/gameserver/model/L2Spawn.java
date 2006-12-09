@@ -31,7 +31,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class manages the spawn and respawn of a group of L2NpcInstance that are in the same are and have the same type.
@@ -45,7 +46,7 @@ import org.apache.log4j.Logger;
  */
 public class L2Spawn
 {
-    protected static Logger _log = Logger.getLogger(L2Spawn.class.getName());
+    protected static Log _log = LogFactory.getLog(L2Spawn.class.getName());
     
     /** The link on the L2NpcTemplate object containing generic and static properties of this spawn (ex : RewardExp, RewardSP, AggroRange...) */
 	private L2NpcTemplate _template;

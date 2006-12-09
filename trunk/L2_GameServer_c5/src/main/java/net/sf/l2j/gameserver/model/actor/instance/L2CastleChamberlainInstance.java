@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2CastleChamberlainInstance extends L2FolkInstance
 {
-    //private static Logger _log = Logger.getLogger(L2CastleChamberlainInstance.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2CastleChamberlainInstance.class.getName());
 
     protected static int Cond_All_False = 0;
     protected static int Cond_Busy_Because_Of_Siege = 1;

@@ -26,7 +26,8 @@ import java.util.zip.ZipFile;
 
 import javolution.util.FastList;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Luis Arias
@@ -36,7 +37,7 @@ import org.apache.log4j.Logger;
  */
 public class ScriptPackage
 {
-    private static Logger _log = Logger.getLogger(ScriptPackage.class);
+    private final static Log _log = LogFactory.getLog(ScriptPackage.class);
     
     private List<ScriptDocument> scriptFiles;
     private List<String> otherFiles;

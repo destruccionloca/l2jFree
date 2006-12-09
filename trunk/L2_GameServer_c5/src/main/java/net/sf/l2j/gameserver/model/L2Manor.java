@@ -8,11 +8,13 @@ import java.io.LineNumberReader;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Service class for manor
@@ -21,7 +23,7 @@ import net.sf.l2j.Config;
 
 public class L2Manor
 {
-    private static Logger _log = Logger.getLogger(L2Manor.class.getName());
+    private final static Log _log = LogFactory.getLog(L2Manor.class.getName());
     private static final L2Manor INstance = new L2Manor();
     
     private L2Manor()

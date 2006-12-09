@@ -19,15 +19,14 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.MapRegionTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
-import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
+import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
@@ -38,6 +37,9 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -46,7 +48,7 @@ import net.sf.l2j.gameserver.util.Util;
 public class RequestRestartPoint extends ClientBasePacket
 {
     private static final String _C__6d_REQUESTRESTARTPOINT = "[C] 6d RequestRestartPoint";
-    private static Logger _log = Logger.getLogger(RequestRestartPoint.class.getName());	
+    private final static Log _log = LogFactory.getLog(RequestRestartPoint.class.getName());	
     
     protected int     requestedPointType;
     protected boolean continuation;

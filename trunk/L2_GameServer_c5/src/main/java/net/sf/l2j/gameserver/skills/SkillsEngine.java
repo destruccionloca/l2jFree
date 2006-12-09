@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.skills;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -33,6 +32,9 @@ import net.sf.l2j.gameserver.templates.L2EtcItemType;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author mkizub
  *
@@ -41,7 +43,7 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
  */
 public class SkillsEngine {
 
-    protected static Logger _log = Logger.getLogger(SkillsEngine.class.getName());
+    protected static Log _log = LogFactory.getLog(SkillsEngine.class.getName());
 	
 	private static final SkillsEngine _instance = new SkillsEngine();
 	

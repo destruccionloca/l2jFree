@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -39,6 +38,9 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * Format chdd
  * c: (id) 0xD0
@@ -51,7 +53,7 @@ import net.sf.l2j.gameserver.util.Util;
 public class RequestExEnchantSkill extends ClientBasePacket
 {
 	private static final String _C__D0_07_REQUESTEXENCHANTSKILL = "[C] D0:07 RequestExEnchantSkill";
-    private static Logger _log = Logger.getLogger(RequestAquireSkill.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestAquireSkill.class.getName());
 	@SuppressWarnings("unused")
 	private int _id;
 	@SuppressWarnings("unused")

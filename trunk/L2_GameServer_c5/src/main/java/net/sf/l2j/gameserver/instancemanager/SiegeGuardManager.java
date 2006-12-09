@@ -3,7 +3,6 @@ package net.sf.l2j.gameserver.instancemanager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -14,9 +13,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class SiegeGuardManager {
 	
-	private static Logger _log = Logger.getLogger(SiegeGuardManager.class.getName());
+	private final static Log _log = LogFactory.getLog(SiegeGuardManager.class.getName());
 	
     // =========================================================
     // Data Field

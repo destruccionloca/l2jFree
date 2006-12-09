@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class SummonTreasureKey implements ISkillHandler
 {
-    //private static Logger _log = Logger.getLogger(SiegeFlag.class.getName()); 
+    //private final static Log _log = LogFactory.getLog(SiegeFlag.class.getName()); 
     protected SkillType[] _skillIds = {SkillType.SUMMON_TREASURE_KEY};
 
     public void useSkill(L2Character activeChar, @SuppressWarnings("unused")

@@ -39,7 +39,8 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -50,7 +51,7 @@ import org.w3c.dom.Node;
  */
 public class CursedWeaponsManager
 {
-    private static final Logger _log = Logger.getLogger(CursedWeaponsManager.class.getName());
+    private static final Log _log = LogFactory.getLog(CursedWeaponsManager.class.getName());
 
     // =========================================================
     private static CursedWeaponsManager _Instance;

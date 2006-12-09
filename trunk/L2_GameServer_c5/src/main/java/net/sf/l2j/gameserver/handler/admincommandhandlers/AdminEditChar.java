@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.Collection;
 import java.util.StringTokenizer;
-import org.apache.log4j.Logger;
 
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
@@ -40,6 +39,9 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class handles following admin commands:
  * - edit_character
@@ -53,7 +55,7 @@ import net.sf.l2j.gameserver.util.Util;
  */
 public class AdminEditChar implements IAdminCommandHandler 
 {
-	private static Logger _log = Logger.getLogger(AdminEditChar.class.getName());
+	private final static Log _log = LogFactory.getLog(AdminEditChar.class.getName());
 	
    private static String[] _adminCommands = 
     {

@@ -21,7 +21,8 @@ package net.sf.l2j.gameserver.serverpackets;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.templates.L2Item;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 5e 
@@ -57,7 +58,7 @@ import org.apache.log4j.Logger;
 public class EquipUpdate extends ServerBasePacket
 {
 	private static final String _S__5E_EQUIPUPDATE = "[S] 4b EquipUpdate";
-	private static Logger _log = Logger.getLogger(EquipUpdate.class.getName());
+	private final static Log _log = LogFactory.getLog(EquipUpdate.class.getName());
 			
 	private L2ItemInstance _item;
 	private int _change;

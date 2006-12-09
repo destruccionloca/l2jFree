@@ -21,13 +21,15 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -36,7 +38,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class RequestFriendList extends ClientBasePacket
 {
-	private static Logger _log = Logger.getLogger(RequestFriendList.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestFriendList.class.getName());
 	private static final String _C__60_REQUESTFRIENDLIST = "[C] 60 RequestFriendList";
 	
 	/**

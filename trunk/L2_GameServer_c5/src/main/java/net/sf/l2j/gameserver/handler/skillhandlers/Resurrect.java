@@ -37,7 +37,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class Resurrect implements ISkillHandler
 {
-	//private static Logger _log = Logger.getLogger(Resurrect.class.getName());
+	//private final static Log _log = LogFactory.getLog(Resurrect.class.getName());
 	
 	private static SkillType[] _skillIds = {SkillType.RESURRECT};
 	

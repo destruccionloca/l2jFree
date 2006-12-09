@@ -25,7 +25,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.CharSelected;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -35,7 +36,7 @@ import org.apache.log4j.Logger;
 public class CharacterSelected extends ClientBasePacket
 {
 	private static final String _C__0D_CHARACTERSELECTED = "[C] 0D CharacterSelected";
-	private static Logger _log = Logger.getLogger(CharacterSelected.class.getName());
+	private final static Log _log = LogFactory.getLog(CharacterSelected.class.getName());
 
 	// cd
 	private final int _charSlot;

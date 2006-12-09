@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.model.actor.position;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -12,9 +10,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.util.Point3D;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class ObjectPosition
 {
-    private static final Logger _log = Logger.getLogger(ObjectPosition.class.getName());
+    private static final Log _log = LogFactory.getLog(ObjectPosition.class.getName());
 
     // =========================================================
     // Data Field

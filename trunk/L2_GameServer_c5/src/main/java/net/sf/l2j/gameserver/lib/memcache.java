@@ -1,11 +1,13 @@
 package net.sf.l2j.gameserver.lib;
 
 import java.util.HashMap;
-import org.apache.log4j.Logger;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class memcache
 {
-	private static Logger _log = Logger.getLogger(memcache.class.getName());
+	private final static Log _log = LogFactory.getLog(memcache.class.getName());
 	private HashMap<Integer,String> _hms;
 	private HashMap<Integer,Integer> _hmi;
 	private HashMap<Integer,Long> _last_access;

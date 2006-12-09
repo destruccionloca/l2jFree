@@ -24,7 +24,8 @@ import java.io.FileNotFoundException;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * extension loader for l2j
@@ -32,7 +33,7 @@ import org.apache.log4j.Logger;
  * @version $Id: DynamicExtension.java,v 1.3 2006/05/14 17:19:39 galun Exp $
  */
 public class DynamicExtension {
-	private static Logger log = Logger.getLogger(DynamicExtension.class.getCanonicalName());
+	private static Log _log = LogFactory.getLog(DynamicExtension.class.getCanonicalName());
 	private JarClassLoader classLoader;
 	private static final String CONFIG = "config/extensions.properties";
 	private Properties prop;
@@ -83,9 +84,9 @@ public class DynamicExtension {
 		try {
 			prop.load(new FileInputStream(CONFIG));
         } catch (FileNotFoundException ex) {
-            log.info(ex.getMessage() + ": no extensions to load");
+            _log.info(ex.getMessage() + ": no extensions to load");
 		} catch (Exception ex) {
-			log.warn( "could not load properties", ex);
+			_log.warn( "could not load properties", ex);
 		}
 		classLoader = new JarClassLoader();
 		for (Object o : prop.keySet()) {
@@ -114,10 +115,10 @@ public class DynamicExtension {
             Class extension = Class.forName(className, true, classLoader);
             Object obj = extension.newInstance();
             extension.getMethod("init", new Class[0]).invoke(obj, new Object[0]);
-            log.info("Extension " + className + " loaded.");
+            _log.info("Extension " + className + " loaded.");
             loadedExtensions.put(className, obj);
         } catch (Exception ex) {
-            log.warn( name, ex);
+            _log.warn( name, ex);
         }
     }
 
@@ -154,9 +155,9 @@ public class DynamicExtension {
             Class extension = obj.getClass();
             loadedExtensions.remove(className);
             extension.getMethod("unload", new Class[0]).invoke(obj, new Object[0]);
-            log.info("Extension " + className + " unloaded.");
+            _log.info("Extension " + className + " unloaded.");
         } catch (Exception ex) {
-            log.warn( "could not unload " + className, ex);
+            _log.warn( "could not unload " + className, ex);
         }
     }
 

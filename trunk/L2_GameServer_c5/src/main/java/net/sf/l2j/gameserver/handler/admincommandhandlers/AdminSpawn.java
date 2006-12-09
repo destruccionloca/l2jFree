@@ -20,12 +20,10 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
-import org.apache.log4j.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javolution.lang.TextBuilder;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.NpcTable;
@@ -42,6 +40,9 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class handles following admin commands: - show_spawns = shows menu -
  * spawn_index lvl = shows menu for monsters with respective level -
@@ -55,7 +56,7 @@ public class AdminSpawn implements IAdminCommandHandler
     private static String[] _adminCommands = { "admin_show_spawns", "admin_spawn", "admin_spawn_monster", "admin_spawn_index",
                                                 "admin_unspawnall","admin_respawnall","admin_spawn_reload","admin_npc_index",
                                                 "admin_show_npcs","admin_teleport_reload", "admin_spawnnight", "admin_spawnday" };
-    public static Logger _log = Logger.getLogger(AdminSpawn.class.getName());
+    public static Log _log = LogFactory.getLog(AdminSpawn.class.getName());
 
     private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
     private static final int REQUIRED_LEVEL2 = Config.GM_TELEPORT_OTHER;

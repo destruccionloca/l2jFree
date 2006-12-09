@@ -23,7 +23,6 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Base64;
 import net.sf.l2j.Config;
@@ -72,6 +71,9 @@ import net.sf.l2j.gameserver.serverpackets.SignsSky;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 //import net.sf.l2j.gameserver.serverpackets.ExStorageMaxCount;
 
 /**
@@ -86,7 +88,7 @@ import net.sf.l2j.gameserver.serverpackets.UserInfo;
 public class EnterWorld extends ClientBasePacket
 {
 	private static final String _C__03_ENTERWORLD = "[C] 03 EnterWorld";
-	private static Logger _log = Logger.getLogger(EnterWorld.class.getName());
+	private final static Log _log = LogFactory.getLog(EnterWorld.class.getName());
 
 	public TaskPriority getPriority() { return TaskPriority.PR_URGENT; }
 

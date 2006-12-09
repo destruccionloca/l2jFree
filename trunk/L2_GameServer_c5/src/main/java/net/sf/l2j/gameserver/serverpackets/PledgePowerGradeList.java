@@ -18,10 +18,11 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Clan.RankPrivs;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -41,7 +42,7 @@ public class PledgePowerGradeList extends ServerBasePacket
 	private static final String _S__FE_3B_PLEDGEPOWERGRADELIST = "[S] FE:3B PledgePowerGradeList";
 	private L2Clan _clan;
     private RankPrivs[] _privs;
-    private static Logger _log = Logger.getLogger(ServerBasePacket.class.getName());
+    private final static Log _log = LogFactory.getLog(ServerBasePacket.class.getName());
 
 	
 	public PledgePowerGradeList(RankPrivs[] privs)

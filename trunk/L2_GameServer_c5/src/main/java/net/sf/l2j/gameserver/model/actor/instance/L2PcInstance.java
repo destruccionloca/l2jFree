@@ -157,7 +157,7 @@ import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListDeleteAll;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListUpdate;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreListBuy;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreListSell;
-import net.sf.l2j.gameserver.serverpackets.QuestList; 
+import net.sf.l2j.gameserver.serverpackets.QuestList;
 import net.sf.l2j.gameserver.serverpackets.RecipeShopSellList;
 import net.sf.l2j.gameserver.serverpackets.Ride;
 import net.sf.l2j.gameserver.serverpackets.SendTradeDone;
@@ -184,8 +184,6 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.util.Broadcast;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.util.Point3D;
-
-import org.apache.log4j.Level;
 
 /**
  * This class represents all player characters in the world.
@@ -237,7 +235,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private static final int[] COMMON_CRAFT_LEVELS = {5, 20, 28, 36, 43, 49, 55, 62};
 
-    //private static Logger _log = Logger.getLogger(L2PcInstance.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2PcInstance.class.getName());
 
     public class AIAccessor extends L2Character.AIAccessor
     {
@@ -3255,7 +3253,7 @@ public final class L2PcInstance extends L2PlayableInstance
             }
             catch (Exception e)
             {
-                _log.log(Level.INFO, "", e);
+                _log.info( "", e);
             }
         }
     }

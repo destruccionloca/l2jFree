@@ -97,7 +97,8 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.util.Util;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Mother class of all character objects of the world (PC, NPC...)<BR><BR>
@@ -121,7 +122,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class L2Character extends L2Object
 {
-    protected static final Logger _log = Logger.getLogger(L2Character.class.getName());
+    protected static final Log _log = LogFactory.getLog(L2Character.class.getName());
 
     // =========================================================
     // Data Field

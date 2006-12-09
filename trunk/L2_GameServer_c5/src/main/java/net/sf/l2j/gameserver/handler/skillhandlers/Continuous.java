@@ -40,7 +40,7 @@ import net.sf.l2j.gameserver.skills.Formulas;
 
 public class Continuous implements ISkillHandler
 {
-	//private static Logger _log = Logger.getLogger(Continuous.class.getName());
+	//private final static Log _log = LogFactory.getLog(Continuous.class.getName());
 	
 	private static SkillType[] _skillIds = {
 		L2Skill.SkillType.BUFF,

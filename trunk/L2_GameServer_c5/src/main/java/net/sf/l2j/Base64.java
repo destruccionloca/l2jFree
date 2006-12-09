@@ -22,7 +22,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Encodes and decodes to and from Base64 notation.
@@ -64,7 +65,7 @@ public class Base64
     /* ********  P R I V A T E   F I E L D S  ******** */
     
     /** Logger */
-    private static Logger _log = Logger.getLogger(Base64.class); 
+    private final static Log _log = LogFactory.getLog(Base64.class); 
 
     /** Maximum line length (76) of Base64 output. */
     private final static int MAX_LINE_LENGTH = 76;

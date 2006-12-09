@@ -21,8 +21,6 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
@@ -31,6 +29,10 @@ import net.sf.l2j.gameserver.idfactory.BitSetIDFactory;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Level;
 
 /**
  * Format : chdb
@@ -44,7 +46,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class RequestExSetPledgeCrestLarge extends ClientBasePacket
 {
 	private static final String _C__D0_11_REQUESTEXSETPLEDGECRESTLARGE = "[C] D0:11 RequestExSetPledgeCrestLarge";
-	static Logger _log = Logger.getLogger(RequestExSetPledgeCrestLarge.class.getName());
+	static Log _log = LogFactory.getLog(RequestExSetPledgeCrestLarge.class.getName());
 	private int _size;
 	private byte[] _data;
 
@@ -107,7 +109,7 @@ public class RequestExSetPledgeCrestLarge extends ClientBasePacket
             
             if (!crestCache.savePledgeCrestLarge(newId,_data))
             {
-                _log.log(Level.INFO, "Error loading large crest of clan:" + clan.getName());
+                _log.info( "Error loading large crest of clan:" + clan.getName());
                 return;
             }
             

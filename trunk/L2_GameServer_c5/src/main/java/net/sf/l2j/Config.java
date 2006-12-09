@@ -31,10 +31,12 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class containce global server configuration.<br>
@@ -46,7 +48,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public final class Config {
 
-	protected static Logger _log = Logger.getLogger(Config.class.getName());
+	protected static Log _log = LogFactory.getLog(Config.class.getName());
     /** Enable/disable assertions */
     public static boolean ASSERT;
 

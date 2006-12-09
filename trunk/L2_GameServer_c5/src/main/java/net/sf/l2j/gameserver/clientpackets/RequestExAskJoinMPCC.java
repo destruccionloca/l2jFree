@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class RequestExAskJoinMPCC extends ClientBasePacket
 {
-	//private static Logger _log = Logger.getLogger(RequestExAskJoinMPCC.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestExAskJoinMPCC.class.getName());
 	private static final String _C__D0_0D_REQUESTEXASKJOINMPCC = "[C] D0:0D RequestExAskJoinMPCC";
 	private String _name;
 	

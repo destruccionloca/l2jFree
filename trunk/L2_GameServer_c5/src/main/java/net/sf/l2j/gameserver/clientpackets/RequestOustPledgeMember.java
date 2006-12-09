@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -29,6 +28,9 @@ import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListDelete;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListDeleteAll;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -37,7 +39,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class RequestOustPledgeMember extends ClientBasePacket
 {
 	private static final String _C__27_REQUESTOUSTPLEDGEMEMBER = "[C] 27 RequestOustPledgeMember";
-	static Logger _log = Logger.getLogger(RequestOustPledgeMember.class.getName());
+	static Log _log = LogFactory.getLog(RequestOustPledgeMember.class.getName());
 
 	private final String _target;
 	

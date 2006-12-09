@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
-import org.apache.log4j.Logger;
 
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
@@ -40,6 +39,9 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class handles following admin commands:
  * - show_moves
@@ -52,7 +54,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class AdminTeleport implements IAdminCommandHandler 
 {
-    private static final Logger _log = Logger.getLogger(AdminTeleport.class.getName());
+    private static final Log _log = LogFactory.getLog(AdminTeleport.class.getName());
     
     private static String[] _adminCommands = {
         "admin_show_moves",

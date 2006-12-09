@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
-import org.apache.log4j.Logger;
 
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
@@ -36,6 +35,9 @@ import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class handles following admin commands:
  * - show_skills
@@ -51,7 +53,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * @version $Revision: 1.2.4.7 $ $Date: 2005/04/11 10:06:02 $
  */
 public class AdminSkill implements IAdminCommandHandler {
-	private static Logger _log = Logger.getLogger(AdminSkill.class.getName());
+	private final static Log _log = LogFactory.getLog(AdminSkill.class.getName());
 	
 	private static String[] _adminCommands = {
 			"admin_show_skills",

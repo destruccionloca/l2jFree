@@ -1,7 +1,6 @@
 package net.sf.l2j.gameserver.instancemanager;
 
 import java.util.List;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -9,9 +8,12 @@ import net.sf.l2j.gameserver.model.entity.OlympiadStadia;
 import net.sf.l2j.gameserver.model.entity.Zone;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class OlympiadStadiaManager
 {
-    protected static Logger _log = Logger.getLogger(OlympiadStadiaManager.class.getName());
+    protected static Log _log = LogFactory.getLog(OlympiadStadiaManager.class.getName());
 
     // =========================================================
     private static OlympiadStadiaManager _instance;

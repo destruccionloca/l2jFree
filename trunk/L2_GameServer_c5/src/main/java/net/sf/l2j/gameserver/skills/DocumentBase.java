@@ -40,7 +40,8 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -53,7 +54,7 @@ import org.w3c.dom.Node;
  */
 abstract class DocumentBase
 {
-    static Logger _log = Logger.getLogger(DocumentBase.class.getName());
+    static Log _log = LogFactory.getLog(DocumentBase.class.getName());
 
     private File file;
     protected Map<String, Number[]> tables;

@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -31,6 +30,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.PartyMemberPosition;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 //import net.sf.l2j.gameserver.serverpackets.AttackCanceld;
 /**
  * This class ...
@@ -39,7 +41,7 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
  */
 public class MoveBackwardToLocation extends ClientBasePacket
 {
-	private static Logger _log = Logger.getLogger(MoveBackwardToLocation.class.getName());
+	private final static Log _log = LogFactory.getLog(MoveBackwardToLocation.class.getName());
 	// cdddddd
 	private final int _targetX;
 	private final int _targetY;

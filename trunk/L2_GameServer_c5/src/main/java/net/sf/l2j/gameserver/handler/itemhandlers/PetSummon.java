@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.handler.itemhandlers;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.handler.IItemHandler;
@@ -35,6 +33,9 @@ import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.Ride;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * This class ...
  * 
@@ -43,7 +44,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class PetSummon implements IItemHandler
 {
-    protected static Logger _log = Logger.getLogger(PetSummon.class.getName());
+    protected static Log _log = LogFactory.getLog(PetSummon.class.getName());
     
     // all the items ids that this handler knowns
     private static final int[] _itemIds = { 2375, 3500, 3501, 3502, 4422, 4423, 4424, 4425, 6648, 6649, 6650 };

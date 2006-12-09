@@ -19,13 +19,15 @@
 package net.sf.l2j.gameserver.instancemanager;
 
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -36,7 +38,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 
 public class DayNightSpawnManager {
     
-    private static Logger _log = Logger.getLogger(DayNightSpawnManager.class.getName());
+    private final static Log _log = LogFactory.getLog(DayNightSpawnManager.class.getName());
     
     private static DayNightSpawnManager _instance;
     private static Map<L2Spawn, L2NpcInstance> _dayCreatures;

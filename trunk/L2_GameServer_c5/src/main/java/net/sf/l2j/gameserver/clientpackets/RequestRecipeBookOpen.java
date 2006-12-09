@@ -23,12 +23,13 @@ import java.nio.ByteBuffer;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.RecipeController;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class RequestRecipeBookOpen extends ClientBasePacket 
 {
     private static final String _C__AC_REQUESTRECIPEBOOKOPEN = "[C] AC RequestRecipeBookOpen";
-	private static Logger _log = Logger.getLogger(RequestRecipeBookOpen.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestRecipeBookOpen.class.getName());
     
     private final boolean isDwarvenCraft;
 

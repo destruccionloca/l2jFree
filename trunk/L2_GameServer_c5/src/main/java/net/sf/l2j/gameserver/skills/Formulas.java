@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.skills;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
@@ -48,13 +46,16 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * Global calculations, can be modified by server admins
  */
 public final class Formulas 
 {
 	/** Regen Task period */
-	protected static final Logger _log = Logger.getLogger(L2Character.class.getName());
+	protected static final Log _log = LogFactory.getLog(L2Character.class.getName());
 	private static final int HP_REGENERATE_PERIOD = 3000; // 3 secs
 	
 	public static int MAX_STAT_VALUE = 100;

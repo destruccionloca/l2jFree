@@ -2,13 +2,15 @@ package net.sf.l2j.gameserver.lib;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class SqlUtils
 {
-	private static Logger _log = Logger.getLogger(SqlUtils.class.getName());
+	private final static Log _log = LogFactory.getLog(SqlUtils.class.getName());
 	
     // =========================================================
     // Data Field

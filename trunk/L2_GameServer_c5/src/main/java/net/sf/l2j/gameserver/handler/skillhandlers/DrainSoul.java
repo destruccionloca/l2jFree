@@ -18,14 +18,15 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers; 
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /** 
  * @author _drunk_ 
@@ -35,7 +36,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */ 
 public class DrainSoul implements ISkillHandler 
 { 
-    private static Logger _log = Logger.getLogger(DrainSoul.class.getName()); 
+    private final static Log _log = LogFactory.getLog(DrainSoul.class.getName()); 
     protected SkillType[] _skillIds = {SkillType.DRAIN_SOUL};
     
     public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)

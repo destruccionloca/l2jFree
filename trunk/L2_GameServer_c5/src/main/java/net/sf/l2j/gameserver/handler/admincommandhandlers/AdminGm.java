@@ -18,12 +18,13 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class handles following admin commands:
@@ -32,7 +33,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * @version $Revision: 1.2.4.4 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminGm implements IAdminCommandHandler {
-	private static Logger _log = Logger.getLogger(AdminGm.class.getName());
+	private final static Log _log = LogFactory.getLog(AdminGm.class.getName());
 	private static String[] _adminCommands = {"admin_gm"};
 	private static final int REQUIRED_LEVEL = Config.GM_ACCESSLEVEL;
 

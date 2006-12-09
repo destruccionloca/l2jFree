@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class RequestOustPartyMember extends ClientBasePacket{
 	
 	private static final String _C__2C_REQUESTOUSTPARTYMEMBER = "[C] 2C RequestOustPartyMember";
-	//private static Logger _log = Logger.getLogger(RequestJoinParty.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestJoinParty.class.getName());
 
 	private final String _name;
 	

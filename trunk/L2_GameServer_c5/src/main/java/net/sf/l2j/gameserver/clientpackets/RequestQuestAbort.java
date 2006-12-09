@@ -28,7 +28,8 @@ import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.serverpackets.QuestList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -38,8 +39,9 @@ import org.apache.log4j.Logger;
 public class RequestQuestAbort extends ClientBasePacket
 {
     private static final String _C__64_REQUESTQUESTABORT = "[C] 64 RequestQuestAbort";
-    private static Logger _log = Logger.getLogger(RequestQuestAbort.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestQuestAbort.class.getName());
 
+    
     private final int _QuestID;
     /**
      * packet type id 0x64<p>

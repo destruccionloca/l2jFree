@@ -38,7 +38,8 @@ import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -47,7 +48,7 @@ import org.apache.log4j.Logger;
  */
 public class Announcements
 {
-	private static Logger _log = Logger.getLogger(Announcements.class.getName());
+	private final static Log _log = LogFactory.getLog(Announcements.class.getName());
 	
 	private static Announcements _instance;
 	private List<String> _announcements = new FastList<String>();

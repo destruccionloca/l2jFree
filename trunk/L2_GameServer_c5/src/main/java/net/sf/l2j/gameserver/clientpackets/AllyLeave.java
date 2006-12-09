@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class AllyLeave extends ClientBasePacket
 {
     private static final String _C__84_ALLYLEAVE = "[C] 84 AllyLeave";
-    //private static Logger _log = Logger.getLogger(AllyLeave.class.getName());
+    //private final static Log _log = LogFactory.getLog(AllyLeave.class.getName());
     
     public AllyLeave(ByteBuffer buf, ClientThread client)
     {

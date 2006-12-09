@@ -45,7 +45,7 @@ import net.sf.l2j.gameserver.util.Util;
 public class RequestSellItem extends ClientBasePacket
 {
 	private static final String _C__1E_REQUESTSELLITEM = "[C] 1E RequestSellItem";
-	//private static Logger _log = Logger.getLogger(RequestSellItem.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestSellItem.class.getName());
 
 	private final int _listId;
 	private int _count;

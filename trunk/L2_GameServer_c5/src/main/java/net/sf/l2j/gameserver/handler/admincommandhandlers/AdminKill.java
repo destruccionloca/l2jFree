@@ -20,9 +20,6 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import org.apache.log4j.Logger;
-
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.GMAudit;
@@ -32,6 +29,9 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2ControllableMobInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class handles following admin commands:
@@ -45,7 +45,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class AdminKill implements IAdminCommandHandler 
 {
-    private static Logger _log = Logger.getLogger(AdminKill.class);
+    private final static Log _log = LogFactory.getLog(AdminKill.class);
     private static String[] _adminCommands = {"admin_kill", "admin_kill_monster"};
     private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
     

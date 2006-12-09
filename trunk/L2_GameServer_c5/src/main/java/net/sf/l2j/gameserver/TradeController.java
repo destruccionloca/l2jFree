@@ -28,14 +28,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2TradeList;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -44,7 +45,7 @@ import net.sf.l2j.gameserver.model.L2TradeList;
  */
 public class TradeController
 {
-	private static Logger _log = Logger.getLogger(TradeController.class.getName());
+	private final static Log _log = LogFactory.getLog(TradeController.class.getName());
 	private static TradeController _instance;
 
 	private int _nextListId;

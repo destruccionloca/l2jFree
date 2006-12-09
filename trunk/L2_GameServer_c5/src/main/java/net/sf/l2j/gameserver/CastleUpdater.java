@@ -6,12 +6,13 @@
 
 package net.sf.l2j.gameserver;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.ItemContainer;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.entity.Castle;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -22,7 +23,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
  */
 public class CastleUpdater implements Runnable {
     
-        private static Logger _log = Logger.getLogger(CastleUpdater.class);
+        private final static Log _log = LogFactory.getLog(CastleUpdater.class);
 
 		private L2Clan _clan;
         private int _RunCount = 0;

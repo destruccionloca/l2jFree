@@ -59,7 +59,7 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
 public class L2AttackableAI extends L2CharacterAI implements Runnable
 {
 
-    //protected static final Logger _log = Logger.getLogger(L2AttackableAI.class.getName());
+    //protected static final Log _log = LogFactory.getLog(L2AttackableAI.class.getName());
 
     private static final int RANDOM_WALK_RATE = 100;
     // private static final int MAX_DRIFT_RANGE = 300;
@@ -194,7 +194,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             {
                 if (target instanceof L2PcInstance)
                 {
-                    //_log.warning("get LOS L2attackable AI 1" );
+                    //_log.warn("get LOS L2attackable AI 1" );
                     if (GeoDataRequester.getInstance().hasMovementLoS( _actor, target).LoS == true)
                     {
                         return ((L2PcInstance) target).getKarma() > 0;
@@ -220,7 +220,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             {
                 if ( me.isAggressive())
                 {
-                    //_log.warning("get LOS L2attackable AI 2" );
+                    //_log.warn("get LOS L2attackable AI 2" );
                     if (GeoDataRequester.getInstance().hasMovementLoS( me, target).LoS == false)
                     {      
                         return false; 
@@ -612,7 +612,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             }
             catch (NullPointerException e)
             {
-                //_log.warning("AttackableAI: Attack target is NULL.");
+                //_log.warn("AttackableAI: Attack target is NULL.");
                 setIntention(AI_INTENTION_ACTIVE);
                 return;
             }

@@ -26,7 +26,8 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.PartyMatchList;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Packetformat  Rev650  cdddddS
@@ -37,7 +38,7 @@ import org.apache.log4j.Logger;
 public class RequestPartyMatchList extends ClientBasePacket
 {
 	private static final String _C__70_REQUESTPARTYMATCHLIST = "[C] 70 RequestPartyMatchList";
-	private static Logger _log = Logger.getLogger(RequestPartyMatchList.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestPartyMatchList.class.getName());
 
 	private final int _status;
     @SuppressWarnings("unused")

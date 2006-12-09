@@ -18,14 +18,15 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class handles following admin commands:
@@ -34,7 +35,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * @version $Revision: 1.2.4.4 $ $Date: 2005/04/11 10:06:02 $
  */
 public class AdminInvul implements IAdminCommandHandler {
-	private static Logger _log = Logger.getLogger(AdminInvul.class.getName());
+	private final static Log _log = LogFactory.getLog(AdminInvul.class.getName());
 	private static String[] _adminCommands = {"admin_invul", "admin_setinvul"};
 	private static final int REQUIRED_LEVEL = Config.GM_GODMODE;
 

@@ -9,7 +9,8 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.FishData;
 import net.sf.l2j.gameserver.model.FishDropData;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author -Nemesiss-
@@ -17,7 +18,7 @@ import org.apache.log4j.Logger;
  */
 public class FishTable
 {
-    private static Logger _log = Logger.getLogger(SkillTreeTable.class.getName());
+    private final static Log _log = LogFactory.getLog(SkillTreeTable.class.getName());
     private static final FishTable _instance = new FishTable();
 
     private static List<FishData> _Fishs;

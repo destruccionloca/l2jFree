@@ -19,13 +19,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
-import org.apache.log4j.Logger;
 import java.util.zip.GZIPInputStream;
 
 import javax.imageio.ImageIO;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2CharPosition;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class Universe implements java.io.Serializable
 {
@@ -45,7 +47,7 @@ public class Universe implements java.io.Serializable
     public static final int MIN_Z_GRID = 60;
     public static final int MIN_GRID = 360;
     private static Universe _instance;
-    protected static Logger _log = Logger.getLogger(Universe.class.getName());
+    protected static Log _log = LogFactory.getLog(Universe.class.getName());
 
     public static void main(String[] args)
     {

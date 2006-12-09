@@ -23,7 +23,8 @@ import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Seven Signs Record Update
@@ -43,7 +44,7 @@ import org.apache.log4j.Logger;
  */
 public class SSQStatus extends ServerBasePacket
 {
-    private static Logger _log = Logger.getLogger(SSQStatus.class.getName());
+    private final static Log _log = LogFactory.getLog(SSQStatus.class.getName());
 
     private static final String _S__F5_SSQStatus = "[S] F5 RecordUpdate";
     private L2PcInstance _player;

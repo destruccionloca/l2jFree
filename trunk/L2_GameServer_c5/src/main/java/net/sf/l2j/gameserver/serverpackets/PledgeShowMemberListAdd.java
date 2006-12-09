@@ -18,10 +18,11 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -31,7 +32,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class PledgeShowMemberListAdd extends ServerBasePacket
 {
 	private static final String _S__6A_PLEDGESHOWMEMBERLISTADD = "[S] 55 PledgeShowMemberListAdd";
-    protected static final Logger _log = Logger.getLogger(PledgeShowMemberListAdd.class.getName());
+    protected static final Log _log = LogFactory.getLog(PledgeShowMemberListAdd.class.getName());
     private String _name;
     private int _lvl;
     private int _classId;

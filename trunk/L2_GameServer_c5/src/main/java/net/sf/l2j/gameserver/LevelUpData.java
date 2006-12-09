@@ -21,12 +21,14 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2LvlupData;
 import net.sf.l2j.gameserver.model.base.ClassId;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -49,7 +51,7 @@ public class LevelUpData
     private static final String CP_BASE = "defaultcpbase";
     private static final String CLASS_ID = "classid";
     
-    private static Logger _log = Logger.getLogger(LevelUpData.class.getName());
+    private final static Log _log = LogFactory.getLog(LevelUpData.class.getName());
 	
 	private static LevelUpData _instance;
 	

@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 import java.util.List;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -42,6 +41,9 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -50,7 +52,7 @@ import net.sf.l2j.gameserver.util.Util;
 public class RequestBuyItem extends ClientBasePacket
 {
     private static final String _C__1F_REQUESTBUYITEM = "[C] 1F RequestBuyItem";
-    private static Logger _log = Logger.getLogger(RequestBuyItem.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestBuyItem.class.getName());
 
     private int _listId;
     private int _count;

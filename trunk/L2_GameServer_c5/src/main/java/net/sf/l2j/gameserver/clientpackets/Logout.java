@@ -34,7 +34,8 @@ import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -44,7 +45,7 @@ import org.apache.log4j.Logger;
 public class Logout extends ClientBasePacket
 {
     private static final String _C__09_LOGOUT = "[C] 09 Logout";
-    private static Logger _log = Logger.getLogger(Logout.class.getName());
+    private final static Log _log = LogFactory.getLog(Logout.class.getName());
     
     // c
 

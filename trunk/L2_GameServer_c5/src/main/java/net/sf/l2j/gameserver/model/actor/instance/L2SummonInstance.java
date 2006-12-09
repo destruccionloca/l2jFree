@@ -28,11 +28,12 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class L2SummonInstance extends L2Summon
 {
-    private static Logger _log = Logger.getLogger(L2SummonInstance.class.getName());
+    private final static Log _log = LogFactory.getLog(L2SummonInstance.class.getName());
     
     private float _expPenalty = 0; // exp decrease multiplier (i.e. 0.3 (= 30%) for shadow)
 	private int _itemConsumeId;

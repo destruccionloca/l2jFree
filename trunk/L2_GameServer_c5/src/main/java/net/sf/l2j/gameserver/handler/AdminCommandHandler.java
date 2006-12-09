@@ -22,11 +22,13 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -35,14 +37,14 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AdminCommandHandler
 {
-	private static Logger _log = Logger.getLogger(AdminCommandHandler.class.getName());
+	private final static Log _log = LogFactory.getLog(AdminCommandHandler.class.getName());
 	
 	private static AdminCommandHandler _instance;
 	
 	private Map<String, IAdminCommandHandler> _datatable;
     
     //Alt privileges setting
-    private static Logger _priviLog = Logger.getLogger("AltPrivilegesAdmin");
+    private static Log _priviLog = LogFactory.getLog("AltPrivilegesAdmin");
     private static FastMap<String,Integer> _privileges;
     
 	public static AdminCommandHandler getInstance()

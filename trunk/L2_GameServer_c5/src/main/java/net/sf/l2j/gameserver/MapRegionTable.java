@@ -22,7 +22,6 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -42,12 +41,15 @@ import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Zone;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  */
 public class MapRegionTable
 {
-	private static Logger _log = Logger.getLogger(MapRegionTable.class.getName());
+	private final static Log _log = LogFactory.getLog(MapRegionTable.class.getName());
 	
 	private static MapRegionTable _instance;
 	

@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.script.faenor;
 
 import java.util.Date;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.script.DateRange;
 import net.sf.l2j.gameserver.script.IntList;
@@ -28,6 +27,8 @@ import net.sf.l2j.gameserver.script.ParserFactory;
 import net.sf.l2j.gameserver.script.ScriptEngine;
 
 import org.apache.bsf.BSFManager;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
 
 /**
@@ -36,7 +37,7 @@ import org.w3c.dom.Node;
  */
 public class FaenorEventParser extends FaenorParser
 {
-    static Logger _log = Logger.getLogger(FaenorEventParser.class.getName());
+    static Log _log = LogFactory.getLog(FaenorEventParser.class.getName());
     private DateRange eventDates = null;
     
     public void parseScript(Node eventNode, @SuppressWarnings("unused") BSFManager context)

@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.serverpackets.RecipeItemMakeInfo;
 public class RequestRecipeItemMakeInfo extends ClientBasePacket 
 {
     private static final String _C__AE_REQUESTRECIPEITEMMAKEINFO = "[C] AE RequestRecipeItemMakeInfo";
-	//private static Logger _log = Logger.getLogger(RequestSellItem.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestSellItem.class.getName());
 
 	private final int _id;
 	private final ClientThread _client;

@@ -21,9 +21,11 @@ package net.sf.l2j.gameserver.gameserverpackets;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.interfaces.RSAPublicKey;
-import org.apache.log4j.Logger;
 
 import javax.crypto.Cipher;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author -Wooden-
@@ -31,7 +33,7 @@ import javax.crypto.Cipher;
  */
 public class BlowFishKey extends GameServerBasePacket
 {
-	private static Logger _log = Logger.getLogger(BlowFishKey.class.getName());
+	private final static Log _log = LogFactory.getLog(BlowFishKey.class.getName());
 	/**
 	 * @param blowfishKey
 	 * @param publicKey

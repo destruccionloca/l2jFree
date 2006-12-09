@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class SummonCursedBones implements ISkillHandler
 {
-    //private static Logger _log = Logger.getLogger(SiegeFlag.class.getName()); 
+    //private final static Log _log = LogFactory.getLog(SiegeFlag.class.getName()); 
     protected SkillType[] _skillIds = {SkillType.SUMMON_CURSED_BONES};
 
     public void useSkill(L2Character activeChar, @SuppressWarnings("unused")

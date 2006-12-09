@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.LineNumberReader;
 import java.util.Map;
 import java.util.StringTokenizer;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -18,9 +17,12 @@ import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class DoorTable 
 {
-	private static Logger _log = Logger.getLogger(DoorTable.class.getName());
+	private final static Log _log = LogFactory.getLog(DoorTable.class.getName());
 
 	private Map<Integer,L2DoorInstance> _staticItems;
 

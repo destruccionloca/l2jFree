@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Properties;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -21,9 +20,12 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class SiegeManager
 {
-    protected static Logger _log = Logger.getLogger(SiegeManager.class.getName());
+    protected static Log _log = LogFactory.getLog(SiegeManager.class.getName());
 
     // =========================================================
     private static SiegeManager _Instance;

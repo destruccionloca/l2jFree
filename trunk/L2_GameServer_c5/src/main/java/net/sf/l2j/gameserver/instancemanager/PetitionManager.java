@@ -22,7 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import javolution.lang.TextBuilder;
 import javolution.util.FastList;
@@ -37,6 +36,9 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * Petition Manager
  * 
@@ -45,7 +47,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public final class PetitionManager
 {
-	protected static Logger _log = Logger.getLogger(PetitionManager.class.getName());
+	protected static Log _log = LogFactory.getLog(PetitionManager.class.getName());
 	private static PetitionManager _instance;
 	
 	private Map<Integer, Petition> _pendingPetitions;

@@ -3,15 +3,17 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2Skill;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class SkillSpellbookTable
 {
-	private static Logger _log = Logger.getLogger(SkillTreeTable.class.getName());
+	private final static Log _log = LogFactory.getLog(SkillTreeTable.class.getName());
 	private static SkillSpellbookTable _instance;
 
 	private static Map<Integer, Integer> _skillSpellbooks;

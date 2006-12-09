@@ -22,10 +22,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Stack;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -34,7 +36,7 @@ import net.sf.l2j.L2DatabaseFactory;
  */
 public class StackIDFactory extends IdFactory
 {
-	private static Logger _log = Logger.getLogger(IdFactory.class.getName());
+	private final static Log _log = LogFactory.getLog(IdFactory.class.getName());
 
 	private int _curOID;
 	private int _tempOID;

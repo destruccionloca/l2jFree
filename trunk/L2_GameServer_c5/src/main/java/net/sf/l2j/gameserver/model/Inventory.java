@@ -40,7 +40,7 @@ import net.sf.l2j.gameserver.templates.L2Item;
  */
 public abstract class Inventory extends ItemContainer
 {
-	//protected static final Logger _log = Logger.getLogger(Inventory.class.getName());
+	//protected static final Log _log = LogFactory.getLog(Inventory.class.getName());
 
     public interface PaperdollListener {
     	public void notifyEquiped(int slot, L2ItemInstance inst);

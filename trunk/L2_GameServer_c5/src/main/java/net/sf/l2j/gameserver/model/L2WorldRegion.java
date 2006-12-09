@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.model;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -34,6 +33,9 @@ import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.model.entity.geodata.PathNodeBinRequester;
 import net.sf.l2j.util.L2ObjectSet;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 /**
  * This class ...
@@ -42,7 +44,7 @@ import net.sf.l2j.util.L2ObjectSet;
  */
 public final class L2WorldRegion
 {
-    private static Logger _log = Logger.getLogger(L2WorldRegion.class.getName());
+    private final static Log _log = LogFactory.getLog(L2WorldRegion.class.getName());
 
     /** L2ObjectHashSet(L2PcInstance) containing L2PcInstance of all player in game in this L2WorldRegion */
     private L2ObjectSet<L2PcInstance> _allPlayers;

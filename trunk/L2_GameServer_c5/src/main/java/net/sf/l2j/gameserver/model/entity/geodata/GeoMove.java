@@ -1,17 +1,18 @@
 package net.sf.l2j.gameserver.model.entity.geodata;
 
-import org.apache.log4j.Logger;
-
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 public class GeoMove
 {
-    private static Logger _log = Logger.getLogger(GeoMove.class);
+    private final static Log _log = LogFactory.getLog(GeoMove.class);
     public FastMap<Integer,TargetCoord> targetRecorder;
     public int currentTargetId;
     public int currentMoveCounter;
@@ -46,10 +47,10 @@ public class GeoMove
         try 
         {
             // Now check Line of sight
-            //_log.warning(" first LOS check");
+            //_log.warn(" first LOS check");
             if ( GeoDataRequester.getInstance().hasMovementLoS(_actor,target).LoS == false )
             {
-                //_log.warning(" first no LOS");
+                //_log.warn(" first no LOS");
                 if ( currentTargetId != target.getObjectId())
                 {
                     targetRecorder = null;
@@ -101,7 +102,7 @@ public class GeoMove
                                 tCoord.y = p.location.getY();
                                 tCoord.z = p.location.getZ();
                                 targetRecorder.put(currentMoveCounter,tCoord);
-                                //_log.warning("Recording id : " + tCoord.targetId + " X:"  + tCoord.x + " Y:" + tCoord.y + " Z:" +tCoord.z) ;
+                                //_log.warn("Recording id : " + tCoord.targetId + " X:"  + tCoord.x + " Y:" + tCoord.y + " Z:" +tCoord.z) ;
                         }
                     }
                 } 
@@ -143,7 +144,7 @@ public class GeoMove
                                 tCoord.y = p.location.getY();
                                 tCoord.z = p.location.getZ();
                                 targetRecorder.put(currentMoveCounter,tCoord);
-                                //_log.warning("Recording id : " + tCoord.targetId + " X:"  + tCoord.x + " Y:" + tCoord.y + " Z:" +tCoord.z) ;
+                                //_log.warn("Recording id : " + tCoord.targetId + " X:"  + tCoord.x + " Y:" + tCoord.y + " Z:" +tCoord.z) ;
                          }
                      }    
                 }
@@ -188,7 +189,7 @@ public class GeoMove
                         _actor.sendMessage("No LoS on move fp =x:" + fp.x + "  y:" + fp.y + " z:" + fp.z );
                     }
                 }
-                //_log.warning(" first no LOS");
+                //_log.warn(" first no LOS");
                 if ( currentTargetId != target.getObjectId())
                 {
                     targetRecorder = null;
@@ -266,7 +267,7 @@ public class GeoMove
                                     }
                                 }
                                 targetRecorder.put(currentMoveCounter,tCoord);
-                                //_log.warning("Recording id : " + tCoord.targetId + " X:"  + tCoord.x + " Y:" + tCoord.y + " Z:" +tCoord.z) ;
+                                //_log.warn("Recording id : " + tCoord.targetId + " X:"  + tCoord.x + " Y:" + tCoord.y + " Z:" +tCoord.z) ;
                         }
                         if (_actor instanceof L2PcInstance)
                         {

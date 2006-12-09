@@ -23,7 +23,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.StringTokenizer;
-import org.apache.log4j.Logger;
 
 import javolution.lang.TextBuilder;
 import javolution.util.FastList;
@@ -46,13 +45,16 @@ import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author terry
  *
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class AdminEditNpc implements IAdminCommandHandler {
-    private static Logger _log = Logger.getLogger(AdminEditChar.class.getName());
+    private final static Log _log = LogFactory.getLog(AdminEditChar.class.getName());
     private final static int PAGE_LIMIT = 7;
     
     private static String[] _adminCommands = {

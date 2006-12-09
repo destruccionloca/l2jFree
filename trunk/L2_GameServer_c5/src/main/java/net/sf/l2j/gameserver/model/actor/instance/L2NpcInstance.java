@@ -96,7 +96,7 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
  */
 public class L2NpcInstance extends L2Character
 {
-    //private static Logger _log = Logger.getLogger(L2NpcInstance.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2NpcInstance.class.getName());
     
     /** The interaction distance of the L2NpcInstance(is used as offset in MovetoLocation method) */
     public static final int INTERACTION_DISTANCE = 150;

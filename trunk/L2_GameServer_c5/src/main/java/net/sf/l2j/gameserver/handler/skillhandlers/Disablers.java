@@ -40,7 +40,8 @@ import net.sf.l2j.gameserver.model.base.Experience;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /** 
  * This Handles Disabler skills
@@ -58,7 +59,7 @@ public class Disablers implements ISkillHandler
                                        L2Skill.SkillType.CANCEL, L2Skill.SkillType.PARALYZE,
                                        L2Skill.SkillType.UNSUMMON_ENEMY_PET,L2Skill.SkillType.BETRAY,
                                        L2Skill.SkillType.CANCEL_TARGET};
-    protected static Logger _log = Logger.getLogger(L2Skill.class.getName());
+    protected static Log _log = LogFactory.getLog(L2Skill.class.getName());
     private  String[] _negateStats=null;
     private  float _negatePower=0.f;
     

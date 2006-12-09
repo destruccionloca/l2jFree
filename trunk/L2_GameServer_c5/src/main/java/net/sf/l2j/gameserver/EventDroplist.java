@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.script.DateRange;
 public class EventDroplist
 {
 
-    //private static Logger _log = Logger.getLogger(EventDroplist.class.getName());
+    //private final static Log _log = LogFactory.getLog(EventDroplist.class.getName());
 
 	private static EventDroplist _instance;
 

@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.serverpackets.QuestList;
 public class RequestQuestList extends ClientBasePacket
 {
     private static final String _C__63_REQUESTQUESTLIST = "[C] 63 RequestQuestList";
-    //private static Logger _log = Logger.getLogger(RequestQuestList.class.getName());
+    //private final static Log _log = LogFactory.getLog(RequestQuestList.class.getName());
 
     /**
      * packet type id 0x63<p>

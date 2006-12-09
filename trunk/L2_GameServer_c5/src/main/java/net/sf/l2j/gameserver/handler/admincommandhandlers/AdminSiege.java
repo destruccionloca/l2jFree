@@ -44,7 +44,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class AdminSiege implements IAdminCommandHandler
 {
-    //private static Logger _log = Logger.getLogger(AdminSiege.class.getName());
+    //private final static Log _log = LogFactory.getLog(AdminSiege.class.getName());
 
     private static String[] _adminCommands = {"admin_siege",
             "admin_add_attacker", "admin_add_defender", "admin_add_guard",

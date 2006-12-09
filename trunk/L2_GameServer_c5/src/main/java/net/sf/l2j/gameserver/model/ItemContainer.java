@@ -29,7 +29,8 @@ import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.L2Item;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Advi
@@ -37,7 +38,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class ItemContainer
 {
-	protected static final Logger _log = Logger.getLogger(ItemContainer.class.getName());
+	protected static final Log _log = LogFactory.getLog(ItemContainer.class.getName());
 
 	protected final List<L2ItemInstance> _items;
 

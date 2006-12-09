@@ -24,7 +24,8 @@ import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.serverpackets.PledgeCrest;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -33,7 +34,7 @@ import org.apache.log4j.Logger;
  */
 public class RequestPledgeCrest extends ClientBasePacket
 {
-	private static Logger _log = Logger.getLogger(RequestPledgeCrest.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestPledgeCrest.class.getName());
 	private static final String _C__68_REQUESTPLEDGECREST = "[C] 68 RequestPledgeCrest";
 	
 	private int _crestId;

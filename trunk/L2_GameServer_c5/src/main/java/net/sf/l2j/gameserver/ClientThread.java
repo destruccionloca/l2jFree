@@ -34,7 +34,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.util.EventData;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.ibm.io.async.AsyncSocketChannel;
 
@@ -45,7 +46,7 @@ import com.ibm.io.async.AsyncSocketChannel;
  */
 public final class ClientThread
 {
-    protected static Logger _log = Logger.getLogger(ClientThread.class.getName());
+    protected static Log _log = LogFactory.getLog(ClientThread.class.getName());
     
     
     public static int devCharId;

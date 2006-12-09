@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class RequestRecipeItemMakeSelf extends ClientBasePacket 
 {
     private static final String _C__AF_REQUESTRECIPEITEMMAKESELF = "[C] AF RequestRecipeItemMakeSelf";
-	//private static Logger _log = Logger.getLogger(RequestSellItem.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestSellItem.class.getName());
 
 	private final int _id;
 	/**

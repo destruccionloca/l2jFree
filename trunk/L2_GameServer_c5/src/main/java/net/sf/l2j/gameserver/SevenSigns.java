@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -20,6 +19,9 @@ import net.sf.l2j.gameserver.serverpackets.SignsSky;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  *  Seven Signs Engine
  *    
@@ -30,7 +32,7 @@ import net.sf.l2j.gameserver.templates.StatsSet;
  */
 public class SevenSigns 
 {
-    protected static Logger _log = Logger.getLogger(SevenSigns.class.getName());
+    protected static Log _log = LogFactory.getLog(SevenSigns.class.getName());
     private static SevenSigns _instance;
 
     // Basic Seven Signs Constants \\

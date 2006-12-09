@@ -1,7 +1,6 @@
 package net.sf.l2j.gameserver.model.quest;
 
 import java.util.List;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.NpcTable;
@@ -18,9 +17,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class QuestPcSpawn
 {
-    protected static Logger _log = Logger.getLogger(QuestPcSpawn.class.getName());
+    protected static Log _log = LogFactory.getLog(QuestPcSpawn.class.getName());
 
     public class DeSpawnScheduleTimerTask implements Runnable
     {

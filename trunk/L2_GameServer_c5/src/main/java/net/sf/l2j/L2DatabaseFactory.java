@@ -20,10 +20,11 @@ package net.sf.l2j;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.mchange.v2.c3p0.DataSources;
 import com.mchange.v2.c3p0.PoolConfig;
@@ -31,7 +32,7 @@ import com.mchange.v2.c3p0.PooledDataSource;
 
 public class L2DatabaseFactory
 {
-    static Logger _log = Logger.getLogger(L2DatabaseFactory.class.getName());
+    static Log _log = LogFactory.getLog(L2DatabaseFactory.class.getName());
 
     public static enum ProviderType
     {
@@ -146,10 +147,10 @@ public class L2DatabaseFactory
     {
         try {
             ((PooledDataSource) _source).close();
-        } catch (SQLException e) {_log.log(Level.INFO, "", e);}
+        } catch (SQLException e) {_log.info("", e);}
         try {
             DataSources.destroy(_source);
-        } catch (SQLException e) {_log.log(Level.INFO, "", e);}
+        } catch (SQLException e) {_log.info( "", e);}
     }
 
     public final String safetyString(String[] whatToCheck)

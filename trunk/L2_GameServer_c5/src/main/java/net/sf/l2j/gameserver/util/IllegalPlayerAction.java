@@ -32,7 +32,8 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -41,7 +42,7 @@ import org.apache.log4j.Logger;
  */
 public final class IllegalPlayerAction implements Runnable
 {
-	private static Logger _logAudit = Logger.getLogger("audit");
+	private static Log _logAudit = LogFactory.getLog("audit");
 
     String _message;
     int _punishment;

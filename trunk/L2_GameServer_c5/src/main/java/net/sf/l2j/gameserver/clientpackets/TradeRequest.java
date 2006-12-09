@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -30,6 +29,9 @@ import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SendTradeRequest;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * 
  * This class ...
@@ -39,7 +41,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class TradeRequest extends ClientBasePacket
 {
 	private static final String TRADEREQUEST__C__15 = "[C] 15 TradeRequest";
-	private static Logger _log = Logger.getLogger(TradeRequest.class.getName());
+	private final static Log _log = LogFactory.getLog(TradeRequest.class.getName());
 	
 	private final int _objectId;
 	

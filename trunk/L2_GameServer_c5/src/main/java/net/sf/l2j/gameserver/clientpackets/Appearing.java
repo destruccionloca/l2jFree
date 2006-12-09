@@ -36,7 +36,7 @@ import net.sf.l2j.gameserver.serverpackets.UserInfo;
 public class Appearing extends ClientBasePacket
 {
 	private static final String _C__30_APPEARING = "[C] 30 Appearing";
-	//private static Logger _log = Logger.getLogger(Appearing.class.getName());
+	//private final static Log _log = LogFactory.getLog(Appearing.class.getName());
 
 	// c
 

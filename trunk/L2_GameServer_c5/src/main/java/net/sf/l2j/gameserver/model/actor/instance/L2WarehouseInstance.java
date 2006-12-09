@@ -39,7 +39,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public final class L2WarehouseInstance extends L2FolkInstance
 {
-    //private static Logger _log = Logger.getLogger(L2WarehouseInstance.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2WarehouseInstance.class.getName());
 
     /**
      * @param template

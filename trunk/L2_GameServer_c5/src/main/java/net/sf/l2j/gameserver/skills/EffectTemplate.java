@@ -20,9 +20,11 @@ package net.sf.l2j.gameserver.skills;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.model.L2Effect;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author mkizub
@@ -32,7 +34,7 @@ import net.sf.l2j.gameserver.model.L2Effect;
  */
 public final class EffectTemplate
 {
-    static Logger _log = Logger.getLogger(EffectTemplate.class.getName());
+    static Log _log = LogFactory.getLog(EffectTemplate.class.getName());
 
 	private final Class _func;
 	private final Constructor _constructor;

@@ -22,11 +22,13 @@ package net.sf.l2j.gameserver.communitybbs.BB;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.communitybbs.Manager.PostBBSManager;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Maktakien
@@ -34,7 +36,7 @@ import net.sf.l2j.gameserver.communitybbs.Manager.PostBBSManager;
  */
 public class Post
 {
-	private static Logger _log = Logger.getLogger(Post.class.getName());
+	private final static Log _log = LogFactory.getLog(Post.class.getName());
 	public class CPost
 	{
 	public int _PostID;

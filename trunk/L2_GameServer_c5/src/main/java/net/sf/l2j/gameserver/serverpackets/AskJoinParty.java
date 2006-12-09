@@ -37,7 +37,7 @@ package net.sf.l2j.gameserver.serverpackets;
 public class AskJoinParty extends ServerBasePacket
 {
 	private static final String _S__4B_ASKJOINPARTY_0X4B = "[S] 39 AskJoinParty 0x4b";
-	//private static Logger _log = Logger.getLogger(AskJoinParty.class.getName());
+	//private final static Log _log = LogFactory.getLog(AskJoinParty.class.getName());
 
 	private String _requestorName;
 	private int _itemDistribution;

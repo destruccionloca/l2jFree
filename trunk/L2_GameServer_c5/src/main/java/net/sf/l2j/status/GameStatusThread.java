@@ -20,8 +20,6 @@ import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
@@ -55,10 +53,13 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
 import net.sf.l2j.gameserver.util.DynamicExtension;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 public class GameStatusThread extends Thread
 {
-    private static final Logger _log = Logger.getLogger(GameStatusThread.class.getName());
+    private static final Log _log = LogFactory.getLog(GameStatusThread.class.getName());
     
     private Socket                  _csocket;
     

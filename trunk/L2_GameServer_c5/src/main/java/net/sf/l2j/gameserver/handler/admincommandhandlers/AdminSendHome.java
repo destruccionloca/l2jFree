@@ -1,6 +1,6 @@
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-//import org.apache.log4j.Logger;
+//import org.apache.commons.logging.Log;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.MapRegionTable;
@@ -12,7 +12,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 public class AdminSendHome implements IAdminCommandHandler {
-    //private static Logger _log = Logger.getLogger(AdminSendHome.class.getName());
+    //private final static Log _log = LogFactory.getLog(AdminSendHome.class.getName());
     private static String[] _adminCommands = {"admin_sendhome"};
     private static final int REQUIRED_LEVEL = Config.GM_TELEPORT;
 

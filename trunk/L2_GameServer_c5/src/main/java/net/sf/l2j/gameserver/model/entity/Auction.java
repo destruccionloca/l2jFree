@@ -22,7 +22,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
@@ -35,9 +34,12 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class Auction
 {
-    protected static Logger _log = Logger.getLogger(Auction.class.getName());
+    protected static Log _log = LogFactory.getLog(Auction.class.getName());
 
     /*
      * TODO:

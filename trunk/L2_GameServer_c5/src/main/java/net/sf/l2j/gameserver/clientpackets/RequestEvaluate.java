@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.serverpackets.UserInfo;
 public class RequestEvaluate extends ClientBasePacket {
 	private static final String _C__B9_REQUESTEVALUATE = "[C] B9 RequestEvaluate";
 
-	//private static Logger _log = Logger.getLogger(RequestEvaluate.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestEvaluate.class.getName());
 
 	@SuppressWarnings("unused")
     private final int _targetid;

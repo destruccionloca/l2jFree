@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -35,12 +34,15 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance; 
+import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ChairSit;
 import net.sf.l2j.gameserver.serverpackets.RecipeShopManageList;
 import net.sf.l2j.gameserver.serverpackets.Ride;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * This class ...
  *
@@ -49,7 +51,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class RequestActionUse extends ClientBasePacket
 {
     private static final String _C__45_REQUESTACTIONUSE = "[C] 45 RequestActionUse";
-    private static Logger _log = Logger.getLogger(RequestActionUse.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestActionUse.class.getName());
 
     private final int _actionId;
     private final boolean _ctrlPressed;

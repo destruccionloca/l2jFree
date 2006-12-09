@@ -28,7 +28,8 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -38,7 +39,7 @@ import org.apache.log4j.Logger;
  */
 public class ItemsOnGroundManager
 {
-    private static final Logger _log = Logger.getLogger(ItemsOnGroundManager.class.getName());
+    private static final Log _log = LogFactory.getLog(ItemsOnGroundManager.class.getName());
     
     private static ItemsOnGroundManager _Instance;
 

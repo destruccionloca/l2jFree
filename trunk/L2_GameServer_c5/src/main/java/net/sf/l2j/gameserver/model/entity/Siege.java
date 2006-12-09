@@ -28,8 +28,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -57,10 +55,13 @@ import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class Siege
 {
     
-    private static Logger _log = Logger.getLogger(Siege.class.getName());
+    private final static Log _log = LogFactory.getLog(Siege.class.getName());
     
     // ==========================================================================================
     // Message to add/check

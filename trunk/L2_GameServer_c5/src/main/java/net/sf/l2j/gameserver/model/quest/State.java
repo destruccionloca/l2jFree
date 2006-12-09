@@ -25,7 +25,8 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2DropData;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Luis Arias
@@ -34,7 +35,7 @@ import org.apache.log4j.Logger;
  */
 public class State
 {
-    private static Logger _log = Logger.getLogger(State.class);
+    private final static Log _log = LogFactory.getLog(State.class);
 	// TODO - Begins
 	/** Prototype of empty String list */
 	private static final String[] emptyStrList = new String[0];

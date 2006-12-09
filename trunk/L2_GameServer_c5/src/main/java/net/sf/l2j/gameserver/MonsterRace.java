@@ -20,17 +20,18 @@ package net.sf.l2j.gameserver;
 
 import java.lang.reflect.Constructor;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 public class MonsterRace
 {
-    private static Logger _log = Logger.getLogger(MonsterRace.class);
+    private final static Log _log = LogFactory.getLog(MonsterRace.class);
     private L2NpcInstance[] monsters;
     private static MonsterRace _instance;
     private Constructor _constructor;

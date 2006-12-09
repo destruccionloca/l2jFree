@@ -22,7 +22,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.List;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
@@ -45,9 +44,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class Castle
 {
-    protected static Logger _log = Logger.getLogger(Castle.class.getName());
+    protected static Log _log = LogFactory.getLog(Castle.class.getName());
     
     // =========================================================
     // Data Field

@@ -19,11 +19,12 @@
 package net.sf.l2j.gameserver.script;
 
 import org.apache.bsf.BSFManager;
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class Expression
 {
-    private static Logger _log = Logger.getLogger(Expression.class);
+    private final static Log _log = LogFactory.getLog(Expression.class);
     private final BSFManager context;
     @SuppressWarnings("unused")
     private final String lang;

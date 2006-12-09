@@ -9,14 +9,16 @@
 package net.sf.l2j.gameserver.model;
 
 import java.util.List;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.lib.Rnd;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class L2Territory
 {
-	private static Logger _log = Logger.getLogger(L2Territory.class.getName());
+	private final static Log _log = LogFactory.getLog(L2Territory.class.getName());
 
 	protected class Point
 	{

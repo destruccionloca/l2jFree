@@ -2,14 +2,15 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import org.apache.log4j.Logger;
-
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.AdminForgePacket;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class handles commands for gm to forge packets
@@ -19,8 +20,8 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
  */
 public class AdminPForge implements IAdminCommandHandler
 {
-    private static Logger _log = Logger.getLogger(AdminPForge.class);
-    //private static Logger _log = Logger.getLogger(AdminKick.class.getName());
+    private final static Log _log = LogFactory.getLog(AdminPForge.class);
+    //private final static Log _log = LogFactory.getLog(AdminKick.class.getName());
     private static String[] _adminCommands = {"admin_forge","admin_forge2","admin_forge3" };
     private static final int REQUIRED_LEVEL = Config.GM_MIN;
 	

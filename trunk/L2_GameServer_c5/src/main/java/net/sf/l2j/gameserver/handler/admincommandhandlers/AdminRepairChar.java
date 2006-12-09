@@ -27,7 +27,8 @@ import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class handles following admin commands: - delete = deletes target
@@ -36,7 +37,7 @@ import org.apache.log4j.Logger;
  */
 public class AdminRepairChar implements IAdminCommandHandler
 {
-    private static Logger _log = Logger.getLogger(AdminRepairChar.class.getName());
+    private final static Log _log = LogFactory.getLog(AdminRepairChar.class.getName());
 
     private static String[] _adminCommands = { "admin_restore", "admin_repair" };
 

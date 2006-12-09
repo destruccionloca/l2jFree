@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.serverpackets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -29,6 +28,9 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.CharSelectInfoPackage;
 import net.sf.l2j.gameserver.model.Inventory;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -41,7 +43,7 @@ public class CharSelectInfo extends ServerBasePacket
     // d SdSddddddddddffdQddddddddddddddddddddddddddddddddddddddddddddddffdddcdd ?
     private static final String _S__1F_CHARSELECTINFO = "[S] 1F CharSelectInfo";
 
-    private static Logger _log = Logger.getLogger(CharSelectInfo.class.getName());
+    private final static Log _log = LogFactory.getLog(CharSelectInfo.class.getName());
 
     private String _loginName;
 
