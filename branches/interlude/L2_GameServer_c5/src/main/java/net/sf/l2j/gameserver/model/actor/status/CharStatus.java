@@ -15,11 +15,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.stat.CharStat;
 import net.sf.l2j.gameserver.skills.Formulas;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class CharStatus
 {
-    protected static Logger _log = Logger.getLogger(CharStatus.class.getName());
+    protected static Log _log = LogFactory.getLog(CharStatus.class.getName());
 
     // =========================================================
     // Data Field

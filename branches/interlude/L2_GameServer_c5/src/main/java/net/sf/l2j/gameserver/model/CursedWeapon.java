@@ -21,7 +21,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.concurrent.ScheduledFuture;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -38,9 +37,12 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.util.Point3D;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class CursedWeapon
 {
-    private static final Logger _log = Logger.getLogger(CursedWeaponsManager.class.getName());
+    private static final Log _log = LogFactory.getLog(CursedWeaponsManager.class.getName());
 
     private final String _name;
     private final int _itemId;

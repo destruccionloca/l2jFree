@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */ 
 public class SummonCp implements ISkillHandler 
 { 
-    //private static Logger _log = Logger.getLogger(SiegeFlag.class.getName()); 
+    //private final static Log _log = LogFactory.getLog(SiegeFlag.class.getName()); 
     protected SkillType[] _skillIds = {SkillType.SUMMONCP}; 
     
     public void useSkill(L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
@@ -52,7 +52,7 @@ public class SummonCp implements ISkillHandler
                 itemToTake.setCount(itemToTake.getCount() - skill.getItemConsume());
 
             // Give items
-            player.addItem("Test",5591,20,player,false);
+            player.addItem("Skill",5591,20,player,false);
         }
         catch (Exception e)
         {

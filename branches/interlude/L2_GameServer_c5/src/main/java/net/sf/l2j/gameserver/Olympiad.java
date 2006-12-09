@@ -38,7 +38,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -57,9 +56,12 @@ import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class Olympiad
 {
-    protected static Logger _log = Logger.getLogger(Olympiad.class.getName());
+    protected static Log _log = LogFactory.getLog(Olympiad.class.getName());
     
     private static Olympiad _instance;
     

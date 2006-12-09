@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.serverpackets.PrivateStoreMsgSell;
  */
 public class SetPrivateStoreMsgSell extends ClientBasePacket{
 	private static final String _C__77_SETPRIVATESTOREMSGSELL = "[C] 77 SetPrivateStoreMsgSell";
-	//private static Logger _log = Logger.getLogger(SetPrivateStoreMsgSell.class.getName());
+	//private final static Log _log = LogFactory.getLog(SetPrivateStoreMsgSell.class.getName());
 	
 	private final String _storeMsg;
 	

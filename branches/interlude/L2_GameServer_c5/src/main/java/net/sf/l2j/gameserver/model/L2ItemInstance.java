@@ -25,8 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ItemTable;
@@ -40,6 +38,9 @@ import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2EtcItem;
 import net.sf.l2j.gameserver.templates.L2Item;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class manages items.
  * 
@@ -47,8 +48,8 @@ import net.sf.l2j.gameserver.templates.L2Item;
  */
 public final class L2ItemInstance extends L2Object
 {
-	private static final Logger _log = Logger.getLogger(L2ItemInstance.class.getName());
-	private static final Logger _logItems = Logger.getLogger("item");
+	private static final Log _log = LogFactory.getLog(L2ItemInstance.class.getName());
+	private static final Log _logItems = LogFactory.getLog("item");
 	
 	/** Enumeration of locations for item */
 	public static enum ItemLocation {

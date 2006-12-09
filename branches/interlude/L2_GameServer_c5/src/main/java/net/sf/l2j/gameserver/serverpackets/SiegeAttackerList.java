@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 //import java.util.Calendar; //signed time related
-//import org.apache.log4j.Logger;
+//import org.apache.commons.logging.Log;
 
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -54,7 +54,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 public class SiegeAttackerList extends ServerBasePacket
 {
     private static final String _S__CA_SiegeAttackerList = "[S] ca SiegeAttackerList";
-    //private static Logger _log = Logger.getLogger(SiegeAttackerList.class.getName());
+    //private final static Log _log = LogFactory.getLog(SiegeAttackerList.class.getName());
     private Castle _Castle;
     
     public SiegeAttackerList(Castle castle)

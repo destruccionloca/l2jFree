@@ -32,8 +32,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -44,6 +42,10 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Level;
 
 /**
  * NIO Selector thread.
@@ -73,7 +75,7 @@ import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
  * @author Maxim Kizub
  */ 
 public final class SelectorThread extends IOThread {
-	private static Logger _log = Logger.getLogger(SelectorThread.class.getName());
+	private final static Log _log = LogFactory.getLog(SelectorThread.class.getName());
 	
 	private static SelectorThread _instance;
 	
@@ -251,7 +253,7 @@ public final class SelectorThread extends IOThread {
 				// check for shutdown
 				if (isInterrupted())
 				{
-					try { _selector.close(); } catch (Throwable t) { _log.log(Level.INFO, "", t); }
+					try { _selector.close(); } catch (Throwable t) { _log.info( "", t); }
 					return;
 				}
 				// wait for read/write, timeout is to be on safe side,
@@ -262,7 +264,7 @@ public final class SelectorThread extends IOThread {
 				// check for shutdown
 				if (isInterrupted())
 				{
-					try { _selector.close(); } catch (Throwable t) { _log.log(Level.INFO, "", t); }
+					try { _selector.close(); } catch (Throwable t) { _log.info( "", t); }
 					return;
 				}
 
@@ -377,7 +379,7 @@ public final class SelectorThread extends IOThread {
             
             if (con != null) closeClient(con);
 		} catch (Throwable t) {
-			_log.log(Level.INFO, "", t);
+			_log.info( "", t);
             
             if (con != null) closeClient(con);
 		}
@@ -484,7 +486,7 @@ public final class SelectorThread extends IOThread {
 		}
 		catch (Throwable t)
 		{
-			_log.log(Level.INFO, "", t);
+			_log.info( "", t);
 			closeClient(con);
 		}
 	}
@@ -560,7 +562,7 @@ public final class SelectorThread extends IOThread {
 				}
 			}
 		} catch (Throwable t) {
-			_log.log(Level.INFO, "", t);
+			_log.info("", t);
 		}
 	}
 	

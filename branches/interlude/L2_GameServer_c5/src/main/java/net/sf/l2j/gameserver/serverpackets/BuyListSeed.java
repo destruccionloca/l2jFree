@@ -11,7 +11,7 @@ public class BuyListSeed extends ServerBasePacket
 {
     private static final String _S__E8_BUYLISTSEED = "[S] E8 BuyListSeed";
     
-    //private static Logger _log = Logger.getLogger(BuyListSeed.class.getName());
+    //private final static Log _log = LogFactory.getLog(BuyListSeed.class.getName());
     
     private int _listId;
     private List<L2ItemInstance> _list = new FastList<L2ItemInstance>();

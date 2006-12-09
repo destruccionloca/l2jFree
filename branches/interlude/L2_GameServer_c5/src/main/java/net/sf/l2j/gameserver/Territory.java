@@ -11,15 +11,17 @@
 package net.sf.l2j.gameserver;
 
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.lib.SqlUtils;
 import net.sf.l2j.gameserver.model.L2Territory;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class Territory
 {
-	private static Logger _log = Logger.getLogger(TradeController.class.getName());
+	private final static Log _log = LogFactory.getLog(TradeController.class.getName());
 	private static final Territory _instance = new Territory();
 	private static Map<Integer,L2Territory> _territory;
 	

@@ -19,7 +19,9 @@
 package net.sf.l2j.gameserver;
 
 import java.io.IOException;
-import org.apache.log4j.Logger;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -28,7 +30,7 @@ import org.apache.log4j.Logger;
  */
 public class NewCrypt
 {
-	protected static Logger _log = Logger.getLogger(NewCrypt.class.getName());
+	protected static Log _log = LogFactory.getLog(NewCrypt.class.getName());
 	BlowfishEngine _crypt;
 	BlowfishEngine _decrypt;
 	

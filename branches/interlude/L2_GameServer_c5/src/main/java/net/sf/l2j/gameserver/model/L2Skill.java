@@ -59,7 +59,8 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.gameserver.util.Util;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * This class...
  * 
@@ -67,7 +68,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class L2Skill
 {
-    protected static Logger _log = Logger.getLogger(L2Skill.class.getName());
+    protected static Log _log = LogFactory.getLog(L2Skill.class.getName());
     
     public static final int SKILL_CUBIC_MASTERY = 143;
     public static final int SKILL_LUCKY = 194;

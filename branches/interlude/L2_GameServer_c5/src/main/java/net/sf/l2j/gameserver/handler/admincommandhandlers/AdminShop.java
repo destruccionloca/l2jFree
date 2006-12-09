@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.TradeController;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -30,6 +28,9 @@ import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.BuyList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class handles following admin commands:
  * - gmshop = shows menu
@@ -37,7 +38,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * @version $Revision: 1.2.4.4 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminShop implements IAdminCommandHandler {
-	private static Logger _log = Logger.getLogger(AdminShop.class.getName());
+	private final static Log _log = LogFactory.getLog(AdminShop.class.getName());
 	
 	private static String[] _adminCommands = {
 			"admin_buy",

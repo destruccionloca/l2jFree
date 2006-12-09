@@ -33,7 +33,8 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -43,7 +44,7 @@ import org.apache.log4j.Logger;
 
 public final class Broadcast
 {
-    private static Logger _log = Logger.getLogger(Broadcast.class.getName());
+    private final static Log _log = LogFactory.getLog(Broadcast.class.getName());
     
     /**
      * Send a packet to all L2PcInstance in the _KnownPlayers of the L2Character that have the Character targetted.<BR><BR>

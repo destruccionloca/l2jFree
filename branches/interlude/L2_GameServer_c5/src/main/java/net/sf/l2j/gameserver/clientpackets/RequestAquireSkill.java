@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
  
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -42,6 +41,9 @@ import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
  
 /**
 * This class ...
@@ -51,7 +53,7 @@ import net.sf.l2j.gameserver.util.Util;
 public class RequestAquireSkill extends ClientBasePacket
 {
     private static final String _C__6C_REQUESTAQUIRESKILL = "[C] 6C RequestAquireSkill";
-    private static Logger _log = Logger.getLogger(RequestAquireSkill.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestAquireSkill.class.getName());
     
     private final int _id;
     private final int _level;

@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -34,6 +33,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.AquireSkillInfo;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -42,7 +44,7 @@ import net.sf.l2j.gameserver.serverpackets.AquireSkillInfo;
 public class RequestAquireSkillInfo extends ClientBasePacket
 {
     private static final String _C__6B_REQUESTAQUIRESKILLINFO = "[C] 6B RequestAquireSkillInfo";
-    private static Logger _log = Logger.getLogger(RequestAquireSkillInfo.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestAquireSkillInfo.class.getName());
 
     private final int _id;
     private final int _level;

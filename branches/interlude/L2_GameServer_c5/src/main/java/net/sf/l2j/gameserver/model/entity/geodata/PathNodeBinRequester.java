@@ -4,10 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
-import java.util.logging.Logger;
-import net.sf.l2j.gameserver.model.L2CharPosition;
+
 import javolution.util.FastMap;
 import javolution.util.FastTable;
+import net.sf.l2j.gameserver.model.L2CharPosition;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class PathNodeBinRequester
 {
@@ -26,7 +29,7 @@ public class PathNodeBinRequester
     static int NODERANGE = 300;
     
     public static PathNodeBinRequester _instance = new PathNodeBinRequester();
-    private static Logger _log = Logger.getLogger(PathNodeBinRequester.class.getName());
+    private final static Log _log = LogFactory.getLog(PathNodeBinRequester.class.getName());
     private FastTable<IndexNode> pathNodeBinIndex;
     private FastTable<ZoneNode> pathNodeBinZoneIndex;
     private FastMap<Integer,PathNodeLocation> pathNodeBin; 
@@ -130,7 +133,7 @@ public class PathNodeBinRequester
         }
         catch ( Exception e)
         {
-            _log.warning("Error load GeoBlock Exception : " + e.getMessage());
+            _log.warn("Error load GeoBlock Exception : " + e.getMessage());
             return;
         }
     }
@@ -153,7 +156,7 @@ public class PathNodeBinRequester
         }
         catch (Exception e)
         {
-            _log.warning("Error FlushGeoList Expired Block Exception : " + e.getMessage());
+            _log.warn("Error FlushGeoList Expired Block Exception : " + e.getMessage());
         }
         if (pathNodeBufferList.size() >= defaultCapacity)
         {
@@ -174,7 +177,7 @@ public class PathNodeBinRequester
             }
             catch (Exception e)
             {
-                _log.warning("Error FlushPathNodeList Crowded Block frist loop Exception : " + e.getMessage());
+                _log.warn("Error FlushPathNodeList Crowded Block frist loop Exception : " + e.getMessage());
             }
             try
             {
@@ -184,7 +187,7 @@ public class PathNodeBinRequester
             }
             catch (Exception e)
             {
-                _log.warning("Error FlushPathNodeList Crowded Block Second loop Exception : " + e.getMessage());
+                _log.warn("Error FlushPathNodeList Crowded Block Second loop Exception : " + e.getMessage());
             }
         }
     }	
@@ -438,7 +441,7 @@ public class PathNodeBinRequester
         catch(Exception e)
         {
             return false;
-            //_log.warning( "Error reading Patnode file e=" + e.getMessage());
+            //_log.warn( "Error reading Patnode file e=" + e.getMessage());
         }
     }
  
@@ -540,7 +543,7 @@ public class PathNodeBinRequester
                         }
                         if (GeoDataRequester.getInstance().hasMovementLoS(cp.getObjectId(),node.getX(),node.getY(),(short)node.getZ(),pNode.getX(),pNode.getY(),(short)pNode.getZ()).LoS == true)
                         {
-                            //_log.warning("Get Closest nodes :: objId" +cp.getObjectId()  + " pnodeX:" + pNode.getX() + " pnodeY:" + pNode.getY() + " pnodeZ:" + pNode.getZ() );
+                            //_log.warn("Get Closest nodes :: objId" +cp.getObjectId()  + " pnodeX:" + pNode.getX() + " pnodeY:" + pNode.getY() + " pnodeZ:" + pNode.getZ() );
                             sm.put(j,pNode);
                         }
                     }

@@ -41,7 +41,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2MinionInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -51,7 +52,7 @@ import org.apache.log4j.Logger;
 
 public class MinionList
 {
-    private static Logger _log = Logger.getLogger(L2MonsterInstance.class.getName());
+    private final static Log _log = LogFactory.getLog(L2MonsterInstance.class.getName());
 
     /** List containing the current spawned minions for this L2MonsterInstance */
     private final List<L2MinionInstance> minionReferences;

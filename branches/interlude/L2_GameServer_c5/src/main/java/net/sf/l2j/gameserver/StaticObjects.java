@@ -7,16 +7,18 @@ import java.io.FileReader;
 import java.io.LineNumberReader;
 import java.util.Map;
 import java.util.StringTokenizer;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class StaticObjects
 {
-    private static Logger _log = Logger.getLogger(StaticObjects.class.getName());
+    private final static Log _log = LogFactory.getLog(StaticObjects.class.getName());
     
     private static StaticObjects _instance;
     private Map<Integer,L2StaticObjectInstance> _staticObjects;

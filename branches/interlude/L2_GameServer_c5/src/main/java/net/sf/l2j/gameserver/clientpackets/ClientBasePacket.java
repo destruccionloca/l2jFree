@@ -27,7 +27,8 @@ import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -36,7 +37,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class ClientBasePacket extends BasePacket implements Runnable
 {
-	private static Logger _log = Logger.getLogger(ClientBasePacket.class.getName());
+	private final static Log _log = LogFactory.getLog(ClientBasePacket.class.getName());
 	
 	protected ClientBasePacket(ByteBuffer buf, ClientThread client)
 	{

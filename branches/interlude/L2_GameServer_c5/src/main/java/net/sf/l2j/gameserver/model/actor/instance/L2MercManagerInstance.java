@@ -12,7 +12,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public final class L2MercManagerInstance extends L2FolkInstance
 {
-    //private static Logger _log = Logger.getLogger(L2MercManagerInstance.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2MercManagerInstance.class.getName());
 
     private static int Cond_All_False = 0;
     private static int Cond_Busy_Because_Of_Siege = 1;

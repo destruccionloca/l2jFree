@@ -179,7 +179,8 @@ import net.sf.l2j.gameserver.util.DynamicExtension;
 import net.sf.l2j.status.Status;
 import net.sf.l2j.util.RandomIntGenerator;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -188,7 +189,7 @@ import org.apache.log4j.Logger;
  */
 public class GameServer
 {
-    private static final Logger _log = Logger.getLogger(GameServer.class.getName());
+    private static final Log _log = LogFactory.getLog(GameServer.class.getName());
     private final SelectorThread _selectorThread;
     private final SkillTable _skillTable;
     private final ItemTable _itemTable;
@@ -530,10 +531,13 @@ public class GameServer
         _userCommandHandler.registerUserCommandHandler(new ClanPenalty());
         _userCommandHandler.registerUserCommandHandler(new ClanWarsList());
         _userCommandHandler.registerUserCommandHandler(new DisMount());
+        _userCommandHandler.registerUserCommandHandler(new Divorce());
         _userCommandHandler.registerUserCommandHandler(new Mount());        
         _userCommandHandler.registerUserCommandHandler(new PartyInfo());
         _userCommandHandler.registerUserCommandHandler(new Loc());
         _userCommandHandler.registerUserCommandHandler(new Escape());
+        _userCommandHandler.registerUserCommandHandler(new Engage());
+        _userCommandHandler.registerUserCommandHandler(new GoToLove());
         _userCommandHandler.registerUserCommandHandler(new Time());
         _userCommandHandler.registerUserCommandHandler(new ClanWarsList());
         _log.info("UserCommandHandler: Loaded " + _userCommandHandler.size() + " handlers.");

@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2AdventurerInstance extends L2FolkInstance
 {
-    //private static Logger _log = Logger.getLogger(L2AdventurerInstance.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2AdventurerInstance.class.getName());
 
     public L2AdventurerInstance(int objectId, L2NpcTemplate template)
     {

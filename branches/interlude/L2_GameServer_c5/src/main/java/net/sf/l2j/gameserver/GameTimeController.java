@@ -22,7 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -35,6 +34,9 @@ import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.SunRise;
 import net.sf.l2j.gameserver.serverpackets.SunSet;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -42,7 +44,7 @@ import net.sf.l2j.gameserver.serverpackets.SunSet;
  */
 public class GameTimeController
 {
-    static final Logger _log = Logger.getLogger(GameTimeController.class.getName());
+    static final Log _log = LogFactory.getLog(GameTimeController.class.getName());
 
     public static final int TICKS_PER_SECOND = 10;
     public static final int MILLIS_IN_TICK = 1000 / TICKS_PER_SECOND;

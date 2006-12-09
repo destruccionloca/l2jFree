@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
 public class CharacterRestore extends ClientBasePacket
 {
 	private static final String _C__62_CHARACTERRESTORE = "[C] 62 CharacterRestore";
-	//private static Logger _log = Logger.getLogger(CharacterRestore.class.getName());
+	//private final static Log _log = LogFactory.getLog(CharacterRestore.class.getName());
 
 	// cd
 	@SuppressWarnings("unused")

@@ -19,9 +19,11 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author -Wooden-
@@ -29,7 +31,7 @@ import net.sf.l2j.gameserver.ClientThread;
  */
 public class RequestExAcceptJoinMPCC extends ClientBasePacket
 {
-	private static Logger _log = Logger.getLogger(RequestExAcceptJoinMPCC.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestExAcceptJoinMPCC.class.getName());
 	private static final String _C__D0_0E_REQUESTEXASKJOINMPCC = "[C] D0:0E RequestExAcceptJoinMPCC";
 	private int _data;
 

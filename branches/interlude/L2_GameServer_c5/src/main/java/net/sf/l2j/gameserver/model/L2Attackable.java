@@ -75,7 +75,7 @@ import net.sf.l2j.util.RandomIntGenerator;
  */
 public class L2Attackable extends L2NpcInstance
 {
-    //protected static Logger _log = Logger.getLogger(L2Attackable.class.getName());
+    //protected static Log _log = LogFactory.getLog(L2Attackable.class.getName());
     
     /**
      * This class contains all AggroInfo of the L2Attackable against the attacker L2Character.<BR><BR>

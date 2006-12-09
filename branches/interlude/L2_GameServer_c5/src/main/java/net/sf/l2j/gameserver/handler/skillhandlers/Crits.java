@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.lib.Rnd;
@@ -34,6 +32,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 //import net.sf.l2j.gameserver.util.Util;
 /** 
  * @author decad
@@ -43,7 +44,7 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
 public class Crits implements ISkillHandler
 {
     // all the items ids that this handler knowns
-    private static Logger _log = Logger.getLogger(Crits.class);
+    private final static Log _log = LogFactory.getLog(Crits.class);
     
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)

@@ -11,7 +11,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -21,7 +22,7 @@ import org.w3c.dom.Node;
  */
 public class L2Multisell
 {
-    private static Logger _log = Logger.getLogger(L2Multisell.class.getName());
+    private final static Log _log = LogFactory.getLog(L2Multisell.class.getName());
     private List<MultiSellListContainer> entries = new FastList<MultiSellListContainer>();
     private static L2Multisell _instance = new L2Multisell();
 

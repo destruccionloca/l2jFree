@@ -36,7 +36,8 @@ import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.TvT;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -46,7 +47,7 @@ import org.apache.log4j.Logger;
 public class RequestBypassToServer extends ClientBasePacket
 {
 	private static final String _C__21_REQUESTBYPASSTOSERVER = "[C] 21 RequestBypassToServer";
-	private static Logger _log = Logger.getLogger(RequestBypassToServer.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestBypassToServer.class.getName());
 
 	// S
 	private final String _command;

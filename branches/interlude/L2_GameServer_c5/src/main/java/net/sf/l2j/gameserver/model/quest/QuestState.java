@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.model.quest;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -43,12 +42,15 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.util.RandomIntGenerator;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author Luis Arias
  */
 public final class QuestState
 {
-	protected static Logger _log = Logger.getLogger(Quest.class.getName());
+	protected static Log _log = LogFactory.getLog(Quest.class.getName());
 
 	/** Quest associated to the QuestState */
 	private final Quest _quest;

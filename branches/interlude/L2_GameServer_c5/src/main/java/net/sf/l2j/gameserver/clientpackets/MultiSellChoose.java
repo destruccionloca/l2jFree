@@ -20,7 +20,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class MultiSellChoose extends ClientBasePacket
 {
     private static final String _C__A7_MULTISELLCHOOSE = "[C] A7 MultiSellChoose";
-    //private static Logger _log = Logger.getLogger(MultiSellChoose.class.getName());
+    //private final static Log _log = LogFactory.getLog(MultiSellChoose.class.getName());
     private int _listId;
     private int _entryId;
     private int _amount;

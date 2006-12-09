@@ -22,7 +22,8 @@ import java.util.concurrent.Future;
 
 import net.sf.l2j.gameserver.ThreadPoolManager;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -33,7 +34,7 @@ import org.apache.log4j.Logger;
  */
 public class L2Potion extends L2Object
 {
-    protected static final Logger _log = Logger.getLogger(L2Character.class.getName());
+    protected static final Log _log = LogFactory.getLog(L2Character.class.getName());
 
 
 	L2Character _target;

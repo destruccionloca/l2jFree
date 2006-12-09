@@ -40,7 +40,8 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.util.EventData;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -50,7 +51,7 @@ import org.apache.log4j.Logger;
 
 public class L2Event
 {
-    private static Logger _log = Logger.getLogger(L2Event.class.getName());
+    private final static Log _log = LogFactory.getLog(L2Event.class.getName());
    
     public static String eventName = "";
     public static int teamsNumber = 0;

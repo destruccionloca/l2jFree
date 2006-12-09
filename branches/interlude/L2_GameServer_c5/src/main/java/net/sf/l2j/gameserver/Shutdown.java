@@ -18,17 +18,18 @@
  */
 package net.sf.l2j.gameserver;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.gameserverpackets.ServerStatus;
-import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
+import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Level;
 
 /**
  * 
@@ -39,7 +40,7 @@ import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
  */
 public class Shutdown extends Thread 
 {
-    private static Logger _log = Logger.getLogger(Shutdown.class.getName());
+    private final static Log _log = LogFactory.getLog(Shutdown.class.getName());
     private static Shutdown _instance;
     private static Shutdown _counterInstance = null;
     
@@ -357,7 +358,7 @@ public class Shutdown extends Thread
         {
             _an.announceToAll("Server is " + _modeText[shutdownMode] + " NOW!");
         } catch (Throwable t) {
-            _log.log(Level.INFO, "", t);
+            _log.info( "", t);
         }
                 
         // we cannt abort shutdown anymore, so i removed the "if" 
@@ -417,7 +418,7 @@ public class Shutdown extends Thread
                 player.deleteMe();
             } catch (Throwable t)   {}
         }
-        try { Thread.sleep(1000); } catch (Throwable t) {_log.log(Level.INFO, "", t);}
+        try { Thread.sleep(1000); } catch (Throwable t) {_log.info( "", t);}
         
         
         for (L2PcInstance player : L2World.getInstance().getAllPlayers())

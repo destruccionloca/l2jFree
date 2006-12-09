@@ -2,7 +2,6 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.sql.PreparedStatement;
 import java.util.StringTokenizer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -18,6 +17,9 @@ import net.sf.l2j.gameserver.serverpackets.PledgeStatusChanged;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * Pledge Manipulation
  * //pledge <create|dismiss|setlevel>
@@ -25,7 +27,7 @@ import net.sf.l2j.gameserver.serverpackets.UserInfo;
 public class AdminPledge implements IAdminCommandHandler
 {
     private static String[] _adminCommands = {"admin_pledge"};
-    private static Logger _log = Logger.getLogger(AdminPledge.class.getName());
+    private final static Log _log = LogFactory.getLog(AdminPledge.class.getName());
 
     public boolean useAdminCommand(String command, L2PcInstance activeChar)
     {

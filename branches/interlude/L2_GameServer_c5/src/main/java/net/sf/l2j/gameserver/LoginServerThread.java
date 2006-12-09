@@ -33,7 +33,6 @@ import java.security.spec.RSAPublicKeySpec;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -57,10 +56,13 @@ import net.sf.l2j.gameserver.serverpackets.AuthLoginFail;
 import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
 import net.sf.l2j.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 public class LoginServerThread extends Thread
 {
-	protected static Logger	_log = Logger.getLogger(LoginServerThread.class.getName());
+	protected static Log _log = LogFactory.getLog(LoginServerThread.class.getName());
 
 	/** The LoginServerThread singleton */
 	private static LoginServerThread	_instance;

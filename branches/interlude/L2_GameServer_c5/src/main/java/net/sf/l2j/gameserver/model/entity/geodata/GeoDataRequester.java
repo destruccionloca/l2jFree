@@ -19,14 +19,16 @@
  */
 package net.sf.l2j.gameserver.model.entity.geodata;
 
-import java.util.logging.Logger;
 import java.io.File;
 import java.io.RandomAccessFile;
+
+import javolution.util.FastMap;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
-import net.sf.l2j.gameserver.model.entity.geodata.FarPoint;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
-import javolution.util.FastMap;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
 clanth --  22 oct 2006
@@ -50,7 +52,7 @@ public class GeoDataRequester
     private long defaultExpirationTime;
     public static GeoDataRequester _instance = new GeoDataRequester();
 
-    private static Logger _log = Logger.getLogger(GeoDataRequester.class.getName());
+    private final static Log _log = LogFactory.getLog(GeoDataRequester.class.getName());
 
     private FastMap<String,GeoBlock> geoList;
     private FastMap<Integer,GeoDataBuffer> geoRequestBuffer;
@@ -228,7 +230,7 @@ public class GeoDataRequester
         }
         catch ( Exception e)
         {
-            _log.warning("Error load GeoBlock Exception : " + e.getMessage());
+            _log.warn("Error load GeoBlock Exception : " + e.getMessage());
             return null;
         }
     }
@@ -274,7 +276,7 @@ public class GeoDataRequester
         }
         catch (Exception e)
         {
-            _log.warning("Error FlushGeoList Expired Block Exception : " + e.getMessage());
+            _log.warn("Error FlushGeoList Expired Block Exception : " + e.getMessage());
         }
         if (geoList.size() >= defaultCapacity)
         {
@@ -295,7 +297,7 @@ public class GeoDataRequester
             }
             catch (Exception e)
             {
-                _log.warning("Error FlushGeoList Crowded Block frist loop Exception : " + e.getMessage());
+                _log.warn("Error FlushGeoList Crowded Block frist loop Exception : " + e.getMessage());
             }
             try
             {
@@ -325,7 +327,7 @@ public class GeoDataRequester
             }
             catch (Exception e)
             {
-                _log.warning("Error FlushGeoList Crowded Block Second loop Exception : " + e.getMessage());
+                _log.warn("Error FlushGeoList Crowded Block Second loop Exception : " + e.getMessage());
             }
         }
         // TODO
@@ -345,7 +347,7 @@ public class GeoDataRequester
         }
         catch (Exception e)
         {
-            _log.warning("Error in flushing geoRequestBuffer");
+            _log.warn("Error in flushing geoRequestBuffer");
         }
 
     }
@@ -363,7 +365,7 @@ public class GeoDataRequester
             }
             else
             {
-                //_log.warning( " refreshing buffer " + objId );
+                //_log.warn( " refreshing buffer " + objId );
                 geobuf.x = npcX;
                 geobuf.y = npcY;
                 geobuf.z = npcZ;
@@ -414,7 +416,7 @@ public class GeoDataRequester
                     int readLength = currentFile.read(rawInfo);
                     if (readLength == -1 )
                     {
-                        //_log.warning( "error reading geodata file " + filename);
+                        //_log.warn( "error reading geodata file " + filename);
                         currentFile.close();
                         return null;
                     }
@@ -425,7 +427,7 @@ public class GeoDataRequester
         }
         catch(Exception e)
         {
-            //_log.warning( "Error reading geodata file e=" + e.getMessage());
+            //_log.warn( "Error reading geodata file e=" + e.getMessage());
             return null;
         }
 
@@ -490,7 +492,7 @@ public class GeoDataRequester
                     else
                     {
                         //geodata file structure error;
-                        _log.warning( "Error in Geodata file, structure error");
+                        _log.warn( "Error in Geodata file, structure error");
                         block = null;
                         return null;
                     }
@@ -500,7 +502,7 @@ public class GeoDataRequester
         }
         catch(Exception e)
         {
-            _log.warning( "Error parsing geodata : " + e.getMessage());
+            _log.warn( "Error parsing geodata : " + e.getMessage());
             block = null;
             return null;
         }
@@ -536,8 +538,8 @@ public class GeoDataRequester
         File filecheck = new File(filename);
         if (!filecheck.exists())
         {
-            //_log.warning("check X = " + tileX + "   Y =" + tileY);
-            //_log.warning("Geodata file " + filecheck.getAbsolutePath() + " does not exist");
+            //_log.warn("check X = " + tileX + "   Y =" + tileY);
+            //_log.warn("Geodata file " + filecheck.getAbsolutePath() + " does not exist");
             return null;
         }
         //_log.config("Geodata file located = " + filename);
@@ -576,13 +578,13 @@ public class GeoDataRequester
         fp.y = targetY;
         fp.z = targetZ;
 
-       // _log.warning("Geodata MLOS start");
+       // _log.warn("Geodata MLOS start");
         
         double range = (((sourceX - targetX)*(sourceX - targetX)) + ((sourceY - targetY)*(sourceY - targetY)));
         if (range < 1600  && (sourceZ & 0xFFF8) == (targetZ & 0xFFF8))
         {
             // self / 40 Ticks or mob is 8z ticks away force LOS
-            //_log.warning("in range ??");
+            //_log.warn("in range ??");
             fp.x = targetX;
             fp.y = targetY;
             fp.z = targetZ;
@@ -593,10 +595,10 @@ public class GeoDataRequester
         geobuf =checkGeoBuffer(objId, sourceX, sourceY, sourceZ, targetX, targetY, targetZ);
         if (geobuf != null)
         {
-            //_log.warning("geo buf ?? id " + objId );
+            //_log.warn("geo buf ?? id " + objId );
             if (geobuf.mov_atk == 0)
             {
-                //_log.warning("yep geo buf ??");
+                //_log.warn("yep geo buf ??");
                 fp.x = geobuf.targetX;
                 fp.y = geobuf.targetY;
                 fp.z = geobuf.targetZ;
@@ -964,7 +966,7 @@ public class GeoDataRequester
                         cellData = getGeoInfoNearest((x +16) & 0xFFFFFFF0 ,y , newZ);
                         NSEW = cellData.getNSEW();
                         newZ =  cellData.getZ();
-                        //_log.warning("Geodata MLOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
+                        //_log.warn("Geodata MLOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
                         if ((NSEW & EAST) == 0)
                         {
                             if(fp.y == targetY-16 || fp.y > y)
@@ -993,7 +995,7 @@ public class GeoDataRequester
                     if (Math.abs(Math.abs(fp.z) - Math.abs(tempZ)) > 16)
                     {
                         //Not the same level should return false !
-                        //_log.warning("NSL Z fp.z:" + fp.z + " FoundZ:" + getGeoInfoNearest( targetX,targetY,(short)(targetZ+24)).getZ());
+                        //_log.warn("NSL Z fp.z:" + fp.z + " FoundZ:" + getGeoInfoNearest( targetX,targetY,(short)(targetZ+24)).getZ());
                         fp.LoS = false;
                     }
                 }
@@ -1045,7 +1047,7 @@ public class GeoDataRequester
         GeoDataBuffer geobuf;
         GeoSubCell cellData;
 
-        //_log.warning("Geodata ALOS start");
+        //_log.warn("Geodata ALOS start");
         double range = (((sourceX - targetX)*(sourceX - targetX)) + ((sourceY - targetY)*(sourceY - targetY)));
         if (range < 900  && (sourceZ & 0xFFF8) == (targetZ & 0xFFF8))
         {
@@ -1085,10 +1087,10 @@ public class GeoDataRequester
                     cellData = getGeoInfoNearest(sourceX, y & 0xFFFFFFF0,newZ);
                     NSEW = cellData.getNSEW();
                     newZ =  cellData.getZ();
-                    //_log.warning("Geodata ALOS x:" + sourceX + " y:" + y + " z:" + cellData.getZ() );
+                    //_log.warn("Geodata ALOS x:" + sourceX + " y:" + y + " z:" + cellData.getZ() );
                     if ( (NSEW & SOUTH) == 0)
                     {
-                        //_log.warning("Geodata ALOS 1");
+                        //_log.warn("Geodata ALOS 1");
                         LoS = false;
                         break;
                     }
@@ -1102,10 +1104,10 @@ public class GeoDataRequester
                     cellData = getGeoInfoNearest(sourceX, (y+16) & 0xFFFFFFF0,newZ);
                     NSEW = cellData.getNSEW();
                     newZ =  cellData.getZ();
-                   // _log.warning("Geodata ALOS x:" + sourceX + " y:" + y + " z:" + cellData.getZ() );
+                   // _log.warn("Geodata ALOS x:" + sourceX + " y:" + y + " z:" + cellData.getZ() );
                     if ( (NSEW & NORTH) == 0)
                     {
-                        //_log.warning("Geodata ALOS 2");
+                        //_log.warn("Geodata ALOS 2");
                         LoS = false;
                         break;
                     }
@@ -1122,10 +1124,10 @@ public class GeoDataRequester
                     cellData = getGeoInfoNearest(x & 0xFFFFFFF0,sourceY,newZ);
                     NSEW = cellData.getNSEW();
                     newZ =  cellData.getZ();
-                    //_log.warning("Geodata ALOS x:" + x + " y:" + sourceY  + " z:" + cellData.getZ() );
+                    //_log.warn("Geodata ALOS x:" + x + " y:" + sourceY  + " z:" + cellData.getZ() );
                     if ( (NSEW & WEST) == 0)
                     {
-                        //_log.warning("Geodata ALOS 3");
+                        //_log.warn("Geodata ALOS 3");
                         LoS = false;
                         break;
                     }
@@ -1139,10 +1141,10 @@ public class GeoDataRequester
                     cellData = getGeoInfoNearest((x +16)& 0xFFFFFFF0,sourceY,newZ);
                     NSEW = cellData.getNSEW();
                     newZ =  cellData.getZ();
-                    //_log.warning("Geodata ALOS x:" + x + " y:" + sourceY  + " z:" + cellData.getZ() );
+                    //_log.warn("Geodata ALOS x:" + x + " y:" + sourceY  + " z:" + cellData.getZ() );
                     if ( (NSEW & EAST) == 0)
                     {
-                        //_log.warning("Geodata ALOS 4");
+                        //_log.warn("Geodata ALOS 4");
                         LoS = false;
                         break;
                     }
@@ -1160,10 +1162,10 @@ public class GeoDataRequester
                     cellData = getGeoInfoNearest((x + 16) & 0xFFFFFFF0  , y , newZ);
                     NSEW = cellData.getNSEW();
                     newZ =  cellData.getZ();
-                    //_log.warning("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
+                    //_log.warn("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
                     if ((NSEW & EAST) == 0)
                     {
-                        //_log.warning("Geodata ALOS 5");
+                        //_log.warn("Geodata ALOS 5");
                         LoS = false;
                         break;
                     }
@@ -1177,10 +1179,10 @@ public class GeoDataRequester
                         cellData = getGeoInfoNearest( x  , (y + 16) & 0xFFFFFFF0  , newZ);
                         NSEW = cellData.getNSEW();
                         newZ =  cellData.getZ();
-                        //_log.warning("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
+                        //_log.warn("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
                         if ((NSEW & NORTH) == 0)
                         {
-                            //_log.warning("Geodata ALOS 6");
+                            //_log.warn("Geodata ALOS 6");
                             LoS = false;
                             break;
                         }
@@ -1195,10 +1197,10 @@ public class GeoDataRequester
                         cellData = getGeoInfoNearest( x  , y & 0xFFFFFFF0, newZ);
                         NSEW = cellData.getNSEW();
                         newZ =  cellData.getZ();
-                        //_log.warning("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
+                        //_log.warn("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
                         if ((NSEW & SOUTH) == 0)
                         {
-                            //_log.warning("Geodata ALOS 7");
+                            //_log.warn("Geodata ALOS 7");
                             LoS = false;
                             break;
                         }
@@ -1214,10 +1216,10 @@ public class GeoDataRequester
                     cellData = getGeoInfoNearest( x & 0xFFFFFFF0 ,y , newZ);
                     NSEW = cellData.getNSEW();
                     newZ =  cellData.getZ();
-                    //_log.warning("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
+                    //_log.warn("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
                     if ((NSEW & WEST) == 0)
                     {
-                        //_log.warning("Geodata ALOS 8");
+                        //_log.warn("Geodata ALOS 8");
                         LoS = false;
                         break;
                     }
@@ -1231,10 +1233,10 @@ public class GeoDataRequester
                         cellData = getGeoInfoNearest(x  ,(y + 16) & 0xFFFFFFF0 , newZ);
                         NSEW = cellData.getNSEW();
                         newZ =  cellData.getZ();
-                        //_log.warning("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
+                        //_log.warn("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
                         if ((NSEW & NORTH) == 0)
                         {
-                            //_log.warning("Geodata ALOS 9");
+                            //_log.warn("Geodata ALOS 9");
                             LoS = false;
                             break;
                         }
@@ -1249,10 +1251,10 @@ public class GeoDataRequester
                         cellData = getGeoInfoNearest( x  , y & 0xFFFFFFF0 , newZ);
                         NSEW = cellData.getNSEW();
                         newZ =  cellData.getZ();
-                        //_log.warning("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
+                        //_log.warn("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
                         if ((NSEW & SOUTH) == 0)
                         {
-                            //_log.warning("Geodata ALOS 10");
+                            //_log.warn("Geodata ALOS 10");
                             LoS = false;
                             break;
                         }
@@ -1272,10 +1274,10 @@ public class GeoDataRequester
                     cellData = getGeoInfoNearest( x , y & 0xFFFFFFF0 , newZ);
                     NSEW = cellData.getNSEW();
                     newZ =  cellData.getZ();
-                    //_log.warning("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
+                    //_log.warn("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
                     if ((NSEW & NORTH) == 0)
                     {
-                        //_log.warning("Geodata ALOS 11");
+                        //_log.warn("Geodata ALOS 11");
                         LoS = false;
                         break;
                     }
@@ -1290,10 +1292,10 @@ public class GeoDataRequester
                         cellData = getGeoInfoNearest( (x + 16) & 0xFFFFFFF0  , y , newZ);
                         NSEW = cellData.getNSEW();
                         newZ =  cellData.getZ();
-                        //_log.warning("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
+                        //_log.warn("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
                         if ((NSEW & EAST) == 0)
                         {
-                            //_log.warning("Geodata ALOS 12");
+                            //_log.warn("Geodata ALOS 12");
                             LoS = false;
                             break;
                         }
@@ -1308,10 +1310,10 @@ public class GeoDataRequester
                         cellData = getGeoInfoNearest( (x + 16) & 0xFFFFFFF0  , y , newZ);
                         NSEW = cellData.getNSEW();
                         newZ =  cellData.getZ();
-                        //_log.warning("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
+                        //_log.warn("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
                         if ((NSEW & WEST) == 0)
                         {
-                            //_log.warning("Geodata ALOS 13");
+                            //_log.warn("Geodata ALOS 13");
                             LoS = false;
                             break;
                         }
@@ -1328,10 +1330,10 @@ public class GeoDataRequester
                     cellData = getGeoInfoNearest(x ,(y+16) & 0xFFFFFFF0, newZ);
                     NSEW = cellData.getNSEW();
                     newZ =  cellData.getZ();
-                    //_log.warning("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
+                    //_log.warn("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
                     if ((NSEW & SOUTH) == 0)
                     {
-                        //_log.warning("Geodata ALOS 14");
+                        //_log.warn("Geodata ALOS 14");
                         LoS = false;
                         break;
                     }
@@ -1346,10 +1348,10 @@ public class GeoDataRequester
                         cellData = getGeoInfoNearest( x & 0xFFFFFFF0 , y , newZ);
                         NSEW = cellData.getNSEW();
                         newZ =  cellData.getZ();
-                        //_log.warning("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
+                        //_log.warn("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
                         if ((NSEW & WEST) == 0)
                         {
-                            //_log.warning("Geodata ALOS 15");
+                            //_log.warn("Geodata ALOS 15");
                             LoS = false;
                             break;
                         }
@@ -1364,10 +1366,10 @@ public class GeoDataRequester
                         cellData = getGeoInfoNearest((x +16) & 0xFFFFFFF0 ,y , newZ);
                         NSEW = cellData.getNSEW();
                         newZ =  cellData.getZ();
-                        //_log.warning("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
+                        //_log.warn("Geodata ALOS x:" + x + " y:" + y + " z:" + cellData.getZ() );
                         if ((NSEW & EAST) == 0)
                         {
-                            //_log.warning("Geodata ALOS 16");
+                            //_log.warn("Geodata ALOS 16");
                             LoS = false;
                             break;
                         }
@@ -1375,7 +1377,7 @@ public class GeoDataRequester
                 }
             }
         }
-        //_log.warning("Geodata ALOS stop");
+        //_log.warn("Geodata ALOS stop");
         
         geobuf = geoRequestBuffer.get(objId);
         if (geobuf != null)

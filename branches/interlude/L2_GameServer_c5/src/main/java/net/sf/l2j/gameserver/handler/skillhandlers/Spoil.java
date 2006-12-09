@@ -43,7 +43,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */ 
 public class Spoil implements ISkillHandler 
 { 
-    //private static Logger _log = Logger.getLogger(Spoil.class.getName()); 
+    //private final static Log _log = LogFactory.getLog(Spoil.class.getName()); 
     protected SkillType[] _skillIds = {SkillType.SPOIL};
     
     public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)

@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public final class L2ObservationInstance extends L2FolkInstance
 {
-    //private static Logger _log = Logger.getLogger(L2TeleporterInstance.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2TeleporterInstance.class.getName());
 
     /**
      * @param template

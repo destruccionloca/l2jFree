@@ -20,7 +20,8 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -41,7 +42,7 @@ public class PledgeReceivePowerInfo extends ServerBasePacket
 	private static final String _S__FE_3C_PLEDGERECEIVEPOWERINFO = "[S] FE:3C PledgeReceivePowerInfo";
 	//private L2Clan _clan;
     private L2PcInstance _cha;
-    private static Logger _log = Logger.getLogger(ServerBasePacket.class.getName());
+    private final static Log _log = LogFactory.getLog(ServerBasePacket.class.getName());
 
 
 	

@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -35,6 +34,9 @@ import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -43,7 +45,7 @@ import net.sf.l2j.gameserver.util.Util;
 public class RequestDropItem extends ClientBasePacket
 {
 	private static final String _C__12_REQUESTDROPITEM = "[C] 12 RequestDropItem";
-	private static Logger _log = Logger.getLogger(RequestDropItem.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestDropItem.class.getName());
 
 	private final int _objectId;
 	private final int _count;

@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -28,6 +26,9 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class handles following admin commands:
  * - res = resurrects target L2Character
@@ -35,7 +36,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * @version $Revision: 1.2.4.5 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminHeal implements IAdminCommandHandler {
-    private static Logger _log = Logger.getLogger(AdminRes.class.getName());
+    private final static Log _log = LogFactory.getLog(AdminRes.class.getName());
     private static String[] _adminCommands = {"admin_heal"};
     private static final int REQUIRED_LEVEL = Config.GM_HEAL;
     

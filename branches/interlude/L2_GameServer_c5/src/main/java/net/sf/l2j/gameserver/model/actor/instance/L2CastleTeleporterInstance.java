@@ -35,7 +35,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public final class L2CastleTeleporterInstance extends L2FolkInstance
 {
-	//private static Logger _log = Logger.getLogger(L2TeleporterInstance.class.getName());
+	//private final static Log _log = LogFactory.getLog(L2TeleporterInstance.class.getName());
 
 	private static int Cond_All_False = 0;
 	private static int Cond_Busy_Because_Of_Siege = 1;

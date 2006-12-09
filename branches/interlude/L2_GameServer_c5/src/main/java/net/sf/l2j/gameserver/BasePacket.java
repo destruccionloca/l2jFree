@@ -19,10 +19,12 @@
 package net.sf.l2j.gameserver;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.templates.L2Item;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -65,7 +67,7 @@ public abstract class BasePacket implements Cloneable {
      */
 	public static class ItemInfo
 	{
-		private static final Logger _log = Logger.getLogger(GameServer.class.getName());
+		private static final Log _log = LogFactory.getLog(GameServer.class.getName());
 
         /** Identifier of the L2ItemInstance */
         int _objectId;

@@ -13,11 +13,12 @@ import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.PetItemList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class RequestPetUseItem extends ClientBasePacket
 {
-    private static Logger _log = Logger.getLogger(RequestPetUseItem.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestPetUseItem.class.getName());
     private static final String _C__8A_REQUESTPETUSEITEM = "[C] 8a RequestPetUseItem";
     
     private final int _objectId;

@@ -30,7 +30,8 @@ import net.sf.l2j.gameserver.serverpackets.RestartResponse;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -40,7 +41,7 @@ import org.apache.log4j.Logger;
 public class RequestRestart extends ClientBasePacket
 {
     private static final String _C__46_REQUESTRESTART = "[C] 46 RequestRestart";
-    private static Logger _log = Logger.getLogger(RequestRestart.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestRestart.class.getName());
 
     /**
      * packet type id 0x46

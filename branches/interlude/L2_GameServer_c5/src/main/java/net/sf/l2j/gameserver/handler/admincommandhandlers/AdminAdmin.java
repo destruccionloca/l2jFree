@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import org.apache.log4j.Logger;
-
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GmListTable;
@@ -45,6 +43,9 @@ import net.sf.l2j.gameserver.serverpackets.SunRise;
 import net.sf.l2j.gameserver.serverpackets.SunSet;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class handles following admin commands:
  * - admin = shows menu
@@ -53,7 +54,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class AdminAdmin implements IAdminCommandHandler {
     
-    private static Logger _log = Logger.getLogger(AdminAdmin.class);
+    private final static Log _log = LogFactory.getLog(AdminAdmin.class);
 
  private static String[] _adminCommands = {"admin_admin","admin_admin2","admin_play_sounds","admin_play_sound",
                                            "admin_gmliston","admin_gmlistoff","admin_silence",

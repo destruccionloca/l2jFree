@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class RequestJoinAlly extends ClientBasePacket{
 	
 	private static final String _C__82_REQUESTJOINALLY = "[C] 82 RequestJoinAlly";
-	//private static Logger _log = Logger.getLogger(RequestJoinAlly.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestJoinAlly.class.getName());
 
 	private final int _id;
 	

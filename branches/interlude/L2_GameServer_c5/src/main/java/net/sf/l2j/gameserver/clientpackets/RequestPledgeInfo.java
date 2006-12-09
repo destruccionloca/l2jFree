@@ -28,7 +28,8 @@ import net.sf.l2j.gameserver.serverpackets.PledgeInfo;
 import net.sf.l2j.gameserver.serverpackets.PledgeReceivePowerInfo;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -38,7 +39,7 @@ import org.apache.log4j.Logger;
 public class RequestPledgeInfo extends ClientBasePacket
 {
 	private static final String _C__66_REQUESTPLEDGEINFO = "[C] 66 RequestPledgeInfo";
-	private static Logger _log = Logger.getLogger(RequestPledgeInfo.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestPledgeInfo.class.getName());
 	
 	private final int _clanId;
 	

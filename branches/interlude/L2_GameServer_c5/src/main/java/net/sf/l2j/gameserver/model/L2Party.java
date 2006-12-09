@@ -47,7 +47,7 @@ import net.sf.l2j.gameserver.util.Util;
 public class L2Party {
     static double[] _bonusExpSp = {1, 1.30, 1.39, 1.50, 1.54, 1.58, 1.63, 1.67, 1.71};
     
-    // private static Logger _log = Logger.getLogger(L2Party.class.getName());
+    // private final static Log _log = LogFactory.getLog(L2Party.class.getName());
     
 	private List<L2PcInstance> _members = null;
     private List<L2PcInstance> _validMembers = null;

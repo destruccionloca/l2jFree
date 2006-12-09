@@ -37,7 +37,8 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Luis Arias
@@ -45,7 +46,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class Quest
 {
-	protected static Logger _log = Logger.getLogger(Quest.class.getName());
+	protected static Log _log = LogFactory.getLog(Quest.class.getName());
 
 	/** HashMap containing events from String value of the event */
 	private static Map<String, Quest> allEventsS = new FastMap<String, Quest>();

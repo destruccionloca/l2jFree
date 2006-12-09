@@ -120,6 +120,7 @@ public class SystemMessage extends ServerBasePacket
 	public static final int CRITICAL_HIT_BY_SUMMONED_MOB       = 1028;
     public static final int CRITICAL_HIT_MAGIC                 = 1280;
 	public static final int SHIELD_DEFENCE_SUCCESSFULL         =  111;
+    public static final int YOUR_EXCELLENT_SHIELD_DEFENSE_WAS_A_SUCCESS = 1281;     
 	public static final int OVER_HIT                           =  361;
     public static final int ACQUIRED_BONUS_EXPERIENCE_THROUGH_OVER_HIT  =  362;
     public static final int CANT_MOVE_SITTING = 31;

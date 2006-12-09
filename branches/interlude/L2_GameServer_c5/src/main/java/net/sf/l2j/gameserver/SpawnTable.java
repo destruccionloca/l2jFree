@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -31,6 +30,9 @@ import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -39,7 +41,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class SpawnTable
 {
-    private static Logger _log = Logger.getLogger(SpawnTable.class.getName());
+    private final static Log _log = LogFactory.getLog(SpawnTable.class.getName());
 
     private static final SpawnTable _instance = new SpawnTable();
 

@@ -22,13 +22,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.templates.L2PcTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -37,7 +39,7 @@ import net.sf.l2j.gameserver.templates.StatsSet;
  */
 public class CharTemplateTable
 {
-	private static Logger _log = Logger.getLogger(CharTemplateTable.class.getName());
+	private final static Log _log = LogFactory.getLog(CharTemplateTable.class.getName());
 			
 	private static CharTemplateTable _instance;
 	

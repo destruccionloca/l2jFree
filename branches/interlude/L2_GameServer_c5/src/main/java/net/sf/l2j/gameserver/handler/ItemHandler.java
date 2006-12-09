@@ -28,7 +28,7 @@ import java.util.TreeMap;
  */
 public class ItemHandler
 {
-	//private static Logger _log = Logger.getLogger(ItemHandler.class.getName());
+	//private final static Log _log = LogFactory.getLog(ItemHandler.class.getName());
 	
 	private static ItemHandler _instance;
 	

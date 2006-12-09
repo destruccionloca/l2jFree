@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
  */
 public class SkillHandler
 {
-	//private static Logger _log = Logger.getLogger(SkillHandler.class.getName());
+	//private final static Log _log = LogFactory.getLog(SkillHandler.class.getName());
 	
 	private static SkillHandler _instance;
 	

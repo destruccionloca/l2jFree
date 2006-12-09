@@ -25,7 +25,8 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MerchantInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -35,7 +36,7 @@ import org.apache.log4j.Logger;
 public class SellList extends ServerBasePacket
 {
 	private static final String _S__10_SELLLIST = "[S] 10 SellList";
-	private static Logger _log = Logger.getLogger(SellList.class.getName());
+	private final static Log _log = LogFactory.getLog(SellList.class.getName());
 	private final L2PcInstance _char;
 	private final L2MerchantInstance _lease;
 	private int _money;

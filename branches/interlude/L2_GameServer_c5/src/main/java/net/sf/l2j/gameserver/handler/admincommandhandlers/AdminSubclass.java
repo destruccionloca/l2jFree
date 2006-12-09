@@ -44,7 +44,8 @@ import net.sf.l2j.gameserver.model.base.SubClass;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.templates.L2Henna;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Admin Subclass Restoration
@@ -86,7 +87,7 @@ public class AdminSubclass implements IAdminCommandHandler
     private static final String UPDATE_CHARACTER_CLASSID = "UPDATE characters SET classid=base_class WHERE classid!=base_class";
     private static final String UPDATE_CHAR_DYE_COUNT = "UPDATE items SET object_id=?, count=? WHERE owner_id=? AND item_id=?";
     
-    private static Logger _log = Logger.getLogger(L2PcInstance.class.getName());
+    private final static Log _log = LogFactory.getLog(L2PcInstance.class.getName());
     
     private L2PcInstance _activeChar;
     private int _goodCount = 0;

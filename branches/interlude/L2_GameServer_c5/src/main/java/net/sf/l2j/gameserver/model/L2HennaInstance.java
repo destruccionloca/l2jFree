@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.templates.L2Henna;
 
 public class L2HennaInstance
 {
-	//private static Logger _log = Logger.getLogger(L2HennaInstance.class.getName());
+	//private final static Log _log = LogFactory.getLog(L2HennaInstance.class.getName());
 	
 	private L2Henna _template;
 	private int _symbolId;

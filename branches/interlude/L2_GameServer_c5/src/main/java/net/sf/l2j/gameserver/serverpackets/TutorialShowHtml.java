@@ -18,13 +18,14 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.logging.Logger;
-
 import net.sf.l2j.gameserver.cache.HtmCache;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class TutorialShowHtml extends ServerBasePacket
 {
-    private static Logger _log = Logger.getLogger(TutorialShowHtml.class.getName());
+    private final static Log _log = LogFactory.getLog(TutorialShowHtml.class.getName());
 	private static final String _S__A0_TUTORIALSHOWHTML = "[S] a0 TutorialShowHtml";
 	private String _html;
 	
@@ -56,7 +57,7 @@ public class TutorialShowHtml extends ServerBasePacket
         // html code must not exceed 8192 bytes 
         if(_html.length() > 8192)
         {
-            _log.warning("Html is too long! this will crash the client!");
+            _log.warn("Html is too long! this will crash the client!");
             _html = "<html><body>Html was too long</body></html>";
             return;
         }

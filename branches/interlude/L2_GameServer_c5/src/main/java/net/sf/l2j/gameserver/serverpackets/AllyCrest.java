@@ -37,7 +37,7 @@ package net.sf.l2j.gameserver.serverpackets;
 public class AllyCrest extends ServerBasePacket
 {
 	private static final String _S__C7_ALLYCREST = "[S] ae AllyCrest";
-    //private static Logger _log = Logger.getLogger(AllyCrest.class.getName());
+    //private final static Log _log = LogFactory.getLog(AllyCrest.class.getName());
 	private int _crestId;
 	private int _crestSize;
 	private byte[] _data;

@@ -39,7 +39,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class RequestAnswerJoinPledge extends ClientBasePacket
 {
 	private static final String _C__25_REQUESTANSWERJOINPLEDGE = "[C] 25 RequestAnswerJoinPledge";
-	//private static Logger _log = Logger.getLogger(RequestAnswerJoinPledge.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestAnswerJoinPledge.class.getName());
 	
 	private final int _answer;
 			

@@ -11,7 +11,7 @@ import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class AdminKick implements IAdminCommandHandler {
-    //private static Logger _log = Logger.getLogger(AdminKick.class.getName());
+    //private final static Log _log = LogFactory.getLog(AdminKick.class.getName());
     private static String[] _adminCommands = {"admin_kick" ,"admin_kick_non_gm"};
     private static final int REQUIRED_LEVEL = Config.GM_KICK;
 	

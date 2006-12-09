@@ -20,7 +20,8 @@ import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Auto Spawn Handler
@@ -53,7 +54,7 @@ import org.apache.log4j.Logger;
  */
 public class AutoSpawnHandler
 {
-    protected static Logger _log = Logger.getLogger(AutoSpawnHandler.class.getName());
+    protected static Log _log = LogFactory.getLog(AutoSpawnHandler.class.getName());
 	private static AutoSpawnHandler _instance;
 	
     private static final int DEFAULT_INITIAL_SPAWN = 30000; // 30 seconds after registration

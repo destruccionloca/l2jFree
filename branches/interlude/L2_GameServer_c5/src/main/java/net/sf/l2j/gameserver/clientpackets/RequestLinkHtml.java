@@ -4,11 +4,13 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author zabbix
@@ -16,7 +18,7 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
  */
 public class RequestLinkHtml extends ClientBasePacket
 {
-	private static Logger _log = Logger.getLogger(RequestLinkHtml.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestLinkHtml.class.getName());
 	private static final String REQUESTLINKHTML__C__20 = "[C] 20 RequestLinkHtml";
 	private String _link;
 

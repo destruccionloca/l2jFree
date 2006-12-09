@@ -38,11 +38,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class ClanHall
 {
-    protected static Logger _log = Logger.getLogger(ClanHall.class.getName());
+    protected static Log _log = LogFactory.getLog(ClanHall.class.getName());
     
 	// =========================================================
     // Data Field

@@ -35,7 +35,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class RequestChangePetName extends ClientBasePacket{
 	private static final String REQUESTCHANGEPETNAME__C__89 = "[C] 89 RequestChangePetName";
-	//private static Logger _log = Logger.getLogger(RequestChangePetName.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestChangePetName.class.getName());
 	
 	private final String _name;
 	

@@ -21,7 +21,8 @@ package net.sf.l2j.gameserver.serverpackets;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -30,7 +31,7 @@ import org.apache.log4j.Logger;
  */
 public class PetItemList extends ServerBasePacket 
 {
-	private static Logger _log = Logger.getLogger(PetItemList.class.getName());
+	private final static Log _log = LogFactory.getLog(PetItemList.class.getName());
 	private static final String _S__cb_PETITEMLIST = "[S] b2  PetItemList";
 	private L2PetInstance _cha;
 

@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -32,6 +31,9 @@ import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  *
@@ -41,7 +43,7 @@ public class RequestPrivateStoreBuy extends ClientBasePacket
 {
 //  private static final String _C__79_SENDPRIVATESTOREBUYLIST = "[C] 79 SendPrivateStoreBuyList";
     private static final String _C__79_REQUESTPRIVATESTOREBUY = "[C] 79 RequestPrivateStoreBuy";
-    private static Logger _log = Logger.getLogger(RequestPrivateStoreBuy.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestPrivateStoreBuy.class.getName());
 
     private final int _storePlayerId;
     private int _count;

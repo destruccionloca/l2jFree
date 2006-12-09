@@ -7,7 +7,8 @@ import java.util.concurrent.ScheduledFuture;
 
 import net.sf.l2j.gameserver.taskmanager.TaskManager.ExecutedTask;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -16,7 +17,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class Task
 {
-    private static Logger _log = Logger.getLogger(Task.class.getName());
+    private final static Log _log = LogFactory.getLog(Task.class.getName());
     
     public void initializate()
     {

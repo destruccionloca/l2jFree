@@ -27,11 +27,12 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.log4j.Logger;
-
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.clientpackets.ClientBasePacket;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * <p>This class is made to handle all the ThreadPools used in L2j.</p>
@@ -68,7 +69,7 @@ public class ThreadPoolManager
 {
 	private static ThreadPoolManager _instance;
     
-    private static Logger _log = Logger.getLogger(ThreadPoolManager.class);
+    private final static Log _log = LogFactory.getLog(ThreadPoolManager.class);
 	
 	private ScheduledThreadPoolExecutor _effectsScheduledThreadPool;
 	private ScheduledThreadPoolExecutor _generalScheduledThreadPool;

@@ -27,7 +27,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public final class L2TrainerInstance extends L2FolkInstance
 {
-    //private static Logger _log = Logger.getLogger(L2TrainerInstance.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2TrainerInstance.class.getName());
 
     /**
      * @param template

@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.model.actor.instance;
  */
 
 import java.util.StringTokenizer;
-import org.apache.log4j.Logger;
 
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
@@ -33,6 +32,9 @@ import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public final class L2UrnInstance extends L2FolkInstance
 {
     public L2UrnInstance(int objectId, L2NpcTemplate template)
@@ -40,7 +42,7 @@ public final class L2UrnInstance extends L2FolkInstance
         super(objectId, template);
     }
     
-    protected static Logger _urnlog = Logger.getLogger(L2UrnInstance.class.getName());
+    protected static Log _log = LogFactory.getLog(L2UrnInstance.class.getName());
     
     protected static int _ingredient1;
     protected static int _ingCount1;

@@ -43,7 +43,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 
 public abstract class L2Summon extends L2PlayableInstance
 {
-    //private static Logger _log = Logger.getLogger(L2Summon.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2Summon.class.getName());
     
     protected int _pkKills;
     private byte _pvpFlag;

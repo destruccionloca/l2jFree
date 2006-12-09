@@ -18,10 +18,8 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-// import org.apache.log4j.Logger;
+// import org.apache.commons.logging.Log;
 import java.util.StringTokenizer;
-
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -35,6 +33,9 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class handles following admin commands:
  * - enchant_armor
@@ -42,7 +43,7 @@ import net.sf.l2j.gameserver.serverpackets.UserInfo;
  * @version $Revision: 1.3.2.1.2.10 $ $Date: 2005/08/24 21:06:06 $
  */
 public class AdminEncArmor implements IAdminCommandHandler {
-	// private static Logger _log = Logger.getLogger(AdminEncArmor.class.getName());
+	// private final static Log _log = LogFactory.getLog(AdminEncArmor.class.getName());
 	private static String[] _adminCommands = {
 		"admin_seteh",// Head
 		"admin_setec",// Chest
@@ -60,7 +61,7 @@ public class AdminEncArmor implements IAdminCommandHandler {
 		"admin_enchant",
 	};
     
-    private static Logger _log = Logger.getLogger(AdminEncArmor.class);
+    private final static Log _log = LogFactory.getLog(AdminEncArmor.class);
     
 	private static final int REQUIRED_LEVEL = Config.GM_ENCHANT;
 

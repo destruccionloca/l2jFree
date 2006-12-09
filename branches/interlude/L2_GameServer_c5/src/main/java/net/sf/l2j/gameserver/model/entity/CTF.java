@@ -48,11 +48,12 @@ import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class CTF
 {   
-    private static Logger _log = Logger.getLogger(CTF.class);
+    private final static Log _log = LogFactory.getLog(CTF.class);
     
     public static String _eventName = new String(),
                          _eventDesc = new String(),

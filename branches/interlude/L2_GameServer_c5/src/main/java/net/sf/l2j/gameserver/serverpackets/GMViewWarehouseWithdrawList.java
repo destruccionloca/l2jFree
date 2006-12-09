@@ -23,7 +23,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -33,7 +34,7 @@ import org.apache.log4j.Logger;
  */
 public class GMViewWarehouseWithdrawList extends ServerBasePacket
 {
-    private static Logger _log = Logger.getLogger(GMViewWarehouseWithdrawList.class.getName());
+    private final static Log _log = LogFactory.getLog(GMViewWarehouseWithdrawList.class.getName());
     private static final String _S__95_GMViewWarehouseWithdrawList = "[S] 95 GMViewWarehouseWithdrawList";
     private L2ItemInstance[] _items;
     @SuppressWarnings("unused")

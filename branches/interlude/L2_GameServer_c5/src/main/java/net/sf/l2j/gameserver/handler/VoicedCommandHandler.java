@@ -22,7 +22,8 @@ import java.util.Map;
 
 import javolution.util.FastMap;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -31,7 +32,7 @@ import org.apache.log4j.Logger;
  */
 public class VoicedCommandHandler
 {
-	private static Logger _log = Logger.getLogger(ItemHandler.class.getName());
+	private final static Log _log = LogFactory.getLog(ItemHandler.class.getName());
 	
 	private static VoicedCommandHandler _instance;
 	

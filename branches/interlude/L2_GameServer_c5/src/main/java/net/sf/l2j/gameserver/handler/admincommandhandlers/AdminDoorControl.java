@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.DoorTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -11,6 +9,9 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class handles following admin commands:
@@ -31,7 +32,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
  */
 public class AdminDoorControl implements IAdminCommandHandler
 {
-    private static Logger      _log            = Logger.getLogger(AdminDoorControl.class.getName());
+    private static Log _log = LogFactory.getLog(AdminDoorControl.class.getName());
     private static final int   REQUIRED_LEVEL  = Config.GM_DOOR;
     private static DoorTable   _doorTable;
     private static String[]    _adminCommands  = 

@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.serverpackets.PrivateStoreManageListSell;
 public class RequestPrivateStoreManageSell extends ClientBasePacket
 {
 	private static final String _C__73_REQUESTPRIVATESTOREMANAGESELL = "[C] 73 RequestPrivateStoreManageSell";
-	//private static Logger _log = Logger.getLogger(RequestPrivateStoreManage.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestPrivateStoreManage.class.getName());
 	
 	
 	public RequestPrivateStoreManageSell(ByteBuffer buf, ClientThread client)

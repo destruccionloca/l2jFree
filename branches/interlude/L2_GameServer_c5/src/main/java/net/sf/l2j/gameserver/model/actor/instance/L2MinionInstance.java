@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public final class L2MinionInstance extends L2MonsterInstance
 {
-	//private static Logger _log = Logger.getLogger(L2RaidMinionInstance.class.getName());
+	//private final static Log _log = LogFactory.getLog(L2RaidMinionInstance.class.getName());
 	
 	/** The master L2Character whose depends this L2MinionInstance on */
 	private L2MonsterInstance _master;

@@ -26,7 +26,8 @@ import net.sf.l2j.gameserver.BasePacket;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.Connection;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -35,7 +36,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class ServerBasePacket extends BasePacket
 {
-	private static Logger _log = Logger.getLogger(ServerBasePacket.class.getName());
+	private final static Log _log = LogFactory.getLog(ServerBasePacket.class.getName());
 	private long _packetLifeTime = Config.PACKET_LIFETIME;
 	private long _packetTime = 0;
 	

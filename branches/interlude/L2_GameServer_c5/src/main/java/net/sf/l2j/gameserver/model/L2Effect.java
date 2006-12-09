@@ -35,7 +35,8 @@ import net.sf.l2j.gameserver.skills.Func;
 import net.sf.l2j.gameserver.skills.FuncTemplate;
 import net.sf.l2j.gameserver.skills.Lambda;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -44,7 +45,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class L2Effect
 {
-	static final Logger _log = Logger.getLogger(L2Effect.class.getName());
+	static final Log _log = LogFactory.getLog(L2Effect.class.getName());
 
 	public static enum EffectState {
 		CREATED,

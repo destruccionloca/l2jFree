@@ -26,7 +26,6 @@ import java.io.LineNumberReader;
 import java.util.Collection;
 import java.util.Map;
 import java.util.StringTokenizer;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -45,13 +44,16 @@ import net.sf.l2j.gameserver.serverpackets.VehicleInfo;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author Maktakien
  *
  */
 public class L2BoatInstance extends L2Character
 {
-	protected static final Logger _logBoat = Logger.getLogger(L2BoatInstance.class.getName());
+	protected static final Log _logBoat = LogFactory.getLog(L2BoatInstance.class.getName());
 	
 	public class L2BoatTrajet
 	{

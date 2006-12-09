@@ -39,7 +39,8 @@ import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -49,7 +50,7 @@ import org.apache.log4j.Logger;
 //TODO rewrite this file in more readable format (shorten the functions etc.)
 public class L2Clan
 {
-    private static final Logger _log = Logger.getLogger(L2Clan.class.getName());
+    private static final Log _log = LogFactory.getLog(L2Clan.class.getName());
     
     private String _name;
     private int _clanId;

@@ -23,7 +23,6 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import org.apache.log4j.Logger;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
@@ -37,6 +36,8 @@ import net.sf.l2j.gameserver.script.ScriptPackage;
 
 import org.apache.bsf.BSFException;
 import org.apache.bsf.BSFManager;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
 
 /**
@@ -45,7 +46,7 @@ import org.w3c.dom.Node;
  */
 public class FaenorScriptEngine extends ScriptEngine
 {
-    static Logger _log = Logger.getLogger(GameServer.class.getName());
+    static Log _log = LogFactory.getLog(GameServer.class.getName());
     public final static String PACKAGE_DIRECTORY = "data/script/";
     public final static boolean DEBUG = true;
 

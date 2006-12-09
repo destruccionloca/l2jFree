@@ -28,7 +28,8 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -38,7 +39,7 @@ import org.apache.log4j.Logger;
 public class Action extends ClientBasePacket
 {
 	private static final String ACTION__C__04 = "[C] 04 Action";
-	private static Logger _log = Logger.getLogger(Action.class.getName());
+	private final static Log _log = LogFactory.getLog(Action.class.getName());
 	
 	// cddddc
 	private final int _objectId;

@@ -22,7 +22,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Luis Arias
@@ -30,7 +31,7 @@ import org.apache.log4j.Logger;
  */
 public class DateRange
 {
-    private static Logger _log = Logger.getLogger(DateRange.class);
+    private final static Log _log = LogFactory.getLog(DateRange.class);
 	
     private Date startDate, endDate;
     

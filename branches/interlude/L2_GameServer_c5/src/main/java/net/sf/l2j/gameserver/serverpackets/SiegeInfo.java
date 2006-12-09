@@ -19,12 +19,14 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 import java.util.Calendar;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Shows the Siege Info<BR>
@@ -48,7 +50,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 public class SiegeInfo extends ServerBasePacket
 {
     private static final String _S__C9_SIEGEINFO = "[S] c9 SiegeInfo";
-    private static Logger _log = Logger.getLogger(SiegeInfo.class.getName());
+    private final static Log _log = LogFactory.getLog(SiegeInfo.class.getName());
     private Castle _Castle;
     
     public SiegeInfo(Castle castle)

@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.serverpackets.TargetUnselected;
 public class RequestTargetCanceld extends ClientBasePacket
 {
 	private static final String _C__37_REQUESTTARGETCANCELD = "[C] 37 RequestTargetCanceld";
-	//private static Logger _log = Logger.getLogger(RequestTargetCanceld.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestTargetCanceld.class.getName());
     
     @SuppressWarnings("unused")
 	private final int _unselect; 

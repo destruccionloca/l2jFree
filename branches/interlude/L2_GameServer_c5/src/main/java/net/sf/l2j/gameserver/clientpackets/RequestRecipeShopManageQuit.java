@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class RequestRecipeShopManageQuit extends ClientBasePacket
 {
 	private static final String _C__B3_RequestRecipeShopManageQuit = "[C] b2 RequestRecipeShopManageQuit";
-	//private static Logger _log = Logger.getLogger(RequestRecipeShopManageQuit.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestRecipeShopManageQuit.class.getName());
 	
 	public RequestRecipeShopManageQuit(ByteBuffer buf, ClientThread client)
 	{

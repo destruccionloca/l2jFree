@@ -18,9 +18,10 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.gameserver.model.L2ClanMember;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -40,7 +41,7 @@ public class PledgeReceiveMemberInfo extends ServerBasePacket
 {
 	private static final String _S__FE_3D_PLEDGERECEIVEMEMBERINFO = "[S] FE:3D PledgeReceiveMemberInfo";
     private L2ClanMember _cm;
-    private static Logger _log = Logger.getLogger(ServerBasePacket.class.getName());
+    private final static Log _log = LogFactory.getLog(ServerBasePacket.class.getName());
 
 
 	

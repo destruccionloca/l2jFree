@@ -21,15 +21,17 @@ package net.sf.l2j.gameserver.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class L2PetDataTable
 {
-    private static Logger _log = Logger.getLogger(L2PetInstance.class.getName()); 
+    private final static Log _log = LogFactory.getLog(L2PetInstance.class.getName()); 
     private static L2PetDataTable _instance;
     
     public static final int[] petList = { 12077, 12312, 12313, 12311, 12527, 12528, 12526 };

@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -20,13 +18,17 @@ import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.idfactory.BitSetIDFactory;
 import net.sf.l2j.gameserver.model.L2Clan;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Level;
+
 /**
  * @author Layane
  * 
  */
 public class CrestCache
 {
-	private static Logger _log = Logger.getLogger(CrestCache.class.getName());
+	private final static Log _log = LogFactory.getLog(CrestCache.class.getName());
 
 	private static CrestCache _instance;
 
@@ -280,7 +282,7 @@ public class CrestCache
 			return true;
 		} catch (IOException e)
 		{
-			_log.log(Level.INFO, "Error saving pledge crest" + crestFile + ":",
+			_log.info( "Error saving pledge crest" + crestFile + ":",
 					e);
 			return false;
 		}
@@ -299,7 +301,7 @@ public class CrestCache
 			return true;
 		} catch (IOException e)
 		{
-			_log.log(Level.INFO, "Error saving Large pledge crest" + crestFile
+			_log.info( "Error saving Large pledge crest" + crestFile
 					+ ":", e);
 			return false;
 		}
@@ -319,7 +321,7 @@ public class CrestCache
 		} catch (IOException e)
 		{
 			_log
-					.log(Level.INFO, "Error saving ally crest" + crestFile
+					.info("Error saving ally crest" + crestFile
 							+ ":", e);
 			return false;
 		}

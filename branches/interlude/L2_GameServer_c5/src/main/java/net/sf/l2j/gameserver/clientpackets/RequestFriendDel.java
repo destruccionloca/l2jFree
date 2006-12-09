@@ -28,7 +28,8 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -38,7 +39,7 @@ import org.apache.log4j.Logger;
 public class RequestFriendDel extends ClientBasePacket{
 	
 	private static final String _C__61_REQUESTFRIENDDEL = "[C] 61 RequestFriendDel";
-	private static Logger _log = Logger.getLogger(RequestFriendDel.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestFriendDel.class.getName());
 
 	private final String _name;
 	

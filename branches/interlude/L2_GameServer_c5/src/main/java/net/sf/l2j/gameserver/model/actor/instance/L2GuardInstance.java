@@ -35,7 +35,8 @@ import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class manages all Guards in the world.
@@ -46,7 +47,7 @@ import org.apache.log4j.Logger;
 public final class L2GuardInstance extends L2Attackable
 {
     @SuppressWarnings("hiding")
-    private static Logger _log = Logger.getLogger(L2GuardInstance.class.getName());
+    private final static Log _log = LogFactory.getLog(L2GuardInstance.class.getName());
 
     private int _homeX;
     private int _homeY;

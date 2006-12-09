@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class AllyDismiss extends ClientBasePacket
 {
     private static final String _C__85_ALLYDISMISS = "[C] 85 AllyDismiss";
-    //private static Logger _log = Logger.getLogger(AllyDismiss.class.getName());
+    //private final static Log _log = LogFactory.getLog(AllyDismiss.class.getName());
     
     String _clanName;
     

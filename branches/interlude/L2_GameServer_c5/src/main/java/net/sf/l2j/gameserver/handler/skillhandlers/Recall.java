@@ -9,11 +9,12 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class Recall implements ISkillHandler
 {
-    private static Logger _log = Logger.getLogger(Recall.class.getName());
+    private final static Log _log = LogFactory.getLog(Recall.class.getName());
     protected SkillType[] _skillIds = {SkillType.RECALL};
 
     public void useSkill(@SuppressWarnings("unused") L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, L2Object[] targets)

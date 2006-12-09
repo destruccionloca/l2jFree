@@ -45,7 +45,7 @@ import net.sf.l2j.gameserver.util.MinionList;
  */
 public class L2MonsterInstance extends L2Attackable
 {
-	//private static Logger _log = Logger.getLogger(L2MonsterInstance.class.getName());
+	//private final static Log _log = LogFactory.getLog(L2MonsterInstance.class.getName());
     
     protected final MinionList minionList;
     

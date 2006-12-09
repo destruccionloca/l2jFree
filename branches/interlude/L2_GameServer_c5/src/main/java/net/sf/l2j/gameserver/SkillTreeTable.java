@@ -22,17 +22,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.model.L2EnchantSkillLearn;
 import net.sf.l2j.gameserver.model.L2PledgeSkillLearn;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2SkillLearn;
-import net.sf.l2j.gameserver.model.L2EnchantSkillLearn;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -41,7 +43,7 @@ import net.sf.l2j.gameserver.model.base.ClassId;
  */
 public class SkillTreeTable
 {
-    private static Logger _log = Logger.getLogger(SkillTreeTable.class.getName());
+    private final static Log _log = LogFactory.getLog(SkillTreeTable.class.getName());
     private static SkillTreeTable _instance;
     
     private Map<ClassId, List<L2SkillLearn>> _skillTrees;

@@ -30,10 +30,12 @@ package net.sf.l2j.gameserver.idfactory;
 
 import java.util.BitSet;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.util.PrimeFinder;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -43,7 +45,7 @@ import net.sf.l2j.util.PrimeFinder;
 
 public class BitSetIDFactory extends IdFactory
 {
-    private static Logger _log = Logger.getLogger(BitSetIDFactory.class.getName());
+    private final static Log _log = LogFactory.getLog(BitSetIDFactory.class.getName());
     
     private BitSet          freeIds;
     private AtomicInteger   freeIdCount;

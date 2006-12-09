@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 public class AdminBBS implements IAdminCommandHandler
 {
-	 //private static Logger _log = Logger.getLogger(AdminKick.class.getName());
+	 //private final static Log _log = LogFactory.getLog(AdminKick.class.getName());
     private static String[] _adminCommands = {"admin_bbs"};
     private static final int REQUIRED_LEVEL = Config.GM_MIN;
 	

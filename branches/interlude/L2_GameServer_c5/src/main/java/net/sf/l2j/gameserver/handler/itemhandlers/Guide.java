@@ -10,7 +10,7 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
 public class Guide implements IItemHandler {
 	private static int[] _itemIds = { 5588, 6317, 7561 };
-	//private static Logger _log = Logger.getLogger(L2NpcInstance.class.getName());
+	//private final static Log _log = LogFactory.getLog(L2NpcInstance.class.getName());
 	
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{

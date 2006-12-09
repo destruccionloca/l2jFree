@@ -40,7 +40,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2SignsPriestInstance extends L2FolkInstance
 {
-    //private static Logger _log = Logger.getLogger(L2SignsPriestInstance.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2SignsPriestInstance.class.getName());
 
     public L2SignsPriestInstance(int objectId, L2NpcTemplate template)
     {

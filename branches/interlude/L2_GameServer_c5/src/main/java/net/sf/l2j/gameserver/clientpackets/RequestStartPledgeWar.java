@@ -1,7 +1,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClanTable;
@@ -11,10 +10,13 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class RequestStartPledgeWar extends ClientBasePacket
 {
     private static final String _C__4D_REQUESTSTARTPLEDGEWAR = "[C] 4D RequestStartPledgewar";
-    private static Logger _log = Logger.getLogger(RequestStartPledgeWar.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestStartPledgeWar.class.getName());
 
     String _pledgeName;
     L2Clan _clan;

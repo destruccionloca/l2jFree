@@ -46,12 +46,13 @@ import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 public class Hero 
 {
-    private static Logger _log = Logger.getLogger(Hero.class.getName());
+    private final static Log _log = LogFactory.getLog(Hero.class.getName());
     
     private static Hero _instance;
     private static final String GET_HEROES = "SELECT * FROM heroes WHERE played = 1";

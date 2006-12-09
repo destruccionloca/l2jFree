@@ -12,12 +12,13 @@ import java.util.Random;
 import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 public class Status extends Thread
 {
-    private static final Logger _log = Logger.getLogger(Status.class.getName());
+    private static final Log _log = LogFactory.getLog(Status.class.getName());
     
     private ServerSocket    statusServerSocket;
     

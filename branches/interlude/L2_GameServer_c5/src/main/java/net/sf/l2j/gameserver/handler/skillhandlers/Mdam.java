@@ -35,7 +35,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -45,7 +46,7 @@ import org.apache.log4j.Logger;
 
 public class Mdam implements ISkillHandler
 {
-    private static Logger _log = Logger.getLogger(Mdam.class);
+    private final static Log _log = LogFactory.getLog(Mdam.class);
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)

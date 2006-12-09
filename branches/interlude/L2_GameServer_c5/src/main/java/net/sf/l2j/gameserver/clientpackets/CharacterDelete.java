@@ -25,7 +25,8 @@ import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.serverpackets.CharDeleteOk;
 import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -35,7 +36,7 @@ import org.apache.log4j.Logger;
 public class CharacterDelete extends ClientBasePacket
 {
 	private static final String _C__0C_CHARACTERDELETE = "[C] 0C CharacterDelete";
-	private static Logger _log = Logger.getLogger(CharacterDelete.class.getName());
+	private final static Log _log = LogFactory.getLog(CharacterDelete.class.getName());
 
 	// cd
 	private final int _charSlot;

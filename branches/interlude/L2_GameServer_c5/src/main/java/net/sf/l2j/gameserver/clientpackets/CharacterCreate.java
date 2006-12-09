@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -44,6 +43,9 @@ import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2PcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -53,7 +55,7 @@ import net.sf.l2j.gameserver.templates.L2PcTemplate;
 public class CharacterCreate extends ClientBasePacket
 {
 	private static final String _C__0B_CHARACTERCREATE = "[C] 0B CharacterCreate";
-	private static Logger _log = Logger.getLogger(CharacterCreate.class.getName());
+	private final static Log _log = LogFactory.getLog(CharacterCreate.class.getName());
 	
 	// cSdddddddddddd
 	private final String _name;

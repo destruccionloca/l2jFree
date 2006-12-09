@@ -19,13 +19,15 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
 import net.sf.l2j.gameserver.handler.UserCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -35,7 +37,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class RequestUserCommand extends ClientBasePacket
 {
 	private static final String _C__AA_REQUESTUSERCOMMAND = "[C] aa RequestUserCommand";
-	static Logger _log = Logger.getLogger(RequestUserCommand.class.getName());
+	static Log _log = LogFactory.getLog(RequestUserCommand.class.getName());
 			
 	private final int _command;
 	

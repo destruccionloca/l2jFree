@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class RequestPrivateStoreQuitSell extends ClientBasePacket
 {
 	private static final String _C__76_REQUESTPRIVATESTOREQUITSELL = "[C] 76 RequestPrivateStoreQuitSell";
-	//private static Logger _log = Logger.getLogger(RequestPrivateStoreQuitSell.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestPrivateStoreQuitSell.class.getName());
 	
 	public RequestPrivateStoreQuitSell(ByteBuffer buf, ClientThread client)
 	{

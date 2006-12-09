@@ -25,7 +25,8 @@ import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.LoginServerThread.SessionKey;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -35,7 +36,7 @@ import org.apache.log4j.Logger;
 public class AuthLogin extends ClientBasePacket
 {
 	private static final String _C__08_AUTHLOGIN = "[C] 08 AuthLogin";
-	private static Logger _log = Logger.getLogger(AuthLogin.class.getName());
+	private final static Log _log = LogFactory.getLog(AuthLogin.class.getName());
 	
 	// loginName + keys must match what the loginserver used.  
 	private final String _loginName;

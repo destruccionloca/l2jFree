@@ -20,11 +20,13 @@ package net.sf.l2j.gameserver;
 
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.clientpackets.*;
 import net.sf.l2j.util.Util;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -33,7 +35,7 @@ import net.sf.l2j.util.Util;
  */
 public class PacketHandler
 {
-	private static Logger _log = Logger.getLogger(PacketHandler.class.getName());
+	private final static Log _log = LogFactory.getLog(PacketHandler.class.getName());
     private static LinkedList<CustomPacketHandlerInterface> customhandlers = new LinkedList<CustomPacketHandlerInterface>();
 
 	private PacketHandler()

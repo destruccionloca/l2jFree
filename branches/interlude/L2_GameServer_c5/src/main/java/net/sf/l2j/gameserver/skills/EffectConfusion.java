@@ -27,7 +27,8 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Object;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 
@@ -38,7 +39,7 @@ import org.apache.log4j.Logger;
  */
 final class EffectConfusion extends L2Effect {
     
-    private static final Logger _log = Logger.getLogger(EffectConfusion.class);
+    private static final Log _log = LogFactory.getLog(EffectConfusion.class);
    
 
 	public EffectConfusion(Env env, EffectTemplate template)
