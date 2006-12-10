@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 7 d?c. 2006 18:49:51 by Hibernate Tools 3.2.0.beta8 -->
+<hibernate-mapping>
+    <class name="net.sf.l2j.loginserver.beans.ClanData" table="clan_data" catalog="l2jdb">
+        <comment></comment>
+        <id name="clanId" type="int">
+            <column name="clan_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="clanName" type="string">
+            <column name="clan_name" length="45">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="clanLevel" type="java.lang.Integer">
+            <column name="clan_level">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="hasCastle" type="java.lang.Integer">
+            <column name="hasCastle">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="hasHideout" type="java.lang.Integer">
+            <column name="hasHideout">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="allyId" type="java.lang.Integer">
+            <column name="ally_id">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="allyName" type="string">
+            <column name="ally_name" length="45">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="leaderId" type="java.lang.Integer">
+            <column name="leader_id">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="crestId" type="java.lang.Integer">
+            <column name="crest_id">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="crestLargeId" type="java.lang.Integer">
+            <column name="crest_large_id">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="allyCrestId" type="java.lang.Integer">
+            <column name="ally_crest_id">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="reputationScore" type="int">
+            <column name="reputation_score" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="rank" type="int">
+            <column name="rank" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="auctionBidAt" type="int">
+            <column name="auction_bid_at" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

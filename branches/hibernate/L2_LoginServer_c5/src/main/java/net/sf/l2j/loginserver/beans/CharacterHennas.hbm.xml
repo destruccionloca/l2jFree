@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 7 d?c. 2006 18:49:51 by Hibernate Tools 3.2.0.beta8 -->
+<hibernate-mapping>
+    <class name="net.sf.l2j.loginserver.beans.CharacterHennas" table="character_hennas" catalog="l2jdb">
+        <comment></comment>
+        <composite-id name="id" class="net.sf.l2j.loginserver.beans.CharacterHennasId">
+            <key-property name="charObjId" type="int">
+                <column name="char_obj_id" />
+            </key-property>
+            <key-property name="slot" type="int">
+                <column name="slot" />
+            </key-property>
+            <key-property name="classIndex" type="int">
+                <column name="class_index" />
+            </key-property>
+        </composite-id>
+        <property name="symbolId" type="java.lang.Integer">
+            <column name="symbol_id">
+                <comment></comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -54,7 +54,7 @@ import javolution.util.FastMap;
 import javolution.xml.pull.XmlPullParserException;
 import javolution.xml.pull.XmlPullParserImpl;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2ApplicationContext;
 import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.loginserver.serverpackets.ServerList;
 
@@ -124,7 +124,7 @@ public class GameServerTable
         int previousID = 0;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2ApplicationContext.getInstance().getConnection();
             statement = con.prepareStatement("SELECT * FROM gameservers");
             ResultSet rset = statement.executeQuery();
             while(rset.next())
@@ -316,7 +316,7 @@ public class GameServerTable
         PreparedStatement statement = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2ApplicationContext.getInstance().getConnection();
             statement = con.prepareStatement(
                                              "INSERT INTO gameservers " +
                                              "(hexid,server_id,host)" +
@@ -371,7 +371,7 @@ public class GameServerTable
         PreparedStatement statement = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2ApplicationContext.getInstance().getConnection();
             statement = con.prepareStatement(
             "DELETE FROM gameservers WHERE gameservers.server_id=?");
             statement.setInt(1, id);
@@ -494,7 +494,7 @@ public class GameServerTable
         PreparedStatement statement = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2ApplicationContext.getInstance().getConnection();
             statement = con.prepareStatement(
                                              "INSERT INTO gameservers " +
                                              "(hexid,server_id,host)" +

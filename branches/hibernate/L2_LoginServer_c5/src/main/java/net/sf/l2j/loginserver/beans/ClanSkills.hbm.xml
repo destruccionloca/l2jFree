@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 7 d?c. 2006 18:49:51 by Hibernate Tools 3.2.0.beta8 -->
+<hibernate-mapping>
+    <class name="net.sf.l2j.loginserver.beans.ClanSkills" table="clan_skills" catalog="l2jdb">
+        <comment></comment>
+        <composite-id name="id" class="net.sf.l2j.loginserver.beans.ClanSkillsId">
+            <key-property name="clanId" type="int">
+                <column name="clan_id" />
+            </key-property>
+            <key-property name="skillId" type="int">
+                <column name="skill_id" />
+            </key-property>
+        </composite-id>
+        <property name="skillLevel" type="int">
+            <column name="skill_level" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="skillName" type="string">
+            <column name="skill_name" length="26">
+                <comment></comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

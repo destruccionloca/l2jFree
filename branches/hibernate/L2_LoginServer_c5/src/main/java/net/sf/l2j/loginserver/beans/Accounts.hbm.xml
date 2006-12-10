@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 7 d?c. 2006 18:49:51 by Hibernate Tools 3.2.0.beta8 -->
+<hibernate-mapping>
+    <class name="net.sf.l2j.loginserver.beans.Accounts" table="accounts" catalog="l2jdb">
+        <comment></comment>
+        <id name="login" type="string">
+            <column name="login" length="45" />
+            <generator class="assigned" />
+        </id>
+        <property name="password" type="string">
+            <column name="password" length="45">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="lastactive" type="big_decimal">
+            <column name="lastactive" precision="20" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="accessLevel" type="java.lang.Integer">
+            <column name="access_level">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="lastIp" type="string">
+            <column name="lastIP" length="20">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="56" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <set name="characterses" inverse="true">
+            <key>
+                <column name="account_name" length="45">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.Characters" />
+        </set>
+        <set name="accountDatas" inverse="true">
+            <key>
+                <column name="account_name" length="45">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.AccountData" />
+        </set>
+    </class>
+</hibernate-mapping>

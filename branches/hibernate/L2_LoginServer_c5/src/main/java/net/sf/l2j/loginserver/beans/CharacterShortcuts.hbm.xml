@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 7 d?c. 2006 18:49:51 by Hibernate Tools 3.2.0.beta8 -->
+<hibernate-mapping>
+    <class name="net.sf.l2j.loginserver.beans.CharacterShortcuts" table="character_shortcuts" catalog="l2jdb">
+        <comment></comment>
+        <composite-id name="id" class="net.sf.l2j.loginserver.beans.CharacterShortcutsId">
+            <key-property name="charObjId" type="long">
+                <column name="char_obj_id" precision="11" scale="0" />
+            </key-property>
+            <key-property name="slot" type="short">
+                <column name="slot" precision="3" scale="0" />
+            </key-property>
+            <key-property name="page" type="short">
+                <column name="page" precision="3" scale="0" />
+            </key-property>
+            <key-property name="classIndex" type="int">
+                <column name="class_index" />
+            </key-property>
+        </composite-id>
+        <property name="type" type="java.lang.Short">
+            <column name="type" precision="3" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="shortcutId" type="java.lang.Long">
+            <column name="shortcut_id" precision="16" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="level" type="string">
+            <column name="level" length="4">
+                <comment></comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

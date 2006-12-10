@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 7 d?c. 2006 18:49:51 by Hibernate Tools 3.2.0.beta8 -->
+<hibernate-mapping>
+    <class name="net.sf.l2j.loginserver.beans.Items" table="items" catalog="l2jdb">
+        <comment></comment>
+        <id name="objectId" type="int">
+            <column name="object_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="ownerId" type="java.lang.Integer">
+            <column name="owner_id">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="itemId" type="java.lang.Integer">
+            <column name="item_id">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="count" type="java.lang.Integer">
+            <column name="count">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="enchantLevel" type="java.lang.Integer">
+            <column name="enchant_level">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="loc" type="string">
+            <column name="loc" length="10">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="locData" type="java.lang.Integer">
+            <column name="loc_data">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="priceSell" type="java.lang.Integer">
+            <column name="price_sell">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="priceBuy" type="java.lang.Integer">
+            <column name="price_buy">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="timeOfUse" type="java.lang.Integer">
+            <column name="time_of_use">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="customType1" type="java.lang.Integer">
+            <column name="custom_type1">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="customType2" type="java.lang.Integer">
+            <column name="custom_type2">
+                <comment></comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

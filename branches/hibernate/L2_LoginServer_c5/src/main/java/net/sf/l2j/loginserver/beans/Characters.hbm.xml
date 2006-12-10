@@ -1,0 +1,406 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 7 d?c. 2006 18:49:51 by Hibernate Tools 3.2.0.beta8 -->
+<hibernate-mapping>
+    <class name="net.sf.l2j.loginserver.beans.Characters" table="characters" catalog="l2jdb">
+        <comment></comment>
+        <id name="objId" type="long">
+            <column name="obj_Id" precision="11" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="accounts" class="net.sf.l2j.loginserver.beans.Accounts" fetch="select">
+            <column name="account_name" length="45">
+                <comment></comment>
+            </column>
+        </many-to-one>
+        <property name="charName" type="string">
+            <column name="char_name" length="35" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="level" type="java.lang.Long">
+            <column name="level" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="maxHp" type="java.lang.Long">
+            <column name="maxHp" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="curHp" type="java.lang.Long">
+            <column name="curHp" precision="18" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="maxCp" type="java.lang.Long">
+            <column name="maxCp" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="curCp" type="java.lang.Long">
+            <column name="curCp" precision="18" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="maxMp" type="java.lang.Long">
+            <column name="maxMp" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="curMp" type="java.lang.Long">
+            <column name="curMp" precision="18" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="acc" type="java.lang.Long">
+            <column name="acc" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="crit" type="java.lang.Long">
+            <column name="crit" precision="10" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="evasion" type="java.lang.Long">
+            <column name="evasion" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="matk" type="java.lang.Long">
+            <column name="mAtk" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="mdef" type="java.lang.Long">
+            <column name="mDef" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="mspd" type="java.lang.Long">
+            <column name="mSpd" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="patk" type="java.lang.Long">
+            <column name="pAtk" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="pdef" type="java.lang.Long">
+            <column name="pDef" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="pspd" type="java.lang.Long">
+            <column name="pSpd" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="runSpd" type="java.lang.Long">
+            <column name="runSpd" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="walkSpd" type="java.lang.Long">
+            <column name="walkSpd" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="str" type="java.lang.Long">
+            <column name="str" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="con" type="java.lang.Long">
+            <column name="con" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="dex" type="java.lang.Long">
+            <column name="dex" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="int_" type="java.lang.Long">
+            <column name="_int" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="men" type="java.lang.Long">
+            <column name="men" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="wit" type="java.lang.Long">
+            <column name="wit" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="face" type="java.lang.Long">
+            <column name="face" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="hairStyle" type="java.lang.Long">
+            <column name="hairStyle" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="hairColor" type="java.lang.Long">
+            <column name="hairColor" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="sex" type="java.lang.Long">
+            <column name="sex" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="heading" type="java.lang.Long">
+            <column name="heading" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="x" type="java.lang.Long">
+            <column name="x" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="y" type="java.lang.Long">
+            <column name="y" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="z" type="java.lang.Long">
+            <column name="z" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="movementMultiplier" type="big_decimal">
+            <column name="movement_multiplier" precision="9" scale="8">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="attackSpeedMultiplier" type="big_decimal">
+            <column name="attack_speed_multiplier" precision="10" scale="9">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="colRad" type="big_decimal">
+            <column name="colRad" precision="10" scale="3">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="colHeight" type="big_decimal">
+            <column name="colHeight" precision="10" scale="3">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="exp" type="big_decimal">
+            <column name="exp" precision="20" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="sp" type="java.lang.Long">
+            <column name="sp" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="karma" type="java.lang.Long">
+            <column name="karma" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="pvpkills" type="java.lang.Long">
+            <column name="pvpkills" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="pkkills" type="java.lang.Long">
+            <column name="pkkills" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="clanid" type="java.lang.Long">
+            <column name="clanid" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="maxload" type="java.lang.Long">
+            <column name="maxload" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="race" type="java.lang.Long">
+            <column name="race" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="classid" type="java.lang.Long">
+            <column name="classid" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="baseClass" type="int">
+            <column name="base_class" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="deletetime" type="big_decimal">
+            <column name="deletetime" precision="20" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="cancraft" type="java.lang.Long">
+            <column name="cancraft" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="title" type="string">
+            <column name="title" length="16">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="allyId" type="java.lang.Long">
+            <column name="allyId" precision="11" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="recHave" type="int">
+            <column name="rec_have" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="recLeft" type="int">
+            <column name="rec_left" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="accesslevel" type="java.lang.Short">
+            <column name="accesslevel" precision="4" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="online" type="java.lang.Boolean">
+            <column name="online" precision="1" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="charSlot" type="java.lang.Boolean">
+            <column name="char_slot" precision="1" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="newbie" type="java.lang.Boolean">
+            <column name="newbie" precision="1" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="lastAccess" type="big_decimal">
+            <column name="lastAccess" precision="20" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="clanPrivs" type="java.lang.Integer">
+            <column name="clan_privs">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="wantspeace" type="java.lang.Boolean">
+            <column name="wantspeace" precision="1" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="deleteclan" type="big_decimal">
+            <column name="deleteclan" precision="20" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="isin7sdungeon" type="boolean">
+            <column name="isin7sdungeon" precision="1" scale="0" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="onlinetime" type="big_decimal">
+            <column name="onlinetime" precision="20" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="inJail" type="java.lang.Boolean">
+            <column name="in_jail" precision="1" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="jailTimer" type="big_decimal">
+            <column name="jail_timer" precision="20" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="nobless" type="java.lang.Byte">
+            <column name="nobless" precision="2" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="varka" type="java.lang.Integer">
+            <column name="varka" precision="5" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="ketra" type="java.lang.Integer">
+            <column name="ketra" precision="5" scale="0">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="equipedWithZariche" type="int">
+            <column name="equiped_with_zariche" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="zarichePk" type="long">
+            <column name="zariche_pk" precision="11" scale="0" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="zaricheTime" type="big_decimal">
+            <column name="zariche_time" precision="20" scale="0" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="pledgeClass" type="int">
+            <column name="Pledge_class" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="pledgeType" type="int">
+            <column name="pledge_type" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="pledgeRank" type="int">
+            <column name="pledge_rank" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="apprentice" type="string">
+            <column name="apprentice" length="35" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="accademyLvl" type="int">
+            <column name="accademy_lvl" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+        <set name="boxaccesses" inverse="true">
+            <key>
+                <column name="charname" length="32">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.Boxaccess" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -30,7 +30,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2ApplicationContext;
 import net.sf.l2j.status.Status;
 
 /**
@@ -58,7 +58,7 @@ public class LoginServer extends FloodProtectedListener
     {
 //      Local Constants
 		final String LOG_FOLDER = "log"; // Name of folder for log file
-		final String LOG_NAME   = "./log.cfg"; // Name of log file
+		final String LOG_NAME   = "config/log.cfg"; // Name of log file
 		
 		/*** Main ***/
 		// Create log folder
@@ -72,7 +72,7 @@ public class LoginServer extends FloodProtectedListener
 		
 		// Initialize config and l2 db factory
 		Config.load();
-		L2DatabaseFactory.getInstance();
+		L2ApplicationContext.getInstance();
 		
 		gameservertable = GameServerTable.getInstance();
         LoginServer server = LoginServer.getInstance();
@@ -142,7 +142,7 @@ public class LoginServer extends FloodProtectedListener
         
         try
         {
-            bannedFile =  new FileInputStream(new File("./banned_ip.cfg"));
+            bannedFile =  new FileInputStream(new File("config/banned_ip.cfg"));
             if (bannedFile != null)
             {
                 int count = 0;

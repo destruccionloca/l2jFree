@@ -38,7 +38,7 @@ import java.util.logging.Logger;
 import javolution.util.FastMap;
 import net.sf.l2j.Base64;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2ApplicationContext;
 import net.sf.l2j.loginserver.lib.Log;
 
 /**
@@ -284,7 +284,7 @@ public class LoginController
 		PreparedStatement statement = null;
 		try
 		{           
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2ApplicationContext.getInstance().getConnection();
 			
 			String stmt = "UPDATE accounts SET access_level = ? WHERE login=?";
 			statement = con.prepareStatement(stmt);
@@ -311,7 +311,7 @@ public class LoginController
 		PreparedStatement statement = null;
 		try
 		{           
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2ApplicationContext.getInstance().getConnection();
 			statement = con.prepareStatement("SELECT access_level FROM accounts WHERE login=?");
 			statement.setString(1, user);
 			ResultSet rset = statement.executeQuery();
@@ -398,7 +398,7 @@ public class LoginController
 			// int idle = L2DatabaseFactory.getInstance().getIdleConnectionCount();
 			//_log.info("DB connections busy:"+busy+" idle:"+idle);
 			
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2ApplicationContext.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT password FROM accounts WHERE login=?");
 			statement.setString(1, user);
 			ResultSet rset = statement.executeQuery();
@@ -508,7 +508,7 @@ public class LoginController
 		java.sql.Connection con = null;
 		try
 		{           
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2ApplicationContext.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT access_level FROM accounts WHERE login=?");
 			statement.setString(1, user);
 			ResultSet rset = statement.executeQuery();

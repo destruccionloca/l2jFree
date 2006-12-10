@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 7 d?c. 2006 18:49:51 by Hibernate Tools 3.2.0.beta8 -->
+<hibernate-mapping>
+    <class name="net.sf.l2j.loginserver.beans.CharacterRecipebook" table="character_recipebook" catalog="l2jdb">
+        <comment></comment>
+        <composite-id name="id" class="net.sf.l2j.loginserver.beans.CharacterRecipebookId">
+            <key-property name="id" type="long">
+                <column name="id" precision="11" scale="0" />
+            </key-property>
+            <key-property name="charId" type="long">
+                <column name="char_id" precision="11" scale="0" />
+            </key-property>
+        </composite-id>
+        <property name="type" type="int">
+            <column name="type" not-null="true">
+                <comment></comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

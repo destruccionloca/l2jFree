@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 import net.sf.l2j.Base64;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2ApplicationContext;
 import net.sf.l2j.loginserver.GameServerTable;
 import net.sf.l2j.loginserver.LoginController;
 import net.sf.l2j.loginserver.LoginServer;
@@ -205,7 +205,7 @@ public class LoginStatusThread extends Thread
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2ApplicationContext.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT password FROM accounts WHERE login=?");
 			statement.setString(1, login);
 			ResultSet rset = statement.executeQuery();
