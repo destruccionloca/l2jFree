@@ -240,7 +240,7 @@ public class EnterWorld extends ClientBasePacket
 	        sm.addString(getText("IEwySiB0ZWFtLg=="));
 	        sendPacket(sm);
 	        sm = new SystemMessage(SystemMessage.S1_S2);
-        sm.addString(getText("dmlzaXQgbDJqc2VydmVyLmNvbQ=="));
+	        sm.addString(getText("dmlzaXQgbDJqc2VydmVyLmNvbQ=="));
 	        sm.addString(getText("ICBmb3Igc3VwcG9ydC4="));
 	        sendPacket(sm);
 	        sm = new SystemMessage(SystemMessage.S1_S2);
@@ -355,7 +355,12 @@ public class EnterWorld extends ClientBasePacket
 
 		if (Config.ALLOW_WATER)
 		    activeChar.checkWaterState();
+
+        if (Hero.getInstance().getHeroes() != null &&
+                Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
+            activeChar.setHero(true);
         
+        setPledgeClass(activeChar);
 
 		//add char to online characters
 		activeChar.setOnlineStatus(true);
@@ -384,18 +389,14 @@ public class EnterWorld extends ClientBasePacket
             activeChar.sendMessage("You have been teleported to the nearest town due to you being in an Olympiad Stadia");
         }
         
-        if (Hero.getInstance().getHeroes() != null &&
-                Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
-            activeChar.setHero(true); 
-   
         if(Config.GAMEGUARD_ENFORCE)
             activeChar.sendPacket(new GameGuardQuery());
         
         if (TvT._savePlayers.contains(activeChar.getName()))
            TvT.addDisconnectedPlayer(activeChar);
 
-	if (CTF._savePlayers.contains(activeChar.getName()))
-           CTF.addDisconnectedPlayer(activeChar);
+    	if (CTF._savePlayers.contains(activeChar.getName()))
+               CTF.addDisconnectedPlayer(activeChar);
 
         QuestList ql = new QuestList();
         activeChar.sendPacket(ql);
