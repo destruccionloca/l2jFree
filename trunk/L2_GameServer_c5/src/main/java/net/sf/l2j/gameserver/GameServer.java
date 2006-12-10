@@ -78,7 +78,6 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminShutdown;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSiege;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSkill;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSpawn;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSubclass;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTarget;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTeleport;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTest;
@@ -510,7 +509,6 @@ public class GameServer
         _adminCommandHandler.registerAdminCommandHandler(new AdminMobGroup());
         _adminCommandHandler.registerAdminCommandHandler(new AdminUnblockIp());
         _adminCommandHandler.registerAdminCommandHandler(new AdminZone());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminSubclass());
         _adminCommandHandler.registerAdminCommandHandler(new AdminTvTEngine());
         _adminCommandHandler.registerAdminCommandHandler(new AdminCTFEngine());
         _adminCommandHandler.registerAdminCommandHandler(new AdminCursedWeapons());

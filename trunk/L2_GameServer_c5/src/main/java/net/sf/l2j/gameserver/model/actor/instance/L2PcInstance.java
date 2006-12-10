@@ -25,6 +25,7 @@ import java.io.ObjectOutputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
@@ -267,18 +268,21 @@ public final class L2PcInstance extends L2PlayableInstance
                 if (cubic.getId() != L2CubicInstance.LIFE_CUBIC) cubic.doAction(target);
             }
         }
-/*        public void doCast(L2Skill skill) 
+
+        public void doCast(L2Skill skill)  
         {
            super.doCast(skill);
            
+           if(skill == null) return;
            if(!skill.isOffensive()) return;
-           L2Object[] targets = skill.getTargetList(L2PcInstance.this);
-           // rest of the code doesn't yet support multiple targets
-           L2Character mainTarget = (L2Character) targets[0];
+           L2Object mainTarget = skill.getFirstOfTargetList(L2PcInstance.this);
+           // the code doesn't now support multiple targets
+           if(mainTarget == null || !(mainTarget instanceof L2Character)) return;
+
            for (L2CubicInstance cubic : getCubics().values())
                if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
-                   cubic.doAction(mainTarget);
-        }       */
+                    cubic.doAction((L2Character)mainTarget);
+        }
     }
 
     private Connection _connection;
@@ -8053,7 +8057,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 + classIndex + ".");
 
         ClassId subTemplate = ClassId.values()[classId];
-        List<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(subTemplate);
+        Collection<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(subTemplate);
 
         if (skillTree == null) return true;
 
