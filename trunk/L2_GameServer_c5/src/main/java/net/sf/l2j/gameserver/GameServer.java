@@ -19,7 +19,10 @@
 package net.sf.l2j.gameserver;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Calendar;
+import java.util.logging.LogManager;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -627,6 +630,11 @@ public class GameServer
         
         // Initialize info 
         Config.load();
+        
+        // Create input stream for log file -- or store file data into memory
+        InputStream is =  new FileInputStream(new File("./config/logging.properties")); 
+        LogManager.getLogManager().readConfiguration(is);
+        is.close();        
         
         L2DatabaseFactory.getInstance();
         gameServer = new GameServer();
