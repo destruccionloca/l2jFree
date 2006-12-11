@@ -3392,7 +3392,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 IItemHandler handler = ItemHandler.getInstance().getItemHandler(target.getItemId());
                 
                 if (handler == null) 
-                    _log.debug("No item handler registered for item ID " + target.getItemId() + ".");
+                    if ( _log.isDebugEnabled() ) _log.debug("No item handler registered for item ID " + target.getItemId() + ".");
                 else 
                     handler.useItem(this, target);
             }
@@ -3435,7 +3435,7 @@ public final class L2PcInstance extends L2PlayableInstance
         {
         IItemHandler handler = ItemHandler.getInstance().getItemHandler(target.getItemId());        
         if (handler == null) 
-            _log.debug("No item handler registered for item ID " + target.getItemId() + ".");
+            if ( _log.isDebugEnabled() ) _log.debug("No item handler registered for item ID " + target.getItemId() + ".");
         else 
             handler.useItem(this, target);
             ItemTable.getInstance().destroyItem("Consume", target, this, null);
