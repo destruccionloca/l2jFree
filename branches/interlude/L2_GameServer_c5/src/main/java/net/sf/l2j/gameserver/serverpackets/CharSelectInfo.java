@@ -42,7 +42,6 @@ public class CharSelectInfo extends ServerBasePacket
     // d SdSddddddddddffdddddddddddddddddddddddddddddddddddddddddddddddffdddcdd ?
     // d SdSddddddddddffdQddddddddddddddddddddddddddddddddddddddddddddddffdddcdd ?
     // d SdSddddddddddffdQddddddddddddddddddddddddddddddddddddddddddddddddffdddchh chaotic throne
-
     
     private static final String _S__1F_CHARSELECTINFO = "[S] 1F CharSelectInfo";
 
@@ -190,8 +189,16 @@ public class CharSelectInfo extends ServerBasePacket
                 writeD(0x00); //c3 auto-select char
             
             writeC(charInfoPackage.getEnchantEffect());
-            writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
-            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_FACE));
+            if (getClient().getRevision() >= 729)
+            {
+                writeH(0x00);
+                writeH(0x00);                
+            }
+            else
+            {
+                writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
+                writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_FACE));
+            }
         }
     }
 

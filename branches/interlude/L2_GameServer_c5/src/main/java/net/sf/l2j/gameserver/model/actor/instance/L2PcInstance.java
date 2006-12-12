@@ -2516,7 +2516,7 @@ public final class L2PcInstance extends L2PlayableInstance
             }
             
            //Auto use herbs - autoloot
-           if ((item.getItemId() > 8599 && item.getItemId() < 8615))
+           if (item.getItemType() == L2EtcItemType.HERB)
            {
                 IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());                
                 if (handler == null) 
@@ -3396,7 +3396,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 IItemHandler handler = ItemHandler.getInstance().getItemHandler(target.getItemId());
                 
                 if (handler == null) 
-                    _log.debug("No item handler registered for item ID " + target.getItemId() + ".");
+                    if ( _log.isDebugEnabled() ) _log.debug("No item handler registered for item ID " + target.getItemId() + ".");
                 else 
                     handler.useItem(this, target);
             }
@@ -3435,18 +3435,18 @@ public final class L2PcInstance extends L2PlayableInstance
             target.pickupMe(this);
         }
         //Auto use herbs - pick up
-        if (target.getItemType() == L2EtcItemType.HERB)
+/*        if (target.getItemType() == L2EtcItemType.HERB)
         {
-        IItemHandler handler = ItemHandler.getInstance().getItemHandler(target.getItemId());        
-        if (handler == null) 
-            _log.debug("No item handler registered for item ID " + target.getItemId() + ".");
-        else 
-            handler.useItem(this, target);
+            IItemHandler handler = ItemHandler.getInstance().getItemHandler(target.getItemId());        
+            if (handler == null) 
+                if ( _log.isDebugEnabled() ) _log.debug("No item handler registered for item ID " + target.getItemId() + ".");
+            else 
+                handler.useItem(this, target);
             ItemTable.getInstance().destroyItem("Consume", target, this, null);
         }
         
         // Check if a Party is in progress
-        else if (isInParty()) getParty().distributeItem(this, target);
+        else*/ if (isInParty()) getParty().distributeItem(this, target);
         // Target is adena 
         else if (target.getItemId() == 57 && getInventory().getAdenaInstance() != null)
         {

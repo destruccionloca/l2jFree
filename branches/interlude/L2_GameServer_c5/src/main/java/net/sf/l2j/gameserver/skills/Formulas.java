@@ -1146,13 +1146,13 @@ public final class Formulas
 		}
 		if (shld)
         {
-            int PBlock = 0;
+            /*int PBlock = 0;
             for (int degrees = 55; degrees < 125; degrees++) 
             {
                 if (target instanceof L2PcInstance && attacker.isInFront(target,degrees))
                     PBlock +=Config.ALT_PERFECT_SHLD_BLOCK;
-            }
-            if (100 - PBlock < Rnd.get(100)) 
+            }*/
+            if (Config.ALT_PERFECT_SHLD_BLOCK > Rnd.get(100))  
                 {
                     damage = 1;
                     target.sendPacket(new SystemMessage(SystemMessage.YOUR_EXCELLENT_SHIELD_DEFENSE_WAS_A_SUCCESS));
@@ -1346,16 +1346,31 @@ public final class Formulas
     {
 		double shldRate = target.calcStat(Stats.SHIELD_RATE, 0, attacker, null);
         int shldAngle = (int)target.calcStat(Stats.SHIELD_ANGLE, 60, null, null);
-    
+
+        if (target.calcStat(Stats.SHIELD_RATE, 0, attacker, null) == 0)
+        {
+          return false;
+        }
+        
+        if (attacker instanceof L2PcInstance)
+        {
+          if (shldAngle == 60 && !target.isInFront(attacker, shldAngle))
+          {
+            return false;
+          }
+        }
+        else
+        {
+          if (shldAngle == 60 && target.isInFront(attacker, shldAngle))
+          {
+            return false;
+          }
+        }
+
         if (attacker != null && attacker.getActiveWeaponItem() != null)
         {
           if (attacker.getActiveWeaponItem().getItemType() == L2WeaponType.BOW)
             shldRate += 30.;
-        }
-    
-        if (shldAngle == 60 && target.isInFront(attacker, shldAngle))
-        {
-          shldRate = 0.;
         }
     
         return shldRate > Rnd.get(100); 

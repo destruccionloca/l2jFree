@@ -622,7 +622,8 @@ public abstract class L2Character extends L2Object
             {
                 if (player.isCursedWeaponEquiped())
                 {                    
-                    target.setCurrentCp(0); // If hitted by Zariche, Cp is reduced to 0
+                   if (!(target instanceof L2PcInstance) || !((L2PcInstance)target).isInvul())
+                       target.setCurrentCp(0);
                 } else if (player.isHero())
                 {
                     if (target instanceof L2PcInstance && ((L2PcInstance)target).isCursedWeaponEquiped())                        

@@ -129,7 +129,7 @@ public class PledgeShowMemberListAll extends ServerBasePacket
             writeS(_clan.getAllyName());
             writeD(_clan.getAllyCrestId());
             writeD(_clan.isAtWar());// new c3
-            writeD(_clan.getSubPledgeMembersCount(_pledgeType));
+            writeD(_pledgeType == 0 ? _clan.getMembersCount() :_clan.getSubPledgeMembersCount(_pledgeType));
             for (L2ClanMember m : _members)
             {
                 writeS(m.getName());

@@ -148,6 +148,9 @@ public class SevenSigns
             else
                 _log.info("SevenSigns: The " + getCabalName(getCabalHighestScore()) + " are in the lead this week.");
         
+        int numMins = 0;
+        int numHours = 0;
+        int numDays = 0;
         synchronized (this) 
         {
             setCalendarForNextPeriodChange();
@@ -160,13 +163,12 @@ public class SevenSigns
             // Thanks to http://rainbow.arch.scriptmania.com/scripts/timezone_countdown.html for help with this.
             double numSecs = (milliToChange / 1000) % 60;
             double countDown = ((milliToChange / 1000) - numSecs) / 60;
-            int numMins = (int)Math.floor(countDown % 60);
+            numMins = (int)Math.floor(countDown % 60);
             countDown = (countDown - numMins) / 60; 
-            int numHours = (int)Math.floor(countDown % 24);
-            int numDays = (int)Math.floor((countDown - numHours) / 24);
-
-            _log.info("SevenSigns: Next period begins in " + numDays + " days, " + numHours + " hours and " + numMins + " mins.");
+            numHours = (int)Math.floor(countDown % 24);
+            numDays = (int)Math.floor((countDown - numHours) / 24);
         }
+        _log.info("SevenSigns: Next period begins in " + numDays + " days, " + numHours + " hours and " + numMins + " mins.");
     }
     
     /**
