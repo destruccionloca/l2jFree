@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 7 d?c. 2006 18:49:51 by Hibernate Tools 3.2.0.beta8 -->
+<!-- Generated 11 d?c. 2006 17:28:16 by Hibernate Tools 3.2.0.beta8 -->
 <hibernate-mapping>
     <class name="net.sf.l2j.loginserver.beans.ClanData" table="clan_data" catalog="l2jdb">
         <comment></comment>
@@ -9,6 +9,11 @@
             <column name="clan_id" />
             <generator class="assigned" />
         </id>
+        <many-to-one name="characters" class="net.sf.l2j.loginserver.beans.Characters" fetch="select">
+            <column name="leader_id">
+                <comment></comment>
+            </column>
+        </many-to-one>
         <property name="clanName" type="string">
             <column name="clan_name" length="45">
                 <comment></comment>
@@ -36,11 +41,6 @@
         </property>
         <property name="allyName" type="string">
             <column name="ally_name" length="45">
-                <comment></comment>
-            </column>
-        </property>
-        <property name="leaderId" type="java.lang.Integer">
-            <column name="leader_id">
                 <comment></comment>
             </column>
         </property>
@@ -74,5 +74,21 @@
                 <comment></comment>
             </column>
         </property>
+        <set name="clanSkillses" inverse="true">
+            <key>
+                <column name="clan_id" not-null="true">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.ClanSkills" />
+        </set>
+        <set name="clanPrivses" inverse="true">
+            <key>
+                <column name="clan_id" not-null="true">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.ClanPrivs" />
+        </set>
     </class>
 </hibernate-mapping>

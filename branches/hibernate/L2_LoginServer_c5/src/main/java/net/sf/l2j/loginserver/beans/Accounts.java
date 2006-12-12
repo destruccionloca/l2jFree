@@ -1,6 +1,6 @@
 package net.sf.l2j.loginserver.beans;
 
-// Generated 7 déc. 2006 18:49:51 by Hibernate Tools 3.2.0.beta8
+// Generated 11 déc. 2006 17:28:16 by Hibernate Tools 3.2.0.beta8
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -11,9 +11,9 @@ import java.util.Set;
  */
 public class Accounts implements java.io.Serializable
 {
+
     // Fields    
 
-    private static final long serialVersionUID = 1L;
     private String login;
     private String password;
     private BigDecimal lastactive;
@@ -31,23 +31,24 @@ public class Accounts implements java.io.Serializable
     }
 
     /** minimal constructor */
-    public Accounts(String _login, String _email)
+    public Accounts(String login)
     {
-        this.login = _login;
-        this.email = _email;
+        this.login = login;
     }
 
     /** full constructor */
-    public Accounts(String _login, String _password, BigDecimal _lastactive, Integer _accessLevel,
-                    String _lastIp, String _email, Set<Characters> _characterses)
+    public Accounts(String login, String password, BigDecimal lastactive, Integer accessLevel,
+                    String lastIp, String email, Set<Characters> characterses,
+                    Set<AccountData> accountDatas)
     {
-        this.login = _login;
-        this.password = _password;
-        this.lastactive = _lastactive;
-        this.accessLevel = _accessLevel;
-        this.lastIp = _lastIp;
-        this.email =_email;
-        this.characterses = _characterses;
+        this.login = login;
+        this.password = password;
+        this.lastactive = lastactive;
+        this.accessLevel = accessLevel;
+        this.lastIp = lastIp;
+        this.email = email;
+        this.characterses = characterses;
+        this.accountDatas = accountDatas;
     }
 
     // Property accessors
@@ -56,9 +57,9 @@ public class Accounts implements java.io.Serializable
         return this.login;
     }
 
-    public void setLogin(String _login)
+    public void setLogin(String login)
     {
-        this.login = _login;
+        this.login = login;
     }
 
     public String getPassword()
@@ -66,9 +67,9 @@ public class Accounts implements java.io.Serializable
         return this.password;
     }
 
-    public void setPassword(String _password)
+    public void setPassword(String password)
     {
-        this.password = _password;
+        this.password = password;
     }
 
     public BigDecimal getLastactive()
@@ -76,9 +77,9 @@ public class Accounts implements java.io.Serializable
         return this.lastactive;
     }
 
-    public void setLastactive(BigDecimal _lastactive)
+    public void setLastactive(BigDecimal lastactive)
     {
-        this.lastactive = _lastactive;
+        this.lastactive = lastactive;
     }
 
     public Integer getAccessLevel()
@@ -86,9 +87,9 @@ public class Accounts implements java.io.Serializable
         return this.accessLevel;
     }
 
-    public void setAccessLevel(Integer _accessLevel)
+    public void setAccessLevel(Integer accessLevel)
     {
-        this.accessLevel = _accessLevel;
+        this.accessLevel = accessLevel;
     }
 
     public String getLastIp()
@@ -96,9 +97,9 @@ public class Accounts implements java.io.Serializable
         return this.lastIp;
     }
 
-    public void setLastIp(String _lastIp)
+    public void setLastIp(String lastIp)
     {
-        this.lastIp = _lastIp;
+        this.lastIp = lastIp;
     }
 
     public String getEmail()
@@ -106,9 +107,9 @@ public class Accounts implements java.io.Serializable
         return this.email;
     }
 
-    public void setEmail(String _email)
+    public void setEmail(String email)
     {
-        this.email = _email;
+        this.email = email;
     }
 
     public Set<Characters> getCharacterses()
@@ -116,18 +117,19 @@ public class Accounts implements java.io.Serializable
         return this.characterses;
     }
 
-    public void setCharacterses(Set<Characters> _characterses)
+    public void setCharacterses(Set<Characters> characterses)
     {
-        this.characterses = _characterses;
+        this.characterses = characterses;
     }
 
-    public void setAccountDatas(Set<AccountData> _accountDatas)
-    {
-        this.accountDatas = _accountDatas;
-    }
     public Set<AccountData> getAccountDatas()
     {
         return this.accountDatas;
+    }
+
+    public void setAccountDatas(Set<AccountData> accountDatas)
+    {
+        this.accountDatas = accountDatas;
     }
 
 }

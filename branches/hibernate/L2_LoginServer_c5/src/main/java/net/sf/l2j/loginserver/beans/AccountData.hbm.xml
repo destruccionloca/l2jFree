@@ -1,20 +1,25 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 7 d?c. 2006 18:49:51 by Hibernate Tools 3.2.0.beta8 -->
+<!-- Generated 11 d?c. 2006 17:28:16 by Hibernate Tools 3.2.0.beta8 -->
 <hibernate-mapping>
     <class name="net.sf.l2j.loginserver.beans.AccountData" table="account_data" catalog="l2jdb">
         <comment></comment>
         <composite-id name="id" class="net.sf.l2j.loginserver.beans.AccountDataId">
             <key-property name="accountName" type="string">
-                <column name="account_name" length="45"/>
+                <column name="account_name" length="45" />
             </key-property>
             <key-property name="var" type="string">
-                <column name="var" length="20"/>
+                <column name="var" length="20" />
             </key-property>
         </composite-id>
+        <many-to-one name="accounts" class="net.sf.l2j.loginserver.beans.Accounts" update="false" insert="false" fetch="select">
+            <column name="account_name" length="45" not-null="true">
+                <comment></comment>
+            </column>
+        </many-to-one>
         <property name="value" type="string">
-            <column name="value" not-null="false" length="255">
+            <column name="value">
                 <comment></comment>
             </column>
         </property>

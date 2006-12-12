@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 7 d?c. 2006 18:49:51 by Hibernate Tools 3.2.0.beta8 -->
+<!-- Generated 11 d?c. 2006 17:28:16 by Hibernate Tools 3.2.0.beta8 -->
 <hibernate-mapping>
     <class name="net.sf.l2j.loginserver.beans.Characters" table="characters" catalog="l2jdb">
         <comment></comment>
-        <id name="objId" type="long">
-            <column name="obj_Id" precision="11" scale="0" />
+        <id name="objId" type="int">
+            <column name="obj_Id" />
             <generator class="assigned" />
         </id>
         <many-to-one name="accounts" class="net.sf.l2j.loginserver.beans.Accounts" fetch="select">
@@ -394,6 +394,62 @@
                 <comment></comment>
             </column>
         </property>
+        <set name="clanDatas" inverse="true">
+            <key>
+                <column name="leader_id">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.ClanData" />
+        </set>
+        <set name="characterFriendses" inverse="true">
+            <key>
+                <column name="char_id" not-null="true">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.CharacterFriends" />
+        </set>
+        <set name="characterHennases" inverse="true">
+            <key>
+                <column name="char_obj_id" not-null="true">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.CharacterHennas" />
+        </set>
+        <set name="characterShortcutses" inverse="true">
+            <key>
+                <column name="char_obj_id" not-null="true">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.CharacterShortcuts" />
+        </set>
+        <set name="characterQuestses" inverse="true">
+            <key>
+                <column name="char_id" not-null="true">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.CharacterQuests" />
+        </set>
+        <set name="characterMacroseses" inverse="true">
+            <key>
+                <column name="char_obj_id" not-null="true">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.CharacterMacroses" />
+        </set>
+        <set name="itemses" inverse="true">
+            <key>
+                <column name="owner_id">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.Items" />
+        </set>
         <set name="boxaccesses" inverse="true">
             <key>
                 <column name="charname" length="32">
@@ -401,6 +457,46 @@
                 </column>
             </key>
             <one-to-many class="net.sf.l2j.loginserver.beans.Boxaccess" />
+        </set>
+        <set name="merchantLeases" inverse="true">
+            <key>
+                <column name="player_id" not-null="true">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.MerchantLease" />
+        </set>
+        <set name="characterSubclasseses" inverse="true">
+            <key>
+                <column name="char_obj_id" not-null="true">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.CharacterSubclasses" />
+        </set>
+        <set name="characterRecipebooks" inverse="true">
+            <key>
+                <column name="char_id" not-null="true">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.CharacterRecipebook" />
+        </set>
+        <set name="characterSkillses" inverse="true">
+            <key>
+                <column name="char_obj_id" not-null="true">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.CharacterSkills" />
+        </set>
+        <set name="characterSkillsSaves" inverse="true">
+            <key>
+                <column name="char_obj_id" not-null="true">
+                    <comment></comment>
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.loginserver.beans.CharacterSkillsSave" />
         </set>
     </class>
 </hibernate-mapping>

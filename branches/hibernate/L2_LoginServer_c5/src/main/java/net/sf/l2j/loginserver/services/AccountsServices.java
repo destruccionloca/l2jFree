@@ -1,4 +1,11 @@
 /*
+ * $HeadURL: $
+ *
+ * $Author: $
+ * $Date: $
+ * $Revision: $
+ *
+ * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
@@ -16,185 +23,56 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.accountmanager;
+package net.sf.l2j.loginserver.services;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.LineNumberReader;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import net.sf.l2j.Base64;
-import net.sf.l2j.Config;
 import net.sf.l2j.L2ApplicationContext;
 import net.sf.l2j.loginserver.beans.Accounts;
 import net.sf.l2j.loginserver.dao.AccountsDAO;
+import net.sf.l2j.loginserver.services.exception.AccountModificationException;
 
 /**
- * This class SQL Account Manager
+ * Account service to handle account management
  * 
- * @author netimperia
- * @version $Revision: 2.3.2.1.2.3 $ $Date: 2005/08/08 22:47:12 $
  */
-public class SQLAccountManager
+public class AccountsServices
 {
-    private static String _uname = "";
-    private static String _pass = "";
-    private static String _level = "";
-    private static String _mode = "";
-    private LineNumberReader _in=null;
-
-    public static void main(String[] args) throws SQLException, IOException, NoSuchAlgorithmException
+    private static Log _log = LogFactory.getLog(AccountsServices.class);
+    
+    private AccountsDAO __accDAO = null;
+    
+    public void setAccountsDAO (AccountsDAO accDAO)
     {
-        // Load config
-        Config.load();
-        // load application context
-        L2ApplicationContext.getInstance();
-
-        SQLAccountManager accountManager = new SQLAccountManager();
-
-        boolean bContinue = true;
-        while (bContinue)
-        {
-            bContinue = accountManager.displayMenu();
-        }
-
-    }
-
-    /**
-     * Init interface with user 
-     */
-    public SQLAccountManager()
-    {
-        _in = new LineNumberReader(new InputStreamReader(System.in));
+        __accDAO =  accDAO;
     }
     
-    /**
-     * Display menu and return true or false if we should continue
-     * @return true or false if user want to stop
-     * @throws IOException 
-     */
-    private boolean displayMenu() throws IOException
-    {
-        boolean bResponse = true;
-
-        // o display user choices
-        // ---------------------
-        displayChoices();
-        
-        // 
-        if (_mode.equals("1"))
-        {
-            // Add or Update
-            AddOrUpdateAccount(_uname, _pass, _level);
-        }
-        else if (_mode.equals("2"))
-        {
-            // Change Level
-            ChangeAccountLevel(_uname, _level);
-        }
-        else if (_mode.equals("3"))
-        {
-            // Delete
-            System.out.print("Do you really want to delete this account ? Y/N : ");
-            String yesno = _in.readLine();
-            if (yesno.equals("Y"))
-            {
-                // Yes      
-                DeleteAccount(_uname);
-            }
-
-        }
-        else if (_mode.equals("4"))
-        {
-            // List
-            printAccInfo();
-        }
-        else if (_mode.equals("5"))
-        {
-            bResponse = false;
-        }
-
-        return bResponse;
-    }
-
-    /**
-     * Display menu and user choices
-     * @throws IOException 
-     * 
-     */
-    private void displayChoices() throws IOException
-    {
-        _mode = "";
-        System.out.println("Please choose an option:");
-        System.out.println("");
-        System.out.println("1 - Create new account or update existing one (change pass and access level).");
-        System.out.println("2 - Change access level.");
-        System.out.println("3 - Delete existing account.");
-        System.out.println("4 - List accounts & access levels.");
-        System.out.println("5 - Exit.");
-        while (!(_mode.equals("1") || _mode.equals("2") || _mode.equals("3") || _mode.equals("4") || _mode.equals("5")))
-        {
-            System.out.print("Your choice: ");
-            _mode = _in.readLine();
-        }
-
-        if (_mode.equals("1") || _mode.equals("2") || _mode.equals("3"))
-        {
-            if (_mode.equals("1") || _mode.equals("2") || _mode.equals("3"))
-                while (_uname.length() == 0)
-                {
-                    System.out.print("Username: ");
-                    _uname = _in.readLine();
-                }
-
-            if (_mode.equals("1")) while (_pass.length() == 0)
-            {
-                System.out.print("Password: ");
-                _pass = _in.readLine();
-            }
-
-            if (_mode.equals("1") || _mode.equals("2")) while (_level.length() == 0)
-            {
-                System.out.print("Access level: ");
-                _level = _in.readLine();
-            }
-        }
-    }
-
-    /**
-     * Print all accounts information (login + level)
-     *
-     */
-    private void printAccInfo()
-    {
-        AccountsDAO accDAO = (AccountsDAO) L2ApplicationContext.getInstance().getApplicationContext().getBean("AccountsDAO");
-        List<Accounts> list = accDAO.findAll(Accounts.class);
-
-        for (Accounts account : list)
-        {
-            System.out.println(account.getLogin() + " -> " + account.getAccessLevel());
-        }
-        System.out.println("Number of accounts: " + list.size() + ".");
-    }
-
     /**
      * Add or update an account
      * @param account
      * @param password
      * @param level
-     * @throws IOException
+     * @return the new account
+     * @throws AccountModificationException 
      */
-    private void AddOrUpdateAccount(String account, String password, String level) 
-    throws IOException
+    public Accounts addOrUpdateAccount(String account, String password, String level) 
+    throws AccountModificationException
     {
-        AccountsDAO accDAO = (AccountsDAO) L2ApplicationContext.getInstance()
-                                                                .getApplicationContext()
-                                                                .getBean("AccountsDAO");
+        // o initialization
+        // ---------------
+        Accounts acc = null;
         
-        // Encode Password		
+        // o Encode Password
+        // ----------------
         MessageDigest md;
         byte[] newpass;
         try
@@ -205,93 +83,80 @@ public class SQLAccountManager
         }
         catch (NoSuchAlgorithmException e1)
         {
-            System.out.println("Account " + account + " could not be update :" + e1.getMessage());
-            return;
+            throw new AccountModificationException ("No algorithm to encode password.",e1);
         }
-        
-        
-        // Search account
-        // ---------------
-        Accounts acc = accDAO.findById("account");
-        if ( acc == null )
+        catch (UnsupportedEncodingException e1)
         {
-            acc = new Accounts ();
+            throw new AccountModificationException ("Unsupported encoding.",e1);
         }
         
-        // update account
+        // o update account
         // ---------------
         try
         {
+            acc = new Accounts ();
             Integer iLevel = new Integer (level);
+            acc.setLogin(account);
             acc.setAccessLevel(iLevel);
             acc.setPassword(Base64.encodeBytes(newpass));
-            accDAO.saveOrUpdate(acc);
-            System.out.println("Account " + account + " has been updated.");
+            __accDAO.saveOrUpdate(acc);
+            if (_log.isDebugEnabled()) _log.info("Account " + account + " has been updated.");
         }
         catch (NumberFormatException e)
         {
-            System.out.println("Error : level ("+level+") should be an integer.");
+            throw new AccountModificationException ("Error : level ("+level+") should be an integer.",e);
         }
+        return acc;
     }
 
     /**
      * Change account level
      * @param account - the account to upadte
      * @param level - the new level
+     * @throws AccountModificationException
      */
-    private void ChangeAccountLevel(String account, String level)
+    public void changeAccountLevel(String account, String level) 
+    throws AccountModificationException
     {
-        AccountsDAO accDAO = (AccountsDAO) L2ApplicationContext.getInstance()
-                                                               .getApplicationContext()
-                                                               .getBean("AccountsDAO");
         // Search account
         // ---------------
-        Accounts acc = accDAO.findById("account");
+        Accounts acc = __accDAO.findById(account);
         
         if ( acc == null )
+            throw new AccountModificationException("Account "+account+" doesn't exist.");
+
+        // Update account
+        // --------------
+        try
         {
-            System.out.println("Account " + account + " does not exist.");
+            Integer iLevel = new Integer (level);
+            acc.setAccessLevel(iLevel);
+            __accDAO.saveOrUpdate(acc);
+            if (_log.isDebugEnabled()) _log.info("Account " + account + " has been updated.");
         }
-        else
+        catch (NumberFormatException e)
         {
-            // Update account
-            // --------------
-            try
-            {
-                Integer iLevel = new Integer (level);
-                acc.setAccessLevel(iLevel);
-                accDAO.save(acc);
-                System.out.println("Account " + account + " has been updated.");
-            }
-            catch (NumberFormatException e)
-            {
-                System.out.println("Error : level ("+level+") should be an integer.");
-            }
+            throw new AccountModificationException ("Error : level ("+level+") should be an integer.",e);
         }
     }
 
     /**
      * Delete account and all linked objects
      * @param account
-     * @throws SQLException
+     * @throws AccountModificationException 
      */
-    private void DeleteAccount(String account) 
+    public void deleteAccount(String account) throws AccountModificationException 
     {
-        AccountsDAO accDAO = (AccountsDAO) L2ApplicationContext.getInstance()
-                                                                .getApplicationContext()
-                                                                .getBean("AccountsDAO");
         // Search account
         // ---------------
-        Accounts acc = accDAO.findById("account");
+        Accounts acc = __accDAO.findById(account);
         
         if ( acc == null )
-        {
-            System.out.println("Account " + account + " does not exist.");
-        }
-        else
-        {
-            accDAO.delete(acc);
-        }
+            throw new AccountModificationException("Account "+account+" doesn't exist.");
+        
+        __accDAO.delete(acc);
+        // remove all from clan
+        
 
 //            // Get Accounts ID
 //            ResultSet rcln;
@@ -409,7 +274,7 @@ public class SQLAccountManager
 //        }
 //        else
 //        {
-//            // Not Exist		
+//            // Not Exist      
 //            System.out.println("Account " + account + " does not exist.");
 //        }
 //
@@ -417,4 +282,22 @@ public class SQLAccountManager
 //        statement.close();
 //    }
     }
+    
+
+    /**
+     * Print all accounts information (login + level)
+     *
+     */
+    public void printAccInfo()
+    {
+        List<Accounts> list = __accDAO.findAll(Accounts.class);
+
+        for (Accounts account : list)
+        {
+            System.out.println(account.getLogin() + " -> " + account.getAccessLevel());
+        }
+        System.out.println("Number of accounts: " + list.size() + ".");
+    }    
+    
+    
 }

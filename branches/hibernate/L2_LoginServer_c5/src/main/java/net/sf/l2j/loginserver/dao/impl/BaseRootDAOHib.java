@@ -40,7 +40,7 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
      * Load object matching the given key and return it.
      */
     public Object load(Class refClass, Serializable key) {
-       return this.getHibernateTemplate().load(refClass, key);
+       return this.getHibernateTemplate().get(refClass, key);
     }
 
     /**

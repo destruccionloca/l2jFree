@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 7 d?c. 2006 18:49:51 by Hibernate Tools 3.2.0.beta8 -->
+<!-- Generated 11 d?c. 2006 17:28:16 by Hibernate Tools 3.2.0.beta8 -->
 <hibernate-mapping>
     <class name="net.sf.l2j.loginserver.beans.CharacterQuests" table="character_quests" catalog="l2jdb">
         <comment></comment>
@@ -19,6 +19,11 @@
                 <column name="class_index" />
             </key-property>
         </composite-id>
+        <many-to-one name="characters" class="net.sf.l2j.loginserver.beans.Characters" update="false" insert="false" fetch="select">
+            <column name="char_id" not-null="true">
+                <comment></comment>
+            </column>
+        </many-to-one>
         <property name="value" type="string">
             <column name="value">
                 <comment></comment>

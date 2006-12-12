@@ -48,7 +48,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
     
     <!-- Console appender -->
     <appender name="CON" class="org.apache.log4j.ConsoleAppender">
-        <param name="Threshold" value="INFO"/>
+        <param name="Threshold" value="DEBUG"/>
         <param name="Target" value="System.out"/>
         <layout class="net.sf.l2j.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="%p : %m %s %n"/>

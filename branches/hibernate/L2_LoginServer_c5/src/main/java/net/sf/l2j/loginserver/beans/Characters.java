@@ -1,6 +1,6 @@
 package net.sf.l2j.loginserver.beans;
 
-// Generated 7 déc. 2006 18:49:51 by Hibernate Tools 3.2.0.beta8
+// Generated 11 déc. 2006 17:28:16 by Hibernate Tools 3.2.0.beta8
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -14,7 +14,7 @@ public class Characters implements java.io.Serializable
 
     // Fields    
 
-    private long objId;
+    private int objId;
     private Accounts accounts;
     private String charName;
     private Long level;
@@ -92,7 +92,19 @@ public class Characters implements java.io.Serializable
     private int pledgeRank;
     private String apprentice;
     private int accademyLvl;
+    private Set<ClanData> clanDatas = new HashSet<ClanData>(0);
+    private Set<CharacterFriends> characterFriendses = new HashSet<CharacterFriends>(0);
+    private Set<CharacterHennas> characterHennases = new HashSet<CharacterHennas>(0);
+    private Set<CharacterShortcuts> characterShortcutses = new HashSet<CharacterShortcuts>(0);
+    private Set<CharacterQuests> characterQuestses = new HashSet<CharacterQuests>(0);
+    private Set<CharacterMacroses> characterMacroseses = new HashSet<CharacterMacroses>(0);
+    private Set<Items> itemses = new HashSet<Items>(0);
     private Set<Boxaccess> boxaccesses = new HashSet<Boxaccess>(0);
+    private Set<MerchantLease> merchantLeases = new HashSet<MerchantLease>(0);
+    private Set<CharacterSubclasses> characterSubclasseses = new HashSet<CharacterSubclasses>(0);
+    private Set<CharacterRecipebook> characterRecipebooks = new HashSet<CharacterRecipebook>(0);
+    private Set<CharacterSkills> characterSkillses = new HashSet<CharacterSkills>(0);
+    private Set<CharacterSkillsSave> characterSkillsSaves = new HashSet<CharacterSkillsSave>(0);
 
     // Constructors
 
@@ -102,7 +114,7 @@ public class Characters implements java.io.Serializable
     }
 
     /** minimal constructor */
-    public Characters(long objId, String charName, int baseClass, int recHave, int recLeft,
+    public Characters(int objId, String charName, int baseClass, int recHave, int recLeft,
                       boolean isin7sdungeon, int equipedWithZariche, long zarichePk,
                       BigDecimal zaricheTime, int pledgeClass, int pledgeType, int pledgeRank,
                       String apprentice, int accademyLvl)
@@ -124,23 +136,31 @@ public class Characters implements java.io.Serializable
     }
 
     /** full constructor */
-    public Characters(long objId, Accounts accounts, String charName, Long level, Long maxHp,
-                      Long curHp, Long maxCp, Long curCp, Long maxMp, Long curMp, Long acc, Long crit,
-                      Long evasion, Long matk, Long mdef, Long mspd, Long patk, Long pdef, Long pspd,
-                      Long runSpd, Long walkSpd, Long str, Long con, Long dex, Long int_, Long men,
-                      Long wit, Long face, Long hairStyle, Long hairColor, Long sex, Long heading,
-                      Long x, Long y, Long z, BigDecimal movementMultiplier,
-                      BigDecimal attackSpeedMultiplier, BigDecimal colRad, BigDecimal colHeight,
-                      BigDecimal exp, Long sp, Long karma, Long pvpkills, Long pkkills, Long clanid,
-                      Long maxload, Long race, Long classid, int baseClass, BigDecimal deletetime,
-                      Long cancraft, String title, Long allyId, int recHave, int recLeft,
-                      Short accesslevel, Boolean online, Boolean charSlot, Boolean newbie,
-                      BigDecimal lastAccess, Integer clanPrivs, Boolean wantspeace,
+    public Characters(int objId, Accounts accounts, String charName, Long level, Long maxHp, Long curHp,
+                      Long maxCp, Long curCp, Long maxMp, Long curMp, Long acc, Long crit, Long evasion,
+                      Long matk, Long mdef, Long mspd, Long patk, Long pdef, Long pspd, Long runSpd,
+                      Long walkSpd, Long str, Long con, Long dex, Long int_, Long men, Long wit,
+                      Long face, Long hairStyle, Long hairColor, Long sex, Long heading, Long x, Long y,
+                      Long z, BigDecimal movementMultiplier, BigDecimal attackSpeedMultiplier,
+                      BigDecimal colRad, BigDecimal colHeight, BigDecimal exp, Long sp, Long karma,
+                      Long pvpkills, Long pkkills, Long clanid, Long maxload, Long race, Long classid,
+                      int baseClass, BigDecimal deletetime, Long cancraft, String title, Long allyId,
+                      int recHave, int recLeft, Short accesslevel, Boolean online, Boolean charSlot,
+                      Boolean newbie, BigDecimal lastAccess, Integer clanPrivs, Boolean wantspeace,
                       BigDecimal deleteclan, boolean isin7sdungeon, BigDecimal onlinetime,
                       Boolean inJail, BigDecimal jailTimer, Byte nobless, Integer varka, Integer ketra,
                       int equipedWithZariche, long zarichePk, BigDecimal zaricheTime, int pledgeClass,
                       int pledgeType, int pledgeRank, String apprentice, int accademyLvl,
-                      Set<Boxaccess> boxaccesses)
+                      Set<ClanData> clanDatas, Set<CharacterFriends> characterFriendses,
+                      Set<CharacterHennas> characterHennases,
+                      Set<CharacterShortcuts> characterShortcutses,
+                      Set<CharacterQuests> characterQuestses,
+                      Set<CharacterMacroses> characterMacroseses, Set<Items> itemses,
+                      Set<Boxaccess> boxaccesses, Set<MerchantLease> merchantLeases,
+                      Set<CharacterSubclasses> characterSubclasseses,
+                      Set<CharacterRecipebook> characterRecipebooks,
+                      Set<CharacterSkills> characterSkillses,
+                      Set<CharacterSkillsSave> characterSkillsSaves)
     {
         this.objId = objId;
         this.accounts = accounts;
@@ -220,16 +240,28 @@ public class Characters implements java.io.Serializable
         this.pledgeRank = pledgeRank;
         this.apprentice = apprentice;
         this.accademyLvl = accademyLvl;
+        this.clanDatas = clanDatas;
+        this.characterFriendses = characterFriendses;
+        this.characterHennases = characterHennases;
+        this.characterShortcutses = characterShortcutses;
+        this.characterQuestses = characterQuestses;
+        this.characterMacroseses = characterMacroseses;
+        this.itemses = itemses;
         this.boxaccesses = boxaccesses;
+        this.merchantLeases = merchantLeases;
+        this.characterSubclasseses = characterSubclasseses;
+        this.characterRecipebooks = characterRecipebooks;
+        this.characterSkillses = characterSkillses;
+        this.characterSkillsSaves = characterSkillsSaves;
     }
 
     // Property accessors
-    public long getObjId()
+    public int getObjId()
     {
         return this.objId;
     }
 
-    public void setObjId(long objId)
+    public void setObjId(int objId)
     {
         this.objId = objId;
     }
@@ -1004,6 +1036,76 @@ public class Characters implements java.io.Serializable
         this.accademyLvl = accademyLvl;
     }
 
+    public Set<ClanData> getClanDatas()
+    {
+        return this.clanDatas;
+    }
+
+    public void setClanDatas(Set<ClanData> clanDatas)
+    {
+        this.clanDatas = clanDatas;
+    }
+
+    public Set<CharacterFriends> getCharacterFriendses()
+    {
+        return this.characterFriendses;
+    }
+
+    public void setCharacterFriendses(Set<CharacterFriends> characterFriendses)
+    {
+        this.characterFriendses = characterFriendses;
+    }
+
+    public Set<CharacterHennas> getCharacterHennases()
+    {
+        return this.characterHennases;
+    }
+
+    public void setCharacterHennases(Set<CharacterHennas> characterHennases)
+    {
+        this.characterHennases = characterHennases;
+    }
+
+    public Set<CharacterShortcuts> getCharacterShortcutses()
+    {
+        return this.characterShortcutses;
+    }
+
+    public void setCharacterShortcutses(Set<CharacterShortcuts> characterShortcutses)
+    {
+        this.characterShortcutses = characterShortcutses;
+    }
+
+    public Set<CharacterQuests> getCharacterQuestses()
+    {
+        return this.characterQuestses;
+    }
+
+    public void setCharacterQuestses(Set<CharacterQuests> characterQuestses)
+    {
+        this.characterQuestses = characterQuestses;
+    }
+
+    public Set<CharacterMacroses> getCharacterMacroseses()
+    {
+        return this.characterMacroseses;
+    }
+
+    public void setCharacterMacroseses(Set<CharacterMacroses> characterMacroseses)
+    {
+        this.characterMacroseses = characterMacroseses;
+    }
+
+    public Set<Items> getItemses()
+    {
+        return this.itemses;
+    }
+
+    public void setItemses(Set<Items> itemses)
+    {
+        this.itemses = itemses;
+    }
+
     public Set<Boxaccess> getBoxaccesses()
     {
         return this.boxaccesses;
@@ -1012,6 +1114,56 @@ public class Characters implements java.io.Serializable
     public void setBoxaccesses(Set<Boxaccess> boxaccesses)
     {
         this.boxaccesses = boxaccesses;
+    }
+
+    public Set<MerchantLease> getMerchantLeases()
+    {
+        return this.merchantLeases;
+    }
+
+    public void setMerchantLeases(Set<MerchantLease> merchantLeases)
+    {
+        this.merchantLeases = merchantLeases;
+    }
+
+    public Set<CharacterSubclasses> getCharacterSubclasseses()
+    {
+        return this.characterSubclasseses;
+    }
+
+    public void setCharacterSubclasseses(Set<CharacterSubclasses> characterSubclasseses)
+    {
+        this.characterSubclasseses = characterSubclasseses;
+    }
+
+    public Set<CharacterRecipebook> getCharacterRecipebooks()
+    {
+        return this.characterRecipebooks;
+    }
+
+    public void setCharacterRecipebooks(Set<CharacterRecipebook> characterRecipebooks)
+    {
+        this.characterRecipebooks = characterRecipebooks;
+    }
+
+    public Set<CharacterSkills> getCharacterSkillses()
+    {
+        return this.characterSkillses;
+    }
+
+    public void setCharacterSkillses(Set<CharacterSkills> characterSkillses)
+    {
+        this.characterSkillses = characterSkillses;
+    }
+
+    public Set<CharacterSkillsSave> getCharacterSkillsSaves()
+    {
+        return this.characterSkillsSaves;
+    }
+
+    public void setCharacterSkillsSaves(Set<CharacterSkillsSave> characterSkillsSaves)
+    {
+        this.characterSkillsSaves = characterSkillsSaves;
     }
 
 }

@@ -1,18 +1,23 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 7 d?c. 2006 18:49:51 by Hibernate Tools 3.2.0.beta8 -->
+<!-- Generated 11 d?c. 2006 17:28:16 by Hibernate Tools 3.2.0.beta8 -->
 <hibernate-mapping>
     <class name="net.sf.l2j.loginserver.beans.CharacterSubclasses" table="character_subclasses" catalog="l2jdb">
         <comment></comment>
         <composite-id name="id" class="net.sf.l2j.loginserver.beans.CharacterSubclassesId">
-            <key-property name="charObjId" type="long">
-                <column name="char_obj_id" precision="11" scale="0" />
+            <key-property name="charObjId" type="int">
+                <column name="char_obj_id" />
             </key-property>
             <key-property name="classId" type="int">
                 <column name="class_id" />
             </key-property>
         </composite-id>
+        <many-to-one name="characters" class="net.sf.l2j.loginserver.beans.Characters" update="false" insert="false" fetch="select">
+            <column name="char_obj_id" not-null="true">
+                <comment></comment>
+            </column>
+        </many-to-one>
         <property name="exp" type="big_decimal">
             <column name="exp" precision="20" scale="0" not-null="true">
                 <comment></comment>

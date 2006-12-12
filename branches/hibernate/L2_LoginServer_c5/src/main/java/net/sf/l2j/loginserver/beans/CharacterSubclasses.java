@@ -1,6 +1,6 @@
 package net.sf.l2j.loginserver.beans;
 
-// Generated 7 déc. 2006 18:49:51 by Hibernate Tools 3.2.0.beta8
+// Generated 11 déc. 2006 17:28:16 by Hibernate Tools 3.2.0.beta8
 
 import java.math.BigDecimal;
 
@@ -13,6 +13,7 @@ public class CharacterSubclasses implements java.io.Serializable
     // Fields    
 
     private CharacterSubclassesId id;
+    private Characters characters;
     private BigDecimal exp;
     private long sp;
     private int level;
@@ -26,10 +27,11 @@ public class CharacterSubclasses implements java.io.Serializable
     }
 
     /** full constructor */
-    public CharacterSubclasses(CharacterSubclassesId id, BigDecimal exp, long sp, int level,
-                               int classIndex)
+    public CharacterSubclasses(CharacterSubclassesId id, Characters characters, BigDecimal exp, long sp,
+                               int level, int classIndex)
     {
         this.id = id;
+        this.characters = characters;
         this.exp = exp;
         this.sp = sp;
         this.level = level;
@@ -45,6 +47,16 @@ public class CharacterSubclasses implements java.io.Serializable
     public void setId(CharacterSubclassesId id)
     {
         this.id = id;
+    }
+
+    public Characters getCharacters()
+    {
+        return this.characters;
+    }
+
+    public void setCharacters(Characters characters)
+    {
+        this.characters = characters;
     }
 
     public BigDecimal getExp()

@@ -24,7 +24,7 @@
 		<property name="hibernateProperties">
 			<props>
 			   <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-			   <prop key="hibernate.show_sql">false</prop>
+			   <prop key="hibernate.show_sql">true</prop>
 			   <prop key="hibernate.c3p0.min_size">1</prop>
 			   <prop key="hibernate.c3p0.max_size">20</prop>
 			   <prop key="hibernate.c3p0.timeout">0</prop>
@@ -152,6 +152,11 @@
         <bean id="CharacterRecipebookDAO" class="net.sf.l2j.loginserver.dao.impl.CharacterRecipebookDAOHib">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+        <bean id="AccountsServices" class="net.sf.l2j.loginserver.services.AccountsServices">
+		<property name="accountsDAO">
+			<ref bean="AccountsDAO" />
 		</property>
 	</bean>
 </beans>
