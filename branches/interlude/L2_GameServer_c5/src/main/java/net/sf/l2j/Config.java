@@ -542,6 +542,7 @@ public final class Config {
     public static boolean WEDDING_TELEPORT;
     public static int WEDDING_TELEPORT_PRICE;
     public static int WEDDING_TELEPORT_INTERVAL;
+    public static boolean WEDDING_SAMESEX;
 
     /** Jail config **/
     public static boolean JAIL_IS_PVP;
@@ -1576,6 +1577,7 @@ public final class Config {
                 WEDDING_TELEPORT                                    = Boolean.parseBoolean(altSettings.getProperty("WeddingTeleport", "true"));
                 WEDDING_TELEPORT_PRICE                              = Integer.parseInt(altSettings.getProperty("WeddingTeleportPrice", "500000"));
                 WEDDING_TELEPORT_INTERVAL                           = Integer.parseInt(altSettings.getProperty("WeddingTeleportInterval", "120"));
+                WEDDING_SAMESEX                                     = Boolean.parseBoolean(altSettings.getProperty("WeddingAllowSameSex", "true"));
 	        }
 	        catch (Exception e)
 	        {

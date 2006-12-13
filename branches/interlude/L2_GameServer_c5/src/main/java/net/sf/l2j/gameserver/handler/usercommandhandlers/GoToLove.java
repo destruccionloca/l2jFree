@@ -16,9 +16,10 @@ import net.sf.l2j.gameserver.util.Broadcast;
 
 import org.apache.log4j.Logger;
 
-/**
+
+/** 
+ * @author evill33t
  * 
- *
  */
 public class GoToLove implements IUserCommandHandler
 {

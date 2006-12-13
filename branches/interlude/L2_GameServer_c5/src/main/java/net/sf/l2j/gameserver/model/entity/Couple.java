@@ -27,9 +27,13 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
+/** 
+ * @author evill33t
+ * 
+ */
 public class Couple
 {
-    protected static Logger _log = Logger.getLogger(Auction.class.getName());
+    protected static Logger _log = Logger.getLogger(Couple.class.getName());
     
     // =========================================================
     // Data Field
@@ -54,14 +58,14 @@ public class Couple
 
             con = L2DatabaseFactory.getInstance().getConnection();
 
-            statement = con.prepareStatement("Select * from couples where coupleid = ?");
+            statement = con.prepareStatement("Select * from couples where id = ?");
             statement.setInt(1, getId());
             rs = statement.executeQuery();
 
             while (rs.next())
             {
                 this._player1Id = rs.getInt("player1Id");
-                this._player2Id = rs.getInt("player1Id");
+                this._player2Id = rs.getInt("player2Id");
                 this._maried    = rs.getBoolean("maried");
 
                 this._affiancedDate = Calendar.getInstance();
@@ -151,7 +155,7 @@ public class Couple
             con = L2DatabaseFactory.getInstance().getConnection();
             PreparedStatement statement;
             
-            statement = con.prepareStatement("DELETE FROM couples WHERE coupleId=?");
+            statement = con.prepareStatement("DELETE FROM couples WHERE id=?");
             statement.setInt(1, getId());
             statement.execute();
         }

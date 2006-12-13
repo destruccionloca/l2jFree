@@ -24,6 +24,11 @@ import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
+
+/** 
+ * @author evill33t
+ * 
+ */
 public class Divorce implements IUserCommandHandler
 {
     private static final int[] COMMAND_IDS = { 901 }; 
