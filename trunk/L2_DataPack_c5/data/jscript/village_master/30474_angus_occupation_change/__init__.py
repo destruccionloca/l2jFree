@@ -287,7 +287,7 @@ class Quest (JQuest) :
        st.setState(COMPLETED)
        st.exitQuest(1)
        return "30474-54.htm"
-     elif ClassId in [ClassId.spellhowler, ClassId.shillenElder, ClassId.phantomSummoner]:
+     elif ClassId in [ClassId.spellhowler, ClassId.shiellenElder, ClassId.phantomSummoner]:
        st.setState(COMPLETED)
        st.exitQuest(1)
        return "30474-54.htm"
@@ -307,7 +307,7 @@ class Quest (JQuest) :
      elif ClassId in [ClassId.darkWizard]:
        st.setState(STARTED)
        return "30474-19.htm"
-     elif ClassId in [ClassId.spellhowler, ClassId.shillenElder, ClassId.phantomSummoner]:
+     elif ClassId in [ClassId.spellhowler, ClassId.shiellenElder, ClassId.phantomSummoner]:
        st.setState(COMPLETED)
        st.exitQuest(1)
        return "30474-54.htm"
