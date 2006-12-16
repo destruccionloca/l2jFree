@@ -158,7 +158,7 @@ class Quest (JQuest) :
        st.setState(COMPLETED)
        st.exitQuest(1)
        return "7462-32.htm"
-     if ClassId in [ClassId.spellhowler, ClassId.shillenElder, ClassId.phantomSummoner]:
+     if ClassId in [ClassId.spellhowler, ClassId.shillienElder, ClassId.phantomSummoner]:
        st.setState(COMPLETED)
        st.exitQuest(1)
        return "7462-32.htm"
