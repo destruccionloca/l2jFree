@@ -3430,7 +3430,7 @@ public final class L2PcInstance extends L2PlayableInstance
             // Remove the L2ItemInstance from the world and send server->client GetItem packets
             target.pickupMe(this);
         }
-        //Auto use herbs - pick up
+/*        //Auto use herbs - pick up
         if (target.getItemType() == L2EtcItemType.HERB)
         {
         IItemHandler handler = ItemHandler.getInstance().getItemHandler(target.getItemId());        
@@ -3442,7 +3442,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         
         // Check if a Party is in progress
-        else if (isInParty()) getParty().distributeItem(this, target);
+        else*/ if (isInParty()) getParty().distributeItem(this, target);
         // Target is adena 
         else if (target.getItemId() == 57 && getInventory().getAdenaInstance() != null)
         {
