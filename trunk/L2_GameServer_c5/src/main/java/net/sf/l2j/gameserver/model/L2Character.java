@@ -4324,7 +4324,7 @@ public abstract class L2Character extends L2Object
             if (activeWeapon != null)
                 activeWeapon.getSkillEffects(this, target, crit);
             
-           if (target.isRaid())
+           if (target.isRaid() && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION)
            {
                int level = 0;
                if (this instanceof L2PcInstance)
@@ -5115,7 +5115,7 @@ public abstract class L2Character extends L2Object
                     }
                     
                     // Check Raidboss attack
-                    if (player.isRaid() && getLevel() > player.getLevel() + 8)
+                    if (player.isRaid() && getLevel() > player.getLevel() + 8 && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION)
                     {
                         L2Skill tempSkill = SkillTable.getInstance().getInfo(4515, 99);
                         if(tempSkill != null)
