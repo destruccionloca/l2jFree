@@ -394,7 +394,7 @@
                 <comment></comment>
             </column>
         </property>
-        <set name="clanDatas" inverse="true">
+        <set name="clanDatas" inverse="true"  cascade="all-delete-orphan">
             <key>
                 <column name="leader_id">
                     <comment></comment>
@@ -402,7 +402,7 @@
             </key>
             <one-to-many class="net.sf.l2j.loginserver.beans.ClanData" />
         </set>
-        <set name="characterFriendses" inverse="true">
+        <set name="characterFriendses" inverse="true"  cascade="all-delete-orphan">
             <key>
                 <column name="char_id" not-null="true">
                     <comment></comment>
@@ -410,7 +410,7 @@
             </key>
             <one-to-many class="net.sf.l2j.loginserver.beans.CharacterFriends" />
         </set>
-        <set name="characterHennases" inverse="true">
+        <set name="characterHennases" inverse="true"  cascade="all-delete-orphan">
             <key>
                 <column name="char_obj_id" not-null="true">
                     <comment></comment>
@@ -418,7 +418,7 @@
             </key>
             <one-to-many class="net.sf.l2j.loginserver.beans.CharacterHennas" />
         </set>
-        <set name="characterShortcutses" inverse="true">
+        <set name="characterShortcutses" inverse="true"  cascade="all-delete-orphan">
             <key>
                 <column name="char_obj_id" not-null="true">
                     <comment></comment>
@@ -426,7 +426,7 @@
             </key>
             <one-to-many class="net.sf.l2j.loginserver.beans.CharacterShortcuts" />
         </set>
-        <set name="characterQuestses" inverse="true">
+        <set name="characterQuestses" inverse="true"  cascade="all-delete-orphan">
             <key>
                 <column name="char_id" not-null="true">
                     <comment></comment>
@@ -434,7 +434,7 @@
             </key>
             <one-to-many class="net.sf.l2j.loginserver.beans.CharacterQuests" />
         </set>
-        <set name="characterMacroseses" inverse="true">
+        <set name="characterMacroseses" inverse="true"  cascade="all-delete-orphan">
             <key>
                 <column name="char_obj_id" not-null="true">
                     <comment></comment>
@@ -450,7 +450,7 @@
             </key>
             <one-to-many class="net.sf.l2j.loginserver.beans.Items" />
         </set>
-        <set name="boxaccesses" inverse="true">
+        <set name="boxaccesses" inverse="true"  cascade="all-delete-orphan">
             <key>
                 <column name="charname" length="32">
                     <comment></comment>
@@ -458,7 +458,7 @@
             </key>
             <one-to-many class="net.sf.l2j.loginserver.beans.Boxaccess" />
         </set>
-        <set name="merchantLeases" inverse="true">
+        <set name="merchantLeases" inverse="true"  cascade="all-delete-orphan">
             <key>
                 <column name="player_id" not-null="true">
                     <comment></comment>
@@ -466,7 +466,7 @@
             </key>
             <one-to-many class="net.sf.l2j.loginserver.beans.MerchantLease" />
         </set>
-        <set name="characterSubclasseses" inverse="true">
+        <set name="characterSubclasseses" inverse="true"  cascade="all-delete-orphan">
             <key>
                 <column name="char_obj_id" not-null="true">
                     <comment></comment>
@@ -474,7 +474,7 @@
             </key>
             <one-to-many class="net.sf.l2j.loginserver.beans.CharacterSubclasses" />
         </set>
-        <set name="characterRecipebooks" inverse="true">
+        <set name="characterRecipebooks" inverse="true"  cascade="all-delete-orphan">
             <key>
                 <column name="char_id" not-null="true">
                     <comment></comment>
@@ -482,7 +482,7 @@
             </key>
             <one-to-many class="net.sf.l2j.loginserver.beans.CharacterRecipebook" />
         </set>
-        <set name="characterSkillses" inverse="true">
+        <set name="characterSkillses" inverse="true"  cascade="all-delete-orphan">
             <key>
                 <column name="char_obj_id" not-null="true">
                     <comment></comment>
@@ -490,7 +490,7 @@
             </key>
             <one-to-many class="net.sf.l2j.loginserver.beans.CharacterSkills" />
         </set>
-        <set name="characterSkillsSaves" inverse="true">
+        <set name="characterSkillsSaves" inverse="true"  cascade="all-delete-orphan">
             <key>
                 <column name="char_obj_id" not-null="true">
                     <comment></comment>

@@ -13,7 +13,7 @@
                 <column name="charname" length="32" />
             </key-property>
         </composite-id>
-        <many-to-one cascade="all,delete-orphan" name="characters" class="net.sf.l2j.loginserver.beans.Characters" update="false" insert="false" fetch="select">
+        <many-to-one name="characters" class="net.sf.l2j.loginserver.beans.Characters" update="false" insert="false" fetch="select">
             <column name="charname" length="32">
                 <comment></comment>
             </column>

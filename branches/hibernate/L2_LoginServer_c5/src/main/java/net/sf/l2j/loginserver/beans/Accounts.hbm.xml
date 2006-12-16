@@ -3,7 +3,12 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 11 d?c. 2006 17:28:16 by Hibernate Tools 3.2.0.beta8 -->
 <hibernate-mapping>
-    <class name="net.sf.l2j.loginserver.beans.Accounts" table="accounts" catalog="l2jdb">
+    <class name="net.sf.l2j.loginserver.beans.Accounts" 
+    	   table="accounts" 
+           dynamic-update="false"
+		   dynamic-insert="false"
+		   >
+		   
         <comment></comment>
         <id name="login" type="string">
             <column name="login" length="45" />
@@ -34,7 +39,7 @@
                 <comment></comment>
             </column>
         </property>
-        <set name="characterses" inverse="true">
+        <set name="characterses" inverse="true"   cascade="all-delete-orphan">
             <key>
                 <column name="account_name" length="45">
                     <comment></comment>
@@ -42,7 +47,7 @@
             </key>
             <one-to-many class="net.sf.l2j.loginserver.beans.Characters" />
         </set>
-        <set name="accountDatas" inverse="true">
+        <set name="accountDatas" inverse="true" cascade="all-delete-orphan">
             <key>
                 <column name="account_name" length="45" not-null="true">
                     <comment></comment>

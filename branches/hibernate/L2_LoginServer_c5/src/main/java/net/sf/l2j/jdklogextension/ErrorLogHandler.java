@@ -16,15 +16,14 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j;
+package net.sf.l2j.jdklogextension;
 
-import java.util.logging.Filter;
-import java.util.logging.LogRecord;
+import java.io.IOException;
+import java.util.logging.FileHandler;
 
-public class ErrorFilter implements Filter {
+public class ErrorLogHandler extends FileHandler {
 
-	public boolean isLoggable(LogRecord record) {
-		return record.getThrown() != null;
+	public ErrorLogHandler() throws IOException, SecurityException {
+		super();
 	}
-
 }

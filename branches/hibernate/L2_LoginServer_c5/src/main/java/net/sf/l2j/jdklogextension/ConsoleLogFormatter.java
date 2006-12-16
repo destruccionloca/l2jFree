@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j;
+package net.sf.l2j.jdklogextension;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

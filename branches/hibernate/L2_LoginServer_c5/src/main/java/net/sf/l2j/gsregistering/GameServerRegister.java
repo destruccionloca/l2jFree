@@ -42,7 +42,7 @@ public class GameServerRegister
 	{
 		Config.load();
 		gsTable = new GameServerTable();
-		System.out.println("Welcome to l2j GameServer Regitering");
+		System.out.println("Welcome to l2j GameServer Registering");
 		System.out.println("Enter The id of the server you want to register or type help to get a list of ids:");
 		LineNumberReader _in = new LineNumberReader(new InputStreamReader(System.in));
 		while(!_choiseOk)

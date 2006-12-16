@@ -25,10 +25,11 @@
  */
 package net.sf.l2j.loginserver.dao.impl;
 
+import java.util.Collection;
+import java.util.List;
+
 import net.sf.l2j.loginserver.beans.Accounts;
 import net.sf.l2j.loginserver.dao.AccountsDAO;
-
-import org.apache.log4j.Logger;
 
 /**
  * DAO object for domain model class Accounts.
@@ -36,26 +37,67 @@ import org.apache.log4j.Logger;
  */
 public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
 {
-    private static final Logger log = Logger.getLogger(AccountsDAOHib.class);
+    //private static final Logger _log = Logger.getLogger(AccountsDAOHib.class);
 
     /**
      * Search by id
      * @param id
      * @return
      */
-    public Accounts findById(java.lang.String id)
+    public Accounts getAccountById(String id)
     {
-        log.debug("getting Accounts instance with id: " + id);
-        Accounts instance = (Accounts) load(net.sf.l2j.loginserver.beans.Accounts.class, id);
+        Accounts account = (Accounts) getHibernateTemplate().get(Accounts.class, id);
+        return account;
+    }
+
+    /**
+     * @see net.sf.l2j.loginserver.dao.AccountsDAO#createAccount(java.lang.Object)
+     */
+    public Accounts createAccount(Object obj)
+    {
+        return (Accounts)save(obj);
+    }
+
+    /**
+     * @see net.sf.l2j.loginserver.dao.AccountsDAO#createOrUpdate(java.lang.Object)
+     */
+    public void createOrUpdate(Object obj)
+    {
+        saveOrUpdate(obj);
         
-        if (instance == null)
-        {
-            if ( log.isDebugEnabled()) log.debug("get successful, no instance found");
-        }
-        else
-        {
-            if ( log.isDebugEnabled()) log.debug("get successful, instance found");
-        }
-        return instance;
+    }
+
+    /**
+     * @see net.sf.l2j.loginserver.dao.AccountsDAO#createOrUpdateAll(java.util.Collection)
+     */
+    public void createOrUpdateAll(Collection entities)
+    {
+        saveOrUpdateAll(entities);
+        
+    }
+
+    /**
+     * @see net.sf.l2j.loginserver.dao.AccountsDAO#getAllAccounts()
+     */
+    public List <Accounts> getAllAccounts()
+    {
+        return findAll(Accounts.class);
+    }
+
+    /**
+     * @see net.sf.l2j.loginserver.dao.AccountsDAO#removeAccount(java.lang.Object)
+     */
+    public void removeAccount(Object obj)
+    {
+        delete(obj);
+        
+    }
+
+    /**
+     * @see net.sf.l2j.loginserver.dao.AccountsDAO#removeAccountById(java.io.Serializable)
+     */
+    public void removeAccountById(String login)
+    {
+        removeObject(Accounts.class, login);        
     }
 }

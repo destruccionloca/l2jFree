@@ -25,21 +25,18 @@
  */
 package net.sf.l2j.loginserver.services;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import net.sf.l2j.Base64;
-import net.sf.l2j.L2ApplicationContext;
 import net.sf.l2j.loginserver.beans.Accounts;
 import net.sf.l2j.loginserver.dao.AccountsDAO;
 import net.sf.l2j.loginserver.services.exception.AccountModificationException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Account service to handle account management
@@ -99,7 +96,7 @@ public class AccountsServices
             acc.setLogin(account);
             acc.setAccessLevel(iLevel);
             acc.setPassword(Base64.encodeBytes(newpass));
-            __accDAO.saveOrUpdate(acc);
+            __accDAO.createOrUpdate(acc);
             if (_log.isDebugEnabled()) _log.info("Account " + account + " has been updated.");
         }
         catch (NumberFormatException e)
@@ -120,7 +117,7 @@ public class AccountsServices
     {
         // Search account
         // ---------------
-        Accounts acc = __accDAO.findById(account);
+        Accounts acc = __accDAO.getAccountById(account);
         
         if ( acc == null )
             throw new AccountModificationException("Account "+account+" doesn't exist.");
@@ -131,7 +128,7 @@ public class AccountsServices
         {
             Integer iLevel = new Integer (level);
             acc.setAccessLevel(iLevel);
-            __accDAO.saveOrUpdate(acc);
+            __accDAO.createOrUpdate(acc);
             if (_log.isDebugEnabled()) _log.info("Account " + account + " has been updated.");
         }
         catch (NumberFormatException e)
@@ -149,12 +146,12 @@ public class AccountsServices
     {
         // Search account
         // ---------------
-        Accounts acc = __accDAO.findById(account);
+        Accounts acc = __accDAO.getAccountById(account);
         
         if ( acc == null )
             throw new AccountModificationException("Account "+account+" doesn't exist.");
         
-        __accDAO.delete(acc);
+        __accDAO.removeAccount(acc);
         // remove all from clan
         
 
@@ -290,7 +287,7 @@ public class AccountsServices
      */
     public void printAccInfo()
     {
-        List<Accounts> list = __accDAO.findAll(Accounts.class);
+        List<Accounts> list = __accDAO.getAllAccounts();
 
         for (Accounts account : list)
         {

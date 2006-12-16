@@ -25,39 +25,34 @@
  */
 package net.sf.l2j.loginserver.dao;
 
-import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 import net.sf.l2j.loginserver.beans.Accounts;
 
 /**
- * This class ...
- * 
- * @version $Revision: $ $Date: $
+ * Data access object interface for account
+ * The interface define access functions to accounts
  */
 public interface AccountsDAO
 {
     /**
-     * Load object matching the given key and return it.
-     */
-    public Object load(Class refClass, Serializable key) ;
-
-    /**
      * Return all objects related to the implementation of this DAO with no filter.
      */
-    public java.util.List findAll (Class refClass) ;
+    public List <Accounts> getAllAccounts () ;
     
     
     /**
      * Persist the given transient instance, first assigning a generated identifier.
      * (Or using the current value of the identifier property if the assigned generator is used.)
      */
-    public Serializable save(Object obj);
+    public Accounts createAccount(Object obj);
 
     /**
      * Either save() or update() the given instance, depending upon the value of its
      * identifier property.
      */
-    public void saveOrUpdate(Object obj);
+    public void createOrUpdate(Object obj);
 
     /**
      * Update the persistent state associated with the given identifier. An exception is thrown if there is a persistent
@@ -69,19 +64,28 @@ public interface AccountsDAO
     /**
      * Delete an object.
      */
-    public void delete(Object obj);
+    public void removeAccount(Object obj);
 
-    /**
-     * Re-read the state of the given instance from the underlying database. It is inadvisable to use this to implement
-     * long-running sessions that span many business tasks. This method is, however, useful in certain special circumstances.
-     */
-    public void refresh(Object obj) ;
-    
     /**
      * Search by id
      * @param id the id  (login)
      * @return the account
      */
-    public Accounts findById(java.lang.String id);
+    public Accounts getAccountById(String id);
+    
+    /**
+     * Delete an object by id
+     */
+    public void removeAccountById(String login) ;
+    
+    /**
+     * Delete a collection of object
+     */
+    public void removeAll(Collection entities) ;
+        
+    /**
+     * Persist an entire collection
+     */
+    public void createOrUpdateAll(Collection entities) ;    
     
 }
