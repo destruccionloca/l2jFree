@@ -35,7 +35,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 
 /**
  * @author Advi
- *
+ * TODO rework formatter to handle commons logging usage (parameters are empty)
  */
 public class ItemLogFormatter extends Formatter
 {
@@ -50,23 +50,24 @@ public class ItemLogFormatter extends Formatter
         output.append(']');
         output.append(' ');
         output.append(record.getMessage());
-        for (Object p : record.getParameters())
-        {
-            if (p == null) continue;
-            output.append(',');
-            output.append(' ');
-            if (p instanceof L2ItemInstance)
+        if ( record.getParameters() != null )
+            for (Object p : record.getParameters())
             {
-                L2ItemInstance item = (L2ItemInstance)p;
-                output.append("item " + item.getObjectId() + ":");
-                if (item.getEnchantLevel() > 0) output.append("+" + item.getEnchantLevel() + " ");
-                output.append(item.getItem().getName()); 
-                output.append("(" + item.getCount() + ")");
+                if (p == null) continue;
+                output.append(',');
+                output.append(' ');
+                if (p instanceof L2ItemInstance)
+                {
+                    L2ItemInstance item = (L2ItemInstance)p;
+                    output.append("item " + item.getObjectId() + ":");
+                    if (item.getEnchantLevel() > 0) output.append("+" + item.getEnchantLevel() + " ");
+                    output.append(item.getItem().getName()); 
+                    output.append("(" + item.getCount() + ")");
+                }
+    //          else if (p instanceof L2PcInstance)
+    //              output.append(((L2PcInstance)p).getName());
+                else output.append(p.toString()/* + ":" + ((L2Object)p).getObjectId()*/);
             }
-//          else if (p instanceof L2PcInstance)
-//              output.append(((L2PcInstance)p).getName());
-            else output.append(p.toString()/* + ":" + ((L2Object)p).getObjectId()*/);
-        }
         output.append(CRLF);
 
         return output.toString();
