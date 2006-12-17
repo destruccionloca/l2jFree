@@ -499,7 +499,7 @@
   <set name="skillTime" val="3000"/>
   <set name="reuseDelay" val="35000"/>
   <set name="hitTime" val="30000"/>
-  <set name="skillType" val="STRSIEGEASSUALT"/>
+  <set name="skillType" val="STRSIEGEASSAULT"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
