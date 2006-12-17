@@ -111,7 +111,8 @@ public abstract class L2Skill
         TARGET_CORPSE_MOB,
         TARGET_UNLOCKABLE,
         TARGET_HOLY,
-        TARGET_PARTY_MEMBER, 
+        TARGET_PARTY_MEMBER,
+        TARGET_ENEMY_SUMMON,        
         TARGET_OWNER_PET,
         TARGET_ENEMY_ALLY,
         TARGET_ENEMY_PET,
@@ -204,7 +205,8 @@ public abstract class L2Skill
         SUMMONCP,
         SUMMON_TREASURE_KEY,
         SUMMON_CURSED_BONES,
-        STRSIEGEASSUALT, 
+        ERASE,
+        STRSIEGEASSAULT, 
         BLESSNOBLESSE, 
         LUCKNOBLESSE    (L2SkillCreateItem.class),
         RAID_DESCRIPTION,
@@ -1031,6 +1033,7 @@ public abstract class L2Skill
             case ROOT:
             case CONFUSION:
             case UNLOCK:
+            case ERASE:
             case FEAR:
             case DRAIN:
             case SLEEP:
@@ -1801,22 +1804,28 @@ public abstract class L2Skill
                             if (castle.getSiege().getIsInProgress())
                             {
                                 condGood = false;
-                                player.sendMessage("You Cannot Resurect in a Sieged Zone");
+                                player.sendPacket(new SystemMessage(SystemMessage.CANNOT_BE_RESURRECTED_DURING_SIEGE));
                             }
 
                         // Can only res party memeber or own pet
-                        if (targetPet != null)
+                        if (targetPlayer != null)
+                        {
+                           if (targetPlayer.isReviveRequested())
+                           {
+                               if (targetPlayer.isRevivingPet())
+                                   player.sendPacket(new SystemMessage(1511)); // While a pet is attempting to resurrect, it cannot help in resurrecting its master.
+                               else
+                                   player.sendPacket(new SystemMessage(1513)); // Resurrection is already been proposed.
+                                condGood = false;
+                           }
+                        }
+                        else if (targetPet != null)
                         {
                             if (targetPet.getOwner() != player)
                             {
                                 condGood = false;
                                 player.sendMessage("You are not the owner of this pet");
                             }
-                        }
-                        else
-                        {
-                            if (player.getParty() == null || targetPlayer.getParty() == null || player.getParty().getPartyLeaderOID() != targetPlayer.getParty().getPartyLeaderOID())
-                                condGood = false;
                         }
                     }
                     
@@ -2092,6 +2101,19 @@ public abstract class L2Skill
 
             if (targetList.size() == 0) return null;
             return targetList.toArray(new L2Character[targetList.size()]);
+        }
+        case TARGET_ENEMY_SUMMON: 
+        { 
+            if(target != null && target instanceof L2Summon) 
+            {       
+                L2Summon targetSummon = null; 
+                targetSummon = (L2Summon)target; 
+                if (activeChar instanceof L2PcInstance && activeChar.getPet() != targetSummon && !targetSummon.isDead()
+                        && (targetSummon.getOwner().getPvpFlag() != 0 || targetSummon.getOwner().getKarma() > 0)
+                        || (targetSummon.getOwner().getInPvpZone() == true && ((L2PcInstance)activeChar).getInPvpZone()== true))
+                   return new L2Character[]{targetSummon}; 
+            } 
+            return null; 
         }
         default:
         {

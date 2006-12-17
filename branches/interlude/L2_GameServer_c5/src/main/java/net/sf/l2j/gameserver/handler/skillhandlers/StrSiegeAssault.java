@@ -46,7 +46,7 @@ public class StrSiegeAssault implements ISkillHandler
 { 
     private final static Log _log = LogFactory.getLog(StrSiegeAssault.class); 
     
-    protected SkillType[] _skillIds = {SkillType.STRSIEGEASSUALT}; 
+    protected SkillType[] _skillIds = {SkillType.STRSIEGEASSAULT}; 
     
     public void useSkill(L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
     {

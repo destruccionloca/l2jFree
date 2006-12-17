@@ -164,7 +164,7 @@ public class Crits implements ISkillHandler
                     }
                 }
             } 
-            else if (target instanceof L2NpcInstance && skill.getId() == 30 && crit == true && !(target instanceof L2PcInstance))
+            else if (target instanceof L2NpcInstance && !target.isRaid() && crit == true && ((L2NpcInstance) target).getTemplate().npcId != 35062) 
             {
                 damage = (int)Formulas.getInstance().calcPhysDam(activeChar, target, skill, shld, crit, dual, soul);
                 if (skill.isCritical())
@@ -260,7 +260,7 @@ public class Crits implements ISkillHandler
                     }
                     else if (target instanceof L2NpcInstance && !target.isRaid() && crit == true)
                     {
-                        if (!target.isPetrified() && !target.isRaid() && (!(target instanceof L2PcInstance)))
+                        if (!target.isPetrified() && !target.isRaid() && (!(target instanceof L2PcInstance)) && ((L2NpcInstance) target).getTemplate().npcId != 35062) 
                         {
                             target.setCurrentHp(0);
                             target.doDie(activeChar);

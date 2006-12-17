@@ -138,6 +138,7 @@ import net.sf.l2j.gameserver.model.waypoint.WayPointNode;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ChangeWaitType;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
+import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.serverpackets.ExAutoSoulShot;
 import net.sf.l2j.gameserver.serverpackets.ExFishingEnd;
 import net.sf.l2j.gameserver.serverpackets.ExFishingStart;
@@ -2520,10 +2521,9 @@ public final class L2PcInstance extends L2PlayableInstance
            {
                 IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());                
                 if (handler == null) 
-                    _log.debug("No item handler registered for item ID " + item.getItemId() + ".");
+                    _log.warn("No item handler registered for item ID " + item.getItemId() + ".");
                 else 
                     handler.useItem(this, item);
-                
             }
            // If over capacity, drop the item
             if (!isGM() && !_inventory.validateCapacity(0)) 
@@ -3391,16 +3391,6 @@ public final class L2PcInstance extends L2PlayableInstance
                 return;
             }
 
-            if (target.getItemId()<= 8157 && target.getItemId() >= 8154)
-            {
-                IItemHandler handler = ItemHandler.getInstance().getItemHandler(target.getItemId());
-                
-                if (handler == null) 
-                    if ( _log.isDebugEnabled() ) _log.debug("No item handler registered for item ID " + target.getItemId() + ".");
-                else 
-                    handler.useItem(this, target);
-            }
-            
            if (target.getOwnerId() != 0 && target.getOwnerId() != getObjectId() && !isInLooterParty(target.getOwnerId()))
             {
                 sendPacket(new ActionFailed());
@@ -3435,27 +3425,27 @@ public final class L2PcInstance extends L2PlayableInstance
             target.pickupMe(this);
         }
         //Auto use herbs - pick up
-/*        if (target.getItemType() == L2EtcItemType.HERB)
+        if (target.getItemType() == L2EtcItemType.HERB)
         {
             IItemHandler handler = ItemHandler.getInstance().getItemHandler(target.getItemId());        
-            if (handler == null) 
-                if ( _log.isDebugEnabled() ) _log.debug("No item handler registered for item ID " + target.getItemId() + ".");
+            if (handler == null)
+                _log.warn("No item handler registered for item ID " + target.getItemId() + ".");
             else 
                 handler.useItem(this, target);
-            ItemTable.getInstance().destroyItem("Consume", target, this, null);
         }
-        
-        // Check if a Party is in progress
-        else*/ if (isInParty()) getParty().distributeItem(this, target);
-        // Target is adena 
-        else if (target.getItemId() == 57 && getInventory().getAdenaInstance() != null)
+        else 
         {
-            addAdena("Pickup", target.getCount(), null, true);
-            ItemTable.getInstance().destroyItem("Pickup", target, this, null);
+            // Check if a Party is in progress
+            if (isInParty()) getParty().distributeItem(this, target);
+            // Target is adena 
+            else if (target.getItemId() == 57 && getInventory().getAdenaInstance() != null)
+            {
+                addAdena("Pickup", target.getCount(), null, true);
+                ItemTable.getInstance().destroyItem("Pickup", target, this, null);
+            }
+            // Target is regular item 
+            else addItem("Pickup", target, null, true);
         }
-        
-        // Target is regular item 
-        else addItem("Pickup", target, null, true);
     }
 
     /**
@@ -6776,7 +6766,7 @@ public final class L2PcInstance extends L2PlayableInstance
             abortCast();
             return;
         }
-        else if (skill.getSkillType() == SkillType.STRSIEGEASSUALT
+        else if (skill.getSkillType() == SkillType.STRSIEGEASSAULT
             && !StrSiegeAssault.checkIfOkToUseStriderSiegeAssault(this, false))
         {
             sendPacket(new ActionFailed());
@@ -6899,6 +6889,11 @@ public final class L2PcInstance extends L2PlayableInstance
                 break; //Dismounted
             case 1:
                 setIsRiding(true);
+                if(isNoble()) 
+                {
+                   L2Skill striderAssaultSkill = SkillTable.getInstance().getInfo(325, 1);
+                   addSkill(striderAssaultSkill); // not saved to DB
+                }                
                 break;
             case 2:
                 setIsFlying(true);
@@ -8537,6 +8532,8 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         super.doRevive();
         updateEffectIcons();
+       _ReviveRequested = 0;
+       _ReviveSkill = null;        
     }
 
     public void doRevive(L2Skill skill)
@@ -8546,6 +8543,73 @@ public final class L2PcInstance extends L2PlayableInstance
         restoreExp(skill.getPower());
         doRevive();
     }
+
+   public void ReviveRequest(L2PcInstance Reviver, L2Skill skill, boolean Pet)
+   {
+       if (_ReviveRequested == 1)
+       {
+           if (_RevivePet == Pet)
+           {
+               Reviver.sendPacket(new SystemMessage(1513)); // Resurrection is already been proposed.
+           }
+           else
+           {
+               if (Pet)
+                   Reviver.sendPacket(new SystemMessage(1515)); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
+               else
+                   Reviver.sendPacket(new SystemMessage(1511)); // While a pet is attempting to resurrect, it cannot help in resurrecting its master.
+           }
+           return;
+       }
+       if((Pet && getPet() != null && getPet().isDead()) || (!Pet && isDead()))
+       {
+           _ReviveRequested = 1;
+           _ReviveSkill = skill;
+           _RevivePet = Pet;
+           sendPacket(new ConfirmDlg(SystemMessage.RESSURECTION_REQUEST,Reviver.getName()));
+       }
+   }
+   
+   public void ReviveAnswer(int answer)
+   {
+       if (_ReviveRequested != 1 || (!isDead() && !_RevivePet) || (_RevivePet && getPet() != null && !getPet().isDead()))
+           return;
+       if (answer == 1)
+       {
+           if (!_RevivePet)
+           {
+               if (_ReviveSkill != null)
+                   doRevive(_ReviveSkill);
+               else
+                   doRevive();
+           }
+           else if (getPet() != null)
+           {
+               if (_ReviveSkill != null)
+                   getPet().doRevive(_ReviveSkill);
+               else
+                   getPet().doRevive();
+           }
+       }
+       _ReviveRequested = 0;
+       _ReviveSkill = null;
+   }
+
+   public boolean isReviveRequested()
+   {
+       return (_ReviveRequested == 1);
+   }
+
+   public boolean isRevivingPet()
+   {
+       return _RevivePet;
+   }
+
+   public void removeReviving()
+   {
+       _ReviveRequested=0;
+       _ReviveSkill = null;
+   }
 
     public void onActionRequest()
     {
@@ -9466,6 +9530,10 @@ public final class L2PcInstance extends L2PlayableInstance
     @SuppressWarnings("unused")
     private int _powerGrade;
     private int _cursedWeaponEquipedId = 0;
+
+    private int _ReviveRequested = 0;
+    private L2Skill _ReviveSkill = null;
+    private boolean _RevivePet = false;
 
     private class JailTask implements Runnable
     {

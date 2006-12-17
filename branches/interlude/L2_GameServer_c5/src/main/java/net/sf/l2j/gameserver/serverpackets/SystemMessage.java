@@ -575,6 +575,8 @@ public class SystemMessage extends ServerBasePacket
     public static final int THE_OWNER_OF_S2_HAS_APPEARED_IN_THE_S1_REGION = 1816;
     public static final int S2_OWNER_HAS_LOGGED_INTO_THE_S1_REGION = 1817;
     public static final int S1_HAS_DISAPPEARED = 1818;
+    
+    public static final int RESSURECTION_REQUEST = 1510;
 
 	/**
 	 * @param _characters

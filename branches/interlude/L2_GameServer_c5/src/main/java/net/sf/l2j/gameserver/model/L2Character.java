@@ -1882,8 +1882,9 @@ public abstract class L2Character extends L2Object
    public final void addEffect(L2Effect newEffect)
    {
        L2Effect tempEffect = null;
+
        if(newEffect == null) return;
-       
+
        synchronized (this)
        {
            if (_effects == null)
@@ -1894,7 +1895,14 @@ public abstract class L2Character extends L2Object
        }
        synchronized(_effects) 
        {
-        // Remove first Buff if number of buffs > 24
+           // Make sure there's no same effect previously  
+           for (int i=0; i<_effects.size(); i++)   
+           {   
+               if (_effects.get(i).getSkill().getId() == newEffect.getSkill().getId())   
+                   return;  
+           } 
+          
+        // Remove first Buff if number of buffs > ALT_GAME_NUMBER_OF_CUMULATED_BUFF
 		L2Skill tempskill = newEffect.getSkill(); 
         if (getBuffCount() > Config.ALT_GAME_NUMBER_OF_CUMULATED_BUFF && !doesStack(tempskill) && ((
 				tempskill.getSkillType() == L2Skill.SkillType.BUFF ||
@@ -2707,7 +2715,7 @@ public abstract class L2Character extends L2Object
        int ArraySize = effects.size();
        L2Effect[] effectArray = new L2Effect[ArraySize];
        for (int i=0; i<ArraySize; i++) {
-           if (i > effects.size() || effects.get(i) == null) break;
+           if (i >= effects.size() || effects.get(i) == null) break;
            effectArray[i] = effects.get(i);
        }
        return effectArray;
@@ -4325,7 +4333,7 @@ public abstract class L2Character extends L2Object
             if (activeWeapon != null)
                 activeWeapon.getSkillEffects(this, target, crit);
             
-           if (target.isRaid())
+           if (target.isRaid() && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION)
            {
                int level = 0;
                if (this instanceof L2PcInstance)
@@ -5116,7 +5124,7 @@ public abstract class L2Character extends L2Object
                     }
                     
                     // Check Raidboss attack
-                    if (player.isRaid() && getLevel() > player.getLevel() + 8)
+                    if (player.isRaid() && getLevel() > player.getLevel() + 8 && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION)
                     {
                         L2Skill tempSkill = SkillTable.getInstance().getInfo(4515, 99);
                         if(tempSkill != null)

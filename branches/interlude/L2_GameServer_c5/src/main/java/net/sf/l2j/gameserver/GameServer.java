@@ -136,6 +136,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.FishingSkill;
 import net.sf.l2j.gameserver.handler.skillhandlers.Heal;
 import net.sf.l2j.gameserver.handler.skillhandlers.ManaHeal;
 import net.sf.l2j.gameserver.handler.skillhandlers.Mdam;
+import net.sf.l2j.gameserver.handler.skillhandlers.Manadam;
 import net.sf.l2j.gameserver.handler.skillhandlers.Pdam;
 import net.sf.l2j.gameserver.handler.skillhandlers.Recall;
 import net.sf.l2j.gameserver.handler.skillhandlers.Resurrect;
@@ -159,7 +160,7 @@ import net.sf.l2j.gameserver.handler.usercommandhandlers.Loc;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.Mount;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.PartyInfo;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.Time;
-import net.sf.l2j.gameserver.handler.voicedcommandhandlers.castle;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.PlayerCastleDoors;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.stats;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
@@ -446,6 +447,7 @@ public class GameServer
         _skillHandler.registerSkillHandler(new Pdam());
         _skillHandler.registerSkillHandler(new Crits());
         _skillHandler.registerSkillHandler(new Mdam());
+        _skillHandler.registerSkillHandler(new Manadam());
         _skillHandler.registerSkillHandler(new Heal());
         _skillHandler.registerSkillHandler(new CombatPointHeal());
         _skillHandler.registerSkillHandler(new ManaHeal());
@@ -545,7 +547,7 @@ public class GameServer
 
         _voicedCommandHandler = VoicedCommandHandler.getInstance();
         _voicedCommandHandler.registerVoicedCommandHandler(new stats());
-        _voicedCommandHandler.registerVoicedCommandHandler(new castle());
+        _voicedCommandHandler.registerVoicedCommandHandler(new PlayerCastleDoors());
         _log.info("VoicedCommandHandler: Loaded " + _voicedCommandHandler.size() + " handlers.");
 
         TaskManager.getInstance();

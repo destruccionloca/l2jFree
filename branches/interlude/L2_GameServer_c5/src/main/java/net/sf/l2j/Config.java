@@ -141,7 +141,9 @@ public final class Config {
     public static double ALT_GAME_CREATION_SP_RATE;
     /**Alternative number of cumulated buff */
     public static int ALT_GAME_NUMBER_OF_CUMULATED_BUFF;
-   
+    /** Disable Raidboss Petrification */
+    public static boolean ALT_DISABLE_RAIDBOSS_PETRIFICATION;
+    
  	/** Alternative game skill learning */
     public static boolean ALT_GAME_SKILL_LEARN;
     /** Cancel attack bow by hit */
@@ -1571,6 +1573,7 @@ public final class Config {
 	            GRADE_PENALTY										= Boolean.parseBoolean(altSettings.getProperty("GradePenalty", "true"));
                 ALT_URN_TEMP_FAIL                                   = Integer.parseInt(altSettings.getProperty("UrnTempFail", "10"));
                 ALT_DIFF_CUTOFF                                     = Integer.parseInt(altSettings.getProperty("MobPCExpCutoff", "-10"));
+                ALT_DISABLE_RAIDBOSS_PETRIFICATION                  = Boolean.parseBoolean(altSettings.getProperty("DisableRaidBossPetrification", "false"));
                 
                 WEDDING_PRICE                                       = Integer.parseInt(altSettings.getProperty("WeddingPrice", "500000"));
                 WEDDING_PUNISH_INFIDELITY                           = Boolean.parseBoolean(altSettings.getProperty("WeddingPunishInfidelity", "true"));                
