@@ -131,7 +131,8 @@ public class L2SkillSummon extends L2Skill {
 			}			
 		}
 
-		if (activeChar.getPet() != null) {
+        if (activeChar.getPet() != null || activeChar.isMounted()) 
+        {
 			if (_log.isDebugEnabled())
 				_log.debug("player has a pet already. ignore summon skill");
 			return;

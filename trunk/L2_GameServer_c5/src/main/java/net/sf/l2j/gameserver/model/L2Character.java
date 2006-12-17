@@ -622,7 +622,8 @@ public abstract class L2Character extends L2Object
             {
                 if (player.isCursedWeaponEquiped())
                 {                    
-                    target.setCurrentCp(0); // If hitted by Zariche, Cp is reduced to 0
+                   if (!(target instanceof L2PcInstance) || !((L2PcInstance)target).isInvul())
+                       target.setCurrentCp(0);
                 } else if (player.isHero())
                 {
                     if (target instanceof L2PcInstance && ((L2PcInstance)target).isCursedWeaponEquiped())                        
@@ -1881,6 +1882,14 @@ public abstract class L2Character extends L2Object
    public final void addEffect(L2Effect newEffect)
    {
        L2Effect tempEffect = null;
+
+        // Make sure there's no same effect previously  
+        for (int i=0; i<_effects.size(); i++)   
+        {   
+            if (_effects.get(i).getSkill().getId() == newEffect.getSkill().getId())   
+                return;  
+        } 
+       
        if(newEffect == null) return;
        
        synchronized (this)
@@ -1893,7 +1902,7 @@ public abstract class L2Character extends L2Object
        }
        synchronized(_effects) 
        {
-        // Remove first Buff if number of buffs > 24
+        // Remove first Buff if number of buffs > ALT_GAME_NUMBER_OF_CUMULATED_BUFF
 		L2Skill tempskill = newEffect.getSkill(); 
         if (getBuffCount() > Config.ALT_GAME_NUMBER_OF_CUMULATED_BUFF && !doesStack(tempskill) && ((
 				tempskill.getSkillType() == L2Skill.SkillType.BUFF ||
@@ -2706,7 +2715,7 @@ public abstract class L2Character extends L2Object
        int ArraySize = effects.size();
        L2Effect[] effectArray = new L2Effect[ArraySize];
        for (int i=0; i<ArraySize; i++) {
-           if (i > effects.size() || effects.get(i) == null) break;
+           if (i >= effects.size() || effects.get(i) == null) break;
            effectArray[i] = effects.get(i);
        }
        return effectArray;

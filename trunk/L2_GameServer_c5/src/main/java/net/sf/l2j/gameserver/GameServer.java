@@ -136,6 +136,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.FishingSkill;
 import net.sf.l2j.gameserver.handler.skillhandlers.Heal;
 import net.sf.l2j.gameserver.handler.skillhandlers.ManaHeal;
 import net.sf.l2j.gameserver.handler.skillhandlers.Mdam;
+import net.sf.l2j.gameserver.handler.skillhandlers.Manadam;
 import net.sf.l2j.gameserver.handler.skillhandlers.Pdam;
 import net.sf.l2j.gameserver.handler.skillhandlers.Recall;
 import net.sf.l2j.gameserver.handler.skillhandlers.Resurrect;
@@ -435,6 +436,7 @@ public class GameServer
         _skillHandler.registerSkillHandler(new Pdam());
         _skillHandler.registerSkillHandler(new Crits());
         _skillHandler.registerSkillHandler(new Mdam());
+        _skillHandler.registerSkillHandler(new Manadam());
         _skillHandler.registerSkillHandler(new Heal());
         _skillHandler.registerSkillHandler(new CombatPointHeal());
         _skillHandler.registerSkillHandler(new ManaHeal());

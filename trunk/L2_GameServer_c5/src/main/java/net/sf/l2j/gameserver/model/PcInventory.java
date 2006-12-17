@@ -9,6 +9,7 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
 import net.sf.l2j.gameserver.model.TradeList.TradeItem;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.templates.L2EtcItemType;
 
 public class PcInventory extends Inventory 
 {
@@ -417,33 +418,33 @@ public class PcInventory extends Inventory
     {
         int slots = 0;
         
-        if (!(item.isStackable() && getItemByItemId(item.getItemId()) != null)) 
+        if (!(item.isStackable() && getItemByItemId(item.getItemId()) != null) && item.getItemType() != L2EtcItemType.HERB)  
             slots++;
         
         return validateCapacity(slots);
     }
     
-    public boolean validateCapacity(List<L2ItemInstance> items)
-    {
-        int slots = 0;
-        
-        for (L2ItemInstance item : items)
-            if (!(item.isStackable() && getItemByItemId(item.getItemId()) != null)) 
-                slots++;
-        
-        return validateCapacity(slots);
-    }
-    
-    public boolean validateCapacityByItemId(int ItemId)
-    {
-        int slots = 0;
-        
-        L2ItemInstance invItem = getItemByItemId(ItemId);
-        if (!(invItem != null && invItem.isStackable())) 
-            slots++;
-        
-        return validateCapacity(slots);
-    }
+    public boolean validateCapacity(List<L2ItemInstance> items) 
+    { 
+       int slots = 0; 
+       
+       for (L2ItemInstance item : items) 
+           if (!(item.isStackable() && getItemByItemId(item.getItemId()) != null))  
+                slots++; 
+              
+       return validateCapacity(slots); 
+    } 
+          
+    public boolean validateCapacityByItemId(int ItemId) 
+    { 
+       int slots = 0; 
+              
+       L2ItemInstance invItem = getItemByItemId(ItemId); 
+       if (!(invItem != null && invItem.isStackable()))  
+           slots++; 
+              
+       return validateCapacity(slots); 
+    } 
     
     public boolean validateCapacity(int slots)
     {
