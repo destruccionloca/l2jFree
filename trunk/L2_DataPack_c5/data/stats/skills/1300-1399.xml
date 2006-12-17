@@ -1140,7 +1140,7 @@
     <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="CoV">
      <add order="0x40" stat="absorbDam" val="5"/>
      <mul order="0x30" stat="rCrit" val="1.20"/>
-     <mul order="0x50" stat="cAtk" val="1.20"/>
+	 <mul order="0x30" stat="cAtk" val="1.20"/>
      <add order="0x40" stat="accCombat" val="4"/>
      <add order="0x40" stat="rEvas" val="4"/>
      <mul order="0x30" stat="pAtkSpd" val="1.20"/>
@@ -1885,23 +1885,23 @@
   </for>  
 </skill>
 <skill id="1395" levels="10" name="Erase">
-<!-- Done by Decad [C5] -->
+<!-- Erase Done by Scafu -->
   <table name="#mpConsume"> 52 54 55 58 60 62 64 65 67 69 </table>
-  <table name="#skill_landing_percent"> 63 65 69 72 75 81 85 89 92 97 </table>
   <table name="#itemConsumeCount"> 3 3 3 3 4 4 4 5 5 5 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="itemConsumeId" val="3031"/>
-  <set name="itemConsumeCount" val="#itemConsumeCount"/>  
+  <set name="itemConsumeCount" val="#itemConsumeCount"/>
   <set name="hitTime" val="4000"/>
-  <set name="hitTime" val="37000"/>
+  <!-- resuseDelay needs to be confirmed --> 
+  <set name="reuseDelay" val="7000"/> 
   <set name="skillTime" val="4000"/>
-  <set name="target" val="TARGET_ENEMY_PET"/>
-  <set name="skillType" val="UNSUMMON_ENEMY_PET"/>
-  <set name="skill_landing_percent" val="#skill_landing_percent"/>
+  <set name="target" val="TARGET_ENEMY_SUMMON"/>
+  <set name="skillType" val="ERASE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="1100"/>
   <set name="isMagic" val="true"/>
+  <for>
+  </for>
 </skill>
 <skill id="1396" levels="10" name="Magical Backfire"> 
 <!-- Done by KID [C5] -->

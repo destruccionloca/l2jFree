@@ -102,14 +102,14 @@ class Quest (JQuest) :
      st.set("cond","0")
      st.set("onlyone","0")
      st.set("id","0")
-   if npcId == WAHKAN_ID and int(st.get("cond"))==0 and int(st.get("onlyone"))==0 :
+   if npcId == WAHKAN_ID and str(st.get("cond"))=="0" and int(st.get("onlyone"))==0 :
         if st.getPlayer().getLevel()>70 :
           htmltext = "8371-1.htm"
           return htmltext
         else:
           htmltext = "8371-0.htm"
           st.exitQuest(1)
-   if npcId == WAHKAN_ID and int(st.get("cond"))==1 and st.getQuestItemsCount(VB_SOLDIER_ID) > 99 :
+   if npcId == WAHKAN_ID and str(st.get("cond"))=="1" and st.getQuestItemsCount(VB_SOLDIER_ID) > 99 :
        htmltext = "8371-2.htm"
        st.takeItems(VB_SOLDIER_ID, 100)
        st.giveItems(MARK_OF_KETRA_ALLIANCE1_ID,1)
@@ -117,7 +117,7 @@ class Quest (JQuest) :
        st.set("cond","2")
        st.player.setKetra(1)
        return htmltext
-   if npcId == WAHKAN_ID and int(st.get("cond"))==2 and st.getQuestItemsCount(VB_SOLDIER_ID) > 199 and st.getQuestItemsCount(VB_CAPTAIN_ID) > 99 and st.getQuestItemsCount(MARK_OF_KETRA_ALLIANCE1_ID)==1 :
+   if npcId == WAHKAN_ID and str(st.get("cond"))=="2" and st.getQuestItemsCount(VB_SOLDIER_ID) > 199 and st.getQuestItemsCount(VB_CAPTAIN_ID) > 99 and st.getQuestItemsCount(MARK_OF_KETRA_ALLIANCE1_ID)==1 :
        htmltext = "8371-3.htm"
        st.takeItems(VB_SOLDIER_ID, 200)
        st.takeItems(VB_CAPTAIN_ID, 100)
@@ -127,7 +127,7 @@ class Quest (JQuest) :
        st.set("cond","3")
        st.player.setKetra(2)
        return htmltext
-   if npcId == WAHKAN_ID and int(st.get("cond"))==3 and st.getQuestItemsCount(VB_SOLDIER_ID) > 299 and st.getQuestItemsCount(VB_CAPTAIN_ID) > 199 and st.getQuestItemsCount(VB_GENERAL_ID) > 99 and st.getQuestItemsCount(MARK_OF_KETRA_ALLIANCE2_ID)==1 :
+   if npcId == WAHKAN_ID and str(st.get("cond"))=="3" and st.getQuestItemsCount(VB_SOLDIER_ID) > 299 and st.getQuestItemsCount(VB_CAPTAIN_ID) > 199 and st.getQuestItemsCount(VB_GENERAL_ID) > 99 and st.getQuestItemsCount(MARK_OF_KETRA_ALLIANCE2_ID)==1 :
        htmltext = "8371-4.htm"
        st.takeItems(VB_SOLDIER_ID, 300)
        st.takeItems(VB_CAPTAIN_ID, 200)
@@ -138,7 +138,7 @@ class Quest (JQuest) :
        st.set("cond","4")
        st.player.setKetra(3)
        return htmltext
-   if npcId == WAHKAN_ID and int(st.get("cond"))==4  and st.getQuestItemsCount(VB_SOLDIER_ID) > 299 and st.getQuestItemsCount(VB_CAPTAIN_ID) > 299 and st.getQuestItemsCount(VB_GENERAL_ID) > 199 and st.getQuestItemsCount(TOTEM_OF_VALOR_ID) == 1 and st.getQuestItemsCount(MARK_OF_KETRA_ALLIANCE3_ID)==1 :
+   if npcId == WAHKAN_ID and str(st.get("cond"))=="4"  and st.getQuestItemsCount(VB_SOLDIER_ID) > 299 and st.getQuestItemsCount(VB_CAPTAIN_ID) > 299 and st.getQuestItemsCount(VB_GENERAL_ID) > 199 and st.getQuestItemsCount(TOTEM_OF_VALOR_ID) == 1 and st.getQuestItemsCount(MARK_OF_KETRA_ALLIANCE3_ID)==1 :
        htmltext = "8371-5.htm"
        st.takeItems(VB_SOLDIER_ID, 300)
        st.takeItems(VB_CAPTAIN_ID, 300)
@@ -150,7 +150,7 @@ class Quest (JQuest) :
        st.set("cond","5")
        st.player.setKetra(4)
        return htmltext
-   if npcId == WAHKAN_ID and int(st.get("cond"))==5 and st.getQuestItemsCount(VB_SOLDIER_ID) > 399 and st.getQuestItemsCount(VB_CAPTAIN_ID) > 399 and st.getQuestItemsCount(VB_GENERAL_ID) > 199 and st.getQuestItemsCount(TOTEM_OF_WISDOM_ID) == 1 and st.getQuestItemsCount(MARK_OF_KETRA_ALLIANCE4_ID)==1 :
+   if npcId == WAHKAN_ID and str(st.get("cond"))=="5" and st.getQuestItemsCount(VB_SOLDIER_ID) > 399 and st.getQuestItemsCount(VB_CAPTAIN_ID) > 399 and st.getQuestItemsCount(VB_GENERAL_ID) > 199 and st.getQuestItemsCount(TOTEM_OF_WISDOM_ID) == 1 and st.getQuestItemsCount(MARK_OF_KETRA_ALLIANCE4_ID)==1 :
        htmltext = "8371-6.htm"
        st.takeItems(VB_SOLDIER_ID, 400)
        st.takeItems(VB_CAPTAIN_ID, 400)
@@ -162,61 +162,61 @@ class Quest (JQuest) :
        st.set("cond","6")
        st.player.setKetra(5)
        return htmltext
-   if npcId == WAHKAN_ID and int(st.get("cond"))==6 :
+   if npcId == WAHKAN_ID and str(st.get("cond"))=="6":
        htmltext = "8371-7.htm"
        return htmltext
-   if npcId == GLOCER_ID and int(st.get("cond"))==6 :
+   if npcId == GLOCER_ID and str(st.get("cond"))=="6":
        htmltext = "8371-8.htm"
        return htmltext
-   if npcId == WH_ID and int(st.get("cond"))==6 :
+   if npcId == WH_ID and str(st.get("cond"))=="6":
        htmltext = "8371-9.htm"
        return htmltext
-   if npcId == SOUL_ID and int(st.get("cond"))==6 :
+   if npcId == SOUL_ID and str(st.get("cond"))=="6":
        htmltext = "8371-10.htm"
        return htmltext
-   if npcId == TRADER_ID and int(st.get("cond"))==6 :
+   if npcId == TRADER_ID and str(st.get("cond"))=="6":
        htmltext = "8371-11.htm"
        return htmltext
-   if npcId == GK_ID and int(st.get("cond"))==6 :
+   if npcId == GK_ID and str(st.get("cond"))=="6":
        htmltext = "8371-12.htm"
        return htmltext
-   if npcId == BOX_ID and int(st.get("cond"))==6 and st.getQuestItemsCount(5580)==1 and st.getQuestItemsCount(5581) < 1 and st.getQuestItemsCount(5582) < 1 :
+   if npcId == BOX_ID and str(st.get("cond"))=="6" and st.getQuestItemsCount(5580)==1 and st.getQuestItemsCount(5581) < 1 and st.getQuestItemsCount(5582) < 1 :
        htmltext = "8371-13.htm"
        st.takeItems(5580,1)
        st.giveItems(5908,1)
        st.playSound("ItemSound.quest_middle")
        return htmltext
-   if npcId == BOX_ID and int(st.get("cond"))==6 and st.getQuestItemsCount(5581)==1 and st.getQuestItemsCount(5580) < 1 and st.getQuestItemsCount(5582) < 1 :
+   if npcId == BOX_ID and str(st.get("cond"))=="6" and st.getQuestItemsCount(5581)==1 and st.getQuestItemsCount(5580) < 1 and st.getQuestItemsCount(5582) < 1 :
        htmltext = "8371-13.htm"
        st.takeItems(5581,1)
        st.giveItems(5911,1)
        st.playSound("ItemSound.quest_middle")
        return htmltext
-   if npcId == BOX_ID and int(st.get("cond"))==6 and st.getQuestItemsCount(5582)==1 and st.getQuestItemsCount(5581) < 1 and st.getQuestItemsCount(5580) < 1 :
+   if npcId == BOX_ID and str(st.get("cond"))=="6" and st.getQuestItemsCount(5582)==1 and st.getQuestItemsCount(5581) < 1 and st.getQuestItemsCount(5580) < 1 :
        htmltext = "8371-13.htm"
        st.takeItems(5582,1)
        st.giveItems(5914,1)
        st.playSound("ItemSound.quest_middle")
        return htmltext
-   if npcId == BOX_ID and int(st.get("cond"))==6 and st.getQuestItemsCount(5580)==1 and st.getQuestItemsCount(5581)>=1 and st.getQuestItemsCount(5582)>=1 :
+   if npcId == BOX_ID and str(st.get("cond"))=="6" and st.getQuestItemsCount(5580)==1 and st.getQuestItemsCount(5581)>=1 and st.getQuestItemsCount(5582)>=1 :
        htmltext = "8371-14.htm"
        return htmltext
-   if npcId == BOX_ID and int(st.get("cond"))==6 and st.getQuestItemsCount(5581)==1 and st.getQuestItemsCount(5580)>=1 and st.getQuestItemsCount(5582)>=1 :
+   if npcId == BOX_ID and str(st.get("cond"))=="6" and st.getQuestItemsCount(5581)==1 and st.getQuestItemsCount(5580)>=1 and st.getQuestItemsCount(5582)>=1 :
        htmltext = "8371-14.htm"
        return htmltext
-   if npcId == BOX_ID and int(st.get("cond"))==6 and st.getQuestItemsCount(5582)==1 and st.getQuestItemsCount(5581)>=1 and st.getQuestItemsCount(5580)>=1 :
+   if npcId == BOX_ID and str(st.get("cond"))=="6" and st.getQuestItemsCount(5582)==1 and st.getQuestItemsCount(5581)>=1 and st.getQuestItemsCount(5580)>=1 :
        htmltext = "8371-14.htm"
        return htmltext
-   if npcId == BOX_ID and int(st.get("cond"))==6 and st.getQuestItemsCount(5580)==1 and st.getQuestItemsCount(5581)>=1 or st.getQuestItemsCount(5582)>=1 :
+   if npcId == BOX_ID and str(st.get("cond"))=="6" and st.getQuestItemsCount(5580)==1 and st.getQuestItemsCount(5581)>=1 or st.getQuestItemsCount(5582)>=1 :
        htmltext = "8371-14.htm"
        return htmltext
-   if npcId == BOX_ID and int(st.get("cond"))==6 and st.getQuestItemsCount(5581)==1 and st.getQuestItemsCount(5580)>=1 or st.getQuestItemsCount(5582)>=1 :
+   if npcId == BOX_ID and str(st.get("cond"))=="6" and st.getQuestItemsCount(5581)==1 and st.getQuestItemsCount(5580)>=1 or st.getQuestItemsCount(5582)>=1 :
        htmltext = "8371-14.htm"
        return htmltext
-   if npcId == BOX_ID and int(st.get("cond"))==6 and st.getQuestItemsCount(5582)==1 and st.getQuestItemsCount(5581)>=1 or st.getQuestItemsCount(5580)>=1 :
+   if npcId == BOX_ID and str(st.get("cond"))=="6" and st.getQuestItemsCount(5582)==1 and st.getQuestItemsCount(5581)>=1 or st.getQuestItemsCount(5580)>=1 :
        htmltext = "8371-14.htm"
        return htmltext
-   if npcId == BOX_ID and int(st.get("cond"))==6 and st.getQuestItemsCount(5582) < 1 and st.getQuestItemsCount(5581) < 1 and st.getQuestItemsCount(5580) < 1 :
+   if npcId == BOX_ID and str(st.get("cond"))=="6" and st.getQuestItemsCount(5582) < 1 and st.getQuestItemsCount(5581) < 1 and st.getQuestItemsCount(5580) < 1 :
        htmltext = "<html><head><body><br>You have no Stage 12 Soul Crystals in your inventory!</body></html>"
        return htmltext
    return htmltext
