@@ -2517,10 +2517,9 @@ public final class L2PcInstance extends L2PlayableInstance
            {
                 IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());                
                 if (handler == null) 
-                    _log.debug("No item handler registered for item ID " + item.getItemId() + ".");
+                    _log.warn("No item handler registered for item ID " + item.getItemId() + ".");
                 else 
                     handler.useItem(this, item);
-                
             }
            // If over capacity, drop the item
             if (!isGM() && !_inventory.validateCapacity(0)) 
@@ -3388,16 +3387,6 @@ public final class L2PcInstance extends L2PlayableInstance
                 return;
             }
 
-            if (target.getItemId()<= 8157 && target.getItemId() >= 8154)
-            {
-                IItemHandler handler = ItemHandler.getInstance().getItemHandler(target.getItemId());
-                
-                if (handler == null) 
-                    if ( _log.isDebugEnabled() ) _log.debug("No item handler registered for item ID " + target.getItemId() + ".");
-                else 
-                    handler.useItem(this, target);
-            }
-            
            if (target.getOwnerId() != 0 && target.getOwnerId() != getObjectId() && !isInLooterParty(target.getOwnerId()))
             {
                 sendPacket(new ActionFailed());
@@ -3432,16 +3421,13 @@ public final class L2PcInstance extends L2PlayableInstance
             target.pickupMe(this);
         }
         //Auto use herbs - pick up
-        //Auto use herbs - pick up
         if (target.getItemType() == L2EtcItemType.HERB)
         {
             IItemHandler handler = ItemHandler.getInstance().getItemHandler(target.getItemId());        
             if (handler == null)
-                if(_log.isDebugEnabled())
-                    _log.debug("No item handler registered for item ID " + target.getItemId() + ".");
+                _log.warn("No item handler registered for item ID " + target.getItemId() + ".");
             else 
                 handler.useItem(this, target);
-                ItemTable.getInstance().destroyItem("Consume", target, this, null);
         }
         else 
         {
