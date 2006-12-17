@@ -157,7 +157,7 @@ import net.sf.l2j.gameserver.handler.usercommandhandlers.Loc;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.Mount;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.PartyInfo;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.Time;
-import net.sf.l2j.gameserver.handler.voicedcommandhandlers.castle;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.PlayerCastleDoors;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.stats;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
@@ -533,7 +533,7 @@ public class GameServer
 
         _voicedCommandHandler = VoicedCommandHandler.getInstance();
         _voicedCommandHandler.registerVoicedCommandHandler(new stats());
-        _voicedCommandHandler.registerVoicedCommandHandler(new castle());
+        _voicedCommandHandler.registerVoicedCommandHandler(new PlayerCastleDoors());
         _log.info("VoicedCommandHandler: Loaded " + _voicedCommandHandler.size() + " handlers.");
 
         TaskManager.getInstance();

@@ -110,7 +110,7 @@ public class RequestExEnchantSkillInfo extends ClientBasePacket
             int rate = SkillTreeTable.getInstance().getSuccessRate(activeChar, skill);
             ExEnchantSkillInfo asi = new ExEnchantSkillInfo(skill.getId(), skill.getLevel(), requiredSp, requiredExp, rate);
             
-            if (Config.SP_BOOK_NEEDED)
+            if(Config.SP_BOOK_NEEDED && (skill.getLevel() == 101 || skill.getLevel() == 141))
             {
                 int spbId = 6622;
                 

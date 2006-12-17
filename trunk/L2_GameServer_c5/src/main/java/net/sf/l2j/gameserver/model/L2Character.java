@@ -1884,7 +1884,14 @@ public abstract class L2Character extends L2Object
        L2Effect tempEffect = null;
 
        if(newEffect == null) return;
-       
+
+       // Make sure there's no same effect previously  
+       for (int i=0; i<_effects.size(); i++)   
+       {   
+           if (_effects.get(i).getSkill().getId() == newEffect.getSkill().getId())   
+               return;  
+       } 
+
        synchronized (this)
        {
            if (_effects == null)

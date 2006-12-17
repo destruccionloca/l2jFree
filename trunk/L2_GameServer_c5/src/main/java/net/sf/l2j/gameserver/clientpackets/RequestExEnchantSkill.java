@@ -128,7 +128,7 @@ public class RequestExEnchantSkill extends ClientBasePacket
             
             if (player.getSp() >= _requiredSp && player.getExp() >= _requiredExp)
             {       
-                if (Config.SP_BOOK_NEEDED) 
+                if (Config.SP_BOOK_NEEDED && (skill.getLevel() == 101 || skill.getLevel() == 141))  
                 {
                     int spbId = 6622;
                   
