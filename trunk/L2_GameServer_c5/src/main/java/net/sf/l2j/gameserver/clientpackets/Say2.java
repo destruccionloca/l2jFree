@@ -222,29 +222,31 @@ public class Say2 extends ClientBasePacket
                 }
              break;
 		case ALL:
-			for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers())
-			{
-                    if (activeChar.isInsideRadius(player, 1250, false, true))
-					player.sendPacket(cs);
-			}
-            activeChar.sendPacket(cs);
-            
 			if (_text.startsWith(".")) 
 			{
 				StringTokenizer st = new StringTokenizer(_text);
-				String target = st.nextToken().substring(1);
 				
-				if (st.hasMoreTokens())
+                if (st.countTokens()>=2)
 				{
-					String command = st.nextToken();
+                    String command = st.nextToken().substring(1);
+                    String params = st.nextToken();             
 					IVoicedCommandHandler vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
 					
 					if (vch != null) 
-						vch.useVoicedCommand(command, activeChar, target);
+                        vch.useVoicedCommand(command, activeChar, params);
 					else
-						_log.warn("No handler registered for bypass '"+command+"'");
+                        _log.warn("No handler registered for voice command '"+command+"'");
 				}
 			}
+            else
+            {
+                for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers())
+                {
+                        if (activeChar.isInsideRadius(player, 1250, false, true))
+                        player.sendPacket(cs);
+                }
+                activeChar.sendPacket(cs);
+            }   
             break;
 		case CLAN:
 			if (activeChar.getClan() != null)
