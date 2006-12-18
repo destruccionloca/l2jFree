@@ -26,7 +26,7 @@ package net.sf.l2j.gameserver.serverpackets;
 public class PlaySound extends ServerBasePacket
 {
     private static final String _S__98_PlaySound = "[S] 98 PlaySound";
-    private int _unknown1;
+    private int _fileType;
     private String _soundFile;
     private int _unknown3;
     private int _unknown4;
@@ -41,7 +41,18 @@ public class PlaySound extends ServerBasePacket
     
     public PlaySound(String soundFile)
     {
-        _unknown1   = 0;
+        _fileType   = 0;
+        _soundFile  = soundFile;
+        _unknown3   = 0;
+        _unknown4   = 0;
+        _unknown5   = 0;
+        _unknown6   = 0;
+        _unknown7   = 0;
+    }
+    
+    public PlaySound(String soundFile, int fileType)
+    {
+        _fileType   = fileType;
         _soundFile  = soundFile;
         _unknown3   = 0;
         _unknown4   = 0;
@@ -50,9 +61,9 @@ public class PlaySound extends ServerBasePacket
         _unknown7   = 0;
     }
 
-    public PlaySound(int unknown1, String soundFile, int unknown3, int unknown4, int unknown5, int unknown6, int unknown7)
+    public PlaySound(int fileType, String soundFile, int unknown3, int unknown4, int unknown5, int unknown6, int unknown7)
     {
-        _unknown1   = unknown1;
+        _fileType   = fileType;
         _soundFile  = soundFile;
         _unknown3   = unknown3;
         _unknown4   = unknown4;
@@ -65,13 +76,13 @@ public class PlaySound extends ServerBasePacket
     final void writeImpl()
     {
         writeC(0x98);
-        writeD(_unknown1);              //unknown 0 for quest and ship;
+        writeD(_fileType);              //fileType? 0 for quest and ship(sounds\*.uax), 2 for tutorial voice(voice\*.ogg);
         writeS(_soundFile);
-        writeD(_unknown3);              //unknown 0 for quest; 1 for ship;
-        writeD(_unknown4);              //0 for quest; objectId of ship
+        writeD(_unknown3);              //unknown 0 for quest and tutorial voice; 1 for ship;
+        writeD(_unknown4);              //0 for quest and tutorial voice; objectId of ship
         writeD(_unknown5);              //x
         writeD(_unknown6);              //y
-        writeD(_unknown7);      //z
+        writeD(_unknown7);              //z
     }
     
     /* (non-Javadoc)
