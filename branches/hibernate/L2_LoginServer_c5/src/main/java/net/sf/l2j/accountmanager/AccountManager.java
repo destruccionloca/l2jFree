@@ -21,9 +21,13 @@ package net.sf.l2j.accountmanager;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
+import java.util.List;
+
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2ApplicationContext;
+import net.sf.l2j.loginserver.beans.Accounts;
 import net.sf.l2j.loginserver.services.AccountsServices;
 import net.sf.l2j.loginserver.services.exception.AccountModificationException;
 
@@ -124,6 +128,12 @@ public class AccountManager
                 {
                     __accountServices.deleteAccount(_uname);
                 }
+                catch (ObjectRetrievalFailureException e)
+                {
+                    System.out.println("Unable to complete operation.");
+                    e.printStackTrace();
+                    bResponse=false;
+                }
                 catch (AccountModificationException e)
                 {
                     System.out.println("Unable to complete operation.");
@@ -136,7 +146,13 @@ public class AccountManager
         else if (_mode.equals("4"))
         {
             // List
-            __accountServices.printAccInfo();
+            List<Accounts> list = __accountServices.getAccountsInfo();
+            for (Accounts account : list)
+            {
+                System.out.println(account.getLogin() + " -> " + account.getAccessLevel());
+            }
+            System.out.println("Number of accounts: " + list.size() + ".");
+            
         }
         else if (_mode.equals("5"))
         {

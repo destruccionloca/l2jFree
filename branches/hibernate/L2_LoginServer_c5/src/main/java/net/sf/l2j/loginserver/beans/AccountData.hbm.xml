@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 11 d?c. 2006 17:28:16 by Hibernate Tools 3.2.0.beta8 -->
 <hibernate-mapping>
-    <class name="net.sf.l2j.loginserver.beans.AccountData" table="account_data" catalog="l2jdb">
+    <class name="net.sf.l2j.loginserver.beans.AccountData" table="account_data" >
         <comment></comment>
         <composite-id name="id" class="net.sf.l2j.loginserver.beans.AccountDataId">
             <key-property name="accountName" type="string">

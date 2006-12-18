@@ -28,31 +28,31 @@ package net.sf.l2j.loginserver.dao;
 import java.util.Collection;
 import java.util.List;
 
-import net.sf.l2j.loginserver.beans.Accounts;
+import net.sf.l2j.loginserver.beans.Gameservers;
 
 /**
- * Data access object interface for account
- * The interface define access functions to accounts
+ * Data access object interface for gameservers
+ * The interface define access functions to gameservers
  */
-public interface AccountsDAO
+public interface GameserversDAO
 {
     /**
      * Return all objects related to the implementation of this DAO with no filter.
      */
-    public List <Accounts> getAllAccounts () ;
+    public List <Gameservers> getAllGameservers () ;
     
     
     /**
      * Persist the given transient instance, first assigning a generated identifier.
      * (Or using the current value of the identifier property if the assigned generator is used.)
      */
-    public String createAccount(Object obj);
+    public int createGameserver(Gameservers obj);
 
     /**
      * Either save() or update() the given instance, depending upon the value of its
      * identifier property.
      */
-    public void createOrUpdate(Object obj);
+    public void createOrUpdate(Gameservers obj);
 
     /**
      * Update the persistent state associated with the given identifier. An exception is thrown if there is a persistent
@@ -64,19 +64,19 @@ public interface AccountsDAO
     /**
      * Delete an object.
      */
-    public void removeAccount(Object obj);
+    public void removeGameserver(Gameservers obj);
 
     /**
      * Search by id
-     * @param id the id  (login)
-     * @return the account
+     * @param id the id  
+     * @return the gameserver
      */
-    public Accounts getAccountById(String id);
+    public Gameservers getGameserverByServerId(int id);
     
     /**
      * Delete an object by id
      */
-    public void removeAccountById(String login) ;
+    public void removeGameserverByServerId(int id) ;
     
     /**
      * Delete a collection of object

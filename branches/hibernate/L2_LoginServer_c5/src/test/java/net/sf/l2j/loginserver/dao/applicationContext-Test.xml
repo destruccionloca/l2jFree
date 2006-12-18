@@ -54,7 +54,12 @@
 		</property>
 	</bean>
 	
-       <bean id="AccountsDAO" class="net.sf.l2j.loginserver.dao.impl.AccountsDAOHib">
+    <bean id="AccountsDAO" class="net.sf.l2j.loginserver.dao.impl.AccountsDAOHib">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean> 
+    <bean id="GameserversDAO" class="net.sf.l2j.loginserver.dao.impl.GameserversDAOHib">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

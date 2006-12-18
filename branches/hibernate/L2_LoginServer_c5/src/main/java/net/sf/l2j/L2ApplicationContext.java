@@ -19,18 +19,19 @@
 package net.sf.l2j;
 
 import java.sql.Connection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.SQLException;
 
-import net.sf.l2j.loginserver.beans.HibernateUtil;
+import javax.sql.DataSource;
 
-import org.hibernate.Session;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class L2ApplicationContext
 {
-    static Logger _log = Logger.getLogger(L2ApplicationContext.class.getName());
+    private static Log _log = LogFactory.getLog(L2ApplicationContext.class.getName());
     
     private ApplicationContext __ctx = null;
 
@@ -57,7 +58,7 @@ public class L2ApplicationContext
         }
         catch (Throwable e)
         {
-            _log.log(Level.SEVERE,"Unable to connect : " + e.getMessage(),e);
+            _log.fatal("Unable to connect : " + e.getMessage(),e);
             System.exit(1);
         }
 	}
@@ -79,7 +80,6 @@ public class L2ApplicationContext
 
     public static void shutdown()
     {
-        HibernateUtil.closeSession();
     }
 
     public final String safetyString(String[] whatToCheck)
@@ -117,11 +117,18 @@ public class L2ApplicationContext
 	{
 		Connection con=null;
  
-		while(con==null)
-		{
-            Session session = HibernateUtil.currentSession();
-            con  = session.connection();
-		}
+        try
+        {
+            con = ((DataSource)__ctx.getBean("dataSource")).getConnection();
+        }
+        catch (BeansException e)
+        {
+            _log.fatal("Unable to retrieve connection : " +e.getMessage(),e);
+        }
+        catch (SQLException e)
+        {
+            _log.fatal("Unable to retrieve connection : " +e.getMessage(),e);
+        }
 		return con;
 	}
     

@@ -36,10 +36,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
 import javolution.util.FastMap;
-import net.sf.l2j.Base64;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2ApplicationContext;
 import net.sf.l2j.loginserver.lib.Log;
+import net.sf.l2j.util.Base64;
 
 /**
  * This class ...

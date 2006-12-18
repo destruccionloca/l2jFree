@@ -28,6 +28,8 @@ package net.sf.l2j.loginserver.dao.impl;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.orm.ObjectRetrievalFailureException;
+
 import net.sf.l2j.loginserver.beans.Accounts;
 import net.sf.l2j.loginserver.dao.AccountsDAO;
 
@@ -47,15 +49,17 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
     public Accounts getAccountById(String id)
     {
         Accounts account = (Accounts) getHibernateTemplate().get(Accounts.class, id);
+        if ( account == null )
+            throw new ObjectRetrievalFailureException("Accounts",id);
         return account;
     }
 
     /**
      * @see net.sf.l2j.loginserver.dao.AccountsDAO#createAccount(java.lang.Object)
      */
-    public Accounts createAccount(Object obj)
+    public String createAccount(Object obj)
     {
-        return (Accounts)save(obj);
+        return (String)save(obj);
     }
 
     /**

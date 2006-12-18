@@ -30,7 +30,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import net.sf.l2j.loginserver.beans.Accounts;
+import net.sf.l2j.loginserver.beans.Gameservers;
 
 import org.dbunit.DatabaseTestCase;
 import org.dbunit.database.DatabaseDataSourceConnection;
@@ -46,19 +46,19 @@ import org.springframework.dao.DataAccessException;
  * Test account DAO
  * 
  */
-public class AccountsDAOTest extends DatabaseTestCase
+public class GameserversDAOTest extends DatabaseTestCase
 {
-    private Accounts account = null;
-    private AccountsDAO dao = null;
+    private Gameservers gameserver = null;
+    private GameserversDAO dao = null;
     
     private ClassPathXmlApplicationContext context = null;
 
-    public void setAccountDao(AccountsDAO _dao) {
+    public void setGameserversDao(GameserversDAO _dao) {
         this.dao = _dao;
     }
     
     protected IDataSet getDataSet() throws Exception {
-        return new XmlDataSet(this.getClass().getResourceAsStream("accounts.xml"));
+        return new XmlDataSet(this.getClass().getResourceAsStream("gameservers.xml"));
 
     }
 
@@ -72,85 +72,80 @@ public class AccountsDAOTest extends DatabaseTestCase
 
         context = new ClassPathXmlApplicationContext(
                 "classpath*:/**/dao/applicationContext-*.xml");
-        setAccountDao ( (AccountsDAO) context.getBean("AccountsDAO"));
-        
-        super.setUp();
+        setGameserversDao ( (GameserversDAO) context.getBean("GameserversDAO"));
 
         // initialize your database connection here
         IDatabaseConnection connection = new DatabaseDataSourceConnection(
                 (DataSource)context.getBean("dataSource"));
         // initialize your dataset here, from the file containing the test
         // dataset
-        IDataSet dataSet = new FlatXmlDataSet(this.getClass().getResourceAsStream("accounts.xml"));
+        IDataSet dataSet = new FlatXmlDataSet(this.getClass().getResourceAsStream("gameservers.xml"));
 
         try {
             DatabaseOperation.CLEAN_INSERT.execute(connection, dataSet);
         } finally {
             connection.close();
         }
-    
-    }
-    
-    public void testFindAccount() throws Exception {
-
-        account = dao.getAccountById("player1");
-
-        assertEquals("player1", account.getLogin());
-        assertEquals(4, account.getAccessLevel().intValue());
-        
+       
     }    
     
-    public void testModifyAccount() throws Exception {
-        // retrieve object
-        account = dao.getAccountById("player1");
+    public void testFindGameserver() throws Exception {
+        gameserver = dao.getGameserverByServerId(0);
 
-        assertEquals("player1", account.getLogin());
-        assertEquals(4, account.getAccessLevel().intValue());
+        assertEquals("651de5d23464e255346a36d0bbb1966a", gameserver.getHexid());
+        assertEquals("*", gameserver.getHost());
+    }    
+    
+    public void testModifyGameserver() throws Exception {
+        // retrieve object
+        gameserver = dao.getGameserverByServerId(0);
+
+        assertEquals("651de5d23464e255346a36d0bbb1966a", gameserver.getHexid());
+        assertEquals("*", gameserver.getHost());
         
         // modify object
-        account.setAccessLevel(7);
-        dao.createOrUpdate(account);
+        gameserver.setHost("localhost");
+        dao.update(gameserver);
         
         
         // check modification
-        account = dao.getAccountById("player1");
-        assertEquals("player1", account.getLogin());
-        assertEquals(7, account.getAccessLevel().intValue());
+        gameserver = dao.getGameserverByServerId(0);
+        assertEquals("651de5d23464e255346a36d0bbb1966a", gameserver.getHexid());
+        assertEquals("localhost", gameserver.getHost());
         
         // cancel modification
-        account.setAccessLevel(4);
-        dao.createOrUpdate(account);
+        gameserver.setHost("");
+        dao.update(gameserver);
     }    
 
 
-    public void testAddAndRemoveAccounts() throws Exception {
+    public void testAddAndRemoveGameservers() throws Exception {
         
-        // Add account
-        account = new Accounts();
-        account.setLogin("Bill");
-        account.setPassword("testPw");
-        account.setEmail("toto@test.com");
+        // Add Gameserver
+        gameserver = new Gameservers();
+        gameserver.setHexid("hexid1");
+        gameserver.setHost("*");
         
-        dao.createAccount(account);
-
-        assertEquals(account.getLogin(), "Bill");
+        int id = dao.createGameserver(gameserver);
+        System.out.println("Gameserver created with id : " +id);
+        assertEquals(gameserver.getHexid(), "hexid1");
         
-        // delete account
-        dao.removeAccount(account);
+        // delete Gameserver
+        dao.removeGameserver(gameserver);
 
         try {
-            account = dao.getAccountById("Bill");
-            fail("Accounts found in database");
+            gameserver = dao.getGameserverByServerId(id);
+            fail("Gameservers found in database");
         } catch (DataAccessException dae) {
             assertNotNull(dae);
         }
     }
     
-   public void testFindNonExistentAccount() throws Exception {
+   public void testFindNonExistentGameserver() throws Exception {
 
         try {
-            account = dao.getAccountById("Unknown");
-            fail("Accounts found in database");
+            gameserver = dao.getGameserverByServerId(666);
+            fail("Gameservers found in database");
         } catch (DataAccessException dae) {
             assertNotNull(dae);
         }
@@ -158,83 +153,78 @@ public class AccountsDAOTest extends DatabaseTestCase
     
    public void testFindAll() throws Exception {
        
-       List list = dao.getAllAccounts();
+       List list = dao.getAllGameservers();
        
        assertEquals(1,list.size());
        
-       // Add account
-       account = new Accounts();
-       account.setLogin("Bill");
-       account.setPassword("testPw");
-       account.setEmail("toto@test.com");
+       // Add Gameserver
+       gameserver = new Gameservers();
+       gameserver.setHexid("hexid2");
+       gameserver.setHost("*");
        
-       dao.createAccount(account);
+       dao.createGameserver(gameserver);
        
        assertEquals(1,list.size());
 
-       list = dao.getAllAccounts();
+       list = dao.getAllGameservers();
 
        assertEquals(2,list.size());
        
-       dao.removeAccount(account);
+       dao.removeGameserver(gameserver);
 
-       list = dao.getAllAccounts();
+       list = dao.getAllGameservers();
 
        assertEquals(1,list.size());
    }   
    
   public void testRemoveObject() throws Exception {
        
-       // Add account
-       account = new Accounts();
-       account.setLogin("Bill");
-       account.setPassword("testPw");
-       account.setEmail("toto@test.com");
+       // Add Gameserver
+       gameserver = new Gameservers();
+       gameserver.setHexid("hexid2");
+       gameserver.setHost("hexid2");
        
-       dao.createAccount(account);
+       dao.createGameserver(gameserver);
        
-       dao.removeAccount(account);
+       dao.removeGameserver(gameserver);
 
-       List list = dao.getAllAccounts();
+       List list = dao.getAllGameservers();
 
        assertEquals(1,list.size());
    } 
   
   public void testAddAllAndRemove() throws Exception {
       
-      // Add multiple account
-      List<Accounts> listAccount = new ArrayList<Accounts>();
+      // Add multiple Gameserver
+      List<Gameservers> listGameserver = new ArrayList<Gameservers>();
       
-      Accounts acc = new Accounts ();
-      acc.setLogin("Bill");
-      acc.setPassword("testPw");
-      acc.setEmail("toto@test.com");
+      Gameservers acc = new Gameservers ();
+      acc.setHexid("hexid1");
+      acc.setHost("toto@test.com");
       
-      listAccount.add(acc);
+      listGameserver.add(acc);
       
-      acc = new Accounts ();
-      acc.setLogin("BigBill");
-      acc.setPassword("anotherPw");
-      acc.setEmail("toto2@test.com");      
+      acc = new Gameservers ();
+      acc.setHexid("hexid2");
+      acc.setHost("toto2@test.com");      
 
-      listAccount.add(acc);
+      listGameserver.add(acc);
 
-      acc = new Accounts ();
-      acc.setLogin("Matt");
-      acc.setPassword("anotherPw2");
-      acc.setEmail("toto3@test.com");      
+      acc = new Gameservers ();
+      acc.setHexid("hexid3");
+      acc.setHost("toto3@test.com");      
 
-      listAccount.add(acc);
+      listGameserver.add(acc);
       
-      dao.createOrUpdateAll(listAccount);
+      dao.createOrUpdateAll(listGameserver);
       
-      List list = dao.getAllAccounts();
+      List list = dao.getAllGameservers();
 
       assertEquals(4,list.size());
       
-      dao.removeAll(listAccount);
+      dao.removeAll(listGameserver);
 
-      list = dao.getAllAccounts();
+      list = dao.getAllGameservers();
 
       assertEquals(1,list.size());
       

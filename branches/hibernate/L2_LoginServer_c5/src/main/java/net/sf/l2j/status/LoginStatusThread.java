@@ -19,12 +19,12 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-import net.sf.l2j.Base64;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2ApplicationContext;
 import net.sf.l2j.loginserver.GameServerTable;
 import net.sf.l2j.loginserver.LoginController;
 import net.sf.l2j.loginserver.LoginServer;
+import net.sf.l2j.util.Base64;
 
 
 public class LoginStatusThread extends Thread

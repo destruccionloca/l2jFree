@@ -30,10 +30,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-import net.sf.l2j.Base64;
 import net.sf.l2j.loginserver.beans.Accounts;
 import net.sf.l2j.loginserver.dao.AccountsDAO;
 import net.sf.l2j.loginserver.services.exception.AccountModificationException;
+import net.sf.l2j.util.Base64;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -144,156 +144,21 @@ public class AccountsServices
      */
     public void deleteAccount(String account) throws AccountModificationException 
     {
-        // Search account
+        // Search and delete account
         // ---------------
         Accounts acc = __accDAO.getAccountById(account);
-        
-        if ( acc == null )
-            throw new AccountModificationException("Account "+account+" doesn't exist.");
-        
         __accDAO.removeAccount(acc);
-        // remove all from clan
-        
-
-//            // Get Accounts ID
-//            ResultSet rcln;
-//            statement = con.prepareStatement("SELECT obj_Id, char_name, clanid FROM characters WHERE account_name=?;");
-//            statement.setEscapeProcessing(true);
-//            statement.setString(1, account);
-//            rset = statement.executeQuery();
-//            while (rset.next())
-//            {
-//                System.out.println("Deleting character " + rset.getString("char_name") + ".");
-//
-//                // Check If clan leader Remove Clan and remove all from it
-//                statement = con.prepareStatement("SELECT COUNT(*) FROM clan_data WHERE leader_id=?;");
-//                statement.setString(1, rset.getString("clanid"));
-//                rcln = statement.executeQuery();
-//                rcln.next();
-//                if (rcln.getInt(1) > 0)
-//                {
-//                    rcln.close();
-//                    // Clan Leader
-//
-//                    // Get Clan Name
-//                    statement = con.prepareStatement("SELECT clan_name FROM clan_data WHERE leader_id=?;");
-//                    statement.setString(1, rset.getString("clanid"));
-//                    rcln = statement.executeQuery();
-//                    rcln.next();
-//
-//                    System.out.println("Deleting clan " + rcln.getString("clan_name") + ".");
-//
-//                    // Delete Clan Wars
-//                    statement = con.prepareStatement("DELETE FROM clan_wars WHERE clan1=? OR clan2=?;");
-//                    statement.setEscapeProcessing(true);
-//                    statement.setString(1, rcln.getString("clan_name"));
-//                    statement.setString(2, rcln.getString("clan_name"));
-//                    statement.executeUpdate();
-//
-//                    rcln.close();
-//
-//                    // Remove All From clan
-//                    statement = con.prepareStatement("UPDATE characters SET clanid=0 WHERE clanid=?;");
-//                    statement.setString(1, rset.getString("clanid"));
-//                    statement.executeUpdate();
-//
-//                    // Delete Clan
-//                    statement = con.prepareStatement("DELETE FROM clan_data WHERE clan_id=?;");
-//                    statement.setString(1, rset.getString("clanid"));
-//                    statement.executeUpdate();
-//
-//                }
-//                else
-//                {
-//                    rcln.close();
-//                }
-//
-//                // skills
-//                statement = con.prepareStatement("DELETE FROM character_skills WHERE char_obj_id=?;");
-//                statement.setString(1, rset.getString("obj_Id"));
-//                statement.executeUpdate();
-//
-//                // shortcuts 
-//                statement = con.prepareStatement("DELETE FROM character_shortcuts WHERE char_obj_id=?;");
-//                statement.setString(1, rset.getString("obj_Id"));
-//                statement.executeUpdate();
-//
-//                // items 
-//                statement = con.prepareStatement("DELETE FROM items WHERE owner_id=?;");
-//                statement.setString(1, rset.getString("obj_Id"));
-//                statement.executeUpdate();
-//
-//                // recipebook 
-//                statement = con.prepareStatement("DELETE FROM character_recipebook WHERE char_id=?;");
-//                statement.setString(1, rset.getString("obj_Id"));
-//                statement.executeUpdate();
-//
-//                // quests 
-//                statement = con.prepareStatement("DELETE FROM character_quests WHERE char_id=?;");
-//                statement.setString(1, rset.getString("obj_Id"));
-//                statement.executeUpdate();
-//
-//                // macroses
-//                statement = con.prepareStatement("DELETE FROM character_macroses WHERE char_obj_id=?;");
-//                statement.setString(1, rset.getString("obj_Id"));
-//                statement.executeUpdate();
-//
-//                // friends
-//                statement = con.prepareStatement("DELETE FROM character_friends WHERE char_id=?;");
-//                statement.setString(1, rset.getString("obj_Id"));
-//                statement.executeUpdate();
-//
-//                // merchant_lease 
-//                statement = con.prepareStatement("DELETE FROM merchant_lease WHERE player_id=?;");
-//                statement.setString(1, rset.getString("obj_Id"));
-//                statement.executeUpdate();
-//
-//                // boxaccess
-//                statement = con.prepareStatement("DELETE FROM boxaccess WHERE charname=?;");
-//                statement.setString(1, rset.getString("char_name"));
-//                statement.executeUpdate();
-//
-//                // characters 
-//                statement = con.prepareStatement("DELETE FROM characters WHERE obj_Id=?;");
-//                statement.setString(1, rset.getString("obj_Id"));
-//                statement.executeUpdate();
-//
-//            }
-//
-//            // Delete Account
-//            statement = con.prepareStatement("DELETE FROM accounts WHERE login=?;");
-//            statement.setEscapeProcessing(true);
-//            statement.setString(1, account);
-//            statement.executeUpdate();
-//
-//            System.out.println("Account " + account + " has been deleted.");
-//
-//        }
-//        else
-//        {
-//            // Not Exist      
-//            System.out.println("Account " + account + " does not exist.");
-//        }
-//
-//        // Close Connection
-//        statement.close();
-//    }
     }
     
 
     /**
-     * Print all accounts information (login + level)
+     * Get accounts information
      *
      */
-    public void printAccInfo()
+    public List<Accounts> getAccountsInfo()
     {
         List<Accounts> list = __accDAO.getAllAccounts();
-
-        for (Accounts account : list)
-        {
-            System.out.println(account.getLogin() + " -> " + account.getAccessLevel());
-        }
-        System.out.println("Number of accounts: " + list.size() + ".");
+        return list;
     }    
     
     

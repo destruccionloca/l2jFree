@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j;
+package net.sf.l2j.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
