@@ -21,8 +21,8 @@ package net.sf.l2j.loginserver.gameserverpackets;
 import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.loginserver.GameServerTable;
 import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
+import net.sf.l2j.loginserver.manager.GameServerManager;
 
 /**
  * @author -Wooden-
@@ -65,44 +65,44 @@ public class ServerStatus extends ClientBasePacket
 			switch(type)
 			{
 				case SERVER_LIST_STATUS:
-					GameServerTable.getInstance().setStatus(value, serverID);
+					GameServerManager.getInstance().setStatus(value, serverID);
 					if (Config.DEBUG)_log.info("ServerList Status ("+value+")");
 					break;
 				case SERVER_LIST_CLOCK:
 					if(value == ON)
 					{
-						GameServerTable.getInstance().setClock(true, serverID);
+						GameServerManager.getInstance().setClock(true, serverID);
 					}
 					else
 					{
-						GameServerTable.getInstance().setClock(false, serverID);
+						GameServerManager.getInstance().setClock(false, serverID);
 					}
 					if (Config.DEBUG)_log.info("ServerList Clock ("+value+")");
 					break;
 				case SERVER_LIST_SQUARE_BRACKET:
 					if(value == ON)
 					{
-						GameServerTable.getInstance().setBracket(true, serverID);
+						GameServerManager.getInstance().setBracket(true, serverID);
 					}
 					else
 					{
-						GameServerTable.getInstance().setBracket(false, serverID);
+						GameServerManager.getInstance().setBracket(false, serverID);
 					}
 					if (Config.DEBUG)_log.info("ServerList Bracket ("+value+")");
 					break;
 				case TEST_SERVER:
 					if(value == ON)
 					{
-						GameServerTable.getInstance().setTestServer(true, serverID);
+						GameServerManager.getInstance().setTestServer(true, serverID);
 					}
 					else
 					{
-						GameServerTable.getInstance().setTestServer(false, serverID);
+						GameServerManager.getInstance().setTestServer(false, serverID);
 					}
 					if (Config.DEBUG)_log.info("ServerList test server ("+value+")");
 					break;
 				case MAX_PLAYERS:
-					GameServerTable.getInstance().setMaxPlayers(value, serverID);
+					GameServerManager.getInstance().setMaxPlayers(value, serverID);
 					if (Config.DEBUG)_log.info("ServerMaxPlayer ("+value+")");
 					break;
 			}

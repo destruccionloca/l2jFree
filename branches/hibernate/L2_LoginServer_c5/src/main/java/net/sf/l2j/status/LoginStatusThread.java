@@ -21,9 +21,9 @@ import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2ApplicationContext;
-import net.sf.l2j.loginserver.GameServerTable;
-import net.sf.l2j.loginserver.LoginController;
-import net.sf.l2j.loginserver.LoginServer;
+import net.sf.l2j.loginserver.controller.LoginController;
+import net.sf.l2j.loginserver.manager.GameServerManager;
+import net.sf.l2j.loginserver.thread.LoginServerThread;
 import net.sf.l2j.util.Base64;
 
 
@@ -255,7 +255,7 @@ public class LoginStatusThread extends Thread
                 }
                 else if (_usrCommand.equals("status"))
                 {
-                	for(String str : GameServerTable.getInstance().status())
+                	for(String str : GameServerManager.getInstance().status())
                 	{
                 		_print.println(str);
                 	}
@@ -265,7 +265,7 @@ public class LoginStatusThread extends Thread
                     try
                     {
                         _usrCommand = _usrCommand.substring(8);
-                        if (LoginServer.getInstance().unblockIp(_usrCommand))
+                        if (LoginServerThread.getInstance().unblockIp(_usrCommand))
                         {
                             _log.warning("IP removed via TELNET by host: " + _csocket.getInetAddress().getHostAddress());
                             _print.println("The IP " + _usrCommand + " has been removed from the hack protection list!");
@@ -282,14 +282,14 @@ public class LoginStatusThread extends Thread
                 }
                 else if (_usrCommand.startsWith("shutdown"))
                 {
-                	LoginServer.getInstance().shutdown(false);
+                    LoginServerThread.getInstance().shutdown(false);
                 	_print.println("Bye Bye!");
     	            _print.flush();
                 	_csocket.close();
                 }
                 else if (_usrCommand.startsWith("restart"))
                 {
-                	LoginServer.getInstance().shutdown(true);
+                    LoginServerThread.getInstance().shutdown(true);
                 	_print.println("Bye Bye!");
     	            _print.flush();
                 	_csocket.close();

@@ -44,117 +44,18 @@
 			</list>
 		</property>
 	</bean>
-       <bean id="AccountsDAO" class="net.sf.l2j.loginserver.dao.impl.AccountsDAOHib">
+    <bean id="AccountsDAO" class="net.sf.l2j.loginserver.dao.impl.AccountsDAOHib">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean> 
-        <bean id="AccountDataDAO" class="net.sf.l2j.loginserver.dao.impl.AccountDataDAOHib">		
+    <bean id="GameserversDAO" class="net.sf.l2j.loginserver.dao.impl.GameserversDAOHib">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean> 
-        <bean id="ClanhallDAO" class="net.sf.l2j.loginserver.dao.impl.ClanhallDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="CharacterSubclassesDAO" class="net.sf.l2j.loginserver.dao.impl.CharacterSubclassesDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="CharacterSkillsDAO" class="net.sf.l2j.loginserver.dao.impl.CharacterSkillsDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="CharacterSkillsSaveDAO" class="net.sf.l2j.loginserver.dao.impl.CharacterSkillsSaveDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="ClanSubpledgesDAO" class="net.sf.l2j.loginserver.dao.impl.ClanSubpledgesDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="CharactersDAO" class="net.sf.l2j.loginserver.dao.impl.CharactersDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="ClanDataDAO" class="net.sf.l2j.loginserver.dao.impl.ClanDataDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="ClanSkillsDAO" class="net.sf.l2j.loginserver.dao.impl.ClanSkillsDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="CharacterFriendsDAO" class="net.sf.l2j.loginserver.dao.impl.CharacterFriendsDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="CharacterMacrosesDAO" class="net.sf.l2j.loginserver.dao.impl.CharacterMacrosesDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="CharacterShortcutsDAO" class="net.sf.l2j.loginserver.dao.impl.CharacterShortcutsDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="ClanWarsDAO" class="net.sf.l2j.loginserver.dao.impl.ClanWarsDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="BoxaccessDAO" class="net.sf.l2j.loginserver.dao.impl.BoxaccessDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="MerchantLeaseDAO" class="net.sf.l2j.loginserver.dao.impl.MerchantLeaseDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="CharacterHennasDAO" class="net.sf.l2j.loginserver.dao.impl.CharacterHennasDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="ClanhallFunctionsDAO" class="net.sf.l2j.loginserver.dao.impl.ClanhallFunctionsDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="ClanPrivsDAO" class="net.sf.l2j.loginserver.dao.impl.ClanPrivsDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="ItemsDAO" class="net.sf.l2j.loginserver.dao.impl.ItemsDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="CharacterQuestsDAO" class="net.sf.l2j.loginserver.dao.impl.CharacterQuestsDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
-        <bean id="CharacterRecipebookDAO" class="net.sf.l2j.loginserver.dao.impl.CharacterRecipebookDAOHib">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
-        <bean id="AccountsServices" class="net.sf.l2j.loginserver.services.AccountsServices">
+
+    <bean id="AccountsServices" class="net.sf.l2j.loginserver.services.AccountsServices">
 		<property name="accountsDAO">
 			<ref bean="AccountsDAO" />
 		</property>

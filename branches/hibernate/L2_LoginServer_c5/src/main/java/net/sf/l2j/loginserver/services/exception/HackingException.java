@@ -16,50 +16,41 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.loginserver.gameserverpackets;
-
-import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
-import net.sf.l2j.loginserver.controller.LoginController.SessionKey;
+package net.sf.l2j.loginserver.services.exception;
 
 /**
- * @author -Wooden-
- *
+ * This class ...
+ * 
+ * @version $Revision: 1.2.4.2 $ $Date: 2005/03/27 15:30:09 $
  */
-public class PlayerAuthRequest extends ClientBasePacket
+
+public class HackingException extends Exception
 {
-
-	private String _account;
-	private SessionKey _sessionKey;
-
-
 	/**
-	 * @param decrypt
+	 * Comment for <code>serialVersionUID</code>
 	 */
-	public PlayerAuthRequest(byte[] decrypt)
-	{
-		super(decrypt);
-		_account = readS();
-		int playKey1 = readD();
-		int playKey2 = readD();
-		int loginKey1 = readD();
-		int loginKey2 = readD();
-		_sessionKey = new SessionKey(loginKey1, loginKey2, playKey1, playKey2);
-	}
-
-	/**
-	 * @return Returns the account.
-	 */
-	public String getAccount()
-	{
-		return _account;
-	}
-
-	/**
-	 * @return Returns the key.
-	 */
-	public SessionKey getKey()
-	{
-		return _sessionKey;
-	}
+	private static final long serialVersionUID = 4050762693478463029L;
+	String _ip;
+    private int _connects;
 	
+	public HackingException(String ip, int connects)
+	{
+		_ip = ip;
+        _connects = connects;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getIP()
+	{
+		return _ip;
+	}
+
+    public int getConnects()
+    {
+        return _connects;
+    }
+    
+
 }

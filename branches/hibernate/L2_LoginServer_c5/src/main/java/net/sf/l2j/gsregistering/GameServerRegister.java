@@ -30,18 +30,18 @@ import java.util.Properties;
 import java.util.Random;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.loginserver.GameServerTable;
+import net.sf.l2j.loginserver.manager.GameServerManager;
 
 public class GameServerRegister
 {
 	private static String _choice;
-	private static GameServerTable gsTable;
+	private static GameServerManager gsTable;
 	private static boolean _choiseOk;
 
 	public static void main(String[] args) throws IOException
 	{
 		Config.load();
-		gsTable = new GameServerTable();
+		gsTable = new GameServerManager();
 		System.out.println("Welcome to l2j GameServer Registering");
 		System.out.println("Enter The id of the server you want to register or type help to get a list of ids:");
 		LineNumberReader _in = new LineNumberReader(new InputStreamReader(System.in));
