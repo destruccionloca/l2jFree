@@ -20,9 +20,9 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2ApplicationContext;
-import net.sf.l2j.loginserver.controller.LoginController;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.loginserver.manager.GameServerManager;
+import net.sf.l2j.loginserver.manager.LoginManager;
 import net.sf.l2j.loginserver.thread.LoginServerThread;
 import net.sf.l2j.util.Base64;
 
@@ -200,12 +200,12 @@ public class LoginStatusThread extends Thread
 	 */
 	private boolean validLogin(String login)
 	{
-		if(!LoginController.getInstance().isGM(login))
+		if(!LoginManager.getInstance().isGM(login))
 			return false;
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2ApplicationContext.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT password FROM accounts WHERE login=?");
 			statement.setString(1, login);
 			ResultSet rset = statement.executeQuery();

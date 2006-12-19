@@ -25,12 +25,14 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.io.OutputStream;
 import java.math.BigInteger;
-import java.util.Map;
 import java.util.Properties;
-import java.util.Random;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.L2Registry;
+import net.sf.l2j.loginserver.beans.GameServer;
+import net.sf.l2j.loginserver.beans.Gameservers;
 import net.sf.l2j.loginserver.manager.GameServerManager;
+import net.sf.l2j.util.HexUtil;
 
 public class GameServerRegister
 {
@@ -41,7 +43,8 @@ public class GameServerRegister
 	public static void main(String[] args) throws IOException
 	{
 		Config.load();
-		gsTable = new GameServerManager();
+        L2Registry.loadRegistry();
+		gsTable = GameServerManager.getInstance();
 		System.out.println("Welcome to l2j GameServer Registering");
 		System.out.println("Enter The id of the server you want to register or type help to get a list of ids:");
 		LineNumberReader _in = new LineNumberReader(new InputStreamReader(System.in));
@@ -51,9 +54,9 @@ public class GameServerRegister
 			_choice = _in.readLine();
 			if(_choice.equalsIgnoreCase("help"))
 			{
-				for(Map.Entry<Integer, String> entry : gsTable.serverNames.entrySet())
+				for(Gameservers gs : gsTable.getServers())
 				{
-					System.out.println("Server: id:"+entry.getKey()+" - "+entry.getValue());
+					System.out.println("Server: id:"+gs.getServerId()+" - "+gs.getServerName());
 				}
 				System.out.println("You can also see servername.xml");
 			}
@@ -62,9 +65,9 @@ public class GameServerRegister
 				try
 				{
 					int id = new Integer(_choice).intValue();
-					if(id >= gsTable.serverNames.size())
+					if(id >= gsTable.getServers().size())
 					{
-						System.out.println("ID is too high (max is "+(gsTable.serverNames.size()-1)+")");
+						System.out.println("ID is too high (max is "+(gsTable.getServers().size()-1)+")");
 						continue;
 					}
 					if(id < 0)
@@ -76,8 +79,8 @@ public class GameServerRegister
 					{
 						if(gsTable.isIDfree(id))
 						{
-							byte[] hex = generateHex(16);
-							gsTable.createServer(gsTable.new GameServer(hex , id));
+							byte[] hex = HexUtil.generateHex(16);
+							gsTable.createServer(new GameServer(hex , id));
 							saveHexid(new BigInteger(hex).toString(16),"hexid(server "+id+").txt");
 							System.out.println("Server Registered hexid saved to 'hexid(server "+id+").txt'");
 							System.out.println("Put this file in the /config folder of your gameserver and rename it to 'hexid.txt'");
@@ -97,16 +100,7 @@ public class GameServerRegister
 		}
 	}
     
-    public static byte[] generateHex(int size)
-    {
-        byte [] array = new byte[size]; 
-        Random rnd = new Random();
-        for(int i = 0; i < size; i++)
-        {
-            array[i] =  (byte)rnd.nextInt(256);                                                                                 
-        }
-        return array;
-    }
+
 
     /**
      * Save hexadecimal ID of the server in the properties file.

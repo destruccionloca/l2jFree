@@ -35,8 +35,6 @@ import java.util.logging.Logger;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.LoginServer;
-import net.sf.l2j.loginserver.controller.LoginController;
-import net.sf.l2j.loginserver.controller.LoginController.SessionKey;
 import net.sf.l2j.loginserver.gameserverpackets.BlowFishKey;
 import net.sf.l2j.loginserver.gameserverpackets.ChangeAccessLevel;
 import net.sf.l2j.loginserver.gameserverpackets.GameServerAuth;
@@ -50,6 +48,8 @@ import net.sf.l2j.loginserver.loginserverpackets.KickPlayer;
 import net.sf.l2j.loginserver.loginserverpackets.LoginServerFail;
 import net.sf.l2j.loginserver.loginserverpackets.PlayerAuthResponse;
 import net.sf.l2j.loginserver.manager.GameServerManager;
+import net.sf.l2j.loginserver.manager.LoginManager;
+import net.sf.l2j.loginserver.manager.LoginManager.SessionKey;
 import net.sf.l2j.loginserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.util.NewCrypt;
 import net.sf.l2j.util.Util;
@@ -180,7 +180,7 @@ public class GameServerThread extends Thread
 							sendPacket(ar);
 							_log.info("Authed: id:"+_server_id);
 							if ( LoginServer.statusServer != null )
-								LoginServer.statusServer.SendMessageToTelnets("GameServer "+GameServerManager.getInstance().serverNames.get(_server_id)+" ("+_server_id+") is connected");
+								LoginServer.statusServer.SendMessageToTelnets("GameServer "+GameServerManager.getInstance().getServerName(_server_id)+" ("+_server_id+") is connected");
 						}
 						else
 						{
@@ -201,7 +201,7 @@ public class GameServerThread extends Thread
 						for(String account : newAccounts)
 						{
 							_players.add(account);
-							if (Config.DEBUG)_log.info("Player "+account+" is in GameServer "+GameServerManager.getInstance().serverNames.get(_server_id)+" ("+_server_id+")");
+							if (Config.DEBUG)_log.info("Player "+account+" is in GameServer "+GameServerManager.getInstance().getServerName(_server_id)+" ("+_server_id+")");
 							if(LoginServer.statusServer != null)
 								LoginServer.statusServer.SendMessageToTelnets("Player "+account+" is in GameServer "+_server_id);
 						}
@@ -216,7 +216,7 @@ public class GameServerThread extends Thread
 						}
 						PlayerLogout plo = new PlayerLogout(decrypt);
 						_players.remove(plo.getAccount());
-						LoginController.getInstance().removeGameServerLogin(plo.getAccount());
+						LoginManager.getInstance().removeGameServerLogin(plo.getAccount());
 						if (Config.DEBUG)_log.info("Player "+plo.getAccount()+" logged out from gameserver"+_server_id);
 						if(LoginServer.statusServer != null)
 							LoginServer.statusServer.SendMessageToTelnets("Player "+plo.getAccount()+" disconnected from GameServer "+_server_id);
@@ -230,7 +230,7 @@ public class GameServerThread extends Thread
 							break;
 						}
 						ChangeAccessLevel cal = new ChangeAccessLevel(decrypt);
-						LoginController.getInstance().setAccountAccessLevel(cal.getAccount(),cal.getLevel());
+						LoginManager.getInstance().setAccountAccessLevel(cal.getAccount(),cal.getLevel());
 						_log.info("Changed "+cal.getAccount()+" access level to"+cal.getLevel());
 						break;
 					case 05:
@@ -244,7 +244,7 @@ public class GameServerThread extends Thread
 						PlayerAuthRequest par = new PlayerAuthRequest(decrypt);
 						PlayerAuthResponse authResponse;
 						if (Config.DEBUG)_log.info("auth request recieved for Player "+par.getAccount());
-						SessionKey key = LoginController.getInstance().getKeyForAccount(par.getAccount());
+						SessionKey key = LoginManager.getInstance().getKeyForAccount(par.getAccount());
 						if(key != null && key.equals(par.getKey()))
 						{
 							if (Config.DEBUG)_log.info("auth request: OK");
@@ -255,7 +255,7 @@ public class GameServerThread extends Thread
 							if (Config.DEBUG)
 							{
 								_log.info("auth request: NO");
-								_log.info("session key from self:"+LoginController.getInstance().getKeyForAccount(par.getAccount()));
+								_log.info("session key from self:"+LoginManager.getInstance().getKeyForAccount(par.getAccount()));
 								_log.info("session key sent:"+par.getKey());
 							}
 							authResponse = new PlayerAuthResponse(par.getAccount(), false);
@@ -279,7 +279,7 @@ public class GameServerThread extends Thread
 		}
 		catch(IOException e)
 		{
-			_log.info("Server "+GameServerManager.getInstance().serverNames.get(_server_id)+" ("+_server_id+") : connection lost");
+			_log.info("Server "+GameServerManager.getInstance().getServerName(_server_id)+" ("+_server_id+") : connection lost");
 			if(LoginServer.statusServer != null)
 				LoginServer.statusServer.SendMessageToTelnets("GameServer "+_server_id+" is disconnected");
 		}
@@ -289,7 +289,7 @@ public class GameServerThread extends Thread
 			{
 				GameServerManager.getInstance().setServerReallyDown(_server_id);
 				GameServerListener.getInstance().removeGameServer(this);
-				_log.info("Server "+GameServerManager.getInstance().serverNames.get(_server_id)+" ("+_server_id+") : Setted as disconnected");
+				_log.info("Server "+GameServerManager.getInstance().getServerName(_server_id)+" ("+_server_id+") : Setted as disconnected");
 			}
 			GameServerListener.getInstance().removeFloodProtection(_connectionIp);
             _players.clear();
@@ -386,7 +386,7 @@ public class GameServerThread extends Thread
 		}
 		catch (IOException e)
 		{
-			_log.info("Error while registering GameServer "+GameServerManager.getInstance().serverNames.get(_server_id)+" (ID:"+_server_id+")");
+			_log.info("Error while registering GameServer "+GameServerManager.getInstance().getServerName(_server_id)+" (ID:"+_server_id+")");
 		}
 	}
 	
@@ -558,7 +558,7 @@ public class GameServerThread extends Thread
 		{
 			_gameInternalIP = _connectionIp;
 		}
-		_log.info("Updated Gameserver "+GameServerManager.getInstance().serverNames.get(_server_id)+ " IP's:");
+		_log.info("Updated Gameserver "+GameServerManager.getInstance().getServerName(_server_id)+ " IP's:");
         if(oldInternal == null || !oldInternal.equalsIgnoreCase(_gameInternalIP)) 
             _log.info("InternalIP: "+_gameInternalIP);
         if(oldExternal == null || !oldExternal.equalsIgnoreCase(_gameExternalIP)) 

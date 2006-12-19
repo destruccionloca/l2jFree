@@ -29,38 +29,62 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class L2ApplicationContext
+/**
+ * 
+ * Object registry for L2 LS.
+ * 
+ * The registry store singleton and is able to act as a factory.
+ * All singleton and factory are declared in spring.xml
+ * 
+ * There is no risk to call the load method more than one time. 
+ * The first call initialize all singleton by IoC mechanism.
+ * 
+ */
+public class L2Registry
 {
-    private static Log _log = LogFactory.getLog(L2ApplicationContext.class.getName());
+    private static final Log _log = LogFactory.getLog(L2Registry.class.getName());
     
-    private ApplicationContext __ctx = null;
+    private static ApplicationContext __ctx = null;
 
-    public static enum ProviderType
+    /**
+     * Load registry from spring
+     * The registry is a facade behind ApplicationContext from spring.
+     */
+    public static void loadRegistry ()
     {
-        MySql,
-        MsSql
-    }
-
-    // =========================================================
-    // Data Field
-    private static L2ApplicationContext _instance;
-    private ProviderType _Provider_Type = ProviderType.MySql; // devault value
-	
-    // =========================================================
-    // Constructor
-	public L2ApplicationContext()
-	{
         try
         {
-            // init properties for spring (and database)
+            // init properties for spring 
             String[] paths = {"spring.xml"};
             __ctx = new ClassPathXmlApplicationContext(paths);
         }
         catch (Throwable e)
         {
-            _log.fatal("Unable to connect : " + e.getMessage(),e);
+            _log.fatal("Unable to load registry : " + e.getMessage(),e);
             System.exit(1);
         }
+    }
+    
+    /**
+     * Retrieve a bean from registry
+     * @param bean - the bean name
+     * @return the Object 
+     */
+    public static Object getBean (String bean)
+    {
+        return __ctx.getBean(bean);
+    }    
+    
+    
+    
+    // =========================================================
+    // Data Field
+    private static L2Registry _instance;
+	
+    // =========================================================
+    // Constructor
+	public L2Registry()
+	{
 	}
     
     // =========================================================
@@ -71,15 +95,10 @@ public class L2ApplicationContext
         String mySqlTop1 = "";
         if (returnOnlyTopRecord)
         {
-            if (getProviderType() == ProviderType.MsSql) msSqlTop1 = " Top 1 ";
-            if (getProviderType() == ProviderType.MySql) mySqlTop1 = " Limit 1 ";
+            mySqlTop1 = " Limit 1 ";
         }
         String query = "SELECT " + msSqlTop1 + safetyString(fields) + " FROM " + tableName + " WHERE " + whereClause + mySqlTop1;
         return query;
-    }
-
-    public static void shutdown()
-    {
     }
 
     public final String safetyString(String[] whatToCheck)
@@ -87,11 +106,7 @@ public class L2ApplicationContext
         // NOTE: Use brace as a safty percaution just incase name is a reserved word
         String braceLeft = "`";
         String braceRight = "`";
-        if (getProviderType() == ProviderType.MsSql)
-        {
-            braceLeft = "[";
-            braceRight = "]";
-        }
+
 
         String result = "";
         for(String word : whatToCheck)
@@ -104,16 +119,16 @@ public class L2ApplicationContext
 
     // =========================================================
     // Property - Public
-	public static L2ApplicationContext getInstance() 
+	public static L2Registry getInstance() 
 	{
 		if (_instance == null)
 		{
-			_instance = new L2ApplicationContext();
+			_instance = new L2Registry();
 		}
 		return _instance;
 	}
 	
-	public Connection getConnection() 
+	public static Connection getConnection() 
 	{
 		Connection con=null;
  
@@ -136,7 +151,7 @@ public class L2ApplicationContext
     {
         return __ctx;
     }
-        
-	
-    public final ProviderType getProviderType() { return _Provider_Type; }
+
+    
+    
 }

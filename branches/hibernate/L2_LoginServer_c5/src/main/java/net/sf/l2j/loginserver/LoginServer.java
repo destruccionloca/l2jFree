@@ -24,7 +24,7 @@ import java.io.InputStream;
 import java.util.logging.LogManager;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2ApplicationContext;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.loginserver.manager.GameServerManager;
 import net.sf.l2j.loginserver.thread.LoginServerThread;
 import net.sf.l2j.status.Status;
@@ -35,7 +35,6 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Main class for loginserver
  * 
- * @version $Revision: 1.9.4.4 $ $Date: 2005/03/27 15:30:09 $
  */
 public class LoginServer
 {
@@ -44,7 +43,7 @@ public class LoginServer
 
     /**
      * Instantiate loginserver and launch it
-     * Initialize log folder, telnet console and application context
+     * Initialize log folder, telnet console and registry
      * @param args
      * @throws Exception
      */
@@ -72,9 +71,11 @@ public class LoginServer
 
         // Initialize Application context (registry of beans)
         // ---------------------------------------------------
-        L2ApplicationContext.getInstance();
-
-        /*gameservertable = */GameServerManager.getInstance();
+        L2Registry.loadRegistry();
+        
+        // o Initialize GameServer Manager
+        // ------------------------------
+        GameServerManager.getInstance();
 
         // Get instance of loginserver thread
         // ----------------------------------

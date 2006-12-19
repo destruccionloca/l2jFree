@@ -30,9 +30,9 @@ import java.net.Socket;
 import java.security.GeneralSecurityException;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.loginserver.controller.LoginController;
 import net.sf.l2j.loginserver.manager.BanManager;
 import net.sf.l2j.loginserver.manager.GameServerManager;
+import net.sf.l2j.loginserver.manager.LoginManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -57,7 +57,7 @@ public class LoginServerThread extends FloodProtectedListener
     private String                  _externalHostname;
     private String                  _internalHostname;
     public static GameServerManager gameserverManager;
-    public LoginController          loginController;
+    public LoginManager          loginController;
 
     private GameServerListener _gslistener;
 
@@ -129,7 +129,7 @@ public class LoginServerThread extends FloodProtectedListener
         _log.info("Hostname for external connections is: " + _externalHostname);
         _log.info("Hostname for internal connections is: " + _internalHostname);
 
-        loginController = LoginController.getInstance();
+        loginController = LoginManager.getInstance();
         
         _gslistener = GameServerListener.getInstance();
         _gslistener.start();

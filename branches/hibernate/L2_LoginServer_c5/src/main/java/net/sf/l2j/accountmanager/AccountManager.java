@@ -26,7 +26,7 @@ import java.util.List;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2ApplicationContext;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.loginserver.beans.Accounts;
 import net.sf.l2j.loginserver.services.AccountsServices;
 import net.sf.l2j.loginserver.services.exception.AccountModificationException;
@@ -51,7 +51,7 @@ public class AccountManager
         // Load config
         Config.load();
         // load application context
-        L2ApplicationContext.getInstance();
+        L2Registry.loadRegistry();
 
         AccountManager accountManager = new AccountManager();
 
@@ -69,7 +69,7 @@ public class AccountManager
     public AccountManager()
     {
         _in = new LineNumberReader(new InputStreamReader(System.in));
-        __accountServices = (AccountsServices) L2ApplicationContext.getInstance().getApplicationContext().getBean("AccountsServices"); 
+        __accountServices = (AccountsServices) L2Registry.getBean("AccountsServices"); 
     }
     
     /**

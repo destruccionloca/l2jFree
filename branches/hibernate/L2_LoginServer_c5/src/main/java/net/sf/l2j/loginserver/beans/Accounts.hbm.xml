@@ -39,21 +39,5 @@
                 <comment></comment>
             </column>
         </property>
-        <set name="characterses" inverse="true"   cascade="all-delete-orphan">
-            <key>
-                <column name="account_name" length="45">
-                    <comment></comment>
-                </column>
-            </key>
-            <one-to-many class="net.sf.l2j.loginserver.beans.Characters" />
-        </set>
-        <set name="accountDatas" inverse="true" cascade="all-delete-orphan">
-            <key>
-                <column name="account_name" length="45" not-null="true">
-                    <comment></comment>
-                </column>
-            </key>
-            <one-to-many class="net.sf.l2j.loginserver.beans.AccountData" />
-        </set>
     </class>
 </hibernate-mapping>

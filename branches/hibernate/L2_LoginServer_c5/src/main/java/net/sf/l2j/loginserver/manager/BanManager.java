@@ -38,21 +38,26 @@ import org.apache.commons.logging.LogFactory;
 /**
  * This class manage ban list
  * 
- * @version $Revision: $ $Date: $
  */
 public class BanManager
 {
     private static BanManager _instance = null;
     private static final Log _log = LogFactory.getLog(BanManager.class);
     private static List<String> _bannedIPs = new FastList<String>();
-
+    public static String BAN_LIST = "config/banned_ip.cfg";
+    private static final String ENCODING = "UTF-8";
+    
     /**
      * return singleton for banmanager
      * @return BanManager instance
      */
     public static BanManager getInstance()
     {
-        if (_instance == null) return new BanManager();
+        if (_instance == null)
+        {
+            _instance = new BanManager();
+            return _instance;
+        }
         else return _instance;
     }
     
@@ -60,7 +65,7 @@ public class BanManager
     {
         _bannedIPs.add(ip);
         int time = incorrectCount * incorrectCount * 1000;
-        //System.out.println("Banning ip "+ip+" for "+time/1000.0+" seconds.");
+        _log.info("Banning ip "+ip+" for "+time/1000.0+" seconds.");
         ThreadPoolManager.getInstance().scheduleGeneral(new UnbanTask(ip), time);
     }    
     
@@ -83,6 +88,15 @@ public class BanManager
     }
     
     /**
+     * Remove all ip from banned list (in memory, not in file)
+     *
+     */
+    public void purgeBanlist ()
+    {
+        _bannedIPs.removeAll(_bannedIPs);
+    }
+    
+    /**
      * Load banned list
      *
      */
@@ -91,27 +105,35 @@ public class BanManager
         try
         {
             // try to read banned list
-            File file = new File("config/banned_ip.cfg");
-            List lines = FileUtils.readLines(file, "UTF-8");            
+            File file = new File(BAN_LIST);
+            List lines = FileUtils.readLines(file, ENCODING);            
             
-            int count = 0;
             for (int i = 0 ; i< lines.size();i++)
             {
                 String line = (String)lines.get(i);
                 line = line.trim();
                 if (line.length() > 0)
                 {
-                    count++;
                     addBannedIP(line);
                 }
             }
-            _log.info(count + " banned IPs defined");
+            _log.info(getNbOfBannedIp () + " banned IPs defined");
         }
         catch (IOException e)
         {
             _log.warn("error while reading banned file:" + e);
         }
     }
+    
+    /**
+     * 
+     * @return number of ip banned
+     */
+    public int getNbOfBannedIp ()
+    {
+       return _bannedIPs.size(); 
+    }
+    
     
     /**
      * Check if ip is in banned list

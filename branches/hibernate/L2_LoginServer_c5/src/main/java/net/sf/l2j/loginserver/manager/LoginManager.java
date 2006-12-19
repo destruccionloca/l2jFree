@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.loginserver.controller;
+package net.sf.l2j.loginserver.manager;
 
 import java.math.BigInteger;
 import java.net.InetAddress;
@@ -37,7 +37,7 @@ import java.util.logging.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2ApplicationContext;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.loginserver.LoginServer;
 import net.sf.l2j.loginserver.lib.Log;
 import net.sf.l2j.loginserver.services.exception.HackingException;
@@ -50,11 +50,11 @@ import net.sf.l2j.util.Base64;
  * 
  * @version $Revision: 1.7.4.3 $ $Date: 2005/03/27 15:30:09 $
  */
-public class LoginController
+public class LoginManager
 {
-	protected static Logger _log = Logger.getLogger(LoginController.class.getName());
+	protected static Logger _log = Logger.getLogger(LoginManager.class.getName());
 	
-	private static LoginController _instance;
+	private static LoginManager _instance;
 	
 	//TODO: use 2 id maps (sever selection + login ok)
 	/**
@@ -116,7 +116,7 @@ public class LoginController
 		}
 	}
 	
-	private LoginController()
+	private LoginManager()
 	{
 		_log.info("LoginContoller initating");
 		_logins = new FastMap<String, SessionKey>();
@@ -148,11 +148,11 @@ public class LoginController
 		_log.info("Stored 10 KeyPair for RSA communication");
 	}
 	
-	public static LoginController getInstance()
+	public static LoginManager getInstance()
 	{
 		if (_instance == null)
 		{
-			_instance = new LoginController();
+			_instance = new LoginManager();
 		}
 		
 		return _instance;
@@ -288,7 +288,7 @@ public class LoginController
 		PreparedStatement statement = null;
 		try
 		{           
-			con = L2ApplicationContext.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			
 			String stmt = "UPDATE accounts SET access_level = ? WHERE login=?";
 			statement = con.prepareStatement(stmt);
@@ -315,7 +315,7 @@ public class LoginController
 		PreparedStatement statement = null;
 		try
 		{           
-			con = L2ApplicationContext.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			statement = con.prepareStatement("SELECT access_level FROM accounts WHERE login=?");
 			statement.setString(1, user);
 			ResultSet rset = statement.executeQuery();
@@ -402,7 +402,7 @@ public class LoginController
 			// int idle = L2DatabaseFactory.getInstance().getIdleConnectionCount();
 			//_log.info("DB connections busy:"+busy+" idle:"+idle);
 			
-			con = L2ApplicationContext.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT password FROM accounts WHERE login=?");
 			statement.setString(1, user);
 			ResultSet rset = statement.executeQuery();
@@ -512,7 +512,7 @@ public class LoginController
 		java.sql.Connection con = null;
 		try
 		{           
-			con = L2ApplicationContext.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT access_level FROM accounts WHERE login=?");
 			statement.setString(1, user);
 			ResultSet rset = statement.executeQuery();

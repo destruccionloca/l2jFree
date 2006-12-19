@@ -29,12 +29,12 @@ import java.security.interfaces.RSAPrivateKey;
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.clientpackets.RequestAuthLogin;
 import net.sf.l2j.loginserver.clientpackets.RequestServerLogin;
-import net.sf.l2j.loginserver.controller.LoginController;
-import net.sf.l2j.loginserver.controller.LoginController.ScrambledKeyPair;
-import net.sf.l2j.loginserver.controller.LoginController.SessionKey;
 import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.loginserver.manager.BanManager;
 import net.sf.l2j.loginserver.manager.GameServerManager;
+import net.sf.l2j.loginserver.manager.LoginManager;
+import net.sf.l2j.loginserver.manager.LoginManager.ScrambledKeyPair;
+import net.sf.l2j.loginserver.manager.LoginManager.SessionKey;
 import net.sf.l2j.loginserver.serverpackets.GGAuth;
 import net.sf.l2j.loginserver.serverpackets.Init;
 import net.sf.l2j.loginserver.serverpackets.LoginFail;
@@ -117,7 +117,7 @@ public class ClientThread extends Thread
 		
 		try
 		{
-			ScrambledKeyPair srambledPair = LoginController.getInstance().getScrambledRSAKeyPair();
+			ScrambledKeyPair srambledPair = LoginManager.getInstance().getScrambledRSAKeyPair();
 			_privateKey = (RSAPrivateKey) srambledPair.pair.getPrivate();
 			Init startPacket = new Init(srambledPair.scrambledModulus);
 			_out.write(startPacket.getLength() & 0xff);
@@ -195,10 +195,10 @@ public class ClientThread extends Thread
 						account = ral.getUser().toLowerCase();
 						if (Config.DEBUG) _log.info("RequestAuthLogin from user:" + account);
 						
-						LoginController lc = LoginController.getInstance();
-						if (LoginController.getInstance().loginValid(account, ral.getPassword(), _csocket.getInetAddress()))
+						LoginManager lc = LoginManager.getInstance();
+						if (LoginManager.getInstance().loginValid(account, ral.getPassword(), _csocket.getInetAddress()))
 						{	
-                            if (LoginController.getInstance().loginBanned(account))
+                            if (LoginManager.getInstance().loginBanned(account))
                             {
                                 //Login BANNED
                                 LoginFail lok = new LoginFail(LoginFail.REASON_ACCOUNT_BANNED);
@@ -260,7 +260,7 @@ public class ClientThread extends Thread
                         if (_log.isDebugEnabled())  _log.info("RequestServerLogin");
 						RequestServerLogin rsl = new RequestServerLogin(decrypt);
 						if (_log.isDebugEnabled())  _log.info("login to server:" + rsl.getServerID());
-						LoginController lc = LoginController.getInstance();
+						LoginManager lc = LoginManager.getInstance();
 						if(lc.getOnlinePlayerCount(rsl.getServerID()-1) >= lc.getMaxAllowedOnlinePlayers(rsl.getServerID()-1))
 						{
                             if (!lc.isGM(account))
@@ -287,7 +287,7 @@ public class ClientThread extends Thread
 						if (_log.isDebugEnabled())  _log.info("RequestServerList");
 						//RequestServerList rsl = new RequestServerList(decrypt);
 						
-						ServerList sl = GameServerManager.getInstance().makeServerList(LoginController.getInstance().isGM(account), _internalIP);
+						ServerList sl = GameServerManager.getInstance().makeServerList(LoginManager.getInstance().isGM(account), _internalIP);
 						if (_log.isDebugEnabled()) 
 						{
 							byte [] content = sl.getContent();
@@ -337,7 +337,7 @@ public class ClientThread extends Thread
 				// ignore problems
 			}
 			
-			LoginController.getInstance().removeLoginServerLogin(account);
+			LoginManager.getInstance().removeLoginServerLogin(account);
 			if (_log.isDebugEnabled())  _log.debug("loginserver thread[C] stopped");
 		}
 	}

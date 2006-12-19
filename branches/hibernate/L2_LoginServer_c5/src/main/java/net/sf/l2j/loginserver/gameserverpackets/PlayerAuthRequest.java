@@ -19,7 +19,7 @@
 package net.sf.l2j.loginserver.gameserverpackets;
 
 import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
-import net.sf.l2j.loginserver.controller.LoginController.SessionKey;
+import net.sf.l2j.loginserver.manager.LoginManager.SessionKey;
 
 /**
  * @author -Wooden-

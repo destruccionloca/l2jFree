@@ -37,7 +37,7 @@ public class AuthResponse extends ServerBasePacket
 	{
 		writeC(0x02);
 		writeC(serverID);
-		writeS(GameServerManager.getInstance().serverNames.get(serverID));
+		writeS(GameServerManager.getInstance().getServerName(serverID));
 	}
 
 	/* (non-Javadoc)

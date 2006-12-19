@@ -11,6 +11,7 @@ public class Gameservers implements java.io.Serializable
     // Fields    
 
     private static final long serialVersionUID = 1L;
+    private String serverName;
     private int serverId;
     private String hexid;
     private String host;
@@ -60,5 +61,16 @@ public class Gameservers implements java.io.Serializable
     {
         this.host = _host;
     }
+    
+    public String getServerName()
+    {
+        return this.serverName;
+    }
+
+    public void setServerName(String _serverName)
+    {
+        this.serverName = _serverName;
+    }
+    
 
 }

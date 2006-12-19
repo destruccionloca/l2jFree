@@ -64,10 +64,15 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean> 
+    <bean id="GameserversDAOXml" class="net.sf.l2j.loginserver.dao.impl.GameserversDAOXml">
+	</bean>	
 
     <bean id="AccountsServices" class="net.sf.l2j.loginserver.services.AccountsServices">
 		<property name="accountsDAO">
 			<ref bean="AccountsDAO" />
 		</property>
 	</bean>
+
+	</bean>
+
 </beans>

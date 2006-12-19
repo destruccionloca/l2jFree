@@ -60,4 +60,6 @@
 			<ref bean="AccountsDAO" />
 		</property>
 	</bean>
+    <bean id="GameserversDAOXml" class="net.sf.l2j.loginserver.dao.impl.GameserversDAOXml">
+	</bean>		
 </beans>
