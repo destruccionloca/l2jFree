@@ -3,7 +3,6 @@ package net.sf.l2j.log4jextension;
 import java.util.List;
 
 import javolution.lang.TextBuilder;
-import net.sf.l2j.gameserver.model.L2ItemInstance;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
@@ -38,15 +37,7 @@ public class ExtendedPatternLayout extends PatternLayout
                 if (p == null) continue;
                 output.append(',');
                 output.append(' ');
-                if (p instanceof L2ItemInstance)
-                {
-                    L2ItemInstance item = (L2ItemInstance)p;
-                    output.append("item " + item.getObjectId() + ":");
-                    if (item.getEnchantLevel() > 0) output.append("+" + item.getEnchantLevel() + " ");
-                    output.append(item.getItem().getName()); 
-                    output.append("(" + item.getCount() + ")");
-                }
-                else output.append(p.toString());
+                output.append(p.toString());
             }
             LoggingEvent evt = new LoggingEvent(arg0.fqnOfCategoryClass,
                                                 Logger.getLogger(arg0.getLoggerName()),

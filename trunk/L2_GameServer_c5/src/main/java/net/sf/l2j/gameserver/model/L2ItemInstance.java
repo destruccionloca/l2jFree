@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
+import javolution.lang.TextBuilder;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ItemTable;
@@ -865,7 +867,13 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public String toString()
 	{
-		return ""+_item;
+        TextBuilder output = new TextBuilder();
+        output.append("item " + getObjectId() + ":");
+        if (getEnchantLevel() > 0) output.append("+" + getEnchantLevel() + " ");
+        if ( getItem() != null ) output.append(getItem().getName()); 
+        output.append("(" + getCount() + ")");        
+        
+		return output.toString();
 	}
     
     public void resetOwnerTimer()

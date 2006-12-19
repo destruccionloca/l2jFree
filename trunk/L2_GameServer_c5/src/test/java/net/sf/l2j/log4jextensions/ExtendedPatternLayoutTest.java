@@ -91,7 +91,7 @@ public class ExtendedPatternLayoutTest extends TestCase
             System.setOut(psSys);
             
             // Check value
-            assertEquals(by.toString(),"Basic string" + System.getProperty("line.separator"));
+            assertTrue(by.toString().startsWith("Basic string" + System.getProperty("line.separator")+"INFO : Basic string"));
         }
         catch (Exception e)
         {
