@@ -124,36 +124,39 @@ public class MultiSellChoose extends ClientBasePacket
                     player.destroyItemByItemId("Multisell", e.getItemId(), 1, player.getTarget(), true);
         }
         
-        // Generate the appropriate items
-        if (ItemTable.getInstance().createDummyItem(entry.getProductId()).isStackable())
+        for(MultiSellIngredient e : entry.getProducts())
         {
-            L2ItemInstance product = inv.addItem("Multisell", entry.getProductId(), (entry.getProductCount() * _amount), player, player.getTarget());
-            product.setEnchantLevel(entry.getProductEnchant());
+        // Generate the appropriate items
+        if (ItemTable.getInstance().createDummyItem(e.getItemId()).isStackable())
+        {
+            L2ItemInstance product = inv.addItem("Multisell", e.getItemId(), (e.getItemCount() * _amount), player, player.getTarget());
+            product.setEnchantLevel(e.getItemEnchant());
         } else
         {
             L2ItemInstance product = null;
-             for (int i = 1; i <= (entry.getProductCount() * _amount); i++)
+             for (int i = 1; i <= (e.getItemCount() * _amount); i++)
              {
-                product = inv.addItem("Multisell", entry.getProductId(), 1, player, player.getTarget());
-                product.setEnchantLevel(entry.getProductEnchant());
+                product = inv.addItem("Multisell", e.getItemId(), 1, player, player.getTarget());
+                product.setEnchantLevel(e.getItemEnchant());
              }
         }
         
         SystemMessage sm;
-        if (entry.getProductCount() * _amount > 1)
+        if (e.getItemCount() * _amount > 1)
         {
             sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
-            sm.addItemName(entry.getProductId());
-            sm.addNumber(entry.getProductCount() * _amount);
+            sm.addItemName(e.getItemId());
+            sm.addNumber(e.getItemCount() * _amount);
             player.sendPacket(sm);
             sm = null;
         }
         else
         {
             sm = new SystemMessage(SystemMessage.EARNED_ITEM);
-            sm.addItemName(entry.getProductId());
+            sm.addItemName(e.getItemId());
             player.sendPacket(sm);
             sm = null;
+        }
         }
     }
     

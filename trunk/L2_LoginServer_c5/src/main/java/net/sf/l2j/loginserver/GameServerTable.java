@@ -121,7 +121,6 @@ public class GameServerTable
         PreparedStatement statement = null;
         int id = 0;
         int number = 0;
-        int previousID = 0;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection();
@@ -130,14 +129,8 @@ public class GameServerTable
             while(rset.next())
             {
                 id = rset.getInt("server_id");
-                for(int i = 1;id-i > previousID; i++) //fill with dummy servers to keep
-                {
-                    GameServer gs = new GameServer(previousID+i);
-                    _gameServerList.add(gs);
-                }
                 GameServer gs =  new GameServer(stringToHex(rset.getString("hexid")),id);
                 _gameServerList.add(gs);
-                previousID = id;
                 number++;
             }
             _log.info("GameServerTable: Loaded "+number+" servers (max id:"+id+")");
