@@ -62,4 +62,17 @@
 	</bean>
     <bean id="GameserversDAOXml" class="net.sf.l2j.loginserver.dao.impl.GameserversDAOXml">
 	</bean>		
+
+    <bean id="GameserversServices" class="net.sf.l2j.loginserver.services.GameserversServices">
+		<property name="gameserversDAO">
+			<ref bean="GameserversDAO" />
+		</property>
+	</bean>		
+
+    <bean id="GameserversServicesXml" class="net.sf.l2j.loginserver.services.GameserversServices">
+		<property name="gameserversDAO">
+			<ref bean="GameserversDAOXml" />
+		</property>
+	</bean>		
+
 </beans>

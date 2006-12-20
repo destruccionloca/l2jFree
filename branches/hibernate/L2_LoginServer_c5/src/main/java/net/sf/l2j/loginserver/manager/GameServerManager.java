@@ -45,9 +45,9 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2Registry;
 import net.sf.l2j.loginserver.beans.GameServer;
 import net.sf.l2j.loginserver.beans.Gameservers;
-import net.sf.l2j.loginserver.dao.GameserversDAO;
 import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.loginserver.serverpackets.ServerList;
+import net.sf.l2j.loginserver.services.GameserversServices;
 import net.sf.l2j.loginserver.thread.GameServerThread;
 import net.sf.l2j.util.HexUtil;
 
@@ -64,8 +64,8 @@ public class GameServerManager
 {
     private static final Log _log = LogFactory.getLog(GameServerManager.class);
 
-    private GameserversDAO _dao = null;
-    private GameserversDAO _daoXml = null;
+    private GameserversServices _gsServices = null;
+    private GameserversServices _gsServicesXml = null;
 
     private static GameServerManager __instance = null;
 
@@ -96,8 +96,8 @@ public class GameServerManager
     {
         // o Load DAO 
         // ---------
-        _dao = (GameserversDAO) L2Registry.getBean("GameserversDAO");
-        _daoXml = (GameserversDAO) L2Registry.getBean("GameserversDAOXml");
+        _gsServices = (GameserversServices) L2Registry.getBean("GameserversServices");
+        _gsServicesXml = (GameserversServices) L2Registry.getBean("GameserversServicesXml");
 
         // o Load Servers
         // --------------
@@ -146,7 +146,7 @@ public class GameServerManager
      */
     private void load()
     {
-        List<Gameservers> listGs = _dao.getAllGameservers();
+        List<Gameservers> listGs = _gsServices.getAllGameservers();
         Iterator<Gameservers> it = listGs.iterator();
         int id = 0;
         int previousID = 0;
@@ -220,9 +220,6 @@ public class GameServerManager
     {
         GameServer gameServer = new GameServer(gst);
         GameServer toReplace = null;
-        /*
-         gst.setAuthed(true);
-         _gameServerList.add(gameServer);*/
 
         for (GameServer gs : _gameServerList)
         {
@@ -294,7 +291,7 @@ public class GameServerManager
             {
                 gameserver.setHost("*");
             }
-            _dao.createGameserver(gameserver);
+            _gsServices.createGameserver(gameserver);
         }
         catch (DataAccessException e)
         {
@@ -331,18 +328,11 @@ public class GameServerManager
 
     /**
      * 
-     * @param id
+     * @param id - the server id
      */
     public void deleteServer(int id)
     {
-        try
-        {
-            _dao.removeGameserverByServerId(id);
-        }
-        catch (DataAccessException e)
-        {
-            _log.warn("Error while deleting gameserver :" + e, e);
-        }
+        _gsServices.deleteGameserver(id);
     }
 
     /**
@@ -463,7 +453,7 @@ public class GameServerManager
             gs.setHexid(HexUtil.hexToString(thread.getHexID()));
             gs.setHost(thread.getGameExternalHost());
             gs.setServerId(thread.getServerID());
-            _dao.createGameserver(gs);
+            _gsServices.createGameserver(gs);
         }
         catch (DataAccessException e)
         {
@@ -599,7 +589,7 @@ public class GameServerManager
      */
     public String getServerName(int id)
     {
-        return _daoXml.getGameserverByServerId(id).getServerName();
+        return _gsServicesXml.getGameserverName(id);
     }
 
     /**
@@ -609,6 +599,6 @@ public class GameServerManager
      */
     public List<Gameservers> getServers()
     {
-        return _daoXml.getAllGameservers();
+        return _gsServicesXml.getAllGameservers();
     }
 }
