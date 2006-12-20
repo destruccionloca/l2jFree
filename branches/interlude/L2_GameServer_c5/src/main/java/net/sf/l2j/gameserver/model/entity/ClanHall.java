@@ -503,11 +503,11 @@ public class ClanHall
                 {
                     return false;
                 }
-                statement = con.prepareStatement("UPDATE clanhall_functions SET lvl=?, lease=? WHERE hall_id=? AND id=?");
-                statement.setInt(1, getId());
-                statement.setInt(2, type);
-                statement.setInt(3, lvl);
-                statement.setInt(4, lease);
+                statement = con.prepareStatement("UPDATE clanhall_functions SET lvl=?, lease=? WHERE hall_id=? AND type=?");
+                statement.setInt(1, lvl);
+                statement.setInt(2, lease);
+                statement.setInt(3, getId());
+                statement.setInt(4, type);          
                 statement.execute();
                 statement.close();
                 getFunction(type).setLvl(lvl);

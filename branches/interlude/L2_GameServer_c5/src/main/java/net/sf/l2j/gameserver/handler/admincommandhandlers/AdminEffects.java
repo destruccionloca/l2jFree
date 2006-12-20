@@ -409,6 +409,7 @@ public class AdminEffects implements IAdminCommandHandler
 			}
 			else
 			{
+                player.broadcastPacket(new SocialAction(player.getObjectId(), 16));
 				player.setHero(true);
 				sm.addString("You are now a hero");
 			}

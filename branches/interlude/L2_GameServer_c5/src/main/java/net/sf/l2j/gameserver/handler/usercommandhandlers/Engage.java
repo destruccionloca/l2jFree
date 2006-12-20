@@ -107,8 +107,6 @@ public class Engage implements IUserCommandHandler
         
         //TODO: code for popup box here
         return false; //not finished
-
-        return true;
     }
 
     /* (non-Javadoc)

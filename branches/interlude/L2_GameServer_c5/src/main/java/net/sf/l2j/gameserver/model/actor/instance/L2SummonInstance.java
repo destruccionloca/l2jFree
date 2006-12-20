@@ -23,6 +23,7 @@ import java.util.concurrent.Future;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -50,6 +51,9 @@ public class L2SummonInstance extends L2Summon
 		super(objectId, template, owner);
         setShowSummonAnimation(true);
 
+        if (owner.getPet()!= null && owner.getPet().getTemplate().npcId == template.npcId )
+            return;
+        
     	_itemConsumeId = 0;
     	_itemConsumeCount = 0;
     	_itemConsumeSteps = 0;

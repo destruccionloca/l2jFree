@@ -64,9 +64,7 @@ public class L2Multisell
     public class MultiSellEntry
     {
         private int _entryId;
-        private int _productId;
-        private int _productCount;
-        private int _productEnchant;
+        private List<MultiSellIngredient> _products    = new FastList<MultiSellIngredient>();
         private List<MultiSellIngredient> _ingredients = new FastList<MultiSellIngredient>();
 
         /**
@@ -86,55 +84,7 @@ public class L2Multisell
         }
 
         /**
-         * @param productId The productId to set.
-         */
-        public void setProductId(int productId)
-        {
-            _productId = productId;
-        }
-
-        /**
-         * @return Returns the productId.
-         */
-        public int getProductId()
-        {
-            return _productId;
-        }
-
-        /**
-         * @param productCount The productCount to set.
-         */
-        public void setProductCount(int productCount)
-        {
-            _productCount = productCount;
-        }
-
-        /**
-         * @return Returns the productCount.
-         */
-        public int getProductCount()
-        {
-            return _productCount;
-        }
-
-        /**
-         * @param productEnchant The productEnchant to set.
-         */
-        public void setProductEnchant(int productEnchant)
-        {
-            _productEnchant = productEnchant;
-        }
-
-        /**
-         * @return Returns the productEnchant.
-         */
-        public int getProductEnchant()
-        {
-            return _productEnchant;
-        }
-
-        /**
-         * @param ingredients The ingredients to set.
+         * @param ingredient The ingredient to add.
          */
         public void addIngredient(MultiSellIngredient ingredient)
         {
@@ -147,6 +97,22 @@ public class L2Multisell
         public List<MultiSellIngredient> getIngredients()
         {
             return _ingredients;
+        }
+        
+        /**
+         * @param product The product to add.
+         */
+        public void addProduct(MultiSellIngredient product)
+        {
+            _products.add(product);
+        }
+        
+        /**
+         * @return Returns the products.
+         */
+        public List<MultiSellIngredient> getProducts()
+        {
+            return _products;
         }
     }
 
@@ -338,6 +304,8 @@ public class L2Multisell
         Node first = n.getFirstChild();
         MultiSellEntry entry = new MultiSellEntry();
 
+        entry.setEntryId(entryId);
+
         for (n = first; n != null; n = n.getNextSibling())
         {
             if ("ingredient".equalsIgnoreCase(n.getNodeName()))
@@ -355,10 +323,8 @@ public class L2Multisell
                 int count = Integer.parseInt(n.getAttributes().getNamedItem("count").getNodeValue());
                 int enchant = Integer.parseInt(n.getAttributes().getNamedItem("enchant").getNodeValue());
 
-                entry.setEntryId(entryId);
-                entry.setProductId(id);
-                entry.setProductCount(count);
-                entry.setProductEnchant(enchant);
+                MultiSellIngredient e = new MultiSellIngredient(id, count, enchant);
+                entry.addProduct(e);
             }
         }
 
