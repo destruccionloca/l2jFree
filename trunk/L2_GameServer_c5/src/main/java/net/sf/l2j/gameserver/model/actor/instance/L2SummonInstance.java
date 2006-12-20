@@ -50,7 +50,10 @@ public class L2SummonInstance extends L2Summon
 		super(objectId, template, owner);
         setShowSummonAnimation(true);
 
-    	_itemConsumeId = 0;
+        if (owner.getPet()!= null && owner.getPet().getTemplate().npcId == template.npcId )
+            return; 
+
+        _itemConsumeId = 0;
     	_itemConsumeCount = 0;
     	_itemConsumeSteps = 0;
     	_itemConsumeStepsElapsed = 0;

@@ -1450,12 +1450,8 @@ public class L2Clan
     
     public void setReputationScore(int score)
     {
-        if (_reputationScore != 0)
-        {
-            _reputationScore = score;
-            updateClanInDB();
-        }
         _reputationScore = score;
+        updateClanInDB();
         broadcastClanStatus();
     }
     public int getReputationScore()
