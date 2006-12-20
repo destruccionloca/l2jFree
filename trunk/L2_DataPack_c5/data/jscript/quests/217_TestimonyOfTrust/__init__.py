@@ -256,14 +256,14 @@ class Quest (JQuest) :
        st.set("id",str(int(st.get("id"))+1))
        if st.getRandom(100)<(int(st.get("id"))*33) :
          st.playSound("Itemsound.quest_before_battle")
-         st.getPcSpawn().addSpawn(27120)   ### FIXME ### Temp fix for spawn
+         st.getPcSpawn().addSpawn(27120,npc.getX(),npc.getY(),npc.getZ())   ### FIXME ### Temp fix for spawn
          return "Luell Of Zephyr Winds has spawned"
 #         st.getPcSpawn().addSpawn(27120)                   # The original spawn code
      elif npcId in [ 20013,20019 ] and st.getQuestItemsCount(SEED_OF_VERDURE_ID) == 0 :
        st.set("id",str(int(st.get("id"))+1))
        if st.getRandom(100)<(int(st.get("id"))*33) :
          st.playSound("Itemsound.quest_before_battle")
-         st.getPcSpawn().addSpawn(27121)  ### FIXME ### Temp fix for spawn
+         st.getPcSpawn().addSpawn(27121,npc.getX(),npc.getY(),npc.getZ())  ### FIXME ### Temp fix for spawn
          return "Actea Of Verdant Wilds has spawned"
 #         st.getPcSpawn().addSpawn(27121)                   # The original spawn code
    elif cond == 14 :                                       # Condition 14 get 10 Parasite of lota

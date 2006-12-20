@@ -168,7 +168,7 @@ class Quest (JQuest) :
    if npcId == 27110 :
         if int(st.get("cond")) == 1 and st.getQuestItemsCount(BROKEN_KEY_ID) == 0 :
           st.giveItems(BROKEN_KEY_ID,1)
-          st.getPcSpawn().addSpawn(30647)
+          st.getPcSpawn().addSpawn(30647,npc.getX(),npc.getY(),npc.getZ())
           st.playSound("ItemSound.quest_middle")
           st.set("cond","2")
    elif npcId == 27112 :
@@ -181,7 +181,7 @@ class Quest (JQuest) :
            st.giveItems(WATCHERS_EYE2_ID,1)
            st.playSound("ItemSound.quest_middle")
            st.set("cond","7")
-           st.getPcSpawn().addSpawn(30646)
+           st.getPcSpawn().addSpawn(30646,npc.getX(),npc.getY(),npc.getZ())
            return "Raldo has spawned"
    elif npcId == 27114 :
         if int(st.get("cond")) == 9 :
@@ -189,7 +189,7 @@ class Quest (JQuest) :
            st.playSound("ItemSound.quest_middle")
            st.removeRadar(176560,-184969,-3729)
            st.getPcSpawn().removeAllSpawn()
-           st.getPcSpawn().addSpawn(30646)
+           st.getPcSpawn().addSpawn(30646,npc.getX(),npc.getY(),npc.getZ())
            return "Raldo has spawned"
    return
 

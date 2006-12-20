@@ -167,7 +167,7 @@ class Quest (JQuest) :
    if npcId in [20190,20191] :
       if int(st.get("cond")) == 2 :
         if st.getRandom(50)<2 :
-          st.getPcSpawn().addSpawn(27119)
+          st.getPcSpawn().addSpawn(27119,npc.getX(),npc.getY(),npc.getZ())
           st.playSound("Itemsound.quest_before_battle")
    elif npcId == 27119 :
       if int(st.get("cond")) == 2 and st.getQuestItemsCount(OLD_KNIGHT_SWORD_ID) > 0 :
@@ -197,7 +197,7 @@ class Quest (JQuest) :
    elif npcId == 20144 :
       if int(st.get("cond")) == 6 :
         if st.getRandom(75)<2 :
-           st.getPcSpawn().addSpawn(30656)
+           st.getPcSpawn().addSpawn(30656,npc.getX(),npc.getY(),npc.getZ())
            return "Spirit Of Sir Talianus has spawned"
            st.playSound("ItemSound.quest_middle")
    elif npcId == 20577 :

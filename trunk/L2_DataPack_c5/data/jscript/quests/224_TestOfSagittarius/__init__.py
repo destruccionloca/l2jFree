@@ -219,7 +219,7 @@ class Quest (JQuest) :
       giveNormal(st,itemid)
     elif dropcondition == 2 :
      if ((st.getQuestItemsCount(itemid)-120)*5)> st.getRandom(100) :
-      st.getPcSpawn().addSpawn(27090)
+      st.getPcSpawn().addSpawn(27090,npc.getX(),npc.getY(),npc.getZ())
       return "Serpent Demon Kadesh has spawned"
       st.takeItems(itemid, st.getQuestItemsCount(itemid))
       st.playSound("Itemsound.quest_before_battle")
@@ -229,7 +229,7 @@ class Quest (JQuest) :
      if st.getItemEquipped(7)==CRESCENT_MOON_BOW_ID:
       giveMiddle(st,itemid,step)
      else:
-      st.getPcSpawn().addSpawn(27090)
+      st.getPcSpawn().addSpawn(27090,npc.getX(),npc.getY(),npc.getZ())
     elif dropcondition == 4 :
      if st.getQuestItemsCount(MITHRIL_CLIP_ID) and st.getQuestItemsCount(ST_BOWSTRING_ID) and st.getQuestItemsCount(MANASHENS_HORN_ID) : 
       giveMiddle(st,itemid,step)

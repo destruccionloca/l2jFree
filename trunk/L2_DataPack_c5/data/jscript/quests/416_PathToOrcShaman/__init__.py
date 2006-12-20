@@ -204,18 +204,18 @@ class Quest (JQuest) :
           n = st.getRandom(10)
           if st.getQuestItemsCount(DURKA_PARASITE_ID) == 5 and n<1 :
             st.takeItems(DURKA_PARASITE_ID,st.getQuestItemsCount(DURKA_PARASITE_ID))
-            st.getPcSpawn().addSpawn(27056)
+            st.getPcSpawn().addSpawn(27056,npc.getX(),npc.getY(),npc.getZ())
             st.playSound("ItemSound.quest_itemget")
           elif st.getQuestItemsCount(DURKA_PARASITE_ID) == 6 and n<2 :
             st.takeItems(DURKA_PARASITE_ID,st.getQuestItemsCount(DURKA_PARASITE_ID))
             st.playSound("ItemSound.quest_itemget")
-            st.getPcSpawn().addSpawn(27056)
+            st.getPcSpawn().addSpawn(27056,npc.getX(),npc.getY(),npc.getZ())
           elif st.getQuestItemsCount(DURKA_PARASITE_ID) == 7 and n<2 :
             st.takeItems(DURKA_PARASITE_ID,st.getQuestItemsCount(DURKA_PARASITE_ID))
             st.playSound("ItemSound.quest_itemget")
-            st.getPcSpawn().addSpawn(27056)
+            st.getPcSpawn().addSpawn(27056,npc.getX(),npc.getY(),npc.getZ())
           elif st.getQuestItemsCount(DURKA_PARASITE_ID) >= 7 :
-            st.getPcSpawn().addSpawn(27056)
+            st.getPcSpawn().addSpawn(27056,npc.getX(),npc.getY(),npc.getZ())
             st.playSound("ItemSound.quest_itemget")
             st.takeItems(DURKA_PARASITE_ID,st.getQuestItemsCount(DURKA_PARASITE_ID))
           else:
@@ -227,18 +227,18 @@ class Quest (JQuest) :
           n = st.getRandom(10)
           if st.getQuestItemsCount(DURKA_PARASITE_ID) == 5 and n<1 :
             st.takeItems(DURKA_PARASITE_ID,st.getQuestItemsCount(DURKA_PARASITE_ID))
-            st.getPcSpawn().addSpawn(27056)
+            st.getPcSpawn().addSpawn(27056,npc.getX(),npc.getY(),npc.getZ())
             st.playSound("ItemSound.quest_itemget")
           elif st.getQuestItemsCount(DURKA_PARASITE_ID) == 6 and n<2 :
             st.takeItems(DURKA_PARASITE_ID,st.getQuestItemsCount(DURKA_PARASITE_ID))
             st.playSound("ItemSound.quest_itemget")
-            st.getPcSpawn().addSpawn(27056)
+            st.getPcSpawn().addSpawn(27056,npc.getX(),npc.getY(),npc.getZ())
           elif st.getQuestItemsCount(DURKA_PARASITE_ID) == 7 and n<2 :
             st.takeItems(DURKA_PARASITE_ID,st.getQuestItemsCount(DURKA_PARASITE_ID))
             st.playSound("ItemSound.quest_itemget")
-            st.getPcSpawn().addSpawn(27056)
+            st.getPcSpawn().addSpawn(27056,npc.getX(),npc.getY(),npc.getZ())
           elif st.getQuestItemsCount(DURKA_PARASITE_ID) >= 7 :
-            st.getPcSpawn().addSpawn(27056)
+            st.getPcSpawn().addSpawn(27056,npc.getX(),npc.getY(),npc.getZ())
             st.playSound("ItemSound.quest_itemget")
             st.takeItems(DURKA_PARASITE_ID,st.getQuestItemsCount(DURKA_PARASITE_ID))
           else:
