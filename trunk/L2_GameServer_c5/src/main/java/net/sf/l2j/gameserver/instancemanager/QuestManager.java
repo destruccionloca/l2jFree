@@ -1,5 +1,6 @@
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.io.File;
 import java.util.List;
 
 import javolution.util.FastList;
@@ -20,8 +21,18 @@ public class QuestManager
     {
         if (_Instance == null)
         {
+            File jscript;
+            
             if ( _log.isDebugEnabled())_log.debug("Initializing QuestManager");
             _Instance = new QuestManager();
+            
+            jscript = new File(Config.DATAPACK_ROOT, "jscript");
+            for (File file : jscript.listFiles())
+            {
+                if (file.isFile() && file.getName().endsWith("$py.class"))
+                    file.delete();
+            }
+            
             if (!Config.ALT_DEV_NO_QUESTS)
                _Instance.load();
             else
