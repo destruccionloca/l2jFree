@@ -26,7 +26,7 @@ public class QuestManager
             if ( _log.isDebugEnabled())_log.debug("Initializing QuestManager");
             _Instance = new QuestManager();
             
-            jscript = new File(Config.DATAPACK_ROOT, "jscript");
+            jscript = new File(Config.DATAPACK_ROOT, "data/jscript");
             for (File file : jscript.listFiles())
             {
                 if (file.isFile() && file.getName().endsWith("$py.class"))
