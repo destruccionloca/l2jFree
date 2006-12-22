@@ -43,14 +43,17 @@ public class TakeCastle implements ISkillHandler
     
     public void useSkill(L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
     {
-        if (activeChar == null || !(activeChar instanceof L2PcInstance)) return;
+        if (activeChar == null || !(activeChar instanceof L2PcInstance))
+            return;
 
         L2PcInstance player = (L2PcInstance)activeChar;
 
-        if (player.getClan() == null || player.getClan().getLeaderId() != player.getObjectId()) return;
+        if (player.getClan() == null || player.getClan().getLeaderId() != player.getObjectId())
+            return;
 
         Castle castle = CastleManager.getInstance().getCastle(player);
-        if (castle == null || !checkIfOkToCastSealOfRule(player, castle, true)) return;
+        if (castle == null || !checkIfOkToCastSealOfRule(player, castle, true))
+            return;
 
     	castle.setOwner(player.getClan());
     } 
@@ -91,11 +94,14 @@ public class TakeCastle implements ISkillHandler
             sm.addString("You must be an attacker to use this skill");
         else
         {
-            if (!isCheckOnly) castle.getSiege().announceToPlayer("Clan " + player.getClan().getName() + " has begun to engrave the ruler.", true);                
+            if (!isCheckOnly) 
+                castle.getSiege().announceToPlayer("Clan " + player.getClan().getName() + " has begun to engrave the ruler.", true);                
             return true;
         }
 
-        if (!isCheckOnly) {player.sendPacket(sm);}
+        if (!isCheckOnly)
+            player.sendPacket(sm);
+        
         return false;
     }
 }
