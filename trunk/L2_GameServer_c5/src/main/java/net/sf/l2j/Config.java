@@ -117,6 +117,14 @@ public final class Config {
     /** Accept auto-loot ? */
     public static boolean AUTO_LOOT;
     public static boolean AUTO_LOOT_HERBS;
+    
+    public static enum PickupFullInventoryAction
+    {
+        drop,
+        loot,
+        destroy
+    }
+    public static PickupFullInventoryAction PICKUP_FULL_INVENTORY;
 
     /** Character name template */
     public static String CNAME_TEMPLATE;
@@ -1039,6 +1047,8 @@ public final class Config {
                 CATEGORIZE_DROPS                = Boolean.valueOf(optionsSettings.getProperty("CategorizeDrops", "true"));
                 CATEGORY2_DROP_LIMIT            = Integer.parseInt(optionsSettings.getProperty("Category2DropLimit", "3"));
                 CATEGORY3_DROP_LIMIT            = Integer.parseInt(optionsSettings.getProperty("Category3DropLimit", "3"));
+                
+                PICKUP_FULL_INVENTORY           = PickupFullInventoryAction.valueOf(optionsSettings.getProperty("PickupFullInventory", "drop"));
              
                 COORD_SYNCHRONIZE               = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));
              

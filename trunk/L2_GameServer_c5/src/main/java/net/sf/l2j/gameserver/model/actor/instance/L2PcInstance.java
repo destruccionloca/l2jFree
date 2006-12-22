@@ -2581,9 +2581,21 @@ public final class L2PcInstance extends L2PlayableInstance
                 CursedWeaponsManager.getInstance().activate(this, item);
             }
             
-            // If over capacity, trop the item 
+            // Inventory full?
             if (!isGM() && !_inventory.validateCapacity(0)) 
-                dropItem("InvDrop", item, null, true);
+            {
+                switch (Config.PICKUP_FULL_INVENTORY)
+                {
+                    case loot: // keep item
+                        break;
+                    case drop: // drop item on ground
+                        dropItem("InvDrop", item, null, true);
+                        break;
+                    case destroy: // destroy item
+                        destroyItem("InvDrop", item, null, true);
+                        break;
+                }
+            }
             
             //Update current load as well
             if(UpdateIL){            
