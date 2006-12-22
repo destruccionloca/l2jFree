@@ -1,17 +1,27 @@
 /* This program is free software; you can redistribute it and/or modify */
-package net.sf.l2j.gameserver.handler.usercommandhandlers;
+package net.sf.l2j.gameserver.handler.voicedcommandhandlers;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.handler.IUserCommandHandler;
+import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.serverpackets.ConfirmDlg; 
 import net.sf.l2j.gameserver.util.Broadcast;
 
 import org.apache.log4j.Logger;
@@ -21,15 +31,124 @@ import org.apache.log4j.Logger;
  * @author evill33t
  * 
  */
-public class GoToLove implements IUserCommandHandler
+public class Wedding implements IVoicedCommandHandler
 {
-    private static Logger _log = Logger.getLogger(Escape.class);
-    private static final int[] COMMAND_IDS = { 103 };
+    private static Logger _log = Logger.getLogger(Wedding.class);
+    private static String[] _voicedCommands = { "divorce", "engage", "gotolove" };
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#useUserCommand(int, net.sf.l2j.gameserver.model.L2PcInstance)
      */
-    public boolean useUserCommand(@SuppressWarnings("unused") int id, L2PcInstance activeChar)
+    public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
+    {
+        if(command.startsWith("engage"))
+            return Engage(activeChar);
+        else if(command.startsWith("divorce"))
+            return Divorce(activeChar);
+        else if(command.startsWith("gotolove"))
+            return GoToLove(activeChar);
+        return false;
+    }
+    
+    public boolean Divorce(L2PcInstance activeChar)
+    {
+        if(activeChar.getPartnerId()==0)
+            return false;
+
+        int _partnerId = activeChar.getPartnerId();
+        
+        if(activeChar.isMaried())
+            activeChar.sendMessage("You are divorced now.");
+        else
+            activeChar.sendMessage("You are disengaged now.");
+        
+        activeChar.setMaried(false);
+        activeChar.setPartnerId(0);
+        Couple couple = CoupleManager.getInstance().getCouple(activeChar.getCoupleId());
+        couple.divorce();
+        couple = null;
+        
+        L2PcInstance partner;
+        partner = (L2PcInstance)L2World.getInstance().findObject(_partnerId);
+        
+        if (partner != null)
+        {
+            partner.setPartnerId(0);
+            if(partner.isMaried())
+                partner.sendMessage("Your Partner has decided to divorce from you.");
+            else
+                partner.sendMessage("Your Partner has decided to disengage.");
+            partner.setMaried(false);            
+        }
+        return true;
+    }
+
+    public boolean Engage(L2PcInstance activeChar)
+    {
+        if (activeChar.getTarget()==null)
+        {
+            activeChar.sendMessage("You have noone targeted.");
+            return false;
+        }
+        if (!(activeChar.getTarget() instanceof L2PcInstance))
+        {
+            activeChar.sendMessage("You can only ask another Player for partnership");
+            return false;
+        }
+        if (activeChar.getPartnerId()!=0)
+        {
+            activeChar.sendMessage("You are already engaged.");
+            // Punish Code here
+            return false;
+        }
+
+        L2PcInstance ptarget = (L2PcInstance)activeChar.getTarget();
+        
+        if (ptarget.getSex()==activeChar.getSex() && !Config.WEDDING_SAMESEX)
+        {
+            activeChar.sendMessage("You cant ask partners of same sex.");
+            return false;
+        }
+        
+        boolean FoundOnFriendList = false;
+        int objectId;
+        java.sql.Connection con = null;
+        try 
+        {
+            con = L2DatabaseFactory.getInstance().getConnection();
+            PreparedStatement statement;
+            statement = con.prepareStatement("SELECT friend_id FROM character_friends WHERE char_id=?");
+            statement.setInt(1, ptarget.getObjectId());
+            ResultSet rset = statement.executeQuery();
+        
+            while (rset.next())
+            {
+                objectId = rset.getInt("friend_id");
+                if(objectId == activeChar.getObjectId())
+                    FoundOnFriendList = true;
+            }
+        } 
+        catch (Exception e) 
+        {
+            _log.warn("could not read friend data:"+e);
+        } 
+        finally 
+        {
+            try {con.close();} catch (Exception e){}
+        }
+        
+        if(!FoundOnFriendList)
+        {
+            activeChar.sendMessage("The Person you wanna ask hasnt added you on the friendlist.");
+            return false;
+        }
+        
+        //TODO: code for popup box here
+        
+        return false; //not finished
+    }
+    
+    public boolean GoToLove(L2PcInstance activeChar)
     {   
         if(!activeChar.isMaried())
         {
@@ -134,8 +253,8 @@ public class GoToLove implements IUserCommandHandler
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#getUserCommandList()
      */
-    public int[] getUserCommandList()
+    public String[] getVoicedCommandList()
     {
-        return COMMAND_IDS;
+        return _voicedCommands;
     }
 }
