@@ -5676,15 +5676,21 @@ public final class L2PcInstance extends L2PlayableInstance
      * @return The L2Skill replaced or null if just added a new L2Skill
      *
      */
-    public L2Skill addSkill(L2Skill newSkill)
+    public L2Skill addSkill(L2Skill newSkill, boolean save)
     {
         // Add a skill to the L2PcInstance _skills and its Func objects to the calculator set of the L2PcInstance
         L2Skill oldSkill = super.addSkill(newSkill);
 
         // Add or update a L2PcInstance skill in the character_skills table of the database
-        storeSkill(newSkill, oldSkill, -1);
+        if(save==true)
+            storeSkill(newSkill, oldSkill, -1);
 
         return oldSkill;
+    }
+    
+    public L2Skill addSkill(L2Skill newSkill)
+    {
+        return addSkill(newSkill,true);
     }
 
     /**
@@ -7802,7 +7808,7 @@ public final class L2PcInstance extends L2PlayableInstance
        {
            for (L2Skill s : NobleSkillTable.getInstance().GetNobleSkills())
            {
-               addSkill(s);
+               addSkill(s, false);
            }
        }
        else
