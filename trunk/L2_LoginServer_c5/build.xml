@@ -94,6 +94,12 @@
 
     <target name="dist" depends="jar">
 
+	<copy todir="${build}">
+		<fileset dir="${build.dist.login}">
+			<include name="l2j-loginserver.jar"/>
+		</fileset>
+	</copy>
+
     	<copy todir="${build.dist.login}">
 		<fileset dir="${lib}">
 			<include name="*.jar"/>
