@@ -96,30 +96,32 @@ public class Wedding implements IVoicedCommandHandler
         if (activeChar.getPartnerId()!=0)
         {
             activeChar.sendMessage("You are already engaged.");
-            activeChar.startAbnormalEffect((short)0x2000); // give player a Big Head
-            // lets recycle the sevensigns debuffs
-            int skillId;
-
-            int skillLevel = 1;
-            
-            if (activeChar.getLevel() > 40)
-                skillLevel = 2;
-            
-            if(activeChar.isMageClass())
-                skillId = 4361;
-            else
-                skillId = 4362;
-            
-            L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
-            
-            if (activeChar.getEffect(skill) == null)
+            if(Config.WEDDING_PUNISH_INFIDELITY)
             {
-                skill.getEffects(activeChar, activeChar);
-                SystemMessage sm = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT);
-                sm.addSkillName(skillId);
-                activeChar.sendPacket(sm);
-            }
+                activeChar.startAbnormalEffect((short)0x2000); // give player a Big Head
+                // lets recycle the sevensigns debuffs
+                int skillId;
+    
+                int skillLevel = 1;
                 
+                if (activeChar.getLevel() > 40)
+                    skillLevel = 2;
+                
+                if(activeChar.isMageClass())
+                    skillId = 4361;
+                else
+                    skillId = 4362;
+                
+                L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
+                
+                if (activeChar.getEffect(skill) == null)
+                {
+                    skill.getEffects(activeChar, activeChar);
+                    SystemMessage sm = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT);
+                    sm.addSkillName(skillId);
+                    activeChar.sendPacket(sm);
+                }
+            }   
             return false;
         }
 
@@ -130,7 +132,7 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("You cant ask partners of same sex.");
             return false;
         }
-        
+
         boolean FoundOnFriendList = false;
         int objectId;
         java.sql.Connection con = null;
