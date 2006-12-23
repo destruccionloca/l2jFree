@@ -6,22 +6,20 @@ import java.sql.ResultSet;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
-import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.model.L2World;
-import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
+import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.serverpackets.ConfirmDlg; 
 import net.sf.l2j.gameserver.util.Broadcast;
 
 import org.apache.log4j.Logger;
@@ -98,7 +96,30 @@ public class Wedding implements IVoicedCommandHandler
         if (activeChar.getPartnerId()!=0)
         {
             activeChar.sendMessage("You are already engaged.");
-            // Punish Code here
+            activeChar.startAbnormalEffect((short)0x2000); // give player a Big Head
+            // lets recycle the sevensigns debuffs
+            int skillId;
+
+            int skillLevel = 1;
+            
+            if (activeChar.getLevel() > 40)
+                skillLevel = 2;
+            
+            if(activeChar.isMageClass())
+                skillId = 4361;
+            else
+                skillId = 4362;
+            
+            L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
+            
+            if (activeChar.getEffect(skill) == null)
+            {
+                skill.getEffects(activeChar, activeChar);
+                SystemMessage sm = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT);
+                sm.addSkillName(skillId);
+                activeChar.sendPacket(sm);
+            }
+                
             return false;
         }
 
