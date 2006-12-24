@@ -153,12 +153,12 @@ public class ServerList extends ServerBasePacket
                 if (arg1.status == ServerStatus.STATUS_DOWN)
                     return 0;
                 else
-                    return -1;
+                    return 1;
             }
             else if (arg1.status == ServerStatus.STATUS_DOWN)
-                return 1;
+                return -1;
             else
-                return (arg1.currentPlayers - arg0.currentPlayers);
+                return (arg0.currentPlayers - arg1.currentPlayers);
         }
     }
 

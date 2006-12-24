@@ -41,15 +41,15 @@ public class ServerListTest extends TestCase
         (byte)0x04, // packetId
         (byte)0x03, // servercount
         (byte)0x00,
-        // server 1
-        (byte)0x02, // ID
+        // server 2
+        (byte)0x03, // ID
         (byte)0x7f, (byte)0x00, (byte)0x00, (byte)0x01, // IP
         (byte)0x01, (byte)0x00, (byte)0x00, (byte)0x00, // Port
         (byte)0x0f,
         (byte)0x00, // PVP
-        (byte)0x00, (byte)0x00, // current players
+        (byte)0x02, (byte)0x00, // current players
         (byte)0xff, (byte)0x00, // max     players
-        (byte)0x00, // status != down
+        (byte)0x01, // status != down
         (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00,
         // server 0
         (byte)0x01, // ID
@@ -61,15 +61,15 @@ public class ServerListTest extends TestCase
         (byte)0xff, (byte)0x00, // max     players
         (byte)0x01, // status != down
         (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00,
-        // server 2
-        (byte)0x03, // ID
+        // server 1
+        (byte)0x02, // ID
         (byte)0x7f, (byte)0x00, (byte)0x00, (byte)0x01, // IP
         (byte)0x01, (byte)0x00, (byte)0x00, (byte)0x00, // Port
         (byte)0x0f,
         (byte)0x00, // PVP
-        (byte)0x02, (byte)0x00, // current players
+        (byte)0x00, (byte)0x00, // current players
         (byte)0xff, (byte)0x00, // max     players
-        (byte)0x01, // status != down
+        (byte)0x00, // status != down
         (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00,
         // getBytes() data
         (byte)0x00, (byte)0x00, (byte)0x00,

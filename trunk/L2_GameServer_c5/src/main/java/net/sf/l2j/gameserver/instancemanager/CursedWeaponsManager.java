@@ -18,6 +18,7 @@
 package net.sf.l2j.gameserver.instancemanager;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -61,6 +62,7 @@ public class CursedWeaponsManager
         if (_Instance == null)
         {
             _Instance = new CursedWeaponsManager();
+            _Instance.load();
         }
         return _Instance;
     }
@@ -75,25 +77,19 @@ public class CursedWeaponsManager
     {
         _log.info("Initializing CursedWeaponsManager");
         _cursedWeapons = new FastMap<Integer, CursedWeapon>();
-        
-        if (!Config.ALLOW_CURSED_WEAPONS) return;
-        
-        load();
-        restore();
-        controlPlayers();
-        _log.info("Loaded : "+_cursedWeapons.size() + " cursed weapon(s).");
     }
 
     // =========================================================
     // Method - Private
     public final void reload()
     {
-        _Instance = new CursedWeaponsManager();
+        _cursedWeapons = new FastMap<Integer, CursedWeapon>();
+        load();
     }
     private final void load()
     {
-        if (_log.isDebugEnabled())
-            System.out.print("  Parsing ... ");
+        java.sql.Connection con = null;
+        
         try
         {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -102,11 +98,7 @@ public class CursedWeaponsManager
             
             File file = new File(Config.DATAPACK_ROOT+"/data/cursedWeapons.xml");
             if (!file.exists())
-            {
-                if (_log.isDebugEnabled())
-                    _log.debug("NO FILE");
-                return;
-            }
+                throw new IOException();
             
             Document doc = factory.newDocumentBuilder().parse(file);
 
@@ -162,33 +154,14 @@ public class CursedWeaponsManager
                     }
                 }
             }
-
-            if (_log.isDebugEnabled())
-                _log.debug("OK");
-        }
-        catch (Exception e)
-        {
-            _log.fatal( "Error parsing cursed weapons file.", e);
             
-            if (_log.isDebugEnabled())
-                _log.debug("ERROR");
-            return ;
-        }
-    }
-    private final void restore()
-    {
-        if (_log.isDebugEnabled())
-            System.out.print("  Restoring ... ");
-        java.sql.Connection con = null;
-        try
-        {
             // Retrieve the L2PcInstance from the characters table of the database
             con = L2DatabaseFactory.getInstance().getConnection();
             
             PreparedStatement statement = con.prepareStatement("SELECT itemId, playerId, playerKarma, playerPkKills, nbKills, endTime FROM cursed_weapons");
             ResultSet rset = statement.executeQuery();
 
-            if (rset.next())
+            while (rset.next())
             {
                 int itemId        = rset.getInt("itemId");
                 int playerId      = rset.getInt("playerId");
@@ -208,35 +181,10 @@ public class CursedWeaponsManager
 
             rset.close();
             statement.close();
-
-            if (_log.isDebugEnabled())
-                _log.debug("OK");
-        }
-        catch (Exception e)
-        {
-            _log.warn("Could not restore CursedWeapons data: " + e);
-
-            if (_log.isDebugEnabled())
-                _log.debug("ERROR");
-            return;
-        }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
-    }
-    private final void controlPlayers()
-    {
-        if (_log.isDebugEnabled())
-            System.out.print("  Checking players ... ");
-        
-        java.sql.Connection con = null;
-        try
-        {
+            con.close();
+            
             // Retrieve the L2PcInstance from the characters table of the database
             con = L2DatabaseFactory.getInstance().getConnection();
-            PreparedStatement statement = null;
-            ResultSet rset = null;
 
             for (CursedWeapon cw : _cursedWeapons.values())
             {
@@ -280,21 +228,15 @@ public class CursedWeaponsManager
         }
         catch (Exception e)
         {
-            _log.warn("Could not check CursedWeapons data: " + e);
-
-            if (_log.isDebugEnabled())
-                _log.debug("ERROR");
-            return;
+            _log.warn("Could not load CursedWeapons data: " + e);
         }
         finally
         {
             try { con.close(); } catch (Exception e) {}
         }
 
-        if (_log.isDebugEnabled())
-            _log.debug("DONE");
+        _log.info("Loaded : "+_cursedWeapons.size() + " cursed weapon(s).");
     }
-    
     
     // =========================================================
     // Properties - Public
