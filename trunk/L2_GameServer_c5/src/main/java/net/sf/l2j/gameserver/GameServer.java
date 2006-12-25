@@ -99,7 +99,7 @@ import net.sf.l2j.gameserver.handler.itemhandlers.CompShotPacks;
 import net.sf.l2j.gameserver.handler.itemhandlers.CompSpiritShotPacks;
 import net.sf.l2j.gameserver.handler.itemhandlers.CrystalCarol;
 import net.sf.l2j.gameserver.handler.itemhandlers.EnchantScrolls;
-import net.sf.l2j.gameserver.handler.itemhandlers.EnergyStones;
+import net.sf.l2j.gameserver.handler.itemhandlers.EnergyStone;
 import net.sf.l2j.gameserver.handler.itemhandlers.Firework;
 import net.sf.l2j.gameserver.handler.itemhandlers.FishItem;
 import net.sf.l2j.gameserver.handler.itemhandlers.FishShots;
@@ -135,8 +135,8 @@ import net.sf.l2j.gameserver.handler.skillhandlers.Fishing;
 import net.sf.l2j.gameserver.handler.skillhandlers.FishingSkill;
 import net.sf.l2j.gameserver.handler.skillhandlers.Heal;
 import net.sf.l2j.gameserver.handler.skillhandlers.ManaHeal;
-import net.sf.l2j.gameserver.handler.skillhandlers.Mdam;
 import net.sf.l2j.gameserver.handler.skillhandlers.Manadam;
+import net.sf.l2j.gameserver.handler.skillhandlers.Mdam;
 import net.sf.l2j.gameserver.handler.skillhandlers.Pdam;
 import net.sf.l2j.gameserver.handler.skillhandlers.Recall;
 import net.sf.l2j.gameserver.handler.skillhandlers.Resurrect;
@@ -429,7 +429,7 @@ public class GameServer
         _itemHandler.registerItemHandler(new FishItem());
         _itemHandler.registerItemHandler(new FishShots());      
         _itemHandler.registerItemHandler(new Wyvern());
-        _itemHandler.registerItemHandler(new EnergyStones());
+        _itemHandler.registerItemHandler(new EnergyStone());
         _log.info("ItemHandler: Loaded " + _itemHandler.size() + " handlers.");
 
         _skillHandler = SkillHandler.getInstance();
