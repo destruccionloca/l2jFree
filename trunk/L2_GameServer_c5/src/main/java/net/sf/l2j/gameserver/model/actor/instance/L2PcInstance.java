@@ -6481,7 +6481,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         //Don't allow casting on players on different dungeon lvls etc
-        if ((Math.abs(target.getZ() - getZ()) > 1000))
+        if (!Config.ALLOW_GEODATA && Math.abs(target.getZ() - getZ()) > 1000)
         {
             sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
             sendPacket(new ActionFailed());
@@ -9150,7 +9150,11 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             //check the fishing floats x,y,z is in a fishing zone
             //if not the abort fishing mode else continue
-            if (!ZoneManager.getInstance().checkIfInZoneIncludeZ("Water",x,y,GeoDataRequester.getInstance().getGeoInfoNearest(x, y, (short)z).getZ()))
+            if(Config.ALLOW_GEODATA)
+            {
+                z = GeoDataRequester.getInstance().getGeoInfoNearest(x, y, (short)z).getZ();
+            }
+            if (!ZoneManager.getInstance().checkIfInZoneIncludeZ("Water",x,y,z))
             //if (!ZoneManager.getInstance().checkIfInZoneFishing(x, y))
             {
                 //abort fishing
