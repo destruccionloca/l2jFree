@@ -576,6 +576,7 @@ public final class Config {
     public static boolean        ALLOW_CURSED_WEAPONS;    
     
     public static int           PACKET_LIFETIME;
+    public static long          PACKET_EXECUTIONTIME;
 
     // Pets
     public static int           WYVERN_SPEED;
@@ -1126,7 +1127,8 @@ public final class Config {
                 LAZY_CACHE                      = Boolean.valueOf(optionsSettings.getProperty("LazyCache", "False"));
 
                 PACKET_LIFETIME                 = Integer.parseInt(optionsSettings.getProperty("PacketLifeTime", "0"));
-                             
+                PACKET_EXECUTIONTIME            = Long.parseLong(optionsSettings.getProperty("PacketExecutionTime", "0"));
+                
                 BYPASS_VALIDATION               = Boolean.valueOf(optionsSettings.getProperty("BypassValidation", "False"));
                              
                 GAMEGUARD_ENFORCE               = Boolean.valueOf(optionsSettings.getProperty("GameGuardEnforce", "False"));
