@@ -157,6 +157,7 @@ public abstract class L2Object
             {
                 MercTicketManager.getInstance().removeTicket((L2ItemInstance)this);
             }
+            ItemsOnGroundManager.getInstance().removeObject(this);
         }
 
         // reset champion status if the thing is a mob
