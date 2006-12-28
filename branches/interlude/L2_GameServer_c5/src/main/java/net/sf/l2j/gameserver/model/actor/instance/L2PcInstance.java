@@ -621,6 +621,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _coupleId = 0;
     private boolean _engagerequest = false;
     private int _engageid = 0;
+    private boolean _maryrequest = false;
+    private boolean _maryaccepted = false;
 
     /* Flag to disable equipment/skills while wearing formal wear **/
     //private boolean _IsWearingFormalWear = false;
@@ -9428,6 +9430,26 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         _engagerequest = state;
         _engageid = playerid;
+    }
+    
+    public void setMaryRequest(boolean state)
+    {
+        _maryrequest = state;
+    }
+
+    public boolean isMaryRequest()
+    {
+        return _maryrequest;
+    }
+
+    public void setMaryAccepted(boolean state)
+    {
+        _maryaccepted = state;
+    }
+
+    public boolean isMaryAccepted()
+    {
+        return _maryaccepted;
     }
     
     public int getEngageId()

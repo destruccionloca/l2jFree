@@ -139,7 +139,7 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("Engaging with yourself ?.");
             return false;
         }
-
+        
         if(ptarget.isEngageRequest())
         {
             activeChar.sendMessage("Already asked by someone else.");
