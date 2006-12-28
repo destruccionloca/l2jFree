@@ -497,11 +497,15 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
             //_log.config("Curent pos ("+getX()+", "+getY()+"), moving to ("+x1+", "+y1+").");
             // Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet CharMoveToLocation (broadcast)
+            if (Config.ALLOW_GEODATA)
+            {
             if ( GeoDataRequester.getInstance().hasMovementLoS( _actor, x1, y1,z1).LoS)
             {   
                 moveTo(x1, y1, z1);
             }
-
+            }
+            else
+                moveTo(x1, y1, z1);
         }
 
         return;
@@ -863,6 +867,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                 }
                 
                // Finally, physical attacks
+                if (Config.ALLOW_GEODATA)
+                {
                if (GeoDataRequester.getInstance().hasAttackLoS(_actor,hated ) == false)
                {
                     if (!_actor.isMovementDisabled())
@@ -885,6 +891,12 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                    clientStopMoving(null);
                    _accessor.doAttack(hated);
                }
+                }
+                else
+                {
+                    clientStopMoving(null);
+                    _accessor.doAttack(hated);
+                }
             }
         }
     }

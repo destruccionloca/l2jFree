@@ -216,7 +216,7 @@ public final class L2WorldRegion
                 //Load Block in memory
                 GeoDataRequester.getInstance().getGeoBlock(tileX, tileY);
                 PathNodeBinRequester.getInstance().getPathNodeBlock((tileX*4096+MAP_MIN_X )+1, (tileY*4096+MAP_MIN_Y)+1);
-                _log.debug("Starting Grid " + tileX + ","+ tileY);
+                if(_log.isDebugEnabled()) _log.debug("Starting Grid " + tileX + ","+ tileY);
             }
         }
         else
@@ -224,7 +224,7 @@ public final class L2WorldRegion
             if(Config.ALLOW_GEODATA)
             {
                 //Block will kill itself automaticaly
-            _log.debug("Stoping Grid " + tileX + ","+ tileY);
+                if(_log.isDebugEnabled()) _log.debug("Stoping Grid " + tileX + ","+ tileY);
             }
         }
     }

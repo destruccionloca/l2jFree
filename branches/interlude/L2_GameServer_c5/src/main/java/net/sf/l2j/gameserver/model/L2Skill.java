@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.model;
 
 import java.lang.reflect.Constructor;
+import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -1289,7 +1290,15 @@ public abstract class L2Skill
         case TARGET_HOLY:
         {
             if (activeChar instanceof L2PcInstance && activeChar.getTarget() instanceof L2ArtefactInstance)
+            {
+                if ( Config.ALLOW_GEODATA)
+                    if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, activeChar.getTarget()) == false)
+                    {
+                        activeChar.sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                        return null;
+                    }
                     return new L2Character[]{(L2ArtefactInstance)activeChar.getTarget()};
+            }
 
             return null;
         }
@@ -1320,22 +1329,38 @@ public abstract class L2Skill
                 targetPet = (L2Summon)target;
                 if (activeChar instanceof L2PcInstance && activeChar.getPet() != targetPet 
                     && !targetPet.isDead() && targetPet.getOwner().getPvpFlag() != 0)
-                   return new L2Character[]{targetPet};
+                {
+                    if ( Config.ALLOW_GEODATA)
+                        if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
+                        {
+                            activeChar.sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                            return null;
+                        }   
+                   return new L2Character[]{target};
+                }
             }
             return null;
         }
-        case TARGET_AURA_UNDEAD:
         case TARGET_CORPSE_PET:
         {
             if (activeChar instanceof L2PcInstance)
             {
                 target = activeChar.getPet();
                 if (target != null && target.isDead())
+                {
+                    if ( Config.ALLOW_GEODATA)
+                        if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
+                        {
+                            activeChar.sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                            return null;
+                        }   
                     return new L2Character[]{target}; 
+                }
             }
             
             return null;
         }   
+        case TARGET_AURA_UNDEAD:
         case TARGET_AURA:
         {
             int radius = getSkillRadius();
@@ -1346,12 +1371,12 @@ public abstract class L2Skill
             if (activeChar instanceof L2Summon) src = ((L2Summon)activeChar).getOwner();
             
             // Go through the L2Character _knownList
-            for (L2Object obj : activeChar.getKnownList().getKnownObjects())
+            for (L2Character obj : activeChar.getKnownList().getKnownCharactersInRadius(radius))
             {
                 if (obj != null && (obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
                 {
                     // Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
-                    if (obj == src) continue;
+                    if (obj == activeChar) continue;
                     if (src != null) 
                     {
                         // check if both attacker and target are L2PcInstances and if they are in same party 
@@ -1380,15 +1405,15 @@ public abstract class L2Skill
                                     continue;
                             }
                         }
-                    }
-                    if (!Util.checkIfInRange(radius, activeChar, obj, true)) continue;
-                    
-                    if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
-                        if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
+                        if(targetType == SkillTargetType.TARGET_AURA_UNDEAD && !obj.isUndead())
                             continue;
-
-                    if (onlyFirst == false) targetList.add((L2Character) obj);
-                    else return new L2Character[] {(L2Character) obj};
+                        if ( Config.ALLOW_GEODATA)
+                            if (GeoDataRequester.getInstance().hasAttackLoS(src, obj) == false)
+                                continue;
+                    }
+                    
+                    if (onlyFirst == false) targetList.add(obj);
+                    else return new L2Character[] {obj};
                 }
             }
             return targetList.toArray(new L2Character[targetList.size()]);
@@ -1406,6 +1431,13 @@ public abstract class L2Skill
             
             if (getCastRange() >= 0)
             {
+                if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
+                    if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
+                    {
+                        activeChar.sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                        return null;
+                    }   
+                
                 cha = target;
                 
                 if(!onlyFirst) targetList.add(cha); // Add target to target list
@@ -1415,28 +1447,19 @@ public abstract class L2Skill
             
             boolean skillUserIsL2PcInstance = (activeChar instanceof L2PcInstance);
             boolean effectOriginIsL2PlayableInstance = (cha instanceof L2PlayableInstance);
-            int radius = getSkillRadius();
             
             boolean srcInArena = (ArenaManager.getInstance().getArena(activeChar)!= null);
             
-            for (L2Object obj : activeChar.getKnownList().getKnownObjects())
+            for (L2Character obj : cha.getKnownList().getKnownCharactersInRadius(getSkillRadius()))
             {
-                if (obj == null) continue;
-                if (!(obj instanceof L2Character)) continue;
-                if (obj == cha) continue;
-                target = (L2Character) obj;
+                if (obj == null || obj == cha || obj == activeChar)
+                    continue;
                 
-                if(!target.isAlikeDead() && (target != activeChar))   
+                if(!obj.isAlikeDead())   
                 {
-                    if (!Util.checkIfInRange(radius, obj, cha, true))
-                      continue;
-                    
                     if (skillUserIsL2PcInstance)
                     {
                         L2PcInstance src = (L2PcInstance)activeChar;
-                        if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
-                            if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
-                                continue;
                        
                         if(obj instanceof L2PcInstance)
                         { 
@@ -1489,6 +1512,10 @@ public abstract class L2Skill
                             
                             }
                         }
+                        
+                        if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
+                            if (GeoDataRequester.getInstance().hasAttackLoS(cha, obj) == false)
+                                continue;
                     }
                     else
                     // Skill user is not L2PcInstance
@@ -1498,7 +1525,7 @@ public abstract class L2Skill
                                 continue;
                     }
                     
-                    targetList.add((L2Character)obj);
+                    targetList.add(obj);
                 }
             }
             
@@ -1516,23 +1543,23 @@ public abstract class L2Skill
                 activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
                 return null;
             }
+            
+            if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
+                if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
+                {
+                    activeChar.sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                    return null;
+                }   
+            
 
-                if (onlyFirst == false) targetList.add(target);
+                if (!onlyFirst) targetList.add(target);
                 else return new L2Character[] {target};
 
             int radius = getSkillRadius();
             
-            for (L2Object obj : activeChar.getKnownList().getKnownObjects())
+            for (L2Character obj : activeChar.getKnownList().getKnownCharactersInRadius(radius))
             {
                 if (obj == null) continue;
-                    if (!Util.checkIfInRange(radius, activeChar, obj, true)) continue;
-				if ( activeChar instanceof L2PcInstance)
-                {
-                	if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
-                	{
-                		continue;
-                	}	
-                }                
                 if(obj instanceof L2Attackable && obj != target)
                 {
                     // Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
@@ -1541,7 +1568,10 @@ public abstract class L2Skill
                     //Don't add this target,Mob skills Shouldn't affect other Mobs
                     if (activeChar instanceof L2MonsterInstance && !(obj instanceof L2MonsterInstance))
                         continue;
-                    targetList.add((L2Character)obj);
+                    if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
+                        if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, obj) == false)
+                            continue;
+                    targetList.add(obj);
                 }
                 
                 if(targetList.size() == 0)
@@ -1549,9 +1579,6 @@ public abstract class L2Skill
                     activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_CANT_FOUND));
                     return null;
                 }
-                if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
-                    if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
-                        continue;
             }
             return targetList.toArray(new L2Character[targetList.size()]);
             //TODO multiface targets all around right now.  need it to just get targets
@@ -1586,18 +1613,21 @@ public abstract class L2Skill
                      
                  for(L2PcInstance partyMember : partyList)
                  {
-                     if (partyMember == null) continue;
-                     if (partyMember == player) continue;
+                     if (partyMember == null || partyMember == player) continue;
                      
-                     if (!partyMember.isDead()
-                             && Util.checkIfInRange(getSkillRadius(), activeChar, partyMember, true))
-                     {
+                     if (partyMember.isDead()
+                             || !Util.checkIfInRange(getSkillRadius(), activeChar, partyMember, true))
+                         continue;
+                     
+                     if ( Config.ALLOW_GEODATA)
+                         if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, partyMember) == false)
+                             continue;
+                     
                          targetList.add(partyMember);
                          if (partyMember.getPet() != null)
                          {
                              targetList.add(partyMember.getPet());
                          }
-                     }
                  }
              }
              return targetList.toArray(new L2Character[targetList.size()]);
@@ -1621,6 +1651,12 @@ public abstract class L2Skill
              {
                  if (!target.isDead())
                  {
+                     if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
+                         if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
+                         {
+                             activeChar.sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                             return null;
+                         }
                      // If a target is found, return it in a table else send a system message TARGET_IS_INCORRECT
                      return new L2Character[]{target};
                  }
@@ -1666,13 +1702,17 @@ public abstract class L2Skill
                             if (!player.checkPvpSkill(newTarget, this))
                                 continue;
                             
+                            if ( Config.ALLOW_GEODATA)
+                                if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, newTarget) == false)
+                                    continue;
+
                             targetList.add(newTarget);
                         }
                     }
                 }
                 else
                 {
-                    for ( L2PcInstance newTarget : activeChar.getKnownList().getKnownPlayers())
+                    for ( L2PcInstance newTarget : activeChar.getKnownList().getKnownPlayersInRadius(radius))
                     {
                         if (newTarget == null || newTarget == activeChar)
                             continue;
@@ -1681,19 +1721,15 @@ public abstract class L2Skill
                         if (targetType == SkillTargetType.TARGET_CORPSE_ALLY && !newTarget.isDead())
                             continue;
                         
-                        if (!Util.checkIfInRange(radius, activeChar, newTarget, true))
-                            continue;
-                        
                         // Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
                         if (!player.checkPvpSkill(newTarget, this))
                             continue;
                         
+                        if ( Config.ALLOW_GEODATA)
+                            if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, newTarget) == false)
+                                continue;
+
                         targetList.add(newTarget);
-                        
-                        /* only TARGET_PET skills should work for pets 
-                        if (targetType == SkillTargetType.TARGET_ALLY && ((L2Character)newTarget).getPet() != null)
-                            targetList.add(((L2Character)newTarget).getPet());
-                        */
                     }
                 }
                 return targetList.toArray(new L2Character[targetList.size()]);
@@ -1706,22 +1742,29 @@ public abstract class L2Skill
             L2Character newTarget;
             
             if (getCastRange() > -1 && target != null)
+            {
+                if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
+                    if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, target) == false)
+                    {
+                        activeChar.sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                        return null;
+                    }
                 newTarget = target;
+            }
             else
                 newTarget = activeChar;
             
             if (newTarget != activeChar || this.isSkillTypeOffensive())
                 targetList.add(newTarget);
             
-            for (L2Object obj : activeChar.getKnownList().getKnownObjects())
+            for (L2Character obj : activeChar.getKnownList().getKnownCharactersInRadius(radius))
             {
-                if (obj == newTarget || !Util.checkIfInRange(radius, newTarget, obj, true))
+                if (obj == newTarget || obj == activeChar)
                         continue;
                 
                 if (obj instanceof L2Attackable)
                 {
-                    target = (L2Character) obj;
-                    if(!target.isAlikeDead())
+                    if(!obj.isAlikeDead())
                     {
                         // Don't add this target if this is a PC->PC pvp casting and pvp condition not met
                         if (activeChar instanceof L2PcInstance && !((L2PcInstance)activeChar).checkPvpSkill(obj, this))
@@ -1735,7 +1778,11 @@ public abstract class L2Skill
                              ((L2PcInstance)activeChar).getParty().getPartyLeaderOID() != ((L2PcInstance)obj).getParty().getPartyLeaderOID() ))))
                             continue;
                         
-                        targetList.add((L2Character)obj);
+                        if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
+                            if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, obj) == false)
+                                continue;
+                        
+                        targetList.add(obj);
                     }
                 }
             }
@@ -1762,11 +1809,16 @@ public abstract class L2Skill
                         if (targetType == SkillTargetType.TARGET_CORPSE_CLAN && !newTarget.isDead())
                             continue;
 
-                        if (!Util.checkIfInRange(radius, activeChar, newTarget, true)) continue;
+                        if (!Util.checkIfInRange(radius, activeChar, newTarget, true))
+                            continue;
                         
                         // Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
                         if (!player.checkPvpSkill(newTarget, this))
                             continue;
+                        
+                        if ( Config.ALLOW_GEODATA && activeChar instanceof L2PcInstance)
+                            if (GeoDataRequester.getInstance().hasAttackLoS(activeChar, newTarget) == false)
+                                continue;
                         
                         targetList.add(newTarget);
                     }
@@ -1829,17 +1881,15 @@ public abstract class L2Skill
                         }
                     }
                     
+                    if ( Config.ALLOW_GEODATA)
+                        if (GeoDataRequester.getInstance().hasAttackLoS(player, target) == false)
+                        {
+                            player.sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+                            return null;
+                        }
+
                     if (condGood)
-                    {
-                            if(onlyFirst==false)
-                            {
-                                targetList.add(target);
-                                return targetList.toArray(new L2Object[targetList.size()]);
-                            }
-                            else
                                 return new L2Character[]{target};
-                            
-                    }
                 }
             }
             activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
@@ -1943,12 +1993,6 @@ public abstract class L2Skill
                     return null;
                 }   
                             
-                if(onlyFirst==false)
-                {
-                    targetList.add(target);
-                    return targetList.toArray(new L2Object[targetList.size()]);
-                }
-                else
                     return new L2Character[]{target};
                 
         }
@@ -1966,12 +2010,6 @@ public abstract class L2Skill
                     return null;
                 }   
                             
-                if(onlyFirst==false)
-                {
-                    targetList.add(target);
-                    return targetList.toArray(new L2Object[targetList.size()]);
-                }
-                else
                     return new L2Character[]{target};
                 
         }
@@ -2023,12 +2061,7 @@ public abstract class L2Skill
                 return null;
             }
                 
-            if(onlyFirst==false)
-                targetList.add(target);
-            else
                return new L2Character[]{target};
-  
-            return targetList.toArray(new L2Object[targetList.size()]);
         }       
         case TARGET_ITEM:
         {
@@ -2053,12 +2086,6 @@ public abstract class L2Skill
                         return null;
                     }   
 
-                if(onlyFirst==false)
-                {
-                    targetList.add(target);
-                    return targetList.toArray(new L2Object[targetList.size()]);
-                }
-                else
                    return new L2Character[]{target};
                                        
             } 

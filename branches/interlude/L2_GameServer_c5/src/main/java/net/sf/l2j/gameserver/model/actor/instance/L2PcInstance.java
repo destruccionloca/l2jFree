@@ -80,6 +80,7 @@ import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
+import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
@@ -618,6 +619,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _maried = false;
     private int _partnerId = 0;
     private int _coupleId = 0;
+    private boolean _engagerequest = false;
+    private int _engageid = 0;
 
     /* Flag to disable equipment/skills while wearing formal wear **/
     //private boolean _IsWearingFormalWear = false;
@@ -6473,7 +6476,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         //Don't allow casting on players on different dungeon lvls etc
-        if ((Math.abs(target.getZ() - getZ()) > 1000))
+        if (!Config.ALLOW_GEODATA && Math.abs(target.getZ() - getZ()) > 1000)
         {
             sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
             sendPacket(new ActionFailed());
@@ -9142,7 +9145,11 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             //check the fishing floats x,y,z is in a fishing zone
             //if not the abort fishing mode else continue
-            if (!ZoneManager.getInstance().checkIfInZoneIncludeZ("Water",x,y,GeoDataRequester.getInstance().getGeoInfoNearest(x, y, (short)z).getZ()))
+            if(Config.ALLOW_GEODATA)
+            {
+                z = GeoDataRequester.getInstance().getGeoInfoNearest(x, y, (short)z).getZ();
+            }
+            if (!ZoneManager.getInstance().checkIfInZoneIncludeZ("Water",x,y,z))
             //if (!ZoneManager.getInstance().checkIfInZoneFishing(x, y))
             {
                 //abort fishing
@@ -9411,6 +9418,22 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         _maried = state;
     }
+
+    public boolean isEngageRequest()
+    {
+        return _engagerequest;
+    }
+    
+    public void setEngageRequest(boolean state,int playerid)
+    {
+        _engagerequest = state;
+        _engageid = playerid;
+    }
+    
+    public int getEngageId()
+    {
+        return _engageid;
+    }
     
     public int getPartnerId()
     {
@@ -9430,6 +9453,29 @@ public final class L2PcInstance extends L2PlayableInstance
     public void setCoupleId(int coupleId)
     {
         _coupleId = coupleId;
+    }
+
+    public void EngageAnswer(int answer)
+    {
+        if(_engagerequest==false)
+            return;
+        else if(_engageid==0)
+            return;
+        else
+        {
+            L2PcInstance ptarget = (L2PcInstance)L2World.getInstance().findObject(_engageid);
+            setEngageRequest(false,0);
+            if(ptarget!=null)
+            {
+                if (answer == 1)
+                {
+                    CoupleManager.getInstance().createCouple(ptarget, L2PcInstance.this);
+                    ptarget.sendMessage("Engage accepted.");
+                }
+                else
+                    ptarget.sendMessage("Engage declined.");
+            }
+        }
     }
 
     public boolean isInJail()

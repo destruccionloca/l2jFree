@@ -341,16 +341,21 @@ public class L2CharacterAI extends AbstractAI
                 }
             }
 
+            if(Config.ALLOW_GEODATA)
+            {
             if (GeoDataRequester.getInstance().hasMovementLoS(_actor,pos.x,pos.y,(short)pos.z).LoS == false)
              {
-                 //_log.warn("NO LOS moving to x:" + pos.x + " y:" + pos.y +"  z:" + pos.z) ;
                  startMoveTask(pos);
              }
              else
              {
-                 //_log.warn("WITH LOS moving to x:" + pos.x + " y:" + pos.y +"  z:" + pos.z);
                  moveTo(pos.x, pos.y, pos.z);
              }
+            }
+            else
+            {
+                moveTo(pos.x, pos.y, pos.z);
+            }
         }
     }
 

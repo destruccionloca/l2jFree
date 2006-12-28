@@ -1495,8 +1495,11 @@ public class L2Attackable extends L2NpcInstance
              // Randomize drop position  
              int newX = this.getX() + Rnd.get(randDropLim * 2 + 1) - randDropLim;
              int newY = this.getY() + Rnd.get(randDropLim * 2 + 1) - randDropLim;
-             int newZ = GeoDataRequester.getInstance().getGeoInfoNearest(newX,newY,(short)this.getZ()).getZ();
-             //Math.max(this.getZ(), lastAttacker.getZ()) + 20; // TODO: temp hack, do somethign nicer when we have geodatas
+             int newZ;
+             if(Config.ALLOW_GEODATA)
+                 newZ = GeoDataRequester.getInstance().getGeoInfoNearest(newX,newY,(short)this.getZ()).getZ();
+             else
+                 newZ = Math.max(this.getZ(), lastAttacker.getZ()) + 20;
 
              // Init the dropped L2ItemInstance and add it in the world as a visible object at the position where mob was last
              ditem = ItemTable.getInstance().createItem("Loot", item.getItemId(), item.getCount(), lastAttacker, this);

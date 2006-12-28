@@ -143,14 +143,13 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
             if (((L2PcInstance) target).isSilentMoving()
                 && !_actor.isInsideRadius(target, 100, false, false)) return false;
         }
-        if (GeoDataRequester.getInstance().hasMovementLoS(_actor,target).LoS == true )
-        {
+        if(Config.ALLOW_GEODATA)
+            if (GeoDataRequester.getInstance().hasMovementLoS(_actor,target).LoS == false)
+            {
+                return false;
+            }
+        
             return _actor.isAutoAttackable(target); // Target is auto attackable
-        }
-        else
-        {
-            return false;
-        }
     }
 
     /**
@@ -361,10 +360,15 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                         }
 
                         clientStopMoving(null);
+                        if(Config.ALLOW_GEODATA)
+                        {
                          if (GeoDataRequester.getInstance().hasAttackLoS(_actor,getAttackTarget()))
                          {
                              _accessor.doCast(sk);
                          }
+                        }
+                        else
+                            _accessor.doCast(sk);
                         _actor.setTarget(OldTarget);
                         return;
                     }
@@ -398,10 +402,15 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                 else
                 {
                     // Move the actor to Pawn server side AND client side by sending Server->Client packet MoveToPawn (broadcast)
+                    if(Config.ALLOW_GEODATA)
+                    {
                     if (GeoDataRequester.getInstance().hasMovementLoS(_actor,_attack_target).LoS == true )
                     {
                         moveToPawn(_attack_target, range);
                     }
+                    }
+                    else
+                        moveToPawn(_attack_target, range);
                 }
             }
 
@@ -411,7 +420,15 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
         // Else, if the actor is muted and far from target, just "move to pawn"
         else if (_actor.isMuted() && dist_2 > (range + 20) * (range + 20))
         {
+            if(Config.ALLOW_GEODATA)
+            {
             if (GeoDataRequester.getInstance().hasMovementLoS(_actor,_attack_target).LoS == true )
+            {
+                moveToPawn(_attack_target, range);
+                return;
+            }
+            }
+            else
             {
                 moveToPawn(_attack_target, range);
                 return;

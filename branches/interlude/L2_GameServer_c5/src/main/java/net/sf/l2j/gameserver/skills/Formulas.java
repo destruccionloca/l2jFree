@@ -851,25 +851,30 @@ public final class Formulas
 				if (siegeModifier > 0) hpRegenMultiplier *= siegeModifier;
 			}
             
-            if (player.getIsInClanHall() && ClanHallManager.getInstance().getClanHall(player)!= null) if (ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP) != null) hpRegenMultiplier *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP).getLvl()/100;
+			if (player.getIsInClanHall() && ClanHallManager.getInstance().getClanHall(player)!= null && ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP) != null)
+			    hpRegenMultiplier *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP).getLvl()/100;
 
-            // Mother Tree effect is calculated at last
-			if (player.getInMotherTreeZone()) hpRegenBonus += 2;
+			if (player.getInMotherTreeZone())
+                hpRegenBonus += 2;
 
             // Calculate Movement bonus
-            if (player.isSitting() && player.getLevel() < 41) hpRegenMultiplier = hpRegenMultiplier * 1.5 + (40 - player.getLevel()) * 0.7; // Sitting
-            //if (player.isSitting() && player.getLevel() < 21) hpRegenMultiplier *= 11.4;  // Sitting
-            //else if (player.isSitting() && player.getLevel() < 41) hpRegenMultiplier *= 6.0; // Sitting
-            else if (player.isSitting()) hpRegenMultiplier *= 1.5;      // Sitting
-            else if (!player.isRunning()) hpRegenMultiplier *= 1.5; // Not Running
-            else if (!player.isMoving()) hpRegenMultiplier *= 1.1; // Staying
-            else if (player.isRunning()) hpRegenMultiplier *= 0.7; // Running
+            if (player.isSitting() && player.getLevel() < 41) // Sitting below lvl 40
+                //TODO: doublecheck this on l2p
+                hpRegenMultiplier = hpRegenMultiplier * 1.5 + (40 - player.getLevel()) * 0.7;
+            else if (player.isSitting()) // Sitting
+                hpRegenMultiplier *= 1.5;
+            else if (!player.isMoving()) // Standing still
+                hpRegenMultiplier *= 1.1;
+            else if (player.isRunning()) // Running
+                hpRegenMultiplier *= 0.7;
 		}
 
-        init *= cha.getLevelMod() * CONbonus[cha.getCON()];
+        // why was that LevelMod there?
+        init *= CONbonus[cha.getCON()]; // * cha.getLevelMod()
+        
         if (init < 1) init = 1;
 
-        return cha.calcStat(Stats.REGENERATE_HP_RATE, init, null, null) * (hpRegenMultiplier / 100) + hpRegenBonus;
+        return cha.calcStat(Stats.REGENERATE_HP_RATE, init * (hpRegenMultiplier / 100), null, null) + hpRegenBonus;
 	}
 	
 	/**
@@ -900,27 +905,33 @@ public final class Formulas
 				mpRegenMultiplier *= calcFestivalRegenModifier(player);
 
             // Mother Tree effect is calculated at last
-			if (player.getInMotherTreeZone()) mpRegenBonus += 1;
+			if (player.getInMotherTreeZone())
+                mpRegenBonus += 1;
             
-            if (player.getIsInClanHall() && ClanHallManager.getInstance().getClanHall(player)!= null) if (ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP) != null) mpRegenMultiplier *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP).getLvl()/100;
+            if (player.getIsInClanHall() && ClanHallManager.getInstance().getClanHall(player)!= null && ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP) != null)
+                mpRegenMultiplier *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP).getLvl()/100;
 
 			// Calculate Movement bonus
-            if (player.isSitting()) mpRegenMultiplier *= 2.5;      // Sitting.
-            else if (!player.isRunning()) mpRegenMultiplier *= 1.5; // Not running
-            else if (!player.isMoving()) mpRegenMultiplier *= 1.1; // Staying
-            else if (player.isRunning()) mpRegenMultiplier *= 0.7; // Running
+            if (player.isSitting()) // Sitting
+                mpRegenMultiplier *= 1.5;
+            else if (!player.isMoving()) // Standing still
+                mpRegenMultiplier *= 1.1;
+            else if (player.isRunning()) // Running
+                mpRegenMultiplier *= 0.7;
 		}
 
-		init *= cha.getLevelMod() * MENbonus[cha.getMEN()];
+		// why was that LevelMod there?
+		init *= MENbonus[cha.getMEN()]; // cha.getLevelMod()
+        
         if (init < 1) init = 1;
 
-		return cha.calcStat(Stats.REGENERATE_MP_RATE, init, null, null) * (mpRegenMultiplier / 100) + mpRegenBonus;
+		return cha.calcStat(Stats.REGENERATE_MP_RATE, init * (mpRegenMultiplier / 100), null, null) + mpRegenBonus;
 	}
 	
 	/**
 	 * Calculate the CP regen rate (base + modifiers).<BR><BR>
 	 */
-	public final double calcCpRegen(L2Character cha)
+	public final double calcCpRegen(L2Character cha) //TODO: doublecheck this on l2p
 	{
         double init = cha.getTemplate().baseHpReg;
         double cpRegenMultiplier = Config.PLAYER_CP_REGEN_MULTIPLIER;
@@ -938,9 +949,10 @@ public final class Formulas
 
         // Apply CON bonus
         init *= cha.getLevelMod() * CONbonus[cha.getCON()];
+        
         if (init < 1) init = 1;
 
-        return cha.calcStat(Stats.REGENERATE_CP_RATE, init, null, null) * (cpRegenMultiplier / 100) + cpRegenBonus;
+        return cha.calcStat(Stats.REGENERATE_CP_RATE, init * (cpRegenMultiplier / 100), null, null) + cpRegenBonus;
 	}
 	
 	@SuppressWarnings("deprecation")

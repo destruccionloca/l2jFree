@@ -4831,6 +4831,7 @@ public abstract class L2Character extends L2Object
 			{
 				if (targets[i] instanceof L2Character)
 				{
+                    if(Config.ALLOW_GEODATA)
                     if (GeoDataRequester.getInstance().hasAttackLoS(this, targets[i]) == false )
                     {
                        continue;
@@ -4838,11 +4839,6 @@ public abstract class L2Character extends L2Object
                     if(!this.isInsideRadius(targets[0],escapeRange,true,false)) continue;
 					else targetList.add((L2Character)targets[i]);
 				}
-				//else
-				//{
-				//	if (_log.isDebugEnabled()) 
-				//        _log.warn("Class cast bad: "+targets[i].getClass().toString());
-				//}
 			}
 			if(targetList.isEmpty()) 
 			{

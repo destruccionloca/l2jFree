@@ -20,6 +20,7 @@ import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.util.Broadcast;
 
 import org.apache.log4j.Logger;
@@ -83,16 +84,21 @@ public class Wedding implements IVoicedCommandHandler
 
     public boolean Engage(L2PcInstance activeChar)
     {
+        // check target
         if (activeChar.getTarget()==null)
         {
             activeChar.sendMessage("You have noone targeted.");
             return false;
         }
+        
+        // check if target is a l2pcinstance
         if (!(activeChar.getTarget() instanceof L2PcInstance))
         {
             activeChar.sendMessage("You can only ask another Player for partnership");
             return false;
         }
+        
+        // check if player is already engaged
         if (activeChar.getPartnerId()!=0)
         {
             activeChar.sendMessage("You are already engaged.");
@@ -127,12 +133,26 @@ public class Wedding implements IVoicedCommandHandler
 
         L2PcInstance ptarget = (L2PcInstance)activeChar.getTarget();
         
+        // check if player target himself
+        if(ptarget.getObjectId()==activeChar.getObjectId())
+        {
+            activeChar.sendMessage("Engaging with yourself ?.");
+            return false;
+        }
+
+        if(ptarget.isEngageRequest())
+        {
+            activeChar.sendMessage("Already asked by someone else.");
+            return false;
+        }
+        
         if (ptarget.getSex()==activeChar.getSex() && !Config.WEDDING_SAMESEX)
         {
             activeChar.sendMessage("You cant ask partners of same sex.");
             return false;
         }
 
+        // check if target has player on friendlist
         boolean FoundOnFriendList = false;
         int objectId;
         java.sql.Connection con = null;
@@ -166,9 +186,11 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
         
-        //TODO: code for popup box here
-        
-        return false; //not finished
+        ptarget.setEngageRequest(true, activeChar.getObjectId());        
+        ptarget.sendMessage("Player "+activeChar.getName()+" wants to engage with you.");
+        ptarget.sendPacket(new ConfirmDlg(490,"displays nothing"));
+
+        return true;
     }
     
     public boolean GoToLove(L2PcInstance activeChar)

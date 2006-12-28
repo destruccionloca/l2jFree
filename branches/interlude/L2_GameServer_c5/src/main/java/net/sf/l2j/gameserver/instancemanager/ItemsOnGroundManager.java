@@ -60,7 +60,6 @@ public class ItemsOnGroundManager
         java.sql.Connection con = null;
         try
         {
-            try {
             con = L2DatabaseFactory.getInstance().getConnection();
             Statement s = con.createStatement();
             ResultSet result;
@@ -85,7 +84,6 @@ public class ItemsOnGroundManager
             _log.info("Restored " + count + " items on the ground");
             } catch (Exception e) {
                 _log.fatal("error while loading Items on Ground " + e,e);
-            }             
         } finally {
             try { con.close(); } catch (Exception e) {}
         }

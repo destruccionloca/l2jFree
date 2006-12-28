@@ -54,6 +54,7 @@ public class PacketHandler
 	{
 		ClientBasePacket msg = null;
 		int id = data.get() & 0xff;
+        long start = 0;
 
         for (CustomPacketHandlerInterface handler : customhandlers) {
             msg = handler.handlePacket(data, client);
@@ -61,6 +62,9 @@ public class PacketHandler
                 break;
         }
 
+        if(Config.PACKET_EXECUTIONTIME > 0)
+            start = System.currentTimeMillis();
+        
         if (msg == null)
 		switch(id)
 		{
@@ -747,6 +751,10 @@ public class PacketHandler
 				break;
 			}
 		}
+        
+        if (Config.PACKET_EXECUTIONTIME > 0 && System.currentTimeMillis() - start > Config.PACKET_EXECUTIONTIME)
+            _log.warn("Packet took too long to execute: " + msg.getType());
+        
 		if (msg != null) {
 			//assert !msg._buf.hasRemaining(); // too many errors :(
 			msg._buf = null;

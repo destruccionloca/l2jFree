@@ -23,6 +23,7 @@ import java.nio.ByteBuffer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -52,6 +53,8 @@ public class DlgAnswer extends ClientBasePacket
             _log.debug(getType()+": Answer acepted. Message ID "+_messageId+", asnwer "+_answer+", unknown field "+_unk);
         if (_messageId == SystemMessage.RESSURECTION_REQUEST)
             getClient().getActiveChar().ReviveAnswer(_answer);
+        else if (_messageId==490 && Config.ALLOW_WEDDING)
+            getClient().getActiveChar().EngageAnswer(_answer);
     }
 
     public String getType()
