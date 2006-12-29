@@ -108,14 +108,17 @@ public class CoupleManager
     
     public void createCouple(L2PcInstance player1,L2PcInstance player2)
     {
-        if(player1.getPartnerId()==0 && player1.getPartnerId()==0)
+        if(player1!=null && player2!=null)
         {
-            int _player1id = player1.getObjectId();  
-            int _player2id = player2.getObjectId();  
+            if(player1.getPartnerId()==0 && player1.getPartnerId()==0)
+            {
+                int _player1id = player1.getObjectId();  
+                int _player2id = player2.getObjectId();  
             
-            getCouples().add(new Couple(player1,player2));  
-            player1.setPartnerId(_player2id);  
-            player2.setPartnerId(_player1id);  
+                getCouples().add(new Couple(player1,player2));  
+                player1.setPartnerId(_player2id);  
+                player2.setPartnerId(_player1id); 
+            }
 
         }
     }
