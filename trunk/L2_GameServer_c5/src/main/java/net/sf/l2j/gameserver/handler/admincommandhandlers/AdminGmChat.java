@@ -42,8 +42,8 @@ public class AdminGmChat implements IAdminCommandHandler {
         
 		if (command.startsWith("admin_gmchat"))
 			handleGmChat(command, activeChar);
-		else if(command.startsWith("admin_snoop"))
-			snoop(command, activeChar);
+		if(command.startsWith("admin_snoop"))
+			snoop(activeChar);
 		return true;
 	}
 	
@@ -51,7 +51,7 @@ public class AdminGmChat implements IAdminCommandHandler {
 	 * @param command
 	 * @param activeChar
 	 */
-	private void snoop(String command, L2PcInstance activeChar)
+	private void snoop(L2PcInstance activeChar)
 	{
 		L2Object target = activeChar.getTarget();
 		if(target == null)

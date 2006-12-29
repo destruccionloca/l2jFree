@@ -80,6 +80,7 @@ import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
+import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
@@ -614,9 +615,17 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private boolean _inJail = false;
     private long _jailTimer = 0;
+    
+    private boolean _maried = false;
+    private int _partnerId = 0;
+    private int _coupleId = 0;
+    private boolean _engagerequest = false;
+    private int _engageid = 0;
+    private boolean _maryrequest = false;
+    private boolean _maryaccepted = false;
 
     /* Flag to disable equipment/skills while wearing formal wear **/
-    //private boolean _IsWearingFormalWear = false;
+    private boolean _IsWearingFormalWear = false;
 
     /** Skill casting information (used to queue when several skills are cast in a short time) **/
     public class SkillDat
@@ -3570,7 +3579,6 @@ public final class L2PcInstance extends L2PlayableInstance
         return false;
     }
 
-    /*
     public boolean isWearingFormalWear()
     {
         return _IsWearingFormalWear;
@@ -3580,7 +3588,6 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         _IsWearingFormalWear = value;
     }
-    */
 
     /**
      * Return the secondary weapon instance (always equiped in the left hand).<BR><BR>
@@ -9412,6 +9419,95 @@ public final class L2PcInstance extends L2PlayableInstance
                 + ") for " + getName() + ".");
 
         _queuedSkill = new SkillDat(queuedSkill, ctrlPressed, shiftPressed);
+    }
+    
+    public boolean isMaried()
+    {
+        return _maried;
+    }
+
+    public void setMaried(boolean state)
+    {
+        _maried = state;
+    }
+    
+    public boolean isEngageRequest()
+    {
+        return _engagerequest;
+    }
+    
+    public void setEngageRequest(boolean state,int playerid)
+    {
+        _engagerequest = state;
+        _engageid = playerid;
+    }
+    
+    public void setMaryRequest(boolean state)
+    {
+        _maryrequest = state;
+    }
+    
+    public boolean isMaryRequest()
+    {
+        return _maryrequest;
+    }
+    
+    public void setMaryAccepted(boolean state)
+    {
+        _maryaccepted = state;
+    }
+    
+    public boolean isMaryAccepted()
+    {
+        return _maryaccepted;
+    }
+    
+    public int getEngageId()
+    {
+        return _engageid;
+    }
+    
+    public int getPartnerId()
+    {
+        return _partnerId;
+    }
+
+    public void setPartnerId(int partnerid)
+    {
+        _partnerId = partnerid;
+    }
+    
+    public int getCoupleId()
+    {
+        return _coupleId;
+    }
+    
+    public void setCoupleId(int coupleId)
+    {
+        _coupleId = coupleId;
+    }
+    
+    public void EngageAnswer(int answer)
+    {
+        if(_engagerequest==false)
+            return;
+        else if(_engageid==0)
+            return;
+        else
+        {
+            L2PcInstance ptarget = (L2PcInstance)L2World.getInstance().findObject(_engageid);
+            setEngageRequest(false,0);
+            if(ptarget!=null)
+            {
+                if (answer == 1)
+                {
+                    CoupleManager.getInstance().createCouple(ptarget, L2PcInstance.this);
+                    ptarget.sendMessage("Engage accepted.");
+                }
+                else
+                    ptarget.sendMessage("Engage declined.");
+            }
+        }
     }
 
     public boolean isInJail()

@@ -76,7 +76,7 @@ public class AdminCursedWeapons implements IAdminCommandHandler {
                 activeChar.sendMessage("----------------------");
             }
         }
-        else if (command.startsWith("admin_cw_remove "))
+        else if (command.startsWith("admin_cw_remove"))
         {
             int id = Integer.parseInt(st.nextToken());
             CursedWeapon cw = cwm.getCursedWeapon(id);
@@ -86,7 +86,7 @@ public class AdminCursedWeapons implements IAdminCommandHandler {
             else
                 activeChar.sendMessage("Unknown cursed weapon ID.");
         }
-        else if (command.startsWith("admin_cw_goto "))
+        else if (command.startsWith("admin_cw_goto"))
         {
             int id = Integer.parseInt(st.nextToken());
             CursedWeapon cw = cwm.getCursedWeapon(id);

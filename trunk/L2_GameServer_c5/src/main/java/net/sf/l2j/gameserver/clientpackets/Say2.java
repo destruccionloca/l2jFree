@@ -225,18 +225,29 @@ public class Say2 extends ClientBasePacket
 			if (_text.startsWith(".")) 
 			{
 				StringTokenizer st = new StringTokenizer(_text);
-				
+
+                String command;
+                String params;
+                
                 if (st.countTokens()>=2)
 				{
-                    String command = st.nextToken().substring(1);
-                    String params = st.nextToken();             
-					IVoicedCommandHandler vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
-					
-					if (vch != null) 
-                        vch.useVoicedCommand(command, activeChar, params);
-					else
-                        _log.warn("No handler registered for voice command '"+command+"'");
+                    command = st.nextToken().substring(1);
+                    params = st.nextToken();             
 				}
+                else
+                {
+                    command = st.nextToken().substring(1);
+                    params = "";             
+                }
+                IVoicedCommandHandler vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
+                
+                if (vch != null) 
+                    vch.useVoicedCommand(command, activeChar, params);
+                else
+                    _log.warn("No handler registered for voice command '"+command+"'");
+                
+                command=null;
+                params=null;
 			}
             else
             {
