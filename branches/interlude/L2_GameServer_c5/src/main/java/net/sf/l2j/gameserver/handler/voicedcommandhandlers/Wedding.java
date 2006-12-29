@@ -67,6 +67,10 @@ public class Wedding implements IVoicedCommandHandler
         couple.divorce();
         couple = null;
         
+        int AdenaAmount = 0;
+        AdenaAmount = (activeChar.getAdena()/100)*Config.WEDDING_DIVORCE_COSTS;
+        activeChar.getInventory().reduceAdena("Wedding", AdenaAmount, activeChar, null);
+        
         L2PcInstance partner;
         partner = (L2PcInstance)L2World.getInstance().findObject(_partnerId);
         
@@ -77,7 +81,9 @@ public class Wedding implements IVoicedCommandHandler
                 partner.sendMessage("Your Partner has decided to divorce from you.");
             else
                 partner.sendMessage("Your Partner has decided to disengage.");
-            partner.setMaried(false);            
+            partner.setMaried(false);
+            // give adena
+            partner.addAdena("WEDDING", AdenaAmount, null, false);
         }
         return true;
     }

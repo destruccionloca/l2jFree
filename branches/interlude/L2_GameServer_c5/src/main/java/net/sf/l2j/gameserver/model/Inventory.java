@@ -177,7 +177,7 @@ public abstract class Inventory extends ItemContainer
             getOwner().addStatFuncs(item.getStatFuncs(getOwner()));
         }
     }
-    /*
+
     final class FormalWearListener implements PaperdollListener
     {
         public void notifyUnequiped(int slot, L2ItemInstance item)
@@ -203,30 +203,14 @@ public abstract class Inventory extends ItemContainer
             if (item.getItemId() == 6408) 
             {
                 owner.setIsWearingFormalWear(true);
-                if (owner.isCastingNow())
-                    owner.abortCast();
-                if (owner.isAttackingNow())
-                    owner.abortAttack();
-                setPaperdollItem(PAPERDOLL_LHAND, null);
-                setPaperdollItem(PAPERDOLL_RHAND, null);
-                setPaperdollItem(PAPERDOLL_LRHAND, null);
             } 
             else 
             {
                 if (!owner.isWearingFormalWear())
                     return;
-
-                // Don't let weapons be equipped if player is wearing Formal Wear 
-                if (slot == PAPERDOLL_LHAND 
-                    || slot == PAPERDOLL_RHAND
-                    || slot == PAPERDOLL_LRHAND)
-                {
-                    setPaperdollItem(slot, null);
-                }
             }
         }
     }
-    */
     
     /**
      * Constructor of the inventory
@@ -237,7 +221,7 @@ public abstract class Inventory extends ItemContainer
         _paperdollListeners = new FastList<PaperdollListener>();
         addPaperdollListener(new AmmunationListener());
         addPaperdollListener(new StatsListener());
-//        addPaperdollListener(new FormalWearListener());
+        addPaperdollListener(new FormalWearListener());
     }
     
     protected abstract ItemLocation getEquipLocation();

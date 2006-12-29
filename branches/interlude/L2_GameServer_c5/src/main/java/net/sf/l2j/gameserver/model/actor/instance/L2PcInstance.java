@@ -625,7 +625,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _maryaccepted = false;
 
     /* Flag to disable equipment/skills while wearing formal wear **/
-    //private boolean _IsWearingFormalWear = false;
+    private boolean _IsWearingFormalWear = false;
 
     /** Skill casting information (used to queue when several skills are cast in a short time) **/
     public class SkillDat
@@ -3567,7 +3567,6 @@ public final class L2PcInstance extends L2PlayableInstance
         return false;
     }
 
-    /*
     public boolean isWearingFormalWear()
     {
         return _IsWearingFormalWear;
@@ -3577,7 +3576,6 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         _IsWearingFormalWear = value;
     }
-    */
 
     /**
      * Return the secondary weapon instance (always equiped in the left hand).<BR><BR>

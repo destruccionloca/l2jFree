@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SkillTable;
-import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.entity.Couple;
@@ -28,6 +27,7 @@ import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class L2WeddingManagerInstance extends L2FolkInstance
 {
@@ -59,7 +59,7 @@ public class L2WeddingManagerInstance extends L2FolkInstance
         {
             L2PcInstance ptarget = (L2PcInstance)L2World.getInstance().findObject(player.getPartnerId());
             // partner online ?
-            if(ptarget==null)
+            if(ptarget==null || ptarget.isOnline()==0)
                 filename = "data/html/wedding/notfound.htm";
             else
             {
@@ -68,10 +68,14 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                     filename = "data/html/wedding/already.htm";
                 else if (player.isMaryRequest())
                 {
-                    // check for formalwear TODO make this adjustable
-                    if(player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST).getItemId()!=6408
-                            || ptarget.getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST).getItemId()!=6408)
-                        filename = "data/html/wedding/noformal.htm";
+                    // check for formalwear
+                    if(Config.WEDDING_FORMALWEAR)
+                    {
+                        if(player.isWearingFormalWear() && ptarget.isWearingFormalWear())
+                            filename = "data/html/wedding/noformal.htm";
+                        else
+                            filename = "data/html/wedding/ask.htm";
+                    }
                     else
                         filename = "data/html/wedding/ask.htm";
                 }
@@ -85,7 +89,8 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                     {
                         Couple couple = CoupleManager.getInstance().getCouple(player.getCoupleId());
                         couple.marry();
-                        
+
+                        // messages to the couple
                         player.sendMessage("Gratulations you are married!");
                         player.setMaried(true);
                         player.setMaryRequest(false);
@@ -93,11 +98,14 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                         ptarget.setMaried(true);
                         ptarget.setMaryRequest(false);
                         
+                        // wedding march
+                        MagicSkillUser MSU = new MagicSkillUser(player, player, 2149, 1, 1, 0);
+                        player.broadcastPacket(MSU);
+
                         // fireworks
                         L2Skill skill = SkillTable.getInstance().getInfo(2025,1);
                         if (skill != null) 
                         {
-                            MagicSkillUser MSU = new MagicSkillUser(player, player, 2025, 1, 1, 0);
                             player.sendPacket(MSU);
                             player.broadcastPacket(MSU);
                             player.useMagic(skill, false, false);
@@ -106,9 +114,14 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                             ptarget.sendPacket(MSU);
                             ptarget.broadcastPacket(MSU);
                             ptarget.useMagic(skill, false, false);
-
                         }
-                        // TODO nice npc shouts
+                        
+                        SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                        sm.addString("Gratulations, "+player.getName()+" and "+ptarget.getName()+" has married.");
+                        sendPacket(sm);
+                        
+                        sm = null;
+                        MSU = null;                        
                     }
                 }
                 else if (command.startsWith("DeclineWedding"))
@@ -131,12 +144,12 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                         filename = "data/html/wedding/requested.htm";
                         player.setMaryRequest(true);
                         ptarget.setMaryRequest(true);
+                        player.getInventory().reduceAdena("Wedding", Config.WEDDING_PRICE, player, player.getLastFolkNPC());
                     }
                 }
                 replace = ptarget.getName();                
             }
         }
-        
         html.replace("%replace%", replace);
         html.setFile(filename);
         player.sendPacket(html);
