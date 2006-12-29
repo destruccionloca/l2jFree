@@ -79,7 +79,6 @@ public class L2WeddingManagerInstance extends L2FolkInstance
             L2PcInstance ptarget = (L2PcInstance)L2World.getInstance().findObject(player.getPartnerId());
             // partner online ?
             if(ptarget==null || ptarget.isOnline()==0){
-                replace = ptarget.getName();
                 filename = "data/html/wedding/notfound.htm";
                 this.sendHtmlMessage(player, filename, replace);
             }
@@ -97,6 +96,8 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                     if(ptarget.isMaryAccepted())
                     {
                         Couple couple = CoupleManager.getInstance().getCouple(player.getCoupleId());
+                        if(couple==null)
+                            player.sendMessage("debug: couple zero");
                         couple.marry();
                         
                         //messages to the couple
@@ -187,8 +188,6 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                         player.getInventory().reduceAdena("Wedding", Config.WEDDING_PRICE, player, player.getLastFolkNPC());
                     }                    
                 } 
-                
-                replace = ptarget.getName();                
             }
         }                
         this.sendHtmlMessage(player, filename, replace);

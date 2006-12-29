@@ -49,6 +49,7 @@ public class Couple
     public Couple(int coupleId)
     {
         this._Id = coupleId;
+        this._Id = this._Id;
         
         java.sql.Connection con = null;
         try
@@ -59,7 +60,7 @@ public class Couple
             con = L2DatabaseFactory.getInstance().getConnection();
 
             statement = con.prepareStatement("Select * from couples where id = ?");
-            statement.setInt(1, getId());
+            statement.setInt(1, this._Id);
             rs = statement.executeQuery();
 
             while (rs.next())
@@ -131,7 +132,7 @@ public class Couple
             con = L2DatabaseFactory.getInstance().getConnection();
             PreparedStatement statement;
 
-            statement = con.prepareStatement("UPDATE couples set maried = ?, weddingDate= ? where id = ?");
+            statement = con.prepareStatement("UPDATE couples set maried = ?, weddingDate = ? where id = ?");
             statement.setBoolean(1, true);
             statement.setLong(2, Calendar.getInstance().getTimeInMillis());
             statement.setInt(3, this._Id);
