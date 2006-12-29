@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS clan_subpledges;
 DROP TABLE IF EXISTS clan_wars;
 DROP TABLE IF EXISTS clanhall;
 DROP TABLE IF EXISTS clanhall_functions;
+DROP TABLE IF EXISTS couples;
 DROP TABLE IF EXISTS cursed_weapons;
 DROP TABLE IF EXISTS forums;
 DROP TABLE IF EXISTS global_tasks;
