@@ -49,7 +49,6 @@ public class Couple
     public Couple(int coupleId)
     {
         this._Id = coupleId;
-        this._Id = this._Id;
         
         java.sql.Connection con = null;
         try
