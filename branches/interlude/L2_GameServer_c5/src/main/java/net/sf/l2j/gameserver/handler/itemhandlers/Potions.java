@@ -117,7 +117,7 @@ public class Potions implements IItemHandler
             
             res = usePotion(activeChar, 2032, 1);
         }
-        else if (itemId == 727) //_Endeavor potion, xml: 2010
+        else if (itemId == 733) //_Endeavor potion, xml: 2010
             res = usePotion(activeChar, 2010, 1);
         else if (itemId == 734) // quick_step_potion, xml: 2011
             res = usePotion(activeChar, 2011, 1);
