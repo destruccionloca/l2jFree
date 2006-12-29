@@ -6778,3 +6778,4 @@ update npc set runspd = 40 where id in(21395);
 update npc set wit=35;  
 
 UPDATE `npc` SET `type`='L2WyvernManager' WHERE id IN (31162,31163,31164,31165,31166,31167);
+REPLACE INTO `npc` VALUES (30038, 30175, 'Andromeda', 1, 'Wedding Priest', 1, 'NPC.a_casino_FDarkElf', 8.00, 23.00, 70, 'female', 'L2WeddingManager', 40, 3862, 1493, 40, 43, 30, 21, 35, 10, 5879, 590, 1314, 470, 780, 382, 278, 0, 253, 0, 0, 0, 80, 120, NULL, 0, 1, 0);
