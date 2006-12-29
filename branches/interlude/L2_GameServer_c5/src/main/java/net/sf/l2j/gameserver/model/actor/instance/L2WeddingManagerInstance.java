@@ -96,8 +96,6 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                     if(ptarget.isMaryAccepted())
                     {
                         Couple couple = CoupleManager.getInstance().getCouple(player.getCoupleId());
-                        if(couple==null)
-                            player.sendMessage("debug: couple zero");
                         couple.marry();
                         
                         //messages to the couple
