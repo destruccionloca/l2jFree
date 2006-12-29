@@ -257,6 +257,7 @@ public class Wedding implements IVoicedCommandHandler
         int teleportTimer = Config.WEDDING_TELEPORT_INTERVAL*1000;
         
         activeChar.sendMessage("After " + teleportTimer/60000 + " min. you will be teleported to your Love.");
+        activeChar.getInventory().reduceAdena("Wedding", Config.WEDDING_TELEPORT_PRICE, activeChar, null);
         
         activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
         //SoE Animation section

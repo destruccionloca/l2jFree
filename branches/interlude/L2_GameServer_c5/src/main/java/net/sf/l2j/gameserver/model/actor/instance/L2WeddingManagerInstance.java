@@ -136,7 +136,6 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                         sm = null;
                         MSU = null;
                         
-                        player.getInventory().reduceAdena("Wedding", Config.WEDDING_PRICE, player, player.getLastFolkNPC());
                         filename = "data/html/wedding/accepted.htm";
                         replace = ptarget.getName();
                         this.sendHtmlMessage(ptarget, filename, replace);
@@ -185,6 +184,7 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                         replace = ptarget.getName();
                         filename = "data/html/wedding/requested.htm";
                         this.sendHtmlMessage(player, filename, replace);
+                        player.getInventory().reduceAdena("Wedding", Config.WEDDING_PRICE, player, player.getLastFolkNPC());
                     }                    
                 } 
                 
