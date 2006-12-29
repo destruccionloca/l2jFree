@@ -160,6 +160,12 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
         
+        if(ptarget.getPartnerId()!=0)  
+        {  
+            activeChar.sendMessage("Is already engaged with someone else.");  
+            return false;  
+        }
+        
         if (ptarget.getSex()==activeChar.getSex() && !Config.WEDDING_SAMESEX)
         {
             activeChar.sendMessage("You cant ask partners of same sex.");
