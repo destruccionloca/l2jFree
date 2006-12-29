@@ -102,9 +102,9 @@ public class Couple
         {
             con = L2DatabaseFactory.getInstance().getConnection();
             PreparedStatement statement;
-
+            this._Id = IdFactory.getInstance().getNextId();
             statement = con.prepareStatement("INSERT INTO couples (id, player1Id, player2Id, maried, affiancedDate, weddingDate) VALUES (?, ?, ?, ?, ?, ?)");
-            statement.setInt(1, IdFactory.getInstance().getNextId());
+            statement.setInt(1, this._Id);
             statement.setInt(2, this._player1Id);
             statement.setInt(3, this._player2Id);
             statement.setBoolean(4, false);
@@ -131,9 +131,10 @@ public class Couple
             con = L2DatabaseFactory.getInstance().getConnection();
             PreparedStatement statement;
 
-            statement = con.prepareStatement("UPDATE couples set maried = ?, weddingDate= ?)");
+            statement = con.prepareStatement("UPDATE couples set maried = ?, weddingDate= ? where id = ?");
             statement.setBoolean(1, true);
             statement.setLong(2, Calendar.getInstance().getTimeInMillis());
+            statement.setInt(3, this._Id);
             statement.execute();
             statement.close();
         }
@@ -156,7 +157,7 @@ public class Couple
             PreparedStatement statement;
             
             statement = con.prepareStatement("DELETE FROM couples WHERE id=?");
-            statement.setInt(1, getId());
+            statement.setInt(1, this._Id);
             statement.execute();
         }
         catch (Exception e)
