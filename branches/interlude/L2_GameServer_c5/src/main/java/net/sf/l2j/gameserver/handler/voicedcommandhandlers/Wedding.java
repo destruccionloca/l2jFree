@@ -55,22 +55,27 @@ public class Wedding implements IVoicedCommandHandler
             return false;
 
         int _partnerId = activeChar.getPartnerId();
+        int AdenaAmount = 0;
         
         if(activeChar.isMaried())
+        {
             activeChar.sendMessage("You are divorced now.");
+
+            AdenaAmount = (activeChar.getAdena()/100)*Config.WEDDING_DIVORCE_COSTS;
+            activeChar.getInventory().reduceAdena("Wedding", AdenaAmount, activeChar, null);
+            
+        }
         else
             activeChar.sendMessage("You are disengaged now.");
+
+        
         
         activeChar.setMaried(false);
         activeChar.setPartnerId(0);
         Couple couple = CoupleManager.getInstance().getCouple(activeChar.getCoupleId());
         couple.divorce();
         couple = null;
-        
-        int AdenaAmount = 0;
-        AdenaAmount = (activeChar.getAdena()/100)*Config.WEDDING_DIVORCE_COSTS;
-        activeChar.getInventory().reduceAdena("Wedding", AdenaAmount, activeChar, null);
-        
+       
         L2PcInstance partner;
         partner = (L2PcInstance)L2World.getInstance().findObject(_partnerId);
         
@@ -82,8 +87,10 @@ public class Wedding implements IVoicedCommandHandler
             else
                 partner.sendMessage("Your Partner has decided to disengage.");
             partner.setMaried(false);
+
             // give adena
-            partner.addAdena("WEDDING", AdenaAmount, null, false);
+            if(AdenaAmount>0)
+                partner.addAdena("WEDDING", AdenaAmount, null, false);
         }
         return true;
     }
