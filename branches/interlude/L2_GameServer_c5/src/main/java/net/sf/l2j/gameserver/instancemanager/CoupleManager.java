@@ -110,20 +110,14 @@ public class CoupleManager
     {
         if(player1!=null && player2!=null)
         {
-            int _player1id = player1.getObjectId();
-            int _player2id = player2.getObjectId();
-            
-            for(Couple cl: this.getCouples())
+            if(player1.getPartnerId()==0 && player1.getPartnerId()==0)
             {
-                int _clplayer1id = cl.getPlayer1Id();
-                int _clplayer2id = cl.getPlayer2Id();
-                // check if already engaged
-                if(_player1id!=_clplayer1id && _player1id!=_clplayer2id && _player2id!=_clplayer1id && _player2id!=_clplayer2id)
-                {
-                    getCouples().add(new Couple(player1,player2));
-                    player1.setPartnerId(_player2id);
-                    player2.setPartnerId(_player1id);
-                }
+                int _player1id = player1.getObjectId();
+                int _player2id = player2.getObjectId();
+                
+                getCouples().add(new Couple(player1,player2));
+                player1.setPartnerId(_player2id);
+                player2.setPartnerId(_player1id);
             }
         }
     }
