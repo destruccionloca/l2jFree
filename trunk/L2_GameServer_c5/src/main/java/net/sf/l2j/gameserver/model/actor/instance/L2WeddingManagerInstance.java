@@ -71,8 +71,6 @@ public class L2WeddingManagerInstance extends L2FolkInstance
         
         // if player has no partner
         if(player.getPartnerId()==0){
-            player.setMaryRequest(false);
-            player.setMaryAccepted(false);
             filename = "data/html/wedding/nopartner.htm";
             this.sendHtmlMessage(player, filename, replace);
         }
@@ -81,8 +79,7 @@ public class L2WeddingManagerInstance extends L2FolkInstance
             L2PcInstance ptarget = (L2PcInstance)L2World.getInstance().findObject(player.getPartnerId());
             // partner online ?
             if(ptarget==null || ptarget.isOnline()==0){
-                player.setMaryRequest(false);
-                player.setMaryAccepted(false);
+                replace = ptarget.getName();
                 filename = "data/html/wedding/notfound.htm";
                 this.sendHtmlMessage(player, filename, replace);
             }
@@ -90,64 +87,59 @@ public class L2WeddingManagerInstance extends L2FolkInstance
             {
                 // already married ?
                 if(player.isMaried() || ptarget.isMaried()){
-                    player.setMaryRequest(false);
-                    ptarget.setMaryRequest(false);
-                    player.setMaryAccepted(false);
-                    ptarget.setMaryAccepted(false);
                     filename = "data/html/wedding/already.htm";
                     this.sendHtmlMessage(player, filename, replace);
                 }
                 else if (command.startsWith("AcceptWedding"))
                 {
-                    player.setMaryAccepted(true);
-                    ptarget.setMaryAccepted(true);
                     // accept the wedding request
-                    
-                    Couple couple = CoupleManager.getInstance().getCouple(player.getCoupleId());
-                    couple.marry();
-                    
-                    player.sendMessage(""+player.getCoupleId());
-                    
-                    //messages to the couple
-                    player.sendMessage("Gratulations you are married!");
-                    player.setMaried(true);
-                    player.setMaryRequest(false);
-                    ptarget.sendMessage("Gratulations you are married!");
-                    ptarget.setMaried(true);
-                    ptarget.setMaryRequest(false);
-                    
-                    //wedding march
-                    MagicSkillUser MSU = new MagicSkillUser(player, player, 2149, 1, 1, 0);
-                    player.broadcastPacket(MSU);
-                    MSU = new MagicSkillUser(ptarget, ptarget, 2149, 1, 1, 0);
-                    ptarget.broadcastPacket(MSU);
-                    
-                    // fireworks
-                    L2Skill skill = SkillTable.getInstance().getInfo(2025,1);
-                    if (skill != null) 
+                    player.setMaryAccepted(true);
+                    if(ptarget.isMaryAccepted())
                     {
-                        MSU = new MagicSkillUser(player, player, 2025, 1, 1, 0);
-                        player.sendPacket(MSU);
+                        Couple couple = CoupleManager.getInstance().getCouple(player.getCoupleId());
+                        couple.marry();
+                        
+                        //messages to the couple
+                        player.sendMessage("Gratulations you are married!");
+                        player.setMaried(true);
+                        player.setMaryRequest(false);
+                        ptarget.sendMessage("Gratulations you are married!");
+                        ptarget.setMaried(true);
+                        ptarget.setMaryRequest(false);
+                        
+                        //wedding march
+                        MagicSkillUser MSU = new MagicSkillUser(player, player, 2149, 1, 1, 0);
                         player.broadcastPacket(MSU);
-                        player.useMagic(skill, false, false);
-
-                        MSU = new MagicSkillUser(ptarget, ptarget, 2025, 1, 1, 0);
-                        ptarget.sendPacket(MSU);
+                        MSU = new MagicSkillUser(ptarget, ptarget, 2149, 1, 1, 0);
                         ptarget.broadcastPacket(MSU);
-                        ptarget.useMagic(skill, false, false);
-
+                        
+                        // fireworks
+                        L2Skill skill = SkillTable.getInstance().getInfo(2025,1);
+                        if (skill != null) 
+                        {
+                            MSU = new MagicSkillUser(player, player, 2025, 1, 1, 0);
+                            player.sendPacket(MSU);
+                            player.broadcastPacket(MSU);
+                            player.useMagic(skill, false, false);
+    
+                            MSU = new MagicSkillUser(ptarget, ptarget, 2025, 1, 1, 0);
+                            ptarget.sendPacket(MSU);
+                            ptarget.broadcastPacket(MSU);
+                            ptarget.useMagic(skill, false, false);
+    
+                        }
+                        
+                        SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                        sm.addString("Gratulations, "+player.getName()+" and "+ptarget.getName()+" has married.");
+                        sendPacket(sm);
+                        
+                        sm = null;
+                        MSU = null;
+                        
+                        filename = "data/html/wedding/accepted.htm";
+                        replace = ptarget.getName();
+                        this.sendHtmlMessage(ptarget, filename, replace);
                     }
-                    
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-                    sm.addString("Gratulations, "+player.getName()+" and "+ptarget.getName()+" has married.");
-                    sendPacket(sm);
-                    
-                    sm = null;
-                    MSU = null;
-                    
-                    filename = "data/html/wedding/accepted.htm";
-                    replace = ptarget.getName();
-                    this.sendHtmlMessage(ptarget, filename, replace);
                 }                
                 else if (command.startsWith("DeclineWedding"))
                 {
@@ -163,7 +155,7 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                 }
                 else if (player.isMaryRequest())
                 {
-//                  check for formalwear
+                    // check for formalwear
                     if(Config.WEDDING_FORMALWEAR)
                     {
                         if(player.isWearingFormalWear() && ptarget.isWearingFormalWear())
@@ -179,12 +171,12 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                 }  
                 else if (command.startsWith("AskWedding"))
                 {
-                    if(player.getAdena()<Config.WEDDING_PRICE && ptarget.getAdena()<Config.WEDDING_PRICE)
+                    if(player.getAdena()<Config.WEDDING_PRICE)
                     {
                         filename = "data/html/wedding/adena.htm";
                         replace = String.valueOf(Config.WEDDING_PRICE);
                         this.sendHtmlMessage(player, filename, replace);
-                    }                    
+                    }
                     else
                     {
                         player.setMaryRequest(true);
@@ -192,7 +184,7 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                         replace = ptarget.getName();
                         filename = "data/html/wedding/requested.htm";
                         this.sendHtmlMessage(player, filename, replace);
-                        player.getInventory().reduceAdena("Wedding", Config.WEDDING_PRICE, player, player.getLastFolkNPC()); 
+                        player.getInventory().reduceAdena("Wedding", Config.WEDDING_PRICE, player, player.getLastFolkNPC());
                     }                    
                 } 
                 
