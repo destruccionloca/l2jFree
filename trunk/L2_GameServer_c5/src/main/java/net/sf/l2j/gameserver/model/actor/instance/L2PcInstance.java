@@ -3133,9 +3133,14 @@ public final class L2PcInstance extends L2PlayableInstance
                 // Check if this L2PcInstance is autoAttackable
                 if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started))
                 {
+                    if(player.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL || this.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
+                    {
+                        player.sendMessage("Player protected till level " + String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL));
+                        player.sendPacket(new ActionFailed());
+                    }
                     // Player with lvl < 21 can't attack a cursed weapon holder
                     // And a cursed weapon holder  can't attack players with lvl < 21
-                    if ((isCursedWeaponEquiped() && player.getLevel() < 21)
+                    else if ((isCursedWeaponEquiped() && player.getLevel() < 21)
                             || (player.isCursedWeaponEquiped() && this.getLevel() < 21))
                     {
                         player.sendPacket(new ActionFailed());
