@@ -130,7 +130,7 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                         
                         SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                         sm.addString("Gratulations, "+player.getName()+" and "+ptarget.getName()+" has married.");
-                        sendPacket(sm);
+                        CoupleManager.getInstance().announce(sm);
                         
                         sm = null;
                         MSU = null;
@@ -157,7 +157,7 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                     // check for formalwear
                     if(Config.WEDDING_FORMALWEAR)
                     {
-                        if(player.isWearingFormalWear() && ptarget.isWearingFormalWear())
+                        if(player.isWearingFormalWear() || ptarget.isWearingFormalWear())
                             filename = "data/html/wedding/noformal.htm";
                         else
                             filename = "data/html/wedding/ask.htm";

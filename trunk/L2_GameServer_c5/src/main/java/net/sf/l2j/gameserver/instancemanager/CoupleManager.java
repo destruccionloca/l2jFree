@@ -24,9 +24,12 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
+import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 
 /** 
@@ -119,6 +122,18 @@ public class CoupleManager
                 player2.setPartnerId(_player1id);
             }
         }
+    }
+    
+    public void announce(SystemMessage sm)
+    {
+        for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+        {
+            if (player == null) continue;
+            
+            player.sendPacket(sm);
+        }
+        if (_log.isDebugEnabled())
+            _log.info("MessageID: "+sm.getMessageID());
     }
     
     public final int getCoupleIndex(int coupleId)
