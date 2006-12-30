@@ -114,7 +114,7 @@ public final class Connection
      * Notifies all threads, that wait() on this Connection
      */
     public synchronized void addReceivedMsg(ByteBuffer buf) {
-        if (Config.ASSERT) assert Thread.currentThread() == SelectorThread.getInstance();
+        // if (Config.ASSERT) assert Thread.currentThread() == SelectorThread.getInstance();
         ClientBasePacket pkt = PacketHandler.handlePacket(buf, _client);
         if (pkt != null) {
             if (pkt.getPriority() == TaskPriority.PR_URGENT)
@@ -133,7 +133,7 @@ public final class Connection
      */
     synchronized ClientBasePacket getNextReceivedMsg()
     {
-        if (Config.ASSERT) assert Thread.currentThread() != SelectorThread.getInstance();
+        // if (Config.ASSERT) assert Thread.currentThread() != SelectorThread.getInstance();
         if (_receivedMsgQueue.isEmpty())
             return null;
         return _receivedMsgQueue.remove();
@@ -162,7 +162,7 @@ public final class Connection
         }
 
         WrappedMessage msg = new WrappedMessage(data, this);
-        SelectorThread.getInstance().sendMessage(msg);
+        IOThread.getInstance().sendMessage(msg);
     }
 
     public void sendPacket(ServerBasePacket bp)

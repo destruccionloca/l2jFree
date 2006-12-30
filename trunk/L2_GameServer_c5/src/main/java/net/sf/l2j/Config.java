@@ -646,8 +646,14 @@ public final class Config {
     public static String        GAME_SERVER_LOGIN_HOST;
     public static String        INTERNAL_HOSTNAME;
     public static String        EXTERNAL_HOSTNAME;
+    
     /** IO_Type */
-    public static String        IO_TYPE;
+    public enum IOType {
+        nio,
+        aio4j
+    }
+    
+    public static IOType        IO_TYPE;
     public static int           PATH_NODE_RADIUS;
     public static int           NEW_NODE_ID;
     public static int           SELECTED_NODE_ID;
@@ -1016,7 +1022,7 @@ public final class Config {
                 INTERNAL_HOSTNAME   = serverSettings.getProperty("InternalHostname", "*");
 	            EXTERNAL_HOSTNAME   = serverSettings.getProperty("ExternalHostname", "*");
                 
-                IO_TYPE                 = serverSettings.getProperty("IOType", "nio");
+                IO_TYPE                 = IOType.valueOf(serverSettings.getProperty("IOType", "nio"));
 	            
 	            MAXIMUM_ONLINE_USERS        = Integer.parseInt(serverSettings.getProperty("MaximumOnlineUsers", "100"));
                 

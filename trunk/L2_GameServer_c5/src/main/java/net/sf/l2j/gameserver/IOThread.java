@@ -24,9 +24,9 @@ public class IOThread extends Thread
     {
         if(_instance == null)
         {
-            if (Config.IO_TYPE.equals("nio"))
+            if (Config.IO_TYPE == Config.IOType.nio)
                 _instance = SelectorThread.getInstance();
-            else if (Config.IO_TYPE.equals("aio4j"))
+            else if (Config.IO_TYPE == Config.IOType.aio4j)
                 _instance = AsyncIOThread.getInstance();            
         }
         return _instance;

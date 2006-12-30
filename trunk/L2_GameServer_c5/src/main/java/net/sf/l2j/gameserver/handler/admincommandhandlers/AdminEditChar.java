@@ -95,9 +95,8 @@ public class AdminEditChar implements IAdminCommandHandler
 			{
 				String val = command.substring(21); 
 				L2PcInstance target = L2World.getInstance().getPlayer(val);
+                GMAudit.auditGMAction(activeChar.getName(), "admin_character_list", target.getName(), val);
 				showCharacterList(activeChar, target);
-				
-				GMAudit.auditGMAction(activeChar.getName(), command, target.getName(), "");
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
@@ -119,6 +118,7 @@ public class AdminEditChar implements IAdminCommandHandler
 
             if (player.getClan() == null)
             {
+                GMAudit.auditGMAction(activeChar.getName(), "admin_remclanwait", player.getName(), "");
                 player.setDeleteClanTime(0);
                 player.sendMessage("A GM Has reset your clan wait time, You may now join another clan.");
                 activeChar.sendMessage("You have reset " +player.getName()+ "'s wait time to join another clan.");
@@ -134,9 +134,8 @@ public class AdminEditChar implements IAdminCommandHandler
 			{   
 				String val = command.substring(22);
 				int page = Integer.parseInt(val);
+                GMAudit.auditGMAction(activeChar.getName(), "admin_show_characters", "no-target", val);
 				listCharacters(activeChar, page);
-				
-				GMAudit.auditGMAction(activeChar.getName(), command, "no-target", "");
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
@@ -148,9 +147,8 @@ public class AdminEditChar implements IAdminCommandHandler
 			try
 			{
 				String val = command.substring(21); 
+                GMAudit.auditGMAction(activeChar.getName(), command, "", val);
 				findCharacter(activeChar, val);
-				
-				 GMAudit.auditGMAction(activeChar.getName(), command, val, "");
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{	//Case of empty character name
@@ -163,26 +161,32 @@ public class AdminEditChar implements IAdminCommandHandler
 		}
 		else if (command.equals("admin_edit_character"))
 		{
-			GMAudit.auditGMAction(activeChar.getName(), command, activeChar.getName(), "");
-			editCharacter(activeChar);
+			if (activeChar.getTarget() instanceof L2PcInstance)
+            {
+			    GMAudit.auditGMAction(activeChar.getName(), "admin_edit_character", activeChar.getTarget().getName(), "");
+			    editCharacter(activeChar);
+            }
 		}
 		// Karma control commands
 		else if (command.equals("admin_nokarma"))
 		{
-			GMAudit.auditGMAction(activeChar.getName(), command, activeChar.getName(), "");
-			
-			setTargetKarma(activeChar, 0);
+            if (activeChar.getTarget() instanceof L2PcInstance)
+            {
+                GMAudit.auditGMAction(activeChar.getName(), "admin_nokarma", activeChar.getTarget().getName(), "");
+                setTargetKarma(activeChar, 0);
+            }
 		}
 		else if (command.startsWith("admin_setkarma"))
 		{
+            if (activeChar.getTarget() instanceof L2PcInstance)
+            {
 			try
 			{   
 				String val = command.substring(15);
 				int karma = Integer.parseInt(val);
 				if (activeChar == activeChar.getTarget() || activeChar.getAccessLevel()>=REQUIRED_LEVEL2)
 			    
-				GMAudit.auditGMAction(activeChar.getName(), command, activeChar.getName(), "");
-				
+				GMAudit.auditGMAction(activeChar.getName(), "admin_setkarma", activeChar.getTarget().getName(), val);
 				setTargetKarma(activeChar, karma);
 			}
 			catch (StringIndexOutOfBoundsException e)
@@ -191,15 +195,18 @@ public class AdminEditChar implements IAdminCommandHandler
 				SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
 				activeChar.sendPacket(sm);
 			}
+            }
 		}
 		else if (command.startsWith("admin_save_modifications"))
 		{
+            if (activeChar.getTarget() instanceof L2PcInstance)
+            {
 			try
 			{
 				String val = command.substring(24); 
 				if (activeChar == activeChar.getTarget() || activeChar.getAccessLevel()>=REQUIRED_LEVEL2)
 				
-				GMAudit.auditGMAction(activeChar.getName(), command, activeChar.getName(), "");
+				GMAudit.auditGMAction(activeChar.getName(), "admin_save_modifications", activeChar.getTarget().getName(), val);
 				
 				adminModifyCharacter(activeChar, val);
 			}
@@ -210,6 +217,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				activeChar.sendPacket(sm);
 				listCharacters(activeChar, 0);
 			}			
+            }
 		}
 		else if (command.equals("admin_rec"))
 		{
@@ -217,13 +225,12 @@ public class AdminEditChar implements IAdminCommandHandler
 			    return false;
 			L2Object target = activeChar.getTarget();
 			L2PcInstance player = null;
-
             if (target instanceof L2PcInstance) {
 				player = (L2PcInstance)target;
 			}
             else
 				return false;
-
+            GMAudit.auditGMAction(activeChar.getName(), "admin_rec", player.getName(), "");
 			player.setRecomHave(player.getRecomHave() + 1);
 			SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
 			sm.addString("You have been recommended by a GM");
@@ -245,6 +252,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				} else {
 					return false;
 				}
+                GMAudit.auditGMAction(activeChar.getName(), "admin_rec", player.getName(), val);
 	            player.setRecomHave(player.getRecomHave() + recVal);
 				SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
 				sm.addString("You have been recommended by a GM");
@@ -269,6 +277,7 @@ public class AdminEditChar implements IAdminCommandHandler
                 } else {
                     return false;
                 }
+                GMAudit.auditGMAction(activeChar.getName(), "admin_settitle", player.getName(), val);
                 player.setTitle(val);
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                 sm.addString("Your title has been changed by a GM");
@@ -296,6 +305,7 @@ public class AdminEditChar implements IAdminCommandHandler
                 } else {
                     return false;
                 }
+                GMAudit.auditGMAction(activeChar.getName(), "admin_setname", player.getName(), val);
                 player.setName(val);
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                 sm.addString("Your name has been changed by a GM");
@@ -320,6 +330,7 @@ public class AdminEditChar implements IAdminCommandHandler
                 } else {
                     return false;
                 }
+                GMAudit.auditGMAction(activeChar.getName(), "admin_setsex", player.getName(), "");
                 player.changeSex();
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                 sm.addString("Your gender has been changed by a GM");
@@ -340,6 +351,7 @@ public class AdminEditChar implements IAdminCommandHandler
                 } else {
                     return false;
                 }
+                GMAudit.auditGMAction(activeChar.getName(), "admin_setcolor", player.getName(), val);
                 player.setNameColor(Integer.decode("0x"+val));
                 player.sendMessage("Your name color has been changed by a GM");
                 player.broadcastUserInfo();
@@ -356,6 +368,7 @@ public class AdminEditChar implements IAdminCommandHandler
            if (target instanceof L2PetInstance)
            {
                L2PetInstance targetPet = (L2PetInstance)target;
+               GMAudit.auditGMAction(activeChar.getName(), "admin_fullfood", targetPet.getOwner().getName(), "");
         		targetPet.setCurrentFed(targetPet.getMaxFed());
            }
            else {
@@ -501,12 +514,11 @@ public class AdminEditChar implements IAdminCommandHandler
 	private void setTargetKarma(L2PcInstance activeChar, int newKarma) {
 		// function to change karma of selected char
 		L2Object target = activeChar.getTarget();
-		L2PcInstance player = null;
-		if (target instanceof L2PcInstance) {
-			player = (L2PcInstance)target;
-		} else {
+        
+		if (!(target instanceof L2PcInstance))
 			return;
-		}
+        
+        L2PcInstance player = (L2PcInstance)target;
 		
 		if ( newKarma >= 0 ) {
 			// for display
@@ -562,6 +574,7 @@ public class AdminEditChar implements IAdminCommandHandler
             return;
 
         L2PcInstance player = (L2PcInstance)target;
+        
 		StringTokenizer st = new StringTokenizer(modifications);
         
 		if (st.countTokens() != 8) {
@@ -647,10 +660,11 @@ public class AdminEditChar implements IAdminCommandHandler
 		///FIXME Made it so that you have to enter all values to 'prevent' abuses...
 		L2Object target = activeChar.getTarget();
         
-		if (!(target instanceof L2PcInstance)) 
-			return;
-
+        if (!(target instanceof L2PcInstance))
+            return;
+        
         L2PcInstance player = (L2PcInstance)target;
+        
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5); 
         float loadPercent = ((float)player.getCurrentLoad() / (float)player.getMaxLoad()) * 100;
         

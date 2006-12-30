@@ -190,7 +190,7 @@ import org.apache.commons.logging.LogFactory;
 public class GameServer
 {
     private static final Log _log = LogFactory.getLog(GameServer.class.getName());
-    private final SelectorThread _selectorThread;
+    private final IOThread _gameThread;
     private final SkillTable _skillTable;
     private final ItemTable _itemTable;
     private final NpcTable _npcTable;
@@ -222,9 +222,9 @@ public class GameServer
         return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/1048576; // 1024 * 1024 = 1048576;
     }
 
-    public SelectorThread getSelectorThread()
+    public IOThread getSelectorThread()
     {
-        return _selectorThread;
+        return _gameThread;
     }
 
 
@@ -617,8 +617,8 @@ public class GameServer
         _loginThread = LoginServerThread.getInstance();
         _loginThread.start();
         
-        _selectorThread = SelectorThread.getInstance();
-        _selectorThread.start();
+        _gameThread = IOThread.getInstance();
+        _gameThread.start();
         _log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
     }
     
