@@ -25,7 +25,6 @@ import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
@@ -110,16 +109,15 @@ public class CoupleManager
     {
         if(player1!=null && player2!=null)
         {
-            if(player1.getPartnerId()==0 && player1.getPartnerId()==0)
+            if(player1.getPartnerId()==0 && player2.getPartnerId()==0)
             {
-                int _player1id = player1.getObjectId();  
-                int _player2id = player2.getObjectId();  
-            
-                getCouples().add(new Couple(player1,player2));  
-                player1.setPartnerId(_player2id);  
-                player2.setPartnerId(_player1id); 
+                int _player1id = player1.getObjectId();
+                int _player2id = player2.getObjectId();
+                
+                getCouples().add(new Couple(player1,player2));
+                player1.setPartnerId(_player2id);
+                player2.setPartnerId(_player1id);
             }
-
         }
     }
     

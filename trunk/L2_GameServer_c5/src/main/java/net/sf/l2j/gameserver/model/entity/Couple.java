@@ -59,7 +59,7 @@ public class Couple
             con = L2DatabaseFactory.getInstance().getConnection();
 
             statement = con.prepareStatement("Select * from couples where id = ?");
-            statement.setInt(1, getId());
+            statement.setInt(1, this._Id);
             rs = statement.executeQuery();
 
             while (rs.next())
@@ -94,18 +94,22 @@ public class Couple
         this._affiancedDate = Calendar.getInstance();
         this._affiancedDate.setTimeInMillis(Calendar.getInstance().getTimeInMillis());
 
+        this._weddingDate = Calendar.getInstance();
+        this._weddingDate.setTimeInMillis(Calendar.getInstance().getTimeInMillis());
+        
         java.sql.Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection();
             PreparedStatement statement;
-
-            statement = con.prepareStatement("INSERT INTO couples (id, player1Id, player2Id, maried, affiancedDate) VALUES (?, ?, ?, ?, ?)");
-            statement.setInt(1, IdFactory.getInstance().getNextId());
+            this._Id = IdFactory.getInstance().getNextId();
+            statement = con.prepareStatement("INSERT INTO couples (id, player1Id, player2Id, maried, affiancedDate, weddingDate) VALUES (?, ?, ?, ?, ?, ?)");
+            statement.setInt(1, this._Id);
             statement.setInt(2, this._player1Id);
             statement.setInt(3, this._player2Id);
             statement.setBoolean(4, false);
             statement.setLong(5, this._affiancedDate.getTimeInMillis());
+            statement.setLong(6, this._weddingDate.getTimeInMillis());            
             statement.execute();
             statement.close();
         }
@@ -121,18 +125,15 @@ public class Couple
     
     public void marry()
     {
-        this._weddingDate = Calendar.getInstance();
-        this._weddingDate.setTimeInMillis(Calendar.getInstance().getTimeInMillis());
-        
         java.sql.Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection();
             PreparedStatement statement;
 
-            statement = con.prepareStatement("UPDATE couples set maried = ?, weddingDate= ? WHERE id=?");
+            statement = con.prepareStatement("UPDATE couples set maried = ?, weddingDate = ? where id = ?");
             statement.setBoolean(1, true);
-            statement.setLong(2, this._weddingDate.getTimeInMillis());
+            statement.setLong(2, Calendar.getInstance().getTimeInMillis());
             statement.setInt(3, this._Id);
             statement.execute();
             statement.close();
@@ -158,7 +159,6 @@ public class Couple
             statement = con.prepareStatement("DELETE FROM couples WHERE id=?");
             statement.setInt(1, this._Id);
             statement.execute();
-            statement.close();
         }
         catch (Exception e)
         {

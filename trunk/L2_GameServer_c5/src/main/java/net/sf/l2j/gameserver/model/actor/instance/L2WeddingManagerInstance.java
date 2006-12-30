@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class L2WeddingManagerInstance extends L2FolkInstance
 {
     /**
-     * @author evill33t & SqueezeD
+     * @author evill33t & squeezed
      */
     public L2WeddingManagerInstance(int objectId, L2NpcTemplate template)
     {
@@ -79,7 +79,6 @@ public class L2WeddingManagerInstance extends L2FolkInstance
             L2PcInstance ptarget = (L2PcInstance)L2World.getInstance().findObject(player.getPartnerId());
             // partner online ?
             if(ptarget==null || ptarget.isOnline()==0){
-                replace = ptarget.getName();
                 filename = "data/html/wedding/notfound.htm";
                 this.sendHtmlMessage(player, filename, replace);
             }
@@ -187,8 +186,6 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                         player.getInventory().reduceAdena("Wedding", Config.WEDDING_PRICE, player, player.getLastFolkNPC());
                     }                    
                 } 
-                
-                replace = ptarget.getName();                
             }
         }                
         this.sendHtmlMessage(player, filename, replace);

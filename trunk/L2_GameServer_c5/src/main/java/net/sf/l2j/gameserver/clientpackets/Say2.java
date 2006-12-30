@@ -236,16 +236,18 @@ public class Say2 extends ClientBasePacket
 				}
                 else
                 {
-                    command = st.nextToken().substring(1);
+                    command = _text.substring(1).trim();
                     params = "";             
                 }
-                IVoicedCommandHandler vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
-                
-                if (vch != null) 
-                    vch.useVoicedCommand(command, activeChar, params);
-                else
-                    _log.warn("No handler registered for voice command '"+command+"'");
-                
+                if (command.length()>0)
+                {
+                    IVoicedCommandHandler vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
+                    
+                    if (vch != null) 
+                        vch.useVoicedCommand(command, activeChar, params);
+                    else
+                        _log.warn("No handler registered for voice command '"+command+"'");
+                }                
                 command=null;
                 params=null;
 			}
