@@ -25,6 +25,7 @@
  */
 package net.sf.l2j.loginserver.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.l2j.loginserver.beans.Gameservers;
@@ -33,6 +34,7 @@ import net.sf.l2j.loginserver.dao.GameserversDAO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
  * Account service to handle gameservers management
@@ -55,7 +57,16 @@ public class GameserversServices
      */
     public List<Gameservers> getAllGameservers ()
     {
-        return __dao.getAllGameservers();
+        try
+        {
+            List<Gameservers> servers = __dao.getAllGameservers();
+            return servers;
+        } 
+        catch (ObjectRetrievalFailureException e)
+        {
+            _log.warn("Unable to retrieve gameservers.",e);
+            return new ArrayList<Gameservers>();
+        }
     }
     
     /**

@@ -39,7 +39,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  */
 public class GameserversDAOHib extends BaseRootDAOHib implements GameserversDAO
 {
-    //private static final Logger _log = Logger.getLogger(AccountsDAOHib.class);
+    //private static final Log _log = LogFactory.getLog(AccountsDAOHib.class);
 
     /**
      * Search by id

@@ -169,7 +169,7 @@ public class LoginServerThread extends FloodProtectedListener
      */
     public boolean unblockIp(String ipAddress)
     {
-        if (loginController.ipBlocked(ipAddress))
+        if (loginController.unblockIp(ipAddress))
         {
             return true;
         }

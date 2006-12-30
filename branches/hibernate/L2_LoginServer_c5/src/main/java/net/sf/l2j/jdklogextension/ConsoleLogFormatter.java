@@ -24,26 +24,20 @@ import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
 /**
- * This class ...
- * 
- * @version $Revision: 1.1.4.2 $ $Date: 2005/03/27 15:30:08 $
+ * Log format for console
  */
-
 public class ConsoleLogFormatter extends Formatter
 {
-
-	/* (non-Javadoc)
+    /**
+	 *
 	 * @see java.util.logging.Formatter#format(java.util.logging.LogRecord)
 	 */
-//	private static final String _ = " ";
 	private static final String CRLF = "\r\n";
 	public String format(LogRecord record)
 	{
 		StringBuffer output = new StringBuffer();
-//		output.append(record.getLevel().getName());
-//		output.append(_);
-//		output.append(record.getLoggerName());
-//		output.append(_);
+		output.append(record.getLevel().getName());
+        output.append("");
 		output.append(record.getMessage());
 		output.append(CRLF);
 		if (record.getThrown() != null) {

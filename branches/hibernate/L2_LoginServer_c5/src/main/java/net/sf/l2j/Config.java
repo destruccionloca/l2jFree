@@ -22,7 +22,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.logging.Logger;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class containce global server configuration.<br>
@@ -34,11 +36,7 @@ import java.util.logging.Logger;
  */
 public final class Config {
 
-	protected static Logger _log = Logger.getLogger(Config.class.getName());
-	/** Debug/release mode */
-    public static boolean DEBUG;
-    /** Enable/disable assertions */
-    public static boolean ASSERT;
+	private static final Log _log = LogFactory.getLog(Config.class.getName());
     /** Enable/disable code 'in progress' */
     public static boolean DEVELOPER;
     
@@ -122,9 +120,7 @@ public final class Config {
             GAME_SERVER_LOGIN_PORT = Integer.parseInt(serverSettings.getProperty("LoginPort","9013"));
             PORT_LOGIN             = Integer.parseInt(serverSettings.getProperty("LoginserverPort", "2106"));
             
-            DEBUG        = Boolean.parseBoolean(serverSettings.getProperty("Debug", "false"));
             DEVELOPER    = Boolean.parseBoolean(serverSettings.getProperty("Developer", "false"));
-            ASSERT       = Boolean.parseBoolean(serverSettings.getProperty("Assert", "false"));
             
             ACCEPT_NEW_GAMESERVER = Boolean.parseBoolean(serverSettings.getProperty("AcceptNewGameServer","True"));
             

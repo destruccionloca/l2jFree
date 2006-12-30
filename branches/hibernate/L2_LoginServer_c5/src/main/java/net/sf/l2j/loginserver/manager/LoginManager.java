@@ -18,53 +18,56 @@
  */
 package net.sf.l2j.loginserver.manager;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.security.GeneralSecurityException;
-import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
-import java.security.interfaces.RSAPublicKey;
 import java.security.spec.RSAKeyGenParameterSpec;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2Registry;
 import net.sf.l2j.loginserver.LoginServer;
-import net.sf.l2j.loginserver.lib.Log;
+import net.sf.l2j.loginserver.beans.Accounts;
+import net.sf.l2j.loginserver.beans.SessionKey;
+import net.sf.l2j.loginserver.services.AccountsServices;
+import net.sf.l2j.loginserver.services.exception.AccountModificationException;
 import net.sf.l2j.loginserver.services.exception.HackingException;
 import net.sf.l2j.loginserver.thread.GameServerListener;
 import net.sf.l2j.loginserver.thread.GameServerThread;
 import net.sf.l2j.util.Base64;
+import net.sf.l2j.util.ScrambledKeyPair;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
- * This class ...
+ * This class handles login on loginserver.
+ * It store connection for each account.
  * 
- * @version $Revision: 1.7.4.3 $ $Date: 2005/03/27 15:30:09 $
+ * The ClientThread use LoginManager to :
+ *  - store his connection identifier
+ *  - retrieve basic information
+ *  - delog an account
  */
 public class LoginManager
 {
-	protected static Logger _log = Logger.getLogger(LoginManager.class.getName());
+	private static final Log _log = LogFactory.getLog(LoginManager.class.getName());
 	
 	private static LoginManager _instance;
 	
 	//TODO: use 2 id maps (sever selection + login ok)
-	/**
-	 * this map contains the session ids that belong to one account
-	 */
+	/** this map contains the session ids that belong to one account */
 	private Map<String, SessionKey> _logins;
-	
 	/** this map contains the connections of the players that are in the loginserver*/
 	private Map<String, Socket> _accountsInLoginServer;
-	private int _maxAllowedOnlinePlayers;
+    /** this map contains the number of failed connection for an adress*/
 	private Map<String, Integer> _hackProtection;
 	private Map<String, String> _lastPassword;
 	private KeyPairGenerator _keyGen;
@@ -72,59 +75,24 @@ public class LoginManager
 	private AtomicInteger _keyPairToUpdate;
 	private long _lastKeyPairUpdate;
 	private Random _rnd;
+    private AccountsServices _service = null;
 	
+
 	/**
-	 * <p>This class is used to represent session keys used by the client to authenticate in the gameserver</p>
-	 * <p>A SessionKey is made up of two 8 bytes keys. One is send in the {@link net.sf.l2j.loginserver.serverpacket.LoginOk LoginOk}
-	 * packet and the other is sent in {@link net.sf.l2j.loginserver.serverpacket.PlayOk PlayOk}</p>
-	 * @author -Wooden-
-	 *
+     * Private constructor to avoid direct instantiation. 
+     * Initialize a key generator.
 	 */
-	public static class SessionKey
-	{
-		public int playOkID1;
-		public int playOkID2;
-		public int loginOkID1;
-		public int loginOkID2;
-		
-        public SessionKey(int loginOK1, int loginOK2, int playOK1, int playOK2)
-		{
-			playOkID1 = playOK1;
-			playOkID2 = playOK2;
-			loginOkID1 = loginOK1;
-			loginOkID2 = loginOK2;
-		}
-		
-		public String toString()
-		{
-			return "PlayOk: "+playOkID1+" "+playOkID2+" LoginOk:"+loginOkID1+" "+loginOkID2;
-		}
-		
-		/**
-		 * <p>Returns true if keys are equal.</p>
-		 * <p>Only checks the PlayOk part of the session key if server doesnt show the licence when player logs in.</p>
-		 * @param key
-		 */
-		public boolean equals(SessionKey key)
-		{
-			// when server doesnt show licence it deosnt send the LoginOk packet, client doesnt have this part of the key then.
-			if(Config.SHOW_LICENCE)
-				return (playOkID1 == key.playOkID1 && loginOkID1 == key.loginOkID1
-						&& playOkID2 == key.playOkID2 && loginOkID2 == key.loginOkID2);
-			else
-				return (playOkID1 == key.playOkID1 && playOkID2 == key.playOkID2) ;
-		}
-	}
-	
 	private LoginManager()
 	{
-		_log.info("LoginContoller initating");
+		_log.info("LoginManager initiating");
 		_logins = new FastMap<String, SessionKey>();
 		_accountsInLoginServer = new FastMap<String, Socket>();
 		_hackProtection = new FastMap<String, Integer>();
 		_lastPassword = new FastMap<String, String>();
 		_keyPairToUpdate = new AtomicInteger(0);
 		_keyPairs = new ScrambledKeyPair[10];
+        _service = (AccountsServices)L2Registry.getBean("AccountsServices");
+        
 		try
 		{
 			_keyGen = KeyPairGenerator.getInstance("RSA");
@@ -133,12 +101,12 @@ public class LoginManager
 		}
 		catch (GeneralSecurityException e)
 		{
-			_log.severe("Error in RSA setup:" + e);
+			_log.fatal("Error in RSA setup:" + e);
 			_log.info("Server shutting down now");
 			System.exit(2);
 		}
 		_rnd = new Random();
-		if(Config.DEBUG)_log.info("LoginContoller : RSA keygen initated");
+        if (_log.isDebugEnabled())_log.debug("LoginController : RSA keygen initiated");
 		//generate the initial set of keys
 		for(int i = 0; i < 10; i++)
 		{
@@ -148,6 +116,9 @@ public class LoginManager
 		_log.info("Stored 10 KeyPair for RSA communication");
 	}
 	
+    /**
+     * @return LoginManager singleton
+     */
 	public static LoginManager getInstance()
 	{
 		if (_instance == null)
@@ -158,6 +129,12 @@ public class LoginManager
 		return _instance;
 	}
 	
+    /**
+     * 
+     * @param account
+     * @param _csocket
+     * @return
+     */
 	public SessionKey assignSessionKeyToLogin(String account, Socket _csocket)
 	{
 		SessionKey key;
@@ -168,7 +145,11 @@ public class LoginManager
 		return key;
 	}
 	
-	public void removeGameServerLogin(String account)
+    /**
+     * 
+     * @param account
+     */
+	public void removeAccountFromGameServer(String account)
 	{
 		if (account != null)
 		{
@@ -176,7 +157,11 @@ public class LoginManager
 		}
 	}
 	
-	public void removeLoginServerLogin(String account)
+    /**
+     * 
+     * @param account
+     */
+	public void removeAccountFromLoginServer(String account)
 	{
 		if (account != null)
 		{
@@ -184,11 +169,21 @@ public class LoginManager
 		}
 	}
 	
+    /**
+     * 
+     * @param account
+     * @return true or false is account is logged
+     */
 	public boolean isAccountInLoginServer(String account)
 	{
 		return _accountsInLoginServer.containsKey(account);
 	}
 	
+    /**
+     * 
+     * @param account
+     * @return true or false is account is logged on any gameserver
+     */
 	public boolean isAccountInAnyGameServer(String account)
 	{
 		List<GameServerThread> gslist = GameServerListener.getInstance().getGameServerThreads();
@@ -203,6 +198,11 @@ public class LoginManager
 		return false;
 	}
 	
+    /**
+     * 
+     * @param account
+     * @return gs id for an account
+     */
 	public int getGameServerIDforAccount(String account)
 	{
 		List<GameServerThread> gslist = GameServerListener.getInstance().getGameServerThreads();
@@ -217,25 +217,22 @@ public class LoginManager
 		return -1;
 	}
 	
+    /**
+     * 
+     * @param account
+     * @return session key for an account
+     */
 	public SessionKey getKeyForAccount(String account)
 	{
 		return _logins.get(account);
 	}
 	
-	public int getTotalOnlinePlayerCount()
-	{
-		int playerCount = 0;
-		List<GameServerThread> gslist = GameServerListener.getInstance().getGameServerThreads();
-		synchronized (gslist)
-		{
-			for(GameServerThread gs : gslist)
-			{
-				playerCount += gs.getCurrentPlayers();
-			}
-		}
-		return playerCount;
-	}
 	
+    /**
+     * 
+     * @param ServerID
+     * @return online player count for a server
+     */
 	public int getOnlinePlayerCount(int ServerID)
 	{
 		List<GameServerThread> gslist = GameServerListener.getInstance().getGameServerThreads();
@@ -250,7 +247,12 @@ public class LoginManager
 		return 0;
 	}
 	
-	public int getMaxAllowedOnlinePlayers(int ServerID)
+	/***
+     * 
+     * @param ServerID
+     * @return max allowed online player for a server
+	 */
+    public int getMaxAllowedOnlinePlayers(int ServerID)
 	{
 		List<GameServerThread> gslist = GameServerListener.getInstance().getGameServerThreads();
 		synchronized (gslist)
@@ -263,84 +265,47 @@ public class LoginManager
 		}
 		return 0;
 	}
-	
-	public void setMaxAllowedOnlinePlayers(int maxAllowedOnlinePlayers)
-	{
-		_maxAllowedOnlinePlayers = maxAllowedOnlinePlayers;
-	}
-	
+
 	/**
-	 * @return
+     *  
+     * @param loginName
+     * @return connection socket for a account
 	 */
-	public boolean loginPossible(int access, int ServerID)
-	{
-		return ((getOnlinePlayerCount(ServerID) < _maxAllowedOnlinePlayers) || (access >= 50));
-	}
-	
 	public Socket getLoginServerConnection(String loginName)
 	{
 		return _accountsInLoginServer.get(loginName);
 	}
 	
+    /**
+     * 
+     * @param user
+     * @param banLevel
+     */
 	public void setAccountAccessLevel(String user, int banLevel)
 	{
-		java.sql.Connection con = null;
-		PreparedStatement statement = null;
-		try
-		{           
-			con = L2Registry.getConnection();
-			
-			String stmt = "UPDATE accounts SET access_level = ? WHERE login=?";
-			statement = con.prepareStatement(stmt);
-			statement.setInt(1, banLevel);
-			statement.setString(2, user);
-			statement.executeUpdate();
-			statement.close();
-		}
-		catch (Exception e)
-		{
-			_log.warning("Could not set accessLevl:"+e);
-		} 
-		finally 
-		{
-			try { con.close(); } catch (Exception e) {}
-			try { statement.close();} catch (Exception e) {}
-		}
+        try
+        {
+            _service.changeAccountLevel(user,banLevel);
+        }
+        catch (AccountModificationException e)
+        {
+            _log.error("Could not set accessLevl for user : " + user,e);
+        }
 	}
 	
+    /**
+     * 
+     * @param user
+     * @return true if a user is a GM account
+     */
 	public boolean isGM(String user)
 	{
-		boolean ok = false;
-		java.sql.Connection con = null;
-		PreparedStatement statement = null;
-		try
-		{           
-			con = L2Registry.getConnection();
-			statement = con.prepareStatement("SELECT access_level FROM accounts WHERE login=?");
-			statement.setString(1, user);
-			ResultSet rset = statement.executeQuery();
-			if (rset.next()) 
-			{
-				int accessLevel = rset.getInt(1);
-				if (accessLevel >= Config.GM_MIN)
-				{
-					ok = true;
-				}
-			}
-			rset.close();
-			statement.close();
-		}
-		catch (Exception e)
-		{
-			_log.warning("could not check gm state:"+e);
-			ok = false;
-		} 
-		finally 
-		{
-			try { con.close(); } catch (Exception e) {}
-			try { statement.close();} catch (Exception e) {}
-		}
-		return ok;
+        Accounts acc = _service.getAccountById(user);
+        if ( acc != null )
+            return acc.getAccessLevel() >= Config.GM_MIN;
+        else
+            return false;
+                
 	}
 	
 	/**
@@ -376,172 +341,200 @@ public class LoginManager
 	{
 		boolean ok = false;
 		
+        // o get Last information of connection
+        // -----------------------------------
 		Integer failedConnects  = _hackProtection.get(address.getHostAddress());
 		String lastPassword = _lastPassword.get(address.getHostAddress());
 		
-		Log.add("'"+user+"' "+address.getHostAddress(), "logins_ip");
+        net.sf.l2j.loginserver.lib.Log.add("'"+user+"' "+address.getHostAddress(), "logins_ip");
 		
+        // o Check max number of failed connection
+        // -------------------------------------
 		if (failedConnects != null && failedConnects > Config.LOGIN_TRY_BEFORE_BAN)
 		{
-			_log.warning("hacking detected from ip:"+address.getHostAddress()+" .. adding IP to banlist");
+			_log.warn("hacking detected from ip:"+address.getHostAddress()+" .. adding IP to banlist");
 			failedConnects++;
 			throw new HackingException(address.getHostAddress(), failedConnects);
 		}
 		
-		java.sql.Connection con = null;
 		try
 		{			
-			MessageDigest md = MessageDigest.getInstance("SHA");
-			byte[] raw = password.getBytes("UTF-8");
-			byte[] hash = md.digest(raw);
 			
-			byte[] expected = null;
-			
-			// this is here for temp debugging 
-			// int busy = L2DatabaseFactory.getInstance().getBusyConnectionCount();
-			// int idle = L2DatabaseFactory.getInstance().getIdleConnectionCount();
-			//_log.info("DB connections busy:"+busy+" idle:"+idle);
-			
-			con = L2Registry.getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT password FROM accounts WHERE login=?");
-			statement.setString(1, user);
-			ResultSet rset = statement.executeQuery();
-			if (rset.next()) 
+            // o Convert password in utf8 byte array
+            // ----------------------------------
+            MessageDigest md = MessageDigest.getInstance("SHA");
+            byte[] raw = password.getBytes("UTF-8");
+            byte[] hash = md.digest(raw);            
+            
+            // o find Account
+            // -------------
+			Accounts acc = _service.getAccountById(user);
+            
+            // If account is not found
+            // try to create it if AUTO_CREATE_ACCOUNTS is activated
+            // or return false
+            // ------------------------------------------------------
+			if (acc == null)
 			{
-				expected = Base64.decode(rset.getString(1));
-				if (Config.DEBUG) _log.fine("account exists");
+				return handleAccountNotFound(user, address, hash);
 			}
-			rset.close();
-			statement.close();
-			
-			
-			
-			if (expected == null)
-			{
-				if (Config.AUTO_CREATE_ACCOUNTS)
-				{
-					if ((user.length() >= 2) && (user.length() <= 14))
-					{
-						statement = con.prepareStatement("INSERT INTO accounts (login,password,lastactive,access_level,lastIP) values(?,?,?,?,?)");
-						statement.setString(1, user);
-						statement.setString(2, Base64.encodeBytes(hash));
-						statement.setLong(3, System.currentTimeMillis());
-						statement.setInt(4, 0);
-						statement.setString(5, address.getHostAddress());
-						statement.execute();
-						statement.close();
-						
-						_log.info("created new account for "+ user);
-						if ( LoginServer.statusServer != null )
-							LoginServer.statusServer.SendMessageToTelnets("Account created for player "+user);
-						
-						return true;
-						
-					}
-					_log.warning("Invalid username creation/use attempt: "+user);
-					return false;
-				}
-				_log.warning("account missing for user "+user);
-				return false;
-			}
-			
-			ok = true;
-			for (int i=0;i<expected.length;i++)
-			{
-				if (hash[i] != expected[i])
-				{
-					ok = false;
-					break;
-				}
-			}
-			if (ok)
-			{
-				statement=con.prepareStatement("UPDATE accounts SET lastactive=?, lastIP=? WHERE login=?");
-				statement.setLong(1,System.currentTimeMillis());
-				statement.setString(2,address.getHostAddress());
-				statement.setString(3,user);
-				statement.execute();
-				statement.close();
-			}
+            // If account is found
+            // check password and update last ip/last active
+            // ---------------------------------------------
+            else
+            {
+                ok = checkPassword(hash);
+    			if (ok)
+    			{
+    				acc.setLastactive(new BigDecimal(System.currentTimeMillis()));
+                    acc.setLastIp(address.getHostAddress());
+                    _service.addOrUpdateAccount(acc);
+    			}
+            }
 		}
 		catch (Exception e)
 		{
 			// digest algo not found ??
 			// out of bounds should not be possible
-			_log.warning("could not check password:"+e);
+			_log.warn("could not check password:"+e);
 			ok = false;
 		} 
-		finally 
-		{
-			try { con.close(); } catch (Exception e) {}
-		}
 		
+        // If password are different
+        // -------------------------
 		if (!ok)
 		{
-			Log.add("'"+user+"' "+address.getHostAddress(), "logins_ip_fails");
-			
-			// add 1 to the failed counter for this IP 
-			int failedCount = 1;
-			if (failedConnects != null)
-			{
-				failedCount = failedConnects.intValue() + 1;
-			}
-			
-			if(password != lastPassword)
-			{
-				_hackProtection.put(address.getHostAddress(), new Integer(failedCount));
-				_lastPassword.put(address.getHostAddress(), password);
-			}
+            handleBadLogin(user, password, address, failedConnects, lastPassword);
 		}
+        // else...
 		else
 		{
-			// for long running servers, this should prevent blocking 
-			// of users that mistype their passwords once every day :)
-			_hackProtection.remove(address.getHostAddress());
-			_lastPassword.remove(address.getHostAddress());
-			Log.add("'"+user+"' "+address.getHostAddress(), "logins_ip");
+			handleGoodLogin(user, address);
 		}
 		
 		return ok;
 	}
+
+    /**
+     * @param user
+     * @param address
+     */
+    private void handleGoodLogin(String user, InetAddress address)
+    {
+        // for long running servers, this should prevent blocking 
+        // of users that mistype their passwords once every day :)
+        _hackProtection.remove(address.getHostAddress());
+        _lastPassword.remove(address.getHostAddress());
+        net.sf.l2j.loginserver.lib.Log.add("'"+user+"' "+address.getHostAddress(), "logins_ip");
+    }
+
+    /**
+     * @param user
+     * @param password
+     * @param address
+     * @param failedConnects
+     * @param lastPassword
+     */
+    private void handleBadLogin(String user, String password, InetAddress address, Integer failedConnects, String lastPassword)
+    {
+        net.sf.l2j.loginserver.lib.Log.add("'"+user+"' "+address.getHostAddress(), "logins_ip_fails");
+        
+        // add 1 to the failed counter for this IP 
+        int failedCount = 1;
+        if (failedConnects != null)
+        {
+        	failedCount = failedConnects.intValue() + 1;
+        }
+        
+        if(password != lastPassword)
+        {
+        	_hackProtection.put(address.getHostAddress(), new Integer(failedCount));
+        	_lastPassword.put(address.getHostAddress(), password);
+        }
+    }
+
+    /**
+     * @param hash
+     * @return true if password are identical
+     */
+    private boolean checkPassword(byte[] hash)
+    {
+        boolean ok;
+        if (_log.isDebugEnabled() )_log.debug("account exists");
+        
+        ok = true;
+        
+        byte[] expected = null;
+        
+        for (int i=0;i<expected.length;i++)
+        {
+        	if (hash[i] != expected[i])
+        	{
+        		ok = false;
+        		break;
+        	}
+        }
+        return ok;
+    }
+
+    /**
+     * @param user
+     * @param address
+     * @param hash
+     * @return true if accounts was successfully created or false is AUTO_CREATE_ACCOUNTS = false or creation failed
+     * @throws AccountModificationException
+     */
+    private boolean handleAccountNotFound(String user, InetAddress address, byte[] hash) throws AccountModificationException
+    {
+        Accounts acc;
+        if (Config.AUTO_CREATE_ACCOUNTS)
+        {
+        	if ((user.length() >= 2) && (user.length() <= 14))
+        	{
+                acc = new Accounts(user,Base64.encodeBytes(hash),new BigDecimal(System.currentTimeMillis()),0,address.getHostAddress());
+        		_service.addOrUpdateAccount(acc);
+        		
+                _log.info("created new account for "+ user);
+
+                if ( LoginServer.statusServer != null )
+        			LoginServer.statusServer.SendMessageToTelnets("Account created for player "+user);
+        		
+        		return true;
+        		
+        	}
+        	_log.warn("Invalid username creation/use attempt: "+user);
+        	return false;
+        }
+        _log.warn("account missing for user "+user);
+        return false;
+    }
 	
+    /**
+     * 
+     * @param user
+     * @return true if user is banned (check access level in DB)
+     */
 	public boolean loginBanned(String user)
 	{
-		boolean ok = false;
-		
-		java.sql.Connection con = null;
-		try
-		{           
-			con = L2Registry.getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT access_level FROM accounts WHERE login=?");
-			statement.setString(1, user);
-			ResultSet rset = statement.executeQuery();
-			if (rset.next()) 
-			{
-				int accessLevel = rset.getInt(1);
-				if (accessLevel < 0)
-					ok = true;
-			}
-			rset.close();
-			statement.close();
-		}
-		catch (Exception e)
-		{
-			// digest algo not found ??
-			// out of bounds should not be possible
-			_log.warning("could not check ban state:"+e);
-			ok = false;
-		} 
-		finally 
-		{
-			try { con.close(); } catch (Exception e) {}
-		}
-		
-		return ok;
+        Accounts acc = _service.getAccountById(user);
+        if (acc != null )
+        {
+            return (acc.getAccessLevel() < 0 );
+        }
+        else
+        {
+            _log.warn("could not check ban state.");
+            return false;            
+        }
+                
 	}
 	
-	
-	public boolean ipBlocked(String ipAddress)
+	/**
+     * 
+     * @param ipAddress
+     * @return true if ip was correctly unblocked, false if not or if ip was not blocked
+	 */
+	public boolean unblockIp(String ipAddress)
 	{
 		int tries = 0;
 		
@@ -551,7 +544,7 @@ public class LoginManager
 		if (tries > Config.LOGIN_TRY_BEFORE_BAN)
 		{
 			_hackProtection.remove(ipAddress);
-			_log.warning("Removed host from hacklist! IP number: " + ipAddress);
+			_log.warn("Removed host from hacklist! IP number: " + ipAddress);
 			return true;
 		}
 		
@@ -571,57 +564,9 @@ public class LoginManager
 		{
 			_keyPairs[_keyPairId] = new ScrambledKeyPair(_keyGen.generateKeyPair());
             
-            if(Config.DEBUG)
-                _log.info("Updated a RSA key");
+            if (_log.isDebugEnabled())_log.debug("Updated a RSA key");
 		}
 	}
 	
-	public static class ScrambledKeyPair
-	{
-		public KeyPair pair;
-		public byte[] scrambledModulus;
-		
-		public ScrambledKeyPair(KeyPair Pair)
-		{
-			this.pair = Pair;
-			scrambledModulus = scrambleModulus( ((RSAPublicKey)this.pair.getPublic()).getModulus() );
-		}
-		
-		private byte[] scrambleModulus(BigInteger modulus)
-		{
-			byte[] scrambledModulus = modulus.toByteArray();
 
-			if (scrambledModulus.length == 0x81 && scrambledModulus[0] == 0x00)
-			{
-				byte[] temp = new byte[0x80];
-				System.arraycopy(scrambledModulus, 1, temp, 0, 0x80);
-				scrambledModulus = temp;
-			}
-			// step 1 : 0x4d-0x50 <-> 0x00-0x04
-			for (int i = 0; i < 4; i++)
-			{
-				byte temp = scrambledModulus[0x00+i];
-				scrambledModulus[0x00+i] = scrambledModulus[0x4d+i];
-				scrambledModulus[0x4d+i] = temp;
-			}
-			// step 2 : xor first 0x40 bytes with  last 0x40 bytes
-			for (int i = 0; i < 0x40; i++)
-			{
-				scrambledModulus[i] = (byte)(scrambledModulus[i] ^ scrambledModulus[0x40+i]);
-			}
-			// step 3 : xor bytes 0x0d-0x10 with bytes 0x34-0x38
-			for (int i = 0; i < 4; i++)
-			{
-				scrambledModulus[0x0d+i] = (byte)(scrambledModulus[0x0d+i] ^ scrambledModulus[0x34+i]);
-			}
-			// step 4 : xor last 0x40 bytes with  first 0x40 bytes
-			for (int i=0;i<0x40;i++)
-			{
-				scrambledModulus[0x40+i] = (byte)(scrambledModulus[0x40+i] ^ scrambledModulus[i]);
-			}
-			_log.fine("Modulus was scrambled");
-			
-			return scrambledModulus;
-		}
-	}
 }

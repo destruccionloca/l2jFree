@@ -19,15 +19,6 @@
 			<value></value>
 		</property>
 	</bean>
-	<bean id="DatabaseDataSourceConnection"
-		class="net.sf.l2j.loginserver.dbunit.SpringDatabaseDataSourceConnection">
-		<constructor-arg>
-			<ref bean="dataSource" />
-		</constructor-arg>
-		<property name="dataTypeFactory">
-			<bean class="org.dbunit.ext.mysql.MySqlDataTypeFactory" />
-		</property>
-	</bean>
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="hibernateProperties">
@@ -71,8 +62,6 @@
 		<property name="accountsDAO">
 			<ref bean="AccountsDAO" />
 		</property>
-	</bean>
-
 	</bean>
 
 </beans>

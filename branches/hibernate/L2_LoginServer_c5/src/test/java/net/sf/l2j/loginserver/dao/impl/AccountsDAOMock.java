@@ -25,21 +25,33 @@
  */
 package net.sf.l2j.loginserver.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 import net.sf.l2j.loginserver.beans.Accounts;
 import net.sf.l2j.loginserver.dao.AccountsDAO;
-
-import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
  * DAO object for domain model class Accounts.
  * @see net.sf.l2j.loginserver.beans.Accounts
  */
-public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
+public class AccountsDAOMock  implements AccountsDAO
 {
     //private static final Log _log = LogFactory.getLog(AccountsDAOHib.class);
+    
+    private Map<String,Accounts> referential = new HashMap<String,Accounts>();
+    
+    public AccountsDAOMock()
+    {
+        
+    }
+    
 
     /**
      * Search by id
@@ -48,10 +60,11 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
      */
     public Accounts getAccountById(String id)
     {
-        Accounts account = (Accounts) getHibernateTemplate().get(Accounts.class, id);
-        if ( account == null )
-            throw new ObjectRetrievalFailureException("Accounts",id);
-        return account;
+        if ( ! referential.containsKey(id))
+        {
+            throw new ObjectRetrievalFailureException ("Accounts",id);
+        }
+        return referential.get(id);
     }
 
     /**
@@ -59,7 +72,9 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
      */
     public String createAccount(Object obj)
     {
-        return (String)save(obj);
+        Accounts acc = (Accounts)obj;
+        referential.put(acc.getLogin(),acc);
+        return acc.getLogin();
     }
 
     /**
@@ -67,7 +82,7 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
      */
     public void createOrUpdate(Object obj)
     {
-        saveOrUpdate(obj);
+        createAccount(obj);
         
     }
 
@@ -76,8 +91,11 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
      */
     public void createOrUpdateAll(Collection entities)
     {
-        saveOrUpdateAll(entities);
-        
+        Iterator it = entities.iterator();
+        while (it.hasNext())
+        {
+            createAccount(it.next());
+        }
     }
 
     /**
@@ -85,7 +103,7 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
      */
     public List <Accounts> getAllAccounts()
     {
-        return findAll(Accounts.class);
+        return new ArrayList<Accounts> (referential.values());
     }
 
     /**
@@ -93,7 +111,7 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
      */
     public void removeAccount(Object obj)
     {
-        delete(obj);
+        referential.remove(((Accounts)obj).getLogin());
         
     }
 
@@ -102,6 +120,31 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
      */
     public void removeAccountById(String login)
     {
-        removeObject(Accounts.class, login);        
+        referential.remove(login);
+    }
+
+
+    /**
+     * @see net.sf.l2j.loginserver.dao.AccountsDAO#removeAll(java.util.Collection)
+     */
+    public void removeAll(Collection entities)
+    {
+        Iterator it = entities.iterator();
+        while (it.hasNext())
+        {
+            removeAccount(it.next());
+        }        
+    }
+
+
+    /**
+     * @see net.sf.l2j.loginserver.dao.AccountsDAO#update(java.lang.Object)
+     */
+    public void update(Object obj)
+    {
+        Accounts acc = (Accounts)obj;
+        removeAccountById(acc.getLogin());
+        createAccount(obj);
+        
     }
 }

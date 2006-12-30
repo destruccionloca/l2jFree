@@ -17,7 +17,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2Registry;
@@ -26,10 +25,13 @@ import net.sf.l2j.loginserver.manager.LoginManager;
 import net.sf.l2j.loginserver.thread.LoginServerThread;
 import net.sf.l2j.util.Base64;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 public class LoginStatusThread extends Thread
 {
-    private static final Logger _log = Logger.getLogger(LoginStatusThread.class.getName());
+    private static final Log _log = LogFactory.getLog(LoginStatusThread.class.getName());
     
     private Socket                  _csocket;
     
@@ -267,7 +269,7 @@ public class LoginStatusThread extends Thread
                         _usrCommand = _usrCommand.substring(8);
                         if (LoginServerThread.getInstance().unblockIp(_usrCommand))
                         {
-                            _log.warning("IP removed via TELNET by host: " + _csocket.getInetAddress().getHostAddress());
+                            _log.warn("IP removed via TELNET by host: " + _csocket.getInetAddress().getHostAddress());
                             _print.println("The IP " + _usrCommand + " has been removed from the hack protection list!");
                         }
                         else

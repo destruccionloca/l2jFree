@@ -533,7 +533,7 @@ public class GameServerManager
             if (gs.server_id == serverID)
             {
                 gs.status = value;
-                if (Config.DEBUG) _log.info("Status Changed for server " + serverID);
+                if (_log.isDebugEnabled())_log.debug("Status Changed for server " + serverID);
             }
         }
     }

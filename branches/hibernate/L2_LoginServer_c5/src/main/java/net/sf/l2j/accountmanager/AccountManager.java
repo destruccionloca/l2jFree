@@ -32,10 +32,11 @@ import net.sf.l2j.loginserver.services.AccountsServices;
 import net.sf.l2j.loginserver.services.exception.AccountModificationException;
 
 /**
- * This class Account Manager
+ * this main class allow to manage account :
+ * - creation
+ * - modification of password and access level
+ * - delete (only account)
  * 
- * @author netimperia
- * @version $Revision: 2.3.2.1.2.3 $ $Date: 2005/08/08 22:47:12 $
  */
 public class AccountManager
 {
@@ -46,6 +47,12 @@ public class AccountManager
     private LineNumberReader _in=null;
     private AccountsServices __accountServices = null; 
 
+    /** 
+     * Display menu and handle user choices
+     * 
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException
     {
         // Load config
@@ -60,7 +67,6 @@ public class AccountManager
         {
             bContinue = accountManager.displayMenu();
         }
-
     }
 
     /**
@@ -208,7 +214,4 @@ public class AccountManager
             }
         }
     }
-
-
- 
 }

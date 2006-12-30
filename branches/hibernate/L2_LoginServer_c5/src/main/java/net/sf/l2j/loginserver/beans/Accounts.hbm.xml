@@ -5,9 +5,10 @@
 <hibernate-mapping>
     <class name="net.sf.l2j.loginserver.beans.Accounts" 
     	   table="accounts" 
-           dynamic-update="false"
-		   dynamic-insert="false"
+           dynamic-update="true"
+		   dynamic-insert="true"
 		   >
+	<cache usage="read-write"/>
 		   
         <comment></comment>
         <id name="login" type="string">
@@ -31,11 +32,6 @@
         </property>
         <property name="lastIp" type="string">
             <column name="lastIP" length="20">
-                <comment></comment>
-            </column>
-        </property>
-        <property name="email" type="string">
-            <column name="email" length="56">
                 <comment></comment>
             </column>
         </property>

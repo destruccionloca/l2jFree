@@ -25,11 +25,15 @@
  */
 package net.sf.l2j.util;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.math.BigInteger;
+import java.util.Properties;
 import java.util.Random;
 
 /**
- * This class provide tools functions for hexa manipulation
+ * This class provide tools functions for hexa manipulations
  * 
  */
 public class HexUtil
@@ -61,6 +65,30 @@ public class HexUtil
         if(hex == null)
             return "null";
         return new BigInteger(hex).toString(16);
+    }    
+    
+    /**
+     * Save hexadecimal ID of the server in the properties file.
+     * @param string (String) : hexadecimal ID of the server to store
+     * @param fileName (String) : name of the properties file
+     */
+    public static void saveHexid(String string, String fileName)
+    {
+        try
+        {
+            Properties hexSetting    = new Properties();
+            File file = new File(fileName);
+            //Create a new empty file only if it doesn't exist
+            file.createNewFile();
+            OutputStream out = new FileOutputStream(file);
+            hexSetting.setProperty("HexID",string);
+            hexSetting.store(out,"the hexID to auth into login");
+            out.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }    
     
 }

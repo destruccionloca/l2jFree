@@ -83,7 +83,7 @@ public class L2Registry
 	
     // =========================================================
     // Constructor
-	public L2Registry()
+	private L2Registry()
 	{
 	}
     
@@ -147,9 +147,18 @@ public class L2Registry
 		return con;
 	}
     
-    public ApplicationContext getApplicationContext() 
+    public static ApplicationContext getApplicationContext() 
     {
         return __ctx;
+    }
+    
+    /**
+     * Give ability to overload application context (for test purpose)
+     * @param ctx
+     */
+    public static void setApplicationContext (ApplicationContext ctx)
+    {
+        __ctx = ctx;
     }
 
     

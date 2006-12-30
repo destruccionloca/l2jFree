@@ -34,9 +34,8 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
- * Facade for Hibernate DAO
+ * Facade for Hibernate DAOs
  * 
- * @version $Revision: $ $Date: $
  */
 public abstract class BaseRootDAOHib extends HibernateDaoSupport
 {
@@ -46,7 +45,10 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
      * Load object matching the given key and return it.
      */
     public Object load(Class refClass, Serializable key) {
-       Object obj = getHibernateTemplate().get(refClass, key);
+       Object obj = getHibernateTemplate().load(refClass, key);
+       if (obj == null) {
+           throw new ObjectRetrievalFailureException(refClass, key);
+       }
        return obj;
     }
 

@@ -29,10 +29,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javolution.xml.pull.XmlPullParserException;
 import javolution.xml.pull.XmlPullParserImpl;
@@ -41,9 +43,12 @@ import net.sf.l2j.loginserver.dao.GameserversDAO;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
  * DAO object for domain model class Gameservers.
+ * Xml implementation.
+ * 
  * @see net.sf.l2j.loginserver.beans.Gameservers
  */
 public class GameserversDAOXml implements GameserversDAO
@@ -51,7 +56,7 @@ public class GameserversDAOXml implements GameserversDAO
     private static final Log _log = LogFactory.getLog(GameserversDAOXml.class);
 
     
-    private Map<Integer, Gameservers> serverNames;
+    private Map<Integer, Gameservers> serverNames = new TreeMap<Integer, Gameservers>();
 
     /**
      * Load server name from xml
@@ -61,7 +66,15 @@ public class GameserversDAOXml implements GameserversDAO
         InputStream in = null;
         try
         {
-            in = new FileInputStream("servername.xml");
+            try
+            {
+                in = new FileInputStream("servername.xml");
+            }
+            catch (FileNotFoundException e)
+            {
+                // just for eclipse development, we have to search in dist folder
+                in = new FileInputStream("dist/servername.xml");
+            }
             XmlPullParserImpl xpp = new XmlPullParserImpl();
             xpp.setInput(in);
             for (int e = xpp.getEventType(); e != XmlPullParserImpl.END_DOCUMENT; e = xpp.next())
@@ -84,7 +97,7 @@ public class GameserversDAOXml implements GameserversDAO
         }
         catch (FileNotFoundException e)
         {
-            _log.warn("servername.xml could not be loaded : file not found");
+            _log.warn("servername.xml could not be loaded : " + e.getMessage());
         }
         catch (IOException ioe)
         {
@@ -146,8 +159,10 @@ public class GameserversDAOXml implements GameserversDAO
      * @see net.sf.l2j.loginserver.dao.GameserversDAO#getAllGameservers()
      */
     public List <Gameservers> getAllGameservers()
-    {
-        return (List<Gameservers>)serverNames.values();
+    {   
+        if ( serverNames == null )
+            throw new ObjectRetrievalFailureException("Could not load gameservers",new NullPointerException("serverNames"));
+        return new ArrayList<Gameservers> (serverNames.values());        
     }
 
     /**

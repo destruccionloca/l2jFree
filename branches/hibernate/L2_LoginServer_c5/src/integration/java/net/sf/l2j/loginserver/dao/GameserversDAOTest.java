@@ -25,6 +25,7 @@
  */
 package net.sf.l2j.loginserver.dao;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,7 @@ import javax.sql.DataSource;
 import net.sf.l2j.loginserver.beans.Gameservers;
 
 import org.dbunit.DatabaseTestCase;
+import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
@@ -41,6 +43,7 @@ import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.operation.DatabaseOperation;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 
 /**
  * Test account DAO
@@ -64,16 +67,17 @@ public class GameserversDAOTest extends DatabaseTestCase
 
     protected IDatabaseConnection getConnection() throws Exception 
     {
-        DatabaseDataSourceConnection ddsc = (DatabaseDataSourceConnection) context.getBean("DatabaseDataSourceConnection");
-
-        return ddsc;
+        Connection jdbcConnection = DataSourceUtils.getConnection((DataSource)context.getBean("dataSource"));
+        return new DatabaseConnection(jdbcConnection);
     }    
     protected void setUp() throws Exception {
 
         context = new ClassPathXmlApplicationContext(
-                "classpath*:/**/dao/applicationContext-*.xml");
+                "classpath*:/**/dao/applicationContext-DAOTest.xml");
         setGameserversDao ( (GameserversDAO) context.getBean("GameserversDAO"));
-
+        
+        super.setUp();
+        
         // initialize your database connection here
         IDatabaseConnection connection = new DatabaseDataSourceConnection(
                 (DataSource)context.getBean("dataSource"));
@@ -85,8 +89,7 @@ public class GameserversDAOTest extends DatabaseTestCase
             DatabaseOperation.CLEAN_INSERT.execute(connection, dataSet);
         } finally {
             connection.close();
-        }
-       
+        }           
     }    
     
     public void testFindGameserver() throws Exception {
@@ -227,6 +230,7 @@ public class GameserversDAOTest extends DatabaseTestCase
       list = dao.getAllGameservers();
 
       assertEquals(1,list.size());
+      
       
   }     
     

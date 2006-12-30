@@ -37,6 +37,8 @@ import net.sf.l2j.util.Base64;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
  * Account service to handle account management
@@ -105,6 +107,29 @@ public class AccountsServices
         }
         return acc;
     }
+    
+    /**
+     * Add or update an account
+     * @param account
+     * @return the new account
+     * @throws AccountModificationException 
+     */
+    public Accounts addOrUpdateAccount(Accounts acc) 
+    throws AccountModificationException
+    {
+        // o update account
+        // ---------------
+        try
+        {
+            __accDAO.createOrUpdate(acc);
+            if (_log.isDebugEnabled()) _log.info("Account " + acc.getLogin() + " has been updated.");
+        }
+        catch (DataAccessException e)
+        {
+            throw new AccountModificationException ("Unable to create account.",e);
+        }
+        return acc;
+    }    
 
     /**
      * Change account level
@@ -129,24 +154,56 @@ public class AccountsServices
             Integer iLevel = new Integer (level);
             acc.setAccessLevel(iLevel);
             __accDAO.createOrUpdate(acc);
-            if (_log.isDebugEnabled()) _log.info("Account " + account + " has been updated.");
+            if (_log.isDebugEnabled()) _log.debug ("Account " + account + " has been updated.");
         }
         catch (NumberFormatException e)
         {
             throw new AccountModificationException ("Error : level ("+level+") should be an integer.",e);
         }
     }
+    
+    /**
+     * Change account level
+     * @param account - the account to upadte
+     * @param level - the new level
+     * @throws AccountModificationException
+     */
+    public void changeAccountLevel(String account, int level) 
+    throws AccountModificationException
+    {
+        // Search account
+        // ---------------
+        Accounts acc = __accDAO.getAccountById(account);
+        
+        if ( acc == null )
+            throw new AccountModificationException("Account "+account+" doesn't exist.");
+
+        // Update account
+        // --------------
+        Integer iLevel = new Integer (level);
+        acc.setAccessLevel(iLevel);
+        __accDAO.createOrUpdate(acc);
+        if (_log.isDebugEnabled()) _log.debug ("Account " + account + " has been updated.");
+    }    
 
     /**
      * Delete account and all linked objects
      * @param account
-     * @throws AccountModificationException 
+     * @throws AccountModificationException if account doest not exist
      */
     public void deleteAccount(String account) throws AccountModificationException 
     {
         // Search and delete account
         // ---------------
-        Accounts acc = __accDAO.getAccountById(account);
+        Accounts acc=null;
+        try
+        {
+            acc = __accDAO.getAccountById(account);
+        }
+        catch (ObjectRetrievalFailureException e)
+        {
+            throw new AccountModificationException ("Error : unable to delete account : "+account+". This account does not exist.");
+        }
         __accDAO.removeAccount(acc);
     }
     
@@ -159,7 +216,25 @@ public class AccountsServices
     {
         List<Accounts> list = __accDAO.getAllAccounts();
         return list;
-    }    
+    }  
+    
+    /**
+     * Get account information for a specific id
+     * 
+     */
+    public Accounts getAccountById(String id)
+    {
+        try
+        {
+            Accounts acc = __accDAO.getAccountById(id);
+            return acc;
+        }
+        catch (ObjectRetrievalFailureException e)
+        {
+            _log.warn (e.getMessage());
+            return null;
+        }
+    }        
     
     
 }

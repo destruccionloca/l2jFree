@@ -13,13 +13,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
-
+import org.apache.commons.logging.LogFactory;
+/**
+ * TODO to delete, use log instead 
+ */
 public class Log
 {
-	private static final Logger _log = Logger.getLogger(Log.class.getName());
+	private static final org.apache.commons.logging.Log _log = LogFactory.getLog(Log.class.getName());
 
 	public static final void add(String text, String cat)
 	{
@@ -48,7 +49,7 @@ public class Log
 		}
 		catch (IOException e)
 		{
-			_log.warning("saving chat log failed: " + e);
+			_log.warn("saving chat log failed: " + e);
 			e.printStackTrace();
 		}
 
@@ -56,18 +57,4 @@ public class Log
 			add(text, null);
 	}
 
-	public static final void Assert(boolean exp)
-	{
-		Assert(exp,"");
-	}
-
-	public static final void Assert(boolean exp, String cmt)
-	{
-		if(exp || !Config.ASSERT)
-			return;
-
-
-		System.out.println("Assertion error ["+cmt+"]");
-		Thread.dumpStack();
-	}
 }

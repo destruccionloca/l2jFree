@@ -19,11 +19,13 @@ package net.sf.l2j.loginserver.thread;
 
 import java.net.Socket;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.LoginServer;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class waits fro incomming connections from GameServers
@@ -34,7 +36,7 @@ import net.sf.l2j.loginserver.LoginServer;
 
 public class GameServerListener extends FloodProtectedListener
 {
-	protected static Logger _log = Logger.getLogger(LoginServer.class.getName());
+	private static final Log _log = LogFactory.getLog(LoginServer.class.getName());
 	
 	private List<GameServerThread> _gameServerThreads;
 	private static GameServerListener _instance;

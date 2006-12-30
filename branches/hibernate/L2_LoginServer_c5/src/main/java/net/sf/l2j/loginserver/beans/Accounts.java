@@ -17,7 +17,6 @@ public class Accounts implements java.io.Serializable
     private BigDecimal lastactive;
     private Integer accessLevel;
     private String lastIp;
-    private String email;
 
     // Constructors
 
@@ -34,14 +33,13 @@ public class Accounts implements java.io.Serializable
 
     /** full constructor */
     public Accounts(String _login, String _password, BigDecimal _lastactive, Integer _accessLevel,
-                    String _lastIp, String _email)
+                    String _lastIp)
     {
         this.login = _login;
         this.password = _password;
         this.lastactive = _lastactive;
         this.accessLevel = _accessLevel;
         this.lastIp = _lastIp;
-        this.email = _email;
     }
 
     // Property accessors
@@ -93,15 +91,5 @@ public class Accounts implements java.io.Serializable
     public void setLastIp(String _lastIp)
     {
         this.lastIp = _lastIp;
-    }
-
-    public String getEmail()
-    {
-        return this.email;
-    }
-
-    public void setEmail(String _email)
-    {
-        this.email = _email;
     }
 }

@@ -19,7 +19,6 @@
 package net.sf.l2j.util;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 
 /**
@@ -29,7 +28,6 @@ import java.util.logging.Logger;
  */
 public class NewCrypt
 {
-	protected static Logger _log = Logger.getLogger(NewCrypt.class.getName());
 	BlowfishEngine _crypt;
 	BlowfishEngine _decrypt;
 	

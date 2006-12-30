@@ -27,14 +27,13 @@ import java.net.SocketException;
 import java.security.interfaces.RSAPrivateKey;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.loginserver.beans.SessionKey;
 import net.sf.l2j.loginserver.clientpackets.RequestAuthLogin;
 import net.sf.l2j.loginserver.clientpackets.RequestServerLogin;
 import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.loginserver.manager.BanManager;
 import net.sf.l2j.loginserver.manager.GameServerManager;
 import net.sf.l2j.loginserver.manager.LoginManager;
-import net.sf.l2j.loginserver.manager.LoginManager.ScrambledKeyPair;
-import net.sf.l2j.loginserver.manager.LoginManager.SessionKey;
 import net.sf.l2j.loginserver.serverpackets.GGAuth;
 import net.sf.l2j.loginserver.serverpackets.Init;
 import net.sf.l2j.loginserver.serverpackets.LoginFail;
@@ -45,6 +44,7 @@ import net.sf.l2j.loginserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.loginserver.serverpackets.ServerList;
 import net.sf.l2j.loginserver.services.exception.HackingException;
 import net.sf.l2j.util.NewCrypt;
+import net.sf.l2j.util.ScrambledKeyPair;
 import net.sf.l2j.util.Util;
 
 import org.apache.commons.logging.Log;
@@ -164,7 +164,7 @@ public class ClientThread extends Thread
 				
 				if (!checksumOk)
 				{
-					//_log.warning("Incorrect packet checksum, closing connection..");
+					//_log.warn("Incorrect packet checksum, closing connection..");
                     _log.warn("Client is not using latest Authentication method.");
 					break;
 				}
@@ -193,7 +193,7 @@ public class ClientThread extends Thread
 					{
 						RequestAuthLogin ral = new RequestAuthLogin(decrypt, _privateKey);
 						account = ral.getUser().toLowerCase();
-						if (Config.DEBUG) _log.info("RequestAuthLogin from user:" + account);
+                        if (_log.isDebugEnabled())_log.debug("RequestAuthLogin from user:" + account);
 						
 						LoginManager lc = LoginManager.getInstance();
 						if (LoginManager.getInstance().loginValid(account, ral.getPassword(), _csocket.getInetAddress()))
@@ -228,7 +228,7 @@ public class ClientThread extends Thread
                                         _log.warn("Account is in use on Login server (kicking off): " + account);
                                         try
                                         {
-                                            lc.removeLoginServerLogin(account);
+                                            lc.removeAccountFromLoginServer(account);
                                         }
                                         catch(NullPointerException e)
                                         {
@@ -238,7 +238,7 @@ public class ClientThread extends Thread
                                     if (lc.isAccountInAnyGameServer(account)) {
                                         _log.warn("Account is in use on Game server (kicking off): " + account);
                                     	GameServerManager.getInstance().getGameServerThread(lc.getGameServerIDforAccount(account)).KickPlayer(account);
-                                        lc.removeGameServerLogin(account);
+                                        lc.removeAccountFromGameServer(account);
                                     }
                                     LoginFail lok = new LoginFail(LoginFail.REASON_ACCOUNT_IN_USE);
                                     sendPacket(lok);
@@ -337,7 +337,7 @@ public class ClientThread extends Thread
 				// ignore problems
 			}
 			
-			LoginManager.getInstance().removeLoginServerLogin(account);
+			LoginManager.getInstance().removeAccountFromLoginServer(account);
 			if (_log.isDebugEnabled())  _log.debug("loginserver thread[C] stopped");
 		}
 	}
