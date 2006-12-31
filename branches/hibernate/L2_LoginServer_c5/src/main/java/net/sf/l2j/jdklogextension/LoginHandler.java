@@ -18,13 +18,12 @@
  */
 package net.sf.l2j.jdklogextension;
 
-import java.util.logging.Filter;
-import java.util.logging.LogRecord;
+import java.io.IOException;
+import java.util.logging.FileHandler;
 
-public class ErrorFilter implements Filter {
+public class LoginHandler extends FileHandler {
 
-	public boolean isLoggable(LogRecord record) {
-		return record.getThrown() != null;
+	public LoginHandler() throws IOException, SecurityException {
+		super();
 	}
-
 }

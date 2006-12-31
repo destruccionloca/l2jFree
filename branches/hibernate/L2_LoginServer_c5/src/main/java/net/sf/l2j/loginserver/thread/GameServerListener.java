@@ -75,7 +75,7 @@ public class GameServerListener extends FloodProtectedListener
 	
 	
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.loginserver.FloodProtectedListener#addClient(java.net.Socket)
+	 * @see net.sf.l2j.loginserver.thread.FloodProtectedListener#addClient(java.net.Socket)
 	 */
 	@Override
 	public void addClient(Socket s)

@@ -36,7 +36,7 @@
         
         <property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>        
         <!-- Show sql request -->        
-        <property name="hibernate.show_sql">true</property>        
+        <property name="hibernate.show_sql">false</property>        
         
         <!-- #############################
         

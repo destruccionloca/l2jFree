@@ -58,11 +58,12 @@ import org.apache.commons.logging.LogFactory;
  */
 public class LoginManager
 {
-	private static final Log _log = LogFactory.getLog(LoginManager.class.getName());
+	private static final Log _log = LogFactory.getLog(LoginManager.class);
+    private static final Log _logLogin = LogFactory.getLog("login");
 	
 	private static LoginManager _instance;
 	
-	//TODO: use 2 id maps (sever selection + login ok)
+	//TODO: use 2 id maps (server selection + login ok)
 	/** this map contains the session ids that belong to one account */
 	private Map<String, SessionKey> _logins;
 	/** this map contains the connections of the players that are in the loginserver*/
@@ -346,7 +347,7 @@ public class LoginManager
 		Integer failedConnects  = _hackProtection.get(address.getHostAddress());
 		String lastPassword = _lastPassword.get(address.getHostAddress());
 		
-        net.sf.l2j.loginserver.lib.Log.add("'"+user+"' "+address.getHostAddress(), "logins_ip");
+        _logLogin.info("User trying to connect  '"+user+"' "+address.getHostAddress());
 		
         // o Check max number of failed connection
         // -------------------------------------
@@ -383,7 +384,7 @@ public class LoginManager
             // ---------------------------------------------
             else
             {
-                ok = checkPassword(hash);
+                ok = checkPassword(hash,acc);
     			if (ok)
     			{
     				acc.setLastactive(new BigDecimal(System.currentTimeMillis()));
@@ -425,10 +426,13 @@ public class LoginManager
         // of users that mistype their passwords once every day :)
         _hackProtection.remove(address.getHostAddress());
         _lastPassword.remove(address.getHostAddress());
-        net.sf.l2j.loginserver.lib.Log.add("'"+user+"' "+address.getHostAddress(), "logins_ip");
+        if (_logLogin.isDebugEnabled())_log.debug("login successfull for '"+user+"' "+address.getHostAddress());
     }
 
     /**
+     * 
+     * If login are different, increment hackProtection counter. It's maybe a hacking attempt
+     * 
      * @param user
      * @param password
      * @param address
@@ -437,7 +441,7 @@ public class LoginManager
      */
     private void handleBadLogin(String user, String password, InetAddress address, Integer failedConnects, String lastPassword)
     {
-        net.sf.l2j.loginserver.lib.Log.add("'"+user+"' "+address.getHostAddress(), "logins_ip_fails");
+        _logLogin.info("login failed for user : '"+user+"' "+address.getHostAddress());
         
         // add 1 to the failed counter for this IP 
         int failedCount = 1;
@@ -446,7 +450,7 @@ public class LoginManager
         	failedCount = failedConnects.intValue() + 1;
         }
         
-        if(password != lastPassword)
+        if(!password.equals(lastPassword))
         {
         	_hackProtection.put(address.getHostAddress(), new Integer(failedCount));
         	_lastPassword.put(address.getHostAddress(), password);
@@ -455,16 +459,17 @@ public class LoginManager
 
     /**
      * @param hash
+     * @param acc 
      * @return true if password are identical
      */
-    private boolean checkPassword(byte[] hash)
+    private boolean checkPassword(byte[] hash, Accounts acc)
     {
         boolean ok;
         if (_log.isDebugEnabled() )_log.debug("account exists");
         
         ok = true;
         
-        byte[] expected = null;
+        byte[] expected = Base64.decode(acc.getPassword());
         
         for (int i=0;i<expected.length;i++)
         {
@@ -494,7 +499,7 @@ public class LoginManager
                 acc = new Accounts(user,Base64.encodeBytes(hash),new BigDecimal(System.currentTimeMillis()),0,address.getHostAddress());
         		_service.addOrUpdateAccount(acc);
         		
-                _log.info("created new account for "+ user);
+                _logLogin.info("created new account for "+ user);
 
                 if ( LoginServer.statusServer != null )
         			LoginServer.statusServer.SendMessageToTelnets("Account created for player "+user);
@@ -502,10 +507,10 @@ public class LoginManager
         		return true;
         		
         	}
-        	_log.warn("Invalid username creation/use attempt: "+user);
+            _logLogin.warn("Invalid username creation/use attempt: "+user);
         	return false;
         }
-        _log.warn("account missing for user "+user);
+        _logLogin.warn("account missing for user "+user);
         return false;
     }
 	

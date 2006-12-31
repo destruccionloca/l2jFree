@@ -37,7 +37,7 @@ public class ConsoleLogFormatter extends Formatter
 	{
 		StringBuffer output = new StringBuffer();
 		output.append(record.getLevel().getName());
-        output.append("");
+        output.append(" ");
 		output.append(record.getMessage());
 		output.append(CRLF);
 		if (record.getThrown() != null) {

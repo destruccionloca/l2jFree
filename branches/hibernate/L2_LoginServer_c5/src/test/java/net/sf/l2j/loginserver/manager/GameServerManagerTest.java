@@ -27,9 +27,7 @@ package net.sf.l2j.loginserver.manager;
 
 import junit.framework.TestCase;
 import net.sf.l2j.L2Registry;
-import net.sf.l2j.loginserver.beans.GameServer;
 import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
-import net.sf.l2j.util.HexUtil;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -48,7 +46,6 @@ public class GameServerManagerTest extends TestCase
     @Override
     protected void setUp() throws Exception
     {
-        super.setUp();
         super.setUp();
         context = new ClassPathXmlApplicationContext("classpath*:/**/**/applicationContext-TestMock.xml");        
         L2Registry.setApplicationContext(context);

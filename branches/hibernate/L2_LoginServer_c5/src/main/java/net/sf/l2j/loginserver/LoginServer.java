@@ -52,7 +52,7 @@ public class LoginServer
         // Local Constants
         // ----------------
         final String LOG_FOLDER = "log"; // Name of folder for log file
-        final String LOG_NAME = "config/log.cfg"; // Name of log file
+        final String LOG_NAME = "./config/logging.properties"; // Name of log file
 
         // Create log folder
         // ------------------

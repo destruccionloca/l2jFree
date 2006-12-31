@@ -182,7 +182,7 @@ public class AccountsServices
         // --------------
         Integer iLevel = new Integer (level);
         acc.setAccessLevel(iLevel);
-        __accDAO.createOrUpdate(acc);
+        __accDAO.update(acc);
         if (_log.isDebugEnabled()) _log.debug ("Account " + account + " has been updated.");
     }    
 

@@ -80,6 +80,19 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
             <param name="ConversionPattern" value="%d{yyyy.MM.dd HH:mm:ss,SSS} %p %t %c %m %s %n"/>
         </layout>
     </appender>
+
+    <!-- login log appender -->
+    <appender name="LOGINLOG" class="org.apache.log4j.RollingFileAppender">
+        <param name="Threshold" value="INFO"/>
+        <param name="Encoding" value="UTF-8"/>        
+        <param name="File" value="log/login.log"/>
+        <param name="Append" value="true"/>
+        <param name="MaxFileSize" value="500KB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <layout class="net.sf.l2j.log4jextension.ExtendedPatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy.MM.dd HH:mm:ss,SSS} %p %t %c %m %s %n"/>
+        </layout>
+    </appender>    
  
     <!--
     RULES for logging DEBUG < INFO < WARN < ERROR < FATAL.
@@ -98,6 +111,10 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
     (and modify general threshold to debug)
     
     -->
+    <logger name="login" additivity="false" >
+        <appender-ref ref="LOGINLOG"/>
+    </logger>
+    
     <!-- Setup the Root logger -->
     <root>
         <appender-ref ref="FILELOG"/>
