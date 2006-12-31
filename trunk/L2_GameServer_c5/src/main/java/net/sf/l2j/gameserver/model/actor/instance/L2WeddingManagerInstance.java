@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -29,7 +30,6 @@ import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class L2WeddingManagerInstance extends L2FolkInstance
 {
@@ -65,7 +65,7 @@ public class L2WeddingManagerInstance extends L2FolkInstance
     
     public void onBypassFeedback(L2PcInstance player, String command)
     {
-//      standard msg
+        // standard msg
         String filename = "data/html/wedding/start.htm";
         String replace = "";
         
@@ -73,72 +73,78 @@ public class L2WeddingManagerInstance extends L2FolkInstance
         if(player.getPartnerId()==0){
             filename = "data/html/wedding/nopartner.htm";
             this.sendHtmlMessage(player, filename, replace);
+            return;
         }
         else
         {
             L2PcInstance ptarget = (L2PcInstance)L2World.getInstance().findObject(player.getPartnerId());
             // partner online ?
-            if(ptarget==null || ptarget.isOnline()==0){
+            if(ptarget==null || ptarget.isOnline()==0)
+            {
                 filename = "data/html/wedding/notfound.htm";
                 this.sendHtmlMessage(player, filename, replace);
+                return;
             }
             else
             {
                 // already married ?
-                if(player.isMaried() || ptarget.isMaried()){
+                if(player.isMaried())
+                {
                     filename = "data/html/wedding/already.htm";
                     this.sendHtmlMessage(player, filename, replace);
+                    return;
+                }
+                else if (player.isMaryAccepted())
+                {
+                    filename = "data/html/wedding/waitforpartner.htm";
+                    this.sendHtmlMessage(player, filename, replace);
+                    return;
                 }
                 else if (command.startsWith("AcceptWedding"))
                 {
                     // accept the wedding request
                     player.setMaryAccepted(true);
-                    if(ptarget.isMaryAccepted())
+                    Couple couple = CoupleManager.getInstance().getCouple(player.getCoupleId());
+                    couple.marry();
+                    
+                    //messages to the couple
+                    player.sendMessage("Gratulations you are married!");
+                    player.setMaried(true);
+                    player.setMaryRequest(false);
+                    ptarget.sendMessage("Gratulations you are married!");
+                    ptarget.setMaried(true);
+                    ptarget.setMaryRequest(false);
+                    
+                    //wedding march
+                    MagicSkillUser MSU = new MagicSkillUser(player, player, 2149, 1, 1, 0);
+                    player.broadcastPacket(MSU);
+                    MSU = new MagicSkillUser(ptarget, ptarget, 2149, 1, 1, 0);
+                    ptarget.broadcastPacket(MSU);
+                    
+                    // fireworks
+                    L2Skill skill = SkillTable.getInstance().getInfo(2025,1);
+                    if (skill != null) 
                     {
-                        Couple couple = CoupleManager.getInstance().getCouple(player.getCoupleId());
-                        couple.marry();
-                        
-                        //messages to the couple
-                        player.sendMessage("Gratulations you are married!");
-                        player.setMaried(true);
-                        player.setMaryRequest(false);
-                        ptarget.sendMessage("Gratulations you are married!");
-                        ptarget.setMaried(true);
-                        ptarget.setMaryRequest(false);
-                        
-                        //wedding march
-                        MagicSkillUser MSU = new MagicSkillUser(player, player, 2149, 1, 1, 0);
+                        MSU = new MagicSkillUser(player, player, 2025, 1, 1, 0);
+                        player.sendPacket(MSU);
                         player.broadcastPacket(MSU);
-                        MSU = new MagicSkillUser(ptarget, ptarget, 2149, 1, 1, 0);
+                        player.useMagic(skill, false, false);
+
+                        MSU = new MagicSkillUser(ptarget, ptarget, 2025, 1, 1, 0);
+                        ptarget.sendPacket(MSU);
                         ptarget.broadcastPacket(MSU);
-                        
-                        // fireworks
-                        L2Skill skill = SkillTable.getInstance().getInfo(2025,1);
-                        if (skill != null) 
-                        {
-                            MSU = new MagicSkillUser(player, player, 2025, 1, 1, 0);
-                            player.sendPacket(MSU);
-                            player.broadcastPacket(MSU);
-                            player.useMagic(skill, false, false);
-    
-                            MSU = new MagicSkillUser(ptarget, ptarget, 2025, 1, 1, 0);
-                            ptarget.sendPacket(MSU);
-                            ptarget.broadcastPacket(MSU);
-                            ptarget.useMagic(skill, false, false);
-    
-                        }
-                        
-                        SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-                        sm.addString("Gratulations, "+player.getName()+" and "+ptarget.getName()+" has married.");
-                        CoupleManager.getInstance().announce(sm);
-                        
-                        sm = null;
-                        MSU = null;
-                        
-                        filename = "data/html/wedding/accepted.htm";
-                        replace = ptarget.getName();
-                        this.sendHtmlMessage(ptarget, filename, replace);
+                        ptarget.useMagic(skill, false, false);
+
                     }
+                    
+                    Announcements.getInstance().announceToAll("Gratulations, "+player.getName()+" and "+ptarget.getName()+" has married.");            
+                    
+                    MSU = null;
+                    
+                    filename = "data/html/wedding/accepted.htm";
+                    replace = ptarget.getName();
+                    this.sendHtmlMessage(ptarget, filename, replace);
+                    return;
                 }                
                 else if (command.startsWith("DeclineWedding"))
                 {
@@ -151,45 +157,56 @@ public class L2WeddingManagerInstance extends L2FolkInstance
                     replace = ptarget.getName();
                     filename = "data/html/wedding/declined.htm";
                     this.sendHtmlMessage(ptarget, filename, replace);
+                    return;
                 }
                 else if (player.isMaryRequest())
                 {
                     // check for formalwear
-                    if(Config.WEDDING_FORMALWEAR)
+                    if(Config.WEDDING_FORMALWEAR && !player.isWearingFormalWear())
                     {
-                        if(player.isWearingFormalWear() && ptarget.isWearingFormalWear())
-                            filename = "data/html/wedding/noformal.htm";
-                        else
-                            filename = "data/html/wedding/ask.htm";
+                        filename = "data/html/wedding/noformal.htm";
+                        this.sendHtmlMessage(player, filename, replace);
+                        return;
                     }
                     filename = "data/html/wedding/ask.htm";
                     player.setMaryRequest(false);
                     ptarget.setMaryRequest(false);
                     replace = ptarget.getName();
                     this.sendHtmlMessage(player, filename, replace);
+                    return;
                 }  
                 else if (command.startsWith("AskWedding"))
                 {
-                    if(player.getAdena()<Config.WEDDING_PRICE)
+                    // check for formalwear
+                    if(Config.WEDDING_FORMALWEAR && !player.isWearingFormalWear())
+                    {
+                        filename = "data/html/wedding/noformal.htm";
+                        this.sendHtmlMessage(player, filename, replace);
+                        return;
+                    }
+                    else if(player.getAdena()<Config.WEDDING_PRICE)
                     {
                         filename = "data/html/wedding/adena.htm";
                         replace = String.valueOf(Config.WEDDING_PRICE);
                         this.sendHtmlMessage(player, filename, replace);
+                        return;
                     }
                     else
                     {
-                        player.setMaryRequest(true);
+                        player.setMaryAccepted(true);
                         ptarget.setMaryRequest(true);
                         replace = ptarget.getName();
                         filename = "data/html/wedding/requested.htm";
+                        player.getInventory().reduceAdena("Wedding", Config.WEDDING_PRICE, player, player.getLastFolkNPC());                       
                         this.sendHtmlMessage(player, filename, replace);
-                        player.getInventory().reduceAdena("Wedding", Config.WEDDING_PRICE, player, player.getLastFolkNPC());
+                        return;
                     }                    
                 } 
             }
         }                
         this.sendHtmlMessage(player, filename, replace);
     } 
+
     private void sendHtmlMessage(L2PcInstance player, String filename, String replace)
     {
         NpcHtmlMessage html = new NpcHtmlMessage(1);

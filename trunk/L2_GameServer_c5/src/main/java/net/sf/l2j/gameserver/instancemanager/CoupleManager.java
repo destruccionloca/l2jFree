@@ -124,18 +124,6 @@ public class CoupleManager
         }
     }
     
-    public void announce(SystemMessage sm)
-    {
-        for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-        {
-            if (player == null) continue;
-            
-            player.sendPacket(sm);
-        }
-        if (_log.isDebugEnabled())
-            _log.info("MessageID: "+sm.getMessageID());
-    }
-    
     public final int getCoupleIndex(int coupleId)
     {
         Couple couple;
