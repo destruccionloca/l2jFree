@@ -122,18 +122,39 @@ public class AdminTest implements IAdminCommandHandler
         }
                 else if (command.equals("admin_mp on"))
         {
+            if (Config.IO_TYPE == Config.IOType.nio)
+            {
             SelectorThread.startPacketMonitor();
             activeChar.sendMessage("Packet monitor enabled");
+            }
+            else
+            {
+                activeChar.sendMessage("not supported");
+            }
         }
         else if (command.equals("admin_mp off"))
         {
+            if (Config.IO_TYPE == Config.IOType.nio)
+            {
             SelectorThread.stopPacketMonitor();
             activeChar.sendMessage("Packet monitor disabled");
+            }
+            else
+            {
+                activeChar.sendMessage("not supported");
+            }
         }
         else if (command.equals("admin_mp dump"))
         {
+            if (Config.IO_TYPE == Config.IOType.nio)
+            {
             SelectorThread.dumpPacketHistory();
             activeChar.sendMessage("Packet history saved");
+            }
+            else
+            {
+                activeChar.sendMessage("not supported");
+            }
         }
         else if (command.equals("admin_known on"))
         {

@@ -3121,9 +3121,14 @@ public final class L2PcInstance extends L2PlayableInstance
                 // Check if this L2PcInstance is autoAttackable
                 if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started))
                 {
+                    if(player.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL || this.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
+                    {
+                        player.sendMessage("Player protected till level " + String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL));
+                        player.sendPacket(new ActionFailed());
+                    }
                     // Player with lvl < 21 can't attack a cursed weapon holder
                     // And a cursed weapon holder  can't attack players with lvl < 21
-                    if ((isCursedWeaponEquiped() && player.getLevel() < 21)
+                    else if ((isCursedWeaponEquiped() && player.getLevel() < 21)
                             || (player.isCursedWeaponEquiped() && this.getLevel() < 21))
                     {
                         player.sendPacket(new ActionFailed());
@@ -3686,12 +3691,6 @@ public final class L2PcInstance extends L2PlayableInstance
             }
             if (!ArenaManager.getInstance().checkIfInZone(this) && !JailManager.getInstance().checkIfInZone(this))
             {
-                boolean isKillerPc = (killer instanceof L2PcInstance);
-                if (isKillerPc && ((L2PcInstance)killer).getClan() != null && getClan() != null && _clan.isAtWarWith(((L2PcInstance) killer).getClanId()) && _clan.isAttackedBy(((L2PcInstance) killer).getClanId()))
-                {
-                    ((L2PcInstance) killer).getClan().setReputationScore(((L2PcInstance) killer).getClan().getReputationScore()-1);
-                    _clan.setReputationScore(_clan.getReputationScore()+1);
-                }
                 if (pk == null || !pk.isCursedWeaponEquiped())
                 {
                     if (Config.ALT_GAME_DELEVEL)
@@ -3711,9 +3710,12 @@ public final class L2PcInstance extends L2PlayableInstance
                     if (pk.getClan() != null && getClan()!= null)
                     if (killerClan.isAtWarWith(this.getClanId()) && getClan().isAttackedBy(killerClan.getClanId()) && getClan().getReputationScore() > 0)
                     {
-                        int score = getClan().getReputationScore();
-                        getClan().setReputationScore(score-score/20); //take 5% of clans rep score (this is totally custom :))
-                        killerClan.setReputationScore(killerClan.getReputationScore()+score/20); //give those 5% to anotherClan :)
+                        if(getLevel() > 4 && getLevel()-pk.getLevel() > -10 && _clan.getReputationScore() > 0)
+                        {
+                            int score = _clan.getReputationScore()*getLevel()*(getLevel()-pk.getLevel()+10)/60000;
+                            _clan.setReputationScore(_clan.getReputationScore()-score);
+                            killerClan.setReputationScore(killerClan.getReputationScore()+score);
+                        }
                     }
                 }
             }

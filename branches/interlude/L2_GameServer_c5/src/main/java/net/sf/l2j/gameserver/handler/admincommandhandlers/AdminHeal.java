@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
+import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
@@ -39,17 +40,39 @@ public class AdminHeal implements IAdminCommandHandler {
     private final static Log _log = LogFactory.getLog(AdminRes.class.getName());
     private static String[] _adminCommands = {"admin_heal"};
     private static final int REQUIRED_LEVEL = Config.GM_HEAL;
-    
+
     public boolean useAdminCommand(String command, L2PcInstance activeChar) {
         if (!Config.ALT_PRIVILEGES_ADMIN)
             if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
-        
-        if (command.equals("admin_heal")) handleRes(activeChar);
+
+        if (command.equals("admin_heal"))
+        {
+            if (activeChar.getTarget() instanceof L2Character)
+            {
+                GMAudit.auditGMAction(activeChar.getName(), "admin_heal", activeChar.getTarget().getName(), "");
+                handleHeal((L2Character)activeChar.getTarget());
+            }
+        }
         else if (command.startsWith("admin_heal")) {            
             try
-            {   
-                String healTarget = command.substring(11);
-                handleRes(activeChar, healTarget);
+            {
+                String val = command.substring(11);
+                GMAudit.auditGMAction(activeChar.getName(), "admin_heal", activeChar.getTarget().getName(), val);
+                
+                try
+                {
+                    int radius = Integer.parseInt(val);
+                    for (L2Character cha : activeChar.getKnownList().getKnownCharactersInRadius(radius))
+                    {
+                        handleHeal(cha);
+                    }
+                }
+                catch (NumberFormatException e)
+                {
+                    L2Object target = L2World.getInstance().getPlayer(val);
+                    if (target instanceof L2Character)
+                        handleHeal((L2Character)target);
+                }
             }
             catch (StringIndexOutOfBoundsException e)
             {
@@ -61,59 +84,19 @@ public class AdminHeal implements IAdminCommandHandler {
         }
         return true;
     }
-    
+
     public String[] getAdminCommandList() {
         return _adminCommands;
     }
-    
+
     private boolean checkLevel(int level) {
         return (level >= REQUIRED_LEVEL);
     }
-    
-    private void handleRes(L2PcInstance activeChar)
+
+    private void handleHeal(L2Character target)
     {
-        handleRes(activeChar, null);
-    }
-    
-    private void handleRes(L2PcInstance activeChar, String player) {
-        
-        L2Object obj = activeChar.getTarget();
-        if (player != null) {
-            L2PcInstance plyr = L2World.getInstance().getPlayer(player);
-            
-            if (plyr != null) obj = plyr;            
-            else {
-                try
-                {
-                    int radius  = Integer.parseInt(player);
-                    for (L2Object object : activeChar.getKnownList().getKnownObjects())
-                    {
-                        if (object instanceof L2Character)
-                        {
-                            L2Character character = (L2Character) object;
-                            character.setCurrentHpMp(character.getMaxHp(), character.getMaxMp());
-                            if ( object instanceof L2PcInstance ) character.setCurrentCp(character.getMaxCp());
-                        }
-                    }
-                    activeChar.sendMessage("Healed within " + radius + " unit radius.");
-                    return;
-                } catch (NumberFormatException nbe) {}
-            }
-        }
-        
-        if (obj == null) obj = activeChar;
-        
-        if ((obj != null) && (obj instanceof L2Character)) {
-            L2Character target = (L2Character)obj;
-            target.setCurrentHpMp(target.getMaxHp(), target.getMaxMp());
-            if ( target instanceof L2PcInstance ) target.setCurrentCp(target.getMaxCp());
-            if (_log.isDebugEnabled()) 
-                _log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") healed character "+target.getName());
-        } 
-        else {
-            SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-            sm.addString("Incorrect target.");
-            activeChar.sendPacket(sm);
-        }
+        target.setCurrentHpMp(target.getMaxHp(), target.getMaxMp());
+        if (target instanceof L2PcInstance)
+            target.setCurrentCp(target.getMaxCp());
     }
 }

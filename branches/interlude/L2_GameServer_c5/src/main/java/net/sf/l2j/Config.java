@@ -639,8 +639,14 @@ public final class Config {
     public static String        GAME_SERVER_LOGIN_HOST;
     public static String        INTERNAL_HOSTNAME;
     public static String        EXTERNAL_HOSTNAME;
+    
     /** IO_Type */
-    public static String        IO_TYPE;
+    public enum IOType {
+        nio,
+        aio4j
+    }
+    
+    public static IOType        IO_TYPE;
     public static int           PATH_NODE_RADIUS;
     public static int           NEW_NODE_ID;
     public static int           SELECTED_NODE_ID;
@@ -720,6 +726,8 @@ public final class Config {
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_TELEPORT;
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_TRADE;
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE;
+    /** Player Protection Level */
+    public static int ALT_PLAYER_PROTECTION_LEVEL;    
     /** Config for Auto Learn Skills */
     public static boolean AUTO_LEARN_SKILLS;
     /** Disable Grade penalty */
@@ -1009,7 +1017,7 @@ public final class Config {
                 INTERNAL_HOSTNAME   = serverSettings.getProperty("InternalHostname", "*");
 	            EXTERNAL_HOSTNAME   = serverSettings.getProperty("ExternalHostname", "*");
                 
-                IO_TYPE                 = serverSettings.getProperty("IOType", "nio");
+                IO_TYPE                 = IOType.valueOf(serverSettings.getProperty("IOType", "nio"));
 	            
 	            MAXIMUM_ONLINE_USERS        = Integer.parseInt(serverSettings.getProperty("MaximumOnlineUsers", "100"));
                 
@@ -1518,6 +1526,7 @@ public final class Config {
                 ALT_GAME_KARMA_PLAYER_CAN_TELEPORT                  = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTeleport", "true"));
                 ALT_GAME_KARMA_PLAYER_CAN_TRADE                     = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTrade", "true"));
                 ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE             = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseWareHouse", "true"));
+                ALT_PLAYER_PROTECTION_LEVEL                         = Integer.parseInt(altSettings.getProperty("AltPlayerProtectionLevel","0"));
                 ALT_GAME_FREE_TELEPORT                              = Boolean.parseBoolean(altSettings.getProperty("AltFreeTeleporting", "False"));
                 ALT_GAME_SUBCLASS_WITHOUT_QUESTS                    = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
                 ALT_GAME_VIEWNPC                    				= Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
