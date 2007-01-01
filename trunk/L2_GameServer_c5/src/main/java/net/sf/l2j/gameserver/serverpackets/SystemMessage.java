@@ -577,6 +577,10 @@ public class SystemMessage extends ServerBasePacket
     public static final int S1_HAS_DISAPPEARED = 1818;
     
     public static final int RESSURECTION_REQUEST = 1510;
+    
+    // Energy Stones
+    public static final int FORCE_INCREASED_TO_S1 = 323;
+    public static final int FORCE_MAXLEVEL_REACHED = 324;
 
 	/**
 	 * @param _characters
