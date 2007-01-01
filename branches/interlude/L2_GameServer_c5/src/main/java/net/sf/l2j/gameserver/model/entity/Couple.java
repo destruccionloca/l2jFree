@@ -137,6 +137,7 @@ public class Couple
             statement.setInt(3, this._Id);
             statement.execute();
             statement.close();
+            this._maried = true;
         }
         catch (Exception e)
         {
