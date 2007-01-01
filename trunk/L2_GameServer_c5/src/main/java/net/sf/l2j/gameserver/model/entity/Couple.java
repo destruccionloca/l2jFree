@@ -133,10 +133,12 @@ public class Couple
 
             statement = con.prepareStatement("UPDATE couples set maried = ?, weddingDate = ? where id = ?");
             statement.setBoolean(1, true);
-            statement.setLong(2, Calendar.getInstance().getTimeInMillis());
+            this._weddingDate = Calendar.getInstance();
+            statement.setLong(2, this._weddingDate.getTimeInMillis());
             statement.setInt(3, this._Id);
             statement.execute();
             statement.close();
+            this._maried = true;            
         }
         catch (Exception e)
         {

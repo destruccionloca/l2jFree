@@ -451,7 +451,11 @@ public class RequestActionUse extends ClientBasePacket
 
             L2Skill skill = _skills.get(skillId);
             
-            if (skill == null) return;
+            if (skill == null)
+            {
+               _log.warn("Skill " + skillId + " missing from npcskills.sql for a summon id " + activeSummon.getNpcId());
+               return;
+            }
             
             activeSummon.setTarget(target);
             activeSummon.useMagic(skill, _ctrlPressed, _shiftPressed);

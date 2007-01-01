@@ -175,6 +175,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.TargetSelected;
 import net.sf.l2j.gameserver.serverpackets.TradeStart;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
+import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2ArmorType;
@@ -8554,15 +8555,15 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         super.doRevive();
         updateEffectIcons();
-       _ReviveRequested = 0;
-       _ReviveSkill = null;        
+        _ReviveRequested = 0;
+        _RevivePower = 0;
     }
-
-    public void doRevive(L2Skill skill)
+    
+    public void doRevive(double revivePower)
     {
         // Restore the player's lost experience, 
         // depending on the % return of the skill used (based on its power).
-        restoreExp(skill.getPower());
+        restoreExp(revivePower);
         doRevive();
     }
 
@@ -8586,7 +8587,7 @@ public final class L2PcInstance extends L2PlayableInstance
        if((Pet && getPet() != null && getPet().isDead()) || (!Pet && isDead()))
        {
            _ReviveRequested = 1;
-           _ReviveSkill = skill;
+           _RevivePower = Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), Reviver.getWIT()); 
            _RevivePet = Pet;
            sendPacket(new ConfirmDlg(SystemMessage.RESSURECTION_REQUEST,Reviver.getName()));
        }
@@ -8600,21 +8601,21 @@ public final class L2PcInstance extends L2PlayableInstance
        {
            if (!_RevivePet)
            {
-               if (_ReviveSkill != null)
-                   doRevive(_ReviveSkill);
+               if (_RevivePower != 0)
+                   doRevive(_RevivePower);
                else
                    doRevive();
            }
            else if (getPet() != null)
            {
-               if (_ReviveSkill != null)
-                   getPet().doRevive(_ReviveSkill);
+               if (_RevivePower != 0)
+                   getPet().doRevive(_RevivePower);
                else
                    getPet().doRevive();
            }
        }
        _ReviveRequested = 0;
-       _ReviveSkill = null;
+       _RevivePower = 0;
    }
 
    public boolean isReviveRequested()
@@ -8629,8 +8630,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
    public void removeReviving()
    {
-       _ReviveRequested=0;
-       _ReviveSkill = null;
+       _ReviveRequested = 0;
+       _RevivePower = 0;
    }
 
     public void onActionRequest()
@@ -9617,7 +9618,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _cursedWeaponEquipedId = 0;
 
     private int _ReviveRequested = 0;
-    private L2Skill _ReviveSkill = null;
+    private double _RevivePower = 0;
     private boolean _RevivePet = false;
 
     private class JailTask implements Runnable
