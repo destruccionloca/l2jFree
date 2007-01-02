@@ -17,6 +17,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class ChestKey implements IItemHandler
 {
@@ -54,7 +55,7 @@ public class ChestKey implements IItemHandler
         else
         {
             L2ChestInstance chest = (L2ChestInstance) target;
-            if (chest.isDead() || chest.isOpen())
+            if (chest.isDead() || chest.open())
             {
                 activeChar.sendMessage("The chest Is empty.");
                 activeChar.sendPacket(new ActionFailed());
@@ -88,7 +89,6 @@ public class ChestKey implements IItemHandler
             activeChar.useMagic(skill, false, false);
 
             if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false)) return;
-            chest.setOpen();
             int openChance = 0;
             int chestGroup = 0;
 
@@ -423,27 +423,24 @@ public class ChestKey implements IItemHandler
             if (openChance > 0 && Rnd.get(100) < openChance)
             {
                 activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 3));
-                PlaySound playSound = new PlaySound("interfacesound.inventory_open_01");
-                activeChar.sendPacket(playSound);
-                activeChar.sendMessage("You open the chest!");
+                activeChar.sendPacket(new PlaySound("interfacesound.inventory_open_01"));
+                SystemMessage sm = new SystemMessage(SystemMessage.S1_SUCCEEDED);
+                sm.addString("Unlock");
+                activeChar.sendPacket(sm);
                 
-				chest.setHaveToDrop(true);
-				chest.setMustRewardExpSp(false);
 				chest.setSpecialDrop();
-				chest.doItemDrop(activeChar);
                 chest.doDie(activeChar);
             }
             else
             {
                 activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
-                PlaySound playSound = new PlaySound("interfacesound.system_close_01");
-                activeChar.sendPacket(playSound);
-                activeChar.sendMessage("The key has been broken off!");
+                activeChar.sendPacket(new PlaySound("interfacesound.system_close_01"));
+                SystemMessage sm = new SystemMessage(SystemMessage.S1_FAILED);
+                sm.addString("Unlock");
+                activeChar.sendPacket(sm);
 
                 // 50% chance of getting a trap
                 if (Rnd.get(10) < 5) chest.chestTrap(activeChar);
-				chest.setHaveToDrop(false);
-				chest.setMustRewardExpSp(false);
 				chest.doDie(activeChar);
             }
         }
