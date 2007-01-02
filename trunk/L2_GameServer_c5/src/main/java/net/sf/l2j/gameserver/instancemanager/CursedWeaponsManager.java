@@ -157,9 +157,13 @@ public class CursedWeaponsManager
             
             // Retrieve the L2PcInstance from the characters table of the database
             con = L2DatabaseFactory.getInstance().getConnection();
+            PreparedStatement statement;
+            ResultSet rset;
             
-            PreparedStatement statement = con.prepareStatement("SELECT itemId, playerId, playerKarma, playerPkKills, nbKills, endTime FROM cursed_weapons");
-            ResultSet rset = statement.executeQuery();
+            if(Config.ALLOW_CURSED_WEAPONS)
+            {
+            statement = con.prepareStatement("SELECT itemId, playerId, playerKarma, playerPkKills, nbKills, endTime FROM cursed_weapons");
+            rset = statement.executeQuery();
 
             while (rset.next())
             {
@@ -181,6 +185,14 @@ public class CursedWeaponsManager
 
             rset.close();
             statement.close();
+            }
+            else
+            {
+                statement = con.prepareStatement("TRUNCATE TABLE cursed_weapons");
+                rset = statement.executeQuery();
+                rset.close();
+                statement.close();
+            }
             con.close();
             
             // Retrieve the L2PcInstance from the characters table of the database
@@ -242,6 +254,8 @@ public class CursedWeaponsManager
     // Properties - Public
     public synchronized void checkDrop(L2Attackable attackable, L2PcInstance player)
     {
+        if(Config.ALLOW_CURSED_WEAPONS)
+        {
         if (player.isCursedWeaponEquiped())
             return;
 
@@ -251,13 +265,17 @@ public class CursedWeaponsManager
             
             if (cw.checkDrop(attackable, player)) break;
         }
+        }
     }
     
     public void activate(L2PcInstance player, L2ItemInstance item)
     {
+        if(Config.ALLOW_CURSED_WEAPONS)
+        {
         CursedWeapon cw = _cursedWeapons.get(item.getItemId());
         
         cw.activate(player, item);
+        }
     }
     
     public void drop(int itemId, L2Character killer)
