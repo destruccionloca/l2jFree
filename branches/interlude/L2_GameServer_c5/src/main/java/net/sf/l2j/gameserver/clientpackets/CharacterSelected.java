@@ -84,14 +84,16 @@ public class CharacterSelected extends ClientBasePacket
 			sendPacket(new ActionFailed());
 			return;
 		}
-        if(cha.getAccountName()!=getClient().getLoginName())
-        {
-            _log.fatal("HACKER: Account " + getClient().getLoginName() + " tried to login with char "+cha.getName()+" of account "+cha.getAccountName());
-            cha.closeNetConnection();
-        }
+        String _loginname =  getClient().getLoginName();
 		
 		getClient().setActiveChar(cha);
-		
+
+        if(cha.getAccountName()!=_loginname)
+        {
+            _log.fatal("HACKER: Account " + getClient().getLoginName() + " tried to login with char "+cha.getName()+" of account "+cha.getAccountName());
+            getClient().getConnection().close();
+        }
+        
 		if(cha.getAccessLevel() < -1)
 		{
 			cha.closeNetConnection();
