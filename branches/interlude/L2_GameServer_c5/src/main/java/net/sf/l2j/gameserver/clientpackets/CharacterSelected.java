@@ -19,7 +19,11 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
+
+import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -75,7 +79,13 @@ public class CharacterSelected extends ClientBasePacket
 
 		// HAVE TO CREATE THE L2PCINSTANCE HERE TO SET AS ACTIVE
 		if (_log.isDebugEnabled()) _log.debug("selected slot:" + _charSlot);
-		
+
+        if(getClient().getAccountName(_charSlot)!=getClient().getLoginName())
+        {
+            _log.fatal("HACKER: Account " + getClient().getLoginName() + " tried to login with char of account "+getClient().getAccountName(_charSlot));
+            getClient().getConnection().close();
+        }
+        
 		//loadup character from disk
 		L2PcInstance cha = getClient().loadCharFromDisk(_charSlot);
 		if(cha == null)
@@ -84,15 +94,8 @@ public class CharacterSelected extends ClientBasePacket
 			sendPacket(new ActionFailed());
 			return;
 		}
-        String _loginname =  getClient().getLoginName();
-		
+        
 		getClient().setActiveChar(cha);
-
-        if(cha.getAccountName()!=_loginname)
-        {
-            _log.fatal("HACKER: Account " + getClient().getLoginName() + " tried to login with char "+cha.getName()+" of account "+cha.getAccountName());
-            getClient().getConnection().close();
-        }
         
 		if(cha.getAccessLevel() < -1)
 		{
