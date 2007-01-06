@@ -551,6 +551,14 @@ public final class Config {
     public static boolean WEDDING_FORMALWEAR;
     public static int WEDDING_DIVORCE_COSTS;
 
+    /** Crafting Npc */
+    public static double ALT_CRAFT_PRICE;                    // reference price multiplier
+    public static int ALT_CRAFT_DEFAULT_PRICE;               // default price, in case reference is 0
+    public static boolean ALT_CRAFT_ALLOW_CRAFT;             // allow to craft dwarven recipes
+    public static boolean ALT_CRAFT_ALLOW_CRYSTALLIZE;       // allow to break items
+    public static boolean ALT_CRAFT_ALLOW_COMMON;            // allow to craft common craft recipes
+    
+    
     /** Jail config **/
     public static boolean JAIL_IS_PVP;
     public static boolean JAIL_DISABLE_CHAT;
@@ -1599,6 +1607,13 @@ public final class Config {
                 WEDDING_SAMESEX                                     = Boolean.parseBoolean(altSettings.getProperty("WeddingAllowSameSex", "true"));
                 WEDDING_FORMALWEAR                                  = Boolean.parseBoolean(altSettings.getProperty("WeddingFormalWear", "true"));
                 WEDDING_DIVORCE_COSTS                               = Integer.parseInt(altSettings.getProperty("WeddingDivorceCosts", "20"));
+                
+                ALT_CRAFT_ALLOW_CRAFT                               = Boolean.parseBoolean(altSettings.getProperty("CraftManagerDwarvenCraft", "True"));
+                ALT_CRAFT_ALLOW_COMMON                              = Boolean.parseBoolean(altSettings.getProperty("CraftManagerCommonCraft", "False"));
+                ALT_CRAFT_ALLOW_CRYSTALLIZE                         = Boolean.parseBoolean(altSettings.getProperty("CraftManagerCrystallize", "True"));
+                ALT_CRAFT_PRICE                                     = Float.parseFloat(altSettings.getProperty("CraftManagerPriceMultiplier", "0.1"));
+                ALT_CRAFT_DEFAULT_PRICE                             = Integer.parseInt(altSettings.getProperty("CraftManagerDefaultPrice", "50000"));
+                
 	        }
 	        catch (Exception e)
 	        {
