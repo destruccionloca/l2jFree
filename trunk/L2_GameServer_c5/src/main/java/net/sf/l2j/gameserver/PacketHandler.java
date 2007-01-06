@@ -61,6 +61,12 @@ public class PacketHandler
             if (msg != null)
                 break;
         }
+        
+        if(id != 0x00 && id != 0x08 && !client.isAuthed())
+        {
+            _log.warn("Player tried to get in gameserver before auth : "+client.getLoginName());
+            client.getConnection().close();
+        }
 
         if(Config.PACKET_EXECUTIONTIME > 0)
             start = System.currentTimeMillis();

@@ -77,6 +77,8 @@ public final class ClientThread
     private SessionKey _sessionId;
     private final Connection _connection;
     final ScheduledFuture _autoSaveInDB;
+    private boolean _isAuthed = false;
+
     
     //private byte[] _filter;
     
@@ -509,6 +511,21 @@ public final class ClientThread
     public boolean isGameGuardOk()
     {
         return _gameGuardOk;
+    }
+    /**
+     * @return Returns the isAuthed.
+     */
+    public boolean isAuthed()
+    {
+        return _isAuthed;
+    }
+    
+    /**
+     * @param isAuthed The isAuthed to set.
+     */
+    public void setAuthed(boolean isAuthed)
+    {
+        _isAuthed = isAuthed;
     }
     public String getAccountName(int charslot)  
     {  
