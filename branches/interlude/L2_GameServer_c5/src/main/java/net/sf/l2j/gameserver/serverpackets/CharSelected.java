@@ -21,6 +21,9 @@ package net.sf.l2j.gameserver.serverpackets;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -33,7 +36,9 @@ public class CharSelected extends ServerBasePacket
     private static final String _S__21_CHARSELECTED = "[S] 15 CharSelected";
     private L2PcInstance _cha;
     private int _sessionId;
+    private final static Log _log = LogFactory.getLog(CharSelected.class.getName());
 
+    
     /**
      * @param _characters
      */
@@ -51,6 +56,12 @@ public class CharSelected extends ServerBasePacket
     
     final void writeImpl()
     {
+        if(_cha.getAccountName()!=getClient().getLoginName())
+        {
+            _log.fatal("HACKER: Account" + getClient().getLoginName() + " tried to login with char "+_cha.getName()+" of account "+_cha.getAccountName());
+            getClient().getConnection().close();
+        }
+        
         writeC(0x15);
         
         writeS(_cha.getName());
