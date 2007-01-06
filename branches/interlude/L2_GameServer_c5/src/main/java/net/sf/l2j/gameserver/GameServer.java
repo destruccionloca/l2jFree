@@ -281,6 +281,8 @@ public class GameServer
 
         SkillTreeTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("SkillTreeTable initialized");
+        ArmorSetsTable.getInstance();
+        if ( _log.isDebugEnabled())_log.debug("ArmorSetsTable initialized");
         FishTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("FishTable initialized");
         SkillSpellbookTable.getInstance();

@@ -26,6 +26,10 @@ import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ItemTable;
+import net.sf.l2j.gameserver.ArmorSetsTable;
+import net.sf.l2j.gameserver.SkillTable;
+import net.sf.l2j.gameserver.model.L2ArmorSet;
+import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.L2EtcItem;
@@ -178,6 +182,121 @@ public abstract class Inventory extends ItemContainer
         }
     }
 
+    final class ArmorSetListener implements PaperdollListener
+    {
+       public void notifyEquiped(int slot, L2ItemInstance item)
+       {
+           if(!(getOwner() instanceof L2PcInstance))
+               return;
+           
+           L2PcInstance player = (L2PcInstance)getOwner();
+           
+            // checks if player worns chest item
+           L2ItemInstance chestItem = getPaperdollItem(PAPERDOLL_CHEST); 
+           if(chestItem == null)
+               return;
+           
+            // checks if there is armorset for chest item that player worns
+           L2ArmorSet armorSet = ArmorSetsTable.getInstance().getSet(chestItem.getItemId());
+           if(armorSet == null)
+               return;
+           
+            // checks if equiped item is part of set
+           if(armorSet.containItem(slot, item.getItemId()))
+           {
+               if(armorSet.containAll(player))
+               {
+                   L2Skill skill = SkillTable.getInstance().getInfo(armorSet.getSkillId(),1);
+                   if(skill != null)
+                       player.addSkill(skill, false);
+                   else
+                       _log.warn("Inventory.ArmorSetListener: Incorrect skill: "+armorSet.getSkillId()+".");
+                   
+                   if(armorSet.containShield(player)) // has shield from set
+                   {
+                       L2Skill skills = SkillTable.getInstance().getInfo(armorSet.getShieldSkillId(),1);
+                       if(skills != null)
+                           player.addSkill(skills, false);
+                       else
+                           _log.warn("Inventory.ArmorSetListener: Incorrect skill: "+armorSet.getShieldSkillId()+".");
+                   }
+               }
+           }
+           else if (armorSet.containShield(item.getItemId()))
+           {
+               if(armorSet.containAll(player))
+               {
+                   L2Skill skills = SkillTable.getInstance().getInfo(armorSet.getShieldSkillId(),1);
+                   if(skills != null)
+                       player.addSkill(skills, false);
+                   else
+                       _log.warn("Inventory.ArmorSetListener: Incorrect skill: "+armorSet.getShieldSkillId()+".");
+               }
+           }
+       }
+       public void notifyUnequiped(int slot, L2ItemInstance item)
+       {
+           boolean remove = false;
+           int removeSkillId1 = 0;
+           int removeSkillId2 = 0;
+           
+           if(slot == PAPERDOLL_CHEST)
+           {
+               L2ArmorSet armorSet = ArmorSetsTable.getInstance().getSet(item.getItemId());
+               if(armorSet == null)
+                   return;
+               
+               remove = true;
+               removeSkillId1 = armorSet.getSkillId();
+               removeSkillId2 = armorSet.getShieldSkillId();
+               
+           }
+           else
+           {
+               L2ItemInstance chestItem = getPaperdollItem(PAPERDOLL_CHEST); 
+               if(chestItem == null)
+                   return;
+               
+               L2ArmorSet armorSet = ArmorSetsTable.getInstance().getSet(chestItem.getItemId());
+               if(armorSet == null)
+                   return;
+               
+               if(armorSet.containItem(slot, item.getItemId())) // removed part of set
+               {
+                   remove = true;
+                   removeSkillId1 = armorSet.getSkillId();
+                   removeSkillId2 = armorSet.getShieldSkillId();
+               }
+               else if(armorSet.containShield(item.getItemId())) // removed shield
+               {
+                   remove = true;
+                   removeSkillId2 = armorSet.getShieldSkillId();
+               }
+           }
+           
+           if(remove)
+           {
+               if(removeSkillId1 != 0)
+               {
+                   L2Skill skill = SkillTable.getInstance().getInfo(removeSkillId1,1);
+                   if(skill != null)
+                    ((L2PcInstance)getOwner()).removeSkill(skill);
+                   else
+                       _log.warn("Inventory.ArmorSetListener: Incorrect skill: "+removeSkillId1+".");
+               }
+               if(removeSkillId2 != 0)
+               {
+                   L2Skill skill = SkillTable.getInstance().getInfo(removeSkillId2,1);
+                   if(skill != null)
+                    ((L2PcInstance)getOwner()).removeSkill(skill);
+                   else
+                       _log.warn("Inventory.ArmorSetListener: Incorrect skill: "+removeSkillId2+".");
+               }
+
+           }
+       }
+    }
+
     final class FormalWearListener implements PaperdollListener
     {
         public void notifyUnequiped(int slot, L2ItemInstance item)
@@ -221,6 +340,7 @@ public abstract class Inventory extends ItemContainer
         _paperdollListeners = new FastList<PaperdollListener>();
         addPaperdollListener(new AmmunationListener());
         addPaperdollListener(new StatsListener());
+        addPaperdollListener(new ArmorSetListener());        
         addPaperdollListener(new FormalWearListener());
     }
     
@@ -783,6 +903,39 @@ public abstract class Inventory extends ItemContainer
         return getItemByItemId(arrowsId);
     }
 
+    public void restoreArmorSetPassiveSkill()
+    {
+       if(!(getOwner() instanceof L2PcInstance))
+           return;
+       L2PcInstance player = (L2PcInstance)getOwner();
+       
+       L2ItemInstance chestItem = getPaperdollItem(PAPERDOLL_CHEST); 
+       if(chestItem == null)
+           return;
+       
+       L2ArmorSet armorSet = ArmorSetsTable.getInstance().getSet(chestItem.getItemId());
+       if(armorSet == null)
+           return;
+       
+       if(armorSet.containAll(player))
+       {
+           L2Skill skill = SkillTable.getInstance().getInfo(armorSet.getSkillId(),1);
+           if(skill != null)
+               ((L2PcInstance)getOwner()).addSkill(skill, false);
+           else
+               _log.warn("Inventory.ArmorSetListener: Incorrect skill: "+armorSet.getSkillId()+".");
+           
+           if(armorSet.containShield(player))
+           {
+               L2Skill skills = SkillTable.getInstance().getInfo(armorSet.getShieldSkillId(),1);
+               if(skills != null)
+                   player.addSkill(skills, false);
+               else
+                   _log.warn("Inventory.ArmorSetListener: Incorrect skill: "+armorSet.getShieldSkillId()+".");
+           }
+       }
+    }
+
     /**
      * Get back items in inventory from database
      */
@@ -834,6 +987,7 @@ public abstract class Inventory extends ItemContainer
            inv.close();
            statement.close();
            refreshWeight();
+           restoreArmorSetPassiveSkill();
        }
        catch (Exception e)
        {
