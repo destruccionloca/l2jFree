@@ -3707,6 +3707,13 @@ public final class L2PcInstance extends L2PlayableInstance
                 else onDieUpdateKarma(); // Update karma if delevel is not allowed
                 
                 if(pk != null) {
+                    if(Config.ALT_ANNOUNCE_PK)
+                    {
+                        if (getPvpFlag()==0)
+                            Announcements.getInstance().announceToAll(pk.getName()+" has slaughtered "+this.getName());
+                        else 
+                            Announcements.getInstance().announceToAll(pk.getName()+" has defeated "+this.getName());
+                    }
                     L2Clan killerClan = pk.getClan();
                     if (pk.getClan() != null && getClan()!= null)
                     if (killerClan.isAtWarWith(this.getClanId()) && getClan().isAttackedBy(killerClan.getClanId()) && getClan().getReputationScore() > 0)
@@ -3720,6 +3727,8 @@ public final class L2PcInstance extends L2PlayableInstance
                     }
                 }
             }
+            else if (pk != null && Config.ALT_ANNOUNCE_PK)
+                Announcements.getInstance().announceToAll(pk.getName()+" has defeated "+this.getName());
         }
 
         setPvpFlag(0); // Clear the pvp flag

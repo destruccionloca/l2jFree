@@ -71,7 +71,6 @@ public class CharacterSelected extends ClientBasePacket
 		// be a  [S]0x21 packet
 		// after playback is done, the client will not work correct and need to exit
 		//playLogFile(getConnection()); // try to play log file
-		
 
 		// HAVE TO CREATE THE L2PCINSTANCE HERE TO SET AS ACTIVE
 		if (_log.isDebugEnabled()) _log.debug("selected slot:" + _charSlot);
