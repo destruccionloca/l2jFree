@@ -84,6 +84,11 @@ public class CharacterSelected extends ClientBasePacket
 			sendPacket(new ActionFailed());
 			return;
 		}
+        if(cha.getAccountName()!=getClient().getLoginName())
+        {
+            _log.fatal("HACKER: Account " + getClient().getLoginName() + " tried to login with char "+cha.getName()+" of account "+cha.getAccountName());
+            cha.closeNetConnection();
+        }
 		
 		getClient().setActiveChar(cha);
 		
@@ -92,11 +97,6 @@ public class CharacterSelected extends ClientBasePacket
 			cha.closeNetConnection();
 			return;
 		}
-        if(cha.getAccountName()!=getClient().getLoginName())
-        {
-            _log.fatal("HACKER: Account " + getClient().getLoginName() + " tried to login with char "+cha.getName()+" of account "+cha.getAccountName());
-            cha.closeNetConnection();
-        }
 		//weird but usefull, will send i..
 		//cha.setAccessLevel(cha.getAccessLevel());
 		CharSelected cs = new CharSelected(cha, getClient().getSessionId().playOkID1);
