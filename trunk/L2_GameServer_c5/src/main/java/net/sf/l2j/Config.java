@@ -488,7 +488,11 @@ public final class Config {
     public static boolean SPAWN_SIEGE_GUARD; 
 
     /** Player can drop adena ? */
-    public static boolean ALT_PLAYER_CAN_DROP_ADENA;     
+    public static boolean ALT_PLAYER_CAN_DROP_ADENA;  
+    
+    /** Announce Pks ? */  
+    public static boolean ALT_ANNOUNCE_PK;  
+
     
     /** Player Drop Rate control */
     public static int   PLAYER_DROP_LIMIT;
@@ -1715,7 +1719,9 @@ public final class Config {
 	            
 	            PVP_TIME = Integer.parseInt(pvpSettings.getProperty("PvPTime", "15000"));
                 ALT_PLAYER_CAN_DROP_ADENA= Boolean.parseBoolean(pvpSettings.getProperty("PlayerCanDropAdena", "false"));
-                PLAYER_RATE_DROP_ADENA  = Integer.parseInt(pvpSettings.getProperty("PlayerRateDropAdena", "1"));                 
+                PLAYER_RATE_DROP_ADENA  = Integer.parseInt(pvpSettings.getProperty("PlayerRateDropAdena", "1"));  
+                ALT_ANNOUNCE_PK = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePk", "false"));  
+
 	        }
 	        catch (Exception e)
 	        {

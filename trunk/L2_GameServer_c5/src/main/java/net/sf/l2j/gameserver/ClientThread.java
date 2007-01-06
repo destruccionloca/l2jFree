@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver;
 
 import java.net.Socket;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
@@ -509,4 +510,30 @@ public final class ClientThread
     {
         return _gameGuardOk;
     }
+    public String getAccountName(int charslot)  
+    {  
+        int objectId=getObjectIdForSlot(charslot);  
+        java.sql.Connection con = null;  
+        String _accountName="";  
+        try  
+        {  
+            // Retrieve the account name from characters table of the database  
+            con = L2DatabaseFactory.getInstance().getConnection();  
+            
+            PreparedStatement statement = con.prepareStatement("SELECT account_name FROM characters WHERE obj_id=?");  
+            statement.setInt(1, objectId);  
+            ResultSet rset = statement.executeQuery();  
+            if(rset.next())  
+                _accountName=rset.getString("account_name");  
+        }  
+        catch (Exception e)  
+        {  
+            _log.warn("Could not restore char account name: " + e);  
+        }  
+        finally  
+        {  
+            try { con.close(); } catch (Exception e) {}  
+        }  
+        return _accountName;  
+    } 
 }

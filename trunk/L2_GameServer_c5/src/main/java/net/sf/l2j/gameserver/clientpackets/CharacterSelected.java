@@ -75,6 +75,11 @@ public class CharacterSelected extends ClientBasePacket
 
 		// HAVE TO CREATE THE L2PCINSTANCE HERE TO SET AS ACTIVE
 		if (_log.isDebugEnabled()) _log.debug("selected slot:" + _charSlot);
+        if(!getClient().getAccountName(_charSlot).equalsIgnoreCase(getClient().getLoginName()))  
+        {  
+            _log.warn("HACKER: Account " + getClient().getLoginName() + " tried to login with char of account "+getClient().getAccountName(_charSlot));  
+            getClient().getConnection().close();  
+        }
 		
 		//loadup character from disk
 		L2PcInstance cha = getClient().loadCharFromDisk(_charSlot);

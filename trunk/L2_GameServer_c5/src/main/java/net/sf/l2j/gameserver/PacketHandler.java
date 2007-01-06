@@ -728,7 +728,7 @@ public class PacketHandler
                     default: 
                      	msg = null; 
                      	int size = data.remaining(); 
-                     	_log.warn("Unknown Packet: 0xd0:" + Integer.toHexString(id2)); 
+                     	_log.warn("Unknown Packet from "+client.getLoginName()+":" + Integer.toHexString(id)); 
                      	byte[] array = new byte[size]; 
                      	data.get(array); 
                         _log.warn(Util.printData(array, size)); 
@@ -744,7 +744,7 @@ public class PacketHandler
 			{
 				msg = null;
 				int sz = data.remaining(); 
-				_log.warn("Unknown Packet:" + Integer.toHexString(id));
+				_log.warn("Unknown Packet from "+client.getLoginName()+":" + Integer.toHexString(id));
 				byte[] arr = new byte[sz];
 				data.get(arr);
                 _log.warn(Util.printData(arr, sz));
