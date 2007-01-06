@@ -68,7 +68,8 @@ public class Disablers implements ISkillHandler
                                        L2Skill.SkillType.UNSUMMON_ENEMY_PET,
                                        L2Skill.SkillType.BETRAY,
                                        L2Skill.SkillType.CANCEL_TARGET,
-                                       L2Skill.SkillType.ERASE};
+                                       L2Skill.SkillType.ERASE,
+                                       L2Skill.SkillType.DEBUFF};
     protected static Log _log = LogFactory.getLog(L2Skill.class.getName());
     private  String[] _negateStats=null;
     private  float _negatePower=0.f;
@@ -249,6 +250,46 @@ public class Disablers implements ISkillHandler
            break;
        }
        case CONFUSION:
+       case DEBUFF:
+       {    if (target instanceof L2NpcInstance){
+           target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar,50);}
+           if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, ss, bss))
+           {   
+               // stop same type effect if avaiable
+               L2Effect[] effects = target.getAllEffects();
+               for (L2Effect e : effects)
+               {
+                   if (e.getSkill().getSkillType() == type) e.exit();
+               }
+               // then restart
+               // Make above skills mdef dependant                    
+               if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, sps, bss))                   
+               {
+                   skill.getEffects(activeChar, target);
+               }
+               else
+               {
+                   if (activeChar instanceof L2PcInstance)
+                   {
+                       SystemMessage sm = new SystemMessage(139);
+                       sm.addString(target.getName());
+                       sm.addSkillName(skill.getId());
+                       activeChar.sendPacket(sm);
+                   }
+               }
+           }
+           else
+           {
+               if (activeChar instanceof L2PcInstance)
+               {
+                   SystemMessage sm = new SystemMessage(139);
+                   sm.addString(target.getName());
+                   sm.addSkillName(skill.getId());
+                   activeChar.sendPacket(sm);
+               }
+           }
+           break;
+       }
        case MUTE:
        {    if (target instanceof L2NpcInstance){
            target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar,50);}
