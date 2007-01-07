@@ -70,7 +70,7 @@ public class RequestAnswerJoinPledge extends ClientBasePacket
 		        activeChar.sendPacket(jp);
 		        
 		        L2Clan clan = requestor.getClan();
-		        
+                
 //		      L2ClanMember[] members = clan.getMembers();
 		        PledgeShowMemberListAdd la = new PledgeShowMemberListAdd(activeChar);
 		        clan.broadcastToOnlineMembers(la);

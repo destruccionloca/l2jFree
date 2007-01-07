@@ -90,7 +90,7 @@ public class L2SkillDrain extends L2Skill {
 			activeChar.sendPacket(suhp);
 			
             // Check to see if we should damage the target
-            if (!target.isDead() || getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
+            if (damage > 0 && (!target.isDead() || getTargetType() != SkillTargetType.TARGET_CORPSE_MOB))
             {
 
                 if (target instanceof L2NpcInstance) {
@@ -102,15 +102,19 @@ public class L2SkillDrain extends L2Skill {
                 {damage= 0;}
                 target.reduceCurrentHp(damage, activeChar);
                 
-                if (damage > 0)
+                // Manage attack or cast break of the target (calculating rate, sending message...)
+                if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
                 {
-                    if (mcrit) activeChar.sendPacket(new SystemMessage(1280));
-                    
-        			SystemMessage sm = new SystemMessage(SystemMessage.YOU_DID_S1_DMG);
-        			sm.addNumber(damage); 
-        			activeChar.sendPacket(sm);
-                    
-                 }
+                    target.breakAttack();
+                    target.breakCast();                 
+                }
+                
+                if (mcrit) activeChar.sendPacket(new SystemMessage(1280));
+                
+                SystemMessage sm = new SystemMessage(SystemMessage.YOU_DID_S1_DMG);
+                sm.addNumber(damage); 
+                activeChar.sendPacket(sm);
+                
                 if (this.hasEffects())
                 {
                 // activate attacked effects, if any

@@ -5882,6 +5882,9 @@ public final class L2PcInstance extends L2PlayableInstance
             {
             }
         }
+        // Update Noble Skills after subclass change
+        if (this.isNoble())
+            this.setNoble(true);         
     }
 
     /**
@@ -7821,23 +7824,15 @@ public final class L2PcInstance extends L2PlayableInstance
         return _inOlympiadMode;
     }
 
-    public void setNoble(boolean noble)
+    public void setNoble(boolean val)
     {
-       if (noble)
-       {
-           for (L2Skill s : NobleSkillTable.getInstance().GetNobleSkills())
-           {
-               addSkill(s, false);
-           }
-       }
-       else
-       {
-           for (L2Skill s : NobleSkillTable.getInstance().GetNobleSkills())
-           {
-               this.removeSkill(s);
-           }
-       }
-        _noble = noble;
+       if (val)        
+           for (L2Skill s : NobleSkillTable.getInstance().GetNobleSkills())            
+               addSkill(s, false); //Dont Save Noble skills to Sql
+       else        
+           for (L2Skill s : NobleSkillTable.getInstance().GetNobleSkills())            
+               super.removeSkill(s); //Just Remove skills without deleting from Sql 
+       _noble = val;
     }
 
     public boolean isNoble()
@@ -8350,9 +8345,7 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             // if the rent of a wyvern expires while over a flying zone, tp to down before unmounting
             if (checkLandingState() && getMountType() == 2)
-                teleToLocation(MapRegionTable.getInstance().getTeleToLocation(
-                                                                              this,
-                                                                              MapRegionTable.TeleportWhereType.Town));
+                teleToLocation(MapRegionTable.TeleportWhereType.Town);
             _taskRentPet.cancel(false);
             Ride dismount = new Ride(getObjectId(), Ride.ACTION_DISMOUNT, 0);
             sendPacket(dismount);

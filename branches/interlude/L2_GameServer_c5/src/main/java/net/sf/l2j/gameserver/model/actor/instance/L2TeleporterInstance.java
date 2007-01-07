@@ -202,6 +202,10 @@ public final class L2TeleporterInstance extends L2FolkInstance
                 player.sendPacket(html);
                return;
             }
+            else if (player.isAlikeDead())
+            {
+               return;
+            }            
             else if(player.reduceAdena("Teleport", list.getPrice(), this, true))
 			{
             					if (_log.isDebugEnabled()) _log.debug("Teleporting player "+player.getName()+" to new location: "+list.getLocX()+":"+list.getLocY()+":"+list.getLocZ());
