@@ -88,13 +88,16 @@ public class AttackStanceTaskManager
         {
             Long current = System.currentTimeMillis();
             if (_attackStanceTasks != null)
-                for(L2Character actor : _attackStanceTasks.keySet())
+                synchronized (this) 
                 {
-                    if((current - _attackStanceTasks.get(actor)) > 15000)
+                    for(L2Character actor : _attackStanceTasks.keySet())
                     {
-                        actor.broadcastPacket(new AutoAttackStop(actor.getObjectId()));
-                        actor.getAI().setAutoAttacking(false);
-                        _attackStanceTasks.remove(actor);
+                        if((current - _attackStanceTasks.get(actor)) > 15000)
+                        {
+                            actor.broadcastPacket(new AutoAttackStop(actor.getObjectId()));
+                            actor.getAI().setAutoAttacking(false);
+                            _attackStanceTasks.remove(actor);
+                        }
                     }
                 }
         }

@@ -60,6 +60,14 @@ public class ChestKey implements IItemHandler
                 activeChar.sendPacket(new ActionFailed());
                 return;
             }
+
+            if (!(activeChar.isInsideRadius(chest, INTERACTION_DISTANCE, false, false)))
+            {
+                activeChar.sendMessage("Too far.");
+                activeChar.sendPacket(new ActionFailed());
+                return;
+            }
+
             if (!chest.isBox()) {
                 activeChar.sendMessage("Use " + item.getItem().getName() + ".");
                 playable.destroyItem("Consume", item.getObjectId(), 1, null, false);                
@@ -72,13 +80,6 @@ public class ChestKey implements IItemHandler
             if (activeChar.getAbnormalEffect() > 0 || activeChar.isInCombat())
             {
                 activeChar.sendMessage("You cannot use the key,now.");
-                activeChar.sendPacket(new ActionFailed());
-                return;
-            }
-
-            if (!(activeChar.isInsideRadius(chest, INTERACTION_DISTANCE, false, false)))
-            {
-                activeChar.sendMessage("Too far.");
                 activeChar.sendPacket(new ActionFailed());
                 return;
             }

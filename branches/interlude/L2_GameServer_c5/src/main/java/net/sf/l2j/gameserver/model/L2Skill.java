@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.model;
 
 import java.lang.reflect.Constructor;
-import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -207,6 +206,8 @@ public abstract class L2Skill
         SUMMON_TREASURE_KEY,
         SUMMON_CURSED_BONES,
         ERASE,
+        MAGE_BANE, 
+        WARRIOR_BANE,
         STRSIEGEASSAULT, 
         BLESSNOBLESSE, 
         LUCKNOBLESSE    (L2SkillCreateItem.class),
@@ -428,6 +429,10 @@ public abstract class L2Skill
     private final List<Integer> _teachers; // which NPC teaches
     private final boolean _isOffensive;
     private final int _num_charges;
+
+    private final int _lethalEffect1;     // percent of success for lethal 1st effect (hit cp to 1 or if mob hp to 50%) (only for PDAM skills)
+    private final int _lethalEffect2;     // percent of success for lethal 2nd effect (hit cp,hp to 1 or if mob hp to 1) (only for PDAM skills)
+    private final boolean _directHpDmg;  // If true then dmg is being make directly 
     
     private final float _successRate; 
     private final int _minPledgeClass;
@@ -514,7 +519,21 @@ public abstract class L2Skill
         _num_charges = set.getInteger("num_charges", getLevel());
         _successRate         = set.getFloat("rate", 1);
         _minPledgeClass     = set.getInteger("minPledgeClass", 0);
-    
+
+        int l1 = set.getInteger("lethal1",0);
+        int l2 = set.getInteger("lethal2",0);
+        if( l1 <= l2 || l2 <= 0)
+        {
+           _lethalEffect1 = 0;
+           _lethalEffect2 = 0;
+        }
+        else
+        {
+           _lethalEffect1 = l1;
+           _lethalEffect2 = l2;
+        }
+
+        _directHpDmg  = set.getBool("dmgDirectlyToHp",false);
     
         String canLearn = set.getString("canLearn", null);
         if (canLearn == null)
@@ -1004,6 +1023,8 @@ public abstract class L2Skill
         case WEAKNESS:
         case PARALYZE:
         case CANCEL:
+        case MAGE_BANE:
+        case WARRIOR_BANE:            
         case CANCEL_TARGET:
         case BETRAY:
             return true;
@@ -1012,12 +1033,26 @@ public abstract class L2Skill
         }
     }
 
-   public final boolean isOffensive()
+    public final boolean isOffensive()
     {
         return _isOffensive;
-   }
+    }
 
-    
+    public final int getLethalChance1()
+    {
+        return _lethalEffect1;
+    }
+
+    public final int getLethalChance2()
+    {
+        return _lethalEffect2;
+    }
+
+    public final boolean getDmgDirectlyToHP()
+    {
+       return _directHpDmg;
+    }
+
     public final boolean isSkillTypeOffensive()
     {
         switch (_skillType)
@@ -1055,6 +1090,8 @@ public abstract class L2Skill
             case DRAIN_SOUL:
             case AGGREDUCE:
             case CANCEL:
+            case MAGE_BANE:
+            case WARRIOR_BANE:                
             case AGGREMOVE:
             case AGGREDUCE_CHAR: 
             case CRITS:
@@ -1245,6 +1282,8 @@ public abstract class L2Skill
                     || skillType == SkillType.UNPOISON
                     || skillType == SkillType.SEED
                     || skillType == SkillType.COMBATPOINTHEAL                    
+                    || skillType == SkillType.MAGE_BANE 
+                    || skillType == SkillType.WARRIOR_BANE
                     )))
             {
                 activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
