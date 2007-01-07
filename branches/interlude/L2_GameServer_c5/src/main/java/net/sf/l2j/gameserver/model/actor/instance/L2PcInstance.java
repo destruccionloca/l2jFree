@@ -52,6 +52,7 @@ import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.HennaTable;
 import net.sf.l2j.gameserver.ItemTable;
+import net.sf.l2j.gameserver.ItemsAutoDestroy;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.MapRegionTable;
 import net.sf.l2j.gameserver.NobleSkillTable;
@@ -2883,18 +2884,31 @@ public final class L2PcInstance extends L2PlayableInstance
     public boolean dropItem(String process, L2ItemInstance item, L2Object reference, boolean sendMessage)
     {
         item = _inventory.dropItem(process, item, this, reference);
+        
         if (item == null)
         {
-            if (sendMessage) sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_ITEMS));
-
+            if (sendMessage) 
+                sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_ITEMS));
+            
             return false;
         }
+        
+        item.dropMe(this, getClientX() + Rnd.get(50) - 25, getClientY() + Rnd.get(50) - 25, getClientZ() + 20);
 
-        item.dropMe(this, getClientX() + Rnd.get(50) - 25, getClientY() + Rnd.get(50) - 25,
-                    getClientZ() + 20);
-        // Avoids it from beeing removed by the auto item destroyer
-        item.setDropTime(0);
-
+         if (Config.AUTODESTROY_ITEM_AFTER >0 && Config.DESTROY_DROPPED_PLAYER_ITEM && !Config.LIST_PROTECTED_ITEMS.contains(item.getItemId()))
+             {
+             if ( (item.isEquipable() && Config.DESTROY_EQUIPABLE_PLAYER_ITEM) || !item.isEquipable()) 
+             ItemsAutoDestroy.getInstance().addItem(item);
+             }
+         if (Config.DESTROY_DROPPED_PLAYER_ITEM){
+            if (!item.isEquipable() || (item.isEquipable()  && Config.DESTROY_EQUIPABLE_PLAYER_ITEM ))
+                item.setProtected(false);
+            else
+                item.setProtected(true);
+            }
+            else
+                item.setProtected(true);
+                
         // Send inventory update packet
         if (!Config.FORCE_INVENTORY_UPDATE)
         {
@@ -2903,12 +2917,12 @@ public final class L2PcInstance extends L2PlayableInstance
             sendPacket(playerIU);
         }
         else sendPacket(new ItemList(this, false));
-
+        
         // Update current load as well
         StatusUpdate su = new StatusUpdate(getObjectId());
         su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
         sendPacket(su);
-
+        
         // Sends message to client if requested
         if (sendMessage)
         {
@@ -2916,6 +2930,7 @@ public final class L2PcInstance extends L2PlayableInstance
             sm.addItemName(item.getItemId());
             sendPacket(sm);
         }
+        
         return true;
     }
 

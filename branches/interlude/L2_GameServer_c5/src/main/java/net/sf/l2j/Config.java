@@ -511,13 +511,37 @@ public final class Config {
     /** Auto destroy herb time */
     public static int     HERB_AUTO_DESTROY_TIME;
     
-    public static boolean SAVE_DROPPED_ITEM;
-    
-    public static boolean DROP_OVER_MAX_CHANCE;
-    public static boolean CATEGORIZE_DROPS;
-    public static int CATEGORY2_DROP_LIMIT;
-    public static int CATEGORY3_DROP_LIMIT;
+    public static String  PROTECTED_ITEMS;
+    /** List of items that will not be destroyed */
+    public static List<Integer> LIST_PROTECTED_ITEMS = new FastList<Integer>();
+        
+    /** Auto destroy nonequipable items dropped by players */
+    public static boolean   DESTROY_DROPPED_PLAYER_ITEM;
+    /** Auto destroy equipable items dropped by players */
+    public static boolean   DESTROY_EQUIPABLE_PLAYER_ITEM;
+    /** Save items on ground for restoration on server restart */
+    public static boolean   SAVE_DROPPED_ITEM;
+    /** Empty table ItemsOnGround after load all items */
+    public static boolean   EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD;
+    /** Time interval to save into db items on ground */
+    public static int       SAVE_DROPPED_ITEM_INTERVAL;
+    /** Clear all items stored in ItemsOnGround table */
+    public static boolean   CLEAR_DROPPED_ITEM_TABLE;
 
+    /** Accept precise drop calculation ? */
+    public static boolean PRECISE_DROP_CALCULATION;
+    /** Accept multi-items drop ? */
+    public static boolean MULTIPLE_ITEM_DROP;
+
+    /** This is setting of experimental Client <--> Server Player coordinates synchronization<br>
+     * <b><u>Valeurs :</u></b>
+     * <li>0 - no synchronization at all</li>
+     * <li>1 - parcial synchronization Client --> Server only * using this option it is difficult for players 
+     *         to bypass obstacles</li>
+     * <li>2 - parcial synchronization Server --> Client only</li>
+     * <li>3 - full synchronization Client <--> Server</li>
+     * <li>-1 - Old system: will synchronize Z only</li>
+     */
     public static int     COORD_SYNCHRONIZE;
     
     public static int     DELETE_DAYS;
@@ -1066,13 +1090,21 @@ public final class Config {
                 
                 AUTODESTROY_ITEM_AFTER          = Integer.parseInt(optionsSettings.getProperty("AutoDestroyDroppedItemAfter", "0"));
                 HERB_AUTO_DESTROY_TIME          = Integer.parseInt(optionsSettings.getProperty("AutoDestroyHerbTime","15"))*1000;
-                SAVE_DROPPED_ITEM              = Boolean.valueOf(optionsSettings.getProperty("SaveDroppedItem", "false"));
+                PROTECTED_ITEMS                 = optionsSettings.getProperty("ListOfProtectedItems");
+                LIST_PROTECTED_ITEMS = new FastList<Integer>();
+                for (String id : PROTECTED_ITEMS.split(",")) {
+                    LIST_PROTECTED_ITEMS.add(Integer.parseInt(id));
+                     }
+                DESTROY_DROPPED_PLAYER_ITEM     = Boolean.valueOf(optionsSettings.getProperty("DestroyPlayerDroppedItem", "false"));
+                DESTROY_EQUIPABLE_PLAYER_ITEM   = Boolean.valueOf(optionsSettings.getProperty("DestroyEquipableItem", "false"));
+                SAVE_DROPPED_ITEM               = Boolean.valueOf(optionsSettings.getProperty("SaveDroppedItem", "false"));
+                EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD = Boolean.valueOf(optionsSettings.getProperty("EmptyDroppedItemTableAfterLoad", "false"));
+                SAVE_DROPPED_ITEM_INTERVAL      = Integer.parseInt(optionsSettings.getProperty("SaveDroppedItemInterval", "0"))*60000;
+                CLEAR_DROPPED_ITEM_TABLE        = Boolean.valueOf(optionsSettings.getProperty("ClearDroppedItemTable", "false"));
                 
-                DROP_OVER_MAX_CHANCE            = Boolean.valueOf(optionsSettings.getProperty("DropOverMaxChance", "true")); 
-                CATEGORIZE_DROPS                = Boolean.valueOf(optionsSettings.getProperty("CategorizeDrops", "true"));
-                CATEGORY2_DROP_LIMIT            = Integer.parseInt(optionsSettings.getProperty("Category2DropLimit", "3"));
-                CATEGORY3_DROP_LIMIT            = Integer.parseInt(optionsSettings.getProperty("Category3DropLimit", "3"));
-             
+                PRECISE_DROP_CALCULATION        = Boolean.valueOf(optionsSettings.getProperty("PreciseDropCalculation", "True"));
+                MULTIPLE_ITEM_DROP              = Boolean.valueOf(optionsSettings.getProperty("MultipleItemDrop", "True"));
+              
                 COORD_SYNCHRONIZE               = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));
              
                 ALLOW_WAREHOUSE                 = Boolean.valueOf(optionsSettings.getProperty("AllowWarehouse", "True"));

@@ -24,13 +24,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
-import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-
 
 /** 
  * @author evill33t

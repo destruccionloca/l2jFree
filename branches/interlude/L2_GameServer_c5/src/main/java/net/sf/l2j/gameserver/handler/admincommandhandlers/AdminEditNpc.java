@@ -34,6 +34,7 @@ import net.sf.l2j.gameserver.TradeController;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2DropData;
+import net.sf.l2j.gameserver.model.L2DropCategory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2TradeList;
@@ -830,13 +831,14 @@ public class AdminEditNpc implements IAdminCommandHandler {
         replyMSG.append("<table>");
         replyMSG.append("<tr><td>npc_id itemId</td><td>item[id]</td><td>type</td><td>del</td></tr>");
         
-        for(L2DropData drop : npcData.getAllDropData())
-        {
-            replyMSG.append("<tr><td><a action=\"bypass -h admin_edit_drop " + npcData.npcId + " " + drop.getItemId() + "\">"
-                    + npcData.npcId + " " + drop.getItemId() + "</a></td>" +
-                    "<td>" + ItemTable.getInstance().getTemplate(drop.getItemId()).getName() + "[" + drop.getItemId() + "]" + "</td><td>" + (drop.isQuestDrop()?"Q":(drop.isSweep()?"S":"D")) + "</td><td>" +
-                    "<a action=\"bypass -h admin_del_drop " + npcData.npcId + " " + drop.getItemId() + "\">del</a></td></tr>");
-        }
+        for(L2DropCategory cat:npcData.getDropData())
+           for(L2DropData drop : cat.getAllDrops())
+           {
+               replyMSG.append("<tr><td><a action=\"bypass -h admin_edit_drop " + npcData.npcId + " " + drop.getItemId() + "\">"
+                       + npcData.npcId + " " + drop.getItemId() + "</a></td>" +
+                       "<td>" + ItemTable.getInstance().getTemplate(drop.getItemId()).getName() + "[" + drop.getItemId() + "]" + "</td><td>" + (drop.isQuestDrop()?"Q":(cat.isSweep()?"S":"D")) + "</td><td>" +
+                       "<a action=\"bypass -h admin_del_drop " + npcData.npcId + " " + drop.getItemId() + "\">del</a></td></tr>");
+           }
         
         replyMSG.append("</table>");
         replyMSG.append("<center>");
@@ -1093,15 +1095,9 @@ public class AdminEditNpc implements IAdminCommandHandler {
                 dropData.setItemId(dropDataList.getInt("itemId"));
                 dropData.setMinDrop(dropDataList.getInt("min"));
                 dropData.setMaxDrop(dropDataList.getInt("max"));
-                dropData.setSweep(dropDataList.getInt("sweep") == 1);
                 dropData.setChance(dropDataList.getInt("chance"));
-                int category = dropDataList.getInt("drop_category");
-                dropData.setCategory(category);
-                
-                if ( (dropData.isSweep()) || (npcData.type.compareToIgnoreCase("L2RaidBoss") == 0) 
-                        || (npcData.type.compareToIgnoreCase("L2Boss") == 0) )
-                    dropData.setCategory(0);
-                npcData.addDropData(dropData);                
+                int category = dropDataList.getInt("category");
+                npcData.addDropData(dropData, category);                
             }
             dropDataList.close();
             statement.close();

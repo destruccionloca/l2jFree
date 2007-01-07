@@ -24,6 +24,7 @@ import java.util.Map;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2DropData;
+import net.sf.l2j.gameserver.model.L2DropCategory;
 import net.sf.l2j.gameserver.model.L2MinionData;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.base.ClassId;
@@ -77,7 +78,7 @@ public final class L2NpcTemplate extends L2CharTemplate
     
     
     /** The table containing all Item that can be dropped by L2NpcInstance using this L2NpcTemplate*/
-    private final List<L2DropData>    _drops       = new FastList<L2DropData>(0);   
+    private final FastList<L2DropCategory> _categories = new FastList<L2DropCategory>();   
     
     /** The table containing all Minions that must be spawn with the L2NpcInstance using this L2NpcTemplate*/
     private final List<L2MinionData>  _minions     = new FastList<L2MinionData>(0);
@@ -157,18 +158,37 @@ public final class L2NpcTemplate extends L2CharTemplate
         return _teachInfo.contains(classId);
     }
     
-    // for all spoil, plus adena, sealstone, quest, Raidboss, and all other drops that
-    // should NOT follow the rule of 1 drop per category per kill
-    public void addDropData(L2DropData drop)
+    
+   // add a drop to a given category.  If the category does not exist, create it.
+    public void addDropData(L2DropData drop, int categoryType)
     {
         if (drop.isQuestDrop()) {
 //          if (_questDrops == null)
 //              _questDrops = new FastList<L2DropData>(0);
 //          _questDrops.add(drop);
         } else {
-            _drops.add(drop);
+            // if the category doesn't already exist, create it first
+            synchronized (_categories)
+            {
+                boolean catExists = false;
+                for(L2DropCategory cat:_categories)
+                    // if the category exists, add the drop to this category.
+                    if (cat.getCategoryType() == categoryType)
+                    {
+                        cat.addDropData(drop);
+                        catExists = true;
+                        break;
+                    }
+                // if the category doesn't exit, create it and add the drop
+                if (!catExists)
+                {
+                    L2DropCategory cat = new L2DropCategory(categoryType);
+                    cat.addDropData(drop);
+                    _categories.add(cat);
+                }
+            }
         }
-    }        
+    }
     
     public void addRaidData(L2MinionData minion)
     {
@@ -201,10 +221,10 @@ public final class L2NpcTemplate extends L2CharTemplate
     /**
      * Return the list of all possible UNCATEGORIZED drops of this L2NpcTemplate.<BR><BR>
      */
-    public List<L2DropData> getDropData()
+    public FastList<L2DropCategory> getDropData()
     {
-        return _drops;
-    }
+        return _categories;
+    }   
     
     /**
      * Return the list of all possible item drops of this L2NpcTemplate.<BR>
@@ -213,16 +233,24 @@ public final class L2NpcTemplate extends L2CharTemplate
     public List<L2DropData> getAllDropData()
     {
         List<L2DropData> lst = new FastList<L2DropData>();
-        lst.addAll(_drops);
+        for (L2DropCategory tmp:_categories)
+        {
+            lst.addAll(tmp.getAllDrops());
+        }
         return lst;
     }
     
     /**
      * Empty all possible drops of this L2NpcTemplate.<BR><BR>
      */
-    public void clearAllDropData()
+    public synchronized void clearAllDropData()
     {
-        _drops.clear();
+        while (_categories.size() > 0)
+        {
+            _categories.getFirst().clearAllDrops();
+            _categories.removeFirst();
+        }
+        _categories.clear();
     }
 
     /**

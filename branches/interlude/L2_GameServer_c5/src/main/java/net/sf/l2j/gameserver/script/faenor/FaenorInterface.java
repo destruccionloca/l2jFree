@@ -25,6 +25,7 @@ import javolution.util.FastList;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.EventDroplist;
 import net.sf.l2j.gameserver.model.L2DropData;
+import net.sf.l2j.gameserver.model.L2DropCategory;
 import net.sf.l2j.gameserver.model.L2PetData;
 import net.sf.l2j.gameserver.script.DateRange;
 import net.sf.l2j.gameserver.script.EngineInterface;
@@ -89,7 +90,7 @@ public class FaenorInterface implements EngineInterface
         drop.setChance(chance);
         drop.setQuestID(questID);
         drop.addStates(states);
-        npc.addDropData(drop);
+        addDrop(npc, drop, false);
     }
 
     /**
@@ -110,9 +111,49 @@ public class FaenorInterface implements EngineInterface
         drop.setItemId(itemID);
         drop.setMinDrop(min);
         drop.setMaxDrop(max);
-        drop.setSweep(sweep);
         drop.setChance(chance);
-        npc.addDropData(drop);
+
+        addDrop(npc, drop, sweep);
+    }
+    
+   /**
+    * Adds a new drop to an NPC.  If the drop is sweep, it adds it to the NPC's Sweep category
+    * If the drop is non-sweep, it creates a new category for this drop. 
+    *  
+    * @param npc
+    * @param drop
+    * @param sweep
+    */
+    public void addDrop(L2NpcTemplate npc, L2DropData drop, boolean sweep)
+    {
+       if(sweep)
+           addDrop(npc, drop,-1);
+       else
+       {
+           int maxCategory = -1;
+
+           for(L2DropCategory cat:npc.getDropData())
+           {
+               if(maxCategory<cat.getCategoryType())
+                   maxCategory = cat.getCategoryType();
+           }
+           maxCategory++;
+           npc.addDropData(drop, maxCategory);
+       }
+
+    }
+
+   /**
+    * Adds a new drop to an NPC, in the specified category.  If the category does not exist, 
+    * it is created.  
+    *  
+    * @param npc
+    * @param drop
+    * @param sweep
+    */
+    public void addDrop(L2NpcTemplate npc, L2DropData drop, int category)
+    {
+       npc.addDropData(drop, category);
     }
 
     /**
@@ -126,7 +167,8 @@ public class FaenorInterface implements EngineInterface
             return null;
         }
         List<L2DropData> questDrops = new FastList<L2DropData>();
-        for (L2DropData drop : npc.getDropData())
+        for (L2DropCategory cat:npc.getDropData())
+        for (L2DropData drop : cat.getAllDrops() )
         {
             if (drop.getQuestID() != null)
             {
