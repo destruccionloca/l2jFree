@@ -18,12 +18,9 @@
  */
 package net.sf.l2j.gameserver.model;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.WeakHashMap;
-import java.util.logging.Level;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -59,6 +56,7 @@ import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.Util;
+import net.sf.l2j.util.RandomIntGenerator;
 
 /**
  * This class manages all NPC that can be attacked.<BR><BR>
@@ -484,6 +482,8 @@ public class L2Attackable extends L2NpcInstance
             }
         } 
         catch (Exception e) { _log.fatal("", e); }
+        
+        this.setChampion(false);
 
         // Kill the L2NpcInstance (the corpse disappeared after 7 seconds)
         super.doDie(killer);
@@ -628,8 +628,14 @@ public class L2Attackable extends L2NpcInstance
                         }
                         
                         // Distribute the Exp and SP between the L2PcInstance and its L2Summon
-                        attacker.addExpAndSp(Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null)), 
-                                             (int)attacker.calcStat(Stats.EXPSP_RATE, sp, null, null));
+                        if (this.isChampion()) {
+                            attacker.addExpAndSp(Math.round(Config.CHAMPION_REWARDS * attacker.calcStat(Stats.EXPSP_RATE, exp, null, null)),
+                                                 (int)(Config.CHAMPION_REWARDS * attacker.calcStat(Stats.EXPSP_RATE, sp, null, null)));
+                        }
+                        else {
+                            attacker.addExpAndSp(Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null)), 
+                                                 (int)attacker.calcStat(Stats.EXPSP_RATE, sp, null, null));
+                        }
                     }
                 }
                 else
@@ -694,6 +700,12 @@ public class L2Attackable extends L2NpcInstance
                             player.sendPacket(sms);
                             exp += overHitExp;
                         }
+                    }
+                    
+                    // champion xp/sp :)
+                    if ( this.isChampion() ) {
+                        exp *= Config.CHAMPION_REWARDS;
+                        sp *= Config.CHAMPION_REWARDS;
                     }
                     
                     // Distribute Experience and SP rewards to L2PcInstance Party members in the known area of the last attacker
@@ -934,6 +946,7 @@ public class L2Attackable extends L2NpcInstance
      {
          // Get default drop chance
          float dropChance = drop.getChance();
+         int champRate; 
 
          int deepBlueDrop = 1;
          if (Config.DEEPBLUE_DROP_RULES)
@@ -952,13 +965,20 @@ public class L2Attackable extends L2NpcInstance
          // Check if we should apply our maths so deep blue mobs will not drop that easy
          if (Config.DEEPBLUE_DROP_RULES) dropChance = ((drop.getChance() - ((drop.getChance() * levelModifier)/100)) / deepBlueDrop);
 
+         if ( this.isChampion() ) {
+             champRate = Config.CHAMPION_REWARDS;
+         }
+         else {
+             champRate = 1;
+         }
+
          // Applies Drop rates
          if (drop.getItemId() == 57) dropChance *= Config.RATE_DROP_ADENA;
          else if (isSweep) dropChance *= Config.RATE_DROP_SPOIL;
          else dropChance *= Config.RATE_DROP_ITEMS;
 
          // Round drop chance
-         dropChance = Math.round(dropChance);
+         dropChance = Math.round(dropChance) * champRate;
 
          // Set our limits for chance of drop
          if (dropChance < 1) dropChance = 1;
@@ -1018,6 +1038,7 @@ public class L2Attackable extends L2NpcInstance
           // for everything else, use the total "categoryDropChance"
           int basecategoryDropChance = categoryDrops.getCategoryChance() ;          
           int categoryDropChance = basecategoryDropChance;
+          int champRate;
 
           int deepBlueDrop = 1;
           if (Config.DEEPBLUE_DROP_RULES)
@@ -1035,11 +1056,20 @@ public class L2Attackable extends L2NpcInstance
           // Check if we should apply our maths so deep blue mobs will not drop that easy
           if (Config.DEEPBLUE_DROP_RULES) categoryDropChance = ((categoryDropChance - ((categoryDropChance * levelModifier)/100)) / deepBlueDrop);
 
+          if ( this.isChampion() ) 
+          {
+                champRate = Config.CHAMPION_REWARDS;
+          }
+          else 
+          {
+                champRate = 1;
+          }
+
           // Applies Drop rates
           categoryDropChance *= Config.RATE_DROP_ITEMS;
 
           // Round drop chance
-          categoryDropChance = Math.round(categoryDropChance);
+          categoryDropChance = Math.round(categoryDropChance) * champRate;
 
           // Set our limits for chance of drop
           if (categoryDropChance < 1) categoryDropChance = 1;
@@ -2052,7 +2082,17 @@ public class L2Attackable extends L2NpcInstance
         resetAbsorbList();
         
         setWalking();
-        
+
+        // setting up champion mobs
+        if (( this instanceof L2MonsterInstance )&&(Config.CHAMPION_FREQUENCY > 0)) {
+            if (RandomIntGenerator.getInstance().getRnd()*0.1 <= Config.CHAMPION_FREQUENCY) {
+                this.setChampion(true);
+            }
+        }
+        else {
+            this.setChampion(false);
+        }
+
         // check the region where this mob is, do not activate the AI if region is inactive.
         if (!isInActiveRegion())
             if (this instanceof L2SiegeGuardInstance)

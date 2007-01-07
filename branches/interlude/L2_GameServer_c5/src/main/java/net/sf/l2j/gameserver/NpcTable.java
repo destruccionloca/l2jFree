@@ -336,10 +336,6 @@ public class NpcTable
             npcDat.set("baseWalkSpd", NpcData.getInt("walkspd"));
             npcDat.set("baseRunSpd", NpcData.getInt("runspd"));
 
-			npcDat.set("baseHpReg", 1.5 + ((level-1)/10));
-            npcDat.set("baseCpReg", 0);
-			npcDat.set("baseMpReg", 0.9 + 0.3*((level-1)/10));
-
             // constants, until we have stats in DB
             npcDat.set("baseSTR", NpcData.getInt("str"));
             npcDat.set("baseCON", NpcData.getInt("con"));
@@ -351,6 +347,8 @@ public class NpcTable
             npcDat.set("baseHpMax", NpcData.getInt("hp"));
             npcDat.set("baseCpMax", 0);
             npcDat.set("baseMpMax", NpcData.getInt("mp"));
+            npcDat.set("baseHpReg", NpcData.getFloat("hpreg")>0?NpcData.getFloat("hpreg"):1.5 + ((level-1)/10));
+            npcDat.set("baseMpReg", NpcData.getFloat("mpreg")>0?NpcData.getFloat("mpreg"):0.9 + 0.3*((level-1)/10));
             npcDat.set("basePAtk", NpcData.getInt("patk"));
             npcDat.set("basePDef", NpcData.getInt("pdef"));
             npcDat.set("baseMAtk", NpcData.getInt("matk"));

@@ -867,15 +867,10 @@ public final class Config {
     public static int ENCHANT_SAFE_MAX;
     public static int ENCHANT_SAFE_MAX_FULL;
     
-    // NPC regen multipliers
+    // Player regen multipliers
     public static double  HP_REGEN_MULTIPLIER;
     public static double  MP_REGEN_MULTIPLIER;
     public static double  CP_REGEN_MULTIPLIER;
-
-    // Player regen multipliers
-    public static double  PLAYER_HP_REGEN_MULTIPLIER;
-    public static double  PLAYER_MP_REGEN_MULTIPLIER;
-    public static double  PLAYER_CP_REGEN_MULTIPLIER;
     
     // Raid Boss multipliers
     /** Multiplier for Raid boss HP regeneration */ 
@@ -1333,15 +1328,13 @@ public final class Config {
                 FREIGHT_SLOTS       = Integer.parseInt(otherSettings.getProperty("MaximumFreightSlots", "20"));
 	            
                 /* if different from 100 (ie 100%) heal rate is modified acordingly */
-	            HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("HpRegenMultiplier", "100"));
-	            MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("MpRegenMultiplier", "100"));
-	            PLAYER_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerHpRegenMultiplier", "100"));
-	            PLAYER_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerMpRegenMultiplier", "100"));
-	            PLAYER_CP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerCpRegenMultiplier", "100"));
-
-                RAID_HP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidHpRegenMultiplier", "500"));    
-                RAID_MP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidMpRegenMultiplier", "500"));    
-                RAID_DEFENCE_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidDefenceMultiplier", "500")) /100;    
+                HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("HpRegenMultiplier", "100")) /100;
+                MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("MpRegenMultiplier", "100")) /100;
+                CP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("CpRegenMultiplier", "100")) /100;
+                
+                RAID_HP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidHpRegenMultiplier", "100")) /100;
+                RAID_MP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidMpRegenMultiplier", "100")) /100; 
+                RAID_DEFENCE_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidDefenceMultiplier", "100")) /100;    
 	            
 	            STARTING_ADENA      = Integer.parseInt(otherSettings.getProperty("StartingAdena", "100"));
 	            UNSTUCK_INTERVAL    = Integer.parseInt(otherSettings.getProperty("UnstuckInterval", "300"));
@@ -1998,10 +1991,7 @@ public final class Config {
 
         else if (pName.equalsIgnoreCase("HpRegenMultiplier")) HP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
         else if (pName.equalsIgnoreCase("MpRegenMultiplier")) MP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
-        
-        else if (pName.equalsIgnoreCase("PlayerHpRegenMultiplier")) PLAYER_HP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
-        else if (pName.equalsIgnoreCase("PlayerMpRegenMultiplier")) PLAYER_MP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
-        else if (pName.equalsIgnoreCase("PlayerCpRegenMultiplier")) PLAYER_CP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
+        else if (pName.equalsIgnoreCase("CpRegenMultiplier")) CP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
 
         else if (pName.equalsIgnoreCase("RaidHpRegenMultiplier")) RAID_HP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
         else if (pName.equalsIgnoreCase("RaidMpRegenMultiplier")) RAID_MP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
