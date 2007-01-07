@@ -213,6 +213,7 @@ public final class Connection
         { }
         try
         {
+            LoginServerThread.getInstance().removeWaitingClient(_client);
             if (_client.getActiveChar() != null)
             {
                 _client.onDisconnect();
@@ -263,4 +264,12 @@ public final class Connection
     {
         return !_csocket.isClosed();
     }
+
+    /** 
+    * Return IP adress of this Client Connection.
+    */
+    public String getIP()
+    {
+       return _csocket.getInetAddress().getHostAddress();
+    }    
 }

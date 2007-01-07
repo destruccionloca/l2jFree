@@ -1138,7 +1138,7 @@ public final class Config {
                              
                 GMAUDIT                         = Boolean.valueOf(optionsSettings.getProperty("GMAudit", "False"));
 
-                COMMUNITY_TYPE                  = optionsSettings.getProperty("CommunityType", "old");
+                COMMUNITY_TYPE                  = optionsSettings.getProperty("CommunityType", "old").toLowerCase();
                 BBS_DEFAULT                     = optionsSettings.getProperty("BBSDefault", "_bbshome");
                 SHOW_LEVEL_COMMUNITYBOARD       = Boolean.valueOf(optionsSettings.getProperty("ShowLevelOnCommunityBoard", "False"));
                 SHOW_STATUS_COMMUNITYBOARD      = Boolean.valueOf(optionsSettings.getProperty("ShowStatusOnCommunityBoard", "True"));
@@ -1925,7 +1925,7 @@ public final class Config {
         else if (pName.equalsIgnoreCase("WearPrice")) WEAR_PRICE = Integer.parseInt(pValue);        
         else if (pName.equalsIgnoreCase("AllowWater")) ALLOW_WATER = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AllowRentPet")) ALLOW_RENTPET = Boolean.valueOf(pValue);
-        else if (pName.equalsIgnoreCase("CommunityType")) COMMUNITY_TYPE = pValue;
+        else if (pName.equalsIgnoreCase("CommunityType")) COMMUNITY_TYPE = pValue.toLowerCase();
         else if (pName.equalsIgnoreCase("BBSDefault")) BBS_DEFAULT = pValue;        
         else if (pName.equalsIgnoreCase("AllowBoat")) ALLOW_BOAT = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AllowCursedWeapons")) ALLOW_CURSED_WEAPONS = Boolean.valueOf(pValue);

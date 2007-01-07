@@ -433,7 +433,9 @@ public abstract class L2Skill
     private final int _lethalEffect1;     // percent of success for lethal 1st effect (hit cp to 1 or if mob hp to 50%) (only for PDAM skills)
     private final int _lethalEffect2;     // percent of success for lethal 2nd effect (hit cp,hp to 1 or if mob hp to 1) (only for PDAM skills)
     private final boolean _directHpDmg;  // If true then dmg is being make directly 
-    
+    private final boolean _isDance;      // If true then casting more dances will cost more MP
+    private final int _nextDanceCost;
+
     private final float _successRate; 
     private final int _minPledgeClass;
     
@@ -470,12 +472,8 @@ public abstract class L2Skill
         _skillInterruptTime = set.getInteger("skillTime", _skillTime/2);
         _hitTime      = set.getInteger("hitTime", 0);
         _reuseDelay   = set.getInteger("reuseDelay", 0);
-        if(
-                ((_id >= 264) && (_id <= 277))
-                || ((_id >= 304) && (_id <= 311))
-                || (_id == 349)
-                || ((_id >= 363) && (_id <= 366))
-                )
+        _isDance      = set.getBool("isDance",false);        
+        if(_isDance)
         {
             _buffDuration = set.getInteger("buffDuration", 1) * Config.ALT_DANCE_TIME;}
         else {
@@ -534,7 +532,8 @@ public abstract class L2Skill
         }
 
         _directHpDmg  = set.getBool("dmgDirectlyToHp",false);
-    
+        _nextDanceCost = set.getInteger("nextDanceCost", 0);
+
         String canLearn = set.getString("canLearn", null);
         if (canLearn == null)
         {
@@ -962,7 +961,17 @@ public abstract class L2Skill
     {
         return _operateType == SkillOpType.OP_TOGGLE;
     }
+
+    public final boolean isDance()
+    {
+        return _isDance;
+    }
     
+    public final int getNextDanceMpCost()
+    {
+       return _nextDanceCost;
+    }
+
     public final boolean useSoulShot()
     {
         return ((getSkillType() == SkillType.PDAM)||

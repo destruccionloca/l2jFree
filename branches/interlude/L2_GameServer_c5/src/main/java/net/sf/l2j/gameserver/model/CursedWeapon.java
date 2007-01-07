@@ -94,7 +94,7 @@ public class CursedWeapon
                 _player.setKarma(_playerKarma);
                 _player.setPkKills(_playerPkKills);
                 _player.setCursedWeaponEquipedId(0);
-                _player.removeSkill(SkillTable.getInstance().getInfo(_skillId, _player.getSkillLevel(_skillId)));
+                _player.removeSkill(SkillTable.getInstance().getInfo(_skillId, _player.getSkillLevel(_skillId)), false);
     
                 // Remove 
                 _player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_LR_HAND);
@@ -132,6 +132,7 @@ public class CursedWeapon
                         _log.warn("Error while deleting itemId "+ _itemId +" from userId "+ _playerId);
                     }
                     
+                    /* Yesod: Skill is not stored into database any more.
                     // Delete the skill
                     statement = con.prepareStatement("DELETE FROM character_skills WHERE char_obj_id=? AND skill_id=?");
                     statement.setInt(1, _playerId);
@@ -140,7 +141,7 @@ public class CursedWeapon
                     {
                         _log.warn("Error while deleting skillId "+ _skillId +" from userId "+_playerId);
                     }
-    
+                    */
                     // Restore the karma
                     statement = con.prepareStatement("UPDATE characters SET karma=?, pkkills=? WHERE obj_id=?");
                     statement.setInt(1, _playerKarma);
@@ -250,14 +251,21 @@ public class CursedWeapon
         CursedWeaponsManager.getInstance().announce(sm); // in the Hot Spring region
     }
     
-    private void giveSkill()
+   /**
+    * Yesod:<br>
+    * Rebind the passive skill belonging to the CursedWeapon. Invoke this
+    * method if the weapon owner switches to a subclass.
+    */
+    public void giveSkill()
     {
         int level = 1+(_nbKills/_stageKills);
         if (level > _skillMaxLevel)
             level = _skillMaxLevel;
         
         L2Skill skill = SkillTable.getInstance().getInfo(_skillId, level);
-        _player.addSkill(skill);
+        // Yesod: 
+        // To properly support subclasses this skill can not be stored.
+        _player.addSkill(skill, false);
         
         if (_log.isDebugEnabled())
             _log.debug("Player "+_player.getName() +" has been awarded with skill "+skill);
@@ -410,7 +418,7 @@ public class CursedWeapon
             _player.setKarma(_playerKarma);
             _player.setPkKills(_playerPkKills);
             _player.setCursedWeaponEquipedId(0);
-            _player.removeSkill(SkillTable.getInstance().getInfo(_skillId, _player.getSkillLevel(_skillId)));
+            _player.removeSkill(SkillTable.getInstance().getInfo(_skillId, _player.getSkillLevel(_skillId)), false);
 
             _player.abortAttack();
             

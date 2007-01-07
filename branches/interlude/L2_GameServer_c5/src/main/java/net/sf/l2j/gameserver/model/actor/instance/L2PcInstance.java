@@ -89,6 +89,7 @@ import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.BlockList;
+import net.sf.l2j.gameserver.model.CursedWeapon;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.ItemContainer;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -5728,6 +5729,14 @@ public final class L2PcInstance extends L2PlayableInstance
         return addSkill(newSkill,true);
     }
 
+    public L2Skill removeSkill(L2Skill skill, boolean store)
+    {
+        if (store)
+            return removeSkill(skill);
+        else
+            return super.removeSkill(skill);
+    }
+
     /**
      * Remove a skill from the L2Character and its Func objects from calculator set of the L2Character and save update in the character_skills table of the database.<BR><BR>
      *
@@ -8304,6 +8313,10 @@ public final class L2PcInstance extends L2PlayableInstance
         for (L2Skill oldSkill : getAllSkills())
             super.removeSkill(oldSkill);
 
+        // Yesod: Rebind CursedWeapon passive. 
+        if (isCursedWeaponEquiped())
+           CursedWeaponsManager.getInstance().givePassive(_cursedWeaponEquipedId);
+
         for (L2Effect effect : getAllEffects())
             effect.exit();
 
@@ -8814,25 +8827,27 @@ public final class L2PcInstance extends L2PlayableInstance
         _SnoopedPlayer.remove(pci);
     }
 
-    public void addBypass(String bypass)
+    public synchronized void addBypass(String bypass)
     {
+        if (bypass == null) return;
         _validBypass.add(bypass);
         //_log.warn("[BypassAdd]"+getName()+" '"+bypass+"'");
     }
 
     public void addBypass2(String bypass)
     {
+        if (bypass == null) return;
         _validBypass2.add(bypass);
         //_log.warn("[BypassAdd]"+getName()+" '"+bypass+"'");
     }
 
-    public boolean validateBypass(String cmd)
+    public synchronized boolean validateBypass(String cmd)
     {
         if (!Config.BYPASS_VALIDATION) return true;
 
         for (String bp : _validBypass)
         {
-            if (bp == null) return false;
+            if (bp == null) continue;
 
             //_log.warn("[BypassValidation]"+getName()+" '"+bp+"'");
             if (bp.equals(cmd)) return true;
@@ -8840,7 +8855,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         for (String bp : _validBypass2)
         {
-            if (bp == null) return false;
+            if (bp == null) continue;
 
             //_log.warn("[BypassValidation]"+getName()+" '"+bp+"'");
             if (cmd.startsWith(bp)) return true;
@@ -8896,13 +8911,10 @@ public final class L2PcInstance extends L2PlayableInstance
         return true;
     }
 
-    public void clearBypass()
+    public synchronized void clearBypass()
     {
-        synchronized (this)
-        {
-            _validBypass.clear();
-            _validBypass2.clear();
-        }
+        _validBypass.clear();
+        _validBypass2.clear();
     }
 
     /**

@@ -28,6 +28,8 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
+import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -374,16 +376,26 @@ public final class L2PetInstance extends L2Summon
             getOwner().sendPacket(new ActionFailed());
             return;
        }
+       
+        L2ItemInstance target = (L2ItemInstance) object;
+        
        // Herbs
-       if ( ((L2ItemInstance)object).getItemId() > 8599 && ((L2ItemInstance)object).getItemId() < 8615 )   
+        if ( target.getItemId() > 8599 && target.getItemId() < 8615 )
        {
            SystemMessage smsg = new SystemMessage(SystemMessage.FAILED_TO_PICKUP_S1);
-            smsg.addItemName(((L2ItemInstance)object).getItemId());
-            getOwner().sendPacket(smsg);            
-            return;
+           smsg.addItemName(target.getItemId());
+           getOwner().sendPacket(smsg);            
+           return;
         }
         
-        L2ItemInstance target = (L2ItemInstance) object;
+       // Cursed weapons
+       if ( CursedWeaponsManager.getInstance().isCursed(target.getItemId()) )   
+       {
+           SystemMessage smsg = new SystemMessage(SystemMessage.FAILED_TO_PICKUP_S1);
+            smsg.addItemName(target.getItemId());
+            getOwner().sendPacket(smsg);
+           return;
+       }
         
         synchronized (target)
         {
@@ -424,8 +436,11 @@ public final class L2PetInstance extends L2Summon
                target.resetOwnerTimer();
 
             target.pickupMe(this);
+            
+            if(Config.SAVE_DROPPED_ITEM) // item must be removed from ItemsOnGroundManager if is active
+                ItemsOnGroundManager.getInstance().removeObject(target);
         }
-        
+
         getInventory().addItem("Pickup", target, getOwner(), this);
         //FIXME Just send the updates if possible (old way wasn't working though)
         PetItemList iu = new PetItemList(this);

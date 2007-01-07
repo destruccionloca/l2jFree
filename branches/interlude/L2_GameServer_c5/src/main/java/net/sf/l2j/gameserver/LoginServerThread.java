@@ -360,7 +360,10 @@ public class LoginServerThread extends Thread
 	{
 		if (_log.isDebugEnabled()) _log.debug(key);
 		WaitingClient wc = new WaitingClient(acc, client, key);
-		_waitingClients.add(wc);
+		synchronized(_waitingClients)
+		{
+		    _waitingClients.add(wc);
+		}
 		PlayerAuthRequest par = new PlayerAuthRequest(acc,key);
 		try
 		{
@@ -372,6 +375,23 @@ public class LoginServerThread extends Thread
             if ( _log.isDebugEnabled() )_log.debug(e.getMessage(),e);
 		}
 	}
+
+	public void removeWaitingClient(ClientThread client)
+	{
+       WaitingClient toRemove = null;
+       synchronized(_waitingClients)
+       {
+           for(WaitingClient c :_waitingClients)
+           {
+               if(c.clientThread == client)
+               {
+                   toRemove = c;
+               }
+           }
+           if(toRemove != null)
+               _waitingClients.remove(toRemove);
+        }
+    }
 
 	public void sendLogout(String account)
 	{

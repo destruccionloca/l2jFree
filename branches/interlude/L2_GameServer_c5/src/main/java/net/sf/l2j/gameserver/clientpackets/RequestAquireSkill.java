@@ -99,12 +99,13 @@ public class RequestAquireSkill extends ClientBasePacket
         if (_skillType == 0) 
         {
             // Skill Learn bug Fix
-            L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(player, player.getClassId());
+            L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(player, player.getSkillLearningClassId());
             
             for (L2SkillLearn s : skills)
             {
                 L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-                if (sk == null || sk != skill || !sk.getCanLearn(player.getClassId())
+                if (sk == null || sk != skill 
+                        || !sk.getCanLearn(player.getSkillLearningClassId())
                         || !sk.canTeachBy(npcid)) continue;
                 counts++;
                 _requiredSp = SkillTreeTable.getInstance().getSkillCost(player, skill);
