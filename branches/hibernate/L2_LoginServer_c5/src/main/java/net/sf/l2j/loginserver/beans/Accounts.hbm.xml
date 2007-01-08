@@ -8,7 +8,6 @@
            dynamic-update="true"
 		   dynamic-insert="true"
 		   >
-	<cache usage="read-write"/>
 		   
         <comment></comment>
         <id name="login" type="string">

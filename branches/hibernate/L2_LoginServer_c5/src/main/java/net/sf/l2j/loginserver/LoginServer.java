@@ -92,7 +92,7 @@ public class LoginServer
         }
         else
         {
-            System.out.println("Telnet server is currently disabled.");
+            _log.info("Telnet server is currently disabled.");
         }
     }
 
