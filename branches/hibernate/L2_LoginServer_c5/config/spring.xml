@@ -38,11 +38,16 @@
 		<property name="dataSource">
 			<ref bean="dataSource" />
 		</property>
-		<property name="mappingDirectoryLocations">
+		<!-- property name="mappingDirectoryLocations">
 			<list>
 				<value>classpath:/net/sf/l2j/loginserver/beans/</value>
 			</list>
-		</property>
+		</property-->
+		<property name="mappingJarLocations">
+			<list>
+				<value>classpath:l2j-loginserver.jar</value>
+			</list>
+		</property>		
 	</bean>
     <bean id="AccountsDAO" class="net.sf.l2j.loginserver.dao.impl.AccountsDAOHib">
 		<property name="sessionFactory">

@@ -5,6 +5,8 @@ SET CLASSPATH=%CLASSPATH%;asm-attrs.jar
 SET CLASSPATH=%CLASSPATH%;cglib-2.1.3.jar
 SET CLASSPATH=%CLASSPATH%;hibernate-3.1rc2.jar
 SET CLASSPATH=%CLASSPATH%;jta.jar
+SET CLASSPATH=%CLASSPATH%;commons-collections-3.2.jar
+
 
 REM for second level cache (hibernate)
 SET CLASSPATH=%CLASSPATH%;ehcache-1.2.3.jar

@@ -5,6 +5,7 @@ CLASSPATH=${CLASSPATH}:asm-attrs.jar
 CLASSPATH=${CLASSPATH}:cglib-2.1.3.jar
 CLASSPATH=${CLASSPATH}:hibernate-3.1rc2.jar
 CLASSPATH=${CLASSPATH}:jta.jar
+CLASSPATH=${CLASSPATH}:commons-collections-3.2.jar
 
 # for second level cache (hibernate)
 CLASSPATH=${CLASSPATH}:ehcache-1.2.3.jar
