@@ -3729,7 +3729,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 else onDieUpdateKarma(); // Update karma if delevel is not allowed
                 
                 if(pk != null) {
-                    if(Config.ALT_ANNOUNCE_PK)  
+                    if(Config.ALT_ANNOUNCE_PK && !ZoneManager.getInstance().checkIfInZonePvP(this))  
                     {  
                         if (getPvpFlag()==0)  
                             Announcements.getInstance().announceToAll(pk.getName()+" has slaughtered "+this.getName());  
@@ -3749,7 +3749,7 @@ public final class L2PcInstance extends L2PlayableInstance
                     }
                 }
             }
-            else if (pk != null && Config.ALT_ANNOUNCE_PK)  
+            else if (pk != null && Config.ALT_ANNOUNCE_PK && !ZoneManager.getInstance().checkIfInZonePvP(this))  
                 Announcements.getInstance().announceToAll(pk.getName()+" has defeated "+this.getName());
         }
 
