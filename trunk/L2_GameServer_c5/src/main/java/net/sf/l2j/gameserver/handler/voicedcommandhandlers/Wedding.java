@@ -104,7 +104,7 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("You have noone targeted.");
             return false;
         }
-        
+
         // check if target is a l2pcinstance
         if (!(activeChar.getTarget() instanceof L2PcInstance))
         {
@@ -151,6 +151,18 @@ public class Wedding implements IVoicedCommandHandler
         if(ptarget.getObjectId()==activeChar.getObjectId())
         {
             activeChar.sendMessage("Engaging with yourself ?.");
+            return false;
+        }
+        
+        if(ptarget.isMaried())
+        {
+            activeChar.sendMessage("Already married.");
+            return false;
+        }
+
+        if(ptarget.getPartnerId()!=0)
+        {
+            activeChar.sendMessage("Already engaged.");
             return false;
         }
         
