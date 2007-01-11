@@ -1,0 +1,1 @@
+Sets HP of ALL NPCs/Mobs/whatever to half hp
