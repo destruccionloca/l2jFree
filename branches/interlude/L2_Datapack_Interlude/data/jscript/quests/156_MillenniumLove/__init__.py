@@ -34,7 +34,8 @@ class Quest (JQuest) :
        st.unset("cond")
        st.setState(COMPLETED)
        st.playSound("ItemSound.quest_finish")
-       st.addExpAndSp(3000)
+       st.giveItems(5250,1)
+       st.addExpAndSp(3000,0)
        htmltext = "30369-04.htm"
     return htmltext
 

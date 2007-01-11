@@ -42,6 +42,8 @@ class Quest (JQuest) :
    elif event == "9000-12.htm": htmtext = "9000-12.htm"
    elif event == "9000-13.htm": htmtext = "9000-13.htm"
    elif event == "9000-14.htm": htmtext = "9000-14.htm"
+   elif event == "9000-15.htm": htmtext = "9000-15.htm"
+   elif event == "9000-16.htm": htmtext = "9000-16.htm"
    else: htmltext = "9000-02.htm"
    #st.exitQuest(1)
    return htmltext

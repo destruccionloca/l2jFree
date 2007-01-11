@@ -956,12 +956,12 @@
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="hitTime" val="1080"/>
-  <set name="iKill" val="true"/>  
-  <set name="iRate" val="7"/> 
   <set name="condition" val="16"/>
   <set name="reuseDelay" val="11000"/>
   <set name="skillTime" val="1080"/>
-  <set name="skillType" val="CRITS"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="lethal1" val="5"/>
+  <set name="lethal2" val="2"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
@@ -974,6 +974,7 @@
 <skill id="264" levels="1" name="Song of Earth">
   <!-- Done by dc -->
   <set name="mpConsume" val="60"/>
+  <set name="nextDanceCost" val="30"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
@@ -981,6 +982,7 @@
   <set name="reuseDelay" val="10000"/>
   <set name="skillTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
+  <set name="isDance" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
@@ -994,6 +996,7 @@
 <skill id="265" levels="1" name="Song of Life">
   <!-- Done by dc -->
   <set name="mpConsume" val="60"/>
+  <set name="nextDanceCost" val="30"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
@@ -1001,6 +1004,7 @@
   <set name="reuseDelay" val="10000"/>
   <set name="skillTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
+  <set name="isDance" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
@@ -1014,6 +1018,7 @@
 <skill id="266" levels="1" name="Song of Water">
   <!-- Done by dc -->
   <set name="mpConsume" val="60"/>
+  <set name="nextDanceCost" val="30"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
@@ -1021,6 +1026,7 @@
   <set name="reuseDelay" val="10000"/>
   <set name="skillTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
+  <set name="isDance" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
@@ -1034,6 +1040,7 @@
 <skill id="267" levels="1" name="Song of Warding">
   <!-- Done by dc -->
   <set name="mpConsume" val="60"/>
+  <set name="nextDanceCost" val="30"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
@@ -1041,6 +1048,7 @@
   <set name="reuseDelay" val="10000"/>
   <set name="skillTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
+  <set name="isDance" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
@@ -1054,6 +1062,7 @@
 <skill id="268" levels="1" name="Song of Wind">
   <!-- Done by dc -->
   <set name="mpConsume" val="60"/>
+  <set name="nextDanceCost" val="30"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
@@ -1061,6 +1070,7 @@
   <set name="reuseDelay" val="10000"/>
   <set name="skillTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
+  <set name="isDance" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
@@ -1074,6 +1084,7 @@
 <skill id="269" levels="1" name="Song of Hunter">
   <!-- Done by dc -->
   <set name="mpConsume" val="60"/>
+  <set name="nextDanceCost" val="30"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
@@ -1081,6 +1092,7 @@
   <set name="reuseDelay" val="10000"/>
   <set name="skillTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
+  <set name="isDance" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
@@ -1093,6 +1105,7 @@
 </skill>
 <skill id="270" levels="1" name="Song of Invocation">
   <set name="mpConsume" val="60"/>
+  <set name="nextDanceCost" val="30"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
@@ -1100,6 +1113,7 @@
   <set name="reuseDelay" val="10000"/>
   <set name="skillTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
+  <set name="isDance" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
@@ -1114,6 +1128,7 @@
   <!-- Done by dc -->
   <set name="weaponsAllowed" val="512"/>
   <set name="mpConsume" val="60"/>
+  <set name="nextDanceCost" val="30"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
@@ -1121,6 +1136,7 @@
   <set name="reuseDelay" val="10000"/>
   <set name="skillTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
+  <set name="isDance" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
@@ -1135,6 +1151,7 @@
   <!-- Done by dc -->
   <set name="weaponsAllowed" val="512"/>
   <set name="mpConsume" val="60"/>
+  <set name="nextDanceCost" val="30"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
@@ -1142,6 +1159,7 @@
   <set name="reuseDelay" val="10000"/>
   <set name="skillTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
+  <set name="isDance" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
@@ -1156,6 +1174,7 @@
   <!-- Done by dc -->
   <set name="weaponsAllowed" val="512"/>
   <set name="mpConsume" val="60"/>
+  <set name="nextDanceCost" val="30"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
@@ -1163,6 +1182,7 @@
   <set name="reuseDelay" val="10000"/>
   <set name="skillTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
+  <set name="isDance" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
@@ -1177,6 +1197,7 @@
   <!-- Done by dc -->
   <set name="weaponsAllowed" val="512"/>
   <set name="mpConsume" val="60"/>
+  <set name="nextDanceCost" val="30"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
@@ -1184,6 +1205,7 @@
   <set name="reuseDelay" val="10000"/>
   <set name="skillTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
+  <set name="isDance" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
@@ -1198,6 +1220,7 @@
   <!-- Done by dc -->
   <set name="weaponsAllowed" val="512"/>
   <set name="mpConsume" val="60"/>
+  <set name="nextDanceCost" val="30"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
@@ -1205,6 +1228,7 @@
   <set name="reuseDelay" val="10000"/>
   <set name="skillTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
+  <set name="isDance" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
@@ -1215,10 +1239,11 @@
     </effect>
   </for>
 </skill>
-<skill id="276" levels="1" name="Dance of concentration">
+<skill id="276" levels="1" name="Dance of Concentration">
   <!-- Done by lucl -->
   <set name="weaponsAllowed" val="512"/>
   <set name="mpConsume" val="60"/>
+  <set name="nextDanceCost" val="30"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
@@ -1226,6 +1251,7 @@
   <set name="reuseDelay" val="10000"/>
   <set name="skillTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
+  <set name="isDance" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
@@ -1241,6 +1267,7 @@
   <!-- Done by dc -->
   <set name="weaponsAllowed" val="512"/>
   <set name="mpConsume" val="60"/>
+  <set name="nextDanceCost" val="30"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="900"/>
@@ -1248,6 +1275,7 @@
   <set name="reuseDelay" val="10000"/>
   <set name="skillTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
+  <set name="isDance" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
