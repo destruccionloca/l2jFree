@@ -910,3 +910,18 @@ INSERT INTO `armor` (`item_id`,`name`,`bodypart`,`crystallizable`,`armor_type`,`
   (8660,'Demon Horns', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false'),
   (8661,'Mask of Spirits', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false'),
   (8662,'Fairy Antennae - For Event', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false');
+
+  
+ALTER TABLE armor ADD item_skill_id decimal(11,0) NOT NULL default '0';
+ALTER TABLE armor ADD item_skill_lvl decimal(11,0) NOT NULL default '0';
+
+--------------------------------         Boss' juwelery        -------------------------------------
+
+UPDATE armor  SET item_skill_id = 3558, item_skill_lvl = 1 WHERE item_id = 6656; -- antharas earring 
+UPDATE armor  SET item_skill_id = 3557, item_skill_lvl = 1 WHERE item_id = 6657; -- necklace of valakas 
+UPDATE armor  SET item_skill_id = 3561, item_skill_lvl = 1 WHERE item_id = 6658; -- Ring of baium 
+UPDATE armor  SET item_skill_id = 3559, item_skill_lvl = 1 WHERE item_id = 6659; -- Zaken earring 
+UPDATE armor  SET item_skill_id = 3562, item_skill_lvl = 1 WHERE item_id = 6660; -- Ring of ant queen
+UPDATE armor  SET item_skill_id = 3560, item_skill_lvl = 1 WHERE item_id = 6661; -- Earring of Orfen
+UPDATE armor  SET item_skill_id = 3563, item_skill_lvl = 1 WHERE item_id = 6662; -- Ring of core
+UPDATE armor  SET item_skill_id = 3604, item_skill_lvl = 1 WHERE item_id = 8191; -- Frintezza's Necklace  

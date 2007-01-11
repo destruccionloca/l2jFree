@@ -32,8 +32,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Focus -->
-    <add val='86' order='0x40' stat='rCrit'/>
   </for>
 </item>
 <item id='4683' name="stormbringer_light">
@@ -56,8 +54,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Guidance -->
-    <add val='6' order='0x40' stat='accCombat'/>
   </for>
 </item>
 <item id='4685' name="shamshir_back_blow">
@@ -69,12 +65,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Back Blow -->
-    <add order='0x10' stat='rCrit' val='67'>
-      <and>
-        <player behind='True'/>
-      </and>
-    </add>
   </for>
 </item>
 <item id='4686' name="shamshir_rsk._evasion">
@@ -86,12 +76,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Rsk. Evasion -->
-    <add order='0x40' stat='rEvas' val='7'>
-      <and>
-        <player hp='60'/>
-      </and>
-    </add>
   </for>
 </item>
 <item id='4687' name="katana_focus">
@@ -103,8 +87,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Focus -->
-    <add val='82' order='0x40' stat='rCrit'/>
   </for>
 </item>
 <item id='4688' name="katana_critical_damage">
@@ -116,8 +98,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Critical Damage -->
-    <add val='194' order='0x40' stat='cAtk'/>
   </for>
 </item>
 <item id='4689' name="katana_haste">
@@ -129,8 +109,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Haste -->
-    <mul val='1.07' order='0x30' stat='pAtkSpd'/>
   </for>
 </item>
 <item id='4690' name="spirit_sword_critical_damage">
@@ -142,8 +120,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Critical Damage -->
-    <add val='194' order='0x40' stat='cAtk'/>
   </for>
 </item>
 <item id='4691' name="spirit_sword_critical_poison">
@@ -168,8 +144,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Haste -->
-    <mul val='1.07' order='0x30' stat='pAtkSpd'/>
   </for>
 </item>
 <item id='4693' name="raid_sword_focus">
@@ -181,8 +155,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Focus -->
-    <add val='82' order='0x40' stat='rCrit'/>
   </for>
 </item>
 <item id='4694' name="raid_sword_critical_drain">
@@ -220,8 +192,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Guidance -->
-    <add val='5' order='0x40' stat='accCombat'/>
   </for>
 </item>
 <item id='4697' name="caliburs_focus">
@@ -233,8 +203,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Focus -->
-    <add val='77' order='0x40' stat='rCrit'/>
   </for>
 </item>
 <item id='4698' name="caliburs_critical_damage">
@@ -246,8 +214,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Critical Damage -->
-    <add val='213' order='0x40' stat='cAtk'/>
   </for>
 </item>
 <item id='4699' name="sword_of_delusion_focus">
@@ -259,8 +225,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Focus -->
-    <add val='77' order='0x40' stat='rCrit'/>
   </for>
 </item>
 </list>
