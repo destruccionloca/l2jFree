@@ -39,6 +39,7 @@ __all__ = [
 '106_ForgottenTruth',
 '107_ShowNoMercy',
 '108_DiamondGambit',
+'122_OminousNews',
 '151_SaveMySister1',
 '152_ShardsOfGolem',
 '153_WharfOldtimersFavor',
@@ -138,6 +139,7 @@ __all__ = [
 '338_AlligatorHunter',
 '341_HuntingForWildBeasts',
 '343_UnderTheShadowOfTheIvoryTower',
+'344_1000YearsEndofLamentation',
 '345_MethodToRaiseTheDead',
 '347_GoGetTheCalculator',
 '348_ArrogantSearch',
@@ -213,6 +215,7 @@ __all__ = [
 '623_TheFinestFood',
 '626_ADarkTwilight',
 '627_HeartInSearchOfPower',
+'628_HuntGoldenRam',
 '634_InSearchofDimensionalFragments',
 '999_C3Tutorial'
 ]
