@@ -61,6 +61,7 @@ __all__ = [
 '169_NightmareChildren',
 '170_DangerousAllure',
 '171_ActsOfEvil',
+'188_ToLeadAndBeLed',
 '211_TrialOfChallenger',
 '212_TrialOfDuty',
 '213_TrialOfSeeker',
