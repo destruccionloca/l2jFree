@@ -241,7 +241,7 @@ public class Wedding implements IVoicedCommandHandler
         }
         
         if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() ||
-                activeChar.isInOlympiadMode()) 
+                activeChar.isInOlympiadMode() || activeChar._inEventCTF || activeChar._inEventTvT) 
             return false;
 
         // Check if player is inside jail.
@@ -272,6 +272,8 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendPacket(SystemMessage.sendString("Youre Partner is not online."));
             return false;
         }
+        else if(partner.isInJail() || partner._inEventCTF || partner._inEventTvT || partner.isInOlympiadMode())
+            return false;
         
         int teleportTimer = Config.WEDDING_TELEPORT_INTERVAL*1000;
         
