@@ -218,6 +218,8 @@ __all__ = [
 '627_HeartInSearchOfPower',
 '628_HuntGoldenRam',
 '634_InSearchofDimensionalFragments',
+'636_TruthBeyond',
+'637_ThroughOnceMore',
 '999_C3Tutorial'
 ]
 print ""
