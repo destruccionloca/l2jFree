@@ -262,7 +262,7 @@ public class AdminSpawn implements IAdminCommandHandler
             spawn.setHeading(activeChar.getHeading());
             spawn.setRespawnDelay(respawnTime);
 
-            if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcid()))
+            if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcid()) && respawn==true && Config.ALT_DEV_NO_SPAWNS==false)
             {
                 SystemMessage sm = new SystemMessage(614);
                 sm.addString("You cannot spawn another instance of " + template1.name + ".");
@@ -270,13 +270,15 @@ public class AdminSpawn implements IAdminCommandHandler
             } 
             else
             {
-                if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcid()) != null)
-                    RaidBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template1.getStatsSet().getDouble("baseHpMax"), template1.getStatsSet().getDouble("baseMpMax"), true);
-                else
-                    if(respawn==true)
-                        SpawnTable.getInstance().addNewSpawn(spawn, respawn);
+                if(respawn==true && Config.ALT_DEV_NO_SPAWNS==false)
+                {
+                    if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcid()) != null)
+                        RaidBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template1.getStatsSet().getDouble("baseHpMax"), template1.getStatsSet().getDouble("baseMpMax"), true);
                     else
-                        spawn.spawnOne();
+                        SpawnTable.getInstance().addNewSpawn(spawn, respawn);
+                }
+                else
+                    spawn.spawnOne();
 
                 spawn.init();
 
