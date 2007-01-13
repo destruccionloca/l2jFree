@@ -143,6 +143,8 @@ public final class Config {
     public static int ALT_GAME_NUMBER_OF_CUMULATED_BUFF;
     /** Disable Raidboss Petrification */
     public static boolean ALT_DISABLE_RAIDBOSS_PETRIFICATION;
+    /** Own Stat Point Distribution */
+    public static boolean ALT_STATPOINT_DISTRIBUTION;
     
  	/** Alternative game skill learning */
     public static boolean ALT_GAME_SKILL_LEARN;
@@ -454,6 +456,8 @@ public final class Config {
     public static boolean GM_STARTUP_INVISIBLE;
     public static boolean GM_STARTUP_SILENCE;
     public static boolean GM_STARTUP_AUTO_LIST;
+    /** Standard Respawn Delay */
+    public static int STANDARD_RESPAWN_DELAY;
 
     public static boolean PETITIONING_ALLOWED;
     public static int MAX_PETITIONS_PER_PLAYER;
@@ -1623,6 +1627,7 @@ public final class Config {
                 ALT_URN_TEMP_FAIL                                   = Integer.parseInt(altSettings.getProperty("UrnTempFail", "10"));
                 ALT_DIFF_CUTOFF                                     = Integer.parseInt(altSettings.getProperty("MobPCExpCutoff", "-10"));
                 ALT_DISABLE_RAIDBOSS_PETRIFICATION                  = Boolean.parseBoolean(altSettings.getProperty("DisableRaidBossPetrification", "false"));
+                ALT_STATPOINT_DISTRIBUTION                          = Boolean.parseBoolean(altSettings.getProperty("AltStatPointDistribution", "false"));
                 
                 WEDDING_PRICE                                       = Integer.parseInt(altSettings.getProperty("WeddingPrice", "500000"));
                 WEDDING_PUNISH_INFIDELITY                           = Boolean.parseBoolean(altSettings.getProperty("WeddingPunishInfidelity", "true"));                
@@ -1803,6 +1808,7 @@ public final class Config {
                 GM_HERO_AURA 	= Boolean.parseBoolean(gmSettings.getProperty("GMHeroAura", "True"));
                 GM_STARTUP_INVULNERABLE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvulnerable", "True"));
                 GMAUDIT 		= Boolean.valueOf(gmSettings.getProperty("GMAudit", "False"));
+                STANDARD_RESPAWN_DELAY = Integer.parseInt(gmSettings.getProperty("StandardRespawnDelay", "0"));
                 
                 String gmTrans = gmSettings.getProperty("GMDisableTransaction", "False");
                 

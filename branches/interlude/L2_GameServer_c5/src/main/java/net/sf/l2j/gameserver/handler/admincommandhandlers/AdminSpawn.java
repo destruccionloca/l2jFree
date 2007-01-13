@@ -129,7 +129,7 @@ public class AdminSpawn implements IAdminCommandHandler
             {
                 st.nextToken();
                 String id = st.nextToken();
-                int respawnTime = 0; 
+                int respawnTime = Config.STANDARD_RESPAWN_DELAY; 
                 //FIXME: 0 time should mean never respawn.
                 //At the moment it will just be set to d elsewhere.
                 int mobCount = 1;
