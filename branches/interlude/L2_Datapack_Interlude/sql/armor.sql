@@ -911,7 +911,7 @@ INSERT INTO `armor` (`item_id`,`name`,`bodypart`,`crystallizable`,`armor_type`,`
   (8661,'Mask of Spirits', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false'),
   (8662,'Fairy Antennae - For Event', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false');
 
---- interlude armors
+-- interlude armors
 INSERT INTO `armor` VALUES ('8910', 'black_feather_face', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
 INSERT INTO `armor` VALUES ('8911', 'black_half_face', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
 INSERT INTO `armor` VALUES ('8912', 'cluster_of_flower', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
@@ -948,7 +948,7 @@ INSERT INTO `armor` VALUES ('8569', 'half_face', 'hair', 'false', 'none', '10', 
 ALTER TABLE armor ADD item_skill_id decimal(11,0) NOT NULL default '0';
 ALTER TABLE armor ADD item_skill_lvl decimal(11,0) NOT NULL default '0';
 
---------------------------------         Boss' juwelery        -------------------------------------
+-- ------------------------------         Boss' juwelery        -------------------------------------
 
 UPDATE armor  SET item_skill_id = 3558, item_skill_lvl = 1 WHERE item_id = 6656; -- antharas earring 
 UPDATE armor  SET item_skill_id = 3557, item_skill_lvl = 1 WHERE item_id = 6657; -- necklace of valakas 
