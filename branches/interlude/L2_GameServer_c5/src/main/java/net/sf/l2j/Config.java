@@ -617,7 +617,11 @@ public final class Config {
     public static boolean       ALLOW_RENTPET;
     public static boolean 	    ALLOW_BOAT;
     /** Allow cursed weapons ? */
-    public static boolean        ALLOW_CURSED_WEAPONS;    
+    public static boolean        ALLOW_CURSED_WEAPONS;
+    
+    public static String  ALLOWED_NPC_TYPES;
+    //  /** List of NPC types that won't allow casting */
+    public static FastList<String> LIST_ALLOWED_NPC_TYPES = new FastList<String>();
     
     public static int           PACKET_LIFETIME;
     public static long          PACKET_EXECUTIONTIME;
@@ -960,8 +964,6 @@ public final class Config {
     public static boolean ANNOUNCE_MAMMON_SPAWN;
     public static boolean LAZY_CACHE;
     
-    public static boolean GM_NAME_COLOUR_ENABLED;
-    public static int GM_NAME_COLOUR;
     /** Place an aura around the GM ? */
     public static boolean GM_HERO_AURA;
     /** Set the GM invulnerable at startup ? */
@@ -1406,9 +1408,12 @@ public final class Config {
                 JAIL_IS_PVP       = Boolean.valueOf(otherSettings.getProperty("JailIsPvp", "True"));
                 JAIL_DISABLE_CHAT = Boolean.valueOf(otherSettings.getProperty("JailDisableChat", "True"));
                 
-                GM_NAME_COLOUR_ENABLED = Boolean.parseBoolean(otherSettings.getProperty("GMNameColourEnabled", "False"));
-                GM_NAME_COLOUR = Integer.decode("0x" + otherSettings.getProperty("GMNameColour", "00FF00"));
-                
+                ALLOWED_NPC_TYPES  = otherSettings.getProperty("AllowedNPCTypes");
+                LIST_ALLOWED_NPC_TYPES = new FastList<String>();
+                for (String npc_type : ALLOWED_NPC_TYPES.split(",")) 
+                {
+                    LIST_ALLOWED_NPC_TYPES.add(npc_type);
+                }                
 	        }
 	        catch (Exception e)
 	        {
