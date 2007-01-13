@@ -536,17 +536,17 @@ public final class L2PcInstance extends L2PlayableInstance
     /** TvT Engine parameters */
     public String _teamNameTvT;
     public int _originalNameColorTvT,
-			_originalKarma;
+              _originalKarmaTvT;
     public boolean _inEventTvT = false;
-
+   
     /** CTF Engine parameters */
     public String _teamNameCTF,
-		  _teamNameHaveFlagCTF,
-		  _originalTitleCTF;
+                 _teamNameHaveFlagCTF,
+                 _originalTitleCTF;
     public int _originalNameColorCTF,
-		   _originalKarmaCTF;
+              _originalKarmaCTF;
     public boolean _inEventCTF = false,
-		   _haveFlagCTF = false;
+                  _haveFlagCTF = false;
     public Future _posCheckerCTF = null;
 	
     public int _telemode = 0;
@@ -3107,6 +3107,13 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void onAction(L2PcInstance player)
     {
+        if ((_inEventTvT && TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (_inEventCTF && CTF._started && !Config.CTF_ALLOW_INTERFERENCE))
+        {
+            ActionFailed af = new ActionFailed();
+            player.sendPacket(af);
+            return;
+        }
+
         // Check if the L2PcInstance is confused
         if (player.isConfused())
         {
@@ -3660,52 +3667,53 @@ public final class L2PcInstance extends L2PlayableInstance
                 pk.kills.add(getName());
             }
             
-            if (pk != null)
+            if (killer instanceof L2PcInstance)
             {
-                if (((L2PcInstance)killer)._inEventTvT && _inEventTvT)
-                {
-                    if (TvT._teleport || TvT._started)
-                    {
-                        if (!(((L2PcInstance)killer)._teamNameTvT.equals(_teamNameTvT)))
-                            TvT.setTeamKillsCount(((L2PcInstance)killer)._teamNameTvT, TvT.teamKillsCount(((L2PcInstance)killer)._teamNameTvT)+1);
+               if (((L2PcInstance)killer)._inEventTvT && _inEventTvT)
+               {
+                   if (TvT._teleport || TvT._started)
+                   {
+                       if (!(((L2PcInstance)killer)._teamNameTvT.equals(_teamNameTvT)))
+                           TvT.setTeamKillsCount(((L2PcInstance)killer)._teamNameTvT, TvT.teamKillsCount(((L2PcInstance)killer)._teamNameTvT)+1);
 
-                        sendMessage("You will be revived and teleported to team spot in 20 seconds!");
-                        ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                        {
-            				public void run()
-            				{
-            					doRevive();
-            					teleToLocation(TvT._teamsX.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsY.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsZ.get(TvT._teams.indexOf(_teamNameTvT)));
-            				}
-            			}, 20000);
-                    }
-                }
-        		else if (((L2PcInstance)killer)._inEventCTF && _inEventCTF)
-        		{
-        			if (CTF._teleport || CTF._started)
-        			{
-        				sendMessage("You will be revived and teleported to team flag in 20 seconds!");
-        					
-        				if (_haveFlagCTF)
-        				{
-        					CTF._flagsTaken.set(CTF._teams.indexOf(_teamNameHaveFlagCTF), false);
-        					CTF.spawnFlag(_teamNameHaveFlagCTF);
-        					setTitle(_originalTitleCTF);
-        					broadcastUserInfo();
-        					_haveFlagCTF = false;
-        					Announcements.getInstance().announceToAll(CTF._eventName + "(CTF): " + _teamNameHaveFlagCTF + "'s flag returned.");
-        				}
-        
-        				ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-        				{
-        					public void run()
-        					{
-        						doRevive();
-        						teleToLocation(CTF._flagsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsZ.get(CTF._teams.indexOf(_teamNameCTF)));
-        					}
-        				}, 20000);
-        			}
-        		}
+                       sendMessage("You will be revived and teleported to team spot in 20 seconds!");
+                       ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                                                                       {
+                                                                           public void run()
+                                                                           {
+                                                                               teleToLocation(TvT._teamsX.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsY.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsZ.get(TvT._teams.indexOf(_teamNameTvT)), false);
+                                                                               doRevive();
+                                                                           }
+                                                                       }, 20000);
+                   }
+               }
+               
+               if (((L2PcInstance)killer)._inEventCTF && _inEventCTF)
+               {
+                   if (CTF._teleport || CTF._started)
+                   {
+                       sendMessage("You will be revived and teleported to team flag in 20 seconds!");
+
+                       if (_haveFlagCTF)
+                       {
+                           CTF._flagsTaken.set(CTF._teams.indexOf(_teamNameHaveFlagCTF), false);
+                           CTF.spawnFlag(_teamNameHaveFlagCTF);
+                           setTitle(_originalTitleCTF);
+                           broadcastUserInfo();
+                           _haveFlagCTF = false;
+                           Announcements.getInstance().announceToAll(CTF._eventName + "(CTF): " + _teamNameHaveFlagCTF + "'s flag returned.");
+                       }
+
+                       ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                                                                       {
+                                                                           public void run()
+                                                                           {
+                                                                               teleToLocation(CTF._flagsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsZ.get(CTF._teams.indexOf(_teamNameCTF)), false);
+                                                                               doRevive();
+                                                                           }
+                                                                       }, 20000);
+                   }
+               }
             }
             if (!ArenaManager.getInstance().checkIfInZone(this) && !JailManager.getInstance().checkIfInZone(this))
             {
@@ -3974,6 +3982,9 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void increasePvpKills()
     {
+        if ((TvT._started && _inEventTvT) || (CTF._started && _inEventCTF))
+            return;
+
         // Add karma to attacker and increase its PK counter
         setPvpKills(getPvpKills() + 1);       
 
@@ -3988,6 +3999,9 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void increasePkKillsAndKarma(int targLVL)
     {
+        if ((TvT._started && _inEventTvT) || (CTF._started && _inEventCTF))
+            return;
+
         int baseKarma = Config.KARMA_MIN_KARMA;
         int newKarma = baseKarma;
         int karmaLimit = Config.KARMA_MAX_KARMA;
@@ -4053,8 +4067,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void updatePvPStatus()
     {
-        if (_inEventTvT) return;
-        if (_inEventCTF && CTF._started) return;
+        if ((TvT._started && _inEventTvT) || (CTF._started && _inEventCTF))
+            return;
 
         if (getPvpFlag() == 0) startPvPFlag();
         if (getPvpFlag() != 0) setlastPvpAttack(System.currentTimeMillis()); //update last pvp ATTACK controller
@@ -4114,11 +4128,13 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // Calculate the Experience loss
         long lostExp = 0;
-        if (!atEvent && (!_inEventTvT && !TvT._started) && (!_inEventCTF && !CTF._started))
+        if (!atEvent && !_inEventTvT && !_inEventCTF)
+        {
             if (lvl < Experience.MAX_LEVEL) 
                 lostExp = Math.round((getStat().getExpForLevel(lvl+1) - getStat().getExpForLevel(lvl)) * percentLost /100);
-            
-            else lostExp = Math.round((getStat().getExpForLevel(Experience.MAX_LEVEL) - getStat().getExpForLevel(Experience.MAX_LEVEL - 1)) * percentLost /100);
+            else
+                lostExp = Math.round((getStat().getExpForLevel(Experience.MAX_LEVEL) - getStat().getExpForLevel(Experience.MAX_LEVEL - 1)) * percentLost /100);
+        }
                                                                                                                  
         // Get the Experience before applying penalty
         _expBeforeDeath = getExp();
@@ -6858,10 +6874,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public boolean checkPvpSkill(L2Object target, L2Skill skill)
     {
-        if (_inEventTvT)
-           return true;
-
-        if (_inEventCTF && CTF._started)
+        if ((_inEventTvT && TvT._started) || (_inEventCTF && CTF._started))
             return true;
         
         // check for PC->PC Pvp status

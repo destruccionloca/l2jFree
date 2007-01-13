@@ -118,8 +118,9 @@ public class L2NpcInstance extends L2Character
     private int _CastleIndex = -2;
     
     public boolean isEventMob = false,
-    			   _isEventMobTvT = false,
-			   _isEventMobCTFJoiner = false;
+                  _isEventMobTvT = false,
+                  _isEventMobCTF = false;
+
     private boolean _IsInTown = false;
     private int _isSpoiledBy = 0;
     
@@ -544,14 +545,14 @@ public class L2NpcInstance extends L2Character
                     broadcastPacket(sa);
                     
                     // Open a chat window on client with the text of the L2NpcInstance
-                    if(this.isEventMob)
-                    	L2Event.showEventHtml(player, String.valueOf(this.getObjectId()));
-                    else if (this._isEventMobTvT)
-                    	TvT.showEventHtml(player, String.valueOf(this.getObjectId()));
-		    else if (this._isEventMobCTFJoiner)
-                    	CTF.showEventHtml(player, String.valueOf(this.getObjectId()));
+                    if (this.isEventMob)
+                       L2Event.showEventHtml(player, String.valueOf(this.getObjectId()));
+                    else if (_isEventMobTvT)
+                       TvT.showEventHtml(player, String.valueOf(this.getObjectId()));
+                    else if (_isEventMobCTF)
+                       CTF.showEventHtml(player, String.valueOf(this.getObjectId()));
                     else
-                    	showChatWindow(player, 0);
+                       showChatWindow(player, 0);
                     
                     // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
                     player.sendPacket(new ActionFailed());					

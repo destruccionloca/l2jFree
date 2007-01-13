@@ -646,6 +646,18 @@ public final class Config {
     public static int           NAME_PAGE_SIZE_COMMUNITYBOARD;
     public static int           NAME_PER_ROW_COMMUNITYBOARD;
 
+    /** Fun engines parameters */
+    public static boolean CTF_ALLOW_INTERFERENCE;
+    public static boolean CTF_ALLOW_POTIONS;
+    public static boolean CTF_ALLOW_SUMMON;
+    public static boolean CTF_ON_START_REMOVE_ALL_EFFECTS;
+    public static boolean CTF_ON_START_UNSUMMON_PET;
+    public static boolean TVT_ALLOW_INTERFERENCE;
+    public static boolean TVT_ALLOW_POTIONS;
+    public static boolean TVT_ALLOW_SUMMON;
+    public static boolean TVT_ON_START_REMOVE_ALL_EFFECTS;
+    public static boolean TVT_ON_START_UNSUMMON_PET;
+
     /** Configuration files */
     /** Properties file for game server (connection and ingame) configurations */
     public static final String  CONFIGURATION_FILE          = "./config/server.properties";
@@ -667,7 +679,10 @@ public final class Config {
     public static final String  HEXID_FILE					= "./config/hexid.txt";
     public static final String  COMMAND_PRIVILEGES_FILE     = "./config/command-privileges.properties";
     public static final String  SEVENSIGNS_FILE             = "./config/sevensigns.properties";
-    public static final String  CLANHALL_CONFIG_FILE          = "./config/clanhall.properties";     
+    public static final String  CLANHALL_CONFIG_FILE          = "./config/clanhall.properties";
+    /** Properties file for fun engines */
+    public static final String  FUN_ENGINES_FILE             = "./config/fun_engines.properties";
+    
     /** Properties file for externsions */
     public static final String EXTENSION_FILE               = "./config/extensions.properties";
     public static final String	SAY_FILTER_FILE				= "./config/sayfilter.txt";
@@ -1844,8 +1859,31 @@ public final class Config {
                 _log.error(e);
 	            throw new Error("Failed to Load "+GM_ACCESS_FILE+" File.");
 	        }
-	        
-	        try
+            try
+            {
+               Properties funEnginesSettings = new Properties();
+               InputStream is = new FileInputStream(new File(FUN_ENGINES_FILE));  
+               funEnginesSettings.load(is);
+               is.close();
+               
+               CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowInterference", "false"));
+               CTF_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowPotions", "false"));
+               CTF_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowSummon", "false"));
+               CTF_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFOnStartRemoveAllEffects", "true"));
+               CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFOnStartUnsummonPet", "true"));
+
+               TVT_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowInterference", "false"));
+               TVT_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowPotions", "false"));
+               TVT_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowSummon", "false"));
+               TVT_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTOnStartRemoveAllEffects", "true"));
+               TVT_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTOnStartUnsummonPet", "true"));
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                throw new Error("Failed to Load " + FUN_ENGINES_FILE + " File.");
+            }
+            try
 	        {
 	            Properties Settings   = new Properties();
 	            InputStream is          = new FileInputStream(HEXID_FILE);  
@@ -1866,8 +1904,6 @@ public final class Config {
 
 	        	extensionSettings.load(is);
 	        	is.close();
-	        	TVT_EVEN_TEAMS = extensionSettings.getProperty("TvTEvenTeams", "BALANCE");
-	        	CTF_EVEN_TEAMS = extensionSettings.getProperty("CTFEvenTeams", "BALANCE");
 	        }
 	        catch (Exception e)
 	        {
@@ -2115,6 +2151,18 @@ public final class Config {
         else if (pName.equalsIgnoreCase("GlobalChat")) DEFAULT_GLOBAL_CHAT = pValue;
         else if (pName.equalsIgnoreCase("TradeChat"))  DEFAULT_TRADE_CHAT = pValue;
         
+        else if (pName.equalsIgnoreCase("CTFAllowInterference")) CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("CTFAllowPotions")) CTF_ALLOW_POTIONS = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("CTFAllowSummon")) CTF_ALLOW_SUMMON = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("CTFOnStartRemoveAllEffects")) CTF_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("CTFOnStartUnsummonPet")) CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
+        
+        else if (pName.equalsIgnoreCase("TvTAllowInterference")) TVT_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("TvTAllowPotions")) TVT_ALLOW_POTIONS = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("TvTAllowSummon")) TVT_ALLOW_SUMMON = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("TvTOnStartRemoveAllEffects")) TVT_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("TvTOnStartUnsummonPet")) TVT_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
+
         else if (pName.equalsIgnoreCase("TvTEvenTeams"))  TVT_EVEN_TEAMS = pValue;
         else if (pName.equalsIgnoreCase("CTFEvenTeams"))  CTF_EVEN_TEAMS = pValue;
         else return false;
