@@ -140,6 +140,7 @@ import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.model.waypoint.WayPointNode;
+import net.sf.l2j.gameserver.script.stat.StatTrack;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ChangeWaitType;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
@@ -349,6 +350,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /** List with the recomendations that I've give */
     private List<Integer> _recomChars = new FastList<Integer>();
+    
+    private StatTrack _statTrack;
 
     /** The random number of the L2PcInstance */
     //private static final Random _rnd = new Random();
@@ -400,7 +403,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private L2ManufactureList _createList;
     private TradeList _sellList;
     private TradeList _buyList;
-
+    
     private List<L2PcInstance> _SnoopListener = new FastList<L2PcInstance>();
     private List<L2PcInstance> _SnoopedPlayer = new FastList<L2PcInstance>();
 
@@ -801,6 +804,9 @@ public final class L2PcInstance extends L2PlayableInstance
         getInventory().restore();
         getWarehouse().restore();
         getFreight().restore();
+        getStatTrack(); //Init Stat Tracker
+        if (getStatTrack() != null)
+            getStatTrack().wake(this); //Start Stat Tracking
     }
 
     private L2PcInstance(int objectId)
@@ -1015,6 +1021,10 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void logout()
     {
+       if (getStatTrack() != null)
+           getStatTrack().sleep(); //Shut down the Stat Tracker.
+       _statTrack = null; //Garbage Collection
+
         // Delete all Path Nodes
         clearPathNodes();
 
@@ -1642,6 +1652,8 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void setKarma(int karma)
     {
+        if (karma > _karma) 
+            if (getStatTrack() != null) getStatTrack().increaseKarma(karma - _karma);
         if (karma < 0) karma = 0;
         if (_karma == 0 && karma > 0)
         {
@@ -3659,6 +3671,18 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         // Kill the L2PcInstance
         super.doDie(killer);
+       
+        // Stattracking.
+        if (getStatTrack() != null) 
+        {
+            if (killer instanceof L2MonsterInstance)
+                getStatTrack().increaseMonsterDeaths();
+            else if (killer instanceof L2PcInstance)
+                if (getPvpFlag() == 1)
+                    getStatTrack().increasePvPDeaths();
+                else
+                    getStatTrack().increasePKDeaths();
+        }
 
         if (isCursedWeaponEquiped())
         {
@@ -3963,7 +3987,12 @@ public final class L2PcInstance extends L2PlayableInstance
         
         // If in Arena, do nothing
         if (ArenaManager.getInstance().getArenaIndex(this.getX(), this.getY()) != -1
-            || ArenaManager.getInstance().getArenaIndex(target.getX(), target.getY()) != -1) return;
+            || ArenaManager.getInstance().getArenaIndex(target.getX(), target.getY()) != -1)
+        {
+            if (getStatTrack() != null)
+               getStatTrack().increasePvPKills();            
+            return;
+        }
 
         // Check if it's pvp
         if ((checkIfPvP(target) && //   Can pvp and
@@ -3974,6 +4003,7 @@ public final class L2PcInstance extends L2PlayableInstance
             ))
         {
             increasePvpKills();
+            if (getStatTrack() != null) getStatTrack().increasePvPKills();
         }
         else
         // Target player doesn't have pvp flag set
@@ -3987,6 +4017,8 @@ public final class L2PcInstance extends L2PlayableInstance
                     {
                         // 'Both way war' -> 'PvP Kill' 
                         increasePvpKills();
+                        if (getStatTrack() != null)
+                           getStatTrack().increasePvPKills();
                         return;
                     }
                 }
@@ -3999,6 +4031,8 @@ public final class L2PcInstance extends L2PlayableInstance
                 {
                     if (!_inEventTvT && !_inEventVIP)
                         increasePvpKills();
+                    if (getStatTrack() != null)
+                        getStatTrack().increasePvPKills();                        
                 }
             }
             else
@@ -4006,6 +4040,8 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 if (!_inEventTvT && !_inEventVIP)
                     increasePkKillsAndKarma(targetPlayer.getLevel());
+                if (getStatTrack() != null)
+                    getStatTrack().increasePvPKills();                
             }
         }
     }
@@ -4070,7 +4106,10 @@ public final class L2PcInstance extends L2PlayableInstance
         // Add karma to attacker and increase its PK counter
         setPkKills(getPkKills() + 1);
         setKarma(getKarma() + newKarma);
-
+        
+        if (getStatTrack() != null)
+            getStatTrack().increasePKKills();
+        
         // Send a Server->Client UserInfo packet to attacker with its Karma and PK Counter
         sendPacket(new UserInfo(this));
     }
@@ -4168,6 +4207,9 @@ public final class L2PcInstance extends L2PlayableInstance
                 lostExp = Math.round((getStat().getExpForLevel(lvl+1) - getStat().getExpForLevel(lvl)) * percentLost /100);
             else
                 lostExp = Math.round((getStat().getExpForLevel(Experience.MAX_LEVEL) - getStat().getExpForLevel(Experience.MAX_LEVEL - 1)) * percentLost /100);
+            if (getStatTrack() != null)
+                getStatTrack().reduceXP(lostExp);
+            
         }
                                                                                                                  
         // Get the Experience before applying penalty
@@ -9801,5 +9843,11 @@ public final class L2PcInstance extends L2PlayableInstance
    public void removeTimeStamp(int s)
    {
        ReuseTimeStamps.remove(s);
+   }
+
+   public StatTrack getStatTrack() 
+   {
+       if (_statTrack == null) _statTrack = StatTrack.findStat(this);
+       return _statTrack;
    }
 }

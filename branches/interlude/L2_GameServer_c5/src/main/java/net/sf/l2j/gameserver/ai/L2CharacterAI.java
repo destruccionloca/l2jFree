@@ -288,6 +288,10 @@ public class L2CharacterAI extends AbstractAI
 
         // Launch the Think Event
         notifyEvent(CtrlEvent.EVT_THINK, null);
+
+        if (getActor() instanceof L2PcInstance)
+           if (((L2PcInstance)getActor()).getStatTrack() != null)
+               ((L2PcInstance)getActor()).getStatTrack().increaseSpellsCasted();
     }
 
     /**

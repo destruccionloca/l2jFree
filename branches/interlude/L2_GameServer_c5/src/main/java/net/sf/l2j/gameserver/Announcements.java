@@ -53,6 +53,7 @@ public class Announcements
 	private static Announcements _instance;
 	private List<String> _announcements = new FastList<String>();
 	private List<List<Object>> eventAnnouncements = new FastList<List<Object>>();
+    private String leaderboardAnnouncement = null;
 
 	public Announcements()
 	{
@@ -91,6 +92,11 @@ public class Announcements
 			CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, activeChar.getName(), _announcements.get(i).toString());
 			activeChar.sendPacket(cs);
 		}
+		if (leaderboardAnnouncement != null) 
+        {
+		    CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, activeChar.getName(), leaderboardAnnouncement);
+		    activeChar.sendPacket(cs);
+        }        
 		
 		for (int i = 0; i < eventAnnouncements.size(); i++)
 		{
@@ -156,7 +162,11 @@ public class Announcements
 		_announcements.add(text);
 		saveToDisk();
 	}
-	
+    
+	public void setLeaderboardAnnouncement(String announce) {
+	    leaderboardAnnouncement = announce;
+	}
+    
 	public void delAnnouncement(int line)
 	{
 		_announcements.remove(line);

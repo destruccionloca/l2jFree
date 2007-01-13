@@ -994,10 +994,15 @@ public final class Config {
     public static boolean GRIDS_ALWAYS_ON;
     public static int GRID_NEIGHBOR_TURNON_TIME;
     public static int GRID_NEIGHBOR_TURNOFF_TIME;    
-    /** Extension Options */
-    public static String TVT_EVEN_TEAMS;
-    public static String CTF_EVEN_TEAMS;
-    
+
+    public static boolean ENABLE_STATS;
+    public static int STATS_UPDATE_TIME;
+    public static int STATS_SAVE_TIME;
+    public static int LEADERBOARD_REFRESH; //in hours
+    public static int MAX_LEADERBOARD;
+    public static boolean LEADERBOARD_ANNOUNCE;
+    public static boolean LEADERBOARD_ADD_ANNOUNCE;    
+
     /** Clan Hall function related configs*/
     public static long CH_TELE_FEE_RATIO;
     public static int CH_TELE1_FEE;
@@ -1258,6 +1263,17 @@ public final class Config {
                 MINIMUN_UPDATE_TIME             = Integer.parseInt(optionsSettings.getProperty("MinimumUpdateTime", "500"));
                 CHECK_KNOWN                     = Boolean.valueOf(optionsSettings.getProperty("CheckKnownList", "false"));
                 KNOWNLIST_FORGET_DELAY          = Integer.parseInt(optionsSettings.getProperty("KnownListForgetDelay", "10000"));
+                ENABLE_STATS                    = Boolean.valueOf(optionsSettings.getProperty("EnableStats","false"));
+                STATS_UPDATE_TIME               = Integer.parseInt(optionsSettings.getProperty("StatUpdateTime","15"));
+                STATS_SAVE_TIME                 = Integer.parseInt(optionsSettings.getProperty("StatSaveTime","300"));
+                LEADERBOARD_REFRESH                = Integer.parseInt(optionsSettings.getProperty("LeaderboardUpdateTime","12"));
+                MAX_LEADERBOARD                    = Integer.parseInt(optionsSettings.getProperty("MaxLeaderboardSize","10"));
+                if (MAX_LEADERBOARD > 20) {
+                   MAX_LEADERBOARD = 20; _log.warn("Leaderboards: Cannot have more than 20 Entries on a Leaderboard! Setting to 20.");
+                }
+                LEADERBOARD_ANNOUNCE           = Boolean.valueOf(optionsSettings.getProperty("AnnounceLeaderboards","false"));
+                LEADERBOARD_ADD_ANNOUNCE       = Boolean.valueOf(optionsSettings.getProperty("AddLeaderboardAnnounce","false"));
+                
             }
             catch (Exception e)
             {
@@ -1663,7 +1679,6 @@ public final class Config {
                 ALT_CRAFT_ALLOW_CRYSTALLIZE                         = Boolean.parseBoolean(altSettings.getProperty("CraftManagerCrystallize", "True"));
                 ALT_CRAFT_PRICE                                     = Float.parseFloat(altSettings.getProperty("CraftManagerPriceMultiplier", "0.1"));
                 ALT_CRAFT_DEFAULT_PRICE                             = Integer.parseInt(altSettings.getProperty("CraftManagerDefaultPrice", "50000"));
-                
 	        }
 	        catch (Exception e)
 	        {
@@ -2168,8 +2183,6 @@ public final class Config {
         else if (pName.equalsIgnoreCase("TvTOnStartRemoveAllEffects")) TVT_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("TvTOnStartUnsummonPet")) TVT_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
 
-        else if (pName.equalsIgnoreCase("TvTEvenTeams"))  TVT_EVEN_TEAMS = pValue;
-        else if (pName.equalsIgnoreCase("CTFEvenTeams"))  CTF_EVEN_TEAMS = pValue;
         else return false;
         return true;
     }

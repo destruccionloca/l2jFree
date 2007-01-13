@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.script.processor.ProcessorEngine;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -117,7 +118,11 @@ public class Say2 extends ClientBasePacket
             _log.warn("[Say2.java] Active Character is null.");
             return;
         }
-        
+
+        //If ProcessorEngine requires it, stop!
+        if (ProcessorEngine.getInstance().checkMatch(this))
+            return;
+
         if (activeChar.isChatBanned())
         {
             {
@@ -305,4 +310,8 @@ public class Say2 extends ClientBasePacket
     {
         return _C__38_SAY2;
     }
+
+    public void changeString(String newString) { _text = newString; }
+   
+    public String getSay() { return _text; }
 }

@@ -33,6 +33,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.model.entity.L2Event;
+import net.sf.l2j.gameserver.script.stat.LeaderboardEngine;
 import net.sf.l2j.gameserver.model.entity.TvT;
 import net.sf.l2j.gameserver.model.entity.VIP;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -200,6 +201,10 @@ public class RequestBypassToServer extends ClientBasePacket
                 else
                     player.processQuestEvent(p.substring(0, idx), p.substring(idx).trim());
             }
+            else if (_command.startsWith("leaderboard_")) 
+            {
+               LeaderboardEngine.getInstance().processBypass(activeChar, _command.substring(12));
+            }            
         } catch (Exception e) {
             _log.warn("Bad RequestBypassToServer: ", e);
         }
