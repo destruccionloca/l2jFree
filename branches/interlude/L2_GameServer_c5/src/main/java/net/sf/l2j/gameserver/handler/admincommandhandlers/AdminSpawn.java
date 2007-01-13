@@ -53,7 +53,7 @@ import org.apache.commons.logging.LogFactory;
 public class AdminSpawn implements IAdminCommandHandler
 {
 
-    private static String[] _adminCommands = { "admin_show_spawns", "admin_spawn", "admin_spawn_monster", "admin_spawn_index",
+    private static String[] _adminCommands = { "admin_show_spawns", "admin_spawn", "admin_otspawn", "admin_spawn_monster", "admin_spawn_index",
                                                 "admin_unspawnall","admin_respawnall","admin_spawn_reload","admin_npc_index",
                                                 "admin_show_npcs","admin_teleport_reload", "admin_spawnnight", "admin_spawnday" };
     public static Log _log = LogFactory.getLog(AdminSpawn.class.getName());
@@ -137,7 +137,24 @@ public class AdminSpawn implements IAdminCommandHandler
                     mobCount = Integer.parseInt(st.nextToken());
                 if (st.hasMoreTokens())
                     respawnTime = Integer.parseInt(st.nextToken());
-                spawnMonster(activeChar, id, respawnTime, mobCount);
+                spawnMonster(activeChar, id, respawnTime, mobCount, true);
+            }
+            catch (Exception e)
+            {
+                // Case of wrong monster data
+            }
+        }
+        else if (command.startsWith("admin_otspawn"))
+        {
+            StringTokenizer st = new StringTokenizer(command, " ");
+            try
+            {
+                st.nextToken();
+                String id = st.nextToken();
+                int mobCount = 1;
+                if (st.hasMoreTokens())
+                    mobCount = Integer.parseInt(st.nextToken());
+                spawnOneTimeMonster(activeChar, id, mobCount);
             }
             catch (Exception e)
             {
@@ -194,7 +211,7 @@ public class AdminSpawn implements IAdminCommandHandler
         return (level >= REQUIRED_LEVEL);
     }
 
-    private void spawnMonster(L2PcInstance activeChar, String monsterId, int respawnTime, int mobCount)
+    private void spawnMonster(L2PcInstance activeChar, String monsterId, int respawnTime, int mobCount, boolean respawn)
     {
         L2Object target = activeChar.getTarget();
         if (target == null)
@@ -256,7 +273,10 @@ public class AdminSpawn implements IAdminCommandHandler
                 if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcid()) != null)
                     RaidBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template1.getStatsSet().getDouble("baseHpMax"), template1.getStatsSet().getDouble("baseMpMax"), true);
                 else
-                    SpawnTable.getInstance().addNewSpawn(spawn, true);
+                    if(respawn==true)
+                        SpawnTable.getInstance().addNewSpawn(spawn, respawn);
+                    else
+                        spawn.spawnOne();
 
                 spawn.init();
 
@@ -272,6 +292,12 @@ public class AdminSpawn implements IAdminCommandHandler
             activeChar.sendPacket(sm);
         }
     }
+    
+    private void spawnOneTimeMonster(L2PcInstance activeChar, String monsterId, int mobCount)
+    {
+        spawnMonster(activeChar,monsterId,0,mobCount,false);
+    }
+    
     private void showMonsters(L2PcInstance activeChar, int level, int from)
     {
         TextBuilder tb = new TextBuilder();
