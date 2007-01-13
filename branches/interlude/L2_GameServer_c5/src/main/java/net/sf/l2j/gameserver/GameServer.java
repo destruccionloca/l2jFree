@@ -88,6 +88,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTeleport;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTest;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTvTEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminUnblockIp;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminVIPEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminZone;
 import net.sf.l2j.gameserver.handler.itemhandlers.BeastSoulShot;
 import net.sf.l2j.gameserver.handler.itemhandlers.BeastSpiritShot;
@@ -522,6 +523,7 @@ public class GameServer
         _adminCommandHandler.registerAdminCommandHandler(new AdminZone());
         _adminCommandHandler.registerAdminCommandHandler(new AdminTvTEngine());
         _adminCommandHandler.registerAdminCommandHandler(new AdminCTFEngine());
+        _adminCommandHandler.registerAdminCommandHandler(new AdminVIPEngine());
         _adminCommandHandler.registerAdminCommandHandler(new AdminCursedWeapons());
         _log.info("AdminCommandHandler: Loaded " + _adminCommandHandler.size() + " handlers.");
 

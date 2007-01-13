@@ -62,6 +62,7 @@ import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.TvT;
+import net.sf.l2j.gameserver.model.entity.VIP;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -119,7 +120,9 @@ public class L2NpcInstance extends L2Character
     
     public boolean isEventMob = false,
                   _isEventMobTvT = false,
-                  _isEventMobCTF = false;
+                  _isEventMobCTF = false,
+                  _isEventVIPNPC = false,
+                  _isEventVIPNPCEnd = false;                  
 
     private boolean _IsInTown = false;
     private int _isSpoiledBy = 0;
@@ -551,6 +554,10 @@ public class L2NpcInstance extends L2Character
                        TvT.showEventHtml(player, String.valueOf(this.getObjectId()));
                     else if (_isEventMobCTF)
                        CTF.showEventHtml(player, String.valueOf(this.getObjectId()));
+                    else if (this._isEventVIPNPC)
+                       VIP.showJoinHTML(player, String.valueOf(this.getObjectId()));
+                    else if (this._isEventVIPNPCEnd)
+                       VIP.showEndHTML(player, String.valueOf(this.getObjectId()));                    
                     else
                        showChatWindow(player, 0);
                     

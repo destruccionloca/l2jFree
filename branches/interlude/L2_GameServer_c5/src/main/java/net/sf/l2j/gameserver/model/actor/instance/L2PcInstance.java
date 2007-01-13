@@ -134,6 +134,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.TvT;
+import net.sf.l2j.gameserver.model.entity.VIP;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
 import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.model.quest.Quest;
@@ -548,7 +549,15 @@ public final class L2PcInstance extends L2PlayableInstance
     public boolean _inEventCTF = false,
                   _haveFlagCTF = false;
     public Future _posCheckerCTF = null;
-	
+
+    /** VIP parameters */
+    public boolean  _isVIP = false,
+                    _inEventVIP = false,
+                    _isNotVIP = false,
+                    _isTheVIP = false;
+    public int      _originalNameColourVIP,
+                    _originalKarmaVIP;
+   
     public int _telemode = 0;
 
     /** new loto ticket **/
@@ -2232,7 +2241,7 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             sendMessage("A dark force beyond your mortal understanding makes your knees to shake when you try to stand up ...");
         }
-        else if (TvT._sitForced && _inEventTvT || CTF._sitForced && _inEventCTF)
+        else if (TvT._sitForced && _inEventTvT || CTF._sitForced && _inEventCTF || VIP._sitForced && _inEventVIP)
            sendMessage("The Admin/GM handle if you sit or stand in this match!");
 
         else if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead())
@@ -3144,7 +3153,7 @@ public final class L2PcInstance extends L2PlayableInstance
             else
             {
                 // Check if this L2PcInstance is autoAttackable
-                if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started))
+                if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started) || (player._inEventVIP && VIP._started))
                 {
                     if(player.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL || this.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
                     {
@@ -3685,7 +3694,7 @@ public final class L2PcInstance extends L2PlayableInstance
                                                                                doRevive();
                                                                            }
                                                                        }, 20000);
-                   }
+                       }
                }
                
                if (((L2PcInstance)killer)._inEventCTF && _inEventCTF)
@@ -3713,6 +3722,31 @@ public final class L2PcInstance extends L2PlayableInstance
                                                                            }
                                                                        }, 20000);
                    }
+               }
+               
+               if (_inEventVIP) 
+               {
+                    if (VIP._started) {
+                        if (_isTheVIP && ((L2PcInstance)killer)._inEventVIP)
+                            VIP.vipDied();
+                        else if (_isTheVIP && !((L2PcInstance)killer)._inEventVIP){
+                            Announcements.getInstance().announceToAll("VIP Killed by non-event character. VIP going back to initial spawn.");
+                            doRevive();
+                            teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
+                        }
+                        else {                          
+                            sendMessage("You will be revived and teleported to team spot in 20 seconds!");
+                            ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+                                public void run() {
+                                    doRevive();
+                                    if (_isVIP)
+                                        teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
+                                    else
+                                        teleToLocation(VIP._endX, VIP._endY, VIP._endZ);
+                                }
+                            }, 20000);
+                        }
+                    }
                }
             }
             if (!ArenaManager.getInstance().checkIfInZone(this) && !JailManager.getInstance().checkIfInZone(this))
@@ -3784,7 +3818,7 @@ public final class L2PcInstance extends L2PlayableInstance
     
     private void onDieDropItem(L2Character killer)
     {
-        if (atEvent || (TvT._started && _inEventTvT) || (CTF._started && _inEventCTF) || killer == null)
+        if (atEvent || (TvT._started && _inEventTvT) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) || killer == null)
         return;
 
         if (getKarma() <= 0 && killer instanceof L2PcInstance
@@ -3963,14 +3997,14 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 if (Config.KARMA_AWARD_PK_KILL)
                 {
-                    if (!_inEventTvT)
+                    if (!_inEventTvT && !_inEventVIP)
                         increasePvpKills();
                 }
             }
             else
             // Target player doesn't have karma
             {
-                if (!_inEventTvT)
+                if (!_inEventTvT && !_inEventVIP)
                     increasePkKillsAndKarma(targetPlayer.getLevel());
             }
         }
@@ -4067,7 +4101,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void updatePvPStatus()
     {
-        if ((TvT._started && _inEventTvT) || (CTF._started && _inEventCTF))
+        if ((TvT._started && _inEventTvT) || (CTF._started && _inEventCTF) || (_inEventVIP && VIP._started))
             return;
 
         if (getPvpFlag() == 0) startPvPFlag();
@@ -4128,7 +4162,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // Calculate the Experience loss
         long lostExp = 0;
-        if (!atEvent && !_inEventTvT && !_inEventCTF)
+        if (!atEvent && !_inEventTvT && !_inEventCTF && (!_inEventVIP && !VIP._started))
         {
             if (lvl < Experience.MAX_LEVEL) 
                 lostExp = Math.round((getStat().getExpForLevel(lvl+1) - getStat().getExpForLevel(lvl)) * percentLost /100);
@@ -6669,7 +6703,7 @@ public final class L2PcInstance extends L2PlayableInstance
         // Check if this is offensive magic skill
         if (skill.isOffensive())
         {
-            if ((isInsidePeaceZone(this, target)) && (getAccessLevel() < Config.GM_PEACEATTACK))
+            if ((isInsidePeaceZone(this, target)) && (getAccessLevel() < Config.GM_PEACEATTACK) && !(_inEventVIP && VIP._started))
             {
                 // If L2Character or target is in a peace zone, send a system message TARGET_IN_PEACEZONE a Server->Client packet ActionFailed
                 sendPacket(new SystemMessage(SystemMessage.TARGET_IN_PEACEZONE));
@@ -6686,7 +6720,7 @@ public final class L2PcInstance extends L2PlayableInstance
             }
 
             // Check if a Forced ATTACK is in progress on non-attackable target
-            if (!target.isAutoAttackable(this) && !forceUse && !(_inEventTvT && TvT._started) && !(_inEventCTF && CTF._started) &&
+            if (!target.isAutoAttackable(this) && !forceUse && !(_inEventTvT && TvT._started) && !(_inEventCTF && CTF._started) && !(_inEventVIP && VIP._started) &&
                    sklTargetType != SkillTargetType.TARGET_AURA &&
                    sklTargetType != SkillTargetType.TARGET_CLAN &&
                    sklTargetType != SkillTargetType.TARGET_ALLY &&
@@ -6874,7 +6908,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public boolean checkPvpSkill(L2Object target, L2Skill skill)
     {
-        if ((_inEventTvT && TvT._started) || (_inEventCTF && CTF._started))
+        if ((_inEventTvT && TvT._started) || (_inEventCTF && CTF._started) || (_inEventVIP && VIP._started))
             return true;
         
         // check for PC->PC Pvp status

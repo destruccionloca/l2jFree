@@ -34,6 +34,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.TvT;
+import net.sf.l2j.gameserver.model.entity.VIP;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
 import org.apache.commons.logging.Log;
@@ -107,7 +108,16 @@ public class RequestBypassToServer extends ClientBasePacket
                 {
                     L2Object object = L2World.getInstance().findObject(Integer.parseInt(id));
                     if (_command.substring(endOfId+1).startsWith("event_participate")) L2Event.inscribePlayer(activeChar);
+
+                    if (_command.substring(endOfId+1).startsWith("vip_joinVIPTeam"))
+                        VIP.addPlayerVIP(activeChar);
                    
+                    if (_command.substring(endOfId+1).startsWith("vip_joinNotVIPTeam"))
+                        VIP.addPlayerNotVIP(activeChar);
+                   
+                    if (_command.substring(endOfId+1).startsWith("vip_finishVIP"))
+                        VIP.vipWin(activeChar);
+
                     if (_command.substring(endOfId+1).startsWith("tvt_player_join "))
                     {
                         String teamName = _command.substring(endOfId+1).substring(16);
