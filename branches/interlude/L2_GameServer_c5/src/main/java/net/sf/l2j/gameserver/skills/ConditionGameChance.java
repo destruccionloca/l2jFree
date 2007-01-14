@@ -28,7 +28,7 @@ public class ConditionGameChance extends Condition
 {
     final int _chance;
     
-    ConditionGameChance(int chance)
+    public ConditionGameChance(int chance)
     {
         _chance = chance;
     }

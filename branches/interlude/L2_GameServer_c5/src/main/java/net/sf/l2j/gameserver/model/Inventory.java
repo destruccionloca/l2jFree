@@ -32,9 +32,11 @@ import net.sf.l2j.gameserver.model.L2ArmorSet;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2EtcItem;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
 import net.sf.l2j.gameserver.templates.L2Item;
+import net.sf.l2j.gameserver.templates.L2Weapon;
 
 /**
  * This class manages inventory
@@ -182,6 +184,70 @@ public abstract class Inventory extends ItemContainer
         }
     }
 
+    final class ItemPassiveSkillsListener implements PaperdollListener
+    {
+       public void notifyUnequiped(int slot, L2ItemInstance item)
+       {
+           L2PcInstance player;
+           
+           if(getOwner() instanceof L2PcInstance)
+           {
+               player = (L2PcInstance)getOwner();
+           }
+           else 
+               return;
+           
+           L2Skill passiveSkill = null;
+           L2Skill enchant4Skill = null;
+           
+           L2Item it = item.getItem();
+           
+           if(it instanceof L2Weapon)
+           {
+               passiveSkill = ((L2Weapon)it).getSkill();
+               enchant4Skill= ((L2Weapon)it).getEnchant4Skill();
+           }
+           else if(it instanceof L2Armor)
+               passiveSkill = ((L2Armor)it).getSkill();
+
+           if(passiveSkill != null)
+               player.removeSkill(passiveSkill, false);
+           if(enchant4Skill != null)
+               player.removeSkill(enchant4Skill, false);
+       }
+       public void notifyEquiped(int slot, L2ItemInstance item)
+       {
+           L2PcInstance player;
+           
+           if(getOwner() instanceof L2PcInstance)
+           {
+               player = (L2PcInstance)getOwner();
+           }
+           else 
+               return;
+           
+           L2Skill passiveSkill = null;
+           L2Skill enchant4Skill = null;
+           
+           L2Item it = item.getItem();
+           
+           if(it instanceof L2Weapon)
+           {
+               passiveSkill = ((L2Weapon)it).getSkill();
+               
+               if(item.getEnchantLevel() >= 4)
+                   enchant4Skill= ((L2Weapon)it).getEnchant4Skill();
+           }
+           else if(it instanceof L2Armor)
+               passiveSkill = ((L2Armor)it).getSkill();
+
+           if(passiveSkill != null)
+               player.addSkill(passiveSkill, false);
+           if(enchant4Skill != null)
+               player.addSkill(enchant4Skill, false);
+
+       }
+    }
     final class ArmorSetListener implements PaperdollListener
     {
        public void notifyEquiped(int slot, L2ItemInstance item)
@@ -220,6 +286,18 @@ public abstract class Inventory extends ItemContainer
                        else
                            _log.warn("Inventory.ArmorSetListener: Incorrect skill: "+armorSet.getShieldSkillId()+".");
                    }
+                   if(armorSet.isEnchanted6(player)) // has all parts of set enchanted to 6 or more
+                   {
+                       int skillId = armorSet.getEnchant6skillId();
+                       if(skillId > 0)
+                       {
+                           L2Skill skille = SkillTable.getInstance().getInfo(skillId,1);
+                           if(skille != null)
+                               player.addSkill(skille, false);
+                           else
+                               _log.warn("Inventory.ArmorSetListener: Incorrect skill: "+armorSet.getEnchant6skillId()+".");
+                       }
+                   }
                }
            }
            else if (armorSet.containShield(item.getItemId()))
@@ -237,8 +315,9 @@ public abstract class Inventory extends ItemContainer
        public void notifyUnequiped(int slot, L2ItemInstance item)
        {
            boolean remove = false;
-           int removeSkillId1 = 0;
-           int removeSkillId2 = 0;
+           int removeSkillId1 = 0; // set skill
+           int removeSkillId2 = 0; // shield skill
+           int removeSkillId3 = 0; // enchant +6 skill
            
            if(slot == PAPERDOLL_CHEST)
            {
@@ -249,6 +328,7 @@ public abstract class Inventory extends ItemContainer
                remove = true;
                removeSkillId1 = armorSet.getSkillId();
                removeSkillId2 = armorSet.getShieldSkillId();
+               removeSkillId3 = armorSet.getEnchant6skillId();
                
            }
            else
@@ -266,6 +346,7 @@ public abstract class Inventory extends ItemContainer
                    remove = true;
                    removeSkillId1 = armorSet.getSkillId();
                    removeSkillId2 = armorSet.getShieldSkillId();
+                   removeSkillId3 = armorSet.getEnchant6skillId();
                }
                else if(armorSet.containShield(item.getItemId())) // removed shield
                {
@@ -284,13 +365,21 @@ public abstract class Inventory extends ItemContainer
                    else
                        _log.warn("Inventory.ArmorSetListener: Incorrect skill: "+removeSkillId1+".");
                }
-               if(removeSkillId2 != 0)
+              if(removeSkillId2 != 0)
                {
                    L2Skill skill = SkillTable.getInstance().getInfo(removeSkillId2,1);
                    if(skill != null)
                     ((L2PcInstance)getOwner()).removeSkill(skill);
                    else
                        _log.warn("Inventory.ArmorSetListener: Incorrect skill: "+removeSkillId2+".");
+               }
+               if(removeSkillId3 != 0)
+               {
+                   L2Skill skill = SkillTable.getInstance().getInfo(removeSkillId3,1);
+                   if(skill != null)
+                    ((L2PcInstance)getOwner()).removeSkill(skill);
+                   else
+                       _log.warn("Inventory.ArmorSetListener: Incorrect skill: "+removeSkillId3+".");
                }
 
            }
@@ -340,6 +429,7 @@ public abstract class Inventory extends ItemContainer
         _paperdollListeners = new FastList<PaperdollListener>();
         addPaperdollListener(new AmmunationListener());
         addPaperdollListener(new StatsListener());
+        addPaperdollListener(new ItemPassiveSkillsListener());
         addPaperdollListener(new ArmorSetListener());        
         addPaperdollListener(new FormalWearListener());
     }
