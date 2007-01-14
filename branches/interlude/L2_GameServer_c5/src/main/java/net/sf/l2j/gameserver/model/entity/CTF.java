@@ -974,17 +974,6 @@ public class CTF
         
         for (String team : _teams)
             System.out.println(team);
-
-        System.out.println("");
-        System.out.println("#########################################");
-        System.out.println("# _playersShuffle(Vector<L2PcInstance>) #");
-        System.out.println("#########################################");
-        
-        for (L2PcInstance player : _players)
-        {
-            if (player != null)
-                System.out.println("Name: " + player.getName());
-        }
         
         System.out.println("");
         System.out.println("##################################");

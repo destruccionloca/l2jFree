@@ -546,7 +546,8 @@ public class TvT
     
         for (L2PcInstance player : _players)
         {
-            System.out.println("Name: " + player.getName() + "    Team: " + player._teamNameTvT);
+            if (player != null)
+                System.out.println("Name: " + player.getName() + "    Team: " + player._teamNameTvT);
         }
         
         System.out.println("");
@@ -578,7 +579,7 @@ public class TvT
 
             if (!_started && !_joining && !_teleport)
                 replyMSG.append("<center>Wait till the admin/gm start the participation.</center>");
-            else if (!_started && _joining && eventPlayer.getLevel()>=_minlvl && eventPlayer.getLevel()<_maxlvl)
+            else if (!_teleport && !_started && _joining && eventPlayer.getLevel()>=_minlvl && eventPlayer.getLevel()<_maxlvl)
             {
                 if (_players.contains(eventPlayer))
                 {
