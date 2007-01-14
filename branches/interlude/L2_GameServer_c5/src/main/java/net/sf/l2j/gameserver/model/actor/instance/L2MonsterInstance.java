@@ -45,75 +45,77 @@ import net.sf.l2j.gameserver.util.MinionList;
  */
 public class L2MonsterInstance extends L2Attackable
 {
-	//private final static Log _log = LogFactory.getLog(L2MonsterInstance.class.getName());
+    //private static Logger _log = Logger.getLogger(L2MonsterInstance.class.getName());
     
     protected final MinionList minionList;
     
     @SuppressWarnings("unused")
-    private ScheduledFuture minionMaintainTask = null; 
+    private ScheduledFuture minionMaintainTask = null;
     
-    private static final int MONSTER_MAINTENANCE_INTERVAL = 1000; 
+    private static final int MONSTER_MAINTENANCE_INTERVAL = 1000;
     private Future _SocialTask;
-	
-	/**
-	 * Constructor of L2MonsterInstance (use L2Character and L2NpcInstance constructor).<BR><BR>
-	 *  
-	 * <B><U> Actions</U> :</B><BR><BR>
-	 * <li>Call the L2Character constructor to set the _template of the L2MonsterInstance (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR) </li>
-	 * <li>Set the name of the L2MonsterInstance</li>
-	 * <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it </li><BR><BR>
-	 * 
-	 * @param objectId Identifier of the object to initialized
-	 * @param L2NpcTemplate Template to apply to the NPC
-	 */
-	public L2MonsterInstance(int objectId, L2NpcTemplate template)
-	{
-		super(objectId, template);
+    
+    /**
+     * Constructor of L2MonsterInstance (use L2Character and L2NpcInstance constructor).<BR><BR>
+     *  
+     * <B><U> Actions</U> :</B><BR><BR>
+     * <li>Call the L2Character constructor to set the _template of the L2MonsterInstance (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR) </li>
+     * <li>Set the name of the L2MonsterInstance</li>
+     * <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it </li><BR><BR>
+     * 
+     * @param objectId Identifier of the object to initialized
+     * @param L2NpcTemplate Template to apply to the NPC
+     */
+    public L2MonsterInstance(int objectId, L2NpcTemplate template)
+    {
+        super(objectId, template);
         super.setKnownList(new MonsterKnownList(new L2MonsterInstance[] {this}));
         minionList  = new MinionList(this);
-	}	
+    }   
 
     public final MonsterKnownList getKnownList() { return (MonsterKnownList)super.getKnownList(); }
-		
-	/**
-	 * Return True if the attacker is not another L2MonsterInstance.<BR><BR>
-	 */
-	public boolean isAutoAttackable(L2Character attacker) 
-	{
-		if (attacker instanceof L2MonsterInstance)
-			return false;
-		
-		return !isEventMob;
-	}
-	
-	/**
-	 * Return True if the L2MonsterInstance is Agressive (aggroRange > 0).<BR><BR>
-	 */
-	public boolean isAggressive()
-	{
-		return (getTemplate().aggroRange > 0) && !this.isEventMob;
-	}
-
-	/**
-	 * Return False.<BR><BR>
-	 */
-	public boolean hasRandomAnimation()
-	{
-		return false;
-	}
+        
+    /**
+     * Return True if the attacker is not another L2MonsterInstance.<BR><BR>
+     */
+    public boolean isAutoAttackable(L2Character attacker) 
+    {
+        if (attacker instanceof L2MonsterInstance)
+            return false;
+        
+        return !isEventMob;
+    }
     
-	public void OnSpawn()
-	{
+    /**
+     * Return True if the L2MonsterInstance is Agressive (aggroRange > 0).<BR><BR>
+     */
+    public boolean isAggressive()
+    {
+        return (getTemplate().aggroRange > 0) && !this.isEventMob;
+    }
+
+    /**
+     * Return False.<BR><BR>
+     */
+    public boolean hasRandomAnimation()
+    {
+        return false;
+    }
+    
+    public void OnSpawn()
+    {
         super.OnSpawn();
         
         if (getTemplate().getMinionData() != null)
-    		try
-    		{
+            try
+            {
                 for (L2MinionInstance minion : getSpawnedMinions())
                 {
                     if (minion == null) continue;
                     getSpawnedMinions().remove(minion);
+                    minion.deleteMe();
                 }
+                minionList.clearRespawnList();
                 
                 if(this instanceof L2RaidBossInstance) // respawn minions
                 {
@@ -121,56 +123,54 @@ public class L2MonsterInstance extends L2Attackable
                     minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Runnable() {
                         public void run()
                         {
-                           // teleport raid boss home if it's too far from home location
-                           L2Spawn bossSpawn = getSpawn();
-                           if(!isInsideRadius(bossSpawn.getLocx(),bossSpawn.getLocy(),bossSpawn.getLocz(), 5000, true, false))
-                               teleToLocation(bossSpawn.getLocx(),bossSpawn.getLocy(),bossSpawn.getLocz());
-                           minionList.spawnMinions();
+                            // teleport raid boss home if it's too far from home location
+                            L2Spawn bossSpawn = getSpawn();
+                            if(!isInsideRadius(bossSpawn.getLocx(),bossSpawn.getLocy(),bossSpawn.getLocz(), 5000, true, false))
+                                teleToLocation(bossSpawn.getLocx(),bossSpawn.getLocy(),bossSpawn.getLocz(), true);
+                            minionList.maintainMinions();
                         }
                     }, 60000, getMaintenanceInterval()+Rnd.get(5000));
                 }
                 else minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
                     public void run()
                     {
-                        minionList.maintainMinions();
+                        minionList.spawnMinions();
                     }
                 }, getMaintenanceInterval());
-    		}
-        catch ( NullPointerException e )
-        {
-        }
-        
-                    
-        /*
-         * used for npc social actions
-         */
-        switch (getTemplate().npcId)
-        {
-            case 29020://Baium
-            {
-                Earthquake eq = new Earthquake(this.getX(),this.getY(),this.getZ(),30,10);
-                broadcastPacket(eq);
-                SocialAction sa = new SocialAction(getObjectId(),2);
-                broadcastPacket(sa);
-                _SocialTask = ThreadPoolManager.getInstance().scheduleEffect(new Social(12372), 15000);
-                return;
-                    }
-            case 29028://Valakas
-            {
-                SocialAction sa = new SocialAction(getObjectId(),3);
-                broadcastPacket(sa);
-                _SocialTask = ThreadPoolManager.getInstance().scheduleEffect(new Social(12899), 26000);
-                return;
             }
-            case 29019://Antharas
+            catch ( NullPointerException e )
             {
-                SocialAction sa = new SocialAction(getObjectId(),3);
-                broadcastPacket(sa);
-                _SocialTask = ThreadPoolManager.getInstance().scheduleEffect(new Social(12211), 15000);
-                return;
-            }                
-        }
-	}
+            }
+            /*
+             * used for npc social actions
+             */
+            switch (getTemplate().npcId)
+            {
+                case 29020://Baium
+                {
+                    Earthquake eq = new Earthquake(this.getX(),this.getY(),this.getZ(),30,10);
+                    broadcastPacket(eq);
+                    SocialAction sa = new SocialAction(getObjectId(),2);
+                    broadcastPacket(sa);
+                    _SocialTask = ThreadPoolManager.getInstance().scheduleEffect(new Social(12372), 15000);
+                    return;
+                        }
+                case 29028://Valakas
+                {
+                    SocialAction sa = new SocialAction(getObjectId(),3);
+                    broadcastPacket(sa);
+                    _SocialTask = ThreadPoolManager.getInstance().scheduleEffect(new Social(12899), 26000);
+                    return;
+                }
+                case 29019://Antharas
+                {
+                    SocialAction sa = new SocialAction(getObjectId(),3);
+                    broadcastPacket(sa);
+                    _SocialTask = ThreadPoolManager.getInstance().scheduleEffect(new Social(12211), 15000);
+                    return;
+                }                
+            }
+    }
     
     protected int getMaintenanceInterval() { return MONSTER_MAINTENANCE_INTERVAL; }
     
@@ -224,58 +224,18 @@ public class L2MonsterInstance extends L2Attackable
                     if (minion != null && !minion.isDead())
                     {
                         if(this instanceof L2RaidBossInstance)
-                           minion.addDamage(attacker, 100);
+                            minion.addDamage(attacker, 100);
                         else minion.addDamage(attacker, 1);
                     }
                 }
             }
         }
     }
-
-    private class Social implements Runnable
-    {
-        private int _bossid;
-        Social(int bossid)
-        {
-          _bossid=bossid;
-            // run task
-        }
     
-        public void run()
-        {
-            switch (_bossid)
-            {
-                case 12372://Baium
-                {
-                    SocialAction sa = new SocialAction(getObjectId(),3);
-                    broadcastPacket(sa);
-                    return;
-                }
-                case 12899://Valakas
-                {
-                    SocialAction sa = new SocialAction(getObjectId(),2);
-                    broadcastPacket(sa);
-                    return;
-                }
-                case 12211://Antharas
-                {
-                    SocialAction sa = new SocialAction(getObjectId(),2);
-                    broadcastPacket(sa);
-                    return;
-                }
-            }
-    
-        }
-    } 
-
     public void doDie(L2Character killer) 
     {
         if (minionMaintainTask != null)
             minionMaintainTask.cancel(true); // doesn't do it?
-
-        if (killer instanceof L2PcInstance)
-           if (((L2PcInstance)killer).getStatTrack() != null)
-               ((L2PcInstance)killer).getStatTrack().increaseMonsterKills();
         
         super.doDie(killer);
     }
@@ -317,7 +277,7 @@ public class L2MonsterInstance extends L2Attackable
             super.addDamageHate(attacker, damage, aggro);
         }
     }
-   
+    
     public void deleteMe()
     {
         if (hasMinions())
@@ -332,7 +292,44 @@ public class L2MonsterInstance extends L2Attackable
                 
                 getSpawnedMinions().remove(minion);
             }
+            minionList.clearRespawnList();
         }
         super.deleteMe();
     }
+
+    private class Social implements Runnable
+    {
+        private int _bossid;
+        Social(int bossid)
+        {
+          _bossid=bossid;
+            // run task
+        }
+    
+        public void run()
+        {
+            switch (_bossid)
+            {
+                case 12372://Baium
+                {
+                    SocialAction sa = new SocialAction(getObjectId(),3);
+                    broadcastPacket(sa);
+                    return;
+                }
+                case 12899://Valakas
+                {
+                    SocialAction sa = new SocialAction(getObjectId(),2);
+                    broadcastPacket(sa);
+                    return;
+                }
+                case 12211://Antharas
+                {
+                    SocialAction sa = new SocialAction(getObjectId(),2);
+                    broadcastPacket(sa);
+                    return;
+                }
+            }
+    
+        }
+    } 
 }
