@@ -237,6 +237,10 @@ public class L2MonsterInstance extends L2Attackable
         if (minionMaintainTask != null)
             minionMaintainTask.cancel(true); // doesn't do it?
         
+        if (killer instanceof L2PcInstance) 
+            if (((L2PcInstance)killer).getStatTrack() != null) 
+                ((L2PcInstance)killer).getStatTrack().increaseMonsterKills(); 
+
         super.doDie(killer);
     }
     
