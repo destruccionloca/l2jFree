@@ -53,7 +53,7 @@ import org.apache.commons.logging.LogFactory;
 
 
 public class TvT
-{
+{  
     private final static Log _log = LogFactory.getLog(TvT.class.getName());
     
     public static String _eventName = new String(),
@@ -82,10 +82,12 @@ public class TvT
                       _npcHeading = 0,
                       _rewardId = 0,
                       _rewardAmount = 0,
-                      _topKills = 0;
+                      _topKills = 0,
+                      _minlvl = 0,
+                      _maxlvl = 0;
 
     public static void setNpcPos(L2PcInstance activeChar)
-    {       
+    {
         _npcX = activeChar.getX();
         _npcY = activeChar.getY();
         _npcZ = activeChar.getZ();
@@ -96,7 +98,7 @@ public class TvT
     {
         if (!checkTeamOk())
         {
-            System.out.println("TvT Engine[addTeam(" + teamName + ")]: checkTeamOk() == false");
+            System.out.println("TvT Engine[addTeam(" + teamName + ")]: checkTeamOk() = false");
             return;
         }
         
@@ -112,11 +114,27 @@ public class TvT
         _teamsZ.add(0);
     }
     
+    public static boolean checkMaxLevel(int maxlvl)
+    {
+        if (_minlvl >= maxlvl)
+            return false;
+        
+        return true;
+    }
+    
+    public static boolean checkMinLevel(int minlvl)
+    {
+        if (_maxlvl <= minlvl)
+            return false;
+        
+        return true;
+    }
+    
     public static void removeTeam(String teamName)
     {
         if (!checkTeamOk() || _teams.isEmpty())
         {
-            System.out.println("TvT Engine[removeTeam(" + teamName + ")]: checkTeamOk() == false");
+            System.out.println("TvT Engine[removeTeam(" + teamName + ")]: checkTeamOk() = false");
             return;
         }
         
@@ -147,7 +165,7 @@ public class TvT
             System.out.println("TvT Engine[addTeam(" + teamName + ")]: checkTeamOk() == false");
             return;
         }
-
+        
         int index = _teams.indexOf(teamName);
         
         if (index == -1)
@@ -201,8 +219,8 @@ public class TvT
             _joiningLocationName.equals("") || _eventDesc.equals("") || _npcId == 0 ||
             _npcX == 0 || _npcY == 0 || _npcZ == 0 || _rewardId == 0 || _rewardAmount == 0 ||
             _teamsX.contains(0) || _teamsY.contains(0) || _teamsZ.contains(0))
-                return false;
-
+            return false;
+        
         return true;
     }
     
@@ -254,7 +272,7 @@ public class TvT
         ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
                                                        {
                                                            public void run()
-                                                           {   
+                                                           {
                                                                TvT.sit();
                                                                
                                                                for (L2PcInstance player : TvT._players)
@@ -264,7 +282,7 @@ public class TvT
                                                                        if (Config.CTF_ON_START_UNSUMMON_PET)
                                                                        {
                                                                            L2Summon s = player.getPet();
-                                                                       
+                                                                           
                                                                            if (s != null)
                                                                                s.unSummon(player);
                                                                        }
@@ -277,7 +295,7 @@ public class TvT
                                                                                    e.exit();
                                                                            }
                                                                        }
-                                                                       
+
                                                                        player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams.indexOf(player._teamNameTvT)), false);
                                                                    }
                                                                }
@@ -285,7 +303,7 @@ public class TvT
                                                        }, 20000);
         _teleport = true;
     }
-
+    
     private static boolean startTeleportOk()
     {
         if (!_joining || _teamPlayersCount.contains(0))
@@ -305,7 +323,7 @@ public class TvT
         _teleport = false;
         sit();
         Announcements.getInstance().announceToAll(_eventName + "(TvT): Started. Go to kill your enemies!");
-        _started = true;
+        _started = true;    
     }
     
     public static void abortEvent()
@@ -333,7 +351,7 @@ public class TvT
             player.broadcastUserInfo();
         }
     }
-    
+
     public static void finishEvent(L2PcInstance activeChar)
     {       
         if (!finishEventOk())
@@ -353,18 +371,18 @@ public class TvT
             Announcements.getInstance().announceToAll(_eventName + "(TvT): " + _topTeam + " win the match! " + _topKills + " kills.");
             rewardTeam(activeChar, _topTeam);
         }
-        
+    
         teleportFinish();
     }
-    
+
     private static boolean finishEventOk()
     {
         if (!_started)
             return false;
-        
+    
         return true;
     }
-    
+
     public static void processTopTeam()
     {
         for (String team : _teams)
@@ -376,7 +394,7 @@ public class TvT
             }
         }
     }
-    
+
     public static void rewardTeam(L2PcInstance activeChar, String teamName)
     {
         for (L2PcInstance player : _players)
@@ -387,7 +405,7 @@ public class TvT
             if (player._teamNameTvT.equals(teamName))
             {
                 PcInventory inv = player.getInventory();
-                
+            
                 if (ItemTable.getInstance().createDummyItem(_rewardId).isStackable())
                     inv.addItem("TvT Event: " + _eventName, _rewardId, _rewardAmount, player, activeChar.getTarget());
                 else
@@ -395,7 +413,7 @@ public class TvT
                     for (int i=0;i<=_rewardAmount-1;i++)
                         inv.addItem("TvT Event: " + _eventName, _rewardId, 1, player, activeChar.getTarget());
                 }
-                
+            
                 SystemMessage sm;
 
                 if (_rewardAmount > 1)
@@ -411,11 +429,11 @@ public class TvT
                     sm.addItemName(_rewardId);
                     player.sendPacket(sm);
                 }
-                
+            
                 StatusUpdate su = new StatusUpdate(player.getObjectId());
                 su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
                 player.sendPacket(su);
-
+                
                 NpcHtmlMessage nhm = new NpcHtmlMessage(0);
                 TextBuilder replyMSG = new TextBuilder("");
 
@@ -426,7 +444,7 @@ public class TvT
             }
         }
     }
-
+    
     public static void sit()
     {
         if (_sitForced)
@@ -438,13 +456,13 @@ public class TvT
         {
             if (player == null)
                 continue;
-
+            
             if (_sitForced)
             {
                 player.stopMove(null, false);
                 player.abortAttack();
                 player.abortCast();
-
+                
                 if (!player.isSitting())
                     player.sitDown();
             }
@@ -454,13 +472,37 @@ public class TvT
                     player.standUp();
             }
         }
+        for (L2PcInstance player : _players)
+        {
+            //Remove Buffs
+            for (L2Effect e : player.getAllEffects())
+                e.exit();
+
+            //Remove Summon's buffs
+            if (player.getPet() != null)
+            {
+                L2Summon summon = player.getPet();
+                for (L2Effect e : summon.getAllEffects())
+                    e.exit();
+
+                if (summon instanceof L2PetInstance)
+                    summon.unSummon(player);
+            }
+
+            //Remove player from his party
+            if (player.getParty() != null)
+            {
+                L2Party party = player.getParty();
+                party.removePartyMember(player);
+            }
+        }
     }
-    
+
     public static void dumpData()
     {
         System.out.println("");
         System.out.println("");
-        
+    
         if (!_joining && !_teleport && !_started)
         {
             System.out.println("<<---------------------------------->>");
@@ -493,7 +535,7 @@ public class TvT
         System.out.println("##########################");
         System.out.println("# _teams(Vector<String>) #");
         System.out.println("##########################");
-        
+    
         for (String team : _teams)
             System.out.println(team);
 
@@ -501,11 +543,10 @@ public class TvT
         System.out.println("##################################");
         System.out.println("# _players(Vector<L2PcInstance>) #");
         System.out.println("##################################");
-        
+    
         for (L2PcInstance player : _players)
         {
-            if (player != null)
-                System.out.println("Name: " + player.getName() + "    Team: " + player._teamNameTvT);
+            System.out.println("Name: " + player.getName() + "    Team: " + player._teamNameTvT);
         }
         
         System.out.println("");
@@ -537,7 +578,7 @@ public class TvT
 
             if (!_started && !_joining && !_teleport)
                 replyMSG.append("<center>Wait till the admin/gm start the participation.</center>");
-            else if (!_teleport && !_started && _joining)
+            else if (!_started && _joining && eventPlayer.getLevel()>=_minlvl && eventPlayer.getLevel()<_maxlvl)
             {
                 if (_players.contains(eventPlayer))
                 {
@@ -551,6 +592,8 @@ public class TvT
                 else
                 {
                     replyMSG.append("You want to participate in the event?<br><br>");
+                    replyMSG.append("<td width=\"200\">Admin set min lvl : <font color=\"00FF00\">" + _minlvl + "</font></td><br>");
+                    replyMSG.append("<td width=\"200\">Admin set max lvl : <font color=\"00FF00\">" + _maxlvl + "</font></td><br><br>");
                     replyMSG.append("<center><table border=\"0\">");
                     
                     for (String team : _teams)
@@ -564,6 +607,13 @@ public class TvT
             }
             else if (_started && !_joining && !_teleport)
                 replyMSG.append("<center>TvT match is in progress.</center>");
+            else if (eventPlayer.getLevel()<_minlvl || eventPlayer.getLevel()>_maxlvl )
+            {
+                replyMSG.append("Your lvl : <font color=\"00FF00\">" + eventPlayer.getLevel() +"</font><br>");
+                replyMSG.append("Admin set min lvl : <font color=\"00FF00\">" + _minlvl + "</font><br>");
+                replyMSG.append("Admin set max lvl : <font color=\"00FF00\">" + _maxlvl + "</font><br><br>");
+                replyMSG.append("<font color=\"FFFF00\">You can't participate to this event.</font><br>");
+            }
             
             replyMSG.append("</body></html>");
             adminReply.setHtml(replyMSG.toString());
@@ -589,7 +639,7 @@ public class TvT
         _players.add(player);
         setTeamPlayersCount(teamName, teamPlayersCount(teamName)+1);
         _savePlayers.add(player.getName());
-        _savePlayerTeams.add(teamName);
+        _savePlayerTeams.add(teamName);        
         player._originalNameColorTvT = player.getNameColor();
         player._originalKarmaTvT = player.getKarma();
         player._inEventTvT = true;
@@ -599,7 +649,7 @@ public class TvT
     {
         if (CTF._savePlayers.contains(eventPlayer.getName()))
             return "You already participated in another event!";
-        
+
         boolean allTeamsEqual = true;
         int countBefore = -1;
         
@@ -607,7 +657,7 @@ public class TvT
         {
             if (countBefore == -1)
                 countBefore = playersCount;
-            
+
             if (countBefore != playersCount)
             {
                 allTeamsEqual = false;
@@ -627,7 +677,7 @@ public class TvT
             if (teamPlayerCount < countBefore)
                 countBefore = teamPlayerCount;
         }
-
+        
         Vector<String> joinableTeams = new Vector<String>();
         
         for (String team : _teams)
@@ -635,13 +685,13 @@ public class TvT
             if (teamPlayersCount(team) == countBefore)
                 joinableTeams.add(team);
         }
-        
+
         if (joinableTeams.contains(teamName))
             return null;
 
         return "To many players in team " + teamName + "!";
     }
-    
+
     public static synchronized void addDisconnectedPlayer(L2PcInstance player)
     {
         player._teamNameTvT = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
@@ -649,7 +699,7 @@ public class TvT
         player._originalNameColorTvT = player.getNameColor();
         player._originalKarmaTvT = player.getKarma();
         player._inEventTvT = true;
-
+        
         if (_teleport || _started)
         {
             player.setNameColor(_teamColors.get(_teams.indexOf(player._teamNameTvT)));
@@ -660,7 +710,7 @@ public class TvT
                 player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams.indexOf(player._teamNameTvT)), false);
         }
     }
-    
+ 
     public static synchronized void removePlayer(L2PcInstance player)
     {
         if (!_players.contains(player))
@@ -672,7 +722,7 @@ public class TvT
         player._inEventTvT = false;
     }
     
-    private static void clean()
+    public static void clean()
     {
         for (String team : _teams)
         {
@@ -686,7 +736,7 @@ public class TvT
         {
             if (player == null)
                 continue;
-
+            
             player.setNameColor(player._originalNameColorTvT);
             player.setKarma(player._originalKarmaTvT);
             player.broadcastUserInfo();
@@ -699,6 +749,7 @@ public class TvT
         _players = new Vector<L2PcInstance>();
         _savePlayers = new Vector<String>();
         _savePlayerTeams = new Vector<String>();
+
     }
     
     public static void unspawnEventNpc()
@@ -718,13 +769,13 @@ public class TvT
         ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
                                                        {
                                                             public void run()
-                                                            {
+                                                            {                                                                
                                                                 for (L2PcInstance player : _players)
                                                                 {
                                                                     if (player !=  null)
                                                                         player.teleToLocation(_npcX, _npcY, _npcZ, false);
                                                                 }
-                                                                
+
                                                                 TvT.clean();
                                                             }
                                                        }, 20000);

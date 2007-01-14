@@ -26,6 +26,7 @@
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import javolution.lang.TextBuilder;
+import net.sf.l2j.Config;
 
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -36,6 +37,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
 
  private static String[] _adminCommands = {"admin_tvt",
                                            "admin_tvt_name", "admin_tvt_desc", "admin_tvt_join_loc",
+                                           "admin_tvt_minlvl", "admin_tvt_maxlvl",
                                            "admin_tvt_npc", "admin_tvt_npc_pos",
                                            "admin_tvt_reward", "admin_tvt_reward_amount",
                                            "admin_tvt_team_add", "admin_tvt_team_remove", "admin_tvt_team_pos", "admin_tvt_team_color",
@@ -59,6 +61,20 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         else if (command.startsWith("admin_tvt_desc "))
         {
             TvT._eventDesc = command.substring(15);
+            showMainPage(activeChar);
+        }
+        else if (command.startsWith("admin_tvt_minlvl "))
+        {
+            if (!TvT.checkMinLevel(Integer.valueOf(command.substring(17))))
+                return false;
+            TvT._minlvl = Integer.valueOf(command.substring(17));
+            showMainPage(activeChar);
+        }
+        else if (command.startsWith("admin_tvt_maxlvl "))
+        {
+            if (!TvT.checkMaxLevel(Integer.valueOf(command.substring(17))))
+                return false;
+            TvT._maxlvl = Integer.valueOf(command.substring(17));
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_tvt_join_loc "))
@@ -139,6 +155,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         }
         else if(command.equals("admin_tvt_abort"))
         {
+            activeChar.sendMessage("Aborting event");
             TvT.abortEvent();
             showMainPage(activeChar);
         }
@@ -180,9 +197,13 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         replyMSG.append("<td width=\"100\"><button value=\"Description\" action=\"bypass -h admin_tvt_desc $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Join Location\" action=\"bypass -h admin_tvt_join_loc $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
+        replyMSG.append("</tr></table><br><table><tr>");
+        replyMSG.append("<td width=\"100\"><button value=\"Max lvl\" action=\"bypass -h admin_tvt_maxlvl $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Min lvl\" action=\"bypass -h admin_tvt_minlvl $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("</tr></table><br><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"NPC\" action=\"bypass -h admin_tvt_npc $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"NPC Pos\" action=\"bypass -h admin_tvt_npc_pos\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("</tr></table><table><tr>");
+        replyMSG.append("</tr></table><br><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Reward\" action=\"bypass -h admin_tvt_reward $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Reward Amount\" action=\"bypass -h admin_tvt_reward_amount $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
@@ -209,6 +230,8 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         replyMSG.append("    ... joining NPC ID:&nbsp;<font color=\"00FF00\">" + TvT._npcId + " on pos " + TvT._npcX + "," + TvT._npcY + "," + TvT._npcZ + "</font><br1>");
         replyMSG.append("    ... reward ID:&nbsp;<font color=\"00FF00\">" + TvT._rewardId + "</font><br1>");
         replyMSG.append("    ... reward Amount:&nbsp;<font color=\"00FF00\">" + TvT._rewardAmount + "</font><br><br>");
+        replyMSG.append("    ... Min lvl:&nbsp;<font color=\"00FF00\">" + TvT._minlvl + "</font><br>");
+        replyMSG.append("    ... Max lvl:&nbsp;<font color=\"00FF00\">" + TvT._maxlvl + "</font><br><br>");
         replyMSG.append("Current teams:<br1>");
         replyMSG.append("<center><table border=\"0\">");
         
@@ -226,6 +249,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         }
         
         replyMSG.append("</table></center>");
+        
         replyMSG.append("</body></html>");
         adminReply.setHtml(replyMSG.toString());
         activeChar.sendPacket(adminReply); 
