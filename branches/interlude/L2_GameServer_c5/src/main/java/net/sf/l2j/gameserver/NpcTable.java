@@ -68,6 +68,7 @@ public class NpcTable
         restoreNpcData();
     }
 
+
     private void restoreNpcData()
     {
         java.sql.Connection con = null;
@@ -200,7 +201,7 @@ public class NpcTable
             
             try 
             {
-                PreparedStatement statement2 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"mobId", "itemId", "min", "max", "sweep", "chance"}) + ", IFNULL(drop_category,1) AS drop_category FROM droplist LEFT JOIN etcitem ON itemId = item_id ORDER BY mobId DESC");
+                PreparedStatement statement2 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"mobId", "itemId", "min", "max", "category", "chance"}) + " FROM droplist ORDER BY mobId, chance DESC");
                 ResultSet dropData = statement2.executeQuery();
                 L2DropData dropDat = null;
                 L2NpcTemplate npcDat = null;
@@ -220,8 +221,8 @@ public class NpcTable
                     dropDat.setMinDrop(dropData.getInt("min"));
                     dropDat.setMaxDrop(dropData.getInt("max"));
                     dropDat.setChance(dropData.getInt("chance"));
+                    
                     int category = dropData.getInt("category");
-                    dropDat.setCategory(category);
                     
                     npcDat.addDropData(dropDat, category);
                 }
