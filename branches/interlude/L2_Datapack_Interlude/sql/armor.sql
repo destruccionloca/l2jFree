@@ -944,7 +944,6 @@ INSERT INTO `armor` VALUES ('8567', 'valakas_circlet', 'hair', 'false', 'none', 
 INSERT INTO `armor` VALUES ('8568', 'antaras_circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
 INSERT INTO `armor` VALUES ('8569', 'half_face', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
 
-  
 ALTER TABLE armor ADD item_skill_id decimal(11,0) NOT NULL default '0';
 ALTER TABLE armor ADD item_skill_lvl decimal(11,0) NOT NULL default '0';
 
@@ -957,4 +956,4 @@ UPDATE armor  SET item_skill_id = 3559, item_skill_lvl = 1 WHERE item_id = 6659;
 UPDATE armor  SET item_skill_id = 3562, item_skill_lvl = 1 WHERE item_id = 6660; -- Ring of ant queen
 UPDATE armor  SET item_skill_id = 3560, item_skill_lvl = 1 WHERE item_id = 6661; -- Earring of Orfen
 UPDATE armor  SET item_skill_id = 3563, item_skill_lvl = 1 WHERE item_id = 6662; -- Ring of core
-UPDATE armor  SET item_skill_id = 3604, item_skill_lvl = 1 WHERE item_id = 8191; -- Frintezza's Necklace  
+UPDATE armor  SET item_skill_id = 3604, item_skill_lvl = 1 WHERE item_id = 8191; -- Frintezza's Necklace
