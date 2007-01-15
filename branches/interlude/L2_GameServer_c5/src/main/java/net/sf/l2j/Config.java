@@ -993,7 +993,9 @@ public final class Config {
     /** Grid Options */
     public static boolean GRIDS_ALWAYS_ON;
     public static int GRID_NEIGHBOR_TURNON_TIME;
-    public static int GRID_NEIGHBOR_TURNOFF_TIME;    
+    public static int GRID_NEIGHBOR_TURNOFF_TIME;  
+    /** Extension Options */
+    public static String TVT_EVEN_TEAMS;
 
     public static boolean ENABLE_STATS;
     public static int STATS_UPDATE_TIME;
@@ -1924,6 +1926,7 @@ public final class Config {
 
 	        	extensionSettings.load(is);
 	        	is.close();
+                TVT_EVEN_TEAMS = extensionSettings.getProperty("TvTEvenTeams", "BALANCE");
 	        }
 	        catch (Exception e)
 	        {
@@ -2177,6 +2180,7 @@ public final class Config {
         else if (pName.equalsIgnoreCase("CTFOnStartRemoveAllEffects")) CTF_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("CTFOnStartUnsummonPet")) CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
         
+        else if (pName.equalsIgnoreCase("TvTEvenTeams"))  TVT_EVEN_TEAMS = pValue;
         else if (pName.equalsIgnoreCase("TvTAllowInterference")) TVT_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("TvTAllowPotions")) TVT_ALLOW_POTIONS = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("TvTAllowSummon")) TVT_ALLOW_SUMMON = Boolean.parseBoolean(pValue);

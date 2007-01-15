@@ -238,7 +238,15 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         for (String team : TvT._teams)
         {
             replyMSG.append("<tr><td>Name: </td><td width=\"100\"><font color=\"LEVEL\">" + team + "</font>");
-            replyMSG.append("&nbsp;(" + TvT.teamPlayersCount(team) + " joined)");
+            
+            if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
+                replyMSG.append("&nbsp;(" + TvT.teamPlayersCount(team) + " joined)");
+            else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
+            {
+                if (TvT._teleport || TvT._started)
+                    replyMSG.append("&nbsp;(" + TvT.teamPlayersCount(team) + " in)");
+            }
+            
             replyMSG.append("</td></tr>");
             replyMSG.append("<tr><td>Color: </td>");
             replyMSG.append("<td>" + TvT._teamColors.get(TvT._teams.indexOf(team)) + "</td></tr>");
@@ -249,6 +257,16 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         }
         
         replyMSG.append("</table></center>");
+        
+        if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
+        {
+            if (!TvT._started)
+            {
+                replyMSG.append("<br1>");
+                replyMSG.append(TvT._playersShuffle.size() + " players participating. Waiting to shuffle in teams(done on teleport)!");
+                replyMSG.append("<br><br>");
+            }
+        }
         
         replyMSG.append("</body></html>");
         adminReply.setHtml(replyMSG.toString());

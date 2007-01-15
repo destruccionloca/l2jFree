@@ -65,7 +65,8 @@ public class TvT
     public static Vector<String> _teams = new Vector<String>(),
                                  _savePlayers = new Vector<String>(),
                                  _savePlayerTeams = new Vector<String>();
-    public static Vector<L2PcInstance> _players = new Vector<L2PcInstance>();
+    public static Vector<L2PcInstance> _players = new Vector<L2PcInstance>(),  
+                                 _playersShuffle = new Vector<L2PcInstance>(); 
     public static Vector<Integer> _teamPlayersCount = new Vector<Integer>(),
                                   _teamKillsCount = new Vector<Integer>(),
                                   _teamColors = new Vector<Integer>(),
@@ -311,7 +312,56 @@ public class TvT
         if (!_joining || _teamPlayersCount.contains(0))
             return false;
         
+        if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
+        {
+            if (_teamPlayersCount.contains(0))
+                return false;
+        }
+        else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
+        {
+            Vector<L2PcInstance> playersShuffleTemp = new Vector<L2PcInstance>();
+            int loopCount = 0;
+            
+            loopCount = _playersShuffle.size();
+
+            for (int i=0;i<loopCount;i++)
+            {
+                if (_playersShuffle != null)
+                    playersShuffleTemp.add(_playersShuffle.get(i));
+            }
+            
+            _playersShuffle = playersShuffleTemp; 
+            playersShuffleTemp.clear();
+        }
+        
         return true;
+    }
+    
+    public static void shuffleTeams()
+    {
+        int teamCount = 0,
+            playersCount = 0;
+
+        for (;;)
+        {
+            if (_playersShuffle.isEmpty())
+                break;
+
+            int playerToAddIndex = new Random().nextInt(_playersShuffle.size());
+            
+            _players.add(_playersShuffle.get(playerToAddIndex));
+            _players.get(playersCount)._teamNameTvT = _teams.get(teamCount);
+            _savePlayers.add(_players.get(playersCount).getName());
+            _savePlayerTeams.add(_teams.get(teamCount));
+            playersCount++;
+
+            if (teamCount == _teams.size()-1)
+                teamCount = 0;
+            else
+                teamCount++;
+            
+            _playersShuffle.remove(playerToAddIndex);
+        }
     }
     
     public static void startEvent()
@@ -540,6 +590,20 @@ public class TvT
     
         for (String team : _teams)
             System.out.println(team);
+        
+        if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
+        {
+            System.out.println("");
+            System.out.println("#########################################");
+            System.out.println("# _playersShuffle(Vector<L2PcInstance>) #");
+            System.out.println("#########################################");
+        
+            for (L2PcInstance player : _playersShuffle)
+            {
+                if (player != null)
+                    System.out.println("Name: " + player.getName());
+            }
+        }
 
         System.out.println("");
         System.out.println("##################################");
@@ -579,13 +643,17 @@ public class TvT
             replyMSG.append("    ... name:&nbsp;<font color=\"00FF00\">" + _eventName + "</font><br1>");
             replyMSG.append("    ... description:&nbsp;<font color=\"00FF00\">" + _eventDesc + "</font><br><br>");
 
-            if (!_started && !_joining && !_teleport)
+            if (!_started && !_joining)
                 replyMSG.append("<center>Wait till the admin/gm start the participation.</center>");
             else if (!_teleport && !_started && _joining && eventPlayer.getLevel()>=_minlvl && eventPlayer.getLevel()<_maxlvl)
             {
-                if (_players.contains(eventPlayer))
+                if (_players.contains(eventPlayer) || _playersShuffle.contains(eventPlayer))
                 {
-                    replyMSG.append("You participated already in team <font color=\"LEVEL\">" + eventPlayer._teamNameTvT + "</font><br><br>");
+                    if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
+                        replyMSG.append("You participated already in team <font color=\"LEVEL\">" + eventPlayer._teamNameTvT + "</font><br><br>");
+                    else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
+                        replyMSG.append("You participated already!<br><br>");
+
                     replyMSG.append("<table border=\"0\"><tr>");
                     replyMSG.append("<td width=\"200\">Wait till event start or</td>");
                     replyMSG.append("<td width=\"60\"><center><button value=\"remove\" action=\"bypass -h npc_" + objectId + "_tvt_player_leave\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></td>");
@@ -597,18 +665,34 @@ public class TvT
                     replyMSG.append("You want to participate in the event?<br><br>");
                     replyMSG.append("<td width=\"200\">Admin set min lvl : <font color=\"00FF00\">" + _minlvl + "</font></td><br>");
                     replyMSG.append("<td width=\"200\">Admin set max lvl : <font color=\"00FF00\">" + _maxlvl + "</font></td><br><br>");
-                    replyMSG.append("<center><table border=\"0\">");
                     
-                    for (String team : _teams)
+                    if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
                     {
-                        replyMSG.append("<tr><td width=\"100\"><font color=\"LEVEL\">" + team + "</font>&nbsp;(" + teamPlayersCount(team) + " joined)</td>");
-                        replyMSG.append("<td width=\"60\"><button value=\"Join\" action=\"bypass -h npc_" + objectId + "_tvt_player_join " + team + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
-                    }
+                        replyMSG.append("<center><table border=\"0\">");
                     
-                    replyMSG.append("</table></center>");
+                        for (String team : _teams)
+                        {
+                            replyMSG.append("<tr><td width=\"100\"><font color=\"LEVEL\">" + team + "</font>&nbsp;(" + teamPlayersCount(team) + " joined)</td>");
+                            replyMSG.append("<td width=\"60\"><button value=\"Join\" action=\"bypass -h npc_" + objectId + "_tvt_player_join " + team + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
+                        }
+                    
+                        replyMSG.append("</table></center>");
+                    }
+                    else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
+                    {
+                        replyMSG.append("<center><table border=\"0\">");
+                        
+                        for (String team : _teams)
+                            replyMSG.append("<tr><td width=\"100\"><font color=\"LEVEL\">" + team + "</font></td>");
+                    
+                        replyMSG.append("</table></center><br>");
+                        
+                        replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_tvt_player_join eventShuffle\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+                        replyMSG.append("Teams will be reandomly generated!");
+                    }
                 }
             }
-            else if (_started && !_joining && !_teleport)
+            else if (_started && !_joining)
                 replyMSG.append("<center>TvT match is in progress.</center>");
             else if (eventPlayer.getLevel()<_minlvl || eventPlayer.getLevel()>_maxlvl )
             {
