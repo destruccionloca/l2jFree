@@ -25,6 +25,7 @@
 
 package net.sf.l2j.gameserver.model.entity;
 
+import java.util.Random;
 import java.util.Vector;
 
 import javolution.lang.TextBuilder;
