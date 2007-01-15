@@ -244,6 +244,7 @@ echo "Upgrading gameserver content"
 fi
 $MYG < ../sql/account_data.sql &> /dev/null
 $MYG < ../sql/armor.sql &> /dev/null
+$MYG < ../sql/armorsets.sql &> /dev/null
 $MYG < ../sql/auction.sql &> /dev/null
 $MYG < ../sql/auction_bid.sql &> /dev/null
 $MYG < ../sql/auction_watch.sql &> /dev/null
@@ -267,6 +268,7 @@ $MYG < ../sql/character_shortcuts.sql &> /dev/null
 $MYG < ../sql/character_skills.sql &> /dev/null
 $MYG < ../sql/character_skills_save.sql &> /dev/null
 $MYG < ../sql/character_subclasses.sql &> /dev/null
+$MYG < ../sql/character_stats.sql &> /dev/null
 $MYG < ../sql/characters.sql &> /dev/null
 $MYG < ../sql/clan_data.sql &> /dev/null
 $MYG < ../sql/clan_skills.sql &> /dev/null
@@ -327,6 +329,7 @@ $MYG < ../sql/teleport.sql &> /dev/null
 $MYG < ../sql/topic.sql &> /dev/null
 $MYG < ../sql/weapon.sql &> /dev/null
 $MYG < ../sql/zone.sql &> /dev/null
+$MYG < ../sql/vip.sql &> /dev/null
 }
 
 finish(){
