@@ -1314,10 +1314,10 @@ UPDATE weapon  SET item_skill_id = 3028, item_skill_lvl = 2 WHERE item_id = 4686
 
 UPDATE weapon  SET item_skill_id = 3010, item_skill_lvl = 2 WHERE item_id = 4687; -- katana 'focus' 
 UPDATE weapon  SET item_skill_id = 3023, item_skill_lvl = 2 WHERE item_id = 4688; -- katana 'critical damage' 
-UPDATE weapon  SET item_skill_id = 3036, item_skill_lvl = 2 WHERE item_id = 4689; -- katana 'haste'
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 2 WHERE item_id = 4689; -- katana 'haste'
 
 UPDATE weapon  SET item_skill_id = 3023, item_skill_lvl = 2 WHERE item_id = 4690; -- spirit sword 'critical damage' 
-UPDATE weapon  SET item_skill_id = 3036, item_skill_lvl = 2 WHERE item_id = 4692; -- spirit sword 'haste'
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 2 WHERE item_id = 4692; -- spirit sword 'haste'
 
 UPDATE weapon  SET item_skill_id = 3010, item_skill_lvl = 2 WHERE item_id = 4693; -- raid sword 'focus'
 
@@ -1331,7 +1331,7 @@ UPDATE weapon  SET item_skill_id = 3032, item_skill_lvl = 3 WHERE item_id = 4701
 	  
 UPDATE weapon  SET item_skill_id = 3010, item_skill_lvl = 3 WHERE item_id = 4702; -- tsurugi 'focus'
 UPDATE weapon  SET item_skill_id = 3023, item_skill_lvl = 3 WHERE item_id = 4703; -- tsurugi 'critical damage'
-UPDATE weapon  SET item_skill_id = 3036, item_skill_lvl = 3 WHERE item_id = 4704; -- tsurugi 'haste'
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 3 WHERE item_id = 4704; -- tsurugi 'haste'
   
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 1 WHERE item_id = 4705; -- sword of nightmare 'health'  
 UPDATE weapon  SET item_skill_id = 3010, item_skill_lvl = 3 WHERE item_id = 4706; -- sword of nightmare 'focus'  
@@ -1339,7 +1339,7 @@ UPDATE weapon  SET item_skill_id = 3010, item_skill_lvl = 3 WHERE item_id = 4706
   
 UPDATE weapon  SET item_skill_id = 3010, item_skill_lvl = 4 WHERE item_id = 4708; -- samurai long sword 'focus'  
 UPDATE weapon  SET item_skill_id = 3023, item_skill_lvl = 4 WHERE item_id = 4709; -- samurai long sword 'critical damage'  
-UPDATE weapon  SET item_skill_id = 3036, item_skill_lvl = 4 WHERE item_id = 4710; -- samurai long sword 'haste'
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 4 WHERE item_id = 4710; -- samurai long sword 'haste'
 
 UPDATE weapon  SET item_skill_id = 3023, item_skill_lvl = 1 WHERE item_id = 4711; -- flamberge 'critical damage'  
 UPDATE weapon  SET item_skill_id = 3010, item_skill_lvl = 1 WHERE item_id = 4712; -- flamberge 'focus'  
@@ -1351,7 +1351,7 @@ UPDATE weapon  SET item_skill_id = 3018, item_skill_lvl = 5 WHERE item_id = 4716
 
 UPDATE weapon  SET item_skill_id = 3010, item_skill_lvl = 6 WHERE item_id = 4717; -- sword of damascus 'focus'     
 UPDATE weapon  SET item_skill_id = 3023, item_skill_lvl = 3 WHERE item_id = 4718; -- sword of damascus 'critical damage'
-UPDATE weapon  SET item_skill_id = 3036, item_skill_lvl = 6 WHERE item_id = 4719; -- sword of damascus 'haste'
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 6 WHERE item_id = 4719; -- sword of damascus 'haste'
 
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 1 WHERE item_id = 4720; -- tallum blade 'health'
 UPDATE weapon  SET item_skill_id = 3028, item_skill_lvl = 1 WHERE item_id = 4721; -- tallum blade 'rsk.evasion' 
@@ -1362,28 +1362,34 @@ UPDATE weapon  SET item_skill_id = 3023, item_skill_lvl = 5 WHERE item_id = 4724
 UPDATE weapon  SET item_skill_id = 3010, item_skill_lvl = 5 WHERE item_id = 4725; -- great sword 'focus'
 
 UPDATE weapon  SET item_skill_id = 3073, item_skill_lvl = 1 WHERE item_id = 5638; -- elemental sword 'magic power'
+UPDATE weapon SET onCast_skill_id = 3075, onCast_skill_lvl = 1, onCast_skill_chance =10 WHERE item_id = 5639; -- elemental sword 'magic paralyze'
 UPDATE weapon  SET item_skill_id = 3072, item_skill_lvl = 1 WHERE item_id = 5604; -- elemental sword 'empower'
 
 UPDATE weapon  SET item_skill_id = 3073, item_skill_lvl = 2 WHERE item_id = 5641; -- sword of miracles 'magic power'
+UPDATE weapon SET onCast_skill_id = 3074, onCast_skill_lvl = 1, onCast_skill_chance =10 WHERE item_id = 5642; -- sword of miracles 'magic silence'
 UPDATE weapon  SET item_skill_id = 3047, item_skill_lvl = 2 WHERE item_id = 5643; -- sword of miracles 'acumen'
 
 UPDATE weapon  SET item_skill_id = 3067, item_skill_lvl = 2 WHERE item_id = 5647; -- dark legions edge 'critical damage'
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 3 WHERE item_id = 5648; -- dark legions edge 'health'
 UPDATE weapon  SET item_skill_id = 3071, item_skill_lvl = 2 WHERE item_id = 5649; -- dark legions edge 'rsk. focus' 
 
+UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 4 WHERE item_id = 6582; -- Forgotten Blade 'health'
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 2 WHERE item_id = 6581; -- Forgotten Blade 'haste'
+UPDATE weapon  SET item_skill_id = 3010, item_skill_lvl = 5 WHERE item_id = 6583; -- Forgotten Blade 'focus'
+
   -- ---------------------------------     passive weapon SAs     ------------------------------------
                                          --    blunts   --
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 1 WHERE item_id = 4726; -- big hammer 'health' 
 UPDATE weapon  SET item_skill_id = 3027, item_skill_lvl = 1 WHERE item_id = 4727; -- big hammer 'rsk.focus'
-UPDATE weapon  SET item_skill_id = 3036, item_skill_lvl = 1 WHERE item_id = 4728; -- big hammer 'haste' 
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 1 WHERE item_id = 4728; -- big hammer 'haste' 
 
 UPDATE weapon  SET item_skill_id = 3012, item_skill_lvl = 1 WHERE item_id = 4729; -- battle axe 'anger' 
 UPDATE weapon  SET item_skill_id = 3027, item_skill_lvl = 1 WHERE item_id = 4730; -- battle axe 'rsk.focus'
-UPDATE weapon  SET item_skill_id = 3036, item_skill_lvl = 1 WHERE item_id = 4731; -- battle axe 'haste' 
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 1 WHERE item_id = 4731; -- battle axe 'haste' 
 
 UPDATE weapon  SET item_skill_id = 3012, item_skill_lvl = 1 WHERE item_id = 4732; -- silver axe 'anger' 
 UPDATE weapon  SET item_skill_id = 3027, item_skill_lvl = 1 WHERE item_id = 4733; -- silver axe 'rsk.focus' 
-UPDATE weapon  SET item_skill_id = 3036, item_skill_lvl = 1 WHERE item_id = 4734; -- silver axe 'haste' 
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 1 WHERE item_id = 4734; -- silver axe 'haste' 
 
 UPDATE weapon  SET item_skill_id = 3012, item_skill_lvl = 1 WHERE item_id = 4735; -- skull graver 'anger' 
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 1 WHERE item_id = 4736; -- skull graver 'health' 
@@ -1391,11 +1397,11 @@ UPDATE weapon  SET item_skill_id = 3027, item_skill_lvl = 1 WHERE item_id = 4737
 
 UPDATE weapon  SET item_skill_id = 3012, item_skill_lvl = 2 WHERE item_id = 4738; -- dwarven war hammer 'anger' 
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 1 WHERE item_id = 4739; -- dwarven war hammer 'health' 
-UPDATE weapon  SET item_skill_id = 3036, item_skill_lvl = 2 WHERE item_id = 4740; -- dwarven war hammer 'haste' 
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 2 WHERE item_id = 4740; -- dwarven war hammer 'haste' 
 
 UPDATE weapon  SET item_skill_id = 3012, item_skill_lvl = 3 WHERE item_id = 4741; -- war axe 'anger' 
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 1 WHERE item_id = 4742; -- war axe 'health' 
-UPDATE weapon  SET item_skill_id = 3036, item_skill_lvl = 3 WHERE item_id = 4743; -- war axe 'haste'
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 3 WHERE item_id = 4743; -- war axe 'haste'
 
 UPDATE weapon  SET item_skill_id = 3012, item_skill_lvl = 4 WHERE item_id = 4744; -- yaksa mace 'anger' 
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 1 WHERE item_id = 4745; -- yaksa mace 'health' 
@@ -1407,20 +1413,30 @@ UPDATE weapon  SET item_skill_id = 3027, item_skill_lvl = 5 WHERE item_id = 4749
 
 UPDATE weapon  SET item_skill_id = 3012, item_skill_lvl = 6 WHERE item_id = 4750; -- deadmans glory 'anger' 
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 1 WHERE item_id = 4751; -- deadmans glory 'health' 
-UPDATE weapon  SET item_skill_id = 3036, item_skill_lvl = 6 WHERE item_id = 4752; -- deadmans glory 'haste' 
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 6 WHERE item_id = 4752; -- deadmans glory 'haste' 
 
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 1 WHERE item_id = 4753; -- art of battle axe 'health' 
 UPDATE weapon  SET item_skill_id = 3027, item_skill_lvl = 6 WHERE item_id = 4754; -- art of battle axe 'rsk.focus' 
-UPDATE weapon  SET item_skill_id = 3036, item_skill_lvl = 6 WHERE item_id = 4755; -- art of battle axe 'haste' 
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 6 WHERE item_id = 4755; -- art of battle axe 'haste' 
 
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 1 WHERE item_id = 4756; -- meteor shower 'health' 
 UPDATE weapon  SET item_skill_id = 3010, item_skill_lvl = 1 WHERE item_id = 4757; -- meteor shower 'focus' 
 -- UPDATE weapon  SET item_skill_id = , item_skill_lvl = WHERE item_id = 4758; -- meteor shower 'p.focus'  ?????
 UPDATE weapon  SET item_skill_id = 3050, item_skill_lvl = 1 WHERE item_id = 5599; -- meteor shower 'focus'
-UPDATE weapon  SET item_skill_id = 3056, item_skill_lvl = 2 WHERE item_id = 5601; -- meteor shower 'rsk. haste' 
+UPDATE weapon  SET item_skill_id = 3056, item_skill_lvl = 2 WHERE item_id = 5601; -- meteor shower 'rsk. haste'
+UPDATE weapon SET onCrit_skill_id = 3021, onCrit_skill_lvl =5 , onCrit_skill_chance = 42 WHERE item_id = 5602; -- bloody orchid 'critical bleed';
 
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 3 WHERE item_id = 5602; -- elysian 'health'
 UPDATE weapon  SET item_skill_id = 3057, item_skill_lvl = 2 WHERE item_id = 5603; -- elysian 'anger'
+UPDATE weapon SET onCrit_skill_id = 3022, onCrit_skill_lvl = 7, onCrit_skill_chance = 20 WHERE item_id = 6584; -- elysian 'HP drain'
+
+UPDATE weapon SET onCrit_skill_id = 3022, onCrit_skill_lvl = 7, onCrit_skill_chance = 20 WHERE item_id = 6584; -- Basalt Battlehammer 'HP Drain' 
+UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 1 WHERE item_id = 6585; -- Basalt Battlehammer 'health' 
+UPDATE weapon  SET item_skill_id = 3569, item_skill_lvl = 1 WHERE item_id = 6586; -- Basalt Battlehammer 'HP Regeneration'
+
+UPDATE weapon SET onCrit_skill_id = 3022, onCrit_skill_lvl = 7, onCrit_skill_chance = 20 WHERE item_id = 6598; -- Dragon Hunter 'HP Drain' 
+UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 1 WHERE item_id = 6597; -- Dragon Hunter 'health' 
+UPDATE weapon  SET item_skill_id = 3569, item_skill_lvl = 1 WHERE item_id = 6596; -- Dragon Hunter 'HP Regeneration'
 
 
 -- UPDATE weapon  SET item_skill_id = , item_skill_lvl = WHERE item_id = ;
@@ -1454,6 +1470,7 @@ UPDATE weapon  SET item_skill_id = 3009, item_skill_lvl = 6 WHERE item_id = 4783
 UPDATE weapon  SET item_skill_id = 3011, item_skill_lvl = 2 WHERE item_id = 4784; -- bloody orchid 'focus' 
 UPDATE weapon  SET item_skill_id = 3019, item_skill_lvl = 6 WHERE item_id = 4785; -- bloody orchid 'back blow' 
 UPDATE weapon  SET item_skill_id = 3051, item_skill_lvl = 1 WHERE item_id = 5614; -- bloody orchid 'focus';
+UPDATE weapon SET onCrit_skill_id = 3021, onCrit_skill_lvl =5 , onCrit_skill_chance = 12 WHERE item_id = 5616; -- bloody orchid 'critical bleed';
 
 UPDATE weapon  SET item_skill_id = 3011, item_skill_lvl = 5 WHERE item_id = 4786; -- hell knife 'focus' 
 UPDATE weapon  SET item_skill_id = 3019, item_skill_lvl = 5 WHERE item_id = 4787; -- hell knife 'back blow' 
@@ -1462,6 +1479,10 @@ UPDATE weapon  SET item_skill_id = 3035, item_skill_lvl = 5 WHERE item_id = 4788
 UPDATE weapon  SET item_skill_id = 3064, item_skill_lvl = 1 WHERE item_id = 5617; -- soul separator 'guidance'
 UPDATE weapon  SET item_skill_id = 3066, item_skill_lvl = 2 WHERE item_id = 5618; -- soul separator 'critical damage'
 UPDATE weapon  SET item_skill_id = 3056, item_skill_lvl = 2 WHERE item_id = 5619; -- sould separator 'rsk. haste';
+
+UPDATE weapon SET onCrit_skill_id = 3022, onCrit_skill_lvl = 7, onCrit_skill_chance = 20 WHERE item_id = 6591; -- Angel Slayer 'HP Drain'
+UPDATE weapon  SET item_skill_id = 3572, item_skill_lvl = 1 WHERE item_id = 6590; -- Angel Slayer 'critical damage'
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 4 WHERE item_id = 6592; -- Angel Slayer 'haste';
 
 
   -- ---------------------------------     passive weapon SAs     ------------------------------------
@@ -1486,13 +1507,16 @@ UPDATE weapon  SET item_skill_id = 3034, item_skill_lvl = 6 WHERE item_id = 4806
 
 UPDATE weapon  SET item_skill_id = 3030, item_skill_lvl = 6 WHERE item_id = 4808; -- blood tornado 'rsk. evasion'
 UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 6 WHERE item_id = 4809; -- bloody tornado 'haste' 
-UPDATE weapon  SET item_skill_id = 3068, item_skill_lvl = 2 WHERE item_id = 5620; -- blood tornado 'haste'
+UPDATE weapon  SET item_skill_id = 3068, item_skill_lvl = 1 WHERE item_id = 5620; -- blood tornado 'haste'
 UPDATE weapon  SET item_skill_id = 3565, item_skill_lvl = 1 WHERE item_id = 5621; -- blood tornado 'focus'
 UPDATE weapon  SET item_skill_id = 3058, item_skill_lvl = 1 WHERE item_id = 5622; -- blood tornado 'anger';
 
 UPDATE weapon  SET item_skill_id = 3069, item_skill_lvl = 1 WHERE item_id = 5623; -- dragon grinder 'rsk. evasion' 
 UPDATE weapon  SET item_skill_id = 3065, item_skill_lvl = 1 WHERE item_id = 5624; -- dragon grinder 'guidance'
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 3 WHERE item_id = 5625; -- dragon grinder 'health'
+
+UPDATE weapon  SET item_skill_id = 3565, item_skill_lvl = 1 WHERE item_id = 6602; -- demon splinter 'focus'
+UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 4 WHERE item_id = 6603; -- demon splinter 'health'
 
    -- ---------------------------------     passive weapon SAs     ------------------------------------
                                             --    bows    --
@@ -1521,12 +1545,22 @@ UPDATE weapon  SET item_skill_id = 3009, item_skill_lvl = 5 WHERE item_id = 4825
 
 UPDATE weapon  SET item_skill_id = 3008, item_skill_lvl = 6 WHERE item_id = 4828; -- bow of peril 'guidance'  
 -- UPDATE weapon  SET item_skill_id = , item_skill_lvl = WHERE item_id = 4829; -- bow of peril 'quick recovery'  
--- UPDATE weapon  SET item_skill_id = , item_skill_lvl = WHERE item_id = 4830; -- bow of peril 'cheap shot'  
+-- UPDATE weapon  SET item_skill_id = , item_skill_lvl = WHERE item_id = 4830; -- bow of peril 'cheap shot'
+
+UPDATE weapon SET onCrit_skill_id = 3024, onCrit_skill_lvl =5 , onCrit_skill_chance = 18 WHERE item_id = 5616; -- Soul Bow 'critical poision';  
 
 UPDATE weapon  SET item_skill_id = 3014, item_skill_lvl = 1 WHERE item_id = 4832; -- carnage bow 'mana up'  
 -- UPDATE weapon  SET item_skill_id = , item_skill_lvl = WHERE item_id = 4833; --  carnage 'quick recovery'
 UPDATE weapon  SET item_skill_id = 3014, item_skill_lvl = 2 WHERE item_id = 5610; -- carnage bow 'mana up'
+UPDATE weapon SET onCrit_skill_id = 3021, onCrit_skill_lvl =5 , onCrit_skill_chance = 35 WHERE item_id = 5616; -- carnage bow 'critical bleed';
 
+UPDATE weapon SET onCrit_skill_id = 3574, onCrit_skill_lvl =1 , onCrit_skill_chance = 10 WHERE item_id = 7578; -- Draconic Bow Critical Slow
+UPDATE weapon  SET item_skill_id = 3567, item_skill_lvl = 1 WHERE item_id = 7577; -- Draconic Bow 'focus'
+-- UPDATE weapon  SET item_skill_id = , item_skill_lvl = WHERE item_id = 7576; -- Draconic Bow 'cheap shot'
+
+UPDATE weapon SET onCrit_skill_id = 3574, onCrit_skill_lvl =1 , onCrit_skill_chance = 10 WHERE item_id = 6595; -- Shining Bow Critical Slow
+UPDATE weapon  SET item_skill_id = 3567, item_skill_lvl = 1 WHERE item_id = 6594; -- Shining Bow 'focus'
+-- UPDATE weapon  SET item_skill_id = , item_skill_lvl = WHERE item_id = 6593; -- Shining Bow 'cheap shot'
 
   -- ---------------------------------     passive weapon SAs     ------------------------------------
                                            --    pole    --
@@ -1560,11 +1594,18 @@ UPDATE weapon  SET item_skill_id = 3599, item_skill_lvl = 1 WHERE item_id = 4860
 UPDATE weapon  SET item_skill_id = 3599, item_skill_lvl = 1 WHERE item_id = 4862; -- halberd 'long blow'  
 UPDATE weapon  SET item_skill_id = 3599, item_skill_lvl = 1 WHERE item_id = 4863; -- halberd 'wide blow'
 UPDATE weapon  SET item_skill_id = 3601, item_skill_lvl = 7 WHERE item_id = 5626; -- halberd 'haste'
+UPDATE weapon SET onCrit_skill_id = 3070, onCrit_skill_lvl = 1, onCrit_skill_chance =25 WHERE item_id =5627 ; -- halberd
 
 UPDATE weapon  SET item_skill_id = 3602, item_skill_lvl = 8 WHERE item_id = 5632; -- tallum glaive 'guidance'
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 4 WHERE item_id = 5633; -- tallum glaive 'health'
-UPDATE weapon  SET item_skill_id = 3068, item_skill_lvl = 2 WHERE item_id = 5636; -- tallum glaive 'haste'
+
+UPDATE weapon SET onCrit_skill_id = 3024, onCrit_skill_lvl = 5, onCrit_skill_chance = 10 WHERE item_id = 5635; -- tallum blade 'critical poison'
+UPDATE weapon  SET item_skill_id = 3068, item_skill_lvl = 1 WHERE item_id = 5636; -- tallum blade 'haste'
 UPDATE weapon  SET item_skill_id = 3057, item_skill_lvl = 1 WHERE item_id = 5637; -- tallum blade 'anger'
+
+UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 4 WHERE item_id = 6599; -- Saint Spear 'health'
+UPDATE weapon  SET item_skill_id = 3602, item_skill_lvl = 5 WHERE item_id = 6600; -- Saint Spear 'guidance'
+UPDATE weapon  SET item_skill_id = 3068, item_skill_lvl = 2 WHERE item_id = 6601; -- Saint Spear 'haste'
 
 
   -- ---------------------------------     passive weapon SAs     ------------------------------------
@@ -1588,14 +1629,29 @@ UPDATE weapon  SET item_skill_id = 3048, item_skill_lvl = 2 WHERE item_id = 5605
 UPDATE weapon  SET item_skill_id = 3552, item_skill_lvl = 1 WHERE item_id = 5606; -- branch of the mother tree 'magic damage'
 UPDATE weapon  SET item_skill_id = 3047, item_skill_lvl = 2 WHERE item_id = 5607; -- branch of the mother tree 'acumen'
 
+UPDATE weapon  SET item_skill_id = 3014, item_skill_lvl = 1 WHERE item_id = 6610; -- Arcana Mace 'mana up'
+UPDATE weapon  SET item_skill_id = 3576, item_skill_lvl = 1 WHERE item_id = 6609; -- Arcana Mace 'MP Regeneration'
+UPDATE weapon  SET item_skill_id = 3047, item_skill_lvl = 2 WHERE item_id = 6608; -- Arcana Mace 'acumen'
+
+UPDATE weapon SET onCast_skill_id = 3577, onCast_skill_lvl = 1, onCast_skill_chance = 30 WHERE item_id = 6589; -- Imperial Staff 'Magic Hold'
+UPDATE weapon  SET item_skill_id = 3076, item_skill_lvl = 1 WHERE item_id = 6587; -- Imperial Staff 'Empower'
+UPDATE weapon  SET item_skill_id = 3576, item_skill_lvl = 1 WHERE item_id = 6588; -- Imperial Staff 'MP Regeneration'
+
 -- UPDATE weapon  SET item_skill_id = , item_skill_lvl = WHERE item_id = ; --  
   -- ---------------------------------     passive weapon SAs     ------------------------------------
                                            --    big swords    --
 
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 3 WHERE item_id = 5644; -- dragon slayer 'health'
+UPDATE weapon SET onCrit_skill_id = 3021, onCrit_skill_lvl = 5, onCrit_skill_chance = 24 WHERE item_id = 5645; -- dragon slayer 'bleed'
+UPDATE weapon SET onCrit_skill_id = 3022, onCrit_skill_lvl = 4, onCrit_skill_chance = 20 WHERE item_id = 5646; -- dragon slayer 'HP Drain'
+
+UPDATE weapon  SET item_skill_id = 3601, item_skill_lvl = 9 WHERE item_id = 6605; -- heavens divider 'haste'
+UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 4 WHERE item_id = 6605; -- heavens divider 'health'
+UPDATE weapon  SET item_skill_id = 3566, item_skill_lvl = 1 WHERE item_id = 6605; -- heavens divider 'focus'
 
 -- ---------------------------------   active onCrit weapons SA ---------------------------------------
 -- UPDATE weapon SET onCrit_skill_id = , onCrit_skill_lvl = , onCrit_skill_chance = WHERE item_id = ; --
+UPDATE weapon SET onCrit_skill_id = 3070 , onCrit_skill_lvl = 1 , onCrit_skill_chance = 25 WHERE item_id = 25; -- demon_splinter_crt._stun
 
 
 -- ---------------------------------   active onCast weapons SA  -------------------------------------

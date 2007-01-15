@@ -49,8 +49,6 @@
     <set val='293' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Focus -->
-    <add val='88' order='0x40' stat='rCrit'/>
   </for>
 </item>
 <item id='7578' name="draconic_bow_critical_slow">
@@ -62,7 +60,6 @@
     <set val='293' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <skill onCrit="1" id="1160" lvl="15" chance="10"/>
   </for>
 </item>
 </list>

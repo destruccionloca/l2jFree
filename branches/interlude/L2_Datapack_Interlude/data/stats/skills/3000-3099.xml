@@ -252,37 +252,39 @@
   </for>
 </skill>
 <skill id="3021" levels="6" name="Special Ability: Critical Bleed">
-<!---
-  Automatically generated from C3 client files.
-  Need to be checked/fixed.
-  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
-  Descriptions:
-  1: A wound appears and HP falls. Effect 5.
-  6: A wound appears and HP falls. Effect 7.
-  created 2005-05-29 23:34:30
--->
-  <table name="#power"> 5.0 5.0 6.0 6.0 6.0 7.0 </table>
+<!--- Done by SarutrA - SqueezeD -->
+  <table name="#magicLvl"> 24 32 49 58 66 70 </table>
+  <table name="#dmg"> 13 17 22 27 31 34 </table>
+  <table name="#power"> 3.0 4.0 5.0 6.0 7.0 8.0 </table>
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="lvlDepend" val="2"/>
+  <set name="save" val="4"/>
   <set name="power" val="#power"/>
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="BLEED"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="castRange" val="40"/>
+  <set name="effectRange" val="400"/>
   <for>
+    <effect count="4" name="DamOverTime" time="5" val="#dmg" abnormal="bleeding"/>
   </for>
 </skill>
 <skill id="3022" levels="7" name="Special Ability: Critical Drain">
-<!---
-  Automatically generated from C3 client files.
-  Need to be checked/fixed.
-  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
-  created 2005-05-29 23:34:30
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillTime" val="3000"/>
-  <set name="skillType" val="NOTDONE"/>
+<!--- Done by SarutrA - SqueezeD -->
+  <table name="#magicLvl"> 68 69 70 71 72 73 74 </table>
+  <table name="#power"> 90.0 92.0 94.0 96.0 98.0 100.0 102.0 </table>
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="element" val="6"/>
+  <set name="skillType" val="DRAIN"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
+  <!-- Drain-specific: absorb 20% from target's damage -->
+  <set name="absorbPart" val="0.2"/> <!-- absorbs 20% or damage -->
+  <set name="absorbAbs" val="0"/> <!-- Drain absorbs absolute values from corpses only -->
   <for>
   </for>
 </skill>
@@ -303,23 +305,22 @@
   </for>
 </skill>
 <skill id="3024" levels="6" name="Special Ability: Critical Poison">
-<!---
-  Automatically generated from C3 client files.
-  Need to be checked/fixed.
-  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
-  Descriptions:
-  1: Causes poisoning. Effect 5.
-  6: Causes poisoning. Effect 7.
-  created 2005-05-29 23:34:30
--->
-  <table name="#power"> 5.0 5.0 6.0 6.0 6.0 7.0 </table>
+<!--- Done by SarutrA - SqueezeD -->
+  <table name="#magicLvl"> 20 30 44 52 62 72 </table>
+  <table name="#dmg"> 18 24 31 38 44 48 </table>
+  <table name="#power"> 3.0 4.0 5.0 6.0 7.0 8.0 </table>
+  <set name="save" val="3"/>
+  <set name="magicLvl" val="#magicLvl"/>
   <set name="power" val="#power"/>
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="lvlDepend" val="1"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="POISON"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
   <for>
+    <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="poison"/>
   </for>
 </skill>
 <skill id="3025" levels="6" name="Special Ability: Critical Anger">
@@ -1076,6 +1077,7 @@
   1: Increases ATK Spd.
   2: Increases Atk. Spd. Increases damage inflicted during PvP.
 -->
+  <table name="#val"> 1.06 1.07 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1083,7 +1085,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<mul val='1.06' order='0x30' stat='pAtkSpd'/>
+	<mul val='#val' order='0x30' stat='pAtkSpd'/>
   </for>
 </skill>
 <skill id="3069" levels="1" name="Special Ability: Risky Evasion">
@@ -1183,56 +1185,51 @@
   </for>
 </skill>
 <skill id="3074" levels="2" name="Special Ability: Magic Silence">
-<!---
-  Automatically generated from C3 client files.
-  Need to be checked/fixed.
-  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
-  Descriptions:
-  1: Disables the ability to use one's magic skills.
-  2: Disables the ability to use one's magic skills.
-  created 2005-05-29 23:34:31
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!--- Done by SarutrA - SqueezeD -->
+  <set name="save" val="2"/>
+  <set name="magicLvl" val="74"/>
+  <set name="power" val="80"/>
+  <set name="lvlDepend" val="2"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="MUTE"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="1000"/>
+  <set name="castRange" val="600"/>
+  <set name="effectRange" val="900"/>
   <for>
+    <effect count="1" name="Mute" time="30" val="0" stackOrder="1" stackType="silence"/>
   </for>
 </skill>
 <skill id="3075" levels="2" name="Special Ability: Magic Paralyze">
-<!---
-  Automatically generated from C3 client files.
-  Need to be checked/fixed.
-  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
-  Descriptions:
-  1: Paralyzes target.
-  2: Paralyzes target.
-  created 2005-05-29 23:34:31
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!--- Done by SarutrA - SqueezeD -->
+  <set name="save" val="4"/>
+  <set name="magicLvl" val="74"/>
+  <set name="power" val="60"/>
+  <set name="lvlDepend" val="1"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="PARALYZE"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="1000"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
   <for>
+    <effect count="1" name="Paralyze" time="30" val="0" stackOrder="1" stackType="Paralyze"/>
   </for>
 </skill>
 <skill id="3076" levels="6" name="Special Ability: Empower">
 <!---
-  Automatically generated from C3 client files.
-  Need to be checked/fixed.
-  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
   Descriptions:
-  1: Increases M. Atk. capability.
-  6: Increases M. Atk. capability.
-  created 2005-05-29 23:34:31
+  1: Increases M. Atk. Increases damage inflicted during PvP.
+  2: Increases M. Atk. Increases damage inflicted during PvP.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+	<add val='60' order='0x40' stat='mAtk'/>
   </for>
 </skill>
 <skill id="3077" levels="6" name="Special Ability: Magic Power">

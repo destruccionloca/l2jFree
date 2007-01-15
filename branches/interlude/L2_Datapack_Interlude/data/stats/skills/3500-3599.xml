@@ -1204,30 +1204,32 @@ Description(s):
 </skill>
 <skill id="3566" levels="1" name="Special Ability: Focus">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Increases critical attack success rate and damage inflicted during PvP.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+	<add val='84' order='0x40' stat='rCrit'/>
   </for>
 </skill>
 <skill id="3567" levels="1" name="Special Ability: Focus">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Increases critical attack success rate and damage inflicted during PvP.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+	<add val='88' order='0x40' stat='rCrit'/>
   </for>
 </skill>
 <skill id="3568" levels="1" name="Special Ability: HP Drain">
@@ -1245,17 +1247,16 @@ Description(s):
   </for>
 </skill>
 <skill id="3569" levels="1" name="Special Ability: HP Regeneration">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Increases HP regeneration rate and enhances damage to target during PvP.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!-- Done by SarutrA - SqueezeD -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul order="0x30" stat="regHp" val="1.5"/>
   </for>
 </skill>
 <skill id="3570" levels="1" name="Special Ability: Robust Health">
@@ -1274,30 +1275,37 @@ Description(s):
 </skill>
 <skill id="3571" levels="1" name="Special Ability: Crt. Stun">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
-      Temporarily stuns and paralyzes target.
+      Instantly throws enemy into a state of shock, immobilizing them.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="magicLvl" val="90"/>
+  <set name="lvlDepend" val="1"/>
+  <set name="save" val="4"/>
+  <set name="power" val="800"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="overHit" val="true"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="effectType" val="STUN"/>
+  <set name="effectPower" val="30"/>
   <for>
+	<effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="3572" levels="1" name="Special Ability: Crt. Damage">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Increases critical attack success rate and damage inflicted during PvP.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!-- Done by SarutrA - SqueezeD -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <add val='265' order='0x40' stat='cAtk'/>
   </for>
 </skill>
 <skill id="3573" levels="1" name="Special Ability: Guidance">
@@ -1315,17 +1323,22 @@ Description(s):
   </for>
 </skill>
 <skill id="3574" levels="1" name="Special Ability: Crt. Slow">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Temporarily decreases Speed. Effect 3.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+<!-- Done by SarutrA - SqueezeD -->
+  <set name="save" val="5"/>
+  <set name="magicLvl" val="74"/>
+  <set name="power" val="80"/>
+  <set name="lvlDepend" val="2"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="4000"/>
+  <set name="skillType" val="DEBUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
   <for>
+    <effect count="1" name="Buff" time="30" val="0" stackOrder="0.5" stackType="RunSpeedDown">
+      <mul order="0x30" stat="runSpd" val="0.5"/>
+    </effect>
   </for>
 </skill>
 <skill id="3575" levels="1" name="Special Ability: Empower Option">
@@ -1343,31 +1356,32 @@ Description(s):
   </for>
 </skill>
 <skill id="3576" levels="1" name="Special Ability: MP Regeneration">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Increases MP regeneration rate and enhances damage to target during PvP.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!-- Done by SarutrA - SqueezeD -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <add order="0x40" stat="regMp" val="1.5"/>    
   </for>
 </skill>
 <skill id="3577" levels="1" name="Special Ability: Magic Hold">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Magically immobilizes target.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+<!-- Done by SarutrA - SqueezeD -->
+  <set name="save" val="5"/>
+  <set name="magicLvl" val="74"/>
+  <set name="power" val="80"/>
+  <set name="lvlDepend" val="2"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="ROOT"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/> 
   <for>
+    <effect count="1" name="Root" time="30" val="0" stackOrder="1" stackType="Root"/>
   </for>
 </skill>
 <skill id="3578" levels="1" name="Special Ability: Infinity Blade">

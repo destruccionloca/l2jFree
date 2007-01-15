@@ -113,8 +113,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Haste -->
-    <mul val='1.07' order='0x30' stat='pAtkSpd'/>
   </for>
 </item>
 <item id='6582' name="forgotten_blade_health">
@@ -126,8 +124,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Health -->
-    <mul val='1.25' order='0x30' stat='maxHp'/>
   </for>
 </item>
 <item id='6583' name="forgotten_blade_focus">
@@ -139,8 +135,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Focus -->
-    <add val='84' order='0x40' stat='rCrit'/>
   </for>
 </item>
 <item id='6584' name="basalt_battlehammer_hp_drain">
@@ -163,8 +157,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Health -->
-    <mul val='1.25' order='0x30' stat='maxHp'/>
   </for>
 </item>
 <item id='6586' name="basalt_battlehammer_hp_regeneration">
@@ -176,7 +168,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <mul  order='0x50' stat='regHp' val="1.5"/>
   </for>
 </item>
 <item id='6587' name="imperial_staff_empower">
@@ -188,8 +179,6 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Empower -->
-    <add val='60' order='0x40' stat='mAtk'/>
   </for>
 </item>
 <item id='6588' name="imperial_staff_mp_regeneration">
@@ -201,9 +190,6 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <mul  order='0x50' stat='regMp' val="1.5"/>
-    <!-- SA: Magic Regeneration -->
-    <skill onCast='1' id='1044' lvl='1' chance='30'/>
   </for>
 </item>
 <item id='6589' name="imperial_staff_magic_hold">
@@ -215,8 +201,6 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Magic Hold -->
-    <skill onCast='1' id='1201' lvl='1' chance='20'/>
   </for>
 </item>
 <item id='6590' name="angel_slayer__crt._damage">
@@ -228,8 +212,6 @@
     <set val='433' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Critical Damage -->
-    <add val='265' order='0x40' stat='cAtk'/>
   </for>
 </item>
 <item id='6591' name="angel_slayer__hp_drain">
@@ -252,8 +234,6 @@
     <set val='433' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Haste -->
-    <mul val='1.07' order='0x30' stat='pAtkSpd'/>
   </for>
 </item>
 <item id='6593' name="shining_bow_cheap_shot">
@@ -281,8 +261,6 @@
     <set val='293' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Focus -->
-    <add val='87' order='0x40' stat='rCrit'/>
   </for>
 </item>
 <item id='6595' name="shining_bow_crt._slow">
@@ -294,7 +272,6 @@
     <set val='293' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <skill onCrit="1" id="1160" lvl="15" chance="10"/>
   </for>
 </item>
 <item id='6596' name="dragon_hunter_axe_hp_regeneration">
@@ -306,7 +283,6 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <mul  order='0x50' stat='regHp' val="1.5"/>
   </for>
 </item>
 <item id='6597' name="dragon_hunter_axe_health">
@@ -318,8 +294,6 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Health -->
-    <mul val='1.25' order='0x30' stat='maxHp'/>
   </for>
 </item>
 <item id='6598' name="dragon_hunter_axe_hp_drain">
@@ -342,8 +316,6 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Health -->
-    <mul val='1.25' order='0x30' stat='maxHp'/>
   </for>
 </item>
 </list>
