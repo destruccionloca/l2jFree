@@ -721,10 +721,16 @@ public class TvT
             player.sendMessage(message);
             return;
         }
+        
+        if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
+        {
+            player._teamNameTvT = teamName;
+            _players.add(player);
+            setTeamPlayersCount(teamName, teamPlayersCount(teamName)+1);
+        }
+        else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
+            _playersShuffle.add(player);
 
-        player._teamNameTvT = teamName;
-        _players.add(player);
-        setTeamPlayersCount(teamName, teamPlayersCount(teamName)+1);
         _savePlayers.add(player.getName());
         _savePlayerTeams.add(teamName);        
         player._originalNameColorTvT = player.getNameColor();
@@ -736,46 +742,54 @@ public class TvT
     {
         if (CTF._savePlayers.contains(eventPlayer.getName()))
             return "You already participated in another event!";
-
-        boolean allTeamsEqual = true;
-        int countBefore = -1;
         
-        for (int playersCount : _teamPlayersCount)
+        if (Config.TVT_EVEN_TEAMS.equals("NO"))
+            return null;
+        
+        else if (Config.TVT_EVEN_TEAMS.equals("BALANCE"))
         {
-            if (countBefore == -1)
-                countBefore = playersCount;
-
-            if (countBefore != playersCount)
+            boolean allTeamsEqual = true;
+            int countBefore = -1;
+        
+            for (int playersCount : _teamPlayersCount)
             {
-                allTeamsEqual = false;
-                break;
-            }
+                if (countBefore == -1)
+                    countBefore = playersCount;
             
-            countBefore = playersCount;
-        }
+                if (countBefore != playersCount)
+                {
+                    allTeamsEqual = false;
+                    break;
+                }
+            
+                countBefore = playersCount;
+            }
         
-        if (allTeamsEqual)
-            return null;
+            if (allTeamsEqual)
+                return null;
 
-        countBefore = Integer.MAX_VALUE;
+            countBefore = Integer.MAX_VALUE;
         
-        for (int teamPlayerCount : _teamPlayersCount)
-        {
-            if (teamPlayerCount < countBefore)
-                countBefore = teamPlayerCount;
-        }
-        
-        Vector<String> joinableTeams = new Vector<String>();
-        
-        for (String team : _teams)
-        {
-            if (teamPlayersCount(team) == countBefore)
-                joinableTeams.add(team);
-        }
+            for (int teamPlayerCount : _teamPlayersCount)
+            {
+                if (teamPlayerCount < countBefore)
+                    countBefore = teamPlayerCount;
+            }
 
-        if (joinableTeams.contains(teamName))
-            return null;
-
+            Vector<String> joinableTeams = new Vector<String>();
+        
+            for (String team : _teams)
+            {
+                if (teamPlayersCount(team) == countBefore)
+                    joinableTeams.add(team);
+            }
+        
+            if (joinableTeams.contains(teamName))
+                return null;
+        }
+        else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
+            return "You will be added randomaly to 1 of the teams.";;
+        
         return "To many players in team " + teamName + "!";
     }
 
@@ -803,10 +817,15 @@ public class TvT
         if (!_players.contains(player))
             return;
         
-        _players.remove(player);
-        setTeamPlayersCount(player._teamNameTvT, teamPlayersCount(player._teamNameTvT)-1);
-        player._teamNameTvT = "";
-        player._inEventTvT = false;
+        if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
+        {        
+            _players.remove(player);
+            setTeamPlayersCount(player._teamNameTvT, teamPlayersCount(player._teamNameTvT)-1);
+            player._teamNameTvT = "";
+            player._inEventTvT = false;
+        }
+        else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
+            _playersShuffle.remove(player);
     }
     
     public static void clean()
