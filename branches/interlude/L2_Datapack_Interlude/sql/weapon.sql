@@ -1601,3 +1601,37 @@ UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 3 WHERE item_id = 5644
 -- ---------------------------------   active onCast weapons SA  -------------------------------------
 
 -- UPDATE weapon SET onCast_skill_id = , onCast_skill_lvl = , onCast_skill_chance = WHERE item_id = ; --
+
+-- ---------------------------------   Infinity Weapons  -------------------------------------
+-- Infinity Blade --
+UPDATE weapon SET item_skill_id = 3578 , item_skill_lvl = 1 WHERE item_id = 6611 ;
+UPDATE weapon SET onCrit_skill_id = 3579 , onCrit_skill_lvl = 1 , onCrit_skill_chance = 20 WHERE item_id = 6611 ;
+-- Infinity Cleaver --
+UPDATE weapon SET item_skill_id = 3582 , item_skill_lvl = 1 WHERE item_id = 6612 ;
+-- Infinity Axe --
+UPDATE weapon SET item_skill_id = 3580 , item_skill_lvl = 1 WHERE item_id = 6613 ;
+UPDATE weapon SET onCrit_skill_id = 3581 , onCrit_skill_lvl = 1 , onCrit_skill_chance = 20 WHERE item_id = 6613 ;
+-- Infinity Rod --
+UPDATE weapon SET item_skill_id = 3597 , item_skill_lvl = 1 WHERE item_id = 6614 ;
+UPDATE weapon SET onCast_skill_id = 3598 , onCast_skill_lvl = 1 , onCast_skill_chance = 20 WHERE item_id = 6614 ;
+-- Infinity Crusher --
+UPDATE weapon SET item_skill_id = 3583 , item_skill_lvl = 1 WHERE item_id = 6615 ;
+UPDATE weapon SET onCrit_skill_id = 3584 , onCrit_skill_lvl = 1 , onCrit_skill_chance = 20 WHERE item_id = 6615 ;
+-- Infinity Scepter --
+UPDATE weapon SET item_skill_id = 3595 , item_skill_lvl = 1 WHERE item_id = 6616 ;
+UPDATE weapon SET onCast_skill_id = 3596 , onCast_skill_lvl = 1 , onCast_skill_chance = 20 WHERE item_id = 6616 ;
+-- Infinity Stinger --
+UPDATE weapon SET item_skill_id = 3589 , item_skill_lvl = 1 WHERE item_id = 6617 ;
+UPDATE weapon SET onCrit_skill_id = 3590 , onCrit_skill_lvl = 1 , onCrit_skill_chance = 20 WHERE item_id = 6617 ;
+-- Infinity Fang --
+UPDATE weapon SET item_skill_id = 3587 , item_skill_lvl = 1 WHERE item_id = 6618 ;
+UPDATE weapon SET onCrit_skill_id = 3588 , onCrit_skill_lvl = 1 , onCrit_skill_chance = 20 WHERE item_id = 6618 ;
+-- Infinity Bow --
+UPDATE weapon SET item_skill_id = 3593 , item_skill_lvl = 1 WHERE item_id = 6619 ;
+UPDATE weapon SET onCrit_skill_id = 3594 , onCrit_skill_lvl = 1 , onCrit_skill_chance = 20 WHERE item_id = 6619 ;
+-- Infinity Wing --
+UPDATE weapon SET item_skill_id = 3585 , item_skill_lvl = 1 WHERE item_id = 6620 ;
+UPDATE weapon SET onCrit_skill_id = 3586 , onCrit_skill_lvl = 1 , onCrit_skill_chance = 20 WHERE item_id = 6620 ;
+-- Infinity Spear --
+UPDATE weapon SET item_skill_id = 3591 , item_skill_lvl = 1 WHERE item_id = 6621 ;
+UPDATE weapon SET onCrit_skill_id = 3592 , onCrit_skill_lvl = 1 , onCrit_skill_chance = 20 WHERE item_id = 6621 ;

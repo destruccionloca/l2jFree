@@ -1372,198 +1372,283 @@ Description(s):
 </skill>
 <skill id="3578" levels="1" name="Special Ability: Infinity Blade">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       Decreases enemy's P. Def. during critical attacks. Also increases MaxHP, MaxMP, MaxCP, shield defense capability and damage inflicted during PvP.  Reflects some of the damage received back to the enemy (does not include damage from skill or range attacks).
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+      <mul order="0x30" stat="sDef" val="1.8"/>
+      <mul val='1.25' order='0x40' stat='maxMp' />
+      <mul val='1.25' order='0x40' stat='maxHp' />
+      <mul val='1.25' order='0x40' stat='maxCp' />
   </for>
 </skill>
 <skill id="3579" levels="1" name="Decrease P. Def.">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       Temporarily decreases P. Def. Effect 3
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="save" val="4"/>
+  <set name="magicLvl" val="74"/>
+  <set name="lvlDepend" val="2"/>
+  <set name="power" val="80"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="DEBUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <effect count="1" name="Buff" time="15" val="0" stackOrder="0.77" stackType="pDefDown">
+      <div order="0x30" stat="pDef" val="0.77"/>
+    </effect>
   </for>
 </skill>
 <skill id="3580" levels="1" name="Special Ability: Infinity Axe">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       Dazzles the enemy to distraction during a critical attack. Also increases MaxHP, MaxMP, MaxCP, shield defense capability and damage inflicted during PvP. Reflects some of the damage received back to the enemy (does not include damage from skill or range attacks).
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul order="0x30" stat="sDef" val="1.8"/>
+    <mul val='1.25' order='0x40' stat='maxMp' />
+    <mul val='1.25' order='0x40' stat='maxHp' />
+    <mul val='1.25' order='0x40' stat='maxCp' />      
   </for>
 </skill>
 <skill id="3581" levels="1" name="Discord">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       none
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="power" val="350.0"/>
+  <set name="save" val="6"/>
+  <set name="magicLvl" val="74"/>
+  <set name="lvlDepend" val="2"/>
+  <set name="target" val="TARGET_AREA_UNDEAD"/>
+  <set name="skillType" val="CONFUSION"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <effect count="1" name="Confusion" time="6" val="0"/>
   </for>
 </skill>
 <skill id="3582" levels="1" name="Special Ability: Infinity Cleaver">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       Increases critical attack success rate/power, MaxHP, MaxCP and damage inflicted during PvP. Inflicts extra damage on critical attack. Reflects debuff attack back on enemy.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul val='1.25' order='0x40' stat='maxHp' />
+    <mul val='1.25' order='0x40' stat='maxCp' />
+    <add val='20' order='0x40' stat="rCrit" />
+    <add val='1.5' order='0x40' stat="cAtk" />
+    <mul val='1.10' order='0x40' stat='pAtk'/>    
   </for>
 </skill>
 <skill id="3583" levels="1" name="Special Ability: Infinity Crusher">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       Throws enemy into a state of shock during a critical attack. Increases MaxHP, MaxCP, Atk. Spd. and damage inflicted during PvP. Reflects debuff attack back on enemy.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul val='1.25' order='0x40' stat='maxHp' />
+    <mul val='1.25' order='0x40' stat='maxCp' />
+    <mul val='1.10' order='0x40' stat='pAtkSpd' />
+    <mul val='1.10' order='0x40' stat='pAtk'/>
   </for>
 </skill>
 <skill id="3584" levels="1" name="Shock">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       Instantly throws enemy into a state of shock, immobilizing them.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="magicLvl" val="90"/>
+  <set name="lvlDepend" val="1"/>
+  <set name="save" val="4"/>
+  <set name="power" val="800"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="overHit" val="true"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="effectType" val="STUN"/>
+  <set name="effectPower" val="30"/>
   <for>
+	<effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="3585" levels="1" name="Infinity Wing">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       Blocks enemy's ability to use physical skills during a critical attack. Increases MaxHP, MaxMP, MaxCP, critical attack rate and damage inflicted during PvP. Reflects debuff attack back on enemy.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul val='1.25' order='0x40' stat='maxMp' />
+    <mul val='1.25' order='0x40' stat='maxHp' />
+    <mul val='1.25' order='0x40' stat='maxCp' />
+    <mul val='1.5' order='0x40' stat='cAtk' /> 
+    <mul val='1.10' order='0x40' stat='pAtk'/>    
   </for>
 </skill>
 <skill id="3586" levels="1" name="Physical Skill Restraint">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       Temporarily blocks opponent's ability to use physical skills.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="magicLvl" val="77"/>
+  <set name="power" val="80"/>
+  <set name="lvlDepend" val="2"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="MUTE"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/> 
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+   <effect count="1" name="SilenceMagicPhysical" time="30" val="0"/> 
   </for>
 </skill>
 <skill id="3587" levels="1" name="Special Ability: Infinity Fang">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       Throws the enemy into a state of shock during a critical attack. Increases MaxHP, MaxMP, MaxCP, Evasion and damage inflicted during PvP. Reflects debuff attack back on enemy.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul val='1.25' order='0x40' stat='maxHp' />
+    <mul val='1.25' order='0x40' stat='maxMp' />
+    <mul val='1.25' order='0x40' stat='maxCp' />
+    <add val='10' order='0x50' stat='rEvas' />
+    <mul val='1.10' order='0x40' stat='pAtk'/>    
   </for>
 </skill>
 <skill id="3588" levels="1" name="Shock">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       Instantly throws enemy into a state of shock, immobilizing them.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="magicLvl" val="90"/>
+  <set name="lvlDepend" val="1"/>
+  <set name="save" val="4"/>
+  <set name="power" val="800"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="overHit" val="true"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="effectType" val="STUN"/>
+  <set name="effectPower" val="30"/>
   <for>
+	<effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="3589" levels="1" name="Special Ability: Infinity Stinger">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       Blocks enemy's ability to use magic skills during a critical attack. Increases MaxMP, MaxCP, Atk. Spd., MP regeneration rate, critical attack rate when attacking the enemy from behind, and damage inflicted during PvP. Restores HP by using some of the damage inflicted upon the enemy (does not include damage from skill or range attacks).
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul val='1.25' order='0x40' stat='maxMp' />
+    <mul val='1.25' order='0x40' stat='maxCp' />
+    <mul val='1.10' order='0x40' stat='pAtkSpd' />
+    <mul val='1.20' order='0x40' stat='regMp' />     
   </for>
 </skill>
 <skill id="3590" levels="1" name="Silence">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       Temporarily blocks the use of magic skills.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="save" val="2"/>
+  <set name="magicLvl" val="74"/>
+  <set name="power" val="80"/>
+  <set name="lvlDepend" val="2"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="MUTE"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <effect count="1" name="Mute" time="30" val="0" stackOrder="1" stackType="silence"/>
   </for>
 </skill>
 <skill id="3591" levels="1" name="Special Ability: Infinity Spear">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       During a critical attack, this ability removes one or more of the enemy's buffs. It increases the character's Maximum HP, Maximum CP, Atk. Spd., and Accuracy, and gives a bonus to damage inflicted on an enemy during PvP. It reflects debuffs targeted upon the character back upon the enemy. It enables the character to attack multiple enemies.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul val='1.25' order='0x40' stat='maxHp' />
+    <mul val='1.25' order='0x40' stat='maxCp' />
+    <mul val='1.10' order='0x40' stat='pAtkSpd' />
+    <mul val='1.10' order='0x40' stat='pAtk'/>
+    <add order="0x10" stat="accCombat" val="3"/>
   </for>
 </skill>
 <skill id="3592" levels="1" name="Dispell">
@@ -1582,85 +1667,114 @@ Description(s):
 </skill>
 <skill id="3593" levels="1" name="Special Ability: Infinity Bow">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       Decreases enemy's Speed during a critical attack. Increases MaxMP, MaxCP and damage inflicted during PvP. The skill re-use time is shortened, and MP consumption is reduced.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul val='1.25' order='0x40' stat='maxMp' />
+    <mul val='1.25' order='0x40' stat='maxCp' />
+    <mul val='1.20' order='0x40' stat='regMp' />
+    <mul val='0.70' order='0x30' stat='mReuse' />      
   </for>
 </skill>
 <skill id="3594" levels="1" name="Slow">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       Temporarily reduces target's Speed. Effect 3.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="save" val="5"/>
+  <set name="magicLvl" val="74"/>
+  <set name="power" val="80"/>
+  <set name="lvlDepend" val="2"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="DEBUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <effect count="1" name="Buff" time="30" val="0" stackOrder="0.5" stackType="RunSpeedDown">
+      <mul order="0x30" stat="runSpd" val="0.5"/>
+    </effect>
   </for>
 </skill>
 <skill id="3595" levels="1" name="Special Ability: Infinity Scepter">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       When using good magic, regenerates HP by 100%. Also increases MaxHP, MaxCP, M. Atk., damage magic critical attack rate and damage inflicted during PvP. When casting magic, reduces MP consumption and cancel rate.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul stat="mCritRate" val="4" order="0x30"/>
+    <mul val='1.25' order='0x40' stat='maxMp' />
+    <mul val='1.25' order='0x40' stat='maxCp' />
+    <mul val='1.5' order='0x40' stat='mAtk' />
+    <mul order='0x50' stat='regMp' val="2"/>
   </for>
 </skill>
 <skill id="3596" levels="1" name="Full Recover">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       none
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="power" val="10000.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  set name="skillType" val="HEAL"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="3597" levels="1" name="Special Ability: Infinity Rod">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       When using good magic, regenerates HP by 100%. Also increases MaxHP, MaxCP, Casting Spd., MP regeneration rate and damage inflicted during PvP.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul order="0x30" stat="mAtkSpd" val="1.3"/>
+    <mul val='1.25' order='0x40' stat='maxMp' />
+    <mul val='1.25' order='0x40' stat='maxCp' />
+    <mul val='1.10' order='0x40' stat='mAtk'/>
+    <mul val='2' order='0x50' stat='regMp' />
   </for>
 </skill>
 <skill id="3598" levels="1" name="Full Recover">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Done by SarutrA - SqueezeD
   Description(s):
       none
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="power" val="10000.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  set name="skillType" val="HEAL"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
