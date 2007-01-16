@@ -27,7 +27,7 @@ public class L2SkillChargeDmg extends L2Skill
 		charge_skill_id = set.getInteger("charge_skill_id");
 	}
 
-	public boolean checkCondition(L2Character activeChar)
+	public boolean checkCondition(L2Character activeChar, boolean itemOrWeapon)
 	{
 		if (activeChar instanceof L2PcInstance)
 		{
@@ -41,7 +41,7 @@ public class L2SkillChargeDmg extends L2Skill
 				return false;
 			}
 		}
-		return super.checkCondition(activeChar, false);
+		return super.checkCondition(activeChar, itemOrWeapon);
 	}
 	
 	public void useSkill(L2Character caster, L2Object[] targets)

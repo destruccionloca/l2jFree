@@ -29,7 +29,7 @@ public class L2SkillSummon extends L2Skill {
 		isCubic    = set.getBool  ("isCubic", false);
 	}
 
-	public boolean checkCondition(L2Character activeChar)
+	public boolean checkCondition(L2Character activeChar, boolean itemOrWeapons)
 	{
 		if (activeChar instanceof L2PcInstance)
 		{
@@ -59,7 +59,7 @@ public class L2SkillSummon extends L2Skill {
 				}
 			}
 		}
-		return super.checkCondition(activeChar, false);
+		return super.checkCondition(activeChar, itemOrWeapons);
 	}
 	
 	public void useSkill(L2Character caster, L2Object[] targets) {
