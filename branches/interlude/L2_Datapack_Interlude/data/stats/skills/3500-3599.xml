@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
 <skill id="3500" levels="1" name="Wooden Set">
@@ -1742,17 +1742,15 @@ Description(s):
 </skill>
 <skill id="3596" levels="1" name="Full Recover">
 <!--
-  Done by SarutrA - SqueezeD
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       none
 -->
-  <set name="power" val="10000.0"/>
-  <set name="target" val="TARGET_SELF"/>
-  set name="skillType" val="HEAL"/>
-  <set name="isMagic" val="true"/>
-  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -1778,17 +1776,15 @@ Description(s):
 </skill>
 <skill id="3598" levels="1" name="Full Recover">
 <!--
-  Done by SarutrA - SqueezeD
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       none
 -->
-  <set name="power" val="10000.0"/>
-  <set name="target" val="TARGET_SELF"/>
-  set name="skillType" val="HEAL"/>
-  <set name="isMagic" val="true"/>
-  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
