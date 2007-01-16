@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.lib;
 
 import net.sf.l2j.util.MTRandom;
+import net.sf.l2j.util.RandomIntGenerator;
 
 /**$
  * 
@@ -29,27 +30,27 @@ public class Rnd
 {
     private static MTRandom _rnd = new MTRandom();
 	
-	public static final float get()	// get random number from 0 to 1
+	public static final double get()	// get random number from 0 to 1
 	{
-		return _rnd.nextFloat();
+		return RandomIntGenerator.getInstance().nextRandom();
 	}
 
 	public static final int get(int n) // get random number from 0 to n-1
 	{
-		return (int)Math.floor(_rnd.nextDouble()*n);
+		return (int)Math.floor(RandomIntGenerator.getInstance().nextRandom()*n);
 	}
 
 	public static final int get(int min, int max)  // get random number from min to max (not max-1 !)
 	{
-        return min + (int)Math.floor(_rnd.nextDouble()*(max - min + 1));
+        return min + (int)Math.floor(RandomIntGenerator.getInstance().nextRandom()*(max - min + 1));
 	}
 	public static final int nextInt(int n)  
 	{
-		return (int)Math.floor(_rnd.nextDouble()*n);
+		return (int)Math.floor(RandomIntGenerator.getInstance().nextRandom()*n);
 	}
 	public static final double nextDouble()  
 	{
-		return _rnd.nextDouble();
+		return RandomIntGenerator.getInstance().nextRandom();
 	}
 	public static final double nextGaussian()  
 	{

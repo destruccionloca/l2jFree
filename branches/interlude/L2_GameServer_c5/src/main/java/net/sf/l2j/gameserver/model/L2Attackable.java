@@ -56,7 +56,6 @@ import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.Util;
-import net.sf.l2j.util.RandomIntGenerator;
 
 /**
  * This class manages all NPC that can be attacked.<BR><BR>
@@ -2085,7 +2084,7 @@ public class L2Attackable extends L2NpcInstance
 
         // setting up champion mobs
         if (( this instanceof L2MonsterInstance )&&(Config.CHAMPION_FREQUENCY > 0)) {
-            if (RandomIntGenerator.getInstance().getRnd()*0.1 <= Config.CHAMPION_FREQUENCY) {
+            if (Rnd.get(100000) <= Config.CHAMPION_FREQUENCY) {
                 this.setChampion(true);
             }
         }

@@ -337,6 +337,8 @@ public class GameServer
         if ( _log.isDebugEnabled())_log.debug("LevelUpData initialized");
         L2World.getInstance();
         if ( _log.isDebugEnabled())_log.debug("World initialized");
+        RandomIntGenerator.getInstance();
+        if ( _log.isDebugEnabled())_log.debug("RandomIntGenerator initialized");
 
         //have to load waterZones before geo ... geo now uses waterzones in checks
         Manager.loadAll();
@@ -359,9 +361,7 @@ public class GameServer
         EventDroplist.getInstance();
         if ( _log.isDebugEnabled())_log.debug("EventDroplist initialized");        
         ItemsOnGroundManager.getInstance();
-        if ( _log.isDebugEnabled())_log.debug("ItemsOnGroundManager initialized");
-        RandomIntGenerator.getInstance();
-        if ( _log.isDebugEnabled())_log.debug("RandomIntGenerator initialized");
+        if ( _log.isDebugEnabled())_log.debug("ItemsOnGroundManager initialized");        
         
         if (Config.AUTODESTROY_ITEM_AFTER > 0 || Config.HERB_AUTO_DESTROY_TIME > 0)
         {
