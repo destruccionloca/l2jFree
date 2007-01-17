@@ -302,7 +302,7 @@
   <set name="overHit" val="true" />
   <set name="reuseDelay" val="20000" />
   <set name="skillTime" val="3000" />
-  <set name="skillType" val="PDAM" />
+  <set name="skillType" val="FATALCOUNTER" />
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
   <set name="effectRange" val="1400"/>
