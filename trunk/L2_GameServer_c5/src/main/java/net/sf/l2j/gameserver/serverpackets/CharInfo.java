@@ -240,34 +240,6 @@ public class CharInfo extends ServerBasePacket
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
-        if (getClient().getRevision() >= 729)
-        {
-            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_CLOAK));            
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-        }
         
         writeD(_cha.getPvpFlag());
         writeD(_cha.getKarma());

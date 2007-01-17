@@ -84,8 +84,6 @@ public class HennaInfo extends ServerBasePacket
 			}
 		}
 		*/
-        if (getClient().getRevision() >= 729) 
-            writeD(0); 
 		writeD(3);
 		for (int i=0;i<3;i++){
 			L2HennaInstance h = _player.getHenna(i+1);

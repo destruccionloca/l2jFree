@@ -138,8 +138,6 @@ public class UserInfo extends ServerBasePacket
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_BACK));
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_LRHAND));
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
-        if (getClient().getRevision() >= 729)
-            writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_CLOAK));
 
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_REAR));
@@ -158,44 +156,6 @@ public class UserInfo extends ServerBasePacket
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_BACK));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
-        if (getClient().getRevision() >= 729)
-        {
-            writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_CLOAK));            
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);            
-        }
 
         writeD(_cha.getPAtk(null));
         writeD(_cha.getPAtkSpd());

@@ -123,13 +123,6 @@ public class ItemList extends ServerBasePacket
             writeH(temp.getEnchantLevel()); // enchant level
             //race tickets
             writeH(temp.getCustomType2());  // item type3
-
-            if (getClient().getRevision() >= 729) // chaotic throne
-            {
-                writeH(0);
-                writeH(0);
-                writeD(0);
-            }
         }
     }
     
