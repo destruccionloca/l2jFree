@@ -43,7 +43,7 @@ public class RequestPrivateStoreBuy extends ClientBasePacket
 {
 //  private static final String _C__79_SENDPRIVATESTOREBUYLIST = "[C] 79 SendPrivateStoreBuyList";
     private static final String _C__79_REQUESTPRIVATESTOREBUY = "[C] 79 RequestPrivateStoreBuy";
-    private final static Log _log = LogFactory.getLog(RequestPrivateStoreBuy.class.getName());
+//    private final static Log _log = LogFactory.getLog(RequestPrivateStoreBuy.class.getName());
 
     private final int _storePlayerId;
     private int _count;
@@ -129,7 +129,17 @@ public class RequestPrivateStoreBuy extends ClientBasePacket
             sendPacket(new ActionFailed());
             return;
         }
-        
+
+        if (storePlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_PACKAGE_SELL)
+        {
+           if (storeList.getItemCount() > _count)
+           {
+               String msgErr = "[RequestPrivateStoreBuy] player "+getClient().getActiveChar().getName()+" tried to buy less items then sold by package-sell, ban this player for bot-usage!";
+               Util.handleIllegalPlayerAction(getClient().getActiveChar(),msgErr,Config.DEFAULT_PUNISH);
+               return;
+           }
+        }
+
         if (!storeList.PrivateStoreBuy(player, _items, (int) priceTotal))
         {
             sendPacket(new ActionFailed());

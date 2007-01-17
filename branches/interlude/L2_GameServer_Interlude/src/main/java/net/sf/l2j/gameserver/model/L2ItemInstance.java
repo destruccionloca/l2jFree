@@ -253,7 +253,8 @@ public final class L2ItemInstance extends L2Object
 	public void changeCount(String process, int count, L2PcInstance creator, L2Object reference)
 	{
         if (count == 0) return;
-        _count += count;
+        if ( count > 0 && _count > Integer.MAX_VALUE - count) _count = Integer.MAX_VALUE;
+        else _count += count;
         if (_count < 0) _count = 0;
         _storedInDb = false;
         
@@ -512,7 +513,11 @@ public final class L2ItemInstance extends L2Object
 				(_itemId >=3973 && _itemId<=3982 && !player.isCastleLord(2)) ||
 				(_itemId >=3986 && _itemId<=3995 && !player.isCastleLord(3)) ||
 				(_itemId >=3999 && _itemId<=4008 && !player.isCastleLord(4)) ||
-				(_itemId >=4012 && _itemId<=4021 && !player.isCastleLord(5))
+				(_itemId >=4012 && _itemId<=4021 && !player.isCastleLord(5)) ||
+				(_itemId >=5205 && _itemId<=5214 && !player.isCastleLord(6)) ||
+				(_itemId >=6779 && _itemId<=6788 && !player.isCastleLord(7)) ||
+				(_itemId >=7973 && _itemId<=7982 && !player.isCastleLord(8)) ||
+				(_itemId >=7918 && _itemId<=7927 && !player.isCastleLord(9))
 			)
 		{
 			if	(player.isInParty())    //do not allow owner who is in party to pick tickets up

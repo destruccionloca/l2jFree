@@ -93,7 +93,7 @@ public class AdminSiege implements IAdminCommandHandler
 
             if (command.equalsIgnoreCase("admin_add_attacker"))
             {
-                if (player == null)
+                if (player == null || player.getClan() == null)
                     activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
                 else
                     castle.getSiege().registerAttacker(player,true);
