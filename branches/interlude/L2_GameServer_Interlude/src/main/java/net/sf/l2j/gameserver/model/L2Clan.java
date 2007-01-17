@@ -20,9 +20,6 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import java.util.Map;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
@@ -55,8 +52,8 @@ public class L2Clan
     private String _name;
     private int _clanId;
     private L2ClanMember _leader;
-    private Map<String, L2ClanMember> _members = new FastMap<String, L2ClanMember>();
-    private Map<String, L2ClanMember> _subMembers = new FastMap<String, L2ClanMember>();
+    private FastMap<String, L2ClanMember> _members = new FastMap<String, L2ClanMember>();
+    private FastMap<String, L2ClanMember> _subMembers = new FastMap<String, L2ClanMember>();
     
     private String _allyName;
     private int _allyId;
@@ -71,8 +68,8 @@ public class L2Clan
     private int _auctionBiddedAt;
     
     private ItemContainer _warehouse = new ClanWarehouse(this);
-    private List<L2Clan> _atWarWith = new FastList<L2Clan>();
-    private List<L2Clan> _underAtackFrom = new FastList<L2Clan>();
+    private FastList<L2Clan> _atWarWith = new FastList<L2Clan>();
+    private FastList<L2Clan> _underAtackFrom = new FastList<L2Clan>();
     
     private boolean _hasCrestLarge;
     
@@ -105,9 +102,9 @@ public class L2Clan
     public static final int CP_ALL = 8388606;  
     
     /** FastMap(Integer, L2Skill) containing all skills of the L2Clan */
-    protected final Map<Integer, L2Skill> _Skills = new FastMap<Integer, L2Skill>();
-    protected final Map<Integer, RankPrivs> _Privs = new FastMap<Integer, RankPrivs>();
-    protected final Map<Integer, SubPledge> _SubPledges = new FastMap<Integer, SubPledge>();
+    protected final FastMap<Integer, L2Skill> _Skills = new FastMap<Integer, L2Skill>();
+    protected final FastMap<Integer, RankPrivs> _Privs = new FastMap<Integer, RankPrivs>();
+    protected final FastMap<Integer, SubPledge> _SubPledges = new FastMap<Integer, SubPledge>();
     
     private int _reputationScore = 0;
     private int _rank = 0;
@@ -456,7 +453,7 @@ public class L2Clan
     
     public L2PcInstance[] getOnlineMembers(String exclude)
     {
-        List<L2PcInstance> result = new FastList<L2PcInstance>();
+        FastList<L2PcInstance> result = new FastList<L2PcInstance>();
         for (L2ClanMember temp : _members.values())
         {
             //L2ClanMember temp = (L2ClanMember) iter.next();
@@ -1348,11 +1345,11 @@ public class L2Clan
             if (_underAtackFrom.contains(clan)) return true;
         return false; 
     }
-    public List<L2Clan> getEnemyClans()
+    public FastList<L2Clan> getEnemyClans()
     {
         return _atWarWith;
     }
-    public List<L2Clan> getAtackerClans()
+    public FastList<L2Clan> getAtackerClans()
     {
         return _underAtackFrom;
     }

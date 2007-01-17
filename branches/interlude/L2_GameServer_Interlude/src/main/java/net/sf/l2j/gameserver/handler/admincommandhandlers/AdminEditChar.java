@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.util.Collection;
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.ai.CtrlIntention;

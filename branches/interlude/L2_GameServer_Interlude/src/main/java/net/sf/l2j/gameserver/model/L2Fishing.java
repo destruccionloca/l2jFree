@@ -1,7 +1,8 @@
 package net.sf.l2j.gameserver.model;
 
-import java.util.List;
 import java.util.concurrent.Future;
+
+import javolution.util.FastList;
 
 import net.sf.l2j.gameserver.FishTable;
 import net.sf.l2j.gameserver.NpcTable;
@@ -62,7 +63,7 @@ public class L2Fishing implements Runnable
         int luretype = GetLurePreferedType(lureid);
         int type = GetRandomFishType(luretype);
         int randomlvl = GetRandomFishLvl();
-        List<FishData> fishs = FishTable.getInstance().getfish(randomlvl, type);
+        FastList<FishData> fishs = FishTable.getInstance().getfish(randomlvl, type);
         if (fishs == null || fishs.size() == 0)
         {
             _Fisher.sendMessage("Error - Fishes are not definied");

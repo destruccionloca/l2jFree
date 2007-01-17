@@ -19,8 +19,6 @@
 package net.sf.l2j.gameserver.skills;
 
 import java.io.File;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
@@ -47,12 +45,12 @@ final class DocumentSkill extends DocumentBase {
         public StatsSet[]           enchsets1;
         public StatsSet[]           enchsets2;
         public int                  currentLevel;
-        public List<L2Skill>   skills          = new FastList<L2Skill>();
-        public List<L2Skill>   currentSkills   = new FastList<L2Skill>();
+        public FastList<L2Skill>   skills          = new FastList<L2Skill>();
+        public FastList<L2Skill>   currentSkills   = new FastList<L2Skill>();
     }
     
     private Skill currentSkill;
-    private List<L2Skill> skillsInFile  = new FastList<L2Skill>();
+    private FastList<L2Skill> skillsInFile  = new FastList<L2Skill>();
 	
 	DocumentSkill(File file)
 	{
@@ -69,7 +67,7 @@ final class DocumentSkill extends DocumentBase {
 		return currentSkill.sets[currentSkill.currentLevel];
 	}
     
-	protected List<L2Skill> getSkills()
+	protected FastList<L2Skill> getSkills()
 	{
         return skillsInFile;
 	}

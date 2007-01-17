@@ -64,13 +64,13 @@ public final class QuestState
 	private boolean _isCompleted;
 	
 	/** List of couples (variable for quest,value of the variable for quest) */
-	private Map<String, String> _vars;
+	private FastMap<String, String> _vars;
 	
 	/** List of drops needed for quest according to the mob */
-	private Map<Integer, List<L2DropData>> _drops;
+	private FastMap<Integer, FastList<L2DropData>> _drops;
 	
     /** List of timer for quest */
-    private List<QuestTimer> _questTimers;
+    private FastList<QuestTimer> _questTimers;
     
     /** Boolean flag letting QuestStateManager know to exit quest when cleaning up */
     private boolean _isExitQuestOnCleanUp = false;
@@ -103,11 +103,11 @@ public final class QuestState
 		// add drops from state of the quest
 		if (state != null && !isCompleted()) 
         {
-			Map<Integer, List<L2DropData>> new_drops = state.getDrops();
+			Map<Integer, FastList<L2DropData>> new_drops = state.getDrops();
             
 			if (new_drops != null) 
             {
-				_drops = new FastMap<Integer, List<L2DropData>>();
+				_drops = new FastMap<Integer, FastList<L2DropData>>();
 				_drops.putAll(new_drops);
 			}
 		}
@@ -144,7 +144,7 @@ public final class QuestState
 	 * Return list of drops needed for the quest in concordance with mobs
 	 * @return FastMap
 	 */
-	public Map<Integer, List<L2DropData>> getDrops()
+	public FastMap<Integer, FastList<L2DropData>> getDrops()
 	{
 		return _drops;
 	}
@@ -186,7 +186,7 @@ public final class QuestState
 		// remove drops from previous state
 		if (getDrops() != null) 
         {
-			for (Iterator<List<L2DropData>> i = getDrops().values().iterator(); i.hasNext();) 
+			for (Iterator<FastList<L2DropData>> i = getDrops().values().iterator(); i.hasNext();) 
             {
 				List<L2DropData> lst = i.next();
                 
@@ -221,12 +221,12 @@ public final class QuestState
 		// add drops from new state
         if (!isCompleted())  
         {
-			Map<Integer, List<L2DropData>> newDrops = state.getDrops();
+			Map<Integer, FastList<L2DropData>> newDrops = state.getDrops();
             
 			if (newDrops != null)
             {
 				if (getDrops() == null)
-					_drops = new FastMap<Integer, List<L2DropData>>();
+					_drops = new FastMap<Integer, FastList<L2DropData>>();
                 
 				_drops.putAll(newDrops);
 			}
@@ -427,14 +427,14 @@ public final class QuestState
 	public void addQuestDrop(int npcId, int itemId, int chance) 
     {
 		if (getDrops() == null)
-			_drops = new FastMap<Integer, List<L2DropData>>();
+			_drops = new FastMap<Integer, FastList<L2DropData>>();
         
 		L2DropData d = new L2DropData();
 		d.setItemId(itemId);
 		d.setChance(chance);
 		d.setQuestID(getQuest().getName());
 		d.addStates(new String[]{getState().getName()});
-		List<L2DropData> lst = getDrops().get(npcId);
+		FastList<L2DropData> lst = getDrops().get(npcId);
         
 		if (lst != null) 
         {
@@ -461,7 +461,7 @@ public final class QuestState
 	 * @param npc : L2Attackable killed
 	 * @param drops : List of drops of the L2Attackable
 	 */
-	public void fillQuestDrops(L2NpcInstance npc, List<L2DropData> drops)
+	public void fillQuestDrops(L2NpcInstance npc, FastList<L2DropData> drops)
 	{
 		if (getDrops() == null)
 			return;
@@ -772,7 +772,7 @@ public final class QuestState
      * Return a list of QuestTimer
      * @return FastList<QuestTimer>
      */
-    public final List<QuestTimer> getQuestTimers()
+    public final FastList<QuestTimer> getQuestTimers()
     {
         if (_questTimers == null)
             _questTimers = new FastList<QuestTimer>();
@@ -834,7 +834,7 @@ public final class QuestState
 		if (getDrops() != null) 
         {
 			// Go through values of class variable "drops" pointing out mobs that drop for quest
-		    for (Iterator<List<L2DropData>> i = getDrops().values().iterator(); i.hasNext();) 
+		    for (Iterator<FastList<L2DropData>> i = getDrops().values().iterator(); i.hasNext();) 
             {
 		    	List<L2DropData> lst = i.next();
                 

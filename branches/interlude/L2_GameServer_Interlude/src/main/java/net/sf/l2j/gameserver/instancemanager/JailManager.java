@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.Jail;
@@ -18,7 +16,7 @@ public class JailManager
     // =========================================================
     // Data Field
     private static JailManager _Instance;
-    private List<Jail> _Jails;
+    private FastList<Jail> _Jails;
     
     // =========================================================
     // Constructor
@@ -117,7 +115,7 @@ public class JailManager
         return -1;
     }
 
-    public final List<Jail> getJails()
+    public final FastList<Jail> getJails()
     {
         if (_Jails == null) _Jails = new FastList<Jail>();
         return _Jails;

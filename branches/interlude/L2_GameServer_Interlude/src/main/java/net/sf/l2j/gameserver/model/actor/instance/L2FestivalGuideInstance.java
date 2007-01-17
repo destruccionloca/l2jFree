@@ -19,9 +19,8 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.Calendar;
-import java.util.List;
-
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
+import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
@@ -254,7 +253,7 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
                         return;
                     }
                     
-                    List<L2PcInstance> prevParticipants = SevenSignsFestival.getInstance().getPreviousParticipants(_festivalOracle, _festivalType);
+                    FastList<L2PcInstance> prevParticipants = SevenSignsFestival.getInstance().getPreviousParticipants(_festivalOracle, _festivalType);
                     
                     // Check if there are any past participants.
                     if (prevParticipants == null)

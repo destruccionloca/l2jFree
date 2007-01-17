@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.Properties;
 
 import javolution.util.FastList;
@@ -66,7 +65,7 @@ public class SiegeManager
     private int _Flag_MaxCount                                   = 1; // Changeable in siege.config
     private int _Siege_Clan_MinLevel                             = 4; // Changeable in siege.config
     private int _Siege_Length                                    = 120; // Time in minute. Changeable in siege.config
-    private List<Siege> _Sieges;
+    private FastList<Siege> _Sieges;
     
     // =========================================================
     // Constructor
@@ -216,7 +215,7 @@ public class SiegeManager
     
     public final int getSiegeLength() { return _Siege_Length; }
 
-    public final List<Siege> getSieges()
+    public final FastList<Siege> getSieges()
     {
         if (_Sieges == null) _Sieges = new FastList<Siege>();
         return _Sieges;

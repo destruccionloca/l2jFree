@@ -4,8 +4,6 @@
 package net.sf.l2j.gameserver.model;
 
 import java.io.File;
-import java.util.List;
-
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import javolution.util.FastList;
@@ -23,7 +21,7 @@ import org.w3c.dom.Node;
 public class L2Multisell
 {
     private final static Log _log = LogFactory.getLog(L2Multisell.class.getName());
-    private List<MultiSellListContainer> entries = new FastList<MultiSellListContainer>();
+    private FastList<MultiSellListContainer> entries = new FastList<MultiSellListContainer>();
     private static L2Multisell _instance = new L2Multisell();
 
     public MultiSellListContainer getList(int id)
@@ -64,8 +62,8 @@ public class L2Multisell
     public class MultiSellEntry
     {
         private int _entryId;
-        private List<MultiSellIngredient> _products    = new FastList<MultiSellIngredient>();
-        private List<MultiSellIngredient> _ingredients = new FastList<MultiSellIngredient>();
+        private FastList<MultiSellIngredient> _products    = new FastList<MultiSellIngredient>();
+        private FastList<MultiSellIngredient> _ingredients = new FastList<MultiSellIngredient>();
 
         /**
          * @param entryId The entryId to set.
@@ -94,7 +92,7 @@ public class L2Multisell
         /**
          * @return Returns the ingredients.
          */
-        public List<MultiSellIngredient> getIngredients()
+        public FastList<MultiSellIngredient> getIngredients()
         {
             return _ingredients;
         }
@@ -110,7 +108,7 @@ public class L2Multisell
         /**
          * @return Returns the products.
          */
-        public List<MultiSellIngredient> getProducts()
+        public FastList<MultiSellIngredient> getProducts()
         {
             return _products;
         }
@@ -186,7 +184,7 @@ public class L2Multisell
     public class MultiSellListContainer
     {
         private int _listId;
-        List<MultiSellEntry> entriesC;
+        FastList<MultiSellEntry> entriesC;
         
         public MultiSellListContainer()
         {
@@ -214,13 +212,13 @@ public class L2Multisell
             entriesC.add(e);
         }
 
-        public List<MultiSellEntry> getEntries()
+        public FastList<MultiSellEntry> getEntries()
         {
             return entriesC;
         }
     }
 
-    private void hashFiles(String dirname, List<File> hash)
+    private void hashFiles(String dirname, FastList<File> hash)
     {
         File dir = new File(Config.DATAPACK_ROOT, "data/" + dirname);
         if (!dir.exists())
@@ -239,7 +237,7 @@ public class L2Multisell
     {
         Document doc = null;
         int id = 0;
-        List<File> files = new FastList<File>();
+        FastList<File> files = new FastList<File>();
         hashFiles("multisell", files);
 
         for (File f : files)

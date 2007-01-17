@@ -23,8 +23,6 @@ import java.io.StringWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collection;
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -49,14 +47,14 @@ public abstract class Quest
 	protected static Log _log = LogFactory.getLog(Quest.class.getName());
 
 	/** HashMap containing events from String value of the event */
-	private static Map<String, Quest> allEventsS = new FastMap<String, Quest>();
+	private static FastMap<String, Quest> allEventsS = new FastMap<String, Quest>();
 
 	private final int _questId;
 	private final String _name;
 	private final String _descr;
 	private final boolean _party;
     private State initialState;
-    private Map<String, State> states;
+    private FastMap<String, State> states;
 	
 	/**
 	 * Return collection view of the values contains in the allEventS

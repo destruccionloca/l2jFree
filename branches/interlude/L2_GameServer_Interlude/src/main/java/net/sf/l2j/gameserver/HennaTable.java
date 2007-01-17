@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.templates.L2Henna;
@@ -41,7 +39,7 @@ public class HennaTable
 
 	private static HennaTable _instance;
 
-	private Map<Integer, L2Henna> _henna;
+	private FastMap<Integer, L2Henna> _henna;
 	private boolean _initialized = true;
 
 	public static HennaTable getInstance()

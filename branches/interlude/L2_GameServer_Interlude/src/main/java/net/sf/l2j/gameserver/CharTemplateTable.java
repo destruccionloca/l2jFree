@@ -21,8 +21,6 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.base.ClassId;
@@ -59,7 +57,7 @@ public class CharTemplateTable
                                                 "Fortune Seeker", "Maestro"
     };
     
-	private Map<Integer, L2PcTemplate> _templates;
+	private FastMap<Integer, L2PcTemplate> _templates;
 	
 	public static CharTemplateTable getInstance()
 	{

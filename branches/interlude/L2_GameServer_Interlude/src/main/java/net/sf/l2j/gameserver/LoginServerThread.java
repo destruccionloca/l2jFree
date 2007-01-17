@@ -30,8 +30,6 @@ import java.security.KeyFactory;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.RSAKeyGenParameterSpec;
 import java.security.spec.RSAPublicKeySpec;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import javolution.util.FastList;
@@ -94,8 +92,8 @@ public class LoginServerThread extends Thread
 	private int							_serverID;
 	private boolean 					_reserveHost;
 	private int							_maxPlayer;
-	private List<WaitingClient>			_waitingClients;
-	private Map<String, Connection>		_accountsInGameServer;
+	private FastList<WaitingClient>			_waitingClients;
+	private FastMap<String, Connection>		_accountsInGameServer;
 	private int							_status;
 	private String						_serverName;
 	private String						_gameExternalHost;

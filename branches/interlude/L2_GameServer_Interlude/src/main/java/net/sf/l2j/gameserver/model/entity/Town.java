@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.model.entity;
 
-import java.util.List;
+import javolution.util.FastList;
 
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
@@ -34,7 +34,7 @@ public class Town
     private int _RedirectToTownId               = 0;    // This is the id of the town to redirect players to
     //private double _TaxRate                     = 0;    // This is the town's local tax rate used by merchant
     private int _TownId                         = 0;
-    private List<int[]> _Spawn;
+    private FastList<int[]> _Spawn;
     private Zone _Zone;
 
 	// =========================================================
@@ -87,7 +87,7 @@ public class Town
 
     public final String getName() { return _Name; }
 
-    public final List<int[]> getSpawn()
+    public final FastList<int[]> getSpawn()
     {
         // If a redirect to town id is avail, town belongs to a castle, and castle is under siege then redirect
         //if (_RedirectToTownId != getTownId() && getCastle() != null && getCastle().getSiege().getIsInProgress()) return TownManager.getInstance().getTown(_RedirectToTownId).getSpawn();

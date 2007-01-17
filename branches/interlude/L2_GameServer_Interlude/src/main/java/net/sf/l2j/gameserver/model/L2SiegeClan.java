@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.model;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 
@@ -30,7 +28,7 @@ public class L2SiegeClan
 	// ===============================================================
 	// Data Field
 	private int _ClanId                = 0;
-	private List<L2NpcInstance> _Flag  = new FastList<L2NpcInstance>();
+	private FastList<L2NpcInstance> _Flag  = new FastList<L2NpcInstance>();
 	private int _numFlagsAdded = 0;
 	private SiegeClanType _type;
 
@@ -106,7 +104,7 @@ public class L2SiegeClan
 	// Proeprty
 	public final int getClanId() { return _ClanId; }
 
-	public final List<L2NpcInstance> getFlag()
+	public final FastList<L2NpcInstance> getFlag()
 	{
 		if (_Flag == null) _Flag  = new FastList<L2NpcInstance>();
 		return _Flag;

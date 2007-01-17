@@ -21,8 +21,6 @@ package net.sf.l2j.gameserver.model.entity;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClanTable;
@@ -216,7 +214,7 @@ public class Auction
 	private int _CurrentBid						= 0;
 	private int _StartingBid					= 0;
     
-    private Map<Integer, Bidder> _bidders        = new FastMap<Integer, Bidder>();
+    private FastMap<Integer, Bidder> _bidders        = new FastMap<Integer, Bidder>();
 
 	// =========================================================
 	// Constructor
@@ -614,5 +612,5 @@ public class Auction
 
 	public final int getStartingBid() { return this._StartingBid; }
     
-    public final Map<Integer, Bidder> getBidders(){ return this._bidders; };
+    public final FastMap<Integer, Bidder> getBidders(){ return this._bidders; };
 }

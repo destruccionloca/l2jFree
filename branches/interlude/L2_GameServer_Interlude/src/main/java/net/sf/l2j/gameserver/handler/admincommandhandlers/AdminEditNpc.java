@@ -21,10 +21,9 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -531,7 +530,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 
     private void showShop(L2PcInstance admin, int merchantID)
     {
-        List<L2TradeList> tradeLists = getTradeLists(merchantID);
+        FastList<L2TradeList> tradeLists = getTradeLists(merchantID);
         if(tradeLists == null)
         {
             admin.sendMessage("Unknown npc template ID" + merchantID);
@@ -614,7 +613,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         return order;
     }
 
-    private List<L2TradeList> getTradeLists(int merchantID)
+    private FastList<L2TradeList> getTradeLists(int merchantID)
     {
         String target = "npc_%objectId%_Buy";
         
@@ -628,7 +627,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
                 return null;
         }
 
-        List<L2TradeList> tradeLists = new FastList<L2TradeList>();
+        FastList<L2TradeList> tradeLists = new FastList<L2TradeList>();
         
         String[] lines = content.split("\n");
         int pos = 0;

@@ -27,7 +27,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 import java.util.Random;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.Announcements;

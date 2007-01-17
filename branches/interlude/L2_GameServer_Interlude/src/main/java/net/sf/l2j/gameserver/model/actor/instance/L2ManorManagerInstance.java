@@ -1,8 +1,6 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.util.List;
-
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ItemTable;
@@ -31,7 +29,7 @@ public class L2ManorManagerInstance extends L2NpcInstance
 {
     private final static Log _log = LogFactory.getLog(L2ManorManagerInstance.class.getName());
 
-    private List<SeedProduction> _SeedIds = new FastList<SeedProduction>();
+    private FastList<SeedProduction> _SeedIds = new FastList<SeedProduction>();
 
     private L2TradeList _tradeList;
 
@@ -146,7 +144,7 @@ public class L2ManorManagerInstance extends L2NpcInstance
     {
         if (getCastle() == null) return;
 
-        List<CropProcure> crops = getCastle().getManorRewards();
+        FastList<CropProcure> crops = getCastle().getManorRewards();
         NpcHtmlMessage html = new NpcHtmlMessage(1);
         String r = "";
 

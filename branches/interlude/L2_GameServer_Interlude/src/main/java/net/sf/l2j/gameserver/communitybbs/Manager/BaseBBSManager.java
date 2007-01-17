@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.communitybbs.Manager;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ShowBoard;
@@ -76,7 +74,7 @@ public abstract class BaseBBSManager
 	 */
 	protected void send1002(L2PcInstance activeChar, String string, String string2,String string3)
 	{		
-		List<String> _arg = new FastList<String>();
+		FastList<String> _arg = new FastList<String>();
 		_arg.add("0");
 		_arg.add("0");
 		_arg.add("0");

@@ -29,7 +29,6 @@
 package net.sf.l2j.gameserver.model.waypoint;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -55,7 +54,7 @@ public class WayPointNode extends L2Object
     private static String NORMAL = "Node", SELECTED = "Selected", LINKED = "Linked";
     public static int LINE_ID = 5560;
     private static String LINE_TYPE = "item";
-    private Map<WayPointNode, List<WayPointNode>> linkLists;
+    private Map<WayPointNode, FastList<WayPointNode>> linkLists;
 
     /**
      * @param objectId
@@ -63,7 +62,7 @@ public class WayPointNode extends L2Object
     public WayPointNode(int objectId)
     {
         super(objectId);
-        linkLists = Collections.synchronizedMap(new WeakHashMap<WayPointNode, List<WayPointNode>>());
+        linkLists = Collections.synchronizedMap(new WeakHashMap<WayPointNode, FastList<WayPointNode>>());
     }
 
     /* (non-Javadoc)
@@ -205,7 +204,7 @@ public class WayPointNode extends L2Object
 
         int steps = distance / 40;
 
-        List<WayPointNode> lineNodes = new FastList<WayPointNode>();
+        FastList<WayPointNode> lineNodes = new FastList<WayPointNode>();
 
         for (int i = 0; i < steps; i++)
         {
@@ -220,7 +219,7 @@ public class WayPointNode extends L2Object
         nodeB.addLineInfo(nodeA, lineNodes);
     }
 
-    public void addLineInfo(WayPointNode node, List<WayPointNode> line)
+    public void addLineInfo(WayPointNode node, FastList<WayPointNode> line)
     {
         linkLists.put(node, line);
     }
@@ -231,7 +230,7 @@ public class WayPointNode extends L2Object
      */
     public static void eraseLine(WayPointNode target, WayPointNode selectedNode)
     {
-        List<WayPointNode> lineNodes = target.getLineInfo(selectedNode);
+        FastList<WayPointNode> lineNodes = target.getLineInfo(selectedNode);
         if (lineNodes == null) return;
         for (WayPointNode node : lineNodes)
         {
@@ -253,7 +252,7 @@ public class WayPointNode extends L2Object
      * @param selectedNode
      * @return
      */
-    private List<WayPointNode> getLineInfo(WayPointNode selectedNode)
+    private FastList<WayPointNode> getLineInfo(WayPointNode selectedNode)
     {
         return linkLists.get(selectedNode);
     }
@@ -263,11 +262,11 @@ public class WayPointNode extends L2Object
         LINE_ID = line_id;
     }
 
-    public List<WayPointNode> getLineNodes()
+    public FastList<WayPointNode> getLineNodes()
     {
-        List<WayPointNode> list = new FastList<WayPointNode>();
+        FastList<WayPointNode> list = new FastList<WayPointNode>();
 
-        for (List<WayPointNode> points : linkLists.values())
+        for (FastList<WayPointNode> points : linkLists.values())
         {
             list.addAll(points);
         }

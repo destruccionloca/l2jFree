@@ -36,7 +36,7 @@ import javolution.util.FastMap;
 
 public class ExtractableItemsData
 {
-    //          Map<itemid, L2ExtractableItem>
+    //          FastMap<itemid, L2ExtractableItem>
     private FastMap<Integer, L2ExtractableItem> _items;
     
     private static ExtractableItemsData _instance = null;

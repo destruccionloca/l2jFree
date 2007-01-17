@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.model.quest;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
@@ -44,8 +42,8 @@ public class QuestPcSpawn
     // =========================================================
     // Data Field
     private L2PcInstance[] _Player;
-    private List<AutoSpawnInstance> _autoSpawns = new FastList<AutoSpawnInstance>();
-    private List<L2Spawn> _Spawns = new FastList<L2Spawn>();
+    private FastList<AutoSpawnInstance> _autoSpawns = new FastList<AutoSpawnInstance>();
+    private FastList<L2Spawn> _Spawns = new FastList<L2Spawn>();
     
     // =========================================================
     // Constructor
@@ -374,7 +372,7 @@ public class QuestPcSpawn
     /**
      * Return list of AutoSpawnInstances for player instance
      */
-    public List<AutoSpawnInstance> getRandomSpawns()
+    public FastList<AutoSpawnInstance> getRandomSpawns()
     {
         if (_autoSpawns == null)
             _autoSpawns = new FastList<AutoSpawnInstance>();
@@ -407,7 +405,7 @@ public class QuestPcSpawn
     /**
      * Return list of L2Spawn for player instance
      */
-    public List<L2Spawn> getSpawns()
+    public FastList<L2Spawn> getSpawns()
     {
         if (_Spawns == null)
             _Spawns = new FastList<L2Spawn>();

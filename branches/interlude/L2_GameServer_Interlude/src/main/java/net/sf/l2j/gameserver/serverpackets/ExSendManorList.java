@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
+import javolution.util.FastList;
 
 /**
  * Format : (h) d [dS]
@@ -34,9 +34,9 @@ import java.util.List;
 public class ExSendManorList extends ServerBasePacket
 {
     private static final String _S__FE_1B_EXSENDMANORLIST = "[S] FE:1B ExSendManorList";
-    List<String> _manors;
-    List<Integer> _manorsID;
-    public ExSendManorList(List<String> manors, List<Integer> manorsID)
+    FastList<String> _manors;
+    FastList<Integer> _manorsID;
+    public ExSendManorList(FastList<String> manors, FastList<Integer> manorsID)
     {
         _manors = manors;
         _manorsID = manorsID;

@@ -2,8 +2,6 @@ package net.sf.l2j.gameserver.instancemanager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
@@ -54,7 +52,7 @@ public class MercTicketManager
     
     // =========================================================
     // Data Field
-    private List<L2ItemInstance> _DroppedTickets;	// to keep track of items on the ground
+    private FastList<L2ItemInstance> _DroppedTickets;	// to keep track of items on the ground
     
     //TODO move all these values into siege.properties
     // max tickets per merc type = 10 + (castleid * 2)?
@@ -348,7 +346,7 @@ public class MercTicketManager
         return _ItemIds;
     }
     
-    public final List<L2ItemInstance> getDroppedTickets()
+    public final FastList<L2ItemInstance> getDroppedTickets()
     {
         if (_DroppedTickets == null) _DroppedTickets = new FastList<L2ItemInstance>();
         return _DroppedTickets;

@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.model.quest;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -25,7 +23,7 @@ public class QuestPcSpawnManager
     // =========================================================
     // Data Field
     private static QuestPcSpawnManager _Instance;
-    private List<QuestPcSpawn> _PcSpawns = new FastList<QuestPcSpawn>();
+    private FastList<QuestPcSpawn> _PcSpawns = new FastList<QuestPcSpawn>();
     
     // =========================================================
     // Constructor
@@ -193,7 +191,7 @@ public class QuestPcSpawnManager
     }
 
     /** Return all quest pc spawn */
-    public List<QuestPcSpawn> getPcSpawns()
+    public FastList<QuestPcSpawn> getPcSpawns()
     {
         if (_PcSpawns == null) _PcSpawns = new FastList<QuestPcSpawn>();
         return _PcSpawns;

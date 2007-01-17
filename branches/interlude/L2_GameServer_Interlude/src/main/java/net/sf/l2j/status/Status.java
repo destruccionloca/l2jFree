@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.util.Properties;
 import java.util.Random;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 
 import org.apache.commons.logging.Log;

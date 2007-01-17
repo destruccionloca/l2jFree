@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.templates;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -410,7 +408,7 @@ public abstract class L2Item
     {
         if (_funcTemplates == null)
             return _emptyFunctionSet;
-        List<Func> funcs = new FastList<Func>();
+        FastList<Func> funcs = new FastList<Func>();
         for (FuncTemplate t : _funcTemplates) {
             Env env = new Env();
             env._player = player;
@@ -435,7 +433,7 @@ public abstract class L2Item
     {
         if (_effectTemplates == null)
             return _emptyEffectSet;
-        List<L2Effect> effects = new FastList<L2Effect>();
+        FastList<L2Effect> effects = new FastList<L2Effect>();
         for (EffectTemplate et : _effectTemplates) {
             Env env = new Env();
             env._player = player;
@@ -460,7 +458,7 @@ public abstract class L2Item
     {
         if (_skills == null)
             return _emptyEffectSet;
-        List<L2Effect> effects = new FastList<L2Effect>();
+        FastList<L2Effect> effects = new FastList<L2Effect>();
 
         for (L2Skill skill : _skills)
         {

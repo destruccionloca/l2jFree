@@ -1,6 +1,5 @@
 package net.sf.l2j.gameserver.model.actor.status;
 
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.Future;
@@ -28,7 +27,7 @@ public class CharStatus
     private double _CurrentCp               = 0; //Current CP of the L2Character
     private double _CurrentHp               = 0; //Current HP of the L2Character
     private double _CurrentMp               = 0; //Current MP of the L2Character
-    private List<Double> _HpStatusWatch     = new FastList<Double>();
+    private FastList<Double> _HpStatusWatch     = new FastList<Double>();
 
     /** Array containing all clients that need to be notified about hp/mp updates of the L2Character */
     private Set<L2Character> _StatusListener;

@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.util.List;
 import java.util.concurrent.Future;
 
 import javolution.util.FastList;
@@ -54,7 +53,7 @@ public class L2CubicInstance
     protected int _id;
     protected int _level = 1;
 
-    protected List<Integer> _skills = new FastList<Integer>();
+    protected FastList<Integer> _skills = new FastList<Integer>();
 
     private Future _disappearTask;
     private Future _actionTask;
@@ -277,7 +276,7 @@ public class L2CubicInstance
                             {
                                 // Get all visible objects in a spheric area near the L2Character
                                 // Get a list of Party Members
-                                List<L2PcInstance> partyList = party.getPartyMembers();
+                                FastList<L2PcInstance> partyList = party.getPartyMembers();
                                 L2Character partyMember = null;
                                 int x, y, z;
                                 // temporary range check until real behavior of cubics is known/coded

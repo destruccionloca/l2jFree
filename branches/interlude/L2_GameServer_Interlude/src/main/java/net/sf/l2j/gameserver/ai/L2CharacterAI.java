@@ -35,12 +35,10 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.serverpackets.AutoAttackStop;
-import net.sf.l2j.gameserver.serverpackets.CharMoveToLocation;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 
 /**

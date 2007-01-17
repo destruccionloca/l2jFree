@@ -29,8 +29,6 @@
 package net.sf.l2j.util;
 
 import java.util.Iterator;
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2Object;
 
@@ -42,7 +40,7 @@ import net.sf.l2j.gameserver.model.L2Object;
 
 public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
 {
-    Map<Integer, T> objectMap    = new FastMap<Integer, T>().setShared(true);
+    FastMap<Integer, T> objectMap    = new FastMap<Integer, T>().setShared(true);
     
     /* (non-Javadoc)
      * @see net.sf.l2j.util.L2ObjectMap#size()

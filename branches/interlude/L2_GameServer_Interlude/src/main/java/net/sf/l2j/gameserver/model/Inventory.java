@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -77,7 +75,7 @@ public abstract class Inventory extends ItemContainer
     public static final double MAX_ARMOR_WEIGHT = 12000;
 
     private final L2ItemInstance[] _paperdoll;
-    private final List<PaperdollListener> _paperdollListeners;
+    private final FastList<PaperdollListener> _paperdollListeners;
 
     // protected to be accessed from child classes only
     protected int _totalWeight;
@@ -91,7 +89,7 @@ public abstract class Inventory extends ItemContainer
     public static final class ChangeRecorder implements PaperdollListener
     {
         private final Inventory _inventory;
-        private final List<L2ItemInstance> _changed;
+        private final FastList<L2ItemInstance> _changed;
         
         /**
          * Constructor of the ChangeRecorder 

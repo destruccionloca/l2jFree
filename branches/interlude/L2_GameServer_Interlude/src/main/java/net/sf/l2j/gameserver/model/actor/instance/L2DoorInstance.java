@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
 import java.util.Collection;
 import java.util.concurrent.ScheduledFuture;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -426,7 +426,7 @@ public class L2DoorInstance extends L2Character
 
     public void broadcastStatusUpdate()
     {
-        Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers(); 
+        Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values(); 
         if (knownPlayers == null || knownPlayers.isEmpty())
             return;
 
@@ -471,7 +471,7 @@ public class L2DoorInstance extends L2Character
     {
         FastList<L2SiegeGuardInstance> result = new FastList<L2SiegeGuardInstance>();
         
-        for (L2Object obj : getKnownList().getKnownObjects())  
+        for (L2Object obj : getKnownList().getKnownObjects().values())  
         {  
             if (obj instanceof L2SiegeGuardInstance) result.add((L2SiegeGuardInstance) obj);
         }

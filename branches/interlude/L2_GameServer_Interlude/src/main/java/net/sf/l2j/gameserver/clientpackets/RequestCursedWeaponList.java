@@ -18,8 +18,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.List;
-
 import javolution.util.FastList;
 
 import net.sf.l2j.gameserver.ClientThread;
@@ -55,7 +53,7 @@ public class RequestCursedWeaponList extends ClientBasePacket
             return;
         
         //send a ExCursedWeaponList :p
-        List<Integer> list = new FastList<Integer>();
+        FastList<Integer> list = new FastList<Integer>();
         for (int id : CursedWeaponsManager.getInstance().getCursedWeaponsIds())
         {
             list.add(id);

@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MerchantInstance;
@@ -40,7 +38,7 @@ public class SellList extends ServerBasePacket
 	private final L2PcInstance _char;
 	private final L2MerchantInstance _lease;
 	private int _money;
-	private List<L2ItemInstance> _selllist = new FastList<L2ItemInstance>();
+	private FastList<L2ItemInstance> _selllist = new FastList<L2ItemInstance>();
 	
 	public SellList(L2PcInstance player)
 	{

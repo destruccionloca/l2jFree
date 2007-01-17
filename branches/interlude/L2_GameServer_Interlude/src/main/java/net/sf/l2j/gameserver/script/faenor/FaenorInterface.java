@@ -19,9 +19,8 @@
 package net.sf.l2j.gameserver.script.faenor;
 
 import java.util.List;
-import java.util.Map;
-
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.EventDroplist;
 import net.sf.l2j.gameserver.model.L2DropData;
@@ -166,7 +165,7 @@ public class FaenorInterface implements EngineInterface
         {
             return null;
         }
-        List<L2DropData> questDrops = new FastList<L2DropData>();
+        FastList<L2DropData> questDrops = new FastList<L2DropData>();
         for (L2DropCategory cat:npc.getDropData())
         for (L2DropData drop : cat.getAllDrops() )
         {
@@ -188,7 +187,7 @@ public class FaenorInterface implements EngineInterface
         Announcements.getInstance().addEventAnnouncement(validDateRange, message);
     }
     
-    public void addPetData(BSFManager context, int petID, int levelStart, int levelEnd, Map<String, String> stats)
+    public void addPetData(BSFManager context, int petID, int levelStart, int levelEnd, FastMap<String, String> stats)
 		throws BSFException
     {
         L2PetData[] petData = new L2PetData[levelEnd - levelStart + 1];

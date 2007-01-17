@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.templates;
 
-import java.util.List;
-import java.util.Map;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2DropData;
@@ -81,11 +78,11 @@ public final class L2NpcTemplate extends L2CharTemplate
     private final FastList<L2DropCategory> _categories = new FastList<L2DropCategory>();   
     
     /** The table containing all Minions that must be spawn with the L2NpcInstance using this L2NpcTemplate*/
-    private final List<L2MinionData>  _minions     = new FastList<L2MinionData>(0);
+    private final FastList<L2MinionData>  _minions     = new FastList<L2MinionData>(0);
     
-    private List<ClassId>             _teachInfo;
-    private Map<Integer, L2Skill> _skills;
-    private Map<Stats, Integer> _resists;
+    private FastList<ClassId>             _teachInfo;
+    private FastMap<Integer, L2Skill> _skills;
+    private FastMap<Stats, Integer> _resists;
     private Quest[]                   _questsStart;
 
     /**
@@ -230,9 +227,9 @@ public final class L2NpcTemplate extends L2CharTemplate
      * Return the list of all possible item drops of this L2NpcTemplate.<BR>
      * (ie full drops and part drops, mats, miscellaneous & UNCATEGORIZED)<BR><BR>
      */
-    public List<L2DropData> getAllDropData()
+    public FastList<L2DropData> getAllDropData()
     {
-        List<L2DropData> lst = new FastList<L2DropData>();
+        FastList<L2DropData> lst = new FastList<L2DropData>();
         for (L2DropCategory tmp:_categories)
         {
             lst.addAll(tmp.getAllDrops());
@@ -256,12 +253,12 @@ public final class L2NpcTemplate extends L2CharTemplate
     /**
      * Return the list of all Minions that must be spawn with the L2NpcInstance using this L2NpcTemplate.<BR><BR>
      */
-    public List<L2MinionData> getMinionData()
+    public FastList<L2MinionData> getMinionData()
     {
         return _minions;
     }
 
-    public Map<Integer, L2Skill> getSkills()
+    public FastMap<Integer, L2Skill> getSkills()
     {
         return _skills;
     }

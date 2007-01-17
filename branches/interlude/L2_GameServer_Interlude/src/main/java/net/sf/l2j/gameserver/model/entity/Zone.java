@@ -1,6 +1,5 @@
 package net.sf.l2j.gameserver.model.entity;
 
-import java.util.List;
 import java.util.Random;
 
 import javolution.util.FastList;
@@ -17,7 +16,7 @@ public class Zone
 
     // =========================================================
     // Data Field
-    private List<int[]> _Coords;
+    private FastList<int[]> _Coords;
     private int _Id;
     private String _Name;
     private int _TaxById;
@@ -145,7 +144,7 @@ public class Zone
         return null;
     }
 
-    public final List<int[]> getCoords()
+    public final FastList<int[]> getCoords()
     {
         if (_Coords == null) _Coords = new FastList<int[]>();
         return _Coords;

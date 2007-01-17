@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.Arena;
@@ -32,7 +30,7 @@ public class ArenaManager
     
     // =========================================================
     // Data Field
-    private List<Arena> _Arenas;
+    private FastList<Arena> _Arenas;
     
     // =========================================================
     // Constructor
@@ -123,7 +121,7 @@ public class ArenaManager
         return -1;
     }
 
-    public final List<Arena> getArenas()
+    public final FastList<Arena> getArenas()
     {
         if (_Arenas == null) _Arenas = new FastList<Arena>();
         return _Arenas;

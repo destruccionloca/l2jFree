@@ -21,16 +21,14 @@ package net.sf.l2j.gameserver;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
+import javolution.util.FastList;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
-import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
@@ -288,7 +286,7 @@ public class MapRegionTable
             		if (teleportWhere == TeleportWhereType.SiegeFlag && castle.getSiege().getIsInProgress())
                     {
                         // Check if player's clan is attacker
-                        List<L2NpcInstance> flags = castle.getSiege().getFlag(player.getClan());
+                        FastList<L2NpcInstance> flags = castle.getSiege().getFlag(player.getClan());
                         if (flags != null && !flags.isEmpty())
                         {
                             // Spawn to flag - Need more work to get player to the nearest flag

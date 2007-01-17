@@ -21,8 +21,6 @@ package net.sf.l2j.gameserver.ai;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -306,7 +304,7 @@ public class L2ControllableMobAI extends L2AttackableAI
             {
                 String faction_id = ((L2NpcInstance) _actor).getFactionId();
                 
-                for (L2Object obj : _actor.getKnownList().getKnownObjects()) 
+                for (L2Object obj : _actor.getKnownList().getKnownObjects().values()) 
                 {
                     if (!(obj instanceof L2NpcInstance))
                         continue;
@@ -457,9 +455,9 @@ public class L2ControllableMobAI extends L2AttackableAI
         double dy, dx;
         double dblAggroRange = aggroRange*aggroRange;
 
-        List<L2Character> potentialTarget = new FastList<L2Character>();
+        FastList<L2Character> potentialTarget = new FastList<L2Character>();
 
-        for (L2Object obj : npc.getKnownList().getKnownObjects()) 
+        for (L2Object obj : npc.getKnownList().getKnownObjects().values()) 
         {
             if (!(obj instanceof L2Character))
                 continue;

@@ -29,8 +29,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
+import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClanTable;
@@ -73,8 +72,8 @@ public class Hero
     private static final int[] _heroItems = {6842, 6611, 6612, 6613, 6614, 6615, 6616,
                                              6617, 6618, 6619, 6620, 6621
     };
-    private static Map<Integer, StatsSet> _heroes;
-    private static Map<Integer, StatsSet> _completeHeroes;
+    private static FastMap<Integer, StatsSet> _heroes;
+    private static FastMap<Integer, StatsSet> _completeHeroes;
     
     public static final String COUNT = "count";
     public static final String PLAYED = "played";
@@ -229,12 +228,12 @@ public class Hero
         _log.info("Hero System: Loaded " + _completeHeroes.size() + " all time Heroes.");
     }
     
-    public Map<Integer, StatsSet> getHeroes()
+    public FastMap<Integer, StatsSet> getHeroes()
     {
         return _heroes;
     }
     
-    public synchronized void computeNewHeroes(List<StatsSet> newHeroes)
+    public synchronized void computeNewHeroes(FastList<StatsSet> newHeroes)
     {
         updateHeroes(true);
         
@@ -318,7 +317,7 @@ public class Hero
             return;
         }
         
-        Map<Integer, StatsSet> heroes = new FastMap<Integer, StatsSet>();
+        FastMap<Integer, StatsSet> heroes = new FastMap<Integer, StatsSet>();
         
         for (StatsSet hero : newHeroes)
         {

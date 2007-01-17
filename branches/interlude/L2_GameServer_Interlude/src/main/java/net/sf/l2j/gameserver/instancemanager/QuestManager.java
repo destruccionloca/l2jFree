@@ -1,8 +1,6 @@
 package net.sf.l2j.gameserver.instancemanager;
 
 import java.io.File;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.quest.Quest;
@@ -45,7 +43,7 @@ public class QuestManager
     
     // =========================================================
     // Data Field
-    private List<Quest> _Quests;
+    private FastList<Quest> _Quests;
     
     // =========================================================
     // Constructor
@@ -111,7 +109,7 @@ public class QuestManager
         return -1;
     }
 
-    public final List<Quest> getQuests()
+    public final FastList<Quest> getQuests()
     {
         if (_Quests == null) _Quests = new FastList<Quest>();
         return _Quests;

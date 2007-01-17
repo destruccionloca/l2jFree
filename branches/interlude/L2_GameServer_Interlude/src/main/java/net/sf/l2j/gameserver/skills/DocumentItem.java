@@ -19,9 +19,6 @@
 package net.sf.l2j.gameserver.skills;
 
 import java.io.File;
-import java.util.List;
-import java.util.Map;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.Item;
@@ -46,14 +43,14 @@ import org.w3c.dom.Node;
 final class DocumentItem extends DocumentBase
 {
     private Item currentItem = null;
-    private List<L2Item> itemsInFile = new FastList<L2Item>();
-    private Map<Integer, Item> itemData = new FastMap<Integer, Item>();
+    private FastList<L2Item> itemsInFile = new FastList<L2Item>();
+    private FastMap<Integer, Item> itemData = new FastMap<Integer, Item>();
 
     /**
      * @param armorData
      * @param f
      */
-    public DocumentItem(Map<Integer, Item> pItemData, File file)
+    public DocumentItem(FastMap<Integer, Item> pItemData, File file)
     {
         super(file);
         this.itemData = pItemData;
@@ -157,7 +154,7 @@ final class DocumentItem extends DocumentBase
     /**
      * @return
      */
-    public List<L2Item> getItemList()
+    public FastList<L2Item> getItemList()
     {
         return itemsInFile;
     }

@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver.instancemanager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -48,7 +46,7 @@ public class ItemsOnGroundManager
     protected static Log _log = LogFactory.getLog(ItemsOnGroundManager.class.getName());
     
     private static ItemsOnGroundManager _Instance;
-    protected List<L2ItemInstance> _items = null;
+    protected FastList<L2ItemInstance> _items = null;
 
     private ItemsOnGroundManager()
     {

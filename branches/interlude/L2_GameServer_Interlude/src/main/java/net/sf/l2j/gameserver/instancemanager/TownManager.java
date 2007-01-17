@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.MapRegionTable;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -34,7 +32,7 @@ public class TownManager
     
     // =========================================================
     // Data Field
-    private List<Town> _Towns;
+    private FastList<Town> _Towns;
     
     // =========================================================
     // Constructor
@@ -198,7 +196,7 @@ public class TownManager
         return -1;
     }
 
-    public final List<Town> getTowns()
+    public final FastList<Town> getTowns()
     {
         if (_Towns == null) _Towns = new FastList<Town>();
         return _Towns;

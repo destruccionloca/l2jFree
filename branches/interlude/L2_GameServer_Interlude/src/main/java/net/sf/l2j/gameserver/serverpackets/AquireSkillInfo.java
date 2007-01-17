@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
-
 import javolution.util.FastList;
 
 /**
@@ -39,7 +37,7 @@ import javolution.util.FastList;
 public class AquireSkillInfo extends ServerBasePacket
 {
     private static final String _S__A4_AQUIRESKILLINFO = "[S] 8b AquireSkillInfo";
-    private List<Req> _reqs;
+    private FastList<Req> _reqs;
     private int _id, _level, _spCost, _mode;    
     
 	private class Req

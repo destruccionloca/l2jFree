@@ -95,7 +95,7 @@ public class FastMRUCache<K,V> extends FastCollection implements Reusable
     
     // Overrides.
     public synchronized FastCollection setValueComparator(FastComparator comparator) {
-        super.setValueComparator(comparator);
+        //super.setValueComparator(comparator);
         _map.setKeyComparator(comparator);
         _cache.setKeyComparator(comparator);
         return this;
@@ -103,7 +103,7 @@ public class FastMRUCache<K,V> extends FastCollection implements Reusable
     
     // Implements Reusable.
     public synchronized void reset() {
-        super.setValueComparator(FastComparator.DIRECT);
+        //super.setValueComparator(FastComparator.DIRECT);
         _map.reset();
         _cache.reset();
         _mruList.reset();

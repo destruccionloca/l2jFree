@@ -22,7 +22,6 @@ import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
-import java.util.Collection;
 import java.util.concurrent.Future;
 
 import net.sf.l2j.Config;
@@ -276,8 +275,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                 L2Attackable npc = (L2Attackable) _actor;
 
                 // If its _knownPlayer isn't empty set the Intention to AI_INTENTION_ACTIVE
-                Collection<L2PcInstance> knownPlayers = npc.getKnownList().getKnownPlayers();
-                if (knownPlayers != null && knownPlayers.size() > 0) intention = AI_INTENTION_ACTIVE;
+                if (npc.getKnownList().getKnownPlayers().size() > 0) intention = AI_INTENTION_ACTIVE;
             }
 
             if (intention == AI_INTENTION_IDLE)
@@ -353,7 +351,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             double dblAggroRange = aggroRange * aggroRange;
             
             // Go through visible objects
-            for (L2Object obj : npc.getKnownList().getKnownObjects())
+            for (L2Object obj : npc.getKnownList().getKnownObjects().values())
             {
                 if (obj == null || !(obj instanceof L2Character)) continue;                
                 
@@ -576,7 +574,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                 String faction_id = ((L2NpcInstance) _actor).getFactionId();
 
                 // Go through all L2Object that belong to its faction
-                for (L2Object obj : _actor.getKnownList().getKnownObjects())
+                for (L2Object obj : _actor.getKnownList().getKnownObjects().values())
                 {
                     if (obj instanceof L2NpcInstance)
                     {

@@ -2,8 +2,6 @@ package net.sf.l2j.gameserver.instancemanager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -23,7 +21,7 @@ public class SiegeGuardManager {
     // =========================================================
     // Data Field
     private Castle _Castle;
-    private List<L2Spawn> _SiegeGuardSpawn  = new FastList<L2Spawn>();
+    private FastList<L2Spawn> _SiegeGuardSpawn  = new FastList<L2Spawn>();
 
     // =========================================================
     // Constructor
@@ -248,7 +246,7 @@ public class SiegeGuardManager {
         return _Castle;
     }
     
-    public final List<L2Spawn> getSiegeGuardSpawn()
+    public final FastList<L2Spawn> getSiegeGuardSpawn()
     {
         return _SiegeGuardSpawn;
     }

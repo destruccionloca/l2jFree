@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
@@ -34,7 +32,7 @@ public class ItemsAutoDestroy
 {
 	protected static Log _log = LogFactory.getLog("ItemsAutoDestroy");
 	private static ItemsAutoDestroy _instance;
-	protected List<L2ItemInstance> _items = null;
+	protected FastList<L2ItemInstance> _items = null;
 	protected static long _sleep;
     
     private ItemsAutoDestroy()

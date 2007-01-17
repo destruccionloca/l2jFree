@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -55,7 +54,7 @@ public class GameTimeController
     protected static long _gameStartTime;
     protected static boolean _isNight = false;
 
-    private static List<L2Character> movingObjects = new FastList<L2Character>();
+    private static FastList<L2Character> movingObjects = new FastList<L2Character>();
 
     protected static TimerThread _timer;
     private ScheduledFuture _timerWatcher;
@@ -128,7 +127,7 @@ public class GameTimeController
         L2Character[] chars = movingObjects.toArray(new L2Character[movingObjects.size()]);
 
         // Create an ArrayList to contain all L2Character that are arrived to destination
-        List<L2Character> ended = null;
+        FastList<L2Character> ended = null;
 
         // Go throw the table containing L2Character in movement
         for (int i = 0; i < chars.length; i++)
@@ -230,9 +229,9 @@ public class GameTimeController
      */
     class MovingObjectArrived implements Runnable
     {
-        private final List<L2Character> _ended;
+        private final FastList<L2Character> _ended;
 
-        MovingObjectArrived(List<L2Character> ended)
+        MovingObjectArrived(FastList<L2Character> ended)
         {
             _ended = ended;
         }

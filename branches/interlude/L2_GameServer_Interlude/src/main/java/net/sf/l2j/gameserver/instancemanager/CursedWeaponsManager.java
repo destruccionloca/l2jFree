@@ -24,7 +24,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.Map;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -69,7 +68,7 @@ public class CursedWeaponsManager
 
     // =========================================================
     // Data Field
-    private Map<Integer, CursedWeapon> _cursedWeapons;
+    private FastMap<Integer, CursedWeapon> _cursedWeapons;
 
     // =========================================================
     // Constructor

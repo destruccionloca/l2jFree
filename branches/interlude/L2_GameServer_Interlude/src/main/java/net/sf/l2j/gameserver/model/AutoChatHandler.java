@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
 
@@ -52,7 +50,7 @@ public class AutoChatHandler implements SpawnListener
 
     private static final long DEFAULT_CHAT_DELAY = 180000; // 3 mins by default
 
-    protected Map<Integer, AutoChatInstance> _registeredChats;
+    protected FastMap<Integer, AutoChatInstance> _registeredChats;
 
     protected AutoChatHandler()
     {
@@ -295,7 +293,7 @@ public class AutoChatHandler implements SpawnListener
         private boolean _globalChat = false;
         private boolean _isActive;
 
-        private Map<Integer, AutoChatDefinition> _chatDefinitions = new FastMap<Integer, AutoChatDefinition>();
+        private FastMap<Integer, AutoChatDefinition> _chatDefinitions = new FastMap<Integer, AutoChatDefinition>();
         public ScheduledFuture _chatTask;
 
         protected AutoChatInstance(int npcId, String[] chatTexts, long chatDelay, boolean isGlobal)
@@ -449,7 +447,7 @@ public class AutoChatHandler implements SpawnListener
          */
         public L2NpcInstance[] getNPCInstanceList()
         {
-            List<L2NpcInstance> npcInsts = new FastList<L2NpcInstance>();
+            FastList<L2NpcInstance> npcInsts = new FastList<L2NpcInstance>();
 
             for (AutoChatDefinition chatDefinition : _chatDefinitions.values())
                 npcInsts.add(chatDefinition._npcInstance);
@@ -714,8 +712,8 @@ public class AutoChatHandler implements SpawnListener
                     try
                     {
                         L2NpcInstance chatNpc = chatDef._npcInstance;
-                        List<L2PcInstance> nearbyPlayers = new FastList<L2PcInstance>();
-                        List<L2PcInstance> nearbyGMs = new FastList<L2PcInstance>();
+                        FastList<L2PcInstance> nearbyPlayers = new FastList<L2PcInstance>();
+                        FastList<L2PcInstance> nearbyGMs = new FastList<L2PcInstance>();
 
                         for (L2Character player : chatNpc.getKnownList().getKnownCharactersInRadius(1500))
                         {

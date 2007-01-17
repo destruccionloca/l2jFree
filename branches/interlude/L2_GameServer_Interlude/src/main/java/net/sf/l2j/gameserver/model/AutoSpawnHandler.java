@@ -2,8 +2,6 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -61,8 +59,8 @@ public class AutoSpawnHandler
 	private static final int DEFAULT_RESPAWN = 3600000; //1 hour in millisecs
 	private static final int DEFAULT_DESPAWN = 3600000; //1 hour in millisecs
 	
-    protected Map<Integer, AutoSpawnInstance> _registeredSpawns;
-    protected Map<Integer, ScheduledFuture> _runningSpawns;
+    protected FastMap<Integer, AutoSpawnInstance> _registeredSpawns;
+    protected FastMap<Integer, ScheduledFuture> _runningSpawns;
     protected boolean _activeState = true;
     
 	public AutoSpawnHandler()
@@ -338,9 +336,9 @@ public class AutoSpawnHandler
         return null;
     }
     
-    public Map<Integer, AutoSpawnInstance> getAutoSpawnInstances(int npcId)
+    public FastMap<Integer, AutoSpawnInstance> getAutoSpawnInstances(int npcId)
     {
-    	Map<Integer, AutoSpawnInstance> spawnInstList = new FastMap<Integer, AutoSpawnInstance>();
+    	FastMap<Integer, AutoSpawnInstance> spawnInstList = new FastMap<Integer, AutoSpawnInstance>();
     	
         for (AutoSpawnInstance spawnInst : _registeredSpawns.values())
             if (spawnInst.getNpcId() == npcId)
@@ -554,8 +552,8 @@ public class AutoSpawnHandler
         protected int _spawnCount = 1;
         protected int _lastLocIndex = -1;
         
-        private List<L2NpcInstance> _npcList = new FastList<L2NpcInstance>();
-        private List<Location> _locList = new FastList<Location>();
+        private FastList<L2NpcInstance> _npcList = new FastList<L2NpcInstance>();
+        private FastList<Location> _locList = new FastList<Location>();
         
         private boolean _spawnActive;
         private boolean _randomSpawn = false;
@@ -633,7 +631,7 @@ public class AutoSpawnHandler
         
         public L2Spawn[] getSpawns()
         {
-            List<L2Spawn> npcSpawns = new FastList<L2Spawn>();
+            FastList<L2Spawn> npcSpawns = new FastList<L2Spawn>();
             
             for (L2NpcInstance npcInst : _npcList)
                 npcSpawns.add(npcInst.getSpawn());

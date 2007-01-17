@@ -19,8 +19,6 @@
 package net.sf.l2j.gameserver.model;
 
 import java.lang.reflect.Constructor;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Territory;
@@ -90,7 +88,7 @@ public class L2Spawn
     private boolean _doRespawn;
     
     private L2NpcInstance _lastSpawn;
-    private static List<SpawnListener> _spawnListeners = new FastList<SpawnListener>();
+    private static FastList<SpawnListener> _spawnListeners = new FastList<SpawnListener>();
 	
 	/** The task launching the function doSpawn() */
 	class SpawnTask implements Runnable
@@ -488,9 +486,6 @@ public class L2Spawn
         
         // Init other values of the L2NpcInstance (ex : from its L2CharTemplate for INT, STR, DEX...) and add it in the world as a visible object
         mob.spawnMe(newlocx, newlocy, newlocz);
-        
-        // Launch the action OnSpawn for the L2NpcInstance
-        mob.OnSpawn();
         
         L2Spawn.notifyNpcSpawned(mob);
         

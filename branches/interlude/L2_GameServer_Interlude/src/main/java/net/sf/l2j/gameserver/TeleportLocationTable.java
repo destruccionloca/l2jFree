@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -41,7 +39,7 @@ public class TeleportLocationTable
 	
 	private static TeleportLocationTable _instance;
 	
-	private Map<Integer, L2TeleportLocation> _teleports;
+	private FastMap<Integer, L2TeleportLocation> _teleports;
 	
 	public static TeleportLocationTable getInstance()
 	{

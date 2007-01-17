@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.Map;
+import javolution.util.FastMap;
 
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.model.entity.Hero;
@@ -45,7 +45,7 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 public class ExHeroList extends ServerBasePacket
 {
 	private static final String _S__FE_23_EXHEROLIST = "[S] FE:23 ExHeroList";
-    private Map<Integer, StatsSet> _heroList;
+    private FastMap<Integer, StatsSet> _heroList;
 
     public ExHeroList()
     {

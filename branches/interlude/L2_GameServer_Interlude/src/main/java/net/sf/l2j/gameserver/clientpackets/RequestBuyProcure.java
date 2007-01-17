@@ -1,8 +1,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -34,7 +32,7 @@ public class RequestBuyProcure extends ClientBasePacket {
     private final int _listId;
     private int _count;
     private int[] _items;
-    private List<CropProcure> _procureList = new FastList<CropProcure>();
+    private FastList<CropProcure> _procureList = new FastList<CropProcure>();
     /**
      * packet type id 0xc3
      * 

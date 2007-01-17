@@ -19,13 +19,11 @@
 package net.sf.l2j.gameserver.skills;
 
 import java.io.File;
-import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.SkillTable;
@@ -57,7 +55,7 @@ abstract class DocumentBase
     static Log _log = LogFactory.getLog(DocumentBase.class.getName());
 
     private File file;
-    protected Map<String, Number[]> tables;
+    protected FastMap<String, Number[]> tables;
 
     DocumentBase(File pFile)
     {
@@ -514,7 +512,7 @@ abstract class DocumentBase
         String name = attrs.getNamedItem("name").getNodeValue();
         if (name.charAt(0) != '#') throw new IllegalArgumentException("Table name must start with #");
         StringTokenizer data = new StringTokenizer(n.getFirstChild().getNodeValue());
-        List<String> array = new FastList<String>();
+        FastList<String> array = new FastList<String>();
         while (data.hasMoreTokens())
             array.add(data.nextToken());
         Number[] res = new Number[array.size()];

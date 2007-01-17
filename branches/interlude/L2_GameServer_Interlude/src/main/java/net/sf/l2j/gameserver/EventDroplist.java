@@ -19,8 +19,6 @@
 package net.sf.l2j.gameserver;
 
 import java.util.Date;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.script.DateRange;
 
@@ -39,7 +37,7 @@ public class EventDroplist
 	private static EventDroplist _instance;
 
 	/** The table containing all DataDrop object */
-	private List<DateDrop> allNpcDateDrops;
+	private FastList<DateDrop> allNpcDateDrops;
 
 	public static EventDroplist getInstance()
 	{
@@ -107,9 +105,9 @@ public class EventDroplist
 	/**
 	 * Return all DateDrop of EventDroplist allNpcDateDrops within the date range.<BR><BR>
 	 */
-	public List<DateDrop> getAllDrops()
+	public FastList<DateDrop> getAllDrops()
 	{
-	    List<DateDrop> list = new FastList<DateDrop>();
+	    FastList<DateDrop> list = new FastList<DateDrop>();
 	    
 	    for (DateDrop drop : allNpcDateDrops)
 	    {

@@ -29,7 +29,6 @@ import java.io.LineNumberReader;
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import javolution.util.FastList;
@@ -283,7 +282,7 @@ public final class Config {
     
     /** Untradeable Item List */
     public static String  NONTRADEABLE_ITEMS;
-    public static List<Integer> LIST_NONTRADEABLE_ITEMS   = new FastList<Integer>();
+    public static FastList<Integer> LIST_NONTRADEABLE_ITEMS   = new FastList<Integer>();
 
     /** Olympiad Compitition Starting time */
     public static int ALT_OLY_START_TIME;
@@ -517,7 +516,7 @@ public final class Config {
     
     public static String  PROTECTED_ITEMS;
     /** List of items that will not be destroyed */
-    public static List<Integer> LIST_PROTECTED_ITEMS = new FastList<Integer>();
+    public static FastList<Integer> LIST_PROTECTED_ITEMS = new FastList<Integer>();
         
     /** Auto destroy nonequipable items dropped by players */
     public static boolean   DESTROY_DROPPED_PLAYER_ITEM;
@@ -765,14 +764,14 @@ public final class Config {
     
     public static String  KARMA_NONDROPPABLE_PET_ITEMS;
     public static String  KARMA_NONDROPPABLE_ITEMS;
-    public static List<Integer> KARMA_LIST_NONDROPPABLE_PET_ITEMS   = new FastList<Integer>();
-    public static List<Integer> KARMA_LIST_NONDROPPABLE_ITEMS       = new FastList<Integer>();
+    public static FastList<Integer> KARMA_LIST_NONDROPPABLE_PET_ITEMS   = new FastList<Integer>();
+    public static FastList<Integer> KARMA_LIST_NONDROPPABLE_ITEMS       = new FastList<Integer>();
 
     public static String  NONDROPPABLE_ITEMS;
-    public static List<Integer> LIST_NONDROPPABLE_ITEMS       = new FastList<Integer>();
+    public static FastList<Integer> LIST_NONDROPPABLE_ITEMS       = new FastList<Integer>();
 
     public static String  PET_RENT_NPC;
-    public static List<Integer> LIST_PET_RENT_NPC   = new FastList<Integer>();
+    public static FastList<Integer> LIST_PET_RENT_NPC   = new FastList<Integer>();
     
     public static int PVP_TIME;    
 

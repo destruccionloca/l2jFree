@@ -21,11 +21,9 @@ package net.sf.l2j.gameserver.communitybbs.Manager;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.ClanTable;
@@ -37,8 +35,8 @@ import net.sf.l2j.gameserver.serverpackets.ShowBoard;
 
 public class TopicBBSManager extends BaseBBSManager
 {
-	private List<Topic> _table;
-	private Map<Forum, Integer> _Maxid;
+	private FastList<Topic> _table;
+	private FastMap<Forum, Integer> _Maxid;
 	private static TopicBBSManager _Instance;
 
 	public static TopicBBSManager getInstance()

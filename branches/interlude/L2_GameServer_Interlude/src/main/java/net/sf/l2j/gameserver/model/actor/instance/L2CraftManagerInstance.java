@@ -1,13 +1,8 @@
 package net.sf.l2j.gameserver.model.actor.instance;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.RecipeController;

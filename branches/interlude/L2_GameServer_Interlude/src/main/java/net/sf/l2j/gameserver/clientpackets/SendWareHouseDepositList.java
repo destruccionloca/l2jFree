@@ -19,8 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -110,7 +108,7 @@ public class SendWareHouseDepositList extends ClientBasePacket
             	continue;
             	}
 
-            List<Integer> nonTradeAbleList = new FastList<Integer>();
+            FastList<Integer> nonTradeAbleList = new FastList<Integer>();
             nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
             
             if (nonTradeAbleList.contains(item.getItemId()))
@@ -161,7 +159,7 @@ public class SendWareHouseDepositList extends ClientBasePacket
                 continue;
             }            
 
-            List<Integer> nonTradeAbleList = new FastList<Integer>();
+            FastList<Integer> nonTradeAbleList = new FastList<Integer>();
             nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
             
             if (nonTradeAbleList.contains(oldItem.getItemId()))

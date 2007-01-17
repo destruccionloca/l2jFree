@@ -2,8 +2,6 @@ package net.sf.l2j.gameserver.instancemanager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -36,7 +34,7 @@ public class ClanHallManager
     
     // =========================================================
     // Data Field
-    private List<ClanHall> _ClanHalls;
+    private FastList<ClanHall> _ClanHalls;
     
     // =========================================================
     // Constructor
@@ -200,7 +198,7 @@ public class ClanHallManager
         return -1;
     }
 
-    public final List<ClanHall> getClanHalls()
+    public final FastList<ClanHall> getClanHalls()
     {
         if (_ClanHalls == null) _ClanHalls = new FastList<ClanHall>();
         return _ClanHalls;

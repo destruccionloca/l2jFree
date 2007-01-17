@@ -25,8 +25,6 @@
  */
 package net.sf.l2j.gameserver.taskmanager;
 
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -45,7 +43,7 @@ public class AttackStanceTaskManager
 {
     protected static Log _log = LogFactory.getLog(AttackStanceTaskManager.class.getName());
 
-    protected Map<L2Character,Long> _attackStanceTasks = new FastMap<L2Character,Long>().setShared(true);
+    protected FastMap<L2Character,Long> _attackStanceTasks = new FastMap<L2Character,Long>().setShared(true);
     
     public static AttackStanceTaskManager _instance;
     

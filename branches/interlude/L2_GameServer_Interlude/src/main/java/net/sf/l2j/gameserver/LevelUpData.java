@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2LvlupData;
@@ -55,7 +53,7 @@ public class LevelUpData
 	
 	private static LevelUpData _instance;
 	
-	private Map<Integer, L2LvlupData> _lvltable;
+	private FastMap<Integer, L2LvlupData> _lvltable;
 	
 	public static LevelUpData getInstance()
 	{

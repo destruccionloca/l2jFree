@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.clientpackets.Say2;
@@ -51,8 +51,8 @@ public class Announcements
 	private final static Log _log = LogFactory.getLog(Announcements.class.getName());
 	
 	private static Announcements _instance;
-	private List<String> _announcements = new FastList<String>();
-	private List<List<Object>> eventAnnouncements = new FastList<List<Object>>();
+	private FastList<String> _announcements = new FastList<String>();
+	private FastList<List<Object>> eventAnnouncements = new FastList<List<Object>>();
     private String leaderboardAnnouncement = null;
 
 	public Announcements()
@@ -121,7 +121,7 @@ public class Announcements
 	
 	public void addEventAnnouncement(DateRange validDateRange, String[] msg)
 	{
-	    List<Object> entry = new FastList<Object>();
+	    FastList<Object> entry = new FastList<Object>();
 	    entry.add(validDateRange);
 	    entry.add(msg);
 	    eventAnnouncements.add(entry);

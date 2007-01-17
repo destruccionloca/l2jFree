@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.LineNumberReader;
-import java.util.Map;
 import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
@@ -60,7 +59,7 @@ public class BoatManager
 	
     // =========================================================
     // Data Field
-	private Map<Integer,L2BoatInstance> _staticItems = new FastMap<Integer,L2BoatInstance>();
+	private FastMap<Integer,L2BoatInstance> _staticItems = new FastMap<Integer,L2BoatInstance>();
 	@SuppressWarnings("unused")
 	private boolean _initialized;
 

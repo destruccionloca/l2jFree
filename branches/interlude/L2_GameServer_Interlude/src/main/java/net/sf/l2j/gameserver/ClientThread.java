@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver;
 import java.net.Socket;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -90,7 +89,7 @@ public final class ClientThread
     private int _revision = 0;
     private boolean _gameGuardOk = false;
     
-    private List<Integer> _charSlotMapping = new FastList<Integer>();
+    private FastList<Integer> _charSlotMapping = new FastList<Integer>();
     
     public static ClientThread create(Socket socket)
     {

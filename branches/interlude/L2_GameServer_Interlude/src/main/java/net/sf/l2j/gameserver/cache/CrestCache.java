@@ -20,7 +20,6 @@ import net.sf.l2j.gameserver.model.L2Clan;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Level;
 
 /**
  * @author Layane

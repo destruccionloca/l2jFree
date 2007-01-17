@@ -24,8 +24,6 @@ import java.io.FileReader;
 import java.io.LineNumberReader;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 
 import javolution.util.FastList;
@@ -49,7 +47,7 @@ public class TradeController
 	private static TradeController _instance;
 
 	private int _nextListId;
-	private Map<Integer, L2TradeList> _lists;
+	private FastMap<Integer, L2TradeList> _lists;
 
 	public static TradeController getInstance()
 	{
@@ -197,9 +195,9 @@ public class TradeController
 		return _lists.get(new Integer(listId));
 	}
 
-	public List<L2TradeList> getBuyListByNpcId(int npcId)
+	public FastList<L2TradeList> getBuyListByNpcId(int npcId)
 	{
-		List<L2TradeList> lists = new FastList<L2TradeList>();
+		FastList<L2TradeList> lists = new FastList<L2TradeList>();
 
 		for (L2TradeList list : _lists.values())
 		{

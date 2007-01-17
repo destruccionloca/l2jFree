@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
@@ -44,7 +42,7 @@ public class ClanTable
 	
 	private static ClanTable _instance;
 	
-	private Map<Integer, L2Clan> _clans;
+	private FastMap<Integer, L2Clan> _clans;
 	
 	public static ClanTable getInstance()
 	{

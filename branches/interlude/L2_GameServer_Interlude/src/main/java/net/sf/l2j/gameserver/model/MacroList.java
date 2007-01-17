@@ -21,10 +21,9 @@ package net.sf.l2j.gameserver.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
@@ -47,7 +46,7 @@ public class MacroList
     private L2PcInstance _owner;
 	private int _revision;
 	private int _macroId;
-    private Map<Integer, L2Macro> _macroses = new FastMap<Integer, L2Macro>();
+    private FastMap<Integer, L2Macro> _macroses = new FastMap<Integer, L2Macro>();
 
     public MacroList(L2PcInstance owner)
     {

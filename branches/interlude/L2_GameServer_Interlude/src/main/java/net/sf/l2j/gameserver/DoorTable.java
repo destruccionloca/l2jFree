@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.LineNumberReader;
-import java.util.Map;
 import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
@@ -24,7 +23,7 @@ public class DoorTable
 {
 	private final static Log _log = LogFactory.getLog(DoorTable.class.getName());
 
-	private Map<Integer,L2DoorInstance> _staticItems;
+	private FastMap<Integer,L2DoorInstance> _staticItems;
 
 	private static DoorTable _instance;
 

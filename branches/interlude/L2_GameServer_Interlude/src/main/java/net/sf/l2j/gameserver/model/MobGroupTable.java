@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.model;
 
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.actor.instance.L2ControllableMobInstance;
 
@@ -12,7 +10,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2ControllableMobInstance;
 public class MobGroupTable 
 {
 	private static MobGroupTable _instance;
-	private Map<Integer, MobGroup> _groupMap;
+	private FastMap<Integer, MobGroup> _groupMap;
     
     public static final int FOLLOW_RANGE = 300;
     public static final int RANDOM_RANGE = 300;

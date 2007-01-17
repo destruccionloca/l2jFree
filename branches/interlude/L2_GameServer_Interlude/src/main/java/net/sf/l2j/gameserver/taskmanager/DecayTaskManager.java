@@ -3,7 +3,6 @@
  */
 package net.sf.l2j.gameserver.taskmanager;
 
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 import javolution.util.FastMap;
@@ -17,7 +16,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
  */
 public class DecayTaskManager
 {
-    protected Map<L2Character,Long> _decayTasks = new FastMap<L2Character,Long>().setShared(true);
+    protected FastMap<L2Character,Long> _decayTasks = new FastMap<L2Character,Long>().setShared(true);
 
     public static DecayTaskManager _instance;
     

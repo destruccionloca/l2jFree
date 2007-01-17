@@ -19,9 +19,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.text.DateFormat;
-import java.util.List;
-
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -306,7 +304,7 @@ public class L2NpcInstance extends L2Character
         //broadcastPacket(info);
         
         // Send a Server->Client packet NpcInfo with state of abnormal effect to all L2PcInstance in the _KnownPlayers of the L2NpcInstance
-        for (L2PcInstance player : getKnownList().getKnownPlayers())
+        for (L2PcInstance player : getKnownList().getKnownPlayers().values())
             if (player != null && this != null)
                 player.sendPacket(new NpcInfo(this, player));
     }
@@ -1631,7 +1629,7 @@ public class L2NpcInstance extends L2Character
     public void showQuestWindow(L2PcInstance player) 
     {
         // collect awaiting quests and start points
-        List<Quest> options = new FastList<Quest>();
+        FastList<Quest> options = new FastList<Quest>();
         
         QuestState[] awaits = player.getQuestsForTalk(getTemplate().npcId);
         Quest[] starts = getTemplate().getStartQuests();

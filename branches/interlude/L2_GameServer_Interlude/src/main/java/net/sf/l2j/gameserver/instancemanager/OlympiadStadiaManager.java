@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.OlympiadStadia;
@@ -32,7 +30,7 @@ public class OlympiadStadiaManager
     
     // =========================================================
     // Data Field
-    private List<OlympiadStadia> _olympiadStadias;
+    private FastList<OlympiadStadia> _olympiadStadias;
     
     // =========================================================
     // Constructor
@@ -122,7 +120,7 @@ public class OlympiadStadiaManager
         return -1;
     }
 
-    public final List<OlympiadStadia> getOlympiadStadias()
+    public final FastList<OlympiadStadia> getOlympiadStadias()
     {
         if (_olympiadStadias == null) _olympiadStadias = new FastList<OlympiadStadia>();
         return _olympiadStadias;

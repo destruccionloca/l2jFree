@@ -21,8 +21,6 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -115,7 +113,7 @@ public class RequestDestroyItem extends ClientBasePacket
 
         int itemId = itemToRemove.getItemId();
         
-        List<Integer> nonTradeAbleList = new FastList<Integer>();
+        FastList<Integer> nonTradeAbleList = new FastList<Integer>();
         nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
         
         if (nonTradeAbleList.contains(itemId))

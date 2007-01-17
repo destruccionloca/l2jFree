@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.handler;
 
-import java.util.Map;
-
 import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
@@ -36,7 +34,7 @@ public class VoicedCommandHandler
 	
 	private static VoicedCommandHandler _instance;
 	
-	private Map<String, IVoicedCommandHandler> _datatable;
+	private FastMap<String, IVoicedCommandHandler> _datatable;
 	
 	public static VoicedCommandHandler getInstance()
 	{

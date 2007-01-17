@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.BasePacket;
 import net.sf.l2j.gameserver.ClientThread;

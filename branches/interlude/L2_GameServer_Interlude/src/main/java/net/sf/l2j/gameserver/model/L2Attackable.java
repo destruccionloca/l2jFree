@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.model;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import javolution.util.FastList;
@@ -432,11 +430,11 @@ public class L2Attackable extends L2NpcInstance
             if (killer instanceof L2PcInstance || killer instanceof L2SummonInstance)
             {
                 L2PcInstance player = killer instanceof L2PcInstance ? (L2PcInstance)killer : ((L2SummonInstance)killer).getOwner();
-                List<QuestState> questList = new FastList<QuestState>(); 
+                FastList<QuestState> questList = new FastList<QuestState>(); 
                 
                 if (player.getParty() != null)
                 {
-                    Map<String, List<QuestState>> tempMap = new FastMap<String, List<QuestState>>();
+                    FastMap<String, FastList<QuestState>> tempMap = new FastMap<String, FastList<QuestState>>();
                     
                     for (L2PcInstance pl : player.getParty().getPartyMembers())
                     {
@@ -452,7 +450,7 @@ public class L2Attackable extends L2NpcInstance
                                         tempMap.get(qs.getQuest().getName()).add(qs);
                                     else
                                     {
-                                        List<QuestState> tempList = new FastList<QuestState>();
+                                        FastList<QuestState> tempList = new FastList<QuestState>();
                                         tempList.add(qs);
                                         tempMap.put(qs.getQuest().getName(), tempList);
                                     }
@@ -463,7 +461,7 @@ public class L2Attackable extends L2NpcInstance
                         }
                     }
                     
-                    for (List<QuestState> list : tempMap.values())
+                    for (FastList<QuestState> list : tempMap.values())
                     {
                         Random rnd = new Random();
                         questList.add((QuestState)list.toArray()[rnd.nextInt(list.size())]);
@@ -644,7 +642,7 @@ public class L2Attackable extends L2NpcInstance
                     partyMul = 1.f;
                     
                     // Get all L2Character (including L2Summon) that can be rewarded in the party
-                    List<L2Character> rewardedMembers = new FastList<L2Character>();
+                    FastList<L2Character> rewardedMembers = new FastList<L2Character>();
                     
                     // Go through all L2PcInstance in the party
                     for (L2PcInstance pl : attackerParty.getPartyMembers())
@@ -741,7 +739,7 @@ public class L2Attackable extends L2NpcInstance
         if (target == null)
             return;
 
-        for (L2PcInstance actor : getKnownList().getKnownPlayers())
+        for (L2PcInstance actor : getKnownList().getKnownPlayers().values())
         {
             if (actor.isCastingNow() && target.getLastBuffer() == actor)
             {
@@ -798,7 +796,7 @@ public class L2Attackable extends L2NpcInstance
 
                 if (((L2PcInstance)target).isInParty() && skill != null && skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY)
                 {
-                    List<L2PcInstance> members = ((L2PcInstance)target).getParty().getPartyMembers();
+                    FastList<L2PcInstance> members = ((L2PcInstance)target).getParty().getPartyMembers();
 
                     for (L2PcInstance member : members)
                     {
@@ -1811,7 +1809,7 @@ public class L2Attackable extends L2NpcInstance
         // 3- Everything is correct, but it failed. The crystal scatters. A sound event is played. (10%)
         // 4- Everything is correct, the crystal level up. A sound event is played. (32.5%)
         
-        List<L2PcInstance> players = new FastList<L2PcInstance>();        
+        FastList<L2PcInstance> players = new FastList<L2PcInstance>();        
                 
         if (isBossMob && killer.isInParty())
             players = killer.getParty().getPartyMembers();
@@ -2115,7 +2113,7 @@ public class L2Attackable extends L2NpcInstance
             count += rnd.nextInt(diff);
         }
 
-        List<RewardItem> harvested = new FastList<RewardItem>();
+        FastList<RewardItem> harvested = new FastList<RewardItem>();
 
         for (int i = 0; i < count; i++)
             harvested.add(new RewardItem(L2Manor.getInstance().getCropType(_seedType), 1));

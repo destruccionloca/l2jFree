@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -51,7 +49,7 @@ public class Resurrect implements ISkillHandler
 
         L2Character target = null;
         L2PcInstance targetPlayer;
-        List<L2Character> targetToRes = new FastList<L2Character>();
+        FastList<L2Character> targetToRes = new FastList<L2Character>();
 		
         for (int index = 0; index < targets.length; index++)
         {

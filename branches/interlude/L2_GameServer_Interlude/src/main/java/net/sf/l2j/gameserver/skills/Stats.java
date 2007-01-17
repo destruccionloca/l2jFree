@@ -118,7 +118,6 @@ public enum Stats {
 	EARTH_RES,
 	HOLY_RES,
 	DARK_RES,
-	UNHOLY_RES,
 	SACRED_RES,
 
 	NONE_WPN_RES, // Shields!!!
@@ -235,7 +234,6 @@ public enum Stats {
 		if (name == "earthRes"     ) return EARTH_RES;
 		if (name == "holyRes"      ) return HOLY_RES;
 		if (name == "darkRes"      ) return DARK_RES;
-		if (name == "unholyRes"    ) return UNHOLY_RES;
 		if (name == "sacredRes"    ) return SACRED_RES;
 		if (name == "noneWpnRes"   ) return NONE_WPN_RES;
 		if (name == "swordWpnRes"  ) return SWORD_WPN_RES;

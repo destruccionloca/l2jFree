@@ -24,7 +24,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastMap;
@@ -60,16 +59,16 @@ public class ItemTable
     private final static Log _log = LogFactory.getLog(ItemTable.class.getName());
     private static Log _logItems = LogFactory.getLog("item");
     
-    private static final Map<String, Integer> _materials = new FastMap<String, Integer>();
-    private static final Map<String, Integer> _crystalTypes = new FastMap<String, Integer>();
-    private static final Map<String, L2WeaponType> _weaponTypes = new FastMap<String, L2WeaponType>();
-    private static final Map<String, L2ArmorType> _armorTypes = new FastMap<String, L2ArmorType>();
-    private static final Map<String, Integer> _slots = new FastMap<String, Integer>();
+    private static final FastMap<String, Integer> _materials = new FastMap<String, Integer>();
+    private static final FastMap<String, Integer> _crystalTypes = new FastMap<String, Integer>();
+    private static final FastMap<String, L2WeaponType> _weaponTypes = new FastMap<String, L2WeaponType>();
+    private static final FastMap<String, L2ArmorType> _armorTypes = new FastMap<String, L2ArmorType>();
+    private static final FastMap<String, Integer> _slots = new FastMap<String, Integer>();
     
     private L2Item[] _allTemplates;
-    private Map<Integer, L2EtcItem> _etcItems;
-    private Map<Integer, L2Armor>   _armors;
-    private Map<Integer, L2Weapon>  _weapons;
+    private FastMap<Integer, L2EtcItem> _etcItems;
+    private FastMap<Integer, L2Armor>   _armors;
+    private FastMap<Integer, L2Weapon>  _weapons;
     
     private boolean _initialized = true;
     
@@ -171,11 +170,11 @@ public class ItemTable
            " onCast_skill_chance, onCrit_skill_id, onCrit_skill_lvl, onCrit_skill_chance FROM weapon"
     };
     /** List of etcItem */
-    private static final Map<Integer, Item> itemData    = new FastMap<Integer, Item>();
+    private static final FastMap<Integer, Item> itemData    = new FastMap<Integer, Item>();
     /** List of weapons */
-    private static final Map<Integer, Item> weaponData  = new FastMap<Integer, Item>();
+    private static final FastMap<Integer, Item> weaponData  = new FastMap<Integer, Item>();
     /** List of armor */
-    private static final Map<Integer, Item> armorData   = new FastMap<Integer, Item>();
+    private static final FastMap<Integer, Item> armorData   = new FastMap<Integer, Item>();
     
     /**
      * Returns instance of ItemTable
@@ -525,7 +524,7 @@ public class ItemTable
 
     private void fillArmorsTable()
     {
-        List<L2Armor> armorList = SkillsEngine.getInstance().loadArmors(armorData);
+        FastList<L2Armor> armorList = SkillsEngine.getInstance().loadArmors(armorData);
 
         /*for (Item itemInfo : armorData.values())
             {

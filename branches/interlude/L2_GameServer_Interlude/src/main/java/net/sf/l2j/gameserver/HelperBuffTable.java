@@ -2,8 +2,6 @@ package net.sf.l2j.gameserver;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.templates.L2HelperBuff;
@@ -27,7 +25,7 @@ public class HelperBuffTable
     private static HelperBuffTable _instance;
 
     /** The table containing all Buff of the Newbie Helper */
-    private List<L2HelperBuff> _helperBuff;
+    private FastList<L2HelperBuff> _helperBuff;
     
     private boolean _initialized = true;    
     
@@ -154,7 +152,7 @@ public class HelperBuffTable
     /**
      * Return the Helper Buff List
      */
-    public List<L2HelperBuff> getHelperBuffTable()
+    public FastList<L2HelperBuff> getHelperBuffTable()
     {
         return _helperBuff;
     }

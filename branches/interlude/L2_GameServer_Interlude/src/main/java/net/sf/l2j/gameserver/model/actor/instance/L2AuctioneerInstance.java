@@ -1,10 +1,9 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
@@ -22,7 +21,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 
     private static int Cond_All_False = 0;
     private static int Cond_Busy_Because_Of_Siege = 1;
-    private Map<Integer, Auction> _pendingAuctions = new FastMap<Integer, Auction>();
+    private FastMap<Integer, Auction> _pendingAuctions = new FastMap<Integer, Auction>();
 
     public L2AuctioneerInstance(int objectId, L2NpcTemplate template)
     {
@@ -240,7 +239,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                 //char spec = '"';
                 //player.sendMessage("auction test started");
                 String items = "";
-                List<Auction> auctions =AuctionManager.getInstance().getAuctions();
+                FastList<Auction> auctions =AuctionManager.getInstance().getAuctions();
                 for(Auction a:auctions)
                 {
                     items+="<tr>" +
@@ -271,7 +270,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                     auctionId = Integer.parseInt(val);
                 //player.sendMessage("auction test started");
                 String biders = "";
-                Map<Integer, Bidder> bidders = AuctionManager.getInstance().getAuction(auctionId).getBidders();
+                FastMap<Integer, Bidder> bidders = AuctionManager.getInstance().getAuction(auctionId).getBidders();
                 for(Bidder b :bidders.values())
                 {
                     biders+="<tr>" +

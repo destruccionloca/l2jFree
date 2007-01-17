@@ -2,8 +2,6 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
@@ -48,7 +46,7 @@ public class PcInventory extends Inventory
      */
     public L2ItemInstance[] getUniqueItems(boolean allowAdena, boolean allowAncientAdena)
     {
-        List<L2ItemInstance> list = new FastList<L2ItemInstance>();
+        FastList<L2ItemInstance> list = new FastList<L2ItemInstance>();
         for (L2ItemInstance item : _items)
         {
             if ((!allowAdena && item.getItemId() == 57)) 
@@ -73,7 +71,7 @@ public class PcInventory extends Inventory
      */
     public L2ItemInstance[] getAvailableItems(boolean allowAdena)
     {
-        List<L2ItemInstance> list = new FastList<L2ItemInstance>();
+        FastList<L2ItemInstance> list = new FastList<L2ItemInstance>();
         for (L2ItemInstance item : _items)
             if (item != null && item.isAvailable(getOwner(), allowAdena)) list.add(item);
 
@@ -86,7 +84,7 @@ public class PcInventory extends Inventory
      */
     public TradeList.TradeItem[] getAvailableItems(TradeList tradeList)
     {
-        List<TradeList.TradeItem> list = new FastList<TradeList.TradeItem>();
+        FastList<TradeList.TradeItem> list = new FastList<TradeList.TradeItem>();
         for (L2ItemInstance item : _items)
             if (item.isAvailable(getOwner(), false))
                 {
@@ -428,7 +426,7 @@ public class PcInventory extends Inventory
         return validateCapacity(slots);
     }
     
-    public boolean validateCapacity(List<L2ItemInstance> items) 
+    public boolean validateCapacity(FastList<L2ItemInstance> items) 
     { 
        int slots = 0; 
        

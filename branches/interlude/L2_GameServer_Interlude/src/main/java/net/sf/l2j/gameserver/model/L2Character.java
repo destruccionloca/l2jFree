@@ -127,7 +127,7 @@ public abstract class L2Character extends L2Object
     // =========================================================
     // Data Field
     private CharAppearance _Appearance;
-    private List<L2Character> _AttackByList;
+    private FastList<L2Character> _AttackByList;
     private L2Character _AttackingChar;
     private L2Skill _AttackingCharSkill;
     private boolean _IsAffraid                              = false; // Flee in a random direction
@@ -164,7 +164,7 @@ public abstract class L2Character extends L2Object
     private Calculator[] _Calculators;
 
     /** FastMap(Integer, L2Skill) containing all skills of the L2Character */
-    protected final Map<Integer, L2Skill> _Skills;
+    protected final FastMap<Integer, L2Skill> _Skills;
 
     // =========================================================
     // Constructor
@@ -277,7 +277,7 @@ public abstract class L2Character extends L2Object
         
         if (getKnownList().getKnownPlayers() == null) return;
         
-        Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers();
+        Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values();
         
         if (knownPlayers == null) return;
         
@@ -896,7 +896,7 @@ public abstract class L2Character extends L2Object
         // ===========================================================
 
         L2Character target;
-        for (L2Object obj : getKnownList().getKnownObjects())
+        for (L2Object obj : getKnownList().getKnownObjects().values())
         {
             //Check if the L2Object is a L2Character
             if(obj instanceof L2Character)
@@ -1103,7 +1103,7 @@ public abstract class L2Character extends L2Object
                 if (((L2PcInstance)this).isInParty() && skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY)
                 {
                     L2Party party = ((L2PcInstance)this).getParty();
-                    List<L2PcInstance> members = party.getPartyMembers();
+                    FastList<L2PcInstance> members = party.getPartyMembers();
  
                     for (L2PcInstance member : members)
                         member.setLastBuffer(this);
@@ -1458,7 +1458,7 @@ public abstract class L2Character extends L2Object
     }
 
     /** Return a list of L2Character that attacked. */
-    public final List<L2Character> getAttackByList ()
+    public final FastList<L2Character> getAttackByList ()
     {
         if (_AttackByList == null) _AttackByList = new FastList<L2Character>();
         return _AttackByList;
@@ -1856,7 +1856,7 @@ public abstract class L2Character extends L2Object
     private FastTable<L2Effect> _effects;
 
     /** The table containing the List of all stacked effect in progress for each Stack group Identifier */
-    protected Map<String, List<L2Effect>> _stackedEffects;
+    protected FastMap<String, FastList<L2Effect>> _stackedEffects;
 
     /** Table EMPTY_EFFECTS shared by all L2Character without effects in progress */
     private static final L2Effect[] EMPTY_EFFECTS = new L2Effect[0];
@@ -1915,7 +1915,7 @@ public abstract class L2Character extends L2Object
                _effects = new FastTable<L2Effect>();
 
            if (_stackedEffects == null)
-               _stackedEffects = new FastMap<String, List<L2Effect>>();
+               _stackedEffects = new FastMap<String, FastList<L2Effect>>();
        }
        synchronized(_effects) 
        {
@@ -1973,7 +1973,7 @@ public abstract class L2Character extends L2Object
         }
         
         // Get the list of all stacked effects corresponding to the stack type of the L2Effect to add
-        List<L2Effect> stackQueue = _stackedEffects.get(newEffect.getStackType());
+        FastList<L2Effect> stackQueue = _stackedEffects.get(newEffect.getStackType());
         
         if (stackQueue == null)
             stackQueue = new FastList<L2Effect>();
@@ -2044,7 +2044,7 @@ public abstract class L2Character extends L2Object
     * @param stackQueue The Stack Group in wich the effect must be added
     *
     */
-   private List<L2Effect> effectQueueInsert(L2Effect newStackedEffect, List<L2Effect> stackQueue)
+   private FastList<L2Effect> effectQueueInsert(L2Effect newStackedEffect, FastList<L2Effect> stackQueue)
    {
        // Get the L2Effect corresponding to the Effect Identifier from the L2Character _effects
         if(_effects == null) 
@@ -2126,7 +2126,7 @@ public abstract class L2Character extends L2Object
 					return;
 			
 				// Get the list of all stacked effects corresponding to the stack type of the L2Effect to add
-                List<L2Effect> stackQueue = _stackedEffects.get(effect.getStackType());
+                FastList<L2Effect> stackQueue = _stackedEffects.get(effect.getStackType());
 			
 				if (stackQueue == null || stackQueue.size() < 1)
 					return;
@@ -3015,7 +3015,7 @@ public abstract class L2Character extends L2Object
 
 
    /** List of all QuestState instance that needs to be notified of this character's death */
-   private List<QuestState> _NotifyQuestOfDeathList = new FastList<QuestState>();
+   private FastList<QuestState> _NotifyQuestOfDeathList = new FastList<QuestState>();
 
    /**
     * Add QuestState instance that is to be notified of character's death.<BR><BR>
@@ -3034,7 +3034,7 @@ public abstract class L2Character extends L2Object
    /**
     * Return a list of L2Character that attacked.<BR><BR>
     */
-   public final List<QuestState> getNotifyQuestOfDeath ()
+   public final FastList<QuestState> getNotifyQuestOfDeath ()
    {
        if (_NotifyQuestOfDeathList == null)
            _NotifyQuestOfDeathList = new FastList<QuestState>();

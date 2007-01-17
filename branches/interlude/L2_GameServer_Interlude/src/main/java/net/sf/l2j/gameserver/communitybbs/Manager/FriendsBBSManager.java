@@ -24,7 +24,7 @@ import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.clientpackets.Say2;
@@ -196,7 +196,7 @@ public class FriendsBBSManager extends BaseBBSManager
             htmlCode.append("</table><br>");
             //show friendlist
             htmlCode.append("<table border=0>");
-            htmlCode.append("<tr><td align=left FIXWIDTH=150>Your Friends List</td><td></td></tr>");
+            htmlCode.append("<tr><td align=left FIXWIDTH=150>Your Friends FastList</td><td></td></tr>");
             while (rset.next()){
                 int friendId = rset.getInt("friend_id");
                 String friendName = rset.getString("friend_name");

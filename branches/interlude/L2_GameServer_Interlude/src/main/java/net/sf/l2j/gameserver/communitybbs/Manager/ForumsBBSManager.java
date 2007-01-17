@@ -20,9 +20,6 @@ package net.sf.l2j.gameserver.communitybbs.Manager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import java.util.Map;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
@@ -35,8 +32,8 @@ import org.apache.commons.logging.LogFactory;
 public class ForumsBBSManager extends BaseBBSManager
 {
 	private final static Log _log = LogFactory.getLog(ForumsBBSManager.class.getName());
-	private Map<Integer, Forum> _root;
-	private List<Forum> _table;
+	private FastMap<Integer, Forum> _root;
+	private FastList<Forum> _table;
 	private static ForumsBBSManager _Instance;
 	private int lastid = 1;
 

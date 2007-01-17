@@ -29,13 +29,11 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import javolution.xml.ObjectWriter;
+import javolution.xml.XMLObjectWriter;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.clientpackets.ClientBasePacket;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -45,7 +43,6 @@ import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Level;
 
 /**
  * NIO Selector thread.
@@ -105,10 +102,10 @@ public final class SelectorThread extends IOThread {
 	private final String _hostname;
 	private final int _port;	
 	
-    public static Map<Class, Long> packetCount              = new FastMap<Class, Long>();
-    public static Map<Class, Long> byteCount                = new FastMap<Class, Long>();
-    public static final List<PacketHistory> packetHistory   = new FastList<PacketHistory>();
-    public static final List<PacketHistory> byteHistory     = new FastList<PacketHistory>();
+    public static FastMap<Class, Long> packetCount              = new FastMap<Class, Long>();
+    public static FastMap<Class, Long> byteCount                = new FastMap<Class, Long>();
+    public static final FastList<PacketHistory> packetHistory   = new FastList<PacketHistory>();
+    public static final FastList<PacketHistory> byteHistory     = new FastList<PacketHistory>();
     private static ScheduledFuture packetMonitor            = null;
     
 	/** push counter, currently counts messages in putbound queue,
@@ -814,17 +811,18 @@ public final class SelectorThread extends IOThread {
     /**
      * 
      */
-    private static final void doPacketHistoryDump()
-    {
-        ObjectWriter<List<PacketHistory>> ow = new ObjectWriter<List<PacketHistory>>();
+    private static final void doPacketHistoryDump()    {
+        
         try
         {
             synchronized (packetHistory)
             {
                 long currentTimeMillis = System.currentTimeMillis();
-                
-                ow.write(packetHistory, new FileOutputStream("log/packetCount_"+currentTimeMillis+".xml"));
-                ow.write(byteHistory, new FileOutputStream("log/packetBytes_"+currentTimeMillis+".xml"));
+                XMLObjectWriter ow;
+                ow = XMLObjectWriter.newInstance(new FileOutputStream("log/packetCount_"+currentTimeMillis+".xml"));                
+                ow.write(packetHistory);
+                ow = XMLObjectWriter.newInstance(new FileOutputStream("log/packetBytes_"+currentTimeMillis+".xml"));
+                ow.write(byteHistory);
                 
                 packetHistory.clear();
                 byteHistory.clear();

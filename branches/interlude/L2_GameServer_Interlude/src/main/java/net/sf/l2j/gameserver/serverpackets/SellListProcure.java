@@ -1,8 +1,5 @@
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
-import java.util.Map;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
@@ -17,8 +14,8 @@ public class SellListProcure extends ServerBasePacket
     
     private final L2PcInstance _char;
     private int _money;
-    private Map<L2ItemInstance,Integer> _sellList = new FastMap<L2ItemInstance,Integer>();
-    private List<CropProcure> _procureList = new FastList<CropProcure>();
+    private FastMap<L2ItemInstance,Integer> _sellList = new FastMap<L2ItemInstance,Integer>();
+    private FastList<CropProcure> _procureList = new FastList<CropProcure>();
     private int _castle;
     
     public SellListProcure(L2PcInstance player, int castleId)

@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.quest.Quest;
@@ -127,7 +125,7 @@ public class QuestList extends ServerBasePacket
         }
 
         //Prepare info about all quests
-        List<QuestDropInfo> questDrops = new FastList<QuestDropInfo>();
+        FastList<QuestDropInfo> questDrops = new FastList<QuestDropInfo>();
         int FullCountDropItems = 0;
         for(Quest q : _quests)
         {

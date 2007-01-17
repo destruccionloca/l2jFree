@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.script.faenor;
 
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.script.IntList;
 import net.sf.l2j.gameserver.script.Parser;
@@ -59,7 +57,7 @@ public class FaenorWorldDataParser extends FaenorParser
         public int petID;
         public int levelStart;
         public int levelEnd;
-        Map<String, String> statValues;
+        FastMap<String, String> statValues;
         public PetData()
         {
             statValues = new FastMap<String, String>();

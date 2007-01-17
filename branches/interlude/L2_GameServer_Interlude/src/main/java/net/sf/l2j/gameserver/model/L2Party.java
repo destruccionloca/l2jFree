@@ -49,8 +49,8 @@ public class L2Party {
     
     // private final static Log _log = LogFactory.getLog(L2Party.class.getName());
     
-	private List<L2PcInstance> _members = null;
-    private List<L2PcInstance> _validMembers = null;
+	private FastList<L2PcInstance> _members = null;
+    private FastList<L2PcInstance> _validMembers = null;
     private int _pendingInvitation = 0;       // Number of players that already have been invited (but not replied yet)
 	private int _partyLvl = 0;
 	private int _itemDistribution = 0;
@@ -109,7 +109,7 @@ public class L2Party {
 	 * returns all party members
 	 * @return
 	 */
-	public List<L2PcInstance> getPartyMembers()
+	public FastList<L2PcInstance> getPartyMembers()
 	{
         if (_members == null) _members = new FastList<L2PcInstance>();
 	    return _members;
@@ -510,11 +510,11 @@ public class L2Party {
     public void distributeAdena(L2PcInstance player, int adena, L2Character target) 
     {
         // Get all the party members
-        List<L2PcInstance> membersList = getPartyMembers();
+        FastList<L2PcInstance> membersList = getPartyMembers();
         
         // Check the number of party members that must be rewarded
         // (The party member must be in range to receive its reward)
-        List<L2PcInstance> ToReward = new FastList<L2PcInstance>();
+        FastList<L2PcInstance> ToReward = new FastList<L2PcInstance>();
         for(L2PcInstance member : membersList)
         {
             if (!Util.checkIfInRange(Config.PARTY_RANGE, target, member, true)) continue;
@@ -547,7 +547,7 @@ public class L2Party {
 	 * @param lastAttacker The L2Character that has killed the L2Attackable
 	 * 
 	 */
-	public void distributeXpAndSp(long xpReward, int spReward, List<L2Character> rewardedMembers, L2Character lastAttacker) 
+	public void distributeXpAndSp(long xpReward, int spReward, FastList<L2Character> rewardedMembers, L2Character lastAttacker) 
     {
         L2SummonInstance summon = null;
         L2PcInstance owner      = null;
@@ -563,7 +563,7 @@ public class L2Party {
         for (L2PcInstance character : _validMembers)
             sqLevelSum += (character.getLevel() * character.getLevel());
         
-        List<L2Character> ToRemove = new FastList<L2Character>();
+        FastList<L2Character> ToRemove = new FastList<L2Character>();
         
 		// Go through the members that must be rewarded
         synchronized(rewardedMembers)

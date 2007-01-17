@@ -19,10 +19,9 @@
 package net.sf.l2j.gameserver.model;
 
 import java.lang.reflect.Constructor;
-import java.util.List;
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SkillTreeTable;
@@ -425,8 +424,8 @@ public abstract class L2Skill
     private final float _mulCrossLearn; // multiplay for others classes, default 2
     private final float _mulCrossLearnRace; // multiplay for others races, default 2
     private final float _mulCrossLearnProf; // multiplay for fighter/mage missmatch, default 3
-    private final List<ClassId> _canLearn; // which classes can learn
-    private final List<Integer> _teachers; // which NPC teaches
+    private final FastList<ClassId> _canLearn; // which classes can learn
+    private final FastList<Integer> _teachers; // which NPC teaches
     private final boolean _isOffensive;
     private final int _num_charges;
 
@@ -1244,7 +1243,7 @@ public abstract class L2Skill
      */
     public final L2Object[] getTargetList(L2Character activeChar, boolean onlyFirst)
     {
-        List<L2Character> targetList = new FastList<L2Character>();
+        FastList<L2Character> targetList = new FastList<L2Character>();
         
         // Get the target type of the skill 
         // (ex : ONE, SELF, HOLY, PET, AURA, AURA_CLOSE, AREA, MULTIFACE, PARTY, CLAN, CORPSE_PLAYER, CORPSE_MOB, CORPSE_CLAN, UNLOCKABLE, ITEM, UNDEAD)
@@ -1658,7 +1657,7 @@ public abstract class L2Skill
              {
                  // Get all visible objects in a spheric area near the L2Character
                  // Get a list of Party Members
-                 List<L2PcInstance> partyList = activeChar.getParty().getPartyMembers();
+                 FastList<L2PcInstance> partyList = activeChar.getParty().getPartyMembers();
                      
                  for(L2PcInstance partyMember : partyList)
                  {
@@ -1963,7 +1962,7 @@ public abstract class L2Skill
 
             int radius = getSkillRadius();
             if (activeChar.getKnownList() != null)
-                for (L2Object obj : activeChar.getKnownList().getKnownObjects())
+                for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
                 {
                     if (!(obj instanceof L2Attackable) || ((L2Character) obj).isDead()
                         || ((L2Character) obj) == activeChar) continue;
@@ -2075,7 +2074,7 @@ public abstract class L2Skill
 
             int radius = getSkillRadius();
             if (target.getKnownList() != null)
-                for (L2Object obj : target.getKnownList().getKnownObjects())
+                for (L2Object obj : target.getKnownList().getKnownObjects().values())
                 {
                     if (!(obj instanceof L2Attackable) || ((L2Character) obj) == activeChar)
                         continue;
@@ -2159,7 +2158,7 @@ public abstract class L2Skill
 
             int radius = getSkillRadius();
             if (cha != null && cha.getKnownList() != null)
-                for (L2Object obj : cha.getKnownList().getKnownObjects())
+                for (L2Object obj : cha.getKnownList().getKnownObjects().values())
                 {
                     if (obj == null) continue;
                         if (!(obj instanceof L2NpcInstance)) continue;
@@ -2228,7 +2227,7 @@ public abstract class L2Skill
             return _emptyFunctionSet;
         if (_funcTemplates == null)
             return _emptyFunctionSet;
-        List<Func> funcs = new FastList<Func>();
+        FastList<Func> funcs = new FastList<Func>();
         for (FuncTemplate t : _funcTemplates) {
             Env env = new Env();
             env._player = player;
@@ -2263,7 +2262,7 @@ public abstract class L2Skill
             }
         }
         
-        List<L2Effect> effects = new FastList<L2Effect>();
+        FastList<L2Effect> effects = new FastList<L2Effect>();
         
         for (EffectTemplate et : _effectTemplates) 
         {
@@ -2288,7 +2287,7 @@ public abstract class L2Skill
     
         if (_effectTemplatesSelf == null) return _emptyEffectSet;
 
-        List<L2Effect> effects = new FastList<L2Effect>();
+        FastList<L2Effect> effects = new FastList<L2Effect>();
 
         for (EffectTemplate et : _effectTemplatesSelf)
         {

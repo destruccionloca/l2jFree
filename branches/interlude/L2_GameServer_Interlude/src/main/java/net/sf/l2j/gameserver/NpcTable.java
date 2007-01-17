@@ -20,9 +20,6 @@ package net.sf.l2j.gameserver;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import java.util.Map;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -50,7 +47,7 @@ public class NpcTable
 
     private static NpcTable _instance;
 
-    private Map<Integer, L2NpcTemplate> _npcs;
+    private FastMap<Integer, L2NpcTemplate> _npcs;
     private boolean _initialized = false;
 
     public static NpcTable getInstance()
@@ -382,7 +379,7 @@ public class NpcTable
         {
             // save a copy of the old data
             L2NpcTemplate old = getTemplate(id);
-            Map<Integer,L2Skill> skills = new FastMap<Integer,L2Skill>();
+            FastMap<Integer,L2Skill> skills = new FastMap<Integer,L2Skill>();
             
             if (old.getSkills() != null)
                 skills.putAll(old.getSkills());
@@ -397,7 +394,7 @@ public class NpcTable
             if (old.getTeachInfo() != null)
                 classIds=old.getTeachInfo().clone();
             
-            List<L2MinionData> minions = new FastList<L2MinionData>();
+            FastList<L2MinionData> minions = new FastList<L2MinionData>();
             
             if (old.getMinionData() != null)
                 minions.addAll(old.getMinionData());
@@ -448,7 +445,7 @@ public class NpcTable
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection();
-            Map<String, Object> set = npc.getSet();
+            FastMap<String, Object> set = npc.getSet();
 
             String name = "";
             String values = "";
@@ -508,7 +505,7 @@ public class NpcTable
 
     public L2NpcTemplate[] getAllOfLevel(int lvl)
     {
-        List<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+        FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
         
         for (L2NpcTemplate t : _npcs.values())
             if (t.level == lvl)
@@ -519,7 +516,7 @@ public class NpcTable
     
     public L2NpcTemplate[] getAllMonstersOfLevel(int lvl)
     {
-       List<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+       FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
         
        for (L2NpcTemplate t : _npcs.values())
            if (t.level == lvl && "L2Monster".equals(t.type))
@@ -530,7 +527,7 @@ public class NpcTable
     
     public L2NpcTemplate[] getAllNpcStartingWith(String letter)
     {
-       List<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+       FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
            
        for (L2NpcTemplate t : _npcs.values())
            if (t.name.startsWith(letter) && "L2Npc".equals(t.type))

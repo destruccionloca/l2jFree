@@ -18,14 +18,12 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
-
 import javolution.util.FastList;
 
 public class ExEnchantSkillList extends ServerBasePacket
 {
     private static final String _S__FE_17_EXENCHANTSKILLLIST = "[S] FE:17 ExEnchantSkillList";
-    private List<Skill> _skills;
+    private FastList<Skill> _skills;
 
     class Skill
     {

@@ -16,7 +16,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.script.stat.leaderboards.*;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 /** Leaderboard Engine

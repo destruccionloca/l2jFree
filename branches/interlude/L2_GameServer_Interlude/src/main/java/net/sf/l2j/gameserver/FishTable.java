@@ -2,8 +2,6 @@ package net.sf.l2j.gameserver;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.FishData;
@@ -21,8 +19,8 @@ public class FishTable
     private final static Log _log = LogFactory.getLog(SkillTreeTable.class.getName());
     private static final FishTable _instance = new FishTable();
 
-    private static List<FishData> _Fishs;
-    private static List<FishDropData> _FishRewards;
+    private static FastList<FishData> _Fishs;
+    private static FastList<FishDropData> _FishRewards;
 
     public static FishTable getInstance()
     {
@@ -106,9 +104,9 @@ public class FishTable
      * @param Fish - type
      * @return List of Fish that can be fished
      */
-    public List<FishData> getfish(int lvl, int type)
+    public FastList<FishData> getfish(int lvl, int type)
     {
-        List<FishData> result = new FastList<FishData>();
+        FastList<FishData> result = new FastList<FishData>();
         if (_Fishs == null)
         {
             // the fish list is empty
@@ -129,9 +127,9 @@ public class FishTable
      * @param fishid
      * @return List of all item that this fish can drop if open
      */
-    public List<FishDropData> GetFishRreward(int fishid)
+    public FastList<FishDropData> GetFishRreward(int fishid)
     {
-        List<FishDropData> result = new FastList<FishDropData>();
+        FastList<FishDropData> result = new FastList<FishDropData>();
         if (_FishRewards == null)
         {
             // the fish list is empty

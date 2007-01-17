@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.model;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ItemTable;
@@ -125,7 +123,7 @@ public class TradeList
 
     private L2PcInstance _owner;
     private L2PcInstance _partner;
-    private List<TradeItem> _items;
+    private FastList<TradeItem> _items;
     private String _title;
     private boolean _packaged;
 
@@ -197,7 +195,7 @@ public class TradeList
      */
     public TradeList.TradeItem[] getAvailableItems(PcInventory inventory)
     {
-        List<TradeList.TradeItem> list = new FastList<TradeList.TradeItem>();
+        FastList<TradeList.TradeItem> list = new FastList<TradeList.TradeItem>();
         for (TradeList.TradeItem item : _items)
         {
             item = new TradeItem(item, item.getCount(), item.getPrice());
@@ -293,7 +291,7 @@ public class TradeList
             return null;
         }
 
-        List<Integer> nonTradeAbleList = new FastList<Integer>();
+        FastList<Integer> nonTradeAbleList = new FastList<Integer>();
         nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
 
         int itemId = ((L2ItemInstance)item).getItemId();
@@ -346,7 +344,7 @@ public class TradeList
             return null;
         }
         
-        List<Integer> nonTradeAbleList = new FastList<Integer>();
+        FastList<Integer> nonTradeAbleList = new FastList<Integer>();
         nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
 
         if (nonTradeAbleList.contains(itemId))

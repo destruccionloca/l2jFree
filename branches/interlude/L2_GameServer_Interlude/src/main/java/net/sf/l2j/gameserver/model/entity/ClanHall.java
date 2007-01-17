@@ -21,8 +21,6 @@ package net.sf.l2j.gameserver.model.entity;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClanTable;
@@ -48,8 +46,8 @@ public class ClanHall
 	// =========================================================
     // Data Field
 	private int _ClanHallId                    = 0;
-	private List<L2DoorInstance> _Doors;
-	private List<String> _DoorDefault          = new FastList<String>();
+	private FastList<L2DoorInstance> _Doors;
+	private FastList<String> _DoorDefault          = new FastList<String>();
     private String _Name                       = "";
 	private int _OwnerId                       = 0;
     private int _lease                         = 0;
@@ -58,7 +56,7 @@ public class ClanHall
     private Calendar _paidUntil;
     private Zone _Zone;
     private int _grade;
-    private List<ClanHallFunction> _functions = new FastList<ClanHallFunction>();
+    private FastList<ClanHallFunction> _functions = new FastList<ClanHallFunction>();
     
     //clan hall functions
     public static final int FUNC_TELEPORT = 1;
@@ -361,7 +359,7 @@ public class ClanHall
 		return null;
 	}
 
-	public final List<L2DoorInstance> getDoors()
+	public final FastList<L2DoorInstance> getDoors()
 	{
         if (_Doors == null) _Doors = new FastList<L2DoorInstance>();
 		return _Doors;

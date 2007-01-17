@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.model.entity;
 
-import java.util.List;
+import javolution.util.FastList;
 
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -30,7 +30,7 @@ public class Arena
     // Data Field
 	private int _ArenaId                       = 0;
     private String _Name                       = "";
-    private List<int[]> _Spawn;
+    private FastList<int[]> _Spawn;
     private Zone _Zone;
 
 	// =========================================================
@@ -64,7 +64,7 @@ public class Arena
 
     public final String getName() { return _Name; }
 
-    public final List<int[]> getSpawn()
+    public final FastList<int[]> getSpawn()
     {
         if (_Spawn == null) _Spawn = ZoneManager.getInstance().getZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ArenaSpawn), getName()).getCoords();
         return _Spawn;

@@ -24,7 +24,6 @@ import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
@@ -242,16 +241,16 @@ public class Siege
     // =========================================================
     // Data Field
     // Attacker and Defender
-    private List<L2SiegeClan> _Attacker_Clans = new FastList<L2SiegeClan>(); // L2SiegeClan
+    private FastList<L2SiegeClan> _Attacker_Clans = new FastList<L2SiegeClan>(); // L2SiegeClan
 
-    private List<L2SiegeClan> _Defender_Clans = new FastList<L2SiegeClan>(); // L2SiegeClan
-    private List<L2SiegeClan> _Defender_Waiting_Clans = new FastList<L2SiegeClan>(); // L2SiegeClan
+    private FastList<L2SiegeClan> _Defender_Clans = new FastList<L2SiegeClan>(); // L2SiegeClan
+    private FastList<L2SiegeClan> _Defender_Waiting_Clans = new FastList<L2SiegeClan>(); // L2SiegeClan
     private int _Defender_RespawnDelay_Penalty;
 
     // Castle setting
     private L2ArtefactInstance _Artifact;
     private Castle[] _Castle;
-    private List<L2ControlTowerInstance> _ControlTowers = new FastList<L2ControlTowerInstance>();;
+    private FastList<L2ControlTowerInstance> _ControlTowers = new FastList<L2ControlTowerInstance>();;
     private int[][] _ControlTowerSpawnList;
     private boolean _IsInProgress = false;
     private boolean _IsNormalSide = true; // true = Atk is Atk, false = Atk is Def
@@ -588,9 +587,9 @@ public class Siege
     }
 
     /** Return list of L2PcInstance registered as attacker in the zone. */
-    public List<L2PcInstance> getAttackersInZone()
+    public FastList<L2PcInstance> getAttackersInZone()
     {
-        List<L2PcInstance> players = new FastList<L2PcInstance>();
+        FastList<L2PcInstance> players = new FastList<L2PcInstance>();
 
         for (L2PcInstance player : L2World.getInstance().getAllPlayers())
         {
@@ -602,9 +601,9 @@ public class Siege
     }
 
     /** Return list of L2PcInstance registered as defender in the zone. */
-    public List<L2PcInstance> getDefendersInZone()
+    public FastList<L2PcInstance> getDefendersInZone()
     {
-        List<L2PcInstance> players = new FastList<L2PcInstance>();
+        FastList<L2PcInstance> players = new FastList<L2PcInstance>();
 
         int ownerId = getCastle().getOwnerId();
 
@@ -620,9 +619,9 @@ public class Siege
     }
 
     /** Return list of L2PcInstance in the zone. */
-    public List<L2PcInstance> getPlayersInZone()
+    public FastList<L2PcInstance> getPlayersInZone()
     {
-        List<L2PcInstance> players = new FastList<L2PcInstance>();
+        FastList<L2PcInstance> players = new FastList<L2PcInstance>();
 
         for (L2PcInstance player : L2World.getInstance().getAllPlayers())
         {
@@ -633,9 +632,9 @@ public class Siege
     }
 
     /** Return list of L2PcInstance owning the castle in the zone. */
-    public List<L2PcInstance> getOwnersInZone()
+    public FastList<L2PcInstance> getOwnersInZone()
     {
-        List<L2PcInstance> players = new FastList<L2PcInstance>();
+        FastList<L2PcInstance> players = new FastList<L2PcInstance>();
 
         int ownerId = getCastle().getOwnerId();
         if (ownerId > 0)
@@ -651,9 +650,9 @@ public class Siege
     }
 
     /** Return list of L2PcInstance not registered as attacker or defender in the zone. */
-    public List<L2PcInstance> getSpectatorsInZone()
+    public FastList<L2PcInstance> getSpectatorsInZone()
     {
-        List<L2PcInstance> players = new FastList<L2PcInstance>();
+        FastList<L2PcInstance> players = new FastList<L2PcInstance>();
 
         for (L2PcInstance player : L2World.getInstance().getAllPlayers())
         {
@@ -819,7 +818,7 @@ public class Siege
     public void teleportPlayer(TeleportWhoType teleportWho,
                                MapRegionTable.TeleportWhereType teleportWhere)
     {
-        List<L2PcInstance> players;
+        FastList<L2PcInstance> players;
         switch (teleportWho)
         {
             case Owner:
@@ -1318,7 +1317,7 @@ public class Siege
         return null;
     }
 
-    public final List<L2SiegeClan> getAttackerClans()
+    public final FastList<L2SiegeClan> getAttackerClans()
     {
         if (_IsNormalSide) return _Attacker_Clans;
         return _Defender_Clans;
@@ -1348,7 +1347,7 @@ public class Siege
         return null;
     }
 
-    public final List<L2SiegeClan> getDefenderClans()
+    public final FastList<L2SiegeClan> getDefenderClans()
     {
         if (_IsNormalSide) return _Defender_Clans;
         return _Attacker_Clans;
@@ -1367,7 +1366,7 @@ public class Siege
         return null;
     }
 
-    public final List<L2SiegeClan> getDefenderWaitingClans()
+    public final FastList<L2SiegeClan> getDefenderWaitingClans()
     {
         return _Defender_Waiting_Clans;
     }
@@ -1392,7 +1391,7 @@ public class Siege
         return getCastle().getSiegeDate();
     }
 
-    public List<L2NpcInstance> getFlag(L2Clan clan)
+    public FastList<L2NpcInstance> getFlag(L2Clan clan)
     {
         if (clan != null)
         {

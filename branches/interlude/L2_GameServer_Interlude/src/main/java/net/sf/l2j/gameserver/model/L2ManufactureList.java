@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.model;
 
-import java.util.List;
-
 import javolution.util.FastList;
 
 /**
@@ -29,7 +27,7 @@ import javolution.util.FastList;
  */
 public class L2ManufactureList
 {
-    private List<L2ManufactureItem> _list;
+    private FastList<L2ManufactureItem> _list;
     private boolean _confirmed;
     private String _manufactureStoreName;
 
@@ -75,12 +73,12 @@ public class L2ManufactureList
         _list.add(item);
     }
 
-    public List<L2ManufactureItem> getList()
+    public FastList<L2ManufactureItem> getList()
     {
         return _list;
     }
 
-    public void setList(List<L2ManufactureItem> list)
+    public void setList(FastList<L2ManufactureItem> list)
     {
         _list = list;
     }

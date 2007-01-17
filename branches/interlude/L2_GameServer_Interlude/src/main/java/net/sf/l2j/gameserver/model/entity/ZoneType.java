@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.model.entity;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2Object;
 
@@ -15,7 +13,7 @@ public class ZoneType
     // =========================================================
     // Data Field
     private String _TypeName;
-    private List<Zone> _Zones;
+    private FastList<Zone> _Zones;
 
     public static enum ZoneTypeEnum
     {
@@ -132,7 +130,7 @@ public class ZoneType
         return null;
     }
     
-    public final List<Zone> getZones()
+    public final FastList<Zone> getZones()
     {
         if (_Zones == null) _Zones = new FastList<Zone>();
         return _Zones;

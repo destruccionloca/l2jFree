@@ -22,9 +22,10 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
+
+import javolution.util.FastList;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GameServer;
@@ -112,7 +113,7 @@ public class FaenorScriptEngine extends ScriptEngine
 
             ScriptPackage module = new ScriptPackage(zipPack);
 
-            List<ScriptDocument> scrpts = module.getScriptFiles();
+            FastList<ScriptDocument> scrpts = module.getScriptFiles();
             for (ScriptDocument script : scrpts)
             {
                 this.scripts.add(script);

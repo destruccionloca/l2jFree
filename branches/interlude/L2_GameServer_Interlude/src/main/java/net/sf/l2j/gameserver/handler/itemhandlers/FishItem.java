@@ -1,6 +1,6 @@
 package net.sf.l2j.gameserver.handler.itemhandlers;
 
-import java.util.List;
+import javolution.util.FastList;
 
 import net.sf.l2j.gameserver.FishTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
@@ -35,7 +35,7 @@ public class FishItem implements IItemHandler
         if (!(playable instanceof L2PcInstance))
             return;
         L2PcInstance activeChar = (L2PcInstance)playable;
-        List<FishDropData> rewards = FishTable.getInstance().GetFishRreward(item.getItemId());
+        FastList<FishDropData> rewards = FishTable.getInstance().GetFishRreward(item.getItemId());
         int chance = Rnd.get(100);
         int count = 0;
         takeItems(activeChar, item.getItemId());

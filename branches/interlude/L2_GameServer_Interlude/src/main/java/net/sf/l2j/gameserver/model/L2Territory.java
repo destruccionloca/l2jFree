@@ -8,8 +8,6 @@
 
 package net.sf.l2j.gameserver.model;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.lib.Rnd;
 
@@ -26,7 +24,7 @@ public class L2Territory
 		Point (int _x, int _y, int _zmin, int _zmax, int _proc) {x=_x; y=_y; zmin=_zmin; zmax=_zmax; proc=_proc;}
 	}
 
-	private List<Point> _points;
+	private FastList<Point> _points;
 	private int _terr;
 	private int _x_min;
 	private int _x_max;

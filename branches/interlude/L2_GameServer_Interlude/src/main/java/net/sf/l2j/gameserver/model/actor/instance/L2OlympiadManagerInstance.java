@@ -18,9 +18,8 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.util.List;
-
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
+import javolution.util.FastList;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.serverpackets.ExHeroList;
@@ -200,7 +199,7 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
                         replyMSG.append("<center>Grand Olympiad Ranking");
                         replyMSG.append("<img src=\"L2UI.SquareWhite\" width=270 height=1><img src=\"L2UI.SquareBlank\" width=1 height=3>");
                         
-                        List<String> names = Olympiad.getInstance().getClassLeaderBoard(classId);
+                        FastList<String> names = Olympiad.getInstance().getClassLeaderBoard(classId);
                         if (names.size() != 0)
                         {
                             replyMSG.append("<table width=270 border=0 bgcolor=\"000000\">");

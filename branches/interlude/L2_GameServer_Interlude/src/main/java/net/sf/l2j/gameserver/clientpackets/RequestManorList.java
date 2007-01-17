@@ -19,8 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -53,7 +51,7 @@ public class RequestManorList extends ClientBasePacket
     void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
-        List<String> ManorsName = new FastList<String>();
+        FastList<String> ManorsName = new FastList<String>();
         ManorsName.add("Gludio Manor");
         ManorsName.add("Dion Manor");
         ManorsName.add("Grian Manor");
@@ -62,7 +60,7 @@ public class RequestManorList extends ClientBasePacket
         ManorsName.add("Innadril Manor");
         ManorsName.add("Goddard Manor");
         ManorsName.add("Runne Manor");
-        List<Integer> ManorsId = new FastList<Integer>();
+        FastList<Integer> ManorsId = new FastList<Integer>();
         ManorsId.add(7996);
         ManorsId.add(7997);
         ManorsId.add(7998);

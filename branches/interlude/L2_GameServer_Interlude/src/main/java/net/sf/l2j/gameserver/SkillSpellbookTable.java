@@ -2,8 +2,6 @@ package net.sf.l2j.gameserver;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -16,7 +14,7 @@ public class SkillSpellbookTable
 	private final static Log _log = LogFactory.getLog(SkillTreeTable.class.getName());
 	private static SkillSpellbookTable _instance;
 
-	private static Map<Integer, Integer> _skillSpellbooks;
+	private static FastMap<Integer, Integer> _skillSpellbooks;
 
 	public static SkillSpellbookTable getInstance()
 	{

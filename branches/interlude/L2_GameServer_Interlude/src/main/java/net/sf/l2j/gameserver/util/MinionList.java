@@ -28,7 +28,6 @@
  */
 package net.sf.l2j.gameserver.util;
 
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -56,7 +55,7 @@ public class MinionList
     private final static Log _log = LogFactory.getLog(L2MonsterInstance.class.getName());
 
     /** List containing the current spawned minions for this L2MonsterInstance */
-    private final List<L2MinionInstance> minionReferences;
+    private final FastList<L2MinionInstance> minionReferences;
     protected FastMap<Long,Integer> _respawnTasks = new FastMap<Long,Integer>().setShared(true);
     private final L2MonsterInstance master;
     private Random _rand;
@@ -96,7 +95,7 @@ public class MinionList
         return getSpawnedMinions().size() > 0;
     }
 
-    public List<L2MinionInstance> getSpawnedMinions()
+    public FastList<L2MinionInstance> getSpawnedMinions()
     {
         return minionReferences;
     }
@@ -187,7 +186,7 @@ public class MinionList
     public void spawnMinions()
     {
         if(master == null || master.isAlikeDead()) return;
-        List<L2MinionData> minions = master.getTemplate().getMinionData();
+        FastList<L2MinionData> minions = master.getTemplate().getMinionData();
 
         synchronized (minionReferences)
         {

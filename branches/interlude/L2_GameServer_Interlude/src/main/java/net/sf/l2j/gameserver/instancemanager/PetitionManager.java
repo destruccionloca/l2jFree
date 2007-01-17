@@ -20,10 +20,7 @@ package net.sf.l2j.gameserver.instancemanager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -50,8 +47,8 @@ public final class PetitionManager
 	protected static Log _log = LogFactory.getLog(PetitionManager.class.getName());
 	private static PetitionManager _instance;
 	
-	private Map<Integer, Petition> _pendingPetitions;
-	private Map<Integer, Petition> _completedPetitions;
+	private FastMap<Integer, Petition> _pendingPetitions;
+	private FastMap<Integer, Petition> _completedPetitions;
 	
 	private static enum PetitionState 
 	{
@@ -100,7 +97,7 @@ public final class PetitionManager
 		private PetitionState _state = PetitionState.Pending;
 		private String _content;
 		
-		private List<CreatureSay> _messageLog = new FastList<CreatureSay>();
+		private FastList<CreatureSay> _messageLog = new FastList<CreatureSay>();
 		
 		private L2PcInstance _petitioner;
 		private L2PcInstance _responder;
@@ -124,7 +121,7 @@ public final class PetitionManager
 			return _messageLog.add(cs);
 		}
 		
-		protected List<CreatureSay> getLogMessages()
+		protected FastList<CreatureSay> getLogMessages()
 		{
 			return _messageLog;
 		}
@@ -344,12 +341,12 @@ public final class PetitionManager
 		return false;
 	}
 	
-    protected Map<Integer, Petition> getCompletedPetitions()
+    protected FastMap<Integer, Petition> getCompletedPetitions()
 	{
 		return _completedPetitions;
 	}
 	
-    protected Map<Integer, Petition> getPendingPetitions()
+    protected FastMap<Integer, Petition> getPendingPetitions()
 	{
 		return _pendingPetitions;
 	}

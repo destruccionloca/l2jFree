@@ -20,6 +20,8 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import java.util.List;
 
+import javolution.util.FastList;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2TradeList;
@@ -42,7 +44,7 @@ public class WearList extends ServerBasePacket
 		_expertise = expertiseIndex;
 	}	
 	
-	public WearList(List<L2ItemInstance> lst, int listId, int currentMoney)
+	public WearList(FastList<L2ItemInstance> lst, int listId, int currentMoney)
 	{
 		_listId = listId;
 		_list = lst.toArray(new L2ItemInstance[lst.size()]);

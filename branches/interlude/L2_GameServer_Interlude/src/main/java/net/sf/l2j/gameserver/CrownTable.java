@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver;
 
-import java.util.List;
-
 import javolution.util.FastList;
 
 /**
@@ -30,9 +28,9 @@ import javolution.util.FastList;
  */
 public class CrownTable
 {
-    private static List<Integer> _CrownList = new FastList<Integer>();
+    private static FastList<Integer> _CrownList = new FastList<Integer>();
     
-    public static List<Integer> getCrownList()
+    public static FastList<Integer> getCrownList()
     {
         if(_CrownList.isEmpty())
         {

@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver;
 
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.skills.SkillsEngine;
@@ -35,7 +33,7 @@ public class SkillTable
 	//private final static Log _log = LogFactory.getLog(SkillTable.class.getName());
 	private static SkillTable _instance;
 	
-	private Map<Integer, L2Skill> _skills;
+	private FastMap<Integer, L2Skill> _skills;
 	private boolean _initialized = true;
     
 	public static SkillTable getInstance()

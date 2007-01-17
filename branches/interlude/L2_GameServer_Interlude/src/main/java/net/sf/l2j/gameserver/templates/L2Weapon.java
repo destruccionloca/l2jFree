@@ -312,7 +312,7 @@ public final class L2Weapon  extends L2Item
     {
         if (_skillsOnCrit == null || !crit)
             return _emptyEffectSet;
-        List<L2Effect> effects = new FastList<L2Effect>();
+        FastList<L2Effect> effects = new FastList<L2Effect>();
 
         for (L2Skill skill : _skillsOnCrit)
         {
@@ -344,7 +344,7 @@ public final class L2Weapon  extends L2Item
     {
         if (_skillsOnCast == null)
             return _emptyEffectSet;
-        List<L2Effect> effects = new FastList<L2Effect>();
+        FastList<L2Effect> effects = new FastList<L2Effect>();
 
         for (L2Skill skill : _skillsOnCast)
         {

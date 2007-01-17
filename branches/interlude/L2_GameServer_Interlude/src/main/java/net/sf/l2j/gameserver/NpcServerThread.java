@@ -7,8 +7,6 @@ import java.nio.ByteBuffer;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import java.util.concurrent.*;
-
 import net.sf.l2j.gameserver.npcserverpackets.PacketsQueue;
 import net.sf.l2j.gameserver.npcserverpackets.GsBasePacket;;
 

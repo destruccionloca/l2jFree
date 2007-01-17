@@ -21,8 +21,6 @@ package net.sf.l2j.gameserver.communitybbs.BB;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.communitybbs.Manager.PostBBSManager;
@@ -47,7 +45,7 @@ public class Post
 	public int _PostForumID;
 	public String _PostTxt;
 	}
-	private List<CPost> _post;
+	private FastList<CPost> _post;
 	/**
 	 * @param restore
 	 * @param t

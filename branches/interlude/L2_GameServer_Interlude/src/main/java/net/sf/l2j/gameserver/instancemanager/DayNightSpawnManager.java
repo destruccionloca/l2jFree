@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.model.L2Spawn;
@@ -41,9 +39,9 @@ public class DayNightSpawnManager {
     private final static Log _log = LogFactory.getLog(DayNightSpawnManager.class.getName());
     
     private static DayNightSpawnManager _instance;
-    private static Map<L2Spawn, L2NpcInstance> _dayCreatures;
-    private static Map<L2Spawn, L2NpcInstance> _nightCreatures;
-    private static Map<L2Spawn, L2RaidBossInstance> _bosses;
+    private static FastMap<L2Spawn, L2NpcInstance> _dayCreatures;
+    private static FastMap<L2Spawn, L2NpcInstance> _nightCreatures;
+    private static FastMap<L2Spawn, L2RaidBossInstance> _bosses;
     
     //private static int _currentState;  // 0 = Day, 1 = Night
     

@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -103,11 +101,11 @@ public class SevenSigns
     protected int _compWinner;
     protected int _previousWinner;
     
-    private Map<Integer, StatsSet> _signsPlayerData;
+    private FastMap<Integer, StatsSet> _signsPlayerData;
     
-    private Map<Integer, Integer> _signsSealOwners;
-    private Map<Integer, Integer> _signsDuskSealTotals;
-    private Map<Integer, Integer> _signsDawnSealTotals;
+    private FastMap<Integer, Integer> _signsSealOwners;
+    private FastMap<Integer, Integer> _signsDuskSealTotals;
+    private FastMap<Integer, Integer> _signsDawnSealTotals;
     
     private static AutoSpawnInstance _merchantSpawn;
     private static AutoSpawnInstance _blacksmithSpawn;
@@ -115,9 +113,9 @@ public class SevenSigns
     private static AutoSpawnInstance _spiritOutSpawn;
     private static AutoSpawnInstance _lilithSpawn;
     private static AutoSpawnInstance _anakimSpawn;
-    private static Map<Integer, AutoSpawnInstance> _oratorSpawns;
-    private static Map<Integer, AutoSpawnInstance> _preacherSpawns;
-    private static Map<Integer, AutoSpawnInstance> _marketeerSpawns;
+    private static FastMap<Integer, AutoSpawnInstance> _oratorSpawns;
+    private static FastMap<Integer, AutoSpawnInstance> _preacherSpawns;
+    private static FastMap<Integer, AutoSpawnInstance> _marketeerSpawns;
     
     public SevenSigns() 
     {

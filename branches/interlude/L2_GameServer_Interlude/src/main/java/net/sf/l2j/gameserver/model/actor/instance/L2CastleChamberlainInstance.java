@@ -1,10 +1,10 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.Date;
-import java.util.List;
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
+import javolution.util.FastList;
 import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.model.CropProcure;
 import net.sf.l2j.gameserver.model.L2Manor;
@@ -265,7 +265,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
         if (getCastle() == null)
             return;
 
-        List<SeedProduction> seedes = getCastle().getSeedProduction();
+        FastList<SeedProduction> seedes = getCastle().getSeedProduction();
         NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
         String r="";
 
@@ -291,7 +291,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
         if (getCastle() == null)
             return;
 
-        List<CropProcure> crops = getCastle().getManorRewards();
+        FastList<CropProcure> crops = getCastle().getManorRewards();
         NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
         String r="";
 

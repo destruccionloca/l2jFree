@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.LineNumberReader;
-import java.util.Map;
 import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
@@ -21,7 +20,7 @@ public class StaticObjects
     private final static Log _log = LogFactory.getLog(StaticObjects.class.getName());
     
     private static StaticObjects _instance;
-    private Map<Integer,L2StaticObjectInstance> _staticObjects;
+    private FastMap<Integer,L2StaticObjectInstance> _staticObjects;
 
         
     public static StaticObjects getInstance()

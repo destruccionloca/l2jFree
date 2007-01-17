@@ -10,8 +10,6 @@
 
 package net.sf.l2j.gameserver;
 
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.lib.SqlUtils;
 import net.sf.l2j.gameserver.model.L2Territory;
@@ -23,7 +21,7 @@ public class Territory
 {
 	private final static Log _log = LogFactory.getLog(TradeController.class.getName());
 	private static final Territory _instance = new Territory();
-	private static Map<Integer,L2Territory> _territory;
+	private static FastMap<Integer,L2Territory> _territory;
 	
 	public static Territory getInstance()
 	{

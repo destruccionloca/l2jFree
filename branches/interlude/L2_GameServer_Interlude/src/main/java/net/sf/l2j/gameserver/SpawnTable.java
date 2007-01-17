@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -45,7 +43,7 @@ public class SpawnTable
 
     private static final SpawnTable _instance = new SpawnTable();
 
-    private Map<Integer, L2Spawn> _spawntable = new FastMap<Integer, L2Spawn>();
+    private FastMap<Integer, L2Spawn> _spawntable = new FastMap<Integer, L2Spawn>();
     private int _npcSpawnCount;
 
     private int _highestId;
@@ -63,7 +61,7 @@ public class SpawnTable
             _log.debug("Spawns Disabled");
     }
 
-    public Map<Integer, L2Spawn> getSpawnTable()
+    public FastMap<Integer, L2Spawn> getSpawnTable()
     {
         return _spawntable;
     }

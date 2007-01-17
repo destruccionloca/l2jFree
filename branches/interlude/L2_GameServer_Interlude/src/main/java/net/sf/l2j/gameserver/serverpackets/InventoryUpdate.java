@@ -57,7 +57,7 @@ public class InventoryUpdate extends ServerBasePacket
     private final static Log _log = LogFactory.getLog(InventoryUpdate.class.getName());
     private static final String _S__37_INVENTORYUPDATE = "[S] 27 InventoryUpdate";
     
-    private List<ItemInfo> _items;
+    private FastList<ItemInfo> _items;
     
     public InventoryUpdate()
     {
@@ -67,7 +67,7 @@ public class InventoryUpdate extends ServerBasePacket
     /**
      * @param items
      */
-    public InventoryUpdate(List<ItemInfo> items)
+    public InventoryUpdate(FastList<ItemInfo> items)
     {
         _items = items;
     }
@@ -76,7 +76,7 @@ public class InventoryUpdate extends ServerBasePacket
     public void addNewItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item, 1)); }
     public void addModifiedItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item, 2)); }
     public void addRemovedItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item, 3)); }
-    public void addItems(List<L2ItemInstance> items) { if (items != null) for (L2ItemInstance item : items) if (item != null) _items.add(new ItemInfo(item)); }
+    public void addItems(List<L2ItemInstance> name) { if (name != null) for (L2ItemInstance item : name) if (item != null) _items.add(new ItemInfo(item)); }
     
     final void runImpl()
     {

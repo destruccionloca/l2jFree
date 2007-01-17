@@ -2,8 +2,6 @@ package net.sf.l2j.gameserver.instancemanager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -35,7 +33,7 @@ public class CastleManager
     
     // =========================================================
     // Data Field
-    private List<Castle> _Castles;
+    private FastList<Castle> _Castles;
     
     // =========================================================
     // Constructor
@@ -250,7 +248,7 @@ public class CastleManager
         return -1;
     }
 
-    public final List<Castle> getCastles()
+    public final FastList<Castle> getCastles()
     {
         if (_Castles == null) _Castles = new FastList<Castle>();
         return _Castles;

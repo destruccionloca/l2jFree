@@ -2,7 +2,7 @@ package net.sf.l2j.log4jextension;
 
 import java.util.List;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 
 import org.apache.log4j.Logger;

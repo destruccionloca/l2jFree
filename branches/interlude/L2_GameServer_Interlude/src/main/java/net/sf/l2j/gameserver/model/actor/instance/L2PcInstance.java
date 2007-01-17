@@ -28,11 +28,8 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator; 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
@@ -42,7 +39,6 @@ import java.util.zip.GZIPOutputStream;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import javolution.util.FastSet;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
@@ -80,7 +76,6 @@ import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
-import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
@@ -89,7 +84,6 @@ import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.BlockList;
-import net.sf.l2j.gameserver.model.CursedWeapon;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.ItemContainer;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -349,7 +343,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _recomLeft; // how many recomendations I can give to others
 
     /** List with the recomendations that I've give */
-    private List<Integer> _recomChars = new FastList<Integer>();
+    private FastList<Integer> _recomChars = new FastList<Integer>();
     
     private StatTrack _statTrack;
 
@@ -388,7 +382,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _newbie;
 
     /** The table containing all Quests began by the L2PcInstance */
-    private Map<String, QuestState> _quests = new FastMap<String, QuestState>();
+    private FastMap<String, QuestState> _quests = new FastMap<String, QuestState>();
 
     /** The list containing all shortCuts of this L2PcInstance */
     private ShortCuts _shortCuts = new ShortCuts(this);
@@ -404,8 +398,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private TradeList _sellList;
     private TradeList _buyList;
     
-    private List<L2PcInstance> _SnoopListener = new FastList<L2PcInstance>();
-    private List<L2PcInstance> _SnoopedPlayer = new FastList<L2PcInstance>();
+    private FastList<L2PcInstance> _SnoopListener = new FastList<L2PcInstance>();
+    private FastList<L2PcInstance> _SnoopedPlayer = new FastList<L2PcInstance>();
 
     /** The Private Store type of the L2PcInstance (STORE_PRIVATE_NONE=0, STORE_PRIVATE_SELL=1, sellmanage=2, STORE_PRIVATE_BUY=3, buymanage=4, STORE_PRIVATE_MANUFACTURE=5) */
     private int _privatestore;
@@ -479,13 +473,13 @@ public final class L2PcInstance extends L2PlayableInstance
     private long _uptime;
     private String _accountName;
 
-    private final Map<Integer, String> _chars = new FastMap<Integer, String>();
+    private final FastMap<Integer, String> _chars = new FastMap<Integer, String>();
 
     public byte _updateKnownCounter = 0;
 
     /** The table containing all L2RecipeList of the L2PcInstance */
-    private Map<Integer, L2RecipeList> _dwarvenRecipeBook = new FastMap<Integer, L2RecipeList>();
-    private Map<Integer, L2RecipeList> _commonRecipeBook = new FastMap<Integer, L2RecipeList>();
+    private FastMap<Integer, L2RecipeList> _dwarvenRecipeBook = new FastMap<Integer, L2RecipeList>();
+    private FastMap<Integer, L2RecipeList> _commonRecipeBook = new FastMap<Integer, L2RecipeList>();
 
     private int _mountType;
 
@@ -500,17 +494,17 @@ public final class L2PcInstance extends L2PlayableInstance
 
     protected boolean _inventoryDisable = false;
 
-    protected Map<Integer, L2CubicInstance> _cubics = new FastMap<Integer, L2CubicInstance>();
+    protected FastMap<Integer, L2CubicInstance> _cubics = new FastMap<Integer, L2CubicInstance>();
 
     /** The L2FolkInstance corresponding to the last Folk wich one the player talked. */
     private L2FolkInstance _lastFolkNpc = null;
 
     private boolean _isSilentMoving = false;
 
-    protected Set<Integer> _activeSoulShots = new FastSet<Integer>();
+    protected FastMap<Integer, Integer> _activeSoulShots = new FastMap<Integer, Integer>().setShared(true);
     private boolean _isPathNodeMode;
     private boolean _isPathNodesVisible;
-    private Map<WayPointNode, List<WayPointNode>> _pathNodeMap;
+    private Map<WayPointNode, FastList<WayPointNode>> _pathNodeMap;
     private WayPointNode _selectedNode;
     private int _clanPrivileges = 0;
     private boolean _linkToggle = true;
@@ -591,7 +585,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _ketra = 0;
 
     /** The list of sub-classes this character has. */
-    private Map<Integer, SubClass> _subClasses;
+    private FastMap<Integer, SubClass> _subClasses;
     protected int _baseClass;
     protected int _activeClass;
     protected int _classIndex = 0;
@@ -611,8 +605,8 @@ public final class L2PcInstance extends L2PlayableInstance
     public Point3D _lastServerPosition = new Point3D(0, 0, 0);
 
     /** Bypass validations */
-    private List<String> _validBypass = new FastList<String>();
-    private List<String> _validBypass2 = new FastList<String>();
+    private FastList<String> _validBypass = new FastList<String>();
+    private FastList<String> _validBypass2 = new FastList<String>();
 
     private boolean _inCrystallize;
 
@@ -743,7 +737,7 @@ public final class L2PcInstance extends L2PlayableInstance
         return _connection.getClient().getLoginName();
     }
 
-    public Map<Integer, String> getAccountChars()
+    public FastMap<Integer, String> getAccountChars()
     {
         return _chars;
     }
@@ -1116,7 +1110,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param drops The table containing all possible drops of the L2NpcInstance
      *
      */
-    public void fillQuestDrops(L2NpcInstance npc, List<L2DropData> drops)
+    public void fillQuestDrops(L2NpcInstance npc, FastList<L2DropData> drops)
     {
         for (QuestState qs : _quests.values())
         {
@@ -1657,7 +1651,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (karma < 0) karma = 0;
         if (_karma == 0 && karma > 0)
         {
-            for (L2Object object : getKnownList().getKnownObjects())
+            for (L2Object object : getKnownList().getKnownObjects().values())
             {
                 if (object == null || !(object instanceof L2GuardInstance)) continue;
 
@@ -3895,9 +3889,9 @@ public final class L2PcInstance extends L2PlayableInstance
             while (dropPercent > 0 && Rnd.get(100) < dropPercent && dropCount < dropLimit)
             {
                 int itemDropPercent = 0;
-                List<Integer> nonDroppableList = new FastList<Integer>();
-                List<Integer> nonDroppableListPet = new FastList<Integer>();
-                List<Integer> nonDroppableListTrade = new FastList<Integer>();
+                FastList<Integer> nonDroppableList = new FastList<Integer>();
+                FastList<Integer> nonDroppableListPet = new FastList<Integer>();
+                FastList<Integer> nonDroppableListTrade = new FastList<Integer>();
 
                 nonDroppableList = Config.KARMA_LIST_NONDROPPABLE_ITEMS;
                 nonDroppableListPet = Config.KARMA_LIST_NONDROPPABLE_PET_ITEMS;
@@ -5389,7 +5383,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     /*    private void sortSubClassData(L2PcInstance player)
      {
-     List<SubClass> _dummysubClasses = new FastList<SubClass>();
+     FastList<SubClass> _dummysubClasses = new FastList<SubClass>();
      
      if (player._subClasses == null)
      return;
@@ -7111,7 +7105,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
-    public Map<Integer, L2CubicInstance> getCubics()
+    public FastMap<Integer, L2CubicInstance> getCubics()
     {
         return _cubics;
     }
@@ -7200,7 +7194,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void addAutoSoulShot(int itemId)
     {
-        _activeSoulShots.add(itemId);
+        _activeSoulShots.put(itemId, itemId);
     }
 
     public void removeAutoSoulShot(int itemId)
@@ -7208,7 +7202,7 @@ public final class L2PcInstance extends L2PlayableInstance
         _activeSoulShots.remove(itemId);
     }
 
-    public Set<Integer> getAutoSoulShot()
+    public FastMap<Integer, Integer> getAutoSoulShot()
     {
         return _activeSoulShots;
     }
@@ -7221,11 +7215,8 @@ public final class L2PcInstance extends L2PlayableInstance
         if (_activeSoulShots == null || _activeSoulShots.size() == 0)
             return;
 
-        int itemId;
-       
-        for (Iterator<Integer> i = _activeSoulShots.iterator(); i.hasNext(); )
+        for (int itemId : _activeSoulShots.values())
         {
-            itemId = i.next();
             item = getInventory().getItemByItemId(itemId);
 
             if (item != null)
@@ -7397,9 +7388,9 @@ public final class L2PcInstance extends L2PlayableInstance
         return _isPathNodesVisible;
     }
 
-    public Map<WayPointNode, List<WayPointNode>> getPathNodeMap()
+    public Map<WayPointNode, FastList<WayPointNode>> getPathNodeMap()
     {
-        if (_pathNodeMap == null) _pathNodeMap = new FastMap<WayPointNode, List<WayPointNode>>();
+        if (_pathNodeMap == null) _pathNodeMap = new FastMap<WayPointNode, FastList<WayPointNode>>();
 
         return _pathNodeMap;
     }
@@ -7432,7 +7423,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (getSelectedNode() != null)
         {
-            List<WayPointNode> linkedNodes = getPathNodeMap().get(getSelectedNode());
+            FastList<WayPointNode> linkedNodes = getPathNodeMap().get(getSelectedNode());
 
             if (linkedNodes != null) for (WayPointNode node : linkedNodes)
                 node.setNormal();
@@ -7446,7 +7437,7 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             _selectedNode.setSelected();
 
-            List<WayPointNode> linkedNodes = getPathNodeMap().get(_selectedNode);
+            FastList<WayPointNode> linkedNodes = getPathNodeMap().get(_selectedNode);
 
             if (linkedNodes != null) for (WayPointNode linked : linkedNodes)
                 linked.setLinked();
@@ -7462,14 +7453,14 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (getSelectedNode() != null)
         {
-            List<WayPointNode> list = getPathNodeMap().get(getSelectedNode());
+            FastList<WayPointNode> list = getPathNodeMap().get(getSelectedNode());
 
             if (list == null) list = new FastList<WayPointNode>();
 
             list.add(target);
             _pathNodeMap.put(getSelectedNode(), list);
 
-            List<WayPointNode> list2 = getPathNodeMap().get(target);
+            FastList<WayPointNode> list2 = getPathNodeMap().get(target);
 
             if (list2 == null) list2 = new FastList<WayPointNode>();
 
@@ -7485,14 +7476,14 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (getSelectedNode() != null)
         {
-            List<WayPointNode> list = getPathNodeMap().get(getSelectedNode());
+            FastList<WayPointNode> list = getPathNodeMap().get(getSelectedNode());
 
             if (list != null && list.contains(target))
             {
                 list.remove(target);
                 _pathNodeMap.put(getSelectedNode(), list);
 
-                List<WayPointNode> list2 = getPathNodeMap().get(target);
+                FastList<WayPointNode> list2 = getPathNodeMap().get(target);
 
                 if (list2 != null && list2.contains(getSelectedNode()))
                 {
@@ -7519,7 +7510,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (node != null)
         {
-            List<WayPointNode> list = getPathNodeMap().get(node);
+            FastList<WayPointNode> list = getPathNodeMap().get(node);
 
             if (list != null)
             {
@@ -7569,20 +7560,20 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
-    public Map<Point3D, List<Point3D>> getSaveList()
+    public Map<Point3D, FastList<Point3D>> getSaveList()
     {
-        Map<Point3D, List<Point3D>> saveList = null;
+        Map<Point3D, FastList<Point3D>> saveList = null;
 
         if (getPathNodeMap() != null)
         {
-            saveList = Collections.synchronizedMap(new WeakHashMap<Point3D, List<Point3D>>());
+            saveList = Collections.synchronizedMap(new WeakHashMap<Point3D, FastList<Point3D>>());
 
             for (WayPointNode node : getPathNodeMap().keySet())
             {
                 Point3D nodePoint = Point3D.getPosition(node);
 
-                List<WayPointNode> links = getPathNodeMap().get(node);
-                List<Point3D> linkPoints = null;
+                FastList<WayPointNode> links = getPathNodeMap().get(node);
+                FastList<Point3D> linkPoints = null;
 
                 if (links != null)
                 {
@@ -7605,7 +7596,7 @@ public final class L2PcInstance extends L2PlayableInstance
     @SuppressWarnings(value = {"unchecked"})
     public void loadPathNodes(String fileName)
     {
-        Map<Point3D, List<Point3D>> newNodeMap = null;
+        FastMap<Point3D, FastList<Point3D>> newNodeMap = null;
 
         try
         {
@@ -7616,7 +7607,7 @@ public final class L2PcInstance extends L2PlayableInstance
             ObjectInputStream in = new ObjectInputStream(gzis); // Read objects
             // Read in an object. It should be a vector of scribbles
 
-            newNodeMap = (FastMap<Point3D, List<Point3D>>) in.readObject();
+            newNodeMap = (FastMap<Point3D, FastList<Point3D>>) in.readObject();
             in.close(); // Close the stream.
         }
         catch (Exception e)
@@ -7636,10 +7627,10 @@ public final class L2PcInstance extends L2PlayableInstance
     /**
      * @param newNodeMap
      */
-    private void loadNodeList(Map<Point3D, List<Point3D>> newNodeMap)
+    private void loadNodeList(Map<Point3D, FastList<Point3D>> newNodeMap)
     {
-        _pathNodeMap = Collections.synchronizedMap(new WeakHashMap<WayPointNode, List<WayPointNode>>());
-        Map<Point3D, WayPointNode> map = new FastMap<Point3D, WayPointNode>();
+        _pathNodeMap = Collections.synchronizedMap(new WeakHashMap<WayPointNode, FastList<WayPointNode>>());
+        FastMap<Point3D, WayPointNode> map = new FastMap<Point3D, WayPointNode>();
         WayPointNode newNode = null;
 
         for (Point3D point : newNodeMap.keySet())
@@ -7652,8 +7643,8 @@ public final class L2PcInstance extends L2PlayableInstance
         for (Point3D point : newNodeMap.keySet())
         {
             WayPointNode node = map.get(point);
-            List<Point3D> links = newNodeMap.get(point);
-            List<WayPointNode> nodeLinks = null;
+            FastList<Point3D> links = newNodeMap.get(point);
+            FastList<WayPointNode> nodeLinks = null;
 
             if (links != null)
             {
@@ -8205,7 +8196,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (skillTree == null) return true;
 
-        Map<Integer, L2Skill> prevSkillList = new FastMap<Integer, L2Skill>();
+        FastMap<Integer, L2Skill> prevSkillList = new FastMap<Integer, L2Skill>();
 
         for (L2SkillLearn skillInfo : skillTree)
         {
@@ -8317,7 +8308,7 @@ public final class L2PcInstance extends L2PlayableInstance
         return _classIndex > 0;
     }
 
-    public Map<Integer, SubClass> getSubClasses()
+    public FastMap<Integer, SubClass> getSubClasses()
     {
         if (_subClasses == null) _subClasses = new FastMap<Integer, SubClass>();
 

@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ItemTable;
@@ -40,7 +38,7 @@ public abstract class ItemContainer
 {
 	protected static final Log _log = LogFactory.getLog(ItemContainer.class.getName());
 
-	protected final List<L2ItemInstance> _items;
+	protected final FastList<L2ItemInstance> _items;
 
 	protected ItemContainer()
 	{
@@ -449,7 +447,7 @@ public abstract class ItemContainer
 	public void deleteMe()
 	{
 		try { updateDatabase(); } catch (Throwable t) {_log.fatal( "deletedMe()", t); }
-		List<L2Object> items = new FastList<L2Object>(_items);
+		FastList<L2Object> items = new FastList<L2Object>(_items);
     	_items.clear();
 		
     	L2World.getInstance().removeObjects(items);
