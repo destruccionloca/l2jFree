@@ -26,10 +26,12 @@ import net.sf.l2j.gameserver.Item;
 import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.templates.L2Armor;
+import net.sf.l2j.gameserver.templates.L2ArmorType;
 import net.sf.l2j.gameserver.templates.L2EtcItem;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
+import net.sf.l2j.gameserver.templates.L2WeaponType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -59,8 +61,8 @@ public class SkillsEngine {
 	private SkillsEngine()
 	{
 		//hashFiles("data/stats/etcitem", _etcitemFiles);
-		hashFiles("data/stats/armor", _armorFiles);
-		hashFiles("data/stats/weapon", _weaponFiles);
+		//hashFiles("data/stats/armor", _armorFiles);
+		//hashFiles("data/stats/weapon", _weaponFiles);
 		hashFiles("data/stats/skills", _skillFiles);
 	}
 	
@@ -120,6 +122,13 @@ public class SkillsEngine {
         {
             list.add((L2Armor)item);
         }
+        if (list.size() == 0)
+        {
+            for (Item item : armorData.values())
+            {
+                list.add(new L2Armor((L2ArmorType)item.type, item.set));
+            }
+        }
         return list;
     }
 
@@ -129,6 +138,13 @@ public class SkillsEngine {
         for (L2Item item : loadData(weaponData, _weaponFiles))
         {
             list.add((L2Weapon)item);
+        }
+        if (list.size() == 0)
+        {
+            for (Item item : weaponData.values())
+            {
+                list.add(new L2Weapon((L2WeaponType)item.type, item.set));
+            }
         }
         return list;
     }
