@@ -73,7 +73,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
      
             if (actualCommand.equalsIgnoreCase("banish_foreigner"))
             {
-                getClanHall().banishForeigner();
+                getClanHall().banishForeigner(player);
                 return;
             }
             else if(actualCommand.equalsIgnoreCase("manage_vault"))

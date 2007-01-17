@@ -57,7 +57,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
      
             if (actualCommand.equalsIgnoreCase("banish_foreigner"))
                 {
-                    getCastle().banishForeigner();                                                      // Move non-clan members off castle area
+                    getCastle().banishForeigner(player);                                                // Move non-clan members off castle area
                     return;
                 }
             else if (actualCommand.equalsIgnoreCase("list_siege_clans"))

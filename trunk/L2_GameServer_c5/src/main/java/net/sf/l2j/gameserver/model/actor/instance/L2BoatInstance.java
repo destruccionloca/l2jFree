@@ -191,7 +191,7 @@ public class L2BoatInstance extends L2Character
 				_boat._vd = new VehicleDeparture(_boat,bp.speed1,bp.speed2,bp.x,bp.y,bp.z);
 				//_boat.getTemplate().baseRunSpd = bp.speed1;				
 				_boat.moveToLocation(bp.x,bp.y,bp.z,(float)bp.speed1);				
-				Collection<L2PcInstance> knownPlayers = _boat.getKnownList().getKnownPlayers();
+                Collection<L2PcInstance> knownPlayers = _boat.getKnownList().getKnownPlayers().values();
 				if (knownPlayers == null || knownPlayers.isEmpty())
 					return bp.time;
 				for (L2PcInstance player : knownPlayers)
@@ -507,7 +507,7 @@ public class L2BoatInstance extends L2Character
 	{		
 		if(_cycle == 1)
 		{
-			Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers();
+            Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values();
 			if (knownPlayers != null && !knownPlayers.isEmpty())
 			{
 				_inboat = new FastMap<Integer,L2PcInstance>();
@@ -544,7 +544,7 @@ public class L2BoatInstance extends L2Character
 		}
 		else if(_cycle == 2)
 		{
-			Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers();
+            Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values();
 			if (knownPlayers != null && !knownPlayers.isEmpty())
 			{
 				_inboat = new FastMap<Integer,L2PcInstance>();
@@ -589,7 +589,7 @@ public class L2BoatInstance extends L2Character
 	public void say(int i)
 	{
 		
-		Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers();        
+        Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values();        
 		CreatureSay sm;
 		PlaySound ps;
 		switch(i)
@@ -692,7 +692,7 @@ public class L2BoatInstance extends L2Character
 	 */
 	public void spawn()
 	{		
-		Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers();
+        Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values();
 		_cycle = 1;
 		beginCycle();
 		if (knownPlayers == null || knownPlayers.isEmpty())

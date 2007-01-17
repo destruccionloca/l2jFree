@@ -1175,7 +1175,7 @@ public class L2Clan
                 
                 setReputationScore(clanData.getInt("reputation_score"));
                 setRank(clanData.getInt("rank"));
-                setAuctionBiddedAt(clanData.getInt("auction_bid_at"));
+                setAuctionBiddedAt(clanData.getInt("auction_bid_at"), false);
                 
                 int leaderId = (clanData.getInt("leader_id"));          
                 
@@ -1507,27 +1507,30 @@ public class L2Clan
         return _auctionBiddedAt;
     }
     
-    public void setAuctionBiddedAt(int id)
+    public void setAuctionBiddedAt(int id, boolean storeInDb)
     {
         _auctionBiddedAt = id;
-        //store changes to DB
-        java.sql.Connection con = null;
-        try
+        
+        if(storeInDb)
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
-            PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET auction_bid_at=? WHERE clan_id=?");
-            statement.setInt(1, id);
-            statement.setInt(2, getClanId());
-            statement.execute();
-            statement.close();
-        }
-        catch (Exception e)
-        {
-            _log.warn("Could not store auction for clan: " + e);
-        }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
+           java.sql.Connection con = null;
+           try
+           {
+               con = L2DatabaseFactory.getInstance().getConnection();
+               PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET auction_bid_at=? WHERE clan_id=?");
+               statement.setInt(1, id);
+               statement.setInt(2, getClanId());
+               statement.execute();
+               statement.close();
+           }
+           catch (Exception e)
+           {
+               _log.warn("Could not store auction for clan: " + e);
+           }
+           finally
+           {
+               try { con.close(); } catch (Exception e) {}
+           }        
         }
     } 
     

@@ -29,6 +29,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.util.L2ObjectMap;
 import net.sf.l2j.util.Point3D;
@@ -668,7 +669,60 @@ public final class L2World
         
         return result.toArray(new L2Object[result.size()]);
     }
-    
+
+    /**
+     * Return all visible players of the L2WorldRegion object's and of its surrounding L2WorldRegion.<BR><BR>
+     * 
+     * <B><U> Concept</U> :</B><BR><BR>
+     * All visible object are identified in <B>_visibleObjects</B> of their current L2WorldRegion <BR>
+     * All surrounding L2WorldRegion are identified in <B>_surroundingRegions</B> of the selected L2WorldRegion in order to scan a large area around a L2Object<BR><BR>
+     * 
+     * <B><U> Example of use </U> :</B><BR><BR>
+     * <li> Find Close Objects for L2Character </li><BR>
+     * 
+     * @param object L2object that determine the current L2WorldRegion 
+     * 
+     */
+    public Collection<L2PlayableInstance> getVisiblePlayable(L2Object object)
+    {
+        L2WorldRegion reg = object.getWorldRegion();
+        
+        if (reg == null)
+            return null;
+        
+        // Create an FastList in order to contain all visible L2Object
+        FastList<L2PlayableInstance> result = new FastList<L2PlayableInstance>();
+        
+        // Create a FastList containing all regions around the current region
+        List<L2WorldRegion> _regions = reg.getSurroundingRegions();
+        
+        // Go through the FastList of region
+        for (int i = 0; i < _regions.size(); i++) 
+        {
+            // Create an Iterator to go through the visible L2Object of the L2WorldRegion
+            Iterator<L2PlayableInstance> _playables = _regions.get(i).iterateAllPlayers();
+            
+            // Go through visible object of the selected region
+            while (_playables.hasNext())
+            {
+                L2PlayableInstance _object = _playables.next();
+                
+                if (_object == null)
+                    continue;
+                
+                if (_object.equals(object))
+                    continue;   // skip our own character
+                
+                if (!_object.isVisible()) // GM invisible is different than this...
+                    continue;   // skip dying objects
+                
+                result.add(_object);
+            }
+        }
+        
+        return result;
+    }
+
     /**
      * Calculate the current L2WorldRegions of the object according to its position (x,y).<BR><BR>
      * 

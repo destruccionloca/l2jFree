@@ -42,6 +42,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.SeedProduction;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
 
 import org.apache.commons.logging.Log;
@@ -122,19 +123,21 @@ public class Castle
     /**
      * Move non clan members off castle area and to nearest town.<BR><BR>
      */
-    public void banishForeigner()
+    public void banishForeigner(L2PcInstance activeChar)
     {
-        // Get all players
-        for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+        // Get players from this and nearest world regions
+        for (L2PlayableInstance player : L2World.getInstance().getVisiblePlayable(activeChar))
         {
+            if(!(player instanceof L2PcInstance)) continue;
+            
             // Skip if player is in clan
-            if (player.getClanId() == getOwnerId())
+            if (((L2PcInstance)player).getClanId() == getOwnerId())
                 continue;
             
             if (checkIfInZone(player)) player.teleToLocation(MapRegionTable.TeleportWhereType.Town); 
         }
     }
-
+    
     /**
      * Return true if object is inside the zone
      */

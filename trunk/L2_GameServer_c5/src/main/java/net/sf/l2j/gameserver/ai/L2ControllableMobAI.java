@@ -306,7 +306,7 @@ public class L2ControllableMobAI extends L2AttackableAI
             {
                 String faction_id = ((L2NpcInstance) _actor).getFactionId();
                 
-                for (L2Object obj : _actor.getKnownList().getKnownObjects()) 
+                for (L2Object obj : _actor.getKnownList().getKnownObjects().values()) 
                 {
                     if (!(obj instanceof L2NpcInstance))
                         continue;
@@ -459,7 +459,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 
         List<L2Character> potentialTarget = new FastList<L2Character>();
 
-        for (L2Object obj : npc.getKnownList().getKnownObjects()) 
+        for (L2Object obj : npc.getKnownList().getKnownObjects().values()) 
         {
             if (!(obj instanceof L2Character))
                 continue;

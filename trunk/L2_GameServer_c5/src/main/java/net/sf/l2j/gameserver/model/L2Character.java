@@ -155,6 +155,7 @@ public abstract class L2Character extends L2Object
     private int _LastHealAmount                             = 0;
     private CharStat _Stat;
     private CharStatus _Status;
+    private long timePreviousBroadcastStatusUpdate          = 0;
     private L2CharTemplate _Template;                       // The link on the L2CharTemplate object containing generic and static properties of this L2Character type (ex : Max HP, Speed...)
     private String _Title;
     private String _aiClass = "default";
@@ -277,7 +278,7 @@ public abstract class L2Character extends L2Object
         
         if (getKnownList().getKnownPlayers() == null) return;
         
-        Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers();
+        Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values();
         
         if (knownPlayers == null) return;
         
@@ -290,7 +291,7 @@ public abstract class L2Character extends L2Object
         		player.sendPacket(mov);
         		//if(Config.DEVELOPER && !isInsideRadius(player, 3500, false, false)) _log.warn("broadcastPacket: Too far player see event!");
         	}
-        } catch (Exception e) { } // this catches occasional NPEs while knownlist is unsynchronized
+        } catch (Exception e) { } // this npe catch might not be necessary any more
     }
 
     /**
@@ -310,6 +311,11 @@ public abstract class L2Character extends L2Object
     public void broadcastStatusUpdate()
     {
         if (getStatus().getStatusListener() == null || getStatus().getStatusListener().isEmpty()) return;
+
+        long currTimeMillis = System.currentTimeMillis();
+        //Minimum time between sending status update. Can be increased a bit for further saves in network traffic 
+        if(getStatus().getCurrentHp() > 1 && currTimeMillis - timePreviousBroadcastStatusUpdate < 1100) return;
+        timePreviousBroadcastStatusUpdate = currTimeMillis;
 
         // Create the Server->Client packet StatusUpdate with current HP and MP
         StatusUpdate su = new StatusUpdate(getObjectId());
@@ -631,8 +637,8 @@ public abstract class L2Character extends L2Object
             {
                 if (player.isCursedWeaponEquiped())
                 {                    
-                   if (!(target instanceof L2PcInstance) || !((L2PcInstance)target).isInvul())
-                       target.setCurrentCp(0);
+                    if (target instanceof L2PcInstance && !((L2PcInstance)target).isInvul()) 
+                        target.setCurrentCp(0);
                 } else if (player.isHero())
                 {
                     if (target instanceof L2PcInstance && ((L2PcInstance)target).isCursedWeaponEquiped())                        
@@ -896,7 +902,7 @@ public abstract class L2Character extends L2Object
         // ===========================================================
 
         L2Character target;
-        for (L2Object obj : getKnownList().getKnownObjects())
+        for (L2Object obj : getKnownList().getKnownObjects().values())
         {
             //Check if the L2Object is a L2Character
             if(obj instanceof L2Character)
@@ -4279,7 +4285,9 @@ public abstract class L2Character extends L2Object
                         int reflectedDamage = (int)(reflectPercent / 100. * damage);
                         damage -= reflectedDamage;
                         getStatus().reduceHp(reflectedDamage, null, true);
-                        
+
+                       // Custom messages - nice but also more network load
+                       /*
                         if (target instanceof L2PcInstance) 
                             ((L2PcInstance)target).sendMessage("You reflected " + reflectedDamage + " damage.");
                         else if (target instanceof L2Summon)
@@ -4289,6 +4297,7 @@ public abstract class L2Character extends L2Object
                             ((L2PcInstance)this).sendMessage("Target reflected to you " + reflectedDamage + " damage.");
                         else if (this instanceof L2Summon)
                             ((L2Summon)this).getOwner().sendMessage("Target reflected to your summon " + reflectedDamage + " damage.");
+                        */                            
                     }
                     
                     // Absorb HP from the damage inflicted
@@ -4305,13 +4314,16 @@ public abstract class L2Character extends L2Object
                         if (absorbDamage > 0)
                         {
                             setCurrentHp(getCurrentHp() + absorbDamage);
-                            
+
+                            // Custom messages - nice but also more network load
+                           /*
                             if (this instanceof L2PcInstance && this != null)
                                 ((L2PcInstance)this).sendMessage("You absorbed " + absorbDamage + " damage.");
                             else if (this instanceof L2Summon && this != null)
                                 ((L2Summon)this).getOwner().sendMessage("Summon absorbed " + absorbDamage + " damage.");
                             else if (_log.isDebugEnabled())
                                 _log.info(getName() + " absorbed " + absorbDamage + " damage.");
+                                */
                         }
                     }
 

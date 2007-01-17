@@ -1963,7 +1963,7 @@ public abstract class L2Skill
 
             int radius = getSkillRadius();
             if (activeChar.getKnownList() != null)
-                for (L2Object obj : activeChar.getKnownList().getKnownObjects())
+                for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
                 {
                     if (!(obj instanceof L2Attackable) || ((L2Character) obj).isDead()
                         || ((L2Character) obj) == activeChar) continue;
@@ -2075,7 +2075,7 @@ public abstract class L2Skill
 
             int radius = getSkillRadius();
             if (target.getKnownList() != null)
-                for (L2Object obj : target.getKnownList().getKnownObjects())
+                for (L2Object obj : target.getKnownList().getKnownObjects().values())
                 {
                     if (!(obj instanceof L2Attackable) || ((L2Character) obj) == activeChar)
                         continue;
@@ -2159,7 +2159,7 @@ public abstract class L2Skill
 
             int radius = getSkillRadius();
             if (cha != null && cha.getKnownList() != null)
-                for (L2Object obj : cha.getKnownList().getKnownObjects())
+                for (L2Object obj : cha.getKnownList().getKnownObjects().values())
                 {
                     if (obj == null) continue;
                         if (!(obj instanceof L2NpcInstance)) continue;

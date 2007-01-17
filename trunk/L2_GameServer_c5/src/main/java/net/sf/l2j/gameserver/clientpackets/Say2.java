@@ -258,7 +258,7 @@ public class Say2 extends ClientBasePacket
             }
             else
             {
-                for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers())
+                for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
                 {
                     if (player != null && activeChar.isInsideRadius(player, 1250, false, true))
                         player.sendPacket(cs);
