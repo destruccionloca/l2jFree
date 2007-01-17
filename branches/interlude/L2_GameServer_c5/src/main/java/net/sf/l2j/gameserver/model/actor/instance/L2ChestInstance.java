@@ -29,34 +29,23 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2j.gameserver.NpcTable;
 
 /**
  * This class manages all chest. 
  */
 public final class L2ChestInstance extends L2Attackable
 {
-    private volatile boolean _isBox;
     private volatile boolean _isOpen;
-	private volatile boolean _specialDrop;
     
     public L2ChestInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-        _isBox = (Rnd.get(100)<Config.RATE_BOX_SPAWN);
-        _isOpen = false;
-		_specialDrop = false;
     }
 
 	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
 	{
-		super.reduceCurrentHp(damage,attacker,awake);
-		if (!isAlikeDead() && _isBox)
-		{
-			setHaveToDrop(false);
-			setMustRewardExpSp(false);
+		if (!isAlikeDead())
 			doDie(attacker);
-		}
 	}
 	
     public boolean isAutoAttackable(L2Character attacker)
@@ -84,53 +73,30 @@ public final class L2ChestInstance extends L2Attackable
     public void OnSpawn()
     {
         super.OnSpawn();
-        _isBox = (Rnd.get(100) < Config.RATE_BOX_SPAWN );
         _isOpen = false;
-		_specialDrop = false;
-		setMustRewardExpSp(true);
-		setHaveToDrop(true);
+        setHaveToDrop(false);
+        setMustRewardExpSp(false);
+/* bad approach - disabled
+        if (Rnd.get(100) < Config.RATE_BOX_SPAWN )
+            doDie(this); // using this as parameter to avoid nullpointers
+*/
     }
 
-	public synchronized boolean isBox() {
-        return _isBox;
+	public boolean isBox() {
+        return true;
     }
     
-	public synchronized boolean isOpen() {
-        return _isOpen;
-    }
-	public synchronized void setOpen() {
+	public synchronized boolean open() {
+        boolean wasOpen = _isOpen;
         _isOpen = true;
+        return wasOpen;
     }
 	
-	public synchronized boolean isSpecialDrop()
-    {
-		return _specialDrop;
-    }
-	
-	public synchronized void setSpecialDrop()
+	public void setSpecialDrop()
 	{
-		_specialDrop = true;
+        setHaveToDrop(true);
 	}
 	
-	public void doItemDrop(L2NpcTemplate npcTemplate, L2Character lastAttacker)
-	{
-		int id = getTemplate().npcId;
-		if (id>=18265 && id<=18286)
-			id = id - 18265;
-		else
-			id = id - 21801;
-		
-		if (_specialDrop)
-		{
-			id = id + 18265;
-			super.doItemDrop(NpcTable.getInstance().getTemplate(id),lastAttacker);
-		}
-		else
-		{
-			id = id + 21801;
-			super.doItemDrop(NpcTable.getInstance().getTemplate(id),lastAttacker);
-		}
-	}
     //cast - trap chest
     public void chestTrap(L2Character player)
     {
@@ -165,7 +131,7 @@ public final class L2ChestInstance extends L2Attackable
             else trapSkillId = 129;//poison
         }
 
-        player.sendPacket(SystemMessage.sendString("There was a trap!"));
+        player.sendPacket(new SystemMessage(714)); // Closest matching systemmsg
         handleCast(player, trapSkillId);
     }
     //<--

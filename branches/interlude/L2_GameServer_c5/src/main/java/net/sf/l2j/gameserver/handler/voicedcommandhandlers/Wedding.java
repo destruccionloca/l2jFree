@@ -152,7 +152,19 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("Engaging with yourself ?.");
             return false;
         }
-        
+
+        if(ptarget.isMaried())
+        {
+            activeChar.sendMessage("Already married.");
+            return false;
+        }
+
+        if(ptarget.getPartnerId()!=0)
+        {
+            activeChar.sendMessage("Already engaged.");
+            return false;
+        }
+
         if(ptarget.isEngageRequest())
         {
             activeChar.sendMessage("Already asked by someone else.");
@@ -229,7 +241,7 @@ public class Wedding implements IVoicedCommandHandler
         }
         
         if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() ||
-                activeChar.isInOlympiadMode()) 
+                activeChar.isInOlympiadMode() || activeChar._inEventCTF || activeChar._inEventTvT)  
             return false;
 
         // Check if player is inside jail.
@@ -257,9 +269,21 @@ public class Wedding implements IVoicedCommandHandler
         partner = (L2PcInstance)L2World.getInstance().findObject(activeChar.getPartnerId());
         if(partner ==null)
         {
-            activeChar.sendPacket(SystemMessage.sendString("Youre Partner is not online."));
+            activeChar.sendPacket(SystemMessage.sendString("Your Partner is not online."));
             return false;
         }
+        else if(partner.isInJail()){
+            activeChar.sendPacket(SystemMessage.sendString("Your Partner is in Jail."));
+            return false;
+        }
+        else if(partner._inEventCTF || partner._inEventTvT){
+            activeChar.sendPacket(SystemMessage.sendString("Your Partner is in Event now."));
+            return false;
+        }
+        else if(partner.isInOlympiadMode()){
+            activeChar.sendPacket(SystemMessage.sendString("Your Partner is in Olympiad now."));
+            return false;
+        }   
         
         int teleportTimer = Config.WEDDING_TELEPORT_INTERVAL*1000;
         

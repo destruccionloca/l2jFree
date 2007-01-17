@@ -2332,32 +2332,41 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
      * @param sendMessage : boolean Specifies whether to send message to Client about this action
      */
-    public void addAdena(String process, int count, L2Object reference, boolean sendMessage)
-    {
-        if (sendMessage)
-        {
-            SystemMessage sm = new SystemMessage(SystemMessage.EARNED_ADENA);
-            sm.addNumber(count);
-            sendPacket(sm);
-        }
-
-        if (count > 0)
-        {
-            _inventory.addAdena(process, count, this, reference);
-
-            // Send update packet
-
-            if (!Config.FORCE_INVENTORY_UPDATE)
-            {
-                InventoryUpdate iu = new InventoryUpdate();
-                iu.addItem(_inventory.getAdenaInstance());
-                sendPacket(iu);
+    public void addAdena(String process, int count, L2Object reference, boolean sendMessage) 
+    { 
+        if (count > 0) 
+        { 
+            if(_inventory.getAdena() == Integer.MAX_VALUE) 
+            { 
+                sendMessage("You have reached maximum amount of adena."); 
+                return; 
             }
-            else sendPacket(new ItemList(this, false));
-        }
+            else if(_inventory.getAdena() >= (Integer.MAX_VALUE - count))  
+            { 
+                count = Integer.MAX_VALUE - _inventory.getAdena();
+                _inventory.addAdena(process, count, this, reference); 
+            }
+            else if(_inventory.getAdena() < (Integer.MAX_VALUE - count))
+            {                        
+                _inventory.addAdena(process, count, this, reference); 
+            }
+            if (sendMessage) 
+            { 
+                SystemMessage sm = new SystemMessage(SystemMessage.EARNED_ADENA); 
+                sm.addNumber(count); 
+                sendPacket(sm); 
+            } 
 
-    }
-
+            // Send update packet 
+            if (!Config.FORCE_INVENTORY_UPDATE) 
+            { 
+                InventoryUpdate iu = new InventoryUpdate(); 
+                iu.addItem(_inventory.getAdenaInstance()); 
+                sendPacket(iu); 
+            } 
+            else sendPacket(new ItemList(this, false)); 
+        } 
+     }
     /**
      * Reduce adena in Inventory of the L2PcInstance and send a Server->Client InventoryUpdate packet to the L2PcInstance.
      * @param process : String Identifier of process triggering this action
@@ -3790,7 +3799,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 else onDieUpdateKarma(); // Update karma if delevel is not allowed
                 
                 if(pk != null) {
-                    if(Config.ALT_ANNOUNCE_PK)
+                    if(Config.ALT_ANNOUNCE_PK && !ZoneManager.getInstance().checkIfInZonePvP(this))
                     {
                         if (getPvpFlag()==0)
                             Announcements.getInstance().announceToAll(pk.getName()+" has slaughtered "+this.getName());
@@ -3810,7 +3819,7 @@ public final class L2PcInstance extends L2PlayableInstance
                     }
                 }
             }
-            else if (pk != null && Config.ALT_ANNOUNCE_PK)
+            else if (pk != null && Config.ALT_ANNOUNCE_PK && !ZoneManager.getInstance().checkIfInZonePvP(this))
                 Announcements.getInstance().announceToAll(pk.getName()+" has defeated "+this.getName());
         }
 

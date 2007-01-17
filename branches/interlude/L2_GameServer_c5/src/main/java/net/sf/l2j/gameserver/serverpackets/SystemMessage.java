@@ -499,6 +499,9 @@ public class SystemMessage extends ServerBasePacket
     public static final int S1_DISAPPEARED = 302;
     public static final int INCORRECT_TARGET = 109;
     
+    public static final int S1_SUCCEEDED = 1595;
+    public static final int S1_FAILED = 1597;
+    
     public static final int S1_DIED_DROPPED_S3_S2 = 1208;//$s1 died and dropped $s3 $s2.
     
     //manor
@@ -577,6 +580,10 @@ public class SystemMessage extends ServerBasePacket
     public static final int S1_HAS_DISAPPEARED = 1818;
     
     public static final int RESSURECTION_REQUEST = 1510;
+    
+    // Energy Stones
+    public static final int FORCE_INCREASED_TO_S1 = 323;
+    public static final int FORCE_MAXLEVEL_REACHED = 324;
 
 	/**
 	 * @param _characters
