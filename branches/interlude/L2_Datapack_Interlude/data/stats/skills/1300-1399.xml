@@ -1289,7 +1289,7 @@
         <add stat="movementRes" val="50" order="0x40"/>
         <add stat="darkRes" val="50" order="0x40"/>
         <add stat="sacredRes" val="50" order="0x40"/>
-        <add stat="unholyRes" val="50" order="0x40"/>
+        <add stat="holyRes" val="50" order="0x40"/>
         <add stat="bleedRes" val="50" order="0x40"/>
         <add stat="fireRes" val="30" order="0x40"/>
         <add stat="windRes" val="30" order="0x40"/>

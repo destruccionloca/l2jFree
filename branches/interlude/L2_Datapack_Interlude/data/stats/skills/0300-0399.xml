@@ -750,7 +750,7 @@
       <add stat="movementRes" val="20" order="0x40"/>
         <add stat="darkRes" val="20" order="0x40"/>
         <add stat="sacredRes" val="20" order="0x40"/>
-        <add stat="unholyRes" val="20" order="0x40"/>
+        <add stat="holyRes" val="20" order="0x40"/>
         <add stat="bleedRes" val="20" order="0x40"/>
     </effect>
   </for>
