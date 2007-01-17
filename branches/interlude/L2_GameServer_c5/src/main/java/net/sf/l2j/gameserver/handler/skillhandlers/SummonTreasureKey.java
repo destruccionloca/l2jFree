@@ -50,16 +50,10 @@ public class SummonTreasureKey implements ISkillHandler
         try
         {
             L2ItemInstance itemToTake = player.getInventory().getItemByItemId(skill.getItemConsumeId());
-
-            if(itemToTake.getCount() >= skill.getItemConsume())
-            {
-                player.destroyItemByItemId("Consume", skill.getItemConsumeId(), skill.getItemConsume(), player, false); 
-            }
+            if (itemToTake.getCount() - skill.getItemConsume() <= 0)
+                itemToTake.decayMe();
             else
-            {
-                player.sendMessage("Need more Key of Thief.");
-                return;
-            }
+                itemToTake.setCount(itemToTake.getCount() - skill.getItemConsume());
          
             int item_id = 0;
 

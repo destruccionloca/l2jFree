@@ -119,7 +119,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
     private void showWithdrawWindowClan(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());
-        if (player.getClan() != null) //FIXME this should be available only to authorized clan members
+        if (player.getClan() != null && (player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) == L2Clan.CP_CL_VIEW_WAREHOUSE)
         {
             if (player.getClan().getLevel() == 0)
             {
