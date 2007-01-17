@@ -161,6 +161,7 @@ public abstract class L2Skill
         CHARGEDAM             (L2SkillChargeDmg.class),
         CONFUSE_MOB_ONLY,
         DEATHLINK,
+        FATALCOUNTER,
         DETECT_WEAKNESS,
         ENCHANT_ARMOR,
         ENCHANT_WEAPON,
@@ -676,9 +677,7 @@ public abstract class L2Skill
             return _power * Math.pow(1.7165 - activeChar.getCurrentHp()/activeChar.getMaxHp(), 2) * 0.577;
         else return _power;
         */
-        if (_skillType != SkillType.DEATHLINK)
-        return _power;
-        else
+        if (_skillType == SkillType.DEATHLINK || _skillType == SkillType.FATALCOUNTER)
         {
         if (activeChar.getCurrentHp() >= activeChar.getMaxHp()*0.29)
             return _power * 1.1;
@@ -1035,6 +1034,7 @@ public abstract class L2Skill
         case WARRIOR_BANE:            
         case CANCEL_TARGET:
         case BETRAY:
+        case FATALCOUNTER:
             return true;
         default:
             return false;

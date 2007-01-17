@@ -4342,11 +4342,6 @@ public abstract class L2Character extends L2Object
                     }
                 }
 
-                if (target instanceof L2NpcInstance) {
-                    if (target.isChampion()) {
-                        damage /= Config.CHAMPION_HP;
-                    }
-                }
                 if (isPetrified())
                 {damage=0;}
                 target.reduceCurrentHp(damage, this);

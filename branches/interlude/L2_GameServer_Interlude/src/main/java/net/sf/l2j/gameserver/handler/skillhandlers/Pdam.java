@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -52,7 +51,7 @@ public class Pdam implements ISkillHandler
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
      */
-    private static SkillType[] _skillIds = {SkillType.PDAM,
+    private static SkillType[] _skillIds = {SkillType.PDAM, SkillType.FATALCOUNTER
     /* SkillType.CHARGEDAM */
     };
 
@@ -103,14 +102,6 @@ public class Pdam implements ISkillHandler
                     _log.info(activeChar.getName() + "(" + activeChar.getObjectId() + ") "
                         + activeChar.getLevel() + " lvl did damage " + damage + " with skill "
                         + skill.getName() + "(" + skill.getId() + ") to " + name);
-            }
-
-            if (target instanceof L2NpcInstance)
-            {
-                if (target.isChampion())
-                {
-                    damage /= Config.CHAMPION_HP;
-                }
             }
 
             if (soul && weapon != null) weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);

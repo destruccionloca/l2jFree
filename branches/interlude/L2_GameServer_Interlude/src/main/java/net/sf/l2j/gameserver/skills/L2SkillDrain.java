@@ -1,6 +1,5 @@
 package net.sf.l2j.gameserver.skills;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -93,11 +92,6 @@ public class L2SkillDrain extends L2Skill {
             if (damage > 0 && (!target.isDead() || getTargetType() != SkillTargetType.TARGET_CORPSE_MOB))
             {
 
-                if (target instanceof L2NpcInstance) {
-                    if (target.isChampion()) {
-                        damage /= Config.CHAMPION_HP;
-                    }
-                }
                 if (target.isPetrified())
                 {damage= 0;}
                 target.reduceCurrentHp(damage, activeChar);

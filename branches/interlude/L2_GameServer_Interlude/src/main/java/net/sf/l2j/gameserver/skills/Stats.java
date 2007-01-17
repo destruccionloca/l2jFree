@@ -99,7 +99,6 @@ public enum Stats {
 	EARTH,
 	HOLY,
 	DARK,
-	UNHOLY,
 	SACRED,
 	//
 	AGGRESSION_RES,
@@ -216,7 +215,6 @@ public enum Stats {
 		if (name == "earth"        ) return EARTH;
 		if (name == "holy"         ) return HOLY;
 		if (name == "dark"         ) return DARK; 
-		if (name == "unholy"       ) return UNHOLY;
 		if (name == "sacred"       ) return SACRED; 
 		if (name == "aggressionRes") return AGGRESSION_RES;
 		if (name == "bleedRes"     ) return BLEED_RES;

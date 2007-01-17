@@ -1,13 +1,11 @@
 package net.sf.l2j.gameserver.skills;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
-import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.StatsSet;
@@ -123,11 +121,6 @@ public class L2SkillElemental extends L2Skill {
 			int damage = (int)Formulas.getInstance().calcMagicDam(
 					activeChar, target, this, ss, bss, mcrit);
 
-            if (target instanceof L2NpcInstance) {
-                if (target.isChampion()) {
-                    damage /= Config.CHAMPION_HP;
-                }
-            }
             if (target.isPetrified())
                 {damage= 0;}
 
