@@ -1,1 +1,0 @@
-ALTER TABLE `clan_data` ADD COLUMN `auction_bid_at` int(2) NOT NULL default '0' ;
