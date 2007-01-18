@@ -987,27 +987,22 @@ public class L2Attackable extends L2NpcInstance
          int itemCount = 0;
 
          // Count and chance adjustment for high rate servers
-         if (dropChance > L2DropData.MAX_CHANCE && !Config.PRECISE_DROP_CALCULATION)
+         if (dropChance > L2DropData.MAX_CHANCE)
          {
              int multiplier = (int)dropChance / L2DropData.MAX_CHANCE;
              if (minCount < maxCount) itemCount += Rnd.get(minCount * multiplier, maxCount * multiplier);
              else if (minCount == maxCount) itemCount += minCount * multiplier;
              else itemCount += multiplier;
-
              dropChance = dropChance % L2DropData.MAX_CHANCE;
          }
 
          // Check if the Item must be dropped
-         int random = Rnd.get(L2DropData.MAX_CHANCE);
-         while (random < dropChance)
+         if (dropChance <= L2DropData.MAX_CHANCE && Rnd.get(L2DropData.MAX_CHANCE) < dropChance)
          {
              // Get the item quantity dropped
              if (minCount < maxCount) itemCount += Rnd.get(minCount, maxCount);
              else if (minCount == maxCount) itemCount += minCount;
              else itemCount++;
-
-             // Prepare for next iteration if dropChance > L2DropData.MAX_CHANCE
-             dropChance -= L2DropData.MAX_CHANCE;
          }
 
          if (itemCount > 0) return new RewardItem(drop.getItemId(), itemCount);
@@ -1100,35 +1095,29 @@ public class L2Attackable extends L2NpcInstance
                   dropChance = L2DropData.MAX_CHANCE;
               
               // Get min and max Item quantity that can be dropped in one time
-              int min = drop.getMinDrop();
-              int max = drop.getMaxDrop();
+              int minCount = drop.getMinDrop();
+              int maxCount = drop.getMaxDrop();
 
               // Get the item quantity dropped
               int itemCount = 0;
               
               // Count and chance adjustment for high rate servers
-              if (dropChance > L2DropData.MAX_CHANCE && !Config.PRECISE_DROP_CALCULATION)
+              if (dropChance > L2DropData.MAX_CHANCE)
               {
-                  int multiplier = dropChance / L2DropData.MAX_CHANCE;
-                  if (min < max) itemCount += Rnd.get(min * multiplier, max * multiplier);
-                  else if (min == max) itemCount += min * multiplier;
+                  int multiplier = (int)dropChance / L2DropData.MAX_CHANCE;
+                  if (minCount < maxCount) itemCount += Rnd.get(minCount * multiplier, maxCount * multiplier);
+                  else if (minCount == maxCount) itemCount += minCount * multiplier;
                   else itemCount += multiplier;
-
                   dropChance = dropChance % L2DropData.MAX_CHANCE;
               }
 
               // Check if the Item must be dropped
-              int random = Rnd.get(L2DropData.MAX_CHANCE);
-              while (random < dropChance)
+              if (dropChance <= L2DropData.MAX_CHANCE && Rnd.get(L2DropData.MAX_CHANCE) < dropChance)
               {
                   // Get the item quantity dropped
-                  if (min < max) itemCount += Rnd.get(min, max);
-                  else if (min == max) itemCount += min;
+                  if (minCount < maxCount) itemCount += Rnd.get(minCount, maxCount);
+                  else if (minCount == maxCount) itemCount += minCount;
                   else itemCount++;
-
-                  
-                  // Prepare for next iteration if dropChance > L2DropData.MAX_CHANCE
-                  dropChance -= L2DropData.MAX_CHANCE;
               }
               
               if (itemCount > 0) 

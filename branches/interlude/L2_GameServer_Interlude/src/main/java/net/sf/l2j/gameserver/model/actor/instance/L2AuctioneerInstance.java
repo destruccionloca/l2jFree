@@ -90,7 +90,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                         
                         String filename = "data/html/auction/AgitSale3.htm";
                         
-                        NpcHtmlMessage html = new NpcHtmlMessage(1);
+                        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
                         html.setFile(filename);
                         html.replace("%x%", val);
                         html.replace("%AGIT_AUCTION_END_YY%", String.valueOf(a.getEndDate().get(Calendar.YEAR)));

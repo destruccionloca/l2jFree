@@ -531,8 +531,6 @@ public final class Config {
     /** Clear all items stored in ItemsOnGround table */
     public static boolean   CLEAR_DROPPED_ITEM_TABLE;
 
-    /** Accept precise drop calculation ? */
-    public static boolean PRECISE_DROP_CALCULATION;
     /** Accept multi-items drop ? */
     public static boolean MULTIPLE_ITEM_DROP;
 
@@ -1124,7 +1122,6 @@ public final class Config {
                 SAVE_DROPPED_ITEM_INTERVAL      = Integer.parseInt(optionsSettings.getProperty("SaveDroppedItemInterval", "0"))*60000;
                 CLEAR_DROPPED_ITEM_TABLE        = Boolean.valueOf(optionsSettings.getProperty("ClearDroppedItemTable", "false"));
                 
-                PRECISE_DROP_CALCULATION        = Boolean.valueOf(optionsSettings.getProperty("PreciseDropCalculation", "True"));
                 MULTIPLE_ITEM_DROP              = Boolean.valueOf(optionsSettings.getProperty("MultipleItemDrop", "True"));
               
                 COORD_SYNCHRONIZE               = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));

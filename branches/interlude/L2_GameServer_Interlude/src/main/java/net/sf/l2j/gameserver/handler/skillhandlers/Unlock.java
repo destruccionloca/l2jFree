@@ -139,6 +139,8 @@ public class Unlock implements ISkillHandler
                         activeChar.sendPacket(sm);
                         
 						chest.setSpecialDrop();
+                        chest.addDamageHate(activeChar, 0, 0);
+                        chest.addBufferHate();
                         chest.doDie(activeChar);
                     }
                     else

@@ -633,7 +633,7 @@ public class L2NpcInstance extends L2Character
             html1.append("<font color=\"LEVEL\">Combat</font>");
             html1.append("<table border=\"0\" width=\"100%\">");
             html1.append("<tr><td>Current HP</td><td>"+getCurrentHp()+"</td><td>Current MP</td><td>"+getCurrentMp()+"</td></tr>");
-            html1.append("<tr><td>Max.HP</td><td>"+(int)(getMaxHp()/getTemplate().rateHp)+"*"+getTemplate().rateHp+"</td><td>Max.MP</td><td>"+getMaxMp()+"</td></tr>");
+            html1.append("<tr><td>Max.HP</td><td>"+(int)(getMaxHp()/getTemplate().rateHp/(isChampion()?Config.CHAMPION_HP:1))+"*"+getTemplate().rateHp+(isChampion()?"*"+Config.CHAMPION_HP:"")+"</td><td>Max.MP</td><td>"+getMaxMp()+"</td></tr>");
             html1.append("<tr><td>P.Atk.</td><td>"+getPAtk(null)+"</td><td>M.Atk.</td><td>"+getMAtk(null,null)+"</td></tr>");
             html1.append("<tr><td>P.Def.</td><td>"+getPDef(null)+"</td><td>M.Def.</td><td>"+getMDef(null,null)+"</td></tr>");
             html1.append("<tr><td>Accuracy</td><td>"+getAccuracy()+"</td><td>Evasion</td><td>"+getEvasionRate(null)+"</td></tr>");
@@ -1450,7 +1450,7 @@ public class L2NpcInstance extends L2Character
     {
         // Send a Server->Client packet NpcHtmlMessage to the L2PcInstance in order to display the message of the L2NpcInstance
         content = content.replaceAll("%objectId%", String.valueOf(getObjectId()));
-        NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
+        NpcHtmlMessage npcReply = new NpcHtmlMessage(getObjectId());
         npcReply.setHtml(content);
         player.sendPacket(npcReply);
     }
