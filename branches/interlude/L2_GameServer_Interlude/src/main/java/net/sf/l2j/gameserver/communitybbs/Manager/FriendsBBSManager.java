@@ -196,7 +196,7 @@ public class FriendsBBSManager extends BaseBBSManager
             htmlCode.append("</table><br>");
             //show friendlist
             htmlCode.append("<table border=0>");
-            htmlCode.append("<tr><td align=left FIXWIDTH=150>Your Friends FastList</td><td></td></tr>");
+            htmlCode.append("<tr><td align=left FIXWIDTH=150>Your Friends List</td><td></td></tr>");
             while (rset.next()){
                 int friendId = rset.getInt("friend_id");
                 String friendName = rset.getString("friend_name");

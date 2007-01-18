@@ -857,9 +857,11 @@ public final class Formulas
             if (player.getInMotherTreeZone()) hpRegenBonus += 2;
 
             // Calculate Movement bonus
-            if (player.isSitting() && player.getLevel() < 41) hpRegenMultiplier = hpRegenMultiplier * 1.5 + (40 - player.getLevel()) * 0.7; // Sitting
-            //if (player.isSitting() && player.getLevel() < 21) hpRegenMultiplier *= 11.4;  // Sitting
-            //else if (player.isSitting() && player.getLevel() < 41) hpRegenMultiplier *= 6.0; // Sitting
+            if (player.isSitting() && player.getLevel() < 41) // Sitting below lvl 40
+            {
+                hpRegenMultiplier *= 1.5;
+                hpRegenBonus += (40 - player.getLevel()) * 0.7;
+            }
             else if (player.isSitting()) hpRegenMultiplier *= 1.5;      // Sitting
             else if (!player.isRunning()) hpRegenMultiplier *= 1.5; // Not Running
             else if (!player.isMoving()) hpRegenMultiplier *= 1.1; // Staying
