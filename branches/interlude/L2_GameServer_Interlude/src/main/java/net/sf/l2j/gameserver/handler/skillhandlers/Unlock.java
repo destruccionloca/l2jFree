@@ -1,6 +1,7 @@
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.gameserver.ai.CtrlEvent;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -56,6 +57,12 @@ public class Unlock implements ISkillHandler
             else if (target instanceof L2ChestInstance)
             {
                 L2ChestInstance chest = (L2ChestInstance) targetList[index];
+                if (!chest.isBox()) {
+                    activeChar.sendPacket(new ActionFailed());
+                    chest.getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
+                    chest.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
+                    return;
+                }
                 if (chest.getCurrentHp() <= 0 || chest.open())
                 {
                     activeChar.sendPacket(new ActionFailed());

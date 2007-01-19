@@ -43,8 +43,12 @@ public final class L2ChestInstance extends L2Attackable
 
 	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
 	{
-		if (!isAlikeDead())
+		if (!isAlikeDead() && isBox())
+        {
 			doDie(attacker);
+            return;
+        }
+        super.reduceCurrentHp(damage,attacker,awake);
 	}
 	
     public boolean isAutoAttackable(L2Character attacker)
@@ -59,7 +63,7 @@ public final class L2ChestInstance extends L2Attackable
 
     public void doDie(L2Character killer)
     {
-        killer.setTarget(null);
+        if(!isSpoil()) killer.setTarget(null);
 		setCurrentHpMp(0,0);
 		super.doDie(killer);
     }
@@ -73,16 +77,17 @@ public final class L2ChestInstance extends L2Attackable
     {
         super.OnSpawn();
         _isOpen = false;
-        setHaveToDrop(false);
-        setMustRewardExpSp(false);
-/* bad approach - disabled
-        if (Rnd.get(100) < Config.RATE_BOX_SPAWN )
-            doDie(this); // using this as parameter to avoid nullpointers
-*/
+        setHaveToDrop(true);
+        setMustRewardExpSp(true);
+        if (isBox())
+        {
+            setHaveToDrop(false);
+            setMustRewardExpSp(false);
+        }
     }
 
 	public boolean isBox() {
-        return true;
+        return (getTemplate().npcId>=18265 && getTemplate().npcId<=18286);
     }
     
 	public synchronized boolean open() {

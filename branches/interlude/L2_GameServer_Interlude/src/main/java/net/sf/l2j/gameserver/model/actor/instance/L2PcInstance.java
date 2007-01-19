@@ -6816,7 +6816,7 @@ public final class L2PcInstance extends L2PlayableInstance
         // Check if the skill is Spoil type and if the target isn't already spoiled
         if (sklType == SkillType.SPOIL)
         {
-            if (!(target instanceof L2MonsterInstance))
+            if (!(target instanceof L2MonsterInstance) && !(target instanceof L2ChestInstance))
             {
                 // Send a System Message to the L2PcInstance
                 sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));

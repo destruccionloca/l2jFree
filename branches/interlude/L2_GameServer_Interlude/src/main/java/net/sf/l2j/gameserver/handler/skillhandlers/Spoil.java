@@ -30,7 +30,9 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.actor.instance.L2ChestInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -60,10 +62,10 @@ public class Spoil implements ISkillHandler
 
         for (int index = 0; index < targetList.length; index++) 
         {
-            if (!(targetList[index] instanceof L2MonsterInstance))
+            if (!(targetList[index] instanceof L2MonsterInstance) && !(targetList[index] instanceof L2ChestInstance))
                 continue;
             
-            L2MonsterInstance target = (L2MonsterInstance) targetList[index];
+            L2NpcInstance target = (L2NpcInstance) targetList[index];
 
             // SPOIL SYSTEM by ootz0rz
             boolean spoil = false;
