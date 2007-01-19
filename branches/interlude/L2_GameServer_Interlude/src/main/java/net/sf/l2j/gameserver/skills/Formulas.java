@@ -831,16 +831,23 @@ public final class Formulas
         if(cha.isRaid())
            hpRegenMultiplier=Config.RAID_HP_REGEN_MULTIPLIER;
         else if(cha instanceof L2PcInstance)
-           hpRegenMultiplier=Config.HP_REGEN_MULTIPLIER;
+           hpRegenMultiplier=Config.PLAYER_HP_REGEN_MULTIPLIER;
         else 
-           hpRegenMultiplier=Config.HP_REGEN_MULTIPLIER;
+           hpRegenMultiplier=Config.NPC_HP_REGEN_MULTIPLIER;
         
         if (cha instanceof L2PcInstance)
         {
             L2PcInstance player = (L2PcInstance) cha;
 
             // Calculate correct baseHpReg value for certain level of PC
-            init += (player.getLevel() > 10) ? ((player.getLevel()-1)/10) : 0.5;
+            if(player.getLevel()>=71) init = 8.5;
+            else if(player.getLevel()>=61) init = 7.5;
+            else if(player.getLevel()>=51) init = 6.5;
+            else if(player.getLevel()>=41) init = 5.5;
+            else if(player.getLevel()>=31) init = 4.5;
+            else if(player.getLevel()>=21) init = 3.5;
+            else if(player.getLevel()>=11) init = 2.5;
+            else init = 2.0;
             
             // SevenSigns Festival modifier
             if (SevenSignsFestival.getInstance().isFestivalInProgress() && player.isFestivalParticipant()) 
@@ -871,8 +878,8 @@ public final class Formulas
        }
 
         if (init < 1) init = 1;
-
-        return cha.calcStat(Stats.REGENERATE_HP_RATE, init, null, null) * hpRegenMultiplier + hpRegenBonus;
+        // calculate BASE regen then add regeneration by skills
+        return init * hpRegenMultiplier + (cha.calcStat(Stats.REGENERATE_MP_RATE, init * hpRegenMultiplier, null, null) - init * hpRegenMultiplier) + hpRegenBonus;
     }
     
     /**
@@ -887,16 +894,23 @@ public final class Formulas
         if(cha.isRaid())
             mpRegenMultiplier=Config.RAID_MP_REGEN_MULTIPLIER;
         else if(cha instanceof L2PcInstance)
-            mpRegenMultiplier=Config.MP_REGEN_MULTIPLIER;
+            mpRegenMultiplier=Config.PLAYER_MP_REGEN_MULTIPLIER;
         else 
-            mpRegenMultiplier=Config.MP_REGEN_MULTIPLIER;
+            mpRegenMultiplier=Config.NPC_MP_REGEN_MULTIPLIER;
         
         if (cha instanceof L2PcInstance)
         {
             L2PcInstance player = (L2PcInstance) cha;
 
             // Calculate correct baseMpReg value for certain level of PC
-            init += 0.3*((player.getLevel()-1)/10);
+            if(player.getLevel()>=71) init = 3.0;
+            else if(player.getLevel()>=61) init = 2.7;
+            else if(player.getLevel()>=51) init = 2.4;
+            else if(player.getLevel()>=41) init = 2.1;
+            else if(player.getLevel()>=31) init = 1.8;
+            else if(player.getLevel()>=21) init = 1.5;
+            else if(player.getLevel()>=11) init = 1.2;
+            else init = 0.9;
             
             // SevenSigns Festival modifier
             if (SevenSignsFestival.getInstance().isFestivalInProgress() && player.isFestivalParticipant())
@@ -919,7 +933,8 @@ public final class Formulas
 
         if (init < 1) init = 1;
 
-        return cha.calcStat(Stats.REGENERATE_MP_RATE, init, null, null) * mpRegenMultiplier + mpRegenBonus;
+        // calculate BASE regen then add regeneration by skills
+        return init * mpRegenMultiplier + (cha.calcStat(Stats.REGENERATE_MP_RATE, init * mpRegenMultiplier, null, null) - init * mpRegenMultiplier) + mpRegenBonus;
     }
     
     /**
@@ -928,7 +943,7 @@ public final class Formulas
     public final double calcCpRegen(L2Character cha)
     {
         double init = cha.getTemplate().baseHpReg;
-        double cpRegenMultiplier = Config.CP_REGEN_MULTIPLIER;
+        double cpRegenMultiplier = Config.PLAYER_CP_REGEN_MULTIPLIER;
         double cpRegenBonus = 0;
 
         if (cha instanceof L2PcInstance)
@@ -953,7 +968,8 @@ public final class Formulas
         init *= cha.getLevelMod() * CONbonus[cha.getCON()];
         if (init < 1) init = 1;
 
-        return cha.calcStat(Stats.REGENERATE_CP_RATE, init, null, null) * cpRegenMultiplier + cpRegenBonus;
+        // calculate BASE regen then add regeneration by skills
+        return init * cpRegenMultiplier + (cha.calcStat(Stats.REGENERATE_MP_RATE, init * cpRegenMultiplier, null, null) - init * cpRegenMultiplier) + cpRegenBonus;
     }
     
     @SuppressWarnings("deprecation")
