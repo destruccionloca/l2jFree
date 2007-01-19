@@ -1084,6 +1084,7 @@ public abstract class L2Skill
             case CHARGEDAM:
             case CONFUSE_MOB_ONLY:
             case DEATHLINK:
+            case FATALCOUNTER:
             case DETECT_WEAKNESS:
             case MDOT:
             case MANADAM:

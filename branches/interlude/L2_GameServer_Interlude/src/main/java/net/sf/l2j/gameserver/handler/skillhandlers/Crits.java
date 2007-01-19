@@ -219,10 +219,10 @@ public class Crits implements ISkillHandler
 
             if (skill.isInstantKill() && !target.isRaid())
             {
-                if(Rnd.get(100) <= skill.getInstantKillRate())
+                if(Rnd.get(100) <= skill.getInstantKillRate() && crit)
                 {
                     boolean RateEffect2 = Rnd.get(100) <= Config.ALT_INSTANT_KILL_EFFECT_2; //rate for effect lvl 2 HP=1 NOcp change 
-                    if (target instanceof L2PcInstance && skill.getId() == 30 && !RateEffect2 && crit)
+                    if (target instanceof L2PcInstance && skill.getId() == 30 && !RateEffect2)
                     {
                         if (!target.isPetrified())
                         {
@@ -230,7 +230,7 @@ public class Crits implements ISkillHandler
                             damage=0;
                         }
                     }
-                    else if (target instanceof L2PcInstance && skill.getId() == 30 && RateEffect2 && crit) 
+                    else if (target instanceof L2PcInstance && skill.getId() == 30 && RateEffect2) 
                     {
                         if (!target.isPetrified())
                         {
@@ -238,12 +238,12 @@ public class Crits implements ISkillHandler
                             damage=0;
                         }
                     }
-                    else if (target instanceof L2PcInstance && crit && skill.getId() != 30)
+                    else if (target instanceof L2PcInstance && skill.getId() != 30)
                     {
                         if (!target.isPetrified())
                             target.setCurrentCp(1);
                     }
-                    else if (target instanceof L2NpcInstance && crit)
+                    else if (target instanceof L2NpcInstance)
                     {
                         if (!target.isPetrified() && !target.isRaid() && ((L2NpcInstance) target).getTemplate().npcId != 35062) 
                         {

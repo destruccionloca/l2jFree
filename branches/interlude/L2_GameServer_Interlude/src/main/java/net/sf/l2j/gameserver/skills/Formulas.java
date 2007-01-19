@@ -1050,7 +1050,7 @@ public final class Formulas
         if (ss) damage *= 2;
         if (skill != null)
         {
-            damage += skill.getPower();
+            damage += skill.getPower(attacker);
             //damage += skill.getPower() * 0.7 * attacker.getPAtk(target)/defence;
         }
         // In C5 summons make 10 % less dmg in PvP.
