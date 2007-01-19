@@ -825,15 +825,24 @@ public final class Formulas
     public final double calcHpRegen(L2Character cha)
     {
         double init = cha.getTemplate().baseHpReg;
-        double hpRegenMultiplier;
+        double hpRegenMultiplier,BaseHpRegenMultiplier;
         double hpRegenBonus = 0;
         
         if(cha.isRaid())
-           hpRegenMultiplier=Config.RAID_HP_REGEN_MULTIPLIER;
+        {
+            BaseHpRegenMultiplier=Config.RAID_HP_REGEN_MULTIPLIER;
+            hpRegenMultiplier=Config.RAID_HP_REGEN_MULTIPLIER;
+        }
         else if(cha instanceof L2PcInstance)
-           hpRegenMultiplier=Config.PLAYER_HP_REGEN_MULTIPLIER;
-        else 
-           hpRegenMultiplier=Config.NPC_HP_REGEN_MULTIPLIER;
+        {
+            BaseHpRegenMultiplier=Config.PLAYER_HP_REGEN_MULTIPLIER;
+            hpRegenMultiplier=Config.PLAYER_HP_REGEN_MULTIPLIER;
+        }
+        else
+        {
+            BaseHpRegenMultiplier=Config.NPC_HP_REGEN_MULTIPLIER;
+            hpRegenMultiplier=Config.NPC_HP_REGEN_MULTIPLIER;
+        }
         
         if (cha instanceof L2PcInstance)
         {
@@ -851,14 +860,14 @@ public final class Formulas
             
             // SevenSigns Festival modifier
             if (SevenSignsFestival.getInstance().isFestivalInProgress() && player.isFestivalParticipant()) 
-                hpRegenMultiplier *= calcFestivalRegenModifier(player);
+                BaseHpRegenMultiplier *= calcFestivalRegenModifier(player);
             else
             {
                 double siegeModifier = this.calcSiegeRegenModifer(player);
-                if (siegeModifier > 0) hpRegenMultiplier *= siegeModifier;
+                if (siegeModifier > 0) BaseHpRegenMultiplier *= siegeModifier;
             }
             
-            if (player.getIsInClanHall() && ClanHallManager.getInstance().getClanHall(player)!= null) if (ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP) != null) hpRegenMultiplier *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP).getLvl()/100;
+            if (player.getIsInClanHall() && ClanHallManager.getInstance().getClanHall(player)!= null) if (ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP) != null) BaseHpRegenMultiplier *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP).getLvl()/100;
 
             // Mother Tree effect is calculated at last
             if (player.getInMotherTreeZone()) hpRegenBonus += 2;
@@ -866,20 +875,20 @@ public final class Formulas
             // Calculate Movement bonus
             if (player.isSitting() && player.getLevel() < 41) // Sitting below lvl 40
             {
-                hpRegenMultiplier *= 1.5;
+                BaseHpRegenMultiplier *= 1.5;
                 hpRegenBonus += (40 - player.getLevel()) * 0.7;
             }
-            else if (player.isSitting()) hpRegenMultiplier *= 1.5;      // Sitting
-            else if (!player.isRunning()) hpRegenMultiplier *= 1.5; // Not Running
-            else if (!player.isMoving()) hpRegenMultiplier *= 1.1; // Staying
-            else if (player.isRunning()) hpRegenMultiplier *= 0.7; // Running
+            else if (player.isSitting()) BaseHpRegenMultiplier *= 1.5;      // Sitting
+            else if (!player.isRunning()) BaseHpRegenMultiplier *= 1.5; // Not Running
+            else if (!player.isMoving()) BaseHpRegenMultiplier *= 1.1; // Staying
+            else if (player.isRunning()) BaseHpRegenMultiplier *= 0.7; // Running
             // Add CON bonus
             init *= cha.getLevelMod() * CONbonus[cha.getCON()];
        }
 
         if (init < 1) init = 1;
         // calculate BASE regen then add regeneration by skills
-        return init * hpRegenMultiplier + (cha.calcStat(Stats.REGENERATE_MP_RATE, init * hpRegenMultiplier, null, null) - init * hpRegenMultiplier) + hpRegenBonus;
+        return init * BaseHpRegenMultiplier + (cha.calcStat(Stats.REGENERATE_MP_RATE, init * BaseHpRegenMultiplier, null, null) - init * BaseHpRegenMultiplier) * hpRegenMultiplier + hpRegenBonus;
     }
     
     /**
@@ -888,15 +897,24 @@ public final class Formulas
     public final double calcMpRegen(L2Character cha)
     {
         double init = cha.getTemplate().baseMpReg;
-        double mpRegenMultiplier;
+        double mpRegenMultiplier, BaseMpRegenMultiplier;
         double mpRegenBonus = 0;
         
         if(cha.isRaid())
+        {
+            BaseMpRegenMultiplier=Config.RAID_MP_REGEN_MULTIPLIER;
             mpRegenMultiplier=Config.RAID_MP_REGEN_MULTIPLIER;
+        }
         else if(cha instanceof L2PcInstance)
+        {
+            BaseMpRegenMultiplier=Config.PLAYER_MP_REGEN_MULTIPLIER;
             mpRegenMultiplier=Config.PLAYER_MP_REGEN_MULTIPLIER;
-        else 
+        }
+        else
+        {
+            BaseMpRegenMultiplier=Config.NPC_MP_REGEN_MULTIPLIER;
             mpRegenMultiplier=Config.NPC_MP_REGEN_MULTIPLIER;
+        }
         
         if (cha instanceof L2PcInstance)
         {
@@ -914,18 +932,18 @@ public final class Formulas
             
             // SevenSigns Festival modifier
             if (SevenSignsFestival.getInstance().isFestivalInProgress() && player.isFestivalParticipant())
-                mpRegenMultiplier *= calcFestivalRegenModifier(player);
+                BaseMpRegenMultiplier *= calcFestivalRegenModifier(player);
 
             // Mother Tree effect is calculated at last
             if (player.getInMotherTreeZone()) mpRegenBonus += 1;
             
-            if (player.getIsInClanHall() && ClanHallManager.getInstance().getClanHall(player)!= null) if (ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP) != null) mpRegenMultiplier *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP).getLvl()/100;
+            if (player.getIsInClanHall() && ClanHallManager.getInstance().getClanHall(player)!= null) if (ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP) != null) BaseMpRegenMultiplier *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP).getLvl()/100;
 
             // Calculate Movement bonus
-            if (player.isSitting()) mpRegenMultiplier *= 2.5;      // Sitting.
-            else if (!player.isRunning()) mpRegenMultiplier *= 1.5; // Not running
-            else if (!player.isMoving()) mpRegenMultiplier *= 1.1; // Staying
-            else if (player.isRunning()) mpRegenMultiplier *= 0.7; // Running
+            if (player.isSitting()) BaseMpRegenMultiplier *= 2.5;      // Sitting.
+            else if (!player.isRunning()) BaseMpRegenMultiplier *= 1.5; // Not running
+            else if (!player.isMoving()) BaseMpRegenMultiplier *= 1.1; // Staying
+            else if (player.isRunning()) BaseMpRegenMultiplier *= 0.7; // Running
 
             // Add MEN bonus
             init *= cha.getLevelMod() * MENbonus[cha.getMEN()];
@@ -934,7 +952,7 @@ public final class Formulas
         if (init < 1) init = 1;
 
         // calculate BASE regen then add regeneration by skills
-        return init * mpRegenMultiplier + (cha.calcStat(Stats.REGENERATE_MP_RATE, init * mpRegenMultiplier, null, null) - init * mpRegenMultiplier) + mpRegenBonus;
+        return init * BaseMpRegenMultiplier + (cha.calcStat(Stats.REGENERATE_MP_RATE, init * BaseMpRegenMultiplier, null, null) - init * BaseMpRegenMultiplier) * mpRegenMultiplier + mpRegenBonus;
     }
     
     /**
@@ -943,33 +961,28 @@ public final class Formulas
     public final double calcCpRegen(L2Character cha)
     {
         double init = cha.getTemplate().baseHpReg;
-        double cpRegenMultiplier = Config.PLAYER_CP_REGEN_MULTIPLIER;
+        double cpRegenMultiplier, BaseCpRegenMultiplier;
         double cpRegenBonus = 0;
 
-        if (cha instanceof L2PcInstance)
-        {
-           L2PcInstance player = (L2PcInstance) cha;
-   
-           // Calculate correct baseHpReg value for certain level of PC
-           init += (player.getLevel() > 10) ? ((player.getLevel()-1)/10) : 0.5;
-           
-           // Calculate Movement bonus
-           if (player.isSitting()) cpRegenMultiplier *= 1.5;      // Sitting
-           else if (!player.isMoving()) cpRegenMultiplier *= 1.1; // Staying
-           else if (player.isRunning()) cpRegenMultiplier *= 0.7; // Running
-        } else
-        {
-           // Calculate Movement bonus
-           if (!cha.isMoving()) cpRegenMultiplier *= 1.1; // Staying
-           else if (cha.isRunning()) cpRegenMultiplier *= 0.7; // Running
-        }
+        cpRegenMultiplier = Config.PLAYER_CP_REGEN_MULTIPLIER;
+        BaseCpRegenMultiplier = Config.PLAYER_CP_REGEN_MULTIPLIER;
+        
+        L2PcInstance player = (L2PcInstance) cha;           
+
+        // Calculate correct baseHpReg value for certain level of PC
+        init += (player.getLevel() > 10) ? ((player.getLevel()-1)/10) : 0.5;
+
+        // Calculate Movement bonus
+        if (player.isSitting()) BaseCpRegenMultiplier *= 1.5;      // Sitting
+        else if (!player.isMoving()) BaseCpRegenMultiplier *= 1.1; // Staying
+        else if (player.isRunning()) BaseCpRegenMultiplier *= 0.7; // Running
         
         // Apply CON bonus
         init *= cha.getLevelMod() * CONbonus[cha.getCON()];
         if (init < 1) init = 1;
 
         // calculate BASE regen then add regeneration by skills
-        return init * cpRegenMultiplier + (cha.calcStat(Stats.REGENERATE_MP_RATE, init * cpRegenMultiplier, null, null) - init * cpRegenMultiplier) + cpRegenBonus;
+        return init * BaseCpRegenMultiplier + (cha.calcStat(Stats.REGENERATE_MP_RATE, init * BaseCpRegenMultiplier, null, null) - init * BaseCpRegenMultiplier) * cpRegenMultiplier + cpRegenBonus;
     }
     
     @SuppressWarnings("deprecation")
