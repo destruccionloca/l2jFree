@@ -48,7 +48,7 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
      */
     public Accounts getAccountById(String id)
     {
-        Accounts account = (Accounts) getHibernateTemplate().get(Accounts.class, id);
+        Accounts account = (Accounts) get(Accounts.class, id);
         if ( account == null )
             throw new ObjectRetrievalFailureException("Accounts",id);
         return account;

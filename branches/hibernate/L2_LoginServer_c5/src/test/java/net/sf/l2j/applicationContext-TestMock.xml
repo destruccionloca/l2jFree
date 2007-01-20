@@ -25,6 +25,7 @@
 		<property name="gameserversDAO">
 			<ref bean="GameserversDAOXml" />
 		</property>
-	</bean>		
+	</bean>	
+	
 	
 </beans>

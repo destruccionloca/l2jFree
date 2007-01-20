@@ -48,7 +48,7 @@ public class GameserversDAOHib extends BaseRootDAOHib implements GameserversDAO
      */
     public Gameservers getGameserverByServerId(int id)
     {
-        Gameservers gameserver = (Gameservers) getHibernateTemplate().get(Gameservers.class, id);
+        Gameservers gameserver = (Gameservers) get(Gameservers.class, id);
         if ( gameserver == null )
             throw new ObjectRetrievalFailureException("Gameserver",id);
         return gameserver;

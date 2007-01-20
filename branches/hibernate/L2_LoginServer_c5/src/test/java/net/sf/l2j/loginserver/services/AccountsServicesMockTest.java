@@ -61,7 +61,7 @@ public class AccountsServicesMockTest extends TestCase
     
     public void testAddAccount () throws Exception
     {
-        assertEquals(0,services.getAccountsInfo().size());
+        assertEquals(1,services.getAccountsInfo().size());
         Accounts acc = services.addOrUpdateAccount("player1", "pass", "1");
         
         assertEquals(acc.getLogin(), "player1");
@@ -71,7 +71,7 @@ public class AccountsServicesMockTest extends TestCase
     
     public void testAddAccountWithBadLevel () throws Exception
     {
-        assertEquals(0,services.getAccountsInfo().size());
+        assertEquals(1,services.getAccountsInfo().size());
         try
         {
             services.addOrUpdateAccount("player1", "pass", "x");
@@ -85,7 +85,7 @@ public class AccountsServicesMockTest extends TestCase
     
     public void testUpdateLevel () throws Exception
     {
-        assertEquals(0,services.getAccountsInfo().size());
+        assertEquals(1,services.getAccountsInfo().size());
         Accounts acc = services.addOrUpdateAccount("player1", "pass", "1");
         assertEquals(acc.getLogin(), "player1");
         assertEquals(acc.getAccessLevel(), new Integer(1));
@@ -100,7 +100,7 @@ public class AccountsServicesMockTest extends TestCase
     
     public void testUpdateLevelIncorretValue () throws Exception
     {
-        assertEquals(0,services.getAccountsInfo().size());
+        assertEquals(1,services.getAccountsInfo().size());
         Accounts acc = services.addOrUpdateAccount("player1", "pass", "1");
         assertEquals(acc.getLogin(), "player1");
         assertEquals(acc.getAccessLevel(), new Integer(1));
@@ -125,7 +125,7 @@ public class AccountsServicesMockTest extends TestCase
     
     public void testDeleteAccount () throws Exception
     {
-        assertEquals(0,services.getAccountsInfo().size());
+        assertEquals(1,services.getAccountsInfo().size());
         Accounts acc = services.addOrUpdateAccount("player1", "pass", "1");
         
         assertEquals(acc.getLogin(), "player1");
@@ -138,7 +138,7 @@ public class AccountsServicesMockTest extends TestCase
     
     public void testDeleteUnknownAccount ()
     {
-        assertEquals(0,services.getAccountsInfo().size());
+        assertEquals(1,services.getAccountsInfo().size());
         Accounts acc=null;
         try
         {

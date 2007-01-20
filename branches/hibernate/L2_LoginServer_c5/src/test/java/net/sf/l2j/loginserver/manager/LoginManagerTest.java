@@ -171,6 +171,8 @@ public class LoginManagerTest extends TestCase
                 client.close();
             }
         }
+        // don't forget to unban client to avoid perturbation on other tests
+        loginManager.unblockIp(client.getInetAddress().getHostAddress());
     }
     
     public void testAutoCreateAccount () throws IOException
@@ -180,7 +182,7 @@ public class LoginManagerTest extends TestCase
         try
         {
             // just for test, open a socket on something
-            client = new Socket("www.google.com", 80);
+            client = new Socket("www.google.fr", 80);
         }
         catch (UnknownHostException e1)
         {
