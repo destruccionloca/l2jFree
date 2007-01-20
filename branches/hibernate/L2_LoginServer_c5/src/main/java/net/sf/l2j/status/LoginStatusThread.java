@@ -20,6 +20,7 @@ import java.util.Properties;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2Registry;
+import net.sf.l2j.loginserver.beans.Accounts;
 import net.sf.l2j.loginserver.manager.GameServerManager;
 import net.sf.l2j.loginserver.manager.LoginManager;
 import net.sf.l2j.loginserver.thread.LoginServerThread;
@@ -163,7 +164,8 @@ public class LoginStatusThread extends Thread
     }
     
     /**
-	 * @param tmpLine
+     * Check that the password is the correct one for this user
+	 * @param password
 	 * @return
 	 */
 	private boolean validPassword(String password)
@@ -197,38 +199,27 @@ public class LoginStatusThread extends Thread
 	}
 
 	/**
-	 * @param tmpLine
+     * check that this user exist
+	 * @param login
 	 * @return
 	 */
 	private boolean validLogin(String login)
 	{
 		if(!LoginManager.getInstance().isGM(login))
+        {
 			return false;
-		java.sql.Connection con = null;
-		try
-		{
-			con = L2Registry.getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT password FROM accounts WHERE login=?");
-			statement.setString(1, login);
-			ResultSet rset = statement.executeQuery();
-			if (rset.next())
-			{
-				_pass = rset.getString("password");
-				statement.close();
-				con.close();
-				return true;
-			}
-			statement.close();
-		}
-		catch(SQLException sqle)
-		{
-			sqle.printStackTrace();
-		}
-		finally
-		{
-			try { con.close(); } catch (Exception e) {}
-		}
-		return false;
+        }
+        
+        Accounts acc = LoginManager.getInstance().getAccount(login);
+        if (acc == null)
+        {
+            return false;
+        }
+        else
+        {
+            _pass = acc.getPassword(); 
+            return true;
+        }
 	}
 
 	public void run()

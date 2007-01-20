@@ -60,6 +60,8 @@ public class LoginManager
 {
 	private static final Log _log = LogFactory.getLog(LoginManager.class);
     private static final Log _logLogin = LogFactory.getLog("login");
+    private static final Log _logLoginTries = LogFactory.getLog("login.try");
+    private static final Log _logLoginFailed = LogFactory.getLog("login.failed");
 	
 	private static LoginManager _instance;
 	
@@ -308,6 +310,21 @@ public class LoginManager
             return false;
                 
 	}
+    
+    /**
+     * 
+     * @param user
+     * @return account if exist, null if not
+     */
+    public Accounts getAccount (String user)
+    {
+        Accounts acc = _service.getAccountById(user);
+        if ( acc != null )
+            return acc;
+        else
+            return null;
+                
+    }
 	
 	/**
 	 * <p>This method returns one of the 10 {@link ScrambledKeyPair}.</p>
@@ -347,7 +364,7 @@ public class LoginManager
 		Integer failedConnects  = _hackProtection.get(address.getHostAddress());
 		String lastPassword = _lastPassword.get(address.getHostAddress());
 		
-        _logLogin.info("User trying to connect  '"+user+"' "+address.getHostAddress());
+        _logLoginTries.info("User trying to connect  '"+user+"' "+address.getHostAddress());
 		
         // o Check max number of failed connection
         // -------------------------------------
@@ -441,7 +458,7 @@ public class LoginManager
      */
     private void handleBadLogin(String user, String password, InetAddress address, Integer failedConnects, String lastPassword)
     {
-        _logLogin.info("login failed for user : '"+user+"' "+address.getHostAddress());
+        _logLoginFailed.info("login failed for user : '"+user+"' "+address.getHostAddress());
         
         // add 1 to the failed counter for this IP 
         int failedCount = 1;

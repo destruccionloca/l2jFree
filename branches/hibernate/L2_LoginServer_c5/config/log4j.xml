@@ -92,7 +92,31 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
         <layout class="net.sf.l2j.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="%d{yyyy.MM.dd HH:mm:ss,SSS} %p %t %c %m %s %n"/>
         </layout>
-    </appender>    
+    </appender>
+    <!-- login tries appender -->
+    <appender name="LOGINLOGTRY" class="org.apache.log4j.RollingFileAppender">
+        <param name="Threshold" value="INFO"/>
+        <param name="Encoding" value="UTF-8"/>        
+        <param name="File" value="log/game/logins_ip.txt"/>
+        <param name="Append" value="true"/>
+        <param name="MaxFileSize" value="500KB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <layout class="net.sf.l2j.log4jextension.ExtendedPatternLayout">
+            <param name="ConversionPattern" value="[%d{yy.MM.dd HH:mm:ss}] %p : %m %n"/>
+        </layout>
+    </appender>
+    <!-- login failed appender -->
+    <appender name="LOGINLOGFAILED" class="org.apache.log4j.RollingFileAppender">
+        <param name="Threshold" value="INFO"/>
+        <param name="Encoding" value="UTF-8"/>        
+        <param name="File" value="log/game/logins_ip_fails.txt"/>
+        <param name="Append" value="true"/>
+        <param name="MaxFileSize" value="500KB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <layout class="net.sf.l2j.log4jextension.ExtendedPatternLayout">
+            <param name="ConversionPattern" value="[%d{yy.MM.dd HH:mm:ss}] %p : %m %n"/>
+        </layout>
+    </appender>        
  
     <!--
     RULES for logging DEBUG < INFO < WARN < ERROR < FATAL.
@@ -114,6 +138,12 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
     <logger name="login" additivity="false" >
         <appender-ref ref="LOGINLOG"/>
     </logger>
+    <logger name="login.try" additivity="false" >
+        <appender-ref ref="LOGINLOGTRY"/>
+    </logger>
+    <logger name="login.failed" additivity="false" >
+        <appender-ref ref="LOGINLOGFAILED"/>
+    </logger>        
     
     <!-- Setup the Root logger -->
     <root>

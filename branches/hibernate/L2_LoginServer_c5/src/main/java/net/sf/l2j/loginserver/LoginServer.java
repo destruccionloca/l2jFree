@@ -68,7 +68,7 @@ public class LoginServer
         // Initialize config 
         // ------------------
         Config.load();
-
+        
         // Initialize Application context (registry of beans)
         // ---------------------------------------------------
         L2Registry.loadRegistry();

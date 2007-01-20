@@ -88,36 +88,6 @@ public class L2Registry
 	}
     
     // =========================================================
-    // Method - Public
-    public final String prepQuerySelect(String[] fields, String tableName, String whereClause, boolean returnOnlyTopRecord)
-    {
-        String msSqlTop1 = "";
-        String mySqlTop1 = "";
-        if (returnOnlyTopRecord)
-        {
-            mySqlTop1 = " Limit 1 ";
-        }
-        String query = "SELECT " + msSqlTop1 + safetyString(fields) + " FROM " + tableName + " WHERE " + whereClause + mySqlTop1;
-        return query;
-    }
-
-    public final String safetyString(String[] whatToCheck)
-    {
-        // NOTE: Use brace as a safty percaution just incase name is a reserved word
-        String braceLeft = "`";
-        String braceRight = "`";
-
-
-        String result = "";
-        for(String word : whatToCheck)
-        {
-            if(result != "") result += ", ";
-            result += braceLeft + word + braceRight;
-        }
-        return result;
-    }
-
-    // =========================================================
     // Property - Public
 	public static L2Registry getInstance() 
 	{
@@ -128,25 +98,6 @@ public class L2Registry
 		return _instance;
 	}
 	
-	public static Connection getConnection() 
-	{
-		Connection con=null;
- 
-        try
-        {
-            con = ((DataSource)__ctx.getBean("dataSource")).getConnection();
-        }
-        catch (BeansException e)
-        {
-            _log.fatal("Unable to retrieve connection : " +e.getMessage(),e);
-        }
-        catch (SQLException e)
-        {
-            _log.fatal("Unable to retrieve connection : " +e.getMessage(),e);
-        }
-		return con;
-	}
-    
     public static ApplicationContext getApplicationContext() 
     {
         return __ctx;
