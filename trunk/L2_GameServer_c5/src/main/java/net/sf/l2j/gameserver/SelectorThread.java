@@ -45,7 +45,6 @@ import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Level;
 
 /**
  * NIO Selector thread.

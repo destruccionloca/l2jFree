@@ -8,16 +8,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
 
+import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.script.stat.leaderboards.*;
+import net.sf.l2j.gameserver.script.stat.leaderboards.LeaderboardTotalDeaths;
+import net.sf.l2j.gameserver.script.stat.leaderboards.LeaderboardTotalKarma;
+import net.sf.l2j.gameserver.script.stat.leaderboards.LeaderboardTotalPlayerKills;
+import net.sf.l2j.gameserver.script.stat.leaderboards.LeaderboardTotalTimePlayed;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 /** Leaderboard Engine
 + * 

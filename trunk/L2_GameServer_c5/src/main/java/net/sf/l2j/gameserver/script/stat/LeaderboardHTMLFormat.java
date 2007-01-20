@@ -1,6 +1,5 @@
 package net.sf.l2j.gameserver.script.stat;
 
-import javolution.util.FastList;
 
 /**
  * 

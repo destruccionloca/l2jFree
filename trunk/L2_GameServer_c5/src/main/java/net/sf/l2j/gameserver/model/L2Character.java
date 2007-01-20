@@ -850,8 +850,8 @@ public abstract class L2Character extends L2Object
         
         if (_log.isDebugEnabled())
         {
-            _log.info("doAttackHitByPole: Max radius = " + maxRadius);
-            _log.info("doAttackHitByPole: Max angle = " + maxAngleDiff);
+            _log.debug("doAttackHitByPole: Max radius = " + maxRadius);
+            _log.debug("doAttackHitByPole: Max angle = " + maxAngleDiff);
         }
           
         // o1 x: 83420 y: 148158 (Giran)
@@ -5290,13 +5290,14 @@ public abstract class L2Character extends L2Object
             if (Math.abs(angleDiff) <= maxAngleDiff)
             {
                 if (_log.isDebugEnabled())
-                    _log.info("Char " + this.getName() + " is behind " + target.getName());
+                    _log.debug("Char " + this.getName() + " is behind " + target.getName());
                 return true;
             }
         }
         else
         {
-            _log.debug("isBehindTarget's target not an L2 Character.");
+            if (_log.isDebugEnabled())
+                _log.debug("isBehindTarget's target not an L2 Character.");
         }
         return false;
     }

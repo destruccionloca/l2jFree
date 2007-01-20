@@ -41,7 +41,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
-import org.apache.commons.logging.Log;
 /**
  * This class manages AI of L2Attackable.<BR><BR>
  * 

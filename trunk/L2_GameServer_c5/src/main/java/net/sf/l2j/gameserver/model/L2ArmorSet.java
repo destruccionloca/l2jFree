@@ -22,19 +22,19 @@ public final class L2ArmorSet
     
     private final int enchant6skill;
     
-    public L2ArmorSet(int chest, int legs, int head, int gloves, int feet, int skill_id, int shield, int shield_skill_id, int enchant6skill)
+    public L2ArmorSet(int _chest, int _legs, int _head, int _gloves, int _feet, int _skill_id, int _shield, int _shield_skill_id, int _enchant6skill)
     {
-        this.chest = chest;
-        this.legs  = legs;
-        this.head  = head;
-        this.gloves = gloves;
-        this.feet  = feet;
-        this.skill_id = skill_id;
+        this.chest = _chest;
+        this.legs  = _legs;
+        this.head  = _head;
+        this.gloves = _gloves;
+        this.feet  = _feet;
+        this.skill_id = _skill_id;
         
-        this.shield = shield;
-        this.shield_skill_id = shield_skill_id;
+        this.shield = _shield;
+        this.shield_skill_id = _shield_skill_id;
         
-        this.enchant6skill = enchant6skill;
+        this.enchant6skill = _enchant6skill;
     }
     /**
      * Checks if player have equiped all items from set (not checking shield)
@@ -50,30 +50,30 @@ public final class L2ArmorSet
         L2ItemInstance glovesItem = inv.getPaperdollItem(Inventory.PAPERDOLL_GLOVES);
         L2ItemInstance feetItem   = inv.getPaperdollItem(Inventory.PAPERDOLL_FEET);
         
-        int legs = 0;
-        int head = 0;
-        int gloves = 0;
-        int feet = 0;
+        int _legs = 0;
+        int _head = 0;
+        int _gloves = 0;
+        int _feet = 0;
         
-        if(legsItem != null)   legs = legsItem.getItemId();
-        if(headItem != null)   head = headItem.getItemId();
-        if(glovesItem != null) gloves = glovesItem.getItemId();
-        if(feetItem != null)   feet = feetItem.getItemId();
+        if(legsItem != null)   _legs = legsItem.getItemId();
+        if(headItem != null)   _head = headItem.getItemId();
+        if(glovesItem != null) _gloves = glovesItem.getItemId();
+        if(feetItem != null)   _feet = feetItem.getItemId();
         
-        return containAll(this.chest,legs,head,gloves,feet);
+        return containAll(this.chest,_legs,_head,_gloves,_feet);
         
     }
-    public boolean containAll(int chest, int legs, int head, int gloves, int feet)
+    public boolean containAll(int _chest, int _legs, int _head, int _gloves, int _feet)
     {
-        if(this.chest != 0 && this.chest != chest)
+        if(this.chest != 0 && this.chest != _chest)
             return false;
-        if(this.legs != 0 && this.legs != legs)
+        if(this.legs != 0 && this.legs != _legs)
             return false;
-        if(this.head != 0 && this.head != head)
+        if(this.head != 0 && this.head != _head)
             return false;
-        if(this.gloves != 0 && this.gloves != gloves)
+        if(this.gloves != 0 && this.gloves != _gloves)
             return false;
-        if(this.feet != 0 && this.feet != feet)
+        if(this.feet != 0 && this.feet != _feet)
             return false;
     
         return true;

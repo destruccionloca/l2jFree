@@ -217,19 +217,19 @@ public enum PlayerClass
         return allOf;
     }
     
-    public final boolean isOfRace(PlayerRace race)
+    public final boolean isOfRace(PlayerRace _race)
     {
-        return this.race == race;
+        return this.race == _race;
     }
     
-    public final boolean isOfType(ClassType type)
+    public final boolean isOfType(ClassType _type)
     {
-        return this.type == type;
+        return this.type == _type;
     }
     
-    public final boolean isOfLevel(ClassLevel level)
+    public final boolean isOfLevel(ClassLevel _level)
     {
-        return this.level == level;
+        return this.level == _level;
     }
 
     public final ClassLevel getLevel()

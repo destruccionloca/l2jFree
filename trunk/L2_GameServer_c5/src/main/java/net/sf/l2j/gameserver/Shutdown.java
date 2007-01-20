@@ -29,7 +29,6 @@ import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Level;
 
 /**
  * 
