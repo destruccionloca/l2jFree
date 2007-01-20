@@ -4,7 +4,7 @@
 <item id='8102' name="sword_of_paagrio [focus]">
   <for>
     <set val='169' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='76' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -17,7 +17,7 @@
 <item id='8103' name="sword_of_paagrio [health]">
   <for>
     <set val='169' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='76' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -30,7 +30,7 @@
 <item id='8104' name="sword_of_paagrio [crt. drain]">
   <for>
     <set val='169' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='76' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -43,7 +43,7 @@
 <item id='8105' name="guardians_sword [crt. bleed]">
   <for>
     <set val='236' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='99' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -56,7 +56,7 @@
 <item id='8106' name="guardians_sword [health]">
   <for>
     <set val='236' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='99' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -69,7 +69,7 @@
 <item id='8107' name="guardians_sword [crt. drain]">
   <for>
     <set val='236' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='99' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -82,7 +82,7 @@
 <item id='8108' name="inferno_master [haste]">
   <for>
     <set val='259' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='107' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -95,7 +95,7 @@
 <item id='8109' name="inferno_master [crt. damage]">
   <for>
     <set val='259' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='107' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -108,7 +108,7 @@
 <item id='8110' name="inferno_master [focus]">
   <for>
     <set val='259' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='107' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -121,7 +121,7 @@
 <item id='8111' name="mystery_sword [acumen]">
   <for>
     <set val='85' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='81' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -134,7 +134,7 @@
 <item id='8112' name="mystery_sword [magic weakness]">
   <for>
     <set val='85' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='81' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -147,7 +147,7 @@
 <item id='8113' name="mystery_sword [magic power]">
   <for>
     <set val='85' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='81' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -161,7 +161,7 @@
 <item id='8114' name="sword_of_eclipse [empower]">
   <for>
     <set val='125' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='111' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -174,7 +174,7 @@
 <item id='8115' name="sword_of_eclipse [magic power]">
   <for>
     <set val='125' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='111' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -188,7 +188,7 @@
 <item id='8116' name="sword_of_eclipse [magic silence]">
   <for>
     <set val='125' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='111' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -201,7 +201,7 @@
 <item id='8117' name="tears_of_wizard [acumen]">
   <for>
     <set val='155' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='132' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -214,7 +214,7 @@
 <item id='8118' name="tears_of_wizard [magic power]">
   <for>
     <set val='155' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='132' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -228,7 +228,7 @@
 <item id='8119' name="tears_of_wizard [conversion]">
   <for>
     <set val='155' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='132' order='0x08' stat='mAtk' />
     <set val='8' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -242,7 +242,7 @@
 <item id='8120' name="dwarven_hammer [health]">
   <for>
     <set val='190' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='83' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -255,7 +255,7 @@
 <item id='8121' name="dwarven_hammer [anger]">
   <for>
     <set val='190' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='83' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -269,7 +269,7 @@
 <item id='8122' name="dwarven_hammer [crt. bleed]">
   <for>
     <set val='190' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='83' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -282,7 +282,7 @@
 <item id='8123' name="horn_of_karik [focus]">
   <for>
     <set val='169' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='76' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -295,7 +295,7 @@
 <item id='8124' name="horn_of_karik [haste]">
   <for>
     <set val='169' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='76' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -308,7 +308,7 @@
 <item id='8125' name="horn_of_karik [crt. drain]">
   <for>
     <set val='169' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='76' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -321,7 +321,7 @@
 <item id='8126' name="hammer_of_destroyer [health]">
   <for>
     <set val='259' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='107' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -334,7 +334,7 @@
 <item id='8127' name="hammer_of_destroyer [haste]">
   <for>
     <set val='259' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='107' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -347,7 +347,7 @@
 <item id='8128' name="hammer_of_destroyer [crt. drain]">
   <for>
     <set val='259' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='107' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -360,7 +360,7 @@
 <item id='8129' name="ice_storm_hammer [focus]">
   <for>
     <set val='213' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='91' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -373,7 +373,7 @@
 <item id='8130' name="ice_storm_hammer [anger]">
   <for>
     <set val='213' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='91' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -384,15 +384,10 @@
     <mul val='0.85' order='0x50' stat='maxHp' />
   </for>
 </item>
-
-
-
-
-
 <item id='8131' name="ice_storm_hammer [crt. bleed]">
   <for>
     <set val='213' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='91' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -405,7 +400,7 @@
 <item id='8132' name="star_buster [health]">
   <for>
     <set val='236' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='99' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -418,7 +413,7 @@
 <item id='8133' name="star_buster [haste]">
   <for>
     <set val='236' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='99' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -431,7 +426,7 @@
 <item id='8134' name="star_buster [rsk. focus]">
   <for>
     <set val='236' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='99' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -448,7 +443,7 @@
 <item id='8135' name="doom_crusher [health]">
   <for>
     <set val='282' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='114' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -461,7 +456,7 @@
 <item id='8136' name="doom_crusher [anger]">
   <for>
     <set val='282' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='114' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -475,7 +470,7 @@
 <item id='8137' name="doom_crusher [rsk. haste]">
   <for>
     <set val='282' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='114' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -492,7 +487,7 @@
 <item id='8138' name="eclipse_axe [conversion]">
   <for>
     <set val='125' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='111' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -506,7 +501,7 @@
 <item id='8139' name="eclipse_axe [magic power]">
   <for>
     <set val='125' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='111' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -520,7 +515,7 @@
 <item id='8140' name="eclipse_axe [magic hold]">
   <for>
     <set val='125' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='111' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -533,7 +528,7 @@
 <item id='8141' name="spell_breaker [acumen]">
   <for>
     <set val='140' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='122' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -546,7 +541,7 @@
 <item id='8142' name="spell_breaker [mental shield]">
   <for>
     <set val='140' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='122' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -559,7 +554,7 @@
 <item id='8143' name="spell_breaker [magic hold]">
   <for>
     <set val='140' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='122' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -572,7 +567,7 @@
 <item id='8144' name="bone_of_kaim_vanul [mana up]">
   <for>
     <set val='155' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='132' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -585,7 +580,7 @@
 <item id='8145' name="bone_of_kaim_vanul [magic silence]">
   <for>
     <set val='155' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='132' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -598,7 +593,7 @@
 <item id='8146' name="bone_of_kaim_vanul [conversion]">
   <for>
     <set val='155' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='132' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -612,7 +607,7 @@
 <item id='8147' name="eye_of_soul [mana up]">
   <for>
     <set val='170' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='143' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -625,7 +620,7 @@
 <item id='8148' name="eye_of_soul [magic poison]">
   <for>
     <set val='170' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='143' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -638,7 +633,7 @@
 <item id='8149' name="eye_of_soul [acumen]">
   <for>
     <set val='170' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='143' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -664,7 +659,7 @@
 <item id='8151' name="dragon_flame_head [magic power]">
   <for>
     <set val='186' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='152' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -678,7 +673,7 @@
 <item id='8152' name="dragon_flame_head [magic silence]">
   <for>
     <set val='186' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='152' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='379' order='0x08' stat='pAtkSpd' />
@@ -691,7 +686,7 @@
 <item id='8190' name="unique_zariche">
   <for>
     <set val='361' order='0x08' stat='pAtk' />
-    <set val='10' order='0x08' stat='mAtk' />
+    <set val='137' order='0x08' stat='mAtk' />
     <set val='12' order='0x08' stat='rCrit' />
     <add val='0' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />

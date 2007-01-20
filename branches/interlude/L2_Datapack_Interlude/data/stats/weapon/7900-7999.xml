@@ -4,7 +4,7 @@
 <item id='7900' name="ice_storm_hammer">
   <for>
     <set val='213' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='91' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -15,7 +15,7 @@
 <item id='7901' name="star_buster">
   <for>
     <set val='236' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='99' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
@@ -26,7 +26,7 @@
 <item id='7902' name="doom_crusher">
   <for>
     <set val='282' order='0x08' stat='pAtk' />
-    <set val='20' order='0x08' stat='mAtk' />
+    <set val='114' order='0x08' stat='mAtk' />
     <set val='4' order='0x08' stat='rCrit' />
     <add val='4' order='0x40' stat='accCombat' />
     <set val='325' order='0x08' stat='pAtkSpd' />
