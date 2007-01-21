@@ -61,8 +61,8 @@ public class SkillsEngine {
 	private SkillsEngine()
 	{
 		//hashFiles("data/stats/etcitem", _etcitemFiles);
-		//hashFiles("data/stats/armor", _armorFiles);
-		//hashFiles("data/stats/weapon", _weaponFiles);
+		hashFiles("data/stats/armor", _armorFiles);
+		hashFiles("data/stats/weapon", _weaponFiles);
 		hashFiles("data/stats/skills", _skillFiles);
 	}
 	
@@ -122,13 +122,6 @@ public class SkillsEngine {
         {
             list.add((L2Armor)item);
         }
-        if (list.size() == 0)
-        {
-            for (Item item : armorData.values())
-            {
-                list.add(new L2Armor((L2ArmorType)item.type, item.set));
-            }
-        }
         return list;
     }
 
@@ -138,13 +131,6 @@ public class SkillsEngine {
         for (L2Item item : loadData(weaponData, _weaponFiles))
         {
             list.add((L2Weapon)item);
-        }
-        if (list.size() == 0)
-        {
-            for (Item item : weaponData.values())
-            {
-                list.add(new L2Weapon((L2WeaponType)item.type, item.set));
-            }
         }
         return list;
     }
