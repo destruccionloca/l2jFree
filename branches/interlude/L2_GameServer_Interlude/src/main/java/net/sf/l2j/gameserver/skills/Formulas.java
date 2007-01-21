@@ -851,14 +851,14 @@ public final class Formulas
             
             // SevenSigns Festival modifier
             if (SevenSignsFestival.getInstance().isFestivalInProgress() && player.isFestivalParticipant()) 
-                hpRegenMultiplier *= calcFestivalRegenModifier(player);
+                init *= calcFestivalRegenModifier(player);
             else
             {
                 double siegeModifier = this.calcSiegeRegenModifer(player);
-                if (siegeModifier > 0) hpRegenMultiplier *= siegeModifier;
+                if (siegeModifier > 0) init *= siegeModifier;
             }
             
-            if (player.getIsInClanHall() && ClanHallManager.getInstance().getClanHall(player)!= null) if (ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP) != null) hpRegenMultiplier *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP).getLvl()/100;
+            if (player.getIsInClanHall() && ClanHallManager.getInstance().getClanHall(player)!= null) if (ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP) != null) init *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_HP).getLvl()/100;
 
             // Mother Tree effect is calculated at last
             if (player.getInMotherTreeZone()) hpRegenBonus += 2;
@@ -866,13 +866,13 @@ public final class Formulas
             // Calculate Movement bonus
             if (player.isSitting() && player.getLevel() < 41) // Sitting below lvl 40
             {
-                hpRegenMultiplier *= 1.5;
+                init *= 1.5;
                 hpRegenBonus += (40 - player.getLevel()) * 0.7;
             }
-            else if (player.isSitting()) hpRegenMultiplier *= 1.5;      // Sitting
-            else if (!player.isRunning()) hpRegenMultiplier *= 1.5; // Not Running
-            else if (!player.isMoving()) hpRegenMultiplier *= 1.1; // Staying
-            else if (player.isRunning()) hpRegenMultiplier *= 0.7; // Running
+            else if (player.isSitting()) init *= 1.5;      // Sitting
+            else if (!player.isRunning()) init *= 1.5; // Not Running
+            else if (!player.isMoving()) init *= 1.1; // Staying
+            else if (player.isRunning()) init *= 0.7; // Running
             // Add CON bonus
             init *= cha.getLevelMod() * CONbonus[cha.getCON()];
        }
@@ -914,18 +914,18 @@ public final class Formulas
             
             // SevenSigns Festival modifier
             if (SevenSignsFestival.getInstance().isFestivalInProgress() && player.isFestivalParticipant())
-                mpRegenMultiplier *= calcFestivalRegenModifier(player);
+                init *= calcFestivalRegenModifier(player);
 
             // Mother Tree effect is calculated at last
             if (player.getInMotherTreeZone()) mpRegenBonus += 1;
             
-            if (player.getIsInClanHall() && ClanHallManager.getInstance().getClanHall(player)!= null) if (ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP) != null) mpRegenMultiplier *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP).getLvl()/100;
+            if (player.getIsInClanHall() && ClanHallManager.getInstance().getClanHall(player)!= null) if (ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP) != null) init *= 1+ ClanHallManager.getInstance().getClanHall(player).getFunction(ClanHall.FUNC_RESTORE_MP).getLvl()/100;
 
             // Calculate Movement bonus
-            if (player.isSitting()) mpRegenMultiplier *= 2.5;      // Sitting.
-            else if (!player.isRunning()) mpRegenMultiplier *= 1.5; // Not running
-            else if (!player.isMoving()) mpRegenMultiplier *= 1.1; // Staying
-            else if (player.isRunning()) mpRegenMultiplier *= 0.7; // Running
+            if (player.isSitting()) init *= 2.5;      // Sitting.
+            else if (!player.isRunning()) init *= 1.5; // Not running
+            else if (!player.isMoving()) init *= 1.1; // Staying
+            else if (player.isRunning()) init *= 0.7; // Running
 
             // Add MEN bonus
             init *= cha.getLevelMod() * MENbonus[cha.getMEN()];
@@ -953,14 +953,14 @@ public final class Formulas
            init += (player.getLevel() > 10) ? ((player.getLevel()-1)/10) : 0.5;
            
            // Calculate Movement bonus
-           if (player.isSitting()) cpRegenMultiplier *= 1.5;      // Sitting
-           else if (!player.isMoving()) cpRegenMultiplier *= 1.1; // Staying
-           else if (player.isRunning()) cpRegenMultiplier *= 0.7; // Running
+           if (player.isSitting()) init *= 1.5;      // Sitting
+           else if (!player.isMoving()) init *= 1.1; // Staying
+           else if (player.isRunning()) init *= 0.7; // Running
         } else
         {
            // Calculate Movement bonus
-           if (!cha.isMoving()) cpRegenMultiplier *= 1.1; // Staying
-           else if (cha.isRunning()) cpRegenMultiplier *= 0.7; // Running
+           if (!cha.isMoving()) init *= 1.1; // Staying
+           else if (cha.isRunning()) init *= 0.7; // Running
         }
         
         // Apply CON bonus

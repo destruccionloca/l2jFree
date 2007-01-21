@@ -4829,7 +4829,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public double getLevelMod()
     {
-        return (100.0 - 11 + getLevel()) / 100.0;
+        return (89 + getLevel()) / 100.0;
     }
 
     /**

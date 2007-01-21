@@ -22,6 +22,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
+import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -341,13 +342,13 @@ public class Shutdown extends Thread
         switch (shutdownMode)
         {
             case SIGTERM:
-                System.err.println("SIGTERM received. Shutting down NOW!");
+                _log.info("SIGTERM received. Shutting down NOW!");
                 break;
             case GM_SHUTDOWN:
-                System.err.println("GM shutdown received. Shutting down NOW!");
+                _log.info("GM shutdown received. Shutting down NOW!");
                 break;
             case GM_RESTART:
-                System.err.println("GM restart received. Restarting NOW!");
+                _log.info("GM restart received. Restarting NOW!");
                 break;
                     
         }
@@ -372,7 +373,7 @@ public class Shutdown extends Thread
         
         // Save all raidboss status ^_^
         RaidBossSpawnManager.getInstance().cleanUp();
-        System.err.println("RaidBossSpawnManager: All raidboss info saved!!");
+        _log.info("RaidBossSpawnManager: All raidboss info saved!!");
 
         try
         {
@@ -382,7 +383,13 @@ public class Shutdown extends Thread
         catch(Exception e){_log.error(e.getMessage(),e);}
 
         // Save Cursed Weapons data before closing.
-        CursedWeaponsManager.getInstance().saveData();        
+        CursedWeaponsManager.getInstance().saveData();    
+        // Save items on ground before closing
+        if(Config.SAVE_DROPPED_ITEM){
+            ItemsOnGroundManager.getInstance().saveInDb();        
+            ItemsOnGroundManager.getInstance().cleanUp();
+            _log.info("ItemsOnGroundManager: All items on ground saved!!");
+        }
         _log.info("Data saved. All players disconnected, shutting down.");
         
         try {
@@ -410,9 +417,6 @@ public class Shutdown extends Thread
                 // inform client, that it has been logged out
                 player.sendPacket(new LeaveWorld());
 
-                // inform client, that it has been logged out
-                player.sendPacket(new LeaveWorld());
-                
                 // make shure to save ALL data
                 player.deleteMe();
             } catch (Throwable t)   {}
