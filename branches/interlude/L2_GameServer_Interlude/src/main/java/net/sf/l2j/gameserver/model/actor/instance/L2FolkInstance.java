@@ -19,12 +19,12 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 public class L2FolkInstance extends L2NpcInstance 
 {
 	//private final static Log _log = LogFactory.getLog(L2FolkInstance.class.getName());
-    private final FastList<ClassId> _classesToTeach = new FastList<ClassId>();
+    private FastList<ClassId> _classesToTeach;
 
     public L2FolkInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-        _classesToTeach.addAll(template.getTeachInfo());
+        _classesToTeach = template.getTeachInfo();
     }
 
     /**
