@@ -538,6 +538,32 @@ public final class ClientThread
         }
         return _accountName;
     }
+
+    public String getAccountName(String character)
+    {
+        java.sql.Connection con = null;
+        String _accountName="";
+        try
+        {
+            // Retrieve the account name from characters table of the database
+            con = L2DatabaseFactory.getInstance().getConnection();
+            
+            PreparedStatement statement = con.prepareStatement("SELECT account_name FROM characters WHERE char_name=?");
+            statement.setString(1, character);
+            ResultSet rset = statement.executeQuery();
+            if(rset.next())
+                _accountName=rset.getString("account_name");
+        }
+        catch (Exception e)
+        {
+            _log.warn("Could not restore char account name: " + e);
+        }
+        finally
+        {
+            try { con.close(); } catch (Exception e) {}
+        }
+        return _accountName;
+    }
     
     /**
      * @return Returns the isAuthed.

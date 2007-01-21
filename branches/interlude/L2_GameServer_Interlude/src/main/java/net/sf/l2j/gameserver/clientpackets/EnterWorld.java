@@ -120,7 +120,16 @@ public class EnterWorld extends ClientBasePacket
 					_log.warn("User already exist in OID map! User "+activeChar.getName()+" is character clone"); 
                 //activeChar.closeNetConnection(); 
         }
-	 	
+		if(getClient().getLoginName()!=getClient().getAccountName(activeChar.getName()))
+        {
+            _log.fatal("Possible Hacker Account:"+getClient().getLoginName()+" tried to login with char: "+activeChar.getName());
+            activeChar.closeNetConnection();
+        }
+        if(!getClient().isAuthed())
+        {
+            _log.fatal("Possible Hacker Account:"+getClient().getLoginName()+" is not authed");
+            activeChar.closeNetConnection();
+        }
         if (activeChar.isGM())
         {
             if (Config.SHOW_GM_LOGIN) 
