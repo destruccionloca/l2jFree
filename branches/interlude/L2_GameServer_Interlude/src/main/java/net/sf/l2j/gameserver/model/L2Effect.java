@@ -131,10 +131,10 @@ public abstract class L2Effect
 	{	
 		protected final int delay;
 		protected final int rate;
-		EffectTask(int delay, int rate)
+		EffectTask(int _delay, int _rate)
 		{
-			this.delay = delay;
-			this.rate = rate;
+			this.delay = _delay;
+			this.rate = _rate;
 		}
 		public void run()
 		{
