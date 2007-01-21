@@ -389,10 +389,10 @@ public class NpcTable
             if (old.getDropData() != null)
                 categories.addAll(old.getDropData());
             
-            ClassId[] classIds = null;
+            FastList<ClassId> classIds = new FastList<ClassId>();
             
             if (old.getTeachInfo() != null)
-                classIds=old.getTeachInfo().clone();
+                classIds.addAll(old.getTeachInfo());
             
             FastList<L2MinionData> minions = new FastList<L2MinionData>();
             

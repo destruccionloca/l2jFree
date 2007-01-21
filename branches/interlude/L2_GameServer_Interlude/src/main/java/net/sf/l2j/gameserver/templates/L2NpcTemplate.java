@@ -135,11 +135,9 @@ public final class L2NpcTemplate extends L2CharTemplate
         _teachInfo.add(classId);
     }
     
-    public ClassId[] getTeachInfo()
+    public FastList<ClassId> getTeachInfo()
     {
-        if (_teachInfo == null)
-            return null;
-        return _teachInfo.toArray(new ClassId[_teachInfo.size()]);
+        return _teachInfo;
     }
     
     public boolean canTeach(ClassId classId)

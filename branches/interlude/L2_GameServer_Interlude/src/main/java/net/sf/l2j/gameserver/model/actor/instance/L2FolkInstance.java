@@ -1,6 +1,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import javolution.text.TextBuilder;
+import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.SkillTreeTable;
@@ -18,12 +19,12 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 public class L2FolkInstance extends L2NpcInstance 
 {
 	//private final static Log _log = LogFactory.getLog(L2FolkInstance.class.getName());
-    private final ClassId[] _classesToTeach;
+    private final FastList<ClassId> _classesToTeach = new FastList<ClassId>();
 
     public L2FolkInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-        _classesToTeach = template.getTeachInfo();
+        _classesToTeach.addAll(template.getTeachInfo());
     }
 
     /**
