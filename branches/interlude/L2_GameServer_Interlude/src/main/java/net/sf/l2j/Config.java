@@ -1370,7 +1370,7 @@ public final class Config {
                 NPC_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("NPCHpRegenMultiplier", "100")) /100;
                 NPC_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("NPCMpRegenMultiplier", "100")) /100;
                 
-                PLAYER_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerRegenMultiplier", "100")) /100;
+                PLAYER_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerHpRegenMultiplier", "100")) /100;
                 PLAYER_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerMpRegenMultiplier", "100")) /100;
                 PLAYER_CP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerCpRegenMultiplier", "100")) /100;
                 
