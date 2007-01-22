@@ -34,6 +34,7 @@ import java.util.Set;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.L2MinionData;
@@ -229,6 +230,9 @@ public class MinionList
         L2MinionInstance monster = new L2MinionInstance(IdFactory.getInstance().getNextId(),
                                                         minionTemplate);
 
+        if(Config.CHAMPION_MINIONS && master.isChampion())
+            monster.setChampion(true);
+        
         // Set the Minion HP, MP and Heading
         monster.setCurrentHpMp(monster.getMaxHp(), monster.getMaxMp());
         monster.setHeading(master.getHeading());

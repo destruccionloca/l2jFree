@@ -33,8 +33,10 @@ import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2SiegeGuardAI;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.actor.instance.L2ChestInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MinionInstance;
@@ -619,20 +621,20 @@ public class L2Attackable extends L2NpcInstance
                             L2PcInstance player = (L2PcInstance)attacker;
                             if (isOverhit() && attacker == getOverhitAttacker())
                             {
-                                player.sendPacket(new SystemMessage(SystemMessage.OVER_HIT));
-                                exp += calculateOverhitExp(exp);
+                                int overHitExp = (int)calculateOverhitExp(exp);
+                                SystemMessage sms = new SystemMessage(SystemMessage.ACQUIRED_BONUS_EXPERIENCE_THROUGH_OVER_HIT);
+                                sms.addNumber(overHitExp);
+                                player.sendPacket(sms);
+                                exp += overHitExp;
                             }
                         }
                         
                         // Distribute the Exp and SP between the L2PcInstance and its L2Summon
                         if (this.isChampion()) {
-                            attacker.addExpAndSp(Math.round(Config.CHAMPION_REWARDS * attacker.calcStat(Stats.EXPSP_RATE, exp, null, null)),
-                                                 (int)(Config.CHAMPION_REWARDS * attacker.calcStat(Stats.EXPSP_RATE, sp, null, null)));
+                            exp *= Config.CHAMPION_EXP_SP;
+                            sp *= Config.CHAMPION_EXP_SP;
                         }
-                        else {
-                            attacker.addExpAndSp(Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null)), 
-                                                 (int)attacker.calcStat(Stats.EXPSP_RATE, sp, null, null));
-                        }
+                        attacker.addExpAndSp(Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null)),(int)attacker.calcStat(Stats.EXPSP_RATE, sp, null, null));
                     }
                 }
                 else
@@ -2068,16 +2070,6 @@ public class L2Attackable extends L2NpcInstance
         resetAbsorbList();
         
         setWalking();
-
-        // setting up champion mobs
-        if (( this instanceof L2MonsterInstance )&&(Config.CHAMPION_FREQUENCY > 0)) {
-            if (Rnd.get(100000) <= Config.CHAMPION_FREQUENCY) {
-                this.setChampion(true);
-            }
-        }
-        else {
-            this.setChampion(false);
-        }
 
         // check the region where this mob is, do not activate the AI if region is inactive.
         if (!isInActiveRegion())

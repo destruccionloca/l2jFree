@@ -25,7 +25,10 @@ import net.sf.l2j.gameserver.Territory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -466,6 +469,22 @@ public class L2Spawn
         {
             if(f != null)
                 mob.removeEffect(f);
+        }
+        
+        // setting up champion mobs
+        if ( (((mob instanceof L2MonsterInstance) && !((mob instanceof L2BossInstance) || (mob instanceof L2RaidBossInstance))) || ( ((mob instanceof L2BossInstance) || (mob instanceof L2RaidBossInstance))) && Config.CHAMPION_BOSS ) && (Config.CHAMPION_FREQUENCY > 0) && (mob.getLevel() >= Config.CHAMPION_LEVEL) )
+        {
+            if (Rnd.get(100000) <= Config.CHAMPION_FREQUENCY)
+            {
+                mob.setChampion(true);
+                //String msg = "Spawning Champion: "+mob.getTemplate().name+" ["+mob.getNpcId()+"] "+mob.getLevel()+" lvl at ("+newlocx+","+newlocy+","+newlocz+")";
+                //_log.info(msg);
+                //GmListTable.broadcastMessageToGMs(msg);
+            }
+        }
+        else
+        {
+            mob.setChampion(false);
         }
         
         // Set the HP and MP of the L2NpcInstance to the max

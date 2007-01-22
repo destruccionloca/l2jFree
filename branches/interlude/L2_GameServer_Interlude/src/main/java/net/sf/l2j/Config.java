@@ -212,8 +212,16 @@ public final class Config {
     public static int CHAMPION_FREQUENCY;
     /** Hp multiplier */
     public static int CHAMPION_HP;
-    /** Rewards multiplier */
+    /** Drop/Spoil rewards multiplier */
     public static int CHAMPION_REWARDS;
+    /** Exp/Sp rewards multiplier */
+    public static int CHAMPION_EXP_SP;
+    /** Boss is champion */
+    public static boolean CHAMPION_BOSS;
+    /** Champion min level */
+    public static int CHAMPION_LEVEL;
+    /** set Minions to champions when leader champion */
+    public static boolean CHAMPION_MINIONS;
 
     /** Alternative gameing - loss of XP on death */
     public static boolean ALT_GAME_DELEVEL;
@@ -476,8 +484,6 @@ public final class Config {
     public static float   RATE_DROP_QUEST;
     public static float   RATE_KARMA_EXP_LOST;	
     public static float   RATE_SIEGE_GUARDS_PRICE;	
-    /** Rate of boxes spawn */
-    public static int     RATE_BOX_SPAWN;
     /*Alternative Xp/Sp rewards, if not 0, then calculated as 2^((mob.level-player.level) / coef)*/
     public static float   ALT_GAME_EXPONENT_XP;
     public static float   ALT_GAME_EXPONENT_SP;
@@ -1369,7 +1375,7 @@ public final class Config {
                 /* if different from 100 (ie 100%) heal rate is modified acordingly */
                 NPC_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("NPCHpRegenMultiplier", "100")) /100;
                 NPC_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("NPCMpRegenMultiplier", "100")) /100;
-                
+
                 PLAYER_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerHpRegenMultiplier", "100")) /100;
                 PLAYER_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerMpRegenMultiplier", "100")) /100;
                 PLAYER_CP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerCpRegenMultiplier", "100")) /100;
@@ -1460,7 +1466,6 @@ public final class Config {
                 RATE_CRAFT_COST                 = Float.parseFloat(ratesSettings.getProperty("RateCraftCost","1."));
                 RATE_DROP_ITEMS                 = Float.parseFloat(ratesSettings.getProperty("RateDropItems", "1."));
                 RATE_DROP_SPOIL                 = Float.parseFloat(ratesSettings.getProperty("RateDropSpoil", "1."));
-                RATE_BOX_SPAWN                  = Integer.parseInt(ratesSettings.getProperty("RateBoxSpawn","20"));
                 RATE_DROP_QUEST                 = Float.parseFloat(ratesSettings.getProperty("RateDropQuest", "1."));
                 RATE_KARMA_EXP_LOST             = Float.parseFloat(ratesSettings.getProperty("RateKarmaExpLost", "1."));    
                 RATE_SIEGE_GUARDS_PRICE         = Float.parseFloat(ratesSettings.getProperty("RateSiegeGuardsPrice", "1."));
@@ -1596,6 +1601,10 @@ public final class Config {
                 CHAMPION_FREQUENCY      = Integer.parseInt(altSettings.getProperty("ChampionFrequency", "0"));
                 CHAMPION_HP             = Integer.parseInt(altSettings.getProperty("ChampionHp", "7"));
                 CHAMPION_REWARDS        = Integer.parseInt(altSettings.getProperty("ChampionRewards", "8"));
+                CHAMPION_EXP_SP        = Integer.parseInt(altSettings.getProperty("ChampionExpSP", "8"));
+                CHAMPION_BOSS           = Boolean.parseBoolean(altSettings.getProperty("ChampionBoss", "false"));
+                CHAMPION_LEVEL        = Integer.parseInt(altSettings.getProperty("ChampionMinLevel", "1"));
+                CHAMPION_MINIONS           = Boolean.parseBoolean(altSettings.getProperty("ChampionMinions", "false"));
 	            ENABLE_RATE_HP          = Boolean.parseBoolean(altSettings.getProperty("EnableRateHp", "false"));
 	            IS_CRAFTING_ENABLED     = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
 	            SP_BOOK_NEEDED          = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
@@ -1957,7 +1966,6 @@ public final class Config {
         else if (pName.equalsIgnoreCase("RateConsumableCost")) RATE_CONSUMABLE_COST = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("RateDropItems")) RATE_DROP_ITEMS = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("RateDropSpoil")) RATE_DROP_SPOIL = Float.parseFloat(pValue);
-        else if (pName.equalsIgnoreCase("RateBoxSpawn")) RATE_BOX_SPAWN = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("RateDropQuest")) RATE_DROP_QUEST = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("RateKarmaExpLost")) RATE_KARMA_EXP_LOST = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("RateSiegeGuardsPrice")) RATE_SIEGE_GUARDS_PRICE = Float.parseFloat(pValue);
@@ -1986,6 +1994,10 @@ public final class Config {
         else if (pName.equalsIgnoreCase("ChampionFrequency")) CHAMPION_FREQUENCY = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("ChampionHp")) CHAMPION_HP = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("ChampionRewards")) CHAMPION_REWARDS = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("ChampionExpSp")) CHAMPION_EXP_SP = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("ChampionBoss")) CHAMPION_BOSS = Boolean.valueOf(pValue);
+        else if (pName.equalsIgnoreCase("ChampionMinLevel")) CHAMPION_LEVEL = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("ChampionMinions")) CHAMPION_MINIONS = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AllowFreight")) ALLOW_FREIGHT = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AllowWarehouse")) ALLOW_WAREHOUSE = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AllowWear")) ALLOW_WEAR = Boolean.valueOf(pValue);
