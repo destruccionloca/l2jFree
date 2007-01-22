@@ -5208,8 +5208,11 @@ public final class L2PcInstance extends L2PlayableInstance
                 {
                     if (player.getClan().getLeaderId() != player.getObjectId())
                         player.setClanPrivileges(player.getClan().getRankPrivs(player.getRank()));
+                    else 
+                        player.setClanPrivileges(L2Clan.CP_ALL);
                 }
-                else player.setClanPrivileges(0);
+                else player.setClanPrivileges(L2Clan.CP_NOTHING);
+                
                 player.setAccademyLvl(rset.getInt("accademy_lvl"));
 
                 // Add the L2PcInstance object in _allObjects

@@ -174,13 +174,15 @@ public class EnterWorld extends ClientBasePacket
             
             if (Config.GM_STARTUP_AUTO_LIST)
                 GmListTable.getInstance().addGm(activeChar);
-        } else {
-            if(activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
+        }
+            if(activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
+            {
                 if(Config.CLAN_LEADER_COLORED == Config.ClanLeaderColored.name)
                     activeChar.setNameColor(Config.CLAN_LEADER_COLOR);
                 else
                     activeChar.setTitleColor(Config.CLAN_LEADER_COLOR);
-        }
+            }
+        
         
         if (Config.PLAYER_SPAWN_PROTECTION > 0)
             activeChar.setProtection(true);
@@ -351,9 +353,11 @@ public class EnterWorld extends ClientBasePacket
 
         if (activeChar.getClanId() != 0 && activeChar.getClan() != null)
         {
-	        	sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
-	        	sendPacket(new PledgeStatusChanged(activeChar.getClan()));
-                sendPacket(new PledgeReceivePowerInfo(activeChar));
+            if(activeChar.isClanLeader()) 
+                activeChar.setClanPrivileges(L2Clan.CP_ALL);
+            sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
+            sendPacket(new PledgeStatusChanged(activeChar.getClan()));
+            sendPacket(new PledgeReceivePowerInfo(activeChar));
     	}
 	
 		if (activeChar.isAlikeDead())
@@ -512,10 +516,6 @@ public class EnterWorld extends ClientBasePacket
 			clan.getClanMember(activeChar.getName()).setPlayerInstance(activeChar);
 			SystemMessage msg = new SystemMessage(SystemMessage.CLAN_MEMBER_S1_LOGGED_IN);
 			msg.addString(activeChar.getName());
-
-            if(activeChar.isClanLeader()) 
-                activeChar.setClanPrivileges(L2Clan.CP_ALL);
-
 			L2PcInstance[] clanMembers = clan.getOnlineMembers(activeChar.getName());
             PledgeShowMemberListUpdate ps = new PledgeShowMemberListUpdate(activeChar);
 			for (int i = 0; i < clanMembers.length; i++)
