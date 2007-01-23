@@ -28,6 +28,7 @@ package net.sf.l2j.gameserver;
 import java.io.File;
 import java.util.Scanner;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ExtractableItem;
 import net.sf.l2j.gameserver.model.L2ExtractableProductItem;
 
@@ -57,11 +58,11 @@ public class ExtractableItemsData
 
         try
         {
-            s = new Scanner(new File("./data/extractable_items.csv"));
+            s = new Scanner(new File(Config.DATAPACK_ROOT,"/data/extractable_items.csv"));
         }
         catch (Exception e)
         {
-            System.out.println("Extractable items data: Can not find './data/extractable_items.csv'");
+            System.out.println("Extractable items data: Can not find 'DATAPACK_ROOT/data/extractable_items.csv'");
             return;
         }
         
