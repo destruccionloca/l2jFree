@@ -78,6 +78,11 @@ public class AuthLogin extends ClientBasePacket
 		ClientThread client = getClient();
         //This packet could be send again (by stupid cheaters) - so GS should wait till LS will confirm again
         client.setAuthed(false);
+        if ( client.getLoginName() != null && ! client.getLoginName().equalsIgnoreCase(_loginName) )
+        {
+            _log.fatal("Possible Hacker Account:"+getClient().getLoginName()+" tried to login with account: "+_loginName);
+            getClient().getConnection().close();
+        }
 		client.setLoginName(_loginName);
 		LoginServerThread.getInstance().addGameServerLogin(_loginName,getConnection());
 		
