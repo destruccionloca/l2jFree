@@ -27,6 +27,8 @@ package net.sf.l2j.gameserver;
 
 import java.io.File;
 import java.util.Scanner;
+
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2SummonItem;
 
 import javolution.util.FastMap;
@@ -53,7 +55,7 @@ public class SummonItemsData
 
         try
         {
-            s = new Scanner(new File("./data/summon_items.csv"));
+            s = new Scanner(new File(Config.DATAPACK_ROOT, "data/summon_items.csv")); 
         }
         catch (Exception e)
         {
