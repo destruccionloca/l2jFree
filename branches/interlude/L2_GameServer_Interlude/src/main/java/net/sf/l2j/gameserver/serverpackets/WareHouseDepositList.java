@@ -81,7 +81,13 @@ public class WareHouseDepositList extends ServerBasePacket
 			writeH(item.getEnchantLevel());	// enchant level -confirmed
 			writeH(0x00);	// ? 300
 			writeH(0x00);	// ? 200
-			writeD(item.getObjectId()); // item id - confimed			
+			writeD(item.getObjectId()); // item id - confimed
+            if (getClient().getRevision() >= 729) // chaotic throne
+            {
+                writeH(0);
+                writeH(0);
+                writeD(0);
+            }
 		}
 	}
 	
