@@ -37,7 +37,6 @@ public class PlayerAuthResponse extends LoginServerBasePacket
 		
 		_account = readS();
 		_Authed = (readC() == 0 ? false : true);
-        _Authed = true;
 	}
 
 	/**
