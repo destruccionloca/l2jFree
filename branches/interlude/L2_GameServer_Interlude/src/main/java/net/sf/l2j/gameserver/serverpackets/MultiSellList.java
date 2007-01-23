@@ -112,12 +112,6 @@ public class MultiSellList extends ServerBasePacket
         writeD(1);          // ?
         writeD(1);          // ?
         writeD(0x1c);       // ?
-        if (getClient().getRevision() >= 729) // chaotic throne
-        {
-            writeH(0);
-            writeH(0);
-            writeD(0);
-        }
         writeD(_list == null ? 0 : _list.getEntries().size()); //list lenght
         
         if(_list != null)
@@ -125,6 +119,11 @@ public class MultiSellList extends ServerBasePacket
             for(MultiSellEntry ent : _list.getEntries())
             {
                 writeD(ent.getEntryId());
+                if (getClient().getRevision() >= 729) // chaotic throne
+                {
+                    writeH(0);
+                    writeH(0);
+                }
                 writeC(1);
                 writeH(ent.getProducts().size());
                 writeH(ent.getIngredients().size());
@@ -137,6 +136,11 @@ public class MultiSellList extends ServerBasePacket
                     writeH(typeE);
                     writeD(i.getItemCount());   //Count
                     writeH(i.getItemEnchant()); //Enchant Level
+                    if (getClient().getRevision() >= 729) // chaotic throne
+                    {
+                        writeD(0);
+                        writeD(0);
+                    }
                 }
 
                 for(MultiSellIngredient i : ent.getIngredients())
@@ -146,6 +150,11 @@ public class MultiSellList extends ServerBasePacket
                     writeH(typeE);
                     writeD(i.getItemCount());   //Count
                     writeH(i.getItemEnchant()); //Enchant Level
+                    if (getClient().getRevision() >= 729) // chaotic throne
+                    {
+                        writeD(0);
+                        writeD(0);
+                    }
                 }
             }
         }
