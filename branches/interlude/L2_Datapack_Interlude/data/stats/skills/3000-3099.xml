@@ -529,7 +529,7 @@
   Descriptions:
    Increases ATK Spd.
 -->
-  <table name="#val"> 8 7 7 7 6 6</table>
+  <table name="#val">1.08 1.07 1.07 1.07 1.06 1.06</table> 
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>

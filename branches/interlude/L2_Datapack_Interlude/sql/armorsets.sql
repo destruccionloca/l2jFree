@@ -13,13 +13,13 @@ CREATE TABLE armorsets (
  PRIMARY KEY (id,chest)
 ) TYPE=MyISAM;
 
---------------------------------                 NO GRADE              -------------------------------------------
+-- ------------------------------                 NO GRADE              -------------------------------------------
 -- ######################## id chest  legs head gloves feet    skill  shield sh_skill enchant6
 INSERT INTO armorsets VALUES(1,  23,   2386, 43,   0,    0,      3500,   0,    0,    0);        -- Wooden Breastplate set (heavy)
 INSERT INTO armorsets VALUES(2,  1101, 1104, 44,   0,    0,      3501,   0,    0,    0);        -- Devotion robe set (robe)
 
 
---------------------------------                 D GRADE              -------------------------------------------
+-- ------------------------------                 D GRADE              -------------------------------------------
 -- ######################## id chest  legs head gloves feet    skill  shield sh_skill enchant6
 INSERT INTO armorsets VALUES(3,  58,   59,   47,   0,    0,      3502,   628,  3543,  3611);    -- Mithril Breastplate set(heavy)
 INSERT INTO armorsets VALUES(4,  352,  2378, 2411, 0,    0,      3506,   2493, 3544,  3611);    -- Brigandine Armor set
@@ -30,7 +30,7 @@ INSERT INTO armorsets VALUES(6,  395,  417,  0,    0,    2424,   3505,   0,    0
 INSERT INTO armorsets VALUES(7,  436,  469,  0,    2447, 0,      3504,   0,    0,     3613);    -- Tunic of knowledge set
 INSERT INTO armorsets VALUES(8,  437,  470,  0,    2450, 0,      3507,   0,    0,     3613);    -- Mithril Tunic
 
---------------------------------                 C GRADE              -------------------------------------------
+-- ------------------------------                 C GRADE              -------------------------------------------
 -- ######################## id chest  legs head gloves feet    skill  shield sh_skill enchant6
 INSERT INTO armorsets VALUES(9,  354,  381,  2413, 0,    0,      3509,   2495, 3545,  3614);    -- Chain Mail Shirt set
 INSERT INTO armorsets VALUES(10, 60,   0,    517,  0,    0,      3512,   107,  3546,  3614);    -- Composite Armor set
@@ -45,7 +45,7 @@ INSERT INTO armorsets VALUES(16, 439,  471,  0,    2454, 0,      3510,   0,    0
 INSERT INTO armorsets VALUES(17, 441,  472,  0,    2459, 0,      3513,   0,    0,     3616);    -- Demon robe set
 INSERT INTO armorsets VALUES(18, 442,  473,  0,    2463, 0,      3517,   0,    0,     3616);    -- Divine robe set
 
---------------------------------                 B GRADE              -------------------------------------------
+-- ------------------------------                 B GRADE              -------------------------------------------
 -- ######################## id chest  legs head gloves feet    skill  shield sh_skill enchant6
 INSERT INTO armorsets VALUES(19, 357,  383,  503,  5710, 5726,   3518,   0,    0,     3617);    -- Zubei's Breastplate set
 INSERT INTO armorsets VALUES(20, 2384, 2388, 503,  5711, 5727,   3520,   0,    0,     3618);    -- Zubei's leather set
@@ -63,7 +63,7 @@ INSERT INTO armorsets VALUES(28, 2381, 0,    2417, 5722, 5738,   3525,   110,  3
 INSERT INTO armorsets VALUES(29, 2392, 0,    2417, 5723, 5739,   3527,   0,    0,     3618);    -- Doom leather set
 INSERT INTO armorsets VALUES(30, 2399, 2404, 2417, 5724, 5740,   3529,   0,    0,     3619);    -- Doom robe set 
 
---------------------------------                 A GRADE              -------------------------------------------
+-- ------------------------------                 A GRADE              -------------------------------------------
 -- ######################## id chest  legs head gloves feet    skill  shield sh_skill enchant6
 INSERT INTO armorsets VALUES(31, 365,  388,  512,  5765, 5777,   3530,   641,  3550,  3620);    -- Dark Crystal Breastplate set
 INSERT INTO armorsets VALUES(32, 2385, 2389, 512,  5766, 5778,   3532,   0,    0,     3621);    -- Dark Crystal leather set
@@ -81,13 +81,13 @@ INSERT INTO armorsets VALUES(40, 2383, 0,    2419, 5774, 5786,   3537,   0,    0
 INSERT INTO armorsets VALUES(41, 2395, 0,    2419, 5775, 5787,   3539,   0,    0,     3621);    -- Majestic leather set
 INSERT INTO armorsets VALUES(42, 2409, 0,    2419, 5776, 5788,   3541,   0,    0,     3622);    -- Majestic robe set
 
---------------------------------                 S GRADE              -------------------------------------------
+-- ------------------------------                 S GRADE              -------------------------------------------
 -- ######################## id chest  legs head gloves feet    skill  shield sh_skill enchant6
 INSERT INTO armorsets VALUES(43, 6373, 6374, 6378, 6375, 6376,   3553,   6377, 3554,  3623);    -- Imperial crusader set
 INSERT INTO armorsets VALUES(44, 6379, 0,    6382, 6380, 6381,   3555,   0,    0,     3624);    -- Draconic leather set
 INSERT INTO armorsets VALUES(45, 6383, 0,    6386, 6384, 6385,   3556,   0,    0,     3625);    -- Major arcana robe set
 
---------------------------------                Clan Sets              -------------------------------------------
+-- ------------------------------                Clan Sets              -------------------------------------------
 -- ######################## id chest  legs head gloves feet    skill  shield sh_skill enchant6
 INSERT INTO armorsets VALUES(46, 7851, 0,    7850, 7852, 7853,   3605,   0,    0,     3611);    -- Clan oath Armor set (heavy)
 INSERT INTO armorsets VALUES(47, 7854, 0,    7850, 7855, 7856,   3606,   0,    0,     3612);    -- Clan Oath Brigandine set (light)
