@@ -121,8 +121,8 @@ public class MultiSellList extends ServerBasePacket
                 writeD(ent.getEntryId());
                 if (getClient().getRevision() >= 729) // chaotic throne
                 {
-                    writeH(0);
-                    writeH(0);
+                    writeD(0);
+                    writeD(0);
                 }
                 writeC(1);
                 writeH(ent.getProducts().size());

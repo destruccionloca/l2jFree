@@ -49,13 +49,16 @@ public class AuditFormatter extends Formatter
         output.append(']');
         output.append(' ');
         output.append(record.getMessage());
-        for (Object p : record.getParameters())
-        {
-            if (p == null) continue;
-            output.append(',');
-            output.append(' ');
-            output.append(p.toString());
+        Object[] params = record.getParameters();
+        if (params != null) {
+            for (Object p : params) {
+                if (p == null) continue;
+                output.append(',');
+                output.append(' ');
+                output.append(p.toString());
+            }
         }
+        
         output.append(CRLF);
 
         return output.toString();

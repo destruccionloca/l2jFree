@@ -134,7 +134,8 @@ public final class L2WarehouseInstance extends L2FolkInstance
         }
         else
         {
-            _log.warn("no items stored");
+            if(_log.isDebugEnabled())
+                _log.warn("no items stored");
         }
     }
 
