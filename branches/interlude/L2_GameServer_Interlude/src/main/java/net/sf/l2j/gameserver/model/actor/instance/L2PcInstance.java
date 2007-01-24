@@ -633,6 +633,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _engageid = 0;
     private boolean _maryrequest = false;
     private boolean _maryaccepted = false;
+    
+    private int _isDuelling = 0;
 
     /* Flag to disable equipment/skills while wearing formal wear **/
     private boolean _IsWearingFormalWear = false;
@@ -9630,6 +9632,17 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
+    public int isDuelling()
+    {
+        return _isDuelling;
+    }
+    public void setDuelling(int duelling)
+    {
+        _isDuelling = duelling;
+    }
+
+
+    
     public boolean isInJail()
     {
         return _inJail;

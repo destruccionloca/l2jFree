@@ -21,10 +21,9 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.gameserver.ClientThread;
-import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.AskJoinParty;
+import net.sf.l2j.gameserver.serverpackets.ExDuelAskStart;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -41,20 +40,20 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.7.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestJoinParty extends ClientBasePacket
+public class RequestDuelStart extends ClientBasePacket
 {
-	private static final String _C__29_REQUESTJOINPARTY = "[C] 29 RequestJoinParty";
+	private static final String _C__29_REQUESTJOINPARTY = "[C] 29 RequestDuelStart";
 	private final static Log _log = LogFactory.getLog(RequestJoinParty.class.getName());
 	
 	private final String _name;
-	private final int _itemDistribution;
+	private final int _duelType;
 
-    public RequestJoinParty(ByteBuffer buf, ClientThread client)
+    public RequestDuelStart(ByteBuffer buf, ClientThread client)
 	{
 		super(buf, client);
 
         _name = readS();
-        _itemDistribution = readD();
+        _duelType = readD();
 	}
 
 	void runImpl()
@@ -73,25 +72,23 @@ public class RequestJoinParty extends ClientBasePacket
         
         if (target.isCursedWeaponEquiped() || requestor.isCursedWeaponEquiped())
         {
-            requestor.sendMessage("A player wielding a Cursed Weapon can't participate in a party");
+            requestor.sendMessage("A player wielding a Cursed Weapon can't participate in a duel");
             return;
         }
-
-        if (target.isDuelling()>0 || requestor.isDuelling()>0)
-        {
-            requestor.sendMessage("A player wielding a already in a duel can't participate in a party");
-            return;
-        }
-
+        
         SystemMessage msg;
         
-		if (target.isInParty()) 
+		if (target.isDuelling() >0 ) 
         {
-			msg = new SystemMessage(SystemMessage.S1_IS_ALREADY_IN_PARTY);
-			msg.addString(target.getName());
-			requestor.sendPacket(msg);
+			requestor.sendMessage("That player is already duelling");
 			return;
 		}
+        
+        if (requestor.isDuelling()>0)
+        {
+            requestor.sendMessage("You are already duelling");
+            return;
+        }
 
 		if (target == requestor) 
         {
@@ -104,86 +101,56 @@ public class RequestJoinParty extends ClientBasePacket
         if (target.isInOlympiadMode() || requestor.isInOlympiadMode())
             return;        
         
-		if (!requestor.isInParty())
+		/*if (!requestor.isInParty())
             //asker has no party
 			createNewParty(target, requestor);
 		else
             //asker has a party
-			addTargetToParty(target, requestor);
-	}
-	
-	/**
-	 * @param client
-	 * @param itemDistribution
-	 * @param target
-	 * @param requestor
-	 */
-	private void addTargetToParty(L2PcInstance target, L2PcInstance requestor)
-	{
-        SystemMessage msg;
-
-       // summary of ppl already in party and ppl that get invitation
-        if (requestor.getParty().getMemberCount() + requestor.getParty().getPendingInvitationNumber() >= 9 ) 
-        {
-			requestor.sendPacket(new SystemMessage(SystemMessage.PARTY_FULL));
-			return;
-		}
-		
-		if (!requestor.getParty().isLeader(requestor)) 
-        {
-			requestor.sendPacket(new SystemMessage(SystemMessage.ONLY_LEADER_CAN_INVITE));
-			return;
-		}
-		
-        if (!target.isProcessingRequest()) 
-		{
-           requestor.onTransactionRequest(target);
-           target.sendPacket(new AskJoinParty(requestor.getName(), _itemDistribution));
-           requestor.getParty().increasePendingInvitationNumber();
-           
-           if (_log.isDebugEnabled()) 
-               _log.debug("sent out a party invitation to:"+target.getName());
-           
-           msg = new SystemMessage(SystemMessage.YOU_INVITED_S1_TO_PARTY);
-           msg.addString(target.getName());
-           requestor.sendPacket(msg);
-		}
-		else
-		{
-           msg = new SystemMessage(SystemMessage.S1_IS_BUSY_TRY_LATER);
-           requestor.sendPacket(msg);
-           
-           if (_log.isDebugEnabled())
-               _log.warn(requestor.getName() + " already received a party invitation");
-		}
-        msg = null;
+			addTargetToParty(target, requestor);*/
+        createDuel(target, requestor);
 	}
 
 	/**
 	 * @param client
-	 * @param itemDistribution
+	 * @param duelType
 	 * @param target
 	 * @param requestor
 	 */
-	private void createNewParty(L2PcInstance target, L2PcInstance requestor)
+	private void createDuel(L2PcInstance target, L2PcInstance requestor)
 	{
        
        SystemMessage msg;
+       
+       if (_duelType>0 && (requestor.getParty()==null || target.getParty()==null))
+       {
+           requestor.sendMessage("You can't ask for a party duel if not both players are in one!");
+           return;
+       }
+       if (_duelType>0 && (!requestor.getParty().isLeader(requestor) || !target.getParty().isLeader(target)))
+       {
+           requestor.sendMessage("Only part leaders may start up a duel");
+           return;
+       }
+       if (_duelType>0 && (requestor.getParty().getMemberCount()-target.getParty().getMemberCount() < -3 || requestor.getParty().getMemberCount()-target.getParty().getMemberCount() >3)) //Not sure about this one, but it would make sense to me.
+       {
+           requestor.sendMessage("Your parties are too unequally matched to participate in a duel");
+           return;
+       }
+       if (_duelType==0 && (requestor.getParty()!=null || target.getParty()!=null))
+       {
+           requestor.sendMessage("You can't ask for a duel if one of the players is in a party!");
+           return;
+       }
 
        if (!target.isProcessingRequest())
         {           
-           requestor.setParty(new L2Party(requestor, _itemDistribution));
-           
            requestor.onTransactionRequest(target);
-           target.sendPacket(new AskJoinParty(requestor.getName(), _itemDistribution));
-           requestor.getParty().increasePendingInvitationNumber();
+           target.sendPacket(new ExDuelAskStart(requestor.getName(), _duelType));
            
            if (_log.isDebugEnabled())
-               _log.debug("sent out a party invitation to:"+target.getName());
+               _log.debug("sent out a duel invitation to:"+target.getName());
            
-           msg = new SystemMessage(SystemMessage.YOU_INVITED_S1_TO_PARTY);
-           msg.addString(target.getName());
-           requestor.sendPacket(msg);
+           requestor.sendMessage("Your invitation to duel was sent");
 		}
 		else
 		{
@@ -192,7 +159,7 @@ public class RequestJoinParty extends ClientBasePacket
            requestor.sendPacket(msg);
            
            if (_log.isDebugEnabled())
-               _log.warn(requestor.getName() + " already received a party invitation");
+               _log.warn(requestor.getName() + " already received a duel invitation");
 		}
 	}
 

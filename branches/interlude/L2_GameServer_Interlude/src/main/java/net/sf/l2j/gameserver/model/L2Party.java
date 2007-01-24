@@ -24,6 +24,7 @@ import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.SevenSignsFestival;
+import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
@@ -269,7 +270,9 @@ public class L2Party {
 			
 			if (player.isFestivalParticipant())
 				SevenSignsFestival.getInstance().updateParticipants(player, this);
-			
+            if (player.isDuelling()> 0)
+                player.setDuelling(0);
+            
 			SystemMessage msg = new SystemMessage(SystemMessage.YOU_LEFT_PARTY);
 			player.sendPacket(msg);
 			player.sendPacket(new PartySmallWindowDeleteAll());
@@ -283,6 +286,11 @@ public class L2Party {
 			if (getPartyMembers().size() == 1)
 			{
 				getPartyMembers().get(0).setParty(null);
+                if (getPartyMembers().get(0).isDuelling()>0)
+                {
+                    DuelManager.getInstance().endDuel(getPartyMembers().get(0).isDuelling(),true,getPartyMembers().get(0).getTeam());
+                    getPartyMembers().get(0).setDuelling(0);
+                }
 			}
 		}
 	}
@@ -296,7 +304,7 @@ public class L2Party {
 	{
 		L2PcInstance player = getPlayerByName(name);
 		
-		if (player != null)
+        if (player != null && player.isDuelling()==0)
 		{
 			if (getPartyMembers().contains(player))
 			{
@@ -351,6 +359,7 @@ public class L2Party {
             if (isLeader(player)) 
             {
 				removePartyMember(player);
+                DuelManager.getInstance().endDuel(player.isDuelling(),true, player.getTeam());
                 if (getPartyMembers().size() > 1)
                 {
     				SystemMessage msg = new SystemMessage(SystemMessage.S1_HAS_BECOME_A_PARTY_LEADER);
@@ -386,6 +395,7 @@ public class L2Party {
 			if (isLeader(player)) 
             {
 				removePartyMember(player);
+                DuelManager.getInstance().endDuel(player.isDuelling(),true, player.getTeam());
                 if (getPartyMembers().size() > 1)
                 {
                    SystemMessage msg = new SystemMessage(SystemMessage.S1_HAS_BECOME_A_PARTY_LEADER);

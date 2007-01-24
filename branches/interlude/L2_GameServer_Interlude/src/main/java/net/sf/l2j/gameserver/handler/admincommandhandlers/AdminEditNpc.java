@@ -195,7 +195,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
                     }
                     catch(Exception e)
                     {
-                        _log.fine("admin_edit_drop parements error: " + command);
+                        _log.info("admin_edit_drop parements error: " + command);
                     }
                 }
                 else
@@ -252,7 +252,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
                     }
                     catch(Exception e)
                     {
-                        _log.fine("admin_add_drop parements error: " + command);
+                        _log.info("admin_add_drop parements error: " + command);
                     }
                 }
                 else
@@ -802,7 +802,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         }
         catch(Exception e)
         {
-            _log.fine("save Npc data error");
+            _log.info("save Npc data error");
         }
         
 //      L2NpcTemplate template = new L2NpcTemplate(npcData);

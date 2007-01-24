@@ -6,6 +6,7 @@ import java.util.concurrent.Future;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -154,6 +155,16 @@ public class CharStatus
                     stopHpMpRegeneration();
                     return;
                 }
+                else if (((L2PcInstance)getActiveChar()).isDuelling()>0)
+                {
+                    getActiveChar().abortAttack();
+                    getActiveChar().abortCast();
+                    stopHpMpRegeneration();
+                    getActiveChar().setIsParalyzed(true); //Not sure if this is the way to stop players from fighting, but I think it'll do ;P
+                    DuelManager.getInstance().MaybeEndDuel((L2PcInstance)getActiveChar());
+                    return;
+                }
+
             }
             // killing is only possible one time
             synchronized (getActiveChar())
