@@ -297,18 +297,22 @@ public class DuelManager
     private int getDuelIndex(int id, boolean party)
     {
         Duel duel;
-        if (party)
+        if (party && _PartyDuels.size()>0)
+        {
             for (int i = 0; i < _PartyDuels.size(); i++)
             {
                 duel = _PartyDuels.get(i);
                 if (duel != null && duel.getId() == id) return i;
             }
+        }
         else
+        {
             for (int i = 0; i < _Duels.size(); i++)
             {
                 duel = _Duels.get(i);
                 if (duel != null && duel.getId() == id) return i;
-            } 
+            }
+        }
         return -1;
     }
 }

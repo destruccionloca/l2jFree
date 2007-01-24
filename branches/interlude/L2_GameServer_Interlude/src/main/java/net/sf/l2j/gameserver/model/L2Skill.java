@@ -1298,7 +1298,7 @@ public abstract class L2Skill
                 activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
                 return null;
             }
-            if (target instanceof L2Attackable && (skillType == SkillType.BUFF
+            if ((target instanceof L2Attackable || target instanceof L2Summon) && (skillType == SkillType.BUFF
                     || skillType == SkillType.HEAL
                     || skillType == SkillType.HEAL_PERCENT
                     || skillType == SkillType.HOT

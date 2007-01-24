@@ -35,7 +35,7 @@ public class ObjectKnownList
     // =========================================================
     // Data Field
     private L2Object[] _ActiveObject;          // Use array as a dirty trick to keep object as byref instead of byval
-    private FastMap<Integer, L2Object> _KnownObjects;
+    private Map<Integer, L2Object> _KnownObjects;
     
     // =========================================================
     // Constructor
@@ -54,14 +54,14 @@ public class ObjectKnownList
         // Check if already know object
         if (knowsObject(object))
         {
-    		
+            
             if (!object.isVisible()) removeKnownObject(object);
             return false;
         }
 
         // Check if object is not inside distance to watch object
         if (!Util.checkIfInRange(getDistanceToWatchObject(object), getActiveObject(), object, true)) return false;
-        if(Math.abs(object.getZ()-getActiveObject().getZ()) > 1500) return false; 
+        
         return (getKnownObjects().put(object.getObjectId(), object) == null);
     }
 
@@ -72,8 +72,8 @@ public class ObjectKnownList
 
     public boolean removeKnownObject(L2Object object) 
     { 
-    	if (object == null) return false;
-    	return (getKnownObjects().remove(object.getObjectId()) != null); 
+        if (object == null) return false;
+        return (getKnownObjects().remove(object.getObjectId()) != null); 
     }
     
     /**
@@ -99,90 +99,90 @@ public class ObjectKnownList
     // Method - Private
     private final void findCloseObjects()
     {
-    	boolean isActiveObjectPlayable = (getActiveObject() instanceof L2PlayableInstance);
-    	
+        boolean isActiveObjectPlayable = (getActiveObject() instanceof L2PlayableInstance);
+        
         if(isActiveObjectPlayable)
         {
-        	Collection<L2Object> objects = L2World.getInstance().getVisibleObjects(getActiveObject());
+            Collection<L2Object> objects = L2World.getInstance().getVisibleObjects(getActiveObject());
             if (objects == null) return;
             
-        	// Go through all visible L2Object near the L2Character
-        	for (L2Object object : objects)
-        	{
-        		if (object == null) continue;
+            // Go through all visible L2Object near the L2Character
+            for (L2Object object : objects)
+            {
+                if (object == null) continue;
 
-        		// Try to add object to active object's known objects
-        		// L2PlayableInstance see's everything
-        		addKnownObject(object);
+                // Try to add object to active object's known objects
+                // L2PlayableInstance see's everything
+                if(!addKnownObject(object)) continue;
 
-        		// Try to add active object to object's known objects
-        		// Only if object is a L2Character and active object is a L2PlayableInstance
-        		if (object instanceof L2Character) object.getKnownList().addKnownObject(getActiveObject());
-        	}
+                // Try to add active object to object's known objects
+                // Only if object is a L2Character and active object is a L2PlayableInstance
+                if (object instanceof L2Character) object.getKnownList().addKnownObject(getActiveObject());
+            }
         }
         else
         {
-        	Collection<L2PlayableInstance> playables = L2World.getInstance().getVisiblePlayable(getActiveObject());
-        	if (playables == null) return;
+            Collection<L2PlayableInstance> playables = L2World.getInstance().getVisiblePlayable(getActiveObject());
+            if (playables == null) return;
                 
-        	// Go through all visible L2Object near the L2Character
-        	for (L2Object playable : playables)
-        	{
-        		if (playable == null) continue;
+            // Go through all visible L2Object near the L2Character
+            for (L2Object playable : playables)
+            {
+                if (playable == null) continue;
 
-        		// Try to add object to active object's known objects
-        		// L2Character only needs to see visible L2PcInstance and L2PlayableInstance,
-        		// when moving. Other l2characters are currently only known from initial spawn area.
-        		// Possibly look into getDistanceToForgetObject values before modifying this approach...
-        		addKnownObject(playable);
-        	}
+                // Try to add object to active object's known objects
+                // L2Character only needs to see visible L2PcInstance and L2PlayableInstance,
+                // when moving. Other l2characters are currently only known from initial spawn area.
+                // Possibly look into getDistanceToForgetObject values before modifying this approach...
+                addKnownObject(playable);
+            }
         }
     }
 
     private final void forgetObjects()
     {
-    	// Go through knownObjects    
-    	Collection<L2Object> knownObjects = getKnownObjects().values();
-    	
-    	if (knownObjects == null || knownObjects.size() == 0) return;
-    	
-    	for (L2Object object: knownObjects)
-    	{
-    		if (object == null) continue;  
-    		
-    		// Remove all invisible object
-    		// Remove all too far object
-    		if (
-    				!object.isVisible() ||
-    				!Util.checkIfInRange(getDistanceToForgetObject(object), getActiveObject(), object, true)
-    		)
-    			if (object instanceof L2BoatInstance && getActiveObject() instanceof L2PcInstance) 
-    			{
-    				if(((L2BoatInstance)(object)).GetVehicleDeparture() == null )
-    				{
-    					//
-    				}
-    				else if(((L2PcInstance)getActiveObject()).isInBoat())
-    				{
-    					if(((L2PcInstance)getActiveObject()).getBoat() == object)
-    					{
-    						//
-    					}
-    					else
-    					{
-    						removeKnownObject(object);
-    					}
-    				}
-    				else
-    				{
-    					removeKnownObject(object);
-    				}
-    			}
-    			else
-    			{
-    				removeKnownObject(object);
-    			}
-    	}
+        // Go through knownObjects    
+        Collection<L2Object> knownObjects = getKnownObjects().values();
+        
+        if (knownObjects == null || knownObjects.size() == 0) return;
+        
+        for (L2Object object: knownObjects)
+        {
+            if (object == null) continue;  
+            
+            // Remove all invisible object
+            // Remove all too far object
+            if (
+                    !object.isVisible() ||
+                    !Util.checkIfInRange(getDistanceToForgetObject(object), getActiveObject(), object, true)
+            )
+                if (object instanceof L2BoatInstance && getActiveObject() instanceof L2PcInstance) 
+                {
+                    if(((L2BoatInstance)(object)).GetVehicleDeparture() == null )
+                    {
+                        //
+                    }
+                    else if(((L2PcInstance)getActiveObject()).isInBoat())
+                    {
+                        if(((L2PcInstance)getActiveObject()).getBoat() == object)
+                        {
+                            //
+                        }
+                        else
+                        {
+                            removeKnownObject(object);
+                        }
+                    }
+                    else
+                    {
+                        removeKnownObject(object);
+                    }
+                }
+                else
+                {
+                    removeKnownObject(object);
+                }
+        }
     }
 
     // =========================================================
@@ -206,20 +206,20 @@ public class ObjectKnownList
     
     public static class KnownListAsynchronousUpdateTask implements Runnable
     {
-    	private L2Object _obj;
+        private L2Object _obj;
 
-		public KnownListAsynchronousUpdateTask(L2Object obj)
-    	{
-    		_obj = obj;
-    	}
+        public KnownListAsynchronousUpdateTask(L2Object obj)
+        {
+            _obj = obj;
+        }
 
-		/* (non-Javadoc)
-		 * @see java.lang.Runnable#run()
-		 */
-		public void run()
-		{
-			if(_obj != null)
-				_obj.getKnownList().updateKnownObjects();			
-		}
+        /* (non-Javadoc)
+         * @see java.lang.Runnable#run()
+         */
+        public void run()
+        {
+            if(_obj != null)
+                _obj.getKnownList().updateKnownObjects();           
+        }
     }
 }
