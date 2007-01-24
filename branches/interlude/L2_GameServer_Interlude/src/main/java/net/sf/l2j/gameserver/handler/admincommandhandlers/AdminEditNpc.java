@@ -21,7 +21,11 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.StringTokenizer;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
@@ -44,9 +48,6 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * @author terry
@@ -153,7 +154,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         }
         else if(command.startsWith("admin_save_npc "))
         {
-            //_log.debugr("- " + command);
+            //System.out.println("- " + command);
             try
             {
                 save_npc_property(command.substring(14).trim());
@@ -163,17 +164,18 @@ public class AdminEditNpc implements IAdminCommandHandler {
         }
         else if(command.startsWith("admin_edit_drop "))
         {
-            int npcId = -1, itemId = 0;
+            int npcId = -1, itemId = 0, category = -1000;
             try
             {
                 StringTokenizer st = new StringTokenizer(command.substring(16).trim());
-                if(st.countTokens() == 2)
+                if(st.countTokens() == 3)
                 {            
                     try
                     {
                         npcId = Integer.parseInt(st.nextToken());
                         itemId = Integer.parseInt(st.nextToken());
-                        showEditDropData(activeChar, npcId, itemId);
+                        category = Integer.parseInt(st.nextToken());
+                        showEditDropData(activeChar, npcId, itemId, category);
                     }
                     catch(Exception e)
                     {}
@@ -184,23 +186,23 @@ public class AdminEditNpc implements IAdminCommandHandler {
                     {
                         npcId = Integer.parseInt(st.nextToken());
                         itemId = Integer.parseInt(st.nextToken());
+                        category = Integer.parseInt(st.nextToken());
                         int min = Integer.parseInt(st.nextToken());
                         int max = Integer.parseInt(st.nextToken());
-                        boolean sweep = st.nextToken().equalsIgnoreCase("true");
                         int chance = Integer.parseInt(st.nextToken());
                         
-                        updateDropData(activeChar, npcId, itemId, min, max, sweep, chance);
+                        updateDropData(activeChar, npcId, itemId, min, max, category, chance);
                     }
                     catch(Exception e)
                     {
-                        _log.debug("admin_edit_drop parements error: " + command);
+                        _log.fine("admin_edit_drop parements error: " + command);
                     }
                 }
                 else
                 {
                     SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                     sm.addString("Command error:");
-                    sm.addString("//edit_drop <npc_id> <item_id> [<min> <max> <sweep> <chance>]");
+                    sm.addString("//edit_drop <npc_id> <item_id> <category> [<min> <max> <chance>]");
                     activeChar.sendPacket(sm);
                 }
             }
@@ -208,13 +210,13 @@ public class AdminEditNpc implements IAdminCommandHandler {
             {
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                 sm.addString("Command error:");
-                sm.addString("//edit_drop <npc_id> <item_id> [<min> <max> <sweep> <chance>]");
+                sm.addString("//edit_drop <npc_id> <item_id> <category> [<min> <max> <chance>]");
                 activeChar.sendPacket(sm);
             }
         }
         else  if(command.startsWith("admin_add_drop "))
         {
-            int npcId = -1, itemId = -1;
+            int npcId = -1;
             try
             {
                 StringTokenizer st = new StringTokenizer(command.substring(15).trim());
@@ -240,24 +242,24 @@ public class AdminEditNpc implements IAdminCommandHandler {
                     try
                     {
                         npcId = Integer.parseInt(st.nextToken());
-                        itemId = Integer.parseInt(st.nextToken());
+                        int itemId = Integer.parseInt(st.nextToken());
+                        int category = Integer.parseInt(st.nextToken());
                         int min = Integer.parseInt(st.nextToken());
                         int max = Integer.parseInt(st.nextToken());
-                        boolean sweep = st.nextToken().equalsIgnoreCase("true");
                         int chance = Integer.parseInt(st.nextToken());
                         
-                        addDropData(activeChar, npcId, itemId, min, max, sweep, chance);
+                        addDropData(activeChar, npcId, itemId, min, max, category, chance);
                     }
                     catch(Exception e)
                     {
-                        _log.debug("admin_add_drop parements error: " + command);
+                        _log.fine("admin_add_drop parements error: " + command);
                     }
                 }
                 else
                 {
                     SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                     sm.addString("Command error:");
-                    sm.addString("//add_drop <npc_id> [<item_id> <min> <max> <sweep> <chance>]");
+                    sm.addString("//add_drop <npc_id> [<item_id> <category> <min> <max> <chance>]");
                     activeChar.sendPacket(sm);
                 }
             }
@@ -265,33 +267,34 @@ public class AdminEditNpc implements IAdminCommandHandler {
             {
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                 sm.addString("Command error:");
-                sm.addString("//add_drop <npc_id> [<item_id> <min> <max> <sweep> <chance>]");
+                sm.addString("//add_drop <npc_id> [<item_id> <category> <min> <max> <chance>]");
                 activeChar.sendPacket(sm);
             }
         }
         else if(command.startsWith("admin_del_drop "))
         {
-            int npcId = -1, itemId = -1;
+            int npcId = -1, itemId = -1, category = -1000;
             try
             {
                 String[] input = command.substring(15).split(" ");
-                if (input.length >= 2)
+                if (input.length >= 3)
                 {
                     npcId = Integer.parseInt(input[0]);
                     itemId = Integer.parseInt(input[1]);
+                    category = Integer.parseInt(input[2]);
                 }
             }
             catch(Exception e){}
             
             if(npcId > 0)
             {
-                deleteDropData(activeChar, npcId, itemId);
+                deleteDropData(activeChar, npcId, itemId, category);
             }
             else
             {
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                 sm.addString("Command error:");
-                sm.addString("//del_drop <npc_id> <item_id>");
+                sm.addString("//del_drop <npc_id> <item_id> <category>");
                 activeChar.sendPacket(sm);
             }
         }
@@ -497,7 +500,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         replyMSG.append("<tr><td width=150>Item Name</td><td width=60>Price</td><td width=40>Delete</td></tr>");
         int start = ((page-1) * PAGE_LIMIT);
         int end = Math.min(((page-1) * PAGE_LIMIT) + (PAGE_LIMIT-1), tradeList.getItems().size() - 1);
-        //_log.debugr(end);
+        //System.out.println(end);
         for (L2ItemInstance item : tradeList.getItems(start, end+1))
         {
             replyMSG.append("<tr><td><a action=\"bypass -h admin_editShopItem "+tradeList.getListId()+" "+item.getItemId()+"\">"+item.getItem().getName()+"</a></td>");
@@ -530,7 +533,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 
     private void showShop(L2PcInstance admin, int merchantID)
     {
-        FastList<L2TradeList> tradeLists = getTradeLists(merchantID);
+        List<L2TradeList> tradeLists = getTradeLists(merchantID);
         if(tradeLists == null)
         {
             admin.sendMessage("Unknown npc template ID" + merchantID);
@@ -566,11 +569,10 @@ public class AdminEditNpc implements IAdminCommandHandler {
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection();
-
             PreparedStatement stmt = con.prepareStatement("INSERT INTO merchant_buylists values ("+itemID+","+price+","+tradeListID+","+order+")");
             stmt.execute();
             stmt.close();
-        }catch (SQLException esql) {_log.error(esql.getMessage(),esql);}
+        }catch (SQLException esql) {esql.printStackTrace();}
     }
     
     private void updateTradeList(int itemID, int price, int tradeListID, int order)
@@ -582,7 +584,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             PreparedStatement stmt = con.prepareStatement("UPDATE merchant_buylists SET `price`='"+price+"' WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
             stmt.execute();
             stmt.close();
-        }catch (SQLException esql) {_log.error(esql.getMessage(),esql);}
+        }catch (SQLException esql) {esql.printStackTrace();}
     }
     
     private void deleteTradeList(int tradeListID, int order)
@@ -594,7 +596,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             PreparedStatement stmt = con.prepareStatement("DELETE FROM merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
             stmt.execute();
             stmt.close();
-        }catch (SQLException esql) {_log.error(esql.getMessage(),esql);}
+        }catch (SQLException esql) {esql.printStackTrace();}
     }
     
     private int  findOrderTradeList(int itemID, int price, int tradeListID)
@@ -608,12 +610,12 @@ public class AdminEditNpc implements IAdminCommandHandler {
             ResultSet rs = stmt.executeQuery();
             rs.first();
             return rs.getInt("order");
-        }catch (SQLException esql) {_log.error(esql.getMessage(),esql);}
-        finally{ try {con.close();} catch (SQLException e) {_log.error(e.getMessage(),e);}}
+        }catch (SQLException esql) {esql.printStackTrace();}
+        finally{ try {con.close();} catch (SQLException e) {e.printStackTrace();}}
         return order;
     }
 
-    private FastList<L2TradeList> getTradeLists(int merchantID)
+    private List<L2TradeList> getTradeLists(int merchantID)
     {
         String target = "npc_%objectId%_Buy";
         
@@ -627,7 +629,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
                 return null;
         }
 
-        FastList<L2TradeList> tradeLists = new FastList<L2TradeList>();
+        List<L2TradeList> tradeLists = new FastList<L2TradeList>();
         
         String[] lines = content.split("\n");
         int pos = 0;
@@ -638,7 +640,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             if (pos >= 0)
             {
                 int tradeListID = Integer.decode((line.substring(pos+target.length()+1)).split("\"")[0]);
-                //_log.debugr(tradeListID);
+                //System.out.println(tradeListID);
                 tradeLists.add(TradeController.getInstance().getBuyList(tradeListID));
             }
         }
@@ -702,7 +704,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
     
     private void save_npc_property(String modifications)
     {
-        //_log.debugr("- modifications:" + modifications);
+        //System.out.println("- modifications:" + modifications);
         
 //      L2NpcTemplate npcData = null;//NpcTable.getInstance().getTemplate()
         StatsSet npcData = new StatsSet();
@@ -718,6 +720,8 @@ public class AdminEditNpc implements IAdminCommandHandler {
                 }
                 String name = st2.nextToken().trim();
                 String value = st2.nextToken().trim();
+                
+                //System.out.println(" - " + name + "=" + value);
                 
                 if(name.equals("id")){
                     npcData.set("npcId", Integer.parseInt(value));
@@ -798,7 +802,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         }
         catch(Exception e)
         {
-            _log.error("save Npc data error",e);
+            _log.fine("save Npc data error");
         }
         
 //      L2NpcTemplate template = new L2NpcTemplate(npcData);
@@ -828,16 +832,16 @@ public class AdminEditNpc implements IAdminCommandHandler {
         replyMSG.append("<body>");
         replyMSG.append("<br>Notes: click[drop_id]to show the detail of drop data,click[del] to delete the drop data!");
         replyMSG.append("<table>");
-        replyMSG.append("<tr><td>npc_id itemId</td><td>item[id]</td><td>type</td><td>del</td></tr>");
+        replyMSG.append("<tr><td>npc_id itemId category</td><td>item[id]</td><td>type</td><td>del</td></tr>");
         
         for(L2DropCategory cat:npcData.getDropData())
-           for(L2DropData drop : cat.getAllDrops())
-           {
-               replyMSG.append("<tr><td><a action=\"bypass -h admin_edit_drop " + npcData.npcId + " " + drop.getItemId() + "\">"
-                       + npcData.npcId + " " + drop.getItemId() + "</a></td>" +
-                       "<td>" + ItemTable.getInstance().getTemplate(drop.getItemId()).getName() + "[" + drop.getItemId() + "]" + "</td><td>" + (drop.isQuestDrop()?"Q":(cat.isSweep()?"S":"D")) + "</td><td>" +
-                       "<a action=\"bypass -h admin_del_drop " + npcData.npcId + " " + drop.getItemId() + "\">del</a></td></tr>");
-           }
+            for(L2DropData drop : cat.getAllDrops())
+            {
+                replyMSG.append("<tr><td><a action=\"bypass -h admin_edit_drop " + npcData.npcId + " " + drop.getItemId()+ " " + cat.getCategoryType() + "\">"
+                        + npcData.npcId + " " + drop.getItemId() + " " + cat.getCategoryType() + "</a></td>" +
+                        "<td>" + ItemTable.getInstance().getTemplate(drop.getItemId()).getName() + "[" + drop.getItemId() + "]" + "</td><td>" + (drop.isQuestDrop()?"Q":(cat.isSweep()?"S":"D")) + "</td><td>" +
+                        "<a action=\"bypass -h admin_del_drop " + npcData.npcId + " " + drop.getItemId() +" "+ cat.getCategoryType() +"\">del</a></td></tr>");
+            }
         
         replyMSG.append("</table>");
         replyMSG.append("<center>");
@@ -850,7 +854,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         
     }
     
-    private void showEditDropData(L2PcInstance admin, int npcId, int itemId)
+    private void showEditDropData(L2PcInstance admin, int npcId, int itemId, int category)
     {
         java.sql.Connection con = null;
         
@@ -858,26 +862,26 @@ public class AdminEditNpc implements IAdminCommandHandler {
         {
             con = L2DatabaseFactory.getInstance().getConnection();
             
-            PreparedStatement statement = con.prepareStatement("SELECT mobId, itemId, min, max, sweep, chance FROM droplist WHERE mobId=" + npcId + " AND itemId=" + itemId);
+            PreparedStatement statement = con.prepareStatement("SELECT mobId, itemId, min, max, category, chance FROM droplist WHERE mobId=" + npcId + " AND itemId=" + itemId+ " AND category=" + category);
             ResultSet dropData = statement.executeQuery();
             
             NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
             
-            TextBuilder replyMSG = new TextBuilder("<html><title>the detail of dropdata: (" + npcId + " " + itemId + ")</title>");
+            TextBuilder replyMSG = new TextBuilder("<html><title>the detail of dropdata: (" + npcId + " " + itemId + " " + category + ")</title>");
             replyMSG.append("<body>");
             
             if(dropData.next()){
                 replyMSG.append("<table>");
                 replyMSG.append("<tr><td>Appertain of NPC</td><td>"+ NpcTable.getInstance().getTemplate(dropData.getInt("mobId")).name + "</td></tr>");
                 replyMSG.append("<tr><td>ItemName</td><td>"+ ItemTable.getInstance().getTemplate(dropData.getInt("itemId")).getName() + "(" + dropData.getInt("itemId") + ")</td></tr>");
+                replyMSG.append("<tr><td>Category</td><td>"+ ((category==-1)?"sweep":Integer.toString(category)) + "</td></tr>");
                 replyMSG.append("<tr><td>MIN(" + dropData.getInt("min") + ")</td><td><edit var=\"min\" width=80></td></tr>");
                 replyMSG.append("<tr><td>MAX(" + dropData.getInt("max") + ")</td><td><edit var=\"max\" width=80></td></tr>");
-                replyMSG.append("<tr><td>IS SWEEP(" + (dropData.getInt("sweep") ==1) + ")</td><td><edit var=\"sweep\" width=80></td></tr>");
                 replyMSG.append("<tr><td>CHANCE("+ dropData.getInt("chance") + ")</td><td><edit var=\"chance\" width=80></td></tr>");
                 replyMSG.append("</table>");
                 
                 replyMSG.append("<center>");
-                replyMSG.append("<button value=\"Save Modify\" action=\"bypass -h admin_edit_drop " + npcId + " " + itemId + " $min $max $sweep $chance\"  width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+                replyMSG.append("<button value=\"Save Modify\" action=\"bypass -h admin_edit_drop " + npcId + " " + itemId + " " + category +" $min $max $chance\"  width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
                 replyMSG.append("<br><button value=\"DropList\" action=\"bypass -h admin_show_droplist " + dropData.getInt("mobId") +"\"  width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
                 replyMSG.append("</center>");
             }
@@ -907,12 +911,12 @@ public class AdminEditNpc implements IAdminCommandHandler {
         replyMSG.append("<tr><td>Item-Id</td><td><edit var=\"itemId\" width=80></td></tr>");
         replyMSG.append("<tr><td>MIN</td><td><edit var=\"min\" width=80></td></tr>");
         replyMSG.append("<tr><td>MAX</td><td><edit var=\"max\" width=80></td></tr>");
-        replyMSG.append("<tr><td>SWEEP(true/false)</td><td><edit var=\"sweep\" width=80></td></tr>");
+        replyMSG.append("<tr><td>CATEGORY(sweep=-1)</td><td><edit var=\"category\" width=80></td></tr>");
         replyMSG.append("<tr><td>CHANCE(0-1000000)</td><td><edit var=\"chance\" width=80></td></tr>");
         replyMSG.append("</table>");
 
         replyMSG.append("<center>");
-        replyMSG.append("<button value=\"SAVE\" action=\"bypass -h admin_add_drop " + npcData.npcId + " $itemId $min $max $sweep $chance\"  width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+        replyMSG.append("<button value=\"SAVE\" action=\"bypass -h admin_add_drop " + npcData.npcId + " $itemId $category $min $max $chance\"  width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
         replyMSG.append("<br><button value=\"DropList\" action=\"bypass -h admin_show_droplist " + npcData.npcId +"\"  width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
         replyMSG.append("</center>");
         replyMSG.append("</body></html>");
@@ -921,7 +925,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         admin.sendPacket(adminReply);
     }
     
-    private void updateDropData(L2PcInstance admin, int npcId, int itemId, int min, int max, boolean sweep, int chance)
+    private void updateDropData(L2PcInstance admin, int npcId, int itemId, int min, int max, int category, int chance)
     {
         java.sql.Connection con = null;
         
@@ -929,23 +933,21 @@ public class AdminEditNpc implements IAdminCommandHandler {
         {
             con = L2DatabaseFactory.getInstance().getConnection();
             
-            PreparedStatement statement = con.prepareStatement("UPDATE droplist SET min=?, max=?, sweep=?, chance=? WHERE mobId=? AND itemId=?");
+            PreparedStatement statement = con.prepareStatement("UPDATE droplist SET min=?, max=?, chance=? WHERE mobId=? AND itemId=? AND category=?");
             statement.setInt(1, min);
             statement.setInt(2, max);
-            if (sweep)
-                statement.setInt(3, 1);
-            else
-                statement.setInt(3, 0);
-            statement.setInt(4, chance);
-            statement.setInt(5, npcId);
-            statement.setInt(6, itemId);
+            statement.setInt(3, chance);
+            statement.setInt(4, npcId);
+            statement.setInt(5, itemId);
+            statement.setInt(6, category);
             
             statement.execute();
             statement.close();
             
-            PreparedStatement statement2 = con.prepareStatement("SELECT mobId FROM droplist WHERE mobId=? AND itemId=?");
+            PreparedStatement statement2 = con.prepareStatement("SELECT mobId FROM droplist WHERE mobId=? AND itemId=? AND category=?");
             statement2.setInt(1, npcId);
             statement2.setInt(2, itemId);
+            statement2.setInt(3, category);
             
             ResultSet npcIdRs = statement2.executeQuery();
             if(npcIdRs.next()) npcId = npcIdRs.getInt("mobId");
@@ -973,16 +975,16 @@ public class AdminEditNpc implements IAdminCommandHandler {
             }
                 
         }
-        catch(Exception e){ _log.error(e.getMessage(),e); }
+        catch(Exception e){ e.printStackTrace(); }
         finally
         {
             try { con.close(); } catch (Exception e) {}
         }
         
-        //_log.debugr("- updateDropData end");
+        //System.out.println("- updateDropData end");
     }
     
-    private void addDropData(L2PcInstance admin, int npcId, int itemId, int min, int max, boolean sweep, int chance)
+    private void addDropData(L2PcInstance admin, int npcId, int itemId, int min, int max, int category, int chance)
     {
         java.sql.Connection con = null;
         
@@ -990,19 +992,12 @@ public class AdminEditNpc implements IAdminCommandHandler {
         {
             con = L2DatabaseFactory.getInstance().getConnection();
             
-            PreparedStatement statement = con.prepareStatement("INSERT INTO droplist(mobId, itemId, min, max, sweep, chance) values(?,?,?,?,?,?)");
+            PreparedStatement statement = con.prepareStatement("INSERT INTO droplist(mobId, itemId, min, max, category, chance) values(?,?,?,?,?,?)");
             statement.setInt(1, npcId);
             statement.setInt(2, itemId);
             statement.setInt(3, min);
             statement.setInt(4, max);
-            if(sweep)
-            {
-                statement.setInt(5, 1);
-            }
-            else
-            {
-                statement.setInt(5, 0);
-            }
+            statement.setInt(5, category);
             statement.setInt(6, chance);
             statement.execute();
             statement.close();
@@ -1025,10 +1020,10 @@ public class AdminEditNpc implements IAdminCommandHandler {
             try { con.close(); } catch (Exception e) {}
         }           
         
-        //_log.debugr("- addDropData end");
+        //System.out.println("- addDropData end");
     }
     
-    private void deleteDropData(L2PcInstance admin, int npcId, int itemId)
+    private void deleteDropData(L2PcInstance admin, int npcId, int itemId, int category)
     {
         java.sql.Connection con = null;
         
@@ -1038,16 +1033,17 @@ public class AdminEditNpc implements IAdminCommandHandler {
             
             if(npcId > 0)
             {
-                PreparedStatement statement2 = con.prepareStatement("DELETE FROM droplist WHERE mobId=? AND itemId=?");
+                PreparedStatement statement2 = con.prepareStatement("DELETE FROM droplist WHERE mobId=? AND itemId=? AND category=?");
                 statement2.setInt(1, npcId);
                 statement2.setInt(2, itemId);
+                statement2.setInt(3, category);
                 statement2.execute();
                 statement2.close();
                 
                 reLoadNpcDropList(npcId);
                 
                 NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-                TextBuilder replyMSG = new TextBuilder("<html><title>Delete drop data(" + npcId+", "+ itemId + ")complete</title>");
+                TextBuilder replyMSG = new TextBuilder("<html><title>Delete drop data(" + npcId+", "+ itemId+", "+ category + ")complete</title>");
                 replyMSG.append("<body>");
                 replyMSG.append("<center><button value=\"DropList\" action=\"bypass -h admin_show_droplist "+ npcId + "\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center>");
                 replyMSG.append("</body></html>");
@@ -1083,7 +1079,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             
             npcData.getDropData().clear();              
             
-            PreparedStatement statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"mobId", "itemId", "min", "max", "sweep", "chance"}) + ", IFNULL(drop_category,1) AS drop_category FROM droplist LEFT JOIN etcitem ON itemId = item_id WHERE mobId=?");
+            PreparedStatement statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"mobId", "itemId", "min", "max", "category", "chance"}) + " FROM droplist WHERE mobId=?");
             statement.setInt(1, npcId);
             ResultSet dropDataList = statement.executeQuery();
             
@@ -1095,8 +1091,9 @@ public class AdminEditNpc implements IAdminCommandHandler {
                 dropData.setMinDrop(dropDataList.getInt("min"));
                 dropData.setMaxDrop(dropDataList.getInt("max"));
                 dropData.setChance(dropDataList.getInt("chance"));
+
                 int category = dropDataList.getInt("category");
-                npcData.addDropData(dropData, category);                
+                npcData.addDropData(dropData, category);
             }
             dropDataList.close();
             statement.close();
