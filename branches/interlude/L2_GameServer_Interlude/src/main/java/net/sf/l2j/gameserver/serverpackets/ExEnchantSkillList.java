@@ -76,7 +76,7 @@ public class ExEnchantSkillList extends ServerBasePacket
             writeD(sk.id);
             writeD(sk.nextLevel);
             writeD(sk.sp);
-            writeD(sk.exp);
+            writeQ(sk.exp);
         }
 
     }
