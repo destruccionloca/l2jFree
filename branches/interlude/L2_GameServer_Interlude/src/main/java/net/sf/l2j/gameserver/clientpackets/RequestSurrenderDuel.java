@@ -52,13 +52,16 @@ public class RequestSurrenderDuel extends ClientBasePacket
 
 	void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar();
-        if(player != null)
-        {
-            if (player.getParty()!= null && player.getParty().isLeader(player))
-                DuelManager.getInstance().endDuel(player.isDuelling(), (player.getParty()!=null), player.getTeam());
-            else
-                player.sendMessage("Only party leaders may surrender, you coward!");
+	    L2PcInstance player = getClient().getActiveChar();
+	    if(player != null && player.isDuelling()>0)
+	    {
+	        if (player.getParty()!= null)
+	            if(player.getParty().isLeader(player))
+	                DuelManager.getInstance().endDuel(player.isDuelling(), (true), player.getTeam());
+	            else
+	                player.sendMessage("Only party leaders may surrender, you coward!");
+	        else
+	            DuelManager.getInstance().endDuel(player.isDuelling(), false, player.getTeam());
         }
 	}
 

@@ -78,6 +78,7 @@ import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
+import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
@@ -140,6 +141,7 @@ import net.sf.l2j.gameserver.serverpackets.ChangeWaitType;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.serverpackets.ExAutoSoulShot;
+import net.sf.l2j.gameserver.serverpackets.ExDuelUpdateUserInfo;
 import net.sf.l2j.gameserver.serverpackets.ExFishingEnd;
 import net.sf.l2j.gameserver.serverpackets.ExFishingStart;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadMode;
@@ -3237,6 +3239,11 @@ public final class L2PcInstance extends L2PlayableInstance
                     spectator.sendPacket(new ExOlympiadUserInfo(this, getOlympiadSide()));
                 }
             }
+        }
+        if (isDuelling()>0)
+        {
+            ExDuelUpdateUserInfo update = new ExDuelUpdateUserInfo(this);
+            DuelManager.getInstance().broadcastToOpponents(isDuelling(),this, update);
         }
     }
 
@@ -8674,6 +8681,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public void doRevive()
     {
         super.doRevive();
+        getParty().setDefeatedPartyMembers(getParty().getDefeatedPartyMembers()-1);
         updateEffectIcons();
         _ReviveRequested = 0;
         _RevivePower = 0;
@@ -8887,6 +8895,16 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (isPetrified())
         {value=0;}
+        if (isDuelling()>0 && ((L2PcInstance)attacker).getTeam()==0)
+        {
+            attacker.sendMessage("No hitting of duelling players!  Carry this sign of disgrace as a punishment!");
+            attacker.startAbnormalEffect((short)0x2000);
+        }
+        else if (isDuelling()>0 && ((L2PcInstance)attacker).getTeam()==getTeam())
+        {
+            attacker.sendMessage("You bastard, how dare you hit your ally! Carry this sign of disgrace as a punishment!");
+            attacker.startAbnormalEffect((short)0x2000);
+        }
         getStatus().reduceHp(value, attacker, awake);
     }
 

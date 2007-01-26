@@ -160,6 +160,8 @@ public class CharStatus
                     getActiveChar().abortAttack();
                     getActiveChar().abortCast();
                     stopHpMpRegeneration();
+                    if (((L2PcInstance)getActiveChar()).getParty()!=null)
+                        ((L2PcInstance)getActiveChar()).getParty().setDefeatedPartyMembers(((L2PcInstance)getActiveChar()).getParty().getDefeatedPartyMembers()+1);
                     getActiveChar().setIsParalyzed(true); //Not sure if this is the way to stop players from fighting, but I think it'll do ;P
                     DuelManager.getInstance().MaybeEndDuel((L2PcInstance)getActiveChar());
                     return;

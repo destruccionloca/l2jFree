@@ -131,21 +131,25 @@ public class DuelManager
     {
         if(plyr1!=null && plyr2!=null)
         {
-            if (!(plyr1.isDuelling() > 0 )&&!(plyr2.isDuelling() > 0)) //TODO: find out if we should replenish cp/hp/mp b4 duel starts
+            if (plyr1.isDuelling() ==0 && plyr2.isDuelling() == 0) //TODO: find out if we should replenish cp/hp/mp b4 duel starts
             {
                 ExDuelReady ready = new ExDuelReady();
                 ExDuelStart start = new ExDuelStart();
                 if (party)
                 {
                     Duel duel = new Duel(plyr1,plyr2,true);
+                    
+                    for (L2PcInstance pm : plyr2.getParty().getPartyMembers()) //======I know this looks stupid, but without this clalanged party wouldn't see enemies list 
+                    {
+                        pm.setDuelling(duel.getId());
+                        pm.setTeam(2);
+                        pm.sendPacket(ready);
+                        pm.sendPacket(start);
+                    }
                     for (L2PcInstance pm : plyr1.getParty().getPartyMembers())
                     {
                         pm.setDuelling(duel.getId());
                         pm.setTeam(1);
-                        /*pm.setCurrentCp(pm.getMaxCp()); 
-                        pm.setCurrentHp(pm.getMaxHp());
-                        pm.setCurrentMp(pm.getMaxMp());*/
-                        //pm.setIsParalyzed(true);
                         pm.sendPacket(ready);
                         pm.sendPacket(start);
                         pm.broadcastUserInfo();
@@ -153,49 +157,27 @@ public class DuelManager
                     }
                     for (L2PcInstance pm : plyr2.getParty().getPartyMembers())
                     {
-                        pm.setDuelling(duel.getId());
-                        pm.setTeam(2);
-                        /*pm.setCurrentCp(pm.getMaxCp());
-                        pm.setCurrentHp(pm.getMaxHp());
-                        pm.setCurrentMp(pm.getMaxMp());*/
-                        //pm.setIsParalyzed(true);
-                        pm.sendPacket(ready);
-                        pm.sendPacket(start);
                         pm.broadcastUserInfo();
                         pm.broadcastStatusUpdate();
                     }
                     ThreadPoolManager.getInstance().scheduleGeneral(new EndDuel(duel.getId(), true), 3000);
-                }/*
-                else if (plyr1.getParty()!=null || plyr2.getParty()!=null)
-                {
-                    plyr1.sendMessage("You can't duel while only one player is at the party");
-                }*/
+                }
                 else
                 {
                     Duel duel = new Duel(plyr1,plyr2,false);
                     //==============================================
                     plyr1.setDuelling(duel.getId());
-                    plyr1.setDuelling(duel.getId());
-                    plyr1.setTeam(2);
-                    /*pm.setCurrentCp(pm.getMaxCp());
-                    pm.setCurrentHp(pm.getMaxHp());
-                    pm.setCurrentMp(pm.getMaxMp());*/
-                    //pm.setIsParalyzed(true);
-                    plyr1.sendPacket(ready);
-                    plyr1.sendPacket(start);
-                    plyr1.broadcastUserInfo();
-                    plyr1.broadcastStatusUpdate();
-                    //=======================================
-                    plyr2.setDuelling(duel.getId());
-                    plyr2.setDuelling(duel.getId());
+                    plyr1.setTeam(1);
                     plyr2.setDuelling(duel.getId());
                     plyr2.setTeam(2);
-                    /*pm.setCurrentCp(pm.getMaxCp());
-                    pm.setCurrentHp(pm.getMaxHp());
-                    pm.setCurrentMp(pm.getMaxMp());*/
-                    //pm.setIsParalyzed(true);
+                    //===================== We send duel start packets here, so that players may see
+                    plyr1.sendPacket(ready);
+                    plyr1.sendPacket(start);
                     plyr2.sendPacket(ready);
                     plyr2.sendPacket(start);
+                    //=====================================================
+                    plyr1.broadcastUserInfo();
+                    plyr1.broadcastStatusUpdate();
                     plyr2.broadcastUserInfo();
                     plyr2.broadcastStatusUpdate();
                     //=======================================
@@ -208,7 +190,10 @@ public class DuelManager
     {
         if (player.isDuelling()>0)
             if (player.getParty()!= null)
-                endDuel(player.isDuelling(),true, player.getTeam());
+            {
+                if (player.getParty().getDefeatedPartyMembers()==player.getParty().getMemberCount())
+                    endDuel(player.isDuelling(),true, player.getTeam());
+            }
             else
                 endDuel(player.isDuelling(),false, player.getTeam());
     }
@@ -236,9 +221,14 @@ public class DuelManager
                 pm.setCurrentHp(pm.getMaxHp()/2);
                 pm.setCurrentMp(pm.getMaxMp()/2);
                 pm.setTeam(0);
+                pm.sendPacket(new ExDuelEnd());
                 pm.setIsParalyzed(false);
                 if (looser==2)
+                {
                     pm.setPvpKills(pm.getPvpKills());
+                    pm.sendMessage("You have won the duel!");
+                }
+                pm.broadcastUserInfo();
             }
         }
         else
@@ -248,9 +238,14 @@ public class DuelManager
             player.setCurrentHp(player.getMaxHp()/2);
             player.setCurrentMp(player.getMaxMp()/2);
             player.setTeam(0);
+            player.sendPacket(new ExDuelEnd());
             player.setIsParalyzed(false);
             if (looser==2)
+            {
                 player.setPvpKills(player.getPvpKills());
+                player.sendMessage("You have won the duel!");
+            }
+            player.broadcastUserInfo();
         }
         player = duel.getPlayer(false);
         if (player.getParty()!=null)
@@ -265,7 +260,11 @@ public class DuelManager
                 pm.sendPacket(new ExDuelEnd());
                 pm.setIsParalyzed(false);
                 if (looser==1)
+                {
                     pm.setPvpKills(pm.getPvpKills());
+                    pm.sendMessage("You have won the duel!");
+                }
+                pm.broadcastUserInfo();
             }
         }
         else
@@ -275,9 +274,14 @@ public class DuelManager
             player.setCurrentHp(player.getMaxHp()/2);
             player.setCurrentMp(player.getMaxMp()/2);
             player.setTeam(0);
+            player.sendPacket(new ExDuelEnd());
             player.setIsParalyzed(false);
-            if (looser==2)
+            if (looser==1)
+            {
                 player.setPvpKills(player.getPvpKills());
+                player.sendMessage("You have won the duel!");
+            }
+            player.broadcastUserInfo();
         }
     }
     public Duel getDuel(int duelId, boolean party)

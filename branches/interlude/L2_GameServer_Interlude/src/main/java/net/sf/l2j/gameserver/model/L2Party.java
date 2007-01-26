@@ -56,6 +56,7 @@ public class L2Party {
 	private int _partyLvl = 0;
 	private int _itemDistribution = 0;
 	private int _itemLastLoot = 0;
+    private int _defeatedPartyMembers = 0;      //Used by duel engine to avoid looping through all party members after one of them is killed
 	
 	public static final int ITEM_LOOTER = 0;
 	public static final int ITEM_RANDOM = 1;
@@ -725,4 +726,14 @@ public class L2Party {
 	public int getLevel() { return _partyLvl; }
     
     public int getLootDistribution() { return _itemDistribution; }
+    
+    public int getDefeatedPartyMembers()
+    {
+        return _defeatedPartyMembers;
+    }
+    
+    public void setDefeatedPartyMembers(int defeatedMembersCount)
+    {
+        _defeatedPartyMembers = defeatedMembersCount;
+    }
 }
