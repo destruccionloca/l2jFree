@@ -121,7 +121,9 @@ import net.sf.l2j.gameserver.model.actor.knownlist.PcKnownList;
 import net.sf.l2j.gameserver.model.actor.stat.PcStat;
 import net.sf.l2j.gameserver.model.actor.status.PcStatus;
 import net.sf.l2j.gameserver.model.base.ClassId;
+import net.sf.l2j.gameserver.model.base.ClassLevel;
 import net.sf.l2j.gameserver.model.base.Experience;
+import net.sf.l2j.gameserver.model.base.PlayerClass; 
 import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.model.base.SubClass;
 import net.sf.l2j.gameserver.model.entity.CTF;
@@ -321,8 +323,8 @@ public final class L2PcInstance extends L2PlayableInstance
    
     /** L2PcInstance's pledge class (knight, Baron, etc.)*/
     private int _pledgeClass;
-    
     private int _pledgeType = 0;
+    public int tempJoinPledgeType = 0; // temp variable for join requests, TODO better argument passing and remove this
     
     /** L2PcInstance's pledge rank*/
     private int _rank;
@@ -1786,7 +1788,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void setClassId(int Id)
     {
-        if (getAccademyLvl() != 0 && _clan != null)
+        if (getAccademyLvl() != 0 && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third) 
         {
             _clan.setReputationScore(_clan.getReputationScore()+150+(39-getAccademyLvl())*10);
             setAccademyLvl(0);

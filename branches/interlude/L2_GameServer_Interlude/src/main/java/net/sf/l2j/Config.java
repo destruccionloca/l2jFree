@@ -91,7 +91,9 @@ public final class Config {
     /** Set the server as gm only at startup ? */
     public static boolean SERVER_GMONLY;
     /** Safe mode will disable some feature during restart/shutdown to prevent exploit **/
-    public static boolean    SAFE_REBOOT = false;    
+    public static boolean    SAFE_REBOOT = false;
+    public static boolean NETWORK_TRAFFIC_OPTIMIZATION;
+    public static int     NETWORK_TRAFFIC_OPTIMIZATION_MS;
     // Thread pools size
     /** Thread pool size effect */
     public static int THREAD_P_EFFECTS;
@@ -1093,6 +1095,10 @@ public final class Config {
 	            DATABASE_MAX_CONNECTIONS    = Integer.parseInt(serverSettings.getProperty("MaximumDbConnections", "10"));
                 
                 SAFE_REBOOT  = Boolean.valueOf(serverSettings.getProperty("SafeReboot", "False"));
+                
+                NETWORK_TRAFFIC_OPTIMIZATION     = Boolean.valueOf(serverSettings.getProperty("NetworkTrafficOptimization", "False"));
+                NETWORK_TRAFFIC_OPTIMIZATION_MS  = Integer.parseInt(serverSettings.getProperty("NetworkTrafficOptimizationMs", "1100"));
+                
 	        }
 	        catch (Exception e)
 	        {

@@ -69,18 +69,29 @@ public class RequestAnswerJoinPledge extends ClientBasePacket
 		        JoinPledge jp = new JoinPledge(requestor.getClanId());
 		        activeChar.sendPacket(jp);
 		        
-		        L2Clan clan = requestor.getClan();
+                L2Clan clan = requestor.getClan();
+                if (clan.getSubPledgeMembersCount(requestor.tempJoinPledgeType) >= clan.getMaxNrOfMembers(requestor.tempJoinPledgeType))
+                    return; // hax
+                if(requestor.tempJoinPledgeType == L2Clan.SUBUNIT_ACADEMY && clan.getLevel() < 5) return; // hax
+                if(requestor.tempJoinPledgeType >= L2Clan.SUBUNIT_ROYAL1 && clan.getLevel() < 6) return;   
+                if(requestor.tempJoinPledgeType >= L2Clan.SUBUNIT_KNIGHT1 && clan.getLevel() < 7) return;  
+                
                 
 //		      L2ClanMember[] members = clan.getMembers();
 		        PledgeShowMemberListAdd la = new PledgeShowMemberListAdd(activeChar);
 		        clan.broadcastToOnlineMembers(la);
 		        
 		        // this also updates the database
-		        clan.addClanMember(activeChar);
-		        activeChar.setClan(clan);
-		        activeChar.setClanPrivileges(0);
-                if (activeChar.getPledgeType() == -1)
+                clan.addClanMember(activeChar);
+                activeChar.setClan(clan);
+                activeChar.setPledgeType(requestor.tempJoinPledgeType);
+                clan.getClanMember(activeChar.getName()).setPlayerInstance(activeChar);
+                if(requestor.tempJoinPledgeType == L2Clan.SUBUNIT_ACADEMY) {
+                    activeChar.setRank(9); // adademy
                     activeChar.setAccademyLvl(activeChar.getLevel());
+                }
+                else activeChar.setRank(5); // new member starts at 5, not confirmed
+                activeChar.setClanPrivileges(activeChar.getClan().getRankPrivs(activeChar.getRank()));
 		        
 		        //should be update packet only
 		        activeChar.sendPacket(new PledgeShowInfoUpdate(clan, activeChar));

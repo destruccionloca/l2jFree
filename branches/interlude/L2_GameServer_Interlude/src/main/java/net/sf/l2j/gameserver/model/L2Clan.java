@@ -99,7 +99,16 @@ public class L2Clan
     public static final int CP_CS_TAXES =1048576;
     public static final int CP_CS_MERCENARIES =2097152;
     public static final int CP_CS_SET_FUNCTIONS =4194304;
-    public static final int CP_ALL = 8388606;  
+    public static final int CP_ALL = 8388606;
+    
+    // Sub-unit types
+    public static final int SUBUNIT_ACADEMY = -1;
+    public static final int SUBUNIT_ROYAL1 = 100; 
+    public static final int SUBUNIT_ROYAL2 = 200; 
+    public static final int SUBUNIT_KNIGHT1 = 1001; 
+    public static final int SUBUNIT_KNIGHT2 = 1002; 
+    public static final int SUBUNIT_KNIGHT3 = 2001; 
+    public static final int SUBUNIT_KNIGHT4 = 2002; 
     
     /** FastMap(Integer, L2Skill) containing all skills of the L2Clan */
     protected final FastMap<Integer, L2Skill> _Skills = new FastMap<Integer, L2Skill>();
@@ -450,7 +459,53 @@ public class L2Clan
     {
         return _members.size();
     }
-    
+
+    public int getMaxNrOfMembers(int pledgetype)
+    {
+        int limit = 0;
+        
+        switch (getLevel())
+        {
+        case 4:
+            limit   = 40;
+            break;
+        case 3:
+            limit   = 30;
+            break;
+        case 2:
+            limit   = 20;
+            break;
+        case 1:
+            limit   = 15;
+            break;
+        case 0:
+            limit   = 10;
+            break;
+        default:
+            limit   = 40;
+            break;
+        }
+        
+        switch (pledgetype)
+        {
+            case -1:
+            case 100:
+            case 200:
+                limit   = 20;
+                break;
+            case 1001:
+            case 1002:
+            case 2001:
+            case 2002:
+                limit   = 10;
+                break;
+            default:
+                break;
+        }
+        
+        return limit;
+    }
+
     public L2PcInstance[] getOnlineMembers(String exclude)
     {
         FastList<L2PcInstance> result = new FastList<L2PcInstance>();

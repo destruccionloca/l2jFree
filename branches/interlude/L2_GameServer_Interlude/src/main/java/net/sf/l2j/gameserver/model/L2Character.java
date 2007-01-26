@@ -312,11 +312,13 @@ public abstract class L2Character extends L2Object
     {
         if (getStatus().getStatusListener() == null || getStatus().getStatusListener().isEmpty()) return;
 
-        long currTimeMillis = System.currentTimeMillis();
-        //Minimum time between sending status update. Can be increased a bit for further saves in network traffic 
-        if(getStatus().getCurrentHp() > 1 && currTimeMillis - timePreviousBroadcastStatusUpdate < 1100) return;
-        timePreviousBroadcastStatusUpdate = currTimeMillis;
-
+        if(Config.NETWORK_TRAFFIC_OPTIMIZATION)
+        {
+            long currTimeMillis = System.currentTimeMillis();
+            //Minimum time between sending status update. Can be increased a bit for further saves in network traffic 
+            if(getStatus().getCurrentHp() > 1 && currTimeMillis - timePreviousBroadcastStatusUpdate < Config.NETWORK_TRAFFIC_OPTIMIZATION_MS) return;
+            timePreviousBroadcastStatusUpdate = currTimeMillis;
+        }
         // Create the Server->Client packet StatusUpdate with current HP and MP
         StatusUpdate su = new StatusUpdate(getObjectId());
         su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp());
