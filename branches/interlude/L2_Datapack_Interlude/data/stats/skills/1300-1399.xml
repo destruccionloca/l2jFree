@@ -366,21 +366,20 @@
   </effect>
   </for> 	
 </skill> 
-<skill id="1324" levels="1" name="Summon CP Potion" enchantLevels1="0" enchantLevels2="0">
-  <table name="#itemConsumeCount"> 80 </table>
-  <set name="mpConsume" val="30"/>
-  <set name="itemConsumeId" val="1785"/>
-  <set name="itemConsumeCount" val="#itemConsumeCount"/>
-  <set name="power" val="0.0"/>
+<skill id="1324" levels="1" name="Summon CP Potion">
+  <set name="mpConsume" val="412"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="hitTime" val="30000"/>
-  <set name="reuseDelay" val="35000"/>
-  <set name="skillTime" val="30000"/>
-  <set name="skillType" val="SUMMONCP"/>
+  <set name="skillTime" val="20000"/>
+  <set name="skillType" val="CREATE_ITEM"/>
+  <set name="reuseDelay" val="1800000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
-</skill> 
+  <set name="itemConsumeId" val="1785"/>
+  <!-- spirit ore amount consumed may be incorrect -->
+  <set name="itemConsumeCount" val="50"/>
+  <set name="create_item_id" val="5592"/>
+  <set name="create_item_count" val="20"/>
+</skill>
 <skill id="1325" levels="1" name="Fortune of Noblesse" enchantLevels1="0" enchantLevels2="0">
   <set name="mpConsume" val="69"/>
   <set name="power" val="0.0"/>

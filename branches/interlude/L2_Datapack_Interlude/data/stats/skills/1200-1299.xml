@@ -908,7 +908,7 @@
   <set name="skillType" val="MUTE"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="buffDuration" val="120000"/>
+  <set name="buffDuration" val="30000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -1172,7 +1172,7 @@
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="buffDuration" val="1800000"/>
+  <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <for>
