@@ -117,7 +117,6 @@ public class L2Clan
     public L2Clan(int clanId)
     {
         _clanId = clanId;
-        InitializePrivs();
         restore();
         getWarehouse().restore();
     }
@@ -133,7 +132,6 @@ public class L2Clan
         _clanId = clanId;
         _name = clanName;
         setLeader(leader);
-        InitializePrivs();
     }
     
     /**
@@ -1032,9 +1030,8 @@ public class L2Clan
                 int party = rset.getInt("party");
                 int privileges = rset.getInt("privilleges");
                     // Create a SubPledge object for each record
-                    //RankPrivs privs = new RankPrivs(rank, party, privileges);
-                    //_Privs.put(rank, privs);
-                _Privs.get(rank).setPrivs(privileges);
+                    RankPrivs privs = new RankPrivs(rank, party, privileges);
+                    _Privs.put(rank, privs);                    
             }
             
             rset.close();
@@ -1050,18 +1047,6 @@ public class L2Clan
         }
     }
     
-    public void InitializePrivs()
-    {
-        RankPrivs privs;
-        for (int i=1; i < 10; i++) 
-        {
-            privs = new RankPrivs(i, 0, CP_NOTHING);
-            _Privs.put(i, privs);
-        }
-        privs = null;
-            
-    }
-    
     public int getRankPrivs(int rank)
     {
         if (_Privs.get(rank) != null)
@@ -1071,49 +1056,72 @@ public class L2Clan
     }
     public void setRankPrivs(int rank, int privs)
     {
-        _Privs.get(rank).setPrivs(privs);
-        java.sql.Connection con = null;            
-        try
+        if (_Privs.get(rank)!= null)
         {
-            if ( _log.isDebugEnabled() )_log.debug("requested store clan privs in db for rank: "+rank+", privs: "+privs);
-            // Retrieve all skills of this L2PcInstance from the database
-            con = L2DatabaseFactory.getInstance().getConnection();
-            PreparedStatement statement;
-            statement = con.prepareStatement("UPDATE clan_privs SET party=?,privilleges=? where clan_id=? and rank=?");
-            statement.setInt(1, 0);
-            statement.setInt(2, privs);
-            statement.setInt(3, getClanId());
-            statement.setInt(4, rank);
-            statement.execute();
-            if(statement.getUpdateCount()==0)
+            _Privs.get(rank).setPrivs(privs);
+            
+            
+            java.sql.Connection con = null;
+            
+            try
             {
-                statement.clearParameters();
-                statement = con.prepareStatement("INSERT INTO clan_privs (clan_id,rank,party,privilleges) VALUES (?,?,?,?)");
+                if ( _log.isDebugEnabled() )_log.debug("requested store clan privs in db for rank: "+rank+", privs: "+privs);
+                // Retrieve all skills of this L2PcInstance from the database
+                con = L2DatabaseFactory.getInstance().getConnection();
+                PreparedStatement statement = con.prepareStatement("UPDATE clan_privs SET privilleges=? WHERE clan_id=? AND rank=? AND party=?");
+                statement.setInt(1, privs);
+                statement.setInt(2, getClanId());
+                statement.setInt(3, rank);
+                statement.setInt(4, 0);
+                statement.execute();
+                statement.close();
+            }
+            catch (Exception e)
+            {
+                _log.warn("Could not store clan privs for rank: " + e);
+            }
+            finally
+            {
+                try { con.close(); } catch (Exception e) {}
+            }
+            for (L2ClanMember cm : getMembers())
+            {
+                if (cm.isOnline())
+                    if (cm.getRank() == rank)
+                        if (cm.getPlayerInstance() != null)
+                        {
+                            cm.getPlayerInstance().setClanPrivileges(privs);
+                            cm.getPlayerInstance().sendPacket(new UserInfo(cm.getPlayerInstance()));
+                        }
+            }
+        }
+        else
+        {
+            _Privs.put(rank, new RankPrivs(rank, 0, privs));
+            
+            java.sql.Connection con = null;
+            
+            try
+            {
+                if ( _log.isDebugEnabled() )_log.warn("requested store clan new privs in db for rank: "+rank);
+                // Retrieve all skills of this L2PcInstance from the database
+                con = L2DatabaseFactory.getInstance().getConnection();
+                PreparedStatement statement = con.prepareStatement("INSERT INTO clan_privs (clan_id,rank,party,privilleges) VALUES (?,?,?,?)");
                 statement.setInt(1, getClanId());
                 statement.setInt(2, rank);
                 statement.setInt(3, 0);
                 statement.setInt(4, privs);
                 statement.execute();
+                statement.close();
             }
-            statement.close();
-        }
-        catch (Exception e)
-        {
-            _log.warn("Could not store clan privs for rank: " + e);
-        }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
-        for (L2ClanMember cm : getMembers())
-        {
-            if (cm.isOnline())
-                if (cm.getRank() == rank)
-                    if (cm.getPlayerInstance() != null)
-                    {
-                        cm.getPlayerInstance().setClanPrivileges(privs);
-                        cm.getPlayerInstance().sendPacket(new UserInfo(cm.getPlayerInstance()));
-                    }
+            catch (Exception e)
+            {
+                _log.warn("Could not create new rank and store clan privs for rank: " + e);
+            }
+            finally
+            {
+                try { con.close(); } catch (Exception e) {}
+            }
         }
     }
     
@@ -1439,17 +1447,17 @@ public class L2Clan
     
     public void setReputationScore(int score)
     {
+        if (_reputationScore != 0)
+        {
+            _reputationScore = score;
+            updateClanInDB();
+        }
         _reputationScore = score;
-        updateClanInDB();
         broadcastClanStatus();
     }
     public int getReputationScore()
     {
         return _reputationScore;
-    }
-    public void addReputationScore(int score)
-    {
-        setReputationScore(getReputationScore() + score);
     }
     public void setRank(int rank)
     {
