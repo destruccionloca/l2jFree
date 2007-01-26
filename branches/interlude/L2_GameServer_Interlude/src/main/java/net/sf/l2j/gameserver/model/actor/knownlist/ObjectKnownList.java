@@ -73,6 +73,7 @@ public class ObjectKnownList
     public boolean removeKnownObject(L2Object object) 
     { 
         if (object == null) return false;
+        if (getKnownObjects()== null){System.out.println("Well there is definetly sth wrong with this knownobjectlist thingie"); return false;}
         return (getKnownObjects().remove(object.getObjectId()) != null); 
     }
     

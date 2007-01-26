@@ -733,6 +733,18 @@ public class PacketHandler
                     case 0x24:
                         msg = new RequestPledgeReorganizeMember(data, client);
                         break;                        
+                    case 0x27:
+                        msg= new RequestDuelStart(data,client);//requestduel;
+                        break;
+                    case 0x28 :
+                        msg= new RequestDuelAnswerStart(data,client);//requestanswerduel;
+                        break;
+                    //case 0x29:
+                        //msg= new //refinment;
+                        //break;
+                    case 0x30:
+                        msg= new RequestSurrenderDuel(data,client);//surrende
+                        break;
                     default: 
                      	msg = null; 
                      	int size = data.remaining(); 

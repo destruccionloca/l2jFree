@@ -118,11 +118,13 @@ public class DuelManager
         {
             _log.info("Initializing DuelManager");
             _Instance = new DuelManager();
+            _Duels = new FastList<Duel>();
+            _PartyDuels = new FastList<Duel>();
         }
         return _Instance;
     }
-    private FastList<Duel> _Duels;
-    private FastList<Duel> _PartyDuels;
+    private static FastList<Duel> _Duels;
+    private static FastList<Duel> _PartyDuels;
 
 
     public void createDuel(L2PcInstance plyr1,L2PcInstance plyr2, boolean party)  //TODO: find out if this script with larger parties won't give the callanger an advantage
@@ -220,6 +222,8 @@ public class DuelManager
     }
     public void endDuel(int duelId, boolean party, int looser)
     {
+        if (duelId==0)
+            return;
         Duel duel = getDuel(duelId, party);
         _Duels.remove(duel);
         L2PcInstance player = duel.getPlayer(true);
