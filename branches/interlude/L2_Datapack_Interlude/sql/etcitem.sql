@@ -6068,7 +6068,7 @@ INSERT INTO `etcitem` (`item_id`,`name`,`crystallizable`,`item_type`,`weight`,`c
  (7809,'Yellow Colored Lure - For Beginners','false','lure',5,'stackable','liquid','none',0,36,0,'false','C4Item','none'),
  (7832,'Apprentice Adventurer''s Weapon Exchange Coupon','false','none',1,'normal','paper','none',0,0,0,'false','C4Item','none'),
  (7833,'Adventurer''s Weapon Exchange Coupon','false','none',1,'normal','paper','none',0,0,0,'false','C4Item','none'),
- (7835,'Amulet: Seal of Disease','false','none',120,'normal','paper','none',0,11600,0,'true','C4Item','none');
+ (7835,'Amulet: Seal of Disease','false','spellbook',120,'normal','paper','none',0,11600,0,'true','C4Item','none');
 
 COMMIT;
 
@@ -6516,6 +6516,7 @@ INSERT INTO `etcitem` (`item_id`,`name`,`crystallizable`,`item_type`,`weight`,`c
  (8430,'Small Yellow Nimble Fish - Upper Grade','false','none','0','normal','paper','none','0','0',0,'true','C5Item','none'),
  (8431,'Small Yellow Ugly Fish - Upper Grade','false','none','0','normal','paper','none','0','0',0,'true','C5Item','none'),
  (8432,'Small Yellow Fat Fish - Upper Grade','false','none','0','normal','paper','none','0','0',0,'true','C5Item','none'),
+ (8433,'Yellow Nimble Fish - Upper Grade','false','none','0','normal','paper','none','0','0',0,'true','C5Item','none'),
  (8434,'Yellow Ugly Fish - Upper Grade','false','none','0','normal','paper','none','0','0',0,'true','C5Item','none'),
  (8435,'Yellow Fat Fish - Upper Grade','false','none','0','normal','paper','none','0','0',0,'true','C5Item','none'),
  (8436,'Large Yellow Nimble Fish - Upper Grade','false','none','0','normal','paper','none','0','0',0,'true','C5Item','none'),
