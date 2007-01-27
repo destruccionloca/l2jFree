@@ -84,8 +84,10 @@ public class RequestMagicSkillUse extends ClientBasePacket
            // _log.debug("  range:"+skill.getCastRange()+" targettype:"+skill.getTargetType()+" optype:"+skill.getOperateType()+" power:"+skill.getPower());
            // _log.debug("  reusedelay:"+skill.getReuseDelay()+" hittime:"+skill.getHitTime());
            // _log.debug("  currentState:"+activeChar.getCurrentState());   //for debug
-
-            activeChar.useMagic(skill, _ctrlPressed, _shiftPressed);
+		    if (getClient().getRevision() >=729) //A temp sollution b4 we get the right packet, to make it with ctrl again
+                activeChar.useMagic(skill, _shiftPressed, false);
+		    else
+		        activeChar.useMagic(skill, _ctrlPressed, _shiftPressed);
 		}
 		else
 		{

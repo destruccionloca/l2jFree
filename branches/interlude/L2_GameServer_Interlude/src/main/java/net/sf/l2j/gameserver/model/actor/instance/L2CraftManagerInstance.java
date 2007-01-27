@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package net.sf.l2j.gameserver.model.actor.instance;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -101,7 +104,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
                     
                         int _crystalId = 1457 + _item.getItem().getCrystalType();
                     
-                        int _price = (int)(Config.ALT_CRAFT_PRICE * _count * ItemTable.getInstance().getTemplate(_crystalId).getReferencePrice());
+                        int _price = (int)( Config.ALT_CRAFT_PRICE * _count * ItemTable.getInstance().getTemplate(_crystalId).getReferencePrice());
                         if (_price==0) _price=Config.ALT_CRAFT_DEFAULT_PRICE;
                     
                         _priceTotal+=_price;
@@ -394,6 +397,8 @@ public class L2CraftManagerInstance extends L2FolkInstance
                 if (_recipe==null) continue;
                 
                 L2RecipeList _recipeList = RecipeController.getInstance().getRecipeByItemId(_recipe.getItemId());
+                
+                boolean _isConsumable = ItemTable.getInstance().getTemplate(_recipeList.getItemId()).isConsumable();
                     
                 if (_recipeList==null) continue;
                     
@@ -410,10 +415,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
                 replyMSG.append("<td valign=top width=235>");
                 replyMSG.append("<table border=0 width=100%>");
                 replyMSG.append("<tr><td><font color=\"A2A0A2\">"+ItemTable.getInstance().getTemplate(_recipe.getItemId()).getName()+"</font></td></tr>");
-                if ((_recipeList.isDwarvenRecipe()&&Config.ALT_CRAFT_ALLOW_CRAFT)||(!_recipeList.isDwarvenRecipe()&&Config.ALT_CRAFT_ALLOW_COMMON))
-                replyMSG.append("<tr><td><font color=\"A2A0A2\">Price:</font> <font color=\"B09878\">"+_price+" Adena</font></td></tr></table></td>");
-                else
-                replyMSG.append("<tr><td></td></tr></table></td>");
+                replyMSG.append("<tr><td><font color=\"A2A0A2\">Product:</font> <font color=\"B09878\">"+(_isConsumable?_recipeList.getCount()+" ":"")+ItemTable.getInstance().getTemplate(_recipeList.getItemId()).getName()+"</font></td></tr></table></td>");
                 replyMSG.append("</tr></table>");
                 replyMSG.append("<br>");
             }
@@ -451,14 +453,15 @@ public class L2CraftManagerInstance extends L2FolkInstance
             L2ItemInstance _recipe = _inventory.getItemByObjectId(_recipeObjId);
 
             L2RecipeList _recipeList = RecipeController.getInstance().getRecipeByItemId(_recipe.getItemId()); 
-        
+            
+            boolean _isConsumable = ItemTable.getInstance().getTemplate(_recipeList.getItemId()).isConsumable();
+            
             if( _recipe!=null &&
                 _recipe.getOwnerId()==player.getObjectId() &&
                 _recipe.getItemType()==L2EtcItemType.RECEIPE &&
                 _recipeList!=null)
             {
-            
-                int _price =(int)(Config.ALT_CRAFT_PRICE * _recipeList.getSuccessRate()/100 * _quantity * ItemTable.getInstance().getTemplate(_recipeList.getItemId()).getReferencePrice());
+                int _price =(int)(Config.ALT_CRAFT_PRICE * _recipeList.getSuccessRate()/100 * _quantity * (_isConsumable?_recipeList.getCount():1) * ItemTable.getInstance().getTemplate(_recipeList.getItemId()).getReferencePrice());
                 if (_price==0) _price=Config.ALT_CRAFT_DEFAULT_PRICE;
             
                 NpcHtmlMessage npcReply = new NpcHtmlMessage(1);
@@ -482,8 +485,9 @@ public class L2CraftManagerInstance extends L2FolkInstance
                 
                 replyMSG.append("<td valign=top width=235>");
                 replyMSG.append("<table border=0 width=100%>");
-                replyMSG.append("<tr><td>"+_quantity+"x <font color=\"A2A0A2\">"+ItemTable.getInstance().getTemplate(_recipeList.getItemId()).getName()+"</font></td></tr>");
-                
+                replyMSG.append("<tr><td><font color=\"A2A0A2\">"+ItemTable.getInstance().getTemplate(_recipeList.getItemId()).getName()+"</font></td></tr>");
+                replyMSG.append("<tr><td><font color=\"A2A0A2\">Product:</font> <font color=\"B09878\">"+(_isConsumable?_recipeList.getCount()*_quantity+" ":_quantity>1?_quantity:"")+ItemTable.getInstance().getTemplate(_recipeList.getItemId()).getName()+"</font></td></tr>");
+            
                 if ((_recipeList.isDwarvenRecipe()&&Config.ALT_CRAFT_ALLOW_CRAFT)||(!_recipeList.isDwarvenRecipe()&&Config.ALT_CRAFT_ALLOW_COMMON))
                     replyMSG.append("<tr><td><font color=\"A2A0A2\">Price:</font> <font color=\"B09878\">"+_price+" Adena</font></td></tr></table></td>");
                 else
@@ -513,7 +517,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
                     String _quantityState="<font color=\"55FF55\">"+_quantity*_recipeItem.getQuantity()+"</font>";
                     
                     if ((_item==null)||(_item.getCount()<_quantity*_recipeItem.getQuantity()))
-                       _quantityState="<font color=\"FF5555\">"+_quantity*_recipeItem.getQuantity()+"</font>";
+                       _quantityState="<font color=\"FF5555\">"+(int)(_quantity*_recipeItem.getQuantity()*Config.RATE_CRAFT_COST)+"</font>";
                     
                     replyMSG.append("<tr><td width=220>"+ItemTable.getInstance().getTemplate(_recipeItem.getItemId()).getName()+"</td>");
                     replyMSG.append("<td width=50>"+_quantityState+"</td></tr>");
@@ -550,6 +554,8 @@ public class L2CraftManagerInstance extends L2FolkInstance
 
             L2RecipeList _recipeList = RecipeController.getInstance().getRecipeByItemId(_recipe.getItemId()); 
             
+            boolean _isConsumable = ItemTable.getInstance().getTemplate(_recipeList.getItemId()).isConsumable();
+            
             if( _recipe!=null &&
                 _recipe.getOwnerId()==player.getObjectId() &&
                 _recipe.getItemType()==L2EtcItemType.RECEIPE &&
@@ -564,16 +570,16 @@ public class L2CraftManagerInstance extends L2FolkInstance
                 for (L2RecipeInstance _recipeItem:_recipeItems)
                 {
                     L2ItemInstance _item = _inventory.getItemByItemId(_recipeItem.getItemId());
-                    if ((_item==null)||(_item.getCount()<_quantity*_recipeItem.getQuantity()))
+                    if ((_item==null)||(_item.getCount()<(int)(_quantity*_recipeItem.getQuantity()*Config.RATE_CRAFT_COST)))
                         _enoughtMaterials=false;
                 }
                 
-                int _price =(int)(Config.ALT_CRAFT_PRICE * _recipeList.getSuccessRate()/100 * _quantity * ItemTable.getInstance().getTemplate(_recipeList.getItemId()).getReferencePrice());
+                int _price =(int)(Config.ALT_CRAFT_PRICE * _recipeList.getSuccessRate()/100 * _quantity * _recipeList.getCount() * ItemTable.getInstance().getTemplate(_recipeList.getItemId()).getReferencePrice());
                 if (_price==0) _price=Config.ALT_CRAFT_DEFAULT_PRICE;
                 
                 if (_inventory.getInventoryItemCount(ADENA_ID,0)<_price)
                 {
-                    sendOutOfItems(player,Integer.toBinaryString(_price),"Adena");
+                    sendOutOfItems(player,Integer.toString(_price),"Adena");
                     return;
                 }
                 
@@ -592,7 +598,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
                     
                 for (L2RecipeInstance _recipeItem:_recipeItems)
                 {
-                    player.destroyItemByItemId("CraftManager", _recipeItem.getItemId(), _quantity*_recipeItem.getQuantity(), player, true);
+                    player.destroyItemByItemId("CraftManager", _recipeItem.getItemId(), (int)(_quantity*_recipeItem.getQuantity()*Config.RATE_CRAFT_COST), player, true);
                     iu.addModifiedItem(player.getInventory().getItemByItemId(_recipeItem.getItemId()));
                 }
                 
@@ -603,19 +609,19 @@ public class L2CraftManagerInstance extends L2FolkInstance
                 {
                     SystemMessage sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
                     sm.addItemName(_recipeList.getItemId());
-                    sm.addNumber(_quantitySuccess);
+                    sm.addNumber(_quantitySuccess * _recipeList.getCount());
                     player.sendPacket(sm);
                     sm=null;
                     
                     iu.addModifiedItem(player.getInventory().getItemByItemId(_recipeList.getItemId()));
-                    _inventory.addItem("CraftManager", _recipeList.getItemId(), _quantitySuccess, player, player.getTarget());
+                    _inventory.addItem("CraftManager", _recipeList.getItemId(), _quantitySuccess * (_isConsumable?_recipeList.getCount():1), player, player.getTarget());
                 }
                     
                 player.sendPacket(iu);
                 iu=null;
                     
                 player.broadcastUserInfo();
-                sendCraftedItems(player,_quantitySuccess,_quantity-_quantitySuccess,ItemTable.getInstance().getTemplate(_recipeList.getItemId()).getName());
+                sendCraftedItems(player,_quantitySuccess * (_isConsumable?_recipeList.getCount():1),(_quantity-_quantitySuccess)* (_isConsumable?_recipeList.getCount():1),ItemTable.getInstance().getTemplate(_recipeList.getItemId()).getName());
             }
         }else
         super.onBypassFeedback(player,command);
@@ -638,7 +644,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
                 grade==3?"red":
                     grade==4?"silver":"gold")+"_i00";
     }
-    
+   
     private void sendOutOfItems(L2PcInstance player, String count, String itemname)
     {
         NpcHtmlMessage npcReply = new NpcHtmlMessage(1);

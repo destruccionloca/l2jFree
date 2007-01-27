@@ -158,7 +158,7 @@ public class RequestActionUse extends ClientBasePacket
                         return;
                     }
 
-                    if (target.isAutoAttackable(activeChar) || _ctrlPressed)
+                    if (target.isAutoAttackable(activeChar) || _ctrlPressed || (getClient().getRevision() >= 729 && _shiftPressed)) //A temp sollution b4 we get the right packet, to make it with ctrl again
                     {
                         // Siege Golem (12251)
                         if ((pet.getNpcId() != 12251) || (target instanceof L2DoorInstance))
@@ -458,7 +458,10 @@ public class RequestActionUse extends ClientBasePacket
             }
             
             activeSummon.setTarget(target);
-            activeSummon.useMagic(skill, _ctrlPressed, _shiftPressed);
+            if (getClient().getRevision()>=729) //A temp sollution b4 we get the right packet, to make it with ctrl again
+                activeSummon.useMagic(skill, _shiftPressed, false);
+            else
+                activeSummon.useMagic(skill, _ctrlPressed, _shiftPressed);
         }
     }
 
