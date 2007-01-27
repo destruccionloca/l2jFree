@@ -86,7 +86,9 @@ public abstract class L2Effect
         SILENCE_PHYSICAL,
         BLESSNOBLESSE,
         LUCKNOBLESSE,
-        PSYCHICAL_MUTE 
+        PSYCHICAL_MUTE,
+        TARGET_ME,
+        REMOVE_TARGET 
     }
 	
 	private static final Func[] _emptyFunctionSet = new Func[0];
