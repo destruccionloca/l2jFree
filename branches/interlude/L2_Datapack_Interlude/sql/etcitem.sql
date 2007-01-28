@@ -4783,7 +4783,7 @@ INSERT INTO `etcitem` (`item_id`,`name`,`crystallizable`,`item_type`,`weight`,`c
  (6390,'Large Pumpkin Seed','false','quest',0,'stackable','paper','none',0,0,0,'true','C4Item','none'),
  (6391,'Nectar','false','quest',0,'stackable','paper','none',0,0,0,'true','C4Item','none'),
  (6392,'Event - Medal','false','none',0,'stackable','steel','none',0,0,0,'true','C4Item','none'),
- (6393,'Event - Glittering Medal','none','quest',0,'stackable','steel','none',0,0,0,'true','C4Item','none'),
+ (6393,'Event - Glittering Medal','false','none',0,'stackable','steel','none',0,0,0,'true','C4Item','none'),
  (6395,'Amulet: Chant of Predator','false','spellbook',120,'normal','paper','none',0,4600,0,'true','predator_amulet','none'),
  (6396,'Amulet: Chant of Eagle','false','spellbook',120,'normal','paper','none',0,4600,0,'true','eagle_amulet','none'),
  (6397,'Amulet: Chant of Vampire','false','spellbook',120,'normal','paper','none',0,3850,0,'true','vampire_amulet','none'),
