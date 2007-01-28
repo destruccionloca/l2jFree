@@ -35,6 +35,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ShortCutRegister;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
 
@@ -113,7 +114,7 @@ public class RequestExEnchantSkill extends ClientBasePacket
                 counts++;
                 _requiredSp = s.getSpCost();
                 _requiredExp = s.getExp();
-                _rate = s.getRate();
+                _rate = Formulas.getInstance().calculateEnchantSkillSuccessRate(s.getLevel(), player.getLevel());
 //              get skill level it will be reverted to if enchant fails
                 _baseLvl = s.getBaseLevel();
             }
