@@ -5481,7 +5481,17 @@ public abstract class L2Character extends L2Object
    }
    return matk;
    } 
-   public int getMAtkSpd() { return getStat().getMAtkSpd(); }
+   public int getMAtkSpd()
+   {
+       int _matkspd = getStat().getMAtkSpd();
+       if(Config.MAX_MATK_SPEED>0)
+       {
+           if(_matkspd>Config.MAX_MATK_SPEED)
+               return Config.MAX_MATK_SPEED;
+       }
+       return _matkspd; 
+   }
+   
    public int getMaxMp() { return getStat().getMaxMp(); }
    public int getMaxHp() { return getStat().getMaxHp(); }
    public final int getMCriticalHit(L2Character target, L2Skill skill) { return getStat().getMCriticalHit(target, skill); }
@@ -5495,7 +5505,16 @@ public abstract class L2Character extends L2Object
    public double getPAtkInsects(L2Character target) { return getStat().getPAtkInsects(target); }
    public double getPAtkMonsters(L2Character target) { return getStat().getPAtkMonsters(target); }
    public double getPAtkPlants(L2Character target) { return getStat().getPAtkPlants(target); } 
-   public int getPAtkSpd() { return getStat().getPAtkSpd(); }
+   public int getPAtkSpd() 
+   {
+       int _patkspd = getStat().getPAtkSpd();
+       if(Config.MAX_PATK_SPEED>0)
+       {
+           if(_patkspd>Config.MAX_PATK_SPEED)
+               return Config.MAX_PATK_SPEED;
+       }
+       return _patkspd; 
+   }
    public double getPAtkUndead(L2Character target) { return getStat().getPAtkUndead(target); }
    public double getPDefUndead(L2Character target) { return getStat().getPDefUndead(target); }
    public double getPAtkValakas(L2Character target) { return getStat().getPAtkValakas(target); }
