@@ -3178,14 +3178,9 @@ public final class L2PcInstance extends L2PlayableInstance
                 // Check if this L2PcInstance is autoAttackable
                 if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started) || (player._inEventVIP && VIP._started))
                 {
-                    if(player.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL || this.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
-                    {
-                        player.sendMessage("Player protected till level " + String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL));
-                        player.sendPacket(new ActionFailed());
-                    }
                     // Player with lvl < 21 can't attack a cursed weapon holder
                     // And a cursed weapon holder  can't attack players with lvl < 21
-                    else if ((isCursedWeaponEquiped() && player.getLevel() < 21)
+                    if ((isCursedWeaponEquiped() && player.getLevel() < 21)
                             || (player.isCursedWeaponEquiped() && this.getLevel() < 21))
                     {
                         player.sendPacket(new ActionFailed());
@@ -6463,7 +6458,16 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if(attacker instanceof L2PlayableInstance && ZoneManager.getInstance().checkIfInZonePeace(this)) 
             return false;
-        
+
+        if(attacker instanceof L2PlayableInstance 
+                && (this.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL
+                       ||  attacker.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)) 
+        {
+            if(attacker instanceof L2PcInstance)
+                ((L2PcInstance)attacker).sendMessage("Player protected till level " + String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL));
+            return false;
+        }
+
         // Check if the L2PcInstance has Karma
         if (getKarma() > 0 || getPvpFlag() > 0) return true;
 
