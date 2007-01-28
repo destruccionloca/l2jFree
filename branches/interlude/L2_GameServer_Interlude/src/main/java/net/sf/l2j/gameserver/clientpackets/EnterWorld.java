@@ -413,6 +413,8 @@ public class EnterWorld extends ClientBasePacket
 
         QuestList ql = new QuestList();
         activeChar.sendPacket(ql);
+        
+        activeChar.setClientRevision(getClient().getRevision());
 	}
 
 

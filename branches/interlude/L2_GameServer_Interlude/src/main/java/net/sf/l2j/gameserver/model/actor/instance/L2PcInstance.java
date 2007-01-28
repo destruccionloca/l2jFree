@@ -639,6 +639,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _maryaccepted = false;
     
     private int _isDuelling = 0;
+    
+    private int _clientRevision = 0;
 
     /* Flag to disable equipment/skills while wearing formal wear **/
     private boolean _IsWearingFormalWear = false;
@@ -9664,8 +9666,16 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         _isDuelling = duelling;
     }
-
-
+    
+    public void setClientRevision(int clientrev)
+    {
+        _clientRevision = clientrev;
+    }
+    
+    public int getClientRevision()
+    {
+        return _clientRevision;
+    }
     
     public boolean isInJail()
     {
