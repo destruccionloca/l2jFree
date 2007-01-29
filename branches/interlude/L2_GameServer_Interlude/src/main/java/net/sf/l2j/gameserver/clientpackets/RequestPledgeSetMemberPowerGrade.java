@@ -63,7 +63,6 @@ public class RequestPledgeSetMemberPowerGrade extends ClientBasePacket
             {
                 member.getPlayerInstance().setRank(_rank);
                 member.getPlayerInstance().sendPacket(new UserInfo(member.getPlayerInstance()));
-                _log.warn("requestSetMemberPower name: "+member.getName());
                 if (activeChar.getClan().getRankPrivs(_rank) == 0)
                 {
                     activeChar.getClan().setRankPrivs(_rank, 0);
