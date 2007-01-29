@@ -243,7 +243,7 @@ public class GeoDataRequester
         {
             for (GeoBlock expiredBlock : geoList.values())
             {
-                if( (now -  expiredBlock.expirationTime) > defaultExpirationTime )
+                if( (now -  expiredBlock.expirationTime) > defaultExpirationTime && defaultExpirationTime != -1)
                 {
                     // object has expired so clean up
                     for(int i = 0 ; i < 16 ; i ++ )

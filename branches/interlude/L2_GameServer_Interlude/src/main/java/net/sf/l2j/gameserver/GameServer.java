@@ -330,6 +330,7 @@ public class GameServer
         if (Config.ALLOW_GEODATA)
         {
             GeoDataRequester.getInstance();
+            GeoDataRequester.getInstance().setDefaultExpirationTime(Config.ALLOW_GEODATA_EXPIRATIONTIME); 
             if ( _log.isDebugEnabled())_log.debug("GeoData initialized");
         }
         TeleportLocationTable.getInstance();
@@ -344,10 +345,6 @@ public class GameServer
         //have to load waterZones before geo ... geo now uses waterzones in checks
         Manager.loadAll();
         
-        if (Config.ALLOW_GEODATA)
-        {
-            GeoDataRequester.getInstance().setDefaultExpirationTime(3000); 
-        }
         SpawnTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("SpawnTable initialized");
         
