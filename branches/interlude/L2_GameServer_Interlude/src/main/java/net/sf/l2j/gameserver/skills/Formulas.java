@@ -1862,13 +1862,16 @@ public final class Formulas
        else skillLvl = skillLvl - 100;
        if (skillLvl < 1) return 0;
        if (playerLvl < 75) return 0;
-       
+
+       // 78, 79 and 80 lvl have the same successRate
+       if(playerLvl > 78) playerLvl = 78;
+
        // linear approx, although the formula isn't linear
        int successRate = 75 - skillLvl * 7;   
-        successRate += (playerLvl - 75) * 20;          
+       successRate += (playerLvl - 75) * 20;          
    
-        if (successRate < 10) successRate = 10;
-        if (successRate > 100) successRate = 100;
+       if (successRate < 1) successRate = 1;
+       if (successRate > 100) successRate = 100;
            
        return successRate;
     }

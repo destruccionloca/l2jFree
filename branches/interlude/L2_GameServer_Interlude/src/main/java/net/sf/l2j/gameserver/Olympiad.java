@@ -1399,7 +1399,15 @@ public class Olympiad
             for (L2PcInstance player : _players)
             {
                 player.setIsInOlympiadMode(true);
-                
+
+                //Remove clan skill
+                if (player.getClan() != null){ 
+                    for(L2Skill skill: player.getClan().getAllSkills())
+                    { 
+                        player.removeSkill(skill,false); 
+                    } 
+                } 
+
                 //Remove Buffs
                 for (L2Effect e : player.getAllEffects())
                     e.exit();
@@ -1511,6 +1519,15 @@ public class Olympiad
                 player.setCurrentHp(player.getMaxHp());
                 player.setCurrentMp(player.getMaxMp());
                 player.getStatus().startHpMpRegeneration();
+
+                //Add clan skill
+                if (player.getClan() != null){ 
+                    for(L2Skill skill: player.getClan().getAllSkills())
+                    {
+                        if(skill.getMinPledgeClass() <= player.getPledgeClass())
+                            player.addSkill(skill,false);
+                    }
+                }
             }
         }
         
@@ -1588,27 +1605,37 @@ public class Olympiad
                 player.setCurrentCp(player.getMaxCp());
                 player.setCurrentHp(player.getMaxHp());
                 player.setCurrentMp(player.getMaxMp());
+
+                //Buff ww to both
+                L2Skill skill;
+                SystemMessage sm;
                 
+                skill = SkillTable.getInstance().getInfo(1204, 2);
+                skill.getEffects(player, player);
+                player.broadcastPacket(new MagicSkillUser(player, player, skill.getId(), 2, skill.getSkillTime(), 0));
+                sm = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT);
+                sm.addSkillName(1204);
+                player.sendPacket(sm);
+
                 if (!player.isMageClass())
                 {
-                    //Buff ww to non-mages
-                    L2Skill skill;
-                    SystemMessage sm;
-                    
-                    skill = SkillTable.getInstance().getInfo(1204, 2);
-                    skill.getEffects(player, player);
-                    player.broadcastPacket(new MagicSkillUser(player, player, skill.getId(), 2, skill.getSkillTime(), 0));
-                    sm = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT);
-                    sm.addSkillName(1204);
-                    player.sendPacket(sm);
-                    
                     //Buff haste to non-mages
-                    skill = SkillTable.getInstance().getInfo(1086, 2);
+                    skill = SkillTable.getInstance().getInfo(1086, 1);
                     skill.getEffects(player, player);
-                    player.broadcastPacket(new MagicSkillUser(player, player, skill.getId(), 2, skill.getSkillTime(), 0));
+                    player.broadcastPacket(new MagicSkillUser(player, player, skill.getId(), 1, skill.getSkillTime(), 0));
                     sm = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT);
                     sm.addSkillName(1086);
                     player.sendPacket(sm);
+                }
+                else
+                {                    
+                    //Buff acumen to mages
+                    skill = SkillTable.getInstance().getInfo(1085, 1);
+                    skill.getEffects(player, player);
+                    player.broadcastPacket(new MagicSkillUser(player, player, skill.getId(), 1, skill.getSkillTime(), 0));
+                    sm = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT);
+                    sm.addSkillName(1085);
+                    player.sendPacket(sm);                    
                 }
             }
         }

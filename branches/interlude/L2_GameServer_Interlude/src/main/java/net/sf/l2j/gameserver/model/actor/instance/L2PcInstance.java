@@ -5998,6 +5998,15 @@ public final class L2PcInstance extends L2PlayableInstance
 
             rset.close();
             statement.close();
+           
+            //restore clan skills
+            if (_clan != null)
+            {
+                for(L2Skill skill: _clan.getAllSkills()){
+                    if(skill.getMinPledgeClass() <= getPledgeClass())
+                        addSkill(skill,false);
+                }
+            }
         }
         catch (Exception e)
         {
@@ -8693,7 +8702,8 @@ public final class L2PcInstance extends L2PlayableInstance
     public void doRevive()
     {
         super.doRevive();
-        getParty().setDefeatedPartyMembers(getParty().getDefeatedPartyMembers()-1);
+        if(isInParty() && isDuelling()>0)
+            getParty().setDefeatedPartyMembers(getParty().getDefeatedPartyMembers()-1);
         updateEffectIcons();
         _ReviveRequested = 0;
         _RevivePower = 0;
