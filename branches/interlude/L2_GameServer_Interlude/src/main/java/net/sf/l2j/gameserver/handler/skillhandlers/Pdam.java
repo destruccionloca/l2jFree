@@ -81,12 +81,12 @@ public class Pdam implements ISkillHandler
             boolean dual = activeChar.isUsingDualWeapon();
             boolean shld = Formulas.getInstance().calcShldUse(activeChar, target);
             boolean crit = Formulas.getInstance().calcCrit(activeChar.getCriticalHit(target, skill));
-            boolean soul = (weapon != null
-                && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER);
+            boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER);
+            
+            if (skill.ignoreShld()) shld = false;
 
             if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0) damage = 0;
-            else damage = (int) Formulas.getInstance().calcPhysDam(activeChar, target, skill, shld,
-                                                                   crit, dual, soul);
+            else damage = (int) Formulas.getInstance().calcPhysDam(activeChar, target, skill, shld, crit, dual, soul);
 
             if (damage > 5000 && activeChar instanceof L2PcInstance)
             {

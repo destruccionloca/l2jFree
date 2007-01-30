@@ -48,7 +48,7 @@ public class FuncEnchant extends Func
             enchant = 3;
         }
 
-        if (_stat == Stats.MAGIC_DEFENCE || _stat == Stats.POWER_DEFENCE)
+        if (_stat == Stats.MAGIC_DEFENCE || _stat == Stats.POWER_DEFENCE || _stat == Stats.SHIELD_DEFENCE)
         {
             env.value += enchant + 3 * overenchant;
             return;

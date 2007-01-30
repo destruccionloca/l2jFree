@@ -1173,17 +1173,11 @@ public final class Formulas
         }
         if (shld)
         {
-            int PBlock = 0;
-            for (int degrees = 55; degrees < 125; degrees++) 
+            if (100 - Config.ALT_PERFECT_SHLD_BLOCK < Rnd.get(100)) 
             {
-                if (target instanceof L2PcInstance && attacker.isInFront(target,degrees))
-                    PBlock +=Config.ALT_PERFECT_SHLD_BLOCK;
+                damage = 1;
+                target.sendPacket(new SystemMessage(SystemMessage.YOUR_EXCELLENT_SHIELD_DEFENSE_WAS_A_SUCCESS));
             }
-            if (100 - PBlock < Rnd.get(100)) 
-                {
-                    damage = 1;
-                    target.sendPacket(new SystemMessage(SystemMessage.YOUR_EXCELLENT_SHIELD_DEFENSE_WAS_A_SUCCESS));
-                }
         }
         if  (damage > 0 && damage < 1)
         {
@@ -1373,21 +1367,23 @@ public final class Formulas
     /** Returns true if shield defence successfull */
     public boolean calcShldUse(L2Character attacker, L2Character target) 
     {
-        double shldRate = target.calcStat(Stats.SHIELD_RATE, 0, attacker, null);
+        int shldRate = (int)(target.calcStat(Stats.SHIELD_RATE, 0, attacker, null) * DEXbonus[target.getDEX()]);
         int shldAngle = (int)target.calcStat(Stats.SHIELD_ANGLE, 60, null, null);
     
+        if(shldRate == 0) return false;
+        
         if (attacker != null && attacker.getActiveWeaponItem() != null)
         {
           if (attacker.getActiveWeaponItem().getItemType() == L2WeaponType.BOW)
-            shldRate += 30.;
+            shldRate += 30;
         }
     
         if (shldAngle == 60 && target.isInFront(attacker, shldAngle))
         {
-          shldRate = 0.;
+          shldRate = 0;
         }
     
-        return shldRate > Rnd.get(100); 
+        return Rnd.get(100) <= shldRate; 
     }
 
     public boolean calcMagicAffected(L2Character actor, L2Character target, L2Skill skill)
