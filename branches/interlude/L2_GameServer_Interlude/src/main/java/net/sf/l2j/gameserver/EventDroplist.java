@@ -121,5 +121,13 @@ public class EventDroplist
 	    
 	    return list;
 	}
-
+    
+	public void getAllDropsDates(String QuestName)
+	{
+	    for (DateDrop drop : allNpcDateDrops)
+	    {
+	        Date currentDate = new Date();
+	        System.out.println("Event :: "+QuestName+" : Date Range From: "+drop.dateRange.getStartDate()+" To: "+drop.dateRange.getEndDate()+" Now: "+ currentDate);
+	    }
+	}    
 }
