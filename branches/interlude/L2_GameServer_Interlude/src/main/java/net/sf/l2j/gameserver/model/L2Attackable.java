@@ -674,9 +674,16 @@ public class L2Attackable extends L2NpcInstance
                     
                     // Avoid "over damage"
                     if (partyDmg > getMaxHp()) partyDmg = getMaxHp();
-                    
+
+                    int newLevel = 0;
+                    for (L2Character member : rewardedMembers)
+                    {
+                        if (member.getLevel() > newLevel)
+                            newLevel = member.getLevel();
+                    }  
+
                     // Calculate the level difference between Party and L2Attackable
-                    levelDiff = attackerParty.getLevel() - getLevel();
+                    levelDiff = newLevel - getLevel();
                     
                     // Calculate Exp and SP rewards
                     tmp = calculateExpAndSp(levelDiff, partyDmg);
