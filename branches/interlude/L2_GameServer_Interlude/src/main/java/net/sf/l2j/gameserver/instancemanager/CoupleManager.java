@@ -112,9 +112,12 @@ public class CoupleManager
                 int _player1id = player1.getObjectId();
                 int _player2id = player2.getObjectId();
                 
-                getCouples().add(new Couple(player1,player2));
+                Couple _new = new Couple(player1,player2);
+                getCouples().add(_new);
                 player1.setPartnerId(_player2id);
                 player2.setPartnerId(_player1id);
+                player1.setCoupleId(_new.getId());
+                player2.setCoupleId(_new.getId());
             }
         }
     }

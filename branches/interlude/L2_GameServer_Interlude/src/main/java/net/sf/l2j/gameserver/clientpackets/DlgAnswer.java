@@ -53,7 +53,7 @@ public class DlgAnswer extends ClientBasePacket
             _log.debug(getType()+": Answer acepted. Message ID "+_messageId+", asnwer "+_answer+", unknown field "+_unk);
         if (_messageId == SystemMessage.RESSURECTION_REQUEST)
             getClient().getActiveChar().ReviveAnswer(_answer);
-        else if (_messageId==490 && Config.ALLOW_WEDDING)
+        else if (Config.ALLOW_WEDDING && getClient().getActiveChar().isEngageRequest() &&_messageId==614)
             getClient().getActiveChar().EngageAnswer(_answer);
     }
 

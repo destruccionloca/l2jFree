@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 
-public class L2WeddingManagerInstance extends L2FolkInstance
+public class L2WeddingManagerInstance extends L2NpcInstance
 {
     /**
      * @author evill33t & squeezed

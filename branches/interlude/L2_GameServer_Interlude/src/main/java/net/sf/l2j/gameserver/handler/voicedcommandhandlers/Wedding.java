@@ -149,7 +149,7 @@ public class Wedding implements IVoicedCommandHandler
         // check if player target himself
         if(ptarget.getObjectId()==activeChar.getObjectId())
         {
-            activeChar.sendMessage("Engaging with yourself ?.");
+            activeChar.sendMessage("Engaging with yourself?");
             return false;
         }
 
@@ -219,8 +219,8 @@ public class Wedding implements IVoicedCommandHandler
         }
         
         ptarget.setEngageRequest(true, activeChar.getObjectId());        
-        ptarget.sendMessage("Player "+activeChar.getName()+" wants to engage with you.");
-        ptarget.sendPacket(new ConfirmDlg(490,"displays nothing"));
+        //ptarget.sendMessage("Player "+activeChar.getName()+" wants to engage with you.");
+        ptarget.sendPacket(new ConfirmDlg(614,activeChar.getName()+" asking you to engage. Do you want to start new relationship?"));
 
         return true;
     }
