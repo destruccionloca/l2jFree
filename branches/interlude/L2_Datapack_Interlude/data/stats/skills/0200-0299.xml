@@ -1633,10 +1633,10 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
-  <for>
   <cond>
-     <game time="night"/>
+  	<game time="night"/>
   </cond>
+  <for>  
     <add order="0x40" stat="accCombat" val="3"/>
   </for>
 </skill>
