@@ -28,7 +28,6 @@ import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
-import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.util.L2ObjectMap;
 import net.sf.l2j.util.Point3D;
 
@@ -584,13 +583,7 @@ public final class L2World
                 // If the visible object is inside the circular area
                 // add the object to the FastList result
                 if (dx*dx + dy*dy < sqRadius)
-                    if(Config.ALLOW_GEODATA && Config.ALLOW_GEODATA_CHECK_KNOWN && object instanceof L2PcInstance)
-                    {
-                        if(GeoDataRequester.getInstance().hasAttackLoS(object, _object.getX(), _object.getY(), (short) _object.getZ()))
-                            result.add(_object);
-                    }
-                    else
-                        result.add(_object);
+                    result.add(_object);
             }
         }
         
@@ -655,13 +648,7 @@ public final class L2World
                 long dz = z1 - z;
                 
                 if (dx*dx + dy*dy + dz*dz < sqRadius)
-                    if(Config.ALLOW_GEODATA && Config.ALLOW_GEODATA_CHECK_KNOWN && object instanceof L2PcInstance)
-                    {
-                        if(GeoDataRequester.getInstance().hasAttackLoS(object, _object.getX(), _object.getY(), (short) _object.getZ()))
-                            result.add(_object);
-                    }
-                    else
-                        result.add(_object);
+                    result.add(_object);
             }
         }
         

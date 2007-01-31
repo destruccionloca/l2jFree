@@ -46,6 +46,7 @@ import net.sf.l2j.gameserver.CharTemplateTable;
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.Connection;
 import net.sf.l2j.gameserver.GameTimeController;
+import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.HennaTable;
 import net.sf.l2j.gameserver.ItemTable;
@@ -133,7 +134,6 @@ import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.TvT;
 import net.sf.l2j.gameserver.model.entity.VIP;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
-import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.model.waypoint.WayPointNode;
@@ -6645,9 +6645,8 @@ public final class L2PcInstance extends L2PlayableInstance
             sendPacket(new ActionFailed());
             return;
         }
-
-        //Don't allow casting on players on different dungeon lvls etc
-        if (!Config.ALLOW_GEODATA && Math.abs(target.getZ() - getZ()) > 1000)
+        // GeoData Los Check here
+        if (!GeoData.getInstance().canSeeTarget(this, target))
         {
             sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
             sendPacket(new ActionFailed());
@@ -9317,12 +9316,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (Config.FISHINGMODE == "fishingzone")
         {
-            //check the fishing floats x,y,z is in a fishing zone
-            //if not the abort fishing mode else continue
-            if(Config.ALLOW_GEODATA)
-            {
-                z = GeoDataRequester.getInstance().getGeoInfoNearest(x, y, (short)z).getZ();
-            }
             if (!ZoneManager.getInstance().checkIfInZoneIncludeZ("Water",x,y,z))
             //if (!ZoneManager.getInstance().checkIfInZoneFishing(x, y))
             {

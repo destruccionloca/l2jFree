@@ -28,8 +28,6 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
-import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
-import net.sf.l2j.gameserver.model.entity.geodata.PathNodeBinRequester;
 import net.sf.l2j.util.L2ObjectSet;
 
 import org.apache.commons.logging.Log;
@@ -207,25 +205,14 @@ public final class L2WorldRegion
         // turn the AI on or off to match the region's activation.
         switchAI(value);
         
-        // load in the geodata (if active), or unload the geodata (if inactive)
+        // TODO
+        // turn the geodata on or off to match the region's activation.
         if(value)
-        {
-            if(Config.ALLOW_GEODATA)
-            {
-                //Load Block in memory
-                GeoDataRequester.getInstance().getGeoBlock(tileX, tileY);
-                PathNodeBinRequester.getInstance().getPathNodeBlock((tileX*4096+MAP_MIN_X )+1, (tileY*4096+MAP_MIN_Y)+1);
-                if(_log.isDebugEnabled()) _log.debug("Starting Grid " + tileX + ","+ tileY);
-            }
-        }
+            if(_log.isDebugEnabled())
+                _log.info("Starting Grid " + tileX + ","+ tileY);
         else
-        {
-            if(Config.ALLOW_GEODATA)
-            {
-                //Block will kill itself automaticaly
-                if(_log.isDebugEnabled()) _log.debug("Stoping Grid " + tileX + ","+ tileY);
-            }
-        }
+            if(_log.isDebugEnabled())
+            _log.info("Stoping Grid " + tileX + ","+ tileY);
     }
 
     /** Immediately sets self as active and starts a timer to set neighbors as active

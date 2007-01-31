@@ -56,6 +56,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEnchant;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEventEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminExpSp;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminFightCalculator;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGeodata;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGm;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGmChat;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminHeal;
@@ -171,8 +172,6 @@ import net.sf.l2j.gameserver.model.AutoSpawnHandler;
 import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Hero;
-import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
-import net.sf.l2j.gameserver.model.entity.geodata.PathNodeBinRequester;
 import net.sf.l2j.gameserver.script.faenor.FaenorScriptEngine;
 import net.sf.l2j.gameserver.taskmanager.TaskManager;
 import net.sf.l2j.gameserver.util.DynamicExtension;
@@ -327,12 +326,8 @@ public class GameServer
            throw new Exception("Could not initialize the Helper Buff Table");
         }
         
-        if (Config.ALLOW_GEODATA)
-        {
-            GeoDataRequester.getInstance();
-            GeoDataRequester.getInstance().setDefaultExpirationTime(Config.ALLOW_GEODATA_EXPIRATIONTIME); 
-            if ( _log.isDebugEnabled())_log.debug("GeoData initialized");
-        }
+        GeoData.getInstance();
+        if ( _log.isDebugEnabled())_log.debug("GeoData initialized");
         TeleportLocationTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("TeleportLocationTable initialized");
         LevelUpData.getInstance();
@@ -341,13 +336,8 @@ public class GameServer
         if ( _log.isDebugEnabled())_log.debug("World initialized");
         RandomIntGenerator.getInstance();
         if ( _log.isDebugEnabled())_log.debug("RandomIntGenerator initialized");
-
-        //have to load waterZones before geo ... geo now uses waterzones in checks
-        Manager.loadAll();
-        
         SpawnTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("SpawnTable initialized");
-        
         RaidBossSpawnManager.getInstance();
         if ( _log.isDebugEnabled())_log.debug("Day/Night SpawnMode initialized");
         DayNightSpawnManager.getInstance().notifyChangeMode();
@@ -383,10 +373,10 @@ public class GameServer
         
         Olympiad.getInstance();
         if ( _log.isDebugEnabled())_log.debug("Olympiad initialized");
-        
         Hero.getInstance();
-        
-        // Init of Zariche manager
+        if ( _log.isDebugEnabled())_log.debug("Heroes initialized");
+        FaenorScriptEngine.getInstance();
+        if ( _log.isDebugEnabled())_log.debug("ScriptEngine initialized");
         CursedWeaponsManager.getInstance();
         if ( _log.isDebugEnabled())_log.debug("CursedWeapons initialized");
         
@@ -523,6 +513,7 @@ public class GameServer
         _adminCommandHandler.registerAdminCommandHandler(new AdminCTFEngine());
         _adminCommandHandler.registerAdminCommandHandler(new AdminVIPEngine());
         _adminCommandHandler.registerAdminCommandHandler(new AdminCursedWeapons());
+        _adminCommandHandler.registerAdminCommandHandler(new AdminGeodata());
         _log.info("AdminCommandHandler: Loaded " + _adminCommandHandler.size() + " handlers.");
 
         _userCommandHandler = UserCommandHandler.getInstance();
@@ -558,9 +549,8 @@ public class GameServer
         Universe.getInstance();
         if ( _log.isDebugEnabled())_log.debug("Universe initialized");
         
-        FaenorScriptEngine.getInstance();
-        if ( _log.isDebugEnabled())_log.debug("ScriptEngine initialized");
-        
+        Manager.loadAll();
+
         _shutdownHandler = Shutdown.getInstance();
         Runtime.getRuntime().addShutdownHook(_shutdownHandler);
 
@@ -591,13 +581,6 @@ public class GameServer
         
         ForumsBBSManager.getInstance();
         if ( _log.isDebugEnabled())_log.debug("BBSManager initialized");
-
-        //takes lots of ram .. do it near the end
-        if (Config.ALLOW_GEODATA)
-        {
-           PathNodeBinRequester.getInstance();
-           if ( _log.isDebugEnabled())_log.debug("PathNodes initialized");
-        }
         
         _log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
 
@@ -613,11 +596,6 @@ public class GameServer
         long freeMem = (Runtime.getRuntime().maxMemory()-Runtime.getRuntime().totalMemory()+Runtime.getRuntime().freeMemory()) / 1048576; // 1024 * 1024 = 1048576;
         long totalMem = Runtime.getRuntime().maxMemory() / 1048576;
         _log.info("GameServer Started, free memory "+freeMem+" Mb of "+totalMem+" Mb");
-        
-        if (Config.ALLOW_GEODATA)
-        {
-            GeoDataRequester.getInstance().setDefaultExpirationTime(900000); 
-        }
         
         _loginThread = LoginServerThread.getInstance();
         _loginThread.start();

@@ -1,5 +1,4 @@
-/*
- * This program is free software; you can redistribute it and/or modify
+/* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -16,18 +15,17 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.model.entity.geodata;
+package net.sf.l2j.gameserver.pathfinding;
 
-
-public class FarPoint
+/**
+ *
+ * @author -Nemesiss-
+ */
+public abstract class AbstractNodeLoc
 {
-    public FarPoint()
-    {
-    }
-    
-    public int x;
-    public int y;
-    public short z;
-    public boolean LoS;
-        
+    public abstract int getX();
+    public abstract int getY();
+    public abstract short getZ();
+    public abstract short getNodeX();
+    public abstract short getNodeY();
 }

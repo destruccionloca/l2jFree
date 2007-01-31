@@ -17,11 +17,10 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 package net.sf.l2j.gameserver.skills;
-import net.sf.l2j.Config;
+
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Effect;
-import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
@@ -58,40 +57,12 @@ final class EffectBluff extends L2Effect {
         //posX += signx*40; //distance less than melee attacks (40)
         //posY += signy*40;
 
-        if(Config.ALLOW_GEODATA)
-        {
-        if (GeoDataRequester.getInstance().hasMovementLoS(getEffected(), posX +(signx*40),posY + (signy*40),posZ).LoS == true )
-        {
-            getEffected().setRunning();
-            getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,
-                                  new L2CharPosition(posX +(signx*40),posY + (signy*40),
-                                  GeoDataRequester.getInstance().getGeoInfoNearest(posX +(signx*40),posY + (signy*40),(short)posZ).getZ(),
-                                  0));
-            getEffected().sendPacket(SystemMessage.sendString("You can feel Bluff's effect"));
-            getEffected().setTarget(null);
-            onActionTime();
-        }
-        else
-        {
-            getEffected().setRunning();
-            getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,
-                                  new L2CharPosition(posX, posY,
-                                  GeoDataRequester.getInstance().getGeoInfoNearest(posX,posY,(short)posZ).getZ(),
-                                  0));
-            getEffected().sendPacket(SystemMessage.sendString("You can feel Bluff's effect"));
-            getEffected().setTarget(null);
-            onActionTime();
-        }
-        }
-        else
-        {
-            getEffected().setRunning();
-            getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,
-                                  new L2CharPosition(posX +(signx*40),posY + (signy*40),posZ,0));
-            getEffected().sendPacket(SystemMessage.sendString("You can feel Bluff's effect"));
-            getEffected().setTarget(null);
-            onActionTime();
-        }
+        getEffected().setRunning();
+        getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,
+                              new L2CharPosition(posX +(signx*40),posY + (signy*40),posZ,0));
+        getEffected().sendPacket(SystemMessage.sendString("You can feel Bluff's effect"));
+        getEffected().setTarget(null);
+        onActionTime();
     }
     public void onExit()
     {

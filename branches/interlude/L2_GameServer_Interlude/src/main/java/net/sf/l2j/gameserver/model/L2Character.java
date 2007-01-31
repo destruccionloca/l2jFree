@@ -30,6 +30,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastTable;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.MapRegionTable;
 import net.sf.l2j.gameserver.Olympiad;
@@ -63,7 +64,6 @@ import net.sf.l2j.gameserver.model.actor.stat.CharStat;
 import net.sf.l2j.gameserver.model.actor.status.CharStatus;
 import net.sf.l2j.gameserver.model.entity.Zone;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
-import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.Attack;
@@ -445,16 +445,6 @@ public abstract class L2Character extends L2Object
             sendPacket(new ActionFailed());
             return;
         }
-        if(Config.ALLOW_GEODATA)
-        if ( this instanceof L2PcInstance)
-        {
-            //_log.warn("Do attack L0S_2");
-            if (GeoDataRequester.getInstance().hasAttackLoS(this, target) == false)
-            {
-                sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
-                return;
-            }   
-        }
 
         // Get the active weapon instance (always equiped in the right hand)
         L2ItemInstance weaponInst = getActiveWeaponInstance();
@@ -473,6 +463,14 @@ public abstract class L2Character extends L2Object
             return;
         }
         
+        // GeoData Los Check here
+        if (!GeoData.getInstance().canSeeTarget(this, target))
+        {
+            sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+            sendPacket(new ActionFailed());
+            return;
+        }
+        
         // Check for a bow
         if ((weaponItem != null && weaponItem.getItemType() == L2WeaponType.BOW))
         {
@@ -480,17 +478,6 @@ public abstract class L2Character extends L2Object
             if (this instanceof L2PcInstance)
             {
                 // Verify if the bow can be use
-                if(Config.ALLOW_GEODATA)
-                {
-                    //Ranged LoS
-                    
-                    if (GeoDataRequester.getInstance().hasAttackLoS(this,target) == false)
-                    {
-                        sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
-                        sendPacket(new ActionFailed());
-                        return;
-                    }
-                }
                 if (_disableBowAttackEndTime <= GameTimeController.getGameTicks())
                 {
                     // Verify if L2PcInstance owns enough MP
@@ -509,9 +496,6 @@ public abstract class L2Character extends L2Object
                     }
                     // If L2PcInstance have enough MP, the bow consummes it
                     getStatus().reduceMp(mpConsume);
-
-           if (saMpConsume > 0 && this instanceof L2PcInstance) 
-               ((L2PcInstance)this).sendMessage("Cheap Shot consumed only " + saMpConsume + " MP.");
                     
                     // Set the period of bow non re-use
                     _disableBowAttackEndTime = 5 * GameTimeController.TICKS_PER_SECOND + GameTimeController.getGameTicks();
@@ -520,17 +504,17 @@ public abstract class L2Character extends L2Object
                 {
                     // Cancel the action because the bow can't be re-use at this moment
                     ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT), 1000);
-
+                    
                     sendPacket(new ActionFailed());
                     return;
                 }
-
+                
                 // Equip arrows needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return True
                 if (!checkAndEquipArrows())
                 {
                     // Cancel the action because the L2PcInstance have no arrow
                     getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-
+                    
                     sendPacket(new ActionFailed());
                     sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_ARROWS));
                     return;
@@ -582,17 +566,6 @@ public abstract class L2Character extends L2Object
 
         // Set the Attacking Body part to CHEST
         setAttackingBodypart();
-         
-        if(Config.ALLOW_GEODATA)
-        if ( this instanceof L2PcInstance)
-        {
-              //_log.warn("Do attack L0S");
-              if (GeoDataRequester.getInstance().hasAttackLoS(this, target) == false)
-              {
-                  sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
-                  return;
-              }   
-        }
         
         // Select the type of attack to start
         if (weaponItem == null)
@@ -4512,16 +4485,6 @@ public abstract class L2Character extends L2Object
            //_log.info("Not within a zone");
            //player.startAttack(this);
 
-           if(Config.ALLOW_GEODATA)
-           {
-               if ( GeoDataRequester.getInstance().hasMovementLoS(player, player.getTarget().getX(),player.getTarget().getY(),(short)player.getTarget().getZ()).LoS  == false)
-               {
-                   SystemMessage sm = new SystemMessage(SystemMessage.CANT_SEE_TARGET);    
-                   player.sendPacket(sm);
-                   return;
-               }
-          }
-           
            // Send a Server->Client packet MyTargetSelected to start attack
            player.sendPacket(new MyTargetSelected(getObjectId(), player.getLevel() - getLevel()));
 
@@ -4871,29 +4834,24 @@ public abstract class L2Character extends L2Object
 		if(skill.getEffectRange() > escapeRange) escapeRange = skill.getEffectRange();
 		else if(skill.getCastRange() < 0 && skill.getSkillRadius() > 80) escapeRange = skill.getSkillRadius();
 			
-		if(escapeRange > 0) 
-		{
-			List<L2Character> targetList = new FastList<L2Character>();
-			for (int i = 0; i < targets.length; i++)
-			{
-				if (targets[i] instanceof L2Character)
-				{
-                    if(Config.ALLOW_GEODATA)
-                    if (GeoDataRequester.getInstance().hasAttackLoS(this, targets[i]) == false )
-                    {
-                       continue;
-                    }
-                    if(!this.isInsideRadius(targets[0],escapeRange,true,false)) continue;
-					else targetList.add((L2Character)targets[i]);
-				}
-			}
-			if(targetList.isEmpty()) 
-			{
-				abortCast();	
-				return;
-			}
-			else targets = targetList.toArray(new L2Character[targetList.size()]);
-		}
+        if(escapeRange > 0) 
+        {
+            List<L2Character> targetList = new FastList<L2Character>();
+            for (int i = 0; i < targets.length; i++)
+            {
+                if (targets[i] instanceof L2Character)
+                {
+                    if(!this.isInsideRadius(targets[i],escapeRange,true,false)) continue;
+                    else targetList.add((L2Character)targets[i]);
+                }
+            }
+            if(targetList.isEmpty()) 
+            {
+                abortCast();    
+                return;
+            }
+            else targets = targetList.toArray(new L2Character[targetList.size()]);
+        }
         
         // Check if player is using fake death.
         if (isAlikeDead())

@@ -566,12 +566,10 @@ public final class Config {
     /** Allow Manor system */
     public static boolean ALLOW_MANOR;
 
-    /** Allow Geodata */
-    public static boolean ALLOW_GEODATA;
-    public static boolean ALLOW_GEODATA_WATER;
-    public static int ALLOW_GEODATA_EXPIRATIONTIME;
-    public static boolean ALLOW_GEODATA_CHECK_KNOWN;
-    public static boolean ALLOW_GEODATA_DEBUG;
+    /** GeoData On/Off */
+    public static boolean GEODATA;
+    /** Force loading GeoData to psychical memory */
+    public static boolean FORCE_GEODATA;
 
     /** Wedding system */
     public static boolean ALLOW_WEDDING;
@@ -1154,11 +1152,6 @@ public final class Config {
                 ALLOW_DISCARDITEM               = Boolean.valueOf(optionsSettings.getProperty("AllowDiscardItem", "True"));
                 ALLOWFISHING                    = Boolean.valueOf(optionsSettings.getProperty("AllowFishing", "False"));
                 ALLOW_MANOR                     = Boolean.valueOf(optionsSettings.getProperty("AllowManor", "False"));
-                ALLOW_GEODATA                   = Boolean.valueOf(optionsSettings.getProperty("AllowGeodata", "False"));
-                ALLOW_GEODATA_WATER             = Boolean.valueOf(optionsSettings.getProperty("AllowGeodataWater", "False"));
-                ALLOW_GEODATA_EXPIRATIONTIME    = Integer.parseInt(optionsSettings.getProperty("AllowGeodata_ExpirationTime", "9000000"));
-                ALLOW_GEODATA_CHECK_KNOWN       = Boolean.valueOf(optionsSettings.getProperty("AllowGeodataCheckKnown", "False"));
-                ALLOW_GEODATA_DEBUG             = Boolean.valueOf(optionsSettings.getProperty("AllowGeodataDebug", "False"));
                 ALLOW_BOAT                      = Boolean.valueOf(optionsSettings.getProperty("AllowBoat", "False"));
                 ALLOW_CURSED_WEAPONS            = Boolean.valueOf(optionsSettings.getProperty("AllowCursedWeapons", "False"));
                 ALLOW_WEDDING                   = Boolean.valueOf(optionsSettings.getProperty("AllowWedding", "False"));
@@ -1227,6 +1220,8 @@ public final class Config {
                 GRID_NEIGHBOR_TURNON_TIME       = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOnTime", "30"));
                 GRID_NEIGHBOR_TURNOFF_TIME      = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOffTime", "300"));    
                                  
+                GEODATA                         = Boolean.parseBoolean(optionsSettings.getProperty("GeoData", "False"));
+                FORCE_GEODATA                   = Boolean.parseBoolean(optionsSettings.getProperty("ForceGeoData", "True"));
                 
                 SHOW_L2J_LICENSE                = Boolean.parseBoolean(optionsSettings.getProperty("ShowL2JLicense", "false"));
                 SHOW_HTML_WELCOME               = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLWelcome", "false"));

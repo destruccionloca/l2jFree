@@ -21,6 +21,8 @@ package net.sf.l2j.gameserver.ai;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 
+import java.util.List;
+
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -135,7 +137,8 @@ public class L2ControllableMobAI extends L2AttackableAI
         //  dist2 = _actor.getPlanDistanceSq(getAttackTarget().getX(), getAttackTarget().getY());
         } 
         catch (NullPointerException e) {
-            _log.warn("Encountered Null Value.",e);
+            _log.warning("Encountered Null Value.");
+            e.printStackTrace();
         }
 
         if (!_actor.isMuted()) 
@@ -194,7 +197,8 @@ public class L2ControllableMobAI extends L2AttackableAI
             max_range = range;
         } 
         catch (NullPointerException e) {
-            _log.warn("Encountered Null Value.",e);
+            _log.warning("Encountered Null Value.");
+            e.printStackTrace();
         }
 
         if (!_actor.isMuted() && dist2 > (range + 20) * (range + 20)) 
@@ -245,7 +249,8 @@ public class L2ControllableMobAI extends L2AttackableAI
             max_range = range;
         } 
         catch (NullPointerException e) {
-            _log.warn("Encountered Null Value.",e);
+            _log.warning("Encountered Null Value.");
+            e.printStackTrace();
         }
 
         if (!_actor.isMuted() && dist2 > (range + 20) * (range + 20))
@@ -335,7 +340,8 @@ public class L2ControllableMobAI extends L2AttackableAI
                 max_range = range;
             } 
             catch (NullPointerException e) {
-                _log.warn("Encountered Null Value.",e);
+                _log.warning("Encountered Null Value.");
+                e.printStackTrace();
             }
 
             if (!_actor.isMuted() && dist2 > (range + 20) * (range + 20)) 
@@ -455,7 +461,7 @@ public class L2ControllableMobAI extends L2AttackableAI
         double dy, dx;
         double dblAggroRange = aggroRange*aggroRange;
 
-        FastList<L2Character> potentialTarget = new FastList<L2Character>();
+        List<L2Character> potentialTarget = new FastList<L2Character>();
 
         for (L2Object obj : npc.getKnownList().getKnownObjects().values()) 
         {
