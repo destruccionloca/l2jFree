@@ -16,7 +16,6 @@ import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -55,6 +54,7 @@ public class Wedding implements IVoicedCommandHandler
             return false;
 
         int _partnerId = activeChar.getPartnerId();
+        int _coupleId = activeChar.getCoupleId();
         int AdenaAmount = 0;
         
         if(activeChar.isMaried())
@@ -67,14 +67,6 @@ public class Wedding implements IVoicedCommandHandler
         }
         else
             activeChar.sendMessage("You are disengaged now.");
-
-        
-        
-        activeChar.setMaried(false);
-        activeChar.setPartnerId(0);
-        Couple couple = CoupleManager.getInstance().getCouple(activeChar.getCoupleId());
-        couple.divorce();
-        couple = null;
        
         L2PcInstance partner;
         partner = (L2PcInstance)L2World.getInstance().findObject(_partnerId);
@@ -86,12 +78,13 @@ public class Wedding implements IVoicedCommandHandler
                 partner.sendMessage("Your Partner has decided to divorce from you.");
             else
                 partner.sendMessage("Your Partner has decided to disengage.");
-            partner.setMaried(false);
 
             // give adena
             if(AdenaAmount>0)
                 partner.addAdena("WEDDING", AdenaAmount, null, false);
         }
+        
+        CoupleManager.getInstance().deleteCouple(_coupleId);
         return true;
     }
 
@@ -100,7 +93,7 @@ public class Wedding implements IVoicedCommandHandler
         // check target
         if (activeChar.getTarget()==null)
         {
-            activeChar.sendMessage("You have noone targeted.");
+            activeChar.sendMessage("You have no one targeted.");
             return false;
         }
         

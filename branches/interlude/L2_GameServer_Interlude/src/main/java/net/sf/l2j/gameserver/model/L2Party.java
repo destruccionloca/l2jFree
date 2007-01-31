@@ -719,9 +719,21 @@ public class L2Party {
         return _bonusExpSp[i];
     }
     
-	private double getExpBonus() { return getBaseExpSpBonus() * Config.RATE_PARTY_XP; }
+   private double getExpBonus() 
+   { 
+       if(_validMembers.size() < _members.size())
+           return getBaseExpSpBonus(); 
+       else
+           return getBaseExpSpBonus() * Config.RATE_PARTY_XP;
+   }
     
-    private double getSpBonus() { return getBaseExpSpBonus() * Config.RATE_PARTY_SP; }
+    private double getSpBonus() 
+    { 
+       if(_validMembers.size() < _members.size())
+           return getBaseExpSpBonus(); 
+       else
+           return getBaseExpSpBonus() * Config.RATE_PARTY_SP;
+   }
 	
 	public int getLevel() { return _partyLvl; }
     

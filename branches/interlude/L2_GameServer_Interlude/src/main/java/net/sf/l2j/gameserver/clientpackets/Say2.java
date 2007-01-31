@@ -234,7 +234,7 @@ public class Say2 extends ClientBasePacket
                if (st.countTokens()>=1)
                {
                    String command = st.nextToken().substring(1);
-                   String params = "none";
+                   String params = "";
                    if (st.countTokens()==0){ 
                        if (activeChar.getTarget()!=null) params=activeChar.getTarget().getName();
                    } else params=st.nextToken().trim();

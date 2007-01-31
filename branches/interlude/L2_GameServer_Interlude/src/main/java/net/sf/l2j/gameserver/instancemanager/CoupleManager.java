@@ -24,6 +24,7 @@ import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
@@ -121,7 +122,34 @@ public class CoupleManager
             }
         }
     }
-    
+
+    public void deleteCouple(int coupleId)
+    {
+       int index = getCoupleIndex(coupleId);
+       Couple couple = getCouples().get(index);
+        if(couple!=null)
+        {
+           L2PcInstance player1 = (L2PcInstance)L2World.getInstance().findObject(couple.getPlayer1Id());
+           L2PcInstance player2 = (L2PcInstance)L2World.getInstance().findObject(couple.getPlayer2Id());
+            if (player1 != null)
+            {
+               player1.setPartnerId(0);
+               player1.setMaried(false);
+               player1.setCoupleId(0);
+               
+            }
+            if (player2 != null)
+            {
+               player2.setPartnerId(0);
+               player2.setMaried(false);
+               player2.setCoupleId(0);
+               
+            }
+            couple.divorce();
+            getCouples().remove(index);
+        }
+    }    
+
     public final int getCoupleIndex(int coupleId)
     {
         Couple couple;
