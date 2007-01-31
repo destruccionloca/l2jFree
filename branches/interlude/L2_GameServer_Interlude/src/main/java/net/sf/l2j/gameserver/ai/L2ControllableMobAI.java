@@ -137,7 +137,7 @@ public class L2ControllableMobAI extends L2AttackableAI
         //  dist2 = _actor.getPlanDistanceSq(getAttackTarget().getX(), getAttackTarget().getY());
         } 
         catch (NullPointerException e) {
-            _log.warning("Encountered Null Value.");
+            _log.warn("Encountered Null Value.");
             e.printStackTrace();
         }
 
@@ -197,7 +197,7 @@ public class L2ControllableMobAI extends L2AttackableAI
             max_range = range;
         } 
         catch (NullPointerException e) {
-            _log.warning("Encountered Null Value.");
+            _log.warn("Encountered Null Value.");
             e.printStackTrace();
         }
 
@@ -249,7 +249,7 @@ public class L2ControllableMobAI extends L2AttackableAI
             max_range = range;
         } 
         catch (NullPointerException e) {
-            _log.warning("Encountered Null Value.");
+            _log.warn("Encountered Null Value.");
             e.printStackTrace();
         }
 
@@ -340,7 +340,7 @@ public class L2ControllableMobAI extends L2AttackableAI
                 max_range = range;
             } 
             catch (NullPointerException e) {
-                _log.warning("Encountered Null Value.");
+                _log.warn("Encountered Null Value.");
                 e.printStackTrace();
             }
 

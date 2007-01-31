@@ -23,6 +23,7 @@ import java.nio.ByteBuffer;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.TargetUnselected;
 
 /**
@@ -35,8 +36,7 @@ public class RequestTargetCanceld extends ClientBasePacket
 	private static final String _C__37_REQUESTTARGETCANCELD = "[C] 37 RequestTargetCanceld";
 	//private final static Log _log = LogFactory.getLog(RequestTargetCanceld.class.getName());
     
-    @SuppressWarnings("unused")
-	private final int _unselect; 
+    private final int _unselect; 
 
 	/**
 	 * packet type id 0x37

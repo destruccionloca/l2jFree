@@ -870,7 +870,7 @@ public class L2CharacterAI extends AbstractAI
         // Get the distance between the current position of the L2Character and the target (x,y)
         if (target == null)
         {
-            _log.warning("maybeMoveToPawn: target == NULL!");
+            _log.warn("maybeMoveToPawn: target == NULL!");
             return false;
         }
         if(offset < 0) return false; // skill radius -1

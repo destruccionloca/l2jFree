@@ -23,8 +23,6 @@ import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
 import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
@@ -48,6 +46,8 @@ import net.sf.l2j.gameserver.serverpackets.StopRotation;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 
+import org.apache.commons.logging.Log; 
+import org.apache.commons.logging.LogFactory;
 /**
  * Mother class of all objects AI in the world.<BR><BR>
  *
@@ -58,7 +58,7 @@ import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 abstract class AbstractAI implements Ctrl
 {
 
-    protected static final Logger _log = Logger.getLogger(AbstractAI.class.getName());
+    protected static final Log _log = LogFactory.getLog(AbstractAI.class.getName()); 
 
     class FollowTask implements Runnable
     {
@@ -89,7 +89,7 @@ abstract class AbstractAI implements Ctrl
             }
             catch (Throwable t)
             {
-                _log.log(Level.WARNING, "", t);
+                _log.warn("", t);
             }
         }
     }
