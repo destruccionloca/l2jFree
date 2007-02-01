@@ -346,12 +346,18 @@ public class CharInfo extends ServerBasePacket
         writeD(_cha.GetFishz());
         writeD(_cha.getNameColor());
 
-        writeC(_cha.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window
-        writeD(0x00); //C5 ?? //writeD(2428); //C5 ??
+        //          writeC(_cha.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window 
+        writeD(0x00); // ??
+        
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_FACE));
-        writeD(_cha.getPledgeClass()); //C5 ??
-        writeD(15530402); //C5 ??
-        writeD(_cha.getTitleColor()); //C5 ??
+        
+        writeD(_cha.getPledgeClass()); 
+        writeD(0x00); // ??
+        
+        writeD(_cha.getTitleColor());
+        
+        writeD(0x00); // ??
+        
         if (_cha.isCursedWeaponEquiped())
             writeD(CursedWeaponsManager.getInstance().getLevel(_cha.getCursedWeaponEquipedId()));
         else
