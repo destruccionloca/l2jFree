@@ -93,7 +93,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
                 if (!_item.isStackable() && 
                     _item.getItem().getCrystalType() != L2Item.CRYSTAL_NONE && 
                     _item.getItem().getCrystalCount() > 0 &&
-                    _item.isHeroitem())
+                    !_item.isHeroitem())
                 {
                     _items.add(_item.getObjectId());
                 
