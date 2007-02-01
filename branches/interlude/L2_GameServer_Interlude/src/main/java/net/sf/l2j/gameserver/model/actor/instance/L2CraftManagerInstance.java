@@ -92,7 +92,8 @@ public class L2CraftManagerInstance extends L2FolkInstance
             {
                 if (!_item.isStackable() && 
                     _item.getItem().getCrystalType() != L2Item.CRYSTAL_NONE && 
-                    _item.getItem().getCrystalCount() > 0)
+                    _item.getItem().getCrystalCount() > 0 &&
+                    _item.isHeroitem())
                 {
                     _items.add(_item.getObjectId());
                 
@@ -151,7 +152,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
             replyMSG.append("<table width=270><tr>");
             if (Config.ALT_CRAFT_ALLOW_CRYSTALLIZE)
             {
-                replyMSG.append("<td width=35><button value=\"\" action=\"bypass -h npc_"+getObjectId()+"_BreakItem "+_elementsSelected+"\" width=32 height=32 back=\"icon.skill0248\" fore=\"icon.skill0248\"></td>");
+                replyMSG.append("<td width=35><button value=\"\" action=\"bypass -h npc_"+getObjectId()+"_BreakItem"+_elementsSelected+"\" width=32 height=32 back=\"icon.skill0248\" fore=\"icon.skill0248\"></td>");
                 replyMSG.append("<td width=135>");
                 replyMSG.append("<table border=0 width=100%>");
                 replyMSG.append("<tr><td><font color=\"B09878\">Cristallize</font></td></tr>");

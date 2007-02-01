@@ -857,7 +857,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void changeSex()
     {
-        super.setTemplate(CharTemplateTable.getInstance().getTemplate(getClassId(), (getSex() == 1)));
+        super.setTemplate(CharTemplateTable.getInstance().getTemplate(getClassId(), (getSex() != 1)));
     }
 
     /**
@@ -2735,8 +2735,8 @@ public final class L2PcInstance extends L2PlayableInstance
         if (sendMessage)
         {
             SystemMessage sm = new SystemMessage(SystemMessage.DISSAPEARED_ITEM);
-            sm.addNumber(item.getCount());
-            sm.addItemName(count);
+            sm.addNumber(count);
+            sm.addItemName(item.getItemId());
             sendPacket(sm);
         }
         return true;
