@@ -422,7 +422,7 @@ public final class L2World
         if (object == null)
             return;
         
-        //removeObject(object);
+        removeObject(object);
         
         if (oldRegion != null)
         {

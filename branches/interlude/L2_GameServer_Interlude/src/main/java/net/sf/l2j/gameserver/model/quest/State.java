@@ -49,6 +49,7 @@ public class State
     private int[] _AttackIds = emptyIntList;
 	private int[] _KillIds = emptyIntList;
 	private int[] _TalkIds = emptyIntList;
+	private final boolean _party;
 
 
 	/**
@@ -58,7 +59,13 @@ public class State
 	 */
     public State(String name, Quest quest)
     {
+    	this(name, quest, false);
+    }
+
+    public State(String name, Quest quest, boolean party)
+    {
         _Name = name;
+		_party = party;
 		this._quest = quest;
 		quest.addState(this);
     }
@@ -184,7 +191,12 @@ public class State
 	int[] getTalkIds() {
 		return _TalkIds;
 	}
-    
+
+	public boolean isParty()
+	{
+		return _party;
+	}
+
     /**
      * Return name of the quest
      * @return String
