@@ -783,6 +783,8 @@ public final class Formulas
             //cha.addStatFunc(FuncMultLevelMod.getInstance(Stats.POWER_ATTACK));
             //cha.addStatFunc(FuncMultLevelMod.getInstance(Stats.POWER_DEFENCE));
             //cha.addStatFunc(FuncMultLevelMod.getInstance(Stats.MAGIC_DEFENCE));
+            if(Config.LEVEL_ADD_LOAD)
+                cha.addStatFunc(FuncMultLevelMod.getInstance(Stats.MAX_LOAD));            
             cha.addStatFunc(FuncPAtkMod.getInstance());
             cha.addStatFunc(FuncMAtkMod.getInstance());
             cha.addStatFunc(FuncPDefMod.getInstance());

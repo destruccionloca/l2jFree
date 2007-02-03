@@ -739,7 +739,8 @@ public final class Config {
     public static int           INVENTORY_MAXIMUM_GM;
     
     /** Weight limit */
-    public static int ADD_MAX_LOAD;
+    public static int       ADD_MAX_LOAD;
+    public static boolean   LEVEL_ADD_LOAD;
    
     /** Warehouse slots limits */
     public static int           WAREHOUSE_SLOTS_NO_DWARF;
@@ -1359,6 +1360,7 @@ public final class Config {
               
                 /* Config weight limit */
                 ADD_MAX_LOAD = Integer.parseInt(otherSettings.getProperty("AddWeightLimit", "0"));
+                LEVEL_ADD_LOAD = Boolean.valueOf(otherSettings.getProperty("IncreaseWeightLimitByLevel", "false"));
                 
                 /* Inventory slots limits */
                 WAREHOUSE_SLOTS_NO_DWARF = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForNoDwarf", "100"));
