@@ -154,6 +154,26 @@
     <effect count="15" name="ManaDamOverTime" time="1" val="#dmg"/>
   </for>
 </skill>
+<skill id="1211" levels="2" name="none"> 
+  <set name="power" val="0.0"/> 
+  <set name="target" val="TARGET_SELF"/> 
+  <set name="skillType" val="PASSIVE"/> 
+  <set name="operateType" val="OP_PASSIVE"/> 
+  <set name="castRange" val="-1"/> 
+  <set name="effectRange" val="-1"/> 
+  <for> 
+  </for> 
+</skill> 
+<skill id="1212" levels="2" name="none"> 
+  <set name="power" val="0.0"/> 
+  <set name="target" val="TARGET_SELF"/> 
+  <set name="skillType" val="PASSIVE"/> 
+  <set name="operateType" val="OP_PASSIVE"/> 
+  <set name="castRange" val="-1"/> 
+  <set name="effectRange" val="-1"/> 
+  <for> 
+  </for> 
+</skill> 
 <skill id="1213" levels="13" name="Seal of Mirage">
   <table name="#mpConsume_Init"> 12 13 14 16 16 17 18 18 19 19 20 20 21 </table>
   <table name="#mpConsume"> 47 52 56 61 64 66 69 71 74 76 78 80 82 </table>
@@ -304,6 +324,16 @@
   <for>
   </for>
 </skill>
+<skill id="1221" levels="3" name="none"> 
+  <set name="power" val="0.0"/> 
+  <set name="target" val="TARGET_SELF"/> 
+  <set name="skillType" val="PASSIVE"/> 
+  <set name="operateType" val="OP_PASSIVE"/> 
+  <set name="castRange" val="-1"/> 
+  <set name="effectRange" val="-1"/> 
+  <for> 
+  </for> 
+</skill> 
 <skill id="1222" levels="15" name="Curse Chaos" enchantLevels1="30" enchantLevels2="30" >
   <table name="#ench2MpConsume"> 67 67 66 66 65 65 63 63 62 62 61 61 60 60 58 58 57 57 56 56 55 55 53 53 52 52 51 51 50 50 </table>
   <!--table name="#ench2MpConsume_Init">  </table-->
