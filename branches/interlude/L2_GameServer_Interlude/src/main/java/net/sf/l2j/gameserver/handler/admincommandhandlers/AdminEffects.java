@@ -56,7 +56,7 @@ public class AdminEffects implements IAdminCommandHandler
 	   "admin_visible", "admin_earthquake", "admin_bighead", "admin_shrinkhead", "admin_gmspeed",  
 	   "admin_unpara_all", "admin_para_all", "admin_unpara", "admin_para", "admin_polyself",
 	   "admin_unpolyself", "admin_changename", "admin_clearteams", "admin_setteam_close",
-       "admin_setteam", "admin_setlevel", "admin_sethero",
+       "admin_setteam", "admin_sethero",
        "admin_create_adena", "admin_summon123"};
 
    private static final int REQUIRED_LEVEL = Config.GM_GODMODE;
@@ -376,52 +376,6 @@ public class AdminEffects implements IAdminCommandHandler
            player.sendPacket(sm);
            }
            player.broadcastUserInfo();
-       }
-       else if (command.startsWith("admin_setlevel"))
-       {
-		StringTokenizer st = new StringTokenizer(command);
-        try
-        {
-            st.nextToken();
-		    int newlvl = Integer.parseInt(st.nextToken());
-		    if (newlvl >= 1 && newlvl <= 78)
-            {
-		    	L2Object target = activeChar.getTarget();
-	            //L2Character player = null;
-
-                //L2Object target = (L2PlayableInstance)activeChar.getTarget();
-                L2Character player = null;
-
-                if (target instanceof L2Character)
-                    player = (L2Character)activeChar.getTarget();
-                else
-                    player = activeChar;
-
-                PlayableStat ps = (PlayableStat)player.getStat();
-                ps.addExp(ps.getExpForLevel(newlvl)-ps.getExp());
-                player.broadcastPacket(new SocialAction(player.getObjectId(), 15));
-
-		SystemMessage sm = new SystemMessage(614);
-		SystemMessage smAdmin = new SystemMessage(614);
-
-		sm.addString(activeChar.getName() + " has set your level to " + player.getLevel());
-		smAdmin.addString("You have set " + player.getName() + " to level " + player.getLevel());
-
-		player.sendPacket(sm);
-		activeChar.sendPacket(smAdmin);
-
-            } else {
-                SystemMessage smAdmin = new SystemMessage(614);
-                smAdmin.addString("Wrong paramater [1.."+80+"].");
-                activeChar.sendPacket(smAdmin);
-            }
-        }
-        catch (Exception e)
-        {
-			SystemMessage smAdmin = new SystemMessage(614);
-			smAdmin.addString("Error when set level");
-			activeChar.sendPacket(smAdmin);
-        }
        }
        else if (command.startsWith("admin_sethero"))
        {
