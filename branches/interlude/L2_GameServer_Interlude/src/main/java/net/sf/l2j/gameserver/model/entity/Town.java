@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.model.entity;
 
-import javolution.util.FastList;
+import java.util.List;
 
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
@@ -27,34 +27,34 @@ import net.sf.l2j.gameserver.model.L2Object;
 
 public class Town
 {
-	// =========================================================
+    // =========================================================
     // Data Field
     private int _CastleIndex                    = 0;    // This is the index of the castle controling over this town
     private String _Name                        = "";
     private int _RedirectToTownId               = 0;    // This is the id of the town to redirect players to
     //private double _TaxRate                     = 0;    // This is the town's local tax rate used by merchant
     private int _TownId                         = 0;
-    private FastList<int[]> _Spawn;
+    private List<int[]> _Spawn;
     private Zone _Zone;
 
-	// =========================================================
-	// Constructor
-	public Town(int townId)
-	{
-		_TownId = townId;
+    // =========================================================
+    // Constructor
+    public Town(int townId)
+    {
+        _TownId = townId;
         loadData();
-	}
+    }
 
-	// =========================================================
-	// Method - Public
+    // =========================================================
+    // Method - Public
     /** Return true if object is inside the zone */
     public boolean checkIfInZone(L2Object obj) { return checkIfInZone(obj.getX(), obj.getY()); }
 
     /** Return true if object is inside the zone */
     public boolean checkIfInZone(int x, int y) { return getZone().checkIfInZone(x, y); }
-	
-	// =========================================================
-	// Method - Private
+    
+    // =========================================================
+    // Method - Private
     private void loadData()
     {
         // TEMP UNTIL TOWN'S TABLE IS ADDED
@@ -76,9 +76,9 @@ public class Town
             default: _RedirectToTownId = getTownId();break;
        }
     }
-	
-	// =========================================================
-	// Proeprty
+    
+    // =========================================================
+    // Proeprty
     public final Castle getCastle()
     {
         if (_CastleIndex >= 0) return CastleManager.getInstance().getCastles().get(_CastleIndex);
@@ -87,13 +87,13 @@ public class Town
 
     public final String getName() { return _Name; }
 
-    public final FastList<int[]> getSpawn()
+    public final List<int[]> getSpawn()
     {
         // If a redirect to town id is avail, town belongs to a castle, and castle is under siege then redirect
         //if (_RedirectToTownId != getTownId() && getCastle() != null && getCastle().getSiege().getIsInProgress()) return TownManager.getInstance().getTown(_RedirectToTownId).getSpawn();
        // if (_RedirectToTownId != getTownId() && getCastle() != null && getCastle().getSiege().getIsInProgress())
-    	if(TownManager.getInstance().townHasCastleInSeige(getTownId()))
-        	return TownManager.getInstance().getTown(_RedirectToTownId).getSpawn();
+        if(TownManager.getInstance().townHasCastleInSeige(getTownId()))
+            return TownManager.getInstance().getTown(_RedirectToTownId).getSpawn();
 
         if (_Spawn == null) _Spawn = ZoneManager.getInstance().getZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.TownSpawn), getName()).getCoords();
         return _Spawn;
