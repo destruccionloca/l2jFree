@@ -528,6 +528,19 @@
  <enchant1 name="power" val="#ench1Power"/>
  <enchant2 name="mpConsume" val="#ench2MpConsume"/>
 </skill>
+<skill id="20" levels="2" name="Throw"> 
+  <set name="mpConsume" val="15"/> 
+  <set name="power" val="0.0"/> 
+  <set name="target" val="TARGET_ONE"/> 
+  <set name="hitTime" val="3000"/> 
+  <set name="reuseDelay" val="10000"/> 
+  <set name="skillTime" val="3000"/> 
+  <set name="skillType" val="PDAM"/> 
+  <set name="operateType" val="OP_ACTIVE"/> 
+  <set name="castRange" val="900"/> 
+  <for> 
+  </for> 
+</skill> 
 <skill id="21" levels="3" name="Poison Recovery">
   <table name="#mpConsume_Init"> 4 7 11 </table>
   <table name="#mpConsume"> 16 28 44 </table>
