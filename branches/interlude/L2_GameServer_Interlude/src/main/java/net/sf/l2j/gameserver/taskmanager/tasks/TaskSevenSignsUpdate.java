@@ -3,6 +3,8 @@ package net.sf.l2j.gameserver.taskmanager.tasks;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.taskmanager.Task;
+import net.sf.l2j.gameserver.taskmanager.TaskManager;
+import net.sf.l2j.gameserver.taskmanager.TaskTypes;
 import net.sf.l2j.gameserver.taskmanager.TaskManager.ExecutedTask;
 
 import org.apache.commons.logging.Log;
@@ -38,5 +40,11 @@ public class TaskSevenSignsUpdate extends Task
         catch (Exception e) {
             _log.error("SevenSigns: Failed to save Seven Signs configuration: " + e,e);
         }
+    }
+    
+    public void initializate()
+    {
+        super.initializate();
+        TaskManager.addUniqueTask(NAME, TaskTypes.TYPE_FIXED_SHEDULED, "1800000", "1800000", "");
     }
 }

@@ -20,21 +20,14 @@ package net.sf.l2j.gameserver;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ScheduledFuture;
+import java.util.logging.Logger;
 
 import javolution.util.FastList;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.model.L2Character;
-import net.sf.l2j.gameserver.model.L2World;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
-import net.sf.l2j.gameserver.serverpackets.SunRise;
-import net.sf.l2j.gameserver.serverpackets.SunSet;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -43,7 +36,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class GameTimeController
 {
-    static final Log _log = LogFactory.getLog(GameTimeController.class.getName());
+    static final Logger _log = Logger.getLogger(GameTimeController.class.getName());
 
     public static final int TICKS_PER_SECOND = 10;
     public static final int MILLIS_IN_TICK = 1000 / TICKS_PER_SECOND;
@@ -54,7 +47,7 @@ public class GameTimeController
     protected static long _gameStartTime;
     protected static boolean _isNight = false;
 
-    private static FastList<L2Character> movingObjects = new FastList<L2Character>();
+    private static List<L2Character> movingObjects = new FastList<L2Character>();
 
     protected static TimerThread _timer;
     private ScheduledFuture _timerWatcher;
@@ -77,6 +70,7 @@ public class GameTimeController
 
         _timerWatcher = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new TimerWatcher(), 0, 1000);
         ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new BroadcastSunState(), 0, 600000);
+
     }
 
     public boolean isNowNight()
@@ -127,7 +121,7 @@ public class GameTimeController
         L2Character[] chars = movingObjects.toArray(new L2Character[movingObjects.size()]);
 
         // Create an ArrayList to contain all L2Character that are arrived to destination
-        FastList<L2Character> ended = null;
+        List<L2Character> ended = null;
 
         // Go throw the table containing L2Character in movement
         for (int i = 0; i < chars.length; i++)
@@ -195,7 +189,7 @@ public class GameTimeController
                     // calculate sleep time... time needed to next tick minus time it takes to call moveObjects() 
                     int sleepTime = 1 + MILLIS_IN_TICK - ((int) runtime) % MILLIS_IN_TICK;
 
-                    //_log.debug("TICK: "+_gameTicks);
+                    //_log.finest("TICK: "+_gameTicks);
 
                     sleep(sleepTime); // hope other threads will have much more cpu time available now
                     // SelectorThread most of all
@@ -215,7 +209,7 @@ public class GameTimeController
             if (!_timer.isAlive())
             {
                 String time = (new SimpleDateFormat("HH:mm:ss")).format(new Date());
-                _log.warn(time + " TimerThread stop with following error. restart it.");
+                _log.warning(time + " TimerThread stop with following error. restart it.");
                 if (_timer._error != null) _timer._error.printStackTrace();
 
                 _timer = new TimerThread();
@@ -229,9 +223,9 @@ public class GameTimeController
      */
     class MovingObjectArrived implements Runnable
     {
-        private final FastList<L2Character> _ended;
+        private final List<L2Character> _ended;
 
-        MovingObjectArrived(FastList<L2Character> ended)
+        MovingObjectArrived(List<L2Character> ended)
         {
             _ended = ended;
         }
@@ -254,37 +248,12 @@ public class GameTimeController
         public void run()
         {
             int h = (getGameTime() / 60) % 24; // Time in hour
-            boolean tempIsNight = (h < Config.DAY_STATUS_SUN_RISE_AT || h >= Config.DAY_STATUS_SUN_SET_AT);
+            boolean tempIsNight = (h < 6);
             
-            if (tempIsNight == _isNight) // If diff day/night state
-                return; // Do nothing if same state
-            else 
-            {
+            if (tempIsNight != _isNight) { // If diff day/night state
                 _isNight = tempIsNight; // Set current day/night varible to value of temp varible
                 
                 DayNightSpawnManager.getInstance().notifyChangeMode();
-    
-                if (!Config.DAY_STATUS_FORCE_CLIENT_UPDATE) // Do not force client to update their day/night status
-                    return;
-    
-                if (SevenSigns.getInstance().isSealValidationPeriod()) // Do nothing if in Seal validation period 
-                    return;
-    
-                // Force client day/night cycle to sync everyone's day/night state
-                ServerBasePacket packet;
-                if (_isNight) // If is now night
-                {
-                    packet = new SunSet(); // Set client day/night state to night
-                    if (_log.isDebugEnabled()) _log.debug("SunSet");
-                }
-                else
-                {
-                    packet = new SunRise(); // Set client day/night state to day
-                    if (_log.isDebugEnabled()) _log.debug("SunRise");
-                }
-    
-                for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-                    player.sendPacket(packet);
             }
         }
     }

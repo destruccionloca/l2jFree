@@ -46,56 +46,51 @@ public class ExtractableItems implements IItemHandler
         if (!(playable instanceof L2PcInstance))
             return;
 
-        L2PcInstance activeChar = (L2PcInstance)playable;
+        L2PcInstance activeChar = (L2PcInstance) playable;
 
         int itemID = item.getItemId();
-        L2ExtractableItem exitem = ExtractableItemsData.getInstance().getExtractableItem(itemID);
+        L2ExtractableItem exitem = ExtractableItemsData.getInstance()
+                .getExtractableItem(itemID);
 
         if (exitem == null)
             return;
-        
-        int createItemID = 0,
-            createAmount = 0,
-            rndNum = Rnd.get(100),
-            chanceFrom = 0;
+
+        int createItemID = 0, createAmount = 0, rndNum = Rnd.get(100), chanceFrom = 0;
 
         // calculate extraction
         for (L2ExtractableProductItem expi : exitem.getProductItemsArray())
         {
             int chance = expi.getChance();
-            
-            if (rndNum >= chanceFrom && rndNum <= chance+chanceFrom)
+
+            if (rndNum >= chanceFrom && rndNum <= chance + chanceFrom)
             {
                 createItemID = expi.getId();
                 createAmount = expi.getAmmount();
                 break;
             }
-            
+
             chanceFrom += chance;
         }
-        
+
         if (createItemID == 0)
-          {
+        {
             activeChar.sendMessage("Nothing happend.");
             return;
-          }
-        
+        }
+
         PcInventory inv = activeChar.getInventory();
-        
-        if (ItemTable.getInstance().createDummyItem(createItemID).isStackable())
-            inv.addItem("Extract", createItemID, createAmount, activeChar, null);
-        else
+
+        if (createItemID > 0)
         {
-            for (int i=0;i<createAmount;i++)
-                inv.addItem("Extraxt", createItemID, 1, activeChar, item);
-        }
-        
-        if (createItemID < 0)
-        {
-           activeChar.sendMessage("Item failed to open");  // TODO: Put a more proper message here.
-        }
-        else
-        {
+            if (ItemTable.getInstance().createDummyItem(createItemID)
+                    .isStackable())
+                inv.addItem("Extract", createItemID, createAmount, activeChar,
+                        null);
+            else
+            {
+                for (int i = 0; i < createAmount; i++)
+                    inv.addItem("Extract", createItemID, 1, activeChar, item);
+            }
             SystemMessage sm;
 
             if (createAmount > 1)
@@ -103,15 +98,19 @@ public class ExtractableItems implements IItemHandler
                 sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
                 sm.addItemName(createItemID);
                 sm.addNumber(createAmount);
-            }
-            else
+            } else
             {
                 sm = new SystemMessage(SystemMessage.EARNED_ITEM);
                 sm.addItemName(createItemID);
             }
             activeChar.sendPacket(sm);
+        } else
+        {
+            activeChar.sendMessage("Item failed to open"); // TODO: Put a more proper message here.
         }
-        activeChar.destroyItemByItemId("Extract", itemID, 1, activeChar.getTarget(), true);
+
+        activeChar.destroyItemByItemId("Extract", itemID, 1, activeChar
+                .getTarget(), true);
         activeChar.sendPacket(new ItemList(activeChar, false));
         StatusUpdate su = new StatusUpdate(activeChar.getObjectId());
         su.addAttribute(StatusUpdate.CUR_LOAD, activeChar.getCurrentLoad());

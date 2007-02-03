@@ -86,15 +86,15 @@ public class Sweep implements ISkillHandler
 						player.sendPacket(smsg);
 					}
 				}
-                target.endDecayTask();    
             }
-           if (send)
-           {
+            target.endDecayTask();
+            if (send)
+            {
                 if (iu != null) 
-                   player.sendPacket(iu);
-               else 
-                   player.sendPacket(new ItemList(player, false));
-           }
+                    player.sendPacket(iu);
+                else 
+                    player.sendPacket(new ItemList(player, false));
+            }
         }
     } 
     

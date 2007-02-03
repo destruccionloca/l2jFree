@@ -31,7 +31,6 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -49,7 +48,8 @@ import org.apache.commons.logging.LogFactory;
  */
 public class GeoEngine extends GeoData
 {
-    private final static Log _log = LogFactory.getLog(GeoData.class.getName());
+    static final Log _log = LogFactory.getLog(GeoEngine.class.getName());
+    
     private static GeoEngine _instance;
     private final static byte E = 1;
     private final static byte W = 2;
@@ -122,7 +122,10 @@ public class GeoEngine extends GeoData
     @Override
     public boolean canSeeTargetDebug(L2PcInstance gm, L2Object target)
     {
-        return canSeeDebug(gm,(gm.getX() - L2World.MAP_MIN_X) >> 4,(gm.getY() - L2World.MAP_MIN_Y) >> 4,gm.getZ(),(target.getX() - L2World.MAP_MIN_X) >> 4,(target.getY() - L2World.MAP_MIN_Y) >> 4,target.getZ());
+        if(gm.getZ() >= target.getZ())
+            return canSeeDebug(gm,(gm.getX() - L2World.MAP_MIN_X) >> 4,(gm.getY() - L2World.MAP_MIN_Y) >> 4,gm.getZ(),(target.getX() - L2World.MAP_MIN_X) >> 4,(target.getY() - L2World.MAP_MIN_Y) >> 4,target.getZ());
+        else
+            return canSeeDebug(gm,(target.getX() - L2World.MAP_MIN_X) >> 4,(target.getY() - L2World.MAP_MIN_Y) >> 4,target.getZ(),(gm.getX() - L2World.MAP_MIN_X) >> 4,(gm.getY() - L2World.MAP_MIN_Y) >> 4,gm.getZ());
     }
     /**
      * @see net.sf.l2j.gameserver.GeoData#getNSWE(int, int, int)
@@ -177,7 +180,7 @@ public class GeoEngine extends GeoData
     {
         int dx = (tx - x);
         int dy = (ty - y);
-        final int dz = (tz - (int)z);
+        final double dz = (tz - z);
         final int distance = Math.abs(dx + dy);
         if (distance > 300)
         {
@@ -272,7 +275,7 @@ public class GeoEngine extends GeoData
     {
         int dx = (tx - x);
         int dy = (ty - y);
-        final int dz = (tz - (int)z);
+        final double dz = (tz - z);
         final int distance = Math.abs(dx + dy);
         if (distance > 300)
         {
@@ -362,7 +365,7 @@ public class GeoEngine extends GeoData
     {
         int dx = (tx - x);
         int dy = (ty - y);
-        final int dz = (tz - (int)z);
+        final double dz = (tz - z);
         final int distance = Math.abs(dx + dy);
         
         if (distance == 0)
@@ -490,7 +493,13 @@ public class GeoEngine extends GeoData
             throw new Error("Failed to Load geo_bugs.txt File.");   
         }
     }
-    private static void LoadGeodataFile(byte rx, byte ry)
+    public static void unloadGeodata(byte rx, byte ry)
+    {
+        short regionoffset = (short)((rx << 5) + ry);
+        Geodata_index.remove(regionoffset);
+        Geodata.remove(regionoffset);
+    }
+    public static boolean LoadGeodataFile(byte rx, byte ry)
     {
         String fname = "./data/geodata/"+rx+"_"+ry+".l2j";
         short regionoffset = (short)((rx << 5) + ry);
@@ -544,7 +553,9 @@ public class GeoEngine extends GeoData
         {
             e.printStackTrace();
             _log.warn("Failed to Load GeoFile at block: "+block+"\n");
+            return false;
         }
+        return true;
     }
     
     //Geodata Methods

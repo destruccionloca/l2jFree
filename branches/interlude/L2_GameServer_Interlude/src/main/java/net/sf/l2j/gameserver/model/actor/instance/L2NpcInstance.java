@@ -109,7 +109,10 @@ public class L2NpcInstance extends L2Character
     
     /** The busy message for this L2NpcInstance */
     private String _BusyMessage = "";
-    
+
+    /** True if endDecayTask has already been called */
+    volatile boolean _isDecayed = false;
+
     /** True if a Dwarf has used Spoil on this L2NpcInstance */
     private boolean _IsSpoil = false;
 
@@ -2490,10 +2493,21 @@ public class L2NpcInstance extends L2Character
     {
         return this.getTemplate().name;
     }
+
+    public boolean isDecayed() {
+       return _isDecayed;
+    }
     
+    public void setDecayed(boolean decayed) {
+       _isDecayed = decayed;
+    }
+  
     public void endDecayTask()
     {
-    	onDecay();
-        DecayTaskManager.getInstance().cancelDecayTask(this);
+       if (!isDecayed()) {
+           _isDecayed = true;
+           onDecay();
+           DecayTaskManager.getInstance().cancelDecayTask(this);
+       }
     }
 }

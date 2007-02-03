@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.Future;
@@ -45,6 +46,7 @@ import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.CharTemplateTable;
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.Connection;
+import net.sf.l2j.gameserver.FishTable;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.GmListTable;
@@ -86,6 +88,7 @@ import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.BlockList;
+import net.sf.l2j.gameserver.model.FishData;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.ItemContainer;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -602,7 +605,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private L2BoatInstance _boat;
     private Point3D _inBoatPosition;
 
-    private L2Fishing _fish;
+    private L2Fishing _fishCombat;
 
     /** Stored from last ValidatePosition **/
     public Point3D _lastClientPosition = new Point3D(0, 0, 0);
@@ -6771,7 +6774,7 @@ public final class L2PcInstance extends L2PlayableInstance
                sklType != SkillType.REELING && sklType != SkillType.FISHING))
         {
             //Only fishing skills are available
-            this.sendPacket(new SystemMessage(1448));
+            this.sendPacket(new SystemMessage(SystemMessage.ONLY_FISHING_SKILLS_NOW));
             return;
         }
 
@@ -6857,15 +6860,6 @@ public final class L2PcInstance extends L2PlayableInstance
                 sendPacket(new ActionFailed());
                 return;
             }
-            else if (((L2Attackable) target).isSpoil())
-            {
-                // Send a System Message to the caster
-                sendPacket(new SystemMessage(SystemMessage.ALREDAY_SPOILED));
-
-                // Send a Server->Client packet ActionFailed to the L2PcInstance
-                sendPacket(new ActionFailed());
-                return;
-            }
         }
 
         // Check if the skill is Sweep type and if conditions not apply
@@ -6873,24 +6867,26 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             int spoilerId = ((L2Attackable) target).getIsSpoiledBy();
 
-            if ((((L2Attackable) target).isDead() && !((L2Attackable) target).isSpoil()))
+            if (((L2Attackable)target).isDead()) 
             {
-                // Send a System Message to the L2PcInstance
-                sendPacket(new SystemMessage(SystemMessage.SWEEPER_FAILED_TARGET_NOT_SPOILED));
-
-                // Send a Server->Client packet ActionFailed to the L2PcInstance
-                sendPacket(new ActionFailed());
-                return;
-            }
-
-            if (getObjectId() != spoilerId && !isInLooterParty(spoilerId))
-            {
-                // Send a System Message to the L2PcInstance
-                sendPacket(new SystemMessage(SystemMessage.SWEEP_NOT_ALLOWED));
-
-                // Send a Server->Client packet ActionFailed to the L2PcInstance
-                sendPacket(new ActionFailed());
-                return;
+               if (!((L2Attackable)target).isSpoil()) {
+                   // Send a System Message to the L2PcInstance
+                   sendPacket(new SystemMessage(SystemMessage.SWEEPER_FAILED_TARGET_NOT_SPOILED));
+   
+                   // Send a Server->Client packet ActionFailed to the L2PcInstance
+                   sendPacket(new ActionFailed());
+                   return;
+               }
+               
+               if (getObjectId() != spoilerId && !isInLooterParty(spoilerId)) 
+               {
+                   // Send a System Message to the L2PcInstance
+                   sendPacket(new SystemMessage(SystemMessage.SWEEP_NOT_ALLOWED));
+   
+                   // Send a Server->Client packet ActionFailed to the L2PcInstance
+                   sendPacket(new ActionFailed());
+                   return;
+               }
             }
         }
 
@@ -7351,7 +7347,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
-    private ScheduledFuture _taskforfish;
+    public ScheduledFuture _taskforfish;
 
     class WaterTask implements Runnable
     {
@@ -7370,19 +7366,35 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
-    class LokingForFishTask implements Runnable
+    class LookingForFishTask implements Runnable
     {
-        public void run()
-        {
-            int rate = 90; //Only for now
-            int check = Rnd.get(100);
-            StopLookingForFishTask();
-            if (rate > check)
-            {
-                StartFishCombat();
+       boolean _isNoob, _isUpperGrade;
+       int _fishType, _fishGutsCheck, _gutsCheckTime;
+       long _endTaskTime;
+       
+       protected LookingForFishTask(int fishWaitTime, int fishGutsCheck, int fishType, boolean isNoob, boolean isUpperGrade)
+       {
+           _fishGutsCheck = fishGutsCheck;
+           _endTaskTime = System.currentTimeMillis() + fishWaitTime + 10000;
+           _fishType = fishType;
+           _isNoob = isNoob;
+           _isUpperGrade = isUpperGrade;
+       }
+       
+       public void run()
+       {
+            if (System.currentTimeMillis() >= _endTaskTime) {
+                EndFishing(false);
+                return;
             }
-            else EndFishing(false);
-        }
+            if (_fishType == -1)
+                return;
+            int check = Rnd.get(1000);
+            if(_fishGutsCheck > check)            {
+                StopLookingForFishTask();
+                StartFishCombat(_isNoob, _isUpperGrade);              
+            }
+       }
     }
 
     public void setInvisible()
@@ -9295,7 +9307,9 @@ public final class L2PcInstance extends L2PlayableInstance
         // Remove L2Object object from _allObjects of L2World
         L2World.getInstance().removeObject(this);
     }
-
+    
+    private FishData _fish;
+    
     public void StartFishing()
     {
         stopMove(null);
@@ -9314,23 +9328,30 @@ public final class L2PcInstance extends L2PlayableInstance
         _fishy = y;
         _fishz = z;
 
-        if (Config.FISHINGMODE == "fishingzone")
-        {
-            if (!ZoneManager.getInstance().checkIfInZoneIncludeZ("Water",x,y,z))
-            //if (!ZoneManager.getInstance().checkIfInZoneFishing(x, y))
-            {
-                //abort fishing
-                this.sendMessage("Your Lure didnt land in a fishing zone.");
-                return;
-            }
-        }
-        this.sendMessage("Get Ready to Fish");
         this.setIsImobilised(true);
         _fishing = true;
         broadcastUserInfo();
         //Starts fishing
-        sendPacket(new SystemMessage(1461));
-        ExFishingStart efs = new ExFishingStart(this, x, y, z);
+        int lvl = GetRandomFishLvl();
+        int group = GetRandomGroup();
+        int type = GetRandomFishType(group);
+        List<FishData> fishs = FishTable.getInstance().getfish(lvl, type, group);
+        if (fishs == null || fishs.size() == 0)
+        {
+            sendMessage("Error - Fishes are not definied");
+            EndFishing(false);
+            return;
+        }
+        int check = Rnd.get(fishs.size());
+        _fish = fishs.get(check);
+        fishs.clear();
+        fishs = null;
+        sendPacket(new SystemMessage(SystemMessage.CAST_LINE_AND_START_FISHING));
+        ExFishingStart efs = null;
+        if (!GameTimeController.getInstance().isNowNight() && _lure.isNightLure())
+           efs = new ExFishingStart(this,-1,x,y,z);
+        else
+           efs = new ExFishingStart(this,_fish.getType(),x,y,z);
         broadcastPacket(efs);
         StartLookingForFishTask();
     }
@@ -9348,34 +9369,343 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (!isDead() && _taskforfish == null)
         {
-            int waittime = 30000;
-            //Time for fish is dependet to lure type
+            int checkDelay = 0;
+            boolean isNoob = false;
+            boolean isUpperGrade = false;
+            
             if (_lure != null)
             {
-                int lureid = _lure.getItemId();
-                if (lureid == 6519 || lureid == 6522 | lureid == 6525) //low grade
-                    waittime = 25000;
-                else if (lureid == 6520 || lureid == 6523 | lureid == 6526) //medium grade
-                    waittime = 20000;
-                else if (lureid == 6521 || lureid == 6524 | lureid == 6527) //high grade
-                waittime = 15000;
+               int lureid = _lure.getItemId();
+               isNoob = (lureid >= 7807 && lureid <= 7809);
+               isUpperGrade = _fish.getGroup() == 2;
+                if (lureid == 6519 || lureid == 6522 || lureid == 6525 || lureid == 8505 || lureid == 8508 || lureid == 8511) //low grade
+                   checkDelay = Math.round((float)(_fish.getGutsCheckTime() * (1.33)));
+                else if (lureid == 6520 || lureid == 6523 || lureid == 6526 || lureid == 8506 || lureid == 8509 || lureid == 8512 || (lureid >= 7610 && lureid <= 7613) || (lureid >= 7807 && lureid <= 7809) || (lureid >= 8484 && lureid <= 8486)) //medium grade, beginner, prize-winning & quest special bait
+                   checkDelay = Math.round((float)(_fish.getGutsCheckTime() * (1.00)));
+                else if (lureid == 6521 || lureid == 6524 || lureid == 6527 || lureid == 8507 || lureid == 8510 || lureid == 8513) //high grade
+                   checkDelay = Math.round((float)(_fish.getGutsCheckTime() * (0.66)));
             }
-            _taskforfish = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new LokingForFishTask(), waittime, waittime);
-    }
+            _taskforfish = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new LookingForFishTask(_fish.getWaitTime(), _fish.getFishGuts(), _fish.getType(), isNoob, isUpperGrade), 10000, checkDelay);
+        }
     }
 
-    public void StartFishCombat()
-    {
-        _fish = new L2Fishing(this);
-    }
+   private int GetRandomGroup() 
+   {
+       switch (_lure.getItemId()) {
+           case 7807:
+           case 7808:
+           case 7809:
+           case 8486:
+               return 0;
+           case 8485:
+           case 8505:
+           case 8506:
+           case 8507:
+           case 8508:
+           case 8509:
+           case 8510:
+           case 8511:
+           case 8512:
+           case 8513:
+               return 2;
+           default:
+               return 1;
+       }
+   }   
+   private int GetRandomFishType(int group)
+   {
+       int check = Rnd.get(100);
+       int type = 1;
+       switch (group) {
+           case 0:
+               switch (_lure.getItemId()) {
+                   case 7807:
+                       if (check <= 55)
+                           type = 4;
+                       else if (check <= 85)
+                           type = 5;
+                       else
+                           type = 6;
+                       break;
+                   case 7808:
+                       if (check <= 55)
+                           type = 6;
+                       else if (check <= 85)
+                           type = 4;
+                       else
+                           type = 5;
+                       break;
+                   case 7809:
+                       if (check <= 55)
+                           type = 5;
+                       else if (check <= 85)
+                           type = 6;
+                       else
+                           type = 4;
+                       break;
+                   case 8486:
+                       if (check <= 33)
+                           type = 4;
+                       else if (check <= 66)
+                           type = 5;
+                       else if (check <= 99)
+                           type = 6;
+                       break;
+               }
+               break;
+           case 1:
+               switch (_lure.getItemId()) {
+                   case 7610:
+                   case 7611:
+                   case 7612:
+                   case 7613:
+                       type = 3;
+                       break;
+                   case 6519:
+                   case 8505:
+                       if (check <= 55)
+                           type = 0;
+                       else if (check <= 85)
+                           type = 1;
+                       else if (check <= 99)
+                           type = 2;
+                       else
+                           type = 3;
+                       break;
+                   case 6520:
+                   case 8506:
+                       if (check <= 55)
+                          type = 0;
+                      else if (check <= 85)
+                          type = 1;
+                      else if (check <= 99)
+                          type = 2;
+                      else
+                          type = 3;
+                      break;
+                  case 6521:
+                  case 8507:
+                      if (check <= 55)
+                           type = 0;
+                       else if (check <= 85)
+                           type = 1;
+                       else if (check <= 99)
+                           type = 2;
+                       else
+                           type = 3;
+                       break;
+                   case 6522:
+                   case 8508:
+                       if (check <= 55)
+                           type = 2;
+                       else if (check <= 85)
+                           type = 0;
+                       else if (check <= 99)
+                           type = 1;
+                       else
+                           type = 3;
+                       break;
+                   case 6523:
+                   case 8509:
+                       if (check <= 55)
+                           type = 2;
+                      else if (check <= 85)
+                           type = 0;
+                       else if (check <= 99)
+                           type = 1;
+                       else
+                           type = 3;
+                       break;
+                   case 6524:
+                   case 8510:
+                       if (check <= 55)
+                           type = 2;
+                       else if (check <= 85)
+                           type = 0;
+                       else if (check <= 99)
+                           type = 1;
+                       else
+                           type = 3;
+                       break;
+                   case 6525:
+                   case 8511:
+                       if (check <= 55)
+                           type = 1;
+                       else if (check <= 85)
+                           type = 2;
+                       else if (check <= 99)
+                           type = 0;
+                       else
+                           type = 3;
+                       break;
+                   case 6526:
+                   case 8512:
+                       if (check <= 55)
+                           type = 1;
+                       else if (check <= 85)
+                           type = 2;
+                       else if (check <= 99)
+                           type = 0;
+                       else
+                           type = 3;
+                       break;
+                   case 6527:
+                   case 8513:
+                       if (check <= 55)
+                           type = 1;
+                       else if (check <= 85)
+                           type = 2;
+                       else if (check <= 99)
+                           type = 0;
+                       else
+                           type = 3;
+                       break;
+                   case 8484:
+                       if (check <= 33)
+                           type = 0;
+                       else if (check <= 66)
+                           type = 1;
+                       else if (check <= 99)
+                           type = 2;
+                       else
+                           type = 3;
+                       break;
+               }
+               break;
+           case 2:
+               switch (_lure.getItemId()) {
+                   case 6519:
+                   case 8505:
+                       if (check <= 55)
+                           type = 7;
+                       else if (check <= 85)
+                           type = 8;
+                       else
+                           type = 9;
+                       break;
+                   case 6520:
+                   case 8506:
+                       if (check <= 55)
+                           type = 7;
+                       else if (check <= 85)
+                           type = 8;
+                       else
+                           type = 9;
+                       break;
+                   case 6521:
+                   case 8507:
+                       if (check <= 55)
+                           type = 7;
+                       else if (check <= 85)
+                           type = 8;
+                       else
+                           type = 9;
+                       break;
+                   case 6522:
+                   case 8508:
+                       if (check <= 55)
+                           type = 9;
+                       else if (check <= 85)
+                           type = 7;
+                       else
+                           type = 8;
+                       break;
+                   case 6523:
+                   case 8509:
+                       if (check <= 55)
+                           type = 9;
+                       else if (check <= 85)
+                           type = 7;
+                       else
+                           type = 8;
+                       break;
+                   case 6524:
+                   case 8510:
+                       if (check <= 55)
+                           type = 9;
+                       else if (check <= 85)
+                           type = 7;
+                       else
+                           type = 8;
+                       break;
+                   case 6525:
+                   case 8511:
+                       if (check <= 55)
+                           type = 8;
+                       else if (check <= 85)
+                           type = 9;
+                       else
+                           type = 7;
+                       break;
+                   case 6526:
+                   case 8512:
+                       if (check <= 55)
+                           type = 8;
+                       else if (check <= 85)
+                           type = 9;
+                       else
+                           type = 7;
+                       break;
+                   case 6527:
+                   case 8513:
+                       if (check <= 55)
+                           type = 8;
+                       else if (check <= 85)
+                           type = 9;
+                       else
+                           type = 7;
+                       break;
+                   case 8485:
+                       if (check <= 33)
+                           type = 7;
+                       else if (check <= 66)
+                           type = 8;
+                       else
+                           type = 9;
+                       break;
+               }
+       }
+       return type;
+   }
+   private int GetRandomFishLvl()
+   {
+       L2Effect[] effects = getAllEffects();
+       int skilllvl = getSkillLevel(1315);
+       for (L2Effect e : effects) {
+           if (e.getSkill().getId() == 2275)
+               skilllvl = (int)e.getSkill().getPower(this);
+       }
+       if (skilllvl <= 0) return 1;
+       int randomlvl;
+       int check = Rnd.get(100);
+       
+       if (check <= 50)
+       {
+           randomlvl = skilllvl;
+       }
+       else if (check <= 85)
+       {
+           randomlvl = skilllvl - 1;
+           if (randomlvl <= 0)
+           {
+               randomlvl = 1;
+           }
+       }
+       else
+       {
+           randomlvl = skilllvl + 1;
+       }
+
+       return randomlvl;
+   }
+   
+   public void StartFishCombat(boolean isNoob, boolean isUpperGrade)
+   {
+        _fishCombat = new L2Fishing (this, _fish, isNoob, isUpperGrade);       
+   }
 
     public void EndFishing(boolean win)
     {
-        if (win)
-        {
-            //Succeeded in fishing
-            sendPacket(new SystemMessage(1469));
-        }
         ExFishingEnd efe = new ExFishingEnd(win, this);
         broadcastPacket(efe);
         _fishing = false;
@@ -9383,17 +9713,20 @@ public final class L2PcInstance extends L2PlayableInstance
         _fishy = 0;
         _fishz = 0;
         broadcastUserInfo();
-        _fish = null;
+        if (_fishCombat == null)
+            sendPacket(new SystemMessage(SystemMessage.BAIT_LOST_FISH_GOT_AWAY));
+        _fishCombat = null;
+
         _lure = null;
         //Ends fishing
-        sendPacket(new SystemMessage(1460));
+        sendPacket(new SystemMessage(SystemMessage.REEL_LINE_AND_STOP_FISHING));
         setIsImobilised(false);
         StopLookingForFishTask();
     }
 
-    public L2Fishing GetFish()
+    public L2Fishing GetFishCombat()
     {
-        return _fish;
+        return _fishCombat;
     }
 
     public int GetFishx()

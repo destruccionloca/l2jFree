@@ -38,9 +38,9 @@ public class ItemsAutoDestroy
     private ItemsAutoDestroy()
     {
         _items = new FastList<L2ItemInstance>();
-        _sleep	= Config.AUTODESTROY_ITEM_AFTER * 1000;
+        _sleep  = Config.AUTODESTROY_ITEM_AFTER * 1000;
         if(_sleep == 0) // it should not happend as it is not called when AUTODESTROY_ITEM_AFTER = 0 but we never know..
-        	_sleep = 3600000;
+            _sleep = 3600000;
         ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new CheckItemsForDestroy(),5000,5000);
     }
     
@@ -48,7 +48,7 @@ public class ItemsAutoDestroy
     {
         if (_instance == null)
         {
-			_log.info("Initializing ItemsAutoDestroy.");
+            System.out.println("Initializing ItemsAutoDestroy.");
             _instance = new ItemsAutoDestroy();
         }
         return _instance;
@@ -64,11 +64,11 @@ public class ItemsAutoDestroy
     {
         public void run()
         {
-        	if (_log.isDebugEnabled())
-        		_log.debug("[ItemsAutoDestroy] : "+_items.size()+" items to check.");
-        	
-        	if (_items.isEmpty()) return;
-        	
+            if (_log.isDebugEnabled())
+                _log.info("[ItemsAutoDestroy] : "+_items.size()+" items to check.");
+            
+            if (_items.isEmpty()) return;
+            
             long curtime = System.currentTimeMillis();
             for (L2ItemInstance item : _items)
             {
@@ -76,25 +76,28 @@ public class ItemsAutoDestroy
                     _items.remove(item);
                 else
                 {
-                	if(item.getItemType() == L2EtcItemType.HERB )
-                	{
-                		if((curtime - item.getDropTime()) > Config.HERB_AUTO_DESTROY_TIME)
-                		{
-                			L2World.getInstance().removeVisibleObject(item,item.getWorldRegion());
-                			_items.remove(item);
-                		}
-                	}
-                	else if ( (curtime - item.getDropTime()) > _sleep)
+                    if(item.getItemType() == L2EtcItemType.HERB )
+                    {
+                        if((curtime - item.getDropTime()) > Config.HERB_AUTO_DESTROY_TIME)
+                        {
+                            L2World.getInstance().removeVisibleObject(item,item.getWorldRegion());
+                            _items.remove(item);
+                            if (Config.SAVE_DROPPED_ITEM)
+                                ItemsOnGroundManager.getInstance().removeObject(item);
+                        }
+                    }
+                    else if ( (curtime - item.getDropTime()) > _sleep)
                     {
                         L2World.getInstance().removeVisibleObject(item,item.getWorldRegion());
-                        ItemsOnGroundManager.getInstance().removeObject(item);
                         _items.remove(item);
+                        if (Config.SAVE_DROPPED_ITEM)
+                            ItemsOnGroundManager.getInstance().removeObject(item);
                     }
                 }
             }
 
-        	if (_log.isDebugEnabled())
-        		_log.debug("[ItemsAutoDestroy] : "+_items.size()+" items remaining.");
+            if (_log.isDebugEnabled())
+                _log.info("[ItemsAutoDestroy] : "+_items.size()+" items remaining.");
         }    
     }
 }

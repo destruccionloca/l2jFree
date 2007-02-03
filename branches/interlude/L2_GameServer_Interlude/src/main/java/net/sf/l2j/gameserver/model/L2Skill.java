@@ -410,6 +410,7 @@ public abstract class L2Skill
     private final int _magicLevel;
     private final String[] _negateStats;
     private final float _negatePower;
+    private final int _negateId;
     
     private final Stats _stat;
     
@@ -486,6 +487,7 @@ public abstract class L2Skill
         _power        = set.getFloat("power", 0.f);
         _negateStats = set.getString("negateStats", "").split(" ");
         _negatePower = set.getFloat("negatePower", 0.f);
+        _negateId = set.getInteger("negateId", 0);
         _levelDepend  = set.getInteger("lvlDepend", 0);
         _stat         = set.getEnum  ("stat", Stats.class, null);
         
@@ -723,7 +725,12 @@ public abstract class L2Skill
     {
         return _negatePower;
     }
-    
+
+    public final int getNegateId()
+    {
+       return _negateId;
+    }
+
     public final int getMagicLvl()
     {
         return _magicLevel;
@@ -1387,7 +1394,7 @@ public abstract class L2Skill
                     if (obj == activeChar || obj == src) continue;
                     if (src != null) 
                     {
-                        if (!GeoData.getInstance().canSeeTarget(activeChar, (L2Character)obj))
+                        if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
                             continue;
                         // check if both attacker and target are L2PcInstances and if they are in same party 
                         if (obj instanceof L2PcInstance) 
@@ -1889,7 +1896,7 @@ public abstract class L2Skill
 
                     if (!Util.checkIfInRange(radius, target, obj, true)) continue;
                     
-                    if (!GeoData.getInstance().canSeeTarget(activeChar, (L2Character)obj))
+                    if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
                         continue;
                     
                     if(obj instanceof L2PcInstance && src != null)
