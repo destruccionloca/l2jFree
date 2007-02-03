@@ -285,7 +285,6 @@ $MYG < ../sql/etcitem.sql &> /dev/null
 $MYG < ../sql/enchant_skill_trees.sql &> /dev/null
 $MYG < ../sql/fish.sql &> /dev/null
 $MYG < ../sql/fishing_skill_trees.sql &> /dev/null
-$MYG < ../sql/fishreward.sql &> /dev/null
 $MYG < ../sql/forums.sql &> /dev/null
 $MYG < ../sql/games.sql &> /dev/null
 $MYG < ../sql/global_tasks.sql &> /dev/null
