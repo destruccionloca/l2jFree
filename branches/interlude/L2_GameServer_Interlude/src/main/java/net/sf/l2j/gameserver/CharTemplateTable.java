@@ -22,6 +22,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javolution.util.FastMap;
+
+import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.templates.L2PcTemplate;
@@ -115,7 +117,7 @@ public class CharTemplateTable
 				set.set("basePAtkSpd", rset.getInt("p_spd"));
 				set.set("baseMAtkSpd", /*classId.isMage()? 166 : 333*/ rset.getInt("char_templates.m_spd"));
 				set.set("baseCritRate", rset.getInt("char_templates.critical")/10);
-				set.set("baseRunSpd", rset.getInt("move_spd"));
+				set.set("baseRunSpd", rset.getInt("move_spd")*Config.RATE_RUN_SPED);
 				set.set("baseLoad", rset.getInt("_load"));
 				set.set("baseShldDef", 0);
 				set.set("baseShldRate", 0);
