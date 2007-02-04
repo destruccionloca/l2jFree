@@ -4026,7 +4026,7 @@ public final class L2PcInstance extends L2PlayableInstance
             // give faction pvp points
             if (Config.FACTION_ENABLED)
                 if (targetPlayer.getSide() != getSide() && targetPlayer.getSide()!=0 && getSide()!=0 && Config.FACTION_KILL_REWARD)
-                    increaseFactionPvPKillPoints(targetPlayer.getLevel());
+                    increaseFactionKillPoints(targetPlayer.getLevel(),false);
             // save stats
             if (getStatTrack() != null)
                 getStatTrack().increasePvPKills();
@@ -4039,7 +4039,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 if (targetPlayer.getSide() != getSide() && targetPlayer.getSide()!=0 && getSide()!=0 && Config.FACTION_KILL_REWARD)
                 {
                     // give faction pk points
-                    increaseFactionPKKillPoints(targetPlayer.getLevel());                    
+                    increaseFactionKillPoints(targetPlayer.getLevel(),true);                    
                     // save stats
                     if (getStatTrack() != null)
                         getStatTrack().increasePvPKills();
@@ -4087,20 +4087,16 @@ public final class L2PcInstance extends L2PlayableInstance
     
     /**
      * Increase the faction points depending on level
-     *
+     * PK Kills give half the points of a PVP Kill 
      */
-    public void increaseFactionPvPKillPoints(int level)
+    public void increaseFactionKillPoints(int level,boolean pk)
     {
-        // dummy
-    }
-
-    /**
-     * Increase the faction points depending on level
-     *
-     */
-    public void increaseFactionPKKillPoints(int level)
-    {
-        // dummy
+        int points;
+        points = (level / getLevel())*(Config.FACTION_KILL_RATE/100);
+        if(pk==true)
+            points/=2;
+        addNPCFactionPoints(points);
+        sendMessage("You earned "+String.valueOf(points)+ " Facion Points");
     }
 
     /**
