@@ -14,10 +14,9 @@ CREATE TABLE merchant_buylists (
 -- Dumping data for table `merchant_buylists`
 --
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
-
 -- General Shops
 
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 (1,871,1,1),
 (4,871,1,2),
 (11,871,1,3),
@@ -2885,7 +2884,8 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (44,11730,75,52),
 (17,2,75,53),
 (1341,3,75,54),
-(5284,268400,75,55),
+(5284,268400,75,55);
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (7,883,76,1),
 (308,883,76,2),
 (8,14375,76,3),
@@ -3612,7 +3612,8 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (258,490800,96,28),
 (17,2,96,29),
 (1341,4,96,30),
-(1342,6,96,31),
+(1342,6,96,31);
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (9,64920,97,1),
 (176,163200,97,2),
 (310,163200,97,3),
@@ -5198,7 +5199,8 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (4585,43200,134,117),
 (4586,43200,134,118),
 (4587,43200,134,119),
-(4588,43200,134,120),
+(4588,43200,134,120);
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (1835,8,135,1),
 (2509,18,135,2),
 (3947,42,135,3),
@@ -6276,7 +6278,8 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (260,1139679,179,45),
 (261,1650000,179,46),
 (5284,287572,179,47),
-(5285,482036,179,48),
+(5285,482036,179,48);
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (176,160286,180,1),
 (310,160286,180,2),
 (177,287572,180,3),
@@ -7457,7 +7460,8 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (1856,909,364,10),
 (1523,909,364,11),
 (1521,909,364,12),
-(1535,909,364,13),
+(1535,909,364,13);
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (908,13090,5600,1),
 (909,23430,5600,2),
 (910,39490,5600,3),
@@ -8564,10 +8568,10 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (8198,5893,420,25),
 (8199,5893,420,26),
 (8200,5893,420,27),
-(8202,5893,420,28),
+(8202,5893,420,28);
 
 -- GM Shops
-
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (21,0,1001,1),
 (22,0,1001,2),
 (23,0,1001,3),
@@ -10419,7 +10423,8 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (6359,0,9030,13),
 (7813,0,9030,14),
 (7814,0,9030,15),
-(7815,0,9030,16),
+(7815,0,9030,16);
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (284,0,9031,1),
 (287,0,9031,2),
 (4825,0,9031,3),
@@ -12052,7 +12057,8 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (5813,0,9150,38),
 (5814,0,9150,39),
 (5815,0,9150,40),
-(5816,0,9150,41),
+(5816,0,9150,41);
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (1666,0,30040,1),
 (1786,0,30040,2),
 (1787,0,30040,3),
@@ -13440,7 +13446,8 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (8370,0,71030,41),
 (8371,0,71030,42),
 (8372,0,71030,43),
-(8554,0,71030,44),
+(8554,0,71030,44);
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (5156,0,300410,1),
 (5157,0,300410,2),
 (5158,0,300410,3),

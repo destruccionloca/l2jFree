@@ -32,6 +32,9 @@ insert into zone values (4, 'Castle Area', 'Oren', 72876, 32336, 87556, 40457, 0
 insert into zone values (5, 'Castle Area', 'Aden', 134790, -2552, 154760, 20850, 0,0, 0);
 insert into zone values (6, 'Castle Area', 'Innadril', 111975, 241396, 120720, 253425, 0,0, 5);
 insert into zone values (7, 'Castle Area', 'Goddard', 144715, -43884, 150037, -43064, 0,0, 5);
+insert into zone values (8, 'Castle Area', 'Rune', 7000, -55500, 27000, -41716, 0, 0, 8);
+insert into zone values (9, 'Castle Area', 'Schuttgart', 73000, -156600, 80740, -147592, 0, 0, 8);
+
 
 insert into zone values (1, 'Castle HQ', 'Gludio', -20400, 106800, -15700, 113750, 0,0, 5);
 insert into zone values (2, 'Castle HQ', 'Dion', 19650, 163000, 24350, 155950, 0,0, 5);
@@ -40,6 +43,8 @@ insert into zone values (4, 'Castle HQ', 'Oren', 85300, 34900, 78100, 39600, 0,0
 insert into zone values (5, 'Castle HQ', 'Aden', 144600, 550, 150300, 8550, 0,0, 0);
 insert into zone values (6, 'Castle HQ', 'Innadril', 111975, 241396, 120720, 253425, 0,0, 5);
 insert into zone values (7, 'Castle HQ', 'Goddard', 144715, -43884, 150037, -43064, 0,0, 5);
+insert into zone values (8, 'Castle HQ', 'Rune', 7000, -52500, 18493, -45900, -547, 0, 8);
+insert into zone values (9, 'Castle HQ', 'Schuttgart', 77200, -153000, 77900, -478700, -545, 0, 8);
 
 insert into zone values (1, 'Castle Defender Spawn', 'Gludio', -18105, 110303, 0, 0, -2146,0, 0);
 insert into zone values (2, 'Castle Defender Spawn', 'Dion', 22080, 159450, 0, 0, -2441,0, 0);
@@ -48,7 +53,10 @@ insert into zone values (4, 'Castle Defender Spawn', 'Oren', 81707, 37208, 0, 0,
 insert into zone values (5, 'Castle Defender Spawn', 'Aden', 147456, 6048, 0, 0, 253,0, 0);
 insert into zone values (6, 'Castle Defender Spawn', 'Innadril', 116025, 248229, 0, 0, -536,0, 0);
 insert into zone values (7, 'Castle Defender Spawn', 'Goddard', 147408, -46448, 0, 0, -963,0, 0);
+insert into zone values (8, 'Castle Defender Spawn', 'Rune', 11388, -49160, 0, 0, -537, 0, 0);
+insert into zone values (9, 'Castle Defender Spawn', 'Schuttgart', 77524, -152709, 0, 0, -545, 0, 0);
 
+insert into zone values (21, 'Clan Hall', 'Partisan Hideaway', 43151, 108377, 43648, 109399, -1981, 0, 1);
 insert into zone values (22, 'Clan Hall', 'Gludio 1', -16400, 123275, -15551, 123850, -3117,0, 1);
 insert into zone values (23, 'Clan Hall', 'Gludio 2', -15100, 125350, -14800, 125800, -3143,0, 1);
 insert into zone values (24, 'Clan Hall', 'Gludio 3', -14050, 125050, -13700, 125700, -3143,0, 1);
@@ -66,6 +74,8 @@ insert into zone values (30, 'Clan Hall', 'Gludin 5', -80100, 151800, -79500, 15
 insert into zone values (31, 'Clan Hall', 'Dion 1', 17400, 144800, 18000, 145350, -3043,0, 1);
 insert into zone values (32, 'Clan Hall', 'Dion 2', 18850, 143600, 18600, 143100, -3017,0, 1);
 insert into zone values (33, 'Clan Hall', 'Dion 3', 19950, 146000, 20400, 146300, -3118,0, 1);
+insert into zone values (34, 'Clan Hall', 'Devastated Castle', 0, 0, 0, 0, 0, 0, 1);
+insert into zone values (35, 'Clan Hall', 'Bandits Stronghold', 80738, -15914, 79627, -15054, -1810,0, 1);
 insert into zone values (42, 'Clan Hall', 'Giran 1', 80780, 151063, 81156, 152111, -3518,0, 1);
 insert into zone values (43, 'Clan Hall', 'Giran 2', 82288, 152437, 81912, 151393, -3543,0, 1);
 insert into zone values (44, 'Clan Hall', 'Giran 3', 78077, 148285, 79119, 147911, -3608,0, 1);
@@ -81,9 +91,20 @@ insert into zone values (47, 'Clan Hall', 'Goddard 1', 149717, -55824, 149063, -
 insert into zone values (48, 'Clan Hall', 'Goddard 2', 148479, -56473, 148479, -57275, -2773,0, 1);
 insert into zone values (49, 'Clan Hall', 'Goddard 3', 147238, -56636, 146564, -57078, -2783,0, 1);
 insert into zone values (50, 'Clan Hall', 'Goddard 4', 146399, -55682, 145652, -55386, -2773,0, 1);
-insert into zone values (35, 'Clan Hall', 'Bandits Stronghold', 80738, -15914, 79627, -15054, -1810,0, 1);
-insert into zone values (21, 'Clan Hall', 'Partisan Hideaway', 43151, 108377, 43648, 109399, -1981,0, 1);
+insert into zone values (51, 'Clan Hall', 'Mont Chamber', 37437, -45872, 38024, -45460, 900, 0, 1);
+insert into zone values (52, 'Clan Hall', 'Astaire Chamber', 38433, -46322, 39062, -45731, 900, 0, 1);
+insert into zone values (53, 'Clan Hall', 'Aria Chamber', 39437, -47141, 39760, -46668, 900, 0, 1);
+insert into zone values (54, 'Clan Hall', 'Yiana Chamber', 39426, -48619, 39820, -47871, 899, 0, 1);
+insert into zone values (55, 'Clan Hall', 'Roien Chamber', 39173, -50020, 39774, -49340, 900, 0, 1);
+insert into zone values (56, 'Clan Hall', 'Luna Chamber', 38401, -50516, 39054, -50404, 900, 0, 1);
+insert into zone values (57, 'Clan Hall', 'Traban Chamber', 37461, -50973, 38006, -50589, 900, 0, 1);
+insert into zone values (58, 'Clan Hall', 'Eisen Hall', 85426, -143448, 86069, -142769, -1342, 0, 1);
+insert into zone values (59, 'Clan Hall', 'Heavy Metal Hall', 86162, -142094, 87003, -141727, -1340, 0, 1);
+insert into zone values (60, 'Clan Hall', 'Molten Ore Hall', 88600, -142111, 87724, -141750, -1341, 0, 1);
+insert into zone values (61, 'Clan Hall', 'Titan Hall', 88500, -143500, 89500, -142880, -1340, 0, 1);
 insert into zone values (62, 'Clan Hall', 'Hot Springs Guild House', 141414, -124508, 140590, -124706, -1896,0, 1);
+insert into zone values (63, 'Clan Hall', 'Beast Farm', 0, 0, 0, 0, 0, 0, 1);
+insert into zone values (64, 'Clan Hall', 'Fortress of the Dead', 0, 0, 0, 0, 0, 0, 1);
 
 insert into zone values (1, 'Peace', 'Giran Arena', 72249, 142018, 72498, 143510, -3774,0, 0);
 insert into zone values (1, 'Peace', 'Giran Arena', 73495, 142018, 73738, 143510, -3774,0, 0);
@@ -111,6 +132,8 @@ insert into zone values (4, 'Siege Battlefield', 'Oren', 72876, 32336, 87556, 40
 insert into zone values (5, 'Siege Battlefield', 'Aden', 134790, -2552, 154760, 20850, 0,0, 0);
 insert into zone values (6, 'Siege Battlefield', 'Innadril', 111975, 241396, 120720, 253425, 0,0, 0);
 insert into zone values (7, 'Siege Battlefield', 'Goddard', 144715, -43884, 150037, -43064, 0,0, 0);
+insert into zone values (8, 'Siege Battlefield', 'Rune', 7000, -55500, 27000, -41716, 0, 0, 0);
+insert into zone values (9, 'Siege Battlefield', 'Schuttgart', 73000, -156600, 80740, -147592, 0, 0, 0);
 
 insert into zone values (1, 'Town', 'DE Village', 6063, 19664, 17248, 14019, 0,0, 4);
 insert into zone values (2, 'Town', 'Talking Island', -87312, 240096, -81129, 246345, 0,0, 1);
@@ -124,11 +147,12 @@ insert into zone values (9, 'Town', 'Giran Castle Town', 76995, 141424, 90565, 1
 insert into zone values (10, 'Town', 'Town of Oren', 76696, 57199, 84511, 50120, 0,0, 4);
 insert into zone values (11, 'Town', 'Hunter Village', 121308, 73941, 114667, 80383, 0,0, 5);
 insert into zone values (12, 'Town', 'Town of Aden', 142312, 32317, 152163, 19708, 0,0, 5);
-insert into zone values (13, 'Town', 'Goddard', 153201, -52529, 144126, -57956, 0,0, 5);
-insert into zone values (14, 'Town', 'Rune Castle Town', 47150, -44815, 32531, -52045, 0,0, 6);
+insert into zone values (13, 'Town', 'Goddard', 153201, -52529, 144126, -57956, 0,0, 7);
+insert into zone values (14, 'Town', 'Rune Castle Town', 47150, -44815, 32531, -52045, 0,0, 8);
 insert into zone values (15, 'Town', 'Heine', 103598, 216010, 118991, 225905, 0,0, 6);
 insert into zone values (16, 'Town', 'Floran Village', 0, 0, 0, 0, 0,0, 2);
-insert into zone values (18, 'Town', 'Ivory Tower', 0, 0, 0, 0, 0,0, 4);
+insert into zone values (17, 'Town', 'Schuttgart', 83881, -146500, 90908, -139486, 0, 0, 9);
+insert into zone values (18, 'Town', 'Ivory Tower', 0, 0, 0, 0, 0, 0, 4);
 
 insert into zone values (1, 'Town Spawn', 'DE Village', 12181, 16675, 0, 0, -4580,0, 0);
 insert into zone values (2, 'Town Spawn', 'Talking Island', -84176, 243382, 0, 0, -3126,0, 0);
@@ -138,17 +162,18 @@ insert into zone values (5, 'Town Spawn', 'Gludin Village', -82856, 150901, 0, 0
 insert into zone values (6, 'Town Spawn', 'Dwarven Village', 115074, -178115, 0, 0, -880,0, 0);
 insert into zone values (7, 'Town Spawn', 'Gludio Castle Town', -14138, 122042, 0, 0, -2988,0, 0);
 insert into zone values (8, 'Town Spawn', 'Dion Castle Town', 18823, 145048, 0, 0, -3126,0, 0);
-insert into zone values (9, 'Town Spawn', 'Giran Castle Town', 83235, 148497, 0, 0, -3404,0, 0);
+insert into zone values (9, 'Town Spawn', 'Giran Castle Town', 81236, 148638, 0, 0, -3469, 0, 0);
 insert into zone values (10, 'Town Spawn', 'Town of Oren', 80853, 54653, 0, 0, -1524,0, 0);
 insert into zone values (11, 'Town Spawn', 'Hunter Village', 117163, 76511, 0, 0, -2712,0, 0);
 insert into zone values (12, 'Town Spawn', 'Town of Aden', 147391, 25967, 0, 0, -2012,0, 0);
-insert into zone values (13, 'Town Spawn', 'Goddard', 147955, -55339, 0, 0, -2734,0, 0);
-insert into zone values (14, 'Town Spawn', 'Rune Castle Town', 43813, -47790, 0, 0, -797,0, 0);
+insert into zone values (13, 'Town Spawn', 'Goddard', 148558, -56030, 0, 0, -2781,0, 0);
+insert into zone values (14, 'Town Spawn', 'Rune Castle Town', 43894, -48330, 0, 0, -797, 0, 0);
 insert into zone values (15, 'Town Spawn', 'Heine', 111381, 219064, 0, 0, -3543,0, 0);
 insert into zone values (16, 'Town Spawn', 'Floran Village', 17817, 170079, 0, 0, -3530,0, 0);
-insert into zone values (18, 'Town Spawn', 'Ivory Tower', 0, 0, 0, 0, 0,0, 0);
+insert into zone values (17, 'Town Spawn', 'Schuttgart', 87331, -142842, 0, 0, -1317, 0, 0);
+insert into zone values (18, 'Town Spawn', 'Ivory Tower', 0, 0, 0, 0, 0, 0, 0);
 
-insert into zone values (1, 'Underground', 'Ascetics Necropolis', 0, 0, 0, 0, -4844,0, 0);
+insert into zone values (1, 'Underground', 'Ascetics Necropolis', 0, 0, 0, 0, -4844, 0, 0);
 insert into zone values (2, 'Underground', 'Elven Ruins', 43100, 246500, 49400, 249200, -6614,0, 0);
 insert into zone values (3, 'Underground', 'School of Dark Arts', -49800, 56879, -35311, 43790, -6000,0, 0);
 insert into zone values (4, 'Underground', 'School of Dark Arts', -47150, 41782, -54659, 53065, -6000,0, 0);
@@ -566,134 +591,3 @@ INSERT INTO `zone` VALUES (187, 'Water', '22_16_water16', 87187, -58301, 89235, 
 INSERT INTO `zone` VALUES (188, 'Water', '22_17_water1', 65536, -32768, 76800, 0, -4780, -3780, 0);
 INSERT INTO `zone` VALUES (189, 'Water', '22_17_water2', 76800, -32768, 98304, -18432, -4780, -3780, 0);
 
--- -----------------------------------------
--- C5 town and castle spawns
--- -----------------------------------------
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (17, "Town", "Schuttgart", 83881, -146500, 90908, -139486, 0, 9);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (17, "Town Spawn", "Schuttgart", 87331, -142842, 0, 0, -1317, 0);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (9, "Castle Area", "Schuttgart", 73000, -156600, 80740, -147592, 0, 8);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (9, "Castle HQ", "Schuttgart", 77200, -153000, 77900, -478700, -545, 8);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (9, "Castle Defender Spawn", "Schuttgart", 77524, -152709, 0, 0, -545, 0);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (8, "Castle Defender Spawn", "Rune", 11388, -49160, 0, 0, -537, 0);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (8, "Castle HQ", "Rune", 7000, -52500, 18493, -45900, -547, 0);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (8, "Castle Area", "Rune", 7000, -55500, 27000, -41716, 0, 0);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (8, "Siege Battlefield", "Rune", 7000, -55500, 27000, -41716, 0, 0);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (9, "Siege Battlefield", "Schuttgart", 73000, -156600, 80740, -147592, 0, 0);
-
--- -------------------------------
--- C5 Clan Halls (these are not correct, but just to avaoid NPEs)
--- -------------------------------
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (62, "Clan Hall", "Hot Springs Guild House", 141414, -124508, 140590, -124706, -1896, 1);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (34, "Clan Hall", "Devastated Castle", 0, 0, 0, 0, 0, 0);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (51, "Clan Hall", "Mont Chamber", 37437, -45872, 38024, -45460, 900, 8);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (52, "Clan Hall", "Astaire Chamber", 38433, -46322, 39062, -45731, 900, 8);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (53, "Clan Hall", "Aria Chamber", 39437, -47141, 39760, -46668, 900, 8);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (54, "Clan Hall", "Yiana Chamber", 39426, -48619, 39820, -47871, 899, 8);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (55, "Clan Hall", "Roien Chamber", 39173, -50020, 39774, -49340, 900, 8);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (56, "Clan Hall", "Luna Chamber", 38401, -50516, 39054, -50404, 900, 8);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (57, "Clan Hall", "Traban Chamber", 37461, -50973, 38006, -50589, 900, 8);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (58, "Clan Hall", "Eisen Hall", 85426, -143448, 86069, -142769, -1342, 8);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (59, "Clan Hall", "Heavy Metal Hall", 86162, -142094, 87003, -141727, -1340, 8);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (60, "Clan Hall", "Molten Ore Hall", 88600, -142111, 87724, -141750, -1341, 8);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (61, "Clan Hall", "Titan Hall", 88500, -143500, 89500, -142880, -1340, 8);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (63, "Clan Hall", "Beast Farm", 0, 0, 0, 0, 0, 0);
-
-INSERT INTO zone
-  (id, type, name, x1, y1, x2, y2, z, taxById)
-VALUES
-  (64, "Clan Hall", "Fortress of the Dead", 0, 0, 0, 0, 0, 0);
