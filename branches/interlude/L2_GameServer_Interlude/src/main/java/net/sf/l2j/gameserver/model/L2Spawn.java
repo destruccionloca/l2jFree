@@ -54,6 +54,9 @@ public class L2Spawn
 	
 	/** The Identifier of this spawn in the spawn table */
 	private int _id;
+
+    /** The Identifier of this spawn in the db table */
+	private int _dbid;
     
 	// private String _location = DEFAULT_LOCATION;
 	
@@ -90,7 +93,7 @@ public class L2Spawn
 	/** If True a L2NpcInstance is respawned each time that another is killed */
     private boolean _doRespawn;
 
-   /** If True then spawn point is custom */
+    /** If True then spawn point is custom */
     private boolean _customSpawn;
 
     private L2NpcInstance _lastSpawn;
@@ -185,7 +188,15 @@ public class L2Spawn
 	{
 		return _id;
 	}
-	
+
+   /**
+    * Return the Identifier of this L2Spwan (used as key in the Spawnlist).<BR><BR>
+    */
+	public int getDbId()
+	{
+	    return _dbid;
+	}   
+
 	/**
 	 * Return the Identifier of the location area where L2NpcInstance can be spwaned.<BR><BR>
 	 */
@@ -265,7 +276,15 @@ public class L2Spawn
 	{
 		_id = id;
 	}
-	
+
+    /**
+    * Set the Identifier of this L2Spwan (used as key in the Spawnlist).<BR><BR>
+    */
+	public void setDbId(int id)
+	{
+       _dbid = id;
+	}
+
 	/**
 	 * Set the Identifier of the location area where L2NpcInstance can be spwaned.<BR><BR>
 	 */
