@@ -82,6 +82,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
+import net.sf.l2j.gameserver.instancemanager.FactionManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
@@ -133,6 +134,7 @@ import net.sf.l2j.gameserver.model.base.SubClass;
 import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.L2Event;
+import net.sf.l2j.gameserver.model.entity.Faction;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.TvT;
 import net.sf.l2j.gameserver.model.entity.VIP;
@@ -645,8 +647,9 @@ public final class L2PcInstance extends L2PlayableInstance
     
     private int _clientRevision = 0;
     
-    private int _factionId = 0;
+    private static int _factionId = 0;
     private int _factionPoints = 0;
+    private int _side = 0;
 
     /* Flag to disable equipment/skills while wearing formal wear **/
     private boolean _IsWearingFormalWear = false;
@@ -5231,6 +5234,14 @@ public final class L2PcInstance extends L2PlayableInstance
                 
                 player.setNPCFactionId(rset.getInt("faction_id"));
                 player.setNPCFactionPoints(rset.getInt("faction_points"));
+                if(Config.FACTION_ENABLED)
+                {
+                    Faction faction = FactionManager.getInstance().getFactions(_factionId);
+                    if(faction!=null)
+                    {
+                        player.setSide(faction.getSide());
+                    }
+                }
 
                 // Add the L2PcInstance object in _allObjects
                 // L2World.getInstance().storeObject(player);
@@ -10209,6 +10220,16 @@ public final class L2PcInstance extends L2PlayableInstance
     public int getNPCFactionPoints()
     {
         return _factionPoints;
+    }
+
+    public void setSide(int side)
+    {
+        _side=side;
+    }
+    
+    public int getSide()
+    {
+        return _side;
     }
 
    private FastMap<Integer, TimeStamp> ReuseTimeStamps = new FastMap<Integer, TimeStamp>();

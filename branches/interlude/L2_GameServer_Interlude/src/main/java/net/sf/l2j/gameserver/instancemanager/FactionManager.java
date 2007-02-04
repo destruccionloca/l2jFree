@@ -102,13 +102,13 @@ public class FactionManager
         return null;
     }
 
-    public final int getFactionIndex(int coupleId)
+    public final int getFactionIndex(int FactionId)
     {
-        Faction couple;
+        Faction faction;
         for (int i = 0; i < getFactions().size(); i++)
         {
-            couple = getFactions().get(i);
-            if (couple != null && couple.getId() == coupleId) return i;
+            faction = getFactions().get(i);
+            if (faction != null && faction.getId() == FactionId) return i;
         }
         return -1;
     }

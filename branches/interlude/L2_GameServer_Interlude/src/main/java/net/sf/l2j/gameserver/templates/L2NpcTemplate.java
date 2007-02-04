@@ -68,7 +68,6 @@ public final class L2NpcTemplate extends L2CharTemplate
     public final int     absorb_level;
     public final int     NPCFaction;
     public final String  NPCFactionName;
-    public final int     NPCFactionPrice;
     
     private final StatsSet npcStatsSet;
 
@@ -122,7 +121,6 @@ public final class L2NpcTemplate extends L2CharTemplate
         absorb_level  = set.getInteger("absorb_level", 0);
         NPCFaction = set.getInteger("NPCFaction", 0);
         NPCFactionName = set.getString("NPCFactionName", "Devine Clan");
-        NPCFactionPrice = set.getInteger("NPCFactionPrice", 0);        
         //String r = set.getString("race", null);
         //if (r == null)
         //  race = null;
@@ -310,10 +308,5 @@ public final class L2NpcTemplate extends L2CharTemplate
     public String getNPCFactionName()
     {
         return NPCFactionName;
-    }
-    
-    public int getNPCFacionPrice()
-    {
-        return NPCFactionPrice;
     }
 }

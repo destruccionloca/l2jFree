@@ -361,15 +361,17 @@ public class NpcTable
             
             npcDat.set("absorb_level", NpcData.getString("absorb_level"));
 
-            Faction faction;
-            for (int i = 0; i < FactionManager.getInstance().getFactions().size(); i++)
+            if(Config.FACTION_ENABLED)
             {
-                faction = FactionManager.getInstance().getFactions().get(i);
-                if(faction.getNpcList().contains(id))
+                Faction faction;
+                for (int i = 0; i < FactionManager.getInstance().getFactions().size(); i++)
                 {
-                    npcDat.set("NPCFaction", faction.getId());
-                    npcDat.set("NPCFactionName", faction.getName());
-                    npcDat.set("NPCFactionPrice", faction.getPrice());
+                    faction = FactionManager.getInstance().getFactions().get(i);
+                    if(faction.getNpcList().contains(id))
+                    {
+                        npcDat.set("NPCFaction", faction.getId());
+                        npcDat.set("NPCFactionName", faction.getName());
+                    }
                 }
             }
 

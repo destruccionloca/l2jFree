@@ -39,6 +39,7 @@ public class Faction
     private String _name                        = null;
     private float _points                       = 0;
     private int _joinprice                      = 0;
+    private int _side                           = 0; // 0 = Neutral 1 = Good 2 = Evil
     private FastList<Integer> _list_classes     = new FastList<Integer>();
     private FastList<Integer> _list_npcs        = new FastList<Integer>();
     
@@ -47,6 +48,7 @@ public class Faction
         this._Id = factionId;
         String _classlist                   = null;
         String _npclist                   = null;
+        int _tside  = 0;
         
         java.sql.Connection con = null;
         try
@@ -67,19 +69,20 @@ public class Faction
                 _classlist = rs.getString("allowed_classes");
                 _npclist = rs.getString("npcs");
                 this._points = rs.getFloat("points");
+                _tside = rs.getInt("side");
             }
             statement.close();
             
+            if(_tside<=2)
+                _side = _tside;
+            
             if(_classlist.length()>0)
-                for (String id : _classlist.split(",")) {
+                for (String id : _classlist.split(",")) 
                     _list_classes.add(Integer.parseInt(id));
-                }
 
             if(_npclist.length()>0)
-                for (String id : _classlist.split(",")) {
+                for (String id : _classlist.split(",")) 
                     _list_npcs.add(Integer.parseInt(id));
-                }
-                
         }
         catch (Exception e)
         {
@@ -127,4 +130,5 @@ public class Faction
     public final FastList<Integer> getClassList(){ return this._list_classes; } 
     public final FastList<Integer> getNpcList(){ return this._list_npcs; }
     public final int getPrice() { return this._joinprice; }
+    public final int getSide() { return this._side; }
 }

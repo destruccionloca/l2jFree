@@ -18,6 +18,8 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import net.sf.l2j.gameserver.instancemanager.FactionManager;
+import net.sf.l2j.gameserver.model.entity.Faction;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -63,7 +65,8 @@ public class L2FactionManagerInstance extends L2NpcInstance
         String filename = "data/html/npcdefault.htm";
         String factionName = getTemplate().getNPCFactionName();
         int factionId = getTemplate().getNPCFactionId();
-        int factionPrice = getTemplate().getNPCFacionPrice();
+        Faction faction = FactionManager.getInstance().getFactions(factionId);
+        int factionPrice = faction.getPrice();
         String replace = "";
         if(factionId!=0)
         {
@@ -71,18 +74,31 @@ public class L2FactionManagerInstance extends L2NpcInstance
             replace = String.valueOf(factionPrice);
             
             if(player.getNPCFactionId()!=0)
-                filename = path + "already.htm";
+            {
+                if(player.getSide()!=faction.getSide())
+                    filename = path + "already.htm";
+                else
+                    filename = path + "switch.htm";
+            }
             else if (command.startsWith("Join"))
                 filename = path + "join.htm";
             else if (command.startsWith("Accept"))
             {
-                if(player.getAdena()<factionPrice)
-                    filename = path + "noadena.htm";                    
+                if(player.getNPCFactionId()==0)
+                {
+                    if(player.getAdena()<factionPrice)
+                        filename = path + "noadena.htm";                    
+                    else
+                    {
+                        player.setNPCFactionId(factionId);
+                        player.setNPCFactionPoints(0);
+                        filename = path + "accepted.htm";                    
+                    }
+                }
                 else
                 {
                     player.setNPCFactionId(factionId);
-                    player.setNPCFactionPoints(0);
-                    filename = path + "accepted.htm";                    
+                    filename = path + "switched.htm";
                 }
             }
             else if (command.startsWith("Decline"))
