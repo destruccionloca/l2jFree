@@ -22,6 +22,7 @@ import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PetBabyInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.serverpackets.ExAutoSoulShot;
@@ -46,19 +47,24 @@ public class BeastSpiritShot implements IItemHandler
     	if (playable == null) return;
     	
         L2PcInstance activeOwner = null;
-        if (playable instanceof L2Summon)
+        L2Summon activePet= null;
+
+        if (playable instanceof L2Summon && !(playable instanceof L2PetBabyInstance))
         {
             activeOwner = ((L2Summon)playable).getOwner();
             activeOwner.sendPacket(new SystemMessage(SystemMessage.PET_CANNOT_USE_ITEM));
             return;
-        } else if (playable instanceof L2PcInstance)
+        }
+        
+        if (playable instanceof L2PcInstance)
         {
         	activeOwner = (L2PcInstance)playable;
         }
-        
-        if (activeOwner == null)
-        	return;
-        L2Summon activePet = activeOwner.getPet();
+        else if (playable instanceof L2PetBabyInstance ) 
+        {
+            activePet = (L2Summon)playable;
+            activeOwner = activePet.getOwner();
+        }
         
         if (activePet == null)
         {
@@ -79,7 +85,7 @@ public class BeastSpiritShot implements IItemHandler
         L2ItemInstance weaponInst = null;
         L2Weapon weaponItem = null;
         
-        if (activePet instanceof L2PetInstance)
+        if (activePet instanceof L2PetInstance && !(activePet  instanceof L2PetBabyInstance))
         {
             weaponInst = ((L2PetInstance)activePet).getActiveWeaponInstance();
             weaponItem = ((L2PetInstance)activePet).getActiveWeaponItem();

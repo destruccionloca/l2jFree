@@ -53,6 +53,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MinionInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PetBabyInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
@@ -1086,6 +1087,13 @@ public abstract class L2Character extends L2Object
                 }
             }
         }
+        else if ( skill.getTargetType() == L2Skill.SkillTargetType.TARGET_OWNER_PET  ) 
+        {
+            if (this instanceof L2PetInstance)
+            {
+                target = ((L2PetInstance)this).getOwner();  
+            }
+        }
         else
         {
             target = (L2Character) getTarget();
@@ -1173,6 +1181,16 @@ public abstract class L2Character extends L2Object
             }
         }
         
+        if (this instanceof L2PetBabyInstance)
+        {
+            if (((L2Summon)this).getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT 
+                || ((L2Summon)this).getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
+                {
+                    skillTime = (int)(0.70 * skill.getSkillTime());
+                    skillInterruptTime = (int)(0.70 * skill.getSkillInterruptTime());
+                }
+        }
+
         // Set the _castEndTime and _castInterruptTim
         _castEndTime = 10 + GameTimeController.getGameTicks() + skillTime / GameTimeController.MILLIS_IN_TICK;
         _castInterruptTime = GameTimeController.getGameTicks() + skillInterruptTime / GameTimeController.MILLIS_IN_TICK;

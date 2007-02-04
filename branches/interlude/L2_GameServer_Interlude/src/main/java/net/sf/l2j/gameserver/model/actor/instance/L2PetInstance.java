@@ -67,16 +67,16 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.15.2.10.2.16 $ $Date: 2005/04/06 16:13:40 $
  */
-public final class L2PetInstance extends L2Summon
+public class L2PetInstance extends L2Summon
 {
     protected static Log _log = LogFactory.getLog(L2PetInstance.class.getName());
     
     //private byte _pvpFlag;
     private int _curFed;
-    private PetInventory _inventory;
-    private final int _controlItemId;
-    private boolean _respawned;
-    private boolean _mountable;
+    public PetInventory _inventory;
+    public final int _controlItemId;
+    public boolean _respawned;
+    public boolean _mountable;
     
     private Future _feedTask;
     private int _feedTime;
@@ -903,7 +903,7 @@ public final class L2PetInstance extends L2Summon
     public int getPAtk(L2Character target) { return getStat().getPAtk(target); }
     public int getPDef(L2Character target) { return getStat().getPDef(target); }
     
-    public final int getSkillLevel(int skillId)
+    public int getSkillLevel(int skillId)
     {
         if (_Skills == null || _Skills.get(skillId) == null) return -1;
         int lvl = getLevel();

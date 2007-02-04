@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2SummonAI;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PetBabyInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.SummonKnownList;
 import net.sf.l2j.gameserver.model.actor.stat.SummonStat;
@@ -535,7 +536,10 @@ public abstract class L2Summon extends L2PlayableInstance
         {
             // Send a System Message to the caster
             if (getOwner() != null)
+            if (!(this instanceof L2PetBabyInstance))
+            {
                 getOwner().sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_MP));
+            }
             return;
         }
         

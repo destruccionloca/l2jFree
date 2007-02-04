@@ -25,6 +25,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PetBabyInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillLaunched;
@@ -114,7 +115,20 @@ public class PetSummon implements IItemHandler
         L2NpcTemplate petTemplate = NpcTable.getInstance().getTemplate(npcId);
         
 
-        L2PetInstance newpet = L2PetInstance.spawnPet(petTemplate, activeChar, item);
+        L2PetInstance newpet;
+        if (L2PetDataTable.isBaby(npcId))
+        {
+            if(_log.isDebugEnabled())
+                _log.warn("Petsummon baby entry");
+             newpet = L2PetBabyInstance.spawnPet(petTemplate, activeChar, item);  
+        }
+        else
+        {
+            if(_log.isDebugEnabled())
+                _log.warn("Petsummon entry");
+             newpet = L2PetInstance.spawnPet(petTemplate, activeChar, item);
+        }
+
         if (newpet == null) return;
         newpet.setTitle(activeChar.getName());
         
@@ -156,6 +170,10 @@ public class PetSummon implements IItemHandler
         {
             // start normal feeding
             newpet.startFeed( false );
+        }
+        if (newpet instanceof L2PetBabyInstance)
+        {
+            ((L2PetBabyInstance)newpet).startHealTask(); 
         }
     }
     

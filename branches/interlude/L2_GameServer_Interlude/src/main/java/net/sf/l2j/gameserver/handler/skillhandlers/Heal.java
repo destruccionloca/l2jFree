@@ -23,10 +23,12 @@ import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PetBabyInstance;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
@@ -108,6 +110,22 @@ public class Heal implements ISkillHandler
                 {
                     L2Summon activeSummon = (L2Summon)activeChar;
                     
+                    if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
+                    {
+                        hp *= 1.5;
+                        activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
+                    }
+                    else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
+                    {
+                        hp *= 1.3;
+                        activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
+                    }
+                }
+                if (weaponInst == null && activeChar instanceof L2PetBabyInstance)
+                {
+                    L2Summon activeSummon = (L2Summon)activeChar; 
+                    int matk = activeSummon.getMAtk(null,null); 
+                    hp = skill.getPower() + Math.ceil(Math.sqrt(((activeSummon.getLevel()/skill.getPower())*matk)));  
                     if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
                     {
                         hp *= 1.5;

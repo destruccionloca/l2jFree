@@ -8913,7 +8913,23 @@ public final class L2PcInstance extends L2PlayableInstance
         return (int) Math.sqrt(dx * dx + dy * dy + dz * dz);
     }
 
-    public void addExpAndSp(long addToExp, int addToSp) { getStat().addExpAndSp(addToExp, addToSp); }
+    public void addExpAndSp(long addToExp, int addToSp)
+    {
+        
+        if (getPet()!=null)
+        {
+            //flat rate 10%
+            if (getPet() instanceof L2PetBabyInstance)
+            {
+                if (!getPet().isDead())
+                {
+                    getPet().addExpAndSp((long)(addToExp * .1) , 0);
+                    addToExp *=  .9;
+                }
+            }
+        }
+        getStat().addExpAndSp(addToExp, addToSp);
+    }
 
     public void removeExpAndSp(long removeExp, int removeSp) { getStat().removeExpAndSp(removeExp, removeSp); }
 
