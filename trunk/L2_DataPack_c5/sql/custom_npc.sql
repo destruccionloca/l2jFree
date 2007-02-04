@@ -46,11 +46,8 @@ CREATE TABLE `custom_npc` (
   `mpreg` decimal(5,2) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-#----------------------------
-# Records for table npc
-#----------------------------
 
-insert  into npc values 
+insert  into custom_npc values 
 ('6001', 31774, 'Beryl the Cat', 0, 'ItemMall', 1, 'Monster2.queen_of_cat', '8.00', '15.00', '70', 'female', 'L2Npc', 40, '3862', '1493', '40', '43', '30', '21', '20', '10', '0', '0', '1314', '470', '780', '382', '278', '0', '253', '0', '0', '0', '80', '120', null, '0', 0, '0', null, null),
 ('6002', 35461, 'Caska', 1, 'NPC Buffer', 1, 'NPC.a_teleporter_FHuman', '8.00', '25.00', '70', 'female', 'L2Npc', 40, '3862', '1494', '40', '43', '30', '21', '20', '10', '5879', '590', '1444', '514', '760', '381', '253', '0', '253', '0', '0', '0', '80', '120', null, null, 0, '0', null, null),
 ('7077', 31275, 'Tinkerbell', 1, 'Luxary Gatekeeper', 1, 'NPC.a_teleporter_FHuman', '8.00', '25.00', '70', 'female', 'L2Teleporter', 40, '3862', '1494', '40', '43', '30', '21', '20', '10', '5879', '590', '1444', '514', '760', '381', '253', '0', '253', '0', '0', '0', '80', '120', null, null, 0, '0', null, null),
