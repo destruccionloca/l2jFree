@@ -75,6 +75,48 @@ public class L2FactionManagerInstance extends L2NpcInstance
                 this.sendHtmlMessage(player, filename, replace, factionName);
                 return;
             }
+            else if (command.startsWith("Accept"))
+            {
+                filename = path + "accepted.htm";
+                replace = String.valueOf(factionPrice);
+                this.sendHtmlMessage(player, filename, replace, factionName);
+                return;
+            }
+            else if (command.startsWith("Decline"))
+            {
+                filename = path + "declined.htm";
+                replace = String.valueOf(factionPrice);
+                this.sendHtmlMessage(player, filename, replace, factionName);
+                return;
+            }
+            else if (command.startsWith("AskQuit"))
+            {
+                filename = path + "askquit.htm";
+                replace = String.valueOf(factionPrice);
+                this.sendHtmlMessage(player, filename, replace, factionName);
+                return;
+            }
+            else if (command.startsWith("Quit"))
+            {
+                filename = path + "quited.htm";
+                replace = String.valueOf(factionPrice);
+                this.sendHtmlMessage(player, filename, replace, factionName);
+                return;
+            }
+            else if (command.startsWith("Quest"))
+            {
+                filename = path + "quest.htm";
+                replace = String.valueOf(factionPrice);
+                this.sendHtmlMessage(player, filename, replace, factionName);
+                return;
+            }
+            else if (command.startsWith("FactionShop"))
+            {
+                filename = path + "shop.htm";
+                replace = String.valueOf(factionPrice);
+                this.sendHtmlMessage(player, filename, replace, factionName);
+                return;
+            }
         }
         this.sendHtmlMessage(player, filename, replace, factionName);
     } 
