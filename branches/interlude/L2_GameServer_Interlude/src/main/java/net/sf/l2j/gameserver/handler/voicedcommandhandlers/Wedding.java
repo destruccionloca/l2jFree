@@ -59,14 +59,14 @@ public class Wedding implements IVoicedCommandHandler
         
         if(activeChar.isMaried())
         {
-            activeChar.sendMessage("You are divorced now.");
+            activeChar.sendMessage("You are now divorced."); 
 
             AdenaAmount = (activeChar.getAdena()/100)*Config.WEDDING_DIVORCE_COSTS;
             activeChar.getInventory().reduceAdena("Wedding", AdenaAmount, activeChar, null);
             
         }
         else
-            activeChar.sendMessage("You are disengaged now.");
+            activeChar.sendMessage("You have broken up as a couple.");
        
         L2PcInstance partner;
         partner = (L2PcInstance)L2World.getInstance().findObject(_partnerId);
@@ -75,9 +75,9 @@ public class Wedding implements IVoicedCommandHandler
         {
             partner.setPartnerId(0);
             if(partner.isMaried())
-                partner.sendMessage("Your Partner has decided to divorce from you.");
+                partner.sendMessage("Your fiance has decided to divorce from you.");
             else
-                partner.sendMessage("Your Partner has decided to disengage.");
+                partner.sendMessage("Your fiance has decided to disengage.");
 
             // give adena
             if(AdenaAmount>0)
@@ -100,7 +100,8 @@ public class Wedding implements IVoicedCommandHandler
         // check if target is a l2pcinstance
         if (!(activeChar.getTarget() instanceof L2PcInstance))
         {
-            activeChar.sendMessage("You can only ask another Player for partnership");
+            activeChar.sendMessage("You can only ask another player for engagement");
+
             return false;
         }
         
@@ -142,7 +143,7 @@ public class Wedding implements IVoicedCommandHandler
         // check if player target himself
         if(ptarget.getObjectId()==activeChar.getObjectId())
         {
-            activeChar.sendMessage("Engaging with yourself?");
+            activeChar.sendMessage("Going out with yorself?");
             return false;
         }
 
@@ -173,7 +174,7 @@ public class Wedding implements IVoicedCommandHandler
         
         if (ptarget.getSex()==activeChar.getSex() && !Config.WEDDING_SAMESEX)
         {
-            activeChar.sendMessage("You cant ask partners of same sex.");
+            activeChar.sendMessage("You can't ask someone of the same sex for engagement.");
             return false;
         }
 
@@ -207,14 +208,13 @@ public class Wedding implements IVoicedCommandHandler
         
         if(!FoundOnFriendList)
         {
-            activeChar.sendMessage("The Person you wanna ask hasnt added you on the friendlist.");
+            activeChar.sendMessage("The player you want to ask to hasn't added you on their friends list.");
             return false;
         }
         
         ptarget.setEngageRequest(true, activeChar.getObjectId());        
         //ptarget.sendMessage("Player "+activeChar.getName()+" wants to engage with you.");
-        ptarget.sendPacket(new ConfirmDlg(614,activeChar.getName()+" asking you to engage. Do you want to start new relationship?"));
-
+        ptarget.sendPacket(new ConfirmDlg(614,activeChar.getName()+" asking you to engage. Do you want to start a new relationship?"));
         return true;
     }
     
@@ -222,14 +222,14 @@ public class Wedding implements IVoicedCommandHandler
     {   
         if(!activeChar.isMaried())
         {
-            activeChar.sendMessage("You're not Maried.");
+            activeChar.sendMessage("You're not married."); 
             return false;
         }
         
         if(activeChar.getPartnerId()==0)
         {
-            activeChar.sendMessage("Couldnt find your Partner in Database - Inform a Gamemaster.");
-            _log.error("Maried but couldnt find parter for "+activeChar.getName());
+            activeChar.sendMessage("Couldnt find your fiance in Database - Inform a Gamemaster.");
+            _log.error("Married but couldnt find parter for "+activeChar.getName());
             return false;
         }
         
@@ -240,7 +240,7 @@ public class Wedding implements IVoicedCommandHandler
         // Check if player is inside jail.
         if (JailManager.getInstance().checkIfInZone(activeChar))
         {
-            activeChar.sendMessage("You're in JAIL, you can't go to your Love.");
+            activeChar.sendMessage("You're in JAIL, you can't go to your loved one."); 
             return false;
         }
  
@@ -262,25 +262,25 @@ public class Wedding implements IVoicedCommandHandler
         partner = (L2PcInstance)L2World.getInstance().findObject(activeChar.getPartnerId());
         if(partner ==null)
         {
-            activeChar.sendPacket(SystemMessage.sendString("Your Partner is not online."));
+            activeChar.sendPacket(SystemMessage.sendString("Your fiance is not online."));
             return false;
         }
         else if(partner.isInJail()){
-            activeChar.sendPacket(SystemMessage.sendString("Your Partner is in Jail."));
+            activeChar.sendPacket(SystemMessage.sendString("Your fiance is in Jail."));
             return false;
         }
         else if(partner._inEventCTF || partner._inEventTvT){
-            activeChar.sendPacket(SystemMessage.sendString("Your Partner is in Event now."));
+            activeChar.sendPacket(SystemMessage.sendString("Your fiance is in Event now."));
             return false;
         }
         else if(partner.isInOlympiadMode()){
-            activeChar.sendPacket(SystemMessage.sendString("Your Partner is in Olympiad now."));
+            activeChar.sendPacket(SystemMessage.sendString("Your fiance is in Olympiad now."));
             return false;
         }   
         
         int teleportTimer = Config.WEDDING_TELEPORT_INTERVAL*1000;
         
-        activeChar.sendMessage("After " + teleportTimer/60000 + " min. you will be teleported to your Love.");
+        activeChar.sendMessage("After " + teleportTimer/60000 + " min. you will be teleported to your fiance.");
         activeChar.getInventory().reduceAdena("Wedding", Config.WEDDING_TELEPORT_PRICE, activeChar, null);
         
         activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);

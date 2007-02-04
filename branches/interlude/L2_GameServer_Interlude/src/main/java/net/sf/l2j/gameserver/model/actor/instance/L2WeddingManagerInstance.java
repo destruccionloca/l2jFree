@@ -108,10 +108,10 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                     couple.marry();
                     
                     //messages to the couple
-                    player.sendMessage("Gratulations you are married!");
+                    player.sendMessage("Congratulations you are married!");
                     player.setMaried(true);
                     player.setMaryRequest(false);
-                    ptarget.sendMessage("Gratulations you are married!");
+                    ptarget.sendMessage("Congratulations you are married!"); 
                     ptarget.setMaried(true);
                     ptarget.setMaryRequest(false);
                     
