@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
 import net.sf.l2j.gameserver.model.entity.Faction;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -90,6 +91,7 @@ public class L2FactionManagerInstance extends L2NpcInstance
                         filename = path + "noadena.htm";                    
                     else
                     {
+                        player.getInventory().reduceAdena("Faction", factionPrice, player, null);
                         player.setNPCFactionId(factionId);
                         player.setNPCFactionPoints(0);
                         filename = path + "accepted.htm";                    

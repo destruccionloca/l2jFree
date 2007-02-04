@@ -81,7 +81,7 @@ public class Faction
                     _list_classes.add(Integer.parseInt(id));
 
             if(_npclist.length()>0)
-                for (String id : _classlist.split(",")) 
+                for (String id : _npclist.split(",")) 
                     _list_npcs.add(Integer.parseInt(id));
         }
         catch (Exception e)
