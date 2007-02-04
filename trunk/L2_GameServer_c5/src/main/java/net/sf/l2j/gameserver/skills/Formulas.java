@@ -1189,10 +1189,15 @@ public final class Formulas
         {
             damage = 0;
         }
-        if (attacker instanceof L2PcInstance)
-            damage = damage*Config.ALT_PHYSICAL_DAMAGE_MULTI;
+        if (attacker instanceof L2PcInstance){
+           if (((L2PcInstance) attacker).getClassId().isMage())
+            damage = damage*Config.ALT_MAGES_PHYSICAL_DAMAGE_MULTI;
+           else damage = damage*Config.ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI;}
+        else if (attacker instanceof L2Summon)
+           damage = damage*Config.ALT_PETS_PHYSICAL_DAMAGE_MULTI;
         else if (attacker instanceof L2NpcInstance)
-            damage = damage*Config.ALT_PHYSICAL_DAMAGE_MULTI_NPC;
+            damage = damage*Config.ALT_NPC_PHYSICAL_DAMAGE_MULTI;
+        
         return damage;
     }
     
@@ -1262,10 +1267,14 @@ public final class Formulas
         }
         else if (mcrit) damage *= 2;
 
-        if (attacker instanceof L2PcInstance)
-            damage = damage*Config.ALT_MAGICAL_DAMAGE_MULTI;
+        if (attacker instanceof L2PcInstance){
+           if (((L2PcInstance) attacker).getClassId().isMage())
+            damage = damage*Config.ALT_MAGES_MAGICAL_DAMAGE_MULTI;
+           else damage = damage*Config.ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI;}
+        else if (attacker instanceof L2Summon)
+           damage = damage*Config.ALT_PETS_MAGICAL_DAMAGE_MULTI;
         else if (attacker instanceof L2NpcInstance)
-            damage = damage*Config.ALT_MAGICAL_DAMAGE_MULTI_NPC;
+            damage = damage*Config.ALT_NPC_MAGICAL_DAMAGE_MULTI;
         
         return damage;
     }

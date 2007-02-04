@@ -364,11 +364,15 @@ public final class Config {
     public static int MAX_PATK_SPEED;
     public static int MAX_MATK_SPEED;
     /** Config for damage multiplies */
-    public static float ALT_PHYSICAL_DAMAGE_MULTI;
-    public static float ALT_MAGICAL_DAMAGE_MULTI;
-    public static float ALT_PHYSICAL_DAMAGE_MULTI_NPC;
-    public static float ALT_MAGICAL_DAMAGE_MULTI_NPC;
-
+    public static float ALT_MAGES_PHYSICAL_DAMAGE_MULTI;
+    public static float ALT_MAGES_MAGICAL_DAMAGE_MULTI;
+    public static float ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI;
+    public static float ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI;
+    public static float ALT_PETS_PHYSICAL_DAMAGE_MULTI;
+    public static float ALT_PETS_MAGICAL_DAMAGE_MULTI;
+    public static float ALT_NPC_PHYSICAL_DAMAGE_MULTI;
+    public static float ALT_NPC_MAGICAL_DAMAGE_MULTI;
+    
     /** Config for URN temp fail */
     public static int ALT_URN_TEMP_FAIL;
 
@@ -1665,10 +1669,14 @@ public final class Config {
 	            AUTO_LEARN_SKILLS 									= Boolean.parseBoolean(altSettings.getProperty("AutoLearnSkills", "false"));
 	            MAX_PATK_SPEED 										= Integer.parseInt(altSettings.getProperty("MaxPAtkSpeed", "0"));
                 MAX_MATK_SPEED                                      = Integer.parseInt(altSettings.getProperty("MaxMAtkSpeed", "0"));
-                ALT_PHYSICAL_DAMAGE_MULTI                           = Float.parseFloat(altSettings.getProperty("AltPDamage", "1.0"));
-                ALT_PHYSICAL_DAMAGE_MULTI_NPC                       = Float.parseFloat(altSettings.getProperty("AltPDamageNpc", "1.0"));
-                ALT_MAGICAL_DAMAGE_MULTI                            = Float.parseFloat(altSettings.getProperty("AltMDamage", "1.00"));
-                ALT_MAGICAL_DAMAGE_MULTI_NPC                        = Float.parseFloat(altSettings.getProperty("AltMDamageNpc", "1.00"));
+                ALT_MAGES_PHYSICAL_DAMAGE_MULTI                     = Float.parseFloat(altSettings.getProperty("AltPDamageMages", "1.00"));
+                ALT_MAGES_MAGICAL_DAMAGE_MULTI                      = Float.parseFloat(altSettings.getProperty("AltMDamageMages", "1.00"));
+                ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI                  = Float.parseFloat(altSettings.getProperty("AltPDamageFighters", "1.00"));
+                ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI                   = Float.parseFloat(altSettings.getProperty("AltMDamageFighters", "1.00"));
+                ALT_PETS_PHYSICAL_DAMAGE_MULTI                      = Float.parseFloat(altSettings.getProperty("AltPDamagePets", "1.00"));
+                ALT_PETS_MAGICAL_DAMAGE_MULTI                       = Float.parseFloat(altSettings.getProperty("AltMDamagePets", "1.00"));
+                ALT_NPC_PHYSICAL_DAMAGE_MULTI                       = Float.parseFloat(altSettings.getProperty("AltPDamageNpc", "1.00"));
+                ALT_NPC_MAGICAL_DAMAGE_MULTI                        = Float.parseFloat(altSettings.getProperty("AltMDamageNpc", "1.00"));
                 ALT_BUFFER_HATE                                     = Integer.parseInt(altSettings.getProperty("BufferHate", "4"));                
 	            GRADE_PENALTY										= Boolean.parseBoolean(altSettings.getProperty("GradePenalty", "true"));
                 ALT_URN_TEMP_FAIL                                   = Integer.parseInt(altSettings.getProperty("UrnTempFail", "10"));
