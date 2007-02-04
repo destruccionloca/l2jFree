@@ -27,6 +27,7 @@ public class Node
     private final int _Neighbors_idx;
     private Node[] _Neighbors;
     private Node _Parent;
+	private short _Cost;
     
     
     public Node(AbstractNodeLoc Loc, int Neighbors_idx)
@@ -38,6 +39,11 @@ public class Node
     public void setParent(Node p)
     {
         _Parent = p;
+	}
+	
+	public void setCost(int cost)
+	{
+		_Cost = (short)cost;
     }
     
     public void attacheNeighbors()
@@ -59,6 +65,11 @@ public class Node
     {
         return _Loc;
     }
+	
+	public short getCost()
+	{
+		return _Cost;
+	}
 
     /**
      * @see java.lang.Object#equals(java.lang.Object)

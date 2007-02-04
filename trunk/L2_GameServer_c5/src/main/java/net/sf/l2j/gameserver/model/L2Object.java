@@ -178,6 +178,7 @@ public abstract class L2Object
         // synchronized, to avoid deadlocks
         // Remove the L2Object from the world
         L2World.getInstance().removeVisibleObject(this, reg);
+        L2World.getInstance().removeObject(this);
     }
 
     /**
