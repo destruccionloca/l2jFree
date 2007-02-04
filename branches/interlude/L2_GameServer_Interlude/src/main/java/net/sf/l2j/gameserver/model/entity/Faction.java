@@ -20,6 +20,9 @@ package net.sf.l2j.gameserver.model.entity;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import javolution.util.FastList;
+
 import org.apache.log4j.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
@@ -35,11 +38,12 @@ public class Faction
     private int _Id                             = 0;
     private String _name                        = null;
     private float _points                       = 0;
-    private String _classlist                   = null;
-
+    private FastList<Integer> _list_classes     = new FastList<Integer>();
+    
     public Faction(int factionId)
     {
         this._Id = factionId;
+        String _classlist                   = null;
         
         java.sql.Connection con = null;
         try
@@ -56,10 +60,16 @@ public class Faction
             while (rs.next())
             {
                 this._name = rs.getString("name");
-                this._classlist = rs.getString("allowed_classes");
+                _classlist = rs.getString("allowed_classes");
                 this._points = rs.getFloat("points");
             }
             statement.close();
+            
+            if(_classlist.length()>0)
+                for (String id : _classlist.split(",")) {
+                    _list_classes.add(Integer.parseInt(id));
+                }
+                
         }
         catch (Exception e)
         {
@@ -104,5 +114,7 @@ public class Faction
     public final int getId() { return this._Id; }
     public final String getName() { return this._name; }
     public final float getPoints() { return this._points; }
+    public final FastList<Integer> getClassList(){ return this._list_classes; } 
+    
     
 }
