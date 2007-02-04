@@ -379,14 +379,14 @@ public class GameServer
         if ( _log.isDebugEnabled())_log.debug("CursedWeapons initialized");
         
         // Couple manager
-        if(!Config.ALLOW_WEDDING)
+        if(Config.ALLOW_WEDDING)
         {
             CoupleManager.getInstance();
             if ( _log.isDebugEnabled())_log.debug("CoupleManager initialized");
         }
 
         // Faction manager
-        if(!Config.FACTION_ENABLED)
+        if(Config.FACTION_ENABLED)
         {
             FactionManager.getInstance();
             if ( _log.isDebugEnabled())_log.debug("FactionManager initialized");
