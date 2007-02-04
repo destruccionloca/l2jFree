@@ -329,6 +329,8 @@ $MYG < ../sql/topic.sql &> /dev/null
 $MYG < ../sql/weapon.sql &> /dev/null
 $MYG < ../sql/zone.sql &> /dev/null
 $MYG < ../sql/vip.sql &> /dev/null
+$MYG < ../sql/custom_npc.sql &> /dev/null
+$MYG < ../sql/custom_spawnlist.sql &> /dev/null
 }
 
 finish(){
