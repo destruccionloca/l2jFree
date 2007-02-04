@@ -39,11 +39,13 @@ public class Faction
     private String _name                        = null;
     private float _points                       = 0;
     private FastList<Integer> _list_classes     = new FastList<Integer>();
+    private FastList<Integer> _list_npcs        = new FastList<Integer>();
     
     public Faction(int factionId)
     {
         this._Id = factionId;
         String _classlist                   = null;
+        String _npclist                   = null;
         
         java.sql.Connection con = null;
         try
@@ -61,6 +63,7 @@ public class Faction
             {
                 this._name = rs.getString("name");
                 _classlist = rs.getString("allowed_classes");
+                _npclist = rs.getString("npcs");
                 this._points = rs.getFloat("points");
             }
             statement.close();
@@ -68,6 +71,11 @@ public class Faction
             if(_classlist.length()>0)
                 for (String id : _classlist.split(",")) {
                     _list_classes.add(Integer.parseInt(id));
+                }
+
+            if(_npclist.length()>0)
+                for (String id : _classlist.split(",")) {
+                    _list_npcs.add(Integer.parseInt(id));
                 }
                 
         }
@@ -94,7 +102,7 @@ public class Faction
         }
         catch (Exception e)
         {
-            _log.error("Exception: Couple.load(): " + e.getMessage(),e);
+            _log.error("Exception: Faction.load(): " + e.getMessage(),e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }
@@ -115,6 +123,5 @@ public class Faction
     public final String getName() { return this._name; }
     public final float getPoints() { return this._points; }
     public final FastList<Integer> getClassList(){ return this._list_classes; } 
-    
-    
+    public final FastList<Integer> getNpcList(){ return this._list_npcs; } 
 }
