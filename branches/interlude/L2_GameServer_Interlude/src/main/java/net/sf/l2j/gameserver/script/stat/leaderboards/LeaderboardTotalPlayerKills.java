@@ -28,7 +28,6 @@ public class LeaderboardTotalPlayerKills implements Leaderboard {
    public void update(Connection c, ResultSet rs) throws SQLException {
        _leaderboard.clear();
        rs.beforeFirst();
-       LeaderboardEntry l = null;
        String s = null;
        while (rs.next()) {
            if (_leaderboard.getLast() == null) { //No Entries, yet.

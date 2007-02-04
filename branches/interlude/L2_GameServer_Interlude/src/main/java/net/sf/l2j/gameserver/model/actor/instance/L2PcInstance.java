@@ -63,7 +63,6 @@ import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.SkillTreeTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.Universe;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2PlayerAI;
@@ -93,7 +92,6 @@ import net.sf.l2j.gameserver.model.FishData;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.ItemContainer;
 import net.sf.l2j.gameserver.model.L2Attackable;
-import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
@@ -882,32 +880,6 @@ public final class L2PcInstance extends L2PlayableInstance
             }
         }
         return _ai;
-    }
-
-    /**
-     * Calculate a destination to explore the area and set the AI Intension to AI_INTENTION_MOVE_TO.<BR><BR>
-     */
-    public void explore()
-    {
-        if (!_exploring) return;
-
-        if (getMountType() == 2) return;
-
-        // Calculate the destination point (random)
-        int x = getX() + Rnd.nextInt(6000) - 3000;
-        int y = getY() + Rnd.nextInt(6000) - 3000;
-        if (x > Universe.MAX_X) x = Universe.MAX_X;
-        if (x < Universe.MIN_X) x = Universe.MIN_X;
-        if (y > Universe.MAX_Y) y = Universe.MAX_Y;
-        if (y < Universe.MIN_Y) y = Universe.MIN_Y;
-
-        int z = getZ();
-
-        L2CharPosition pos = new L2CharPosition(x, y, z, 0);
-
-        // Set the AI Intention to AI_INTENTION_MOVE_TO
-        getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, pos);
-
     }
 
     /** Return the Level of the L2PcInstance. */

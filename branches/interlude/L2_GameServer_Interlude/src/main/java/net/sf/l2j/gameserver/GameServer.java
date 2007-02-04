@@ -551,9 +551,6 @@ public class GameServer
         L2PetDataTable.getInstance().loadPetsData(); 
         if ( _log.isDebugEnabled())_log.debug("PetData initialized");
         
-        Universe.getInstance();
-        if ( _log.isDebugEnabled())_log.debug("Universe initialized");
-        
         Manager.loadAll();
 
         _shutdownHandler = Shutdown.getInstance();

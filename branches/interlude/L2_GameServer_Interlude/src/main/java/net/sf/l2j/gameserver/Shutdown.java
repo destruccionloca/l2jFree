@@ -352,8 +352,6 @@ public class Shutdown extends Thread
                 break;
                     
         }
-        if (Config.ACTIVATE_POSITION_RECORDER)
-            Universe.getInstance().implode(true);
         try
         {
             _an.announceToAll("Server is " + _modeText[shutdownMode] + " NOW!");

@@ -26,12 +26,10 @@ import net.sf.l2j.gameserver.Item;
 import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.templates.L2Armor;
-import net.sf.l2j.gameserver.templates.L2ArmorType;
 import net.sf.l2j.gameserver.templates.L2EtcItem;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
-import net.sf.l2j.gameserver.templates.L2WeaponType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

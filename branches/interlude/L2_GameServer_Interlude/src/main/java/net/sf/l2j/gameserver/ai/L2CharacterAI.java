@@ -27,8 +27,6 @@ import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
-import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.Universe;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -638,10 +636,6 @@ public class L2CharacterAI extends AbstractAI
         // If the Intention was AI_INTENTION_MOVE_TO, set the Intention to AI_INTENTION_ACTIVE
         if (getIntention() == AI_INTENTION_MOVE_TO) setIntention(AI_INTENTION_ACTIVE);
 
-        // Launch an explore task if necessary
-        if (_accessor.getActor() instanceof L2PcInstance && Config.ACTIVATE_POSITION_RECORDER)
-            ((L2PcInstance) _accessor.getActor()).explore();
-
         // Launch actions corresponding to the Event Think
         onEvtThink();
         /*if (_actor instanceof L2PcInstance)
@@ -683,16 +677,6 @@ public class L2CharacterAI extends AbstractAI
     {
         // Stop the actor movement server side AND client side by sending Server->Client packet StopMove/StopRotation (broadcast)
         clientStopMoving(blocked_at_pos);
-
-        if (Config.ACTIVATE_POSITION_RECORDER
-            && Universe.getInstance().shouldLog(_accessor.getActor().getObjectId()))
-        {
-            if (!_accessor.getActor().isFlying())
-                Universe.getInstance().registerObstacle(blocked_at_pos.x, blocked_at_pos.y,
-                                                        blocked_at_pos.z);
-            if (_accessor.getActor() instanceof L2PcInstance)
-                ((L2PcInstance) _accessor.getActor()).explore();
-        }
 
         // If the Intention was AI_INTENTION_MOVE_TO, tet the Intention to AI_INTENTION_ACTIVE
         if (getIntention() == AI_INTENTION_MOVE_TO) setIntention(AI_INTENTION_ACTIVE);

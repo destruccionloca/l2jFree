@@ -6,9 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import java.util.Date;
-import java.util.List;
 
-import javolution.util.FastList;
 import net.sf.l2j.gameserver.script.DateRange;
 import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.SpawnTable;

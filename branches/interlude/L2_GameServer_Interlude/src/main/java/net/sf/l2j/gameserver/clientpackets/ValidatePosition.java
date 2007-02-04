@@ -24,7 +24,6 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.Universe;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList.KnownListAsynchronousUpdateTask;
 import net.sf.l2j.gameserver.serverpackets.PartyMemberPosition;
@@ -152,9 +151,6 @@ public class ValidatePosition extends ClientBasePacket
                 _log.debug("client pos: "+ _x + " "+ _y + " "+ _z +" head "+ _heading);
                 _log.debug("server pos: "+ realX + " "+realY+ " "+realZ +" head "+realHeading);
             }
-            
-            if (Config.ACTIVATE_POSITION_RECORDER && !activeChar.isFlying() && Universe.getInstance().shouldLog(activeChar.getObjectId()))
-                Universe.getInstance().registerHeight(realX, realY, _z);
             
             if (Config.DEVELOPER)
             {

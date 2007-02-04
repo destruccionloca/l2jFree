@@ -175,7 +175,6 @@ public class FriendsBBSManager extends BaseBBSManager
     private void showFriendsList(L2PcInstance activeChar)
     {       
         TextBuilder htmlCode = new TextBuilder("<html><body><br>");
-        Collection<L2PcInstance> players = L2World.getInstance().getAllPlayers();
 
         Connection con = null;
         

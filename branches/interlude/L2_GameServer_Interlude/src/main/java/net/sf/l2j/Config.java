@@ -643,9 +643,6 @@ public final class Config {
     public static int           MIN_NPC_ANIMATION;
     public static int           MAX_NPC_ANIMATION;
 
-    public static boolean       ACTIVATE_POSITION_RECORDER;
-    public static boolean       USE_3D_MAP;
-
     // Community Board
     public static String        COMMUNITY_TYPE;
     public static String        BBS_DEFAULT;    
@@ -1165,8 +1162,6 @@ public final class Config {
                 L2WALKER_REVISION               = Integer.parseInt(optionsSettings.getProperty("L2WalkerRevision", "537"));
                 AUTOBAN_L2WALKER_ACC            = Boolean.valueOf(optionsSettings.getProperty("AutobanL2WalkerAcc", "False"));
                
-                ACTIVATE_POSITION_RECORDER      = Boolean.valueOf(optionsSettings.getProperty("ActivatePositionRecorder", "False"));
-            
                 DEFAULT_GLOBAL_CHAT             = optionsSettings.getProperty("GlobalChat", "ON");
                 DEFAULT_TRADE_CHAT              = optionsSettings.getProperty("TradeChat", "ON");
             
@@ -1256,8 +1251,6 @@ public final class Config {
                 // Configuration values not found in config files
                 // ---------------------------------------------------
                 
-                USE_3D_MAP                      = Boolean.valueOf(optionsSettings.getProperty("Use3DMap", "False"));
-
                 PATH_NODE_RADIUS                = Integer.parseInt(optionsSettings.getProperty("PathNodeRadius", "50"));
                 NEW_NODE_ID                     = Integer.parseInt(optionsSettings.getProperty("NewNodeId", "7952"));
                 SELECTED_NODE_ID                = Integer.parseInt(optionsSettings.getProperty("NewNodeId", "7952"));
