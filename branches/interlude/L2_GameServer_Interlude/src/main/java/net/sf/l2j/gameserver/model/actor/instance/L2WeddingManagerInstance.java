@@ -116,9 +116,9 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                     ptarget.setMaryRequest(false);
                     
                     //wedding march
-                    MagicSkillUser MSU = new MagicSkillUser(player, player, 2149, 1, 1, 0);
+                    MagicSkillUser MSU = new MagicSkillUser(player, player, 2230, 1, 1, 0);
                     player.broadcastPacket(MSU);
-                    MSU = new MagicSkillUser(ptarget, ptarget, 2149, 1, 1, 0);
+                    MSU = new MagicSkillUser(ptarget, ptarget, 2230, 1, 1, 0);
                     ptarget.broadcastPacket(MSU);
                     
                     // fireworks
