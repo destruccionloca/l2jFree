@@ -68,41 +68,41 @@ public class L2FactionManagerInstance extends L2NpcInstance
         if(factionId!=0)
         {
             String path = "data/html/faction" + String.valueOf(factionId) + "/";
-            if (command.startsWith("Join"))
-            {
+            replace = String.valueOf(factionPrice);
+            
+            if(player.getNPCFactionId()!=0)
+                filename = path + "already.htm";
+            else if (command.startsWith("Join"))
                 filename = path + "join.htm";
-                replace = String.valueOf(factionPrice);
-            }
             else if (command.startsWith("Accept"))
             {
-                filename = path + "accepted.htm";
-                replace = String.valueOf(factionPrice);
+                if(player.getAdena()<factionPrice)
+                    filename = path + "noadena.htm";                    
+                else
+                {
+                    player.setNPCFactionId(factionId);
+                    player.setNPCFactionPoints(0);
+                    filename = path + "accepted.htm";                    
+                }
             }
             else if (command.startsWith("Decline"))
-            {
                 filename = path + "declined.htm";
-                replace = String.valueOf(factionPrice);
-            }
             else if (command.startsWith("AskQuit"))
-            {
                 filename = path + "askquit.htm";
-                replace = String.valueOf(factionPrice);
-            }
+            else if (command.startsWith("Story"))
+                filename = path + "story.htm";
             else if (command.startsWith("Quit"))
             {
+                player.setNPCFactionId(0);
+                player.setNPCFactionPoints(0);
                 filename = path + "quited.htm";
-                replace = String.valueOf(factionPrice);
             }
             else if (command.startsWith("Quest"))
             {
                 filename = path + "quest.htm";
-                replace = String.valueOf(factionPrice);
             }
             else if (command.startsWith("FactionShop"))
-            {
                 filename = path + "shop.htm";
-                replace = String.valueOf(factionPrice);
-            }
         }
         this.sendHtmlMessage(player, filename, replace, factionName);
     } 
