@@ -35,6 +35,7 @@ public class Faction
     private int _Id                             = 0;
     private String _name                        = null;
     private float _points                       = 0;
+    private String _classlist                   = null;
 
     public Faction(int factionId)
     {
@@ -55,6 +56,7 @@ public class Faction
             while (rs.next())
             {
                 this._name = rs.getString("name");
+                this._classlist = rs.getString("allowed_classes");
                 this._points = rs.getFloat("points");
             }
             statement.close();
@@ -102,4 +104,5 @@ public class Faction
     public final int getId() { return this._Id; }
     public final String getName() { return this._name; }
     public final float getPoints() { return this._points; }
+    
 }
