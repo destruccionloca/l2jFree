@@ -1041,6 +1041,8 @@ public final class Config {
     public static int CH_SUPPORT4_FEE;
     public static int CH_SUPPORT5_FEE;
     
+    public static boolean FACTION_ENABLED = false;
+    
 	public static void load()
 	{
 			_log.info("loading gameserver config");

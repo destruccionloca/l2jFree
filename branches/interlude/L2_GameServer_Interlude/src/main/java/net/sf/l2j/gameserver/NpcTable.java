@@ -24,11 +24,13 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.instancemanager.FactionManager;
 import net.sf.l2j.gameserver.model.L2DropCategory;
 import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2MinionData;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.base.ClassId;
+import net.sf.l2j.gameserver.model.entity.Faction;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
@@ -359,12 +361,24 @@ public class NpcTable
             
             npcDat.set("absorb_level", NpcData.getString("absorb_level"));
 
+            Faction faction;
+            for (int i = 0; i < FactionManager.getInstance().getFactions().size(); i++)
+            {
+                faction = FactionManager.getInstance().getFactions().get(i);
+                if(faction.getNpcList().contains(id))
+                {
+                    npcDat.set("NPCFaction", faction.getId());
+                    npcDat.set("NPCFactionName", faction.getName());
+                    npcDat.set("NPCFactionPrice", faction.getPrice());
+                }
+            }
+
             L2NpcTemplate template = new L2NpcTemplate(npcDat);
             template.addResist(Stats.POWER_DEFENCE,100);
             template.addResist(Stats.BOW_WPN_RES,100);
             template.addResist(Stats.BLUNT_WPN_RES,100);
             template.addResist(Stats.DAGGER_WPN_RES,100);
-
+            
             _npcs.put(id, template);
         }
         

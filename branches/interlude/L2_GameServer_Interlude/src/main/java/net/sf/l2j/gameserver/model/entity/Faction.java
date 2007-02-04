@@ -38,6 +38,7 @@ public class Faction
     private int _Id                             = 0;
     private String _name                        = null;
     private float _points                       = 0;
+    private int _joinprice                      = 0;
     private FastList<Integer> _list_classes     = new FastList<Integer>();
     private FastList<Integer> _list_npcs        = new FastList<Integer>();
     
@@ -62,6 +63,7 @@ public class Faction
             while (rs.next())
             {
                 this._name = rs.getString("name");
+                this._joinprice = rs.getInt("price");
                 _classlist = rs.getString("allowed_classes");
                 _npclist = rs.getString("npcs");
                 this._points = rs.getFloat("points");
@@ -123,5 +125,6 @@ public class Faction
     public final String getName() { return this._name; }
     public final float getPoints() { return this._points; }
     public final FastList<Integer> getClassList(){ return this._list_classes; } 
-    public final FastList<Integer> getNpcList(){ return this._list_npcs; } 
+    public final FastList<Integer> getNpcList(){ return this._list_npcs; }
+    public final int getPrice() { return this._joinprice; }
 }
