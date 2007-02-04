@@ -4042,7 +4042,9 @@ public final class L2PcInstance extends L2PlayableInstance
                     increaseFactionPKKillPoints(targetPlayer.getLevel());                    
                     // save stats
                     if (getStatTrack() != null)
-                        getStatTrack().increasePvPKills();                        
+                        getStatTrack().increasePvPKills();
+                    // no karma
+                    return;
                 }
             
             // check about wars
