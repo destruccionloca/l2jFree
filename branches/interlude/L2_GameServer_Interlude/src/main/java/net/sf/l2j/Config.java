@@ -486,7 +486,7 @@ public final class Config {
     public static float   RATE_DROP_QUEST;
     public static float   RATE_KARMA_EXP_LOST;	
     public static float   RATE_SIEGE_GUARDS_PRICE;
-    public static float   RATE_RUN_SPED;
+    public static float   RATE_RUN_SPEED;
     /*Alternative Xp/Sp rewards, if not 0, then calculated as 2^((mob.level-player.level) / coef)*/
     public static float   ALT_GAME_EXPONENT_XP;
     public static float   ALT_GAME_EXPONENT_SP;
@@ -1465,7 +1465,7 @@ public final class Config {
                 RATE_DROP_ITEMS                 = Float.parseFloat(ratesSettings.getProperty("RateDropItems", "1."));
                 RATE_DROP_SPOIL                 = Float.parseFloat(ratesSettings.getProperty("RateDropSpoil", "1."));
                 RATE_DROP_QUEST                 = Float.parseFloat(ratesSettings.getProperty("RateDropQuest", "1."));
-                RATE_DROP_QUEST                 = Float.parseFloat(ratesSettings.getProperty("RateRunSpeed", "1."));
+                RATE_RUN_SPEED                  = Float.parseFloat(ratesSettings.getProperty("RateRunSpeed", "1."));
                 RATE_KARMA_EXP_LOST             = Float.parseFloat(ratesSettings.getProperty("RateKarmaExpLost", "1."));    
                 RATE_SIEGE_GUARDS_PRICE         = Float.parseFloat(ratesSettings.getProperty("RateSiegeGuardsPrice", "1."));
 
