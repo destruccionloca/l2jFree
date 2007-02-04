@@ -4023,11 +4023,28 @@ public final class L2PcInstance extends L2PlayableInstance
             ))
         {
             increasePvpKills();
-            if (getStatTrack() != null) getStatTrack().increasePvPKills();
+            // give faction pvp points
+            if (Config.FACTION_ENABLED)
+                if (targetPlayer.getSide() != getSide() && targetPlayer.getSide()!=0 && getSide()!=0 && Config.FACTION_KILL_REWARD)
+                    increaseFactionPvPKillPoints(targetPlayer.getLevel());
+            // save stats
+            if (getStatTrack() != null)
+                getStatTrack().increasePvPKills();
         }
         else
         // Target player doesn't have pvp flag set
         {
+            // check factions
+            if (Config.FACTION_ENABLED)
+                if (targetPlayer.getSide() != getSide() && targetPlayer.getSide()!=0 && getSide()!=0 && Config.FACTION_KILL_REWARD)
+                {
+                    // give faction pk points
+                    increaseFactionPKKillPoints(targetPlayer.getLevel());                    
+                    // save stats
+                    if (getStatTrack() != null)
+                        getStatTrack().increasePvPKills();                        
+                }
+            
             // check about wars
             if (targetPlayer.getClan() != null && this.getClan() != null)
             {
@@ -4064,6 +4081,24 @@ public final class L2PcInstance extends L2PlayableInstance
                     getStatTrack().increasePvPKills();                
             }
         }
+    }
+    
+    /**
+     * Increase the faction points depending on level
+     *
+     */
+    public void increaseFactionPvPKillPoints(int level)
+    {
+        // dummy
+    }
+
+    /**
+     * Increase the faction points depending on level
+     *
+     */
+    public void increaseFactionPKKillPoints(int level)
+    {
+        // dummy
     }
 
     /**

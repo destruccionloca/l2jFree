@@ -1042,6 +1042,9 @@ public final class Config {
     public static int CH_SUPPORT5_FEE;
     
     public static boolean FACTION_ENABLED = false;
+    public static boolean FACTION_KILL_REWARD = false;
+    public static float FACTION_KILL_RATE = 1;
+    
     
 	public static void load()
 	{
