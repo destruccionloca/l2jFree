@@ -117,7 +117,8 @@ public abstract class L2Skill
         TARGET_ENEMY_PET,
         TARGET_GATE,
         TARGET_MOB,
-        TARGET_AREA_MOB
+        TARGET_AREA_MOB,
+        TARGET_KNOWNLIST
         //TARGET_BOSS
         }
     
@@ -2064,6 +2065,30 @@ public abstract class L2Skill
             }
             // If a target is found, return it in a table else send a system message TARGET_IS_INCORRECT
             return new L2Character[] {target};
+        }
+        case TARGET_KNOWNLIST:
+        {
+            L2Character cha;
+            if (this.getCastRange() >= 0)
+            {
+                cha = target;
+
+                if (onlyFirst == false) targetList.add(cha); // Add target to target list
+                else return new L2Character[] {cha};
+
+            }
+            else cha = activeChar;
+
+            if (cha != null && cha.getKnownList() != null)
+                for (L2Object obj : cha.getKnownList().getKnownObjects().values())
+                {
+                    if (obj == null) continue;
+                    if (obj != null && (obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
+                        return new L2Character[] {(L2Character) obj};
+                }
+
+            if (targetList.size() == 0) return null;
+            return targetList.toArray(new L2Character[targetList.size()]);
         } 
         default:
         {
