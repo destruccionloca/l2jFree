@@ -595,6 +595,26 @@ public class TvT
     
     public static void loadData()
     {
+        _eventName = new String();
+        _eventDesc = new String();
+        _topTeam = new String();
+        _joiningLocationName = new String();
+        _teams = new Vector<String>();
+        _savePlayers = new Vector<String>();
+        _savePlayerTeams = new Vector<String>();
+        _players = new Vector<L2PcInstance>();
+        _playersShuffle = new Vector<L2PcInstance>();
+        _teamPlayersCount = new Vector<Integer>();
+        _teamKillsCount = new Vector<Integer>();
+        _teamColors = new Vector<Integer>();
+        _teamsX = new Vector<Integer>();
+        _teamsY = new Vector<Integer>();
+        _teamsZ = new Vector<Integer>();
+        _joining = false;
+        _teleport = false;
+        _started = false;
+        _sitForced = false;
+        
         java.sql.Connection con = null;
         try
         {
@@ -796,16 +816,14 @@ public class TvT
         }
     }
 
-    public static synchronized void addPlayer(L2PcInstance player, String teamName)
+    public static void addPlayer(L2PcInstance player, String teamName)
     {
-        String message = addPlayerOk(teamName, player);
-        
-        if (message != null)
+        if (!addPlayerOk(teamName))
         {
-            player.sendMessage(message);
+            player.sendMessage("Too many players in team \"" + teamName + "\"");
             return;
         }
-        
+
         if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
         {
             player._teamNameTvT = teamName;
@@ -814,22 +832,16 @@ public class TvT
         }
         else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
             _playersShuffle.add(player);
-
-        _savePlayers.add(player.getName());
-        _savePlayerTeams.add(teamName);        
+        
         player._originalNameColorTvT = player.getNameColor();
         player._originalKarmaTvT = player.getKarma();
         player._inEventTvT = true;
     }
     
-    public static String addPlayerOk(String teamName, L2PcInstance eventPlayer)
+    public static boolean addPlayerOk(String teamName)
     {
-        if (CTF._savePlayers.contains(eventPlayer.getName()))
-            return "You already participated in another event!";
-        
         if (Config.TVT_EVEN_TEAMS.equals("NO"))
-            return null;
-        
+            return true;
         else if (Config.TVT_EVEN_TEAMS.equals("BALANCE"))
         {
             boolean allTeamsEqual = true;
@@ -850,7 +862,7 @@ public class TvT
             }
         
             if (allTeamsEqual)
-                return null;
+                return true;
 
             countBefore = Integer.MAX_VALUE;
         
@@ -869,12 +881,12 @@ public class TvT
             }
         
             if (joinableTeams.contains(teamName))
-                return null;
+                return true;
         }
         else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
-            return "You will be added randomaly to 1 of the teams.";;
-        
-        return "To many players in team " + teamName + "!";
+            return true;
+
+        return false;
     }
 
     public static synchronized void addDisconnectedPlayer(L2PcInstance player)
@@ -904,12 +916,16 @@ public class TvT
             if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
             {
                 _players.remove(player);
-                setTeamPlayersCount(player._teamNameTvT, teamPlayersCount(player._teamNameTvT)-1);
-                player._teamNameTvT = "";
-                player._inEventTvT = false;
+                setTeamPlayersCount(player._teamNameTvT, teamPlayersCount(player._teamNameTvT)-1);                
             }
             else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
                 _playersShuffle.remove(player);
+            
+            player.setNameColor(player._originalNameColorTvT);
+            player.setKarma(player._originalKarmaTvT);
+            player.broadcastUserInfo();
+            player._teamNameTvT = new String();
+            player._inEventTvT = false;
         }
     }
     
@@ -925,19 +941,13 @@ public class TvT
         
         for (L2PcInstance player : _players)
         {
-            player.setNameColor(player._originalNameColorTvT);
-            player.setKarma(player._originalKarmaTvT);
-            player.broadcastUserInfo();
-            player._teamNameTvT = new String();
-            player._inEventTvT = false;
+            removePlayer(player);            
         }
 
         _topKills = 0;
         _topTeam = new String();
         _players = new Vector<L2PcInstance>();
         _playersShuffle = new Vector<L2PcInstance>();
-        _savePlayers = new Vector<String>();
-        _savePlayerTeams = new Vector<String>();
 
     }
     
