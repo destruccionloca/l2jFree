@@ -44,6 +44,7 @@ import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
+import net.sf.l2j.gameserver.instancemanager.FactionManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
@@ -1627,7 +1628,17 @@ public abstract class L2Character extends L2Object
     /** Return the Title of the L2Character. */
     public final String getTitle() { return _Title; }
     /** Set the Title of the L2Character. */
-    public final void setTitle(String value) { _Title = value; }
+    public final void setTitle(String value) 
+    {
+        if(Config.FACTION_ENABLED)
+            if (this instanceof L2PcInstance)
+                if(FactionManager.getInstance().getFactionTitles().contains(value) && value!="")
+                {
+                    _Title = this.getTitle();
+                    ((L2PcInstance)this).sendMessage("Title protected by Faction System");
+                }
+        _Title = value; 
+    }
 
     /** Set the L2Character movement type to walk and send Server->Client packet ChangeMoveType to all others L2PcInstance. */
     public final void setWalking() { if (isRunning()) setIsRunning(false); }
