@@ -25,9 +25,8 @@
 
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import javolution.text.TextBuilder;
+import javolution.lang.TextBuilder;
 import net.sf.l2j.Config;
-
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.TvT;
@@ -42,8 +41,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
                                            "admin_tvt_reward", "admin_tvt_reward_amount",
                                            "admin_tvt_team_add", "admin_tvt_team_remove", "admin_tvt_team_pos", "admin_tvt_team_color",
                                            "admin_tvt_join", "admin_tvt_teleport", "admin_tvt_start", "admin_tvt_abort", "admin_tvt_finish",
-                                           "admin_tvt_sit",
-                                           "admin_tvt_dump"};
+                                           "admin_tvt_sit", "admin_tvt_dump", "admin_tvt_save", "admin_tvt_load"};
  
  private static final int REQUIRED_LEVEL = 100;
 
@@ -140,7 +138,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         }
         else if(command.equals("admin_tvt_join"))
         {
-            TvT.startJoin();
+            TvT.startJoin(activeChar);
             showMainPage(activeChar);
         }
         else if (command.equals("admin_tvt_teleport"))
@@ -150,7 +148,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         }
         else if(command.equals("admin_tvt_start"))
         {
-            TvT.startEvent();
+            TvT.startEvent(activeChar);
             showMainPage(activeChar);
         }
         else if(command.equals("admin_tvt_abort"))
@@ -167,6 +165,16 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         else if (command.equals("admin_tvt_sit"))
         {
             TvT.sit();
+            showMainPage(activeChar);
+        }
+        else if (command.equals("admin_tvt_load"))
+        {
+            TvT.loadData();
+            showMainPage(activeChar);
+        }
+        else if (command.equals("admin_tvt_save"))
+        {
+            TvT.saveData();
             showMainPage(activeChar);
         }
         else if (command.equals("admin_tvt_dump"))
@@ -210,18 +218,21 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         replyMSG.append("<td width=\"100\"><button value=\"Team Add\" action=\"bypass -h admin_tvt_team_add $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Team Color\" action=\"bypass -h admin_tvt_team_color $input1 $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Team Pos\" action=\"bypass -h admin_tvt_team_pos $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("</tr><tr>");
+        replyMSG.append("</tr></table><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Team Remove\" action=\"bypass -h admin_tvt_team_remove $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Join\" action=\"bypass -h admin_tvt_join\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Teleport\" action=\"bypass -h admin_tvt_teleport\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Start\" action=\"bypass -h admin_tvt_start\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("</tr><tr>");
+        replyMSG.append("</tr></table><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Abort\" action=\"bypass -h admin_tvt_abort\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Finish\" action=\"bypass -h admin_tvt_finish\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Sit Force\" action=\"bypass -h admin_tvt_sit\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Dump\" action=\"bypass -h admin_tvt_dump\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("</tr></table><br><br><table><tr>");
+        replyMSG.append("<td width=\"100\"><button value=\"Save\" action=\"bypass -h admin_tvt_save\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Load\" action=\"bypass -h admin_tvt_load\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><br>");
         replyMSG.append("Current event...<br1>");
         replyMSG.append("    ... name:&nbsp;<font color=\"00FF00\">" + TvT._eventName + "</font><br1>");
@@ -237,8 +248,8 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         
         for (String team : TvT._teams)
         {
-            replyMSG.append("<tr><td>Name: </td><td width=\"100\"><font color=\"LEVEL\">" + team + "</font>");
-            
+            replyMSG.append("<tr><td width=\"100\"><font color=\"LEVEL\">" + team + "</font>");
+
             if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
                 replyMSG.append("&nbsp;(" + TvT.teamPlayersCount(team) + " joined)");
             else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
@@ -246,14 +257,12 @@ public class AdminTvTEngine implements IAdminCommandHandler {
                 if (TvT._teleport || TvT._started)
                     replyMSG.append("&nbsp;(" + TvT.teamPlayersCount(team) + " in)");
             }
-            
-            replyMSG.append("</td></tr>");
-            replyMSG.append("<tr><td>Color: </td>");
-            replyMSG.append("<td>" + TvT._teamColors.get(TvT._teams.indexOf(team)) + "</td></tr>");
-            replyMSG.append("<tr><td>Coordinates: </td>");
-            replyMSG.append("<td>" + TvT._teamsX.get(TvT._teams.indexOf(team)) + ", " + TvT._teamsY.get(TvT._teams.indexOf(team)) + ", " + TvT._teamsZ.get(TvT._teams.indexOf(team)) + "</td></tr>");
-            replyMSG.append("<tr><td>To remove: </td>");
-            replyMSG.append("<td width=\"60\"><button value=\"Remove\" action=\"bypass -h admin_tvt_team_remove " + team + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
+
+            replyMSG.append("</td></tr><tr><td>");
+            replyMSG.append(TvT._teamColors.get(TvT._teams.indexOf(team)));
+            replyMSG.append("</td></tr><tr><td>");
+            replyMSG.append(TvT._teamsX.get(TvT._teams.indexOf(team)) + ", " + TvT._teamsY.get(TvT._teams.indexOf(team)) + ", " + TvT._teamsZ.get(TvT._teams.indexOf(team)));
+            replyMSG.append("</td></tr><tr><td width=\"60\"><button value=\"Remove\" action=\"bypass -h admin_tvt_team_remove " + team + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
         }
         
         replyMSG.append("</table></center>");
@@ -267,7 +276,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
                 replyMSG.append("<br><br>");
             }
         }
-        
+
         replyMSG.append("</body></html>");
         adminReply.setHtml(replyMSG.toString());
         activeChar.sendPacket(adminReply); 
