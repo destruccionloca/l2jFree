@@ -19,6 +19,8 @@
 package net.sf.l2j.gameserver.model.entity;
 
 import java.sql.PreparedStatement;
+
+import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
@@ -85,7 +87,7 @@ public class FactionQuest
     public static void endFactionQuest(L2PcInstance player,int factionQuestId)
     {
         player.sendMessage(getName()+" completed.");
-        player.addNPCFactionPoints(getReward());
+        player.addNPCFactionPoints(getReward()*Config.FACTION_QUEST_RATE);
         deleteFactionQuest(player,factionQuestId);
     }
     

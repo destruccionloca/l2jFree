@@ -160,6 +160,7 @@ import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Wedding;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
+import net.sf.l2j.gameserver.instancemanager.FactionQuestManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
@@ -390,6 +391,8 @@ public class GameServer
         {
             FactionManager.getInstance();
             if ( _log.isDebugEnabled())_log.debug("FactionManager initialized");
+            FactionQuestManager.getInstance();
+            if ( _log.isDebugEnabled())_log.debug("FactionQuestManager initialized");
         }
         
         // Start to announce online players number

@@ -1046,6 +1046,7 @@ public final class Config {
     public static boolean FACTION_ENABLED = false;
     public static boolean FACTION_KILL_REWARD = false;
     public static int FACTION_KILL_RATE = 1000;
+    public static int FACTION_QUEST_RATE = 1;
     
     
 	public static void load()
