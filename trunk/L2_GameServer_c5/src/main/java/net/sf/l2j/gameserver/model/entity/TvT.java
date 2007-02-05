@@ -30,7 +30,7 @@ import java.sql.ResultSet;
 import java.util.Random;
 import java.util.Vector;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
