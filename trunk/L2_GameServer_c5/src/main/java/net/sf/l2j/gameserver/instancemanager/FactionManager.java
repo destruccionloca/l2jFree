@@ -83,7 +83,7 @@ public class FactionManager
                 Faction faction = new Faction(rs.getInt("id"));
                 getFactions().add(faction);
                 for(FastMap.Entry<Integer, String> e = faction.getTitle().head(), end = faction.getTitle().tail(); (e = e.getNext()) != end;)
-                    _list_titles.add(e.getValue());
+                    _list_titles.add(e.getValue().toLowerCase());
                 faction = null;
             }
 

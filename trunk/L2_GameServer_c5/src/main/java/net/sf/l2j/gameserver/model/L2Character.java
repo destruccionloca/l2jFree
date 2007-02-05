@@ -1632,7 +1632,7 @@ public abstract class L2Character extends L2Object
     {
         if(Config.FACTION_ENABLED)
             if (this instanceof L2PcInstance)
-                if(FactionManager.getInstance().getFactionTitles().contains(value) && value!="")
+                if(FactionManager.getInstance().getFactionTitles().contains(value.toLowerCase()) && value!="")
                 {
                     _Title = this.getTitle();
                     ((L2PcInstance)this).sendMessage("Title protected by Faction System");
