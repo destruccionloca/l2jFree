@@ -485,9 +485,7 @@ public class L2Spawn
             // The L2NpcInstance is spawned at the exact position (Lox, Locy, Locz)
             newlocx = getLocx();
             newlocy = getLocy();
-            if (Config.GEODATA)            
-                newlocz = GeoData.getInstance().getSpawnHeight(newlocx,newlocy,getLocz(),getLocz(),_id);
-            else newlocz = getLocz();
+            newlocz = GeoData.getInstance().getSpawnHeight(newlocx,newlocy,getLocz(),getLocz(),_id);
         }
         
         for(L2Effect f : mob.getAllEffects())
