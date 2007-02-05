@@ -331,6 +331,8 @@ $MYG < ../sql/zone.sql &> /dev/null
 $MYG < ../sql/vip.sql &> /dev/null
 $MYG < ../sql/custom_npc.sql &> /dev/null
 $MYG < ../sql/custom_spawnlist.sql &> /dev/null
+$MYG < ../sql/tvt.sql &> /dev/null
+$MYG < ../sql/tvt_teams.sql &> /dev/null
 }
 
 finish(){
