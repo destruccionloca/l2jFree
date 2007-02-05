@@ -818,12 +818,9 @@ public class TvT
 
     public static void addPlayer(L2PcInstance player, String teamName)
     {
-        if (!addPlayerOk(teamName))
-        {
-            player.sendMessage("Too many players in team \"" + teamName + "\"");
+        if (!addPlayerOk(teamName, player))
             return;
-        }
-
+        
         if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
         {
             player._teamNameTvT = teamName;
@@ -838,8 +835,14 @@ public class TvT
         player._inEventTvT = true;
     }
     
-    public static boolean addPlayerOk(String teamName)
+    public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
     {
+        if (CTF._savePlayers.contains(eventPlayer.getName())) 
+        {
+            eventPlayer.sendMessage("You already participated in another event!"); 
+            return false;
+        }
+
         if (Config.TVT_EVEN_TEAMS.equals("NO"))
             return true;
         else if (Config.TVT_EVEN_TEAMS.equals("BALANCE"))
@@ -886,6 +889,7 @@ public class TvT
         else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
             return true;
 
+        eventPlayer.sendMessage("Too many players in team \"" + teamName + "\"");
         return false;
     }
 
