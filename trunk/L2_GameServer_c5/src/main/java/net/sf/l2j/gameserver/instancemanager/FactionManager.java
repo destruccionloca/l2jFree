@@ -23,6 +23,7 @@ import java.sql.ResultSet;
 import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.entity.Faction;
 
@@ -51,13 +52,14 @@ public class FactionManager
     // =========================================================
     // Data Field
     private FastList<Faction> _Factions;
-
+    private FastList<String> _list_titles       = new FastList<String>();
     
     // =========================================================
     // Method - Public
     public void reload()
     {
         this.getFactions().clear();
+        this.getFactionTitles().clear();
         this.load();
     }
 
@@ -78,7 +80,11 @@ public class FactionManager
 
             while (rs.next())
             {
-                getFactions().add(new Faction(rs.getInt("id")));
+                Faction faction = new Faction(rs.getInt("id"));
+                getFactions().add(faction);
+                for(FastMap.Entry<Integer, String> e = faction.getTitle().head(), end = faction.getTitle().tail(); (e = e.getNext()) != end;)
+                    _list_titles.add(e.getValue());
+                faction = null;
             }
 
             statement.close();
@@ -117,5 +123,11 @@ public class FactionManager
     {
         if (_Factions == null) _Factions = new FastList<Faction>();
         return _Factions;
+    }
+    
+    public final FastList<String> getFactionTitles()
+    {
+        if (_list_titles == null) _list_titles = new FastList<String>();
+        return _list_titles;
     }
 }

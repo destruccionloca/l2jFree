@@ -22,6 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.apache.log4j.Logger;
 
@@ -42,12 +43,14 @@ public class Faction
     private int _side                           = 0; // 0 = Neutral 1 = Good 2 = Evil
     private FastList<Integer> _list_classes     = new FastList<Integer>();
     private FastList<Integer> _list_npcs        = new FastList<Integer>();
+    private FastMap<Integer, String> _list_title = new FastMap<Integer, String>();
     
     public Faction(int factionId)
     {
         this._Id = factionId;
         String _classlist                   = null;
         String _npclist                   = null;
+        String _titlelist                   = null;
         int _tside  = 0;
         
         java.sql.Connection con = null;
@@ -67,6 +70,7 @@ public class Faction
                 this._name = rs.getString("name");
                 this._joinprice = rs.getInt("price");
                 _classlist = rs.getString("allowed_classes");
+                _titlelist = rs.getString("titlelist");
                 _npclist = rs.getString("npcs");
                 this._points = rs.getFloat("points");
                 _tside = rs.getInt("side");
@@ -83,6 +87,10 @@ public class Faction
             if(_npclist.length()>0)
                 for (String id : _npclist.split(",")) 
                     _list_npcs.add(Integer.parseInt(id));
+            
+            if(_titlelist.length()>0)
+                for (String id : _titlelist.split(";"))
+                    _list_title.put(Integer.valueOf(id.split(",")[0]),id.split(",")[1]);
         }
         catch (Exception e)
         {
@@ -129,6 +137,7 @@ public class Faction
     public final float getPoints() { return this._points; }
     public final FastList<Integer> getClassList(){ return this._list_classes; } 
     public final FastList<Integer> getNpcList(){ return this._list_npcs; }
+    public final FastMap<Integer, String> getTitle(){ return this._list_title; }
     public final int getPrice() { return this._joinprice; }
     public final int getSide() { return this._side; }
 }
