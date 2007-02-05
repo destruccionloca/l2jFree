@@ -628,7 +628,7 @@ public class TvT
             
             while (index != 0)
             { 
-                statement = con.prepareStatement("Select * from tvtTeams where teamId = ?");
+                statement = con.prepareStatement("Select * from tvt_teams where teamId = ?");
                 statement.setInt(1, index);
                 rs = statement.executeQuery(); 
                 while (rs.next())
@@ -680,7 +680,7 @@ public class TvT
             statement.execute();
             statement.close();
             
-            statement = con.prepareStatement("Delete * from tvtTeams");
+            statement = con.prepareStatement("Delete * from tvt_teams");
             statement.execute();
             statement.close();
             
@@ -690,7 +690,7 @@ public class TvT
                 
                 if (index == -1)
                     return;
-                statement = con.prepareStatement("INSERT INTO tvtTeams (teamId ,teamName, teamX, teamY, teamZ, teamColor) VALUES (?, ?, ?, ?, ?, ?)");  
+                statement = con.prepareStatement("INSERT INTO tvt_teams (teamId ,teamName, teamX, teamY, teamZ, teamColor) VALUES (?, ?, ?, ?, ?, ?)");  
                 statement.setInt(1 , index);
                 statement.setString(2, teamName);
                 statement.setInt(3, _teamsX.get(index));
