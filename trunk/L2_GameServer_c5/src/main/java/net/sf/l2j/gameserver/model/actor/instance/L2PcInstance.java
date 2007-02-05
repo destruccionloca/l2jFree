@@ -390,7 +390,10 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /** The table containing all Quests began by the L2PcInstance */
     private FastMap<String, QuestState> _quests = new FastMap<String, QuestState>();
-
+    
+    /** All active Faction Quest */
+    //private FastMap<FactionQuestState> _factionquest = new FastMap<FactionQuestState>();
+    
     /** The list containing all shortCuts of this L2PcInstance */
     private ShortCuts _shortCuts = new ShortCuts(this);
 
@@ -10220,6 +10223,15 @@ public final class L2PcInstance extends L2PlayableInstance
     public void addNPCFactionPoints(int factionPoints)
     {
         _factionPoints+=factionPoints;
+    }
+
+    public boolean removeNPCFactionPoints(int factionPoints)
+    {
+        if(_factionPoints < factionPoints)
+            return false;
+        else
+            _factionPoints-=factionPoints;
+            return true;
     }
     
     public int getNPCFactionPoints()
