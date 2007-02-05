@@ -606,6 +606,8 @@ public class TvT
             statement = con.prepareStatement("Select * from tvt");
             rs = statement.executeQuery();
             
+            int teams =0;
+            
             while (rs.next())
             {        
                 _eventName = rs.getString("eventNane");
@@ -619,31 +621,36 @@ public class TvT
                 _npcZ = rs.getInt("npcZ");
                 _rewardId = rs.getInt("rewardId");
                 _rewardAmount = rs.getInt("rewardAmount"); 
-                _teams.setSize(rs.getInt("teamsCount"));
+                teams = rs.getInt("teamsCount");
             
             }                    
-            statement.close();
+            statement.close();            
             
-            int index = _teams.size();
-            
-            while (index != 0)
+            int index = -1;
+            if (teams > 0)
+                index = 0;    
+            while (index < teams && index > -1)
             { 
                 statement = con.prepareStatement("Select * from tvt_teams where teamId = ?");
                 statement.setInt(1, index);
                 rs = statement.executeQuery(); 
                 while (rs.next())
                 {
-                    _teams.add(index, rs.getString("teamName"));
+                    _teams.add(rs.getString("teamName"));
                     _teamPlayersCount.add(0);
                     _teamKillsCount.add(0); 
+                    _teamColors.add(0);
+                    _teamsX.add(0);
+                    _teamsY.add(0);
+                    _teamsZ.add(0);
                     _teamsX.set(index, rs.getInt("teamX"));
                     _teamsY.set(index, rs.getInt("teamY"));
                     _teamsZ.set(index, rs.getInt("teamZ"));
                     _teamColors.set(index, rs.getInt("teamColor"));
                 }                
-                index --;
+                index ++;
                 statement.close();            
-            }        
+            }       
         }        
         catch (Exception e)
         {
