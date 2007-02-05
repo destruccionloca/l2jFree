@@ -660,7 +660,7 @@ public class TvT
             con = L2DatabaseFactory.getInstance().getConnection();
             PreparedStatement statement;
             
-            statement = con.prepareStatement("Delete * from tvt");
+            statement = con.prepareStatement("Delete from tvt");
             statement.execute();
             statement.close();
 
@@ -680,7 +680,7 @@ public class TvT
             statement.execute();
             statement.close();
             
-            statement = con.prepareStatement("Delete * from tvt_teams");
+            statement = con.prepareStatement("Delete from tvt_teams");
             statement.execute();
             statement.close();
             
