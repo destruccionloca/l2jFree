@@ -2068,19 +2068,8 @@ public abstract class L2Skill
         }
         case TARGET_KNOWNLIST:
         {
-            L2Character cha;
-            if (this.getCastRange() >= 0)
-            {
-                cha = target;
-
-                if (onlyFirst == false) targetList.add(cha); // Add target to target list
-                else return new L2Character[] {cha};
-
-            }
-            else cha = activeChar;
-
-            if (cha != null && cha.getKnownList() != null)
-                for (L2Object obj : cha.getKnownList().getKnownObjects().values())
+            if (target != null && target.getKnownList() != null)
+                for (L2Object obj : target.getKnownList().getKnownObjects().values())
                 {
                     if (obj == null) continue;
                     if (obj != null && (obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
