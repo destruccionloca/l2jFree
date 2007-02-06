@@ -38,6 +38,7 @@ public class FactionMember
     // Data Field
     private int _playerId                      = 0;
     private int _factionId                     = 0;
+    private int _factionPoints                 = 0;    
     private int _contributions                 = 0;
     private Calendar _joinDate;
 
@@ -63,9 +64,10 @@ public class FactionMember
             while (rs.next())
             {
                 this._factionId = rs.getInt("faction_id");
-                this._contributions = rs.getInt("contributins");
+                this._factionPoints = rs.getInt("faction_points");
+                this._contributions = rs.getInt("contributions");
                 this._joinDate = Calendar.getInstance();
-                this._joinDate.setTimeInMillis(rs.getLong("joinDate"));
+                this._joinDate.setTimeInMillis(rs.getLong("join_date"));
             }
             statement.close();
         }
@@ -101,6 +103,7 @@ public class FactionMember
     public final int getPlayerId() { return this._playerId; }
 
     public final int getFactionId() { return this._factionId; }
+    public final int getFactionPoints() { return this._factionPoints; }
     public final int getContributions() { return this._contributions; }
     public final Calendar getJoinDate() { return this._joinDate; }
 }
