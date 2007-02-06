@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.instancemanager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
@@ -28,13 +27,15 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /** 
  * @author evill33t
  * 
  */
 public class CoupleManager
 {
-    protected static Logger _log = Logger.getLogger(CoupleManager.class.getName());
+    private static final Log _log = LogFactory.getLog(CoupleManager.class.getName());
 
     // =========================================================
     private static CoupleManager _Instance;

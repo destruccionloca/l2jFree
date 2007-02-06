@@ -22,8 +22,8 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.util.Broadcast;
 
-import org.apache.log4j.Logger;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /** 
  * @author evill33t
@@ -31,7 +31,7 @@ import org.apache.log4j.Logger;
  */
 public class Wedding implements IVoicedCommandHandler
 {
-    private static Logger _log = Logger.getLogger(Wedding.class);
+    private static final Log _log = LogFactory.getLog(Wedding.class);
     private static String[] _voicedCommands = { "divorce", "engage", "gotolove" };
 
     /* (non-Javadoc)
