@@ -133,6 +133,7 @@ import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Faction;
+import net.sf.l2j.gameserver.model.entity.FactionMember;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.TvT;
 import net.sf.l2j.gameserver.model.entity.VIP;
@@ -213,8 +214,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private static final String RESTORE_SKILL_SAVE = "SELECT skill_id,skill_level,effect_count,effect_cur_time, reuse_delay FROM character_skills_save WHERE char_obj_id=? AND class_index=? AND restore_type=?";
     private static final String DELETE_SKILL_SAVE = "DELETE FROM character_skills_save WHERE char_obj_id=? AND class_index=?";
 
-    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,allyId=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,deleteclan=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,varka=?,ketra=?,pledge_type=?, pledge_rank=?, apprentice=?, accademy_lvl=?, faction_id=?, faction_points=? WHERE obj_id=?"; 
-    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, allyId, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, deleteclan, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, newbie, nobless, varka, ketra, Pledge_class, pledge_type, pledge_rank, apprentice, accademy_lvl, faction_id, faction_points FROM characters WHERE obj_id=?";
+    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,allyId=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,deleteclan=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,varka=?,ketra=?,pledge_type=?, pledge_rank=?, apprentice=?, accademy_lvl=? WHERE obj_id=?"; 
+    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, allyId, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, deleteclan, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, newbie, nobless, varka, ketra, Pledge_class, pledge_type, pledge_rank, apprentice, accademy_lvl FROM characters WHERE obj_id=?";
     private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE char_obj_id=? ORDER BY class_index ASC";
     private static final String ADD_CHAR_SUBCLASS = "INSERT INTO character_subclasses (char_obj_id,class_id,exp,sp,level,class_index) VALUES (?,?,?,?,?,?)";
     private static final String UPDATE_CHAR_SUBCLASS = "UPDATE character_subclasses SET exp=?,sp=?,level=?,class_id=? WHERE char_obj_id=? AND class_index =?";
@@ -648,9 +649,7 @@ public final class L2PcInstance extends L2PlayableInstance
     
     private int _clientRevision = 0;
     
-    private static int _factionId = 0;
-    private int _factionPoints = 0;
-    private int _side = 0;
+    private FactionMember _faction;
 
     /* Flag to disable equipment/skills while wearing formal wear **/
     private boolean _IsWearingFormalWear = false;
@@ -4070,7 +4069,7 @@ public final class L2PcInstance extends L2PlayableInstance
         points = (level / getLevel())*(Config.FACTION_KILL_RATE/100);
         if(pk==true)
             points/=2;
-        addNPCFactionPoints(points);
+        _faction.addFactionPoints(points);
         sendMessage("You earned "+String.valueOf(points)+ " Facion Points");
     }
 
@@ -5240,17 +5239,6 @@ public final class L2PcInstance extends L2PlayableInstance
                 
                 player.setAccademyLvl(rset.getInt("accademy_lvl"));
                 
-                player.setNPCFactionId(rset.getInt("faction_id"));
-                player.setNPCFactionPoints(rset.getInt("faction_points"));
-                if(Config.FACTION_ENABLED)
-                {
-                    Faction faction = FactionManager.getInstance().getFactions(_factionId);
-                    if(faction!=null)
-                    {
-                        player.setSide(faction.getSide());
-                    }
-                }
-
                 // Add the L2PcInstance object in _allObjects
                 // L2World.getInstance().storeObject(player);
 
@@ -5670,9 +5658,7 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(50, getRank());
             statement.setString(51, getApprentice());
             statement.setInt(52, getAccademyLvl());
-            statement.setInt(53, getNPCFactionId());
-            statement.setInt(54, getNPCFactionPoints());
-            statement.setInt(55, getObjectId());
+            statement.setInt(53, getObjectId());
 
             statement.execute();
             statement.close();
@@ -10205,50 +10191,48 @@ public final class L2PcInstance extends L2PlayableInstance
         return _cursedWeaponEquipedId;
     }
     
-    public void setNPCFactionId(int factionId)
+    public void setNPCFaction(FactionMember fm)
     {
-        _factionId=factionId;
+        _faction=fm;
     }
     
-    public int getNPCFactionId()
+    public FactionMember getNPCFaction()
     {
-        return _factionId;
-    }
-
-    public void setNPCFactionPoints(int factionPoints)
-    {
-        _factionPoints=factionPoints;
-    }
-    
-    public void addNPCFactionPoints(int factionPoints)
-    {
-        _factionPoints+=factionPoints;
+        return _faction;
     }
 
     public boolean removeNPCFactionPoints(int factionPoints)
     {
-        if(_factionPoints < factionPoints)
-            return false;
-        else
-            _factionPoints-=factionPoints;
-            return true;
+        if(_faction!=null)
+        {
+            if(_faction.getFactionPoints() < factionPoints)
+                return false;
+            else
+                _faction.reduceFactionPoints(factionPoints);
+                return true;
+        }
+        return false;
     }
     
     public int getNPCFactionPoints()
     {
-        return _factionPoints;
+        return _faction.getFactionPoints();
     }
 
-    public void setSide(int side)
-    {
-        _side=side;
-    }
-    
     public int getSide()
     {
-        return _side;
+        return _faction.getSide();
     }
 
+    public void quitNPCFaction()
+    {
+        if(this._faction!=null)
+        {
+            this._faction.quitFaction();
+            this._faction = null;
+        }
+    }
+    
    private FastMap<Integer, TimeStamp> ReuseTimeStamps = new FastMap<Integer, TimeStamp>();
 
    /**

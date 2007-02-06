@@ -87,7 +87,7 @@ public class FactionQuest
     public static void endFactionQuest(L2PcInstance player,int factionQuestId)
     {
         player.sendMessage(getName()+" completed.");
-        player.addNPCFactionPoints(getReward()*Config.FACTION_QUEST_RATE);
+        player.getNPCFaction().addFactionPoints(getReward()*Config.FACTION_QUEST_RATE);
         deleteFactionQuest(player,factionQuestId);
     }
     

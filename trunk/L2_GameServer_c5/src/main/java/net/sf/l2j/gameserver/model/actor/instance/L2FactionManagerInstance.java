@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
 import net.sf.l2j.gameserver.model.entity.Faction;
+import net.sf.l2j.gameserver.model.entity.FactionMember;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -74,9 +75,9 @@ public class L2FactionManagerInstance extends L2NpcInstance
             String path = "data/html/faction" + String.valueOf(factionId) + "/";
             replace = String.valueOf(factionPrice);
             
-            if(player.getNPCFactionId()!=0)
+            if(player.getNPCFaction()!=null)
             {
-                if(player.getSide()!=faction.getSide())
+                if(player.getNPCFaction().getSide()!=faction.getSide())
                     filename = path + "already.htm";
                 else
                     filename = path + "switch.htm";
@@ -85,21 +86,20 @@ public class L2FactionManagerInstance extends L2NpcInstance
                 filename = path + "join.htm";
             else if (command.startsWith("Accept"))
             {
-                if(player.getNPCFactionId()==0)
+                if(player.getNPCFaction()==null)
                 {
                     if(player.getAdena()<factionPrice)
                         filename = path + "noadena.htm";                    
                     else
                     {
                         player.getInventory().reduceAdena("Faction", factionPrice, player, null);
-                        player.setNPCFactionId(factionId);
-                        player.setNPCFactionPoints(0);
+                        player.setNPCFaction(new FactionMember(player.getObjectId(),factionId));
                         filename = path + "accepted.htm";                    
                     }
                 }
                 else
                 {
-                    player.setNPCFactionId(factionId);
+                    player.getNPCFaction().setFactionId(factionId);
                     filename = path + "switched.htm";
                 }
             }
@@ -111,8 +111,7 @@ public class L2FactionManagerInstance extends L2NpcInstance
                 filename = path + "story.htm";
             else if (command.startsWith("Quit"))
             {
-                player.setNPCFactionId(0);
-                player.setNPCFactionPoints(0);
+                player.getNPCFaction().quitFaction();
                 filename = path + "quited.htm";
             }
             else if (command.startsWith("Quest"))

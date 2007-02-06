@@ -22,6 +22,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.idfactory.IdFactory;
+import net.sf.l2j.gameserver.instancemanager.FactionManager;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,6 +44,7 @@ public class FactionMember
     private int _factionPoints                 = 0;    
     private int _contributions                 = 0;
     private Calendar _joinDate;
+    private int _side;
 
 
     // =========================================================
@@ -57,7 +61,7 @@ public class FactionMember
 
             con = L2DatabaseFactory.getInstance().getConnection();
 
-            statement = con.prepareStatement("Select * from faction_members where id = ?");
+            statement = con.prepareStatement("Select * from faction_members where player_id = ?");
             statement.setInt(1, this._playerId);
             rs = statement.executeQuery();
 
@@ -68,6 +72,12 @@ public class FactionMember
                 this._contributions = rs.getInt("contributions");
                 this._joinDate = Calendar.getInstance();
                 this._joinDate.setTimeInMillis(rs.getLong("join_date"));
+                Faction faction = FactionManager.getInstance().getFactions(_factionId);
+                if(faction!=null)
+                {
+                    _side = faction.getSide();
+                }
+                
             }
             statement.close();
         }
@@ -78,9 +88,42 @@ public class FactionMember
         finally {try { con.close(); } catch (Exception e) {}}
     }
     
+    public FactionMember(int playerId, int factionId)
+    {
+        this._playerId = playerId;
+        this._factionId = factionId;
+        this._factionPoints = 0;
+        this._contributions = 0;
+        this._joinDate = Calendar.getInstance();
+        this._joinDate.setTimeInMillis(Calendar.getInstance().getTimeInMillis());
+        java.sql.Connection con = null;
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection();
+            PreparedStatement statement;
+            statement = con.prepareStatement("INSERT INTO faction_members (player_id, facion_id, faction_points, contributions, join_date) VALUES (?, ?, 0, 0, ?)");
+            statement.setInt(1, this._playerId);
+            statement.setInt(2, this._factionId);
+            statement.setLong(3, this._joinDate.getTimeInMillis());            
+            statement.execute();
+            statement.close();
+        }
+        catch (Exception e)
+        {
+            _log.error("",e);
+        }
+        finally
+        {
+            try { con.close(); } catch (Exception e) {}
+        }
+    }
+    
     public void quitFaction()
     {
         java.sql.Connection con = null;
+        this._factionId = 0;
+        this._factionPoints = 0;
+        this._contributions = 0;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection();
@@ -100,9 +143,77 @@ public class FactionMember
         }
     }
     
-    public final int getPlayerId() { return this._playerId; }
+    private void updateDb()
+    {
+        java.sql.Connection con = null;
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection();
+            PreparedStatement statement;
+            
+            statement = con.prepareStatement("UPDATE faction_members SET faction_points=?,contributions=?,faction_id=? WHERE player_id=?");
+            statement.setInt(1, this._factionPoints);
+            statement.setInt(2, this._contributions);
+            statement.setInt(3, this._factionId);
+            statement.setInt(4, this._playerId);
+            statement.execute();
+        }
+        catch (Exception e)
+        {
+            _log.error("Exception: FactionMember.updateDb(): " + e.getMessage(),e);
+        }
+        finally
+        {
+            try { con.close(); } catch (Exception e) {}
+        }
+    }
+    
+    public void addFactionPoints(int amount)
+    {
+        this._factionPoints += amount;
+        this.updateDb();
+    }
 
+    public void addContributions(int amount)
+    {
+        this._contributions += amount;
+        this.updateDb();
+    }
+    
+    
+    public boolean reduceFactionPoints(int amount)
+    {
+        if(amount<getFactionPoints())
+        {
+            this._factionPoints -= amount;
+            this.updateDb();            
+            return true;
+        }
+        else
+            return false;
+    }
+    
+    public void setFactionPoints(int amount)
+    {
+        this._factionPoints = amount;
+        this.updateDb();
+    }
+
+    public void setContribution(int amount)
+    {
+        this._factionPoints = amount;
+        this.updateDb();
+    }
+
+    public void setFactionId(int factionId)
+    {
+        this._factionId = factionId;
+        this.updateDb();
+    }
+
+    public final int getPlayerId() { return this._playerId; }
     public final int getFactionId() { return this._factionId; }
+    public final int getSide() { return this._side; }
     public final int getFactionPoints() { return this._factionPoints; }
     public final int getContributions() { return this._contributions; }
     public final Calendar getJoinDate() { return this._joinDate; }
