@@ -80,7 +80,7 @@ class Quest (JQuest) :
 
 QUEST       = Quest(247,"247_PossessorOfAPreciousSoul_4","Possessor Of A Precious Soul - 4")
 CREATED     = State('Start', QUEST)
-STARTED     = State('Started', QUEST)
+STARTED     = State('Started', QUEST,True)
 COMPLETED   = State('Completed', QUEST)
 
 QUEST.setInitialState(CREATED)

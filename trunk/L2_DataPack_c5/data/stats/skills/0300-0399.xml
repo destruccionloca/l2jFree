@@ -244,7 +244,8 @@
 </skill>
 <skill id="312" levels="20" name="Vicious Stance">
   <table name="#mpConsume_Init"> 4 5 5 6 7 7 8 9 9 10 10 11 11 12 12 13 13 13 14 14 </table>
-  <table name="#crit"> 35 48 64 84 109 139 166 196 229 266 306 349 379 410 443 475 509 542 576 609 </table>
+  <table name="#crit"> 4 8 12 16 20 24 28 32 36 40 44 46 50 54 58 64 68 72 76 80 </table>
+  <table name="#critMult"> 1.3 1.33 1.36 1.39 1.42 1.45 1.48 1.51 1.54 1.57 1.6 1.63 1.66 1.69 1.72 1.75 1.78 1.81 1.84 1.87 </table>
   <set name="power" val="0.0"/>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="target" val="TARGET_SELF"/>
@@ -254,7 +255,8 @@
   <set name="effectRange" val="-1"/>
   <for>
     <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="#mpConsume_Init">
-      <add order="0x40" stat="cAtk" val="#crit"/>
+      <add order="0x10" stat="cAtk" val="#crit"/>
+      <mul order="0x20" stat="cAtk" val="#critMult"/>
     </effect>
   </for>
 </skill>
