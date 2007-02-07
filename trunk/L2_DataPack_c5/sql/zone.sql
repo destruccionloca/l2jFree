@@ -31,7 +31,7 @@ insert into zone values (3, 'Castle Area', 'Giran', 105737, 140128, 121331, 1498
 insert into zone values (4, 'Castle Area', 'Oren', 72876, 32336, 87556, 40457, 0,0, 5);
 insert into zone values (5, 'Castle Area', 'Aden', 134790, -2552, 154760, 20850, 0,0, 0);
 insert into zone values (6, 'Castle Area', 'Innadril', 111975, 241396, 120720, 253425, 0,0, 5);
-insert into zone values (7, 'Castle Area', 'Goddard', 144715, -43884, 150037, -43064, 0,0, 5);
+insert into zone values (7, 'Castle Area', 'Goddard', 152934, -42403, 140393, -51017, 0,0, 5);
 insert into zone values (8, 'Castle Area', 'Rune', 7000, -55500, 27000, -41716, 0, 0, 8);
 insert into zone values (9, 'Castle Area', 'Schuttgart', 73000, -156600, 80740, -147592, 0, 0, 8);
 
@@ -42,7 +42,7 @@ insert into zone values (3, 'Castle HQ', 'Giran', 119200, 142750, 112200, 147450
 insert into zone values (4, 'Castle HQ', 'Oren', 85300, 34900, 78100, 39600, 0,0, 5);
 insert into zone values (5, 'Castle HQ', 'Aden', 144600, 550, 150300, 8550, 0,0, 0);
 insert into zone values (6, 'Castle HQ', 'Innadril', 111975, 241396, 120720, 253425, 0,0, 5);
-insert into zone values (7, 'Castle HQ', 'Goddard', 144715, -43884, 150037, -43064, 0,0, 5);
+insert into zone values (7, 'Castle HQ', 'Goddard', 152603, -51567, 144066, -44762, 0,0, 5);
 insert into zone values (8, 'Castle HQ', 'Rune', 7000, -52500, 18493, -45900, -547, 0, 8);
 insert into zone values (9, 'Castle HQ', 'Schuttgart', 77200, -153000, 77900, -478700, -545, 0, 8);
 
@@ -131,7 +131,7 @@ insert into zone values (3, 'Siege Battlefield', 'Giran', 105737, 140128, 121331
 insert into zone values (4, 'Siege Battlefield', 'Oren', 72876, 32336, 87556, 40457, 0,0, 0);
 insert into zone values (5, 'Siege Battlefield', 'Aden', 134790, -2552, 154760, 20850, 0,0, 0);
 insert into zone values (6, 'Siege Battlefield', 'Innadril', 111975, 241396, 120720, 253425, 0,0, 0);
-insert into zone values (7, 'Siege Battlefield', 'Goddard', 144715, -43884, 150037, -43064, 0,0, 0);
+insert into zone values (7, 'Siege Battlefield', 'Goddard', 152934, -42403, 140393, -51017, 0,0, 0);
 insert into zone values (8, 'Siege Battlefield', 'Rune', 7000, -55500, 27000, -41716, 0, 0, 0);
 insert into zone values (9, 'Siege Battlefield', 'Schuttgart', 73000, -156600, 80740, -147592, 0, 0, 0);
 
