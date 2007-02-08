@@ -139,9 +139,10 @@ public class Mdam implements ISkillHandler
                 if (target instanceof L2PcInstance)
                     name = target.getName() + "(" + target.getObjectId() + ") ";
                 name += target.getLevel() + " lvl";
-                _log.info(activeChar.getName() + "(" + activeChar.getObjectId() + ") "
-                    + activeChar.getLevel() + " lvl did damage " + damage + " with skill "
-                    + skill.getName() + "(" + skill.getId() + ") to " + name);
+                if(_log.isDebugEnabled())
+                    _log.info(activeChar.getName() + "(" + activeChar.getObjectId() + ") "
+                             + activeChar.getLevel() + " lvl did damage " + damage + " with skill "
+                             + skill.getName() + "(" + skill.getId() + ") to " + name);
             }
 
             if (damage > 0)
