@@ -333,6 +333,8 @@ $MYG < ../sql/custom_npc.sql &> /dev/null
 $MYG < ../sql/custom_spawnlist.sql &> /dev/null
 $MYG < ../sql/tvt.sql &> /dev/null
 $MYG < ../sql/tvt_teams.sql &> /dev/null
+$MYG < ../sql/ctf.sql &> /dev/null
+$MYG < ../sql/ctf_teams.sql &> /dev/null
 }
 
 finish(){
