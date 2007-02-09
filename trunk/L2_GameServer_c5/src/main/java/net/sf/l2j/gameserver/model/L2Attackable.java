@@ -54,6 +54,7 @@ import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.Util;
+import net.sf.l2j.gameserver.templates.L2Item;
 
 /**
  * This class manages all NPC that can be attacked.<BR><BR>
@@ -724,6 +725,8 @@ public class L2Attackable extends L2NpcInstance
         if (getHaveToDrop()) doItemDrop(lastAttacker);
         // Manage drop of Special Events created by GM for a defined period
         doEventDrop(lastAttacker);
+        // soulshot drop
+        doSpecialDrop(lastAttacker);
     }
     
     
@@ -1486,6 +1489,35 @@ public class L2Attackable extends L2NpcInstance
                  else DropItem(player, item); // drop the item on the ground
              }
          }
+     }
+
+     public void doSpecialDrop(L2Character lastAttacker)
+     {
+         L2PcInstance player = null;
+         if (lastAttacker instanceof L2PcInstance)
+             player = (L2PcInstance)lastAttacker;
+         else if (lastAttacker instanceof L2Summon)
+             player = ((L2Summon)lastAttacker).getOwner();
+
+         if (player == null) return; // Don't drop anything if the last attacker or ownere isn't L2PcInstance
+         
+         // mob is zwischen 20 bis bis40
+         if (getLevel()>20 && getLevel()<40)
+                 // level unterschied zwischen player/mob max 9
+             if(player.getLevel()-getLevel() >9)
+                 return;
+             else
+                 // chance 2 zu 100000
+                 if (Rnd.get(100000) < 2)
+                 {
+                     int itemId=57;
+                     int maxDrop=5000;
+                     DropItem(player, itemId, maxDrop); 
+                 }
+                 else
+                     return;
+             else
+                 return;
      }
      
      /**

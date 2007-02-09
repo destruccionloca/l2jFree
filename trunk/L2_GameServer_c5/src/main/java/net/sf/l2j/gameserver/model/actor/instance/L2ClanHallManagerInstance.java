@@ -47,29 +47,26 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
     protected static int Cond_Owner = 2;
     private int _clanHallId = -1;
 
-	/**
-	 * @param objectId
-	 * @param template
-	 */
-	public L2ClanHallManagerInstance(int objectId, L2NpcTemplate template)
-	{
-		super(objectId, template);
-	}
+    /**
+     * @param objectId
+     * @param template
+     */
+    public L2ClanHallManagerInstance(int objectId, L2NpcTemplate template)
+    {
+        super(objectId, template);
+    }
     
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         player.sendPacket( new ActionFailed() );
-
         int condition = validateCondition(player);
         if (condition <= Cond_All_False)
             return;
-
         else if (condition == Cond_Owner)
         {
             StringTokenizer st = new StringTokenizer(command, " ");
             String actualCommand = st.nextToken(); // Get actual command
-
             String val = "";
             if (st.countTokens() >= 1) {val = st.nextToken();}
      
@@ -81,6 +78,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
             else if(actualCommand.equalsIgnoreCase("manage_vault"))
             {
                 if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) == L2Clan.CP_CL_VIEW_WAREHOUSE)
+                {
                     if (val.equalsIgnoreCase("deposit"))
                         showVaultWindowDeposit(player);
                     else if (val.equalsIgnoreCase("withdraw"))
@@ -91,6 +89,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                         html.setFile("data/html/clanHallManager/vault.htm");
                         this.sendHtmlMessage(player, html);
                     }
+                }
                 else
                     player.sendMessage("You are not authorized to do this!");
                 return;
@@ -149,18 +148,17 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                     if (getClanHall().getFunction(ClanHall.FUNC_RESTORE_EXP) != null)
                         html.replace("%xp_regen%", String.valueOf(getClanHall().getFunction(ClanHall.FUNC_RESTORE_EXP).getLvl()) + "%");
                     else
-                        html.replace("%hp_regen%", "0");
+                        html.replace("%xp_regen%", "0");
                     if (getClanHall().getFunction(ClanHall.FUNC_RESTORE_HP) != null)
                         html.replace("%hp_regen%", String.valueOf(getClanHall().getFunction(ClanHall.FUNC_RESTORE_HP).getLvl()) + "%");
                     else
-                        html.replace("%xp_regen%", "0");
+                        html.replace("%hp_regen%", "0");
                     if (getClanHall().getFunction(ClanHall.FUNC_RESTORE_MP) != null)
                         html.replace("%mp_regen%", String.valueOf(getClanHall().getFunction(ClanHall.FUNC_RESTORE_MP).getLvl()) + "%");
                     else
                         html.replace("%mp_regen", "0");
                     sendHtmlMessage(player, html);
-                }
-                    
+                }                    
             }
             else if (actualCommand.equalsIgnoreCase("manage"))
             {
@@ -181,7 +179,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                                 if (st.countTokens() >= 1)
                                 {
                                     int fee;
-                                    _log.debug("Mp editing invoked");
+                                    if (_log.isDebugEnabled()) _log.warn("Mp editing invoked");
                                     val = st.nextToken();
                                     int percent = Integer.valueOf(val);
                                     switch (percent)
@@ -208,7 +206,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                                 if (st.countTokens() >= 1)
                                 {
                                     int fee;
-                                    _log.debug("Mp editing invoked");
+                                    if (_log.isDebugEnabled()) _log.warn("Mp editing invoked");
                                     val = st.nextToken();
                                     int percent = Integer.valueOf(val);
                                     switch (percent)
@@ -232,7 +230,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                                 if (st.countTokens() >= 1)
                                 {
                                     int fee;
-                                    _log.debug("Exp editing invoked");
+                                    if (_log.isDebugEnabled()) _log.warn("Exp editing invoked");
                                     val = st.nextToken();
                                     int percent = Integer.valueOf(val);
                                     switch (percent)
@@ -262,7 +260,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                             NpcHtmlMessage html = new NpcHtmlMessage(1);
                             html.setFile("data/html/clanHallManager/edit_recovery.htm");
                             if (getClanHall().getFunction(ClanHall.FUNC_RESTORE_HP) != null){
-                               html.replace("%hp%", String.valueOf(getClanHall().getFunction(ClanHall.FUNC_RESTORE_HP).getLvl()) + "%");
+                                html.replace("%hp%", String.valueOf(getClanHall().getFunction(ClanHall.FUNC_RESTORE_HP).getLvl()) + "%");
                                 html.replace("%hpPrice%", String.valueOf(getClanHall().getFunction(ClanHall.FUNC_RESTORE_HP).getLease()));
                                 html.replace("%hpDate%",format.format(getClanHall().getFunction(ClanHall.FUNC_RESTORE_HP).getEndTime()));
                             }else{
@@ -287,8 +285,8 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                                 html.replace("%mp%", "0");
                                 html.replace("%mpPrice%", "0");
                                 html.replace("%mpDate%","0");
-                            }                            
-                           sendHtmlMessage(player, html);
+                            }
+                            sendHtmlMessage(player, html);
                         }
                     }
                     else if (val.equalsIgnoreCase("other"))
@@ -305,7 +303,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                             {  
                                 if (st.countTokens() >= 1)
                                 {
-                                    _log.debug("Item editing invoked");
+                                    if (_log.isDebugEnabled()) _log.warn("Item editing invoked");
                                     val = st.nextToken();
                                     int lvl = Integer.valueOf(val);
                                     if (!getClanHall().updateFunctions(ClanHall.FUNC_ITEM_CREATE, lvl, 76000, 86400000, Calendar.getInstance().getTimeInMillis()+86400000, (getClanHall().getFunction(ClanHall.FUNC_ITEM_CREATE) == null)))
@@ -317,7 +315,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                                 if (st.countTokens() >= 1)
                                 {
                                     int fee;
-                                    _log.debug("Tele editing invoked");
+                                    if (_log.isDebugEnabled()) _log.warn("Tele editing invoked");
                                     val = st.nextToken();
                                     int lvl = Integer.valueOf(val);
                                     switch (lvl)
@@ -341,7 +339,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                                 if (st.countTokens() >= 1)
                                 {
                                     int fee;
-                                    _log.debug("Support editing invoked");
+                                    if (_log.isDebugEnabled()) _log.warn("Support editing invoked");
                                     val = st.nextToken();
                                     int lvl = Integer.valueOf(val);
                                     switch (lvl)
@@ -399,7 +397,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                                 html.replace("%item%", "0");
                                 html.replace("%itemPrice%", "0");
                                 html.replace("%itemDate%","0");
-                            }                            
+                            }
                             sendHtmlMessage(player, html);
                         }
                     }
@@ -454,28 +452,28 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
             }
             else if (actualCommand.equalsIgnoreCase("goto"))
             {
-                player.sendMessage("The bypass reading works");
                 int whereTo = Integer.parseInt(val);
                 doTeleport(player, whereTo);
                 return;
             }
         }
-
         super.onBypassFeedback(player, command);
     }
-	
-	/**
-	 * this is called when a player interacts with this NPC
-	 * @param player
-	 */
+    
+    /**
+     * this is called when a player interacts with this NPC
+     * @param player
+     */
     public void onAction(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());
         player.setTarget(this);
         player.sendPacket(new MyTargetSelected(getObjectId(), -15));
-
         if (isInsideRadius(player, INTERACTION_DISTANCE, false, false))
+        {
+            player.setLastFolkNPC(this);
             showMessageWindow(player);
+        }
     }
     
     private void sendHtmlMessage(L2PcInstance player, NpcHtmlMessage html)
@@ -487,7 +485,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
     
     private void showMessageWindow(L2PcInstance player)
     {
-        player.sendPacket( new ActionFailed() );
+        player.sendPacket(new ActionFailed());
         String filename = "data/html/clanHallManager/chamberlain-no.htm";
         
         int condition = validateCondition(player);
@@ -496,7 +494,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
             if (condition == Cond_Owner)                                               // Clan owns CH
                 filename = "data/html/clanHallManager/chamberlain.htm";                         // Owner message window
         }
-        
+
         NpcHtmlMessage html = new NpcHtmlMessage(1);
         html.setFile(filename);
         html.replace("%objectId%", String.valueOf(getObjectId()));
@@ -506,7 +504,8 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 
     protected int validateCondition(L2PcInstance player)
     {   
-        if (player.isGM()) return Cond_Owner;   
+        if (getClanHall() == null) return Cond_All_False;
+        if (player.isGM()) return Cond_Owner;
         if (player.getClan() != null)
         {                                     
             if (getClanHall().getOwnerId() == player.getClanId())                                          
@@ -524,7 +523,6 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
             _clanHallId = ClanHallManager.getInstance().getClanHall(getX(), getY(), 1500).getId();
             if (_clanHallId < 0) return null;
         }
-
         return ClanHallManager.getInstance().getClanHall(_clanHallId);
     }
     
@@ -544,11 +542,11 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
     
     private void doTeleport(L2PcInstance player, int val)
     {
-        player.sendMessage("doTeleport(L2PcInstance player, int val) is called");
+       if(_log.isDebugEnabled())
+           player.sendMessage("doTeleport(L2PcInstance player, int val) is called");
         L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(val);
         if (list != null)
         {
-            player.sendMessage("(list != null)");
             //you cannot teleport to village that is in siege Not sure about this one though
             if (SiegeManager.getInstance().checkIfInZone(list.getLocX(), list.getLocY()))
             {
@@ -557,8 +555,8 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
             }
             else if(player.reduceAdena("Teleport", list.getPrice(), this, true))
             {
-                player.sendMessage("(player.reduceAdena(\"Teleport\", list.getPrice(), this, true)");
-                /*if (_log.isDebugEnabled()) */_log.debug("Teleporting player "+player.getName()+" for CH to new location: "+list.getLocX()+":"+list.getLocY()+":"+list.getLocZ());
+                if (_log.isDebugEnabled())
+                 _log.warn("Teleporting player "+player.getName()+" for CH to new location: "+list.getLocX()+":"+list.getLocY()+":"+list.getLocZ());
                 player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ());
             }
         }
