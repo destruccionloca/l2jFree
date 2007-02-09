@@ -477,7 +477,7 @@
      <add order="0x40" stat="accCombat" val="6"/>
      <add order="0x40" stat="runSpd" val="#runSpd"/>
      <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
-     <mul order="0x30" stat="regHp" val="0.3"/>
+     <mul order="0x50" stat="regHp" val="0"/>
      <mul order="0x30" stat="cAtk" val="#cAtk"/>
    </effect>
 </for>

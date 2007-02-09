@@ -55,7 +55,7 @@
   <enchant1 name="effectPower" val="#ench1Power"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="power" val="#ench2Power"/>
-   <for>
+  <for>
     <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     <effect count="1" name="RemoveTarget" time="1" val="0"/> 
   </for>
@@ -927,6 +927,7 @@
   <set name="reuseDelay" val="13000"/>
   <set name="skillTime" val="1080"/>
   <set name="skillType" val="PDAM"/>
+  <set name="ignoreShld" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>

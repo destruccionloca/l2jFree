@@ -1006,6 +1006,7 @@
   <set name="reuseDelay" val="20000"/>
   <set name="skillTime" val="1080"/>
   <set name="skillType" val="PDAM"/>
+  <set name="ignoreShld" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="9000"/>
   <set name="ignoreShld" val="true"/>
@@ -1486,6 +1487,7 @@
   <set name="reuseDelay" val="120000"/>
   <set name="skillTime" val="1360"/>
   <set name="skillType" val="PDAM"/>
+  <set name="ignoreShld" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="9000"/>
   <set name="castRange" val="40"/>
