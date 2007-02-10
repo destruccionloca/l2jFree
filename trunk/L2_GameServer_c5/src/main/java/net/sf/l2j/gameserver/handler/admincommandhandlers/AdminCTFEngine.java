@@ -154,7 +154,7 @@ public class AdminCTFEngine implements IAdminCommandHandler {
         }
         else if(command.equals("admin_ctf_join"))
         {
-            CTF.startJoin();
+            CTF.startJoin(activeChar);
             showMainPage(activeChar);
         }
         else if (command.equals("admin_ctf_teleport"))

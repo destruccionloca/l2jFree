@@ -216,11 +216,11 @@ public class CTF
         return true;
     }
     
-    public static void startJoin()
+    public static void startJoin(L2PcInstance activeChar)
     {
         if (!startJoinOk())
         {
-            System.out.println("CTF Engine[startJoin()]: startJoinOk() == false");
+            System.out.println("CTF Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() == false");
             return;
         }
         
@@ -261,6 +261,7 @@ public class CTF
             _npcSpawn.getLastSpawn().setCurrentHp(999999999);
             _npcSpawn.getLastSpawn().setTitle(_eventName);
             _npcSpawn.getLastSpawn()._isEventMobCTF = true;
+            _npcSpawn.getLastSpawn().isAggressive();
             _npcSpawn.getLastSpawn().decayMe();
             _npcSpawn.getLastSpawn().spawnMe(_npcSpawn.getLastSpawn().getX(), _npcSpawn.getLastSpawn().getY(), _npcSpawn.getLastSpawn().getZ());
 
@@ -393,6 +394,8 @@ public class CTF
                 _flagSpawns.get(index).init();
                 _flagSpawns.get(index).getLastSpawn().setCurrentHp(999999999);
                 _flagSpawns.get(index).getLastSpawn().setTitle(team);
+                _flagSpawns.get(index).getLastSpawn()._isEventMobCTF = true;
+                _flagSpawns.get(index).getLastSpawn().isAggressive();
                 _flagSpawns.get(index).getLastSpawn().decayMe();
                 _flagSpawns.get(index).getLastSpawn().spawnMe(_flagSpawns.get(index).getLastSpawn().getX(), _flagSpawns.get(index).getLastSpawn().getY(), _flagSpawns.get(index).getLastSpawn().getZ());
             }
@@ -554,15 +557,12 @@ public class CTF
         if (!_joining && !_teleport && !_started)
             return;
         
-        if (_started)
-            unspawnAllFlags();
-        
         _joining = false;
         _teleport = false;
-        _started = false;
+        
         unspawnEventNpc();
         Announcements.getInstance().announceToAll(_eventName + "(CTF): Match aborted!");
-        teleportFinish();
+        teleportFinish();        
     }
 
     public static void sit()
@@ -665,14 +665,7 @@ public class CTF
     {
         for (String team : _teams)
         {
-            int index = _teams.indexOf(team);
-
-            if (_flagSpawns.get(index) != null)
-            {
-                _flagSpawns.get(index).getLastSpawn().deleteMe();
-                _flagSpawns.get(index).stopRespawn();
-                SpawnTable.getInstance().deleteSpawn(_flagSpawns.get(index), true);
-            }
+            unspawnFlag(team);
         }
     }
     
@@ -688,6 +681,10 @@ public class CTF
                                                                 {
                                                                     if (player !=  null)
                                                                         player.teleToLocation(_npcX, _npcY, _npcZ, false);
+                                                                }
+                                                                if (_started){
+                                                                    unspawnAllFlags();
+                                                                    _started = false;
                                                                 }
                                                                 CTF.clean();
                                                             }
