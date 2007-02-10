@@ -1333,11 +1333,10 @@
   </for>
 </skill>
 <skill id="279" levels="5" name="Lightning Strike">
-  <table name="#mpConsume_Init"> 16 18 20 20 21 </table>
-  <table name="#mpConsume"> 64 69 73 78 82 </table>
+  <table name="#mpConsume_Init"> 16 18 20 20 21 </table> 
+  <table name="#mpConsume"> 64 69 73 78 82 </table> 
   <table name="#magicLvl"> 58 62 66 70 74 </table>
-  <table name="#power"> 82.0 89.0 96.0 102.0 108.0 </table>
-  <set name="mpInitialConsume" val="#mpConsume_Init"/>
+  <table name="#power"> 98.0 107.0 114.0 120.0 122.0 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="save" val="3"/>
   <set name="magicLvl" val="#magicLvl"/>
@@ -1345,14 +1344,15 @@
   <set name="lvlDepend" val="1"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="hitTime" val="3000"/>
-  <set name="reuseDelay" val="120000"/>
+  <set name="reuseDelay" val="90000"/>
   <set name="skillTime" val="3000"/>
   <set name="skillType" val="MDAM"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="buffDuration" val="30000"/>
+  <set name="buffDuration" val="120000"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
+  <set name="effectRange" val="-1"/>
   <set name="effectType" val="PARALYZE"/>
   <set name="effectPower" val="20"/>
   <for>

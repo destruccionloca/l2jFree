@@ -758,28 +758,28 @@
   </for>
 </skill>
 <skill id="342" levels="1" name="Touch of Death">
-  <!-- WRONG SKILL - temp fix -->
-  <!-- Sacrifices HP to cast a dark curse upon an enemy that has a chance to remove multiple buffs and significantly decrease maximum CP for a brief time. Decreases resistance to debuff attacks and the effectiveness of HP regeneration magic. Only usable when HP is 75% or lower. -->
-  <set name="hpConsume" val="1004"/>
-  <set name="power" val="100.0"/>
-  <set name="target" val="TARGET_ONE"/>
-  <set name="skillType" val="CANCEL"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="40"/>
-  <set name="effectRange" val="400"/>
-  <set name="reuseDelay" val="1200000"/>
-  <set name="skillTime" val="1800"/>
-  <set name="hitTime" val="1800"/>
-  <set name="isMagic" val="true"/>
-  <cond>
-    <player hp="75"/>
-  </cond>
-  <for>
-    <effect count="1" name="Buff" time="120" val="0">
-      <mul order="0x30" stat="maxCp" val="0.1"/>
-    </effect>
-  </for>
-</skill>
+<set name="hpConsume" val="1004"/>
+<set name="power" val="100.0"/>
+<set name="magicLvl" val="78"/>
+<set name="target" val="TARGET_ONE"/>
+<set name="hitTime" val="1000"/>
+<set name="reuseDelay" val="8000"/>
+<set name="skillTime" val="2000"/>
+<set name="skillType" val="CANCEL"/>
+<set name="isMagic" val="true"/>
+<set name="operateType" val="OP_ACTIVE"/>
+<set name="castRange" val="40"/>
+<set name="effectRange" val="400"/>
+<set name="negatePower" val="29.0"/>
+<cond><player hp="75"/></cond>
+<for>
+   <effect count="1" name="Buff" time="120" val="0">
+      <mul order="0x50" stat="regHp" val="0.72"/>
+      <mul order="0x50" stat="gainHp" val="0.72"/>
+      <mul order="0x50" stat="maxCp" val="0.90"/>
+   </effect>
+</for>
+</skill> 
 <skill id="343" levels="1" name="Lethal Shot">
   <set name="mpConsume" val="170"/>
   <set name="weaponsAllowed" val="32"/>
