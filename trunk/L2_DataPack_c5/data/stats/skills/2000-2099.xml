@@ -806,6 +806,7 @@
   </for>
 </skill>
 <skill id="2064" levels="1" name="Scroll of Mana Regeneration">
+<!-- Possibly Mul? -->
   <!-- Done by dc -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
