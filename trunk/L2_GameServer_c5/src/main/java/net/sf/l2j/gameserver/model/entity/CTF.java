@@ -165,6 +165,7 @@ public class CTF
 
         _flagsTaken.remove(index);
         _flagSpawns.remove(index);
+        _flagSpawned.remove(index);
         _flagsZ.remove(index);
         _flagsY.remove(index);
         _flagsX.remove(index);
@@ -598,22 +599,12 @@ public class CTF
             int index = _teams.indexOf(team);
 
             _teamPlayersCount.set(index, 0);
-            _teamPointsCount.set(index, 0);
-            _flagsTaken.set(index, false);
-            _flagSpawns.set(index, null);
+            _teamPointsCount.set(index, 0);            
         }
         
         for (L2PcInstance player : _players)
         {
-            player.setNameColor(player._originalNameColorCTF);
-            player.setKarma(player._originalKarmaCTF);
-            player.setTitle(player._originalTitleCTF);
-            player.broadcastUserInfo();
-            player._teamNameCTF = new String();
-            player._inEventCTF = false;
-            player._haveFlagCTF = false;
-            player._posCheckerCTF.cancel(true);
-            player._posCheckerCTF = null;
+            removePlayer(player);
         }
 
         _topScore = 0;
@@ -622,6 +613,9 @@ public class CTF
         _playersShuffle = new Vector<L2PcInstance>();
         _savePlayers = new Vector<String>();
         _savePlayerTeams = new Vector<String>();
+        _flagSpawns = new Vector<L2Spawn>();
+        _flagsTaken = new Vector<Boolean>();
+        _flagSpawned = new Vector<Boolean>();
     }
     
     public static void unspawnEventNpc()
@@ -913,6 +907,16 @@ public class CTF
             }
             else if (Config.CTF_EVEN_TEAMS.equals("SHUFFLE"))
                 _playersShuffle.remove(player);
+            
+            player.setNameColor(player._originalNameColorCTF);
+            player.setKarma(player._originalKarmaCTF);
+            player.setTitle(player._originalTitleCTF);
+            player.broadcastUserInfo();
+            player._teamNameCTF = new String();
+            player._inEventCTF = false;
+            player._haveFlagCTF = false;
+            player._posCheckerCTF.cancel(true);
+            player._posCheckerCTF = null;
         }
     }
     
@@ -940,8 +944,8 @@ public class CTF
                     {
                         int indexEnemy = CTF._teams.indexOf(_player._teamNameHaveFlagCTF);
 
-                        CTF._flagsTaken.set(indexEnemy, false);
-                        CTF.spawnFlag(_player._teamNameHaveFlagCTF);
+                        _flagsTaken.set(indexEnemy, false);
+                        spawnFlag(_player._teamNameHaveFlagCTF);
                         _player.setTitle(_player._originalTitleCTF);
                         _player.broadcastUserInfo();
                         _player._haveFlagCTF = false;
@@ -958,8 +962,8 @@ public class CTF
                         (_player.getZ() > CTF._flagsZ.get(indexEnemy)-100 && _player.getZ() < CTF._flagsZ.get(indexEnemy)+100) &&
                         !CTF._flagsTaken.get(indexEnemy) && !_player._haveFlagCTF && !_player.isDead())
                     {
-                        CTF._flagsTaken.set(indexEnemy, true);
-                        CTF.unspawnFlag(team);
+                        _flagsTaken.set(indexEnemy, true);
+                        unspawnFlag(team);
                         _player._teamNameHaveFlagCTF = team;
                         _player.setTitle("Flag Owner");
                         _player.broadcastUserInfo();
@@ -989,8 +993,8 @@ public class CTF
                 {
                     if (CTF._flagsTaken.get(index))
                     {
-                        CTF._flagsTaken.set(index, false);
-                        CTF.spawnFlag(team);
+                        _flagsTaken.set(index, false);
+                        spawnFlag(team);
                         Announcements.getInstance().announceToAll(CTF._eventName + "(CTF): " + team + " flag returned.");
                     }
                 }
@@ -1112,6 +1116,7 @@ public class CTF
         _playersShuffle = new Vector<L2PcInstance>();
         _flagSpawns = new Vector<L2Spawn>();
         _flagsTaken = new Vector<Boolean>();
+        _flagSpawned = new Vector<Boolean>();
         _teamPlayersCount = new Vector<Integer>();
         _teamPointsCount = new Vector<Integer>();
         _teamColors = new Vector<Integer>();
@@ -1173,11 +1178,14 @@ public class CTF
                     _flagsX.add(0);
                     _flagsY.add(0);
                     _flagsZ.add(0);
+                    _flagSpawns.add(null);
+                    _flagsTaken.add(false);
+                    _flagSpawned.add(false);
                     _flagIds.set(index, rs.getInt("flagId"));
                     _flagsX.set(index, rs.getInt("flagX"));
                     _flagsY.set(index, rs.getInt("flagY"));
                     _flagsZ.set(index, rs.getInt("flagZ"));
-                    _teamColors.set(index, rs.getInt("teamColor"));
+                    _teamColors.set(index, rs.getInt("teamColor"));                    
                 }                
                 index ++;
                 statement.close();            
