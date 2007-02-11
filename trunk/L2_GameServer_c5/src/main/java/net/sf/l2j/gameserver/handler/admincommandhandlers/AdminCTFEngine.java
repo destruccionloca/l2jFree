@@ -275,6 +275,8 @@ public class AdminCTFEngine implements IAdminCommandHandler {
             }
 
             replyMSG.append("</td></tr><tr><td>");
+            replyMSG.append("Flag Id: " +CTF._flagIds.get(CTF._teams.indexOf(team)));
+            replyMSG.append("</td></tr><tr><td>");
             replyMSG.append(CTF._teamColors.get(CTF._teams.indexOf(team)));
             replyMSG.append("</td></tr><tr><td>");
             replyMSG.append(CTF._flagsX.get(CTF._teams.indexOf(team)) + ", " + CTF._flagsY.get(CTF._teams.indexOf(team)) + ", " + CTF._flagsZ.get(CTF._teams.indexOf(team)));

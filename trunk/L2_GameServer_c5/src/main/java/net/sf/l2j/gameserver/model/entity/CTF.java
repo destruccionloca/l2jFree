@@ -78,7 +78,8 @@ public class CTF
                                   _flagsY = new Vector<Integer>(),
                                   _flagsZ = new Vector<Integer>();
     public static Vector<L2Spawn> _flagSpawns = new Vector<L2Spawn>();
-    public static Vector<Boolean> _flagsTaken = new Vector<Boolean>();
+    public static Vector<Boolean> _flagsTaken = new Vector<Boolean>(),
+                                    _flagSpawned = new Vector<Boolean>();
     public static boolean _joining = false,
                           _teleport = false,
                           _started = false,
@@ -140,6 +141,7 @@ public class CTF
         _flagsZ.add(0);
         _flagSpawns.add(null);
         _flagsTaken.add(false);
+        _flagSpawned.add(false);
     }
     
     public static void removeTeam(String teamName)
@@ -321,13 +323,12 @@ public class CTF
                                                            }
                                                        }, 20000);
         
-        spawnAllFlags();
         _teleport = true;
     }
     
     private static boolean startTeleportOk()
     {
-        if (!_joining || _teamPlayersCount.contains(0))
+        if (!_joining || _started || _teleport)
             return false;
 
         return true;
@@ -375,34 +376,7 @@ public class CTF
     {
         for (String team : _teams)
         {
-            int index = _teams.indexOf(team);
-            L2NpcTemplate tmpl = NpcTable.getInstance().getTemplate(_flagIds.get(index));
-
-            try
-            {
-                _flagSpawns.set(index, new L2Spawn(tmpl));
-
-                _flagSpawns.get(index).setLocx(_flagsX.get(index));
-                _flagSpawns.get(index).setLocy(_flagsY.get(index));
-                _flagSpawns.get(index).setLocz(_flagsZ.get(index));
-                _flagSpawns.get(index).setAmount(1);
-                _flagSpawns.get(index).setHeading(0);
-                _flagSpawns.get(index).setRespawnDelay(1);
-
-                SpawnTable.getInstance().addNewSpawn(_flagSpawns.get(index), false);
-
-                _flagSpawns.get(index).init();
-                _flagSpawns.get(index).getLastSpawn().setCurrentHp(999999999);
-                _flagSpawns.get(index).getLastSpawn().setTitle(team);
-                _flagSpawns.get(index).getLastSpawn()._isEventMobCTF = true;
-                _flagSpawns.get(index).getLastSpawn().isAggressive();
-                _flagSpawns.get(index).getLastSpawn().decayMe();
-                _flagSpawns.get(index).getLastSpawn().spawnMe(_flagSpawns.get(index).getLastSpawn().getX(), _flagSpawns.get(index).getLastSpawn().getY(), _flagSpawns.get(index).getLastSpawn().getZ());
-            }
-            catch(Exception e)
-            {
-                _log.warn("CTF Engine[spawnAllFlags()]: exception: " + e);
-            }
+            spawnFlag(team);            
         }
     }
     
@@ -415,7 +389,9 @@ public class CTF
         }
         
         _teleport = false;
+        spawnAllFlags();
         sit();
+        
         
         for (L2PcInstance player : _players)
         {
@@ -465,9 +441,6 @@ public class CTF
             return;
         }
         
-        if (_started)
-            unspawnAllFlags();
-        _started = false;
         unspawnEventNpc();        
         processTopTeam();
 
@@ -694,10 +667,17 @@ public class CTF
     public static void unspawnFlag(String teamName)
     {
         int index = _teams.indexOf(teamName);
-
-        _flagSpawns.get(index).getLastSpawn().deleteMe();
-        _flagSpawns.get(index).stopRespawn();
-        SpawnTable.getInstance().deleteSpawn(_flagSpawns.get(index), true);
+        
+        if (_flagSpawned.get(index))
+        {
+            _flagSpawns.get(index).getLastSpawn().deleteMe();
+            _flagSpawns.get(index).stopRespawn();
+            SpawnTable.getInstance().deleteSpawn(_flagSpawns.get(index), true);
+            _flagSpawned.set(index,false);
+        }
+        else{
+            _log.info("CTF Engine[can't unspawnFlag(" + teamName + ")]: flag not spawned");
+        }
     }
     
     public static void spawnFlag(String teamName)
@@ -723,6 +703,7 @@ public class CTF
             _flagSpawns.get(index).getLastSpawn().setTitle(teamName);
             _flagSpawns.get(index).getLastSpawn().decayMe();
             _flagSpawns.get(index).getLastSpawn().spawnMe(_flagSpawns.get(index).getLastSpawn().getX(), _flagSpawns.get(index).getLastSpawn().getY(), _flagSpawns.get(index).getLastSpawn().getZ());
+            _flagSpawned.set(index,true);
         }
         catch(Exception e)
         {
@@ -1026,7 +1007,7 @@ public class CTF
                 }
                 catch (InterruptedException e)
                 {
-                    _log.warn("CTF Engine[posChecker::run()]: exception: " + e);
+                    _log.warn("CTF Engine[posChecker::run()]: exception: " + e.getMessage());
                 }
                 
                 if (_player == null)
