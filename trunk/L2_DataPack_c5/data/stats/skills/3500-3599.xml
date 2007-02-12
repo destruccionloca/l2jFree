@@ -1356,7 +1356,6 @@ Description(s):
   </for>
 </skill>
 <skill id="3576" levels="1" name="Special Ability: MP Regeneration">
-<!-- Possibly Mul? -->
 <!-- Done by SarutrA - SqueezeD -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
