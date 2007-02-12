@@ -3964,7 +3964,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (target == null) return;
         if (!(target instanceof L2PlayableInstance)) return;
-        if (_inEventCTF) return;
+        if (_inEventCTF || _inEventTvT || _inEventVIP) return;
 
         L2PcInstance targetPlayer = null;
         if (target instanceof L2PcInstance) targetPlayer = (L2PcInstance) target;
@@ -4042,7 +4042,7 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 if (Config.KARMA_AWARD_PK_KILL)
                 {
-                    if (!_inEventTvT && !_inEventVIP)
+                    if (!_inEventTvT && !_inEventCTF && !_inEventVIP)
                         increasePvpKills();
                     if (getStatTrack() != null)
                         getStatTrack().increasePvPKills();                        
@@ -4051,7 +4051,7 @@ public final class L2PcInstance extends L2PlayableInstance
             else
             // Target player doesn't have karma
             {
-                if (!_inEventTvT && !_inEventVIP)
+                if (!_inEventTvT && !_inEventCTF && !_inEventVIP)
                     increasePkKillsAndKarma(targetPlayer.getLevel());
                 if (getStatTrack() != null)
                     getStatTrack().increasePvPKills();                

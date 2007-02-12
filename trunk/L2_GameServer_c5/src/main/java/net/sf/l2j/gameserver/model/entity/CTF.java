@@ -664,8 +664,8 @@ public class CTF
         
         if (_flagSpawned.get(index))
         {
-            _flagSpawns.get(index).getLastSpawn().deleteMe();
             _flagSpawns.get(index).stopRespawn();
+            _flagSpawns.get(index).getLastSpawn().deleteMe();
             SpawnTable.getInstance().deleteSpawn(_flagSpawns.get(index), true);
             _flagSpawned.set(index,false);
         }
@@ -695,6 +695,7 @@ public class CTF
             _flagSpawns.get(index).init();
             _flagSpawns.get(index).getLastSpawn().setCurrentHp(999999999);
             _flagSpawns.get(index).getLastSpawn().setTitle(teamName);
+            _flagSpawns.get(index).getLastSpawn()._isEventMobCTF = false;
             _flagSpawns.get(index).getLastSpawn().decayMe();
             _flagSpawns.get(index).getLastSpawn().spawnMe(_flagSpawns.get(index).getLastSpawn().getX(), _flagSpawns.get(index).getLastSpawn().getY(), _flagSpawns.get(index).getLastSpawn().getZ());
             _flagSpawned.set(index,true);
