@@ -3715,7 +3715,7 @@ public final class L2PcInstance extends L2PlayableInstance
                        }
                }
                
-               if (((L2PcInstance)killer)._inEventCTF && _inEventCTF)
+               else if (((L2PcInstance)killer)._inEventCTF && _inEventCTF)
                {
                    if (CTF._teleport || CTF._started)
                    {
@@ -3742,7 +3742,7 @@ public final class L2PcInstance extends L2PlayableInstance
                    }
                }
                
-               if (_inEventVIP) 
+               else if (_inEventVIP) 
                {
                     if (VIP._started) {
                         if (_isTheVIP && ((L2PcInstance)killer)._inEventVIP)

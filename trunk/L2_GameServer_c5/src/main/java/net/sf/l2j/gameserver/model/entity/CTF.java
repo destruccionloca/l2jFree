@@ -1060,15 +1060,36 @@ public class CTF
         System.out.println("Name: " + _eventName);
         System.out.println("Desc: " + _eventDesc);
         System.out.println("Join location: " + _joiningLocationName);
+        System.out.println("NPC Id: " + _npcId);
+        System.out.println("NPC X: " + _npcX);
+        System.out.println("NPC Y: " + _npcY);
+        System.out.println("NPC Z: " + _npcZ);
+        System.out.println("Reward Id: " + _rewardId);
+        System.out.println("Reward Amount: " + _rewardAmount);        
         System.out.println("Min lvl: " + _minlvl);
         System.out.println("Max lvl: " + _maxlvl);
+        System.out.println("Total Teams: " + _teams.size());
         System.out.println("");
         System.out.println("##########################");
         System.out.println("# _teams(Vector<String>) #");
         System.out.println("##########################");
         
         for (String team : _teams)
-            System.out.println(team);
+        {
+            int index = _teams.indexOf(team);            
+            if (index == -1)
+                return;
+            System.out.println("");
+            System.out.println("Team Id: " + index);
+            System.out.println("Team Name: " + team);
+            System.out.println("Flag Id: " + _flagIds.get(index));
+            System.out.println("Flag X: " + _flagsX.get(index));
+            System.out.println("Flag Y: " + _flagsY.get(index));
+            System.out.println("Flag Z: " + _flagsZ.get(index));
+            System.out.println("Team Collor: " + _teamColors.get(index));
+            System.out.println("");
+            System.out.println("##########################");
+        }
         
         System.out.println("");
         System.out.println("#########################################");
@@ -1121,6 +1142,7 @@ public class CTF
         _teamPlayersCount = new Vector<Integer>();
         _teamPointsCount = new Vector<Integer>();
         _teamColors = new Vector<Integer>();
+        _flagIds = new Vector<Integer>();
         _flagsX = new Vector<Integer>();
         _flagsY = new Vector<Integer>();
         _flagsZ = new Vector<Integer>();
@@ -1128,6 +1150,7 @@ public class CTF
         _teleport = false;
         _started = false;
         _sitForced = false;
+        
         
         java.sql.Connection con = null;
         try
