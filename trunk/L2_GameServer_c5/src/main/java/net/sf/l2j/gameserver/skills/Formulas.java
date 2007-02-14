@@ -1863,29 +1863,34 @@ public final class Formulas
 
     public int calculateEnchantSkillSuccessRate(int skillLvl, int playerLvl)
     {
-       // source: forums
-       // +5 82 % at lvl 77
-       // +3 88 % at lvl 77
-       // lvl 76 pretty safe up to +3 (+4 40 %)
-       // lvl 77 pretty safe up to +6 (+7 ~40 %)
-       // lvl 78 pretty safe up to +8 
-       
-       if (skillLvl > 140) skillLvl = skillLvl - 140;
-       else skillLvl = skillLvl - 100;
-       if (skillLvl < 1) return 0;
-       if (playerLvl < 75) return 0;
-
-       // 78, 79 and 80 lvl have the same successRate
-       if(playerLvl > 78) playerLvl = 78;
-
-       // linear approx, although the formula isn't linear
-       int successRate = 75 - skillLvl * 7;   
-       successRate += (playerLvl - 75) * 20;          
-   
-       if (successRate < 1) successRate = 1;
-       if (successRate > 100) successRate = 100;
+        int successRate=0;
+        if (playerLvl>=78 && skillLvl==1) successRate=97;
+        else if (playerLvl>=78 && skillLvl==2) successRate=95;
+        else if (playerLvl>=78 && skillLvl==3) successRate=93;
+        else if ((playerLvl>=78 && skillLvl==4) || (playerLvl==77 && skillLvl==1)) successRate=92;
+        else if ((playerLvl>=78 && skillLvl==5) || (playerLvl==77 && skillLvl==2)) successRate=90;
+        else if ((playerLvl>=78 && skillLvl==6) || (playerLvl==77 && skillLvl==3)) successRate=88;
+        else if ((playerLvl>=78 && skillLvl==7) || (playerLvl==77 && skillLvl==4)) successRate=82;
+        else if ((playerLvl>=78 && skillLvl==8) || (playerLvl==77 && skillLvl==5)) successRate=80;
+        else if ((playerLvl>=78 && skillLvl==9) || (playerLvl==77 && skillLvl==6)) successRate=78;
+        else if ((playerLvl>=78 && skillLvl==10) || (playerLvl==77 && skillLvl==7)) successRate=40;
+        else if ((playerLvl>=78 && skillLvl==11) || (playerLvl==77 && skillLvl==8)) successRate=30;
+        else if ((playerLvl>=78 && skillLvl==12) || (playerLvl==77 && skillLvl==9)) successRate=20;
+        else if ((playerLvl>=78 && skillLvl==13) || (playerLvl==77 && skillLvl==10)) successRate=14;
+        else if ((playerLvl>=78 && skillLvl==14) || (playerLvl==77 && skillLvl==11)) successRate=10;
+        else if ((playerLvl>=78 && skillLvl==15) || (playerLvl==77 && skillLvl==12)) successRate=6;
+        else if ((playerLvl>=78 && skillLvl>15 && skillLvl<19) || (playerLvl==77 && skillLvl>12 && skillLvl<16)) successRate=2;
+        else if ((playerLvl>=78 && skillLvl>18 && skillLvl<30) || (playerLvl==77 && skillLvl>15 && skillLvl<26)) successRate=1;
+        else if (playerLvl==76 && skillLvl==1) successRate=82;
+        else if (playerLvl==76 && skillLvl==2) successRate=80;
+        else if (playerLvl==76 && skillLvl==3) successRate=78;
+        else if (playerLvl==76 && skillLvl==4) successRate=40;
+        else if (playerLvl==76 && skillLvl==5) successRate=30;
+        else if (playerLvl==76 && skillLvl==6) successRate=20;
+        else if (playerLvl==76 && skillLvl==7) successRate=14;
+        else if (playerLvl==76 && skillLvl==8) successRate=10;
            
-       return successRate;
+        return successRate;
     }
     
     public double calcManaDam(L2Character attacker, L2Character target, L2Skill skill,
