@@ -1078,13 +1078,24 @@
   </for> 
 </skill>
 <skill id="1354" levels="1" name="Arcane Protection">
-  <!-- RESIST CANCEL BUFF BY STACK TYPE - NOT IMPLEMENTED -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="mpInitialConsume" val="14"/>
+  <set name="mpConsume" val="56"/> 
+  <set name="power" val="0.0"/> 
+  <set name="target" val="TARGET_ONE"/> 
+  <set name="hitTime" val="4000"/> 
+  <set name="reuseDelay" val="10000"/> 
+  <set name="skillTime" val="4000"/> 
+  <set name="skillType" val="BUFF"/> 
+  <set name="operateType" val="OP_ACTIVE"/> 
+  <set name="buffDuration" val="1200000"/> 
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/> 
   <!-- Cancel resistance +30%, Debuff resistance +20% -->
   <for>
+	<effect count="1" name="Buff" time="1200" val="0"> 
+         <add stat="cancel" val="30" order="0x40"/> 
+         <!-- Debuff resistance +20% still not added -->
+    </effect>
   </for>
 </skill>
 <skill id="1355" levels="1" name="Prophecy of Water">
