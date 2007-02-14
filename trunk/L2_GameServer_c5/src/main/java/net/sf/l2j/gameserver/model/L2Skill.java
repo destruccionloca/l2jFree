@@ -303,7 +303,7 @@ public abstract class L2Skill
     public final static int STAT_SHIELDDEF = 335;      // sDef
     public final static int STAT_MP_CONSUME_RATE = 336;      // Rate of mp consume per skill use
     public final static int STAT_HP_CONSUME_RATE = 337;      // Rate of hp consume per skill use
-    
+        
     //COMBAT DAMAGE MODIFIER SKILLS...DETECT WEAKNESS AND WEAKNESS/STRENGTH
     public final static int COMBAT_MOD_ANIMAL = 200;
     public final static int COMBAT_MOD_BEAST    = 201;

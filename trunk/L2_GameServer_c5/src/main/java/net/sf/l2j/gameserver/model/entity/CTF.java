@@ -397,7 +397,7 @@ public class CTF
         for (L2PcInstance player : _players)
         {
             if (player != null)
-                player._posCheckerCTF = ThreadPoolManager.getInstance().scheduleGeneral(new posChecker(player), 0);
+                player._posCheckerCTF = ThreadPoolManager.getInstance().scheduleGeneral(new posChecker(player), 10);
         }
 
         Announcements.getInstance().announceToAll(_eventName + "(CTF): Started. Go to capture the flags!");
@@ -890,7 +890,7 @@ public class CTF
                 if (_started)
                 {
                     player.teleToLocation(_flagsX.get(_teams.indexOf(player._teamNameCTF)), _flagsY.get(_teams.indexOf(player._teamNameCTF)), _flagsZ.get(_teams.indexOf(player._teamNameCTF)), false);
-                    player._posCheckerCTF = ThreadPoolManager.getInstance().scheduleGeneral(new posChecker(player), 0);
+                    player._posCheckerCTF = ThreadPoolManager.getInstance().scheduleGeneral(new posChecker(player), 10);
                 }
             }
         }

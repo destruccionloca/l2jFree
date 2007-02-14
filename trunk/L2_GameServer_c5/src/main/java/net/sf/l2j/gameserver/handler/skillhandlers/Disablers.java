@@ -522,33 +522,9 @@ public class Disablers implements ISkillHandler
     case NEGATE:
     case CANCEL:
   	{
-      if (skill.getId() == 1056 && target != activeChar) //can't cancel your self
+      if (skill.getId() == 1056 || skill.getId() == 342 && target != activeChar) //can't cancel your self
       {
-      /*
-         L2Effect[] effects = target.getAllEffects();
-            for (L2Effect e : effects)
-  	         {
-                if (e.getSkill().getSkillType() == SkillType.BUFF
-                        || e.getSkill().getSkillType() == SkillType.REFLECT
-                        || e.getSkill().getSkillType() == SkillType.HEAL_PERCENT
-                        || e.getSkill().getSkillType() != SkillType.STUN // CANCEL can remove only buffs no stun
-                        || e.getSkill().getSkillType() != SkillType.DEBUFF // CANCEL can remove only buffs no debuff
-                        || e.getSkill().getSkillType() != SkillType.SLEEP // CANCEL can remove only buffs no sleep
-                        && e.getSkill().getId() != 4082 //Cannot cancel skills 4082, 4215, 4515 , 110, 111
-                        && e.getSkill().getId() != 4215
-                        && e.getSkill().getId() != 4515
-                        && e.getSkill().getId() != 110
-                        && e.getSkill().getId() != 111
-                        && Rnd.get(100) <= skill.getLandingPercent()) //landing percent on DP
-                    e.exit();
-             }
-					break;
-        }*/
-          int lvlmodifier= 52+skill.getMagicLevel()*2;
-          if(skill.getMagicLevel()==12) lvlmodifier = (Experience.MAX_LEVEL - 1);
-          int landrate = skill.getLandingPercent();
-          if((target.getLevel() - lvlmodifier)>0) landrate = 90-4*(target.getLevel()-lvlmodifier);
-          if(Rnd.get(100) < landrate)
+          if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, sps, bss))    
           {
               L2Effect[] effects = target.getAllEffects();
               int maxfive = 5;
@@ -563,18 +539,18 @@ public class Disablers implements ISkillHandler
                       if(e.getSkill().getSkillType() != SkillType.BUFF) e.exit(); //sleep, slow, surrenders etc
                       else
                       {
-                          int rate = 100;
+                          int skillrate = 100;
                           int level = e.getLevel();
-                          if (level > 0) rate = Integer.valueOf(150/(1 + level));
-                          if (rate > 95) rate = 95;
-                          else if (rate < 5) rate = 5;
-                          if(Rnd.get(100) < rate) {
+                          if (level > 0) skillrate = Integer.valueOf(200/(1 + level));
+                          if (skillrate > 95) skillrate = 95;
+                          else if (skillrate < 5) skillrate = 5;
+                          if(Rnd.get(100) < skillrate) {
                               e.exit();
-                              maxfive--;
-                              if(maxfive == 0) break;
+                              maxfive--;                              
                           }
                       }
                   }
+                  if(maxfive == 0) break;
               }
           } else
           {

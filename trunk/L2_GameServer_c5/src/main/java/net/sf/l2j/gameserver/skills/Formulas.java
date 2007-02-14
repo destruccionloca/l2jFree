@@ -1528,6 +1528,26 @@ public final class Formulas
                 rate = value;
                 //_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
                 break;
+            case CANCEL:
+                mAtk = player.getMAtk(target, skill);
+                mDef = target.getMDef(player, skill);
+                value = 5000 + (int) (5000 * ((float) skill.getLevel() / maxLevel));
+                mDef = target.calcStat(Stats.ATTACK_CANCEL, mDef, target, null);
+                if (mDef > 0 && mAtk > 0) value *= 0.6 * mAtk / mDef;
+                modifier = 20 * target.getWIT() / 3;
+                if (modifier > 0) value /= modifier;
+                value *= ssmodifier;
+                value /= 100;
+                if (!(target instanceof L2RaidBossInstance))
+                {
+                    //min success
+                    if (value < 45) value = 45;
+                    //max success
+                    if (value > 90) value = 90;
+                }
+                rate = value;
+                //_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
+                break;
             case ROOT:
                 mAtk = player.getMAtk(target, skill);
                 mDef = target.getMDef(player, skill);

@@ -485,7 +485,10 @@ public class TvT
                         player.sitDown();
                 }
                 else
-                    player.standUp();
+                {
+                    if (player.isSitting())
+                        player.standUp();
+                }
             }
         }
         for (L2PcInstance player : _players)

@@ -3686,14 +3686,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (killer != null)
         {
             L2PcInstance pk = null;
-            if (killer instanceof L2PcInstance)
-                pk = (L2PcInstance) killer;
-            
-            if (atEvent && pk != null)
-            {
-                pk.kills.add(getName());
-            }
-            
+
             if (killer instanceof L2PcInstance)
             {
                if (((L2PcInstance)killer)._inEventTvT && _inEventTvT)
@@ -3766,6 +3759,13 @@ public final class L2PcInstance extends L2PlayableInstance
                         }
                     }
                }
+               else
+                   pk = (L2PcInstance) killer;
+            }
+
+            if (atEvent && pk != null)
+            {
+                pk.kills.add(getName());
             }
             if (!ArenaManager.getInstance().checkIfInZone(this) && !JailManager.getInstance().checkIfInZone(this))
             {
@@ -3964,7 +3964,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (target == null) return;
         if (!(target instanceof L2PlayableInstance)) return;
-        if (_inEventCTF || _inEventTvT || _inEventVIP) return;
+      /*  if (_inEventCTF || _inEventTvT || _inEventVIP) return;*/
 
         L2PcInstance targetPlayer = null;
         if (target instanceof L2PcInstance) targetPlayer = (L2PcInstance) target;
