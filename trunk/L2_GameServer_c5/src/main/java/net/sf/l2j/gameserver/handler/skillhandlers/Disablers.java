@@ -522,7 +522,7 @@ public class Disablers implements ISkillHandler
     case NEGATE:
     case CANCEL:
   	{
-      if (skill.getId() == 1056 || skill.getId() == 342 && target != activeChar) //can't cancel your self
+      if(skill.getId() == 1056 || skill.getId() == 342 && target != activeChar) //can't cancel your self
       {
           if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, sps, bss))    
           {
@@ -536,8 +536,7 @@ public class Disablers implements ISkillHandler
                           && e.getSkill().getId() != 110
                           && e.getSkill().getId() != 111)
                   {
-                      if(e.getSkill().getSkillType() != SkillType.BUFF) e.exit(); //sleep, slow, surrenders etc
-                      else
+                      if(e.getSkill().getSkillType() == SkillType.BUFF)
                       {
                           int skillrate = 100;
                           int level = e.getLevel();
