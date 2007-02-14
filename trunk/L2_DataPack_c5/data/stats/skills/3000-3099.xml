@@ -1240,7 +1240,7 @@
   1: Increases MP consumption rate and M. Atk. Increases damage inflicted during PvP.
   2: Increases MP consumption rate and M. Atk. Increases damage inflicted during PvP.
 -->
-  <table name="#val"> 99 112 </table>
+  <table name="#val"> 99 112 1 1 1 1 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
