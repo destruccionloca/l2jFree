@@ -253,12 +253,11 @@ public class SkillTreeTable
                 int minSkillLvl = skilltree3.getInt("min_skill_lvl");
                 int sp = skilltree3.getInt("sp");
                 int exp = skilltree3.getInt("exp");
-                int rate = skilltree3.getInt("success_rate");
                                 
                 if (prevSkillId != id)
                     prevSkillId = id;
             
-                L2EnchantSkillLearn skill = new L2EnchantSkillLearn(id, lvl, minSkillLvl, baseLvl, name, sp, exp, rate);
+                L2EnchantSkillLearn skill = new L2EnchantSkillLearn(id, lvl, minSkillLvl, baseLvl, name, sp, exp);
                 
                 _enchantSkillTrees.add(skill);                    
             }            
@@ -644,25 +643,5 @@ public class SkillTreeTable
             skillCost = enchantSkillLearn.getExp();
         }
         return skillCost;
-    }
-    public int getSuccessRate(L2PcInstance player, L2Skill skill)
-    {
-        int rate = 0;
-        L2EnchantSkillLearn[] enchantSkillLearnList = getAvailableEnchantSkills(player);
-        
-        for (L2EnchantSkillLearn enchantSkillLearn : enchantSkillLearnList)
-        {
-            if (enchantSkillLearn.getId() != skill.getId())
-                continue;
-            
-            if (enchantSkillLearn.getLevel() != skill.getLevel())
-                continue;
-            
-            if (76 > player.getLevel())
-                continue;
-            
-            rate = enchantSkillLearn.getRate();
-        }
-        return rate;
-    }
+    }    
 }

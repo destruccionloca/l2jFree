@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ExEnchantSkillInfo;
+import net.sf.l2j.gameserver.skills.Formulas;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -107,7 +108,7 @@ public class RequestExEnchantSkillInfo extends ClientBasePacket
             
             int requiredSp = SkillTreeTable.getInstance().getSkillSpCost(activeChar, skill);
             int requiredExp = SkillTreeTable.getInstance().getSkillExpCost(activeChar, skill);
-            int rate = SkillTreeTable.getInstance().getSuccessRate(activeChar, skill);
+            int rate = Formulas.getInstance().calculateEnchantSkillSuccessRate(skill.getLevel(), activeChar.getLevel());
             ExEnchantSkillInfo asi = new ExEnchantSkillInfo(skill.getId(), skill.getLevel(), requiredSp, requiredExp, rate);
             
             if(Config.SP_BOOK_NEEDED && (skill.getLevel() == 101 || skill.getLevel() == 141))

@@ -115,7 +115,7 @@ public class RequestExEnchantSkill extends ClientBasePacket
                 _requiredSp = s.getSpCost();
                 _requiredExp = s.getExp();
                 _rate = Formulas.getInstance().calculateEnchantSkillSuccessRate(s.getLevel(), player.getLevel());
-//              get skill level it will be reverted to if enchant fails
+                // get skill level it will be reverted to if enchant fails
                 _baseLvl = s.getBaseLevel();
             }
             
