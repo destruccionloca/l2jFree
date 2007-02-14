@@ -1863,32 +1863,34 @@ public final class Formulas
 
     public int calculateEnchantSkillSuccessRate(int skillLvl, int playerLvl)
     {
-        int successRate=0;
-        if (playerLvl>=78 && skillLvl==1) successRate=97;
-        else if (playerLvl>=78 && skillLvl==2) successRate=95;
-        else if (playerLvl>=78 && skillLvl==3) successRate=93;
-        else if ((playerLvl>=78 && skillLvl==4) || (playerLvl==77 && skillLvl==1)) successRate=92;
-        else if ((playerLvl>=78 && skillLvl==5) || (playerLvl==77 && skillLvl==2)) successRate=90;
-        else if ((playerLvl>=78 && skillLvl==6) || (playerLvl==77 && skillLvl==3)) successRate=88;
-        else if ((playerLvl>=78 && skillLvl==7) || (playerLvl==77 && skillLvl==4)) successRate=82;
-        else if ((playerLvl>=78 && skillLvl==8) || (playerLvl==77 && skillLvl==5)) successRate=80;
-        else if ((playerLvl>=78 && skillLvl==9) || (playerLvl==77 && skillLvl==6)) successRate=78;
-        else if ((playerLvl>=78 && skillLvl==10) || (playerLvl==77 && skillLvl==7)) successRate=40;
-        else if ((playerLvl>=78 && skillLvl==11) || (playerLvl==77 && skillLvl==8)) successRate=30;
-        else if ((playerLvl>=78 && skillLvl==12) || (playerLvl==77 && skillLvl==9)) successRate=20;
-        else if ((playerLvl>=78 && skillLvl==13) || (playerLvl==77 && skillLvl==10)) successRate=14;
-        else if ((playerLvl>=78 && skillLvl==14) || (playerLvl==77 && skillLvl==11)) successRate=10;
-        else if ((playerLvl>=78 && skillLvl==15) || (playerLvl==77 && skillLvl==12)) successRate=6;
-        else if ((playerLvl>=78 && skillLvl>15 && skillLvl<19) || (playerLvl==77 && skillLvl>12 && skillLvl<16)) successRate=2;
-        else if ((playerLvl>=78 && skillLvl>18 && skillLvl<30) || (playerLvl==77 && skillLvl>15 && skillLvl<26)) successRate=1;
-        else if (playerLvl==76 && skillLvl==1) successRate=82;
-        else if (playerLvl==76 && skillLvl==2) successRate=80;
-        else if (playerLvl==76 && skillLvl==3) successRate=78;
-        else if (playerLvl==76 && skillLvl==4) successRate=40;
-        else if (playerLvl==76 && skillLvl==5) successRate=30;
-        else if (playerLvl==76 && skillLvl==6) successRate=20;
-        else if (playerLvl==76 && skillLvl==7) successRate=14;
-        else if (playerLvl==76 && skillLvl==8) successRate=10;
+        int successRate=0,_skillLvl;
+        if(skillLvl>140) _skillLvl=skillLvl-140;
+        else _skillLvl=skillLvl-100;
+        if (playerLvl>=78 && _skillLvl==1) successRate=97;
+        else if (playerLvl>=78 && _skillLvl==2) successRate=95;
+        else if (playerLvl>=78 && _skillLvl==3) successRate=93;
+        else if ((playerLvl>=78 && _skillLvl==4) || (playerLvl==77 && _skillLvl==1)) successRate=92;
+        else if ((playerLvl>=78 && _skillLvl==5) || (playerLvl==77 && _skillLvl==2)) successRate=90;
+        else if ((playerLvl>=78 && _skillLvl==6) || (playerLvl==77 && _skillLvl==3)) successRate=88;
+        else if ((playerLvl>=78 && _skillLvl==7) || (playerLvl==77 && _skillLvl==4)) successRate=82;
+        else if ((playerLvl>=78 && _skillLvl==8) || (playerLvl==77 && _skillLvl==5)) successRate=80;
+        else if ((playerLvl>=78 && _skillLvl==9) || (playerLvl==77 && _skillLvl==6)) successRate=78;
+        else if ((playerLvl>=78 && _skillLvl==10) || (playerLvl==77 && _skillLvl==7)) successRate=40;
+        else if ((playerLvl>=78 && _skillLvl==11) || (playerLvl==77 && _skillLvl==8)) successRate=30;
+        else if ((playerLvl>=78 && _skillLvl==12) || (playerLvl==77 && _skillLvl==9)) successRate=20;
+        else if ((playerLvl>=78 && _skillLvl==13) || (playerLvl==77 && _skillLvl==10)) successRate=14;
+        else if ((playerLvl>=78 && _skillLvl==14) || (playerLvl==77 && _skillLvl==11)) successRate=10;
+        else if ((playerLvl>=78 && _skillLvl==15) || (playerLvl==77 && _skillLvl==12)) successRate=6;
+        else if ((playerLvl>=78 && _skillLvl>15 && _skillLvl<19) || (playerLvl==77 && _skillLvl>12 && _skillLvl<16)) successRate=2;
+        else if ((playerLvl>=78 && _skillLvl>18 && _skillLvl<30) || (playerLvl==77 && _skillLvl>15 && _skillLvl<26)) successRate=1;
+        else if (playerLvl==76 && _skillLvl==1) successRate=82;
+        else if (playerLvl==76 && _skillLvl==2) successRate=80;
+        else if (playerLvl==76 && _skillLvl==3) successRate=78;
+        else if (playerLvl==76 && _skillLvl==4) successRate=40;
+        else if (playerLvl==76 && _skillLvl==5) successRate=30;
+        else if (playerLvl==76 && _skillLvl==6) successRate=20;
+        else if (playerLvl==76 && _skillLvl==7) successRate=14;
+        else if (playerLvl==76 && _skillLvl==8) successRate=10;
            
         return successRate;
     }
