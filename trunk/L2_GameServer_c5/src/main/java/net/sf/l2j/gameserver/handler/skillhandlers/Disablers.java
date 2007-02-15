@@ -572,30 +572,50 @@ public class Disablers implements ISkillHandler
       
                     else if (skill.getId() == 1344 || skill.getId() == 1350) //warrior bane
                     {
-                        L2Effect[] effects = target.getAllEffects();
-                        for (L2Effect e : effects)
+                        if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, sps, bss))    
                         {
-                            if (e.getSkill().getSkillType() == SkillType.BUFF //remove attck.speed and speed buffs
-                                    && ((e.getSkill().getId() == 268  
-                                            || e.getSkill().getId() == 1204 || e.getSkill().getId() == 298 || e.getSkill().getId() == 1282
-                                            || e.getSkill().getId() == 230 || e.getSkill().getId() == 1086 || e.getSkill().getId() == 1062
-                                            || e.getSkill().getId() == 1356 || e.getSkill().getId() == 275|| e.getSkill().getId() == 1261
-                                            || e.getSkill().getId() == 1251 || e.getSkill().getId() == 1361)))
-                                e.exit(); 
+                            L2Effect[] effects = target.getAllEffects();
+                            for (L2Effect e : effects)
+                            {
+                                if (e.getSkill().getSkillType() == SkillType.BUFF //remove attck.speed and speed buffs
+                                        && ((e.getSkill().getId() == 268  
+                                                || e.getSkill().getId() == 1204 || e.getSkill().getId() == 298 || e.getSkill().getId() == 1282
+                                                || e.getSkill().getId() == 230 || e.getSkill().getId() == 1086 || e.getSkill().getId() == 1062
+                                                || e.getSkill().getId() == 1356 || e.getSkill().getId() == 275|| e.getSkill().getId() == 1261
+                                                || e.getSkill().getId() == 1251 || e.getSkill().getId() == 1361)))
+                                    e.exit(); 
+                            }
+                        }
+                        else
+                        {
+                            SystemMessage sm = new SystemMessage(614);
+                            sm.addString(skill.getName() + " failed."); 
+                            if (activeChar instanceof L2PcInstance)
+                                activeChar.sendPacket(sm);
                         }
                         break;
                     }
                     else if (skill.getId() == 1345 || skill.getId() == 1351) //mage bane m.attk _ c.speed
                     {
-                        L2Effect[] effects = target.getAllEffects();
-                        for (L2Effect e : effects)
+                        if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, sps, bss))    
                         {
-                            if (e.getSkill().getSkillType() == SkillType.BUFF 
-                                    &&((e.getSkill().getId() == 273 || e.getSkill().getId() == 1059 
-                                            || e.getSkill().getId() == 1365  || e.getSkill().getId() == 1062 || e.getSkill().getId() == 1261 
-                                            || e.getSkill().getId() == 1361 || e.getSkill().getId() == 1355 || e.getSkill().getId() == 276 
-                                            || e.getSkill().getId() == 1085  || e.getSkill().getId() == 1004  || e.getSkill().getId() == 1002)))
-                                e.exit(); 
+                            L2Effect[] effects = target.getAllEffects();
+                            for (L2Effect e : effects)
+                            {
+                                if (e.getSkill().getSkillType() == SkillType.BUFF 
+                                        &&((e.getSkill().getId() == 273 || e.getSkill().getId() == 1059 
+                                                || e.getSkill().getId() == 1365  || e.getSkill().getId() == 1062 || e.getSkill().getId() == 1261 
+                                                || e.getSkill().getId() == 1361 || e.getSkill().getId() == 1355 || e.getSkill().getId() == 276 
+                                                || e.getSkill().getId() == 1085  || e.getSkill().getId() == 1004  || e.getSkill().getId() == 1002)))
+                                    e.exit(); 
+                            }
+                        }
+                        else
+                        {
+                            SystemMessage sm = new SystemMessage(614);
+                            sm.addString(skill.getName() + " failed."); 
+                            if (activeChar instanceof L2PcInstance)
+                                activeChar.sendPacket(sm);
                         }
                         break;
                     }
