@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.skills;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.SkillTable;
@@ -1280,9 +1281,17 @@ public final class Formulas
     }
     
     /** Returns true in case of critical hit */
-    public final boolean calcCrit(double rate)
+    public final boolean calcCrit(L2Character attacker, L2Character target, double rate)
     {
         int critHit = Rnd.get(1000);
+        if(attacker instanceof L2PcInstance)
+        {
+            if(attacker.isBehindTarget())
+                critHit = Rnd.get(700);
+            else if(!attacker.isInFront(target, 60) && !attacker.isBehindTarget())
+                critHit = Rnd.get(800);
+            critHit = Rnd.get(900);
+        }
         return rate > critHit;
     }
     
@@ -1370,10 +1379,25 @@ public final class Formulas
         int acc_attacker;
         int evas_target;
         acc_attacker = attacker.getAccuracy();
+        if(attacker instanceof L2PcInstance)
+        {
+            if(attacker.isBehindTarget())
+                acc_attacker +=10;
+            else if(!attacker.isInFront(target, 60) && !attacker.isBehindTarget())
+                acc_attacker +=5;
+            if(attacker.getZ()-target.getZ() >= 32)
+                acc_attacker +=3;
+            else if(attacker.getZ()-target.getZ() <= -32)
+                acc_attacker -=3;
+            if(GameTimeController.getInstance().isNowNight())
+                acc_attacker -=10;
+        }
         evas_target = target.getEvasionRate(attacker);
-        int d = 85 + acc_attacker - evas_target;
-        return d < Rnd.get(100);
-    }
+        int d = (int) (10 * Math.pow(1.1, evas_target - acc_attacker));
+        if(d > 75) d = 75; // max chance
+        if(d < 5) d = 5;  // min chance
+        return Rnd.get(100) > (100 - d);
+	}
 
     /** Returns true if shield defence successfull */
     public boolean calcShldUse(L2Character attacker, L2Character target) 
@@ -1657,28 +1681,29 @@ public final class Formulas
         }
     }
     
-    public int calcSkillStatModifier(SkillType type, L2Character target)
+    public int calcSkillStatModifier(SkillType type, L2Character attacker, L2Character target)
     {
         if (type == null) return 0;
         switch (type)
         {
             case STUN:
+                return (int) ((Math.sqrt(CONbonus[target.getCON()]) * 100 - 100) - (Math.sqrt(STRbonus[attacker.getSTR()]) * 100 - 100));
+            case POISON:
                 return (int) (Math.sqrt(CONbonus[target.getCON()]) * 100 - 100);
             case ROOT:
-                return (int) (Math.sqrt(DEXbonus[target.getDEX()]) * 100 - 100);
             case SLEEP:
-                return (int) (Math.sqrt(WITbonus[target.getWIT()]) * 100 - 100);
             case MUTE:
             case CONFUSION:
             case PARALYZE:
+            case CANCEL:
+            case DEBUFF:
                 return (int) (Math.sqrt(MENbonus[target.getMEN()]) * 100 - 100);
             default:
                 return 0;
         }
     }
  
-    public boolean calcSkillSuccess(L2Character attacker, L2Character target, L2Skill skill, boolean ss,
-                                    boolean sps, boolean bss)
+    public boolean calcSkillSuccess(L2Character attacker, L2Character target, L2Skill skill, boolean ss, boolean sps, boolean bss)
     {
         if (Config.ALT_GAME_SKILL_FORMULAS.equalsIgnoreCase("alt")
             || Config.ALT_GAME_SKILL_FORMULAS.equalsIgnoreCase("true"))
@@ -1732,7 +1757,7 @@ public final class Formulas
         // int lvlmodifier = (skill.getMagicLevel() - target.getLevel()) * lvlDepend;
         int lvlmodifier = ((skill.getMagicLevel() > 0 ? skill.getMagicLevel() : attacker.getLevel()) - target.getLevel())
             * lvlDepend;
-        int statmodifier = -calcSkillStatModifier(type, target);
+        int statmodifier = -calcSkillStatModifier(type, attacker, target);
         int resmodifier = -calcSkillResistance(type, target);
         
         int ssmodifier = 100;
@@ -1768,7 +1793,7 @@ public final class Formulas
                 + ((int) (Math.pow((double) attacker.getMAtk(target, skill)
                     / target.getMDef(attacker, skill), 0.2) * 100) - 100) + ", " + ssmodifier + " ==> "
                 + rate);
-            return (Rnd.get(100) < rate);
+            return (Rnd.get(100) <= rate);
     }
     
     public boolean calcMagicSuccess(L2Character attacker, L2Character target, L2Skill skill)
