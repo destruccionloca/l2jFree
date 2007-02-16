@@ -38,8 +38,7 @@ public class AdminDMEngine implements IAdminCommandHandler {
                                            "admin_dm_name", "admin_dm_desc", "admin_dm_join_loc",
                                            "admin_dm_minlvl", "admin_dm_maxlvl",
                                            "admin_dm_npc", "admin_dm_npc_pos",
-                                           "admin_dm_reward", "admin_dm_reward_amount",
-                                           "admin_dm_team_add", "admin_dm_team_remove", "admin_dm_team_pos", "admin_dm_team_color",
+                                           "admin_dm_reward", "admin_dm_reward_amount", "admin_dm_spawnpos", "admin_dm_color",
                                            "admin_dm_join", "admin_dm_teleport", "admin_dm_start", "admin_dm_abort", "admin_dm_finish",
                                            "admin_dm_sit", "admin_dm_dump", "admin_dm_save", "admin_dm_load"};
  
@@ -53,36 +52,36 @@ public class AdminDMEngine implements IAdminCommandHandler {
             showMainPage(activeChar);
         else if (command.startsWith("admin_dm_name "))
         {
-            DM._eventName = command.substring(15);
+            DM._eventName = command.substring(14);
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_dm_desc "))
         {
-            DM._eventDesc = command.substring(15);
+            DM._eventDesc = command.substring(14);
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_dm_minlvl "))
         {
-            if (!DM.checkMinLevel(Integer.valueOf(command.substring(17))))
+            if (!DM.checkMinLevel(Integer.valueOf(command.substring(16))))
                 return false;
-            DM._minlvl = Integer.valueOf(command.substring(17));
+            DM._minlvl = Integer.valueOf(command.substring(16));
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_dm_maxlvl "))
         {
-            if (!DM.checkMaxLevel(Integer.valueOf(command.substring(17))))
+            if (!DM.checkMaxLevel(Integer.valueOf(command.substring(16))))
                 return false;
-            DM._maxlvl = Integer.valueOf(command.substring(17));
+            DM._maxlvl = Integer.valueOf(command.substring(16));
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_dm_join_loc "))
         {
-            DM._joiningLocationName = command.substring(19);
+            DM._joiningLocationName = command.substring(18);
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_dm_npc "))
         {
-            DM._npcId = Integer.valueOf(command.substring(14));
+            DM._npcId = Integer.valueOf(command.substring(13));
             showMainPage(activeChar);
         }
         else if (command.equals("admin_dm_npc_pos"))
@@ -92,48 +91,22 @@ public class AdminDMEngine implements IAdminCommandHandler {
         }
         else if (command.startsWith("admin_dm_reward "))
         {
-            DM._rewardId = Integer.valueOf(command.substring(17));
+            DM._rewardId = Integer.valueOf(command.substring(16));
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_dm_reward_amount "))
         {
-            DM._rewardAmount = Integer.valueOf(command.substring(24));
+            DM._rewardAmount = Integer.valueOf(command.substring(23));
             showMainPage(activeChar);
         }
-        else if (command.startsWith("admin_dm_team_add "))
+        else if (command.equals("admin_dm_spawnpos"))
         {
-            String teamName = command.substring(19);
-            
-            DM.addTeam(teamName);
+            DM.setPlayersPos(activeChar);
             showMainPage(activeChar);
         }
-        else if (command.startsWith("admin_dm_team_remove "))
+        else if (command.startsWith("admin_dm_color "))
         {
-            String teamName = command.substring(22);
-
-            DM.removeTeam(teamName);
-            showMainPage(activeChar);
-        }
-        else if (command.startsWith("admin_dm_team_pos "))
-        {
-            String teamName = command.substring(19);
-
-            DM.setTeamPos(teamName, activeChar);
-            showMainPage(activeChar);
-        }
-        else if (command.startsWith("admin_dm_team_color "))
-        {
-            String[] params;
-
-            params = command.split(" ");
-            
-            if (params.length != 3)
-            {
-                activeChar.sendMessage("Wrong usge: //dm_team_color <colorHex> <teamName>");
-                return false;
-            }
-
-            DM.setTeamColor(command.substring(params[0].length()+params[1].length()+2), Integer.decode("0x" + params[1]));
+            DM._playerColors = Integer.decode("0x" + command.substring(15));
             showMainPage(activeChar);
         }
         else if(command.equals("admin_dm_join"))
@@ -215,12 +188,9 @@ public class AdminDMEngine implements IAdminCommandHandler {
         replyMSG.append("<td width=\"100\"><button value=\"Reward\" action=\"bypass -h admin_dm_reward $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Reward Amount\" action=\"bypass -h admin_dm_reward_amount $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"Team Add\" action=\"bypass -h admin_dm_team_add $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Team Color\" action=\"bypass -h admin_dm_team_color $input1 $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Team Pos\" action=\"bypass -h admin_dm_team_pos $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("</tr></table><table><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"Team Remove\" action=\"bypass -h admin_dm_team_remove $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("</tr></table><br><table><tr>");
+        replyMSG.append("<td width=\"100\"><button value=\"DM Color\" action=\"bypass -h admin_dm_color $input1 $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"DM SpawnPos\" action=\"bypass -h admin_dm_spawnpos $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("</tr></table><table><br><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Join\" action=\"bypass -h admin_dm_join\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Teleport\" action=\"bypass -h admin_dm_teleport\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Start\" action=\"bypass -h admin_dm_start\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
@@ -243,40 +213,15 @@ public class AdminDMEngine implements IAdminCommandHandler {
         replyMSG.append("    ... reward Amount:&nbsp;<font color=\"00FF00\">" + DM._rewardAmount + "</font><br><br>");
         replyMSG.append("    ... Min lvl:&nbsp;<font color=\"00FF00\">" + DM._minlvl + "</font><br>");
         replyMSG.append("    ... Max lvl:&nbsp;<font color=\"00FF00\">" + DM._maxlvl + "</font><br><br>");
-        replyMSG.append("Current teams:<br1>");
-        replyMSG.append("<center><table border=\"0\">");
+        replyMSG.append("Current players:<br1>");
         
-        for (String team : DM._teams)
+        if (!DM._started)
         {
-            replyMSG.append("<tr><td width=\"100\"><font color=\"LEVEL\">" + team + "</font>");
-
-            if (Config.DM_EVEN_TEAMS.equals("NO") || Config.DM_EVEN_TEAMS.equals("BALANCE"))
-                replyMSG.append("&nbsp;(" + DM.teamPlayersCount(team) + " joined)");
-            else if (Config.DM_EVEN_TEAMS.equals("SHUFFLE"))
-            {
-                if (DM._teleport || DM._started)
-                    replyMSG.append("&nbsp;(" + DM.teamPlayersCount(team) + " in)");
-            }
-
-            replyMSG.append("</td></tr><tr><td>");
-            replyMSG.append(DM._teamColors.get(DM._teams.indexOf(team)));
-            replyMSG.append("</td></tr><tr><td>");
-            replyMSG.append(DM._teamsX.get(DM._teams.indexOf(team)) + ", " + DM._teamsY.get(DM._teams.indexOf(team)) + ", " + DM._teamsZ.get(DM._teams.indexOf(team)));
-            replyMSG.append("</td></tr><tr><td width=\"60\"><button value=\"Remove\" action=\"bypass -h admin_dm_team_remove " + team + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
+            replyMSG.append("<br1>");
+            replyMSG.append(DM._players.size() + " players participating.");
+            replyMSG.append("<br><br>");
         }
         
-        replyMSG.append("</table></center>");
-        
-        if (Config.DM_EVEN_TEAMS.equals("SHUFFLE"))
-        {
-            if (!DM._started)
-            {
-                replyMSG.append("<br1>");
-                replyMSG.append(DM._playersShuffle.size() + " players participating. Waiting to shuffle in teams(done on teleport)!");
-                replyMSG.append("<br><br>");
-            }
-        }
-
         replyMSG.append("</body></html>");
         adminReply.setHtml(replyMSG.toString());
         activeChar.sendPacket(adminReply); 

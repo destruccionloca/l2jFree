@@ -1009,8 +1009,7 @@ public final class Config {
     /** Extension Options */
     public static String TVT_EVEN_TEAMS;
     public static String CTF_EVEN_TEAMS;
-    public static String DM_EVEN_TEAMS;
-
+    
     public static boolean ENABLE_STATS;
     public static int STATS_UPDATE_TIME;
     public static int STATS_SAVE_TIME;
@@ -1959,7 +1958,6 @@ public final class Config {
 	        	is.close();
                 TVT_EVEN_TEAMS = extensionSettings.getProperty("TvTEvenTeams", "BALANCE");
                 CTF_EVEN_TEAMS = extensionSettings.getProperty("CTFEvenTeams", "BALANCE");
-                DM_EVEN_TEAMS = extensionSettings.getProperty("DMEvenTeams", "BALANCE");
 	        }
 	        catch (Exception e)
 	        {
@@ -2222,14 +2220,12 @@ public final class Config {
         else if (pName.equalsIgnoreCase("TvTOnStartRemoveAllEffects")) TVT_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("TvTOnStartUnsummonPet")) TVT_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
         
-        else if (pName.equalsIgnoreCase("DMEvenTeams"))  DM_EVEN_TEAMS = pValue;
         else if (pName.equalsIgnoreCase("DMAllowInterference")) DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("DMAllowPotions")) DM_ALLOW_POTIONS = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("DMAllowSummon")) DM_ALLOW_SUMMON = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("DMOnStartRemoveAllEffects")) DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("DMOnStartUnsummonPet")) DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
         
-        else if (pName.equalsIgnoreCase("DMEvenTeams"))  DM_EVEN_TEAMS = pValue;
         else if (pName.equalsIgnoreCase("TvTEvenTeams"))  TVT_EVEN_TEAMS = pValue;
         else if (pName.equalsIgnoreCase("CTFEvenTeams"))  CTF_EVEN_TEAMS = pValue;
 

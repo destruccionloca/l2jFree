@@ -568,7 +568,6 @@ public final class L2PcInstance extends L2PlayableInstance
                     _originalKarmaVIP;
     
     /** DM Engine parameters */
-    public String _teamNameDM;
     public int _originalNameColorDM,
               _originalKarmaDM;
     public boolean _inEventDM = false;
@@ -3746,19 +3745,18 @@ public final class L2PcInstance extends L2PlayableInstance
                {
                    if (DM._teleport || DM._started)
                    {
-                       if (!(((L2PcInstance)killer)._teamNameDM.equals(_teamNameDM)))
-                           DM.setTeamKillsCount(((L2PcInstance)killer)._teamNameDM, DM.teamKillsCount(((L2PcInstance)killer)._teamNameDM)+1);
+                       DM.setPlayerKillsCount((L2PcInstance)killer , DM.playerKillsCount((L2PcInstance)killer)+1);
 
                        sendMessage("You will be revived and teleported to team spot in 20 seconds!");
                        ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
                                                                        {
                                                                            public void run()
                                                                            {
-                                                                               teleToLocation(DM._teamsX.get(DM._teams.indexOf(_teamNameDM)), DM._teamsY.get(DM._teams.indexOf(_teamNameDM)), DM._teamsZ.get(DM._teams.indexOf(_teamNameDM)), false);
+                                                                               teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
                                                                                doRevive();
                                                                            }
-                                                                       }, 20000);
-                       }
+                                                                       }, 20000);                      
+                   }
                }
                
                else if (_inEventVIP) 

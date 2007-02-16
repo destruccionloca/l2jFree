@@ -57,24 +57,16 @@ public class DM
 {   
     public static String _eventName = new String(),
                          _eventDesc = new String(),
-                         _topTeam = new String(),
                          _joiningLocationName = new String();
-    public static Vector<String> _teams = new Vector<String>(),
-                                 _savePlayers = new Vector<String>(),
-                                 _savePlayerTeams = new Vector<String>();
-    public static Vector<L2PcInstance> _players = new Vector<L2PcInstance>(),
-                                       _playersShuffle = new Vector<L2PcInstance>();
-    public static Vector<Integer> _teamPlayersCount = new Vector<Integer>(),
-                                  _teamKillsCount = new Vector<Integer>(),
-                                  _teamColors = new Vector<Integer>(),
-                                  _teamsX = new Vector<Integer>(),
-                                  _teamsY = new Vector<Integer>(),
-                                  _teamsZ = new Vector<Integer>();
+    public static Vector<String> _savePlayers = new Vector<String>();
+    public static Vector<L2PcInstance> _players = new Vector<L2PcInstance>();                                       
+    public static Vector<Integer> _playerKillsCount = new Vector<Integer>();
     public static boolean _joining = false,
                           _teleport = false,
                           _started = false,
                           _sitForced = false;
     public static L2Spawn _npcSpawn;
+    public static L2PcInstance _topPlayer;
     public static int _npcId = 0,
                       _npcX = 0,
                       _npcY = 0,
@@ -83,33 +75,17 @@ public class DM
                       _rewardAmount = 0,
                       _topKills = 0,
                       _minlvl = 0,
-                      _maxlvl = 0;
+                      _maxlvl = 0,
+                      _playerColors = 0,
+                      _playerX = 0,
+                      _playerY = 0,
+                      _playerZ = 0;
 
     public static void setNpcPos(L2PcInstance activeChar)
     {
         _npcX = activeChar.getX();
         _npcY = activeChar.getY();
         _npcZ = activeChar.getZ();
-    }
-    
-    public static void addTeam(String teamName)
-    {
-        if (!checkTeamOk())
-        {
-            System.out.println("DM Engine[addTeam(" + teamName + ")]: checkTeamOk() = false");
-            return;
-        }
-        
-        if (teamName.equals(" "))
-            return;
-
-        _teams.add(teamName);
-        _teamPlayersCount.add(0);
-        _teamKillsCount.add(0);
-        _teamColors.add(0);
-        _teamsX.add(0);
-        _teamsY.add(0);
-        _teamsZ.add(0);
     }
     
     public static boolean checkMaxLevel(int maxlvl)
@@ -128,60 +104,14 @@ public class DM
         return true;
     }
     
-    public static void removeTeam(String teamName)
+    public static void setPlayersPos(L2PcInstance activeChar)
     {
-        if (!checkTeamOk() || _teams.isEmpty())
-        {
-            System.out.println("DM Engine[removeTeam(" + teamName + ")]: checkTeamOk() = false");
-            return;
-        }
-        
-        if (teamPlayersCount(teamName) > 0)
-        {
-            System.out.println("DM Engine[removeTeam(" + teamName + ")]: teamPlayersCount(teamName) > 0");
-            return;
-        }
-        
-        int index = _teams.indexOf(teamName);
-        
-        if (index == -1)
-            return;
-
-        _teamsZ.remove(index);
-        _teamsY.remove(index);
-        _teamsX.remove(index);
-        _teamColors.remove(index);
-        _teamKillsCount.remove(index);
-        _teamPlayersCount.remove(index);
-        _teams.remove(index);
+        _playerX = activeChar.getX();
+        _playerY = activeChar.getY();
+        _playerZ = activeChar.getZ();
     }
     
-    public static void setTeamPos(String teamName, L2PcInstance activeChar)
-    {
-        int index = _teams.indexOf(teamName);
-        
-        if (index == -1)
-            return;
-        
-        _teamsX.set(index, activeChar.getX());
-        _teamsY.set(index, activeChar.getY());
-        _teamsZ.set(index, activeChar.getZ());
-    }
-    
-    public static void setTeamColor(String teamName, int color)
-    {
-        if (!checkTeamOk())
-            return;
-
-        int index = _teams.indexOf(teamName);
-        
-        if (index == -1)
-            return;
-
-        _teamColors.set(index, color);
-    }
-    
-    public static boolean checkTeamOk()
+    public static boolean checkPlayerOk()
     {
         if (_started || _teleport || _joining)
             return false;
@@ -204,10 +134,10 @@ public class DM
     
     private static boolean startJoinOk()
     {
-        if (_started || _teleport || _joining || _teams.size() < 2 || _eventName.equals("") ||
+        if (_started || _teleport || _joining || _eventName.equals("") ||
             _joiningLocationName.equals("") || _eventDesc.equals("") || _npcId == 0 ||
             _npcX == 0 || _npcY == 0 || _npcZ == 0 || _rewardId == 0 || _rewardAmount == 0 ||
-            _teamsX.contains(0) || _teamsY.contains(0) || _teamsZ.contains(0))
+            _playerX == 0 || _playerY == 0 || _playerZ == 0)
             return false;
         
         return true;
@@ -254,9 +184,6 @@ public class DM
         _joining = false;
         Announcements.getInstance().announceToAll(_eventName + "(DM): Teleport to team spot in 20 seconds!");
 
-        if (Config.DM_EVEN_TEAMS.equals("SHUFFLE"))
-            shuffleTeams();
-        
         setUserData();
         ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
                                                        {
@@ -267,7 +194,7 @@ public class DM
                                                                for (L2PcInstance player : DM._players)
                                                                {
                                                                    if (player !=  null)
-                                                                       player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameDM)), _teamsY.get(_teams.indexOf(player._teamNameDM)), _teamsZ.get(_teams.indexOf(player._teamNameDM)));
+                                                                       player.teleToLocation(_playerX, _playerY, _playerZ);
                                                                }
                                                            }
                                                        }, 20000);
@@ -293,67 +220,14 @@ public class DM
         if (_joining || !_teleport || _started)
             return false;
         
-        if (Config.DM_EVEN_TEAMS.equals("NO") || Config.DM_EVEN_TEAMS.equals("BALANCE"))
-        {
-            if (_teamPlayersCount.contains(0))
-                return false;
-        }
-        else if (Config.DM_EVEN_TEAMS.equals("SHUFFLE"))
-        {
-            Vector<L2PcInstance> playersShuffleTemp = new Vector<L2PcInstance>();
-            int loopCount = 0;
-            
-            loopCount = _playersShuffle.size();
-
-            for (int i=0;i<loopCount;i++)
-            {
-                if (_playersShuffle != null)
-                    playersShuffleTemp.add(_playersShuffle.get(i));
-            }
-            
-            _playersShuffle = playersShuffleTemp; 
-            playersShuffleTemp.clear();
-            
-          //  if (_playersShuffle.size() < (_teams.size()*2)){
-          //      return false;
-          //  }
-          }
-        
         return true;
-    }
-    
-    public static void shuffleTeams()
-    {
-        int teamCount = 0,
-            playersCount = 0;
-
-        for (;;)
-        {
-            if (_playersShuffle.isEmpty())
-                break;
-
-            int playerToAddIndex = new Random().nextInt(_playersShuffle.size());
-            
-            _players.add(_playersShuffle.get(playerToAddIndex));
-            _players.get(playersCount)._teamNameDM = _teams.get(teamCount);
-            _savePlayers.add(_players.get(playersCount).getName());
-            _savePlayerTeams.add(_teams.get(teamCount));
-            playersCount++;
-
-            if (teamCount == _teams.size()-1)
-                teamCount = 0;
-            else
-                teamCount++;
-            
-            _playersShuffle.remove(playerToAddIndex);
-        }
     }
     
     public static void setUserData()
     {
         for (L2PcInstance player : _players)
         {
-            player.setNameColor(_teamColors.get(_teams.indexOf(player._teamNameDM)));
+            player.setNameColor(_playerColors);
             player.setKarma(0);
             player.broadcastUserInfo();
         }
@@ -369,14 +243,14 @@ public class DM
 
         _started = false;
         unspawnEventNpc();
-        processTopTeam();
+        processTopPlayer();
 
         if (_topKills == 0)
-            Announcements.getInstance().announceToAll(_eventName + "(DM): No team win the match(nobody killed).");
+            Announcements.getInstance().announceToAll(_eventName + "(DM): No players win the match(nobody killed).");
         else
         {
-            Announcements.getInstance().announceToAll(_eventName + "(DM): " + _topTeam + "'s win the match! " + _topKills + " kills.");
-            rewardTeam(activeChar, _topTeam);
+            Announcements.getInstance().announceToAll(_eventName + "(DM): " + _topPlayer + "'s win the match! " + _topKills + " kills.");
+            rewardPlayer(activeChar);
         }
         
         teleportFinish();
@@ -390,25 +264,25 @@ public class DM
         return true;
     }
     
-    public static void processTopTeam()
+    public static void processTopPlayer()
     {
-        for (String team : _teams)
+        for (L2PcInstance player : _players)
         {
-            if (teamKillsCount(team) > _topKills)
+            if (playerKillsCount(player) > _topKills)
             {
-                _topTeam = team;
-                _topKills = teamKillsCount(team);
+                _topPlayer = player;
+                _topKills = playerKillsCount(player);
             }
         }
     }
     
-    public static void rewardTeam(L2PcInstance activeChar, String teamName)
+    public static void rewardPlayer(L2PcInstance activeChar)
     {
         for (L2PcInstance player : _players)
         {
             if (player != null)
             {
-                if (player._teamNameDM.equals(teamName))
+                if (player.equals(_topPlayer))
                 {
                     PcInventory inv = player.getInventory();
                 
@@ -443,11 +317,12 @@ public class DM
                     NpcHtmlMessage nhm = new NpcHtmlMessage(5);
                     TextBuilder replyMSG = new TextBuilder("");
 
-                    replyMSG.append("<html><head><body>Your team win the event. Look in your inventar there should be the reward.</body></html>");
+                    replyMSG.append("<html><head><body>You win the event. Look in your inventar there should be the reward.</body></html>");
 
                     nhm.setHtml(replyMSG.toString());
                     player.sendPacket(nhm);
                 }
+                break;
             }
         }
     }
@@ -553,27 +428,6 @@ public class DM
         System.out.println("Join location: " + _joiningLocationName);
         System.out.println("Min lvl: " + _minlvl);
         System.out.println("Max lvl: " + _maxlvl);
-        System.out.println("");
-        System.out.println("##########################");
-        System.out.println("# _teams(Vector<String>) #");
-        System.out.println("##########################");
-        
-        for (String team : _teams)
-            System.out.println(team);
-
-        if (Config.DM_EVEN_TEAMS.equals("SHUFFLE"))
-        {
-            System.out.println("");
-            System.out.println("#########################################");
-            System.out.println("# _playersShuffle(Vector<L2PcInstance>) #");
-            System.out.println("#########################################");
-        
-            for (L2PcInstance player : _playersShuffle)
-            {
-                if (player != null)
-                    System.out.println("Name: " + player.getName());
-            }
-        }
         
         System.out.println("");
         System.out.println("##################################");
@@ -583,7 +437,7 @@ public class DM
         for (L2PcInstance player : _players)
         {
             if (player != null)
-                System.out.println("Name: " + player.getName() + "    Team: " + player._teamNameDM);
+                System.out.println("Name: " + player.getName());
         }
         
         System.out.println("");
@@ -592,7 +446,7 @@ public class DM
         System.out.println("#####################################################################");
         
         for (String player : _savePlayers)
-            System.out.println("Name: " + player + "    Team: " + _savePlayerTeams.get(_savePlayers.indexOf(player)));
+            System.out.println("Name: " + player );
         
         System.out.println("");
         System.out.println("");
@@ -602,19 +456,11 @@ public class DM
     {
         _eventName = new String();
         _eventDesc = new String();
-        _topTeam = new String();
         _joiningLocationName = new String();
-        _teams = new Vector<String>();
         _savePlayers = new Vector<String>();
-        _savePlayerTeams = new Vector<String>();
+        _playerKillsCount = new Vector<Integer>();
         _players = new Vector<L2PcInstance>();
-        _playersShuffle = new Vector<L2PcInstance>();
-        _teamPlayersCount = new Vector<Integer>();
-        _teamKillsCount = new Vector<Integer>();
-        _teamColors = new Vector<Integer>();
-        _teamsX = new Vector<Integer>();
-        _teamsY = new Vector<Integer>();
-        _teamsZ = new Vector<Integer>();
+        _topPlayer = null;
         _joining = false;
         _teleport = false;
         _started = false;
@@ -631,8 +477,6 @@ public class DM
             statement = con.prepareStatement("Select * from DM");
             rs = statement.executeQuery();
             
-            int teams =0;
-            
             while (rs.next())
             {        
                 _eventName = rs.getString("eventNane");
@@ -645,37 +489,11 @@ public class DM
                 _npcY = rs.getInt("npcY");
                 _npcZ = rs.getInt("npcZ");
                 _rewardId = rs.getInt("rewardId");
-                _rewardAmount = rs.getInt("rewardAmount"); 
-                teams = rs.getInt("teamsCount");
+                _rewardAmount = rs.getInt("rewardAmount");                
             
             }                    
             statement.close();            
-            
-            int index = -1;
-            if (teams > 0)
-                index = 0;    
-            while (index < teams && index > -1)
-            { 
-                statement = con.prepareStatement("Select * from DM_teams where teamId = ?");
-                statement.setInt(1, index);
-                rs = statement.executeQuery(); 
-                while (rs.next())
-                {
-                    _teams.add(rs.getString("teamName"));
-                    _teamPlayersCount.add(0);
-                    _teamKillsCount.add(0); 
-                    _teamColors.add(0);
-                    _teamsX.add(0);
-                    _teamsY.add(0);
-                    _teamsZ.add(0);
-                    _teamsX.set(index, rs.getInt("teamX"));
-                    _teamsY.set(index, rs.getInt("teamY"));
-                    _teamsZ.set(index, rs.getInt("teamZ"));
-                    _teamColors.set(index, rs.getInt("teamColor"));
-                }                
-                index ++;
-                statement.close();            
-            }       
+                  
         }        
         catch (Exception e)
         {
@@ -696,7 +514,7 @@ public class DM
             statement.execute();
             statement.close();
 
-            statement = con.prepareStatement("INSERT INTO DM (eventNane, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, teamsCount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
+            statement = con.prepareStatement("INSERT INTO DM (eventNane, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
             statement.setString(1, _eventName);
             statement.setString(2, _eventDesc);
             statement.setString(3, _joiningLocationName);
@@ -708,30 +526,13 @@ public class DM
             statement.setInt(9, _npcZ);
             statement.setInt(10, _rewardId);
             statement.setInt(11, _rewardAmount);
-            statement.setInt(12, _teams.size());
             statement.execute();
             statement.close();
             
             statement = con.prepareStatement("Delete from DM_teams");
             statement.execute();
-            statement.close();
+            statement.close();            
             
-            for (String teamName : _teams)
-            { 
-                int index = _teams.indexOf(teamName);
-                
-                if (index == -1)
-                    return;
-                statement = con.prepareStatement("INSERT INTO DM_teams (teamId ,teamName, teamX, teamY, teamZ, teamColor) VALUES (?, ?, ?, ?, ?, ?)");  
-                statement.setInt(1 , index);
-                statement.setString(2, teamName);
-                statement.setInt(3, _teamsX.get(index));
-                statement.setInt(4, _teamsY.get(index));
-                statement.setInt(5, _teamsZ.get(index));
-                statement.setInt(6, _teamColors.get(index));                
-                statement.execute();
-                statement.close();
-            }
         }
         catch (Exception e)
         {
@@ -756,12 +557,9 @@ public class DM
                 replyMSG.append("<center>Wait till the admin/gm start the participation.</center>");
             else if (!_started && _joining && eventPlayer.getLevel()>=_minlvl && eventPlayer.getLevel()<_maxlvl)
             {
-                if (_players.contains(eventPlayer) || _playersShuffle.contains(eventPlayer))
+                if (_players.contains(eventPlayer))
                 {
-                    if (Config.DM_EVEN_TEAMS.equals("NO") || Config.DM_EVEN_TEAMS.equals("BALANCE"))
-                        replyMSG.append("You participated already in team <font color=\"LEVEL\">" + eventPlayer._teamNameDM + "</font><br><br>");
-                    else if (Config.DM_EVEN_TEAMS.equals("SHUFFLE"))
-                        replyMSG.append("You participated already!<br><br>");
+                    replyMSG.append("You participated already!<br><br>");
 
                     replyMSG.append("<table border=\"0\"><tr>");
                     replyMSG.append("<td width=\"200\">Wait till event start or</td>");
@@ -775,30 +573,8 @@ public class DM
                     replyMSG.append("<td width=\"200\">Admin set min lvl : <font color=\"00FF00\">" + _minlvl + "</font></td><br>");
                     replyMSG.append("<td width=\"200\">Admin set max lvl : <font color=\"00FF00\">" + _maxlvl + "</font></td><br><br>");
                     
-                    if (Config.DM_EVEN_TEAMS.equals("NO") || Config.DM_EVEN_TEAMS.equals("BALANCE"))
-                    {
-                        replyMSG.append("<center><table border=\"0\">");
+                    replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_DM_player_join\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
                     
-                        for (String team : _teams)
-                        {
-                            replyMSG.append("<tr><td width=\"100\"><font color=\"LEVEL\">" + team + "</font>&nbsp;(" + teamPlayersCount(team) + " joined)</td>");
-                            replyMSG.append("<td width=\"60\"><button value=\"Join\" action=\"bypass -h npc_" + objectId + "_DM_player_join " + team + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
-                        }
-                    
-                        replyMSG.append("</table></center>");
-                    }
-                    else if (Config.DM_EVEN_TEAMS.equals("SHUFFLE"))
-                    {
-                        replyMSG.append("<center><table border=\"0\">");
-                        
-                        for (String team : _teams)
-                            replyMSG.append("<tr><td width=\"100\"><font color=\"LEVEL\">" + team + "</font></td>");
-                    
-                        replyMSG.append("</table></center><br>");
-                        
-                        replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_DM_player_join eventShuffle\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
-                        replyMSG.append("Teams will be reandomly generated!");
-                    }
                 }
             }
             else if (_started && !_joining)
@@ -821,26 +597,17 @@ public class DM
         }
     }
 
-    public static void addPlayer(L2PcInstance player, String teamName)
+    public static void addPlayer(L2PcInstance player)
     {
-        if (!addPlayerOk(teamName, player))
+        if (!addPlayerOk(player))
             return;
-        
-        if (Config.DM_EVEN_TEAMS.equals("NO") || Config.DM_EVEN_TEAMS.equals("BALANCE"))
-        {
-            player._teamNameDM = teamName;
-            _players.add(player);
-            setTeamPlayersCount(teamName, teamPlayersCount(teamName)+1);
-        }
-        else if (Config.DM_EVEN_TEAMS.equals("SHUFFLE"))
-            _playersShuffle.add(player);
-        
+        _players.add(player);
         player._originalNameColorDM = player.getNameColor();
         player._originalKarmaDM = player.getKarma();
         player._inEventDM = true;
     }
     
-    public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
+    public static boolean addPlayerOk(L2PcInstance eventPlayer)
     {
         if (CTF._savePlayers.contains(eventPlayer.getName()) || TvT._savePlayers.contains(eventPlayer.getName())) 
         {
@@ -848,61 +615,13 @@ public class DM
             return false;
         }
 
-        if (Config.DM_EVEN_TEAMS.equals("NO"))
-            return true;
-        else if (Config.DM_EVEN_TEAMS.equals("BALANCE"))
-        {
-            boolean allTeamsEqual = true;
-            int countBefore = -1;
-        
-            for (int playersCount : _teamPlayersCount)
-            {
-                if (countBefore == -1)
-                    countBefore = playersCount;
-            
-                if (countBefore != playersCount)
-                {
-                    allTeamsEqual = false;
-                    break;
-                }
-            
-                countBefore = playersCount;
-            }
-        
-            if (allTeamsEqual)
-                return true;
-
-            countBefore = Integer.MAX_VALUE;
-        
-            for (int teamPlayerCount : _teamPlayersCount)
-            {
-                if (teamPlayerCount < countBefore)
-                    countBefore = teamPlayerCount;
-            }
-
-            Vector<String> joinableTeams = new Vector<String>();
-        
-            for (String team : _teams)
-            {
-                if (teamPlayersCount(team) == countBefore)
-                    joinableTeams.add(team);
-            }
-        
-            if (joinableTeams.contains(teamName))
-                return true;
-        }
-        else if (Config.DM_EVEN_TEAMS.equals("SHUFFLE"))
-            return true;
-
-        eventPlayer.sendMessage("Too many players in team \"" + teamName + "\"");
-        return false;
+        return true;
     }
 
     public static synchronized void addDisconnectedPlayer(L2PcInstance player)
     {
-        if ((Config.DM_EVEN_TEAMS.equals("SHUFFLE") && (_teleport || _started)) || (Config.DM_EVEN_TEAMS.equals("NO") || Config.DM_EVEN_TEAMS.equals("BALANCE")))
+        if (_teleport || _started)
         {
-            player._teamNameDM = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
             _players.add(player);
             player._originalNameColorDM = player.getNameColor();
             player._originalKarmaDM = player.getKarma();
@@ -910,10 +629,10 @@ public class DM
 
             if (_teleport || _started)
             {
-                player.setNameColor(_teamColors.get(_teams.indexOf(player._teamNameDM)));
+                player.setNameColor(_playerColors);
                 player.setKarma(0);
                 player.broadcastUserInfo();
-                player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameDM)), _teamsY.get(_teams.indexOf(player._teamNameDM)), _teamsZ.get(_teams.indexOf(player._teamNameDM)));
+                player.teleToLocation(_playerX, _playerY , _playerZ);
             }
         }
     }
@@ -922,42 +641,25 @@ public class DM
     {
         if (player != null)
         {
-            if (Config.DM_EVEN_TEAMS.equals("NO") || Config.DM_EVEN_TEAMS.equals("BALANCE"))
-            {
-                _players.remove(player);
-                setTeamPlayersCount(player._teamNameDM, teamPlayersCount(player._teamNameDM)-1);                
-            }
-            else if (Config.DM_EVEN_TEAMS.equals("SHUFFLE"))
-                _playersShuffle.remove(player);
+            _players.remove(player);
             
             player.setNameColor(player._originalNameColorDM);
             player.setKarma(player._originalKarmaDM);
             player.broadcastUserInfo();
-            player._teamNameDM = new String();
             player._inEventDM = false;
         }
     }
     
     public static void cleanDM()
     {
-        for (String team : _teams)
-        {
-            int index = _teams.indexOf(team);
-
-            _teamPlayersCount.set(index, 0);
-            _teamKillsCount.set(index, 0);
-        }
-        
         for (L2PcInstance player : _players)
         {
             removePlayer(player);            
         }
 
         _topKills = 0;
-        _topTeam = new String();
         _players = new Vector<L2PcInstance>();
-        _playersShuffle = new Vector<L2PcInstance>();
-
+        
     }
     
     public static void unspawnEventNpc()
@@ -988,43 +690,24 @@ public class DM
                                                        }, 20000);
     }
 
-    public static int teamKillsCount(String teamName)
+    public static int playerKillsCount(L2PcInstance player)
     {
-        int index = _teams.indexOf(teamName);
+        int index = _players.indexOf(player);
         
         if (index == -1)
             return -1;
 
-        return _teamKillsCount.get(index);
+        return _playerKillsCount.get(index);
     }
     
-    public static void setTeamKillsCount(String teamName, int teamKillsCount)
+    public static void setPlayerKillsCount(L2PcInstance killer, int KillsCount)
     {
-        int index = _teams.indexOf(teamName);
+        int index = _players.indexOf(killer);
         
         if (index == -1)
             return;
 
-        _teamKillsCount.set(index, teamKillsCount);
-    }
+        _playerKillsCount.set(index, KillsCount);
+    }    
     
-    public static int teamPlayersCount(String teamName)
-    {
-        int index = _teams.indexOf(teamName);
-        
-        if (index == -1)
-            return -1;
-
-        return _teamPlayersCount.get(index);
-    }
-    
-    public static void setTeamPlayersCount(String teamName, int teamPlayersCount)
-    {
-        int index = _teams.indexOf(teamName);
-        
-        if (index == -1)
-            return;
-        
-        _teamPlayersCount.set(index, teamPlayersCount);
-    }
 }
