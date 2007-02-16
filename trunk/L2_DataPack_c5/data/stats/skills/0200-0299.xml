@@ -1352,7 +1352,6 @@
   <set name="buffDuration" val="120000"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
-  <set name="effectRange" val="-1"/>
   <set name="effectType" val="PARALYZE"/>
   <set name="effectPower" val="20"/>
   <for>
