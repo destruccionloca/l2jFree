@@ -81,6 +81,12 @@ public class ScrollOfEscape implements IItemHandler
             return;
         }
         
+        // Check to see if the current player is in TvT , CTF or ViP events.
+        if (activeChar._inEventCTF || activeChar._inEventTvT || activeChar._inEventVIP) {
+            activeChar.sendPacket(SystemMessage.sendString("You may not use an escape skill in a Event."));
+            return;
+        }
+        
         // Check to see if player is in jail
         if (activeChar.isInJail())
         {
