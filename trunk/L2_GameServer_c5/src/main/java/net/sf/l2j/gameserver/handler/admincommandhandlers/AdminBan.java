@@ -57,7 +57,6 @@ public class AdminBan implements IAdminCommandHandler {
                 
         StringTokenizer st = new StringTokenizer(command);
         st.nextToken();
-        String plyr = "";
         L2PcInstance player = null;
         if (command.startsWith("admin_ban"))
         {   
@@ -97,21 +96,22 @@ public class AdminBan implements IAdminCommandHandler {
         {
             try
             {
-                plyr = st.nextToken();
+                String plyr = st.nextToken();
                 int delay = 0;
                 try
                 {
                     delay = Integer.parseInt(st.nextToken());
                 } catch (NumberFormatException nfe) {
                 } catch (NoSuchElementException nsee) {}
-                L2PcInstance playerObj = L2World.getInstance().getPlayer(plyr);
+                player = L2World.getInstance().getPlayer(plyr); 
 
-                if (playerObj != null)
+                if (player != null)
                 {
-                    playerObj.setInJail(true, delay);
-                    activeChar.sendMessage("Character "+player+" jailed for "+(delay>0 ? delay+" minutes." : "ever!"));
+                    player.setInJail(true, delay);  
+                    activeChar.sendMessage("Character "+player.getName()+" jailed for "+(delay>0 ? delay+" minutes." : "ever!"));  
+
                 } else
-                    jailOfflinePlayer(activeChar, player.getName(), delay);
+                    jailOfflinePlayer(activeChar, plyr , delay);
             } catch (NoSuchElementException nsee) 
             {
                 activeChar.sendMessage("Specify a character name.");
@@ -124,15 +124,15 @@ public class AdminBan implements IAdminCommandHandler {
         {
             try
             {
-                plyr = st.nextToken();
-                L2PcInstance playerObj = L2World.getInstance().getPlayer(plyr);
+                String plyr = st.nextToken();  
+                player = L2World.getInstance().getPlayer(plyr);  
 
-                if (playerObj != null)
+                if (player != null)
                 {
-                    playerObj.setInJail(false, 0);
-                    activeChar.sendMessage("Character "+player+" removed from jail");
+                    player.setInJail(false, 0);
+                    activeChar.sendMessage("Character "+player.getName()+" removed from jail");
                 } else
-                    unjailOfflinePlayer(activeChar, player.getName());
+                    unjailOfflinePlayer(activeChar, plyr);
             } catch (NoSuchElementException nsee) 
             {
                 activeChar.sendMessage("Specify a character name.");

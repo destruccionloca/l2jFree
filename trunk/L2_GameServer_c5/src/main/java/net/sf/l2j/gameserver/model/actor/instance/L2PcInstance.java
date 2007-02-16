@@ -131,6 +131,7 @@ import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.model.base.SubClass;
 import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.entity.DM;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Faction;
 import net.sf.l2j.gameserver.model.entity.FactionMember;
@@ -565,6 +566,12 @@ public final class L2PcInstance extends L2PlayableInstance
                     _isTheVIP = false;
     public int      _originalNameColourVIP,
                     _originalKarmaVIP;
+    
+    /** DM Engine parameters */
+    public String _teamNameDM;
+    public int _originalNameColorDM,
+              _originalKarmaDM;
+    public boolean _inEventDM = false;
    
     public int _telemode = 0;
 
@@ -2238,7 +2245,7 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             sendMessage("A dark force beyond your mortal understanding makes your knees to shake when you try to stand up ...");
         }
-        else if (TvT._sitForced && _inEventTvT || CTF._sitForced && _inEventCTF || VIP._sitForced && _inEventVIP)
+        else if (TvT._sitForced && _inEventTvT || CTF._sitForced && _inEventCTF || DM._sitForced && _inEventDM || VIP._sitForced && _inEventVIP)
            sendMessage("The Admin/GM handle if you sit or stand in this match!");
 
         else if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead())
@@ -3122,7 +3129,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void onAction(L2PcInstance player)
     {
-        if ((_inEventTvT && TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (_inEventCTF && CTF._started && !Config.CTF_ALLOW_INTERFERENCE))
+        if ((_inEventTvT && TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (_inEventDM && DM._started && !Config.DM_ALLOW_INTERFERENCE) || (_inEventCTF && CTF._started && !Config.CTF_ALLOW_INTERFERENCE))
         {
             ActionFailed af = new ActionFailed();
             player.sendPacket(af);
@@ -3159,7 +3166,7 @@ public final class L2PcInstance extends L2PlayableInstance
             else
             {
                 // Check if this L2PcInstance is autoAttackable
-                if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started) || (player._inEventVIP && VIP._started))
+                if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started) || (player._inEventDM && DM._started) || (player._inEventVIP && VIP._started))
                 {
                     // Player with lvl < 21 can't attack a cursed weapon holder
                     // And a cursed weapon holder  can't attack players with lvl < 21
@@ -3735,6 +3742,25 @@ public final class L2PcInstance extends L2PlayableInstance
                    }
                }
                
+               else if (((L2PcInstance)killer)._inEventDM && _inEventDM)
+               {
+                   if (DM._teleport || DM._started)
+                   {
+                       if (!(((L2PcInstance)killer)._teamNameDM.equals(_teamNameDM)))
+                           DM.setTeamKillsCount(((L2PcInstance)killer)._teamNameDM, DM.teamKillsCount(((L2PcInstance)killer)._teamNameDM)+1);
+
+                       sendMessage("You will be revived and teleported to team spot in 20 seconds!");
+                       ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                                                                       {
+                                                                           public void run()
+                                                                           {
+                                                                               teleToLocation(DM._teamsX.get(DM._teams.indexOf(_teamNameDM)), DM._teamsY.get(DM._teams.indexOf(_teamNameDM)), DM._teamsZ.get(DM._teams.indexOf(_teamNameDM)), false);
+                                                                               doRevive();
+                                                                           }
+                                                                       }, 20000);
+                       }
+               }
+               
                else if (_inEventVIP) 
                {
                     if (VIP._started) {
@@ -3836,7 +3862,7 @@ public final class L2PcInstance extends L2PlayableInstance
     
     private void onDieDropItem(L2Character killer)
     {
-        if (atEvent || (TvT._started && _inEventTvT) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) || killer == null)
+        if (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) || killer == null)
         return;
 
         if (getKarma() <= 0 && killer instanceof L2PcInstance
@@ -4042,7 +4068,7 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 if (Config.KARMA_AWARD_PK_KILL)
                 {
-                    if (!_inEventTvT && !_inEventCTF && !_inEventVIP)
+                    if (!_inEventTvT && !_inEventDM && !_inEventCTF && !_inEventVIP)
                         increasePvpKills();
                     if (getStatTrack() != null)
                         getStatTrack().increasePvPKills();                        
@@ -4051,7 +4077,7 @@ public final class L2PcInstance extends L2PlayableInstance
             else
             // Target player doesn't have karma
             {
-                if (!_inEventTvT && !_inEventCTF && !_inEventVIP)
+                if (!_inEventTvT && !_inEventDM && !_inEventCTF && !_inEventVIP)
                     increasePkKillsAndKarma(targetPlayer.getLevel());
                 if (getStatTrack() != null)
                     getStatTrack().increasePvPKills();                
@@ -4079,7 +4105,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void increasePvpKills()
     {
-        if ((TvT._started && _inEventTvT) || (CTF._started && _inEventCTF))
+        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF))
             return;
 
         // Add karma to attacker and increase its PK counter
@@ -4096,7 +4122,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void increasePkKillsAndKarma(int targLVL)
     {
-        if ((TvT._started && _inEventTvT) || (CTF._started && _inEventCTF))
+        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF))
             return;
 
         int baseKarma = Config.KARMA_MIN_KARMA;
@@ -4167,7 +4193,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void updatePvPStatus()
     {
-        if ((TvT._started && _inEventTvT) || (CTF._started && _inEventCTF) || (_inEventVIP && VIP._started))
+        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (_inEventVIP && VIP._started))
             return;
 
         if (getPvpFlag() == 0) startPvPFlag();
@@ -4228,7 +4254,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // Calculate the Experience loss
         long lostExp = 0;
-        if (!atEvent && !_inEventTvT && !_inEventCTF && (!_inEventVIP && !VIP._started))
+        if (!atEvent && !_inEventTvT && !_inEventDM && !_inEventCTF && (!_inEventVIP && !VIP._started))
         {
             if (lvl < Experience.MAX_LEVEL) 
                 lostExp = Math.round((getStat().getExpForLevel(lvl+1) - getStat().getExpForLevel(lvl)) * percentLost /100);
@@ -6813,7 +6839,7 @@ public final class L2PcInstance extends L2PlayableInstance
             }
 
             // Check if a Forced ATTACK is in progress on non-attackable target
-            if (!target.isAutoAttackable(this) && !forceUse && !(_inEventTvT && TvT._started) && !(_inEventCTF && CTF._started) && !(_inEventVIP && VIP._started) &&
+            if (!target.isAutoAttackable(this) && !forceUse && !(_inEventTvT && TvT._started) && !(_inEventDM && DM._started) && !(_inEventCTF && CTF._started) && !(_inEventVIP && VIP._started) &&
                    sklTargetType != SkillTargetType.TARGET_AURA &&
                    sklTargetType != SkillTargetType.TARGET_CLAN &&
                    sklTargetType != SkillTargetType.TARGET_ALLY &&
@@ -6994,7 +7020,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public boolean checkPvpSkill(L2Object target, L2Skill skill)
     {
-        if ((_inEventTvT && TvT._started) || (_inEventCTF && CTF._started) || (_inEventVIP && VIP._started))
+        if ((_inEventTvT && TvT._started) || (_inEventDM && DM._started) || (_inEventCTF && CTF._started) || (_inEventVIP && VIP._started))
             return true;
         
         // check for PC->PC Pvp status

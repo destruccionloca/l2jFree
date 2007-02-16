@@ -666,6 +666,11 @@ public final class Config {
     public static boolean TVT_ALLOW_SUMMON;
     public static boolean TVT_ON_START_REMOVE_ALL_EFFECTS;
     public static boolean TVT_ON_START_UNSUMMON_PET;
+    public static boolean DM_ALLOW_INTERFERENCE;
+    public static boolean DM_ALLOW_POTIONS;
+    public static boolean DM_ALLOW_SUMMON;
+    public static boolean DM_ON_START_REMOVE_ALL_EFFECTS;
+    public static boolean DM_ON_START_UNSUMMON_PET;
 
     /** Configuration files */
     /** Properties file for game server (connection and ingame) configurations */
@@ -1004,6 +1009,7 @@ public final class Config {
     /** Extension Options */
     public static String TVT_EVEN_TEAMS;
     public static String CTF_EVEN_TEAMS;
+    public static String DM_EVEN_TEAMS;
 
     public static boolean ENABLE_STATS;
     public static int STATS_UPDATE_TIME;
@@ -1918,6 +1924,12 @@ public final class Config {
                TVT_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowSummon", "false"));
                TVT_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTOnStartRemoveAllEffects", "true"));
                TVT_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTOnStartUnsummonPet", "true"));
+            
+               DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowInterference", "false"));
+               DM_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowPotions", "false"));
+               DM_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowSummon", "false"));
+               DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("DMOnStartRemoveAllEffects", "true"));
+               DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("DMOnStartUnsummonPet", "true"));
             }
             catch (Exception e)
             {
@@ -1947,6 +1959,7 @@ public final class Config {
 	        	is.close();
                 TVT_EVEN_TEAMS = extensionSettings.getProperty("TvTEvenTeams", "BALANCE");
                 CTF_EVEN_TEAMS = extensionSettings.getProperty("CTFEvenTeams", "BALANCE");
+                DM_EVEN_TEAMS = extensionSettings.getProperty("DMEvenTeams", "BALANCE");
 	        }
 	        catch (Exception e)
 	        {
@@ -2209,6 +2222,14 @@ public final class Config {
         else if (pName.equalsIgnoreCase("TvTOnStartRemoveAllEffects")) TVT_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("TvTOnStartUnsummonPet")) TVT_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
         
+        else if (pName.equalsIgnoreCase("DMEvenTeams"))  DM_EVEN_TEAMS = pValue;
+        else if (pName.equalsIgnoreCase("DMAllowInterference")) DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("DMAllowPotions")) DM_ALLOW_POTIONS = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("DMAllowSummon")) DM_ALLOW_SUMMON = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("DMOnStartRemoveAllEffects")) DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("DMOnStartUnsummonPet")) DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
+        
+        else if (pName.equalsIgnoreCase("DMEvenTeams"))  DM_EVEN_TEAMS = pValue;
         else if (pName.equalsIgnoreCase("TvTEvenTeams"))  TVT_EVEN_TEAMS = pValue;
         else if (pName.equalsIgnoreCase("CTFEvenTeams"))  CTF_EVEN_TEAMS = pValue;
 

@@ -58,6 +58,7 @@ import net.sf.l2j.gameserver.model.actor.stat.NpcStat;
 import net.sf.l2j.gameserver.model.actor.status.NpcStatus;
 import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.entity.DM;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.TvT;
 import net.sf.l2j.gameserver.model.entity.VIP;
@@ -121,6 +122,7 @@ public class L2NpcInstance extends L2Character
     
     public boolean isEventMob = false,
                   _isEventMobTvT = false,
+                  _isEventMobDM = false,
                   _isEventMobCTF = false,
                   _isEventVIPNPC = false,
                   _isEventVIPNPCEnd = false;                  
@@ -553,6 +555,8 @@ public class L2NpcInstance extends L2Character
                        L2Event.showEventHtml(player, String.valueOf(this.getObjectId()));
                     else if (_isEventMobTvT)
                        TvT.showEventHtml(player, String.valueOf(this.getObjectId()));
+                    else if (_isEventMobDM)
+                        DM.showEventHtml(player, String.valueOf(this.getObjectId()));
                     else if (_isEventMobCTF)
                        CTF.showEventHtml(player, String.valueOf(this.getObjectId()));
                     else if (this._isEventVIPNPC)
