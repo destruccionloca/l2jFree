@@ -290,52 +290,45 @@ public class DM
     
     public static void rewardPlayer(L2PcInstance activeChar)
     {
-        for (L2PcInstance player : _players)
+        if (_topPlayer != null)
         {
-            if (player != null)
+            PcInventory inv = _topPlayer.getInventory();
+                
+            if (ItemTable.getInstance().createDummyItem(_rewardId).isStackable())
+                inv.addItem("DM Event: " + _eventName, _rewardId, _rewardAmount, _topPlayer, activeChar.getTarget());
+            else
             {
-                if (player.equals(_topPlayer))
-                {
-                    PcInventory inv = player.getInventory();
-                
-                    if (ItemTable.getInstance().createDummyItem(_rewardId).isStackable())
-                        inv.addItem("DM Event: " + _eventName, _rewardId, _rewardAmount, player, activeChar.getTarget());
-                    else
-                    {
-                        for (int i=0;i<=_rewardAmount-1;i++)
-                            inv.addItem("DM Event: " + _eventName, _rewardId, 1, player, activeChar.getTarget());
-                    }
-                
-                    SystemMessage sm;
-
-                    if (_rewardAmount > 1)
-                    {
-                        sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
-                        sm.addItemName(_rewardId);
-                        sm.addNumber(_rewardAmount);
-                        player.sendPacket(sm);
-                    }
-                    else
-                    {
-                        sm = new SystemMessage(SystemMessage.EARNED_ITEM);
-                        sm.addItemName(_rewardId);
-                        player.sendPacket(sm);
-                    }
-                
-                    StatusUpdate su = new StatusUpdate(player.getObjectId());
-                    su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
-                    player.sendPacket(su);
-
-                    NpcHtmlMessage nhm = new NpcHtmlMessage(5);
-                    TextBuilder replyMSG = new TextBuilder("");
-
-                    replyMSG.append("<html><head><body>You win the event. Look in your inventar there should be the reward.</body></html>");
-
-                    nhm.setHtml(replyMSG.toString());
-                    player.sendPacket(nhm);
-                }
-                break;
+                for (int i=0;i<=_rewardAmount-1;i++)
+                    inv.addItem("DM Event: " + _eventName, _rewardId, 1, _topPlayer, activeChar.getTarget());
             }
+                
+            SystemMessage sm;
+
+            if (_rewardAmount > 1)
+            {
+                sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+                sm.addItemName(_rewardId);
+                sm.addNumber(_rewardAmount);
+                _topPlayer.sendPacket(sm);
+            }
+            else
+            {
+                sm = new SystemMessage(SystemMessage.EARNED_ITEM);
+                sm.addItemName(_rewardId);
+                _topPlayer.sendPacket(sm);
+            }
+                
+            StatusUpdate su = new StatusUpdate(_topPlayer.getObjectId());
+            su.addAttribute(StatusUpdate.CUR_LOAD, _topPlayer.getCurrentLoad());
+            _topPlayer.sendPacket(su);
+
+            NpcHtmlMessage nhm = new NpcHtmlMessage(5);
+            TextBuilder replyMSG = new TextBuilder("");
+
+            replyMSG.append("<html><head><body>You win the event. Look in your inventar there should be the reward.</body></html>");
+
+            nhm.setHtml(replyMSG.toString());
+            _topPlayer.sendPacket(nhm);
         }
     }
     
