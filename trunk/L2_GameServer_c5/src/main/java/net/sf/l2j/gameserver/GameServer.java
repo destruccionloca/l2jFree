@@ -45,6 +45,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminChangeAccessLevel
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCreateItem;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCursedWeapons;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDelete;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDMEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDoorControl;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEditChar;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEditNpc;
@@ -474,6 +475,7 @@ public class GameServer
         _adminCommandHandler.registerAdminCommandHandler(new AdminChangeAccessLevel());
         _adminCommandHandler.registerAdminCommandHandler(new AdminCreateItem());
         _adminCommandHandler.registerAdminCommandHandler(new AdminDelete());
+        _adminCommandHandler.registerAdminCommandHandler(new AdminDMEngine());
         _adminCommandHandler.registerAdminCommandHandler(new AdminDoorControl());
         _adminCommandHandler.registerAdminCommandHandler(new AdminEditChar());
         _adminCommandHandler.registerAdminCommandHandler(new AdminEditNpc());

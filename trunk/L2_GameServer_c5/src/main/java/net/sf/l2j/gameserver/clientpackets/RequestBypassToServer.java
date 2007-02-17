@@ -32,6 +32,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.CTF;
+import net.sf.l2j.gameserver.model.entity.DM;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.script.stat.LeaderboardEngine;
 import net.sf.l2j.gameserver.model.entity.TvT;
@@ -133,6 +134,22 @@ public class RequestBypassToServer extends ClientBasePacket
                     {
                         if (TvT._joining)
                             TvT.removePlayer(activeChar);
+                        else
+                            activeChar.sendMessage("The event is already started. You can not leave now!");
+                    }
+                    
+                    if (_command.substring(endOfId+1).startsWith("dmevent_player_join"))
+                    {
+                        if (DM._joining)
+                            DM.addPlayer(activeChar);
+                        else
+                            activeChar.sendMessage("The event is already started. You can not join now!");
+                    }
+                   
+                    if (_command.substring(endOfId+1).startsWith("dmevent_player_leave"))
+                    {
+                        if (DM._joining)
+                            DM.removePlayer(activeChar);
                         else
                             activeChar.sendMessage("The event is already started. You can not leave now!");
                     }

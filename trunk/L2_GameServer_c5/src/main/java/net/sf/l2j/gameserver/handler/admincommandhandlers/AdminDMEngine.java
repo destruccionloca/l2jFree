@@ -26,7 +26,6 @@
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import javolution.text.TextBuilder;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.DM;
@@ -34,13 +33,11 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
 public class AdminDMEngine implements IAdminCommandHandler {
 
- private static String[] _adminCommands = {"admin_dm",
-                                           "admin_dm_name", "admin_dm_desc", "admin_dm_join_loc",
-                                           "admin_dm_minlvl", "admin_dm_maxlvl",
-                                           "admin_dm_npc", "admin_dm_npc_pos",
-                                           "admin_dm_reward", "admin_dm_reward_amount", "admin_dm_spawnpos", "admin_dm_color",
-                                           "admin_dm_join", "admin_dm_teleport", "admin_dm_start", "admin_dm_abort", "admin_dm_finish",
-                                           "admin_dm_sit", "admin_dm_dump", "admin_dm_save", "admin_dm_load"};
+ private static String[] _adminCommands = {"admin_dmevent", "admin_dmevent_name", "admin_dmevent_desc", "admin_dmevent_join_loc",
+                                           "admin_dmevent_minlvl", "admin_dmevent_maxlvl", "admin_dmevent_npc", "admin_dmevent_npc_pos",
+                                           "admin_dmevent_reward", "admin_dmevent_reward_amount", "admin_dmevent_spawnpos", "admin_dmevent_color",
+                                           "admin_dmevent_join", "admin_dmevent_teleport", "admin_dmevent_start", "admin_dmevent_abort", "admin_dmevent_finish",
+                                           "admin_dmevent_sit", "admin_dmevent_dump", "admin_dmevent_save", "admin_dmevent_load"};
  
  private static final int REQUIRED_LEVEL = 100;
 
@@ -48,109 +45,109 @@ public class AdminDMEngine implements IAdminCommandHandler {
     {
         if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
         
-        if (command.equals("admin_dm"))
+        if (command.equals("admin_dmevent"))
             showMainPage(activeChar);
-        else if (command.startsWith("admin_dm_name "))
+        else if (command.startsWith("admin_dmevent_name "))
         {
-            DM._eventName = command.substring(14);
-            showMainPage(activeChar);
-        }
-        else if (command.startsWith("admin_dm_desc "))
-        {
-            DM._eventDesc = command.substring(14);
+            DM._eventName = command.substring(19);
             showMainPage(activeChar);
         }
-        else if (command.startsWith("admin_dm_minlvl "))
+        else if (command.startsWith("admin_dmevent_desc "))
         {
-            if (!DM.checkMinLevel(Integer.valueOf(command.substring(16))))
+            DM._eventDesc = command.substring(19);
+            showMainPage(activeChar);
+        }
+        else if (command.startsWith("admin_dmevent_minlvl "))
+        {
+            if (!DM.checkMinLevel(Integer.valueOf(command.substring(21))))
                 return false;
-            DM._minlvl = Integer.valueOf(command.substring(16));
+            DM._minlvl = Integer.valueOf(command.substring(21));
             showMainPage(activeChar);
         }
-        else if (command.startsWith("admin_dm_maxlvl "))
+        else if (command.startsWith("admin_dmevent_maxlvl "))
         {
-            if (!DM.checkMaxLevel(Integer.valueOf(command.substring(16))))
+            if (!DM.checkMaxLevel(Integer.valueOf(command.substring(21))))
                 return false;
-            DM._maxlvl = Integer.valueOf(command.substring(16));
+            DM._maxlvl = Integer.valueOf(command.substring(21));
             showMainPage(activeChar);
         }
-        else if (command.startsWith("admin_dm_join_loc "))
+        else if (command.startsWith("admin_dmevent_join_loc "))
         {
-            DM._joiningLocationName = command.substring(18);
+            DM._joiningLocationName = command.substring(23);
             showMainPage(activeChar);
         }
-        else if (command.startsWith("admin_dm_npc "))
+        else if (command.startsWith("admin_dmevent_npc "))
         {
-            DM._npcId = Integer.valueOf(command.substring(13));
+            DM._npcId = Integer.valueOf(command.substring(18));
             showMainPage(activeChar);
         }
-        else if (command.equals("admin_dm_npc_pos"))
+        else if (command.equals("admin_dmevent_npc_pos"))
         {
             DM.setNpcPos(activeChar);
             showMainPage(activeChar);
         }
-        else if (command.startsWith("admin_dm_reward "))
+        else if (command.startsWith("admin_dmevent_reward "))
         {
-            DM._rewardId = Integer.valueOf(command.substring(16));
+            DM._rewardId = Integer.valueOf(command.substring(21));
             showMainPage(activeChar);
         }
-        else if (command.startsWith("admin_dm_reward_amount "))
+        else if (command.startsWith("admin_dmevent_reward_amount "))
         {
-            DM._rewardAmount = Integer.valueOf(command.substring(23));
+            DM._rewardAmount = Integer.valueOf(command.substring(28));
             showMainPage(activeChar);
         }
-        else if (command.equals("admin_dm_spawnpos"))
+        else if (command.equals("admin_dmevent_spawnpos"))
         {
             DM.setPlayersPos(activeChar);
             showMainPage(activeChar);
         }
-        else if (command.startsWith("admin_dm_color "))
+        else if (command.startsWith("admin_dmevent_color "))
         {
-            DM._playerColors = Integer.decode("0x" + command.substring(15));
+            DM._playerColors = Integer.decode("0x" + command.substring(20));
             showMainPage(activeChar);
         }
-        else if(command.equals("admin_dm_join"))
+        else if(command.equals("admin_dmevent_join"))
         {
             DM.startJoin(activeChar);
             showMainPage(activeChar);
         }
-        else if (command.equals("admin_dm_teleport"))
+        else if (command.equals("admin_dmevent_teleport"))
         {
             DM.teleportStart();
             showMainPage(activeChar);
         }
-        else if(command.equals("admin_dm_start"))
+        else if(command.equals("admin_dmevent_start"))
         {
             DM.startEvent(activeChar);
             showMainPage(activeChar);
         }
-        else if(command.equals("admin_dm_abort"))
+        else if(command.equals("admin_dmevent_abort"))
         {
             activeChar.sendMessage("Aborting event");
             DM.abortEvent();
             showMainPage(activeChar);
         }
-        else if(command.equals("admin_dm_finish"))
+        else if(command.equals("admin_dmevent_finish"))
         {
             DM.finishEvent(activeChar);
             showMainPage(activeChar);
         }
-        else if (command.equals("admin_dm_sit"))
+        else if (command.equals("admin_dmevent_sit"))
         {
             DM.sit();
             showMainPage(activeChar);
         }
-        else if (command.equals("admin_dm_load"))
+        else if (command.equals("admin_dmevent_load"))
         {
             DM.loadData();
             showMainPage(activeChar);
         }
-        else if (command.equals("admin_dm_save"))
+        else if (command.equals("admin_dmevent_save"))
         {
             DM.saveData();
             showMainPage(activeChar);
         }
-        else if (command.equals("admin_dm_dump"))
+        else if (command.equals("admin_dmevent_dump"))
             DM.dumpData();
 
         return true;
@@ -174,35 +171,35 @@ public class AdminDMEngine implements IAdminCommandHandler {
         replyMSG.append("<center><font color=\"LEVEL\">[dm Engine]</font></center><br><br><br>");
         replyMSG.append("<table><tr><td><edit var=\"input1\" width=\"125\"></td><td><edit var=\"input2\" width=\"125\"></td></tr></table>");
         replyMSG.append("<table border=\"0\"><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"Name\" action=\"bypass -h admin_dm_name $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Description\" action=\"bypass -h admin_dm_desc $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Join Location\" action=\"bypass -h admin_dm_join_loc $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Name\" action=\"bypass -h admin_dmevent_name $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Description\" action=\"bypass -h admin_dmevent_desc $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Join Location\" action=\"bypass -h admin_dmevent_join_loc $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
         replyMSG.append("</tr></table><br><table><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"Max lvl\" action=\"bypass -h admin_dm_maxlvl $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Min lvl\" action=\"bypass -h admin_dm_minlvl $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Max lvl\" action=\"bypass -h admin_dmevent_maxlvl $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Min lvl\" action=\"bypass -h admin_dmevent_minlvl $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"NPC\" action=\"bypass -h admin_dm_npc $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"NPC Pos\" action=\"bypass -h admin_dm_npc_pos\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"NPC\" action=\"bypass -h admin_dmevent_npc $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"NPC Pos\" action=\"bypass -h admin_dmevent_npc_pos\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"Reward\" action=\"bypass -h admin_dm_reward $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Reward Amount\" action=\"bypass -h admin_dm_reward_amount $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Reward\" action=\"bypass -h admin_dmevent_reward $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Reward Amount\" action=\"bypass -h admin_dmevent_reward_amount $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"DM Color\" action=\"bypass -h admin_dm_color $input1 $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"DM SpawnPos\" action=\"bypass -h admin_dm_spawnpos $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"DM Color\" action=\"bypass -h admin_dmevent_color $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"DM SpawnPos\" action=\"bypass -h admin_dmevent_spawnpos\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><table><br><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"Join\" action=\"bypass -h admin_dm_join\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Teleport\" action=\"bypass -h admin_dm_teleport\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Start\" action=\"bypass -h admin_dm_start\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Join\" action=\"bypass -h admin_dmevent_join\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Teleport\" action=\"bypass -h admin_dmevent_teleport\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Start\" action=\"bypass -h admin_dmevent_start\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><table><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"Abort\" action=\"bypass -h admin_dm_abort\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Finish\" action=\"bypass -h admin_dm_finish\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Abort\" action=\"bypass -h admin_dmevent_abort\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Finish\" action=\"bypass -h admin_dmevent_finish\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"Sit Force\" action=\"bypass -h admin_dm_sit\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Dump\" action=\"bypass -h admin_dm_dump\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Sit Force\" action=\"bypass -h admin_dmevent_sit\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Dump\" action=\"bypass -h admin_dmevent_dump\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><br><table><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"Save\" action=\"bypass -h admin_dm_save\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Load\" action=\"bypass -h admin_dm_load\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Save\" action=\"bypass -h admin_dmevent_save\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Load\" action=\"bypass -h admin_dmevent_load\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><br>");
         replyMSG.append("Current event...<br1>");
         replyMSG.append("    ... name:&nbsp;<font color=\"00FF00\">" + DM._eventName + "</font><br1>");
@@ -219,6 +216,12 @@ public class AdminDMEngine implements IAdminCommandHandler {
         {
             replyMSG.append("<br1>");
             replyMSG.append(DM._players.size() + " players participating.");
+            replyMSG.append("<br><br>");
+        }
+        else if (DM._started)
+        {
+            replyMSG.append("<br1>");
+            replyMSG.append(DM._players.size() + " players in fighting event.");
             replyMSG.append("<br><br>");
         }
         

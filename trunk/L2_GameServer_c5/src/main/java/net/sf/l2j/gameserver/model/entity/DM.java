@@ -27,11 +27,9 @@ package net.sf.l2j.gameserver.model.entity;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Random;
 import java.util.Vector;
 
 import javolution.text.TextBuilder;
-import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ItemTable;
@@ -461,6 +459,7 @@ public class DM
         _playerKillsCount = new Vector<Integer>();
         _players = new Vector<L2PcInstance>();
         _topPlayer = null;
+        _npcSpawn = null;
         _joining = false;
         _teleport = false;
         _started = false;
@@ -489,7 +488,11 @@ public class DM
                 _npcY = rs.getInt("npcY");
                 _npcZ = rs.getInt("npcZ");
                 _rewardId = rs.getInt("rewardId");
-                _rewardAmount = rs.getInt("rewardAmount");                
+                _rewardAmount = rs.getInt("rewardAmount");
+                _playerColors = rs.getInt("color");
+                _playerX = rs.getInt("playerX");
+                _playerY = rs.getInt("playerY");
+                _playerZ = rs.getInt("playerZ");
             
             }                    
             statement.close();            
@@ -514,7 +517,7 @@ public class DM
             statement.execute();
             statement.close();
 
-            statement = con.prepareStatement("INSERT INTO DM (eventNane, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
+            statement = con.prepareStatement("INSERT INTO DM (eventNane, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, color, playerX, playerY, player Z ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
             statement.setString(1, _eventName);
             statement.setString(2, _eventDesc);
             statement.setString(3, _joiningLocationName);
@@ -526,13 +529,12 @@ public class DM
             statement.setInt(9, _npcZ);
             statement.setInt(10, _rewardId);
             statement.setInt(11, _rewardAmount);
-            statement.execute();
-            statement.close();
-            
-            statement = con.prepareStatement("Delete from DM_teams");
+            statement.setInt(12, _playerColors);
+            statement.setInt(13, _playerX);
+            statement.setInt(14, _playerY);
+            statement.setInt(15, _playerZ);
             statement.execute();
             statement.close();            
-            
         }
         catch (Exception e)
         {
@@ -563,7 +565,7 @@ public class DM
 
                     replyMSG.append("<table border=\"0\"><tr>");
                     replyMSG.append("<td width=\"200\">Wait till event start or</td>");
-                    replyMSG.append("<td width=\"60\"><center><button value=\"remove\" action=\"bypass -h npc_" + objectId + "_DM_player_leave\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></td>");
+                    replyMSG.append("<td width=\"60\"><center><button value=\"remove\" action=\"bypass -h npc_" + objectId + "_dmevent_player_leave\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></td>");
                     replyMSG.append("<td width=\"100\">your participation!</td>");
                     replyMSG.append("</tr></table>");
                 }
@@ -573,7 +575,7 @@ public class DM
                     replyMSG.append("<td width=\"200\">Admin set min lvl : <font color=\"00FF00\">" + _minlvl + "</font></td><br>");
                     replyMSG.append("<td width=\"200\">Admin set max lvl : <font color=\"00FF00\">" + _maxlvl + "</font></td><br><br>");
                     
-                    replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_DM_player_join\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+                    replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_dmevent_player_join\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
                     
                 }
             }
