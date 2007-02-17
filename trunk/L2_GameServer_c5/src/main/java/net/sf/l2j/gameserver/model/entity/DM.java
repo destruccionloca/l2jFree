@@ -225,8 +225,22 @@ public class DM
     {
         for (L2PcInstance player : _players)
         {
+            player._originalNameColorDM = player.getNameColor();
+            player._originalKarmaDM = player.getKarma();
+            player._inEventDM = true;
             player.setNameColor(_playerColors);
             player.setKarma(0);
+            player.broadcastUserInfo();
+        }
+    }
+    
+    public static void removeUserData()
+    {
+        for (L2PcInstance player : _players)
+        {
+            player.setNameColor(player._originalNameColorDM);
+            player.setKarma(player._originalKarmaDM);
+            player._inEventDM = false;
             player.broadcastUserInfo();
         }
     }
@@ -432,16 +446,32 @@ public class DM
         System.out.println("# _players(Vector<L2PcInstance>) #");
         System.out.println("##################################");
         
+        System.out.println("Total Players : " + _players.size());
+        
         for (L2PcInstance player : _players)
         {
             if (player != null)
                 System.out.println("Name: " + player.getName()+ " index :" + _players.indexOf(player));
         }
-        
         System.out.println("");
         System.out.println("#####################################################################");
-        System.out.println("# _savePlayers(Vector<String>) and _savePlayerTeams(Vector<String>) #");
+        System.out.println("# _playerKillsCount(Vector<int>) and _savePlayerTeams(Vector<String>) #");
         System.out.println("#####################################################################");
+        System.out.println("");
+        
+        int index =0;
+        System.out.println("Total Kills Vector : " + _playerKillsCount.size());
+        for (Integer count : _playerKillsCount)
+        {
+            if (count != -1 )
+                System.out.println("Kills Count: " + count + " index :" + index);
+            index++;
+        }
+        
+        System.out.println("");
+        System.out.println("################################");
+        System.out.println("# _savePlayers(Vector<String>) #");
+        System.out.println("################################");
         
         for (String player : _savePlayers)
             System.out.println("Name: " + player );
@@ -464,6 +494,19 @@ public class DM
         _teleport = false;
         _started = false;
         _sitForced = false;
+        _npcId = 0;
+        _npcX = 0;
+        _npcY = 0;
+        _npcZ = 0;
+        _rewardId = 0;
+        _rewardAmount = 0;
+        _topKills = 0;
+        _minlvl = 0;
+        _maxlvl = 0;
+        _playerColors = 0;
+        _playerX = 0;
+        _playerY = 0;
+        _playerZ = 0;
         
         java.sql.Connection con = null;
         try
@@ -517,7 +560,7 @@ public class DM
             statement.execute();
             statement.close();
 
-            statement = con.prepareStatement("INSERT INTO dm (eventNane, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, color, playerX, playerY, player Z ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
+            statement = con.prepareStatement("INSERT INTO dm (eventNane, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, color, playerX, playerY, playerZ ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
             statement.setString(1, _eventName);
             statement.setString(2, _eventDesc);
             statement.setString(3, _joiningLocationName);
@@ -604,10 +647,12 @@ public class DM
         if (!addPlayerOk(player))
             return;
         _players.add(player);
-        _playerKillsCount.add(0);
         player._originalNameColorDM = player.getNameColor();
         player._originalKarmaDM = player.getKarma();
         player._inEventDM = true;
+        _savePlayers.add(player.getName());
+        _playerKillsCount.add(0);
+        
     }
     
     public static boolean addPlayerOk(L2PcInstance eventPlayer)
@@ -623,21 +668,17 @@ public class DM
 
     public static synchronized void addDisconnectedPlayer(L2PcInstance player)
     {
-        if (_teleport || _started)
+        _players.add(player);
+            
+        player._originalNameColorDM = player.getNameColor();
+        player._originalKarmaDM = player.getKarma();
+        player._inEventDM = true;
+        if(_teleport || _started)
         {
-            _players.add(player);
-            _playerKillsCount.add(0);
-            player._originalNameColorDM = player.getNameColor();
-            player._originalKarmaDM = player.getKarma();
-            player._inEventDM = true;
-
-            if (_teleport || _started)
-            {
-                player.setNameColor(_playerColors);
-                player.setKarma(0);
-                player.broadcastUserInfo();
-                player.teleToLocation(_playerX, _playerY , _playerZ);
-            }
+            player.setNameColor(_playerColors);
+            player.setKarma(0);
+            player.broadcastUserInfo();
+            player.teleToLocation(_playerX, _playerY , _playerZ);            
         }
     }
     
@@ -645,21 +686,19 @@ public class DM
     {
         if (player != null)
         {
-            int index = _players.indexOf(player);            
-            if (index != -1)
+            if (_joining)
+            {
+                int index = _players.indexOf(player);
                 _playerKillsCount.remove(index);
-            
-            _players.remove(player);
-            
-            player.setNameColor(player._originalNameColorDM);
-            player.setKarma(player._originalKarmaDM);
-            player.broadcastUserInfo();
-            player._inEventDM = false;
+            }
+            _players.remove(player);                       
         }
     }
     
     public static void cleanDM()
     {
+        _savePlayers = new Vector<String>();
+        _playerKillsCount = new Vector<Integer>();
         for (L2PcInstance player : _players)
         {
             removePlayer(player);            
@@ -667,8 +706,6 @@ public class DM
 
         _topKills = 0;
         _players = new Vector<L2PcInstance>();
-        _savePlayers = new Vector<String>();
-        _playerKillsCount = new Vector<Integer>();
         _topPlayer = null;
         
     }
@@ -687,6 +724,7 @@ public class DM
     {
         Announcements.getInstance().announceToAll(_eventName + "(DM): Teleport back to participation NPC in 20 seconds!");
 
+        removeUserData();
         ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
                                                        {
                                                             public void run()

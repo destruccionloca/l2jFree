@@ -618,6 +618,15 @@ public class TvT
         _teleport = false;
         _started = false;
         _sitForced = false;
+        _npcId = 0;
+        _npcX = 0;
+        _npcY = 0;
+        _npcZ = 0;
+        _rewardId = 0;
+        _rewardAmount = 0;
+        _topKills = 0;
+        _minlvl = 0;
+        _maxlvl = 0;
         
         java.sql.Connection con = null;
         try

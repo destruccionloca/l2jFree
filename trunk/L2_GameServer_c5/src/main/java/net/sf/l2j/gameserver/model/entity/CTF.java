@@ -1136,9 +1136,6 @@ public class CTF
         _savePlayerTeams = new Vector<String>();
         _players = new Vector<L2PcInstance>();
         _playersShuffle = new Vector<L2PcInstance>();
-        _flagSpawns = new Vector<L2Spawn>();
-        _flagsTaken = new Vector<Boolean>();
-        _flagSpawned = new Vector<Boolean>();
         _teamPlayersCount = new Vector<Integer>();
         _teamPointsCount = new Vector<Integer>();
         _teamColors = new Vector<Integer>();
@@ -1146,10 +1143,24 @@ public class CTF
         _flagsX = new Vector<Integer>();
         _flagsY = new Vector<Integer>();
         _flagsZ = new Vector<Integer>();
+        _flagSpawns = new Vector<L2Spawn>();
+        _flagsTaken = new Vector<Boolean>();
+        _flagSpawned = new Vector<Boolean>();
         _joining = false;
         _teleport = false;
         _started = false;
         _sitForced = false;
+        _npcSpawn = null;
+        _npcId = 0;
+        _npcX = 0;
+        _npcY = 0;
+        _npcZ = 0;
+        _npcHeading = 0;
+        _rewardId = 0;
+        _rewardAmount = 0;
+        _topScore = 0;
+        _minlvl = 0;
+        _maxlvl = 0;
         
         
         java.sql.Connection con = null;
