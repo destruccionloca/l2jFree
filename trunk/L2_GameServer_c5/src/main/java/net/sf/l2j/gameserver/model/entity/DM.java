@@ -697,16 +697,22 @@ public class DM
     
     public static void cleanDM()
     {
-        _savePlayers = new Vector<String>();
-        _playerKillsCount = new Vector<Integer>();
         for (L2PcInstance player : _players)
         {
             removePlayer(player);            
         }
 
-        _topKills = 0;
+        _savePlayers = new Vector<String>();
+        _playerKillsCount = new Vector<Integer>();
         _players = new Vector<L2PcInstance>();
         _topPlayer = null;
+        _npcSpawn = null;
+        _joining = false;
+        _teleport = false;
+        _started = false;
+        _sitForced = false;
+        _topKills = 0;
+        _players = new Vector<L2PcInstance>();
         
     }
     

@@ -1258,7 +1258,7 @@ public class L2Clan
             statement.close();
             
             if (getName() != null)
-                _log.info("Restored clan data for \"" + getName() + "\" from database.");
+                if (_log.isDebugEnabled()) _log.info("Restored clan data for \"" + getName() + "\" from database.");
             //restorewars();
             restoreSkills();
             restoreSubPledges();
