@@ -3747,7 +3747,7 @@ public final class L2PcInstance extends L2PlayableInstance
                    {
                        DM.setPlayerKillsCount((L2PcInstance)killer , DM.playerKillsCount((L2PcInstance)killer)+1);
 
-                       sendMessage("You will be revived and teleported to team spot in 20 seconds!");
+                       sendMessage("You will be revived and teleported to spot in 20 seconds!");
                        ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
                                                                        {
                                                                            public void run()

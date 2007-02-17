@@ -435,7 +435,7 @@ public class DM
         for (L2PcInstance player : _players)
         {
             if (player != null)
-                System.out.println("Name: " + player.getName());
+                System.out.println("Name: " + player.getName()+ " index :" + _players.indexOf(player));
         }
         
         System.out.println("");
@@ -473,7 +473,7 @@ public class DM
 
             con = L2DatabaseFactory.getInstance().getConnection();
 
-            statement = con.prepareStatement("Select * from DM");
+            statement = con.prepareStatement("Select * from dm");
             rs = statement.executeQuery();
             
             while (rs.next())
@@ -513,11 +513,11 @@ public class DM
             con = L2DatabaseFactory.getInstance().getConnection();
             PreparedStatement statement;
             
-            statement = con.prepareStatement("Delete from DM");
+            statement = con.prepareStatement("Delete from dm");
             statement.execute();
             statement.close();
 
-            statement = con.prepareStatement("INSERT INTO DM (eventNane, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, color, playerX, playerY, player Z ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
+            statement = con.prepareStatement("INSERT INTO dm (eventNane, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, color, playerX, playerY, player Z ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
             statement.setString(1, _eventName);
             statement.setString(2, _eventDesc);
             statement.setString(3, _joiningLocationName);
@@ -604,6 +604,7 @@ public class DM
         if (!addPlayerOk(player))
             return;
         _players.add(player);
+        _playerKillsCount.add(0);
         player._originalNameColorDM = player.getNameColor();
         player._originalKarmaDM = player.getKarma();
         player._inEventDM = true;
@@ -625,6 +626,7 @@ public class DM
         if (_teleport || _started)
         {
             _players.add(player);
+            _playerKillsCount.add(0);
             player._originalNameColorDM = player.getNameColor();
             player._originalKarmaDM = player.getKarma();
             player._inEventDM = true;
@@ -643,6 +645,10 @@ public class DM
     {
         if (player != null)
         {
+            int index = _players.indexOf(player);            
+            if (index != -1)
+                _playerKillsCount.remove(index);
+            
             _players.remove(player);
             
             player.setNameColor(player._originalNameColorDM);
@@ -661,6 +667,9 @@ public class DM
 
         _topKills = 0;
         _players = new Vector<L2PcInstance>();
+        _savePlayers = new Vector<String>();
+        _playerKillsCount = new Vector<Integer>();
+        _topPlayer = null;
         
     }
     

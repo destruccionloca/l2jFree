@@ -187,7 +187,7 @@ public class AdminDMEngine implements IAdminCommandHandler {
         replyMSG.append("</tr></table><br><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"DM Color\" action=\"bypass -h admin_dmevent_color $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"DM SpawnPos\" action=\"bypass -h admin_dmevent_spawnpos\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("</tr></table><table><br><tr>");
+        replyMSG.append("</tr></table><table><br><br><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Join\" action=\"bypass -h admin_dmevent_join\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Teleport\" action=\"bypass -h admin_dmevent_teleport\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Start\" action=\"bypass -h admin_dmevent_start\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
@@ -210,6 +210,8 @@ public class AdminDMEngine implements IAdminCommandHandler {
         replyMSG.append("    ... reward Amount:&nbsp;<font color=\"00FF00\">" + DM._rewardAmount + "</font><br><br>");
         replyMSG.append("    ... Min lvl:&nbsp;<font color=\"00FF00\">" + DM._minlvl + "</font><br>");
         replyMSG.append("    ... Max lvl:&nbsp;<font color=\"00FF00\">" + DM._maxlvl + "</font><br><br>");
+        replyMSG.append("    ... Death Match Color:&nbsp;<font color=\"00FF00\">" + DM._playerColors + "</font><br>");
+        replyMSG.append("    ... Death Match Spawn Pos:&nbsp;<font color=\"00FF00\">" + DM._playerX + "," + DM._playerY + "," + DM._playerZ + "</font><br><br>");
         replyMSG.append("Current players:<br1>");
         
         if (!DM._started)
