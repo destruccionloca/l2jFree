@@ -335,6 +335,7 @@ $MYG < ../sql/tvt.sql &> /dev/null
 $MYG < ../sql/tvt_teams.sql &> /dev/null
 $MYG < ../sql/ctf.sql &> /dev/null
 $MYG < ../sql/ctf_teams.sql &> /dev/null
+$MYG < ../sql/dm.sql &> /dev/null
 }
 
 finish(){
