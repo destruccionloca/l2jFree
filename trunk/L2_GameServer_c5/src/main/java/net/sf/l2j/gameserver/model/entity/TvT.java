@@ -407,7 +407,7 @@ public class TvT
         {
             if (player != null)
             {
-                if (player._teamNameTvT.equals(teamName))
+                if (player._teamNameTvT.equals(teamName) && player._countTvTkills>0)
                 {
                     PcInventory inv = player.getInventory();
                 
@@ -846,6 +846,7 @@ public class TvT
         player._originalNameColorTvT = player.getNameColor();
         player._originalKarmaTvT = player.getKarma();
         player._inEventTvT = true;
+        player._countTvTkills = 0;
     }
     
     public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
@@ -915,6 +916,7 @@ public class TvT
             player._originalNameColorTvT = player.getNameColor();
             player._originalKarmaTvT = player.getKarma();
             player._inEventTvT = true;
+            player._countTvTkills = 0;
 
             if (_teleport || _started)
             {
@@ -943,6 +945,7 @@ public class TvT
             player.broadcastUserInfo();
             player._teamNameTvT = new String();
             player._inEventTvT = false;
+            player._countTvTkills = 0;
         }
     }
     

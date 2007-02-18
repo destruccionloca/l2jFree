@@ -546,7 +546,8 @@ public final class L2PcInstance extends L2PlayableInstance
     /** TvT Engine parameters */
     public String _teamNameTvT;
     public int _originalNameColorTvT,
-              _originalKarmaTvT;
+               _countTvTkills,
+               _originalKarmaTvT;
     public boolean _inEventTvT = false;
    
     /** CTF Engine parameters */
@@ -3699,6 +3700,7 @@ public final class L2PcInstance extends L2PlayableInstance
                {
                    if (TvT._teleport || TvT._started)
                    {
+                       ((L2PcInstance)killer)._countTvTkills++;
                        if (!(((L2PcInstance)killer)._teamNameTvT.equals(_teamNameTvT)))
                            TvT.setTeamKillsCount(((L2PcInstance)killer)._teamNameTvT, TvT.teamKillsCount(((L2PcInstance)killer)._teamNameTvT)+1);
 
