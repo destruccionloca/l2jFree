@@ -270,7 +270,10 @@ public class VIP {
     }
     
     public static void startJoin(L2PcInstance activeChar){
-        if (_time == 0 || _team == 0 || _endNPC == 0 || _delay == 0){
+        if (_teamName == "" || _joinArea == "" || _time == 0 || _vipReward == 0 || _vipRewardAmount == 0 || _notVipReward == 0 || 
+                _notVipRewardAmount == 0 || _theVipReward == 0 || _theVipRewardAmount == 0 ||
+                _endNPC == 0 || _joinNPC == 0 || _delay == 0 || _endX == 0 || _endY == 0 || _endZ == 0 ||
+                _startX == 0 || _startY == 0 || _startZ == 0 || _joinX == 0 || _joinY == 0 || _joinZ == 0 || _team == 0 ){
             activeChar.sendMessage("Cannot initiate join status of event, not all the values are filled in");
             return;
         }

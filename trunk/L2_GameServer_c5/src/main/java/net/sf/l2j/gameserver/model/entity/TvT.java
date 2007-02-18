@@ -558,7 +558,7 @@ public class TvT
         System.out.println("##########################");
         
         for (String team : _teams)
-            System.out.println(team);
+           System.out.println(team + " Kills Done :" + _teamKillsCount.get(_teams.indexOf(team)));
 
         if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
         {
@@ -582,7 +582,7 @@ public class TvT
         for (L2PcInstance player : _players)
         {
             if (player != null)
-                System.out.println("Name: " + player.getName() + "    Team: " + player._teamNameTvT);
+                System.out.println("Name: " + player.getName() + "   Team: " + player._teamNameTvT + "  Kills Done:" + player._countTvTkills);
         }
         
         System.out.println("");

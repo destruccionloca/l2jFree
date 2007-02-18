@@ -58,7 +58,6 @@ public class DM
                          _joiningLocationName = new String();
     public static Vector<String> _savePlayers = new Vector<String>();
     public static Vector<L2PcInstance> _players = new Vector<L2PcInstance>();                                       
-    public static Vector<Integer> _playerKillsCount = new Vector<Integer>();
     public static boolean _joining = false,
                           _teleport = false,
                           _started = false,
@@ -228,6 +227,7 @@ public class DM
             player._originalNameColorDM = player.getNameColor();
             player._originalKarmaDM = player.getKarma();
             player._inEventDM = true;
+            player._countDMkills = 0;
             player.setNameColor(_playerColors);
             player.setKarma(0);
             player.broadcastUserInfo();
@@ -241,6 +241,7 @@ public class DM
             player.setNameColor(player._originalNameColorDM);
             player.setKarma(player._originalKarmaDM);
             player._inEventDM = false;
+            player._countDMkills = 0;
             player.broadcastUserInfo();
         }
     }
@@ -261,7 +262,7 @@ public class DM
             Announcements.getInstance().announceToAll(_eventName + "(DM): No players win the match(nobody killed).");
         else
         {
-            Announcements.getInstance().announceToAll(_eventName + "(DM): " + _topPlayer + "'s win the match! " + _topKills + " kills.");
+            Announcements.getInstance().announceToAll(_eventName + "(DM): " + _topPlayer.getName() + "'s win the match! " + _topKills + " kills.");
             rewardPlayer(activeChar);
         }
         
@@ -280,10 +281,10 @@ public class DM
     {
         for (L2PcInstance player : _players)
         {
-            if (playerKillsCount(player) > _topKills)
+            if (player._countDMkills > _topKills)
             {
                 _topPlayer = player;
-                _topKills = playerKillsCount(player);
+                _topKills = player._countDMkills;
             }
         }
     }
@@ -444,21 +445,7 @@ public class DM
         for (L2PcInstance player : _players)
         {
             if (player != null)
-                System.out.println("Name: " + player.getName()+ " index :" + _players.indexOf(player));
-        }
-        System.out.println("");
-        System.out.println("#####################################################################");
-        System.out.println("# _playerKillsCount(Vector<int>) and _savePlayerTeams(Vector<String>) #");
-        System.out.println("#####################################################################");
-        System.out.println("");
-        
-        int index =0;
-        System.out.println("Total Kills Vector : " + _playerKillsCount.size());
-        for (Integer count : _playerKillsCount)
-        {
-            if (count != -1 )
-                System.out.println("Kills Count: " + count + " index :" + index);
-            index++;
+                System.out.println("Name: " + player.getName()+ " kills :" + player._countDMkills);
         }
         
         System.out.println("");
@@ -479,7 +466,6 @@ public class DM
         _eventDesc = new String();
         _joiningLocationName = new String();
         _savePlayers = new Vector<String>();
-        _playerKillsCount = new Vector<Integer>();
         _players = new Vector<L2PcInstance>();
         _topPlayer = null;
         _npcSpawn = null;
@@ -643,8 +629,8 @@ public class DM
         player._originalNameColorDM = player.getNameColor();
         player._originalKarmaDM = player.getKarma();
         player._inEventDM = true;
+        player._countDMkills = 0;
         _savePlayers.add(player.getName());
-        _playerKillsCount.add(0);
         
     }
     
@@ -668,6 +654,7 @@ public class DM
             player._originalNameColorDM = player.getNameColor();
             player._originalKarmaDM = player.getKarma();
             player._inEventDM = true;
+            player._countDMkills = 0;
             if(_teleport || _started)
             {
                 player.setNameColor(_playerColors);
@@ -682,11 +669,6 @@ public class DM
     {
         if (player != null)
         {
-            if (_joining)
-            {
-                int index = _players.indexOf(player);
-                _playerKillsCount.remove(index);
-            }
             _players.remove(player);                       
         }
     }
@@ -699,8 +681,6 @@ public class DM
         }
 
         _savePlayers = new Vector<String>();
-        _playerKillsCount = new Vector<Integer>();
-        _players = new Vector<L2PcInstance>();
         _topPlayer = null;
         _npcSpawn = null;
         _joining = false;
@@ -741,24 +721,4 @@ public class DM
                                                        }, 20000);
     }
 
-    public static int playerKillsCount(L2PcInstance player)
-    {
-        int index = _players.indexOf(player);
-        
-        if (index == -1)
-            return -1;
-
-        return _playerKillsCount.get(index);
-    }
-    
-    public static void setPlayerKillsCount(L2PcInstance killer, int KillsCount)
-    {
-        int index = _players.indexOf(killer);
-        
-        if (index == -1)
-            return;
-
-        _playerKillsCount.set(index, KillsCount);
-    }    
-    
 }
