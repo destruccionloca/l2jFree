@@ -24,28 +24,33 @@ package net.sf.l2j.gameserver.model.entity;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
 import java.util.Random;
+import java.util.Vector;
 
 import javolution.text.TextBuilder;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.Announcements;
-import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.ItemTable;
-import net.sf.l2j.gameserver.model.base.Race;
+import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.SpawnTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Spawn;
+import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
-import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2j.gameserver.templates.L2Item;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.templates.L2Item;
+import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class VIP {
+    
+    private final static Log _log = LogFactory.getLog(VIP.class.getName());
     public static String    _teamName = "", _joinArea = "";
     
     public static int       _time = 0, _winners = 0,
@@ -105,7 +110,7 @@ public class VIP {
         
         int random = generator.nextInt(5) + 1; // (0 - 4) + 1
         
-        System.out.println("Random number generated in setRandomTeam(): " + random);
+        if (_log.isDebugEnabled())_log.debug("Random number generated in setRandomTeam(): " + random);
         
         switch (random){
             case 1:     _team = 1; _teamName = "Human"; setLoc(); break;
@@ -134,7 +139,7 @@ public class VIP {
             statement.close();
         }
         catch (SQLException e){
-            System.out.println("Could not check End LOC for team" + _team + " got: " + e.getMessage());
+            _log.error("Could not check End LOC for team" + _team + " got: " + e.getMessage());
         }
         finally {
             try { con.close(); } catch (Exception e) {}
@@ -154,7 +159,7 @@ public class VIP {
             statement.close();
         }
         catch (SQLException e){
-            System.out.println("Could not check Start LOC for team" + _team + " got: " + e.getMessage());
+            _log.error("Could not check Start LOC for team" + _team + " got: " + e.getMessage());
         }
         finally {
             try { con.close(); } catch (Exception e) {}
@@ -222,7 +227,7 @@ public class VIP {
             _endSpawn.getLastSpawn().broadcastPacket(new MagicSkillUser(_endSpawn.getLastSpawn(), _endSpawn.getLastSpawn(), 1034, 1, 1, 1));
         }
         catch (Exception e) {
-            System.out.println("VIP Engine[spawnEndNPC()]: exception: " + e.getMessage());
+            _log.error("VIP Engine[spawnEndNPC()]: exception: " + e.getMessage());
         }
     }
     
@@ -241,7 +246,7 @@ public class VIP {
             _joinSpawn.getLastSpawn().broadcastPacket(new MagicSkillUser(_joinSpawn.getLastSpawn(), _joinSpawn.getLastSpawn(), 1034, 1, 1, 1));
         }
         catch (Exception e) {
-            System.out.println("VIP Engine[spawnJoinNPC()]: exception: " + e.getMessage());
+            _log.error("VIP Engine[spawnJoinNPC()]: exception: " + e.getMessage());
         }
     }
     
@@ -339,7 +344,7 @@ public class VIP {
     
     public static void vipDied(){
         if (!_started) {
-            System.out.println("Could not finish the event. Event not started or event ended prematurly.");
+            _log.info("Could not finish the event. Event not started or event ended prematurly.");
             return;
         }
         
@@ -352,7 +357,7 @@ public class VIP {
     
     public static void endEventTime(){
         if (!_started) {
-            System.out.println("Could not finish the event. Event not started or event ended prematurly (VIP died)");
+            _log.info("Could not finish the event. Event not started or event ended prematurly (VIP died)");
             return;
         }
         
@@ -404,13 +409,13 @@ public class VIP {
             eventPlayer.sendPacket(adminReply); 
         }
         catch (Exception e) {
-            System.out.println("VIP(showJoinHTML(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+            if (_log.isDebugEnabled())_log.debug("VIP(showJoinHTML(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
         }
     }
     
     public static void vipWin(L2PcInstance activeChar){
         if (!_started) {
-            System.out.println("Could not finish the event. Event not started or event ended prematurly");
+            _log.info("Could not finish the event. Event not started or event ended prematurly");
             return;
         }
         
@@ -610,12 +615,12 @@ public class VIP {
     public static void chooseVIP(){
         int size = _playersVIP.size();
         
-        System.out.println("Size of players on VIP: " + size);
+        if (_log.isDebugEnabled())_log.debug("Size of players on VIP: " + size);
         
         Random generator = new Random();
         int random = generator.nextInt(size);
         
-        System.out.println("Random number chosen in VIP: " + random);
+        if (_log.isDebugEnabled())_log.debug("Random number chosen in VIP: " + random);
         
         L2PcInstance VIP = _playersVIP.get(random);
         VIP._isTheVIP = true;
@@ -772,7 +777,7 @@ public class VIP {
             eventPlayer.sendPacket(adminReply);     
         }
         catch (Exception e) {
-            System.out.println("VIP(showJoinHTML(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+            if (_log.isDebugEnabled())_log.debug("VIP(showJoinHTML(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
         }
     }
 

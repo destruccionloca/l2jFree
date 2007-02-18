@@ -154,7 +154,6 @@ public class AdminEditNpc implements IAdminCommandHandler {
         }
         else if(command.startsWith("admin_save_npc "))
         {
-            //System.out.println("- " + command);
             try
             {
                 save_npc_property(command.substring(14).trim());
@@ -500,7 +499,6 @@ public class AdminEditNpc implements IAdminCommandHandler {
         replyMSG.append("<tr><td width=150>Item Name</td><td width=60>Price</td><td width=40>Delete</td></tr>");
         int start = ((page-1) * PAGE_LIMIT);
         int end = Math.min(((page-1) * PAGE_LIMIT) + (PAGE_LIMIT-1), tradeList.getItems().size() - 1);
-        //System.out.println(end);
         for (L2ItemInstance item : tradeList.getItems(start, end+1))
         {
             replyMSG.append("<tr><td><a action=\"bypass -h admin_editShopItem "+tradeList.getListId()+" "+item.getItemId()+"\">"+item.getItem().getName()+"</a></td>");
@@ -640,7 +638,6 @@ public class AdminEditNpc implements IAdminCommandHandler {
             if (pos >= 0)
             {
                 int tradeListID = Integer.decode((line.substring(pos+target.length()+1)).split("\"")[0]);
-                //System.out.println(tradeListID);
                 tradeLists.add(TradeController.getInstance().getBuyList(tradeListID));
             }
         }
@@ -704,7 +701,6 @@ public class AdminEditNpc implements IAdminCommandHandler {
     
     private void save_npc_property(String modifications)
     {
-        //System.out.println("- modifications:" + modifications);
         
 //      L2NpcTemplate npcData = null;//NpcTable.getInstance().getTemplate()
         StatsSet npcData = new StatsSet();
@@ -720,8 +716,6 @@ public class AdminEditNpc implements IAdminCommandHandler {
                 }
                 String name = st2.nextToken().trim();
                 String value = st2.nextToken().trim();
-                
-                //System.out.println(" - " + name + "=" + value);
                 
                 if(name.equals("id")){
                     npcData.set("npcId", Integer.parseInt(value));
@@ -980,8 +974,6 @@ public class AdminEditNpc implements IAdminCommandHandler {
         {
             try { con.close(); } catch (Exception e) {}
         }
-        
-        //System.out.println("- updateDropData end");
     }
     
     private void addDropData(L2PcInstance admin, int npcId, int itemId, int min, int max, int category, int chance)
@@ -1020,7 +1012,6 @@ public class AdminEditNpc implements IAdminCommandHandler {
             try { con.close(); } catch (Exception e) {}
         }           
         
-        //System.out.println("- addDropData end");
     }
     
     private void deleteDropData(L2PcInstance admin, int npcId, int itemId, int category)

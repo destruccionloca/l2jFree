@@ -43,16 +43,18 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
-import net.sf.l2j.gameserver.model.entity.CTF;
-import net.sf.l2j.gameserver.model.entity.TvT;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class DM
 {   
+    private final static Log _log = LogFactory.getLog(DM.class.getName());
     public static String _eventName = new String(),
                          _eventDesc = new String(),
                          _joiningLocationName = new String();
@@ -120,7 +122,7 @@ public class DM
     {
         if (!startJoinOk())
         {
-            System.out.println("DM Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() = false");
+            if (_log.isDebugEnabled())_log.debug("DM Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() = false");
             return;
         }
         
@@ -169,7 +171,7 @@ public class DM
         }
         catch (Exception e)
         {
-            System.out.println("DM Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: " + e.getMessage());
+            if (_log.isDebugEnabled())_log.debug("DM Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: " + e.getMessage());
         }
     }
     
@@ -202,7 +204,7 @@ public class DM
     {
         if (!startEventOk())
         {
-            System.out.println("DM Engine[startEvent(" + activeChar.getName() + ")]: startEventOk() = false");
+            if (_log.isDebugEnabled())_log.debug("DM Engine[startEvent(" + activeChar.getName() + ")]: startEventOk() = false");
             return;
         }
         
@@ -250,7 +252,7 @@ public class DM
     {
         if (!finishEventOk())
         {
-            System.out.println("DM Engine[finishEvent(" + activeChar.getName() + ")]: finishEventOk() = false");
+            if (_log.isDebugEnabled())_log.debug("DM Engine[finishEvent(" + activeChar.getName() + ")]: finishEventOk() = false");
             return;
         }
 
@@ -522,7 +524,7 @@ public class DM
         }        
         catch (Exception e)
         {
-            System.out.println("Exception: DM.loadData(): " + e.getMessage());
+            _log.error("Exception: DM.loadData(): " + e.getMessage());
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }
@@ -560,7 +562,7 @@ public class DM
         }
         catch (Exception e)
         {
-            System.out.println("Exception: DM.saveData(): " + e.getMessage());
+            _log.error("Exception: DM.saveData(): " + e.getMessage());
         }        
         finally {try { con.close(); } catch (Exception e) {}}
     }
@@ -617,7 +619,7 @@ public class DM
         }
         catch (Exception e)
         {
-            System.out.println("DM Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+            _log.error("DM Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
         }
     }
 

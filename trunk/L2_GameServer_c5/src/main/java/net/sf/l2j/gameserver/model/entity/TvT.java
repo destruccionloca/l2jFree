@@ -45,15 +45,18 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
-import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class TvT
 {   
+    private final static Log _log = LogFactory.getLog(TvT.class.getName());    
     public static String _eventName = new String(),
                          _eventDesc = new String(),
                          _topTeam = new String(),
@@ -95,7 +98,7 @@ public class TvT
     {
         if (!checkTeamOk())
         {
-            System.out.println("TvT Engine[addTeam(" + teamName + ")]: checkTeamOk() = false");
+            if (_log.isDebugEnabled())_log.debug("TvT Engine[addTeam(" + teamName + ")]: checkTeamOk() = false");
             return;
         }
         
@@ -131,13 +134,13 @@ public class TvT
     {
         if (!checkTeamOk() || _teams.isEmpty())
         {
-            System.out.println("TvT Engine[removeTeam(" + teamName + ")]: checkTeamOk() = false");
+            if (_log.isDebugEnabled())_log.debug("TvT Engine[removeTeam(" + teamName + ")]: checkTeamOk() = false");
             return;
         }
         
         if (teamPlayersCount(teamName) > 0)
         {
-            System.out.println("TvT Engine[removeTeam(" + teamName + ")]: teamPlayersCount(teamName) > 0");
+            if (_log.isDebugEnabled())_log.debug("TvT Engine[removeTeam(" + teamName + ")]: teamPlayersCount(teamName) > 0");
             return;
         }
         
@@ -192,7 +195,7 @@ public class TvT
     {
         if (!startJoinOk())
         {
-            System.out.println("TvT Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() = false");
+            if (_log.isDebugEnabled())_log.debug("TvT Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() = false");
             return;
         }
         
@@ -241,7 +244,7 @@ public class TvT
         }
         catch (Exception e)
         {
-            System.out.println("TvT Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: " + e.getMessage());
+            _log.error("TvT Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: " + e.getMessage());
         }
     }
     
@@ -277,7 +280,7 @@ public class TvT
     {
         if (!startEventOk())
         {
-            System.out.println("TvT Engine[startEvent(" + activeChar.getName() + ")]: startEventOk() = false");
+            if (_log.isDebugEnabled())_log.debug("TvT Engine[startEvent(" + activeChar.getName() + ")]: startEventOk() = false");
             return;
         }
         
@@ -362,7 +365,7 @@ public class TvT
     {
         if (!finishEventOk())
         {
-            System.out.println("TvT Engine[finishEvent(" + activeChar.getName() + ")]: finishEventOk() = false");
+            if (_log.isDebugEnabled())_log.debug("TvT Engine[finishEvent(" + activeChar.getName() + ")]: finishEventOk() = false");
             return;
         }
 
@@ -687,7 +690,7 @@ public class TvT
         }        
         catch (Exception e)
         {
-            System.out.println("Exception: TvT.loadData(): " + e.getMessage());
+            _log.error("Exception: TvT.loadData(): " + e.getMessage());
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }
@@ -743,7 +746,7 @@ public class TvT
         }
         catch (Exception e)
         {
-            System.out.println("Exception: TvT.saveData(): " + e.getMessage());
+            _log.error("Exception: TvT.saveData(): " + e.getMessage());
         }        
         finally {try { con.close(); } catch (Exception e) {}}
     }
@@ -825,7 +828,7 @@ public class TvT
         }
         catch (Exception e)
         {
-            System.out.println("TvT Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+            _log.error("TvT Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
         }
     }
 

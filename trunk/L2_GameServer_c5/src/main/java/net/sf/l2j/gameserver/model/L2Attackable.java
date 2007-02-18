@@ -785,7 +785,7 @@ public class L2Attackable extends L2NpcInstance
                         addDamageHate(actor, 0, (int)(target.getLastHealAmount()/divisor));
 
                         if (_log.isDebugEnabled())
-                            System.out.print("Mob detect heal.\n");
+                            _log.debug("Mob detect heal.\n");
                     }
                 }
 
@@ -798,7 +798,7 @@ public class L2Attackable extends L2NpcInstance
                         addDamageHate(actor, 0, (int)((skill.getLevel()*getStat().getMpConsume(skill))/divisor));
 
                         if (_log.isDebugEnabled())
-                            System.out.print("Mob detect buff.\n");
+                            _log.debug("Mob detect buff.\n");
                     }
                 }
 
@@ -816,7 +816,7 @@ public class L2Attackable extends L2NpcInstance
                                 addDamageHate(actor, 0, (int)(((getHating(target)-getHating(actor))+800)/divisor));
 
                             if (_log.isDebugEnabled())
-                                System.out.print("Mob detect party cast.\n");
+                                _log.debug("Mob detect party cast.\n");
                         }
                     }
                 }

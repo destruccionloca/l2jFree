@@ -30,12 +30,16 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class ObjectKnownList
 {
     // =========================================================
     // Data Field
     private L2Object[] _ActiveObject;          // Use array as a dirty trick to keep object as byref instead of byval
     private Map<Integer, L2Object> _KnownObjects;
+    private static final Log _log = LogFactory.getLog(ObjectKnownList.class.getName());
     
     // =========================================================
     // Constructor
@@ -73,7 +77,7 @@ public class ObjectKnownList
     public boolean removeKnownObject(L2Object object) 
     { 
         if (object == null) return false;
-        if (getKnownObjects()== null){System.out.println("Well there is definetly sth wrong with this knownobjectlist thingie"); return false;}
+        if (getKnownObjects()== null){_log.error("Well there is definetly sth wrong with this knownobjectlist thingie"); return false;}
         return (getKnownObjects().remove(object.getObjectId()) != null); 
     }
     

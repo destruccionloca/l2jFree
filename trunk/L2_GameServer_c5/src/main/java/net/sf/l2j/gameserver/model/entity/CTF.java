@@ -124,7 +124,7 @@ public class CTF
     {
         if (!checkTeamOk())
         {
-            System.out.println("CTF Engine[addTeam(" + teamName + ")]: checkTeamOk() == false");
+            if (_log.isDebugEnabled())_log.debug("CTF Engine[addTeam(" + teamName + ")]: checkTeamOk() == false");
             return;
         }
         
@@ -148,13 +148,13 @@ public class CTF
     {
         if (!checkTeamOk() || _teams.isEmpty())
         {
-            System.out.println("CTF Engine[removeTeam(" + teamName + ")]: checkTeamOk() == false");
+            if (_log.isDebugEnabled())_log.debug("CTF Engine[removeTeam(" + teamName + ")]: checkTeamOk() == false");
             return;
         }
         
         if (teamPlayersCount(teamName) > 0)
         {
-            System.out.println("CTF Engine[removeTeam(" + teamName + ")]: teamPlayersCount(teamName) > 0");
+            if (_log.isDebugEnabled())_log.debug("CTF Engine[removeTeam(" + teamName + ")]: teamPlayersCount(teamName) > 0");
             return;
         }
         
@@ -223,7 +223,7 @@ public class CTF
     {
         if (!startJoinOk())
         {
-            System.out.println("CTF Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() == false");
+            if (_log.isDebugEnabled())_log.debug("CTF Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() == false");
             return;
         }
         
@@ -280,7 +280,7 @@ public class CTF
     {
         if (!startTeleportOk()) 
         { 
-            System.out.println("CTF Engine[teleportStart()]: startTeleportOk() == false"); 
+            if (_log.isDebugEnabled())_log.debug("CTF Engine[teleportStart()]: startTeleportOk() == false"); 
             return; 
         } 
         
@@ -385,7 +385,7 @@ public class CTF
     {
         if (!startEventOk())
         {
-            System.out.println("CTF Engine[startEvent()]: start conditions wrong");
+            if (_log.isDebugEnabled())_log.debug("CTF Engine[startEvent()]: start conditions wrong");
             return;
         }
         
@@ -438,7 +438,7 @@ public class CTF
     {
         if (!finishEventOk())
         {
-            System.out.println("CTF Engine[finishEvent(" + activeChar.getName() + ")]: finishEventOk() == false");
+            if (_log.isDebugEnabled())_log.debug("CTF Engine[finishEvent(" + activeChar.getName() + ")]: finishEventOk() == false");
             return;
         }
         
@@ -1228,7 +1228,7 @@ public class CTF
         }        
         catch (Exception e)
         {
-            System.out.println("Exception: CTF.loadData(): " + e.getMessage());
+            _log.error("Exception: CTF.loadData(): " + e.getMessage());
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }
@@ -1286,7 +1286,7 @@ public class CTF
         }
         catch (Exception e)
         {
-            System.out.println("Exception: CTF.saveData(): " + e.getMessage());
+            _log.error("Exception: CTF.saveData(): " + e.getMessage());
         }        
         finally {try { con.close(); } catch (Exception e) {}}
     }
