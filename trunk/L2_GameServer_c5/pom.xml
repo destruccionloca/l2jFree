@@ -25,7 +25,7 @@
       <repository>
         <id>central l2j</id>
         <name>Mirror Central L2j</name>
-        <url>http://85.214.19.147:9091/repository/l2jm2/</url>
+        <url>http://85.214.19.147:9091/repository/l2jm2</url>
         <releases>
           <enabled>true</enabled>
         </releases>
