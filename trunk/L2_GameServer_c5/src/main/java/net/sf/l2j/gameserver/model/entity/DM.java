@@ -661,17 +661,20 @@ public class DM
 
     public static synchronized void addDisconnectedPlayer(L2PcInstance player)
     {
-        _players.add(player);
-            
-        player._originalNameColorDM = player.getNameColor();
-        player._originalKarmaDM = player.getKarma();
-        player._inEventDM = true;
-        if(_teleport || _started)
+        if (!_players.contains(player) && _savePlayers.contains(player.getName()))
         {
-            player.setNameColor(_playerColors);
-            player.setKarma(0);
-            player.broadcastUserInfo();
-            player.teleToLocation(_playerX, _playerY , _playerZ);            
+            _players.add(player);
+            
+            player._originalNameColorDM = player.getNameColor();
+            player._originalKarmaDM = player.getKarma();
+            player._inEventDM = true;
+            if(_teleport || _started)
+            {
+                player.setNameColor(_playerColors);
+                player.setKarma(0);
+                player.broadcastUserInfo();
+                player.teleToLocation(_playerX, _playerY , _playerZ);            
+            }
         }
     }
     
