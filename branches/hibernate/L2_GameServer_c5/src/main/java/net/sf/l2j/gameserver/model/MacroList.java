@@ -26,7 +26,7 @@ import java.util.StringTokenizer;
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.model.L2Macro.L2MacroCmd;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SendMacroList;
@@ -119,7 +119,7 @@ public class MacroList
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
         
             PreparedStatement statement = con.prepareStatement("INSERT INTO character_macroses (char_obj_id,id,icon,name,descr,acronym,commands) values(?,?,?,?,?,?,?)");
 			statement.setInt(1, _owner.getObjectId());
@@ -159,7 +159,7 @@ public class MacroList
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
         
             PreparedStatement statement = con.prepareStatement("DELETE FROM character_macroses WHERE char_obj_id=? AND id=?");
             statement.setInt(1, _owner.getObjectId());
@@ -183,7 +183,7 @@ public class MacroList
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("SELECT char_obj_id, id, icon, name, descr, acronym, commands FROM character_macroses WHERE char_obj_id=?");
             statement.setInt(1, _owner.getObjectId());
             ResultSet rset = statement.executeQuery();

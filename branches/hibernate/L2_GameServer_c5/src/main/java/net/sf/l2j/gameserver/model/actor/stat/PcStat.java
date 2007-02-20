@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
@@ -131,7 +131,7 @@ public class PcStat extends PlayableStat
                     java.sql.Connection con = null;
                     try
                     {
-                        con = L2DatabaseFactory.getInstance().getConnection();
+                        con = L2Registry.getInstance().getConnection();
                         PreparedStatement statement;
                         
                         statement = con.prepareStatement("SELECT value FROM account_data WHERE (account_name=?) AND (var='newbie_char')");

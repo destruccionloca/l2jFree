@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javolution.util.FastMap;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 
 import org.apache.commons.logging.Log;
@@ -54,7 +54,7 @@ public class L2PetDataTable
         
         try
         { 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("SELECT typeID, level, expMax, hpMax, mpMax, patk, pdef, matk, mdef, acc, evasion, crit, speed, atk_speed, cast_speed, feedMax, feedbattle, feednormal, loadMax, hpregen, mpregen FROM pets_stats");
             ResultSet rset = statement.executeQuery();
             

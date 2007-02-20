@@ -23,7 +23,7 @@ import java.sql.ResultSet;
 import java.util.concurrent.Future;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
@@ -648,7 +648,7 @@ public class L2PetInstance extends L2Summon
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("DELETE FROM pets WHERE item_obj_id=?");
             statement.setInt(1, getControlItemId());
             statement.execute();
@@ -723,7 +723,7 @@ public class L2PetInstance extends L2Summon
         try
         {
             L2PetInstance pet = new L2PetInstance(IdFactory.getInstance().getNextId(), template, owner, control);
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("SELECT item_obj_id, objId, name, level, maxHp, curHp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, str, con, dex, _int, men, wit, exp, sp, karma, pkkills, maxload, fed, max_fed FROM pets WHERE item_obj_id=?");
             statement.setInt(1, control.getObjectId());
             ResultSet rset = statement.executeQuery();
@@ -778,7 +778,7 @@ public class L2PetInstance extends L2Summon
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement(req);
             statement.setString(1, getName());
             statement.setInt(2, getStat().getLevel());

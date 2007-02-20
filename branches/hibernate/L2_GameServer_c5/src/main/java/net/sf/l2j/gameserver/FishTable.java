@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.util.List;
 
 import javolution.util.FastList;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.model.FishData;
 
 import org.apache.commons.logging.Log;
@@ -35,7 +35,7 @@ public class FishTable
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             _Fishs_Easy = new FastList<FishData>();
             _Fishs_Normal = new FastList<FishData>();
             _Fishs_Hard = new FastList<FishData>();

@@ -26,7 +26,7 @@ import java.sql.ResultSet;
 
 import net.sf.l2j.Base64;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.CrownTable;
@@ -472,7 +472,7 @@ public class EnterWorld extends ClientBasePacket
 	{
 		java.sql.Connection con = null;
 		try {
-		    con = L2DatabaseFactory.getInstance().getConnection();
+		    con = L2Registry.getInstance().getConnection();
 		    PreparedStatement statement;
             statement = con.prepareStatement("SELECT friend_id FROM character_friends WHERE char_id=?");
 		    statement.setInt(1, cha.getObjectId());

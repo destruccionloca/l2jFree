@@ -22,7 +22,7 @@ import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.idfactory.BitSetIDFactory;
@@ -111,7 +111,7 @@ public class RequestSetPledgeCrest extends ClientBasePacket
             
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2Registry.getInstance().getConnection();
                 PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET crest_id = ? WHERE clan_id = ?");
                 statement.setInt(1, newId);
                 statement.setInt(2, clan.getClanId());

@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -68,7 +68,7 @@ public class LeaderboardEngine implements Runnable {
    public void run() {
        Connection con = null;
        try {
-           con = L2DatabaseFactory.getInstance().getConnection();
+           con = L2Registry.getInstance().getConnection();
            PreparedStatement ps = con.prepareStatement("SELECT * FROM character_stats");
            ResultSet rs = ps.executeQuery();
            for (Integer l: _leaderboards.keySet())

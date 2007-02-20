@@ -23,7 +23,7 @@ import java.sql.ResultSet;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
 import net.sf.l2j.gameserver.model.L2DropCategory;
 import net.sf.l2j.gameserver.model.L2DropData;
@@ -76,9 +76,9 @@ public class NpcTable
         {
             try 
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2Registry.getInstance().getConnection();
                 PreparedStatement statement;
-                statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "hpreg", "mpreg", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level"}) + " FROM npc");
+                statement = con.prepareStatement("SELECT " + L2Registry.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "hpreg", "mpreg", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level"}) + " FROM npc");
                 ResultSet npcdata = statement.executeQuery();
                 
                 fillNpcTable(npcdata);
@@ -91,9 +91,9 @@ public class NpcTable
 
             try 
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2Registry.getInstance().getConnection();
                 PreparedStatement statement;
-                statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "hpreg", "mpreg", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level"}) + " FROM custom_npc");
+                statement = con.prepareStatement("SELECT " + L2Registry.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "hpreg", "mpreg", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level"}) + " FROM custom_npc");
                 ResultSet npcdata = statement.executeQuery();
                 
                 fillNpcTable(npcdata);
@@ -106,7 +106,7 @@ public class NpcTable
             
             try 
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2Registry.getInstance().getConnection();
                 PreparedStatement statement = con.prepareStatement("SELECT npcid, skillid, level FROM npcskills");
                 ResultSet npcskills = statement.executeQuery();
                 L2NpcTemplate npcDat = null;
@@ -215,7 +215,7 @@ public class NpcTable
             
             try 
             {
-                PreparedStatement statement2 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"mobId", "itemId", "min", "max", "category", "chance"}) + " FROM droplist ORDER BY mobId, chance DESC");
+                PreparedStatement statement2 = con.prepareStatement("SELECT " + L2Registry.getInstance().safetyString(new String[] {"mobId", "itemId", "min", "max", "category", "chance"}) + " FROM droplist ORDER BY mobId, chance DESC");
                 ResultSet dropData = statement2.executeQuery();
                 L2DropData dropDat = null;
                 L2NpcTemplate npcDat = null;
@@ -250,7 +250,7 @@ public class NpcTable
 
             try 
             {
-                PreparedStatement statement3 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"npc_id", "class_id"}) + " FROM skill_learn");
+                PreparedStatement statement3 = con.prepareStatement("SELECT " + L2Registry.getInstance().safetyString(new String[] {"npc_id", "class_id"}) + " FROM skill_learn");
                 ResultSet learndata = statement3.executeQuery();
                 
                 while (learndata.next())
@@ -277,7 +277,7 @@ public class NpcTable
             
             try 
             {
-                PreparedStatement statement4 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"boss_id", "minion_id", "amount_min", "amount_max"}) + " FROM minions");
+                PreparedStatement statement4 = con.prepareStatement("SELECT " + L2Registry.getInstance().safetyString(new String[] {"boss_id", "minion_id", "amount_min", "amount_max"}) + " FROM minions");
                 ResultSet minionData = statement4.executeQuery();
                 L2MinionData minionDat = null;
                 L2NpcTemplate npcDat = null;
@@ -431,8 +431,8 @@ public class NpcTable
                 minions.addAll(old.getMinionData());
 
             // reload the NPC base data
-            con = L2DatabaseFactory.getInstance().getConnection();
-            PreparedStatement st = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level"}) + " FROM npc WHERE id=?");
+            con = L2Registry.getInstance().getConnection();
+            PreparedStatement st = con.prepareStatement("SELECT " + L2Registry.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level"}) + " FROM npc WHERE id=?");
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             fillNpcTable(rs);
@@ -475,7 +475,7 @@ public class NpcTable
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             FastMap<String, Object> set = npc.getSet();
 
             String name = "";

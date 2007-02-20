@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
 import javolution.util.FastList;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.CastleUpdater;
 import net.sf.l2j.gameserver.ClanTable;
@@ -107,7 +107,7 @@ public class Castle
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("Update castle set treasury = ? where id = ?");
             statement.setInt(1, getTreasury());
             statement.setInt(2, getCastleId());
@@ -228,7 +228,7 @@ public class Castle
                     java.sql.Connection con = null;
                     try
                     {
-                        con = L2DatabaseFactory.getInstance().getConnection();
+                        con = L2Registry.getInstance().getConnection();
                         PreparedStatement statement = con.prepareStatement("delete from items where owner_id = ? and item_id = ?");
                         statement.setInt(1, clan.getLeader().getObjectId());
                         statement.setInt(2, 6841);
@@ -291,7 +291,7 @@ public class Castle
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("Update castle set taxPercent = ? where id = ?");
             statement.setInt(1, taxPercent);
             statement.setInt(2, getCastleId());
@@ -362,7 +362,7 @@ public class Castle
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
 
             statement = con.prepareStatement("Select * from castle where id = ?");
             statement.setInt(1, getCastleId());
@@ -422,7 +422,7 @@ public class Castle
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("Select * from castle_door where castleId = ?");
             statement.setInt(1, getCastleId());
             ResultSet rs = statement.executeQuery();
@@ -459,7 +459,7 @@ public class Castle
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("Select * from castle_doorupgrade where doorId in (Select Id from castle_door where castleId = ?)");
             statement.setInt(1, getCastleId());
             ResultSet rs = statement.executeQuery();
@@ -483,7 +483,7 @@ public class Castle
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("delete from castle_doorupgrade where doorId in (select id from castle_door where castleId=?)");
             statement.setInt(1, getCastleId());
             statement.execute();
@@ -501,7 +501,7 @@ public class Castle
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("INSERT INTO castle_doorupgrade (doorId, hp, pDef, mDef) values (?,?,?,?)");
             statement.setInt(1, doorId);
             statement.setInt(2, hp);
@@ -530,7 +530,7 @@ public class Castle
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
 
             // ============================================================================
@@ -733,7 +733,7 @@ public class Castle
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
 
             // restore procure info
@@ -782,7 +782,7 @@ public class Castle
     {
         java.sql.Connection con = null;
         try{
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
             statement = con.prepareStatement("DELETE FROM castle_manor_production WHERE castle_id=?;");
             statement.setInt(1, getCastleId());
@@ -804,7 +804,7 @@ public class Castle
         EraseAllSeedData();
         java.sql.Connection con = null;
         try{
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             for(SeedProduction s : _production){
     PreparedStatement statement = null;
             if(s.getCanProduce() > 0 && s.getPrice() > 0 & s.getSeedId() >0 && getCastleId() >0){
@@ -837,7 +837,7 @@ public class Castle
     {
         java.sql.Connection con = null;
         try{
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
             statement = con.prepareStatement("DELETE FROM castle_manor_procure WHERE castle_id=?;");
             statement.setInt(1, getCastleId());
@@ -861,7 +861,7 @@ public class Castle
         EraseAllCropData();
         java.sql.Connection con = null;
         try{
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             
             for(CropProcure cp : _procure){
         PreparedStatement statement = null;

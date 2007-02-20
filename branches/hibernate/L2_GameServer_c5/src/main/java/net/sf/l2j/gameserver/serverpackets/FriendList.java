@@ -22,7 +22,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
@@ -73,7 +73,7 @@ public class FriendList extends ServerBasePacket
 			String sqlQuery = "SELECT friend_id, friend_name FROM character_friends WHERE " +
                     "char_id=" + _cha.getObjectId() + " ORDER BY friend_name ASC";
 
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement(sqlQuery);
 			ResultSet rset = statement.executeQuery(sqlQuery);
 

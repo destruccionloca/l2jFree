@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import javolution.util.FastMap;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -129,7 +129,7 @@ public class StatTrack {
    private void load() { //Load into memory the stat tracking sheet.
        java.sql.Connection con = null;
        try {
-           con = L2DatabaseFactory.getInstance().getConnection();
+           con = L2Registry.getInstance().getConnection();
            PreparedStatement ps = con.prepareStatement("SELECT * FROM character_stats WHERE id=?");
            ps.setInt(1, owner.getObjectId());
            ResultSet rs = ps.executeQuery();
@@ -187,7 +187,7 @@ public class StatTrack {
    public void save() {
        java.sql.Connection con = null;
        try {
-           con = L2DatabaseFactory.getInstance().getConnection();
+           con = L2Registry.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement("UPDATE character_stats WHERE id=? SET " +
 					"totalKarma=?, totalPlayerKills=?, totalKills=?, " +
 					"totalMonKills=?, totalDamageDealt=?, totalDamageTaken=?, " +

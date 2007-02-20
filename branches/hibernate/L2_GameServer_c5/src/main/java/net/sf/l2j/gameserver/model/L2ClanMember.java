@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -173,7 +173,7 @@ public class L2ClanMember
         
         try 
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("UPDATE characters SET pledge_rank=? WHERE obj_id=?");
             statement.setInt(1, _rank);
             statement.setInt(2, getObjectId());

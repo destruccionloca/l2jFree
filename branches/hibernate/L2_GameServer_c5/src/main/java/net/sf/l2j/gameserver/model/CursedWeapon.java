@@ -23,7 +23,7 @@ import java.sql.SQLException;
 import java.util.concurrent.ScheduledFuture;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
@@ -121,7 +121,7 @@ public class CursedWeapon
                 java.sql.Connection con = null;
                 try
                 {
-                    con = L2DatabaseFactory.getInstance().getConnection();
+                    con = L2Registry.getInstance().getConnection();
                     
                     // Delete the item
                     PreparedStatement statement = con.prepareStatement("DELETE FROM items WHERE owner_id=? AND item_id=?");
@@ -365,7 +365,7 @@ public class CursedWeapon
         PreparedStatement statement = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
 
             // Delete previous datas
             statement = con.prepareStatement("DELETE FROM cursed_weapons WHERE itemId = ?");

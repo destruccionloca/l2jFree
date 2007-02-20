@@ -30,7 +30,7 @@ import java.sql.ResultSet;
 import java.util.Vector;
 
 import javolution.text.TextBuilder;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.NpcTable;
@@ -495,7 +495,7 @@ public class DM
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
 
             statement = con.prepareStatement("Select * from dm");
             rs = statement.executeQuery();
@@ -534,7 +534,7 @@ public class DM
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
             
             statement = con.prepareStatement("Delete from dm");

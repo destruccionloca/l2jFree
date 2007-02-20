@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
@@ -58,7 +58,7 @@ public class Couple
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
 
             statement = con.prepareStatement("Select * from couples where id = ?");
             statement.setInt(1, this._Id);
@@ -102,7 +102,7 @@ public class Couple
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
             this._Id = IdFactory.getInstance().getNextId();
             statement = con.prepareStatement("INSERT INTO couples (id, player1Id, player2Id, maried, affiancedDate, weddingDate) VALUES (?, ?, ?, ?, ?, ?)");
@@ -130,7 +130,7 @@ public class Couple
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
 
             statement = con.prepareStatement("UPDATE couples set maried = ?, weddingDate = ? where id = ?");
@@ -157,7 +157,7 @@ public class Couple
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
             
             statement = con.prepareStatement("DELETE FROM couples WHERE id=?");

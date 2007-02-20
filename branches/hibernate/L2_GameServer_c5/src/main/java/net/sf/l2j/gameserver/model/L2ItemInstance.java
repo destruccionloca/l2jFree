@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
@@ -676,7 +676,7 @@ public final class L2ItemInstance extends L2Object
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2Registry.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT owner_id, object_id, item_id, count, enchant_level, loc, loc_data, price_sell, price_buy, custom_type1, custom_type2 FROM items WHERE object_id = ?");
 			statement.setInt(1, objectId);
 			ResultSet rs = statement.executeQuery();
@@ -778,7 +778,7 @@ public final class L2ItemInstance extends L2Object
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2Registry.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement(
 					"UPDATE items SET owner_id=?,count=?,loc=?,loc_data=?,enchant_level=?,price_sell=?,price_buy=?,custom_type1=?,custom_type2=? " +
 					"WHERE object_id = ?");
@@ -814,7 +814,7 @@ public final class L2ItemInstance extends L2Object
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2Registry.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement(
 					"INSERT INTO items (owner_id,item_id,count,loc,loc_data,enchant_level,price_sell,price_buy,object_id,custom_type1,custom_type2) " +
 					"VALUES (?,?,?,?,?,?,?,?,?,?,?)");
@@ -852,7 +852,7 @@ public final class L2ItemInstance extends L2Object
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2Registry.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement(
 					"DELETE FROM items WHERE object_id=?");
 			statement.setInt(1, getObjectId());

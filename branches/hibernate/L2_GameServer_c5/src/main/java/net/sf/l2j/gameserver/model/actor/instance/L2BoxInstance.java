@@ -34,7 +34,7 @@ import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastSet;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -137,7 +137,7 @@ public class L2BoxInstance extends L2NpcInstance {
 		boolean result = false;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2Registry.getInstance().getConnection();
 			PreparedStatement st = con.prepareStatement("SELECT spawn, charname FROM boxaccess WHERE charname=? AND spawn=?");
 			st.setString(1, player);
 			st.setInt(2, getSpawn().getId());
@@ -164,7 +164,7 @@ public class L2BoxInstance extends L2NpcInstance {
 		List<String> acl = new FastList<String>();
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2Registry.getInstance().getConnection();
 			PreparedStatement st = con.prepareStatement(LIST_GRANT);
 			st.setInt(1, getSpawn().getId());
 			ResultSet rs = st.executeQuery();
@@ -192,7 +192,7 @@ public class L2BoxInstance extends L2NpcInstance {
 		boolean result = false;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2Registry.getInstance().getConnection();
 			String _query;
 			if (what)
 				_query = INSERT_GRANT;
@@ -315,7 +315,7 @@ public class L2BoxInstance extends L2NpcInstance {
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2Registry.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT id, spawn, npcid, drawer, itemid, name, count, enchant FROM boxes where spawn=? and npcid=? and drawer=?");
 			statement.setInt(1, getSpawn().getId());
 			statement.setInt(2, getNpcId());

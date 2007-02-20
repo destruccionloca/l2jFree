@@ -24,7 +24,7 @@ import java.util.Set;
 
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.CharTemplateTable;
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.Olympiad;
@@ -577,7 +577,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("UPDATE characters SET clanid = 0, clan_privs = 0 WHERE clanid=?");
             statement.setInt(1, clanId);
             statement.execute();
@@ -746,7 +746,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
             java.sql.Connection con = null;
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2Registry.getInstance().getConnection();
                 PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET clan_level = ? WHERE clan_id = ?");
                 statement.setInt(1, clan.getLevel() + 1);
                 statement.setInt(2, clanId);
@@ -903,7 +903,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET ally_id = 0, ally_name = '' WHERE ally_id=?");
             statement.setInt(1, allyId);
             statement.execute();

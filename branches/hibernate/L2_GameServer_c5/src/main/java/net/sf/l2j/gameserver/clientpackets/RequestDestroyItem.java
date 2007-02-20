@@ -23,7 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -159,7 +159,7 @@ public class RequestDestroyItem extends ClientBasePacket
 			java.sql.Connection con = null;
 			try
 			{
-				con = L2DatabaseFactory.getInstance().getConnection();
+				con = L2Registry.getInstance().getConnection();
 				PreparedStatement statement = con.prepareStatement("SELECT objId FROM pets WHERE item_obj_id=?");
 				statement.setInt(1, _objectId);
 				ResultSet rset = statement.executeQuery();

@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2TradeList;
 
@@ -98,15 +98,15 @@ public class TradeController
 			int dummyItemCount = 0;
 			try
 			{
-				con = L2DatabaseFactory.getInstance().getConnection();
-				PreparedStatement statement1 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[]
+				con = L2Registry.getInstance().getConnection();
+				PreparedStatement statement1 = con.prepareStatement("SELECT " + L2Registry.getInstance().safetyString(new String[]
 					{ "shop_id", "npc_id" }) + " FROM merchant_shopids");
 				ResultSet rset1 = statement1.executeQuery();
 				while (rset1.next())
 				{
-					PreparedStatement statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[]
+					PreparedStatement statement = con.prepareStatement("SELECT " + L2Registry.getInstance().safetyString(new String[]
 						{ "item_id", "price", "shop_id", "order" }) + " FROM merchant_buylists WHERE shop_id=? ORDER BY "
-							+ L2DatabaseFactory.getInstance().safetyString(new String[]
+							+ L2Registry.getInstance().safetyString(new String[]
 								{ "order" }) + " ASC");
 					statement.setString(1, String.valueOf(rset1.getInt("shop_id")));
 					ResultSet rset = statement.executeQuery();

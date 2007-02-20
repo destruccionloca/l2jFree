@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javolution.util.FastMap;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
@@ -63,7 +63,7 @@ public class ClanTable
 		java.sql.Connection con = null;
 	     try
 	        {
-	            con = L2DatabaseFactory.getInstance().getConnection();
+	            con = L2Registry.getInstance().getConnection();
 	            PreparedStatement statement = con.prepareStatement("SELECT clan_id FROM clan_data");	           
 	            ResultSet result = statement.executeQuery();
 	            
@@ -145,7 +145,7 @@ public class ClanTable
         L2Clan clan = null;
 		try
 		{
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("SELECT clan_id FROM clan_data WHERE clan_name LIKE ?");
             statement.setString(1, clanName);
             ResultSet result = statement.executeQuery();
@@ -177,7 +177,7 @@ public class ClanTable
         
         try//store the new clan in db
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("SELECT clan_id FROM clan_data WHERE clan_name=?");
             statement.setString(1, clanName);
             ResultSet result = statement.executeQuery();
@@ -216,7 +216,7 @@ public class ClanTable
         boolean allyExists = true;
         try//store the new clan in db
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("SELECT ally_id FROM clan_data WHERE ally_name=?");
             statement.setString(1, allyName);
             ResultSet result = statement.executeQuery();
@@ -245,7 +245,7 @@ public class ClanTable
      	java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
             statement = con.prepareStatement("REPLACE INTO clan_wars (clan1, clan2, wantspeace1, wantspeace2) VALUES(?,?,?,?)");
 			statement.setInt(1, clanId1);
@@ -298,7 +298,7 @@ public class ClanTable
      	java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
             statement = con.prepareStatement("DELETE FROM clan_wars WHERE clan1=? AND clan2=?");
             statement.setInt(1,clanId1);
@@ -350,7 +350,7 @@ public class ClanTable
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
             statement = con.prepareStatement("SELECT clan1, clan2, wantspeace1, wantspeace2 FROM clan_wars");
             ResultSet rset = statement.executeQuery();

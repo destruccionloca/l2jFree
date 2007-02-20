@@ -28,7 +28,7 @@ import java.util.Random;
 import java.util.Vector;
 
 import javolution.text.TextBuilder;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.NpcTable;
@@ -126,7 +126,7 @@ public class VIP {
         java.sql.Connection con = null;
         
         try {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("SELECT endx,endy,endz FROM VIPinfo WHERE teamID = " + _team);
             ResultSet rset = statement.executeQuery();
             rset.next();
@@ -146,7 +146,7 @@ public class VIP {
         }
         
         try {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("SELECT startx,starty,startz FROM VIPinfo WHERE teamID = " + _team);
             ResultSet rset = statement.executeQuery();
             rset.next();

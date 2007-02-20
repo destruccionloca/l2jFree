@@ -3,7 +3,7 @@ package net.sf.l2j.gameserver.model;
 import java.sql.PreparedStatement;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,7 +18,7 @@ public static void auditGMAction(String gmName, String action, String target, St
         PreparedStatement statement = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             statement = con.prepareStatement(
             	"INSERT INTO GM_AUDIT(GM_NAME, ACTION, TARGET, PARAM, DATE) VALUES(?,?,?,?,now())");
             

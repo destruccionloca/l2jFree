@@ -3,7 +3,7 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javolution.util.FastList;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.templates.L2HelperBuff;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
@@ -70,7 +70,7 @@ public class HelperBuffTable
         {
             try 
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2Registry.getInstance().getConnection();
                 PreparedStatement statement = con.prepareStatement("SELECT * FROM helper_buff_list");
                 ResultSet helperbuffdata = statement.executeQuery();
 

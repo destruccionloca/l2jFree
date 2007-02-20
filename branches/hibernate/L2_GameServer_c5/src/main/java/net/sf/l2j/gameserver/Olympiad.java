@@ -40,7 +40,7 @@ import java.util.concurrent.ScheduledFuture;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.instancemanager.OlympiadStadiaManager;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Party;
@@ -246,7 +246,7 @@ public class Olympiad
         
         try
         {
-            Connection con = L2DatabaseFactory.getInstance().getConnection();
+            Connection con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement(OLYMPIAD_LOAD_NOBLES);
             ResultSet rset = statement.executeQuery();
             
@@ -864,7 +864,7 @@ public class Olympiad
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
             
             for (Integer nobleId : _nobles.keySet())
@@ -923,7 +923,7 @@ public class Olympiad
          
          try
          {
-             con = L2DatabaseFactory.getInstance().getConnection();
+             con = L2Registry.getInstance().getConnection();
              PreparedStatement statement;
              ResultSet rset;
              StatsSet hero;
@@ -966,7 +966,7 @@ public class Olympiad
          
          try
          {
-             con = L2DatabaseFactory.getInstance().getConnection();
+             con = L2Registry.getInstance().getConnection();
              PreparedStatement statement;
              ResultSet rset;
              statement = con.prepareStatement(GET_EACH_CLASS_LEADER);
@@ -1069,7 +1069,7 @@ public class Olympiad
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement(OLYMPIAD_DELETE_ALL);
             statement.execute();
             statement.close();

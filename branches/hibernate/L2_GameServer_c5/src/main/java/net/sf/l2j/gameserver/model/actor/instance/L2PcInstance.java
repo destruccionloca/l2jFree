@@ -41,7 +41,7 @@ import java.util.zip.GZIPOutputStream;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.CharTemplateTable;
 import net.sf.l2j.gameserver.ClanTable;
@@ -4998,7 +4998,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("UPDATE characters SET online=?, lastAccess=? WHERE obj_id=?");
             statement.setInt(1, isOnline());
             statement.setLong(2, System.currentTimeMillis());
@@ -5058,7 +5058,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("UPDATE characters SET isIn7sDungeon=?, lastAccess=? WHERE obj_id=?");
             statement.setInt(1, isIn7sDungeon() ? 1 : 0);
             statement.setLong(2, System.currentTimeMillis());
@@ -5090,7 +5090,7 @@ public final class L2PcInstance extends L2PlayableInstance
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
             statement = con.prepareStatement("INSERT INTO characters "
                 + "(account_name,obj_Id,char_name,level,maxHp,curHp,maxCp,curCp,maxMp,curMp,"
@@ -5201,7 +5201,7 @@ public final class L2PcInstance extends L2PlayableInstance
         try
         {
             // Retrieve the L2PcInstance from the characters table of the database
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
 
             PreparedStatement statement = con.prepareStatement(RESTORE_CHARACTER);
             statement.setInt(1, objectId);
@@ -5441,7 +5441,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement(RESTORE_CHAR_SUBCLASSES);
             statement.setInt(1, player.getObjectId());
 
@@ -5551,7 +5551,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("DELETE FROM character_recipebook WHERE char_id=?");
             statement.setInt(1, getObjectId());
             statement.execute();
@@ -5603,7 +5603,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("SELECT id, type FROM character_recipebook WHERE char_id=?");
             statement.setInt(1, getObjectId());
             ResultSet rset = statement.executeQuery();
@@ -5669,7 +5669,7 @@ public final class L2PcInstance extends L2PlayableInstance
             if (_onlineBeginTime > 0)
                 totalOnlineTime += (System.currentTimeMillis() - _onlineBeginTime) / 1000;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
 
             // Update base class
@@ -5760,7 +5760,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
 
             if (getTotalSubClasses() > 0)
@@ -5805,7 +5805,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
 
             // Delete all current stored effects for char to avoid dupe
@@ -5962,7 +5962,7 @@ public final class L2PcInstance extends L2PlayableInstance
         try
         {
             // Remove or update a L2PcInstance skill from the character_skills table of the database
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
 
             if (oldSkill != null)
@@ -6011,7 +6011,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
 
             if (oldSkill != null && newSkill != null)
@@ -6066,7 +6066,7 @@ public final class L2PcInstance extends L2PlayableInstance
         try
         {
             // Retrieve all skills of this L2PcInstance from the database
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement(RESTORE_SKILLS_FOR_CHAR);
             statement.setInt(1, getObjectId());
             statement.setInt(2, getClassIndex());
@@ -6128,7 +6128,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
 
             ResultSet rset;
@@ -6242,7 +6242,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement(RESTORE_CHAR_HENNAS);
             statement.setInt(1, getObjectId());
             statement.setInt(2, getClassIndex());
@@ -6328,7 +6328,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement(DELETE_CHAR_HENNA);
             statement.setInt(1, getObjectId());
             statement.setInt(2, slot + 1);
@@ -6397,7 +6397,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
                 try
                 {
-                    con = L2DatabaseFactory.getInstance().getConnection();
+                    con = L2Registry.getInstance().getConnection();
                     PreparedStatement statement = con.prepareStatement(ADD_CHAR_HENNA);
                     statement.setInt(1, getObjectId());
                     statement.setInt(2, henna.getSymbolId());
@@ -8289,7 +8289,7 @@ public final class L2PcInstance extends L2PlayableInstance
         try
         {
             // Store the basic info about this new sub-class.
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement(ADD_CHAR_SUBCLASS);
             statement.setInt(1, getObjectId());
             statement.setInt(2, newClass.getClassId());
@@ -8373,7 +8373,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
 
             // Remove all henna info stored for this sub-class.

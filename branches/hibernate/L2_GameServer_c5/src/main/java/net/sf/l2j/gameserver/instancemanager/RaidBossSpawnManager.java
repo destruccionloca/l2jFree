@@ -30,7 +30,7 @@ import java.util.Calendar;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastMap;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.SpawnTable;
@@ -83,7 +83,7 @@ public class RaidBossSpawnManager {
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             
             PreparedStatement statement = con.prepareStatement("SELECT * from raidboss_spawnlist ORDER BY boss_id");
             ResultSet rset = statement.executeQuery();
@@ -262,7 +262,7 @@ public class RaidBossSpawnManager {
             
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2Registry.getInstance().getConnection();
                 PreparedStatement statement = con.prepareStatement("INSERT INTO raidboss_spawnlist (boss_id,amount,loc_x,loc_y,loc_z,heading,respawn_delay,respawn_time,currentHp,currentMp) values(?,?,?,?,?,?,?,?,?,?)");
                 statement.setInt(1, spawnDat.getNpcid());
                 statement.setInt(2, spawnDat.getAmount());
@@ -318,7 +318,7 @@ public class RaidBossSpawnManager {
             
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2Registry.getInstance().getConnection();
                 PreparedStatement statement = con.prepareStatement("DELETE FROM raidboss_spawnlist WHERE boss_id=?");
                 statement.setInt(1, bossId);
                 statement.execute();
@@ -344,7 +344,7 @@ public class RaidBossSpawnManager {
             
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2Registry.getInstance().getConnection();
                 
                 L2RaidBossInstance boss = _bosses.get(bossId);
                 

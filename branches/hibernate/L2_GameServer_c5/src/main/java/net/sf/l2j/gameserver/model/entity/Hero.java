@@ -31,7 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SkillTable;
@@ -107,8 +107,8 @@ public class Hero
         
         try
         {
-            Connection con = L2DatabaseFactory.getInstance().getConnection();
-            Connection con2 = L2DatabaseFactory.getInstance().getConnection();
+            Connection con = L2Registry.getInstance().getConnection();
+            Connection con2 = L2Registry.getInstance().getConnection();
             statement = con.prepareStatement(GET_HEROES);
             rset = statement.executeQuery();
             
@@ -388,7 +388,7 @@ public class Hero
         Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             if(setDefault)
             {
                 PreparedStatement statement = con.prepareStatement(UPDATE_ALL);
@@ -413,7 +413,7 @@ public class Hero
                         statement.setInt(5, hero.getInteger(PLAYED));
                         statement.execute();
                         
-                        Connection con2 = L2DatabaseFactory.getInstance().getConnection();
+                        Connection con2 = L2Registry.getInstance().getConnection();
                         PreparedStatement statement2 = con2.prepareStatement(GET_CLAN_ALLY);
                         statement2.setInt(1, heroId);
                         ResultSet rset2 = statement2.executeQuery();
@@ -487,7 +487,7 @@ public class Hero
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement(DELETE_ITEMS);
             statement.execute();
             statement.close();
@@ -504,7 +504,7 @@ public class Hero
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement(DELETE_SKILLS);
             statement.execute();
             statement.close();

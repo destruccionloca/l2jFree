@@ -22,7 +22,7 @@ import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -82,7 +82,7 @@ public class RequestFriendInvite extends ClientBasePacket{
 
 		try 
 		{
-		    con = L2DatabaseFactory.getInstance().getConnection();
+		    con = L2Registry.getInstance().getConnection();
 		    PreparedStatement statement = con.prepareStatement("SELECT char_id FROM character_friends WHERE char_id=? AND friend_id=?");
 		    statement.setInt(1, activeChar.getObjectId());
 		    statement.setInt(2, friend.getObjectId());

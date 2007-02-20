@@ -30,7 +30,7 @@ import org.apache.commons.logging.LogFactory;
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.TradeController;
@@ -566,7 +566,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement stmt = con.prepareStatement("INSERT INTO merchant_buylists values ("+itemID+","+price+","+tradeListID+","+order+")");
             stmt.execute();
             stmt.close();
@@ -578,7 +578,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement stmt = con.prepareStatement("UPDATE merchant_buylists SET `price`='"+price+"' WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
             stmt.execute();
             stmt.close();
@@ -590,7 +590,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement stmt = con.prepareStatement("DELETE FROM merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
             stmt.execute();
             stmt.close();
@@ -603,7 +603,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         int order = 0;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `item_id` ='"+itemID+"' AND `price` = '"+price+"'");
             ResultSet rs = stmt.executeQuery();
             rs.first();
@@ -854,7 +854,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             
             PreparedStatement statement = con.prepareStatement("SELECT mobId, itemId, min, max, category, chance FROM droplist WHERE mobId=" + npcId + " AND itemId=" + itemId+ " AND category=" + category);
             ResultSet dropData = statement.executeQuery();
@@ -925,7 +925,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             
             PreparedStatement statement = con.prepareStatement("UPDATE droplist SET min=?, max=?, chance=? WHERE mobId=? AND itemId=? AND category=?");
             statement.setInt(1, min);
@@ -982,7 +982,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             
             PreparedStatement statement = con.prepareStatement("INSERT INTO droplist(mobId, itemId, min, max, category, chance) values(?,?,?,?,?,?)");
             statement.setInt(1, npcId);
@@ -1020,7 +1020,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             
             if(npcId > 0)
             {
@@ -1065,12 +1065,12 @@ public class AdminEditNpc implements IAdminCommandHandler {
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();      
+            con = L2Registry.getInstance().getConnection();      
             L2DropData dropData = null;
             
             npcData.getDropData().clear();              
             
-            PreparedStatement statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"mobId", "itemId", "min", "max", "category", "chance"}) + " FROM droplist WHERE mobId=?");
+            PreparedStatement statement = con.prepareStatement("SELECT " + L2Registry.getInstance().safetyString(new String[] {"mobId", "itemId", "min", "max", "category", "chance"}) + " FROM droplist WHERE mobId=?");
             statement.setInt(1, npcId);
             ResultSet dropDataList = statement.executeQuery();
             

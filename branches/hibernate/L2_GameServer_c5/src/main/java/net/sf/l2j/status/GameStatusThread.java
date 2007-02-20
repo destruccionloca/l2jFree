@@ -21,7 +21,7 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.GmListTable;
@@ -789,7 +789,7 @@ public class GameStatusThread extends Thread
     	Connection con = null;
       	try
        	{
-       		con = L2DatabaseFactory.getInstance().getConnection();
+       		con = L2Registry.getInstance().getConnection();
        		
        		PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=?, y=?, z=?, in_jail=?, jail_timer=? WHERE char_name=?");
        		statement.setInt(1, -114356);
@@ -822,7 +822,7 @@ public class GameStatusThread extends Thread
     	Connection con = null;
       	try
        	{
-       		con = L2DatabaseFactory.getInstance().getConnection();
+       		con = L2Registry.getInstance().getConnection();
        		
        		PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=?, y=?, z=?, in_jail=?, jail_timer=? WHERE char_name=?");
        		statement.setInt(1, 17836);

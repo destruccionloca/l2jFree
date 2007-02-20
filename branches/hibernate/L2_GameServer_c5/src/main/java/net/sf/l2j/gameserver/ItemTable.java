@@ -28,7 +28,7 @@ import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -210,7 +210,7 @@ public class ItemTable
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             for (String selectQuery : SQL_ITEM_SELECTS)
             {
                 PreparedStatement statement = con.prepareStatement(selectQuery);
@@ -757,7 +757,7 @@ public class ItemTable
                 try
                 {
                     // Delete the pet in db
-                    con = L2DatabaseFactory.getInstance().getConnection();
+                    con = L2Registry.getInstance().getConnection();
                     PreparedStatement statement = con.prepareStatement("DELETE FROM pets WHERE item_obj_id=?");
                     statement.setInt(1, item.getObjectId());
                     statement.execute();

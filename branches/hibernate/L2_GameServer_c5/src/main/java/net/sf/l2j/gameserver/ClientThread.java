@@ -25,7 +25,7 @@ import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.LoginServerThread.SessionKey;
 import net.sf.l2j.gameserver.model.CharSelectInfoPackage;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -192,7 +192,7 @@ public final class ClientThread
         java.sql.Connection con = null;
         try 
         {
-        con = L2DatabaseFactory.getInstance().getConnection();
+        con = L2Registry.getInstance().getConnection();
         PreparedStatement statement = con.prepareStatement("UPDATE characters SET deletetime=0 WHERE obj_id=?");
         statement.setInt(1, objid);
         statement.execute();
@@ -223,7 +223,7 @@ public final class ClientThread
         java.sql.Connection con = null;
         try 
         {
-        con = L2DatabaseFactory.getInstance().getConnection();
+        con = L2Registry.getInstance().getConnection();
         PreparedStatement statement = con.prepareStatement("UPDATE characters SET deletetime=? WHERE obj_id=?");
         statement.setLong(1, System.currentTimeMillis());
         statement.setInt(2, objid);
@@ -269,7 +269,7 @@ public final class ClientThread
         
         try 
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
 			PreparedStatement statement ;
 
         	statement = con.prepareStatement("DELETE FROM character_friends WHERE char_id=? OR friend_id=?");
@@ -520,7 +520,7 @@ public final class ClientThread
         try
         {
             // Retrieve the account name from characters table of the database
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             
             PreparedStatement statement = con.prepareStatement("SELECT account_name FROM characters WHERE obj_id=?");
             statement.setInt(1, objectId);
@@ -546,7 +546,7 @@ public final class ClientThread
         try
         {
             // Retrieve the account name from characters table of the database
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             
             PreparedStatement statement = con.prepareStatement("SELECT account_name FROM characters WHERE char_name=?");
             statement.setString(1, character);

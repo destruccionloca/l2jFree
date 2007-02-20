@@ -22,7 +22,7 @@ import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.model.L2Party;
@@ -114,7 +114,7 @@ public class Logout extends ClientBasePacket
 		java.sql.Connection con = null;
 		
 		try {
-		    con = L2DatabaseFactory.getInstance().getConnection();
+		    con = L2Registry.getInstance().getConnection();
 		    PreparedStatement statement;
 		    statement = con.prepareStatement("SELECT friend_id FROM character_friends WHERE char_id=?");
 		    statement.setInt(1, cha.getObjectId());

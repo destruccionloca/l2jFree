@@ -25,7 +25,7 @@ import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
@@ -72,7 +72,7 @@ public class AutoChatHandler implements SpawnListener
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
 
             statement = con.prepareStatement("SELECT * FROM auto_chat ORDER BY groupId ASC");
             rs = statement.executeQuery();

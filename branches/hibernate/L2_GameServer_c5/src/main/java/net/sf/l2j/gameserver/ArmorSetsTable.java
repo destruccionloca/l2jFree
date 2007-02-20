@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import javolution.util.FastMap;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.model.L2ArmorSet;
 
 /**
@@ -38,7 +38,7 @@ public class ArmorSetsTable
         Connection con;
         try 
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("SELECT chest, legs, head, gloves, feet, skill_id, shield, shield_skill_id, enchant6skill FROM armorsets");
             ResultSet rset = statement.executeQuery();
             

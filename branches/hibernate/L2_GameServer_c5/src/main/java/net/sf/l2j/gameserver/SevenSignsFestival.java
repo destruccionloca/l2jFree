@@ -10,7 +10,7 @@ import java.util.concurrent.ScheduledFuture;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Effect;
@@ -942,7 +942,7 @@ public class SevenSignsFestival implements SpawnListener
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             statement = con.prepareStatement("SELECT festivalId, cabal, cycle, date, score, members " +
                 "FROM seven_signs_festival");
             rset = statement.executeQuery();
@@ -1040,7 +1040,7 @@ public class SevenSignsFestival implements SpawnListener
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             
             for (FastMap<Integer, StatsSet> currCycleData : _festivalData.values())
             {

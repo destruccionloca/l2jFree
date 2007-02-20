@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -66,7 +66,7 @@ public class RequestAnswerFriendInvite extends ClientBasePacket
         		java.sql.Connection con = null;
         		try 
         		{
-        		    con = L2DatabaseFactory.getInstance().getConnection();
+        		    con = L2Registry.getInstance().getConnection();
         		    PreparedStatement statement = con.prepareStatement("INSERT INTO character_friends (char_id, friend_id, friend_name) VALUES (?, ?, ?), (?, ?, ?)");
                     statement.setInt(1, requestor.getObjectId());
                     statement.setInt(2, player.getObjectId());

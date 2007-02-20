@@ -22,7 +22,7 @@ import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -60,7 +60,7 @@ public class RequestFriendDel extends ClientBasePacket{
 		try 
 		{
 		    L2PcInstance friend = L2World.getInstance().getPlayer(_name);
-		    con = L2DatabaseFactory.getInstance().getConnection();
+		    con = L2Registry.getInstance().getConnection();
 		    PreparedStatement statement;
 		    ResultSet rset;
 		    if (friend != null)

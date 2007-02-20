@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -98,7 +98,7 @@ public class AdminPledge implements IAdminCommandHandler
                 java.sql.Connection con = null;
                 try
                 {
-                    con = L2DatabaseFactory.getInstance().getConnection();
+                    con = L2Registry.getInstance().getConnection();
                     PreparedStatement statement = con.prepareStatement("UPDATE characters SET clanid = 0 WHERE clanid=?");
                     statement.setInt(1, target.getClanId());
                     statement.execute();
@@ -139,7 +139,7 @@ public class AdminPledge implements IAdminCommandHandler
                     java.sql.Connection con = null;
                     try
                     {
-                        con = L2DatabaseFactory.getInstance().getConnection();
+                        con = L2Registry.getInstance().getConnection();
                         PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET clan_level = ? WHERE clan_id = ?");
                         statement.setInt(1, level);
                         statement.setInt(2, target.getClanId());

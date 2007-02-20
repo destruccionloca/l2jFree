@@ -21,7 +21,7 @@ import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.taskmanager.tasks.TaskCleanUp;
 import net.sf.l2j.gameserver.taskmanager.tasks.TaskJython;
@@ -81,7 +81,7 @@ public final class TaskManager
 
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2Registry.getInstance().getConnection();
                 PreparedStatement statement = con.prepareStatement(SQL_STATEMENTS[1]);
                 statement.setLong(1, _lastActivation);
                 statement.setInt(2, _id);
@@ -193,7 +193,7 @@ public final class TaskManager
         {
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2Registry.getInstance().getConnection();
                 PreparedStatement statement = con.prepareStatement(SQL_STATEMENTS[0]);
                 ResultSet rset = statement.executeQuery();
 
@@ -340,7 +340,7 @@ public final class TaskManager
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement(SQL_STATEMENTS[2]);
             statement.setString(1, task);
             ResultSet rset = statement.executeQuery();
@@ -393,7 +393,7 @@ public final class TaskManager
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement(SQL_STATEMENTS[3]);
             statement.setString(1, task);
             statement.setString(2, type.toString());

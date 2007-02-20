@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.ArmorSetsTable;
 import net.sf.l2j.gameserver.SkillTable;
@@ -1032,7 +1032,7 @@ public abstract class Inventory extends ItemContainer
        java.sql.Connection con = null;
        try
        {
-           con = L2DatabaseFactory.getInstance().getConnection();
+           con = L2Registry.getInstance().getConnection();
            PreparedStatement statement = con.prepareStatement(
                                                               "SELECT object_id FROM items WHERE owner_id=? AND (loc=? OR loc=?) " +
            "ORDER BY object_id DESC");

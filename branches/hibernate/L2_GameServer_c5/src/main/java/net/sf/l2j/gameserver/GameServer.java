@@ -25,7 +25,7 @@ import java.util.Calendar;
 import java.util.logging.LogManager;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
@@ -632,7 +632,7 @@ public class GameServer
         LogManager.getLogManager().readConfiguration(is);
         is.close();        
         
-        L2DatabaseFactory.getInstance();
+        L2Registry.getInstance();
         gameServer = new GameServer();
         
         if ( Config.IS_TELNET_ENABLED ) {

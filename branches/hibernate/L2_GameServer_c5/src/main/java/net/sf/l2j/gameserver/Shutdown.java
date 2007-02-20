@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
@@ -200,7 +200,7 @@ public class Shutdown extends Thread
             } catch (Throwable t) {}
             // commit data, last chance
             try {
-                L2DatabaseFactory.getInstance().shutdown();
+                L2Registry.getInstance().shutdown();
             } catch (Throwable t) {}
             // server will quit, when this function ends.
             if (_instance.shutdownMode == GM_RESTART)

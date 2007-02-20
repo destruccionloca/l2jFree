@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.model.L2PetDataTable;
 
 import org.apache.commons.logging.Log;
@@ -55,7 +55,7 @@ public class PetNameTable
        
        try
        {
-           con = L2DatabaseFactory.getInstance().getConnection();
+           con = L2Registry.getInstance().getConnection();
            PreparedStatement statement = con.prepareStatement("SELECT name FROM pets p, items i WHERE p.item_obj_id = i.object_id AND name=? AND i.item_id IN (?)");
            statement.setString(1, name);
            

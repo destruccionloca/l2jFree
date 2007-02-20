@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.MapRegionTable;
 import net.sf.l2j.gameserver.NpcTable;
@@ -522,7 +522,7 @@ public class Siege
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("DELETE FROM siege_clans WHERE castle_id=?");
             statement.setInt(1, getCastle().getCastleId());
             statement.execute();
@@ -562,7 +562,7 @@ public class Siege
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("DELETE FROM siege_clans WHERE castle_id=? and type = 2");
             statement.setInt(1, getCastle().getCastleId());
             statement.execute();
@@ -746,7 +746,7 @@ public class Siege
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("DELETE FROM siege_clans WHERE castle_id=? and clan_id=?");
             statement.setInt(1, getCastle().getCastleId());
             statement.setInt(2, clanId);
@@ -982,7 +982,7 @@ public class Siege
             PreparedStatement statement = null;
             ResultSet rs = null;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
 
             statement = con.prepareStatement("SELECT clan_id,type FROM siege_clans where castle_id=?");
             statement.setInt(1, getCastle().getCastleId());
@@ -1074,7 +1074,7 @@ public class Siege
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("Update castle set siegeDate = ? where id = ?");
             statement.setLong(1, getSiegeDate().getTimeInMillis());
             statement.setInt(2, getCastle().getCastleId());
@@ -1119,7 +1119,7 @@ public class Siege
                     return;
             }
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
             if (!isUpdateRegistration)
             {

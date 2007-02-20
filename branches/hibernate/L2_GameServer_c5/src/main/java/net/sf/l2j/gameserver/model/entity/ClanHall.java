@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
 import javolution.util.FastList;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.DoorTable;
 import net.sf.l2j.gameserver.MapRegionTable;
@@ -208,7 +208,7 @@ public class ClanHall
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
 
             statement = con.prepareStatement("Select * from clanhall where id = ?");
             statement.setInt(1, getId());
@@ -265,7 +265,7 @@ public class ClanHall
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
 
             statement = con.prepareStatement("Select * from clanhall_functions where hall_id = ?");
             statement.setInt(1, getId());
@@ -296,7 +296,7 @@ public class ClanHall
 	    java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
 
             statement = con.prepareStatement("UPDATE clanhall SET ownerId=? WHERE id=?");
@@ -441,7 +441,7 @@ public class ClanHall
         {
             PreparedStatement statement;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
 
             statement = con.prepareStatement("DELETE FROM clanhall_functions WHERE hall_id=? AND type=?");
             statement.setInt(1, getId());
@@ -468,7 +468,7 @@ public class ClanHall
         {
             PreparedStatement statement;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
 
             if (addNew)
             {
@@ -533,7 +533,7 @@ public class ClanHall
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
             PreparedStatement statement;
             
             statement = con.prepareStatement("UPDATE clanhall SET paidUntil=? WHERE id=?");
@@ -636,7 +636,7 @@ public class ClanHall
             java.sql.Connection con = null;
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2Registry.getInstance().getConnection();
                 PreparedStatement statement;
                 
                 statement = con.prepareStatement("UPDATE clanhall_functions SET endTime=?, inDebt=? WHERE type=? AND hall_id=?");

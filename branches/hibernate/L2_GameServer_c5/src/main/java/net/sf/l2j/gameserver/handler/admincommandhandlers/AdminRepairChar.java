@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -79,7 +79,7 @@ public class AdminRepairChar implements IAdminCommandHandler
         java.sql.Connection connection = null;
         try
         {
-            connection = L2DatabaseFactory.getInstance().getConnection();
+            connection = L2Registry.getInstance().getConnection();
             
             PreparedStatement statement = connection.prepareStatement("SELECT obj_id FROM characters where char_name=?");
             statement.setString(1,parts[1]);

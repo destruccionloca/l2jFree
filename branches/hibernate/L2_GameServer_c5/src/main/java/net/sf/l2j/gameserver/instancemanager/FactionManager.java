@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.model.entity.Faction;
 
 /** 
@@ -73,7 +73,7 @@ public class FactionManager
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
 
             statement = con.prepareStatement("Select id from factions order by id");
             rs = statement.executeQuery();

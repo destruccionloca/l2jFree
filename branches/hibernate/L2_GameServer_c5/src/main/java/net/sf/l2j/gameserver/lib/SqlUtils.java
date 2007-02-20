@@ -3,7 +3,7 @@ package net.sf.l2j.gameserver.lib;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,9 +36,9 @@ public class SqlUtils
 
 		try
 		{
-            query = L2DatabaseFactory.getInstance().prepQuerySelect(new String[] {resultField}, tableName, whereClause, true);
+            query = L2Registry.getInstance().prepQuerySelect(new String[] {resultField}, tableName, whereClause, true);
 
-			statement = L2DatabaseFactory.getInstance().getConnection().prepareStatement(query);
+			statement = L2Registry.getInstance().getConnection().prepareStatement(query);
 			rset = statement.executeQuery();
 		
 			if(rset.next()) res = rset.getInt(1);
@@ -66,8 +66,8 @@ public class SqlUtils
 
         try
         {
-            query = L2DatabaseFactory.getInstance().prepQuerySelect(new String[] {resultField}, tableName, whereClause, false);
-            statement = L2DatabaseFactory.getInstance().getConnection().prepareStatement(query);
+            query = L2Registry.getInstance().prepQuerySelect(new String[] {resultField}, tableName, whereClause, false);
+            statement = L2Registry.getInstance().getConnection().prepareStatement(query);
             rset = statement.executeQuery();
             
             int rows = 0;
@@ -113,8 +113,8 @@ public class SqlUtils
 
 		try
 		{
-            query = L2DatabaseFactory.getInstance().prepQuerySelect(resultFields, usedTables, whereClause, false);
-            statement = L2DatabaseFactory.getInstance().getConnection().prepareStatement(query);
+            query = L2Registry.getInstance().prepQuerySelect(resultFields, usedTables, whereClause, false);
+            statement = L2Registry.getInstance().getConnection().prepareStatement(query);
 			rset = statement.executeQuery();
 
 			int rows = 0;

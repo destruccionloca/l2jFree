@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.MapRegionTable;
 import net.sf.l2j.gameserver.NpcTable;
@@ -96,7 +96,7 @@ public class AutoSpawnHandler
             ResultSet rs = null;
             ResultSet rs2 = null;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getInstance().getConnection();
 
             // Restore spawn group data, then the location data.
             statement = con.prepareStatement("SELECT * FROM random_spawn ORDER BY groupId ASC");
