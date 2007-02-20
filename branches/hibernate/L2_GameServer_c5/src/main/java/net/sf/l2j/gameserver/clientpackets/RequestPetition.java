@@ -39,7 +39,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class RequestPetition extends ClientBasePacket
 {
 	private static final String _C__7F_RequestPetition = "[C] 7F RequestPetition";
-	//private static Logger _log = Logger.getLogger(RequestPetition.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestPetition.class.getName());
 
 	private final String _content;
 	private final int _type;       // 1 = on : 0 = off;

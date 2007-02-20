@@ -35,7 +35,7 @@ import net.sf.l2j.gameserver.skills.Stats;
 
 public class ManaHeal implements ISkillHandler
 {
-    //private static Logger _log = Logger.getLogger(ManaHeal.class.getName());
+    //private final static Log _log = LogFactory.getLog(ManaHeal.class.getName());
     
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)

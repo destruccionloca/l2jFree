@@ -19,15 +19,17 @@
 package net.sf.l2j.gameserver.communitybbs.BB;
 
 import java.sql.PreparedStatement;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.communitybbs.Manager.TopicBBSManager;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class Topic
 {
 
-	private static Logger _log = Logger.getLogger(Topic.class.getName());
+	private final static Log _log = LogFactory.getLog(Topic.class.getName());
 	public static final int MORMAL = 0;
 	public static final int MEMO = 1;
 	

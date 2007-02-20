@@ -24,7 +24,8 @@ import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.serverpackets.AllyCrest;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -34,7 +35,7 @@ import org.apache.log4j.Logger;
 public class RequestAllyCrest extends ClientBasePacket
 {
 	private static final String _C__88_REQUESTALLYCREST = "[C] 88 RequestAllyCrest";
-	private static Logger _log = Logger.getLogger(RequestAllyCrest.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestAllyCrest.class.getName());
 
 	private final int _crestId;
 	/**

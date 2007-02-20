@@ -26,7 +26,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ExAutoSoulShot;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -36,7 +37,7 @@ import org.apache.log4j.Logger;
 public class RequestAutoSoulShot extends ClientBasePacket
 {
     private static final String _C__CF_REQUESTAUTOSOULSHOT = "[C] CF RequestAutoSoulShot";
-    private static Logger _log = Logger.getLogger(RequestAutoSoulShot.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestAutoSoulShot.class.getName());
 
     // format  cd
     private final int _itemId;
@@ -44,7 +45,7 @@ public class RequestAutoSoulShot extends ClientBasePacket
 
     /**
      * packet type id 0xcf
-     * format:		chdd
+     * format:      chdd
      * @param decrypt
      */
     public RequestAutoSoulShot(ByteBuffer buf, ClientThread client)
@@ -66,7 +67,7 @@ public class RequestAutoSoulShot extends ClientBasePacket
                 !activeChar.isDead())
         {
             if (_log.isDebugEnabled()) 
-                _log.debug("AutoSoulShot:" + _itemId);
+                _log.info("AutoSoulShot:" + _itemId);
 
             L2ItemInstance item = activeChar.getInventory().getItemByItemId(_itemId);
             
@@ -74,42 +75,47 @@ public class RequestAutoSoulShot extends ClientBasePacket
             {
                 if (_type == 1)
                 {
-                    // Attempt to charge first shot on activation
-                    if (_itemId == 6645 || _itemId == 6646 || _itemId == 6647)
-                    {
-                        activeChar.addAutoSoulShot(_itemId);
-                        ExAutoSoulShot atk = new ExAutoSoulShot(_itemId, _type);
-                        activeChar.sendPacket(atk);
-
-                        //start the auto soulshot use
-                        SystemMessage sm = new SystemMessage(SystemMessage.USE_OF_S1_WILL_BE_AUTO);
-                        sm.addString(item.getItemName());
-                        activeChar.sendPacket(sm);
-                        sm = null;
-                        
-                        activeChar.rechargeAutoSoulShot(true, true, true);
-                    }
-                    else
-                    	if (activeChar.getActiveWeaponItem() != activeChar.getFistsWeaponItem()
-                    			&& item.getItem().getCrystalType() == activeChar.getActiveWeaponItem().getCrystalType())
-                    	{
+                    //Fishingshots are not automatic on retail
+                    if (_itemId < 6535 || _itemId > 6540) {
+                        // Attempt to charge first shot on activation
+                        if (_itemId == 6645 || _itemId == 6646 || _itemId == 6647)
+                        {
                             activeChar.addAutoSoulShot(_itemId);
                             ExAutoSoulShot atk = new ExAutoSoulShot(_itemId, _type);
                             activeChar.sendPacket(atk);
-
+    
                             //start the auto soulshot use
                             SystemMessage sm = new SystemMessage(SystemMessage.USE_OF_S1_WILL_BE_AUTO);
                             sm.addString(item.getItemName());
                             activeChar.sendPacket(sm);
                             sm = null;
                             
-                            activeChar.rechargeAutoSoulShot(true, true, false);
-                    	}
-                    	else
-                    		if ((_itemId >= 2509 && _itemId <= 2514) || (_itemId >= 3947 && _itemId <= 3952) || _itemId == 5790)
-                    			activeChar.sendPacket(new SystemMessage(SystemMessage.SPIRITSHOTS_GRADE_MISMATCH));
-                    		else
-                    			activeChar.sendPacket(new SystemMessage(SystemMessage.SOULSHOTS_GRADE_MISMATCH));
+                            activeChar.rechargeAutoSoulShot(true, true, true);
+                        }
+                        else {
+                            if (activeChar.getActiveWeaponItem() != activeChar.getFistsWeaponItem()
+                                    && item.getItem().getCrystalType() == activeChar.getActiveWeaponItem().getCrystalType())
+                            {
+                                activeChar.addAutoSoulShot(_itemId);
+                                ExAutoSoulShot atk = new ExAutoSoulShot(_itemId, _type);
+                                activeChar.sendPacket(atk);
+    
+                                //start the auto soulshot use
+                                SystemMessage sm = new SystemMessage(SystemMessage.USE_OF_S1_WILL_BE_AUTO);
+                                sm.addString(item.getItemName());
+                                activeChar.sendPacket(sm);
+                                sm = null;
+                                
+                                activeChar.rechargeAutoSoulShot(true, true, false);
+                            }
+                            else {
+                                if ((_itemId >= 2509 && _itemId <= 2514) || (_itemId >= 3947 && _itemId <= 3952) || _itemId == 5790)
+                                    activeChar.sendPacket(new SystemMessage(SystemMessage.SPIRITSHOTS_GRADE_MISMATCH));
+                                else
+                                    activeChar.sendPacket(new SystemMessage(SystemMessage.SOULSHOTS_GRADE_MISMATCH));
+                            }
+                        }
+                    }
                 }
                 else if (_type == 0)
                 {

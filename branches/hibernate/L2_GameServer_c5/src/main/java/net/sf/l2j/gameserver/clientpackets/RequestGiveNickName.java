@@ -19,13 +19,15 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -35,7 +37,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class RequestGiveNickName extends ClientBasePacket
 {
 	private static final String _C__55_REQUESTGIVENICKNAME = "[C] 55 RequestGiveNickName";
-	static Logger _log = Logger.getLogger(RequestGiveNickName.class.getName());
+	static Log _log = LogFactory.getLog(RequestGiveNickName.class.getName());
 	
 	private String _target;
 	private final String _title;

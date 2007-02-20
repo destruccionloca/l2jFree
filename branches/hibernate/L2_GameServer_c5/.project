@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>L2J-free_GameServer_c5</name>
+	<name>L2JFree_GameServer</name>
 	<comment></comment>
 	<projects>
-		<project>L2_Logging</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

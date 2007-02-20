@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver;
 
 import java.net.Socket;
 import java.sql.PreparedStatement;
-import java.util.List;
+import java.sql.ResultSet;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -34,7 +34,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.util.EventData;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.ibm.io.async.AsyncSocketChannel;
 
@@ -45,7 +46,7 @@ import com.ibm.io.async.AsyncSocketChannel;
  */
 public final class ClientThread
 {
-    protected static Logger _log = Logger.getLogger(ClientThread.class.getName());
+    protected static Log _log = LogFactory.getLog(ClientThread.class.getName());
     
     
     public static int devCharId;
@@ -75,6 +76,8 @@ public final class ClientThread
     private SessionKey _sessionId;
     private final Connection _connection;
     final ScheduledFuture _autoSaveInDB;
+    private boolean _isAuthed = false;
+
     
     //private byte[] _filter;
     
@@ -86,7 +89,7 @@ public final class ClientThread
     private int _revision = 0;
     private boolean _gameGuardOk = false;
     
-    private List<Integer> _charSlotMapping = new FastList<Integer>();
+    private FastList<Integer> _charSlotMapping = new FastList<Integer>();
     
     public static ClientThread create(Socket socket)
     {
@@ -508,4 +511,74 @@ public final class ClientThread
     {
         return _gameGuardOk;
     }
+    
+    public String getAccountName(int charslot)
+    {
+        int objectId=getObjectIdForSlot(charslot);
+        java.sql.Connection con = null;
+        String _accountName="";
+        try
+        {
+            // Retrieve the account name from characters table of the database
+            con = L2DatabaseFactory.getInstance().getConnection();
+            
+            PreparedStatement statement = con.prepareStatement("SELECT account_name FROM characters WHERE obj_id=?");
+            statement.setInt(1, objectId);
+            ResultSet rset = statement.executeQuery();
+            if(rset.next())
+                _accountName=rset.getString("account_name");
+        }
+        catch (Exception e)
+        {
+            _log.warn("Could not restore char account name: " + e);
+        }
+        finally
+        {
+            try { con.close(); } catch (Exception e) {}
+        }
+        return _accountName;
+    }
+
+    public String getAccountName(String character)
+    {
+        java.sql.Connection con = null;
+        String _accountName="";
+        try
+        {
+            // Retrieve the account name from characters table of the database
+            con = L2DatabaseFactory.getInstance().getConnection();
+            
+            PreparedStatement statement = con.prepareStatement("SELECT account_name FROM characters WHERE char_name=?");
+            statement.setString(1, character);
+            ResultSet rset = statement.executeQuery();
+            if(rset.next())
+                _accountName=rset.getString("account_name");
+        }
+        catch (Exception e)
+        {
+            _log.warn("Could not restore char account name: " + e);
+        }
+        finally
+        {
+            try { con.close(); } catch (Exception e) {}
+        }
+        return _accountName;
+    }
+    
+    /**
+     * @return Returns the isAuthed.
+     */
+    public boolean isAuthed()
+    {
+        return _isAuthed;
+    }
+    
+    /**
+     * @param isAuthed The isAuthed to set.
+     */
+    public void setAuthed(boolean isAuthed)
+    {
+        _isAuthed = isAuthed;
+    }
+    
 }

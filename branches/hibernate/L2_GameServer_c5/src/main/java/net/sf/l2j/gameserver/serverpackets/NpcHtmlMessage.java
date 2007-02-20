@@ -18,11 +18,12 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.clientpackets.RequestBypassToServer;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -134,7 +135,7 @@ public class NpcHtmlMessage extends ServerBasePacket
 	// d is usually 0, S is the html text starting with <html> and ending with </html>
 	//
 	private static final String _S__1B_NPCHTMLMESSAGE = "[S] 0f NpcHtmlMessage";
-	private static Logger _log = Logger.getLogger(RequestBypassToServer.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestBypassToServer.class.getName());
     private int _NpcObjId;
 	private String _html;
 

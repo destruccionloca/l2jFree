@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.serverpackets.PartyMatchDetail;
 public class RequestPartyMatchDetail extends ClientBasePacket
 {
 	private static final String _C__71_REQUESTPARTYMATCHDETAIL = "[C] 71 RequestPartyMatchDetail";
-	//private static Logger _log = Logger.getLogger(RequestPartyMatchDetail.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestPartyMatchDetail.class.getName());
 
 	private final int _objectId;
     @SuppressWarnings("unused")

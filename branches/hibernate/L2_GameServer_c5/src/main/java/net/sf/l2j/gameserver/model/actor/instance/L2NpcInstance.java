@@ -19,9 +19,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.text.DateFormat;
-import java.util.List;
-
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -45,6 +43,7 @@ import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2DropData;
+import net.sf.l2j.gameserver.model.L2DropCategory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2PetDataTable;
@@ -59,8 +58,10 @@ import net.sf.l2j.gameserver.model.actor.stat.NpcStat;
 import net.sf.l2j.gameserver.model.actor.status.NpcStatus;
 import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.entity.DM;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.TvT;
+import net.sf.l2j.gameserver.model.entity.VIP;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -96,7 +97,7 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
  */
 public class L2NpcInstance extends L2Character
 {
-    //private static Logger _log = Logger.getLogger(L2NpcInstance.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2NpcInstance.class.getName());
     
     /** The interaction distance of the L2NpcInstance(is used as offset in MovetoLocation method) */
     public static final int INTERACTION_DISTANCE = 150;
@@ -109,7 +110,10 @@ public class L2NpcInstance extends L2Character
     
     /** The busy message for this L2NpcInstance */
     private String _BusyMessage = "";
-    
+
+    /** True if endDecayTask has already been called */
+    volatile boolean _isDecayed = false;
+
     /** True if a Dwarf has used Spoil on this L2NpcInstance */
     private boolean _IsSpoil = false;
 
@@ -117,8 +121,12 @@ public class L2NpcInstance extends L2Character
     private int _CastleIndex = -2;
     
     public boolean isEventMob = false,
-    			   _isEventMobTvT = false,
-			   _isEventMobCTFJoiner = false;
+                  _isEventMobTvT = false,
+                  _isEventMobDM = false,
+                  _isEventMobCTF = false,
+                  _isEventVIPNPC = false,
+                  _isEventVIPNPCEnd = false;                  
+
     private boolean _IsInTown = false;
     private int _isSpoiledBy = 0;
     
@@ -301,7 +309,7 @@ public class L2NpcInstance extends L2Character
         //broadcastPacket(info);
         
         // Send a Server->Client packet NpcInfo with state of abnormal effect to all L2PcInstance in the _KnownPlayers of the L2NpcInstance
-        for (L2PcInstance player : getKnownList().getKnownPlayers())
+        for (L2PcInstance player : getKnownList().getKnownPlayers().values())
             if (player != null && this != null)
                 player.sendPacket(new NpcInfo(this, player));
     }
@@ -543,14 +551,20 @@ public class L2NpcInstance extends L2Character
                     broadcastPacket(sa);
                     
                     // Open a chat window on client with the text of the L2NpcInstance
-                    if(this.isEventMob)
-                    	L2Event.showEventHtml(player, String.valueOf(this.getObjectId()));
-                    else if (this._isEventMobTvT)
-                    	TvT.showEventHtml(player, String.valueOf(this.getObjectId()));
-		    else if (this._isEventMobCTFJoiner)
-                    	CTF.showEventHtml(player, String.valueOf(this.getObjectId()));
+                    if (this.isEventMob)
+                       L2Event.showEventHtml(player, String.valueOf(this.getObjectId()));
+                    else if (_isEventMobTvT)
+                       TvT.showEventHtml(player, String.valueOf(this.getObjectId()));
+                    else if (_isEventMobDM)
+                        DM.showEventHtml(player, String.valueOf(this.getObjectId()));
+                    else if (_isEventMobCTF)
+                       CTF.showEventHtml(player, String.valueOf(this.getObjectId()));
+                    else if (this._isEventVIPNPC)
+                       VIP.showJoinHTML(player, String.valueOf(this.getObjectId()));
+                    else if (this._isEventVIPNPCEnd)
+                       VIP.showEndHTML(player, String.valueOf(this.getObjectId()));                    
                     else
-                    	showChatWindow(player, 0);
+                       showChatWindow(player, 0);
                     
                     // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
                     player.sendPacket(new ActionFailed());					
@@ -626,7 +640,7 @@ public class L2NpcInstance extends L2Character
             html1.append("<font color=\"LEVEL\">Combat</font>");
             html1.append("<table border=\"0\" width=\"100%\">");
             html1.append("<tr><td>Current HP</td><td>"+getCurrentHp()+"</td><td>Current MP</td><td>"+getCurrentMp()+"</td></tr>");
-            html1.append("<tr><td>Max.HP</td><td>"+(int)(getMaxHp()/getTemplate().rateHp)+"*"+getTemplate().rateHp+"</td><td>Max.MP</td><td>"+getMaxMp()+"</td></tr>");
+            html1.append("<tr><td>Max.HP</td><td>"+(int)(getMaxHp()/getTemplate().rateHp/(isChampion()?Config.CHAMPION_HP:1))+"*"+getTemplate().rateHp+(isChampion()?"*"+Config.CHAMPION_HP:"")+"</td><td>Max.MP</td><td>"+getMaxMp()+"</td></tr>");
             html1.append("<tr><td>P.Atk.</td><td>"+getPAtk(null)+"</td><td>M.Atk.</td><td>"+getMAtk(null,null)+"</td></tr>");
             html1.append("<tr><td>P.Def.</td><td>"+getPDef(null)+"</td><td>M.Def.</td><td>"+getMDef(null,null)+"</td></tr>");
             html1.append("<tr><td>Accuracy</td><td>"+getAccuracy()+"</td><td>Evasion</td><td>"+getEvasionRate(null)+"</td></tr>");
@@ -694,17 +708,18 @@ public class L2NpcInstance extends L2Character
             html1.append("Rates legend: <font color=\"ff0000\">50%+</font> <font color=\"00ff00\">30%+</font> <font color=\"0000ff\">less than 30%</font>");
             html1.append("<table border=0 width=\"100%\">");
             
-    	    for(L2DropData drop : getTemplate().getDropData())
-    	    {
-    	    	String name = ItemTable.getInstance().getTemplate(drop.getItemId()).getName();
-
-    	    	if(drop.getChance() >= 600000)
-    	    		html1.append("<tr><td><font color=\"ff0000\">" + name + "</font></td><td>" + (drop.isQuestDrop()?"Quest":(drop.isSweep()?"Sweep":"Drop")) + "</td></tr>");
-    	    	else if(drop.getChance() >= 300000)
-    	    		html1.append("<tr><td><font color=\"00ff00\">" + name + "</font></td><td>" + (drop.isQuestDrop()?"Quest":(drop.isSweep()?"Sweep":"Drop")) + "</td></tr>");
-    	    	else
-    	    		html1.append("<tr><td><font color=\"0000ff\">" + name + "</font></td><td>" + (drop.isQuestDrop()?"Quest":(drop.isSweep()?"Sweep":"Drop")) + "</td></tr>");
-    	    }
+            for(L2DropCategory cat:getTemplate().getDropData())
+               for(L2DropData drop : cat.getAllDrops())
+               {
+                   String name = ItemTable.getInstance().getTemplate(drop.getItemId()).getName();
+   
+                   if(drop.getChance() >= 600000)
+                       html1.append("<tr><td><font color=\"ff0000\">" + name + "</font></td><td>" + (drop.isQuestDrop()?"Quest":(cat.isSweep()?"Sweep":"Drop")) + "</td></tr>");
+                   else if(drop.getChance() >= 300000)
+                       html1.append("<tr><td><font color=\"00ff00\">" + name + "</font></td><td>" + (drop.isQuestDrop()?"Quest":(cat.isSweep()?"Sweep":"Drop")) + "</td></tr>");
+                   else
+                       html1.append("<tr><td><font color=\"0000ff\">" + name + "</font></td><td>" + (drop.isQuestDrop()?"Quest":(cat.isSweep()?"Sweep":"Drop")) + "</td></tr>");
+               }
     	    
     	    html1.append("</table>");
     	    html1.append("</body></html>");
@@ -1010,6 +1025,26 @@ public class L2NpcInstance extends L2Character
                 } catch (NumberFormatException nfe) {}
                 showChatWindow(player, val);
             }
+            else if (command.startsWith("NobleTeleport"))
+            {
+               if (!player.isNoble())
+               {
+                   String filename = "data/html/teleporter/nobleteleporter-no.htm";
+                   NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+                    html.setFile(filename);
+                    html.replace("%objectId%", String.valueOf(getObjectId()));
+                    html.replace("%npcname%", getName());
+                    player.sendPacket(html);
+                   return;
+               }
+                int val = 0;
+                try 
+                {
+                   val = Integer.parseInt(command.substring(5));
+                } catch (IndexOutOfBoundsException ioobe) {
+                } catch (NumberFormatException nfe) {}
+                showChatWindow(player, val);
+            }    
             else if (command.startsWith("Loto"))
             {
             	int val = 0;
@@ -1422,7 +1457,7 @@ public class L2NpcInstance extends L2Character
     {
         // Send a Server->Client packet NpcHtmlMessage to the L2PcInstance in order to display the message of the L2NpcInstance
         content = content.replaceAll("%objectId%", String.valueOf(getObjectId()));
-        NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
+        NpcHtmlMessage npcReply = new NpcHtmlMessage(getObjectId());
         npcReply.setHtml(content);
         player.sendPacket(npcReply);
     }
@@ -1601,7 +1636,7 @@ public class L2NpcInstance extends L2Character
     public void showQuestWindow(L2PcInstance player) 
     {
         // collect awaiting quests and start points
-        List<Quest> options = new FastList<Quest>();
+        FastList<Quest> options = new FastList<Quest>();
         
         QuestState[] awaits = player.getQuestsForTalk(getTemplate().npcId);
         Quest[] starts = getTemplate().getStartQuests();
@@ -1894,7 +1929,13 @@ public class L2NpcInstance extends L2Character
     
     public void makeCPRecovery(L2PcInstance player)
     {
-        if (getNpcId()!=31225 && getNpcId()!=31226) return;
+        if (getNpcId() != 31225 && getNpcId() != 31226) return;
+        if (player.isCursedWeaponEquiped())
+        {
+           player.sendMessage("Go away, you're not welcome here.");
+           return;
+        }
+
         int neededmoney = 100;
         SystemMessage sm;
         if (!player.reduceAdena("RestoreCP", neededmoney, player.getLastFolkNPC(), true)) return;
@@ -2456,10 +2497,21 @@ public class L2NpcInstance extends L2Character
     {
         return this.getTemplate().name;
     }
+
+    public boolean isDecayed() {
+       return _isDecayed;
+    }
     
+    public void setDecayed(boolean decayed) {
+       _isDecayed = decayed;
+    }
+  
     public void endDecayTask()
     {
-    	onDecay();
-        DecayTaskManager.getInstance().cancelDecayTask(this);
+       if (!isDecayed()) {
+           _isDecayed = true;
+           onDecay();
+           DecayTaskManager.getInstance().cancelDecayTask(this);
+       }
     }
 }

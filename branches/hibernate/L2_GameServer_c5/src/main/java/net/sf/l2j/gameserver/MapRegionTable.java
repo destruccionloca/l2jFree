@@ -21,17 +21,14 @@ package net.sf.l2j.gameserver;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import org.apache.log4j.Logger;
+import javolution.util.FastList;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
-import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
@@ -42,12 +39,15 @@ import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Zone;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  */
 public class MapRegionTable
 {
-	private static Logger _log = Logger.getLogger(MapRegionTable.class.getName());
+	private final static Log _log = LogFactory.getLog(MapRegionTable.class.getName());
 	
 	private static MapRegionTable _instance;
 	
@@ -109,7 +109,7 @@ public class MapRegionTable
 			try { con.close(); } catch (Exception e) {}
 		}
         
-        _pointsWithKarmas = new int[16][3];
+        _pointsWithKarmas = new int[17][3];
         //Talking Island
         _pointsWithKarmas[0][0] = -79077;
         _pointsWithKarmas[0][1] = 240355;
@@ -174,7 +174,10 @@ public class MapRegionTable
         _pointsWithKarmas[15][0] = 147419;
         _pointsWithKarmas[15][1] = -64980;
         _pointsWithKarmas[15][2] =  -3457;
-        //TODO@ add shuttgard point [Luno]        
+        // Shuttgard
+        _pointsWithKarmas[16][0] = 85184;
+        _pointsWithKarmas[16][1] = -138560;
+        _pointsWithKarmas[16][2] = -2256;        
 	}
 	
 	public final int getMapRegion(int posX, int posY)
@@ -222,7 +225,6 @@ public class MapRegionTable
             case 15: nearestTown = "Goddard"; break;
             case 16: nearestTown = "Town of Schuttgart"; break;
             default: nearestTown = "Aden Castle Town"; break;
-            // TODO@ add shuttgard [Luno]
         }
         
         return nearestTown;
@@ -286,7 +288,7 @@ public class MapRegionTable
             		if (teleportWhere == TeleportWhereType.SiegeFlag && castle.getSiege().getIsInProgress())
                     {
                         // Check if player's clan is attacker
-                        List<L2NpcInstance> flags = castle.getSiege().getFlag(player.getClan());
+                        FastList<L2NpcInstance> flags = castle.getSiege().getFlag(player.getClan());
                         if (flags != null && !flags.isEmpty())
                         {
                             // Spawn to flag - Need more work to get player to the nearest flag
@@ -322,18 +324,6 @@ public class MapRegionTable
         // TODO: Micht: Maybe we should add some checks to prevent exception here.
         coord = TownManager.getInstance().getClosestTown(activeChar).getSpawn().get(0);
                 
-        if (Config.RESPAWN_RANDOM_ENABLED)
-        {
-        	if (Rnd.nextBoolean()) {
-        		coord[0] = coord[0] + Rnd.nextInt(Config.RESPAWN_RANDOM_MAX_OFFSET + 1);
-        		coord[1] = coord[1] + Rnd.nextInt(Config.RESPAWN_RANDOM_MAX_OFFSET + 1);
-        	}
-        	else {
-        		coord[0] = coord[0] - Rnd.nextInt(Config.RESPAWN_RANDOM_MAX_OFFSET + 1);
-        		coord[1] = coord[1] - Rnd.nextInt(Config.RESPAWN_RANDOM_MAX_OFFSET + 1);
-        	}
-        }
-                     
         return new Location(coord[0], coord[1], coord[4]);
     }
 }

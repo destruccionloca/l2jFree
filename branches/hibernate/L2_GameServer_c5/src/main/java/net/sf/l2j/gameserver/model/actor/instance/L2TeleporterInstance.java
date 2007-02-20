@@ -25,7 +25,6 @@ package net.sf.l2j.gameserver.model.actor.instance;
  */
 
 import java.util.StringTokenizer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.TeleportLocationTable;
@@ -37,9 +36,12 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public final class L2TeleporterInstance extends L2FolkInstance
 {
-	private static Logger _log = Logger.getLogger(L2TeleporterInstance.class.getName());
+	private final static Log _log = LogFactory.getLog(L2TeleporterInstance.class.getName());
 
 	private static int Cond_All_False = 0;
 	private static int Cond_Busy_Because_Of_Siege = 1;
@@ -189,6 +191,20 @@ public final class L2TeleporterInstance extends L2FolkInstance
                 sm.addString("Go away, you're not welcome here.");
                 player.sendPacket(sm);
                 return;
+            }
+            else if (list.getIsForNoble() && !player.isNoble())
+            {
+               String filename = "data/html/teleporter/nobleteleporter-no.htm";
+               NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+                html.setFile(filename);
+                html.replace("%objectId%", String.valueOf(getObjectId()));
+                html.replace("%npcname%", getName());
+                player.sendPacket(html);
+               return;
+            }
+            else if (player.isAlikeDead())
+            {
+               return;
             }            
             else if(player.reduceAdena("Teleport", list.getPrice(), this, true))
 			{

@@ -19,8 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.Map;
-import org.apache.log4j.Logger;
+import javolution.util.FastMap;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -35,12 +34,15 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance; 
+import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ChairSit;
 import net.sf.l2j.gameserver.serverpackets.RecipeShopManageList;
 import net.sf.l2j.gameserver.serverpackets.Ride;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * This class ...
  *
@@ -49,7 +51,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class RequestActionUse extends ClientBasePacket
 {
     private static final String _C__45_REQUESTACTIONUSE = "[C] 45 RequestActionUse";
-    private static Logger _log = Logger.getLogger(RequestActionUse.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestActionUse.class.getName());
 
     private final int _actionId;
     private final boolean _ctrlPressed;
@@ -156,7 +158,7 @@ public class RequestActionUse extends ClientBasePacket
                         return;
                     }
 
-                    if (target.isAutoAttackable(activeChar) || _ctrlPressed)
+                    if (target.isAutoAttackable(activeChar) || _ctrlPressed || (getClient().getRevision() >= 729 && _shiftPressed)) //A temp sollution b4 we get the right packet, to make it with ctrl again
                     {
                         // Siege Golem (12251)
                         if ((pet.getNpcId() != 12251) || (target instanceof L2DoorInstance))
@@ -240,7 +242,7 @@ public class RequestActionUse extends ClientBasePacket
                     else if (activeChar.isFishing())
                     {
                         //You can't mount, dismount, break and drop items while fishing
-                        SystemMessage msg = new SystemMessage(1470);
+                        SystemMessage msg = new SystemMessage(SystemMessage.CANNOT_DO_WHILE_FISHING_2);
                         activeChar.sendPacket(msg);
                         msg = null;
                     }
@@ -437,7 +439,7 @@ public class RequestActionUse extends ClientBasePacket
         
         if (activeSummon != null && !activeChar.isBetrayed())
         {
-            Map<Integer, L2Skill> _skills = activeSummon.getTemplate().getSkills();
+            FastMap<Integer, L2Skill> _skills = activeSummon.getTemplate().getSkills();
             
             if (_skills == null) return;
 
@@ -449,10 +451,17 @@ public class RequestActionUse extends ClientBasePacket
 
             L2Skill skill = _skills.get(skillId);
             
-            if (skill == null) return;
+            if (skill == null)
+            {
+               _log.warn("Skill " + skillId + " missing from npcskills.sql for a summon id " + activeSummon.getNpcId());
+               return;
+            }
             
             activeSummon.setTarget(target);
-            activeSummon.useMagic(skill, _ctrlPressed, _shiftPressed);
+            if (getClient().getRevision()>=729) //A temp sollution b4 we get the right packet, to make it with ctrl again
+                activeSummon.useMagic(skill, _shiftPressed, false);
+            else
+                activeSummon.useMagic(skill, _ctrlPressed, _shiftPressed);
         }
     }
 

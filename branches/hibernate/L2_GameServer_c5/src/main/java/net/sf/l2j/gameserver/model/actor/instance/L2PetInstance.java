@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.model.actor.instance;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.concurrent.Future;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -29,6 +28,8 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
+import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -57,22 +58,25 @@ import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * 
  * This class ...
  * 
  * @version $Revision: 1.15.2.10.2.16 $ $Date: 2005/04/06 16:13:40 $
  */
-public final class L2PetInstance extends L2Summon
+public class L2PetInstance extends L2Summon
 {
-    protected static Logger _logPet = Logger.getLogger(L2PetInstance.class.getName());
+    protected static Log _log = LogFactory.getLog(L2PetInstance.class.getName());
     
     //private byte _pvpFlag;
     private int _curFed;
-    private PetInventory _inventory;
-    private final int _controlItemId;
-    private boolean _respawned;
-    private boolean _mountable;
+    public PetInventory _inventory;
+    public final int _controlItemId;
+    public boolean _respawned;
+    public boolean _mountable;
     
     private Future _feedTask;
     private int _feedTime;
@@ -159,7 +163,7 @@ public final class L2PetInstance extends L2Summon
             catch (Throwable e) 
             {
                 if (_log.isDebugEnabled()) 
-                    _logPet.warn("Pet [#"+getObjectId()+"] a feed task error has occurred: "+e);
+                    _log.warn("Pet [#"+getObjectId()+"] a feed task error has occurred: "+e);
             }
         }
     }
@@ -219,7 +223,7 @@ public final class L2PetInstance extends L2Summon
         }
         else
         {
-            if (_log.isDebugEnabled()) _logPet.debug("new target selected:"+getObjectId());
+            if (_log.isDebugEnabled()) _log.debug("new target selected:"+getObjectId());
             player.setTarget(this);
             MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
             player.sendPacket(my);
@@ -361,27 +365,37 @@ public final class L2PetInstance extends L2Summon
         StopMove sm = new StopMove(getObjectId(), getX(), getY(), getZ(), getHeading());
         
         if (_log.isDebugEnabled())
-            _logPet.debug("Pet pickup pos: "+ object.getX() + " "+object.getY()+ " "+object.getZ() );
+            _log.debug("Pet pickup pos: "+ object.getX() + " "+object.getY()+ " "+object.getZ() );
         
         broadcastPacket(sm);
         
         if (!(object instanceof L2ItemInstance))
         {
             // dont try to pickup anything that is not an item :)
-            _logPet.warn("trying to pickup wrong target."+object);
+            _log.warn("trying to pickup wrong target."+object);
             getOwner().sendPacket(new ActionFailed());
             return;
        }
+       
+        L2ItemInstance target = (L2ItemInstance) object;
+        
        // Herbs
-       if ( ((L2ItemInstance)object).getItemId() > 8599 && ((L2ItemInstance)object).getItemId() < 8615 )   
+        if ( target.getItemId() > 8599 && target.getItemId() < 8615 )
        {
            SystemMessage smsg = new SystemMessage(SystemMessage.FAILED_TO_PICKUP_S1);
-            smsg.addItemName(((L2ItemInstance)object).getItemId());
-            getOwner().sendPacket(smsg);            
-            return;
+           smsg.addItemName(target.getItemId());
+           getOwner().sendPacket(smsg);            
+           return;
         }
         
-        L2ItemInstance target = (L2ItemInstance) object;
+       // Cursed weapons
+       if ( CursedWeaponsManager.getInstance().isCursed(target.getItemId()) )   
+       {
+           SystemMessage smsg = new SystemMessage(SystemMessage.FAILED_TO_PICKUP_S1);
+            smsg.addItemName(target.getItemId());
+            getOwner().sendPacket(smsg);
+           return;
+       }
         
         synchronized (target)
         {
@@ -422,8 +436,11 @@ public final class L2PetInstance extends L2Summon
                target.resetOwnerTimer();
 
             target.pickupMe(this);
+            
+            if(Config.SAVE_DROPPED_ITEM) // item must be removed from ItemsOnGroundManager if is active
+                ItemsOnGroundManager.getInstance().removeObject(target);
         }
-        
+
         getInventory().addItem("Pickup", target, getOwner(), this);
         //FIXME Just send the updates if possible (old way wasn't working though)
         PetItemList iu = new PetItemList(this);
@@ -477,6 +494,8 @@ public final class L2PetInstance extends L2Summon
         if (_curFed > (getMaxFed() / 10))
             _curFed = getMaxFed() / 10;
 
+        getOwner().removeReviving();
+        
         super.doRevive();
 
         // stopDecay
@@ -484,11 +503,11 @@ public final class L2PetInstance extends L2Summon
         startFeed(false);
     }
 
-    public void doRevive(L2Skill skill)
+    public void doRevive(double revivePower)
     {
         // Restore the pet's lost experience, 
         // depending on the % return of the skill used (based on its power).
-        restoreExp(skill.getPower());
+        restoreExp(revivePower);
         doRevive();
     }
 
@@ -563,7 +582,7 @@ public final class L2PetInstance extends L2Summon
         }
         catch(Exception e)
         {
-            _logPet.warn("Give all items error " + e);
+            _log.warn("Give all items error " + e);
         }
     }
     
@@ -580,7 +599,7 @@ public final class L2PetInstance extends L2Summon
         }
         catch (Exception e)
         {
-            _logPet.warn("Error while giving item to owner: " + e);
+            _log.warn("Error while giving item to owner: " + e);
         }
     }
     
@@ -622,7 +641,7 @@ public final class L2PetInstance extends L2Summon
             world.removeObject(removedItem);
         }
         catch (Exception e){
-            _logPet.warn("Error while destroying control item: " + e);
+            _log.warn("Error while destroying control item: " + e);
         }
         
         // pet control item no longer exists, delete the pet from the db
@@ -637,7 +656,7 @@ public final class L2PetInstance extends L2Summon
         }
         catch (Exception e)
         {
-            _logPet.warn("could not delete pet:"+e);
+            _log.warn("could not delete pet:"+e);
         }
         finally
         {
@@ -657,7 +676,7 @@ public final class L2PetInstance extends L2Summon
         }
         catch(Exception e)
         {
-            _logPet.warn("Pet Drop Error: " + e);
+            _log.warn("Pet Drop Error: " + e);
         }
     }
     
@@ -667,7 +686,7 @@ public final class L2PetInstance extends L2Summon
         
         if (dropit != null)
         {
-            _logPet.debug("Item id to drop: "+dropit.getItemId()+" amount: "+dropit.getCount());
+            _log.debug("Item id to drop: "+dropit.getItemId()+" amount: "+dropit.getCount());
             dropit.dropMe(this, getX(), getY(), getZ()+100);
         }
     }
@@ -734,7 +753,7 @@ public final class L2PetInstance extends L2Summon
             statement.close();
             return pet;
         } catch (Exception e) {
-            _logPet.warn("could not restore pet data: "+ e);
+            _log.warn("could not restore pet data: "+ e);
             return null;
         } finally {
             try { con.close(); } catch (Exception e) {}
@@ -775,7 +794,7 @@ public final class L2PetInstance extends L2Summon
             statement.close();
             _respawned = true;
         } catch (Exception e) {
-            _logPet.warn("could not store pet data: "+e);
+            _log.warn("could not store pet data: "+e);
         } finally {
             try { con.close(); } catch (Exception e) {}
         }
@@ -794,7 +813,7 @@ public final class L2PetInstance extends L2Summon
         {
             _feedTask.cancel(false);
             _feedTask = null;
-            if (_log.isDebugEnabled()) _logPet.debug("Pet [#"+getObjectId()+"] feed task stop");
+            if (_log.isDebugEnabled()) _log.debug("Pet [#"+getObjectId()+"] feed task stop");
         }
     }
     
@@ -884,7 +903,7 @@ public final class L2PetInstance extends L2Summon
     public int getPAtk(L2Character target) { return getStat().getPAtk(target); }
     public int getPDef(L2Character target) { return getStat().getPDef(target); }
     
-    public final int getSkillLevel(int skillId)
+    public int getSkillLevel(int skillId)
     {
         if (_Skills == null || _Skills.get(skillId) == null) return -1;
         int lvl = getLevel();

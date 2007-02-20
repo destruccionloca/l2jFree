@@ -18,6 +18,10 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import net.sf.l2j.gameserver.lib.Rnd; 
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -32,7 +36,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class SummonTreasureKey implements ISkillHandler
 {
-    //private static Logger _log = Logger.getLogger(SiegeFlag.class.getName()); 
+    static Log _log = LogFactory.getLog(ChargeSelf.class.getName());
     protected SkillType[] _skillIds = {SkillType.SUMMON_TREASURE_KEY};
 
     public void useSkill(L2Character activeChar, @SuppressWarnings("unused")
@@ -46,15 +50,41 @@ public class SummonTreasureKey implements ISkillHandler
         try
         {
             L2ItemInstance itemToTake = player.getInventory().getItemByItemId(skill.getItemConsumeId());
-            if (itemToTake.getCount() - skill.getItemConsume() <= 0) itemToTake.decayMe();
-            else itemToTake.setCount(itemToTake.getCount() - skill.getItemConsume());
+            if (itemToTake.getCount() - skill.getItemConsume() <= 0)
+                itemToTake.decayMe();
+            else
+                itemToTake.setCount(itemToTake.getCount() - skill.getItemConsume());
+         
+            int item_id = 0;
 
-            // Give items
-            player.addItem("Test", 5197, 3, player, false);
+            switch (skill.getLevel())
+            {
+                case 1:
+                {
+                  item_id = Rnd.get(6667, 6669); 
+                  break;
+                }
+                case 2:
+                {
+                  item_id = Rnd.get(6668, 6670); 
+                  break;
+                }
+                case 3:
+                {
+                  item_id = Rnd.get(6669, 6671); 
+                  break;
+                }
+                case 4:
+                {
+                  item_id = Rnd.get(6670, 6672); 
+                  break;
+                }
+            }
+            player.addItem("Skill", item_id, Rnd.get(2,3), player, false);  
         }
         catch (Exception e)
         {
-            player.sendMessage("Error using skill summon Treasure Key:" + e);
+            _log.fatal("Error using skill summon Treasure Key:" + e); 
         }
     }
 

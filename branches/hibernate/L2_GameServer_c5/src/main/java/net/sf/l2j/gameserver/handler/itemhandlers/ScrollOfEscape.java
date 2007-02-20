@@ -34,7 +34,8 @@ import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -44,7 +45,7 @@ import org.apache.log4j.Logger;
 
 public class ScrollOfEscape implements IItemHandler
 {
-    private static Logger _log = Logger.getLogger(ScrollOfEscape.class);
+    private final static Log _log = LogFactory.getLog(ScrollOfEscape.class);
     // all the items ids that this handler knowns
     private static int[] _itemIds = { 736, 1830, 1829, 1538, 3958, 5858, 5859,
                                       7117,7118,7119,7120,7121,7122,7123,7124,
@@ -77,6 +78,12 @@ public class ScrollOfEscape implements IItemHandler
         if (activeChar.isFestivalParticipant()) 
         {
             activeChar.sendPacket(SystemMessage.sendString("You may not use an escape skill in a festival."));
+            return;
+        }
+        
+        // Check to see if the current player is in TvT , CTF or ViP events.
+        if (activeChar._inEventCTF || activeChar._inEventTvT || activeChar._inEventVIP) {
+            activeChar.sendPacket(SystemMessage.sendString("You may not use an escape skill in a Event."));
             return;
         }
         

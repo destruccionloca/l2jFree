@@ -19,9 +19,7 @@
 package net.sf.l2j.gameserver.model;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.ScheduledFuture;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -29,10 +27,11 @@ import net.sf.l2j.gameserver.SpawnTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
-import net.sf.l2j.gameserver.model.entity.geodata.PathNodeBinRequester;
+import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.util.L2ObjectSet;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -42,15 +41,15 @@ import net.sf.l2j.util.L2ObjectSet;
  */
 public final class L2WorldRegion
 {
-    private static Logger _log = Logger.getLogger(L2WorldRegion.class.getName());
+    private final static Log _log = LogFactory.getLog(L2WorldRegion.class.getName());
 
-    /** L2ObjectHashSet(L2PcInstance) containing L2PcInstance of all player in game in this L2WorldRegion */
-    private L2ObjectSet<L2PcInstance> _allPlayers;
+    /** L2ObjectHashSet(L2PcInstance) containing L2PlayableInstance of all player & summon in game in this L2WorldRegion */
+    private L2ObjectSet<L2PlayableInstance> _allPlayable;
 
     /** L2ObjectHashSet(L2Object) containing L2Object visible in this L2WorldRegion */
     private L2ObjectSet<L2Object> _visibleObjects;
 
-    private List<L2WorldRegion> _surroundingRegions;
+    private FastList<L2WorldRegion> _surroundingRegions;
     private int tileX, tileY;
     private Boolean _active = false;   
     protected ScheduledFuture _neighborsTask = null;
@@ -61,7 +60,7 @@ public final class L2WorldRegion
     
     public L2WorldRegion(int pTileX, int pTileY)
     {
-        _allPlayers = L2ObjectSet.createL2PlayerSet(); //new L2ObjectHashSet<L2PcInstance>();
+        _allPlayable = L2ObjectSet.createL2PlayerSet(); //new L2ObjectHashSet<L2PcInstance>();
         _visibleObjects = L2ObjectSet.createL2ObjectSet(); // new L2ObjectHashSet<L2Object>();
         _surroundingRegions = new FastList<L2WorldRegion>();
         //_surroundingRegions.add(this); //done in L2World.initRegions()
@@ -180,12 +179,12 @@ public final class L2WorldRegion
     public Boolean areNeighborsEmpty()
     {
         // if this region is occupied, return false.
-        if (isActive() && (_allPlayers.size() > 0 ))
+        if (isActive() && (_allPlayable.size() > 0 ))
             return false;
         
         // if any one of the neighbors is occupied, return false
         for (L2WorldRegion neighbor: _surroundingRegions)
-            if (neighbor.isActive() && (neighbor._allPlayers.size() > 0))
+            if (neighbor.isActive() && (neighbor._allPlayable.size() > 0))
                 return false;
         
         // in all other cases, return true.
@@ -206,25 +205,14 @@ public final class L2WorldRegion
         // turn the AI on or off to match the region's activation.
         switchAI(value);
         
-        // load in the geodata (if active), or unload the geodata (if inactive)
+        // TODO
+        // turn the geodata on or off to match the region's activation.
         if(value)
-        {
-            if(Config.ALLOW_GEODATA)
-            {
-                //Load Block in memory
-                GeoDataRequester.getInstance().getGeoBlock(tileX, tileY);
-                PathNodeBinRequester.getInstance().getPathNodeBlock((tileX*4096+MAP_MIN_X )+1, (tileY*4096+MAP_MIN_Y)+1);
-                _log.debug("Starting Grid " + tileX + ","+ tileY);
-            }
-        }
+            if(_log.isDebugEnabled())
+                _log.info("Starting Grid " + tileX + ","+ tileY);
         else
-        {
-            if(Config.ALLOW_GEODATA)
-            {
-                //Block will kill itself automaticaly
-            _log.debug("Stoping Grid " + tileX + ","+ tileY);
-            }
-        }
+            if(_log.isDebugEnabled())
+            _log.info("Stoping Grid " + tileX + ","+ tileY);
     }
 
     /** Immediately sets self as active and starts a timer to set neighbors as active
@@ -269,7 +257,7 @@ public final class L2WorldRegion
     
     /**
      * Add the L2Object in the L2ObjectHashSet(L2Object) _visibleObjects containing L2Object visible in this L2WorldRegion <BR>
-     * If L2Object is a L2PcInstance, Add the L2PcInstance in the L2ObjectHashSet(L2PcInstance) _allPlayers
+     * If L2Object is a L2PcInstance, Add the L2PcInstance in the L2ObjectHashSet(L2PcInstance) _allPlayable
      * containing L2PcInstance of all player in game in this L2WorldRegion <BR>
      * Assert : object.getCurrentWorldRegion() == this
      */
@@ -279,12 +267,12 @@ public final class L2WorldRegion
 
         _visibleObjects.put(object);
 
-        if (object instanceof L2PcInstance)
+        if (object instanceof L2PlayableInstance)
         {
-            _allPlayers.put((L2PcInstance) object);
+            _allPlayable.put((L2PlayableInstance) object);
 
             // if this is the first player to enter the region, activate self & neighbors
-            if ((_allPlayers.size() == 1) && (!Config.GRIDS_ALWAYS_ON))
+            if ((_allPlayable.size() == 1) && (!Config.GRIDS_ALWAYS_ON))
                 startActivation();
         }
     }
@@ -292,7 +280,7 @@ public final class L2WorldRegion
     /**
      * Remove the L2Object from the L2ObjectHashSet(L2Object) _visibleObjects in this L2WorldRegion <BR><BR>
      * 
-     * If L2Object is a L2PcInstance, remove it from the L2ObjectHashSet(L2PcInstance) _allPlayers of this L2WorldRegion <BR>
+     * If L2Object is a L2PcInstance, remove it from the L2ObjectHashSet(L2PcInstance) _allPlayable of this L2WorldRegion <BR>
      * Assert : object.getCurrentWorldRegion() == this || object.getCurrentWorldRegion() == null
      */
     public void removeVisibleObject(L2Object object)
@@ -302,11 +290,11 @@ public final class L2WorldRegion
         if (object == null) return;
         _visibleObjects.remove(object);
 
-        if (object instanceof L2PcInstance)
+        if (object instanceof L2PlayableInstance)
         {
-            _allPlayers.remove((L2PcInstance) object);
+            _allPlayable.remove((L2PlayableInstance) object);
             
-            if ((_allPlayers.size() == 0 ) && (!Config.GRIDS_ALWAYS_ON))
+            if ((_allPlayable.size() == 0 ) && (!Config.GRIDS_ALWAYS_ON))
                 startDeactivation();
         }
     }
@@ -319,7 +307,7 @@ public final class L2WorldRegion
     /**
      * Return the FastList _surroundingRegions containing all L2WorldRegion around the current L2WorldRegion 
      */
-    public List<L2WorldRegion> getSurroundingRegions()
+    public FastList<L2WorldRegion> getSurroundingRegions()
     {
         //change to return L2WorldRegion[] ?
         //this should not change after initialization, so maybe changes are not necessary 
@@ -327,9 +315,9 @@ public final class L2WorldRegion
         return _surroundingRegions;
     }
 
-    public Iterator<L2PcInstance> iterateAllPlayers()
+    public Iterator<L2PlayableInstance> iterateAllPlayers()
     {
-        return _allPlayers.iterator();
+        return _allPlayable.iterator();
     }
 
     public Iterator<L2Object> iterateVisibleObjects()

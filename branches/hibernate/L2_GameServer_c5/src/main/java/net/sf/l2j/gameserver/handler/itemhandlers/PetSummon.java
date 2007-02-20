@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.handler.itemhandlers;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.handler.IItemHandler;
@@ -27,6 +25,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PetBabyInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillLaunched;
@@ -35,6 +34,9 @@ import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.Ride;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * This class ...
  * 
@@ -43,7 +45,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class PetSummon implements IItemHandler
 {
-    protected static Logger _log = Logger.getLogger(PetSummon.class.getName());
+    protected static Log _log = LogFactory.getLog(PetSummon.class.getName());
     
     // all the items ids that this handler knowns
     private static final int[] _itemIds = { 2375, 3500, 3501, 3502, 4422, 4423, 4424, 4425, 6648, 6649, 6650 };
@@ -113,7 +115,20 @@ public class PetSummon implements IItemHandler
         L2NpcTemplate petTemplate = NpcTable.getInstance().getTemplate(npcId);
         
 
-        L2PetInstance newpet = L2PetInstance.spawnPet(petTemplate, activeChar, item);
+        L2PetInstance newpet;
+        if (L2PetDataTable.isBaby(npcId))
+        {
+            if(_log.isDebugEnabled())
+                _log.warn("Petsummon baby entry");
+             newpet = L2PetBabyInstance.spawnPet(petTemplate, activeChar, item);  
+        }
+        else
+        {
+            if(_log.isDebugEnabled())
+                _log.warn("Petsummon entry");
+             newpet = L2PetInstance.spawnPet(petTemplate, activeChar, item);
+        }
+
         if (newpet == null) return;
         newpet.setTitle(activeChar.getName());
         
@@ -155,6 +170,10 @@ public class PetSummon implements IItemHandler
         {
             // start normal feeding
             newpet.startFeed( false );
+        }
+        if (newpet instanceof L2PetBabyInstance)
+        {
+            ((L2PetBabyInstance)newpet).startHealTask(); 
         }
     }
     

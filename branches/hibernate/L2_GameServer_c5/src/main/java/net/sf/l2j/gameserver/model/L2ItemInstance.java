@@ -25,8 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ItemTable;
@@ -40,6 +38,9 @@ import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2EtcItem;
 import net.sf.l2j.gameserver.templates.L2Item;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class manages items.
  * 
@@ -47,8 +48,8 @@ import net.sf.l2j.gameserver.templates.L2Item;
  */
 public final class L2ItemInstance extends L2Object
 {
-	private static final Logger _log = Logger.getLogger(L2ItemInstance.class.getName());
-	private static final Logger _logItems = Logger.getLogger("item");
+	private static final Log _log = LogFactory.getLog(L2ItemInstance.class.getName());
+	private static final Log _logItems = LogFactory.getLog("item");
 	
 	/** Enumeration of locations for item */
 	public static enum ItemLocation {
@@ -111,7 +112,9 @@ public final class L2ItemInstance extends L2Object
 	private int				_chargedSpiritshot		=	CHARGED_NONE;  
 	
 	private boolean _chargedFishtshot =	false; 
-	
+
+    private boolean _protected;
+    
 	public static final int UNCHANGED = 0;
 	public static final int ADDED = 1;
 	public static final int REMOVED = 3;
@@ -250,7 +253,8 @@ public final class L2ItemInstance extends L2Object
 	public void changeCount(String process, int count, L2PcInstance creator, L2Object reference)
 	{
         if (count == 0) return;
-        _count += count;
+        if ( count > 0 && _count > Integer.MAX_VALUE - count) _count = Integer.MAX_VALUE;
+        else _count += count;
         if (_count < 0) _count = 0;
         _storedInDb = false;
         
@@ -509,7 +513,11 @@ public final class L2ItemInstance extends L2Object
 				(_itemId >=3973 && _itemId<=3982 && !player.isCastleLord(2)) ||
 				(_itemId >=3986 && _itemId<=3995 && !player.isCastleLord(3)) ||
 				(_itemId >=3999 && _itemId<=4008 && !player.isCastleLord(4)) ||
-				(_itemId >=4012 && _itemId<=4021 && !player.isCastleLord(5))
+				(_itemId >=4012 && _itemId<=4021 && !player.isCastleLord(5)) ||
+				(_itemId >=5205 && _itemId<=5214 && !player.isCastleLord(6)) ||
+				(_itemId >=6779 && _itemId<=6788 && !player.isCastleLord(7)) ||
+				(_itemId >=7973 && _itemId<=7982 && !player.isCastleLord(8)) ||
+				(_itemId >=7918 && _itemId<=7927 && !player.isCastleLord(9))
 			)
 		{
 			if	(player.isInParty())    //do not allow owner who is in party to pick tickets up
@@ -752,7 +760,8 @@ public final class L2ItemInstance extends L2Object
         // synchronized, to avoid deadlocks
         // Add the L2ItemInstance dropped in the world as a visible object
         L2World.getInstance().addVisibleObject(this, getPosition().getWorldRegion(), dropper);
-        ItemsOnGroundManager.getInstance().Save(this,x,y,z);
+        if (Config.SAVE_DROPPED_ITEM)       
+            ItemsOnGroundManager.getInstance().Save(this);
     }
 
 	/**
@@ -880,5 +889,16 @@ public final class L2ItemInstance extends L2Object
     public ScheduledFuture getItemLootShedule()
     {
        return itemLootShedule;
+    }
+    public void setProtected(boolean is_protected)
+    {
+        _protected = is_protected;
+    }
+    public boolean isProtected()
+    {
+        return _protected;
+    }
+    public boolean isNightLure() {
+       return ((_itemId >= 8505 && _itemId <= 8513) || _itemId == 8485);
     }    
 }

@@ -23,15 +23,15 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.Map;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2HennaInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.templates.L2Henna;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * This class ...
  * 
@@ -39,9 +39,9 @@ import net.sf.l2j.gameserver.templates.L2Henna;
  */
 public class HennaTreeTable
 {
-	private static Logger _log = Logger.getLogger(HennaTreeTable.class.getName());
+	private final static Log _log = LogFactory.getLog(HennaTreeTable.class.getName());
 	private static final HennaTreeTable _instance = new HennaTreeTable();
-	private Map<ClassId, List<L2HennaInstance>> _hennaTrees;
+	private FastMap<ClassId, FastList<L2HennaInstance>> _hennaTrees;
 	private boolean _initialized = true;
 	
 	public static HennaTreeTable getInstance()
@@ -51,7 +51,7 @@ public class HennaTreeTable
 	
 	private HennaTreeTable()
 	{
-		_hennaTrees = new FastMap<ClassId, List<L2HennaInstance>>();
+		_hennaTrees = new FastMap<ClassId, FastList<L2HennaInstance>>();
 		int classId = 0;
         int count   = 0;
 		java.sql.Connection con = null;
@@ -60,7 +60,7 @@ public class HennaTreeTable
 			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT class_name, id, parent_id FROM class_list ORDER BY id");
 			ResultSet classlist = statement.executeQuery();
-			List<L2HennaInstance> list = new FastList<L2HennaInstance>();
+			FastList<L2HennaInstance> list = new FastList<L2HennaInstance>();
 			//int parentClassId;
 			//L2Henna henna;
 			while (classlist.next())

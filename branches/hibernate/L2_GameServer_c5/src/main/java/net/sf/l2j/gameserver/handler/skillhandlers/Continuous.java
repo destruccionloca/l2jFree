@@ -40,7 +40,7 @@ import net.sf.l2j.gameserver.skills.Formulas;
 
 public class Continuous implements ISkillHandler
 {
-	//private static Logger _log = Logger.getLogger(Continuous.class.getName());
+	//private final static Log _log = LogFactory.getLog(Continuous.class.getName());
 	
 	private static SkillType[] _skillIds = {
 		L2Skill.SkillType.BUFF,
@@ -150,6 +150,14 @@ public class Continuous implements ISkillHandler
                    target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar,50);}
            }
         }
+        // self Effect :]
+        L2Effect effect = activeChar.getEffect(skill.getId());        
+        if (effect != null && effect.isSelfEffect())        
+        {            
+           //Replace old effect with new one.            
+           effect.exit();        
+        }        
+        skill.getEffectsSelf(activeChar);        
     }
 	
 	public SkillType[] getSkillIds()

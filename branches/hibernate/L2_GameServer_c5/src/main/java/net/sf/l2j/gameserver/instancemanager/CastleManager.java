@@ -2,19 +2,19 @@ package net.sf.l2j.gameserver.instancemanager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.Castle;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 public class CastleManager
 {
-    protected static Logger _log = Logger.getLogger(CastleManager.class.getName());
+    protected static Log _log = LogFactory.getLog(CastleManager.class.getName());
 
     // =========================================================
     private static CastleManager _Instance;
@@ -33,7 +33,7 @@ public class CastleManager
     
     // =========================================================
     // Data Field
-    private List<Castle> _Castles;
+    private FastList<Castle> _Castles;
     
     // =========================================================
     // Constructor
@@ -248,7 +248,7 @@ public class CastleManager
         return -1;
     }
 
-    public final List<Castle> getCastles()
+    public final FastList<Castle> getCastles()
     {
         if (_Castles == null) _Castles = new FastList<Castle>();
         return _Castles;

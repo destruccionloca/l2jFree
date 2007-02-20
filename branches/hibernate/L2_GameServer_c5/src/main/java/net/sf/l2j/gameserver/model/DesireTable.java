@@ -31,8 +31,6 @@
  */
 package net.sf.l2j.gameserver.model;
 
-import java.util.Map;
-
 import javolution.util.FastMap;
 
 /**
@@ -77,7 +75,7 @@ public class DesireTable
 
     class Desires
     {
-        private Map<DesireType, DesireValue> desireTable;
+        private FastMap<DesireType, DesireValue> desireTable;
 
         public Desires(DesireType... desireList)
         {
@@ -114,7 +112,7 @@ public class DesireTable
         }
     }
 
-    private Map<L2Object, Desires> objectDesireTable;
+    private FastMap<L2Object, Desires> objectDesireTable;
     private Desires generalDesires;
     private DesireType[] desireTypes;
 

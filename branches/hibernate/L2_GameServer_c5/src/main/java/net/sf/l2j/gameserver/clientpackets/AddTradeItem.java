@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -30,6 +29,9 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.TradeOtherAdd;
 import net.sf.l2j.gameserver.serverpackets.TradeOwnAdd;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -38,7 +40,7 @@ import net.sf.l2j.gameserver.serverpackets.TradeOwnAdd;
 public class AddTradeItem extends ClientBasePacket
 {
     private static final String _C__16_ADDTRADEITEM = "[C] 16 AddTradeItem";
-    private static Logger _log = Logger.getLogger(AddTradeItem.class.getName());
+    private final static Log _log = LogFactory.getLog(AddTradeItem.class.getName());
 
     @SuppressWarnings("unused")
     private final int _tradeId;

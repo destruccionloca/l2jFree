@@ -33,7 +33,8 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -43,7 +44,7 @@ import org.apache.log4j.Logger;
 
 public final class Broadcast
 {
-    private static Logger _log = Logger.getLogger(Broadcast.class.getName());
+    private final static Log _log = LogFactory.getLog(Broadcast.class.getName());
     
     /**
      * Send a packet to all L2PcInstance in the _KnownPlayers of the L2Character that have the Character targetted.<BR><BR>
@@ -59,7 +60,7 @@ public final class Broadcast
     {
         if (_log.isDebugEnabled()) _log.debug("players to notify:" + character.getKnownList().getKnownPlayers().size() + " packet:"+mov.getType());
 
-        for (L2PcInstance player : character.getKnownList().getKnownPlayers())
+        for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
         {
             if (player == null || player.getTarget() != character) 
                 continue;
@@ -82,7 +83,7 @@ public final class Broadcast
     {
         if (_log.isDebugEnabled()) _log.debug("players to notify:" + character.getKnownList().getKnownPlayers().size() + " packet:"+mov.getType());
 
-        for (L2PcInstance player : character.getKnownList().getKnownPlayers())
+        for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
         {
             if (player == null) 
                 continue;
@@ -107,7 +108,7 @@ public final class Broadcast
     	if (radius < 0)
     		radius = 1500;
     	
-    	for (L2PcInstance player : character.getKnownList().getKnownPlayers())
+    	for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
         {
             if (player == null) 
                 continue;
@@ -140,7 +141,7 @@ public final class Broadcast
 
            if (character instanceof L2PcInstance) character.sendPacket(mov);
 
-           for (L2PcInstance player : character.getKnownList().getKnownPlayers())
+           for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
            {
                if (player != null && character.getDistanceSq(player) <= radiusSq) player.sendPacket(mov); 
            }

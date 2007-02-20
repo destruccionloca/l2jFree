@@ -20,21 +20,23 @@ package net.sf.l2j.gameserver;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import java.util.Map;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.instancemanager.FactionManager;
+import net.sf.l2j.gameserver.model.L2DropCategory;
 import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2MinionData;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.base.ClassId;
+import net.sf.l2j.gameserver.model.entity.Faction;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -43,11 +45,11 @@ import net.sf.l2j.gameserver.templates.StatsSet;
  */
 public class NpcTable
 {
-    private static Logger _log = Logger.getLogger(NpcTable.class.getName());
+    private final static Log _log = LogFactory.getLog(NpcTable.class.getName());
 
     private static NpcTable _instance;
 
-    private Map<Integer, L2NpcTemplate> _npcs;
+    private FastMap<Integer, L2NpcTemplate> _npcs;
     private boolean _initialized = false;
 
     public static NpcTable getInstance()
@@ -65,6 +67,7 @@ public class NpcTable
         restoreNpcData();
     }
 
+
     private void restoreNpcData()
     {
         java.sql.Connection con = null;
@@ -75,7 +78,7 @@ public class NpcTable
             {
                 con = L2DatabaseFactory.getInstance().getConnection();
                 PreparedStatement statement;
-                statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level"}) + " FROM npc");
+                statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "hpreg", "mpreg", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level"}) + " FROM npc");
                 ResultSet npcdata = statement.executeQuery();
                 
                 fillNpcTable(npcdata);
@@ -84,6 +87,21 @@ public class NpcTable
             } 
             catch (Exception e) {
                 _log.fatal("NPCTable: Error creating NPC table: " + e);
+            }
+
+            try 
+            {
+                con = L2DatabaseFactory.getInstance().getConnection();
+                PreparedStatement statement;
+                statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "hpreg", "mpreg", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level"}) + " FROM custom_npc");
+                ResultSet npcdata = statement.executeQuery();
+                
+                fillNpcTable(npcdata);
+                npcdata.close();
+                statement.close();
+            } 
+            catch (Exception e) {
+                _log.fatal("NPCTable: Error creating custom NPC table: " + e);
             }
             
             try 
@@ -197,7 +215,7 @@ public class NpcTable
             
             try 
             {
-                PreparedStatement statement2 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"mobId", "itemId", "min", "max", "sweep", "chance"}) + ", IFNULL(drop_category,1) AS drop_category FROM droplist LEFT JOIN etcitem ON itemId = item_id ORDER BY mobId DESC");
+                PreparedStatement statement2 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"mobId", "itemId", "min", "max", "category", "chance"}) + " FROM droplist ORDER BY mobId, chance DESC");
                 ResultSet dropData = statement2.executeQuery();
                 L2DropData dropDat = null;
                 L2NpcTemplate npcDat = null;
@@ -216,25 +234,11 @@ public class NpcTable
                     dropDat.setItemId(dropData.getInt("itemId"));
                     dropDat.setMinDrop(dropData.getInt("min"));
                     dropDat.setMaxDrop(dropData.getInt("max"));
-                    dropDat.setSweep(dropData.getInt("sweep") == 1);
                     dropDat.setChance(dropData.getInt("chance"));
-                    int category = dropData.getInt("drop_category");
-                    dropDat.setCategory(category);
                     
+                    int category = dropData.getInt("category");
                     
-                    // uncategorized drops: marked as uncategorized, or are sweep, or this is a raidboss
-                    // uncategorized allows many drops to be given from the same list
-                    // the following mobs are grandbosses.  Grandbosses are L2Monster but should be treated like RBs.
-                    // 12001    Queen Ant
-                    // 12169    Orfen
-                    // 12211    Antharas
-                    // 12372    Baium
-                    // 12374    Zaken
-                    // 12899    Valakas                
-                    if ( (dropDat.isSweep()) || (npcDat.type.compareToIgnoreCase("L2RaidBoss") == 0) 
-                            || (npcDat.type.compareToIgnoreCase("L2Boss") == 0) )
-                        dropDat.setCategory(0);
-                    npcDat.addDropData(dropDat);
+                    npcDat.addDropData(dropDat, category);
                 }
 
                 dropData.close();
@@ -347,10 +351,6 @@ public class NpcTable
             npcDat.set("baseWalkSpd", NpcData.getInt("walkspd"));
             npcDat.set("baseRunSpd", NpcData.getInt("runspd"));
 
-			npcDat.set("baseHpReg", 1.5 + ((level-1)/10));
-            npcDat.set("baseCpReg", 0);
-			npcDat.set("baseMpReg", 0.9 + 0.3*((level-1)/10));
-
             // constants, until we have stats in DB
             npcDat.set("baseSTR", NpcData.getInt("str"));
             npcDat.set("baseCON", NpcData.getInt("con"));
@@ -362,6 +362,8 @@ public class NpcTable
             npcDat.set("baseHpMax", NpcData.getInt("hp"));
             npcDat.set("baseCpMax", 0);
             npcDat.set("baseMpMax", NpcData.getInt("mp"));
+            npcDat.set("baseHpReg", NpcData.getFloat("hpreg")>0?NpcData.getFloat("hpreg"):1.5 + ((level-1)/10));
+            npcDat.set("baseMpReg", NpcData.getFloat("mpreg")>0?NpcData.getFloat("mpreg"):0.9 + 0.3*((level-1)/10));
             npcDat.set("basePAtk", NpcData.getInt("patk"));
             npcDat.set("basePDef", NpcData.getInt("pdef"));
             npcDat.set("baseMAtk", NpcData.getInt("matk"));
@@ -374,12 +376,26 @@ public class NpcTable
             
             npcDat.set("absorb_level", NpcData.getString("absorb_level"));
 
+            if(Config.FACTION_ENABLED)
+            {
+                Faction faction;
+                for (int i = 0; i < FactionManager.getInstance().getFactions().size(); i++)
+                {
+                    faction = FactionManager.getInstance().getFactions().get(i);
+                    if(faction.getNpcList().contains(id))
+                    {
+                        npcDat.set("NPCFaction", faction.getId());
+                        npcDat.set("NPCFactionName", faction.getName());
+                    }
+                }
+            }
+
             L2NpcTemplate template = new L2NpcTemplate(npcDat);
             template.addResist(Stats.POWER_DEFENCE,100);
             template.addResist(Stats.BOW_WPN_RES,100);
             template.addResist(Stats.BLUNT_WPN_RES,100);
             template.addResist(Stats.DAGGER_WPN_RES,100);
-
+            
             _npcs.put(id, template);
         }
         
@@ -394,29 +410,29 @@ public class NpcTable
         {
             // save a copy of the old data
             L2NpcTemplate old = getTemplate(id);
-            Map<Integer,L2Skill> skills = new FastMap<Integer,L2Skill>();
+            FastMap<Integer,L2Skill> skills = new FastMap<Integer,L2Skill>();
             
             if (old.getSkills() != null)
                 skills.putAll(old.getSkills());
             
-            List<L2DropData> drops = new FastList<L2DropData>();
+            FastList<L2DropCategory> categories = new FastList<L2DropCategory>();
             
             if (old.getDropData() != null)
-                drops.addAll(old.getDropData());
+                categories.addAll(old.getDropData());
             
-            ClassId[] classIds = null;
+            FastList<ClassId> classIds = new FastList<ClassId>();
             
             if (old.getTeachInfo() != null)
-                classIds=old.getTeachInfo().clone();
+                classIds.addAll(old.getTeachInfo());
             
-            List<L2MinionData> minions = new FastList<L2MinionData>();
+            FastList<L2MinionData> minions = new FastList<L2MinionData>();
             
             if (old.getMinionData() != null)
                 minions.addAll(old.getMinionData());
 
             // reload the NPC base data
             con = L2DatabaseFactory.getInstance().getConnection();
-            PreparedStatement st = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate","c5Template", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level"}) + " FROM npc WHERE id=?");
+            PreparedStatement st = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level"}) + " FROM npc WHERE id=?");
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             fillNpcTable(rs);
@@ -428,9 +444,6 @@ public class NpcTable
             
             for (L2Skill skill : skills.values())
                 created.addSkill(skill);
-            
-            for (L2DropData drop : drops)
-                created.addDropData(drop);
             
             if (classIds != null)
                 for (ClassId classId : classIds)
@@ -463,7 +476,7 @@ public class NpcTable
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection();
-            Map<String, Object> set = npc.getSet();
+            FastMap<String, Object> set = npc.getSet();
 
             String name = "";
             String values = "";
@@ -523,7 +536,7 @@ public class NpcTable
 
     public L2NpcTemplate[] getAllOfLevel(int lvl)
     {
-        List<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+        FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
         
         for (L2NpcTemplate t : _npcs.values())
             if (t.level == lvl)
@@ -534,7 +547,7 @@ public class NpcTable
     
     public L2NpcTemplate[] getAllMonstersOfLevel(int lvl)
     {
-       List<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+       FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
         
        for (L2NpcTemplate t : _npcs.values())
            if (t.level == lvl && "L2Monster".equals(t.type))
@@ -545,7 +558,7 @@ public class NpcTable
     
     public L2NpcTemplate[] getAllNpcStartingWith(String letter)
     {
-       List<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+       FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
            
        for (L2NpcTemplate t : _npcs.values())
            if (t.name.startsWith(letter) && "L2Npc".equals(t.type))

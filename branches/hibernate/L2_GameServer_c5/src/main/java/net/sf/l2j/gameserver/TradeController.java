@@ -24,11 +24,7 @@ import java.io.FileReader;
 import java.io.LineNumberReader;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
-
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -37,6 +33,9 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2TradeList;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -44,11 +43,11 @@ import net.sf.l2j.gameserver.model.L2TradeList;
  */
 public class TradeController
 {
-	private static Logger _log = Logger.getLogger(TradeController.class.getName());
+	private final static Log _log = LogFactory.getLog(TradeController.class.getName());
 	private static TradeController _instance;
 
 	private int _nextListId;
-	private Map<Integer, L2TradeList> _lists;
+	private FastMap<Integer, L2TradeList> _lists;
 
 	public static TradeController getInstance()
 	{
@@ -196,9 +195,9 @@ public class TradeController
 		return _lists.get(new Integer(listId));
 	}
 
-	public List<L2TradeList> getBuyListByNpcId(int npcId)
+	public FastList<L2TradeList> getBuyListByNpcId(int npcId)
 	{
-		List<L2TradeList> lists = new FastList<L2TradeList>();
+		FastList<L2TradeList> lists = new FastList<L2TradeList>();
 
 		for (L2TradeList list : _lists.values())
 		{

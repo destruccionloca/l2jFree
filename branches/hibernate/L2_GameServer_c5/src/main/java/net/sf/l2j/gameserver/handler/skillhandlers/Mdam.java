@@ -18,10 +18,9 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
-import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -34,7 +33,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -44,7 +44,7 @@ import org.apache.log4j.Logger;
 
 public class Mdam implements ISkillHandler
 {
-    private static Logger _log = Logger.getLogger(Mdam.class);
+    private final static Log _log = LogFactory.getLog(Mdam.class);
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
@@ -118,22 +118,12 @@ public class Mdam implements ISkillHandler
             }
 
             boolean mcrit = Formulas.getInstance().calcMCrit(activeChar.getMCriticalHit(target, skill));
-            int damage = (int) Formulas.getInstance().calcMagicDam(activeChar, target, skill, ss, bss,
-                                                                   mcrit);
+            int damage = (int) Formulas.getInstance().calcMagicDam(activeChar, target, skill, ss, bss, mcrit);
             
-            if (skill.isCritical())
-            {
-                if (Rnd.get(100) < 15)
+            if (skill.isCritical() && !mcrit)
+                damage = 0;
+            else if(mcrit)
                 activeChar.sendPacket(new SystemMessage(SystemMessage.CRITICAL_HIT));
-                damage = damage * 2;
-            }
-            if (target instanceof L2NpcInstance)
-            {
-                if (target.isChampion())
-                {
-                    damage /= Config.CHAMPION_HP;
-                }
-            }
             
             if (damage < 1) damage = 1;
 
@@ -149,9 +139,10 @@ public class Mdam implements ISkillHandler
                 if (target instanceof L2PcInstance)
                     name = target.getName() + "(" + target.getObjectId() + ") ";
                 name += target.getLevel() + " lvl";
-                _log.info(activeChar.getName() + "(" + activeChar.getObjectId() + ") "
-                    + activeChar.getLevel() + " lvl did damage " + damage + " with skill "
-                    + skill.getName() + "(" + skill.getId() + ") to " + name);
+                if(_log.isDebugEnabled())
+                    _log.info(activeChar.getName() + "(" + activeChar.getObjectId() + ") "
+                             + activeChar.getLevel() + " lvl did damage " + damage + " with skill "
+                             + skill.getName() + "(" + skill.getId() + ") to " + name);
             }
 
             if (damage > 0)
@@ -170,6 +161,9 @@ public class Mdam implements ISkillHandler
                     SystemMessage sm = new SystemMessage(SystemMessage.YOU_DID_S1_DMG);
                     sm.addNumber(damage);
                     activeChar.sendPacket(sm);
+                    if (((L2PcInstance)activeChar).getStatTrack() != null) 
+                       ((L2PcInstance)activeChar).getStatTrack().increaseDamageDealt(damage);
+                    
                 }
                 if (target instanceof L2PcInstance) //aura flare de-buff.
                 {
@@ -220,6 +214,15 @@ public class Mdam implements ISkillHandler
                 target.reduceCurrentHp(damage, activeChar);
             }
         }
+        // self Effect :]
+        L2Effect effect = activeChar.getEffect(skill.getId());        
+        if (effect != null && effect.isSelfEffect())        
+        {            
+           //Replace old effect with new one.            
+           effect.exit();        
+        }        
+        skill.getEffectsSelf(activeChar);
+        
         if (skill.isSuicideAttack())
         {
            activeChar.doDie(null);

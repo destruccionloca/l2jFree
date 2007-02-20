@@ -19,9 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.List;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -37,6 +34,9 @@ import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  *
@@ -47,7 +47,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class SendWareHouseDepositList extends ClientBasePacket
 {
 	private static final String _C__31_SENDWAREHOUSEDEPOSITLIST = "[C] 31 SendWareHouseDepositList";
-	private static Logger _log = Logger.getLogger(SendWareHouseDepositList.class.getName());
+	private final static Log _log = LogFactory.getLog(SendWareHouseDepositList.class.getName());
 
 	private int _count;
 	private int[] _items;
@@ -108,7 +108,7 @@ public class SendWareHouseDepositList extends ClientBasePacket
             	continue;
             	}
 
-            List<Integer> nonTradeAbleList = new FastList<Integer>();
+            FastList<Integer> nonTradeAbleList = new FastList<Integer>();
             nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
             
             if (nonTradeAbleList.contains(item.getItemId()))
@@ -159,7 +159,7 @@ public class SendWareHouseDepositList extends ClientBasePacket
                 continue;
             }            
 
-            List<Integer> nonTradeAbleList = new FastList<Integer>();
+            FastList<Integer> nonTradeAbleList = new FastList<Integer>();
             nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
             
             if (nonTradeAbleList.contains(oldItem.getItemId()))

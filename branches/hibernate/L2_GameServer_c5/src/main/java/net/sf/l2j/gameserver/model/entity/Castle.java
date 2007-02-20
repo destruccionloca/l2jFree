@@ -21,9 +21,6 @@ package net.sf.l2j.gameserver.model.entity;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
-import java.util.List;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
@@ -43,22 +40,26 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.SeedProduction;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class Castle
 {
-    protected static Logger _log = Logger.getLogger(Castle.class.getName());
+    protected static Log _log = LogFactory.getLog(Castle.class.getName());
     
     // =========================================================
     // Data Field
-    private List<CropProcure> _procure = new FastList<CropProcure>();
-    private List<SeedProduction> _production = new FastList<SeedProduction>();
+    private FastList<CropProcure> _procure = new FastList<CropProcure>();
+    private FastList<SeedProduction> _production = new FastList<SeedProduction>();
 
     // =========================================================
     // Data Field
     private int _CastleId                      = 0;
-    private List<L2DoorInstance> _Doors        = new FastList<L2DoorInstance>();
-    private List<String> _DoorDefault          = new FastList<String>();
+    private FastList<L2DoorInstance> _Doors        = new FastList<L2DoorInstance>();
+    private FastList<String> _DoorDefault          = new FastList<String>();
     private String _Name                       = "";
     private int _OwnerId                       = 0;
     private Siege _Siege                       = null;
@@ -69,7 +70,7 @@ public class Castle
     private double _TaxRate                    = 0;
     private int _Treasury                      = 0;
     private Zone _Zone;
-    private List<Zone> _ZoneTown;
+    private FastList<Zone> _ZoneTown;
     private L2Clan _formerOwner;
 
     // =========================================================
@@ -120,19 +121,21 @@ public class Castle
     /**
      * Move non clan members off castle area and to nearest town.<BR><BR>
      */
-    public void banishForeigner()
+    public void banishForeigner(L2PcInstance activeChar)
     {
-        // Get all players
-        for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+        // Get players from this and nearest world regions
+        for (L2PlayableInstance player : L2World.getInstance().getVisiblePlayable(activeChar))
         {
+            if(!(player instanceof L2PcInstance)) continue;
+            
             // Skip if player is in clan
-            if (player.getClanId() == getOwnerId())
+            if (((L2PcInstance)player).getClanId() == getOwnerId())
                 continue;
             
             if (checkIfInZone(player)) player.teleToLocation(MapRegionTable.TeleportWhereType.Town); 
         }
     }
-
+    
     /**
      * Return true if object is inside the zone
      */
@@ -606,7 +609,7 @@ public class Castle
         return null;
     }
 
-    public final List<L2DoorInstance> getDoors()
+    public final FastList<L2DoorInstance> getDoors()
     {
         return _Doors;
     }
@@ -668,7 +671,7 @@ public class Castle
         return null;
     }
 
-    public final List<Zone> getZoneTowns()
+    public final FastList<Zone> getZoneTowns()
     {
         if (_ZoneTown == null)
         {
@@ -689,7 +692,7 @@ public class Castle
     public void loadDefManorData(){
         //Load def seeds by L2Emu team
         boolean Added;
-        List<Integer> seedIds = new FastList<Integer>();
+        FastList<Integer> seedIds = new FastList<Integer>();
         seedIds = L2Manor.getInstance().getSeedsForCastle(getCastleId());
         for(int i = 0;i < seedIds.size();i++){
             Added = false;
@@ -705,7 +708,7 @@ public class Castle
         
         
         //Load the def crops
-        List<Integer> cropIds = new FastList<Integer>();
+        FastList<Integer> cropIds = new FastList<Integer>();
         cropIds = L2Manor.getInstance().getCropForCastle(getCastleId());
         for(int c = 0;c < cropIds.size();c++){
             Added = false;
@@ -932,7 +935,7 @@ public class Castle
         _production.add(seed);
     }
     
-    public List<CropProcure> getManorRewards()
+    public FastList<CropProcure> getManorRewards()
     {
         return _procure;
     }
@@ -947,7 +950,7 @@ public class Castle
         
         return 0;
     }
-    public List<SeedProduction> getSeedProduction(){
+    public FastList<SeedProduction> getSeedProduction(){
         
         return _production;
     }
@@ -979,7 +982,7 @@ public class Castle
         }
         return 0;
     }
-    public List<CropProcure> getCropProcure()
+    public FastList<CropProcure> getCropProcure()
     {
         return _procure;
     }

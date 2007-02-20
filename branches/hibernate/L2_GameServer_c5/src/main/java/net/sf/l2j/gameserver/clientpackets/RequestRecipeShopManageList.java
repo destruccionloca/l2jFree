@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.serverpackets.RecipeShopManageList;
  */
 public class RequestRecipeShopManageList extends ClientBasePacket{
 	private static final String _C__B0_RequestRecipeShopManageList = "[C] b0 RequestRecipeShopManageList";
-	//private static Logger _log = Logger.getLogger(RequestPrivateStoreManage.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestPrivateStoreManage.class.getName());
 	
 	
 	public RequestRecipeShopManageList(ByteBuffer buf, ClientThread client)

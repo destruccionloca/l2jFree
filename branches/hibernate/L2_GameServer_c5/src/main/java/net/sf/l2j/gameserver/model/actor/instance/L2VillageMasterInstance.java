@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.util.Iterator;
 import java.util.Set;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.CharTemplateTable;
@@ -31,12 +31,12 @@ import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SkillTreeTable;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2PledgeSkillLearn;
 import net.sf.l2j.gameserver.model.base.ClassType;
 import net.sf.l2j.gameserver.model.base.PlayerClass;
 import net.sf.l2j.gameserver.model.base.PlayerRace;
 import net.sf.l2j.gameserver.model.base.SubClass;
+import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.AquireSkillList;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
@@ -54,10 +54,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public final class L2VillageMasterInstance extends L2FolkInstance
 {
-    //private static Logger _log = Logger.getLogger(L2VillageMasterInstance.class.getName());
-
-    private static final int ELIXIR_ITEM_ID = 6319; // Mimir's Elixir (obtained through quest)
-    private static final int DESTINY_ITEM_ID = 5011; // Star of Destiny
+    //private final static Log _log = LogFactory.getLog(L2VillageMasterInstance.class.getName());
 
     /**
      * @param template
@@ -287,28 +284,20 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                      * 
                      * If they both exist, remove both unique items and continue with adding the sub-class.
                      */
-                    if (!Config.ALT_GAME_SUBCLASS_WITHOUT_QUESTS)
-                    {
-                        L2ItemInstance elixirItem = player.getInventory().getItemByItemId(ELIXIR_ITEM_ID);
-                        L2ItemInstance destinyItem = player.getInventory().getItemByItemId(
-                                                                                           DESTINY_ITEM_ID);
+                     if (!Config.ALT_GAME_SUBCLASS_WITHOUT_QUESTS)
+                     {
 
-                        if (elixirItem == null)
+                        QuestState qs = player.getQuestState("235_MimirsElixir");
+                        if(qs == null || !qs.isCompleted())
                         {
                             player.sendMessage("You must have completed the Mimir's Elixir quest to continue adding your sub class.");
                             return;
                         }
-
-                        if (destinyItem == null)
+                        qs = player.getQuestState("234_FatesWhisper");
+                        if(qs == null || !qs.isCompleted())
                         {
                             player.sendMessage("You must have completed the Fate's Whisper quest to continue adding your sub class.");
                             return;
-                        }
-
-                        if (allowAddition)
-                        {
-                            player.destroyItemByItemId("Quest", ELIXIR_ITEM_ID, 1, this, true);
-                            player.destroyItemByItemId("Quest", DESTINY_ITEM_ID, 1, this, true);
                         }
                     }
 
@@ -1016,6 +1005,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     {
         if (_log.isDebugEnabled()) 
             _log.debug("PledgeSkillList activated on: "+getObjectId());
+        
+        if(player.getClan() == null) return;
         
         L2PledgeSkillLearn[] skills = SkillTreeTable.getInstance().getAvailablePledgeSkills(player);
         AquireSkillList asl = new AquireSkillList(2);

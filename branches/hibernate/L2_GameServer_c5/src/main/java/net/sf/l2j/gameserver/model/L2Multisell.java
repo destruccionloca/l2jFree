@@ -4,14 +4,13 @@
 package net.sf.l2j.gameserver.model;
 
 import java.io.File;
-import java.util.List;
-
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -21,8 +20,8 @@ import org.w3c.dom.Node;
  */
 public class L2Multisell
 {
-    private static Logger _log = Logger.getLogger(L2Multisell.class.getName());
-    private List<MultiSellListContainer> entries = new FastList<MultiSellListContainer>();
+    private final static Log _log = LogFactory.getLog(L2Multisell.class.getName());
+    private FastList<MultiSellListContainer> entries = new FastList<MultiSellListContainer>();
     private static L2Multisell _instance = new L2Multisell();
 
     public MultiSellListContainer getList(int id)
@@ -63,10 +62,8 @@ public class L2Multisell
     public class MultiSellEntry
     {
         private int _entryId;
-        private int _productId;
-        private int _productCount;
-        private int _productEnchant;
-        private List<MultiSellIngredient> _ingredients = new FastList<MultiSellIngredient>();
+        private FastList<MultiSellIngredient> _products    = new FastList<MultiSellIngredient>();
+        private FastList<MultiSellIngredient> _ingredients = new FastList<MultiSellIngredient>();
 
         /**
          * @param entryId The entryId to set.
@@ -85,55 +82,7 @@ public class L2Multisell
         }
 
         /**
-         * @param productId The productId to set.
-         */
-        public void setProductId(int productId)
-        {
-            _productId = productId;
-        }
-
-        /**
-         * @return Returns the productId.
-         */
-        public int getProductId()
-        {
-            return _productId;
-        }
-
-        /**
-         * @param productCount The productCount to set.
-         */
-        public void setProductCount(int productCount)
-        {
-            _productCount = productCount;
-        }
-
-        /**
-         * @return Returns the productCount.
-         */
-        public int getProductCount()
-        {
-            return _productCount;
-        }
-
-        /**
-         * @param productEnchant The productEnchant to set.
-         */
-        public void setProductEnchant(int productEnchant)
-        {
-            _productEnchant = productEnchant;
-        }
-
-        /**
-         * @return Returns the productEnchant.
-         */
-        public int getProductEnchant()
-        {
-            return _productEnchant;
-        }
-
-        /**
-         * @param ingredients The ingredients to set.
+         * @param ingredient The ingredient to add.
          */
         public void addIngredient(MultiSellIngredient ingredient)
         {
@@ -143,9 +92,25 @@ public class L2Multisell
         /**
          * @return Returns the ingredients.
          */
-        public List<MultiSellIngredient> getIngredients()
+        public FastList<MultiSellIngredient> getIngredients()
         {
             return _ingredients;
+        }
+        
+        /**
+         * @param product The product to add.
+         */
+        public void addProduct(MultiSellIngredient product)
+        {
+            _products.add(product);
+        }
+        
+        /**
+         * @return Returns the products.
+         */
+        public FastList<MultiSellIngredient> getProducts()
+        {
+            return _products;
         }
     }
 
@@ -219,7 +184,7 @@ public class L2Multisell
     public class MultiSellListContainer
     {
         private int _listId;
-        List<MultiSellEntry> entriesC;
+        FastList<MultiSellEntry> entriesC;
         
         public MultiSellListContainer()
         {
@@ -247,13 +212,13 @@ public class L2Multisell
             entriesC.add(e);
         }
 
-        public List<MultiSellEntry> getEntries()
+        public FastList<MultiSellEntry> getEntries()
         {
             return entriesC;
         }
     }
 
-    private void hashFiles(String dirname, List<File> hash)
+    private void hashFiles(String dirname, FastList<File> hash)
     {
         File dir = new File(Config.DATAPACK_ROOT, "data/" + dirname);
         if (!dir.exists())
@@ -272,7 +237,7 @@ public class L2Multisell
     {
         Document doc = null;
         int id = 0;
-        List<File> files = new FastList<File>();
+        FastList<File> files = new FastList<File>();
         hashFiles("multisell", files);
 
         for (File f : files)
@@ -337,6 +302,8 @@ public class L2Multisell
         Node first = n.getFirstChild();
         MultiSellEntry entry = new MultiSellEntry();
 
+        entry.setEntryId(entryId);
+
         for (n = first; n != null; n = n.getNextSibling())
         {
             if ("ingredient".equalsIgnoreCase(n.getNodeName()))
@@ -354,10 +321,8 @@ public class L2Multisell
                 int count = Integer.parseInt(n.getAttributes().getNamedItem("count").getNodeValue());
                 int enchant = Integer.parseInt(n.getAttributes().getNamedItem("enchant").getNodeValue());
 
-                entry.setEntryId(entryId);
-                entry.setProductId(id);
-                entry.setProductCount(count);
-                entry.setProductEnchant(enchant);
+                MultiSellIngredient e = new MultiSellIngredient(id, count, enchant);
+                entry.addProduct(e);
             }
         }
 

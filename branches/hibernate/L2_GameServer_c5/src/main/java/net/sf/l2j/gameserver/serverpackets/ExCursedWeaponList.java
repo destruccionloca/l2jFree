@@ -1,6 +1,6 @@
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
+import javolution.util.FastList;
 
 /**
  * Format: (ch) d[d]
@@ -10,9 +10,9 @@ import java.util.List;
 public class ExCursedWeaponList extends ServerBasePacket
 {
 	private static final String _S__FE_45_EXCURSEDWEAPONLIST = "[S] FE:45 ExCursedWeaponList";
-	private List<Integer> _cursedWeaponIds;
+	private FastList<Integer> _cursedWeaponIds;
 	
-	public ExCursedWeaponList(List<Integer> cursedWeaponIds)
+	public ExCursedWeaponList(FastList<Integer> cursedWeaponIds)
 	{
 		_cursedWeaponIds = cursedWeaponIds;
 	}

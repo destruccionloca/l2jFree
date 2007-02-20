@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class RequestReplyStopPledgeWar extends ClientBasePacket
 {
     private static final String _C__50_REQUESTREPLYSTOPPLEDGEWAR = "[C] 50 RequestReplyStopPledgeWar";
-    //private static Logger _log = Logger.getLogger(RequestReplyStopPledgeWar.class.getName());
+    //private final static Log _log = LogFactory.getLog(RequestReplyStopPledgeWar.class.getName());
     
     private final int _answer;
             

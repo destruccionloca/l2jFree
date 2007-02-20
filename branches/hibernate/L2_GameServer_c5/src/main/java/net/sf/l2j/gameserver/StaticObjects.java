@@ -5,21 +5,22 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.LineNumberReader;
-import java.util.Map;
 import java.util.StringTokenizer;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class StaticObjects
 {
-    private static Logger _log = Logger.getLogger(StaticObjects.class.getName());
+    private final static Log _log = LogFactory.getLog(StaticObjects.class.getName());
     
     private static StaticObjects _instance;
-    private Map<Integer,L2StaticObjectInstance> _staticObjects;
+    private FastMap<Integer,L2StaticObjectInstance> _staticObjects;
 
         
     public static StaticObjects getInstance()
@@ -79,11 +80,15 @@ public class StaticObjects
         int y = Integer.parseInt(st.nextToken());
         int z = Integer.parseInt(st.nextToken());
         int type = Integer.parseInt(st.nextToken());
+        String texture = st.nextToken();
+        int map_x = Integer.parseInt(st.nextToken());
+        int map_y = Integer.parseInt(st.nextToken());
 
         L2StaticObjectInstance obj = new L2StaticObjectInstance(IdFactory.getInstance().getNextId());
         obj.setType(type);
         obj.setStaticObjectId(id);
         obj.setXYZ(x, y, z);
+        obj.setMap(texture, map_x, map_y);
         obj.spawnMe();
 
         return obj;

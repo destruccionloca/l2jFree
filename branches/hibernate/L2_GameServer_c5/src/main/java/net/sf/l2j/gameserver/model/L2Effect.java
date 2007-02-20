@@ -35,7 +35,8 @@ import net.sf.l2j.gameserver.skills.Func;
 import net.sf.l2j.gameserver.skills.FuncTemplate;
 import net.sf.l2j.gameserver.skills.Lambda;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -44,7 +45,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class L2Effect
 {
-	static final Logger _log = Logger.getLogger(L2Effect.class.getName());
+	static final Log _log = LogFactory.getLog(L2Effect.class.getName());
 
 	public static enum EffectState {
 		CREATED,
@@ -85,7 +86,9 @@ public abstract class L2Effect
         SILENCE_PHYSICAL,
         BLESSNOBLESSE,
         LUCKNOBLESSE,
-        PSYCHICAL_MUTE 
+        PSYCHICAL_MUTE,
+        TARGET_ME,
+        REMOVE_TARGET 
     }
 	
 	private static final Func[] _emptyFunctionSet = new Func[0];
@@ -130,10 +133,10 @@ public abstract class L2Effect
 	{	
 		protected final int delay;
 		protected final int rate;
-		EffectTask(int delay, int rate)
+		EffectTask(int _delay, int _rate)
 		{
-			this.delay = delay;
-			this.rate = rate;
+			this.delay = _delay;
+			this.rate = _rate;
 		}
 		public void run()
 		{
@@ -248,7 +251,20 @@ public abstract class L2Effect
 	{
 		return _effected;
 	}
-	
+
+    public boolean isSelfEffect()
+    {
+        return _skill._effectTemplatesSelf != null;
+    }
+
+    public boolean isHerbEffect()
+    {
+       if (getSkill().getName().contains("Herb"))
+           return true;
+       
+       return false;
+    }
+
 	public final double calc()
 	{
         Env env = new Env();

@@ -20,13 +20,16 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.util.Util;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -36,7 +39,7 @@ import org.apache.log4j.Logger;
 public class RequestSocialAction extends ClientBasePacket
 {
 	private static final String _C__1B_REQUESTSOCIALACTION = "[C] 1B RequestSocialAction";
-	private static Logger _log = Logger.getLogger(RequestSocialAction.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestSocialAction.class.getName());
 	
 	// format  cd
 	private final int _actionId;
@@ -61,10 +64,17 @@ public class RequestSocialAction extends ClientBasePacket
         // You cannot do anything else while fishing
         if (activeChar.isFishing())
         {
-            SystemMessage sm = new SystemMessage(1471);
+            SystemMessage sm = new SystemMessage(SystemMessage.CANNOT_DO_WHILE_FISHING_3);
             activeChar.sendPacket(sm);
             sm = null;
             return;
+        }
+
+        // check if its the actionId is allowed
+        if (_actionId < 2 || _actionId > 13)
+        {
+           Util.handleIllegalPlayerAction(activeChar, "Warning!! Character "+activeChar.getName()+" of account "+activeChar.getAccountName()+" requested an internal Social Action.", Config.DEFAULT_PUNISH);
+           return;
         }
         
 		if (	activeChar.getPrivateStoreType()==0 &&

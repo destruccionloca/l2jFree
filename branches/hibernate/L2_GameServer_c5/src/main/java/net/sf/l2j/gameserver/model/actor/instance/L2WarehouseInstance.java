@@ -19,9 +19,8 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.Iterator;
-import java.util.Map;
-
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
+import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.PcFreight;
@@ -39,7 +38,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public final class L2WarehouseInstance extends L2FolkInstance
 {
-    //private static Logger _log = Logger.getLogger(L2WarehouseInstance.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2WarehouseInstance.class.getName());
 
     /**
      * @param template
@@ -119,7 +118,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
     private void showWithdrawWindowClan(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());
-        if (player.getClan() != null) //FIXME this should be available only to authorized clan members
+        if (player.getClan() != null && (player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) == L2Clan.CP_CL_VIEW_WAREHOUSE)
         {
             if (player.getClan().getLevel() == 0)
             {
@@ -135,7 +134,8 @@ public final class L2WarehouseInstance extends L2FolkInstance
         }
         else
         {
-            _log.warn("no items stored");
+            if(_log.isDebugEnabled())
+                _log.warn("no items stored");
         }
     }
 
@@ -182,7 +182,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
         else
         {
 
-            Map<Integer, String> chars = player.getAccountChars();
+            FastMap<Integer, String> chars = player.getAccountChars();
 
             if (chars.size() < 1)
             {

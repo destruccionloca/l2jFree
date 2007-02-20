@@ -19,8 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.List;
-import org.apache.log4j.Logger;
+import javolution.util.FastList;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -42,6 +41,9 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -50,7 +52,7 @@ import net.sf.l2j.gameserver.util.Util;
 public class RequestBuyItem extends ClientBasePacket
 {
     private static final String _C__1F_REQUESTBUYITEM = "[C] 1F RequestBuyItem";
-    private static Logger _log = Logger.getLogger(RequestBuyItem.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestBuyItem.class.getName());
 
     private int _listId;
     private int _count;
@@ -104,7 +106,7 @@ public class RequestBuyItem extends ClientBasePacket
 
         L2Object target = player.getTarget();
         if (!player.isGM() && (target == null                               // No target (ie GM Shop)
-                || !(target instanceof L2MerchantInstance || target instanceof L2MercManagerInstance)   // Target not a merchant and not mercmanager
+                || !(target instanceof L2MerchantInstance || target instanceof L2FishermanInstance || target instanceof L2MercManagerInstance)  // Target not a merchant, fisherman or mercmanager
                 || !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false)     // Distance is too far
                     )) return;
 
@@ -137,7 +139,7 @@ public class RequestBuyItem extends ClientBasePacket
         
         if (merchant != null)
         {
-            List<L2TradeList> lists = TradeController.getInstance().getBuyListByNpcId(merchant.getNpcId());
+            FastList<L2TradeList> lists = TradeController.getInstance().getBuyListByNpcId(merchant.getNpcId());
             
             if (lists == null)
             {

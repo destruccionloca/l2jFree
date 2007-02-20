@@ -25,34 +25,41 @@
 
 package net.sf.l2j.gameserver.model.entity;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.lang.Boolean;
 import java.util.Random;
 import java.util.Vector;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
+
 import net.sf.l2j.Config;
+import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.SpawnTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Effect;
-import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2Summon;
+import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+import net.sf.l2j.gameserver.model.entity.TvT;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class CTF
-{   
-    private static Logger _log = Logger.getLogger(CTF.class);
+{  
+    private final static Log _log = LogFactory.getLog(CTF.class.getName());
     
     public static String _eventName = new String(),
                          _eventDesc = new String(),
@@ -62,7 +69,7 @@ public class CTF
                                  _savePlayers = new Vector<String>(),
                                  _savePlayerTeams = new Vector<String>();
     public static Vector<L2PcInstance> _players = new Vector<L2PcInstance>(),
-                                       _playersShuffle = new Vector<L2PcInstance>();
+                                        _playersShuffle = new Vector<L2PcInstance>();
     public static Vector<Integer> _teamPlayersCount = new Vector<Integer>(),
                                   _teamPointsCount = new Vector<Integer>(),
                                   _teamColors = new Vector<Integer>(),
@@ -71,7 +78,8 @@ public class CTF
                                   _flagsY = new Vector<Integer>(),
                                   _flagsZ = new Vector<Integer>();
     public static Vector<L2Spawn> _flagSpawns = new Vector<L2Spawn>();
-    public static Vector<Boolean> _flagsTaken = new Vector<Boolean>();
+    public static Vector<Boolean> _flagsTaken = new Vector<Boolean>(),
+                                    _flagSpawned = new Vector<Boolean>();
     public static boolean _joining = false,
                           _teleport = false,
                           _started = false,
@@ -86,7 +94,7 @@ public class CTF
                       _rewardAmount = 0,
                       _topScore = 0,
                       _minlvl = 0,
-                      _maxlvl = 0;
+                      _maxlvl = 0;                      
 
     public static void setNpcPos(L2PcInstance activeChar)
     {
@@ -116,7 +124,7 @@ public class CTF
     {
         if (!checkTeamOk())
         {
-            _log.debug("CTF Engine[addTeam(" + teamName + ")]: checkTeamOk() == false");
+            if (_log.isDebugEnabled())_log.debug("CTF Engine[addTeam(" + teamName + ")]: checkTeamOk() == false");
             return;
         }
         
@@ -133,19 +141,20 @@ public class CTF
         _flagsZ.add(0);
         _flagSpawns.add(null);
         _flagsTaken.add(false);
+        _flagSpawned.add(false);
     }
     
     public static void removeTeam(String teamName)
     {
         if (!checkTeamOk() || _teams.isEmpty())
         {
-            _log.debug("CTF Engine[removeTeam(" + teamName + ")]: checkTeamOk() == false");
+            if (_log.isDebugEnabled())_log.debug("CTF Engine[removeTeam(" + teamName + ")]: checkTeamOk() == false");
             return;
         }
         
         if (teamPlayersCount(teamName) > 0)
         {
-            _log.debug("CTF Engine[removeTeam(" + teamName + ")]: teamPlayersCount(teamName) > 0");
+            if (_log.isDebugEnabled())_log.debug("CTF Engine[removeTeam(" + teamName + ")]: teamPlayersCount(teamName) > 0");
             return;
         }
         
@@ -156,6 +165,7 @@ public class CTF
 
         _flagsTaken.remove(index);
         _flagSpawns.remove(index);
+        _flagSpawned.remove(index);
         _flagsZ.remove(index);
         _flagsY.remove(index);
         _flagsX.remove(index);
@@ -209,11 +219,11 @@ public class CTF
         return true;
     }
     
-    public static void startJoin()
+    public static void startJoin(L2PcInstance activeChar)
     {
         if (!startJoinOk())
         {
-            _log.debug("CTF Engine[startJoin()]: startJoinOk() == false");
+            if (_log.isDebugEnabled())_log.debug("CTF Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() == false");
             return;
         }
         
@@ -253,7 +263,8 @@ public class CTF
             _npcSpawn.init();
             _npcSpawn.getLastSpawn().setCurrentHp(999999999);
             _npcSpawn.getLastSpawn().setTitle(_eventName);
-            _npcSpawn.getLastSpawn()._isEventMobCTFJoiner = true;
+            _npcSpawn.getLastSpawn()._isEventMobCTF = true;
+            _npcSpawn.getLastSpawn().isAggressive();
             _npcSpawn.getLastSpawn().decayMe();
             _npcSpawn.getLastSpawn().spawnMe(_npcSpawn.getLastSpawn().getX(), _npcSpawn.getLastSpawn().getY(), _npcSpawn.getLastSpawn().getZ());
 
@@ -261,14 +272,17 @@ public class CTF
         }
         catch (Exception e)
         {
-            _log.debug("CTF Engine[spawnEventNpc()]: exception: " + e);
+            _log.warn("CTF Engine[spawnEventNpc()]: exception: " + e);
         }
     }
     
     public static void teleportStart()
     {
-        if (!_joining || _started || _teleport)
-            return;
+        if (!startTeleportOk()) 
+        { 
+            if (_log.isDebugEnabled())_log.debug("CTF Engine[teleportStart()]: startTeleportOk() == false"); 
+            return; 
+        } 
         
         _joining = false;
         Announcements.getInstance().announceToAll(_eventName + "(CTF): Teleport to team flag in 20 seconds!");
@@ -286,13 +300,39 @@ public class CTF
                                                                for (L2PcInstance player : CTF._players)
                                                                {
                                                                    if (player != null)
-                                                                       player.teleToLocation(_flagsX.get(_teams.indexOf(player._teamNameCTF)), _flagsY.get(_teams.indexOf(player._teamNameCTF)), _flagsZ.get(_teams.indexOf(player._teamNameCTF)));
+                                                                   {
+                                                                       if (Config.CTF_ON_START_UNSUMMON_PET)
+                                                                       {
+                                                                           L2Summon s = player.getPet();
+
+                                                                           if (s != null)
+                                                                               s.unSummon(player);
+                                                                       }
+
+                                                                       if (Config.CTF_ON_START_REMOVE_ALL_EFFECTS)
+                                                                       {
+                                                                           for (L2Effect e : player.getAllEffects())
+                                                                           {
+                                                                               if (e != null)
+                                                                                   e.exit();
+                                                                           }
+                                                                       }
+                                                                       
+                                                                       player.teleToLocation(_flagsX.get(_teams.indexOf(player._teamNameCTF)), _flagsY.get(_teams.indexOf(player._teamNameCTF)), _flagsZ.get(_teams.indexOf(player._teamNameCTF)),false);
+                                                                   }
                                                                }
                                                            }
                                                        }, 20000);
         
-        spawnAllFlags();
         _teleport = true;
+    }
+    
+    private static boolean startTeleportOk()
+    {
+        if (!_joining || _started || _teleport)
+            return false;
+
+        return true;
     }
     
     public static void shuffleTeams()
@@ -337,30 +377,7 @@ public class CTF
     {
         for (String team : _teams)
         {
-            int index = _teams.indexOf(team);
-            L2NpcTemplate tmpl = NpcTable.getInstance().getTemplate(_flagIds.get(index));
-
-            try
-            {
-                _flagSpawns.set(index, new L2Spawn(tmpl));
-
-                _flagSpawns.get(index).setLocx(_flagsX.get(index));
-                _flagSpawns.get(index).setLocy(_flagsY.get(index));
-                _flagSpawns.get(index).setLocz(_flagsZ.get(index));
-                _flagSpawns.get(index).setAmount(1);
-                _flagSpawns.get(index).setHeading(0);
-                _flagSpawns.get(index).setRespawnDelay(1);
-
-                SpawnTable.getInstance().addNewSpawn(_flagSpawns.get(index), false);
-
-                _flagSpawns.get(index).init();
-                _flagSpawns.get(index).getLastSpawn().setCurrentHp(999999999);
-                _flagSpawns.get(index).getLastSpawn().setTitle(team);
-                _flagSpawns.get(index).getLastSpawn().decayMe();
-                _flagSpawns.get(index).getLastSpawn().spawnMe(_flagSpawns.get(index).getLastSpawn().getX(), _flagSpawns.get(index).getLastSpawn().getY(), _flagSpawns.get(index).getLastSpawn().getZ());
-            }
-            catch(Exception e)
-            {}
+            spawnFlag(team);            
         }
     }
     
@@ -368,17 +385,19 @@ public class CTF
     {
         if (!startEventOk())
         {
-            _log.debug("CTF Engine[startEvent()]: start conditions wrong");
+            if (_log.isDebugEnabled())_log.debug("CTF Engine[startEvent()]: start conditions wrong");
             return;
         }
         
         _teleport = false;
+        spawnAllFlags();
         sit();
+        
         
         for (L2PcInstance player : _players)
         {
             if (player != null)
-                player._posCheckerCTF = ThreadPoolManager.getInstance().scheduleGeneral(new posChecker(player), 0);
+                player._posCheckerCTF = ThreadPoolManager.getInstance().scheduleGeneral(new posChecker(player), 10);
         }
 
         Announcements.getInstance().announceToAll(_eventName + "(CTF): Started. Go to capture the flags!");
@@ -408,11 +427,8 @@ public class CTF
             }
             
             _playersShuffle = playersShuffleTemp; 
-            playersShuffleTemp.clear();
-            
-          //  if (_playersShuffle.size() < (_teams.size()*2)){
-          //      return false;
-          //  }
+            playersShuffleTemp.clear();            
+          
           }
         
         return true;
@@ -422,14 +438,11 @@ public class CTF
     {
         if (!finishEventOk())
         {
-            _log.debug("CTF Engine[finishEvent(" + activeChar.getName() + ")]: finishEventOk() == false");
+            if (_log.isDebugEnabled())_log.debug("CTF Engine[finishEvent(" + activeChar.getName() + ")]: finishEventOk() == false");
             return;
         }
         
-        if (_started)
-            unspawnAllFlags();
-        _started = false;
-        unspawnEventNpc();
+        unspawnEventNpc();        
         processTopTeam();
 
         if (_topScore == 0)
@@ -518,15 +531,12 @@ public class CTF
         if (!_joining && !_teleport && !_started)
             return;
         
-        if (_started)
-            unspawnAllFlags();
-        
         _joining = false;
         _teleport = false;
-        _started = false;
+        
         unspawnEventNpc();
         Announcements.getInstance().announceToAll(_eventName + "(CTF): Match aborted!");
-        teleportFinish();
+        teleportFinish();        
     }
 
     public static void sit()
@@ -582,29 +592,19 @@ public class CTF
         }
     }
     
-    public static void cleanCTF()
+    public static void clean()
     {
         for (String team : _teams)
         {
             int index = _teams.indexOf(team);
 
             _teamPlayersCount.set(index, 0);
-            _teamPointsCount.set(index, 0);
-            _flagsTaken.set(index, false);
-            _flagSpawns.set(index, null);
+            _teamPointsCount.set(index, 0);            
         }
         
         for (L2PcInstance player : _players)
         {
-            player.setNameColor(player._originalNameColorCTF);
-            player.setKarma(player._originalKarmaCTF);
-            player.setTitle(player._originalTitleCTF);
-            player.broadcastUserInfo();
-            player._teamNameCTF = new String();
-            player._inEventCTF = false;
-            player._haveFlagCTF = false;
-            player._posCheckerCTF.cancel(true);
-            player._posCheckerCTF = null;
+            removePlayer(player);
         }
 
         _topScore = 0;
@@ -613,6 +613,9 @@ public class CTF
         _playersShuffle = new Vector<L2PcInstance>();
         _savePlayers = new Vector<String>();
         _savePlayerTeams = new Vector<String>();
+        _flagSpawns = new Vector<L2Spawn>();
+        _flagsTaken = new Vector<Boolean>();
+        _flagSpawned = new Vector<Boolean>();
     }
     
     public static void unspawnEventNpc()
@@ -629,14 +632,7 @@ public class CTF
     {
         for (String team : _teams)
         {
-            int index = _teams.indexOf(team);
-
-            if (_flagSpawns.get(index) != null)
-            {
-                _flagSpawns.get(index).getLastSpawn().deleteMe();
-                _flagSpawns.get(index).stopRespawn();
-                SpawnTable.getInstance().deleteSpawn(_flagSpawns.get(index), true);
-            }
+            unspawnFlag(team);
         }
     }
     
@@ -651,9 +647,13 @@ public class CTF
                                                                 for (L2PcInstance player : _players)
                                                                 {
                                                                     if (player !=  null)
-                                                                        player.teleToLocation(_npcX, _npcY, _npcZ);
-                                                                }                                                                
-                                                                cleanCTF();
+                                                                        player.teleToLocation(_npcX, _npcY, _npcZ, false);
+                                                                }
+                                                                if (_started){
+                                                                    unspawnAllFlags();
+                                                                    _started = false;
+                                                                }
+                                                                CTF.clean();
                                                             }
                                                        }, 20000);
     }
@@ -661,10 +661,17 @@ public class CTF
     public static void unspawnFlag(String teamName)
     {
         int index = _teams.indexOf(teamName);
-
-        _flagSpawns.get(index).getLastSpawn().deleteMe();
-        _flagSpawns.get(index).stopRespawn();
-        SpawnTable.getInstance().deleteSpawn(_flagSpawns.get(index), true);
+        
+        if (_flagSpawned.get(index))
+        {
+            _flagSpawns.get(index).stopRespawn();
+            _flagSpawns.get(index).getLastSpawn().deleteMe();
+            SpawnTable.getInstance().deleteSpawn(_flagSpawns.get(index), true);
+            _flagSpawned.set(index,false);
+        }
+        else{
+            _log.info("CTF Engine[can't unspawnFlag(" + teamName + ")]: flag not spawned");
+        }
     }
     
     public static void spawnFlag(String teamName)
@@ -688,11 +695,15 @@ public class CTF
             _flagSpawns.get(index).init();
             _flagSpawns.get(index).getLastSpawn().setCurrentHp(999999999);
             _flagSpawns.get(index).getLastSpawn().setTitle(teamName);
+            _flagSpawns.get(index).getLastSpawn()._isEventMobCTF = false;
             _flagSpawns.get(index).getLastSpawn().decayMe();
             _flagSpawns.get(index).getLastSpawn().spawnMe(_flagSpawns.get(index).getLastSpawn().getX(), _flagSpawns.get(index).getLastSpawn().getY(), _flagSpawns.get(index).getLastSpawn().getZ());
+            _flagSpawned.set(index,true);
         }
         catch(Exception e)
-        {}      
+        {
+            _log.warn("CTF Engine[spawnFlag(" + teamName + ")]: exception: " + e);
+        }      
     }
     
     public static void showEventHtml(L2PcInstance eventPlayer, String objectId)
@@ -772,18 +783,18 @@ public class CTF
         }
         catch (Exception e)
         {
-            _log.debug("CTF Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+            _log.warn("CTF Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
         }
     }
     
     public static synchronized void addPlayer(L2PcInstance player, String teamName)
     {
-        if (!addPlayerOk(teamName))
+        if (!addPlayerOk(teamName,player))
         {
             player.sendMessage("Too many players in team \"" + teamName + "\".");
             return;
         }
-
+        
         if (Config.CTF_EVEN_TEAMS.equals("NO") || Config.CTF_EVEN_TEAMS.equals("BALANCE"))
         {
             player._teamNameCTF = teamName;
@@ -794,7 +805,7 @@ public class CTF
         }
         else if (Config.CTF_EVEN_TEAMS.equals("SHUFFLE"))
             _playersShuffle.add(player);
-        
+                
         player._originalTitleCTF = player.getTitle();
         player._originalNameColorCTF = player.getNameColor();
         player._originalKarmaCTF = player.getKarma();
@@ -802,8 +813,13 @@ public class CTF
         player._posCheckerCTF = null;
     }
     
-    public static boolean addPlayerOk(String teamName)
+    public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
     {
+        if (TvT._savePlayers.contains(eventPlayer.getName())){
+            eventPlayer.sendMessage("You have already participated in another event!");
+            return false;
+        }
+
         if (Config.CTF_EVEN_TEAMS.equals("NO"))
             return true;
         else if (Config.CTF_EVEN_TEAMS.equals("BALANCE"))
@@ -870,8 +886,12 @@ public class CTF
                 player.setNameColor(_teamColors.get(_teams.indexOf(player._teamNameCTF)));
                 player.setKarma(0);
                 player.broadcastUserInfo();
-                player.teleToLocation(_flagsX.get(_teams.indexOf(player._teamNameCTF)), _flagsY.get(_teams.indexOf(player._teamNameCTF)), _flagsZ.get(_teams.indexOf(player._teamNameCTF)));
-                player._posCheckerCTF = ThreadPoolManager.getInstance().scheduleGeneral(new posChecker(player), 0);
+
+                if (_started)
+                {
+                    player.teleToLocation(_flagsX.get(_teams.indexOf(player._teamNameCTF)), _flagsY.get(_teams.indexOf(player._teamNameCTF)), _flagsZ.get(_teams.indexOf(player._teamNameCTF)), false);
+                    player._posCheckerCTF = ThreadPoolManager.getInstance().scheduleGeneral(new posChecker(player), 10);
+                }
             }
         }
     }
@@ -888,6 +908,16 @@ public class CTF
             }
             else if (Config.CTF_EVEN_TEAMS.equals("SHUFFLE"))
                 _playersShuffle.remove(player);
+            
+            player.setNameColor(player._originalNameColorCTF);
+            player.setKarma(player._originalKarmaCTF);
+            player.setTitle(player._originalTitleCTF);
+            player.broadcastUserInfo();
+            player._teamNameCTF = new String();
+            player._inEventCTF = false;
+            player._haveFlagCTF = false;
+            player._posCheckerCTF.cancel(true);
+            player._posCheckerCTF = null;
         }
     }
     
@@ -915,8 +945,8 @@ public class CTF
                     {
                         int indexEnemy = CTF._teams.indexOf(_player._teamNameHaveFlagCTF);
 
-                        CTF._flagsTaken.set(indexEnemy, false);
-                        CTF.spawnFlag(_player._teamNameHaveFlagCTF);
+                        _flagsTaken.set(indexEnemy, false);
+                        spawnFlag(_player._teamNameHaveFlagCTF);
                         _player.setTitle(_player._originalTitleCTF);
                         _player.broadcastUserInfo();
                         _player._haveFlagCTF = false;
@@ -933,8 +963,8 @@ public class CTF
                         (_player.getZ() > CTF._flagsZ.get(indexEnemy)-100 && _player.getZ() < CTF._flagsZ.get(indexEnemy)+100) &&
                         !CTF._flagsTaken.get(indexEnemy) && !_player._haveFlagCTF && !_player.isDead())
                     {
-                        CTF._flagsTaken.set(indexEnemy, true);
-                        CTF.unspawnFlag(team);
+                        _flagsTaken.set(indexEnemy, true);
+                        unspawnFlag(team);
                         _player._teamNameHaveFlagCTF = team;
                         _player.setTitle("Flag Owner");
                         _player.broadcastUserInfo();
@@ -964,8 +994,8 @@ public class CTF
                 {
                     if (CTF._flagsTaken.get(index))
                     {
-                        CTF._flagsTaken.set(index, false);
-                        CTF.spawnFlag(team);
+                        _flagsTaken.set(index, false);
+                        spawnFlag(team);
                         Announcements.getInstance().announceToAll(CTF._eventName + "(CTF): " + team + " flag returned.");
                     }
                 }
@@ -980,11 +1010,14 @@ public class CTF
                 {
                     Thread.sleep(500);
                 }
-                catch (InterruptedException ie)
-                {}
+                catch (InterruptedException e)
+                {
+                    _log.warn("CTF Engine[posChecker::run()]: exception: " + e.getMessage());
+                }
                 
                 if (_player == null)
                 {
+                    _log.warn("CTF Engine[posChecker::run()]: flag owner disconnects!");
                     restoreTakenFlag();
                     break;
                 }
@@ -996,76 +1029,266 @@ public class CTF
     
     public static void dumpData()
     {
+        System.out.println("");
+        System.out.println("");
+        
         if (!_joining && !_teleport && !_started)
         {
-            _log.info("<<---------------------------------->>");
-            _log.info(">> CTF Engine infos dump (INACTIVE) <<");
-            _log.info("<<--^----^^-----^----^^------^^----->>");
+            System.out.println("<<---------------------------------->>");
+            System.out.println(">> CTF Engine infos dump (INACTIVE) <<");
+            System.out.println("<<--^----^^-----^----^^------^^----->>");
         }
         else if (_joining && !_teleport && !_started)
         {
-            _log.info("<<--------------------------------->>");
-            _log.info(">> CTF Engine infos dump (JOINING) <<");
-            _log.info("<<--^----^^-----^----^^------^----->>");
+            System.out.println("<<--------------------------------->>");
+            System.out.println(">> CTF Engine infos dump (JOINING) <<");
+            System.out.println("<<--^----^^-----^----^^------^----->>");
         }
         else if (!_joining && _teleport && !_started)
         {
-            _log.info("<<---------------------------------->>");
-            _log.info(">> CTF Engine infos dump (TELEPORT) <<");
-            _log.info("<<--^----^^-----^----^^------^^----->>");
+            System.out.println("<<---------------------------------->>");
+            System.out.println(">> CTF Engine infos dump (TELEPORT) <<");
+            System.out.println("<<--^----^^-----^----^^------^^----->>");
         }
         else if (!_joining && !_teleport && _started)
         {
-            _log.info("<<--------------------------------->>");
-            _log.info(">> CTF Engine infos dump (STARTED) <<");
-            _log.info("<<--^----^^-----^----^^------^----->>");
+            System.out.println("<<--------------------------------->>");
+            System.out.println(">> CTF Engine infos dump (STARTED) <<");
+            System.out.println("<<--^----^^-----^----^^------^----->>");
         }
 
-        _log.info("Name: " + _eventName);
-        _log.info("Desc: " + _eventDesc);
-        _log.info("Join location: " + _joiningLocationName);
-        _log.info("Min lvl: " + _minlvl);
-        _log.info("Max lvl: " + _maxlvl);
-        _log.info("");
-        _log.info("##########################");
-        _log.info("# _teams(Vector<String>) #");
-        _log.info("##########################");
+        System.out.println("Name: " + _eventName);
+        System.out.println("Desc: " + _eventDesc);
+        System.out.println("Join location: " + _joiningLocationName);
+        System.out.println("NPC Id: " + _npcId);
+        System.out.println("NPC X: " + _npcX);
+        System.out.println("NPC Y: " + _npcY);
+        System.out.println("NPC Z: " + _npcZ);
+        System.out.println("Reward Id: " + _rewardId);
+        System.out.println("Reward Amount: " + _rewardAmount);        
+        System.out.println("Min lvl: " + _minlvl);
+        System.out.println("Max lvl: " + _maxlvl);
+        System.out.println("Total Teams: " + _teams.size());
+        System.out.println("");
+        System.out.println("##########################");
+        System.out.println("# _teams(Vector<String>) #");
+        System.out.println("##########################");
         
         for (String team : _teams)
-            _log.info(team);
-
-        _log.info("");
-        _log.info("#########################################");
-        _log.info("# _playersShuffle(Vector<L2PcInstance>) #");
-        _log.info("#########################################");
+        {
+            int index = _teams.indexOf(team);            
+            if (index == -1)
+                return;
+            System.out.println("");
+            System.out.println("Team Id: " + index);
+            System.out.println("Team Name: " + team);
+            System.out.println("Flag Id: " + _flagIds.get(index));
+            System.out.println("Flag X: " + _flagsX.get(index));
+            System.out.println("Flag Y: " + _flagsY.get(index));
+            System.out.println("Flag Z: " + _flagsZ.get(index));
+            System.out.println("Team Collor: " + _teamColors.get(index));
+            System.out.println("");
+            System.out.println("##########################");
+        }
+        
+        System.out.println("");
+        System.out.println("#########################################");
+        System.out.println("# _playersShuffle(Vector<L2PcInstance>) #");
+        System.out.println("#########################################");
         
         for (L2PcInstance player : _playersShuffle)
         {
             if (player != null)
-                _log.info("Name: " + player.getName());
+                System.out.println("Name: " + player.getName());
         }
         
-        _log.info("");
-        _log.info("##################################");
-        _log.info("# _players(Vector<L2PcInstance>) #");
-        _log.info("##################################");
+        System.out.println("");
+        System.out.println("##################################");
+        System.out.println("# _players(Vector<L2PcInstance>) #");
+        System.out.println("##################################");
         
         for (L2PcInstance player : _players)
         {
             if (player != null)
-                _log.info("Name: " + player.getName() + "    Team: " + player._teamNameCTF);
+                System.out.println("Name: " + player.getName() + "    Team: " + player._teamNameCTF);
         }
         
-        _log.info("");
-        _log.info("#####################################################################");
-        _log.info("# _savePlayers(Vector<String>) and _savePlayerTeams(Vector<String>) #");
-        _log.info("#####################################################################");
+        System.out.println("");
+        System.out.println("#####################################################################");
+        System.out.println("# _savePlayers(Vector<String>) and _savePlayerTeams(Vector<String>) #");
+        System.out.println("#####################################################################");
         
         for (String player : _savePlayers)
-            _log.info("Name: " + player + "    Team: " + _savePlayerTeams.get(_savePlayers.indexOf(player)));
+            System.out.println("Name: " + player + "    Team: " + _savePlayerTeams.get(_savePlayers.indexOf(player)));
         
-        _log.info("");
-        _log.info("");
+        System.out.println("");
+        System.out.println("");
+    }
+    
+    public static void loadData()
+    {
+        _eventName = new String();
+        _eventDesc = new String();
+        _topTeam = new String();
+        _joiningLocationName = new String();
+        _teams = new Vector<String>();
+        _savePlayers = new Vector<String>();
+        _savePlayerTeams = new Vector<String>();
+        _players = new Vector<L2PcInstance>();
+        _playersShuffle = new Vector<L2PcInstance>();
+        _teamPlayersCount = new Vector<Integer>();
+        _teamPointsCount = new Vector<Integer>();
+        _teamColors = new Vector<Integer>();
+        _flagIds = new Vector<Integer>();
+        _flagsX = new Vector<Integer>();
+        _flagsY = new Vector<Integer>();
+        _flagsZ = new Vector<Integer>();
+        _flagSpawns = new Vector<L2Spawn>();
+        _flagsTaken = new Vector<Boolean>();
+        _flagSpawned = new Vector<Boolean>();
+        _joining = false;
+        _teleport = false;
+        _started = false;
+        _sitForced = false;
+        _npcSpawn = null;
+        _npcId = 0;
+        _npcX = 0;
+        _npcY = 0;
+        _npcZ = 0;
+        _npcHeading = 0;
+        _rewardId = 0;
+        _rewardAmount = 0;
+        _topScore = 0;
+        _minlvl = 0;
+        _maxlvl = 0;
+        
+        
+        java.sql.Connection con = null;
+        try
+        {
+            PreparedStatement statement;
+            ResultSet rs;
+
+            con = L2DatabaseFactory.getInstance().getConnection();
+
+            statement = con.prepareStatement("Select * from ctf");
+            rs = statement.executeQuery();
+            
+            int teams =0;
+            
+            while (rs.next())
+            {        
+                _eventName = rs.getString("eventNane");
+                _eventDesc = rs.getString("eventDesc");
+                _joiningLocationName = rs.getString("joiningLocation");
+                _minlvl = rs.getInt("minlvl");
+                _maxlvl = rs.getInt("maxlvl");
+                _npcId = rs.getInt("npcId");
+                _npcX = rs.getInt("npcX");
+                _npcY = rs.getInt("npcY");
+                _npcZ = rs.getInt("npcZ");
+                _npcHeading = rs.getInt("npcHeading");
+                _rewardId = rs.getInt("rewardId");
+                _rewardAmount = rs.getInt("rewardAmount"); 
+                teams = rs.getInt("teamsCount");
+            
+            }                    
+            statement.close();            
+            
+            int index = -1;
+            if (teams > 0)
+                index = 0;    
+            while (index < teams && index > -1)
+            { 
+                statement = con.prepareStatement("Select * from ctf_teams where teamId = ?");
+                statement.setInt(1, index);
+                rs = statement.executeQuery(); 
+                while (rs.next())
+                {
+                    _teams.add(rs.getString("teamName"));
+                    _teamPlayersCount.add(0);
+                    _teamPointsCount.add(0); 
+                    _teamColors.add(0);
+                    _flagIds.add(0);
+                    _flagsX.add(0);
+                    _flagsY.add(0);
+                    _flagsZ.add(0);
+                    _flagSpawns.add(null);
+                    _flagsTaken.add(false);
+                    _flagSpawned.add(false);
+                    _flagIds.set(index, rs.getInt("flagId"));
+                    _flagsX.set(index, rs.getInt("flagX"));
+                    _flagsY.set(index, rs.getInt("flagY"));
+                    _flagsZ.set(index, rs.getInt("flagZ"));
+                    _teamColors.set(index, rs.getInt("teamColor"));                    
+                }                
+                index ++;
+                statement.close();            
+            }       
+        }        
+        catch (Exception e)
+        {
+            _log.error("Exception: CTF.loadData(): " + e.getMessage());
+        }
+        finally {try { con.close(); } catch (Exception e) {}}
+    }
+    
+    public static void saveData()
+    {
+        java.sql.Connection con = null;
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection();
+            PreparedStatement statement;
+            
+            statement = con.prepareStatement("Delete from ctf");
+            statement.execute();
+            statement.close();
+
+            statement = con.prepareStatement("INSERT INTO ctf (eventNane, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, npcHeading, rewardId, rewardAmount, teamsCount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
+            statement.setString(1, _eventName);
+            statement.setString(2, _eventDesc);
+            statement.setString(3, _joiningLocationName);
+            statement.setInt(4, _minlvl);
+            statement.setInt(5, _maxlvl);
+            statement.setInt(6, _npcId);
+            statement.setInt(7, _npcX);
+            statement.setInt(8, _npcY);
+            statement.setInt(9, _npcZ);
+            statement.setInt(10, _npcHeading);
+            statement.setInt(11, _rewardId);
+            statement.setInt(12, _rewardAmount);
+            statement.setInt(13, _teams.size());
+            statement.execute();
+            statement.close();
+            
+            statement = con.prepareStatement("Delete from ctf_teams");
+            statement.execute();
+            statement.close();
+            
+            for (String teamName : _teams)
+            { 
+                int index = _teams.indexOf(teamName);
+                
+                if (index == -1)
+                    return;
+                statement = con.prepareStatement("INSERT INTO ctf_teams (teamId ,teamName, flagId, flagX, flagY, flagZ, teamColor) VALUES (?, ?, ?, ?, ?, ?, ?)");  
+                statement.setInt(1 , index);
+                statement.setString(2, teamName);
+                statement.setInt(3, _flagIds.get(index));
+                statement.setInt(4, _flagsX.get(index));
+                statement.setInt(5, _flagsY.get(index));
+                statement.setInt(6, _flagsZ.get(index));
+                statement.setInt(7, _teamColors.get(index));                
+                statement.execute();
+                statement.close();
+            }
+        }
+        catch (Exception e)
+        {
+            _log.error("Exception: CTF.saveData(): " + e.getMessage());
+        }        
+        finally {try { con.close(); } catch (Exception e) {}}
     }
 
     public static int teamPointsCount(String teamName)

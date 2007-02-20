@@ -37,7 +37,7 @@ public class SetPrivateStoreListBuy extends ClientBasePacket
 {
     private static final String _C__91_SETPRIVATESTORELISTBUY = "[C] 91 SetPrivateStoreListBuy";
 
-    //private static Logger _log = Logger.getLogger(SetPrivateStoreListBuy.class.getName());
+    //private final static Log _log = LogFactory.getLog(SetPrivateStoreListBuy.class.getName());
 
     private int _count;
     private int[] _items; // count * 3

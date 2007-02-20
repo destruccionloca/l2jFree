@@ -22,9 +22,11 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -33,7 +35,7 @@ import net.sf.l2j.L2DatabaseFactory;
  */
 public class CharNameTable
 {
-	private static Logger _log = Logger.getLogger(CharNameTable.class.getName());
+	private final static Log _log = LogFactory.getLog(CharNameTable.class.getName());
 	
 	private static CharNameTable _instance;
 	

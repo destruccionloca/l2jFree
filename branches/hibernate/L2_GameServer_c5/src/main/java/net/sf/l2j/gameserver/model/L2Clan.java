@@ -20,9 +20,6 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import java.util.Map;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
@@ -39,7 +36,8 @@ import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -49,13 +47,13 @@ import org.apache.log4j.Logger;
 //TODO rewrite this file in more readable format (shorten the functions etc.)
 public class L2Clan
 {
-    private static final Logger _log = Logger.getLogger(L2Clan.class.getName());
+    private static final Log _log = LogFactory.getLog(L2Clan.class.getName());
     
     private String _name;
     private int _clanId;
     private L2ClanMember _leader;
-    private Map<String, L2ClanMember> _members = new FastMap<String, L2ClanMember>();
-    private Map<String, L2ClanMember> _subMembers = new FastMap<String, L2ClanMember>();
+    private FastMap<String, L2ClanMember> _members = new FastMap<String, L2ClanMember>();
+    private FastMap<String, L2ClanMember> _subMembers = new FastMap<String, L2ClanMember>();
     
     private String _allyName;
     private int _allyId;
@@ -70,8 +68,8 @@ public class L2Clan
     private int _auctionBiddedAt;
     
     private ItemContainer _warehouse = new ClanWarehouse(this);
-    private List<L2Clan> _atWarWith = new FastList<L2Clan>();
-    private List<L2Clan> _underAtackFrom = new FastList<L2Clan>();
+    private FastList<L2Clan> _atWarWith = new FastList<L2Clan>();
+    private FastList<L2Clan> _underAtackFrom = new FastList<L2Clan>();
     
     private boolean _hasCrestLarge;
     
@@ -101,12 +99,21 @@ public class L2Clan
     public static final int CP_CS_TAXES =1048576;
     public static final int CP_CS_MERCENARIES =2097152;
     public static final int CP_CS_SET_FUNCTIONS =4194304;
-    public static final int CP_ALL = 8388606;  
+    public static final int CP_ALL = 8388606;
+    
+    // Sub-unit types
+    public static final int SUBUNIT_ACADEMY = -1;
+    public static final int SUBUNIT_ROYAL1 = 100; 
+    public static final int SUBUNIT_ROYAL2 = 200; 
+    public static final int SUBUNIT_KNIGHT1 = 1001; 
+    public static final int SUBUNIT_KNIGHT2 = 1002; 
+    public static final int SUBUNIT_KNIGHT3 = 2001; 
+    public static final int SUBUNIT_KNIGHT4 = 2002; 
     
     /** FastMap(Integer, L2Skill) containing all skills of the L2Clan */
-    protected final Map<Integer, L2Skill> _Skills = new FastMap<Integer, L2Skill>();
-    protected final Map<Integer, RankPrivs> _Privs = new FastMap<Integer, RankPrivs>();
-    protected final Map<Integer, SubPledge> _SubPledges = new FastMap<Integer, SubPledge>();
+    protected final FastMap<Integer, L2Skill> _Skills = new FastMap<Integer, L2Skill>();
+    protected final FastMap<Integer, RankPrivs> _Privs = new FastMap<Integer, RankPrivs>();
+    protected final FastMap<Integer, SubPledge> _SubPledges = new FastMap<Integer, SubPledge>();
     
     private int _reputationScore = 0;
     private int _rank = 0;
@@ -452,10 +459,56 @@ public class L2Clan
     {
         return _members.size();
     }
-    
+
+    public int getMaxNrOfMembers(int pledgetype)
+    {
+        int limit = 0;
+        
+        switch (getLevel())
+        {
+        case 4:
+            limit   = 40;
+            break;
+        case 3:
+            limit   = 30;
+            break;
+        case 2:
+            limit   = 20;
+            break;
+        case 1:
+            limit   = 15;
+            break;
+        case 0:
+            limit   = 10;
+            break;
+        default:
+            limit   = 40;
+            break;
+        }
+        
+        switch (pledgetype)
+        {
+            case -1:
+            case 100:
+            case 200:
+                limit   = 20;
+                break;
+            case 1001:
+            case 1002:
+            case 2001:
+            case 2002:
+                limit   = 10;
+                break;
+            default:
+                break;
+        }
+        
+        return limit;
+    }
+
     public L2PcInstance[] getOnlineMembers(String exclude)
     {
-        List<L2PcInstance> result = new FastList<L2PcInstance>();
+        FastList<L2PcInstance> result = new FastList<L2PcInstance>();
         for (L2ClanMember temp : _members.values())
         {
             //L2ClanMember temp = (L2ClanMember) iter.next();
@@ -1174,7 +1227,7 @@ public class L2Clan
                 
                 setReputationScore(clanData.getInt("reputation_score"));
                 setRank(clanData.getInt("rank"));
-                setAuctionBiddedAt(clanData.getInt("auction_bid_at"));
+                setAuctionBiddedAt(clanData.getInt("auction_bid_at"), false);
                 
                 int leaderId = (clanData.getInt("leader_id"));          
                 
@@ -1205,7 +1258,7 @@ public class L2Clan
             statement.close();
             
             if (getName() != null)
-                _log.info("Restored clan data for \"" + getName() + "\" from database.");
+                if (_log.isDebugEnabled()) _log.info("Restored clan data for \"" + getName() + "\" from database.");
             //restorewars();
             restoreSkills();
             restoreSubPledges();
@@ -1347,11 +1400,11 @@ public class L2Clan
             if (_underAtackFrom.contains(clan)) return true;
         return false; 
     }
-    public List<L2Clan> getEnemyClans()
+    public FastList<L2Clan> getEnemyClans()
     {
         return _atWarWith;
     }
-    public List<L2Clan> getAtackerClans()
+    public FastList<L2Clan> getAtackerClans()
     {
         return _underAtackFrom;
     }
@@ -1506,27 +1559,30 @@ public class L2Clan
         return _auctionBiddedAt;
     }
     
-    public void setAuctionBiddedAt(int id)
+    public void setAuctionBiddedAt(int id, boolean storeInDb)
     {
         _auctionBiddedAt = id;
-        //store changes to DB
-        java.sql.Connection con = null;
-        try
+        
+        if(storeInDb)
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
-            PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET auction_bid_at=? WHERE clan_id=?");
-            statement.setInt(1, id);
-            statement.setInt(2, getClanId());
-            statement.execute();
-            statement.close();
-        }
-        catch (Exception e)
-        {
-            _log.warn("Could not store auction for clan: " + e);
-        }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
+           java.sql.Connection con = null;
+           try
+           {
+               con = L2DatabaseFactory.getInstance().getConnection();
+               PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET auction_bid_at=? WHERE clan_id=?");
+               statement.setInt(1, id);
+               statement.setInt(2, getClanId());
+               statement.execute();
+               statement.close();
+           }
+           catch (Exception e)
+           {
+               _log.warn("Could not store auction for clan: " + e);
+           }
+           finally
+           {
+               try { con.close(); } catch (Exception e) {}
+           }        
         }
     } 
     

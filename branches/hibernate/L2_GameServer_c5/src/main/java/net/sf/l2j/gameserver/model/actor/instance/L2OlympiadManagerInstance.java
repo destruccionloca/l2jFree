@@ -18,10 +18,8 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.util.List;
-import org.apache.log4j.Logger;
-
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
+import javolution.util.FastList;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.serverpackets.ExHeroList;
@@ -31,6 +29,9 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * Olympiad Npc's Instance
  * 
@@ -39,7 +40,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class L2OlympiadManagerInstance extends L2FolkInstance
 {
-    private static Logger _logOlymp = Logger.getLogger(L2OlympiadManagerInstance.class.getName());
+    private static Log _log = LogFactory.getLog(L2OlympiadManagerInstance.class.getName());
     
     private static final int _gatePass = 6651;
     
@@ -58,7 +59,7 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
         }
         else if (command.startsWith("OlympiadNoble"))
         {
-            if (!player.isNoble())
+            if(!player.isNoble() || player.getClassId().getId()<88)
                 return;
             
             int val = Integer.parseInt(command.substring(14));
@@ -153,7 +154,7 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
                     player.sendPacket(new MultiSellList(102));
                     break;
                     default:
-                        _logOlymp.warn("Olympiad System: Couldnt send packet for request " + val);
+                        _log.warn("Olympiad System: Couldnt send packet for request " + val);
                     break;
                         
             }
@@ -198,7 +199,7 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
                         replyMSG.append("<center>Grand Olympiad Ranking");
                         replyMSG.append("<img src=\"L2UI.SquareWhite\" width=270 height=1><img src=\"L2UI.SquareBlank\" width=1 height=3>");
                         
-                        List<String> names = Olympiad.getInstance().getClassLeaderBoard(classId);
+                        FastList<String> names = Olympiad.getInstance().getClassLeaderBoard(classId);
                         if (names.size() != 0)
                         {
                             replyMSG.append("<table width=270 border=0 bgcolor=\"000000\">");
@@ -233,7 +234,7 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
                     player.sendPacket(new ExHeroList());
                     break;
                     default:
-                        _logOlymp.warn("Olympiad System: Couldnt send packet for request " + val);
+                        _log.warn("Olympiad System: Couldnt send packet for request " + val);
                     break;
             }
         }

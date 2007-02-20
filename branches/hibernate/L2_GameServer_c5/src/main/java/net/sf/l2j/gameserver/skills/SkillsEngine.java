@@ -19,19 +19,20 @@
 package net.sf.l2j.gameserver.skills;
 
 import java.io.File;
-import java.util.List;
-import java.util.Map;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Item;
+import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2EtcItem;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author mkizub
@@ -41,14 +42,14 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
  */
 public class SkillsEngine {
 
-    protected static Logger _log = Logger.getLogger(SkillsEngine.class.getName());
+    protected static Log _log = LogFactory.getLog(SkillsEngine.class.getName());
 	
 	private static final SkillsEngine _instance = new SkillsEngine();
 	
-	private List<File> _armorFiles     = new FastList<File>(); 
-	private List<File> _weaponFiles    = new FastList<File>(); 
-	private List<File> _etcitemFiles   = new FastList<File>(); 
-	private List<File> _skillFiles     = new FastList<File>(); 
+	private FastList<File> _armorFiles     = new FastList<File>(); 
+	private FastList<File> _weaponFiles    = new FastList<File>(); 
+	private FastList<File> _etcitemFiles   = new FastList<File>(); 
+	private FastList<File> _skillFiles     = new FastList<File>(); 
 	
     public static SkillsEngine getInstance()
 	{
@@ -63,7 +64,7 @@ public class SkillsEngine {
 		hashFiles("data/stats/skills", _skillFiles);
 	}
 	
-	private void hashFiles(String dirname, List<File> hash)
+	private void hashFiles(String dirname, FastList<File> hash)
 	{
 		File dir = new File(Config.DATAPACK_ROOT, dirname);
 		if (!dir.exists())
@@ -83,7 +84,7 @@ public class SkillsEngine {
 		    hash.add(customfile);
 	}
 	
-	public List<L2Skill> loadSkills(File file)
+	public FastList<L2Skill> loadSkills(File file)
 	{
 		if (file == null)
 		{
@@ -95,26 +96,26 @@ public class SkillsEngine {
 		return doc.getSkills();
 	}
     
-	public void loadAllSkills(Map<Integer, L2Skill> allSkills)
+	public void loadAllSkills(FastMap<Integer, L2Skill> allSkills)
 	{
 		int count = 0;
 		for (File file : _skillFiles)
 		{
-			List<L2Skill> s  = loadSkills(file);
+			FastList<L2Skill> s  = loadSkills(file);
 			if (s == null)
 				continue;
 			for (L2Skill skill : s)
             {
-				allSkills.put(skill.getId()*1000+ skill.getLevel(), skill);
+                allSkills.put(SkillTable.getSkillHashCode(skill), skill);
 				count++;
             }
 		}
 		_log.info("SkillsEngine: Loaded "+count+" Skill templates from XML files.");
 	}
 
-    public List<L2Armor> loadArmors(Map<Integer, Item> armorData)
+    public FastList<L2Armor> loadArmors(FastMap<Integer, Item> armorData)
     {
-        List<L2Armor> list  = new FastList<L2Armor>();
+        FastList<L2Armor> list  = new FastList<L2Armor>();
         for (L2Item item : loadData(armorData, _armorFiles))
         {
             list.add((L2Armor)item);
@@ -122,9 +123,9 @@ public class SkillsEngine {
         return list;
     }
 
-    public List<L2Weapon> loadWeapons(Map<Integer, Item> weaponData)
+    public FastList<L2Weapon> loadWeapons(FastMap<Integer, Item> weaponData)
     {
-        List<L2Weapon> list  = new FastList<L2Weapon>();
+        FastList<L2Weapon> list  = new FastList<L2Weapon>();
         for (L2Item item : loadData(weaponData, _weaponFiles))
         {
             list.add((L2Weapon)item);
@@ -132,9 +133,9 @@ public class SkillsEngine {
         return list;
     }
 
-    public List<L2EtcItem> loadItems(Map<Integer, Item> itemData)
+    public FastList<L2EtcItem> loadItems(FastMap<Integer, Item> itemData)
     {
-        List<L2EtcItem> list  = new FastList<L2EtcItem>();
+        FastList<L2EtcItem> list  = new FastList<L2EtcItem>();
         for (L2Item item : loadData(itemData, _etcitemFiles))
         {
             list.add((L2EtcItem)item);
@@ -149,9 +150,9 @@ public class SkillsEngine {
         return list;
     }
 
-    public List<L2Item> loadData(Map<Integer, Item> itemData, List<File> files)
+    public FastList<L2Item> loadData(FastMap<Integer, Item> itemData, FastList<File> files)
     {
-        List<L2Item> list  = new FastList<L2Item>();
+        FastList<L2Item> list  = new FastList<L2Item>();
         for (File f : files)
         {
             DocumentItem document   = new DocumentItem(itemData, f);

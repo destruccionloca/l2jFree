@@ -10,7 +10,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class RequestReplySurrenderPledgeWar extends ClientBasePacket
 {
     private static final String _C__52_REQUESTREPLYSURRENDERPLEDGEWAR = "[C] 52 RequestReplySurrenderPledgeWar";
-    //private static Logger _log = Logger.getLogger(RequestReplySurrenderPledgeWar.class.getName());
+    //private final static Log _log = LogFactory.getLog(RequestReplySurrenderPledgeWar.class.getName());
 
     int _answer;
     L2Clan _clan;

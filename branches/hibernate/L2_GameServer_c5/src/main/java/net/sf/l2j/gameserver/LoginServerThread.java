@@ -30,10 +30,7 @@ import java.security.KeyFactory;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.RSAKeyGenParameterSpec;
 import java.security.spec.RSAPublicKeySpec;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -57,10 +54,13 @@ import net.sf.l2j.gameserver.serverpackets.AuthLoginFail;
 import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
 import net.sf.l2j.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 public class LoginServerThread extends Thread
 {
-	protected static Logger	_log = Logger.getLogger(LoginServerThread.class.getName());
+	protected static Log _log = LogFactory.getLog(LoginServerThread.class.getName());
 
 	/** The LoginServerThread singleton */
 	private static LoginServerThread	_instance;
@@ -92,8 +92,8 @@ public class LoginServerThread extends Thread
 	private int							_serverID;
 	private boolean 					_reserveHost;
 	private int							_maxPlayer;
-	private List<WaitingClient>			_waitingClients;
-	private Map<String, Connection>		_accountsInGameServer;
+	private FastList<WaitingClient>			_waitingClients;
+	private FastMap<String, Connection>		_accountsInGameServer;
 	private int							_status;
 	private String						_serverName;
 	private String						_gameExternalHost;
@@ -306,7 +306,8 @@ public class LoginServerThread extends Thread
 								{
 									if (_log.isDebugEnabled())_log.debug("Login accepted player "+wcToRemove.account+" waited("+(GameTimeController.getGameTicks()-wcToRemove.timestamp)+"ms)");
 									PlayerInGame pig = new PlayerInGame(par.getAccount());
-									sendPacket(pig);
+                                    sendPacket(pig);
+                                    wcToRemove.clientThread.setAuthed(true);
 									CharSelectInfo cl = new CharSelectInfo(wcToRemove.account, wcToRemove.clientThread.getSessionId().playOkID1);
 									wcToRemove.clientThread.getConnection().sendPacket(cl);
 									wcToRemove.clientThread.setSessionId(wcToRemove.session);
@@ -316,7 +317,7 @@ public class LoginServerThread extends Thread
 								{
 									_log.warn("session key is not correct. closing connection");
 									wcToRemove.clientThread.getConnection().sendPacket(new AuthLoginFail(1));
-									//FIXME: should we actually close the connexion?
+                                    wcToRemove.clientThread.getConnection().close(); 
 								}
 								_waitingClients.remove(wcToRemove);
 							}
@@ -357,7 +358,10 @@ public class LoginServerThread extends Thread
 	{
 		if (_log.isDebugEnabled()) _log.debug(key);
 		WaitingClient wc = new WaitingClient(acc, client, key);
-		_waitingClients.add(wc);
+		synchronized(_waitingClients)
+		{
+		    _waitingClients.add(wc);
+		}
 		PlayerAuthRequest par = new PlayerAuthRequest(acc,key);
 		try
 		{
@@ -369,6 +373,23 @@ public class LoginServerThread extends Thread
             if ( _log.isDebugEnabled() )_log.debug(e.getMessage(),e);
 		}
 	}
+
+	public void removeWaitingClient(ClientThread client)
+	{
+       WaitingClient toRemove = null;
+       synchronized(_waitingClients)
+       {
+           for(WaitingClient c :_waitingClients)
+           {
+               if(c.clientThread == client)
+               {
+                   toRemove = c;
+               }
+           }
+           if(toRemove != null)
+               _waitingClients.remove(toRemove);
+        }
+    }
 
 	public void sendLogout(String account)
 	{

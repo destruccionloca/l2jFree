@@ -1,6 +1,6 @@
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
+import javolution.util.FastList;
 
 import net.sf.l2j.util.Point3D;
 
@@ -12,9 +12,9 @@ import net.sf.l2j.util.Point3D;
 public class ExCursedWeaponLocation extends ServerBasePacket
 {
 	private static final String _S__FE_46_EXCURSEDWEAPONLOCATION = "[S] FE:46 ExCursedWeaponLocation";
-	private List<CursedWeaponInfo> _cursedWeaponInfo;
+	private FastList<CursedWeaponInfo> _cursedWeaponInfo;
 	
-	public ExCursedWeaponLocation(List<CursedWeaponInfo> cursedWeaponInfo)
+	public ExCursedWeaponLocation(FastList<CursedWeaponInfo> cursedWeaponInfo)
 	{
 		_cursedWeaponInfo = cursedWeaponInfo;
 	}

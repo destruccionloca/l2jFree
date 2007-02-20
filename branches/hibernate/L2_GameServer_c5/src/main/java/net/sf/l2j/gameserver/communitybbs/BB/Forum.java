@@ -20,15 +20,14 @@ package net.sf.l2j.gameserver.communitybbs.BB;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import java.util.Map;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
 import net.sf.l2j.gameserver.communitybbs.Manager.TopicBBSManager;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class Forum
 {
@@ -44,9 +43,9 @@ public class Forum
 	public static final int CLANMEMBERONLY = 2;
 	public static final int OWNERONLY = 3;
 
-	private static Logger _log = Logger.getLogger(Forum.class.getName());
-	private List<Forum> _children;
-	private Map<Integer,Topic> _topic;
+	private final static Log _log = LogFactory.getLog(Forum.class.getName());
+	private FastList<Forum> _children;
+	private FastMap<Integer,Topic> _topic;
 	private int _ForumId;
 	private String _ForumName;
 	//private int _ForumParent;

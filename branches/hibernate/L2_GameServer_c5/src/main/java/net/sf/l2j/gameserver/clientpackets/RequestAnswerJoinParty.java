@@ -38,7 +38,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class RequestAnswerJoinParty extends ClientBasePacket
 {
 	private static final String _C__2A_REQUESTANSWERPARTY = "[C] 2A RequestAnswerJoinParty";
-	//private static Logger _log = Logger.getLogger(RequestAnswerJoinParty.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestAnswerJoinParty.class.getName());
 	
 	private final int _response;
 	

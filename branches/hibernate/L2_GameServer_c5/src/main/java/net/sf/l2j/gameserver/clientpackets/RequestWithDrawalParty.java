@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class RequestWithDrawalParty extends ClientBasePacket
 {
 	private static final String _C__2B_REQUESTWITHDRAWALPARTY = "[C] 2B RequestWithDrawalParty";
-	//private static Logger _log = Logger.getLogger(RequestWithDrawalParty.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestWithDrawalParty.class.getName());
 	
 	public RequestWithDrawalParty(ByteBuffer buf, ClientThread client)
 	{	

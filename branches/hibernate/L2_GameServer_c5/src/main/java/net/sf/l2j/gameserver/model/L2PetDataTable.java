@@ -20,20 +20,20 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Map;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class L2PetDataTable
 {
-    private static Logger _log = Logger.getLogger(L2PetInstance.class.getName()); 
+    private final static Log _log = LogFactory.getLog(L2PetInstance.class.getName()); 
     private static L2PetDataTable _instance;
     
     public static final int[] petList = { 12077, 12312, 12313, 12311, 12527, 12528, 12526 };
-    private static Map<Integer, Map<Integer, L2PetData>> petTable;
+    private static FastMap<Integer, FastMap<Integer, L2PetData>> petTable;
     
     public static L2PetDataTable getInstance()
     {
@@ -45,7 +45,7 @@ public class L2PetDataTable
     
     private L2PetDataTable()
     {
-        petTable = new FastMap<Integer, Map<Integer, L2PetData>>();
+        petTable = new FastMap<Integer, FastMap<Integer, L2PetData>>();
     }
     
     public void loadPetsData() 
@@ -108,11 +108,11 @@ public class L2PetDataTable
     
     public void addPetData(L2PetData petData)
     {
-        Map<Integer, L2PetData> h = petTable.get(petData.getPetID());
+        FastMap<Integer, L2PetData> h = petTable.get(petData.getPetID());
         
         if (h == null)
         {
-            Map<Integer, L2PetData> statTable = new FastMap<Integer, L2PetData>();
+            FastMap<Integer, L2PetData> statTable = new FastMap<Integer, L2PetData>();
             statTable.put(petData.getPetLevel(), petData);
             petTable.put(petData.getPetID(), statTable);
             return;

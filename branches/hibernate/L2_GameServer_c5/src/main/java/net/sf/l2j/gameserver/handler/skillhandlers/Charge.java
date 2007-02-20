@@ -18,14 +18,16 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.gameserver.handler.ISkillHandler;
+import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * This class ...
  * 
@@ -34,7 +36,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 public class Charge implements ISkillHandler
 {
-	static Logger _log = Logger.getLogger(Charge.class.getName());
+	static Log _log = LogFactory.getLog(Charge.class.getName());
 	
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
@@ -51,6 +53,14 @@ public class Charge implements ISkillHandler
 			L2PcInstance target = (L2PcInstance)targets[index];
         	skill.getEffects(activeChar, target);
 		}
+        // self Effect :]
+        L2Effect effect = activeChar.getEffect(skill.getId());        
+        if (effect != null && effect.isSelfEffect())        
+        {            
+           //Replace old effect with new one.            
+           effect.exit();        
+        }        
+        skill.getEffectsSelf(activeChar);
 	}
 
 	public SkillType[] getSkillIds()

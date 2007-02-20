@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public final class L2ArtefactInstance extends L2NpcInstance
 {
-    //private static Logger _log = Logger.getLogger(L2GuardInstance.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2GuardInstance.class.getName());
 	
 	/**
 	 * Constructor of L2ArtefactInstance (use L2Character and L2NpcInstance constructor).<BR><BR>

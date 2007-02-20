@@ -20,7 +20,6 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -29,34 +28,27 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2j.gameserver.NpcTable;
 
 /**
  * This class manages all chest. 
  */
 public final class L2ChestInstance extends L2Attackable
 {
-    private volatile boolean _isBox;
     private volatile boolean _isOpen;
-	private volatile boolean _specialDrop;
     
     public L2ChestInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-        _isBox = (Rnd.get(100)<Config.RATE_BOX_SPAWN);
-        _isOpen = false;
-		_specialDrop = false;
     }
 
 	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
 	{
-		super.reduceCurrentHp(damage,attacker,awake);
-		if (!isAlikeDead() && _isBox)
-		{
-			setHaveToDrop(false);
-			setMustRewardExpSp(false);
+		if (!isAlikeDead() && isBox())
+        {
 			doDie(attacker);
-		}
+            return;
+        }
+        super.reduceCurrentHp(damage,attacker,awake);
 	}
 	
     public boolean isAutoAttackable(L2Character attacker)
@@ -71,7 +63,7 @@ public final class L2ChestInstance extends L2Attackable
 
     public void doDie(L2Character killer)
     {
-        killer.setTarget(null);
+        if(!isSpoil()) killer.setTarget(null);
 		setCurrentHpMp(0,0);
 		super.doDie(killer);
     }
@@ -84,53 +76,31 @@ public final class L2ChestInstance extends L2Attackable
     public void OnSpawn()
     {
         super.OnSpawn();
-        _isBox = (Rnd.get(100) < Config.RATE_BOX_SPAWN );
         _isOpen = false;
-		_specialDrop = false;
-		setMustRewardExpSp(true);
-		setHaveToDrop(true);
+        setHaveToDrop(true);
+        setMustRewardExpSp(true);
+        if (isBox())
+        {
+            setHaveToDrop(false);
+            setMustRewardExpSp(false);
+        }
     }
 
-	public synchronized boolean isBox() {
-        return _isBox;
+	public boolean isBox() {
+        return (getTemplate().npcId>=18265 && getTemplate().npcId<=18286);
     }
     
-	public synchronized boolean isOpen() {
-        return _isOpen;
-    }
-	public synchronized void setOpen() {
+	public synchronized boolean open() {
+        boolean wasOpen = _isOpen;
         _isOpen = true;
+        return wasOpen;
     }
 	
-	public synchronized boolean isSpecialDrop()
-    {
-		return _specialDrop;
-    }
-	
-	public synchronized void setSpecialDrop()
+	public void setSpecialDrop()
 	{
-		_specialDrop = true;
+        setHaveToDrop(true);
 	}
 	
-	public void doItemDrop(L2NpcTemplate npcTemplate, L2Character lastAttacker)
-	{
-		int id = getTemplate().npcId;
-		if (id>=18265 && id<=18286)
-			id = id - 18265;
-		else
-			id = id - 21801;
-		
-		if (_specialDrop)
-		{
-			id = id + 18265;
-			super.doItemDrop(NpcTable.getInstance().getTemplate(id),lastAttacker);
-		}
-		else
-		{
-			id = id + 21801;
-			super.doItemDrop(NpcTable.getInstance().getTemplate(id),lastAttacker);
-		}
-	}
     //cast - trap chest
     public void chestTrap(L2Character player)
     {
@@ -165,7 +135,7 @@ public final class L2ChestInstance extends L2Attackable
             else trapSkillId = 129;//poison
         }
 
-        player.sendPacket(SystemMessage.sendString("There was a trap!"));
+        player.sendPacket(new SystemMessage(714)); // Closest matching systemmsg
         handleCast(player, trapSkillId);
     }
     //<--
@@ -175,10 +145,11 @@ public final class L2ChestInstance extends L2Attackable
     {
         int skillLevel = 1;
 
-        if (getTemplate().level > 20 && getTemplate().level <= 40) skillLevel = 3;
-        else if (getTemplate().level > 40 && getTemplate().level <= 60) skillLevel = 5;
-        else if (getTemplate().level > 60) skillLevel = 6;
-
+        byte lvl = getTemplate().level;
+        if (lvl > 20 && lvl <= 40) skillLevel = 3;
+        else if (lvl > 40 && lvl <= 60) skillLevel = 5;
+        else if (lvl > 60) skillLevel = 6;
+        
         if (player.isDead() 
             || !player.isVisible()
             || !player.isInsideRadius(this, getDistanceToWatchObject(player), false, false))

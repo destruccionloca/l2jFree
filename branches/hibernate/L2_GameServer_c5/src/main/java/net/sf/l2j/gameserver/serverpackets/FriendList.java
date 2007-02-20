@@ -21,11 +21,13 @@ package net.sf.l2j.gameserver.serverpackets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Support for "Chat with Friends" dialog. 
@@ -44,7 +46,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class FriendList extends ServerBasePacket
 {
-	private static Logger _log = Logger.getLogger(FriendList.class.getName());
+	private final static Log _log = LogFactory.getLog(FriendList.class.getName());
 	private static final String _S__FA_FRIENDLIST = "[S] FA FriendList";
 	
     private L2PcInstance _cha;

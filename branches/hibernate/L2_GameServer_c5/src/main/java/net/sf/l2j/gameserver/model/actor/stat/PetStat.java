@@ -5,6 +5,7 @@ import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
+import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -52,14 +53,18 @@ public class PetStat extends SummonStat
 
     public final boolean addLevel(byte value)
     {
-        if (getLevel() + value > 78) return false;
+        if (getLevel() + value > (Experience.MAX_LEVEL - 1)) return false;
 
         boolean levelIncreased = super.addLevel(value);
 
         // Sync up exp with current level
         if (getExp() > getExpForLevel(getLevel() + 1) || getExp() < getExpForLevel(getLevel())) setExp(Experience.LEVEL[getLevel()]);
 
-        if (levelIncreased) getActiveChar().getOwner().sendMessage("Your pet has increased it's level.");
+        if (levelIncreased)
+        {
+            getActiveChar().getOwner().sendMessage("Your pet has increased it's level.");
+            getActiveChar().broadcastPacket(new SocialAction(getActiveChar().getObjectId(), 15));
+        }
 
         StatusUpdate su = new StatusUpdate(getActiveChar().getObjectId());
         su.addAttribute(StatusUpdate.LEVEL, getLevel());

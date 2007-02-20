@@ -20,6 +20,8 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import java.util.List;
 
+import javolution.util.FastList;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2TradeList;
@@ -84,7 +86,7 @@ public class BuyList extends ServerBasePacket
 		_TaxRate = taxRate;
 	}	
 	
-	public BuyList(List<L2ItemInstance> lst, int listId, int currentMoney)
+	public BuyList(FastList<L2ItemInstance> lst, int listId, int currentMoney)
 	{
 		_listId = listId;
 		_list = lst.toArray(new L2ItemInstance[lst.size()]);

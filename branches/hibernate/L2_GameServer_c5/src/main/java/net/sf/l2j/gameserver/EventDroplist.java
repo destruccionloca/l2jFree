@@ -19,10 +19,12 @@
 package net.sf.l2j.gameserver;
 
 import java.util.Date;
-import java.util.List;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.script.DateRange;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class manage drop of Special Events created by GM for a defined period.
@@ -34,12 +36,12 @@ import net.sf.l2j.gameserver.script.DateRange;
 public class EventDroplist
 {
 
-    //private static Logger _log = Logger.getLogger(EventDroplist.class.getName());
+    private final static Log _log = LogFactory.getLog(EventDroplist.class.getName());
 
 	private static EventDroplist _instance;
 
 	/** The table containing all DataDrop object */
-	private List<DateDrop> allNpcDateDrops;
+	private FastList<DateDrop> allNpcDateDrops;
 
 	public static EventDroplist getInstance()
 	{
@@ -107,9 +109,9 @@ public class EventDroplist
 	/**
 	 * Return all DateDrop of EventDroplist allNpcDateDrops within the date range.<BR><BR>
 	 */
-	public List<DateDrop> getAllDrops()
+	public FastList<DateDrop> getAllDrops()
 	{
-	    List<DateDrop> list = new FastList<DateDrop>();
+	    FastList<DateDrop> list = new FastList<DateDrop>();
 	    
 	    for (DateDrop drop : allNpcDateDrops)
 	    {
@@ -123,5 +125,13 @@ public class EventDroplist
 	    
 	    return list;
 	}
-
+    
+	public void getAllDropsDates(String QuestName)
+	{
+	    for (DateDrop drop : allNpcDateDrops)
+	    {
+	        Date currentDate = new Date();
+            if (_log.isDebugEnabled()) _log.debug("Event :: "+QuestName+" : Date Range From: "+drop.dateRange.getStartDate()+" To: "+drop.dateRange.getEndDate()+" Now: "+ currentDate);
+	    }
+	}    
 }

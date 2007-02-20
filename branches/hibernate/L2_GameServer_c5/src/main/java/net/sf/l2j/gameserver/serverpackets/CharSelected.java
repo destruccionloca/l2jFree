@@ -33,7 +33,7 @@ public class CharSelected extends ServerBasePacket
     private static final String _S__21_CHARSELECTED = "[S] 15 CharSelected";
     private L2PcInstance _cha;
     private int _sessionId;
-
+    
     /**
      * @param _characters
      */

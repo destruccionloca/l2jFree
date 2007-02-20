@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Summon;
@@ -14,7 +12,7 @@ import net.sf.l2j.gameserver.model.L2Summon;
 public class PartySpelled extends ServerBasePacket
 {
     private static final String _S__EE_PartySpelled = "[S] EE PartySpelled";
-    private List<Effect> _effects;
+    private FastList<Effect> _effects;
     private L2Character _char;
 
     class Effect

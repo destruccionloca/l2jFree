@@ -36,9 +36,8 @@ public final class L2EnchantSkillLearn
     private final int _baseLvl;
     private final int _minSkillLevel;
     private final int _exp;
-    private final int _rate;
     
-    public L2EnchantSkillLearn(int id, int lvl, int minSkillLvl, int baseLvl, String name, int cost, int exp, int rate)
+    public L2EnchantSkillLearn(int id, int lvl, int minSkillLvl, int baseLvl, String name, int cost, int exp)
     {
         _id = id;
         _level = lvl;
@@ -47,7 +46,6 @@ public final class L2EnchantSkillLearn
         _name = name.intern();
         _spCost = cost;
         _exp = exp;
-        _rate = rate;
     }
     
     /**
@@ -100,9 +98,5 @@ public final class L2EnchantSkillLearn
     public int getExp()
     {
         return _exp;
-    }
-    public int getRate()
-    {
-        return _rate;
     }
 }

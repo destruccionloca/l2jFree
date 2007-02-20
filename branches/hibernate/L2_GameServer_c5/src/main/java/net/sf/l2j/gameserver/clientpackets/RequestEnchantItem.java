@@ -1,7 +1,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -21,9 +20,12 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class RequestEnchantItem extends ClientBasePacket
 {
-    protected static final Logger _log = Logger.getLogger(Inventory.class.getName());
+    protected static final Log _log = LogFactory.getLog(Inventory.class.getName());
     private static final String _C__58_REQUESTENCHANTITEM = "[C] 58 RequestEnchantItem";
     private static final int[] enchantscrolls = {729, 730, 947, 948, 951, 952, 955, 956, 959, 960 };
     private static final int[] crystalscrolls = {731, 732, 949, 950, 953, 954, 957, 958, 961, 962 };

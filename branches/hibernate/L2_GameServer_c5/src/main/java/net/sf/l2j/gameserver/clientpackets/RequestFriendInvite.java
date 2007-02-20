@@ -30,7 +30,8 @@ import net.sf.l2j.gameserver.serverpackets.AskJoinFriend;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -40,7 +41,7 @@ import org.apache.log4j.Logger;
 public class RequestFriendInvite extends ClientBasePacket{
 	
 	private static final String _C__5E_REQUESTFRIENDINVITE = "[C] 5E RequestFriendInvite";
-	private static Logger _log = Logger.getLogger(RequestFriendInvite.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestFriendInvite.class.getName());
 
 	private String _name;
 	

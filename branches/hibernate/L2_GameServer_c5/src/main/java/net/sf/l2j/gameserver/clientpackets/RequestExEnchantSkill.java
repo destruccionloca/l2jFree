@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -36,8 +35,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ShortCutRegister;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Format chdd
@@ -51,7 +54,7 @@ import net.sf.l2j.gameserver.util.Util;
 public class RequestExEnchantSkill extends ClientBasePacket
 {
 	private static final String _C__D0_07_REQUESTEXENCHANTSKILL = "[C] D0:07 RequestExEnchantSkill";
-    private static Logger _log = Logger.getLogger(RequestAquireSkill.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestAquireSkill.class.getName());
 	@SuppressWarnings("unused")
 	private int _id;
 	@SuppressWarnings("unused")
@@ -111,8 +114,8 @@ public class RequestExEnchantSkill extends ClientBasePacket
                 counts++;
                 _requiredSp = s.getSpCost();
                 _requiredExp = s.getExp();
-                _rate = s.getRate();
-//              get skill level it will be reverted to if enchant fails
+                _rate = Formulas.getInstance().calculateEnchantSkillSuccessRate(s.getLevel(), player.getLevel());
+                // get skill level it will be reverted to if enchant fails
                 _baseLvl = s.getBaseLevel();
             }
             
@@ -126,20 +129,22 @@ public class RequestExEnchantSkill extends ClientBasePacket
             
             if (player.getSp() >= _requiredSp && player.getExp() >= _requiredExp)
             {       
-                int spbId = 6622;
-                  
-                L2ItemInstance spb = player.getInventory().getItemByItemId(spbId);
-                       
-                if (spb == null)
+                if (skill.getLevel() == 101 || skill.getLevel() == 141)  
                 {
-                    // Haven't spellbook
-                    player.sendPacket(new SystemMessage(SystemMessage.ITEM_MISSING_TO_LEARN_SKILL));
-                    return;
+                    int spbId = 6622;
+                  
+                    L2ItemInstance spb = player.getInventory().getItemByItemId(spbId);
+                       
+                    if (spb == null)
+                    {
+                       // Haven't spellbook
+                       player.sendPacket(new SystemMessage(SystemMessage.ITEM_MISSING_TO_LEARN_SKILL));
+                       return;
+                    }
+                            
+                    // ok
+                    player.destroyItem("Consume", spb, trainer, true);
                 }
-                        
-                // ok
-                player.destroyItem("Consume", spb, trainer, true);                    
-                
             }
             else
             {

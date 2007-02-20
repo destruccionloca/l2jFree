@@ -25,7 +25,7 @@
 
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -41,8 +41,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
                                            "admin_tvt_reward", "admin_tvt_reward_amount",
                                            "admin_tvt_team_add", "admin_tvt_team_remove", "admin_tvt_team_pos", "admin_tvt_team_color",
                                            "admin_tvt_join", "admin_tvt_teleport", "admin_tvt_start", "admin_tvt_abort", "admin_tvt_finish",
-                                           "admin_tvt_sit",
-                                           "admin_tvt_dump"};
+                                           "admin_tvt_sit", "admin_tvt_dump", "admin_tvt_save", "admin_tvt_load"};
  
  private static final int REQUIRED_LEVEL = 100;
 
@@ -130,7 +129,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
             
             if (params.length != 3)
             {
-            	activeChar.sendMessage("Wrong usge: //tvt_team_color <colorHex> <teamName>");
+                activeChar.sendMessage("Wrong usge: //tvt_team_color <colorHex> <teamName>");
                 return false;
             }
 
@@ -166,6 +165,16 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         else if (command.equals("admin_tvt_sit"))
         {
             TvT.sit();
+            showMainPage(activeChar);
+        }
+        else if (command.equals("admin_tvt_load"))
+        {
+            TvT.loadData();
+            showMainPage(activeChar);
+        }
+        else if (command.equals("admin_tvt_save"))
+        {
+            TvT.saveData();
             showMainPage(activeChar);
         }
         else if (command.equals("admin_tvt_dump"))
@@ -221,6 +230,9 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         replyMSG.append("</tr></table><br><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Sit Force\" action=\"bypass -h admin_tvt_sit\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Dump\" action=\"bypass -h admin_tvt_dump\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("</tr></table><br><br><table><tr>");
+        replyMSG.append("<td width=\"100\"><button value=\"Save\" action=\"bypass -h admin_tvt_save\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Load\" action=\"bypass -h admin_tvt_load\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><br>");
         replyMSG.append("Current event...<br1>");
         replyMSG.append("    ... name:&nbsp;<font color=\"00FF00\">" + TvT._eventName + "</font><br1>");

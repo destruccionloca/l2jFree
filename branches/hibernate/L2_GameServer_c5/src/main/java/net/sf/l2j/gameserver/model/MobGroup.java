@@ -1,6 +1,5 @@
 package net.sf.l2j.gameserver.model;
 
-import java.util.List;
 import java.util.Random;
 
 import javolution.util.FastList;
@@ -22,7 +21,7 @@ public final class MobGroup
     private int _maxMobCount;
     
     private Random _rnd; 
-    private List<L2ControllableMobInstance> _mobs;
+    private FastList<L2ControllableMobInstance> _mobs;
 
     public MobGroup(int groupId, L2NpcTemplate npcTemplate, int maxMobCount) 
     {
@@ -48,7 +47,7 @@ public final class MobGroup
         return _maxMobCount;
     }
     
-    public List<L2ControllableMobInstance> getMobs()
+    public FastList<L2ControllableMobInstance> getMobs()
     {
         if (_mobs == null)
             _mobs = new FastList<L2ControllableMobInstance>();
@@ -300,7 +299,7 @@ public final class MobGroup
     
     protected void removeDead() 
     {
-        List<L2ControllableMobInstance> deadMobs = new FastList<L2ControllableMobInstance>();
+        FastList<L2ControllableMobInstance> deadMobs = new FastList<L2ControllableMobInstance>();
         
         for (L2ControllableMobInstance mobInst : getMobs()) 
             if (mobInst != null && mobInst.isDead())

@@ -1,9 +1,6 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.util.List;
-import org.apache.log4j.Logger;
-
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ItemTable;
@@ -19,6 +16,9 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SellListProcure;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * Done By L2Emuproject Team
  * User: Scar69
@@ -27,9 +27,9 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2ManorManagerInstance extends L2NpcInstance
 {
-    private static Logger _log = Logger.getLogger(L2ManorManagerInstance.class.getName());
+    private final static Log _log = LogFactory.getLog(L2ManorManagerInstance.class.getName());
 
-    private List<SeedProduction> _SeedIds = new FastList<SeedProduction>();
+    private FastList<SeedProduction> _SeedIds = new FastList<SeedProduction>();
 
     private L2TradeList _tradeList;
 
@@ -144,7 +144,7 @@ public class L2ManorManagerInstance extends L2NpcInstance
     {
         if (getCastle() == null) return;
 
-        List<CropProcure> crops = getCastle().getManorRewards();
+        FastList<CropProcure> crops = getCastle().getManorRewards();
         NpcHtmlMessage html = new NpcHtmlMessage(1);
         String r = "";
 

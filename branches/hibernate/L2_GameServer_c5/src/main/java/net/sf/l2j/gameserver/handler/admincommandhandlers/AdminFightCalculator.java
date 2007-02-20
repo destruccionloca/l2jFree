@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.util.Random;
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -41,7 +41,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  * @version $Revision: 1.1.2.1 $ $Date: 2005/03/15 21:32:48 $
  */
 public class AdminFightCalculator implements IAdminCommandHandler {
-	//private static Logger _log = Logger.getLogger(AdminFightCalculator.class.getName());
+	//private final static Log _log = LogFactory.getLog(AdminFightCalculator.class.getName());
 	private static String[] _adminCommands = {
 		"admin_fight_calculator",
 		"admin_fight_calculator_show",
@@ -215,7 +215,7 @@ public class AdminFightCalculator implements IAdminCommandHandler {
 			if (_miss1) miss1++;
 			boolean _shld1 = f.calcShldUse(npc1, npc2);
 			if (_shld1) shld1++;
-			boolean _crit1 = f.calcCrit(npc1.getCriticalHit(npc2, null));
+			boolean _crit1 = f.calcCrit(npc1, npc2, npc1.getCriticalHit(npc2, null));
 			if (_crit1) crit1++;
 			
 			double _patk1 = npc1.getPAtk(npc2);
@@ -239,7 +239,7 @@ public class AdminFightCalculator implements IAdminCommandHandler {
 			if (_miss2) miss2++;
 			boolean _shld2 = f.calcShldUse(npc2, npc1);
 			if (_shld2) shld2++;
-			boolean _crit2 = f.calcCrit(npc2.getCriticalHit(npc1, null));
+			boolean _crit2 = f.calcCrit(npc2, npc1, npc2.getCriticalHit(npc1, null));
 			if (_crit2) crit2++;
 			
 			double _patk2 = npc2.getPAtk(npc1);

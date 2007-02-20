@@ -2,13 +2,13 @@ package net.sf.l2j.gameserver;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.templates.L2HelperBuff;
 import net.sf.l2j.gameserver.templates.StatsSet;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class represents the Newbie Helper Buff list
@@ -20,12 +20,12 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 public class HelperBuffTable
 {
 
-    private static Logger _log = Logger.getLogger(HennaTable.class.getName());
+    private final static Log _log = LogFactory.getLog(HennaTable.class.getName());
     
     private static HelperBuffTable _instance;
 
     /** The table containing all Buff of the Newbie Helper */
-    private List<L2HelperBuff> _helperBuff;
+    private FastList<L2HelperBuff> _helperBuff;
     
     private boolean _initialized = true;    
     
@@ -152,7 +152,7 @@ public class HelperBuffTable
     /**
      * Return the Helper Buff List
      */
-    public List<L2HelperBuff> getHelperBuffTable()
+    public FastList<L2HelperBuff> getHelperBuffTable()
     {
         return _helperBuff;
     }

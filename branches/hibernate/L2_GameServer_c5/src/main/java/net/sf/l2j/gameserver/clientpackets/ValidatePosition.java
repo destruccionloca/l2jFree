@@ -19,19 +19,20 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.Universe;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList.KnownListAsynchronousUpdateTask;
 import net.sf.l2j.gameserver.serverpackets.PartyMemberPosition;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocationInVehicle;
 import net.sf.l2j.util.Point3D;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -40,7 +41,7 @@ import net.sf.l2j.util.Point3D;
  */
 public class ValidatePosition extends ClientBasePacket
 {
-    private static Logger _log = Logger.getLogger(ValidatePosition.class.getName());
+    private final static Log _log = LogFactory.getLog(ValidatePosition.class.getName());
     private static final String _C__48_VALIDATEPOSITION = "[C] 48 ValidatePosition";
     
     /** urgent messages, execute immediatly */
@@ -150,9 +151,6 @@ public class ValidatePosition extends ClientBasePacket
                 _log.debug("client pos: "+ _x + " "+ _y + " "+ _z +" head "+ _heading);
                 _log.debug("server pos: "+ realX + " "+realY+ " "+realZ +" head "+realHeading);
             }
-            
-            if (Config.ACTIVATE_POSITION_RECORDER && !activeChar.isFlying() && Universe.getInstance().shouldLog(activeChar.getObjectId()))
-                Universe.getInstance().registerHeight(realX, realY, _z);
             
             if (Config.DEVELOPER)
             {

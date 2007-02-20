@@ -19,12 +19,12 @@
 package net.sf.l2j.gameserver.script.faenor;
 
 import java.util.List;
-import java.util.Map;
-
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.EventDroplist;
 import net.sf.l2j.gameserver.model.L2DropData;
+import net.sf.l2j.gameserver.model.L2DropCategory;
 import net.sf.l2j.gameserver.model.L2PetData;
 import net.sf.l2j.gameserver.script.DateRange;
 import net.sf.l2j.gameserver.script.EngineInterface;
@@ -33,7 +33,8 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.bsf.BSFException;
 import org.apache.bsf.BSFManager;
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Luis Arias
@@ -43,7 +44,7 @@ import org.apache.log4j.Logger;
  */
 public class FaenorInterface implements EngineInterface
 {
-    private static Logger _log = Logger.getLogger(FaenorInterface.class);
+    private final static Log _log = LogFactory.getLog(FaenorInterface.class);
     private static FaenorInterface _instance;
     
     public static FaenorInterface getInstance()
@@ -88,7 +89,7 @@ public class FaenorInterface implements EngineInterface
         drop.setChance(chance);
         drop.setQuestID(questID);
         drop.addStates(states);
-        npc.addDropData(drop);
+        addDrop(npc, drop, false);
     }
 
     /**
@@ -109,9 +110,49 @@ public class FaenorInterface implements EngineInterface
         drop.setItemId(itemID);
         drop.setMinDrop(min);
         drop.setMaxDrop(max);
-        drop.setSweep(sweep);
         drop.setChance(chance);
-        npc.addDropData(drop);
+
+        addDrop(npc, drop, sweep);
+    }
+    
+   /**
+    * Adds a new drop to an NPC.  If the drop is sweep, it adds it to the NPC's Sweep category
+    * If the drop is non-sweep, it creates a new category for this drop. 
+    *  
+    * @param npc
+    * @param drop
+    * @param sweep
+    */
+    public void addDrop(L2NpcTemplate npc, L2DropData drop, boolean sweep)
+    {
+       if(sweep)
+           addDrop(npc, drop,-1);
+       else
+       {
+           int maxCategory = -1;
+
+           for(L2DropCategory cat:npc.getDropData())
+           {
+               if(maxCategory<cat.getCategoryType())
+                   maxCategory = cat.getCategoryType();
+           }
+           maxCategory++;
+           npc.addDropData(drop, maxCategory);
+       }
+
+    }
+
+   /**
+    * Adds a new drop to an NPC, in the specified category.  If the category does not exist, 
+    * it is created.  
+    *  
+    * @param npc
+    * @param drop
+    * @param sweep
+    */
+    public void addDrop(L2NpcTemplate npc, L2DropData drop, int category)
+    {
+       npc.addDropData(drop, category);
     }
 
     /**
@@ -124,8 +165,9 @@ public class FaenorInterface implements EngineInterface
         {
             return null;
         }
-        List<L2DropData> questDrops = new FastList<L2DropData>();
-        for (L2DropData drop : npc.getDropData())
+        FastList<L2DropData> questDrops = new FastList<L2DropData>();
+        for (L2DropCategory cat:npc.getDropData())
+        for (L2DropData drop : cat.getAllDrops() )
         {
             if (drop.getQuestID() != null)
             {
@@ -145,7 +187,7 @@ public class FaenorInterface implements EngineInterface
         Announcements.getInstance().addEventAnnouncement(validDateRange, message);
     }
     
-    public void addPetData(BSFManager context, int petID, int levelStart, int levelEnd, Map<String, String> stats)
+    public void addPetData(BSFManager context, int petID, int levelStart, int levelEnd, FastMap<String, String> stats)
 		throws BSFException
     {
         L2PetData[] petData = new L2PetData[levelEnd - levelStart + 1];

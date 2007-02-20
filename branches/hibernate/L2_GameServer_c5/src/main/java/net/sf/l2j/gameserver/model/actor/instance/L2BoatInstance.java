@@ -24,9 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.LineNumberReader;
 import java.util.Collection;
-import java.util.Map;
 import java.util.StringTokenizer;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -45,13 +43,16 @@ import net.sf.l2j.gameserver.serverpackets.VehicleInfo;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author Maktakien
  *
  */
 public class L2BoatInstance extends L2Character
 {
-	protected static final Logger _logBoat = Logger.getLogger(L2BoatInstance.class.getName());
+	protected static final Log _logBoat = LogFactory.getLog(L2BoatInstance.class.getName());
 	
 	public class L2BoatTrajet
 	{
@@ -150,7 +151,7 @@ public class L2BoatInstance extends L2Character
 				try { lnr.close(); } catch (Exception e1) { /* ignore problems */ }
 			}					
 		}
-		private Map<Integer,L2BoatPoint> _path;
+		private FastMap<Integer,L2BoatPoint> _path;
 		
 		public int _IdWaypoint1;
 		public int _IdWTicket1 ;
@@ -189,7 +190,7 @@ public class L2BoatInstance extends L2Character
 				_boat._vd = new VehicleDeparture(_boat,bp.speed1,bp.speed2,bp.x,bp.y,bp.z);
 				//_boat.getTemplate().baseRunSpd = bp.speed1;				
 				_boat.moveToLocation(bp.x,bp.y,bp.z,(float)bp.speed1);				
-				Collection<L2PcInstance> knownPlayers = _boat.getKnownList().getKnownPlayers();
+				Collection<L2PcInstance> knownPlayers = _boat.getKnownList().getKnownPlayers().values();
 				if (knownPlayers == null || knownPlayers.isEmpty())
 					return bp.time;
 				for (L2PcInstance player : knownPlayers)
@@ -214,7 +215,7 @@ public class L2BoatInstance extends L2Character
 	protected L2BoatTrajet _t2;
 	protected int _cycle = 0;
 	protected VehicleDeparture _vd = null;
-	private Map<Integer,L2PcInstance> _inboat;
+	private FastMap<Integer,L2PcInstance> _inboat;
 	public L2BoatInstance(int objectId, L2CharTemplate template,String name)
 	{
 		super(objectId, template);
@@ -505,7 +506,7 @@ public class L2BoatInstance extends L2Character
 	{		
 		if(_cycle == 1)
 		{
-			Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers();
+			Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values();
 			if (knownPlayers != null && !knownPlayers.isEmpty())
 			{
 				_inboat = new FastMap<Integer,L2PcInstance>();
@@ -532,7 +533,7 @@ public class L2BoatInstance extends L2Character
 					}
 					else
 					{
-						player.teleToLocation(_t1._ntx1,_t1._nty1,_t1._ntz1);
+						player.teleToLocation(_t1._ntx1,_t1._nty1,_t1._ntz1, false);
 					}
 					}
 				}				  
@@ -542,7 +543,7 @@ public class L2BoatInstance extends L2Character
 		}
 		else if(_cycle == 2)
 		{
-			Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers();
+			Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values();
 			if (knownPlayers != null && !knownPlayers.isEmpty())
 			{
 				_inboat = new FastMap<Integer,L2PcInstance>();
@@ -570,7 +571,7 @@ public class L2BoatInstance extends L2Character
 					}
 					else
 					{
-						player.teleToLocation(_t2._ntx1,_t2._nty1,_t2._ntz1);
+						player.teleToLocation(_t2._ntx1,_t2._nty1,_t2._ntz1, false);
 					}
 					}
 				}
@@ -587,7 +588,7 @@ public class L2BoatInstance extends L2Character
 	public void say(int i)
 	{
 		
-		Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers();        
+		Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values();        
 		CreatureSay sm;
 		PlaySound ps;
 		switch(i)
@@ -690,7 +691,7 @@ public class L2BoatInstance extends L2Character
 	 */
 	public void spawn()
 	{		
-		Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers();
+		Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values();
 		_cycle = 1;
 		beginCycle();
 		if (knownPlayers == null || knownPlayers.isEmpty())

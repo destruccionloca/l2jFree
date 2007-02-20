@@ -19,9 +19,11 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Format: (ch) dd
@@ -30,7 +32,7 @@ import net.sf.l2j.gameserver.ClientThread;
  */
 public class RequestDismissPartyRoom extends ClientBasePacket
 {
-	private static Logger _log = Logger.getLogger(RequestDismissPartyRoom.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestDismissPartyRoom.class.getName());
 	private static final String _C__D0_02_REQUESTDISMISSPARTYROOM = "[C] D0:02 RequestDismissPartyRoom";
 	private int _data1;
 	private int _data2;

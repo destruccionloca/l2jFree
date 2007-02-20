@@ -1,5 +1,6 @@
 package net.sf.l2j.gameserver.skills;
 
+import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -33,6 +34,15 @@ public class L2SkillCharge extends L2Skill {
 			return;
 		}
 		this.getEffects(caster, caster);
+        // effect self :]
+        L2Effect seffect = caster.getEffect(getId());
+        if (seffect != null && seffect.isSelfEffect())
+        {             
+            //Replace old effect with new one.
+            seffect.exit();
+        }
+        // cast self effect if any
+        getEffectsSelf(caster);        
 	}
 	
 }

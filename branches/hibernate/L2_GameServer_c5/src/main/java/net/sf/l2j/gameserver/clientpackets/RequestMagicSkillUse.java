@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -27,6 +26,9 @@ import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -36,7 +38,7 @@ import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 public class RequestMagicSkillUse extends ClientBasePacket
 {
 	private static final String _C__2F_REQUESTMAGICSKILLUSE = "[C] 2F RequestMagicSkillUse";
-	private static Logger _log = Logger.getLogger(RequestMagicSkillUse.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestMagicSkillUse.class.getName());
 
 	private final int _magicId;
 	private final boolean _ctrlPressed;
@@ -82,8 +84,10 @@ public class RequestMagicSkillUse extends ClientBasePacket
            // _log.debug("  range:"+skill.getCastRange()+" targettype:"+skill.getTargetType()+" optype:"+skill.getOperateType()+" power:"+skill.getPower());
            // _log.debug("  reusedelay:"+skill.getReuseDelay()+" hittime:"+skill.getHitTime());
            // _log.debug("  currentState:"+activeChar.getCurrentState());   //for debug
-
-            activeChar.useMagic(skill, _ctrlPressed, _shiftPressed);
+		    if (getClient().getRevision() >=729) //A temp sollution b4 we get the right packet, to make it with ctrl again
+                activeChar.useMagic(skill, _shiftPressed, false);
+		    else
+		        activeChar.useMagic(skill, _ctrlPressed, _shiftPressed);
 		}
 		else
 		{

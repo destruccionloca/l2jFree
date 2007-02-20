@@ -21,8 +21,6 @@ package net.sf.l2j.gameserver.model.entity;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClanTable;
@@ -36,19 +34,21 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class ClanHall
 {
-    protected static Logger _log = Logger.getLogger(ClanHall.class.getName());
+    protected static Log _log = LogFactory.getLog(ClanHall.class.getName());
     
 	// =========================================================
     // Data Field
 	private int _ClanHallId                    = 0;
-	private List<L2DoorInstance> _Doors;
-	private List<String> _DoorDefault          = new FastList<String>();
+	private FastList<L2DoorInstance> _Doors;
+	private FastList<String> _DoorDefault          = new FastList<String>();
     private String _Name                       = "";
 	private int _OwnerId                       = 0;
     private int _lease                         = 0;
@@ -57,7 +57,7 @@ public class ClanHall
     private Calendar _paidUntil;
     private Zone _Zone;
     private int _grade;
-    private List<ClanHallFunction> _functions = new FastList<ClanHallFunction>();
+    private FastList<ClanHallFunction> _functions = new FastList<ClanHallFunction>();
     
     //clan hall functions
     public static final int FUNC_TELEPORT = 1;
@@ -360,7 +360,7 @@ public class ClanHall
 		return null;
 	}
 
-	public final List<L2DoorInstance> getDoors()
+	public final FastList<L2DoorInstance> getDoors()
 	{
         if (_Doors == null) _Doors = new FastList<L2DoorInstance>();
 		return _Doors;
@@ -406,15 +406,16 @@ public class ClanHall
         return _grade;
     }
     
-    public void banishForeigner()
+    public void banishForeigner(L2PcInstance activeChar)
     {
-        // Get all players
-        for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+        // Get players from this and nearest world regions
+        for (L2PlayableInstance player : L2World.getInstance().getVisiblePlayable(activeChar))
         {
-            // Skip if player is in clan
-            if (player.getClanId() == getOwnerId())
-                continue;
+            if(!(player instanceof L2PcInstance)) continue;
             
+            // Skip if player is in clan
+            if (((L2PcInstance)player).getClanId() == getOwnerId())
+                continue;            
             if (checkIfInZone(player)) player.teleToLocation(MapRegionTable.TeleportWhereType.Town); 
         }
     }
@@ -502,11 +503,11 @@ public class ClanHall
                 {
                     return false;
                 }
-                statement = con.prepareStatement("UPDATE clanhall_functions SET lvl=?, lease=? WHERE hall_id=? AND id=?");
-                statement.setInt(1, getId());
-                statement.setInt(2, type);
-                statement.setInt(3, lvl);
-                statement.setInt(4, lease);
+                statement = con.prepareStatement("UPDATE clanhall_functions SET lvl=?, lease=? WHERE hall_id=? AND type=?");
+                statement.setInt(1, lvl);
+                statement.setInt(2, lease);
+                statement.setInt(3, getId());
+                statement.setInt(4, type);          
                 statement.execute();
                 statement.close();
                 getFunction(type).setLvl(lvl);

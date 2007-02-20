@@ -21,10 +21,9 @@ package net.sf.l2j.gameserver.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
@@ -32,7 +31,8 @@ import net.sf.l2j.gameserver.model.L2Macro.L2MacroCmd;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SendMacroList;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -41,12 +41,12 @@ import org.apache.log4j.Logger;
  */
 public class MacroList
 {
-    private static Logger _log = Logger.getLogger(MacroList.class.getName());
+    private final static Log _log = LogFactory.getLog(MacroList.class.getName());
 
     private L2PcInstance _owner;
 	private int _revision;
 	private int _macroId;
-    private Map<Integer, L2Macro> _macroses = new FastMap<Integer, L2Macro>();
+    private FastMap<Integer, L2Macro> _macroses = new FastMap<Integer, L2Macro>();
 
     public MacroList(L2PcInstance owner)
     {

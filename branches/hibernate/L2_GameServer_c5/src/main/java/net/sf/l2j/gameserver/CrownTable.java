@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver;
 
-import java.util.List;
-
 import javolution.util.FastList;
 
 /**
@@ -30,18 +28,25 @@ import javolution.util.FastList;
  */
 public class CrownTable
 {
-    private static List<Integer> _CrownList = new FastList<Integer>();
+    private static FastList<Integer> _CrownList = new FastList<Integer>();
     
-    public static List<Integer> getCrownList()
+    public static FastList<Integer> getCrownList()
     {
-        _CrownList.add(6834); // Innadril
-        _CrownList.add(6835); // Dion
-        _CrownList.add(6836); // Goddard
-        _CrownList.add(6837); // Oren
-        _CrownList.add(6838); // Gludio
-        _CrownList.add(6839); // Giran
-        _CrownList.add(6840); // Aden
+        if(_CrownList.isEmpty())
+        {
+            _CrownList.add(6841); // Crown of the lord
+            _CrownList.add(6834); // Innadril
+            _CrownList.add(6835); // Dion
+            _CrownList.add(6836); // Goddard
+            _CrownList.add(6837); // Oren
+            _CrownList.add(6838); // Gludio
+            _CrownList.add(6839); // Giran
+            _CrownList.add(6840); // Aden
+            _CrownList.add(8182); // Rune
+            _CrownList.add(8183); // Schuttgart
+        }
         return _CrownList;
+     
     }
     
     public static int getCrownId(int CastleId)
@@ -73,13 +78,17 @@ public class CrownTable
             case 6:
                 CrownId = 6834;
                 break;
-            // Rune ?? C5 ??
+            // Rune 
             case 7:
-                CrownId = 0;
+                CrownId = 8182;
                 break;
             // Goddard
             case 8:
                 CrownId = 6836;
+                break;
+            // Schuttgart
+            case 9:
+                CrownId = 8183;
                 break;
             default:
                 CrownId=0;

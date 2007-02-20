@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.lib.Rnd;
@@ -34,6 +32,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 //import net.sf.l2j.gameserver.util.Util;
 /** 
  * @author decad
@@ -43,7 +44,7 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
 public class Crits implements ISkillHandler
 {
     // all the items ids that this handler knowns
-    private static Logger _log = Logger.getLogger(Crits.class);
+    private final static Log _log = LogFactory.getLog(Crits.class);
     
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
@@ -69,12 +70,11 @@ public class Crits implements ISkillHandler
         {
             L2Character target = (L2Character)targets[index];
             L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
-        if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance &&
-            target.isAlikeDead() && target.isFakeDeath())
-        {
-            target.stopFakeDeath(null);
-        }
-        else if (target.isAlikeDead())
+            if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isAlikeDead() && target.isFakeDeath())
+            {
+                target.stopFakeDeath(null);
+            }
+            else if (target.isAlikeDead())
                 continue;
             
             boolean dual = activeChar.isUsingDualWeapon();
@@ -106,20 +106,14 @@ public class Crits implements ISkillHandler
                 }
             else if (!Config.ALT_DAGGER_FORMULA )
             {
-                crit = Formulas.getInstance().calcCrit(activeChar.getCriticalHit(target, skill));
+                crit = Formulas.getInstance().calcCrit(activeChar, target, activeChar.getCriticalHit(target, skill));
             }
             boolean soul = (weapon!= null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER );
-            if (target instanceof L2PcInstance && skill.getId() == 30 && crit == true && !target.isRaid()) 
+            if (target instanceof L2PcInstance && skill.getId() == 30 && crit) 
             {
                 double Hpdamage = 0;
                 damage = (int)Formulas.getInstance().calcPhysDam(activeChar, target, skill, shld, crit, dual, soul);
-                if (skill.isCritical())
-                {
-                    if (Rnd.get(100) < 15)
-                    activeChar.sendPacket(new SystemMessage(SystemMessage.CRITICAL_HIT));
-                    damage = damage * 2;
-                }
-                if (damage > (target.getCurrentHp() + target.getCurrentCp()) && crit == true)
+                if (damage >= (target.getCurrentHp() + target.getCurrentCp()))
                 {
                     if (target.isPetrified())
                     {
@@ -130,7 +124,7 @@ public class Crits implements ISkillHandler
                 }
                 else 
                 {
-                    if (damage >= target.getCurrentHp() && crit == true)
+                    if (damage >= target.getCurrentHp())
                     {
                         if (!target.isPetrified())
                         {
@@ -138,11 +132,11 @@ public class Crits implements ISkillHandler
                             target.doDie(activeChar);
                         }
                     }
-                    else if (damage <= target.getCurrentHp() && crit == true)
+                    else if (damage <= target.getCurrentHp())
                     {
                         
                         Hpdamage = (target.getCurrentHp() - damage);
-                        if (!target.isPetrified() && crit == true)
+                        if (!target.isPetrified())
                         {
                             target.setCurrentHp(Hpdamage);
                         }
@@ -163,26 +157,18 @@ public class Crits implements ISkillHandler
                     }
                 }
             } 
-            else if (target instanceof L2NpcInstance && skill.getId() == 30 && crit == true && !(target instanceof L2PcInstance))
+            else if (target instanceof L2NpcInstance && !target.isRaid() && crit && ((L2NpcInstance) target).getTemplate().npcId != 35062) 
             {
                 damage = (int)Formulas.getInstance().calcPhysDam(activeChar, target, skill, shld, crit, dual, soul);
                 if (skill.isCritical())
-                {
-                    if (Rnd.get(100) < 15)
-                    activeChar.sendPacket(new SystemMessage(SystemMessage.CRITICAL_HIT));
-                    damage = damage * 2;
-                }
+                    damage = 0;
                 if (target.isPetrified())
-                {damage = 0;}
+                    damage = 0;
                 target.reduceCurrentHp(damage, activeChar);
             }
             else damage = (int)Formulas.getInstance().calcPhysDam(activeChar, target, skill, shld, crit, dual, soul);
-            if (skill.isCritical())
-            {
-                if (Rnd.get(100) < 15)
-                activeChar.sendPacket(new SystemMessage(SystemMessage.CRITICAL_HIT));
-                damage = damage * 2;
-            }
+            if (skill.isCritical() && !crit)
+                damage = 0;
             if ( crit == false && (skill.getCondition() & L2Skill.COND_CRIT) != 0) // if blow and crit=false then dmg=0
                 damage = 0;
             else if (crit == false && weapon.getItemType() == L2WeaponType.DAGGER)
@@ -228,38 +214,39 @@ public class Crits implements ISkillHandler
                 if (target instanceof L2PcInstance)
                     name = target.getName()+"("+target.getObjectId()+") ";
                 name += target.getLevel()+" lvl";
-                _log.info(activeChar.getName()+"("+activeChar.getObjectId()+") "+activeChar.getLevel()+" lvl did damage "+damage+" with skill "+skill.getName()+"("+skill.getId()+") to "+name);
+                if(_log.isDebugEnabled())
+                    _log.info(activeChar.getName()+"("+activeChar.getObjectId()+") "+activeChar.getLevel()+" lvl did damage "+damage+" with skill "+skill.getName()+"("+skill.getId()+") to "+name);
             }
 
             if (skill.isInstantKill() && !target.isRaid())
             {
-                if(Rnd.get(100) <= skill.getInstantKillRate() && !target.isRaid())
+                if(Rnd.get(100) <= skill.getInstantKillRate() && crit)
                 {
                     boolean RateEffect2 = Rnd.get(100) <= Config.ALT_INSTANT_KILL_EFFECT_2; //rate for effect lvl 2 HP=1 NOcp change 
-                    if (target instanceof L2PcInstance && skill.getId() == 30 && !RateEffect2 && crit == true)
+                    if (target instanceof L2PcInstance && skill.getId() == 30 && !RateEffect2)
                     {
-                        if (!target.isPetrified() && !target.isRaid())
+                        if (!target.isPetrified())
                         {
                             target.setCurrentCp(1);
                             damage=0;
                         }
                     }
-                    else if (target instanceof L2PcInstance && skill.getId() == 30 && RateEffect2 && crit == true) 
+                    else if (target instanceof L2PcInstance && skill.getId() == 30 && RateEffect2) 
                     {
-                        if (!target.isPetrified() && !target.isRaid())
+                        if (!target.isPetrified())
                         {
                             target.setCurrentHp(1);
                             damage=0;
                         }
                     }
-                    else if (target instanceof L2PcInstance && crit == true && skill.getId() != 30)
+                    else if (target instanceof L2PcInstance && skill.getId() != 30)
                     {
-                        if (!target.isPetrified() && !target.isRaid())
+                        if (!target.isPetrified())
                             target.setCurrentCp(1);
                     }
-                    else if (target instanceof L2NpcInstance && !target.isRaid() && crit == true)
+                    else if (target instanceof L2NpcInstance)
                     {
-                        if (!target.isPetrified() && !target.isRaid() && (!(target instanceof L2PcInstance)))
+                        if (!target.isPetrified() && !target.isRaid() && ((L2NpcInstance) target).getTemplate().npcId != 35062) 
                         {
                             target.setCurrentHp(0);
                             target.doDie(activeChar);
@@ -277,7 +264,7 @@ public class Crits implements ISkillHandler
             if (skill.getId() != 30)
             {
                 if (target.isPetrified())
-                { damage= 0;}
+                    damage= 0;
                 target.reduceCurrentHp(damage, activeChar);
             }
             if (soul && weapon!= null)
@@ -292,7 +279,7 @@ public class Crits implements ISkillHandler
                     activeChar.sendPacket(sm);
                 }
              } 
-            else if (crit == false && activeChar instanceof L2PcInstance && weapon.getItemType() == L2WeaponType.DAGGER) 
+            else if (crit && activeChar instanceof L2PcInstance && weapon.getItemType() == L2WeaponType.DAGGER) 
                 activeChar.sendPacket(new SystemMessage(SystemMessage.MISSED_TARGET)); //msg when the blow misses the target
         }   
     }

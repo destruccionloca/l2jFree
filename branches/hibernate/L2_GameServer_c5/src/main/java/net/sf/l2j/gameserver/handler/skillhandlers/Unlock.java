@@ -1,6 +1,7 @@
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.gameserver.ai.CtrlEvent;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -15,7 +16,7 @@ import net.sf.l2j.gameserver.skills.Formulas;
 
 public class Unlock implements ISkillHandler
 {
-    //private static Logger _log = Logger.getLogger(Unlock.class.getName()); 
+    //private final static Log _log = LogFactory.getLog(Unlock.class.getName()); 
     protected SkillType[] _skillIds = {SkillType.UNLOCK};
 
     public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
@@ -44,10 +45,9 @@ public class Unlock implements ISkillHandler
                 {
                     door.openMe();
                     door.onOpen();
-                    SystemMessage systemmessage = new SystemMessage(SystemMessage.S1_S2);
-
-                    systemmessage.addString("Unlock the door!");
-                    activeChar.sendPacket(systemmessage);
+                    SystemMessage sm = new SystemMessage(SystemMessage.S1_SUCCEEDED);
+                    sm.addSkillName(skill.getId());
+                    activeChar.sendPacket(sm);
                 }
                 else
                 {
@@ -57,7 +57,13 @@ public class Unlock implements ISkillHandler
             else if (target instanceof L2ChestInstance)
             {
                 L2ChestInstance chest = (L2ChestInstance) targetList[index];
-                if (chest.getCurrentHp() <= 0 || chest.isOpen())
+                if (!chest.isBox()) {
+                    activeChar.sendPacket(new ActionFailed());
+                    chest.getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
+                    chest.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
+                    return;
+                }
+                if (chest.getCurrentHp() <= 0 || chest.open())
                 {
                     activeChar.sendPacket(new ActionFailed());
                     return;
@@ -123,10 +129,11 @@ public class Unlock implements ISkillHandler
                         }
                             break;
                     }
-                    chest.setOpen();
                     if (chestChance == 0)
                     {
-                        activeChar.sendPacket(SystemMessage.sendString("Too hard to open for you.."));
+                        SystemMessage sm = new SystemMessage(SystemMessage.S1_CANNOT_BE_USED);
+                        sm.addSkillName(skill.getId());
+                        activeChar.sendPacket(sm);
                         activeChar.sendPacket(new ActionFailed());
                         chest.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
                         return;
@@ -134,21 +141,22 @@ public class Unlock implements ISkillHandler
 
                     if (Rnd.get(120) < chestChance)
                     {
-                        activeChar.sendPacket(SystemMessage.sendString("You open the chest!"));
+                        SystemMessage sm = new SystemMessage(SystemMessage.S1_SUCCEEDED);
+                        sm.addSkillName(skill.getId());
+                        activeChar.sendPacket(sm);
                         
 						chest.setSpecialDrop();
-						chest.setHaveToDrop(true);
-						chest.setMustRewardExpSp(false);
-						chest.doItemDrop(activeChar);
+                        chest.addDamageHate(activeChar, 0, 0);
+                        chest.addBufferHate();
                         chest.doDie(activeChar);
                     }
                     else
                     {
-                        activeChar.sendPacket(SystemMessage.sendString("Unlock failed!"));
+                        SystemMessage sm = new SystemMessage(SystemMessage.S1_FAILED);
+                        sm.addSkillName(skill.getId());
+                        activeChar.sendPacket(sm);
 
                         if (Rnd.get(100) < chestTrapLimit) chest.chestTrap(activeChar);
-						chest.setHaveToDrop(false);
-						chest.setMustRewardExpSp(false);
 						chest.doDie(activeChar);
                     }
                 }

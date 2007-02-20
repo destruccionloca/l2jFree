@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -31,6 +30,10 @@ import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ExEnchantSkillInfo;
+import net.sf.l2j.gameserver.skills.Formulas;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * Format chdd
  * c: (id) 0xD0
@@ -43,7 +46,7 @@ import net.sf.l2j.gameserver.serverpackets.ExEnchantSkillInfo;
 public class RequestExEnchantSkillInfo extends ClientBasePacket
 {
 	private static final String _C__D0_06_REQUESTEXENCHANTSKILLINFO = "[C] D0:06 RequestExEnchantSkillInfo";
-    private static Logger _log = Logger.getLogger(RequestAquireSkillInfo.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestAquireSkillInfo.class.getName());
 	@SuppressWarnings("unused")
 	private int _id;
 	@SuppressWarnings("unused")
@@ -105,10 +108,10 @@ public class RequestExEnchantSkillInfo extends ClientBasePacket
             
             int requiredSp = SkillTreeTable.getInstance().getSkillSpCost(activeChar, skill);
             int requiredExp = SkillTreeTable.getInstance().getSkillExpCost(activeChar, skill);
-            int rate = SkillTreeTable.getInstance().getSuccessRate(activeChar, skill);
+            int rate = Formulas.getInstance().calculateEnchantSkillSuccessRate(skill.getLevel(), activeChar.getLevel());
             ExEnchantSkillInfo asi = new ExEnchantSkillInfo(skill.getId(), skill.getLevel(), requiredSp, requiredExp, rate);
             
-            if (Config.SP_BOOK_NEEDED)
+            if(Config.SP_BOOK_NEEDED && (skill.getLevel() == 101 || skill.getLevel() == 141))
             {
                 int spbId = 6622;
                 

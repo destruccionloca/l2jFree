@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * @version $Revision: 1.1.6.3 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminCursedWeapons implements IAdminCommandHandler {
-    //private static Logger _log = Logger.getLogger(AdminBan.class.getName());
+    //private final static Log _log = LogFactory.getLog(AdminBan.class.getName());
     private static String[] _adminCommands = {"admin_cw_infos", "admin_cw_remove", "admin_cw_goto", "admin_cw_reload"};
     private static final int REQUIRED_LEVEL = Config.GM_MIN;
 

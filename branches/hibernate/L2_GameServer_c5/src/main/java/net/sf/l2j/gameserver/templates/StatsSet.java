@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.templates;
 
-import java.util.Map;
-
 import javolution.util.FastMap;
 
 /**
@@ -30,13 +28,13 @@ import javolution.util.FastMap;
  */
 public final class StatsSet  {
 
-	private final Map<String, Object> _set = new FastMap<String, Object>();
+	private final FastMap<String, Object> _set = new FastMap<String, Object>();
 	
 	/**
 	 * Returns the set of values
 	 * @return HashMap
 	 */
-	public final Map<String, Object> getSet()
+	public final FastMap<String, Object> getSet()
 	{
 		return _set;
 	}
@@ -47,7 +45,7 @@ public final class StatsSet  {
 	 */
     public void add(StatsSet newSet)
     {
-        Map<String, Object> newMap  = newSet.getSet();
+        FastMap<String, Object> newMap  = newSet.getSet();
         for (String key : newMap.keySet())
         {
             Object value    = newMap.get(key);

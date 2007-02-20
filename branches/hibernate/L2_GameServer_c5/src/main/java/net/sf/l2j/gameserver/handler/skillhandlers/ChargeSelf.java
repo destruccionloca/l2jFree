@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -30,6 +28,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * This class ...
  * 
@@ -38,7 +39,7 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
 
 public class ChargeSelf implements ISkillHandler
 {
-    static Logger _log = Logger.getLogger(ChargeSelf.class.getName());
+    static Log _log = LogFactory.getLog(ChargeSelf.class.getName());
     
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
@@ -64,7 +65,7 @@ public class ChargeSelf implements ISkillHandler
                 continue;
             boolean dual = activeChar.isUsingDualWeapon();
             boolean shld = Formulas.getInstance().calcShldUse(activeChar, target);
-            boolean crit = Formulas.getInstance().calcCrit(activeChar.getCriticalHit(target, skill));
+            boolean crit = Formulas.getInstance().calcCrit(activeChar, target, activeChar.getCriticalHit(target, skill));
             boolean soul = (weapon!= null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER );
            
             skill.getEffects(activeChar, activeChar);

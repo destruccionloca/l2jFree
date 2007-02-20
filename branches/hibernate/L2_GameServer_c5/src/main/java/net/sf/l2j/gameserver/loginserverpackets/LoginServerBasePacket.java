@@ -18,9 +18,10 @@
  */
 package net.sf.l2j.gameserver.loginserverpackets;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.gameserver.TaskPriority;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author -Wooden-
@@ -28,7 +29,7 @@ import net.sf.l2j.gameserver.TaskPriority;
  */
 public abstract class LoginServerBasePacket
 {
-    private static Logger _log = Logger.getLogger(LoginServerBasePacket.class);
+    private final static Log _log = LogFactory.getLog(LoginServerBasePacket.class);
 	private byte[] _decrypt;
 	private int _off;
 	

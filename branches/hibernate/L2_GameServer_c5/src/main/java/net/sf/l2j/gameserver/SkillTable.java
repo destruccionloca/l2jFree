@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver;
 
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.skills.SkillsEngine;
@@ -32,10 +30,10 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
  */
 public class SkillTable
 {
-	//private static Logger _log = Logger.getLogger(SkillTable.class.getName());
+	//private final static Log _log = LogFactory.getLog(SkillTable.class.getName());
 	private static SkillTable _instance;
 	
-	private Map<Integer, L2Skill> _skills;
+	private FastMap<Integer, L2Skill> _skills;
 	private boolean _initialized = true;
     
 	public static SkillTable getInstance()
@@ -61,20 +59,40 @@ public class SkillTable
 	    return _initialized;
 	}
 	
-	public L2Skill getInfo(int magicId, int level)
+    /**
+     * Provides the skill hash
+     * @param skill The L2Skill to be hashed
+     * @return SkillTable.getSkillHashCode(skill.getId(), skill.getLevel())
+     */
+    public static int getSkillHashCode(L2Skill skill)
+    {
+        return SkillTable.getSkillHashCode(skill.getId(), skill.getLevel());
+    }
+   
+    /**
+     * Centralized method for easier change of the hashing sys
+     * @param skillId The Skill Id
+     * @param skillLevel The Skill Level
+     * @return The Skill hash number
+     */
+    public static int getSkillHashCode(int skillId, int skillLevel)
+    {
+        return skillId*256+skillLevel;
+    }
+    
+    public L2Skill getInfo(int skillId, int level)
 	{
-		return _skills.get(magicId*1000 + level);
+       return _skills.get(SkillTable.getSkillHashCode(skillId, level));
 	}
 
-	public int getMaxLevel(int magicId, int curlevel)
+    public int getMaxLevel(int magicId, int level)
 	{
 	    L2Skill temp;
-	    int level = curlevel;
         
 	    while (level < 1000) 
 	    {
 	        level++;
-	        temp = _skills.get(magicId*1000 + level);
+            temp = _skills.get(SkillTable.getSkillHashCode(magicId, level));
         
 		    if (temp == null)
 		        return level-1;

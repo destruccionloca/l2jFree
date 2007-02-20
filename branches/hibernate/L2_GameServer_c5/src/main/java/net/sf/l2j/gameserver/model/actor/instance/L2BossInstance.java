@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public final class L2BossInstance extends L2MonsterInstance
 {
-	//protected static Logger _log = Logger.getLogger(L2BossInstance.class.getName());
+	//protected static Log _log = LogFactory.getLog(L2BossInstance.class.getName());
 	private boolean _teleportedToNest;
     
     private static final int BOSS_MAINTENANCE_INTERVAL = 10000;
@@ -95,7 +95,7 @@ public final class L2BossInstance extends L2MonsterInstance
                 {
                     clearAggroList();
                     getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-                    teleToLocation(43577,15985,-4396);
+                    teleToLocation(43577,15985,-4396,false);
                     setTeleported(true);
                 }
                 break;

@@ -1,12 +1,12 @@
 package net.sf.l2j.gameserver.model.actor.status;
 
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.Future;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -15,11 +15,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.stat.CharStat;
 import net.sf.l2j.gameserver.skills.Formulas;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class CharStatus
 {
-    protected static Logger _log = Logger.getLogger(CharStatus.class.getName());
+    protected static Log _log = LogFactory.getLog(CharStatus.class.getName());
 
     // =========================================================
     // Data Field
@@ -27,7 +28,7 @@ public class CharStatus
     private double _CurrentCp               = 0; //Current CP of the L2Character
     private double _CurrentHp               = 0; //Current HP of the L2Character
     private double _CurrentMp               = 0; //Current MP of the L2Character
-    private List<Double> _HpStatusWatch     = new FastList<Double>();
+    private FastList<Double> _HpStatusWatch     = new FastList<Double>();
 
     /** Array containing all clients that need to be notified about hp/mp updates of the L2Character */
     private Set<L2Character> _StatusListener;
@@ -104,9 +105,14 @@ public class CharStatus
 
 	if (getActiveChar() instanceof L2PcInstance)
 	{
-    	    if (getActiveChar().isDead() && !getActiveChar().isFakeDeath()) return; // Disabled == null check so skills like Body to Mind work again untill another solution is found
-	} else {
-    	    if (getActiveChar().isDead()) return; // Disabled == null check so skills like Body to Mind work again untill another solution is found
+        if (((L2PcInstance)getActiveChar()).getStatTrack() != null)
+            ((L2PcInstance)getActiveChar()).getStatTrack().increaseDamageTaken((int) value);
+        if (getActiveChar().isDead() && !getActiveChar().isFakeDeath())
+            return; // Disabled == null check so skills like Body to Mind work again untill another solution is found
+	} else 
+    {
+	    if (getActiveChar().isDead())
+            return; // Disabled == null check so skills like Body to Mind work again untill another solution is found
 	}
         if (awake && getActiveChar().isSleeping()) getActiveChar().stopSleeping(null);
         if (getActiveChar().isStunned() && Rnd.get(10) == 0) getActiveChar().stopStunning(null);
@@ -149,6 +155,18 @@ public class CharStatus
                     stopHpMpRegeneration();
                     return;
                 }
+                else if (((L2PcInstance)getActiveChar()).isDuelling()>0)
+                {
+                    getActiveChar().abortAttack();
+                    getActiveChar().abortCast();
+                    stopHpMpRegeneration();
+                    if (((L2PcInstance)getActiveChar()).getParty()!=null)
+                        ((L2PcInstance)getActiveChar()).getParty().setDefeatedPartyMembers(((L2PcInstance)getActiveChar()).getParty().getDefeatedPartyMembers()+1);
+                    getActiveChar().setIsParalyzed(true); //Not sure if this is the way to stop players from fighting, but I think it'll do ;P
+                    DuelManager.getInstance().MaybeEndDuel((L2PcInstance)getActiveChar());
+                    return;
+                }
+
             }
             // killing is only possible one time
             synchronized (getActiveChar())
@@ -318,6 +336,10 @@ public class CharStatus
         {
             // Get the Max HP of the L2Character
             double maxHp = getActiveChar().getStat().getMaxHp();
+            
+            if (getActiveChar() instanceof L2PcInstance && newHp > maxHp) 
+               if (((L2PcInstance)getActiveChar()).getStatTrack() != null)
+                   ((L2PcInstance)getActiveChar()).getStatTrack().increaseHealthGain(newHp-maxHp);
 
             if (newHp >= maxHp)
             {

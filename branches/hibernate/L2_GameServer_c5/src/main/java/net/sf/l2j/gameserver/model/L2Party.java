@@ -24,6 +24,7 @@ import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.SevenSignsFestival;
+import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
@@ -47,14 +48,15 @@ import net.sf.l2j.gameserver.util.Util;
 public class L2Party {
     static double[] _bonusExpSp = {1, 1.30, 1.39, 1.50, 1.54, 1.58, 1.63, 1.67, 1.71};
     
-    // private static Logger _log = Logger.getLogger(L2Party.class.getName());
+    // private final static Log _log = LogFactory.getLog(L2Party.class.getName());
     
-	private List<L2PcInstance> _members = null;
-    private List<L2PcInstance> _validMembers = null;
+	private FastList<L2PcInstance> _members = null;
+    private FastList<L2PcInstance> _validMembers = null;
     private int _pendingInvitation = 0;       // Number of players that already have been invited (but not replied yet)
 	private int _partyLvl = 0;
 	private int _itemDistribution = 0;
 	private int _itemLastLoot = 0;
+    private int _defeatedPartyMembers = 0;      //Used by duel engine to avoid looping through all party members after one of them is killed
 	
 	public static final int ITEM_LOOTER = 0;
 	public static final int ITEM_RANDOM = 1;
@@ -109,7 +111,7 @@ public class L2Party {
 	 * returns all party members
 	 * @return
 	 */
-	public List<L2PcInstance> getPartyMembers()
+	public FastList<L2PcInstance> getPartyMembers()
 	{
         if (_members == null) _members = new FastList<L2PcInstance>();
 	    return _members;
@@ -269,7 +271,9 @@ public class L2Party {
 			
 			if (player.isFestivalParticipant())
 				SevenSignsFestival.getInstance().updateParticipants(player, this);
-			
+            if (player.isDuelling()> 0)
+                player.setDuelling(0);
+            
 			SystemMessage msg = new SystemMessage(SystemMessage.YOU_LEFT_PARTY);
 			player.sendPacket(msg);
 			player.sendPacket(new PartySmallWindowDeleteAll());
@@ -283,6 +287,11 @@ public class L2Party {
 			if (getPartyMembers().size() == 1)
 			{
 				getPartyMembers().get(0).setParty(null);
+                if (getPartyMembers().get(0).isDuelling()>0)
+                {
+                    DuelManager.getInstance().endDuel(getPartyMembers().get(0).isDuelling(),true,getPartyMembers().get(0).getTeam());
+                    getPartyMembers().get(0).setDuelling(0);
+                }
 			}
 		}
 	}
@@ -296,7 +305,7 @@ public class L2Party {
 	{
 		L2PcInstance player = getPlayerByName(name);
 		
-		if (player != null)
+        if (player != null && player.isDuelling()==0)
 		{
 			if (getPartyMembers().contains(player))
 			{
@@ -351,6 +360,7 @@ public class L2Party {
             if (isLeader(player)) 
             {
 				removePartyMember(player);
+                DuelManager.getInstance().endDuel(player.isDuelling(),true, player.getTeam());
                 if (getPartyMembers().size() > 1)
                 {
     				SystemMessage msg = new SystemMessage(SystemMessage.S1_HAS_BECOME_A_PARTY_LEADER);
@@ -386,6 +396,7 @@ public class L2Party {
 			if (isLeader(player)) 
             {
 				removePartyMember(player);
+                DuelManager.getInstance().endDuel(player.isDuelling(),true, player.getTeam());
                 if (getPartyMembers().size() > 1)
                 {
                    SystemMessage msg = new SystemMessage(SystemMessage.S1_HAS_BECOME_A_PARTY_LEADER);
@@ -510,11 +521,11 @@ public class L2Party {
     public void distributeAdena(L2PcInstance player, int adena, L2Character target) 
     {
         // Get all the party members
-        List<L2PcInstance> membersList = getPartyMembers();
+        FastList<L2PcInstance> membersList = getPartyMembers();
         
         // Check the number of party members that must be rewarded
         // (The party member must be in range to receive its reward)
-        List<L2PcInstance> ToReward = new FastList<L2PcInstance>();
+        FastList<L2PcInstance> ToReward = new FastList<L2PcInstance>();
         for(L2PcInstance member : membersList)
         {
             if (!Util.checkIfInRange(Config.PARTY_RANGE, target, member, true)) continue;
@@ -547,7 +558,7 @@ public class L2Party {
 	 * @param lastAttacker The L2Character that has killed the L2Attackable
 	 * 
 	 */
-	public void distributeXpAndSp(long xpReward, int spReward, List<L2Character> rewardedMembers, L2Character lastAttacker) 
+	public void distributeXpAndSp(long xpReward, int spReward, FastList<L2Character> rewardedMembers, L2Character lastAttacker) 
     {
         L2SummonInstance summon = null;
         L2PcInstance owner      = null;
@@ -563,7 +574,7 @@ public class L2Party {
         for (L2PcInstance character : _validMembers)
             sqLevelSum += (character.getLevel() * character.getLevel());
         
-        List<L2Character> ToRemove = new FastList<L2Character>();
+        FastList<L2Character> ToRemove = new FastList<L2Character>();
         
 		// Go through the members that must be rewarded
         synchronized(rewardedMembers)
@@ -593,14 +604,17 @@ public class L2Party {
                     { 
                         owner   = (L2PcInstance)member;
     					
-    					// The L2SummonInstance penalty is only applied if it has hit the L2Attackable
-                        if (owner.getPet() instanceof L2SummonInstance && rewardedMembers.contains(owner.getPet()))
+                        // The L2SummonInstance penalty
+                        if (owner.getPet() instanceof L2SummonInstance)
                         {
                             summon     = (L2SummonInstance)owner.getPet();
                             penalty    = summon.getExpPenalty();
     						
     						// Remove the L2SummonInstance from the rewarded members
-                            ToRemove.add(summon);
+                            if (rewardedMembers.contains(owner.getPet()))
+                            {
+                                ToRemove.add(summon);
+                            }
                         }
     				}
                     
@@ -705,11 +719,33 @@ public class L2Party {
         return _bonusExpSp[i];
     }
     
-	private double getExpBonus() { return getBaseExpSpBonus() * Config.RATE_PARTY_XP; }
+   private double getExpBonus() 
+   { 
+       if(_validMembers.size() < _members.size())
+           return getBaseExpSpBonus(); 
+       else
+           return getBaseExpSpBonus() * Config.RATE_PARTY_XP;
+   }
     
-    private double getSpBonus() { return getBaseExpSpBonus() * Config.RATE_PARTY_SP; }
+    private double getSpBonus() 
+    { 
+       if(_validMembers.size() < _members.size())
+           return getBaseExpSpBonus(); 
+       else
+           return getBaseExpSpBonus() * Config.RATE_PARTY_SP;
+   }
 	
 	public int getLevel() { return _partyLvl; }
     
     public int getLootDistribution() { return _itemDistribution; }
+    
+    public int getDefeatedPartyMembers()
+    {
+        return _defeatedPartyMembers;
+    }
+    
+    public void setDefeatedPartyMembers(int defeatedMembersCount)
+    {
+        _defeatedPartyMembers = defeatedMembersCount;
+    }
 }

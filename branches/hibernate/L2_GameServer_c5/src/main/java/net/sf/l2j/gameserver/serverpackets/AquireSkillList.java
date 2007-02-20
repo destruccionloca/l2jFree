@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
-
 import javolution.util.FastList;
 
 /**
@@ -46,10 +44,10 @@ import javolution.util.FastList;
  */
 public class AquireSkillList extends ServerBasePacket
 {
-	//private static Logger _log = Logger.getLogger(AquireSkillList.class.getName());
+	//private final static Log _log = LogFactory.getLog(AquireSkillList.class.getName());
 
     private static final String _S__A3_AQUIRESKILLLIST = "[S] 8a AquireSkillList";
-    private List<Skill> _skills;
+    private FastList<Skill> _skills;
     private int _skillsType;
     
 	private class Skill

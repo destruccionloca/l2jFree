@@ -25,7 +25,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class stores references to all online game masters. (access level > 100)
@@ -34,7 +35,7 @@ import org.apache.log4j.Logger;
  */
 public class GmListTable
 {
-	private static Logger _log = Logger.getLogger(GmListTable.class.getName());
+	private final static Log _log = LogFactory.getLog(GmListTable.class.getName());
 	private static GmListTable _instance;
 	
 	

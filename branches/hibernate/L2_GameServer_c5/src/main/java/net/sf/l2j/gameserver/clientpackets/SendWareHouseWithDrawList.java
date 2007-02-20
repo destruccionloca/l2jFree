@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -36,6 +35,9 @@ import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  *
@@ -46,7 +48,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class SendWareHouseWithDrawList extends ClientBasePacket
 {
 	private static final String _C__32_SENDWAREHOUSEWITHDRAWLIST = "[C] 32 SendWareHouseWithDrawList";
-	private static Logger _log = Logger.getLogger(SendWareHouseWithDrawList.class.getName());
+	private final static Log _log = LogFactory.getLog(SendWareHouseWithDrawList.class.getName());
 
 	private int _count;
 	private int[] _items;

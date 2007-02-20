@@ -5,9 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.Properties;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -21,9 +19,12 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class SiegeManager
 {
-    protected static Logger _log = Logger.getLogger(SiegeManager.class.getName());
+    protected static Log _log = LogFactory.getLog(SiegeManager.class.getName());
 
     // =========================================================
     private static SiegeManager _Instance;
@@ -57,14 +58,18 @@ public class SiegeManager
                                                                         {147465,1537,-373,16384,35233}, //aden
                                                                         {116031,250555,-798,49200,35279}, //innadril
                                                                         {146601,-50441,-1505,32768,35322}, //goddard1
-                                                                        {148353,-50457,-1505,0,35323}}; //goddard2
+                                                                        {148353,-50457,-1505,0,35323}, //goddard2
+                                                                        {76668,-154520,226,0,35515}, //Shuttgart1
+                                                                        {78446,-154524,227,0,35514}, //Shuttgart2
+                                                                        {9136,-49149,1092,0,35469}}; //Rune
+
     private int _ControlTowerLosePenalty                         = 20000; // Time in ms. Changeable in siege.config
     private int _Flag_BuyCost                                    = 50000; // Changeable in siege.config
     private int _Flag_BuyItemId                                  = 57;  // Changeable in siege.config
     private int _Flag_MaxCount                                   = 1; // Changeable in siege.config
     private int _Siege_Clan_MinLevel                             = 4; // Changeable in siege.config
     private int _Siege_Length                                    = 120; // Time in minute. Changeable in siege.config
-    private List<Siege> _Sieges;
+    private FastList<Siege> _Sieges;
     
     // =========================================================
     // Constructor
@@ -214,7 +219,7 @@ public class SiegeManager
     
     public final int getSiegeLength() { return _Siege_Length; }
 
-    public final List<Siege> getSieges()
+    public final FastList<Siege> getSieges()
     {
         if (_Sieges == null) _Sieges = new FastList<Siege>();
         return _Sieges;

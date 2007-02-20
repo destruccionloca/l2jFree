@@ -23,8 +23,6 @@ import java.io.StringWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collection;
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -37,7 +35,8 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Luis Arias
@@ -45,17 +44,16 @@ import org.apache.log4j.Logger;
  */
 public abstract class Quest
 {
-	protected static Logger _log = Logger.getLogger(Quest.class.getName());
+	protected static Log _log = LogFactory.getLog(Quest.class.getName());
 
 	/** HashMap containing events from String value of the event */
-	private static Map<String, Quest> allEventsS = new FastMap<String, Quest>();
+	private static FastMap<String, Quest> allEventsS = new FastMap<String, Quest>();
 
 	private final int _questId;
 	private final String _name;
 	private final String _descr;
-	private final boolean _party;
     private State initialState;
-    private Map<String, State> states;
+    private FastMap<String, State> states;
 	
 	/**
 	 * Return collection view of the values contains in the allEventS
@@ -73,22 +71,16 @@ public abstract class Quest
      */
 	public Quest(int questId, String name, String descr)
 	{
-		this(questId, name, descr, false);
-	}
-	
-	public Quest(int questId, String name, String descr, boolean party)
-    {
 		_questId = questId;
 		_name = name;
 		_descr = descr;
-		_party = party;
         states = new FastMap<String, State>();
 		if (questId != 0) {
             QuestManager.getInstance().getQuests().add(Quest.this);
 		} else {
 			allEventsS.put(name, this);
 		}
-    }
+	}
 	
 	/**
 	 * Return ID of the quest
@@ -141,11 +133,6 @@ public abstract class Quest
 		return _descr;
 	}
 	
-	public boolean isParty()
-	{
-		return _party;
-	}
-    
 	/**
 	 * Add a state to the quest
 	 * @param state
@@ -297,10 +284,12 @@ public abstract class Quest
 				
 				// Identify the state of the quest for the player
 				boolean completed = false;
-				if (stateId.length() > 0 && stateId.charAt(0) == '*') {
+                if (stateId.length() > 0 && stateId.charAt(0) == '*') { // probably obsolete check 
 					completed = true;
 					stateId = stateId.substring(1);
 				}
+                if(stateId.equals("Completed")) completed = true;
+                               
 				// Create an object State containing the state of the quest
 				State state = q.states.get(stateId);
 				if (state == null) {
@@ -493,8 +482,8 @@ public abstract class Quest
 	 */
 	public static void updateQuestInDb(QuestState qs) {
 		String val = qs.getStateId();
-		if (qs.isCompleted())
-			val = "*" + val;
+        //if (qs.isCompleted())
+        //  val = "*" + val;
 		updateQuestVarInDb(qs, "<state>", val);
 	}
 	

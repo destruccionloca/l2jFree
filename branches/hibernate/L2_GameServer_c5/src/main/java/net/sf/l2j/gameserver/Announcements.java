@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.clientpackets.Say2;
@@ -38,7 +38,8 @@ import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -47,11 +48,12 @@ import org.apache.log4j.Logger;
  */
 public class Announcements
 {
-	private static Logger _log = Logger.getLogger(Announcements.class.getName());
+	private final static Log _log = LogFactory.getLog(Announcements.class.getName());
 	
 	private static Announcements _instance;
-	private List<String> _announcements = new FastList<String>();
-	private List<List<Object>> eventAnnouncements = new FastList<List<Object>>();
+	private FastList<String> _announcements = new FastList<String>();
+	private FastList<List<Object>> eventAnnouncements = new FastList<List<Object>>();
+    private String leaderboardAnnouncement = null;
 
 	public Announcements()
 	{
@@ -90,6 +92,11 @@ public class Announcements
 			CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, activeChar.getName(), _announcements.get(i).toString());
 			activeChar.sendPacket(cs);
 		}
+		if (leaderboardAnnouncement != null) 
+        {
+		    CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, activeChar.getName(), leaderboardAnnouncement);
+		    activeChar.sendPacket(cs);
+        }        
 		
 		for (int i = 0; i < eventAnnouncements.size(); i++)
 		{
@@ -114,7 +121,7 @@ public class Announcements
 	
 	public void addEventAnnouncement(DateRange validDateRange, String[] msg)
 	{
-	    List<Object> entry = new FastList<Object>();
+	    FastList<Object> entry = new FastList<Object>();
 	    entry.add(validDateRange);
 	    entry.add(msg);
 	    eventAnnouncements.add(entry);
@@ -155,7 +162,11 @@ public class Announcements
 		_announcements.add(text);
 		saveToDisk();
 	}
-	
+    
+	public void setLeaderboardAnnouncement(String announce) {
+	    leaderboardAnnouncement = announce;
+	}
+    
 	public void delAnnouncement(int line)
 	{
 		_announcements.remove(line);

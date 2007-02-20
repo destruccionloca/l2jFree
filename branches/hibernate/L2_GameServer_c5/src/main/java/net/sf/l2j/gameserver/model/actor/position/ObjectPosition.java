@@ -1,20 +1,19 @@
 package net.sf.l2j.gameserver.model.actor.position;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.L2WorldRegion;
-import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
 import net.sf.l2j.util.Point3D;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class ObjectPosition
 {
-    private static final Logger _log = Logger.getLogger(ObjectPosition.class.getName());
+    private static final Log _log = LogFactory.getLog(ObjectPosition.class.getName());
 
     // =========================================================
     // Data Field
@@ -61,7 +60,7 @@ public class ObjectPosition
             else if (getActiveObject() instanceof L2PcInstance)
             {
                 //((L2PcInstance)obj).deleteMe();
-                ((L2PcInstance)getActiveObject()).teleToLocation(0,0,0);
+                ((L2PcInstance)getActiveObject()).teleToLocation(0,0,0, false);
                 ((L2PcInstance)getActiveObject()).sendMessage("Error with your coords, Please ask a GM for help!");
             }
         }
@@ -134,93 +133,19 @@ public class ObjectPosition
     public final void setY(int value) { getWorldPosition().setY(value); }
     
     /** Return the z position of the L2Object. */
-    public final int getZ()
-    {
-//        if(Config.ALLOW_GEODATA)
-//            return GeoDataRequester.getInstance().getGeoInfoNearest(getWorldPosition().getX(),getWorldPosition().getY(),(short)getWorldPosition().getZ()).getZ();
-//        else
-            return getWorldPosition().getZ();
-    }
-    
-    public final void setZ(int value) 
-    { 
-        if(Config.ALLOW_GEODATA)
-        {
-            if (getActiveObject() instanceof L2PcInstance)
-            {    
-                L2PcInstance activechar = (L2PcInstance) getActiveObject();
-                if (activechar.isFlying() || activechar.isInWater()  || activechar.isInBoat())
-                {
-                    getWorldPosition().setZ(value);
-                }
-                else
-                {
-                    getWorldPosition().setZ(GeoDataRequester.getInstance().getGeoInfoNearest(getWorldPosition().getX(),getWorldPosition().getY(),(short)value).getZ());
-                }
-            }
-            else if (getActiveObject() instanceof L2BoatInstance)
-            {
-                getWorldPosition().setZ(value);
-            }
-            else
-            {
-                getWorldPosition().setZ(GeoDataRequester.getInstance().getGeoInfoNearest(getWorldPosition().getX(),getWorldPosition().getY(),(short)value).getZ());
-            }
-        }
-        else
-        {
-            getWorldPosition().setZ(value);
-        }
-    }
+    public final int getZ() { return getWorldPosition().getZ(); }
+    public final void setZ(int value) { getWorldPosition().setZ(value); }
 
     public final Point3D getWorldPosition()
     {
         if (_WorldPosition == null) _WorldPosition = new Point3D(0, 0, 0);
-        return _WorldPosition;       
+        return _WorldPosition;
     }
-    
     public final void setWorldPosition(int x, int y, int z)
-    {
-        if(Config.ALLOW_GEODATA)
-        {
-            if (getActiveObject() instanceof L2PcInstance)
-            {    
-                L2PcInstance activechar = (L2PcInstance) getActiveObject();
-                if (activechar.isFlying() || activechar.isInWater()  || activechar.isInBoat())
-                {
-                    getWorldPosition().setXYZ(x,y,z);
-                }
-                else
-                {
-                    getWorldPosition().setXYZ(x,y,GeoDataRequester.getInstance().getGeoInfoNearest(x,y,(short)z).getZ());
-                }
-            }
-            else if (getActiveObject() instanceof L2BoatInstance)
-            {
-                getWorldPosition().setXYZ(x,y,z);
-            }
-            else
-            {
-                getWorldPosition().setXYZ(x,y,GeoDataRequester.getInstance().getGeoInfoNearest(x,y,(short)z).getZ());
-            }
-        }
-       else
-        {
-            getWorldPosition().setXYZ(x,y,z);
-        }
-        if (getActiveObject() != null && getActiveObject() instanceof L2PcInstance)
-        {
-            ((L2PcInstance)getActiveObject()).revalidateZone();
-         }        
-    }
-
-    public final void setWorldPositionNoGeo(int x, int y, int z)
     {
         getWorldPosition().setXYZ(x,y,z);
         if (getActiveObject() != null && getActiveObject() instanceof L2PcInstance)
-        {
             ((L2PcInstance)getActiveObject()).revalidateZone();
-         }        
     }
     public final void setWorldPosition(Point3D newPosition) { setWorldPosition(newPosition.getX(), newPosition.getY(), newPosition.getZ()); }
     

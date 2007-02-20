@@ -19,12 +19,14 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.serverpackets.PledgeReceivePowerInfo;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -34,7 +36,7 @@ import net.sf.l2j.gameserver.serverpackets.PledgeReceivePowerInfo;
 public class RequestPledgeMemberPowerInfo extends ClientBasePacket
 {
 	private static final String _C__24_REQUESTJOINPLEDGE = "[C] 24 RequestPledgeMemberPowerInfo";
-	static Logger _log = Logger.getLogger(RequestJoinPledge.class.getName());
+	static Log _log = LogFactory.getLog(RequestJoinPledge.class.getName());
 
 	private final int _not_known;
     private final String _target;

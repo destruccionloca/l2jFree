@@ -29,8 +29,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
+import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClanTable;
@@ -42,16 +41,18 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
+import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 public class Hero 
 {
-    private static Logger _log = Logger.getLogger(Hero.class.getName());
+    private final static Log _log = LogFactory.getLog(Hero.class.getName());
     
     private static Hero _instance;
     private static final String GET_HEROES = "SELECT * FROM heroes WHERE played = 1";
@@ -71,8 +72,8 @@ public class Hero
     private static final int[] _heroItems = {6842, 6611, 6612, 6613, 6614, 6615, 6616,
                                              6617, 6618, 6619, 6620, 6621
     };
-    private static Map<Integer, StatsSet> _heroes;
-    private static Map<Integer, StatsSet> _completeHeroes;
+    private static FastMap<Integer, StatsSet> _heroes;
+    private static FastMap<Integer, StatsSet> _completeHeroes;
     
     public static final String COUNT = "count";
     public static final String PLAYED = "played";
@@ -203,6 +204,7 @@ public class Hero
                     hero.set(CLAN_NAME, clanName);
                     hero.set(ALLY_CREST, allyCrest);
                     hero.set(ALLY_NAME, allyName);
+
                 }
                 
                 rset2.close();
@@ -218,7 +220,7 @@ public class Hero
             con2.close();
         } catch(SQLException e)
         {
-        	_log.warn("Hero System: Couldnt load Heroes");
+            _log.warn("Hero System: Couldnt load Heroes");
             _log.error(e.getMessage(),e);
         }
         
@@ -226,12 +228,12 @@ public class Hero
         _log.info("Hero System: Loaded " + _completeHeroes.size() + " all time Heroes.");
     }
     
-    public Map<Integer, StatsSet> getHeroes()
+    public FastMap<Integer, StatsSet> getHeroes()
     {
         return _heroes;
     }
     
-    public synchronized void computeNewHeroes(List<StatsSet> newHeroes)
+    public synchronized void computeNewHeroes(FastList<StatsSet> newHeroes)
     {
         updateHeroes(true);
         
@@ -274,7 +276,23 @@ public class Hero
                         iu.addModifiedItem(item);
                     }
                     player.sendPacket(iu);
+
+                    items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_FACE);
+                    iu = new InventoryUpdate();
+                    for (L2ItemInstance item : items)
+                    {
+                        iu.addModifiedItem(item);
+                    }
+                    player.sendPacket(iu);
                     
+                    items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_DHAIR);
+                    iu = new InventoryUpdate();
+                    for (L2ItemInstance item : items)
+                    {
+                        iu.addModifiedItem(item);
+                    }
+                    player.sendPacket(iu);
+
                     
                     for(L2ItemInstance item : player.getInventory().getAvailableItems(false))
                     {
@@ -299,7 +317,7 @@ public class Hero
             return;
         }
         
-        Map<Integer, StatsSet> heroes = new FastMap<Integer, StatsSet>();
+        FastMap<Integer, StatsSet> heroes = new FastMap<Integer, StatsSet>();
         
         for (StatsSet hero : newHeroes)
         {
@@ -344,6 +362,7 @@ public class Hero
             if (player != null)
             {
                 L2Skill skill;
+                player.broadcastPacket(new SocialAction(player.getObjectId(), 16));
                 L2Clan clan = player.getClan();
                 if (clan != null)
                     clan.setReputationScore(clan.getReputationScore()+1000); //TODO make config for this cuz I just guessed  :>
@@ -450,7 +469,7 @@ public class Hero
             }
         } catch(SQLException e)
         {
-        	_log.warn("Hero System: Couldnt update Heroes",e);
+            _log.warn("Hero System: Couldnt update Heroes",e);
         } finally
         {
             try{con.close();}catch(Exception e){_log.error(e.getMessage(),e);}

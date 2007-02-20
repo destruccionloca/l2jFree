@@ -1,8 +1,5 @@
 package net.sf.l2j.gameserver.model.quest;
 
-import java.util.List;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
@@ -18,9 +15,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class QuestPcSpawn
 {
-    protected static Logger _log = Logger.getLogger(QuestPcSpawn.class.getName());
+    protected static Log _log = LogFactory.getLog(QuestPcSpawn.class.getName());
 
     public class DeSpawnScheduleTimerTask implements Runnable
     {
@@ -42,8 +42,8 @@ public class QuestPcSpawn
     // =========================================================
     // Data Field
     private L2PcInstance[] _Player;
-    private List<AutoSpawnInstance> _autoSpawns = new FastList<AutoSpawnInstance>();
-    private List<L2Spawn> _Spawns = new FastList<L2Spawn>();
+    private FastList<AutoSpawnInstance> _autoSpawns = new FastList<AutoSpawnInstance>();
+    private FastList<L2Spawn> _Spawns = new FastList<L2Spawn>();
     
     // =========================================================
     // Constructor
@@ -372,7 +372,7 @@ public class QuestPcSpawn
     /**
      * Return list of AutoSpawnInstances for player instance
      */
-    public List<AutoSpawnInstance> getRandomSpawns()
+    public FastList<AutoSpawnInstance> getRandomSpawns()
     {
         if (_autoSpawns == null)
             _autoSpawns = new FastList<AutoSpawnInstance>();
@@ -405,7 +405,7 @@ public class QuestPcSpawn
     /**
      * Return list of L2Spawn for player instance
      */
-    public List<L2Spawn> getSpawns()
+    public FastList<L2Spawn> getSpawns()
     {
         if (_Spawns == null)
             _Spawns = new FastList<L2Spawn>();

@@ -21,9 +21,6 @@ package net.sf.l2j.gameserver.model.entity;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
-import java.util.Map;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClanTable;
@@ -35,9 +32,12 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class Auction
 {
-    protected static Logger _log = Logger.getLogger(Auction.class.getName());
+    protected static Log _log = LogFactory.getLog(Auction.class.getName());
 
     /*
      * TODO:
@@ -214,7 +214,7 @@ public class Auction
 	private int _CurrentBid						= 0;
 	private int _StartingBid					= 0;
     
-    private Map<Integer, Bidder> _bidders        = new FastMap<Integer, Bidder>();
+    private FastMap<Integer, Bidder> _bidders        = new FastMap<Integer, Bidder>();
 
 	// =========================================================
 	// Constructor
@@ -250,7 +250,7 @@ public class Auction
 	    if (((getHighestBidderId() >0 && bid > this.getHighestBidderMaxBid()) || (getHighestBidderId() ==0 && bid > getStartingBid())) && takeItem(bidder, 57, bid))
 	    {
 	    	this.updateInDB(bidder, bid);
-            bidder.getClan().setAuctionBiddedAt(_Id);
+            bidder.getClan().setAuctionBiddedAt(_Id, true);
 	    }
 	}
 	
@@ -452,7 +452,16 @@ public class Auction
         }
         for (Bidder b : _bidders.values())
         {
+          if (ClanTable.getInstance().getClanByName(b.getClanName()).getHasHideout() == 0)
+          {             
             returnItem(b.getClanName(), 57, b.getBid(), false);
+            ClanTable.getInstance().getClanByName(b.getClanName()).setAuctionBiddedAt(0, true);
+          }
+          if (ClanTable.getInstance().getClanByName(b.getClanName()).getHasHideout() != 0)
+          {
+            if (L2World.getInstance().getPlayer(b.getName()) != null)
+              L2World.getInstance().getPlayer(b.getName()).sendMessage("Congratulation you have won ClanHall!");
+          }             
         }
         _bidders.clear();
     }
@@ -524,7 +533,7 @@ public class Auction
             try { con.close(); } catch (Exception e) {}
         }
         returnItem(_bidders.get(bidder).getClanName(), 57, _bidders.get(bidder).getBid(), true);
-        ClanTable.getInstance().getClanByName(_bidders.get(bidder).getClanName()).setAuctionBiddedAt(0);
+        ClanTable.getInstance().getClanByName(_bidders.get(bidder).getClanName()).setAuctionBiddedAt(0, true);
         _bidders.remove(bidder);
     }
     
@@ -545,15 +554,19 @@ public class Auction
 
             con = L2DatabaseFactory.getInstance().getConnection();
 
-            statement = con.prepareStatement("INSERT INTO auction (id, sellerId, sellerName, sellerClanName, itemType, itemId, itemObjectId, startingBid, endDate) VALUES (?,?,?,?,?,?,0,?,?)");
+            statement = con.prepareStatement("INSERT INTO auction (id, sellerId, sellerName, sellerClanName, itemType, itemId, itemObjectId, itemName, itemQuantity, startingBid, currentBid, endDate) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"); 
             statement.setInt(1, getId());
             statement.setInt(2, _SellerId);
             statement.setString(3, _SellerName);
             statement.setString(4, _SellerClanName);
             statement.setString(5, _ItemType);
             statement.setInt(6, _ItemId);
-            statement.setInt(7, _StartingBid);
-            statement.setLong(8, _EndDate.getTimeInMillis());
+            statement.setInt(7, _ItemObjectId);
+            statement.setString(8, _ItemName);
+            statement.setInt(9, _ItemQuantity);
+            statement.setInt(10, _StartingBid);
+            statement.setInt(11, _CurrentBid);
+            statement.setLong(12, _EndDate.getTimeInMillis()); 
             statement.execute();
 
             statement.close();
@@ -599,5 +612,5 @@ public class Auction
 
 	public final int getStartingBid() { return this._StartingBid; }
     
-    public final Map<Integer, Bidder> getBidders(){ return this._bidders; };
+    public final FastMap<Integer, Bidder> getBidders(){ return this._bidders; };
 }

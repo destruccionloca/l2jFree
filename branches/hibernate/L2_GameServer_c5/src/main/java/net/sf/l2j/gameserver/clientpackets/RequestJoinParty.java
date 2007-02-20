@@ -27,7 +27,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.AskJoinParty;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *  sample
@@ -43,7 +44,7 @@ import org.apache.log4j.Logger;
 public class RequestJoinParty extends ClientBasePacket
 {
 	private static final String _C__29_REQUESTJOINPARTY = "[C] 29 RequestJoinParty";
-	private static Logger _log = Logger.getLogger(RequestJoinParty.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestJoinParty.class.getName());
 	
 	private final String _name;
 	private final int _itemDistribution;
@@ -75,7 +76,13 @@ public class RequestJoinParty extends ClientBasePacket
             requestor.sendMessage("A player wielding a Cursed Weapon can't participate in a party");
             return;
         }
-        
+
+        if (target.isDuelling()>0 || requestor.isDuelling()>0)
+        {
+            requestor.sendMessage("A player wielding a already in a duel can't participate in a party");
+            return;
+        }
+
         SystemMessage msg;
         
 		if (target.isInParty()) 

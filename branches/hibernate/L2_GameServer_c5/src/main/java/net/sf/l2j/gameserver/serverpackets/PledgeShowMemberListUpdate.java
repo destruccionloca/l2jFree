@@ -34,6 +34,7 @@ public class PledgeShowMemberListUpdate extends ServerBasePacket
     private int _classId;
     private int _isOnline;
     private int _objectId;
+    private int _pledgeType;
 	
 	public PledgeShowMemberListUpdate(L2PcInstance player)
 	{
@@ -42,6 +43,7 @@ public class PledgeShowMemberListUpdate extends ServerBasePacket
         _classId = player.getClassId().getId();
         _isOnline = (player.isOnline() == 1 ? player.getObjectId() : 0);
         _objectId = player.getObjectId();
+        _pledgeType = player.getPledgeType();
 	}
     
     public PledgeShowMemberListUpdate(L2ClanMember cm)
@@ -66,7 +68,7 @@ public class PledgeShowMemberListUpdate extends ServerBasePacket
 		writeD(0); 
 		writeD(_objectId);
 		writeD(_isOnline); // 1=online 0=offline
-        writeD(0x00);
+        writeD(_pledgeType);
         writeD(0x00); // does a clan member have a sponsor
 	}
 

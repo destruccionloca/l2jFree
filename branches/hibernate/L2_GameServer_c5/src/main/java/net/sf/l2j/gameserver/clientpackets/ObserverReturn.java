@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class ObserverReturn extends ClientBasePacket
 {
 	private static final String OBSRETURN__C__04 = "[C] b8 ObserverReturn";
-	//private static Logger _log = Logger.getLogger(Action.class.getName());
+	//private final static Log _log = LogFactory.getLog(Action.class.getName());
 	
 	// cddddc
 

@@ -19,15 +19,17 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ManagePledgePower;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class RequestPledgePower extends ClientBasePacket
 {
-    static Logger _log = Logger.getLogger(ManagePledgePower.class.getName());
+    static Log _log = LogFactory.getLog(ManagePledgePower.class.getName());
     private static final String _C__C0_REQUESTPLEDGEPOWER = "[C] C0 RequestPledgePower";
     private final int _rank;
     private final int _action;

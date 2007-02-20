@@ -5,12 +5,14 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.ibm.io.async.AsyncException;
 import com.ibm.io.async.AsyncServerSocketChannel;
@@ -26,7 +28,7 @@ import com.ibm.io.async.ICompletionListener;
 
 public class AsyncIOThread extends IOThread implements ICompletionListener
 {
-    private static Logger _log = Logger.getLogger(AsyncIOThread.class.getName());
+    private final static Log _log = LogFactory.getLog(AsyncIOThread.class.getName());
     private static AsyncIOThread _instance;
     private static final int Read_State  = 0;
     private static final int Write_State = 1;

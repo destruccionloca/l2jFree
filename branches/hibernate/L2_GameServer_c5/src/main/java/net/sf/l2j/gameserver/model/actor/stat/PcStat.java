@@ -3,7 +3,6 @@ package net.sf.l2j.gameserver.model.actor.stat;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -16,9 +15,12 @@ import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class PcStat extends PlayableStat
 {
-    private static Logger _log = Logger.getLogger(L2PcInstance.class.getName());
+    private final static Log _log = LogFactory.getLog(L2PcInstance.class.getName());
 
     // =========================================================
     // Data Field

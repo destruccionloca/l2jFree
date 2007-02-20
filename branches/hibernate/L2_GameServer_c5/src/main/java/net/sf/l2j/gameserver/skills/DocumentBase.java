@@ -19,13 +19,11 @@
 package net.sf.l2j.gameserver.skills;
 
 import java.io.File;
-import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.SkillTable;
@@ -40,7 +38,8 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -53,10 +52,10 @@ import org.w3c.dom.Node;
  */
 abstract class DocumentBase
 {
-    static Logger _log = Logger.getLogger(DocumentBase.class.getName());
+    static Log _log = LogFactory.getLog(DocumentBase.class.getName());
 
     private File file;
-    protected Map<String, Number[]> tables;
+    protected FastMap<String, Number[]> tables;
 
     DocumentBase(File pFile)
     {
@@ -128,8 +127,7 @@ abstract class DocumentBase
             else if ("mul".equalsIgnoreCase(n.getNodeName())) attachFunc(n, template, "Mul", condition);
             else if ("div".equalsIgnoreCase(n.getNodeName())) attachFunc(n, template, "Div", condition);
             else if ("set".equalsIgnoreCase(n.getNodeName())) attachFunc(n, template, "Set", condition);
-            else if ("enchant".equalsIgnoreCase(n.getNodeName())) attachFunc(n, template, "Enchant",
-                                                                             condition);
+            else if ("enchant".equalsIgnoreCase(n.getNodeName())) attachFunc(n, template, "Enchant", condition);
             else if ("skill".equalsIgnoreCase(n.getNodeName())) attachSkill(n, template, condition);
             else if ("effect".equalsIgnoreCase(n.getNodeName()))
             {
@@ -513,7 +511,7 @@ abstract class DocumentBase
         String name = attrs.getNamedItem("name").getNodeValue();
         if (name.charAt(0) != '#') throw new IllegalArgumentException("Table name must start with #");
         StringTokenizer data = new StringTokenizer(n.getFirstChild().getNodeValue());
-        List<String> array = new FastList<String>();
+        FastList<String> array = new FastList<String>();
         while (data.hasMoreTokens())
             array.add(data.nextToken());
         Number[] res = new Number[array.size()];

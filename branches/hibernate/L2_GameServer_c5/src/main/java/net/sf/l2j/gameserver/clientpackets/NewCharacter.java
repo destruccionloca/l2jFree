@@ -26,7 +26,8 @@ import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.serverpackets.CharTemplates;
 import net.sf.l2j.gameserver.templates.L2PcTemplate;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -36,7 +37,7 @@ import org.apache.log4j.Logger;
 public class NewCharacter extends ClientBasePacket
 {
 	private static final String _C__0E_NEWCHARACTER = "[C] 0E NewCharacter";
-	private static Logger _log = Logger.getLogger(NewCharacter.class.getName());
+	private final static Log _log = LogFactory.getLog(NewCharacter.class.getName());
 
 	/**
 	 * packet type id 0x0e

@@ -20,12 +20,14 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.Experience;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -48,13 +50,13 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 */
 public class AdminEffects implements IAdminCommandHandler
 {
-   //private static Logger _log = Logger.getLogger(AdminDelete.class.getName());
+   //private final static Log _log = LogFactory.getLog(AdminDelete.class.getName());
 
    private static String[] _adminCommands = { "admin_invis", "admin_invisible", "admin_vis",
-	   "admin_visible", "admin_earthquake", "admin_bighead", "admin_shrinkhead", 
+	   "admin_visible", "admin_earthquake", "admin_bighead", "admin_shrinkhead", "admin_gmspeed",  
 	   "admin_unpara_all", "admin_para_all", "admin_unpara", "admin_para", "admin_polyself",
 	   "admin_unpolyself", "admin_changename", "admin_clearteams", "admin_setteam_close",
-       "admin_setteam", "admin_setlevel", "admin_sethero",
+       "admin_setteam", "admin_sethero",
        "admin_create_adena", "admin_summon123"};
 
    private static final int REQUIRED_LEVEL = Config.GM_GODMODE;
@@ -151,7 +153,7 @@ public class AdminEffects implements IAdminCommandHandler
        {
            try
            {
-               for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers())
+               for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
                {
             	   if (!player.isGM())
             	   {
@@ -172,7 +174,7 @@ public class AdminEffects implements IAdminCommandHandler
        {
            try
            {
-               for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers())
+               for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
                {
             	   player.stopAbnormalEffect((short)0x0400);
             	   player.setIsParalyzed(false);
@@ -212,6 +214,35 @@ public class AdminEffects implements IAdminCommandHandler
            {
            }
        }
+       if (command.startsWith("admin_gmspeed"))
+       {
+          int val;
+           try {
+              val = Integer.parseInt(command.substring(14));
+              boolean sendMessage = activeChar.getEffect(7029) != null;
+
+              activeChar.stopEffect(7029);
+              if (val == 0 && sendMessage) {
+                  SystemMessage sm = new SystemMessage(SystemMessage.EFFECT_S1_DISAPPEARED);
+                  sm.addSkillName(7029);
+                  activeChar.sendPacket(sm);
+              }
+              else if ((val >= 1) && (val <= 4)) {
+                  L2Skill gmSpeedSkill = SkillTable.getInstance().getInfo(7029, val);
+
+                  activeChar.doCast(gmSpeedSkill);
+              }
+          }
+          catch (Exception e) {
+               SystemMessage sm = new SystemMessage(614);
+
+              sm.addString("Use //gmspeed value = [0...4].");
+              activeChar.sendPacket(sm);
+          }
+          finally {
+              activeChar.updateEffectIcons();
+          }
+       }
        if (command.startsWith("admin_polyself"))
        {
        	StringTokenizer st = new StringTokenizer(command);
@@ -220,7 +251,7 @@ public class AdminEffects implements IAdminCommandHandler
             st.nextToken();
             String id = st.nextToken();
         	activeChar.getPoly().setPolyInfo("npc", id);
-        	activeChar.teleToLocation(activeChar.getX(), activeChar.getY(), activeChar.getZ());
+        	activeChar.teleToLocation(activeChar.getX(), activeChar.getY(), activeChar.getZ(), false);
         	CharInfo info1 = new CharInfo(activeChar);
         	activeChar.broadcastPacket(info1);
 		    UserInfo info2 = new UserInfo(activeChar);
@@ -291,7 +322,7 @@ public class AdminEffects implements IAdminCommandHandler
        {
            try
            {
-               for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers())
+               for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
                {
                    player.setTeam(0);
                    player.broadcastUserInfo();
@@ -307,7 +338,7 @@ public class AdminEffects implements IAdminCommandHandler
            int teamVal = Integer.parseInt(val);
            try
            {
-               for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers())
+               for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
                {
                    if (activeChar.isInsideRadius(player, 400, false, true))
                    {
@@ -346,52 +377,6 @@ public class AdminEffects implements IAdminCommandHandler
            }
            player.broadcastUserInfo();
        }
-       else if (command.startsWith("admin_setlevel"))
-       {
-		StringTokenizer st = new StringTokenizer(command);
-        try
-        {
-            st.nextToken();
-		    int newlvl = Integer.parseInt(st.nextToken());
-		    if (newlvl >= 1 && newlvl <= 78)
-            {
-		    	L2Object target = activeChar.getTarget();
-	            //L2Character player = null;
-
-                //L2Object target = (L2PlayableInstance)activeChar.getTarget();
-                L2Character player = null;
-
-                if (target instanceof L2Character)
-                    player = (L2Character)activeChar.getTarget();
-                else
-                    player = activeChar;
-
-                PlayableStat ps = (PlayableStat)player.getStat();
-                ps.addExp(ps.getExpForLevel(newlvl)-ps.getExp());
-                player.broadcastPacket(new SocialAction(player.getObjectId(), 15));
-
-		SystemMessage sm = new SystemMessage(614);
-		SystemMessage smAdmin = new SystemMessage(614);
-
-		sm.addString(activeChar.getName() + " has set your level to " + player.getLevel());
-		smAdmin.addString("You have set " + player.getName() + " to level " + player.getLevel());
-
-		player.sendPacket(sm);
-		activeChar.sendPacket(smAdmin);
-
-            } else {
-                SystemMessage smAdmin = new SystemMessage(614);
-                smAdmin.addString("Wrong paramater [1.."+80+"].");
-                activeChar.sendPacket(smAdmin);
-            }
-        }
-        catch (Exception e)
-        {
-			SystemMessage smAdmin = new SystemMessage(614);
-			smAdmin.addString("Error when set level");
-			activeChar.sendPacket(smAdmin);
-        }
-       }
        else if (command.startsWith("admin_sethero"))
        {
 			L2Object target = activeChar.getTarget();
@@ -409,6 +394,7 @@ public class AdminEffects implements IAdminCommandHandler
 			}
 			else
 			{
+                player.broadcastPacket(new SocialAction(player.getObjectId(), 16));
 				player.setHero(true);
 				sm.addString("You are now a hero");
 			}

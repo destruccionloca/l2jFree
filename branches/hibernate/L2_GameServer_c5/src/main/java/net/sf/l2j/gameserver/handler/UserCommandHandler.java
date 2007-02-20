@@ -18,11 +18,10 @@
  */
 package net.sf.l2j.gameserver.handler;
 
-import java.util.Map;
-
 import javolution.util.FastMap;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -31,11 +30,11 @@ import org.apache.log4j.Logger;
  */
 public class UserCommandHandler
 {
-	private static Logger _log = Logger.getLogger(UserCommandHandler.class.getName());
+	private final static Log _log = LogFactory.getLog(UserCommandHandler.class.getName());
 	
 	private static UserCommandHandler _instance;
 	
-	private Map<Integer, IUserCommandHandler> _datatable;
+	private FastMap<Integer, IUserCommandHandler> _datatable;
 	
 	public static UserCommandHandler getInstance()
 	{

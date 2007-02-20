@@ -37,7 +37,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class RequestAnswerJoinAlly extends ClientBasePacket
 {
 	private static final String _C__83_REQUESTANSWERJOINALLY = "[C] 83 RequestAnswerJoinAlly";
-	//private static Logger _log = Logger.getLogger(RequestAnswerJoinAlly.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestAnswerJoinAlly.class.getName());
 	
 	private final int _response;
 	

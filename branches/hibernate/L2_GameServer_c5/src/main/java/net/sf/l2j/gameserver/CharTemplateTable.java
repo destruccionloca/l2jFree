@@ -21,14 +21,16 @@ package net.sf.l2j.gameserver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastMap;
+
+import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.templates.L2PcTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -37,7 +39,7 @@ import net.sf.l2j.gameserver.templates.StatsSet;
  */
 public class CharTemplateTable
 {
-	private static Logger _log = Logger.getLogger(CharTemplateTable.class.getName());
+	private final static Log _log = LogFactory.getLog(CharTemplateTable.class.getName());
 			
 	private static CharTemplateTable _instance;
 	
@@ -57,7 +59,7 @@ public class CharTemplateTable
                                                 "Fortune Seeker", "Maestro"
     };
     
-	private Map<Integer, L2PcTemplate> _templates;
+	private FastMap<Integer, L2PcTemplate> _templates;
 	
 	public static CharTemplateTable getInstance()
 	{
@@ -106,7 +108,6 @@ public class CharTemplateTable
 				set.set("lvlMpAdd", rset.getFloat("defaultMpAdd"));
 				set.set("lvlMpMod", rset.getFloat("defaultMpMod"));
 				set.set("baseHpReg", 1.5);
-                set.set("baseCpReg", 0.01);
 				set.set("baseMpReg", 0.9);
 				set.set("basePAtk", rset.getInt("p_atk"));
 				set.set("basePDef", /*classId.isMage()? 77 : 129*/ rset.getInt("p_def"));
@@ -116,7 +117,7 @@ public class CharTemplateTable
 				set.set("basePAtkSpd", rset.getInt("p_spd"));
 				set.set("baseMAtkSpd", /*classId.isMage()? 166 : 333*/ rset.getInt("char_templates.m_spd"));
 				set.set("baseCritRate", rset.getInt("char_templates.critical")/10);
-				set.set("baseRunSpd", rset.getInt("move_spd"));
+				set.set("baseRunSpd", rset.getInt("move_spd")*Config.RATE_RUN_SPEED);
 				set.set("baseLoad", rset.getInt("_load"));
 				set.set("baseShldDef", 0);
 				set.set("baseShldRate", 0);

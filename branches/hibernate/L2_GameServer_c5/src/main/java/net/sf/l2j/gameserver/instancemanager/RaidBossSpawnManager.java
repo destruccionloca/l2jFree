@@ -27,9 +27,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
@@ -42,15 +40,18 @@ import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class RaidBossSpawnManager {
     
-    private static Logger _log = Logger.getLogger(RaidBossSpawnManager.class.getName());
+    private final static Log _log = LogFactory.getLog(RaidBossSpawnManager.class.getName());
     
     private static RaidBossSpawnManager _instance;
-    protected static Map<Integer, L2RaidBossInstance> _bosses;
-    protected static Map<Integer, L2Spawn> _spawns;
-    protected static Map<Integer, StatsSet> _storedInfo;
-    protected static Map<Integer, ScheduledFuture> _schedules;
+    protected static FastMap<Integer, L2RaidBossInstance> _bosses;
+    protected static FastMap<Integer, L2Spawn> _spawns;
+    protected static FastMap<Integer, StatsSet> _storedInfo;
+    protected static FastMap<Integer, ScheduledFuture> _schedules;
     
     public static enum StatusEnum {
         ALIVE,
@@ -456,12 +457,12 @@ public class RaidBossSpawnManager {
         return _spawns.containsKey(bossId);
     }
     
-    public Map<Integer, L2RaidBossInstance> getBosses()
+    public FastMap<Integer, L2RaidBossInstance> getBosses()
     {
         return _bosses;
     }
     
-    public Map<Integer, L2Spawn> getSpawns()
+    public FastMap<Integer, L2Spawn> getSpawns()
     {
         return _spawns;
     }

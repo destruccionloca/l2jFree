@@ -30,9 +30,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
-import org.apache.log4j.Logger;
-
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SpawnTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -48,6 +46,9 @@ import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.Revive;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * This class handles following admin commands:
  * - admin = shows menu
@@ -78,7 +79,7 @@ public class AdminEventEngine implements IAdminCommandHandler {
  private static String tempName = "";
  private static String tempName2 = "";
  private static boolean npcsDeleted = false;
- private static Logger _log = Logger.getLogger(AdminEventEngine.class);
+ private final static Log _log = LogFactory.getLog(AdminEventEngine.class);
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
 		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
@@ -453,7 +454,7 @@ public class AdminEventEngine implements IAdminCommandHandler {
                 L2Event.spawn(player, id);
            
             temp.add(player);}
-            for (L2PcInstance playertemp : player.getKnownList().getKnownPlayers()){
+            for (L2PcInstance playertemp : player.getKnownList().getKnownPlayers().values()){
               if( (Math.abs(playertemp.getX()-player.getX()) < 500) && (Math.abs(playertemp.getY()-player.getY()) < 500) &&  (Math.abs(playertemp.getZ()-player.getZ()) < 500) ) temp.add(playertemp);
             }
             

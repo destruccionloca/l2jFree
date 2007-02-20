@@ -2,9 +2,6 @@ package net.sf.l2j.gameserver.instancemanager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -13,9 +10,12 @@ import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Zone;
 import net.sf.l2j.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class ClanHallManager
 {
-    protected static Logger _log = Logger.getLogger(ClanHallManager.class.getName());
+    protected static Log _log = LogFactory.getLog(ClanHallManager.class.getName());
 
     // =========================================================
     private static ClanHallManager _Instance;
@@ -34,7 +34,7 @@ public class ClanHallManager
     
     // =========================================================
     // Data Field
-    private List<ClanHall> _ClanHalls;
+    private FastList<ClanHall> _ClanHalls;
     
     // =========================================================
     // Constructor
@@ -198,7 +198,7 @@ public class ClanHallManager
         return -1;
     }
 
-    public final List<ClanHall> getClanHalls()
+    public final FastList<ClanHall> getClanHalls()
     {
         if (_ClanHalls == null) _ClanHalls = new FastList<ClanHall>();
         return _ClanHalls;

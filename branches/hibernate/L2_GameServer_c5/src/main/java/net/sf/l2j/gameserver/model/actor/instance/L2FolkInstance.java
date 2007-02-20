@@ -1,6 +1,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
+import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.SkillTreeTable;
@@ -17,8 +18,8 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class L2FolkInstance extends L2NpcInstance 
 {
-	//private static Logger _log = Logger.getLogger(L2FolkInstance.class.getName());
-    private final ClassId[] _classesToTeach;
+	//private final static Log _log = LogFactory.getLog(L2FolkInstance.class.getName());
+    private FastList<ClassId> _classesToTeach;
 
     public L2FolkInstance(int objectId, L2NpcTemplate template)
     {
@@ -242,16 +243,25 @@ public class L2FolkInstance extends L2NpcInstance
                     // make a list of classes
 					if (_classesToTeach != null) 
                     {
-                        for (ClassId cid : _classesToTeach)
-                        {
-                            if (cid.level() != player.getClassId().level())
-                                continue;
-                            
-                            if (SkillTreeTable.getInstance().getAvailableSkills(player, cid).length == 0)
-                                continue;
-                            
-                            text += "<a action=\"bypass -h npc_%objectId%_SkillList "+cid.getId()+"\">Learn "+cid+"'s class Skills</a><br>\n";
-                        }
+                       int count = 0;
+                       ClassId classCheck = player.getClassId();
+                       
+                       while ((count == 0) && (classCheck != null))
+                       {
+                           for (ClassId cid : _classesToTeach)
+                           {
+                               if (cid.level() != classCheck.level())
+                                   continue;
+                               
+                               if (SkillTreeTable.getInstance().getAvailableSkills(player, cid).length == 0)
+                                   continue;
+                               
+                               text += "<a action=\"bypass -h npc_%objectId%_SkillList "+cid.getId()+"\">Learn "+cid+"'s class Skills</a><br>\n";
+                               count++;
+                           }
+                           classCheck = classCheck.getParent();
+                       }
+                       classCheck = null;
                     }
                     else
                     {

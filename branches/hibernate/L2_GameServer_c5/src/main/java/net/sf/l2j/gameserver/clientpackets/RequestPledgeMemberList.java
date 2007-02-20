@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
 public class RequestPledgeMemberList extends ClientBasePacket
 {
 	private static final String _C__3C_REQUESTPLEDGEMEMBERLIST = "[C] 3C RequestPledgeMemberList";
-	//private static Logger _log = Logger.getLogger(RequestPledgeMemberList.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestPledgeMemberList.class.getName());
 
 	/**
 	 * packet type id 0x3c

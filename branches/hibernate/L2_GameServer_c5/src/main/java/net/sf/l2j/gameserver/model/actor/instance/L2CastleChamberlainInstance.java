@@ -1,10 +1,10 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.Date;
-import java.util.List;
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
+import javolution.util.FastList;
 import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.model.CropProcure;
 import net.sf.l2j.gameserver.model.L2Manor;
@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2CastleChamberlainInstance extends L2FolkInstance
 {
-    //private static Logger _log = Logger.getLogger(L2CastleChamberlainInstance.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2CastleChamberlainInstance.class.getName());
 
     protected static int Cond_All_False = 0;
     protected static int Cond_Busy_Because_Of_Siege = 1;
@@ -57,7 +57,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
      
             if (actualCommand.equalsIgnoreCase("banish_foreigner"))
                 {
-                    getCastle().banishForeigner();                                                      // Move non-clan members off castle area
+                    getCastle().banishForeigner(player);                                                // Move non-clan members off castle area
                     return;
                 }
             else if (actualCommand.equalsIgnoreCase("list_siege_clans"))
@@ -265,7 +265,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
         if (getCastle() == null)
             return;
 
-        List<SeedProduction> seedes = getCastle().getSeedProduction();
+        FastList<SeedProduction> seedes = getCastle().getSeedProduction();
         NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
         String r="";
 
@@ -291,7 +291,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
         if (getCastle() == null)
             return;
 
-        List<CropProcure> crops = getCastle().getManorRewards();
+        FastList<CropProcure> crops = getCastle().getManorRewards();
         NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
         String r="";
 

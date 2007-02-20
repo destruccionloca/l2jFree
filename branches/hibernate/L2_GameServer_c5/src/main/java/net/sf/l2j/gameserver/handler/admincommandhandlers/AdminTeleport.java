@@ -20,9 +20,8 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
-import org.apache.log4j.Logger;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.SpawnTable;
@@ -40,6 +39,9 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class handles following admin commands:
  * - show_moves
@@ -52,7 +54,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class AdminTeleport implements IAdminCommandHandler 
 {
-    private static final Logger _log = Logger.getLogger(AdminTeleport.class.getName());
+    private static final Log _log = LogFactory.getLog(AdminTeleport.class.getName());
     
     private static String[] _adminCommands = {
         "admin_show_moves",
@@ -64,7 +66,6 @@ public class AdminTeleport implements IAdminCommandHandler
         "admin_teleport_character",
         "admin_recall",
         "admin_walk",
-        "admin_explore",
         "teleportto",
         "recall",
         "admin_recall_npc",
@@ -119,11 +120,6 @@ public class AdminTeleport implements IAdminCommandHandler
         else if (command.equals("admin_teleport_to_character"))
         {
             teleportToCharacter(activeChar, activeChar.getTarget());
-        }
-        else if (command.equals("admin_explore") && Config.ACTIVATE_POSITION_RECORDER)
-        {
-            activeChar._exploring = ! activeChar._exploring;
-            activeChar.explore();
         }
         else if (command.startsWith("admin_walk"))
         {
@@ -214,7 +210,7 @@ public class AdminTeleport implements IAdminCommandHandler
             int x = activeChar.getX();
             int y = activeChar.getY();
             int z = activeChar.getZ()+150;
-            activeChar.teleToLocation(x, y, z);
+            activeChar.teleToLocation(x, y, z, false);
             showTeleportWindow(activeChar);
         }
         else if (command.startsWith("admin_goup"))
@@ -226,7 +222,7 @@ public class AdminTeleport implements IAdminCommandHandler
                 int x = activeChar.getX();
                 int y = activeChar.getY();
                 int z = activeChar.getZ()+intVal;
-                activeChar.teleToLocation(x, y, z);
+                activeChar.teleToLocation(x, y, z, false);
                 showTeleportWindow(activeChar);
             }
             catch (StringIndexOutOfBoundsException e) {}
@@ -237,7 +233,7 @@ public class AdminTeleport implements IAdminCommandHandler
             int x = activeChar.getX();
             int y = activeChar.getY();
             int z = activeChar.getZ();
-            activeChar.teleToLocation(x, y, z - 150);
+            activeChar.teleToLocation(x, y, z - 150, false);
             showTeleportWindow(activeChar);
         }
         else if (command.startsWith("admin_godown"))
@@ -249,7 +245,7 @@ public class AdminTeleport implements IAdminCommandHandler
                 int x = activeChar.getX();
                 int y = activeChar.getY();
                 int z = activeChar.getZ()-intVal;
-                activeChar.teleToLocation(x, y, z);
+                activeChar.teleToLocation(x, y, z, false);
                 showTeleportWindow(activeChar);
             }
             catch (StringIndexOutOfBoundsException e) {}
@@ -260,7 +256,7 @@ public class AdminTeleport implements IAdminCommandHandler
             int x = activeChar.getX();
             int y = activeChar.getY();
             int z = activeChar.getZ();
-            activeChar.teleToLocation(x+150, y, z);
+            activeChar.teleToLocation(x+150, y, z, false);
             showTeleportWindow(activeChar);
         }
         else if (command.startsWith("admin_goeast"))
@@ -272,7 +268,7 @@ public class AdminTeleport implements IAdminCommandHandler
                 int x = activeChar.getX()+intVal;
                 int y = activeChar.getY();
                 int z = activeChar.getZ();
-                activeChar.teleToLocation(x, y, z);
+                activeChar.teleToLocation(x, y, z, false);
                 showTeleportWindow(activeChar);
             }
             catch (StringIndexOutOfBoundsException e) {}
@@ -283,7 +279,7 @@ public class AdminTeleport implements IAdminCommandHandler
             int x = activeChar.getX();
             int y = activeChar.getY();
             int z = activeChar.getZ();
-            activeChar.teleToLocation(x-150, y, z);
+            activeChar.teleToLocation(x-150, y, z, false);
             showTeleportWindow(activeChar);
         }
         else if (command.startsWith("admin_gowest"))
@@ -295,7 +291,7 @@ public class AdminTeleport implements IAdminCommandHandler
                 int x = activeChar.getX()-intVal;
                 int y = activeChar.getY();
                 int z = activeChar.getZ();
-                activeChar.teleToLocation(x, y, z);
+                activeChar.teleToLocation(x, y, z, false);
                 showTeleportWindow(activeChar);
             }
             catch (StringIndexOutOfBoundsException e) {}
@@ -306,7 +302,7 @@ public class AdminTeleport implements IAdminCommandHandler
             int x = activeChar.getX();
             int y = activeChar.getY()+150;
             int z = activeChar.getZ();
-            activeChar.teleToLocation(x, y, z);
+            activeChar.teleToLocation(x, y, z, false);
             showTeleportWindow(activeChar);
         }
         else if (command.startsWith("admin_gosouth"))
@@ -318,7 +314,7 @@ public class AdminTeleport implements IAdminCommandHandler
                 int x = activeChar.getX();
                 int y = activeChar.getY()+intVal;
                 int z = activeChar.getZ();
-                activeChar.teleToLocation(x, y, z);
+                activeChar.teleToLocation(x, y, z, false);
                 showTeleportWindow(activeChar);
             }
             catch (StringIndexOutOfBoundsException e) {}
@@ -329,7 +325,7 @@ public class AdminTeleport implements IAdminCommandHandler
             int x = activeChar.getX();
             int y = activeChar.getY();
             int z = activeChar.getZ();
-            activeChar.teleToLocation(x, y-150, z);
+            activeChar.teleToLocation(x, y-150, z, false);
             showTeleportWindow(activeChar);
         }
         else if (command.startsWith("admin_gonorth"))
@@ -341,7 +337,7 @@ public class AdminTeleport implements IAdminCommandHandler
                 int x = activeChar.getX();
                 int y = activeChar.getY()-intVal;
                 int z = activeChar.getZ();
-                activeChar.teleToLocation(x, y, z);
+                activeChar.teleToLocation(x, y, z, false);
                 showTeleportWindow(activeChar);
             }
             catch (StringIndexOutOfBoundsException e) {}
@@ -374,7 +370,7 @@ public class AdminTeleport implements IAdminCommandHandler
             int z = Integer.parseInt(z1);
             
             activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-            activeChar.teleToLocation(x, y, z);
+            activeChar.teleToLocation(x, y, z, false);
             
             SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
             sm.addString("You have been teleported to " + Cords);
@@ -536,17 +532,23 @@ public class AdminTeleport implements IAdminCommandHandler
         if ((obj != null) && (obj instanceof L2NpcInstance))
         {
             L2NpcInstance target = (L2NpcInstance) obj;
-            L2Spawn spawn = target.getSpawn();
-            
+
             int monsterTemplate = target.getTemplate().npcId;
-            
-            
             L2NpcTemplate template1 = NpcTable.getInstance().getTemplate(monsterTemplate);
-            
             if (template1 == null)
             {
                 activeChar.sendMessage("Incorrect monster template.");
+                _log.warn("ERROR: NPC " + target.getObjectId() + " has a 'null' template.");
                 return;
+            }
+
+            L2Spawn spawn = target.getSpawn();
+            
+            if (spawn == null)
+            {
+                activeChar.sendMessage("Incorrect monster spawn.");
+                _log.warn("ERROR: NPC " + target.getObjectId() + " has a 'null' spawn.");
+                 return;
             }
             
             int respawnTime = spawn.getRespawnDelay();

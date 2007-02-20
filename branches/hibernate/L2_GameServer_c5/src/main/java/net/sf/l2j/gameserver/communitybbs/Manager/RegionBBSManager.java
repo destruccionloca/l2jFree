@@ -24,7 +24,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.GameTimeController;
@@ -37,11 +37,12 @@ import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.ShowBoard;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class RegionBBSManager extends BaseBBSManager
 {
-	private static Logger _logChat = Logger.getLogger("chat"); 
+	private static Log _logChat = LogFactory.getLog("chat"); 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.communitybbs.Manager.BaseBBSManager#parsecmd(java.lang.String, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance)
 	 */
@@ -76,7 +77,7 @@ public class RegionBBSManager extends BaseBBSManager
 		}
 		else
 		{
-			if(Config.COMMUNITY_TYPE.toLowerCase().equals("old"))
+            if(Config.COMMUNITY_TYPE.equals("old"))
 			{
 				showOldCommunity(activeChar, 0);	
 			}
@@ -123,7 +124,7 @@ public class RegionBBSManager extends BaseBBSManager
 		    {
 		        long nextLevelExp = 0;
 		        long nextLevelExpNeeded = 0;
-		        if (player.getLevel() < 75)
+                if (player.getLevel() < (Experience.MAX_LEVEL - 1))
 		        {
 		            nextLevelExp = Experience.LEVEL[player.getLevel() + 1];
 		            nextLevelExpNeeded = nextLevelExp-player.getExp();

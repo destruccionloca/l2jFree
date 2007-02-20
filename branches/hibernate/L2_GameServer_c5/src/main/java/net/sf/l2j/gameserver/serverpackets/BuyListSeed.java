@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2TradeList;
@@ -11,10 +9,10 @@ public class BuyListSeed extends ServerBasePacket
 {
     private static final String _S__E8_BUYLISTSEED = "[S] E8 BuyListSeed";
     
-    //private static Logger _log = Logger.getLogger(BuyListSeed.class.getName());
+    //private final static Log _log = LogFactory.getLog(BuyListSeed.class.getName());
     
     private int _listId;
-    private List<L2ItemInstance> _list = new FastList<L2ItemInstance>();
+    private FastList<L2ItemInstance> _list = new FastList<L2ItemInstance>();
     private int _money;
     private int _castle;
 

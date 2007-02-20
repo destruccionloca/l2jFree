@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
  */
 public class PetInfo extends ServerBasePacket
 {
-	//private static Logger _log = Logger.getLogger(PetInfo.class.getName());
+	//private final static Log _log = LogFactory.getLog(PetInfo.class.getName());
 	
 	private static final String _S__CA_PETINFO = "[S] b1 PetInfo";
 	private L2Summon _summon;

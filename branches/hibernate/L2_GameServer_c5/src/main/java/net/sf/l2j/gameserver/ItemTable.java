@@ -24,7 +24,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastMap;
@@ -47,7 +46,8 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -56,19 +56,19 @@ import org.apache.log4j.Logger;
  */
 public class ItemTable
 {
-    private static Logger _log = Logger.getLogger(ItemTable.class.getName());
-    private static Logger _logItems = Logger.getLogger("item");
+    private final static Log _log = LogFactory.getLog(ItemTable.class.getName());
+    private static Log _logItems = LogFactory.getLog("item");
     
-    private static final Map<String, Integer> _materials = new FastMap<String, Integer>();
-    private static final Map<String, Integer> _crystalTypes = new FastMap<String, Integer>();
-    private static final Map<String, L2WeaponType> _weaponTypes = new FastMap<String, L2WeaponType>();
-    private static final Map<String, L2ArmorType> _armorTypes = new FastMap<String, L2ArmorType>();
-    private static final Map<String, Integer> _slots = new FastMap<String, Integer>();
+    private static final FastMap<String, Integer> _materials = new FastMap<String, Integer>();
+    private static final FastMap<String, Integer> _crystalTypes = new FastMap<String, Integer>();
+    private static final FastMap<String, L2WeaponType> _weaponTypes = new FastMap<String, L2WeaponType>();
+    private static final FastMap<String, L2ArmorType> _armorTypes = new FastMap<String, L2ArmorType>();
+    private static final FastMap<String, Integer> _slots = new FastMap<String, Integer>();
     
     private L2Item[] _allTemplates;
-    private Map<Integer, L2EtcItem> _etcItems;
-    private Map<Integer, L2Armor>   _armors;
-    private Map<Integer, L2Weapon>  _weapons;
+    private FastMap<Integer, L2EtcItem> _etcItems;
+    private FastMap<Integer, L2Armor>   _armors;
+    private FastMap<Integer, L2Weapon>  _weapons;
     
     private boolean _initialized = true;
     
@@ -130,7 +130,10 @@ public class ItemTable
         _slots.put("fullarmor",            L2Item.SLOT_FULL_ARMOR); 
         _slots.put("head",                 L2Item.SLOT_HEAD);
         _slots.put("hair",                 L2Item.SLOT_HAIR);
+        _slots.put("face",                 L2Item.SLOT_FACE);
+        _slots.put("dhair",                L2Item.SLOT_DHAIR);
         _slots.put("underwear",            L2Item.SLOT_UNDERWEAR);
+        _slots.put("cloak",                L2Item.SLOT_CLOAK);
         _slots.put("back",                 L2Item.SLOT_BACK);
         _slots.put("neck",                 L2Item.SLOT_NECK);
         _slots.put("legs",                 L2Item.SLOT_LEGS);
@@ -155,15 +158,23 @@ public class ItemTable
     private static final String[] SQL_ITEM_SELECTS  =
     {
         "SELECT item_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type, durability, price, crystal_count, sellable FROM etcitem",
-        "SELECT item_id, name, bodypart, crystallizable, armor_type, weight, material, crystal_type, avoid_modify, durability, p_def, m_def, mp_bonus, price, crystal_count, sellable FROM armor",
-        "SELECT item_id, name, bodypart, crystallizable, weight, soulshots, spiritshots, material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify, shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, durability, price, crystal_count, sellable FROM weapon"
+        
+        "SELECT item_id, name, bodypart, crystallizable, armor_type, weight," +
+        " material, crystal_type, avoid_modify, durability, p_def, m_def, mp_bonus," +
+        " price, crystal_count, sellable, item_skill_id, item_skill_lvl FROM armor",
+        
+        "SELECT item_id, name, bodypart, crystallizable, weight, soulshots, spiritshots," +
+           " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify," +
+           " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, durability, price, crystal_count," +
+           " sellable, item_skill_id, item_skill_lvl,enchant4_skill_id,enchant4_skill_lvl, onCast_skill_id, onCast_skill_lvl," +
+           " onCast_skill_chance, onCrit_skill_id, onCrit_skill_lvl, onCrit_skill_chance FROM weapon"
     };
     /** List of etcItem */
-    private static final Map<Integer, Item> itemData    = new FastMap<Integer, Item>();
+    private static final FastMap<Integer, Item> itemData    = new FastMap<Integer, Item>();
     /** List of weapons */
-    private static final Map<Integer, Item> weaponData  = new FastMap<Integer, Item>();
+    private static final FastMap<Integer, Item> weaponData  = new FastMap<Integer, Item>();
     /** List of armor */
-    private static final Map<Integer, Item> armorData   = new FastMap<Integer, Item>();
+    private static final FastMap<Integer, Item> armorData   = new FastMap<Integer, Item>();
     
     /**
      * Returns instance of ItemTable
@@ -306,7 +317,21 @@ public class ItemTable
         item.set.set("price",          rset.getInt("price"));
         item.set.set("crystal_count",  rset.getInt("crystal_count"));
         item.set.set("sellable",       Boolean.valueOf(rset.getString("sellable")));
+
+        item.set.set("item_skill_id", rset.getInt("item_skill_id"));
+        item.set.set("item_skill_lvl", rset.getInt("item_skill_lvl"));
         
+        item.set.set("enchant4_skill_id", rset.getInt("enchant4_skill_id"));
+        item.set.set("enchant4_skill_lvl", rset.getInt("enchant4_skill_lvl"));
+        
+        item.set.set("onCast_skill_id", rset.getInt("onCast_skill_id"));
+        item.set.set("onCast_skill_lvl", rset.getInt("onCast_skill_lvl"));
+        item.set.set("onCast_skill_chance", rset.getInt("onCast_skill_chance"));
+        
+        item.set.set("onCrit_skill_id", rset.getInt("onCrit_skill_id"));
+        item.set.set("onCrit_skill_lvl", rset.getInt("onCrit_skill_lvl"));
+        item.set.set("onCrit_skill_chance", rset.getInt("onCrit_skill_chance"));
+
         if (item.type == L2WeaponType.PET)
         {
             item.set.set("type1", L2Item.TYPE1_WEAPON_RING_EARRING_NECKLACE);
@@ -344,8 +369,13 @@ public class ItemTable
         item.set.set("crystallizable", Boolean.valueOf(rset.getString("crystallizable")));
         item.set.set("crystal_count", rset.getInt("crystal_count"));
         item.set.set("sellable", Boolean.valueOf(rset.getString("sellable")));
+        item.set.set("item_skill_id", rset.getInt("item_skill_id"));
+        item.set.set("item_skill_lvl", rset.getInt("item_skill_lvl"));
+
         if (bodypart == L2Item.SLOT_NECK ||
             bodypart == L2Item.SLOT_HAIR ||
+            bodypart == L2Item.SLOT_FACE ||
+            bodypart == L2Item.SLOT_DHAIR ||            
             (bodypart & L2Item.SLOT_L_EAR) != 0 || 
             (bodypart & L2Item.SLOT_L_FINGER) != 0)
         {
@@ -414,7 +444,7 @@ public class ItemTable
         else if (itemType.equals("seed"))         item.type = L2EtcItemType.SEED;
         else if (itemType.equals("shot"))         item.type = L2EtcItemType.SHOT;
         else if (itemType.equals("spellbook"))    item.type = L2EtcItemType.SPELLBOOK; // Spellbook, Amulet, Blueprint
-        else if (itemType.equals("herb"))		  item.type = L2EtcItemType.HERB; 
+        else if (itemType.equals("herb"))         item.type = L2EtcItemType.HERB; 
         else if (itemType.equals("arrow"))
         {
             item.type = L2EtcItemType.ARROW;
@@ -494,7 +524,7 @@ public class ItemTable
 
     private void fillArmorsTable()
     {
-        List<L2Armor> armorList = SkillsEngine.getInstance().loadArmors(armorData);
+        FastList<L2Armor> armorList = SkillsEngine.getInstance().loadArmors(armorData);
 
         /*for (Item itemInfo : armorData.values())
             {

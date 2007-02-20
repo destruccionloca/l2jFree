@@ -21,9 +21,10 @@ package net.sf.l2j.gameserver.gameserverpackets;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.gameserver.TaskPriority;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author -Wooden-
@@ -31,7 +32,7 @@ import net.sf.l2j.gameserver.TaskPriority;
  */
 public abstract class GameServerBasePacket
 {
-    private static Logger _log = Logger.getLogger(GameServerBasePacket.class);
+    private final static Log _log = LogFactory.getLog(GameServerBasePacket.class);
     
 	ByteArrayOutputStream _bao;
 

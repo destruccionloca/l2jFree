@@ -26,7 +26,8 @@ import java.util.HashSet;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This is a class loader for the dynamic extensions used by DynamicExtension class.
@@ -35,7 +36,7 @@ import org.apache.log4j.Logger;
  * @author  galun
  */
 public class JarClassLoader extends ClassLoader {
-    private static Logger log = Logger.getLogger(JarClassLoader.class.getCanonicalName());
+    private static Log _log = LogFactory.getLog(JarClassLoader.class.getCanonicalName());
     HashSet<String> jars = new HashSet<String>();
 
     public void addJarFile(String filename) {
@@ -66,7 +67,7 @@ public class JarClassLoader extends ClassLoader {
     			zipStream.readFully(classData, 0, (int) entry.getSize());
     			break;
     		} catch (IOException e) {
-    			log.warn( jarFile + ":" + e.toString(), e);
+    			_log.warn( jarFile + ":" + e.toString(), e);
     			continue;
     		}
     	}

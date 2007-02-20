@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -14,7 +12,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class L2ControlTowerInstance extends L2NpcInstance {
 
-    private List<L2Spawn> _Guards; 
+    private FastList<L2Spawn> _Guards; 
 	
 	public L2ControlTowerInstance(int objectId, L2NpcTemplate template)
 	{
@@ -99,7 +97,7 @@ public class L2ControlTowerInstance extends L2NpcInstance {
         getGuards().add(guard);
     }
     
-    public final List<L2Spawn> getGuards()
+    public final FastList<L2Spawn> getGuards()
     {
         if (_Guards == null) _Guards = new FastList<L2Spawn>();
         return _Guards;

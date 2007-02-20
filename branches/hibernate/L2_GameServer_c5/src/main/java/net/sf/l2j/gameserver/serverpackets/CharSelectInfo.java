@@ -20,15 +20,15 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.CharSelectInfoPackage;
 import net.sf.l2j.gameserver.model.Inventory;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -39,9 +39,11 @@ public class CharSelectInfo extends ServerBasePacket
 {
     // d SdSddddddddddffdddddddddddddddddddddddddddddddddddddddddddddddffdddcdd ?
     // d SdSddddddddddffdQddddddddddddddddddddddddddddddddddddddddddddddffdddcdd ?
+    // d SdSddddddddddffdQddddddddddddddddddddddddddddddddddddddddddddddddffdddchh chaotic throne
+    
     private static final String _S__1F_CHARSELECTINFO = "[S] 1F CharSelectInfo";
 
-    private static Logger _log = Logger.getLogger(CharSelectInfo.class.getName());
+    private final static Log _log = LogFactory.getLog(CharSelectInfo.class.getName());
 
     private String _loginName;
 
@@ -115,9 +117,7 @@ public class CharSelectInfo extends ServerBasePacket
             writeF(charInfoPackage.getCurrentMp()); // mp cur
 
             writeD(charInfoPackage.getSp());
-            writeD(charInfoPackage.getExp());
-            if (getClient().getRevision() >= 690)
-                writeD(0x00);  //  ??        
+            writeQ(charInfoPackage.getExp());
             
             writeD(charInfoPackage.getLevel()); 
             writeD(charInfoPackage.getKarma()); //karma
@@ -148,6 +148,8 @@ public class CharSelectInfo extends ServerBasePacket
             writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_BACK));
             writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LRHAND));
             writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
+            if (getClient().getRevision() >= 729)
+                writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_CLOAK));
             
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
@@ -165,6 +167,8 @@ public class CharSelectInfo extends ServerBasePacket
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
+            if (getClient().getRevision() >= 729)
+                writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_CLOAK));
             
             writeD(charInfoPackage.getHairStyle());
             writeD(charInfoPackage.getHairColor());
@@ -183,10 +187,15 @@ public class CharSelectInfo extends ServerBasePacket
                 writeD(0x00); //c3 auto-select char
             
             writeC(charInfoPackage.getEnchantEffect());
-            if (getClient().getRevision() >= 690) // c5
+            if (getClient().getRevision() >= 729)
             {
-                writeD(0x00);//c5 ??
-                writeD(0x00);//c5 ??
+                writeH(0x00);
+                writeH(0x00);                
+            }
+            else
+            {
+                writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
+                writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_FACE));
             }
         }
     }
@@ -194,7 +203,7 @@ public class CharSelectInfo extends ServerBasePacket
     private CharSelectInfoPackage[] loadCharacterSelectInfo()
     {
         CharSelectInfoPackage charInfopackage;
-        List<CharSelectInfoPackage> characterList = new FastList<CharSelectInfoPackage>();
+        FastList<CharSelectInfoPackage> characterList = new FastList<CharSelectInfoPackage>();
 
         java.sql.Connection con = null;
         
@@ -229,6 +238,39 @@ public class CharSelectInfo extends ServerBasePacket
         return new CharSelectInfoPackage[0];
     }
 
+    private void loadCharacterSubclassInfo(CharSelectInfoPackage charInfopackage, int ObjectId, int activeClassId)
+    {
+        java.sql.Connection con = null;
+        
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection();
+            PreparedStatement statement = con.prepareStatement("SELECT exp, sp, level FROM character_subclasses WHERE char_obj_id=? && class_id=? ORDER BY char_obj_id");
+            statement.setInt(1, ObjectId);
+            statement.setInt(2, activeClassId);
+            ResultSet charList = statement.executeQuery();
+            
+            if (charList.next())
+            {
+                charInfopackage.setExp(charList.getLong("exp"));
+                charInfopackage.setSp(charList.getInt("sp"));
+                charInfopackage.setLevel(charList.getInt("level"));
+            }
+            
+            charList.close();
+            statement.close();
+            
+        }
+        catch (Exception e)
+        {
+           _log.warn("Could not restore char subclass info: " + e);
+        } 
+        finally 
+        {
+           try { con.close(); } catch (Exception e) {}
+       }
+
+    } 
 
     private CharSelectInfoPackage restoreChar(ResultSet chardata) throws Exception
     {
@@ -249,7 +291,7 @@ public class CharSelectInfo extends ServerBasePacket
         charInfopackage.setHairColor(chardata.getInt("haircolor"));
         charInfopackage.setSex(chardata.getInt("sex"));
         
-        charInfopackage.setExp(chardata.getInt("exp"));
+        charInfopackage.setExp(chardata.getLong("exp"));
         charInfopackage.setSp(chardata.getInt("sp"));
         charInfopackage.setKarma(chardata.getInt("karma"));
         charInfopackage.setClanId(chardata.getInt("clanid"));
@@ -258,6 +300,10 @@ public class CharSelectInfo extends ServerBasePacket
         
         final int baseClassId = chardata.getInt("base_class");
         final int activeClassId = chardata.getInt("classid");
+
+        // if is in subclass, load subclass exp, sp, lvl info
+        if(baseClassId != activeClassId)        
+           loadCharacterSubclassInfo(charInfopackage, objectId, activeClassId);        
         
         charInfopackage.setClassId(activeClassId);
         

@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
@@ -50,9 +48,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class PartySmallWindowAll extends ServerBasePacket
 {
 	private static final String _S__63_PARTYSMALLWINDOWALL = "[S] 4e PartySmallWindowAll";
-	private List<L2PcInstance> _partyMembers = new FastList<L2PcInstance>();
+	private FastList<L2PcInstance> _partyMembers = new FastList<L2PcInstance>();
 	
-	public void setPartyList(List<L2PcInstance> party) {
+	public void setPartyList(FastList<L2PcInstance> party) {
 		_partyMembers = party;
 	}
 

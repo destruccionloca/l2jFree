@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
-
 import javolution.util.FastList;
 
 /**
@@ -32,7 +30,7 @@ import javolution.util.FastList;
 public class MagicEffectIcons extends ServerBasePacket
 {
 	private static final String _S__97_MAGICEFFECTICONS = "[S] 7f MagicEffectIcons";
-	private List<Effect> _effects;
+	private FastList<Effect> _effects;
 	
 	class Effect
 	{

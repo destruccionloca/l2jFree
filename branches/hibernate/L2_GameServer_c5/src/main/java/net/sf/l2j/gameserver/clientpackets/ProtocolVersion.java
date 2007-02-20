@@ -19,12 +19,14 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.serverpackets.KeyPacket;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -34,7 +36,7 @@ import net.sf.l2j.gameserver.serverpackets.KeyPacket;
 public class ProtocolVersion extends ClientBasePacket
 {
 	private static final String _C__00_PROTOCOLVERSION = "[C] 00 ProtocolVersion";
-	static Logger _log = Logger.getLogger(ProtocolVersion.class.getName());
+	static Log _log = LogFactory.getLog(ProtocolVersion.class.getName());
     
     private final long _version;
 
@@ -67,7 +69,7 @@ public class ProtocolVersion extends ClientBasePacket
 		}
         else if (_version < Config.MIN_PROTOCOL_REVISION)
         {
-            _log.info("Client Protocol Revision:" + _version + " is too low. only "+Config.MIN_PROTOCOL_REVISION+" and "+Config.MAX_PROTOCOL_REVISION+" are supported. closing connection.");
+            _log.info("Client (" + getClient().getLoginName() + ") Protocol Revision:" + _version + " is too low. only "+Config.MIN_PROTOCOL_REVISION+" and "+Config.MAX_PROTOCOL_REVISION+" are supported. Closing connection.");
             _log.info("Login name name: "+getClient().getLoginName());
             _log.warn("Wrong Protocol Version "+_version);
 			getConnection().close();
@@ -75,7 +77,7 @@ public class ProtocolVersion extends ClientBasePacket
         }
         else if (_version > Config.MAX_PROTOCOL_REVISION)
         {
-            _log.info("Client Protocol Revision:" + _version + " is too high. only "+Config.MIN_PROTOCOL_REVISION+" and "+Config.MAX_PROTOCOL_REVISION+" are supported. closing connection.");
+            _log.info("Client Protocol Revision:" + _version + " is too high. only "+Config.MIN_PROTOCOL_REVISION+" and "+Config.MAX_PROTOCOL_REVISION+" are supported. Closing connection.");
             _log.warn("Wrong Protocol Version "+_version);
             getConnection().close();
 			return;

@@ -25,13 +25,13 @@
  */
 package net.sf.l2j.gameserver.taskmanager;
 
-import java.util.Map;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.serverpackets.AutoAttackStop;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -41,9 +41,9 @@ import net.sf.l2j.gameserver.serverpackets.AutoAttackStop;
  */
 public class AttackStanceTaskManager
 {
-    protected static Logger _log = Logger.getLogger(AttackStanceTaskManager.class.getName());
+    protected static Log _log = LogFactory.getLog(AttackStanceTaskManager.class.getName());
 
-    protected Map<L2Character,Long> _attackStanceTasks = new FastMap<L2Character,Long>().setShared(true);
+    protected FastMap<L2Character,Long> _attackStanceTasks = new FastMap<L2Character,Long>().setShared(true);
     
     public static AttackStanceTaskManager _instance;
     
@@ -86,13 +86,16 @@ public class AttackStanceTaskManager
         {
             Long current = System.currentTimeMillis();
             if (_attackStanceTasks != null)
-                for(L2Character actor : _attackStanceTasks.keySet())
+                synchronized (this) 
                 {
-                    if((current - _attackStanceTasks.get(actor)) > 15000)
+                    for(L2Character actor : _attackStanceTasks.keySet())
                     {
-                        actor.broadcastPacket(new AutoAttackStop(actor.getObjectId()));
-                        actor.getAI().setAutoAttacking(false);
-                        _attackStanceTasks.remove(actor);
+                        if((current - _attackStanceTasks.get(actor)) > 15000)
+                        {
+                            actor.broadcastPacket(new AutoAttackStop(actor.getObjectId()));
+                            actor.getAI().setAutoAttacking(false);
+                            _attackStanceTasks.remove(actor);
+                        }
                     }
                 }
         }

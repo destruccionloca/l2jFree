@@ -22,7 +22,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -32,13 +31,16 @@ import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class Lottery
 {
     public static long SECOND = 1000;
     public static long MINUTE = 60 * SECOND;
     
     private static Lottery _instance;
-    protected static Logger _log = Logger.getLogger(Lottery.class.getName());
+    protected static Log _log = LogFactory.getLog(Lottery.class.getName());
     
     private static final String INSERT_LOTTERY = "INSERT INTO games(id, idnr, enddate, prize, newprize) VALUES (?, ?, ?, ?, ?)";
     private static final String UPDATE_PRICE = "UPDATE games SET prize=?, newprize=? WHERE id = 1 AND idnr = ?";

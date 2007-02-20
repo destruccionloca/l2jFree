@@ -26,6 +26,7 @@ import java.util.concurrent.Future;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GameTimeController;
+import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -40,8 +41,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
-import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
-import org.apache.log4j.Logger;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * This class manages AI of L2Attackable.<BR><BR>
  * 
@@ -49,7 +51,7 @@ import org.apache.log4j.Logger;
 public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 {
 
-    //protected static final Logger _log = Logger.getLogger(L2SiegeGuardAI.class.getName());
+    private final static Log _log = LogFactory.getLog(L2SiegeGuardAI.class.getName());
 
     private static final int MAX_ATTACK_TIMEOUT = 300; // int ticks, i.e. 30 seconds 
 
@@ -143,14 +145,9 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
             if (((L2PcInstance) target).isSilentMoving()
                 && !_actor.isInsideRadius(target, 100, false, false)) return false;
         }
-        if (GeoDataRequester.getInstance().hasMovementLoS(_actor,target).LoS == true )
-        {
-            return _actor.isAutoAttackable(target); // Target is auto attackable
-        }
-        else
-        {
-            return false;
-        }
+               // Los Check Here
+        return (_actor.isAutoAttackable(target) && GeoData.getInstance().canSeeTarget(_actor, target));
+        
     }
 
     /**
@@ -361,10 +358,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                         }
 
                         clientStopMoving(null);
-                         if (GeoDataRequester.getInstance().hasAttackLoS(_actor,getAttackTarget()))
-                         {
-                             _accessor.doCast(sk);
-                         }
+                        _accessor.doCast(sk);
                         _actor.setTarget(OldTarget);
                         return;
                     }
@@ -398,10 +392,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                 else
                 {
                     // Move the actor to Pawn server side AND client side by sending Server->Client packet MoveToPawn (broadcast)
-                    if (GeoDataRequester.getInstance().hasMovementLoS(_actor,_attack_target).LoS == true )
-                    {
-                        moveToPawn(_attack_target, range);
-                    }
+                    moveToPawn(_attack_target, range);
                 }
             }
 
@@ -411,11 +402,8 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
         // Else, if the actor is muted and far from target, just "move to pawn"
         else if (_actor.isMuted() && dist_2 > (range + 20) * (range + 20))
         {
-            if (GeoDataRequester.getInstance().hasMovementLoS(_actor,_attack_target).LoS == true )
-            {
-                moveToPawn(_attack_target, range);
-                return;
-            }
+            moveToPawn(_attack_target, range);
+            return;
         }
         // Else, if this is close enough to attack
         else if (dist_2 <= (range + 20) * (range + 20))

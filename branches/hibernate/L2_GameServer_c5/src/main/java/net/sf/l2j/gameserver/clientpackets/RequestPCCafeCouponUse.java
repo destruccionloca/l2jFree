@@ -20,9 +20,10 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.gameserver.ClientThread;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Format: (ch) S
@@ -31,7 +32,7 @@ import net.sf.l2j.gameserver.ClientThread;
  */
 public class RequestPCCafeCouponUse extends ClientBasePacket
 {
-    private static Logger _log = Logger.getLogger(RequestPCCafeCouponUse.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestPCCafeCouponUse.class.getName());
     private static final String _C__D0_20_REQUESTPCCAFECOUPONUSE = "[C] D0:20 RequestPCCafeCouponUse";
     private String _str;
 

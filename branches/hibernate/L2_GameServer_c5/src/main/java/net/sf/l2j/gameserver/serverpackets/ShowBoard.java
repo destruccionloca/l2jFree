@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
+import javolution.util.FastList;
 
 public class ShowBoard extends ServerBasePacket
 {
@@ -26,7 +26,7 @@ public class ShowBoard extends ServerBasePacket
 
 	private String _htmlCode;	
 	private String _id;
-	private List<String> _arg;
+	private FastList<String> _arg;
 
 	public ShowBoard(String htmlCode, String id)
 	{
@@ -34,7 +34,7 @@ public class ShowBoard extends ServerBasePacket
 		_htmlCode = htmlCode; // html code must not exceed 8192 bytes 
 	}
 
-	public ShowBoard(List<String> arg)
+	public ShowBoard(FastList<String> arg)
 	{
 		_id = "1002";
 		_htmlCode = null;

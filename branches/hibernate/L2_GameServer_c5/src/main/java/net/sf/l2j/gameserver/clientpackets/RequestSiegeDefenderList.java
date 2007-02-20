@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.serverpackets.SiegeDefenderList;
 public class RequestSiegeDefenderList extends ClientBasePacket{
     
     private static final String _C__a3_RequestSiegeDefenderList = "[C] a3 RequestSiegeDefenderList";
-    //private static Logger _log = Logger.getLogger(RequestJoinParty.class.getName());
+    //private final static Log _log = LogFactory.getLog(RequestJoinParty.class.getName());
 
     private final int _CastleId;
     

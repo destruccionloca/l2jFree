@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.TradeController;
@@ -43,7 +43,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2MerchantInstance extends L2FolkInstance
 {
-    //private static Logger _log = Logger.getLogger(L2MerchantInstance.class.getName());
+    //private final static Log _log = LogFactory.getLog(L2MerchantInstance.class.getName());
 
     /**
      * @param template

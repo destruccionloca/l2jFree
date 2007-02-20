@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
 import java.util.Collection;
 import java.util.concurrent.ScheduledFuture;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -48,7 +48,8 @@ import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -57,7 +58,7 @@ import org.apache.log4j.Logger;
  */
 public class L2DoorInstance extends L2Character
 {
-    protected static Logger log = Logger.getLogger(L2DoorInstance.class.getName());
+    protected static Log _log = LogFactory.getLog(L2DoorInstance.class.getName());
 
     /** The castle index in the array of L2Castle this L2NpcInstance belongs to */
     private int _CastleIndex = -2;
@@ -116,7 +117,7 @@ public class L2DoorInstance extends L2Character
             } 
             catch (Throwable e) 
             {
-                log.fatal( "", e);
+                _log.fatal( "", e);
             }
         }
     }   
@@ -141,10 +142,10 @@ public class L2DoorInstance extends L2Character
                 }
                 
                 if (_log.isDebugEnabled())
-                    log.info("Auto " + doorAction + " door ID " + _doorId + " (" + _name + ") for " + (_autoActionDelay / 60000) + " minute(s).");
+                    _log.info("Auto " + doorAction + " door ID " + _doorId + " (" + _name + ") for " + (_autoActionDelay / 60000) + " minute(s).");
             }
             catch (Exception e) {
-                log.warn("Could not auto open/close door ID " + _doorId + " (" + _name + ")");
+                _log.warn("Could not auto open/close door ID " + _doorId + " (" + _name + ")");
             }
         }
     }
@@ -425,7 +426,7 @@ public class L2DoorInstance extends L2Character
 
     public void broadcastStatusUpdate()
     {
-        Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers(); 
+        Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values(); 
         if (knownPlayers == null || knownPlayers.isEmpty())
             return;
 
@@ -470,7 +471,7 @@ public class L2DoorInstance extends L2Character
     {
         FastList<L2SiegeGuardInstance> result = new FastList<L2SiegeGuardInstance>();
         
-        for (L2Object obj : getKnownList().getKnownObjects())  
+        for (L2Object obj : getKnownList().getKnownObjects().values())  
         {  
             if (obj instanceof L2SiegeGuardInstance) result.add((L2SiegeGuardInstance) obj);
         }

@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.Shutdown;
@@ -38,7 +38,7 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
  * @version $Revision: 1.5.2.1.2.4 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminShutdown implements IAdminCommandHandler {
-	//private static Logger _log = Logger.getLogger(AdminShutdown.class.getName());
+	//private final static Log _log = LogFactory.getLog(AdminShutdown.class.getName());
 	
 	private static String[] _adminCommands = {"admin_server_shutdown", "admin_server_restart", "admin_server_abort"};
 	private static final int REQUIRED_LEVEL = Config.GM_RESTART;

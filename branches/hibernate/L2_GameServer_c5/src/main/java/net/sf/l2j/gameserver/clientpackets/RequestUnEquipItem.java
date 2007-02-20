@@ -27,7 +27,8 @@ import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -37,7 +38,7 @@ import org.apache.log4j.Logger;
 public class RequestUnEquipItem extends ClientBasePacket
 {
 	private static final String _C__11_REQUESTUNEQUIPITEM = "[C] 11 RequestUnequipItem";
-	private static Logger _log = Logger.getLogger(RequestUnEquipItem.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestUnEquipItem.class.getName());
 
 	// cd
 	private final int _slot;
@@ -71,12 +72,15 @@ public class RequestUnEquipItem extends ClientBasePacket
             return;
         }
         
-        // Prevent Stunned player to remove the weapon
-        if (activeChar.isStunned() || activeChar.isSleeping())
+        // Prevent player to remove the weapon on special conditions
+        if (activeChar.isStunned() || activeChar.isSleeping() 
+                   || activeChar.isParalyzed() || activeChar.isAlikeDead())
         {
             activeChar.sendMessage("Your status does not allow you to do that.");
             return;
         }
+        if (activeChar.isAttackingNow() || activeChar.isCastingNow()) 
+           return;
         
 		L2ItemInstance[] unequiped =
 			activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot); 

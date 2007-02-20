@@ -1,7 +1,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.ClientThread;
@@ -10,10 +9,13 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class RequestSurrenderPledgeWar extends ClientBasePacket
 {
     private static final String _C__51_REQUESTSURRENDERPLEDGEWAR = "[C] 51 RequestSurrenderPledgeWar";
-    private static Logger _log = Logger.getLogger(RequestSurrenderPledgeWar.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestSurrenderPledgeWar.class.getName());
 
     String _pledgeName;
     L2Clan _clan;

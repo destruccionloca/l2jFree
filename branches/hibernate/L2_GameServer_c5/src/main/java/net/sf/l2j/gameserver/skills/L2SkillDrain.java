@@ -1,6 +1,6 @@
 package net.sf.l2j.gameserver.skills;
 
-import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -89,27 +89,26 @@ public class L2SkillDrain extends L2Skill {
 			activeChar.sendPacket(suhp);
 			
             // Check to see if we should damage the target
-            if (!target.isDead() || getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
+            if (damage > 0 && (!target.isDead() || getTargetType() != SkillTargetType.TARGET_CORPSE_MOB))
             {
 
-                if (target instanceof L2NpcInstance) {
-                    if (target.isChampion()) {
-                        damage /= Config.CHAMPION_HP;
-                    }
-                }
                 if (target.isPetrified())
                 {damage= 0;}
                 target.reduceCurrentHp(damage, activeChar);
                 
-                if (damage > 0)
+                // Manage attack or cast break of the target (calculating rate, sending message...)
+                if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
                 {
-                    if (mcrit) activeChar.sendPacket(new SystemMessage(1280));
-                    
-        			SystemMessage sm = new SystemMessage(SystemMessage.YOU_DID_S1_DMG);
-        			sm.addNumber(damage); 
-        			activeChar.sendPacket(sm);
-                    
-                 }
+                    target.breakAttack();
+                    target.breakCast();                 
+                }
+                
+                if (mcrit) activeChar.sendPacket(new SystemMessage(1280));
+                
+                SystemMessage sm = new SystemMessage(SystemMessage.YOU_DID_S1_DMG);
+                sm.addNumber(damage); 
+                activeChar.sendPacket(sm);
+                
                 if (this.hasEffects())
                 {
                 // activate attacked effects, if any
@@ -127,9 +126,19 @@ public class L2SkillDrain extends L2Skill {
             }
             }
             // Check to see if we should do the decay right after the cast
-            if (target.isDead() && getTargetType() == SkillTargetType.TARGET_CORPSE_MOB && target instanceof L2NpcInstance)
+            if (target.isDead() && getTargetType() == SkillTargetType.TARGET_CORPSE_MOB && target instanceof L2NpcInstance) {
                 ((L2NpcInstance)target).endDecayTask();
+            }
 		}
+        //effect self :]
+        L2Effect effect = activeChar.getEffect(getId());
+        if (effect != null && effect.isSelfEffect())
+        {             
+            //Replace old effect with new one.
+            effect.exit();
+        }
+        // cast self effect if any
+        getEffectsSelf(activeChar);        
 	}
 	
 }

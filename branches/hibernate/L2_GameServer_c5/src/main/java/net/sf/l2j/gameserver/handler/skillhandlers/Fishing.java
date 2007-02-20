@@ -30,48 +30,55 @@ public class Fishing implements ISkillHandler
         
         if (player.isFishing())
         {
-            if (player.GetFish() !=null) player.GetFish().DoDie(false);
+            if (player.GetFishCombat() != null) player.GetFishCombat().DoDie(false);
             else player.EndFishing(false);
             //Cancels fishing           
-            player.sendPacket(new SystemMessage(1458));
-            return;
-        }       
-        if (player.isInBoat())
-        {           
-           //1456  You can't fish while you are on board
-            player.sendPacket(new SystemMessage(1456));
-           return;
-       }
-        if (activeChar.getZ() >= -3700)
-        {
-            //You can't fish here
-            player.sendPacket(new SystemMessage(1457));
+            player.sendPacket(new SystemMessage(SystemMessage.FISHING_ATTEMPT_CANCELLED));
             return;
         }
-        if (ZoneManager.getInstance().checkIfInZoneIncludeZ("Water",player.getX(),player.getY(),player.getZ()))
+        if (player.isInBoat())
+        {           
+            //You can't fish while you are on boat
+            player.sendPacket(new SystemMessage(SystemMessage.CANNOT_FISH_ON_BOAT));
+            if (!player.isGM())
+                return;
+        }
+        if (!ZoneManager.getInstance().checkIfInZoneFishing(player))
+        {
+            //You can't fish here
+            player.sendPacket(new SystemMessage(SystemMessage.CANNOT_FISH_HERE));
+            if (!player.isGM())
+                return;
+        }
+        if (player.getZ() <= -3800)
         {
             //You can't fish in water
-            player.sendPacket(new SystemMessage(1455));
-            return;
+            player.sendPacket(new SystemMessage(SystemMessage.CANNOT_FISH_UNDER_WATER));
+            if (!player.isGM())
+                return;
+        }
+        if (player.isInCraftMode() || player.isInStoreMode()) {
+            player.sendPacket(new SystemMessage(SystemMessage.CANNOT_FISH_WHILE_USING_RECIPE_BOOK));
+            if (!player.isGM())
+                return;
         }
         L2Weapon weaponItem = player.getActiveWeaponItem();
         if ((weaponItem==null || weaponItem.getItemType() != L2WeaponType.ROD))
         {
             //Fishing poles are not installed
-            player.sendPacket(new SystemMessage(1453));
+            player.sendPacket(new SystemMessage(SystemMessage.FISHING_POLE_NOT_EQUIPPED));
             return;
         }       
         L2ItemInstance lure = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND);
         if (lure == null)
         {
             //Not enough bait
-            player.sendPacket(new SystemMessage(1459));
+            player.sendPacket(new SystemMessage(SystemMessage.BAIT_ON_HOOK_BEFORE_FISHING));
             return;
         }
-        //if (!Config.ALLOWFISHING && !player.isGM())
-        if (!Config.ALLOWFISHING)
+        if (!Config.ALLOWFISHING && !player.isGM())
         {
-            player.sendMessage("Disabled");
+            player.sendMessage("Not Working Yet");
             return;
         }       
         player.SetLure(lure);
@@ -79,6 +86,7 @@ public class Fishing implements ISkillHandler
 
         if (lure2 == null || lure2.getCount() == 0)
         {
+            player.sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_BAIT));
             player.sendPacket(new ItemList(player,false));
         }
         else

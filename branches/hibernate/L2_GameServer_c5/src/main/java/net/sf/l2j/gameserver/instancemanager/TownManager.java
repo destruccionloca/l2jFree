@@ -1,8 +1,5 @@
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.util.List;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.MapRegionTable;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -11,9 +8,12 @@ import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.model.entity.Zone;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class TownManager
 {
-    protected static Logger _log = Logger.getLogger(TownManager.class.getName());
+    protected static Log _log = LogFactory.getLog(TownManager.class.getName());
 
     // =========================================================
     private static TownManager _Instance;
@@ -32,7 +32,7 @@ public class TownManager
     
     // =========================================================
     // Data Field
-    private List<Town> _Towns;
+    private FastList<Town> _Towns;
     
     // =========================================================
     // Constructor
@@ -196,7 +196,7 @@ public class TownManager
         return -1;
     }
 
-    public final List<Town> getTowns()
+    public final FastList<Town> getTowns()
     {
         if (_Towns == null) _Towns = new FastList<Town>();
         return _Towns;

@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.model;
 
-import java.util.List;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ItemTable;
@@ -31,6 +28,9 @@ import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Advi
@@ -119,11 +119,11 @@ public class TradeList
         }
     }
 
-    private static Logger _log = Logger.getLogger(TradeList.class.getName());
+    private final static Log _log = LogFactory.getLog(TradeList.class.getName());
 
     private L2PcInstance _owner;
     private L2PcInstance _partner;
-    private List<TradeItem> _items;
+    private FastList<TradeItem> _items;
     private String _title;
     private boolean _packaged;
 
@@ -195,7 +195,7 @@ public class TradeList
      */
     public TradeList.TradeItem[] getAvailableItems(PcInventory inventory)
     {
-        List<TradeList.TradeItem> list = new FastList<TradeList.TradeItem>();
+        FastList<TradeList.TradeItem> list = new FastList<TradeList.TradeItem>();
         for (TradeList.TradeItem item : _items)
         {
             item = new TradeItem(item, item.getCount(), item.getPrice());
@@ -291,7 +291,7 @@ public class TradeList
             return null;
         }
 
-        List<Integer> nonTradeAbleList = new FastList<Integer>();
+        FastList<Integer> nonTradeAbleList = new FastList<Integer>();
         nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
 
         int itemId = ((L2ItemInstance)item).getItemId();
@@ -344,7 +344,7 @@ public class TradeList
             return null;
         }
         
-        List<Integer> nonTradeAbleList = new FastList<Integer>();
+        FastList<Integer> nonTradeAbleList = new FastList<Integer>();
         nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
 
         if (nonTradeAbleList.contains(itemId))

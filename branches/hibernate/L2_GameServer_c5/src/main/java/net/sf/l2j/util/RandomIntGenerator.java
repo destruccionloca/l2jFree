@@ -2,21 +2,13 @@ package net.sf.l2j.util;
 
 import net.sf.l2j.gameserver.model.L2DropData;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class RandomIntGenerator{
     
-    private static final Logger _log = Logger.getLogger(RandomIntGenerator.class);
-    
-    private int low;
-    private int high;
-    private static final int BUFFER_SIZE = 1001;
-    private static double[] buffer = new double[BUFFER_SIZE];
-    static{
-        int i;
-        for (i = 0; i < BUFFER_SIZE; i++)
-            buffer[i] = java.lang.Math.random();
-    }
+    private static final Log _log = LogFactory.getLog(RandomIntGenerator.class); 
+    private boolean[] buffer = new boolean[L2DropData.MAX_CHANCE];
     private static RandomIntGenerator _Instance;
     
     public static final RandomIntGenerator getInstance()
@@ -24,27 +16,35 @@ public class RandomIntGenerator{
         if (_Instance == null)
         {
             _log.info("Initializing RandomIntGenerator");
-            _Instance = new RandomIntGenerator(0, L2DropData.MAX_CHANCE);
+            _Instance = new RandomIntGenerator();
         }
         return _Instance;
     }
     
-    public RandomIntGenerator(int l, int h){
-        low = l;
-        high = h;
+    private RandomIntGenerator(){
+        for (int i = 0; i < L2DropData.MAX_CHANCE; i++)
+            buffer[i] = false;
     }
 
-    public int getRnd(){
-        int r = low + (int) ((high - low + 1) * nextRandom());
-        if (r > high) r = high;
-        return r;
-    }
-    
-    private static double nextRandom(){
-        int pos = (int) (java.lang.Math.random() * BUFFER_SIZE);
-        if (pos == BUFFER_SIZE) pos = BUFFER_SIZE - 1;
-        double r = buffer[pos];
-        buffer[pos] = java.lang.Math.random();
+    public synchronized double nextRandom(){        
+        double r = 0;
+        int pos = 0, iteration = 0;;
+        pos = (int) (java.lang.Math.random() * L2DropData.MAX_CHANCE);
+        while(buffer[pos] && iteration <= L2DropData.MAX_CHANCE)
+        {
+            pos+=12357;
+            iteration++;
+            if(pos>=L2DropData.MAX_CHANCE)
+                pos = pos - L2DropData.MAX_CHANCE;
+        }
+        if(iteration >= L2DropData.MAX_CHANCE)
+        {
+            for (int i = 0; i < L2DropData.MAX_CHANCE; i++)
+                buffer[i] = false;
+            pos = (int) (java.lang.Math.random() * L2DropData.MAX_CHANCE);
+        }
+        r = (double)pos / L2DropData.MAX_CHANCE;
+        buffer[pos] = true;
         return r;
     }
 }

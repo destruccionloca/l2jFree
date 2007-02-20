@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.model.actor.knownlist;
 
-import org.apache.log4j.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
@@ -11,9 +9,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2GuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class GuardKnownList extends AttackableKnownList
 {
-    private static Logger _log = Logger.getLogger(GuardKnownList.class.getName());
+    private final static Log _log = LogFactory.getLog(GuardKnownList.class.getName());
 
     // =========================================================
     // Data Field

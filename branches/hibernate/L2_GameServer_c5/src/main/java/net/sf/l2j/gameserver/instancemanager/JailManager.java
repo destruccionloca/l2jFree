@@ -1,22 +1,22 @@
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.util.List;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.Jail;
 import net.sf.l2j.gameserver.model.entity.Zone;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class JailManager
 {
-    protected static Logger _log = Logger.getLogger(JailManager.class.getName());
+    protected static Log _log = LogFactory.getLog(JailManager.class.getName());
 
     // =========================================================
     // Data Field
     private static JailManager _Instance;
-    private List<Jail> _Jails;
+    private FastList<Jail> _Jails;
     
     // =========================================================
     // Constructor
@@ -115,7 +115,7 @@ public class JailManager
         return -1;
     }
 
-    public final List<Jail> getJails()
+    public final FastList<Jail> getJails()
     {
         if (_Jails == null) _Jails = new FastList<Jail>();
         return _Jails;

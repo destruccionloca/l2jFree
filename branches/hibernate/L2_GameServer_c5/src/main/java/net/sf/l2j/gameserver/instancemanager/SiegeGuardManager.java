@@ -2,9 +2,6 @@ package net.sf.l2j.gameserver.instancemanager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -14,14 +11,17 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class SiegeGuardManager {
 	
-	private static Logger _log = Logger.getLogger(SiegeGuardManager.class.getName());
+	private final static Log _log = LogFactory.getLog(SiegeGuardManager.class.getName());
 	
     // =========================================================
     // Data Field
     private Castle _Castle;
-    private List<L2Spawn> _SiegeGuardSpawn  = new FastList<L2Spawn>();
+    private FastList<L2Spawn> _SiegeGuardSpawn  = new FastList<L2Spawn>();
 
     // =========================================================
     // Constructor
@@ -246,7 +246,7 @@ public class SiegeGuardManager {
         return _Castle;
     }
     
-    public final List<L2Spawn> getSiegeGuardSpawn()
+    public final FastList<L2Spawn> getSiegeGuardSpawn()
     {
         return _SiegeGuardSpawn;
     }

@@ -36,7 +36,7 @@ import net.sf.l2j.gameserver.serverpackets.SiegeDefenderList;
 public class RequestConfirmSiegeWaitingList extends ClientBasePacket{
     
     private static final String _C__a5_RequestConfirmSiegeWaitingList = "[C] a5 RequestConfirmSiegeWaitingList";
-    //private static Logger _log = Logger.getLogger(RequestConfirmSiegeWaitingList.class.getName());
+    //private final static Log _log = LogFactory.getLog(RequestConfirmSiegeWaitingList.class.getName());
 
     private final int _Approved;
     private final int _CastleId;

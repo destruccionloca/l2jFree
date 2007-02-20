@@ -28,12 +28,13 @@
  */
 package net.sf.l2j.gameserver.util;
 
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import javolution.util.FastSet;
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.L2MinionData;
@@ -41,7 +42,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2MinionInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -51,10 +53,11 @@ import org.apache.log4j.Logger;
 
 public class MinionList
 {
-    private static Logger _log = Logger.getLogger(L2MonsterInstance.class.getName());
+    private final static Log _log = LogFactory.getLog(L2MonsterInstance.class.getName());
 
     /** List containing the current spawned minions for this L2MonsterInstance */
-    private final List<L2MinionInstance> minionReferences;
+    private final FastList<L2MinionInstance> minionReferences;
+    protected FastMap<Long,Integer> _respawnTasks = new FastMap<Long,Integer>().setShared(true);
     private final L2MonsterInstance master;
     private Random _rand;
 
@@ -93,7 +96,7 @@ public class MinionList
         return getSpawnedMinions().size() > 0;
     }
 
-    public List<L2MinionInstance> getSpawnedMinions()
+    public FastList<L2MinionInstance> getSpawnedMinions()
     {
         return minionReferences;
     }
@@ -123,7 +126,54 @@ public class MinionList
             minionReferences.remove(minion);
         }
     }
+    
+    public void moveMinionToRespawnList(L2MinionInstance minion)
+    {
+        Long current = System.currentTimeMillis();
+        synchronized (minionReferences)
+        {
+            minionReferences.remove(minion);
+            if(_respawnTasks.get(current) == null)
+                _respawnTasks.put(current,minion.getNpcId());
+            else 
+            {
+                // nice AoE
+                for(int i = 1; i < 30; i++)
+                {
+                    if(_respawnTasks.get(current+i) == null)
+                    {
+                        _respawnTasks.put(current+i,minion.getNpcId());
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
+    public void clearRespawnList()
+    {
+        _respawnTasks.clear();
+    }
 
+    /**
+     * Manage respawning of minions for this RaidBoss.<BR><BR>
+     */
+    public void maintainMinions()
+    {
+         if(master == null || master.isAlikeDead()) return; 
+         Long current = System.currentTimeMillis();
+         if (_respawnTasks != null)
+             for(long deathTime : _respawnTasks.keySet())
+             {
+                 double delay = Config.RAID_MINION_RESPAWN_TIMER;
+                 if((current - deathTime) > delay)
+                 {
+                     spawnSingleMinion(_respawnTasks.get(deathTime));
+                     _respawnTasks.remove(deathTime);
+                 }
+             }
+    }
+    
     /**
      * Manage the spawn of all Minions of this RaidBoss.<BR><BR>
      * 
@@ -134,10 +184,10 @@ public class MinionList
      * @param player The L2PcInstance to attack
      * 
      */
-    public void maintainMinions()
+    public void spawnMinions()
     {
-    	if(master.isAlikeDead()) return;
-    	List<L2MinionData> minions = master.getTemplate().getMinionData();
+        if(master == null || master.isAlikeDead()) return;
+        FastList<L2MinionData> minions = master.getTemplate().getMinionData();
 
         synchronized (minionReferences)
         {
@@ -180,6 +230,9 @@ public class MinionList
         L2MinionInstance monster = new L2MinionInstance(IdFactory.getInstance().getNextId(),
                                                         minionTemplate);
 
+        if(Config.CHAMPION_MINIONS && master.isChampion())
+            monster.setChampion(true);
+        
         // Set the Minion HP, MP and Heading
         monster.setCurrentHpMp(monster.getMaxHp(), monster.getMaxMp());
         monster.setHeading(master.getHeading());

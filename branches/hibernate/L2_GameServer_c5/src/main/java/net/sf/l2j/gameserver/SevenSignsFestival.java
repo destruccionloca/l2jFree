@@ -4,11 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -25,11 +22,15 @@ import net.sf.l2j.gameserver.model.SpawnListener;
 import net.sf.l2j.gameserver.model.actor.instance.L2FestivalMonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.base.Experience;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.gameserver.util.Util;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *  Seven Signs Festival of Darkness Engine
@@ -42,7 +43,7 @@ import net.sf.l2j.gameserver.util.Util;
  */
 public class SevenSignsFestival implements SpawnListener 
 {
-    protected static Logger _log = Logger.getLogger(SevenSignsFestival.class.getName());
+    protected static Log _log = LogFactory.getLog(SevenSignsFestival.class.getName());
     private static SevenSignsFestival _instance;
     
     public static final String FESTIVAL_DATA_FILE = "config/signs.properties";
@@ -746,20 +747,20 @@ public class SevenSignsFestival implements SpawnListener
     protected long _nextFestivalStart;
     protected boolean _festivalInitialized;
     protected boolean _festivalInProgress;
-    protected List<Integer> _accumulatedBonuses;   // The total bonus available (in Ancient Adena)
+    protected FastList<Integer> _accumulatedBonuses;   // The total bonus available (in Ancient Adena)
     protected Random rnd = new Random();
     
     private L2NpcInstance _dawnChatGuide; 
     private L2NpcInstance _duskChatGuide;
     
-    protected Map<Integer, List<L2PcInstance>> _dawnFestivalParticipants;
-    protected Map<Integer, List<L2PcInstance>> _duskFestivalParticipants;
+    protected FastMap<Integer, FastList<L2PcInstance>> _dawnFestivalParticipants;
+    protected FastMap<Integer, FastList<L2PcInstance>> _duskFestivalParticipants;
     
-    protected Map<Integer, List<L2PcInstance>> _dawnPreviousParticipants;
-    protected Map<Integer, List<L2PcInstance>> _duskPreviousParticipants;
+    protected FastMap<Integer, FastList<L2PcInstance>> _dawnPreviousParticipants;
+    protected FastMap<Integer, FastList<L2PcInstance>> _duskPreviousParticipants;
         
-    private Map<Integer, Integer> _dawnFestivalScores;
-    private Map<Integer, Integer> _duskFestivalScores;
+    private FastMap<Integer, Integer> _dawnFestivalScores;
+    private FastMap<Integer, Integer> _duskFestivalScores;
     
     /** 
      * _festivalData is essentially an instance of the seven_signs_festival table and 
@@ -774,21 +775,21 @@ public class SevenSignsFestival implements SpawnListener
      *  offset = FESTIVAL_COUNT + festivalId 
      *  (Data for Dawn is always accessed by offset > FESTIVAL_COUNT) 
      */
-    private Map<Integer, Map<Integer, StatsSet>> _festivalData;
+    private FastMap<Integer, FastMap<Integer, StatsSet>> _festivalData;
     
     public SevenSignsFestival() 
     {
         _accumulatedBonuses = new FastList<Integer>();
         
-        _dawnFestivalParticipants = new FastMap<Integer, List<L2PcInstance>>();
-        _dawnPreviousParticipants = new FastMap<Integer, List<L2PcInstance>>();
+        _dawnFestivalParticipants = new FastMap<Integer, FastList<L2PcInstance>>();
+        _dawnPreviousParticipants = new FastMap<Integer, FastList<L2PcInstance>>();
         _dawnFestivalScores = new FastMap<Integer, Integer>();
         
-        _duskFestivalParticipants = new FastMap<Integer, List<L2PcInstance>>();
-        _duskPreviousParticipants = new FastMap<Integer, List<L2PcInstance>>();
+        _duskFestivalParticipants = new FastMap<Integer, FastList<L2PcInstance>>();
+        _duskPreviousParticipants = new FastMap<Integer, FastList<L2PcInstance>>();
         _duskFestivalScores = new FastMap<Integer, Integer>();
 
-        _festivalData = new FastMap<Integer, Map<Integer, StatsSet>>();
+        _festivalData = new FastMap<Integer, FastMap<Integer, StatsSet>>();
         
         restoreFestivalData();
         
@@ -850,7 +851,7 @@ public class SevenSignsFestival implements SpawnListener
      */
     public static final int getMaxLevelForFestival(int festivalId)
     {
-        int maxLevel = 78;
+        int maxLevel = (Experience.MAX_LEVEL - 1);
         
         switch (festivalId) 
         {
@@ -966,7 +967,7 @@ public class SevenSignsFestival implements SpawnListener
                 if (cabal.equals("dawn"))
                     festivalId += FESTIVAL_COUNT;
                     
-                Map<Integer, StatsSet> tempData = _festivalData.get(festivalCycle);
+                FastMap<Integer, StatsSet> tempData = _festivalData.get(festivalCycle);
                 
                 if (tempData == null)
                     tempData = new FastMap<Integer, StatsSet>();
@@ -1041,7 +1042,7 @@ public class SevenSignsFestival implements SpawnListener
         {
             con = L2DatabaseFactory.getInstance().getConnection();
             
-            for (Map<Integer, StatsSet> currCycleData : _festivalData.values())
+            for (FastMap<Integer, StatsSet> currCycleData : _festivalData.values())
             {
                 for (StatsSet festivalDat : currCycleData.values())
                 {
@@ -1130,7 +1131,7 @@ public class SevenSignsFestival implements SpawnListener
         _duskFestivalScores.clear();
         
         // Set up a new data set for the current cycle of festivals
-        Map<Integer, StatsSet> newData = new FastMap<Integer, StatsSet>();
+        FastMap<Integer, StatsSet> newData = new FastMap<Integer, StatsSet>();
         
         for (int i = 0; i < FESTIVAL_COUNT * 2; i++)
         {
@@ -1237,7 +1238,7 @@ public class SevenSignsFestival implements SpawnListener
         
         while (festivalId < FESTIVAL_COUNT)
         {
-            List<L2PcInstance> participants = _dawnFestivalParticipants.get(festivalId);
+            FastList<L2PcInstance> participants = _dawnFestivalParticipants.get(festivalId);
             
             // If there are no participants in this festival, move on to the next.
             if (participants != null && participants.contains(player)) 
@@ -1275,18 +1276,18 @@ public class SevenSignsFestival implements SpawnListener
         if (_managerInstance == null)
             return false;
        
-        for (List<L2PcInstance> participants : _dawnFestivalParticipants.values())
+        for (FastList<L2PcInstance> participants : _dawnFestivalParticipants.values())
             if (participants.contains(player))
                 return true;
         
-        for (List<L2PcInstance> participants : _duskFestivalParticipants.values())
+        for (FastList<L2PcInstance> participants : _duskFestivalParticipants.values())
             if (participants.contains(player))
                 return true;
         
         return false;
     }
     
-    public final List<L2PcInstance> getParticipants(int oracle, int festivalId) 
+    public final FastList<L2PcInstance> getParticipants(int oracle, int festivalId) 
     {
         if (oracle == SevenSigns.CABAL_DAWN)
             return _dawnFestivalParticipants.get(festivalId);
@@ -1294,7 +1295,7 @@ public class SevenSignsFestival implements SpawnListener
         return _duskFestivalParticipants.get(festivalId);
     }
     
-    public final List<L2PcInstance> getPreviousParticipants(int oracle, int festivalId) 
+    public final FastList<L2PcInstance> getPreviousParticipants(int oracle, int festivalId) 
     {
         if (oracle == SevenSigns.CABAL_DAWN)
             return _dawnPreviousParticipants.get(festivalId);
@@ -1304,7 +1305,7 @@ public class SevenSignsFestival implements SpawnListener
     
     public void setParticipants(int oracle, int festivalId, L2Party festivalParty) 
     {
-        List<L2PcInstance> participants = new FastList<L2PcInstance>();
+        FastList<L2PcInstance> participants = new FastList<L2PcInstance>();
         
         if (festivalParty != null) 
         {
@@ -1408,7 +1409,7 @@ public class SevenSignsFestival implements SpawnListener
         StatsSet result = null; 
         int highestScore = 0;
         
-        for (Map<Integer, StatsSet> currCycleData : _festivalData.values())
+        for (FastMap<Integer, StatsSet> currCycleData : _festivalData.values())
         {
             for (StatsSet currFestData : currCycleData.values()) 
             {
@@ -1441,7 +1442,7 @@ public class SevenSignsFestival implements SpawnListener
      */
     public boolean setFinalScore(L2PcInstance player, int oracle, int festivalId, int offeringScore)
     {
-        List<String> partyMembers;
+        FastList<String> partyMembers;
         
         int currDawnHighScore = getHighestScore(SevenSigns.CABAL_DAWN, festivalId);
         int currDuskHighScore = getHighestScore(SevenSigns.CABAL_DUSK, festivalId);
@@ -1475,7 +1476,7 @@ public class SevenSignsFestival implements SpawnListener
                 return false;
             
             partyMembers = new FastList<String>();
-            List<L2PcInstance> prevParticipants = getPreviousParticipants(oracle, festivalId);
+            FastList<L2PcInstance> prevParticipants = getPreviousParticipants(oracle, festivalId);
             
             // Record a string list of the party members involved.
             for (L2PcInstance partyMember : prevParticipants) 
@@ -1655,7 +1656,7 @@ public class SevenSignsFestival implements SpawnListener
      */
     private class FestivalManager implements Runnable 
     {
-        protected Map<Integer, L2DarknessFestival> _festivalInstances;
+        protected FastMap<Integer, L2DarknessFestival> _festivalInstances;
         
         public FestivalManager()
         {
@@ -1911,10 +1912,10 @@ public class SevenSignsFestival implements SpawnListener
         private FestivalSpawn _witchSpawn;
         
         private L2NpcInstance _witchInst;
-        private List<L2FestivalMonsterInstance> _npcInsts;
+        private FastList<L2FestivalMonsterInstance> _npcInsts;
         
-        private List<L2PcInstance> _participants;
-        private Map<L2PcInstance, FestivalSpawn> _originalLocations;
+        private FastList<L2PcInstance> _participants;
+        private FastMap<L2PcInstance, FestivalSpawn> _originalLocations;
         
         protected L2DarknessFestival(int cabal, int levelRange) 
         {

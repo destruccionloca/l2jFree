@@ -25,7 +25,7 @@
 
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -41,7 +41,7 @@ public class AdminCTFEngine implements IAdminCommandHandler {
                                            "admin_ctf_team_add", "admin_ctf_team_remove", "admin_ctf_team_pos", "admin_ctf_team_color", "admin_ctf_team_flag",
                                            "admin_ctf_join", "admin_ctf_teleport", "admin_ctf_start", "admin_ctf_abort", "admin_ctf_finish",
                                            "admin_ctf_sit","admin_ctf_minlvl","admin_ctf_maxlvl",
-                                           "admin_ctf_dump"};
+                                           "admin_ctf_dump", "admin_ctf_save", "admin_ctf_load"};
  
  private static final int REQUIRED_LEVEL = 100;
 
@@ -154,7 +154,7 @@ public class AdminCTFEngine implements IAdminCommandHandler {
         }
         else if(command.equals("admin_ctf_join"))
         {
-            CTF.startJoin();
+            CTF.startJoin(activeChar);
             showMainPage(activeChar);
         }
         else if (command.equals("admin_ctf_teleport"))
@@ -181,6 +181,16 @@ public class AdminCTFEngine implements IAdminCommandHandler {
         else if (command.equals("admin_ctf_sit"))
         {
             CTF.sit();
+            showMainPage(activeChar);
+        }
+        else if (command.equals("admin_ctf_load"))
+        {
+            CTF.loadData();
+            showMainPage(activeChar);
+        }
+        else if (command.equals("admin_ctf_save"))
+        {
+            CTF.saveData();
             showMainPage(activeChar);
         }
         else if (command.equals("admin_ctf_dump"))
@@ -236,6 +246,9 @@ public class AdminCTFEngine implements IAdminCommandHandler {
         replyMSG.append("</tr></table><br><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Sit Force\" action=\"bypass -h admin_ctf_sit\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Dump\" action=\"bypass -h admin_ctf_dump\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("</tr></table><br><br><table><tr>");
+        replyMSG.append("<td width=\"100\"><button value=\"Save\" action=\"bypass -h admin_ctf_save\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Load\" action=\"bypass -h admin_ctf_load\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><br>");
         replyMSG.append("Current event...<br1>");
         replyMSG.append("    ... name:&nbsp;<font color=\"00FF00\">" + CTF._eventName + "</font><br1>");
@@ -261,6 +274,8 @@ public class AdminCTFEngine implements IAdminCommandHandler {
                     replyMSG.append("&nbsp;(" + CTF.teamPlayersCount(team) + " in)");
             }
 
+            replyMSG.append("</td></tr><tr><td>");
+            replyMSG.append("Flag Id: " +CTF._flagIds.get(CTF._teams.indexOf(team)));
             replyMSG.append("</td></tr><tr><td>");
             replyMSG.append(CTF._teamColors.get(CTF._teams.indexOf(team)));
             replyMSG.append("</td></tr><tr><td>");

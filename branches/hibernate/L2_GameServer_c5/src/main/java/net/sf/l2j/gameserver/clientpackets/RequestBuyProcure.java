@@ -1,9 +1,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.List;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -20,6 +17,9 @@ import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.util.Util;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /*
  * Done by L2Emuproject team
  * User: Scar69
@@ -28,11 +28,11 @@ import net.sf.l2j.gameserver.util.Util;
  */
 public class RequestBuyProcure extends ClientBasePacket {
     private static final String _C__C3_REQUESTBUYPROCURE = "[C] C3 RequestBuyProcure";
-    private static Logger _log = Logger.getLogger(RequestBuyProcure.class.getName());
+    private final static Log _log = LogFactory.getLog(RequestBuyProcure.class.getName());
     private final int _listId;
     private int _count;
     private int[] _items;
-    private List<CropProcure> _procureList = new FastList<CropProcure>();
+    private FastList<CropProcure> _procureList = new FastList<CropProcure>();
     /**
      * packet type id 0xc3
      * 

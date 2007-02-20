@@ -25,13 +25,14 @@ import net.sf.l2j.gameserver.model.L2Macro;
 import net.sf.l2j.gameserver.model.L2Macro.L2MacroCmd;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class RequestMakeMacro extends ClientBasePacket
 {
 
 	private final L2Macro _macro;
-    private static Logger _log = Logger.getLogger(ClientBasePacket.class);
+    private final static Log _log = LogFactory.getLog(ClientBasePacket.class);
         
 	private static final String _C__C1_REQUESTMAKEMACRO = "[C] C1 RequestMakeMacro";
 	

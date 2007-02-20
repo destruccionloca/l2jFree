@@ -39,7 +39,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */ 
 public class Sweep implements ISkillHandler 
 { 
-    //private static Logger _log = Logger.getLogger(Sweep.class.getName()); 
+    //private final static Log _log = LogFactory.getLog(Sweep.class.getName()); 
     protected SkillType[] _skillIds = {SkillType.SWEEP}; 
     
     public void useSkill(L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, L2Object[] targets) 
@@ -86,15 +86,15 @@ public class Sweep implements ISkillHandler
 						player.sendPacket(smsg);
 					}
 				}
-                target.endDecayTask();    
             }
-           if (send)
-           {
+            target.endDecayTask();
+            if (send)
+            {
                 if (iu != null) 
-                   player.sendPacket(iu);
-               else 
-                   player.sendPacket(new ItemList(player, false));
-           }
+                    player.sendPacket(iu);
+                else 
+                    player.sendPacket(new ItemList(player, false));
+            }
         }
     } 
     

@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Map;
-
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
@@ -30,7 +28,8 @@ import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -39,11 +38,11 @@ import org.apache.log4j.Logger;
  */
 public class ClanTable
 {
-	private static Logger _log = Logger.getLogger(ClanTable.class.getName());
+	private final static Log _log = LogFactory.getLog(ClanTable.class.getName());
 	
 	private static ClanTable _instance;
 	
-	private Map<Integer, L2Clan> _clans;
+	private FastMap<Integer, L2Clan> _clans;
 	
 	public static ClanTable getInstance()
 	{

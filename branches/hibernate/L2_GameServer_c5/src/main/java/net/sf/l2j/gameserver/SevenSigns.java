@@ -5,9 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.Map;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -20,6 +17,9 @@ import net.sf.l2j.gameserver.serverpackets.SignsSky;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  *  Seven Signs Engine
  *    
@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.templates.StatsSet;
  */
 public class SevenSigns 
 {
-    protected static Logger _log = Logger.getLogger(SevenSigns.class.getName());
+    protected static Log _log = LogFactory.getLog(SevenSigns.class.getName());
     private static SevenSigns _instance;
 
     // Basic Seven Signs Constants \\
@@ -101,11 +101,11 @@ public class SevenSigns
     protected int _compWinner;
     protected int _previousWinner;
     
-    private Map<Integer, StatsSet> _signsPlayerData;
+    private FastMap<Integer, StatsSet> _signsPlayerData;
     
-    private Map<Integer, Integer> _signsSealOwners;
-    private Map<Integer, Integer> _signsDuskSealTotals;
-    private Map<Integer, Integer> _signsDawnSealTotals;
+    private FastMap<Integer, Integer> _signsSealOwners;
+    private FastMap<Integer, Integer> _signsDuskSealTotals;
+    private FastMap<Integer, Integer> _signsDawnSealTotals;
     
     private static AutoSpawnInstance _merchantSpawn;
     private static AutoSpawnInstance _blacksmithSpawn;
@@ -113,9 +113,9 @@ public class SevenSigns
     private static AutoSpawnInstance _spiritOutSpawn;
     private static AutoSpawnInstance _lilithSpawn;
     private static AutoSpawnInstance _anakimSpawn;
-    private static Map<Integer, AutoSpawnInstance> _oratorSpawns;
-    private static Map<Integer, AutoSpawnInstance> _preacherSpawns;
-    private static Map<Integer, AutoSpawnInstance> _marketeerSpawns;
+    private static FastMap<Integer, AutoSpawnInstance> _oratorSpawns;
+    private static FastMap<Integer, AutoSpawnInstance> _preacherSpawns;
+    private static FastMap<Integer, AutoSpawnInstance> _marketeerSpawns;
     
     public SevenSigns() 
     {
@@ -146,6 +146,9 @@ public class SevenSigns
             else
                 _log.info("SevenSigns: The " + getCabalName(getCabalHighestScore()) + " are in the lead this week.");
         
+        int numMins = 0;
+        int numHours = 0;
+        int numDays = 0;
         synchronized (this) 
         {
             setCalendarForNextPeriodChange();
@@ -158,13 +161,12 @@ public class SevenSigns
             // Thanks to http://rainbow.arch.scriptmania.com/scripts/timezone_countdown.html for help with this.
             double numSecs = (milliToChange / 1000) % 60;
             double countDown = ((milliToChange / 1000) - numSecs) / 60;
-            int numMins = (int)Math.floor(countDown % 60);
+            numMins = (int)Math.floor(countDown % 60);
             countDown = (countDown - numMins) / 60; 
-            int numHours = (int)Math.floor(countDown % 24);
-            int numDays = (int)Math.floor((countDown - numHours) / 24);
-
-            _log.info("SevenSigns: Next period begins in " + numDays + " days, " + numHours + " hours and " + numMins + " mins.");
+            numHours = (int)Math.floor(countDown % 24);
+            numDays = (int)Math.floor((countDown - numHours) / 24);
         }
+        _log.info("SevenSigns: Next period begins in " + numDays + " days, " + numHours + " hours and " + numMins + " mins.");
     }
     
     /**

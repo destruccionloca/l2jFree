@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.util.List;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
@@ -30,6 +29,9 @@ import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -37,9 +39,9 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class L2TradeList
 {
-    private static Logger _log = Logger.getLogger(L2TradeList.class.getName());
+    private final static Log _log = LogFactory.getLog(L2TradeList.class.getName());
     
-	private List<L2ItemInstance> _items;
+	private FastList<L2ItemInstance> _items;
 	private int _listId;
 	private boolean _confirmed;
 	private String _Buystorename,_Sellstorename;
@@ -119,7 +121,7 @@ public class L2TradeList
 	/**
 	 * @return Returns the items.
 	 */
-	public List<L2ItemInstance> getItems()
+	public FastList<L2ItemInstance> getItems()
 	{
 		return _items;
 	}
@@ -328,7 +330,7 @@ public class L2TradeList
         finally { try { con.close(); } catch (Exception e) {} }
     }
     
-    public void updateBuyList(L2PcInstance player, List<TradeItem> list)
+    public void updateBuyList(L2PcInstance player, FastList<TradeItem> list)
 	{
 		
 		TradeItem temp;
@@ -358,7 +360,7 @@ public class L2TradeList
 		}
 		
 	}
-	public void updateSellList(L2PcInstance player, List<TradeItem> list)
+	public void updateSellList(L2PcInstance player, FastList<TradeItem> list)
 	{
 		Inventory playersInv = player.getInventory();
 		TradeItem temp;
@@ -386,7 +388,7 @@ public class L2TradeList
 		
 	}
 	
-	public synchronized void buySellItems(L2PcInstance buyer, List<TradeItem> buyerslist, L2PcInstance seller, List<TradeItem> sellerslist)
+	public synchronized void buySellItems(L2PcInstance buyer, FastList<TradeItem> buyerslist, L2PcInstance seller, FastList<TradeItem> sellerslist)
 	{
 		Inventory sellerInv         = seller.getInventory();
 		Inventory buyerInv          = buyer.getInventory();

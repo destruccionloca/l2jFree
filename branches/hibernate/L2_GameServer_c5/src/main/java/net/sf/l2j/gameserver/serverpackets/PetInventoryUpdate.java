@@ -18,12 +18,11 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -33,9 +32,9 @@ import org.apache.log4j.Logger;
  * Rebuild 23.2.2006 by Advi
 */
 public class PetInventoryUpdate extends ServerBasePacket{
-	private static Logger _log = Logger.getLogger(InventoryUpdate.class.getName());
+	private final static Log _log = LogFactory.getLog(InventoryUpdate.class.getName());
 	private static final String _S__37_INVENTORYUPDATE = "[S] b3 InventoryUpdate";
-	private List<ItemInfo> _items;
+	private FastList<ItemInfo> _items;
 
 	public PetInventoryUpdate()
 	{
@@ -45,7 +44,7 @@ public class PetInventoryUpdate extends ServerBasePacket{
 	/**
 	 * @param items
 	 */
-	public PetInventoryUpdate(List<ItemInfo> items)
+	public PetInventoryUpdate(FastList<ItemInfo> items)
 	{
 		_items = items;
 	}
@@ -54,7 +53,7 @@ public class PetInventoryUpdate extends ServerBasePacket{
 	public void addNewItem(L2ItemInstance item) { _items.add(new ItemInfo(item, 1)); }
 	public void addModifiedItem(L2ItemInstance item) { _items.add(new ItemInfo(item, 2)); }
 	public void addRemovedItem(L2ItemInstance item) { _items.add(new ItemInfo(item, 3)); }
-	public void addItems(List<L2ItemInstance> items) { for (L2ItemInstance item : items) _items.add(new ItemInfo(item)); }
+	public void addItems(FastList<L2ItemInstance> items) { for (L2ItemInstance item : items) _items.add(new ItemInfo(item)); }
 
 	final void runImpl()
 	{

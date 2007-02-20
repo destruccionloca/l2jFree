@@ -37,7 +37,7 @@ import net.sf.l2j.gameserver.templates.L2Henna;
 public class RequestHennaEquip extends ClientBasePacket
 {
 	private static final String _C__BC_RequestHennaEquip = "[C] bc RequestHennaEquip";
-	//private static Logger _log = Logger.getLogger(RequestHennaEquip.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestHennaEquip.class.getName());
 	private final int SymbolId;
 	// format  cd
 	

@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -38,6 +37,9 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * This class ...
  * 
@@ -45,7 +47,7 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
  */
 public class UseItem extends ClientBasePacket
 {
-    private static Logger _log = Logger.getLogger(UseItem.class.getName());
+    private final static Log _log = LogFactory.getLog(UseItem.class.getName());
     private static final String _C__14_USEITEM = "[C] 14 UseItem";
 
     private final int _objectId;
@@ -98,7 +100,7 @@ public class UseItem extends ClientBasePacket
             if (activeChar.isFishing() && (itemId < 6535 || itemId > 6540))
             {
                 // You cannot do anything else while fishing                
-                SystemMessage sm = new SystemMessage(1471);                
+                SystemMessage sm = new SystemMessage(SystemMessage.CANNOT_DO_WHILE_FISHING_3);                
                 getClient().getActiveChar().sendPacket(sm);
                 sm = null;
                 return;                
@@ -141,8 +143,9 @@ public class UseItem extends ClientBasePacket
                     return;
                 }
                 
-                // Don't allow use weapon/shield when player is stun/sleep
-                if (activeChar.isStunned() ||  activeChar.isSleeping()
+                // Prevent player to remove the weapon on special conditions
+                if ((activeChar.isStunned() || activeChar.isSleeping() || activeChar.isAttackingNow()
+                        || activeChar.isCastingNow() || activeChar.isParalyzed() || activeChar.isAlikeDead())
                         && (bodyPart == L2Item.SLOT_LR_HAND 
                             || bodyPart == L2Item.SLOT_L_HAND 
                             || bodyPart == L2Item.SLOT_R_HAND))
@@ -244,7 +247,7 @@ public class UseItem extends ClientBasePacket
                         activeChar.sendPacket(new ShowCalculator(4393));
                 }
                 else if ((weaponItem != null && weaponItem.getItemType() == L2WeaponType.ROD)
-                    && ((itemid >= 6519 && itemid <= 6527) || (itemid >= 7807 && itemid <= 7809)))
+                        && ((itemid >= 6519 && itemid <= 6527) || (itemid >= 7610 && itemid <= 7613) || (itemid >= 7807 && itemid <= 7809) || (itemid >= 8484 && itemid <= 8486) || (itemid >= 8505 && itemid <= 8513)))
                 {
                     activeChar.getInventory().setPaperdollItem(Inventory.PAPERDOLL_LHAND, item);
                 

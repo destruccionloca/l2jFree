@@ -21,10 +21,9 @@ package net.sf.l2j.gameserver.communitybbs.Manager;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Map;
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.communitybbs.BB.Forum;
 import net.sf.l2j.gameserver.communitybbs.BB.Post;
@@ -36,7 +35,7 @@ import net.sf.l2j.gameserver.serverpackets.ShowBoard;
 public class PostBBSManager extends BaseBBSManager
 {
 
-	private Map<Topic,Post> _PostByTopic;
+	private FastMap<Topic,Post> _PostByTopic;
 	private static PostBBSManager _Instance;
 	public static PostBBSManager getInstance()
 	{

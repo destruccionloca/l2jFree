@@ -22,18 +22,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import javolution.util.FastList;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.model.L2Character;
-import net.sf.l2j.gameserver.model.L2World;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
-import net.sf.l2j.gameserver.serverpackets.SunRise;
-import net.sf.l2j.gameserver.serverpackets.SunSet;
 
 /**
  * This class ...
@@ -75,7 +69,8 @@ public class GameTimeController
         _timer.start();
 
         _timerWatcher = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new TimerWatcher(), 0, 1000);
-        ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new BroadcastSunState(), 0, 3600000);
+        ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new BroadcastSunState(), 0, 600000);
+
     }
 
     public boolean isNowNight()
@@ -194,7 +189,7 @@ public class GameTimeController
                     // calculate sleep time... time needed to next tick minus time it takes to call moveObjects() 
                     int sleepTime = 1 + MILLIS_IN_TICK - ((int) runtime) % MILLIS_IN_TICK;
 
-                    //_log.debug("TICK: "+_gameTicks);
+                    //_log.finest("TICK: "+_gameTicks);
 
                     sleep(sleepTime); // hope other threads will have much more cpu time available now
                     // SelectorThread most of all
@@ -214,7 +209,7 @@ public class GameTimeController
             if (!_timer.isAlive())
             {
                 String time = (new SimpleDateFormat("HH:mm:ss")).format(new Date());
-                _log.warn(time + " TimerThread stop with following error. restart it.");
+                _log.warning(time + " TimerThread stop with following error. restart it.");
                 if (_timer._error != null) _timer._error.printStackTrace();
 
                 _timer = new TimerThread();
@@ -253,37 +248,12 @@ public class GameTimeController
         public void run()
         {
             int h = (getGameTime() / 60) % 24; // Time in hour
-            boolean tempIsNight = (h < Config.DAY_STATUS_SUN_RISE_AT || h >= Config.DAY_STATUS_SUN_SET_AT);
+            boolean tempIsNight = (h < 6);
             
-            if (tempIsNight == _isNight) // If diff day/night state
-                return; // Do nothing if same state
-            else 
-            {
+            if (tempIsNight != _isNight) { // If diff day/night state
                 _isNight = tempIsNight; // Set current day/night varible to value of temp varible
                 
                 DayNightSpawnManager.getInstance().notifyChangeMode();
-    
-                if (!Config.DAY_STATUS_FORCE_CLIENT_UPDATE) // Do not force client to update their day/night status
-                    return;
-    
-                if (SevenSigns.getInstance().isSealValidationPeriod()) // Do nothing if in Seal validation period 
-                    return;
-    
-                // Force client day/night cycle to sync everyone's day/night state
-                ServerBasePacket packet;
-                if (_isNight) // If is now night
-                {
-                    packet = new SunSet(); // Set client day/night state to night
-                    if (_log.isDebugEnabled()) _log.debug("SunSet");
-                }
-                else
-                {
-                    packet = new SunRise(); // Set client day/night state to day
-                    if (_log.isDebugEnabled()) _log.debug("SunRise");
-                }
-    
-                for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-                    player.sendPacket(packet);
             }
         }
     }

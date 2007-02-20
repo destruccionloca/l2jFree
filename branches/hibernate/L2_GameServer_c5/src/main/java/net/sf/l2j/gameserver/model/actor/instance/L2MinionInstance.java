@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public final class L2MinionInstance extends L2MonsterInstance
 {
-	//private static Logger _log = Logger.getLogger(L2RaidMinionInstance.class.getName());
+	//private final static Log _log = LogFactory.getLog(L2RaidMinionInstance.class.getName());
 	
 	/** The master L2Character whose depends this L2MinionInstance on */
 	private L2MonsterInstance _master;
@@ -56,7 +56,7 @@ public final class L2MinionInstance extends L2MonsterInstance
     /** Return True if the L2Character is minion of RaidBoss. */
     public boolean isRaid()
     {
-        return (getLeader() instanceof L2RaidBossInstance); 
+        return (_master instanceof L2RaidBossInstance); 
     }
 
 	/**
@@ -71,7 +71,7 @@ public final class L2MinionInstance extends L2MonsterInstance
     public void OnSpawn()
     {
         // Notify Leader that Minion has Spawned
-        getLeader().notifyMinionSpawned(this);
+        _master.notifyMinionSpawned(this);
         
         // check the region where this mob is, do not activate the AI if region is inactive.
         L2WorldRegion region = L2World.getInstance().getRegion(getX(),getY());

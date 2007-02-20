@@ -24,7 +24,7 @@ import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.clientpackets.Say2;
@@ -35,11 +35,12 @@ import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.ShowBoard;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class FriendsBBSManager extends BaseBBSManager
 {
-    private static Logger _logChat = Logger.getLogger("chat"); 
+    private static Log _logChat = LogFactory.getLog("chat"); 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.communitybbs.Manager.BaseBBSManager#parsecmd(java.lang.String, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance)
      */
@@ -174,7 +175,6 @@ public class FriendsBBSManager extends BaseBBSManager
     private void showFriendsList(L2PcInstance activeChar)
     {       
         TextBuilder htmlCode = new TextBuilder("<html><body><br>");
-        Collection<L2PcInstance> players = L2World.getInstance().getAllPlayers();
 
         Connection con = null;
         

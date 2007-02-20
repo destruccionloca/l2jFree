@@ -20,13 +20,13 @@ package net.sf.l2j.gameserver;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Map;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2TeleportLocation;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -35,11 +35,11 @@ import net.sf.l2j.gameserver.model.L2TeleportLocation;
  */
 public class TeleportLocationTable
 {
-	private static Logger _log = Logger.getLogger(TeleportLocationTable.class.getName());
+	private final static Log _log = LogFactory.getLog(TeleportLocationTable.class.getName());
 	
 	private static TeleportLocationTable _instance;
 	
-	private Map<Integer, L2TeleportLocation> _teleports;
+	private FastMap<Integer, L2TeleportLocation> _teleports;
 	
 	public static TeleportLocationTable getInstance()
 	{
@@ -62,7 +62,7 @@ public class TeleportLocationTable
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT Description, id, loc_x, loc_y, loc_z, price FROM teleport");
+            PreparedStatement statement = con.prepareStatement("SELECT Description, id, loc_x, loc_y, loc_z, price, fornoble FROM teleport");
 			ResultSet rset = statement.executeQuery();
 			L2TeleportLocation teleport;
 			
@@ -78,6 +78,7 @@ public class TeleportLocationTable
 					teleport.setPrice(0);
 				else
 				teleport.setPrice(rset.getInt("price"));
+                teleport.setIsForNoble(rset.getInt("fornoble")==1);
 
 				_teleports.put(teleport.getTeleId(), teleport);
 			}

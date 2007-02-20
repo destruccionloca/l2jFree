@@ -21,7 +21,8 @@ package net.sf.l2j.gameserver.skills;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author mkizub
@@ -31,7 +32,7 @@ import org.apache.log4j.Logger;
  */
 public final class FuncTemplate {
 
-    private static Logger _log = Logger.getLogger(FuncTemplate.class);
+    private final static Log _log = LogFactory.getLog(FuncTemplate.class);
 	public Condition _attachCond;
 	public Condition _applayCond;
 	public final Class _func;

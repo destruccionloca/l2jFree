@@ -19,19 +19,21 @@
 package net.sf.l2j.gameserver.model;
 
 import java.lang.reflect.Constructor;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.Territory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
-import net.sf.l2j.gameserver.model.entity.geodata.GeoDataRequester;
+import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class manages the spawn and respawn of a group of L2NpcInstance that are in the same are and have the same type.
@@ -45,13 +47,16 @@ import org.apache.log4j.Logger;
  */
 public class L2Spawn
 {
-    protected static Logger _log = Logger.getLogger(L2Spawn.class.getName());
+    protected static Log _log = LogFactory.getLog(L2Spawn.class.getName());
     
     /** The link on the L2NpcTemplate object containing generic and static properties of this spawn (ex : RewardExp, RewardSP, AggroRange...) */
 	private L2NpcTemplate _template;
 	
 	/** The Identifier of this spawn in the spawn table */
 	private int _id;
+
+    /** The Identifier of this spawn in the db table */
+	private int _dbid;
     
 	// private String _location = DEFAULT_LOCATION;
 	
@@ -87,9 +92,12 @@ public class L2Spawn
 	
 	/** If True a L2NpcInstance is respawned each time that another is killed */
     private boolean _doRespawn;
-    
+
+    /** If True then spawn point is custom */
+    private boolean _customSpawn;
+
     private L2NpcInstance _lastSpawn;
-    private static List<SpawnListener> _spawnListeners = new FastList<SpawnListener>();
+    private static FastList<SpawnListener> _spawnListeners = new FastList<SpawnListener>();
 	
 	/** The task launching the function doSpawn() */
 	class SpawnTask implements Runnable
@@ -180,7 +188,15 @@ public class L2Spawn
 	{
 		return _id;
 	}
-	
+
+   /**
+    * Return the Identifier of this L2Spwan (used as key in the Spawnlist).<BR><BR>
+    */
+	public int getDbId()
+	{
+	    return _dbid;
+	}   
+
 	/**
 	 * Return the Identifier of the location area where L2NpcInstance can be spwaned.<BR><BR>
 	 */
@@ -236,7 +252,15 @@ public class L2Spawn
     {
         return _respawnDelay;
     }
-		
+    
+   /**
+    * Return type of spawn.<BR><BR>
+    */
+    public boolean isCustom()
+    {
+        return _customSpawn;
+    }
+    
 	/**
 	 * Set the maximum number of L2NpcInstance that this L2Spawn can manage.<BR><BR>
 	 */
@@ -252,7 +276,15 @@ public class L2Spawn
 	{
 		_id = id;
 	}
-	
+
+    /**
+    * Set the Identifier of this L2Spwan (used as key in the Spawnlist).<BR><BR>
+    */
+	public void setDbId(int id)
+	{
+       _dbid = id;
+	}
+
 	/**
 	 * Set the Identifier of the location area where L2NpcInstance can be spwaned.<BR><BR>
 	 */
@@ -292,6 +324,14 @@ public class L2Spawn
 	{
 		_heading = heading;
 	}
+
+   /**
+    * Set the type of spawn.<BR><BR>
+    */
+    public void setCustom()
+    {
+        _customSpawn=true;
+    }  
 
 	/**
 	 * Decrease the current number of L2NpcInstance of this L2Spawn and if necessary create a SpawnTask to launch after the respawn Delay.<BR><BR>
@@ -434,39 +474,40 @@ public class L2Spawn
             
             // Calculate the random position in the location area
             int p[] = Territory.getInstance().getRandomPoint(getLocation());
-            newlocx = p[0];
-            newlocy = p[1];
             
             // Set the calculated position of the L2NpcInstance
-            if(Config.ALLOW_GEODATA)
-            {
-                newlocz = GeoDataRequester.getInstance().getGeoInfoNearest(newlocx,newlocy,(short)p[2]).getZ();
-            }
-            else
-            {
-                newlocz = p[2];
-            }
+            newlocx = p[0];
+            newlocy = p[1];
+            newlocz = GeoData.getInstance().getSpawnHeight(newlocx, newlocy, p[2], p[3],_id);
         } 
         else 
         {
             // The L2NpcInstance is spawned at the exact position (Lox, Locy, Locz)
             newlocx = getLocx();
             newlocy = getLocy();
-            if(Config.ALLOW_GEODATA)
-            {
-                newlocz = GeoDataRequester.getInstance().getGeoInfoNearest(newlocx,newlocy,(short)getLocz()).getZ();
-            }
-            else
-            {
-                newlocz = getLocz();
-            }
-            
+            newlocz = GeoData.getInstance().getSpawnHeight(newlocx,newlocy,getLocz(),getLocz(),_id);
         }
         
         for(L2Effect f : mob.getAllEffects())
         {
             if(f != null)
                 mob.removeEffect(f);
+        }
+        
+        // setting up champion mobs
+        if ( (((mob instanceof L2MonsterInstance) && !((mob instanceof L2BossInstance) || (mob instanceof L2RaidBossInstance))) || ( ((mob instanceof L2BossInstance) || (mob instanceof L2RaidBossInstance))) && Config.CHAMPION_BOSS ) && (Config.CHAMPION_FREQUENCY > 0) && (mob.getLevel() >= Config.CHAMPION_LEVEL) )
+        {
+            if (Rnd.get(100000) <= Config.CHAMPION_FREQUENCY)
+            {
+                mob.setChampion(true);
+                //String msg = "Spawning Champion: "+mob.getTemplate().name+" ["+mob.getNpcId()+"] "+mob.getLevel()+" lvl at ("+newlocx+","+newlocy+","+newlocz+")";
+                //_log.info(msg);
+                //GmListTable.broadcastMessageToGMs(msg);
+            }
+        }
+        else
+        {
+            mob.setChampion(false);
         }
         
         // Set the HP and MP of the L2NpcInstance to the max
@@ -487,9 +528,6 @@ public class L2Spawn
         
         // Init other values of the L2NpcInstance (ex : from its L2CharTemplate for INT, STR, DEX...) and add it in the world as a visible object
         mob.spawnMe(newlocx, newlocy, newlocz);
-        
-        // Launch the action OnSpawn for the L2NpcInstance
-        mob.OnSpawn();
         
         L2Spawn.notifyNpcSpawned(mob);
         

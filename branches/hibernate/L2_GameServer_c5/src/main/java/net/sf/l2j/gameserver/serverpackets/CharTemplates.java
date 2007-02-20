@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.templates.L2PcTemplate;
 
@@ -32,7 +30,7 @@ public class CharTemplates extends ServerBasePacket
 {
 	// dddddddddddddddddddd
 	private static final String _S__23_CHARTEMPLATES = "[S] 23 CharTemplates";
-	private List<L2PcTemplate> _chars = new FastList<L2PcTemplate>();
+	private FastList<L2PcTemplate> _chars = new FastList<L2PcTemplate>();
 	
 	public void addChar(L2PcTemplate template)
 	{

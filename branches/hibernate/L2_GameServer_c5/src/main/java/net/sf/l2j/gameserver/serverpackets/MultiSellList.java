@@ -72,7 +72,7 @@ public class MultiSellList extends ServerBasePacket
             MultiSellListContainer tmpList = L2Multisell.getInstance().getList(_listId);
             
             if (tmpList == null) return; 
-            L2ItemInstance[] items = _player.getInventory().getUniqueItems(false);
+            L2ItemInstance[] items = _player.getInventory().getUniqueItems(false,false);
             _list = L2Multisell.getInstance().new MultiSellListContainer();
             _list.setListId(_listId);
             
@@ -118,19 +118,31 @@ public class MultiSellList extends ServerBasePacket
         {
             for(MultiSellEntry ent : _list.getEntries())
             {
-                int typeP = ItemTable.getInstance().getTemplate(ent.getProductId()).getType2();
-    
                 writeD(ent.getEntryId());
+                if (getClient().getRevision() >= 729) // chaotic throne
+                {
+                    writeD(0);
+                    writeD(0);
+                }
                 writeC(1);
-                writeH(1);
+                writeH(ent.getProducts().size());
                 writeH(ent.getIngredients().size());
     
-                writeH(ent.getProductId());
-                writeD(0);
-                writeH(typeP);
-                writeD(ent.getProductCount());
-                writeH(ent.getProductEnchant()); //enchtant lvl
-                
+                for(MultiSellIngredient i : ent.getProducts())
+                {
+                    int typeE = ItemTable.getInstance().getTemplate(i.getItemId()).getType2();
+                    writeH(i.getItemId());      //ID
+                    writeD(0);                  //unknown
+                    writeH(typeE);
+                    writeD(i.getItemCount());   //Count
+                    writeH(i.getItemEnchant()); //Enchant Level
+                    if (getClient().getRevision() >= 729) // chaotic throne
+                    {
+                        writeD(0);
+                        writeD(0);
+                    }
+                }
+
                 for(MultiSellIngredient i : ent.getIngredients())
                 {
                     int typeE = ItemTable.getInstance().getTemplate(i.getItemId()).getType2();
@@ -138,6 +150,11 @@ public class MultiSellList extends ServerBasePacket
                     writeH(typeE);
                     writeD(i.getItemCount());   //Count
                     writeH(i.getItemEnchant()); //Enchant Level
+                    if (getClient().getRevision() >= 729) // chaotic throne
+                    {
+                        writeD(0);
+                        writeD(0);
+                    }
                 }
             }
         }

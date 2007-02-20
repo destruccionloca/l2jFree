@@ -2,13 +2,12 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
 import net.sf.l2j.gameserver.model.TradeList.TradeItem;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.templates.L2EtcItemType;
 
 public class PcInventory extends Inventory 
 {
@@ -45,19 +44,22 @@ public class PcInventory extends Inventory
      * Returns the list of items in inventory available for transaction
      * @return L2ItemInstance : items in inventory
      */
-    public L2ItemInstance[] getUniqueItems(boolean allowAdena)
+    public L2ItemInstance[] getUniqueItems(boolean allowAdena, boolean allowAncientAdena)
     {
-        List<L2ItemInstance> list = new FastList<L2ItemInstance>();
+        FastList<L2ItemInstance> list = new FastList<L2ItemInstance>();
         for (L2ItemInstance item : _items)
         {
-            if ((!allowAdena && item.getItemId() == 57)) continue;
+            if ((!allowAdena && item.getItemId() == 57)) 
+                continue;
+            if ((!allowAncientAdena && item.getItemId() == 5575))
+                continue;
             boolean isDuplicate = false;
             for (L2ItemInstance litem : list) if (litem.getItemId() == item.getItemId())
             {
                 isDuplicate = true;
                 break;
             }
-			if (!isDuplicate && item.getItem().isSellable() && item.isAvailable(getOwner(), false)) list.add(item);
+            if (!isDuplicate && item.getItem().isSellable() && item.isAvailable(getOwner(), false)) list.add(item);
         }
 
         return list.toArray(new L2ItemInstance[list.size()]);
@@ -69,9 +71,9 @@ public class PcInventory extends Inventory
      */
     public L2ItemInstance[] getAvailableItems(boolean allowAdena)
     {
-        List<L2ItemInstance> list = new FastList<L2ItemInstance>();
+        FastList<L2ItemInstance> list = new FastList<L2ItemInstance>();
         for (L2ItemInstance item : _items)
-			if (item != null && item.isAvailable(getOwner(), allowAdena)) list.add(item);
+            if (item != null && item.isAvailable(getOwner(), allowAdena)) list.add(item);
 
         return list.toArray(new L2ItemInstance[list.size()]);
     }
@@ -82,7 +84,7 @@ public class PcInventory extends Inventory
      */
     public TradeList.TradeItem[] getAvailableItems(TradeList tradeList)
     {
-        List<TradeList.TradeItem> list = new FastList<TradeList.TradeItem>();
+        FastList<TradeList.TradeItem> list = new FastList<TradeList.TradeItem>();
         for (L2ItemInstance item : _items)
             if (item.isAvailable(getOwner(), false))
                 {
@@ -291,6 +293,7 @@ public class PcInventory extends Inventory
         L2ItemInstance item = super.destroyItemByItemId(process, itemId, count, actor, reference);
         
         if (_adena != null && _adena.getCount() <= 0)
+
             _adena = null;
         
         if (_ancientAdena != null && _ancientAdena.getCount() <= 0) 
@@ -384,7 +387,7 @@ public class PcInventory extends Inventory
 
     public static int[][] restoreVisibleInventory(int objectId)
     {
-        int[][] paperdoll = new int[0x10][3];
+        int[][] paperdoll = new int[0x13][3];
         java.sql.Connection con = null;
         
         try
@@ -417,33 +420,33 @@ public class PcInventory extends Inventory
     {
         int slots = 0;
         
-        if (!(item.isStackable() && getItemByItemId(item.getItemId()) != null)) 
+        if (!(item.isStackable() && getItemByItemId(item.getItemId()) != null) && item.getItemType() != L2EtcItemType.HERB)  
             slots++;
         
         return validateCapacity(slots);
     }
     
-    public boolean validateCapacity(List<L2ItemInstance> items)
-    {
-        int slots = 0;
-        
-        for (L2ItemInstance item : items)
-            if (!(item.isStackable() && getItemByItemId(item.getItemId()) != null)) 
-                slots++;
-        
-        return validateCapacity(slots);
-    }
-    
-    public boolean validateCapacityByItemId(int ItemId)
-    {
-        int slots = 0;
-        
-        L2ItemInstance invItem = getItemByItemId(ItemId);
-        if (!(invItem != null && invItem.isStackable())) 
-            slots++;
-        
-        return validateCapacity(slots);
-    }
+    public boolean validateCapacity(FastList<L2ItemInstance> items) 
+    { 
+       int slots = 0; 
+       
+       for (L2ItemInstance item : items) 
+           if (!(item.isStackable() && getItemByItemId(item.getItemId()) != null))  
+                slots++; 
+              
+       return validateCapacity(slots); 
+    } 
+          
+    public boolean validateCapacityByItemId(int ItemId) 
+    { 
+       int slots = 0; 
+              
+       L2ItemInstance invItem = getItemByItemId(ItemId); 
+       if (!(invItem != null && invItem.isStackable()))  
+           slots++; 
+              
+       return validateCapacity(slots); 
+    } 
     
     public boolean validateCapacity(int slots)
     {

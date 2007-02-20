@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.MonsterRace;
 import net.sf.l2j.gameserver.ThreadPoolManager;
@@ -43,8 +41,8 @@ public class L2RaceManagerInstance extends L2NpcInstance
     public static final int WINDOW_START = 0;
 
     @SuppressWarnings("unused")
-    private static List<Race> history;
-    private static List<L2RaceManagerInstance> managers;
+    private static FastList<Race> history;
+    private static FastList<L2RaceManagerInstance> managers;
     protected static int raceNumber = 4;
 
     //Time Constants

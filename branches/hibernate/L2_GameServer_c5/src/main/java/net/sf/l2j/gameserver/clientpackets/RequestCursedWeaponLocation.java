@@ -18,8 +18,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.util.List;
-
 import javolution.util.FastList;
 
 import net.sf.l2j.gameserver.ClientThread;
@@ -57,7 +55,7 @@ public class RequestCursedWeaponLocation extends ClientBasePacket
         if (activeChar == null)
             return;
         
-        List<CursedWeaponInfo> list = new FastList<CursedWeaponInfo>();
+        FastList<CursedWeaponInfo> list = new FastList<CursedWeaponInfo>();
         for (CursedWeapon cw : CursedWeaponsManager.getInstance().getCursedWeapons())
         {
             if (!cw.isActive()) continue;

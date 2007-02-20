@@ -2,9 +2,6 @@ package net.sf.l2j.gameserver.instancemanager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -12,9 +9,12 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.Zone;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class ZoneManager
 {
-    protected static Logger _log = Logger.getLogger(ZoneManager.class.getName());
+    protected static Log _log = LogFactory.getLog(ZoneManager.class.getName());
 
     // =========================================================
     private static ZoneManager _Instance;
@@ -33,7 +33,7 @@ public class ZoneManager
 
     // =========================================================
     // Data Field
-    private List<ZoneType> _ZoneTypes;
+    private FastList<ZoneType> _ZoneTypes;
     
     // =========================================================
     // Constructor
@@ -234,12 +234,12 @@ public class ZoneManager
         return null;
     }
     
-    public final List<Zone> getZones(String typeName)
+    public final FastList<Zone> getZones(String typeName)
     {
         return getZoneType(typeName).getZones();
     }
     
-    public final List<ZoneType> getZoneTypes()
+    public final FastList<ZoneType> getZoneTypes()
     {
         if (_ZoneTypes == null) _ZoneTypes = new FastList<ZoneType>();
         return _ZoneTypes;

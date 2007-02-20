@@ -25,7 +25,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.CharSelected;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -35,7 +36,7 @@ import org.apache.log4j.Logger;
 public class CharacterSelected extends ClientBasePacket
 {
 	private static final String _C__0D_CHARACTERSELECTED = "[C] 0D CharacterSelected";
-	private static Logger _log = Logger.getLogger(CharacterSelected.class.getName());
+	private final static Log _log = LogFactory.getLog(CharacterSelected.class.getName());
 
 	// cd
 	private final int _charSlot;
@@ -70,11 +71,16 @@ public class CharacterSelected extends ClientBasePacket
 		// be a  [S]0x21 packet
 		// after playback is done, the client will not work correct and need to exit
 		//playLogFile(getConnection()); // try to play log file
-		
 
 		// HAVE TO CREATE THE L2PCINSTANCE HERE TO SET AS ACTIVE
 		if (_log.isDebugEnabled()) _log.debug("selected slot:" + _charSlot);
-		
+
+        if(!getClient().getAccountName(_charSlot).equalsIgnoreCase(getClient().getLoginName()))
+        {
+            _log.fatal("HACKER: Account " + getClient().getLoginName() + " tried to login with char of account "+getClient().getAccountName(_charSlot));
+            getClient().getConnection().close();
+        }
+        
 		//loadup character from disk
 		L2PcInstance cha = getClient().loadCharFromDisk(_charSlot);
 		if(cha == null)
@@ -83,9 +89,9 @@ public class CharacterSelected extends ClientBasePacket
 			sendPacket(new ActionFailed());
 			return;
 		}
-		
+        
 		getClient().setActiveChar(cha);
-		
+        
 		if(cha.getAccessLevel() < -1)
 		{
 			cha.closeNetConnection();

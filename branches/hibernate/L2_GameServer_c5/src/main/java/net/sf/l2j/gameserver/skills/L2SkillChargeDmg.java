@@ -1,12 +1,11 @@
 package net.sf.l2j.gameserver.skills;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
-import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
@@ -26,7 +25,7 @@ public class L2SkillChargeDmg extends L2Skill
 		charge_skill_id = set.getInteger("charge_skill_id");
 	}
 
-	public boolean checkCondition(L2Character activeChar)
+	public boolean checkCondition(L2Character activeChar, boolean itemOrWeapon)
 	{
 		if (activeChar instanceof L2PcInstance)
 		{
@@ -40,7 +39,7 @@ public class L2SkillChargeDmg extends L2Skill
 				return false;
 			}
 		}
-		return super.checkCondition(activeChar, false);
+		return super.checkCondition(activeChar, itemOrWeapon);
 	}
 	
 	public void useSkill(L2Character caster, L2Object[] targets)
@@ -88,12 +87,6 @@ public class L2SkillChargeDmg extends L2Skill
 			int damage = (int)Formulas.getInstance().calcPhysDam(
 					caster, target, this, shld, false, false, soul);
             
-            if (target instanceof L2NpcInstance) {
-                if (target.isChampion()) {
-                    damage /= Config.CHAMPION_HP;
-                }
-            }
-
 			if (damage > 0)
             {
                 double finalDamage = damage;
@@ -118,7 +111,16 @@ public class L2SkillChargeDmg extends L2Skill
 				SystemMessage sm = new SystemMessage(SystemMessage.MISSED_TARGET);
 				caster.sendPacket(sm);
 			}
-		}	
+		}
+        // effect self :]
+        L2Effect seffect = caster.getEffect(getId());
+        if (seffect != null && seffect.isSelfEffect())
+        {             
+            //Replace old effect with new one.
+            seffect.exit();
+        }
+        // cast self effect if any
+        getEffectsSelf(caster);        
 	}
 	
 }

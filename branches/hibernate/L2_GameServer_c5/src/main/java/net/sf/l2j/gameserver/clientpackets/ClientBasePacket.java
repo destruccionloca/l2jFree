@@ -20,14 +20,15 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.BasePacket;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -36,7 +37,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class ClientBasePacket extends BasePacket implements Runnable
 {
-	private static Logger _log = Logger.getLogger(ClientBasePacket.class.getName());
+	private final static Log _log = LogFactory.getLog(ClientBasePacket.class.getName());
 	
 	protected ClientBasePacket(ByteBuffer buf, ClientThread client)
 	{
@@ -106,6 +107,14 @@ public abstract class ClientBasePacket extends BasePacket implements Runnable
 	    } catch (Exception e) {_log.error(e.getMessage(),e);}
 	    return 0;
 	}
+
+    public final long readQ()
+    {
+        try {
+            return _buf.getLong();
+        } catch (Exception e) {e.printStackTrace();}
+        return 0;
+    }
 
 	public final String readS()
 	{

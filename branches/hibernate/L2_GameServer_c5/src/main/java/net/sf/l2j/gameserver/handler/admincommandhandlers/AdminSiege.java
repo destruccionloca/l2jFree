@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import javolution.lang.TextBuilder;
+import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -44,7 +44,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class AdminSiege implements IAdminCommandHandler
 {
-    //private static Logger _log = Logger.getLogger(AdminSiege.class.getName());
+    //private final static Log _log = LogFactory.getLog(AdminSiege.class.getName());
 
     private static String[] _adminCommands = {"admin_siege",
             "admin_add_attacker", "admin_add_defender", "admin_add_guard",
@@ -93,7 +93,7 @@ public class AdminSiege implements IAdminCommandHandler
 
             if (command.equalsIgnoreCase("admin_add_attacker"))
             {
-                if (player == null)
+                if (player == null || player.getClan() == null)
                     activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
                 else
                     castle.getSiege().registerAttacker(player,true);
@@ -167,15 +167,15 @@ public class AdminSiege implements IAdminCommandHandler
             }
             else if (command.equalsIgnoreCase("admin_clanhallteleportself"))
             {
-			Zone zone = clanhall.getZone();
-			int[] coord;
-            		if (zone != null)
-            		{
-            		    coord = zone.getCoords().get(0);
-			    int x = coord[0] + (coord[2] - coord[0])/2;
-			    int y = coord[1] + (coord[3] - coord[1])/2;
-            		    activeChar.teleToLocation(new Location(x, y, coord[4])); 
-			}
+    			Zone zone = clanhall.getZone();
+    			int[] coord;
+        		if (zone != null)
+        		{
+                		    coord = zone.getCoords().get(0);
+    			    int x = coord[0] + (coord[2] - coord[0])/2;
+    			    int y = coord[1] + (coord[3] - coord[1])/2;
+    			    activeChar.teleToLocation(new Location(x, y, coord[4]), true);  
+    			}
             }
             else if (command.equalsIgnoreCase("admin_spawn_doors"))
             {

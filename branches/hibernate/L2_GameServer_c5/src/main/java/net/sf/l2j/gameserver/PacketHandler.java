@@ -20,11 +20,13 @@ package net.sf.l2j.gameserver;
 
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.clientpackets.*;
 import net.sf.l2j.util.Util;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -33,7 +35,7 @@ import net.sf.l2j.util.Util;
  */
 public class PacketHandler
 {
-	private static Logger _log = Logger.getLogger(PacketHandler.class.getName());
+	private final static Log _log = LogFactory.getLog(PacketHandler.class.getName());
     private static LinkedList<CustomPacketHandlerInterface> customhandlers = new LinkedList<CustomPacketHandlerInterface>();
 
 	private PacketHandler()
@@ -52,13 +54,25 @@ public class PacketHandler
 	{
 		ClientBasePacket msg = null;
 		int id = data.get() & 0xff;
+        long start = 0;
 
         for (CustomPacketHandlerInterface handler : customhandlers) {
             msg = handler.handlePacket(data, client);
             if (msg != null)
                 break;
         }
+        
+        if(id != 0x00 && id != 0x08 && !client.isAuthed())
+        {
+            _log.fatal("Player with IP: "+client.getConnection().getIP()+" tried to hack account : "+client.getLoginName());
+            client.getConnection().close();
+            //Just for sure
+            return null;            
+        }
 
+        if(Config.PACKET_EXECUTIONTIME > 0)
+            start = System.currentTimeMillis();
+        
         if (msg == null)
 		switch(id)
 		{
@@ -600,6 +614,9 @@ public class PacketHandler
             case 0xc4:
                 msg = new RequestBuySeed(data,client);
                 break;                
+            case 0xc5:
+               msg = new DlgAnswer(data, client);
+               break;                
             case 0xc6:
 				msg = new RequestWearItem(data, client);
 				break;
@@ -716,10 +733,22 @@ public class PacketHandler
                     case 0x24:
                         msg = new RequestPledgeReorganizeMember(data, client);
                         break;                        
+                    case 0x27:
+                        msg= new RequestDuelStart(data,client);//requestduel;
+                        break;
+                    case 0x28 :
+                        msg= new RequestDuelAnswerStart(data,client);//requestanswerduel;
+                        break;
+                    //case 0x29:
+                        //msg= new //refinment;
+                        //break;
+                    case 0x30:
+                        msg= new RequestSurrenderDuel(data,client);//surrende
+                        break;
                     default: 
                      	msg = null; 
                      	int size = data.remaining(); 
-                     	_log.warn("Unknown Packet: 0xd0:" + Integer.toHexString(id2)); 
+                        _log.warn("Unknown Packet from "+client.getLoginName()+":" + Integer.toHexString(id)); 
                      	byte[] array = new byte[size]; 
                      	data.get(array); 
                         _log.warn(Util.printData(array, size)); 
@@ -742,6 +771,10 @@ public class PacketHandler
 				break;
 			}
 		}
+        
+        if (Config.PACKET_EXECUTIONTIME > 0 && System.currentTimeMillis() - start > Config.PACKET_EXECUTIONTIME)
+            _log.warn("Packet took too long to execute: " + msg.getType());
+        
 		if (msg != null) {
 			//assert !msg._buf.hasRemaining(); // too many errors :(
 			msg._buf = null;

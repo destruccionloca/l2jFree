@@ -1,17 +1,17 @@
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.util.List;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.OlympiadStadia;
 import net.sf.l2j.gameserver.model.entity.Zone;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class OlympiadStadiaManager
 {
-    protected static Logger _log = Logger.getLogger(OlympiadStadiaManager.class.getName());
+    protected static Log _log = LogFactory.getLog(OlympiadStadiaManager.class.getName());
 
     // =========================================================
     private static OlympiadStadiaManager _instance;
@@ -30,7 +30,7 @@ public class OlympiadStadiaManager
     
     // =========================================================
     // Data Field
-    private List<OlympiadStadia> _olympiadStadias;
+    private FastList<OlympiadStadia> _olympiadStadias;
     
     // =========================================================
     // Constructor
@@ -120,7 +120,7 @@ public class OlympiadStadiaManager
         return -1;
     }
 
-    public final List<OlympiadStadia> getOlympiadStadias()
+    public final FastList<OlympiadStadia> getOlympiadStadias()
     {
         if (_olympiadStadias == null) _olympiadStadias = new FastList<OlympiadStadia>();
         return _olympiadStadias;

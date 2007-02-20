@@ -23,9 +23,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.LineNumberReader;
-import java.util.Map;
 import java.util.StringTokenizer;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -34,12 +32,15 @@ import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 
 
 public class BoatManager
 {
-	private static final Logger _log = Logger.getLogger(BoatManager.class.getName());
+	private static final Log _log = LogFactory.getLog(BoatManager.class.getName());
 
     // =========================================================
 	private static BoatManager _Instance;
@@ -58,7 +59,7 @@ public class BoatManager
 	
     // =========================================================
     // Data Field
-	private Map<Integer,L2BoatInstance> _staticItems = new FastMap<Integer,L2BoatInstance>();
+	private FastMap<Integer,L2BoatInstance> _staticItems = new FastMap<Integer,L2BoatInstance>();
 	@SuppressWarnings("unused")
 	private boolean _initialized;
 
@@ -174,7 +175,6 @@ public class BoatManager
 		npcDat.set("name", name);
 		npcDat.set("baseHpMax", 50000);
 		npcDat.set("baseHpReg", 3.e-3f);
-        npcDat.set("baseCpReg", 0);
 		npcDat.set("baseMpReg", 3.e-3f);
 		npcDat.set("basePDef", 100);
 		npcDat.set("baseMDef", 100);		

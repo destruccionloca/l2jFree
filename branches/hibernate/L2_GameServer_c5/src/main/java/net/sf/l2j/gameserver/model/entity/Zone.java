@@ -1,21 +1,22 @@
 package net.sf.l2j.gameserver.model.entity;
 
-import java.util.List;
 import java.util.Random;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class Zone
 {
-    protected static Logger _log = Logger.getLogger(Zone.class.getName());
+    protected static Log _log = LogFactory.getLog(Zone.class.getName());
 
     // =========================================================
     // Data Field
-    private List<int[]> _Coords;
+    private FastList<int[]> _Coords;
     private int _Id;
     private String _Name;
     private int _TaxById;
@@ -143,7 +144,7 @@ public class Zone
         return null;
     }
 
-    public final List<int[]> getCoords()
+    public final FastList<int[]> getCoords()
     {
         if (_Coords == null) _Coords = new FastList<int[]>();
         return _Coords;

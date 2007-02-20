@@ -18,7 +18,6 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.ScheduledFuture;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -32,13 +31,16 @@ import net.sf.l2j.gameserver.taskmanager.tasks.TaskRestart;
 import net.sf.l2j.gameserver.taskmanager.tasks.TaskSevenSignsUpdate;
 import net.sf.l2j.gameserver.taskmanager.tasks.TaskShutdown;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author Layane
  *
  */
 public final class TaskManager
 {
-    protected static final Logger _log = Logger.getLogger(TaskManager.class.getName());
+    protected static final Log _log = LogFactory.getLog(TaskManager.class.getName());
     private static TaskManager _instance;
 
     protected static final String[] SQL_STATEMENTS = {

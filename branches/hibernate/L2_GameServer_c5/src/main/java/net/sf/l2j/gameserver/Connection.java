@@ -24,13 +24,13 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.clientpackets.ClientBasePacket;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.WrappedMessage;
 import net.sf.l2j.util.Util;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.ibm.io.async.AsyncSocketChannel;
 
@@ -41,7 +41,7 @@ import com.ibm.io.async.AsyncSocketChannel;
  */
 public final class Connection
 {
-    private static Logger _log = Logger.getLogger(Connection.class.getName());
+    private final static Log _log = LogFactory.getLog(Connection.class.getName());
 
     private Crypt _inCrypt;
     private Crypt _outCrypt;
@@ -113,7 +113,7 @@ public final class Connection
      * Notifies all threads, that wait() on this Connection
      */
     public synchronized void addReceivedMsg(ByteBuffer buf) {
-        if (Config.ASSERT) assert Thread.currentThread() == SelectorThread.getInstance();
+        // if (Config.ASSERT) assert Thread.currentThread() == SelectorThread.getInstance();
         ClientBasePacket pkt = PacketHandler.handlePacket(buf, _client);
         if (pkt != null) {
             if (pkt.getPriority() == TaskPriority.PR_URGENT)
@@ -132,7 +132,7 @@ public final class Connection
      */
     synchronized ClientBasePacket getNextReceivedMsg()
     {
-        if (Config.ASSERT) assert Thread.currentThread() != SelectorThread.getInstance();
+        // if (Config.ASSERT) assert Thread.currentThread() != SelectorThread.getInstance();
         if (_receivedMsgQueue.isEmpty())
             return null;
         return _receivedMsgQueue.remove();
@@ -161,7 +161,7 @@ public final class Connection
         }
 
         WrappedMessage msg = new WrappedMessage(data, this);
-        SelectorThread.getInstance().sendMessage(msg);
+        IOThread.getInstance().sendMessage(msg);
     }
 
     public void sendPacket(ServerBasePacket bp)
@@ -212,6 +212,7 @@ public final class Connection
         { }
         try
         {
+            LoginServerThread.getInstance().removeWaitingClient(_client);
             if (_client.getActiveChar() != null)
             {
                 _client.onDisconnect();
@@ -262,4 +263,12 @@ public final class Connection
     {
         return !_csocket.isClosed();
     }
+
+    /** 
+    * Return IP adress of this Client Connection.
+    */
+    public String getIP()
+    {
+       return _csocket.getInetAddress().getHostAddress();
+    }    
 }

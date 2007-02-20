@@ -3,8 +3,6 @@
  */
 package net.sf.l2j.gameserver.model.quest;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -35,7 +33,7 @@ public class QuestDropInfo
 		}
 	}
 	
-	public List<DropInfo>	 dropList;
+	public FastList<DropInfo>	 dropList;
 	
 	/**
 	 * Add informations for dropped items in the inventory of the player.
@@ -57,7 +55,7 @@ public class QuestDropInfo
             
             if (questState.getDrops() != null)
             {
-                List<L2DropData> questDrop = questState.getDrops().get(npcId);
+                FastList<L2DropData> questDrop = questState.getDrops().get(npcId);
                 if(questDrop == null)
                 {
                     continue;

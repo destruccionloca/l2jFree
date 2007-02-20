@@ -34,7 +34,6 @@ import java.util.StringTokenizer;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SelectorThread;
 import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.Universe;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -107,33 +106,45 @@ public class AdminTest implements IAdminCommandHandler
             catch (StringIndexOutOfBoundsException e)
             { }
         }
-        else if (command.startsWith("admin_test uni flush"))
-        {
-            Universe.getInstance().flush();
-            activeChar.sendMessage("Universe Map Saved.");
-        }
-        else if (command.startsWith("admin_test uni"))
-        {
-            activeChar.sendMessage("Universe Map Size is: "+Universe.getInstance().size());
-        }
         else if (command.equals("admin_test hash"))
         {
             testHashMap(activeChar);
         }
                 else if (command.equals("admin_mp on"))
         {
+            if (Config.IO_TYPE == Config.IOType.nio)
+            {
             SelectorThread.startPacketMonitor();
             activeChar.sendMessage("Packet monitor enabled");
+            }
+            else
+            {
+                activeChar.sendMessage("not supported");
+            }
         }
         else if (command.equals("admin_mp off"))
         {
+            if (Config.IO_TYPE == Config.IOType.nio)
+            {
             SelectorThread.stopPacketMonitor();
             activeChar.sendMessage("Packet monitor disabled");
+            }
+            else
+            {
+                activeChar.sendMessage("not supported");
+            }
         }
         else if (command.equals("admin_mp dump"))
         {
+            if (Config.IO_TYPE == Config.IOType.nio)
+            {
             SelectorThread.dumpPacketHistory();
             activeChar.sendMessage("Packet history saved");
+            }
+            else
+            {
+                activeChar.sendMessage("not supported");
+            }
         }
         else if (command.equals("admin_known on"))
         {

@@ -36,7 +36,7 @@ package net.sf.l2j.gameserver.serverpackets;
 public class JoinParty extends ServerBasePacket
 {
 	private static final String _S__4C_JOINPARTY = "[S] 3a JoinParty";
-	//private static Logger _log = Logger.getLogger(JoinParty.class.getName());
+	//private final static Log _log = LogFactory.getLog(JoinParty.class.getName());
 
 	private int _response;
 

@@ -23,18 +23,16 @@ import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
 import java.util.concurrent.Future;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Effect.EffectType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.geodata.GeoMove;
-import net.sf.l2j.gameserver.model.entity.geodata.GeoMove.TargetCoord;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.AutoAttackStart;
 import net.sf.l2j.gameserver.serverpackets.AutoAttackStop;
@@ -48,6 +46,8 @@ import net.sf.l2j.gameserver.serverpackets.StopRotation;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 
+import org.apache.commons.logging.Log; 
+import org.apache.commons.logging.LogFactory;
 /**
  * Mother class of all objects AI in the world.<BR><BR>
  *
@@ -58,13 +58,12 @@ import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 abstract class AbstractAI implements Ctrl
 {
 
-    protected static final Logger _log = Logger.getLogger(AbstractAI.class.getName());
+    protected static final Log _log = LogFactory.getLog(AbstractAI.class.getName()); 
 
     class FollowTask implements Runnable
     {
         int _range = 60;
-        GeoMove moveManager = new GeoMove(_actor); 
-        TargetCoord tCoord;
+
         public FollowTask()
         {
         }
@@ -80,97 +79,17 @@ abstract class AbstractAI implements Ctrl
             {
                 if (_follow_task == null) return;
 
-                if (_follow_target == null  || _actor == null)
+                if (_follow_target == null)
                 {
                     stopFollow();
                     return;
                 }
-                if(_move_task != null)
-                {
-                    stopMoveTask();
-                }
-                
-                tCoord = moveManager.checkMovement(_follow_target);
-                if (_follow_target != null)
-                {
-                    if (tCoord == null)
-                    {
-                        moveManager.targetRecorder = null;
-                        moveQueue = 0;
-                        moveToPawn(_follow_target, _range);  
-                    }
-                    else
-                    {
-                        moveTo(tCoord.x, tCoord.y, tCoord.z);
-                    }
-                }
-            }
-            catch (Throwable t)
-            {
-                //__log.warn( "", t);
-            }
-        }
-    }
-    class MoveTask implements Runnable
-    {
-        
-        GeoMove moveManager = new GeoMove(_actor); 
-        TargetCoord tCoord;
-        boolean _running = false;
-        public MoveTask()
-        {
-        }
 
-        public void run()
-        {
-            try
-            {
-                if (_move_task == null || _move_target == null || _actor == null)
-                {
-                    stopMoveTask();
-                    return;
-                }
-                
-                if (_follow_task != null)
-                {
-                    stopFollow();
-                }
-                
-                if (!_running)
-                {
-                    _running = true;
-                    
-                    tCoord = moveManager.checkMovement(_move_target);
-                    moveQueue = moveManager.getQueueSize();
-                    if ( moveQueue >= 0 && tCoord != null) 
-                    {
-                        if( _move_target != null )
-                        {
-                            if ( moveQueue == 1 && (tCoord.x != _move_target.x ||  tCoord.y != _move_target.y || tCoord.z != _move_target.z))
-                            {
-                                _move_target.x = tCoord.x;
-                                _move_target.y = tCoord.y;
-                                _move_target.z = tCoord.z;
-                            }
-                            moveTo(tCoord.x, tCoord.y, tCoord.z);
-                        }
-                    }
-                    else 
-                    {
-                        if (_move_target != null)
-                        {
-                            moveManager.targetRecorder = null;
-                            moveQueue = 0;
-                            moveTo(_move_target.x,_move_target.y,_move_target.z);
-                        }
-                    }
-                    _running = false;
-                }
+                moveToPawn(_follow_target, _range);
             }
             catch (Throwable t)
             {
-                _log.warn(t.getMessage());
-                t.printStackTrace();
+                _log.warn("", t);
             }
         }
     }
@@ -195,14 +114,11 @@ abstract class AbstractAI implements Ctrl
     /** Flags about client's state, in order to know which messages to send */
     protected int _client_moving_to_pawn_offset;
 
-    protected int moveQueue;
-    
     /** Different targets this AI maintains */
     private L2Object _target;
     private L2Character _cast_target;
     protected L2Character _attack_target;
     protected L2Character _follow_target;
-    protected L2CharPosition _move_target;
 
     /** The skill we are curently casting by INTENTION_CAST */
     L2Skill _skill;
@@ -211,8 +127,6 @@ abstract class AbstractAI implements Ctrl
     private int _move_to_pawn_timeout;
 
     protected Future _follow_task = null;
-    protected Future _move_task = null;
-    private static final int MOVE_INTERVAL = 1000;
     private static final int FOLLOW_INTERVAL = 1000;
     private static final int ATTACK_FOLLOW_INTERVAL = 500;
 
@@ -289,8 +203,8 @@ abstract class AbstractAI implements Ctrl
     synchronized void changeIntention(CtrlIntention intention, Object arg0, Object arg1)
     {
         /*
-         if (_log.isDebugEnabled())
-         _log.warn("AbstractAI: changeIntention -> " + intention + " " + arg0 + " " + arg1);
+         if (Config.DEBUG)
+         _log.warning("AbstractAI: changeIntention -> " + intention + " " + arg0 + " " + arg1);
          */
 
         _intention = intention;
@@ -340,8 +254,8 @@ abstract class AbstractAI implements Ctrl
         if (!_actor.isVisible() || !_actor.hasAI()) return;
 
         /*
-         if (_log.isDebugEnabled())
-         _log.warn("AbstractAI: setIntention -> " + intention + " " + arg0 + " " + arg1);
+         if (Config.DEBUG)
+         _log.warning("AbstractAI: setIntention -> " + intention + " " + arg0 + " " + arg1);
          */
         
         // Silent move stop if player attack or cast
@@ -352,22 +266,20 @@ abstract class AbstractAI implements Ctrl
                )
            )
         {
-            if (_actor.getEffect(EffectType.SILENT_MOVE) != null)
+            L2Effect silentMove = _actor.getEffect(EffectType.SILENT_MOVE);
+            if (silentMove != null && silentMove.getSkill() != null)
             {
                 SystemMessage sm = new SystemMessage(92);
-                sm.addSkillName(_actor.getEffect(EffectType.SILENT_MOVE).getSkill().getId());
-                _actor.getEffect(EffectType.SILENT_MOVE).exit();
+                sm.addSkillName(silentMove.getSkill().getId());
+                silentMove.exit();
                 _actor.sendPacket(sm);
                 sm = null;
             }
+            silentMove = null;
         }
 
         // Stop the follow mode if necessary
-        if (intention != AI_INTENTION_FOLLOW && intention != AI_INTENTION_ATTACK)
-        {
-            stopFollow();
-            stopMoveTask();
-        }
+        if (intention != AI_INTENTION_FOLLOW && intention != AI_INTENTION_ATTACK) stopFollow();
 
         // Launch the onIntention method of the L2CharacterAI corresponding to the new Intention
         switch (intention)
@@ -450,8 +362,8 @@ abstract class AbstractAI implements Ctrl
         if (!_actor.isVisible() || !_actor.hasAI()) return;
 
         /*
-         if (_log.isDebugEnabled())
-         _log.warn("AbstractAI: notifyEvent -> " + evt + " " + arg0 + " " + arg1);
+         if (Config.DEBUG)
+         _log.warning("AbstractAI: notifyEvent -> " + evt + " " + arg0 + " " + arg1);
          */
 
         switch (evt)
@@ -719,16 +631,13 @@ abstract class AbstractAI implements Ctrl
     protected void clientStopMoving(L2CharPosition pos)
     {
         /*
-         if (_log.isDebugEnabled())
-         _log.warn("clientStopMoving();");
+         if (Config.DEBUG)
+         _log.warning("clientStopMoving();");
          */
 
         // Stop movement of the L2Character
-        if (_actor.isMoving())
-        {
-            _accessor.stopMove(pos);
-            stopMoveTask();
-        }
+        if (_actor.isMoving()) _accessor.stopMove(pos);
+
         _client_moving_to_pawn_offset = 0;
 
         if (_client_moving || pos != null)
@@ -817,7 +726,6 @@ abstract class AbstractAI implements Ctrl
 
         // Cancel the follow task if necessary
         stopFollow();
-        stopMoveTask();
     }
 
     /**
@@ -894,38 +802,12 @@ abstract class AbstractAI implements Ctrl
         if (_follow_task != null)
         {
             // Stop the Follow Task
-            _follow_task.cancel(true);
+            _follow_task.cancel(false);
             _follow_task = null;
         }
         _follow_target = null;
     }
 
-    public synchronized void startMoveTask(L2CharPosition target)
-    {
-        if (_move_task != null)
-        {
-            _move_task.cancel(true);
-            _move_task = null;
-        }
-
-        // Create and Launch an AI Follow Task to execute every MOVE_INTERVAL
-        _move_target = target;
-        _move_task = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new MoveTask(), 5,
-                                                                           MOVE_INTERVAL);
-    }
-
-    public synchronized void stopMoveTask()
-    {
-        if (_move_task != null)
-        {
-            // Stop the Move Task
-            _move_task.cancel(false);
-            _move_task = null;
-            _move_target = null;            
-        }
-    }
-
-    
     protected L2Character getFollowTarget()
     {
         return _follow_target;

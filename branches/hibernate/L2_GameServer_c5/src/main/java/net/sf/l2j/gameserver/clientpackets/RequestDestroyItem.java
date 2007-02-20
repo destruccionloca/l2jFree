@@ -21,8 +21,6 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -38,7 +36,8 @@ import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -49,7 +48,7 @@ public class RequestDestroyItem extends ClientBasePacket
 {
 
 	private static final String _C__59_REQUESTDESTROYITEM = "[C] 59 RequestDestroyItem";
-	private static Logger _log = Logger.getLogger(RequestDestroyItem.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestDestroyItem.class.getName());
 
 	private int _objectId;
 	private int _count;
@@ -114,7 +113,7 @@ public class RequestDestroyItem extends ClientBasePacket
 
         int itemId = itemToRemove.getItemId();
         
-        List<Integer> nonTradeAbleList = new FastList<Integer>();
+        FastList<Integer> nonTradeAbleList = new FastList<Integer>();
         nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
         
         if (nonTradeAbleList.contains(itemId))

@@ -96,12 +96,12 @@ public class PcKnownList extends PlayableKnownList
             }
             else if (object instanceof L2BoatInstance)
             {
-            	if(!getActiveChar().isInBoat())
-            	if(object != getActiveChar().getBoat())
-            	{
-            		getActiveChar().sendPacket(new VehicleInfo((L2BoatInstance) object));
-            		((L2BoatInstance) object).sendVehicleDeparture(getActiveChar());
-            	}
+                if(!getActiveChar().isInBoat())
+                if(object != getActiveChar().getBoat())
+                {
+                    getActiveChar().sendPacket(new VehicleInfo((L2BoatInstance) object));
+                    ((L2BoatInstance) object).sendVehicleDeparture(getActiveChar());
+                }
             }
             else if (object instanceof L2StaticObjectInstance)
             {
@@ -133,55 +133,55 @@ public class PcKnownList extends PlayableKnownList
                 L2PcInstance otherPlayer = (L2PcInstance) object;
                 if(otherPlayer.isInBoat())
                 {
-                	otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getPosition().getWorldPosition());
-                	getActiveChar().sendPacket(new CharInfo(otherPlayer));
-                	getActiveChar().sendPacket(new GetOnVehicle(otherPlayer, otherPlayer.getBoat(), otherPlayer.getInBoatPosition().getX(), otherPlayer.getInBoatPosition().getY(), otherPlayer.getInBoatPosition().getZ()));
-                	/*if(otherPlayer.getBoat().GetVehicleDeparture() == null)
-                	{                	
-                		
-                		int xboat = otherPlayer.getBoat().getX();
-                		int yboat= otherPlayer.getBoat().getY();
-                		double modifier = Math.PI/2;
-                		if (yboat == 0)
-                		{
-                			yboat = 1;
-                		}
-                		if(yboat < 0)
-                		{
-                			modifier = -modifier;
-                		}                		
-                		double angleboat = modifier - Math.atan(xboat/yboat);
-                		int xp = otherPlayer.getX();
-                		int yp = otherPlayer.getY();
-                		modifier = Math.PI/2;
-                		if (yp == 0)
-                		{
-                			yboat = 1;
-                		}
-                		if(yboat < 0)
-                		{
-                			modifier = -modifier;
-                		}                		
-                		double anglep = modifier - Math.atan(yp/xp);
-                		
-                		double finx = Math.cos(anglep - angleboat)*Math.sqrt(xp *xp +yp*yp ) + Math.cos(angleboat)*Math.sqrt(xboat *xboat +yboat*yboat );
-                		double finy = Math.sin(anglep - angleboat)*Math.sqrt(xp *xp +yp*yp ) + Math.sin(angleboat)*Math.sqrt(xboat *xboat +yboat*yboat );
-                		//otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getX() - otherPlayer.getInBoatPosition().x,otherPlayer.getBoat().getY() - otherPlayer.getInBoatPosition().y,otherPlayer.getBoat().getZ()- otherPlayer.getInBoatPosition().z);
-                		otherPlayer.getPosition().setWorldPosition((int)finx,(int)finy,otherPlayer.getBoat().getZ()- otherPlayer.getInBoatPosition().z);
-                		
-                	}*/
+                    otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getPosition().getWorldPosition());
+                    getActiveChar().sendPacket(new CharInfo(otherPlayer));
+                    getActiveChar().sendPacket(new GetOnVehicle(otherPlayer, otherPlayer.getBoat(), otherPlayer.getInBoatPosition().getX(), otherPlayer.getInBoatPosition().getY(), otherPlayer.getInBoatPosition().getZ()));
+                    /*if(otherPlayer.getBoat().GetVehicleDeparture() == null)
+                    {                   
+                        
+                        int xboat = otherPlayer.getBoat().getX();
+                        int yboat= otherPlayer.getBoat().getY();
+                        double modifier = Math.PI/2;
+                        if (yboat == 0)
+                        {
+                            yboat = 1;
+                        }
+                        if(yboat < 0)
+                        {
+                            modifier = -modifier;
+                        }                       
+                        double angleboat = modifier - Math.atan(xboat/yboat);
+                        int xp = otherPlayer.getX();
+                        int yp = otherPlayer.getY();
+                        modifier = Math.PI/2;
+                        if (yp == 0)
+                        {
+                            yboat = 1;
+                        }
+                        if(yboat < 0)
+                        {
+                            modifier = -modifier;
+                        }                       
+                        double anglep = modifier - Math.atan(yp/xp);
+                        
+                        double finx = Math.cos(anglep - angleboat)*Math.sqrt(xp *xp +yp*yp ) + Math.cos(angleboat)*Math.sqrt(xboat *xboat +yboat*yboat );
+                        double finy = Math.sin(anglep - angleboat)*Math.sqrt(xp *xp +yp*yp ) + Math.sin(angleboat)*Math.sqrt(xboat *xboat +yboat*yboat );
+                        //otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getX() - otherPlayer.getInBoatPosition().x,otherPlayer.getBoat().getY() - otherPlayer.getInBoatPosition().y,otherPlayer.getBoat().getZ()- otherPlayer.getInBoatPosition().z);
+                        otherPlayer.getPosition().setWorldPosition((int)finx,(int)finy,otherPlayer.getBoat().getZ()- otherPlayer.getInBoatPosition().z);
+                        
+                    }*/
                 }
                 else
                 {
-                	getActiveChar().sendPacket(new CharInfo(otherPlayer));
+                    getActiveChar().sendPacket(new CharInfo(otherPlayer));
                 }
 
                 if (otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_BUY)
-                	getActiveChar().sendPacket(new PrivateStoreMsgSell(otherPlayer));
+                    getActiveChar().sendPacket(new PrivateStoreMsgSell(otherPlayer));
                 else if (otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL)
-                	getActiveChar().sendPacket(new PrivateStoreMsgSell(otherPlayer));
+                    getActiveChar().sendPacket(new PrivateStoreMsgSell(otherPlayer));
 // TODO: corrrect msg                else if (otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_MANUFACTURE)
-//                	getActiveChar().sendPacket(new PrivateStoreMsgSell(otherPlayer));
+//                  getActiveChar().sendPacket(new PrivateStoreMsgSell(otherPlayer));
             }
 
             if (object instanceof L2Character)
@@ -205,8 +205,7 @@ public class PcKnownList extends PlayableKnownList
     {
             if (!super.removeKnownObject(object)) return false;
         // Send Server-Client Packet DeleteObject to the L2PcInstance
-            if(getActiveChar().isOnline() == 1)
-        getActiveChar().sendPacket(new DeleteObject(object));       	       
+        getActiveChar().sendPacket(new DeleteObject(object));                  
        if (Config.CHECK_KNOWN && object instanceof L2NpcInstance) getActiveChar().sendMessage("Removed NPC: "+((L2NpcInstance)object).getName());
         return true;
     }
@@ -218,7 +217,30 @@ public class PcKnownList extends PlayableKnownList
     // Property - Public
     public final L2PcInstance getActiveChar() { return (L2PcInstance)super.getActiveChar(); }
 
-    public int getDistanceToForgetObject(L2Object object) { return 4500; }
+    public int getDistanceToForgetObject(L2Object object) 
+    { 
+        // when knownlist grows, the distance to forget should be at least  
+        // the same as the previous watch range, or it becomes possible that
+        // extra charinfo packets are being sent (watch-forget-watch-forget)
+        int knownlistSize = getKnownObjects().size(); 
+        if (knownlistSize > 25) 
+        {
+            if (knownlistSize > 70)  return 2310;
+            if (knownlistSize > 35)  return 2910;
+            return 3600;
+        }
+        return 4200; 
+    }
 
-    public int getDistanceToWatchObject(L2Object object) { return 3500; }
+    public int getDistanceToWatchObject(L2Object object) 
+    { 
+        int knownlistSize = getKnownObjects().size(); 
+        if (knownlistSize > 25) 
+        {
+            if (knownlistSize > 70)  return 1700; // siege, TOI, city
+            if (knownlistSize > 35)  return 2300; 
+            return 2900;
+        }
+        return 3500; // empty field
+    }
 }

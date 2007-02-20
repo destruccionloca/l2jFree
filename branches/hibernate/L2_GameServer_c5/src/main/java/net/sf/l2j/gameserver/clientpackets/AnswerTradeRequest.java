@@ -35,7 +35,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class AnswerTradeRequest extends ClientBasePacket{
 	private static final String _C__40_ANSWERTRADEREQUEST = "[C] 40 AnswerTradeRequest";
-	//private static Logger _log = Logger.getLogger(AnswerTradeRequest.class.getName());
+	//private final static Log _log = LogFactory.getLog(AnswerTradeRequest.class.getName());
 	
 	private final int _response;
 	

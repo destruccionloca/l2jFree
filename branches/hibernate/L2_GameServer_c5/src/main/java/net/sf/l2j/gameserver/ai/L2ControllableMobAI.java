@@ -137,7 +137,8 @@ public class L2ControllableMobAI extends L2AttackableAI
         //  dist2 = _actor.getPlanDistanceSq(getAttackTarget().getX(), getAttackTarget().getY());
         } 
         catch (NullPointerException e) {
-            _log.warn("Encountered Null Value.",e);
+            _log.warn("Encountered Null Value.");
+            e.printStackTrace();
         }
 
         if (!_actor.isMuted()) 
@@ -196,7 +197,8 @@ public class L2ControllableMobAI extends L2AttackableAI
             max_range = range;
         } 
         catch (NullPointerException e) {
-            _log.warn("Encountered Null Value.",e);
+            _log.warn("Encountered Null Value.");
+            e.printStackTrace();
         }
 
         if (!_actor.isMuted() && dist2 > (range + 20) * (range + 20)) 
@@ -247,7 +249,8 @@ public class L2ControllableMobAI extends L2AttackableAI
             max_range = range;
         } 
         catch (NullPointerException e) {
-            _log.warn("Encountered Null Value.",e);
+            _log.warn("Encountered Null Value.");
+            e.printStackTrace();
         }
 
         if (!_actor.isMuted() && dist2 > (range + 20) * (range + 20))
@@ -306,7 +309,7 @@ public class L2ControllableMobAI extends L2AttackableAI
             {
                 String faction_id = ((L2NpcInstance) _actor).getFactionId();
                 
-                for (L2Object obj : _actor.getKnownList().getKnownObjects()) 
+                for (L2Object obj : _actor.getKnownList().getKnownObjects().values()) 
                 {
                     if (!(obj instanceof L2NpcInstance))
                         continue;
@@ -337,7 +340,8 @@ public class L2ControllableMobAI extends L2AttackableAI
                 max_range = range;
             } 
             catch (NullPointerException e) {
-                _log.warn("Encountered Null Value.",e);
+                _log.warn("Encountered Null Value.");
+                e.printStackTrace();
             }
 
             if (!_actor.isMuted() && dist2 > (range + 20) * (range + 20)) 
@@ -459,7 +463,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 
         List<L2Character> potentialTarget = new FastList<L2Character>();
 
-        for (L2Object obj : npc.getKnownList().getKnownObjects()) 
+        for (L2Object obj : npc.getKnownList().getKnownObjects().values()) 
         {
             if (!(obj instanceof L2Character))
                 continue;

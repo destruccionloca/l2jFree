@@ -29,21 +29,20 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import javolution.xml.ObjectWriter;
+import javolution.xml.XMLObjectWriter;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.clientpackets.ClientBasePacket;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * NIO Selector thread.
@@ -73,7 +72,7 @@ import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
  * @author Maxim Kizub
  */ 
 public final class SelectorThread extends IOThread {
-	private static Logger _log = Logger.getLogger(SelectorThread.class.getName());
+	private final static Log _log = LogFactory.getLog(SelectorThread.class.getName());
 	
 	private static SelectorThread _instance;
 	
@@ -103,10 +102,10 @@ public final class SelectorThread extends IOThread {
 	private final String _hostname;
 	private final int _port;	
 	
-    public static Map<Class, Long> packetCount              = new FastMap<Class, Long>();
-    public static Map<Class, Long> byteCount                = new FastMap<Class, Long>();
-    public static final List<PacketHistory> packetHistory   = new FastList<PacketHistory>();
-    public static final List<PacketHistory> byteHistory     = new FastList<PacketHistory>();
+    public static FastMap<Class, Long> packetCount              = new FastMap<Class, Long>();
+    public static FastMap<Class, Long> byteCount                = new FastMap<Class, Long>();
+    public static final FastList<PacketHistory> packetHistory   = new FastList<PacketHistory>();
+    public static final FastList<PacketHistory> byteHistory     = new FastList<PacketHistory>();
     private static ScheduledFuture packetMonitor            = null;
     
 	/** push counter, currently counts messages in putbound queue,
@@ -251,7 +250,7 @@ public final class SelectorThread extends IOThread {
 				// check for shutdown
 				if (isInterrupted())
 				{
-					try { _selector.close(); } catch (Throwable t) { _log.log(Level.INFO, "", t); }
+					try { _selector.close(); } catch (Throwable t) { _log.info( "", t); }
 					return;
 				}
 				// wait for read/write, timeout is to be on safe side,
@@ -262,7 +261,7 @@ public final class SelectorThread extends IOThread {
 				// check for shutdown
 				if (isInterrupted())
 				{
-					try { _selector.close(); } catch (Throwable t) { _log.log(Level.INFO, "", t); }
+					try { _selector.close(); } catch (Throwable t) { _log.info( "", t); }
 					return;
 				}
 
@@ -377,7 +376,7 @@ public final class SelectorThread extends IOThread {
             
             if (con != null) closeClient(con);
 		} catch (Throwable t) {
-			_log.log(Level.INFO, "", t);
+			_log.info( "", t);
             
             if (con != null) closeClient(con);
 		}
@@ -472,6 +471,7 @@ public final class SelectorThread extends IOThread {
 			try
 			{
 				con.getClient().getActiveChar().getInventory().updateDatabase();
+                ClientThread.saveCharToDisk(con.getClient().getActiveChar()); 
 				_log.info("Error on network read, player "+con.getClient().getActiveChar().getName()+" disconnected?");
 			}
 			catch(NullPointerException npe)
@@ -484,7 +484,7 @@ public final class SelectorThread extends IOThread {
 		}
 		catch (Throwable t)
 		{
-			_log.log(Level.INFO, "", t);
+			_log.info( "", t);
 			closeClient(con);
 		}
 	}
@@ -560,7 +560,7 @@ public final class SelectorThread extends IOThread {
 				}
 			}
 		} catch (Throwable t) {
-			_log.log(Level.INFO, "", t);
+			_log.info("", t);
 		}
 	}
 	
@@ -811,17 +811,18 @@ public final class SelectorThread extends IOThread {
     /**
      * 
      */
-    private static final void doPacketHistoryDump()
-    {
-        ObjectWriter<List<PacketHistory>> ow = new ObjectWriter<List<PacketHistory>>();
+    private static final void doPacketHistoryDump()    {
+        
         try
         {
             synchronized (packetHistory)
             {
                 long currentTimeMillis = System.currentTimeMillis();
-                
-                ow.write(packetHistory, new FileOutputStream("log/packetCount_"+currentTimeMillis+".xml"));
-                ow.write(byteHistory, new FileOutputStream("log/packetBytes_"+currentTimeMillis+".xml"));
+                XMLObjectWriter ow;
+                ow = XMLObjectWriter.newInstance(new FileOutputStream("log/packetCount_"+currentTimeMillis+".xml"));                
+                ow.write(packetHistory);
+                ow = XMLObjectWriter.newInstance(new FileOutputStream("log/packetBytes_"+currentTimeMillis+".xml"));
+                ow.write(byteHistory);
                 
                 packetHistory.clear();
                 byteHistory.clear();

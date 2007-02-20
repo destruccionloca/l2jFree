@@ -50,14 +50,15 @@ import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class RecipeController
 {
-	protected static Logger _log = Logger.getLogger(RecipeController.class.getName());
+	protected static Log _log = LogFactory.getLog(RecipeController.class.getName());
 	
 	private static RecipeController _instance;
-	private Map<Integer, L2RecipeList> _lists;
+	private FastMap<Integer, L2RecipeList> _lists;
 	protected static Map<L2PcInstance, RecipeItemMaker> activeMakers = Collections.synchronizedMap(new WeakHashMap<L2PcInstance, RecipeItemMaker>());
 	
 	public static RecipeController getInstance()
@@ -537,6 +538,9 @@ public class RecipeController
 			else
 			{
 				player.sendMessage("Item(s) failed to create");
+				if (target != player)
+				    target.sendMessage("Item(s) failed to create");
+                               
 				updateMakeInfo(false);
 			}
 			// update load and mana bar of craft window

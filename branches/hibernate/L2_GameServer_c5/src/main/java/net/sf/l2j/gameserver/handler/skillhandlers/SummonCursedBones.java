@@ -18,6 +18,9 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -32,7 +35,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class SummonCursedBones implements ISkillHandler
 {
-    //private static Logger _log = Logger.getLogger(SiegeFlag.class.getName()); 
+    private final static Log _log = LogFactory.getLog(SummonCursedBones.class.getName()); 
     protected SkillType[] _skillIds = {SkillType.SUMMON_CURSED_BONES};
 
     public void useSkill(L2Character activeChar, @SuppressWarnings("unused")
@@ -50,11 +53,11 @@ public class SummonCursedBones implements ISkillHandler
             else itemToTake.setCount(itemToTake.getCount() - skill.getItemConsume());
 
             // Give items
-            player.addItem("Test", 2508, 20, player, false);
+            player.addItem("Skill", 2508, 20, player, false);
         }
         catch (Exception e)
         {
-            player.sendMessage("Error using skill summon Cursed Bones:" + e);
+            _log.fatal("Error using skill summon Treasure Key:" + e); 
         }
     }
 

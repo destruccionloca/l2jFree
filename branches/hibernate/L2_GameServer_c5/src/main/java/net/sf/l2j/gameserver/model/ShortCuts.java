@@ -22,10 +22,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
 import java.util.TreeMap;
-import org.apache.log4j.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -34,7 +36,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class ShortCuts
 {
-    private static Logger _log = Logger.getLogger(ShortCuts.class.getName());
+    private final static Log _log = LogFactory.getLog(ShortCuts.class.getName());
 
     private L2PcInstance _owner;
     private Map<Integer, L2ShortCut> _shortCuts = new TreeMap<Integer, L2ShortCut>();

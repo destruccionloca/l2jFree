@@ -31,7 +31,8 @@ import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Broadcast;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -39,7 +40,7 @@ import org.apache.log4j.Logger;
  */
 public class Escape implements IUserCommandHandler
 {
-    private static Logger _log = Logger.getLogger(Escape.class);
+    private final static Log _log = LogFactory.getLog(Escape.class);
     private static final int[] COMMAND_IDS = { 52 }; 
     private static final int REQUIRED_LEVEL = Config.GM_ESCAPE;
 

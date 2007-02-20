@@ -18,14 +18,12 @@
  */
 package net.sf.l2j.gameserver.model.quest;
 
-import java.util.List;
-import java.util.Map;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2DropData;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Luis Arias
@@ -34,7 +32,7 @@ import org.apache.log4j.Logger;
  */
 public class State
 {
-    private static Logger _log = Logger.getLogger(State.class);
+    private final static Log _log = LogFactory.getLog(State.class);
 	// TODO - Begins
 	/** Prototype of empty String list */
 	private static final String[] emptyStrList = new String[0];
@@ -45,12 +43,13 @@ public class State
 	/** Name of the quest */
     /** Quest object associated to the state */
 	private final Quest _quest;
-	private Map<Integer, List<L2DropData>> _Drops;
+	private FastMap<Integer, FastList<L2DropData>> _Drops;
 	private String[] _Events = emptyStrList;
     private String _Name;
     private int[] _AttackIds = emptyIntList;
 	private int[] _KillIds = emptyIntList;
 	private int[] _TalkIds = emptyIntList;
+	private final boolean _party;
 
 
 	/**
@@ -60,7 +59,13 @@ public class State
 	 */
     public State(String name, Quest quest)
     {
+    	this(name, quest, false);
+    }
+
+    public State(String name, Quest quest, boolean party)
+    {
         _Name = name;
+		_party = party;
 		this._quest = quest;
 		quest.addState(this);
     }
@@ -96,13 +101,13 @@ public class State
     public void addQuestDrop(int npcId, int itemId, int chance) {
         try {
             if (_Drops == null)
-                _Drops = new FastMap<Integer, List<L2DropData>>();
+                _Drops = new FastMap<Integer, FastList<L2DropData>>();
             L2DropData d = new L2DropData();
             d.setItemId(itemId);
             d.setChance(chance);
             d.setQuestID(_quest.getName());
             d.addStates(new String[]{_Name});
-            List<L2DropData> lst = _Drops.get(npcId);
+            FastList<L2DropData> lst = _Drops.get(npcId);
             if (lst != null) {
                 lst.add(d);
             } else {
@@ -150,7 +155,7 @@ public class State
      * Return list of drops at this step/state of the quest.
      * @return HashMap
      */
-    Map<Integer, List<L2DropData>> getDrops() {
+    FastMap<Integer, FastList<L2DropData>> getDrops() {
         return _Drops;
     }
     
@@ -186,7 +191,12 @@ public class State
 	int[] getTalkIds() {
 		return _TalkIds;
 	}
-    
+
+	public boolean isParty()
+	{
+		return _party;
+	}
+
     /**
      * Return name of the quest
      * @return String

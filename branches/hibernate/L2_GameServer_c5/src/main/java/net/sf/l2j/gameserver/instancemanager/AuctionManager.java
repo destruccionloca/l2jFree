@@ -2,16 +2,16 @@ package net.sf.l2j.gameserver.instancemanager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.entity.Auction;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class AuctionManager
 {
-    protected static Logger _log = Logger.getLogger(AuctionManager.class.getName());
+    protected static Log _log = LogFactory.getLog(AuctionManager.class.getName());
 
     // =========================================================
     private static AuctionManager _Instance;
@@ -30,7 +30,7 @@ public class AuctionManager
     
     // =========================================================
     // Data Field
-    private List<Auction> _Auctions;
+    private FastList<Auction> _Auctions;
     
     // =========================================================
     // Constructor
@@ -98,7 +98,7 @@ public class AuctionManager
         return -1;
     }
 
-    public final List<Auction> getAuctions()
+    public final FastList<Auction> getAuctions()
     {
         if (_Auctions == null) _Auctions = new FastList<Auction>();
         return _Auctions;
