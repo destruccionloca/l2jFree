@@ -23,7 +23,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.dao;
+package net.sf.l2j.gameserver.dao.forum;
 
 /**
  * This class ...

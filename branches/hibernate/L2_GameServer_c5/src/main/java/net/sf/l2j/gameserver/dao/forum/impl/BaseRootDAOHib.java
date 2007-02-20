@@ -23,7 +23,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.dao.impl;
+package net.sf.l2j.gameserver.dao.forum.impl;
 
 import java.io.Serializable;
 import java.util.Collection;

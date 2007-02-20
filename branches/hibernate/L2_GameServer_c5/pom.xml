@@ -123,6 +123,16 @@
       <version>1.7.0</version>
     </dependency>
 -->  
+	<dependency>
+		<groupId>commons-lang</groupId>
+		<artifactId>commons-lang</artifactId>
+		<version>2.0</version>
+	</dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.14</version>
+    </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate</artifactId>
@@ -164,16 +174,6 @@
       <artifactId>jython</artifactId>
       <version>2.1</version>
     </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.14</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.1</version>
-    </dependency>
 	<dependency>
       <groupId>c3p0</groupId>
       <artifactId>c3p0</artifactId>
@@ -209,28 +209,17 @@
 	      <resource>
 	        <directory>config</directory>
 	      </resource>
-	    </resources>	
-		
+		  <resource>
+	        <directory>src/main/resources</directory>
+	      </resource>	      
+	    </resources>		
 		<testResources>
 	      <testResource>
 	        <directory>config/</directory>
 	      </testResource>
-	      <testResource>
-	        <directory>${basedir}/src/test/java/net/sf/l2j/gameserver/jdklogextensions</directory>
-			<includes>
-	          <include>**/*.properties</include>
-    	    </includes>	
-    	    <targetPath>net/sf/l2j/gameserver/jdklogextensions</targetPath>
-    	    <filtering>false</filtering>
-	      </testResource>
-	      <testResource>
-	        <directory>${basedir}/src/test/java/net/sf/l2j/gameserver/cache</directory>
-			<includes>
-	          <include>**/*.htm</include>
-    	    </includes>	
-    	    <targetPath>net/sf/l2j/gameserver/cache</targetPath>
-    	    <filtering>false</filtering>
-	      </testResource>
+		  <testResource>
+	        <directory>src/test/resources</directory>
+	      </testResource>	      
 	    </testResources>	
 
 	  <plugins>

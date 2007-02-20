@@ -26,6 +26,7 @@ import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -51,19 +52,19 @@ public class L2Registry
     /**
      * Load registry from spring
      * The registry is a facade behind ApplicationContext from spring.
+     * @throws Throwable 
      */
-    public static void loadRegistry ()
+    public static void loadRegistry ( String[] paths) throws Throwable
     {
         try
         {
             // init properties for spring 
-            String[] paths = {"spring.xml"};
             __ctx = new ClassPathXmlApplicationContext(paths);
         }
         catch (Throwable e)
         {
             _log.fatal("Unable to load registry : " + e.getMessage(),e);
-            System.exit(1);
+            throw e;
         }
     }
     
@@ -74,7 +75,27 @@ public class L2Registry
      */
     public static Object getBean (String bean)
     {
-        return __ctx.getBean(bean);
+        if ( __ctx  == null )
+        {
+            _log.fatal("Registry was not initialized.");
+            return null;
+        }
+        try
+        {
+            Object o = __ctx.getBean(bean);
+            return o;
+        }
+        catch (NoSuchBeanDefinitionException e)
+        {
+            _log.fatal("No such bean ("+bean+") in context."+ e.getMessage(),e);
+            return null;
+        }
+        catch (BeansException e)
+        {
+            _log.fatal("Unable to load bean : " + bean +" = " + e.getMessage(),e);
+            return null;
+        }
+        
     }    
     
     

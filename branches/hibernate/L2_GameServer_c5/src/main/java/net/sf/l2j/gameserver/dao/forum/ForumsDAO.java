@@ -23,12 +23,11 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.dao;
+package net.sf.l2j.gameserver.dao.forum;
 
 import java.util.List;
 
-import net.sf.l2j.gameserver.beans.Forums;
-import net.sf.l2j.gameserver.beans.ForumsId;
+import net.sf.l2j.gameserver.model.forum.Forums;
 
 /**
  * Inteface for Forums DAO
@@ -36,7 +35,7 @@ import net.sf.l2j.gameserver.beans.ForumsId;
  */
 public interface ForumsDAO
 {
-    public ForumsId createForums (Forums obj);
+    public int createForums (Forums obj);
     
     public List <Forums> getAllForums();
 }

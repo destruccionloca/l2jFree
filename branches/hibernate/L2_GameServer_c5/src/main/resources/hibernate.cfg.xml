@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        
+        <!-- #############################
+        
+        Connexion information
+        
+		#################################  -->
+
+        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.connection.username">root</property>
+
+        <property name="hibernate.connection.url">jdbc:mysql://localhost/l2jdb</property>
+
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- #############################
+        
+        Configuration for pooling and hibernate
+        
+		#################################  -->
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.c3p0.min_size">1</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.acquire_increment">5</property>
+        <property name="hibernate.c3p0.autocommit">false</property>
+        <property name="hibernate.c3p0.max_statements">100</property>
+        <property name="hibernate.c3p0.timeout">0</property>       
+        <!-- Test connection every 60 s -->
+        <property name="hibernate.c3p0.idle_test_period">60</property>       
+        
+        <property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>        
+        <!-- Show sql request -->        
+        <property name="hibernate.show_sql">false</property>        
+        
+        <!-- #############################
+        
+        Mapping files - Don't touch it.
+        
+		#################################  -->
+		
+        
+    </session-factory>
+</hibernate-configuration>
