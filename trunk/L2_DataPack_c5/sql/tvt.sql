@@ -1,6 +1,7 @@
--- 
+-- --------------------------------
 -- Table structure for table `tvt`
--- 
+-- Created by SqueezeD from l2jfree
+-- --------------------------------
 
 CREATE TABLE IF NOT EXISTS `tvt` (
   `eventNane` varchar(255) NOT NULL default '',

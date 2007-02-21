@@ -1,6 +1,7 @@
--- 
+-- --------------------------------
 -- Table structure for table `dm`
--- 
+-- Created by SqueezeD from l2jfree
+-- --------------------------------
 
 CREATE TABLE IF NOT EXISTS `dm` (
   `eventNane` varchar(255) NOT NULL default '',

@@ -1,6 +1,7 @@
--- 
+-- -------------------------------
 -- Table structure for table `ctf`
--- 
+-- Created by SqueezeD from l2jfree
+-- -------------------------------
 
 CREATE TABLE IF NOT EXISTS `ctf` (
   `eventNane` varchar(255) NOT NULL default '',
