@@ -3,7 +3,8 @@
 -- Created by SqueezeD from l2jfree
 -- --------------------------------
 
-CREATE TABLE IF NOT EXISTS `ctf_teams` (
+DROP TABLE IF EXISTS `ctf_teams`;
+CREATE TABLE `ctf_teams` (
   `teamId` int(4) NOT NULL default '0',
   `teamName` varchar(255) NOT NULL default '',
   `flagId` int(11) NOT NULL default '0',

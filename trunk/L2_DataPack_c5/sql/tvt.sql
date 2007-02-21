@@ -3,8 +3,9 @@
 -- Created by SqueezeD from l2jfree
 -- --------------------------------
 
-CREATE TABLE IF NOT EXISTS `tvt` (
-  `eventNane` varchar(255) NOT NULL default '',
+DROP TABLE IF EXISTS `tvt`;
+CREATE TABLE `tvt` (
+  `eventName` varchar(255) NOT NULL default '',
   `eventDesc` varchar(255) NOT NULL default '',
   `joiningLocation` varchar(255) NOT NULL default '',
   `minlvl` int(4) NOT NULL default '0',
