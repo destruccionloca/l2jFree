@@ -32,6 +32,10 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.TvT;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
+/**
+ * @author FBIAgent / fixed by SqueezeD
+ *
+ */
 public class AdminTvTEngine implements IAdminCommandHandler {
 
  private static String[] _adminCommands = {"admin_tvt",

@@ -52,6 +52,11 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * @author SqueezeD
+ *
+ */
+
 public class DM
 {   
     private final static Log _log = LogFactory.getLog(DM.class.getName());
