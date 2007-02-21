@@ -143,7 +143,7 @@ public class Wedding implements IVoicedCommandHandler
         // check if player target himself
         if(ptarget.getObjectId()==activeChar.getObjectId())
         {
-            activeChar.sendMessage("Going out with yorself?");
+            activeChar.sendMessage("Going out with yourself?");
             return false;
         }
 
