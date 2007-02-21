@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 19 f?vr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8 -->
 <hibernate-mapping>
-    <class name="net.sf.l2j.gameserver.beans.Forums" table="forums" lazy="false" >
+    <class name="net.sf.l2j.gameserver.model.forum.Forums" table="forums" lazy="false" >
         <comment></comment>
         <id name="forumId" type="int" >
             <column name="forum_id" />
@@ -33,7 +33,7 @@
                     <comment></comment>
                 </column>
             </key>
-            <one-to-many class="net.sf.l2j.gameserver.beans.Posts" />
+            <one-to-many class="net.sf.l2j.gameserver.model.forum.Posts" />
         </set>
         <set name="topics" inverse="true" cascade="all-delete-orphan" outer-join="true">
             <key>
@@ -41,7 +41,7 @@
                     <comment></comment>
                 </column>
             </key>
-            <one-to-many class="net.sf.l2j.gameserver.beans.Topic" />
+            <one-to-many class="net.sf.l2j.gameserver.model.forum.Topic" />
         </set>
     </class>
 </hibernate-mapping>

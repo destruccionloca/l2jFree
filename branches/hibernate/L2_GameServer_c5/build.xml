@@ -27,10 +27,12 @@
     </description>
 
     <property name="src" location="src/main/java/"/>
+    <property name="src.beans" location="src/main/resources/mappings"/>	
     <property name="lib" location="lib"/>
     <property name="build" location="build"/>
     <property name="build.classes" location="${build}/classes"/>
     <property name="build.dist" location="${build}/dist"/>
+    <property name="build.classes.beans" location="${build.classes}/mappings"/>	
     <property name="build.dist.game" location="${build.dist}/gameserver"/>
 
     <path id="classpath">
@@ -63,6 +65,13 @@
             <src path="${src}"/>
             <classpath refid="classpath"/>
         </javac>
+    	
+        <copy todir="${build.classes.beans}">
+              <fileset dir="${src.beans}">
+                  <include name="*.xml"/>
+              </fileset>
+        </copy>    	
+    	
     </target>
 
 
@@ -70,7 +79,7 @@
             depends="compile"
             description="Create the jar file">
 
-        <jar destfile="${build.dist.game}/l2j-gameserver.jar">
+        <jar destfile="${build.dist.game}/l2j-gameserver-1.0.0.jar">
             <fileset dir="${build.classes}"/>
             <manifest>
                 <attribute name="Main-Class" value="net.sf.l2j.gameserver.GameServer"/>
@@ -85,7 +94,7 @@
             description="Build machine executable binary">
 
         <exec dir="." executable="gcj" failifexecutionfails="false" os="linux:Linux:freebsd:FreeBSD" >
-            <arg line="-O3 ${build.dist}/l2j-gameserver.jar  -o ${build.dist}/l2j-gameserver --main=net.sf.l2j.gameserver.GameServer"/>
+            <arg line="-O3 ${build.dist}/l2j-gameserver-1.0.0.jar  -o ${build.dist}/l2j-gameserver --main=net.sf.l2j.gameserver.GameServer"/>
         </exec>
     </target>
 
@@ -100,7 +109,7 @@
 
 	<copy todir="${build}">
 		<fileset dir="${build.dist.game}">
-			<include name="l2j-gameserver.jar"/>
+			<include name="l2j-gameserver-1.0.0.jar"/>
 		</fileset>
 	</copy>
 

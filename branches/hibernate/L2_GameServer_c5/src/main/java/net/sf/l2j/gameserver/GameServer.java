@@ -612,7 +612,7 @@ public class GameServer
         _log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
     }
     
-    public static void main(String[] args) throws Exception
+    public static void main(String[] args) throws Throwable
     {
 //      Local Constants
         final String LOG_FOLDER = "log"; // Name of folder for log file
@@ -627,11 +627,15 @@ public class GameServer
         // Initialize info 
         Config.load();
         
+        
         // Create input stream for log file -- or store file data into memory
         InputStream is =  new FileInputStream(new File("./config/logging.properties")); 
         LogManager.getLogManager().readConfiguration(is);
         is.close();        
         
+        // Initialize Application context (registry of beans)
+        // ---------------------------------------------------
+        L2Registry.loadRegistry(new String[]{"spring.xml"});
         L2Registry.getInstance();
         gameServer = new GameServer();
         

@@ -49,37 +49,22 @@
 			</list>
 		</property>		
 	</bean>
-    <bean id="AccountsDAO" class="net.sf.l2j.loginserver.dao.impl.AccountsDAOHib">
+    <bean id="ForumsDAO" class="net.sf.l2j.gameserver.dao.forum.impl.ForumsDAOHib">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean> 
-    <bean id="GameserversDAO" class="net.sf.l2j.loginserver.dao.impl.GameserversDAOHib">
+    <bean id="PostsDAO" class="net.sf.l2j.gameserver.dao.forum.impl.PostsDAOHib">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean> 
+    <bean id="TopicDAO" class="net.sf.l2j.gameserver.dao.forum.impl.TopicDAOHib">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean> 
 
-    <bean id="AccountsServices" class="net.sf.l2j.loginserver.services.AccountsServices">
-		<property name="accountsDAO">
-			<ref bean="AccountsDAO" />
-		</property>
-	</bean>
-    <bean id="GameserversDAOXml" class="net.sf.l2j.loginserver.dao.impl.GameserversDAOXml">
-	</bean>		
-
-    <bean id="GameserversServices" class="net.sf.l2j.loginserver.services.GameserversServices">
-		<property name="gameserversDAO">
-			<ref bean="GameserversDAO" />
-		</property>
-	</bean>		
-
-    <bean id="GameserversServicesXml" class="net.sf.l2j.loginserver.services.GameserversServices">
-		<property name="gameserversDAO">
-			<ref bean="GameserversDAOXml" />
-		</property>
-	</bean>	
-	
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -104,8 +89,9 @@
 		</property>
 		<property name="beanNames">
 			<list>
-				<idref local="GameserversDAO" />
-				<idref local="AccountsDAO" />
+				<idref local="TopicDAO" />
+				<idref local="PostsDAO" />
+				<idref local="ForumsDAO" />
 			</list>
 		</property>
 	</bean>	
