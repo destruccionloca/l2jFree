@@ -650,7 +650,7 @@ public class TvT
             
             while (rs.next())
             {        
-                _eventName = rs.getString("eventNane");
+                _eventName = rs.getString("eventName");
                 _eventDesc = rs.getString("eventDesc");
                 _joiningLocationName = rs.getString("joiningLocation");
                 _minlvl = rs.getInt("minlvl");
@@ -711,7 +711,7 @@ public class TvT
             statement.execute();
             statement.close();
 
-            statement = con.prepareStatement("INSERT INTO tvt (eventNane, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, teamsCount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
+            statement = con.prepareStatement("INSERT INTO tvt (eventName, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, teamsCount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
             statement.setString(1, _eventName);
             statement.setString(2, _eventDesc);
             statement.setString(3, _joiningLocationName);
