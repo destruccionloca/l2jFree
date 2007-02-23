@@ -19,7 +19,7 @@ DROP TABLE IF EXISTS character_skills_save;
 DROP TABLE IF EXISTS character_subclasses;
 DROP TABLE IF EXISTS characters;
 DROP TABLE IF EXISTS clan_data;
-DROP TABLE IF EXISTS clan_privs
+DROP TABLE IF EXISTS clan_privs;
 DROP TABLE IF EXISTS clan_skills;
 DROP TABLE IF EXISTS clan_subpledges;
 DROP TABLE IF EXISTS clan_wars;
