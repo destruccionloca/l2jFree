@@ -30,12 +30,20 @@ import java.util.List;
 import net.sf.l2j.gameserver.model.forum.Forums;
 
 /**
- * Inteface for Forums DAO
+ * Interface for Forums DAO
  * 
  */
 public interface ForumsDAO
 {
+	public Forums getForumByName (String name);
+
+	public Forums getForumById (Integer id);
+	
     public int createForums (Forums obj);
     
     public List <Forums> getAllForums();
+    
+    public List <Forums> getChildrens(Forums obj);
+    
+    public List <Forums> getChildrens(Integer forumId);
 }

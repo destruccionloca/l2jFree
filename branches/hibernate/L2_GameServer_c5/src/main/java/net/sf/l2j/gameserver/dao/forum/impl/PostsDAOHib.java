@@ -1,5 +1,7 @@
 package net.sf.l2j.gameserver.dao.forum.impl;
 
+import net.sf.l2j.gameserver.dao.forum.PostsDAO;
+
 // Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
 
 
@@ -8,7 +10,7 @@ package net.sf.l2j.gameserver.dao.forum.impl;
  * @see net.sf.l2j.gameserver.model.forum.Posts
  * @author Hibernate Tools
  */
-public class PostsDAOHib extends BaseRootDAOHib
+public class PostsDAOHib extends BaseRootDAOHib implements PostsDAO
 {
 
   

@@ -24,8 +24,8 @@
         <property name="postForumId" type="int">
             <column name="post_forum_id" />
         </property>
-        <property name="postTxt" type="string">
-            <column name="post_txt" length="65535" />
+        <property name="postTxt" type="text">
+            <column name="post_txt"  />
         </property>
         
         <many-to-one name="forums" class="net.sf.l2j.gameserver.model.forum.Forums" update="false" insert="false" fetch="select">

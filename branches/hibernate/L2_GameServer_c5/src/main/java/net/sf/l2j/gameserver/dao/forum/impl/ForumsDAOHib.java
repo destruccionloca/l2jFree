@@ -32,4 +32,40 @@ public class ForumsDAOHib extends BaseRootDAOHib implements ForumsDAO
         return findAll(Forums.class);
     }
 
+	/**
+	 * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#getChildrens(net.sf.l2j.gameserver.model.forum.Forums)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Forums> getChildrens(Forums obj)
+	{
+		return getCurrentSession().createQuery(
+				"from " + Forums.class.getName()+ " where forumId = "+obj.getForumId()).list();
+	}
+
+	/**
+	 * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#getChildrens(java.lang.Integer)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Forums> getChildrens(Integer forumId)
+	{
+		return getCurrentSession().createQuery(
+				"from " + Forums.class.getName()+ " where forumId = "+forumId).list();
+	}
+
+	/**
+	 * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#getForumByName(java.lang.String)
+	 */
+	public Forums getForumByName(String name)
+	{
+		return (Forums)getCurrentSession().createQuery(
+				"from " + Forums.class.getName()+ " where forumName = '"+name+"'").uniqueResult();
+	}
+
+	/**
+	 * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#getForumById(java.lang.Integer)
+	 */
+	public Forums getForumById(Integer id)
+	{
+		return (Forums)load(Forums.class, id);
+	}
 }
