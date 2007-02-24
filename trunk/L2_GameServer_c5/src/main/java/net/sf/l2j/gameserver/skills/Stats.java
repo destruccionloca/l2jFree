@@ -63,6 +63,7 @@ public enum Stats
     POWER_ATTACK_RANGE  ("pAtkRange"),
     MAGIC_ATTACK_RANGE  ("mAtkRange"),
     POWER_ATTACK_ANGLE  ("pAtkAngle"),
+    ATTACK_COUNT_MAX    ("atkCountMax"),
     POLE_ATTACK_ANGLE   ("poleAngle"),
     
     // Run speed,

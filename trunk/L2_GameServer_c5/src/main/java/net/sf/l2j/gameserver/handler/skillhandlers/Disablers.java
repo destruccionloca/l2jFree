@@ -211,6 +211,7 @@ public class Disablers implements ISkillHandler
                     skill.getEffects(activeChar, target);
                     break;
                 }
+                case ROOT:
                 case STUN:
                 {
                     if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, false, false))
@@ -230,7 +231,6 @@ public class Disablers implements ISkillHandler
                     break;
                 }
                 case SLEEP:
-                case ROOT:
                 case PARALYZE: //use same as root for now
                 {   
                     if (target instanceof L2NpcInstance){

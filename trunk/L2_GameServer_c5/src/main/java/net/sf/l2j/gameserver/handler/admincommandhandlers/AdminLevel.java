@@ -45,7 +45,8 @@ public class AdminLevel implements IAdminCommandHandler
     public static final String[] ADMIN_COMMANDS =
     {
         "admin_add_level",
-        "admin_set_level"
+        "admin_set_level",
+        "admin_setlevel"
     };
 
     /* (non-Javadoc)
@@ -77,7 +78,7 @@ public class AdminLevel implements IAdminCommandHandler
             }
             catch (NumberFormatException e) { activeChar.sendMessage("Wrong Number Format"); }
         }
-        else if(actualCommand.equalsIgnoreCase("admin_set_level"))
+        else if(actualCommand.equalsIgnoreCase("admin_set_level") || actualCommand.equalsIgnoreCase("admin_setlevel"))
         {
             try
             {

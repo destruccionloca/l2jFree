@@ -817,10 +817,8 @@ public abstract class L2Character extends L2Object
         boolean hitted = false;
         
         double angleChar, angleTarget;
-        int statMaxRadius = (int)getStat().calcStat(Stats.POWER_ATTACK_RANGE, 0, null, null);
-		int maxRadius = statMaxRadius == 0 ? 80 : statMaxRadius;
-        int statMaxAngleDiff = (int)getStat().calcStat(Stats.POWER_ATTACK_ANGLE, 0, null, null);
-		int maxAngleDiff = statMaxAngleDiff == 0 ? 45 : statMaxAngleDiff;
+        int maxRadius = (int)getStat().calcStat(Stats.POWER_ATTACK_RANGE, 66, null, null);
+        int maxAngleDiff = (int)getStat().calcStat(Stats.POWER_ATTACK_ANGLE, 120, null, null);
         
         if(getTarget() == null) 
             return false;
@@ -859,20 +857,9 @@ public abstract class L2Character extends L2Object
 
         // Update char's heading degree
         angleChar = Util.convertHeadingToDegree(this.getHeading());
-    double attackpercent = 85;
-    int attackcountmax = 13;
-    int attackcount = 0;
-    if (this instanceof L2PcInstance)
-    {
-        if (getKnownSkill(216) == null) //216 = pole mastery skill id  
-        {  
-            attackcountmax = 3; //Can attack 3 monster dont have pole mastery   
-        }  
-        else if (getSkillLevel(216) < 9)  
-        {  
-            attackcountmax = 8; //Can attack 8 monster pole mastery lvl is to low   
-        }  
-    }   
+        double attackpercent = 85;
+        int attackcountmax = (int)getStat().calcStat(Stats.ATTACK_COUNT_MAX, 3, null, null);
+        int attackcount = 0;
 
         if (angleChar <= 0) 
             angleChar += 360;
@@ -4282,6 +4269,10 @@ public abstract class L2Character extends L2Object
                     {
                         int reflectedDamage = (int)(reflectPercent / 100. * damage);
                         damage -= reflectedDamage;
+                       
+                        if(reflectedDamage > target.getMaxHp()) // to prevent extreme damage when hitting a low lvl char...
+                            reflectedDamage = target.getMaxHp();
+                       
                         getStatus().reduceHp(reflectedDamage, null, true);
 
                        // Custom messages - nice but also more network load
