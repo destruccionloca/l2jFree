@@ -322,7 +322,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _pkKills;
 
     /** The PvP Flag state of the L2PcInstance (0=White, 1=Purple) */
-    private int _pvpFlag;
+    private byte _pvpFlag;
 
     private boolean _inPvpZone;
    
@@ -1392,7 +1392,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void setPvpFlag(int pvpFlag)
     {
-        _pvpFlag = pvpFlag;
+        _pvpFlag = (byte)pvpFlag;
     }
 
     public boolean getInPvpZone()
@@ -2104,7 +2104,7 @@ public final class L2PcInstance extends L2PlayableInstance
         super.getStat().setSp(sp);
     }
 
-    public int getPvpFlag()
+    public byte getPvpFlag()
     {
         return _pvpFlag;
     }
@@ -9453,9 +9453,8 @@ public final class L2PcInstance extends L2PlayableInstance
         sendPacket(new SystemMessage(SystemMessage.CAST_LINE_AND_START_FISHING));
         ExFishingStart efs = null;
         if (!GameTimeController.getInstance().isNowNight() && _lure.isNightLure())
-           efs = new ExFishingStart(this,-1,x,y,z);
-        else
-           efs = new ExFishingStart(this,_fish.getType(),x,y,z);
+            _fish.setType(-1);
+        efs = new ExFishingStart(this,_fish.getType(),x,y,z,_lure.isNightLure());
         broadcastPacket(efs);
         StartLookingForFishTask();
     }

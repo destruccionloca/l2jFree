@@ -1664,6 +1664,9 @@ public abstract class L2Skill
                 int radius = getSkillRadius();
                 L2PcInstance player = (L2PcInstance) activeChar;
                 L2Clan clan = player.getClan();
+                
+                if (player.isInOlympiadMode())
+                   return new L2Character[] {player};
 
                 if (targetType != SkillTargetType.TARGET_CORPSE_ALLY)
                 {
@@ -1747,6 +1750,9 @@ public abstract class L2Skill
                 int radius = getSkillRadius();
                 L2PcInstance player = (L2PcInstance) activeChar;
                 L2Clan clan = player.getClan();
+                
+                if (player.isInOlympiadMode())
+                   return new L2Character[] {player};
 
                 if (targetType != SkillTargetType.TARGET_CORPSE_CLAN)
                 {
