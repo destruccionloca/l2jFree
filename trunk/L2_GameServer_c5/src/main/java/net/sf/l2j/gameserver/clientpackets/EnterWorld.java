@@ -50,6 +50,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Couple;
+import net.sf.l2j.gameserver.model.entity.FactionMember;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.TvT;
@@ -350,7 +351,7 @@ public class EnterWorld extends ClientBasePacket
 				
 		// send user info again .. just like the real client
         // sendPacket(ui);
-
+/*
         if (activeChar.getClanId() != 0 && activeChar.getClan() != null)
         {
             if(activeChar.isClanLeader()) 
@@ -358,7 +359,12 @@ public class EnterWorld extends ClientBasePacket
             sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
             sendPacket(new PledgeStatusChanged(activeChar.getClan()));
             sendPacket(new PledgeReceivePowerInfo(activeChar));
-    	}
+    	}*/
+        if (activeChar.getClanId() != 0 && activeChar.getClan() != null)
+        {
+            sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
+            sendPacket(new PledgeStatusChanged(activeChar.getClan()));
+        }
 	
 		if (activeChar.isAlikeDead())
 		{
