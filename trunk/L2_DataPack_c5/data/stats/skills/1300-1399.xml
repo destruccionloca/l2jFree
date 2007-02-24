@@ -1991,7 +1991,7 @@
   <set name="isMagic" val="true"/> 
   <for> 
     <effect count="1" name="Buff" time="30" val="0"> 
-       <mul order="0x50" stat="mpConsumeRate" val="#mpConsumeRate"/> 
+       <mul order="0x50" stat="MpConsumeRate" val="#mpConsumeRate"/> 
     </effect> 
   </for>  
 </skill>

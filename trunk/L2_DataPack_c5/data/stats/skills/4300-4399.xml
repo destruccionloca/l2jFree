@@ -1614,7 +1614,7 @@
   <set name="effectRange" val="900"/>
   <for>
    <effect name="Buff" time="1200" count="1" val="0" stackOrder="#absorbHpPercent" stackType="vampRage">
-     <add stat="absorbHpPercent" val="#absorbHpPercent" order="0x40"/>
+     <add stat="absorbDam" val="#absorbHpPercent" order="0x40"/>
    </effect>
   </for>
 </skill>
