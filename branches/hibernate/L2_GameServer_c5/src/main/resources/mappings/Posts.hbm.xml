@@ -26,15 +26,8 @@
         <property name="postTxt" type="text">
             <column name="post_txt"  />
         </property>
-        
-        <many-to-one name="forums" class="net.sf.l2j.gameserver.model.forum.Forums" update="false" insert="false" fetch="select">
-            <column name="post_forum_id" not-null="true">
-                <comment></comment>
-            </column>
-        </many-to-one>
         <many-to-one name="topic" class="net.sf.l2j.gameserver.model.forum.Topic" update="false" insert="false" fetch="select">
             <column name="post_topic_id" not-null="true">
-                <comment></comment>
             </column>
         </many-to-one>
     </class>

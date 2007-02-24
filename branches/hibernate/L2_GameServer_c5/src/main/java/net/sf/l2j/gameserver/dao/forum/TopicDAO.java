@@ -25,13 +25,18 @@
  */
 package net.sf.l2j.gameserver.dao.forum;
 
+import net.sf.l2j.gameserver.model.forum.Topic;
+
 /**
- * This class ...
- * 
- * @version $Revision: $ $Date: $
- * @author  Administrateur
+ * Topic DAO to access data for topics
  */
 public interface TopicDAO
 {
+	public int createTopic(Topic obj);
+	
+	public Topic getTopicByName (String name);
 
+	public Topic getTopicById (Integer id);
+	
+    public void deleteTopic (Topic obj);
 }

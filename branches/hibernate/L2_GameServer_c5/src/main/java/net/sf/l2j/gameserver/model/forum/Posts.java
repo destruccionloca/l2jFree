@@ -16,7 +16,6 @@ public class Posts implements java.io.Serializable
      * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = -2197088778138212029L;
-    private Forums forums;
     private Topic topic;
     
     private int postId;
@@ -51,7 +50,7 @@ public class Posts implements java.io.Serializable
 
     /** full constructor */
     public Posts(int _postId, String _postOwnerName, int _postOwnerid, BigDecimal _postDate,
-                 int _postTopicId, int _postForumId, String _postTxt, Forums _forums, Topic _topic)
+                 int _postTopicId, int _postForumId, String _postTxt, Topic _topic)
     {
         this.postId = _postId;
         this.postOwnerName = _postOwnerName;
@@ -60,7 +59,6 @@ public class Posts implements java.io.Serializable
         this.postTopicId = _postTopicId;
         this.postForumId = _postForumId;
         this.postTxt = _postTxt;
-        this.forums = _forums;
         this.topic = _topic;
     }
     // Property accessors
@@ -134,15 +132,6 @@ public class Posts implements java.io.Serializable
         this.postTxt = _postTxt;
     }
 
-    public Forums getForums()
-    {
-        return this.forums;
-    }
-
-    public void setForums(Forums _forums)
-    {
-        this.forums = _forums;
-    }
     public Topic getTopic()
     {
         return this.topic;

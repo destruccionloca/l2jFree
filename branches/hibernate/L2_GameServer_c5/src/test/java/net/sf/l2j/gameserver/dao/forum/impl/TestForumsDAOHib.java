@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.l2j.gameserver.dao.forum.ForumsDAO;
 import net.sf.l2j.gameserver.model.forum.Forums;
 import net.sf.l2j.gameserver.model.forum.Posts;
 import net.sf.l2j.gameserver.model.forum.Topic;
@@ -24,7 +23,7 @@ public class TestForumsDAOHib extends ADAOTestCase
 	/**
 	 * DAO to test
 	 */
-	private ForumsDAOHib __postsDAO = null;
+	private ForumsDAOHib __forumsDAO = null;
 
 
     public TestForumsDAOHib(String name)
@@ -85,13 +84,12 @@ public class TestForumsDAOHib extends ADAOTestCase
 	/**
 	 * Test method for getTopics and getPosts
 	 */
-    public void testFindChildTopicsAndPosts()
+    public void testFindChildTopics()
     {
     	Forums forum = getForumsDAO().getForumById(6);
     	assertNotNull(forum);
     	assertEquals(6, forum.getForumId());
     	assertEquals(1,forum.getTopics().size());
-    	assertEquals(1,forum.getPostses().size());
     }
     
 	/**
@@ -184,14 +182,14 @@ public class TestForumsDAOHib extends ADAOTestCase
     	// check that children were erased
     	assertEquals(0,getForumsDAO().getCurrentSession().createQuery("from "+Topic.class.getName()+" where topicForumId="+6).list().size());
     	assertEquals(0,getForumsDAO().getCurrentSession().createQuery("from "+Posts.class.getName()+" where postForumId="+6).list().size());
-    }       
+    }     
     
     /**
-     * @return the postsDAO
+     * @return the forumsDAO
      */
     public ForumsDAOHib getForumsDAO()
     {
-    	return __postsDAO;
+    	return __forumsDAO;
     }
 
     /**
@@ -200,7 +198,7 @@ public class TestForumsDAOHib extends ADAOTestCase
      */
     public void setForumsDAO(ForumsDAOHib _postsDAO)
     {
-    	__postsDAO = _postsDAO;
+    	__forumsDAO = _postsDAO;
     }
 
     protected List<IDataSet> getDataSet() throws Exception
@@ -219,12 +217,5 @@ public class TestForumsDAOHib extends ADAOTestCase
     	}
     	return dataSetList;
     }
-
-	/**
-	 * @return the postsDAO
-	 */
-	public ForumsDAO getpostsDAO() {
-		return __postsDAO;
-	}
-  	
+ 	
 }

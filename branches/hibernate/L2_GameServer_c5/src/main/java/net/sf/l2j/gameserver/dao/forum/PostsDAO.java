@@ -26,10 +26,8 @@
 package net.sf.l2j.gameserver.dao.forum;
 
 /**
- * This class ...
+ * Topic DAO to access data for posts
  * 
- * @version $Revision: $ $Date: $
- * @author  Administrateur
  */
 public interface PostsDAO
 {

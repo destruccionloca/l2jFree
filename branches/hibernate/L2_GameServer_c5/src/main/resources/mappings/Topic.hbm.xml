@@ -29,9 +29,16 @@
         <property name="topicReply" type="int">
             <column name="topic_reply" />
         </property>
-        <many-to-one name="forums" class="net.sf.l2j.gameserver.model.forum.Forums" update="false" insert="false" fetch="select">
+        <set name="postses" inverse="true" cascade="all, delete-orphan" outer-join="true" lazy="false">
+            <key>
+                <column name="post_topic_id" not-null="true">
+                </column>
+            </key>
+            <one-to-many class="net.sf.l2j.gameserver.model.forum.Posts" />
+        </set>
+        
+        <many-to-one name="forums" class="net.sf.l2j.gameserver.model.forum.Forums" cascade="none" update="false" insert="false" fetch="select">
             <column name="topic_forum_id" not-null="true">
-                <comment></comment>
             </column>
         </many-to-one>
     </class>

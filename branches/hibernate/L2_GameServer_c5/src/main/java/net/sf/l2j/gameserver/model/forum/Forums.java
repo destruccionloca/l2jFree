@@ -25,7 +25,6 @@ public class Forums implements java.io.Serializable
     private int forumPerm;
     private int forumOwnerId;
     
-    private Set<Posts> postses = new HashSet<Posts>(0);
     private Set<Topic> topics = new HashSet<Topic>(0);
 
     // Constructors
@@ -64,20 +63,9 @@ public class Forums implements java.io.Serializable
         this.forumType = _forumType;
         this.forumPerm = _forumPerm;
         this.forumOwnerId = _forumOwnerId;
-        this.postses = _postses;
         this.topics = _topics;
     }
 
-
-    public Set<Posts> getPostses()
-    {
-        return this.postses;
-    }
-
-    public void setPostses(Set<Posts> _postses)
-    {
-        this.postses = _postses;
-    }
 
     public Set<Topic> getTopics()
     {

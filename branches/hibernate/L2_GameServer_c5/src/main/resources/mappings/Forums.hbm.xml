@@ -26,18 +26,9 @@
         <property name="forumOwnerId" type="int">
             <column name="forum_owner_id" />
         </property>
-        <set name="postses" inverse="true" cascade="all, delete-orphan" outer-join="true" lazy="false">
-            <key>
-                <column name="post_forum_id" not-null="true">
-                    <comment></comment>
-                </column>
-            </key>
-            <one-to-many class="net.sf.l2j.gameserver.model.forum.Posts" />
-        </set>
         <set name="topics" inverse="true" cascade="all, delete-orphan" outer-join="true" lazy="false">
             <key>
                 <column name="topic_forum_id" not-null="true">
-                    <comment></comment>
                 </column>
             </key>
             <one-to-many class="net.sf.l2j.gameserver.model.forum.Topic" />
