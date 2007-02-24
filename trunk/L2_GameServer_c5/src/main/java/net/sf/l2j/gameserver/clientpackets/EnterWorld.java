@@ -144,7 +144,7 @@ public class EnterWorld extends ClientBasePacket
                 if(Config.GM_STARTUP_INVISIBLE 
                         && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_GODMODE
                           || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_invisible")))
-                    activeChar.setInvisible();
+                    activeChar.getAppearance().setInvisible();
 
                 if(Config.GM_STARTUP_SILENCE 
                         && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_MENU
@@ -160,17 +160,9 @@ public class EnterWorld extends ClientBasePacket
             if (Config.GM_NAME_COLOR_ENABLED)
             {
                 if (activeChar.getAccessLevel() >= 100)
-                    activeChar.setNameColor(Config.ADMIN_NAME_COLOR);
+                    activeChar.getAppearance().setNameColor(Config.ADMIN_NAME_COLOR);
                 else if (activeChar.getAccessLevel() >= 75)
-                    activeChar.setNameColor(Config.GM_NAME_COLOR);
-            }
-
-            if (Config.GM_TITLE_COLOR_ENABLED)
-            {
-                if (activeChar.getAccessLevel() >= 100)
-                    activeChar.setTitleColor(Config.ADMIN_TITLE_COLOR);
-                else if (activeChar.getAccessLevel() >= 75)
-                    activeChar.setTitleColor(Config.GM_TITLE_COLOR);
+                    activeChar.getAppearance().setNameColor(Config.GM_NAME_COLOR);
             }
             
             if (Config.GM_STARTUP_AUTO_LIST)
@@ -179,9 +171,9 @@ public class EnterWorld extends ClientBasePacket
             if(activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
             {
                 if(Config.CLAN_LEADER_COLORED == Config.ClanLeaderColored.name)
-                    activeChar.setNameColor(Config.CLAN_LEADER_COLOR);
+                    activeChar.getAppearance().setNameColor(Config.CLAN_LEADER_COLOR);
                 else
-                    activeChar.setTitleColor(Config.CLAN_LEADER_COLOR);
+                    activeChar.getAppearance().setTitleColor(Config.CLAN_LEADER_COLOR);
             }
         
         

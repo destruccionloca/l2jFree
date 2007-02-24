@@ -331,7 +331,7 @@ public class AdminEditChar implements IAdminCommandHandler
                     return false;
                 }
                 GMAudit.auditGMAction(activeChar.getName(), "admin_setsex", player.getName(), "");
-                player.changeSex();
+                player.getAppearance().setSex(player.getAppearance().getSex()? false : true);
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                 sm.addString("Your gender has been changed by a GM");
                 player.sendPacket(sm);
@@ -352,7 +352,7 @@ public class AdminEditChar implements IAdminCommandHandler
                     return false;
                 }
                 GMAudit.auditGMAction(activeChar.getName(), "admin_setcolor", player.getName(), val);
-                player.setNameColor(Integer.decode("0x"+val));
+                player.getAppearance().setNameColor(Integer.decode("0x"+val));
                 player.sendMessage("Your name color has been changed by a GM");
                 player.broadcastUserInfo();
             }

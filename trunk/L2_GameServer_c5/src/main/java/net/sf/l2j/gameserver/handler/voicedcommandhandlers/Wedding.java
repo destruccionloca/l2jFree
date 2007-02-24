@@ -172,7 +172,7 @@ public class Wedding implements IVoicedCommandHandler
         }
         
         
-        if (ptarget.getSex()==activeChar.getSex() && !Config.WEDDING_SAMESEX)
+        if (ptarget.getAppearance().getSex()==activeChar.getAppearance().getSex() && !Config.WEDDING_SAMESEX)
         {
             activeChar.sendMessage("You can't ask someone of the same sex for engagement.");
             return false;

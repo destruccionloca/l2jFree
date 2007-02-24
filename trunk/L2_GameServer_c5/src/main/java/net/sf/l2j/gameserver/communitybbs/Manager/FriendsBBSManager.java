@@ -109,7 +109,7 @@ public class FriendsBBSManager extends BaseBBSManager
         if (player != null)
         {
             String sex = "Male";
-            if (player.getSex() == 1)
+            if (player.getAppearance().getSex())
             {
                 sex = "Female";
             }

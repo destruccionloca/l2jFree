@@ -215,6 +215,7 @@ public abstract class L2Skill
         RAID_DESCRIPTION,
         UNSUMMON_ENEMY_PET,
         BETRAY,
+        BALANCE_LIFE,
         SERVER_SIDE, //TODO: IMPLEMENT
         // unimplemented
         NOTDONE;
@@ -1302,6 +1303,7 @@ public abstract class L2Skill
                     || skillType == SkillType.MAGE_BANE 
                     || skillType == SkillType.WARRIOR_BANE
                     || skillType == SkillType.BETRAY
+                    || skillType == SkillType.BALANCE_LIFE
                     )))
             {
                 activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));

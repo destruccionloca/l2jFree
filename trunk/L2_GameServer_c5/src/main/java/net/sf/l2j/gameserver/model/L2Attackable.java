@@ -773,7 +773,7 @@ public class L2Attackable extends L2NpcInstance
                     divisor = 1;
                 
 
-                if (skill != null && (skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.HEAL_PERCENT || skill.getSkillType() == SkillType.MANAHEAL || skill.getSkillType() == SkillType.MANAHEAL_PERCENT))
+                if (skill != null && (skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.HEAL_PERCENT || skill.getSkillType() == SkillType.MANAHEAL || skill.getSkillType() == SkillType.MANAHEAL_PERCENT || skill.getSkillType() == SkillType.BALANCE_LIFE))
                 {
                     L2Object[] targetList = skill.getTargetList(actor,true);
 
@@ -920,7 +920,7 @@ public class L2Attackable extends L2NpcInstance
         
         AggroInfo ai = getAggroListRP().get(target);
         if (ai == null) return 0;
-        if (ai.attacker instanceof L2PcInstance && (((L2PcInstance)ai.attacker).getInvisible() == 1 || ((L2PcInstance)ai.attacker).isInvul()))
+    	if (ai.attacker instanceof L2PcInstance && (((L2PcInstance)ai.attacker).getAppearance().getInvisible() || ((L2PcInstance)ai.attacker).isInvul()))
         {
             //Remove Object Should Use This Method and Can be Blocked While Interating
             getAggroList().remove(target);              

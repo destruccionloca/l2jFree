@@ -162,7 +162,7 @@ public enum Stats
     REC_C_LIM       ("CommonRecipeLimit"),
     
     //C4 Stats
-    MP_CONSUME_RATE    ("MpConsumeRate"),
+    MP_CONSUME_RATE        ("MpConsumeRate"),
     HP_CONSUME_RATE        ("HpConsumeRate"),
     MP_CONSUME             ("MpConsume"),
     SOULSHOT_COUNT         ("soulShotCount")

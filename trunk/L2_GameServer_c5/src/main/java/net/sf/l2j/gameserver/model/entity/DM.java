@@ -226,11 +226,11 @@ public class DM
     {
         for (L2PcInstance player : _players)
         {
-            player._originalNameColorDM = player.getNameColor();
+            player._originalNameColorDM = player.getAppearance().getNameColor();
             player._originalKarmaDM = player.getKarma();
             player._inEventDM = true;
             player._countDMkills = 0;
-            player.setNameColor(_playerColors);
+            player.getAppearance().setNameColor(_playerColors);
             player.setKarma(0);
             player.broadcastUserInfo();
         }
@@ -240,7 +240,7 @@ public class DM
     {
         for (L2PcInstance player : _players)
         {
-            player.setNameColor(player._originalNameColorDM);
+            player.getAppearance().setNameColor(player._originalNameColorDM);
             player.setKarma(player._originalKarmaDM);
             player._inEventDM = false;
             player._countDMkills = 0;
@@ -628,7 +628,7 @@ public class DM
         if (!addPlayerOk(player))
             return;
         _players.add(player);
-        player._originalNameColorDM = player.getNameColor();
+        player._originalNameColorDM = player.getAppearance().getNameColor();
         player._originalKarmaDM = player.getKarma();
         player._inEventDM = true;
         player._countDMkills = 0;
@@ -653,13 +653,13 @@ public class DM
         {
             _players.add(player);
             
-            player._originalNameColorDM = player.getNameColor();
+            player._originalNameColorDM = player.getAppearance().getNameColor();
             player._originalKarmaDM = player.getKarma();
             player._inEventDM = true;
             player._countDMkills = 0;
             if(_teleport || _started)
             {
-                player.setNameColor(_playerColors);
+                player.getAppearance().setNameColor(_playerColors);
                 player.setKarma(0);
                 player.broadcastUserInfo();
                 player.teleToLocation(_playerX, _playerY , _playerZ);            

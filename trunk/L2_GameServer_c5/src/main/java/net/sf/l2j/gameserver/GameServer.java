@@ -92,7 +92,6 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMenu;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMobGroup;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMonsterRace;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPForge;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPathNode;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPetition;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPledge;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPolymorph;
@@ -141,7 +140,7 @@ import net.sf.l2j.gameserver.handler.itemhandlers.SoulShots;
 import net.sf.l2j.gameserver.handler.itemhandlers.SpiritShot;
 import net.sf.l2j.gameserver.handler.itemhandlers.SummonItems;
 import net.sf.l2j.gameserver.handler.itemhandlers.WorldMap;
-import net.sf.l2j.gameserver.handler.itemhandlers.Wyvern;
+import net.sf.l2j.gameserver.handler.skillhandlers.BalanceLife;
 import net.sf.l2j.gameserver.handler.skillhandlers.CPperHeal;
 import net.sf.l2j.gameserver.handler.skillhandlers.Charge;
 import net.sf.l2j.gameserver.handler.skillhandlers.ChargeSelf;
@@ -454,7 +453,6 @@ public class GameServer
         _itemHandler.registerItemHandler(new FishShots());
         _itemHandler.registerItemHandler(new ExtractableItems());
         _itemHandler.registerItemHandler(new SummonItems());      
-        _itemHandler.registerItemHandler(new Wyvern());
         _itemHandler.registerItemHandler(new EnergyStone());
         _log.info("ItemHandler: Loaded " + _itemHandler.size() + " handlers.");
 
@@ -466,6 +464,7 @@ public class GameServer
         _skillHandler.registerSkillHandler(new Heal());
         _skillHandler.registerSkillHandler(new CombatPointHeal());
         _skillHandler.registerSkillHandler(new ManaHeal());
+        _skillHandler.registerSkillHandler(new BalanceLife());
         _skillHandler.registerSkillHandler(new Charge());
         _skillHandler.registerSkillHandler(new ChargeSelf());
         _skillHandler.registerSkillHandler(new Continuous());
@@ -519,7 +518,6 @@ public class GameServer
         _adminCommandHandler.registerAdminCommandHandler(new AdminMenu());
         _adminCommandHandler.registerAdminCommandHandler(new AdminMobGroup());
         _adminCommandHandler.registerAdminCommandHandler(new AdminMonsterRace());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminPathNode());
         _adminCommandHandler.registerAdminCommandHandler(new AdminPetition());
         _adminCommandHandler.registerAdminCommandHandler(new AdminPForge());
         _adminCommandHandler.registerAdminCommandHandler(new AdminBBS());

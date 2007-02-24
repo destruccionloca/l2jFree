@@ -367,7 +367,7 @@ public class CTF
     {
         for (L2PcInstance player : _players)
         {
-            player.setNameColor(_teamColors.get(_teams.indexOf(player._teamNameCTF)));
+            player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameCTF)));
             player.setKarma(0);
             player.broadcastUserInfo();
         }
@@ -807,7 +807,7 @@ public class CTF
             _playersShuffle.add(player);
                 
         player._originalTitleCTF = player.getTitle();
-        player._originalNameColorCTF = player.getNameColor();
+        player._originalNameColorCTF = player.getAppearance().getNameColor();
         player._originalKarmaCTF = player.getKarma();
         player._inEventCTF = true;
         player._posCheckerCTF = null;
@@ -876,14 +876,14 @@ public class CTF
             player._teamNameCTF = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
             _players.add(player);
             player._originalTitleCTF = player.getTitle();
-            player._originalNameColorCTF = player.getNameColor();
+            player._originalNameColorCTF = player.getAppearance().getNameColor();
             player._originalKarmaCTF = player.getKarma();
             player._inEventCTF = true;
             player._posCheckerCTF = null;
 
             if (_teleport || _started)
             {
-                player.setNameColor(_teamColors.get(_teams.indexOf(player._teamNameCTF)));
+                player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameCTF)));
                 player.setKarma(0);
                 player.broadcastUserInfo();
 
@@ -909,7 +909,7 @@ public class CTF
             else if (Config.CTF_EVEN_TEAMS.equals("SHUFFLE"))
                 _playersShuffle.remove(player);
             
-            player.setNameColor(player._originalNameColorCTF);
+            player.getAppearance().setNameColor(player._originalNameColorCTF);
             player.setKarma(player._originalKarmaCTF);
             player.setTitle(player._originalTitleCTF);
             player.broadcastUserInfo();

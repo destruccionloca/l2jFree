@@ -588,7 +588,7 @@ public class VIP {
         
         for (L2PcInstance player : _playersVIP)
         {
-            player.setNameColor(player._originalNameColourVIP);
+            player.getAppearance().setNameColor(player._originalNameColourVIP);
             player.setKarma(player._originalKarmaVIP);
             player.broadcastUserInfo();
             player._inEventVIP = false;
@@ -599,7 +599,7 @@ public class VIP {
         
         for (L2PcInstance player : _playersNotVIP)
         {
-            player.setNameColor(player._originalNameColourVIP);
+            player.getAppearance().setNameColor(player._originalNameColourVIP);
             player.setKarma(player._originalKarmaVIP);
             player.broadcastUserInfo();
             player._inEventVIP = false;
@@ -692,15 +692,15 @@ public class VIP {
     public static void setUserData() {
         for (L2PcInstance player : _playersVIP) {
             if (player._isTheVIP)
-                player.setNameColor(255,255,0);
+                player.getAppearance().setNameColor(255,255,0);
             else
-                player.setNameColor(255,0,0);
+                player.getAppearance().setNameColor(255,0,0);
             
             player.setKarma(0);
             player.broadcastUserInfo();
         }
         for (L2PcInstance player : _playersNotVIP) {
-            player.setNameColor(0,255,0);
+            player.getAppearance().setNameColor(0,255,0);
             player.setKarma(0);
             player.broadcastUserInfo();
         }
@@ -784,7 +784,7 @@ public class VIP {
     public static void addPlayerVIP(L2PcInstance activeChar){
         activeChar._isVIP = true;
         _playersVIP.add(activeChar);
-        activeChar._originalNameColourVIP = activeChar.getNameColor();
+        activeChar._originalNameColourVIP = activeChar.getAppearance().getNameColor();
         activeChar._originalKarmaVIP = activeChar.getKarma();
         activeChar._inEventVIP = true;
     }
@@ -792,7 +792,7 @@ public class VIP {
     public static void addPlayerNotVIP(L2PcInstance activeChar){
         activeChar._isNotVIP = true;
         _playersNotVIP.add(activeChar);
-        activeChar._originalNameColourVIP = activeChar.getNameColor();
+        activeChar._originalNameColourVIP = activeChar.getAppearance().getNameColor();
         activeChar._originalKarmaVIP = activeChar.getKarma();
         activeChar._inEventVIP = true;
     }

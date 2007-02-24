@@ -42,8 +42,6 @@ public class L2PcTemplate extends L2CharTemplate {
 	public final int    spawnY;
 	public final int    spawnZ;
 	
-	public final boolean isMale;
-	
 	public final int     classBaseLevel;
 	public final float   lvlHpAdd;
 	public final float   lvlHpMod;
@@ -67,8 +65,6 @@ public class L2PcTemplate extends L2CharTemplate {
 		spawnY    = set.getInteger("spawnY");
 		spawnZ    = set.getInteger("spawnZ");
 		
-		isMale    = set.getBool  ("isMale", true);
-
 		classBaseLevel = set.getInteger("classBaseLevel");
 		lvlHpAdd  = set.getFloat("lvlHpAdd");
 		lvlHpMod  = set.getFloat("lvlHpMod");

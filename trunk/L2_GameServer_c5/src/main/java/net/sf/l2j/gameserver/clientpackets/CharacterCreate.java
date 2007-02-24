@@ -60,7 +60,7 @@ public class CharacterCreate extends ClientBasePacket
 	// cSdddddddddddd
 	private final String _name;
     private final int _race;
-	private final int _sex;
+    private final byte _sex;
 	private final int _classId;
 	private final int _int;
 	private final int _str;
@@ -68,9 +68,9 @@ public class CharacterCreate extends ClientBasePacket
 	private final int _men;
 	private final int _dex;
 	private final int _wit;
-	private final int _hairStyle;
-	private final int _hairColor;
-	private final int _face;
+	private final byte _hairStyle;
+	private final byte _hairColor;
+	private final byte _face;
 	
 	public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
 	
@@ -83,7 +83,7 @@ public class CharacterCreate extends ClientBasePacket
 		
 		_name      = readS();
 		_race      = readD();
-		_sex       = readD();
+        _sex       = (byte)readD();
 		_classId   = readD();
 		_int       = readD();
 		_str       = readD();
@@ -91,9 +91,9 @@ public class CharacterCreate extends ClientBasePacket
 		_men       = readD();
 		_dex       = readD();
 		_wit       = readD();
-		_hairStyle = readD();
-		_hairColor = readD();
-		_face      = readD();
+		_hairStyle = (byte)readD();
+		_hairColor = (byte)readD();
+		_face      = (byte)readD();
 	}
 
 	void runImpl()
@@ -126,7 +126,7 @@ public class CharacterCreate extends ClientBasePacket
 		if (_log.isDebugEnabled())
 			_log.debug("charname: " + _name + " classId: " + _classId);
 		
-		L2PcTemplate template = CharTemplateTable.getInstance().getTemplate(_classId, _sex!=0);
+        L2PcTemplate template = CharTemplateTable.getInstance().getTemplate(_classId);
 		if(template == null || template.classBaseLevel > 1) 
 		{
 			CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_CREATION_FAILED);
@@ -135,12 +135,7 @@ public class CharacterCreate extends ClientBasePacket
 		}
 		
 		int objectId = IdFactory.getInstance().getNextId();
-		L2PcInstance newChar = L2PcInstance.create(objectId, template, getClient().getLoginName(),
-				_name, _hairStyle, _hairColor, _face);
-		//newChar.setName(_name);
-		//newChar.setHairStyle(_hairStyle);
-		//newChar.setHairColor(_hairColor);
-		//newChar.setFace(_face);
+		L2PcInstance newChar = L2PcInstance.create(objectId, template, getClient().getLoginName(),_name, _hairStyle, _hairColor, _face, _sex!=0);
 		newChar.setCurrentHp(template.baseHpMax);
 		newChar.setCurrentCp(template.baseCpMax);
 		newChar.setCurrentMp(template.baseMpMax);
@@ -202,21 +197,6 @@ public class CharacterCreate extends ClientBasePacket
 		newChar.setXYZInvisible(template.spawnX, template.spawnY, template.spawnZ);
 		newChar.setTitle("");
 		
-//		if (newChar.isMale())
-//		{
-//			newChar.setMovementMultiplier(template.getMUnk1());
-//			newChar.setAttackSpeedMultiplier(template.getMUnk2());
-//			newChar.setCollisionRadius(template.getMColR());
-//			newChar.setCollisionHeight(template.getMColH());
-//		}
-//		else
-//		{
-//			newChar.setMovementMultiplier(template.getFUnk1());
-//			newChar.setAttackSpeedMultiplier(template.getFUnk2());
-//			newChar.setCollisionRadius(template.getFColR());
-//			newChar.setCollisionHeight(template.getFColH());
-//		}
-
 		L2ShortCut shortcut;
 		//add attack shortcut
 		shortcut = new L2ShortCut(0,0,3,2,-1,1);

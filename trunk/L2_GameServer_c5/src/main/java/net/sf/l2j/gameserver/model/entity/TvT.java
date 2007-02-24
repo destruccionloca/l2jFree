@@ -355,7 +355,7 @@ public class TvT
     {
         for (L2PcInstance player : _players)
         {
-            player.setNameColor(_teamColors.get(_teams.indexOf(player._teamNameTvT)));
+            player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameTvT)));
             player.setKarma(0);
             player.broadcastUserInfo();
         }
@@ -846,7 +846,7 @@ public class TvT
         else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
             _playersShuffle.add(player);
         
-        player._originalNameColorTvT = player.getNameColor();
+        player._originalNameColorTvT = player.getAppearance().getNameColor();
         player._originalKarmaTvT = player.getKarma();
         player._inEventTvT = true;
         player._countTvTkills = 0;
@@ -916,14 +916,14 @@ public class TvT
         {
             player._teamNameTvT = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
             _players.add(player);
-            player._originalNameColorTvT = player.getNameColor();
+            player._originalNameColorTvT = player.getAppearance().getNameColor();
             player._originalKarmaTvT = player.getKarma();
             player._inEventTvT = true;
             player._countTvTkills = 0;
 
             if (_teleport || _started)
             {
-                player.setNameColor(_teamColors.get(_teams.indexOf(player._teamNameTvT)));
+                player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameTvT)));
                 player.setKarma(0);
                 player.broadcastUserInfo();
                 player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams.indexOf(player._teamNameTvT)));
@@ -943,7 +943,7 @@ public class TvT
             else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
                 _playersShuffle.remove(player);
             
-            player.setNameColor(player._originalNameColorTvT);
+            player.getAppearance().setNameColor(player._originalNameColorTvT);
             player.setKarma(player._originalKarmaTvT);
             player.broadcastUserInfo();
             player._teamNameTvT = new String();
