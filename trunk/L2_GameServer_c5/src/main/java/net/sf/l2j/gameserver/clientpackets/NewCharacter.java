@@ -20,8 +20,8 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.CharTemplateTable;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.serverpackets.CharTemplates;
 import net.sf.l2j.gameserver.templates.L2PcTemplate;

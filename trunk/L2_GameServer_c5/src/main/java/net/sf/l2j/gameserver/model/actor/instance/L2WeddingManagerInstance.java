@@ -20,10 +20,10 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Announcements;
-import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.entity.Couple;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;

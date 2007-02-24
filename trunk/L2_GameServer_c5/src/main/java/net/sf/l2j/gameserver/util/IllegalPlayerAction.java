@@ -29,7 +29,7 @@
 package net.sf.l2j.gameserver.util;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.GmListTable;
+import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 import org.apache.commons.logging.Log;

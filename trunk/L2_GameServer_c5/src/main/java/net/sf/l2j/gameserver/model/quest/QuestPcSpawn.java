@@ -1,8 +1,8 @@
 package net.sf.l2j.gameserver.model.quest;
 
 import javolution.util.FastList;
-import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.AutoChatHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler;

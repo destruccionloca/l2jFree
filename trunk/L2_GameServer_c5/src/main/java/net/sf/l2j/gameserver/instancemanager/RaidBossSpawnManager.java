@@ -31,10 +31,10 @@ import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.GmListTable;
-import net.sf.l2j.gameserver.NpcTable;
-import net.sf.l2j.gameserver.SpawnTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.datatables.GmListTable;
+import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
