@@ -30,8 +30,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.EffectCharge;
-import net.sf.l2j.gameserver.skills.L2SkillCharge;
+import net.sf.l2j.gameserver.skills.effects.EffectCharge;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillCharge;
 
 public class EnergyStone implements IItemHandler 
 {
