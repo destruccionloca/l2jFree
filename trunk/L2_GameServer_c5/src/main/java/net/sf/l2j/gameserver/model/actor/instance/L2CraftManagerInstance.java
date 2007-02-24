@@ -29,8 +29,8 @@ import net.sf.l2j.gameserver.model.L2RecipeList;
 
 public class L2CraftManagerInstance extends L2FolkInstance
 {
-    private static final int ADENA_ID = 57;
-    private static final int ITEMS_PER_PAGE = 5;    // items list size in craft and crystallize pages
+    public static final int ADENA_ID = 57;
+    public static final int ITEMS_PER_PAGE = 5;    // items list size in craft and crystallize pages
     
     public L2CraftManagerInstance(int objectId, L2NpcTemplate template)
     {
@@ -628,7 +628,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
         super.onBypassFeedback(player,command);
     }
     
-    private String getRecipeIcon(int grade)
+    public String getRecipeIcon(int grade)
     {
         return  "icon.etc_recipe_"+(
          grade==1?"blue":
@@ -638,7 +638,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
                         grade==5?"black":"white")+"_i00";
     }
     
-    private String getCrystalIcon(int grade)
+    public String getCrystalIcon(int grade)
     {
         return  "icon.etc_crystal_"+(grade==1?"blue":
             grade==2?"green":
@@ -646,7 +646,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
                     grade==4?"silver":"gold")+"_i00";
     }
    
-    private void sendOutOfItems(L2PcInstance player, String count, String itemname)
+    public void sendOutOfItems(L2PcInstance player, String count, String itemname)
     {
         NpcHtmlMessage npcReply = new NpcHtmlMessage(1);
         
@@ -661,7 +661,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
         player.sendPacket(npcReply);
     }
     
-    private void sendCraftedItems(L2PcInstance player, int success, int failed, String itemname)
+    public void sendCraftedItems(L2PcInstance player, int success, int failed, String itemname)
     {
         NpcHtmlMessage npcReply = new NpcHtmlMessage(1);
         

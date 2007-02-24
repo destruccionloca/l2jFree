@@ -3601,7 +3601,7 @@ public abstract class L2Character extends L2Object
            {
                broadcastPacket(new TargetUnselected(this));
            }
-           if (isAttackingNow() && getAI().getAttackTarget() == _target)
+           /*if (isAttackingNow() && getAI().getAttackTarget() == _target)
            {
                abortAttack();
 
@@ -3625,9 +3625,8 @@ public abstract class L2Character extends L2Object
                    sm.addString("Casting is aborted");
                    sendPacket(sm);
                }
-           }
+           }*/
        }
-
        _target = object;
    }
 
