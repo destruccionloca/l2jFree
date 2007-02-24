@@ -153,7 +153,7 @@
     <mul order='0x50' stat='pAtk' val="#pAtk"/>
     <mul order='0x50' stat='mAtkSpd' val="#mAtkSpd"/>
     <set order='0x50' stat='pAtkSpd' val="#pAtkSpd"/>
-    <mul order='0x50' stat='mpConsumeRate' val="#mpConsumeRate"/>
+    <mul order='0x50' stat='MpConsumeRate' val="#mpConsumeRate"/>
     <div order='0x50' stat='mReuse' val="#mReuse"/>
    </effect>
   </for>
@@ -261,7 +261,7 @@
       <set order="0x50" stat="maxCp" val="#stat"/>
       <set order="0x50" stat="maxMp" val="#stat"/>
       <set order="0x50" stat="maxHp" val="#stat"/>
-      <div order="0x50" stat="mpConsumeRate" val="2.0"/>
+      <div order="0x50" stat="MpConsumeRate" val="2.0"/>
     </effect>
   </for>
 </skill>
