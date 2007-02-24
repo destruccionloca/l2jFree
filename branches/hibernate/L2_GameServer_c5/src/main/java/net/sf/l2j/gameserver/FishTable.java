@@ -35,7 +35,7 @@ public class FishTable
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             _Fishs_Easy = new FastList<FishData>();
             _Fishs_Normal = new FastList<FishData>();
             _Fishs_Hard = new FastList<FishData>();

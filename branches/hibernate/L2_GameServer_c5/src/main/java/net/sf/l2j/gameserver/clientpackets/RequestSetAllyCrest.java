@@ -94,7 +94,7 @@ public class RequestSetAllyCrest extends ClientBasePacket
             
             try
             {
-                con = L2Registry.getInstance().getConnection();
+                con = L2Registry.getConnection();
                 PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET ally_crest_id = ? WHERE ally_id = ?");
                 statement.setInt(1, newId);
                 statement.setInt(2, leaderclan.getAllyId());

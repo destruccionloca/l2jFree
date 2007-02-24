@@ -942,7 +942,7 @@ public class SevenSignsFestival implements SpawnListener
 
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             statement = con.prepareStatement("SELECT festivalId, cabal, cycle, date, score, members " +
                 "FROM seven_signs_festival");
             rset = statement.executeQuery();
@@ -1040,7 +1040,7 @@ public class SevenSignsFestival implements SpawnListener
 
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             
             for (FastMap<Integer, StatsSet> currCycleData : _festivalData.values())
             {

@@ -254,7 +254,7 @@ public abstract class Quest
         try
         {
 	    // Get list of quests owned by the player from database
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement;
             
             PreparedStatement invalidQuestData      = con.prepareStatement("DELETE FROM character_quests WHERE char_id=? and name=?");
@@ -358,7 +358,7 @@ public abstract class Quest
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement;
             statement = con.prepareStatement("INSERT INTO character_quests (char_id,name,var,value) VALUES (?,?,?,?)");
             statement.setInt   (1, qs.getPlayer().getObjectId());
@@ -392,7 +392,7 @@ public abstract class Quest
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement;
             statement = con.prepareStatement("UPDATE character_quests SET value=? WHERE char_id=? AND name=? AND var = ?");
             statement.setString(1, value);
@@ -417,7 +417,7 @@ public abstract class Quest
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement;
             statement = con.prepareStatement("DELETE FROM character_quests WHERE char_id=? AND name=? AND var=?");
             statement.setInt   (1, qs.getPlayer().getObjectId());
@@ -440,7 +440,7 @@ public abstract class Quest
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement;
             statement = con.prepareStatement("DELETE FROM character_quests WHERE char_id=? AND name=?");
             statement.setInt   (1, qs.getPlayer().getObjectId());

@@ -159,7 +159,7 @@ public class RequestDestroyItem extends ClientBasePacket
 			java.sql.Connection con = null;
 			try
 			{
-				con = L2Registry.getInstance().getConnection();
+				con = L2Registry.getConnection();
 				PreparedStatement statement = con.prepareStatement("SELECT objId FROM pets WHERE item_obj_id=?");
 				statement.setInt(1, _objectId);
 				ResultSet rset = statement.executeQuery();

@@ -319,7 +319,7 @@ public class L2TradeList
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement = con.prepareStatement("UPDATE pets SET item_obj_id = ? WHERE item_obj_id = ?");
             statement.setInt(1, newObjectId);
             statement.setInt(2, oldObjectId);

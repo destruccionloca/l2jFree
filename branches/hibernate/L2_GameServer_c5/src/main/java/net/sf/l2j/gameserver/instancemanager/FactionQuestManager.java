@@ -61,7 +61,7 @@ public class FactionQuestManager
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
 
             statement = con.prepareStatement("Select id, faction_id, name, description, reward, mobid, amount, min_level from faction_quests order by id");
             rs = statement.executeQuery();

@@ -495,7 +495,7 @@ public class DM
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
 
             statement = con.prepareStatement("Select * from dm");
             rs = statement.executeQuery();
@@ -534,7 +534,7 @@ public class DM
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement;
             
             statement = con.prepareStatement("Delete from dm");

@@ -2,15 +2,11 @@
 package net.sf.l2j.gameserver.handler.voicedcommandhandlers;
 
 import javolution.text.TextBuilder;
-
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Faction;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /** 
  * @author evill33t

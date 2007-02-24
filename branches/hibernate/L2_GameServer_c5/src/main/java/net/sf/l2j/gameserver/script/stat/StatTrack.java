@@ -129,7 +129,7 @@ public class StatTrack {
    private void load() { //Load into memory the stat tracking sheet.
        java.sql.Connection con = null;
        try {
-           con = L2Registry.getInstance().getConnection();
+           con = L2Registry.getConnection();
            PreparedStatement ps = con.prepareStatement("SELECT * FROM character_stats WHERE id=?");
            ps.setInt(1, owner.getObjectId());
            ResultSet rs = ps.executeQuery();
@@ -187,7 +187,7 @@ public class StatTrack {
    public void save() {
        java.sql.Connection con = null;
        try {
-           con = L2Registry.getInstance().getConnection();
+           con = L2Registry.getConnection();
 			PreparedStatement ps = con.prepareStatement("UPDATE character_stats WHERE id=? SET " +
 					"totalKarma=?, totalPlayerKills=?, totalKills=?, " +
 					"totalMonKills=?, totalDamageDealt=?, totalDamageTaken=?, " +

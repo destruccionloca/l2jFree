@@ -31,7 +31,7 @@ public class SkillSpellbookTable
         
 		try
 		{
-			con = L2Registry.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT skill_id, item_id FROM skill_spellbooks");
 			ResultSet spbooks = statement.executeQuery();
 

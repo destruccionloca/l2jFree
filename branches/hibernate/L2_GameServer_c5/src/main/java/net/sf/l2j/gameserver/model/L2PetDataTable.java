@@ -54,7 +54,7 @@ public class L2PetDataTable
         
         try
         { 
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement = con.prepareStatement("SELECT typeID, level, expMax, hpMax, mpMax, patk, pdef, matk, mdef, acc, evasion, crit, speed, atk_speed, cast_speed, feedMax, feedbattle, feednormal, loadMax, hpregen, mpregen FROM pets_stats");
             ResultSet rset = statement.executeQuery();
             

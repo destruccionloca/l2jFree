@@ -67,7 +67,7 @@ public class RecordTable
 		try
 		{
 			try {
-			con = L2Registry.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT maxplayer, date FROM record order by maxplayer desc limit 1");
 			ResultSet recorddata = statement.executeQuery();
 

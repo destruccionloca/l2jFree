@@ -611,7 +611,7 @@ public class SevenSigns
         
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             statement = con.prepareStatement("SELECT char_obj_id, cabal, seal, red_stones, green_stones, blue_stones, " +
                 "ancient_adena_amount, contribution_score FROM seven_signs");
             rset = statement.executeQuery();
@@ -714,7 +714,7 @@ public class SevenSigns
         
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
 
             for (StatsSet sevenDat : _signsPlayerData.values())
             {
@@ -883,7 +883,7 @@ public class SevenSigns
             // Update data in database, as we have a new player signing up.
             try 
             {
-                con = L2Registry.getInstance().getConnection();
+                con = L2Registry.getConnection();
                 statement = con.prepareStatement(
                     "INSERT INTO seven_signs (char_obj_id, cabal, seal) VALUES (?,?,?)");
                 statement.setInt(1, charObjId);

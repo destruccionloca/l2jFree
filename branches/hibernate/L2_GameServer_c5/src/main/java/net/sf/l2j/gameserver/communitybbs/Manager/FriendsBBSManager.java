@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.communitybbs.Manager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Collection;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
@@ -183,7 +182,7 @@ public class FriendsBBSManager extends BaseBBSManager
             String sqlQuery = "SELECT friend_id, friend_name FROM character_friends WHERE " +
                     "char_id=" + activeChar.getObjectId() + " ORDER BY friend_name ASC";
             
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement = con.prepareStatement(sqlQuery);
             ResultSet rset = statement.executeQuery(sqlQuery);
 
@@ -229,7 +228,7 @@ public class FriendsBBSManager extends BaseBBSManager
         {
             String sqlQuery = "DELETE FROM character_friends WHERE (char_id="+activeChar.getObjectId()+" AND friend_id="+player.getObjectId()+") OR (char_id="+player.getObjectId()+" AND friend_id="+activeChar.getObjectId()+")";
             
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement = con.prepareStatement(sqlQuery);
             statement.executeQuery(sqlQuery);
             statement.close();
@@ -249,7 +248,7 @@ public class FriendsBBSManager extends BaseBBSManager
         try
         {
             String sqlQuery = "SELECT * FROM character_friends WHERE char_id="+activeChar.getObjectId()+" AND friend_id="+player.getObjectId();
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement = con.prepareStatement(sqlQuery);
             ResultSet rset = statement.executeQuery(sqlQuery);
             if (rset.getRow() == 0){

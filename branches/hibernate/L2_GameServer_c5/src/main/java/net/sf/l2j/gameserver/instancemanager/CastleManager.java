@@ -88,7 +88,7 @@ public class CastleManager
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
 
             statement = con.prepareStatement("Select id from castle order by id");
             rs = statement.executeQuery();

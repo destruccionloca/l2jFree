@@ -2,10 +2,6 @@ package net.sf.l2j.gameserver.model.forum;
 
 import java.math.BigDecimal;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 // Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
 
 /**
@@ -156,16 +152,16 @@ public class Posts implements java.io.Serializable
     {
         this.topic = _topic;
     }  
-    public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
-    }
-    
-    public boolean equals(Object _obj) {
-        return EqualsBuilder.reflectionEquals(this, _obj);
-    }
-    
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }     
+//    public int hashCode() {
+//        return HashCodeBuilder.reflectionHashCode(this);
+//    }
+//    
+//    public boolean equals(Object _obj) {
+//        return EqualsBuilder.reflectionEquals(this, _obj);
+//    }
+//    
+//    public String toString() {
+//        return ToStringBuilder.reflectionToString(this);
+//    }     
 
 }

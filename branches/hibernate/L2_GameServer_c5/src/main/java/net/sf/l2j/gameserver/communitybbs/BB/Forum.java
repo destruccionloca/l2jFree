@@ -102,7 +102,7 @@ public class Forum
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2Registry.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT * FROM forums WHERE forum_id=?");
 			statement.setInt(1, _ForumId);
 			ResultSet result = statement.executeQuery();
@@ -135,7 +135,7 @@ public class Forum
 		}
 		try
 		{
-			con = L2Registry.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT * FROM topic WHERE topic_forum_id=? ORDER BY topic_id DESC");
 			statement.setInt(1, _ForumId);
 			ResultSet result = statement.executeQuery();
@@ -176,7 +176,7 @@ public class Forum
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2Registry.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT forum_id FROM forums WHERE forum_parent=?");
 			statement.setInt(1, _ForumId);
 			ResultSet result = statement.executeQuery();
@@ -301,7 +301,7 @@ public class Forum
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2Registry.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			PreparedStatement statement = con.prepareStatement("INSERT INTO forums (forum_id,forum_name,forum_parent,forum_post,forum_type,forum_perm,forum_owner_id) values (?,?,?,?,?,?,?)");
 			statement.setInt(1, _ForumId);
 			statement.setString(2, _ForumName);

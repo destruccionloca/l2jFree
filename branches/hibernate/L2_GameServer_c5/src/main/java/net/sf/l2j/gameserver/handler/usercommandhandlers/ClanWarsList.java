@@ -56,7 +56,7 @@ public class ClanWarsList implements IUserCommandHandler
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2Registry.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			PreparedStatement statement;
 			if (id == 88)
 			{

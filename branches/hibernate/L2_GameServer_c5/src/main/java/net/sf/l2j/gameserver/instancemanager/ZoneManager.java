@@ -167,7 +167,7 @@ public class ZoneManager
     	java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement = con.prepareStatement("Select * from zone order by id");
             ResultSet rs = statement.executeQuery();
 

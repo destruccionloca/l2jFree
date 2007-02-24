@@ -68,7 +68,7 @@ public class LeaderboardEngine implements Runnable {
    public void run() {
        Connection con = null;
        try {
-           con = L2Registry.getInstance().getConnection();
+           con = L2Registry.getConnection();
            PreparedStatement ps = con.prepareStatement("SELECT * FROM character_stats");
            ResultSet rs = ps.executeQuery();
            for (Integer l: _leaderboards.keySet())

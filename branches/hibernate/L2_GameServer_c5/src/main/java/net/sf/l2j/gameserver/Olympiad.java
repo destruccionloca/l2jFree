@@ -246,7 +246,7 @@ public class Olympiad
         
         try
         {
-            Connection con = L2Registry.getInstance().getConnection();
+            Connection con = L2Registry.getConnection();
             PreparedStatement statement = con.prepareStatement(OLYMPIAD_LOAD_NOBLES);
             ResultSet rset = statement.executeQuery();
             
@@ -864,7 +864,7 @@ public class Olympiad
         
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement;
             
             for (Integer nobleId : _nobles.keySet())
@@ -923,7 +923,7 @@ public class Olympiad
          
          try
          {
-             con = L2Registry.getInstance().getConnection();
+             con = L2Registry.getConnection();
              PreparedStatement statement;
              ResultSet rset;
              StatsSet hero;
@@ -966,7 +966,7 @@ public class Olympiad
          
          try
          {
-             con = L2Registry.getInstance().getConnection();
+             con = L2Registry.getConnection();
              PreparedStatement statement;
              ResultSet rset;
              statement = con.prepareStatement(GET_EACH_CLASS_LEADER);
@@ -1069,7 +1069,7 @@ public class Olympiad
         
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement = con.prepareStatement(OLYMPIAD_DELETE_ALL);
             statement.execute();
             statement.close();

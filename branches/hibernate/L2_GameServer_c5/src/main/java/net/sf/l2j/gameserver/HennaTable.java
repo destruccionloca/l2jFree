@@ -67,7 +67,7 @@ public class HennaTable
 		try
 		{
 			try {
-			con = L2Registry.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT symbol_id, symbol_name, dye_id, dye_amount, price, stat_INT, stat_STR, stat_CON, stat_MEM, stat_DEX, stat_WIT FROM henna");
 			ResultSet hennadata = statement.executeQuery();
 

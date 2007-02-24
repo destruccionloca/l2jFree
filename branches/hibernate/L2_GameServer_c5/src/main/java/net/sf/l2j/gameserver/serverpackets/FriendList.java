@@ -73,7 +73,7 @@ public class FriendList extends ServerBasePacket
 			String sqlQuery = "SELECT friend_id, friend_name FROM character_friends WHERE " +
                     "char_id=" + _cha.getObjectId() + " ORDER BY friend_name ASC";
 
-			con = L2Registry.getInstance().getConnection();
+			con = L2Registry.getConnection();
             PreparedStatement statement = con.prepareStatement(sqlQuery);
 			ResultSet rset = statement.executeQuery(sqlQuery);
 

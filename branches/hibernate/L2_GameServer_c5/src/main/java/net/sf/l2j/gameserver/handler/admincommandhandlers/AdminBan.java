@@ -153,7 +153,7 @@ public class AdminBan implements IAdminCommandHandler {
         Connection con = null;
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             
             PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=?, y=?, z=?, in_jail=?, jail_timer=? WHERE char_name=?");
             statement.setInt(1, -114356);
@@ -186,7 +186,7 @@ public class AdminBan implements IAdminCommandHandler {
         Connection con = null;
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             
             PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=?, y=?, z=?, in_jail=?, jail_timer=? WHERE char_name=?");
             statement.setInt(1, 17836);

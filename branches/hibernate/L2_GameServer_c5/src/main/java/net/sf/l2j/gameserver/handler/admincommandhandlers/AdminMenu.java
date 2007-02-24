@@ -258,7 +258,7 @@ public class AdminMenu implements IAdminCommandHandler
         java.sql.Connection con = null;
         try
         {           
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             
             String stmt = "UPDATE accounts, characters SET accounts.access_level = ? WHERE characters.account_name = accounts.login AND characters.char_name=?";
             PreparedStatement statement = con.prepareStatement(stmt);

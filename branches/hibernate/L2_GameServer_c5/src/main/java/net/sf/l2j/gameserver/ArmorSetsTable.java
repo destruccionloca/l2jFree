@@ -38,7 +38,7 @@ public class ArmorSetsTable
         Connection con;
         try 
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement = con.prepareStatement("SELECT chest, legs, head, gloves, feet, skill_id, shield, shield_skill_id, enchant6skill FROM armorsets");
             ResultSet rset = statement.executeQuery();
             

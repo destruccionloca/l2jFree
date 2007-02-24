@@ -74,7 +74,7 @@ public class ForumsBBSManager extends BaseBBSManager
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2Registry.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT forum_id FROM forums WHERE forum_type=0");
 			ResultSet result = statement.executeQuery();			
 			while (result.next())

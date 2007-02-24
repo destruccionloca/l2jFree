@@ -476,7 +476,7 @@ public abstract class ItemContainer
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement = con.prepareStatement(
 					"SELECT object_id FROM items WHERE owner_id=? AND (loc=?) " +
 					"ORDER BY object_id DESC");

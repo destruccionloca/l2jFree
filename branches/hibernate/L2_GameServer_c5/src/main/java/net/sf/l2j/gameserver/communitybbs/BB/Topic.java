@@ -81,7 +81,7 @@ public class Topic
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2Registry.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			PreparedStatement statement = con.prepareStatement("INSERT INTO topic (topic_id,topic_forum_id,topic_name,topic_date,topic_ownername,topic_ownerid,topic_type,topic_reply) values (?,?,?,?,?,?,?,?)");
 			statement.setInt(1, _ID);
 			statement.setInt(2, _ForumID);
@@ -149,7 +149,7 @@ public class Topic
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2Registry.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			PreparedStatement statement = con.prepareStatement("DELETE FROM topic WHERE topic_id=? AND topic_forum_id=?");
 			statement.setInt(1, getID());
 			statement.setInt(2, f.getID());

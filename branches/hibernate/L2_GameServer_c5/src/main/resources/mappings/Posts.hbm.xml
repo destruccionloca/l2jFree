@@ -4,7 +4,6 @@
 <!-- Generated 19 f?vr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8 -->
 <hibernate-mapping>
     <class name="net.sf.l2j.gameserver.model.forum.Posts" table="posts" >
-        <comment></comment>
         <id name="postId" type="int" >
             <column name="post_id" />
             <generator class="increment" />

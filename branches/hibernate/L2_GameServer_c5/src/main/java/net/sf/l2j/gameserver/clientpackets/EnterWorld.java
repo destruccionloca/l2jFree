@@ -472,7 +472,7 @@ public class EnterWorld extends ClientBasePacket
 	{
 		java.sql.Connection con = null;
 		try {
-		    con = L2Registry.getInstance().getConnection();
+		    con = L2Registry.getConnection();
 		    PreparedStatement statement;
             statement = con.prepareStatement("SELECT friend_id FROM character_friends WHERE char_id=?");
 		    statement.setInt(1, cha.getObjectId());

@@ -167,7 +167,7 @@ public final class L2PetBabyInstance extends L2PetInstance
         try
         {
             L2PetBabyInstance pet = new L2PetBabyInstance(IdFactory.getInstance().getNextId(), template, owner, control);
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             PreparedStatement statement = con.prepareStatement("SELECT item_obj_id, objId, name, level, maxHp, curHp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, str, con, dex, _int, men, wit, exp, sp, karma, pkkills, maxload, fed, max_fed FROM pets WHERE item_obj_id=?");
             statement.setInt(1, control.getObjectId());
             ResultSet rset = statement.executeQuery();

@@ -19,7 +19,6 @@ package net.sf.l2j.gameserver.pathfinding.worldnodes;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-import java.nio.MappedByteBuffer;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;

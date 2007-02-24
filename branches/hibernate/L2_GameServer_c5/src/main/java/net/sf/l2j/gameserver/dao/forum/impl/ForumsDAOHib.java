@@ -39,7 +39,7 @@ public class ForumsDAOHib extends BaseRootDAOHib implements ForumsDAO
 	public List<Forums> getChildrens(Forums obj)
 	{
 		return getCurrentSession().createQuery(
-				"from " + Forums.class.getName()+ " where forumId = "+obj.getForumId()).list();
+				"from " + Forums.class.getName()+ " where forumParent = "+obj.getForumId()).list();
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class ForumsDAOHib extends BaseRootDAOHib implements ForumsDAO
 	public List<Forums> getChildrens(Integer forumId)
 	{
 		return getCurrentSession().createQuery(
-				"from " + Forums.class.getName()+ " where forumId = "+forumId).list();
+				"from " + Forums.class.getName()+ " where forumParent = "+forumId).list();
 	}
 
 	/**
@@ -66,6 +66,16 @@ public class ForumsDAOHib extends BaseRootDAOHib implements ForumsDAO
 	 */
 	public Forums getForumById(Integer id)
 	{
-		return (Forums)load(Forums.class, id);
+		return (Forums)get(Forums.class, id);
 	}
+
+	/**
+	 * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#deleteForum(net.sf.l2j.gameserver.model.forum.Forums)
+	 */
+	public void deleteForum(Forums obj)
+	{
+		delete(obj);		
+	}
+
+
 }

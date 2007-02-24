@@ -18,7 +18,7 @@ public static void auditGMAction(String gmName, String action, String target, St
         PreparedStatement statement = null;
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             statement = con.prepareStatement(
             	"INSERT INTO GM_AUDIT(GM_NAME, ACTION, TARGET, PARAM, DATE) VALUES(?,?,?,?,now())");
             

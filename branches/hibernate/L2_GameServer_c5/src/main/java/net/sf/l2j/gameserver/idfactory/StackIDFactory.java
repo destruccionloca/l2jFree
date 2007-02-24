@@ -52,7 +52,7 @@ public class StackIDFactory extends IdFactory
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getInstance().getConnection();
+            con = L2Registry.getConnection();
             //con.createStatement().execute("drop table if exists tmp_obj_id");
             
             int[] tmp_obj_ids = extractUsedObjectIDTable();

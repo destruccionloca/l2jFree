@@ -70,7 +70,7 @@ public class HelperBuffTable
         {
             try 
             {
-                con = L2Registry.getInstance().getConnection();
+                con = L2Registry.getConnection();
                 PreparedStatement statement = con.prepareStatement("SELECT * FROM helper_buff_list");
                 ResultSet helperbuffdata = statement.executeQuery();
 
