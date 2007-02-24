@@ -81,7 +81,6 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
-import net.sf.l2j.gameserver.instancemanager.FactionManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
@@ -133,7 +132,6 @@ import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.DM;
 import net.sf.l2j.gameserver.model.entity.L2Event;
-import net.sf.l2j.gameserver.model.entity.Faction;
 import net.sf.l2j.gameserver.model.entity.FactionMember;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.TvT;
@@ -215,8 +213,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private static final String RESTORE_SKILL_SAVE = "SELECT skill_id,skill_level,effect_count,effect_cur_time, reuse_delay FROM character_skills_save WHERE char_obj_id=? AND class_index=? AND restore_type=?";
     private static final String DELETE_SKILL_SAVE = "DELETE FROM character_skills_save WHERE char_obj_id=? AND class_index=?";
 
-    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,allyId=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,deleteclan=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,varka=?,ketra=?,pledge_type=?, pledge_rank=?, apprentice=?, accademy_lvl=? WHERE obj_id=?"; 
-    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, allyId, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, deleteclan, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, newbie, nobless, varka, ketra, Pledge_class, pledge_type, pledge_rank, apprentice, accademy_lvl FROM characters WHERE obj_id=?";
+    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,allyId=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,deleteclan=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,banchat_timer=?,newbie=?,nobless=?,varka=?,ketra=?,pledge_type=?, pledge_rank=?, apprentice=?, accademy_lvl=? WHERE obj_id=?"; 
+    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, allyId, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, deleteclan, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, varka, ketra, Pledge_class, pledge_type, pledge_rank, apprentice, accademy_lvl FROM characters WHERE obj_id=?";
     private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE char_obj_id=? ORDER BY class_index ASC";
     private static final String ADD_CHAR_SUBCLASS = "INSERT INTO character_subclasses (char_obj_id,class_id,exp,sp,level,class_index) VALUES (?,?,?,?,?,?)";
     private static final String UPDATE_CHAR_SUBCLASS = "UPDATE character_subclasses SET exp=?,sp=?,level=?,class_id=? WHERE char_obj_id=? AND class_index =?";
@@ -462,7 +460,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _accessLevel;
 
     private boolean _chatBanned = false; // Chat Banned
-    private ScheduledFuture _chatUnbanTask = null;
+    private long _banchat_timer = 0;
+    private ScheduledFuture  _BanChatTask;
     private boolean _messageRefusal = false; // message refusal mode
     private boolean _dietMode = false; // ignore weight penalty
     private boolean _tradeRefusal = false; // Trade refusal
@@ -3525,8 +3524,8 @@ public final class L2PcInstance extends L2PlayableInstance
         if (newTarget instanceof L2FestivalMonsterInstance && !isFestivalParticipant())
             newTarget = null;
         
-        // Prevents /target exploiting while no geodata
-         if (newTarget != null && Math.abs(newTarget.getZ() - getZ()) > 1000)
+        // Prevents /target exploiting
+         if (newTarget != null && !GeoData.getInstance().canSeeTarget(this, newTarget))
              newTarget = null;
              
         // Get the current target
@@ -5291,6 +5290,8 @@ public final class L2PcInstance extends L2PlayableInstance
                 player.setIsIn7sDungeon((rset.getInt("isin7sdungeon") == 1) ? true : false);
                 player.setInJail((rset.getInt("in_jail") == 1) ? true : false);
                 player.setJailTimer(rset.getLong("jail_timer"));
+                player.setBanChatTimer(rset.getLong("banchat_timer"));
+                if(player.getBanChatTimer() > 0) player.setChatBanned(true);
                 if (player.isInJail()) player.setJailTimer(rset.getLong("jail_timer"));
                 else player.setJailTimer(0);
                 
@@ -5725,15 +5726,16 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setLong(42, totalOnlineTime);
             statement.setInt(43, isInJail() ? 1 : 0);
             statement.setLong(44, getJailTimer());
-            statement.setInt(45, isNewbie() ? 1 : 0);
-            statement.setInt(46, isNoble() ? 1 : 0);
-            statement.setInt(47, getVarka());
-            statement.setInt(48, getKetra());
-            statement.setInt(49, getPledgeType());
-            statement.setInt(50, getRank());
-            statement.setString(51, getApprentice());
-            statement.setInt(52, getAccademyLvl());
-            statement.setInt(53, getObjectId());
+            statement.setLong(45, getBanChatTimer());
+            statement.setInt(46, isNewbie() ? 1 : 0);
+            statement.setInt(47, isNoble() ? 1 : 0);
+            statement.setInt(48, getVarka());
+            statement.setInt(49, getKetra());
+            statement.setInt(50, getPledgeType());
+            statement.setInt(51, getRank());
+            statement.setString(52, getApprentice());
+            statement.setInt(53, getAccademyLvl());
+            statement.setInt(54, getObjectId());
 
             statement.execute();
             statement.close();
@@ -7982,28 +7984,59 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         _chatBanned = isBanned;
 
-        if (isChatBanned()) sendMessage("You have been chat banned by a server admin.");
+        stopBanChatTask();
+        if (isChatBanned())
+        {
+            sendMessage("You have been chat banned by a server admin.");
+            if(_banchat_timer > 0) _BanChatTask = ThreadPoolManager.getInstance().scheduleGeneral(new SchedChatUnban(this), _banchat_timer);
+        }
         else
         {
-            sendMessage("Your chat ban has been lifted.");
-            if (_chatUnbanTask != null) _chatUnbanTask.cancel(false);
-            _chatUnbanTask = null;
+            sendMessage("Your chat ban has been lifted.");            
+            setBanChatTimer(0);
+        }
+    }
+    
+    public void setBanChatTimer(long timer)
+    {
+        _banchat_timer = timer;
+    }
+    
+    public long getBanChatTimer()
+    {
+        if(_BanChatTask != null) return _BanChatTask.getDelay(TimeUnit.MILLISECONDS);
+        return _banchat_timer;
+    }
+    
+    public void stopBanChatTask()
+    {
+        if (_BanChatTask != null)
+        {
+            _BanChatTask.cancel(false);
+            _BanChatTask = null;
+        }        
+    }
+    
+    private class SchedChatUnban implements Runnable
+    {
+        L2PcInstance _player;
+        protected long _startedAt;
+        
+        protected SchedChatUnban(L2PcInstance player)
+        {
+            _player = player;
+            _startedAt = System.currentTimeMillis();
+        }
+        
+        public void run()
+        {
+            _player.setChatBanned(false);
         }
     }
 
     public boolean isChatBanned()
     {
         return _chatBanned;
-    }
-
-    public void setChatUnbanTask(ScheduledFuture task)
-    {
-        _chatUnbanTask = task;
-    }
-
-    public ScheduledFuture getChatUnbanTask()
-    {
-        return _chatUnbanTask;
     }
 
     public boolean getMessageRefusal()
@@ -10144,8 +10177,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 _jailTimer = delayInMinutes * 60000; // in millisec
 
                 // start the countdown
-                _jailTask = ThreadPoolManager.getInstance().scheduleGeneral(new JailTask(this),
-                                                                            _jailTimer);
+                _jailTask = ThreadPoolManager.getInstance().scheduleGeneral(new JailTask(this), _jailTimer);
                 sendMessage("You are in jail for " + delayInMinutes + " minutes.");
             }
 

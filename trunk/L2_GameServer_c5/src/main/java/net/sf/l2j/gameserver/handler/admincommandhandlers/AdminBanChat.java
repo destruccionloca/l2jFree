@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -72,7 +71,7 @@ public class AdminBanChat implements IAdminCommandHandler {
             {
                 try
                 {
-                    banLength = Integer.parseInt(cmdParams[2]) * 60000;
+                    banLength = Integer.parseInt(cmdParams[2]);
                 } catch (NumberFormatException nfe) {}
             }
 		} else 
@@ -98,8 +97,8 @@ public class AdminBanChat implements IAdminCommandHandler {
             
 			if (banLength > -1)
             {
-                targetPlayer.setChatUnbanTask(ThreadPoolManager.getInstance().scheduleGeneral(new SchedChatUnban(targetPlayer, activeChar), banLength));
-                banLengthStr = " for " + banLength + " seconds.";
+                targetPlayer.setBanChatTimer(banLength * 60000);
+                banLengthStr = " for " + banLength + " minutes.";
             }
 			
             activeChar.sendMessage(targetPlayer.getName() + " is now chat banned" + banLengthStr + ".");
@@ -121,22 +120,5 @@ public class AdminBanChat implements IAdminCommandHandler {
 	
 	private boolean checkLevel(int level) {
 		return (level >= REQUIRED_LEVEL);
-	}
-	
-	private class SchedChatUnban implements Runnable
-	{
-		L2PcInstance _player;
-		L2PcInstance _banner;
-		
-		protected SchedChatUnban(L2PcInstance player, L2PcInstance banner)
-		{
-			_player = player;
-			_banner = banner;
-		}
-		
-		public void run()
-		{
-			_player.setChatBanned(false);
-		}
-	}
+	}	
 }

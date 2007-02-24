@@ -447,6 +447,14 @@ public abstract class L2Character extends L2Object
             sendPacket(new ActionFailed());
             return;
         }
+        
+        // GeoData Los Check here
+        if (!GeoData.getInstance().canSeeTarget(this, target))
+        {
+            sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
+            sendPacket(new ActionFailed());
+            return;
+        }
 
         // Get the active weapon instance (always equiped in the right hand)
         L2ItemInstance weaponInst = getActiveWeaponInstance();
@@ -464,15 +472,7 @@ public abstract class L2Character extends L2Object
              sendPacket(af);
             return;
         }
-        
-        // GeoData Los Check here
-        if (!GeoData.getInstance().canSeeTarget(this, target))
-        {
-            sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
-            sendPacket(new ActionFailed());
-            return;
-        }
-        
+
         // Check for a bow
         if ((weaponItem != null && weaponItem.getItemType() == L2WeaponType.BOW))
         {
@@ -876,6 +876,7 @@ public abstract class L2Character extends L2Object
                     ((L2PetInstance)obj).getOwner() == ((L2PcInstance)this)) continue;
                 
                 if (!Util.checkIfInRange(maxRadius, this, obj, false)) continue;
+                if (!GeoData.getInstance().canSeeTarget(this, obj)) continue;
                 
 				//otherwise hit too high/low. 650 because mob z coord sometimes wrong on hills
                 if(Math.abs(obj.getZ() - this.getZ()) > 650) continue;
@@ -3800,7 +3801,7 @@ public abstract class L2Character extends L2Object
        if (_move == null) return true;
        
        boolean result = true;
-//       if (_move._heading < heading - 5 || _move._heading > heading  5)
+       // if (_move._heading < heading - 5 || _move._heading > heading  5)
        if (_move._heading != heading)
            {
            result = (_move._heading == 0);
@@ -4855,7 +4856,7 @@ public abstract class L2Character extends L2Object
             {
                 if (targets[i] instanceof L2Character)
                 {
-                    if(!this.isInsideRadius(targets[i],escapeRange,true,false)) continue;
+                    if(!this.isInsideRadius(targets[i],escapeRange,true,false) || !GeoData.getInstance().canSeeTarget(this, targets[i])) continue;
                     else targetList.add((L2Character)targets[i]);
                 }
             }

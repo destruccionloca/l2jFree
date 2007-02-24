@@ -1307,6 +1307,7 @@ public abstract class L2Skill
                 activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
                 return null;
             }
+            if(!GeoData.getInstance().canSeeTarget(activeChar, target)) return null;
             return new L2Character[]{target};
         }
         case TARGET_SELF:
