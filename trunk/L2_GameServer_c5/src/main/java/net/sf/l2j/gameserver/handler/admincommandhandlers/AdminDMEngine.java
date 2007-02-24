@@ -18,8 +18,8 @@
  */
 
 /**
- *
- * @author: FBIagent
+ * 
+ * @author SqueezeD
  *
  */
 
@@ -31,10 +31,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.DM;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
-/**
- * @author SqueezeD
- *
- */
 public class AdminDMEngine implements IAdminCommandHandler {
 
  private static String[] _adminCommands = {"admin_dmevent", "admin_dmevent_name", "admin_dmevent_desc", "admin_dmevent_join_loc",

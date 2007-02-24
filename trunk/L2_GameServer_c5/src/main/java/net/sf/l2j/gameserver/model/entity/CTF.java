@@ -19,7 +19,7 @@
 
 /**
  * 
- * @author FBIagent
+ * @author FBIagent / fixed by SqueezeD
  * 
  */
 
@@ -57,10 +57,6 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * @author FBIAgent / fixed by SqueezeD
- *
- */
 public class CTF
 {  
     private final static Log _log = LogFactory.getLog(CTF.class.getName());

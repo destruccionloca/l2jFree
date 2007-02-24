@@ -19,7 +19,7 @@
 
 /**
  * 
- * @author FBIagent
+ * @author SqueezeD
  * 
  */
 
@@ -51,11 +51,6 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-/**
- * @author SqueezeD
- *
- */
 
 public class DM
 {   

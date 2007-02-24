@@ -19,7 +19,7 @@
 
 /**
  * 
- * @author FBIagent
+ * @author FBIagent / fixed SqueezeD
  * 
  */
 
@@ -54,10 +54,6 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * @author FBIAgent / fixed SqueezeD
- *
- */
 public class TvT
 {   
     private final static Log _log = LogFactory.getLog(TvT.class.getName());    

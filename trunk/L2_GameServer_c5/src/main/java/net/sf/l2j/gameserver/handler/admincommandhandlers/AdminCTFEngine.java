@@ -19,16 +19,12 @@
 
 /**
  *
- * @author: FBIagent
+ * @author: FBIagent / fixed by SqueezeD
  *
  */
 
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-/**
- * @author FBIAgent / fixed by SqueezeD
- *
- */
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
