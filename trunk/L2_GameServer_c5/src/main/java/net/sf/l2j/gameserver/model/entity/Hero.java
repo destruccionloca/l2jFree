@@ -28,20 +28,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.List;
-import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
-import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
-import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.StatsSet;
@@ -66,14 +63,12 @@ public class Hero
     private static final String DELETE_ITEMS = "DELETE FROM items WHERE item_id IN " +
             "(6842, 6611, 6612, 6613, 6614, 6615, 6616, 6617, 6618, 6619, 6620, 6621) " +
             "AND owner_id NOT IN (SELECT obj_id FROM characters WHERE accesslevel > 0)";
-    private static final String DELETE_SKILLS = "DELETE FROM character_skills WHERE skill_id IN " +
-            "(395, 396, 1374, 1375, 1376) " + "AND char_obj_id NOT IN (SELECT obj_id FROM characters WHERE accesslevel > 0)";
     
     private static final int[] _heroItems = {6842, 6611, 6612, 6613, 6614, 6615, 6616,
                                              6617, 6618, 6619, 6620, 6621
     };
-    private static FastMap<Integer, StatsSet> _heroes;
-    private static FastMap<Integer, StatsSet> _completeHeroes;
+    private static Map<Integer, StatsSet> _heroes;
+    private static Map<Integer, StatsSet> _completeHeroes;
     
     public static final String COUNT = "count";
     public static final String PLAYED = "played";
@@ -204,7 +199,6 @@ public class Hero
                     hero.set(CLAN_NAME, clanName);
                     hero.set(ALLY_CREST, allyCrest);
                     hero.set(ALLY_NAME, allyName);
-
                 }
                 
                 rset2.close();
@@ -221,19 +215,19 @@ public class Hero
         } catch(SQLException e)
         {
             _log.warn("Hero System: Couldnt load Heroes");
-            _log.error(e.getMessage(),e);
+            if (_log.isDebugEnabled()) e.printStackTrace();
         }
         
         _log.info("Hero System: Loaded " + _heroes.size() + " Heroes.");
         _log.info("Hero System: Loaded " + _completeHeroes.size() + " all time Heroes.");
     }
     
-    public FastMap<Integer, StatsSet> getHeroes()
+    public Map<Integer, StatsSet> getHeroes()
     {
         return _heroes;
     }
     
-    public synchronized void computeNewHeroes(FastList<StatsSet> newHeroes)
+    public synchronized void computeNewHeroes(List<StatsSet> newHeroes)
     {
         updateHeroes(true);
         
@@ -276,7 +270,7 @@ public class Hero
                         iu.addModifiedItem(item);
                     }
                     player.sendPacket(iu);
-
+                    
                     items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_FACE);
                     iu = new InventoryUpdate();
                     for (L2ItemInstance item : items)
@@ -284,15 +278,14 @@ public class Hero
                         iu.addModifiedItem(item);
                     }
                     player.sendPacket(iu);
-                    
+                                         
                     items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_DHAIR);
-                    iu = new InventoryUpdate();
+                     iu = new InventoryUpdate();
                     for (L2ItemInstance item : items)
                     {
                         iu.addModifiedItem(item);
                     }
                     player.sendPacket(iu);
-
                     
                     for(L2ItemInstance item : player.getInventory().getAvailableItems(false))
                     {
@@ -317,7 +310,7 @@ public class Hero
             return;
         }
         
-        FastMap<Integer, StatsSet> heroes = new FastMap<Integer, StatsSet>();
+        Map<Integer, StatsSet> heroes = new FastMap<Integer, StatsSet>();
         
         for (StatsSet hero : newHeroes)
         {
@@ -345,7 +338,6 @@ public class Hero
         }
         
         deleteItemsInDb();
-        deleteSkillsInDb();
         
         _heroes.clear();
         _heroes.putAll(heroes);
@@ -361,22 +353,10 @@ public class Hero
             
             if (player != null)
             {
-                L2Skill skill;
-                player.broadcastPacket(new SocialAction(player.getObjectId(), 16));
+                player.setHero(true);
                 L2Clan clan = player.getClan();
                 if (clan != null)
                     clan.setReputationScore(clan.getReputationScore()+1000, true);
-                player.setHero(true);
-                skill = SkillTable.getInstance().getInfo(395, 1);
-                player.addSkill(skill);
-                skill = SkillTable.getInstance().getInfo(396, 1);
-                player.addSkill(skill);
-                skill = SkillTable.getInstance().getInfo(1374, 1);
-                player.addSkill(skill);
-                skill = SkillTable.getInstance().getInfo(1375, 1);
-                player.addSkill(skill);
-                skill = SkillTable.getInstance().getInfo(1376, 1);
-                player.addSkill(skill);
                 player.sendPacket(new UserInfo(player));
                 player.broadcastUserInfo();
             }
@@ -469,10 +449,11 @@ public class Hero
             }
         } catch(SQLException e)
         {
-            _log.warn("Hero System: Couldnt update Heroes",e);
+            _log.warn("Hero System: Couldnt update Heroes");
+            if (_log.isDebugEnabled()) e.printStackTrace();
         } finally
         {
-            try{con.close();}catch(Exception e){_log.error(e.getMessage(),e);}
+            try{con.close();}catch(Exception e){e.printStackTrace();}
         }
     }
     
@@ -492,26 +473,9 @@ public class Hero
             statement.execute();
             statement.close();
         }
-        catch(SQLException e){_log.error(e.getMessage(),e);}
+        catch(SQLException e){e.printStackTrace();}
         finally{
-            try{con.close();}catch(SQLException e){_log.error(e.getMessage(),e);}
-        }
-    }
-    
-    private void deleteSkillsInDb()
-    {
-        Connection con = null;
-        
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection();
-            PreparedStatement statement = con.prepareStatement(DELETE_SKILLS);
-            statement.execute();
-            statement.close();
-        }
-        catch(SQLException e){_log.error(e.getMessage(),e);}
-        finally{
-            try{con.close();}catch(SQLException e){_log.error(e.getMessage(),e);}
+            try{con.close();}catch(SQLException e){e.printStackTrace();}
         }
     }
 }
