@@ -113,7 +113,7 @@ public class RequestDestroyItem extends ClientBasePacket
 		}
 
 		int itemId = itemToRemove.getItemId();
-		if (itemToRemove == null || itemToRemove.isWear() || !itemToRemove.isDestroyable() || CursedWeaponsManager.getInstance().isCursed(itemId)) 
+        if (itemToRemove == null || itemToRemove.isWear() || !itemToRemove.isDestroyable() || CursedWeaponsManager.getInstance().isCursed(itemId))
 		{
 		    activeChar.sendPacket(new SystemMessage(SystemMessage.CANNOT_DISCARD_THIS_ITEM));
 		    return;

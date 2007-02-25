@@ -63,8 +63,9 @@ public class AdminSpawn implements IAdminCommandHandler
 
     public boolean useAdminCommand(String command, L2PcInstance activeChar)
     {
-        if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-            return false;
+        if (!Config.ALT_PRIVILEGES_ADMIN)
+        	if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+        		return false;
 
         if (command.equals("admin_show_spawns"))
         {
