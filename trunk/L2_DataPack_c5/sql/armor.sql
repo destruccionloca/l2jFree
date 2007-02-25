@@ -947,9 +947,9 @@ INSERT INTO `armor` VALUES ('8569', 'half_face', 'hair', 'false', 'none', '10', 
 ALTER TABLE armor ADD item_skill_id decimal(11,0) NOT NULL default '0';
 ALTER TABLE armor ADD item_skill_lvl decimal(11,0) NOT NULL default '0';
 
-ALTER TABLE armor ADD dropable varchar(5) default NULL;
-ALTER TABLE armor ADD tradeable varchar(5) default NULL;
-ALTER TABLE armor ADD destroyable varchar(5) default NULL;
+ALTER TABLE armor ADD dropable varchar(5) NOT NULL default 'true';
+ALTER TABLE armor ADD tradeable varchar(5) NOT NULL default 'true';
+ALTER TABLE armor ADD destroyable varchar(5) NOT NULL default 'true';
 
 update armor set dropable = 'false', tradeable = 'false', destroyable = 'false' where item_id=6622;
 update armor set dropable = 'false', tradeable = 'false', destroyable = 'false' where item_id=6834;

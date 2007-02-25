@@ -1298,9 +1298,9 @@ ALTER TABLE weapon ADD onCrit_skill_id decimal(11,0) NOT NULL default '0';
 ALTER TABLE weapon ADD onCrit_skill_lvl decimal(11,0) NOT NULL default '0';
 ALTER TABLE weapon ADD onCrit_skill_chance decimal(11,0) NOT NULL default '0';
 
-ALTER TABLE weapon ADD dropable varchar(5) default NULL;
-ALTER TABLE weapon ADD tradeable varchar(5) default NULL;
-ALTER TABLE weapon ADD destroyable varchar(5) default NULL;
+ALTER TABLE weapon ADD dropable varchar(5) NOT NULL default 'true';
+ALTER TABLE weapon ADD tradeable varchar(5) NOT NULL default 'true';
+ALTER TABLE weapon ADD destroyable varchar(5) NOT NULL default 'true';
 
 -- ---------------------------------- +4  passiveskills -----------------------------------------------
  
