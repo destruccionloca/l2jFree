@@ -6725,5 +6725,5 @@ ALTER TABLE etcitem ADD dropable varchar(5) default NULL;
 ALTER TABLE etcitem ADD tradeable varchar(5) default NULL;
 ALTER TABLE etcitem ADD destroyable varchar(5) default NULL;
 
-update etcitem set dropable = 'false', tradeable = 'false' where id = 4425;
+update etcitem set dropable = 'false', tradeable = 'false' where item_id = 4425;
  
