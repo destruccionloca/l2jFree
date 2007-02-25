@@ -1306,6 +1306,8 @@ public class L2Clan
                 // Create a SubPledge object for each record
                 //RankPrivs privs = new RankPrivs(rank, party, privileges);
                 //_Privs.put(rank, privs);
+                if(_Privs==null)
+                    InitializePrivs();
                 _Privs.get(rank).setPrivs(privileges);
             }
             
