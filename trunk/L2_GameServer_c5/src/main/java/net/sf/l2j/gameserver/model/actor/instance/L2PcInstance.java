@@ -3416,7 +3416,8 @@ public final class L2PcInstance extends L2PlayableInstance
             newTarget = null;
         
         // Prevents /target exploiting
-         if (newTarget != null && !GeoData.getInstance().canSeeTarget(this, newTarget))
+        //if (newTarget != null && !GeoData.getInstance().canSeeTarget(this, newTarget))
+        if (newTarget != null && Math.abs(newTarget.getZ() - getZ()) > 1000)
              newTarget = null;
              
         // Get the current target
