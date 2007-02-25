@@ -112,25 +112,21 @@ public class RequestDestroyItem extends ClientBasePacket
 			}
 		}
 
-		if (itemToRemove == null || itemToRemove.isWear()) return;
-
-        int itemId = itemToRemove.getItemId();
-        
-        FastList<Integer> nonTradeAbleList = new FastList<Integer>();
-        nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
-        
-        if (nonTradeAbleList.contains(itemId))
-                return;
+		int itemId = itemToRemove.getItemId();
+		if (itemToRemove == null || itemToRemove.isWear() || !itemToRemove.isDestroyable() || CursedWeaponsManager.getInstance().isCursed(itemId)) 
+		{
+		    activeChar.sendPacket(new SystemMessage(SystemMessage.CANNOT_DISCARD_THIS_ITEM));
+		    return;
+		}
         
         if (Config.ALT_STRICT_HERO_SYSTEM)
         {
             if (itemToRemove.isHeroitem())
+            {
+                activeChar.sendPacket(new SystemMessage(SystemMessage.CANNOT_DISCARD_THIS_ITEM));
                 return;
+            }
         }
-
-        // Cursed Weapons cannot be destroyed
-        if (CursedWeaponsManager.getInstance().isCursed(itemId))
-           return;
 
         if(!itemToRemove.isStackable() && count > 1)
         {

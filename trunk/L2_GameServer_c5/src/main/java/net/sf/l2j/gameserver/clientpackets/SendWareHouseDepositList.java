@@ -109,12 +109,8 @@ public class SendWareHouseDepositList extends ClientBasePacket
             	continue;
             	}
 
-            FastList<Integer> nonTradeAbleList = new FastList<Integer>();
-            nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
+            if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST) return;
             
-            if (nonTradeAbleList.contains(item.getItemId()))
-                    continue;
-
             if(Config.ALT_STRICT_HERO_SYSTEM)
             {
                
@@ -159,12 +155,6 @@ public class SendWareHouseDepositList extends ClientBasePacket
                 _log.warn("Error depositing a warehouse object for char " + player.getName());
                 continue;
             }            
-
-            FastList<Integer> nonTradeAbleList = new FastList<Integer>();
-            nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
-            
-            if (nonTradeAbleList.contains(oldItem.getItemId()))
-                    continue;
 
             if(Config.ALT_STRICT_HERO_SYSTEM)
             {

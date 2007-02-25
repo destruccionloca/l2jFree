@@ -83,35 +83,31 @@ public class RequestDropItem extends ClientBasePacket
     	if (activeChar == null) return;
         L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_objectId);
         
-        if (item == null || _count == 0 
-                || !activeChar.validateItemManipulation(_objectId, "drop")
-        		|| (
-                        (
-                                !Config.ALLOW_DISCARDITEM
-                                || Config.LIST_NONDROPPABLE_ITEMS.contains(item.getItemId())
-                                || Config.LIST_NONTRADEABLE_ITEMS.contains(item.getItemId())
-                                && !activeChar.isGM()
-                        )
-        		        && !activeChar.isGM()
-        		)
-        )
-		{
-			activeChar.sendPacket(new SystemMessage(SystemMessage.NOTHING_HAPPENED));
-			return;
-		}
-
+        if (item == null 
+                || _count == 0 
+                || !activeChar.validateItemManipulation(_objectId, "drop") 
+                || (!Config.ALLOW_DISCARDITEM && !activeChar.isGM()) 
+                || !item.isDropable())
+        {
+            activeChar.sendPacket(new SystemMessage(SystemMessage.CANNOT_DISCARD_THIS_ITEM));
+            return;
+        }
+        
         if(Config.ALT_STRICT_HERO_SYSTEM)
         {
            if (item.isHeroitem())
             {
-                activeChar.sendPacket(new SystemMessage(SystemMessage.NOTHING_HAPPENED));
+                activeChar.sendPacket(new SystemMessage(SystemMessage.CANNOT_DISCARD_THIS_ITEM));
                 return;
             }
         }
         
         // Cursed Weapons cannot be dropped
         if (CursedWeaponsManager.getInstance().isCursed(item.getItemId()))
-           return;
+        {
+            activeChar.sendPacket(new SystemMessage(SystemMessage.CANNOT_DISCARD_THIS_ITEM));
+            return;
+        }
        
         if(_count > item.getCount()) 
         {

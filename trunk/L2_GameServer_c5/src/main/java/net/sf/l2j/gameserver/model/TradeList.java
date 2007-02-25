@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
+import net.sf.l2j.gameserver.templates.L2EtcItemType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -284,28 +285,25 @@ public class TradeList
             _log.warn(_owner.getName() + ": Attempt to modify locked TradeList!");
             return null;
         }
-        L2Object item = L2World.getInstance().findObject(objectId);
-        if (item == null || !(item instanceof L2ItemInstance))
+        L2Object o = L2World.getInstance().findObject(objectId);
+        if (o == null || !(o instanceof L2ItemInstance))
         {
             _log.warn(_owner.getName() + ": Attempt to add invalid item to TradeList!");
             return null;
         }
 
-        FastList<Integer> nonTradeAbleList = new FastList<Integer>();
-        nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
+        L2ItemInstance item = (L2ItemInstance)o;
 
-        int itemId = ((L2ItemInstance)item).getItemId();
-
-        if (nonTradeAbleList.contains(itemId))
-                return null;
+        if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST)
+            return null;
         
         if (Config.ALT_STRICT_HERO_SYSTEM && ((L2ItemInstance)item).isHeroitem())
         {
                 return null;
         }
-        if (count > ((L2ItemInstance)item).getCount()) return null;
+        if (count > item.getCount()) return null;
         
-        if (!((L2ItemInstance) item).isStackable() && count > 1)
+        if (!item.isStackable() && count > 1)
         {
             _log.warn(_owner.getName() + ": Attempt to add non-stackable item to TradeList with count > 1!");
             return null;
@@ -314,7 +312,7 @@ public class TradeList
         {
             if (checkitem.getObjectId() == objectId) return null;
         }
-        TradeItem titem = new TradeItem((L2ItemInstance) item, count, price);
+        TradeItem titem = new TradeItem(item, count, price);
         _items.add(titem);
 
         // If Player has already confirmed this trade, invalidate the confirmation
@@ -344,17 +342,13 @@ public class TradeList
             return null;
         }
         
-        FastList<Integer> nonTradeAbleList = new FastList<Integer>();
-        nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
-
-        if (nonTradeAbleList.contains(itemId))
-                return null;
-        
         if (Config.ALT_STRICT_HERO_SYSTEM)
         {
             if (item.isHeroitem())
                 return null;
         }
+        
+        if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST) return null;
         
         if (!item.isStackable() && count > 1)
         {

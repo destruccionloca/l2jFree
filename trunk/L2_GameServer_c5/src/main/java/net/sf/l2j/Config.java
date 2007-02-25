@@ -290,10 +290,6 @@ public final class Config {
     /** Strict Hero Mode */
     public static boolean ALT_STRICT_HERO_SYSTEM;
     
-    /** Untradeable Item List */
-    public static String  NONTRADEABLE_ITEMS;
-    public static FastList<Integer> LIST_NONTRADEABLE_ITEMS   = new FastList<Integer>();
-
     /** Olympiad Compitition Starting time */
     public static int ALT_OLY_START_TIME;
     
@@ -1645,13 +1641,6 @@ public final class Config {
                 
                 ALT_STRICT_HERO_SYSTEM                              = Boolean.parseBoolean(altSettings.getProperty("StrictHeroSystem", "True"));
 
-                NONTRADEABLE_ITEMS                                  = altSettings.getProperty("UnTradeableItemList","6834,6835,6836,6837,6838,6839,6840,6841,4425");
-                
-                LIST_NONTRADEABLE_ITEMS = new FastList<Integer>();
-                for (String id : NONTRADEABLE_ITEMS.split(",")) {
-                    LIST_NONTRADEABLE_ITEMS.add(Integer.parseInt(id));
-                }
-                
                 ALT_OLY_START_TIME                                  = Integer.parseInt(altSettings.getProperty("AltOlyStartTime", "20"));
                 ALT_OLY_MIN                                         = Integer.parseInt(altSettings.getProperty("AltOlyMin","00"));
                 ALT_OLY_CPERIOD                                     = Integer.parseInt(altSettings.getProperty("AltOlyPeriod","14100000"));

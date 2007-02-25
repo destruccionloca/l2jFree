@@ -3847,11 +3847,9 @@ public final class L2PcInstance extends L2PlayableInstance
                 int itemDropPercent = 0;
                 FastList<Integer> nonDroppableList = new FastList<Integer>();
                 FastList<Integer> nonDroppableListPet = new FastList<Integer>();
-                FastList<Integer> nonDroppableListTrade = new FastList<Integer>();
 
                 nonDroppableList = Config.KARMA_LIST_NONDROPPABLE_ITEMS;
                 nonDroppableListPet = Config.KARMA_LIST_NONDROPPABLE_PET_ITEMS;
-                nonDroppableListTrade = Config.LIST_NONTRADEABLE_ITEMS;
 
                 for (L2ItemInstance itemDrop : getInventory().getItems())
                 {
@@ -3860,7 +3858,6 @@ public final class L2PcInstance extends L2PlayableInstance
                         itemDrop.getItem().getType2() == L2Item.TYPE2_QUEST || // Quest Items
                         nonDroppableList.contains(itemDrop.getItemId()) || // Item listed in the non droppable item list
                         nonDroppableListPet.contains(itemDrop.getItemId()) || // Item listed in the non droppable pet item list
-                        nonDroppableListTrade.contains(itemDrop.getItemId()) || // Item listed in the non tradeable item list
                         getPet() != null && getPet().getControlItemId() == itemDrop.getItemId() // Control Item of active pet
                     ) continue;
 

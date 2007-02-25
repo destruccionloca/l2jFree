@@ -128,6 +128,9 @@ public abstract class L2Item
     private final int _referencePrice;
     private final int _crystalCount;
     private final boolean _sellable;
+    private final boolean _dropable;
+    private final boolean _destroyable;
+    private final boolean _tradeable;    
     
     protected final Enum _type;
     
@@ -153,6 +156,9 @@ public abstract class L2Item
      * <LI>_bodypart</LI>
      * <LI>_referencePrice</LI>
      * <LI>_sellable</LI>
+     * <LI>_dropable</LI>
+     * <LI>_destroyable</LI>
+     * <LI>_tradeable</LI>
      * @param type : Enum designating the type of the item
      * @param set : StatsSet corresponding to a set of couples (key,value) for description of the item
      */
@@ -173,6 +179,9 @@ public abstract class L2Item
         _referencePrice = set.getInteger("price");
         _crystalCount   = set.getInteger("crystal_count", 0);
         _sellable       = set.getBool("sellable", true);
+        _dropable       = set.getBool("dropable", true);
+        _destroyable    = set.getBool("destroyable", true);
+        _tradeable  = set.getBool("tradeable", true);        
     }
     
     /**
@@ -370,7 +379,34 @@ public abstract class L2Item
     {
         return _sellable;
     }
-    
+
+   /**
+    * Returns if the item can dropped
+    * @return boolean
+    */
+   public final boolean isDropable()
+   {
+       return _dropable;
+   }
+
+   /**
+    * Returns if the item can destroy
+    * @return boolean
+    */
+   public final boolean isDestroyable()
+   {
+       return _destroyable;
+   }
+
+   /**
+    * Returns if the item can add to trade
+    * @return boolean
+    */
+   public final boolean isTradeable()
+   {
+       return _tradeable;
+   }
+
     /**
      * Returns if item is for hatchling
      * @return boolean
