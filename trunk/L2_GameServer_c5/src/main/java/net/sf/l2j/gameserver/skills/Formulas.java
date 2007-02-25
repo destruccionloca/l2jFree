@@ -1910,7 +1910,7 @@ public final class Formulas
         return true;
     }
 
-    public int calculateEnchantSkillSuccessRate(int skillLvl, int playerLvl)
+/*    public int calculateEnchantSkillSuccessRate(int skillLvl, int playerLvl)
     {
         int successRate=0,_skillLvl;
         if(skillLvl>140) _skillLvl=skillLvl-140;
@@ -1942,7 +1942,7 @@ public final class Formulas
         else if (playerLvl==76 && _skillLvl==8) successRate=10;
            
         return successRate;
-    }
+    }*/
     
     public double calcManaDam(L2Character attacker, L2Character target, L2Skill skill,
            boolean ss, boolean bss)
