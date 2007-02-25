@@ -30,15 +30,19 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.List;
+import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.datatables.ClanTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
+import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
+import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.StatsSet;
@@ -63,6 +67,8 @@ public class Hero
     private static final String DELETE_ITEMS = "DELETE FROM items WHERE item_id IN " +
             "(6842, 6611, 6612, 6613, 6614, 6615, 6616, 6617, 6618, 6619, 6620, 6621) " +
             "AND owner_id NOT IN (SELECT obj_id FROM characters WHERE accesslevel > 0)";
+    private static final String DELETE_SKILLS = "DELETE FROM character_skills WHERE skill_id IN " + 
+            "(395, 396, 1374, 1375, 1376) " + "AND char_obj_id NOT IN (SELECT obj_id FROM characters WHERE accesslevel > 0)";
     
     private static final int[] _heroItems = {6842, 6611, 6612, 6613, 6614, 6615, 6616,
                                              6617, 6618, 6619, 6620, 6621
@@ -338,6 +344,7 @@ public class Hero
         }
         
         deleteItemsInDb();
+        deleteSkillsInDb();
         
         _heroes.clear();
         _heroes.putAll(heroes);
@@ -353,10 +360,23 @@ public class Hero
             
             if (player != null)
             {
+                L2Skill skill; 
+                player.broadcastPacket(new SocialAction(player.getObjectId(), 16));                 
                 player.setHero(true);
                 L2Clan clan = player.getClan();
                 if (clan != null)
                     clan.setReputationScore(clan.getReputationScore()+1000, true);
+                 player.setHero(true); 
+                 skill = SkillTable.getInstance().getInfo(395, 1); 
+                 player.addSkill(skill); 
+                 skill = SkillTable.getInstance().getInfo(396, 1); 
+                 player.addSkill(skill); 
+                 skill = SkillTable.getInstance().getInfo(1374, 1); 
+                 player.addSkill(skill); 
+                 skill = SkillTable.getInstance().getInfo(1375, 1); 
+                 player.addSkill(skill); 
+                 skill = SkillTable.getInstance().getInfo(1376, 1); 
+                 player.addSkill(skill);                 
                 player.sendPacket(new UserInfo(player));
                 player.broadcastUserInfo();
             }
@@ -478,4 +498,22 @@ public class Hero
             try{con.close();}catch(SQLException e){e.printStackTrace();}
         }
     }
+
+     private void deleteSkillsInDb() 
+     { 
+         Connection con = null; 
+          
+         try 
+         { 
+             con = L2DatabaseFactory.getInstance().getConnection(); 
+             PreparedStatement statement = con.prepareStatement(DELETE_SKILLS); 
+             statement.execute(); 
+             statement.close(); 
+         } 
+         catch(SQLException e){_log.error(e.getMessage(),e);} 
+         finally{ 
+             try{con.close();}catch(SQLException e){_log.error(e.getMessage(),e);}
+         }
+     }
+
 }
