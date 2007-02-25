@@ -8346,47 +8346,51 @@ public final class L2PcInstance extends L2PlayableInstance
     private void checkRecom(int recsHave, int recsLeft)
     {
         Calendar check = Calendar.getInstance();
-        check.setTimeInMillis(_lastAccess);
-        check.add(Calendar.DAY_OF_MONTH, 1);
-
+        check.setTimeInMillis(_lastRecomUpdate);
+        check.add(Calendar.DAY_OF_MONTH,1);
+        
         Calendar min = Calendar.getInstance();
-        min.set(Calendar.HOUR_OF_DAY, 13);
-        min.set(Calendar.MINUTE, 0);
-
-        Calendar max = Calendar.getInstance();
-        max.add(Calendar.DAY_OF_MONTH, 1);
-        max.set(Calendar.HOUR_OF_DAY, 13);
-        max.set(Calendar.MINUTE, 0);
 
         _recomHave = recsHave;
         _recomLeft = recsLeft;
-
-        if (getStat().getLevel() < 10 || !(check.after(min) && check.before(max))) return;
-
+        
+        if (getStat().getLevel() < 10 || check.after(min) )
+            return;
+        
         restartRecom();
     }
-
+    
     public void restartRecom()
     {
         _recomChars.clear();
-
-        if (getStat().getLevel() < 20)
+        
+        if (getStat().getLevel() < 20) 
         {
             _recomLeft = 3;
             _recomHave--;
         }
-        else if (getStat().getLevel() < 40)
+        else if (getStat().getLevel() < 40) 
         {
-            _recomLeft = 3;
+            _recomLeft = 6;
             _recomHave -= 2;
         }
         else
         {
-            _recomLeft = 6;
+            _recomLeft = 9;
             _recomHave -= 3;
         }
-
-        if (_recomHave < 0) _recomHave = 0;
+        
+        if (_recomHave < 0) 
+            _recomHave = 0;
+        
+        Calendar update = Calendar.getInstance();
+         // If we have to update last update time, but it's now before 13, we should set it to yesterday
+        if(update.get(Calendar.HOUR_OF_DAY) < 13)
+        {
+            update.add(Calendar.DAY_OF_MONTH,-1);
+        }
+        update.set(Calendar.HOUR_OF_DAY,13);
+        _lastRecomUpdate = update.getTimeInMillis();
     }
 
     public int getBoatId()
