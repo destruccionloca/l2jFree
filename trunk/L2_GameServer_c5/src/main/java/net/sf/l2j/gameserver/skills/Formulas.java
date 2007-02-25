@@ -1696,6 +1696,8 @@ public final class Formulas
             case FEAR:
             case CONFUSION:
                 return (int) target.calcStat(Stats.CONFUSION_RES, 0, target, null);
+            case CANCEL:
+                return (int) target.calcStat(Stats.CANCEL_RES, 0, target, null);
             default:
                 return 0;
         }

@@ -151,8 +151,9 @@ public abstract class L2Character extends L2Object
     private boolean _IsBetrayed                             = false;
     private boolean _IsPetrified                            = false; // cannot receive dmg from hits.
     private boolean _IsStunned                              = false; // Cannot move/attack until stun timed out
-    private boolean _IsTeleporting                          = false;
+    protected boolean _IsTeleporting                        = false;
     private L2Character _LastBuffer                         = null;
+    protected boolean _isInvul                              = false;
     private int _LastHealAmount                             = 0;
     private CharStat _Stat;
     private CharStatus _Status;
@@ -455,6 +456,31 @@ public abstract class L2Character extends L2Object
             return;
         }
 
+        if (((L2PcInstance)target).isCursedWeaponEquiped() && ((L2PcInstance)this).getLevel()<=20){
+           ((L2PcInstance)this).sendMessage("Cant attack a cursed Player under twenty");
+           sendPacket(new ActionFailed());
+           return;
+        }
+        
+        if (((L2PcInstance)this).isCursedWeaponEquiped() && ((L2PcInstance)target).getLevel()<=20){
+           ((L2PcInstance)this).sendMessage("Cant attack a newbie player with Zariche");
+           sendPacket(new ActionFailed());
+           return;
+        }
+        
+        if(((L2PcInstance)target).getLevel()<Config.ALT_PLAYER_PROTECTION_LEVEL )
+        {
+            ((L2PcInstance)this).sendMessage("Player under newbie protection.");
+            sendPacket(new ActionFailed());
+            return;
+        }
+        if(((L2PcInstance)this).getLevel()<Config.ALT_PLAYER_PROTECTION_LEVEL )
+        {
+            ((L2PcInstance)this).sendMessage("Your level is to low to participate in player vs player combat.");
+            sendPacket(new ActionFailed());
+            return;
+        }
+
         // Get the active weapon instance (always equiped in the right hand)
         L2ItemInstance weaponInst = getActiveWeaponInstance();
 
@@ -613,7 +639,7 @@ public abstract class L2Character extends L2Object
             {
                 if (player.isCursedWeaponEquiped())
                 {                    
-                    if (target instanceof L2PcInstance && !((L2PcInstance)target).isInvul()) 
+                    if (!target.isInvul()) 
                         target.setCurrentCp(0);
                 } else if (player.isHero())
                 {
@@ -1571,7 +1597,8 @@ public abstract class L2Character extends L2Object
         
     public final boolean isTeleporting() { return _IsTeleporting; }
     public final void setIsTeleporting(boolean value) { _IsTeleporting = value; }
-
+    public void setIsInvul(boolean b){_isInvul = b;}
+    public boolean isInvul(){return _isInvul  || _IsTeleporting;}
     public boolean isUndead() { return false; }
 
     public CharKnownList getKnownList() { return ((CharKnownList)super.getKnownList()); }
@@ -5560,5 +5587,18 @@ public abstract class L2Character extends L2Object
    {
        _LastHealAmount = hp;
    }
+   /**
+     * Check if character reflected skill
+     * @param skill
+     * @return
+     */
+    public boolean reflectSkill(L2Skill skill)
+    {
+        double reflect = calcStat(skill.isMagic() ? Stats.REFLECT_SKILL_MAGIC : Stats.REFLECT_SKILL_PHYSIC, 0, null, null);
+        if( Rnd.get(100) < reflect)
+            return true;
+        
+        return false;
+    }   
 }
 

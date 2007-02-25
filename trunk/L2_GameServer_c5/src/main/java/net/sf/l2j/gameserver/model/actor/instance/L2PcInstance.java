@@ -433,7 +433,6 @@ public final class L2PcInstance extends L2PlayableInstance
     private long _onlineBeginTime;
 
     //GM Stuff
-    private boolean _isInvul;
     private boolean _isGm;
     private int _accessLevel;
 
@@ -4687,19 +4686,11 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     * Set the invulnerability Flag of the L2PcInstance.<BR><BR>
-     */
-    public void setIsInvul(boolean b)
-    {
-        _isInvul = b;
-    }
-
-    /**
      * Return True if the L2PcInstance is invulnerable.<BR><BR>
      */
     public boolean isInvul()
     {
-        return _isInvul || isTeleporting() || _protectEndTime > GameTimeController.getGameTicks();
+        return _isInvul  || _IsTeleporting ||  _protectEndTime > GameTimeController.getGameTicks();
     }
 
     /**

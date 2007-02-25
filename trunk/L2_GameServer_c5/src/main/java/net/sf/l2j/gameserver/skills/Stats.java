@@ -137,6 +137,8 @@ public enum Stats
     DUALFIST_WPN_RES("dualFistWpnRes"),
     
     REFLECT_DAMAGE_PERCENT  ("reflectDam"),
+    REFLECT_SKILL_MAGIC     ("reflectSkillMagic"),
+    REFLECT_SKILL_PHYSIC    ("reflectSkillPhysic"),    
     ABSORB_DAMAGE_PERCENT   ("absorbDam"),
     TRANSFER_DAMAGE_PERCENT ("transDam"),
     ABSORB_CP_PERCENT       ("absorbCpPercent"),

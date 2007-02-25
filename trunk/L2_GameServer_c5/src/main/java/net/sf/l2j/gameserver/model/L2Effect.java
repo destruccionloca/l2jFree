@@ -77,6 +77,8 @@ public abstract class L2Effect
 		STUN_SELF,
         BLUFF,
         BETRAY,
+        PETRIFICATION,
+        ROTATE, // for bluff skill        
         CANCEL_TARGET,
         CANCEL_TARGET_SHOCK,
         CANCEL_TARGET_PHYSICAL,
