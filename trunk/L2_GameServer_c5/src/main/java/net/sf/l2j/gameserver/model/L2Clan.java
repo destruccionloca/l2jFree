@@ -1292,7 +1292,7 @@ public class L2Clan
         {
             // Retrieve all skills of this L2PcInstance from the database
             con = L2DatabaseFactory.getInstance().getConnection();
-            PreparedStatement statement = con.prepareStatement("SELECT privs,rank,party FROM clan_privs WHERE clan_id=?");
+            PreparedStatement statement = con.prepareStatement("SELECT privilleges,rank,party FROM clan_privs WHERE clan_id=?");
             statement.setInt(1, getClanId());
             //_log.warning("clanPrivs restore for ClanId : "+getClanId());
             ResultSet rset = statement.executeQuery();
@@ -1354,7 +1354,7 @@ public class L2Clan
                 //_log.warning("requested store clan privs in db for rank: "+rank+", privs: "+privs);
                 // Retrieve all skills of this L2PcInstance from the database
                 con = L2DatabaseFactory.getInstance().getConnection();
-                PreparedStatement statement = con.prepareStatement("INSERT INTO clan_privs (clan_id,rank,party,privs) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE privs = ?");
+                PreparedStatement statement = con.prepareStatement("INSERT INTO clan_privs (clan_id,rank,party,privilleges) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE privs = ?");
                 statement.setInt(1, getClanId());
                 statement.setInt(2, rank);
                 statement.setInt(3, 0);
@@ -1394,7 +1394,7 @@ public class L2Clan
                 //_log.warning("requested store clan new privs in db for rank: "+rank);
                 // Retrieve all skills of this L2PcInstance from the database
                 con = L2DatabaseFactory.getInstance().getConnection();
-                PreparedStatement statement = con.prepareStatement("INSERT INTO clan_privs (clan_id,rank,party,privs) VALUES (?,?,?,?)");
+                PreparedStatement statement = con.prepareStatement("INSERT INTO clan_privs (clan_id,rank,party,privilleges) VALUES (?,?,?,?)");
                 statement.setInt(1, getClanId());
                 statement.setInt(2, rank);
                 statement.setInt(3, 0);
