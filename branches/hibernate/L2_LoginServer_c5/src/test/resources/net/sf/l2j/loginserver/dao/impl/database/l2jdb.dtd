@@ -105,7 +105,6 @@
     lastactive CDATA #IMPLIED
     access_level CDATA #IMPLIED
     lastIP CDATA #IMPLIED
-    email CDATA #REQUIRED
 >
 
 <!ELEMENT armor EMPTY>

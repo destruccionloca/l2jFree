@@ -23,73 +23,69 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.loginserver.dao;
+package net.sf.l2j.loginserver.dao.impl;
 
-import java.sql.Connection;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import net.sf.l2j.loginserver.beans.Gameservers;
+import net.sf.l2j.tools.hibernate.ADAOTestCase;
 
-import org.dbunit.DatabaseTestCase;
-import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.DatabaseDataSourceConnection;
-import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.FlatDtdDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
-import org.dbunit.dataset.xml.XmlDataSet;
-import org.dbunit.operation.DatabaseOperation;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.hibernate.ObjectDeletedException;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 
 /**
  * Test account DAO
  * 
  */
-public class GameserversDAOTest extends DatabaseTestCase
+public class TestGameserversDAOHib extends ADAOTestCase
 {
     private Gameservers gameserver = null;
-    private GameserversDAO dao = null;
+    private GameserversDAOHib dao = null;
     
-    private ClassPathXmlApplicationContext context = null;
-
-    public void setGameserversDao(GameserversDAO _dao) {
+    public TestGameserversDAOHib(String name)
+    {
+        super(name);
+    }
+    
+    public void setGameserversDao(GameserversDAOHib _dao) {
         this.dao = _dao;
     }
     
-    protected IDataSet getDataSet() throws Exception {
-        return new XmlDataSet(this.getClass().getResourceAsStream("gameservers.xml"));
-
+    public String[] getMappings()
+    {
+        return new String [] {"Gameservers.hbm.xml"};
+    }
+    
+    
+    protected List<IDataSet> getDataSet() throws Exception
+    {
+        String [] dataSetNameList = {"gameservers.xml"};
+        String dtdName = "database/l2jdb.dtd";
+        List<IDataSet> dataSetList = new ArrayList<IDataSet>();
+    
+        InputStream inDTD = this.getClass().getResourceAsStream(dtdName);
+        FlatDtdDataSet dtdDataSet = new FlatDtdDataSet(inDTD);
+        for(int indice=0; indice<dataSetNameList.length; indice++)
+        {
+            InputStream in = this.getClass().getResourceAsStream(dataSetNameList[indice]);
+            IDataSet dataSet = new FlatXmlDataSet(in, dtdDataSet);
+            dataSetList.add(dataSet);
+        }
+        return dataSetList;
     }
 
-    protected IDatabaseConnection getConnection() throws Exception 
-    {
-        Connection jdbcConnection = DataSourceUtils.getConnection((DataSource)context.getBean("dataSource"));
-        return new DatabaseConnection(jdbcConnection);
-    }    
-    protected void setUp() throws Exception {
+    @SuppressWarnings("deprecation")
+    public void setUp() throws Exception {
 
-        context = new ClassPathXmlApplicationContext(
-                "classpath*:/**/dao/applicationContext-DAOTest.xml");
-        setGameserversDao ( (GameserversDAO) context.getBean("GameserversDAO"));
-        
         super.setUp();
-        
-        // initialize your database connection here
-        IDatabaseConnection connection = new DatabaseDataSourceConnection(
-                (DataSource)context.getBean("dataSource"));
-        // initialize your dataset here, from the file containing the test
-        // dataset
-        IDataSet dataSet = new FlatXmlDataSet(this.getClass().getResourceAsStream("gameservers.xml"));
-
-        try {
-            DatabaseOperation.CLEAN_INSERT.execute(connection, dataSet);
-        } finally {
-            connection.close();
-        }           
+        // Set DAO to test
+        setGameserversDao(new GameserversDAOHib());
+        dao.setCurrentSession(getSession());            
     }    
     
     public void testFindGameserver() throws Exception {
@@ -139,7 +135,7 @@ public class GameserversDAOTest extends DatabaseTestCase
         try {
             gameserver = dao.getGameserverByServerId(id);
             fail("Gameservers found in database");
-        } catch (DataAccessException dae) {
+        } catch (ObjectDeletedException dae) {
             assertNotNull(dae);
         }
     }

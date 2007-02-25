@@ -19,12 +19,6 @@
       </includes>
     </fileSet>
     <fileSet>
-      <directory>src/main/java/net/sf/l2j/loginserver/beans/</directory>
-      <includes>
-      	<include>*.xml</include>      	      	
-      </includes>
-    </fileSet>
-    <fileSet>
       <directory>config/</directory>
       <outputDirectory>dist/config/</outputDirectory>
       <includes>

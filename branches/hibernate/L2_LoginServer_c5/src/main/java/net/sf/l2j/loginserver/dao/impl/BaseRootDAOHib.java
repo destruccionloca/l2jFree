@@ -30,6 +30,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -40,13 +42,16 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  */
 public abstract class BaseRootDAOHib extends HibernateDaoSupport
 {
+    
+
+    private Session __session = null;    
 
     
     /**
      * Load object matching the given key and return it.
      */
     public Object load(Class refClass, Serializable key) {
-       Object obj = getSessionFactory().getCurrentSession().load(refClass, key);
+       Object obj = getCurrentSession().load(refClass, key);
        if (obj == null) {
            throw new ObjectRetrievalFailureException(refClass, key);
        }
@@ -57,7 +62,7 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
      * Return all objects related to the implementation of this DAO with no filter.
      */
     public List findAll (Class refClass) {
-        return getSessionFactory().getCurrentSession().createQuery("from " + refClass.getName()).list();
+        return getCurrentSession().createQuery("from " + refClass.getName()).list();
     }
     
     
@@ -68,7 +73,7 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
      */
     public Serializable save(Object obj) 
     {
-        Serializable ser = getSessionFactory().getCurrentSession().save(obj);
+        Serializable ser = getCurrentSession().save(obj);
         return ser;
     }
 
@@ -77,7 +82,7 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
      * identifier property.
      */
     public void saveOrUpdate(Object obj) {
-        getSessionFactory().getCurrentSession().saveOrUpdate(obj);
+        getCurrentSession().saveOrUpdate(obj);
     }
     
     /**
@@ -87,7 +92,7 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
     public void saveOrUpdateAll(Collection entities) {
         for (Iterator it = entities.iterator(); it.hasNext();) 
         {
-            getSessionFactory().getCurrentSession().saveOrUpdate(it.next());
+            getCurrentSession().saveOrUpdate(it.next());
         }        
     }
     
@@ -98,14 +103,14 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
      * @param obj a transient instance containing updated state
      */
     public void update(Object obj) {
-        getSessionFactory().getCurrentSession().update(obj);
+        getCurrentSession().update(obj);
     }
 
     /**
      * Delete an object.
      */
     public void delete(Object obj) {
-        getSessionFactory().getCurrentSession().delete(obj);
+        getCurrentSession().delete(obj);
     }
     
     /**
@@ -114,7 +119,7 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
     public void removeAll(Collection entities) {
         for (Iterator it = entities.iterator(); it.hasNext();) 
         {
-            getSessionFactory().getCurrentSession().delete(it.next());
+            getCurrentSession().delete(it.next());
         }          
     }
 
@@ -124,14 +129,14 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
      * long-running sessions that span many business tasks. This method is, however, useful in certain special circumstances.
      */
     public void refresh(Object obj) {
-        getSessionFactory().getCurrentSession().refresh(obj);
+        getCurrentSession().refresh(obj);
     }
     
     /**
      * Get an object
      */
     public Object get(Class clazz, Serializable id) {
-        Object  o = getSessionFactory().getCurrentSession().get(clazz, id);
+        Object  o = getCurrentSession().get(clazz, id);
         if (o == null) {
             throw new ObjectRetrievalFailureException(clazz, id);
         }
@@ -144,7 +149,49 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
      * Delete an object by id
      */
     public void removeObject(Class clazz, Serializable id) {
-        getSessionFactory().getCurrentSession().delete(get(clazz, id));
+        getCurrentSession().delete(get(clazz, id));
     }    
 
+    public Session getCurrentSession()
+    {
+        if (__session == null)
+        {
+            if (getSessionFactory() == null)
+                throw new HibernateException("Session Factory is null !");
+            return getSessionFactory().getCurrentSession();
+        }
+        else
+        {
+            if (__session.isOpen())
+            {
+                return __session;
+            }
+            else
+            {
+                throw new HibernateException("Session is closed " + __session);
+            }
+        }
+    }
+
+    /**
+     * @param _session
+     *            the session to set
+     * @deprecated only for test purpose
+     */
+    public void setCurrentSession(Session _session)
+    {
+        __session = _session;
+    }
+
+    /**
+     * @deprecated only for test purpose
+     */
+    public void closeCurrentSession()
+    {
+        if (__session != null && __session.isOpen())
+        {
+            __session.close();
+            __session = null;
+        }
+    }
 }

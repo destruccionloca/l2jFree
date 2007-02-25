@@ -83,6 +83,7 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
     /**
      * @see net.sf.l2j.loginserver.dao.AccountsDAO#getAllAccounts()
      */
+    @SuppressWarnings("unchecked")
     public List <Accounts> getAllAccounts()
     {
         return findAll(Accounts.class);

@@ -23,29 +23,20 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.loginserver.dao;
+package net.sf.l2j.loginserver.dao.impl;
 
-import java.io.FileInputStream;
-import java.net.URL;
-import java.sql.Connection;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import net.sf.l2j.loginserver.beans.Accounts;
+import net.sf.l2j.tools.hibernate.ADAOTestCase;
 
-import org.dbunit.DatabaseTestCase;
-import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.DatabaseDataSourceConnection;
-import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.FlatDtdDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
-import org.dbunit.dataset.xml.XmlDataSet;
-import org.dbunit.operation.DatabaseOperation;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.hibernate.ObjectDeletedException;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 
 
 
@@ -53,53 +44,55 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
  * Test account DAO
  * 
  */
-public class AccountsDAOTest extends DatabaseTestCase
+public class TestAccountsDAOHib extends ADAOTestCase
 {
     private Accounts account = null;
-    private AccountsDAO dao = null;
+    private AccountsDAOHib dao = null;
 
-    private ClassPathXmlApplicationContext context = null;
-
-    public void setAccountDao(AccountsDAO _dao)
+    public TestAccountsDAOHib(String name)
+    {
+        super(name);
+    }
+    
+    public String[] getMappings()
+    {
+        return new String [] {"Accounts.hbm.xml"};
+    }
+    
+    
+    public void setAccountDao(AccountsDAOHib _dao)
     {
         this.dao = _dao;
     }
 
-    protected IDataSet getDataSet() throws Exception
+    protected List<IDataSet> getDataSet() throws Exception
     {
-        URL url = getClass().getResource("accounts.xml");
-        return new XmlDataSet(new FileInputStream(url.getFile()));
-
-    }
-
-    protected IDatabaseConnection getConnection() throws Exception
-    {
-        Connection jdbcConnection = DataSourceUtils.getConnection((DataSource)context.getBean("dataSource"));
-        return new DatabaseConnection(jdbcConnection);
+        String [] dataSetNameList = {"accounts.xml"};
+        String dtdName = "database/l2jdb.dtd";
+        List<IDataSet> dataSetList = new ArrayList<IDataSet>();
+    
+        InputStream inDTD = this.getClass().getResourceAsStream(dtdName);
+        FlatDtdDataSet dtdDataSet = new FlatDtdDataSet(inDTD);
+        for(int indice=0; indice<dataSetNameList.length; indice++)
+        {
+            InputStream in = this.getClass().getResourceAsStream(dataSetNameList[indice]);
+            IDataSet dataSet = new FlatXmlDataSet(in, dtdDataSet);
+            dataSetList.add(dataSet);
+        }
+        return dataSetList;
     }
 
     /**
      * @see junit.framework.TestCase#setUp()
      */
+    @SuppressWarnings("deprecation")
     @Override
-    protected void setUp() throws Exception
+    public void setUp() throws Exception
     {
-        context = new ClassPathXmlApplicationContext("classpath*:/**/dao/applicationContext-DAOTest.xml");
-        setAccountDao((AccountsDAO) context.getBean("AccountsDAO"));
         super.setUp();
-        
-        // initialize your database connection here
-        IDatabaseConnection connection = new DatabaseDataSourceConnection(
-                (DataSource)context.getBean("dataSource"));
-        // initialize your dataset here, from the file containing the test
-        // dataset
-        IDataSet dataSet = new FlatXmlDataSet(this.getClass().getResourceAsStream("accounts.xml"));
-
-        try {
-            DatabaseOperation.CLEAN_INSERT.execute(connection, dataSet);
-        } finally {
-            connection.close();
-        }           
+        // Set DAO to test
+        setAccountDao(new AccountsDAOHib());
+        dao.setCurrentSession(getSession());      
     }
 
     public void testFindAccount() throws Exception
@@ -155,7 +148,7 @@ public class AccountsDAOTest extends DatabaseTestCase
             account = dao.getAccountById("Bill");
             fail("Accounts found in database");
         }
-        catch (DataAccessException dae)
+        catch (ObjectDeletedException dae)
         {
             assertNotNull(dae);
         }

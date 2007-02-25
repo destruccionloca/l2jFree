@@ -27,11 +27,11 @@
     </description>
 
     <property name="src" location="src/main/java"/>
-    <property name="src.beans" location="src/main/java/net/sf/l2j/loginserver/beans"/>
+    <property name="src.beans" location="src/main/resources/mappings"/>
     <property name="lib" location="lib"/>
     <property name="build" location="build"/>
     <property name="build.classes" location="${build}/classes"/>
-    <property name="build.classes.beans" location="${build.classes}/net/sf/l2j/loginserver/beans"/>	
+    <property name="build.classes.beans" location="${build.classes}/mappings/"/>	
     <property name="build.dist" location="${build}/dist"/>
     <property name="build.dist.login" location="${build.dist}/login"/>
 
