@@ -23,10 +23,10 @@ import java.sql.ResultSet;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2Registry;
-import net.sf.l2j.gameserver.ClanTable;
-import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.communitybbs.BB.Forum;
 import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
+import net.sf.l2j.gameserver.datatables.ClanTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.PledgeReceiveSubPledgeCreated;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
@@ -301,7 +301,7 @@ public class L2Clan
              java.sql.Connection con = null;
              try
              {
-             con = L2DatabaseFactory.getInstance().getConnection();
+             con = L2Registry.getConnection();
              PreparedStatement statement = con.prepareStatement("delete from items where owner_id = ? and item_id = ?");
              statement.setInt(1, member.getObjectId());
              statement.setInt(2, 6841);
@@ -320,7 +320,7 @@ public class L2Clan
              java.sql.Connection con = null;
              try
              {
-             con = L2DatabaseFactory.getInstance().getConnection();
+             con = L2Registry.getConnection();
              PreparedStatement statement = con.prepareStatement("delete from items where owner_id = ? and item_id = ?");
              statement.setInt(1, member.getObjectId());
              statement.setInt(2, CrownId);
@@ -397,7 +397,7 @@ public class L2Clan
              java.sql.Connection con = null;
              try
              {
-             con = L2DatabaseFactory.getInstance().getConnection();
+             con = L2Registry.getConnection();
              PreparedStatement statement = con.prepareStatement("delete from items where owner_id = ? and item_id = ?");
              statement.setInt(1, exMember.getObjectId());
              statement.setInt(2, 6841);
@@ -416,7 +416,7 @@ public class L2Clan
              java.sql.Connection con = null;
              try
              {
-             con = L2DatabaseFactory.getInstance().getConnection();
+             con = L2Registry.getConnection();
              PreparedStatement statement = con.prepareStatement("delete from items where owner_id = ? and item_id = ?");
              statement.setInt(1, exMember.getObjectId());
              statement.setInt(2, CrownId);

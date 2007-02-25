@@ -23,8 +23,8 @@ import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
+import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -82,8 +82,9 @@ public class AdminEditChar implements IAdminCommandHandler
 
     public boolean useAdminCommand(String command, L2PcInstance activeChar) 
     {
-        if (!((checkLevel(activeChar.getAccessLevel()) || checkLevel2(activeChar.getAccessLevel())) && activeChar.isGM())) 
-            return false;
+        if (!Config.ALT_PRIVILEGES_ADMIN)
+        	if (!((checkLevel(activeChar.getAccessLevel()) || checkLevel2(activeChar.getAccessLevel())) && activeChar.isGM()))
+        		return false;
         
        if (command.equals("admin_current_player"))
        {
@@ -331,7 +332,7 @@ public class AdminEditChar implements IAdminCommandHandler
                     return false;
                 }
                 GMAudit.auditGMAction(activeChar.getName(), "admin_setsex", player.getName(), "");
-                player.changeSex();
+                player.getAppearance().setSex(player.getAppearance().getSex()? false : true);
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                 sm.addString("Your gender has been changed by a GM");
                 player.sendPacket(sm);
@@ -352,7 +353,7 @@ public class AdminEditChar implements IAdminCommandHandler
                     return false;
                 }
                 GMAudit.auditGMAction(activeChar.getName(), "admin_setcolor", player.getName(), val);
-                player.setNameColor(Integer.decode("0x"+val));
+                player.getAppearance().setNameColor(Integer.decode("0x"+val));
                 player.sendMessage("Your name color has been changed by a GM");
                 player.broadcastUserInfo();
             }

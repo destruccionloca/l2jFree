@@ -102,18 +102,19 @@ public class CharStatus
 
     public void reduceHp(double value, L2Character attacker, boolean awake)
     {
+        if (getActiveChar().isInvul()) return;
 
-	if (getActiveChar() instanceof L2PcInstance)
-	{
-        if (((L2PcInstance)getActiveChar()).getStatTrack() != null)
-            ((L2PcInstance)getActiveChar()).getStatTrack().increaseDamageTaken((int) value);
-        if (getActiveChar().isDead() && !getActiveChar().isFakeDeath())
-            return; // Disabled == null check so skills like Body to Mind work again untill another solution is found
-	} else 
-    {
-	    if (getActiveChar().isDead())
-            return; // Disabled == null check so skills like Body to Mind work again untill another solution is found
-	}
+    	if (getActiveChar() instanceof L2PcInstance)
+    	{
+            if (((L2PcInstance)getActiveChar()).getStatTrack() != null)
+                ((L2PcInstance)getActiveChar()).getStatTrack().increaseDamageTaken((int) value);
+            if (getActiveChar().isDead() && !getActiveChar().isFakeDeath())
+                return; // Disabled == null check so skills like Body to Mind work again untill another solution is found
+    	} else 
+        {
+    	    if (getActiveChar().isDead())
+                return; // Disabled == null check so skills like Body to Mind work again untill another solution is found
+    	}
         if (awake && getActiveChar().isSleeping()) getActiveChar().stopSleeping(null);
         if (getActiveChar().isStunned() && Rnd.get(10) == 0) getActiveChar().stopStunning(null);
 

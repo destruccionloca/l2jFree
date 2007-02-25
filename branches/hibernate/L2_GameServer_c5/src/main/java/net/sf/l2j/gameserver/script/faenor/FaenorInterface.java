@@ -22,7 +22,7 @@ import java.util.List;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.Announcements;
-import net.sf.l2j.gameserver.EventDroplist;
+import net.sf.l2j.gameserver.datatables.EventDroplist;
 import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2DropCategory;
 import net.sf.l2j.gameserver.model.L2PetData;

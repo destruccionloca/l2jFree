@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2Macro;
 import net.sf.l2j.gameserver.model.L2Macro.L2MacroCmd;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,6 +33,7 @@ public class RequestMakeMacro extends ClientBasePacket
 {
 
 	private final L2Macro _macro;
+    private int _commands_lenght = 0;
     private final static Log _log = LogFactory.getLog(ClientBasePacket.class);
         
 	private static final String _C__C1_REQUESTMAKEMACRO = "[C] C1 RequestMakeMacro";
@@ -76,6 +78,7 @@ public class RequestMakeMacro extends ClientBasePacket
             int d1         = readD(); // skill or page number for shortcuts
             int d2         = readC();
             String command = readS();
+            _commands_lenght += command.length();
 			commands[i] = new L2MacroCmd(entry, type, d1, d2, command);
             if (_log.isDebugEnabled()) _log.debug("entry:"+entry+"\ttype:"+type+"\td1:"+d1+"\td2:"+d2+"\tcommand:"+command);
         }
@@ -87,6 +90,30 @@ public class RequestMakeMacro extends ClientBasePacket
 		L2PcInstance  player = getClient().getActiveChar(); 
 		if (player == null)
 		    return;
+		if (_commands_lenght > 255)
+		{
+           //Invalid macro. Refer to the Help file for instructions.
+           player.sendPacket(new SystemMessage(810));
+           return;
+		}
+        if (player.getMacroses().getAllMacroses().length > 24)
+		{
+           //You may create up to 24 macros.
+           player.sendPacket(new SystemMessage(797));
+           return;
+		}
+		if (_macro.name.length() == 0)
+		{
+           //Enter the name of the macro.
+           player.sendPacket(new SystemMessage(838));
+           return;
+		}
+		if (_macro.descr.length() > 32)
+		{
+           //Macro descriptions may contain up to 32 characters.
+           player.sendPacket(new SystemMessage(837));
+           return;
+		}
 		player.registerMacro(_macro);
 	}
 

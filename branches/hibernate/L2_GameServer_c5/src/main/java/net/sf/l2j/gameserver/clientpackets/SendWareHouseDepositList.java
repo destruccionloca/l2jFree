@@ -33,6 +33,7 @@ import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.templates.L2EtcItemType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -108,12 +109,8 @@ public class SendWareHouseDepositList extends ClientBasePacket
             	continue;
             	}
 
-            FastList<Integer> nonTradeAbleList = new FastList<Integer>();
-            nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
+            if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST) return;
             
-            if (nonTradeAbleList.contains(item.getItemId()))
-                    continue;
-
             if(Config.ALT_STRICT_HERO_SYSTEM)
             {
                
@@ -158,12 +155,6 @@ public class SendWareHouseDepositList extends ClientBasePacket
                 _log.warn("Error depositing a warehouse object for char " + player.getName());
                 continue;
             }            
-
-            FastList<Integer> nonTradeAbleList = new FastList<Integer>();
-            nonTradeAbleList = Config.LIST_NONTRADEABLE_ITEMS;
-            
-            if (nonTradeAbleList.contains(oldItem.getItemId()))
-                    continue;
 
             if(Config.ALT_STRICT_HERO_SYSTEM)
             {

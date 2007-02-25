@@ -29,14 +29,14 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ClientThread;
-import net.sf.l2j.gameserver.CrownTable;
-import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.LoginServerThread;
-import net.sf.l2j.gameserver.MapRegionTable;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.cache.HtmCache;
+import net.sf.l2j.gameserver.datatables.CrownTable;
+import net.sf.l2j.gameserver.datatables.GmListTable;
+import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
@@ -50,6 +50,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Couple;
+import net.sf.l2j.gameserver.model.entity.FactionMember;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.TvT;
@@ -143,7 +144,7 @@ public class EnterWorld extends ClientBasePacket
                 if(Config.GM_STARTUP_INVISIBLE 
                         && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_GODMODE
                           || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_invisible")))
-                    activeChar.setInvisible();
+                    activeChar.getAppearance().setInvisible();
 
                 if(Config.GM_STARTUP_SILENCE 
                         && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_MENU
@@ -159,17 +160,9 @@ public class EnterWorld extends ClientBasePacket
             if (Config.GM_NAME_COLOR_ENABLED)
             {
                 if (activeChar.getAccessLevel() >= 100)
-                    activeChar.setNameColor(Config.ADMIN_NAME_COLOR);
+                    activeChar.getAppearance().setNameColor(Config.ADMIN_NAME_COLOR);
                 else if (activeChar.getAccessLevel() >= 75)
-                    activeChar.setNameColor(Config.GM_NAME_COLOR);
-            }
-
-            if (Config.GM_TITLE_COLOR_ENABLED)
-            {
-                if (activeChar.getAccessLevel() >= 100)
-                    activeChar.setTitleColor(Config.ADMIN_TITLE_COLOR);
-                else if (activeChar.getAccessLevel() >= 75)
-                    activeChar.setTitleColor(Config.GM_TITLE_COLOR);
+                    activeChar.getAppearance().setNameColor(Config.GM_NAME_COLOR);
             }
             
             if (Config.GM_STARTUP_AUTO_LIST)
@@ -178,9 +171,9 @@ public class EnterWorld extends ClientBasePacket
             if(activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
             {
                 if(Config.CLAN_LEADER_COLORED == Config.ClanLeaderColored.name)
-                    activeChar.setNameColor(Config.CLAN_LEADER_COLOR);
+                    activeChar.getAppearance().setNameColor(Config.CLAN_LEADER_COLOR);
                 else
-                    activeChar.setTitleColor(Config.CLAN_LEADER_COLOR);
+                    activeChar.getAppearance().setTitleColor(Config.CLAN_LEADER_COLOR);
             }
         
         
@@ -350,7 +343,7 @@ public class EnterWorld extends ClientBasePacket
 				
 		// send user info again .. just like the real client
         // sendPacket(ui);
-
+/*
         if (activeChar.getClanId() != 0 && activeChar.getClan() != null)
         {
             if(activeChar.isClanLeader()) 
@@ -358,7 +351,12 @@ public class EnterWorld extends ClientBasePacket
             sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
             sendPacket(new PledgeStatusChanged(activeChar.getClan()));
             sendPacket(new PledgeReceivePowerInfo(activeChar));
-    	}
+    	}*/
+        if (activeChar.getClanId() != 0 && activeChar.getClan() != null)
+        {
+            sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
+            sendPacket(new PledgeStatusChanged(activeChar.getClan()));
+        }
 	
 		if (activeChar.isAlikeDead())
 		{

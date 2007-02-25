@@ -290,10 +290,6 @@ public final class Config {
     /** Strict Hero Mode */
     public static boolean ALT_STRICT_HERO_SYSTEM;
     
-    /** Untradeable Item List */
-    public static String  NONTRADEABLE_ITEMS;
-    public static FastList<Integer> LIST_NONTRADEABLE_ITEMS   = new FastList<Integer>();
-
     /** Olympiad Compitition Starting time */
     public static int ALT_OLY_START_TIME;
     
@@ -616,6 +612,12 @@ public final class Config {
     public static boolean       ALLOW_DISCARDITEM;
     public static boolean       ALLOW_FREIGHT;
     public static boolean       ALLOW_WAREHOUSE;
+    
+    /** Allow warehouse cache? */
+    public static boolean         WAREHOUSE_CACHE;
+    /** How long store WH datas */
+    public static int             WAREHOUSE_CACHE_TIME;
+    
     public static boolean 	    ALLOW_WEAR;
     public static int           WEAR_DELAY;
     public static int           WEAR_PRICE;    
@@ -1153,6 +1155,8 @@ public final class Config {
                 COORD_SYNCHRONIZE               = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));
              
                 ALLOW_WAREHOUSE                 = Boolean.valueOf(optionsSettings.getProperty("AllowWarehouse", "True"));
+                WAREHOUSE_CACHE                 = Boolean.valueOf(optionsSettings.getProperty("WarehouseCache", "False"));
+                WAREHOUSE_CACHE_TIME            = Integer.parseInt(optionsSettings.getProperty("WarehouseCacheTime", "15"));
                 ALLOW_FREIGHT                   = Boolean.valueOf(optionsSettings.getProperty("AllowFreight", "True"));
                 ALLOW_WEAR                      = Boolean.valueOf(optionsSettings.getProperty("AllowWear", "False"));
                 WEAR_DELAY                      = Integer.parseInt(optionsSettings.getProperty("WearDelay", "5"));
@@ -1637,13 +1641,6 @@ public final class Config {
                 
                 ALT_STRICT_HERO_SYSTEM                              = Boolean.parseBoolean(altSettings.getProperty("StrictHeroSystem", "True"));
 
-                NONTRADEABLE_ITEMS                                  = altSettings.getProperty("UnTradeableItemList","6834,6835,6836,6837,6838,6839,6840,6841,4425");
-                
-                LIST_NONTRADEABLE_ITEMS = new FastList<Integer>();
-                for (String id : NONTRADEABLE_ITEMS.split(",")) {
-                    LIST_NONTRADEABLE_ITEMS.add(Integer.parseInt(id));
-                }
-                
                 ALT_OLY_START_TIME                                  = Integer.parseInt(altSettings.getProperty("AltOlyStartTime", "20"));
                 ALT_OLY_MIN                                         = Integer.parseInt(altSettings.getProperty("AltOlyMin","00"));
                 ALT_OLY_CPERIOD                                     = Integer.parseInt(altSettings.getProperty("AltOlyPeriod","14100000"));

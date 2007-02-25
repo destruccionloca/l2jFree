@@ -19,7 +19,7 @@
 
 /**
  * 
- * @author FBIagent
+ * @author FBIagent / fixed SqueezeD
  * 
  */
 
@@ -34,10 +34,10 @@ import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.Announcements;
-import net.sf.l2j.gameserver.ItemTable;
-import net.sf.l2j.gameserver.NpcTable;
-import net.sf.l2j.gameserver.SpawnTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2Spawn;
@@ -355,7 +355,7 @@ public class TvT
     {
         for (L2PcInstance player : _players)
         {
-            player.setNameColor(_teamColors.get(_teams.indexOf(player._teamNameTvT)));
+            player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameTvT)));
             player.setKarma(0);
             player.broadcastUserInfo();
         }
@@ -646,7 +646,7 @@ public class TvT
             
             while (rs.next())
             {        
-                _eventName = rs.getString("eventNane");
+                _eventName = rs.getString("eventName");
                 _eventDesc = rs.getString("eventDesc");
                 _joiningLocationName = rs.getString("joiningLocation");
                 _minlvl = rs.getInt("minlvl");
@@ -707,7 +707,7 @@ public class TvT
             statement.execute();
             statement.close();
 
-            statement = con.prepareStatement("INSERT INTO tvt (eventNane, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, teamsCount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
+            statement = con.prepareStatement("INSERT INTO tvt (eventName, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, teamsCount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
             statement.setString(1, _eventName);
             statement.setString(2, _eventDesc);
             statement.setString(3, _joiningLocationName);
@@ -846,7 +846,7 @@ public class TvT
         else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
             _playersShuffle.add(player);
         
-        player._originalNameColorTvT = player.getNameColor();
+        player._originalNameColorTvT = player.getAppearance().getNameColor();
         player._originalKarmaTvT = player.getKarma();
         player._inEventTvT = true;
         player._countTvTkills = 0;
@@ -916,14 +916,14 @@ public class TvT
         {
             player._teamNameTvT = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
             _players.add(player);
-            player._originalNameColorTvT = player.getNameColor();
+            player._originalNameColorTvT = player.getAppearance().getNameColor();
             player._originalKarmaTvT = player.getKarma();
             player._inEventTvT = true;
             player._countTvTkills = 0;
 
             if (_teleport || _started)
             {
-                player.setNameColor(_teamColors.get(_teams.indexOf(player._teamNameTvT)));
+                player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameTvT)));
                 player.setKarma(0);
                 player.broadcastUserInfo();
                 player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams.indexOf(player._teamNameTvT)));
@@ -943,7 +943,7 @@ public class TvT
             else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
                 _playersShuffle.remove(player);
             
-            player.setNameColor(player._originalNameColorTvT);
+            player.getAppearance().setNameColor(player._originalNameColorTvT);
             player.setKarma(player._originalKarmaTvT);
             player.broadcastUserInfo();
             player._teamNameTvT = new String();

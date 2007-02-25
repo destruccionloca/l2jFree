@@ -26,8 +26,8 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillOpType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
-import net.sf.l2j.gameserver.skills.ConditionItemId;
-import net.sf.l2j.gameserver.skills.L2SkillDefault;
+import net.sf.l2j.gameserver.skills.conditions.ConditionItemId;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillDefault;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
 

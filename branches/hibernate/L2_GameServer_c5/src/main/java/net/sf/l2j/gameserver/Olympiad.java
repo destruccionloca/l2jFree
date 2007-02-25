@@ -41,6 +41,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2Registry;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.OlympiadStadiaManager;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Party;
@@ -1463,8 +1464,8 @@ public class Olympiad
             _playerTwoLocation[1] = _playerTwo.getY();
             _playerTwoLocation[2] = _playerTwo.getZ();
             
-            _playerOne.setInvisible();
-            _playerTwo.setInvisible();
+    		_playerOne.getAppearance().setInvisible();
+    		_playerTwo.getAppearance().setInvisible();
             
             if (_playerOne.isSitting())
                 _playerOne.standUp();
@@ -1649,7 +1650,7 @@ public class Olympiad
             
             for (L2PcInstance player : _players)
             {
-                player.setVisible();
+                player.getAppearance().setVisible();
                 player.broadcastUserInfo();
                 player.sendPacket(_sm);
                 if (player.getPet() != null)

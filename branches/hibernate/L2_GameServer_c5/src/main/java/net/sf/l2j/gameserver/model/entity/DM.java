@@ -19,7 +19,7 @@
 
 /**
  * 
- * @author FBIagent
+ * @author SqueezeD
  * 
  */
 
@@ -32,10 +32,10 @@ import java.util.Vector;
 import javolution.text.TextBuilder;
 import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.Announcements;
-import net.sf.l2j.gameserver.ItemTable;
-import net.sf.l2j.gameserver.NpcTable;
-import net.sf.l2j.gameserver.SpawnTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2Spawn;
@@ -226,11 +226,11 @@ public class DM
     {
         for (L2PcInstance player : _players)
         {
-            player._originalNameColorDM = player.getNameColor();
+            player._originalNameColorDM = player.getAppearance().getNameColor();
             player._originalKarmaDM = player.getKarma();
             player._inEventDM = true;
             player._countDMkills = 0;
-            player.setNameColor(_playerColors);
+            player.getAppearance().setNameColor(_playerColors);
             player.setKarma(0);
             player.broadcastUserInfo();
         }
@@ -240,7 +240,7 @@ public class DM
     {
         for (L2PcInstance player : _players)
         {
-            player.setNameColor(player._originalNameColorDM);
+            player.getAppearance().setNameColor(player._originalNameColorDM);
             player.setKarma(player._originalKarmaDM);
             player._inEventDM = false;
             player._countDMkills = 0;
@@ -502,7 +502,7 @@ public class DM
             
             while (rs.next())
             {        
-                _eventName = rs.getString("eventNane");
+                _eventName = rs.getString("eventName");
                 _eventDesc = rs.getString("eventDesc");
                 _joiningLocationName = rs.getString("joiningLocation");
                 _minlvl = rs.getInt("minlvl");
@@ -541,7 +541,7 @@ public class DM
             statement.execute();
             statement.close();
 
-            statement = con.prepareStatement("INSERT INTO dm (eventNane, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, color, playerX, playerY, playerZ ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
+            statement = con.prepareStatement("INSERT INTO dm (eventName, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, color, playerX, playerY, playerZ ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
             statement.setString(1, _eventName);
             statement.setString(2, _eventDesc);
             statement.setString(3, _joiningLocationName);
@@ -628,7 +628,7 @@ public class DM
         if (!addPlayerOk(player))
             return;
         _players.add(player);
-        player._originalNameColorDM = player.getNameColor();
+        player._originalNameColorDM = player.getAppearance().getNameColor();
         player._originalKarmaDM = player.getKarma();
         player._inEventDM = true;
         player._countDMkills = 0;
@@ -653,13 +653,13 @@ public class DM
         {
             _players.add(player);
             
-            player._originalNameColorDM = player.getNameColor();
+            player._originalNameColorDM = player.getAppearance().getNameColor();
             player._originalKarmaDM = player.getKarma();
             player._inEventDM = true;
             player._countDMkills = 0;
             if(_teleport || _started)
             {
-                player.setNameColor(_playerColors);
+                player.getAppearance().setNameColor(_playerColors);
                 player.setKarma(0);
                 player.broadcastUserInfo();
                 player.teleToLocation(_playerX, _playerY , _playerZ);            

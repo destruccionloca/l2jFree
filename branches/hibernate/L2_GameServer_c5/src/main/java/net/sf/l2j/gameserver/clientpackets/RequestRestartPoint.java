@@ -21,8 +21,8 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.gameserver.ClientThread;
-import net.sf.l2j.gameserver.MapRegionTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;

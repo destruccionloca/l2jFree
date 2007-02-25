@@ -22,9 +22,9 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
-import net.sf.l2j.gameserver.SkillSpellbookTable;
-import net.sf.l2j.gameserver.SkillTable;
-import net.sf.l2j.gameserver.SkillTreeTable;
+import net.sf.l2j.gameserver.datatables.SkillSpellbookTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.datatables.SkillTreeTable;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2PledgeSkillLearn;
 import net.sf.l2j.gameserver.model.L2ShortCut;
@@ -85,6 +85,8 @@ public class RequestAquireSkill extends ClientBasePacket
         
         if (!player.isInsideRadius(trainer, L2NpcInstance.INTERACTION_DISTANCE, false, false) && !player.isGM())
             return;
+        
+        if (!Config.ALT_GAME_SKILL_LEARN) player.setSkillLearningClassId(player.getClassId());
         
         if (player.getSkillLevel(_id) >= _level) {
             // already knows the skill with this level

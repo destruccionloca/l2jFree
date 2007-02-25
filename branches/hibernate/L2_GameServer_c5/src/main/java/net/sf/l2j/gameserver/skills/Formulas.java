@@ -22,7 +22,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
-import net.sf.l2j.gameserver.SkillTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.lib.Rnd;
@@ -40,7 +40,10 @@ import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.ConditionPlayerState.CheckPlayerState;
+import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerState;
+import net.sf.l2j.gameserver.skills.conditions.ConditionUsingItemType;
+import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerState.CheckPlayerState;
+import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2PcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
@@ -367,6 +370,8 @@ public final class Formulas
             {
                 env.value *= DEXbonus[p.getDEX()];
                 env.value *= 10;
+                if(env.value > 500)
+                    env.value = 500;                
             }
         }
     }
@@ -1190,6 +1195,11 @@ public final class Formulas
         {
             damage = 0;
         }
+
+        // Dmg bonusses in PvP fight
+        if(attacker instanceof L2PcInstance && target instanceof L2PcInstance)
+            damage *= attacker.calcStat(Stats.PVP_PHYSICAL_DMG, 1, null, null);
+
         if (attacker instanceof L2PcInstance){
            if (((L2PcInstance) attacker).getClassId().isMage())
             damage = damage*Config.ALT_MAGES_PHYSICAL_DAMAGE_MULTI;
@@ -1266,7 +1276,16 @@ public final class Formulas
                 }
             }
         }
-        else if (mcrit) damage *= 2;
+        else if (mcrit) damage *= 2; // TODO: *4 ???
+        
+        // Pvp bonusses for dmg
+        if(attacker instanceof L2PcInstance && target instanceof L2PcInstance)
+        {
+            if(skill.isMagic())
+                damage *= attacker.calcStat(Stats.PVP_MAGICAL_DMG, 1, null, null);
+            else
+                damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
+        }        
 
         if (attacker instanceof L2PcInstance){
            if (((L2PcInstance) attacker).getClassId().isMage())
@@ -1569,6 +1588,9 @@ public final class Formulas
                     //max success
                     if (value > 90) value = 90;
                 }
+                
+                rate *= (100 - player.calcStat(Stats.CANCEL_RES, 0, target, null))/100; //TODO check this
+                
                 rate = value;
                 //_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
                 break;
@@ -1676,6 +1698,8 @@ public final class Formulas
             case FEAR:
             case CONFUSION:
                 return (int) target.calcStat(Stats.CONFUSION_RES, 0, target, null);
+            case CANCEL:
+                return (int) target.calcStat(Stats.CANCEL_RES, 0, target, null);
             default:
                 return 0;
         }
@@ -1886,7 +1910,7 @@ public final class Formulas
         return true;
     }
 
-    public int calculateEnchantSkillSuccessRate(int skillLvl, int playerLvl)
+/*    public int calculateEnchantSkillSuccessRate(int skillLvl, int playerLvl)
     {
         int successRate=0,_skillLvl;
         if(skillLvl>140) _skillLvl=skillLvl-140;
@@ -1918,7 +1942,7 @@ public final class Formulas
         else if (playerLvl==76 && _skillLvl==8) successRate=10;
            
         return successRate;
-    }
+    }*/
     
     public double calcManaDam(L2Character attacker, L2Character target, L2Skill skill,
            boolean ss, boolean bss)

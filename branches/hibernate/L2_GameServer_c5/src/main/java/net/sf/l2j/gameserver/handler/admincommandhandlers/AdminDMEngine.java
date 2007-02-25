@@ -18,8 +18,8 @@
  */
 
 /**
- *
- * @author: FBIagent
+ * 
+ * @author SqueezeD
  *
  */
 
@@ -168,7 +168,7 @@ public class AdminDMEngine implements IAdminCommandHandler {
         NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
         TextBuilder replyMSG = new TextBuilder("<html><body>");
         
-        replyMSG.append("<center><font color=\"LEVEL\">[dm Engine]</font></center><br><br><br>");
+        replyMSG.append("<center><font color=\"LEVEL\">[dm Engine - by SqueezeD]</font></center><br><br><br>");
         replyMSG.append("<table><tr><td><edit var=\"input1\" width=\"125\"></td><td><edit var=\"input2\" width=\"125\"></td></tr></table>");
         replyMSG.append("<table border=\"0\"><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Name\" action=\"bypass -h admin_dmevent_name $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");

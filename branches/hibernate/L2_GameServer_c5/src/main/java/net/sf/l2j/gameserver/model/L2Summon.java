@@ -77,7 +77,7 @@ public abstract class L2Summon extends L2PlayableInstance
     public L2Summon(int objectId, L2NpcTemplate template, L2PcInstance owner)
     {
         super(objectId, template);
-        super.setKnownList(new SummonKnownList(new L2Summon[] {this}));
+        super.setKnownList(new SummonKnownList(this));
         super.setStat(new SummonStat(this));
         super.setStatus(new SummonStatus(this));
         
@@ -532,7 +532,7 @@ public abstract class L2Summon extends L2PlayableInstance
         //************************************* Check Consumables *******************************************
         
         // Check if the summon has enough MP
-        if (getCurrentMp() < skill.getMpConsume())
+        if (getCurrentMp() < getStat().getMpConsume(skill) + getStat().getMpInitialConsume(skill))
         {
             // Send a System Message to the caster
             if (getOwner() != null)

@@ -4,6 +4,8 @@ package net.sf.l2j.gameserver;
 
 import java.util.Date;
 
+import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.script.DateRange;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;

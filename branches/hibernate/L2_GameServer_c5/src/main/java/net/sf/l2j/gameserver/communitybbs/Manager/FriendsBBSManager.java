@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.communitybbs.Manager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Collection;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
@@ -108,7 +109,7 @@ public class FriendsBBSManager extends BaseBBSManager
         if (player != null)
         {
             String sex = "Male";
-            if (player.getSex() == 1)
+            if (player.getAppearance().getSex())
             {
                 sex = "Female";
             }

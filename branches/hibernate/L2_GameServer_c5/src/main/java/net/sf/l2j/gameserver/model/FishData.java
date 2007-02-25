@@ -2,18 +2,18 @@ package net.sf.l2j.gameserver.model;
 
 public class FishData
 {
-        private final int _id;
-        private final int _level;
-        private final String _name;
-        private final int _HP;
-        private final int _HpRegen;
-        private final int _type;
-        private final int _group;
-        private final int _fish_guts;
-        private final int _guts_check_time;
-        private final int _wait_time;
-        private final int _combat_time;
-
+        private int _id;
+        private int _level;
+        private String _name;
+        private int _HP;
+        private int _HpRegen;
+        private int _type;
+        private int _group;
+        private int _fish_guts;
+        private int _guts_check_time;
+        private int _wait_time;
+        private int _combat_time;
+    
         public FishData(int id, int lvl, String name, int HP, int HpRegen, int type, int group, int fish_guts, int guts_check_time, int wait_time, int combat_time)
         {
             _id = id;
@@ -85,5 +85,9 @@ public class FishData
         {
             return _combat_time;
         }
+        public void setType(int type) 
+        {
+            _type = type;
+        }        
     }
 

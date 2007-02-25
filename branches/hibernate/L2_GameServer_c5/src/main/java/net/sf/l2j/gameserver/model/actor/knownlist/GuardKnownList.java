@@ -21,7 +21,7 @@ public class GuardKnownList extends AttackableKnownList
     
     // =========================================================
     // Constructor
-    public GuardKnownList(L2GuardInstance[] activeChar)
+    public GuardKnownList(L2GuardInstance activeChar)
     {
         super(activeChar);
     }

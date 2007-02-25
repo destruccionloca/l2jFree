@@ -25,7 +25,7 @@
       <repository>
         <id>central l2j</id>
         <name>Mirror Central L2j</name>
-        <url>http://85.214.19.147:9091/repository/l2jm2</url>
+        <url>http://85.214.19.147:9091/repository/l2jm2/</url>
         <releases>
           <enabled>true</enabled>
         </releases>
@@ -86,6 +86,11 @@
 		<artifactId>commons-lang</artifactId>
 		<version>2.1</version>
 	</dependency>
+	<dependency>
+		<groupId>commons-logging</groupId>
+		<artifactId>commons-logging</artifactId>
+		<version>1.1</version>
+	</dependency>	
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
@@ -145,7 +150,7 @@
     <dependency>
       <groupId>javolution</groupId>
       <artifactId>javolution</artifactId>
-      <version>1.5.4.2.4</version>
+      <version>1.5.4.2.5</version>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>

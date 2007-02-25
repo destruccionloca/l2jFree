@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.gameserver.ClientThread;
-import net.sf.l2j.gameserver.GmListTable;
+import net.sf.l2j.gameserver.datatables.GmListTable;
 
 /**
  * This class handles RequestGmLista packet triggered by /gmlist command

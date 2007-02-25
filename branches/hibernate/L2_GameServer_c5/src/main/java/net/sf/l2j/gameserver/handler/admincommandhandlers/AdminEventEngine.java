@@ -32,7 +32,7 @@ import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.SpawnTable;
+import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2World;
@@ -82,7 +82,10 @@ public class AdminEventEngine implements IAdminCommandHandler {
  private final static Log _log = LogFactory.getLog(AdminEventEngine.class);
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
-		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
+        if (!Config.ALT_PRIVILEGES_ADMIN)
+        	if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+        		return false;
+        
 		if (command.equals("admin_event")) showMainPage(activeChar);
 
         else if (command.equals("admin_event_new"))

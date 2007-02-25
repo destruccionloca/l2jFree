@@ -19,7 +19,7 @@
 
 /**
  * 
- * @author FBIagent
+ * @author FBIagent / fixed by SqueezeD
  * 
  */
 
@@ -36,10 +36,10 @@ import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.Announcements;
-import net.sf.l2j.gameserver.ItemTable;
-import net.sf.l2j.gameserver.NpcTable;
-import net.sf.l2j.gameserver.SpawnTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2Summon;
@@ -367,7 +367,7 @@ public class CTF
     {
         for (L2PcInstance player : _players)
         {
-            player.setNameColor(_teamColors.get(_teams.indexOf(player._teamNameCTF)));
+            player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameCTF)));
             player.setKarma(0);
             player.broadcastUserInfo();
         }
@@ -807,7 +807,7 @@ public class CTF
             _playersShuffle.add(player);
                 
         player._originalTitleCTF = player.getTitle();
-        player._originalNameColorCTF = player.getNameColor();
+        player._originalNameColorCTF = player.getAppearance().getNameColor();
         player._originalKarmaCTF = player.getKarma();
         player._inEventCTF = true;
         player._posCheckerCTF = null;
@@ -876,14 +876,14 @@ public class CTF
             player._teamNameCTF = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
             _players.add(player);
             player._originalTitleCTF = player.getTitle();
-            player._originalNameColorCTF = player.getNameColor();
+            player._originalNameColorCTF = player.getAppearance().getNameColor();
             player._originalKarmaCTF = player.getKarma();
             player._inEventCTF = true;
             player._posCheckerCTF = null;
 
             if (_teleport || _started)
             {
-                player.setNameColor(_teamColors.get(_teams.indexOf(player._teamNameCTF)));
+                player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameCTF)));
                 player.setKarma(0);
                 player.broadcastUserInfo();
 
@@ -909,7 +909,7 @@ public class CTF
             else if (Config.CTF_EVEN_TEAMS.equals("SHUFFLE"))
                 _playersShuffle.remove(player);
             
-            player.setNameColor(player._originalNameColorCTF);
+            player.getAppearance().setNameColor(player._originalNameColorCTF);
             player.setKarma(player._originalKarmaCTF);
             player.setTitle(player._originalTitleCTF);
             player.broadcastUserInfo();
@@ -1178,7 +1178,7 @@ public class CTF
             
             while (rs.next())
             {        
-                _eventName = rs.getString("eventNane");
+                _eventName = rs.getString("eventName");
                 _eventDesc = rs.getString("eventDesc");
                 _joiningLocationName = rs.getString("joiningLocation");
                 _minlvl = rs.getInt("minlvl");
@@ -1245,7 +1245,7 @@ public class CTF
             statement.execute();
             statement.close();
 
-            statement = con.prepareStatement("INSERT INTO ctf (eventNane, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, npcHeading, rewardId, rewardAmount, teamsCount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
+            statement = con.prepareStatement("INSERT INTO ctf (eventName, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, npcHeading, rewardId, rewardAmount, teamsCount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
             statement.setString(1, _eventName);
             statement.setString(2, _eventDesc);
             statement.setString(3, _joiningLocationName);

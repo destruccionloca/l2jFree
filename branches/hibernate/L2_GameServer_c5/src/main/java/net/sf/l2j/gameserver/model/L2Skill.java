@@ -26,7 +26,8 @@ import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GeoData; 
-import net.sf.l2j.gameserver.SkillTreeTable;
+import net.sf.l2j.gameserver.datatables.SkillTreeTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
@@ -40,20 +41,20 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.Condition;
-import net.sf.l2j.gameserver.skills.EffectCharge;
-import net.sf.l2j.gameserver.skills.EffectTemplate;
 import net.sf.l2j.gameserver.skills.Env;
-import net.sf.l2j.gameserver.skills.Func;
-import net.sf.l2j.gameserver.skills.FuncTemplate;
-import net.sf.l2j.gameserver.skills.L2SkillCharge;
-import net.sf.l2j.gameserver.skills.L2SkillChargeDmg;
-import net.sf.l2j.gameserver.skills.L2SkillCreateItem;
-import net.sf.l2j.gameserver.skills.L2SkillDefault;
-import net.sf.l2j.gameserver.skills.L2SkillDrain;
-import net.sf.l2j.gameserver.skills.L2SkillSeed;
-import net.sf.l2j.gameserver.skills.L2SkillSummon;
 import net.sf.l2j.gameserver.skills.Stats;
+import net.sf.l2j.gameserver.skills.conditions.Condition;
+import net.sf.l2j.gameserver.skills.effects.EffectCharge;
+import net.sf.l2j.gameserver.skills.effects.EffectTemplate;
+import net.sf.l2j.gameserver.skills.funcs.Func;
+import net.sf.l2j.gameserver.skills.funcs.FuncTemplate;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillCharge;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillChargeDmg;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillCreateItem;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillDefault;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillDrain;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillSeed;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillSummon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.gameserver.util.Util;
@@ -215,6 +216,7 @@ public abstract class L2Skill
         RAID_DESCRIPTION,
         UNSUMMON_ENEMY_PET,
         BETRAY,
+        BALANCE_LIFE,
         SERVER_SIDE, //TODO: IMPLEMENT
         // unimplemented
         NOTDONE;
@@ -389,6 +391,7 @@ public abstract class L2Skill
     /** Target type of the skill : SELF, PARTY, CLAN, PET... */
     private final SkillTargetType _targetType;
     private final double _power;
+    private final int _effectPoints;
     private final int _levelDepend;
     
     // Effecting area of the skill, in radius.
@@ -486,6 +489,7 @@ public abstract class L2Skill
         
         _targetType   = set.getEnum("target", SkillTargetType.class);
         _power        = set.getFloat("power", 0.f);
+        _effectPoints = set.getInteger("effectPoints", 0);
         _negateStats = set.getString("negateStats", "").split(" ");
         _negatePower = set.getFloat("negatePower", 0.f);
         _negateId = set.getInteger("negateId", 0);
@@ -716,7 +720,10 @@ public abstract class L2Skill
     {
         return _power;
     }
-    
+    public final int getEffectPoints()
+    {
+        return _effectPoints;
+    }    
     public final String[] getNegateStats()
     {
         return _negateStats;
@@ -1302,11 +1309,13 @@ public abstract class L2Skill
                     || skillType == SkillType.MAGE_BANE 
                     || skillType == SkillType.WARRIOR_BANE
                     || skillType == SkillType.BETRAY
+                    || skillType == SkillType.BALANCE_LIFE
                     )))
             {
                 activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
                 return null;
             }
+            if(!GeoData.getInstance().canSeeTarget(activeChar, target)) return null;
             return new L2Character[]{target};
         }
         case TARGET_SELF:
@@ -1616,7 +1625,7 @@ public abstract class L2Skill
                     {
                         targetList.add(partyMember);
 
-                        if (partyMember.getPet() != null)
+                        if (partyMember.getPet() != null && !partyMember.getPet().isDead())
                         {
                             targetList.add(partyMember.getPet());
                         }
@@ -1664,6 +1673,9 @@ public abstract class L2Skill
                 int radius = getSkillRadius();
                 L2PcInstance player = (L2PcInstance) activeChar;
                 L2Clan clan = player.getClan();
+                
+                if (player.isInOlympiadMode())
+                   return new L2Character[] {player};
 
                 if (targetType != SkillTargetType.TARGET_CORPSE_ALLY)
                 {
@@ -1747,6 +1759,9 @@ public abstract class L2Skill
                 int radius = getSkillRadius();
                 L2PcInstance player = (L2PcInstance) activeChar;
                 L2Clan clan = player.getClan();
+                
+                if (player.isInOlympiadMode())
+                   return new L2Character[] {player};
 
                 if (targetType != SkillTargetType.TARGET_CORPSE_CLAN)
                 {
@@ -2140,17 +2155,12 @@ public abstract class L2Skill
         if (isPassive())
             return _emptyEffectSet;
         
-        if (_effectTemplates == null)
+        if (_effectTemplates == null) 
+           return _emptyEffectSet;
+        
+        if ((effector != effected) && effected.isInvul())
             return _emptyEffectSet;
-        
-        if (effected instanceof L2PcInstance){
-            L2PcInstance targetplayer = (L2PcInstance)effected;
-            //No effect on invulnerable players unless they cast it themselves.
-            if ((effector != effected) && targetplayer.isInvul()){
-               return _emptyEffectSet;
-            }
-        }
-        
+            
         FastList<L2Effect> effects = new FastList<L2Effect>();
         
         for (EffectTemplate et : _effectTemplates) 
@@ -2190,6 +2200,7 @@ public abstract class L2Skill
                 //Implements effect charge
                 if (e.getEffectType()== L2Effect.EffectType.CHARGE)
                 {               
+                    env._skill = SkillTable.getInstance().getInfo(8, effector.getSkillLevel(8));
                     EffectCharge effect = (EffectCharge) env._target.getEffect(L2Effect.EffectType.CHARGE);
                     if (effect != null) 
                     {

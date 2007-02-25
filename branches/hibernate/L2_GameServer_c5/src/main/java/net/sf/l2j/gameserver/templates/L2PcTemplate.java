@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.templates;
 
 import javolution.util.FastList;
-import net.sf.l2j.gameserver.ItemTable;
+import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.base.Race;
 
@@ -41,8 +41,6 @@ public class L2PcTemplate extends L2CharTemplate {
 	public final int    spawnX;
 	public final int    spawnY;
 	public final int    spawnZ;
-	
-	public final boolean isMale;
 	
 	public final int     classBaseLevel;
 	public final float   lvlHpAdd;
@@ -67,8 +65,6 @@ public class L2PcTemplate extends L2CharTemplate {
 		spawnY    = set.getInteger("spawnY");
 		spawnZ    = set.getInteger("spawnZ");
 		
-		isMale    = set.getBool  ("isMale", true);
-
 		classBaseLevel = set.getInteger("classBaseLevel");
 		lvlHpAdd  = set.getFloat("lvlHpAdd");
 		lvlHpMod  = set.getFloat("lvlHpMod");

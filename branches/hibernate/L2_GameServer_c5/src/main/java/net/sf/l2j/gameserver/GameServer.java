@@ -29,6 +29,28 @@ import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
+import net.sf.l2j.gameserver.datatables.CharNameTable;
+import net.sf.l2j.gameserver.datatables.CharTemplateTable;
+import net.sf.l2j.gameserver.datatables.ClanTable;
+import net.sf.l2j.gameserver.datatables.DoorTable;
+import net.sf.l2j.gameserver.datatables.EventDroplist;
+import net.sf.l2j.gameserver.datatables.ExtractableItemsData;
+import net.sf.l2j.gameserver.datatables.FishTable;
+import net.sf.l2j.gameserver.datatables.GmListTable;
+import net.sf.l2j.gameserver.datatables.HelperBuffTable;
+import net.sf.l2j.gameserver.datatables.HennaTable;
+import net.sf.l2j.gameserver.datatables.HennaTreeTable;
+import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.LevelUpData;
+import net.sf.l2j.gameserver.datatables.MapRegionTable;
+import net.sf.l2j.gameserver.datatables.NobleSkillTable;
+import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.datatables.SkillSpellbookTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.datatables.SkillTreeTable;
+import net.sf.l2j.gameserver.datatables.SpawnTable;
+import net.sf.l2j.gameserver.datatables.StaticObjects;
+import net.sf.l2j.gameserver.datatables.SummonItemsData;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
@@ -56,6 +78,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEventEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminExpSp;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminFightCalculator;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGeodata;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGeoEditor; 
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGm;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGmChat;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminHeal;
@@ -69,8 +92,8 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMammon;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMenu;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMobGroup;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMonsterRace;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPForge;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPathNode;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPForge;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPetition;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPledge;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPolymorph;
@@ -119,7 +142,7 @@ import net.sf.l2j.gameserver.handler.itemhandlers.SoulShots;
 import net.sf.l2j.gameserver.handler.itemhandlers.SpiritShot;
 import net.sf.l2j.gameserver.handler.itemhandlers.SummonItems;
 import net.sf.l2j.gameserver.handler.itemhandlers.WorldMap;
-import net.sf.l2j.gameserver.handler.itemhandlers.Wyvern;
+import net.sf.l2j.gameserver.handler.skillhandlers.BalanceLife;
 import net.sf.l2j.gameserver.handler.skillhandlers.CPperHeal;
 import net.sf.l2j.gameserver.handler.skillhandlers.Charge;
 import net.sf.l2j.gameserver.handler.skillhandlers.ChargeSelf;
@@ -432,7 +455,6 @@ public class GameServer
         _itemHandler.registerItemHandler(new FishShots());
         _itemHandler.registerItemHandler(new ExtractableItems());
         _itemHandler.registerItemHandler(new SummonItems());      
-        _itemHandler.registerItemHandler(new Wyvern());
         _itemHandler.registerItemHandler(new EnergyStone());
         _log.info("ItemHandler: Loaded " + _itemHandler.size() + " handlers.");
 
@@ -444,6 +466,7 @@ public class GameServer
         _skillHandler.registerSkillHandler(new Heal());
         _skillHandler.registerSkillHandler(new CombatPointHeal());
         _skillHandler.registerSkillHandler(new ManaHeal());
+        _skillHandler.registerSkillHandler(new BalanceLife());
         _skillHandler.registerSkillHandler(new Charge());
         _skillHandler.registerSkillHandler(new ChargeSelf());
         _skillHandler.registerSkillHandler(new Continuous());
@@ -497,7 +520,6 @@ public class GameServer
         _adminCommandHandler.registerAdminCommandHandler(new AdminMenu());
         _adminCommandHandler.registerAdminCommandHandler(new AdminMobGroup());
         _adminCommandHandler.registerAdminCommandHandler(new AdminMonsterRace());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminPathNode());
         _adminCommandHandler.registerAdminCommandHandler(new AdminPetition());
         _adminCommandHandler.registerAdminCommandHandler(new AdminPForge());
         _adminCommandHandler.registerAdminCommandHandler(new AdminBBS());
@@ -524,6 +546,8 @@ public class GameServer
         _adminCommandHandler.registerAdminCommandHandler(new AdminVIPEngine());
         _adminCommandHandler.registerAdminCommandHandler(new AdminCursedWeapons());
         _adminCommandHandler.registerAdminCommandHandler(new AdminGeodata());
+        _adminCommandHandler.registerAdminCommandHandler(new AdminGeoEditor()); 
+        _adminCommandHandler.registerAdminCommandHandler(new AdminPathNode());
         _log.info("AdminCommandHandler: Loaded " + _adminCommandHandler.size() + " handlers.");
 
         _userCommandHandler = UserCommandHandler.getInstance();
@@ -626,7 +650,6 @@ public class GameServer
         
         // Initialize info 
         Config.load();
-        
         
         // Create input stream for log file -- or store file data into memory
         InputStream is =  new FileInputStream(new File("./config/logging.properties")); 

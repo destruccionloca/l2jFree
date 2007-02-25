@@ -63,7 +63,7 @@ public class Mdam implements ISkillHandler
 
         L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 
-        if (activeChar instanceof L2PcInstance)
+        /*if (activeChar instanceof L2PcInstance)
         {
             if (weaponInst == null)
             {
@@ -72,7 +72,7 @@ public class Mdam implements ISkillHandler
                 activeChar.sendPacket(sm2);
                 return;
             }
-        }
+        }*/
         if (weaponInst != null)
         {
             if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
@@ -107,6 +107,10 @@ public class Mdam implements ISkillHandler
         for (int index = 0; index < targets.length; index++)
         {
             L2Character target = (L2Character) targets[index];
+
+            if(target.reflectSkill(skill))
+               target = activeChar;
+
             if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance
                 && target.isAlikeDead() && target.isFakeDeath())
             {

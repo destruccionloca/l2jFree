@@ -19,7 +19,7 @@
 
 /**
  *
- * @author: FBIagent
+ * @author: FBIagent / fixed by SqueezeD
  *
  */
 

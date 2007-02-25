@@ -19,10 +19,10 @@
 package net.sf.l2j.gameserver.handler.itemhandlers;
 
 import net.sf.l2j.gameserver.GameTimeController;
-import net.sf.l2j.gameserver.MapRegionTable;
-import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
+import net.sf.l2j.gameserver.datatables.MapRegionTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
@@ -149,6 +149,16 @@ public class ScrollOfEscape implements IItemHandler
                 { _activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Castle); }
                 else if ((_itemId == 1829 || _itemId == 5858) && _activeChar.getClan() != null && ClanHallManager.getInstance().getClanHallByOwner(_activeChar.getClan()) != null) // escape to clan hall if own's one
                 { _activeChar.teleToLocation(MapRegionTable.TeleportWhereType.ClanHall); }
+                else if(_itemId == 5858) // do nothing
+                {
+                   _activeChar.sendPacket(SystemMessage.sendString("Your clan does not own a clan hall."));
+                    return;
+                }
+                else if(_itemId == 5859) // do nothing
+                {
+                   _activeChar.sendPacket(SystemMessage.sendString("Your clan does not own a castle."));
+                    return;
+                }
                 else
                 {
                     if(_itemId < 7117)

@@ -23,17 +23,17 @@ import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
-import net.sf.l2j.gameserver.HelperBuffTable;
-import net.sf.l2j.gameserver.ItemTable;
-import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
-import net.sf.l2j.gameserver.SkillTable;
-import net.sf.l2j.gameserver.SpawnTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.cache.HtmCache;
+import net.sf.l2j.gameserver.datatables.HelperBuffTable;
+import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
@@ -199,7 +199,7 @@ public class L2NpcInstance extends L2Character
         // Call the L2Character constructor to set the _template of the L2Character, copy skills from template to object 
         // and link _calculators to NPC_STD_CALCULATOR
         super(objectId, template);
-        super.setKnownList(new NpcKnownList(new L2NpcInstance[] {this}));
+        super.setKnownList(new NpcKnownList(this));
         super.setStat(new NpcStat(this));
         super.setStatus(new NpcStatus(this));
         

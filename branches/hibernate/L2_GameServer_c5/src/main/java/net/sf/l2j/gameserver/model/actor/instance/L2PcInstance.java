@@ -18,57 +18,50 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.WeakHashMap;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.Announcements;
-import net.sf.l2j.gameserver.CharTemplateTable;
-import net.sf.l2j.gameserver.ClanTable;
 import net.sf.l2j.gameserver.Connection;
-import net.sf.l2j.gameserver.FishTable;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.GeoData;
-import net.sf.l2j.gameserver.GmListTable;
-import net.sf.l2j.gameserver.HennaTable;
-import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.ItemsAutoDestroy;
 import net.sf.l2j.gameserver.LoginServerThread;
-import net.sf.l2j.gameserver.MapRegionTable;
-import net.sf.l2j.gameserver.NobleSkillTable;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.RecipeController;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
-import net.sf.l2j.gameserver.SkillTable;
-import net.sf.l2j.gameserver.SkillTreeTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2PlayerAI;
 import net.sf.l2j.gameserver.cache.HtmCache;
+import net.sf.l2j.gameserver.cache.WarehouseCacheManager;
 import net.sf.l2j.gameserver.communitybbs.BB.Forum;
 import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
+import net.sf.l2j.gameserver.datatables.CharTemplateTable;
+import net.sf.l2j.gameserver.datatables.ClanTable;
+import net.sf.l2j.gameserver.datatables.FishTable;
+import net.sf.l2j.gameserver.datatables.GmListTable;
+import net.sf.l2j.gameserver.datatables.HennaTable;
+import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.MapRegionTable;
+import net.sf.l2j.gameserver.datatables.NobleSkillTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.datatables.SkillTreeTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
@@ -78,8 +71,8 @@ import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
-import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
+import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
@@ -119,27 +112,27 @@ import net.sf.l2j.gameserver.model.ShortCuts;
 import net.sf.l2j.gameserver.model.TradeList;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.actor.appearance.PcAppearance;
 import net.sf.l2j.gameserver.model.actor.knownlist.PcKnownList;
 import net.sf.l2j.gameserver.model.actor.stat.PcStat;
 import net.sf.l2j.gameserver.model.actor.status.PcStatus;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.base.ClassLevel;
 import net.sf.l2j.gameserver.model.base.Experience;
-import net.sf.l2j.gameserver.model.base.PlayerClass;
+import net.sf.l2j.gameserver.model.base.PlayerClass; 
 import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.model.base.SubClass;
 import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.DM;
-import net.sf.l2j.gameserver.model.entity.FactionMember;
 import net.sf.l2j.gameserver.model.entity.L2Event;
+import net.sf.l2j.gameserver.model.entity.FactionMember;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.TvT;
 import net.sf.l2j.gameserver.model.entity.VIP;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
-import net.sf.l2j.gameserver.model.waypoint.WayPointNode;
 import net.sf.l2j.gameserver.script.stat.StatTrack;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ChangeWaitType;
@@ -213,8 +206,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private static final String RESTORE_SKILL_SAVE = "SELECT skill_id,skill_level,effect_count,effect_cur_time, reuse_delay FROM character_skills_save WHERE char_obj_id=? AND class_index=? AND restore_type=?";
     private static final String DELETE_SKILL_SAVE = "DELETE FROM character_skills_save WHERE char_obj_id=? AND class_index=?";
 
-    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,allyId=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,deleteclan=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,varka=?,ketra=?,pledge_type=?, pledge_rank=?, apprentice=?, accademy_lvl=? WHERE obj_id=?"; 
-    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, allyId, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, deleteclan, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, newbie, nobless, varka, ketra, Pledge_class, pledge_type, pledge_rank, apprentice, accademy_lvl FROM characters WHERE obj_id=?";
+    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,allyId=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,deleteclan=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,banchat_timer=?,newbie=?,nobless=?,varka=?,ketra=?,pledge_type=?, pledge_rank=?, apprentice=?, accademy_lvl=? WHERE obj_id=?"; 
+    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, allyId, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, deleteclan, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, varka, ketra, Pledge_class, pledge_type, pledge_rank, apprentice, accademy_lvl FROM characters WHERE obj_id=?";
     private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE char_obj_id=? ORDER BY class_index ASC";
     private static final String ADD_CHAR_SUBCLASS = "INSERT INTO character_subclasses (char_obj_id,class_id,exp,sp,level,class_index) VALUES (?,?,?,?,?,?)";
     private static final String UPDATE_CHAR_SUBCLASS = "UPDATE character_subclasses SET exp=?,sp=?,level=?,class_id=? WHERE char_obj_id=? AND class_index =?";
@@ -296,7 +289,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private Connection _connection;
 
-    //private L2Object _newTarget = null;
+    private PcAppearance _appearance;
 
     /** The Identifier of the L2PcInstance */
     private int _charId = 0x00030b7a;
@@ -310,17 +303,11 @@ public final class L2PcInstance extends L2PlayableInstance
     /** The number of player killed during a PvP (the player killed was PvP Flagged) */
     private int _pvpKills;
 
-    /** The hexadecimal Color of players name (white is 0xFFFFFF) */
-    private int _nameColor;
-
-    /** The hexadecimal Color of players title (white is 0xFFFFFF) */
-    private int _titleColor;
-
     /** The PK counter of the L2PcInstance (= Number of non PvP Flagged player killed) */
     private int _pkKills;
 
     /** The PvP Flag state of the L2PcInstance (0=White, 1=Purple) */
-    private int _pvpFlag;
+    private byte _pvpFlag;
 
     private boolean _inPvpZone;
    
@@ -361,7 +348,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private int _deleteTimer;
     private PcInventory _inventory = new PcInventory(this);
-    private PcWarehouse _warehouse = new PcWarehouse(this);
+    private PcWarehouse _warehouse;
     private PcFreight _freight = new PcFreight(this);
 
     /** True if the L2PcInstance is sitting */
@@ -375,15 +362,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /** Last NPC Id talked on a quest */
     private int _questNpcObject = 0;
-
-    /** The face type Identifier of the L2PcInstance */
-    private int _face;
-
-    /** The hair style Identifier of the L2PcInstance */
-    private int _hairStyle;
-
-    /** The hair color Identifier of the L2PcInstance */
-    private int _hairColor;
 
     /** True if the L2PcInstance is newbie */
     private boolean _newbie;
@@ -455,12 +433,12 @@ public final class L2PcInstance extends L2PlayableInstance
     private long _onlineBeginTime;
 
     //GM Stuff
-    private boolean _isInvul;
     private boolean _isGm;
     private int _accessLevel;
 
     private boolean _chatBanned = false; // Chat Banned
-    private ScheduledFuture _chatUnbanTask = null;
+    private long _banchat_timer = 0;
+    private ScheduledFuture  _BanChatTask;
     private boolean _messageRefusal = false; // message refusal mode
     private boolean _dietMode = false; // ignore weight penalty
     private boolean _tradeRefusal = false; // Trade refusal
@@ -512,15 +490,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _isSilentMoving = false;
 
     protected FastMap<Integer, Integer> _activeSoulShots = new FastMap<Integer, Integer>().setShared(true);
-    private boolean _isPathNodeMode;
-    private boolean _isPathNodesVisible;
-    private Map<WayPointNode, FastList<WayPointNode>> _pathNodeMap;
-    private WayPointNode _selectedNode;
     private int _clanPrivileges = 0;
-    private boolean _linkToggle = true;
-
-    /** 1 if  the player is invisible */
-    private int _invisible = 0;
 
     /** Location before entering Observer Mode */
     private int _obsX;
@@ -715,22 +685,14 @@ public final class L2PcInstance extends L2PlayableInstance
      *
      */
     public static L2PcInstance create(int objectId, L2PcTemplate template, String accountName,
-                                      String name, int hairStyle, int hairColor, int face)
+                                      String name, byte hairStyle, byte hairColor, byte face, boolean sex)
     {
         // Create a new L2PcInstance with an account name
-        L2PcInstance player = new L2PcInstance(objectId, template, accountName);
+        PcAppearance app = new PcAppearance(face, hairColor, hairStyle, sex);
+        L2PcInstance player = new L2PcInstance(objectId, template, accountName, app);
 
         // Set the name of the L2PcInstance
         player.setName(name);
-
-        // Set the Hair Style of the L2PcInstance
-        player.setHairStyle(hairStyle);
-
-        // Set the Hair Color of the L2PcInstance
-        player.setHairColor(hairColor);
-
-        // Set the Face type of the L2PcInstance
-        player.setFace(face);
 
         // Set the base class ID to that of the actual class ID.
         player.setBaseClass(player.getClassId());
@@ -798,18 +760,17 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param accountName The name of the account including this L2PcInstance
      *
      */
-    private L2PcInstance(int objectId, L2PcTemplate template, String accountName)
+    private L2PcInstance(int objectId, L2PcTemplate template, String accountName, PcAppearance app)
     {
         super(objectId, template);
-        super.setKnownList(new PcKnownList(new L2PcInstance[] {this}));
+		super.setKnownList(new PcKnownList(this));
         super.setStat(new PcStat(this));
         super.setStatus(new PcStatus(this));
 
         _accountName = accountName;
-        _nameColor = 0xFFFFFF;
-        _titleColor = 0xFFFF77;
-        _baseLoad = template.baseLoad;
-
+        _baseLoad     = template.baseLoad;
+        _appearance   = app;
+        
         // Create an AI
         _ai = new L2PlayerAI(new L2PcInstance.AIAccessor());
 
@@ -819,7 +780,8 @@ public final class L2PcInstance extends L2PlayableInstance
         // Retrieve from the database all skills of this L2PcInstance and add them to _skills
         // Retrieve from the database all items of this L2PcInstance and add them to _inventory
         getInventory().restore();
-        getWarehouse().restore();
+        if (!Config.WAREHOUSE_CACHE)
+            getWarehouse();
         getFreight().restore();
         getStatTrack(); //Init Stat Tracker
         if (getStatTrack() != null)
@@ -829,34 +791,24 @@ public final class L2PcInstance extends L2PlayableInstance
     private L2PcInstance(int objectId)
     {
         super(objectId, null);
-        super.setKnownList(new PcKnownList(new L2PcInstance[] {this}));
+		super.setKnownList(new PcKnownList(this));
         super.setStat(new PcStat(this));
         super.setStatus(new PcStatus(this));
 
         _baseLoad = 0;
     }
 
-    public final PcKnownList getKnownList()
-    {
-        return (PcKnownList) super.getKnownList();
-    }
-
-    public final PcStat getStat()
-    {
-        return (PcStat) super.getStat();
-    }
-
-    public final PcStatus getStatus()
-    {
-        return (PcStatus) super.getStatus();
-    }
-
+    public final PcKnownList getKnownList() { return (PcKnownList) super.getKnownList(); }
+    public final PcStat getStat() { return (PcStat) super.getStat(); }
+    public final PcStatus getStatus() { return (PcStatus) super.getStatus(); }
+    public final PcAppearance getAppearance() { return _appearance; }
+    
     /**
      * Return the base L2PcTemplate link to the L2PcInstance.<BR><BR>
      */
     public final L2PcTemplate getBaseTemplate()
     {
-        return CharTemplateTable.getInstance().getTemplate(_baseClass, getSex() == 1);
+        return CharTemplateTable.getInstance().getTemplate(_baseClass);
     }
 
     /** Return the L2PcTemplate link to the L2PcInstance. */
@@ -865,16 +817,8 @@ public final class L2PcInstance extends L2PlayableInstance
         return (L2PcTemplate) super.getTemplate();
     }
 
-    public void setTemplate(ClassId newclass, boolean female)
-    {
-        super.setTemplate(CharTemplateTable.getInstance().getTemplate(newclass, female));
-    }
-
-    public void changeSex()
-    {
-        super.setTemplate(CharTemplateTable.getInstance().getTemplate(getClassId(), (getSex() != 1)));
-    }
-
+    public void setTemplate(ClassId newclass) { super.setTemplate(CharTemplateTable.getInstance().getTemplate(newclass)); }
+    
     /**
      * Return the AI of the L2PcInstance (create it if necessary).<BR><BR>
      */
@@ -894,71 +838,6 @@ public final class L2PcInstance extends L2PlayableInstance
     public final int getLevel()
     {
         return getStat().getLevel();
-    }
-
-    /**
-     * Return the Sex of the L2PcInstance (Male=0, Female=1).<BR><BR>
-     */
-    public int getSex()
-    {
-        return getTemplate().isMale ? 0 : 1;
-    }
-
-    /**
-     * Return the Face type Identifier of the L2PcInstance.<BR><BR>
-     */
-    public int getFace()
-    {
-        return _face;
-    }
-
-    /**
-     * Set the Face type of the L2PcInstance.<BR><BR>
-     *
-     * @param face The Identifier of the Face type<BR><BR>
-     *
-     */
-    public void setFace(int face)
-    {
-        _face = face;
-    }
-
-    /**
-     * Return the Hair Color Identifier of the L2PcInstance.<BR><BR>
-     */
-    public int getHairColor()
-    {
-        return _hairColor;
-    }
-
-    /**
-     * Set the Hair Color of the L2PcInstance.<BR><BR>
-     *
-     * @param hairColor The Identifier of the Hair Color<BR><BR>
-     *
-     */
-    public void setHairColor(int hairColor)
-    {
-        _hairColor = hairColor;
-    }
-
-    /**
-     * Return the Hair Style Identifier of the L2PcInstance.<BR><BR>
-     */
-    public int getHairStyle()
-    {
-        return _hairStyle;
-    }
-
-    /**
-     * Set the Hair Style of the L2PcInstance.<BR><BR>
-     *
-     * @param hairStyle The Identifier of the Hair Style<BR><BR>
-     *
-     */
-    public void setHairStyle(int hairStyle)
-    {
-        _hairStyle = hairStyle;
     }
 
     /**
@@ -1015,9 +894,6 @@ public final class L2PcInstance extends L2PlayableInstance
        if (getStatTrack() != null)
            getStatTrack().sleep(); //Shut down the Stat Tracker.
        _statTrack = null; //Garbage Collection
-
-        // Delete all Path Nodes
-        clearPathNodes();
 
         // Close the connection with the client
         if (_connection != null) _connection.close();
@@ -1390,7 +1266,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void setPvpFlag(int pvpFlag)
     {
-        _pvpFlag = pvpFlag;
+        _pvpFlag = (byte)pvpFlag;
     }
 
     public boolean getInPvpZone()
@@ -1800,7 +1676,7 @@ public final class L2PcInstance extends L2PlayableInstance
             sendPacket(new PledgeShowMemberListDeleteAll());
         }
         _activeClass = Id;
-        L2PcTemplate t = CharTemplateTable.getInstance().getTemplate(Id, getSex() == 1);
+        L2PcTemplate t = CharTemplateTable.getInstance().getTemplate(Id);
 
         if (t == null)
         {
@@ -2077,11 +1953,10 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public Race getRace()
     {
-        if (!isSubClassActive()) return getTemplate().race;
-
-        boolean isFemale = (getSex() == 1);
-        L2PcTemplate charTemp = CharTemplateTable.getInstance().getTemplate(_baseClass, isFemale);
-
+        if (!isSubClassActive())
+            return getTemplate().race;      
+       
+        L2PcTemplate charTemp = CharTemplateTable.getInstance().getTemplate(_baseClass);    
         return charTemp.race;
     }
 
@@ -2102,7 +1977,7 @@ public final class L2PcInstance extends L2PlayableInstance
         super.getStat().setSp(sp);
     }
 
-    public int getPvpFlag()
+    public byte getPvpFlag()
     {
         return _pvpFlag;
     }
@@ -2273,7 +2148,24 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public PcWarehouse getWarehouse()
     {
-        return _warehouse;
+       if (_warehouse == null)
+       {
+           _warehouse = new PcWarehouse(this);
+           _warehouse.restore();   
+       }
+       if (Config.WAREHOUSE_CACHE)
+               WarehouseCacheManager.getInstance().addCacheTask(this);        
+       return _warehouse;
+    }
+
+    /**
+     * Free memory used by Warehouse
+     */
+    public void clearWarehouse()
+    {
+       if (_warehouse != null)
+           _warehouse.deleteMe();
+       _warehouse = null;
     }
 
     /**
@@ -3523,8 +3415,9 @@ public final class L2PcInstance extends L2PlayableInstance
         if (newTarget instanceof L2FestivalMonsterInstance && !isFestivalParticipant())
             newTarget = null;
         
-        // Prevents /target exploiting while no geodata
-         if (newTarget != null && Math.abs(newTarget.getZ() - getZ()) > 1000)
+        // Prevents /target exploiting
+        //if (newTarget != null && !GeoData.getInstance().canSeeTarget(this, newTarget))
+        if (newTarget != null && Math.abs(newTarget.getZ() - getZ()) > 1000)
              newTarget = null;
              
         // Get the current target
@@ -3955,11 +3848,9 @@ public final class L2PcInstance extends L2PlayableInstance
                 int itemDropPercent = 0;
                 FastList<Integer> nonDroppableList = new FastList<Integer>();
                 FastList<Integer> nonDroppableListPet = new FastList<Integer>();
-                FastList<Integer> nonDroppableListTrade = new FastList<Integer>();
 
                 nonDroppableList = Config.KARMA_LIST_NONDROPPABLE_ITEMS;
                 nonDroppableListPet = Config.KARMA_LIST_NONDROPPABLE_PET_ITEMS;
-                nonDroppableListTrade = Config.LIST_NONTRADEABLE_ITEMS;
 
                 for (L2ItemInstance itemDrop : getInventory().getItems())
                 {
@@ -3968,7 +3859,6 @@ public final class L2PcInstance extends L2PlayableInstance
                         itemDrop.getItem().getType2() == L2Item.TYPE2_QUEST || // Quest Items
                         nonDroppableList.contains(itemDrop.getItemId()) || // Item listed in the non droppable item list
                         nonDroppableListPet.contains(itemDrop.getItemId()) || // Item listed in the non droppable pet item list
-                        nonDroppableListTrade.contains(itemDrop.getItemId()) || // Item listed in the non tradeable item list
                         getPet() != null && getPet().getControlItemId() == itemDrop.getItemId() // Control Item of active pet
                     ) continue;
 
@@ -4794,19 +4684,11 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     * Set the invulnerability Flag of the L2PcInstance.<BR><BR>
-     */
-    public void setIsInvul(boolean b)
-    {
-        _isInvul = b;
-    }
-
-    /**
      * Return True if the L2PcInstance is invulnerable.<BR><BR>
      */
     public boolean isInvul()
     {
-        return _isInvul || isTeleporting() || _protectEndTime > GameTimeController.getGameTicks();
+        return _isInvul  || _IsTeleporting ||  _protectEndTime > GameTimeController.getGameTicks();
     }
 
     /**
@@ -5126,10 +5008,10 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(25, getINT());
             statement.setInt(26, getMEN());
             statement.setInt(27, getWIT());
-            statement.setInt(28, getFace());
-            statement.setInt(29, getHairStyle());
-            statement.setInt(30, getHairColor());
-            statement.setInt(31, getSex());
+            statement.setInt(28, getAppearance().getFace());
+            statement.setInt(29, getAppearance().getHairStyle());
+            statement.setInt(30, getAppearance().getHairColor());
+            statement.setInt(31, getAppearance().getSex()? 1 : 0);
             statement.setDouble(32, 1/*getMovementMultiplier()*/);
             statement.setDouble(33, 1/*getAttackSpeedMultiplier()*/);
             statement.setDouble(34, getTemplate().collisionRadius/*getCollisionRadius()*/);
@@ -5212,10 +5094,10 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 final int activeClassId = rset.getInt("classid");
                 final boolean female = rset.getInt("sex") != 0;
-                final L2PcTemplate template = CharTemplateTable.getInstance().getTemplate(activeClassId,
-                                                                                          female);
+                final L2PcTemplate template = CharTemplateTable.getInstance().getTemplate(activeClassId);
+                PcAppearance app = new PcAppearance(rset.getByte("face"), rset.getByte("hairColor"), rset.getByte("hairStyle"), female);
 
-                player = new L2PcInstance(objectId, template, rset.getString("account_name"));
+                player = new L2PcInstance(objectId, template, rset.getString("account_name"), app);
                 player.setName(rset.getString("char_name"));
                 player._lastAccess = rset.getLong("lastAccess");
 
@@ -5223,9 +5105,6 @@ public final class L2PcInstance extends L2PlayableInstance
                 player.getStat().setLevel(rset.getByte("level"));
                 player.getStat().setSp(rset.getInt("sp"));
 
-                player.setFace(rset.getInt("face"));
-                player.setHairStyle(rset.getInt("hairStyle"));
-                player.setHairColor(rset.getInt("hairColor"));
                 player.setWantsPeace(rset.getInt("wantspeace"));
 
                 player.setHeading(rset.getInt("heading"));
@@ -5289,6 +5168,8 @@ public final class L2PcInstance extends L2PlayableInstance
                 player.setIsIn7sDungeon((rset.getInt("isin7sdungeon") == 1) ? true : false);
                 player.setInJail((rset.getInt("in_jail") == 1) ? true : false);
                 player.setJailTimer(rset.getLong("jail_timer"));
+                player.setBanChatTimer(rset.getLong("banchat_timer"));
+                if(player.getBanChatTimer() > 0) player.setChatBanned(true);
                 if (player.isInJail()) player.setJailTimer(rset.getLong("jail_timer"));
                 else player.setJailTimer(0);
                 
@@ -5685,9 +5566,9 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(11, getINT());
             statement.setInt(12, getMEN());
             statement.setInt(13, getWIT());
-            statement.setInt(14, getFace());
-            statement.setInt(15, getHairStyle());
-            statement.setInt(16, getHairColor());
+            statement.setInt(14, getAppearance().getFace());
+            statement.setInt(15, getAppearance().getHairStyle());
+            statement.setInt(16, getAppearance().getHairColor());
             statement.setInt(17, getHeading());
             statement.setInt(18, _observerMode ? _obsX : getX());
             statement.setInt(19, _observerMode ? _obsY : getY());
@@ -5723,15 +5604,16 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setLong(42, totalOnlineTime);
             statement.setInt(43, isInJail() ? 1 : 0);
             statement.setLong(44, getJailTimer());
-            statement.setInt(45, isNewbie() ? 1 : 0);
-            statement.setInt(46, isNoble() ? 1 : 0);
-            statement.setInt(47, getVarka());
-            statement.setInt(48, getKetra());
-            statement.setInt(49, getPledgeType());
-            statement.setInt(50, getRank());
-            statement.setString(51, getApprentice());
-            statement.setInt(52, getAccademyLvl());
-            statement.setInt(53, getObjectId());
+            statement.setLong(45, getBanChatTimer());
+            statement.setInt(46, isNewbie() ? 1 : 0);
+            statement.setInt(47, isNoble() ? 1 : 0);
+            statement.setInt(48, getVarka());
+            statement.setInt(49, getKetra());
+            statement.setInt(50, getPledgeType());
+            statement.setInt(51, getRank());
+            statement.setString(52, getApprentice());
+            statement.setInt(53, getAccademyLvl());
+            statement.setInt(54, getObjectId());
 
             statement.execute();
             statement.close();
@@ -7483,318 +7365,6 @@ public final class L2PcInstance extends L2PlayableInstance
        }
     }
 
-    public void setInvisible()
-    {
-        _invisible = 1;
-    }
-
-    public void setVisible()
-    {
-        _invisible = 0;
-    }
-
-    public int getInvisible()
-    {
-        return _invisible;
-    }
-
-    public void togglePathNodeMode()
-    {
-        _isPathNodeMode = !_isPathNodeMode;
-    }
-
-    public void toggleViewPathNodes()
-    {
-        _isPathNodesVisible = !_isPathNodesVisible;
-    }
-
-    public boolean isPathNodeModeActive()
-    {
-        return _isPathNodeMode;
-    }
-
-    public boolean isPathNodeVisible()
-    {
-        return _isPathNodesVisible;
-    }
-
-    public Map<WayPointNode, FastList<WayPointNode>> getPathNodeMap()
-    {
-        if (_pathNodeMap == null) _pathNodeMap = new FastMap<WayPointNode, FastList<WayPointNode>>();
-
-        return _pathNodeMap;
-    }
-
-    public void addPathNodePoint()
-    {
-        //add Node to Players PathNode List
-        //TODO: Addcheck for nearby point in radius
-        setSelectedNode(WayPointNode.spawn(this));
-        getPathNodeMap().put(getSelectedNode(), new FastList<WayPointNode>());
-    }
-
-    /**
-     * Delete all Path Nodes.<BR><BR>
-     */
-    public void clearPathNodes()
-    {
-        if (getPathNodeMap() != null)
-        {
-            for (WayPointNode node : getPathNodeMap().keySet())
-                removePathNodePoint(node);
-
-            getPathNodeMap().clear();
-        }
-
-        setSelectedNode(null);
-    }
-
-    public void setSelectedNode(WayPointNode decoInstance)
-    {
-        if (getSelectedNode() != null)
-        {
-            FastList<WayPointNode> linkedNodes = getPathNodeMap().get(getSelectedNode());
-
-            if (linkedNodes != null) for (WayPointNode node : linkedNodes)
-                node.setNormal();
-
-            getSelectedNode().setNormal();
-        }
-
-        _selectedNode = decoInstance;
-
-        if (_selectedNode != null)
-        {
-            _selectedNode.setSelected();
-
-            FastList<WayPointNode> linkedNodes = getPathNodeMap().get(_selectedNode);
-
-            if (linkedNodes != null) for (WayPointNode linked : linkedNodes)
-                linked.setLinked();
-        }
-    }
-
-    public WayPointNode getSelectedNode()
-    {
-        return _selectedNode;
-    }
-
-    public void addLink(WayPointNode target)
-    {
-        if (getSelectedNode() != null)
-        {
-            FastList<WayPointNode> list = getPathNodeMap().get(getSelectedNode());
-
-            if (list == null) list = new FastList<WayPointNode>();
-
-            list.add(target);
-            _pathNodeMap.put(getSelectedNode(), list);
-
-            FastList<WayPointNode> list2 = getPathNodeMap().get(target);
-
-            if (list2 == null) list2 = new FastList<WayPointNode>();
-
-            list2.add(getSelectedNode());
-            _pathNodeMap.put(target, list2);
-
-            target.setLinked();
-            WayPointNode.drawLine(target, getSelectedNode());
-        }
-    }
-
-    public void removeLink(WayPointNode target)
-    {
-        if (getSelectedNode() != null)
-        {
-            FastList<WayPointNode> list = getPathNodeMap().get(getSelectedNode());
-
-            if (list != null && list.contains(target))
-            {
-                list.remove(target);
-                _pathNodeMap.put(getSelectedNode(), list);
-
-                FastList<WayPointNode> list2 = getPathNodeMap().get(target);
-
-                if (list2 != null && list2.contains(getSelectedNode()))
-                {
-                    list2.remove(getSelectedNode());
-                    _pathNodeMap.put(target, list2);
-                }
-
-                target.setNormal();
-                WayPointNode.eraseLine(target, getSelectedNode());
-            }
-            else
-            {
-                sendPacket(SystemMessage.sendString("Target not a Linked Node."));
-            }
-        }
-    }
-
-    public void removePathNodePoint()
-    {
-        removePathNodePoint(getSelectedNode());
-    }
-
-    public void removePathNodePoint(WayPointNode node)
-    {
-        if (node != null)
-        {
-            FastList<WayPointNode> list = getPathNodeMap().get(node);
-
-            if (list != null)
-            {
-                synchronized (list)
-                {
-                    try
-                    {
-                        for (WayPointNode link : list)
-                        {
-                            //WayPointNode.eraseLine(node, link);
-                            removeLink(link);
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        _log.error(e.getMessage(),e);
-                    }
-                }
-            }
-
-            node.decayMe();
-            node = null;
-        }
-    }
-
-    /**
-     * @param string
-     */
-    public void savePathNodes(String fileName)
-    {
-        try
-        {
-            //File file   = new File(Config.DATAPACK_ROOT, "pathnode/" + fileName + ".bin");
-            FileOutputStream fos = new FileOutputStream("pathnode/" + fileName + ".bin"); // Save to file
-            GZIPOutputStream gzos = new GZIPOutputStream(fos); // Compressed
-            ObjectOutputStream out = new ObjectOutputStream(gzos); // Save objects
-            out.writeObject(getSaveList()); // Write the entire pathNodeMap of Positions
-            out.flush(); // Always flush the output.
-            out.close(); // And close the stream.
-            sendPacket(SystemMessage.sendString("Path Node table saved to: L2J/pathnode/" + fileName
-                + ".bin"));
-        }
-        catch (Exception e)
-        {
-            _log.error(e.getMessage(),e);
-            sendPacket(SystemMessage.sendString("Could not Save Path Node Table."));
-        }
-    }
-
-    public Map<Point3D, FastList<Point3D>> getSaveList()
-    {
-        Map<Point3D, FastList<Point3D>> saveList = null;
-
-        if (getPathNodeMap() != null)
-        {
-            saveList = Collections.synchronizedMap(new WeakHashMap<Point3D, FastList<Point3D>>());
-
-            for (WayPointNode node : getPathNodeMap().keySet())
-            {
-                Point3D nodePoint = Point3D.getPosition(node);
-
-                FastList<WayPointNode> links = getPathNodeMap().get(node);
-                FastList<Point3D> linkPoints = null;
-
-                if (links != null)
-                {
-                    linkPoints = new FastList<Point3D>();
-
-                    for (WayPointNode link : links)
-                        linkPoints.add(Point3D.getPosition(link));
-                }
-
-                saveList.put(nodePoint, linkPoints);
-            }
-        }
-
-        return saveList;
-    }
-
-    /**
-     * @param string
-     */
-    @SuppressWarnings(value = {"unchecked"})
-    public void loadPathNodes(String fileName)
-    {
-        FastMap<Point3D, FastList<Point3D>> newNodeMap = null;
-
-        try
-        {
-            //Create necessary input streams
-            //File file   = new File(Config.DATAPACK_ROOT, "pathnode/" + fileName + ".bin");
-            FileInputStream fis = new FileInputStream("pathnode/" + fileName + ".bin"); // Read from file
-            GZIPInputStream gzis = new GZIPInputStream(fis); // Uncompress
-            ObjectInputStream in = new ObjectInputStream(gzis); // Read objects
-            // Read in an object. It should be a vector of scribbles
-
-            newNodeMap = (FastMap<Point3D, FastList<Point3D>>) in.readObject();
-            in.close(); // Close the stream.
-        }
-        catch (Exception e)
-        {
-            sendPacket(SystemMessage.sendString("Could not Load Path Node Table from: L2J/pathnode/"
-                + fileName + ".bin"));
-            _log.error(e.getMessage(),e);
-            return;
-        }
-
-        clearPathNodes();
-        loadNodeList(newNodeMap);
-        sendPacket(SystemMessage.sendString("Path Node table loaded from: L2J/pathnode/" + fileName
-            + ".bin"));
-    }
-
-    /**
-     * @param newNodeMap
-     */
-    private void loadNodeList(Map<Point3D, FastList<Point3D>> newNodeMap)
-    {
-        _pathNodeMap = Collections.synchronizedMap(new WeakHashMap<WayPointNode, FastList<WayPointNode>>());
-        FastMap<Point3D, WayPointNode> map = new FastMap<Point3D, WayPointNode>();
-        WayPointNode newNode = null;
-
-        for (Point3D point : newNodeMap.keySet())
-        {
-            newNode = WayPointNode.spawn(point);
-            newNode.setNormal();
-            map.put(point, newNode);
-        }
-
-        for (Point3D point : newNodeMap.keySet())
-        {
-            WayPointNode node = map.get(point);
-            FastList<Point3D> links = newNodeMap.get(point);
-            FastList<WayPointNode> nodeLinks = null;
-
-            if (links != null)
-            {
-                nodeLinks = new FastList<WayPointNode>();
-
-                for (Point3D link : links)
-                {
-                    WayPointNode linkNode = map.get(link);
-                    nodeLinks.add(linkNode);
-
-                    if (getPathNodeMap().get(linkNode) != null
-                        && !getPathNodeMap().get(linkNode).contains(node))
-                        WayPointNode.drawLine(linkNode, node);
-                }
-            }
-
-            _pathNodeMap.put(node, nodeLinks);
-        }
-    }
-
     public int getClanPrivileges()
     {
         return _clanPrivileges;
@@ -7803,36 +7373,6 @@ public final class L2PcInstance extends L2PlayableInstance
     public void setClanPrivileges(int n)
     {
         _clanPrivileges = n;
-    }
-
-    public void refreshLinks()
-    {
-        if (_linkToggle)
-        {
-            for (WayPointNode node : getPathNodeMap().keySet())
-            {
-                for (WayPointNode lineNode : node.getLineNodes())
-                {
-                    lineNode.decayMe();
-                    lineNode.refreshID();
-                    //lineNode.spawnMe();
-                }
-            }
-        }
-        else
-        {
-            for (WayPointNode node : getPathNodeMap().keySet())
-            {
-                for (WayPointNode lineNode : node.getLineNodes())
-                {
-                    //lineNode.decayMe();
-                    //lineNode.refreshID();
-                    lineNode.spawnMe();
-                }
-            }
-        }
-
-        _linkToggle = !_linkToggle;
     }
 
     public void sendMessage(String message)
@@ -7850,7 +7390,7 @@ public final class L2PcInstance extends L2PlayableInstance
         stopMove(null);
         setIsParalyzed(true);
         setIsInvul(true);
-        setInvisible();
+        getAppearance().setInvisible();
         sendPacket(new ObservationMode(x, y, z));
         setXYZ(x, y, z);
 
@@ -7868,7 +7408,7 @@ public final class L2PcInstance extends L2PlayableInstance
         _obsZ = getZ();
         setTarget(null);
         setIsInvul(true);
-        setInvisible();
+        getAppearance().setInvisible();
         teleToLocation(x, y, z);
         sendPacket(new ExOlympiadMode(3));
         _observerMode = true;
@@ -7879,7 +7419,7 @@ public final class L2PcInstance extends L2PlayableInstance
         setTarget(null);
         setXYZ(_obsX, _obsY, _obsZ);
         setIsParalyzed(false);
-        setVisible();
+        getAppearance().setInvisible();
         setIsInvul(false);
 
         if (getAI() != null) getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
@@ -7894,7 +7434,7 @@ public final class L2PcInstance extends L2PlayableInstance
         setTarget(null);
         sendPacket(new ExOlympiadMode(0));
         teleToLocation(_obsX, _obsY, _obsZ);
-        setVisible();
+        getAppearance().setVisible();
         setIsInvul(false);
         if (getAI() != null)
         {
@@ -7980,28 +7520,59 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         _chatBanned = isBanned;
 
-        if (isChatBanned()) sendMessage("You have been chat banned by a server admin.");
+        stopBanChatTask();
+        if (isChatBanned())
+        {
+            sendMessage("You have been chat banned by a server admin.");
+            if(_banchat_timer > 0) _BanChatTask = ThreadPoolManager.getInstance().scheduleGeneral(new SchedChatUnban(this), _banchat_timer);
+        }
         else
         {
-            sendMessage("Your chat ban has been lifted.");
-            if (_chatUnbanTask != null) _chatUnbanTask.cancel(false);
-            _chatUnbanTask = null;
+            sendMessage("Your chat ban has been lifted.");            
+            setBanChatTimer(0);
+        }
+    }
+    
+    public void setBanChatTimer(long timer)
+    {
+        _banchat_timer = timer;
+    }
+    
+    public long getBanChatTimer()
+    {
+        if(_BanChatTask != null) return _BanChatTask.getDelay(TimeUnit.MILLISECONDS);
+        return _banchat_timer;
+    }
+    
+    public void stopBanChatTask()
+    {
+        if (_BanChatTask != null)
+        {
+            _BanChatTask.cancel(false);
+            _BanChatTask = null;
+        }        
+    }
+    
+    private class SchedChatUnban implements Runnable
+    {
+        L2PcInstance _player;
+        protected long _startedAt;
+        
+        protected SchedChatUnban(L2PcInstance player)
+        {
+            _player = player;
+            _startedAt = System.currentTimeMillis();
+        }
+        
+        public void run()
+        {
+            _player.setChatBanned(false);
         }
     }
 
     public boolean isChatBanned()
     {
         return _chatBanned;
-    }
-
-    public void setChatUnbanTask(ScheduledFuture task)
-    {
-        _chatUnbanTask = task;
-    }
-
-    public ScheduledFuture getChatUnbanTask()
-    {
-        return _chatUnbanTask;
     }
 
     public boolean getMessageRefusal()
@@ -8209,36 +7780,6 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         return _team;
     }
-
-    public int getNameColor()
-    {
-        return _nameColor;
-    }
-
-    public void setNameColor(int nameColor)
-    {
-        _nameColor = nameColor;
-    }
-
-    public int getTitleColor()
-    {
-        return _titleColor;
-    }
-
-    public void setTitleColor(int titleColor)
-    {
-        _titleColor = titleColor;
-    }
-    
-    public void setTitleColor(int red, int green, int blue)
-    {
-       _titleColor = (red & 0xFF) + ((green & 0xFF) << 8) + ((blue & 0xFF) << 16);
-    }
-
-    public void setNameColor(int red, int green, int blue)
-    {
-        _nameColor = (red & 0xFF) + ((green & 0xFF) << 8) + ((blue & 0xFF) << 16);
-	}
 
     public void setWantsPeace(int wantsPeace)
     {
@@ -8687,8 +8228,10 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (_isInvul) // isInvul() is always true on login if login protection is activated...
             sendMessage("Entering world in Invulnerable mode.");
-        if (getInvisible() == 1) sendMessage("Entering world in Invisible mode.");
-        if (getMessageRefusal()) sendMessage("Entering world in Message Refusal mode.");
+        if (getAppearance().getInvisible()) 
+            sendMessage("Entering world in Invisible mode.");
+        if (getMessageRefusal())
+            sendMessage("Entering world in Message Refusal mode.");
 
         // Reset Pvp Zone flag withour sending a message to the client
         setInPvpZone(false, false);
@@ -9356,15 +8899,10 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         // Update database with items in its warehouse and remove them from the world
-        try
-        {
-            getWarehouse().deleteMe();
-        }
-        catch (Throwable t)
-        {
-            _log.fatal( "deletedMe()", t);
-        }
-
+        try { clearWarehouse(); } catch (Throwable t) {_log.fatal("deletedMe()", t); }
+        if(Config.WAREHOUSE_CACHE)
+            WarehouseCacheManager.getInstance().remCacheTask(this);
+        
         // Update database with items in its freight and remove them from the world
         try
         {
@@ -9394,8 +8932,6 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             _log.fatal( "deletedMe()", t);
         }
-
-        clearPathNodes();
 
         if (getClanId() > 0)
             getClan().broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(this), this);
@@ -9451,9 +8987,8 @@ public final class L2PcInstance extends L2PlayableInstance
         sendPacket(new SystemMessage(SystemMessage.CAST_LINE_AND_START_FISHING));
         ExFishingStart efs = null;
         if (!GameTimeController.getInstance().isNowNight() && _lure.isNightLure())
-           efs = new ExFishingStart(this,-1,x,y,z);
-        else
-           efs = new ExFishingStart(this,_fish.getType(),x,y,z);
+            _fish.setType(-1);
+        efs = new ExFishingStart(this,_fish.getType(),x,y,z,_lure.isNightLure());
         broadcastPacket(efs);
         StartLookingForFishTask();
     }
@@ -10143,8 +9678,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 _jailTimer = delayInMinutes * 60000; // in millisec
 
                 // start the countdown
-                _jailTask = ThreadPoolManager.getInstance().scheduleGeneral(new JailTask(this),
-                                                                            _jailTimer);
+                _jailTask = ThreadPoolManager.getInstance().scheduleGeneral(new JailTask(this), _jailTimer);
                 sendMessage("You are in jail for " + delayInMinutes + " minutes.");
             }
 

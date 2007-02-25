@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2Registry;
-import net.sf.l2j.gameserver.SkillTable;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
@@ -143,7 +143,7 @@ public class Wedding implements IVoicedCommandHandler
         // check if player target himself
         if(ptarget.getObjectId()==activeChar.getObjectId())
         {
-            activeChar.sendMessage("Going out with yorself?");
+            activeChar.sendMessage("Going out with yourself?");
             return false;
         }
 
@@ -172,7 +172,7 @@ public class Wedding implements IVoicedCommandHandler
         }
         
         
-        if (ptarget.getSex()==activeChar.getSex() && !Config.WEDDING_SAMESEX)
+        if (ptarget.getAppearance().getSex()==activeChar.getAppearance().getSex() && !Config.WEDDING_SAMESEX)
         {
             activeChar.sendMessage("You can't ask someone of the same sex for engagement.");
             return false;

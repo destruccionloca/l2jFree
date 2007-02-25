@@ -383,7 +383,7 @@ public class L2BoxInstance extends L2NpcInstance {
         int foundCount = 0;
 		try
 		{
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2Registry.getConnection();
             if (item.isStackable())
             {
                 PreparedStatement st2 = con.prepareStatement("SELECT id,count FROM boxes where spawn=? and npcid=? and drawer=? and itemid=?");
@@ -475,7 +475,7 @@ public class L2BoxInstance extends L2NpcInstance {
 		bi.count = 0;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2Registry.getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT id,count,enchant FROM boxes WHERE spawn=? AND npcid=? AND drawer=? AND itemid=? AND count>=?");
 			statement.setInt(1, getSpawn().getId());
 			statement.setInt(2, getNpcId());

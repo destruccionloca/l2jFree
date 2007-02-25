@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
-import net.sf.l2j.gameserver.ItemTable;
+import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.CropProcure;
 import net.sf.l2j.gameserver.model.L2Manor;
 import net.sf.l2j.gameserver.model.SeedProduction;

@@ -29,11 +29,11 @@ import net.sf.l2j.gameserver.serverpackets.ExOlympiadSpelledInfo;
 import net.sf.l2j.gameserver.serverpackets.MagicEffectIcons;
 import net.sf.l2j.gameserver.serverpackets.PartySpelled;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.EffectTemplate;
 import net.sf.l2j.gameserver.skills.Env;
-import net.sf.l2j.gameserver.skills.Func;
-import net.sf.l2j.gameserver.skills.FuncTemplate;
-import net.sf.l2j.gameserver.skills.Lambda;
+import net.sf.l2j.gameserver.skills.effects.EffectTemplate;
+import net.sf.l2j.gameserver.skills.funcs.Func;
+import net.sf.l2j.gameserver.skills.funcs.FuncTemplate;
+import net.sf.l2j.gameserver.skills.funcs.Lambda;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -77,6 +77,8 @@ public abstract class L2Effect
 		STUN_SELF,
         BLUFF,
         BETRAY,
+        PETRIFICATION,
+        ROTATE, // for bluff skill        
         CANCEL_TARGET,
         CANCEL_TARGET_SHOCK,
         CANCEL_TARGET_PHYSICAL,

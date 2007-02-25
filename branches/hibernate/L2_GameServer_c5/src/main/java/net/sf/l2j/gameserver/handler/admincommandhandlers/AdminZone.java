@@ -31,8 +31,8 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.GmListTable;
-import net.sf.l2j.gameserver.MapRegionTable;
+import net.sf.l2j.gameserver.datatables.GmListTable;
+import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.Location;

@@ -20,8 +20,8 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.NpcTable;
-import net.sf.l2j.gameserver.SkillTable;
+import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.Experience;
@@ -32,6 +32,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
+import net.sf.l2j.gameserver.model.actor.stat.PlayableStat;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.serverpackets.NpcInfo;
@@ -70,7 +71,7 @@ public class AdminEffects implements IAdminCommandHandler
        
        if (command.equals("admin_invis")||command.equals("admin_invisible"))
        {
-    	   activeChar.setInvisible();
+    	   activeChar.getAppearance().setInvisible();
     	   activeChar.broadcastUserInfo();
                       
            activeChar.decayMe();
@@ -80,7 +81,7 @@ public class AdminEffects implements IAdminCommandHandler
        }
        if (command.equals("admin_vis")||command.equals("admin_visible"))
        {
-    	   activeChar.setVisible();
+    	   activeChar.getAppearance().setVisible();
     	   activeChar.broadcastUserInfo();
        }
        if (command.startsWith("admin_earthquake"))

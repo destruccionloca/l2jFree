@@ -4,10 +4,12 @@ public class ChooseInventoryItem extends ServerBasePacket
 {
 	private static final String _S__6F_CHOOSEINVENTORYITEM = "[S] 6f ChooseInventoryItem";
 
-	public ChooseInventoryItem()
-	{
-	}
-
+    private int ItemID;
+       
+    public ChooseInventoryItem(int Item)
+    {
+        ItemID=Item;
+    }
 
 	final void runImpl()
 	{
@@ -17,6 +19,7 @@ public class ChooseInventoryItem extends ServerBasePacket
 	final void writeImpl()
 	{
 		writeC(0x6f);
+        writeD(ItemID);
 	}
 
 	/* (non-Javadoc)

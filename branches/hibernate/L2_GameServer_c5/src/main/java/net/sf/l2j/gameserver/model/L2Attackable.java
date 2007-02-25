@@ -23,15 +23,15 @@ import java.util.Random;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.EventDroplist;
-import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.ItemsAutoDestroy;
-import net.sf.l2j.gameserver.EventDroplist.DateDrop;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2SiegeGuardAI;
+import net.sf.l2j.gameserver.datatables.EventDroplist;
+import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.EventDroplist.DateDrop;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
@@ -54,6 +54,7 @@ import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.Util;
+import net.sf.l2j.gameserver.templates.L2Item;
 
 /**
  * This class manages all NPC that can be attacked.<BR><BR>
@@ -270,7 +271,7 @@ public class L2Attackable extends L2NpcInstance
     public L2Attackable(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-        super.setKnownList(new AttackableKnownList(new L2Attackable[] {this}));
+        super.setKnownList(new AttackableKnownList(this));
         _haveToDrop = true;
         _mustGiveExpSp = true;
     }
@@ -313,10 +314,7 @@ public class L2Attackable extends L2NpcInstance
            )
             return false;
         
-        if (target instanceof L2PcInstance)
-            return !((L2PcInstance)target).isInvul();
-        
-        return true;
+        return !target.isInvul();
     }
     
     /**
@@ -772,7 +770,7 @@ public class L2Attackable extends L2NpcInstance
                     divisor = 1;
                 
 
-                if (skill != null && (skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.HEAL_PERCENT || skill.getSkillType() == SkillType.MANAHEAL || skill.getSkillType() == SkillType.MANAHEAL_PERCENT))
+                if (skill != null && (skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.HEAL_PERCENT || skill.getSkillType() == SkillType.MANAHEAL || skill.getSkillType() == SkillType.MANAHEAL_PERCENT || skill.getSkillType() == SkillType.BALANCE_LIFE))
                 {
                     L2Object[] targetList = skill.getTargetList(actor,true);
 
@@ -919,7 +917,7 @@ public class L2Attackable extends L2NpcInstance
         
         AggroInfo ai = getAggroListRP().get(target);
         if (ai == null) return 0;
-        if (ai.attacker instanceof L2PcInstance && (((L2PcInstance)ai.attacker).getInvisible() == 1 || ((L2PcInstance)ai.attacker).isInvul()))
+        if (ai.attacker instanceof L2PcInstance && (((L2PcInstance)ai.attacker).getAppearance().getInvisible() || ai.attacker.isInvul()))
         {
             //Remove Object Should Use This Method and Can be Blocked While Interating
             getAggroList().remove(target);              
@@ -1236,7 +1234,9 @@ public class L2Attackable extends L2NpcInstance
          }
          
          // Check the drop of a cursed weapon
-         CursedWeaponsManager.getInstance().checkDrop(this, player);
+         if (levelModifier>0 && player.getLevel()>20)
+             CursedWeaponsManager.getInstance().checkDrop(this, player);
+
 
          // now throw all categorized drops and handle spoil.
          for(L2DropCategory cat:npcTemplate.getDropData())

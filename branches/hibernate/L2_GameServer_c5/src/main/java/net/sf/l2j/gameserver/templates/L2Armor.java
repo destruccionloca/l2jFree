@@ -21,13 +21,13 @@ package net.sf.l2j.gameserver.templates;
 import java.util.List;
 
 import javolution.util.FastList;
-import net.sf.l2j.gameserver.SkillTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.skills.Env;
-import net.sf.l2j.gameserver.skills.Func;
-import net.sf.l2j.gameserver.skills.FuncTemplate;
+import net.sf.l2j.gameserver.skills.funcs.Func;
+import net.sf.l2j.gameserver.skills.funcs.FuncTemplate;
 
 /**
  * This class is dedicated to the management of armors.

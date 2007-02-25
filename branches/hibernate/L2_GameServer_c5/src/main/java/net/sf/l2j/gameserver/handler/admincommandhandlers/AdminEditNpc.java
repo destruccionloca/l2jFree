@@ -31,10 +31,10 @@ import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2Registry;
-import net.sf.l2j.gameserver.ItemTable;
-import net.sf.l2j.gameserver.NpcTable;
 import net.sf.l2j.gameserver.TradeController;
 import net.sf.l2j.gameserver.cache.HtmCache;
+import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2DropCategory;
@@ -78,7 +78,10 @@ public class AdminEditNpc implements IAdminCommandHandler {
     
     public boolean useAdminCommand(String command, L2PcInstance activeChar)
     {
-        if (!((checkLevel(activeChar.getAccessLevel()) || checkLevel2(activeChar.getAccessLevel())) && activeChar.isGM())) return false;
+        if (!Config.ALT_PRIVILEGES_ADMIN)
+        	if (!((checkLevel(activeChar.getAccessLevel()) || checkLevel2(activeChar.getAccessLevel())) && activeChar.isGM()))
+        		return false;
+        
         else if (command.startsWith("admin_showShop "))
         {
             String[] args = command.split(" ");

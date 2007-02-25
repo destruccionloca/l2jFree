@@ -25,10 +25,10 @@ import java.util.regex.Pattern;
 
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.GmListTable;
-import net.sf.l2j.gameserver.NpcTable;
-import net.sf.l2j.gameserver.SpawnTable;
 import net.sf.l2j.gameserver.TeleportLocationTable;
+import net.sf.l2j.gameserver.datatables.GmListTable;
+import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
@@ -63,8 +63,9 @@ public class AdminSpawn implements IAdminCommandHandler
 
     public boolean useAdminCommand(String command, L2PcInstance activeChar)
     {
-        if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-            return false;
+        if (!Config.ALT_PRIVILEGES_ADMIN)
+        	if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+        		return false;
 
         if (command.equals("admin_show_spawns"))
         {

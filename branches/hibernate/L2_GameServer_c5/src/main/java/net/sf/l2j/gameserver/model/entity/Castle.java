@@ -25,10 +25,10 @@ import javolution.util.FastList;
 import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.CastleUpdater;
-import net.sf.l2j.gameserver.ClanTable;
-import net.sf.l2j.gameserver.DoorTable;
-import net.sf.l2j.gameserver.MapRegionTable;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.datatables.ClanTable;
+import net.sf.l2j.gameserver.datatables.DoorTable;
+import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.CropProcure;
@@ -255,7 +255,7 @@ public class Castle
                             java.sql.Connection con = null;
                             try
                             {
-                                con = L2DatabaseFactory.getInstance().getConnection();
+                                con = L2Registry.getConnection();
                                 PreparedStatement statement = con.prepareStatement("delete from items where owner_id = ? and item_id = ?");
                                 statement.setInt(1, member.getObjectId());
                                 statement.setInt(2, CrownId);

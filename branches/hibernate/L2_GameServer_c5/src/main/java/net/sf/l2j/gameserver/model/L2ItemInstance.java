@@ -27,13 +27,13 @@ import java.util.concurrent.ScheduledFuture;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2Registry;
-import net.sf.l2j.gameserver.ItemTable;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
+import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.NullKnownList;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.skills.Func;
+import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2EtcItem;
 import net.sf.l2j.gameserver.templates.L2Item;
@@ -132,7 +132,7 @@ public final class L2ItemInstance extends L2Object
 	public L2ItemInstance(int objectId, int itemId)
 	{
 		super(objectId);
-		super.setKnownList(new NullKnownList(new L2ItemInstance[] {this}));
+		super.setKnownList(new NullKnownList(this));
 		_itemId = itemId;
 		_item = ItemTable.getInstance().getTemplate(itemId);
 		if (_itemId == 0 || _item == null)
@@ -152,7 +152,7 @@ public final class L2ItemInstance extends L2Object
 	public L2ItemInstance(int objectId, L2Item item)
 	{
 		super(objectId);
-		super.setKnownList(new NullKnownList(new L2ItemInstance[] {this}));
+		super.setKnownList(new NullKnownList(this));
 		_itemId = item.getItemId();
 		_item = item;
 		if (_itemId == 0 || _item == null)
@@ -464,7 +464,34 @@ public final class L2ItemInstance extends L2Object
 	{
 		return _item.isStackable();
 	}
-	
+
+   /**
+    * Returns if item is dropable
+    * @return boolean
+    */
+   public boolean isDropable()
+   {
+       return _item.isDropable();
+   }
+
+   /**
+    * Returns if item is destroy
+    * @return boolean
+    */
+   public boolean isDestroyable()
+   {
+       return _item.isDestroyable();
+   }
+
+   /**
+    * Returns if item is add trade
+    * @return boolean
+    */
+   public boolean isTradeable()
+   {
+       return _item.isTradeable();
+   }
+
     /**
      * Returns if item is consumable
      * @return boolean
@@ -489,13 +516,15 @@ public final class L2ItemInstance extends L2Object
      */
     public boolean isAvailable(L2PcInstance player, boolean allowAdena)
     {
-    	return ((!isEquipped()) // Not equipped
+       return (
+       (!isEquipped()) // Not equipped
     		&& (getItem().getType2() != 3) // Not Quest Item
     		&& (getItem().getType2() != 4 || getItem().getType1() != 1) // TODO: what does this mean?
     		&& (player.getPet() == null || getObjectId() != player.getPet().getControlItemId()) // Not Control item of currently summoned pet
     		&& (player.getActiveEnchantItem() != this) // Not momentarily used enchant scroll
     		&& (allowAdena || getItemId() != 57)
     		&& (player.getCurrentSkill() == null || player.getCurrentSkill().getSkill().getItemConsumeId() != getItemId())
+            && (isTradeable())
     		);
     }
 

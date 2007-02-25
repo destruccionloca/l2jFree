@@ -6,6 +6,7 @@ SET CLASSPATH=%CLASSPATH%;hibernate-3.1rc2.jar
 SET CLASSPATH=%CLASSPATH%;jta-1.0.1B.jar
 SET CLASSPATH=%CLASSPATH%;commons-collections-2.1.1.jar
 
+SET CLASSPATH=%CLASSPATH%;ibmaio-20040616.jar
 
 REM jython
 SET CLASSPATH=%CLASSPATH%;jython-1.1.jar
@@ -25,7 +26,7 @@ REM For connection pool
 SET CLASSPATH=%CLASSPATH%;c3p0-0.9.0.4.jar
 
 REM for logging usage
-SET CLASSPATH=%CLASSPATH%;commons-logging-1.0.4.jar
+SET CLASSPATH=%CLASSPATH%;commons-logging-1.1.jar
 SET CLASSPATH=%CLASSPATH%;log4j-1.2.14.jar
 SET CLASSPATH=%CLASSPATH%;logkit-1.0.1.jar
 
@@ -36,7 +37,7 @@ REM for dom
 SET CLASSPATH=%CLASSPATH%;dom4j-1.6.1.jar
 
 REM for performance usage
-SET CLASSPATH=%CLASSPATH%;javolution-1.5.4.2.4.jar
+SET CLASSPATH=%CLASSPATH%;javolution-1.5.4.2.5.jar
 
 REM main jar
 SET CLASSPATH=%CLASSPATH%;l2j-gameserver-1.0.0.jar

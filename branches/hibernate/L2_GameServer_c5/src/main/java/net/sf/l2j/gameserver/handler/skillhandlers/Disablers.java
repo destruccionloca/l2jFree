@@ -38,8 +38,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
-import net.sf.l2j.gameserver.skills.Func;
 import net.sf.l2j.gameserver.skills.Stats;
+import net.sf.l2j.gameserver.skills.funcs.Func;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -211,8 +211,12 @@ public class Disablers implements ISkillHandler
                     skill.getEffects(activeChar, target);
                     break;
                 }
+                case ROOT:
                 case STUN:
                 {
+                    if(target.reflectSkill(skill))
+                       target = activeChar;
+                    
                     if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, false, false))
                     {   
                         skill.getEffects(activeChar, target);
@@ -230,9 +234,11 @@ public class Disablers implements ISkillHandler
                     break;
                 }
                 case SLEEP:
-                case ROOT:
                 case PARALYZE: //use same as root for now
                 {   
+                    if(target.reflectSkill(skill))
+                       target = activeChar;
+                    
                     if (target instanceof L2NpcInstance){
                         target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar,50);
                     }
@@ -296,6 +302,9 @@ public class Disablers implements ISkillHandler
                 }
                 case MUTE:
                 {    
+                    if(target.reflectSkill(skill))
+                       target = activeChar;
+
                     if (target instanceof L2NpcInstance){
                         target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar,50);}
                     if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, sps, bss))
@@ -475,6 +484,10 @@ public class Disablers implements ISkillHandler
                     for(L2Object t: targets)
                     {
                         L2Character target1 = (L2Character) t;
+
+                        if(target1.reflectSkill(skill))
+                           target1 = activeChar;
+
                         if (! Formulas.getInstance().calcSkillSuccess(activeChar, target1, skill, false, sps, bss))
                             continue;
                     
@@ -499,6 +512,10 @@ public class Disablers implements ISkillHandler
                     for(L2Object t: targets)
                     {
                        L2Character target1 = (L2Character) t;
+
+                       if(target1.reflectSkill(skill))
+                           target1 = activeChar;
+
                        if (! Formulas.getInstance().calcSkillSuccess(activeChar, target1, skill, false, sps, bss))
                            continue;
                     
@@ -521,6 +538,9 @@ public class Disablers implements ISkillHandler
                 case NEGATE:
                 case CANCEL:
                 {
+                    if(target.reflectSkill(skill))
+                       target = activeChar;
+                    
                     if(skill.getId() == 1056 && target != activeChar) //can't cancel your self
                     {
                         if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, sps, bss))    
