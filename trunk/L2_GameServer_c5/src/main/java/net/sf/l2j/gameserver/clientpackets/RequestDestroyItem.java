@@ -98,7 +98,10 @@ public class RequestDestroyItem extends ClientBasePacket
         }
         
 		L2ItemInstance itemToRemove = activeChar.getInventory().getItemByObjectId(_objectId);
-        
+
+        // if we cant find requested item, its actualy a cheat!
+        if (itemToRemove == null) return;
+
 		// Cannot discard item that the skill is consumming
 		if (activeChar.isCastingNow())
 		{

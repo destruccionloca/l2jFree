@@ -1625,7 +1625,7 @@ public abstract class L2Skill
                     {
                         targetList.add(partyMember);
 
-                        if (partyMember.getPet() != null)
+                        if (partyMember.getPet() != null && !partyMember.getPet().isDead())
                         {
                             targetList.add(partyMember.getPet());
                         }

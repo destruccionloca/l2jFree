@@ -86,6 +86,8 @@ public class RequestAquireSkill extends ClientBasePacket
         if (!player.isInsideRadius(trainer, L2NpcInstance.INTERACTION_DISTANCE, false, false) && !player.isGM())
             return;
         
+        if (!Config.ALT_GAME_SKILL_LEARN) player.setSkillLearningClassId(player.getClassId());
+        
         if (player.getSkillLevel(_id) >= _level) {
             // already knows the skill with this level
             return;
