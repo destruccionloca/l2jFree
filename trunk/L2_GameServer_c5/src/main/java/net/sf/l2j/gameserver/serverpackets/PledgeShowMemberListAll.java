@@ -1,10 +1,29 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.serverpackets;
 
 import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.L2Clan.SubPledge;
+import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-
+import net.sf.l2j.gameserver.serverpackets.UserInfo;
+//import java.util.logging.Logger;
 /**
  * 
  *
@@ -37,7 +56,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * 00000000
  * 
  *  
- * format   dSS dddddddddSd d (Sddddd)
+ * format   dSS dddddddddSdd d (Sddddd)
+ *          dddSS dddddddddSdd d (Sdddddd)
  *          
  * @version $Revision: 1.6.2.2.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
@@ -47,16 +67,21 @@ public class PledgeShowMemberListAll extends ServerBasePacket
     private L2Clan _clan;
     private L2PcInstance _activeChar;
     private L2ClanMember[] _members;
-    private L2ClanMember[] _subMembers;
     private int _pledgeType;
+    //private static Logger _log = Logger.getLogger(PledgeShowMemberListAll.class.getName());
     
-    public PledgeShowMemberListAll(L2Clan clan, L2PcInstance activeChar, int val1, int val2, int val3, int val4, int val5, int val6, int val7)
+    public PledgeShowMemberListAll(L2Clan clan, L2PcInstance activeChar)
     {
         _clan = clan;
         _activeChar = activeChar;
-        activeChar.sendPacket(new PledgeShowMemberListDeleteAll());
+    }   
+    
+    final void runImpl()
+    {
+        _members = _clan.getMembers();
+        
     }
-
+    
     final void writeImpl()
     {
         
@@ -80,97 +105,42 @@ public class PledgeShowMemberListAll extends ServerBasePacket
                 
     }
     
-    public PledgeShowMemberListAll(L2Clan clan, L2PcInstance activeChar)
-    {
-        _clan = clan;
-        _activeChar = activeChar;
-        activeChar.sendPacket(new PledgeShowMemberListDeleteAll());
-        SubPledge[] subPledge = _clan.getAllSubPledges();
-        //final PledgeReceiveSubPledgeCreated response = new PledgeReceiveSubPledgeCreated(subPledge);
-        for (int i = 0; i<subPledge.length; i++)
-        {
-            activeChar.sendPacket(new PledgeReceiveSubPledgeCreated(subPledge[i]));
-        }
-        _subMembers = _clan.getSubMembers();
-        for (L2ClanMember m : _subMembers)
-        {
-            if (m.getName() == activeChar.getName())
-                activeChar.sendPacket(new PledgeShowMemberListAdd(m, 1));
-            else
-                activeChar.sendPacket(new PledgeShowMemberListAdd(m));
-        }
-    }
-    
-    final void runImpl()
-    {
-        _members = _clan.getMembers();
-    }
-    
     void writePledge(int mainOrSubpledge)
     {
-        if (getClient().getRevision() >= 690)
+        writeC(0x53);
+        
+        writeD(mainOrSubpledge); //c5 main clan 0 or any subpledge 1?
+        writeD(_clan.getClanId());
+        writeD(_pledgeType); //c5 - possibly pledge type?
+        writeS(_clan.getName());
+        writeS(_clan.getLeaderName());
+        
+        writeD(_clan.getCrestId()); // crest id .. is used again
+        writeD(_clan.getLevel());
+        writeD(_clan.getHasCastle());
+        writeD(_clan.getHasHideout());
+        writeD(_clan.getRank()); // not confirmed
+        writeD(_clan.getReputationScore()); //was activechar lvl
+        writeD(0); //0
+        writeD(0); //0
+        
+        writeD(_clan.getAllyId());
+        writeS(_clan.getAllyName());
+        writeD(_clan.getAllyCrestId());
+        writeD(_clan.isAtWar());// new c3
+        writeD(_clan.getSubPledgeMembersCount(_pledgeType));
+
+        for (L2ClanMember m : _members)
         {
-            writeC(0x53);
-            writeD(mainOrSubpledge); //c5 main clan 0 or any subpledge 1?
-            writeD(_clan.getClanId());
-            writeD(_pledgeType); //c5 - possibly pledge type?
-            writeS(_clan.getName());
-            writeS(_clan.getLeaderName());
-            writeD(_clan.getCrestId()); // creast id .. is used again
-            writeD(_clan.getLevel());
-            writeD(_clan.getHasCastle());
-            writeD(_clan.getHasHideout());
-            writeD(_clan.getRank());
-            writeD(_clan.getReputationScore()); 
-            writeD(0);
-            writeD(0);
-            
-            writeD(_clan.getAllyId());
-            writeS(_clan.getAllyName());
-            writeD(_clan.getAllyCrestId());
-            writeD(_clan.isAtWar());// new c3
-            writeD(_pledgeType == 0 ? _clan.getMembersCount() :_clan.getSubPledgeMembersCount(_pledgeType));
-            for (L2ClanMember m : _members)
-            {
-                writeS(m.getName());
-                writeD(m.getLevel());
-                writeD(m.getClassId());
-                writeD(0); 
-                writeD(m.getObjectId());//writeD(1);             
-                writeD(m.isOnline() ? 1 : 0);  // 1=online 0=offline
-                writeD(0);// does a clan member have a sponsor, 0 - true, 1 - false
-            }
+            if(m.getPledgeType() != _pledgeType) continue;
+            writeS(m.getName());
+            writeD(m.getLevel());
+            writeD(m.getClassId());
+            writeD(0); // no visible effect
+            writeD(m.getObjectId());//writeD(1); 
+            writeD(m.isOnline() ? 1 : 0);  // 1=online 0=offline
+            writeD(0); //c5 makes the name yellow. member is in academy and has a sponsor 
         }
-        else
-        {
-            writeC(0x53);
-            writeD(_clan.getClanId());
-            writeS(_clan.getName());
-            writeS(_clan.getLeaderName());
-            writeD(_clan.getCrestId()); // creast id .. is used again
-            writeD(_clan.getLevel());
-            writeD(_clan.getHasCastle());
-            writeD(_clan.getHasHideout());
-            writeD(0);
-            writeD(_activeChar.getLevel()); 
-            writeD(0);
-            writeD(0);
-            
-            writeD(_clan.getAllyId());
-            writeS(_clan.getAllyName());
-            writeD(_clan.getAllyCrestId());
-            writeD(_clan.isAtWar());// new c3
-            writeD(_members.length);
-            for (L2ClanMember m : _members)
-            {
-                writeS(m.getName());
-                writeD(m.getLevel());
-                writeD(m.getClassId());
-                writeD(0); 
-                writeD(1);
-                writeD(m.isOnline() ? m.getObjectId() : 0); // 1=online 0=offline
-            }
-        }       
     }
 
     /* (non-Javadoc)

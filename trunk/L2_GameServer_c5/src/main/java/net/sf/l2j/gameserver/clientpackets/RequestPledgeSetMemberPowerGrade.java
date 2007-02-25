@@ -24,68 +24,59 @@ import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.UserInfo;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
- * This class ...
+ * Format: (ch) Sd
+ * @author  -Wooden-
  * 
- * @version $Revision: 1.3.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
 public class RequestPledgeSetMemberPowerGrade extends ClientBasePacket
 {
-	private static final String _C__24_REQUESTJOINPLEDGE = "[C] 24 RequestJoinPledge";
-	static Log _log = LogFactory.getLog(RequestJoinPledge.class.getName());
+    private static final String _C__D0_1C_REQUESTPLEDGESETMEMBERPOWERGRADE = "[C] D0:1C RequestPledgeSetMemberPowerGrade";
+    private int _powerGrade;
+    private String _member;
+    /**
+     * @param buf
+     * @param client
+     */
+    public RequestPledgeSetMemberPowerGrade(ByteBuffer buf, ClientThread client)
+    {
+        super(buf, client);
+        _member = readS();
+        _powerGrade = readD();
+    }
 
-	private final int _rank;
-    private final String _name;
-	
-	public RequestPledgeSetMemberPowerGrade(ByteBuffer buf, ClientThread client)
-	{
-		super(buf, client);
-		_name  = readS();
-        _rank = readD();
-	}
-
-	void runImpl()
-	{
-		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-		    return;
-		
-		//is the guy leader of the clan ?
-		if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_MANAGE_RANKS) == L2Clan.CP_CL_MANAGE_RANKS)  
-		{
-			L2ClanMember member = activeChar.getClan().getClanMember(_name);
-            if (member != null && member.isOnline())
-            {
-                member.getPlayerInstance().setRank(_rank);
-                member.getPlayerInstance().sendPacket(new UserInfo(member.getPlayerInstance()));
-                if (activeChar.getClan().getRankPrivs(_rank) == 0)
-                {
-                    activeChar.getClan().setRankPrivs(_rank, 0);
-                }
-            }
-            else if(member != null)
-            {
-                member.setRank(_rank);
-            }
-            else
-                activeChar.sendMessage("the target doesn't belong to your clan");
-		}
-        else
+    /**
+     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+     */
+    @Override
+    void runImpl()
+    {
+        L2PcInstance activeChar = getClient().getActiveChar();
+        if(activeChar == null)
+            return;
+        L2Clan clan = activeChar.getClan();
+        if(clan == null)
+            return;
+        L2ClanMember member = clan.getClanMember(_member);
+        if(member == null)
+            return;
+        if(member.getPledgeType() == L2Clan.SUBUNIT_ACADEMY)
         {
-            activeChar.sendMessage("You don't have the authority to change this member's rank");
+            // also checked from client side
+            activeChar.sendMessage("You cannot change academy member grade");
+            return;
         }
-	}
+        member.setPowerGrade(_powerGrade);
+    }
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
-	public String getType()
-	{
-		return _C__24_REQUESTJOINPLEDGE;
-	}
+    /**
+     * @see net.sf.l2j.gameserver.BasePacket#getType()
+     */
+    @Override
+    public String getType()
+    {
+        return _C__D0_1C_REQUESTPLEDGESETMEMBERPOWERGRADE;
+    }
+    
 }

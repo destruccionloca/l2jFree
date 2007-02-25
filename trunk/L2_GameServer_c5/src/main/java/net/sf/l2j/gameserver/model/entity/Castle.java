@@ -991,17 +991,17 @@ public class Castle
         if (_formerOwner != null )
         {
             if (_formerOwner != ClanTable.getInstance().getClan(getOwnerId()))
-                _formerOwner.setReputationScore(_formerOwner.getReputationScore()-2000);
+                _formerOwner.setReputationScore(_formerOwner.getReputationScore()-2000, true);
             else
             {
-                _formerOwner.setReputationScore(_formerOwner.getReputationScore()+500);
+                _formerOwner.setReputationScore(_formerOwner.getReputationScore()+500, true);
             }
         }
         else 
         {
 
             L2Clan owner = ClanTable.getInstance().getClan(getOwnerId());
-            owner.setReputationScore(owner.getReputationScore()+1000);
+            owner.setReputationScore(owner.getReputationScore()+1000, true);
         }
     }
 }

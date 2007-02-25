@@ -535,8 +535,26 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
         UserInfo ui = new UserInfo(player);
         player.sendPacket(ui);*/
+        
+        SystemMessage sm; 
+        if (pledgeType == L2Clan.SUBUNIT_ACADEMY)
+        {
+           sm = new SystemMessage(SystemMessage.THE_S1S_CLAN_ACADEMY_HAS_BEEN_CREATED);
+           sm.addString(player.getClan().getName());
+        }
+        else if (pledgeType >= L2Clan.SUBUNIT_KNIGHT1)
+        {
+           sm = new SystemMessage(SystemMessage.THE_KNIGHTS_OF_S1_HAVE_BEEN_CREATED);
+           sm.addString(player.getClan().getName());
+        }
+        else if (pledgeType >= L2Clan.SUBUNIT_ROYAL1)
+        {
+           sm = new SystemMessage(SystemMessage.THE_ROYAL_GUARD_OF_S1_HAVE_BEEN_CREATED);
+           sm.addString(player.getClan().getName());
+        }
+        else 
+           sm = new SystemMessage(SystemMessage.CLAN_CREATED);
 
-        SystemMessage sm = new SystemMessage(SystemMessage.CLAN_CREATED);
         player.sendPacket(sm);
     }
 
@@ -714,23 +732,29 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                 break;
             }
             case 5:
-                if(clan.getReputationScore() >= 10000 && clan.getAllMembersCount() >= 30)
+                if(clan.getReputationScore() >= 10000 && clan.getMembersCount() >= 30)
                 {
-                    clan.setReputationScore(clan.getReputationScore()-10000);
+                    clan.setReputationScore(clan.getReputationScore()-10000, true);
                     increaseClanLevel = true;
                 }
+                break;
+                
             case 6:
-                if(clan.getReputationScore() >= 20000 && clan.getAllMembersCount() >= 80)
+                if(clan.getReputationScore() >= 20000 && clan.getMembersCount() >= 80)
                 {
-                    clan.setReputationScore(clan.getReputationScore()-20000);
+                    clan.setReputationScore(clan.getReputationScore()-20000, true);
                     increaseClanLevel = true;
                 }
+                break;
             case 7:
-                if(clan.getReputationScore() >= 40000 && clan.getAllMembersCount() >= 120)
+                if(clan.getReputationScore() >= 40000 && clan.getMembersCount() >= 120)
                 {
-                    clan.setReputationScore(clan.getReputationScore()-40000);
+                    clan.setReputationScore(clan.getReputationScore()-40000, true);
                     increaseClanLevel = true;
                 }
+                break;
+            default:
+                return;
         }
 
         if (increaseClanLevel)

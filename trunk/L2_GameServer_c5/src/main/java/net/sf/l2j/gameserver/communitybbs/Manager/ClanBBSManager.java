@@ -157,7 +157,7 @@ public class ClanBBSManager extends BaseBBSManager
 				+ cl.getClanId() + "\">" + cl.getName() + "</a></td>");
 			html.append("<td FIXWIDTH=200 align=center>" + cl.getLeaderName() + "</td>");
 			html.append("<td FIXWIDTH=100 align=center>" + cl.getLevel() + "</td>");
-			html.append("<td FIXWIDTH=100 align=center>" + cl.getAllMembersCount() + "</td>");
+            html.append("<td FIXWIDTH=100 align=center>" + cl.getMembersCount() + "</td>");
 			html.append("<td FIXWIDTH=5></td>");
 			html.append("</tr>");
 			html.append("<tr><td height=5></td></tr>");
@@ -291,7 +291,7 @@ public class ClanBBSManager extends BaseBBSManager
 				html.append("<tr><td height=7></td></tr>");
 				html.append("<tr>");
 				html.append("<td fixWIDTH=100 align=left>CLAN MEMBERS</td>");
-				html.append("<td fixWIDTH=195 align=left height=16>" + cl.getAllMembersCount() + "</td>");
+                html.append("<td fixWIDTH=195 align=left height=16>" + cl.getMembersCount() + "</td>");
 				html.append("</tr>");
 				html.append("<tr><td height=7></td></tr>");
 				html.append("<tr>");

@@ -365,7 +365,7 @@ public class Hero
                 player.broadcastPacket(new SocialAction(player.getObjectId(), 16));
                 L2Clan clan = player.getClan();
                 if (clan != null)
-                    clan.setReputationScore(clan.getReputationScore()+1000); //TODO make config for this cuz I just guessed  :>
+                    clan.setReputationScore(clan.getReputationScore()+1000, true);
                 player.setHero(true);
                 skill = SkillTable.getInstance().getInfo(395, 1);
                 player.addSkill(skill);

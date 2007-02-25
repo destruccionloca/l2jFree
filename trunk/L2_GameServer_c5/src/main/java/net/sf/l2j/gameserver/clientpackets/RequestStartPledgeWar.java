@@ -13,10 +13,11 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+
 public class RequestStartPledgeWar extends ClientBasePacket
 {
     private static final String _C__4D_REQUESTSTARTPLEDGEWAR = "[C] 4D RequestStartPledgewar";
-    private final static Log _log = LogFactory.getLog(RequestStartPledgeWar.class.getName());
+    private static final Log _log = LogFactory.getLog(RequestStartPledgeWar.class.getName());
 
     String _pledgeName;
     L2Clan _clan;
@@ -36,7 +37,7 @@ public class RequestStartPledgeWar extends ClientBasePacket
         _clan = getClient().getActiveChar().getClan();
         if (_clan == null) return;
 
-        if (_clan.getLevel() < 3 || _clan.getAllMembersCount() < Config.ALT_CLAN_MEMBERS_FOR_WAR)
+        if (_clan.getLevel() < 3 || _clan.getMembersCount() < Config.ALT_CLAN_MEMBERS_FOR_WAR)
         {
             SystemMessage sm = new SystemMessage(1564);
             player.sendPacket(sm);
@@ -44,7 +45,7 @@ public class RequestStartPledgeWar extends ClientBasePacket
             sm = null;
             return;
         }
-        else if (!((player.getClanPrivileges() & L2Clan.CP_CL_PLEDGE_WAR) == L2Clan.CP_CL_PLEDGE_WAR))
+        else if (!player.isClanLeader())
         {
             player.sendMessage("You can't declare war. You are not clan leader.");
             player.sendPacket(new ActionFailed());
@@ -67,7 +68,7 @@ public class RequestStartPledgeWar extends ClientBasePacket
             return;
         }
         //else if(clan.getLevel() < 3)
-        else if (clan.getLevel() < 3 || clan.getAllMembersCount() < Config.ALT_CLAN_MEMBERS_FOR_WAR)
+        else if (clan.getLevel() < 3 || clan.getMembersCount() < Config.ALT_CLAN_MEMBERS_FOR_WAR)
         {
             SystemMessage sm = new SystemMessage(1564);
             player.sendPacket(sm);

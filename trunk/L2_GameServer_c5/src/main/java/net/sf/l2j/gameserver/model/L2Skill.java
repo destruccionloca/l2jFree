@@ -175,6 +175,7 @@ public abstract class L2Skill
         MUTE,
         RECALL,
         REFLECT,
+        SUMMON_FRIEND,        
         SOULSHOT,
         SPIRITSHOT,
         SPOIL,

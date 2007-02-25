@@ -263,7 +263,7 @@ public class RequestAquireSkill extends ClientBasePacket
             if (_log.isDebugEnabled()) 
                 _log.debug("Learned pledge skill " + _id + " for " + _requiredSp + " SP.");
             
-            player.getClan().setReputationScore(player.getClan().getReputationScore()-repCost);
+            player.getClan().setReputationScore(player.getClan().getReputationScore()-repCost, true);
             
             SystemMessage sm = new SystemMessage(SystemMessage.LEARNED_SKILL_S1);
             sm.addSkillName(_id);

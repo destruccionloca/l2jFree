@@ -18,66 +18,54 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.L2Clan;
 
 /**
- * This class ...
+ * @author -Wooden-
  * 
- * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/03/27 15:29:39 $
  */
 public class PledgeShowMemberListUpdate extends ServerBasePacket
 {
-	private static final String _S__6A_PLEDGESHOWMEMBERLISTUPDATE = "[S] 54 PledgeShowMemberListUpdate";
-    private String _name;
-    private int _lvl;
-    private int _classId;
-    private int _isOnline;
-    private int _objectId;
+    private static final String _S__54_PLEDGESHOWMEMBERLISTUPDATE = "[S] 54 PledgeShowMemberListUpdate";
+    private L2PcInstance _player;
     private int _pledgeType;
-	
-	public PledgeShowMemberListUpdate(L2PcInstance player)
-	{
-        _name = player.getName();
-        _lvl = player.getLevel();
-        _classId = player.getClassId().getId();
-        _isOnline = (player.isOnline() == 1 ? player.getObjectId() : 0);
-        _objectId = player.getObjectId();
-        _pledgeType = player.getPledgeType();
-	}
+    private int _hasSponsor;
     
-    public PledgeShowMemberListUpdate(L2ClanMember cm)
+    public PledgeShowMemberListUpdate(L2PcInstance player)
     {
-        _name = cm.getName();
-        _lvl = cm.getLevel();
-        _classId = cm.getClassId();
-        _isOnline = (cm.isOnline() ? cm.getPlayerInstance().isOnline() : 0);
+        _player = player;
+        _pledgeType = player.getPledgeType();
+        if (_pledgeType == L2Clan.SUBUNIT_ACADEMY) 
+            _hasSponsor = _player.getSponsor() != 0 ? 1 : 0;
+        else 
+            _hasSponsor = 0;
+    }   
+    
+    final void runImpl()
+    {
+        // no long-running tasks
     }
-	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
-	{
-		writeC(0x54);
-		writeS(_name);
-		writeD(_lvl);
-		writeD(_classId);
-		writeD(0); 
-		writeD(_objectId);
-		writeD(_isOnline); // 1=online 0=offline
+    
+    final void writeImpl()
+    {
+        writeC(0x54);
+        writeS(_player.getName());
+        writeD(_player.getLevel());
+        writeD(_player.getClassId().getId());
+        writeD(0); 
+        writeD(_player.getObjectId());
+        writeD(_player.isOnline()); // 1=online 0=offline
         writeD(_pledgeType);
-        writeD(0x00); // does a clan member have a sponsor
-	}
+        writeD(_hasSponsor); 
+    }
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
-	public String getType()
-	{
-		return _S__6A_PLEDGESHOWMEMBERLISTUPDATE;
-	}
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+     */
+    public String getType()
+    {
+        return _S__54_PLEDGESHOWMEMBERLISTUPDATE;
+    }
 
 }
