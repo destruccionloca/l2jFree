@@ -1308,7 +1308,8 @@ public class L2Clan
                 //_Privs.put(rank, privs);
                 if(_Privs==null)
                     InitializePrivs();
-                _Privs.get(rank).setPrivs(privileges);
+                if(privileges!=0)
+                    _Privs.get(rank).setPrivs(privileges);
             }
             
             rset.close();
