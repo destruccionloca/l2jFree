@@ -6720,3 +6720,10 @@ INSERT INTO `etcitem` (`item_id`,`name`,`crystallizable`,`item_type`,`weight`,`c
  (8675,'NoItemName','false','potion','50','stackable','liquid','none','0','0',0,'true','C5Item','none'),
  (8676,'NoItemName','false','potion','50','stackable','liquid','none','0','0',0,'true','C5Item','none'),
  (8677,'NoItemName','false','potion','50','stackable','liquid','none','0','0',0,'true','C5Item','none');
+ 
+ALTER TABLE etcitem ADD dropable varchar(5) default NULL;
+ALTER TABLE etcitem ADD tradeable varchar(5) default NULL;
+ALTER TABLE etcitem ADD destroyable varchar(5) default NULL;
+
+update etcitem set dropable = 'false', tradeable = 'false' where id = 4425;
+ 

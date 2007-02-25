@@ -1298,6 +1298,10 @@ ALTER TABLE weapon ADD onCrit_skill_id decimal(11,0) NOT NULL default '0';
 ALTER TABLE weapon ADD onCrit_skill_lvl decimal(11,0) NOT NULL default '0';
 ALTER TABLE weapon ADD onCrit_skill_chance decimal(11,0) NOT NULL default '0';
 
+ALTER TABLE weapon ADD dropable varchar(5) default NULL;
+ALTER TABLE weapon ADD tradeable varchar(5) default NULL;
+ALTER TABLE weapon ADD destroyable varchar(5) default NULL;
+
 -- ---------------------------------- +4  passiveskills -----------------------------------------------
  
 -- UPDATE weapon SET enchant4_skill_id = , enchant4_skill_lvl = WHERE item_id = ; --
