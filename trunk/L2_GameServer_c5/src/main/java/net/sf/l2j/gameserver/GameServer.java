@@ -92,6 +92,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMammon;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMenu;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMobGroup;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMonsterRace;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPathNode;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPForge;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPetition;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPledge;
@@ -546,6 +547,7 @@ public class GameServer
         _adminCommandHandler.registerAdminCommandHandler(new AdminCursedWeapons());
         _adminCommandHandler.registerAdminCommandHandler(new AdminGeodata());
         _adminCommandHandler.registerAdminCommandHandler(new AdminGeoEditor()); 
+        _adminCommandHandler.registerAdminCommandHandler(new AdminPathNode());
         _log.info("AdminCommandHandler: Loaded " + _adminCommandHandler.size() + " handlers.");
 
         _userCommandHandler = UserCommandHandler.getInstance();

@@ -1193,6 +1193,11 @@ public final class Formulas
         {
             damage = 0;
         }
+
+        // Dmg bonusses in PvP fight
+        if(attacker instanceof L2PcInstance && target instanceof L2PcInstance)
+            damage *= attacker.calcStat(Stats.PVP_PHYSICAL_DMG, 1, null, null);
+
         if (attacker instanceof L2PcInstance){
            if (((L2PcInstance) attacker).getClassId().isMage())
             damage = damage*Config.ALT_MAGES_PHYSICAL_DAMAGE_MULTI;
@@ -1269,7 +1274,16 @@ public final class Formulas
                 }
             }
         }
-        else if (mcrit) damage *= 2;
+        else if (mcrit) damage *= 2; // TODO: *4 ???
+        
+        // Pvp bonusses for dmg
+        if(attacker instanceof L2PcInstance && target instanceof L2PcInstance)
+        {
+            if(skill.isMagic())
+                damage *= attacker.calcStat(Stats.PVP_MAGICAL_DMG, 1, null, null);
+            else
+                damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
+        }        
 
         if (attacker instanceof L2PcInstance){
            if (((L2PcInstance) attacker).getClassId().isMage())
@@ -1572,6 +1586,9 @@ public final class Formulas
                     //max success
                     if (value > 90) value = 90;
                 }
+                
+                rate *= (100 - player.calcStat(Stats.CANCEL_RES, 0, target, null))/100; //TODO check this
+                
                 rate = value;
                 //_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
                 break;

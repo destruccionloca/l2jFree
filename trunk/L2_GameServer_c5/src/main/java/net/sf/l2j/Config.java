@@ -616,6 +616,12 @@ public final class Config {
     public static boolean       ALLOW_DISCARDITEM;
     public static boolean       ALLOW_FREIGHT;
     public static boolean       ALLOW_WAREHOUSE;
+    
+    /** Allow warehouse cache? */
+    public static boolean         WAREHOUSE_CACHE;
+    /** How long store WH datas */
+    public static int             WAREHOUSE_CACHE_TIME;
+    
     public static boolean 	    ALLOW_WEAR;
     public static int           WEAR_DELAY;
     public static int           WEAR_PRICE;    
@@ -1153,6 +1159,8 @@ public final class Config {
                 COORD_SYNCHRONIZE               = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));
              
                 ALLOW_WAREHOUSE                 = Boolean.valueOf(optionsSettings.getProperty("AllowWarehouse", "True"));
+                WAREHOUSE_CACHE                 = Boolean.valueOf(optionsSettings.getProperty("WarehouseCache", "False"));
+                WAREHOUSE_CACHE_TIME            = Integer.parseInt(optionsSettings.getProperty("WarehouseCacheTime", "15"));
                 ALLOW_FREIGHT                   = Boolean.valueOf(optionsSettings.getProperty("AllowFreight", "True"));
                 ALLOW_WEAR                      = Boolean.valueOf(optionsSettings.getProperty("AllowWear", "False"));
                 WEAR_DELAY                      = Integer.parseInt(optionsSettings.getProperty("WearDelay", "5"));

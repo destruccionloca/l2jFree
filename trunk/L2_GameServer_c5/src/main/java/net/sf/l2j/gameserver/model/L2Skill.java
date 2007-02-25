@@ -390,6 +390,7 @@ public abstract class L2Skill
     /** Target type of the skill : SELF, PARTY, CLAN, PET... */
     private final SkillTargetType _targetType;
     private final double _power;
+    private final int _effectPoints;
     private final int _levelDepend;
     
     // Effecting area of the skill, in radius.
@@ -487,6 +488,7 @@ public abstract class L2Skill
         
         _targetType   = set.getEnum("target", SkillTargetType.class);
         _power        = set.getFloat("power", 0.f);
+        _effectPoints = set.getInteger("effectPoints", 0);
         _negateStats = set.getString("negateStats", "").split(" ");
         _negatePower = set.getFloat("negatePower", 0.f);
         _negateId = set.getInteger("negateId", 0);
@@ -717,7 +719,10 @@ public abstract class L2Skill
     {
         return _power;
     }
-    
+    public final int getEffectPoints()
+    {
+        return _effectPoints;
+    }    
     public final String[] getNegateStats()
     {
         return _negateStats;
