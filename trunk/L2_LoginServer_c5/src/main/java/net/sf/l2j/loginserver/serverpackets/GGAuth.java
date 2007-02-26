@@ -18,9 +18,8 @@
  */
 package net.sf.l2j.loginserver.serverpackets;
 
-import java.util.logging.Logger;
-
-import net.sf.l2j.Config;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Fromat: d
@@ -29,15 +28,14 @@ import net.sf.l2j.Config;
 public class GGAuth extends ServerBasePacket
 
 {
-    static Logger _log = Logger.getLogger(GGAuth.class.getName());
+    private static final Log    _log = LogFactory.getLog(GGAuth.class.getName());
     public static int SKIP_GG_AUTH_REQUEST = 0x0b;
     
     public GGAuth(int response) 
     {
         writeC(0x0b);
         writeD(response); 
-        if (Config.DEBUG) 
-            _log.warning("Reason " + "Hex: "+(Integer.toHexString(response)));
+        if (_log.isDebugEnabled())_log.debug("Reason " + "Hex: "+(Integer.toHexString(response)));
     }
     
     public byte[] getContent()

@@ -27,18 +27,17 @@
     </description>
 
     <property name="src" location="src/main/java"/>
+    <property name="src.beans" location="src/main/resources/mappings"/>
     <property name="lib" location="lib"/>
     <property name="build" location="build"/>
     <property name="build.classes" location="${build}/classes"/>
+    <property name="build.classes.beans" location="${build.classes}/mappings/"/>	
     <property name="build.dist" location="${build}/dist"/>
     <property name="build.dist.login" location="${build.dist}/login"/>
 
     <path id="classpath">
         <fileset dir="${lib}">
-            <include name="c3p0-0.9.0.4.jar"/>
-        	<include name="mysql-connector-java-3.1.10-bin.jar"/>
-        	<include name="sqljdbc.jar"/>
-        	<include name="javolution.jar"/>
+            <include name="*.jar"/>
         </fileset>
     </path>
 
@@ -65,6 +64,12 @@
             <src path="${src}"/>
             <classpath refid="classpath"/>
         </javac>
+    	
+        <copy todir="${build.classes.beans}">
+              <fileset dir="${src.beans}">
+                  <include name="*.xml"/>
+              </fileset>
+        </copy>    	
     </target>
 
 
@@ -72,7 +77,7 @@
             depends="compile"
             description="Create the jar file">
 
-        <jar destfile="${build.dist.login}/l2j-loginserver.jar">
+        <jar destfile="${build.dist.login}/l2j-loginserver-1.0.0.jar">
             <fileset dir="${build.classes}"/>
             <manifest>
                 <attribute name="Main-Class" value="net.sf.l2j.loginserver.LoginServer"/>
@@ -87,18 +92,12 @@
             description="Build machine executable binary">
 
         <exec dir="." executable="gcj" failifexecutionfails="false" os="linux:Linux:freebsd:FreeBSD" >
-            <arg line="-O3 ${build.dist}/l2j-loginserver.jar  -o ${build.dist}/l2j-loginserver --main=net.sf.l2j.loginserver.LoginServer"/>
+            <arg line="-O3 ${build.dist}/l2j-loginserver-1.0.0.jar  -o ${build.dist}/l2j-loginserver --main=net.sf.l2j.loginserver.LoginServer"/>
         </exec>
     </target>
 
 
     <target name="dist" depends="jar">
-
-	<copy todir="${build}">
-		<fileset dir="${build.dist.login}">
-			<include name="l2j-loginserver.jar"/>
-		</fileset>
-	</copy>
 
     	<copy todir="${build.dist.login}">
 		<fileset dir="${lib}">

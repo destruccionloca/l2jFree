@@ -20,228 +20,80 @@ package net.sf.l2j.loginserver;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.LineNumberReader;
-import java.net.Socket;
-import java.security.GeneralSecurityException;
 import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.L2Registry;
+import net.sf.l2j.loginserver.manager.GameServerManager;
+import net.sf.l2j.loginserver.thread.LoginServerThread;
 import net.sf.l2j.status.Status;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
- * This class ...
+ * Main class for loginserver
  * 
- * @version $Revision: 1.9.4.4 $ $Date: 2005/03/27 15:30:09 $
  */
-public class LoginServer extends FloodProtectedListener
+public class LoginServer
 {
-    private static LoginServer _instance;
-    
-    private String					_externalHostname;
-    private String					_internalHostname;
-    public static Status			statusServer;
-    public static GameServerTable	gameservertable;
-    public LoginController			loginController;
+    private static Log _log = LogFactory.getLog(LoginServer.class);
+    public static Status statusServer;
 
-	private GameServerListener _gslistener;
-
-    public static int PROTOCOL_REV = 0x0102;
-
-    static Logger           _log = Logger.getLogger(LoginServer.class.getName());
-
+    /**
+     * Instantiate loginserver and launch it
+     * Initialize log folder, telnet console and registry
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception
     {
-//      Local Constants
-		final String LOG_FOLDER = "log"; // Name of folder for log file
-		final String LOG_NAME   = "config/log.cfg"; // Name of log file
-		
-		/*** Main ***/
-		// Create log folder
-		File logFolder = new File(LOG_FOLDER); 
-		logFolder.mkdir();
-		
-		// Create input stream for log file -- or store file data into memory
-		InputStream is =  new FileInputStream(new File(LOG_NAME));  
-		LogManager.getLogManager().readConfiguration(is);
-		is.close();
-		
-		// Initialize config and l2 db factory
-		Config.load();
-		L2DatabaseFactory.getInstance();
-		
-		gameservertable = GameServerTable.getInstance();
-        LoginServer server = LoginServer.getInstance();
-        _log.config("Stand Alone LoginServer Listening on port " + Config.PORT_LOGIN);
-        server.start();
-        
-        if ( Config.IS_TELNET_ENABLED ) {
-		    statusServer = new Status();
-		    statusServer.start();
-		}
-		else {
-		    System.out.println("Telnet server is currently disabled.");
-		}
-    }
+        // Local Constants
+        // ----------------
+        final String LOG_FOLDER = "log"; // Name of folder for log file
+        final String LOG_NAME = "./config/logging.properties"; // Name of log file
 
-    public void shutdown(boolean restart)
-    {
-        this.interrupt();
-        _gslistener.interrupt();
-		gameservertable.shutDown();
-		close();
-        if(restart)
+        // Create log folder
+        // ------------------
+        File logFolder = new File(LOG_FOLDER);
+        logFolder.mkdir();
+
+        // Create input stream for log file -- or store file data into memory
+        // ------------------------------------------------------------------
+        InputStream is = new FileInputStream(new File(LOG_NAME));
+        LogManager.getLogManager().readConfiguration(is);
+        is.close();
+
+        // Initialize config 
+        // ------------------
+        Config.load();
+        
+        // Initialize Application context (registry of beans)
+        // ---------------------------------------------------
+        L2Registry.loadRegistry();
+        
+        // o Initialize GameServer Manager
+        // ------------------------------
+        GameServerManager.getInstance();
+
+        // Get instance of loginserver thread
+        // ----------------------------------
+        LoginServerThread server = LoginServerThread.getInstance();
+        _log.info("Stand Alone LoginServer Listening on port " + Config.PORT_LOGIN);
+        server.start();
+
+        // Start status telnet server
+        // --------------------------
+        if (Config.IS_TELNET_ENABLED)
         {
-        	Runtime.getRuntime().exit(2);
+            statusServer = new Status();
+            statusServer.start();
         }
         else
         {
-        	Runtime.getRuntime().exit(0);
+            _log.info("Telnet server is currently disabled.");
         }
     }
 
-    private LoginServer() throws IOException
-    {
-        super(Config.GAME_SERVER_LOGIN_HOST, Config.PORT_LOGIN);
-
-        _externalHostname = Config.EXTERNAL_HOSTNAME;
-        if (_externalHostname == null)
-        {
-            _externalHostname = "localhost";
-        }
-
-        _internalHostname = Config.INTERNAL_HOSTNAME; //"InternalHostname");
-        if (_internalHostname == null)
-        {
-            _internalHostname = "localhost";
-        }
-
-        _log.config("Hostname for external connections is: " + _externalHostname);
-        _log.config("Hostname for internal connections is: " + _internalHostname);
-
-        loginController = LoginController.getInstance();
-        
-        _gslistener = GameServerListener.getInstance();
-        _gslistener.start();
-        
-
-        /*
-         * ArrayList<String> bannedIpList = new ArrayList<String>();
-         * Properties bannedIpFile = new Properties(); try {
-         * bannedIpFile.loadFromXML(getClass().getResourceAsStream(Config.BANNED_IP_XML)); }
-         * catch (InvalidPropertiesFormatException e) { e.printStackTrace(); }
-         * catch (IOException e) { e.printStackTrace(); }
-         * bannedIpFile.setProperty(loginIp, createAccounts);
-         * bannedIpList.toString()
-         */
-        InputStream bannedFile = null;
-        
-        try
-        {
-            bannedFile =  new FileInputStream(new File("config/banned_ip.cfg"));
-            if (bannedFile != null)
-            {
-                int count = 0;
-                InputStreamReader reader = new InputStreamReader(bannedFile);
-                LineNumberReader lnr = new LineNumberReader(reader);
-                String line = null;
-                while ((line = lnr.readLine()) != null)
-                {
-                    line = line.trim();
-                    if (line.length() > 0)
-                    {
-                        count++;
-                        ClientThread.addBannedIP(line);
-                    }
-                }
-
-                _log.info(count + " banned IPs defined");
-            }
-            else
-            {
-                _log.info("banned_ip.cfg not found");
-            }
-
-        }
-        catch (Exception e)
-        {
-            _log.warning("error while reading banned file:" + e);
-        }
-        finally
-        {
-            try { bannedFile.close(); } catch (Exception e) {}
-        }
-    }
-    
-    /**
-     * This returns a unique LoginServer instance (singleton)
-     * This doesnt start the Login in the case of the creation of a new instance
-     * like it used to do.
-     * @throws GeneralSecurityException 
-     */
-    public static LoginServer getInstance()
-    {
-        // If no instances started before, try to start a new one
-        if (_instance == null)
-        {
-            try
-            {
-            	_instance = new LoginServer();
-            }
-            catch (IOException e)
-            {
-                // Throws the exception, if any
-                System.out.println(e.getMessage());
-            }
-        }
-        // Return the actual instance
-        return _instance;
-    }
-    
-    /**
-     * 
-     */
-    public boolean unblockIp(String ipAddress)
-    {
-        if (loginController.ipBlocked(ipAddress))
-        {
-            return true;
-        }
-        return false;
-    }
-    
-    public static class ForeignConnection
-    {
-    	/**
-		 * @param l
-		 */
-		public ForeignConnection(long time)
-		{
-			lastConnection = time;
-			connectionNumber = 1;
-		}
-		public int connectionNumber;
-    	public long lastConnection;
-    }
-
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.loginserver.FloodProtectedListener#addClient(java.net.Socket)
-	 */
-	@Override
-	public void addClient(Socket s)
-	{
-		try
-		{
-			new ClientThread(s);
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 }

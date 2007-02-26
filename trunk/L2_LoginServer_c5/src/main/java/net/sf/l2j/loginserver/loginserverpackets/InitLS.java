@@ -18,8 +18,8 @@
  */
 package net.sf.l2j.loginserver.loginserverpackets;
 
-import net.sf.l2j.loginserver.LoginServer;
 import net.sf.l2j.loginserver.serverpackets.ServerBasePacket;
+import net.sf.l2j.loginserver.thread.LoginServerThread;
 
 /**
  * @author -Wooden-
@@ -36,7 +36,7 @@ public class InitLS extends ServerBasePacket
     public InitLS(byte[] publickey)
     {
     	writeC(0x00);
-    	writeD(LoginServer.PROTOCOL_REV);
+    	writeD(LoginServerThread.PROTOCOL_REV);
     	writeD(publickey.length);
     	writeB(publickey);
     }

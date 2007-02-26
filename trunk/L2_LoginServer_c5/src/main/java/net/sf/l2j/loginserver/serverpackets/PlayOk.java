@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.loginserver.serverpackets;
 
-import net.sf.l2j.loginserver.LoginController.SessionKey;
+import net.sf.l2j.loginserver.beans.SessionKey;
 
 /**
  * <p>This packet tells the client that he can enter the selected gameserver and gives him a part of the session key.</p>

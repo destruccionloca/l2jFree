@@ -20,7 +20,7 @@ package net.sf.l2j.loginserver.loginserverpackets;
 
 import java.io.IOException;
 
-import net.sf.l2j.loginserver.GameServerTable;
+import net.sf.l2j.loginserver.manager.GameServerManager;
 import net.sf.l2j.loginserver.serverpackets.ServerBasePacket;
 
 /**
@@ -37,7 +37,7 @@ public class AuthResponse extends ServerBasePacket
 	{
 		writeC(0x02);
 		writeC(serverID);
-		writeS(GameServerTable.getInstance().serverNames.get(serverID));
+		writeS(GameServerManager.getInstance().getServerName(serverID));
 	}
 
 	/* (non-Javadoc)

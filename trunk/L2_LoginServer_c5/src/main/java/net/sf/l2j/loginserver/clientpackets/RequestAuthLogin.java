@@ -56,8 +56,6 @@ public class RequestAuthLogin
             Cipher rsaCipher = Cipher.getInstance("RSA/ECB/nopadding");
             rsaCipher.init(Cipher.DECRYPT_MODE, _key);
             byte[] decrypted = rsaCipher.doFinal(rawPacket, 0x01, 0x80 );
-            //System.out.println("RSA DECRYPTED");
-            //System.out.println(printData(decrypted, decrypted.length));
             
             _user = new String(decrypted, 0x5E, 14 ).trim();
             _user = _user.toLowerCase();
