@@ -135,6 +135,12 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
     (and modify general threshold to debug)
     
     -->
+    <logger name="org.hibernate" >
+	    <level value="WARN"></level>
+    </logger>
+    <logger name="org.springframework" >
+	    <level value="WARN"></level>
+    </logger>
     <logger name="login" additivity="false" >
         <appender-ref ref="LOGINLOG"/>
     </logger>
