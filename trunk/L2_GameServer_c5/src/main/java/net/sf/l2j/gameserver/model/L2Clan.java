@@ -873,10 +873,8 @@ public class L2Clan
         
         if (newSkill != null)
         {
-            
             // Replace oldSkill by newSkill or Add the newSkill
-            oldSkill = _Skills.put(newSkill.getId(), newSkill);
-            
+            oldSkill = addSkill(newSkill);            
             
             try
             {
@@ -911,41 +909,25 @@ public class L2Clan
             {
                 try { con.close(); } catch (Exception e) {}
             }
-            
-                
-            for (L2ClanMember temp : _members.values())
-            {
-                if (temp.isOnline() && temp.getPlayerInstance()!=null)
-                {
-                    if (newSkill.getMinPledgeClass() <= temp.getPlayerInstance().getPledgeClass())
-                    {
-                        temp.getPlayerInstance().addSkill(newSkill, false); // Skill is not saved to player DB
-                        temp.getPlayerInstance().sendPacket(new PledgeSkillListAdd(newSkill.getId(), newSkill.getLevel()));
-                    }
-                }
-            }
+            // notify clan members
+            addSkillEffects(true);
         }
         
         return oldSkill;
     }
     
     
-    public void addSkillEffects()
+    public void addSkillEffects(boolean notify)
     {
-        for(L2Skill skill : _Skills.values())
+        if(_Skills.size() < 1) return;
+        for (L2ClanMember temp : _members.values())
         {
-            for (L2ClanMember temp : _members.values())
-            {
-                if (temp.isOnline() && temp.getPlayerInstance()!=null)
-                {
-                    if (skill.getMinPledgeClass() <= temp.getPlayerInstance().getPledgeClass())
-                        temp.getPlayerInstance().addSkill(skill, false); // Skill is not saved to player DB
-                }
-            }
+            if (temp.isOnline() && temp.getPlayerInstance()!=null)
+                addSkillEffects(temp.getPlayerInstance(),notify);
         }
     }
     
-    public void addSkillEffects(L2PcInstance cm)
+    public void addSkillEffects(L2PcInstance cm, boolean notify)
     {
         if (cm == null)
             return;
@@ -954,7 +936,10 @@ public class L2Clan
         {
             //TODO add skills according to members class( in ex. don't add Clan Agillity skill's effect to lower class then Baron)
             if (skill.getMinPledgeClass() <= cm.getPledgeClass())
+            {
                 cm.addSkill(skill, false); // Skill is not saved to player DB
+                if(notify) cm.sendPacket(new PledgeSkillListAdd(skill.getId(), skill.getLevel()));
+            }
         }
     }
     

@@ -206,7 +206,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private static final String DELETE_SKILL_SAVE = "DELETE FROM character_skills_save WHERE char_obj_id=? AND class_index=?";
 
     private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,allyId=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,deleteclan=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,banchat_timer=?,newbie=?,nobless=?, pledge_type=?, pledge_rank=?, apprentice=?, sponsor=?, varka_ketra_ally=?, accademy_lvl=?, last_recom_date=? WHERE obj_id=?"; 
-    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, allyId, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, deleteclan, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, Pledge_class, pledge_type, pledge_rank, apprentice, sponsor, accademy_lvl, varka_ketra_ally, last_recom_date FROM characters WHERE obj_id=?";
+    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, allyId, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, deleteclan, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_type, pledge_rank, apprentice, sponsor, accademy_lvl, varka_ketra_ally, last_recom_date FROM characters WHERE obj_id=?";
     private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE char_obj_id=? ORDER BY class_index ASC";
     private static final String ADD_CHAR_SUBCLASS = "INSERT INTO character_subclasses (char_obj_id,class_id,exp,sp,level,class_index) VALUES (?,?,?,?,?,?)";
     private static final String UPDATE_CHAR_SUBCLASS = "UPDATE character_subclasses SET exp=?,sp=?,level=?,class_id=? WHERE char_obj_id=? AND class_index =?";
@@ -310,8 +310,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private boolean _inPvpZone;
    
-    /** L2PcInstance's pledge class (knight, Baron, etc.)*/
-    private int _pledgeClass;
     private int _pledgeType = 0;
     public int tempJoinPledgeType = 0; // temp variable for join requests, TODO better argument passing and remove this
     
@@ -5190,7 +5188,6 @@ public final class L2PcInstance extends L2PlayableInstance
                 CursedWeaponsManager.getInstance().checkPlayer(player);
 
                 player.setNoble(rset.getBoolean("nobless"));
-                player.setPledgeClass(rset.getInt("Pledge_class"));
                 player.setPledgeType(rset.getInt("pledge_type"));
                 player.setRank(rset.getInt("pledge_rank"));
                 player.setLastRecomUpdate(rset.getLong("last_recom_date"));
@@ -5623,7 +5620,6 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(39, getWantsPeace());
             statement.setLong(40, getDeleteClanTime());
             statement.setInt(41, getBaseClass());
-
             statement.setLong(42, totalOnlineTime);
             statement.setInt(43, isInJail() ? 1 : 0);
             statement.setLong(44, getJailTimer());
@@ -5994,13 +5990,7 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.close();
            
             //restore clan skills
-            if (_clan != null)
-            {
-                for(L2Skill skill: _clan.getAllSkills()){
-                    if(skill.getMinPledgeClass() <= getPledgeClass())
-                        addSkill(skill,false);
-                }
-            }
+            if (_clan != null) _clan.addSkillEffects(this,false);
         }
         catch (Exception e)
         {
@@ -7728,15 +7718,146 @@ public final class L2PcInstance extends L2PlayableInstance
         else return 0;
     }
     
-    public void setPledgeClass(int classId)
-    {
-        _pledgeClass = classId;
-    }
+    /**
+     * @param activeChar
+     * @return
+     */
     public int getPledgeClass()
     {
-        return _pledgeClass;
+       int pledgeClass = 0;
+       if (_clan != null)
+       {
+           switch (_clan.getLevel())
+           {
+               case 4:
+                   if (isClanLeader())
+                       pledgeClass = 3;
+                   break;
+               case 5:
+                   if (isClanLeader())
+                       pledgeClass = 4;
+                   else
+                       pledgeClass = 2;
+                   break;
+               case 6:
+                   switch (getPledgeType())
+                   {
+                       case -1:
+                         pledgeClass = 1;
+                         break;
+                       case 100:
+                       case 200:
+                           pledgeClass = 2;
+                           break;
+                       case 0:
+                           if (isClanLeader())
+                               pledgeClass = 5;
+                           else
+                               switch (_clan.getLeaderSubPledge(getName()))
+                               {
+                                   case 100:
+                                   case 200:
+                                       pledgeClass = 4;
+                                       break;
+                                   case -1:
+                                   default:
+                                       pledgeClass = 3;
+                                       break;
+                               }
+                           break;
+                   }
+                   break;
+               case 7:
+                   switch (getPledgeType())
+                   {
+                       case -1:
+                         pledgeClass = 1;
+                         break;
+                       case 100:
+                       case 200:
+                               pledgeClass = 3;
+                           break;
+                       case 1001:
+                       case 1002:
+                       case 2001:
+                       case 2002:
+                               pledgeClass = 2;
+                           break;
+                       case 0:
+                           if (isClanLeader())
+                               pledgeClass = 7;
+                           else
+                               switch (_clan.getLeaderSubPledge(getName()))
+                               {
+                                   case 100:
+                                   case 200:
+                                       pledgeClass = 6;
+                                       break;
+                                   case 1001:
+                                   case 1002:
+                                   case 2001:
+                                   case 2002:
+                                       pledgeClass = 5;
+                                       break;
+                                   case -1:
+                                   default:
+                                       pledgeClass = 4;
+                                       break;
+                               }
+                           break;
+                   }
+                   break;
+               case 8:
+                   switch (getPledgeType())
+                   {
+                       case -1:
+                         pledgeClass = 1;
+                         break;
+                       case 100:
+                       case 200:
+                               pledgeClass = 4;
+                           break;
+                       case 1001:
+                       case 1002:
+                       case 2001:
+                       case 2002:
+                               pledgeClass = 3;
+                           break;
+                       case 0:
+                           if (isClanLeader())
+                               pledgeClass = 8;
+                           else
+                               switch (_clan.getLeaderSubPledge(getName()))
+                               {
+                                   case 100:
+                                   case 200:
+                                       pledgeClass = 7;
+                                       break;
+                                   case 1001:
+                                   case 1002:
+                                   case 2001:
+                                   case 2002:
+                                       pledgeClass = 6;
+                                       break;
+                                   case -1:
+                                   default:
+                                       pledgeClass = 5;
+                                       break;
+                               }
+                           break;
+                   }
+                   break;
+               default:
+                   pledgeClass = 1;
+               break;
+           }
+       }
+       if (pledgeClass < 5 && isNoble())
+           pledgeClass = 5;
+       else if (isHero())
+           pledgeClass = 8;
+       return pledgeClass;
     }
-    
     public void setPledgeType(int typeId)
     {
         _pledgeType = typeId;
