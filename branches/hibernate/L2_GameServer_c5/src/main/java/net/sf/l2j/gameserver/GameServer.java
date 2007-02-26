@@ -167,6 +167,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.SummonCp;
 import net.sf.l2j.gameserver.handler.skillhandlers.SummonCursedBones;
 import net.sf.l2j.gameserver.handler.skillhandlers.SummonTreasureKey;
+import net.sf.l2j.gameserver.handler.skillhandlers.SummonFriend;
 import net.sf.l2j.gameserver.handler.skillhandlers.Sweep;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.handler.skillhandlers.Unlock;
@@ -487,6 +488,7 @@ public class GameServer
         _skillHandler.registerSkillHandler(new SummonCursedBones());
         _skillHandler.registerSkillHandler(new SummonTreasureKey());
         _skillHandler.registerSkillHandler(new StrSiegeAssault());
+        _skillHandler.registerSkillHandler(new SummonFriend());
         _log.info("SkillHandler: Loaded " + _skillHandler.size() + " handlers.");
 
         _adminCommandHandler = AdminCommandHandler.getInstance();

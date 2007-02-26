@@ -91,6 +91,7 @@ public class PledgeShowMemberListAll extends ServerBasePacket
         {
             activeChar.sendPacket(new PledgeReceiveSubPledgeCreated(subPledge[i]));
         }
+        /*
         _subMembers = _clan.getSubMembers();
         for (L2ClanMember m : _subMembers)
         {
@@ -98,7 +99,7 @@ public class PledgeShowMemberListAll extends ServerBasePacket
                 activeChar.sendPacket(new PledgeShowMemberListAdd(m, 1));
             else
                 activeChar.sendPacket(new PledgeShowMemberListAdd(m));
-        }
+        }*/
     }
     
     final void runImpl()

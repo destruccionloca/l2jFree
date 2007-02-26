@@ -161,9 +161,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             
             // Check if player is an ally //TODO! [Nemesiss] it should be rather boolean or smth like that
             // Comparing String isnt good idea!
-            if (me.getFactionId() == "varka" && ((L2PcInstance)target).getVarka()==1)
+            if (me.getFactionId() == "varka" && ((L2PcInstance)target).isAlliedWithVarka())
                 return false;
-            if (me.getFactionId() == "ketra" && ((L2PcInstance)target).getKetra()==1)
+            if (me.getFactionId() == "ketra" && ((L2PcInstance)target).isAlliedWithKetra())
                 return false;
         }
         

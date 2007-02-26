@@ -113,7 +113,7 @@ public class RequestAnswerJoinPledge extends ClientBasePacket
 		        activeChar.setDeleteClanTime(0);
                 
                 showPledgeSkillList(activeChar);
-                clan.addSkillEffects(activeChar);
+                clan.addSkillEffects(activeChar,false);
 		    } 
             else 
             {

@@ -25,7 +25,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -206,8 +205,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private static final String RESTORE_SKILL_SAVE = "SELECT skill_id,skill_level,effect_count,effect_cur_time, reuse_delay FROM character_skills_save WHERE char_obj_id=? AND class_index=? AND restore_type=?";
     private static final String DELETE_SKILL_SAVE = "DELETE FROM character_skills_save WHERE char_obj_id=? AND class_index=?";
 
-    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,allyId=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,deleteclan=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,banchat_timer=?,newbie=?,nobless=?,varka=?,ketra=?,pledge_type=?, pledge_rank=?, apprentice=?, accademy_lvl=? WHERE obj_id=?"; 
-    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, allyId, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, deleteclan, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, varka, ketra, Pledge_class, pledge_type, pledge_rank, apprentice, accademy_lvl FROM characters WHERE obj_id=?";
+    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,allyId=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,deleteclan=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,banchat_timer=?,newbie=?,nobless=?, pledge_type=?, pledge_rank=?, apprentice=?, sponsor=?, varka_ketra_ally=?, accademy_lvl=?, last_recom_date=? WHERE obj_id=?"; 
+    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, allyId, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, deleteclan, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_type, pledge_rank, apprentice, sponsor, accademy_lvl, varka_ketra_ally, last_recom_date FROM characters WHERE obj_id=?";
     private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE char_obj_id=? ORDER BY class_index ASC";
     private static final String ADD_CHAR_SUBCLASS = "INSERT INTO character_subclasses (char_obj_id,class_id,exp,sp,level,class_index) VALUES (?,?,?,?,?,?)";
     private static final String UPDATE_CHAR_SUBCLASS = "UPDATE character_subclasses SET exp=?,sp=?,level=?,class_id=? WHERE char_obj_id=? AND class_index =?";
@@ -311,16 +310,11 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private boolean _inPvpZone;
    
-    /** L2PcInstance's pledge class (knight, Baron, etc.)*/
-    private int _pledgeClass;
     private int _pledgeType = 0;
     public int tempJoinPledgeType = 0; // temp variable for join requests, TODO better argument passing and remove this
     
     /** L2PcInstance's pledge rank*/
     private int _rank;
-    
-    /** Apprentice's name*/
-    private String _apprentice;
     
     /** Level at which the player joined the clan as an accedemy member*/
     private int _accademyLvl;
@@ -335,6 +329,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /** The number of recommandation that the L2PcInstance can give */
     private int _recomLeft; // how many recomendations I can give to others
+
+    /** Date when recom points were updated last time */
+    private long _lastRecomUpdate;
 
     /** List with the recomendations that I've give */
     private FastList<Integer> _recomChars = new FastList<Integer>();
@@ -426,6 +423,10 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /** The Clan Leader Flag of the L2PcInstance (True : the L2PcInstance is the leader of the clan) */
     private boolean _clanLeader;
+
+    /** Apprentice and Sponsor IDs */
+    private int _apprentice = 0;
+    private int _sponsor = 0;
 
     private long _deleteClanTime;
 
@@ -568,8 +569,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _olympiadSide = -1;
 
     /** ally with ketra or varka related vars*/
-    private int _varka = 0;
-    private int _ketra = 0;
+    private int _alliedVarkaKetra = 0;
 
     /** The list of sub-classes this character has. */
     private FastMap<Integer, SubClass> _subClasses;
@@ -1455,6 +1455,16 @@ public final class L2PcInstance extends L2PlayableInstance
     /**
      * Return the number of recommandation obtained by the L2PcInstance.<BR><BR>
      */
+
+    public long getLastRecomUpdate()
+    {
+        return _lastRecomUpdate;
+    }
+    public void setLastRecomUpdate(long date)
+    {
+        _lastRecomUpdate = date;
+    }
+
     public int getRecomHave()
     {
         return _recomHave;
@@ -1655,12 +1665,15 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void setClassId(int Id)
     {
-        if (getAccademyLvl() != 0 && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third) 
+        
+        if (getLvlJoinedAcademy() != 0 && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third)
         {
-            _clan.setReputationScore(_clan.getReputationScore()+150+(39-getAccademyLvl())*10);
-            setAccademyLvl(0);
+            if(getLvlJoinedAcademy() <= 16) _clan.setReputationScore(_clan.getReputationScore()+400, true);
+            else if(getLvlJoinedAcademy() >= 39) _clan.setReputationScore(_clan.getReputationScore()+170, true); 
+            else _clan.setReputationScore(_clan.getReputationScore()+(400-(getLvlJoinedAcademy()-16)*10), true);
+            setLvlJoinedAcademy(0);
             
-            //oust pledge member from the accademy, cuz he has finished his 2nd class transfer
+            //oust pledge member from the academy, cuz he has finished his 2nd class transfer
             _clan.removeClanMember(this.getName());
             SystemMessage msg = new SystemMessage(SystemMessage.CLAN_MEMBER_S1_EXPELLED);
             msg.addString(this.getName());
@@ -1670,20 +1683,25 @@ public final class L2PcInstance extends L2PlayableInstance
             setClan(null);
             setTitle("");
             sendPacket(new SystemMessage(SystemMessage.CLAN_MEMBERSHIP_TERMINATED));
+            setDeleteClanCurTime();
             
             broadcastUserInfo();
             
             sendPacket(new PledgeShowMemberListDeleteAll());
+            
+            // receive graduation gift
+            getInventory().addItem("Gift",8181,1,this,null); // give academy circlet
+            getInventory().updateDatabase(); // update database
         }
         _activeClass = Id;
         L2PcTemplate t = CharTemplateTable.getInstance().getTemplate(Id);
-
+        
         if (t == null)
         {
-            _log.fatal("Missing template for classId: " + Id);
+            _log.fatal("Missing template for classId: "+Id);
             throw new Error();
         }
-
+        
         // Set the template of the L2PcInstance
         setTemplate(t);
     }
@@ -3757,16 +3775,11 @@ public final class L2PcInstance extends L2PlayableInstance
                         else 
                             Announcements.getInstance().announceToAll(pk.getName()+" has defeated "+this.getName());
                     }
-                    L2Clan killerClan = pk.getClan();
-                    if (pk.getClan() != null && getClan()!= null)
-                    if (killerClan.isAtWarWith(this.getClanId()) && getClan().isAttackedBy(killerClan.getClanId()) && getClan().getReputationScore() > 0)
+                    boolean isKillerPc = (killer instanceof L2PcInstance);
+                    if (isKillerPc && ((L2PcInstance)killer).getClan() != null && getClan() != null && _clan.isAtWarWith(((L2PcInstance) killer).getClanId()) && ((L2PcInstance)killer).getClan().isAtWarWith(_clan.getClanId()))
                     {
-                        if(getLevel() > 4 && getLevel()-pk.getLevel() > -10 && _clan.getReputationScore() > 0)
-                        {
-                            int score = _clan.getReputationScore()*getLevel()*(getLevel()-pk.getLevel()+10)/60000;
-                            _clan.setReputationScore(_clan.getReputationScore()-score);
-                            killerClan.setReputationScore(killerClan.getReputationScore()+score);
-                        }
+                        ((L2PcInstance) killer).getClan().setReputationScore(((L2PcInstance) killer).getClan().getReputationScore()+2, true);
+                        _clan.setReputationScore(_clan.getReputationScore()-2, true);
                     }
                 }
             }
@@ -4539,7 +4552,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public void setClan(L2Clan clan)
     {
         _clan = clan;
-
+        
         if (clan == null)
         {
             _clanId = 0;
@@ -4547,21 +4560,18 @@ public final class L2PcInstance extends L2PlayableInstance
             _clanPrivileges = 0;
             return;
         }
-
-        if (!(clan.isMember(getName()) || clan.isSubMember(getName())))
+        
+        if (!clan.isMember(getName()))
         {
             // char has been kicked from clan
             setClan(null);
             setTitle("");
             return;
         }
-
+        
         _clanId = clan.getClanId();
         _clanLeader = getObjectId() == clan.getLeaderId();
         setTitle("");
-        if (_log.isDebugEnabled())
-        _log.warn("clan Id succesfuly set: "+_clanId);
-
     }
 
     /**
@@ -4979,8 +4989,8 @@ public final class L2PcInstance extends L2PlayableInstance
                 + "movement_multiplier,attack_speed_multiplier,colRad,colHeight,"
                 + "exp,sp,karma,pvpkills,pkkills,clanid,maxload,race,classid,deletetime,"
                 + "cancraft,title,allyId,accesslevel,online,isin7sdungeon,clan_privs,wantspeace,deleteclan,"
-                + "base_class,newbie,nobless) "
-                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                + "base_class,newbie,nobless,pledge_rank,last_recom_date) "
+                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             statement.setString(1, _accountName);
             statement.setInt(2, getObjectId());
             statement.setString(3, getName());
@@ -5038,6 +5048,8 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(55, getBaseClass());
             statement.setInt(56, isNewbie() ? 1 : 0);
 			statement.setInt(57, isNoble() ? 1 :0);
+            statement.setLong(58, 0);
+            statement.setLong(59,System.currentTimeMillis());
             statement.executeUpdate();
             statement.close();
         }
@@ -5176,22 +5188,30 @@ public final class L2PcInstance extends L2PlayableInstance
                 CursedWeaponsManager.getInstance().checkPlayer(player);
 
                 player.setNoble(rset.getBoolean("nobless"));
-                player.setVarka(rset.getInt("varka"));
-                player.setKetra(rset.getInt("ketra"));
-                player.setPledgeClass(rset.getInt("Pledge_class"));
                 player.setPledgeType(rset.getInt("pledge_type"));
                 player.setRank(rset.getInt("pledge_rank"));
-                player.setApprentice(rset.getString("apprentice"));
+                player.setLastRecomUpdate(rset.getLong("last_recom_date"));
+                player.setApprentice(rset.getInt("apprentice"));
+                player.setSponsor(rset.getInt("sponsor"));
                 if (player.getClan()!=null)
                 {
                     if (player.getClan().getLeaderId() != player.getObjectId())
-                        player.setClanPrivileges(player.getClan().getRankPrivs(player.getRank()));
+                    {
+                        if(player.getPowerGrade() == 0) {
+                            player.setPowerGrade(5);
+                        }
+                        player.setClanPrivileges(player.getClan().getRankPrivs(player.getPowerGrade()));
+                    }
                     else 
+                    {
                         player.setClanPrivileges(L2Clan.CP_ALL);
+                        player.setPowerGrade(1);
+                    }
                 }
                 else player.setClanPrivileges(L2Clan.CP_NOTHING);
                 
                 player.setAccademyLvl(rset.getInt("accademy_lvl"));
+                player.setAllianceWithVarkaKetra(rset.getInt("varka_ketra_ally"));
                 
                 // Add the L2PcInstance object in _allObjects
                 // L2World.getInstance().storeObject(player);
@@ -5600,21 +5620,20 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(39, getWantsPeace());
             statement.setLong(40, getDeleteClanTime());
             statement.setInt(41, getBaseClass());
-
             statement.setLong(42, totalOnlineTime);
             statement.setInt(43, isInJail() ? 1 : 0);
             statement.setLong(44, getJailTimer());
             statement.setLong(45, getBanChatTimer());
             statement.setInt(46, isNewbie() ? 1 : 0);
             statement.setInt(47, isNoble() ? 1 : 0);
-            statement.setInt(48, getVarka());
-            statement.setInt(49, getKetra());
-            statement.setInt(50, getPledgeType());
-            statement.setInt(51, getRank());
-            statement.setString(52, getApprentice());
+            statement.setInt(48, getPledgeType());
+            statement.setInt(49, getRank());
+            statement.setLong(50,getApprentice());
+            statement.setLong(51,getSponsor());
+            statement.setInt(52, getAllianceWithVarkaKetra());
             statement.setInt(53, getAccademyLvl());
-            statement.setInt(54, getObjectId());
-
+            statement.setLong(54,getLastRecomUpdate());
+            statement.setInt(55, getObjectId());
             statement.execute();
             statement.close();
         }
@@ -5971,13 +5990,7 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.close();
            
             //restore clan skills
-            if (_clan != null)
-            {
-                for(L2Skill skill: _clan.getAllSkills()){
-                    if(skill.getMinPledgeClass() <= getPledgeClass())
-                        addSkill(skill,false);
-                }
-            }
+            if (_clan != null) _clan.addSkillEffects(this,false);
         }
         catch (Exception e)
         {
@@ -7704,37 +7717,147 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         else return 0;
     }
-
-    /* varka silenos and ketra orc quests related functions */
-    public void setVarka(int faction)
-    {
-        _varka = faction;
-    }
-
-    public int getVarka()
-    {
-        return _varka;
-    }
-
-    public void setKetra(int faction)
-    {
-        _ketra = faction;
-    }
-
-    public int getKetra()
-    {
-        return _ketra;
-    }
     
-    public void setPledgeClass(int classId)
-    {
-        _pledgeClass = classId;
-    }
+    /**
+     * @param activeChar
+     * @return
+     */
     public int getPledgeClass()
     {
-        return _pledgeClass;
+       int pledgeClass = 0;
+       if (_clan != null)
+       {
+           switch (_clan.getLevel())
+           {
+               case 4:
+                   if (isClanLeader())
+                       pledgeClass = 3;
+                   break;
+               case 5:
+                   if (isClanLeader())
+                       pledgeClass = 4;
+                   else
+                       pledgeClass = 2;
+                   break;
+               case 6:
+                   switch (getPledgeType())
+                   {
+                       case -1:
+                         pledgeClass = 1;
+                         break;
+                       case 100:
+                       case 200:
+                           pledgeClass = 2;
+                           break;
+                       case 0:
+                           if (isClanLeader())
+                               pledgeClass = 5;
+                           else
+                               switch (_clan.getLeaderSubPledge(getName()))
+                               {
+                                   case 100:
+                                   case 200:
+                                       pledgeClass = 4;
+                                       break;
+                                   case -1:
+                                   default:
+                                       pledgeClass = 3;
+                                       break;
+                               }
+                           break;
+                   }
+                   break;
+               case 7:
+                   switch (getPledgeType())
+                   {
+                       case -1:
+                         pledgeClass = 1;
+                         break;
+                       case 100:
+                       case 200:
+                               pledgeClass = 3;
+                           break;
+                       case 1001:
+                       case 1002:
+                       case 2001:
+                       case 2002:
+                               pledgeClass = 2;
+                           break;
+                       case 0:
+                           if (isClanLeader())
+                               pledgeClass = 7;
+                           else
+                               switch (_clan.getLeaderSubPledge(getName()))
+                               {
+                                   case 100:
+                                   case 200:
+                                       pledgeClass = 6;
+                                       break;
+                                   case 1001:
+                                   case 1002:
+                                   case 2001:
+                                   case 2002:
+                                       pledgeClass = 5;
+                                       break;
+                                   case -1:
+                                   default:
+                                       pledgeClass = 4;
+                                       break;
+                               }
+                           break;
+                   }
+                   break;
+               case 8:
+                   switch (getPledgeType())
+                   {
+                       case -1:
+                         pledgeClass = 1;
+                         break;
+                       case 100:
+                       case 200:
+                               pledgeClass = 4;
+                           break;
+                       case 1001:
+                       case 1002:
+                       case 2001:
+                       case 2002:
+                               pledgeClass = 3;
+                           break;
+                       case 0:
+                           if (isClanLeader())
+                               pledgeClass = 8;
+                           else
+                               switch (_clan.getLeaderSubPledge(getName()))
+                               {
+                                   case 100:
+                                   case 200:
+                                       pledgeClass = 7;
+                                       break;
+                                   case 1001:
+                                   case 1002:
+                                   case 2001:
+                                   case 2002:
+                                       pledgeClass = 6;
+                                       break;
+                                   case -1:
+                                   default:
+                                       pledgeClass = 5;
+                                       break;
+                               }
+                           break;
+                   }
+                   break;
+               default:
+                   pledgeClass = 1;
+               break;
+           }
+       }
+       if (pledgeClass < 5 && isNoble())
+           pledgeClass = 5;
+       else if (isHero())
+           pledgeClass = 8;
+       return pledgeClass;
     }
-    
     public void setPledgeType(int typeId)
     {
         _pledgeType = typeId;
@@ -7752,14 +7875,41 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         return _rank;
     }
-    
-    public void setApprentice(String name)
+
+    /**
+     * @return
+     */
+    public int getPowerGrade()
     {
-        _apprentice = name;
+        return _rank;
     }
-    public String getApprentice()
+    
+    /**
+     * @return
+     */
+    public void setPowerGrade(int power)
+    {
+        _rank = power;
+    }
+    
+    public int getApprentice()
     {
         return _apprentice;
+    }
+    
+    public void setApprentice(int apprentice_id)
+    {
+        _apprentice = apprentice_id;
+    }
+
+    public int getSponsor()
+    {
+        return _sponsor;
+    }
+    
+    public void setSponsor(int sponsor_id)
+    {
+        _sponsor = sponsor_id;
     }
     
     public void setAccademyLvl(int lvl)
@@ -7771,6 +7921,16 @@ public final class L2PcInstance extends L2PlayableInstance
         return _accademyLvl;
     }
 
+    public void setLvlJoinedAcademy(int lvl)
+    {
+        _accademyLvl = lvl;
+    }
+        
+    public int getLvlJoinedAcademy()
+    {
+        return _accademyLvl;
+    }
+    
     public void setTeam(int team)
     {
         _team = team;
@@ -7799,6 +7959,27 @@ public final class L2PcInstance extends L2PlayableInstance
     public void setFishing(boolean fishing)
     {
         _fishing = fishing;
+    }
+
+    public void setAllianceWithVarkaKetra(int sideAndLvlOfAlliance)
+    {
+        // [-5,-1] varka, 0 neutral, [1,5] ketra
+        _alliedVarkaKetra = sideAndLvlOfAlliance;
+    }
+    
+    public int getAllianceWithVarkaKetra()
+    {
+        return _alliedVarkaKetra;
+    }
+    
+    public boolean isAlliedWithVarka()
+    {
+        return (_alliedVarkaKetra < 0);
+    }
+    
+    public boolean isAlliedWithKetra()
+    {
+        return (_alliedVarkaKetra > 0);
     }
 
     /**
@@ -8286,47 +8467,51 @@ public final class L2PcInstance extends L2PlayableInstance
     private void checkRecom(int recsHave, int recsLeft)
     {
         Calendar check = Calendar.getInstance();
-        check.setTimeInMillis(_lastAccess);
-        check.add(Calendar.DAY_OF_MONTH, 1);
-
+        check.setTimeInMillis(_lastRecomUpdate);
+        check.add(Calendar.DAY_OF_MONTH,1);
+        
         Calendar min = Calendar.getInstance();
-        min.set(Calendar.HOUR_OF_DAY, 13);
-        min.set(Calendar.MINUTE, 0);
-
-        Calendar max = Calendar.getInstance();
-        max.add(Calendar.DAY_OF_MONTH, 1);
-        max.set(Calendar.HOUR_OF_DAY, 13);
-        max.set(Calendar.MINUTE, 0);
 
         _recomHave = recsHave;
         _recomLeft = recsLeft;
-
-        if (getStat().getLevel() < 10 || !(check.after(min) && check.before(max))) return;
-
+        
+        if (getStat().getLevel() < 10 || check.after(min) )
+            return;
+        
         restartRecom();
     }
-
+    
     public void restartRecom()
     {
         _recomChars.clear();
-
-        if (getStat().getLevel() < 20)
+        
+        if (getStat().getLevel() < 20) 
         {
             _recomLeft = 3;
             _recomHave--;
         }
-        else if (getStat().getLevel() < 40)
+        else if (getStat().getLevel() < 40) 
         {
-            _recomLeft = 3;
+            _recomLeft = 6;
             _recomHave -= 2;
         }
         else
         {
-            _recomLeft = 6;
+            _recomLeft = 9;
             _recomHave -= 3;
         }
-
-        if (_recomHave < 0) _recomHave = 0;
+        
+        if (_recomHave < 0) 
+            _recomHave = 0;
+        
+        Calendar update = Calendar.getInstance();
+         // If we have to update last update time, but it's now before 13, we should set it to yesterday
+        if(update.get(Calendar.HOUR_OF_DAY) < 13)
+        {
+            update.add(Calendar.DAY_OF_MONTH,-1);
+        }
+        update.set(Calendar.HOUR_OF_DAY,13);
+        _lastRecomUpdate = update.getTimeInMillis();
     }
 
     public int getBoatId()
@@ -9754,7 +9939,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private ScheduledFuture _jailTask;
     @SuppressWarnings("unused")
-    private int _powerGrade;
     private int _cursedWeaponEquipedId = 0;
 
     private int _ReviveRequested = 0;

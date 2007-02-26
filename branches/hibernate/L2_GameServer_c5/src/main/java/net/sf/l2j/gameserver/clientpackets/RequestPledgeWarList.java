@@ -1,4 +1,4 @@
- /*
+/*
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
@@ -21,47 +21,52 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.gameserver.ClientThread;
-import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.ManagePledgePower;
-import net.sf.l2j.gameserver.serverpackets.PledgeWarList;
+import net.sf.l2j.gameserver.serverpackets.PledgeReceiveWarList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+/**
+ * Format: (ch) dd
+ * @author  -Wooden-
+ * 
+ */
 public class RequestPledgeWarList extends ClientBasePacket
 {
-    static Log _log = LogFactory.getLog(ManagePledgePower.class.getName());
-    static int _type;
-    private static final String _C__C0_REQUESTPLEDGEPOWER = "[C] C0 RequestPledgeWarList";
-    private int _page;
-    
+    private static final String _C__D0_1E_REQUESTPLEDGEWARLIST = "[C] D0:1E RequestPledgeWarList";
+    private int _unk1;
+    private int _tab;
+    /**
+     * @param buf
+     * @param client
+     */
     public RequestPledgeWarList(ByteBuffer buf, ClientThread client)
     {
         super(buf, client);
-        _page = readD();
-        _type = readD();
-        //_log.warn("plegdepowergradelist send, requested");
+        _unk1 = readD();
+        _tab = readD();
     }
 
+    /**
+     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+     */
+    @Override
     void runImpl()
     {
-        L2PcInstance player = getClient().getActiveChar();
-        L2Clan clan = player.getClan();
-        if (clan != null)
-        {
-            player.sendPacket(new PledgeWarList(clan, _type, _page));
-            //_log.warn("plegdepowergradelist send, privs length: "+privs.length);
-        }
-        
+        System.out.println("C5: RequestPledgeWarList d:"+_unk1);
+        System.out.println("C5: RequestPledgeWarList d:"+_tab);
+        L2PcInstance activeChar = getClient().getActiveChar();
+        if(activeChar == null)
+            return;
+        //do we need powers to do that??
+        activeChar.sendPacket(new PledgeReceiveWarList(activeChar.getClan()));
     }
-    
-    
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+
+    /**
+     * @see net.sf.l2j.gameserver.BasePacket#getType()
      */
+    @Override
     public String getType()
     {
-        return _C__C0_REQUESTPLEDGEPOWER;
+        return _C__D0_1E_REQUESTPLEDGEWARLIST;
     }
+    
 }
