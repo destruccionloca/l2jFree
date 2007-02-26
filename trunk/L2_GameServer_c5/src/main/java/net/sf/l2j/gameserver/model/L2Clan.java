@@ -25,7 +25,6 @@ import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.communitybbs.BB.Forum;
 import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
@@ -130,7 +129,6 @@ public class L2Clan
     public L2Clan(int clanId)
     {
         _clanId = clanId;
-        InitializePrivs();
         restore();
         getWarehouse().restore();
     }
@@ -145,7 +143,6 @@ public class L2Clan
     {
         _clanId = clanId;
         _name = clanName;
-        InitializePrivs();
     }
     
     /**
@@ -405,7 +402,6 @@ public class L2Clan
         List<L2PcInstance> result = new FastList<L2PcInstance>();
         for (L2ClanMember temp : _members.values())
         {
-            //L2ClanMember temp = (L2ClanMember) iter.next();
             if (temp.isOnline() && temp.getPlayerInstance()!=null && !temp.getName().equals(exclude))
             {
                 result.add(temp.getPlayerInstance());
@@ -717,7 +713,6 @@ public class L2Clan
             while(rset.next())
             {
                if(rset.getInt("clan1") == this._clanId) this.setEnemyClan(rset.getInt("clan2"));
-//               if(rset.getInt("clan2") == this._clanId) this.setEnemyClan(rset.getInt("clan1"));
             }
             statement.close();
         }
@@ -1171,7 +1166,6 @@ public class L2Clan
             con = L2DatabaseFactory.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("SELECT sub_pledge_id,name,leader_name FROM clan_subpledges WHERE clan_id=?");
             statement.setInt(1, getClanId());
-            //_log.warning("subPledge restore for ClanId : "+getClanId());
             ResultSet rset = statement.executeQuery();
             
             // Go though the recordset of this SQL query
@@ -1258,7 +1252,6 @@ public class L2Clan
     {
         if (_SubPledges.get(pledgeType) != null)
         {
-            //_log.warning("found sub-unit with id: "+pledgeType);
             switch(pledgeType)
             {
                 case SUBUNIT_ACADEMY:
@@ -1294,7 +1287,6 @@ public class L2Clan
             con = L2DatabaseFactory.getInstance().getConnection();
             PreparedStatement statement = con.prepareStatement("SELECT privilleges,rank,party FROM clan_privs WHERE clan_id=?");
             statement.setInt(1, getClanId());
-            //_log.warning("clanPrivs restore for ClanId : "+getClanId());
             ResultSet rset = statement.executeQuery();
             
             // Go though the recordset of this SQL query
@@ -1303,10 +1295,10 @@ public class L2Clan
                 int rank = rset.getInt("rank");
                 //int party = rset.getInt("party");
                 int privileges = rset.getInt("privilleges");
-                // Create a SubPledge object for each record
-                //RankPrivs privs = new RankPrivs(rank, party, privileges);
-                //_Privs.put(rank, privs);
-                _Privs.get(rank).setPrivs(privileges);
+                if (_Privs.get(rank)!= null)
+                    _Privs.get(rank).setPrivs(privileges);
+                else
+                   _Privs.put(rank, new RankPrivs(rank, 0, privileges));
             }
             
             rset.close();
@@ -1323,17 +1315,6 @@ public class L2Clan
         }
     }
     
-    public void InitializePrivs()
-    {
-        RankPrivs privs;
-        for (int i=1; i < 10; i++) 
-        {
-            privs = new RankPrivs(i, 0, CP_NOTHING);
-            _Privs.put(i, privs);
-        }
-            
-    }
-    
     public int getRankPrivs(int rank)
     {
         if (_Privs.get(rank) != null)
@@ -1347,7 +1328,6 @@ public class L2Clan
             _Privs.get(rank).setPrivs(privs);
         else
            _Privs.put(rank, new RankPrivs(rank, 0, privs));   
-            
             
             java.sql.Connection con = null;
             
