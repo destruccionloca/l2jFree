@@ -25,6 +25,7 @@ import java.sql.ResultSet;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.SevenSignsFestival;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -96,6 +97,10 @@ public class Logout extends ClientBasePacket
             
             if (playerParty != null)
                 player.getParty().broadcastToPartyMembers(SystemMessage.sendString(player.getName() + " has been removed from the upcoming festival."));
+        }
+        if (player.isFlying()) 
+        { 
+           player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
         }
         player.deleteMe();
         notifyFriends(player);
