@@ -113,7 +113,7 @@ public class RequestDestroyItem extends ClientBasePacket
 		}
 
 		int itemId = itemToRemove.getItemId();
-        if (itemToRemove == null || itemToRemove.isWear() || !itemToRemove.isDestroyable() || CursedWeaponsManager.getInstance().isCursed(itemId))
+        if (itemToRemove == null || itemToRemove.isWear() || (!itemToRemove.isDestroyable() && !activeChar.isGM()) || CursedWeaponsManager.getInstance().isCursed(itemId))
 		{
 		    activeChar.sendPacket(new SystemMessage(SystemMessage.CANNOT_DISCARD_THIS_ITEM));
 		    return;
@@ -121,7 +121,7 @@ public class RequestDestroyItem extends ClientBasePacket
         
         if (Config.ALT_STRICT_HERO_SYSTEM)
         {
-            if (itemToRemove.isHeroitem())
+            if (itemToRemove.isHeroitem() && !activeChar.isGM())
             {
                 activeChar.sendPacket(new SystemMessage(SystemMessage.CANNOT_DISCARD_THIS_ITEM));
                 return;
