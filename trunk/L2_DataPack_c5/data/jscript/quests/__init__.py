@@ -217,6 +217,7 @@ __all__ = [
 '626_ADarkTwilight',
 '627_HeartInSearchOfPower',
 '628_HuntGoldenRam',
+'629_CleanUpTheSwampOfScreams',
 '634_InSearchofDimensionalFragments',
 '636_TruthBeyond',
 '637_ThroughOnceMore',

@@ -563,8 +563,12 @@
   <cond msg="You can only use wyvern aegis when flying"><player flying="true"/></cond>
   <for>
     <effect count="1" name="Buff" time="9" val="0" stackOrder="3" stackType="pDefSpec">
-      <add order="0x40" stat="pDef" val="7000"/>
-      <add order="0x40" stat="mDef" val="6000"/>
+      <add order="0x40" stat="pDef" val="7000">
+        <player flying="true"/>
+      </add>
+      <add order="0x40" stat="mDef" val="6000">
+        <player flying="true"/>
+      </add>
     </effect> 
   </for>
 </skill>
