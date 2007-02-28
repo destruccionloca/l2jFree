@@ -3755,19 +3755,31 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 if (pk == null || !pk.isCursedWeaponEquiped())
                 {
-                    if (Config.ALT_GAME_DELEVEL)
-                    {
-                        // Reduce the Experience of the L2PcInstance in function of the calculated Death Penalty
-                        // NOTE: deathPenalty +- Exp will update karma
-                        if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 4)
-                            deathPenalty( (pk != null && this.getClan() != null && pk.getClan() != null && pk.getClan().isAtWarWith(this.getClanId())) );
-                        onDieDropItem(killer); // Check if any item should be dropped
-                    }
-                    else onDieUpdateKarma(); // Update karma if delevel is not allowed
-                }
-                else onDieUpdateKarma(); // Update karma if delevel is not allowed
+                    //if (getKarma() > 0)
+                    onDieDropItem(killer);  // Check if any item should be dropped
                 
-                if(pk != null) {
+                    if (!ArenaManager.getInstance().checkIfInZone(this))
+                    {
+                        boolean isKillerPc = (killer instanceof L2PcInstance);
+                        if (isKillerPc && ((L2PcInstance)killer).getClan() != null && getClan() != null && _clan.isAtWarWith(((L2PcInstance) killer).getClanId()) && ((L2PcInstance)killer).getClan().isAtWarWith(_clan.getClanId()))
+                        {
+                            ((L2PcInstance) killer).getClan().setReputationScore(((L2PcInstance) killer).getClan().getReputationScore()+2, true);
+                            _clan.setReputationScore(_clan.getReputationScore()-2, true);
+                        }
+                        if (Config.ALT_GAME_DELEVEL)
+                        {
+                            // Reduce the Experience of the L2PcInstance in function of the calculated Death Penalty
+                            // NOTE: deathPenalty +- Exp will update karma
+                            if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 4)
+                                deathPenalty((pk != null && this.getClan() != null && pk.getClan() != null && pk.getClan().isAtWarWith(this.getClanId())));
+                        } else
+                        {
+                            onDieUpdateKarma(); // Update karma if delevel is not allowed
+                        }
+                    }
+                }
+                if(pk != null) 
+                {
                     if(Config.ALT_ANNOUNCE_PK && !ZoneManager.getInstance().checkIfInZonePvP(this))
                     {
                         if (getPvpFlag()==0)
