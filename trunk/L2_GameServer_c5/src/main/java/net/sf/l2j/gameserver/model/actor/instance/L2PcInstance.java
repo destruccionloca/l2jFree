@@ -6442,7 +6442,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (getParty() != null && getParty().getPartyMembers().contains(attacker)) return false;
         
         // If attacker belngs to another team, auto attack it
-        if (((L2PcInstance)attacker).isDuelling() == isDuelling())
+        if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).isDuelling() == isDuelling())
             if (((L2PcInstance)attacker).getTeam() != getTeam()) return true;
 
         // Check if the attacker is not in the same clan
