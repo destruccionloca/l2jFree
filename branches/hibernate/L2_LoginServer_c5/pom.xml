@@ -112,7 +112,7 @@
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate</artifactId>
-      <version>3.1rc2</version>
+      <version>3.2.2.ga</version>
     </dependency>
     <dependency>
       <groupId>javolution</groupId>
@@ -152,9 +152,6 @@
         <defaultGoal>assembly:assembly</defaultGoal>
         <finalName>${artifactId}</finalName>
 	    <resources>
-	      <resource>
-	        <directory>config</directory>
-	      </resource>
 		  <resource>
 	        <directory>src/main/resources</directory>
 	      </resource>	      

@@ -37,6 +37,7 @@ import org.dbunit.dataset.xml.FlatDtdDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.hibernate.ObjectDeletedException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
  * Test account DAO
@@ -135,7 +136,7 @@ public class TestGameserversDAOHib extends ADAOTestCase
         try {
             gameserver = dao.getGameserverByServerId(id);
             fail("Gameservers found in database");
-        } catch (ObjectDeletedException dae) {
+        } catch (ObjectRetrievalFailureException dae) {
             assertNotNull(dae);
         }
     }
@@ -162,6 +163,7 @@ public class TestGameserversDAOHib extends ADAOTestCase
        gameserver.setHost("*");
        
        dao.createGameserver(gameserver);
+       dao.getCurrentSession().flush();
        
        assertEquals(1,list.size());
 
@@ -170,6 +172,7 @@ public class TestGameserversDAOHib extends ADAOTestCase
        assertEquals(2,list.size());
        
        dao.removeGameserver(gameserver);
+       dao.getCurrentSession().flush();
 
        list = dao.getAllGameservers();
 
@@ -216,13 +219,15 @@ public class TestGameserversDAOHib extends ADAOTestCase
       listGameserver.add(acc);
       
       dao.createOrUpdateAll(listGameserver);
+      dao.getCurrentSession().flush();
       
       List list = dao.getAllGameservers();
 
       assertEquals(4,list.size());
       
       dao.removeAll(listGameserver);
-
+      dao.getCurrentSession().flush();
+      
       list = dao.getAllGameservers();
 
       assertEquals(1,list.size());

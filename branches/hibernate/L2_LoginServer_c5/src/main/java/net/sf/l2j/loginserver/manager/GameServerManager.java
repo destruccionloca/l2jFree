@@ -163,15 +163,7 @@ public class GameServerManager
             _gameServerList.add(gs);
             previousID = id;
         }
-        _log.info("GameServerTable: Loaded " + listGs.size() + " servers (max id:" + id + ")");
-
-        if (_log.isDebugEnabled())
-        {
-            for (GameServer gs : _gameServerList)
-            {
-                _log.debug(gs.toString());
-            }
-        }
+        _log.info("GameServerManager: Loaded " + listGs.size() + " servers (max id:" + id + ")");
     }
 
     public void setServerReallyDown(int id)

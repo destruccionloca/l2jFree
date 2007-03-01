@@ -9,29 +9,24 @@
 		   dynamic-insert="true"
 		   >
 		   
-        <comment></comment>
         <id name="login" type="string">
             <column name="login" length="45" />
             <generator class="assigned" />
         </id>
         <property name="password" type="string">
             <column name="password" length="45">
-                <comment></comment>
             </column>
         </property>
         <property name="lastactive" type="big_decimal">
             <column name="lastactive" precision="20" scale="0">
-                <comment></comment>
             </column>
         </property>
         <property name="accessLevel" type="java.lang.Integer">
             <column name="access_level">
-                <comment></comment>
             </column>
         </property>
         <property name="lastIp" type="string">
             <column name="lastIP" length="20">
-                <comment></comment>
             </column>
         </property>
     </class>

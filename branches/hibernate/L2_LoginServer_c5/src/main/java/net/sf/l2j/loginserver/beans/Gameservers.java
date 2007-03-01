@@ -10,8 +10,11 @@ public class Gameservers implements java.io.Serializable
 
     // Fields    
 
-    private static final long serialVersionUID = 1L;
-    private String serverName;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2293307012167588040L;
+	private String serverName;
     private int serverId;
     private String hexid;
     private String host;

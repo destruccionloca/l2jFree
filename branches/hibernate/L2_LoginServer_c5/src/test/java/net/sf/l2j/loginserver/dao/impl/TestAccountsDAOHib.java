@@ -26,6 +26,7 @@
 package net.sf.l2j.loginserver.dao.impl;
 
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,7 @@ import org.dbunit.dataset.xml.FlatDtdDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.hibernate.ObjectDeletedException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 
 
@@ -115,7 +117,10 @@ public class TestAccountsDAOHib extends ADAOTestCase
 
         // modify object
         account.setAccessLevel(7);
+        account.setLastactive(new BigDecimal(System.currentTimeMillis()));
+        account.setLastIp("127.0.0.1");
         dao.createOrUpdate(account);
+        dao.getCurrentSession().flush();
 
         // check modification
         account = dao.getAccountById("player1");
@@ -124,7 +129,10 @@ public class TestAccountsDAOHib extends ADAOTestCase
 
         // cancel modification
         account.setAccessLevel(4);
+        account.setLastactive(new BigDecimal(System.currentTimeMillis()));
+        account.setLastIp("127.0.0.1");
         dao.createOrUpdate(account);
+        dao.getCurrentSession().flush();
     }
 
     public void testAddAndRemoveAccounts() throws Exception
@@ -148,7 +156,7 @@ public class TestAccountsDAOHib extends ADAOTestCase
             account = dao.getAccountById("Bill");
             fail("Accounts found in database");
         }
-        catch (ObjectDeletedException dae)
+        catch (ObjectRetrievalFailureException dae)
         {
             assertNotNull(dae);
         }
@@ -182,7 +190,8 @@ public class TestAccountsDAOHib extends ADAOTestCase
         account.setLastIp("127.0.0.4");
 
         dao.createAccount(account);
-
+        dao.getCurrentSession().flush();
+        
         assertEquals(1, list.size());
 
         list = dao.getAllAccounts();
@@ -190,7 +199,8 @@ public class TestAccountsDAOHib extends ADAOTestCase
         assertEquals(2, list.size());
 
         dao.removeAccount(account);
-
+        dao.getCurrentSession().flush();
+        
         list = dao.getAllAccounts();
 
         assertEquals(1, list.size());
@@ -242,13 +252,15 @@ public class TestAccountsDAOHib extends ADAOTestCase
         listAccount.add(acc);
 
         dao.createOrUpdateAll(listAccount);
-
+        dao.getCurrentSession().flush();
+        
         List list = dao.getAllAccounts();
 
         assertEquals(4, list.size());
 
         dao.removeAll(listAccount);
-
+        dao.getCurrentSession().flush();
+        
         list = dao.getAllAccounts();
 
         assertEquals(1, list.size());

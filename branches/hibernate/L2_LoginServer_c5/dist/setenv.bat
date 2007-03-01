@@ -2,7 +2,7 @@ REM Hibernate and associated jars
 SET CLASSPATH=%CLASSPATH%;antlr-2.7.5H3.jar
 SET CLASSPATH=%CLASSPATH%;asm-1.5.3.jar
 SET CLASSPATH=%CLASSPATH%;cglib-2.1_2.jar
-SET CLASSPATH=%CLASSPATH%;hibernate-3.1rc2.jar
+SET CLASSPATH=%CLASSPATH%;hibernate-3.2.2.ga.jar
 SET CLASSPATH=%CLASSPATH%;jta-1.0.1B.jar
 SET CLASSPATH=%CLASSPATH%;commons-collections-2.1.1.jar
 
@@ -10,7 +10,7 @@ SET CLASSPATH=%CLASSPATH%;commons-collections-2.1.1.jar
 
 
 REM for second level cache (hibernate)
-SET CLASSPATH=%CLASSPATH%;ehcache-1.1.jar
+SET CLASSPATH=%CLASSPATH%;ehcache-1.2.3.jar
 
 REM for bean use
 SET CLASSPATH=%CLASSPATH%;commons-beanutils-1.7.0.jar

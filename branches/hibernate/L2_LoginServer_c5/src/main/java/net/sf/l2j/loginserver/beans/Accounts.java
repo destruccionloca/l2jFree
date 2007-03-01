@@ -10,8 +10,11 @@ import java.math.BigDecimal;
 public class Accounts implements java.io.Serializable
 {
 
-    // Fields    
-    private static final long serialVersionUID = 1L;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6410734961032035356L;
+	// Fields    
     private String login;
     private String password;
     private BigDecimal lastactive;

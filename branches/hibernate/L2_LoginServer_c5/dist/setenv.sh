@@ -2,12 +2,12 @@
 CLASSPATH=${CLASSPATH}:antlr-2.7.5H3.jar
 CLASSPATH=${CLASSPATH}:asm-1.5.3.jar
 CLASSPATH=${CLASSPATH}:cglib-2.1_2.jar
-CLASSPATH=${CLASSPATH}:hibernate-3.1rc2.jar
+CLASSPATH=${CLASSPATH}:hibernate-3.2.2.ga.jar
 CLASSPATH=${CLASSPATH}:jta-1.0.1B.jar
 CLASSPATH=${CLASSPATH}:commons-collections-2.1.1.jar
 
 # for second level cache (hibernate)
-CLASSPATH=${CLASSPATH}:ehcache-1.1.jar
+CLASSPATH=${CLASSPATH}:ehcache-1.2.3.jar
 
 # for bean use
 CLASSPATH=${CLASSPATH}:commons-beanutils-1.7.0.jar

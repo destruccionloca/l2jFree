@@ -6,18 +6,31 @@
 <beans>
 	<bean id="dataSource"
 		class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-		<property name="driverClass">
-			<value>com.mysql.jdbc.Driver</value>
-		</property>
-		<property name="jdbcUrl">
-			<value>jdbc:mysql://localhost/l2jdb</value>
-		</property>
-		<property name="user">
-			<value>root</value>
-		</property>
-		<property name="password">
-			<value></value>
-		</property>
+		
+		<!-- Connexion information -->
+		<property name="driverClass"><value>com.mysql.jdbc.Driver</value></property>
+		<property name="jdbcUrl"><value>jdbc:mysql://localhost/l2jdb</value></property>
+		<property name="user"><value>root</value></property>
+		<property name="password"><value></value></property>
+		
+		<!-- parameter for tuning -->
+		<property name="acquireIncrement"><value>5</value></property>
+		<property name="acquireRetryAttempts"><value>0</value></property>
+		<property name="acquireRetryDelay"><value>500</value></property>
+		<property name="idleConnectionTestPeriod"><value>60</value></property>
+		<property name="maxIdleTime"><value>0</value></property>
+		<property name="breakAfterAcquireFailure"><value>false</value></property>
+		<property name="checkoutTimeout"><value>0</value></property>
+
+		<property name="initialPoolSize"><value>3</value></property>		
+        <property name="minPoolSize"><value>1</value></property>
+        <property name="maxPoolSize"><value>20</value></property>
+
+        <property name="maxStatementsPerConnection"><value>100</value></property>
+        <property name="autoCommitOnClose"><value>true</value></property>
+        <property name="automaticTestTable"><value>connection_test_table</value></property>
+        <property name="testConnectionOnCheckin"><value>true</value></property>
+        <property name="numHelperThreads"><value>20</value></property>		
 	</bean>
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -25,13 +38,6 @@
 			<props>
 			   <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 			   <prop key="hibernate.show_sql">false</prop>
-			   <prop key="hibernate.c3p0.min_size">1</prop>
-			   <prop key="hibernate.c3p0.max_size">20</prop>
-			   <prop key="hibernate.c3p0.timeout">0</prop>
-			   <prop key="hibernate.c3p0.max_statement">100</prop>
-			   <prop key="hibernate.c3p0.idle_test_period">60</prop>
-		       <prop key="hibernate.c3p0.acquire_increment">5</prop>
-		       <prop key="hibernate.c3p0.autocommit">false</prop>			   			   			   
 			   <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
 			</props>
 		</property>
@@ -104,8 +110,8 @@
 		</property>
 		<property name="beanNames">
 			<list>
-				<idref local="GameserversDAO" />
-				<idref local="AccountsDAO" />
+				<idref local="GameserversServices" />
+				<idref local="AccountsServices" />
 			</list>
 		</property>
 	</bean>	
