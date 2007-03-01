@@ -943,6 +943,8 @@ public final class Config {
     public static double  PARTY_XP_CUTOFF_PERCENT;
     /** Range of Members to get exp/drops **/
     public static int PARTY_RANGE; 
+    /** Maximum level difference between party members in levels **/
+    public static int MAX_PARTY_LEVEL_DIFFERENCE; 
     
     /** Percent CP is restore on respawn */
     public static double  RESPAWN_RESTORE_CP;
@@ -1414,6 +1416,7 @@ public final class Config {
 	            PARTY_XP_CUTOFF_PERCENT = Double.parseDouble(otherSettings.getProperty("PartyXpCutoffPercent", "3."));
                 PARTY_RANGE             = Integer.parseInt(otherSettings.getProperty("PartyRange", "1000"));
 	            PARTY_XP_CUTOFF_LEVEL   = Integer.parseInt(otherSettings.getProperty("PartyXpCutoffLevel", "30"));
+	            MAX_PARTY_LEVEL_DIFFERENCE = Integer.parseInt(otherSettings.getProperty("PartyMaxLevelDifference", "20"));
 	            
 	            /* Amount of HP, MP, and CP is restored */
 	            RESPAWN_RESTORE_CP = Double.parseDouble(otherSettings.getProperty("RespawnRestoreCP", "0")) / 100;

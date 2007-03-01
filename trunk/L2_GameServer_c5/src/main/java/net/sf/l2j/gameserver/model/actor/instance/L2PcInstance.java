@@ -4738,8 +4738,8 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             // First set the party otherwise this wouldn't be considered
             // as in a party into the L2Character.updateEffectIcons() call.
-            _party = party;
-            party.addPartyMember(this);
+            if (party.addPartyMember(this))
+        	_party = party;
         }
     }
 

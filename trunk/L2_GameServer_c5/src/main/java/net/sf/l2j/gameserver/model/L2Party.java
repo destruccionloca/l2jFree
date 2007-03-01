@@ -227,8 +227,34 @@ public class L2Party {
 	 * adds new member to party
 	 * @param player
 	 */
-	public void addPartyMember(L2PcInstance player) 
+	public boolean addPartyMember(L2PcInstance player) 
     {		
+		if (Config.MAX_PARTY_LEVEL_DIFFERENCE>0)
+		{
+			int _min = _partyLvl;
+			int _max = _partyLvl;
+			
+            boolean invalidMember = false;
+			
+			for (int i = 0; i < getMemberCount(); i++)
+			{
+                int _lvl = getPartyMembers().get(i).getLevel();
+                if (_lvl<_min) _min = _lvl;
+                if (_lvl>_max) _max = _lvl;
+			} 
+			
+			if (player.getLevel()>_max)
+				invalidMember = (player.getLevel() - _min)>Config.MAX_PARTY_LEVEL_DIFFERENCE;
+			if (player.getLevel()<_min)
+				invalidMember = (_max - player.getLevel())>Config.MAX_PARTY_LEVEL_DIFFERENCE;
+
+			if (invalidMember)
+		    {
+			    getPartyMembers().get(0).sendMessage("Level difference too high, you can't invite "+player.getName()+" this party.");
+			    player.sendMessage("Level difference too high, you can't join this party.");
+			    return false;
+		    }
+		}
 		//sends new member party window for all members
 		//we do all actions before adding member to a list, this speeds things up a little
 		PartySmallWindowAll window = new PartySmallWindowAll();
@@ -255,6 +281,8 @@ public class L2Party {
 		//update partySpelled 
 		for(L2PcInstance member : getPartyMembers())
             member.updateEffectIcons(true); // update party icons only
+		
+		return true;
 	}
 	
 	/**
