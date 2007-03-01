@@ -216,9 +216,9 @@ public abstract class AHibernateTestCase extends TestCase
 
 	public abstract String[] getMappings();
 
-	public void setSessions(SessionFactory sessions)
+	public void setSessions(SessionFactory _sessions)
 	{
-		AHibernateTestCase.sessions = sessions;
+		AHibernateTestCase.sessions = _sessions;
 	}
 
 	public SessionFactory getSessions()

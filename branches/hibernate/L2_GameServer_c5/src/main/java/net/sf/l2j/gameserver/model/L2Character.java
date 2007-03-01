@@ -48,7 +48,6 @@ import net.sf.l2j.gameserver.instancemanager.FactionManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
-import net.sf.l2j.gameserver.model.actor.appearance.PcAppearance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
@@ -5086,10 +5085,7 @@ public abstract class L2Character extends L2Object
     {
        if (_disabledSkills == null) _disabledSkills = Collections.synchronizedList(new FastList<Integer>());
        
-       synchronized (_disabledSkills)
-       {
-           _disabledSkills.add(skillId);
-       }
+       _disabledSkills.add(skillId);
     }
 
    /**
@@ -5118,10 +5114,7 @@ public abstract class L2Character extends L2Object
         
         if (_disabledSkills == null) return false;
         
-        synchronized (_disabledSkills)
-        {
-            return _disabledSkills.contains(skillId);
-        }
+        return _disabledSkills.contains(skillId);
     }
     
    /**

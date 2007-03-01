@@ -87,7 +87,7 @@ public class RequestDropItem extends ClientBasePacket
                 || _count == 0 
                 || !activeChar.validateItemManipulation(_objectId, "drop") 
                 || (!Config.ALLOW_DISCARDITEM && !activeChar.isGM()) 
-                || !item.isDropable())
+                || (!item.isDropable() && !activeChar.isGM()))
         {
             activeChar.sendPacket(new SystemMessage(SystemMessage.CANNOT_DISCARD_THIS_ITEM));
             return;

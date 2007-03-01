@@ -86,7 +86,13 @@ public class L2Spawn
 	
 	/** The delay between a L2NpcInstance remove and its re-spawn */
 	private int _respawnDelay;
-	
+
+    /** Minimum delay RaidBoss */
+    private int _respawnMinDelay;
+   
+    /** Maximum delay RaidBoss */
+    private int _respawnMaxDelay;
+
 	/** The generic constructor of L2NpcInstance managed by this L2Spawn */
 	private Constructor _constructor;
 	
@@ -252,7 +258,22 @@ public class L2Spawn
     {
         return _respawnDelay;
     }
-    
+
+    /** 
+     * Return Min RaidBoss Spawn delay.<BR><BR>
+    */
+    public int getRespawnMinDelay()
+    {
+        return _respawnMinDelay;
+    }
+    /** 
+     * Return Max RaidBoss Spawn delay.<BR><BR>
+    */
+    public int getRespawnMaxDelay()
+    {
+        return _respawnMaxDelay;
+    }
+
    /**
     * Return type of spawn.<BR><BR>
     */
@@ -292,7 +313,22 @@ public class L2Spawn
 	{
 		_location = location;
 	}
-	
+
+   /**
+    * Set Minimum Respawn Delay.<BR><BR>
+    */
+   public void setRespawnMinDelay(int date)
+   {
+       _respawnMinDelay = date;
+   }
+   /**
+    * Set Maximum Respawn Delay.<BR><BR>
+    */
+   public void setRespawnMaxDelay(int date)
+   {
+       _respawnMaxDelay = date;
+   }
+
 	/**
 	 * Set the X position of the spwan point.<BR><BR>
 	 */

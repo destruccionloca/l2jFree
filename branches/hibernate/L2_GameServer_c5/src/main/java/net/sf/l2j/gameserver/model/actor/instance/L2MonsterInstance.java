@@ -237,7 +237,10 @@ public class L2MonsterInstance extends L2Attackable
     {
         if (minionMaintainTask != null)
             minionMaintainTask.cancel(true); // doesn't do it?
-        
+
+        if (this instanceof L2RaidBossInstance)
+           DeleteSpawnedMinions();
+
         if (killer instanceof L2PcInstance) 
             if (((L2PcInstance)killer).getStatTrack() != null) 
                 ((L2PcInstance)killer).getStatTrack().increaseMonsterKills(); 
@@ -290,14 +293,7 @@ public class L2MonsterInstance extends L2Attackable
             if (minionMaintainTask != null)
                 minionMaintainTask.cancel(true);
             
-            for (L2MinionInstance minion : getSpawnedMinions())
-            {
-                if (minion == null) continue;
-                minion.deleteMe();
-                
-                getSpawnedMinions().remove(minion);
-            }
-            minionList.clearRespawnList();
+            DeleteSpawnedMinions();
         }
         super.deleteMe();
     }
@@ -336,5 +332,18 @@ public class L2MonsterInstance extends L2Attackable
             }
     
         }
-    } 
+    }
+
+    public void DeleteSpawnedMinions()
+    {
+        for(L2MinionInstance minion : getSpawnedMinions())
+        {
+           if (minion == null) continue;
+           minion.abortAttack();
+           minion.abortCast();
+           minion.deleteMe();
+           getSpawnedMinions().remove(minion);
+        }
+       minionList.clearRespawnList();
+    }
 }

@@ -38,6 +38,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance; 
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -2021,7 +2022,9 @@ public abstract class L2Skill
         case TARGET_AREA_UNDEAD:
         {
             L2Character cha;
-            if (this.getCastRange() >= 0)
+            int radius = getSkillRadius();
+            if (this.getCastRange() >= 0 && (target instanceof L2NpcInstance || target instanceof L2SummonInstance)
+                   && target.isUndead() && !target.isAlikeDead())
             {
                 cha = target;
 
@@ -2031,13 +2034,15 @@ public abstract class L2Skill
             }
             else cha = activeChar;
 
-            int radius = getSkillRadius();
             if (cha != null && cha.getKnownList() != null)
                 for (L2Object obj : cha.getKnownList().getKnownObjects().values())
                 {
                     if (obj == null) continue;
-                    if (!(obj instanceof L2NpcInstance)) continue;
-                    target = (L2NpcInstance) obj;
+                    if (obj instanceof L2NpcInstance)
+                        target = (L2NpcInstance) obj;
+                    else if (obj instanceof L2SummonInstance)
+                        target = (L2SummonInstance) obj;
+                    else continue;
                     
                     if (!GeoData.getInstance().canSeeTarget(activeChar, target))
                         continue;
