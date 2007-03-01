@@ -16,33 +16,41 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.loginserver.loginserverpackets;
-
-import net.sf.l2j.loginserver.LoginServer;
-import net.sf.l2j.loginserver.serverpackets.ServerBasePacket;
+package net.sf.l2j.loginserver;
 
 /**
- * @author -Wooden-
- *
+ * This class ...
+ * 
+ * @version $Revision: 1.2.4.2 $ $Date: 2005/03/27 15:30:09 $
  */
-public class InitLS extends ServerBasePacket
-{
-	// ID 0x00
-	// format
-	// d proto rev
-	// d key size
-	// b key
 
-    public InitLS(byte[] publickey)
-    {
-    	writeC(0x00);
-    	writeD(LoginServer.PROTOCOL_REV);
-    	writeD(publickey.length);
-    	writeB(publickey);
-    }
+public class HackingException extends Exception
+{
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 4050762693478463029L;
+	String _ip;
+    private int _connects;
 	
-	public byte[] getContent()
+	public HackingException(String ip, int connects)
 	{
-		return getBytes();
+		_ip = ip;
+        _connects = connects;
 	}
+
+	/**
+	 * @return
+	 */
+	public String getIP()
+	{
+		return _ip;
+	}
+
+    public int getConnects()
+    {
+        return _connects;
+    }
+    
+
 }

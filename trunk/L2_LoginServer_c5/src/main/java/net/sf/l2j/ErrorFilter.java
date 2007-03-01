@@ -16,33 +16,15 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.loginserver.loginserverpackets;
+package net.sf.l2j;
 
-import net.sf.l2j.loginserver.LoginServer;
-import net.sf.l2j.loginserver.serverpackets.ServerBasePacket;
+import java.util.logging.Filter;
+import java.util.logging.LogRecord;
 
-/**
- * @author -Wooden-
- *
- */
-public class InitLS extends ServerBasePacket
-{
-	// ID 0x00
-	// format
-	// d proto rev
-	// d key size
-	// b key
+public class ErrorFilter implements Filter {
 
-    public InitLS(byte[] publickey)
-    {
-    	writeC(0x00);
-    	writeD(LoginServer.PROTOCOL_REV);
-    	writeD(publickey.length);
-    	writeB(publickey);
-    }
-	
-	public byte[] getContent()
-	{
-		return getBytes();
+	public boolean isLoggable(LogRecord record) {
+		return record.getThrown() != null;
 	}
+
 }

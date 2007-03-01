@@ -18,11 +18,11 @@
  */
 package net.sf.l2j.loginserver.gameserverpackets;
 
-import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
-import net.sf.l2j.loginserver.manager.GameServerManager;
+import java.util.logging.Logger;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import net.sf.l2j.Config;
+import net.sf.l2j.loginserver.GameServerTable;
+import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
 
 /**
  * @author -Wooden-
@@ -30,7 +30,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ServerStatus extends ClientBasePacket
 {
-	private static final Log _log = LogFactory.getLog(ServerStatus.class.getName());
+	protected static Logger _log = Logger.getLogger(ServerStatus.class.getName());
 	
 	public static final String [] statusString = {"Auto", "Good", "Normal", "Full", "Down", "Gm Only"};
 	
@@ -65,45 +65,45 @@ public class ServerStatus extends ClientBasePacket
 			switch(type)
 			{
 				case SERVER_LIST_STATUS:
-					GameServerManager.getInstance().setStatus(value, serverID);
-					if (_log.isDebugEnabled())_log.debug("ServerList Status ("+value+")");
+					GameServerTable.getInstance().setStatus(value, serverID);
+					if (Config.DEBUG)_log.info("ServerList Status ("+value+")");
 					break;
 				case SERVER_LIST_CLOCK:
 					if(value == ON)
 					{
-						GameServerManager.getInstance().setClock(true, serverID);
+						GameServerTable.getInstance().setClock(true, serverID);
 					}
 					else
 					{
-						GameServerManager.getInstance().setClock(false, serverID);
+						GameServerTable.getInstance().setClock(false, serverID);
 					}
-					if (_log.isDebugEnabled())_log.debug("ServerList Clock ("+value+")");
+					if (Config.DEBUG)_log.info("ServerList Clock ("+value+")");
 					break;
 				case SERVER_LIST_SQUARE_BRACKET:
 					if(value == ON)
 					{
-						GameServerManager.getInstance().setBracket(true, serverID);
+						GameServerTable.getInstance().setBracket(true, serverID);
 					}
 					else
 					{
-						GameServerManager.getInstance().setBracket(false, serverID);
+						GameServerTable.getInstance().setBracket(false, serverID);
 					}
-					if (_log.isDebugEnabled())_log.debug("ServerList Bracket ("+value+")");
+					if (Config.DEBUG)_log.info("ServerList Bracket ("+value+")");
 					break;
 				case TEST_SERVER:
 					if(value == ON)
 					{
-						GameServerManager.getInstance().setTestServer(true, serverID);
+						GameServerTable.getInstance().setTestServer(true, serverID);
 					}
 					else
 					{
-						GameServerManager.getInstance().setTestServer(false, serverID);
+						GameServerTable.getInstance().setTestServer(false, serverID);
 					}
-                    if (_log.isDebugEnabled())_log.debug("ServerList test server ("+value+")");
+					if (Config.DEBUG)_log.info("ServerList test server ("+value+")");
 					break;
 				case MAX_PLAYERS:
-					GameServerManager.getInstance().setMaxPlayers(value, serverID);
-                    if (_log.isDebugEnabled())_log.debug("ServerMaxPlayer ("+value+")");
+					GameServerTable.getInstance().setMaxPlayers(value, serverID);
+					if (Config.DEBUG)_log.info("ServerMaxPlayer ("+value+")");
 					break;
 			}
 		}

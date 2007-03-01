@@ -18,6 +18,8 @@
  */
 package net.sf.l2j.loginserver.gameserverpackets;
 
+import java.util.logging.Logger;
+
 import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
 
 /**
@@ -35,6 +37,7 @@ import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
  */
 public class GameServerAuth extends ClientBasePacket
 {
+	protected static Logger _log = Logger.getLogger(GameServerAuth.class.getName());
 	private byte[] _hexID;
 	private int _desiredID;
 	private boolean _hostReserved;

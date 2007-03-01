@@ -13,22 +13,23 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Logger;
 
+import net.sf.l2j.Base64;
 import net.sf.l2j.Config;
-import net.sf.l2j.loginserver.beans.Accounts;
-import net.sf.l2j.loginserver.manager.GameServerManager;
-import net.sf.l2j.loginserver.manager.LoginManager;
-import net.sf.l2j.loginserver.thread.LoginServerThread;
-import net.sf.l2j.util.Base64;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.loginserver.GameServerTable;
+import net.sf.l2j.loginserver.LoginController;
+import net.sf.l2j.loginserver.LoginServer;
 
 
 public class LoginStatusThread extends Thread
 {
-    private static final Log _log = LogFactory.getLog(LoginStatusThread.class.getName());
+    private static final Logger _log = Logger.getLogger(LoginStatusThread.class.getName());
     
     private Socket                  _csocket;
     
@@ -160,8 +161,7 @@ public class LoginStatusThread extends Thread
     }
     
     /**
-     * Check that the password is the correct one for this user
-	 * @param password
+	 * @param tmpLine
 	 * @return
 	 */
 	private boolean validPassword(String password)
@@ -195,27 +195,38 @@ public class LoginStatusThread extends Thread
 	}
 
 	/**
-     * check that this user exist
-	 * @param login
+	 * @param tmpLine
 	 * @return
 	 */
 	private boolean validLogin(String login)
 	{
-		if(!LoginManager.getInstance().isGM(login))
-        {
+		if(!LoginController.getInstance().isGM(login))
 			return false;
-        }
-        
-        Accounts acc = LoginManager.getInstance().getAccount(login);
-        if (acc == null)
-        {
-            return false;
-        }
-        else
-        {
-            _pass = acc.getPassword(); 
-            return true;
-        }
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement statement = con.prepareStatement("SELECT password FROM accounts WHERE login=?");
+			statement.setString(1, login);
+			ResultSet rset = statement.executeQuery();
+			if (rset.next())
+			{
+				_pass = rset.getString("password");
+				statement.close();
+				con.close();
+				return true;
+			}
+			statement.close();
+		}
+		catch(SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+		finally
+		{
+			try { con.close(); } catch (Exception e) {}
+		}
+		return false;
 	}
 
 	public void run()
@@ -244,7 +255,7 @@ public class LoginStatusThread extends Thread
                 }
                 else if (_usrCommand.equals("status"))
                 {
-                	for(String str : GameServerManager.getInstance().status())
+                	for(String str : GameServerTable.getInstance().status())
                 	{
                 		_print.println(str);
                 	}
@@ -254,9 +265,9 @@ public class LoginStatusThread extends Thread
                     try
                     {
                         _usrCommand = _usrCommand.substring(8);
-                        if (LoginServerThread.getInstance().unblockIp(_usrCommand))
+                        if (LoginServer.getInstance().unblockIp(_usrCommand))
                         {
-                            _log.warn("IP removed via TELNET by host: " + _csocket.getInetAddress().getHostAddress());
+                            _log.warning("IP removed via TELNET by host: " + _csocket.getInetAddress().getHostAddress());
                             _print.println("The IP " + _usrCommand + " has been removed from the hack protection list!");
                         }
                         else
@@ -271,14 +282,14 @@ public class LoginStatusThread extends Thread
                 }
                 else if (_usrCommand.startsWith("shutdown"))
                 {
-                    LoginServerThread.getInstance().shutdown(false);
+                	LoginServer.getInstance().shutdown(false);
                 	_print.println("Bye Bye!");
     	            _print.flush();
                 	_csocket.close();
                 }
                 else if (_usrCommand.startsWith("restart"))
                 {
-                    LoginServerThread.getInstance().shutdown(true);
+                	LoginServer.getInstance().shutdown(true);
                 	_print.println("Bye Bye!");
     	            _print.flush();
                 	_csocket.close();

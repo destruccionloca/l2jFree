@@ -20,6 +20,8 @@ package net.sf.l2j.loginserver.serverpackets;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import javolution.util.FastList;
@@ -141,8 +143,24 @@ public class ServerList extends ServerBasePacket
 			this.server_id = Server_id;
 		}
 	}
-	
-
+    
+    class ServerComparator implements Comparator<ServerData>
+    {
+        public int compare(ServerData arg0, ServerData arg1)
+        {
+            if (arg0.status == ServerStatus.STATUS_DOWN)
+            {
+                if (arg1.status == ServerStatus.STATUS_DOWN)
+                    return 0;
+                else
+                    return 1;
+            }
+            else if (arg1.status == ServerStatus.STATUS_DOWN)
+                return -1;
+            else
+                return (arg0.currentPlayers - arg1.currentPlayers);
+        }
+    }
 
 	public ServerList() 
 	{
@@ -158,13 +176,13 @@ public class ServerList extends ServerBasePacket
 	{
 		if(!_listDone) // list should only be done once even if there are multiple getContent calls
 		{
+            ServerData[] servers = _servers.toArray(new ServerData[_servers.size()]);
+            Arrays.sort(servers, new ServerComparator());
 			writeC(0x04);
 			writeC(_servers.size());
 			writeC(0x00);
-			for (int i = 0; i < _servers.size(); i++) 
+			for (ServerData server : servers) 
 			{
-				ServerData server = _servers.get(i);
-				
 				writeC(server.server_id+1);	// server id
 				try 
 				{

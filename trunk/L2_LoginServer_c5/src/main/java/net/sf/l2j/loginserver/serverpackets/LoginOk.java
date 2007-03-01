@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.loginserver.serverpackets;
 
-import net.sf.l2j.loginserver.beans.SessionKey;
+import net.sf.l2j.loginserver.LoginController.SessionKey;
 
 /**
  * Format: dddddddd
