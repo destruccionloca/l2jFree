@@ -37,6 +37,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.Location;
+import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 import org.apache.commons.logging.Log;
@@ -111,10 +112,17 @@ public class GeoEngine extends GeoData
     @Override
     public boolean canSeeTarget(L2Object cha, L2Object target)
     {
-        if(cha.getZ() >= target.getZ())
-            return canSeeTarget(cha.getX(),cha.getY(),cha.getZ(),target.getX(),target.getY(),target.getZ());
+        int cha_z = cha.getZ(),target_z = target.getZ();
+
+        if(cha instanceof L2NpcInstance) cha_z += ((L2NpcInstance)cha).getTemplate().collisionHeight;
+        if(target instanceof L2NpcInstance) target_z += ((L2NpcInstance)target).getTemplate().collisionHeight;
+        if(cha instanceof L2PcInstance) cha_z += ((L2PcInstance)cha).getTemplate().collisionHeight;
+        if(target instanceof L2PcInstance) target_z += ((L2PcInstance)target).getTemplate().collisionHeight;
+
+        if(cha_z >= target_z)
+            return canSeeTarget(cha.getX(),cha.getY(),cha_z,target.getX(),target.getY(),target_z);
         else
-            return canSeeTarget(target.getX(),target.getY(),target.getZ(), cha.getX(),cha.getY(),cha.getZ());
+            return canSeeTarget(target.getX(),target.getY(),target_z, cha.getX(),cha.getY(),cha_z);
     }
     /**
      * @see net.sf.l2j.gameserver.GeoData#canSeeTargetDebug(net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, net.sf.l2j.gameserver.model.L2Object)

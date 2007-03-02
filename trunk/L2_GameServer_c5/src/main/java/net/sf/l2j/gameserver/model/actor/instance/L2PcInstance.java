@@ -1693,6 +1693,14 @@ public final class L2PcInstance extends L2PlayableInstance
             getInventory().addItem("Gift",8181,1,this,null); // give academy circlet
             getInventory().updateDatabase(); // update database
         }
+        
+        if(PlayerClass.values()[Id].getLevel() == ClassLevel.Fourth)
+        {
+            // receive Secret Book of Giants or 3rd class change
+            getInventory().addItem("Gift",6622,1,this,null);
+            getInventory().updateDatabase();
+        }
+        
         _activeClass = Id;
         L2PcTemplate t = CharTemplateTable.getInstance().getTemplate(Id);
         
