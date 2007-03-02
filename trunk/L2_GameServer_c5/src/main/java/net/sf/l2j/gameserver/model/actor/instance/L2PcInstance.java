@@ -1683,7 +1683,6 @@ public final class L2PcInstance extends L2PlayableInstance
             setClan(null);
             setTitle("");
             sendPacket(new SystemMessage(SystemMessage.CLAN_MEMBERSHIP_TERMINATED));
-            setDeleteClanCurTime();
             
             broadcastUserInfo();
             
