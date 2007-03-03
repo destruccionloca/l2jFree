@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.text.DateFormat;
+
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -29,10 +30,9 @@ import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.cache.HtmCache;
-import net.sf.l2j.gameserver.datatables.HelperBuffTable;
+import net.sf.l2j.gameserver.datatables.BuffTemplateTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
-import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
@@ -47,7 +47,6 @@ import net.sf.l2j.gameserver.model.L2DropCategory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2PetDataTable;
-import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2World;
@@ -79,7 +78,7 @@ import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
-import net.sf.l2j.gameserver.templates.L2HelperBuff;
+import net.sf.l2j.gameserver.templates.L2BuffTemplate;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
@@ -159,9 +158,7 @@ public class L2NpcInstance extends L2Character
                 _oldSpawn.stopRespawn();
                 SpawnTable.getInstance().deleteSpawn(_oldSpawn, false);
             } 
-            catch (Throwable t) {
-                _log.error(t.getMessage(),t);
-                }
+            catch (Throwable t) {}
             }
         }
         
@@ -1107,17 +1104,9 @@ public class L2NpcInstance extends L2Character
         	     {    
         	     player.sendPacket(new ExQuestInfo());
         	     }
-             else if (command.startsWith("Buffs"))
+             else if (command.startsWith("MakeBuffs"))
                  {
-                     makeBuffs(player);
-                 }
-             else if (command.startsWith("better"))
-                 {
-                     makebetterbuffs(player);
-                 }
-             else if (command.startsWith("highend"))
-                 {
-                     makehighendbuffs(player);
+                     makeBuffs(player,command.substring(9).trim());
                  }
             else if (command.equalsIgnoreCase("exchange"))
                 {
@@ -1129,235 +1118,55 @@ public class L2NpcInstance extends L2Character
         }
     }
 
-    public void makeBuffs(L2PcInstance player)
-    {       
-        if (getNpcId()!=7306) return;
-            int neededmoney = 50000;
-            int currentmoney = player.getAdena();
-            SystemMessage sm;
-            if (neededmoney > currentmoney){
-            sm = new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA);
-            player.sendPacket(sm);
-            return;
-            }
-            if (!player.reduceAdena("Buffs", neededmoney, player.getLastFolkNPC(), true)) return;
-            sm = new SystemMessage(SystemMessage.DISSAPEARED_ADENA);
-            sm.addNumber(neededmoney);
-            InventoryUpdate iu = new InventoryUpdate();
-            iu.addModifiedItem(player.getInventory().getItemByItemId(57));
-            player.sendPacket(iu);
-           
-            int lvl = player.getLevel();
-            L2Skill skill;
-            this.setTarget(player);
-           
-            //windwalk
-            if (lvl > 1){
-                skill = SkillTable.getInstance().getInfo(4322,1);
-                this.doCast(skill);
-            }
-            //shield
-            if (lvl > 1){
-                skill = SkillTable.getInstance().getInfo(4323,1);
-                this.doCast(skill);
-            }
-            if (!player.isMageClass()){
-                //blessofbody
-                if (lvl > 1){
-                    skill = SkillTable.getInstance().getInfo(4324,1);
-                    this.doCast(skill);
-                }
-                //vampirerage
-                if (lvl >= 1){
-                    skill = SkillTable.getInstance().getInfo(4325,1);
-                    this.doCast(skill);
-                }
-                //regeneration
-                if (lvl >= 1){
-                    skill = SkillTable.getInstance().getInfo(4326,1);
-                    this.doCast(skill);
-                }
-                //haste
-                if (lvl >= 1){
-                    skill = SkillTable.getInstance().getInfo(4327,1);
-                    this.doCast(skill);
-                }
-            } else {
-                //blessthesoul
-                if (lvl >= 1){
-                    skill = SkillTable.getInstance().getInfo(4328,1);
-                    this.doCast(skill);
-                }
-                //acumen
-                if (lvl >= 1){
-                    skill = SkillTable.getInstance().getInfo(4329,1);
-                    this.doCast(skill);
-                }
-                //concentration
-                if (lvl >= 1){
-                    skill = SkillTable.getInstance().getInfo(4330,1);
-                    this.doCast(skill);
-                }
-                //empower
-                if (lvl >= 1){
-                    skill = SkillTable.getInstance().getInfo(4331,1);
-                    this.doCast(skill);
-                }
-            }
+    public void makeBuffs(L2PcInstance player, String buffTemplate)
+    {
+        int _templateId = 0;
+        
+        try
+        {
+            _templateId = Integer.parseInt(buffTemplate); 
         }
+        catch (NumberFormatException  e)
+        {
+            _templateId = BuffTemplateTable.getInstance().getTemplateIdByName(buffTemplate);
+        }
+        
+        if (_templateId>0) makeBuffs(player, _templateId);
+    }
+    
+    public void makeBuffs(L2PcInstance player, int _templateId)
+    {
+        if (player == null) return;
+        
+        FastList<L2BuffTemplate> _templateBuffs = new  FastList<L2BuffTemplate>();
+        
+        _templateBuffs = BuffTemplateTable.getInstance().getBuffTemplate(_templateId);
+        
+        if (_templateBuffs == null  || _templateBuffs.size() == 0) return;
 
-    public void makebetterbuffs (L2PcInstance player)
-    {       
-        if (getNpcId()!=7456) return;
-            int neededmoney = 75000;
-            int currentmoney = player.getAdena();
-            SystemMessage sm;
-            if (neededmoney > currentmoney){
-            sm = new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA);
-            player.sendPacket(sm);
-            return;
-            }
-            if (!player.reduceAdena("better", neededmoney, player.getLastFolkNPC(), true)) return;
-            sm = new SystemMessage(SystemMessage.DISSAPEARED_ADENA);
-            sm.addNumber(neededmoney);
-            InventoryUpdate iu = new InventoryUpdate();
-            iu.addModifiedItem(player.getInventory().getItemByItemId(57));
-            player.sendPacket(iu);
-           
-            int lvl = player.getLevel();
-            L2Skill skill;
-            this.setTarget(player);
-           
-            //windwalk
-            if (lvl > 1){
-                skill = SkillTable.getInstance().getInfo(4322,2);
-                this.doCast(skill);
-            }
-            //shield
-            if (lvl > 1){
-                skill = SkillTable.getInstance().getInfo(4323,2);
-                this.doCast(skill);
-            }
-            if (!player.isMageClass()){
-                //blessofbody
-                if (lvl > 1){
-                    skill = SkillTable.getInstance().getInfo(4324,2);
-                    this.doCast(skill);
-                }
-                //vampirerage
-                if (lvl >= 1){
-                    skill = SkillTable.getInstance().getInfo(4325,2);
-                    this.doCast(skill);
-                }
-                //regeneration
-                if (lvl >= 1){
-                    skill = SkillTable.getInstance().getInfo(4326,2);
-                    this.doCast(skill);
-                }
-                //haste
-                if (lvl >= 1){
-                    skill = SkillTable.getInstance().getInfo(4327,2);
-                    this.doCast(skill);
-                }
-            } else {
-                //blessthesoul
-                if (lvl >= 1){
-                    skill = SkillTable.getInstance().getInfo(4328,2);
-                    this.doCast(skill);
-                }
-                //acumen
-                if (lvl >= 1){
-                    skill = SkillTable.getInstance().getInfo(4329,2);
-                    this.doCast(skill);
-                }
-                //concentration
-                if (lvl >= 1){
-                    skill = SkillTable.getInstance().getInfo(4330,2);
-                    this.doCast(skill);
-                }
-                //empower
-                if (lvl >= 1){
-                    skill = SkillTable.getInstance().getInfo(4331,2);
-                    this.doCast(skill);
-                }
-            }
-        }
-      
-    public void makehighendbuffs (L2PcInstance player)
-    {       
-    if (getNpcId()!=7457) return;
-        int neededmoney = 100000;
-        int currentmoney = player.getAdena();
-        SystemMessage sm;
-        if (neededmoney > currentmoney){
-        sm = new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA);
-        player.sendPacket(sm);
-        return;
-        }
-        if (!player.reduceAdena("highend", neededmoney, player.getLastFolkNPC(), true)) return;
-        sm = new SystemMessage(SystemMessage.DISSAPEARED_ADENA);
-        sm.addNumber(neededmoney);
-        InventoryUpdate iu = new InventoryUpdate();
-        iu.addModifiedItem(player.getInventory().getItemByItemId(57));
-        player.sendPacket(iu);
-       
-        int lvl = player.getLevel();
-        L2Skill skill;
         this.setTarget(player);
-       
-        //windwalk
-        if (lvl > 1){
-            skill = SkillTable.getInstance().getInfo(4322,3);
-            this.doCast(skill);
-        }
-        //shield
-        if (lvl > 1){
-            skill = SkillTable.getInstance().getInfo(4323,3);
-            this.doCast(skill);
-        }
-        if (!player.isMageClass()){
-            //blessofbody
-            if (lvl > 1){
-                skill = SkillTable.getInstance().getInfo(4324,3);
-                this.doCast(skill);
-            }
-            //vampirerage
-            if (lvl >= 1){
-                skill = SkillTable.getInstance().getInfo(4325,3);
-                this.doCast(skill);
-            }
-            //regeneration
-            if (lvl >= 1){
-                skill = SkillTable.getInstance().getInfo(4326,3);
-                this.doCast(skill);
-            }
-            //haste
-            if (lvl >= 1){
-                skill = SkillTable.getInstance().getInfo(4327,3);
-                this.doCast(skill);
-            }
-        } else {
-            //blessthesoul
-            if (lvl >= 1){
-                skill = SkillTable.getInstance().getInfo(4328,3);
-                this.doCast(skill);
-            }
-            //acumen
-            if (lvl >= 1){
-                skill = SkillTable.getInstance().getInfo(4329,3);
-                this.doCast(skill);
-            }
-            //concentration
-            if (lvl >= 1){
-                skill = SkillTable.getInstance().getInfo(4330,3);
-                this.doCast(skill);
-            }
-            //empower
-            if (lvl >= 1){
-                skill = SkillTable.getInstance().getInfo(4331,3);
-                this.doCast(skill);
+        
+        int _priceTotal = 0;
+        // TODO: add faction points support
+        for (L2BuffTemplate _buff:_templateBuffs)
+        {
+            if ( _buff.checkPlayer(player) && _buff.checkPrice(player)) 
+            {
+                if (player.getInventory().getAdena() >= (_priceTotal + _buff.getAdenaPrice()))
+                {
+                    _priceTotal+=_buff.getAdenaPrice();
+                
+                    if (_buff.forceCast() || player.getEffect(_buff.getSkill()) == null)
+                    {
+                        if (_buff.getSkill().getSkillType() == SkillType.SUMMON)
+                            player.doCast(_buff.getSkill());
+                        else
+                            this.doCast(_buff.getSkill());
+                    }
+                }
             }
         }
+        player.reduceAdena("Buffs", _priceTotal, player.getLastFolkNPC(), true);
     }
     
     /**
@@ -1955,78 +1764,41 @@ public class L2NpcInstance extends L2Character
      * <li>If player level is out of range, display a message and return </li>
      * <li>According to player level cast buff </li><BR><BR>
      * 
-     * <FONT COLOR=#FF0000><B> Newbie Helper Buff list is define in sql table helper_buff_list</B></FONT><BR><BR>
+     * <FONT COLOR=#FF0000><B> Newbie Helper Buff list is define in buff templates sql table as "SupportMagic"</B></FONT><BR><BR>
      * 
      * @param player The L2PcInstance that talk with the L2NpcInstance
      * 
      */
     public void makeSupportMagic(L2PcInstance player)
     {
-        if (player == null)
-            return;
-        
         // Prevent a cursed weapon weilder of being buffed
         if (player.isCursedWeaponEquiped())
            return;
-        
-        int player_level = player.getLevel();        
-        int lowestLevel;
-        int higestLevel;
-        L2Skill skill;
-        
-        
-        // Select the player
-        this.setTarget(player);
-        
-        
-        // Calculate the min and max level between wich the player must be to obtain buff
-        if(player.isMageClass())
-        {
-            lowestLevel = HelperBuffTable.getInstance().getMagicClassLowestLevel();
-            higestLevel = HelperBuffTable.getInstance().getMagicClassHighestLevel();
-        }
-        else
-        {
-            lowestLevel = HelperBuffTable.getInstance().getPhysicClassLowestLevel();
-            higestLevel = HelperBuffTable.getInstance().getPhysicClassHighestLevel();
-        }
-        
       
+        int _newbieBuffsId = BuffTemplateTable.getInstance().getTemplateIdByName("SupportMagic");
+        
+        if (_newbieBuffsId == 0) return;
+        
+        int _lowestLevel = BuffTemplateTable.getInstance().getLowestLevel(_newbieBuffsId);
+        int _highestLevel = BuffTemplateTable.getInstance().getHighestLevel(_newbieBuffsId);
+        
         // If the player is too high level, display a message and return
-        if (player_level > higestLevel || !player.isNewbie())
+        if ((player.getLevel()>0 && player.getLevel() > _highestLevel) || !player.isNewbie())
         {
-            String content = "<html><body>Newbie Guide:<br>Only a <font color=\"LEVEL\">novice character of level "+ higestLevel +" or less</font> can receive my support magic.<br>Your novice character is the first one that you created and raised in this world.</body></html>";
+            String content = "<html><body>Newbie Guide:<br>Only a <font color=\"LEVEL\">novice character of level "+ _highestLevel +" or less</font> can receive my support magic.<br>Your novice character is the first one that you created and raised in this world.</body></html>";
             insertObjectIdAndShowChatWindow(player, content);
             return;
         }
-        
         
         // If the player is too low level, display a message and return
-        if (player_level < lowestLevel)
+        if (player.getLevel() < _lowestLevel)
         {
-            String content = "<html><body>Come back here when you have reached level "+ lowestLevel +". I will give you support magic then.</body></html>";
+            String content = "<html><body>Come back here when you have reached level "+ _lowestLevel +". I will give you support magic then.</body></html>";
             insertObjectIdAndShowChatWindow(player, content);
             return;
         }
         
-        //L2Skill skill = null;
-        // Go through the Helper Buff list define in sql table helper_buff_list and cast skill
-        for (L2HelperBuff helperBuffItem : HelperBuffTable.getInstance().getHelperBuffTable())
-        {
-           if( helperBuffItem.isMagicClassBuff() == player.isMageClass())
-           {
-              if(player_level>=helperBuffItem.getLowerLevel() && player_level<=helperBuffItem.getUpperLevel())
-              {
-                  skill = SkillTable.getInstance().getInfo(helperBuffItem.getSkillID(),helperBuffItem.getSkillLevel());
-                  if (skill.getSkillType() == SkillType.SUMMON)
-                      player.doCast(skill);
-                  else
-                      this.doCast(skill);
-              }
-           }
-        }
-        
-        
+        makeBuffs(player,_newbieBuffsId);
     }
     
     public void showChatWindow(L2PcInstance player)

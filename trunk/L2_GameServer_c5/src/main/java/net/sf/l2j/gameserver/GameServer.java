@@ -37,7 +37,7 @@ import net.sf.l2j.gameserver.datatables.EventDroplist;
 import net.sf.l2j.gameserver.datatables.ExtractableItemsData;
 import net.sf.l2j.gameserver.datatables.FishTable;
 import net.sf.l2j.gameserver.datatables.GmListTable;
-import net.sf.l2j.gameserver.datatables.HelperBuffTable;
+import net.sf.l2j.gameserver.datatables.BuffTemplateTable;
 import net.sf.l2j.gameserver.datatables.HennaTable;
 import net.sf.l2j.gameserver.datatables.HennaTreeTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
@@ -232,7 +232,6 @@ public class GameServer
     private final AutoChatHandler _autoChatHandler;
     private final AutoSpawnHandler _autoSpawnHandler;
     private LoginServerThread _loginThread;
-    private final HelperBuffTable _helperBuffTable;
     
     public static Status statusServer;
     @SuppressWarnings("unused")
@@ -343,13 +342,8 @@ public class GameServer
            throw new Exception("Could not initialize the Henna Tree Table");
         }
         
-        _helperBuffTable = HelperBuffTable.getInstance();
-        
-        if (!_helperBuffTable.isInitialized())
-        {
-           throw new Exception("Could not initialize the Helper Buff Table");
-        }
-        
+        BuffTemplateTable.getInstance();
+        if ( _log.isDebugEnabled())_log.debug("BuffTemplateTable initialized");
         GeoData.getInstance();
         if ( _log.isDebugEnabled())_log.debug("GeoData initialized");
         TeleportLocationTable.getInstance();
