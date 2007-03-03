@@ -226,6 +226,7 @@ public class L2TradeList
 		return true;
 	}
 	
+/* unused?
 	//Call validate before this
 	public void tradeItems(L2PcInstance player,L2PcInstance reciever)
 	{
@@ -329,6 +330,7 @@ public class L2TradeList
         catch (Exception e) { _log.warn("could not change pet item object id: " + e); }
         finally { try { con.close(); } catch (Exception e) {} }
     }
+*/
     
     public void updateBuyList(L2PcInstance player, FastList<TradeItem> list)
 	{

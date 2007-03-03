@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.geoeditorcon.GeoEditorConnector;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
-import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -45,9 +44,6 @@ public class AdminGeoEditor implements IAdminCommandHandler
             if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) 
             	return false;
         
-		String target = (activeChar.getTarget() != null) ? activeChar.getTarget().getName() : "no-target";
-        GMAudit.auditGMAction(activeChar.getName(), command, target, "");
-
         GeoEditorConnector ge = GeoEditorConnector.getInstance();
         
         if(command.startsWith("admin_geoeditor_connect"))

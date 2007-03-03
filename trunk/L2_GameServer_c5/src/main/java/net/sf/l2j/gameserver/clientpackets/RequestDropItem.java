@@ -196,12 +196,6 @@ public class RequestDropItem extends ClientBasePacket
 
 		activeChar.broadcastUserInfo();
 
-		if (activeChar.isGM())
-		{
-			String target = (activeChar.getTarget() != null?activeChar.getTarget().getName():"no-target");
-			GMAudit.auditGMAction(activeChar.getName(), "drop", target, dropedItem.getItemId() + " - " +dropedItem.getName());
-		}
-
         if (dropedItem.getItemId() == 57 && dropedItem.getCount() >= 1000000)
         {
             String msg = "Character ("+activeChar.getName()+") has dropped ("+dropedItem.getCount()+")adena at ("+_x+","+_y+","+_z+")";

@@ -5,7 +5,6 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
-import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
@@ -61,15 +60,9 @@ public class AdminSendHome implements IAdminCommandHandler {
             obj = activeChar;
         
         if ((obj != null) && (obj instanceof L2Character)) 
-        {
             doSendhome((L2Character)obj);
-            
-            GMAudit.auditGMAction(activeChar.getName(), "admin_sendhome", obj.getName(), "");
-        } 
         else 
-        {
             activeChar.sendMessage("Incorrect target.");
-        }
     }
     
     private void doSendhome(L2Character targetChar)

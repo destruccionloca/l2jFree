@@ -28,7 +28,6 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
-import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -145,9 +144,6 @@ public class AdminBan implements IAdminCommandHandler {
             }            
         }
         
-        if (!"".equals(player))
-            GMAudit.auditGMAction(activeChar.getName(), command, player, "");
-
         return true;
     }
     

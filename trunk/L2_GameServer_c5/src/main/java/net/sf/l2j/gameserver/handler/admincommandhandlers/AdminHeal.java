@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
-import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
@@ -49,7 +48,6 @@ public class AdminHeal implements IAdminCommandHandler {
         {
             if (activeChar.getTarget() instanceof L2Character)
             {
-                GMAudit.auditGMAction(activeChar.getName(), "admin_heal", activeChar.getTarget().getName(), "");
                 handleHeal((L2Character)activeChar.getTarget());
             }
         }
@@ -57,7 +55,6 @@ public class AdminHeal implements IAdminCommandHandler {
             try
             {
                 String val = command.substring(11);
-                GMAudit.auditGMAction(activeChar.getName(), "admin_heal", activeChar.getTarget().getName(), val);
                 
                 try
                 {

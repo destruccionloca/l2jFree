@@ -31,7 +31,9 @@ import java.util.WeakHashMap;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2ManufactureItem;
@@ -49,6 +51,7 @@ import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
+import net.sf.l2j.gameserver.templates.L2Item;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -182,7 +185,7 @@ public class RecipeController
 		
 		if (Config.ALT_GAME_CREATION && (maker = activeMakers.get(manufacturer)) != null) // check if busy
 		{
-			player.sendMessage("Manufacturer is busy, please try later.");
+			player.sendMessage("Manufacturer is busy, please try again later.");
 			return;
 		}
 		
@@ -753,6 +756,14 @@ public class RecipeController
 			int itemId = recipeList.getItemId();
 			int itemCount = recipeList.getCount();
 			
+            if (player.isGM())
+            {
+                // DaDummy: this way we log _every_ gmtransfer with all related info
+                String params = target.getName() + " - " + String.valueOf(itemCount) + " - 0 - " + String.valueOf(itemId) + " - " + ItemTable.getInstance().getTemplate(itemId).getName();
+
+                GMAudit.auditGMAction(player, "transferitem", "PcInventory", params);
+            }
+            
 			L2ItemInstance createdItem = target.getInventory().addItem("Manufacture", itemId, itemCount,
 			                                                           target, player);
 			

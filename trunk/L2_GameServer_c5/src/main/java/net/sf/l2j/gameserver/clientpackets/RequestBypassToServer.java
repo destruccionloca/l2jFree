@@ -26,6 +26,7 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.communitybbs.CommunityBoard;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
+import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
@@ -34,9 +35,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.model.entity.DM;
 import net.sf.l2j.gameserver.model.entity.L2Event;
-import net.sf.l2j.gameserver.script.stat.LeaderboardEngine;
 import net.sf.l2j.gameserver.model.entity.TvT;
 import net.sf.l2j.gameserver.model.entity.VIP;
+import net.sf.l2j.gameserver.script.stat.LeaderboardEngine;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
 import org.apache.commons.logging.Log;
@@ -72,7 +73,7 @@ public class RequestBypassToServer extends ClientBasePacket
             return;
         
         try {
-            if (_command.startsWith("admin_")) //&& activeChar.getAccessLevel() >= Config.GM_ACCESSLEVEL)
+            if (_command.startsWith("admin_"))
             {
                 if (Config.ALT_PRIVILEGES_ADMIN && !AdminCommandHandler.getInstance().checkPrivileges(activeChar, _command))
                 {
@@ -83,7 +84,23 @@ public class RequestBypassToServer extends ClientBasePacket
                 IAdminCommandHandler ach = AdminCommandHandler.getInstance().getAdminCommandHandler(_command);
                 
                 if (ach != null)
+                {
+                    // DaDummy: this way we log _every_ admincommand with all related info
+                    String command;
+                    String params;
+                    
+                    if (_command.indexOf(" ") != -1) {
+                        command = _command.substring(0, _command.indexOf(" "));
+                        params  = _command.substring(_command.indexOf(" "));
+                    } else {
+                        command = _command;
+                        params  = "";
+                    }
+                    
+                    GMAudit.auditGMAction(activeChar, "admincommand", command, params);
+                    
                     ach.useAdminCommand(_command, activeChar);
+                }
                 else
                     _log.warn("No handler registered for bypass '"+_command+"'");
             }

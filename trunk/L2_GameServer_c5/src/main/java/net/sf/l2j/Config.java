@@ -991,7 +991,7 @@ public final class Config {
     public static boolean GM_STARTUP_INVULNERABLE;
     
     public static boolean	BYPASS_VALIDATION;
-    public static boolean GMAUDIT;
+    public static boolean GM_AUDIT;
     
 	public static boolean FLOOD_PROTECTION;
 	public static int FAST_CONNECTION_LIMIT;
@@ -1190,7 +1190,7 @@ public final class Config {
                 LOG_CHAT                        = Boolean.valueOf(optionsSettings.getProperty("LogChat", "false"));
                 LOG_ITEMS                       = Boolean.valueOf(optionsSettings.getProperty("LogItems", "false"));
                              
-                GMAUDIT                         = Boolean.valueOf(optionsSettings.getProperty("GMAudit", "False"));
+                GM_AUDIT                        = Boolean.valueOf(optionsSettings.getProperty("GMAudit", "False"));
 
                 COMMUNITY_TYPE                  = optionsSettings.getProperty("CommunityType", "old").toLowerCase();
                 BBS_DEFAULT                     = optionsSettings.getProperty("BBSDefault", "_bbshome");
@@ -1876,7 +1876,7 @@ public final class Config {
                 GM_STARTUP_AUTO_LIST = Boolean.parseBoolean(gmSettings.getProperty("GMStartupAutoList", "True"));
                 GM_HERO_AURA 	= Boolean.parseBoolean(gmSettings.getProperty("GMHeroAura", "True"));
                 GM_STARTUP_INVULNERABLE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvulnerable", "True"));
-                GMAUDIT 		= Boolean.valueOf(gmSettings.getProperty("GMAudit", "False"));
+                GM_AUDIT 		= Boolean.valueOf(gmSettings.getProperty("GMAudit", "False"));
                 STANDARD_RESPAWN_DELAY = Integer.parseInt(gmSettings.getProperty("StandardRespawnDelay", "0"));
                 
                 String gmTrans = gmSettings.getProperty("GMDisableTransaction", "False");

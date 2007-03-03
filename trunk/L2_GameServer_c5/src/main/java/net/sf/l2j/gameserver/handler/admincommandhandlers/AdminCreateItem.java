@@ -23,7 +23,6 @@ import java.util.StringTokenizer;
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
-import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -89,9 +88,6 @@ public class AdminCreateItem implements IAdminCommandHandler {
 				activeChar.sendPacket(sm);
 			}
 		}
-		
-		String target = (activeChar.getTarget() != null?activeChar.getTarget().getName():"no-target");
-		GMAudit.auditGMAction(activeChar.getName(), command, target, "");
 		
 		return true;
 	}
