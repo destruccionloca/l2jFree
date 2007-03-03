@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS auction_bid;
 DROP TABLE IF EXISTS auction_watch;
 DROP TABLE IF EXISTS boxaccess;
 DROP TABLE IF EXISTS boxes;
+DROP TABLE IF EXISTS buff_templates;
 DROP TABLE IF EXISTS castle;
 DROP TABLE IF EXISTS castle_door;
 DROP TABLE IF EXISTS castle_doorupgrade;

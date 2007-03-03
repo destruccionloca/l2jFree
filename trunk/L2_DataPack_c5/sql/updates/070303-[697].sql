@@ -1,0 +1,1 @@
+DROP TABLE helper_buff_list;
