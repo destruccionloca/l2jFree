@@ -24316,3 +24316,76 @@ INSERT INTO `droplist` VALUES
 (29040,6652,2,6,2,197626), -- Amulet: Protection of Valakas
 (29040,6654,18,54,2,68620), -- Amulet: Flames of Valakas
 (29040,6655,14,42,2,44113); -- Amulet: Slay Valakas
+
+-- Skull of Death: A-Grade --
+INSERT INTO `droplist` VALUES 
+(25035,8160,1,3,5,50000), -- Shilen's Messenger Cabrio Raid Boss lvl 70
+(25220,8160,1,3,5,50000), -- Death Lord Hallate Raid Boss lvl 73
+(25248,8160,1,1,5,50000), -- Doom Blade Tanatos Raid Boss lvl 72
+(25092,8160,1,1,5,50000), -- Korim Raid Boss lvl 70
+(25447,8160,1,1,5,50000), -- Immortal Savior Mardil Raid Boss lvl 71
+(25109,8160,1,3,5,50000), -- Antharas Priest Cloe Raid Boss lvl 74
+(25233,8160,1,1,5,50000), -- Spirit of Andras,the Betrayer Raid Boss lvl 69
+(25337,8160,1,1,5,50000), -- Anakazel Invaders'Leader  Boss lvl 68
+(25235,8160,1,3,5,50000), -- Vanor Chief Kandra Raid Boss lvl 72
+(25328,8160,1,2,5,50000), -- Eilhalder von Hellmann Raid Boss lvl 71
+(25444,8160,1,1,5,50000), -- Enmity Ghost Ramdal Raid Boss lvl 65
+(25051,8160,1,1,5,50000), -- Rahha Raid Boss lvl 65
+(25073,8160,2,3,5,50000), -- Bloody Priest Rudelto Raid Boss lvl 69
+(25281,8160,1,1,5,50000), -- Anakim's Nemesis Zakaron Raid Boss lvl 70
+(25322,8160,1,1,5,50000); -- Demon's Agent Falston Raid Boss lvl 66
+
+-- Dragon's Heart: A-Grade --
+INSERT INTO `droplist` VALUES 
+(25198,8163,1,3,5,50000), -- Fafurion's Herald Lokness Raid Boss lvl 70
+(25453,8163,1,1,5,50000), -- Meanas Anor Raid Boss lvl 70
+(25163,8163,1,3,5,50000); -- Roaring Skylancer Raid Boss lvl 70
+
+-- Egg of Earth: A-Grade --
+INSERT INTO `droplist` VALUES 
+(25252,8166,1,1,5,50000), -- Palibati Queen Themis Raid Boss lvl 70
+(25199,8166,1,1,5,50000), -- Water Dragon Seer Sheshark Raid Boss lvl 72
+(25202,8166,1,3,5,50000), -- Krokian Padisha Sobekk Raid Boss lvl 74
+(25269,8166,1,1,5,50000), -- Beast Lord Behemoth Raid Boss lvl 70
+(25255,8166,1,1,5,50000), -- Gargoyle Lord Tiphon Raid Boss lvl 65
+(25478,8166,1,1,5,50000), -- Shilen's Priest Hisilrome Raid Boss lvl 65
+(25263,8166,1,1,5,50000), -- Kernon's Faithful Servant Kelone Raid Boss lvl 67
+(25226,8166,1,1,5,50000), -- Roaring Lord Kastor Raid Boss lvl 62
+(25125,8166,1,1,5,50000); -- Fierce Tiger King Angel Raid Boss lvl 65
+
+-- False Nucleus of Life: A-Grade --
+INSERT INTO `droplist` VALUES 
+(25523,8169,1,1,5,50000), -- Plague Golem Raid Boss lvl 73
+(25296,8169,1,3,5,50000), -- Icicle Emperor Bumbalump Raid Boss lvl 74
+(25467,8169,1,1,5,50000), -- Gorgolos Raid Boss lvl 64
+(25470,8169,1,1,5,50000), -- Last Titan Utenus Raid Boss lvl 66
+(25140,8169,1,1,5,50000); -- Hekaton Prime Raid Boss lvl 65
+
+-- Angel's Soul: A-Grade --
+INSERT INTO `droplist` VALUES 
+(25325,8172,1,3,5,50000), -- Flame of Splendor Barakiel Raid Boss lvl 70
+(25423,8172,1,1,5,50000); -- Fairy Queen Timiniel Raid Boss lvl 61
+
+-- Destruction Tombstone --
+INSERT INTO `droplist` VALUES 
+(25035,8176,3,9,5,50000), -- Shilen's Messenger Cabrio Raid Boss lvl 70
+(25453,8176,3,9,5,50000), -- Meanas Anor Raid Boss lvl 70
+(25523,8176,3,9,5,50000), -- Plague Golem Raid Boss lvl 73
+(25296,8176,3,9,5,50000), -- Icicle Emperor Bumbalump Raid Boss lvl 74
+(25337,8176,1,3,5,50000), -- Anakazel Invaders'Leader  Boss lvl 68
+(25410,8176,1,1,5,50000), -- Road Scavenger Leader Raid Boss lvl 40
+(25235,8176,3,8,5,50000), -- Vanor Chief Kandra Raid Boss lvl 72
+(25478,8176,2,3,5,50000), -- Shilen's Priest Hisilrome Raid Boss lvl 65
+(25281,8176,3,7,5,50000), -- Anakim's Nemesis Zakaron Raid Boss lvl 70
+(25026,8176,1,1,5,50000), -- Katu Van Leader Atui Raid Boss lvl 49
+(25423,8176,1,3,5,50000), -- Fairy Queen Timiniel Raid Boss lvl 61
+(25051,8176,3,4,5,50000), -- Rahha Raid Boss lvl 65
+(25230,8176,1,2,5,50000), -- Timak Seer Ragoth Raid Boss lvl 57
+(25044,8176,1,1,5,50000), -- Barion Raid Boss lvl 47
+(25064,8176,1,1,5,50000), -- Wizard of Storm Teruk Raid Boss lvl 40
+(25122,8176,1,3,5,50000), -- Refugee Hopeful Leo Raid Boss lvl 56
+(25179,8176,1,2,5,50000), -- Guardian of the Statue of Giant Karum Raid Boss lvl 60
+(25418,8176,1,1,5,50000), -- Dread Avenger Kraven Raid Boss lvl 44
+(25158,8176,2,2,5,50000), -- King Tarlk Raid Boss lvl 48
+(25192,8176,1,1,5,50000), -- Earth Protector Panathen Raid Boss lvl 43
+(25067,8176,3,3,5,50000); -- Captain of Red Flag Shaka Raid Boss lvl 52
