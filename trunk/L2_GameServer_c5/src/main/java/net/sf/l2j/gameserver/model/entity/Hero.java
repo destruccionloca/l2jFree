@@ -28,9 +28,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.List;
-import javolution.util.FastList;
+import java.util.Map;
+
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Olympiad;
@@ -221,7 +221,7 @@ public class Hero
         } catch(SQLException e)
         {
             _log.warn("Hero System: Couldnt load Heroes");
-            if (_log.isDebugEnabled()) e.printStackTrace();
+            if (_log.isDebugEnabled())  _log.debug("",e);
         }
         
         _log.info("Hero System: Loaded " + _heroes.size() + " Heroes.");
@@ -470,10 +470,10 @@ public class Hero
         } catch(SQLException e)
         {
             _log.warn("Hero System: Couldnt update Heroes");
-            if (_log.isDebugEnabled()) e.printStackTrace();
+            if (_log.isDebugEnabled())  _log.debug("",e);
         } finally
         {
-            try{con.close();}catch(Exception e){e.printStackTrace();}
+            try{con.close();}catch(Exception e){ _log.error("",e);}
         }
     }
     
@@ -493,9 +493,9 @@ public class Hero
             statement.execute();
             statement.close();
         }
-        catch(SQLException e){e.printStackTrace();}
+        catch(SQLException e){ _log.error("",e);}
         finally{
-            try{con.close();}catch(SQLException e){e.printStackTrace();}
+            try{con.close();}catch(SQLException e){ _log.error("",e);}
         }
     }
 

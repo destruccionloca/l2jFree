@@ -92,7 +92,7 @@ public class AdminBan implements IAdminCommandHandler {
             }
             catch(Exception e)
             {
-                if (_log.isDebugEnabled()) e.printStackTrace();
+                if (_log.isDebugEnabled()) _log.debug("",e);
             }
         }
         else if (command.startsWith("admin_jail"))
@@ -119,7 +119,7 @@ public class AdminBan implements IAdminCommandHandler {
                 activeChar.sendMessage("Specify a character name.");
             } catch(Exception e)
             {
-                if (_log.isDebugEnabled()) e.printStackTrace();
+                if (_log.isDebugEnabled())  _log.debug("",e);
             }            
         }
         else if (command.startsWith("admin_unjail"))
@@ -140,7 +140,7 @@ public class AdminBan implements IAdminCommandHandler {
                 activeChar.sendMessage("Specify a character name.");
             } catch(Exception e)
             {
-                if (_log.isDebugEnabled()) e.printStackTrace();
+                if (_log.isDebugEnabled())  _log.debug("",e);
             }            
         }
         
@@ -173,7 +173,7 @@ public class AdminBan implements IAdminCommandHandler {
         } catch (SQLException se)
         {
             activeChar.sendMessage("SQLException while jailing player");
-            if (_log.isDebugEnabled()) se.printStackTrace();
+            if (_log.isDebugEnabled())  _log.debug("",se);
         } finally
         {
             try { con.close(); } catch (Exception e) {}
@@ -206,7 +206,7 @@ public class AdminBan implements IAdminCommandHandler {
         } catch (SQLException se)
         {
             activeChar.sendMessage("SQLException while jailing player");
-            if (_log.isDebugEnabled()) se.printStackTrace();
+            if (_log.isDebugEnabled())  _log.debug("",se);
         } finally
         {
             try { con.close(); } catch (Exception e) {}

@@ -77,8 +77,7 @@ public class ClanTable
                 statement.close();
             }
             catch (Exception e) {
-                _log.warn("data error on ClanTable: " + e);
-                e.printStackTrace();
+                _log.warn("data error on ClanTable: " + e,e);
             } finally {
                 try { con.close(); } catch (Exception e) {}
             }
@@ -123,8 +122,7 @@ public class ClanTable
             statement.close();
         }
         catch (Exception e) {
-            _log.warning("data error on clan item: " + e);
-            e.printStackTrace();
+            _log.warning("data error on clan item: " + e,e);
         } finally {
             try { con.close(); } catch (Exception e) {}
         }

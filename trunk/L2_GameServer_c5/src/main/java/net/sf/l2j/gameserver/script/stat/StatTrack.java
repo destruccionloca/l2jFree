@@ -3,15 +3,16 @@ package net.sf.l2j.gameserver.script.stat;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Logger;
 
 import javolution.util.FastMap;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -19,7 +20,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * @author  Imper1um
  */
 public class StatTrack {
-   private static final Logger _log = Logger.getLogger(StatTrack.class.getName());
+   private static final Log _log = LogFactory.getLog(StatTrack.class.getName());
    private static FastMap<Integer, StatTrack> _allStats = new FastMap<Integer, StatTrack>();
    
    L2PcInstance owner;
@@ -177,8 +178,8 @@ public class StatTrack {
            ps.close();
 			wake(owner);
        } catch (Exception e) {
-           _log.warning("StatTrack.load(): Unable to access statistics for user " + owner.getName());
-           if (Config.DEVELOPER) e.printStackTrace();
+           _log.warn("StatTrack.load(): Unable to access statistics for user " + owner.getName());
+           if (_log.isDebugEnabled()) _log.debug("",e);
        } finally {
            try { con.close(); } catch (Exception e) {}
        }
@@ -217,8 +218,8 @@ public class StatTrack {
 			ps.execute();
 			ps.close();
        } catch (Exception e) {
-           _log.warning("StatTrack.save(): Unable to save statistics for user " + owner.getName());
-			if (Config.DEVELOPER) e.printStackTrace();
+           _log.warn("StatTrack.save(): Unable to save statistics for user " + owner.getName());
+			if (_log.isDebugEnabled()) _log.debug("",e);
 		} finally {
 			try { con.close(); } catch (Exception e) {}
        }

@@ -29,15 +29,16 @@ import java.nio.channels.FileChannel;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.pathfinding.AbstractNodeLoc;
 import net.sf.l2j.gameserver.pathfinding.Node;
 import net.sf.l2j.gameserver.pathfinding.PathFinding;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -45,7 +46,7 @@ import net.sf.l2j.gameserver.pathfinding.PathFinding;
  */
 public class GeoPathFinding extends PathFinding
 {
-    private static Logger _log = Logger.getLogger(GeoPathFinding.class.getName());
+    private static Log _log = LogFactory.getLog(GeoPathFinding.class.getName());
     private static GeoPathFinding _instance;
     private static Map<Short, ByteBuffer> PathNodes = new FastMap<Short, ByteBuffer>();
     private static Map<Short, IntBuffer> PathNodes_index = new FastMap<Short, IntBuffer>();
@@ -181,7 +182,7 @@ public class GeoPathFinding extends PathFinding
         idx += layer*10+1;//byte + layer*10byte
         if (nodes < layer)
         {
-            _log.warning("SmthWrong!");
+            _log.warn("SmthWrong!");
         }
         short node_z = pn.getShort(idx);
         idx += 2;
@@ -228,7 +229,7 @@ public class GeoPathFinding extends PathFinding
             
             lnr = new LineNumberReader(new BufferedReader(new FileReader(Data)));   
         } catch (Exception e) {
-            e.printStackTrace();
+            _log.error("",e);
             throw new Error("Failed to Load pn_index File.");   
         }
         String line;
@@ -243,7 +244,7 @@ public class GeoPathFinding extends PathFinding
                 LoadPathNodeFile(rx,ry);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
             throw new Error("Failed to Read pn_index File.");
         }
     }
@@ -280,8 +281,7 @@ public class GeoPathFinding extends PathFinding
             PathNodes.put(regionoffset, nodes);
         } catch (Exception e)
         {
-            e.printStackTrace();
-            _log.warning("Failed to Load PathNode File: "+fname+"\n");
+            _log.warn("Failed to Load PathNode File: "+fname+"\n",e);
         }
         
     }

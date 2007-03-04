@@ -1583,7 +1583,7 @@ public final class Config {
                 ENCHANT_SAFE_MAX_FULL = Integer.parseInt(enchantSettings.getProperty("EnchantSafeMaxFull", "4"));   
             }
             catch (Exception e) {
-                e.printStackTrace();
+                _log.error(e.getMessage(),e);
                 throw new Error("Failed to Load "+ENCHANT_CONFIG_FILE+" File.");
             }
 	        
@@ -1796,7 +1796,7 @@ public final class Config {
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                _log.error(e.getMessage(),e);
                 throw new Error("Failed to Load "+CLANHALL_CONFIG_FILE+" File.");
             }
 	        
@@ -1950,7 +1950,7 @@ public final class Config {
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                _log.error(e.getMessage(),e);
                 throw new Error("Failed to Load " + FUN_ENGINES_FILE + " File.");
             }
             try
@@ -1979,7 +1979,7 @@ public final class Config {
 	        }
 	        catch (Exception e)
 	        {
-	        	//e.printStackTrace();
+	        	//_log.error(e.getMessage(),e);
 	        	//throw new Error("Failed to Load " + EXTENSION_FILE + " File.");
 	        }
 	}
@@ -2299,7 +2299,6 @@ public final class Config {
         catch (Exception e)
         {
             _log.warn("Failed to save hex id to "+fileName+" File.");
-            e.printStackTrace();
         }
 	}
 	

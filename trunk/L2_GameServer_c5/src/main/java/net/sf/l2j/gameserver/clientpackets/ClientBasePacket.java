@@ -112,7 +112,10 @@ public abstract class ClientBasePacket extends BasePacket implements Runnable
     {
         try {
             return _buf.getLong();
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) 
+        {
+            _log.error(e.getMessage(),e);
+        }
         return 0;
     }
 

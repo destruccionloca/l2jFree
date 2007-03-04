@@ -799,8 +799,7 @@ public class L2Clan
         catch (Exception e)
         {
             _log.warn("error while restoring clan "+e);
-            _log.warn(String.valueOf(getClanId()));
-            e.printStackTrace();
+            _log.warn(String.valueOf(getClanId()),e);
         }
         finally
         {

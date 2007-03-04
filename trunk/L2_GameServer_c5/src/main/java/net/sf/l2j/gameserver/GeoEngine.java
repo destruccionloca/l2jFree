@@ -173,7 +173,7 @@ public class GeoEngine extends GeoData
             _geo_bugs_out.flush();
             gm.sendMessage("GeoData bug saved!");
         } catch (Exception e) {
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
             gm.sendMessage("GeoData bug save Failed!");
         }
     }    
@@ -473,7 +473,7 @@ public class GeoEngine extends GeoData
             
             lnr = new LineNumberReader(new BufferedReader(new FileReader(Data)));   
         } catch (Exception e) {
-            e.printStackTrace();        
+            _log.error(e.getMessage(),e);        
             throw new Error("Failed to Load geo_index File.");  
         }
         String line;
@@ -488,7 +488,7 @@ public class GeoEngine extends GeoData
                 LoadGeodataFile(rx,ry);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
             throw new Error("Failed to Read geo_index File.");
         }
         try
@@ -497,7 +497,7 @@ public class GeoEngine extends GeoData
             
             _geo_bugs_out = new BufferedOutputStream(new FileOutputStream(geo_bugs,true));
         } catch (Exception e) {
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
             throw new Error("Failed to Load geo_bugs.txt File.");   
         }
     }
@@ -559,8 +559,7 @@ public class GeoEngine extends GeoData
             _log.info("Geo Engine: - Max Layers: "+flor+" Size: "+size+" Loaded: "+index);
         } catch (Exception e)
         {
-            e.printStackTrace();
-            _log.warn("Failed to Load GeoFile at block: "+block+"\n");
+            _log.warn("Failed to Load GeoFile at block: "+block+"\n",e);
             return false;
         }
         return true;

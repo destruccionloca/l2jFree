@@ -95,8 +95,7 @@ public class ItemsOnGroundManager
              } 
              catch (Exception e)
              {
-                 _log.fatal("error while updating table ItemsOnGround " + e);
-                 e.printStackTrace();
+                 _log.fatal("error while updating table ItemsOnGround " + e,e);
              }
              finally 
              {
@@ -192,8 +191,7 @@ public class ItemsOnGroundManager
             del.execute();
             del.close();
         } catch (Exception e1){
-             _log.fatal("error while cleaning table ItemsOnGround " + e1);
-            e1.printStackTrace();
+             _log.fatal("error while cleaning table ItemsOnGround " + e1,e1);
         }
         finally {
             try { conn.close(); } catch (Exception e1) {}            
@@ -241,8 +239,7 @@ public class ItemsOnGroundManager
             statement.execute();
             statement.close();
             } catch (Exception e) {
-                _log.fatal("error while inserting into table ItemsOnGround " + e);
-                e.printStackTrace();
+                _log.fatal("error while inserting into table ItemsOnGround " + e,e);
             }             
          finally {
             try { con.close(); } catch (Exception e) {}            

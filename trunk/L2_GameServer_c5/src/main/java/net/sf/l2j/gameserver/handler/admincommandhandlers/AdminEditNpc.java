@@ -573,7 +573,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             PreparedStatement stmt = con.prepareStatement("INSERT INTO merchant_buylists values ("+itemID+","+price+","+tradeListID+","+order+")");
             stmt.execute();
             stmt.close();
-        }catch (SQLException esql) {esql.printStackTrace();}
+        }catch (SQLException esql) {_log.error(esql.getMessage(),esql);}
     }
     
     private void updateTradeList(int itemID, int price, int tradeListID, int order)
@@ -585,7 +585,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             PreparedStatement stmt = con.prepareStatement("UPDATE merchant_buylists SET `price`='"+price+"' WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
             stmt.execute();
             stmt.close();
-        }catch (SQLException esql) {esql.printStackTrace();}
+        }catch (SQLException esql) {_log.error(esql.getMessage(),esql);}
     }
     
     private void deleteTradeList(int tradeListID, int order)
@@ -597,7 +597,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             PreparedStatement stmt = con.prepareStatement("DELETE FROM merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
             stmt.execute();
             stmt.close();
-        }catch (SQLException esql) {esql.printStackTrace();}
+        }catch (SQLException esql) {_log.error(esql.getMessage(),esql);}
     }
     
     private int  findOrderTradeList(int itemID, int price, int tradeListID)
@@ -611,8 +611,8 @@ public class AdminEditNpc implements IAdminCommandHandler {
             ResultSet rs = stmt.executeQuery();
             rs.first();
             return rs.getInt("order");
-        }catch (SQLException esql) {esql.printStackTrace();}
-        finally{ try {con.close();} catch (SQLException e) {e.printStackTrace();}}
+        }catch (SQLException esql) {_log.error(esql.getMessage(),esql);}
+        finally{ try {con.close();} catch (SQLException e) {_log.error(e.getMessage(),e);}}
         return order;
     }
 
@@ -972,7 +972,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             }
                 
         }
-        catch(Exception e){ e.printStackTrace(); }
+        catch(Exception e){ _log.error(e.getMessage(),e); }
         finally
         {
             try { con.close(); } catch (Exception e) {}

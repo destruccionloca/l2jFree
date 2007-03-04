@@ -6,17 +6,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Logger;
 
+import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.script.stat.leaderboards.*;
+import net.sf.l2j.gameserver.script.stat.leaderboards.LeaderboardTotalDeaths;
+import net.sf.l2j.gameserver.script.stat.leaderboards.LeaderboardTotalKarma;
+import net.sf.l2j.gameserver.script.stat.leaderboards.LeaderboardTotalPlayerKills;
+import net.sf.l2j.gameserver.script.stat.leaderboards.LeaderboardTotalTimePlayed;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
-import javolution.util.FastMap;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /** Leaderboard Engine
 + * 
@@ -27,7 +31,7 @@ import javolution.util.FastMap;
  */
 
 public class LeaderboardEngine implements Runnable {
-   private static final Logger _log = Logger.getLogger(LeaderboardEngine.class.getName());
+   private static final Log _log = LogFactory.getLog(LeaderboardEngine.class.getName());
    private static LeaderboardEngine _instance;
    
    private FastMap<Integer, Leaderboard> _leaderboards;
@@ -80,8 +84,8 @@ public class LeaderboardEngine implements Runnable {
            if (Config.LEADERBOARD_ADD_ANNOUNCE)
                Announcements.getInstance().setLeaderboardAnnouncement("Leaderboards: Updated " + sdf.format(d));
        } catch (SQLException e) {
-           _log.warning("LeaderboardEngine: Unable to refresh leaderboard! EC:" + e.getErrorCode());
-           if (Config.DEVELOPER) e.printStackTrace();
+           _log.warn("LeaderboardEngine: Unable to refresh leaderboard! EC:" + e.getErrorCode());
+           if (_log.isDebugEnabled())  _log.debug("",e);
        } finally {
            try { con.close(); } catch (Exception e) {}
        }
@@ -120,9 +124,9 @@ public class LeaderboardEngine implements Runnable {
        if (bypassInput.substring(0,4).equalsIgnoreCase("view")) {
            int i = -1;
            try { i = Integer.valueOf(bypassInput.substring(5)); }
-           catch (Exception e) { _log.warning("LeaderboardEngine: Invalid View Command! Bypass: " + bypassInput); if (Config.DEVELOPER) e.printStackTrace(); return; }
+           catch (Exception e) { _log.warn("LeaderboardEngine: Invalid View Command! Bypass: " + bypassInput); if (_log.isDebugEnabled()) _log.debug("",e); return; }
            if (_leaderboards.get(i) == null) {
-               _log.warning("LeaderboardEngine: No such LeaderboardId (" + i + ")!");
+               _log.warn("LeaderboardEngine: No such LeaderboardId (" + i + ")!");
                activeChar.sendMessage("Unable to Find Leaderboard!");
                return;
            }
