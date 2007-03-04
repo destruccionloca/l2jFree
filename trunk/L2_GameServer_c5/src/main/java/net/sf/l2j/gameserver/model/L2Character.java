@@ -5184,7 +5184,7 @@ public abstract class L2Character extends L2Object
                     else if (this instanceof L2Summon)
                         activeChar = ((L2Summon)this).getOwner();
 
-                    if (activeChar != null)
+                    if (activeChar != null && skill.getSkillType() != L2Skill.SkillType.AGGREMOVE && skill.getSkillType() != L2Skill.SkillType.AGGREDUCE && skill.getSkillType() != L2Skill.SkillType.AGGREDUCE_CHAR)
                     {
                         if (skill.isOffensive() && skill != null)
                         {

@@ -97,7 +97,7 @@ public class Continuous implements ISkillHandler
                }
             }
 
-			if (skill.isOffensive())
+            if (skill.isOffensive() && skill.getSkillType() != L2Skill.SkillType.AGGREMOVE && skill.getSkillType() != L2Skill.SkillType.AGGREDUCE && skill.getSkillType() != L2Skill.SkillType.AGGREDUCE_CHAR)
 			{
                 if (target instanceof L2Attackable){
                        target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar,50);}

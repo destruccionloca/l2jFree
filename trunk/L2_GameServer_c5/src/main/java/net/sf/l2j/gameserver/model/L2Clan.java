@@ -533,7 +533,7 @@ public class L2Clan
             if(_level >= 2)
             {
                 _Forum = ForumsBBSManager.getInstance().getForumByName("ClanRoot").GetChildByName(_name);
-                if(_Forum == null)
+               if(_Forum == null)
                 {
                     _Forum = ForumsBBSManager.getInstance().CreateNewForum(_name,ForumsBBSManager.getInstance().getForumByName("ClanRoot"),Forum.CLAN,Forum.CLANMEMBERONLY,getClanId());
                 }
@@ -799,6 +799,8 @@ public class L2Clan
         catch (Exception e)
         {
             _log.warn("error while restoring clan "+e);
+            _log.warn(String.valueOf(getClanId()));
+            e.printStackTrace();
         }
         finally
         {
