@@ -452,6 +452,16 @@ public abstract class Inventory extends ItemContainer
     {
         if (!_items.contains(item)) return null;
 
+        // If we drop the whole stack we have to log it here
+        if (actor.isGM())
+        {
+            // DaDummy: this way we log _every_ gmdrop with all related info
+            String command = process;
+            String params  = "(" + String.valueOf(actor.getX()) + "," + String.valueOf(actor.getY()) + "," + String.valueOf(actor.getZ()) + ") - " + String.valueOf(item.getCount()) + " - " + String.valueOf(item.getEnchantLevel()) + " - " + String.valueOf(item.getItemId()) + " - " + item.getItemName();
+            
+            GMAudit.auditGMAction(actor, "dropitem", command, params);
+        }
+        
         removeItem(item);
         item.setOwnerId(process, 0, actor, reference);
         item.setLocation(ItemLocation.VOID);
@@ -479,6 +489,16 @@ public abstract class Inventory extends ItemContainer
         // Adjust item quantity and create new instance to drop
         if (item.getCount() > count)
         {
+            // If we do a partial drop we have to log it here
+            if (actor.isGM())
+            {
+                // DaDummy: this way we log _every_ gmdrop with all related info
+                String command = process;
+                String params  = "(" + String.valueOf(actor.getX()) + "," + String.valueOf(actor.getY()) + "," + String.valueOf(actor.getZ()) + ") - " + String.valueOf(count) + " - " + String.valueOf(item.getEnchantLevel()) + " - " + String.valueOf(item.getItemId()) + " - " + item.getItemName();
+                
+                GMAudit.auditGMAction(actor, "dropitem", command, params);
+            }
+            
             item.changeCount(process, -count, actor, reference);
             item.setLastChange(L2ItemInstance.MODIFIED);
             item.updateDatabase();

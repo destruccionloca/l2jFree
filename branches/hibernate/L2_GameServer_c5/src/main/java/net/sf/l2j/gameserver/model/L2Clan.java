@@ -47,7 +47,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.7.2.4.2.7 $ $Date: 2005/04/06 16:13:41 $
  */
-public class L2Clan 
+public class L2Clan
 {
     private static final Log _log = LogFactory.getLog(L2Clan.class.getName());
     private String _name;
@@ -272,7 +272,7 @@ public class L2Clan
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection();;
             PreparedStatement statement = con.prepareStatement("DELETE FROM clan_data WHERE clan_id=?");
             statement.setInt(1, getClanId());
             statement.execute();
@@ -553,7 +553,7 @@ public class L2Clan
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection();;
             PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET leader_id=?,ally_id=?,ally_name=?,reputation_score=? WHERE clan_id=?");
             statement.setInt(1, getLeaderId());
             statement.setInt(2, getAllyId());
@@ -579,7 +579,7 @@ public class L2Clan
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection();;
             PreparedStatement statement = con.prepareStatement("INSERT INTO clan_data (clan_id,clan_name,clan_level,hasCastle,hasHideout,ally_id,ally_name,leader_id,crest_id,crest_large_id,ally_crest_id) values (?,?,?,?,?,?,?,?,?,?,?)");
             statement.setInt(1, getClanId());
             statement.setString(2, getName());
@@ -618,7 +618,7 @@ public class L2Clan
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection();;
             PreparedStatement statement = con.prepareStatement("UPDATE characters SET clanid=?,pledge_type=? WHERE obj_Id=?");
             statement.setInt(1, getClanId());
             statement.setInt(2, member.getPledgeType());
@@ -642,7 +642,7 @@ public class L2Clan
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection();;
             PreparedStatement statement = con.prepareStatement("UPDATE characters SET clanid=0, allyId=0, title=?, clan_privs=0, wantspeace=0, pledge_type=0, apprentice=0, sponsor=0 WHERE obj_Id=?");
             statement.setString(1, "");
             statement.setInt(2, member.getObjectId());
@@ -677,7 +677,7 @@ public class L2Clan
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection();;
             PreparedStatement statement;
             statement = con.prepareStatement("UPDATE clan_wars SET wantspeace1=? WHERE clan1=?");
             statement.setInt(1, 0);
@@ -705,7 +705,7 @@ public class L2Clan
         
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection();;
             PreparedStatement statement;
             statement = con.prepareStatement("SELECT clan1, clan2, wantspeace1, wantspeace2 FROM clan_wars");
             ResultSet rset = statement.executeQuery();
@@ -734,7 +734,7 @@ public class L2Clan
         {
             L2ClanMember member;
             
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection();;
             PreparedStatement statement = con.prepareStatement("SELECT clan_name,clan_level,hasCastle,hasHideout,ally_id,ally_name,leader_id,crest_id,crest_large_id,ally_crest_id,reputation_score,auction_bid_at FROM clan_data where clan_id=?");
             statement.setInt(1, getClanId());
             ResultSet clanData = statement.executeQuery();
@@ -797,6 +797,7 @@ public class L2Clan
         catch (Exception e)
         {
             _log.warn("error while restoring clan "+e);
+            _log.warn(String.valueOf(getClanId()),e);
         }
         finally
         {
@@ -811,7 +812,7 @@ public class L2Clan
         try
         {
             // Retrieve all skills of this L2PcInstance from the database
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection();;
             PreparedStatement statement = con.prepareStatement("SELECT skill_id,skill_level FROM clan_skills WHERE clan_id=?");
             statement.setInt(1, getClanId());
 
@@ -880,7 +881,7 @@ public class L2Clan
             
             try
             {
-                con = L2Registry.getConnection();
+                con = L2Registry.getConnection();;
                 PreparedStatement statement;
                 
                 if (oldSkill != null)
@@ -1151,7 +1152,7 @@ public class L2Clan
         try
         {
             // Retrieve all skills of this L2PcInstance from the database
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection();;
             PreparedStatement statement = con.prepareStatement("SELECT sub_pledge_id,name,leader_name FROM clan_subpledges WHERE clan_id=?");
             statement.setInt(1, getClanId());
             //_log.warning("subPledge restore for ClanId : "+getClanId());
@@ -1209,7 +1210,7 @@ public class L2Clan
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection();;
             PreparedStatement statement = con.prepareStatement("INSERT INTO clan_subpledges (clan_id,sub_pledge_id,name,leader_name) values (?,?,?,?)");
             statement.setInt(1, getClanId());
             statement.setInt(2, pledgeType);
@@ -1274,7 +1275,7 @@ public class L2Clan
         try
         {
             // Retrieve all skills of this L2PcInstance from the database
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection();;
             PreparedStatement statement = con.prepareStatement("SELECT privilleges,rank,party FROM clan_privs WHERE clan_id=?");
             statement.setInt(1, getClanId());
             //_log.warning("clanPrivs restore for ClanId : "+getClanId());
@@ -1336,7 +1337,7 @@ public class L2Clan
             {
                 //_log.warning("requested store clan privs in db for rank: "+rank+", privs: "+privs);
                 // Retrieve all skills of this L2PcInstance from the database
-                con = L2Registry.getConnection();
+                con = L2Registry.getConnection();;
                 PreparedStatement statement = con.prepareStatement("INSERT INTO clan_privs (clan_id,rank,party,privilleges) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE privilleges = ?");
                 statement.setInt(1, getClanId());
                 statement.setInt(2, rank);
@@ -1376,7 +1377,7 @@ public class L2Clan
             {
                 //_log.warning("requested store clan new privs in db for rank: "+rank);
                 // Retrieve all skills of this L2PcInstance from the database
-                con = L2Registry.getConnection();
+                con = L2Registry.getConnection();;
                 PreparedStatement statement = con.prepareStatement("INSERT INTO clan_privs (clan_id,rank,party,privilleges) VALUES (?,?,?,?)");
                 statement.setInt(1, getClanId());
                 statement.setInt(2, rank);
@@ -1452,7 +1453,7 @@ public class L2Clan
             java.sql.Connection con = null;
             try
             {
-                con = L2Registry.getConnection();
+                con = L2Registry.getConnection();;
                 PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET auction_bid_at=? WHERE clan_id=?");
                 statement.setInt(1, id);
                 statement.setInt(2, getClanId());

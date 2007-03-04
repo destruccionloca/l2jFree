@@ -123,7 +123,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class L2Character extends L2Object
 {
-    protected static final Log _log = LogFactory.getLog(L2Character.class.getName());
+    public static final Log _log = LogFactory.getLog(L2Character.class.getName());
 
     // =========================================================
     // Data Field
@@ -5184,7 +5184,7 @@ public abstract class L2Character extends L2Object
                     else if (this instanceof L2Summon)
                         activeChar = ((L2Summon)this).getOwner();
 
-                    if (activeChar != null)
+                    if (activeChar != null && skill.getSkillType() != L2Skill.SkillType.AGGREMOVE && skill.getSkillType() != L2Skill.SkillType.AGGREDUCE && skill.getSkillType() != L2Skill.SkillType.AGGREDUCE_CHAR)
                     {
                         if (skill.isOffensive() && skill != null)
                         {

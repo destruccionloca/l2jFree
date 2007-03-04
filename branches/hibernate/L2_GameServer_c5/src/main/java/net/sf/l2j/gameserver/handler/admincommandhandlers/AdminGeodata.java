@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
-import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -49,9 +48,6 @@ public class AdminGeodata implements IAdminCommandHandler
             if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) 
                 return false;
         
-        String target = (activeChar.getTarget() != null) ? activeChar.getTarget().getName() : "no-target";
-        GMAudit.auditGMAction(activeChar.getName(), command, target, "");
-
         if (!Config.GEODATA)
         {
             activeChar.sendMessage("Geo Engine is Turned Off!");                    

@@ -682,7 +682,7 @@ public class L2PetInstance extends L2Summon
     
     public void dropItemHere(L2ItemInstance dropit)
     {
-        dropit = getInventory().dropItem("Drop", dropit.getObjectId(), dropit.getCount(), getOwner(), this);
+        dropit = getInventory().dropItem("PetDrop", dropit.getObjectId(), dropit.getCount(), getOwner(), this);
         
         if (dropit != null)
         {

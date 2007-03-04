@@ -18,15 +18,12 @@
  */
 package net.sf.l2j.gameserver.model;
 
-import java.sql.PreparedStatement;
 import java.util.List;
 
 import javolution.util.FastList;
-import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
-import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -226,6 +223,7 @@ public class L2TradeList
 		return true;
 	}
 	
+/* unused?
 	//Call validate before this
 	public void tradeItems(L2PcInstance player,L2PcInstance reciever)
 	{
@@ -329,6 +327,7 @@ public class L2TradeList
         catch (Exception e) { _log.warn("could not change pet item object id: " + e); }
         finally { try { con.close(); } catch (Exception e) {} }
     }
+*/
     
     public void updateBuyList(L2PcInstance player, FastList<TradeItem> list)
 	{

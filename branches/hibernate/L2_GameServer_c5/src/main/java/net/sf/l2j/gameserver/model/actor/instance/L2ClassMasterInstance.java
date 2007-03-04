@@ -151,6 +151,13 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             if (newJobLevel == 3) player.sendPacket(new SystemMessage(1606)); // system sound 3rd occupation
             else player.sendPacket(new SystemMessage(1308)); // system sound for 1st and 2nd occupation
             
+            if(newJobLevel == 3)
+            {
+                // receive Secret Book of Giants or 3rd class change
+                player.getInventory().addItem("Gift",6622,1,player,null);
+                player.getInventory().updateDatabase();
+            }
+            
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
             sb.append("<html><head><body>");

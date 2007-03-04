@@ -68,8 +68,8 @@ import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
-import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
+import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
@@ -116,14 +116,14 @@ import net.sf.l2j.gameserver.model.actor.status.PcStatus;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.base.ClassLevel;
 import net.sf.l2j.gameserver.model.base.Experience;
-import net.sf.l2j.gameserver.model.base.PlayerClass;
+import net.sf.l2j.gameserver.model.base.PlayerClass; 
 import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.model.base.SubClass;
 import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.DM;
-import net.sf.l2j.gameserver.model.entity.FactionMember;
 import net.sf.l2j.gameserver.model.entity.L2Event;
+import net.sf.l2j.gameserver.model.entity.FactionMember;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.TvT;
 import net.sf.l2j.gameserver.model.entity.VIP;
@@ -1679,7 +1679,6 @@ public final class L2PcInstance extends L2PlayableInstance
             setClan(null);
             setTitle("");
             sendPacket(new SystemMessage(SystemMessage.CLAN_MEMBERSHIP_TERMINATED));
-            setDeleteClanCurTime();
             
             broadcastUserInfo();
             
@@ -1689,6 +1688,7 @@ public final class L2PcInstance extends L2PlayableInstance
             getInventory().addItem("Gift",8181,1,this,null); // give academy circlet
             getInventory().updateDatabase(); // update database
         }
+        
         _activeClass = Id;
         L2PcTemplate t = CharTemplateTable.getInstance().getTemplate(Id);
         
@@ -4896,7 +4896,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection();;
             PreparedStatement statement = con.prepareStatement("UPDATE characters SET online=?, lastAccess=? WHERE obj_id=?");
             statement.setInt(1, isOnline());
             statement.setLong(2, System.currentTimeMillis());
@@ -4956,7 +4956,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection();;
             PreparedStatement statement = con.prepareStatement("UPDATE characters SET isIn7sDungeon=?, lastAccess=? WHERE obj_id=?");
             statement.setInt(1, isIn7sDungeon() ? 1 : 0);
             statement.setLong(2, System.currentTimeMillis());

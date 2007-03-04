@@ -707,8 +707,11 @@ public final class Config {
     
     public static int           GAME_SERVER_LOGIN_PORT;
     public static String        GAME_SERVER_LOGIN_HOST;
+    public static String        GAME_SERVER_NETWORKS;
     public static String        INTERNAL_HOSTNAME;
+    public static String        INTERNAL_NETWORKS;
     public static String        EXTERNAL_HOSTNAME;
+    public static String        OPTIONAL_NETWORKS;
     
     /** IO_Type */
     public enum IOType {
@@ -991,7 +994,7 @@ public final class Config {
     public static boolean GM_STARTUP_INVULNERABLE;
     
     public static boolean	BYPASS_VALIDATION;
-    public static boolean GMAUDIT;
+    public static boolean GM_AUDIT;
     
 	public static boolean FLOOD_PROTECTION;
 	public static int FAST_CONNECTION_LIMIT;
@@ -1100,8 +1103,15 @@ public final class Config {
 	            	throw new Error("MinProtocolRevision is bigger than MaxProtocolRevision in server configuration file.");
 	            }
 	            
-                INTERNAL_HOSTNAME   = serverSettings.getProperty("InternalHostname", "*");
-	            EXTERNAL_HOSTNAME   = serverSettings.getProperty("ExternalHostname", "*");
+                INTERNAL_HOSTNAME   = serverSettings.getProperty("InternalHostname", "127.0.0.1");
+                INTERNAL_NETWORKS   = serverSettings.getProperty("InternalNetworks", "10.0.0.0/8,192.168.0.0/16");
+                EXTERNAL_HOSTNAME   = serverSettings.getProperty("ExternalHostname", "127.0.0.1");
+                OPTIONAL_NETWORKS   = serverSettings.getProperty("OptionalNetworks", "");
+                
+                GAME_SERVER_NETWORKS = "";
+                if (OPTIONAL_NETWORKS.length()>0) GAME_SERVER_NETWORKS += OPTIONAL_NETWORKS+";";
+                if (INTERNAL_HOSTNAME.length()>0) GAME_SERVER_NETWORKS += INTERNAL_HOSTNAME + ',' + INTERNAL_NETWORKS+";";
+                if (EXTERNAL_HOSTNAME.length()>0) GAME_SERVER_NETWORKS += EXTERNAL_HOSTNAME+","+"0.0.0.0/0";
                 
                 IO_TYPE                 = IOType.valueOf(serverSettings.getProperty("IOType", "nio"));
 	            
@@ -1190,7 +1200,7 @@ public final class Config {
                 LOG_CHAT                        = Boolean.valueOf(optionsSettings.getProperty("LogChat", "false"));
                 LOG_ITEMS                       = Boolean.valueOf(optionsSettings.getProperty("LogItems", "false"));
                              
-                GMAUDIT                         = Boolean.valueOf(optionsSettings.getProperty("GMAudit", "False"));
+                GM_AUDIT                        = Boolean.valueOf(optionsSettings.getProperty("GMAudit", "False"));
 
                 COMMUNITY_TYPE                  = optionsSettings.getProperty("CommunityType", "old").toLowerCase();
                 BBS_DEFAULT                     = optionsSettings.getProperty("BBSDefault", "_bbshome");
@@ -1573,7 +1583,7 @@ public final class Config {
                 ENCHANT_SAFE_MAX_FULL = Integer.parseInt(enchantSettings.getProperty("EnchantSafeMaxFull", "4"));   
             }
             catch (Exception e) {
-                e.printStackTrace();
+                _log.error(e.getMessage(),e);
                 throw new Error("Failed to Load "+ENCHANT_CONFIG_FILE+" File.");
             }
 	        
@@ -1786,7 +1796,7 @@ public final class Config {
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                _log.error(e.getMessage(),e);
                 throw new Error("Failed to Load "+CLANHALL_CONFIG_FILE+" File.");
             }
 	        
@@ -1876,7 +1886,7 @@ public final class Config {
                 GM_STARTUP_AUTO_LIST = Boolean.parseBoolean(gmSettings.getProperty("GMStartupAutoList", "True"));
                 GM_HERO_AURA 	= Boolean.parseBoolean(gmSettings.getProperty("GMHeroAura", "True"));
                 GM_STARTUP_INVULNERABLE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvulnerable", "True"));
-                GMAUDIT 		= Boolean.valueOf(gmSettings.getProperty("GMAudit", "False"));
+                GM_AUDIT 		= Boolean.valueOf(gmSettings.getProperty("GMAudit", "False"));
                 STANDARD_RESPAWN_DELAY = Integer.parseInt(gmSettings.getProperty("StandardRespawnDelay", "0"));
                 
                 String gmTrans = gmSettings.getProperty("GMDisableTransaction", "False");
@@ -1940,7 +1950,7 @@ public final class Config {
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                _log.error(e.getMessage(),e);
                 throw new Error("Failed to Load " + FUN_ENGINES_FILE + " File.");
             }
             try
@@ -1969,7 +1979,7 @@ public final class Config {
 	        }
 	        catch (Exception e)
 	        {
-	        	//e.printStackTrace();
+	        	//_log.error(e.getMessage(),e);
 	        	//throw new Error("Failed to Load " + EXTENSION_FILE + " File.");
 	        }
 	}
@@ -2289,7 +2299,6 @@ public final class Config {
         catch (Exception e)
         {
             _log.warn("Failed to save hex id to "+fileName+" File.");
-            e.printStackTrace();
         }
 	}
 	

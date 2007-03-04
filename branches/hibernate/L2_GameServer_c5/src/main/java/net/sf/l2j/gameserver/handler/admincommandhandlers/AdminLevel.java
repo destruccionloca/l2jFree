@@ -32,7 +32,6 @@ import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
-import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
@@ -60,8 +59,6 @@ public class AdminLevel implements IAdminCommandHandler
             if (activeChar.getAccessLevel() < REQUIRED_LEVEL) return false;
 
 		L2Object targetChar = activeChar.getTarget();
-		String target = (targetChar != null ? targetChar.getName() : "no-target");
-        GMAudit.auditGMAction(activeChar.getName(), command, target, "");        
         
         StringTokenizer st = new StringTokenizer(command, " ");
         String actualCommand = st.nextToken(); // Get actual command

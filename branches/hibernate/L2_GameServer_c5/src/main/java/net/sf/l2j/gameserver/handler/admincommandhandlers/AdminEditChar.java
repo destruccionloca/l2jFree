@@ -26,7 +26,6 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
-import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -96,7 +95,6 @@ public class AdminEditChar implements IAdminCommandHandler
 			{
 				String val = command.substring(21); 
 				L2PcInstance target = L2World.getInstance().getPlayer(val);
-                GMAudit.auditGMAction(activeChar.getName(), "admin_character_list", target.getName(), val);
 				showCharacterList(activeChar, target);
 			}
 			catch (StringIndexOutOfBoundsException e)
@@ -119,7 +117,6 @@ public class AdminEditChar implements IAdminCommandHandler
 
             if (player.getClan() == null)
             {
-                GMAudit.auditGMAction(activeChar.getName(), "admin_remclanwait", player.getName(), "");
                 player.setDeleteClanTime(0);
                 player.sendMessage("A GM Has reset your clan wait time, You may now join another clan.");
                 activeChar.sendMessage("You have reset " +player.getName()+ "'s wait time to join another clan.");
@@ -135,7 +132,6 @@ public class AdminEditChar implements IAdminCommandHandler
 			{   
 				String val = command.substring(22);
 				int page = Integer.parseInt(val);
-                GMAudit.auditGMAction(activeChar.getName(), "admin_show_characters", "no-target", val);
 				listCharacters(activeChar, page);
 			}
 			catch (StringIndexOutOfBoundsException e)
@@ -148,7 +144,6 @@ public class AdminEditChar implements IAdminCommandHandler
 			try
 			{
 				String val = command.substring(21); 
-                GMAudit.auditGMAction(activeChar.getName(), command, "", val);
 				findCharacter(activeChar, val);
 			}
 			catch (StringIndexOutOfBoundsException e)
@@ -164,7 +159,6 @@ public class AdminEditChar implements IAdminCommandHandler
 		{
 			if (activeChar.getTarget() instanceof L2PcInstance)
             {
-			    GMAudit.auditGMAction(activeChar.getName(), "admin_edit_character", activeChar.getTarget().getName(), "");
 			    editCharacter(activeChar);
             }
 		}
@@ -173,7 +167,6 @@ public class AdminEditChar implements IAdminCommandHandler
 		{
             if (activeChar.getTarget() instanceof L2PcInstance)
             {
-                GMAudit.auditGMAction(activeChar.getName(), "admin_nokarma", activeChar.getTarget().getName(), "");
                 setTargetKarma(activeChar, 0);
             }
 		}
@@ -187,7 +180,6 @@ public class AdminEditChar implements IAdminCommandHandler
 				int karma = Integer.parseInt(val);
 				if (activeChar == activeChar.getTarget() || activeChar.getAccessLevel()>=REQUIRED_LEVEL2)
 			    
-				GMAudit.auditGMAction(activeChar.getName(), "admin_setkarma", activeChar.getTarget().getName(), val);
 				setTargetKarma(activeChar, karma);
 			}
 			catch (StringIndexOutOfBoundsException e)
@@ -206,8 +198,6 @@ public class AdminEditChar implements IAdminCommandHandler
 			{
 				String val = command.substring(24); 
 				if (activeChar == activeChar.getTarget() || activeChar.getAccessLevel()>=REQUIRED_LEVEL2)
-				
-				GMAudit.auditGMAction(activeChar.getName(), "admin_save_modifications", activeChar.getTarget().getName(), val);
 				
 				adminModifyCharacter(activeChar, val);
 			}
@@ -231,7 +221,6 @@ public class AdminEditChar implements IAdminCommandHandler
 			}
             else
 				return false;
-            GMAudit.auditGMAction(activeChar.getName(), "admin_rec", player.getName(), "");
 			player.setRecomHave(player.getRecomHave() + 1);
 			SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
 			sm.addString("You have been recommended by a GM");
@@ -253,7 +242,6 @@ public class AdminEditChar implements IAdminCommandHandler
 				} else {
 					return false;
 				}
-                GMAudit.auditGMAction(activeChar.getName(), "admin_rec", player.getName(), val);
 	            player.setRecomHave(player.getRecomHave() + recVal);
 				SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
 				sm.addString("You have been recommended by a GM");
@@ -278,7 +266,6 @@ public class AdminEditChar implements IAdminCommandHandler
                 } else {
                     return false;
                 }
-                GMAudit.auditGMAction(activeChar.getName(), "admin_settitle", player.getName(), val);
                 player.setTitle(val);
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                 sm.addString("Your title has been changed by a GM");
@@ -306,7 +293,6 @@ public class AdminEditChar implements IAdminCommandHandler
                 } else {
                     return false;
                 }
-                GMAudit.auditGMAction(activeChar.getName(), "admin_setname", player.getName(), val);
                 player.setName(val);
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                 sm.addString("Your name has been changed by a GM");
@@ -331,7 +317,6 @@ public class AdminEditChar implements IAdminCommandHandler
                 } else {
                     return false;
                 }
-                GMAudit.auditGMAction(activeChar.getName(), "admin_setsex", player.getName(), "");
                 player.getAppearance().setSex(player.getAppearance().getSex()? false : true);
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                 sm.addString("Your gender has been changed by a GM");
@@ -352,7 +337,6 @@ public class AdminEditChar implements IAdminCommandHandler
                 } else {
                     return false;
                 }
-                GMAudit.auditGMAction(activeChar.getName(), "admin_setcolor", player.getName(), val);
                 player.getAppearance().setNameColor(Integer.decode("0x"+val));
                 player.sendMessage("Your name color has been changed by a GM");
                 player.broadcastUserInfo();
@@ -369,8 +353,7 @@ public class AdminEditChar implements IAdminCommandHandler
            if (target instanceof L2PetInstance)
            {
                L2PetInstance targetPet = (L2PetInstance)target;
-               GMAudit.auditGMAction(activeChar.getName(), "admin_fullfood", targetPet.getOwner().getName(), "");
-        		targetPet.setCurrentFed(targetPet.getMaxFed());
+               targetPet.setCurrentFed(targetPet.getMaxFed());
            }
            else {
                activeChar.sendPacket(new SystemMessage(SystemMessage.INCORRECT_TARGET));

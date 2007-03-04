@@ -23,7 +23,6 @@ import java.util.StringTokenizer;
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
-import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -53,9 +52,6 @@ public class AdminExpSp implements IAdminCommandHandler {
         if (!Config.ALT_PRIVILEGES_ADMIN)
             if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
         
-        String target = (activeChar.getTarget() != null?activeChar.getTarget().getName():"no-target");
-        GMAudit.auditGMAction(activeChar.getName(), command, target, "");		
-		
         if (command.equals("admin_add_exp_sp_to_character"))
 		{
 			addExpSp(activeChar);
@@ -81,7 +77,6 @@ public class AdminExpSp implements IAdminCommandHandler {
             {
                 String val = command.substring(19); 
                 adminRemoveExpSP(activeChar, val);
-                GMAudit.auditGMAction(activeChar.getName(), command,  val, "");
             }
             catch (StringIndexOutOfBoundsException e)
             {   //Case of empty character name
@@ -92,8 +87,6 @@ public class AdminExpSp implements IAdminCommandHandler {
             }
         }
         
-        GMAudit.auditGMAction(activeChar.getName(), command,  activeChar.getTarget().getName(), "");
-		
         return true;
 	}
 	

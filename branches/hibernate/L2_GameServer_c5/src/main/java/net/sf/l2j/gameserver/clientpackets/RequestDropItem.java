@@ -24,7 +24,6 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
-import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
@@ -195,12 +194,6 @@ public class RequestDropItem extends ClientBasePacket
 		if (_log.isDebugEnabled()) _log.debug("dropping " + _objectId + " item("+_count+") at: " + _x + " " + _y + " " + _z);
 
 		activeChar.broadcastUserInfo();
-
-		if (activeChar.isGM())
-		{
-			String target = (activeChar.getTarget() != null?activeChar.getTarget().getName():"no-target");
-			GMAudit.auditGMAction(activeChar.getName(), "drop", target, dropedItem.getItemId() + " - " +dropedItem.getName());
-		}
 
         if (dropedItem.getItemId() == 57 && dropedItem.getCount() >= 1000000)
         {

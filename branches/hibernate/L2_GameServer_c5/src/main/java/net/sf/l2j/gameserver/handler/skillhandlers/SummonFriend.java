@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -172,7 +171,7 @@ public class SummonFriend implements ISkillHandler
                 }
             }
         } catch (Throwable e) {
-            if (_log.isDebugEnabled()) e.printStackTrace();
+            if (_log.isDebugEnabled())  _log.debug("",e);
         }
     }
 

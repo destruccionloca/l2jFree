@@ -25,7 +25,7 @@
       <repository>
         <id>central l2j</id>
         <name>Mirror Central L2j</name>
-        <url>http://85.214.19.147:9091/repository/l2jm2/</url>
+        <url>http://www.l2jfree.com:9091/repository/l2jm2/</url>
         <releases>
           <enabled>true</enabled>
         </releases>
@@ -213,33 +213,6 @@
       </plugin>	    
 	  </plugins>
 	</build>  
-
-	<reporting>
-		<excludeDefaults>true</excludeDefaults>
-		<plugins>
-	      <plugin>
-	        <groupId>org.codehaus.mojo</groupId>
-	        <artifactId>jdepend-maven-plugin</artifactId>
-	      </plugin>
-
-	      <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-changes-plugin</artifactId>
-	        <version>2.0-beta-2-SNAPSHOT</version>
-			<configuration>
-	          <xmlPath>${basedir}/src/site/changes/changes.xml</xmlPath>
-    	    </configuration>	        
-	        <reportSets>
-	          <reportSet>
-	            <reports>
-	              <report>changes-report</report>
-	            </reports>
-	          </reportSet>
-	        </reportSets>
-	      </plugin>
-	    </plugins>		
-   	    
-    </reporting>
 
 </project>
 

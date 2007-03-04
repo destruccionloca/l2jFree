@@ -9,7 +9,6 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
-import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -74,9 +73,6 @@ public class AdminCache implements IAdminCommandHandler
             CrestCache.getInstance().convertOldPedgeFiles();
             activeChar.sendMessage("Cache[Crest]: crests fixed");
         }
-
-        String target = (activeChar.getTarget() != null?activeChar.getTarget().getName():"no-target");
-        GMAudit.auditGMAction(activeChar.getName(), command, target, "");        
 
         return true;
     }

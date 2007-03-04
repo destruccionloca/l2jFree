@@ -24,6 +24,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
+import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.util.Util;
 
@@ -65,6 +66,20 @@ public class SendBypassBuildCmd extends ClientBasePacket
         
 		if (ach != null) 
 		{
+            // DaDummy: this way we log _every_ admincommand with all related info
+            String command;
+            String params;
+            
+            if (_command.indexOf(" ") != -1) {
+                command = _command.substring(0, _command.indexOf(" "));
+                params  = _command.substring(_command.indexOf(" "));
+            } else {
+                command = _command;
+                params  = "";
+            }
+            
+            GMAudit.auditGMAction(activeChar, "admincommand", command, params);
+            
 			ach.useAdminCommand("admin_"+_command, activeChar);
 		} 
 	}

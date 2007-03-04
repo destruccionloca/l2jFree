@@ -285,6 +285,16 @@ public abstract class ItemContainer
     	if (sourceitem == null) return null;
         L2ItemInstance targetitem = sourceitem.isStackable() ? target.getItemByItemId(sourceitem.getItemId()) : null;
 
+        // Do only log if item leaves it's owner
+        if (actor.isGM() && target.getOwner() != actor) // target.getOwner() should never be null
+        {
+            // DaDummy: this way we log _every_ gmtransfer with all related info
+            String command = target.getClass().getSimpleName();
+            String params  = target.getOwner().getName() + " - " + String.valueOf(count) + " - " + String.valueOf(sourceitem.getEnchantLevel()) + " - " + String.valueOf(sourceitem.getItemId()) + " - " + sourceitem.getItemName();
+
+            GMAudit.auditGMAction(actor, "transferitem", command, params);
+        }
+        
         synchronized(sourceitem)
         {
         	// Check if requested quantity is available

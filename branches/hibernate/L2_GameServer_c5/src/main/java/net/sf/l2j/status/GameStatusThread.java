@@ -525,7 +525,7 @@ public class GameStatusThread extends Thread
                     	_print.println("Specify a character name.");
                     } catch(Exception e)
                     {
-                        if (_log.isDebugEnabled()) e.printStackTrace();
+                        if (_log.isDebugEnabled()) _log.debug(e.getMessage(),e);;
                     }
                 }
                 else if (_usrCommand.startsWith("debug"))
@@ -780,7 +780,7 @@ public class GameStatusThread extends Thread
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            _log.error(e.getMessage(),e);
         }
     }
     

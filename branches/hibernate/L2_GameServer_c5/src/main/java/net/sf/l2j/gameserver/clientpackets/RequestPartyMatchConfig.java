@@ -69,8 +69,7 @@ public class RequestPartyMatchConfig extends ClientBasePacket
 		catch (BufferUnderflowException e)
         {
             _memo                 = "";
-            _log.warn("Memo field non existant in packet. Notify devs.");
-            e.printStackTrace();
+            _log.warn("Memo field non existant in packet. Notify devs.",e);
         }*/
 	}
 
