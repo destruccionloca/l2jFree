@@ -25,7 +25,6 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.security.interfaces.RSAPrivateKey;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,6 +44,7 @@ import net.sf.l2j.loginserver.serverpackets.PlayOk;
 import net.sf.l2j.loginserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.loginserver.serverpackets.ServerList;
 import net.sf.l2j.util.Util;
+import net.sf.l2j.util.Net;
 
 /**
  * This class ...
@@ -58,11 +58,11 @@ public class ClientThread extends Thread
 	private InputStream _in;
 	private OutputStream _out;
 	private NewCrypt _crypt;
+	private String ip;
 	
 	private Socket _csocket;
 
-	private boolean _internalIP;
-    protected static List<String> _bannedIPs = new FastList<String>();
+    protected static FastList<Net> _bannedIPs = new FastList<Net>();
     private boolean _ggAuthRecieved;
     
     private RSAPrivateKey _privateKey;
@@ -74,16 +74,18 @@ public class ClientThread extends Thread
 		setDaemon(true);
 		_csocket = client;
 		
-		_internalIP = Util.isInternalIP(_csocket.getInetAddress().getHostAddress());
-		
-		String ip = client.getInetAddress().getHostAddress();
+		ip = client.getInetAddress().getHostAddress();
 		
 		_in = client.getInputStream();
 		_out = new BufferedOutputStream(client.getOutputStream());
         _crypt = new NewCrypt("_;5.]94-31==-%xT!^[$\000");
 		_ggAuthRecieved = false;
-        
-        if (_bannedIPs.contains(ip))
+		
+        boolean _banned = false;
+		for (Net _ip:_bannedIPs)
+			if (_ip.isInNet(ip)) _banned=true;
+		
+        if (_banned)
         {
             LoginFail lok = new LoginFail(LoginFail.REASON_ACCOUNT_BANNED);
             sendPacket(lok);
@@ -214,7 +216,7 @@ public class ClientThread extends Thread
                                     }
                                     else
                                     {
-                                    	ServerList sl = GameServerTable.getInstance().makeServerList(lc.isGM(account), _internalIP);
+                                    	ServerList sl = GameServerTable.getInstance().makeServerList(lc.isGM(account), ip);
                 						sendPacket(sl);
                                     }
                                 }
@@ -284,7 +286,7 @@ public class ClientThread extends Thread
 						if (Config.DEBUG) _log.info("RequestServerList");
 						//RequestServerList rsl = new RequestServerList(decrypt);
 						
-						ServerList sl = GameServerTable.getInstance().makeServerList(LoginController.getInstance().isGM(account), _internalIP);
+						ServerList sl = GameServerTable.getInstance().makeServerList(LoginController.getInstance().isGM(account), ip);
 						if (Config.DEBUG)
 						{
 							byte [] content = sl.getContent();
@@ -361,7 +363,7 @@ public class ClientThread extends Thread
 
 	public void addBannedIP(String ip, int incorrectCount)
 	{
-		_bannedIPs.add(ip);
+		
         int time = incorrectCount * incorrectCount * 1000;
         //System.out.println("Banning ip "+ip+" for "+time/1000.0+" seconds.");
         ThreadPoolManager.getInstance().scheduleGeneral(new UnbanTask(ip), time);
@@ -369,19 +371,21 @@ public class ClientThread extends Thread
 
     public static void addBannedIP(String ip)
     {
-        _bannedIPs.add(ip);
+    	_bannedIPs.add(new Net(ip));
     }
 
     public class UnbanTask implements Runnable
     {
-        public String _ip;
-        public UnbanTask(String IP)
+    	Net _unban;
+    	
+        public UnbanTask(String ip)
         {
-            _ip = IP;
+        	_unban=new Net(ip);
+        	_bannedIPs.add(_unban);
         }
         public void run()
         {
-            _bannedIPs.remove(_ip);
+            _bannedIPs.remove(_unban);
         }
         
     }

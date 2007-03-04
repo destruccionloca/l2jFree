@@ -220,8 +220,6 @@ public class GameServerTable
         {
             if(gs.server_id == id)
             {
-                gs.ip = null;
-                gs.internal_ip = null;
                 gs.port = 0;
                 gs.gst = null;
             }
@@ -318,7 +316,7 @@ public class GameServerTable
             statement.setInt(2, gs.server_id);
             if(gs.gst != null)
             {
-                statement.setString(3, gs.gst.getGameExternalHost());
+                statement.setString(3, gs.gst.getConnectionIpAddress());
             }
             else
             {
@@ -382,7 +380,7 @@ public class GameServerTable
         }
     }
     
-    public ServerList makeServerList(boolean isGM, boolean _internalip)
+    public ServerList makeServerList(boolean isGM, String ip)
     {
         orderList();
         ServerList sl = new ServerList();
@@ -395,23 +393,21 @@ public class GameServerTable
             {
                 if(gs.gst != null)
                 {
-                    gs.gst.setGameHosts(gs.gst.getGameExternalHost(),gs.gst.getGameInternalHost());
-                    gs.internal_ip = gs.gst.getGameInternalIP();
-                    gs.ip = gs.gst.getGameExternalIP();
+                    gs.gst.updateNetConfig();
                     updated = true;
                 }
             }
-            if(_internalip)
+            String gs_ip = null; 
+            if (gs.gst!=null) gs_ip = gs.gst.getGameServerIpAddress(ip);
+            int status = gs.status;
+            if(status == ServerStatus.STATUS_AUTO)
             {
-                int status = gs.status;
-                if(status == ServerStatus.STATUS_AUTO)
-                {
-                    if(gs.internal_ip == null)
+            	if(gs_ip == null)
                     {
                         status = ServerStatus.STATUS_DOWN;
                     }
-                }
-                else if(status == ServerStatus.STATUS_GM_ONLY)
+            }
+            else if(status == ServerStatus.STATUS_GM_ONLY)
                 {
                     if(!isGM)
                     {
@@ -419,41 +415,14 @@ public class GameServerTable
                     }
                     else
                     {
-                        if(gs.internal_ip == null)
+                        if(gs_ip == null)
                         {
                             status = ServerStatus.STATUS_DOWN;
                         }
                     }
                 }
-                sl.addServer(gs.internal_ip,gs.port,gs.pvp,gs.testServer,(gs.gst == null ? 0 : gs.gst.getCurrentPlayers()),gs.maxPlayers,gs.brackets,gs.clock,status,gs.server_id);
-            }
-            else
-            {
-                int status = gs.status;
-                if(status == ServerStatus.STATUS_AUTO)
-                {
-                    if(gs.ip == null)
-                    {
-                        status = ServerStatus.STATUS_DOWN;
-                    }
-                }
-                else if(status == ServerStatus.STATUS_GM_ONLY)
-                {
-                    if(!isGM)
-                    {
-                        status = ServerStatus.STATUS_DOWN;
-                    }
-                    else
-                    {
-                        if(gs.ip == null)
-                        {
-                            status = ServerStatus.STATUS_DOWN;
-                        }
-                    }
-                }
-                sl.addServer(gs.ip,gs.port,gs.pvp,gs.testServer,(gs.gst == null ? 0 : gs.gst.getCurrentPlayers()),gs.maxPlayers,gs.brackets,gs.clock,status,gs.server_id);
-            }
-        }
+                sl.addServer(gs_ip,gs.port,gs.pvp,gs.testServer,(gs.gst == null ? 0 : gs.gst.getCurrentPlayers()),gs.maxPlayers,gs.brackets,gs.clock,status,gs.server_id);
+         }
         if(updated)
         {
             _last_IP_Update = System.currentTimeMillis();
@@ -494,7 +463,7 @@ public class GameServerTable
             "values (?,?,?)");
             statement.setString(1, hexToString(thread.getHexID()));
             statement.setInt(2, thread.getServerID());
-            statement.setString(3, thread.getGameExternalHost());
+            statement.setString(3, thread.getConnectionIpAddress());
             statement.executeUpdate();
             statement.close();
         }
@@ -592,7 +561,7 @@ public class GameServerTable
         {
             if(gs.server_id == serverID)
             {
-                if(gs.ip != null && gs.gst != null && gs.gst.isAuthed())
+                if(gs.gst != null && gs.gst.isAuthed())
                 {
                     return true;
                 }
@@ -619,7 +588,6 @@ public class GameServerTable
     
     public class GameServer
     {
-        public String ip;
         public int server_id;
         public int port;
         public boolean pvp = true;
@@ -630,24 +598,21 @@ public class GameServerTable
         public boolean brackets = false;
         public boolean clock = false;
         public int status = ServerStatus.STATUS_AUTO;
-        public String internal_ip;
         
         GameServer(GameServerThread gamest)
         {
             gst = gamest;
-            ip = gst.getGameExternalIP();
             port = gst.getPort();
             pvp = gst.getPvP();
             testServer = gst.isTestServer();
             maxPlayers = gst.getMaxPlayers();
             hexID = gst.getHexID();
             server_id = gst.getServerID();
-            internal_ip = gst.getGameInternalIP();
         }
         
         public String toString()
         {
-            return "GameServer: "+serverNames.get(server_id)+" id:"+server_id+" hex:"+hexToString(hexID)+" ip:"+ip+":"+port+" status: "+ServerStatus.statusString[status];
+            return "GameServer: "+serverNames.get(server_id)+" id:"+server_id+" hex:"+hexToString(hexID)+" connection ip:"+gst.getConnectionIpAddress()+":"+port+" status: "+ServerStatus.statusString[status];
         }
         
         private String hexToString(byte[] hex)

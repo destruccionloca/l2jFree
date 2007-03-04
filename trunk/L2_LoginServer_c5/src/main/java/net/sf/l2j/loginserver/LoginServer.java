@@ -42,8 +42,6 @@ public class LoginServer extends FloodProtectedListener
 {
     private static LoginServer _instance;
     
-    private String					_externalHostname;
-    private String					_internalHostname;
     public static Status			statusServer;
     public static GameServerTable	gameservertable;
     public LoginController			loginController;
@@ -108,21 +106,6 @@ public class LoginServer extends FloodProtectedListener
     {
         super(Config.GAME_SERVER_LOGIN_HOST, Config.PORT_LOGIN);
 
-        _externalHostname = Config.EXTERNAL_HOSTNAME;
-        if (_externalHostname == null)
-        {
-            _externalHostname = "localhost";
-        }
-
-        _internalHostname = Config.INTERNAL_HOSTNAME; //"InternalHostname");
-        if (_internalHostname == null)
-        {
-            _internalHostname = "localhost";
-        }
-
-        _log.config("Hostname for external connections is: " + _externalHostname);
-        _log.config("Hostname for internal connections is: " + _internalHostname);
-
         loginController = LoginController.getInstance();
         
         _gslistener = GameServerListener.getInstance();
@@ -159,7 +142,7 @@ public class LoginServer extends FloodProtectedListener
                     }
                 }
 
-                _log.info(count + " banned IPs defined");
+                _log.info(count + " banned IPs/Nets defined");
             }
             else
             {

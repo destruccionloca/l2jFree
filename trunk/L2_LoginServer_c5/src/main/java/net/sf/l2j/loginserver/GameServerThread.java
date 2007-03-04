@@ -29,6 +29,8 @@ import java.security.KeyPair;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.List;
+import java.util.StringTokenizer;
+import java.util.NoSuchElementException;
 import java.util.Vector;
 import java.util.logging.Logger;
 
@@ -75,10 +77,9 @@ public class GameServerThread extends Thread
 	private int _gamePort;
 	private byte[] _hexID;
 	private String connectionIpAddress;
-	private String _gameExternalHost;
-	private String _gameInternalHost;
-	private String _gameExternalIP;
-	private String _gameInternalIP;
+	private String _reserved;
+	private FastList<GameServerNetConfig> _gameserverNetConfig = new  FastList<GameServerNetConfig>();
+	private String _netConfig;
 	
 	/**
 	 * @return Returns the hexID.
@@ -312,9 +313,10 @@ public class GameServerThread extends Thread
 					return;
 				}
 				_gamePort = gameServerauth.getPort();
-				setGameHosts(gameServerauth.getExternalHost(), gameServerauth.getInternalHost());
+				_netConfig = gameServerauth.getNetConfig();
 				_max_players = gameServerauth.getMax_palyers();
 				_hexID = gameServerauth.getHexID();
+				updateNetConfig();
 				gsTableInstance.addServer(this);
 			}
 			else if(Config.ACCEPT_NEW_GAMESERVER)
@@ -327,9 +329,10 @@ public class GameServerThread extends Thread
 						if (Config.DEBUG)_log.info("Desired ID is Valid");
 						_server_id = gameServerauth.getDesiredID();
 						_gamePort = gameServerauth.getPort();
-						setGameHosts(gameServerauth.getExternalHost(), gameServerauth.getInternalHost());
+						_netConfig = gameServerauth.getNetConfig();
 						_max_players = gameServerauth.getMax_palyers();
 						_hexID = gameServerauth.getHexID();
+						updateNetConfig();
 						gsTableInstance.createServer(this);
 						gsTableInstance.addServer(this);
 					}
@@ -363,9 +366,10 @@ public class GameServerThread extends Thread
 					}
 					_server_id = id;
 					_gamePort = gameServerauth.getPort();
-					setGameHosts(gameServerauth.getExternalHost(), gameServerauth.getInternalHost());
+					_netConfig = gameServerauth.getNetConfig();
 					_max_players = gameServerauth.getMax_palyers();
 					_hexID = gameServerauth.getHexID();
+					updateNetConfig();
 					gsTableInstance.createServer(this);
 					gsTableInstance.addServer(this);
 				}
@@ -474,23 +478,7 @@ public class GameServerThread extends Thread
 	{
 		return _server_id;
 	}
-	
-	/**
-	 * @return Returns the external game Host.
-	 */
-	public String getGameExternalHost()
-	{
-		return _gameExternalHost;
-	}
-	
-	/**
-	 * @return Returns the internal game Host.
-	 */
-	public String getGameInternalHost()
-	{
-		return _gameInternalHost;
-	}
-	
+
 	/**
 	 * @return
 	 */
@@ -515,68 +503,80 @@ public class GameServerThread extends Thread
 		return _isTestServer;
 	}
 	
-	/**
-	 * @param gameHost The gameHost to set.
-	 */
-	public void setGameHosts(String gameExternalHost, String gameInternalHost)
+
+	public void updateNetConfig()
 	{
-        String oldInternal = _gameInternalHost;
-        String oldExternal = _gameExternalHost;
-		_gameExternalHost = gameExternalHost;
-		_gameInternalHost = gameInternalHost;
-		if(!_gameExternalHost.equals("*"))
+		_gameserverNetConfig.clear();
+		
+		StringTokenizer hostNets = new StringTokenizer(_netConfig.trim(),";");	
+		
+		while (hostNets.hasMoreTokens())
 		{
+			String hostNet=hostNets.nextToken();
+			
+			StringTokenizer addresses = new StringTokenizer(hostNet.trim(),",");
+	
+			String _host = addresses.nextToken();
+
+			GameServerNetConfig _NetConfig = new GameServerNetConfig(_host); 
+			
 			try
 			{
-				_gameExternalIP = InetAddress.getByName(_gameExternalHost).getHostAddress();
+				_host = InetAddress.getByName(_host).getHostAddress();
+			
 			}
 			catch (UnknownHostException e)
 			{
-				_log.warning("Couldn't resolve hostname \""+_gameExternalHost+"\"");
+				_log.warning("Couldn't resolve hostname \""+_host+"\"");
 			}
-		}
-		else
-		{
-			_gameExternalIP = _connectionIp;
-		}
-		if(!_gameInternalHost.equals("*"))
-		{
-			try
+			
+			if (addresses.hasMoreTokens())
 			{
-				_gameInternalIP = InetAddress.getByName(_gameInternalHost).getHostAddress();
-			}
-			catch (UnknownHostException e)
+			while (addresses.hasMoreTokens())
 			{
-				_log.warning("Couldn't resolve hostname \""+_gameExternalHost+"\"");
+				try
+				{
+					StringTokenizer netmask = new StringTokenizer(addresses.nextToken().trim(),"/");
+					String _net = netmask.nextToken();
+					String _mask = netmask.nextToken();
+
+					_NetConfig.addNet(_net,_mask);
+				}
+				catch (NoSuchElementException c)
+				{
+				}
 			}
+			}else
+				_NetConfig.addNet("0.0.0.0","0"); // Any address
+
+			_gameserverNetConfig.add(_NetConfig);
+				
 		}
-		else
-		{
-			_gameInternalIP = _connectionIp;
-		}
+		
 		_log.info("Updated Gameserver "+GameServerTable.getInstance().serverNames.get(_server_id)+ " IP's:");
-        if(oldInternal == null || !oldInternal.equalsIgnoreCase(_gameInternalIP)) 
-            _log.info("InternalIP: "+_gameInternalIP);
-        if(oldExternal == null || !oldExternal.equalsIgnoreCase(_gameExternalIP)) 
-           _log.info("ExternalIP: "+_gameExternalIP);
+		for (GameServerNetConfig netConfig : _gameserverNetConfig )
+		{
+			_log.info(netConfig.getHost());	
+		}
 	}
-	
+
 	/**
-	 * @return Returns the game server's external IP.
+	 * get proper host
 	 */
-	public String getGameExternalIP()
+	public String getGameServerIpAddress(String ip)
 	{
-		return _gameExternalIP;
+		String _host = null;
+		
+		for (GameServerNetConfig _netConfig : _gameserverNetConfig )
+		{
+			if (_netConfig.checkHost(ip))
+			{
+				_host = _netConfig.getHost();
+				break;
+			}
+		}
+		return _host;
 	}
-	
-	/**
-	 * @return Returns the game server's internal IP.
-	 */
-	public String getGameInternalIP()
-	{
-		return _gameInternalIP;
-	}
-	
 	/**
 	 * @return Returns the isAuthed.
 	 */
