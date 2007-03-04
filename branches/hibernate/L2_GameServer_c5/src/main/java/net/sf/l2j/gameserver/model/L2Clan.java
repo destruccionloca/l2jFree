@@ -26,11 +26,10 @@ import java.util.Map;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2Registry;
-import net.sf.l2j.gameserver.communitybbs.BB.Forum;
-import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.forum.Forums;
 import net.sf.l2j.gameserver.serverpackets.PledgeReceiveSubPledgeCreated;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
 import net.sf.l2j.gameserver.serverpackets.PledgeSkillListAdd;
@@ -38,6 +37,7 @@ import net.sf.l2j.gameserver.serverpackets.PledgeStatusChanged;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
+import net.sf.l2j.gameserver.services.forum.ForumService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,7 +47,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.7.2.4.2.7 $ $Date: 2005/04/06 16:13:41 $
  */
-public class L2Clan
+public class L2Clan 
 {
     private static final Log _log = LogFactory.getLog(L2Clan.class.getName());
     private String _name;
@@ -72,7 +72,7 @@ public class L2Clan
 
     private boolean _hasCrestLarge;
 
-    private Forum _Forum;
+    private Forums _Forum;
 
     private List<L2Skill> _skills = new FastList<L2Skill>(); 
     
@@ -532,11 +532,9 @@ public class L2Clan
         {
             if(_level >= 2)
             {
-                _Forum = ForumsBBSManager.getInstance().getForumByName("ClanRoot").GetChildByName(_name);
-                if(_Forum == null)
-                {
-                    _Forum = ForumsBBSManager.getInstance().CreateNewForum(_name,ForumsBBSManager.getInstance().getForumByName("ClanRoot"),Forum.CLAN,Forum.CLANMEMBERONLY,getClanId());
-                }
+            	// TODO to refactor, maybe use an observable pattern
+            	ForumService fs = (ForumService)L2Registry.getBean("ForumService");
+                _Forum = fs.getForumForClanAndCreateIfNotAvailable(_name, getClanId()); 
             }
         }
     }

@@ -2,17 +2,15 @@ package net.sf.l2j.gameserver.dao.forum.impl;
 
 import net.sf.l2j.gameserver.dao.forum.PostsDAO;
 import net.sf.l2j.gameserver.model.forum.Posts;
-import net.sf.l2j.gameserver.model.forum.Topic;
 
 // Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
 
 
 /**
- * Home object for domain model class Posts.
+ * DAO object for domain model class Posts.
  * @see net.sf.l2j.gameserver.model.forum.Posts
- * @author Hibernate Tools
  */
-public class PostsDAOHib extends BaseRootDAOHib implements PostsDAO
+public class PostsDAOMock implements PostsDAO
 {
 
 	/**
@@ -20,7 +18,8 @@ public class PostsDAOHib extends BaseRootDAOHib implements PostsDAO
 	 */
 	public void changePost(Posts obj)
 	{
-		saveOrUpdate(obj);
+		if ( !obj.getPostTxt().equals("good"))
+			throw new RuntimeException ("Unable to change post mock");
 	}
 
 	/**
@@ -28,7 +27,10 @@ public class PostsDAOHib extends BaseRootDAOHib implements PostsDAO
 	 */
 	public int createPost(Posts obj)
 	{
-		return (Integer)save(obj);
+		if (obj.getPostTxt().equals("good"))
+			return 2;
+		else
+			throw new RuntimeException ("Unable to get post mock");
 	}
 
 	/**
@@ -36,11 +38,8 @@ public class PostsDAOHib extends BaseRootDAOHib implements PostsDAO
 	 */
 	public void deletePost(Posts obj)
 	{
-		Topic topic = obj.getTopic();
-		topic.getPostses().remove(obj);
-		getCurrentSession().save(topic);
-		obj.setTopic(topic);
-		delete(obj);		
+		if ( !obj.getPostTxt().equals("good"))
+			throw new RuntimeException ("Unable to delete post mock");
 	}
 
 	/**
@@ -48,8 +47,18 @@ public class PostsDAOHib extends BaseRootDAOHib implements PostsDAO
 	 */
 	public Posts getPostById(Integer id)
 	{
-		return (Posts)get(Posts.class, id);
+		if ( id != 1 )
+			throw new RuntimeException ("Unable to get by id post mock");
+		else
+		{
+			Posts post = new Posts();
+			post.setPostId(1);
+			post.setPostTxt("good");
+			return post;
+		}
 	}
 
-  
+ 
+
+
 }

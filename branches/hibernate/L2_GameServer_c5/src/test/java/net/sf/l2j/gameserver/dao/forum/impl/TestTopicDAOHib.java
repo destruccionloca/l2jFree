@@ -106,7 +106,7 @@ public class TestTopicDAOHib extends ADAOTestCase
     	topic.setTopicOwnerid(666);
     	topic.setTopicOwnername("one player");
     	
-    	assertEquals(2,getTopicDAO().createTopic(topic));
+    	assertEquals(5,getTopicDAO().createTopic(topic));
     }   
     
 	/**
@@ -146,6 +146,16 @@ public class TestTopicDAOHib extends ADAOTestCase
     	topic = getTopicDAO().getTopicById(2);
     	assertEquals(1,topic.getPostses().size());
     }       
+    
+    public void testGetPaginatedTopics ()
+    {
+    	// Get page 2 with 1 topic per page for forum id 6
+    	List<Topic> topics = getTopicDAO().getPaginatedTopicByForumId(1, 2, 6);
+    	// we should have 1 result
+    	assertEquals(1,topics.size());
+    	// the topic id should be the second
+    	assertEquals(3,topics.get(0).getTopicId());
+    }
     
 	/**
 	 * Test method for {@link

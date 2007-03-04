@@ -80,6 +80,21 @@ public class TestForumsDAOHib extends ADAOTestCase
     	assertEquals(2,getForumsDAO().getChildrens(forum).size());
     }
     
+	/**
+	 * Test method for {@link
+	 * net.sf.l2j.gameserver.dao.impl.ForumsDAO#getChildForumByName(Integer,String)}.
+	 */
+    public void testFindChildrenByName()
+    {
+    	Forums forum = getForumsDAO().getForumByName("ClanRoot");
+    	assertNotNull(forum);
+    	assertEquals("ClanRoot", forum.getForumName());
+    	Forums fils = getForumsDAO().getChildForumByName(forum.getForumId(), "Kyor");
+    	assertNotNull(fils);
+    	assertEquals("Kyor", fils.getForumName());
+    	assertEquals(forum.getForumId(), fils.getForumParent());
+    }
+    
     
 	/**
 	 * Test method for getTopics and getPosts
@@ -89,7 +104,7 @@ public class TestForumsDAOHib extends ADAOTestCase
     	Forums forum = getForumsDAO().getForumById(6);
     	assertNotNull(forum);
     	assertEquals(6, forum.getForumId());
-    	assertEquals(1,forum.getTopics().size());
+    	assertEquals(3,forum.getTopics().size());
     }
     
 	/**

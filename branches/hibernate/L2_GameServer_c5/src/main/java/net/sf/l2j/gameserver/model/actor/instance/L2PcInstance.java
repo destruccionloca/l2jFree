@@ -49,8 +49,6 @@ import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2PlayerAI;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.cache.WarehouseCacheManager;
-import net.sf.l2j.gameserver.communitybbs.BB.Forum;
-import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.FishTable;
@@ -70,8 +68,8 @@ import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
-import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
@@ -118,14 +116,14 @@ import net.sf.l2j.gameserver.model.actor.status.PcStatus;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.base.ClassLevel;
 import net.sf.l2j.gameserver.model.base.Experience;
-import net.sf.l2j.gameserver.model.base.PlayerClass; 
+import net.sf.l2j.gameserver.model.base.PlayerClass;
 import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.model.base.SubClass;
 import net.sf.l2j.gameserver.model.entity.CTF;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.DM;
-import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.FactionMember;
+import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.TvT;
 import net.sf.l2j.gameserver.model.entity.VIP;
@@ -598,8 +596,6 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _inCrystallize;
 
     private boolean _inCraftMode;
-    private Forum _forumMail;
-    private Forum _forumMemo;
 
     /** Current skill in use */
     private SkillDat _currentSkill;
@@ -5278,68 +5274,6 @@ public final class L2PcInstance extends L2PlayableInstance
             }
         }
         return player;
-    }
-
-    /**
-     * @return
-     */
-    public Forum getMail()
-    {
-        if (_forumMail == null)
-        {
-            setMail(ForumsBBSManager.getInstance().getForumByName("MailRoot").GetChildByName(getName()));
-            if (_forumMail == null)
-            {
-                ForumsBBSManager.getInstance().CreateNewForum(
-                                                              getName(),
-                                                              ForumsBBSManager.getInstance().getForumByName(
-                                                                                                            "MailRoot"),
-                                                              Forum.MAIL, Forum.OWNERONLY, getObjectId());
-                setMail(ForumsBBSManager.getInstance().getForumByName("MailRoot").GetChildByName(
-                                                                                                 getName()));
-            }
-        }
-        return _forumMail;
-    }
-
-    /**
-     * @param forum
-     */
-    public void setMail(Forum forum)
-    {
-        _forumMail = forum;
-    }
-
-    /**
-     * @return
-     */
-    public Forum getMemo()
-    {
-        if (_forumMemo == null)
-        {
-            setMemo(ForumsBBSManager.getInstance().getForumByName("MemoRoot").GetChildByName(
-                                                                                             _accountName));
-            if (_forumMemo == null)
-            {
-                ForumsBBSManager.getInstance().CreateNewForum(
-                                                              _accountName,
-                                                              ForumsBBSManager.getInstance().getForumByName(
-                                                                                                            "MemoRoot"),
-                                                              Forum.MEMO, Forum.OWNERONLY, getObjectId());
-                setMemo(ForumsBBSManager.getInstance().getForumByName("MemoRoot").GetChildByName(
-                                                                                                 _accountName));
-            }
-
-        }
-        return _forumMemo;
-    }
-
-    /**
-     * @param forum
-     */
-    public void setMemo(Forum forum)
-    {
-        _forumMemo = forum;
     }
 
     /**

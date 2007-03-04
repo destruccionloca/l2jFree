@@ -77,5 +77,14 @@ public class ForumsDAOHib extends BaseRootDAOHib implements ForumsDAO
 		delete(obj);		
 	}
 
+	/**
+	 * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#getChildForumByName(Integer ,java.lang.String)
+	 */
+	public Forums getChildForumByName(Integer forumId, String name)
+	{
+		return (Forums)getCurrentSession().createQuery(
+				"from " + Forums.class.getName()+ " where forumName = '"+name+"' and forumParent="+forumId).uniqueResult();
+	}
+
 
 }

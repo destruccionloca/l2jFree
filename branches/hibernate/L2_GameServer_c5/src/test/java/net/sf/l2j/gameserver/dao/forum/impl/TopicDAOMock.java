@@ -1,0 +1,99 @@
+package net.sf.l2j.gameserver.dao.forum.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sf.l2j.gameserver.dao.forum.TopicDAO;
+import net.sf.l2j.gameserver.model.forum.Topic;
+
+// Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
+
+
+/**
+ * DAO object for domain model class Topic.
+ * @see net.sf.l2j.gameserver.model.forum.Topic
+ */
+public class TopicDAOMock implements TopicDAO
+{
+
+	/**
+	 * @see net.sf.l2j.gameserver.dao.forum.TopicDAO#createTopic(net.sf.l2j.gameserver.model.forum.Topic)
+	 */
+	public int createTopic(Topic obj)
+	{
+		if (obj.getTopicName().equals("good"))
+			return 2;
+		else
+			throw new RuntimeException ("Unable to get topic mock");
+	}
+
+	/**
+	 * @see net.sf.l2j.gameserver.dao.forum.TopicDAO#deleteTopic(net.sf.l2j.gameserver.model.forum.Topic)
+	 */
+	public void deleteTopic(Topic obj)
+	{
+		if ( !obj.getTopicName().equals("good"))
+			throw new RuntimeException ("Unable to delete topic mock");
+	}
+
+	/**
+	 * @see net.sf.l2j.gameserver.dao.forum.TopicDAO#getTopicById(java.lang.Integer)
+	 */
+	public Topic getTopicById(Integer id)
+	{
+		if ( id != 1 )
+			throw new RuntimeException ("Unable to get by id topic mock");
+		else
+		{
+			Topic topic = new Topic();
+			topic.setTopicId(1);
+			topic.setTopicName("good");
+			return topic;
+		}
+	}
+
+	/**
+	 * @see net.sf.l2j.gameserver.dao.forum.TopicDAO#getTopicByName(java.lang.String)
+	 */
+	public Topic getTopicByName(String name)
+	{
+		if ( !name.equals("good"))
+			throw new RuntimeException ("Unable to get by name topic mock");
+		else
+		{
+			Topic topic = new Topic();
+			topic.setTopicId(1);
+			topic.setTopicName("good");
+			return topic;
+		}	
+	}
+
+	/**
+	 * @see net.sf.l2j.gameserver.dao.forum.TopicDAO#getPaginatedTopicByForumId(java.lang.Integer, java.lang.Integer, java.lang.Integer)
+	 */
+	public List<Topic> getPaginatedTopicByForumId(Integer iPageSize, Integer iIdx, Integer id)
+	{
+		if ( id != 2 && iPageSize == 2  )
+		{
+	        List<Topic> topics = new ArrayList<Topic>();
+	        
+	        Topic topic1 = new Topic();
+	        topic1.setTopicForumId(id);
+	        topic1.setTopicId(2);
+	        
+	        topics.add(topic1);
+	        
+	        Topic topic2 = new Topic();
+	        topic2.setTopicForumId(id);
+	        topic2.setTopicId(3);
+	        
+	        topics.add(topic2);
+	    	return topics;
+		}
+		throw new RuntimeException ("Unable to get topics paginated mock");
+	}
+
+ 
+
+
+}

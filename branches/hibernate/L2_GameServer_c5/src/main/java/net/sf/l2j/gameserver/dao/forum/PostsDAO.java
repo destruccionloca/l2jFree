@@ -25,11 +25,21 @@
  */
 package net.sf.l2j.gameserver.dao.forum;
 
+import net.sf.l2j.gameserver.model.forum.Posts;
+
 /**
  * Topic DAO to access data for posts
  * 
  */
 public interface PostsDAO
 {
+	public int createPost(Posts obj);
+	
+	public Posts getPostById (Integer id);
+
+	public void changePost (Posts obj);
+	
+    public void deletePost (Posts obj);
+	
 
 }

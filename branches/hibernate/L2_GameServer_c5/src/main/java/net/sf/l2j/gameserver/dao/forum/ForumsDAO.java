@@ -47,5 +47,7 @@ public interface ForumsDAO
     
     public List <Forums> getChildrens(Integer forumId);
     
+    public Forums getChildForumByName (Integer forumId, String name);
+    
     public void deleteForum (Forums obj);
 }

@@ -28,7 +28,6 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.cache.HtmCache;
-import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
 import net.sf.l2j.gameserver.datatables.CharNameTable;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ClanTable;
@@ -611,9 +610,6 @@ public class GameServer
         
         ClanTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("Clans initialized");
-        
-        ForumsBBSManager.getInstance();
-        if ( _log.isDebugEnabled())_log.debug("BBSManager initialized");
         
         _log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
 
