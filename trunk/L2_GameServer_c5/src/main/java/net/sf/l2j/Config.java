@@ -707,8 +707,11 @@ public final class Config {
     
     public static int           GAME_SERVER_LOGIN_PORT;
     public static String        GAME_SERVER_LOGIN_HOST;
+    public static String        GAME_SERVER_NETWORKS;
     public static String        INTERNAL_HOSTNAME;
+    public static String        INTERNAL_NETWORKS;
     public static String        EXTERNAL_HOSTNAME;
+    public static String        OPTIONAL_NETWORKS;
     
     /** IO_Type */
     public enum IOType {
@@ -1100,8 +1103,15 @@ public final class Config {
 	            	throw new Error("MinProtocolRevision is bigger than MaxProtocolRevision in server configuration file.");
 	            }
 	            
-                INTERNAL_HOSTNAME   = serverSettings.getProperty("InternalHostname", "*");
-	            EXTERNAL_HOSTNAME   = serverSettings.getProperty("ExternalHostname", "*");
+                INTERNAL_HOSTNAME   = serverSettings.getProperty("InternalHostname", "127.0.0.1");
+                INTERNAL_NETWORKS   = serverSettings.getProperty("InternalNetworks", "10.0.0.0/8,192.168.0.0/16");
+                EXTERNAL_HOSTNAME   = serverSettings.getProperty("ExternalHostname", "127.0.0.1");
+                OPTIONAL_NETWORKS   = serverSettings.getProperty("OptionalNetworks", "");
+                
+                GAME_SERVER_NETWORKS = "";
+                if (OPTIONAL_NETWORKS.length()>0) GAME_SERVER_NETWORKS += OPTIONAL_NETWORKS+";";
+                if (INTERNAL_HOSTNAME.length()>0) GAME_SERVER_NETWORKS += INTERNAL_HOSTNAME + ',' + INTERNAL_NETWORKS+";";
+                if (EXTERNAL_HOSTNAME.length()>0) GAME_SERVER_NETWORKS += EXTERNAL_HOSTNAME+","+"0.0.0.0/0";
                 
                 IO_TYPE                 = IOType.valueOf(serverSettings.getProperty("IOType", "nio"));
 	            

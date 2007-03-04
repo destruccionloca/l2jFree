@@ -96,8 +96,8 @@ public class LoginServerThread extends Thread
 	private FastMap<String, Connection>		_accountsInGameServer;
 	private int							_status;
 	private String						_serverName;
-	private String						_gameExternalHost;
-	private String						_gameInternalHost;
+	private String						_gameServerNetworks;
+	private String						_reserved;
 
 	public LoginServerThread()
 	{
@@ -113,8 +113,8 @@ public class LoginServerThread extends Thread
 		_acceptAlternate = Config.ACCEPT_ALTERNATE_ID;
 		_requestID = Config.REQUEST_ID;
 		_reserveHost = Config.RESERVE_HOST_ON_LOGIN;
-		_gameExternalHost = Config.EXTERNAL_HOSTNAME;
-		_gameInternalHost = Config.INTERNAL_HOSTNAME;
+        _gameServerNetworks = Config.GAME_SERVER_NETWORKS;
+        _reserved = "Reserved";
 		_waitingClients = new FastList<WaitingClient>();
 		_accountsInGameServer = new FastMap<String, Connection>();
 		_maxPlayer = Config.MAXIMUM_ONLINE_USERS;
@@ -226,7 +226,7 @@ public class LoginServerThread extends Thread
 							//now, only accept paket with the new encryption
 							_blowfish = new NewCrypt(_blowfishKey);
 							if (_log.isDebugEnabled())_log.info("Changed blowfish key");
-							AuthRequest ar = new AuthRequest(_requestID, _acceptAlternate, _hexID, _gameExternalHost, _gameInternalHost, _gamePort, _reserveHost, _maxPlayer);
+							AuthRequest ar = new AuthRequest(_requestID, _acceptAlternate, _hexID, _gameServerNetworks, _reserved, _gamePort, _reserveHost, _maxPlayer);
 							sendPacket(ar);
 							if (_log.isDebugEnabled())_log.debug("Sent AuthRequest to login");
 							break;
