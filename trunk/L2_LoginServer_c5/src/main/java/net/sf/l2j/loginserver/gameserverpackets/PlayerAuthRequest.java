@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.loginserver.gameserverpackets;
 
-import net.sf.l2j.loginserver.LoginController.SessionKey;
+import net.sf.l2j.loginserver.beans.SessionKey;
 import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
 
 /**

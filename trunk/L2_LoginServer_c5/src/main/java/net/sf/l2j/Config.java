@@ -22,7 +22,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.logging.Logger;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class containce global server configuration.<br>
@@ -34,11 +36,7 @@ import java.util.logging.Logger;
  */
 public final class Config {
 
-	protected static Logger _log = Logger.getLogger(Config.class.getName());
-	/** Debug/release mode */
-    public static boolean DEBUG;
-    /** Enable/disable assertions */
-    public static boolean ASSERT;
+	private static final Log _log = LogFactory.getLog(Config.class.getName());
     /** Enable/disable code 'in progress' */
     public static boolean DEVELOPER;
     
@@ -51,17 +49,6 @@ public final class Config {
     /** Hostname of the Game Server */
     public static String GAMESERVER_HOSTNAME;
     
-    // Access to database
-    /** Driver to access to database */
-    public static String DATABASE_DRIVER;
-    /** Path to access to database */
-    public static String DATABASE_URL;
-    /** Database login */ 
-    public static String DATABASE_LOGIN;
-    /** Database password */
-    public static String DATABASE_PASSWORD;
-    /** Maximum number of connections to the database */
-    public static int DATABASE_MAX_CONNECTIONS;
     
     // Thread pools size
     /** Thread pool size general */
@@ -122,9 +109,7 @@ public final class Config {
             GAME_SERVER_LOGIN_PORT = Integer.parseInt(serverSettings.getProperty("LoginPort","9013"));
             PORT_LOGIN             = Integer.parseInt(serverSettings.getProperty("LoginserverPort", "2106"));
             
-            DEBUG        = Boolean.parseBoolean(serverSettings.getProperty("Debug", "false"));
             DEVELOPER    = Boolean.parseBoolean(serverSettings.getProperty("Developer", "false"));
-            ASSERT       = Boolean.parseBoolean(serverSettings.getProperty("Assert", "false"));
             
             ACCEPT_NEW_GAMESERVER = Boolean.parseBoolean(serverSettings.getProperty("AcceptNewGameServer","True"));
             
@@ -133,12 +118,6 @@ public final class Config {
             
             INTERNAL_HOSTNAME = serverSettings.getProperty("InternalHostname", "localhost");
             EXTERNAL_HOSTNAME = serverSettings.getProperty("ExternalHostname", "localhost");
-            
-            DATABASE_DRIVER          = serverSettings.getProperty("Driver", "com.mysql.jdbc.Driver");
-            DATABASE_URL             = serverSettings.getProperty("URL", "jdbc:mysql://localhost/l2jdb");
-            DATABASE_LOGIN           = serverSettings.getProperty("Login", "root");
-            DATABASE_PASSWORD        = serverSettings.getProperty("Password", "");
-            DATABASE_MAX_CONNECTIONS = Integer.parseInt(serverSettings.getProperty("MaximumDbConnections", "10"));
             
             SHOW_LICENCE   = Boolean.parseBoolean(serverSettings.getProperty("ShowLicence", "true"));
             IP_UPDATE_TIME = Integer.parseInt(serverSettings.getProperty("IpUpdateTime","0"));

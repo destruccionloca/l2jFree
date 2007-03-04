@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.loginserver.gameserverpackets;
 
-import java.util.logging.Logger;
-
 import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
 
 /**
@@ -37,15 +35,14 @@ import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
  */
 public class GameServerAuth extends ClientBasePacket
 {
-	protected static Logger _log = Logger.getLogger(GameServerAuth.class.getName());
 	private byte[] _hexID;
 	private int _desiredID;
 	private boolean _hostReserved;
 	private boolean _acceptAlternativeID;
 	private int _max_palyers;
 	private int _port;
-	private String _reserved;
-	private String _netConfig;
+	private String _externalHost;
+	private String _internalHost;
 	
 	/**
 	 * @param decrypt
@@ -56,8 +53,8 @@ public class GameServerAuth extends ClientBasePacket
 		_desiredID = readC();
 		_acceptAlternativeID = (readC() == 0 ? false : true); 
 		_hostReserved = (readC() == 0 ? false : true);
-		_netConfig = readS();
-		_reserved = readS();
+		_externalHost = readS();
+		_internalHost = readS();
 		_port = readH();
 		_max_palyers = readD();
 		int size = readD();
@@ -96,11 +93,19 @@ public class GameServerAuth extends ClientBasePacket
 	}
 
 	/**
-	 * @return Returns the gameserver networks config.
+	 * @return Returns the externalHost.
 	 */
-	public String getNetConfig()
+	public String getExternalHost()
 	{
-		return _netConfig;
+		return _externalHost;
+	}
+
+	/**
+	 * @return Returns the internalHost.
+	 */
+	public String getInternalHost()
+	{
+		return _internalHost;
 	}
 	
 	/**

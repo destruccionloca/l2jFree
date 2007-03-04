@@ -2,7 +2,14 @@
 :start
 echo Starting L2J Login Server.
 echo.
-java -Xmx64m -cp javolution.jar;c3p0-0.9.0.4.jar;mysql-connector-java-3.1.10-bin.jar;sqljdbc.jar;l2j-loginserver.jar; net.sf.l2j.loginserver.LoginServer
+
+SET OLDCLASSPATH=%CLASSPATH%
+call setenv.bat
+
+java -Xmx64m net.sf.l2j.loginserver.LoginServer
+
+SET CLASSPATH=%OLDCLASSPATH%
+
 if ERRORLEVEL 2 goto restart
 if ERRORLEVEL 1 goto error
 goto end
