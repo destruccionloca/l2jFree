@@ -15,9 +15,12 @@ import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public final class L2AuctioneerInstance extends L2FolkInstance
 {
-    //private final static Log _log = LogFactory.getLog(L2AuctioneerInstance.class.getName());
+    private final static Log _log = LogFactory.getLog(L2AuctioneerInstance.class.getName());
 
     private static int Cond_All_False = 0;
     private static int Cond_Busy_Because_Of_Siege = 1;

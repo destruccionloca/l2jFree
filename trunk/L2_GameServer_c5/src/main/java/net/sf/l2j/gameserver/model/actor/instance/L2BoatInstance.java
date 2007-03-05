@@ -52,9 +52,9 @@ import org.apache.commons.logging.LogFactory;
  */
 public class L2BoatInstance extends L2Character
 {
-	protected static final Log _logBoat = LogFactory.getLog(L2BoatInstance.class.getName());
-	
-	public class L2BoatTrajet
+    final static Log _log = LogFactory.getLog(L2BoatInstance.class.getName());
+
+    public class L2BoatTrajet
 	{
 		public class L2BoatPoint
 		{
@@ -136,15 +136,15 @@ public class L2BoatInstance extends L2Character
 					parseLine(line);	
 					return;
 				}
-				_logBoat.warn("No path for boat "+_boatname+" !!!");
+				_log.warn("No path for boat "+_boatname+" !!!");
 			} 
 			catch (FileNotFoundException e) 
 			{		
-				_logBoat.warn("boatpath.csv is missing in data folder");
+				_log.warn("boatpath.csv is missing in data folder");
 			} 
 			catch (Exception e) 
 			{
-				_logBoat.warn("error while creating boat table " + e);
+				_log.warn("error while creating boat table " + e);
 			} 
 			finally 
 			{
@@ -241,7 +241,7 @@ public class L2BoatInstance extends L2Character
 		       final int dy = (y - curY);
 		       double distance = Math.sqrt(dx*dx + dy*dy);
 
-		       if (_log.isDebugEnabled()) _logBoat.debug("distance to target:" + distance);
+		       if (_log.isDebugEnabled()) _log.debug("distance to target:" + distance);
 
 		       // Define movement angles needed
 		       // ^
@@ -272,7 +272,7 @@ public class L2BoatInstance extends L2Character
 		       heading += 32768;
 		       getPosition().setHeading(heading);
 
-		       if (_log.isDebugEnabled()) _logBoat.debug("dist:"+ distance +"speed:" + speed + " ttt:" +m._ticksToMove +
+		       if (_log.isDebugEnabled()) _log.debug("dist:"+ distance +"speed:" + speed + " ttt:" +m._ticksToMove +
 		                   " dx:"+(int)m._xSpeedTicks + " dy:"+(int)m._ySpeedTicks + " heading:" + heading);
 
 		       m._xDestination = x;
@@ -290,7 +290,7 @@ public class L2BoatInstance extends L2Character
 		           m._ticksToMove = 1;
 
 		       if (_log.isDebugEnabled()) 
-		    	   _logBoat.debug("time to target:" + m._ticksToMove);
+		    	   _log.debug("time to target:" + m._ticksToMove);
 
 		       // Set the L2Character _move object to MoveData object
 		       _move = m;

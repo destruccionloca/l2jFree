@@ -21,9 +21,6 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-
-import java.util.logging.Logger;
-
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -34,12 +31,14 @@ import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.ShowTownMap;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * GODSON ROX!
  */
 public class L2StaticObjectInstance extends L2Object
 {
-    private static Logger _log = Logger.getLogger(L2StaticObjectInstance.class.getName());
+    private final static Log _log = LogFactory.getLog(L2StaticObjectInstance.class.getName());
     
     /** The interaction distance of the L2StaticObjectInstance */
     public static final int INTERACTION_DISTANCE = 150;

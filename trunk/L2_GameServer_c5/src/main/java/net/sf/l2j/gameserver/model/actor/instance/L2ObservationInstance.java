@@ -25,6 +25,9 @@ import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author NightMarez
  * @version $Revision: 1.3.2.2.2.5 $ $Date: 2005/03/27 15:29:32 $
@@ -32,8 +35,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public final class L2ObservationInstance extends L2FolkInstance
 {
-    //private final static Log _log = LogFactory.getLog(L2TeleporterInstance.class.getName());
-
+    private final static Log _log = LogFactory.getLog(L2ObservationInstance.class.getName());
     /**
      * @param template
      */

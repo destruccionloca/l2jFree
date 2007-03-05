@@ -3,10 +3,11 @@ package net.sf.l2j.gameserver.script.stat;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /** 
  *  Leaderboard interface for all Leaderboards.
  *
@@ -14,7 +15,7 @@ import javolution.util.FastList;
  */
 
 public interface Leaderboard {
-   static final Logger _log = Logger.getLogger(Leaderboard.class.getName());
+   final static Log _log = LogFactory.getLog(Leaderboard.class.getName());
    
    public void update(Connection c, ResultSet rs) throws SQLException;
    public String getHTML();

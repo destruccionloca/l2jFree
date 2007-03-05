@@ -33,6 +33,9 @@ import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * Dawn/Dusk Seven Signs Priest Instance
  * 
@@ -40,8 +43,8 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2SignsPriestInstance extends L2FolkInstance
 {
-    //private final static Log _log = LogFactory.getLog(L2SignsPriestInstance.class.getName());
-
+    private final static Log _log = LogFactory.getLog(L2SignsPriestInstance.class.getName());
+    
     public L2SignsPriestInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);

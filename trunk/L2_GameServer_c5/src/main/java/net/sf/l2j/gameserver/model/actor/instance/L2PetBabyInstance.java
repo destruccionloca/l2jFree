@@ -39,8 +39,13 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public final class L2PetBabyInstance extends L2PetInstance 
 {
+    final static Log _log = LogFactory.getLog(L2PetBabyInstance.class.getName());
+    
     private Future _healTask;
     float _expPenalty;
     boolean _thinking = false;

@@ -42,9 +42,12 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance; 
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public abstract class L2Summon extends L2PlayableInstance
 {
-    //private final static Log _log = LogFactory.getLog(L2Summon.class.getName());
+    private final static Log _log = LogFactory.getLog(L2Summon.class.getName());
     
     protected int _pkKills;
     private byte _pvpFlag;

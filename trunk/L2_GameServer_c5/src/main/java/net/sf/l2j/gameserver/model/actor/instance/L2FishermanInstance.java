@@ -35,8 +35,12 @@ import net.sf.l2j.gameserver.serverpackets.SellList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class L2FishermanInstance extends L2MerchantInstance
 {
+    private final static Log _log = LogFactory.getLog(L2FishermanInstance.class.getName());
     /**
      * @param objectId
      * @param template

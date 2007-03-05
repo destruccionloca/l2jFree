@@ -31,6 +31,8 @@ import net.sf.l2j.gameserver.serverpackets.WareHouseDepositList;
 import net.sf.l2j.gameserver.serverpackets.WareHouseWithdrawalList;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * This class ...
  *
@@ -38,8 +40,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public final class L2WarehouseInstance extends L2FolkInstance
 {
-    //private final static Log _log = LogFactory.getLog(L2WarehouseInstance.class.getName());
-
+    private final static Log _log = LogFactory.getLog(L2WarehouseInstance.class.getName());
     /**
      * @param template
      */

@@ -187,6 +187,9 @@ import net.sf.l2j.gameserver.util.Broadcast;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.util.Point3D;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class represents all player characters in the world.
  * There is always a client-thread connected to this (except if a player-store is activated upon logout).<BR><BR>
@@ -195,6 +198,8 @@ import net.sf.l2j.util.Point3D;
  */
 public final class L2PcInstance extends L2PlayableInstance
 {
+    private final static Log _log = LogFactory.getLog(L2PcInstance.class.getName());
+    
     private static final String RESTORE_SKILLS_FOR_CHAR = "SELECT skill_id,skill_level FROM character_skills WHERE char_obj_id=? AND class_index=?";
     private static final String ADD_NEW_SKILL = "INSERT INTO character_skills (char_obj_id,skill_id,skill_level,skill_name,class_index) VALUES (?,?,?,?,?)";
     private static final String UPDATE_CHARACTER_SKILL_LEVEL = "UPDATE character_skills SET skill_level=? WHERE skill_id=? AND char_obj_id=? AND class_index=?";
@@ -4704,7 +4709,17 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         return System.currentTimeMillis() - _uptime;
     }
-
+    
+    public long  getOnlineTime()
+    {
+        long totalOnlineTime = _onlineTime;
+        
+        if (_onlineBeginTime > 0)
+            totalOnlineTime += (System.currentTimeMillis()-_onlineBeginTime)/1000;
+        
+        return totalOnlineTime;
+    }
+    
     /**
      * Return True if the L2PcInstance is invulnerable.<BR><BR>
      */
@@ -9973,7 +9988,7 @@ public final class L2PcInstance extends L2PlayableInstance
             _player.setInJail(false, 0);
         }
     }
-    
+
     public void restoreHPMP()
     {
         setCurrentHpMp(getMaxHp(), getMaxMp());

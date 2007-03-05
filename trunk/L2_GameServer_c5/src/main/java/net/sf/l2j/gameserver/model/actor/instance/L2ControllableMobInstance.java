@@ -6,12 +6,17 @@ import net.sf.l2j.gameserver.ai.L2ControllableMobAI;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author littlecrow
  *
  */
 public class L2ControllableMobInstance extends L2MonsterInstance
 {
+    private final static Log _log = LogFactory.getLog(L2ControllableMobInstance.class.getName());
+    
 	private boolean _isInvul;
 	private L2ControllableMobAI _aiBackup;	// to save ai, avoiding beeing detached
 	private boolean _killedAlready = false;

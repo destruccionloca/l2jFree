@@ -28,6 +28,9 @@ import net.sf.l2j.gameserver.model.L2HennaInstance;
 import net.sf.l2j.gameserver.serverpackets.HennaEquipList;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -35,8 +38,8 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2SymbolMakerInstance extends L2FolkInstance
 {
-	//private final static Log _log = LogFactory.getLog(L2SymbolMakerInstance.class.getName());
-	
+    private final static Log _log = LogFactory.getLog(L2SymbolMakerInstance.class.getName());
+    
 	private double _collisionRadius;   
 	private double _collisionHeight; // this is  positioning the model relative to the ground
 	

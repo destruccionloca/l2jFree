@@ -7,7 +7,8 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.templates.L2BuffTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
-import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * This class represents the buff templates list
  * 
@@ -17,8 +18,7 @@ import java.util.logging.Logger;
 
 public class BuffTemplateTable
 {
-
-    private static final Logger _log = Logger.getLogger(BuffTemplateTable.class.getName());
+    private final static Log _log = LogFactory.getLog(BuffTemplateTable.class.getName());
     
     private static BuffTemplateTable _instance;
 
@@ -88,7 +88,7 @@ public class BuffTemplateTable
                     L2BuffTemplate template = new L2BuffTemplate(Buff);
                     if (template.getSkill() == null)
                         {
-                        _log.warning("Error while loading buff template Id " + template.getId() + " skill Id " + template.getSkillId());
+                        _log.warn("Error while loading buff template Id " + template.getId() + " skill Id " + template.getSkillId());
                         }
                     else
                         _buffs.add(template);
@@ -101,7 +101,7 @@ public class BuffTemplateTable
             } 
             catch (Exception e) 
             {
-                _log.warning("Error while loading buff templates "+e.getMessage());
+                _log.warn("Error while loading buff templates "+e.getMessage());
             }
              
         } 

@@ -16,6 +16,9 @@ import net.sf.l2j.gameserver.serverpackets.WareHouseDepositList;
 import net.sf.l2j.gameserver.serverpackets.WareHouseWithdrawalList;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * Castle Chamberlains implementation
  * used for:
@@ -26,7 +29,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2CastleChamberlainInstance extends L2FolkInstance
 {
-    //private final static Log _log = LogFactory.getLog(L2CastleChamberlainInstance.class.getName());
+    private final static Log _log = LogFactory.getLog(L2CastleChamberlainInstance.class.getName());
 
     protected static int Cond_All_False = 0;
     protected static int Cond_Busy_Because_Of_Siege = 1;

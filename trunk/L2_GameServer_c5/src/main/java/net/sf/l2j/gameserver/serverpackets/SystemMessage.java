@@ -166,7 +166,7 @@ public class SystemMessage extends ServerBasePacket
 	public static final int S1_IS_ALREADY_IN_PARTY = 160;
 	public static final int INVITED_USER_NOT_ONLINE = 161;
 
-	public static final int PARTY_DISPERSED = 203;
+    public static final int PARTY_DISPERSED = 203;
 	
 	public static final int S1_HAS_BECOME_A_PARTY_LEADER = 1384;
 	public static final int ONLY_A_PARTY_LEADER_CAN_TRANSFER_ONES_RIGHTS_TO_ANOTHER_PLAYER = 0x577;
@@ -338,7 +338,7 @@ public class SystemMessage extends ServerBasePacket
     public static final int PET_CANNOT_SENT_BACK_DURING_BATTLE = 579;
     public static final int YOU_ALREADY_HAVE_A_PET = 543;
     public static final int YOU_CANNOT_SUMMON_IN_COMBAT = 578;
-    
+    public static final int MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES = 1519;
     
     public static final int STRIDER_CANT_BE_RIDDEN_WHILE_DEAD = 1009;
     public static final int DEAD_STRIDER_CANT_BE_RIDDEN = 1010;

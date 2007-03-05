@@ -1,6 +1,7 @@
 package net.sf.l2j.gameserver.script.processor;
 
-import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import net.sf.l2j.gameserver.clientpackets.Say2;
 
@@ -10,7 +11,7 @@ import net.sf.l2j.gameserver.clientpackets.Say2;
  * @author  Imper1um
  */
 public interface Processor {
-   static final Logger _log = Logger.getLogger(Processor.class.getName());
+    final static Log _log = LogFactory.getLog(Processor.class.getName());
    public static final int EXACT = 0;
    public static final int EXACT_OR_BEGINNING = 1;
    public static final int BEGINNING = 2;

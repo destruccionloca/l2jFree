@@ -48,6 +48,9 @@ import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  * 
@@ -55,6 +58,9 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
  */
 public class L2DoorInstance extends L2Character
 {
+ 
+    final static Log _log = LogFactory.getLog(L2DoorInstance.class.getName());
+    
     /** The castle index in the array of L2Castle this L2NpcInstance belongs to */
     private int _CastleIndex = -2;
 

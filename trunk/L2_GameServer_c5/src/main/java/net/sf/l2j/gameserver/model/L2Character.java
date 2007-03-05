@@ -123,7 +123,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class L2Character extends L2Object
 {
-    public static final Log _log = LogFactory.getLog(L2Character.class.getName());
+    final static Log _log = LogFactory.getLog(L2Character.class.getName());
 
     // =========================================================
     // Data Field

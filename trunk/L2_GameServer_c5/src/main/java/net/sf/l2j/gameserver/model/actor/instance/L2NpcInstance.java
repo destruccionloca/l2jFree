@@ -83,6 +83,9 @@ import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class represents a Non-Player-Character in the world. It can be a monster or a friendly character.
  * It also uses a template to fetch some static values. The templates are hardcoded in the client, so we can rely on them.<BR><BR>
@@ -96,8 +99,8 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
  */
 public class L2NpcInstance extends L2Character
 {
-    //private final static Log _log = LogFactory.getLog(L2NpcInstance.class.getName());
-    
+    private final static Log _log = LogFactory.getLog(L2NpcInstance.class.getName());
+
     /** The interaction distance of the L2NpcInstance(is used as offset in MovetoLocation method) */
     public static final int INTERACTION_DISTANCE = 150;
     

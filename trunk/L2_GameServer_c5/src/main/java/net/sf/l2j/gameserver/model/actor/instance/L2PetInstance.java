@@ -58,6 +58,9 @@ import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * 
  * This class ...
@@ -66,7 +69,8 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
  */
 public class L2PetInstance extends L2Summon
 {
-    //private byte _pvpFlag;
+    final static Log _log = LogFactory.getLog(L2PetInstance.class.getName());
+    
     private int _curFed;
     public PetInventory _inventory;
     public final int _controlItemId;
@@ -478,6 +482,11 @@ public class L2PetInstance extends L2Summon
     }
     
     public synchronized void doDie(L2Character killer) {
+        
+        SystemMessage sm = new SystemMessage(SystemMessage.MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES);
+        getOwner().sendPacket(sm);
+        sm = null;
+        
         stopFeed();
         DecayTaskManager.getInstance().addDecayTask(this,1200000);
         super.doDie(killer,true);

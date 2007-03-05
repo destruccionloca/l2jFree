@@ -25,6 +25,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2TradeList;
 
@@ -32,7 +33,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class ...
+ *  This class manages buylists from database
  * 
  * @version $Revision: 1.5.4.13 $ $Date: 2005/04/06 16:13:38 $
  */
@@ -58,7 +59,7 @@ public class TradeController
 		_lists = new FastMap<Integer, L2TradeList>();
 
         java.sql.Connection con = null;
-        int dummyItemCount = 0;
+
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection();
@@ -73,49 +74,52 @@ public class TradeController
                             { "order" }) + " ASC");
                 statement.setString(1, String.valueOf(rset1.getInt("shop_id")));
                 ResultSet rset = statement.executeQuery();
-                if (rset.next())
+                
+                L2TradeList buylist = new L2TradeList(rset1.getInt("shop_id"));
+                
+                int _itemId = 0;
+                int _itemCount = 0;
+                int _price = 0;
+                boolean _isGm = rset1.getString("npc_id").equals("gm"); 
+                
+                if (!_isGm && NpcTable.getInstance().getTemplate(rset1.getInt("npc_id")) == null)
+                    _log.warn("TradeController: Merchant id " + rset1.getString("npc_id") + " with buylist " + buylist.getListId() + " not exist.");
+
+                try
                 {
-                    dummyItemCount++;
-                    L2TradeList buy1 = new L2TradeList(rset1.getInt("shop_id"));
-                    int itemId = rset.getInt("item_id");
-                    int price = rset.getInt("price");
-                    
-                    L2ItemInstance item = ItemTable.getInstance().createDummyItem(itemId);
-                    if (item == null) continue;
-                    
-                    item.setPriceToSell(price);
-                    buy1.addItem(item);
-                    buy1.setNpcId(rset1.getString("npc_id"));
-                    try
+                    while (rset.next())
                     {
-                        while (rset.next())
-                        {
-                            dummyItemCount++;
-                            itemId = rset.getInt("item_id");
-                            price = rset.getInt("price");
-                            L2ItemInstance item2 = ItemTable.getInstance().createDummyItem(itemId);
-                            if (item2 == null) continue;
-                            
-                            item2.setPriceToSell(price);
-                            buy1.addItem(item2);
-                        }
-                    } catch (Exception e)
-                    {
-                        _log.warn("TradeController: Problem with buylist " + buy1.getListId() + " item " + itemId);
+                        _itemId = rset.getInt("item_id");
+                        _price = rset.getInt("price");
+                        L2ItemInstance buyItem = ItemTable.getInstance().createDummyItem(_itemId);
+                        if (buyItem == null) continue;
+                        _itemCount++;
+                        buyItem.setPriceToSell(_price);
+                        buylist.addItem(buyItem);
+                        if (!_isGm && buyItem.getReferencePrice()>_price)
+                            _log.warn("TradeController: Reference price of item " + _itemId + " in  buylist " + buylist.getListId() + " higher tnen sell price.");
+                        
                     }
-
-                    _lists.put(new Integer(buy1.getListId()), buy1);
-                    _nextListId = Math.max(_nextListId, buy1.getListId() + 1);
+                } catch (Exception e)
+                {
+                    _log.warn("TradeController: Empty buylist " + buylist.getListId() + ".");
                 }
-
+                
+                if (_itemCount>0)
+                {
+                    _lists.put(new Integer(buylist.getListId()), buylist);
+                    _nextListId = Math.max(_nextListId, buylist.getListId() + 1);
+                    buylist.setNpcId(rset1.getString("npc_id"));
+                }
+                else     
+                    _log.warn("TradeController: Problem with buylist " + buylist.getListId() + " item " + _itemId + ".");
+                
                 rset.close();
                 statement.close();
             }
             rset1.close();
             statement1.close();
 
-            if (_log.isDebugEnabled())
-                _log.debug("Created " + dummyItemCount + " Dummy-Items for buylists");
             _log.info("TradeController: Loaded " + _lists.size() + " Buylists.");
         } catch (Exception e)
         {
@@ -133,7 +137,7 @@ public class TradeController
 
 	public L2TradeList getBuyList(int listId)
 	{
-		return _lists.get(new Integer(listId));
+		return _lists.get(listId);
 	}
 
 	public FastList<L2TradeList> getBuyListByNpcId(int npcId)
@@ -142,7 +146,7 @@ public class TradeController
 
 		for (L2TradeList list : _lists.values())
 		{
-			if (list.getNpcId().startsWith("gm"))
+			if (list.getNpcId().equals("gm"))
 				continue;
 			if (npcId == Integer.parseInt(list.getNpcId()))
 				lists.add(list);

@@ -1,11 +1,12 @@
 package net.sf.l2j.gameserver.script.processor;
 
-import java.util.logging.Logger;
-
 import net.sf.l2j.gameserver.clientpackets.Say2;
 import net.sf.l2j.gameserver.script.processor.commands.*;
 
 import javolution.util.FastList;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /** Processor Script by Imper1um 
  * This script translates any input from Say2 and makes sure another
@@ -20,8 +21,8 @@ import javolution.util.FastList;
  */
 
 public class ProcessorEngine {
-   private static final Logger _log = Logger.getLogger(ProcessorEngine.class.getName());
-   private static ProcessorEngine _instance;
+    private final static Log _log = LogFactory.getLog(ProcessorEngine.class.getName());
+    private static ProcessorEngine _instance;
    
    private FastList<Processor> _processorList;
    private boolean init = false;

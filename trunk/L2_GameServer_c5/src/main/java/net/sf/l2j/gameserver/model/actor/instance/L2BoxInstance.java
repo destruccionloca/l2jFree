@@ -40,9 +40,14 @@ import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class L2BoxInstance extends L2NpcInstance {
 
-	private class L2BoxItem implements Comparable {
+    private final static Log _log = LogFactory.getLog(L2BoxInstance.class.getName());
+
+    private class L2BoxItem implements Comparable {
 		public int itemid;
 		public int id;
 		public int count;
