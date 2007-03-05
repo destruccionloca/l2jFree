@@ -198,12 +198,12 @@ public enum ClassId
 	/**
 	 * Constructor of ClassId.<BR><BR>
 	 */
-	private ClassId(int id, boolean isMage, Race race, ClassId parent)
+	private ClassId(int _id, boolean _isMage, Race _race, ClassId _parent)
 	{
-		this.id = id;
-		this.isMage = isMage;
-		this.race = race;
-		this.parent = parent;
+		this.id = _id;
+		this.isMage = _isMage;
+		this.race = _race;
+		this.parent = _parent;
 	}
 	
 	

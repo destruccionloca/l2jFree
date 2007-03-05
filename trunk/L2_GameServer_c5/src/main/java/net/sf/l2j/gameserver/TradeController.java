@@ -18,17 +18,11 @@
  */
 package net.sf.l2j.gameserver;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.LineNumberReader;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.StringTokenizer;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -63,132 +57,78 @@ public class TradeController
 	{
 		_lists = new FastMap<Integer, L2TradeList>();
 
-		File buylistData = new File(Config.DATAPACK_ROOT, "data/buylists.csv");
-		if (buylistData.exists())
-		{
-			_log.warn("Do, please, remove buylists from data folder and use SQL buylist instead");
-			String line = null;
-			LineNumberReader lnr = null;
-			int dummyItemCount = 0;
+        java.sql.Connection con = null;
+        int dummyItemCount = 0;
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection();
+            PreparedStatement statement1 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[]
+                { "shop_id", "npc_id" }) + " FROM merchant_shopids");
+            ResultSet rset1 = statement1.executeQuery();
+            while (rset1.next())
+            {
+                PreparedStatement statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[]
+                    { "item_id", "price", "shop_id", "order" }) + " FROM merchant_buylists WHERE shop_id=? ORDER BY "
+                        + L2DatabaseFactory.getInstance().safetyString(new String[]
+                            { "order" }) + " ASC");
+                statement.setString(1, String.valueOf(rset1.getInt("shop_id")));
+                ResultSet rset = statement.executeQuery();
+                if (rset.next())
+                {
+                    dummyItemCount++;
+                    L2TradeList buy1 = new L2TradeList(rset1.getInt("shop_id"));
+                    int itemId = rset.getInt("item_id");
+                    int price = rset.getInt("price");
+                    
+                    L2ItemInstance item = ItemTable.getInstance().createDummyItem(itemId);
+                    if (item == null) continue;
+                    
+                    item.setPriceToSell(price);
+                    buy1.addItem(item);
+                    buy1.setNpcId(rset1.getString("npc_id"));
+                    try
+                    {
+                        while (rset.next())
+                        {
+                            dummyItemCount++;
+                            itemId = rset.getInt("item_id");
+                            price = rset.getInt("price");
+                            L2ItemInstance item2 = ItemTable.getInstance().createDummyItem(itemId);
+                            if (item2 == null) continue;
+                            
+                            item2.setPriceToSell(price);
+                            buy1.addItem(item2);
+                        }
+                    } catch (Exception e)
+                    {
+                        _log.warn("TradeController: Problem with buylist " + buy1.getListId() + " item " + itemId);
+                    }
 
-			try
-			{
-				lnr = new LineNumberReader(new BufferedReader(new FileReader(buylistData)));
+                    _lists.put(new Integer(buy1.getListId()), buy1);
+                    _nextListId = Math.max(_nextListId, buy1.getListId() + 1);
+                }
 
-				while ((line = lnr.readLine()) != null)
-				{
-					if (line.trim().length() == 0 || line.startsWith("#"))
-					{
-						continue;
-					}
+                rset.close();
+                statement.close();
+            }
+            rset1.close();
+            statement1.close();
 
-					dummyItemCount += parseList(line);
-				}
-
-				if (_log.isDebugEnabled())
-					_log.debug("created " + dummyItemCount + " Dummy-Items for buylists");
-				_log.info("TradeController: Loaded " + _lists.size() + " Buylists.");
-			} catch (Exception e)
-			{
-				_log.warn("error while creating trade controller in linenr: " + lnr.getLineNumber(), e);
-			}
-		} else
-		{
-			_log.debug("No buylists were found in data folder, using SQL buylist instead");
-			java.sql.Connection con = null;
-			int dummyItemCount = 0;
-			try
-			{
-				con = L2DatabaseFactory.getInstance().getConnection();
-				PreparedStatement statement1 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[]
-					{ "shop_id", "npc_id" }) + " FROM merchant_shopids");
-				ResultSet rset1 = statement1.executeQuery();
-				while (rset1.next())
-				{
-					PreparedStatement statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[]
-						{ "item_id", "price", "shop_id", "order" }) + " FROM merchant_buylists WHERE shop_id=? ORDER BY "
-							+ L2DatabaseFactory.getInstance().safetyString(new String[]
-								{ "order" }) + " ASC");
-					statement.setString(1, String.valueOf(rset1.getInt("shop_id")));
-					ResultSet rset = statement.executeQuery();
-					if (rset.next())
-					{
-						dummyItemCount++;
-						L2TradeList buy1 = new L2TradeList(rset1.getInt("shop_id"));
-						int itemId = rset.getInt("item_id");
-						int price = rset.getInt("price");
-						
-						L2ItemInstance item = ItemTable.getInstance().createDummyItem(itemId);
-						if (item == null) continue;
-						
-						item.setPriceToSell(price);
-						buy1.addItem(item);
-						buy1.setNpcId(rset1.getString("npc_id"));
-						try
-						{
-							while (rset.next())
-							{
-								dummyItemCount++;
-								itemId = rset.getInt("item_id");
-								price = rset.getInt("price");
-								L2ItemInstance item2 = ItemTable.getInstance().createDummyItem(itemId);
-								if (item2 == null) continue;
-								
-								item2.setPriceToSell(price);
-								buy1.addItem(item2);
-							}
-						} catch (Exception e)
-						{
-							_log.warn("TradeController: Problem with buylist " + buy1.getListId() + " item " + itemId);
-						}
-
-						_lists.put(new Integer(buy1.getListId()), buy1);
-						_nextListId = Math.max(_nextListId, buy1.getListId() + 1);
-					}
-
-					rset.close();
-					statement.close();
-				}
-				rset1.close();
-				statement1.close();
-
-				if (_log.isDebugEnabled())
-					_log.debug("created " + dummyItemCount + " Dummy-Items for buylists");
-				_log.info("TradeController: Loaded " + _lists.size() + " Buylists.");
-			} catch (Exception e)
-			{
-				// problem with initializing spawn, go to next one
-				_log.warn("TradeController: Buylists could not be initialized.",e);
-			} finally
-			{
-				try
-				{
-					con.close();
-				} catch (Exception e)
-				{}
-			}
-		}
-	}
-
-	private int parseList(String line)
-	{
-		int itemCreated = 0;
-		StringTokenizer st = new StringTokenizer(line, ";");
-
-		int listId = Integer.parseInt(st.nextToken());
-		L2TradeList buy1 = new L2TradeList(listId);
-		while (st.hasMoreTokens())
-		{
-			int itemId = Integer.parseInt(st.nextToken());
-			int price = Integer.parseInt(st.nextToken());
-			L2ItemInstance item = ItemTable.getInstance().createDummyItem(itemId);
-			item.setPriceToSell(price);
-			buy1.addItem(item);
-			itemCreated++;
-		}
-
-		_lists.put(new Integer(buy1.getListId()), buy1);
-		return itemCreated;
+            if (_log.isDebugEnabled())
+                _log.debug("Created " + dummyItemCount + " Dummy-Items for buylists");
+            _log.info("TradeController: Loaded " + _lists.size() + " Buylists.");
+        } catch (Exception e)
+        {
+            // problem with initializing buylists, go to next one
+            _log.warn("TradeController: Buylists could not be initialized.",e);
+        } finally
+        {
+            try
+            {
+                con.close();
+            } catch (Exception e)
+            {}
+        }
 	}
 
 	public L2TradeList getBuyList(int listId)

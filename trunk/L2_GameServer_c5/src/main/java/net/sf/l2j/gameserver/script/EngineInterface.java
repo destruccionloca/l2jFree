@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.script;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.RecipeController;
-import net.sf.l2j.gameserver.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.CharNameTable;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ClanTable;
@@ -32,6 +31,7 @@ import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
+import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.L2World;
 

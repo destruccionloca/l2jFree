@@ -58,9 +58,6 @@ import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * 
  * This class ...
@@ -69,8 +66,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public class L2PetInstance extends L2Summon
 {
-    protected static Log _log = LogFactory.getLog(L2PetInstance.class.getName());
-    
     //private byte _pvpFlag;
     private int _curFed;
     public PetInventory _inventory;

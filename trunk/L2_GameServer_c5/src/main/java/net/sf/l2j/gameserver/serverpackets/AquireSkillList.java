@@ -58,7 +58,7 @@ public class AquireSkillList extends ServerBasePacket
 		public int _Cost;
 		public int _requirements;
         
-		private Skill(int id, int nextLevel, int maxLevel, int Cost, int requirements)
+		public Skill(int id, int nextLevel, int maxLevel, int Cost, int requirements)
         {
 			_id = id;
 			_nextLevel = nextLevel;

@@ -59,7 +59,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class CTF
 {  
-    private final static Log _log = LogFactory.getLog(CTF.class.getName());
+    final static Log _log = LogFactory.getLog(CTF.class.getName());
     
     public static String _eventName = new String(),
                          _eventDesc = new String(),

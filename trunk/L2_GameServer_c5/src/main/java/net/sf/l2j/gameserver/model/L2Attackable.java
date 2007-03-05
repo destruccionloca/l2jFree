@@ -1108,7 +1108,7 @@ public class L2Attackable extends L2NpcInstance
               // Count and chance adjustment for high rate servers
               if (dropChance > L2DropData.MAX_CHANCE)
               {
-                  int multiplier = (int)dropChance / L2DropData.MAX_CHANCE;
+                  int multiplier = dropChance / L2DropData.MAX_CHANCE;
                   if (minCount < maxCount) itemCount += Rnd.get(minCount * multiplier, maxCount * multiplier);
                   else if (minCount == maxCount) itemCount += minCount * multiplier;
                   else itemCount += multiplier;

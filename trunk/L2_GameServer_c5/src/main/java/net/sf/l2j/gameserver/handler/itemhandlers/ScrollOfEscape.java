@@ -45,7 +45,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class ScrollOfEscape implements IItemHandler
 {
-    private final static Log _log = LogFactory.getLog(ScrollOfEscape.class);
+    protected static Log _log = LogFactory.getLog(ScrollOfEscape.class);
     // all the items ids that this handler knowns
     private static int[] _itemIds = { 736, 1830, 1829, 1538, 3958, 5858, 5859,
                                       7117,7118,7119,7120,7121,7122,7123,7124,

@@ -42,7 +42,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class SoulCrystals implements IItemHandler
 {
-    private final static Log _log = LogFactory.getLog(SoulCrystals.class);
+    protected static Log _log = LogFactory.getLog(SoulCrystals.class);
     
 	// First line is for Red Soul Crystals, second is Green and third is Blue Soul Crystals,
     // ordered by ascending level, from 0 to 13... 

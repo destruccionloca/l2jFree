@@ -47,7 +47,6 @@ public class PledgeShowMemberListAll extends ServerBasePacket
     private L2Clan _clan;
     private L2PcInstance _activeChar;
     private L2ClanMember[] _members;
-    private L2ClanMember[] _subMembers;
     private int _pledgeType;
     
     public PledgeShowMemberListAll(L2Clan clan, L2PcInstance activeChar, int val1, int val2, int val3, int val4, int val5, int val6, int val7)

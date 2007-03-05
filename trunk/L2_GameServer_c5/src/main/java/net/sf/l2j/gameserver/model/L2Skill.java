@@ -2102,9 +2102,7 @@ public abstract class L2Skill
         } 
         default:
         {
-            SystemMessage sm = new SystemMessage(614);
-            sm.addString("Target type of skill is not currently handled");
-            activeChar.sendPacket(sm);
+            _log.error("Target type of skill Id " + _id + " is not implemented.");
             return null;
         }
     }//end switch

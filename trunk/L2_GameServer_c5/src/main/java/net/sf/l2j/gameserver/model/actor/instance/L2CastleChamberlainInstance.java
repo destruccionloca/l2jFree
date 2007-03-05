@@ -1,6 +1,6 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
@@ -93,7 +93,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
              }
             else if(actualCommand.equalsIgnoreCase("manor")) // manor control
             {
-         int houer = new Date().getHours();
+                int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
                 int cmd = Integer.parseInt(val);
                 switch(cmd)
                 {
@@ -104,7 +104,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
                         break;
                     case 2: // set reward type
                
-                if( !player.isGM() && ( houer < 20 || houer > 22) ) break;
+                if( !player.isGM() && ( hour < 20 || hour > 22) ) break;
                         int cropId = Integer.parseInt(st.nextToken());
                         int reward = Integer.parseInt(st.nextToken());
                         getCastle().setCropReward(cropId,reward);
@@ -122,7 +122,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
             showManorProduction(player);
             break;
                     case 5: // set count and prise seed
-                        if( !player.isGM() && ( houer < 20 || houer > 22) ) break;
+                        if( !player.isGM() && ( hour < 20 || hour > 22) ) break;
                         int seedeId = Integer.parseInt(st.nextToken());
                         int amounte = Integer.parseInt(st.nextToken());
                 int pricee = Integer.parseInt(st.nextToken());
@@ -142,7 +142,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
                         player.sendPacket(new ActionFailed());
                         break;
              case 7: // edit reward
-                                if( !player.isGM() && ( houer < 20 || houer > 22) ) break;
+                                if( !player.isGM() && ( hour < 20 || hour > 22) ) break;
                         int cropIdi = Integer.parseInt(st.nextToken());
                         int amounti = Integer.parseInt(st.nextToken());
                 if (amounti > 10000) amounti=10000;

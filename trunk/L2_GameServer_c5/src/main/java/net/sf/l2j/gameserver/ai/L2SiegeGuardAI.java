@@ -42,17 +42,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 /**
  * This class manages AI of L2Attackable.<BR><BR>
  * 
  */
 public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 {
-
-    private final static Log _log = LogFactory.getLog(L2SiegeGuardAI.class.getName());
-
     private static final int MAX_ATTACK_TIMEOUT = 300; // int ticks, i.e. 30 seconds 
 
     /** The L2Attackable AI task executed every 1s (call onEvtThink method)*/

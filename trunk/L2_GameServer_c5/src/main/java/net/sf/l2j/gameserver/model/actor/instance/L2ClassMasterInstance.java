@@ -39,7 +39,6 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public final class L2ClassMasterInstance extends L2FolkInstance
 {
-    //private final static Log _log = LogFactory.getLog(L2ClassMasterInstance.class.getName());
     
     /**
      * @param template
@@ -71,7 +70,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
             sb.append("<html><body>");
-            sb.append("Buzz the Cat:<br>");
+            sb.append(getName()+":<br>");
             sb.append("<br>");
             
             ClassId classId = player.getClassId();
@@ -85,9 +84,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
                     for (ClassId child : ClassId.values())
                         if (child.childOf(classId) && child.level() == lvl+1)
                             sb.append("<a action=\"bypass -h npc_" + getObjectId() + "_change_class " + (child.getId()) + "\">Advance to " + CharTemplateTable.getClassNameById(child.getId()) + "</a><br>");
-                    sb.append("<br>");
-                    sb.append("<a action=\"bypass -h npc_" + getObjectId() + "_upgrade_hatchling\">Upgrade Hatchling to Strider</a><br>");
-                    sb.append("<br>");
+                            sb.append("<br>");
                 }
             }
             else
@@ -107,8 +104,6 @@ public final class L2ClassMasterInstance extends L2FolkInstance
                         sb.append("There is no class change available for you anymore.<br>");
                         break;
                 }
-                sb.append("<br>");
-                sb.append("<a action=\"bypass -h npc_" + getObjectId() + "_upgrade_hatchling\">Upgrade Hatchling to Strider</a><br>");
                 sb.append("<br>");
             }
             

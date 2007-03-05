@@ -231,15 +231,15 @@ public class L2Manor
     }
     private class SeedData
     {
-        public SeedData(int level,int crop)
+        public SeedData(int _level,int _crop)
         {
-            this.level = level;
-            this.crop = crop;
+            this.level = _level;
+            this.crop = _crop;
         }
         
-        public void setData(int id, int t1, int t2, int t1a, int t2a, int gl, int di, int gi, int or, int ad, int in, int go, int ru, int sch)
+        public void setData(int _id, int t1, int t2, int t1a, int t2a, int gl, int di, int gi, int or, int ad, int in, int go, int ru, int sch)
         {
-            this.id = id;
+            this.id = _id;
             type1 = t1;
             type2 = t2;
             type1amount = t1a;

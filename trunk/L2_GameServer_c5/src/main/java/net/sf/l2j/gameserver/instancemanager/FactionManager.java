@@ -89,7 +89,7 @@ public class FactionManager
 
             statement.close();
 
-            _log.info("Loaded: " + getFactions().size() + " couples(s)");
+            _log.info("Loaded: " + getFactions().size() + " faction(s)");
         }
         catch (Exception e)
         {

@@ -18,10 +18,6 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import net.sf.l2j.gameserver.model.L2Clan;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -41,8 +37,6 @@ import org.apache.commons.logging.LogFactory;
 public class PledgeSkillListAdd extends ServerBasePacket
 {
 	private static final String _S__FE_3a_PLEDGESKILLLIST = "[S] FE:3a PledgeSkillListAdd";
-	private L2Clan _clan;
-    private final static Log _log = LogFactory.getLog(ServerBasePacket.class.getName());
     private static int _val1;
     private static int _val2;
 

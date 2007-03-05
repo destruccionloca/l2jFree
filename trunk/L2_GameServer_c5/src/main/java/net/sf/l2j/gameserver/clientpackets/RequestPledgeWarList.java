@@ -51,8 +51,6 @@ public class RequestPledgeWarList extends ClientBasePacket
     @Override
     void runImpl()
     {
-        System.out.println("C5: RequestPledgeWarList d:"+_unk1);
-        System.out.println("C5: RequestPledgeWarList d:"+_tab);
         L2PcInstance activeChar = getClient().getActiveChar();
         if(activeChar == null)
             return;

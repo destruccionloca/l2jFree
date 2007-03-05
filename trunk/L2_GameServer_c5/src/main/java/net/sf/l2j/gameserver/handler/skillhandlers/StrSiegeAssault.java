@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
-import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -154,7 +153,6 @@ public class StrSiegeAssault implements ISkillHandler
         
         SystemMessage sm = new SystemMessage(614);
         L2PcInstance player = (L2PcInstance)activeChar;
-        L2ItemInstance itemToTake = player.getInventory().getItemByItemId(SiegeManager.getInstance().getFlagBuyItemId());
 
         if (castle == null || castle.getCastleId() <= 0)
             sm.addString("You must be on castle ground to use strider siege assault");

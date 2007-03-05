@@ -31,7 +31,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class Wedding implements IVoicedCommandHandler
 {
-    private static final Log _log = LogFactory.getLog(Wedding.class);
+    protected static Log _log = LogFactory.getLog(Wedding.class);
     private static String[] _voicedCommands = { "divorce", "engage", "gotolove" };
 
     /* (non-Javadoc)

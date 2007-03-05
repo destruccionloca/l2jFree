@@ -171,7 +171,7 @@ public class RequestBuyProcure extends ClientBasePacket {
     int nagrada=L2Manor.getInstance().getRewardItem(itemId,manor.getCastle().getCropReward(itemId));
 
     int cou= L2Manor.getInstance().getRewardAmount(itemId,manor.getCastle().getCropReward(itemId));
-    cou= (int) count / cou;
+    cou= count / cou;
             // Add item to Inventory and adjust update packet
             L2ItemInstance item;
             item = player.getInventory().addItem("Manor",nagrada , cou, player, manor);

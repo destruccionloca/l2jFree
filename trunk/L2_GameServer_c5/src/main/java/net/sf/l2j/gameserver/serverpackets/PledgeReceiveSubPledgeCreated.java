@@ -20,9 +20,6 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import net.sf.l2j.gameserver.model.L2Clan.SubPledge;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * 
  *
@@ -40,9 +37,6 @@ public class PledgeReceiveSubPledgeCreated extends ServerBasePacket
 {
 	private static final String _S__FE_3F_PLEDGEWARLIST = "[S] FE:3F PledgeWarList";
     private SubPledge _subPledge;
-    private final static Log _log = LogFactory.getLog(ServerBasePacket.class.getName());
-
-
 	
 	public PledgeReceiveSubPledgeCreated(SubPledge/*[]*/ subPledge)
 	{

@@ -381,7 +381,7 @@ public class AutoSpawnHandler
 	{
         private int _objectId;
         
-        private AutoSpawner(int objectId)
+        public AutoSpawner(int objectId)
         {
             _objectId = objectId;
         }
@@ -508,7 +508,7 @@ public class AutoSpawnHandler
 	{
 		private int _objectId;
 			
-        private AutoDespawner (int objectId) 
+        public AutoDespawner (int objectId) 
         {
 			_objectId = objectId;
 		}

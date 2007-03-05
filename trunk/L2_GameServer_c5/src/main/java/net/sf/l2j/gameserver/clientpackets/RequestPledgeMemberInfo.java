@@ -25,9 +25,6 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.serverpackets.PledgeReceiveMemberInfo;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * This class ...
  * 
@@ -36,9 +33,8 @@ import org.apache.commons.logging.LogFactory;
 public class RequestPledgeMemberInfo extends ClientBasePacket
 {
 	private static final String _C__24_REQUESTJOINPLEDGE = "[C] 24 RequestPledgeMemberInfo";
-	static Log _log = LogFactory.getLog(RequestJoinPledge.class.getName());
 
-	private final int _pledgeType;
+    private final int _pledgeType;
     private final String _target;
 	
 	public RequestPledgeMemberInfo(ByteBuffer buf, ClientThread client)

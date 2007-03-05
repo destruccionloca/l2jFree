@@ -40,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class Escape implements IUserCommandHandler
 {
-    private final static Log _log = LogFactory.getLog(Escape.class);
+    static Log _log = LogFactory.getLog(Escape.class);
     private static final int[] COMMAND_IDS = { 52 }; 
     private static final int REQUIRED_LEVEL = Config.GM_ESCAPE;
 

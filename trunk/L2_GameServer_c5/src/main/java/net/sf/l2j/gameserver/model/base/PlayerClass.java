@@ -160,11 +160,11 @@ public enum PlayerClass
         subclassSetMap.put(Spellhowler, subclasseSet5);
     }
     
-    PlayerClass(PlayerRace race, ClassType type, ClassLevel level)
+    PlayerClass(PlayerRace _race, ClassType _type, ClassLevel _level)
     {
-        this.race   = race;
-        this.level  = level;
-        this.type   = type;
+        this.race   = _race;
+        this.level  = _level;
+        this.type   = _type;
     }
     
     public final Set<PlayerClass> getAvaliableSubclasses()
