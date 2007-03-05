@@ -19,7 +19,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ArmorSetsTable
 {
-    private final static Log _log = LogFactory.getLog(BuffTemplateTable.class.getName());
+    private final static Log _log = LogFactory.getLog(ArmorSetsTable.class.getName());
     private static ArmorSetsTable _instance;
     
     private FastMap<Integer,L2ArmorSet> _armorSets;
