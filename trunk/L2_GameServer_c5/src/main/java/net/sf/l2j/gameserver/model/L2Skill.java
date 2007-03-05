@@ -2102,7 +2102,8 @@ public abstract class L2Skill
         } 
         default:
         {
-            _log.error("Target type of skill Id " + _id + " is not implemented.");
+            if (activeChar instanceof L2PcInstance || _log.isDebugEnabled()) // normally log only player skills errors
+                _log.error("Target type of skill Id " + _id + " is not implemented.");
             return null;
         }
     }//end switch

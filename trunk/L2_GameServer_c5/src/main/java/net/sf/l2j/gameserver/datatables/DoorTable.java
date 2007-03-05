@@ -62,7 +62,6 @@ public class DoorTable
 			lnr = new LineNumberReader(new BufferedReader(new FileReader(doorData)));
 
 			String line = null;
-			_log.warn("Searching clan halls doors:");
 
 			while ((line = lnr.readLine()) != null) 
 			{

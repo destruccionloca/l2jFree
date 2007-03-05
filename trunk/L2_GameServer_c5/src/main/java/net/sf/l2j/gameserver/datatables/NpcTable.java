@@ -84,6 +84,7 @@ public class NpcTable
                 fillNpcTable(npcdata);
                 npcdata.close();
                 statement.close();
+                _log.info("NpcTable: Loaded " + _npcs.size() + " Npc Templates.");
             } 
             catch (Exception e) {
                 _log.fatal("NPCTable: Error creating NPC table: " + e);
@@ -95,10 +96,12 @@ public class NpcTable
                 PreparedStatement statement;
                 statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "hpreg", "mpreg", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level"}) + " FROM custom_npc");
                 ResultSet npcdata = statement.executeQuery();
-                
+                int npc_count = _npcs.size(); 
                 fillNpcTable(npcdata);
                 npcdata.close();
                 statement.close();
+                if (_npcs.size() > npc_count)
+                    _log.info("NpcTable: Loaded " + (_npcs.size()- npc_count) + " Custom Npc Templates.");
             } 
             catch (Exception e) {
                 _log.fatal("NPCTable: Error creating custom NPC table: " + e);
@@ -398,8 +401,6 @@ public class NpcTable
             
             _npcs.put(id, template);
         }
-        
-        _log.info("NpcTable: Loaded " + _npcs.size() + " Npc Templates.");
     }
 
     public void reloadNpc(int id)
