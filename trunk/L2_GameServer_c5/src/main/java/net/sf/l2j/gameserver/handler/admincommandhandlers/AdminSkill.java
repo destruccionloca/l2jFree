@@ -286,7 +286,7 @@ public class AdminSkill implements IAdminCommandHandler {
         replyMSG.append("<td><edit var=\"id_to_remove\" width=110></td></tr>");
         replyMSG.append("</table></center>");       
         replyMSG.append("<center><button value=\"Remove skill\" action=\"bypass -h admin_remove_skill $id_to_remove\" width=110 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center>");
-        replyMSG.append("<br><center><button value=\"Back\" action=\"bypass -h admin_current_player\" width=40 height=15></center>");
+        replyMSG.append("<br><center><button value=\"Back\" action=\"bypass -h admin_edit\" width=40 height=15></center>");
         replyMSG.append("</body></html>");
         
         adminReply.setHtml(replyMSG.toString());

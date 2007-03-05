@@ -20,12 +20,10 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -42,7 +40,6 @@ public class AdminExpSp implements IAdminCommandHandler {
 	private final static Log _log = LogFactory.getLog(AdminExpSp.class.getName());
 
 	private static String[] _adminCommands = {
-			"admin_add_exp_sp_to_character",
 			"admin_add_exp_sp",
             "admin_remove_exp_sp"};
 	private static final int REQUIRED_LEVEL = Config.GM_CHAR_EDIT;
@@ -52,11 +49,7 @@ public class AdminExpSp implements IAdminCommandHandler {
         if (!Config.ALT_PRIVILEGES_ADMIN)
             if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
         
-        if (command.equals("admin_add_exp_sp_to_character"))
-		{
-			addExpSp(activeChar);
-		}
-		else if (command.startsWith("admin_add_exp_sp"))
+        if (command.startsWith("admin_add_exp_sp"))
 		{
 			try
 			{
@@ -97,89 +90,6 @@ public class AdminExpSp implements IAdminCommandHandler {
 	private boolean checkLevel(int level) {
 		return (level >= REQUIRED_LEVEL);
 	}
-	
-	private void addExpSp(L2PcInstance activeChar)
-	{
-		L2Object target = activeChar.getTarget();
-		L2PcInstance player = null;
-		if (target instanceof L2PcInstance) {
-			player = (L2PcInstance)target;
-		} else {
-			SystemMessage sm = new SystemMessage(614);
-			sm.addString("Incorrect target.");
-			activeChar.sendPacket(sm);
-			return;
-		}
-		
-		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);		
-
-		TextBuilder replyMSG = new TextBuilder("<html><body>");
-		replyMSG.append("<table width=260><tr>");
-		replyMSG.append("<td width=40><button value=\"Main\" action=\"bypass -h admin_admin\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-		replyMSG.append("<td width=180><center>Character Selection Menu</center></td>");
-		replyMSG.append("<td width=40><button value=\"Back\" action=\"bypass -h admin_current_player\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-		replyMSG.append("</tr></table>");
-		replyMSG.append("<br><br>");
-        replyMSG.append("<center>Editing <font color=\"LEVEL\">" + player.getName() + "</font></center>");
-		replyMSG.append("<table width=270>");
-        replyMSG.append("<tr><td>Level: " + player.getLevel() + "</td></tr>");
-		replyMSG.append("<tr><td>Class: " + player.getTemplate().className + "</td></tr>");
-		replyMSG.append("<tr><td>Exp: " + player.getExp() + "</td></tr>");
-		replyMSG.append("<tr><td>SP: " + player.getSp() + "</td></tr></table>");
-		replyMSG.append("<table width=270><tr><td>Note: Fill BOTH values before saving the modifications</td></tr>");
-		replyMSG.append("<tr><td>and use 0 if no changes are needed.</td></tr></table><br>");
-		replyMSG.append("<center><table><tr>");
-		replyMSG.append("<td>Exp: <edit var=\"exp_to_add\" width=50></td>");
-		replyMSG.append("<td>SP:  <edit var=\"sp_to_add\" width=50></td>");
-		replyMSG.append("<td>&nbsp;<center><button value=\"Add\" action=\"bypass -h admin_add_exp_sp $exp_to_add $sp_to_add\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></td>");
-		replyMSG.append("<td>&nbsp;<center><button value=\"Remove\" action=\"bypass -h admin_remove_exp_sp $exp_to_add $sp_to_add\" width=70 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></td>");
-		replyMSG.append("</tr></table></center>");
-		replyMSG.append("</body></html>");
-		
-		adminReply.setHtml(replyMSG.toString());
-		activeChar.sendPacket(adminReply);
-	}
-    
-    private void removeExp(L2PcInstance activeChar)
-    {
-        L2Object target = activeChar.getTarget();
-        L2PcInstance player = null;
-        if (target instanceof L2PcInstance) {
-            player = (L2PcInstance)target;
-        } else {
-            SystemMessage sm = new SystemMessage(614);
-            sm.addString("Incorrect target.");
-            activeChar.sendPacket(sm);
-            return;
-        }
-        
-        NpcHtmlMessage adminReply = new NpcHtmlMessage(5);      
-
-        TextBuilder replyMSG = new TextBuilder("<html><body>");
-        replyMSG.append("<table width=260><tr>");
-        replyMSG.append("<td width=40><button value=\"Main\" action=\"bypass -h admin_admin\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=180><center>Character Selection Menu</center></td>");
-        replyMSG.append("<td width=40><button value=\"Back\" action=\"bypass -h admin_current_player\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("</tr></table>");
-        replyMSG.append("<br><br>");
-        replyMSG.append("<center>Editing <font color=\"LEVEL\">" + player.getName() + "</font></center>");
-        replyMSG.append("<table width=270>");
-        replyMSG.append("<tr><td>Level: " + player.getLevel() + "</td></tr>");
-        replyMSG.append("<tr><td>Class: " + player.getTemplate().className + "</td></tr>");
-        replyMSG.append("<tr><td>Exp: " + player.getExp() + "</td></tr>");
-        replyMSG.append("<tr><td>SP: " + player.getSp() + "</td></tr></table>");
-        replyMSG.append("<table width=270><tr><td>Note: Fill BOTH values before saving the modifications</td></tr>");
-        replyMSG.append("<tr><td>and use 0 if no changes are needed.</td></tr></table><br>");
-        replyMSG.append("<center><table><tr>");
-        replyMSG.append("<td>remove Exp: <edit var=\"exp_to_remove\" width=50></td>");
-        replyMSG.append("<td>remove SP:  <edit var=\"sp_to_remove\" width=50></td>");
-        replyMSG.append("<td>&nbsp;<button value=\"Save Changes\" action=\"bypass -h admin_remove_exp_sp $exp_to_remove $sp_to_remove\" width=80 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("</tr></table></center>");
-        replyMSG.append("</body></html>");
-        
-        adminReply.setHtml(replyMSG.toString());
-        activeChar.sendPacket(adminReply);
-    }
 
 	private void adminAddExpSp(L2PcInstance activeChar, String ExpSp)
 	{
@@ -200,7 +110,7 @@ public class AdminExpSp implements IAdminCommandHandler {
 		StringTokenizer st = new StringTokenizer(ExpSp);
 		if (st.countTokens()!=2)
 		{
-			addExpSp(activeChar);
+			return;
 		}
 		else
 		{
@@ -262,7 +172,7 @@ public class AdminExpSp implements IAdminCommandHandler {
         StringTokenizer st = new StringTokenizer(ExpSp);
         if (st.countTokens()!=2)
         {
-            removeExp(activeChar);
+            return;
         }
         else
         {
