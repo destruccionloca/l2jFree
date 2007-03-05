@@ -181,7 +181,7 @@ public class L2MerchantInstance extends L2FolkInstance
             if (st.countTokens() < 1) return;
 
             int val = Integer.parseInt(st.nextToken());
-            player.sendPacket(new MultiSellList(val));
+            player.sendPacket(new MultiSellList(val, this));
         }
         else if (actualCommand.equalsIgnoreCase("Exc_Multisell"))
         {
@@ -198,7 +198,7 @@ public class L2MerchantInstance extends L2FolkInstance
             if (st.countTokens() < 1) return;
 
             int val = Integer.parseInt(st.nextToken());
-            player.sendPacket(new MultiSellList(val, true, player));
+            player.sendPacket(new MultiSellList(val, this, true, player));
         }
         else
         {

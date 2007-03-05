@@ -206,13 +206,13 @@ public final class L2TeleporterInstance extends L2FolkInstance
             {
                return;
             }            
-            else if (!list.getIsForNoble() && player.reduceAdena("Teleport", list.getPrice(), this, true))
+            else if (!list.getIsForNoble() && (Config.ALT_GAME_FREE_TELEPORT || player.reduceAdena("Teleport", list.getPrice(), this, true)))
 			{
                 if (_log.isDebugEnabled())
                     _log.debug("Teleporting player " + player.getName() + " to new location: " + list.getLocX() + ":" + list.getLocY() + ":" + list.getLocZ());
                 player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ(), true);
             }
-            else if(list.getIsForNoble() && player.destroyItemByItemId("Noble Teleport", 6651, list.getPrice(), this, true))
+            else if(list.getIsForNoble() && (Config.ALT_GAME_FREE_TELEPORT || player.destroyItemByItemId("Noble Teleport", 6651, list.getPrice(), this, true)))
             {
                 if (_log.isDebugEnabled())                    
                     _log.debug("Teleporting player "+player.getName()+" to new location: "+list.getLocX()+":"+list.getLocY()+":"+list.getLocZ());

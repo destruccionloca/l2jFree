@@ -48,7 +48,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
         if (command.startsWith("multisell"))
         {
             String listId = command.substring(9).trim();
-            player.sendPacket(new MultiSellList(Integer.parseInt(listId)));
+            player.sendPacket(new MultiSellList(Integer.parseInt(listId),this));
         } else
         // List player inventory items for crystallization
         if (command.startsWith("Crystallize")) 
