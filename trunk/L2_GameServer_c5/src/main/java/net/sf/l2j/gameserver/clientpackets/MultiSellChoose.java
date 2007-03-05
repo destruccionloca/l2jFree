@@ -3,6 +3,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 import javolution.util.FastList;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -45,6 +46,11 @@ public class MultiSellChoose extends ClientBasePacket
     
     public void runImpl()
     {
+        L2PcInstance activeChar = getClient().getActiveChar(); 
+        
+        // Alt game - Karma punishment 
+        if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && activeChar.getKarma() > 0) 
+            return;
         if(_amount < 1 || _amount > 5000 || _amount > Integer.MAX_VALUE )
             return;
 
