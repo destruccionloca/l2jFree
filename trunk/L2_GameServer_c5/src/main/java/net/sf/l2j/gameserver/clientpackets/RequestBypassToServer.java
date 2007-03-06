@@ -32,11 +32,11 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.CTF;
-import net.sf.l2j.gameserver.model.entity.DM;
 import net.sf.l2j.gameserver.model.entity.L2Event;
-import net.sf.l2j.gameserver.model.entity.TvT;
-import net.sf.l2j.gameserver.model.entity.VIP;
+import net.sf.l2j.gameserver.model.entity.events.CTF;
+import net.sf.l2j.gameserver.model.entity.events.DM;
+import net.sf.l2j.gameserver.model.entity.events.TvT;
+import net.sf.l2j.gameserver.model.entity.events.VIP;
 import net.sf.l2j.gameserver.script.stat.LeaderboardEngine;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 

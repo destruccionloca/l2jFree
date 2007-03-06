@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.model.entity.Faction;
+import net.sf.l2j.gameserver.model.entity.faction.Faction;
 
 /** 
  * @author evill33t

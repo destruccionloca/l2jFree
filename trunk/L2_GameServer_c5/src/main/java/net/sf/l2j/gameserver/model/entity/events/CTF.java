@@ -23,7 +23,7 @@
  * 
  */
 
-package net.sf.l2j.gameserver.model.entity;
+package net.sf.l2j.gameserver.model.entity.events;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,7 +47,6 @@ import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
-import net.sf.l2j.gameserver.model.entity.TvT;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;

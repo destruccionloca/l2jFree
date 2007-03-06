@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
-import net.sf.l2j.gameserver.model.entity.Faction;
+import net.sf.l2j.gameserver.model.entity.faction.Faction;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;

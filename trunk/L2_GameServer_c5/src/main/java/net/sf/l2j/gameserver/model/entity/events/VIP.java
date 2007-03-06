@@ -19,7 +19,7 @@
  *
  * @author  CubicVirtuoso - William McMahon
  */
-package net.sf.l2j.gameserver.model.entity;
+package net.sf.l2j.gameserver.model.entity.events;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

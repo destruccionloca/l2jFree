@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.model.entity.FactionQuest;
+import net.sf.l2j.gameserver.model.entity.faction.FactionQuest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

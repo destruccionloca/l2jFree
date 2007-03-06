@@ -29,7 +29,7 @@ import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.CTF;
+import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
 public class AdminCTFEngine implements IAdminCommandHandler {

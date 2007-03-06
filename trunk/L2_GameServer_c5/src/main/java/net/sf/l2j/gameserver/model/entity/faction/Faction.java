@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.model.entity;
+package net.sf.l2j.gameserver.model.entity.faction;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
