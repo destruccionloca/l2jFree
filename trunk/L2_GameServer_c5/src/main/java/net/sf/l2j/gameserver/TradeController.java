@@ -97,7 +97,7 @@ public class TradeController
                         buyItem.setPriceToSell(_price);
                         buylist.addItem(buyItem);
                         if (!_isGm && buyItem.getReferencePrice()>_price)
-                            _log.warn("TradeController: Reference price of item " + _itemId + " in  buylist " + buylist.getListId() + " higher tnen sell price.");
+                            _log.warn("TradeController: Reference price of item " + _itemId + " in  buylist " + buylist.getListId() + " higher then sell price.");
                         
                     }
                 } catch (Exception e)
