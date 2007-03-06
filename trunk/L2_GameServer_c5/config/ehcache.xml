@@ -1,0 +1,51 @@
+<ehcache>
+
+    <diskStore path="java.io.tmpdir"/>
+
+    <defaultCache
+        maxElementsInMemory="10000"
+        eternal="false"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120"
+        overflowToDisk="true"
+        diskPersistent="false"
+        diskExpiryThreadIntervalSeconds="120"
+        />
+        
+    <cache name="net.sf.l2j.gameserver.model.forum.Forums"
+        maxElementsInMemory="50"
+        timeToIdleSeconds="600"
+        timeToLiveSeconds="600"
+        overflowToDisk="false"
+        />        
+
+    <cache name="net.sf.l2j.gameserver.model.forum.Forums.topics"
+        maxElementsInMemory="20"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120"
+        overflowToDisk="false"
+        />        
+        
+    <cache name="net.sf.l2j.gameserver.model.forum.Topic"
+        maxElementsInMemory="300"
+        timeToIdleSeconds="600"
+        timeToLiveSeconds="600"
+        overflowToDisk="false" 
+        />        
+
+    <cache name="net.sf.l2j.gameserver.model.forum.Topic.postses"
+        maxElementsInMemory="50"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120"
+        overflowToDisk="false"
+        />        
+                
+    <cache name="net.sf.l2j.gameserver.model.forum.Posts"
+        maxElementsInMemory="300"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120"
+        overflowToDisk="false"
+        />        
+
+        
+</ehcache>

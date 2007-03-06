@@ -33,6 +33,7 @@ import junit.framework.TestCase;
  */
 public class Base64Test extends TestCase
 {   
+    
 	/**
 	 * Test that decode an encoded string give the string in entry
 	 */
