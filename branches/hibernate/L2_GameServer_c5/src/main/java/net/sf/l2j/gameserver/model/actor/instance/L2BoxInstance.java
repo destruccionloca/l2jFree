@@ -137,7 +137,7 @@ public class L2BoxInstance extends L2NpcInstance {
 		boolean result = false;
 		try
 		{
-			con = L2Registry.getConnection();
+			con = L2Registry.getConnection(con);
 			PreparedStatement st = con.prepareStatement("SELECT spawn, charname FROM boxaccess WHERE charname=? AND spawn=?");
 			st.setString(1, player);
 			st.setInt(2, getSpawn().getId());
@@ -164,7 +164,7 @@ public class L2BoxInstance extends L2NpcInstance {
 		List<String> acl = new FastList<String>();
 		try
 		{
-			con = L2Registry.getConnection();
+			con = L2Registry.getConnection(con);
 			PreparedStatement st = con.prepareStatement(LIST_GRANT);
 			st.setInt(1, getSpawn().getId());
 			ResultSet rs = st.executeQuery();
@@ -192,7 +192,7 @@ public class L2BoxInstance extends L2NpcInstance {
 		boolean result = false;
 		try
 		{
-			con = L2Registry.getConnection();
+			con = L2Registry.getConnection(con);
 			String _query;
 			if (what)
 				_query = INSERT_GRANT;
@@ -315,7 +315,7 @@ public class L2BoxInstance extends L2NpcInstance {
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2Registry.getConnection();
+			con = L2Registry.getConnection(con);
 			PreparedStatement statement = con.prepareStatement("SELECT id, spawn, npcid, drawer, itemid, name, count, enchant FROM boxes where spawn=? and npcid=? and drawer=?");
 			statement.setInt(1, getSpawn().getId());
 			statement.setInt(2, getNpcId());
@@ -383,7 +383,7 @@ public class L2BoxInstance extends L2NpcInstance {
         int foundCount = 0;
 		try
 		{
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
             if (item.isStackable())
             {
                 PreparedStatement st2 = con.prepareStatement("SELECT id,count FROM boxes where spawn=? and npcid=? and drawer=? and itemid=?");
@@ -475,7 +475,7 @@ public class L2BoxInstance extends L2NpcInstance {
 		bi.count = 0;
 		try
 		{
-			con = L2Registry.getConnection();
+			con = L2Registry.getConnection(con);
 			PreparedStatement statement = con.prepareStatement("SELECT id,count,enchant FROM boxes WHERE spawn=? AND npcid=? AND drawer=? AND itemid=? AND count>=?");
 			statement.setInt(1, getSpawn().getId());
 			statement.setInt(2, getNpcId());

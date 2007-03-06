@@ -121,7 +121,7 @@ public class CursedWeapon
                 java.sql.Connection con = null;
                 try
                 {
-                    con = L2Registry.getConnection();
+                    con = L2Registry.getConnection(con);
                     
                     // Delete the item
                     PreparedStatement statement = con.prepareStatement("DELETE FROM items WHERE owner_id=? AND item_id=?");
@@ -370,7 +370,7 @@ public class CursedWeapon
         PreparedStatement statement = null;
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
 
             // Delete previous datas
             statement = con.prepareStatement("DELETE FROM cursed_weapons WHERE itemId = ?");

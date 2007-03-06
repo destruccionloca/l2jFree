@@ -160,7 +160,7 @@ public class CrestCache
 
 				try
 				{
-					con = L2Registry.getConnection();
+					con = L2Registry.getConnection(con);
 					PreparedStatement statement = con
 							.prepareStatement("UPDATE clan_data SET crest_id = ? WHERE clan_id = ?");
 					statement.setInt(1, newId);

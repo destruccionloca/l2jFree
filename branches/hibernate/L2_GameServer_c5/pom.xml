@@ -5,7 +5,7 @@
   <artifactId>l2j-gameserver</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
-  <url>http://l2jc.boardsxp.com/</url>
+  <url>http://www.l2jfree.com</url>
   
   
   <pluginRepositories>
@@ -167,7 +167,7 @@
 
 	<issueManagement>
 		<system>Trac</system>
-		<url>http://85.214.19.147/trac/l2j-free/timeline</url>
+		<url>http://www.l2jfree.com/trac/l2j-free/timeline</url>
 	</issueManagement>
   
   
@@ -175,9 +175,6 @@
         <defaultGoal>assembly:assembly</defaultGoal>
         <finalName>${artifactId}</finalName>
 	    <resources>
-	      <resource>
-	        <directory>config</directory>
-	      </resource>
 		  <resource>
 	        <directory>src/main/resources</directory>
 	      </resource>	      

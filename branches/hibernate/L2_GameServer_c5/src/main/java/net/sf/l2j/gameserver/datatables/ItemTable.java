@@ -212,7 +212,7 @@ public class ItemTable
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
             for (String selectQuery : SQL_ITEM_SELECTS)
             {
                 PreparedStatement statement = con.prepareStatement(selectQuery);
@@ -771,7 +771,7 @@ public class ItemTable
                 try
                 {
                     // Delete the pet in db
-                    con = L2Registry.getConnection();
+                    con = L2Registry.getConnection(con);
                     PreparedStatement statement = con.prepareStatement("DELETE FROM pets WHERE item_obj_id=?");
                     statement.setInt(1, item.getObjectId());
                     statement.execute();

@@ -66,7 +66,7 @@ public class RequestAnswerFriendInvite extends ClientBasePacket
         		java.sql.Connection con = null;
         		try 
         		{
-        		    con = L2Registry.getConnection();
+        		    con = L2Registry.getConnection(con);
         		    PreparedStatement statement = con.prepareStatement("INSERT INTO character_friends (char_id, friend_id, friend_name) VALUES (?, ?, ?), (?, ?, ?)");
                     statement.setInt(1, requestor.getObjectId());
                     statement.setInt(2, player.getObjectId());

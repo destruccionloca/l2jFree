@@ -1169,7 +1169,7 @@ public class CTF
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
 
             statement = con.prepareStatement("Select * from ctf");
             rs = statement.executeQuery();
@@ -1238,7 +1238,7 @@ public class CTF
         java.sql.Connection con = null;
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
             PreparedStatement statement;
             
             statement = con.prepareStatement("Delete from ctf");

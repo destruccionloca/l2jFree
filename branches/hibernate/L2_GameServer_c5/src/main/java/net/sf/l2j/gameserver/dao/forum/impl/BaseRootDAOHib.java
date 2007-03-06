@@ -32,6 +32,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.stat.SessionStatistics;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -186,6 +187,15 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
 				throw new HibernateException("Session is closed " + __session);
 			}
 		}
+	}
+	
+	/**
+	 * 
+	 * @return statistics for current session 
+	 */
+	public SessionStatistics getStatistics ()
+	{
+		return getCurrentSession().getStatistics();
 	}
 
 	/**

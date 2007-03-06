@@ -87,7 +87,7 @@ public class ItemsOnGroundManager
                     str = "update itemsonground set drop_time=? where drop_time=-1 and equipable=0";        
                 else if (Config.DESTROY_EQUIPABLE_PLAYER_ITEM) //Recycle all items including equipable
                     str = "update itemsonground set drop_time=? where drop_time=-1";
-                con = L2Registry.getConnection();
+                con = L2Registry.getConnection(con);
                 PreparedStatement statement = con.prepareStatement(str);
                 statement.setLong(1, System.currentTimeMillis());
                 statement.execute();
@@ -108,7 +108,7 @@ public class ItemsOnGroundManager
         try
         {
             try {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
             Statement s = con.createStatement();
             ResultSet result;
             int count=0;
@@ -186,7 +186,7 @@ public class ItemsOnGroundManager
         java.sql.Connection conn = null;
         try
         {
-            conn = L2Registry.getConnection();
+            conn = L2Registry.getConnection(conn);
             PreparedStatement del = conn.prepareStatement("delete from itemsonground");
             del.execute();
             del.close();
@@ -218,7 +218,7 @@ public class ItemsOnGroundManager
 
             java.sql.Connection con = null;
             try {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
             PreparedStatement statement = con.prepareStatement("insert into itemsonground(object_id,item_id,count,enchant_level,x,y,z,drop_time,equipable) values(?,?,?,?,?,?,?,?,?)");
             statement.setInt(1, item.getObjectId());
             statement.setInt(2, item.getItemId());

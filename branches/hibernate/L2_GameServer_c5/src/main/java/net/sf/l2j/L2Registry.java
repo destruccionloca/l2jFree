@@ -151,22 +151,29 @@ public class L2Registry
         return _instance;
     }
     
-    public static Connection getConnection() 
+    /**
+     * if con is not null, return the same connection
+     * dev have to close it !
+     * @param con
+     * @return
+     */
+    public static Connection getConnection(Connection con) 
     {
-        Connection con=null;
- 
-        try
-        {
-            con = ((DataSource)__ctx.getBean("dataSource")).getConnection();
-        }
-        catch (BeansException e)
-        {
-            _log.fatal("Unable to retrieve connection : " +e.getMessage(),e);
-        }
-        catch (SQLException e)
-        {
-            _log.fatal("Unable to retrieve connection : " +e.getMessage(),e);
-        }
+    	if (con == null)
+    	{	
+	        try
+	        {
+	            con = ((DataSource)__ctx.getBean("dataSource")).getConnection();
+	        }
+	        catch (BeansException e)
+	        {
+	            _log.fatal("Unable to retrieve connection : " +e.getMessage(),e);
+	        }
+	        catch (SQLException e)
+	        {
+	            _log.fatal("Unable to retrieve connection : " +e.getMessage(),e);
+	        }
+    	}
         return con;
     }
     

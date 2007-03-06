@@ -392,7 +392,7 @@ public class PcInventory extends Inventory
         
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
             PreparedStatement statement2 = con.prepareStatement(
                     "SELECT object_id,item_id,loc_data,enchant_level FROM items WHERE owner_id=? AND loc='PAPERDOLL'");
             statement2.setInt(1, objectId);

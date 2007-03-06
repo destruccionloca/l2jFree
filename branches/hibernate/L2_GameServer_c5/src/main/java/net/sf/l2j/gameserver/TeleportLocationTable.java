@@ -61,7 +61,7 @@ public class TeleportLocationTable
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2Registry.getConnection();
+			con = L2Registry.getConnection(con);
             PreparedStatement statement = con.prepareStatement("SELECT Description, id, loc_x, loc_y, loc_z, price, fornoble FROM teleport");
 			ResultSet rset = statement.executeQuery();
 			L2TeleportLocation teleport;

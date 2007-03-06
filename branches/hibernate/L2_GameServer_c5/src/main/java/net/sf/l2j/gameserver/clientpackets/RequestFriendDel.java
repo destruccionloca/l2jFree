@@ -60,7 +60,7 @@ public class RequestFriendDel extends ClientBasePacket{
 		try 
 		{
 		    L2PcInstance friend = L2World.getInstance().getPlayer(_name);
-		    con = L2Registry.getConnection();
+		    con = L2Registry.getConnection(con);
 		    PreparedStatement statement;
 		    ResultSet rset;
 		    if (friend != null)

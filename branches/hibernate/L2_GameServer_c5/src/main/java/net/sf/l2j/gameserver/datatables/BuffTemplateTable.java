@@ -56,7 +56,7 @@ public class BuffTemplateTable
         {
             try 
             {
-                con = L2Registry.getConnection();
+                con = L2Registry.getConnection(con);
                 PreparedStatement statement = con.prepareStatement("SELECT * FROM buff_templates ORDER BY id, skill_order");
                 ResultSet rset = statement.executeQuery();
                 

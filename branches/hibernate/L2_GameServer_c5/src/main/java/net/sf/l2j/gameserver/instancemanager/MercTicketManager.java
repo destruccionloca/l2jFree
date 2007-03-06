@@ -153,7 +153,7 @@ public class MercTicketManager
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
 	        statement = con.prepareStatement("SELECT * FROM castle_siege_guards Where isHired = 1");
 	        rs = statement.executeQuery();
 	        

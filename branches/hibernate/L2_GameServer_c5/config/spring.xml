@@ -44,7 +44,7 @@
 		</property>
 		<!-- property name="mappingDirectoryLocations">
 			<list>
-				<value>classpath:/net/sf/l2j/loginserver/beans/</value>
+				<value>classpath:/mappings/</value>
 			</list>
 		</property-->
 		<property name="mappingJarLocations">

@@ -59,7 +59,7 @@ public class Faction
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
 
             statement = con.prepareStatement("Select * from factions where id = ?");
             statement.setInt(1, getId());
@@ -106,7 +106,7 @@ public class Faction
         {
             PreparedStatement statement;
 
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
 
             statement = con.prepareStatement("update factions set points = ? where id = ?");
             statement.setFloat(1, this._points);

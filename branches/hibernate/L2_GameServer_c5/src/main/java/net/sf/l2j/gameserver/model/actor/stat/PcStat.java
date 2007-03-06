@@ -131,7 +131,7 @@ public class PcStat extends PlayableStat
                     java.sql.Connection con = null;
                     try
                     {
-                        con = L2Registry.getConnection();
+                        con = L2Registry.getConnection(con);
                         PreparedStatement statement;
                         
                         statement = con.prepareStatement("SELECT value FROM account_data WHERE (account_name=?) AND (var='newbie_char')");

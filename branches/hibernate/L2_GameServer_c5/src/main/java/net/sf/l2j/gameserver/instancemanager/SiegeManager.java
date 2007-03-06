@@ -130,7 +130,7 @@ public class SiegeManager
         boolean register = false;
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
             PreparedStatement statement = con.prepareStatement("SELECT clan_id FROM siege_clans where clan_id=? and castle_id=?");
             statement.setInt(1, clan.getClanId());
             statement.setInt(2, castleid);

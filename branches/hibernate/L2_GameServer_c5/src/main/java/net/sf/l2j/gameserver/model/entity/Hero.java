@@ -108,8 +108,10 @@ public class Hero
         
         try
         {
-            Connection con = L2Registry.getConnection();
-            Connection con2 = L2Registry.getConnection();
+            Connection con = null;
+            con = L2Registry.getConnection(con);
+            Connection con2 =  null;
+            con2 = L2Registry.getConnection(con2);
             statement = con.prepareStatement(GET_HEROES);
             rset = statement.executeQuery();
             
@@ -388,7 +390,7 @@ public class Hero
         Connection con = null;
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
             if(setDefault)
             {
                 PreparedStatement statement = con.prepareStatement(UPDATE_ALL);
@@ -413,7 +415,7 @@ public class Hero
                         statement.setInt(5, hero.getInteger(PLAYED));
                         statement.execute();
                         
-                        Connection con2 = L2Registry.getConnection();
+                        Connection con2 = L2Registry.getConnection(con);
                         PreparedStatement statement2 = con2.prepareStatement(GET_CLAN_ALLY);
                         statement2.setInt(1, heroId);
                         ResultSet rset2 = statement2.executeQuery();
@@ -488,7 +490,7 @@ public class Hero
         
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
             PreparedStatement statement = con.prepareStatement(DELETE_ITEMS);
             statement.execute();
             statement.close();
@@ -505,7 +507,7 @@ public class Hero
           
          try 
          { 
-             con = L2Registry.getConnection(); 
+             con = L2Registry.getConnection(con); 
              PreparedStatement statement = con.prepareStatement(DELETE_SKILLS); 
              statement.execute(); 
              statement.close(); 

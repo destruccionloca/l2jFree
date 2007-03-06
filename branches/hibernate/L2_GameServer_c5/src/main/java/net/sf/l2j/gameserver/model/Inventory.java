@@ -1052,7 +1052,7 @@ public abstract class Inventory extends ItemContainer
        java.sql.Connection con = null;
        try
        {
-           con = L2Registry.getConnection();
+           con = L2Registry.getConnection(con);
            PreparedStatement statement = con.prepareStatement(
                                                               "SELECT object_id FROM items WHERE owner_id=? AND (loc=? OR loc=?) " +
            "ORDER BY object_id DESC");

@@ -75,7 +75,7 @@ public class AdminRepairChar implements IAdminCommandHandler
         java.sql.Connection connection = null;
         try
         {
-            connection = L2Registry.getConnection();
+            connection = L2Registry.getConnection(connection);
             
             PreparedStatement statement = connection.prepareStatement("SELECT obj_id FROM characters where char_name=?");
             statement.setString(1,parts[1]);

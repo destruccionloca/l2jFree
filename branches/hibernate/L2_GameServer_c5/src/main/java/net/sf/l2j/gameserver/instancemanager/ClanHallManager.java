@@ -66,7 +66,7 @@ public class ClanHallManager
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
 
             statement = con.prepareStatement("Select id from clanhall order by id");
             rs = statement.executeQuery();

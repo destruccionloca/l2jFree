@@ -70,7 +70,7 @@ public class LevelUpData
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2Registry.getConnection();
+			con = L2Registry.getConnection(con);
 			PreparedStatement statement = con.prepareStatement(SELECT_ALL);
 			ResultSet rset = statement.executeQuery();
 			L2LvlupData lvlDat;

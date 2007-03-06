@@ -4,6 +4,7 @@
 <!-- Generated 19 f?vr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8 -->
 <hibernate-mapping>
     <class name="net.sf.l2j.gameserver.model.forum.Forums" table="forums" lazy="false" >
+        <cache usage="nonstrict-read-write"/>
         <id name="forumId" type="int" >
             <column name="forum_id" />
             <generator class="increment" />
@@ -26,7 +27,7 @@
         <property name="forumOwnerId" type="int">
             <column name="forum_owner_id" />
         </property>
-        <set name="topics" inverse="true" cascade="all, delete-orphan" outer-join="true" lazy="false">
+        <set name="topics" inverse="true" cascade="all, delete-orphan" outer-join="true" lazy="true">
             <key>
                 <column name="topic_forum_id" not-null="true">
                 </column>

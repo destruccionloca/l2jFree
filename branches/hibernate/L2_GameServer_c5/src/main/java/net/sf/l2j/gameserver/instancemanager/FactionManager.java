@@ -73,7 +73,7 @@ public class FactionManager
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
 
             statement = con.prepareStatement("Select id from factions order by id");
             rs = statement.executeQuery();

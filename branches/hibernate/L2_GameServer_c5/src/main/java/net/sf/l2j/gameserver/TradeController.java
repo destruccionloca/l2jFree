@@ -99,7 +99,7 @@ public class TradeController
 			int dummyItemCount = 0;
 			try
 			{
-				con = L2Registry.getConnection();
+				con = L2Registry.getConnection(con);
 				PreparedStatement statement1 = con.prepareStatement("SELECT " + L2Registry.getInstance().safetyString(new String[]
 					{ "shop_id", "npc_id" }) + " FROM merchant_shopids");
 				ResultSet rset1 = statement1.executeQuery();

@@ -64,7 +64,7 @@ public class RequestFriendList extends ClientBasePacket
 		
 		try
 		{
-			con = L2Registry.getConnection();
+			con = L2Registry.getConnection(con);
 			PreparedStatement statement = con.prepareStatement("SELECT friend_id, friend_name FROM character_friends WHERE char_id=?");
 			statement.setInt(1, activeChar.getObjectId());
             

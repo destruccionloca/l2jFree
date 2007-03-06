@@ -66,18 +66,6 @@ public final class Config {
     /** Hostname of the Game Server */
     public static String GAMESERVER_HOSTNAME;
     
-    // Access to database
-    /** Driver to access to database */
-    public static String DATABASE_DRIVER;
-    /** Path to access to database */
-    public static String DATABASE_URL;
-    /** Database login */ 
-    public static String DATABASE_LOGIN;
-    /** Database password */
-    public static String DATABASE_PASSWORD;
-    /** Maximum number of connections to the database */
-    public static int DATABASE_MAX_CONNECTIONS;
-    
     /** Maximum number of players allowed to play simultaneously on server */
     public static int   MAXIMUM_ONLINE_USERS;
     
@@ -1116,12 +1104,6 @@ public final class Config {
                 IO_TYPE                 = IOType.valueOf(serverSettings.getProperty("IOType", "nio"));
 	            
 	            MAXIMUM_ONLINE_USERS        = Integer.parseInt(serverSettings.getProperty("MaximumOnlineUsers", "100"));
-                
-	            DATABASE_DRIVER             = serverSettings.getProperty("Driver", "com.mysql.jdbc.Driver");
-	            DATABASE_URL                = serverSettings.getProperty("URL", "jdbc:mysql://localhost/l2jdb");
-	            DATABASE_LOGIN              = serverSettings.getProperty("Login", "root");
-	            DATABASE_PASSWORD           = serverSettings.getProperty("Password", "");
-	            DATABASE_MAX_CONNECTIONS    = Integer.parseInt(serverSettings.getProperty("MaximumDbConnections", "10"));
                 
                 SAFE_REBOOT  = Boolean.valueOf(serverSettings.getProperty("SafeReboot", "False"));
                 

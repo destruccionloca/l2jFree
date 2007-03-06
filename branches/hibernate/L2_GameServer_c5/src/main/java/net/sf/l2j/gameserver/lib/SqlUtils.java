@@ -1,5 +1,6 @@
 package net.sf.l2j.gameserver.lib;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -37,8 +38,9 @@ public class SqlUtils
 		try
 		{
             query = L2Registry.getInstance().prepQuerySelect(new String[] {resultField}, tableName, whereClause, true);
-
-			statement = L2Registry.getConnection().prepareStatement(query);
+            Connection con = null;
+            con = L2Registry.getConnection(con);
+			statement = con.prepareStatement(query);
 			rset = statement.executeQuery();
 		
 			if(rset.next()) res = rset.getInt(1);
@@ -66,8 +68,10 @@ public class SqlUtils
 
         try
         {
-            query = L2Registry.getInstance().prepQuerySelect(new String[] {resultField}, tableName, whereClause, false);
-            statement = L2Registry.getConnection().prepareStatement(query);
+            Connection con = null;
+            con = L2Registry.getConnection(con);
+        	query = L2Registry.getInstance().prepQuerySelect(new String[] {resultField}, tableName, whereClause, false);
+            statement = con.prepareStatement(query);
             rset = statement.executeQuery();
             
             int rows = 0;
@@ -113,8 +117,10 @@ public class SqlUtils
 
 		try
 		{
+            Connection con = null;
+            con = L2Registry.getConnection(con);
             query = L2Registry.getInstance().prepQuerySelect(resultFields, usedTables, whereClause, false);
-            statement = L2Registry.getConnection().prepareStatement(query);
+            statement = con.prepareStatement(query);
 			rset = statement.executeQuery();
 
 			int rows = 0;

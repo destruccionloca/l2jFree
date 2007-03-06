@@ -129,7 +129,7 @@ public class SkillTreeTable
         
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
             PreparedStatement statement = con.prepareStatement("SELECT * FROM class_list ORDER BY id");
             ResultSet classlist = statement.executeQuery();
             

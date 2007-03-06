@@ -72,7 +72,7 @@ public class AutoChatHandler implements SpawnListener
 
         try
         {
-            con = L2Registry.getConnection();
+            con = L2Registry.getConnection(con);
 
             statement = con.prepareStatement("SELECT * FROM auto_chat ORDER BY groupId ASC");
             rs = statement.executeQuery();

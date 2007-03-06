@@ -98,7 +98,7 @@ public class AdminPledge implements IAdminCommandHandler
                 java.sql.Connection con = null;
                 try
                 {
-                    con = L2Registry.getConnection();
+                    con = L2Registry.getConnection(con);
                     PreparedStatement statement = con.prepareStatement("UPDATE characters SET clanid = 0 WHERE clanid=?");
                     statement.setInt(1, target.getClanId());
                     statement.execute();
@@ -139,7 +139,7 @@ public class AdminPledge implements IAdminCommandHandler
                     java.sql.Connection con = null;
                     try
                     {
-                        con = L2Registry.getConnection();
+                        con = L2Registry.getConnection(con);
                         PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET clan_level = ? WHERE clan_id = ?");
                         statement.setInt(1, level);
                         statement.setInt(2, target.getClanId());

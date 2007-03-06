@@ -82,7 +82,7 @@ public class RequestFriendInvite extends ClientBasePacket{
 
 		try 
 		{
-		    con = L2Registry.getConnection();
+		    con = L2Registry.getConnection(con);
 		    PreparedStatement statement = con.prepareStatement("SELECT char_id FROM character_friends WHERE char_id=? AND friend_id=?");
 		    statement.setInt(1, activeChar.getObjectId());
 		    statement.setInt(2, friend.getObjectId());
