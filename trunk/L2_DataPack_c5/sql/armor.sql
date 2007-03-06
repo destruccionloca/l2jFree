@@ -722,7 +722,7 @@ INSERT INTO `armor` (`item_id`,`name`,`bodypart`,`crystallizable`,`armor_type`,`
   (5330,'Sealed Dasparion\'s Gloves','gloves','true','none',550,'leather','a',0,90,48,0,0,1760000,140,'true'),
   (5331,'Sealed Dasparion\'s Boots','feet','true','none',1100,'leather','a',0,90,48,0,0,1760000,140,'true'),
   (5576,'Sound Test Boots','feet','false','none',50,'cloth','none',0,90,0,0,0,100,0,'true'),
-  (5590,'Squeaking Shoes','feet','false','none',50,'cloth','none',0,90,0,0,0,420000,0,'true'),
+  (5590,'Squeaking Shoes','feet','false','none',50,'cloth','none',0,90,0,0,0,40,0,'true'),
   (5709,'Sealed Zubei\'s Gauntlets','gloves','true','none',590,'mithril','b',0,90,41,0,0,0,1,'true'),
   (5710,'Zubei\'s Gauntlets Heavy Armor','gloves','true','none',590,'mithril','b',0,90,41,0,0,519000,69,'true'),
   (5711,'Zubei\'s Gauntlets Light Armor','gloves','true','none',590,'mithril','b',0,90,41,0,0,519000,69,'true'),
