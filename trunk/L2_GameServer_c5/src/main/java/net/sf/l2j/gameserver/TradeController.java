@@ -102,7 +102,7 @@ public class TradeController
                     }
                 } catch (Exception e)
                 {
-                    _log.warn("TradeController: Empty buylist " + buylist.getListId() + ".");
+                    _log.warn("TradeController: Problem with buylist " + buylist.getListId() + " item " + _itemId + ".");
                 }
                 
                 if (_itemCount>0)
@@ -112,7 +112,7 @@ public class TradeController
                     buylist.setNpcId(rset1.getString("npc_id"));
                 }
                 else     
-                    _log.warn("TradeController: Problem with buylist " + buylist.getListId() + " item " + _itemId + ".");
+                    _log.warn("TradeController: Empty buylist " + buylist.getListId() + ".");
                 
                 rset.close();
                 statement.close();
