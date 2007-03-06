@@ -52,6 +52,7 @@ import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
+import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.serverpackets.ClientSetTime;
@@ -402,7 +403,10 @@ public class EnterWorld extends ClientBasePacket
            TvT.addDisconnectedPlayer(activeChar);
 
     	if (CTF._savePlayers.contains(activeChar.getName()))
-               CTF.addDisconnectedPlayer(activeChar);
+    	    CTF.addDisconnectedPlayer(activeChar);
+        
+        if (DM._savePlayers.contains(activeChar.getName()))
+            DM.addDisconnectedPlayer(activeChar);
 
         QuestList ql = new QuestList();
         activeChar.sendPacket(ql);
