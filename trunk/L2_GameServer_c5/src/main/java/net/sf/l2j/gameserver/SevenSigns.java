@@ -195,75 +195,130 @@ public class SevenSigns
         
         if (isSealValidationPeriod() || isCompResultsPeriod())
         {
-            for (AutoSpawnInstance spawnInst: _marketeerSpawns.values())
-                AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, true);
+            if (_marketeerSpawns != null )
+            {
+                for (AutoSpawnInstance spawnInst: _marketeerSpawns.values())
+                    AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, true);
+            }
+            else
+                _log.warn("SevenSigns: No spawns found for Black Marketeer of Mammon npc(s).");
             
             if (getSealOwner(SEAL_GNOSIS) == getCabalHighestScore() && getSealOwner(SEAL_GNOSIS) != CABAL_NULL)
             {
-                if (!Config.ANNOUNCE_MAMMON_SPAWN) 
-                    _blacksmithSpawn.setBroadcast(false);
+                if (_blacksmithSpawn != null)
+                {
+                    if (!Config.ANNOUNCE_MAMMON_SPAWN) 
+                        _blacksmithSpawn.setBroadcast(false);
                 
-                if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(_blacksmithSpawn.getObjectId(), true).isSpawnActive())
-                    AutoSpawnHandler.getInstance().setSpawnActive(_blacksmithSpawn, true);
+                    if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(_blacksmithSpawn.getObjectId(), true).isSpawnActive())
+                        AutoSpawnHandler.getInstance().setSpawnActive(_blacksmithSpawn, true);
+                }
+                else
+                    _log.warn("SevenSigns: No spawns found for Blacksmith of Mammon npc(s).");
                 
-                for (AutoSpawnInstance spawnInst: _oratorSpawns.values())
-                    if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(spawnInst.getObjectId(), true).isSpawnActive())
-                        AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, true);
+                if (_oratorSpawns != null)
+                {
+                    for (AutoSpawnInstance spawnInst: _oratorSpawns.values())
+                        if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(spawnInst.getObjectId(), true).isSpawnActive())
+                            AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, true);
+                }
+                else
+                    _log.warn("SevenSigns: No spawn found for Orator of Revelations npc(s).");
                 
-                for (AutoSpawnInstance spawnInst: _preacherSpawns.values())
-                    if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(spawnInst.getObjectId(), true).isSpawnActive())
-                        AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, true);
-
-                if (!AutoChatHandler.getInstance().getAutoChatInstance(PREACHER_NPC_ID, false).isActive() && !AutoChatHandler.getInstance().getAutoChatInstance(ORATOR_NPC_ID, false).isActive())
-                    AutoChatHandler.getInstance().setAutoChatActive(true);
+                if (_preacherSpawns != null)
+                {
+                    for (AutoSpawnInstance spawnInst: _preacherSpawns.values())
+                        if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(spawnInst.getObjectId(), true).isSpawnActive())
+                            AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, true);
+                    if (!AutoChatHandler.getInstance().getAutoChatInstance(PREACHER_NPC_ID, false).isActive() && !AutoChatHandler.getInstance().getAutoChatInstance(ORATOR_NPC_ID, false).isActive())
+                        AutoChatHandler.getInstance().setAutoChatActive(true);
+                }
+                else
+                    _log.warn("SevenSigns: No spawn found for Preacher of Doom npc(s).");
             }
             else
             {
                 AutoSpawnHandler.getInstance().setSpawnActive(_blacksmithSpawn, false);
                 
-                for (AutoSpawnInstance spawnInst: _oratorSpawns.values())
-                    AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, false);
+                if (_oratorSpawns != null)
+                    for (AutoSpawnInstance spawnInst: _oratorSpawns.values())
+                        AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, false);
                 
-                for (AutoSpawnInstance spawnInst: _preacherSpawns.values())
-                    AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, false);
+                if (_preacherSpawns != null)
+                    for (AutoSpawnInstance spawnInst: _preacherSpawns.values())
+                        AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, false);
                 
                 AutoChatHandler.getInstance().setAutoChatActive(false);
             }
             
             if (getSealOwner(SEAL_AVARICE) == getCabalHighestScore() && getSealOwner(SEAL_AVARICE) != CABAL_NULL)
             {
-                if (!Config.ANNOUNCE_MAMMON_SPAWN) 
-                    _merchantSpawn.setBroadcast(false);
-
-                if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(_merchantSpawn.getObjectId(), true).isSpawnActive())
-                    AutoSpawnHandler.getInstance().setSpawnActive(_merchantSpawn, true);
                 
-                if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(_spiritInSpawn.getObjectId(), true).isSpawnActive())
-                    AutoSpawnHandler.getInstance().setSpawnActive(_spiritInSpawn, true);
-                
-                if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(_spiritOutSpawn.getObjectId(), true).isSpawnActive())
-                    AutoSpawnHandler.getInstance().setSpawnActive(_spiritOutSpawn, true);
+                if (_merchantSpawn != null)
+                {
+                    if (!Config.ANNOUNCE_MAMMON_SPAWN) 
+                        _merchantSpawn.setBroadcast(false);
 
+                    if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(_merchantSpawn.getObjectId(), true).isSpawnActive())
+                        AutoSpawnHandler.getInstance().setSpawnActive(_merchantSpawn, true);
+                } else
+                    _log.warn("SevenSigns: No spawns found for Merchant of Mammon npc(s).");
+
+                if (_spiritInSpawn != null || _spiritOutSpawn != null)
+                {
+                    if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(_spiritInSpawn.getObjectId(), true).isSpawnActive())
+                        AutoSpawnHandler.getInstance().setSpawnActive(_spiritInSpawn, true);
+                    
+                    if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(_spiritOutSpawn.getObjectId(), true).isSpawnActive())
+                        AutoSpawnHandler.getInstance().setSpawnActive(_spiritOutSpawn, true);
+                } else
+                    _log.warn("SevenSigns: No spawns found for Gatekeeper Spirit npc(s).");
+                
                 switch (getCabalHighestScore())
                 {
                     case CABAL_DAWN:
-                        if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(_lilithSpawn.getObjectId(), true).isSpawnActive())
-                            AutoSpawnHandler.getInstance().setSpawnActive(_lilithSpawn, true);
+                        if (_lilithSpawn != null)
+                        {
+                            if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(_lilithSpawn.getObjectId(), true).isSpawnActive())
+                                AutoSpawnHandler.getInstance().setSpawnActive(_lilithSpawn, true);
+                            
+                        }
+                        else 
+                            _log.warn("SevenSigns: No spawns found for Lilith Raid Boss.");
                         
                         AutoSpawnHandler.getInstance().setSpawnActive(_anakimSpawn, false);
-                        if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(_crestofdawnspawn.getObjectId(), true).isSpawnActive())
-                            AutoSpawnHandler.getInstance().setSpawnActive(_crestofdawnspawn, true);
+                        
+                        if (_crestofdawnspawn != null)
+                        {
+                            AutoSpawnInstance _aiDawn = AutoSpawnHandler.getInstance().getAutoSpawnInstance(_crestofdawnspawn.getObjectId(), true);
+                            if (_aiDawn!=null && !_aiDawn.isSpawnActive())
+                                AutoSpawnHandler.getInstance().setSpawnActive(_crestofdawnspawn, true);
+                        }
+                        else
+                            _log.warn("SevenSigns: No spawns found for Crest of Dawn npc(s).");
                         
                         AutoSpawnHandler.getInstance().setSpawnActive(_crestofduskspawn, false);
                         break;
                         
                     case CABAL_DUSK:
-                        if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(_anakimSpawn.getObjectId(), true).isSpawnActive())
-                            AutoSpawnHandler.getInstance().setSpawnActive(_anakimSpawn, true);
+                        if (_anakimSpawn != null)
+                        {
+                            if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(_anakimSpawn.getObjectId(), true).isSpawnActive())
+                                AutoSpawnHandler.getInstance().setSpawnActive(_anakimSpawn, true);
+                        }
+                        else 
+                            _log.warn("SevenSigns: No spawns found for Anakim Raid Boss.");
                         
                         AutoSpawnHandler.getInstance().setSpawnActive(_lilithSpawn, false);
-                        if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(_crestofduskspawn.getObjectId(), true).isSpawnActive())
-                            AutoSpawnHandler.getInstance().setSpawnActive(_crestofduskspawn, true);
+                        
+                        if (_crestofduskspawn != null)
+                        {
+                            AutoSpawnInstance _aiDusk = AutoSpawnHandler.getInstance().getAutoSpawnInstance(_crestofduskspawn.getObjectId(), true);
+                            if (_aiDusk!=null && !_aiDusk.isSpawnActive())
+                                AutoSpawnHandler.getInstance().setSpawnActive(_crestofduskspawn, true);
+                        }
+                        else
+                            _log.warn("SevenSigns: No spawns for Crest of Dusk npc(s).");
                         
                         AutoSpawnHandler.getInstance().setSpawnActive(_crestofdawnspawn, false);
                         break;
@@ -291,12 +346,15 @@ public class SevenSigns
             AutoSpawnHandler.getInstance().setSpawnActive(_spiritInSpawn, false);
             AutoSpawnHandler.getInstance().setSpawnActive(_spiritOutSpawn, false);
             
+            if (_oratorSpawns != null)
             for (AutoSpawnInstance spawnInst: _oratorSpawns.values())
                 AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, false);
             
+            if (_preacherSpawns != null)
             for (AutoSpawnInstance spawnInst: _preacherSpawns.values())
                 AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, false);
             
+            if (_marketeerSpawns != null)
             for (AutoSpawnInstance spawnInst: _marketeerSpawns.values())
                 AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, false);
             

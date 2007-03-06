@@ -45,7 +45,7 @@ public class SpawnTable
 
     private FastMap<Integer, L2Spawn> _spawntable = new FastMap<Integer, L2Spawn>();
     private int _npcSpawnCount;
-
+    private int _cSpawnCount;
     private int _highestDbId;
     private int _highestCustomDbId;
 
@@ -164,7 +164,9 @@ public class SpawnTable
 
             L2Spawn spawnDat;
             L2NpcTemplate template1;
-
+            
+            _cSpawnCount = _spawntable.size();
+            
             while (rset.next())
             {
                 template1 = NpcTable.getInstance().getTemplate(rset.getInt("npc_templateid"));
@@ -239,8 +241,9 @@ public class SpawnTable
             {
             }
         }
-
-        _log.info("SpawnTable: Loaded " + _spawntable.size() + " Npc Spawn Locations.");
+        _cSpawnCount =  _spawntable.size() - _cSpawnCount;
+        if (_cSpawnCount>0)
+        _log.info("SpawnTable: Loaded " + _cSpawnCount + " Custom Spawn Locations.");
 
         if (_log.isDebugEnabled())
             _log.debug("SpawnTable: Spawning completed, total number of NPCs in the world: "
