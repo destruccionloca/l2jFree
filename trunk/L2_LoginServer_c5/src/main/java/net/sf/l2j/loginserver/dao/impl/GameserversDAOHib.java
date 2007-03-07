@@ -86,8 +86,15 @@ public class GameserversDAOHib extends BaseRootDAOHib implements GameserversDAO
     @SuppressWarnings("unchecked")
     public List <Gameservers> getAllGameservers()
     {
-        return findAll(Gameservers.class);
+        return findAllOrderById(Gameservers.class);
     }
+    
+    /**
+     * Return all objects related to the implementation of this DAO with no filter.
+     */
+    public List findAllOrderById (Class refClass) {
+        return getCurrentSession().createQuery("from " + refClass.getName() +" order by serverId").list();
+    }    
 
     /**
      * @see net.sf.l2j.loginserver.dao.GameserversDAO#removeGameservers(Gameservers)

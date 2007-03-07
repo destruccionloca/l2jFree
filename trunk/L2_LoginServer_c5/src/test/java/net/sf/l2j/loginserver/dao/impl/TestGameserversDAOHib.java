@@ -27,6 +27,7 @@ package net.sf.l2j.loginserver.dao.impl;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import net.sf.l2j.loginserver.beans.Gameservers;
@@ -152,7 +153,7 @@ public class TestGameserversDAOHib extends ADAOTestCase
     
    public void testFindAll() throws Exception {
        
-       List list = dao.getAllGameservers();
+       List<Gameservers> list = dao.getAllGameservers();
        
        assertEquals(1,list.size());
        
@@ -176,6 +177,17 @@ public class TestGameserversDAOHib extends ADAOTestCase
        list = dao.getAllGameservers();
 
        assertEquals(1,list.size());
+       
+       Iterator<Gameservers> it = list.iterator();
+       int idPrevious = -1;
+       // check that the list is ordered by serverId
+       while (it.hasNext())
+       {
+    	   Gameservers gs = it.next();
+    	   assertTrue(gs.getServerId()>idPrevious);
+    	   idPrevious = gs.getServerId();
+       }
+       
    }   
    
   public void testRemoveObject() throws Exception {
