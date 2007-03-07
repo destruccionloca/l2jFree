@@ -209,6 +209,7 @@
 </skill>
 <skill id="109" levels="1" name="Ogre Spirit Totem">
   <set name="mpConsume" val="21"/>
+  <set name="weaponsAllowed" val="1024"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="2000"/>
   <set name="reuseDelay" val="120000"/>

@@ -1420,6 +1420,7 @@
   <!-- Done by dc -->
   <set name="mpConsume" val="18"/>
   <set name="power" val="0.0"/>
+  <set name="weaponsAllowed" val="1024"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="2000"/>
   <set name="reuseDelay" val="120000"/>
@@ -1618,6 +1619,7 @@
 <skill id="292" levels="1" name="Bison Spirit Totem">
   <set name="mpConsume" val="32"/>
   <set name="power" val="0.0"/>
+  <set name="weaponsAllowed" val="1024"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="2000"/>
   <set name="reuseDelay" val="120000"/>
@@ -1729,6 +1731,7 @@
 <skill id="298" levels="1" name="Rabbit Spirit Totem">
   <set name="mpConsume" val="29"/>
   <set name="power" val="0.0"/>
+  <set name="weaponsAllowed" val="1024"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="2000"/>
   <set name="reuseDelay" val="600000"/>

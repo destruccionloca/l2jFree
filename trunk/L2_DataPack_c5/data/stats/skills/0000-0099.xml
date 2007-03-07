@@ -1398,6 +1398,7 @@
   <!-- Done by dc -->
   <set name="mpConsume" val="13"/>
   <set name="power" val="0.0"/>
+  <set name="weaponsAllowed" val="1024"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="2000"/>
   <set name="reuseDelay" val="90000"/>
@@ -1534,6 +1535,7 @@
   <!-- Done by Scott -->
   <set name="mpConsume" val="10"/>
   <set name="power" val="0.0"/>
+  <set name="weaponsAllowed" val="1024"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="2000"/>
   <set name="reuseDelay" val="90000"/>
