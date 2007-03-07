@@ -3043,11 +3043,26 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void onAction(L2PcInstance player)
     {
-        if ((_inEventTvT && TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (_inEventDM && DM._started && !Config.DM_ALLOW_INTERFERENCE) || (_inEventCTF && CTF._started && !Config.CTF_ALLOW_INTERFERENCE))
+        if ((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.DM_ALLOW_INTERFERENCE) || (DM._started && !Config.CTF_ALLOW_INTERFERENCE))
         {
-            ActionFailed af = new ActionFailed();
-            player.sendPacket(af);
-            return;
+            if ((_inEventTvT && !player._inEventTvT) || (!_inEventTvT && player._inEventTvT))
+            {
+                ActionFailed af = new ActionFailed();
+                player.sendPacket(af);
+                return;
+            }
+            else if ((_inEventCTF && !player._inEventCTF) || (!_inEventCTF && player._inEventCTF))
+            {
+                ActionFailed af = new ActionFailed();
+                player.sendPacket(af);
+                return;
+            }
+            else if ((_inEventDM && !player._inEventDM) || (!_inEventDM && player._inEventDM))
+            {
+                ActionFailed af = new ActionFailed();
+                player.sendPacket(af);
+                return;
+            }
         }
 
         // Check if the L2PcInstance is confused
