@@ -763,11 +763,11 @@
 </skill>
 <skill id="342" levels="1" name="Touch of Death">
   <set name="hpConsume" val="1004"/>
-  <set name="power" val="100.0"/>
+  <set name="power" val="80"/>
   <set name="magicLvl" val="78"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="hitTime" val="1000"/>
-  <set name="reuseDelay" val="8000"/>
+  <set name="reuseDelay" val="120000"/>
   <set name="skillTime" val="2000"/>
   <set name="skillType" val="CANCEL"/>
   <set name="isMagic" val="true"/>
