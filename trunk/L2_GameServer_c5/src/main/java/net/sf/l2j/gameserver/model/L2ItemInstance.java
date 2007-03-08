@@ -180,7 +180,7 @@ public final class L2ItemInstance extends L2Object
             param.add( this);
             param.add( creator);
             param.add( reference);
-            org.apache.log4j.Logger.getLogger("item").info(param);            
+            _logItems.info(param);
 		}
 	}
 
