@@ -28,7 +28,7 @@ CLASSPATH=${CLASSPATH}:c3p0-0.9.0.4.jar
 
 # for logging usage
 CLASSPATH=${CLASSPATH}:commons-logging-1.1.jar
-CLASSPATH=${CLASSPATH}:log4j-1.2.14.jar
+CLASSPATH=${CLASSPATH}:log4j-1.2.12.jar
 CLASSPATH=${CLASSPATH}:logkit-1.0.1.jar
 
 # for common input output 

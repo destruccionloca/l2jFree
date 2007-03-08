@@ -27,7 +27,7 @@ SET CLASSPATH=%CLASSPATH%;c3p0-0.9.0.4.jar
 
 REM for logging usage
 SET CLASSPATH=%CLASSPATH%;commons-logging-1.1.jar
-SET CLASSPATH=%CLASSPATH%;log4j-1.2.14.jar
+SET CLASSPATH=%CLASSPATH%;log4j-1.2.12.jar
 SET CLASSPATH=%CLASSPATH%;logkit-1.0.1.jar
 
 REM for common input output 
