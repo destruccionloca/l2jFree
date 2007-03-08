@@ -250,9 +250,9 @@ public class Siege
     private int _Defender_RespawnDelay_Penalty;
 
     // Castle setting
-    private L2ArtefactInstance _Artifact;
+    private FastList<L2ArtefactInstance> _Artifact = new FastList<L2ArtefactInstance>();
     private Castle[] _Castle;
-    private FastList<L2ControlTowerInstance> _ControlTowers = new FastList<L2ControlTowerInstance>();;
+    private FastList<L2ControlTowerInstance> _ControlTowers = new FastList<L2ControlTowerInstance>();
     private int[][] _ControlTowerSpawnList;
     private boolean _IsInProgress = false;
     private boolean _IsNormalSide = true; // true = Atk is Atk, false = Atk is Def
@@ -435,7 +435,7 @@ public class Siege
             loadSiegeClan(); // Load siege clan from db
             teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town); // Teleport to the closest town
             //teleportPlayer(Siege.TeleportWhoType.Spectator, MapRegionTable.TeleportWhereType.Town);      // Teleport to the second closest town
-            spawnArtifact(); // Spawn artifact
+            spawnArtifact(getCastle().getCastleId()); // Spawn artifact
             spawnControlTower(); // Spawn control tower
             getCastle().spawnDoor(); // Spawn door
             spawnSiegeGuard(); // Spawn siege guard
@@ -1021,12 +1021,18 @@ public class Siege
         }
     }
 
-    /** Remove artifact spawned. */
+    /** Remove artifacts spawned. */
     private void removeArtifact()
     {
-        // Remove instance of artifact for this castle
-        if (_Artifact != null) _Artifact.decayMe();
-        _Artifact = null;
+        if (_Artifact != null)
+        {
+            // Remove all instance of artifact for this castle
+            for (L2ArtefactInstance art : _Artifact)
+            {
+                if (art != null) art.decayMe();
+            }
+            _Artifact = null;
+        }
     }
 
     /** Remove all control tower spawned. */
@@ -1197,18 +1203,82 @@ public class Siege
     }
 
     /** Spawn artifact. */
-    private void spawnArtifact()
+    private void spawnArtifact(int Id)
     {
-        _Artifact = new L2ArtefactInstance(
-                                           IdFactory.getInstance().getNextId(),
-                                           NpcTable.getInstance().getTemplate(
-                                                                              SiegeManager.getInstance().getArtifactSpawnList()[getCastle().getCastleId()][4]));
-        _Artifact.setCurrentHpMp(_Artifact.getMaxHp(), _Artifact.getMaxMp());
-        _Artifact.setHeading(SiegeManager.getInstance().getArtifactSpawnList()[getCastle().getCastleId()][3]);
-        _Artifact.spawnMe(
-                          SiegeManager.getInstance().getArtifactSpawnList()[getCastle().getCastleId()][0],
-                          SiegeManager.getInstance().getArtifactSpawnList()[getCastle().getCastleId()][1],
-                          SiegeManager.getInstance().getArtifactSpawnList()[getCastle().getCastleId()][2] + 50);
+        //Set artefact array size if one does not exist
+        if (_Artifact == null)
+            _Artifact = new FastList<L2ArtefactInstance>();
+        
+        L2ArtefactInstance art;
+        // Spawn Goddard artefacts
+        if(Id==7)
+        {
+            for (int i = 0; i<2; i++)
+            {
+                art = new L2ArtefactInstance(
+                                             IdFactory.getInstance().getNextId(),
+                                             NpcTable.getInstance().getTemplate(
+                                                                                SiegeManager.getInstance().getArtifactSpawnList()[Id][4]));
+                art.setCurrentHpMp(art.getMaxHp(), art.getMaxMp());
+                art.setHeading(SiegeManager.getInstance().getArtifactSpawnList()[Id][3]);
+                art.spawnMe(
+                                SiegeManager.getInstance().getArtifactSpawnList()[Id][0],
+                                SiegeManager.getInstance().getArtifactSpawnList()[Id][1],
+                                SiegeManager.getInstance().getArtifactSpawnList()[Id][2] + 50);
+                Id++;
+                _Artifact.add(art);
+            }             
+        }
+        //Spawn Rune Artefact
+        else if (Id==8)
+        {
+            Id++;
+            art = new L2ArtefactInstance(
+                                         IdFactory.getInstance().getNextId(),
+                                         NpcTable.getInstance().getTemplate(
+                                                                            SiegeManager.getInstance().getArtifactSpawnList()[Id][4]));
+            art.setCurrentHpMp(art.getMaxHp(), art.getMaxMp());
+            art.setHeading(SiegeManager.getInstance().getArtifactSpawnList()[Id][3]);
+            art.spawnMe(
+                        SiegeManager.getInstance().getArtifactSpawnList()[Id][0],
+                        SiegeManager.getInstance().getArtifactSpawnList()[Id][1],
+                        SiegeManager.getInstance().getArtifactSpawnList()[Id][2] + 50);
+            _Artifact.add(art);
+        }
+        //Spawn Shutgard Artefacts
+        else if (Id==9)
+        {
+            for (int i = 0; i<2; i++)
+            {
+                Id++;
+                art = new L2ArtefactInstance(
+                                             IdFactory.getInstance().getNextId(),
+                                             NpcTable.getInstance().getTemplate(
+                                                                                SiegeManager.getInstance().getArtifactSpawnList()[Id][4]));
+                art.setCurrentHpMp(art.getMaxHp(), art.getMaxMp());
+                art.setHeading(SiegeManager.getInstance().getArtifactSpawnList()[Id][3]);
+                art.spawnMe(
+                                SiegeManager.getInstance().getArtifactSpawnList()[Id][0],
+                                SiegeManager.getInstance().getArtifactSpawnList()[Id][1],
+                                SiegeManager.getInstance().getArtifactSpawnList()[Id][2] + 50);
+                _Artifact.add(art);
+            }
+        }
+        //Spawn all rest castles artefacts
+        else
+        {
+            art = new L2ArtefactInstance(
+                                         IdFactory.getInstance().getNextId(),
+                                         NpcTable.getInstance().getTemplate(
+                                                                            SiegeManager.getInstance().getArtifactSpawnList()[Id][4]));
+            art.setCurrentHpMp(art.getMaxHp(), art.getMaxMp());
+            art.setHeading(SiegeManager.getInstance().getArtifactSpawnList()[Id][3]);
+            art.spawnMe(
+                        SiegeManager.getInstance().getArtifactSpawnList()[Id][0],
+                        SiegeManager.getInstance().getArtifactSpawnList()[Id][1],
+                        SiegeManager.getInstance().getArtifactSpawnList()[Id][2] + 50);
+            _Artifact.add(art);
+        }
     }
 
     /** Spawn control tower. */
@@ -1301,14 +1371,14 @@ public class Siege
 
     // =========================================================
     // Proeprty
-    public final L2ArtefactInstance getArtifact()
+ /*   public final L2ArtefactInstance getArtifact()
     {
         if (_Artifact == null)
         {
             loadCastleSiege();
         }
         return _Artifact;
-    }
+    }*/
 
     public final L2SiegeClan getAttackerClan(L2Clan clan)
     {
