@@ -33,7 +33,6 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.CropProcure;
 import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.L2Manor;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
@@ -41,7 +40,7 @@ import net.sf.l2j.gameserver.model.SeedProduction;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
-import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
+import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -238,35 +237,6 @@ public class Castle
                     catch (Exception e) {} 
                     finally {try { con.close(); } catch (Exception e) {}}
                 }
-/*                
-                // remove crowns from members
-                if(CrownId!=0)
-                {
-                    for (L2ClanMember member : clan.getMembers())
-                    {
-                        // Remove Crowns from online players
-                        if(member.isOnline())
-                        {
-                            member.getPlayerInstance().getInventory().destroyItem("Crown",CrownId,1,member.getPlayerInstance(),null);
-                            member.getPlayerInstance().getInventory().updateDatabase();
-                        }
-                        else // Member is Offline
-                        {
-                            java.sql.Connection con = null;
-                            try
-                            {
-                                con = L2DatabaseFactory.getInstance().getConnection();
-                                PreparedStatement statement = con.prepareStatement("delete from items where owner_id = ? and item_id = ?");
-                                statement.setInt(1, member.getObjectId());
-                                statement.setInt(2, CrownId);
-                                statement.execute();
-                                statement.close();
-                            }
-                            catch (Exception e) {} 
-                            finally {try { con.close(); } catch (Exception e) {}}
-                        }
-                    }
-                }*/
             }                           
         }
 
@@ -555,26 +525,8 @@ public class Castle
             {
                 clan.setHasCastle(getCastleId()); // Set has castle flag for new owner
                 new Announcements().announceToAll(clan.getName() + " has taken " + getName() + " castle!");
-
-/*                // Give Lord Crown to Leader
-                if(clan.getLeader().isOnline())
-                {
-                    clan.getLeader().getPlayerInstance().getInventory().addItem("Crown",6841,1,clan.getLeader().getPlayerInstance(),null);
-                    clan.getLeader().getPlayerInstance().getInventory().updateDatabase();
-                }*/
-
-                for (L2ClanMember member : clan.getMembers())
-                {
-                    if (member.isOnline() && member.getPlayerInstance() != null)
-                    {
-                        member.getPlayerInstance().sendPacket(new PledgeShowMemberListAll(clan, member.getPlayerInstance()));
-  /*                      // Give Crowns to online players
-                        if(CrownId!=0)
-                            member.getPlayerInstance().getInventory().addItem("Crown",CrownId,1,member.getPlayerInstance(),null);
-                            member.getPlayerInstance().getInventory().updateDatabase();*/
-                    }
-                }
-
+                clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
+                
                 ThreadPoolManager.getInstance().scheduleGeneral(new CastleUpdater(clan, 1), 3600000);   // Schedule owner tasks to start running 
             }
         }

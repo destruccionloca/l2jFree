@@ -42,6 +42,7 @@ import net.sf.l2j.gameserver.serverpackets.CharCreateOk;
 import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2PcTemplate;
+import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -114,7 +115,7 @@ public class CharacterCreate extends ClientBasePacket
 			sendPacket(ccf);
 			return;
 		}
-		else if ((_name.length() < 3) || (_name.length() > 16) || !isAlphaNumeric(_name) || !isValidName(_name))
+        else if ((_name.length() < 3) || (_name.length() > 16) || !Util.isAlphaNumeric(_name) || !isValidName(_name))
 		{
 			if (_log.isDebugEnabled()) 
 				_log.debug("charname: " + _name + " is invalid. creation failed.");
@@ -148,21 +149,6 @@ public class CharacterCreate extends ClientBasePacket
 		initNewChar(getClient(), newChar);
 	}
 	
-	private boolean isAlphaNumeric(String text)
-	{
-		boolean result = true;
-		char[] chars = text.toCharArray();
-		for (int i = 0; i < chars.length; i++)
-		{
-			if (!Character.isLetterOrDigit(chars[i]))
-			{
-				result = false;
-				break;
-			}
-		}
-		return result;
-	}
-    
     private boolean isValidName(String text)
     {
             boolean result = true;

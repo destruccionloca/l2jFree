@@ -161,7 +161,10 @@ public abstract class L2Character extends L2Object
     private String _Title;
     private String _aiClass = "default";
     private boolean _champion = false;
-
+	private double _hpUpdateIncCheck;
+	private double _hpUpdateDecCheck;
+	private double _hpUpdateInterval;
+	
     /** Table of Calculators containing all used calculator */
     private Calculator[] _Calculators;
 
@@ -196,7 +199,7 @@ public abstract class L2Character extends L2Object
     public L2Character(int objectId, L2CharTemplate template)
     {
         super(objectId);
-		super.setKnownList(new CharKnownList(this));
+		this.getKnownList();
 
         // Set its template to the new L2Character
         _Template = template;
@@ -225,6 +228,9 @@ public abstract class L2Character extends L2Object
             _Calculators = new Calculator[Stats.NUM_STATS];
             Formulas.getInstance().addFuncsToNewCharacter(this);
         }
+        _hpUpdateInterval = getMaxHp()/352.0; // MAX_HP div MAX_HP_BAR_PX
+		_hpUpdateIncCheck = getMaxHp();
+		_hpUpdateDecCheck = getMaxHp()-_hpUpdateInterval;        
     }
 
     // =========================================================
@@ -295,6 +301,41 @@ public abstract class L2Character extends L2Object
         } catch (Exception e) { } // this npe catch might not be necessary any more
     }
 
+	/**
+	 * Returns true if status update should be done, false if not 
+	 * @return boolean
+	 */
+	private boolean needStatusUpdate()
+	{
+		if (!(this instanceof L2MonsterInstance))
+			return true;
+		
+		double currentHp = getCurrentHp();
+
+	    if (currentHp <= 0.00 || getMaxHp() < 352)
+	        return true;
+
+	    boolean needUpdate = false;
+
+/*	    if (currentHp > getMaxHp())
+	        currentHp = getMaxHp();*/
+
+	    if (currentHp < _hpUpdateDecCheck)
+	    {
+	        needUpdate = true;
+	        _hpUpdateDecCheck -= _hpUpdateInterval;
+	        _hpUpdateIncCheck -= _hpUpdateInterval;
+	    }
+	    else if (currentHp > _hpUpdateIncCheck)
+	    {
+	        needUpdate = true;
+	        _hpUpdateDecCheck += _hpUpdateInterval;
+	        _hpUpdateIncCheck += _hpUpdateInterval;
+	    }
+	    
+	    return needUpdate;
+	}
+
     /**
      * Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform.<BR><BR>
      *
@@ -312,7 +353,10 @@ public abstract class L2Character extends L2Object
     public void broadcastStatusUpdate()
     {
         if (getStatus().getStatusListener() == null || getStatus().getStatusListener().isEmpty()) return;
-
+        
+		if (!needStatusUpdate())
+			return;
+		
         if(Config.NETWORK_TRAFFIC_OPTIMIZATION)
         {
             long currTimeMillis = System.currentTimeMillis();
@@ -322,8 +366,8 @@ public abstract class L2Character extends L2Object
         }
         // Create the Server->Client packet StatusUpdate with current HP and MP
         StatusUpdate su = new StatusUpdate(getObjectId());
-        su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp());
-        su.addAttribute(StatusUpdate.CUR_MP, (int)getStatus().getCurrentMp());
+		su.addAttribute(StatusUpdate.CUR_HP, (int)getCurrentHp());
+		su.addAttribute(StatusUpdate.CUR_MP, (int)getCurrentMp());
 
         // Go through the StatusListener
         // Send the Server->Client packet StatusUpdate with current HP and MP
@@ -1611,7 +1655,12 @@ public abstract class L2Character extends L2Object
     public boolean isInvul(){return _isInvul  || _IsTeleporting;}
     public boolean isUndead() { return false; }
 
-    public CharKnownList getKnownList() { return ((CharKnownList)super.getKnownList()); }
+	public CharKnownList getKnownList()
+	{
+		if(super.getKnownList() == null || !(super.getKnownList() instanceof CharKnownList))
+			this.setKnownList(new CharKnownList(this));
+		return ((CharKnownList)super.getKnownList());
+	}
 
     public CharStat getStat()
     {

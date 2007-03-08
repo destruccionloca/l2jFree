@@ -283,6 +283,16 @@ public final class Config {
     public static int ALT_CLAN_JOIN_DAYS;
     /** Number of days before creating a new clan */
     public static int ALT_CLAN_CREATE_DAYS;
+    /** Number of days it takes to dissolve a clan */
+    public static int ALT_CLAN_DISSOLVE_DAYS;
+    /** Number of days before joining a new alliance when clan voluntarily leave an alliance */
+    public static int ALT_ALLY_JOIN_DAYS_WHEN_LEAVED;
+    /** Number of days before joining a new alliance when clan was dismissed from an alliance */
+    public static int ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED;
+    /** Number of days before accepting a new clan for alliance when clan was dismissed from an alliance */
+    public static int ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED;
+    /** Number of days before creating a new alliance when dissolved an alliance */
+    public static int ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED;
 
     /** Alternative gaming - all new characters always are newbies. */
     public static boolean ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE;
@@ -340,6 +350,9 @@ public final class Config {
     public static boolean ALT_DEV_NO_SPAWNS;
 
     public static boolean ALT_POLYMORPH;
+
+    /** Maximum number of clans in ally */
+    public static int ALT_MAX_NUM_OF_CLANS_IN_ALLY;
 
     /** Enable Rate Hp  */
     public static boolean ENABLE_RATE_HP;
@@ -1229,7 +1242,7 @@ public final class Config {
                 THREAD_P_EFFECTS                = Integer.parseInt(optionsSettings.getProperty("ThreadPoolSizeEffects", "6"));
                 THREAD_P_GENERAL                = Integer.parseInt(optionsSettings.getProperty("ThreadPoolSizeGeneral", "15"));
                 GENERAL_PACKET_THREAD_CORE_SIZE = Integer.parseInt(optionsSettings.getProperty("GeneralPacketThreadCoreSize", "4"));
-                URGENT_PACKET_THREAD_CORE_SIZE  =Integer.parseInt(optionsSettings.getProperty("UrgentPacketThreadCoreSize", "2"));
+                URGENT_PACKET_THREAD_CORE_SIZE  = Integer.parseInt(optionsSettings.getProperty("UrgentPacketThreadCoreSize", "2"));
                 GENERAL_THREAD_CORE_SIZE        = Integer.parseInt(optionsSettings.getProperty("GeneralThreadCoreSize", "4"));
                 AI_MAX_THREAD                   = Integer.parseInt(optionsSettings.getProperty("AiMaxThread", "10"));
                              
@@ -1639,14 +1652,14 @@ public final class Config {
                 CHAMPION_HP             = Integer.parseInt(altSettings.getProperty("ChampionHp", "7"));
                 CHAMPION_REWARDS        = Integer.parseInt(altSettings.getProperty("ChampionRewards", "8"));
                 CHAMPION_EXP_SP        = Integer.parseInt(altSettings.getProperty("ChampionExpSP", "8"));
-                CHAMPION_BOSS           = Boolean.parseBoolean(altSettings.getProperty("ChampionBoss", "false"));
-                CHAMPION_LEVEL        = Integer.parseInt(altSettings.getProperty("ChampionMinLevel", "1"));
-                CHAMPION_MINIONS           = Boolean.parseBoolean(altSettings.getProperty("ChampionMinions", "false"));
-	            ENABLE_RATE_HP          = Boolean.parseBoolean(altSettings.getProperty("EnableRateHp", "false"));
-	            IS_CRAFTING_ENABLED     = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
-	            SP_BOOK_NEEDED          = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
-	            AUTO_LOOT               = altSettings.getProperty("AutoLoot").equalsIgnoreCase("True");
-                AUTO_LOOT_HERBS         = altSettings.getProperty("AutoLootHerbs").equalsIgnoreCase("True");
+                CHAMPION_BOSS           							= Boolean.parseBoolean(altSettings.getProperty("ChampionBoss", "false"));
+                CHAMPION_LEVEL        								= Integer.parseInt(altSettings.getProperty("ChampionMinLevel", "1"));
+                CHAMPION_MINIONS           							= Boolean.parseBoolean(altSettings.getProperty("ChampionMinions", "false"));
+	            ENABLE_RATE_HP          							= Boolean.parseBoolean(altSettings.getProperty("EnableRateHp", "false"));
+	            IS_CRAFTING_ENABLED     							= Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
+	            SP_BOOK_NEEDED          							= Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
+	            AUTO_LOOT               							= altSettings.getProperty("AutoLoot").equalsIgnoreCase("True");
+                AUTO_LOOT_HERBS         							= altSettings.getProperty("AutoLootHerbs").equalsIgnoreCase("True");
                 ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE    = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanBeKilledInPeaceZone", "false"));
                 ALT_GAME_KARMA_PLAYER_CAN_SHOP                      = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanShop", "true"));
                 ALT_GAME_KARMA_PLAYER_CAN_USE_GK                    = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseGK", "false"));
@@ -1658,11 +1671,17 @@ public final class Config {
                 ALT_GAME_SUBCLASS_WITHOUT_QUESTS                    = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
                 ALT_GAME_VIEWNPC                    				= Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
                 ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE                  = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
+                ALT_MAX_NUM_OF_CLANS_IN_ALLY                        = Integer.parseInt(altSettings.getProperty("AltMaxNumOfClansInAlly", "3"));
                 DWARF_RECIPE_LIMIT                                  = Integer.parseInt(altSettings.getProperty("DwarfRecipeLimit","50"));
                 COMMON_RECIPE_LIMIT                                 = Integer.parseInt(altSettings.getProperty("CommonRecipeLimit","50"));
                 ALT_CLAN_MEMBERS_FOR_WAR                            = Integer.parseInt(altSettings.getProperty("AltClanMembersForWar", "15"));
                 ALT_CLAN_JOIN_DAYS                                  = Integer.parseInt(altSettings.getProperty("DaysBeforeJoinAClan", "5"));
                 ALT_CLAN_CREATE_DAYS                                = Integer.parseInt(altSettings.getProperty("DaysBeforeCreateAClan", "10"));                
+                ALT_CLAN_DISSOLVE_DAYS      						= Integer.parseInt(altSettings.getProperty("DaysToPassToDissolveAClan", "7"));
+                ALT_ALLY_JOIN_DAYS_WHEN_LEAVED       				= Integer.parseInt(altSettings.getProperty("DaysBeforeJoinAllyWhenLeaved", "1"));
+                ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED    				= Integer.parseInt(altSettings.getProperty("DaysBeforeJoinAllyWhenDismissed", "1"));
+                ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED  				= Integer.parseInt(altSettings.getProperty("DaysBeforeAcceptNewClanWhenDismissed", "1"));
+                ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED  				= Integer.parseInt(altSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
                 
                 ALT_STRICT_HERO_SYSTEM                              = Boolean.parseBoolean(altSettings.getProperty("StrictHeroSystem", "True"));
 

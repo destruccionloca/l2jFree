@@ -18,6 +18,8 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+import java.util.List;
+
 import javolution.util.FastList;
 
 /**
@@ -25,10 +27,10 @@ import javolution.util.FastList;
  * 
  * a3 
  * 05000000 
- * 03000000 03000000 06000000 3c000000 00000000     power strike
- * 10000000 02000000 06000000 3c000000 00000000     mortal blow
- * 38000000 04000000 06000000 36010000 00000000     power shot
- * 4d000000 01000000 01000000 98030000 01000000     ATTACK aura  920sp
+ * 03000000 03000000 06000000 3c000000 00000000 	power strike
+ * 10000000 02000000 06000000 3c000000 00000000 	mortal blow
+ * 38000000 04000000 06000000 36010000 00000000 	power shot
+ * 4d000000 01000000 01000000 98030000 01000000 	ATTACK aura  920sp
  * 8e000000 03000000 03000000 cc010000 00000000     Armor Mastery
  * 
  * format   d (ddddd)
@@ -44,67 +46,74 @@ import javolution.util.FastList;
  */
 public class AquireSkillList extends ServerBasePacket
 {
-	//private final static Log _log = LogFactory.getLog(AquireSkillList.class.getName());
-
-    private static final String _S__A3_AQUIRESKILLLIST = "[S] 8a AquireSkillList";
-    private FastList<Skill> _skills;
-    private int _skillsType;
-    
-	private class Skill
+	//private static Logger _log = Logger.getLogger(AquireSkillList.class.getName());
+    public enum skillType
     {
+    	Usual,
+    	Fishing,
+    	Clan
+    }
+	
+	private static final String _S__A3_AQUIRESKILLLIST = "[S] 8a AquireSkillList";
+	
+	private List<Skill> _skills;
+	private skillType _fishingskills;
+	
+	private class Skill
+	{
 		public int _id;
 		public int _nextLevel;
 		public int _maxLevel;
-		public int _Cost;
+		public int _spCost;
 		public int _requirements;
-        
-		public Skill(int id, int nextLevel, int maxLevel, int Cost, int requirements)
-        {
+		
+		public Skill(int id, int nextLevel, int maxLevel, int spCost, int requirements)
+		{
 			_id = id;
 			_nextLevel = nextLevel;
 			_maxLevel = maxLevel;
-			_Cost = Cost;
+			_spCost = spCost;
 			_requirements = requirements;
-        }
-    }
+		}
+	}
 
-    public AquireSkillList(int skillType)
-    {
-        _skills = new FastList<Skill>();
-        _skillsType = skillType;
-    }   
-    
-    public void addSkill(int id, int nextLevel, int maxLevel, int spCost, int requirements)
-    {
-        _skills.add(new Skill(id, nextLevel, maxLevel, spCost, requirements));
-    }
-    
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
-    
-    final void writeImpl()
-    {
-        writeC(0x8a);
-        writeD(_skillsType);   //c4
-        writeD(_skills.size());
+	public AquireSkillList(skillType type)
+	{
+		_skills = new FastList<Skill>();
+		_fishingskills = type;
+	}	
+	
+	public void addSkill(int id, int nextLevel, int maxLevel, int spCost, int requirements)
+	{
+		_skills.add(new Skill(id, nextLevel, maxLevel, spCost, requirements));
+	}
+	
+	final void runImpl()
+	{
+		// no long-running tasks
+	}
+	
+	final void writeImpl()
+	{
+		writeC(0x8a);
+        writeD(_fishingskills.ordinal());   //c4 : C5 : 0: usuall  1: fishing 2: clans
+		writeD(_skills.size());
 
-        for (Skill temp : _skills)
-        {
+		for (Skill temp : _skills)
+		{
 			writeD(temp._id);
 			writeD(temp._nextLevel);
 			writeD(temp._maxLevel);
-			writeD(temp._Cost);
+			writeD(temp._spCost);
 			writeD(temp._requirements);
-        }
-    }
+		}
+	}
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    public String getType()
-    {
-        return _S__A3_AQUIRESKILLLIST;
-    }
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	public String getType()
+	{
+		return _S__A3_AQUIRESKILLLIST;
+	}
 }

@@ -440,7 +440,7 @@ public class PacketHandler
                 msg = new AllyDismiss(data, client);
                 break;
 			case 0x86:
-				// RequestDismissAlly
+				msg = new RequestDismissAlly(data, client);
 				break;
 			case 0x87:
 				msg = new RequestSetAllyCrest(data, client);

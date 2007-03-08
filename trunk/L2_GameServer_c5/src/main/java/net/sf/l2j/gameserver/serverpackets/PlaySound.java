@@ -82,7 +82,7 @@ public class PlaySound extends ServerBasePacket
         writeD(_unknown4);              //0 for quest and tutorial voice; objectId of ship
         writeD(_unknown5);              //x
         writeD(_unknown6);              //y
-        writeD(_unknown7);              //z
+        writeD(_unknown7);				//z
     }
     
     /* (non-Javadoc)

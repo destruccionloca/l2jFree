@@ -26,6 +26,8 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.CharSelectInfoPackage;
 import net.sf.l2j.gameserver.model.Inventory;
+import net.sf.l2j.gameserver.model.L2Clan;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -210,7 +212,7 @@ public class CharSelectInfo extends ServerBasePacket
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection();
-            PreparedStatement statement = con.prepareStatement("SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, allyId, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, base_class FROM characters WHERE account_name=? ORDER BY char_name");
+            PreparedStatement statement = con.prepareStatement("SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, base_class FROM characters WHERE account_name=? ORDER BY char_name");
             statement.setString(1, _loginName);
             ResultSet charList = statement.executeQuery();
 
@@ -329,6 +331,11 @@ public class CharSelectInfo extends ServerBasePacket
                 deletetime = (System.currentTimeMillis()-deletetime)/1000;
                 deletedays = (int)(deletetime/3600/24);
                 if (deletedays >= Config.DELETE_DAYS) {
+                    L2PcInstance cha = L2PcInstance.load(objectId);
+                    L2Clan clan = cha.getClan();
+                    if(clan != null)
+                        clan.removeClanMember(cha.getName(), 0);
+                    
                     ClientThread.deleteCharByObjId(objectId);
                     return null;
                 }

@@ -98,7 +98,7 @@ public class AdminEditChar implements IAdminCommandHandler
 
                 if (player.getClan() == null)
                 {
-                    player.setDeleteClanTime(0);
+                	player.setClanJoinExpiryTime(0);
                     player.sendMessage("A GM Has reset your clan wait time, You may now join another clan.");
                     activeChar.sendMessage("You have reset " +player.getName()+ "'s wait time to join another clan.");
                 }

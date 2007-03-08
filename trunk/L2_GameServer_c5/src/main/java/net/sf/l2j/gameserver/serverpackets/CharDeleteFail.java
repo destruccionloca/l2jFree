@@ -27,7 +27,18 @@ package net.sf.l2j.gameserver.serverpackets;
 public class CharDeleteFail extends ServerBasePacket
 {
 	private static final String _S__34_CHARDELETEFAIL = "[S] 24 CharDeleteFail";
-	
+
+	public static int REASON_DELETION_FAILED = 0x01;
+	public static int REASON_YOU_MAY_NOT_DELETE_CLAN_MEMBER = 0x02;
+	public static int REASON_CLAN_LEADERS_MAY_NOT_BE_DELETED = 0x03;
+
+	private int _error;
+
+	public CharDeleteFail(int errorCode)
+	{
+		_error = errorCode;
+	}
+
 	final void runImpl()
 	{
 		// no long-running tasks
@@ -36,6 +47,7 @@ public class CharDeleteFail extends ServerBasePacket
 	final void writeImpl()
 	{
 		writeC(0x24);
+		writeD(_error);
 	}
 
 	/* (non-Javadoc)

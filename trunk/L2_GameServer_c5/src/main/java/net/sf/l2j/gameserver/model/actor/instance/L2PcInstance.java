@@ -97,6 +97,7 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2Radar;
 import net.sf.l2j.gameserver.model.L2RecipeList;
+import net.sf.l2j.gameserver.model.L2Request;
 import net.sf.l2j.gameserver.model.L2ShortCut;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2SkillLearn;
@@ -154,7 +155,6 @@ import net.sf.l2j.gameserver.serverpackets.ObservationReturn;
 import net.sf.l2j.gameserver.serverpackets.PartySmallWindowUpdate;
 import net.sf.l2j.gameserver.serverpackets.PetInventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListDelete;
-import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListDeleteAll;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListUpdate;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreListBuy;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreListSell;
@@ -210,8 +210,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private static final String RESTORE_SKILL_SAVE = "SELECT skill_id,skill_level,effect_count,effect_cur_time, reuse_delay FROM character_skills_save WHERE char_obj_id=? AND class_index=? AND restore_type=?";
     private static final String DELETE_SKILL_SAVE = "DELETE FROM character_skills_save WHERE char_obj_id=? AND class_index=?";
 
-    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,allyId=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,deleteclan=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,banchat_timer=?,newbie=?,nobless=?, pledge_type=?, pledge_rank=?, apprentice=?, sponsor=?, varka_ketra_ally=?, accademy_lvl=?, last_recom_date=? WHERE obj_id=?"; 
-    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, allyId, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, deleteclan, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_type, pledge_rank, apprentice, sponsor, accademy_lvl, varka_ketra_ally, last_recom_date FROM characters WHERE obj_id=?";
+    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,pledge_type=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=? WHERE obj_id=?";
+    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, pledge_type, last_recom_date, academy_lvl, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time FROM characters WHERE obj_id=?";
     private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE char_obj_id=? ORDER BY class_index ASC";
     private static final String ADD_CHAR_SUBCLASS = "INSERT INTO character_subclasses (char_obj_id,class_id,exp,sp,level,class_index) VALUES (?,?,?,?,?,?)";
     private static final String UPDATE_CHAR_SUBCLASS = "UPDATE character_subclasses SET exp=?,sp=?,level=?,class_id=? WHERE char_obj_id=? AND class_index =?";
@@ -316,7 +316,6 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _inPvpZone;
    
     private int _pledgeType = 0;
-    public int tempJoinPledgeType = 0; // temp variable for join requests, TODO better argument passing and remove this
     
     /** L2PcInstance's pledge rank*/
     private int _rank;
@@ -380,8 +379,6 @@ public final class L2PcInstance extends L2PlayableInstance
     /** The list containing all macroses of this L2PcInstance */
     private MacroList _macroses = new MacroList(this);
 
-    /** The Alliance Identifier of the L2PcInstance */
-    //private int _allyId;
     private TradeList _activeTradeList;
     private ItemContainer _activeWarehouse;
     private L2ManufactureList _createList;
@@ -426,14 +423,12 @@ public final class L2PcInstance extends L2PlayableInstance
     /** The Clan object of the L2PcInstance */
     private L2Clan _clan;
 
-    /** The Clan Leader Flag of the L2PcInstance (True : the L2PcInstance is the leader of the clan) */
-    private boolean _clanLeader;
-
     /** Apprentice and Sponsor IDs */
     private int _apprentice = 0;
     private int _sponsor = 0;
 
-    private long _deleteClanTime;
+	private long _clanJoinExpiryTime;
+	private long _clanCreateExpiryTime;
 
     private long _onlineTime;
     private long _onlineBeginTime;
@@ -456,6 +451,7 @@ public final class L2PcInstance extends L2PlayableInstance
     // there can only be one active party request at once
     private L2PcInstance _activeRequester;
     private long _requestExpireTime = 0;
+    private L2Request _request = new L2Request(this);
     private L2ItemInstance _arrowItem;
 
     // Used for protection after teleport
@@ -768,9 +764,9 @@ public final class L2PcInstance extends L2PlayableInstance
     private L2PcInstance(int objectId, L2PcTemplate template, String accountName, PcAppearance app)
     {
         super(objectId, template);
-		super.setKnownList(new PcKnownList(this));
-        super.setStat(new PcStat(this));
-        super.setStatus(new PcStatus(this));
+		this.getKnownList();	// init knownlist
+        this.getStat();			// init stats
+        this.getStatus();		// init status
 
         _accountName = accountName;
         _baseLoad     = template.baseLoad;
@@ -796,17 +792,38 @@ public final class L2PcInstance extends L2PlayableInstance
     private L2PcInstance(int objectId)
     {
         super(objectId, null);
-		super.setKnownList(new PcKnownList(this));
-        super.setStat(new PcStat(this));
-        super.setStatus(new PcStatus(this));
+		this.getKnownList();	// init knownlist
+        this.getStat();			// init stats
+        this.getStatus();		// init status
 
         _baseLoad = 0;
     }
 
-    public final PcKnownList getKnownList() { return (PcKnownList) super.getKnownList(); }
-    public final PcStat getStat() { return (PcStat) super.getStat(); }
-    public final PcStatus getStatus() { return (PcStatus) super.getStatus(); }
-    public final PcAppearance getAppearance() { return _appearance; }
+	public final PcKnownList getKnownList()
+	{
+		if(super.getKnownList() == null || !(super.getKnownList() instanceof PcKnownList))
+    		this.setKnownList(new PcKnownList(this));
+		return (PcKnownList)super.getKnownList();
+	}
+	
+	public final PcStat getStat()
+	{
+		if(super.getStat() == null || !(super.getStat() instanceof PcStat))
+    		this.setStat(new PcStat(this));
+		return (PcStat)super.getStat();
+	}
+
+	public final PcStatus getStatus()
+	{
+		if(super.getStatus() == null || !(super.getStatus() instanceof PcStatus))
+    		this.setStatus(new PcStatus(this));
+		return (PcStatus)super.getStatus();
+	}
+	
+	public final PcAppearance getAppearance()
+	{
+		return _appearance;
+	}
     
     /**
      * Return the base L2PcTemplate link to the L2PcInstance.<BR><BR>
@@ -1679,20 +1696,13 @@ public final class L2PcInstance extends L2PlayableInstance
             setLvlJoinedAcademy(0);
             
             //oust pledge member from the academy, cuz he has finished his 2nd class transfer
-            _clan.removeClanMember(this.getName());
+            _clan.removeClanMember(this.getName(), 0);
             SystemMessage msg = new SystemMessage(SystemMessage.CLAN_MEMBER_S1_EXPELLED);
             msg.addString(this.getName());
             _clan.broadcastToOnlineMembers(msg);            
-            _clan.broadcastToOtherOnlineMembers(new PledgeShowMemberListDelete(this.getName()),this);
-            
-            setClan(null);
-            setTitle("");
-            sendPacket(new SystemMessage(SystemMessage.CLAN_MEMBERSHIP_TERMINATED));
-            
-            broadcastUserInfo();
-            
-            sendPacket(new PledgeShowMemberListDeleteAll());
-            
+            _clan.broadcastToOnlineMembers(new PledgeShowMemberListDelete(this.getName()));
+
+            sendPacket(new SystemMessage(SystemMessage.ACADEMY_MEMBERSHIP_TERMINATED));
             // receive graduation gift
             getInventory().addItem("Gift",8181,1,this,null); // give academy circlet
             getInventory().updateDatabase(); // update database
@@ -2055,39 +2065,30 @@ public final class L2PcInstance extends L2PlayableInstance
         return 0;
     }
 
-    public long getDeleteClanTime()
-    {
-        return _deleteClanTime;
-    }
+	public long getClanJoinExpiryTime()
+	{
+		return _clanJoinExpiryTime;
+	}
 
-    public void setDeleteClanTime(long time)
-    {
-        _deleteClanTime = time;
-    }
+	public void setClanJoinExpiryTime(long time)
+	{
+		_clanJoinExpiryTime = time;
+	}
 
-    public void setDeleteClanCurTime()
-    {
-        _deleteClanTime = System.currentTimeMillis();
-    }
+	public long getClanCreateExpiryTime()
+	{
+		return _clanCreateExpiryTime;
+	}
+
+	public void setClanCreateExpiryTime(long time)
+	{
+		_clanCreateExpiryTime = time;
+	}
 
     public void setOnlineTime(long time)
     {
         _onlineTime = time;
         _onlineBeginTime = System.currentTimeMillis();
-    }
-
-    public boolean canJoinClan()
-    {
-        return (_deleteClanTime == 0) 
-        || ((System.currentTimeMillis() - _deleteClanTime) >= Config.ALT_CLAN_JOIN_DAYS * 86400000); //24*60*60*1000 = 86400000
-        
-    }
-
-    public boolean canCreateClan()
-    {
-        return (_deleteClanTime == 0) 
-        || ((System.currentTimeMillis() - _deleteClanTime) >= Config.ALT_CLAN_CREATE_DAYS * 86400000); //24*60*60*1000 = 86400000
-        
     }
 
     /**
@@ -3198,16 +3199,23 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public int getAllyId()
     {
-        if (_clan == null) return 0;
-
-        return _clan.getAllyId();
+        if (_clan == null) 
+        	return 0;
+		else
+			return _clan.getAllyId();    
     }
 
     public int getAllyCrestId()
     {
-        if (getAllyId() == 0) return 0;
-
-        return _clan.getAllyCrestId();
+		if (getClanId() == 0)
+		{
+        	return 0;
+		}
+		if (getClan().getAllyId() == 0)
+		{
+			return 0;
+		}
+		return getClan().getAllyCrestId();
     }
 
     /**
@@ -4359,6 +4367,14 @@ public final class L2PcInstance extends L2PlayableInstance
         _summon = summon;
     }
 
+	/**
+	 * Return the L2PcInstance requester of a transaction (ex : FriendInvite, JoinAlly, JoinParty...).<BR><BR>
+	 */
+	public L2Request getRequest()
+	{
+		return _request;
+	}
+
     /**
      * Set the L2PcInstance requester of a transaction (ex : FriendInvite, JoinAlly, JoinParty...).<BR><BR>
      */
@@ -4584,12 +4600,17 @@ public final class L2PcInstance extends L2PlayableInstance
     public void setClan(L2Clan clan)
     {
         _clan = clan;
-        
+		setTitle("");
+		
         if (clan == null)
         {
             _clanId = 0;
-            _clanLeader = false;
             _clanPrivileges = 0;
+			_pledgeType = 0;
+			_rank = 0;
+			_accademyLvl = 0;
+			_apprentice = 0;
+			_sponsor = 0;
             return;
         }
         
@@ -4597,13 +4618,10 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             // char has been kicked from clan
             setClan(null);
-            setTitle("");
             return;
         }
         
         _clanId = clan.getClanId();
-        _clanLeader = getObjectId() == clan.getLeaderId();
-        setTitle("");
     }
 
     /**
@@ -4619,7 +4637,14 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public boolean isClanLeader()
     {
-        return _clanLeader;
+		if (getClan() == null)
+		{
+			return false;
+		}
+		else
+		{
+			return getObjectId() == getClan().getLeaderId();
+		}
     }
 
     /**
@@ -5030,9 +5055,9 @@ public final class L2PcInstance extends L2PlayableInstance
                 + "str,con,dex,_int,men,wit,face,hairStyle,hairColor,sex,"
                 + "movement_multiplier,attack_speed_multiplier,colRad,colHeight,"
                 + "exp,sp,karma,pvpkills,pkkills,clanid,maxload,race,classid,deletetime,"
-                + "cancraft,title,allyId,accesslevel,online,isin7sdungeon,clan_privs,wantspeace,deleteclan,"
+                + "cancraft,title,accesslevel,online,isin7sdungeon,clan_privs,wantspeace,"
                 + "base_class,newbie,nobless,pledge_rank,last_recom_date) "
-                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             statement.setString(1, _accountName);
             statement.setInt(2, getObjectId());
             statement.setString(3, getName());
@@ -5080,18 +5105,16 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(45, getDeleteTimer());
             statement.setInt(46, hasDwarvenCraft() ? 1 : 0);
             statement.setString(47, getTitle());
-            statement.setInt(48, getAllyId());
-            statement.setInt(49, getAccessLevel());
-            statement.setInt(50, isOnline());
-            statement.setInt(51, isIn7sDungeon() ? 1 : 0);
-            statement.setInt(52, getClanPrivileges());
-            statement.setInt(53, getWantsPeace());
-            statement.setLong(54, getDeleteClanTime());
-            statement.setInt(55, getBaseClass());
-            statement.setInt(56, isNewbie() ? 1 : 0);
-			statement.setInt(57, isNoble() ? 1 :0);
-            statement.setLong(58, 0);
-            statement.setLong(59,System.currentTimeMillis());
+            statement.setInt(48, getAccessLevel());
+            statement.setInt(49, isOnline());
+            statement.setInt(50, isIn7sDungeon() ? 1 : 0);
+            statement.setInt(51, getClanPrivileges());
+            statement.setInt(52, getWantsPeace());
+            statement.setInt(53, getBaseClass());
+            statement.setInt(54, isNewbie() ? 1 : 0);
+			statement.setInt(55, isNoble() ? 1 :0);
+            statement.setLong(56, 0);
+            statement.setLong(57,System.currentTimeMillis());
             statement.executeUpdate();
             statement.close();
         }
@@ -5166,14 +5189,24 @@ public final class L2PcInstance extends L2PlayableInstance
                 player.setKarma(rset.getInt("karma"));
                 player.setPvpKills(rset.getInt("pvpkills"));
                 player.setPkKills(rset.getInt("pkkills"));
-                player.setDeleteClanTime(rset.getLong("deleteclan"));
 
-                if (player.getDeleteClanTime() > 0 && player.canCreateClan())
-                    player.setDeleteClanTime(0);
+				player.setClanJoinExpiryTime(rset.getLong("clan_join_expiry_time"));
+				if (player.getClanJoinExpiryTime() < System.currentTimeMillis())
+				{
+					player.setClanJoinExpiryTime(0);
+				}
+				player.setClanCreateExpiryTime(rset.getLong("clan_create_expiry_time"));
+				if (player.getClanCreateExpiryTime() < System.currentTimeMillis())
+				{
+					player.setClanCreateExpiryTime(0);
+				}
 
                 int clanId = rset.getInt("clanid");
 
-                if (clanId > 0) player.setClan(ClanTable.getInstance().getClan(clanId));
+                if (clanId > 0)
+                {
+                	player.setClan(ClanTable.getInstance().getClan(clanId));
+                }
 
                 player.setDeleteTimer(rset.getInt("deletetime"));
                 player.setOnlineTime(rset.getLong("onlinetime"));
@@ -5239,7 +5272,8 @@ public final class L2PcInstance extends L2PlayableInstance
                 {
                     if (player.getClan().getLeaderId() != player.getObjectId())
                     {
-                        if(player.getPowerGrade() == 0) {
+                        if(player.getPowerGrade() == 0) 
+                        {
                             player.setPowerGrade(5);
                         }
                         player.setClanPrivileges(player.getClan().getRankPrivs(player.getPowerGrade()));
@@ -5250,8 +5284,10 @@ public final class L2PcInstance extends L2PlayableInstance
                         player.setPowerGrade(1);
                     }
                 }
-                else player.setClanPrivileges(L2Clan.CP_NOTHING);
-                
+                else
+                {
+                	player.setClanPrivileges(L2Clan.CP_NOTHING);
+                }
                 player.setAccademyLvl(rset.getInt("accademy_lvl"));
                 player.setAllianceWithVarkaKetra(rset.getInt("varka_ketra_ally"));
                 
@@ -5654,27 +5690,27 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(31, getClassId().getId());
             statement.setInt(32, getDeleteTimer());
             statement.setString(33, getTitle());
-            statement.setInt(34, getAllyId());
-            statement.setInt(35, getAccessLevel());
-            statement.setInt(36, isOnline());
-            statement.setInt(37, isIn7sDungeon() ? 1 : 0);
-            statement.setInt(38, getClanPrivileges());
-            statement.setInt(39, getWantsPeace());
-            statement.setLong(40, getDeleteClanTime());
-            statement.setInt(41, getBaseClass());
-            statement.setLong(42, totalOnlineTime);
-            statement.setInt(43, isInJail() ? 1 : 0);
-            statement.setLong(44, getJailTimer());
-            statement.setLong(45, getBanChatTimer());
-            statement.setInt(46, isNewbie() ? 1 : 0);
-            statement.setInt(47, isNoble() ? 1 : 0);
-            statement.setInt(48, getPledgeType());
-            statement.setInt(49, getRank());
-            statement.setLong(50,getApprentice());
-            statement.setLong(51,getSponsor());
-            statement.setInt(52, getAllianceWithVarkaKetra());
-            statement.setInt(53, getAccademyLvl());
-            statement.setLong(54,getLastRecomUpdate());
+            statement.setInt(34, getAccessLevel());
+            statement.setInt(35, isOnline());
+            statement.setInt(36, isIn7sDungeon() ? 1 : 0);
+            statement.setInt(37, getClanPrivileges());
+            statement.setInt(38, getWantsPeace());
+            statement.setInt(39, getBaseClass());
+            statement.setLong(40, totalOnlineTime);
+            statement.setInt(41, isInJail() ? 1 : 0);
+            statement.setLong(42, getJailTimer());
+            statement.setInt(43, isNewbie() ? 1 : 0);
+            statement.setInt(44, isNoble() ? 1 : 0);
+            statement.setLong(45, getPowerGrade());
+            statement.setInt(46, getPledgeType());
+            statement.setLong(47,getLastRecomUpdate());
+            statement.setInt(48,getLvlJoinedAcademy());
+            statement.setLong(49,getApprentice());
+            statement.setLong(50,getSponsor());
+            statement.setInt(51, getAllianceWithVarkaKetra());
+			statement.setLong(52, getClanJoinExpiryTime());
+			statement.setLong(53, getClanCreateExpiryTime());
+            statement.setLong(54, getBanChatTimer());
             statement.setInt(55, getObjectId());
             statement.execute();
             statement.close();

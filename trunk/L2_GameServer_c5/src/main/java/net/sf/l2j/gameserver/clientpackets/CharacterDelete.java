@@ -22,8 +22,9 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.CharDeleteFail;
 import net.sf.l2j.gameserver.serverpackets.CharDeleteOk;
-import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -54,25 +55,34 @@ public class CharacterDelete extends ClientBasePacket
 	{
 		if (_log.isDebugEnabled()) _log.debug("deleting slot:" + _charSlot);
 
+		L2PcInstance character = null;
 		try
 		{
 		    if (Config.DELETE_DAYS == 0)
-			getClient().deleteChar(_charSlot);
+		    	character = getClient().deleteChar(_charSlot);
 		    else
-			getClient().markToDeleteChar(_charSlot);
+		    	character = getClient().markToDeleteChar(_charSlot);
 		    
 		}
 		catch (Exception e)
 		{
 			_log.fatal( "Error:", e);
 		}
-		
-		CharDeleteOk cco = new CharDeleteOk();
-		sendPacket(cco);
-
-		CharSelectInfo cl = new CharSelectInfo(getClient().getLoginName(), getClient().getSessionId().playOkID1);
-		sendPacket(cl);
-		getClient().setCharSelection(cl.getCharInfo());
+		if (character == null)
+		{
+			sendPacket(new CharDeleteOk());
+		}
+		else
+		{
+			if (character.isClanLeader())
+			{
+				sendPacket(new CharDeleteFail(CharDeleteFail.REASON_CLAN_LEADERS_MAY_NOT_BE_DELETED));
+			}
+			else
+			{
+				sendPacket(new CharDeleteFail(CharDeleteFail.REASON_YOU_MAY_NOT_DELETE_CLAN_MEMBER));
+			}
+		}
 	}
 
 	/* (non-Javadoc)

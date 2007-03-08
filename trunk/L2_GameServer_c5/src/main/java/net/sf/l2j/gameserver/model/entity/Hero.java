@@ -62,8 +62,8 @@ public class Hero
     private static final String INSERT_HERO = "INSERT INTO heroes VALUES (?,?,?,?,?)";
     private static final String UPDATE_HERO = "UPDATE heroes SET count = ?, played = ?" +
             " WHERE char_id = ?";
-    private static final String GET_CLAN_ALLY = "SELECT clanid, allyId FROM characters" +
-            " WHERE obj_Id = ?";
+    private static final String GET_CLAN_ALLY = "SELECT characters.clanid AS clanid, coalesce(clan_data.ally_Id, 0) AS allyId FROM characters LEFT JOIN clan_data ON clan_data.clan_id = characters.clanid " +
+            " WHERE characters.obj_Id = ?";
     private static final String DELETE_ITEMS = "DELETE FROM items WHERE item_id IN " +
             "(6842, 6611, 6612, 6613, 6614, 6615, 6616, 6617, 6618, 6619, 6620, 6621) " +
             "AND owner_id NOT IN (SELECT obj_id FROM characters WHERE accesslevel > 0)";
