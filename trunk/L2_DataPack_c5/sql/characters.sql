@@ -75,6 +75,7 @@ CREATE TABLE IF NOT EXISTS characters (
   Pledge_class int(11) NOT NULL default '0',
   pledge_type int(11) NOT NULL default '0',
   pledge_rank int(11) NOT NULL default '0',
+  lvl_joined_academy int(11) NOT NULL default '0',
   apprentice int(1) NOT NULL DEFAULT 0,
   sponsor int(1) NOT NULL DEFAULT 0,
   varka_ketra_ally int(1) NOT NULL DEFAULT 0,
