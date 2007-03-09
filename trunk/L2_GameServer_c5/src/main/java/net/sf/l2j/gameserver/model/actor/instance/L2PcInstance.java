@@ -5288,7 +5288,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 {
                 	player.setClanPrivileges(L2Clan.CP_NOTHING);
                 }
-                player.setAccademyLvl(rset.getInt("accademy_lvl"));
+                player.setAccademyLvl(rset.getInt("academy_lvl"));
                 player.setAllianceWithVarkaKetra(rset.getInt("varka_ketra_ally"));
                 
                 // Add the L2PcInstance object in _allObjects
