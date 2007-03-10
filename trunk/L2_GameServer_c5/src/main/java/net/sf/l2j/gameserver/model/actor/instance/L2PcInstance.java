@@ -2411,80 +2411,16 @@ public final class L2PcInstance extends L2PlayableInstance
             // Sends message to client if requested
             if (sendMessage)
             {
-                if (item.getCount() > 1)
-                {
-                    if (process.equalsIgnoreCase("sweep") || process.equalsIgnoreCase("Quest"))
-                    {
-                        SystemMessage sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
-                        sm.addItemName(item.getItemId());
-                        sm.addNumber(item.getCount());
-                        sendPacket(sm);
-                    }
-                    else
-                    {
-                        SystemMessage sm = new SystemMessage(SystemMessage.YOU_PICKED_UP_S1_S2);
-                        sm.addItemName(item.getItemId());
-                        sm.addNumber(item.getCount());
-                        sendPacket(sm);
-                    }
-                }
-                else
-                {
-                    if (process.equalsIgnoreCase("sweep") || process.equalsIgnoreCase("Quest"))
-                    {
-                        SystemMessage sm = new SystemMessage(SystemMessage.EARNED_ITEM);
-                        sm.addItemName(item.getItemId());
-                        sendPacket(sm);
-                    }
-                    else
-                    {
-                        SystemMessage sm = new SystemMessage(SystemMessage.YOU_PICKED_UP_S1);
-                        sm.addItemName(item.getItemId());
-                        sendPacket(sm);
-                    }
-                }
+                sendMessageForNewItem(item.getItemId(), item.getCount(), process);
             }
 
             // Add the item to inventory
             L2ItemInstance newitem = _inventory.addItem(process, item, this, reference);
-
-            // Send inventory update packet
-            if (!Config.FORCE_INVENTORY_UPDATE)
-            {
-                InventoryUpdate playerIU = new InventoryUpdate();
-                playerIU.addItem(newitem);
-                sendPacket(playerIU);
-            }
-            else sendPacket(new ItemList(this, false));            
             
-            // Cursed Weapon
-            if(CursedWeaponsManager.getInstance().isCursed(newitem.getItemId()))
-            {
-                CursedWeaponsManager.getInstance().activate(this, newitem);
-            }
-            
-           //Auto use herbs - autoloot
-           if (item.getItemType() == L2EtcItemType.HERB)
-           {
-                IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());                
-                if (handler == null) 
-                    _log.warn("No item handler registered for item ID " + item.getItemId() + ".");
-                else 
-                    handler.useItem(this, item);
-            }
-           // If over capacity, drop the item
-            if (!isGM() && !_inventory.validateCapacity(0)) 
-                dropItem("InvDrop", newitem, null, true);
-            
-            //Update current load as well
-            if(UpdateIL){            
-                StatusUpdate su = new StatusUpdate(getObjectId());
-                su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-                sendPacket(su);
-            }
+            // do treatments after adding this item
+            processAddItem(UpdateIL, newitem);
         }
     }
-
     /**
      * Adds item to Inventory and send a Server->Client InventoryUpdate packet to the L2PcInstance.
      * @param process : String Identifier of process triggering this action
@@ -2500,51 +2436,96 @@ public final class L2PcInstance extends L2PlayableInstance
             // Sends message to client if requested
             if (sendMessage)
             {
-                if (count > 1)
-                {
-                    SystemMessage sm = new SystemMessage(SystemMessage.YOU_PICKED_UP_S1_S2);
-                    sm.addItemName(itemId);
-                    sm.addNumber(count);
-                    sendPacket(sm);
-                }
-                else
-                {
-                    SystemMessage sm = new SystemMessage(SystemMessage.YOU_PICKED_UP_S1);
-                    sm.addItemName(itemId);
-                    sendPacket(sm);
-                }
+                sendMessageForNewItem(itemId, count, process);
             }
 
             // Add the item to inventory
-            L2ItemInstance item = _inventory.addItem(process, itemId, count, this, reference);
-
-            // Send inventory update packet
-            if (!Config.FORCE_INVENTORY_UPDATE)
-            {
-                InventoryUpdate playerIU = new InventoryUpdate();
-                playerIU.addItem(item);
-                sendPacket(playerIU);
-            }
-            else sendPacket(new ItemList(this, false));
-
-            // Cursed Weapon
-            if(CursedWeaponsManager.getInstance().isCursed(item.getItemId()))
-            {
-                CursedWeaponsManager.getInstance().activate(this, item);
-            }
+            L2ItemInstance newitem = _inventory.addItem(process, itemId, count, this, reference);
             
-            // If over capacity, trop the item 
-            if (!isGM() && !_inventory.validateCapacity(0)) 
-                dropItem("InvDrop", item, null, true);
-            
-            //Update current load as well
-            if(UpdateIL){            
-                StatusUpdate su = new StatusUpdate(getObjectId());
-                su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-                sendPacket(su);
-            }
+            processAddItem(UpdateIL, newitem);
         }
     }
+
+	/**
+	 * @param UpdateIL
+	 * @param newitem
+	 */
+	private void processAddItem(boolean UpdateIL, L2ItemInstance newitem) {
+		// Send inventory update packet
+		if (!Config.FORCE_INVENTORY_UPDATE)
+		{
+		    InventoryUpdate playerIU = new InventoryUpdate();
+		    playerIU.addItem(newitem);
+		    sendPacket(playerIU);
+		}
+		else sendPacket(new ItemList(this, false));            
+		
+		// Cursed Weapon
+		if(CursedWeaponsManager.getInstance().isCursed(newitem.getItemId()))
+		{
+		    CursedWeaponsManager.getInstance().activate(this, newitem);
+		}
+		
+         //Auto use herbs - autoloot
+         if (newitem.getItemType() == L2EtcItemType.HERB)
+         {
+		    IItemHandler handler = ItemHandler.getInstance().getItemHandler(newitem.getItemId());                
+		    if (handler == null) 
+		        _log.warn("No item handler registered for item ID " + newitem.getItemId() + ".");
+		    else 
+		        handler.useItem(this, newitem);
+		}
+         // If over capacity, drop the item
+		if (!isGM() && !_inventory.validateCapacity(0)) 
+		    dropItem("InvDrop", newitem, null, true);
+		
+		//Update current load as well
+		if(UpdateIL){            
+		    StatusUpdate su = new StatusUpdate(getObjectId());
+		    su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
+		    sendPacket(su);
+		}
+	}    
+
+	/**
+     * @param process : String Identifier of process triggering this action
+     * @param itemId : int Item Identifier of the item to be added
+     * @param count : int Quantity of items to be added
+	 */
+	private void sendMessageForNewItem(int itemId, int count, String process) {
+		if (count > 1)
+		{
+  	        if (process.equalsIgnoreCase("sweep") || process.equalsIgnoreCase("Quest"))
+	        {
+	            SystemMessage sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+	            sm.addItemName(itemId);
+	            sm.addNumber(count);
+	            sendPacket(sm);
+	        }
+	        else
+	        {
+	            SystemMessage sm = new SystemMessage(SystemMessage.YOU_PICKED_UP_S1_S2);
+	            sm.addItemName(itemId);
+	            sm.addNumber(count);
+	            sendPacket(sm);
+	        }
+		}
+		else
+		{
+	        if (process.equalsIgnoreCase("sweep") || process.equalsIgnoreCase("Quest"))
+	        {
+	            SystemMessage sm = new SystemMessage(SystemMessage.EARNED_ITEM);
+	            sm.addItemName(itemId);
+	            sendPacket(sm);
+	        }
+	        else
+	        {
+	            SystemMessage sm = new SystemMessage(SystemMessage.YOU_PICKED_UP_S1);
+	            sm.addItemName(itemId);
+	            sendPacket(sm);
+	        }			
+		}
+	}
 
     public void addItem(String process, L2ItemInstance item, L2Object reference, boolean sendMessage)
     {
