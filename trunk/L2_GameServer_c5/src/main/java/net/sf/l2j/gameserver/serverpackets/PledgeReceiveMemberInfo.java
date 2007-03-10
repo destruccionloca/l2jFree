@@ -18,6 +18,7 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 import net.sf.l2j.gameserver.model.L2ClanMember;
+import net.sf.l2j.gameserver.model.L2Clan.SubPledge;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 
 /**
@@ -63,7 +64,11 @@ public class PledgeReceiveMemberInfo extends ServerBasePacket
         //clan or subpledge name
         if(_member.getPledgeType() != 0)
         {
-            writeS((_member.getClan().getSubPledge(_member.getPledgeType())).getName());
+        	SubPledge subPledge = _member.getClan().getSubPledge(_member.getPledgeType());
+        	if (subPledge != null)
+        	{
+        		writeS(subPledge.getName());
+        	}
         }
         else writeS(_member.getClan().getName());
         
