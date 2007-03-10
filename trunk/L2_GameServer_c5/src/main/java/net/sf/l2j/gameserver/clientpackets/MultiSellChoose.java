@@ -73,7 +73,10 @@ public class MultiSellChoose extends ClientBasePacket
     private void doExchange(L2PcInstance player, MultiSellEntry templateEntry, boolean applyTaxes, boolean maintainEnchantment, int enchantment)
     {
         PcInventory inv = player.getInventory();
-        
+
+        // target have to be l2npcinstance
+        if(!(player.getTarget() instanceof L2NpcInstance))
+        	return;
         // given the template entry and information about maintaining enchantment and applying taxes
         // re-create the instance of the entry that will be used for this exchange
         // i.e. change the enchantment level of select ingredient/products and adena amount appropriately.
