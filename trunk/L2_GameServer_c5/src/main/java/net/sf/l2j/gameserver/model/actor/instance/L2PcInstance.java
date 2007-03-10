@@ -6047,6 +6047,30 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
+    public void checkAllowedSkills()
+    {
+    	boolean foundskill = false;
+        if(!isGM())
+        {
+	        Collection<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(getClassId());
+	        L2Skill[] skills = getAllSkills();
+	        for (int i=0;i<skills.length;i++)
+	        {
+	        	foundskill = false;
+	        	for (L2SkillLearn temp : skillTree)
+	        	{
+	        		if(temp.getId()==skills[i].getId() && temp.getLevel()>=skills[i].getLevel())
+	        			foundskill = true;
+	        	}
+	        	if(!foundskill)
+	        	{
+	        		removeSkill(skills[i]);
+	        		sendMessage("Skill " + skills[i].getName() +" removed and gm informed!");
+	        		_log.fatal("Cheater! - Character " + getName() +" of Account " + getAccountName() + " got skill " + skills[i].getName() +" removed!");
+	        	}
+	        }
+        }
+    }
     /**
      * Retrieve from the database all skills of this L2PcInstance and add them to _skills.<BR><BR>
      */

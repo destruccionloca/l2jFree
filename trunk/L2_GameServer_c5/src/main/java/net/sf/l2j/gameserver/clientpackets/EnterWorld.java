@@ -275,29 +275,7 @@ public class EnterWorld extends ClientBasePacket
 
         // check player skills
         if(Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
-        {
-	    	boolean foundskill = false;
-	        if(!activeChar.isGM())
-	        {
-		        Collection<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(activeChar.getClassId());
-		        L2Skill[] skills = activeChar.getAllSkills();
-		        for (int i=0;i<skills.length;i++)
-		        {
-		        	foundskill = false;
-		        	for (L2SkillLearn temp : skillTree)
-		        	{
-		        		if(temp.getId()==skills[i].getId())
-		        			foundskill = true;
-		        	}
-		        	if(!foundskill)
-		        	{
-		        		activeChar.removeSkill(skills[i]);
-		        		activeChar.sendMessage("Skill " + skills[i].getName() +" removed and gm informed!");
-		        		_log.fatal("Cheater! - Character " + activeChar.getName() +" of Account " + activeChar.getAccountName() + " got skill " + skills[i].getName() +" removed!");
-		        	}
-		        }
-	        }
-        }
+        	activeChar.checkAllowedSkills();
         
         // check for crowns
         L2Clan activeCharClan  = activeChar.getClan();
