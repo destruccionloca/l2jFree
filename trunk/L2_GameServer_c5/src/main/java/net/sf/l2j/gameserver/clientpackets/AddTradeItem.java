@@ -63,13 +63,15 @@ public class AddTradeItem extends ClientBasePacket
         TradeList trade = player.getActiveTradeList();
         if (trade == null)
         	{
-            _log.warn("player.getTradeList == null in "+getType()+"!?");
+        	_log.warn("Character: " + player.getName() + " requested item:" + _objectId + " add without active tradelist:" + _tradeId);
         	return;
         	}
 
         if (trade.getPartner() == null || L2World.getInstance().findObject(trade.getPartner().getObjectId()) == null)
         {
             // Trade partner not found, cancel trade
+            if (trade.getPartner() != null)
+            	_log.warn("Character:" + player.getName() + " requested ivalid trade object: " + _objectId);
             SystemMessage msg = new SystemMessage(SystemMessage.TARGET_IS_NOT_FOUND_IN_THE_GAME);
             player.sendPacket(msg);
             player.cancelActiveTrade();

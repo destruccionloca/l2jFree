@@ -1702,6 +1702,7 @@ public final class L2PcInstance extends L2PlayableInstance
             _clan.broadcastToOnlineMembers(msg);            
             _clan.broadcastToOnlineMembers(new PledgeShowMemberListDelete(this.getName()));
 
+            _clan.removeClanMember(this.getName(), 0); 
             sendPacket(new SystemMessage(SystemMessage.ACADEMY_MEMBERSHIP_TERMINATED));
             // receive graduation gift
             getInventory().addItem("Gift",8181,1,this,null); // give academy circlet

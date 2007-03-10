@@ -23,11 +23,14 @@ import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class MultiSellChoose extends ClientBasePacket
 {
     private static final String _C__A7_MULTISELLCHOOSE = "[C] A7 MultiSellChoose";
-    //private final static Log _log = LogFactory.getLog(MultiSellChoose.class.getName());
+    private final static Log _log = LogFactory.getLog(MultiSellChoose.class.getName());
+
     private int _listId;
     private int _entryId;
     private int _amount;
@@ -146,8 +149,12 @@ public class MultiSellChoose extends ClientBasePacket
         for(MultiSellIngredient e : entry.getIngredients())
         {
             L2ItemInstance itemToTake = inv.getItemByItemId(e.getItemId());     // initialize and initial guess for the item to take.
-            // if it's a stackable item, just reduce the amount from the first (only) instance that is found in the inventory 
-            if (itemToTake.isStackable())   
+			if (itemToTake == null) { //this is a cheat, transaction will be aborted and if any items already tanken will not be returned back to inventory!
+				_log.warn("Character: " + player.getName() + " is trying to cheat in multisell, merchant id:" + merchant.getNpcId());
+				return;
+			}
+			// if it's a stackable item, just reduce the amount from the first (only) instance that is found in the inventory
+			if (itemToTake.isStackable())
                 player.destroyItem("Multisell", itemToTake.getObjectId(), (e.getItemCount() * _amount), player.getTarget(), true);
             else
             {

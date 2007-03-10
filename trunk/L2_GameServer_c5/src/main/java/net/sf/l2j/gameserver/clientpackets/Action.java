@@ -80,17 +80,19 @@ public class Action extends ClientBasePacket
 		
         // Get the L2OPbject targeted corresponding to _objectId
 		L2Object obj = L2World.getInstance().findObject(_objectId);
-        
+
+		// If object requested does not exist, add warn msg into logs
+		if (obj == null) {
+        	_log.warn("Character: " + activeChar.getName() + " request action with non existent ObjectID:" + _objectId);
+        	sendPacket(new ActionFailed());
+        	return;
+		}
         // Check if the target is valid, if the player haven't a shop or isn't the requester of a transaction (ex : FriendInvite, JoinAlly, JoinParty...)
-		if (obj != null && activeChar.getPrivateStoreType()==0 && activeChar.getActiveRequester()==null)
+      	if (activeChar.getPrivateStoreType()==0 && activeChar.getActiveRequester()==null)
 		{
 			switch (_actionId)
 			{
 				case 0:
-                    // if(!activeChar.isGM() && obj instanceof L2PcInstance)
-                    // if (Math.abs(activeChar.getZ()-obj.getZ())>600)
-                    // if (Math.abs(activeChar.getZ()-_originZ)>800)
-                    // return;
 					obj.onAction(activeChar);
 					break;
 				case 1:
@@ -99,15 +101,16 @@ public class Action extends ClientBasePacket
 					else
 						obj.onActionShift(getClient());
 					break;
+				default:
+					// Ivalid action detected (probably client cheating), log this
+					_log.warn("Character: " + activeChar.getName() + " requested invalid action: " + _actionId);
+					sendPacket(new ActionFailed());
+					break;					
 			}
 		}
 		else
-		{
+			// Actions prohibited when in trade
 			activeChar.sendPacket(new ActionFailed());
-            
-            if (_log.isDebugEnabled())
-                _log.warn("object not found, oid "+_objectId+ " or player is dead");
-		}
 	}
 
 	/* (non-Javadoc)

@@ -59,45 +59,6 @@ public class Appearing extends ClientBasePacket
         if (activeChar.isTeleporting()) activeChar.onTeleported();
 
         sendPacket(new UserInfo(activeChar));
-        
-//		L2Object[] visible = L2World.getInstance().getVisibleObjects(activeChar, 2000);
-//		if (_log.isDebugEnabled()) _log.debug("npc in range:"+visible.length);
-//		for (int i = 0; i < visible.length; i++)
-//		{
-//			activeChar.addKnownObject(visible[i], null);
-//			if (visible[i] instanceof L2ItemInstance)
-//			{
-//				SpawnItem si = new SpawnItem((L2ItemInstance) visible[i]);
-//				sendPacket(si);
-//				// client thread should also have a list with all objects known to the client
-//			}
-//			else if (visible[i] instanceof L2NpcInstance)
-//			{
-//				NpcInfo ni = new NpcInfo((L2NpcInstance) visible[i], activeChar);
-//				sendPacket(ni);
-//				
-//				L2NpcInstance npc = (L2NpcInstance) visible[i];
-//				npc.addKnownObject(activeChar, null);
-//			}
-//			else if (visible[i] instanceof L2PetInstance)
-//			{
-//				NpcInfo ni = new NpcInfo((L2Summon) visible[i], activeChar);
-//				sendPacket(ni);
-//
-//				L2PetInstance npc = (L2PetInstance) visible[i];
-//				npc.addKnownObject(activeChar, null);
-//			}
-//			else if (visible[i] instanceof L2PcInstance)
-//			{
-//				// send player info to our client
-//				L2PcInstance player = (L2PcInstance) visible[i];
-//				sendPacket(new CharInfo(player));
-//				
-//				// notify other player about us
-//				player.addKnownObject(activeChar, null);
-//				player.sendPacket(new CharInfo(activeChar));
-//			}
-//		}
 	}
 
 	/* (non-Javadoc)

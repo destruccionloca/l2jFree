@@ -96,7 +96,7 @@ public class RequestExEnchantSkill extends ClientBasePacket
         
         if(player.getClassId().getId() < 88) // requires to have 3rd class quest completed
             return;
-        
+
         if (player.getLevel() < 76) return;
         
         L2Skill skill = SkillTable.getInstance().getInfo(_skillID, _skillLvl);
@@ -175,7 +175,15 @@ public class RequestExEnchantSkill extends ClientBasePacket
             StatusUpdate su = new StatusUpdate(player.getObjectId());
             su.addAttribute(StatusUpdate.SP, player.getSp());
             player.sendPacket(su);
-            
+
+            SystemMessage ep = new SystemMessage(539);
+            ep.addNumber(_requiredExp);
+            sendPacket(ep);
+
+            SystemMessage sp = new SystemMessage(538);
+            sp.addNumber(_requiredSp);
+            sendPacket(sp);
+
             SystemMessage sm = new SystemMessage(SystemMessage.YOU_HAVE_SUCCEEDED_IN_ENCHANTING_THE_SKILL_S1);
             sm.addSkillName(_skillID);
             player.sendPacket(sm);

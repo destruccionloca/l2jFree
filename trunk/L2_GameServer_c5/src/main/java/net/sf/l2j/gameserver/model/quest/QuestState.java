@@ -294,7 +294,12 @@ public final class QuestState
 			Quest.updateQuestVarInDb(this, var, val);
 		else
 			Quest.createQuestVarInDb(this, var, val);
-        
+
+		if (var == "cond") {
+			QuestList ql = new QuestList();
+	        getPlayer().sendPacket(ql);
+		}
+
 		return val;
 	}
 
