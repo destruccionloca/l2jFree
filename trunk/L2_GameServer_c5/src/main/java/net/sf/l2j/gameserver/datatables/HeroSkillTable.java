@@ -17,35 +17,35 @@
  */
 package net.sf.l2j.gameserver.datatables;
 
-import net.sf.l2j.gameserver.model.L2Skill;
 import javolution.util.FastList;
+import net.sf.l2j.gameserver.model.L2Skill;
 
 /**
  *
- * @author -Nemesiss-
+ * @author G1ta0
  */
-public class NobleSkillTable
+public class HeroSkillTable
 {
-    private static NobleSkillTable _instance;
-    private static FastList<L2Skill> _NobleSkills;
-    private static final int[] _NobleSkillsIds = {325,326,327,1323,1324,1325,1326,1327};
+    private static HeroSkillTable _instance;
+    private static FastList<L2Skill> _HeroSkills;
+    private static final int[] _HeroSkillsIds = {395,396,1374,1375,1376};
     
-    private NobleSkillTable()
+    private HeroSkillTable()
     {
-        _NobleSkills = new FastList<L2Skill>();
-        for(int _skillId : _NobleSkillsIds)
-        	_NobleSkills.add(SkillTable.getInstance().getInfo(_skillId, 1));
+        _HeroSkills = new FastList<L2Skill>();
+        for(int _skillId : _HeroSkillsIds)
+        	_HeroSkills.add(SkillTable.getInstance().getInfo(_skillId, 1));
     }
     
-    public static NobleSkillTable getInstance()
+    public static HeroSkillTable getInstance()
     {
         if (_instance == null)
-            _instance = new NobleSkillTable();
+            _instance = new HeroSkillTable();
         return _instance;
     }
     
-    public FastList<L2Skill> GetNobleSkills()
+    public FastList<L2Skill> GetHeroSkills()
     {
-        return _NobleSkills;
+        return _HeroSkills;
     }
 }

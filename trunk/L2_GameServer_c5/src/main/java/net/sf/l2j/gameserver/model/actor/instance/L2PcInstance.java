@@ -57,6 +57,7 @@ import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.FishTable;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.HennaTable;
+import net.sf.l2j.gameserver.datatables.HeroSkillTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.NobleSkillTable;
@@ -6056,12 +6057,12 @@ public final class L2PcInstance extends L2PlayableInstance
         if(!isGM())
         {
 	        Collection<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(getClassId());
-	        L2Skill[] skills = getAllSkills();
 	        // loop through all skills of player
-	        for (int i=0;i<skills.length;i++)
+	        for (L2Skill skill : getAllSkills())
 	        {
-	        	int skillid = skills[i].getId();
-	        	int skilllevel = skills[i].getLevel();
+	        	int skillid = skill.getId();
+	        	int skilllevel = skill.getLevel();
+	        	
 	        	foundskill = false;
 	        	// loop through all skills in players skilltree
 	        	for (L2SkillLearn temp : skillTree)
@@ -6072,11 +6073,11 @@ public final class L2PcInstance extends L2PlayableInstance
 	        	}
 	        	
 	        	// exclude nobless,hero and cursed weapon skill
-	        	if(isNoble() && (skillid>=1323 && skillid<=1327))
+	        	if(isNoble() && NobleSkillTable.getInstance().GetNobleSkills().contains(skill))
 	        		foundskill = true;
-	        	if(isHero() && ((skillid >= 1374 && skillid <= 1376) || skillid == 395 || skillid == 396))
+	        	if(isHero() && HeroSkillTable.getInstance().GetHeroSkills().contains(skill))
 	        		foundskill = true;
-	        	if(isCursedWeaponEquiped() && skillid== 3603)
+	        	if(isCursedWeaponEquiped() && skillid == CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquipedId).getSkillId())
 	        		foundskill = true;
 	        	if(getClan()!=null && (skillid >= 370 && skillid <= 391))
 	        		foundskill = true;
@@ -6084,9 +6085,9 @@ public final class L2PcInstance extends L2PlayableInstance
         		// remove skill and do a lil log message
 	        	if(!foundskill)
 	        	{
-	        		removeSkill(skills[i]);
-	        		sendMessage("Skill " + skills[i].getName() +" removed and gm informed!");
-	        		_log.fatal("Cheater! - Character " + getName() +" of Account " + getAccountName() + " got skill " + skills[i].getName() +" removed!");
+	        		removeSkill(skill);
+	        		sendMessage("Skill " + skill.getName() +" removed and gm informed!");
+	        		_log.fatal("Cheater! - Character " + getName() +" of Account " + getAccountName() + " got skill " + skill.getName() +" removed!");
 	        	}
 	        }
         }

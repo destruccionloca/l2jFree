@@ -35,7 +35,7 @@ import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.datatables.HeroSkillTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -360,23 +360,14 @@ public class Hero
             
             if (player != null)
             {
-                L2Skill skill; 
                 player.broadcastPacket(new SocialAction(player.getObjectId(), 16));                 
                 player.setHero(true);
                 L2Clan clan = player.getClan();
                 if (clan != null)
                     clan.setReputationScore(clan.getReputationScore()+1000, true);
                  player.setHero(true); 
-                 skill = SkillTable.getInstance().getInfo(395, 1); 
-                 player.addSkill(skill); 
-                 skill = SkillTable.getInstance().getInfo(396, 1); 
-                 player.addSkill(skill); 
-                 skill = SkillTable.getInstance().getInfo(1374, 1); 
-                 player.addSkill(skill); 
-                 skill = SkillTable.getInstance().getInfo(1375, 1); 
-                 player.addSkill(skill); 
-                 skill = SkillTable.getInstance().getInfo(1376, 1); 
-                 player.addSkill(skill);                 
+                 for(L2Skill skill : HeroSkillTable.getInstance().GetHeroSkills())
+                	 player.addSkill(skill);
                 player.sendPacket(new UserInfo(player));
                 player.broadcastUserInfo();
             }
