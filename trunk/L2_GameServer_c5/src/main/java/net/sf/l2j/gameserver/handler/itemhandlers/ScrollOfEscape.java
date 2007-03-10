@@ -94,6 +94,12 @@ public class ScrollOfEscape implements IItemHandler
             return;
         }
         
+        if (activeChar.inObserverMode())
+        {
+            activeChar.sendPacket(SystemMessage.sendString("You can not use SOE during Observation Mode."));
+            return;
+        }
+        
     //activeChar.abortCast();
         activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
         //SoE Animation section

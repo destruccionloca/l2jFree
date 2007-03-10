@@ -7509,14 +7509,14 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         setTarget(null);
         setXYZ(_obsX, _obsY, _obsZ);
-        setIsParalyzed(false);
         getAppearance().setInvisible();
         setIsInvul(false);
-
+        setIsParalyzed(false);
+        
         if (getAI() != null) getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 
-        _observerMode = false;
         sendPacket(new ObservationReturn(this));
+        _observerMode = false;
         broadcastPacket(new CharInfo(this));
     }
 
