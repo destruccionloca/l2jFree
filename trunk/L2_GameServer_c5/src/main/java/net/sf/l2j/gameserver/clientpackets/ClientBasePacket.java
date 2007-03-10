@@ -25,6 +25,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.BasePacket;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.TaskPriority;
+import net.sf.l2j.gameserver.exception.L2JFunctionnalException;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 
 import org.apache.commons.logging.Log;
@@ -69,7 +70,7 @@ public abstract class ClientBasePacket extends BasePacket implements Runnable
 	 * This is only called once per packet instane ie: when you construct a packet and send it to many players,
 	 * it will only run when the first packet is sent
 	 */
-	abstract void runImpl();
+	abstract void runImpl() throws L2JFunctionnalException;
 	
 	protected void sendPacket(ServerBasePacket msg)
 	{

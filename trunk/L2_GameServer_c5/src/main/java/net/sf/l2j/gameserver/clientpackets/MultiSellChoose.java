@@ -1,11 +1,13 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import javolution.util.FastList;
 
+import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.exception.L2JFunctionnalException;
+import net.sf.l2j.gameserver.exception.clientpackets.MultiSellChooseException;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Multisell;
 import net.sf.l2j.gameserver.model.PcInventory;
@@ -25,7 +27,7 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 public class MultiSellChoose extends ClientBasePacket
 {
     private static final String _C__A7_MULTISELLCHOOSE = "[C] A7 MultiSellChoose";
-    //private static Logger _log = Logger.getLogger(MultiSellChoose.class.getName());
+    //private final static Log _log = LogFactory.getLog(MultiSellChoose.class.getName());
     private int _listId;
     private int _entryId;
     private int _amount;
@@ -44,7 +46,7 @@ public class MultiSellChoose extends ClientBasePacket
         _transactionTax = 0;    // initialize tax amount to 0...
     }
     
-    public void runImpl()
+    public void runImpl() throws L2JFunctionnalException
     {
         L2PcInstance activeChar = getClient().getActiveChar(); 
         
@@ -70,13 +72,20 @@ public class MultiSellChoose extends ClientBasePacket
         }
     }
     
-    private void doExchange(L2PcInstance player, MultiSellEntry templateEntry, boolean applyTaxes, boolean maintainEnchantment, int enchantment)
+    private void doExchange(L2PcInstance player, MultiSellEntry templateEntry, boolean applyTaxes, boolean maintainEnchantment, int enchantment) 
+    throws L2JFunctionnalException
     {
         PcInventory inv = player.getInventory();
 
         // target have to be l2npcinstance
         if(!(player.getTarget() instanceof L2NpcInstance))
         	return;
+        // check that player don't try to interact with other things than a L2NpcInstance
+        if ( !(player.getTarget() instanceof L2NpcInstance))
+        {
+        	throw new MultiSellChooseException ("Player "+player.getName()+" try to exchange something with a non npc :" +player.getTarget().getClass());
+        }
+        
         // given the template entry and information about maintaining enchantment and applying taxes
         // re-create the instance of the entry that will be used for this exchange
         // i.e. change the enchantment level of select ingredient/products and adena amount appropriately.

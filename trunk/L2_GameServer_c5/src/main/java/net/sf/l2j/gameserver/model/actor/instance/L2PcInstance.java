@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -7191,7 +7192,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
-    public FastMap<Integer, L2CubicInstance> getCubics()
+    public Map<Integer, L2CubicInstance> getCubics()
     {
         return _cubics;
     }
