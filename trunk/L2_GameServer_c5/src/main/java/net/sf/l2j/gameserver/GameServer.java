@@ -41,6 +41,7 @@ import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.BuffTemplateTable;
 import net.sf.l2j.gameserver.datatables.HennaTable;
 import net.sf.l2j.gameserver.datatables.HennaTreeTable;
+import net.sf.l2j.gameserver.datatables.HeroSkillTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.LevelUpData;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
@@ -74,7 +75,6 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDoorControl;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEditChar;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEditNpc;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEffects;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEncArmor;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEnchant;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEventEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminExpSp;
@@ -317,7 +317,8 @@ public class GameServer
         if ( _log.isDebugEnabled())_log.debug("ChatTemplateTable initialized");
         NobleSkillTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("NobleSkillTable initialized");
-        
+        HeroSkillTable.getInstance();
+        if ( _log.isDebugEnabled())_log.debug("HeroSkillTable initialized");        
         //Call to load caches
         HtmCache.getInstance();
         CrestCache.getInstance();
@@ -501,7 +502,6 @@ public class GameServer
         _adminCommandHandler.registerAdminCommandHandler(new AdminEditChar());
         _adminCommandHandler.registerAdminCommandHandler(new AdminEditNpc());
         _adminCommandHandler.registerAdminCommandHandler(new AdminEffects());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminEncArmor());
         _adminCommandHandler.registerAdminCommandHandler(new AdminEventEngine());
         _adminCommandHandler.registerAdminCommandHandler(new AdminExpSp());
         _adminCommandHandler.registerAdminCommandHandler(new AdminFightCalculator());
