@@ -94,7 +94,7 @@ public class L2ClanMember
 			_sponsor = _player.getSponsor();
         }
         if (player != null) {
-	        if (_clan.getLevel() > 3)
+	        if (_clan.getLevel() > 3 && player.isClanLeader())
 	        	SiegeManager.getInstance().addSiegeSkills(player);
         	
             L2Skill[] skills = _clan.getAllSkills();
