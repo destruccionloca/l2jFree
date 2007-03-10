@@ -347,7 +347,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private final int _baseLoad;
     private int _curWeightPenalty = 0;
 
-    private int _deleteTimer;
+    private long _deleteTimer;
     private PcInventory _inventory = new PcInventory(this);
     private PcWarehouse _warehouse;
     private PcFreight _freight = new PcFreight(this);
@@ -1453,7 +1453,7 @@ public final class L2PcInstance extends L2PlayableInstance
     /**
      * Return the _deleteTimer of the L2PcInstance.<BR><BR>
      */
-    public int getDeleteTimer()
+    public long getDeleteTimer()
     {
         return _deleteTimer;
     }
@@ -1461,7 +1461,7 @@ public final class L2PcInstance extends L2PlayableInstance
     /**
      * Set the _deleteTimer of the L2PcInstance.<BR><BR>
      */
-    public void setDeleteTimer(int deleteTimer)
+    public void setDeleteTimer(long deleteTimer)
     {
         _deleteTimer = deleteTimer;
     }
@@ -5101,7 +5101,7 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(42, getMaxLoad());
             statement.setInt(43, getRace().ordinal());
             statement.setInt(44, getClassId().getId());
-            statement.setInt(45, getDeleteTimer());
+            statement.setLong(45, getDeleteTimer());
             statement.setInt(46, hasDwarvenCraft() ? 1 : 0);
             statement.setString(47, getTitle());
             statement.setInt(48, getAccessLevel());
@@ -5207,7 +5207,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 	player.setClan(ClanTable.getInstance().getClan(clanId));
                 }
 
-                player.setDeleteTimer(rset.getInt("deletetime"));
+                player.setDeleteTimer(rset.getLong("deletetime"));
                 player.setOnlineTime(rset.getLong("onlinetime"));
                 player.setNewbie(rset.getInt("newbie") == 1);
                 player.setNoble(rset.getInt("nobless")==1);
@@ -5687,7 +5687,7 @@ public final class L2PcInstance extends L2PlayableInstance
             //    statement.setInt(30, getBaseTemplate().race.ordinal());
 
             statement.setInt(31, getClassId().getId());
-            statement.setInt(32, getDeleteTimer());
+            statement.setLong(32, getDeleteTimer());
             statement.setString(33, getTitle());
             statement.setInt(34, getAccessLevel());
             statement.setInt(35, isOnline());
