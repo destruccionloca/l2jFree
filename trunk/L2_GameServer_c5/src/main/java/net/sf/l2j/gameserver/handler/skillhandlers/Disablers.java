@@ -385,18 +385,21 @@ public class Disablers implements ISkillHandler
                                 if (skill.getId()== 368) //Vengeance
                                 {
                                     L2PcInstance PCChar= null;
-                                    PCChar = ((L2PcInstance)target);
-                                    if (PCChar != null && 
-                                            ((PCChar.getPvpFlag() !=0 
-                                                    || PCChar.isInOlympiadMode() 
-                                                    || PCChar.isInCombat() 
-                                                    || ZoneManager.getInstance().checkIfInZonePvP(PCChar))
-                                            ))
+                                    if(target instanceof L2PcInstance)
                                     {
-                                        target.setTarget(activeChar);
-                                        target.getAI().setAutoAttacking(true);
-                                        if (target instanceof L2PcInstance){
-                                            target.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK,activeChar);}
+	                                    PCChar = ((L2PcInstance)target);
+	                                    if (PCChar != null && 
+	                                            ((PCChar.getPvpFlag() !=0 
+	                                                    || PCChar.isInOlympiadMode() 
+	                                                    || PCChar.isInCombat() 
+	                                                    || ZoneManager.getInstance().checkIfInZonePvP(PCChar))
+	                                            ))
+	                                    {
+	                                        target.setTarget(activeChar);
+	                                        target.getAI().setAutoAttacking(true);
+	                                        if (target instanceof L2PcInstance){
+	                                            target.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK,activeChar);}
+	                                    }
                                     }
                                     activeChar.stopEffect(skill.getId());
                                     target.setTarget(activeChar); //c5 hate PvP
