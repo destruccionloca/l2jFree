@@ -33,6 +33,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.clientpackets.Say2;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.script.DateRange;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -267,4 +268,15 @@ public class Announcements
 			// empty message.. ignore
 		}
 	}
+
+	/**
+     * Announce to players.<BR><BR>
+     * @param message The String of the message to send to player
+     */
+    public void announceToPlayers(String message)
+    {
+        // Get all players
+        for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+            player.sendMessage(message);
+    }
 }

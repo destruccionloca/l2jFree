@@ -3811,9 +3811,9 @@ public final class L2PcInstance extends L2PlayableInstance
                     if(Config.ALT_ANNOUNCE_PK && !ZoneManager.getInstance().checkIfInZonePvP(this))
                     {
                         if (getPvpFlag()==0)
-                            Announcements.getInstance().announceToAll(pk.getName()+" has slaughtered "+this.getName());
+                            Announcements.getInstance().announceToPlayers(pk.getName()+" has slaughtered "+this.getName());
                         else 
-                            Announcements.getInstance().announceToAll(pk.getName()+" has defeated "+this.getName());
+                            Announcements.getInstance().announceToPlayers(pk.getName()+" has defeated "+this.getName());
                     }
                     boolean isKillerPc = (killer instanceof L2PcInstance);
                     if (isKillerPc && ((L2PcInstance)killer).getClan() != null && getClan() != null && _clan.isAtWarWith(((L2PcInstance) killer).getClanId()) && ((L2PcInstance)killer).getClan().isAtWarWith(_clan.getClanId()))
