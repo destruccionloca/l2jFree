@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.util.Collection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -37,6 +38,7 @@ import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.CrownTable;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
+import net.sf.l2j.gameserver.datatables.SkillTreeTable;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
@@ -45,6 +47,7 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2SkillLearn;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
@@ -270,6 +273,32 @@ public class EnterWorld extends ClientBasePacket
                 sendPacket(html);
             } }
 
+        // check player skills
+        if(Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
+        {
+	    	boolean foundskill = false;
+	        if(!activeChar.isGM())
+	        {
+		        Collection<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(activeChar.getClassId());
+		        L2Skill[] skills = activeChar.getAllSkills();
+		        for (int i=0;i<skills.length;i++)
+		        {
+		        	foundskill = false;
+		        	for (L2SkillLearn temp : skillTree)
+		        	{
+		        		if(temp.getId()==skills[i].getId())
+		        			foundskill = true;
+		        	}
+		        	if(!foundskill)
+		        	{
+		        		activeChar.removeSkill(skills[i]);
+		        		activeChar.sendMessage("Skill " + skills[i].getName() +" removed and gm informed!");
+		        		_log.fatal("Cheater! - Character " + activeChar.getName() +" of Account " + activeChar.getAccountName() + " got skill " + skills[i].getName() +" removed!");
+		        	}
+		        }
+	        }
+        }
+        
         // check for crowns
         L2Clan activeCharClan  = activeChar.getClan();
         if(activeCharClan!=null) // character has clan ?

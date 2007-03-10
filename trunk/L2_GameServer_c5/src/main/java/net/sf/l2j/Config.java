@@ -1048,6 +1048,9 @@ public final class Config {
     public static boolean LEADERBOARD_ANNOUNCE;
     public static boolean LEADERBOARD_ADD_ANNOUNCE;    
 
+    /** Skill Tree check on EnterWorld */
+    public static boolean CHECK_SKILLS_ON_ENTER;
+    
     /** Clan Hall function related configs*/
     public static long CH_TELE_FEE_RATIO;
     public static int CH_TELE1_FEE;
@@ -1326,6 +1329,7 @@ public final class Config {
                 }
                 LEADERBOARD_ANNOUNCE           = Boolean.valueOf(optionsSettings.getProperty("AnnounceLeaderboards","false"));
                 LEADERBOARD_ADD_ANNOUNCE       = Boolean.valueOf(optionsSettings.getProperty("AddLeaderboardAnnounce","false"));
+                CHECK_SKILLS_ON_ENTER		   = Boolean.valueOf(optionsSettings.getProperty("CheckSkillsOnEnter","false"));
                 
             }
             catch (Exception e)
