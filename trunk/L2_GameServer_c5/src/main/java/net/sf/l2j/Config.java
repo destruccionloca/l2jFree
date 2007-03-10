@@ -511,6 +511,7 @@ public final class Config {
     
     /** Announce Pks ? */
     public static boolean ALT_ANNOUNCE_PK;
+    public static boolean ALT_ANNOUNCE_PK_NORMAL_MESSAGE;
     
     /** Player Drop Rate control */
     public static int   PLAYER_DROP_LIMIT;
@@ -1890,6 +1891,7 @@ public final class Config {
                 ALT_PLAYER_CAN_DROP_ADENA= Boolean.parseBoolean(pvpSettings.getProperty("PlayerCanDropAdena", "false"));
                 PLAYER_RATE_DROP_ADENA  = Integer.parseInt(pvpSettings.getProperty("PlayerRateDropAdena", "1"));
                 ALT_ANNOUNCE_PK = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePk", "false"));
+                ALT_ANNOUNCE_PK_NORMAL_MESSAGE = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePkNormalMessage", "false"));
 	        }
 	        catch (Exception e)
 	        {

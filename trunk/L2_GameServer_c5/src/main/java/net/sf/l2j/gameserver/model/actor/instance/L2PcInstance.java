@@ -3810,10 +3810,18 @@ public final class L2PcInstance extends L2PlayableInstance
                 {
                     if(Config.ALT_ANNOUNCE_PK && !ZoneManager.getInstance().checkIfInZonePvP(this))
                     {
+                    	String announcetext = "";
+                    	// build announce text
                         if (getPvpFlag()==0)
-                            Announcements.getInstance().announceToPlayers(pk.getName()+" has slaughtered "+this.getName());
+                        	announcetext = pk.getName()+" has slaughtered "+this.getName();
                         else 
-                            Announcements.getInstance().announceToPlayers(pk.getName()+" has defeated "+this.getName());
+                        	announcetext = pk.getName()+" has defeated "+this.getName();
+                        
+                        // announce to player
+                        if(Config.ALT_ANNOUNCE_PK_NORMAL_MESSAGE)
+                        	Announcements.getInstance().announceToPlayers(announcetext);
+                        else
+                        	Announcements.getInstance().announceToAll(announcetext);
                     }
                     boolean isKillerPc = (killer instanceof L2PcInstance);
                     if (isKillerPc && ((L2PcInstance)killer).getClan() != null && getClan() != null && _clan.isAtWarWith(((L2PcInstance) killer).getClanId()) && ((L2PcInstance)killer).getClan().isAtWarWith(_clan.getClanId()))
@@ -3824,7 +3832,12 @@ public final class L2PcInstance extends L2PlayableInstance
                 }
             }
             else if (pk != null && Config.ALT_ANNOUNCE_PK && !ZoneManager.getInstance().checkIfInZonePvP(this))
-                Announcements.getInstance().announceToAll(pk.getName()+" has defeated "+this.getName());
+            {
+            	if(Config.ALT_ANNOUNCE_PK_NORMAL_MESSAGE)
+            		Announcements.getInstance().announceToAll(pk.getName()+" has defeated "+this.getName());
+            	else
+            		Announcements.getInstance().announceToPlayers(pk.getName()+" has defeated "+this.getName());
+            }
         }
 
         setPvpFlag(0); // Clear the pvp flag
