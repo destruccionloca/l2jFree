@@ -6047,6 +6047,9 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
+    /**
+     * check player skills and remove unlegit ones (excludes hero,noblesse and cursed weapon skills
+     */
     public void checkAllowedSkills()
     {
     	boolean foundskill = false;
@@ -6054,20 +6057,31 @@ public final class L2PcInstance extends L2PlayableInstance
         {
 	        Collection<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(getClassId());
 	        L2Skill[] skills = getAllSkills();
+	        // loop through all skills of player
 	        for (int i=0;i<skills.length;i++)
 	        {
-	        	foundskill = false;
-	        	for (L2SkillLearn temp : skillTree)
+	        	int skillid = skills[i].getId();
+	        	int skilllevel = skills[i].getLevel();
+	        	
+	        	// exclude nobless,hero and cursed weapon skill
+	        	if(skillid!=1323 && skillid!=1324 && skillid!= 1325 && skillid!= 1326 && skillid!=1327 && skillid != 1374 && skillid != 1375 && skillid != 1376 && skillid != 3603)
 	        	{
-	        		if(temp.getId()==skills[i].getId() && temp.getLevel()>=skills[i].getLevel())
-	        			foundskill = true;
-	        	}
-	        	if(!foundskill)
-	        	{
-	        		removeSkill(skills[i]);
-	        		sendMessage("Skill " + skills[i].getName() +" removed and gm informed!");
-	        		_log.fatal("Cheater! - Character " + getName() +" of Account " + getAccountName() + " got skill " + skills[i].getName() +" removed!");
-	        	}
+		        	foundskill = false;
+		        	// loop through all skills in players skilltree
+		        	for (L2SkillLearn temp : skillTree)
+		        	{
+		        		// if the skill was found and the level is possible to obtain for his class everything is ok
+		        		if(temp.getId()==skillid && temp.getLevel()>=skilllevel)
+		        			foundskill = true;
+		        	}
+		        	if(!foundskill)
+		        	{
+		        		// remove skill and do a lil log message
+		        		removeSkill(skills[i]);
+		        		sendMessage("Skill " + skills[i].getName() +" removed and gm informed!");
+		        		_log.fatal("Cheater! - Character " + getName() +" of Account " + getAccountName() + " got skill " + skills[i].getName() +" removed!");
+		        	}
+		        }
 	        }
         }
     }
