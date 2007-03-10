@@ -23,6 +23,8 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.model.base.ClassId;
+import net.sf.l2j.gameserver.model.base.PlayerClass;
+import net.sf.l2j.gameserver.model.base.ClassLevel;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
@@ -142,21 +144,52 @@ public final class L2ClassMasterInstance extends L2FolkInstance
         if (command.startsWith("change_class"))
         {
             int val = Integer.parseInt(command.substring(13));
+            // Exploit prevention 
+            ClassId classId = player.getClassId();
             int level = player.getLevel();
-            int jobLevel;
-            int newJobLevel;
+            int jobLevel = 0;
+            int newJobLevel = 0;
             
-            jobLevel = player.getClassId().level();  
-            newJobLevel = ClassId.values()[val].level();
-            
-            if(jobLevel == 3) return; // no more job changes
-            
+            ClassLevel lvlnow = PlayerClass.values()[classId.getId()].getLevel();  
+            switch (lvlnow)
+            {
+            	case First:
+            		jobLevel = 1;
+            		break;
+            	case Second:
+            		jobLevel = 2;
+            		break;
+            	case Third:
+            		jobLevel = 3;
+            		break;
+            	default:
+            		jobLevel = 4;
+            }
+
+            if(jobLevel == 4) return; // no more job changes
+
+            ClassLevel lvlnext = PlayerClass.values()[val].getLevel();  
+            switch (lvlnext)
+            {
+            	case First:
+            		newJobLevel = 1;
+            		break;
+            	case Second:
+            		newJobLevel = 2;
+            		break;
+            	case Third:
+            		newJobLevel = 3;
+            		break;
+            	default:
+            		newJobLevel = 4;
+            }
+
             // prevents changing between same level jobs
             if(newJobLevel != jobLevel + 1) return;
-                
-            if (level < 20 && newJobLevel > 0) return;
-            if (level < 40 && newJobLevel > 1) return;
-            if (level < 75 && newJobLevel > 2) return;
+
+            if (level < 20 && newJobLevel > 1) return;
+            if (level < 40 && newJobLevel > 2) return;
+            if (level < 75 && newJobLevel > 3) return;
             // -- prevention ends
 
             int _price = Config.PRICE_CLASS_MASTER.get(jobLevel);
