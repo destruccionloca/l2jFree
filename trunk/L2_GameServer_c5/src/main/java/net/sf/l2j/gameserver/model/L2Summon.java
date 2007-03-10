@@ -49,6 +49,8 @@ public abstract class L2Summon extends L2PlayableInstance
 {
     private final static Log _log = LogFactory.getLog(L2Summon.class.getName());
     
+    public static final int SIEGE_GOLEM_ID = 14737;
+    
     protected int _pkKills;
     private byte _pvpFlag;
     private L2PcInstance _owner;
@@ -608,7 +610,8 @@ public abstract class L2Summon extends L2PlayableInstance
                     skill.getTargetType() != SkillTargetType.TARGET_CLAN &&
                     skill.getTargetType() != SkillTargetType.TARGET_ALLY &&
                     skill.getTargetType() != SkillTargetType.TARGET_PARTY &&
-                    skill.getTargetType() != SkillTargetType.TARGET_SELF)
+                    skill.getTargetType() != SkillTargetType.TARGET_SELF && 
+                    this.getNpcId() != SIEGE_GOLEM_ID)
             {
                 return;
             }

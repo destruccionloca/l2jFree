@@ -23,6 +23,7 @@ import java.util.StringTokenizer;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
@@ -60,7 +61,7 @@ public final class L2ObservationInstance extends L2FolkInstance
                                                          Integer.parseInt(st.nextToken()))) doObserve(
                                                                                                       player,
                                                                                                       val);
-            else player.sendMessage("You may only view castles during a siege");
+            else player.sendPacket(new SystemMessage(SystemMessage.ONLY_VIEW_SIEGE));
         }
         else if (command.startsWith("observe"))
         {
