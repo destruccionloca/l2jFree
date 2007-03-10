@@ -744,10 +744,11 @@ public final class Config {
     public static boolean       FORCE_INVENTORY_UPDATE;
     public static boolean       ALLOW_GUARDS;
     public static boolean       SPAWN_CLASS_MASTER;
-	public static boolean       ALLOW_CLASS_MASTER_1;
-    public static boolean       ALLOW_CLASS_MASTER_2;
-    public static boolean       ALLOW_CLASS_MASTER_3;
-	public static int           IP_UPDATE_TIME;
+    
+    public static FastList<Boolean> ALLOW_CLASS_MASTER;
+    public static FastList<Integer> PRICE_CLASS_MASTER;
+
+    public static int           IP_UPDATE_TIME;
     
     public static String        SERVER_VERSION;
     public static String        SERVER_BUILD_DATE;
@@ -1639,10 +1640,40 @@ public final class Config {
                 ALT_ATTACK_DELAY        = Float.parseFloat(altSettings.getProperty("AltAttackDelay", "1.00"));
                 ALT_GAME_EXPONENT_XP    = Float.parseFloat(altSettings.getProperty("AltGameExponentXp", "0."));
 	            ALT_GAME_EXPONENT_SP    = Float.parseFloat(altSettings.getProperty("AltGameExponentSp", "0."));
+	            
 	            SPAWN_CLASS_MASTER      = Boolean.valueOf(altSettings.getProperty("SpawnClassMaster", "False"));
-                ALLOW_CLASS_MASTER_1    = Boolean.valueOf(altSettings.getProperty("AllowClassMaster1", "False"));
-                ALLOW_CLASS_MASTER_2    = Boolean.valueOf(altSettings.getProperty("AllowClassMaster2", "False"));
-                ALLOW_CLASS_MASTER_3    = Boolean.valueOf(altSettings.getProperty("AllowClassMaster3", "False"));
+	            
+	            ALLOW_CLASS_MASTER = new FastList<Boolean>(3);
+	            PRICE_CLASS_MASTER = new FastList<Integer>(3);
+	            
+	            for (int i=0; i<3; i++)
+	            {
+		            ALLOW_CLASS_MASTER.add(i,false);
+		            PRICE_CLASS_MASTER.add(i,0);	            	
+	            }
+	            
+	            int _job = 0;
+	            
+	            for (String _jobPrice : altSettings.getProperty("AllowClassMaster", "").split(","))
+                {
+                    try
+                    {
+                    	int val=Integer.parseInt(_jobPrice);
+                    
+                    	if (val > 0 && val < 4)
+                    	{
+                    		_job = val - 1;
+                    		ALLOW_CLASS_MASTER.set(_job  , true);
+                    	}
+                    	else
+                    	{
+                    		PRICE_CLASS_MASTER.add(_job , val);
+                    		_job = 0;
+                    	}
+                    }
+                    catch (NumberFormatException  e) {}
+                }
+
 	            ALT_GAME_FREIGHTS       = Boolean.parseBoolean(altSettings.getProperty("AltGameFreights", "false"));
 	            ALT_GAME_FREIGHT_PRICE  = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
 	            ALT_GAME_SKILL_HIT_RATE = Float.parseFloat(altSettings.getProperty("AltGameSkillHitRate", "1."));
@@ -2206,9 +2237,6 @@ public final class Config {
         else if (pName.equalsIgnoreCase("AltGameExponentXp")) ALT_GAME_EXPONENT_XP = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("AltGameExponentSp")) ALT_GAME_EXPONENT_SP = Float.parseFloat(pValue);
 
-        else if (pName.equalsIgnoreCase("AllowClassMaster1")) ALLOW_CLASS_MASTER_1 = Boolean.valueOf(pValue);
-        else if (pName.equalsIgnoreCase("AllowClassMaster2")) ALLOW_CLASS_MASTER_2 = Boolean.valueOf(pValue);
-        else if (pName.equalsIgnoreCase("AllowClassMaster3")) ALLOW_CLASS_MASTER_3 = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AltGameFreights")) ALT_GAME_FREIGHTS = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AltGameFreightPrice")) ALT_GAME_FREIGHT_PRICE = Integer.parseInt(pValue);
 

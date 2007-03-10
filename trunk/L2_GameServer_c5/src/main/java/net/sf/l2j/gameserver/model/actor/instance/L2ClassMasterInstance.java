@@ -35,10 +35,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class ...
- * 
- * @version $Revision: 1.4.2.1.2.7 $ $Date: 2005/03/27 15:29:32 $
- */
+ * Class Master implementation
+ * ths npc is used for changing character occupation
+ **/
 public final class L2ClassMasterInstance extends L2FolkInstance
 {
     private final static Log _log = LogFactory.getLog(L2ClassMasterInstance.class.getName());
@@ -77,30 +76,49 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             
             ClassId classId = player.getClassId();
             int level = player.getLevel();
-            int lvl = classId.level();
+            int jobLevel = classId.level();
             
-            if ((level >= 20 && lvl == 0) || (level >= 40 && lvl == 1) || (level >= 76 && lvl == 2))
+            if(((level >= 20 && jobLevel == 0 ) || 
+                (level >= 40 && jobLevel == 1 ) || 
+                (level >= 76 && jobLevel == 2)) &&
+                Config.ALLOW_CLASS_MASTER.get(jobLevel))
             {
-                if ((lvl == 0 && Config.ALLOW_CLASS_MASTER_1) || (lvl == 1 && Config.ALLOW_CLASS_MASTER_2) || (lvl == 2 && Config.ALLOW_CLASS_MASTER_3))
-                {
-                    for (ClassId child : ClassId.values())
-                        if (child.childOf(classId) && child.level() == lvl+1)
-                            sb.append("<a action=\"bypass -h npc_" + getObjectId() + "_change_class " + (child.getId()) + "\">Advance to " + CharTemplateTable.getClassNameById(child.getId()) + "</a><br>");
-                            sb.append("<br>");
-                }
+            	int _price = Config.PRICE_CLASS_MASTER.get(jobLevel);
+            	sb.append("You can change your occupation"+(_price == 0?"":" for <font color=\"LEVEL\">"+Integer.toString(_price)+"</font> adena")+" to following:<br>");
+                for (ClassId child : ClassId.values())
+                	if (child.childOf(classId) && child.level() == jobLevel + 1)
+                		sb.append("<br><a action=\"bypass -h npc_" + getObjectId() + "_change_class " + (child.getId()) + "\"> " + CharTemplateTable.getClassNameById(child.getId()) + "</a>");
             }
             else
             {
-                switch (lvl)
+                switch (jobLevel)
                 {
                     case 0:
-                        sb.append("Come back here when you reached level 20 to change your class.<br>");
+                    	if (Config.ALLOW_CLASS_MASTER.get(jobLevel))
+                    		sb.append("Come back here when you reached level 20 to change your class.<br>");
+                        else
+                        	if (Config.ALLOW_CLASS_MASTER.get(jobLevel+1))
+                        		sb.append("Come back after your first occupation change.<br>");
+                        	else
+                        		if (Config.ALLOW_CLASS_MASTER.get(jobLevel+2))
+                        			sb.append("Come back after your second occupation change.<br>");
+                        		else
+                        			sb.append("I can't change your occupation.<br>");
                         break;
                     case 1:
-                        sb.append("Come back here when you reached level 40 to change your class.<br>");
+                    	if (Config.ALLOW_CLASS_MASTER.get(jobLevel))
+                    		sb.append("Come back here when you reached level 40 to change your class.<br>");
+                    	else
+                    		if (Config.ALLOW_CLASS_MASTER.get(jobLevel+1))
+                        		sb.append("Come back after your second occupation change.<br>");
+                    		else 
+                    			sb.append("I can't change your occupation.<br>");
                         break;
                     case 2:
-                        sb.append("Come back here when you reached level 76 to change your class.<br>");
+                    	if (Config.ALLOW_CLASS_MASTER.get(jobLevel))
+                    		sb.append("Come back here when you reached level 76 to change your class.<br>");
+                    	else 
+                			sb.append("I can't change your occupation.<br>");
                         break;
                     case 3:
                         sb.append("There is no class change available for you anymore.<br>");
@@ -140,27 +158,41 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             if (level < 40 && newJobLevel > 1) return;
             if (level < 75 && newJobLevel > 2) return;
             // -- prevention ends
-                        
+
+            int _price = Config.PRICE_CLASS_MASTER.get(jobLevel);
+            
+            if (_price > 0 && player.getInventory().getAdena() < _price)
+            	{
+            		player.sendPacket(new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA));
+            		return;
+            	}
                         
             changeClass(player, val);
             player.rewardSkills();
             
-            if (newJobLevel == 3) player.sendPacket(new SystemMessage(1606)); // system sound 3rd occupation
-            else player.sendPacket(new SystemMessage(1308)); // system sound for 1st and 2nd occupation
+            if (newJobLevel == 3) player.sendPacket(new SystemMessage(SystemMessage.SOUND_3RD_OCCUPATION)); // system sound 3rd occupation
+            else player.sendPacket(new SystemMessage(SystemMessage.SOUND_2ND_OCCUPATION)); // system sound for 1st and 2nd occupation
             
             if(newJobLevel == 3)
             {
                 // receive Secret Book of Giants or 3rd class change
-                player.getInventory().addItem("Gift",6622,1,player,null);
+                player.getInventory().addItem("Gift",6622,1,player,this);
+                player.getInventory().updateDatabase();
+            }
+            
+            if (_price > 0)
+            {
+                player.getInventory().reduceAdena("ClassMaster", _price, player, this);
                 player.getInventory().updateDatabase();
             }
             
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
-            sb.append("<html><head><body>");
+            sb.append("<html><body>");
+            sb.append(getName()+":<br>");
+            sb.append("<br>");          
             sb.append("You have now become a <font color=\"LEVEL\">" + CharTemplateTable.getClassNameById(player.getClassId().getId()) + "</font>.");
             sb.append("</body></html>");
-            
             html.setHtml(sb.toString());
             player.sendPacket(html);
         }

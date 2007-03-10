@@ -721,6 +721,10 @@ public class SystemMessage extends ServerBasePacket
     public static final int TIME_S1_S2_IN_THE_DAY = 927;
     public static final int TIME_S1_S2_IN_THE_NIGHT = 928;
     
+    // Sounds & voice
+    public static final int SOUND_2ND_OCCUPATION = 1308;
+    public static final int SOUND_3RD_OCCUPATION = 1606;
+    
 	/**
 	 * @param _characters
 	 */
