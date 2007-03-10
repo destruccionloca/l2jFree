@@ -376,52 +376,6 @@ public class SkillTreeTable
         return result.toArray(new L2SkillLearn[result.size()]);
     }
 
-    public L2SkillLearn[] getAllowedSkills(L2PcInstance cha, ClassId classId)
-    {
-        FastList<L2SkillLearn> result = new FastList<L2SkillLearn>();
-        Collection<L2SkillLearn> skills = getSkillTrees().get(classId).values();
-        
-        if (skills == null)
-        {
-            // the skilltree for this class is undefined, so we give an empty list
-
-            _log.warn("Skilltree for class " + classId + " is not defined !");
-            return new L2SkillLearn[0];
-        }
-        
-        L2Skill[] oldSkills = cha.getAllSkills();
-        
-        for (L2SkillLearn temp : skills)
-        {           
-            if (temp.getMinLevel() <= cha.getLevel())
-            {
-                boolean knownSkill = false;
-            
-                for (int j = 0; j < oldSkills.length && !knownSkill; j++)
-                {
-                    if (oldSkills[j].getId() == temp.getId() )
-                    {
-                        knownSkill = true;
-            
-                        if ( oldSkills[j].getLevel() == temp.getLevel()-1)
-                        {
-                            // this is the next level of a skill that we know
-                            result.add(temp);
-                        }
-                    }
-                }
-                
-                if (!knownSkill && temp.getLevel() == 1)
-                {
-                    // this is a new skill
-                    result.add(temp);
-                }
-            }
-        }
-            
-        return result.toArray(new L2SkillLearn[result.size()]);
-    }
-    
 	public L2SkillLearn[] getAvailableSkills(L2PcInstance cha)
 	{
 	    FastList<L2SkillLearn> result = new FastList<L2SkillLearn>();
