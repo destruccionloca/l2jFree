@@ -6059,6 +6059,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	        	// exclude hero skills
 	        	if(isHero() && HeroSkillTable.getInstance().GetHeroSkills().contains(skill))
 	        		foundskill = true;
+	        	// temp workaround till heroskilltable works properly
+	        	if(isHero() && (skillid >= 1374 && skillid <= 1376) || (skillid >=395 && skillid <= 396))
+	        		foundskill = true;
 	        	// exclude cursed weapon skills
 	        	if(isCursedWeaponEquiped() && skillid == CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquipedId).getSkillId())
 	        		foundskill = true;
