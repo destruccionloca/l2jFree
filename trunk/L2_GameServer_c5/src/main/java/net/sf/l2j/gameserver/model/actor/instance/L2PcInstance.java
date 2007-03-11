@@ -6049,7 +6049,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	        	for (L2SkillLearn temp : skillTree)
 	        	{
 	        		// if the skill was found and the level is possible to obtain for his class everything is ok
-	        		if(temp.getId()==skillid && temp.getLevel()>=skilllevel)
+	        		if(temp.getId()==skillid) // && temp.getLevel()>=skilllevel))
 	        			foundskill = true;
 	        	}
 	        	
