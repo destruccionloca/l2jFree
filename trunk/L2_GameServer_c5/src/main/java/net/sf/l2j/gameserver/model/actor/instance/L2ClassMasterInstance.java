@@ -192,7 +192,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             if (level < 75 && newJobLevel > 3) return;
             // -- prevention ends
 
-            int _price = Config.PRICE_CLASS_MASTER.get(jobLevel);
+            int _price = Config.PRICE_CLASS_MASTER.get(jobLevel - 1);
             
             if (_price > 0 && player.getInventory().getAdena() < _price)
             	{
