@@ -75,11 +75,18 @@ public class RequestAquireSkill extends ClientBasePacket
     void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
-        if (player.isGM()) player.sendMessage("Resquest for skill received");
-        if (player == null) return;
+        if (player == null)
+        	return;
+        if (player.isGM())
+        	player.sendMessage("Request for skill received");
         
         L2FolkInstance trainer = player.getLastFolkNPC();
-        if (trainer == null){if (player.isGM()) player.sendMessage("Resquest for skill termintated, cuz wrog Npc"); return;}
+        if (trainer == null)
+        {
+        	if (player.isGM())
+        		player.sendMessage("Request for skill terminated, wrong Npc"); 
+        	return;
+        }
         
         int npcid = trainer.getNpcId();
         
