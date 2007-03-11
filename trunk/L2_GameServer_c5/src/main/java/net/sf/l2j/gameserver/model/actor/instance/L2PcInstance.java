@@ -6053,14 +6053,20 @@ public final class L2PcInstance extends L2PlayableInstance
 	        			foundskill = true;
 	        	}
 	        	
-	        	// exclude nobless,hero and cursed weapon skill
+	        	// exclude noble skills
 	        	if(isNoble() && NobleSkillTable.getInstance().GetNobleSkills().contains(skill))
 	        		foundskill = true;
+	        	// exclude hero skills
 	        	if(isHero() && HeroSkillTable.getInstance().GetHeroSkills().contains(skill))
 	        		foundskill = true;
+	        	// exclude cursed weapon skills
 	        	if(isCursedWeaponEquiped() && skillid == CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquipedId).getSkillId())
 	        		foundskill = true;
+	        	// exclude clan skills
 	        	if(getClan()!=null && (skillid >= 370 && skillid <= 391))
+	        		foundskill = true;
+	        	// exlude sa / enchant bonus etc. skills
+	        	if(skillid>=3000 && skillid<=4000)
 	        		foundskill = true;
 
         		// remove skill and do a lil log message
