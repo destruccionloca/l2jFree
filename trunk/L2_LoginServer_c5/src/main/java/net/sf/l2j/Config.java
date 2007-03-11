@@ -49,6 +49,15 @@ public final class Config {
     /** Hostname of the Game Server */
     public static String GAMESERVER_HOSTNAME;
     
+    // Access to database
+    /** Driver to access to database */
+    public static String DATABASE_DRIVER;
+    /** Path to access to database */
+    public static String DATABASE_URL;
+    /** Database login */
+    public static String DATABASE_LOGIN;
+    /** Database password */
+    public static String DATABASE_PASSWORD;
     
     // Thread pools size
     /** Thread pool size general */
@@ -114,6 +123,11 @@ public final class Config {
             
             LOGIN_TRY_BEFORE_BAN = Integer.parseInt(serverSettings.getProperty("LoginTryBeforeBan", "10"));
             GM_MIN               = Integer.parseInt(serverSettings.getProperty("GMMinLevel", "100"));
+
+            DATABASE_DRIVER          = serverSettings.getProperty("Driver", "com.mysql.jdbc.Driver");
+            DATABASE_URL             = serverSettings.getProperty("URL", "jdbc:mysql://localhost/l2jdb");
+            DATABASE_LOGIN           = serverSettings.getProperty("Login", "root");
+            DATABASE_PASSWORD        = serverSettings.getProperty("Password", "");
             
             SHOW_LICENCE   = Boolean.parseBoolean(serverSettings.getProperty("ShowLicence", "true"));
             IP_UPDATE_TIME = Integer.parseInt(serverSettings.getProperty("IpUpdateTime","0"));
@@ -148,8 +162,24 @@ public final class Config {
             e.printStackTrace();
             throw new Error("Failed to Load "+TELNET_FILE+" File.");
         }
+        
+        // Initialize config properties for DB
+        // ----------------------------------
+        initDBProperties();
     }
 	
 	// it has no instancies
 	private Config() {}
+	
+	/**
+	 * To keep compatibility with old loginserver.properties, add db properties into system properties
+	 * Spring will use those values later
+	 */
+	public static void initDBProperties() 
+	{
+		System.setProperty("net.sf.l2j.db.driverclass", DATABASE_DRIVER );
+		System.setProperty("net.sf.l2j.db.urldb", DATABASE_URL );
+		System.setProperty("net.sf.l2j.db.user", DATABASE_LOGIN );
+		System.setProperty("net.sf.l2j.db.password", DATABASE_PASSWORD );		
+	}
 }

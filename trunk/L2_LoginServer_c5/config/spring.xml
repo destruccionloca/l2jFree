@@ -4,14 +4,19 @@
 		"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
 <beans>
+
+	<!-- Add ability to read system properties -->
+	<bean id="propertyConfigurer"
+		  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/>
+
 	<bean id="dataSource"
 		class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		
 		<!-- Connexion information -->
-		<property name="driverClass"><value>com.mysql.jdbc.Driver</value></property>
-		<property name="jdbcUrl"><value>jdbc:mysql://localhost/l2jdb</value></property>
-		<property name="user"><value>root</value></property>
-		<property name="password"><value></value></property>
+		<property name="driverClass"><value>${net.sf.l2j.db.driverclass}</value></property>
+		<property name="jdbcUrl"><value>${net.sf.l2j.db.urldb}</value></property>
+		<property name="user"><value>${net.sf.l2j.db.user}</value></property>
+		<property name="password"><value>${net.sf.l2j.db.password}</value></property>
 		
 		<!-- parameter for tuning -->
 		<property name="acquireIncrement"><value>5</value></property>
