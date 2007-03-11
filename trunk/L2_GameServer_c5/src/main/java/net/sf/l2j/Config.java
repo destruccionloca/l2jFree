@@ -748,8 +748,6 @@ public final class Config {
     
     public static FastList<Boolean> ALLOW_CLASS_MASTER;
     public static FastList<Integer> PRICE_CLASS_MASTER;
-
-    public static int           IP_UPDATE_TIME;
     
     public static String        SERVER_VERSION;
     public static String        SERVER_BUILD_DATE;
