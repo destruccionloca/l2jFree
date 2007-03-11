@@ -104,6 +104,12 @@
 			<include name="*.jar"/>
 		</fileset>
 	</copy>
+    	
+	<copy todir="${build}">
+		<fileset dir="${build.dist.login}">
+			<include name="l2j-loginserver-1.0.0.jar"/>
+		</fileset>
+	</copy>
 
       <copy todir="${build.dist.login}">
             <fileset dir="${basedir}">
