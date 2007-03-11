@@ -203,16 +203,17 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             changeClass(player, val);
             player.rewardSkills();
             
-            if (newJobLevel == 3) player.sendPacket(new SystemMessage(SystemMessage.SOUND_3RD_OCCUPATION)); // system sound 3rd occupation
-            else player.sendPacket(new SystemMessage(SystemMessage.SOUND_2ND_OCCUPATION)); // system sound for 1st and 2nd occupation
-            
-            if(newJobLevel == 3)
+            if(val >= 88)
             {
+           	 	// system sound 3rd occupation
+            	player.sendPacket(new SystemMessage(1606));
                 // receive Secret Book of Giants or 3rd class change
                 player.getInventory().addItem("Gift",6622,1,player,this);
                 player.getInventory().updateDatabase();
             }
-            
+            else
+            	player.sendPacket(new SystemMessage(1308));    // system sound for 1st and 2nd occupation
+
             if (_price > 0)
             {
                 player.getInventory().reduceAdena("ClassMaster", _price, player, this);
