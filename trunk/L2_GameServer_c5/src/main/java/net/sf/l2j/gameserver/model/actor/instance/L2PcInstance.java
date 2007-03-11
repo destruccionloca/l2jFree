@@ -6646,7 +6646,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param dontMove used to prevent movement, if not in range
      *
      */
-    public synchronized void useMagic(L2Skill skill, boolean forceUse, boolean dontMove)
+    public void useMagic(L2Skill skill, boolean forceUse, boolean dontMove)
     {
         if (isDead())
         {
@@ -6704,6 +6704,8 @@ public final class L2PcInstance extends L2PlayableInstance
         //************************************* Check Casting in Progress *******************************************
 
         // If a skill is currently being used, queue this one if this is not the same
+		// Note that this check is currently imperfect: getCurrentSkill() isn't always null when a skill has
+		// failed to cast, or the casting is not yet in progress when this is rechecked        
         if (getCurrentSkill() != null && isCastingNow())
         {
             // Check if new skill different from current skill in progress
@@ -6713,12 +6715,12 @@ public final class L2PcInstance extends L2PlayableInstance
                 _log.debug(getQueuedSkill().getSkill().getName() + " is already queued for " + getName()
                     + ".");
 
-            //setCurrentSkill(null, false, false);
-
             // Create a new SkillDat object and queue it in the player _queuedSkill
             setQueuedSkill(skill, forceUse, dontMove);
             return;
         }
+        if (getQueuedSkill() != null) // wiping out previous values, after casting has been aborted 
+        	setQueuedSkill(null, false, false);        
 
         //************************************* Check Target *******************************************
 

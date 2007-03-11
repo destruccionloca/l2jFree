@@ -82,8 +82,9 @@ public class Action extends ClientBasePacket
 		L2Object obj = L2World.getInstance().findObject(_objectId);
 
 		// If object requested does not exist, add warn msg into logs
-		if (obj == null) {
-        	_log.warn("Character: " + activeChar.getName() + " request action with non existent ObjectID:" + _objectId);
+		if (obj == null) { 
+			// pressing e.g. pickup many times quickly would get you here 
+        	//_log.warn("Character: " + activeChar.getName() + " request action with non existent ObjectID:" + _objectId);
         	sendPacket(new ActionFailed());
         	return;
 		}

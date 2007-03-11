@@ -382,6 +382,13 @@ public class L2CharacterAI extends AbstractAI
             return;
         }
 
+        // do not follow yourself
+        if (_actor == target)
+        {
+                clientActionFailed();
+                return;
+        }
+
         // Stop the actor auto-attack client side by sending Server->Client packet AutoAttackStop (broadcast)
         clientStopAutoAttack();
 
