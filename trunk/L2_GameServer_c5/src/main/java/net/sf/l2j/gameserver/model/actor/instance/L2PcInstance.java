@@ -6042,7 +6042,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	        for (L2Skill skill : getAllSkills())
 	        {
 	        	int skillid = skill.getId();
-	        	int skilllevel = skill.getLevel();
+	        	//int skilllevel = skill.getLevel();
 	        	
 	        	foundskill = false;
 	        	// loop through all skills in players skilltree
@@ -6068,7 +6068,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	        	// exlude sa / enchant bonus etc. skills
 	        	if(skillid>=3000 && skillid<=4000)
 	        		foundskill = true;
-
+	        	// exclude fishing skills
+	        	if(skillid>=1312 && skillid<=1315)
+	        		foundskill = true;
         		// remove skill and do a lil log message
 	        	if(!foundskill)
 	        	{
