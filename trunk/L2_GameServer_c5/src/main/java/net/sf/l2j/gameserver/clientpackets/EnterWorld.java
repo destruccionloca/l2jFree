@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
-import java.util.Collection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -35,22 +34,17 @@ import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.cache.HtmCache;
-import net.sf.l2j.gameserver.datatables.CrownTable;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
-import net.sf.l2j.gameserver.datatables.SkillTreeTable;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
+import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
-import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Skill;
-import net.sf.l2j.gameserver.model.L2SkillLearn;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2Event;
@@ -278,48 +272,7 @@ public class EnterWorld extends ClientBasePacket
         	activeChar.checkAllowedSkills();
         
         // check for crowns
-        L2Clan activeCharClan  = activeChar.getClan();
-        if(activeCharClan!=null) // character has clan ?
-        {
-            Castle activeCharCastle= CastleManager.getInstance().getCastleByOwner(activeChar.getClan());
-            if(activeCharCastle!=null) // clan has castle ?
-            {
-                for (L2ClanMember member : activeCharClan.getMembers())
-                {
-                    if(member.getObjectId() == activeChar.getObjectId()) // find member 
-                    {
-                        int CrownId = CrownTable.getCrownId(activeCharCastle.getCastleId()); // get crown id
-        
-                        if(activeCharClan.getLeader().getObjectId()==member.getObjectId()) // if leader give lord crown and normal crown
-                        {
-                            if(activeChar.getInventory().getItemByItemId(6841)==null) // check if character already has a crown in inventory
-                            {
-                                activeChar.getInventory().addItem("Crown",6841,1,member.getPlayerInstance(),null); // give lord crown
-                                activeChar.getInventory().updateDatabase(); // update database
-                            }
-                            if(activeChar.getInventory().getItemByItemId(CrownId)==null) // check if character already has a crown in inventory
-                            {
-                                if(CrownId!=0) // check for crown id
-                                    activeChar.getInventory().addItem("Crown",CrownId,1,member.getPlayerInstance(),null); // give castle crown
-                                    activeChar.getInventory().updateDatabase(); // update database
-                            }
-                        }
-                        else // no leader give normal crown
-                        {
-                            if(activeChar.getInventory().getItemByItemId(CrownId)==null) // check for crown id in inventory
-                            {
-                                if(CrownId!=0)
-                                {
-                                    activeChar.getInventory().addItem("Crown",CrownId,1,member.getPlayerInstance(),null); // give crown
-                                    activeChar.getInventory().updateDatabase(); // update database
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        sm = null;
+        CrownManager.getInstance().checkCrowns(activeChar);
 
         SevenSigns.getInstance().sendCurrentPeriodMsg(activeChar);
         Announcements.getInstance().showAnnouncements(activeChar);

@@ -115,7 +115,7 @@ public class RequestAquireSkill extends ClientBasePacket
             
             if (counts == 0 && !Config.ALT_GAME_SKILL_LEARN)
             {
-                player.sendMessage("You are trying to learn skill that u can't..");
+            	player.sendPacket(new SystemMessage(276));
                 Util.handleIllegalPlayerAction(player, "Player " + player.getName()
                                                + " tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
                 return;
@@ -173,7 +173,7 @@ public class RequestAquireSkill extends ClientBasePacket
             
             if (counts == 0)
             {
-                player.sendMessage("You are trying to learn skill that u can't..");
+            	player.sendPacket(new SystemMessage(276));
                 Util.handleIllegalPlayerAction(player, "Player " + player.getName()
                                                + " tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
                 return;
@@ -230,7 +230,7 @@ public class RequestAquireSkill extends ClientBasePacket
             
             if (counts == 0)
             {
-                player.sendMessage("You are trying to learn skill that u can't..");
+            	player.sendPacket(new SystemMessage(276));
                 Util.handleIllegalPlayerAction(player, "Player " + player.getName()
                                                + " tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
                 return;
