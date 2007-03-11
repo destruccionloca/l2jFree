@@ -11,11 +11,14 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
+import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -277,6 +280,21 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendPacket(SystemMessage.sendString("Your fiance is in Olympiad now."));
             return false;
         }   
+
+        // Check if partner is in Siege
+        L2Clan partnerClan  = partner.getClan();
+        if(partnerClan!=null) // character has clan ?
+        {
+            Castle partnerCastle= CastleManager.getInstance().getCastleByOwner(partner.getClan());
+            if(partnerCastle!=null) // clan has castle ?
+            {
+                if (partnerCastle.getSiege().getIsInProgress())
+                {
+                    activeChar.sendMessage("You partner is in Siege you cant go to him!");
+                    return false;
+                }
+            }
+        }
         
         int teleportTimer = Config.WEDDING_TELEPORT_INTERVAL*1000;
         
