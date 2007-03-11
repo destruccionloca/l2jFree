@@ -6065,11 +6065,13 @@ public final class L2PcInstance extends L2PlayableInstance
 	        	// exclude clan skills
 	        	if(getClan()!=null && (skillid >= 370 && skillid <= 391))
 	        		foundskill = true;
-	        	// exlude sa / enchant bonus etc. skills
-	        	if(skillid>=3000 && skillid<=4000)
+	        	// exclude fishing skills and common skills + dwarfen craft
+	        	if(skillid>=1312 && skillid<=1322)
 	        		foundskill = true;
-	        	// exclude fishing skills
-	        	if(skillid>=1312 && skillid<=1315)
+	        	if(skillid>=1368 && skillid<=1373)
+	        		foundskill = true;
+	        	// exclude sa / enchant bonus / penality etc. skills
+	        	if(skillid>=3000)
 	        		foundskill = true;
         		// remove skill and do a lil log message
 	        	if(!foundskill)
