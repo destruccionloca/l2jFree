@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Boots unseal -->
+	<list>
+	<!-- BW Gloves*BW Gloves Heavy -->
+	<item id="1">
+		<ingredient id="2487" count="1" enchant="0"/>
+		<production id="5718" count="1" enchant="0"/>
+	</item>
+	<!-- BW Gloves*BW Gloves Light -->
+	<item id="2">
+		<ingredient id="2487" count="1" enchant="0"/>
+		<production id="5719" count="1" enchant="0"/>
+	</item>
+	<!-- BW Gloves*BW Gloves Robe -->
+	<item id="3">
+		<ingredient id="2487" count="1" enchant="0"/>
+		<production id="5720" count="1" enchant="0"/>
+	</item>
+	<!-- Doom Gloves*Doom Gloves Heavy -->
+	<item id="4">
+		<ingredient id="2475" count="1" enchant="0"/>
+		<production id="5722" count="1" enchant="0"/>
+	</item>
+	<!-- Doom Gloves*Doom Gloves Light -->
+	<item id="5">
+		<ingredient id="2475" count="1" enchant="0"/>
+		<production id="5723" count="1" enchant="0"/>
+	</item>
+	<!-- Doom Gloves*Doom Gloves Robe -->
+	<item id="6">
+		<ingredient id="2475" count="1" enchant="0"/>
+		<production id="5724" count="1" enchant="0"/>
+	</item>
+	<!-- Zubei Gauntlets*Zubei Gauntlets Heavy -->
+	<item id="7">
+		<ingredient id="612" count="1" enchant="0"/>
+		<production id="5710" count="1" enchant="0"/>
+	</item>
+	<!-- Zubei Gauntlets*Zubei Gauntlets Light -->
+	<item id="8">
+		<ingredient id="612" count="1" enchant="0"/>
+		<production id="5711" count="1" enchant="0"/>
+	</item>
+	<!-- Zubei Gauntlets*Zubei Gauntlets Robe -->
+	<item id="9">
+		<ingredient id="612" count="1" enchant="0"/>
+		<production id="5712" count="1" enchant="0"/>
+	</item>
+	<!-- Avadon Gloves*Avadon Gloves Heavy -->
+	<item id="10">
+		<ingredient id="2464" count="1" enchant="0"/>
+		<production id="5714" count="1" enchant="0"/>
+	</item>
+	<!-- Avadon Gloves*Avadon Gloves Light -->
+	<item id="11">
+		<ingredient id="2464" count="1" enchant="0"/>
+		<production id="5715" count="1" enchant="0"/>
+	</item>
+	<!-- Avadon Gloves*Avadon Gloves Robe -->
+	<item id="12">
+		<ingredient id="2464" count="1" enchant="0"/>
+		<production id="5716" count="1" enchant="0"/>
+	</item>
+	<!-- BW Boots*BW Boots Heavy -->
+	<item id="13">
+		<ingredient id="2439" count="1" enchant="0"/>
+		<production id="5734" count="1" enchant="0"/>
+	</item>
+	<!-- BW Boots*BW Boots Light -->
+	<item id="14">
+		<ingredient id="2439" count="1" enchant="0"/>
+		<production id="5735" count="1" enchant="0"/>
+	</item>
+	<!-- BW Boots*BW Boots Robe -->
+	<item id="15">
+		<ingredient id="2439" count="1" enchant="0"/>
+		<production id="5736" count="1" enchant="0"/>
+	</item>
+	<!-- Doom Boots*Doom Boots Heavy -->
+	<item id="16">
+		<ingredient id="601" count="1" enchant="0"/>
+		<production id="5738" count="1" enchant="0"/>
+	</item>
+	<!-- Doom Boots*Doom Boots Light -->
+	<item id="17">
+		<ingredient id="601" count="1" enchant="0"/>
+		<production id="5739" count="1" enchant="0"/>
+	</item>
+	<!-- Doom Boots*Doom Boots Robe -->
+	<item id="18">
+		<ingredient id="601" count="1" enchant="0"/>
+		<production id="5740" count="1" enchant="0"/>
+	</item>
+	<!-- Zubei Boots*Zubei Boots Heavy -->
+	<item id="19">
+		<ingredient id="554" count="1" enchant="0"/>
+		<production id="5726" count="1" enchant="0"/>
+	</item>
+	<!-- Zubei Boots*Zubei Boots Light -->
+	<item id="20">
+		<ingredient id="554" count="1" enchant="0"/>
+		<production id="5727" count="1" enchant="0"/>
+	</item>
+	<!-- Zubei Boots*Zubei Boots Robe -->
+	<item id="21">
+		<ingredient id="554" count="1" enchant="0"/>
+		<production id="5728" count="1" enchant="0"/>
+	</item>
+	<!-- Avadon Boots*Avadon Boots Heavy -->
+	<item id="22">
+		<ingredient id="600" count="1" enchant="0"/>
+		<production id="5730" count="1" enchant="0"/>
+	</item>
+	<!-- Avadon Boots*Avadon Boots Light -->
+	<item id="23">
+		<ingredient id="600" count="1" enchant="0"/>
+		<production id="5731" count="1" enchant="0"/>
+	</item>
+	<!-- Avadon Boots*Avadon Boots Robe -->
+	<item id="24">
+		<ingredient id="600" count="1" enchant="0"/>
+		<production id="5732" count="1" enchant="0"/>
+	</item>
+</list>
