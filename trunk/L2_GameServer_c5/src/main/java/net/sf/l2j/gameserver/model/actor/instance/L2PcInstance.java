@@ -6070,6 +6070,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	        		foundskill = true;
 	        	if(skillid>=1368 && skillid<=1373)
 	        		foundskill = true;
+	        	// exclude seal of ruler and build hq  and crystalize (who knows)
+	        	if(skillid>=246 && skillid<=248)
+	        		foundskill = true;
 	        	// exclude sa / enchant bonus / penality etc. skills
 	        	if(skillid>=3000)
 	        		foundskill = true;
