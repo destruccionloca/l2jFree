@@ -40,7 +40,7 @@ import java.util.StringTokenizer;
     		_net = AddrToint(st.nextToken());
     		if (st.hasMoreTokens())
     		_mask = AddrToint(st.nextToken());
-    		else _mask=0;
+    		else _mask=0xFFFFFFFF;
 	    }	 
 	    
 	    public boolean isInNet(int _ip)
@@ -71,9 +71,8 @@ import java.util.StringTokenizer;
                     
 	    			if (_bitmask>0){
                         if (_bitmask<32)_ip=(_ip << (32 - _bitmask));
-                        } else _ip=0;
-                    
-	    		}catch (NumberFormatException  e){_ip=0xFFFFFFFF;}
+                        }else _ip=0;
+	    		}catch (NumberFormatException  e){}
 	    	}
 	    	else
 	    	for( int i=0;i<_dots ; i++)
@@ -86,4 +85,14 @@ import java.util.StringTokenizer;
 	    	
 	    	return _ip;
 	    }
+	    
+	    public int getNet()
+	    {
+	    	return _net;
+	    }
+	    public int getMask()
+	    {
+	    	return _mask;
+	    }
+
 	}

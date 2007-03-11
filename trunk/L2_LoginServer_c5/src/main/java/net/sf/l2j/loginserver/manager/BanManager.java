@@ -81,12 +81,13 @@ public class BanManager
     }
     
     /**
-     * 
+     * Remove all networks where ip is banned
      * @param ip
      */
     public void unBanIP(String ip)
     {
-        _bannedIPs.remove(new Net(ip));
+    	for (Net _net : _bannedIPs)
+        	if(_net.isInNet(ip)) _bannedIPs.remove(_net);
     }
     
     /**
@@ -119,7 +120,7 @@ public class BanManager
                     addBannedIP(line);
                 }
             }
-            _log.info(getNbOfBannedIp () + " banned IP/Net defined");
+            _log.info(getNbOfBannedIp () + " banned IP/SubNets defined");
         }
         catch (IOException e)
         {
