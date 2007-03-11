@@ -6060,21 +6060,18 @@ public final class L2PcInstance extends L2PlayableInstance
 	        	if(isHero() && HeroSkillTable.getInstance().GetHeroSkills().contains(skill))
 	        		foundskill = true;
 	        	// temp workaround till heroskilltable works properly
-	        	if(isHero() && (skillid >= 1374 && skillid <= 1376) || (skillid >=395 && skillid <= 396))
+	        	if(isHero() && ((skillid >= 1374 && skillid <= 1376) || (skillid >=395 && skillid <= 396)))
 	        		foundskill = true;
 	        	// exclude cursed weapon skills
 	        	if(isCursedWeaponEquiped() && skillid == CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquipedId).getSkillId())
 	        		foundskill = true;
-	        	// exclude clan skills
-	        	if(getClan()!=null && (skillid >= 370 && skillid <= 391))
+	        	// exclude clan skills and seal of ruler / build siege hq
+	        	if(getClan()!=null && ((skillid >= 370 && skillid <= 391) || (skillid>=246 && skillid<=247)))
 	        		foundskill = true;
 	        	// exclude fishing skills and common skills + dwarfen craft
 	        	if(skillid>=1312 && skillid<=1322)
 	        		foundskill = true;
 	        	if(skillid>=1368 && skillid<=1373)
-	        		foundskill = true;
-	        	// exclude seal of ruler and build hq  and crystalize (who knows)
-	        	if(skillid>=246 && skillid<=248)
 	        		foundskill = true;
 	        	// exclude sa / enchant bonus / penality etc. skills
 	        	if(skillid>=3000)
