@@ -264,7 +264,7 @@ public final class Util
 		char[] chars = text.toCharArray();
 		for (int i = 0; i < chars.length; i++)
 		{
-			if (!Character.isLetterOrDigit(chars[i]) &&
+			if (!Character.isLetterOrDigit(chars[i]) ||
 			   (!Character.isSpaceChar(chars[i]) && allowSpaces))
 			{
 				result = false;
