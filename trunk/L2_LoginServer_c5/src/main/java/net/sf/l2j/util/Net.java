@@ -55,6 +55,11 @@ import java.util.StringTokenizer;
 	    	return isInNet(_ip);
 	    }
 	    
+	    public boolean equal(Net _Net)
+	    {
+    		return (_Net.getNet() == _net && _Net.getMask() == _mask);
+	    }
+	    
 	    private int AddrToint(String addr)
 	    {
 	    	int _ip=0;

@@ -576,7 +576,7 @@ public class GameServerManager
             {
                 if (gs.ip != null && gs.gst != null )
                 {
-                	_log.info("Updated Gameserver "+getServerName(serverID)+ " IP's:");
+                	_log.info("Updated Gameserver "+getServerName(serverID)+ "("+serverID+") IP's:");
                 	for (GameServerNetConfig _netConfig : gs.gsNetConfig )
                 	{
                 		String _hostName = _netConfig.getHost();

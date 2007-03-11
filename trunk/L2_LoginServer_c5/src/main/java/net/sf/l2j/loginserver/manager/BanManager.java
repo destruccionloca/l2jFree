@@ -45,7 +45,7 @@ public class BanManager
 {
     private static BanManager _instance = null;
     private static final Log _log = LogFactory.getLog(BanManager.class);
-    private static List<Net> _bannedIPs = new FastList<Net>();
+    private static FastList<Net> _bannedIPs = new FastList<Net>();
     public static String BAN_LIST = "config/banned_ip.cfg";
     private static final String ENCODING = "UTF-8";
     
@@ -81,13 +81,14 @@ public class BanManager
     }
     
     /**
-     * Remove all networks where ip is banned
+     * Remove banned ip or network
      * @param ip
      */
     public void unBanIP(String ip)
     {
+    	Net _unban = new Net(ip);
     	for (Net _net : _bannedIPs)
-        	if(_net.isInNet(ip)) _bannedIPs.remove(_net);
+        	if(_net.equal(_unban)) _bannedIPs.remove(_net);
     }
     
     /**
@@ -99,14 +100,19 @@ public class BanManager
         _bannedIPs.clear();
     }
     
+    private BanManager()
+    {
+    	load();
+    }
     /**
      * Load banned list
      *
      */
-    private BanManager()
+    public  void load()
     {
         try
         {
+        	_bannedIPs.clear();
             // try to read banned list
             File file = new File(BAN_LIST);
             List lines = FileUtils.readLines(file, ENCODING);            
@@ -120,7 +126,7 @@ public class BanManager
                     addBannedIP(line);
                 }
             }
-            _log.info(getNbOfBannedIp () + " banned IP/SubNets defined");
+            _log.info("BanManager: Loaded " + getNbOfBannedIp () + " banned ip/subnet(s).");
         }
         catch (IOException e)
         {
@@ -165,7 +171,7 @@ public class BanManager
         public UnbanTask(String ip)
         {
         	_ip = ip;
-        	_bannedIPs.add(new Net(ip));
+        	addBannedIP(ip);
         }
         public void run()
         {
