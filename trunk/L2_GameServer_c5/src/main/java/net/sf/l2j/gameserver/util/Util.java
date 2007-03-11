@@ -253,11 +253,19 @@ public final class Util
 
 	public static boolean isAlphaNumeric(String text)
 	{
+		return isAlphaNumeric(text, false);
+	}
+	
+	public static boolean isAlphaNumeric(String text, boolean allowSpaces)
+	{
 		boolean result = true;
+		// no double spaces
+		if (text.contains("  ")) return false;
 		char[] chars = text.toCharArray();
 		for (int i = 0; i < chars.length; i++)
 		{
-			if (!Character.isLetterOrDigit(chars[i]))
+			if (!Character.isLetterOrDigit(chars[i]) &&
+			   (!Character.isSpaceChar(chars[i]) && allowSpaces))
 			{
 				result = false;
 				break;

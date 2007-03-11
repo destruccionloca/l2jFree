@@ -187,6 +187,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             // prevents changing between same level jobs
             if(newJobLevel != jobLevel + 1) return;
 
+            if (Config.ALLOW_CLASS_MASTER.get(newJobLevel - 1)) return;
             if (level < 20 && newJobLevel > 1) return;
             if (level < 40 && newJobLevel > 2) return;
             if (level < 75 && newJobLevel > 3) return;

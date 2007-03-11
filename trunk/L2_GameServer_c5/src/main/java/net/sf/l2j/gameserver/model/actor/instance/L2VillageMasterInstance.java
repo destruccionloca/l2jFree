@@ -85,7 +85,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
         {
             if (cmdParams.equals("")) return;
 
-            ClanTable.getInstance().createClan(player, cmdParams);
+            ClanTable.getInstance().createClan(player, command.substring(actualCommand.length()).trim());
         }
         else if (actualCommand.equalsIgnoreCase("create_academy"))
         {

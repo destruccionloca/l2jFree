@@ -158,7 +158,7 @@ public class ClanTable
         	player.sendPacket(new SystemMessage(SystemMessage.YOU_MUST_WAIT_XX_DAYS_BEFORE_CREATING_A_NEW_CLAN));
 			return null;
 		}
-		if (!Util.isAlphaNumeric(clanName) || 2 > clanName.length())
+		if (!Util.isAlphaNumeric(clanName,true) || 2 > clanName.length())
 		{
 			player.sendPacket(new SystemMessage(SystemMessage.CLAN_NAME_INCORRECT));
 			return null;

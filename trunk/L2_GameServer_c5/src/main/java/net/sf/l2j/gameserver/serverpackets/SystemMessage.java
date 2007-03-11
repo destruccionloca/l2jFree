@@ -297,6 +297,7 @@ public class SystemMessage extends ServerBasePacket
     public static final int ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE = 710;
     public static final int ONLY_CLAN_LEADER_CAN_RETRIEVE_ITEMS_FROM_CLAN_WAREHOUSE = 1039;
     public static final int TITLE_CHANGED = 214;
+    public static final int CLAN_DOES_NOT_OWN_CLAN_HALL = 681;
     
     public static final int CLAN_INFO_HEAD = 496;
     public static final int CLAN_INFO_NAME = 497;
