@@ -114,7 +114,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                 player.sendPacket(new SystemMessage(SystemMessage.ONLY_CLAN_LEADER_CREATE_ALLIANCE));
                 return;
             }
-            player.getClan().createAlly(player, cmdParams);
+            player.getClan().createAlly(player, command.substring(actualCommand.length()).trim());
         }
         else if (actualCommand.equalsIgnoreCase("dissolve_ally"))
         {
@@ -591,7 +591,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
             }
             return;
         }
-		if (!Util.isAlphaNumeric(clanName) || 2 > clanName.length())
+		if (!Util.isAlphaNumeric(clanName,true) || 2 > clanName.length())
 		{
 			player.sendPacket(new SystemMessage(SystemMessage.CLAN_NAME_INCORRECT));
 			return;

@@ -1779,7 +1779,7 @@ public class L2Clan
             player.sendPacket(new SystemMessage(SystemMessage.YOU_MAY_NOT_CREATE_ALLY_WHILE_DISSOLVING));
             return;
         }
-        if (!Util.isAlphaNumeric(allyName))
+        if (!Util.isAlphaNumeric(allyName,true))
         {
             player.sendPacket(new SystemMessage(SystemMessage.INCORRECT_ALLIANCE_NAME));
             return;

@@ -263,9 +263,8 @@ public final class Util
 		if (text.contains("  ")) return false;
 		char[] chars = text.toCharArray();
 		for (int i = 0; i < chars.length; i++)
-		{
-			if (!Character.isLetterOrDigit(chars[i]) ||
-			   (!Character.isSpaceChar(chars[i]) && allowSpaces))
+		{                                                 
+			if (!Character.isLetterOrDigit(chars[i]) && !(allowSpaces && Character.isSpaceChar(chars[i])))
 			{
 				result = false;
 				break;
