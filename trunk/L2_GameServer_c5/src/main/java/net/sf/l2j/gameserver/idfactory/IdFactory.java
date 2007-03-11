@@ -196,11 +196,7 @@ public abstract class IdFactory
             
             stmt.executeUpdate("UPDATE characters SET clanid=0 WHERE characters.clanid NOT IN (SELECT clan_id FROM clan_data);");
             // added by DaDummy {
-            stmt.executeUpdate("UPDATE characters SET characters.clan_privs=0,characters.title='',characters.allyId=0,characters.wantspeace=0 WHERE `clanid`=0;");
-            
             stmt.executeUpdate("UPDATE clan_data SET ally_id=0 WHERE clan_data.ally_id NOT IN (SELECT clanid FROM characters WHERE clanid!=0 GROUP BY clanid);");
-            stmt.executeUpdate("UPDATE characters SET allyid=0 WHERE characters.allyid NOT IN (SELECT ally_id FROM clan_data);");
-            
             stmt.executeUpdate("UPDATE items SET loc='INVENTORY' WHERE loc='PAPERDOLL' AND loc_data='0';");
             // }
             
