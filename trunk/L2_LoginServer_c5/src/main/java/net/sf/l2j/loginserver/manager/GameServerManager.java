@@ -28,6 +28,8 @@
  */
 package net.sf.l2j.loginserver.manager;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -45,6 +47,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2Registry;
 import net.sf.l2j.loginserver.beans.GameServer;
 import net.sf.l2j.loginserver.beans.Gameservers;
+import net.sf.l2j.loginserver.beans.GameServer.GameServerNetConfig;
 import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.loginserver.serverpackets.ServerList;
 import net.sf.l2j.loginserver.services.GameserversServices;
@@ -173,7 +176,7 @@ public class GameServerManager
             if (gs.server_id == id)
             {
                 gs.ip = null;
-                gs.internal_ip = null;
+                gs.netConfig = null;
                 gs.port = 0;
                 gs.gst = null;
             }
@@ -277,7 +280,7 @@ public class GameServerManager
             gameserver.setServerId(gs.server_id);
             if (gs.gst != null)
             {
-                gameserver.setHost(gs.gst.getGameExternalHost());
+                gameserver.setHost(gs.gst.getConnectionIpAddress());
             }
             else
             {
@@ -330,94 +333,60 @@ public class GameServerManager
     /**
      * 
      * @param isGM
-     * @param _internalip
+     * @param ip
      * @return
      */
-    public ServerList makeServerList(boolean isGM, boolean _internalip)
+    public ServerList makeServerList(boolean isGM, String ip)
     {
         orderList();
         ServerList sl = new ServerList();
         boolean updated = false;
-        for (GameServer gs : _gameServerList)
+        for(GameServer gs : _gameServerList)
         {
-            if (_log.isDebugEnabled())
-                _log.debug("updtime:" + Config.IP_UPDATE_TIME + " , current:" + _last_IP_Update + " so:"
-                    + (System.currentTimeMillis() - _last_IP_Update));
-            if (System.currentTimeMillis() - _last_IP_Update > Config.IP_UPDATE_TIME * 1000 * 60
-                && Config.IP_UPDATE_TIME != 0)
+            if(_log.isDebugEnabled())
+                _log.debug("Updtime:"+Config.IP_UPDATE_TIME+" , current:"+_last_IP_Update+" so:"+(System.currentTimeMillis() - _last_IP_Update));
+            if(System.currentTimeMillis() - _last_IP_Update > Config.IP_UPDATE_TIME * 1000 * 60 && Config.IP_UPDATE_TIME != 0)
             {
-                if (gs.gst != null)
+                if(gs.gst != null)
                 {
-                    gs.gst.setGameHosts(gs.gst.getGameExternalHost(), gs.gst.getGameInternalHost());
-                    gs.internal_ip = gs.gst.getGameInternalIP();
-                    gs.ip = gs.gst.getGameExternalIP();
+                	updateIP(gs.server_id);
                     updated = true;
                 }
             }
-            if (_internalip)
+            String gs_ip = null; 
+            if (gs.gst!=null) gs_ip = gs.getIp(ip);
+            int status = gs.status;
+            if(status == ServerStatus.STATUS_AUTO)
             {
-                int status = gs.status;
-                if (status == ServerStatus.STATUS_AUTO)
-                {
-                    if (gs.internal_ip == null)
+            	if(gs_ip == null)
                     {
                         status = ServerStatus.STATUS_DOWN;
                     }
-                }
-                else if (status == ServerStatus.STATUS_GM_ONLY)
+            }
+            else if(status == ServerStatus.STATUS_GM_ONLY)
                 {
-                    if (!isGM)
+                    if(!isGM)
                     {
                         status = ServerStatus.STATUS_DOWN;
                     }
                     else
                     {
-                        if (gs.internal_ip == null)
+                        if(gs_ip == null)
                         {
                             status = ServerStatus.STATUS_DOWN;
                         }
                     }
                 }
-                sl.addServer(gs.internal_ip, gs.port, gs.pvp, gs.testServer,
-                             (gs.gst == null ? 0 : gs.gst.getCurrentPlayers()), gs.maxPlayers,
-                             gs.brackets, gs.clock, status, gs.server_id);
-            }
-            else
-            {
-                int status = gs.status;
-                if (status == ServerStatus.STATUS_AUTO)
-                {
-                    if (gs.ip == null)
-                    {
-                        status = ServerStatus.STATUS_DOWN;
-                    }
-                }
-                else if (status == ServerStatus.STATUS_GM_ONLY)
-                {
-                    if (!isGM)
-                    {
-                        status = ServerStatus.STATUS_DOWN;
-                    }
-                    else
-                    {
-                        if (gs.ip == null)
-                        {
-                            status = ServerStatus.STATUS_DOWN;
-                        }
-                    }
-                }
-                sl.addServer(gs.ip, gs.port, gs.pvp, gs.testServer,
-                             (gs.gst == null ? 0 : gs.gst.getCurrentPlayers()), gs.maxPlayers,
-                             gs.brackets, gs.clock, status, gs.server_id);
-            }
-        }
-        if (updated)
+                sl.addServer(gs_ip,gs.port,gs.pvp,gs.testServer,(gs.gst == null ? 0 : gs.gst.getCurrentPlayers()),gs.maxPlayers,gs.brackets,gs.clock,status,gs.server_id);
+         }
+        if(updated)
         {
             _last_IP_Update = System.currentTimeMillis();
         }
-
+        
         return sl;
     }
+
 
     /**
      * 
@@ -443,7 +412,7 @@ public class GameServerManager
         {
             Gameservers gs = new Gameservers();
             gs.setHexid(HexUtil.hexToString(thread.getHexID()));
-            gs.setHost(thread.getGameExternalHost());
+            gs.setHost(thread.getConnectionIpAddress());
             gs.setServerId(thread.getServerID());
             _gsServices.createGameserver(gs);
         }
@@ -592,5 +561,38 @@ public class GameServerManager
     public List<Gameservers> getServers()
     {
         return _gsServicesXml.getAllGameservers();
+    }
+
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    public void updateIP(int serverID)
+    {
+    	for (GameServer gs : _gameServerList)
+        {
+            if (gs.server_id == serverID)
+            {
+                if (gs.ip != null && gs.gst != null )
+                {
+                	_log.info("Updated Gameserver "+getServerName(serverID)+ " IP's:");
+                	for (GameServerNetConfig _netConfig : gs.gsNetConfig )
+                	{
+                		String _hostName = _netConfig.getHost();
+                		try
+                		{
+                			String _hostAddress = InetAddress.getByName(_hostName).getHostAddress();
+                			_netConfig.setIp(_hostAddress);
+                			_log.info(!_hostName.equals(_hostAddress)?_hostName+" ("+_hostAddress+")":_hostAddress);
+                		}
+                		catch (UnknownHostException e)
+                		{
+                			_log.warn("Couldn't resolve hostname \""+_hostName+"\"");
+                		}
+                	}
+                }
+            }
+        }
     }
 }

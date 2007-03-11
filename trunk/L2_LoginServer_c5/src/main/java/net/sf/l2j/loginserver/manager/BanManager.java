@@ -31,6 +31,8 @@ import java.util.List;
 
 import javolution.util.FastList;
 
+import net.sf.l2j.util.Net;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,7 +45,7 @@ public class BanManager
 {
     private static BanManager _instance = null;
     private static final Log _log = LogFactory.getLog(BanManager.class);
-    private static List<String> _bannedIPs = new FastList<String>();
+    private static List<Net> _bannedIPs = new FastList<Net>();
     public static String BAN_LIST = "config/banned_ip.cfg";
     private static final String ENCODING = "UTF-8";
     
@@ -63,7 +65,7 @@ public class BanManager
     
     public void addBannedIP(String ip, int incorrectCount)
     {
-        _bannedIPs.add(ip);
+        _bannedIPs.add(new Net(ip));
         int time = incorrectCount * incorrectCount * 1000;
         _log.info("Banning ip "+ip+" for "+time/1000.0+" seconds.");
         ThreadPoolManager.getInstance().scheduleGeneral(new UnbanTask(ip), time);
@@ -75,7 +77,7 @@ public class BanManager
      */
     private void addBannedIP(String ip)
     {
-        _bannedIPs.add(ip);
+        _bannedIPs.add(new Net(ip));
     }
     
     /**
@@ -84,7 +86,7 @@ public class BanManager
      */
     public void unBanIP(String ip)
     {
-        _bannedIPs.remove(ip);
+        _bannedIPs.remove(new Net(ip));
     }
     
     /**
@@ -93,7 +95,7 @@ public class BanManager
      */
     public void purgeBanlist ()
     {
-        _bannedIPs.removeAll(_bannedIPs);
+        _bannedIPs.clear();
     }
     
     /**
@@ -112,12 +114,12 @@ public class BanManager
             {
                 String line = (String)lines.get(i);
                 line = line.trim();
-                if (line.length() > 0)
+                if (line.length() > 0 && !line.startsWith("#"))
                 {
                     addBannedIP(line);
                 }
             }
-            _log.info(getNbOfBannedIp () + " banned IPs defined");
+            _log.info(getNbOfBannedIp () + " banned IP/Net defined");
         }
         catch (IOException e)
         {
@@ -142,7 +144,12 @@ public class BanManager
      */
     public boolean isIpBanned (String ip)
     {
-        return _bannedIPs.contains(ip);
+    	boolean _isBanned = false;
+    	
+        for (Net _net : _bannedIPs)
+        	if(_net.isInNet(ip)) _isBanned = true;
+        
+        return _isBanned;
     }
     
 
@@ -153,10 +160,11 @@ public class BanManager
      */
     private class UnbanTask implements Runnable
     {
-        private String _ip;
-        public UnbanTask(String IP)
+    	String _ip;
+        public UnbanTask(String ip)
         {
-            _ip = IP;
+        	_ip = ip;
+        	_bannedIPs.add(new Net(ip));
         }
         public void run()
         {

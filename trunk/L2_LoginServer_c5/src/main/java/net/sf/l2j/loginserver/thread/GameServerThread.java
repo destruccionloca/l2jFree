@@ -22,9 +22,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.security.KeyPair;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -32,6 +30,7 @@ import java.util.List;
 import java.util.Vector;
 
 import javolution.util.FastList;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.LoginServer;
 import net.sf.l2j.loginserver.beans.SessionKey;
@@ -81,10 +80,7 @@ public class GameServerThread extends Thread
 	private int _gamePort;
 	private byte[] _hexID;
 	private String connectionIpAddress;
-	private String _gameExternalHost;
-	private String _gameInternalHost;
-	private String _gameExternalIP;
-	private String _gameInternalIP;
+	private String _netConfig;
 	
 	/**
 	 * @return Returns the hexID.
@@ -304,12 +300,12 @@ public class GameServerThread extends Thread
 	{
 		try
 		{
-			GameServerManager gsTableInstance = GameServerManager.getInstance();
-			if(gsTableInstance.isARegisteredServer(gameServerauth.getHexID()))
+			GameServerManager gsm = GameServerManager.getInstance();
+			if(gsm.isARegisteredServer(gameServerauth.getHexID()))
 			{
                 if (_log.isDebugEnabled())_log.debug("Valid HexID");
-				_server_id = gsTableInstance.getServerIDforHex(gameServerauth.getHexID());
-				if(gsTableInstance.isServerAuthed(_server_id))
+				_server_id = gsm.getServerIDforHex(gameServerauth.getHexID());
+				if(gsm.isServerAuthed(_server_id))
 				{
 					LoginServerFail lsf = new LoginServerFail(LoginServerFail.REASON_ALREADY_LOGGED_IN);
 					sendPacket(lsf);
@@ -317,26 +313,28 @@ public class GameServerThread extends Thread
 					return;
 				}
 				_gamePort = gameServerauth.getPort();
-				setGameHosts(gameServerauth.getExternalHost(), gameServerauth.getInternalHost());
 				_max_players = gameServerauth.getMax_palyers();
 				_hexID = gameServerauth.getHexID();
-				gsTableInstance.addServer(this);
+				_netConfig = gameServerauth.getNetConfig();
+				gsm.addServer(this);
+				gsm.updateIP(_server_id);
 			}
 			else if(Config.ACCEPT_NEW_GAMESERVER)
 			{
                 if (_log.isDebugEnabled())_log.debug("New HexID");
 				if(!gameServerauth.acceptAlternateID())
 				{
-					if(gsTableInstance.isIDfree(gameServerauth.getDesiredID()))
+					if(gsm.isIDfree(gameServerauth.getDesiredID()))
 					{
                         if (_log.isDebugEnabled())_log.debug("Desired ID is Valid");
 						_server_id = gameServerauth.getDesiredID();
 						_gamePort = gameServerauth.getPort();
-						setGameHosts(gameServerauth.getExternalHost(), gameServerauth.getInternalHost());
 						_max_players = gameServerauth.getMax_palyers();
 						_hexID = gameServerauth.getHexID();
-						gsTableInstance.createServer(this);
-						gsTableInstance.addServer(this);
+						_netConfig = gameServerauth.getNetConfig();
+						gsm.createServer(this);
+						gsm.addServer(this);
+						gsm.updateIP(_server_id);
 					}
 					else
 					{
@@ -349,9 +347,9 @@ public class GameServerThread extends Thread
 				else
 				{
 					int id;
-					if(!gsTableInstance.isIDfree(gameServerauth.getDesiredID()))
+					if(!gsm.isIDfree(gameServerauth.getDesiredID()))
 					{
-						id = gsTableInstance.findFreeID();
+						id = gsm.findFreeID();
                         if (_log.isDebugEnabled())_log.debug("Affected New ID:"+id);
 						if(id < 0)
 						{
@@ -368,11 +366,12 @@ public class GameServerThread extends Thread
 					}
 					_server_id = id;
 					_gamePort = gameServerauth.getPort();
-					setGameHosts(gameServerauth.getExternalHost(), gameServerauth.getInternalHost());
 					_max_players = gameServerauth.getMax_palyers();
 					_hexID = gameServerauth.getHexID();
-					gsTableInstance.createServer(this);
-					gsTableInstance.addServer(this);
+					_netConfig = gameServerauth.getNetConfig();
+					gsm.createServer(this);
+					gsm.addServer(this);
+					gsm.updateIP(_server_id);
 				}
 			}
 			else
@@ -481,19 +480,11 @@ public class GameServerThread extends Thread
 	}
 	
 	/**
-	 * @return Returns the external game Host.
+	 * @return Returns the networks config string.
 	 */
-	public String getGameExternalHost()
+	public String getNetConfig()
 	{
-		return _gameExternalHost;
-	}
-	
-	/**
-	 * @return Returns the internal game Host.
-	 */
-	public String getGameInternalHost()
-	{
-		return _gameInternalHost;
+		return _netConfig;
 	}
 	
 	/**
@@ -518,68 +509,6 @@ public class GameServerThread extends Thread
 	public boolean isTestServer()
 	{
 		return _isTestServer;
-	}
-	
-	/**
-	 * @param gameHost The gameHost to set.
-	 */
-	public void setGameHosts(String gameExternalHost, String gameInternalHost)
-	{
-        String oldInternal = _gameInternalHost;
-        String oldExternal = _gameExternalHost;
-		_gameExternalHost = gameExternalHost;
-		_gameInternalHost = gameInternalHost;
-		if(!_gameExternalHost.equals("*"))
-		{
-			try
-			{
-				_gameExternalIP = InetAddress.getByName(_gameExternalHost).getHostAddress();
-			}
-			catch (UnknownHostException e)
-			{
-				_log.warn("Couldn't resolve hostname \""+_gameExternalHost+"\"");
-			}
-		}
-		else
-		{
-			_gameExternalIP = _connectionIp;
-		}
-		if(!_gameInternalHost.equals("*"))
-		{
-			try
-			{
-				_gameInternalIP = InetAddress.getByName(_gameInternalHost).getHostAddress();
-			}
-			catch (UnknownHostException e)
-			{
-				_log.warn("Couldn't resolve hostname \""+_gameExternalHost+"\"");
-			}
-		}
-		else
-		{
-			_gameInternalIP = _connectionIp;
-		}
-		_log.info("Updated Gameserver "+GameServerManager.getInstance().getServerName(_server_id)+ " IP's:");
-        if(oldInternal == null || !oldInternal.equalsIgnoreCase(_gameInternalIP)) 
-            _log.info("InternalIP: "+_gameInternalIP);
-        if(oldExternal == null || !oldExternal.equalsIgnoreCase(_gameExternalIP)) 
-           _log.info("ExternalIP: "+_gameExternalIP);
-	}
-	
-	/**
-	 * @return Returns the game server's external IP.
-	 */
-	public String getGameExternalIP()
-	{
-		return _gameExternalIP;
-	}
-	
-	/**
-	 * @return Returns the game server's internal IP.
-	 */
-	public String getGameInternalIP()
-	{
-		return _gameInternalIP;
 	}
 	
 	/**

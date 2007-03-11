@@ -53,9 +53,7 @@ public class LoginServerThread extends FloodProtectedListener
     
     private static LoginServerThread _instance;
     private static Log           _log = LogFactory.getLog(LoginServerThread.class);
-    
-    private String                  _externalHostname;
-    private String                  _internalHostname;
+
     public static GameServerManager gameserverManager;
     public LoginManager          loginController;
 
@@ -113,21 +111,6 @@ public class LoginServerThread extends FloodProtectedListener
     private LoginServerThread() throws IOException
     {
         super(Config.GAME_SERVER_LOGIN_HOST, Config.PORT_LOGIN);
-
-        _externalHostname = Config.EXTERNAL_HOSTNAME;
-        if (_externalHostname == null)
-        {
-            _externalHostname = "localhost";
-        }
-
-        _internalHostname = Config.INTERNAL_HOSTNAME; //"InternalHostname");
-        if (_internalHostname == null)
-        {
-            _internalHostname = "localhost";
-        }
-
-        _log.info("Hostname for external connections is: " + _externalHostname);
-        _log.info("Hostname for internal connections is: " + _internalHostname);
 
         loginController = LoginManager.getInstance();
         

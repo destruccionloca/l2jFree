@@ -65,7 +65,7 @@ public class ClientThread extends Thread
 	
 	private Socket _csocket;
 
-	private boolean _internalIP;
+	private String ip;
     private boolean _ggAuthRecieved;
     
     private RSAPrivateKey _privateKey;
@@ -77,9 +77,7 @@ public class ClientThread extends Thread
 		setDaemon(true);
 		_csocket = client;
 		
-		_internalIP = Util.isInternalIP(_csocket.getInetAddress().getHostAddress());
-		
-		String ip = client.getInetAddress().getHostAddress();
+		ip = client.getInetAddress().getHostAddress();
 		
 		_in = client.getInputStream();
 		_out = new BufferedOutputStream(client.getOutputStream());
@@ -217,7 +215,7 @@ public class ClientThread extends Thread
                                     }
                                     else
                                     {
-                                    	ServerList sl = GameServerManager.getInstance().makeServerList(lc.isGM(account), _internalIP);
+                                    	ServerList sl = GameServerManager.getInstance().makeServerList(lc.isGM(account), ip);
                 						sendPacket(sl);
                                     }
                                 }
@@ -287,7 +285,7 @@ public class ClientThread extends Thread
 						if (_log.isDebugEnabled())  _log.info("RequestServerList");
 						//RequestServerList rsl = new RequestServerList(decrypt);
 						
-						ServerList sl = GameServerManager.getInstance().makeServerList(LoginManager.getInstance().isGM(account), _internalIP);
+						ServerList sl = GameServerManager.getInstance().makeServerList(LoginManager.getInstance().isGM(account), ip);
 						if (_log.isDebugEnabled()) 
 						{
 							byte [] content = sl.getContent();

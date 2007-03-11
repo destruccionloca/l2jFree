@@ -64,8 +64,7 @@ public final class Config {
     
     public static int     GAME_SERVER_LOGIN_PORT;
     public static String     GAME_SERVER_LOGIN_HOST;
-    public static String  INTERNAL_HOSTNAME;
-    public static String  EXTERNAL_HOSTNAME;
+
 	public static int IP_UPDATE_TIME;
     
     /**  
@@ -115,9 +114,6 @@ public final class Config {
             
             LOGIN_TRY_BEFORE_BAN = Integer.parseInt(serverSettings.getProperty("LoginTryBeforeBan", "10"));
             GM_MIN               = Integer.parseInt(serverSettings.getProperty("GMMinLevel", "100"));
-            
-            INTERNAL_HOSTNAME = serverSettings.getProperty("InternalHostname", "localhost");
-            EXTERNAL_HOSTNAME = serverSettings.getProperty("ExternalHostname", "localhost");
             
             SHOW_LICENCE   = Boolean.parseBoolean(serverSettings.getProperty("ShowLicence", "true"));
             IP_UPDATE_TIME = Integer.parseInt(serverSettings.getProperty("IpUpdateTime","0"));

@@ -41,8 +41,8 @@ public class GameServerAuth extends ClientBasePacket
 	private boolean _acceptAlternativeID;
 	private int _max_palyers;
 	private int _port;
-	private String _externalHost;
-	private String _internalHost;
+	private String _netConfig;
+	private String _reserved;
 	
 	/**
 	 * @param decrypt
@@ -53,8 +53,8 @@ public class GameServerAuth extends ClientBasePacket
 		_desiredID = readC();
 		_acceptAlternativeID = (readC() == 0 ? false : true); 
 		_hostReserved = (readC() == 0 ? false : true);
-		_externalHost = readS();
-		_internalHost = readS();
+		_netConfig = readS();
+		_reserved = readS();
 		_port = readH();
 		_max_palyers = readD();
 		int size = readD();
@@ -93,19 +93,11 @@ public class GameServerAuth extends ClientBasePacket
 	}
 
 	/**
-	 * @return Returns the externalHost.
+	 * @return Returns the gameserver netconfig string.
 	 */
-	public String getExternalHost()
+	public String getNetConfig()
 	{
-		return _externalHost;
-	}
-
-	/**
-	 * @return Returns the internalHost.
-	 */
-	public String getInternalHost()
-	{
-		return _internalHost;
+		return _netConfig;
 	}
 	
 	/**

@@ -26,10 +26,15 @@
 package net.sf.l2j.loginserver.beans;
 
 import java.math.BigInteger;
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
+
+import javolution.util.FastList;
 
 import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.loginserver.manager.GameServerManager;
 import net.sf.l2j.loginserver.thread.GameServerThread;
+import net.sf.l2j.util.Net;
 
 /**
  *  
@@ -37,7 +42,6 @@ import net.sf.l2j.loginserver.thread.GameServerThread;
 public class GameServer
 {
     public String name=null;
-    public String ip;
     public int server_id;
     public int port;
     public boolean pvp = true;
@@ -48,19 +52,23 @@ public class GameServer
     public boolean brackets = false;
     public boolean clock = false;
     public int status = ServerStatus.STATUS_AUTO;
-    public String internal_ip;
+    public String ip=null;
+    public String netConfig=null;
+    public FastList<GameServerNetConfig> gsNetConfig = new  FastList<GameServerNetConfig>();
+
     
     public GameServer(GameServerThread gamest)
     {
         gst = gamest;
-        ip = gst.getGameExternalIP();
         port = gst.getPort();
         pvp = gst.getPvP();
         testServer = gst.isTestServer();
         maxPlayers = gst.getMaxPlayers();
         hexID = gst.getHexID();
         server_id = gst.getServerID();
-        internal_ip = gst.getGameInternalIP();
+        netConfig = gst.getNetConfig();
+        ip = gst.getConnectionIpAddress();
+        setNetConfig();
     }
     
     public String toString()
@@ -85,4 +93,110 @@ public class GameServer
     {
         server_id = id;
     }
+
+	public void setNetConfig()
+	{
+		if (gsNetConfig.size() == 0)
+		{
+			StringTokenizer hostNets = new StringTokenizer(netConfig.trim(),";");	
+			
+			while (hostNets.hasMoreTokens())
+			{
+				String hostNet=hostNets.nextToken();
+				
+				StringTokenizer addresses = new StringTokenizer(hostNet.trim(),",");
+		
+				String _host = addresses.nextToken();
+
+				GameServerNetConfig _NetConfig = new GameServerNetConfig(_host); 
+				
+				if (addresses.hasMoreTokens())
+				{
+				while (addresses.hasMoreTokens())
+				{
+					try
+					{
+						StringTokenizer netmask = new StringTokenizer(addresses.nextToken().trim(),"/");
+						String _net = netmask.nextToken();
+						String _mask = netmask.nextToken();
+
+						_NetConfig.addNet(_net,_mask);
+					}
+					catch (NoSuchElementException c)
+					{
+					}
+				}
+				}else
+					_NetConfig.addNet("0.0.0.0","0"); // Any address
+
+				gsNetConfig.add(_NetConfig);
+					
+			}
+		}
+	}		
+
+	public String getIp()
+	{
+		return ip;
+	}
+	
+	public String getIp(String ip)
+	{
+		String _host = null;
+		
+		for (GameServerNetConfig _netConfig : gsNetConfig )
+		{
+			if (_netConfig.checkHost(ip))
+			{
+				_host = _netConfig.getIp();
+				break;
+			}
+		}
+		if (_host == null) _host = ip;
+		return _host;
+	}
+
+	public class GameServerNetConfig
+	{
+	    private String _hostName;
+	    private String _hostAddress;
+	    private FastList<Net> _nets = new FastList<Net>();
+	    
+	    public GameServerNetConfig(String hostName)
+	    {
+	    	_hostName = hostName;
+	    }
+	    
+	    public void addNet(String net, String mask)
+	    {
+	    	Net _net = new Net(net,mask);
+	    	if (_net!=null)
+	    	_nets.add(_net);
+	    }
+	    
+	    public boolean checkHost(String _ip)
+	    {
+	    	boolean _rightHost=false;
+	    	for(Net net: _nets) if (net.isInNet(_ip)) { _rightHost=true; break;}
+	    	return _rightHost;
+	    }
+	    public String getHost()
+	    {
+	    	return _hostName;
+	    }
+	    
+	    public void setHost(String hostName)
+	    {
+	    	_hostName=hostName;
+	    }	    
+	    public String getIp()
+	    {
+	    	return _hostAddress;
+	    }
+	    
+	    public void setIp(String hostAddress)
+	    {
+	    	_hostAddress=hostAddress;
+	    }
+}
 }
