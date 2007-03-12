@@ -626,7 +626,7 @@ public class L2Clan
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection();
-            PreparedStatement statement = con.prepareStatement("UPDATE characters SET clanid=0, title=?, clan_join_expiry_time=?, clan_create_expiry_time=?, clan_privs=0, wantspeace=0, subpledge=0, lvl_joined_academy=0, apprentice=0, sponsor=0 WHERE obj_Id=?");
+            PreparedStatement statement = con.prepareStatement("UPDATE characters SET clanid=0, title=?, clan_join_expiry_time=?, clan_create_expiry_time=?, clan_privs=0, wantspeace=0, pledge_type=0, lvl_joined_academy=0, apprentice=0, sponsor=0 WHERE obj_Id=?");
             statement.setString(1, "");
             statement.setLong(2, clanJoinExpiryTime);
             statement.setLong(3, clanCreateExpiryTime);

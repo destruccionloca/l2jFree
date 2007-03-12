@@ -186,6 +186,7 @@ import net.sf.l2j.gameserver.handler.voicedcommandhandlers.stats;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Wedding;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
+import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
 import net.sf.l2j.gameserver.instancemanager.FactionQuestManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
@@ -400,7 +401,9 @@ public class GameServer
         if ( _log.isDebugEnabled())_log.debug("ScriptEngine initialized");
         CursedWeaponsManager.getInstance();
         if ( _log.isDebugEnabled())_log.debug("CursedWeapons initialized");
-        
+        CrownManager.getInstance();
+        if ( _log.isDebugEnabled())_log.debug("CrownManager initialized");
+
         // Couple manager
         if(Config.ALLOW_WEDDING)
         {
@@ -636,7 +639,7 @@ public class GameServer
     
     public static void main(String[] args) throws Exception
     {
-//      Local Constants
+    	// Local Constants
         final String LOG_FOLDER = "log"; // Name of folder for log file
         final String LOG_FOLDER_GAME="game";
         /*** Main ***/
