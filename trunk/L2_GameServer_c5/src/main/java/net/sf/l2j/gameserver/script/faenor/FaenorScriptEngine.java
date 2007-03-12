@@ -22,10 +22,9 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
-
-import javolution.util.FastList;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GameServer;
@@ -49,7 +48,6 @@ public class FaenorScriptEngine extends ScriptEngine
 {
     static Log _log = LogFactory.getLog(GameServer.class.getName());
     public final static String PACKAGE_DIRECTORY = "data/script/";
-    public final static boolean DEBUG = true;
 
     private static FaenorScriptEngine instance;
 
@@ -113,23 +111,13 @@ public class FaenorScriptEngine extends ScriptEngine
 
             ScriptPackage module = new ScriptPackage(zipPack);
 
-            FastList<ScriptDocument> scrpts = module.getScriptFiles();
+            List<ScriptDocument> scrpts = module.getScriptFiles();
             for (ScriptDocument script : scrpts)
             {
                 this.scripts.add(script);
             }
 
         }
-        /*for (ScriptDocument script : scripts)
-         {
-         _log.sss("Script: "+script);
-         }
-         _log.sss("Sorting");
-         orderScripts();
-         for (ScriptDocument script : scripts)
-         {
-         _log.sss("Script: "+script);
-         }*/
     }
 
     public void orderScripts()
@@ -177,7 +165,7 @@ public class FaenorScriptEngine extends ScriptEngine
 
     public void parseScript(ScriptDocument script, BSFManager context)
     {
-        if (DEBUG) _log.debug("Parsing Script: " + script.getName());
+        if (_log.isDebugEnabled()) _log.debug("Parsing Script: " + script.getName());
 
         Node node = script.getDocument().getFirstChild();
         String parserClass = "faenor.Faenor" + node.getNodeName() + "Parser";

@@ -66,8 +66,6 @@ public class FaenorWorldDataParser extends FaenorParser
 
     private void parsePetData(Node petNode, BSFManager context)
     {
-        //if (_log.isDebugEnabled()) _log.debugr("Parsing PetData.");
-
         PetData petData = new PetData();
         
         try

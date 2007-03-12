@@ -33,7 +33,6 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.clientpackets.Say2;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.script.DateRange;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -52,8 +51,8 @@ public class Announcements
 	private final static Log _log = LogFactory.getLog(Announcements.class.getName());
 	
 	private static Announcements _instance;
-	private FastList<String> _announcements = new FastList<String>();
-	private FastList<List<Object>> eventAnnouncements = new FastList<List<Object>>();
+	private List<String> _announcements = new FastList<String>();
+	private List<List<Object>> eventAnnouncements = new FastList<List<Object>>();
     private String leaderboardAnnouncement = null;
 
 	public Announcements()
@@ -107,7 +106,7 @@ public class Announcements
             String[] msg              = (String[])entry.get(1);
 		    Date currentDate          = new Date();
 		    
-		    if (!validDateRange.isValid() || validDateRange.isWithinRange(currentDate))
+		    if (validDateRange.isValid() && validDateRange.isWithinRange(currentDate))
 		    {
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                 for (int j=0; j<msg.length; j++)

@@ -44,7 +44,7 @@ public class FaenorEventParser extends FaenorParser
     {
         String ID = attribute(eventNode, "ID");
         
-        if (DEBUG) _log.debug("Parsing Event \""+ID+"\"");
+        if (_log.isDebugEnabled()) _log.debug("Parsing Event \""+ID+"\"");
         
         eventDates = DateRange.parse(attribute(eventNode, "Active"), DATE_FORMAT);
         
@@ -70,7 +70,7 @@ public class FaenorEventParser extends FaenorParser
 
     private void parseEventMessage(Node sysMsg)
     {
-        if (DEBUG) _log.debug("Parsing Event Message.");
+        if (_log.isDebugEnabled()) _log.debug("Parsing Event Message.");
 
         try
         {
@@ -90,7 +90,7 @@ public class FaenorEventParser extends FaenorParser
 
     private void parseEventDropList(Node dropList)
     {
-        if (DEBUG) _log.debug("Parsing Droplist.");
+        if (_log.isDebugEnabled()) _log.debug("Parsing Droplist.");
         
         for (Node node = dropList.getFirstChild(); node != null; node = node.getNextSibling()) {
             if (isNodeName(node, "AllDrop"))
@@ -102,7 +102,7 @@ public class FaenorEventParser extends FaenorParser
 
     private void parseEventDrop(Node drop)
     {
-        if (DEBUG) _log.debug("Parsing Drop.");
+        if (_log.isDebugEnabled()) _log.debug("Parsing Drop.");
         
         try
         {
@@ -114,7 +114,7 @@ public class FaenorEventParser extends FaenorParser
         }
         catch (Exception e)
         {
-            System.err.println("ERROR(parseEventDrop):" + e.getMessage());
+            _log.error("ERROR(parseEventDrop):" + e.getMessage());
         }
     }
     

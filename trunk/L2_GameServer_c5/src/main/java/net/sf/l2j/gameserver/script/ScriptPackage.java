@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.script;
 
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -38,8 +39,8 @@ public class ScriptPackage
 {
     private final static Log _log = LogFactory.getLog(ScriptPackage.class);
     
-    private FastList<ScriptDocument> scriptFiles;
-    private FastList<String> otherFiles;
+    private List<ScriptDocument> scriptFiles;
+    private List<String> otherFiles;
     private String name;
     
     public ScriptPackage(ZipFile pack)
@@ -53,7 +54,7 @@ public class ScriptPackage
     /**
      * @return Returns the otherFiles.
      */
-    public FastList<String> getOtherFiles()
+    public List<String> getOtherFiles()
     {
         return otherFiles;
     }
@@ -61,7 +62,7 @@ public class ScriptPackage
     /**
      * @return Returns the scriptFiles.
      */
-    public FastList<ScriptDocument> getScriptFiles()
+    public List<ScriptDocument> getScriptFiles()
     {
         return scriptFiles;
     }

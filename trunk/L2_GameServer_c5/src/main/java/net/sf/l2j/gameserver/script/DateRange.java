@@ -26,6 +26,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * Class used to manipulate a range of date. 
+ * you can instantiate it with the static function parse or with a public constructor with two dates 
+ * 
  * @author Luis Arias
  *
  */
@@ -35,12 +38,24 @@ public class DateRange
 	
     private Date startDate, endDate;
     
+    /**
+     * Constructor
+     * @param from
+     * @param to
+     */
     public DateRange(Date from, Date to)
     {
         this.startDate   = from;
         this.endDate     = to;
     }
     
+    /**
+     * Create a DateRange with a single String and a Date formatter
+     * The initial String is split on "-" 
+     * @param dateRange
+     * @param format
+     * @return DateRange
+     */
     public static DateRange parse(String dateRange, DateFormat format)
     {
         String[] date = dateRange.split("-");
@@ -55,27 +70,44 @@ public class DateRange
             } 
             catch (ParseException e)
             {
-                _log.error("Invalid Date Format.",e);
+                _log.warn("Invalid Date Format for a dateRange.");
             }
         }
         return new DateRange(null, null);
     }
     
+    /**
+     * 
+     * @return true if date range are valid, false if the two bound interval are undefined (null)
+     */
     public boolean isValid()
     {
-        return startDate == null || endDate == null;
+        return startDate != null || endDate != null;
     }
     
+    /**
+     * 
+     * @param date
+     * @return true if date is after startDate and before endDate
+     */
     public boolean isWithinRange(Date date)
     {
         return date.after(startDate) && date.before(endDate);
     }
-
+    
+    /**
+     * 
+     * @return
+     */
     public Date getEndDate()
     {
         return endDate;
     }
-
+    
+    /**
+     * 
+     * @return
+     */
     public Date getStartDate()
     {
         return startDate;

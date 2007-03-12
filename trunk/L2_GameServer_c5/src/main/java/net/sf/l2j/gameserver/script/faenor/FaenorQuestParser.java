@@ -37,7 +37,7 @@ public class FaenorQuestParser extends FaenorParser
     
     public void parseScript(Node questNode, @SuppressWarnings("unused") BSFManager context)
     {
-        if (DEBUG) _log.debug("Parsing Quest.");
+        if (_log.isDebugEnabled()) _log.debug("Parsing Quest.");
         
         String questID = attribute(questNode, "ID");
         
@@ -63,7 +63,7 @@ public class FaenorQuestParser extends FaenorParser
     
     private void parseQuestDropList(Node dropList, String questID) throws NullPointerException
     {
-        if (DEBUG) _log.debug("Parsing Droplist.");
+        if (_log.isDebugEnabled()) _log.debug("Parsing Droplist.");
         
         for (Node node = dropList.getFirstChild(); node != null; node = node.getNextSibling()) {
             if (isNodeName(node, "DROP"))
@@ -75,7 +75,7 @@ public class FaenorQuestParser extends FaenorParser
     
     private void parseQuestDrop(Node drop, String questID)// throws NullPointerException
     {
-        if (DEBUG) _log.debug("Parsing Drop.");
+        if (_log.isDebugEnabled()) _log.debug("Parsing Drop.");
         
         int npcID;
         int itemID;
@@ -97,7 +97,7 @@ public class FaenorQuestParser extends FaenorParser
             throw new NullPointerException("Incorrect Drop Data");
         }
         
-        if (DEBUG) _log.debug("Adding Drop to NpcID: "+npcID);
+        if (_log.isDebugEnabled()) _log.debug("Adding Drop to NpcID: "+npcID);
         
         bridge.addQuestDrop(npcID, itemID, min, max, chance, questID, states);
     }
