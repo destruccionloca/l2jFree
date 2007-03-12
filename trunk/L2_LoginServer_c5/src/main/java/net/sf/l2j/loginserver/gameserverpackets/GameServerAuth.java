@@ -41,8 +41,8 @@ public class GameServerAuth extends ClientBasePacket
 	private boolean _acceptAlternativeID;
 	private int _max_palyers;
 	private int _port;
-	private String _netConfig;
-	private String _reserved;
+	private String _gsNetConfig1;
+	private String _gsNetConfig2;
 	
 	/**
 	 * @param decrypt
@@ -53,12 +53,15 @@ public class GameServerAuth extends ClientBasePacket
 		_desiredID = readC();
 		_acceptAlternativeID = (readC() == 0 ? false : true); 
 		_hostReserved = (readC() == 0 ? false : true);
-		_netConfig = readS();
-		_reserved = readS();
+		_gsNetConfig1 = readS();
+		_gsNetConfig2 = readS();
 		_port = readH();
 		_max_palyers = readD();
 		int size = readD();
 		_hexID = readB(size);
+		
+		System.out.println(_gsNetConfig1);
+		System.out.println(_gsNetConfig2);
 	}
 
 	/**
@@ -97,6 +100,25 @@ public class GameServerAuth extends ClientBasePacket
 	 */
 	public String getNetConfig()
 	{
+		String _netConfig = "";
+		
+		//	network configuration string formed on server
+		if (_gsNetConfig1.contains(";") || _gsNetConfig1.contains(","))
+		{
+			_netConfig = _gsNetConfig1;
+		}
+		else // make network config string
+		{
+			if (_gsNetConfig2.length()>0) // internal hostname and default internal networks
+			{
+				_netConfig = _gsNetConfig2 + "," + "10.0.0.0/8,192.168.0.0/16" + ";";
+			}
+			if (_gsNetConfig1.length()>0) // external hostname and all avaible addresses by default
+			{
+				_netConfig += _gsNetConfig1 + "," + "0.0.0.0/0" + ";";
+			}
+		}
+		
 		return _netConfig;
 	}
 	
