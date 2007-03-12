@@ -24317,75 +24317,141 @@ INSERT INTO `droplist` VALUES
 (29040,6654,18,54,2,68620), -- Amulet: Flames of Valakas
 (29040,6655,14,42,2,44113); -- Amulet: Slay Valakas
 
+-- RB drops for clan skill items (25% chance drop until chances are confirmed)  
+-- admins who have drop multipliers might want to edit chances  
+INSERT INTO `droplist` VALUES   
+-- Skull of The Dead - C-Grade  
+(25410,8158,1,3,100,250000), -- Road Scavenger Leader (40)  
+(25026,8158,1,3,100,250000), -- Katu Van Leader Atui (49)  
+(25437,8158,2,2,100,250000), -- Timak Orc Gosmos (45)  
+(25044,8158,1,2,100,250000), -- Barion (47)  
+
+-- Skull of The Dead - B-Grade  
+(25336,8159,1,1,100,250000), -- Anakazel (58)  
+(25256,8159,1,3,100,250000), -- Taik High Prefect Arak (60)  
+(25407,8159,1,3,100,250000), -- Lord Ishka (60)  
+(25131,8159,1,1,100,250000), -- Carnage Lord Gato (50)  
+(25050,8159,1,1,100,250000), -- Verfa (51)  
+
 -- Skull of Death: A-Grade --
-INSERT INTO `droplist` VALUES 
-(25035,8160,1,3,5,50000), -- Shilen's Messenger Cabrio Raid Boss lvl 70
-(25220,8160,1,3,5,50000), -- Death Lord Hallate Raid Boss lvl 73
-(25248,8160,1,1,5,50000), -- Doom Blade Tanatos Raid Boss lvl 72
-(25092,8160,1,1,5,50000), -- Korim Raid Boss lvl 70
-(25447,8160,1,1,5,50000), -- Immortal Savior Mardil Raid Boss lvl 71
-(25109,8160,1,3,5,50000), -- Antharas Priest Cloe Raid Boss lvl 74
-(25233,8160,1,1,5,50000), -- Spirit of Andras,the Betrayer Raid Boss lvl 69
-(25337,8160,1,1,5,50000), -- Anakazel Invaders'Leader  Boss lvl 68
-(25235,8160,1,3,5,50000), -- Vanor Chief Kandra Raid Boss lvl 72
-(25328,8160,1,2,5,50000), -- Eilhalder von Hellmann Raid Boss lvl 71
-(25444,8160,1,1,5,50000), -- Enmity Ghost Ramdal Raid Boss lvl 65
-(25051,8160,1,1,5,50000), -- Rahha Raid Boss lvl 65
-(25073,8160,2,3,5,50000), -- Bloody Priest Rudelto Raid Boss lvl 69
-(25281,8160,1,1,5,50000), -- Anakim's Nemesis Zakaron Raid Boss lvl 70
-(25322,8160,1,1,5,50000); -- Demon's Agent Falston Raid Boss lvl 66
+(25035,8160,1,3,100,250000), -- Shilen's Messenger Cabrio Raid Boss lvl 70
+(25220,8160,1,3,100,250000), -- Death Lord Hallate Raid Boss lvl 73
+(25248,8160,1,1,100,250000), -- Doom Blade Tanatos Raid Boss lvl 72
+(25092,8160,1,1,100,250000), -- Korim Raid Boss lvl 70
+(25447,8160,1,1,100,250000), -- Immortal Savior Mardil Raid Boss lvl 71
+(25109,8160,1,3,100,250000), -- Antharas Priest Cloe Raid Boss lvl 74
+(25233,8160,1,1,100,250000), -- Spirit of Andras,the Betrayer Raid Boss lvl 69
+(25337,8160,1,1,100,250000), -- Anakazel Invaders'Leader  Boss lvl 68
+(25235,8160,1,3,100,250000), -- Vanor Chief Kandra Raid Boss lvl 72
+(25328,8160,1,2,100,250000), -- Eilhalder von Hellmann Raid Boss lvl 71
+(25444,8160,1,1,100,250000), -- Enmity Ghost Ramdal Raid Boss lvl 65
+(25051,8160,1,1,100,250000), -- Rahha Raid Boss lvl 65
+(25073,8160,2,3,100,250000), -- Bloody Priest Rudelto Raid Boss lvl 69
+(25281,8160,1,1,100,250000), -- Anakim's Nemesis Zakaron Raid Boss lvl 70
+(25322,8160,1,1,100,250000), -- Demon's Agent Falston Raid Boss lvl 66
+
+-- Dragon's Heart - C-Grade 
+(25415,8161,1,2,100,250000), -- Nakondas (35)  
+
+-- Dragon's Heart - B-Grade  
+(25238,8162,1,1,100,250000), -- Abyss Brukunt (67)  
+(25234,8162,1,2,100,250000), -- Ancient Weird Drake (65)  
 
 -- Dragon's Heart: A-Grade --
-INSERT INTO `droplist` VALUES 
-(25198,8163,1,3,5,50000), -- Fafurion's Herald Lokness Raid Boss lvl 70
-(25453,8163,1,1,5,50000), -- Meanas Anor Raid Boss lvl 70
-(25163,8163,1,3,5,50000); -- Roaring Skylancer Raid Boss lvl 70
+(25198,8163,1,3,100,250000), -- Fafurion's Herald Lokness Raid Boss lvl 70
+(25453,8163,1,1,100,250000), -- Meanas Anor Raid Boss lvl 70
+(25163,8163,1,3,100,250000), -- Roaring Skylancer Raid Boss lvl 70
+
+-- Egg of Earth - C-Grade  
+(25208,8164,1,3,100,250000), -- Water Couatle Ateka (40)  
+(25490,8164,1,2,100,250000), -- Gwindorr (40)  
+(25134,8164,1,2,100,250000), -- Leto Chief Talkin (40)  
+
+-- Egg of Earth - B-Grade  
+(25089,8165,1,1,100,250000), -- Soulless Wild Boar (59)  
+(25217,8165,1,1,100,250000), -- Cursed Clara (50)  
+(25463,8165,1,1,100,250000), -- Harit Guardian Garangky (56) 
 
 -- Egg of Earth: A-Grade --
-INSERT INTO `droplist` VALUES 
-(25252,8166,1,1,5,50000), -- Palibati Queen Themis Raid Boss lvl 70
-(25199,8166,1,1,5,50000), -- Water Dragon Seer Sheshark Raid Boss lvl 72
-(25202,8166,1,3,5,50000), -- Krokian Padisha Sobekk Raid Boss lvl 74
-(25269,8166,1,1,5,50000), -- Beast Lord Behemoth Raid Boss lvl 70
-(25255,8166,1,1,5,50000), -- Gargoyle Lord Tiphon Raid Boss lvl 65
-(25478,8166,1,1,5,50000), -- Shilen's Priest Hisilrome Raid Boss lvl 65
-(25263,8166,1,1,5,50000), -- Kernon's Faithful Servant Kelone Raid Boss lvl 67
-(25226,8166,1,1,5,50000), -- Roaring Lord Kastor Raid Boss lvl 62
-(25125,8166,1,1,5,50000); -- Fierce Tiger King Angel Raid Boss lvl 65
+(25252,8166,1,1,100,250000), -- Palibati Queen Themis Raid Boss lvl 70
+(25199,8166,1,1,100,250000), -- Water Dragon Seer Sheshark Raid Boss lvl 72
+(25202,8166,1,3,100,250000), -- Krokian Padisha Sobekk Raid Boss lvl 74
+(25269,8166,1,1,100,250000), -- Beast Lord Behemoth Raid Boss lvl 70
+(25255,8166,1,1,100,250000), -- Gargoyle Lord Tiphon Raid Boss lvl 65
+(25478,8166,1,1,100,250000), -- Shilen's Priest Hisilrome Raid Boss lvl 65
+(25263,8166,1,1,100,250000), -- Kernon's Faithful Servant Kelone Raid Boss lvl 67
+(25226,8166,1,1,100,250000), -- Roaring Lord Kastor Raid Boss lvl 62
+(25125,8166,1,1,100,250000), -- Fierce Tiger King Angel Raid Boss lvl 65
+
+-- False Nucleus of Life - C-grade  
+(25214,8167,1,1,100,250000), -- Fafurion's Page Sika (40)  
+
+-- False Nucleus of Life - B-grade  
+(25179,8168,1,3,100,250000), -- Guardian of the Statue of Giant Karum (60) 
 
 -- False Nucleus of Life: A-Grade --
-INSERT INTO `droplist` VALUES 
-(25523,8169,1,1,5,50000), -- Plague Golem Raid Boss lvl 73
-(25296,8169,1,3,5,50000), -- Icicle Emperor Bumbalump Raid Boss lvl 74
-(25467,8169,1,1,5,50000), -- Gorgolos Raid Boss lvl 64
-(25470,8169,1,1,5,50000), -- Last Titan Utenus Raid Boss lvl 66
-(25140,8169,1,1,5,50000); -- Hekaton Prime Raid Boss lvl 65
+(25523,8169,1,1,100,250000), -- Plague Golem Raid Boss lvl 73
+(25296,8169,1,3,100,250000), -- Icicle Emperor Bumbalump Raid Boss lvl 74
+(25467,8169,1,1,100,250000), -- Gorgolos Raid Boss lvl 64
+(25470,8169,1,1,100,250000), -- Last Titan Utenus Raid Boss lvl 66
+(25140,8169,1,1,100,250000), -- Hekaton Prime Raid Boss lvl 65
+
+-- Angel's Soul - C-Grade  
+(25487,8170,1,3,100,250000), -- Water Spirit Lian (40)  
+
+-- Angel's Soul - B-Grade  
+(25070,8171,1,1,100,250000), -- Enchanted Forest Watcher Ruell (55)  
+(25159,8171,1,1,100,250000), -- Unicorn Paniel (54) 
 
 -- Angel's Soul: A-Grade --
-INSERT INTO `droplist` VALUES 
-(25325,8172,1,3,5,50000), -- Flame of Splendor Barakiel Raid Boss lvl 70
-(25423,8172,1,1,5,50000); -- Fairy Queen Timiniel Raid Boss lvl 61
+(25325,8172,1,3,100,250000), -- Flame of Splendor Barakiel Raid Boss lvl 70
+(25423,8172,1,1,100,250000); -- Fairy Queen Timiniel Raid Boss lvl 61
 
 -- Destruction Tombstone --
 INSERT INTO `droplist` VALUES 
-(25035,8176,3,9,5,50000), -- Shilen's Messenger Cabrio Raid Boss lvl 70
-(25453,8176,3,9,5,50000), -- Meanas Anor Raid Boss lvl 70
-(25523,8176,3,9,5,50000), -- Plague Golem Raid Boss lvl 73
-(25296,8176,3,9,5,50000), -- Icicle Emperor Bumbalump Raid Boss lvl 74
-(25337,8176,1,3,5,50000), -- Anakazel Invaders'Leader  Boss lvl 68
-(25410,8176,1,1,5,50000), -- Road Scavenger Leader Raid Boss lvl 40
-(25235,8176,3,8,5,50000), -- Vanor Chief Kandra Raid Boss lvl 72
-(25478,8176,2,3,5,50000), -- Shilen's Priest Hisilrome Raid Boss lvl 65
-(25281,8176,3,7,5,50000), -- Anakim's Nemesis Zakaron Raid Boss lvl 70
-(25026,8176,1,1,5,50000), -- Katu Van Leader Atui Raid Boss lvl 49
-(25423,8176,1,3,5,50000), -- Fairy Queen Timiniel Raid Boss lvl 61
-(25051,8176,3,4,5,50000), -- Rahha Raid Boss lvl 65
-(25230,8176,1,2,5,50000), -- Timak Seer Ragoth Raid Boss lvl 57
-(25044,8176,1,1,5,50000), -- Barion Raid Boss lvl 47
-(25064,8176,1,1,5,50000), -- Wizard of Storm Teruk Raid Boss lvl 40
-(25122,8176,1,3,5,50000), -- Refugee Hopeful Leo Raid Boss lvl 56
-(25179,8176,1,2,5,50000), -- Guardian of the Statue of Giant Karum Raid Boss lvl 60
-(25418,8176,1,1,5,50000), -- Dread Avenger Kraven Raid Boss lvl 44
-(25158,8176,2,2,5,50000), -- King Tarlk Raid Boss lvl 48
-(25192,8176,1,1,5,50000), -- Earth Protector Panathen Raid Boss lvl 43
-(25067,8176,3,3,5,50000); -- Captain of Red Flag Shaka Raid Boss lvl 52
+(25035,8176,3,9,101,250000), -- Shilen's Messenger Cabrio Raid Boss lvl 70
+(25453,8176,3,9,101,250000), -- Meanas Anor Raid Boss lvl 70
+(25523,8176,3,9,101,250000), -- Plague Golem Raid Boss lvl 73
+(25296,8176,3,9,101,250000), -- Icicle Emperor Bumbalump Raid Boss lvl 74
+(25337,8176,1,3,101,250000), -- Anakazel Invaders'Leader  Boss lvl 68
+(25410,8176,1,1,101,250000), -- Road Scavenger Leader Raid Boss lvl 40
+(25235,8176,3,8,101,250000), -- Vanor Chief Kandra Raid Boss lvl 72
+(25478,8176,2,3,101,250000), -- Shilen's Priest Hisilrome Raid Boss lvl 65
+(25281,8176,3,7,101,250000), -- Anakim's Nemesis Zakaron Raid Boss lvl 70
+(25026,8176,1,1,101,250000), -- Katu Van Leader Atui Raid Boss lvl 49
+(25423,8176,1,3,101,250000), -- Fairy Queen Timiniel Raid Boss lvl 61
+(25051,8176,3,4,101,250000), -- Rahha Raid Boss lvl 65
+(25230,8176,1,2,101,250000), -- Timak Seer Ragoth Raid Boss lvl 57
+(25044,8176,1,1,101,250000), -- Barion Raid Boss lvl 47
+(25064,8176,1,1,101,250000), -- Wizard of Storm Teruk Raid Boss lvl 40
+(25122,8176,1,3,101,250000), -- Refugee Hopeful Leo Raid Boss lvl 56
+(25179,8176,1,2,101,250000), -- Guardian of the Statue of Giant Karum Raid Boss lvl 60
+(25418,8176,1,1,101,250000), -- Dread Avenger Kraven Raid Boss lvl 44
+(25158,8176,2,2,101,250000), -- King Tarlk Raid Boss lvl 48
+(25192,8176,1,1,101,250000), -- Earth Protector Panathen Raid Boss lvl 43
+(25067,8176,3,3,101,250000); -- Captain of Red Flag Shaka Raid Boss lvl 52
+
+-- Ancient Book - Divine Inspiration (Original Language Version) 
+INSERT INTO `droplist` VALUES 
+(25453,8619,1,1,102,250000), -- Meanas Anor (70)  
+(25198,8619,1,1,102,250000), -- Fafurion's Herald Lokness (70)  
+(25163,8619,1,1,102,250000), -- Roaring Skylancer (70)  
+(25220,8619,1,1,102,250000), -- Death Lord Hallate (73)  
+(25035,8619,1,1,102,250000), -- Shilen's Messenger Cabrio (70)  
+(25248,8619,1,1,102,250000), -- Doom Blade Tanatos (72)  
+(25092,8619,1,1,102,250000), -- Korim (70)  
+(25109,8619,1,1,102,250000), -- Antharas Priest Cloe (74)  
+(25233,8619,1,1,102,250000), -- Spirit of Andras\, the Betrayer (69)  
+(25073,8619,1,1,102,250000), -- Bloody Priest Rudelto (69)  
+(25337,8619,1,1,102,250000), -- Anakazel (68)  
+(25235,8619,1,1,102,250000), -- Vanor Chief Kandra (72)  
+(25328,8619,1,1,102,250000), -- Eilhalder von Hellmann (71)  
+(25447,8619,1,1,102,250000), -- Immortal Savior Mardil (71)  
+(25252,8619,1,1,102,250000), -- Palibati Queen Themis (70)  
+(25199,8619,1,1,102,250000), -- Water Dragon Seer Sheshark (72)  
+(25202,8619,1,1,102,250000), -- Krokian Padisha Sobekk (74)  
+(25269,8619,1,1,102,250000), -- Beast Lord Behemoth (70)  
+(25325,8619,1,1,102,250000), -- Flame of Splendor Barakiel (70)  
+(25470,8619,1,1,102,250000), -- Last Titan Utenus (66)  
+(25296,8619,1,1,102,250000); -- Icicle Emperor Bumbalump (74) 
+
