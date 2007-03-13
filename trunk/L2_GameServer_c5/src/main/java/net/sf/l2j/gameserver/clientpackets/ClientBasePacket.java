@@ -55,6 +55,7 @@ public abstract class ClientBasePacket extends BasePacket implements Runnable
 		            client.getActiveChar().sendPacket(new LeaveWorld());
 		            client.getActiveChar().deleteMe();
 		            client.getActiveChar().logout();
+		            _log.warn("Warning : client " +client.getActiveChar().getName()+ " tryed to flood server !!!");
 		            } catch (Throwable t)   {}
 		 
 		        try {
