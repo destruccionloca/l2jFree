@@ -1012,11 +1012,9 @@ public final class Config {
     public static boolean	BYPASS_VALIDATION;
     public static boolean GM_AUDIT;
     
-	public static boolean FLOOD_PROTECTION;
-	public static int FAST_CONNECTION_LIMIT;
-	public static int NORMAL_CONNECTION_TIME;
-	public static int FAST_CONNECTION_TIME;
-	public static int MAX_CONNECTION_PER_IP;
+	public static boolean FLOOD_PROTECTION = false;
+	public static int PACKET_LIMIT;
+	public static int PACKET_TIME_LIMIT;
     
     public static boolean GAMEGUARD_ENFORCE;
     public static boolean GAMEGUARD_PROHIBITACTION;    
@@ -1142,6 +1140,9 @@ public final class Config {
                 NETWORK_TRAFFIC_OPTIMIZATION     = Boolean.valueOf(serverSettings.getProperty("NetworkTrafficOptimization", "False"));
                 NETWORK_TRAFFIC_OPTIMIZATION_MS  = Integer.parseInt(serverSettings.getProperty("NetworkTrafficOptimizationMs", "1100"));
                 
+                FLOOD_PROTECTION     = Boolean.valueOf(serverSettings.getProperty("FloodProtection", "False"));
+                PACKET_LIMIT    	 = Integer.parseInt(serverSettings.getProperty("PacketLimit", "500"));
+                PACKET_TIME_LIMIT    = Integer.parseInt(serverSettings.getProperty("PacketTimeLimit", "1100"));
 	        }
 	        catch (Exception e)
 	        {

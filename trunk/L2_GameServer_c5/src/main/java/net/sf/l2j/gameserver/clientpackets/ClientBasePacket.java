@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.exception.L2JFunctionnalException;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
+import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,6 +44,22 @@ public abstract class ClientBasePacket extends BasePacket implements Runnable
 	protected ClientBasePacket(ByteBuffer buf, ClientThread client)
 	{
 		super(client);
+		// flood protection
+		if(!client.checkFloodProtection() && Config.FLOOD_PROTECTION)
+		{
+	        try {
+	            ClientThread.saveCharToDisk(client.getActiveChar());
+	            client.getActiveChar().sendMessage("Kicked for flooding");
+	            client.getActiveChar().sendPacket(new LeaveWorld());
+	            client.getActiveChar().deleteMe();
+	            client.getActiveChar().logout();
+	            } catch (Throwable t)   {}
+	 
+	        try {
+	        	client.getActiveChar().closeNetConnection();
+	            } catch (Throwable t)   {} 
+		}
+		// ends
 		if (_log.isDebugEnabled()) _log.debug(getType()+" <<< "+client.getLoginName());
 		_buf = buf;
 		if (Config.ASSERT) assert _buf.position() == 1;

@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver;
 import java.net.Socket;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Calendar;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -77,6 +78,10 @@ public final class ClientThread
     private final Connection _connection;
     final ScheduledFuture _autoSaveInDB;
     private boolean _isAuthed = false;
+    
+    // flood protection
+    private int _packetcount = 0;
+    private long _lastpackettime;
 
     
     //private byte[] _filter;
@@ -587,4 +592,22 @@ public final class ClientThread
         _isAuthed = isAuthed;
     }
     
+    public boolean checkFloodProtection()
+    {
+    	if(_packetcount<=0)
+    		_lastpackettime = System.currentTimeMillis();
+    	_packetcount+=1;
+    	if(_packetcount>=Config.PACKET_LIMIT)
+    	{
+    		if(System.currentTimeMillis()-_lastpackettime < Config.PACKET_TIME_LIMIT)
+    				return false;
+    		else
+    		{
+	    		_packetcount = 0;
+	    		return true;
+    		}
+    	}
+    	else
+    		return true;
+    }
 }
