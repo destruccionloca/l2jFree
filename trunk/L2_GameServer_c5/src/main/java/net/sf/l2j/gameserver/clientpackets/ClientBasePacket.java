@@ -45,19 +45,22 @@ public abstract class ClientBasePacket extends BasePacket implements Runnable
 	{
 		super(client);
 		// flood protection
-		if(!client.checkFloodProtection() && Config.FLOOD_PROTECTION)
+		if(Config.FLOOD_PROTECTION)
 		{
-	        try {
-	            ClientThread.saveCharToDisk(client.getActiveChar());
-	            client.getActiveChar().sendMessage("Kicked for flooding");
-	            client.getActiveChar().sendPacket(new LeaveWorld());
-	            client.getActiveChar().deleteMe();
-	            client.getActiveChar().logout();
-	            } catch (Throwable t)   {}
-	 
-	        try {
-	        	client.getActiveChar().closeNetConnection();
-	            } catch (Throwable t)   {} 
+			if(!client.checkFloodProtection())
+			{
+		        try {
+		            ClientThread.saveCharToDisk(client.getActiveChar());
+		            client.getActiveChar().sendMessage("Kicked for flooding");
+		            client.getActiveChar().sendPacket(new LeaveWorld());
+		            client.getActiveChar().deleteMe();
+		            client.getActiveChar().logout();
+		            } catch (Throwable t)   {}
+		 
+		        try {
+		        	client.getActiveChar().closeNetConnection();
+		            } catch (Throwable t)   {} 
+			}
 		}
 		// ends
 		if (_log.isDebugEnabled()) _log.debug(getType()+" <<< "+client.getLoginName());

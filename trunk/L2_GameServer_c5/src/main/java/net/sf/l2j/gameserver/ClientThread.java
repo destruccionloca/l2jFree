@@ -599,13 +599,11 @@ public final class ClientThread
     	_packetcount+=1;
     	if(_packetcount>=Config.PACKET_LIMIT)
     	{
+    		_packetcount = 0;
     		if(System.currentTimeMillis()-_lastpackettime < Config.PACKET_TIME_LIMIT)
-    				return false;
+				return false;    			
     		else
-    		{
-	    		_packetcount = 0;
 	    		return true;
-    		}
     	}
     	else
     		return true;
