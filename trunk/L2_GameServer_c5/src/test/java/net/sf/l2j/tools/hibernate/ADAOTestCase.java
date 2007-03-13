@@ -44,6 +44,7 @@ public abstract class ADAOTestCase extends AHibernateTestCase
 		System.getProperties().put("hibernate.dialect", DerbyDialect.class.getName());
 		System.getProperties().put("hibernate.show_sql", "true");
 		System.getProperties().put("hibernate.transaction.factory_class", "org.hibernate.transaction.JDBCTransactionFactory");
+        System.getProperties().put("hibernate.cache.provider_class", "org.hibernate.cache.EhCacheProvider");
 
 		// Appel du chargement de la factory
 		super.setUp();

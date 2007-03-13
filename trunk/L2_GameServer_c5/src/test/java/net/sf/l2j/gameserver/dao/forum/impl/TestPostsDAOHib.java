@@ -10,7 +10,7 @@ import net.sf.l2j.tools.hibernate.ADAOTestCase;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatDtdDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
-import org.hibernate.ObjectDeletedException;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
  * 
@@ -88,7 +88,7 @@ public class TestPostsDAOHib extends ADAOTestCase
     		post = getPostsDAO().getPostById(1);
     		fail("Posts found but it should be deleted.");
     	}
-    	catch (ObjectDeletedException e)
+    	catch (ObjectRetrievalFailureException e)
     	{
     		assertNotNull(e);
     	}

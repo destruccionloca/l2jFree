@@ -13,7 +13,7 @@ import net.sf.l2j.tools.hibernate.ADAOTestCase;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatDtdDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
-import org.hibernate.ObjectDeletedException;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
  * 
@@ -135,6 +135,8 @@ public class TestForumsDAOHib extends ADAOTestCase
     	// for forum ID
     	Forums forums = new Forums(-1,"clanTest",2,0,1,1,25555);
     	assertEquals(7,getForumsDAO().createForums(forums));
+        // flush session to persist entity created 
+        getForumsDAO().getCurrentSession().flush();
     	assertEquals(7,getForumsDAO().getAllForums().size());
     	assertEquals(3,getForumsDAO().getChildrens(2).size());
     }   
@@ -149,6 +151,8 @@ public class TestForumsDAOHib extends ADAOTestCase
     	// for forum ID
     	Forums forums = new Forums(-1,"clanTest",2,0,1,1,25555);
     	assertEquals(7,getForumsDAO().createForums(forums));
+//       flush session to persist entity created 
+        getForumsDAO().getCurrentSession().flush();
     	assertEquals(7,getForumsDAO().getAllForums().size());
     	assertEquals(3,getForumsDAO().getChildrens(2).size());
     	
@@ -183,13 +187,14 @@ public class TestForumsDAOHib extends ADAOTestCase
     	assertEquals(6, forum.getForumId());
     	
     	getForumsDAO().deleteForum(forum);
-    	
+    	// flush session to persist entity created 
+        getForumsDAO().getCurrentSession().flush();
     	try
     	{
     		forum = getForumsDAO().getForumById(6);
     		fail("Forums found but it should be deleted.");
     	}
-    	catch (ObjectDeletedException e)
+    	catch (ObjectRetrievalFailureException e)
     	{
     		assertNotNull(e);
     	}

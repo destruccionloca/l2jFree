@@ -12,7 +12,7 @@ import net.sf.l2j.tools.hibernate.ADAOTestCase;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatDtdDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
-import org.hibernate.ObjectDeletedException;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
  * 
@@ -174,11 +174,11 @@ public class TestTopicDAOHib extends ADAOTestCase
     		topic = getTopicDAO().getTopicById(1);
     		fail("Topic found but it should be deleted.");
     	}
-    	catch (ObjectDeletedException e)
+    	catch (ObjectRetrievalFailureException e)
     	{
     		assertNotNull(e);
     	}
-    	
+        getTopicDAO().getCurrentSession().flush();
     	// check that children were erased
     	assertEquals(0,getTopicDAO().getCurrentSession().createQuery("from "+Posts.class.getName()+" where postTopicId="+1).list().size());
     }       
