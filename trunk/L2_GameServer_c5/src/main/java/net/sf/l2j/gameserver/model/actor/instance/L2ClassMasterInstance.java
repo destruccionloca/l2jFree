@@ -22,9 +22,8 @@ import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
+import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.base.ClassId;
-import net.sf.l2j.gameserver.model.base.PlayerClass;
-import net.sf.l2j.gameserver.model.base.ClassLevel;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
@@ -80,44 +79,61 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             int level = player.getLevel();
             int jobLevel = classId.level();
             
+            int newJobLevel = jobLevel + 1;
+            
             if(((level >= 20 && jobLevel == 0 ) || 
                 (level >= 40 && jobLevel == 1 ) || 
-                (level >= 76 && jobLevel == 2)) &&
-                Config.ALLOW_CLASS_MASTER.get(jobLevel))
+                (level >= 75 && jobLevel == 2)) &&
+                Config.CLASS_MASTER_SETTINGS.isAllowed(newJobLevel))
             {
-            	int _price = Config.PRICE_CLASS_MASTER.get(jobLevel);
-            	sb.append("You can change your occupation"+(_price == 0?"":" for <font color=\"LEVEL\">"+Integer.toString(_price)+"</font> adena")+" to following:<br>");
-                for (ClassId child : ClassId.values())
-                	if (child.childOf(classId) && child.level() == jobLevel + 1)
+            	sb.append("You can change your occupation to following:<br>");
+            	
+            	for (ClassId child : ClassId.values())
+                	if (child.childOf(classId) && child.level() == newJobLevel)
                 		sb.append("<br><a action=\"bypass -h npc_" + getObjectId() + "_change_class " + (child.getId()) + "\"> " + CharTemplateTable.getClassNameById(child.getId()) + "</a>");
+            	
+            	if (Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel) != null &&
+            		Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).size() > 0)
+            	{
+            		sb.append("<br><br>Item(s) required for class change:");
+            		sb.append("<table width=270>");
+            		for(Integer _itemId : Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
+            		{
+            			int _count = Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
+            			sb.append("<tr><td><font color=\"LEVEL\">"+_count+"</font></td><td>"+ItemTable.getInstance().getTemplate(_itemId).getName()+"</td></tr>");
+            		}
+            		sb.append("</table>");
+            	}
+            	
+            	sb.append("<br>");
             }
             else
             {
                 switch (jobLevel)
                 {
                     case 0:
-                    	if (Config.ALLOW_CLASS_MASTER.get(jobLevel))
+                    	if (Config.CLASS_MASTER_SETTINGS.isAllowed(1))
                     		sb.append("Come back here when you reached level 20 to change your class.<br>");
                         else
-                        	if (Config.ALLOW_CLASS_MASTER.get(jobLevel+1))
+                        	if (Config.CLASS_MASTER_SETTINGS.isAllowed(2))
                         		sb.append("Come back after your first occupation change.<br>");
                         	else
-                        		if (Config.ALLOW_CLASS_MASTER.get(jobLevel+2))
+                        		if (Config.CLASS_MASTER_SETTINGS.isAllowed(3))
                         			sb.append("Come back after your second occupation change.<br>");
                         		else
                         			sb.append("I can't change your occupation.<br>");
                         break;
                     case 1:
-                    	if (Config.ALLOW_CLASS_MASTER.get(jobLevel))
+                    	if (Config.CLASS_MASTER_SETTINGS.isAllowed(2))
                     		sb.append("Come back here when you reached level 40 to change your class.<br>");
                     	else
-                    		if (Config.ALLOW_CLASS_MASTER.get(jobLevel+1))
+                    		if (Config.CLASS_MASTER_SETTINGS.isAllowed(3))
                         		sb.append("Come back after your second occupation change.<br>");
                     		else 
                     			sb.append("I can't change your occupation.<br>");
                         break;
                     case 2:
-                    	if (Config.ALLOW_CLASS_MASTER.get(jobLevel))
+                    	if (Config.CLASS_MASTER_SETTINGS.isAllowed(3))
                     		sb.append("Come back here when you reached level 76 to change your class.<br>");
                     	else 
                 			sb.append("I can't change your occupation.<br>");
@@ -144,82 +160,66 @@ public final class L2ClassMasterInstance extends L2FolkInstance
         if (command.startsWith("change_class"))
         {
             int val = Integer.parseInt(command.substring(13));
-            // Exploit prevention 
+             
             ClassId classId = player.getClassId();
-            int level = player.getLevel();
-            int jobLevel = 0;
-            int newJobLevel = 0;
+            ClassId newClassId = ClassId.values()[val];
             
-            ClassLevel lvlnow = PlayerClass.values()[classId.getId()].getLevel();  
-            switch (lvlnow)
-            {
-            	case First:
-            		jobLevel = 1;
-            		break;
-            	case Second:
-            		jobLevel = 2;
-            		break;
-            	case Third:
-            		jobLevel = 3;
-            		break;
-            	default:
-            		jobLevel = 4;
-            }
-
-            if(jobLevel == 4) return; // no more job changes
-
-            ClassLevel lvlnext = PlayerClass.values()[val].getLevel();  
-            switch (lvlnext)
-            {
-            	case First:
-            		newJobLevel = 1;
-            		break;
-            	case Second:
-            		newJobLevel = 2;
-            		break;
-            	case Third:
-            		newJobLevel = 3;
-            		break;
-            	default:
-            		newJobLevel = 4;
-            }
-
+            int level = player.getLevel();
+            int jobLevel = classId.level();
+            int newJobLevel = newClassId.level();
+             
+            // -- exploit prevention
+            // prevents changing if config option disabled
+            if (!Config.CLASS_MASTER_SETTINGS.isAllowed(newJobLevel)) return;
+            
+            // prevents changing to class not in same class tree
+            if (!newClassId.childOf(classId)) return;
+            
             // prevents changing between same level jobs
             if(newJobLevel != jobLevel + 1) return;
-
-            if (!Config.ALLOW_CLASS_MASTER.get(jobLevel - 1)) return;
+            
+            // check for player level
             if (level < 20 && newJobLevel > 1) return;
             if (level < 40 && newJobLevel > 2) return;
             if (level < 75 && newJobLevel > 3) return;
             // -- prevention ends
-            int _price = Config.PRICE_CLASS_MASTER.get(jobLevel - 1);
 
-            if (_price > 0 && player.getInventory().getAdena() < _price)
-            	{
-            		player.sendPacket(new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA));
-            		return;
-            	}
-                        
+            // check if player have all required items for class transfer
+    		for(Integer _itemId : Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
+    		{
+    			int _count = Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
+    			if (player.getInventory().getInventoryItemCount(_itemId, -1) < _count)
+    			{
+    				player.sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_ITEMS));
+    				return;
+    			}
+    		}
+            
+            // get all required items for class transfer
+    		for(Integer _itemId : Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
+    		{
+    			int _count = Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
+    			player.destroyItemByItemId("ClassMaster", _itemId, _count, player, true);
+    		}
+
+            // reward player with items
+    		for(Integer _itemId : Config.CLASS_MASTER_SETTINGS.getRewardItems(newJobLevel).keySet())
+    		{
+    			int _count = Config.CLASS_MASTER_SETTINGS.getRewardItems(newJobLevel).get(_itemId);
+    			player.addItem("ClassMaster", _itemId, _count, player, true);
+    		}
+    		
             changeClass(player, val);
+    		
             player.rewardSkills();
             
-            if(val >= 88)
-            {
+            if(newJobLevel == 3)
            	 	// system sound 3rd occupation
             	player.sendPacket(new SystemMessage(SystemMessage.SOUND_3RD_OCCUPATION));
-                // receive Secret Book of Giants or 3rd class change
-                player.getInventory().addItem("Gift",6622,1,player,this);
-                player.getInventory().updateDatabase();
-            }
             else
-            	player.sendPacket(new SystemMessage(SystemMessage.SOUND_2ND_OCCUPATION));    // system sound for 1st and 2nd occupation
+            	// system sound for 1st and 2nd occupation
+            	player.sendPacket(new SystemMessage(SystemMessage.SOUND_2ND_OCCUPATION));    
 
-            if (_price > 0)
-            {
-                player.getInventory().reduceAdena("ClassMaster", _price, player, this);
-                player.getInventory().updateDatabase();
-            }
-            
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
             sb.append("<html><body>");

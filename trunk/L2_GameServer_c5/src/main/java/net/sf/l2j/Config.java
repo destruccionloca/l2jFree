@@ -30,8 +30,10 @@ import java.io.OutputStream;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.StringTokenizer;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 import org.apache.commons.logging.Log;
@@ -745,10 +747,100 @@ public final class Config {
     public static boolean       FORCE_INVENTORY_UPDATE;
     public static boolean       ALLOW_GUARDS;
     public static boolean       SPAWN_CLASS_MASTER;
+    public static String        CLASS_MASTER_SETTINGS_LINE;
+    public static ClassMasterSettings  CLASS_MASTER_SETTINGS;
     
-    public static FastList<Boolean> ALLOW_CLASS_MASTER;
-    public static FastList<Integer> PRICE_CLASS_MASTER;
+    public static class  ClassMasterSettings
+    {
+    	private FastMap<Integer,FastMap<Integer,Integer>> _claimItems;
+    	private FastMap<Integer,FastMap<Integer,Integer>> _rewardItems;
+    	private FastMap<Integer,Boolean> _allowedClassChange;
+    	
+    	public ClassMasterSettings(String _configLine)
+    	{
+    		_claimItems = new FastMap<Integer,FastMap<Integer,Integer>>();
+    		_rewardItems = new FastMap<Integer,FastMap<Integer,Integer>>();
+    		_allowedClassChange = new FastMap<Integer,Boolean>();
+    		if (_configLine != null)
+    			parseConfigLine(_configLine.trim());
+    	}
+    	
+    	private void parseConfigLine(String _configLine)
+    	{
+    		StringTokenizer st = new StringTokenizer(_configLine, ";");
+    		
+    		while (st.hasMoreTokens())
+    		{
+    		// get allowed class change
+   			int job = Integer.parseInt(st.nextToken());
+    		
+    		_allowedClassChange.put(job, true);
+    		
+    		FastMap<Integer,Integer> _items = new FastMap<Integer,Integer>();
+            // parse items needed for class change
+    		if (st.hasMoreTokens())
+			{
+    			StringTokenizer st2 = new StringTokenizer(st.nextToken(), "[],");
+				
+    			while (st2.hasMoreTokens())
+				{
+					StringTokenizer st3 = new StringTokenizer(st2.nextToken(), "()");
+					int _itemId = Integer.parseInt(st3.nextToken());
+					int _quantity = Integer.parseInt(st3.nextToken());
+					_items.put(_itemId, _quantity);
+				}
+			}
+    		
+			_claimItems.put(job, _items);
+			
+			_items = new FastMap<Integer,Integer>();
+    		// parse gifts after class change
+			if (st.hasMoreTokens())
+			{
+				StringTokenizer st2 = new StringTokenizer(st.nextToken(), "[],");
+				
+				while (st2.hasMoreTokens())
+				{
+					StringTokenizer st3 = new StringTokenizer(st2.nextToken(), "()");
+					int _itemId = Integer.parseInt(st3.nextToken());
+					int _quantity = Integer.parseInt(st3.nextToken());
+					_items.put(_itemId, _quantity);
+				}
+			}
+			
+			_rewardItems.put(job, _items);
+    		}
+    	}
+    	
+    	public boolean isAllowed(int job)
+    	{
+    		if (_allowedClassChange == null)
+    			return false;
+    		if (_allowedClassChange.containsKey(job))
+    			return _allowedClassChange.get(job);
+    		else 
+    			return false;
+    	}
+    	
+    	public FastMap<Integer,Integer> getRewardItems(int job)
+    	{
+    		if (_rewardItems.containsKey(job))
+    			return _rewardItems.get(job);
+    		else 
+    			return null;
+    	}
+    	
+    	public FastMap<Integer,Integer> getRequireItems(int job)
+    	{
+    		if (_claimItems.containsKey(job))
+    			return _claimItems.get(job);
+    		else 
+    			return null;
+    	}
+    	
+    }
     
+
     public static String        SERVER_VERSION;
     public static String        SERVER_BUILD_DATE;
     
@@ -1641,38 +1733,11 @@ public final class Config {
 	            ALT_GAME_EXPONENT_SP    = Float.parseFloat(altSettings.getProperty("AltGameExponentSp", "0."));
 	            
 	            SPAWN_CLASS_MASTER      = Boolean.valueOf(altSettings.getProperty("SpawnClassMaster", "False"));
+	            if (!altSettings.getProperty("ConfigClassMaster").equalsIgnoreCase("False"))
+	            	CLASS_MASTER_SETTINGS_LINE = altSettings.getProperty("ConfigClassMaster");
 	            
-	            ALLOW_CLASS_MASTER = new FastList<Boolean>(3);
-	            PRICE_CLASS_MASTER = new FastList<Integer>(3);
+	            CLASS_MASTER_SETTINGS = new ClassMasterSettings(CLASS_MASTER_SETTINGS_LINE);
 	            
-	            for (int i=0; i<3; i++)
-	            {
-		            ALLOW_CLASS_MASTER.add(i,false);
-		            PRICE_CLASS_MASTER.add(i,0);	            	
-	            }
-	            
-	            int _job = 0;
-	            
-	            for (String _jobPrice : altSettings.getProperty("AllowClassMaster", "").split(","))
-                {
-                    try
-                    {
-                    	int val=Integer.parseInt(_jobPrice);
-                    
-                    	if (val > 0 && val < 4)
-                    	{
-                    		_job = val - 1;
-                    		ALLOW_CLASS_MASTER.set(_job  , true);
-                    	}
-                    	else
-                    	{
-                    		PRICE_CLASS_MASTER.add(_job , val);
-                    		_job = 0;
-                    	}
-                    }
-                    catch (NumberFormatException  e) {}
-                }
-
 	            ALT_GAME_FREIGHTS       = Boolean.parseBoolean(altSettings.getProperty("AltGameFreights", "false"));
 	            ALT_GAME_FREIGHT_PRICE  = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
 	            ALT_GAME_SKILL_HIT_RATE = Float.parseFloat(altSettings.getProperty("AltGameSkillHitRate", "1."));
