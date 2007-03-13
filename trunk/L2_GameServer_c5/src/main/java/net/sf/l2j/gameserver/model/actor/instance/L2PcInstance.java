@@ -6074,7 +6074,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	        	if(skillid>=1368 && skillid<=1373)
 	        		foundskill = true;
 	        	// exclude sa / enchant bonus / penality etc. skills
-	        	if(skillid>=3000)
+	        	if(skillid>=3000 && skillid<7000)
 	        		foundskill = true;
         		// remove skill and do a lil log message
 	        	if(!foundskill)
