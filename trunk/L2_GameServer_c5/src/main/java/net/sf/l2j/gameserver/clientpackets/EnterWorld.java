@@ -267,6 +267,15 @@ public class EnterWorld extends ClientBasePacket
                 sendPacket(html);
             } }
 
+        //set hero status to character if character is Hero
+        if (Hero.getInstance().getHeroes() != null &&
+                Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
+            activeChar.setHero(true);
+        
+        // check player skills
+        if(Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
+        	activeChar.checkAllowedSkills();
+        
         // check for crowns
         CrownManager.getInstance().checkCrowns(activeChar);
 
@@ -320,14 +329,6 @@ public class EnterWorld extends ClientBasePacket
 		if (Config.ALLOW_WATER)
 		    activeChar.checkWaterState();
 
-        if (Hero.getInstance().getHeroes() != null &&
-                Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
-            activeChar.setHero(true);
-        
-        //check player skills
-        if(Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
-        	activeChar.checkAllowedSkills();
-        
         
 		//add char to online characters
 		activeChar.setOnlineStatus(true);
