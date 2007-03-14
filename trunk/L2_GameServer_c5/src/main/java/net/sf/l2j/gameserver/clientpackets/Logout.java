@@ -82,6 +82,22 @@ public class Logout extends ClientBasePacket
             player.sendPacket(SystemMessage.sendString("A superior power doesn't allow you to leave the event"));
             return;
         }
+        
+        // prevent from player disconnect when in Olympiad mode
+        if(player.isInOlympiadMode()) {
+        	if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while in Olympiad");
+            player.sendPacket(SystemMessage.sendString("You can't disconnect when in Olympiad."));
+            player.sendPacket(new ActionFailed());
+            return;
+        }
+        
+        //prevent from player disconnect when in Observer Mode
+        if(player.inObserverMode()) {
+        	if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while in Observer Mode");
+            player.sendPacket(SystemMessage.sendString("You can't disconnect when in Observer Mode."));
+            player.sendPacket(new ActionFailed());
+            return;
+        }
    
      
         // Prevent player from logging out if they are a festival participant
