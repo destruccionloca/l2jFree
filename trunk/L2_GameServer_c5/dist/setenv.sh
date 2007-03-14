@@ -2,7 +2,7 @@
 CLASSPATH=${CLASSPATH}:antlr-2.7.6.jar
 CLASSPATH=${CLASSPATH}:asm-1.5.3.jar
 CLASSPATH=${CLASSPATH}:cglib-2.1_3.jar
-CLASSPATH=${CLASSPATH}:hibernate-3.2.2.ga.jar
+#CLASSPATH=${CLASSPATH}:hibernate-3.2.2.ga.jar
 CLASSPATH=${CLASSPATH}:jta-1.0.1B.jar
 CLASSPATH=${CLASSPATH}:commons-collections-2.1.1.jar
 
@@ -28,8 +28,7 @@ CLASSPATH=${CLASSPATH}:c3p0-0.9.0.4.jar
 
 # for logging usage
 CLASSPATH=${CLASSPATH}:commons-logging-1.1.jar
-CLASSPATH=${CLASSPATH}:log4j-1.2.12.jar
-CLASSPATH=${CLASSPATH}:logkit-1.0.1.jar
+CLASSPATH=${CLASSPATH}:log4j-1.2.14.jar
 
 # for common input output 
 CLASSPATH=${CLASSPATH}:commons-io-1.2.jar
@@ -44,7 +43,7 @@ CLASSPATH=${CLASSPATH}:javolution-1.5.4.2.6.jar
 CLASSPATH=${CLASSPATH}:l2j-gameserver-1.0.0.jar
 
 # spring 
-CLASSPATH=${CLASSPATH}:spring-2.0.2.jar
+#CLASSPATH=${CLASSPATH}:spring-2.0.2.jar
 
 # For SQL use
 CLASSPATH=${CLASSPATH}:mysql-connector-java-3.1.11.jar

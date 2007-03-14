@@ -2,7 +2,7 @@ REM Hibernate and associated jars
 SET CLASSPATH=%CLASSPATH%;antlr-2.7.6.jar
 SET CLASSPATH=%CLASSPATH%;asm-1.5.3.jar
 SET CLASSPATH=%CLASSPATH%;cglib-2.1_3.jar
-SET CLASSPATH=%CLASSPATH%;hibernate-3.2.2.ga.jar
+REM SET CLASSPATH=%CLASSPATH%;hibernate-3.2.2.ga.jar
 SET CLASSPATH=%CLASSPATH%;jta-1.0.1B.jar
 SET CLASSPATH=%CLASSPATH%;commons-collections-2.1.1.jar
 
@@ -27,8 +27,7 @@ SET CLASSPATH=%CLASSPATH%;c3p0-0.9.0.4.jar
 
 REM for logging usage
 SET CLASSPATH=%CLASSPATH%;commons-logging-1.1.jar
-SET CLASSPATH=%CLASSPATH%;log4j-1.2.12.jar
-SET CLASSPATH=%CLASSPATH%;logkit-1.0.1.jar
+SET CLASSPATH=%CLASSPATH%;log4j-1.2.14.jar
 
 REM for common input output 
 SET CLASSPATH=%CLASSPATH%;commons-io-1.2.jar
@@ -43,7 +42,7 @@ REM main jar
 SET CLASSPATH=%CLASSPATH%;l2j-gameserver-1.0.0.jar
 
 REM spring 
-SET CLASSPATH=%CLASSPATH%;spring-2.0.2.jar
+REM SET CLASSPATH=%CLASSPATH%;spring-2.0.2.jar
 
 REM For SQL use
 SET CLASSPATH=%CLASSPATH%;mysql-connector-java-3.1.11.jar
