@@ -92,7 +92,7 @@ public class RequestMagicSkillUse extends ClientBasePacket
 		else
 		{
 			activeChar.sendPacket(new ActionFailed());
-			_log.warn("No skill Id "+_magicId+" found!");
+			if (_log.isDebugEnabled()) _log.warn("No skill Id "+_magicId+" found!");
 		}
 	}
 
