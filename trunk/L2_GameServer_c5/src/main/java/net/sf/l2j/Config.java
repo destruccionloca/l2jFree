@@ -710,7 +710,6 @@ public final class Config {
     public static final String  TELNET_FILE					= "./config/telnet.properties";
     public static final String  VERSION_FILE				= "./config/l2j-version.properties";
     public static final String  SIEGE_CONFIGURATION_FILE	= "./config/siege.properties";
-    public static final String  BANNED_IP_XML				= "./config/banned.xml";
     public static final String  HEXID_FILE					= "./config/hexid.txt";
     public static final String  COMMAND_PRIVILEGES_FILE     = "./config/command-privileges.properties";
     public static final String  SEVENSIGNS_FILE             = "./config/sevensigns.properties";
@@ -718,8 +717,6 @@ public final class Config {
     /** Properties file for fun engines */
     public static final String  FUN_ENGINES_FILE             = "./config/fun_engines.properties";
     
-    /** Properties file for externsions */
-    public static final String EXTENSION_FILE               = "./config/extensions.properties";
     public static final String	SAY_FILTER_FILE				= "./config/sayfilter.txt";
     
     public static boolean       CHECK_KNOWN;
@@ -2005,7 +2002,6 @@ public final class Config {
                 GM_STARTUP_AUTO_LIST = Boolean.parseBoolean(gmSettings.getProperty("GMStartupAutoList", "True"));
                 GM_HERO_AURA 	= Boolean.parseBoolean(gmSettings.getProperty("GMHeroAura", "True"));
                 GM_STARTUP_INVULNERABLE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvulnerable", "True"));
-                GM_AUDIT 		= Boolean.valueOf(gmSettings.getProperty("GMAudit", "False"));
                 STANDARD_RESPAWN_DELAY = Integer.parseInt(gmSettings.getProperty("StandardRespawnDelay", "0"));
                 
                 String gmTrans = gmSettings.getProperty("GMDisableTransaction", "False");
@@ -2049,12 +2045,14 @@ public final class Config {
                funEnginesSettings.load(is);
                is.close();
                
+               CTF_EVEN_TEAMS = funEnginesSettings.getProperty("CTFEvenTeams", "BALANCE");
                CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowInterference", "false"));
                CTF_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowPotions", "false"));
                CTF_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowSummon", "false"));
                CTF_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFOnStartRemoveAllEffects", "true"));
                CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFOnStartUnsummonPet", "true"));
-
+               
+               TVT_EVEN_TEAMS = funEnginesSettings.getProperty("TvTEvenTeams", "BALANCE");
                TVT_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowInterference", "false"));
                TVT_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowPotions", "false"));
                TVT_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowSummon", "false"));
@@ -2083,23 +2081,6 @@ public final class Config {
 	        catch (Exception e)
 	        {
 	        	_log.warn("Could not load HexID file ("+HEXID_FILE+"). Hopefully login will give us one.");
-	        }
-   
-	        /** Extensions Config */
-	        try
-	        {
-	        	Properties extensionSettings = new Properties();
-	        	InputStream is = new FileInputStream(new File(EXTENSION_FILE));
-
-	        	extensionSettings.load(is);
-	        	is.close();
-                TVT_EVEN_TEAMS = extensionSettings.getProperty("TvTEvenTeams", "BALANCE");
-                CTF_EVEN_TEAMS = extensionSettings.getProperty("CTFEvenTeams", "BALANCE");
-	        }
-	        catch (Exception e)
-	        {
-	        	//_log.error(e.getMessage(),e);
-	        	//throw new Error("Failed to Load " + EXTENSION_FILE + " File.");
 	        }
 	}
 	
