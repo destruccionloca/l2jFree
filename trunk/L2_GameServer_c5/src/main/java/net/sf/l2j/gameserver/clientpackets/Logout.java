@@ -91,15 +91,6 @@ public class Logout extends ClientBasePacket
             return;
         }
         
-        //prevent from player disconnect when in Observer Mode
-        if(player.inObserverMode()) {
-        	if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while in Observer Mode");
-            player.sendPacket(SystemMessage.sendString("You can't disconnect when in Observer Mode."));
-            player.sendPacket(new ActionFailed());
-            return;
-        }
-   
-     
         // Prevent player from logging out if they are a festival participant
         // and it is in progress, otherwise notify party members that the player
         // is not longer a participant.
