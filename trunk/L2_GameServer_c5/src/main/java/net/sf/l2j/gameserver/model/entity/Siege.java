@@ -895,20 +895,46 @@ public class Siege
      */
     private boolean checkIfCanRegister(L2PcInstance player)
     {
-        if (getIsRegistrationOver()) player.sendMessage("The deadline to register for the siege of "
+        if (getIsRegistrationOver()) 
+        {
+        	player.sendMessage("The deadline to register for the siege of "
             + getCastle().getName() + " has passed.");
-        else if (getIsInProgress()) player.sendMessage("This is not the time for siege registration and so registration and cancellation cannot be done.");
+        	return false;
+        }
+        else if (getIsInProgress()) 
+        {
+        	player.sendMessage("This is not the time for siege registration and so registration and cancellation cannot be done.");
+        	return false;
+        }
         else if (player.getClan() == null
-            || player.getClan().getLevel() < SiegeManager.getInstance().getSiegeClanMinLevel()) player.sendMessage("Only clans with Level "
+            || player.getClan().getLevel() < SiegeManager.getInstance().getSiegeClanMinLevel()) 
+        {
+        	player.sendMessage("Only clans with Level "
             + SiegeManager.getInstance().getSiegeClanMinLevel()
             + " and higher may register for a castle siege.");
-        else if (player.getClan().getHasCastle() > 0) player.sendMessage("You cannot register because your clan already own a castle.");
+        	return false;
+        }
+        else if (player.getClan().getHasCastle() > 0) 
+        {
+        	player.sendMessage("You cannot register because your clan already own a castle.");
+        	return false;
+        }
         else if (player.getClan().getClanId() == getCastle().getOwnerId())
+        {
             player.sendPacket(new SystemMessage(SystemMessage.CLAN_THAT_OWNS_CASTLE_IS_AUTOMATICALLY_REGISTERED_DEFENDING));
-        else if (SiegeManager.getInstance().checkIsRegistered(player.getClan(), getCastle().getCastleId())) player.sendMessage("You are already registered in a Siege.");
-        else return true;
-
-        return false;
+            return false;
+        }
+        else 
+        {
+        	for(int i=0; i<10; i++)
+        	{
+        		if (SiegeManager.getInstance().checkIsRegistered(player.getClan(), i)) {
+        			player.sendMessage("You are already registered in a Siege.");
+        			return false;
+        		}
+        	}
+        }
+        return true;
     }
 
     /**
