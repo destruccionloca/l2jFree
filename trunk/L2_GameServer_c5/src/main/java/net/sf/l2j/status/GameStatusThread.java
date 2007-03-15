@@ -652,7 +652,8 @@ public class GameStatusThread extends Thread
                 		else if(type.equals("npc"))
                 		{
                 			_print.print("Reloading npc templates... ");
-                			NpcTable.getInstance().reloadAllNpc();
+                			NpcTable.getInstance().cleanUp();
+                			NpcTable.getInstance().reloadAll();
                 			_print.print("done\n");
                 		}
                 		else if(type.equals("html"))

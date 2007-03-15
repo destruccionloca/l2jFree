@@ -353,6 +353,11 @@ public class SpawnTable
         fillSpawnTable();
     }
 
+    public void cleanUp()
+    { 
+    	_spawntable.clear();
+    }
+    
     /**
      * Get all the spawn of a NPC<BR><BR>
      * 

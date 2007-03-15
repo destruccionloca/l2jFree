@@ -237,7 +237,8 @@ public class AdminAdmin implements IAdminCommandHandler {
                 }
                 else if(type.equals("npc"))
                 {
-                    NpcTable.getInstance().reloadAllNpc();
+                	NpcTable.getInstance().cleanUp();
+                    NpcTable.getInstance().reloadAll();
                     activeChar.sendMessage("npcs reloaded");
                 }
                 else if(type.startsWith("htm"))

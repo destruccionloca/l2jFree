@@ -464,9 +464,14 @@ public class NpcTable
     }
 
     // just wrapper
-    public void reloadAllNpc()
+    public void reloadAll()
     {
         restoreNpcData();
+    }
+
+    public void cleanUp()
+    {
+    	_npcs.clear();
     }
     
     public void saveNpc(StatsSet npc)

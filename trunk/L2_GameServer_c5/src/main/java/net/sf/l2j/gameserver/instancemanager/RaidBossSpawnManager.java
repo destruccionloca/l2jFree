@@ -63,7 +63,12 @@ public class RaidBossSpawnManager {
     
     public RaidBossSpawnManager()
     {
-        init();
+        _bosses = new FastMap<Integer, L2RaidBossInstance>();
+        _schedules = new FastMap<Integer,ScheduledFuture>();
+        _storedInfo = new FastMap<Integer, StatsSet>();
+        _spawns = new FastMap<Integer, L2Spawn>();
+        
+    	init();
     }
     
     public static RaidBossSpawnManager getInstance()
@@ -76,10 +81,6 @@ public class RaidBossSpawnManager {
     
     private void init()
     {
-        _bosses = new FastMap<Integer, L2RaidBossInstance>();
-        _schedules = new FastMap<Integer,ScheduledFuture>();
-        _storedInfo = new FastMap<Integer, StatsSet>();
-        _spawns = new FastMap<Integer, L2Spawn>();
         
         Connection con = null;
         

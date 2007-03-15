@@ -189,9 +189,11 @@ public class AdminSpawn implements IAdminCommandHandler
             RaidBossSpawnManager.getInstance().cleanUp();
             DayNightSpawnManager.getInstance().cleanUp();
             L2World.getInstance().deleteVisibleNpcSpawns();
+            NpcTable.getInstance().cleanUp();
+            SpawnTable.getInstance().cleanUp();
             
             // now respawn all
-            NpcTable.getInstance().reloadAllNpc();
+            NpcTable.getInstance().reloadAll();
             SpawnTable.getInstance().reloadAll();
             RaidBossSpawnManager.getInstance().reloadBosses();
             GmListTable.broadcastMessageToGMs("NPC Respawn completed!");
