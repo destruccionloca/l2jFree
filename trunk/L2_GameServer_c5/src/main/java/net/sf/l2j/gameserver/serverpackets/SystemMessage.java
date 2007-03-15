@@ -399,6 +399,7 @@ public class SystemMessage extends ServerBasePacket
     public static final int STRIDER_IN_BATLLE_CANT_BE_RIDDEN = 1011;
     public static final int STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE = 1012;
     public static final int STRIDER_CAN_BE_RIDDEN_ONLY_WHILE_STANDING = 1013;
+    public static final int YOU_MAY_ONLY_RIDE_WYVERN_WHILE_RIDING_STRIDER = 1249;
 	
     //Summoning
     public static final int SUMMON_GAVE_DAMAGE_OF_S1 = 1026;
