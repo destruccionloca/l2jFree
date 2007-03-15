@@ -59,9 +59,6 @@ public class GameServerAuth extends ClientBasePacket
 		_max_palyers = readD();
 		int size = readD();
 		_hexID = readB(size);
-		
-		System.out.println(_gsNetConfig1);
-		System.out.println(_gsNetConfig2);
 	}
 
 	/**
