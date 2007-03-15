@@ -18,14 +18,9 @@
  */
 package net.sf.l2j.gameserver.model.entity;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
-import java.util.Properties;
-import java.util.StringTokenizer;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -39,6 +34,7 @@ import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeGuardManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.instancemanager.SiegeManager.SiegeSpawn;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -54,7 +50,6 @@ import net.sf.l2j.gameserver.serverpackets.SiegeInfo;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2j.gameserver.templates.StatsSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -250,10 +245,10 @@ public class Siege
     private int _Defender_RespawnDelay_Penalty;
 
     // Castle setting
-    private FastList<L2ArtefactInstance> _Artifact = new FastList<L2ArtefactInstance>();
-    private Castle[] _Castle;
+    private FastList<L2ArtefactInstance> _Artifacts = new FastList<L2ArtefactInstance>();
     private FastList<L2ControlTowerInstance> _ControlTowers = new FastList<L2ControlTowerInstance>();
-    private int[][] _ControlTowerSpawnList;
+    
+    private Castle[] _Castle;
     private boolean _IsInProgress = false;
     private boolean _IsNormalSide = true; // true = Atk is Atk, false = Atk is Def
     protected boolean _IsRegistrationOver = false;
@@ -431,12 +426,11 @@ public class Siege
 
             _IsNormalSide = true; // Atk is now atk
             _IsInProgress = true; // Flag so that same siege instance cannot be started again 
-            loadCastleSiege(); // Load castle specific data
             loadSiegeClan(); // Load siege clan from db
             teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town); // Teleport to the closest town
             //teleportPlayer(Siege.TeleportWhoType.Spectator, MapRegionTable.TeleportWhereType.Town);      // Teleport to the second closest town
             spawnArtifact(getCastle().getCastleId()); // Spawn artifact
-            spawnControlTower(); // Spawn control tower
+            spawnControlTower(getCastle().getCastleId()); // Spawn control tower
             getCastle().spawnDoor(); // Spawn door
             spawnSiegeGuard(); // Spawn siege guard
             MercTicketManager.getInstance().deleteTickets(getCastle().getCastleId()); // remove the tickets from the ground
@@ -970,33 +964,6 @@ public class Siege
         if (corrected) saveSiegeDate();
     }
 
-    /** Loads siege data for castle. */
-    private void loadCastleSiege()
-    {
-        try
-        {
-            InputStream is = new FileInputStream(new File(Config.SIEGE_CONFIGURATION_FILE));
-            Properties siegeSettings = new Properties();
-            siegeSettings.load(is);
-            is.close();
-
-            // Get control tower spawn coord
-            _ControlTowerSpawnList = new int[4][];
-            _ControlTowerSpawnList[0] = parseCoords(siegeSettings.getProperty(getCastle().getName()
-                + "ControlTower1", "0,0,0"));
-            _ControlTowerSpawnList[1] = parseCoords(siegeSettings.getProperty(getCastle().getName()
-                + "ControlTower2", "0,0,0"));
-            _ControlTowerSpawnList[2] = parseCoords(siegeSettings.getProperty(getCastle().getName()
-                + "ControlTower3", "0,0,0"));
-            _ControlTowerSpawnList[3] = parseCoords(siegeSettings.getProperty(getCastle().getName()
-                + "ControlTower4", "0,0,0"));
-        }
-        catch (Exception e)
-        {
-            _log.error("Exception: loadCastleSiege(): " + e.getMessage(),e);
-        }
-    }
-
     /** Load siege clans. */
     private void loadSiegeClan()
     {
@@ -1050,14 +1017,14 @@ public class Siege
     /** Remove artifacts spawned. */
     private void removeArtifact()
     {
-        if (_Artifact != null)
+        if (_Artifacts != null)
         {
             // Remove all instance of artifact for this castle
-            for (L2ArtefactInstance art : _Artifact)
+            for (L2ArtefactInstance art : _Artifacts)
             {
                 if (art != null) art.decayMe();
             }
-            _Artifact = null;
+            _Artifacts = null;
         }
     }
 
@@ -1232,106 +1199,45 @@ public class Siege
     private void spawnArtifact(int Id)
     {
         //Set artefact array size if one does not exist
-        if (_Artifact == null)
-            _Artifact = new FastList<L2ArtefactInstance>();
-        
-        L2ArtefactInstance art;
-        // Spawn Goddard artefacts
-        if(Id==7)
+        if (_Artifacts == null)
+            _Artifacts = new FastList<L2ArtefactInstance>();
+
+        for (SiegeSpawn _sp: SiegeManager.getInstance().getArtefactSpawnList(Id))
         {
-            for (int i = 0; i<2; i++)
-            {
-                art = new L2ArtefactInstance(
-                                             IdFactory.getInstance().getNextId(),
-                                             NpcTable.getInstance().getTemplate(
-                                                                                SiegeManager.getInstance().getArtifactSpawnList()[Id][4]));
-                art.setCurrentHpMp(art.getMaxHp(), art.getMaxMp());
-                art.setHeading(SiegeManager.getInstance().getArtifactSpawnList()[Id][3]);
-                art.spawnMe(
-                                SiegeManager.getInstance().getArtifactSpawnList()[Id][0],
-                                SiegeManager.getInstance().getArtifactSpawnList()[Id][1],
-                                SiegeManager.getInstance().getArtifactSpawnList()[Id][2] + 50);
-                Id++;
-                _Artifact.add(art);
-            }             
-        }
-        //Spawn Rune Artefact
-        else if (Id==8)
-        {
-            Id++;
-            art = new L2ArtefactInstance(
-                                         IdFactory.getInstance().getNextId(),
-                                         NpcTable.getInstance().getTemplate(
-                                                                            SiegeManager.getInstance().getArtifactSpawnList()[Id][4]));
-            art.setCurrentHpMp(art.getMaxHp(), art.getMaxMp());
-            art.setHeading(SiegeManager.getInstance().getArtifactSpawnList()[Id][3]);
-            art.spawnMe(
-                        SiegeManager.getInstance().getArtifactSpawnList()[Id][0],
-                        SiegeManager.getInstance().getArtifactSpawnList()[Id][1],
-                        SiegeManager.getInstance().getArtifactSpawnList()[Id][2] + 50);
-            _Artifact.add(art);
-        }
-        //Spawn Shutgard Artefacts
-        else if (Id==9)
-        {
-            for (int i = 0; i<2; i++)
-            {
-                Id++;
-                art = new L2ArtefactInstance(
-                                             IdFactory.getInstance().getNextId(),
-                                             NpcTable.getInstance().getTemplate(
-                                                                                SiegeManager.getInstance().getArtifactSpawnList()[Id][4]));
-                art.setCurrentHpMp(art.getMaxHp(), art.getMaxMp());
-                art.setHeading(SiegeManager.getInstance().getArtifactSpawnList()[Id][3]);
-                art.spawnMe(
-                                SiegeManager.getInstance().getArtifactSpawnList()[Id][0],
-                                SiegeManager.getInstance().getArtifactSpawnList()[Id][1],
-                                SiegeManager.getInstance().getArtifactSpawnList()[Id][2] + 50);
-                _Artifact.add(art);
-            }
-        }
-        //Spawn all rest castles artefacts
-        else
-        {
-            art = new L2ArtefactInstance(
-                                         IdFactory.getInstance().getNextId(),
-                                         NpcTable.getInstance().getTemplate(
-                                                                            SiegeManager.getInstance().getArtifactSpawnList()[Id][4]));
-            art.setCurrentHpMp(art.getMaxHp(), art.getMaxMp());
-            art.setHeading(SiegeManager.getInstance().getArtifactSpawnList()[Id][3]);
-            art.spawnMe(
-                        SiegeManager.getInstance().getArtifactSpawnList()[Id][0],
-                        SiegeManager.getInstance().getArtifactSpawnList()[Id][1],
-                        SiegeManager.getInstance().getArtifactSpawnList()[Id][2] + 50);
-            _Artifact.add(art);
+        	L2ArtefactInstance art;
+        	
+        	art = new L2ArtefactInstance(IdFactory.getInstance().getNextId(), NpcTable.getInstance().getTemplate(_sp.getNpcId()));
+        	art.setCurrentHpMp(art.getMaxHp(), art.getMaxMp());
+        	art.setHeading(_sp.getLocation().getHeading());
+        	art.spawnMe(_sp.getLocation().getX(),_sp.getLocation().getY(),_sp.getLocation().getZ() + 50);
+        	
+        	_Artifacts.add(art);
         }
     }
 
     /** Spawn control tower. */
-    private void spawnControlTower()
+    private void spawnControlTower(int Id)
     {
-        // Npc Id of control tower
-        L2NpcTemplate template = NpcTable.getInstance().getTemplate(13002);
+        //Set control tower array size if one does not exist
+        if (_ControlTowers == null)
+        	_ControlTowers = new FastList<L2ControlTowerInstance>();
 
-        // Set control tower array size if one does not exist
-        if (_ControlTowers == null || _ControlTowers.size() != _ControlTowerSpawnList.length)
-            _ControlTowers = new FastList<L2ControlTowerInstance>();
-
-        L2ControlTowerInstance ct;
-        for (int i = 0; i < _ControlTowerSpawnList.length; i++)
+        for (SiegeSpawn _sp: SiegeManager.getInstance().getControlTowerSpawnList(Id))
         {
-            StatsSet newStatSet = template.getStatsSet();
-            newStatSet.set("baseHpMax", _ControlTowerSpawnList[i][4]);
-            L2NpcTemplate controlTowerTemplate = new L2NpcTemplate(newStatSet);
-            controlTowerTemplate.addResist(Stats.POWER_DEFENCE,100);
-            controlTowerTemplate.addResist(Stats.BOW_WPN_RES,100);
-            controlTowerTemplate.addResist(Stats.BLUNT_WPN_RES,100);
-            controlTowerTemplate.addResist(Stats.DAGGER_WPN_RES,100);
-
-            ct = new L2ControlTowerInstance(IdFactory.getInstance().getNextId(), controlTowerTemplate);
+        	L2ControlTowerInstance ct;
+        	
+        	L2NpcTemplate template = NpcTable.getInstance().getTemplate(_sp.getNpcId());
+        	 
+            template.getStatsSet().set("baseHpMax", _sp.getHp());
+            template.addResist(Stats.POWER_DEFENCE,100);
+            template.addResist(Stats.BOW_WPN_RES,100);
+            template.addResist(Stats.BLUNT_WPN_RES,100);
+            template.addResist(Stats.DAGGER_WPN_RES,100);
+            
+            ct = new L2ControlTowerInstance(IdFactory.getInstance().getNextId(), template);
             ct.setCurrentHpMp(ct.getMaxHp(), ct.getMaxMp());
-            ct.spawnMe(_ControlTowerSpawnList[i][0], _ControlTowerSpawnList[i][1],
-                       _ControlTowerSpawnList[i][2] + 20);
+            ct.spawnMe(_sp.getLocation().getX(),_sp.getLocation().getY(),_sp.getLocation().getZ() + 20);
+        	
             _ControlTowers.add(ct);
         }
     }
@@ -1375,36 +1281,6 @@ public class Siege
             }
         }
     }
-
-    // ===============================================================
-    // Method - Util
-    // Coordinate parser
-    private static int[] parseCoords(String coordString)
-    {
-        int[] coords = new int[5];
-        StringTokenizer st = new StringTokenizer(coordString, ",");
-
-        for (int i = 0; i < 3; i++)
-        {
-            coords[i] = Integer.decode(st.nextToken().trim());
-        }
-        coords[3] = -1;
-        coords[4] = 6000;
-        if (st.hasMoreTokens()) coords[3] = Integer.decode(st.nextToken().trim());
-        if (st.hasMoreTokens()) coords[4] = Integer.decode(st.nextToken().trim());
-        return coords;
-    }
-
-    // =========================================================
-    // Proeprty
- /*   public final L2ArtefactInstance getArtifact()
-    {
-        if (_Artifact == null)
-        {
-            loadCastleSiege();
-        }
-        return _Artifact;
-    }*/
 
     public final L2SiegeClan getAttackerClan(L2Clan clan)
     {

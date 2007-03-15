@@ -585,7 +585,9 @@ public final class Config {
     public static boolean ALLOWFISHING;
     /** Allow Manor system */
     public static boolean ALLOW_MANOR;
-
+    /** Allow guards against aggressive monsters */
+    public static boolean ALLOW_GUARDS;
+    
     /** GeoData On/Off */
     public static boolean GEODATA;
     /** Force loading GeoData to psychical memory */
@@ -742,7 +744,7 @@ public final class Config {
     public static int           LINKED_NODE_ID;
     public static String        NEW_NODE_TYPE;
     public static boolean       FORCE_INVENTORY_UPDATE;
-    public static boolean       ALLOW_GUARDS;
+
     public static boolean       SPAWN_CLASS_MASTER;
     public static String        CLASS_MASTER_SETTINGS_LINE;
     public static ClassMasterSettings  CLASS_MASTER_SETTINGS;
@@ -1293,6 +1295,7 @@ public final class Config {
                 ALLOW_BOAT                      = Boolean.valueOf(optionsSettings.getProperty("AllowBoat", "False"));
                 ALLOW_CURSED_WEAPONS            = Boolean.valueOf(optionsSettings.getProperty("AllowCursedWeapons", "False"));
                 ALLOW_WEDDING                   = Boolean.valueOf(optionsSettings.getProperty("AllowWedding", "False"));
+                ALLOW_GUARDS        			= Boolean.valueOf(optionsSettings.getProperty("AllowGuards", "False"));
                 FISHINGMODE                     = optionsSettings.getProperty("FishingMode", "water");                
                
                 ALLOW_L2WALKER_CLIENT           = L2WalkerAllowed.valueOf(optionsSettings.getProperty("AllowL2Walker", "False"));
@@ -1484,7 +1487,6 @@ public final class Config {
 	            is.close();
 	            
 	            DEEPBLUE_DROP_RULES = Boolean.parseBoolean(otherSettings.getProperty("UseDeepBlueDropRules", "True"));
-	            ALLOW_GUARDS        = Boolean.valueOf(otherSettings.getProperty("AllowGuards", "False"));
 	            EFFECT_CANCELING    = Boolean.valueOf(otherSettings.getProperty("CancelLesserEffect", "True"));
 	            WYVERN_SPEED        = Integer.parseInt(otherSettings.getProperty("WyvernSpeed", "100"));         
 	            STRIDER_SPEED       = Integer.parseInt(otherSettings.getProperty("StriderSpeed", "80"));
@@ -2171,7 +2173,6 @@ public final class Config {
 
         // Other settings
         else if (pName.equalsIgnoreCase("UseDeepBlueDropRules")) DEEPBLUE_DROP_RULES = Boolean.valueOf(pValue);
-        else if (pName.equalsIgnoreCase("AllowGuards")) ALLOW_GUARDS = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("CancelLesserEffect")) EFFECT_CANCELING = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("WyvernSpeed")) WYVERN_SPEED = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("StriderSpeed")) STRIDER_SPEED = Integer.parseInt(pValue);
