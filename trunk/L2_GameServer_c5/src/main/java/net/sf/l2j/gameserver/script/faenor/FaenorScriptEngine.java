@@ -34,8 +34,6 @@ import net.sf.l2j.gameserver.script.ScriptDocument;
 import net.sf.l2j.gameserver.script.ScriptEngine;
 import net.sf.l2j.gameserver.script.ScriptPackage;
 
-import org.apache.bsf.BSFException;
-import org.apache.bsf.BSFManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
@@ -46,8 +44,8 @@ import org.w3c.dom.Node;
  */
 public class FaenorScriptEngine extends ScriptEngine
 {
-    static Log _log = LogFactory.getLog(GameServer.class.getName());
-    public final static String PACKAGE_DIRECTORY = "data/script/";
+    private static Log _log = LogFactory.getLog(GameServer.class.getName());
+    public static String PACKAGE_DIRECTORY = "data/script/";
 
     private static FaenorScriptEngine instance;
 
@@ -73,13 +71,14 @@ public class FaenorScriptEngine extends ScriptEngine
 
     public void reloadPackages()
     {
+        scripts.clear();
         scripts = new LinkedList<ScriptDocument>();
         parsePackages();
     }
 
     private void loadPackages()
     {
-        File packDirectory = new File(Config.DATAPACK_ROOT, PACKAGE_DIRECTORY);//_log.sss(packDirectory.getAbsolutePath());
+        File packDirectory = new File(Config.DATAPACK_ROOT, PACKAGE_DIRECTORY);
 
         FileFilter fileFilter = new FileFilter() {
             public boolean accept(File file)
@@ -120,50 +119,15 @@ public class FaenorScriptEngine extends ScriptEngine
         }
     }
 
-    public void orderScripts()
-    {
-        if (scripts.size() > 1)
-        {
-            //ScriptDocument npcInfo = null;
-
-            for (int i = 0; i < scripts.size();)
-            {
-                if (scripts.get(i).getName().contains("NpcStatData"))
-                {
-                    scripts.addFirst(scripts.remove(i));
-                    //scripts.set(i, scripts.get(0));
-                    //scripts.set(0, npcInfo);
-                }
-                else
-                {
-                    i++;
-                }
-            }
-        }
-    }
-
     public void parsePackages()
     {
-        BSFManager context = new BSFManager();
-        try
+        for (ScriptDocument script : scripts)
         {
-            context.eval("beanshell", "core", 0, 0, "double log1p(double d) { return Math.log1p(d); }");
-            context.eval("beanshell", "core", 0, 0,
-                         "double pow(double d, double p) { return Math.pow(d,p); }");
-
-            for (ScriptDocument script : scripts)
-            {
-                parseScript(script, context);
-                //_log.debugr(script.getName());
-            }
-        }
-        catch (BSFException e)
-        {
-            _log.error(e.getMessage(),e);
+            parseScript(script);
         }
     }
 
-    public void parseScript(ScriptDocument script, BSFManager context)
+    public void parseScript(ScriptDocument script)
     {
         if (_log.isDebugEnabled()) _log.debug("Parsing Script: " + script.getName());
 
@@ -188,8 +152,8 @@ public class FaenorScriptEngine extends ScriptEngine
 
         try
         {
-            parser.parseScript(node, context);
-            _log.debug(script.getName() + "Script Sucessfullty Parsed.");
+            parser.parseScript(node);
+            if (_log.isDebugEnabled())_log.debug(script.getName() + "Script Successfully Parsed.");
         }
         catch (Exception e)
         {

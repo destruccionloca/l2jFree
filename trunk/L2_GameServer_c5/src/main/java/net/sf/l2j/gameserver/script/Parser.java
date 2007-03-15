@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver.script;
 
-import org.apache.bsf.BSFManager;
 import org.w3c.dom.Node;
 
 /**
@@ -27,5 +26,5 @@ import org.w3c.dom.Node;
  */
 public abstract class Parser
 {
-    public abstract void parseScript(Node node, BSFManager context);
+    public abstract void parseScript(Node node);
 }

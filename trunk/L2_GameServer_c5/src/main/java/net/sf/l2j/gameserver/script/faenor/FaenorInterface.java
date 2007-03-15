@@ -18,23 +18,17 @@
  */
 package net.sf.l2j.gameserver.script.faenor;
 
-import java.util.List;
-import javolution.util.FastList;
-import javolution.util.FastMap;
+import java.util.Map;
+
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.datatables.EventDroplist;
-import net.sf.l2j.gameserver.model.L2DropData;
+import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.model.L2DropCategory;
+import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2PetData;
 import net.sf.l2j.gameserver.script.DateRange;
 import net.sf.l2j.gameserver.script.EngineInterface;
-import net.sf.l2j.gameserver.script.Expression;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-
-import org.apache.bsf.BSFException;
-import org.apache.bsf.BSFManager;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Luis Arias
@@ -44,8 +38,10 @@ import org.apache.commons.logging.LogFactory;
  */
 public class FaenorInterface implements EngineInterface
 {
-    private final static Log _log = LogFactory.getLog(FaenorInterface.class);
+//    private final static Log _log = LogFactory.getLog(FaenorInterface.class);
     private static FaenorInterface _instance;
+    
+    public NpcTable _npcTable = NpcTable.getInstance();
     
     public static FaenorInterface getInstance()
     {
@@ -56,17 +52,8 @@ public class FaenorInterface implements EngineInterface
         return _instance;
     }
     
-    public FaenorInterface()
+    private FaenorInterface()
     {
-    }
-
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.script.EngineInterface#getAllPlayers()
-     */
-    public List getAllPlayers()
-    {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     /**
@@ -92,29 +79,6 @@ public class FaenorInterface implements EngineInterface
         addDrop(npc, drop, false);
     }
 
-    /**
-     * 
-     * Adds a new Drop to an NPC
-     * 
-     * @see net.sf.l2j.gameserver.script.EngineInterface#addQuestDrop(int)
-     */
-    public void addDrop(int npcID, int itemID, int min, int max, boolean sweep, int chance) throws NullPointerException
-    {
-        L2NpcTemplate npc = _npcTable.getTemplate(npcID);
-        if (npc == null)
-        {
-            _log.warn("Try to add drop to Npc but Npc doesnt Exist (npc = null). npcID="+npcID);
-            throw new NullPointerException();
-        }
-        L2DropData drop = new L2DropData();
-        drop.setItemId(itemID);
-        drop.setMinDrop(min);
-        drop.setMaxDrop(max);
-        drop.setChance(chance);
-
-        addDrop(npc, drop, sweep);
-    }
-    
    /**
     * Adds a new drop to an NPC.  If the drop is sweep, it adds it to the NPC's Sweep category
     * If the drop is non-sweep, it creates a new category for this drop. 
@@ -155,28 +119,6 @@ public class FaenorInterface implements EngineInterface
        npc.addDropData(drop, category);
     }
 
-    /**
-     * @return Returns the _questDrops.
-     */
-    public List getQuestDrops(int npcID)
-    {
-        L2NpcTemplate npc = _npcTable.getTemplate(npcID);
-        if (npc == null)
-        {
-            return null;
-        }
-        FastList<L2DropData> questDrops = new FastList<L2DropData>();
-        for (L2DropCategory cat:npc.getDropData())
-        for (L2DropData drop : cat.getAllDrops() )
-        {
-            if (drop.getQuestID() != null)
-            {
-                questDrops.add(drop);
-            }
-        }
-        return questDrops;
-    }
-    
     public void addEventDrop(int[] items, int[] count, double chance, DateRange range)
     {
         EventDroplist.getInstance().addGlobalDrop(items, count, (int)(chance * L2DropData.MAX_CHANCE), range);
@@ -187,8 +129,8 @@ public class FaenorInterface implements EngineInterface
         Announcements.getInstance().addEventAnnouncement(validDateRange, message);
     }
     
-    public void addPetData(BSFManager context, int petID, int levelStart, int levelEnd, FastMap<String, String> stats)
-		throws BSFException
+    
+    public void addPetData(int petID, int levelStart, int levelEnd, Map<String, String> stats)
     {
         L2PetData[] petData = new L2PetData[levelEnd - levelStart + 1];
         int value           = 0;
@@ -198,15 +140,11 @@ public class FaenorInterface implements EngineInterface
             petData[level - 1].setPetID(petID);
             petData[level - 1].setPetLevel(level);
             
-	        context.declareBean("level", new Double(level), Double.TYPE);
             for (String stat : stats.keySet())
             {
-				value = ((Number)Expression.eval(context, "beanshell", stats.get(stat))).intValue();
+				value = Integer.parseInt(stats.get(stat));
                 petData[level - 1].setStat(stat, value);
             }
-	        context.undeclareBean("level");
         }
-
     }
-
 }

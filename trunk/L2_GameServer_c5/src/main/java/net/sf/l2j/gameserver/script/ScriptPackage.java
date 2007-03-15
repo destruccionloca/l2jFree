@@ -30,35 +30,29 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * ScriptPackage is able to read a zip file and extract a list of ScriptDocument from it
+ * If the zip file doesn't contain any xml file, it is considered as an empty package.
+ * Only xml file are read !
+ * If a xml file is found but the ScriptDocument can't be extracted (the xml is not a valid script for sure)
+ * we just log the error but the treatment continue. 
+ * 
  * @author Luis Arias
  *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 public class ScriptPackage
 {
     private final static Log _log = LogFactory.getLog(ScriptPackage.class);
     
     private List<ScriptDocument> scriptFiles;
-    private List<String> otherFiles;
     private String name;
     
     public ScriptPackage(ZipFile pack)
     {
         scriptFiles = new FastList<ScriptDocument>();
-        otherFiles = new FastList<String>();
         name = pack.getName();
         addFiles(pack);
     }
     
-    /**
-     * @return Returns the otherFiles.
-     */
-    public List<String> getOtherFiles()
-    {
-        return otherFiles;
-    }
-
     /**
      * @return Returns the scriptFiles.
      */
@@ -86,7 +80,7 @@ public class ScriptPackage
             }
             else if (!entry.isDirectory())
             {   
-                otherFiles.add(entry.getName());
+                // ignore it
             }
         }
     }
@@ -100,8 +94,8 @@ public class ScriptPackage
     
     public String toString()
     {
-        if (getScriptFiles().isEmpty() && getOtherFiles().isEmpty())
-            return "Empty Package.";
+        if (getScriptFiles().isEmpty())
+            return "Empty script Package.";
         
         String out = "Package Name: "+getName()+"\n";
         
@@ -114,14 +108,6 @@ public class ScriptPackage
             }
         }
         
-        if (!getOtherFiles().isEmpty())
-        {
-            out += "Other Files...\n";
-            for (String fileName : getOtherFiles())
-            {
-                out += fileName+"\n";
-            }
-        }
         return out;
     }
 }

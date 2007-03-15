@@ -22,7 +22,6 @@ import net.sf.l2j.gameserver.script.Parser;
 import net.sf.l2j.gameserver.script.ParserFactory;
 import net.sf.l2j.gameserver.script.ScriptEngine;
 
-import org.apache.bsf.BSFManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
@@ -35,7 +34,7 @@ public class FaenorQuestParser extends FaenorParser
 {
     private final static Log _log = LogFactory.getLog(FaenorQuestParser.class.getName());
     
-    public void parseScript(Node questNode, @SuppressWarnings("unused") BSFManager context)
+    public void parseScript(Node questNode)
     {
         if (_log.isDebugEnabled()) _log.debug("Parsing Quest.");
         
@@ -112,6 +111,6 @@ public class FaenorQuestParser extends FaenorParser
 
     static
     {
-        ScriptEngine.parserFactories.put(getParserName("Quest"), new FaenorQuestParserFactory());
+        ScriptEngine.getParserFactories().put(getParserName("Quest"), new FaenorQuestParserFactory());
     }
 }

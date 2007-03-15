@@ -24,7 +24,6 @@ import net.sf.l2j.gameserver.script.Parser;
 import net.sf.l2j.gameserver.script.ParserFactory;
 import net.sf.l2j.gameserver.script.ScriptEngine;
 
-import org.apache.bsf.BSFManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
@@ -39,7 +38,7 @@ public class FaenorWorldDataParser extends FaenorParser
     //Script Types
     private final static String PET_DATA        = "PetData";
     
-    public void parseScript(Node eventNode, BSFManager context)
+    public void parseScript(Node eventNode)
     {
         if (_log.isDebugEnabled()) _log.debug("Parsing WorldData");
         
@@ -47,7 +46,7 @@ public class FaenorWorldDataParser extends FaenorParser
             
             if (isNodeName(node, PET_DATA))
             {
-                parsePetData(node, context);
+                parsePetData(node);
             }
         }
     }
@@ -64,7 +63,7 @@ public class FaenorWorldDataParser extends FaenorParser
         }
     }
 
-    private void parsePetData(Node petNode, BSFManager context)
+    private void parsePetData(Node petNode)
     {
         PetData petData = new PetData();
         
@@ -82,7 +81,7 @@ public class FaenorWorldDataParser extends FaenorParser
                     parseStat(node, petData);
                 }
             }
-            bridge.addPetData(context, petData.petID, petData.levelStart, petData.levelEnd, petData.statValues);
+            bridge.addPetData(petData.petID, petData.levelStart, petData.levelEnd, petData.statValues);
         } 
         catch (Exception e)
         {
@@ -93,8 +92,6 @@ public class FaenorWorldDataParser extends FaenorParser
 
     private void parseStat(Node stat, PetData petData)
     {
-        //if (_log.isDebugEnabled()) _log.debugr("Parsing Pet Statistic.");
-
         try
         {
             String statName     = attribute(stat, "Name");
@@ -130,6 +127,6 @@ public class FaenorWorldDataParser extends FaenorParser
 
     static
     {
-        ScriptEngine.parserFactories.put(getParserName("WorldData"), new FaenorWorldDataParserFactory());
+        ScriptEngine.getParserFactories().put(getParserName("WorldData"), new FaenorWorldDataParserFactory());
     }
 }

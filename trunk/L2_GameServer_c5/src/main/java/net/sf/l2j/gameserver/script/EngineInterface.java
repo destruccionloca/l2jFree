@@ -18,61 +18,24 @@
  */
 package net.sf.l2j.gameserver.script;
 
-import net.sf.l2j.gameserver.Announcements;
-import net.sf.l2j.gameserver.GameTimeController;
-import net.sf.l2j.gameserver.RecipeController;
-import net.sf.l2j.gameserver.datatables.CharNameTable;
-import net.sf.l2j.gameserver.datatables.CharTemplateTable;
-import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.datatables.ItemTable;
-import net.sf.l2j.gameserver.datatables.LevelUpData;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
-import net.sf.l2j.gameserver.datatables.NpcTable;
-import net.sf.l2j.gameserver.datatables.SkillTable;
-import net.sf.l2j.gameserver.datatables.SkillTreeTable;
-import net.sf.l2j.gameserver.datatables.SpawnTable;
-import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
-import net.sf.l2j.gameserver.idfactory.IdFactory;
-import net.sf.l2j.gameserver.model.L2World;
+import java.util.Map;
+
+import net.sf.l2j.gameserver.model.L2DropData;
+import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+
 
 /**
  * @author Luis Arias
  *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ * Define the contract for any engine interface. You should be able to add drop, 
+ * quest drop, event drop, modify pet stats and make action on player login
  */
 public interface EngineInterface
 {
-    //*  keep the references of Singletons to prevent garbage collection
-    public CharNameTable _charNametable = CharNameTable.getInstance();
-
-    public IdFactory _idFactory = IdFactory.getInstance();
-    public ItemTable _itemTable = ItemTable.getInstance();
-    
-    public SkillTable _skillTable = SkillTable.getInstance();
-    
-    public RecipeController _recipeController = RecipeController.getInstance();
-    
-    public SkillTreeTable _skillTreeTable = SkillTreeTable.getInstance();
-    public CharTemplateTable _charTemplates = CharTemplateTable.getInstance();
-    public ClanTable _clanTable = ClanTable.getInstance();
-
-    public NpcTable _npcTable = NpcTable.getInstance();
-    
-    public TeleportLocationTable _teleTable = TeleportLocationTable.getInstance();
-    public LevelUpData _levelUpData = LevelUpData.getInstance();
-    public L2World _world = L2World.getInstance();   
-    public SpawnTable _spawnTable = SpawnTable.getInstance();
-    public GameTimeController _gameTimeController = GameTimeController.getInstance();
-    public Announcements _announcements = Announcements.getInstance();
-    public MapRegionTable _mapRegions = MapRegionTable.getInstance();
-    
-    
-    
-    //public ArrayList getAllPlayers();
-    //public Player getPlayer(String characterName);
     public void addQuestDrop(int npcID, int itemID, int min, int max, int chance, String questID, String[] states);
+    public void addDrop(L2NpcTemplate npc, L2DropData drop, boolean sweep);
+    public void addDrop(L2NpcTemplate npc, L2DropData drop, int category);
     public void addEventDrop(int[] items, int[] count, double chance, DateRange range);
+    public void addPetData(int petID, int levelStart, int levelEnd, Map<String, String> stats) ;
     public void onPlayerLogin(String[] message, DateRange range);
-
 }

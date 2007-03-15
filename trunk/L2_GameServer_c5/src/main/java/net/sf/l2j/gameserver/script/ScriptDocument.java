@@ -37,11 +37,13 @@ import org.xml.sax.SAXException;
 public class ScriptDocument
 {
     private final static Log _log = LogFactory.getLog(ScriptDocument.class);
-    private Document document; 
-    private String _name;
+    private Document document=null; 
+    private String _name=null;
     
     public ScriptDocument(String name, InputStream input)
     {
+        if ( input == null )
+            return ;
         _name = name;
         
         DocumentBuilderFactory factory =
@@ -52,10 +54,7 @@ public class ScriptDocument
  
         } catch (SAXException sxe) {
            // Error generated during parsing)
-           Exception  x = sxe;
-           if (sxe.getException() != null)
-               x = sxe.getException();
-           _log.error(x.getMessage(),x);
+           _log.error("Invalid document "+name+". Error = "+sxe.getMessage());
 
         } catch (ParserConfigurationException pce) {
             // Parser with specified options can't be built

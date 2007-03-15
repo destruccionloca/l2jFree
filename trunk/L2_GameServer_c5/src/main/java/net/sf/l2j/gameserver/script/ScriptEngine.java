@@ -18,9 +18,9 @@
  */
 package net.sf.l2j.gameserver.script;
 
+import java.util.HashMap;
 import java.util.Hashtable;
-
-import net.sf.l2j.gameserver.script.faenor.FaenorInterface;
+import java.util.Map;
 
 
 
@@ -32,8 +32,7 @@ import net.sf.l2j.gameserver.script.faenor.FaenorInterface;
  */
 public class ScriptEngine
 {
-    protected EngineInterface _utils = new FaenorInterface();
-    public static Hashtable<String, ParserFactory> parserFactories = new Hashtable<String, ParserFactory>();
+    private static Map<String, ParserFactory> parserFactories = new HashMap<String, ParserFactory>();
 
     protected static Parser createParser(String name)
         throws ParserNotCreatedException
@@ -63,5 +62,15 @@ public class ScriptEngine
             }
         }
         return(s.create());
+    }
+
+    public static Map<String, ParserFactory> getParserFactories()
+    {
+        return parserFactories;
+    }
+
+    public static void setParserFactories(Hashtable<String, ParserFactory> parserFactories)
+    {
+        ScriptEngine.parserFactories = parserFactories;
     }
 }

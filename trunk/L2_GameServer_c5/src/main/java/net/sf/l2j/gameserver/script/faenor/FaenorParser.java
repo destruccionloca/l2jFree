@@ -26,7 +26,6 @@ import java.util.Locale;
 
 import net.sf.l2j.gameserver.script.Parser;
 
-import org.apache.bsf.BSFManager;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -126,5 +125,5 @@ public abstract class FaenorParser extends Parser
     /**
      * @param script
      */
-    public abstract void parseScript(Node node, BSFManager context);
+    public abstract void parseScript(Node node);
 }
