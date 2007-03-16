@@ -509,6 +509,7 @@ public class L2PetInstance extends L2Summon
 
         // stopDecay
         DecayTaskManager.getInstance().cancelDecayTask(this);
+        super.stopDecay();
         startFeed(false);
     }
 
@@ -856,10 +857,10 @@ public class L2PetInstance extends L2Summon
         stopHpMpRegeneration();
         super.unSummon(owner);
         
-        /* if dead - will be restored with hp=0
-        if(!isDead())
-        */
+		if(!isDead()){
+			store();
             L2World.getInstance().removePet(owner.getObjectId());
+		}
     }
 
     /**

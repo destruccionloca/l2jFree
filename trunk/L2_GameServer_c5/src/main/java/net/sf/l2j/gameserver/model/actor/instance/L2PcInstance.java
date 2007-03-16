@@ -9101,6 +9101,14 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void deleteMe()
     {
+		// If the L2PcInstance has Pet, unsummon it
+		if (getPet() != null){
+			try { 
+				getPet().decayMe();
+				getPet().unSummon(this); 
+			} catch (Throwable t) {_log.fatal("deletedMe()", t); }// returns pet to control item
+		}
+		
         // Check if the L2PcInstance is in observer mode to set its position to its position before entering in observer mode
         if (inObserverMode()) setXYZ(_obsX, _obsY, _obsZ);
 
@@ -9162,19 +9170,6 @@ public final class L2PcInstance extends L2PlayableInstance
         catch (Throwable t)
         {
             _log.fatal( "deletedMe()", t);
-        }
-
-        // If the L2PcInstance has Pet, unsummon it
-        if (getPet() != null)
-        {
-            try
-            {
-                getPet().unSummon(this);
-            }
-            catch (Throwable t)
-            {
-                _log.fatal( "deletedMe()", t);
-            }// returns pet to control item
         }
 
         if (getClanId() != 0 && getClan() != null)
