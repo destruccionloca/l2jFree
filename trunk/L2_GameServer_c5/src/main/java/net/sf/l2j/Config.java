@@ -745,6 +745,7 @@ public final class Config {
     public static String        NEW_NODE_TYPE;
     public static boolean       FORCE_INVENTORY_UPDATE;
 
+    public static boolean       SPAWN_WYVERN_MANAGER;
     public static boolean       SPAWN_CLASS_MASTER;
     public static String        CLASS_MASTER_SETTINGS_LINE;
     public static ClassMasterSettings  CLASS_MASTER_SETTINGS;
@@ -1741,6 +1742,7 @@ public final class Config {
                 ALT_GAME_EXPONENT_XP    = Float.parseFloat(altSettings.getProperty("AltGameExponentXp", "0."));
 	            ALT_GAME_EXPONENT_SP    = Float.parseFloat(altSettings.getProperty("AltGameExponentSp", "0."));
 	            
+	            SPAWN_WYVERN_MANAGER      = Boolean.valueOf(altSettings.getProperty("SpawnWyvernManager", "True"));
 	            SPAWN_CLASS_MASTER      = Boolean.valueOf(altSettings.getProperty("SpawnClassMaster", "False"));
 	            if (!altSettings.getProperty("ConfigClassMaster").equalsIgnoreCase("False"))
 	            	CLASS_MASTER_SETTINGS_LINE = altSettings.getProperty("ConfigClassMaster");

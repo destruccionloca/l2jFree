@@ -96,6 +96,10 @@ public class SpawnTable
                     {
                         // Dont' spawn class masters
                     }
+                    else if (!Config.SPAWN_WYVERN_MANAGER && template1.type.equals("L2WyvernManager"))
+                    {
+                        // Dont' spawn wyvern managers
+                    }
                     else
                     {
                         spawnDat = new L2Spawn(template1);

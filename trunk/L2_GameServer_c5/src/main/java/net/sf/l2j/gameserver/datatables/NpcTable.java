@@ -535,46 +535,4 @@ public class NpcTable
     {
         return _npcs;
     }
-    /*
-    public L2NpcTemplate getTemplateByName(String name)
-    {
-        for (L2NpcTemplate npcTemplate : _npcs.values())
-            if (npcTemplate.name.equalsIgnoreCase(name))
-                return npcTemplate;
-       
-        return null;
-    }
-
-    public L2NpcTemplate[] getAllOfLevel(int lvl)
-    {
-        FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
-        
-        for (L2NpcTemplate t : _npcs.values())
-            if (t.level == lvl)
-                list.add(t);
-
-        return list.toArray(new L2NpcTemplate[list.size()]);
-    }
-    
-    public L2NpcTemplate[] getAllMonstersOfLevel(int lvl)
-    {
-       FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
-        
-       for (L2NpcTemplate t : _npcs.values())
-           if (t.level == lvl && "L2Monster".equals(t.type))
-               list.add(t);
-
-       return list.toArray(new L2NpcTemplate[list.size()]);
-    }
-    
-    public L2NpcTemplate[] getAllNpcStartingWith(String letter)
-    {
-       FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
-           
-       for (L2NpcTemplate t : _npcs.values())
-           if (t.name.startsWith(letter) && "L2Npc".equals(t.type))
-               list.add(t);
-   
-       return list.toArray(new L2NpcTemplate[list.size()]);
-    }    */
 }
