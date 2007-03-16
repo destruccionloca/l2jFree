@@ -14,14 +14,13 @@
   <set name="hitTime" val="4000"/>
   <set name="reuseDelay" val="9000"/>
   <set name="skillTime" val="4000"/>
-  <set name="target" val="TARGET_AREA"/>
+  <set name="target" val="TARGET_AREA_UNDEAD"/>
   <set name="skillRadius" val="200"/>
   <set name="skillType" val="FEAR"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
   <set name="effectRange" val="1400"/>
   <set name="isMagic" val="true"/>
-  <cond msg="Your target is not undead"><target undead="true"/></cond>  
   <for>
     <effect count="5" name="Fear" time="6" val="0"/>
   </for>

@@ -1800,7 +1800,7 @@
   <set name="power" val="40"/>
   <set name="lvlDepend" val="2"/>
   <set name="magicLvl" val="#magicLvl"/>
-  <set name="target" val="TARGET_AREA"/>
+  <set name="target" val="TARGET_AREA_UNDEAD"/>
   <set name="skillRadius" val="200"/>
   <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="8000"/>
@@ -1810,7 +1810,6 @@
   <set name="buffDuration" val="60000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
-  <cond msg="Your target is not undead"><target undead="true"/></cond>  
   <for>
     <effect name="Buff" time="60" count="1" val="0" stackOrder="0.77" stackType="pAtkDown">
       <mul order="0x30" stat="pAtk" val="0.77"/>
