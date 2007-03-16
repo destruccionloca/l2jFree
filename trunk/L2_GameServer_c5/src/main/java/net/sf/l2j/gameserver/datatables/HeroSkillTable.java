@@ -48,4 +48,14 @@ public class HeroSkillTable
     {
         return _HeroSkills;
     }
+    
+	public boolean isHeroSkill(int skillId)
+	{ 
+		for (L2Skill skill : GetHeroSkills()) 
+		{ 
+			if (skill.getId()==skillId) 
+				return true; 
+		}
+		return false; 
+	}
 }

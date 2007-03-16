@@ -43,13 +43,16 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.OlympiadStadiaManager;
+import net.sf.l2j.gameserver.model.Inventory; 
 import net.sf.l2j.gameserver.model.L2Effect;
+import net.sf.l2j.gameserver.model.L2ItemInstance; 
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.entity.Hero;
+import net.sf.l2j.gameserver.serverpackets.InventoryUpdate; 
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfo;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -77,11 +80,11 @@ public class Olympiad
     private static final String OLYMPIAD_UPDATE_NOBLES = "UPDATE olympiad_nobles set " +
             "olympiad_points = ?, competitions_done = ? where char_id = ?";
     private static final String OLYMPIAD_GET_HEROS = "SELECT char_id, char_name from " +
-            "olympiad_nobles where class_id = ? and competitions_done >= 5 order by " +
-            "competitions_done desc, olympiad_points desc";
+            "olympiad_nobles where class_id = ? and competitions_done >= 9 order by " +
+            "olympiad_points desc, competitions_done desc";
     private static final String GET_EACH_CLASS_LEADER = "SELECT char_name from " +
-            "olympiad_nobles where class_id = ? order by competitions_done, " +
-            "olympiad_points desc";
+            "olympiad_nobles where class_id = ? order by olympiad_points desc, " +
+            "competitions_done desc";
     private static final String OLYMPIAD_DELETE_ALL = "DELETE from olympiad_nobles";
     
     private static final int COMP_START = Config.ALT_OLY_START_TIME; // 8PM - 12AM
@@ -438,19 +441,25 @@ public class Olympiad
         if (_classBasedRegisters.containsKey(noble.getClassId().getId()))
         {
             FastList<L2PcInstance> classed = _classBasedRegisters.get(noble.getClassId().getId());
-            if (classed.contains(noble))
+            for (L2PcInstance partecipant: classed)
             {
-                sm = new SystemMessage(SystemMessage.YOU_ARE_ALREADY_ON_THE_WAITING_LIST_TO_PARTICIPATE_IN_THE_GAME_FOR_YOUR_CLASS);
-                noble.sendPacket(sm);
-                return false;
+            	if (partecipant.getObjectId()==noble.getObjectId())
+            	{
+            		sm = new SystemMessage(SystemMessage.YOU_ARE_ALREADY_ON_THE_WAITING_LIST_TO_PARTICIPATE_IN_THE_GAME_FOR_YOUR_CLASS);
+            		noble.sendPacket(sm);
+            		return false;
+            	}
             }
         }
         
-        if (_nonClassBasedRegisters.contains(noble))
+        for (L2PcInstance partecipant: _nonClassBasedRegisters)
         {
-            sm = new SystemMessage(SystemMessage.YOU_ARE_ALREADY_ON_THE_WAITING_LIST_FOR_ALL_CLASSES_WAITING_TO_PARTICIPATE_IN_THE_GAME);
-            noble.sendPacket(sm);
-            return false;
+        	if (partecipant.getObjectId()==noble.getObjectId())
+        	{
+        		sm = new SystemMessage(SystemMessage.YOU_ARE_ALREADY_ON_THE_WAITING_LIST_FOR_ALL_CLASSES_WAITING_TO_PARTICIPATE_IN_THE_GAME);
+        		noble.sendPacket(sm);
+        		return false;
+        	}
         }
         
         if (getNoblePoints(noble.getObjectId()) < 3)
@@ -1441,6 +1450,49 @@ public class Olympiad
                     L2Party party = player.getParty();
                     party.removePartyMember(player);
                 }
+                
+				//Remove Hero weapons 
+			 	L2ItemInstance wpn = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
+			 	if (wpn == null) wpn = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND); 
+			 	if (wpn != null &&  
+			 			( 
+			 					(wpn.getItemId() >= 6611 && wpn.getItemId() <= 6621) ||  
+			 					wpn.getItemId() == 6842 
+			 			) 
+			 	)
+			 	{ 
+			 		L2ItemInstance[] unequiped = player.getInventory().unEquipItemInBodySlotAndRecord(wpn.getItem().getBodyPart()); 
+			 		InventoryUpdate iu = new InventoryUpdate(); 
+			 		for (int i = 0; i < unequiped.length; i++) 
+			 			iu.addModifiedItem(unequiped[i]); 
+			 		player.sendPacket(iu); 
+			 		
+			 		player.abortAttack(); 
+			 		player.refreshExpertisePenalty(); 
+			 		player.broadcastUserInfo(); 
+			 		
+			 		// this can be 0 if the user pressed the right mousebutton twice very fast 
+			 		if (unequiped.length > 0){ 
+			 			if (unequiped[0].isWear()) 
+			 				return; 
+			 			SystemMessage sm = null; 
+			 			if (unequiped[0].getEnchantLevel() > 0){ 
+			 				sm = new SystemMessage(SystemMessage.EQUIPMENT_S1_S2_REMOVED); 
+			 				sm.addNumber(unequiped[0].getEnchantLevel()); 
+			 				sm.addItemName(unequiped[0].getItemId()); 
+			 			}else{ 
+			 				sm = new SystemMessage(SystemMessage.S1_DISARMED); 
+			 				sm.addItemName(unequiped[0].getItemId()); 
+			 			} 
+			 			player.sendPacket(sm); 
+			 		} 
+			 	}
+			 	
+			 	//remove bsps/sps/ss automation
+			 	FastMap<Integer, Integer> activeSoulShots = player.getAutoSoulShot();
+			 	for (int itemId : activeSoulShots.values()){
+			 		player.removeAutoSoulShot(itemId);
+			 	}                
             }
             
             _sm = new SystemMessage(SystemMessage.THE_GAME_WILL_START_IN_S1_SECOND_S);
@@ -1451,7 +1503,27 @@ public class Olympiad
         protected void portPlayersToArena()
         {
             _playerOneLocation = new int[3];
-            _playerTwoLocation = new int[3];
+    		_playerTwoLocation = new int[3];    
+    		
+    		if (_playerOne == null || _playerTwo == null){
+        		StatsSet playerOneStat;
+        		StatsSet playerTwoStat;
+        		
+        		playerOneStat = _nobles.get(_playerOne.getObjectId());
+    			playerTwoStat = _nobles.get(_playerTwo.getObjectId());
+    			
+    			if (_playerOne == null){
+    				int playerOnePoints = playerOneStat.getInteger(POINTS);
+    				playerOneStat.set(POINTS, playerOnePoints - (playerOnePoints / 5));
+    			}
+    			if (_playerTwo == null){
+    				int playerTwoPoints = playerTwoStat.getInteger(POINTS);
+    				playerTwoStat.set(POINTS, playerTwoPoints - (playerTwoPoints / 5));
+    			}
+    			_playerOne=null;
+    			_playerTwo=null;
+     			return;
+    		}
             
             if (_playerOne == null || _playerTwo == null)
                 return;
@@ -1534,9 +1606,6 @@ public class Olympiad
         
         protected void validateWinner() throws Exception
         {
-            if (_playerOne == null || _playerTwo == null)
-                return;
-            
             StatsSet playerOneStat;
             StatsSet playerTwoStat;
             
@@ -1557,9 +1626,13 @@ public class Olympiad
             
             _sm = new SystemMessage(SystemMessage.S1_HAS_WON_THE_GAME);
             
+            if (_playerOne == null && _playerTwo == null)
+            	return;
+            
             if (hpDiffOne < hpDiffTwo || _playerTwo == null)
             {
-                int pointDiff = (playerTwoPoints / 3);
+    			int pointDiff;
+    			pointDiff = (playerTwoPoints / 3);
                 playerOneStat.set(POINTS, playerOnePoints + pointDiff);
                 playerTwoStat.set(POINTS, playerTwoPoints - pointDiff);
                 
@@ -1568,7 +1641,8 @@ public class Olympiad
             }
             else if (hpDiffTwo < hpDiffOne || _playerOne == null)
             {
-                int pointDiff = (playerOnePoints / 3);
+    			int pointDiff;
+    			pointDiff = (playerOnePoints / 3);
                 playerTwoStat.set(POINTS, playerTwoPoints + pointDiff);
                 playerOneStat.set(POINTS, playerOnePoints - pointDiff);
                 

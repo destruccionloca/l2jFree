@@ -6143,7 +6143,10 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         // Update Noble Skills after subclass change
         if (this.isNoble())
-            this.setNoble(true);         
+            this.setNoble(true);
+		// Update Hero Skills after subclass change
+		if (this.isHero())
+			this.setHero(true);        
     }
 
     /**
@@ -7778,6 +7781,12 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void setHero(boolean hero)
     {
+    	if (hero && _baseClass==_activeClass)    	
+    		for (L2Skill s : HeroSkillTable.getInstance().GetHeroSkills())    		
+    			addSkill(s, false); //Dont Save Noble skills to Sql
+    	else    	
+    		for (L2Skill s : HeroSkillTable.getInstance().GetHeroSkills())    		
+    			super.removeSkill(s); //Just Remove skills without deleting from Sql 	    	
         _hero = hero;
     }
 

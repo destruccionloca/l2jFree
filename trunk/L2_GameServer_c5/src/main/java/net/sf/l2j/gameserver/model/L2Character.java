@@ -39,6 +39,7 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
+import net.sf.l2j.gameserver.datatables.HeroSkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable.TeleportWhereType;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
@@ -1075,6 +1076,13 @@ public abstract class L2Character extends L2Object
             return;
         }
         
+		if (this instanceof L2PcInstance && ((L2PcInstance)this).isInOlympiadMode() && HeroSkillTable.getInstance().isHeroSkill(skill.getId())){
+			SystemMessage sm = new SystemMessage(SystemMessage.THIS_SKILL_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
+			sendPacket(sm);
+		 	getAI().notifyEvent(CtrlEvent.EVT_CANCEL); 
+		 	return; 
+ 		}
+		
         if (isSkillDisabled(skill.getId()))
         {
             if (this instanceof L2PcInstance) 
