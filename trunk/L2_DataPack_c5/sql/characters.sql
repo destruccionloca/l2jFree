@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS characters (
   academy_lvl int(2) NOT NULL default '0',
   clan_join_expiry_time DECIMAL(20,0) NOT NULL DEFAULT 0,
   clan_create_expiry_time DECIMAL(20,0) NOT NULL DEFAULT 0,
+  charViP decimal(1,0) NOT NULL DEFAULT 0,
   PRIMARY KEY  (obj_Id),
   KEY `clanid` (`clanid`)
 ) ;
