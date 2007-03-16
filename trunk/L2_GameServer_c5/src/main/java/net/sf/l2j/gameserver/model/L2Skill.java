@@ -34,9 +34,11 @@ import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ChestInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -97,6 +99,7 @@ public abstract class L2Skill
         TARGET_AREA,
         TARGET_AURA,
         TARGET_CORPSE,
+        TARGET_AREA_UNDEAD,
         TARGET_MULTIFACE,
         TARGET_CORPSE_ALLY,
         TARGET_CORPSE_CLAN,
@@ -1554,6 +1557,48 @@ public abstract class L2Skill
             
             return targetList.toArray(new L2Character[targetList.size()]);
         }
+        case TARGET_AREA_UNDEAD:
+        {
+            L2Character cha;
+            int radius = getSkillRadius();
+            if (this.getCastRange() >= 0 && (target instanceof L2NpcInstance || target instanceof L2SummonInstance)
+                   && target.isUndead() && !target.isAlikeDead())
+            {
+                cha = target;
+
+                if (onlyFirst == false) targetList.add(cha); // Add target to target list
+                else return new L2Character[] {cha};
+
+            }
+            else cha = activeChar;
+
+            if (cha != null && cha.getKnownList() != null)
+                for (L2Object obj : cha.getKnownList().getKnownObjects().values())
+                {
+                    if (obj == null) continue;
+                    if (obj instanceof L2NpcInstance)
+                        target = (L2NpcInstance) obj;
+                    else if (obj instanceof L2SummonInstance)
+                        target = (L2SummonInstance) obj;
+                    else continue;
+                    
+                    if (!GeoData.getInstance().canSeeTarget(activeChar, target))
+                        continue;
+                    
+                    if (!target.isAlikeDead()) // If target is not dead/fake death and not self
+                    {
+                        if (!target.isUndead()) continue;
+                        if (!Util.checkIfInRange(radius, cha, obj, true)) // Go to next obj if obj isn't in range
+                            continue;
+
+                        if (onlyFirst == false) targetList.add((L2Character) obj); // Add obj to target lists
+                        else return new L2Character[] {(L2Character) obj};
+                    }
+                }
+
+            if (targetList.size() == 0) return null;
+            return targetList.toArray(new L2Character[targetList.size()]);
+        }        
         case TARGET_MULTIFACE:
         {
             if ((!(target instanceof L2Attackable) && !(target instanceof L2PcInstance)))
