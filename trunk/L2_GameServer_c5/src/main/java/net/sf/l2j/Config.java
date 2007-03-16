@@ -923,6 +923,11 @@ public final class Config {
     public static ClanLeaderColored       CLAN_LEADER_COLORED;
     public static int       CLAN_LEADER_COLOR;
     public static int       CLAN_LEADER_COLOR_CLAN_LEVEL;
+    
+    /** VIP Characters configuration */
+    public static boolean   CHAR_VIP_SKIP_SKILLS_CHECK;
+    public static boolean   CHAR_VIP_COLOR_ENABLED;
+    public static int       CHAR_VIP_COLOR;
 
     /**  
 	 * Counting of amount of packets per minute  
@@ -1361,6 +1366,11 @@ public final class Config {
                 SHOW_L2J_LICENSE                = Boolean.parseBoolean(optionsSettings.getProperty("ShowL2JLicense", "false"));
                 SHOW_HTML_WELCOME               = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLWelcome", "false"));
                 USE_SAY_FILTER                  = Boolean.parseBoolean(optionsSettings.getProperty("UseSayFilter", "false"));
+                
+                CHAR_VIP_SKIP_SKILLS_CHECK		= Boolean.parseBoolean(optionsSettings.getProperty("CharViPSkipSkillsCheck", "false"));
+                CHAR_VIP_COLOR_ENABLED			= Boolean.parseBoolean(optionsSettings.getProperty("CharViPAllowColor", "false"));
+                CHAR_VIP_COLOR					= Integer.decode("0x" + optionsSettings.getProperty("CharViPNameColor", "00CCFF"));
+                
                 if(USE_SAY_FILTER){
                     try{
                     LineNumberReader lnr = null;

@@ -164,14 +164,18 @@ public class EnterWorld extends ClientBasePacket
             if (Config.GM_STARTUP_AUTO_LIST)
                 GmListTable.getInstance().addGm(activeChar);
         }
-            if(activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
-            {
-                if(Config.CLAN_LEADER_COLORED == Config.ClanLeaderColored.name)
-                    activeChar.getAppearance().setNameColor(Config.CLAN_LEADER_COLOR);
-                else
-                    activeChar.getAppearance().setTitleColor(Config.CLAN_LEADER_COLOR);
-            }
-        
+        if(activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
+        {
+        	if(Config.CLAN_LEADER_COLORED == Config.ClanLeaderColored.name)
+        		activeChar.getAppearance().setNameColor(Config.CLAN_LEADER_COLOR);
+        	else
+        		activeChar.getAppearance().setTitleColor(Config.CLAN_LEADER_COLOR);
+        }
+        if (activeChar.isCharViP())
+        {
+        	if(Config.CHAR_VIP_COLOR_ENABLED)
+        		activeChar.getAppearance().setNameColor(Config.CHAR_VIP_COLOR);
+        }        
         
         if (Config.PLAYER_SPAWN_PROTECTION > 0)
             activeChar.setProtection(true);

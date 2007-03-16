@@ -213,7 +213,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private static final String DELETE_SKILL_SAVE = "DELETE FROM character_skills_save WHERE char_obj_id=? AND class_index=?";
 
     private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,pledge_type=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=? WHERE obj_id=?";
-    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, pledge_type, last_recom_date, academy_lvl, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time FROM characters WHERE obj_id=?";
+    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, pledge_type, last_recom_date, academy_lvl, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP FROM characters WHERE obj_id=?";
     private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE char_obj_id=? ORDER BY class_index ASC";
     private static final String ADD_CHAR_SUBCLASS = "INSERT INTO character_subclasses (char_obj_id,class_id,exp,sp,level,class_index) VALUES (?,?,?,?,?,?)";
     private static final String UPDATE_CHAR_SUBCLASS = "UPDATE character_subclasses SET exp=?,sp=?,level=?,class_id=? WHERE char_obj_id=? AND class_index =?";
@@ -612,6 +612,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /** Store object used to summon the strider you are mounting **/
     private int _mountObjectID = 0;
+    
+    /** character VIP **/
+    private boolean _charViP = false;
 
     private boolean _inJail = false;
     private long _jailTimer = 0;
@@ -5259,6 +5262,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 CursedWeaponsManager.getInstance().checkPlayer(player);
 
                 player.setNoble(rset.getBoolean("nobless"));
+                player.setCharViP((rset.getInt("charViP")==1) ? true : false);
                 player.setPledgeType(rset.getInt("pledge_type"));
                 player.setRank(rset.getInt("pledge_rank"));
                 player.setLastRecomUpdate(rset.getLong("last_recom_date"));
@@ -6073,12 +6077,15 @@ public final class L2PcInstance extends L2PlayableInstance
 	        	// exclude sa / enchant bonus / penality etc. skills
 	        	if(skillid>=3000 && skillid<7000)
 	        		foundskill = true;
+	        	//exclude VIP character
+                if(isCharViP() && Config.CHAR_VIP_SKIP_SKILLS_CHECK)
+                    foundskill = true;
         		// remove skill and do a lil log message
 	        	if(!foundskill)
 	        	{
 	        		removeSkill(skill);
 	        		sendMessage("Skill " + skill.getName() +" removed and gm informed!");
-	        		_log.fatal("Cheater! - Character " + getName() +" of Account " + getAccountName() + " got skill " + skill.getName() +" removed!");
+	        		_log.fatal("Cheater! - Character " + getName() +" of Account " + getAccountName() + " VIP status :" +isCharViP()+ " got skill " + skill.getName() +" removed!");
 	        	}
 	        }
         }
@@ -10065,6 +10072,22 @@ public final class L2PcInstance extends L2PlayableInstance
             _jailTask.cancel(false);
             _jailTask = null;
         }
+    }
+    
+    /**
+     * Set the _charViP Flag of the L2PcInstance.<BR><BR>
+     */
+    public void setCharViP(boolean status)
+    {
+        _charViP = status;
+    }
+
+    /**
+     * Return True if the L2PcInstance is a ViP.<BR><BR>
+     */
+    public boolean isCharViP()
+    {
+        return _charViP;
     }
 
     private ScheduledFuture _jailTask;
