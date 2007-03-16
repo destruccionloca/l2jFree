@@ -461,11 +461,8 @@ public class Disablers implements ISkillHandler
                 	{
                 		if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, sps, bss))
                 		{
-                			if (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_UNDEAD)
-                			{
-                				if(target.isUndead())
-                					target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, null, -((L2Attackable)target).getHating(((L2Attackable)target).getMostHated()));
-                			}
+            				if(target.isUndead())
+            					target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, null, -((L2Attackable)target).getHating(((L2Attackable)target).getMostHated()));
                 			else
                 				target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, null, -((L2Attackable)target).getHating(((L2Attackable)target).getMostHated()));
                 		}
