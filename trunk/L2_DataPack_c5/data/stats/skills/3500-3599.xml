@@ -1455,12 +1455,13 @@ Description(s):
   <set name="save" val="6"/>
   <set name="magicLvl" val="74"/>
   <set name="lvlDepend" val="2"/>
-  <set name="target" val="TARGET_AREA_UNDEAD"/>
+  <set name="target" val="TARGET_AREA"/>
   <set name="skillType" val="CONFUSION"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <cond msg="Your target is not undead"><target undead="true"/></cond>  
   <for>
     <effect count="1" name="Confusion" time="6" val="0"/>
   </for>
