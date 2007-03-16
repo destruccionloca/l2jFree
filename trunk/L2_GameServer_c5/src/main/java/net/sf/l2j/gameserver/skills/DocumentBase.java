@@ -46,6 +46,7 @@ import net.sf.l2j.gameserver.skills.conditions.ConditionSkillStats;
 import net.sf.l2j.gameserver.skills.conditions.ConditionSlotItemId;
 import net.sf.l2j.gameserver.skills.conditions.ConditionTargetAggro;
 import net.sf.l2j.gameserver.skills.conditions.ConditionTargetLevel;
+import net.sf.l2j.gameserver.skills.conditions.ConditionTargetUndead;
 import net.sf.l2j.gameserver.skills.conditions.ConditionTargetUsesWeaponKind;
 import net.sf.l2j.gameserver.skills.conditions.ConditionUsingItemType;
 import net.sf.l2j.gameserver.skills.conditions.ConditionUsingSkill;
@@ -417,6 +418,11 @@ abstract class DocumentBase
             {
                 int lvl = getNumber(a.getNodeValue(), template).intValue();
                 cond = joinAnd(cond, new ConditionTargetLevel(lvl));
+            }
+            else if ("undead".equalsIgnoreCase(a.getNodeName()))
+            {
+            	boolean val = Boolean.valueOf(a.getNodeValue());
+            	cond = joinAnd(cond, new ConditionTargetUndead(val));
             }
             else if ("using".equalsIgnoreCase(a.getNodeName()))
             {

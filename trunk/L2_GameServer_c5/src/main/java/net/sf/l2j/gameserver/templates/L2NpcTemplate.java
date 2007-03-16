@@ -64,7 +64,6 @@ public final class L2NpcTemplate extends L2CharTemplate
     public final int     armor;
     public final String  factionId;
     public final int     factionRange;
-    public final boolean isUndead;
     public final int     absorb_level;
     public final int     NPCFaction;
     public final String  NPCFactionName;
@@ -117,7 +116,6 @@ public final class L2NpcTemplate extends L2CharTemplate
         else
             factionId = f.intern();
         factionRange  = set.getInteger("factionRange");
-        isUndead      = (set.getInteger("isUndead", 0) == 1);
         absorb_level  = set.getInteger("absorb_level", 0);
         NPCFaction = set.getInteger("NPCFaction", 0);
         NPCFactionName = set.getString("NPCFactionName", "Devine Clan");
