@@ -531,6 +531,11 @@ public class NpcTable
         return _npcs.get(id);
     }
     
+    public  FastMap<Integer, L2NpcTemplate> getAllTemplates()
+    {
+        return _npcs;
+    }
+    /*
     public L2NpcTemplate getTemplateByName(String name)
     {
         for (L2NpcTemplate npcTemplate : _npcs.values())
@@ -571,5 +576,5 @@ public class NpcTable
                list.add(t);
    
        return list.toArray(new L2NpcTemplate[list.size()]);
-    }    
+    }    */
 }

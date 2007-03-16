@@ -261,10 +261,15 @@ public class AdminAdmin implements IAdminCommandHandler {
                 	Manager.reloadAll();
                 	activeChar.sendMessage("All instance manager reloaded");
                 }
+                else if(type.startsWith("teleport"))
+                {
+                    TeleportLocationTable.getInstance().reloadAll();
+                    activeChar.sendMessage("Teleport List Table reloaded.");
+            }
             }
             catch(Exception e)
             {
-                activeChar.sendMessage("Usage:  //reload <multisell|teleport|skill|npc|htm|item|quest|instancemanager>");
+                activeChar.sendMessage("Usage:  //reload <multisell|teleport|skill|npc|htm|item|quest|instancemanager|teleport>");
             }
         }
 
@@ -390,7 +395,7 @@ public class AdminAdmin implements IAdminCommandHandler {
 		replyMSG.append("<button value=\"Castles, CS, CH\" action=\"bypass -h admin_siege\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");	
 		//replyMSG.append("<button value=\"Mob Ctrl Menu\" action=\"bypass -h admin_mobmenu\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
        	replyMSG.append("<button value=\"Help & Info\" action=\"bypass -h admin_help admhelp.htm\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
-		replyMSG.append("<button value=\"Npc Spawn\" action=\"bypass -h admin_show_spawns\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+		replyMSG.append("<button value=\"Npc Spawn\" action=\"bypass -h admin_spawn_menu\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 		replyMSG.append("<br>");
 		replyMSG.append("<button value=\"GM Silence\" action=\"bypass -h admin_silence\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 		replyMSG.append("<button value=\"GM Snoop\" action=\"bypass -h admin_snoop $menu_command\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");

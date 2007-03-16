@@ -18,17 +18,14 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Random;
 
 import javolution.text.TextBuilder;
+import javolution.util.FastList;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
-import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
@@ -43,23 +40,98 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * This class handles following admin commands: - show_spawns = shows menu -
- * spawn_index lvl = shows menu for monsters with respective level -
- * spawn_monster id = spawns monster id on target
- * 
- * @version $Revision: 1.2.2.5.2.5 $ $Date: 2005/04/11 10:06:06 $
- */
 public class AdminSpawn implements IAdminCommandHandler
 {
-
-    private static String[] _adminCommands = { "admin_show_spawns", "admin_spawn", "admin_cspawn", "admin_otspawn", "admin_spawn_monster", "admin_spawn_index",
-                                                "admin_unspawnall","admin_respawnall","admin_spawn_reload","admin_npc_index",
-                                                "admin_show_npcs","admin_teleport_reload", "admin_spawnnight", "admin_spawnday" };
+  
+    private static String[][] _adminCommands = {
+    	{"admin_spawn_menu",                                       // show spawn menu
+    		
+    		"Admin Menu - Spawn NPC.",
+    	}, 				                       
+    	{"admin_spawnsearch_menu",                                 // show page with NPC search results
+    		
+    		"Admin Menu - NPC search results.",
+    		"Usage: spawnsearch_menu level|name|part string <page>",
+    		"Options:",
+    		"level - list NPC's by level <string>",
+    		"name - list NPC's witch name started with <string>",
+    		"part - list NPC's where <string> is part of name",
+    		"string - part of name or monster level",
+    		"<page> - page number with results search"
+     	},
+     	{"admin_spawndelay",									   // respawn delay for spawn commands
+			
+			"Set or show default respawn delay for newly spawned NPC.",
+			"Usage spawndelay <sec>",
+			"Options:",
+			"<sec> - set default respawn time in seconds"
+	    },
+     	{"admin_spawnlist",									       // get list of spawns of NPC
+			
+			"Show list of regular spawns of NPC.",
+			"Usage: spawnlist id",
+			"Options:",
+			"id - NPC template ID"
+	    },
+     	{"admin_spawnlist_menu",								   // show list of spawns of NPC
+			
+			"Admin Menu - Show spawns of NPC.",
+			"Usage: spawnlist id",
+			"Options:",
+			"id - NPC template ID"
+	    },
+     	{"admin_spawn",										       // spawn NPC and store in DB
+    				
+    		"Spawn NPC and store in DB.",
+    		"Usage: spawn id <num> <radius>",
+    		"Options:",
+    		"id - NPC template ID",
+    		"<num> - NPC amount to spawn, Default: 1",
+    		"<radius> - radius for NPC spawns, Default: 300"
+    	},                                       
+    	{"admin_cspawn",                                           // spawn NPC and store in DB in custom table
+				
+    		"Spawn NPC and store in DB in custom table.",
+    		"Usage: cspawn id <num> <radius>",
+			"Options:",
+			"id - NPC template ID",
+			"<num> - NPC amount to spawn, Default: 1",
+			"<radius> - radius for NPC spawns, Default: 300"
+    	},
+    	{"admin_otspawn", 					                       // spawn NPC and do not store spawn in DB
+			
+			"Spawn NPC and do not store in DB.",
+			"Usage: otspawn id <num> <radius>",
+			"Options:",
+			"id - NPC template ID",
+			"<num> - NPC amount to spawn, Default: 1",
+			"<radius> - radius for NPC spawns, Default: 300"
+	    },
+    	{"admin_unspawnall",                                       // delete all spawned NPC's
+	    		
+	    	"Delete all spawned NPC's.",
+			"Usage: unspawnall",
+    	},                                   
+    	{"admin_respawnall",                                       // delete all spawned NPC's and respawn again
+    		
+    		"Delete all spawned NPC's and respawn again.",
+			"Usage: respawnall",
+    	},                                  
+    	{"admin_spawnnight",                                       // spawn nigh creatures
+    		
+		    "Spawn night creatures.",
+			"Usage: spawnnight",
+    	},					               
+    	{"admin_spawnday",                                         // spawn day creatures
+    		
+	        "Spawn day creatures.",
+			"Usage: spawnday",
+    	}};	                               
+    
     public static Log _log = LogFactory.getLog(AdminSpawn.class.getName());
 
     private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
-    private static final int REQUIRED_LEVEL2 = Config.GM_TELEPORT_OTHER;
+    private static final int REQUIRED_LEVEL2 = Config.GM_NPC_VIEW;
 
     public boolean useAdminCommand(String command, L2PcInstance activeChar)
     {
@@ -67,103 +139,135 @@ public class AdminSpawn implements IAdminCommandHandler
         	if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
         		return false;
 
-        if (command.equals("admin_show_spawns"))
+        StringTokenizer st = new StringTokenizer(command, " ");
+        
+        String cmd = st.nextToken();  // get command
+        
+        if (cmd.equals("admin_spawn_menu"))
         {
             AdminHelpPage.showHelpPage(activeChar, "spawns.htm");
         }
-        else if (command.equals("admin_show_spawns"))
+        else if (cmd.equals("admin_spawnsearch_menu"))
         {
-            AdminHelpPage.showHelpPage(activeChar, "spawns.htm");
-        }
-        else if (command.startsWith("admin_spawn_index"))
-        {
-            StringTokenizer st = new StringTokenizer(command, " ");
-            try
+            if (st.countTokens() < 2)
+            {	
+            	AdminHelpPage.showHelpPage(activeChar, "spawns.htm");
+            }
+            else
             {
-                st.nextToken();
-                int level = Integer.parseInt(st.nextToken());
-                int from = 0;
-                try
+            	String mode = null;
+            	String string = null;
+            	int page = 0;
+            	
+            	try
+            	{
+            		mode = st.nextToken();
+            		string = st.nextToken();
+                    page = Integer.parseInt(st.nextToken());
+                } catch (Exception e) 
                 {
-                    from = Integer.parseInt(st.nextToken());
-                } catch (NoSuchElementException nsee) {}
+                	AdminHelpPage.showHelpPage(activeChar, "spawns.htm");
+                }
                 
-                showMonsters(activeChar, level, from);
-            } catch (StringIndexOutOfBoundsException e)
-            {
-                AdminHelpPage.showHelpPage(activeChar, "spawns.htm");
-            } catch (NumberFormatException e)
-            {
-                AdminHelpPage.showHelpPage(activeChar, "spawns.htm");
+                showNpcs(activeChar,mode.toLowerCase(),string.toLowerCase(),page);
             }
         }
-        else if (command.equals("admin_show_npcs"))
+        else if (cmd.equals("admin_spawnlist"))
         {
-            AdminHelpPage.showHelpPage(activeChar, "npcs.htm");
-        }
-        else if (command.startsWith("admin_npc_index"))
-        {
-            StringTokenizer st = new StringTokenizer(command, " ");
+        	int npcId = 0;
+        	
             try
-            {
-                st.nextToken();
-                String letter = st.nextToken();
-                int from = 0;
-                try
-                {
-                    from = Integer.parseInt(st.nextToken());
-                } catch (NoSuchElementException nsee) {}
-                showNpcs(activeChar, letter, from);
-            } catch (StringIndexOutOfBoundsException e)
-            {
-                AdminHelpPage.showHelpPage(activeChar, "npcs.htm");
-            } catch (NumberFormatException e)
-            {
-                AdminHelpPage.showHelpPage(activeChar, "npcs.htm");
-            }
-        }
-        else if (command.startsWith("admin_spawn")
-                || command.startsWith("admin_spawn_monster")
-                || command.startsWith("admin_cspawn"))                
-        {
-            StringTokenizer st = new StringTokenizer(command, " ");
-            try
-            {
-                st.nextToken();
-                String id = st.nextToken();
-                int respawnTime = Config.STANDARD_RESPAWN_DELAY; 
-                //FIXME: 0 time should mean never respawn.
-                //At the moment it will just be set to d elsewhere.
-                int mobCount = 1;
-                if (st.hasMoreTokens())
-                    mobCount = Integer.parseInt(st.nextToken());
-                if (st.hasMoreTokens())
-                    respawnTime = Integer.parseInt(st.nextToken());
-                spawnMonster(activeChar, id, respawnTime, mobCount, true,command.startsWith("admin_cspawn"));
+            { 
+            	npcId = Integer.parseInt(st.nextToken());
+                
             }
             catch (Exception e)
             {
-                // Case of wrong monster data
+            	showAdminCommandHelp(activeChar,cmd);
             }
+            if (npcId>0) 
+            	showSpawns(activeChar,npcId);
         }
-        else if (command.startsWith("admin_otspawn"))
+        else if (cmd.equals("admin_spawnlist_menu"))
         {
-            StringTokenizer st = new StringTokenizer(command, " ");
+        	int npcId = 0;
+        	int page = 0;
+        	
             try
-            {
-                st.nextToken();
-                String id = st.nextToken();
-                int mobCount = 1;
-                if (st.hasMoreTokens())
-                    mobCount = Integer.parseInt(st.nextToken());
-                spawnOneTimeMonster(activeChar, id, mobCount);
+            { 
+            	npcId = Integer.parseInt(st.nextToken());
+            	if (st.hasMoreTokens())
+            		page = Integer.parseInt(st.nextToken());
             }
             catch (Exception e)
             {
-                // Case of wrong monster data
+            	AdminHelpPage.showHelpPage(activeChar, "spawns.htm");
+            }
+            
+            if (npcId>0)
+            	showSpawns(activeChar,npcId,page,true);
+        }
+        else if (cmd.equals("admin_spawndelay"))
+        {
+        	int delay = 0;
+        	
+        	if (st.hasMoreTokens())
+        	{
+        		try
+            	{ 
+            		delay = Integer.parseInt(st.nextToken());
+            		Config.STANDARD_RESPAWN_DELAY = delay;
+            	}
+            	catch (Exception e)
+            	{
+            		showAdminCommandHelp(activeChar,cmd);
+            	}
+        	}	
+        	activeChar.sendMessage("Current default respawn delay is "+ Config.STANDARD_RESPAWN_DELAY + " seconds.");
+        }
+        else if (cmd.equals("admin_spawn") || cmd.equals("admin_cspawn"))
+        {
+        	int npcId = 0;
+        	int count = 1;
+        	int radius = 300;
+
+            try
+            {
+                npcId =  Integer.parseInt(st.nextToken());
+                if (st.hasMoreTokens())
+                    count = Integer.parseInt(st.nextToken());
+                if (st.hasMoreTokens())
+                    radius = Integer.parseInt(st.nextToken());
+                
+                spawnNpc(activeChar, npcId, count, radius, true, cmd.equals("admin_cspawn"));
+            }
+            catch (Exception e)
+            {
+            	showAdminCommandHelp(activeChar,cmd);
             }
         }
-        else if (command.startsWith("admin_unspawnall"))
+        else if (cmd.equals("admin_otspawn"))
+        {
+        	int npcId = 0;
+        	int count = 1;
+        	int radius = 300;
+
+            try
+            {
+                npcId =  Integer.parseInt(st.nextToken());
+                if (st.hasMoreTokens())
+                    count = Integer.parseInt(st.nextToken());
+                if (st.hasMoreTokens())
+                    radius = Integer.parseInt(st.nextToken());
+                
+                spawnNpc(activeChar, npcId, count, radius);
+            }
+            catch (Exception e)
+            {
+            	showAdminCommandHelp(activeChar,cmd);
+            }
+        }    
+        else if (cmd.equals("admin_unspawnall"))
         {
             for (L2PcInstance player : L2World.getInstance().getAllPlayers())
             {
@@ -173,201 +277,337 @@ public class AdminSpawn implements IAdminCommandHandler
             RaidBossSpawnManager.getInstance().cleanUp();
             DayNightSpawnManager.getInstance().cleanUp();
             L2World.getInstance().deleteVisibleNpcSpawns();
-            GmListTable.broadcastMessageToGMs("NPC Unspawn completed!");
+            activeChar.sendMessage("All NPCs unspawned.");
         }
-        else if (command.startsWith("admin_spawnday"))
+        else if (cmd.equals("admin_spawnday"))
         {
             DayNightSpawnManager.getInstance().spawnDayCreatures();
+            activeChar.sendMessage("All daylight NPCs spawned.");
         }
-        else if (command.startsWith("admin_spawnnight"))
+        else if (cmd.equals("admin_spawnnight"))
         {
             DayNightSpawnManager.getInstance().spawnNightCreatures();
+            activeChar.sendMessage("All nightly NPCs spawned.");
         }
-        else if (command.startsWith("admin_respawnall") || command.startsWith("admin_spawn_reload"))
+        else if (cmd.equals("admin_respawnall"))
         {
-            // make shure all spawns are deleted
+        	activeChar.sendMessage("NPCs respawn sequence initiated.");
             RaidBossSpawnManager.getInstance().cleanUp();
             DayNightSpawnManager.getInstance().cleanUp();
             L2World.getInstance().deleteVisibleNpcSpawns();
             NpcTable.getInstance().cleanUp();
             SpawnTable.getInstance().cleanUp();
             
-            // now respawn all
             NpcTable.getInstance().reloadAll();
             SpawnTable.getInstance().reloadAll();
             RaidBossSpawnManager.getInstance().reloadBosses();
-            GmListTable.broadcastMessageToGMs("NPC Respawn completed!");
-        } else if (command.startsWith("admin_teleport_reload"))
-        {
-            TeleportLocationTable.getInstance().reloadAll();
-            GmListTable.broadcastMessageToGMs("Teleport List Table reloaded.");
-    }
+            activeChar.sendMessage("NPCs respawn sequence complete.");
+        } 
         return true;
     }
 
     public String[] getAdminCommandList()
     {
-        return _adminCommands;
+    	String[] _adminCommandsOnly = new String[_adminCommands.length];
+    	for (int i=0; i < _adminCommands.length; i++)
+    	{
+    		_adminCommandsOnly[i]=_adminCommands[i][0];
+    	}
+    	
+        return _adminCommandsOnly;
     }
 
     private boolean checkLevel(int level)
     {
         return (level >= REQUIRED_LEVEL);
     }
-
-    private void spawnMonster(L2PcInstance activeChar, String monsterId, int respawnTime, int mobCount, boolean respawn, boolean custom)
+    private boolean checkLevel2(int level)
+    {
+        return (level >= REQUIRED_LEVEL2);
+    }
+    /**
+     * Spawn NPC. 
+     * @param npcId id of NPC Template
+     * @param count count of NPCs to spawn 
+     * @param radius radius of spawn
+     * @param respawn if false spawn only once
+     * @param custom if true then spawn will be custom
+     */
+    private void spawnNpc(L2PcInstance activeChar, int npcId, int count, int radius, boolean respawn, boolean custom)
     {
         L2Object target = activeChar.getTarget();
         if (target == null)
-        {
-            target = activeChar;/*
-            SystemMessage sm = new SystemMessage(614);
-            sm.addString("Incorrect target.");
-            activeChar.sendPacket(sm);
-            return;*/
-        }
-    if (target != activeChar && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
-        return;
-       
-        Pattern pattern =Pattern.compile("[0-9]*");
-        Matcher regexp = pattern.matcher(monsterId);
-        L2NpcTemplate template1;
-        if (regexp.matches())
-        {
-         //First parameter was an ID number
-            int monsterTemplate = Integer.parseInt(monsterId);
-            template1 = NpcTable.getInstance().getTemplate(monsterTemplate);
-        }
-        else {
-//       //First parameter wasn't just numbers so go by name not ID
-         monsterId = monsterId.replace('_', ' ');
-         template1 = NpcTable.getInstance().getTemplateByName(monsterId); 
-        }
-        
-       if (template1 == null)
-        {
-            //SystemMessage sm = new SystemMessage(614);
-            //sm.addString("Incorrect monster template.");
-            //activeChar.sendPacket(sm);
-            //return;
-            //template1 = NpcTable.getInstance().getTemplate(194);
-            //template1.setNpcId(monsterTemplate);
-        }
+            target = activeChar;
 
+        if (target != activeChar && !checkLevel(activeChar.getAccessLevel()))
+        	return;
+       
+        L2NpcTemplate template = NpcTable.getInstance().getTemplate(npcId);
+        
+        if (template == null)
+        {
+        	activeChar.sendMessage("NPC template ID " +npcId + " not found.");
+    	    return;
+        }
+       
         try
         {
-            //L2MonsterInstance mob = new L2MonsterInstance(template1);
+        	for (int i=0; i < count; i++)
+        	{
+        		int x = target.getX();
+        		int y = target.getY();
+        		int z = target.getZ();
+        		int heading = target.getPosition().getHeading();
+        		
+        		if (radius>0 && count >1)
+        		{
+        		    Random _rnd = new Random(); 
 
-            L2Spawn spawn = new L2Spawn(template1);
-            if (custom) spawn.setCustom();
-            spawn.setLocx(target.getX());
-            spawn.setLocy(target.getY());
-            spawn.setLocz(target.getZ());
-            spawn.setAmount(mobCount);
-            spawn.setHeading(activeChar.getHeading());
-            spawn.setRespawnDelay(respawnTime);
+                    int signX = (_rnd.nextInt(2) == 0) ? -1 : 1;
+                    int signY = (_rnd.nextInt(2) == 0) ? -1 : 1;
+                    int randX = _rnd.nextInt(radius);
+                    int randY = _rnd.nextInt(radius);
+                    int randH = _rnd.nextInt(0xFFFF);
+                    
+                    x = x + signX * randX;
+                    y = y + signY * randY;
+                    heading = randH;
+        		}
+            
+        		L2Spawn spawn = new L2Spawn(template);
+            
+        		if (custom) spawn.setCustom();
+            
+        		spawn.setLocx(x);
+        		spawn.setLocy(y);
+        		spawn.setLocz(z);
+        		spawn.setAmount(1);
+        		spawn.setHeading(heading);
+                spawn.setRespawnDelay(Config.STANDARD_RESPAWN_DELAY);
 
-            if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcid()) && respawn==true && Config.ALT_DEV_NO_SPAWNS==false)
-            {
-                SystemMessage sm = new SystemMessage(614);
-                sm.addString("You cannot spawn another instance of " + template1.name + ".");
-                activeChar.sendPacket(sm);
-            } 
-            else
-            {
-                if(respawn==true && Config.ALT_DEV_NO_SPAWNS==false)
+                if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcid()) && 
+                		respawn==true && 
+                		Config.ALT_DEV_NO_SPAWNS==false)
+            	    activeChar.sendMessage("You cannot spawn another instance of " + template.name + ".");
+                else
                 {
-                    if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcid()) != null)
-                        RaidBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template1.getStatsSet().getDouble("baseHpMax"), template1.getStatsSet().getDouble("baseMpMax"), true);
+                	if(respawn==true && Config.ALT_DEV_NO_SPAWNS==false)
+                	{
+                		if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcid()) != null)
+                			RaidBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template.getStatsSet().getDouble("baseHpMax"), template.getStatsSet().getDouble("baseMpMax"), true);
                     else
                         SpawnTable.getInstance().addNewSpawn(spawn, respawn);
-                }
-                else
-                    spawn.spawnOne();
-
+                	}
+                	else
+                		spawn.spawnOne();
+                
                 spawn.init();
-
-                SystemMessage sm = new SystemMessage(614);
-                sm.addString("Created " + template1.name + " on " + target.getObjectId() + ".");
-                activeChar.sendPacket(sm);
+                activeChar.sendMessage("Created " + template.name + " on " + target.getObjectId() + ".");
+                }
             } 
         }
         catch (Exception e)
         {
-            SystemMessage sm = new SystemMessage(614);
-            sm.addString("Target is not ingame.");
-            activeChar.sendPacket(sm);
         }
     }
     
-    private void spawnOneTimeMonster(L2PcInstance activeChar, String monsterId, int mobCount)
+    /**
+     * Spawn NPC without respawn. 
+     * @param npcId id of Npc Template
+     * @param count count of Npc's to spawn 
+     * @param radius radius of spawn
+     */    
+    private void spawnNpc(L2PcInstance activeChar, int npcId, int count, int radius)
     {
-        spawnMonster(activeChar,monsterId,0,mobCount,false,true);
+    	spawnNpc(activeChar,npcId,count,radius,false,true);
     }
     
-    private void showMonsters(L2PcInstance activeChar, int level, int from)
+    /**
+     * Search for NPC. 
+     * @param mode search mode, by "level","name" or "namepart"
+     * @param string parameter of search: level or part name 
+     * @param page number of html page to show
+     */
+    private void showNpcs(L2PcInstance activeChar, String mode, String string, int page)
     {
-        TextBuilder tb = new TextBuilder();
+        if (!checkLevel2(activeChar.getAccessLevel()))
+        	return;
         
-        L2NpcTemplate[] mobs = NpcTable.getInstance().getAllMonstersOfLevel(level);
+    	int level = 0;
+    	
+    	try
+    	{
+    		level = Integer.parseInt(string);
+    	}
+    	catch (Exception e)
+    	{}
+    	
+    	FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
         
-        // Start
-        tb.append("<html><title>Spawn Monster:</title><body><p> Level "+level+":<br>Total Npc's : "+mobs.length+"<br>");
-        String end1 = "<br><center><button value=\"Next\" action=\"bypass -h admin_spawn_index "+level+" $from$\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>";
-        String end2 = "<br><center><button value=\"Back\" action=\"bypass -h admin_show_spawns\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>";
-        
-        // Loop
-        boolean ended = true;
-        for (int i=from; i<mobs.length; i++)
+        for (L2NpcTemplate t : NpcTable.getInstance().getAllTemplates().values())
         {
-            String txt = "<a action=\"bypass -h admin_spawn_monster "+mobs[i].npcId+"\">"+mobs[i].name+"</a><br1>";
-            
-            if ((tb.length() + txt.length() + end2.length()) > 8192)
-            {
-                end1 = end1.replace("$from$", ""+i);
-                ended = false;
-                break;
-            }
-            
-            tb.append(txt);
+             if (mode.equals("name") && (t.name.toLowerCase().startsWith(string)))
+                list.add(t);
+             else
+             if (mode.equals("namepart") && (t.name.toLowerCase().contains(string)))
+                 list.add(t);
+             else
+             if (mode.equals("level") && level !=0 && t.level == level)
+            	 list.add(t);
         }
         
-        // End
-        if (ended)
-            tb.append(end2);
-        else
-            tb.append(end1);
+        L2NpcTemplate[] result = list.toArray(new L2NpcTemplate[list.size()]);
         
-        activeChar.sendPacket(new NpcHtmlMessage(5, tb.toString()));
-    }
+        int maxPerPage = 20;
+        
+        int maxPages = result.length / maxPerPage;
+        
+        if (result.length > maxPerPage * maxPages)
+        	maxPages++;
 
-    private void showNpcs(L2PcInstance activeChar, String starting, int from)
-    {
-        TextBuilder tb = new TextBuilder();
-        L2NpcTemplate[] mobs = NpcTable.getInstance().getAllNpcStartingWith(starting);
-        // Start
-        tb.append("<html><title>Spawn Monster:</title><body><p> There are "+mobs.length+" Npcs whose name starts with "+starting+":<br>");
-        String end1 = "<br><center><button value=\"Next\" action=\"bypass -h admin_npc_index "+starting+" $from$\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>";
-        String end2 = "<br><center><button value=\"Back\" action=\"bypass -h admin_show_npcs\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>";
-        // Loop
-        boolean ended = true;
-        for (int i=from; i<mobs.length; i++)
-        {
-            String txt = "<a action=\"bypass -h admin_spawn_monster "+mobs[i].npcId+"\">"+mobs[i].name+"</a><br1>";
-            
-            if ((tb.length() + txt.length() + end2.length()) > 8192)
-            {
-                end1 = end1.replace("$from$", ""+i);
-                ended = false;
-                break;
-            }
-            tb.append(txt);
-        }
-        // End
-        if (ended)
-            tb.append(end2);
+        if (page>maxPages)
+            page=maxPages;
+
+        int start = maxPerPage*page;
+        int end = result.length;   
+        
+        if (end - start > maxPerPage)
+        	end = start + maxPerPage;
+        
+        TextBuilder replyMSG = new TextBuilder("<html><body>");
+        
+        replyMSG.append("<table width=260><tr>");
+        if (page==0)
+        	replyMSG.append("<td width=40><button value=\"Back\" action=\"bypass -h admin_spawn_menu\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         else
-            tb.append(end1);
-        activeChar.sendPacket(new NpcHtmlMessage(5, tb.toString()));
+        	replyMSG.append("<td width=40><button value=\"Back\" action=\"bypass -h admin_spawnsearch_menu "+ mode + " " + string + " " + (page-1) +"\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=180><center>NPC Search Result<br>Found:" + result.length + "</center></td>");
+        if ((page + 1)<maxPages)
+        	replyMSG.append("<td width=40><button value=\"Next\" action=\"bypass -h admin_spawnsearch_menu "+ mode + " " + string + " " + (page+1) +"\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        else
+        	replyMSG.append("<td width=40></td>");   
+        
+        replyMSG.append("</tr></table>");
+        replyMSG.append("<br><br>");
+        
+        if (result.length > 0)
+        {
+        	replyMSG.append("<table width=260>");
+        	replyMSG.append("<tr><td>ID<font color=\"LEVEL\">*</font></td><td>Name<font color=\"LEVEL\">**</font></td><td>Lv</td></tr>");
+        	for (int i=start; i < end; i++)
+        	{
+        		replyMSG.append("<tr><td><a action=\"bypass -h admin_spawnlist_menu " + result[i].npcId + "\">" + result[i].npcId + "</td><td><a action=\"bypass -h admin_spawn " + result[i].npcId + "\">"+result[i].name+"</a></td><td>"+ result[i].level +"</td></tr>");
+        	}
+        	replyMSG.append("</table>");
+        	replyMSG.append("<font color=\"LEVEL\">*</font> Click on ID to search NPC spawns.<br1>");
+        	replyMSG.append("<font color=\"LEVEL\">**</font> Click on name to spawn NPC.<br1>");
+        }
+        
+    	replyMSG.append("</body></html>");        
+        activeChar.sendPacket(new NpcHtmlMessage(5, replyMSG.toString()));
+        }
+    
+    /**
+     * List all spawns of NPC. 
+     * @param npcId NPC template ID
+     */
+    private void showSpawns(L2PcInstance activeChar, int npcId)
+    {
+    	if (NpcTable.getInstance().getTemplate(npcId) != null)
+    		showSpawns(activeChar, npcId, 0, false);
+    	else
+    		activeChar.sendMessage("NPC template ID " +npcId + " not found.");
+    }
+    /**
+     * Show all spawns of NPC. 
+     * @param npcId NPC template ID
+     * @param page html page number
+     * @param html show spawns as html page, if false list spawns in chat
+     */
+
+    private void showSpawns(L2PcInstance activeChar, int npcId, int page, boolean html)
+    {
+        if (!checkLevel2(activeChar.getAccessLevel()))
+        	return;
+        
+    	FastList<L2Spawn> list = new FastList<L2Spawn>();
+
+    	for (L2Spawn spawn : SpawnTable.getInstance().getAllTemplates().values())
+            if (npcId == spawn.getNpcid()) list.add(spawn);
+        
+    	L2Spawn[] result = list.toArray(new L2Spawn[list.size()]);
+        
+    	if (html == true)
+    	{
+    		int maxPerPage = 20;
+        
+    		int maxPages = result.length / maxPerPage;
+        
+    		if (result.length > maxPerPage * maxPages)
+    			maxPages++;
+
+    		if (page>maxPages)
+    			page=maxPages;
+
+    		int start = maxPerPage*page;
+    		int end = result.length;   
+        
+    		if (end - start > maxPerPage)
+    			end = start + maxPerPage;
+        
+    		TextBuilder replyMSG = new TextBuilder("<html><body>");
+        
+    		replyMSG.append("<table width=260><tr>");
+    		if (page==0)
+    			replyMSG.append("<td width=40><button value=\"Back\" action=\"bypass -h admin_spawn_menu\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+    		else
+    			replyMSG.append("<td width=40><button value=\"Back\" action=\"bypass -h admin_spawnlist_menu "+ npcId + " " + (page-1) +"\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+    		replyMSG.append("<td width=180><center>Spawns Search Result<br>Found:" + result.length + "</center></td>");
+    		if ((page + 1)<maxPages)
+    			replyMSG.append("<td width=40><button value=\"Next\" action=\"bypass -h admin_spawnlist_menu "+ npcId + " " + (page+1) +"\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+    		else
+    			replyMSG.append("<td width=40></td>");   
+        
+    		replyMSG.append("</tr></table>");
+    		replyMSG.append("<br><br>");
+    		if (result.length > 0)
+            {
+            	replyMSG.append("<table width=260>");
+            	replyMSG.append("<tr><td>ID</td><td>Location</td><td>Amount</td></tr>");
+            	for (int i=start; i < end; i++)
+            	{
+            		replyMSG.append("<tr><td>"+result[i].getDbId()+"</td><td><a action=\"bypass -h admin_move_to " + result[i].getLocx()+ " " + result[i].getLocy() + " " +result[i].getLocz()+ "\">"+result[i].getLocx()+ " " + result[i].getLocy() + " " +result[i].getLocz()+"</a></td><td>" + result[i].getAmount() + "</td></tr>");
+            	}
+            	replyMSG.append("</table>");
+            }
+            
+        	replyMSG.append("</body></html>");        
+            activeChar.sendPacket(new NpcHtmlMessage(5, replyMSG.toString()));
+        	}
+    	else
+    	{
+    		if (result.length > 0)
+            {
+            	for (int i=0; i < result.length; i++)
+            		activeChar.sendMessage(result[i].getDbId()+ " "+ result[i].getLocx()+ " " + result[i].getLocy() + " " +result[i].getLocz()+ " "+ result[i].getAmount());
+            	
+            	activeChar.sendMessage("Total spawns for NPC ID " +npcId + " is " + result.length + ".");
+            }
+    		else
+    			activeChar.sendMessage("No spawns for NPC ID " +npcId + " found.");
+    	}
+   	}
+
+    
+    private void showAdminCommandHelp(L2PcInstance activeChar, String command)
+    {
+    	for (int i=0; i < _adminCommands.length; i++)
+    	{
+    		if (command.equals(_adminCommands[i][0]))
+    		{
+    			for (int k=1; k < _adminCommands[i].length; k++)
+    				activeChar.sendMessage(_adminCommands[i][k]);
+    		}
+    	}
     }
 }

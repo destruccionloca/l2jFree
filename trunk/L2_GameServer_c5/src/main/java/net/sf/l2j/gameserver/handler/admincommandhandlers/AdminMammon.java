@@ -37,7 +37,7 @@ public class AdminMammon implements IAdminCommandHandler
 {
 
     private static String[] _adminCommands = {"admin_mammon_find", "admin_mammon_respawn",
-                                              "admin_list_spawns", "admin_msg"};
+                                              "admin_msg"};
     private static final int REQUIRED_LEVEL = Config.GM_MENU;
 
     private boolean _isSealValidation = SevenSigns.getInstance().isSealValidationPeriod();
@@ -115,25 +115,6 @@ public class AdminMammon implements IAdminCommandHandler
             activeChar.sendMessage("The Blacksmith of Mammon will respawn in "
                 + (blackRespawn / 60000) + " minute(s).");
         }
-        
-        else if (command.startsWith("admin_list_spawns"))
-        {
-            try
-            { // admin_list_spawns x[xxxx] x[xx]
-                String[] params = command.split(" ");
-
-                npcId = Integer.parseInt(params[1]);
-
-                if (params.length > 2) teleportIndex = Integer.parseInt(params[2]);
-            }
-            catch (Exception e)
-            {
-                activeChar.sendPacket(SystemMessage.sendString("Command format is //list_spawns <NPC_ID> <TELE_INDEX>"));
-            }
-
-            SpawnTable.getInstance().findNPCInstances(activeChar, npcId, teleportIndex);
-        }
-
         // Used for testing SystemMessage IDs	- Use //msg <ID>
         else if (command.startsWith("admin_msg"))
         {

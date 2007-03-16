@@ -25,7 +25,6 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.model.L2Spawn;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
@@ -251,9 +250,9 @@ public class SpawnTable
         
     }
 
-    public L2Spawn getTemplate(int id)
+    public FastMap<Integer, L2Spawn> getAllTemplates()
     {
-        return _spawntable.get(id);
+        return _spawntable;
     }
 
     public void addNewSpawn(L2Spawn spawn, boolean storeInDb)
@@ -358,35 +357,8 @@ public class SpawnTable
     	_spawntable.clear();
     }
     
-    /**
-     * Get all the spawn of a NPC<BR><BR>
-     * 
-     * @param npcId : ID of the NPC to find.
-     * @return
-     */
-    public void findNPCInstances(L2PcInstance activeChar, int npcId, int teleportIndex)
+    public L2Spawn getTemplate(int id)
     {
-        int index = 0;
-        for (L2Spawn spawn : _spawntable.values())
-        {
-            if (npcId == spawn.getNpcid())
-            {
-                index++;
-
-                if (teleportIndex > -1)
-                {
-                    if (teleportIndex == index)
-                        activeChar.teleToLocation(spawn.getLocx(), spawn.getLocy(), spawn.getLocz());
-                }
-                else
-                {
-                    activeChar.sendMessage(index + " - " + spawn.getTemplate().name + " ("
-                        + spawn.getId() + "): " + spawn.getLocx() + " " + spawn.getLocy() + " "
-                        + spawn.getLocz());
-                }
-            }
-        }
-
-        if (index == 0) activeChar.sendMessage("No current spawns found.");
+        return _spawntable.get(id);
     }
 }

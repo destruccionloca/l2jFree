@@ -217,9 +217,9 @@ public class SiegeManager
             			
             			_controlTowersSpawns.add(new SiegeSpawn(castle.getCastleId(),x,y,z,0,npc_id,hp));
             		}
-            		catch (NumberFormatException  e)
+            		catch (Exception e)
             		{
-            			
+            			_log.error("Error while loading control tower(s) for "+castle.getName()+" castle.",e);
             		}
             	}
             	
@@ -243,9 +243,9 @@ public class SiegeManager
             			
             			_artefactSpawns.add(new SiegeSpawn(castle.getCastleId(),x,y,z,heading,npc_id));
             		}
-            		catch (NumberFormatException  e)
+            		catch (Exception e)
             		{
-            			
+            			_log.error("Error while loading artefact(s) for "+castle.getName()+" castle.",e);
             		}
             	}
             	
@@ -253,8 +253,8 @@ public class SiegeManager
             	_artefactSpawnList.put(castle.getCastleId(), _artefactSpawns);
             	
             	if (_log.isDebugEnabled())
-            		_log.info("SiegeManager: Loaded " + Integer.toString(_controlTowersSpawns.size()) + " control towers and "
-            			       + Integer.toString(_artefactSpawns.size()) + " artefacts for "+castle.getName()+" castle");
+            		_log.info("SiegeManager: Loaded " + Integer.toString(_controlTowersSpawns.size()) + " control tower(s) and "
+            			       + Integer.toString(_artefactSpawns.size()) + " artefact(s) for "+castle.getName()+" castle");
             }
            
             
