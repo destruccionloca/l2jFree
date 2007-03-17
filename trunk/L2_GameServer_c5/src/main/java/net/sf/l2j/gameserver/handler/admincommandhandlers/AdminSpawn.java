@@ -66,44 +66,49 @@ public class AdminSpawn implements IAdminCommandHandler
 			"Options:",
 			"<sec> - set default respawn time in seconds"
 	    },
-     	{"admin_spawnlist",									       // get list of spawns of NPC
+     	{"admin_spawnlist",									       // get list of NPC spawns
 			
 			"Show list of regular spawns of NPC.",
-			"Usage: spawnlist id",
+			"Usage: spawnlist id|name",
 			"Options:",
-			"id - NPC template ID"
+			"id - NPC template ID",
+			"name - NPC name (use underscope to separate words in npc name)"
 	    },
-     	{"admin_spawnlist_menu",								   // show list of spawns of NPC
+     	{"admin_spawnlist_menu",								   // show list of NPC spawns
 			
 			"Admin Menu - Show spawns of NPC.",
-			"Usage: spawnlist id",
+			"Usage: spawnlist id|name",
 			"Options:",
-			"id - NPC template ID"
+			"id - NPC template ID",
+			"name - NPC name (use underscope to separate words in npc name)"
 	    },
-     	{"admin_spawn",										       // spawn NPC and store in DB
+     	{"admin_spawn",										       // spawn NPC and save to DB's default
     				
     		"Spawn NPC and store in DB.",
-    		"Usage: spawn id <num> <radius>",
+    		"Usage: spawn id|name <num> <radius>",
     		"Options:",
     		"id - NPC template ID",
+    		"name - NPC name (use underscope to separate words in npc name)",
     		"<num> - NPC amount to spawn, Default: 1",
     		"<radius> - radius for NPC spawns, Default: 300"
     	},                                       
-    	{"admin_cspawn",                                           // spawn NPC and store in DB in custom table
+    	{"admin_cspawn",                                           // spawn NPC and save to DB's custom table
 				
     		"Spawn NPC and store in DB in custom table.",
-    		"Usage: cspawn id <num> <radius>",
+    		"Usage: cspawn id|name <num> <radius>",
 			"Options:",
 			"id - NPC template ID",
+			"name - NPC name (use underscope to separate words in npc name)",
 			"<num> - NPC amount to spawn, Default: 1",
 			"<radius> - radius for NPC spawns, Default: 300"
     	},
-    	{"admin_otspawn", 					                       // spawn NPC and do not store spawn in DB
+    	{"admin_otspawn", 					                       // spawn NPC but do not store spawn in DB
 			
 			"Spawn NPC and do not store in DB.",
-			"Usage: otspawn id <num> <radius>",
+			"Usage: otspawn id|name <num> <radius>",
 			"Options:",
 			"id - NPC template ID",
+			"name - NPC name (use underscope to separate words in npc name)",
 			"<num> - NPC amount to spawn, Default: 1",
 			"<radius> - radius for NPC spawns, Default: 300"
 	    },
@@ -112,12 +117,12 @@ public class AdminSpawn implements IAdminCommandHandler
 	    	"Delete all spawned NPC's.",
 			"Usage: unspawnall",
     	},                                   
-    	{"admin_respawnall",                                       // delete all spawned NPC's and respawn again
+    	{"admin_respawnall",                                       // delete all spawned NPC's then respawn again
     		
     		"Delete all spawned NPC's and respawn again.",
 			"Usage: respawnall",
     	},                                  
-    	{"admin_spawnnight",                                       // spawn nigh creatures
+    	{"admin_spawnnight",                                       // spawn night creatures
     		
 		    "Spawn night creatures.",
 			"Usage: spawnnight",
@@ -175,27 +180,51 @@ public class AdminSpawn implements IAdminCommandHandler
         else if (cmd.equals("admin_spawnlist"))
         {
         	int npcId = 0;
+        	String npcName = "";
         	
             try
             { 
-            	npcId = Integer.parseInt(st.nextToken());
+           	    npcName = st.nextToken();
+            	
+            	try
+                {
+            		npcId =  Integer.parseInt(npcName);
+                }
+            	catch (NumberFormatException  e)
+                {
+                }
                 
             }
             catch (Exception e)
             {
             	showAdminCommandHelp(activeChar,cmd);
             }
-            if (npcId>0) 
+            if (npcId>0)
             	showSpawns(activeChar,npcId);
+            else
+            	if (npcName.length() > 0)
+            		showSpawns(activeChar,npcName);
+            	else
+            		showAdminCommandHelp(activeChar,cmd);
         }
         else if (cmd.equals("admin_spawnlist_menu"))
         {
         	int npcId = 0;
+        	String npcName = "";
         	int page = 0;
         	
             try
             { 
-            	npcId = Integer.parseInt(st.nextToken());
+           	    npcName = st.nextToken();
+            	
+            	try
+                {
+            		npcId =  Integer.parseInt(npcName);
+                }
+            	catch (NumberFormatException  e)
+                {
+                }
+
             	if (st.hasMoreTokens())
             		page = Integer.parseInt(st.nextToken());
             }
@@ -206,6 +235,11 @@ public class AdminSpawn implements IAdminCommandHandler
             
             if (npcId>0)
             	showSpawns(activeChar,npcId,page,true);
+            else
+            	if (npcName.length() > 0)
+            		showSpawns(activeChar,npcName,page,true);
+            	else
+            		AdminHelpPage.showHelpPage(activeChar, "spawns.htm");
         }
         else if (cmd.equals("admin_spawndelay"))
         {
@@ -225,48 +259,42 @@ public class AdminSpawn implements IAdminCommandHandler
         	}	
         	activeChar.sendMessage("Current default respawn delay is "+ Config.STANDARD_RESPAWN_DELAY + " seconds.");
         }
-        else if (cmd.equals("admin_spawn") || cmd.equals("admin_cspawn"))
+        else if (cmd.equals("admin_spawn") || cmd.equals("admin_cspawn") || cmd.equals("admin_otspawn"))
         {
         	int npcId = 0;
+        	String npcName = "";
         	int count = 1;
         	int radius = 300;
 
             try
             {
-                npcId =  Integer.parseInt(st.nextToken());
+            	npcName = st.nextToken();
+            	
+            	try
+                {
+            		npcId =  Integer.parseInt(npcName);
+                }
+            	catch (NumberFormatException  e)
+                {}
+            	
                 if (st.hasMoreTokens())
                     count = Integer.parseInt(st.nextToken());
                 if (st.hasMoreTokens())
                     radius = Integer.parseInt(st.nextToken());
                 
-                spawnNpc(activeChar, npcId, count, radius, true, cmd.equals("admin_cspawn"));
+                if (npcId > 0)
+                	spawnNpc(activeChar, npcId, count, radius, !cmd.equals("admin_otspawn"), cmd.equals("admin_cspawn"));
+                else
+                	if (npcName.length() > 0)
+                		spawnNpc(activeChar, npcName, count, radius, !cmd.equals("admin_otspawn"), cmd.equals("admin_cspawn"));
+                	else
+                		showAdminCommandHelp(activeChar,cmd);
             }
             catch (Exception e)
             {
             	showAdminCommandHelp(activeChar,cmd);
             }
         }
-        else if (cmd.equals("admin_otspawn"))
-        {
-        	int npcId = 0;
-        	int count = 1;
-        	int radius = 300;
-
-            try
-            {
-                npcId =  Integer.parseInt(st.nextToken());
-                if (st.hasMoreTokens())
-                    count = Integer.parseInt(st.nextToken());
-                if (st.hasMoreTokens())
-                    radius = Integer.parseInt(st.nextToken());
-                
-                spawnNpc(activeChar, npcId, count, radius);
-            }
-            catch (Exception e)
-            {
-            	showAdminCommandHelp(activeChar,cmd);
-            }
-        }    
         else if (cmd.equals("admin_unspawnall"))
         {
             for (L2PcInstance player : L2World.getInstance().getAllPlayers())
@@ -410,18 +438,24 @@ public class AdminSpawn implements IAdminCommandHandler
         {
         }
     }
-    
+
     /**
-     * Spawn NPC without respawn. 
-     * @param npcId id of Npc Template
-     * @param count count of Npc's to spawn 
+     * Spawn NPC. 
+     * @param npcName name of NPC
+     * @param count count of NPCs to spawn 
      * @param radius radius of spawn
-     */    
-    private void spawnNpc(L2PcInstance activeChar, int npcId, int count, int radius)
+     * @param respawn if false spawn only once
+     * @param custom if true then spawn will be custom
+     */
+    private void spawnNpc(L2PcInstance activeChar, String npcName, int count, int radius, boolean respawn, boolean custom)
     {
-    	spawnNpc(activeChar,npcId,count,radius,false,true);
+    	int npcId = getNpcIdByName(npcName);
+        
+        if (npcId > 0)
+        	spawnNpc(activeChar, npcId, count, radius, respawn, custom);
+        else
+        	activeChar.sendMessage("NPC template with name " +npcName + " not found.");
     }
-    
     /**
      * Search for NPC. 
      * @param mode search mode, by "level","name" or "namepart"
@@ -506,6 +540,20 @@ public class AdminSpawn implements IAdminCommandHandler
     	replyMSG.append("</body></html>");        
         activeChar.sendPacket(new NpcHtmlMessage(5, replyMSG.toString()));
         }
+
+    /**
+     * List all spawns of NPC. 
+     * @param npc name
+     */
+    private void showSpawns(L2PcInstance activeChar, String npcName)
+    {
+    	int npcId = getNpcIdByName(npcName);
+        
+        if (npcId > 0)
+        	showSpawns(activeChar, npcId, 0, false);
+        else
+        	activeChar.sendMessage("NPC template with name " +npcName + " not found.");
+    }
     
     /**
      * List all spawns of NPC. 
@@ -518,13 +566,28 @@ public class AdminSpawn implements IAdminCommandHandler
     	else
     		activeChar.sendMessage("NPC template ID " +npcId + " not found.");
     }
+    
+    /**
+     * Show all spawns of NPC. 
+     * @param npc name
+     * @param page html page number
+     * @param html show spawns as html page, if false list spawns in chat
+     */
+    private void showSpawns(L2PcInstance activeChar, String npcName, int page, boolean html)
+    {
+    	int npcId = getNpcIdByName(npcName);
+        
+        if (npcId > 0)
+        	showSpawns(activeChar, npcId, page, html);
+        else
+        	activeChar.sendMessage("NPC template with name " +npcName + " not found.");
+    }
     /**
      * Show all spawns of NPC. 
      * @param npcId NPC template ID
      * @param page html page number
      * @param html show spawns as html page, if false list spawns in chat
      */
-
     private void showSpawns(L2PcInstance activeChar, int npcId, int page, boolean html)
     {
         if (!checkLevel2(activeChar.getAccessLevel()))
@@ -597,8 +660,11 @@ public class AdminSpawn implements IAdminCommandHandler
     			activeChar.sendMessage("No spawns for NPC ID " +npcId + " found.");
     	}
    	}
-
     
+    /**
+     * Show tips about command usage and syntax. 
+     * @param command admin command name
+     */    
     private void showAdminCommandHelp(L2PcInstance activeChar, String command)
     {
     	for (int i=0; i < _adminCommands.length; i++)
@@ -609,5 +675,26 @@ public class AdminSpawn implements IAdminCommandHandler
     				activeChar.sendMessage(_adminCommands[i][k]);
     		}
     	}
+    }
+    
+    /**
+     * Search for NPC ID by NPC name. 
+     * @param npc name (use underscope to separate words in npc name)
+     * @return NPC ID or 0 if no template found
+     */ 
+    private int getNpcIdByName(String npcName)
+    {
+    	int npcId = 0;
+    	
+        for (L2NpcTemplate t : NpcTable.getInstance().getAllTemplates().values())
+        {
+            if (t.name.equalsIgnoreCase(npcName.replace("_", " ")))
+            {
+            	npcId = t.npcId;
+            	break;
+            }
+        }
+        
+        return npcId;
     }
 }
