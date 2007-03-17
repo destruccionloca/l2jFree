@@ -28,7 +28,13 @@ import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2PetData;
 import net.sf.l2j.gameserver.script.DateRange;
 import net.sf.l2j.gameserver.script.EngineInterface;
+import net.sf.l2j.gameserver.script.Expression;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+
+import org.apache.bsf.BSFException;
+import org.apache.bsf.BSFManager;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Luis Arias
@@ -38,7 +44,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class FaenorInterface implements EngineInterface
 {
-//    private final static Log _log = LogFactory.getLog(FaenorInterface.class);
+    private final static Log _log = LogFactory.getLog(FaenorInterface.class);
     private static FaenorInterface _instance;
     
     public NpcTable _npcTable = NpcTable.getInstance();
@@ -132,19 +138,33 @@ public class FaenorInterface implements EngineInterface
     
     public void addPetData(int petID, int levelStart, int levelEnd, Map<String, String> stats)
     {
-        L2PetData[] petData = new L2PetData[levelEnd - levelStart + 1];
-        int value           = 0;
-        for (int level = levelStart; level <= levelEnd; level++)
+        try
         {
-            petData[level - 1]  = new L2PetData();
-            petData[level - 1].setPetID(petID);
-            petData[level - 1].setPetLevel(level);
+            BSFManager context = new BSFManager(); 
             
-            for (String stat : stats.keySet())
+            context.eval("beanshell", "core", 0, 0, "double log1p(double d) { return Math.log1p(d); }"); 
+            context.eval("beanshell", "core", 0, 0, "double pow(double d, double p) { return Math.pow(d,p); }");
+            
+            L2PetData[] petData = new L2PetData[levelEnd - levelStart + 1];
+            int value           = 0;
+            for (int level = levelStart; level <= levelEnd; level++)
             {
-				value = Integer.parseInt(stats.get(stat));
-                petData[level - 1].setStat(stat, value);
+                petData[level - 1]  = new L2PetData();
+                petData[level - 1].setPetID(petID);
+                petData[level - 1].setPetLevel(level);
+                
+                context.declareBean("level", new Double(level), Double.TYPE); 
+                for (String stat : stats.keySet())
+                {
+    				value = ((Number)Expression.eval(context, "beanshell", stats.get(stat))).intValue(); 
+                    petData[level - 1].setStat(stat, value);
+                }
+                context.undeclareBean("level"); 
             }
+        }
+        catch (BSFException e)
+        {
+            _log.error(e.getMessage(),e); 
         }
     }
 }
