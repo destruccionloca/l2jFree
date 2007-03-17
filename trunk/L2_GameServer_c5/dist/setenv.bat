@@ -12,7 +12,7 @@ REM jython
 SET CLASSPATH=%CLASSPATH%;jython-2.1.jar
 
 SET CLASSPATH=%CLASSPATH%;bsf-2.0.jar
-SET CLASSPATH=%CLASSPATH%;bsh-2.0b1.jar
+SET CLASSPATH=%CLASSPATH%;bsh-2.0.jar
 
 REM for second level cache (hibernate)
 SET CLASSPATH=%CLASSPATH%;ehcache-1.2.3.jar
