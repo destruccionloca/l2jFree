@@ -1575,7 +1575,7 @@ public final class Formulas
                 mAtk = player.getMAtk(target, skill);
                 mDef = target.getMDef(player, skill);
                 value = 5000 + (int) (5000 * ((float) skill.getLevel() / maxLevel));
-                mDef = target.calcStat(Stats.ATTACK_CANCEL, mDef, target, null);
+                mDef = target.calcStat(Stats.CANCEL_RES, mDef, target, null);
                 if (mDef > 0 && mAtk > 0) value *= 0.6 * mAtk / mDef;
                 modifier = 20 * target.getWIT() / 3;
                 if (modifier > 0) value /= modifier;
@@ -1589,7 +1589,7 @@ public final class Formulas
                     if (value > 90) value = 90;
                 }
                 
-                rate *= (100 - player.calcStat(Stats.CANCEL_RES, 0, target, null))/100; //TODO check this
+                //rate *= (100 - player.calcStat(Stats.CANCEL_RES, 0, target, null))/100; //TODO check this
                 
                 rate = value;
                 //_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
