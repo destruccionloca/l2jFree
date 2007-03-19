@@ -19,7 +19,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j;
+package net.sf.l2j.tools;
 
 import junit.framework.TestCase;
 import net.sf.l2j.tools.L2Registry;

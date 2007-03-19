@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.tools.util;
+package net.sf.l2j.tools.security;
 
 import java.io.IOException;
 

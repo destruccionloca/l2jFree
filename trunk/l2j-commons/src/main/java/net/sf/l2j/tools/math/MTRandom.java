@@ -30,7 +30,7 @@
  */
 
 // this line is modified from the original source, to fit into the L2J Package
-package net.sf.l2j.tools.util;  
+package net.sf.l2j.tools.math;  
 
 import java.util.Random;
 

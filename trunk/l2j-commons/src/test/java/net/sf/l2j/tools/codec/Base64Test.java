@@ -19,11 +19,11 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.tools.util;
+package net.sf.l2j.tools.codec;
 
 import java.io.UnsupportedEncodingException;
 
-import net.sf.l2j.tools.util.Base64;
+import net.sf.l2j.tools.codec.Base64;
 
 import junit.framework.TestCase;
 

@@ -1,4 +1,4 @@
-package net.sf.l2j.tools.util;
+package net.sf.l2j.tools.cache;
 
 import java.util.HashMap;
 

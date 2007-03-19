@@ -19,8 +19,9 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.tools.util;
+package net.sf.l2j.tools.geometry;
 
+import net.sf.l2j.tools.geometry.Point3D;
 import junit.framework.TestCase;
 
 /**
