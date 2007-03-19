@@ -1699,7 +1699,8 @@
       <add order="0x40" stat="pDef" val="5400"/>
       <add order="0x40" stat="mDef" val="4050"/>
       <add order="0x40" stat="runSpd" val="5"/>
-      <!-- Missing resistance to buff canceling attacks -->
+      <add order="0x40" stat="cancel" val="30"/>
+      <!-- Missing resistance to buff attacks (cancel custom 30) -->
     </effect>
   </for>
 </skill>
@@ -1730,8 +1731,9 @@
       <add order="0x40" stat="runSpd" val="20"/>
       <mul order="0x30" stat="pDef" val="0.75"/>
       <mul order="0x30" stat="mDef" val="0.75"/>
+      <add order="0x40" stat="cancel" val="30"/>
       <!--mul order="0x30" stat="gainHp" val="1.10"/-->
-      <!-- Missing Cancel/Debuff resistance +??, Heals are ??% more effective  (custom value)-->
+      <!-- Missing Debuff resistance +??, Heals are ??% more effective  (custom value)-->
     </effect>   
   </for>
 </skill>

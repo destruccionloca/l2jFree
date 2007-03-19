@@ -1100,7 +1100,7 @@
   <!-- Cancel resistance +30%, Debuff resistance +20% -->
   <for>
 	<effect count="1" name="Buff" time="1200" val="0"> 
-         <add stat="cancel" val="30" order="0x40"/> 
+         <add stat="cancelRes" val="30" order="0x40"/> 
          <!-- Debuff resistance +20% still not added -->
     </effect>
   </for>
@@ -1545,6 +1545,7 @@
      <!-- suspect this was custom before... still not 100% -->
      <add order="0x40" stat="pAtk" val="250"/>
      <add order="0x40" stat="pDef" val="500"/>
+     <add order="0x40" stat="cancelRes" val="40"/>
    </effect>
   </for>  
 </skill>
