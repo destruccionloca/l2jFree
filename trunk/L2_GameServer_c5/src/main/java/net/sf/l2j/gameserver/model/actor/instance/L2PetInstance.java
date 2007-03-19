@@ -27,6 +27,7 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
+import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
@@ -35,7 +36,6 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2PetData;
-import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2World;
@@ -90,7 +90,7 @@ public class L2PetInstance extends L2Summon
     public final L2PetData getPetData()
     {
         if (_Data == null) 
-            _Data = L2PetDataTable.getInstance().getPetData(getTemplate().npcId, getStat().getLevel());
+            _Data = PetDataTable.getInstance().getPetData(getTemplate().npcId, getStat().getLevel());
         
         return _Data;
     }
@@ -137,7 +137,7 @@ public class L2PetInstance extends L2Summon
                     getOwner().sendMessage("Your pet is too hungry to stay summoned.");
                 }
                 
-                int foodId = L2PetDataTable.getFoodItemId(getTemplate().npcId);
+                int foodId = PetDataTable.getFoodItemId(getTemplate().npcId);
                 if (foodId == 0) return;
 
                 L2ItemInstance food = null;
@@ -194,7 +194,7 @@ public class L2PetInstance extends L2Summon
         _inventory = new PetInventory(this);
         
         int npcId = template.npcId;
-        _mountable = L2PetDataTable.isMountable(npcId);
+        _mountable = PetDataTable.isMountable(npcId);
     }
     
     public PetStat getStat()

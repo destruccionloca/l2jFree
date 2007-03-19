@@ -21,9 +21,9 @@ package net.sf.l2j.gameserver.model.actor.instance;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
-import net.sf.l2j.gameserver.TradeController;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
+import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2SkillLearn;
 import net.sf.l2j.gameserver.model.L2TradeList;
@@ -78,9 +78,9 @@ public class L2FishermanInstance extends L2MerchantInstance
         if (getIsInTown()) taxRate = getCastle().getTaxRate();
         player.tempInvetoryDisable();
         if (_log.isDebugEnabled()) _log.debug("Showing buylist");
-        L2TradeList list = TradeController.getInstance().getBuyList(val);
+        L2TradeList list = TradeListTable.getInstance().getBuyList(val);
 
-        if (list != null && list.getNpcId().equals(String.valueOf(getNpcId())))
+        if (list != null && list.getNpcId()== getNpcId())
         {
             BuyList bl = new BuyList(list, player.getAdena(), taxRate);
             player.sendPacket(bl);

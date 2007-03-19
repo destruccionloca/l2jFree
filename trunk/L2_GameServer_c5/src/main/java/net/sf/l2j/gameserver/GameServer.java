@@ -43,6 +43,7 @@ import net.sf.l2j.gameserver.datatables.HennaTable;
 import net.sf.l2j.gameserver.datatables.HennaTreeTable;
 import net.sf.l2j.gameserver.datatables.HeroSkillTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.datatables.LevelUpData;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.NobleSkillTable;
@@ -54,6 +55,7 @@ import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.datatables.StaticObjects;
 import net.sf.l2j.gameserver.datatables.SummonItemsData;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
+import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
@@ -196,7 +198,6 @@ import net.sf.l2j.gameserver.instancemanager.Manager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.model.AutoChatHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler;
-import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.script.faenor.FaenorScriptEngine;
@@ -295,7 +296,7 @@ public class GameServer
         ExtractableItemsData.getInstance();
         SummonItemsData.getInstance();
         
-        TradeController.getInstance();
+        TradeListTable.getInstance();
         _skillTable = SkillTable.getInstance();
         if (!_skillTable.isInitialized())
         {
@@ -578,7 +579,7 @@ public class GameServer
         if ( _log.isDebugEnabled())_log.debug("GmListTable initialized");
 
         // read pet stats from db
-        L2PetDataTable.getInstance().loadPetsData(); 
+        PetDataTable.getInstance().loadPetsData(); 
         if ( _log.isDebugEnabled())_log.debug("PetData initialized");
         
         Manager.loadAll();

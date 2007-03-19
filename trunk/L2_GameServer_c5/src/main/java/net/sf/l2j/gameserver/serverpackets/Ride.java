@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -37,23 +38,16 @@ public class Ride extends ServerBasePacket
      * @param _
      */
 
-    public Ride(int id, int action, int rideClassId)
+    public Ride(int id, int action, int npcId)
     {
         _id = id; // charobjectID
         _bRide = action; // 1 for mount ; 2 for dismount
-        _rideClassID = rideClassId + 1000000; // npcID
+        _rideClassID = npcId + 1000000; // npcID
 
-        if (rideClassId == 12526 || //wind strider
-            rideClassId == 12527 || //star strider
-            rideClassId == 12528) //twilight strider
-        {
+        if (PetDataTable.isStrider(npcId))
             _rideType = 1; // 1 for Strider ; 2 for wyvern
-        }
-        else if (rideClassId == 12621) // wyvern
-        {
+        else if (PetDataTable.isWyvern(npcId))
             _rideType = 2; // 1 for Strider ; 2 for wyvern
-        }
-
     }
 
     public int getMountType()

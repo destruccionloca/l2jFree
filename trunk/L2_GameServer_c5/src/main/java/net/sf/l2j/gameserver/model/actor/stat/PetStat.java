@@ -1,7 +1,7 @@
 package net.sf.l2j.gameserver.model.actor.stat;
 
+import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.model.L2Character;
-import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
@@ -81,7 +81,7 @@ public class PetStat extends SummonStat
         return levelIncreased;
     }
 
-    public final long getExpForLevel(int level) { return L2PetDataTable.getInstance().getPetData(getActiveChar().getNpcId(), level).getPetMaxExp(); }
+    public final long getExpForLevel(int level) { return PetDataTable.getInstance().getPetData(getActiveChar().getNpcId(), level).getPetMaxExp(); }
     
     // =========================================================
     // Method - Private
@@ -99,7 +99,7 @@ public class PetStat extends SummonStat
         getActiveChar().stopFeed();
         super.setLevel(value);
 
-        getActiveChar().setPetData(L2PetDataTable.getInstance().getPetData(getActiveChar().getTemplate().npcId, getLevel()));
+        getActiveChar().setPetData(PetDataTable.getInstance().getPetData(getActiveChar().getTemplate().npcId, getLevel()));
         getActiveChar().startFeed( false );
 
         if (getActiveChar().getControlItem() != null)

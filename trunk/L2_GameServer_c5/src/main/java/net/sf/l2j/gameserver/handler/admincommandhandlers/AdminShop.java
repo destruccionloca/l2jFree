@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.TradeController;
+import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -88,7 +88,7 @@ public class AdminShop implements IAdminCommandHandler {
 			_log.warn("admin buylist failed:"+command);
 		}
 		
-		L2TradeList list = TradeController.getInstance().getBuyList(val);
+		L2TradeList list = TradeListTable.getInstance().getBuyList(val);
 		
 		if (list != null)
 		{	

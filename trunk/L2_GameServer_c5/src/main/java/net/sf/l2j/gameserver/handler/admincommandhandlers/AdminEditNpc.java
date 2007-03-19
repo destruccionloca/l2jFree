@@ -31,10 +31,10 @@ import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.TradeController;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2DropCategory;
@@ -334,7 +334,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
     {
         int tradeListID = Integer.parseInt(args[1]);
         int itemID = Integer.parseInt(args[2]);
-        L2TradeList tradeList = TradeController.getInstance().getBuyList(tradeListID);
+        L2TradeList tradeList = TradeListTable.getInstance().getBuyList(tradeListID);
         
         L2Item item = ItemTable.getInstance().getTemplate(itemID);
         if (tradeList.getPriceForItemId(itemID) < 0)
@@ -381,7 +381,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
     {
         int tradeListID = Integer.parseInt(args[1]);
         int itemID = Integer.parseInt(args[2]);
-        L2TradeList tradeList = TradeController.getInstance().getBuyList(tradeListID);
+        L2TradeList tradeList = TradeListTable.getInstance().getBuyList(tradeListID);
         
         if (tradeList.getPriceForItemId(itemID) < 0)
         {
@@ -426,7 +426,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
     {
         int tradeListID = Integer.parseInt(args[1]);
         
-        L2TradeList tradeList = TradeController.getInstance().getBuyList(tradeListID);
+        L2TradeList tradeList = TradeListTable.getInstance().getBuyList(tradeListID);
         if (tradeList == null)
         {
             admin.sendMessage("TradeList not found!");
@@ -473,7 +473,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
     
     private void showShopList(L2PcInstance admin, int tradeListID, int page)
     {
-        L2TradeList tradeList = TradeController.getInstance().getBuyList(tradeListID);
+        L2TradeList tradeList = TradeListTable.getInstance().getBuyList(tradeListID);
         if (page > tradeList.getItems().size() / PAGE_LIMIT + 1 || page < 1)
             return;
         
@@ -637,7 +637,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             {
                 int tradeListID = Integer.decode((line.substring(pos+target.length()+1)).split("\"")[0]);
                 //System.out.println(tradeListID);
-                tradeLists.add(TradeController.getInstance().getBuyList(tradeListID));
+                tradeLists.add(TradeListTable.getInstance().getBuyList(tradeListID));
             }
         }
         

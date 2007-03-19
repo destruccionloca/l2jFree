@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
+import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.Manager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
@@ -265,11 +266,16 @@ public class AdminAdmin implements IAdminCommandHandler {
                 {
                     TeleportLocationTable.getInstance().reloadAll();
                     activeChar.sendMessage("Teleport List Table reloaded.");
-            }
+                }
+                else if(type.startsWith("tradelist"))
+                {
+                    TradeListTable.getInstance().reloadAll();
+                    activeChar.sendMessage("TradeList Table reloaded.");
+                }
             }
             catch(Exception e)
             {
-                activeChar.sendMessage("Usage:  //reload <multisell|teleport|skill|npc|htm|item|quest|instancemanager|teleport>");
+                activeChar.sendMessage("Usage:  //reload <multisell|teleport|skill|npc|htm|item|quest|instancemanager|teleport|tradelist>");
             }
         }
 
@@ -284,7 +290,7 @@ public class AdminAdmin implements IAdminCommandHandler {
                 String pValue = st.nextToken();
                 
                 if (Config.setParameterValue(pName, pValue))
-                    activeChar.sendMessage("Configvalue set succesfully");
+                    activeChar.sendMessage("Config value set succesfully");
                 else activeChar.sendMessage("Invalid parameter!");
             }
             catch(Exception e)

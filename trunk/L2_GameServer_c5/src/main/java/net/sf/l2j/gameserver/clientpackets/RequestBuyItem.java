@@ -23,9 +23,9 @@ import javolution.util.FastList;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
-import net.sf.l2j.gameserver.TradeController;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2FishermanInstance;
@@ -139,7 +139,7 @@ public class RequestBuyItem extends ClientBasePacket
         
         if (merchant != null)
         {
-            FastList<L2TradeList> lists = TradeController.getInstance().getBuyListByNpcId(merchant.getNpcId());
+            FastList<L2TradeList> lists = TradeListTable.getInstance().getBuyListByNpcId(merchant.getNpcId());
             
             if (lists == null)
             {
@@ -156,7 +156,7 @@ public class RequestBuyItem extends ClientBasePacket
             }
         }
         else
-            list = TradeController.getInstance().getBuyList(_listId);
+            list = TradeListTable.getInstance().getBuyList(_listId);
         
         if (list == null)
         {
@@ -164,7 +164,7 @@ public class RequestBuyItem extends ClientBasePacket
             return;
         }
         
-        if (list.getNpcId().equals("gm") && !player.isGM())
+        if (list.isGm() && !player.isGM())
         {
             Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a modified packet to buy from gmshop.",Config.DEFAULT_PUNISH);
             return;

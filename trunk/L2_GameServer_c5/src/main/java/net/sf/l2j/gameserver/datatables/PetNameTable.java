@@ -28,7 +28,6 @@ import java.util.regex.PatternSyntaxException;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.model.L2PetDataTable;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -56,16 +55,9 @@ public class PetNameTable
        try
        {
            con = L2DatabaseFactory.getInstance().getConnection();
-           PreparedStatement statement = con.prepareStatement("SELECT name FROM pets p, items i WHERE p.item_obj_id = i.object_id AND name=? AND i.item_id IN (?)");
+           PreparedStatement statement = con.prepareStatement("SELECT name FROM pets p, items i WHERE p.item_obj_id = i.object_id AND name=? AND i.item_id=?");
            statement.setString(1, name);
-           
-           String cond = "";
-           for (int it : L2PetDataTable.getPetItemsAsNpc(petNpcId))
-           {
-               if (cond != "") cond += ", ";
-               cond += it;
-           }
-           statement.setString(2, cond);
+           statement.setString(2, Integer.toString(PetDataTable.getItemIdByPetId(petNpcId)));
            ResultSet rset = statement.executeQuery();
            result = rset.next();
            rset.close();

@@ -3,10 +3,10 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
-import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.serverpackets.PetInfo;
@@ -52,8 +52,6 @@ public class RequestPetUseItem extends ClientBasePacket
         
         if (item.isWear())
             return;
-        
-        int itemId = item.getItemId();
 
         if (activeChar.isAlikeDead() || pet.isDead()) 
         {
@@ -65,68 +63,22 @@ public class RequestPetUseItem extends ClientBasePacket
         
         if (_log.isDebugEnabled()) 
             _log.debug(activeChar.getObjectId()+": pet use item " + _objectId);
-        
-        //check if the item matches the pet
-        if (item.isEquipable())
-        {
-            if (L2PetDataTable.isWolf(pet.getNpcId()) && // wolf
-                    item.getItem().isForWolf())
-            {
-                useItem(pet, item, activeChar);
-                return;
-            }
-            else if (L2PetDataTable.isHatchling(pet.getNpcId()) && // hatchlings
-                        item.getItem().isForHatchling())
-            {
-                useItem(pet, item, activeChar);
-                return;
-            }
-            else if (L2PetDataTable.isStrider(pet.getNpcId()) && // striders
-                    item.getItem().isForStrider())
-            {
-                useItem(pet, item, activeChar);
-                return;
-            }
-            else if (L2PetDataTable.isBaby(pet.getNpcId()) && 
-                    item.getItemId() == 7582) // Baby Spice
-            {
-                useItem(pet, item, activeChar);
-                return;
-            }
-            else
-            {
-                activeChar.sendPacket(new SystemMessage(SystemMessage.ITEM_NOT_FOR_PETS));
-                return;
-            }
+
+        // check if the food matches the pet
+        if (PetDataTable.getFoodItemId(pet.getNpcId()) == item.getItemId())
+    	{
+        	feed(activeChar, pet, item);
+        	return;
+    	}
+    	//check if the item matches the pet
+        if ((PetDataTable.isWolf(pet.getNpcId()) && item.getItem().isForWolf()) ||
+            (PetDataTable.isHatchling(pet.getNpcId()) && item.getItem().isForHatchling()) ||
+            (PetDataTable.isStrider(pet.getNpcId()) && item.getItem().isForHatchling()))
+        {   
+        	useItem(pet, item, activeChar);
+            return;
         }
-        else if (L2PetDataTable.isPetFood(itemId))
-        {
-            if (L2PetDataTable.isWolf(pet.getNpcId()) && L2PetDataTable.isWolfFood(itemId))
-            {
-                feed(activeChar, pet, item);
-                return;
-            }
-            else if (L2PetDataTable.isHatchling(pet.getNpcId()) && L2PetDataTable.isHatchlingFood(itemId))
-            {
-                feed(activeChar, pet, item);
-                return;
-            }
-            else if (L2PetDataTable.isStrider(pet.getNpcId()) && L2PetDataTable.isStriderFood(itemId))
-            {
-                feed(activeChar, pet, item);
-                return;
-            }
-            else if (L2PetDataTable.isWyvern(pet.getNpcId()) && L2PetDataTable.isWyvernFood(itemId))
-            {
-                feed(activeChar, pet, item);
-                return;
-            }
-            else if (L2PetDataTable.isBaby(pet.getNpcId()) && L2PetDataTable.isBabyFood(itemId))
-            {
-                feed(activeChar, pet, item);
-            }
-        }
-        
+
         IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());
         
         if (handler != null)

@@ -67,7 +67,6 @@ public class NpcTable
         restoreNpcData();
     }
 
-
     private void restoreNpcData()
     {
         java.sql.Connection con = null;

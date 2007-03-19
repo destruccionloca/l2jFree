@@ -4,8 +4,8 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
-import net.sf.l2j.gameserver.TradeController;
 import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -143,7 +143,7 @@ public class RequestBuySeed extends ClientBasePacket {
             {
                 if (_listId < 1000000)
                 {
-                    L2TradeList list = TradeController.getInstance().getBuyList(_listId);
+                    L2TradeList list = TradeListTable.getInstance().getBuyList(_listId);
                     price = CastleManager.getInstance().getCastle(player).getSeedPrice(itemId);
                     if (itemId >= 3960 && itemId <= 4026) price *= Config.RATE_SIEGE_GUARDS_PRICE;
                     if (price < 0)

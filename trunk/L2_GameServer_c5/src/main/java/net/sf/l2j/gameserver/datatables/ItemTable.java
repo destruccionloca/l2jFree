@@ -34,7 +34,6 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
-import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -765,7 +764,7 @@ public class ItemTable
             }
 
             // if it's a pet control item, delete the pet as well
-            if (L2PetDataTable.isPetItem(item.getItemId()))
+            if (PetDataTable.isPetItem(item.getItemId()))
             {
                 java.sql.Connection con = null;
                 try

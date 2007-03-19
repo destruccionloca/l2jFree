@@ -2,7 +2,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-import net.sf.l2j.gameserver.TradeController;
+import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -74,8 +74,8 @@ public final class L2MercManagerInstance extends L2FolkInstance
     {
         player.tempInvetoryDisable();
         if (_log.isDebugEnabled()) _log.debug("Showing buylist");
-        L2TradeList list = TradeController.getInstance().getBuyList(val);
-        if ((list != null) && (list.getNpcId().equals(String.valueOf(getNpcId()))))
+        L2TradeList list = TradeListTable.getInstance().getBuyList(val);
+        if (list != null && list.getNpcId()== getNpcId())
         {
             BuyList bl = new BuyList(list, player.getAdena(), 0);
             player.sendPacket(bl);

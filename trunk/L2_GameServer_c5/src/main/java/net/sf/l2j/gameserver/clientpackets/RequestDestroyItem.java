@@ -22,9 +22,9 @@ import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
-import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
@@ -149,7 +149,7 @@ public class RequestDestroyItem extends ClientBasePacket
 			activeChar.sendPacket(iu);
 		}
 
-        if (L2PetDataTable.isPetItem(itemId))
+        if (PetDataTable.isPetItem(itemId))
 		{
 			java.sql.Connection con = null;
 			try

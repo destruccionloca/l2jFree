@@ -41,9 +41,10 @@ public class L2TradeList
 	private FastList<L2ItemInstance> _items;
 	private int _listId;
 	private boolean _confirmed;
+	private boolean _gm;
 	private String _Buystorename,_Sellstorename;
     
-    private String _npcId;
+    private int _npcId;
 	
 	public L2TradeList(int listId)
 	{
@@ -54,12 +55,26 @@ public class L2TradeList
 	
     public void setNpcId(String id)
     {
-        _npcId = id;
+    	try
+    	{
+    		_gm = false;
+    		_npcId = Integer.parseInt(id);
+    	}
+    	catch (Exception e)
+    	{
+    		if (id.equalsIgnoreCase("gm"))
+    			_gm = true;
+    	}
     }
     
-    public String getNpcId()
+    public int getNpcId()
     {
         return _npcId;
+    }
+    
+    public boolean isGm()
+    {
+        return _gm;
     }
     
 	public void addItem(L2ItemInstance item)
@@ -187,8 +202,6 @@ public class L2TradeList
 				break;
 			}
 		}
-		
-		
 	}
 	
 	public boolean contains(int objId)
@@ -223,112 +236,6 @@ public class L2TradeList
 		return true;
 	}
 	
-/* unused?
-	//Call validate before this
-	public void tradeItems(L2PcInstance player,L2PcInstance reciever)
-	{
-		Inventory playersInv = player.getInventory();
-		Inventory recieverInv = reciever.getInventory();
-		L2ItemInstance playerItem,recieverItem,temp,newitem;
-		InventoryUpdate update = new InventoryUpdate();
-		ItemTable itemTable = ItemTable.getInstance();
-		
-		//boolean isValid;
-		//LinkedList<L2ItemInstance> itemsToAdd = new LinkedList<L2ItemInstance>();
-		//LinkedList<L2ItemInstance> itemsToRemove = new LinkedList<L2ItemInstance>();
-		//LinkedList countsToRemove = new LinkedList();
-		
-		for(int y = 0 ; y < _items.size(); y++)
-		{
-			temp = _items.get(y);
-			playerItem = playersInv.getItemByObjectId(temp.getObjectId());
-			// FIXME: why is this null??
-            if (playerItem == null)
-                continue;
-            newitem = itemTable.createItem("L2TradeList", playerItem.getItemId(), playerItem.getCount(), player);
-            newitem.setEnchantLevel(temp.getEnchantLevel());
-
-            // DIRTY FIX: Fix for trading pet collar not updating pet with new collar object id
-            changePetItemObjectId(playerItem.getObjectId(), newitem.getObjectId());
-
-            // Remove item from sender and add item to reciever
-            if (reciever.isGM() || player.isGM()){
-    	      L2PcInstance gm;
-    	      L2PcInstance target;
-    	      if (reciever.isGM()){
-    	      gm = reciever;
-    	      target = player;
-    	      }else{
-    	      gm = player;
-    	      target = reciever;     
-    	      }
-    	         GMAudit.auditGMAction(gm.getName(), "trade", target.getName(), newitem.getItem().getName()+" - "+newitem.getItemId());
-    	     }            
-
-			playerItem = playersInv.destroyItem("!L2TradeList!", playerItem.getObjectId(),temp.getCount(), null, null);
-			recieverItem = recieverInv.addItem("!L2TradeList!", newitem, null, null);
-
-			
-            if(playerItem == null)
-            {
-                _log.warn("L2TradeList: PlayersInv.destroyItem returned NULL!");
-                continue;
-            }
-            
-			if (playerItem.getLastChange() == L2ItemInstance.MODIFIED)
-			{
-				update.addModifiedItem(playerItem);
-			}
-			else
-			{
-				L2World world = L2World.getInstance();
-				world.removeObject(playerItem);
-				update.addRemovedItem(playerItem);
-				
-			}
-			
-			player.sendPacket(update);
-			
-			update = new InventoryUpdate();
-			if (recieverItem.getLastChange() == L2ItemInstance.MODIFIED)
-			{
-				update.addModifiedItem(recieverItem);
-			}
-			else
-			{
-				update.addNewItem(recieverItem);
-			}
-			
-			reciever.sendPacket(update);
-		}
-		
-		// weight status update both player and reciever
-		StatusUpdate su = new StatusUpdate(player.getObjectId());
-		su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
-		player.sendPacket(su);
-		
-		su = new StatusUpdate(reciever.getObjectId());
-		su.addAttribute(StatusUpdate.CUR_LOAD, reciever.getCurrentLoad());
-		reciever.sendPacket(su);
-	}
-
-    private void changePetItemObjectId(int oldObjectId, int newObjectId)
-    {
-        java.sql.Connection con = null;
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection();
-            PreparedStatement statement = con.prepareStatement("UPDATE pets SET item_obj_id = ? WHERE item_obj_id = ?");
-            statement.setInt(1, newObjectId);
-            statement.setInt(2, oldObjectId);
-            statement.executeUpdate();
-            statement.close();
-        }
-        catch (Exception e) { _log.warn("could not change pet item object id: " + e); }
-        finally { try { con.close(); } catch (Exception e) {} }
-    }
-*/
-    
     public void updateBuyList(L2PcInstance player, FastList<TradeItem> list)
 	{
 		

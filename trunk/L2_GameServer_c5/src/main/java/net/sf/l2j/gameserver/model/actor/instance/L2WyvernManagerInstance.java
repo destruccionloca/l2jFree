@@ -1,7 +1,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
-import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
@@ -39,7 +39,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
 
         	if  ( petItemId==0 || 
         		 !player.isMounted() || 
-        		 !L2PetDataTable.isStrider(L2PetDataTable.getPetIdByItemId(petItemId)))
+        		 !PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)))
             {
                 SystemMessage sm = new SystemMessage(SystemMessage.YOU_MAY_ONLY_RIDE_WYVERN_WHILE_RIDING_STRIDER);
                 player.sendPacket(sm);
@@ -47,7 +47,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
                 return;
             } else
             	if  ( player.isMounted() && 
-               		  L2PetDataTable.isStrider(L2PetDataTable.getPetIdByItemId(petItemId)) &&
+               		  PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)) &&
                		  petItem != null && 
                		  petItem.getEnchantLevel() < 55 )
             	{

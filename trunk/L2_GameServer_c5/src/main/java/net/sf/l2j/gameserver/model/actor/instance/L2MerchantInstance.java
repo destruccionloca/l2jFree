@@ -23,7 +23,7 @@ import java.util.StringTokenizer;
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
-import net.sf.l2j.gameserver.TradeController;
+import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.BuyList;
@@ -80,7 +80,7 @@ public class L2MerchantInstance extends L2FolkInstance
 
         if (_log.isDebugEnabled()) _log.debug("Showing wearlist");
 
-        L2TradeList list = TradeController.getInstance().getBuyList(val);
+        L2TradeList list = TradeListTable.getInstance().getBuyList(val);
 
         if (list != null)
         {
@@ -104,9 +104,9 @@ public class L2MerchantInstance extends L2FolkInstance
 
         if (_log.isDebugEnabled()) _log.debug("Showing buylist");
 
-        L2TradeList list = TradeController.getInstance().getBuyList(val);
+        L2TradeList list = TradeListTable.getInstance().getBuyList(val);
 
-        if (list != null && list.getNpcId().equals(String.valueOf(getNpcId())))
+        if (list != null && list.getNpcId()== getNpcId())
         {
             BuyList bl = new BuyList(list, player.getAdena(), taxRate);
             player.sendPacket(bl);
