@@ -43,7 +43,6 @@ import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
-import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -1779,14 +1778,14 @@ public class L2Clan
             player.sendPacket(new SystemMessage(SystemMessage.YOU_MAY_NOT_CREATE_ALLY_WHILE_DISSOLVING));
             return;
         }
-        if (!Util.isAlphaNumeric(allyName,true))
-        {
-            player.sendPacket(new SystemMessage(SystemMessage.INCORRECT_ALLIANCE_NAME));
-            return;
-        }
-        if (allyName.length() > 16 || allyName.length() < 2)
+        if (allyName.length() > 16 || allyName.length() < 3)
         {
             player.sendPacket(new SystemMessage(SystemMessage.INCORRECT_ALLIANCE_NAME_LENGTH));
+            return;
+        }
+        if (!Config.CLAN_ALLY_NAME_PATTERN.matcher(allyName).matches())
+        {
+            player.sendPacket(new SystemMessage(SystemMessage.INCORRECT_ALLIANCE_NAME));
             return;
         }
         if (ClanTable.getInstance().isAllyExists(allyName))

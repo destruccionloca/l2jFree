@@ -93,7 +93,6 @@ public class SystemMessage extends ServerBasePacket
 	public static final int DROWN_DAMAGE_S1 = 0x129;
 
 	public static final int YOU_DROPPED_S1 = 0x12a;
-	public static final int TARGET_IS_NOT_FOUND_IN_THE_GAME = 0x91;
 	public static final int TARGET_CANT_FOUND = 50;
 	public static final int TARGET_MUST_BE_IN_CLAN = 234;
 
@@ -185,6 +184,7 @@ public class SystemMessage extends ServerBasePacket
 
     //Request
     public static final int TARGET_IS_INCORRECT = 144;
+    public static final int PLAYER_NOT_ONLINE = 145;
 	public static final int YOU_HAVE_INVITED_THE_WRONG_TARGET = 152;
     public static final int S1_IS_BUSY_TRY_LATER = 153;
 	public static final int WAITING_FOR_ANOTHER_REPLY = 164;
@@ -227,7 +227,7 @@ public class SystemMessage extends ServerBasePacket
 	public static final int FAILED_TO_CREATE_CLAN = 190;
 	public static final int YOU_MUST_WAIT_XX_DAYS_BEFORE_CREATING_A_NEW_CLAN = 230;
 	public static final int CLAN_NAME_INCORRECT = 261;
-	public static final int CLAN_NAME_TOO_LONG = 262;
+	public static final int CLAN_NAME_LENGHT_INCORRECT = 262;
 	public static final int S1_ALREADY_EXISTS = 5;
 	public static final int S1_DOES_NOT_EXIST = 6;
 	
@@ -297,6 +297,8 @@ public class SystemMessage extends ServerBasePacket
     public static final int ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE = 710;
     public static final int ONLY_CLAN_LEADER_CAN_RETRIEVE_ITEMS_FROM_CLAN_WAREHOUSE = 1039;
     public static final int TITLE_CHANGED = 214;
+    public static final int CLAN_MEMBER_S1_TITLE_CHANGED_TO_S2 = 1760;
+
     public static final int CLAN_DOES_NOT_OWN_CLAN_HALL = 681;
     
     public static final int CLAN_INFO_HEAD = 496;

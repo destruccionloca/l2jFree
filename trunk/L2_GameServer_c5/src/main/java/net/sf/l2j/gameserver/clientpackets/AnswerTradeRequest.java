@@ -63,7 +63,7 @@ public class AnswerTradeRequest extends ClientBasePacket{
         {
             // Trade partner not found, cancel trade
 			player.sendPacket(new SendTradeDone(0));
-            SystemMessage msg = new SystemMessage(SystemMessage.TARGET_IS_NOT_FOUND_IN_THE_GAME);
+            SystemMessage msg = new SystemMessage(SystemMessage.PLAYER_NOT_ONLINE);
             player.sendPacket(msg);
 			player.setActiveRequester(null);
 			msg = null;

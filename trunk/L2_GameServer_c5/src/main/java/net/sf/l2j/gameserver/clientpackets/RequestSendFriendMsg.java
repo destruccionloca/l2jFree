@@ -65,7 +65,7 @@ public class RequestSendFriendMsg extends ClientBasePacket
         
         if (targetPlayer == null && _message != null && activeChar != null) 
         {
-        	activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_NOT_FOUND_IN_THE_GAME));
+        	activeChar.sendPacket(new SystemMessage(SystemMessage.PLAYER_NOT_ONLINE));
         	return;
         }
         

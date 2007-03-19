@@ -115,7 +115,7 @@ public class CharacterCreate extends ClientBasePacket
 			sendPacket(ccf);
 			return;
 		}
-        else if ((_name.length() < 3) || (_name.length() > 16) || !Util.isAlphaNumeric(_name) || !isValidName(_name))
+        else if (!Config.CNAME_PATTERN.matcher(_name).matches())
 		{
 			if (_log.isDebugEnabled()) 
 				_log.debug("charname: " + _name + " is invalid. creation failed.");
@@ -148,28 +148,6 @@ public class CharacterCreate extends ClientBasePacket
 
 		initNewChar(getClient(), newChar);
 	}
-	
-    private boolean isValidName(String text)
-    {
-            boolean result = true;
-            String test = text;
-            Pattern pattern;
-            try
-            {
-                pattern = Pattern.compile(Config.CNAME_TEMPLATE);
-            }
-            catch (PatternSyntaxException e) // case of illegal pattern
-            {
-                _log.warn("ERROR : Character name pattern of config is wrong!");
-                pattern = Pattern.compile(".*");
-            }
-            Matcher regexp = pattern.matcher(test);
-            if (!regexp.matches())
-            {
-                    result = false;
-            }
-            return result;
-    }
 	
 	private void initNewChar(ClientThread client, L2PcInstance newChar)
 	{   

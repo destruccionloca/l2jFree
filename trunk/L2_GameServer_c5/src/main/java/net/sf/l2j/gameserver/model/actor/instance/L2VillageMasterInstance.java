@@ -22,7 +22,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import javolution.text.TextBuilder;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
@@ -45,7 +44,6 @@ import net.sf.l2j.gameserver.serverpackets.AquireSkillList;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -591,16 +589,17 @@ public final class L2VillageMasterInstance extends L2FolkInstance
             }
             return;
         }
-		if (!Util.isAlphaNumeric(clanName,true) || 2 > clanName.length())
+        if (clanName.length() > 16 || clanName.length() < 3)
+        {
+            player.sendPacket(new SystemMessage(SystemMessage.CLAN_NAME_LENGHT_INCORRECT));
+            return;
+        }
+		if (!Config.CLAN_ALLY_NAME_PATTERN.matcher(clanName).matches())
 		{
 			player.sendPacket(new SystemMessage(SystemMessage.CLAN_NAME_INCORRECT));
 			return;
 		}
-        if (clanName.length() > 16)
-        {
-            player.sendPacket(new SystemMessage(SystemMessage.CLAN_NAME_TOO_LONG));
-            return;
-        }
+		
 		for (L2Clan tempClan : ClanTable.getInstance().getClans())
 		{
 			if (tempClan.getSubPledge(clanName) != null)

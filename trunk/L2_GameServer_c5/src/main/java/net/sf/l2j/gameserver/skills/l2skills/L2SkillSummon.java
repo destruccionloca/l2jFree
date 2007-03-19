@@ -61,17 +61,17 @@ public class L2SkillSummon extends L2Skill {
 					mastery = 0;
 				int count = player.getCubics().size(); 
 				if (count > mastery) {
-					SystemMessage sm = new SystemMessage(614);
-					sm.addString("You already have "+count+" cubic(s).");
+					SystemMessage sm = new SystemMessage(SystemMessage.CUBIC_SUMMONING_FAILED);
 					activeChar.sendPacket(sm);
+					sm = null;
 					return false;
 				}
 			} else {
 				if(player.getPet() != null)
 				{
-					SystemMessage sm = new SystemMessage(614);
-					sm.addString("You already have a pet.");
+					SystemMessage sm = new SystemMessage(SystemMessage.SUMMON_ONLY_ONE);
 					activeChar.sendPacket(sm);
+					sm = null;
 					return false;
 				}
 			}
@@ -89,6 +89,7 @@ public class L2SkillSummon extends L2Skill {
             SystemMessage sm = new SystemMessage(614);
             sm.addString("Summon skill "+getId()+" not described yet");
 			activeChar.sendPacket(sm);
+			sm = null;
 			return;
 		}
 		
@@ -115,7 +116,9 @@ public class L2SkillSummon extends L2Skill {
 					if (player.getCubics().size() > mastery) continue;		
                     if (player.getCubics().containsKey(npcId))
                     {
-                        player.sendMessage("You already have such cubic");
+                    	SystemMessage sm = new SystemMessage(SystemMessage.CUBIC_SUMMONING_FAILED);
+            			activeChar.sendPacket(sm);
+            			sm = null;
                     }
                     else
                     {
@@ -139,7 +142,9 @@ public class L2SkillSummon extends L2Skill {
 				}
                 if (activeChar.getCubics().containsKey(npcId))
                 {
-                    activeChar.sendMessage("You already have such cubic");
+                	SystemMessage sm = new SystemMessage(SystemMessage.CUBIC_SUMMONING_FAILED);
+        			activeChar.sendPacket(sm);
+        			sm = null;
                     return;
                 }
 				activeChar.addCubic(npcId, getLevel());

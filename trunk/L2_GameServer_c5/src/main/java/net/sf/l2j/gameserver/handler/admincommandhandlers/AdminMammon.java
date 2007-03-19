@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SevenSigns;
-import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler.AutoSpawnInstance;
@@ -49,7 +48,6 @@ public class AdminMammon implements IAdminCommandHandler
             if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
         }
 
-        int npcId = 0;
         int teleportIndex = -1;
         AutoSpawnInstance blackSpawnInst = AutoSpawnHandler.getInstance().getAutoSpawnInstance(
                                                                                                SevenSigns.MAMMON_BLACKSMITH_ID,

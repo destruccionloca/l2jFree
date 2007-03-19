@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver;
 import java.net.Socket;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Calendar;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;

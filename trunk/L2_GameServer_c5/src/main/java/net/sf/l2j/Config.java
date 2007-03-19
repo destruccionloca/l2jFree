@@ -31,7 +31,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.StringTokenizer;
-
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -122,9 +123,14 @@ public final class Config {
     public static boolean AUTO_LOOT_HERBS;
 
     /** Character name template */
-    public static String CNAME_TEMPLATE;
+    public static Pattern CNAME_PATTERN;
     /** Pet name template */
-    public static String PET_NAME_TEMPLATE;    
+    public static Pattern PET_NAME_PATTERN;    
+    /** Clan and ally name template */
+    public static Pattern CLAN_ALLY_NAME_PATTERN;      
+    /** Clan title template */
+    public static Pattern TITLE_PATTERN;
+    
     /** Maximum number of characters per account */
     public static int MAX_CHARACTERS_NUMBER_PER_ACCOUNT;
 
@@ -1197,9 +1203,47 @@ public final class Config {
 				
 	            PORT_GAME               = Integer.parseInt(serverSettings.getProperty("GameserverPort", "7777"));
 	            PORT_LOGIN              = Integer.parseInt(serverSettings.getProperty("LoginserverPort", "2106"));
-	            CNAME_TEMPLATE 		    = serverSettings.getProperty("CnameTemplate", ".*");
-                PET_NAME_TEMPLATE       = serverSettings.getProperty("PetNameTemplate", ".*");
-                
+	            
+	            try
+	            {
+	            	CNAME_PATTERN 		    = Pattern.compile(serverSettings.getProperty("CnameTemplate", "[A-Za-z0-9\\-]{3,16}"));
+	            }
+	            catch (PatternSyntaxException e)
+	            {
+	                _log.warn("Character name pattern is wrong!",e);
+	                CNAME_PATTERN  = Pattern.compile("[A-Za-z0-9\\-]{3,16}");
+	            }
+	            
+	            try
+	            {
+	            	PET_NAME_PATTERN        = Pattern.compile(serverSettings.getProperty("PetNameTemplate", "[A-Za-z0-9\\-]{3,16}"));
+	            }
+	            catch (PatternSyntaxException e)
+	            {
+	                _log.warn("Pet name pattern is wrong!",e);
+	                PET_NAME_PATTERN  = Pattern.compile("[A-Za-z0-9\\-]{3,16}");
+	            }
+	            
+	            try
+	            {
+	            	CLAN_ALLY_NAME_PATTERN  = Pattern.compile(serverSettings.getProperty("ClanAllyNameTemplate", "[A-Za-z0-9 \\-]{3,16}"));
+	            }
+	            catch (PatternSyntaxException e)
+	            {
+	                _log.warn("Clan and ally name pattern is wrong!",e);
+	                CLAN_ALLY_NAME_PATTERN  = Pattern.compile("[A-Za-z0-9 \\-]{3,16}");
+	            }
+	            
+	            try
+	            {
+	            	TITLE_PATTERN           = Pattern.compile(serverSettings.getProperty("TitleTemplate", "[A-Za-z0-9 \\\\[\\\\]\\(\\)\\<\\>\\|\\!]{3,16}"));
+	            }
+	            catch (PatternSyntaxException e)
+	            {
+	                _log.warn("Character title pattern is wrong!",e);
+	                TITLE_PATTERN  = Pattern.compile("[A-Za-z0-9 \\\\[\\\\]\\(\\)\\<\\>\\|\\!]{3,16}");
+	            }
+	            
                 MAX_CHARACTERS_NUMBER_PER_ACCOUNT = Integer.parseInt(serverSettings.getProperty("CharMaxNumber", "0"));
 	            LOGIN_TRY_BEFORE_BAN    = Integer.parseInt(serverSettings.getProperty("LoginTryBeforeBan", "10"));
 	            GAMESERVER_HOSTNAME     = serverSettings.getProperty("GameserverHostname");

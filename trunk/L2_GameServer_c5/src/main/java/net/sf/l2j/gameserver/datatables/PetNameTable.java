@@ -22,11 +22,7 @@ package net.sf.l2j.gameserver.datatables;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 
 import org.apache.commons.logging.Log;
@@ -70,45 +66,6 @@ public class PetNameTable
        finally
        {
            try { con.close(); } catch (Exception e) {}
-       }
-       return result;
-   }
-
-    public boolean isValidPetName(String name)
-    {
-        boolean result = true;
-        
-        if (!isAlphaNumeric(name)) return result;
-
-        Pattern pattern;
-        try
-        {
-            pattern = Pattern.compile(Config.PET_NAME_TEMPLATE);
-        }
-        catch (PatternSyntaxException e) // case of illegal pattern
-        {
-           _log.warn("ERROR : Pet name pattern of config is wrong!");
-            pattern = Pattern.compile(".*");
-        }
-        Matcher regexp = pattern.matcher(name);
-        if (!regexp.matches())
-        {
-            result = false;
-        }
-        return result;
-    }
-
-   private boolean isAlphaNumeric(String text)
-   {
-       boolean result = true;
-       char[] chars = text.toCharArray();
-       for (int i = 0; i < chars.length; i++)
-       {
-           if (!Character.isLetterOrDigit(chars[i]))
-           {
-               result = false;
-               break;
-           }
        }
        return result;
    }

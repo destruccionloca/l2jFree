@@ -30,7 +30,11 @@ package net.sf.l2j.gameserver.util;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -196,10 +200,12 @@ public final class Util
      * @param String str
      * @return int numWords
      */
+    /*
     public static int countWords(String str)
     {
         return str.trim().split(" ").length;
     }
+    */
     
     /**
      * Returns a delimited string for an given array of string elements.<BR>
@@ -250,27 +256,4 @@ public final class Util
         
         return (Math.round(val * exponent) / exponent);
     }
-
-	public static boolean isAlphaNumeric(String text)
-	{
-		return isAlphaNumeric(text, false);
-	}
-	
-	public static boolean isAlphaNumeric(String text, boolean allowSpaces)
-	{
-		boolean result = true;
-		// no double spaces
-		if (text.contains("  ")) return false;
-		char[] chars = text.toCharArray();
-		for (int i = 0; i < chars.length; i++)
-		{                                                 
-			if (!Character.isLetterOrDigit(chars[i]) && !(allowSpaces && Character.isSpaceChar(chars[i])))
-			{
-				result = false;
-				break;
-			}
-		}
-		return result;
-	}
-
 }

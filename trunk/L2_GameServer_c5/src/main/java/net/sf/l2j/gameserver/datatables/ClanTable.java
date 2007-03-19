@@ -23,6 +23,7 @@ import java.sql.ResultSet;
 import java.util.Map;
 
 import javolution.util.FastMap;
+import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
@@ -36,7 +37,6 @@ import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
-import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 
 import org.apache.commons.logging.Log;
@@ -158,17 +158,16 @@ public class ClanTable
         	player.sendPacket(new SystemMessage(SystemMessage.YOU_MUST_WAIT_XX_DAYS_BEFORE_CREATING_A_NEW_CLAN));
 			return null;
 		}
-		if (!Util.isAlphaNumeric(clanName,true) || 2 > clanName.length())
+		if (clanName.length() < 3 || clanName.length() > 16)
+		{
+			player.sendPacket(new SystemMessage(SystemMessage.CLAN_NAME_LENGHT_INCORRECT));
+			return null;
+		}		
+		if (!Config.CLAN_ALLY_NAME_PATTERN.matcher(clanName).matches())
 		{
 			player.sendPacket(new SystemMessage(SystemMessage.CLAN_NAME_INCORRECT));
 			return null;
 		}
-		if (16 < clanName.length())
-		{
-			player.sendPacket(new SystemMessage(SystemMessage.CLAN_NAME_TOO_LONG));
-			return null;
-		}
-
 		if (null != getClanByName(clanName))
 		{
             // clan name is already taken

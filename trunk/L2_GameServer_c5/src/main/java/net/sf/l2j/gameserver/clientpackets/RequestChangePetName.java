@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.datatables.PetNameTable;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -65,7 +66,7 @@ public class RequestChangePetName extends ClientBasePacket{
 			activeChar.sendPacket(new SystemMessage(SystemMessage.NAMING_ALREADY_IN_USE_BY_ANOTHER_PET));
 			return;
 		}
-        else if ((_name.length() < 3) || (_name.length() > 16))
+        else if (_name.length() < 3 || _name.length() > 16)
 		{
             SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
             sm.addString("Your pet's name can be up to 16 characters.");
@@ -75,7 +76,7 @@ public class RequestChangePetName extends ClientBasePacket{
         	
 			return;
 		}
-        else if (!PetNameTable.getInstance().isValidPetName(_name))
+        else if (!Config.CLAN_ALLY_NAME_PATTERN.matcher(_name).matches())
 		{
         	activeChar.sendPacket(new SystemMessage(SystemMessage.NAMING_PETNAME_CONTAINS_INVALID_CHARS));
 			return;
