@@ -63,10 +63,7 @@ public class ExtendedPatternLayoutTest extends TestCase
             System.setOut(new PrintStream (by,true));
             
             // log in consoleAppender
-            Logger logger = Logger.getLogger("test");
-            ExtendedPatternLayout myLayout= new ExtendedPatternLayout();
-            Appender myAppender = new ConsoleAppender(myLayout);   
-            logger.addAppender(myAppender);
+            Logger logger = Logger.getLogger(ExtendedPatternLayoutTest.class);
             logger.info("Basic string");
             
             //restore system outputstream
@@ -97,11 +94,7 @@ public class ExtendedPatternLayoutTest extends TestCase
             System.setOut(new PrintStream (by,true));
             
             // log in consoleAppender
-            Logger logger = Logger.getLogger("test");
-            ExtendedPatternLayout myLayout= new ExtendedPatternLayout();
-            myLayout.setConversionPattern("%p %m %s");
-            Appender myAppender = new ConsoleAppender(myLayout);   
-            logger.addAppender(myAppender);
+            Logger logger = Logger.getLogger(ExtendedPatternLayoutTest.class);
             Exception e = new Exception ("Exception for bad error...");
             e.setStackTrace(new StackTraceElement[]{new StackTraceElement("class toto","methode titi","file fifi",1)});
             logger.info("exception",e);
@@ -111,9 +104,9 @@ public class ExtendedPatternLayoutTest extends TestCase
             System.setOut(psSys);
             
             // Check value
-            assertEquals("exception"+ System.getProperty("line.separator")+"INFO exception java.lang.Exception: Exception for bad error..."+ System.getProperty("line.separator")+
-                         "\tat class toto.methode titi(file fifi:1)"+ System.getProperty("line.separator")
-                         ,by.toString());
+            assertEquals("exception java.lang.Exception: Exception for bad error..."+ System.getProperty("line.separator")+
+                         "\tat class toto.methode titi(file fifi:1)"
+                         ,by.toString().trim());
         }
         catch (Exception e)
         {
@@ -148,10 +141,7 @@ public class ExtendedPatternLayoutTest extends TestCase
             param.add(null);
             
             // log in consoleAppender
-            Logger logger = Logger.getLogger("test");
-            ExtendedPatternLayout myLayout= new ExtendedPatternLayout();
-            Appender myAppender = new ConsoleAppender(myLayout);
-            logger.addAppender(myAppender);
+            Logger logger = Logger.getLogger(ExtendedPatternLayoutTest.class);
             logger.info(param);
             
             //restore system outputstream
@@ -159,7 +149,7 @@ public class ExtendedPatternLayoutTest extends TestCase
             System.setOut(psSys);
             
             // Check value
-            assertEquals(by.toString(),"[CHANGE : Pickup , player corwin, {val1=player1, val2=216565}, null]" + System.getProperty("line.separator"));
+            assertEquals(by.toString().trim(),"[CHANGE : Pickup , player corwin, {val1=player1, val2=216565}, null]");
         }
         catch (Exception e)
         {
