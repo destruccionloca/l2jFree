@@ -24,9 +24,13 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.datatables.MapRegionTable;
+import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList.KnownListAsynchronousUpdateTask;
 import net.sf.l2j.gameserver.serverpackets.PartyMemberPosition;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocationInVehicle;
 import net.sf.l2j.util.Point3D;
@@ -227,6 +231,26 @@ public class ValidatePosition extends ClientBasePacket
 		
 		if (Config.ALLOW_WATER)
 			activeChar.checkWaterState();
+
+		// [L2J_JP ADD START SANDMAN]
+		// if this is a castle that is currently being sieged, and the rider is NOT a castle owner
+		// he cannot flying.
+		// castle owner is the leader of the clan that owns the castle where the pc is
+		if ((!Config.ALT_FLYING_WYVERN_IN_SIEGE) && (activeChar.getMountType() == 2))
+		{
+		    if (SiegeManager.getInstance().checkIfInZone(activeChar)
+		            && !(activeChar.getClan() != null
+		            && CastleManager.getInstance().getCastle(activeChar) == CastleManager.getInstance().getCastleByOwner(activeChar.getClan())
+		            && activeChar == activeChar.getClan().getLeader().getPlayerInstance()))
+		    {
+		        SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+		        sm.addString("You entered into a no-fly zone.");
+		        activeChar.sendPacket(sm);
+		
+		        activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+		    }
+		}
+		// [L2J_JP ADD END]
     }
     
     /* (non-Javadoc)

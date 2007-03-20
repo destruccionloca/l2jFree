@@ -857,6 +857,8 @@ public final class Config {
     public static boolean       IS_CRAFTING_ENABLED;
     /** Config for Fake Death Fail Feature **/
     public static boolean   	FAIL_FAKEDEATH;
+    /** Config for Wyvern enable flying in siege **/
+    public static boolean 		ALT_FLYING_WYVERN_IN_SIEGE;
     
     /** Inventory slots limits */
     public static int           INVENTORY_MAXIMUM_NO_DWARF;
@@ -1806,6 +1808,7 @@ public final class Config {
                 CHAMPION_MINIONS           							= Boolean.parseBoolean(altSettings.getProperty("ChampionMinions", "false"));
 	            IS_CRAFTING_ENABLED     							= Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
 	            FAIL_FAKEDEATH 										= Boolean.parseBoolean(altSettings.getProperty("FailFakeDeath", "true"));
+	            ALT_FLYING_WYVERN_IN_SIEGE 							= Boolean.parseBoolean(altSettings.getProperty("AltFlyingWyvernInSiege", "false"));
 	            SP_BOOK_NEEDED          							= Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
 	            AUTO_LOOT               							= altSettings.getProperty("AutoLoot").equalsIgnoreCase("True");
                 AUTO_LOOT_HERBS         							= altSettings.getProperty("AutoLootHerbs").equalsIgnoreCase("True");
