@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Future;
+import java.util.Random;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -134,6 +135,7 @@ public abstract class L2Character extends L2Object
     private boolean _IsAffraid                              = false; // Flee in a random direction
     private boolean _IsConfused                             = false; // Attack anyone randomly
     private boolean _IsFakeDeath                            = false; // Fake death
+    private boolean _IsFallsdown                            = false; // Falls down [L2J_JP_ADD]
     private boolean _IsFlying                               = false; //Is flying Wyvern?
     private boolean _IsMuted                                = false; // Cannot use magic
     private boolean _IsPsychicalMuted                       = false; // Cannot use psychical attack
@@ -1560,7 +1562,7 @@ public abstract class L2Character extends L2Object
     public final boolean isAllSkillsDisabled() { return _allSkillsDisabled || isStunned() || isSleeping() || isParalyzed(); }
 
     /** Return True if the L2Character can't attack (stun, sleep, attackEndTime, fakeDeath, paralyse). */
-    public final boolean isAttackingDisabled() { return isStunned() || isSleeping() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed(); }
+    public final boolean isAttackingDisabled() { return isStunned() || isSleeping() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed()  || isFallsdown(); }
 
     public final Calculator[] getCalculators() { return _Calculators; }
     
@@ -1573,6 +1575,11 @@ public abstract class L2Character extends L2Object
     public final boolean isFakeDeath() { return _IsFakeDeath; }
     public final void setIsFakeDeath(boolean value) { _IsFakeDeath = value; }
 
+	// [L2J_JP_ADD START]
+	public final boolean isFallsdown() { return _IsFallsdown; }
+	public final void setIsFallsdown(boolean value) { _IsFallsdown = value; }
+	// [L2J_JP_ADD END]
+    
     /** Return True if the L2Character is flying. */
     public final boolean isFlying() { return _IsFlying; }
     /** Set the L2Character flying mode to True. */
@@ -1591,7 +1598,7 @@ public abstract class L2Character extends L2Object
     public final void setIsPsychicalMuted(boolean value) { _IsPsychicalMuted = value; }
 
     /** Return True if the L2Character can't move (stun, root, sleep, overload, paralyzed). */
-    public final boolean isMovementDisabled() { return isStunned() || isRooted() || isSleeping() || isOverloaded() || isParalyzed() || isImobilised() || isFakeDeath(); }
+    public final boolean isMovementDisabled() { return isStunned() || isRooted() || isSleeping() || isOverloaded() || isParalyzed() || isImobilised() || isFakeDeath()  || isFallsdown(); }
 
     /** Return True if the L2Character can be controlled by the player (confused, affraid). */
     public final boolean isOutOfControl() { return isConfused() || isAffraid(); }
@@ -2269,12 +2276,81 @@ public abstract class L2Character extends L2Object
        updateAbnormalEffect();
    }
 
+   // [L2J_JP ADD]
+   private final static Random _fdRnd = new Random();
+   
     /**
      * Active the abnormal effect Fake Death flag, notify the L2Character AI and send Server->Client UserInfo/CharInfo packet.<BR><BR>
      */
     public final void startFakeDeath()
     {
-       setIsFakeDeath(true);
+        // [L2J_JP ADD START]
+        setIsFallsdown(true);
+
+        if(Config.FAIL_FAKEDEATH)
+        {
+            //It fails in Fake Death at the probability
+     	   setIsFakeDeath(true);
+            if(_AttackingChar != null)
+            {
+                int _diff;
+                _diff = _AttackingChar.getLevel() - this.getLevel();
+                switch(_diff)
+                {
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        if(_fdRnd.nextInt(100) >= 95)  //fails at 5%.
+                            setIsFakeDeath(false);
+                        break;
+                    case 6:
+                        if(_fdRnd.nextInt(100) >= 90)  //fails at 10%.
+                            setIsFakeDeath(false);
+                        break;
+                    case 7:
+                        if(_fdRnd.nextInt(100) >= 85)  //fails at 15%.
+                            setIsFakeDeath(false);
+                        break;
+                    case 8:
+                        if(_fdRnd.nextInt(100) >= 80)  //fails at 20%.
+                            setIsFakeDeath(false);
+                        break;
+                    case 9:
+                        if(_fdRnd.nextInt(100) >= 75)  //fails at 25%.
+                            setIsFakeDeath(false);
+                        break;
+                    default:
+                        if(_diff > 9)
+                        {
+                            if(_fdRnd.nextInt(100) >= 50)  //fails at 50%.
+                                setIsFakeDeath(false);
+                        }
+                        else
+                        {
+                            setIsFakeDeath(true);
+                        }
+                }
+                //If _attackingChar is L2RaidBoss, Fake Death will have failed.
+                if(_AttackingChar.isRaid())
+                {
+                    setIsFakeDeath(false);
+                }
+            }
+            else
+            //attacked from aggressive monster
+            {
+                if(_fdRnd.nextInt(100) >= 75)  //fails at 25%.
+             	   setIsFakeDeath(false);
+            }
+        }
+        else
+        {
+            setIsFakeDeath(true);
+        }
+        // [L2J_JP ADD END]
+
         /* Aborts any attacks/casts if fake dead */
         abortAttack();
         abortCast();
@@ -2507,6 +2583,7 @@ public abstract class L2Character extends L2Object
            removeEffect(effect);
        
        setIsFakeDeath(false);
+       setIsFallsdown(false); // [L2J_JP_ADD]
        ChangeWaitType revive = new ChangeWaitType(this,ChangeWaitType.WT_STOP_FAKEDEATH);
        broadcastPacket(revive); 
        getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
