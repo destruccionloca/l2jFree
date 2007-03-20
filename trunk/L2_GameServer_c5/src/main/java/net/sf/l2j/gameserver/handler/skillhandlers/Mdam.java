@@ -207,9 +207,9 @@ public class Mdam implements ISkillHandler
                                                                                        target);
                     else
                     {
-                        SystemMessage sm = new SystemMessage(139);
+                    	SystemMessage sm = new SystemMessage(SystemMessage.S1_WAS_UNAFFECTED_BY_S2);
                         sm.addString(target.getName());
-                        sm.addString(skill.getName());
+                        sm.addSkillName(skill.getDisplayId());
                         activeChar.sendPacket(sm);
                     }
                 }

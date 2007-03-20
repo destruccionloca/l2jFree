@@ -52,8 +52,8 @@ public class L2SkillChargeDmg extends L2Skill
 			EffectCharge e = (EffectCharge)player.getEffect(charge_skill_id);
 			if(e == null || e.num_charges < this.num_charges)
 			{
-				SystemMessage sm = new SystemMessage(614);
-				sm.addString("Not enough charges.");
+				SystemMessage sm = new SystemMessage(113);
+				sm.addSkillName(this.getId());
 				activeChar.sendPacket(sm);
 				return false;
 			}
@@ -72,15 +72,16 @@ public class L2SkillChargeDmg extends L2Skill
 		EffectCharge effect = (EffectCharge) caster.getEffect(charge_skill_id);
 		if (effect == null || effect.num_charges < this.num_charges)
 		{
-			SystemMessage sm = new SystemMessage(614);
-			sm.addString("Not enough charges.");
+			SystemMessage sm = new SystemMessage(113);
+			sm.addSkillName(this.getId());
 			caster.sendPacket(sm);
 			return;
 		}
+        double modifier = 0;
+        modifier = effect.num_charges*0.33;		
+		
 		if (this.getTargetType() != SkillTargetType.TARGET_AREA && this.getTargetType() != SkillTargetType.TARGET_MULTIFACE)
 		    effect.num_charges -= this.num_charges;
-        double modifier = 0;
-        modifier = effect.num_charges*0.33;
 		caster.updateEffectIcons();
         if (effect.num_charges == 0)
         {effect.exit();}

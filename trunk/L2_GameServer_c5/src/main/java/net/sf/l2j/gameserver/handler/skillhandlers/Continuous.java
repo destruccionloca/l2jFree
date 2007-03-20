@@ -106,10 +106,7 @@ public class Continuous implements ISkillHandler
 						activeChar, target, skill);
 				if (!acted) 
                 {
-                    SystemMessage sm = new SystemMessage(139);
-                    sm.addString(target.getName());
-                    sm.addSkillName(skill.getId());
-                    activeChar.sendPacket(sm);
+					activeChar.sendPacket(new SystemMessage(SystemMessage.ATTACK_FAILED));
                     continue;
 				}
 				
