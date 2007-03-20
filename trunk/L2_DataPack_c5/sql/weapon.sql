@@ -1178,111 +1178,180 @@ INSERT INTO `weapon` (`item_id`, `name`, `bodypart`, `crystallizable`, `weight`,
 (8576, 'Apprentice''s Staff - For Coupon Event', 'lrhand', 'false', 1060, 2, 2, 'oriharukon', 'none', 23, 20, 'blunt', 4, 0.00000, 0, 0, 0, 325, 0, 22, 95, 0, 0, 'false');
 
 -- Interlude Weapons
-INSERT INTO `weapon` VALUES ('8678', 'sirr_blade', 'lrhand', 'true', '1300', '1', '1', 'steel', 'a', '251', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8679', 'sword_of_ipos', 'lrhand', 'true', '1820', '1', '1', 'steel', 'a', '305', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8680', 'barakiel_axe', 'lrhand', 'true', '1550', '1', '1', 'steel', 'a', '251', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8681', 'tuning_fork_of_behemoth', 'lrhand', 'true', '1890', '1', '1', 'steel', 'a', '305', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8682', 'naga_storm', 'lrhand', 'true', '930', '1', '1', 'steel', 'a', '220', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8683', 'tiphon_spear', 'lrhand', 'true', '1820', '1', '1', 'steel', 'a', '251', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8684', 'shyid_bow', 'lrhand', 'true', '1640', '2', '1', 'steel', 'a', '570', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '10', '133', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8685', 'sobekk_hurricane', 'lrhand', 'true', '1330', '1', '1', 'steel', 'a', '305', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8686', 'tongue_of_themis', 'lrhand', 'true', '820', '1', '1', 'steel', 'a', '202', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '161', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8687', 'hand_of_cabrio', 'lrhand', 'true', '1510', '1', '1', 'steel', 'a', '202', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '161', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8688', 'crystal_of_deamon', 'lrhand', 'true', '880', '1', '1', 'steel', 'a', '245', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '161', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8689', 'aka', 'lrhand', 'false', '1840', '0', '0', 'steel', 'none', '361', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '137', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8763', 'seize_mace', 'rhand', 'false', '500', '0', '0', 'steel', 'a', '0', '0', 'blunt', '0', '0.00000', '0', '0', '0', '379', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8788', 'sirr_blade', 'lrhand', 'true', '1300', '1', '1', 'steel', 'a', '251', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8789', 'sirr_blade', 'lrhand', 'true', '1300', '1', '1', 'steel', 'a', '251', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8790', 'sirr_blade', 'lrhand', 'true', '1300', '1', '1', 'steel', 'a', '251', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8791', 'sword_of_ipos', 'lrhand', 'true', '1820', '1', '1', 'steel', 'a', '305', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8792', 'sword_of_ipos', 'lrhand', 'true', '1820', '1', '1', 'steel', 'a', '305', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8793', 'sword_of_ipos', 'lrhand', 'true', '1820', '1', '1', 'steel', 'a', '305', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8794', 'barakiel_axe', 'lrhand', 'true', '1550', '1', '1', 'steel', 'a', '251', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8795', 'barakiel_axe', 'lrhand', 'true', '1550', '1', '1', 'steel', 'a', '251', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8796', 'barakiel_axe', 'lrhand', 'true', '1550', '1', '1', 'steel', 'a', '251', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8797', 'tuning_fork_of_behemoth', 'lrhand', 'true', '1890', '1', '1', 'steel', 'a', '305', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8798', 'tuning_fork_of_behemoth', 'lrhand', 'true', '1890', '1', '1', 'steel', 'a', '305', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8799', 'tuning_fork_of_behemoth', 'lrhand', 'true', '1890', '1', '1', 'steel', 'a', '305', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8800', 'naga_storm', 'lrhand', 'true', '930', '1', '1', 'steel', 'a', '220', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8801', 'naga_storm', 'lrhand', 'true', '930', '1', '1', 'steel', 'a', '220', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8802', 'naga_storm', 'lrhand', 'true', '930', '1', '1', 'steel', 'a', '220', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8803', 'tiphon_spear', 'lrhand', 'true', '1820', '1', '1', 'steel', 'a', '251', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8804', 'tiphon_spear', 'lrhand', 'true', '1820', '1', '1', 'steel', 'a', '251', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8805', 'tiphon_spear', 'lrhand', 'true', '1820', '1', '1', 'steel', 'a', '251', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8806', 'shyid_bow', 'lrhand', 'true', '1640', '2', '1', 'steel', 'a', '570', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '8', '133', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8807', 'shyid_bow', 'lrhand', 'true', '1640', '2', '1', 'steel', 'a', '570', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '8', '133', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8808', 'shyid_bow', 'lrhand', 'true', '1640', '2', '1', 'steel', 'a', '570', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '8', '133', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8809', 'sobekk_hurricane', 'lrhand', 'true', '1330', '1', '1', 'steel', 'a', '305', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8810', 'sobekk_hurricane', 'lrhand', 'true', '1330', '1', '1', 'steel', 'a', '305', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8811', 'sobekk_hurricane', 'lrhand', 'true', '1330', '1', '1', 'steel', 'a', '305', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8812', 'tongue_of_themis', 'lrhand', 'true', '820', '1', '1', 'steel', 'a', '202', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '161', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8813', 'tongue_of_themis', 'lrhand', 'true', '820', '1', '1', 'steel', 'a', '202', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '161', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8814', 'tongue_of_themis', 'lrhand', 'true', '820', '1', '1', 'steel', 'a', '202', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '161', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8815', 'hand_of_cabrio', 'lrhand', 'true', '1510', '1', '1', 'steel', 'a', '202', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '161', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8816', 'hand_of_cabrio', 'lrhand', 'true', '1510', '1', '1', 'steel', 'a', '202', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '161', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8817', 'hand_of_cabrio', 'lrhand', 'true', '1510', '1', '1', 'steel', 'a', '202', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '161', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8818', 'crystal_of_deamon', 'lrhand', 'true', '880', '1', '1', 'steel', 'a', '245', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '161', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8819', 'crystal_of_deamon', 'lrhand', 'true', '880', '1', '1', 'steel', 'a', '245', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '161', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8820', 'crystal_of_deamon', 'lrhand', 'true', '880', '1', '1', 'steel', 'a', '245', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '161', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8821', 'twohanded_sword', 'lrhand', 'true', '2180', '2', '2', 'steel', 'd', '78', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '39', '90', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8822', 'crimson_sword', 'rhand', 'true', '1490', '2', '2', 'steel', 'd', '64', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '39', '90', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8823', 'spike_club', 'rhand', 'true', '1750', '2', '2', 'steel', 'd', '64', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '39', '90', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8824', 'staff_of_magicpower', 'lrhand', 'true', '1020', '2', '2', 'steel', 'd', '62', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '52', '90', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8825', 'kukuri', 'rhand', 'true', '1080', '2', '2', 'steel', 'd', '56', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '39', '90', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8826', 'dagger_of_mana', 'rhand', 'true', '750', '2', '2', 'steel', 'd', '45', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '52', '90', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8827', 'triple-edged_jamadhr', 'lrhand', 'true', '1540', '2', '2', 'steel', 'd', '78', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '39', '90', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8828', 'gastraphetes', 'lrhand', 'true', '1840', '8', '2', 'steel', 'd', '132', '5', 'bow', '12', '-3.00000', '0', '0', '0', '293', '4', '39', '90', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8829', 'war_hammer', 'lrhand', 'true', '2080', '2', '2', 'steel', 'd', '64', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '39', '90', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8830', 'katana', 'rhand', 'true', '1420', '2', '2', 'steel', 'c', '122', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '68', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8831', 'bech_de_corbin', 'lrhand', 'true', '2020', '2', '2', 'steel', 'c', '122', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '68', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8832', 'cursed_staff', 'lrhand', 'true', '1000', '2', '2', 'steel', 'c', '119', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '91', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8833', 'stiletto', 'rhand', 'true', '1030', '2', '2', 'steel', 'c', '107', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '68', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8834', 'dagger_of_magicflame', 'rhand', 'true', '750', '2', '2', 'steel', 'c', '86', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '91', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8835', 'elemental_bow', 'lrhand', 'true', '1770', '8', '2', 'steel', 'c', '277', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '7', '75', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8836', 'dwarven_warhammer', 'rhand', 'true', '1670', '2', '2', 'steel', 'c', '122', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '68', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8837', 'sword_of_revolution*sword_of_revolution', 'lrhand', 'true', '2360', '2', '2', 'steel', 'c', '148', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '68', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8838', 'knuckle_dust', 'lrhand', 'true', '1490', '2', '2', 'steel', 'c', '148', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '68', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8839', 'sword_of_delusion', 'rhand', 'true', '1400', '3', '3', 'steel', 'c', '139', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '76', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8840', 'poleaxe', 'lrhand', 'true', '2010', '3', '3', 'steel', 'c', '139', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '76', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8841', 'stick_of_eternity', 'rhand', 'true', '1130', '3', '3', 'steel', 'c', '111', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '101', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8842', 'inferno_staff', 'lrhand', 'true', '1000', '3', '3', 'steel', 'c', '135', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '101', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8843', 'paagrio_hammer', 'lrhand', 'true', '1010', '3', '3', 'steel', 'c', '135', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '101', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8844', 'dark_screamer', 'rhand', 'true', '1010', '3', '3', 'steel', 'c', '122', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '76', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8845', 'akat_long_bow', 'lrhand', 'true', '1740', '9', '3', 'steel', 'c', '316', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '7', '84', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8846', 'sword_of_paagrio', 'lrhand', 'true', '1980', '3', '3', 'steel', 'c', '169', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '76', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8847', 'fist_blade', 'lrhand', 'true', '1480', '3', '3', 'steel', 'c', '169', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '76', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8848', 'stormbringer*stormbringer', 'lrhand', 'true', '2330', '3', '3', 'steel', 'c', '175', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '78', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8849', 'great_sword', 'lrhand', 'true', '1930', '1', '1', 'steel', 'b', '213', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '91', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8850', 'heavy_war_axe', 'rhand', 'true', '1620', '1', '1', 'steel', 'b', '175', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '91', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8851', 'sprites_staff', 'lrhand', 'true', '960', '1', '1', 'steel', 'b', '170', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '122', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8852', 'kshanberk', 'rhand', 'true', '1370', '1', '1', 'steel', 'b', '175', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '91', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8853', 'sword_of_valhalla', 'rhand', 'true', '900', '1', '1', 'steel', 'b', '140', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '122', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8854', 'kris', 'rhand', 'true', '980', '1', '1', 'steel', 'b', '153', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '91', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8855', 'arthro_nail', 'lrhand', 'true', '1420', '1', '1', 'steel', 'b', '213', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '91', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8856', 'dark_elven_long_bow', 'lrhand', 'true', '1720', '3', '1', 'steel', 'b', '397', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '8', '100', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8857', 'sword_of_delusion*sword_of_delusion', 'lrhand', 'true', '2150', '1', '1', 'steel', 'b', '213', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '91', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8858', 'great_axe', 'lrhand', 'true', '1940', '1', '1', 'steel', 'b', '175', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '91', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8859', 'tallum_blade', 'rhand', 'true', '1330', '1', '1', 'steel', 'a', '213', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '107', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8860', 'halbard', 'lrhand', 'true', '1900', '1', '1', 'steel', 'a', '213', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '107', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8861', 'dasparions_staff', 'lrhand', 'true', '920', '1', '1', 'steel', 'a', '207', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '143', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8862', 'bloody_orchid', 'rhand', 'true', '960', '1', '1', 'steel', 'a', '186', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '107', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8863', 'blood_tornado', 'lrhand', 'true', '1370', '1', '1', 'steel', 'a', '259', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '107', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8864', 'carnium_bow', 'lrhand', 'true', '1670', '2', '1', 'steel', 'a', '440', '5', 'bow', '12', '-3.00000', '0', '0', '0', '293', '9', '107', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8865', 'kshanberk*kshanberk', 'lrhand', 'true', '2080', '1', '1', 'steel', 'a', '259', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '107', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8866', 'meteor_shower', 'rhand', 'true', '1600', '1', '1', 'steel', 'a', '213', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '107', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8867', 'inferno_master', 'lrhand', 'true', '1900', '1', '1', 'steel', 'a', '259', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '107', '300', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8926', 'sword_of_delusion', 'rhand', 'true', '1400', '3', '3', 'steel', 'c', '139', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '76', '120', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8927', 'poleaxe', 'lrhand', 'true', '2010', '3', '3', 'steel', 'c', '139', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '76', '120', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8928', 'stick_of_eternity', 'rhand', 'true', '1130', '3', '3', 'steel', 'c', '111', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '101', '120', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8929', 'inferno_staff', 'lrhand', 'true', '1000', '3', '3', 'steel', 'c', '135', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '101', '120', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8930', 'paagrio_hammer', 'lrhand', 'true', '1010', '3', '3', 'steel', 'c', '135', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '101', '120', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8931', 'dark_screamer', 'rhand', 'true', '1010', '3', '3', 'steel', 'c', '122', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '76', '120', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8932', 'akat_long_bow', 'lrhand', 'true', '1740', '9', '3', 'steel', 'c', '316', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '7', '84', '120', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8933', 'sword_of_paagrio', 'lrhand', 'true', '1980', '3', '3', 'steel', 'c', '169', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '76', '120', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8934', 'fist_blade', 'lrhand', 'true', '1480', '3', '3', 'steel', 'c', '169', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '76', '120', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8935', 'test_rapier', 'rhand', 'true', '1380', '3', '3', 'steel', 'c', '156', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '83', '0', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8937', 'stormbringer*stormbringer', 'lrhand', 'true', '2330', '3', '3', 'steel', 'c', '175', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '78', '120', '0', '0', 'true');
-INSERT INTO `weapon` VALUES ('8938', 'tallum_blade*damascus', 'lrhand', 'true', '1890', '1', '1', 'steel', 'a', '305', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true');
+INSERT INTO `weapon` VALUES 
+('8678','Sirra\'s Blade', 'lrhand', 'true', '1300', '1', '1', 'steel', 'a', '251', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '121', '0', '0', '0', 'true'),
+('8679','Sword of Ipos', 'lrhand', 'true', '1820', '1', '1', 'steel', 'a', '305', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8680','Barakiel\'s Axe', 'lrhand', 'true', '1550', '1', '1', 'steel', 'a', '251', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '121', '0', '0', '0', 'true'),
+('8681','Behemoth\'s Tuning Fork', 'lrhand', 'true', '1890', '1', '1', 'steel', 'a', '305', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8682','Naga Storm', 'lrhand', 'true', '930', '1', '1', 'steel', 'a', '220', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '121', '0', '0', '0', 'true'),
+('8683','Tiphon\'s Spear', 'lrhand', 'true', '1820', '1', '1', 'steel', 'a', '251', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8684','Shyeed\'s Bow', 'lrhand', 'true', '1640', '2', '1', 'steel', 'a', '570', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '10', '133', '0', '0', '0', 'true'),
+('8685','Sobekk\'s Hurricane', 'lrhand', 'true', '1330', '1', '1', 'steel', 'a', '305', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8686','Themis Tongue', 'lrhand', 'true', '820', '1', '1', 'steel', 'a', '202', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '161', '0', '0', '0', 'true'),
+('8687','Cabrio\'s Hand', 'lrhand', 'true', '1510', '1', '1', 'steel', 'a', '202', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '161', '0', '0', '0', 'true'),
+('8688','Daimon Crystal', 'lrhand', 'true', '880', '1', '1', 'steel', 'a', '245', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '161', '0', '0', '0', 'true'),
+('8689','Blood Sword Akamanah', 'lrhand', 'false', '1840', '0', '0', 'steel', 'none', '361', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '137', '0', '0', '0', 'true'),
+('8763','Elrokian Trap', 'rhand', 'false', '500', '0', '0', 'steel', 'a', '0', '0', 'blunt', '0', '0.00000', '0', '0', '0', '379', '0', '0', '0', '0', '0', 'true'),
+('8788','Sirra\'s Blade - Haste', 'lrhand', 'true', '1300', '1', '1', 'steel', 'a', '251', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '121', '0', '0', '0', 'true'),
+('8789','Sirra\'s Blade - Health', 'lrhand', 'true', '1300', '1', '1', 'steel', 'a', '251', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '121', '0', '0', '0', 'true'),
+('8790','Sirra\'s Blade - Critical Poison', 'lrhand', 'true', '1300', '1', '1', 'steel', 'a', '251', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '121', '0', '0', '0', 'true'),
+('8791','Sword of Ipos - Focus', 'lrhand', 'true', '1820', '1', '1', 'steel', 'a', '305', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8792','Sword of Ipos - Haste', 'lrhand', 'true', '1820', '1', '1', 'steel', 'a', '305', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8793','Sword of Ipos - Health', 'lrhand', 'true', '1820', '1', '1', 'steel', 'a', '305', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8794','Barakiel\'s Axe - Health', 'lrhand', 'true', '1550', '1', '1', 'steel', 'a', '251', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '121', '0', '0', '0', 'true'),
+('8795','Barakiel\'s Axe - Haste', 'lrhand', 'true', '1550', '1', '1', 'steel', 'a', '251', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '121', '0', '0', '0', 'true'),
+('8796','Barakiel\'s Axe - Focus', 'lrhand', 'true', '1550', '1', '1', 'steel', 'a', '251', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '121', '0', '0', '0', 'true'),
+('8797','Behemoth\'s Tuning Fork - Focus', 'lrhand', 'true', '1890', '1', '1', 'steel', 'a', '305', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8798','Behemoth\'s Tuning Fork - Health', 'lrhand', 'true', '1890', '1', '1', 'steel', 'a', '305', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8799','Behemoth\'s Tuning Fork - Anger', 'lrhand', 'true', '1890', '1', '1', 'steel', 'a', '305', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8800','Naga Storm - Focus', 'lrhand', 'true', '930', '1', '1', 'steel', 'a', '220', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '121', '0', '0', '0', 'true'),
+('8801','Naga Storm - Critical', 'lrhand', 'true', '930', '1', '1', 'steel', 'a', '220', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '121', '0', '0', '0', 'true'),
+('8802','Naga Storm - Back Blow', 'lrhand', 'true', '930', '1', '1', 'steel', 'a', '220', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '121', '0', '0', '0', 'true'),
+('8803','Tiphon\'s Spear - Critical Stun', 'lrhand', 'true', '1820', '1', '1', 'steel', 'a', '251', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8804','Tiphon\'s Spear - Towering Blow', 'lrhand', 'true', '1820', '1', '1', 'steel', 'a', '251', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8805','Tiphon\'s Spear - Wild Blow', 'lrhand', 'true', '1820', '1', '1', 'steel', 'a', '251', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8806','Shyeed\'s Bow - Cheap Shot', 'lrhand', 'true', '1640', '2', '1', 'steel', 'a', '570', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '8', '133', '0', '0', '0', 'true'),
+('8807','Shyeed\'s Bow - Focus', 'lrhand', 'true', '1640', '2', '1', 'steel', 'a', '570', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '8', '133', '0', '0', '0', 'true'),
+('8808','Shyeed\'s Bow - Quick Recovery', 'lrhand', 'true', '1640', '2', '1', 'steel', 'a', '570', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '8', '133', '0', '0', '0', 'true'),
+('8809','Sobekk\'s Hurricane - Rsk. Haste', 'lrhand', 'true', '1330', '1', '1', 'steel', 'a', '305', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8810','Sobekk\'s Hurricane - Haste', 'lrhand', 'true', '1330', '1', '1', 'steel', 'a', '305', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8811','Sobekk\'s Hurricane - Critical Drain', 'lrhand', 'true', '1330', '1', '1', 'steel', 'a', '305', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8812','Themis Tongue - Mana Up', 'lrhand', 'true', '820', '1', '1', 'steel', 'a', '202', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '161', '0', '0', '0', 'true'),
+('8813','Themis Tongue - Magic Mental Shield', 'lrhand', 'true', '820', '1', '1', 'steel', 'a', '202', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '161', '0', '0', '0', 'true'),
+('8814','Themis Tongue - Magic Focus', 'lrhand', 'true', '820', '1', '1', 'steel', 'a', '202', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '161', '0', '0', '0', 'true'),
+('8815','Cabrio\'s Hand - Conversion', 'lrhand', 'true', '1510', '1', '1', 'steel', 'a', '202', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '161', '0', '0', '0', 'true'),
+('8816','Cabrio\'s Hand - Mana Up', 'lrhand', 'true', '1510', '1', '1', 'steel', 'a', '202', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '161', '0', '0', '0', 'true'),
+('8817','Cabrio\'s Hand - Magic Silence', 'lrhand', 'true', '1510', '1', '1', 'steel', 'a', '202', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '161', '0', '0', '0', 'true'),
+('8818','Daimon Crystal - Mana Up', 'lrhand', 'true', '880', '1', '1', 'steel', 'a', '245', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '161', '0', '0', '0', 'true'),
+('8819','Daimon Crystal - Acumen', 'lrhand', 'true', '880', '1', '1', 'steel', 'a', '245', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '161', '0', '0', '0', 'true'),
+('8820','Daimon Crystal - Magic Mental Shield', 'lrhand', 'true', '880', '1', '1', 'steel', 'a', '245', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '161', '0', '0', '0', 'true'),
+('8821','Shadow Weapon: Two Handed Sword', 'lrhand', 'true', '2180', '2', '2', 'steel', 'd', '78', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '39', '90', '0', '0', 'true'),
+('8822','Shadow Weapon: Crimson Sword', 'rhand', 'true', '1490', '2', '2', 'steel', 'd', '64', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '39', '90', '0', '0', 'true'),
+('8823','Shadow Weapon: Spiked Club', 'rhand', 'true', '1750', '2', '2', 'steel', 'd', '64', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '39', '90', '0', '0', 'true'),
+('8824','Shadow Weapon: Staff of Magic', 'lrhand', 'true', '1020', '2', '2', 'steel', 'd', '62', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '52', '90', '0', '0', 'true'),
+('8825','Shadow Weapon: Kukuri', 'rhand', 'true', '1080', '2', '2', 'steel', 'd', '56', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '39', '90', '0', '0', 'true'),
+('8826','Shadow Weapon: Dagger of Mana', 'rhand', 'true', '750', '2', '2', 'steel', 'd', '45', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '52', '90', '0', '0', 'true'),
+('8827','Shadow Weapon: Triple-Edged Jamadhr', 'lrhand', 'true', '1540', '2', '2', 'steel', 'd', '78', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '39', '90', '0', '0', 'true'),
+('8828','Shadow Weapon: Gastraphetes', 'lrhand', 'true', '1840', '8', '2', 'steel', 'd', '132', '5', 'bow', '12', '-3.00000', '0', '0', '0', '293', '4', '39', '90', '0', '0', 'true'),
+('8829','Shadow Weapon: War Hammer', 'lrhand', 'true', '2080', '2', '2', 'steel', 'd', '64', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '39', '90', '0', '0', 'true'),
+('8830','Shadow Weapon: Katana', 'rhand', 'true', '1420', '2', '2', 'steel', 'c', '122', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '68', '300', '0', '0', 'true'),
+('8831','Shadow Weapon: Bec de Corbin', 'lrhand', 'true', '2020', '2', '2', 'steel', 'c', '122', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '68', '300', '0', '0', 'true'),
+('8832','Shadow Weapon: Cursed Staff', 'lrhand', 'true', '1000', '2', '2', 'steel', 'c', '119', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '91', '300', '0', '0', 'true'),
+('8833','Shadow Weapon: Stiletto', 'rhand', 'true', '1030', '2', '2', 'steel', 'c', '107', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '68', '300', '0', '0', 'true'),
+('8834','Shadow Weapon: Soulfire Dirk', 'rhand', 'true', '750', '2', '2', 'steel', 'c', '86', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '91', '300', '0', '0', 'true'),
+('8835','Shadow Weapon: Elemental Bow', 'lrhand', 'true', '1770', '8', '2', 'steel', 'c', '277', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '7', '75', '300', '0', '0', 'true'),
+('8836','Shadow Weapon: Dwarven War Hammer', 'rhand', 'true', '1670', '2', '2', 'steel', 'c', '122', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '68', '300', '0', '0', 'true'),
+('8837','Shadow Weapon: Sword of Revolution', 'lrhand', 'true', '2360', '2', '2', 'steel', 'c', '148', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '68', '300', '0', '0', 'true'),
+('8838','Shadow Weapon: Knuckle Duster', 'lrhand', 'true', '1490', '2', '2', 'steel', 'c', '148', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '68', '300', '0', '0', 'true'),
+('8839','Shadow Weapon: Sword of Delusion', 'rhand', 'true', '1400', '3', '3', 'steel', 'c', '139', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '76', '300', '0', '0', 'true'),
+('8840','Shadow Weapon: Poleaxe', 'lrhand', 'true', '2010', '3', '3', 'steel', 'c', '139', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '76', '300', '0', '0', 'true'),
+('8841','Shadow Weapon: Stick of Eternity', 'rhand', 'true', '1130', '3', '3', 'steel', 'c', '111', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '101', '300', '0', '0', 'true'),
+('8842','Shadow Weapon: Inferno Staff', 'lrhand', 'true', '1000', '3', '3', 'steel', 'c', '135', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '101', '300', '0', '0', 'true'),
+('8843','Shadow Weapon: Pa\'agrian Hammer', 'lrhand', 'true', '1010', '3', '3', 'steel', 'c', '135', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '101', '300', '0', '0', 'true'),
+('8844','Shadow Weapon: Dark Screamer', 'rhand', 'true', '1010', '3', '3', 'steel', 'c', '122', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '76', '300', '0', '0', 'true'),
+('8845','Shadow Weapon: Akat Long Bow', 'lrhand', 'true', '1740', '9', '3', 'steel', 'c', '316', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '7', '84', '300', '0', '0', 'true'),
+('8846','Shadow Weapon: Pa\'agrian Sword', 'lrhand', 'true', '1980', '3', '3', 'steel', 'c', '169', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '76', '300', '0', '0', 'true'),
+('8847','Shadow Weapon: Fisted Blade', 'lrhand', 'true', '1480', '3', '3', 'steel', 'c', '169', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '76', '300', '0', '0', 'true'),
+('8848','Shadow Weapon: Stormbringer', 'lrhand', 'true', '2330', '3', '3', 'steel', 'c', '175', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '78', '300', '0', '0', 'true'),
+('8849','Shadow Weapon: Great Sword', 'lrhand', 'true', '1930', '1', '1', 'steel', 'b', '213', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '91', '300', '0', '0', 'true'),
+('8850','Shadow Weapon: Heavy War Axe', 'rhand', 'true', '1620', '1', '1', 'steel', 'b', '175', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '91', '300', '0', '0', 'true'),
+('8851','Shadow Weapon: Sprite\'s Staff', 'lrhand', 'true', '960', '1', '1', 'steel', 'b', '170', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '122', '300', '0', '0', 'true'),
+('8852','Shadow Weapon: Keshanberk', 'rhand', 'true', '1370', '1', '1', 'steel', 'b', '175', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '91', '300', '0', '0', 'true'),
+('8853','Shadow Weapon: Sword of Valhalla', 'rhand', 'true', '900', '1', '1', 'steel', 'b', '140', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '122', '300', '0', '0', 'true'),
+('8854','Shadow Weapon: Krys', 'rhand', 'true', '980', '1', '1', 'steel', 'b', '153', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '91', '300', '0', '0', 'true'),
+('8855','Shadow Weapon: Arthro Nail', 'lrhand', 'true', '1420', '1', '1', 'steel', 'b', '213', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '91', '300', '0', '0', 'true'),
+('8856','Shadow Weapon: Dark Elven Long Bow', 'lrhand', 'true', '1720', '3', '1', 'steel', 'b', '397', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '8', '100', '300', '0', '0', 'true'),
+('8857','Shadow Weapon: Swords of Delusion', 'lrhand', 'true', '2150', '1', '1', 'steel', 'b', '213', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '91', '300', '0', '0', 'true'),
+('8858','Shadow Weapon: Great Axe', 'lrhand', 'true', '1940', '1', '1', 'steel', 'b', '175', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '91', '300', '0', '0', 'true'),
+('8859','Shadow Weapon: Tallum Blade', 'rhand', 'true', '1330', '1', '1', 'steel', 'a', '213', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '107', '300', '0', '0', 'true'),
+('8860','Shadow Weapon: Halberd', 'lrhand', 'true', '1900', '1', '1', 'steel', 'a', '213', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '107', '300', '0', '0', 'true'),
+('8861','Shadow Weapon: Dasparion\'s Staff', 'lrhand', 'true', '920', '1', '1', 'steel', 'a', '207', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '143', '300', '0', '0', 'true'),
+('8862','Shadow Weapon: Bloody Orchid', 'rhand', 'true', '960', '1', '1', 'steel', 'a', '186', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '107', '300', '0', '0', 'true'),
+('8863','Shadow Weapon: Blood Tornado', 'lrhand', 'true', '1370', '1', '1', 'steel', 'a', '259', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '107', '300', '0', '0', 'true'),
+('8864','Shadow Weapon: Carnage Bow', 'lrhand', 'true', '1670', '2', '1', 'steel', 'a', '440', '5', 'bow', '12', '-3.00000', '0', '0', '0', '293', '9', '107', '300', '0', '0', 'true'),
+('8865','Shadow Weapon: Dual Keshanberk', 'lrhand', 'true', '2080', '1', '1', 'steel', 'a', '259', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '107', '300', '0', '0', 'true'),
+('8866','Shadow Weapon: Meteor Shower', 'rhand', 'true', '1600', '1', '1', 'steel', 'a', '213', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '107', '300', '0', '0', 'true'),
+('8867','Shadow Weapon: Inferno Master', 'lrhand', 'true', '1900', '1', '1', 'steel', 'a', '259', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '107', '300', '0', '0', 'true'),
+('8926','Ballistics: Sword of Delusion', 'rhand', 'true', '1400', '3', '3', 'steel', 'c', '139', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '76', '120', '0', '0', 'true'),
+('8927','Ballistics: Poleaxe', 'lrhand', 'true', '2010', '3', '3', 'steel', 'c', '139', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '76', '120', '0', '0', 'true'),
+('8928','Ballistics: Stick of Eternity', 'rhand', 'true', '1130', '3', '3', 'steel', 'c', '111', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '101', '120', '0', '0', 'true'),
+('8929','Ballistics: Inferno Staff', 'lrhand', 'true', '1000', '3', '3', 'steel', 'c', '135', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '101', '120', '0', '0', 'true'),
+('8930','Ballistics: Pa\'agrian Hammer', 'lrhand', 'true', '1010', '3', '3', 'steel', 'c', '135', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '101', '120', '0', '0', 'true'),
+('8931','Ballistics: Dark Screamer', 'rhand', 'true', '1010', '3', '3', 'steel', 'c', '122', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '76', '120', '0', '0', 'true'),
+('8932','Ballistics: Akat Long Bow', 'lrhand', 'true', '1740', '9', '3', 'steel', 'c', '316', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '7', '84', '120', '0', '0', 'true'),
+('8933','Ballistics: Pa\'agrian Sword', 'lrhand', 'true', '1980', '3', '3', 'steel', 'c', '169', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '76', '120', '0', '0', 'true'),
+('8934','Ballistics: Fisted Blade', 'lrhand', 'true', '1480', '3', '3', 'steel', 'c', '169', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '76', '120', '0', '0', 'true'),
+('8935','Test Rapier', 'rhand', 'true', '1380', '3', '3', 'steel', 'c', '156', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '83', '0', '0', '0', 'true'),
+('8937','Ballistics: Stormbringer', 'lrhand', 'true', '2330', '3', '3', 'steel', 'c', '175', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '78', '120', '0', '0', 'true'),
+('8938','Damascus * Tallum Blade', 'lrhand', 'true', '1890', '1', '1', 'steel', 'a', '305', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '121', '0', '0', '0', 'true'),
+('8972','Shadow Weapon: Long Spear','lrhand','false','2120','2','2','bronze','none','31','10','pole','8','-3.00000','0','0','0','325','0','21','95','244000','0','true'),
+('8973','Shadow Weapon: Falchion','rhand','false','1530','2','2','bronze','none','31','10','sword','8','0.00000','0','0','0','379','0','21','95','244000','0','true'),
+('8974','Shadow Weapon: Iron Hammer','rhand','false','1850','2','2','steel','none','31','20','blunt','4','4.00000','0','0','0','379','0','21','95','244000','0','true'),
+('8975','Shadow Weapon: Voodoo Doll','rhand','false','630','2','2','wood','none','25','10','etc','8','0.00000','0','0','0','379','0','28','95','244000','0','true'),
+('8976','Shadow Weapon: Buzdygan','rhand','false','1800','2','2','steel','none','31','20','blunt','4','4.00000','0','0','0','379','0','21','95','244000','0','true'),
+('8977','Shadow Weapon: Mage Staff','lrhand','false','1050','2','2','wood','none','30','20','blunt','4','4.00000','0','0','0','325','0','28','95','244000','0','true'),
+('8978','Shadow Weapon: Sword Breaker','rhand','false','1110','2','2','steel','none','27','5','dagger','12','-3.00000','0','0','0','433','0','21','95','244000','0','true'),
+('8979','Shadow Weapon: Viper\'s Fang','lrhand','false','1560','2','2','steel','none','38','5','dualfist','4','4.00000','0','0','0','325','0','21','90','244000','0','true'),
+('8980','Shadow Weapon: Composition Bow','lrhand','false','1880','7','2','steel','none','64','5','bow','12','-3.00000','0','0','0','293','3','21','95','244000','0','true'),
+('8981','Shadow Weapon: Crucifix of Blessing','rhand','false','620','2','2','steel','none','25','10','etc','8','0.00000','0','0','0','379','0','28','95','244000','0','true'),
+('8982','Shadow Weapon: Two Handed Sword', 'lrhand', 'true', '2180', '2', '2', 'steel', 'd', '78', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '39', '90', '0', '0', 'true'),
+('8983','Shadow Weapon: Crimson Sword', 'rhand', 'true', '1490', '2', '2', 'steel', 'd', '64', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '39', '90', '0', '0', 'true'),
+('8984','Shadow Weapon: Spiked Club', 'rhand', 'true', '1750', '2', '2', 'steel', 'd', '64', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '39', '90', '0', '0', 'true'),
+('8985','Shadow Weapon: Staff of Magic', 'lrhand', 'true', '1020', '2', '2', 'steel', 'd', '62', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '52', '90', '0', '0', 'true'),
+('8986','Shadow Weapon: Kukuri', 'rhand', 'true', '1080', '2', '2', 'steel', 'd', '56', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '39', '90', '0', '0', 'true'),
+('8987','Shadow Weapon: Dagger of Mana', 'rhand', 'true', '750', '2', '2', 'steel', 'd', '45', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '52', '90', '0', '0', 'true'),
+('8988','Shadow Weapon: Triple-Edged Jamadhr', 'lrhand', 'true', '1540', '2', '2', 'steel', 'd', '78', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '39', '90', '0', '0', 'true'),
+('8989','Shadow Weapon: Gastraphetes', 'lrhand', 'true', '1840', '8', '2', 'steel', 'd', '132', '5', 'bow', '12', '-3.00000', '0', '0', '0', '293', '4', '39', '90', '0', '0', 'true'),
+('8990','Shadow Weapon: War Hammer', 'lrhand', 'true', '2080', '2', '2', 'steel', 'd', '64', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '39', '90', '0', '0', 'true'),
+('8991','Shadow Weapon: Sword of Delusion', 'rhand', 'true', '1400', '3', '3', 'steel', 'c', '139', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '76', '300', '0', '0', 'true'),
+('8992','Shadow Weapon: Poleaxe', 'lrhand', 'true', '2010', '3', '3', 'steel', 'c', '139', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '76', '300', '0', '0', 'true'),
+('8993','Shadow Weapon: Stick of Eternity', 'rhand', 'true', '1130', '3', '3', 'steel', 'c', '111', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '101', '300', '0', '0', 'true'),
+('8994','Shadow Weapon: Inferno Staff', 'lrhand', 'true', '1000', '3', '3', 'steel', 'c', '135', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '101', '300', '0', '0', 'true'),
+('8995','Shadow Weapon: Pa\'agrian Hammer', 'lrhand', 'true', '1010', '3', '3', 'steel', 'c', '135', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '101', '300', '0', '0', 'true'),
+('8996','Shadow Weapon: Dark Screamer', 'rhand', 'true', '1010', '3', '3', 'steel', 'c', '122', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '76', '300', '0', '0', 'true'),
+('8997','Shadow Weapon: Akat Long Bow', 'lrhand', 'true', '1740', '9', '3', 'steel', 'c', '316', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '7', '84', '300', '0', '0', 'true'),
+('8998','Shadow Weapon: Pa\'agrian Sword', 'lrhand', 'true', '1980', '3', '3', 'steel', 'c', '169', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '76', '300', '0', '0', 'true'),
+('8999','Shadow Weapon: Fisted Blade', 'lrhand', 'true', '1480', '3', '3', 'steel', 'c', '169', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '76', '300', '0', '0', 'true'),
+('9000','Shadow Weapon: Stormbringer*Stormbringer','lrhand','true','2330','3','3','fine_steel','c','175','10','dual','8','0.00000','0','0','0','325','0','78','95','4780000','1912','true'),
+('9001','Shadow Weapon: Great Sword', 'lrhand', 'true', '1930', '1', '1', 'steel', 'b', '213', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '91', '300', '0', '0', 'true'),
+('9002','Shadow Weapon: Heavy War Axe', 'rhand', 'true', '1620', '1', '1', 'steel', 'b', '175', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '91', '300', '0', '0', 'true'),
+('9003','Shadow Weapon: Sprite\'s Staff', 'lrhand', 'true', '960', '1', '1', 'steel', 'b', '170', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '122', '300', '0', '0', 'true'),
+('9004','Shadow Weapon: Keshanberk', 'rhand', 'true', '1370', '1', '1', 'steel', 'b', '175', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '91', '300', '0', '0', 'true'),
+('9005','Shadow Weapon: Sword of Valhalla', 'rhand', 'true', '900', '1', '1', 'steel', 'b', '140', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '122', '300', '0', '0', 'true'),
+('9006','Shadow Weapon: Krys', 'rhand', 'true', '980', '1', '1', 'steel', 'b', '153', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '91', '300', '0', '0', 'true'),
+('9007','Shadow Weapon: Arthro Nail', 'lrhand', 'true', '1420', '1', '1', 'steel', 'b', '213', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '91', '300', '0', '0', 'true'),
+('9008','Shadow Weapon: Dark Elven Long Bow', 'lrhand', 'true', '1720', '3', '1', 'steel', 'b', '397', '5', 'bow', '12', '-3.00000', '0', '0', '0', '227', '8', '100', '300', '0', '0', 'true'),
+('9009','Shadow Weapon: Sword of Delusion*Sword of Delusion','lrhand','true','2150','1','1','fine_steel','b','213','10','dual','8','0.00000','0','0','0','325','0','91','95','8680000','1157','true'),
+('9010','Shadow Weapon: Great Axe', 'lrhand', 'true', '1940', '1', '1', 'steel', 'b', '175', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '91', '300', '0', '0', 'true'),
+('9011','Shadow Weapon: Tallum Blade', 'rhand', 'true', '1330', '1', '1', 'steel', 'a', '213', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '107', '300', '0', '0', 'true'),
+('9012','Shadow Weapon: Halberd', 'lrhand', 'true', '1900', '1', '1', 'steel', 'a', '213', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '107', '300', '0', '0', 'true'),
+('9013','Shadow Weapon: Dasparion\'s Staff', 'lrhand', 'true', '920', '1', '1', 'steel', 'a', '207', '20', 'blunt', '4', '4.00000', '0', '0', '0', '325', '0', '143', '300', '0', '0', 'true'),
+('9014','Shadow Weapon: Bloody Orchid', 'rhand', 'true', '960', '1', '1', 'steel', 'a', '186', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '107', '300', '0', '0', 'true'),
+('9015','Shadow Weapon: Blood Tornado', 'lrhand', 'true', '1370', '1', '1', 'steel', 'a', '259', '5', 'dualfist', '4', '4.00000', '0', '0', '0', '325', '0', '107', '300', '0', '0', 'true'),
+('9016','Shadow Weapon: Carnage Bow', 'lrhand', 'true', '1670', '2', '1', 'steel', 'a', '440', '5', 'bow', '12', '-3.00000', '0', '0', '0', '293', '9', '107', '300', '0', '0', 'true'),
+('9017','Shadow Weapon: Keshanberk*Keshanberk','lrhand','true','2080','1','1','fine_steel','a','259','10','dual','8','0.00000','0','0','0','325','0','107','95','0','1464','true'),
+('9018','Shadow Weapon: Meteor Shower', 'rhand', 'true', '1600', '1', '1', 'steel', 'a', '213', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '107', '300', '0', '0', 'true'),
+('9019','Shadow Weapon: Inferno Master', 'lrhand', 'true', '1900', '1', '1', 'steel', 'a', '259', '10', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '107', '300', '0', '0', 'true'),
+('9020','Shadow Weapon: Keshanberk*Damascus','lrhand','true','2080','1','1','fine_steel','a','275','10','dual','8','0.00000','0','0','0','325','0','112','95','0','1928','true'),
+('9021','Shadow Weapon: Dragon Slayer','lrhand','true','1840','1','1','bone','a','282','10','bigsword','8','0.00000','0','0','0','325','0','114','100','27000000','2160','true'),
+('9022','Shadow Weapon: Sword of Miracles ','rhand','true','840','1','1','adamantaite','a','186','10','sword','8','0.00000','0','0','0','379','0','152','95','21300000','2160','true'),
+('9023','Shadow Weapon: Elysian','rhand','true','1580','1','1','oriharukon','a','232','20','blunt','4','4.00000','0','0','0','379','0','114','95','27000000','2160','true'),
+('9024','Shadow Weapon: Branch of The Mother Tree','lrhand','true','900','1','1','wood','a','226','20','blunt','4','4.00000','0','0','0','325','0','152','100','27000000','2160','true'),
+('9025','Shadow Weapon: Soul Separator','rhand','true','950','1','1','oriharukon','a','203','5','dagger','12','-3.00000','0','0','0','433','0','114','95','27000000','2160','true'),
+('9026','Shadow Weapon: Dragon Grinder','lrhand','true','1350','1','1','adamantaite','a','282','5','dualfist','4','4.00000','0','0','0','325','0','114','95','27000000','2160','true'),
+('9027','Shadow Weapon: Soul Bow','lrhand','true','1660','2','1','oriharukon','a','528','5','bow','12','-3.00000','0','0','0','227','10','125','95','27000000','2160','true'),
+('9028','Shadow Weapon: Tallum Glaive','lrhand','true','1840','1','1','chrysolite','a','232','10','pole','8','-3.00000','0','0','0','325','0','114','95','27000000','2160','true'),
+('9029','Shadow Weapon: Dark Legion','rhand','true','1320','1','1','fine_steel','a','232','10','sword','8','0.00000','0','0','0','379','0','114','95','27000000','2160','true'),
+('9036','Shadow Weapon: Bone Shield','lhand','false','1380','0','0','bone','none','0','0','none','0','0.00000','-8','90','20','0','0','0','90','12900','0','true'),
+('9044','Shadow Weapon: Hoplon','lhand','true','1340','0','0','fine_steel','d','0','0','none','0','0.00000','-8','128','20','0','0','0','90','53300','96','true'),
+('9056','Shadow Weapon: Composite Shield','lhand','true','1230','0','0','fine_steel','c','0','0','none','0','0.00000','-8','190','20','0','0','0','90','258000','103','true'),
+('9070','Shadow Weapon: Zubei\'s Shield','lhand','true','1210','0','0','mithril','b','0','0','none','0','0.00000','-8','216','20','0','0','0','90','545000','72','true'),
+('9084','Shadow Weapon: Dark Crystal Shield','lhand','true','1190','0','0','crystal','a','0','0','none','0','0.00000','-8','243','20','0','0','0','95','1220000','97','true'),
+('9129','Shadow Weapon: Shield of Nightmare','lhand','true','1180','0','0','leather','a','0','0','none','0','0.00000','-8','256','20','0','0','0','90','1850000','148','true'),
+('9136','Sword of Valakas 1-Handed', 'rhand', 'true', '900', '1', '1', 'steel', 'b', '140', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '122', '300', '0', '0', 'true'),
+('9137','Sword of Valakas 2-Handed','lrhand','true','2080','1','1','fine_steel','a','275','10','dual','8','0.00000','0','0','0','325','0','112','95','0','1928','true'),
+('9140','Cupid\'s Bow Shoots love arrows.', 'lrhand', 'true', '1670', '2', '1', 'steel', 'a', '440', '5', 'bow', '12', '-3.00000', '0', '0', '0', '293', '9', '107', '300', '0', '0', 'true'),
+('9141','Cupid\'s Bow - Event Use Shoots love arrows at pigs.', 'lrhand', 'true', '1670', '2', '1', 'steel', 'a', '440', '5', 'bow', '12', '-3.00000', '0', '0', '0', '293', '9', '107', '300', '0', '0', 'true');
 
 -- -----------------------
 ALTER TABLE weapon ADD item_skill_id decimal(11,0) NOT NULL default '0';

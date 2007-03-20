@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE list SYSTEM "armors.dtd">
+<!-- Lineage2: Interlude Armors by SqueezeD -->
+<list>
+<item id='9100' name="Shadow Weapon: Magestic Boots">
+  <for />
+	<add val='48' order='0x10' stat='pDef' />
+	<enchant val='0' order='0x0C' stat='pDef'/>
+</item>
+<item id='9101' name="Shadow Weapon: Majestic Robe">
+  <for />
+	<add val='147' order='0x10' stat='pDef' />
+	<enchant val='0' order='0x0C' stat='pDef'/>
+</item>
+<item id='9102' name="Shadow Weapon: Magestic Gauntlet">
+  <for />
+	<add val='49' order='0x10' stat='pDef' />
+	<enchant val='0' order='0x0C' stat='pDef'/>
+</item>
+<item id='9103' name="Shadow Weapon: Magestic Boots">
+  <for />
+	<add val='48' order='0x10' stat='pDef' />
+	<enchant val='0' order='0x0C' stat='pDef'/>
+</item>
+<item id='9128' name="Shadow Weapon: Mithril Gauntlet">
+  <for />
+	<add val='36' order='0x10' stat='pDef' />
+	<enchant val='0' order='0x0C' stat='pDef'/>
+</item>
+<item id='9138' name="Shadow Weapon: Majestic Leather Armor">
+  <for />
+	<add val='0' order='0x10' stat='pDef' />
+</item>
+</list>

@@ -943,6 +943,101 @@ INSERT INTO `armor` VALUES ('8566', 'iron_circlet', 'hair', 'false', 'none', '10
 INSERT INTO `armor` VALUES ('8567', 'valakas_circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
 INSERT INTO `armor` VALUES ('8568', 'antaras_circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
 INSERT INTO `armor` VALUES ('8569', 'half_face', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8660','Demon Horns','hair','false','none','10','wood','none','0','90','0','0','0','0','0','true');
+INSERT INTO `armor` VALUES ('8661','Mask of Spirits','face','false','none','10','paper','none','0','90','0','0','0','0','0','true');
+INSERT INTO `armor` VALUES ('8662','Fairy Antennae - For Event','hair','false','none','10','wood','none','0','90','0','0','0','0','0','false');
+INSERT INTO `armor` VALUES ('8910','Black Feather Mask', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8911','Black Half-Mask', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8912','Single Stem Flower', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8913','Butterfly Hairpin', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8914','Luxurious Gold Circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8915','Luxurious Silver Circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8916','Eye Patch', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8917','Goddess Circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8918','Leather Cap', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8919','Commodore's Hat - Event Use', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8920','Angel Halo', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8921','Demon Circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8922','Pirate Hat', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8923','Scar', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8936','Santa\'s Antlers', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8947','L2 Day: Rabbit Ears', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8948','L2 Day: Little Angel Wing', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8949','L2 Day: Fairy Antennae', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8950','L2 Day: Feathered Hat', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8951','L2 Day: Artisan's Goggles', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('9030','Shadow Weapon: Bronze Breastplate','chest','false','heavy','8920','bronze','none','0','90','68','0','0','49200','0','true');
+INSERT INTO `armor` VALUES ('9031','Shadow Weapon: Bronze Gaiters','legs','false','heavy','3960','bronze','none','0','90','43','0','0','30700','0','true');
+INSERT INTO `armor` VALUES ('9032','Shadow Weapon: Hard Leather Shirt','chest','false','light','4720','leather','none','0','90','53','0','0','36900','0','true');
+INSERT INTO `armor` VALUES ('9033','Shadow Weapon: Hard Leather Gaiters','legs','false','light','1610','leather','none','0','90','33','0','0','23000','0','true');
+INSERT INTO `armor` VALUES ('9034','Shadow Weapon: Tunic of Magic','chest','true','magic','2020','cloth','d','0','90','49','0','147','152000','276','true');
+INSERT INTO `armor` VALUES ('9035','Shadow Weapon: Stockings of Magic','legs','true','magic','1000','cloth','d','0','90','30','0','92','95200','173','true');
+INSERT INTO `armor` VALUES ('9037','Shadow Weapon: Hard Leather Helmet','head','false','none','640','leather','none','0','90','26','0','0','18400','0','true');
+INSERT INTO `armor` VALUES ('9038','Shadow Weapon: Boots','feet','false','none','1310','cloth','none','0','90','17','0','0','12300','0','true');
+INSERT INTO `armor` VALUES ('9039','Shadow Weapon: Bracer','gloves','false','none','650','leather','none','0','90','17','0','0','12300','0','true');
+INSERT INTO `armor` VALUES ('9040','Shadow Weapon: Mithril Breastplate','chest','true','heavy','8670','mithril','d','0','95','95','0','0','183000','332','true');
+INSERT INTO `armor` VALUES ('9041','Shadow Weapon: Mithril Gaiters','legs','true','heavy','3830','mithril','d','0','95','61','0','0','127000','230','true');
+INSERT INTO `armor` VALUES ('9042','Shadow Weapon: Gauntlets','gloves','true','none','640','cloth','d','0','90','24','0','0','50800','92','true');
+INSERT INTO `armor` VALUES ('9043','Shadow Weapon: Iron Boots','feet','true','none','1280','fine_steel','d','0','90','24','0','0','50800','92','true');
+INSERT INTO `armor` VALUES ('9045','Shadow Weapon: Reinforced Leather Shirt','chest','true','light','4570','leather','d','0','90','73','0','0','152000','276','true');
+INSERT INTO `armor` VALUES ('9046','Shadow Weapon: Reinforced Leather Gaiters','legs','true','light','1570','leather','d','0','90','46','0','0','95200','173','true');
+INSERT INTO `armor` VALUES ('9047','Shadow Weapon: Reinforced Leather Gloves','gloves','true','none','600','leather','c','0','90','37','0','0','275000','110','true');
+INSERT INTO `armor` VALUES ('9048','Shadow Weapon: Reinforced Leather Boots','feet','true','none','1280','leather','d','0','90','24','0','0','50800','92','true');
+INSERT INTO `armor` VALUES ('9049','Shadow Weapon: Tunic of Knowledge','chest','true','magic','2020','cloth','d','0','90','49','0','147','152000','276','true');
+INSERT INTO `armor` VALUES ('9050','Shadow Weapon: Stockings of Knowledge','legs','true','magic','1000','cloth','d','0','90','30','0','92','95200','173','true');
+INSERT INTO `armor` VALUES ('9051','Shadow Weapon: Gloves of Knowledge','gloves','true','none','640','leather','d','0','90','24','0','0','50800','92','true');
+INSERT INTO `armor` VALUES ('9052','Shadow Weapon: Boots of Knowledge','feet','true','none','1270','leather','d','0','90','24','0','0','50800','92','true');
+INSERT INTO `armor` VALUES ('9053','Shadow Weapon: Helmet','head','true','none','640','fine_steel','d','0','90','37','0','0','76200','138','true');
+INSERT INTO `armor` VALUES ('9054','Shadow Weapon: Composite Armor','fullarmor','true','heavy','10980','fine_steel','c','0','90','224','0','0','1440000','576','true');
+INSERT INTO `armor` VALUES ('9055','Shadow Weapon: Composite Boots','feet','true','none','1220','fine_steel','c','0','90','36','0','0','245000','98','true');
+INSERT INTO `armor` VALUES ('9057','Shadow Weapon: Composite Helmet','head','true','none','610','fine_steel','c','0','90','54','0','0','368000','147','true');
+INSERT INTO `armor` VALUES ('9058','Shadow Weapon: Theca Leather Armor','chest','true','light','4370','leather','c','0','90','106','0','0','825000','330','true');
+INSERT INTO `armor` VALUES ('9059','Shadow Weapon: Theca Leather Gaiters','legs','true','light','1530','leather','c','0','90','66','0','0','516000','206','true');
+INSERT INTO `armor` VALUES ('9060','Shadow Weapon: Theca Leather Boots','feet','true','none','1210','leather','c','0','90','37','0','0','275000','110','true');
+INSERT INTO `armor` VALUES ('9061','Shadow Weapon: Theca Leather Gloves','gloves','true','none','600','leather','c','0','90','37','0','0','275000','110','true');
+INSERT INTO `armor` VALUES ('9062','Shadow Weapon: Demon\'s Tunic','chest','true','magic','1990','cloth','c','0','90','69','0','284','736000','294','true');
+INSERT INTO `armor` VALUES ('9063','Shadow Weapon: Demon\'s Stockings','legs','true','magic','980','cloth','c','0','90','43','0','177','460000','184','true');
+INSERT INTO `armor` VALUES ('9064','Shadow Weapon: Demon\'s Boots','feet','true','none','1220','leather','c','0','90','36','0','0','245000','98','true');
+INSERT INTO `armor` VALUES ('9065','Shadow Weapon: Demon\'s Gloves','gloves','true','none','610','leather','c','0','90','36','0','0','245000','98','true');
+INSERT INTO `armor` VALUES ('9066','Shadow Weapon: Shining Circlet','head','true','none','600','steel','c','0','90','54','0','0','368000','147','true');
+INSERT INTO `armor` VALUES ('9067','Shadow Weapon: Zubei\'s Breastplate','chest','true','heavy','7970','mithril','b','0','90','157','0','0','2080000','277','true');
+INSERT INTO `armor` VALUES ('9068','Shadow Weapon: Zubei\'s Gaiters','legs','true','heavy','3570','mithril','b','0','90','98','0','0','1300000','173','true');
+INSERT INTO `armor` VALUES ('9069','Shadow Weapon: Zubei\'s Helmet','head','true','none','590','mithril','b','0','90','62','0','0','778000','103','true');
+INSERT INTO `armor` VALUES ('9071','Shadow Weapon: Zubei\'s Gauntlets','gloves','true','none','590','mithril','b','0','90','41','0','0','519000','69','true');
+INSERT INTO `armor` VALUES ('9072','Shadow Weapon: Zubei\'s Boots','feet','true','none','1180','mithril','b','0','90','41','0','0','519000','69','true');
+INSERT INTO `armor` VALUES ('9073','Shadow Weapon: Zubei\'s Leather Shirt','chest','true','light','4330','leather','b','0','90','117','0','0','1560000','208','true');
+INSERT INTO `armor` VALUES ('9074','Shadow Weapon: Zubei\'s Leather Gaiters','legs','true','light','1480','leather','b','0','90','73','0','0','973000','129','true');
+INSERT INTO `armor` VALUES ('9075','Shadow Weapon: Zubei\'s Gauntlets','gloves','true','none','590','mithril','b','0','90','41','0','0','519000','69','true');
+INSERT INTO `armor` VALUES ('9076','Shadow Weapon: Zubei\'s Boots','feet','true','none','1180','mithril','b','0','90','41','0','0','519000','69','true');
+INSERT INTO `armor` VALUES ('9077','Shadow Weapon: Zubei\'s Gauntlets','gloves','true','none','590','mithril','b','0','90','41','0','0','519000','69','true');
+INSERT INTO `armor` VALUES ('9078','Shadow Weapon: Tunic of Zubei','chest','true','magic','1960','leather','b','0','90','78','0','345','1560000','208','true');
+INSERT INTO `armor` VALUES ('9079','Shadow Weapon: Stockings of Zubei','legs','true','magic','940','leather','b','0','90','49','0','216','973000','129','true');
+INSERT INTO `armor` VALUES ('9080','Shadow Weapon: Zubei\'s Gauntlets','gloves','true','none','590','mithril','b','0','90','41','0','0','519000','69','true');
+INSERT INTO `armor` VALUES ('9081','Shadow Weapon: Zubei\'s Boots','feet','true','none','1180','mithril','b','0','90','41','0','0','519000','69','true');
+INSERT INTO `armor` VALUES ('9082','Shadow Weapon: Dark Crystal Breastplate','chest','true','heavy','7700','crystal','a','0','95','171','0','0','4630000','370','true');
+INSERT INTO `armor` VALUES ('9083','Shadow Weapon: Dark Crystal Gaiters','legs','true','heavy','3320','crystal','a','0','95','107','0','0','2890000','231','true');
+INSERT INTO `armor` VALUES ('9084','Shadow Weapon: Dark Crystal Helmet','head','true','none','570','crystal','a','0','90','69','0','0','1740000','139','true');
+INSERT INTO `armor` VALUES ('9085','Shadow Weapon: Dark Crystal Gloves','gloves','true','none','580','leather','a','0','90','45','0','0','1160000','154','true');
+INSERT INTO `armor` VALUES ('9086','Shadow Weapon: Dark Crystal Boots','feet','true','none','1110','crystal','a','0','95','45','0','0','1160000','154','true');
+INSERT INTO `armor` VALUES ('9087','Shadow Weapon: Dark Crystal Leather Armor','chest','true','light','4300','leather','a','0','90','128','0','0','3470000','277','true');
+INSERT INTO `armor` VALUES ('9088','Shadow Weapon: Dark Crystal Leggings','legs','true','light','1480','leather','a','0','90','80','0','0','2170000','173','true');
+INSERT INTO `armor` VALUES ('9089','Shadow Weapon: Dark Crystal Gloves','gloves','true','none','580','leather','a','0','90','45','0','0','1160000','154','true');
+INSERT INTO `armor` VALUES ('9090','Shadow Weapon: Dark Crystal Boots','feet','true','none','1110','crystal','a','0','95','45','0','0','1160000','154','true');
+INSERT INTO `armor` VALUES ('9091','Shadow Weapon: Dark Crystal Robe','fullarmor','true','magic','2450','leather','a','0','90','139','0','665','5080000','406','true');
+INSERT INTO `armor` VALUES ('9092','Shadow Weapon: Dark Crystal Gloves','gloves','true','none','580','leather','a','0','90','45','0','0','1160000','154','true');
+INSERT INTO `armor` VALUES ('9093','Shadow Weapon: Dark Crystal Boots','feet','true','none','1110','crystal','a','0','95','45','0','0','1160000','154','true');
+INSERT INTO `armor` VALUES ('9094','Shadow Weapon: Majestic Plate Armor','fullarmor','true','heavy','9200','leather','a','0','90','293','0','0','10300000','824','true');
+INSERT INTO `armor` VALUES ('9095','Shadow Weapon: Majestic Circlet','head','true','none','550','leather','a','0','90','73','0','0','2640000','211','true');
+INSERT INTO `armor` VALUES ('9096','Shadow Weapon: Magestic Gauntlet','gloves','true','none','540','leather','a','0','90','49','0','0','1760000','140','true');
+INSERT INTO `armor` VALUES ('9097','Shadow Weapon: Magestic Boots','feet','true','none','1110','blood_steel','a','0','95','48','0','0','1760000','140','true');
+INSERT INTO `armor` VALUES ('9098','Shadow Weapon: Majestic Leather Armor','fullarmor','true','light','5350','leather','a','0','90','220','0','0','7730000','618','true');
+INSERT INTO `armor` VALUES ('9099','Shadow Weapon: Magestic Gauntlet','gloves','true','none','540','leather','a','0','90','49','0','0','1760000','140','true');
+INSERT INTO `armor` VALUES ('9100','Shadow Weapon: Magestic Boots','feet','true','none','1110','blood_steel','a','0','95','48','0','0','1760000','140','true');
+INSERT INTO `armor` VALUES ('9101','Shadow Weapon: Majestic Robe','fullarmor','true','magic','2330','leather','a','0','90','147','0','718','7730000','618','true');
+INSERT INTO `armor` VALUES ('9102','Shadow Weapon: Magestic Gauntlet','gloves','true','none','540','leather','a','0','90','49','0','0','1760000','140','true');
+INSERT INTO `armor` VALUES ('9103','Shadow Weapon: Magestic Boots','feet','true','none','1110','blood_steel','a','0','95','48','0','0','1760000','140','true');
+INSERT INTO `armor` VALUES ('9128','Shadow Weapon: Mithril Gauntlet','gloves','true','none','600','mithril','c','0','95','36','0','0','245000','98','true');
+INSERT INTO `armor` VALUES ('9138','Santa\'s Hat','dhair','false','none','10','wood','none','0','90','0','0','0','0','0','false');
 
 ALTER TABLE armor ADD item_skill_id decimal(11,0) NOT NULL default '0';
 ALTER TABLE armor ADD item_skill_lvl decimal(11,0) NOT NULL default '0';
