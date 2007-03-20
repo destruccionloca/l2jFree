@@ -23,6 +23,7 @@ import javolution.util.FastMap;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 
 /**
  * @author la2
@@ -76,13 +77,42 @@ public class DecayTaskManager
         public void run()
         {
             Long current = System.currentTimeMillis();
-            int delay;
+            long forDecay = 0;
             if (_decayTasks != null)
                 for(L2Character actor : _decayTasks.keySet())
                 {
-                    if(actor instanceof L2RaidBossInstance) delay = 30000;
-                    else delay = 8500;
-                    if((current - _decayTasks.get(actor)) > delay)
+                	// [L2J_JP ADD SANDMAN]
+                	if(actor instanceof L2MonsterInstance)
+                	{
+                        if(actor instanceof L2RaidBossInstance)
+                        	forDecay = 30000;
+                        else
+                        {
+	                        L2MonsterInstance monster = (L2MonsterInstance) actor;
+	                        switch(monster.getNpcId())
+	                        {
+	                            case 29028:     // Varakas
+	                                forDecay = 18000;
+	                                break;
+	                            case 29019:     // Antharas
+	                                forDecay = 12000;
+	                                break;
+	                            case 29014:     // Orfen
+	                                forDecay = 150000;
+	                                break;
+	                            case 29001:     // Queen Ant
+	                                forDecay = 150000;
+	                                break;
+	                            default:
+	                                forDecay = 8500;
+	                        }
+                        }
+                	}
+                	// [L2J_JP EDIT END]
+                    else
+                    	forDecay = 8500;
+                	
+                    if((current - _decayTasks.get(actor)) > forDecay)
                     {
                         actor.onDecay();
                         _decayTasks.remove(actor);
