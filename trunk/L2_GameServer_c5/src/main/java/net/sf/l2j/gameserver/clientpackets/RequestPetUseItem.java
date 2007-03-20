@@ -73,7 +73,7 @@ public class RequestPetUseItem extends ClientBasePacket
     	//check if the item matches the pet
         if ((PetDataTable.isWolf(pet.getNpcId()) && item.getItem().isForWolf()) ||
             (PetDataTable.isHatchling(pet.getNpcId()) && item.getItem().isForHatchling()) ||
-            (PetDataTable.isStrider(pet.getNpcId()) && item.getItem().isForHatchling()))
+            (PetDataTable.isStrider(pet.getNpcId()) && item.getItem().isForStrider()))
         {   
         	useItem(pet, item, activeChar);
             return;

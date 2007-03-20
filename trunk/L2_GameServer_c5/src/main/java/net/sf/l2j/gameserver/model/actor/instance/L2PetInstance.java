@@ -747,7 +747,12 @@ public class L2PetInstance extends L2Summon
             pet.getStat().setSp(rset.getInt("sp"));
 
             pet.getStatus().setCurrentHp(rset.getDouble("curHp"));
-            if(pet.getStatus().getCurrentHp()==0){
+            if(pet.getStatus().getCurrentHp()==0)
+            {
+                SystemMessage sm = new SystemMessage(SystemMessage.MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES);
+                owner.sendPacket(sm);
+                sm = null;
+                
                 pet.stopFeed();
                 pet.getStatus().stopHpMpRegeneration();
                 DecayTaskManager.getInstance().addDecayTask(pet,1200000);                

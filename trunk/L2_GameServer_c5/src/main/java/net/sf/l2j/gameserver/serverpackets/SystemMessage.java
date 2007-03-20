@@ -406,7 +406,14 @@ public class SystemMessage extends ServerBasePacket
     public static final int STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE = 1012;
     public static final int STRIDER_CAN_BE_RIDDEN_ONLY_WHILE_STANDING = 1013;
     public static final int YOU_MAY_ONLY_RIDE_WYVERN_WHILE_RIDING_STRIDER = 1249;
-	
+    public static final int PETS_AND_SERVITORS_NOT_AVAIBLE_AT_THIS_TIME = 574;
+
+    public static final int PET_USES_POWER_OF_SPIRIT = 1576;
+    public static final int SERVITOR_USES_POWER_OF_SPIRIT = 1577;
+    public static final int SOULSHOTS_AND_SPIRITSHOTS_NOT_AVAIBLE_FOR_DEAD_PET_OR_SERVITOR = 1598;
+    public static final int YOU_DONT_HAVE_ENOUGH_SPIRITSHOTS_NEEDED_FOR_PET_SERVITOR = 1700;
+    public static final int YOU_DONT_HAVE_ENOUGH_SOULSHOTS_NEEDED_FOR_PET_SERVITOR = 1701;
+        
     //Summoning
     public static final int SUMMON_GAVE_DAMAGE_OF_S1 = 1026;
     public static final int SUMMON_RECEIVED_DAMAGE_OF_S2_BY_S1 = 1027;
@@ -496,6 +503,48 @@ public class SystemMessage extends ServerBasePacket
     public static final int SIEGE_OF_S1_HAS_BEEN_CANCELED_DUE_TO_LACK_OF_INTEREST = 846;
     public static final int S1_SIEGE_WAS_CANCELED_BECAUSE_NO_CLANS_PARTICIPATED = 295;
     
+    public static final int S1_HOURS_UNTIL_CASTLE_SIEGE_CONCLUSION = 358;
+    public static final int S1_MINUTES_UNTIL_CASTLE_SIEGE_CONCLUSION = 359;
+    public static final int CASTLE_SIEGE_S1_SECONDS_LEFT = 360;
+
+    public static final int THE_REGISTRATION_TERM_FOR_S1_HAS_ENDED = 293;
+    
+    // Message to add/check
+    //  id=17  msg=[Castle siege has begun.] c3_attr1=[SystemMsg_k.17]
+    //  id=18  msg=[Castle siege is over.]   c3_attr1=[SystemMsg_k.18]
+    //  id=288 msg=[The castle gate has been broken down.]  
+    //  id=291 msg=[Clan $s1 is victorious over $s2's castle siege!]        
+    //  id=292 msg=[$s1 has announced the castle siege time.]       
+    //  - id=293 msg=[The registration term for $s1 has ended.]       
+    //  - id=358 msg=[$s1 hour(s) until castle siege conclusion.]     
+    //  - id=359 msg=[$s1 minute(s) until castle siege conclusion.]
+    //  - id=360 msg=[Castle siege $s1 second(s) left!]       
+    //  id=640 msg=[You have failed to refuse castle defense aid.]    
+    //  id=641 msg=[You have failed to approve castle defense aid.]
+    //  id=644 msg=[You are not yet registered for the castle siege.]       
+    //  - id=645 msg=[Only clans with Level 4 and higher may register for a castle siege.]    
+    //  id=646 msg=[You do not have the authority to modify the castle defender list.]     
+    //  - id=688 msg=[The clan that owns the castle is automatically registered on the defending side.]       
+    //  id=689 msg=[A clan that owns a castle cannot participate in another siege.]        
+    //  id=690 msg=[You cannot register on the attacking side because you are part of an alliance with the clan that owns the castle.]     
+    //  id=718 msg=[The castle gates cannot be opened and closed during a siege.]  
+    //  - id=295 msg=[$s1's siege was canceled because there were no clans that participated.]        
+    //  id=659 msg=[This is not the time for siege registration and so registrations cannot be accepted or rejected.]      
+    //  - id=660 msg=[This is not the time for siege registration and so registration and cancellation cannot be done.]      
+    //  id=663 msg=[The siege time has been declared for $s. It is not possible to change the time after a siege time has been declared. Do you want to continue?] 
+    //  id=667 msg=[You are registering on the attacking side of the $s1 siege. Do you want to continue?]  
+    //  id=668 msg=[You are registering on the defending side of the $s1 siege. Do you want to continue?]  
+    //  id=669 msg=[You are canceling your application to participate in the $s1 siege battle. Do you want to continue?]
+    //  id=707 msg=[You cannot teleport to a village that is in a siege.]  
+    //  - id=711 msg=[The siege of $s1 has started.]
+    //  - id=712 msg=[The siege of $s1 has finished.]
+    //  id=844 msg=[The siege to conquer $s1 has begun.]    
+    //  - id=845 msg=[The deadline to register for the siege of $s1 has passed.]      
+    //  - id=846 msg=[The siege of $s1 has been canceled due to lack of interest.]    
+    //  - id=856 msg=[The siege of $s1 has ended in a draw.]  
+    //  id=285 msg=[Clan $s1 has succeeded in engraving the ruler!] 
+    //  - id=287 msg=[The opponent clan has begun to engrave the ruler.]     
+    
     //  only view castles during a siege 
     public static final int ONLY_VIEW_SIEGE = 780;
     
@@ -583,8 +632,8 @@ public class SystemMessage extends ServerBasePacket
     
     //
     public static final int S1_S2 = 614;
-    public static final int CANT_LOGOUT_WHILE_FIGHTING = 0x65;
-    public static final int CANT_RESTART_WHILE_FIGHTING = 0x66;
+    public static final int YOU_CANNOT_EXIT_WHILE_IN_COMBAT = 101;
+    public static final int YOU_CANNOT_RESTART_WHILE_IN_COMBAT = 102;
 	public static final int ENTER_FILE_NAME_CREST = 515;
     public static final int FILE_NOT_FOUND = 528;
     public static final int S1_ROLLED_S2 = 834;

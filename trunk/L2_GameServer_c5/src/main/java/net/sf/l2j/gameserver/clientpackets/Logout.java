@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.FriendList;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
@@ -66,20 +67,32 @@ public class Logout extends ClientBasePacket
         
         if (player == null)
             return;
-	
-	player.getInventory().updateDatabase();
 
         if(AttackStanceTaskManager.getInstance().getAttackStanceTask(player))
         {
             if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while fighting");
             
-            player.sendPacket(new SystemMessage(SystemMessage.CANT_LOGOUT_WHILE_FIGHTING));
+            player.sendPacket(new SystemMessage(SystemMessage.YOU_CANNOT_EXIT_WHILE_IN_COMBAT));
             player.sendPacket(new ActionFailed());
             return;
         }
         
+        if (player.getPet() != null && !player.isBetrayed() && (player.getPet() instanceof L2PetInstance))
+        {
+        	L2PetInstance pet = (L2PetInstance)player.getPet();
+
+            if (pet.isAttackingNow())
+            {
+            	pet.sendPacket(new SystemMessage(SystemMessage.PET_CANNOT_SENT_BACK_DURING_BATTLE));
+                player.sendPacket(new ActionFailed());
+                return;
+            } 
+            else
+             pet.unSummon(player);
+        }
+        
         if(player.atEvent) {
-            player.sendPacket(SystemMessage.sendString("A superior power doesn't allow you to leave the event"));
+            player.sendPacket(SystemMessage.sendString("A superior power doesn't allow you to leave the event."));
             return;
         }
         
@@ -109,6 +122,20 @@ public class Logout extends ClientBasePacket
         { 
            player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
         }
+    	
+        if (player.getPrivateStoreType() != 0)
+        {
+            player.sendMessage("Cannot restart while trading.");
+            return;
+        }
+        
+        if (player.getActiveRequester() != null)
+        {
+            player.getActiveRequester().onTradeCancel(player);
+            player.onTradeCancel(player.getActiveRequester());
+        }
+        
+        player.getInventory().updateDatabase();
         player.deleteMe();
         notifyFriends(player);
         //save character

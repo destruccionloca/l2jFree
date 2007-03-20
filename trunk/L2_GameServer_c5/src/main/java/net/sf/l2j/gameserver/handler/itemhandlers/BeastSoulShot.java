@@ -69,13 +69,13 @@ public class BeastSoulShot implements IItemHandler
         
         if (activePet == null)
         {
-            activeOwner.sendPacket(new SystemMessage(574));
+            activeOwner.sendPacket(new SystemMessage(SystemMessage.PETS_AND_SERVITORS_NOT_AVAIBLE_AT_THIS_TIME));
             return;
         }
         
         if (activePet.isDead())
         {
-            activeOwner.sendPacket(new SystemMessage(1598));
+            activeOwner.sendPacket(new SystemMessage(SystemMessage.SOULSHOTS_AND_SPIRITSHOTS_NOT_AVAIBLE_FOR_DEAD_PET_OR_SERVITOR));
             return;
         }
         
@@ -113,7 +113,7 @@ public class BeastSoulShot implements IItemHandler
             if (!(shotCount > shotConsumption))
             {
                 // Not enough Soulshots to use.
-                activeOwner.sendPacket(new SystemMessage(1701));
+                activeOwner.sendPacket(new SystemMessage(SystemMessage.YOU_DONT_HAVE_ENOUGH_SOULSHOTS_NEEDED_FOR_PET_SERVITOR));
                 return;
             }
 
@@ -150,7 +150,10 @@ public class BeastSoulShot implements IItemHandler
         activeOwner.sendPacket(new PetInfo(activePet));
         
         // Pet uses the power of spirit.
-        activeOwner.sendPacket(new SystemMessage(1576));
+        if (activePet instanceof L2PetInstance )
+        	activeOwner.sendPacket(new SystemMessage(SystemMessage.PET_USES_POWER_OF_SPIRIT));
+        else
+        	activeOwner.sendPacket(new SystemMessage(SystemMessage.SERVITOR_USES_POWER_OF_SPIRIT));
         
         Broadcast.toSelfAndKnownPlayersInRadius(activeOwner, new MagicSkillUser(activePet, activePet, 2033, 1, 0, 0), 360000/*600*/);
     }

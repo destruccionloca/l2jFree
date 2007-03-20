@@ -37,7 +37,7 @@ public class PetDataTable
     
     public final static int HATCHLING_WIND_ID = 12311;
     public final static int HATCHLING_STAR_ID = 12312;
-    public final static int HATCHLING_TWILIGHT_ID = 12312;
+    public final static int HATCHLING_TWILIGHT_ID = 12313;
     
     public final static int STRIDER_WIND_ID = 12526;
     public final static int STRIDER_STAR_ID = 12527;

@@ -25,6 +25,7 @@ import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
 import net.sf.l2j.gameserver.serverpackets.RestartResponse;
@@ -64,24 +65,17 @@ public class RequestRestart extends ClientBasePacket
             return;
         }
 
-        if (player.isInOlympiadMode())
-        {
-            player.sendMessage("You cant logout in olympiad mode");
+        if(player.atEvent) {
+            player.sendPacket(SystemMessage.sendString("A superior power doesn't allow you to leave the event."));
             return;
         }
-
-        player.getInventory().updateDatabase();
-
-        if (player.getPrivateStoreType() != 0)
-        {
-            player.sendMessage("Cannot restart while trading");
+        
+        // prevent from player disconnect when in Olympiad mode
+        if(player.isInOlympiadMode()) {
+        	if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while in Olympiad");
+            player.sendPacket(SystemMessage.sendString("You can't restart when in Olympiad."));
+            player.sendPacket(new ActionFailed());
             return;
-        }
-
-        if (player.getActiveRequester() != null)
-        {
-            player.getActiveRequester().onTradeCancel(player);
-            player.onTradeCancel(player.getActiveRequester());
         }
 
         if (AttackStanceTaskManager.getInstance().getAttackStanceTask(player))
@@ -89,43 +83,65 @@ public class RequestRestart extends ClientBasePacket
             if (_log.isDebugEnabled())
                 _log.debug("Player " + player.getName() + " tried to logout while fighting.");
 
-            player.sendPacket(new SystemMessage(SystemMessage.CANT_RESTART_WHILE_FIGHTING));
+            player.sendPacket(new SystemMessage(SystemMessage.YOU_CANNOT_RESTART_WHILE_IN_COMBAT));
             player.sendPacket(new ActionFailed());
             return;
         }
 
-        // removing player from the world
+        if (player.getPet() != null && !player.isBetrayed() && (player.getPet() instanceof L2PetInstance))
+        {
+        	L2PetInstance pet = (L2PetInstance)player.getPet();
 
-        
-        
-            // Prevent player from restarting if they are a festival participant
-            // and it is in progress, otherwise notify party members that the player
-            // is not longer a participant.
-            if (player.isFestivalParticipant())
+            if (pet.isAttackingNow())
             {
-                if (SevenSignsFestival.getInstance().isFestivalInitialized())
-                {
-                    player.sendPacket(SystemMessage.sendString("You cannot restart while you are a participant in a festival."));
-                    player.sendPacket(new ActionFailed());
-                    return;
-                }
-                L2Party playerParty = player.getParty();
-
-                if (playerParty != null)
-                    player.getParty().broadcastToPartyMembers(
-                                                              SystemMessage.sendString(player.getName()
-                                                                  + " has been removed from the upcoming festival."));
+            	pet.sendPacket(new SystemMessage(SystemMessage.PET_CANNOT_SENT_BACK_DURING_BATTLE));
+                player.sendPacket(new ActionFailed());
+                return;
+            } 
+            else
+             pet.unSummon(player);
+        }
+        // Prevent player from restarting if they are a festival participant
+        // and it is in progress, otherwise notify party members that the player
+        // is not longer a participant.
+        if (player.isFestivalParticipant())
+        {
+            if (SevenSignsFestival.getInstance().isFestivalInitialized())
+            {
+                player.sendPacket(SystemMessage.sendString("You cannot restart while you are a participant in a festival."));
+                player.sendPacket(new ActionFailed());
+                return;
             }
-            if (player.isFlying()) 
-            { 
-               player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
-            }
-            player.deleteMe();
-            ClientThread.saveCharToDisk(getClient().getActiveChar());
+            L2Party playerParty = player.getParty();
 
-            RestartResponse response = new RestartResponse();
-            sendPacket(response);
+            if (playerParty != null)
+                player.getParty().broadcastToPartyMembers(
+                                                          SystemMessage.sendString(player.getName()
+                                                              + " has been removed from the upcoming festival."));
+        }
+        if (player.isFlying()) 
+        { 
+           player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
+        }
         
+        if (player.getPrivateStoreType() != 0)
+        {
+            player.sendMessage("Cannot restart while trading.");
+            return;
+        }
+        
+        if (player.getActiveRequester() != null)
+        {
+            player.getActiveRequester().onTradeCancel(player);
+            player.onTradeCancel(player.getActiveRequester());
+        }
+        
+        player.getInventory().updateDatabase();
+        player.deleteMe();
+        ClientThread.saveCharToDisk(getClient().getActiveChar());
+
+        RestartResponse response = new RestartResponse();
+        sendPacket(response);    
 
         getClient().setActiveChar(null);
         // send char list
