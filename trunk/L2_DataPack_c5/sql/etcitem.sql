@@ -6778,7 +6778,7 @@ INSERT INTO `etcitem` (`item_id`,`name`,`crystallizable`,`item_type`,`weight`,`c
  ('8871','Strategy Guide','false','none','10','normal','liquid','none','0','1','0','true','true','true','true','tutorial_guide','none'),
  ('8872','Flash Gunpowder','false','none','10','normal','liquid','none','0','1','0','true','true','true','true','tutorial_guide','none'),
  ('8873','Phoenix Blood','false','potion','10','stackable','liquid','none','0','100','0','true','true','true','true','energy_stone','potion'),
- ('8874','Einhasad's Holy Water','false','potion','10','stackable','liquid','none','0','100','0','true','true','true','true','energy_stone','potion'),
+ ('8874','Einhasad\'s Holy Water','false','potion','10','stackable','liquid','none','0','100','0','true','true','true','true','energy_stone','potion'),
  ('8875','Battle Symbol','false','potion','10','stackable','liquid','none','0','100','0','true','true','true','true','energy_stone','potion'),
  ('8876','Magic Symbol','false','potion','10','stackable','liquid','none','0','100','0','true','true','true','true','energy_stone','potion'),
  ('8877','Spellbook: Soul of the Phoenix','false','spellbook','120','normal','paper','none','0','6750','0','true','true','true','true','sb_aqua_splash1','none'),
