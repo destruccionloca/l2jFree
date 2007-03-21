@@ -946,26 +946,26 @@ INSERT INTO `armor` VALUES ('8569', 'half_face', 'hair', 'false', 'none', '10', 
 INSERT INTO `armor` VALUES ('8660','Demon Horns','hair','false','none','10','wood','none','0','90','0','0','0','0','0','true');
 INSERT INTO `armor` VALUES ('8661','Mask of Spirits','face','false','none','10','paper','none','0','90','0','0','0','0','0','true');
 INSERT INTO `armor` VALUES ('8662','Fairy Antennae - For Event','hair','false','none','10','wood','none','0','90','0','0','0','0','0','false');
-INSERT INTO `armor` VALUES ('8910','Black Feather Mask', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8911','Black Half-Mask', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8912','Single Stem Flower', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8913','Butterfly Hairpin', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8914','Luxurious Gold Circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8915','Luxurious Silver Circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8916','Eye Patch', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8917','Goddess Circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8918','Leather Cap', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8919','Commodore's Hat - Event Use', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8920','Angel Halo', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8921','Demon Circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8922','Pirate Hat', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8923','Scar', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8936','Santa\'s Antlers', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8947','L2 Day: Rabbit Ears', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8948','L2 Day: Little Angel Wing', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8949','L2 Day: Fairy Antennae', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8950','L2 Day: Feathered Hat', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
-INSERT INTO `armor` VALUES ('8951','L2 Day: Artisan's Goggles', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true'),
+INSERT INTO `armor` VALUES ('8910','Black Feather Mask', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8911','Black Half-Mask', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8912','Single Stem Flower', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8913','Butterfly Hairpin', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8914','Luxurious Gold Circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8915','Luxurious Silver Circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8916','Eye Patch', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8917','Goddess Circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8918','Leather Cap', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8919','Commodore\'s Hat - Event Use', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8920','Angel Halo', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8921','Demon Circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8922','Pirate Hat', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8923','Scar', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8936','Santa\'s Antlers', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8947','L2 Day: Rabbit Ears', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8948','L2 Day: Little Angel Wing', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8949','L2 Day: Fairy Antennae', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8950','L2 Day: Feathered Hat', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8951','L2 Day: Artisan\'s Goggles', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
 INSERT INTO `armor` VALUES ('9030','Shadow Weapon: Bronze Breastplate','chest','false','heavy','8920','bronze','none','0','90','68','0','0','49200','0','true');
 INSERT INTO `armor` VALUES ('9031','Shadow Weapon: Bronze Gaiters','legs','false','heavy','3960','bronze','none','0','90','43','0','0','30700','0','true');
 INSERT INTO `armor` VALUES ('9032','Shadow Weapon: Hard Leather Shirt','chest','false','light','4720','leather','none','0','90','53','0','0','36900','0','true');
