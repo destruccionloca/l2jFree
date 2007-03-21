@@ -91,7 +91,7 @@ public class DecayTaskManager
 	                        L2MonsterInstance monster = (L2MonsterInstance) actor;
 	                        switch(monster.getNpcId())
 	                        {
-	                            case 29028:     // Varakas
+	                            case 29028:     // Valakas
 	                                forDecay = 18000;
 	                                break;
 	                            case 29019:     // Antharas
