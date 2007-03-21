@@ -906,43 +906,20 @@ INSERT INTO `armor` (`item_id`,`name`,`bodypart`,`crystallizable`,`armor_type`,`
   (8541,'Little Harness','hatchling','false','none',160,'steel','none',0,90,10,25,0,0,0,'true'),
   (8552,'Red Mask of Victory','face','false','none','10','wood','none','0','90','0','0','0','0','0','true'),
   (8557,'Blue Party Hat - For Event','dhair','false','none',10,'wood','none',0,90,0,0,0,0,0,'false'),
-  (8558,'Soaring Bird', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false'),
-  (8660,'Demon Horns', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false'),
-  (8661,'Mask of Spirits', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false'),
-  (8662,'Fairy Antennae - For Event', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false');
+  (8558,'Soaring Bird', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false');
 
 -- interlude armors
-INSERT INTO `armor` VALUES ('8910', 'black_feather_face', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8911', 'black_half_face', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8912', 'cluster_of_flower', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8913', 'butterfly_hearpin', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8914', 'gold_circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8915', 'gold_circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8916', 'one_eye', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8917', 'goddess_circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8918', 'middle_ages', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8919', 'middle_ages', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8920', 'angel_circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8921', 'demon_circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8922', 'sea_robber', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8923', 'scar', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8936', 'santas_antler', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8947', 'rabbit_ear', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8948', 'hair_ring', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8949', 'hair_feeler', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8950', 'archer_hat', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8951', 'dwarf_goggle', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8559', 'flower_cap', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8560', 'bear_cap', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8561', 'pig_cap', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8562', 'jester_cap', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8563', 'magic_cap', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8564', 'dandy_cap', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8565', 'romantic_chaperon', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8566', 'iron_circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8567', 'valakas_circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8568', 'antaras_circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
-INSERT INTO `armor` VALUES ('8569', 'half_face', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8559', 'Flower Cap', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8560', 'Bear Cap', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8561', 'Pig Cap', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8562', 'Jester Cap', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8563', 'Magic Cap', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8564', 'Dandy Cap', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8565', 'Romantic Chaperon', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8566', 'Iron Circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8567', 'Valakas Circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8568', 'Antaras Circlet', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
+INSERT INTO `armor` VALUES ('8569', 'Half Face', 'hair', 'false', 'none', '10', 'wood', 'none', '0', '90', '0', '0', '0', '0', '0', 'true');
 INSERT INTO `armor` VALUES ('8660','Demon Horns','hair','false','none','10','wood','none','0','90','0','0','0','0','0','true');
 INSERT INTO `armor` VALUES ('8661','Mask of Spirits','face','false','none','10','paper','none','0','90','0','0','0','0','0','true');
 INSERT INTO `armor` VALUES ('8662','Fairy Antennae - For Event','hair','false','none','10','wood','none','0','90','0','0','0','0','0','false');
