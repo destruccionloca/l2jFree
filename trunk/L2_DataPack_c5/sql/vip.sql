@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `VIPinfo` (
   `starty` int(11) NOT NULL,
   `startz` int(11) NOT NULL,
   PRIMARY KEY  (`teamID`)
-) ;
+) DEFAULT CHARSET=utf8;
 
 -- 
 -- Dumping data for table `VIPinfo`

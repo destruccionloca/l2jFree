@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS `clanhall_functions` (
   `endTime` decimal(20,0) NOT NULL default '0',
   `inDebt` int(1) NOT NULL default '0',
   PRIMARY KEY  (`hall_id`,`type`)
-);
+) DEFAULT CHARSET=utf8;

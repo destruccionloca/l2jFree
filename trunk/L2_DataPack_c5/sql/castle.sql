@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS castle (
   siegeHourOfDay INT NOT NULL default 20,
   PRIMARY KEY  (name),
   KEY id (id)
-);
+) DEFAULT CHARSET=utf8;
 
 INSERT IGNORE INTO `castle` VALUES 
 (1,'Gludio',0,0,0,7,20),

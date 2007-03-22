@@ -10,4 +10,4 @@ CREATE TABLE IF NOT EXISTS `character_macroses` (
   `acronym` VARCHAR(4) ,
   `commands` VARCHAR(255) ,
   PRIMARY KEY  (`char_obj_id`,`id`)
-);
+)  DEFAULT CHARSET=utf8;

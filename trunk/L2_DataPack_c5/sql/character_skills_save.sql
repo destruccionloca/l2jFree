@@ -11,4 +11,4 @@ CREATE TABLE IF NOT EXISTS character_skills_save (
   restore_type INT(1) NOT NULL DEFAULT 0,  
   `class_index` INT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY  (char_obj_id,skill_id,`class_index`)
-) ;
+) DEFAULT CHARSET=utf8;

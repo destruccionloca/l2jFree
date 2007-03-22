@@ -11,4 +11,4 @@ CREATE TABLE IF NOT EXISTS auction_bid (
   time_bid decimal(20) NOT NULL default 0,
   PRIMARY KEY  (auctionId, bidderId),
   KEY id (id)
-);
+) DEFAULT CHARSET=utf8;

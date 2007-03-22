@@ -8,7 +8,7 @@ CREATE TABLE merchant_buylists (
   shop_id decimal(9,0) NOT NULL default '0',
   `order` decimal(4,0) NOT NULL default '0',
   PRIMARY KEY  (shop_id,`order`)
-) TYPE=MyISAM;
+) DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `merchant_buylists`

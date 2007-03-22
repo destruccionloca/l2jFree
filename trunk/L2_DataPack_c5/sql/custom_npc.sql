@@ -45,7 +45,7 @@ CREATE TABLE `custom_npc` (
   `hpreg` decimal(8,2) default NULL,
   `mpreg` decimal(5,2) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) DEFAULT CHARSET=utf8;
 
 insert  into custom_npc values 
 ('6001', 31774, 'Beryl the Cat', 0, 'ItemMall', 1, 'Monster2.queen_of_cat', '8.00', '15.00', '70', 'female', 'L2Npc', 40, '3862', '1493', '40', '43', '30', '21', '20', '10', '0', '0', '1314', '470', '780', '382', '278', '0', '253', '0', '0', '0', '80', '120', null, '0', 0, '0', null, null),

@@ -4,9 +4,9 @@
 DROP TABLE IF EXISTS `buff_templates`;
 CREATE TABLE IF NOT EXISTS `buff_templates` (
   `id` int(11) unsigned NOT NULL,
-  `name` varchar(35) collate latin1_general_ci NOT NULL default '',
+  `name` varchar(35) NOT NULL default '',
   `skill_id` int(10) unsigned NOT NULL,
-  `skill_name` varchar(35) collate latin1_general_ci default NULL,
+  `skill_name` varchar(35) default NULL,
   `skill_level` int(10) unsigned NOT NULL default '1',
   `skill_force` int(1) NOT NULL default '1',
   `skill_order` int(10) unsigned NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `buff_templates` (
   `price_adena` int(10) unsigned NOT NULL default '0',
   `price_points` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`,`name`,`skill_order`)
-);
+) DEFAULT CHARSET=utf8;
 
 --
 -- id - template id, not zero value

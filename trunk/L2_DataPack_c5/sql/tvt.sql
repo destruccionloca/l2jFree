@@ -17,4 +17,4 @@ CREATE TABLE `tvt` (
   `rewardId` int(11) NOT NULL default '0',
   `rewardAmount` int(11) NOT NULL default '0',
   `teamsCount` int(4) NOT NULL default '0'  
-) ENGINE=MyISAM;
+) DEFAULT CHARSET=utf8;

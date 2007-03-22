@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `access_level` INT NOT NULL default '0',
   `lastIP` VARCHAR(20),
   PRIMARY KEY (`login`)
-);
+) DEFAULT CHARSET=utf8;

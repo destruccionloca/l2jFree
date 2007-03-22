@@ -16,7 +16,7 @@ CREATE TABLE raidboss_spawnlist (
   currentHp decimal(8,0) default NULL,
   currentMp decimal(8,0) default NULL,
   PRIMARY KEY  (boss_id,loc_x,loc_y,loc_z)
-);
+) DEFAULT CHARSET=utf8;
 
 INSERT INTO `raidboss_spawnlist` VALUES 
 (25001,1,-54390,145764,-3000,0,43200,129600,0,23712,545),

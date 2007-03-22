@@ -31,7 +31,7 @@ CREATE TABLE `droplist` (
   `chance` INT NOT NULL DEFAULT '0',
   PRIMARY KEY  (`mobId`,`itemId`,`category`),
   KEY `key_mobId` (`mobId`)
-) TYPE=MyISAM;
+) DEFAULT CHARSET=utf8;
 
 -- 
 -- Dumping data for table `droplist`

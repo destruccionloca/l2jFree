@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `pledge_skill_trees` (
   `Description` varchar(255) default NULL,
   `repCost` int(11) default NULL,
   `itemId` int(11) default NULL
-);
+) DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records 

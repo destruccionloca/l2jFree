@@ -20,4 +20,4 @@ CREATE TABLE `dm` (
   `playerX` int(11) NOT NULL default '0',
   `playerY` int(11) NOT NULL default '0',
   `playerZ` int(11) NOT NULL default '0'  
-) ENGINE=MyISAM;
+) DEFAULT CHARSET=utf8;

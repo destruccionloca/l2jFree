@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `clanhall` (
   `Grade` decimal(1,0) NOT NULL default '0',
   PRIMARY KEY  (`id`,`name`),
   KEY `id` (`id`)
-);
+) DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records 

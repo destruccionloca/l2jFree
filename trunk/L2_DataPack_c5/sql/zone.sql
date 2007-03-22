@@ -13,7 +13,7 @@ CREATE TABLE zone (
   z INT NOT NULL default 0,
   z2 INT NOT NULL default 0,
   taxById INT NOT NULL default 0
-);
+) DEFAULT CHARSET=utf8;
 
 insert into zone values (1, 'Arena', 'Giran Arena', 72498, 142271, 73495, 143255, -3774, 0, 0);
 insert into zone values (2, 'Arena', 'Gludin Arena', -88410, 142728, -87421, 141730, -3633,0, 0);

@@ -5,4 +5,4 @@ CREATE TABLE IF NOT EXISTS `olympiad_nobles` (
   `olympiad_points` decimal(10,0) NOT NULL default '0',
   `competitions_done` decimal(3,0) NOT NULL default '0',
   PRIMARY KEY  (`char_id`)
-);
+) DEFAULT CHARSET=utf8;

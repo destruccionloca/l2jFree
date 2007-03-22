@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS castle_doorupgrade (
   pDef INT NOT NULL default 0,
   mDef INT NOT NULL default 0,
   PRIMARY KEY  (doorId )
-);
+) DEFAULT CHARSET=utf8;

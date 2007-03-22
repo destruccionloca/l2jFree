@@ -12,4 +12,4 @@ CREATE TABLE `tvt_teams` (
   `teamZ` int(11) NOT NULL default '0',
   `teamColor` int(11) NOT NULL default '0',
   PRIMARY KEY (`teamId`)
-);
+) DEFAULT CHARSET=utf8;

@@ -26,7 +26,7 @@ CREATE TABLE `pets_stats` (
   `hpregen` int(11) NOT NULL default '0',
   `mpregen` int(11) NOT NULL default '0',
   PRIMARY KEY  (`typeID`,`level`)
-) TYPE=MyISAM;
+) DEFAULT CHARSET=utf8;
 #----------------------------
 # Records for table pets_stats
 #----------------------------

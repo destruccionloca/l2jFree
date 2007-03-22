@@ -7,4 +7,4 @@ CREATE TABLE IF Not EXISTS clan_privs (
   party INT NOT NULL default 0,
   privilleges INT NOT NULL default 0,
   PRIMARY KEY  (`clan_id`,`rank`,`party`)
-);
+) DEFAULT CHARSET=utf8;

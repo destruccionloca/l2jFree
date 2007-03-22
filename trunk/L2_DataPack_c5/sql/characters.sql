@@ -85,4 +85,4 @@ CREATE TABLE IF NOT EXISTS characters (
   charViP decimal(1,0) NOT NULL DEFAULT 0,
   PRIMARY KEY  (obj_Id),
   KEY `clanid` (`clanid`)
-) ;
+) DEFAULT CHARSET=utf8;

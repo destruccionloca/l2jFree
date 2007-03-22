@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS gm_audit (
   param varchar(200),
   date date,
   PRIMARY KEY  (id)
-);
+) DEFAULT CHARSET=utf8;
 
 -- -----------------
 -- global:

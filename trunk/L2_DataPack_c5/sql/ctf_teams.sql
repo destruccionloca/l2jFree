@@ -13,4 +13,4 @@ CREATE TABLE `ctf_teams` (
   `flagZ` int(11) NOT NULL default '0',
   `teamColor` int(11) NOT NULL default '0',
   PRIMARY KEY (`teamId`)
-);
+) DEFAULT CHARSET=utf8;

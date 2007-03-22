@@ -12,4 +12,4 @@ CREATE TABLE IF NOT EXISTS `itemsonground` (
   `drop_time` decimal(20,0) NOT NULL default '0',
   `equipable` int(1) default '0',
   PRIMARY KEY  (`object_id`)
-);
+) DEFAULT CHARSET=utf8;

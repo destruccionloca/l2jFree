@@ -14,7 +14,7 @@ CREATE TABLE castle_door (
   mDef INT NOT NULL default 0,
   PRIMARY KEY  (id),
   KEY id (castleId)
-);
+) DEFAULT CHARSET=utf8;
 
 INSERT INTO `castle_door` (`castleId`, `id`, `name`, `x`, `y`, `z`, `hp`, `pDef`, `mDef`) VALUES 
   (1,19210007,'gate_001',-19235,108276,-2289,79125,644,518),

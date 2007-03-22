@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS `petitions` (
   `petition_txt` text NOT NULL,
   `status` varchar(255) NOT NULL default 'New',
   PRIMARY KEY  (`petition_id`)
-);
+) DEFAULT CHARSET=utf8;
