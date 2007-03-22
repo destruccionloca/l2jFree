@@ -42,7 +42,7 @@ CREATE TABLE `weapon` (
   `tradeable` varchar(5) NOT NULL default 'true',
   `destroyable` varchar(5) NOT NULL default 'true',
   PRIMARY KEY  (`item_id`)
-) ENGINE=MyISAM;
+) TYPE=MyISAM;
 
 -- 
 -- Dumping data for table `weapon`
@@ -157,14 +157,14 @@ INSERT INTO `weapon` VALUES
 (160, 'Battle Axe', 'rhand', 'true', 1720, 2, 2, 'fine_steel', 'c', 107, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 61, 95, 2290000, 916, 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true'),
 (161, 'Silver Axe', 'rhand', 'true', 1690, 2, 2, 'fine_steel', 'c', 107, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 61, 95, 2290000, 916, 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true'),
 (162, 'War Axe', 'rhand', 'true', 1660, 3, 3, 'fine_steel', 'c', 139, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 76, 95, 4300000, 1720, 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true'),
-(163, \', 'rhand', 'true', 4000, 1, 1, 'mithril', 'b', 175, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 91, 95, 8680000, 1157, 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true'),
+(163, 'NO ITEM NAME', 'rhand', 'true', 4000, 1, 1, 'mithril', 'b', 175, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 91, 95, 8680000, 1157, 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true'),
 (164, 'Elysian Axe', 'rhand', 'true', 1580, 1, 1, 'oriharukon', 'a', 232, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 114, 95, 27000000, 2160, 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true'),
 (165, 'Yablonski\'s Hammer', 'rhand', 'true', 1570, 1, 1, 'adamantaite', 's', 251, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 121, 100, 35300000, 1765, 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true'),
 (166, 'Heavy Mace', 'rhand', 'true', 1800, 2, 2, 'steel', 'd', 40, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 26, 95, 409000, 743, 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true'),
 (167, 'Scalpel', 'rhand', 'true', 1810, 2, 2, 'steel', 'd', 40, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 26, 95, 409000, 743, 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true'),
 (168, 'Work Hammer', 'rhand', 'true', 1790, 2, 2, 'steel', 'd', 40, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 26, 95, 409000, 743, 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true'),
 (169, 'Skull Breaker', 'rhand', 'true', 1740, 3, 3, 'fine_steel', 'd', 79, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 47, 95, 1400000, 2545, 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true'),
-(170, \', 'rhand', 'true', 6400, 1, 1, 'fine_steel', 'a', 258, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 86, 95, 16600000, 2160, 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true'),
+(170, 'NO ITEM NAME', 'rhand', 'true', 6400, 1, 1, 'fine_steel', 'a', 258, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 86, 95, 16600000, 2160, 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true'),
 (171, 'Deadman\'s Glory', 'rhand', 'true', 1600, 1, 1, 'bone', 'b', 194, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 99, 95, 13100000, 1746, 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true'),
 (172, 'Heavy Bone Club', 'rhand', 'true', 1730, 3, 3, 'bone', 'd', 79, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 47, 95, 1400000, 2545, 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true'),
 (173, 'Skull Graver', 'rhand', 'true', 1640, 2, 2, 'fine_steel', 'c', 107, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 61, 95, 2290000, 916, 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true'),

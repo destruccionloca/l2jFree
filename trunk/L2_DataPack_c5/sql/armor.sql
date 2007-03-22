@@ -26,7 +26,7 @@ CREATE TABLE `armor` (
   `tradeable` varchar(5) NOT NULL default 'true',
   `destroyable` varchar(5) NOT NULL default 'true',
   PRIMARY KEY  (`item_id`)
-) ENGINE=MyISAM;
+) TYPE=MyISAM;
 
 -- 
 -- Dumping data for table `armor`
