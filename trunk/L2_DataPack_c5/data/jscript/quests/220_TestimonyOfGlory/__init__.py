@@ -325,7 +325,7 @@ class Quest (JQuest) :
            elif st.getQuestItemsCount(GLOVE_OF_BURAI) :
                htmltext = "30617-05.htm"
                st.playSound("Itemsound.quest_before_battle")
-               st.takeItems(GLOVE_OF_BURAI,1)
+               #st.takeItems(GLOVE_OF_BURAI,1)
                st.getPcSpawn().addSpawn(27083,-94292,110781,-3701)
                st.getPcSpawn().addSpawn(27083,-94293,110861,-3701)
            elif st.getQuestItemsCount(MAKUM_BUGBEAR_HEAD) == 2 :

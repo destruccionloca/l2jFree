@@ -4,6 +4,7 @@
 -- Table structure for table `VIPinfo`
 -- 
 
+DROP TABLE IF EXISTS `VIPinfo`;
 CREATE TABLE IF NOT EXISTS `VIPinfo` (
   `teamID` int(11) NOT NULL,
   `endx` int(11) NOT NULL,

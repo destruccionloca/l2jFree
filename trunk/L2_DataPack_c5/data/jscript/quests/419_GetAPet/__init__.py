@@ -145,6 +145,7 @@ class Quest (JQuest):
   def onTalk (self,npc,st):
     npcid = npc.getNpcId()
     id = st.getState()
+    if id == COMPLETED: st.setState(CREATED)
     if npcid == PET_MANAGER_MARTIN :
       if id == CREATED  :
          if st.getPlayer().getLevel() < 15 :
@@ -228,7 +229,7 @@ QUEST       = Quest(419, "419_GetAPet", "Wolf Collar")
 CREATED     = State('Start',       QUEST)
 STARTED     = State('Started',     QUEST)
 SLAYED      = State('Slayed',      QUEST)
-TALKED      = State('Talked',     QUEST)
+TALKED      = State('Talked',      QUEST)
 COMPLETED   = State('Completed',   QUEST)
 
 # Quest initialization
