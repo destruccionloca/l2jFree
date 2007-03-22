@@ -35,7 +35,7 @@
   </for>
 </item>
 
-<item id='9140' name='Cupid's Bow'>
+<item id='9140' name='Cupids Bow'>
   <for>
     <set val='440' order='0x08' stat='pAtk'/>
     <set val='107' order='0x08' stat='mAtk'/>
@@ -47,7 +47,7 @@
   </for>
 </item>
 
-<item id='9141' name='Cupid's Bow - Event'>
+<item id='9141' name='Cupids Bow - Event'>
   <for>
     <set val='440' order='0x08' stat='pAtk'/>
     <set val='107' order='0x08' stat='mAtk'/>
