@@ -1,0 +1,12 @@
+<assembly>
+  <id>dist</id>
+  <formats>
+    <format>dir</format>
+    <format>zip</format>
+  </formats>
+  <dependencySets>
+    <dependencySet>
+      <outputDirectory>dist/</outputDirectory>
+    </dependencySet>
+  </dependencySets>  
+</assembly>
