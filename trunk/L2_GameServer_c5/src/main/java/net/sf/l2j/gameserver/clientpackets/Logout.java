@@ -125,7 +125,7 @@ public class Logout extends ClientBasePacket
     	
         if (player.getPrivateStoreType() != 0)
         {
-            player.sendMessage("Cannot restart while trading.");
+            player.sendMessage("Cannot log out while trading.");
             return;
         }
         
@@ -137,15 +137,14 @@ public class Logout extends ClientBasePacket
         
         player.getInventory().updateDatabase();
         player.deleteMe();
+        
         notifyFriends(player);
         //save character
         ClientThread.saveCharToDisk(player);
         
         // normally the server would send serveral "delete object" before "leaveWorld"
         // we skip that for now
-        
-        LeaveWorld ql = new LeaveWorld();
-        sendPacket(ql);
+        sendPacket(new LeaveWorld());
     }
 
     private void notifyFriends(L2PcInstance cha)

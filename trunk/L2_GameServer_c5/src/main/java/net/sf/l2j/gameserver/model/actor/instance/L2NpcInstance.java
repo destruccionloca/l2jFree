@@ -41,14 +41,15 @@ import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2DropCategory;
+import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.MobGroupTable;
+import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.knownlist.NpcKnownList;
 import net.sf.l2j.gameserver.model.actor.stat.NpcStat;
@@ -61,9 +62,11 @@ import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.entity.events.VIP;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
+import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ExQuestInfo;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
+import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.MultiSellList;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -912,7 +915,7 @@ public class L2NpcInstance extends L2Character
             			player.sendPacket(multisell);
             	} catch (NumberFormatException nfe) 
             	{
-            		player.sendMessage("Wrong command parameters");
+            		_log.warn("Wrong multisell number in \""+command+"\"");
             	}
             }
             else if (command.startsWith("exc_multisell"))
@@ -955,6 +958,13 @@ public class L2NpcInstance extends L2Character
         }
     }
 
+    /**
+     * Cast buffs on player, this function ignore target type
+     * only buff effects are aplied to player
+     * 
+     * @param player Target player
+     * @param buffTemplate Name of buff template
+     */
     public void makeBuffs(L2PcInstance player, String buffTemplate)
     {
         int _templateId = 0;
@@ -971,6 +981,13 @@ public class L2NpcInstance extends L2Character
         if (_templateId>0) makeBuffs(player, _templateId);
     }
     
+    /**
+     * Cast buffs on player, this function ignore target type
+     * only buff effects are aplied to player
+     * 
+     * @param player Target player
+     * @param _templateId Id of buff template
+     */
     public void makeBuffs(L2PcInstance player, int _templateId)
     {
         if (player == null) return;
@@ -984,7 +1001,11 @@ public class L2NpcInstance extends L2Character
         this.setTarget(player);
         
         int _priceTotal = 0;
-        // TODO: add faction points support
+        // TODO: add faction points support (evil33t, im waiting for you ^^ )
+        //       add more options for player condition, like: pk, ssq winner/looser...etc
+        //       add ancient adena price
+        //       add autobuff tasks for npc (with options range,ignorePrice,showCast)
+        //       add buff template striction to specified npc ids, merchants like 
         for (L2BuffTemplate _buff:_templateBuffs)
         {
             if ( _buff.checkPlayer(player) && _buff.checkPrice(player)) 
@@ -992,18 +1013,53 @@ public class L2NpcInstance extends L2Character
                 if (player.getInventory().getAdena() >= (_priceTotal + _buff.getAdenaPrice()))
                 {
                     _priceTotal+=_buff.getAdenaPrice();
-                
+                     
                     if (_buff.forceCast() || player.getEffect(_buff.getSkill()) == null)
                     {
-                        if (_buff.getSkill().getSkillType() == SkillType.SUMMON)
-                            player.doCast(_buff.getSkill());
-                        else
-                            this.doCast(_buff.getSkill());
+                    	// regeneration ^^
+                    	setCurrentHpMp(getMaxHp(), getMaxMp());
+                        
+                    	// yes, its not for all skills right, but atleast player will know 
+                    	// for what he paid =)
+                    	SystemMessage sm = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT); 
+                    	sm.addSkillName(_buff.getSkill().getId());
+                    	player.sendPacket(sm);
+                    	sm = null;
+                    	if (_buff.getSkill().getTargetType() == SkillTargetType.TARGET_SELF)
+                        {
+                            // Ignore skill cast time, using 100ms for NPC buffer's animation
+                        	MagicSkillUser msu = new MagicSkillUser(player, player, _buff.getSkill().getId(), _buff.getSkill().getLevel(), 100, 0);
+                            broadcastPacket(msu);
+                            
+                            for (L2Effect effect : _buff.getSkill().getEffectsSelf(player))
+                            {
+                            	player.addEffect(effect);
+                            }
+                            // hack for newbie summons
+                            if (_buff.getSkill().getSkillType() == SkillType.SUMMON)
+                            {
+                            	player.doCast(_buff.getSkill());
+                            }
+                        }
+                    	else
+                    	{   // Ignore skill cast time, using 100ms for NPC buffer's animation
+                        	MagicSkillUser msu = new MagicSkillUser(this, player, _buff.getSkill().getId(), _buff.getSkill().getLevel(), 100, 0);
+                            broadcastPacket(msu);
+                    	}
+                        
+                    	for (L2Effect effect : _buff.getSkill().getEffects(this, player))
+                        {
+                        	player.addEffect(effect);
+                        }
+                        //  Pause between buffs
+                        try{
+                        	Thread.sleep(1000);
+                        }catch (Exception e) {}
                     }
                 }
             }
         }
-        player.reduceAdena("Buffs", _priceTotal, player.getLastFolkNPC(), true);
+        player.reduceAdena("NpcBuffer", _priceTotal, player.getLastFolkNPC(), true);
     }
     
     /**
