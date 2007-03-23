@@ -3,9 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>l2jfree</groupId>
   <artifactId>l2j-commons</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <url>http://l2jc.boardsxp.com/</url>
+  <url>http://www.l2jfree.com/</url>
   
   
   <pluginRepositories>
@@ -26,7 +26,7 @@
       <repository>
         <id>central l2j</id>
         <name>Mirror Central L2j</name>
-        <url>http://85.214.19.147:9091/repository/l2jm2</url>
+        <url>http://www.l2jfree.com:9091/repository/l2jm2</url>
         <releases>
           <enabled>true</enabled>
         </releases>
@@ -152,13 +152,12 @@
 
 	<issueManagement>
 		<system>Trac</system>
-		<url>http://85.214.19.147/trac/l2j-free/timeline</url>
+		<url>http://www.l2jfree.com/trac/l2j-free/timeline</url>
 	</issueManagement>
   
   
 	<build>
-        <defaultGoal>assembly:assembly</defaultGoal>
-        <finalName>${artifactId}</finalName>
+        <defaultGoal>install</defaultGoal>
 	    <resources>
 		  <resource>
 	        <directory>src/main/resources</directory>
@@ -180,17 +179,6 @@
 	        <target>1.5</target>
 	      </configuration>
 	    </plugin>
-	  <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <filters>
-            <filter>src/main/assembly/filter.properties</filter>
-          </filters>
-          <descriptors>
-            <descriptor>src/main/assembly/distribution.xml</descriptor>
-          </descriptors>
-        </configuration>
-      </plugin>	    
 	  </plugins>
 	</build>  
 
