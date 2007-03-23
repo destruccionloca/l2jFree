@@ -36,8 +36,8 @@ public class ScrambledKeyPair
 {
     private final static Log _log = LogFactory.getLog(ScrambledKeyPair.class);
     
-    public KeyPair pair;
-    public byte[] scrambledModulus;
+    private KeyPair pair;
+    private byte[] scrambledModulus;
     
     public ScrambledKeyPair(KeyPair Pair)
     {
@@ -80,5 +80,25 @@ public class ScrambledKeyPair
         if ( _log.isDebugEnabled())_log.debug("Modulus was scrambled");
         
         return retScrambledModulus;
+    }
+
+    public KeyPair getPair()
+    {
+        return pair;
+    }
+
+    public void setPair(KeyPair pair)
+    {
+        this.pair = pair;
+    }
+
+    public byte[] getScrambledModulus()
+    {
+        return scrambledModulus;
+    }
+
+    public void setScrambledModulus(byte[] scrambledModulus)
+    {
+        this.scrambledModulus = scrambledModulus;
     }
 }

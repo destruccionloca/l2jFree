@@ -1,16 +1,26 @@
 package net.sf.l2j.tools.cache;
 
 import java.util.HashMap;
+import java.util.Map;
+
+import net.sf.ehcache.Ehcache;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * 
+ * Basic memory cache
+ * 
+ * @deprecated use ehcache instead
+ * @see Ehcache
+ */
 public class memcache
 {
 	private final static Log _log = LogFactory.getLog(memcache.class.getName());
-	private HashMap<Integer,String> _hms;
-	private HashMap<Integer,Integer> _hmi;
-	private HashMap<Integer,Long> _last_access;
+	private Map<Integer,String> _hms;
+	private Map<Integer,Integer> _hmi;
+	private Map<Integer,Long> _last_access;
 	
 	private static final memcache _instance = new memcache();
 	
