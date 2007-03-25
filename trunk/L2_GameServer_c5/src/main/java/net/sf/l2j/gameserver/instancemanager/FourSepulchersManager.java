@@ -824,7 +824,7 @@ public class FourSepulchersManager
 			else
 			{
 				SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-				sm.addString("-"); //TODO:
+				sm.addString("Wrong conditions.");
 				player.sendPacket(sm);
 			}
 		}
@@ -856,7 +856,7 @@ public class FourSepulchersManager
 			else
 			{
 				SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-				sm.addString("-"); //TODO:
+				sm.addString("Wrong conditions.");
 				player.sendPacket(sm);
 			}
 		}
