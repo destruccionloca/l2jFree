@@ -1187,7 +1187,41 @@ public final class Config {
     public static int FACTION_KILL_RATE = 1000;
     public static int FACTION_QUEST_RATE = 1;
     
-    
+	/** Config for Fake Death Faild Feature **/
+	public static boolean   FAILD_FAKEDEATH;
+	/** Config for RaidBoss Resist Debuff **/
+	public static boolean   RAIDBOSS_DEBUFF_RESIST;
+	public static int       RAIDBOSS_DEBUFF_RESIST_RATE;
+	/** Config for skill effect judgment **/
+	public static boolean ALT_SKILLEFFECT_JUDGE;
+	/** Config for Wyvern can make a landing in zone of 'No Landing' **/
+	public static boolean ALT_WYVERN_MAKEALANDING;
+	/** Config for Dismount from a wyvern in zone of 'No Landing' **/
+	public static boolean ALT_DISMOUNT_WYVERN_IN_NOLANDING;
+	/** Config for Different calculation for reward item **/
+	public static boolean ALT_DROPCHANCE_JUDGEMENT;
+	/** Chance that an item will succesfully be enchanted */
+	public static int BLESSED_ENCHANT_CHANCE;
+	public static int CRYSTAL_ENCHANT_CHANCE;
+	public static int SAFETY_ENCHANT_MAX;
+	public static int LIMIT_PATK_SPD;
+	public static int LIMIT_MATK_SPD;
+	public static int TIME_IN_A_DAY_OF_OPEN_A_DOOR;
+	public static int TIME_OF_OPENING_A_DOOR;
+	/** Config for boss controler **/
+	public static int ACTIVITY_TIME_OF_BOSS;
+	public static int NURSEANT_RESPAWN_DELAY;
+	public static int CAPACITY_OF_LAIR_OF_VALAKAS;
+	public static int APPTIME_OF_VALAKAS;
+	public static int APPTIME_OF_ANTHARAS;
+	
+	// [L2J_JP ADD SANDMAN]
+	public static int FS_TIME_ATTACK;
+	public static int FS_TIME_COOLDOWN;
+	public static int FS_TIME_ENTRY;
+	public static int FS_TIME_WARMUP;
+	public static int FS_PARTY_MEMBER_COUNT;
+
 	public static void load()
 	{
 			_log.info("loading gameserver config");
