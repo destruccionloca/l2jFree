@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.concurrent.Future;
 
 import net.sf.l2j.Config;
@@ -27,6 +28,7 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
+import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
@@ -46,8 +48,10 @@ import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
+import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.PetInventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.PetItemList;
+import net.sf.l2j.gameserver.serverpackets.PetLiveTime;
 import net.sf.l2j.gameserver.serverpackets.PetStatusShow;
 import net.sf.l2j.gameserver.serverpackets.PetStatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -80,12 +84,15 @@ public class L2PetInstance extends L2Summon
     private Future _feedTask;
     private int _feedTime;
     protected boolean _feedMode;
-    
+   
+    private int _curWeightPenalty = 0;
+
     private L2PetData _Data;
 
     /** The Experience before the last Death Penalty */
 	private long _expBeforeDeath = 0; 
     private final int FOOD_ITEM_CONSUME_COUNT = 5;
+    private final int CORPSE_DECAY_TIME = 1200000;
     
     public final L2PetData getPetData()
     {
@@ -123,6 +130,44 @@ public class L2PetInstance extends L2Summon
                     if (_feedMode)
                         startFeed(false); // normal feed
                 
+                int foodId = PetDataTable.getFoodItemId(getTemplate().npcId);
+                if (foodId == 0) return;
+
+                L2ItemInstance food = null;
+                food = getInventory().getItemByItemId(foodId);
+                
+                boolean _ownerInventory = false;
+                
+                // search for food in owner's inventory
+                if (food == null && getOwner()!=null)
+                {
+                	food = getOwner().getInventory().getItemByItemId(foodId);
+                	_ownerInventory = true;
+                }
+                
+                if(getCurrentFed() < (0.55 * getMaxFed()))
+            	{
+                    if ((food != null) &&
+    				    ((_ownerInventory && getOwner().destroyItem("Feed", food.getObjectId(), 1, null, false))
+    							|| destroyItem("Feed", food.getObjectId(), 1, null, false)))
+                    {
+    		           setCurrentFed(getCurrentFed() + (100));
+    		           
+    		           if (_ownerInventory)
+           				{
+    		        	   SystemMessage sm = new SystemMessage(SystemMessage.PET_TOOK_S1_BECAUSE_HE_WAS_HUNGRY);
+    		        	   sm.addItemName(foodId);
+    		        	   getOwner().sendPacket(sm);
+           				}
+    		           
+                       if(getCurrentFed() < (0.55 * getMaxFed()))
+                       {
+                     	   SystemMessage sm = new SystemMessage(SystemMessage.YOUR_PET_ATE_A_LITTLE_BUT_IS_STILL_HUNGRY);
+                       	   getOwner().sendPacket(sm);
+                       }
+                    }
+            	}
+
                 if (getCurrentFed() > FOOD_ITEM_CONSUME_COUNT)
                 {
                     // eat
@@ -130,40 +175,43 @@ public class L2PetInstance extends L2Summon
                 }
                 else
                 {
-                    // go back to pet control item, or simply said, unsummon it
                     setCurrentFed(0);
-                    stopFeed();
-                    unSummon(getOwner());
-                    getOwner().sendMessage("Your pet is too hungry to stay summoned.");
                 }
                 
-                int foodId = PetDataTable.getFoodItemId(getTemplate().npcId);
-                if (foodId == 0) return;
-
-                L2ItemInstance food = null;
-                food = getInventory().getItemByItemId(foodId);
-                
-                if ((food != null) && (getCurrentFed() < (0.55 * getMaxFed())))
+                if (getOwner() != null )
                 {
-					if (destroyItem("Feed", food.getObjectId(), 1, null, false)) 
-                    {
-						setCurrentFed(getCurrentFed() + (100));
-                        if (getOwner() != null)
-                        {
-                            SystemMessage sm = new SystemMessage(SystemMessage.PET_TOOK_S1_BECAUSE_HE_WAS_HUNGRY);
-                            sm.addItemName(foodId);
-                            getOwner().sendPacket(sm);
-                        }
-                    }
+                	if (food == null)
+                	{
+                		if(getCurrentFed() >= (0.25 * getMaxFed()) &&  getCurrentFed() < (0.40 * getMaxFed()))
+                		{
+                			SystemMessage sm = new SystemMessage(SystemMessage.YOUR_PET_IS_VERY_HUNGRY);
+                			getOwner().sendPacket(sm);
+                		}
+                		else
+                		if(getCurrentFed() > 0 && getCurrentFed() < (0.25 * getMaxFed()))
+                		{
+                			SystemMessage sm = new SystemMessage(SystemMessage.YOUR_PET_IS_VERY_HUNGRY_PLEASE_BE_CAREFULL);
+                			getOwner().sendPacket(sm);
+                		}
+                	}
+                	// send pet food bar info
+                    getOwner().sendPacket(new PetLiveTime((L2PetInstance)getOwner().getPet()));
                 }
                 
                 broadcastStatusUpdate();
-            }
+                
+                if(getCurrentFed() == 0)
+                {
+                	SystemMessage sm = new SystemMessage(SystemMessage.STARVING_GRUMPY_AND_FED_UP_YOUR_PET_HAS_LEFT);
+                	getOwner().sendPacket(sm);
+                	unSummon(getOwner()); // unsummon or die?
+                }
+            	}
             catch (Throwable e) 
-            {
-                if (_log.isDebugEnabled()) 
-                    _log.warn("Pet [#"+getObjectId()+"] a feed task error has occurred: "+e);
-            }
+        	{
+            if (_log.isDebugEnabled()) 
+                _log.warn("Pet [#"+getObjectId()+"] a feed task error has occurred: "+e);
+        	}	
         }
     }
 
@@ -173,7 +221,6 @@ public class L2PetInstance extends L2Summon
          // add the pet instance to world
          if (pet != null)
              L2World.getInstance().addPet(owner.getObjectId(), pet);
-         
          return pet;
     }
     
@@ -190,9 +237,8 @@ public class L2PetInstance extends L2Summon
         // Hatcling : Level 35
         // Tested and confirmed on official servers
         getStat().setLevel(template.level);
-
-        _inventory = new PetInventory(this);
         
+        _inventory = new PetInventory(this);
         int npcId = template.npcId;
         _mountable = PetDataTable.isMountable(npcId);
     }
@@ -326,6 +372,7 @@ public class L2PetInstance extends L2Summon
             getOwner().sendPacket(sm);
         }
         return true;
+        
     }
 
     /**
@@ -365,6 +412,7 @@ public class L2PetInstance extends L2Summon
 
     protected void doPickupItem(L2Object object)
     {
+    	
         getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
         StopMove sm = new StopMove(getObjectId(), getX(), getY(), getZ(), getHeading());
         
@@ -382,7 +430,7 @@ public class L2PetInstance extends L2Summon
        }
        
         L2ItemInstance target = (L2ItemInstance) object;
-        
+    	
        // Herbs
         if ( target.getItemId() > 8599 && target.getItemId() < 8615 )
        {
@@ -400,7 +448,16 @@ public class L2PetInstance extends L2Summon
             getOwner().sendPacket(smsg);
            return;
        }
-        
+
+
+       int weight=ItemTable.getInstance().getTemplate(target.getItemId()).getWeight() * target.getCount();
+       
+       if (weight > Integer.MAX_VALUE || weight < 0 || !getInventory().validateWeight((int)weight))
+       {
+           sendPacket(new SystemMessage(SystemMessage.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS));
+           return;
+       }
+
         synchronized (target)
         {
             if (!target.isVisible())
@@ -458,6 +515,10 @@ public class L2PetInstance extends L2Summon
 
     public void deleteMe(L2PcInstance owner)
     {
+        SystemMessage sm = new SystemMessage(SystemMessage.YOUR_PETS_CORPSE_HAS_DECAYED);
+        getOwner().sendPacket(sm);
+        sm = null;
+        
         super.deleteMe(owner);
         destroyControlItem(owner); //this should also delete the pet from the db
     }
@@ -487,21 +548,24 @@ public class L2PetInstance extends L2Summon
     }
     
     public synchronized void doDie(L2Character killer) {
-        
-        SystemMessage sm = new SystemMessage(SystemMessage.MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES);
+    	
+    	SystemMessage sm = new SystemMessage(SystemMessage.MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES);
         getOwner().sendPacket(sm);
         sm = null;
         
         stopFeed();
-        DecayTaskManager.getInstance().addDecayTask(this,1200000);
+        getStatus().stopHpMpRegeneration();
+        DecayTaskManager.getInstance().addDecayTask(this,CORPSE_DECAY_TIME);
+        
         super.doDie(killer,true);
-        deathPenalty();
+        
+        if (isRespawned()) deathPenalty();
     }
-
+    
     public void doRevive()
     {
-        if (_curFed > (getMaxFed() / 10))
-            _curFed = getMaxFed() / 10;
+        if (getCurrentFed() > (getMaxFed() / 10))
+            setCurrentFed(getMaxFed() / 10);
 
         getOwner().removeReviving();
         
@@ -664,7 +728,7 @@ public class L2PetInstance extends L2Summon
             statement.execute();
             statement.close();
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
             _log.warn("could not delete pet:"+e);
         }
@@ -701,29 +765,49 @@ public class L2PetInstance extends L2Summon
         }
     }
     
-//  public void startAttack(L2Character target)
-//  {  
-//      if (!knownsObject(target))
-//      {
-//          target.addKnownObject(this);
-//          this.addKnownObject(target);
-//      }
-//        if (!target.knownsObject(this))
-//        {
-//            target.addKnownObject(this);
-//            this.addKnownObject(target);
-//        }
-//      
-//      if (!isRunning())
-//      {
-//          setRunning(true);
-//          ChangeMoveType move = new ChangeMoveType(this, ChangeMoveType.RUN);
-//          broadcastPacket(move);
-//      }
-//      
-//      super.startAttack(target);
-//  }
-//      
+    /**
+     * Return the max weight limit of the L2PetInstance.
+     */
+    public int getMaxLoad()
+    {
+        return getPetData().getPetMaxLoad();
+    }
+    
+    /**
+     * Return the current weight of the L2PetInstance.
+     */
+    public int getCurrentLoad()
+    {
+        return _inventory.getTotalWeight();
+    }
+
+    /**
+     * Update the overloaded status of the L2PetInstance.
+     */
+    public void refreshOverloaded()
+    {
+        getOwner().sendPacket(new PetInfo(getOwner().getPet()));
+        broadcastStatusUpdate();
+        
+        if (getMaxLoad() > 0 && !getOwner().getDietMode())
+        {
+        	setIsOverloaded(getCurrentLoad() > getMaxLoad());
+            int weightproc = getCurrentLoad() * 1000 / getMaxLoad();
+            int newWeightPenalty;
+            if (weightproc < 500) newWeightPenalty = 0;
+            else if (weightproc < 666) newWeightPenalty = 1;
+            else if (weightproc < 800) newWeightPenalty = 2;
+            else if (weightproc < 1000) newWeightPenalty = 3;
+            else newWeightPenalty = 4;
+
+            if (_curWeightPenalty != newWeightPenalty)
+            {
+                _curWeightPenalty = newWeightPenalty;
+                //TODO: weight penalty for pets
+            }
+        }
+    }
+     
     /** @return Returns the mountable. */
     public boolean isMountable() { return _mountable; }
 
@@ -739,35 +823,59 @@ public class L2PetInstance extends L2Summon
             ResultSet rset = statement.executeQuery();
             if (!rset.next()) return pet;
 
-            pet._respawned = true;
             pet.setName(rset.getString("name"));
 
             pet.getStat().setLevel(rset.getByte("level"));
             pet.getStat().setExp(rset.getLong("exp"));
             pet.getStat().setSp(rset.getInt("sp"));
-
-            pet.getStatus().setCurrentHp(rset.getDouble("curHp"));
-            if(pet.getStatus().getCurrentHp()==0)
-            {
-                SystemMessage sm = new SystemMessage(SystemMessage.MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES);
-                owner.sendPacket(sm);
-                sm = null;
-                
-                pet.stopFeed();
-                pet.getStatus().stopHpMpRegeneration();
-                DecayTaskManager.getInstance().addDecayTask(pet,1200000);                
-            }
-            pet.getStatus().setCurrentMp(rset.getDouble("curMp"));
-            pet.getStatus().setCurrentCp(pet.getMaxCp());
-
             pet.setKarma(rset.getInt("karma"));
             pet.setPkKills(rset.getInt("pkkills"));
-            pet.setCurrentFed(rset.getInt("fed"));
+            
+            double curHp = rset.getDouble("curHp");
+            double curMp = rset.getDouble("curMp");
+            int curFed = rset.getInt("fed");
+            
+            if(curHp == 0)
+            {
+                pet.doDie(null);
+                curMp = 0;
+            }
 
+           	pet.getStatus().setCurrentHp(curHp);
+            pet.getStatus().setCurrentMp(curMp);
+            pet.getStatus().setCurrentCp(pet.getMaxCp());    
+
+            // hack for zero food
+        	if (curFed == 0)
+        	{
+        		int foodId = PetDataTable.getFoodItemId(pet.getTemplate().npcId);
+                if (foodId != 0)
+                {
+                	L2ItemInstance food  = pet.getOwner().getInventory().getItemByItemId(foodId);
+                	
+            		if ((food != null) &&  pet.getOwner().destroyItem("Feed", food.getObjectId(), 1, null, false))
+            			curFed = pet.getCurrentFed() + (100);
+            		else
+            		{
+            			pet.getOwner().sendPacket(new SystemMessage(SystemMessage.YOU_CANNOT_RESTORE_HUNGRY_PETS));
+            			
+                        rset.close();
+                        statement.close();
+                        
+                        return null;
+            		}
+                }
+        	}
+        	
+            pet.setCurrentFed(curFed);
+            
             rset.close();
             statement.close();
+
+            pet._respawned = true;
+            
             return pet;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             _log.warn("could not restore pet data: "+ e);
             return null;
         } finally {
@@ -807,8 +915,10 @@ public class L2PetInstance extends L2Summon
             statement.setInt(10, getControlItemId());
             statement.executeUpdate();
             statement.close();
+            
             _respawned = true;
-        } catch (Exception e) {
+            
+        } catch (SQLException e) {
             _log.warn("could not store pet data: "+e);
         } finally {
             try { con.close(); } catch (Exception e) {}
@@ -826,7 +936,7 @@ public class L2PetInstance extends L2Summon
     {
         if (_feedTask != null)
         {
-            _feedTask.cancel(false);
+            _feedTask.cancel(true);
             _feedTask = null;
             if (_log.isDebugEnabled()) _log.debug("Pet [#"+getObjectId()+"] feed task stop");
         }
@@ -852,7 +962,9 @@ public class L2PetInstance extends L2Summon
             //  pet feed time must be different than 0. Changing time to bypass divide by 0
             if (_feedTime <= 0) { _feedTime = 1; }
             
-            _feedTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new FeedTask(), 60000/_feedTime, 60000/_feedTime);
+            int _foodConsumeTime = Math.round((60000/_feedTime)/Config.PET_FOOD_RATE);
+            
+            _feedTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new FeedTask(), _foodConsumeTime, _foodConsumeTime);
         }
     }
     
@@ -861,6 +973,11 @@ public class L2PetInstance extends L2Summon
         stopFeed();
         stopHpMpRegeneration();
         super.unSummon(owner);
+        
+        try{
+        Thread.sleep(1000);
+        }
+        catch (Exception e) {}
         
 		if(!isDead()){
 			store();
@@ -903,10 +1020,10 @@ public class L2PetInstance extends L2Summon
     {
         getStat().addExpAndSp(Math.round(addToExp * Config.PET_XP_RATE), addToSp);
     }
+    public int getMaxFed() { return getStat().getMaxFeed(); }
+    public final int getLevel() { return getStat().getLevel(); }
     public long getExpForThisLevel() { return getStat().getExpForLevel(getLevel()); }
     public long getExpForNextLevel() { return getStat().getExpForLevel(getLevel() + 1); }
-    public final int getLevel() { return getStat().getLevel(); }
-    public int getMaxFed() { return getStat().getMaxFeed(); }
     public int getAccuracy() { return getStat().getAccuracy(); }
     public int getCriticalHit(L2Character target, L2Skill skill) { return getStat().getCriticalHit(target, skill); }
     public int getEvasionRate(L2Character target) { return getStat().getEvasionRate(target); }
@@ -916,8 +1033,8 @@ public class L2PetInstance extends L2Summon
     public int getMAtk(L2Character target, L2Skill skill) { return getStat().getMAtk(target, skill); }
     public int getMDef(L2Character target, L2Skill skill) { return getStat().getMDef(target, skill); }
     public int getPAtk(L2Character target) { return getStat().getPAtk(target); }
-    public int getPDef(L2Character target) { return getStat().getPDef(target); }
-    
+    public int getPDef(L2Character target) { return getStat().getPDef(target);}
+
     public int getSkillLevel(int skillId)
     {
         if (_Skills == null || _Skills.get(skillId) == null) return -1;

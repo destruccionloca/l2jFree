@@ -22,6 +22,7 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -59,10 +60,17 @@ public class RequestGiveItemToPet extends ClientBasePacket
 
         if (player.getPrivateStoreType() != 0)
         {
-            player.sendMessage("Cannot exchange items while trading");
+        	sendPacket(new SystemMessage(SystemMessage.ITEMS_CANNOT_BE_DISCARDED_OR_DESTROYED_WHILE_OPERATING_PRIVATE_STORE_OR_WORKSHOP));
             return;
         }
-
+        
+        if (player.getRequest().getRequestPacket() instanceof TradeRequest
+         || player.getRequest().getRequestPacket() instanceof TradeDone)
+        {
+        	sendPacket(new SystemMessage(SystemMessage.CANNOT_DISCARD_OR_DESTROY_ITEM_WHILE_TRADING));
+            return;
+        }
+        
         L2PetInstance pet = (L2PetInstance)player.getPet(); 
 		if (pet.isDead())
 		{
@@ -77,13 +85,23 @@ public class RequestGiveItemToPet extends ClientBasePacket
 		
         if(!player.getInventory().getItemByObjectId(_objectId).isAvailable(player, true))
         {
-            sendPacket(new SystemMessage(972));
+            sendPacket(new SystemMessage(SystemMessage.PET_CANNOT_USE_ITEM));
             return;
         }
         
         if (Config.ALT_STRICT_HERO_SYSTEM && player.getInventory().getItemByObjectId(_objectId).isHeroitem())
         {
             sendPacket(new SystemMessage(SystemMessage.ITEM_NOT_FOR_PETS));
+            return;
+        }
+       
+        int itemId = player.getInventory().getItemByObjectId(_objectId).getItemId();
+        	
+        int weight = ItemTable.getInstance().getTemplate(itemId).getWeight() * _amount;
+        
+        if (weight > Integer.MAX_VALUE || weight < 0 || !pet.getInventory().validateWeight((int)weight))
+        {
+            sendPacket(new SystemMessage(SystemMessage.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS));
             return;
         }
         

@@ -1635,11 +1635,16 @@ public final class L2PcInstance extends L2PlayableInstance
             if (_curWeightPenalty != newWeightPenalty)
             {
                 _curWeightPenalty = newWeightPenalty;
-                if (newWeightPenalty > 0) super.addSkill(SkillTable.getInstance().getInfo(4270,
-                                                                                          newWeightPenalty));
-                else super.removeSkill(getKnownSkill(4270));
-
+                if (newWeightPenalty > 0) 
+                	super.addSkill(SkillTable.getInstance().getInfo(4270, newWeightPenalty));
+                else 
+                	super.removeSkill(getKnownSkill(4270));
+                
                 super.updateEffectIcons();
+                UserInfo ui = new UserInfo(this);
+                broadcastPacket(ui);
+                StatusUpdate su = new StatusUpdate(getObjectId());
+                broadcastPacket(su);
             }
         }
     }
@@ -9265,9 +9270,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		// If the L2PcInstance has Pet, unsummon it
 		if (getPet() != null){
 			try { 
-				getPet().decayMe();
+				//getPet().decayMe();
 				getPet().unSummon(this); 
-			} catch (Throwable t) {_log.fatal("deletedMe()", t); }// returns pet to control item
+			} catch (Throwable t) {}// returns pet to control item
 		}
 		
         // Check if the L2PcInstance is in observer mode to set its position to its position before entering in observer mode

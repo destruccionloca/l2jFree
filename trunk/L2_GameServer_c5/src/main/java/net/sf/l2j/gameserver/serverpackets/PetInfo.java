@@ -123,7 +123,7 @@ public class PetInfo extends ServerBasePacket
 		writeQ(_summon.getStat().getExp()); 
 		writeQ(_summon.getExpForThisLevel());// 0%  absolute value	
 		writeQ(_summon.getExpForNextLevel());// 100% absoulte value
-		writeD(_summon instanceof L2PetInstance ? _summon.getInventory().getTotalWeight() : 0);//weight
+		writeD(_summon.getCurrentLoad());//weight
 		writeD(_summon.getMaxLoad());//max weight it can carry
 		writeD(_summon.getPAtk(null));//patk
 		writeD(_summon.getPDef(null));//pdef

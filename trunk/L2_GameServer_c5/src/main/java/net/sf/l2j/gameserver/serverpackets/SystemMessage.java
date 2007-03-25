@@ -39,6 +39,11 @@ public class SystemMessage extends ServerBasePacket
 	private Vector<Integer> _types = new Vector<Integer>();
 	private Vector<Object> _values = new Vector<Object>();
 	
+	// server related
+	public static final int  THE_SERVER_WILL_BE_COMING_DOWN_IN_S1_SECONDS = 1;                                                
+	public static final int  THE_NPC_SERVER_IS_CURRENTLY_DOWN = 542; 	                                                      
+	public static final int  THE_NPC_SERVER_IS_NOT_OPERATING_AT_THIS_TIME = 1278;                                             
+	
 	//PeaceZones
 	public static final int TARGET_IN_PEACEZONE = 85;
 	public static final int CANT_ATK_PEACEZONE = 84;
@@ -206,7 +211,8 @@ public class SystemMessage extends ServerBasePacket
 	public static final int TRADE_SUCCESSFUL = 123;
 	public static final int S1_CANCELED_TRADE = 124;
     public static final int CANNOT_USE_ITEM_WHILE_TRADING = 149;
-    
+    public static final int CANNOT_DISCARD_OR_DESTROY_ITEM_WHILE_TRADING = 150;
+
 	//private store & store
 	public static final int S1_PURCHASED_S2 = 378;
 	public static final int S1_PURCHASED_S2_S3 = 379;
@@ -219,6 +225,7 @@ public class SystemMessage extends ServerBasePacket
 	public static final int YOU_NOT_ENOUGH_ADENA = 279;
     public static final int CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE = 1065;
     public static final int YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED = 1036;
+    public static final int ITEMS_CANNOT_BE_DISCARDED_OR_DESTROYED_WHILE_OPERATING_PRIVATE_STORE_OR_WORKSHOP = 958;
     
     //Community Board
     public static final int NO_CB_IN_MY_CLAN = 1050;
@@ -320,8 +327,9 @@ public class SystemMessage extends ServerBasePacket
 	public static final int S1_PICKED_UP_S2 = 300;
     public static final int FAILED_TO_PICKUP_S1_ADENA = 55;
     public static final int FAILED_TO_PICKUP_S1 = 56;
-    public static final int FAILED_TO_PICKUP_S2_S1_s = 57;	
-
+    public static final int FAILED_TO_PICKUP_S2_S1_s = 57;
+    
+    
 	//GM LIST
 	public static final int GM_LIST = 703;
 	public static final int GM_S1 = 704;
@@ -354,10 +362,31 @@ public class SystemMessage extends ServerBasePacket
     public static final int LOC_CEMETERY_OF_EMPIRE_S1_S2_S3 = 1659;
     public static final int LOC_GM_CONSULTATION_SERVICE_S1_S2_S3 = 1222;
 	
+    // Restart messages
+    public static final int RESTART_AT_TALKING_ISLAND_VILLAGE = 941;
+    public static final int RESTART_AT_GLUDIN_VILLAGE = 942;
+    public static final int RESTART_AT_THE_TOWN_OF_GLUDIN = 943;
+    public static final int RESTART_AT_THE_NEUTRAL_ZONE = 944;
+    public static final int RESTART_AT_THE_ELVEN_VILLAGE = 945;
+    public static final int RESTART_AT_THE_DARK_ELF_VILLAGE = 946;
+    public static final int RESTART_AT_THE_TOWN_OF_DION = 947;
+    public static final int RESTART_AT_FLORAN_VILLAGE = 948;
+    public static final int RESTART_AT_THE_TOWN_OF_GIRAN = 949;
+    public static final int RESTART_AT_GIRAN_HARBOR = 950;
+    public static final int RESTART_AT_THE_ORC_VILLAGE = 951;
+    public static final int RESTART_AT_THE_DWARVEN_VILLAGE = 952;
+    public static final int RESTART_AT_THE_TOWN_OF_OREN = 953;
+    public static final int RESTART_AT_HUNTERS_VILLAGE = 954;
+    public static final int RESTART_AT_THE_TOWN_OF_ADEN = 955;
+    public static final int RESTART_AT_THE_COLISEUM = 956;
+    public static final int RESTART_AT_HEINE= 957;
+    
 	//Crystallize
 	public static final int CRYSTALLIZE_LEVEL_TOO_LOW = 562;
+	
 	public static final int S1_CANNOT_BE_USED = 113;
-    
+	public static final int YOU_CANNOT_USE_QUEST_ITEMS = 148;
+	
     //Monster Derby
     public static final int ACQUIRED = 371;
     public static final int MONSRACE_NO_PAYOUT_INFO = 1044;
@@ -397,12 +426,20 @@ public class SystemMessage extends ServerBasePacket
 	public static final int PET_DID_S1_DMG = 1015;
     public static final int S1_GAME_PET_S2_DMG = 1016;
     public static final int PET_CANNOT_USE_ITEM = 972;
+    public static final int YOUR_PET_IS_VERY_HUNGRY = 595;
+    public static final int YOUR_PET_ATE_A_LITTLE_BUT_IS_STILL_HUNGRY = 596;
+    public static final int YOUR_PET_IS_VERY_HUNGRY_PLEASE_BE_CAREFULL = 597;
     public static final int PET_TOOK_S1_BECAUSE_HE_WAS_HUNGRY = 1527;
+    public static final int STARVING_GRUMPY_AND_FED_UP_YOUR_PET_HAS_LEFT = 593;
+    public static final int YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS = 545;
+    public static final int UNABLE_TO_PLACE_ITEM_YOUR_PET_IS_TOO_ENCUMBERED= 546;
+
     public static final int YOU_CANNOT_RESTORE_HUNGRY_PETS = 594;
     public static final int PET_CANNOT_SENT_BACK_DURING_BATTLE = 579;
     public static final int YOU_ALREADY_HAVE_A_PET = 543;
     public static final int YOU_CANNOT_SUMMON_IN_COMBAT = 578;
     public static final int MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES = 1519;
+    public static final int YOUR_PETS_CORPSE_HAS_DECAYED = 1522;
     
     public static final int STRIDER_CANT_BE_RIDDEN_WHILE_DEAD = 1009;
     public static final int DEAD_STRIDER_CANT_BE_RIDDEN = 1010;
@@ -431,7 +468,8 @@ public class SystemMessage extends ServerBasePacket
     public static final int YOU_MAY_NOT_SUMMON_FROM_YOUR_CURRENT_LOCATION = 650;
     public static final int S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT = 1842;
     public static final int S1_IS_ENGAGED_IN_COMBAT_AND_CANNOT_BE_SUMMONED = 1843;
-    public static final int YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING = 1899;    
+    public static final int YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING = 1899; 
+    public static final int YOUR_SERVITOR_HAS_VANISHED = 1521; 
     
     // Pets
     public static final int SUMMON_A_PET = 547;
@@ -512,42 +550,6 @@ public class SystemMessage extends ServerBasePacket
     public static final int CASTLE_SIEGE_S1_SECONDS_LEFT = 360;
 
     public static final int THE_REGISTRATION_TERM_FOR_S1_HAS_ENDED = 293;
-    
-    // Message to add/check
-    //  id=17  msg=[Castle siege has begun.] c3_attr1=[SystemMsg_k.17]
-    //  id=18  msg=[Castle siege is over.]   c3_attr1=[SystemMsg_k.18]
-    //  id=288 msg=[The castle gate has been broken down.]  
-    //  id=291 msg=[Clan $s1 is victorious over $s2's castle siege!]        
-    //  id=292 msg=[$s1 has announced the castle siege time.]       
-    //  - id=293 msg=[The registration term for $s1 has ended.]       
-    //  - id=358 msg=[$s1 hour(s) until castle siege conclusion.]     
-    //  - id=359 msg=[$s1 minute(s) until castle siege conclusion.]
-    //  - id=360 msg=[Castle siege $s1 second(s) left!]       
-    //  id=640 msg=[You have failed to refuse castle defense aid.]    
-    //  id=641 msg=[You have failed to approve castle defense aid.]
-    //  id=644 msg=[You are not yet registered for the castle siege.]       
-    //  - id=645 msg=[Only clans with Level 4 and higher may register for a castle siege.]    
-    //  id=646 msg=[You do not have the authority to modify the castle defender list.]     
-    //  - id=688 msg=[The clan that owns the castle is automatically registered on the defending side.]       
-    //  id=689 msg=[A clan that owns a castle cannot participate in another siege.]        
-    //  id=690 msg=[You cannot register on the attacking side because you are part of an alliance with the clan that owns the castle.]     
-    //  id=718 msg=[The castle gates cannot be opened and closed during a siege.]  
-    //  - id=295 msg=[$s1's siege was canceled because there were no clans that participated.]        
-    //  id=659 msg=[This is not the time for siege registration and so registrations cannot be accepted or rejected.]      
-    //  - id=660 msg=[This is not the time for siege registration and so registration and cancellation cannot be done.]      
-    //  id=663 msg=[The siege time has been declared for $s. It is not possible to change the time after a siege time has been declared. Do you want to continue?] 
-    //  id=667 msg=[You are registering on the attacking side of the $s1 siege. Do you want to continue?]  
-    //  id=668 msg=[You are registering on the defending side of the $s1 siege. Do you want to continue?]  
-    //  id=669 msg=[You are canceling your application to participate in the $s1 siege battle. Do you want to continue?]
-    //  id=707 msg=[You cannot teleport to a village that is in a siege.]  
-    //  - id=711 msg=[The siege of $s1 has started.]
-    //  - id=712 msg=[The siege of $s1 has finished.]
-    //  id=844 msg=[The siege to conquer $s1 has begun.]    
-    //  - id=845 msg=[The deadline to register for the siege of $s1 has passed.]      
-    //  - id=846 msg=[The siege of $s1 has been canceled due to lack of interest.]    
-    //  - id=856 msg=[The siege of $s1 has ended in a draw.]  
-    //  id=285 msg=[Clan $s1 has succeeded in engraving the ruler!] 
-    //  - id=287 msg=[The opponent clan has begun to engrave the ruler.]     
     
     //  only view castles during a siege 
     public static final int ONLY_VIEW_SIEGE = 780;

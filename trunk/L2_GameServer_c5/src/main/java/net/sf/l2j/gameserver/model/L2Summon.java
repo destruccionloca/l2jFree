@@ -58,7 +58,6 @@ public abstract class L2Summon extends L2PlayableInstance
     private int _attackRange = 36; //Melee range
     private boolean _follow = true;
     private boolean _previousFollowStatus = true;
-    private int _maxLoad;
 
     private boolean _showSummonAnimation;
     
@@ -224,11 +223,6 @@ public abstract class L2Summon extends L2PlayableInstance
         return _pkKills;
     }
     
-    public final int getMaxLoad()
-    {
-        return _maxLoad;
-    }
-    
     public final int getUsedSoulShots()
     {
         return _usedSoulShots;
@@ -247,11 +241,6 @@ public abstract class L2Summon extends L2PlayableInstance
     public final void increaseUsedSpiritShots(int numShots)
     {
         _usedSpiritShots += numShots;
-    }
-    
-    public void setMaxLoad(int maxLoad)
-    {
-        _maxLoad = maxLoad;
     }
     
     public void setChargedSoulShot(int shotType)
@@ -406,6 +395,16 @@ public abstract class L2Summon extends L2PlayableInstance
         return null;
     }
     
+    public int getCurrentLoad()
+    {
+        return 0;
+    }
+    
+    public int getMaxLoad()
+    {
+        return 0;
+    }
+    
     protected void doPickupItem(L2Object object)
     {
         return;
@@ -441,6 +440,10 @@ public abstract class L2Summon extends L2PlayableInstance
         return null;
     }
     
+    public abstract int getCurrentFed();
+    
+    public abstract int getMaxFed();
+	
     /**
      * Return the L2Party object of its L2PcInstance owner or null.<BR><BR>
      */

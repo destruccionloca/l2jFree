@@ -26,4 +26,15 @@ public class PetInventory extends Inventory
     { 
         return ItemLocation.PET_EQUIP; 
     }
+	
+    protected void refreshWeight()
+    {
+        super.refreshWeight();
+        getOwner().refreshOverloaded();
+    }
+
+    public boolean validateWeight(int weight)
+    {
+        return (_totalWeight + weight <= _owner.getMaxLoad());
+    }
 }

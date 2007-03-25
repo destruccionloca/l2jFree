@@ -528,7 +528,7 @@ public final class Config {
     
 	/** Pet Rates (Multipliers) */ 	
 	public static float         PET_XP_RATE; 
- 	public static int           PET_FOOD_RATE;
+ 	public static float         PET_FOOD_RATE;
 
     /** Karma Drop Rate control */
     public static int   KARMA_DROP_LIMIT;
@@ -1697,7 +1697,7 @@ public final class Config {
                 PLAYER_RATE_DROP_EQUIP_WEAPON   = Integer.parseInt(ratesSettings.getProperty("PlayerRateDropEquipWeapon", "5"));
 
                 PET_XP_RATE                     = Float.parseFloat(ratesSettings.getProperty("PetXpRate", "1."));
-                PET_FOOD_RATE                   = Integer.parseInt(ratesSettings.getProperty("PetFoodRate", "1")); 
+                PET_FOOD_RATE                   = Float.parseFloat(ratesSettings.getProperty("PetFoodRate", "1")); 
 
                 KARMA_DROP_LIMIT                = Integer.parseInt(ratesSettings.getProperty("KarmaDropLimit", "10"));
                 KARMA_RATE_DROP                 = Integer.parseInt(ratesSettings.getProperty("KarmaRateDrop", "70"));
