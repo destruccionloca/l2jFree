@@ -750,6 +750,7 @@ public final class Config {
 
     public static boolean       SPAWN_WYVERN_MANAGER;
     public static boolean       SPAWN_CLASS_MASTER;
+    public static boolean		CLASS_MASTER_STRIDER_UPDATE;
     public static String        CLASS_MASTER_SETTINGS_LINE;
     public static ClassMasterSettings  CLASS_MASTER_SETTINGS;
     
@@ -1789,6 +1790,7 @@ public final class Config {
 	            
 	            SPAWN_WYVERN_MANAGER      = Boolean.valueOf(altSettings.getProperty("SpawnWyvernManager", "True"));
 	            SPAWN_CLASS_MASTER      = Boolean.valueOf(altSettings.getProperty("SpawnClassMaster", "False"));
+	            CLASS_MASTER_STRIDER_UPDATE = Boolean.valueOf(altSettings.getProperty("ClassMasterUpdateStrider", "False")); 
 	            if (!altSettings.getProperty("ConfigClassMaster").equalsIgnoreCase("False"))
 	            	CLASS_MASTER_SETTINGS_LINE = altSettings.getProperty("ConfigClassMaster");
 	            

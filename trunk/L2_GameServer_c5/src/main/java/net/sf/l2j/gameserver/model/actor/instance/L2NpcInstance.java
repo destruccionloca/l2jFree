@@ -895,7 +895,7 @@ public class L2NpcInstance extends L2Character
                         player.sendPacket(adminReply);
                     }
                 }
-                else if (type.equalsIgnoreCase("strider")) 
+                else if (Config.CLASS_MASTER_STRIDER_UPDATE && type.equalsIgnoreCase("strider")) 
                 {
                     L2NpcTemplate wind = NpcTable.getInstance().getTemplate(PetDataTable.HATCHLING_WIND_ID);
                     L2NpcTemplate star = NpcTable.getInstance().getTemplate(PetDataTable.HATCHLING_STAR_ID);
