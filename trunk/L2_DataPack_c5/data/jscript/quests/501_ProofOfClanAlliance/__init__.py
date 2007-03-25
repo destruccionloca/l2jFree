@@ -117,7 +117,7 @@ class Quest (JQuest) :
      st.set("chest_game","0")
      st.set("chest_try","0")
      st.startQuestTimer("poison_timer",3600000)
-     st.getPlayer().useMagic(SkillTable.getInstance().getInfo(4082,1),False,False)
+     st.getPlayer().doCast(SkillTable.getInstance().getInfo(4082,1),st.getPlayer()) 
    elif event == "poison_timer" :
      members_finnish(st)
      st.exitQuest(1)
