@@ -1924,6 +1924,16 @@ public final class Config {
                 CAPACITY_OF_LAIR_OF_VALAKAS 						= Integer.parseInt(altSettings.getProperty("CapacityOfLairOfValakas", "200"));
                 APPTIME_OF_VALAKAS 									= Integer.parseInt(altSettings.getProperty("AppTimeOfValakas", "20"));
                 APPTIME_OF_ANTHARAS 								= Integer.parseInt(altSettings.getProperty("AppTimeOfAntharas", "10"));
+                FS_TIME_ATTACK 										= Integer.parseInt(altSettings.getProperty("TimeOfAttack", "50"));
+                FS_TIME_COOLDOWN 									= Integer.parseInt(altSettings.getProperty("TimeOfCoolDown", "5"));
+                FS_TIME_ENTRY 										= Integer.parseInt(altSettings.getProperty("TimeOfEntry", "3"));
+                FS_TIME_WARMUP 										= Integer.parseInt(altSettings.getProperty("TimeOfWarmUp", "2"));
+                FS_PARTY_MEMBER_COUNT 								= Integer.parseInt(altSettings.getProperty("NumberOfNecessaryPartyMembers", "4"));
+                if(FS_TIME_ATTACK <= 0) FS_TIME_ATTACK = 50;
+                if(FS_TIME_COOLDOWN <= 0) FS_TIME_COOLDOWN = 5;
+                if(FS_TIME_ENTRY <= 0) FS_TIME_ENTRY = 3;
+                if(FS_TIME_ENTRY <= 0) FS_TIME_ENTRY = 3;
+                if(FS_TIME_ENTRY <= 0) FS_TIME_ENTRY = 3;
                 if (NURSEANT_RESPAWN_DELAY < 15) NURSEANT_RESPAWN_DELAY = 15;
                 else if (NURSEANT_RESPAWN_DELAY > 120) NURSEANT_RESPAWN_DELAY = 120;
                 NURSEANT_RESPAWN_DELAY = NURSEANT_RESPAWN_DELAY * 1000;
