@@ -5,7 +5,9 @@ __all__ = [
 '5011_l2day',
 '9987_aa',
 '12535_WakeBaium',
-'7000_HeroItems'
+'7000_HeroItems',
+'13001_meetAntharas',
+'31385_meetValakas'
 ]
 print ""
 print "importing custom data ..."
