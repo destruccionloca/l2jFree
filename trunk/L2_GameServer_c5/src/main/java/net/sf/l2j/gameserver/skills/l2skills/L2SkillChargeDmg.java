@@ -17,9 +17,8 @@
  */
 package net.sf.l2j.gameserver.skills.l2skills;
 
-import net.sf.l2j.gameserver.lib.Rnd;
-import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -79,12 +78,12 @@ public class L2SkillChargeDmg extends L2Skill
 		}
         double modifier = 0;
         modifier = effect.num_charges*0.33;		
-		
 		if (this.getTargetType() != SkillTargetType.TARGET_AREA && this.getTargetType() != SkillTargetType.TARGET_MULTIFACE)
-		    effect.num_charges -= this.num_charges;
+			effect.num_charges -= this.num_charges;
+        //effect.num_charges = 0;
 		caster.updateEffectIcons();
         if (effect.num_charges == 0)
-        {effect.exit();}
+        	{effect.exit();}
         for(int index = 0;index < targets.length;index++)
         {
         	L2ItemInstance weapon = caster.getActiveWeaponInstance();
@@ -99,27 +98,20 @@ public class L2SkillChargeDmg extends L2Skill
 			
 			//boolean dual  = caster.isUsingDualWeapon();
 			boolean shld = Formulas.getInstance().calcShldUse(caster, target);
-			// boolean crit = Formulas.getInstance().calcCrit(caster.getCriticalHit(target, this));
+			boolean crit = Formulas.getInstance().calcCrit(caster.getCriticalHit(target, this));
 			boolean soul = (weapon!= null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER );
-             if (this.ignoreShld())
-                {
-                    shld = false;
-                }
+			
 			int damage = (int)Formulas.getInstance().calcPhysDam(
-					caster, target, this, shld, false, false, soul);
-            
+					caster, target, this, shld, crit, false, soul);
+			
 			if (damage > 0)
             {
                 double finalDamage = damage;
                 finalDamage = finalDamage+(modifier*finalDamage);
-                if (this.isCritical() && Rnd.get(100) < 15) 
-                {
-                    caster.sendPacket(new SystemMessage(SystemMessage.CRITICAL_HIT));
-                    finalDamage = finalDamage * 2;
-                }
-                if (target.isPetrified())
-                {finalDamage= 0;}
-                target.reduceCurrentHp(finalDamage, caster);
+				target.reduceCurrentHp(finalDamage, caster);
+				
+				if (crit) caster.sendPacket(new SystemMessage(SystemMessage.CRITICAL_HIT));
+				
 				SystemMessage sm = new SystemMessage(SystemMessage.YOU_DID_S1_DMG);
 				sm.addNumber((int)finalDamage);
 				caster.sendPacket(sm);
@@ -141,7 +133,7 @@ public class L2SkillChargeDmg extends L2Skill
             seffect.exit();
         }
         // cast self effect if any
-        getEffectsSelf(caster);        
+        getEffectsSelf(caster);
 	}
 	
 }

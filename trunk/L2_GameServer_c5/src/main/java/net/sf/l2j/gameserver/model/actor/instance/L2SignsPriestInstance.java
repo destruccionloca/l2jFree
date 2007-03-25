@@ -152,7 +152,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                     {
                         if (Config.ALT_GAME_REQUIRE_CASTLE_DAWN)
                         {
-                            if (getPlayerAllyHasCastle(player))
+                            /*if (getPlayerAllyHasCastle(player))
                             {
                                 if (cabal == SevenSigns.CABAL_DUSK)
                                 {
@@ -160,7 +160,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                                     return;
                                 }
                             }
-                            else
+                            else*/
                             {
                                 /*
                                  * If the player is trying to join the Lords of Dawn, check if they are

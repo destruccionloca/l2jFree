@@ -1300,7 +1300,14 @@ public final class Formulas
         
         return damage;
     }
-    
+
+	/** Returns true in case of critical hit */
+	public final boolean calcCrit(double rate)
+	{
+		int critHit = Rnd.get(1000);
+		return rate > critHit;
+	}
+
     /** Returns true in case of critical hit */
     public final boolean calcCrit(L2Character attacker, L2Character target, double rate)
     {
