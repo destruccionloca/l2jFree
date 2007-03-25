@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.datatables.SkillTreeTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ChestInstance;
@@ -39,8 +40,10 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.entity.ZoneType;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Stats;
@@ -1385,7 +1388,7 @@ public abstract class L2Skill
             
             return null;
         }   
-        case TARGET_AURA:
+        /*case TARGET_AURA:
         {
             int radius = getSkillRadius();
             boolean srcInArena = (ArenaManager.getInstance().getArena(activeChar) != null);
@@ -1439,8 +1442,18 @@ public abstract class L2Skill
                 }
             }
             return targetList.toArray(new L2Character[targetList.size()]);
-        }
+        }*/
+        // [L2J_JP ADD SANDMAN]
+        case TARGET_AURA:
         case TARGET_AREA:
+        {
+            return getAreaTargetList(activeChar);
+        }
+        case TARGET_MULTIFACE:
+        {
+            return getMultiFaceTargetList(activeChar);
+        }
+        /*case TARGET_AREA:
         {
             if ((!(target instanceof L2Attackable || target instanceof L2PlayableInstance)) ||  //   Target is not L2Attackable or L2PlayableInstance
                 (this.getCastRange() >= 0 && (target == null || target == activeChar || target.isAlikeDead()))) //target is null or self or dead/faking
@@ -1556,7 +1569,7 @@ public abstract class L2Skill
                 return null;
             
             return targetList.toArray(new L2Character[targetList.size()]);
-        }
+        }*/
         case TARGET_AREA_UNDEAD:
         {
             L2Character cha;
@@ -1599,7 +1612,7 @@ public abstract class L2Skill
             if (targetList.size() == 0) return null;
             return targetList.toArray(new L2Character[targetList.size()]);
         }        
-        case TARGET_MULTIFACE:
+        /*case TARGET_MULTIFACE:
         {
             if ((!(target instanceof L2Attackable) && !(target instanceof L2PcInstance)))
             {
@@ -1628,7 +1641,7 @@ public abstract class L2Skill
             return targetList.toArray(new L2Character[targetList.size()]);
             //TODO multiface targets all around right now.  need it to just get targets
             //the character is facing.
-        }
+        }*/
         case TARGET_PARTY:
         {
             if (onlyFirst)
@@ -2084,7 +2097,415 @@ public abstract class L2Skill
         }
     }//end switch
     }
-
+    
+	// [L2J_JP ADD SANDMAN START]
+	public final L2Object[] getAreaTargetList(L2Character activeChar)
+	{
+	    List<L2Character> targetList = new FastList<L2Character>();
+	    L2Object target;
+	    L2PcInstance tgOwner;
+	    L2Clan acClan;
+	    L2Clan tgClan;
+	    L2Party acPt = activeChar.getParty();
+	    int radius = this.getSkillRadius();
+	
+	    if (this.getCastRange() <= 0 || (this.getTargetType() == SkillTargetType.TARGET_AURA)) target = activeChar;
+	    else target = activeChar.getTarget();
+	
+	    if (target == null || !(target instanceof L2Character))
+	    {
+	        activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
+	        return null;
+	    }
+	
+	    if ((this.getTargetType() == SkillTargetType.TARGET_AREA) && (target.getObjectId() != activeChar.getObjectId()))
+	    {
+	        if (!((L2Character) target).isAlikeDead()) targetList.add((L2Character) target);
+	        else
+	        {
+	            activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
+	            return null;
+	        }
+	    }
+	
+	    if (!(activeChar instanceof L2PlayableInstance))
+	    {
+	        for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
+	        {
+	            if (obj instanceof L2PlayableInstance)
+	            {
+	                if (!(Util.checkIfInRange(radius, target, obj, true))) continue;
+	                else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	            }
+	        }
+	        if (targetList.size() == 0) return null;
+	        return targetList.toArray(new L2Character[targetList.size()]);
+	    }
+	
+	    if (activeChar instanceof L2PcInstance) acClan = ((L2PcInstance) activeChar).getClan();
+	    else if (activeChar instanceof L2Summon) acClan = ((L2Summon) activeChar).getOwner().getClan();
+	    else
+	    {
+	        activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
+	        return null;
+	    }
+	
+	    if (SiegeManager.getInstance().checkIfInZone(activeChar.getX(), activeChar.getY()))
+	    {
+	        for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
+	        {
+	            if (!(Util.checkIfInRange(radius, target, obj, true))) continue;
+	
+	            if (obj instanceof L2PcInstance)
+	            {
+	                tgClan = ((L2PcInstance) obj).getClan();
+	
+	                if (acPt != null)
+	                {
+	                    if (activeChar.getParty().getPartyMembers().contains(obj)) continue;
+	                    else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	                }
+	                else if (tgClan != null)
+	                {
+	                    if (tgClan.getClanId() == acClan.getClanId()) continue;
+	                    else if (tgClan.getAllyId() == acClan.getAllyId()) continue;
+	                    else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	                }
+	                else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	            }
+	            else if (obj instanceof L2Summon)
+	            {
+	                tgOwner = ((L2Summon) obj).getOwner();
+	                tgClan = tgOwner.getClan();
+	
+	                if (acPt != null)
+	                {
+	                    if (activeChar.getParty().getPartyMembers().contains(tgOwner)) continue;
+	                    else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	                }
+	                else if (tgClan != null)
+	                {
+	                    if (tgClan.getClanId() == acClan.getClanId()) continue;
+	                    else if (tgClan.getAllyId() == acClan.getAllyId()) continue;
+	                    else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	                }
+	                else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	            }
+	            else if (obj instanceof L2Attackable)
+	            {
+	                if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	            }
+	            else
+	            {
+	                continue;
+	            }
+	        }
+	    }
+	    else if ((ZoneManager.getInstance().checkIfInZone(
+	                                                      ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.OlympiadStadia),
+	                                                      activeChar.getX(), activeChar.getY()))
+	        || (ZoneManager.getInstance().checkIfInZone(
+	                                                    ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Arena),
+	                                                    activeChar.getX(), activeChar.getY()))
+	        || ((ZoneManager.getInstance().checkIfInZone("FourSepulcher", activeChar) &&
+	        		(activeChar.getZ() >= -7250 && activeChar.getZ() <= -6841)))
+	    	)
+	    {
+	        for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
+	        {
+	            if (!(Util.checkIfInRange(radius, target, obj, true))) continue;
+	
+	            if (obj instanceof L2PcInstance)
+	            {
+	                if (acPt != null)
+	                {
+	                    if (activeChar.getParty().getPartyMembers().contains(obj)) continue;
+	                    else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	                }
+	                else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	            }
+	            else if (obj instanceof L2Summon)
+	            {
+	                tgOwner = ((L2Summon) obj).getOwner();
+	
+	                if (acPt != null)
+	                {
+	                    if (activeChar.getParty().getPartyMembers().contains(tgOwner)) continue;
+	                    else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	                }
+	                else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	            }
+	            else if (obj instanceof L2Attackable)
+	            {
+	                if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	            }
+	            else
+	            {
+	                continue;
+	            }
+	        }
+	    }
+	    else
+	    {
+	        for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
+	        {
+	            if (!(Util.checkIfInRange(radius, target, obj, true))) continue;
+	
+	            if (obj instanceof L2MonsterInstance)
+	            {
+	                if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	            }
+	        }
+	    }
+	
+	    if (targetList.size() == 0)
+	    {
+	        activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
+	        return null;
+	    }
+	
+	    return targetList.toArray(new L2Character[targetList.size()]);
+	}
+	
+	public final L2Object[] getMultiFaceTargetList(L2Character activeChar)
+	{
+	    List<L2Character> targetList = new FastList<L2Character>();
+	    L2Object target;
+	    L2Object FirstTarget;
+	    L2PcInstance tgOwner;
+	    L2Clan acClan;
+	    L2Clan tgClan;
+	    L2Party acPt = activeChar.getParty();
+	    int radius = this.getSkillRadius();
+	
+	    if (this.getCastRange() <= 0) target = activeChar;
+	    else target = activeChar.getTarget();
+	    FirstTarget = target;
+	
+	    if (target == null || !(target instanceof L2Character))
+	    {
+	        activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
+	        return null;
+	    }
+	
+	    int newHeading = this.getNewHeadingToTarget(activeChar, (L2Character) target);
+	
+	    if (target.getObjectId() != activeChar.getObjectId())
+	    {
+	        if (!((L2Character) target).isAlikeDead()) targetList.add((L2Character) target);
+	        else
+	        {
+	            activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
+	            return null;
+	        }
+	    }
+	
+	    if (!(activeChar instanceof L2PlayableInstance))
+	    {
+	        for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
+	        {
+	            if (obj instanceof L2PlayableInstance)
+	            {
+	                if (!(Util.checkIfInRange(radius, target, obj, true))) continue;
+	                else if (this.isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) target)) continue;
+	                else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	
+	            }
+	        }
+	        if (targetList.size() == 0) return null;
+	        return targetList.toArray(new L2Character[targetList.size()]);
+	    }
+	
+	    if (activeChar instanceof L2PcInstance) acClan = ((L2PcInstance) activeChar).getClan();
+	    else if (activeChar instanceof L2Summon) acClan = ((L2Summon) activeChar).getOwner().getClan();
+	    else
+	    {
+	        activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
+	        return null;
+	    }
+	
+	    if (SiegeManager.getInstance().checkIfInZone(activeChar.getX(), activeChar.getY()))
+	    {
+	        for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
+	        {
+	            if (!(obj instanceof L2PlayableInstance))
+	                continue;
+	            if (!(Util.checkIfInRange(radius, target, obj, true)))
+	            continue;
+	            else if (this.isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) obj))
+	                continue;
+	
+	            if (obj instanceof L2PcInstance)
+	            {
+	                tgClan = ((L2PcInstance) obj).getClan();
+	
+	                if (acPt != null)
+	                {
+	                    if (activeChar.getParty().getPartyMembers().contains(obj)) continue;
+	                    else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	                }
+	                else if (tgClan != null)
+	                {
+	                    if (tgClan.getClanId() == acClan.getClanId()) continue;
+	                    else if (tgClan.getAllyId() == acClan.getAllyId()) continue;
+	                    else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	                }
+	                else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	            }
+	            else if (obj instanceof L2Summon)
+	            {
+	                tgOwner = ((L2Summon) obj).getOwner();
+	                tgClan = tgOwner.getClan();
+	
+	                if (acPt != null)
+	                {
+	                    if (activeChar.getParty().getPartyMembers().contains(tgOwner)) continue;
+	                    else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	                }
+	                else if (tgClan != null)
+	                {
+	                    if (tgClan.getClanId() == acClan.getClanId()) continue;
+	                    else if (tgClan.getAllyId() == acClan.getAllyId()) continue;
+	                    else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	                }
+	                else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	            }
+	            else if (obj instanceof L2Attackable)
+	            {
+	                if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	            }
+	            else
+	            {
+	                continue;
+	            }
+	        }
+	    }
+	    else if ((ZoneManager.getInstance().checkIfInZone(
+	                                                      ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.OlympiadStadia),
+	                                                      activeChar.getX(), activeChar.getY()))
+	        || (ZoneManager.getInstance().checkIfInZone(
+	                                                    ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Arena),
+	                                                    activeChar.getX(), activeChar.getY()))
+	        || ((ZoneManager.getInstance().checkIfInZone("FourSepulcher", activeChar) &&
+	        		(activeChar.getZ() >= -7250 && activeChar.getZ() <= -6841)))
+	    	)
+	    {
+	        for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
+	        {
+	            if (!(obj instanceof L2PlayableInstance))
+	                continue;
+	            if (!(Util.checkIfInRange(radius, target, obj, true))) continue;
+	            else if (this.isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) obj)) continue;
+	
+	            if (obj instanceof L2PcInstance)
+	            {
+	                if (acPt != null)
+	                {
+	                    if (activeChar.getParty().getPartyMembers().contains(obj)) continue;
+	                    else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	                }
+	                else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	            }
+	            else if (obj instanceof L2Summon)
+	            {
+	                tgOwner = ((L2Summon) obj).getOwner();
+	
+	                if (acPt != null)
+	                {
+	                    if (activeChar.getParty().getPartyMembers().contains(tgOwner)) continue;
+	                    else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	                }
+	                else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	            }
+	            else if (obj instanceof L2Attackable)
+	            {
+	                if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	            }
+	            else
+	            {
+	                continue;
+	            }
+	        }
+	    }
+	    else
+	    {
+	        for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
+	        {
+	            if (!(obj instanceof L2PlayableInstance))
+	                continue;
+	            if (!(Util.checkIfInRange(radius, target, obj, true))) continue;
+	            else if (this.isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) obj)) continue;
+	
+	            if (obj instanceof L2MonsterInstance)
+	            {
+	                if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
+	            }
+	        }
+	    }
+	
+	    if (targetList.size() == 0)
+	    {
+	        activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
+	        return null;
+	    }
+	
+	    return targetList.toArray(new L2Character[targetList.size()]);
+	}
+	
+	protected int getNewHeadingToTarget(L2Character caster, L2Character target)
+	{
+	    if (caster == null || target == null) return 0;
+	
+	    double befHeading = Util.convertHeadingToDegree(caster.getHeading());
+	    if (befHeading > 360) befHeading -= 360;
+	
+	    int dx = caster.getX() - target.getX();
+	    int dy = caster.getY() - target.getY();
+	
+	    double dist = Math.sqrt(dx * dx + dy * dy);
+	
+	    if (dist == 0) dist = 0.01;
+	
+	    double sin = dy / dist;
+	    double cos = dx / dist;
+	    int heading = (int) (Math.atan2(-sin, -cos) * 10430.378350470452724949566316381);
+	
+	    return heading;
+	
+	}
+	
+	public boolean isBehindFromCaster(int heading, L2Character caster, L2Character target)
+	{
+	    if (caster == null || target == null) return true;
+	
+	    double befHeading = Util.convertHeadingToDegree(heading);
+	    if (befHeading > 360) befHeading -= 360;
+	    else if (befHeading < 0) befHeading += 360;
+	
+	    int dx = caster.getX() - target.getX();
+	    int dy = caster.getY() - target.getY();
+	
+	    double dist = Math.sqrt(dx * dx + dy * dy);
+	
+	    if (dist == 0) dist = 0.01;
+	
+	    double sin = dy / dist;
+	    double cos = dx / dist;
+	    int newheading = (int) (Math.atan2(-sin, -cos) * 10430.378350470452724949566316381);
+	
+	    double aftHeading = Util.convertHeadingToDegree(newheading);
+	    if (aftHeading > 360) aftHeading -= 360;
+	    else if (aftHeading < 0) aftHeading += 360;
+	
+	    double diffHeading = Math.abs(aftHeading - befHeading);
+	    if (diffHeading > 360) diffHeading -= 360;
+	    else if (diffHeading < 0) diffHeading += 360;
+	
+	    if ((diffHeading > 90) && (diffHeading < 270)) return true;
+	    else return false;
+	
+	}
+	// [L2J_JP ADD SANDMAN END]
     public final L2Object[] getTargetList(L2Character activeChar)
     {
        return getTargetList(activeChar, false); 

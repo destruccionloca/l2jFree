@@ -1187,25 +1187,7 @@ public final class Config {
     public static int FACTION_KILL_RATE = 1000;
     public static int FACTION_QUEST_RATE = 1;
     
-	/** Config for Fake Death Faild Feature **/
-	public static boolean   FAILD_FAKEDEATH;
-	/** Config for RaidBoss Resist Debuff **/
-	public static boolean   RAIDBOSS_DEBUFF_RESIST;
-	public static int       RAIDBOSS_DEBUFF_RESIST_RATE;
-	/** Config for skill effect judgment **/
-	public static boolean ALT_SKILLEFFECT_JUDGE;
-	/** Config for Wyvern can make a landing in zone of 'No Landing' **/
-	public static boolean ALT_WYVERN_MAKEALANDING;
-	/** Config for Dismount from a wyvern in zone of 'No Landing' **/
-	public static boolean ALT_DISMOUNT_WYVERN_IN_NOLANDING;
-	/** Config for Different calculation for reward item **/
-	public static boolean ALT_DROPCHANCE_JUDGEMENT;
 	/** Chance that an item will succesfully be enchanted */
-	public static int BLESSED_ENCHANT_CHANCE;
-	public static int CRYSTAL_ENCHANT_CHANCE;
-	public static int SAFETY_ENCHANT_MAX;
-	public static int LIMIT_PATK_SPD;
-	public static int LIMIT_MATK_SPD;
 	public static int TIME_IN_A_DAY_OF_OPEN_A_DOOR;
 	public static int TIME_OF_OPENING_A_DOOR;
 	/** Config for boss controler **/
@@ -1934,6 +1916,28 @@ public final class Config {
                 ALT_CRAFT_ALLOW_CRYSTALLIZE                         = Boolean.parseBoolean(altSettings.getProperty("CraftManagerCrystallize", "True"));
                 ALT_CRAFT_PRICE                                     = Float.parseFloat(altSettings.getProperty("CraftManagerPriceMultiplier", "0.1"));
                 ALT_CRAFT_DEFAULT_PRICE                             = Integer.parseInt(altSettings.getProperty("CraftManagerDefaultPrice", "50000"));
+                
+                TIME_IN_A_DAY_OF_OPEN_A_DOOR 						= Integer.parseInt(altSettings.getProperty("TimeInADayOfOpenADoor", "0"));
+                TIME_OF_OPENING_A_DOOR 								= Integer.parseInt(altSettings.getProperty("TimeOfOpeningADoor", "5"));
+                ACTIVITY_TIME_OF_BOSS 								= Integer.parseInt(altSettings.getProperty("ActivityTimeOfBoss", "120"));
+                NURSEANT_RESPAWN_DELAY 								= Integer.parseInt(altSettings.getProperty("NurseAntRespawnDelay", "15"));
+                CAPACITY_OF_LAIR_OF_VALAKAS 						= Integer.parseInt(altSettings.getProperty("CapacityOfLairOfValakas", "200"));
+                APPTIME_OF_VALAKAS 									= Integer.parseInt(altSettings.getProperty("AppTimeOfValakas", "20"));
+                APPTIME_OF_ANTHARAS 								= Integer.parseInt(altSettings.getProperty("AppTimeOfAntharas", "10"));
+                if (NURSEANT_RESPAWN_DELAY < 15) NURSEANT_RESPAWN_DELAY = 15;
+                else if (NURSEANT_RESPAWN_DELAY > 120) NURSEANT_RESPAWN_DELAY = 120;
+                NURSEANT_RESPAWN_DELAY = NURSEANT_RESPAWN_DELAY * 1000;
+                if (ACTIVITY_TIME_OF_BOSS < 120) ACTIVITY_TIME_OF_BOSS = 120;
+                else if (ACTIVITY_TIME_OF_BOSS > 720) ACTIVITY_TIME_OF_BOSS = 720;
+                ACTIVITY_TIME_OF_BOSS = ACTIVITY_TIME_OF_BOSS * 60000;
+                if (CAPACITY_OF_LAIR_OF_VALAKAS < 9) CAPACITY_OF_LAIR_OF_VALAKAS = 9;
+                else if (CAPACITY_OF_LAIR_OF_VALAKAS > 360) CAPACITY_OF_LAIR_OF_VALAKAS = 360;
+                if (APPTIME_OF_VALAKAS < 5) APPTIME_OF_VALAKAS = 5;
+                else if (APPTIME_OF_VALAKAS > 60) APPTIME_OF_VALAKAS = 60;
+                APPTIME_OF_VALAKAS = APPTIME_OF_VALAKAS * 60000;
+                if (APPTIME_OF_ANTHARAS < 5) APPTIME_OF_ANTHARAS = 5;
+                else if (APPTIME_OF_ANTHARAS > 60) APPTIME_OF_ANTHARAS = 60;
+                APPTIME_OF_ANTHARAS = APPTIME_OF_ANTHARAS * 60000;
 	        }
 	        catch (Exception e)
 	        {

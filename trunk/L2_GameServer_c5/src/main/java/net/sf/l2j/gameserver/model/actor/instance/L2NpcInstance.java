@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.text.DateFormat;
+import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
@@ -33,9 +34,11 @@ import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.datatables.BuffTemplateTable;
+import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
+import net.sf.l2j.gameserver.instancemanager.BossActionTaskManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.games.Lottery;
@@ -1122,20 +1125,62 @@ public class L2NpcInstance extends L2Character
 	         	}        	 
         	 }
         	 else if (command.equals("questlist"))
-        	     {    
-        	     player.sendPacket(new ExQuestInfo());
-        	     }
+    	     {    
+        		 player.sendPacket(new ExQuestInfo());
+    	     }
              else if (command.startsWith("MakeBuffs"))
-                 {
-                     makeBuffs(player,command.substring(9).trim());
-                 }
+             {
+                 makeBuffs(player,command.substring(9).trim());
+             }
             else if (command.equalsIgnoreCase("exchange"))
+            {
+            	NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+                html.setFile("data/html/merchant/exchange.htm");
+                html.replace("%objectId%", String.valueOf(getObjectId()));
+                player.sendPacket(html);
+            }
+            // [J2J_JP ADD START]
+            else if (command.startsWith("open_gate"))
+            {
+                final DoorTable _doorTable = DoorTable.getInstance();
+                int doorId;
+
+                StringTokenizer st = new StringTokenizer(command.substring(10), ", ");
+                
+                while (st.hasMoreTokens())
                 {
-                NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-                    html.setFile("data/html/merchant/exchange.htm");
-                    html.replace("%objectId%", String.valueOf(getObjectId()));
-                    player.sendPacket(html);
-                }             
+                    doorId = Integer.parseInt(st.nextToken());
+                    try
+                    {
+                        _doorTable.getDoor(doorId).openMe();
+                        _doorTable.getDoor(doorId).onOpen();
+                    }
+                    catch(NullPointerException e)
+                    {
+                        _log.warn("Door Id does not exist.(" +doorId + ")" );
+                    }
+                }
+                return;
+
+            }
+            else if (command.equalsIgnoreCase("wake_baium"))
+            {
+            	setTarget(player);
+                BossActionTaskManager.getInstance().SetNpcBaiumDecayAction(this);
+            }
+            else if (command.equalsIgnoreCase("meet_antharas"))
+            {
+                BossActionTaskManager.getInstance().SetAntharasSpawnTask();
+                BossActionTaskManager.getInstance().AddPlayerToAntharasLair(player);
+                player.teleToLocation(173826,115333,-7708);
+            }
+            else if (command.equalsIgnoreCase("meet_valakas"))
+            {
+                BossActionTaskManager.getInstance().SetValakasSpawnTask();
+                BossActionTaskManager.getInstance().AddPlayerToValakasLair(player);
+                player.teleToLocation(203940,-111840,61);
+            }
+            // [J2J_JP ADD END]
         }
     }
 

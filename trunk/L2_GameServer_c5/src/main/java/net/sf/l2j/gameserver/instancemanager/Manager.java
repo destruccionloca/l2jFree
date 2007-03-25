@@ -34,6 +34,9 @@ public class Manager
 		TownManager.getInstance();
 		ZoneManager.getInstance();
         OlympiadStadiaManager.getInstance();
+        // [L2J_JP ADD SANDMAN]
+        BossActionTaskManager.getInstance().init();
+        FourSepulchersManager.getInstance().init();
 	}
 
 	public static void reloadAll()

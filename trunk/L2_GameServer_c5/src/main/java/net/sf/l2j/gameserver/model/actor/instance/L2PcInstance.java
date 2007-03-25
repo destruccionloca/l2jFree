@@ -75,6 +75,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
+import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
@@ -3923,11 +3924,37 @@ public final class L2PcInstance extends L2PlayableInstance
             }
             _cubics.clear();
         }
-
+		// [L2J_JP ADD SANDMAN]
+		if (ZoneManager.getInstance().checkIfInZone("FourSepulcher", this) &&
+				(getZ() >= -7250 && getZ() <= -6841) && !isGM())
+		{
+			if(FourSepulchersManager.getInstance().IsPartyAnnihilated(this))
+			{
+				Future AnnihilatedTask = 
+					ThreadPoolManager.getInstance().scheduleEffect(new onAnnihilated(this),5000);
+			}
+		}
         stopRentPet();
         stopWaterTask();
         stopJailTask(true);
     }
+
+	// [L2J_JP ADD SANDMAN]
+	private class onAnnihilated implements Runnable
+	{
+		L2PcInstance _player;
+		
+		public onAnnihilated(L2PcInstance player)
+		{
+			_player = player;
+		}
+		
+		public void run()
+		{
+			FourSepulchersManager.getInstance().OnPartyAnnihilated(_player);
+		}
+	}
+
     /** UnEnquip on skills with disarm effect **/
     public void onDisarm(L2PcInstance target)
     {
@@ -8649,6 +8676,47 @@ public final class L2PcInstance extends L2PlayableInstance
         // Reset MotherTree Zone flag withour sending a message to the client
         setInMotherTreeZone(false, false);
         revalidateZone();
+
+		// [L2J_JP ADD SANDMAN]
+		if (!isGM() && ZoneManager.getInstance().checkIfInZone("FourSepulcher", this) &&
+				(getZ() >= -7250 && getZ() <= -6841) && 
+				(System.currentTimeMillis() - getLastAccess() >= 300000))
+		{
+			int driftX = Rnd.get(-80,80);
+			int driftY = Rnd.get(-80,80);
+			teleToLocation(178293 + driftX,-84607 + driftY,-7216);
+		}
+		// [L2J_JP ADD SANDMAN]
+		if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofAntharas", this)
+				&& (getZ() >= -8220 && getZ() <= -4870)
+				&& (System.currentTimeMillis() - getLastAccess() >= 1800000))
+		{
+			teleToLocation(MapRegionTable.TeleportWhereType.Town);
+		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofBaium", this)
+				&& (getZ() >= 10070 && getZ() <= 12480)
+				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
+		{
+			teleToLocation(MapRegionTable.TeleportWhereType.Town);
+		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofLilith", this)
+				&& (getZ() >= 10070 && getZ() <= 12480)
+				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
+		{
+			teleToLocation(MapRegionTable.TeleportWhereType.Town);
+		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofAnakim", this)
+				&& (getZ() >= 10070 && getZ() <= 12480)
+				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
+		{
+			teleToLocation(MapRegionTable.TeleportWhereType.Town);
+		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofZaken", this)
+				&& (getZ() >= 10070 && getZ() <= 12480)
+				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
+		{
+			teleToLocation(MapRegionTable.TeleportWhereType.Town);
+		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofValakas", this)
+				&& (getZ() >= -1640 && getZ() <= 9880))
+		{
+			teleToLocation(MapRegionTable.TeleportWhereType.Town);
+		}
     }
 
     public void checkWaterState()

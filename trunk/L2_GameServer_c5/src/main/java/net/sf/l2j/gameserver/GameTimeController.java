@@ -21,10 +21,13 @@ package net.sf.l2j.gameserver;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
-
 import javolution.util.FastList;
+
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
+import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.model.L2Character;
 
@@ -54,6 +57,9 @@ public class GameTimeController
     protected static TimerThread _timer;
     private ScheduledFuture _timerWatcher;
 
+    // [L2J_JP ADD]
+    private ScheduledFuture _OpenTask;
+
     /**
      * one ingame day is 240 real minutes
      */
@@ -72,7 +78,8 @@ public class GameTimeController
 
         _timerWatcher = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new TimerWatcher(), 0, 1000);
         ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new BroadcastSunState(), 0, 600000);
-
+        // [L2J_JP ADD SANDMAN]
+        _OpenTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new OpenPiretesRoom(), 2000, 600000);
     }
 
     public boolean isNowNight()
@@ -256,6 +263,55 @@ public class GameTimeController
                 _isNight = tempIsNight; // Set current day/night varible to value of temp varible
                 
                 DayNightSpawnManager.getInstance().notifyChangeMode();
+            }
+        }
+    }
+    // [L2J_JP ADD]
+    // Open door of pirate's room at AM0:00 every day in game.
+    class OpenPiretesRoom implements Runnable
+    {
+
+        private Future _closeTask;
+        
+        public void run()
+        {
+            DoorTable _doorTable = DoorTable.getInstance();
+            int _OpenTime = Config.TIME_IN_A_DAY_OF_OPEN_A_DOOR;
+            int _CloseTime = Config.TIME_OF_OPENING_A_DOOR;
+            int h = (getGameTime() / 60) % 24;
+
+            if (h == _OpenTime)
+            {
+                try
+                {
+                    _doorTable.getDoor(21240006).openMe();
+                    // The door will be closed in '_CloseTime' minutes.
+                    _closeTask = ThreadPoolManager.getInstance().scheduleEffect(new ClosePiretesRoom(),(_CloseTime*60*1000));
+                }
+                catch (Exception e)
+                {
+                    _log.warn(e.getMessage());
+                }
+
+            }
+        }
+    }
+     
+    // [L2J_JP ADD]
+    // Close door of pirate's room.
+    class ClosePiretesRoom implements Runnable
+    {
+        final DoorTable _doorTable = DoorTable.getInstance();
+
+        public void run()
+        {
+            try
+            {
+                _doorTable.getDoor(21240006).closeMe();
+            }
+            catch (Exception e)
+            {
+                _log.warn(e.getMessage());
             }
         }
     }

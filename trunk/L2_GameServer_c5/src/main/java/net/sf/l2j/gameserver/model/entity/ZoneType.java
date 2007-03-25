@@ -37,7 +37,14 @@ public class ZoneType
         Fishing,
         MonsterDerbyTrack,
         OlympiadStadia,
-        Noobie
+        Noobie,
+        FourSepulcher,
+        LairofAntharas,
+        LairofBaium,
+        LairofValakas,
+        LairofLilith,
+        LairofAnakim,
+        LairofZaken
     }
     
     public static String[] ZoneTypeName =
@@ -46,7 +53,9 @@ public class ZoneType
              "Castle Defender Spawn", "Clan Hall", "Peace",
              "Siege Battlefield", "Town", "Town Spawn", "Underground",
              "Water","No Landing","Jail","Jail Spawn","MotherTree","Recharge","Damage","Fishing",
-             "Monster Derby Track", "Olympiad Stadia", "Noobie"
+             "Monster Derby Track", "Olympiad Stadia", "Noobie", "FourSepulcher",
+             "LairofAntharas","LairofBaium","LairofValakas",
+             "LairofLilith","LairofAnakim","LairofZaken"
         };
     
     public static String getZoneTypeName(ZoneTypeEnum zt)
