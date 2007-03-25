@@ -936,7 +936,7 @@ public class L2PetInstance extends L2Summon
     {
         if (_feedTask != null)
         {
-            _feedTask.cancel(true);
+            _feedTask.cancel(false);
             _feedTask = null;
             if (_log.isDebugEnabled()) _log.debug("Pet [#"+getObjectId()+"] feed task stop");
         }
@@ -973,11 +973,6 @@ public class L2PetInstance extends L2Summon
         stopFeed();
         stopHpMpRegeneration();
         super.unSummon(owner);
-        
-        try{
-        Thread.sleep(1000);
-        }
-        catch (Exception e) {}
         
 		if(!isDead()){
 			store();
