@@ -336,6 +336,7 @@ $MYG < ../sql/tvt_teams.sql &> /dev/null
 $MYG < ../sql/ctf.sql &> /dev/null
 $MYG < ../sql/ctf_teams.sql &> /dev/null
 $MYG < ../sql/dm.sql &> /dev/null
+$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null
 }
 
 finish(){

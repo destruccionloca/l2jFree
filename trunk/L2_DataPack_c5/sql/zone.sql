@@ -591,3 +591,20 @@ INSERT INTO `zone` VALUES (187, 'Water', '22_16_water16', 87187, -58301, 89235, 
 INSERT INTO `zone` VALUES (188, 'Water', '22_17_water1', 65536, -32768, 76800, 0, -4780, -3780, 0);
 INSERT INTO `zone` VALUES (189, 'Water', '22_17_water2', 76800, -32768, 98304, -18432, -4780, -3780, 0);
 
+INSERT INTO zone
+  (id, type, name, x1, y1, x2, y2, z, z2, taxById)
+VALUES
+  (2100, "LairofAntharas", "Lair of Antharas", 173439, 110176, 187346, 119469, -8220, -4870, 0),
+  (2110, "LairofBaium", "Lair of Baium", 109448, 10233, 118547, 21446, 10070, 12480, 0),
+  (2120, "LairofValakas", "Lair of Valakas", 199755, -124724, 224677, -103211, -1640, 9880, 0),
+  (2130, "LairofLilith", "Lair of Lilith", 183986, -13716, 186097, -11532, -5500, -3895, 0),
+  (2140, "LairofAnakim", "Lair of Anakim", 184008, -10681, 186107, -8589, -5500, -3895, 0),
+  (2150, "LairofZaken", "Lair of Zaken", 53182, 216945, 57311, 221151, -3775, -2690, 0);
+  
+INSERT INTO zone
+  (id, type, name, x1, y1, x2, y2, z, taxById)
+VALUES
+  (2000, "FourSepulcher", "Four Sepulcher", 181241, -86443, 192134, -84575, -7225, 0),
+  (2010, "FourSepulcher", "Four Sepulcher", 179551, -89844, 190342, -88042, -7250, 0),
+  (2020, "FourSepulcher", "Four Sepulcher", 172354, -86630, 174073, -75565, -7250, 0),
+  (2030, "FourSepulcher", "Four Sepulcher", 174697, -82707, 176500, -71885, -7250, 0);
