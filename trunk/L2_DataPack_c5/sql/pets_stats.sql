@@ -924,3 +924,21 @@ INSERT INTO `pets_stats` (`type`, `typeID`, `level`, `expMax`, `hpMax`, `mpMax`,
   ('baby cougar',12782,79,9750001,1482,693,56,57,87,131,116,111,40,132,282,333,568,2,1,0,26,9),
   ('baby cougar',12782,80,9875001,1502,707,57,57,90,134,117,112,40,132,282,333,584,2,1,0,26,9),
   ('baby cougar',12782,81,10000001,1521,722,59,60,93,137,118,113,40,132,282,333,584,2,1,0,26,9);
+
+-- Pet weight limits for pets, values custom, need to be tweaked/changed
+
+UPDATE `pets_stats` SET `loadMax`='73000' WHERE `typeID`='12077'; -- wolf
+
+UPDATE `pets_stats` SET `loadMax`='73000' WHERE `typeID`='12311'; -- hatchling of wind
+UPDATE `pets_stats` SET `loadMax`='73000' WHERE `typeID`='12312'; -- hatchling of star
+UPDATE `pets_stats` SET `loadMax`='73000' WHERE `typeID`='12313'; -- hatchling of twilight
+
+UPDATE `pets_stats` SET `loadMax`='91031' WHERE `typeID`='12526'; -- strider of wind
+UPDATE `pets_stats` SET `loadMax`='91031' WHERE `typeID`='12527'; -- strider of star
+UPDATE `pets_stats` SET `loadMax`='91031' WHERE `typeID`='12528'; -- strider of twilight
+
+UPDATE `pets_stats` SET `loadMax`='91031' WHERE `typeID`='12621'; -- wyvern
+
+UPDATE `pets_stats` SET `loadMax`='43000' WHERE `typeID`='12780'; -- baby buffalo
+UPDATE `pets_stats` SET `loadMax`='43000' WHERE `typeID`='12781'; -- baby kookaburra
+UPDATE `pets_stats` SET `loadMax`='43000' WHERE `typeID`='12782'; -- baby cougar
