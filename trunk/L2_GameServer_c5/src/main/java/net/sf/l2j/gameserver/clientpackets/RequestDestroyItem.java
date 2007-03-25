@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import net.sf.l2j.Config;
+import net.sf.l2j.L2DatabaseFactory; 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
@@ -160,6 +161,7 @@ public class RequestDestroyItem extends ClientBasePacket
 				}
 				
 				// if it's a pet control item, delete the pet
+                con = L2DatabaseFactory.getInstance().getConnection(); 
                 PreparedStatement statement = con.prepareStatement("DELETE FROM pets WHERE item_obj_id=?");
 				statement.setInt(1, _objectId);
 				statement.execute();
