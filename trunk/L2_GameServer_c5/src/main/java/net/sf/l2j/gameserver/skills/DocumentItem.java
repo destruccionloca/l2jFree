@@ -92,7 +92,8 @@ final class DocumentItem extends DocumentBase
                     {
                         setCurrentItem(new Item());
                         parseItem(d);
-                        itemsInFile.add(currentItem.item);
+                        if (currentItem.item!=null)
+                        	itemsInFile.add(currentItem.item);
                         resetTable();
                     }
                 }
@@ -101,7 +102,8 @@ final class DocumentItem extends DocumentBase
             {
                 setCurrentItem(new Item());
                 parseItem(n);
-                itemsInFile.add(currentItem.item);
+                if (currentItem.item!=null)
+                	itemsInFile.add(currentItem.item);
             }
         }
     }
@@ -111,6 +113,12 @@ final class DocumentItem extends DocumentBase
         int itemId = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
         String itemName = n.getAttributes().getNamedItem("name").getNodeValue();
 
+        if (!itemData.containsKey(itemId)) 
+        {
+        	_log.fatal("Stats for item id "+itemId+" ignored !");
+        	
+        	return;
+        }
         currentItem.id = itemId;
         currentItem.name = itemName;
         currentItem.set = itemData.get(currentItem.id).set;
