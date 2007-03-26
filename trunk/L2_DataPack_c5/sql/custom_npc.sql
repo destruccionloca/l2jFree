@@ -1,6 +1,24 @@
--- 
+-- MySQL dump 10.10
+--
+-- Host: localhost    Database: l2jdb
+-- ------------------------------------------------------
+-- Server version	5.0.27-community-nt
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
 -- Table structure for table `custom_npc`
--- 
+--
+
 DROP TABLE IF EXISTS `custom_npc`;
 CREATE TABLE `custom_npc` (
   `id` decimal(11,0) NOT NULL default '0',
@@ -18,6 +36,8 @@ CREATE TABLE `custom_npc` (
   `attackrange` int(11) default NULL,
   `hp` decimal(8,0) default NULL,
   `mp` decimal(5,0) default NULL,
+  `hpreg` decimal(8,2) default NULL,
+  `mpreg` decimal(5,2) default NULL,
   `str` decimal(7,0) default NULL,
   `con` decimal(7,0) default NULL,
   `dex` decimal(7,0) default NULL,
@@ -42,15 +62,31 @@ CREATE TABLE `custom_npc` (
   `faction_range` decimal(4,0) default NULL,
   `isUndead` int(11) default '0',
   `absorb_level` decimal(2,0) default '0',
-  `hpreg` decimal(8,2) default NULL,
-  `mpreg` decimal(5,2) default NULL,
   PRIMARY KEY  (`id`)
-) DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-insert  into custom_npc values 
-('6001', 31774, 'Beryl the Cat', 0, 'ItemMall', 1, 'Monster2.queen_of_cat', '8.00', '15.00', '70', 'female', 'L2Npc', 40, '3862', '1493', '40', '43', '30', '21', '20', '10', '0', '0', '1314', '470', '780', '382', '278', '0', '253', '0', '0', '0', '80', '120', null, '0', 0, '0', null, null),
-('6002', 35461, 'Caska', 1, 'NPC Buffer', 1, 'NPC.a_teleporter_FHuman', '8.00', '25.00', '70', 'female', 'L2Npc', 40, '3862', '1494', '40', '43', '30', '21', '20', '10', '5879', '590', '1444', '514', '760', '381', '253', '0', '253', '0', '0', '0', '80', '120', null, null, 0, '0', null, null),
-('7077', 31275, 'Tinkerbell', 1, 'Luxary Gatekeeper', 1, 'NPC.a_teleporter_FHuman', '8.00', '25.00', '70', 'female', 'L2Teleporter', 40, '3862', '1494', '40', '43', '30', '21', '20', '10', '5879', '590', '1444', '514', '760', '381', '253', '0', '253', '0', '0', '0', '80', '120', null, null, 0, '0', null, null),
-('2001', 29020, 'Baium', 1, 'Event', 1, 'Monster.baium', '65.00', '174.00', '75', 'male', 'L2Boss', 40, '790857', '3347', '60', '57', '73', '76', '35', '80', '10253400', '1081544', '6559', '6282', '4378', '4601', '333', '0', '2362', '0', '0', '0', '80', '120', null, '0', 0, '12', '668.78', '3.09'),
-('2002', 25319, 'Ember', 1, 'Event', 1, 'Monster2.inferno_drake_100_bi', '48.00', '73.00', '85', 'male', 'L2RaidBoss', 40, '257725', '3718', '60', '57', '73', '76', '35', '80', '2535975', '1356048', '11906', '5036', '18324', '2045', '409', '0', '2901', '0', '0', '0', '80', '120', null, '0', 0, '13', '823.48', '9.81'), 
-('2003', 29022, 'Zaken', 1, 'Event', 1, 'Monster.zaken', '16.00', '32.00', '60', 'male', 'L2Boss', 40, '858518', '1975', '60', '57', '73', '76', '35', '80', '4879745', '423589', '7273', '2951', '19762', '1197', '333', '0', '2362', '0', '0', '0', '80', '120', null, '0', 1, '12', '799.68', '2.45');
+--
+-- Dumping data for table `custom_npc`
+--
+
+
+/*!40000 ALTER TABLE `custom_npc` DISABLE KEYS */;
+LOCK TABLES `custom_npc` WRITE;
+INSERT INTO `custom_npc` VALUES (6001, 31774, 'Beryl the Cat', 0, 'ItemMall', 1, 'Monster2.queen_of_cat', 8.00, 15.00, 70, 'female', 'L2Npc', 40, 3862, 1493, NULL, NULL, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 253, 0, 0, 0, 80, 120, NULL, 0, 0, 0);
+INSERT INTO `custom_npc` VALUES (6002, 35461, 'Caska', 1, 'NPC Buffer', 1, 'NPC.a_teleporter_FHuman', 8.00, 25.00, 70, 'female', 'L2Npc', 40, 3862, 1494, NULL, NULL, 40, 43, 30, 21, 20, 10, 5879, 590, 1444, 514, 760, 381, 253, 0, 253, 0, 0, 0, 80, 120, NULL, NULL, 0, 0);
+INSERT INTO `custom_npc` VALUES (7077, 31275, 'Tinkerbell', 1, 'Luxary Gatekeeper', 1, 'NPC.a_teleporter_FHuman', 8.00, 25.00, 70, 'female', 'L2Teleporter', 40, 3862, 1494, NULL, NULL, 40, 43, 30, 21, 20, 10, 5879, 590, 1444, 514, 760, 381, 253, 0, 253, 0, 0, 0, 80, 120, NULL, NULL, 0, 0);
+INSERT INTO `custom_npc` VALUES (2001, 29020, 'Baium', 1, 'Event', 1, 'Monster.baium', 65.00, 174.00, 75, 'male', 'L2Boss', 40, 790857, 3347, 668.78, 3.09, 60, 57, 73, 76, 35, 80, 10253400, 1081544, 6559, 6282, 4378, 4601, 333, 0, 2362, 0, 0, 0, 80, 120, NULL, 0, 0, 12);
+INSERT INTO `custom_npc` VALUES (2002, 25319, 'Ember', 1, 'Event', 1, 'Monster2.inferno_drake_100_bi', 48.00, 73.00, 85, 'male', 'L2RaidBoss', 40, 257725, 3718, 823.48, 9.81, 60, 57, 73, 76, 35, 80, 2535975, 1356048, 11906, 5036, 18324, 2045, 409, 0, 2901, 0, 0, 0, 80, 120, NULL, 0, 0, 13);
+INSERT INTO `custom_npc` VALUES (2003, 29022, 'Zaken', 1, 'Event', 1, 'Monster.zaken', 16.00, 32.00, 60, 'male', 'L2Boss', 40, 858518, 1975, 799.68, 2.45, 60, 57, 73, 76, 35, 80, 4879745, 423589, 7273, 2951, 19762, 1197, 333, 0, 2362, 0, 0, 0, 80, 120, NULL, 0, 1, 12);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `custom_npc` ENABLE KEYS */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
