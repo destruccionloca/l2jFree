@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "338_AlligatorHunter"
+
 ADENA = 57
 ALLIGATOR = 20135
 ALLIGATOR_PELTS = 4337
@@ -27,9 +29,12 @@ class Quest (JQuest) :
          st.playSound("ItemSound.quest_finish")
      return htmltext
 
- def onTalk (Self,npc,st):
-     npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
      htmltext = "<html><head><body>I have nothing to say you</body></html>"
+     st = player.getQuestState(qn)
+     if not st : return htmltext
+
+     npcId = npc.getNpcId()
      id = st.getState()
      level = st.getPlayer().getLevel()
      cond = st.getInt("cond")
@@ -48,24 +53,27 @@ class Quest (JQuest) :
            htmltext = "30892-04.htm"
      return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+     st = player.getQuestState(qn)
+     if not st : return 
+     if st.getState() != STARTED : return 
+   
      npcId = npc.getNpcId()
      if st.getRandom(100)<CHANCE :
          st.giveItems(ALLIGATOR_PELTS,1)
          st.playSound("ItemSound.quest_itemget")
      return
 
-QUEST       = Quest(338,"338_AlligatorHunter","Alligator Hunter")
+QUEST       = Quest(338,qn,"Alligator Hunter")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30892)
 
-CREATED.addTalkId(30892)
-STARTED.addTalkId(30892)
+QUEST.addTalkId(30892)
 
-STARTED.addKillId(ALLIGATOR)
+QUEST.addKillId(ALLIGATOR)
 STARTED.addQuestDrop(ALLIGATOR,ALLIGATOR_PELTS,1)
 
 print "importing quests: 338: Alligator Hunter"

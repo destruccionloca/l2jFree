@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "15_SweetWhisper"
+
 #NPC
 VLADIMIR = 31302
 HIERARCH = 31517
@@ -31,8 +33,11 @@ class Quest (JQuest) :
        st.setState(COMPLETED)
    return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (Self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
    npcId = npc.getNpcId()
    cond = st.getInt("cond")
    id = st.getState()
@@ -50,24 +55,25 @@ class Quest (JQuest) :
        st.exitQuest(1)
    if npcId == VLADIMIR and cond == 1 :
        htmltext = "31302-1a.htm"
-   if npcId == M_NECROMANCER and cond == 1 :
-     htmltext = "31518-0.htm"
-   if npcId == M_NECROMANCER and cond == 2 :
-     htmltext = "31518-1a.htm"
-   if npcId == HIERARCH and cond == 2 :
-     htmltext = "31517-0.htm"
+   if id == STARTED :
+       if npcId == M_NECROMANCER and cond == 1 :
+         htmltext = "31518-0.htm"
+       elif npcId == M_NECROMANCER and cond == 2 :
+         htmltext = "31518-1a.htm"
+       elif npcId == HIERARCH and cond == 2 :
+         htmltext = "31517-0.htm"
    return htmltext
 
-QUEST       = Quest(15,"15_SweetWhisper","Sweet Whisper")
+QUEST       = Quest(15,qn,"Sweet Whisper")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 COMPLETED   = State('Completed', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(31302)
-CREATED.addTalkId(31302)
-STARTED.addTalkId(31302)
-STARTED.addTalkId(31517)
-STARTED.addTalkId(31518)
+QUEST.addTalkId(31302)
+
+QUEST.addTalkId(31517)
+QUEST.addTalkId(31518)
 
 print "importing quests: 15: Sweet Whisper"

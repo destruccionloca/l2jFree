@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "36_MakeASewingKit"
+
 REINFORCED_STEEL = 7163
 ARTISANS_FRAME = 1891
 ORIHARUKON = 1893
@@ -25,8 +27,10 @@ class Quest (JQuest) :
      st.set("cond","3")
    return htmltext
 
- def onTalk (Self,npc,st) :
+ def onTalk (self,npc,player) :
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
    id = st.getState()
    cond = st.getInt("cond")
    if cond == 0 and st.getQuestItemsCount(SEWING_KIT) == 0 :
@@ -49,7 +53,11 @@ class Quest (JQuest) :
      st.exitQuest(1)
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   partyMember = self.getRandomPartyMemberState(player,"1")
+   if not partyMember : return
+   st = partyMember.getQuestState(qn)
+   
    count = st.getQuestItemsCount(REINFORCED_STEEL)
    if count < 5 :
      st.giveItems(REINFORCED_STEEL,1)
@@ -57,18 +65,17 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","2")
      else:
-       st.playSound("ItemSound.quest_itemget")	
+       st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(36,"36_MakeASewingKit","Make A Sewing Kit")
+QUEST       = Quest(36,qn,"Make A Sewing Kit")
 CREATED     = State('Start', QUEST)
-STARTED     = State('Started', QUEST,True)
+STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30847)
-CREATED.addTalkId(30847)
-STARTED.addTalkId(30847)
-STARTED.addKillId(20566)
+QUEST.addTalkId(30847)
+QUEST.addKillId(20566)
 STARTED.addQuestDrop(20566,REINFORCED_STEEL,1)
 
 print "importing quests: 36: Make A Sewing Kit"

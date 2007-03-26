@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "352_HelpRoodRaiseANewPet"
+
 ADENA = 57
 LIENRIK_EGG1 = 5860
 LIENRIK_EGG2 = 5861
@@ -25,9 +27,12 @@ class Quest (JQuest) :
          st.exitQuest(1)
      return htmltext
 
- def onTalk (Self,npc,st):
-     npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
      htmltext = "<html><head><body>I have nothing to say you</body></html>"
+     st = player.getQuestState(qn)
+     if not st : return htmltext
+
+     npcId = npc.getNpcId()
      id = st.getState()
      level = st.getPlayer().getLevel()
      cond = st.getInt("cond")
@@ -60,7 +65,10 @@ class Quest (JQuest) :
           st.playSound("ItemSound.quest_itemget")
      return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+     st = player.getQuestState(qn)
+     if not st : return 
+     if st.getState() != STARTED : return 
      npcId = npc.getNpcId()
      random = st.getRandom(100)
      if random<=CHANCE :
@@ -69,21 +77,20 @@ class Quest (JQuest) :
          st.giveItems(LIENRIK_EGG2,1)
      return
 
-QUEST       = Quest(352,"352_HelpRoodRaiseANewPet","Help Rood Raise A New Pet")
+QUEST       = Quest(352,qn,"Help Rood Raise A New Pet")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(31067)
 
-CREATED.addTalkId(31067)
-STARTED.addTalkId(31067)
+QUEST.addTalkId(31067)
 
 STARTED.addQuestDrop(31067,LIENRIK_EGG1,1)
 STARTED.addQuestDrop(31067,LIENRIK_EGG2,1)
 
-STARTED.addKillId(20786)
-STARTED.addKillId(20787)
+QUEST.addKillId(20786)
+QUEST.addKillId(20787)
 
 print "importing quests: 352: Help Rood Raise A New Pet"
 

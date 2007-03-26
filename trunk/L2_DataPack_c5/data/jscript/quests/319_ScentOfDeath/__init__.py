@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "319_ScentOfDeath"
+
 ZOMBIE_SKIN = 1045
 ADENA = 57
 HEALING_POTION = 1061
@@ -20,9 +22,12 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_accept")
     return htmltext
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    if id == CREATED :
      st.set("cond","0")
@@ -44,7 +49,11 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_finish")
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    count = st.getQuestItemsCount(ZOMBIE_SKIN)
    if count < 5 and st.getRandom(10) > 7 :
      st.giveItems(ZOMBIE_SKIN,1)
@@ -55,7 +64,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(319,"319_ScentOfDeath","Scent Of Death")
+QUEST       = Quest(319,qn,"Scent Of Death")
 CREATED     = State('Start', QUEST)
 STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -64,13 +73,10 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30138)
 
-CREATED.addTalkId(30138)
-STARTING.addTalkId(30138)
-STARTED.addTalkId(30138)
-COMPLETED.addTalkId(30138)
+QUEST.addTalkId(30138)
 
-STARTED.addKillId(20015)
-STARTED.addKillId(20020)
+QUEST.addKillId(20015)
+QUEST.addKillId(20020)
 
 STARTED.addQuestDrop(20015,ZOMBIE_SKIN,1)
 

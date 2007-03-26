@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "228_TestOfMagus"
+
 MARK_OF_MAGUS_ID = 2840
 RUKALS_LETTER_ID = 2841
 PARINAS_LETTER_ID = 2842
@@ -99,11 +101,15 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (self,npc,st):
+ def onTalk (self,npc,player):
+   htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
    npcId = npc.getNpcId()
-   htmltext = "<html><head><body>I have nothing to say to you</body></html>"
    id = st.getState()
-   if id == CREATED :
+   if npcId != 30629 and id != STARTED : return htmltext
+   if id == CREATED :
      st.setState(STARTING)
      st.set("cond","0")
      st.set("onlyone","0")
@@ -233,7 +239,11 @@ class Quest (JQuest) :
         htmltext = "30409-06.htm"
    return htmltext
                              
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    npcId = npc.getNpcId()
    condition,maxcount,chance,item,part = DROPLIST[npcId]
    random = st.getRandom(100)
@@ -254,7 +264,7 @@ class Quest (JQuest) :
    return
 
 
-QUEST       = Quest(228,"228_TestOfMagus","Test Of Magus")
+QUEST       = Quest(228,qn,"Test Of Magus")
 CREATED     = State('Start', QUEST)
 STARTING     = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -264,13 +274,13 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30629)
 
-STARTING.addTalkId(30629)
+QUEST.addTalkId(30629)
 
-for npcId in [30391,30409,30411,30412,30413,30612,30629]:
-   STARTED.addTalkId(npcId)
+for npcId in [30391,30409,30411,30412,30413,30612]:
+   QUEST.addTalkId(npcId)
   
 for mobId in [20145,20157,20176,20230,20231,20232,20234,27095,27096,27097,27098,20553,20564,20565,20566]:
-   STARTED.addKillId(mobId)
+   QUEST.addKillId(mobId)
 
 for item in range(2841,2864):
    STARTED.addQuestDrop(30629,item,1)

@@ -9,6 +9,7 @@ from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
 #Quest info
 QUEST_NUMBER,QUEST_NAME,QUEST_DESCRIPTION = 377,"GiantsExploration2","Exploration of Giants Cave, part 2"
+qn = "377_GiantsExploration2"
 
 #Variables
 #Titan Ancient Books drop rate in %
@@ -80,8 +81,12 @@ class Quest (JQuest) :
               st.giveItems(item,1)
     return htmltext
 
- def onTalk (self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = default
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    if st.getQuestItemsCount(DICT2) != 1 :
       st.exitQuest(1) 
@@ -98,7 +103,11 @@ class Quest (JQuest) :
          htmltext = checkout2
    return htmltext
 
- def onKill (self,npc,st) :
+ def onKill (self,npc,player) :
+     partyMember = self.getRandomPartyMemberState(player,STARTED)
+     if not partyMember : return
+     st = partyMember.getQuestState(qn)
+     
      drop = st.getRandom(100)
      if drop < DROP_RATE :
         st.giveItems(ANC_BOOK,1)
@@ -109,7 +118,7 @@ class Quest (JQuest) :
 QUEST       = Quest(QUEST_NUMBER, str(QUEST_NUMBER)+"_"+QUEST_NAME, QUEST_DESCRIPTION)
 
 CREATED     = State('Start',     QUEST)
-STARTED     = State('Started',   QUEST,True)
+STARTED     = State('Started',   QUEST)
 COMPLETED   = State('Completed', QUEST)
 
 QUEST.setInitialState(CREATED)
@@ -117,11 +126,10 @@ QUEST.setInitialState(CREATED)
 # Quest NPC starter initialization
 QUEST.addStartNpc(HR_SOBLING)
 # Quest initialization
-CREATED.addTalkId(HR_SOBLING)
-STARTED.addTalkId(HR_SOBLING)
+QUEST.addTalkId(HR_SOBLING)
 
 for i in MOBS :
-  STARTED.addKillId(i)
+  QUEST.addKillId(i)
 
 STARTED.addQuestDrop(HR_SOBLING,DICT2,1)
 

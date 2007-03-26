@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "226_TestOfHealer"
+
 REPORT_OF_PERRIN_ID = 2810
 CRISTINAS_LETTER_ID = 2811
 PICTURE_OF_WINDY_ID = 2812
@@ -99,11 +101,15 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
-   if id == CREATED :
+   if npcId != 30473 and id != STARTED : return htmltext
+   if id == CREATED :
      st.setState(STARTING)
      st.set("cond","0")
      st.set("onlyone","0")
@@ -276,7 +282,11 @@ class Quest (JQuest) :
       htmltext = "30665-03.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    npcId = npc.getNpcId()
    condition,maxcount,item=DROPLIST[npcId] 
    if int(st.get("cond"))==condition and st.getQuestItemsCount(item)<maxcount:
@@ -287,7 +297,7 @@ class Quest (JQuest) :
      st.playSound("Itemsound.quest_middle")
    return
 
-QUEST       = Quest(226,"226_TestOfHealer","Test Of Healer")
+QUEST       = Quest(226,qn,"Test Of Healer")
 CREATED     = State('Start', QUEST)
 STARTING     = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -297,14 +307,13 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30473)
 
-STARTING.addTalkId(30473)
-COMPLETED.addTalkId(30473)
+QUEST.addTalkId(30473)
 
-for npcId in [30327,30424,30428,30473,30658,30659,30660,30661,30662,30663,30664,30665,30674]:
-  STARTED.addTalkId(npcId)
+for npcId in [30327,30424,30428,30658,30659,30660,30661,30662,30663,30664,30665,30674]:
+  QUEST.addTalkId(npcId)
  
 for mobId in [20150,27123,27124,27125,27127,27134]:
-  STARTED.addKillId(mobId)
+  QUEST.addKillId(mobId)
 
 for item in range(2810,2820):
   STARTED.addQuestDrop(30743,item,1)

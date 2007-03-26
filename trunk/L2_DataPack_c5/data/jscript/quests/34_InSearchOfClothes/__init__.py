@@ -1,8 +1,11 @@
 # Made by disKret
 import sys
+from net.sf.l2j.gameserver.lib import Rnd
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
+
+qn = "34_InSearchOfClothes"
 
 SPINNERET = 7528
 SUEDE = 1866
@@ -46,8 +49,10 @@ class Quest (JQuest) :
        htmltext = "You don't have enough materials"
    return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
    npcId = npc.getNpcId()
    id = st.getState()
    cond = st.getInt("cond")
@@ -60,20 +65,43 @@ class Quest (JQuest) :
          st.exitQuest(1)
      else :
        st.exitQuest(1)
-   elif npcId == 30294 and cond == 1 :
-     htmltext = "30294-0.htm"
-   elif npcId == 30088 and cond == 2 :
-     htmltext = "30088-2.htm"
-   elif npcId == 30165 and cond == 3 :
-     htmltext = "30165-0.htm"
-   elif npcId == 30165 and cond == 5 :
-     htmltext = "30165-2.htm"
-   elif npcId == 30088 and cond == 6 :
-      htmltext = "30088-4.htm"
-   else : htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   elif id == STARTED :    
+       if npcId == 30294 and cond == 1 :
+         htmltext = "30294-0.htm"
+       elif npcId == 30088 and cond == 2 :
+         htmltext = "30088-2.htm"
+       elif npcId == 30165 and cond == 3 :
+         htmltext = "30165-0.htm"
+       elif npcId == 30165 and cond == 5 :
+         htmltext = "30165-2.htm"
+       elif npcId == 30088 and cond == 6 :
+          htmltext = "30088-4.htm"
+       else : htmltext = "<html><head><body>I have nothing to say you</body></html>"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   # get 1 party member among those with cond between 1 and 4
+   partyMember = 0
+   j = 0
+   for i in range(1,5) :  # i between 1 and 4 inclusive
+       partyMember = self.getRandomPartyMember(player,str(i))
+       if partyMember :
+           j = i
+           break
+   if not partyMember : return
+   
+   # if at least 1 cond exists with a party member, check if there also exist in a different cond as well
+   for i in range(j+1,5) :
+       partyMember2 = self.getRandomPartyMember(player,str(i))
+       # if a party member is found in another cond, randomly choose between
+       # the new one and the previous one
+       if partyMember2 :
+           if Rnd.get(2) : partyMember = partyMember2
+           
+   st = partyMember.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return
+   
    count = st.getQuestItemsCount(SPINNERET)
    if count < 10 :
      st.giveItems(SPINNERET,1)
@@ -81,20 +109,20 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","5")
      else :
-       st.playSound("ItemSound.quest_itemget")	
+       st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(34,"34_InSearchOfClothes","In Search of Clothes")
+QUEST       = Quest(34,qn,"In Search of Clothes")
 CREATED     = State('Start', QUEST)
-STARTED     = State('Started', QUEST,True)
+STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30088)
-CREATED.addTalkId(30088)
-STARTED.addTalkId(30088)
-STARTED.addTalkId(30165)
-STARTED.addTalkId(30294)
-STARTED.addKillId(20560)
+QUEST.addTalkId(30088)
+
+QUEST.addTalkId(30165)
+QUEST.addTalkId(30294)
+QUEST.addKillId(20560)
 STARTED.addQuestDrop(20560,SPINNERET,1)
 
 print "importing quests: 34: In Search of Clothes"

@@ -6,10 +6,14 @@
     <set val='281' order='0x08' stat='pAtk'/>
     <set val='132' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
+    <set val='66' order='0x08' stat='pAtkRange'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6601' name="saint_spear__haste">
@@ -17,10 +21,14 @@
     <set val='281' order='0x08' stat='pAtk'/>
     <set val='132' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
+    <set val='66' order='0x08' stat='pAtkRange'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6602' name="demon_splinter_focus">
@@ -32,6 +40,9 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6603' name="demon_splinter_health">
@@ -42,7 +53,10 @@
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
-    <enchant val='0' order='0x0C' stat='mAtk'/>    
+    <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6604' name="demon_splinter_crt._stun">
@@ -53,7 +67,10 @@
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
-    <enchant val='0' order='0x0C' stat='mAtk'/>    
+    <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6605' name="heavens_divider_haste">
@@ -65,6 +82,9 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6606' name="heavens_divider_health">
@@ -76,6 +96,9 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6607' name="heavens_divider_focus">
@@ -87,6 +110,9 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6608' name="arcana_mace_acumen">
@@ -98,6 +124,9 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6609' name="arcana_mace_mp_regeneration">
@@ -109,6 +138,9 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/> 
   </for>
 </item>
 <item id='6610' name="arcana_mace_mana_up">
@@ -120,6 +152,9 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6611' name="infinity_blade">
@@ -131,6 +166,9 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6612' name="infinity_cleaver">
@@ -142,6 +180,10 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6613' name="infinity_axe">
@@ -153,6 +195,10 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6614' name="infinity_rod">
@@ -164,6 +210,10 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6615' name="infinity_crusher">
@@ -175,6 +225,10 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+   <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6616' name="infinity_scepter">
@@ -186,6 +240,10 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6617' name="infinity_stinger">
@@ -197,6 +255,10 @@
     <set val='433' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6618' name="infinity_fang">
@@ -208,6 +270,10 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6619' name="infinity_bow">
@@ -219,6 +285,10 @@
     <set val='293' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6620' name="infinity_wing">
@@ -230,6 +300,10 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6621' name="infinity_spear">
@@ -241,6 +315,10 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6678' name="sealed_imperial_crusader_shield">

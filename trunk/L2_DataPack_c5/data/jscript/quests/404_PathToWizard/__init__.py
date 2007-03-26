@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "404_PathToWizard"
+
 MAP_OF_LUSTER_ID = 1280
 KEY_OF_FLAME_ID = 1281
 FLAME_EARING_ID = 1282
@@ -50,12 +52,15 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
+   htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
 
    npcId = npc.getNpcId()
-   htmltext = "<html><head><body>I have nothing to say you</body></html>"
    id = st.getState()
-   if id == CREATED :
+   if npcId != 30391 and id != STARTED : return htmltext
+   if id == CREATED :
      st.setState(STARTING)
      st.set("cond","0")
      st.set("onlyone","0")
@@ -208,8 +213,11 @@ class Quest (JQuest) :
         
    return htmltext
 
- def onKill (self,npc,st):
-
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    npcId = npc.getNpcId()
    if npcId == 20359 :    #Ratman Warrior, as of C3.
         st.set("id","0")
@@ -238,7 +246,7 @@ class Quest (JQuest) :
             st.set("cond","12")
    return
 
-QUEST       = Quest(404,"404_PathToWizard","Path To Wizard")
+QUEST       = Quest(404,qn,"Path To Wizard")
 CREATED     = State('Start', QUEST)
 STARTING     = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -248,18 +256,17 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30391)
 
-STARTING.addTalkId(30391)
+QUEST.addTalkId(30391)
 
-STARTED.addTalkId(30391)
-STARTED.addTalkId(30409)
-STARTED.addTalkId(30410)
-STARTED.addTalkId(30411)
-STARTED.addTalkId(30412)
-STARTED.addTalkId(30413)
+QUEST.addTalkId(30409)
+QUEST.addTalkId(30410)
+QUEST.addTalkId(30411)
+QUEST.addTalkId(30412)
+QUEST.addTalkId(30413)
 
-STARTED.addKillId(20021)
-STARTED.addKillId(20359)
-STARTED.addKillId(27030)
+QUEST.addKillId(20021)
+QUEST.addKillId(20359)
+QUEST.addKillId(27030)
 
 STARTED.addQuestDrop(20359,KEY_OF_FLAME_ID,1)
 STARTED.addQuestDrop(30411,MAP_OF_LUSTER_ID,1)

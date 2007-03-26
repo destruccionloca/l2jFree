@@ -6821,3 +6821,276 @@ Where
 id
 in
 (18231,18232,18233,18234,18235,18236,18237,18238,18239,18240,18241,18242,18243);
+
+
+-- L2JDP rev.2815
+
+
+-- Kirunak's Guards
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=20492;
+-- Fairy Queen Timiniel
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=20719;
+-- Grave Robber Scout
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=22003;
+-- Grave Robber Ranger
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=22005;
+-- Grave Robber Guard
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=22006;
+-- Grave Robber Fighter
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=22008;
+-- Forgotten Crewman
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=22027;
+-- Vagabond of the Ruins
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=22028;
+-- Lost Bandersnatch
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=22079;
+-- Lost Watcher
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=22081;
+-- Baby Panthera
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=22083;
+-- Lost Gargoyle
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=22085;
+-- Pronghorn Spirit
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=22087;
+-- Lost Iron Golem
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=22091;
+-- Lost Buffalo
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=22093;
+-- Ursus Cub
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=22095;
+-- Lost Yeti
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=22097;
+-- Monastic Pilgrim
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=22122;
+-- Divine Advocate
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=22130;
+-- Pilgrim of Light
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=22131;
+-- Boss Akata
+UPDATE `npc` SET `type`=L2RaidBoss WHERE `id`=25501;
+-- Akata's Thug
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=25502;
+-- Akata's Lackey
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=25503;
+-- Nellis'Vengeful Spirit
+UPDATE `npc` SET `type`=L2RaidBoss WHERE `id`=25504;
+-- Nellis'Follower
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=25505;
+-- Rayito the Looter
+UPDATE `npc` SET `type`=L2RaidBoss WHERE `id`=25506;
+-- Rayito's Henchman
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=25507;
+-- Rayito's Henchman
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=25508;
+-- Dark Shaman Varangka
+UPDATE `npc` SET `type`=L2RaidBoss WHERE `id`=25509;
+-- Varangka's Descendant
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=25510;
+-- Varangka's Page
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=25511;
+-- Gigantic Chaos Golem
+UPDATE `npc` SET `type`=L2RaidBoss WHERE `id`=25512;
+-- Captain of the Ice Queen's Royal Guard
+UPDATE `npc` SET `type`=L2RaidBoss WHERE `id`=25513;
+-- Queen Shyeed
+UPDATE `npc` SET `type`=L2RaidBoss WHERE `id`=25514;
+-- Spiked Stakato
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=25515;
+-- Spiked Stakato
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=25516;
+-- Master Anays
+UPDATE `npc` SET `type`=L2RaidBoss WHERE `id`=25517;
+-- Splendor Disciple
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=25518;
+-- Splendor Worshiper
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=25519;
+-- Andreas'Acolyte
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=25521;
+-- Andreas'Acolyte
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=25522;
+-- Flamestone Giant
+UPDATE `npc` SET `type`=L2RaidBoss WHERE `id`=25524;
+-- Flame Spirit
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=25525;
+-- Charged Spirit
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=25526;
+-- Cave Basilisk
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=27111;
+-- Ice Fairy Sirra
+UPDATE `npc` SET `type`=L2RaidBoss WHERE `id`=29056;
+-- Sirra's Page
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=29057;
+-- Sirra's Beholder
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=29058;
+-- Captain of the Ice Queen's Royal Guard
+UPDATE `npc` SET `type`=L2RaidBoss WHERE `id`=29060;
+-- High Priest van Halter
+UPDATE `npc` SET `type`=L2RaidBoss WHERE `id`=29062;
+-- Andreas'Acolyte
+UPDATE `npc` SET `type`=L2Minion WHERE `id`=29063;
+-- Andreas'Acolyte
+UPDATE `npc` SET `type`=L2Minon WHERE `id`=29064;
+-- Andromeda
+-- TODO: L2WeddingManager
+UPDATE `npc` SET `type`=L2Trainer WHERE `id`=30038;
+-- Ruben
+-- L2ClanHallManager
+UPDATE `npc` SET `type`=L2Npc WHERE `id`=30774;
+-- Warehouse Keeper
+UPDATE `npc` SET `type`=L2Warehouse WHERE `id`=31068;
+-- Warehouse Keeper
+UPDATE `npc` SET `type`=L2Warehouse WHERE `id`=31069;
+-- Warehouse Keeper
+UPDATE `npc` SET `type`=L2Warehouse WHERE `id`=31070;
+-- Warehouse Keeper
+UPDATE `npc` SET `type`=L2Warehouse WHERE `id`=31071;
+-- Warehouse Keeper
+UPDATE `npc` SET `type`=L2Warehouse WHERE `id`=31072;
+-- Warehouse Keeper
+UPDATE `npc` SET `type`=L2Warehouse WHERE `id`=31073;
+-- Rahorakti
+UPDATE `npc` SET `type`=L2VillageMaster WHERE `id`=31336;
+-- Warehouse Keeper
+UPDATE `npc` SET `type`=L2Warehouse WHERE `id`=31754;
+-- Buzz the Cat
+UPDATE `npc` SET `type`=L2Npc WHERE `id`=31860;
+-- Ruby
+UPDATE `npc` SET `type`=L2Npc WHERE `id`=31955;
+-- Vishotsky
+UPDATE `npc` SET `type`=L2Guard WHERE `id`=31981;
+-- Glen
+UPDATE `npc` SET `type`=L2Guard WHERE `id`=31982;
+-- Friggar
+UPDATE `npc` SET `type`=L2Guard WHERE `id`=31983;
+-- Sherring
+UPDATE `npc` SET `type`=L2Guard WHERE `id`=31984;
+-- Kosmos
+UPDATE `npc` SET `type`=L2Guard WHERE `id`=31985;
+-- Erstack
+UPDATE `npc` SET `type`=L2Guard WHERE `id`=31986;
+-- Gotter
+UPDATE `npc` SET `type`=L2Guard WHERE `id`=31987;
+-- Singa
+UPDATE `npc` SET `type`=L2Guard WHERE `id`=31988;
+-- Temple Gatekeeper
+UPDATE `npc` SET `type`=L2Teleporter WHERE `id`=32034;
+-- Temple Gatekeeper
+UPDATE `npc` SET `type`=L2Teleporter WHERE `id`=32035;
+-- Temple Gatekeeper
+UPDATE `npc` SET `type`=L2Teleporter WHERE `id`=32036;
+-- Temple Gatekeeper
+UPDATE `npc` SET `type`=L2Teleporter WHERE `id`=32037;
+-- Triol's Mirror
+UPDATE `npc` SET `type`=L2Teleporter WHERE `id`=32039;
+-- Triol's Mirror
+UPDATE `npc` SET `type`=L2Teleporter WHERE `id`=32040;
+-- Weathermaster
+UPDATE `npc` SET `type`=L2Npc WHERE `id`=32044;
+-- Doctor Chaos'Secret Bookshelf
+UPDATE `npc` SET `type`=L2Npc WHERE `id`=32045;
+-- Suspicious-Looking Pile of Stones
+UPDATE `npc` SET `type`=L2Npc WHERE `id`=32046;
+-- Ghost of a Railroad Engineer
+UPDATE `npc` SET `type`=L2Npc WHERE `id`=32054;
+-- Ghost of an Ancient Railroad Engineer
+UPDATE `npc` SET `type`=L2Npc WHERE `id`=32055;
+-- Dead Leopard's Carcass
+UPDATE `npc` SET `type`=L2Npc WHERE `id`=32090;
+-- Tony the Cat
+UPDATE `npc` SET `type`=L2Npc WHERE `id`=32091;
+-- Elite Mercenary Guild Member
+UPDATE `npc` SET `type`=L2SiegeGuard WHERE `id`=35030;
+-- Elite Mercenary Guild Member
+UPDATE `npc` SET `type`=L2SiegeGuard WHERE `id`=35031;
+-- Elite Mercenary Guild Member
+UPDATE `npc` SET `type`=L2SiegeGuard WHERE `id`=35032;
+-- Elite Mercenary Guild Member
+UPDATE `npc` SET `type`=L2SiegeGuard WHERE `id`=35033;
+-- Elite Mercenary Guild Member
+UPDATE `npc` SET `type`=L2SiegeGuard WHERE `id`=35034;
+-- Elite Mercenary Guild Member
+UPDATE `npc` SET `type`=L2SiegeGuard WHERE `id`=35035;
+-- Elite Mercenary Guild Member
+UPDATE `npc` SET `type`=L2SiegeGuard WHERE `id`=35036;
+-- Elite Mercenary Guild Member
+UPDATE `npc` SET `type`=L2SiegeGuard WHERE `id`=35037;
+-- Elite Mercenary Guild Member
+UPDATE `npc` SET `type`=L2SiegeGuard WHERE `id`=35038;
+-- Elite Mercenary Guild Member
+UPDATE `npc` SET `type`=L2SiegeGuard WHERE `id`=35039;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35092;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35093;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35094;
+-- Mass Gatekeeper
+UPDATE `npc` SET `type`=L2Teleporter WHERE `id`=35095;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35176;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35177;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35178;
+-- Mass Gatekeeper
+UPDATE `npc` SET `type`=L2Teleporter WHERE `id`=35179;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35218;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35219;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35220;
+-- Mass Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35221;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35261;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35262;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35263;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35264;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35265;
+-- Mass Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35266;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35271;
+-- Mass Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35311;
+-- Mass Gatekeeper
+UPDATE `npc` SET `type`=L2CastleTeleporter WHERE `id`=35355;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2Doormen WHERE `id`=35359;
+-- Gatekeeper
+UPDATE `npc` SET `type`=L2Doormen WHERE `id`=35360;
+-- Warehouse Keeper
+UPDATE `npc` SET `type`=L2Warehouse WHERE `id`=35362;
+-- Renny
+UPDATE `npc` SET `type`=L2ClanHallManager WHERE `id`=35385;
+-- Hot Springs Gourd
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=35588;
+-- Hot Springs Gourd
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=35589;
+-- Hot Springs Gourd
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=35590;
+-- Hot Springs Gourd
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=35591;
+-- Vampire Adept
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=35632;
+-- Vampire Soldier
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=35633;
+-- Vampire Caster
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=35634;
+-- Vampire Magister
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=35635;
+-- Vampire Warlord
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=35636;
+-- Vampire Leader
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=35637;
+-- Valens
+UPDATE `npc` SET `type`=L2WyvernManager WHERE `id`=35638;
+-- Vampire Caster
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=35646;
+-- Vampire Leader
+UPDATE `npc` SET `type`=L2Monster WHERE `id`=35647;

@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "295_DreamsOfFlight"
+
 FLOATING_STONE = 1492
 RING_OF_FIREFLY = 1509
 ADENA = 57
@@ -20,8 +22,12 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_accept")
     return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    if id == CREATED :
      st.set("cond","0")
@@ -47,7 +53,11 @@ class Quest (JQuest) :
        st.exitQuest(1)
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    count=st.getQuestItemsCount(FLOATING_STONE)
    if count < 50 :
      if st.getRandom(100) < 25 and count < 49 :
@@ -61,7 +71,7 @@ class Quest (JQuest) :
          st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(295,"295_DreamsOfFlight","Dreams Of Flight")
+QUEST       = Quest(295,qn,"Dreams Of Flight")
 CREATED     = State('Start', QUEST)
 STARTING     = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -71,12 +81,9 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30536)
 
-CREATED.addTalkId(30536)
-STARTING.addTalkId(30536)
-STARTED.addTalkId(30536)
-COMPLETED.addTalkId(30536)
+QUEST.addTalkId(30536)
 
-STARTED.addKillId(20153)
+QUEST.addKillId(20153)
 
 STARTED.addQuestDrop(20153,FLOATING_STONE,1)
 print "importing quests: 295: Dreams Of Flight"

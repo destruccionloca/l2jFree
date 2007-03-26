@@ -5,6 +5,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "107_ShowNoMercy"
+
 HATOSS_ORDER1_ID = 1553
 HATOSS_ORDER2_ID = 1554
 HATOSS_ORDER3_ID = 1555
@@ -69,6 +71,9 @@ class Quest (JQuest) :
 
    npcId = npc.getNpcId()
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
    id = st.getState()
    if id == CREATED :
      st.setState(STARTING)
@@ -116,12 +121,15 @@ class Quest (JQuest) :
             st.setState(COMPLETED)
             st.playSound("ItemSound.quest_finish")
             st.set("onlyone","1")
-   elif npcId == 30580 and int(st.get("cond"))==1 and (st.getQuestItemsCount(HATOSS_ORDER1_ID) or st.getQuestItemsCount(HATOSS_ORDER2_ID) or st.getQuestItemsCount(HATOSS_ORDER3_ID)) :
+   elif npcId == 30580 and int(st.get("cond"))==1 and id == STARTED and (st.getQuestItemsCount(HATOSS_ORDER1_ID) or st.getQuestItemsCount(HATOSS_ORDER2_ID) or st.getQuestItemsCount(HATOSS_ORDER3_ID)) :
           htmltext = "30580-01.htm"
    return htmltext
 
- def onKill (self,npc,st):
-
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return
+   if st.getState() != STARTED : return
+   
    npcId = npc.getNpcId()
    if npcId == 27041 :
         st.set("id","0")
@@ -137,7 +145,7 @@ class Quest (JQuest) :
             st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(107,"107_ShowNoMercy","Show No Mercy")
+QUEST       = Quest(107,qn,"Show No Mercy")
 CREATED     = State('Start', QUEST)
 STARTING     = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -147,12 +155,11 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30568)
 
-STARTING.addTalkId(30568)
+QUEST.addTalkId(30568)
 
-STARTED.addTalkId(30568)
-STARTED.addTalkId(30580)
+QUEST.addTalkId(30580)
 
-STARTED.addKillId(27041)
+QUEST.addKillId(27041)
 
 STARTED.addQuestDrop(30568,HATOSS_ORDER2_ID,1)
 STARTED.addQuestDrop(27041,LETTER_TO_DARKELF_ID,1)

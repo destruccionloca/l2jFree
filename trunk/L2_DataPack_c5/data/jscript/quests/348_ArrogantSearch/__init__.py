@@ -10,6 +10,7 @@ from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 from net.sf.l2j.gameserver.serverpackets import RadarControl
 #Quest info
 QUEST_NUMBER,QUEST_NAME,QUEST_DESCRIPTION = 348,"ArrogantSearch","An Arrogant Search"
+qn = "348_ArrogantSearch"
 
 #Messages
 default   = "<html><head><body>I have nothing to say to you.</body></html>"
@@ -114,11 +115,15 @@ class Quest (JQuest) :
         #todo: give flowers & handle the multiperson quest...
     return htmltext
 
- def onTalk (self,npc,st):
-    htmltext = default
-    id = st.getState()
+ def onTalk (self,npc,player):
+    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+    st = player.getQuestState(qn)
+    if not st : return htmltext
+
     npcId = npc.getNpcId()
-    cond = st.getInt("cond")
+    id = st.getState()
+    if npcId != HANELLIN and id != PROGRESS : return htmltext
+    cond = st.getInt("cond")
     if npcId == HANELLIN :
         if id == CREATED :
             # if the quest was completed and the player still has a blooded fabric
@@ -214,7 +219,11 @@ class Quest (JQuest) :
                 htmltext = "30980-03.htm"
     return htmltext
 
- def onKill (self,npc,st) :
+ def onKill (self,npc,player):
+     st = player.getQuestState(qn)
+     if not st : return 
+     if st.getState() != PROGRESS : return 
+   
      npcId = npc.getNpcId()
      if npcId in DROPS.keys() :
          cond = DROPS[npcId][0]
@@ -243,15 +252,15 @@ COMPLETED   = State('Completed', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(HANELLIN)
-CREATED.addTalkId(HANELLIN)
-PROGRESS.addTalkId(HANELLIN)
-PROGRESS.addTalkId(ARK_GUARDIANS_CORPSE)
+QUEST.addTalkId(HANELLIN)
+
+QUEST.addTalkId(ARK_GUARDIANS_CORPSE)
 for i in ARK_OWNERS.keys() :
-    PROGRESS.addTalkId(i)
+    QUEST.addTalkId(i)
 for i in ARKS.keys() :
-    PROGRESS.addTalkId(i)
+    QUEST.addTalkId(i)
 
 for i in DROPS.keys():
-  PROGRESS.addKillId(i)
+  QUEST.addKillId(i)
 
 print str(QUEST_NUMBER)+": "+QUEST_DESCRIPTION

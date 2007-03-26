@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "355_FamilyHonor"
+
 #NPC
 GALIBREDO = 30181
 PATRIN = 30929
@@ -68,10 +70,15 @@ class Quest (JQuest) :
      st.exitQuest(1)
    return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
    npcId = npc.getNpcId()
    id = st.getState()
+   if npcId != GALIBREDO and id != STARTED : return htmltext
+
    cond = st.getInt("cond")
    count = st.getQuestItemsCount(GALFREDOS_BUST)
    if npcId == GALIBREDO :
@@ -98,30 +105,33 @@ class Quest (JQuest) :
        htmltext = "<html><head><body>You have nothing to appraise.</body></html>"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    if int(st.get("cond")) == 1 :
      chance_1 = st.getRandom(100)
      chance_2 = st.getRandom(100)
      if chance_1 < CHANCE_FOR_GALFREDOS_BUST :
        st.giveItems(GALFREDOS_BUST,1)
-       st.playSound("ItemSound.quest_itemget")	
+       st.playSound("ItemSound.quest_itemget")
      if chance_2 < CHANCE_FOR_GODDESS_BUST :
        st.giveItems(BUST_OF_ANCIENT_GODDESS,1)      
    return
 
-QUEST       = Quest(355,"355_FamilyHonor","Family Honor")
+QUEST       = Quest(355,qn,"Family Honor")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(GALIBREDO)
-CREATED.addTalkId(GALIBREDO)
-STARTED.addTalkId(GALIBREDO)
-STARTED.addTalkId(PATRIN)
+QUEST.addTalkId(GALIBREDO)
+QUEST.addTalkId(PATRIN)
 
 #MOBS TIMAK ORC TROOPS
 for MOBS in range(20767,20771) :
-  STARTED.addKillId(MOBS)
+  QUEST.addKillId(MOBS)
 
 STARTED.addQuestDrop(20767,GALFREDOS_BUST,1)
 STARTED.addQuestDrop(20767,BUST_OF_ANCIENT_GODDESS,1)

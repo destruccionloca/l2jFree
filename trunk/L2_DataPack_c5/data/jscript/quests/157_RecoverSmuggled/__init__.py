@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "157_RecoverSmuggled"
+
 ADAMANTITE_ORE = 1024
 BUCKLER = 20
 
@@ -22,9 +24,11 @@ class Quest (JQuest) :
        htmltext = "30005-04.htm"
     return htmltext
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
    id = st.getState()
    cond = st.getInt("cond")
    if id == COMPLETED :
@@ -46,7 +50,11 @@ class Quest (JQuest) :
         htmltext = "30005-06.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+
    npcId = npc.getNpcId()
    if int(st.get("cond"))==1 and st.getQuestItemsCount(ADAMANTITE_ORE)<20 and st.getRandom(10)<4 :
       st.giveItems(ADAMANTITE_ORE,1)
@@ -57,9 +65,9 @@ class Quest (JQuest) :
          st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(157,"157_RecoverSmuggled","Recover Smuggled")
+QUEST       = Quest(157,qn,"Recover Smuggled")
 CREATED     = State('Start', QUEST)
-STARTING     = State('Starting', QUEST)
+STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
 COMPLETED   = State('Completed', QUEST)
 
@@ -67,13 +75,9 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30005)
 
-CREATED.addTalkId(30005)
-STARTING.addTalkId(30005)
-STARTED.addTalkId(30005)
-COMPLETED.addTalkId(30005)
+QUEST.addTalkId(30005)
+QUEST.addKillId(20121)
 
-STARTED.addKillId(20121)
-
-STARTED.addQuestDrop(20121,ADAMANTITE_ORE_ID,1)
+STARTED.addQuestDrop(20121,ADAMANTITE_ORE,1)
 
 print "importing quests: 157: Recover Smuggled"

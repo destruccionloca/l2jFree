@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "300_HuntingLetoLizardman"
+
 #NPC
 RATH=30126
 #Items
@@ -35,8 +37,12 @@ class Quest (JQuest) :
        st.exitQuest(1)
    return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    cond=st.getInt("cond")
    if cond == 0 :
@@ -49,7 +55,11 @@ class Quest (JQuest) :
        htmltext = "30126-04.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    count = st.getQuestItemsCount(BRACELET)
    cond = st.getInt("cond")
    if st.getRandom(100) < CHANCE + ((npc.getNpcId() - 20579)*5) and count < 60 and cond == 1:
@@ -61,18 +71,17 @@ class Quest (JQuest) :
         st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(300,"300_HuntingLetoLizardman","Hunting Leto Lizardman")
+QUEST       = Quest(300,qn,"Hunting Leto Lizardman")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(RATH)
 
-CREATED.addTalkId(RATH)
-STARTED.addTalkId(RATH)
+QUEST.addTalkId(RATH)
 
 for mob in range(20577,20581)+[20582] :
-    STARTED.addKillId(mob)
+    QUEST.addKillId(mob)
 
 STARTED.addQuestDrop(RATH,BRACELET,1)
 

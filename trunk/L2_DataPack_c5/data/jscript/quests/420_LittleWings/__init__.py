@@ -5,6 +5,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "420_LittleWings"
+
 # variables section
 REQUIRED_EGGS = 20
 
@@ -351,9 +353,13 @@ class Quest (JQuest):
               return "420_mymyu_12.htm"
 
 
-  def onTalk (self,npc,st):
-    id   = st.getState()
-    npcid = npc.getNpcId()
+  def onTalk (self,npc,player):
+    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+    st = player.getQuestState(qn)
+    if not st : return htmltext
+
+    npcId = npc.getNpcId()
+    id = st.getState()
     if id == COMPLETED:
        st.setState(CREATED)
        id = CREATED
@@ -460,7 +466,10 @@ class Quest (JQuest):
               return "420_shamhai_5.htm"
     return "<html><head><body>I have nothing to say to you</body></html>"
 
-  def onKill (self,npc,st):
+  def onKill (self,npc,player):
+    st = player.getQuestState(qn)
+    if not st : return 
+   
     id   = st.getState()
     npcid = npc.getNpcId()
   #incipios drop
@@ -513,7 +522,7 @@ class Quest (JQuest):
 
 
 # Quest class and state definition
-QUEST       = Quest(420, "420_LittleWings", "Little Wings")
+QUEST       = Quest(420, qn, "Little Wings")
 CREATED     = State('Start',     QUEST)
 STARTING    = State('Starting',  QUEST)
 STARTED     = State('Started',   QUEST)
@@ -529,29 +538,27 @@ for i in [3499]+range(3816,3832):
 
 # Quest mob initialization
 #back skins
-STARTING.addKillId(TD_LORD)
+QUEST.addKillId(TD_LORD)
 #fairy stone dlx destroyers
 for i in range(20589,20600)+[20719]:
-    STARTING.addKillId(i)
+    QUEST.addKillId(i)
 #eggs
-STARTED.addKillId(LO_LZRD_W)
-STARTED.addKillId(RD_SCVNGR)
-STARTED.addKillId(MS_SPIDER)
-STARTED.addKillId(DD_SEEKER)
-STARTED.addKillId(BO_OVERLD)
+QUEST.addKillId(LO_LZRD_W)
+QUEST.addKillId(RD_SCVNGR)
+QUEST.addKillId(MS_SPIDER)
+QUEST.addKillId(DD_SEEKER)
+QUEST.addKillId(BO_OVERLD)
 
 # Quest NPC initialization
-CREATED.addTalkId(PM_COOPER)
-COMPLETED.addTalkId(PM_COOPER)
+QUEST.addTalkId(PM_COOPER)
 
-STARTING.addTalkId(PM_COOPER)
-STARTING.addTalkId(SG_CRONOS)
-STARTING.addTalkId(GD_BYRON)
-STARTING.addTalkId(MC_MARIA)
-STARTING.addTalkId(FR_MYMYU)
+QUEST.addTalkId(SG_CRONOS)
+QUEST.addTalkId(GD_BYRON)
+QUEST.addTalkId(MC_MARIA)
+QUEST.addTalkId(FR_MYMYU)
 
-STARTED.addTalkId(FR_MYMYU)
+QUEST.addTalkId(FR_MYMYU)
 for i in range(30748,30753):
-    STARTED.addTalkId(i)
+    QUEST.addTalkId(i)
 
 print "importing quests: 420: Little Wings"

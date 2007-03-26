@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "247_PossessorOfAPreciousSoul_4"
+
 #NPC
 CARADINE = 31740
 LADY_OF_LAKE = 31745
@@ -31,7 +33,7 @@ class Quest (JQuest) :
      if cond == 1 :
        st.set("cond","2")
        st.takeItems(CARADINE_LETTER_LAST,1)
-       st.player.teleToLocation(143200,44000,-3040)
+       st.getPlayer().teleToLocation(143200,44000,-3040)
        return htmltext
    if event == "31740-5.htm" :
      if cond == 2 :
@@ -48,17 +50,22 @@ class Quest (JQuest) :
    if event == "31745-5.htm" :
      if cond == 2 :
        st.set("cond","0")
-       st.getPlayer().setNoble(1)
+       st.getPlayer().setNoble(True)
        st.giveItems(NOBLESS_TIARA,1)
        st.playSound("ItemSound.quest_finish")
        st.setState(COMPLETED)
    return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
-   cond = st.getInt("cond")
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
    npcId = npc.getNpcId()
    id = st.getState()
+   if npcId != CARADINE and id != STARTED : return htmltext
+
+   cond = st.getInt("cond")
    if id == CREATED :
      st.set("cond","0")
    if st.getPlayer().isSubClassActive() :
@@ -79,15 +86,15 @@ class Quest (JQuest) :
        htmltext = "31745-1.htm"
    return htmltext
 
-QUEST       = Quest(247,"247_PossessorOfAPreciousSoul_4","Possessor Of A Precious Soul - 4")
+QUEST       = Quest(247,qn,"Possessor Of A Precious Soul - 4")
 CREATED     = State('Start', QUEST)
-STARTED     = State('Started', QUEST,True)
+STARTED     = State('Started', QUEST)
 COMPLETED   = State('Completed', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(CARADINE)
-CREATED.addTalkId(CARADINE)
-STARTED.addTalkId(CARADINE)
-STARTED.addTalkId(LADY_OF_LAKE)
+QUEST.addTalkId(CARADINE)
+
+QUEST.addTalkId(LADY_OF_LAKE)
 
 print "importing quests: 247: Possessor Of A Precious Soul - 4"

@@ -2,6 +2,7 @@
 QuestNumber      = 381
 QuestName        = "LetsBecomeARoyalMember"
 QuestDescription = "Let's become a Royal Member"
+qn = "381_LetsBecomeARoyalMember"
 
 #Messages
 default = "<html><head><body>I have nothing to say to you.</body></html>"
@@ -12,8 +13,8 @@ SORINT, SANDRA = 30232, 30090
 #MOBs
 ANCIENT_GARGOYLE, VEGUS = 21018,27316
 #CHANCES (custom values, feel free to change them)
-GARGOYLE_CHANCE = 10
-VEGUS_CHANCE = 50
+GARGOYLE_CHANCE = 5
+VEGUS_CHANCE = 100
 
 import sys
 from net.sf.l2j.gameserver.model.quest import State
@@ -42,10 +43,16 @@ class Quest (JQuest) :
             htmltext = default
       return htmltext
 
-  def onTalk(self,npc,st):
-      cond=st.getInt("cond")
-      npcId = npc.getNpcId()
+  def onTalk (self,npc,player):
       htmltext = default
+      st = player.getQuestState(qn)
+      if not st : return htmltext
+
+      npcId = npc.getNpcId()
+      id = st.getState()
+      if npcId != SORINT and id != STARTED : return htmltext
+      
+      cond=st.getInt("cond")
       album = st.getQuestItemsCount(COIN_ALBUM)
       if npcId == SORINT :
          if cond == 0 :
@@ -80,7 +87,11 @@ class Quest (JQuest) :
                     htmltext = "30090-03.htm"
       return htmltext
 
-  def onKill (self,npc,st):
+  def onKill (self,npc,player):
+      st = player.getQuestState(qn)
+      if not st : return 
+      if st.getState() != STARTED : return 
+   
       npcId = npc.getNpcId()
       album = st.getQuestItemsCount(COIN_ALBUM)
       coin = st.getQuestItemsCount(KAILS_COIN)
@@ -108,12 +119,12 @@ STARTED     = State('Started',   QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(SORINT)
 
-CREATED.addTalkId(SORINT)
-STARTED.addTalkId(SORINT)
-STARTED.addTalkId(SANDRA)
+QUEST.addTalkId(SORINT)
 
-STARTED.addKillId(ANCIENT_GARGOYLE)
-STARTED.addKillId(VEGUS)
+QUEST.addTalkId(SANDRA)
+
+QUEST.addKillId(ANCIENT_GARGOYLE)
+QUEST.addKillId(VEGUS)
 
 STARTED.addQuestDrop(KAILS_COIN, SORINT,1)
 STARTED.addQuestDrop(COIN_ALBUM, SORINT,1)

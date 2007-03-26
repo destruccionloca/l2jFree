@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "621_EggDelivery"
+
 #NPC
 JEREMY = 31521
 PULIN = 31543
@@ -112,44 +114,46 @@ class Quest (JQuest) :
         htmltext=default
    return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (Self,npc,player):
    htmltext = default
-   npcId = npc.getNpcId()
-   id = st.getState()
-   if id == CREATED :
-     st.set("cond","0")
-   cond = int(st.get("cond"))
-   if npcId == 31521 and cond == 0 :
-     if st.getPlayer().getLevel() >= 68 and st.getPlayer().getLevel() <= 73 :
-       htmltext = "31521-0.htm"
-     else :
-       st.exitQuest(1)
-   elif npcId == 31543 and cond == 1 and st.getQuestItemsCount(BOILED_EGGS) :
-     htmltext = "31543-0.htm"
-   elif npcId == 31544 and cond == 2 and st.getQuestItemsCount(BOILED_EGGS) :
-     htmltext = "31544-0.htm"
-   elif npcId == 31545 and cond == 3 and st.getQuestItemsCount(BOILED_EGGS) :
-     htmltext = "31545-0.htm"
-   elif npcId == 31546 and cond == 4 and st.getQuestItemsCount(BOILED_EGGS) :
-     htmltext = "31546-0.htm"
-   elif npcId == 31547 and cond == 5 and st.getQuestItemsCount(BOILED_EGGS) :
-     htmltext = "31547-0.htm"
-   elif npcId == 31521 and cond == 6 and st.getQuestItemsCount(FEE_OF_EGGS) == 5 :
-     htmltext = "31521-2.htm"
+   st = player.getQuestState(qn)
+   if st :
+     npcId = npc.getNpcId()
+     id = st.getState()
+     if id == CREATED :
+       st.set("cond","0")
+     cond = int(st.get("cond"))
+     if npcId == 31521 and cond == 0 :
+       if st.getPlayer().getLevel() >= 68 and st.getPlayer().getLevel() <= 73 :
+         htmltext = "31521-0.htm"
+       else :
+         st.exitQuest(1)
+     elif id == STARTED :
+       if npcId == 31543 and cond == 1 and st.getQuestItemsCount(BOILED_EGGS) :
+         htmltext = "31543-0.htm"
+       elif npcId == 31544 and cond == 2 and st.getQuestItemsCount(BOILED_EGGS) :
+         htmltext = "31544-0.htm"
+       elif npcId == 31545 and cond == 3 and st.getQuestItemsCount(BOILED_EGGS) :
+         htmltext = "31545-0.htm"
+       elif npcId == 31546 and cond == 4 and st.getQuestItemsCount(BOILED_EGGS) :
+         htmltext = "31546-0.htm"
+       elif npcId == 31547 and cond == 5 and st.getQuestItemsCount(BOILED_EGGS) :
+         htmltext = "31547-0.htm"
+       elif npcId == 31521 and cond == 6 and st.getQuestItemsCount(FEE_OF_EGGS) == 5 :
+         htmltext = "31521-2.htm"
    return htmltext
 
-QUEST       = Quest(621,"621_EggDelivery","Egg Delivery")
+QUEST       = Quest(621,qn,"Egg Delivery")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(31521)
 
-CREATED.addTalkId(31521)
-STARTED.addTalkId(31521)
+QUEST.addTalkId(31521)
 
 for i in range(31543,31548):
-    STARTED.addTalkId(i)
+    QUEST.addTalkId(i)
 
 STARTED.addQuestDrop(31521,BOILED_EGGS,1)
 STARTED.addQuestDrop(31521,FEE_OF_EGGS,1)

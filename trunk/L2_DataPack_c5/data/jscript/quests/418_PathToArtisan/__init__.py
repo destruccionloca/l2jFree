@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "418_PathToArtisan"
+
 SILVERYS_RING_ID = 1632
 PASS_1ST_ID = 1633
 PASS_2ND_ID = 1634
@@ -108,10 +110,15 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
+   if npcId != 30527 and id != STARTED : return htmltext
+
    if id == CREATED :
      st.setState(STARTING)
      st.set("cond","0")
@@ -146,8 +153,11 @@ class Quest (JQuest) :
         htmltext = "30298-07.htm"
    return htmltext
 
- def onKill (self,npc,st):
-   npcId = npc.getNpcId()
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    if npcId == 20389 :
         st.set("id","0")
         if int(st.get("cond")) and st.getQuestItemsCount(SILVERYS_RING_ID) == 1 and st.getQuestItemsCount(RATMAN_TOOTH_ID)<10 :
@@ -179,25 +189,23 @@ class Quest (JQuest) :
             st.set("cond","6")
    return
 
-QUEST       = Quest(418,"418_PathToArtisan","Path To Artisan")
+QUEST       = Quest(418,qn,"Path To Artisan")
 CREATED     = State('Start', QUEST)
 STARTING     = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
 COMPLETED   = State('Completed', QUEST)
 
-
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30527)
 
-STARTING.addTalkId(30527)
+QUEST.addTalkId(30527)
 
-STARTED.addTalkId(30298)
-STARTED.addTalkId(30317)
-STARTED.addTalkId(30527)
+QUEST.addTalkId(30298)
+QUEST.addTalkId(30317)
 
-STARTED.addKillId(20017)
-STARTED.addKillId(20389)
-STARTED.addKillId(20390)
+QUEST.addKillId(20017)
+QUEST.addKillId(20389)
+QUEST.addKillId(20390)
 
 STARTED.addQuestDrop(30527,SILVERYS_RING_ID,1)
 STARTED.addQuestDrop(20389,RATMAN_TOOTH_ID,1)

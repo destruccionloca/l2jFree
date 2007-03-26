@@ -31,6 +31,9 @@
     </mul>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='5706' name="damascus*damascus">
@@ -46,6 +49,9 @@
     </add>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
+    <!-- Enhances damage to target during PvP -->
+    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='5791' name="tomb_guard_a">
@@ -141,7 +147,7 @@
     <sub val='8' order='0x10' stat='rEvas'/>
     <set val='142' order='0x08' stat='sDef'/>
     <set val='20' order='0x08' stat='rShld'/>
-    <enchant val='0' order='0x0C' stat='sDef'/>
+    <enchant val='0' order='0x0C' stat='pDef'/>
   </for>
 </item>
 </list>

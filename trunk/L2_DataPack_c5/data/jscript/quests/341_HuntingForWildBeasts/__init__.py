@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "341_HuntingForWildBeasts"
+
 BEAR_SKIN = 4259
 ADENA = 57
 CHANCE = 400000
@@ -20,9 +22,12 @@ class Quest (JQuest) :
         st.playSound("ItemSound.quest_accept")
      return htmltext
 
- def onTalk (Self,npc,st):
-     npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
      htmltext = "<html><head><body>I have nothing to say you</body></html>"
+     st = player.getQuestState(qn)
+     if not st : return htmltext
+
+     npcId = npc.getNpcId()
      id = st.getState()
      level = st.getPlayer().getLevel()
      cond = st.getInt("cond")
@@ -43,28 +48,31 @@ class Quest (JQuest) :
             htmltext = "30078-03.htm"
      return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+     st = player.getQuestState(qn)
+     if not st : return 
+     if st.getState() != STARTED : return 
+
      npcId = npc.getNpcId()
      cond = st.getInt("cond")
      if cond==1 :
          st.dropQuestItems(BEAR_SKIN,1,20,CHANCE,1)
      return
 
-QUEST       = Quest(341,"341_HuntingForWildBeasts","Hunting For Wild Beasts")
+QUEST       = Quest(341,qn,"Hunting For Wild Beasts")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30078)
 
-CREATED.addTalkId(30078)
-STARTED.addTalkId(30078)
+QUEST.addTalkId(30078)
 
 STARTED.addQuestDrop(30078,BEAR_SKIN,1)
 
-STARTED.addKillId(20021)
-STARTED.addKillId(20203)
-STARTED.addKillId(20310)
-STARTED.addKillId(20335)
+QUEST.addKillId(20021)
+QUEST.addKillId(20203)
+QUEST.addKillId(20310)
+QUEST.addKillId(20335)
 
 print "importing quests: 341: Hunting For Wild Beasts"

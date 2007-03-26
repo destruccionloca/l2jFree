@@ -5,6 +5,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "224_TestOfSagittarius"
+
 RECOMMENDATION_OF_BALANKI_ID = 2864
 RECOMMENDATION_OF_FILAUR_ID = 2865
 RECOMMENDATION_OF_ARIN_ID = 2866
@@ -116,11 +118,15 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
-   step = st.getInt("step")
+   if npcId != 30702 and id != STARTED : return htmltext
+   step = st.getInt("step")
    onlyone = st.getInt("onlyone")
    if id == CREATED :
      st.set("cond","0")
@@ -203,7 +209,11 @@ class Quest (JQuest) :
       st.set("step","12")
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    npcId = npc.getNpcId()
    step, dropcondition, maxcount, chance, itemid = DROPLIST[npcId]
    random = st.getRandom(100)
@@ -219,8 +229,8 @@ class Quest (JQuest) :
       giveNormal(st,itemid)
     elif dropcondition == 2 :
      if ((st.getQuestItemsCount(itemid)-120)*5)> st.getRandom(100) :
-      st.getPcSpawn().addSpawn(27090,npc.getX(),npc.getY(),npc.getZ())
-      return "Serpent Demon Kadesh has spawned"
+      st.getPcSpawn().addSpawn(27090,75315,40138,-3204)
+      return "Serpent Demon Kadesh has spawned at X=75315 Y=40138 Z=-3204"
       st.takeItems(itemid, st.getQuestItemsCount(itemid))
       st.playSound("Itemsound.quest_before_battle")
      else:
@@ -229,7 +239,7 @@ class Quest (JQuest) :
      if st.getItemEquipped(7)==CRESCENT_MOON_BOW_ID:
       giveMiddle(st,itemid,step)
      else:
-      st.getPcSpawn().addSpawn(27090,npc.getX(),npc.getY(),npc.getZ())
+      st.getPcSpawn().addSpawn(27090)
     elif dropcondition == 4 :
      if st.getQuestItemsCount(MITHRIL_CLIP_ID) and st.getQuestItemsCount(ST_BOWSTRING_ID) and st.getQuestItemsCount(MANASHENS_HORN_ID) : 
       giveMiddle(st,itemid,step)
@@ -248,7 +258,7 @@ class Quest (JQuest) :
    
 
   
-QUEST       = Quest(224,"224_TestOfSagittarius","Test Of Sagittarius")
+QUEST       = Quest(224,qn,"Test Of Sagittarius")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 COMPLETED   = State('Completed', QUEST)
@@ -257,16 +267,15 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30702)
 
-CREATED.addTalkId(30702)
-COMPLETED.addTalkId(30702)
+QUEST.addTalkId(30702)
 
-for npcId in [30514,30626,30653,30702,30717]:
-    STARTED.addTalkId(npcId)
+for npcId in [30514,30626,30653,30717]:
+    QUEST.addTalkId(npcId)
 
 for mobId in [20230,20232,20233,20234,20269,20270,27090,20551,20563,20577,20578,20579,20580,20581,20582,20079,20080,20081,20082,20084,20086,20089,20090]:
-    STARTED.addKillId(mobId)
+    QUEST.addKillId(mobId)
 
-for item in range(2864,2867)+range(2868,2879)+range(3293,3307)+[3028]:
+for item in range(2864,2867)+range(2868,2879)+range(3293,3307)+[3028]:
     STARTED.addQuestDrop(30514,item,1)
 
 print "importing quests: 224: Test Of Sagittarius"

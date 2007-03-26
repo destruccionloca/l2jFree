@@ -5,6 +5,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "367_ElectrifyingRecharge"
+
 #NPC
 LORAIN = 30673
 #MOBS
@@ -32,8 +34,12 @@ class Quest (JQuest) :
      st.exitQuest(1)
    return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    cond=st.getInt("cond")
    relic=st.getQuestItemsCount(5879)
@@ -55,7 +61,11 @@ class Quest (JQuest) :
      htmltext = "30673-06.htm"
    return htmltext
 
- def onAttack(self, npc, st) :
+ def onAttack (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    chance=st.getRandom(100)
    if chance < 3 :
       count = 0
@@ -79,16 +89,15 @@ class Quest (JQuest) :
             break
    return
 
-QUEST       = Quest(367,"367_ElectrifyingRecharge","Electrifying Recharge")
+QUEST       = Quest(367,qn,"Electrifying Recharge")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(LORAIN)
-CREATED.addTalkId(LORAIN)
-STARTED.addTalkId(LORAIN)
+QUEST.addTalkId(LORAIN)
 
-STARTED.addAttackId(CATHEROK)
+QUEST.addAttackId(CATHEROK)
 
 for item in range(5875,5881):
     STARTED.addQuestDrop(LORAIN,item,1)

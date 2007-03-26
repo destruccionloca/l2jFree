@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "417_PathToScavenger"
+
 RING_OF_RAVEN = 1642
 PIPIS_LETTER = 1643
 ROUTS_TP_SCROLL = 1644
@@ -135,10 +137,15 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
+   if npcId != 30524 and id != STARTED : return htmltext
+
    if id == CREATED :
      st.setState(STARTING)  
      st.set("cond","0")
@@ -261,7 +268,11 @@ class Quest (JQuest) :
           htmltext = "30557-01.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    npcId = npc.getNpcId()
    if npcId == 20777 :
         if int(st.get("cond")) and st.getQuestItemsCount(BEAR_PIC) == 1 and st.getQuestItemsCount(HONEY_JAR) < 5 :
@@ -305,7 +316,7 @@ class Quest (JQuest) :
                 st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(417,"417_PathToScavenger","Path To Scavenger")
+QUEST       = Quest(417,qn,"Path To Scavenger")
 CREATED     = State('Start', QUEST)
 STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -314,23 +325,20 @@ COMPLETED   = State('Completed', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30524)
-CREATED.addTalkId(30524)
+QUEST.addTalkId(30524)
 
-STARTING.addTalkId(30524)
+QUEST.addTalkId(30316)
+QUEST.addTalkId(30517)
+QUEST.addTalkId(30519)
+QUEST.addTalkId(30525)
+QUEST.addTalkId(30538)
+QUEST.addTalkId(30556)
+QUEST.addTalkId(30557)
 
-STARTED.addTalkId(30316)
-STARTED.addTalkId(30517)
-STARTED.addTalkId(30519)
-STARTED.addTalkId(30524)
-STARTED.addTalkId(30525)
-STARTED.addTalkId(30538)
-STARTED.addTalkId(30556)
-STARTED.addTalkId(30557)
-
-STARTED.addKillId(20403)
-STARTED.addKillId(27058)
-STARTED.addKillId(20508)
-STARTED.addKillId(20777)
+QUEST.addKillId(20403)
+QUEST.addKillId(27058)
+QUEST.addKillId(20508)
+QUEST.addKillId(20777)
 
 STARTED.addQuestDrop(30517,CHALIS_PAY,1)
 STARTED.addQuestDrop(30538,ZIMENFS_PAY,1)

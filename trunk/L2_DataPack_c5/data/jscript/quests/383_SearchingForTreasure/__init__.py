@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "383_SearchingForTreasure"
+
 SHARK=20314
 PIRATES_TREASURE_MAP = 5915
 PIRATES_CHEST = 31148
@@ -63,9 +65,12 @@ class Quest (JQuest) :
            htmltext = "31148-03.htm"
      return htmltext
 
- def onTalk (Self,npc,st):
-     npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
      htmltext = "<html><head><body>I have nothing to say you</body></html>"
+     st = player.getQuestState(qn)
+     if not st : return htmltext
+
+     npcId = npc.getNpcId()
      id = st.getState()
      if id == CREATED :
        if st.getPlayer().getLevel() >= 42:  
@@ -79,19 +84,19 @@ class Quest (JQuest) :
           st.exitQuest(1)
      elif npcId == ESPEN :
         htmltext = "30890-03a.htm"
-     elif npcId == PIRATES_CHEST and st.getInt("cond") == 2 :
+     elif npcId == PIRATES_CHEST and st.getInt("cond") == 2 and id == STARTED:
         htmltext = "31148-01.htm"
      return htmltext
 
-QUEST       = Quest(383,"383_SearchingForTreasure","Searching For Treasure")
+QUEST       = Quest(383,qn,"Searching For Treasure")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(ESPEN)
 
-CREATED.addTalkId(ESPEN)
-STARTED.addTalkId(ESPEN)
-STARTED.addTalkId(PIRATES_CHEST)
+QUEST.addTalkId(ESPEN)
+
+QUEST.addTalkId(PIRATES_CHEST)
 
 print "importing quests: 383: Searching For Treasure"

@@ -5,6 +5,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "291_RedBonnetsRevenge"
+
 BLACK_WOLF_PELT = 1482
 GRANDMAS_PEARL,GRANDMAS_MIRROR,GRANDMAS_NECKLACE,GRANDMAS_HAIRPIN = range(1502,1506)
 SOE=736
@@ -22,8 +24,12 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    if id == CREATED :
      st.set("cond","0")
@@ -53,7 +59,11 @@ class Quest (JQuest) :
           st.giveItems(SOE,1)
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    if st.getQuestItemsCount(BLACK_WOLF_PELT) < 40 :
      if st.getQuestItemsCount(BLACK_WOLF_PELT) < 39 :
        st.playSound("ItemSound.quest_itemget")
@@ -63,7 +73,7 @@ class Quest (JQuest) :
      st.giveItems(BLACK_WOLF_PELT,1)
    return
 
-QUEST       = Quest(291,"291_RedBonnetsRevenge","Red Bonnets Revenge")
+QUEST       = Quest(291,qn,"Red Bonnets Revenge")
 CREATED     = State('Start', QUEST)
 STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -73,12 +83,9 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30553)
 
-CREATED.addTalkId(30553)
-STARTING.addTalkId(30553)
-STARTED.addTalkId(30553)
-COMPLETED.addTalkId(30553)
+QUEST.addTalkId(30553)
 
-STARTED.addKillId(20317)
+QUEST.addKillId(20317)
 
 STARTED.addQuestDrop(20317,BLACK_WOLF_PELT,1)
 

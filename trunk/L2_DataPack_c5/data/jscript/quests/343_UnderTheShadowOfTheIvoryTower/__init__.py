@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "343_UnderTheShadowOfTheIvoryTower"
+
 ORB = 4364
 ECTOPLASM = 4365
 ADENA = 57
@@ -142,9 +144,12 @@ class Quest (JQuest) :
         st.exitQuest(1)
      return htmltext
 
- def onTalk (Self,npc,st):
-     npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
      htmltext = "<html><head><body>I have nothing to say you</body></html>"
+     st = player.getQuestState(qn)
+     if not st : return htmltext
+
+     npcId = npc.getNpcId()
      id = st.getState()
      level = st.getPlayer().getLevel()
      cond = st.getInt("cond")
@@ -179,29 +184,29 @@ class Quest (JQuest) :
             htmltext = "30935-01.htm"
      return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+     st = player.getQuestState(qn)
+     if not st : return 
+     if st.getState() != STARTED : return 
+   
      npcId = npc.getNpcId()
      if st.getRandom(100) < CHANCE :
          st.giveItems(ORB,1)
          st.playSound("ItemSound.quest_itemget")
      return
 
-QUEST       = Quest(343,"343_UnderTheShadowOfTheIvoryTower","Under The Shadow Of The Ivory Tower")
+QUEST       = Quest(343,qn,"Under The Shadow Of The Ivory Tower")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30834)
 
-CREATED.addTalkId(30834)
-CREATED.addTalkId(30835)
-STARTED.addTalkId(30834)
-STARTED.addTalkId(30835)
-STARTED.addTalkId(30934)
-STARTED.addTalkId(30935)
+QUEST.addTalkId(30834)
+QUEST.addTalkId(30835)
 
 for i in range(20563,20567) :
-    STARTED.addKillId(i)
+    QUEST.addKillId(i)
 
 STARTED.addQuestDrop(30834,ORB,1)
 

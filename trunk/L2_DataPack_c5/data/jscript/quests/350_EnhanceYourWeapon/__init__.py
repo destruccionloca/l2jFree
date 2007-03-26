@@ -5,6 +5,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "350_EnhanceYourWeapon"
+
 NPC=[30115,30856,30194]
 
 RED_SOUL_CRYSTAL0_ID,RED_SOUL_CRYSTAL1_ID,RED_SOUL_CRYSTAL2_ID,RED_SOUL_CRYSTAL3_ID,\
@@ -43,9 +45,12 @@ class Quest (JQuest) :
         st.exitQuest(1)
     return htmltext
 
- def onTalk (Self,npc,st):
-   npcId = str(npc.getNpcId())
-   htmltext = "<html><head><body>I have nothing to say to you</body></html>"
+ def onTalk (self,npc,player):
+   htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    if id == CREATED :
      st.set("cond","0")
@@ -57,7 +62,7 @@ class Quest (JQuest) :
      htmltext = npcId+"-21.htm"
    return htmltext
 
-QUEST       = Quest(350,"350_EnhanceYourWeapon","Enhance Your Weapon")
+QUEST       = Quest(350,qn,"Enhance Your Weapon")
 CREATED     = State('Start', QUEST)
 STARTING     = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -66,9 +71,7 @@ QUEST.setInitialState(CREATED)
 
 for npcId in NPC:
   QUEST.addStartNpc(npcId)
-  CREATED.addTalkId(npcId)
-  STARTING.addTalkId(npcId)
-  STARTED.addTalkId(npcId)
+  QUEST.addTalkId(npcId)
 
 STARTED.addQuestDrop(4629,RED_SOUL_CRYSTAL0_ID,1)
 STARTED.addQuestDrop(4640,GREEN_SOUL_CRYSTAL0_ID,1)

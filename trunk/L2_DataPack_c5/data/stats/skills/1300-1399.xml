@@ -350,7 +350,7 @@
   <for>
   </for>
 </skill>
-<skill id="1323" levels="1" name="Blessing of Noblesse"> 
+<skill id="1323" levels="1" name="Blessing of Noblesse">
   <set name="mpInitialConsume" val="14"/>
   <set name="mpConsume" val="55"/>
   <set name="itemConsumeId" val="3031"/>
@@ -422,8 +422,8 @@
   </cond> 
   <for>
   </for>
-</skill> 
-<skill id="1327" levels="1" name="Symphony of Noblesse">  
+</skill>
+<skill id="1327" levels="1" name="Symphony of Noblesse">
   <set name="mpInitialConsume" val="20"/>
   <set name="mpConsume" val="60"/>
   <set name="power" val="400"/>
@@ -1549,7 +1549,7 @@
    </effect>
   </for>  
 </skill>
-<skill id="1375" levels="1" name="Heroic Grandure">
+<skill id="1375" levels="1" name="Heroic Grandeur">
 <!-- Done by KID -->
   <set name="mpConsume" val="109"/>
   <set name="itemConsumeId" val="3031"/>

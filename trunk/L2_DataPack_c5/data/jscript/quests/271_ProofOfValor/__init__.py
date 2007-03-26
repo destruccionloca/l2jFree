@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "271_ProofOfValor"
+
 KASHA_WOLF_FANG = 1473
 NECKLACE_OF_VALOR = 1507
 NECKLACE_OF_COURAGE = 1506
@@ -22,9 +24,12 @@ class Quest (JQuest) :
         htmltext = "30577-07.htm"
     return htmltext
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    if id == CREATED :
      st.set("cond","0")
@@ -54,7 +59,11 @@ class Quest (JQuest) :
      htmltext = "30577-05.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    count = st.getQuestItemsCount(KASHA_WOLF_FANG)  
    if count < 50 :
       if st.getRandom(100) <= 25 and count < 49 :
@@ -70,7 +79,7 @@ class Quest (JQuest) :
          st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(271,"271_ProofOfValor","Proof Of Valor")
+QUEST       = Quest(271,qn,"Proof Of Valor")
 CREATED     = State('Start', QUEST)
 STARTING    = State('Starting', QUEST) # kept just for backwards compatibility
 STARTED     = State('Started', QUEST)
@@ -79,12 +88,9 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30577)
 
-CREATED.addTalkId(30577)
-STARTING.addTalkId(30577)
-STARTED.addTalkId(30577)
-COMPLETED.addTalkId(30577)
+QUEST.addTalkId(30577)
 
-STARTED.addKillId(20475)
+QUEST.addKillId(20475)
 STARTED.addQuestDrop(20475,KASHA_WOLF_FANG,1)
 
 print "importing quests: 271: Proof Of Valor"

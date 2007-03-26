@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "354_ConquestOfAlligatorIsland"
+
 ADENA = 57
 ALLIGATOR_TOOTH = 5863
 TORN_MAP_FRAGMENT = 5864
@@ -60,9 +62,12 @@ class Quest (JQuest) :
          st.playSound("ItemSound.quest_finish")
      return htmltext
 
- def onTalk (Self,npc,st):
-     npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
      htmltext = "<html><head><body>I have nothing to say you</body></html>"
+     st = player.getQuestState(qn)
+     if not st : return htmltext
+
+     npcId = npc.getNpcId()
      id = st.getState()
      level = st.getPlayer().getLevel()
      cond = st.getInt("cond")
@@ -75,7 +80,11 @@ class Quest (JQuest) :
          htmltext = "30895-03.htm"
      return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+     partyMember = self.getRandomPartyMemberState(player,STARTED)
+     if not partyMember : return
+     st = partyMember.getQuestState(qn)
+
      npcId = npc.getNpcId()
      cond = st.getInt("cond")
      random = st.getRandom(100)
@@ -86,20 +95,19 @@ class Quest (JQuest) :
          st.giveItems(TORN_MAP_FRAGMENT,1)
      return
 
-QUEST       = Quest(354,"354_ConquestOfAlligatorIsland","Conquest Of Alligator Island")
+QUEST       = Quest(354,qn,"Conquest Of Alligator Island")
 CREATED     = State('Start', QUEST)
-STARTED     = State('Started', QUEST,True)
+STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30895)
 
-CREATED.addTalkId(30895)
-STARTED.addTalkId(30895)
+QUEST.addTalkId(30895)
 
 STARTED.addQuestDrop(20991,ALLIGATOR_TOOTH,1)
 STARTED.addQuestDrop(20991,TORN_MAP_FRAGMENT,1)
 
 for i in range(20804,20809)+[20991] :
-    STARTED.addKillId(i)
+    QUEST.addKillId(i)
 
 print "importing quests: 354: Conquest Of Alligator Island"

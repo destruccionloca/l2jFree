@@ -1,8 +1,8 @@
 __all__ = [
-'1000_topduals',
-'1001_dual_swords',
-'1002_unseal',
-'1003_reseal',
+#'1000_topduals',
+#'1001_dual_swords',
+#'1002_unseal',
+#'1003_reseal',
 '1005_unseal',
 '1007_enhance',
 '1008_enhance_mammon',

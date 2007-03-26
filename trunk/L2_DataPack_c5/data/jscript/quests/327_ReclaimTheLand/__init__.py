@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "327_ReclaimTheLand"
+
 ADENA = 57
 
 TUREK_DOGTAG,        TUREK_MEDALLION,     CLAY_URN_FRAGMENT,    \
@@ -119,11 +121,15 @@ class Quest (JQuest) :
         htmltext = "30034-02.htm"
     return htmltext
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
-   if id == CREATED :
+   if npcId != 30597 and id != STARTED : return htmltext
+   if id == CREATED :
      st.set("cond","0")
    if npcId == 30597 :
      if int(st.get("cond"))==0 :
@@ -146,7 +152,11 @@ class Quest (JQuest) :
       htmltext = str(npcId)+"-01.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    item,chance=DROPLIST[npc.getNpcId()]
    st.giveItems(item,1)
    st.playSound("ItemSound.quest_itemget")
@@ -162,7 +172,7 @@ class Quest (JQuest) :
         st.giveItems(JADE_NECKLACE_BEAD,1)
    return
 
-QUEST       = Quest(327,"327_ReclaimTheLand","Reclaim The Land")
+QUEST       = Quest(327,qn,"Reclaim The Land")
 CREATED     = State('Start', QUEST)
 STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -171,16 +181,14 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30597)
 
-CREATED.addTalkId(30597)
-STARTING.addTalkId(30597)
-COMPLETED.addTalkId(30597)
+QUEST.addTalkId(30597)
 
-STARTED.addTalkId(30034)
-STARTED.addTalkId(30313)
-STARTED.addTalkId(30597)
+QUEST.addTalkId(30034)
+QUEST.addTalkId(30313)
+QUEST.addTalkId(30597)
 
 for i in range(20495,20502) :
-    STARTED.addKillId(i)
+    QUEST.addKillId(i)
 
 STARTED.addQuestDrop(20495,CLAY_URN_FRAGMENT,1)
 STARTED.addQuestDrop(20496,BRASS_TRINKET_PIECE,1)

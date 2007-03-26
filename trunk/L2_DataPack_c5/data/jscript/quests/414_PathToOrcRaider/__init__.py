@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "414_PathToOrcRaider"
+
 #NPCs 
 KARUKIA = 30570 
 KASMAN  = 30501 
@@ -38,13 +40,17 @@ class Quest (JQuest) :
    return htmltext 
 
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
+   id = st.getState()
+   if npcId != KARUKIA and id != STARTED : return htmltext
+
    playerClassID = st.getPlayer().getClassId().getId() 
    playerLvl     = st.getPlayer().getLevel() 
-   npcId         = npc.getNpcId() 
-   id            = st.getState() 
- 
    if id == CREATED :
      st.setState(STARTING)
      st.set("cond","0")
@@ -96,7 +102,11 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_finish") 
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    cond = st.getInt("cond") 
    npcId = npc.getNpcId()
    xx = int(st.getPlayer().getX())
@@ -136,7 +146,7 @@ class Quest (JQuest) :
          st.playSound("ItemSound.quest_itemget") 
    return
 
-QUEST     = Quest(414,"414_PathToOrcRaider","Path to an Orc Raider") 
+QUEST     = Quest(414,qn,"Path to an Orc Raider") 
 CREATED   = State('Start',     QUEST) 
 STARTING  = State('Starting',  QUEST) 
 STARTED   = State('Started',   QUEST) 
@@ -146,14 +156,13 @@ COMPLETED = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(KARUKIA) 
 
-STARTING.addTalkId(KARUKIA) 
+QUEST.addTalkId(KARUKIA) 
 
-STARTED.addTalkId(KASMAN) 
-STARTED.addTalkId(KARUKIA) 
+QUEST.addTalkId(KASMAN) 
 
-STARTED.addKillId(GOBLIN_TOMB_RAIDER_LEADER) 
-STARTED.addKillId(KURUKA_RATMAN_LEADER) 
-STARTED.addKillId(UMBAR_ORC) 
+QUEST.addKillId(GOBLIN_TOMB_RAIDER_LEADER) 
+QUEST.addKillId(KURUKA_RATMAN_LEADER) 
+QUEST.addKillId(UMBAR_ORC) 
 
 STARTED.addQuestDrop(KARUKIA,KURUKA_RATMAN_TOOTH,1) 
 STARTED.addQuestDrop(KARUKIA,GOBLIN_DWELLING_MAP,1) 

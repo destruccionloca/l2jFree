@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "380_BringOutTheFlavorOfIngredients"
+
 #NPC
 ROLLANT = 30069
 
@@ -47,8 +49,12 @@ class Quest (JQuest) :
      st.exitQuest(1)
    return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    cond=st.getInt("cond")
    if cond == 0 :
@@ -88,7 +94,11 @@ class Quest (JQuest) :
         st.exitQuest(1)
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    if st.getInt("cond") == 1 :
       chance,item,max = DROPLIST[npc.getNpcId()]
       if st.getRandom(100) < chance and st.getQuestItemsCount(item) < max :
@@ -100,18 +110,17 @@ class Quest (JQuest) :
             st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(380,"380_BringOutTheFlavorOfIngredients","Bring Out The Flavor Of Ingredients")
+QUEST       = Quest(380,qn,"Bring Out The Flavor Of Ingredients")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(ROLLANT)
 
-CREATED.addTalkId(ROLLANT)
-STARTED.addTalkId(ROLLANT)
+QUEST.addTalkId(ROLLANT)
 
 for mob in DROPLIST.keys():
-    STARTED.addKillId(mob)
+    QUEST.addKillId(mob)
 
 for item in range(5895,5898):
     STARTED.addQuestDrop(ROLLANT,item,1)

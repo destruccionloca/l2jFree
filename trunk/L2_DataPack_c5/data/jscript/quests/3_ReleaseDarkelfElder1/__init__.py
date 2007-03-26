@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "3_ReleaseDarkelfElder1"
+
 #NPC
 TALLOTH = 30141
 
@@ -33,8 +35,11 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_accept")
    return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
    npcId = npc.getNpcId()
    id = st.getState()
    cond = st.getInt("cond")
@@ -62,7 +67,11 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_finish")
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+
    npcId = npc.getNpcId()
    if st.getInt("cond") == 1 :
      if npcId == OMEN_BEAST and not st.getQuestItemsCount(ONYX_BEAST_EYE) :
@@ -78,7 +87,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST     = Quest(3,"3_ReleaseDarkelfElder1","Will the Seal be Broken?")
+QUEST     = Quest(3,qn,"Will the Seal be Broken?")
 CREATED   = State('Start',     QUEST)
 STARTING  = State('Starting',  QUEST)
 STARTED   = State('Started',   QUEST)
@@ -87,17 +96,14 @@ COMPLETED = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(TALLOTH)
 
-CREATED.addTalkId(TALLOTH)
-STARTING.addTalkId(TALLOTH)
-STARTED.addTalkId(TALLOTH)
-COMPLETED.addTalkId(TALLOTH)
+QUEST.addTalkId(TALLOTH)
 
-STARTED.addKillId(OMEN_BEAST)
-STARTED.addKillId(TAINTED_ZOMBIE)
-STARTED.addKillId(STINK_ZOMBIE)
-STARTED.addKillId(LESSER_SUCCUBUS)
-STARTED.addKillId(LESSER_SUCCUBUS_TUREN)
-STARTED.addKillId(LESSER_SUCCUBUS_TILFO)
+QUEST.addKillId(OMEN_BEAST)
+QUEST.addKillId(TAINTED_ZOMBIE)
+QUEST.addKillId(STINK_ZOMBIE)
+QUEST.addKillId(LESSER_SUCCUBUS)
+QUEST.addKillId(LESSER_SUCCUBUS_TUREN)
+QUEST.addKillId(LESSER_SUCCUBUS_TILFO)
 
 STARTED.addQuestDrop(TALLOTH,ONYX_BEAST_EYE,1)
 STARTED.addQuestDrop(TALLOTH,TAINT_STONE,1)

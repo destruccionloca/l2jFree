@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "19_GoToThePastureland"
+
 #NPC
 VLADIMIR = 31302
 TUNATUN = 31537
@@ -30,8 +32,11 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_finish")
    return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
    npcId = npc.getNpcId()
    id = st.getState()
    cond = st.getInt("cond")
@@ -46,11 +51,11 @@ class Quest (JQuest) :
          st.exitQuest(1)
      else :
        htmltext = "31302-2.htm"
-   else :
+   elif id == STARTED :
        htmltext = "31537-0.htm"
    return htmltext
 
-QUEST       = Quest(19,"19_GoToThePastureland","Go To The Pastureland")
+QUEST       = Quest(19,qn,"Go To The Pastureland")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 COMPLETED   = State('Completed', QUEST)
@@ -58,9 +63,8 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(VLADIMIR)
 
-CREATED.addTalkId(VLADIMIR)
-STARTED.addTalkId(VLADIMIR)
-STARTED.addTalkId(TUNATUN)
+QUEST.addTalkId(VLADIMIR)
+QUEST.addTalkId(TUNATUN)
 
 STARTED.addQuestDrop(VLADIMIR,BEAST_MEAT,1)
 print "importing quests: 19: Go To The Pastureland"

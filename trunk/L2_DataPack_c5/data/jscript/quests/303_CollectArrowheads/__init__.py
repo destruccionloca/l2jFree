@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "303_CollectArrowheads"
+
 ORCISH_ARROWHEAD = 963
 ADENA = 57
 
@@ -19,8 +21,12 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_accept")
     return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    if id == CREATED :
      st.set("cond","0")
@@ -42,7 +48,11 @@ class Quest (JQuest) :
        st.exitQuest(1)
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    count=st.getQuestItemsCount(ORCISH_ARROWHEAD)
    if count<10 and st.getRandom(100)<40 :
      st.giveItems(ORCISH_ARROWHEAD,1)
@@ -53,7 +63,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(303,"303_CollectArrowheads","Collect Arrowheads")
+QUEST       = Quest(303,qn,"Collect Arrowheads")
 CREATED     = State('Start', QUEST)
 STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -62,12 +72,9 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30029)
 
-CREATED.addTalkId(30029)
-STARTING.addTalkId(30029)
-STARTED.addTalkId(30029)
-COMPLETED.addTalkId(30029)
+QUEST.addTalkId(30029)
 
-STARTED.addKillId(20361)
+QUEST.addKillId(20361)
 STARTED.addQuestDrop(20361,ORCISH_ARROWHEAD,1)
 
 print "importing quests: 303: Collect Arrowheads"

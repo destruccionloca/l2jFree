@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "331_ArrowForVengeance"
+
 HARPY_FEATHER = 1452
 MEDUSA_VENOM = 1453
 WYRMS_TOOTH = 1454
@@ -24,9 +26,12 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_finish")
    return htmltext
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    if id == CREATED :
       st.set("cond","0")
@@ -48,7 +53,11 @@ class Quest (JQuest) :
         htmltext = "30125-04.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    npcId = npc.getNpcId()
    n = st.getRandom(10)
    if n<5 :
@@ -61,7 +70,7 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(331,"331_ArrowForVengeance","Arrow For Vengeance")
+QUEST       = Quest(331,qn,"Arrow For Vengeance")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 COMPLETED   = State('Completed', QUEST)
@@ -69,12 +78,11 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 
 QUEST.addStartNpc(30125)
-CREATED.addTalkId(30125)
-STARTED.addTalkId(30125)
+QUEST.addTalkId(30125)
 
-STARTED.addKillId(20145)
-STARTED.addKillId(20158)
-STARTED.addKillId(20176)
+QUEST.addKillId(20145)
+QUEST.addKillId(20158)
+QUEST.addKillId(20176)
 
 STARTED.addQuestDrop(20145,HARPY_FEATHER,1)
 STARTED.addQuestDrop(20158,MEDUSA_VENOM,1)

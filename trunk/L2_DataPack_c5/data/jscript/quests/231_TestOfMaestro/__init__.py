@@ -1,9 +1,10 @@
-# Made by Mr. - Version 0.3 by DrLecter
+# Made by Mr. - Version 0.3 by DrLecter 
 import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "231_TestOfMaestro"
 
 #item definition
 RECOMMENDATION_OF_BALANKI = 2864
@@ -85,11 +86,15 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
-   if id == CREATED :
+   if npcId != 30531 and id != STARTED : return htmltext
+   if id == CREATED :
      st.setState(STARTING)
    progress = st.getInt("progress")
    if npcId == 30531:
@@ -203,7 +208,11 @@ class Quest (JQuest) :
       htmltext = "30532-01.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    npcId = npc.getNpcId()
    progress_drop,maxcount,item=DROPLIST[npcId]
    count=st.getQuestItemsCount(item)
@@ -221,23 +230,23 @@ class Quest (JQuest) :
           st.playSound("Itemsound.quest_itemget")
    return
 
-QUEST       = Quest(231,"231_TestOfMaestro","Test Of Maestro")
+QUEST       = Quest(231,qn,"Test Of Maestro")
 CREATED     = State('Start', QUEST)
 STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
 COMPLETED   = State('Completed', QUEST)
-
+
+
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30531)
 
-STARTING.addTalkId(30531)
-COMPLETED.addTalkId(30531)
+QUEST.addTalkId(30531)
 
-for npcId in [30531,30532,30533,30535,30536,30556,30671,30672,30673,30675]:
-  STARTED.addTalkId(npcId)
+for npcId in [30532,30533,30535,30536,30556,30671,30672,30673,30675]:
+  QUEST.addTalkId(npcId)
 
 for mobId in [20225,20229,20233,27133]:
-  STARTED.addKillId(mobId)
+  QUEST.addKillId(mobId)
 
 for item in range(2864,2867)+range(2868,2879)+[2916]:
   STARTED.addQuestDrop(30531,item,1)

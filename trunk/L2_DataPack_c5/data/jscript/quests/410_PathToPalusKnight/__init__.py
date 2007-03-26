@@ -5,6 +5,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "410_PathToPalusKnight"
+
 PALLUS_TALISMAN_ID = 1237
 LYCANTHROPE_SKULL_ID = 1238
 VIRGILS_LETTER_ID = 1239
@@ -61,7 +63,14 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
+   htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
+   id = st.getState()
+   if npcId != 30329 and id != STARTED : return htmltext
 
    npcId = npc.getNpcId()
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
@@ -105,8 +114,11 @@ class Quest (JQuest) :
             htmltext = "30422-05.htm"
    return htmltext
 
- def onKill (self,npc,st):
-
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    npcId = npc.getNpcId()
    if npcId == 20049 :
         st.set("id","0")
@@ -136,7 +148,7 @@ class Quest (JQuest) :
             st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(410,"410_PathToPalusKnight","Path To Palus Knight")
+QUEST       = Quest(410,qn,"Path To Palus Knight")
 CREATED     = State('Start', QUEST)
 STARTING     = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -146,14 +158,13 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30329)
 
-STARTING.addTalkId(30329)
+QUEST.addTalkId(30329)
 
-STARTED.addTalkId(30329)
-STARTED.addTalkId(30422)
+QUEST.addTalkId(30422)
 
-STARTED.addKillId(20038)
-STARTED.addKillId(20043)
-STARTED.addKillId(20049)
+QUEST.addKillId(20038)
+QUEST.addKillId(20043)
+QUEST.addKillId(20049)
 
 STARTED.addQuestDrop(30329,PALLUS_TALISMAN_ID,1)
 STARTED.addQuestDrop(20049,LYCANTHROPE_SKULL_ID,1)

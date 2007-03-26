@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "267_WrathOfVerdure"
+
 GOBLIN_CLUB = 1335
 SILVERY_LEAF = 1340
 
@@ -22,8 +24,12 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_finish")
     return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    if id == CREATED :
      st.set("cond","0")
@@ -46,13 +52,17 @@ class Quest (JQuest) :
        htmltext = "31853-04.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    if st.getRandom(10)<5 :
      st.giveItems(GOBLIN_CLUB,1)
      st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(267,"267_WrathOfVerdure","Wrath Of Verdure")
+QUEST       = Quest(267,qn,"Wrath Of Verdure")
 CREATED     = State('Start', QUEST)
 STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -61,12 +71,9 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(31853)
 
-CREATED.addTalkId(31853)
-STARTING.addTalkId(31853)
-STARTED.addTalkId(31853)
-COMPLETED.addTalkId(31853)
+QUEST.addTalkId(31853)
 
-STARTED.addKillId(20325)
+QUEST.addKillId(20325)
 
 STARTED.addQuestDrop(20325,GOBLIN_CLUB,1)
 

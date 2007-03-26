@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "306_CrystalOfFireice"
+
 FLAME_SHARD = 1020
 ICE_SHARD = 1021
 ADENA = 57
@@ -32,8 +34,12 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_finish")
     return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    if id == CREATED :
      st.set("cond","0")
@@ -58,7 +64,11 @@ class Quest (JQuest) :
        htmltext = "30004-07.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    npcId = npc.getNpcId()
    chance,item=DROPLIST[npcId]
    if st.getRandom(100)<chance :
@@ -66,7 +76,7 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(306,"306_CrystalOfFireice","Crystal Of Fireice")
+QUEST       = Quest(306,qn,"Crystal Of Fireice")
 CREATED     = State('Start', QUEST)
 STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -75,17 +85,14 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30004)
 
-CREATED.addTalkId(30004)
-STARTING.addTalkId(30004)
-STARTED.addTalkId(30004)
-COMPLETED.addTalkId(30004)
+QUEST.addTalkId(30004)
 
-STARTED.addKillId(20109)
-STARTED.addKillId(20110)
-STARTED.addKillId(20112)
-STARTED.addKillId(20113)
-STARTED.addKillId(20114)
-STARTED.addKillId(20115)
+QUEST.addKillId(20109)
+QUEST.addKillId(20110)
+QUEST.addKillId(20112)
+QUEST.addKillId(20113)
+QUEST.addKillId(20114)
+QUEST.addKillId(20115)
 
 STARTED.addQuestDrop(20109,FLAME_SHARD,1)
 STARTED.addQuestDrop(20110,ICE_SHARD,1)

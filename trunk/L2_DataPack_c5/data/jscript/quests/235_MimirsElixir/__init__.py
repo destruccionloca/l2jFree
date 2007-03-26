@@ -6,6 +6,7 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 #Quest info
+qn = "235_MimirsElixir"
 QUEST_NUMBER,QUEST_NAME,QUEST_DESCRIPTION = 235,"MimirsElixir","Mimir's Elixir"
 
 DROP_RATE = 45
@@ -47,10 +48,13 @@ class Quest (JQuest) :
         htmltext = "30718-01a.htm"
     return htmltext
  
- def onTalk (self,npc,st):
-    htmltext = default
-    id = st.getState()
+ def onTalk (self,npc,player):
+    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+    st = player.getQuestState(qn)
+    if not st : return htmltext
+
     npcId = npc.getNpcId()
+    id = st.getState()
     cond = st.getInt("cond")
     if npcId == LADD :
         if id == CREATED :
@@ -96,7 +100,7 @@ class Quest (JQuest) :
             st.giveItems(SCROLL_ENCHANT_WEAPON_A,1)
             st.setState(COMPLETED)
             st.unset("cond")
-    elif npcId == JOAN :
+    elif npcId == JOAN and id == PROGRESS:
        # first time talking to Joan: You ask for True Gold, she sends you for Sage's stone
         if cond==2 :
             htmltext = "30718-01.htm"      # You want True Gold?  Please get the sage's stone.  Kill Chimera!
@@ -113,7 +117,11 @@ class Quest (JQuest) :
             htmltext = "30718-04.htm"     # Go back to ladd already!
     return htmltext
  
- def onKill (self,npc,st) :
+ def onKill (self,npc,player):
+     st = player.getQuestState(qn)
+     if not st : return 
+     if st.getState() != PROGRESS : return 
+   
      npcId = npc.getNpcId()
      drop = st.getRandom(100)
      cond = st.getInt("cond")
@@ -126,7 +134,7 @@ class Quest (JQuest) :
      return
 
 # Quest class and state definition
-QUEST       = Quest(QUEST_NUMBER, str(QUEST_NUMBER)+"_"+QUEST_NAME, QUEST_DESCRIPTION)
+QUEST       = Quest(QUEST_NUMBER, qn, QUEST_DESCRIPTION)
 
 CREATED     = State('Start',     QUEST)
 PROGRESS    = State('Progress',   QUEST)
@@ -136,11 +144,10 @@ QUEST.setInitialState(CREATED)
 # Quest NPC starter initialization
 QUEST.addStartNpc(LADD)
 # Quest initialization
-CREATED.addTalkId(LADD)
-PROGRESS.addTalkId(LADD)
-PROGRESS.addTalkId(JOAN)
+QUEST.addTalkId(LADD)
+QUEST.addTalkId(JOAN)
 
 for i in DROPLIST.keys():
-  PROGRESS.addKillId(i)
+  QUEST.addKillId(i)
 
 print str(QUEST_NUMBER)+": "+QUEST_DESCRIPTION

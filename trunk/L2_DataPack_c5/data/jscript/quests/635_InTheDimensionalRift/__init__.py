@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "635_InTheDimensionalRift"
+
 DIMENSION_FRAGMENT = 7079
 
 # Unconfirmed info:
@@ -50,37 +52,39 @@ class Quest (JQuest) :
       st.exitQuest(1)
     return htmltext
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
-   cond=st.getInt("cond")
-   id=st.getInt("id")
-   if npcId in range(31494,31508) :
-      if st.getPlayer().getLevel() < 20 :
-         st.exitQuest(1)
-         htmltext="1.htm"
-      elif len(st.getPlayer().getAllActiveQuests()) > MAX_QUEST :
-         st.exitQuest(1)
-         htmltext="1a.htm"
-      elif not st.getQuestItemsCount(DIMENSION_FRAGMENT) :
-         htmltext="3.htm"
-      else :
-         st.setState(CREATED)
-         id=str(npcId-31493)
-         st.set("id",id)
-         htmltext="4.htm"
-   else :
-      if id :
-         x,y,z=COORD[id]
-         st.getPlayer().teleToLocation(x,y,z)
-         st.unset("cond")
-         st.setState(COMPLETED)
-         htmltext="7.htm"
-      else :
-         htmltext="Where?"
-         st.exitQuest(1)
+ def onTalk (Self,npc,player):
+   st = player.getQuestState(qn)
+   if st :
+     npcId = npc.getNpcId()
+     cond=st.getInt("cond")
+     id=st.getInt("id")
+     if npcId in range(31494,31508) :
+        if st.getPlayer().getLevel() < 20 :
+           st.exitQuest(1)
+           htmltext="1.htm"
+        elif len(st.getPlayer().getAllActiveQuests()) > MAX_QUEST :
+           st.exitQuest(1)
+           htmltext="1a.htm"
+        elif not st.getQuestItemsCount(DIMENSION_FRAGMENT) :
+           htmltext="3.htm"
+        else :
+           st.setState(CREATED)
+           id=str(npcId-31493)
+           st.set("id",id)
+           htmltext="4.htm"
+     elif st.getState() == STARTED :
+        if id :
+           x,y,z=COORD[id]
+           st.getPlayer().teleToLocation(x,y,z)
+           st.unset("cond")
+           st.setState(COMPLETED)
+           htmltext="7.htm"
+        else :
+           htmltext="Where?"
+           st.exitQuest(1)
    return htmltext
 
-QUEST       = Quest(635, "635_InTheDimensionalRift", "In The Dimensional Rift")
+QUEST       = Quest(635, qn, "In The Dimensional Rift")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 COMPLETED   = State('Completed', QUEST)
@@ -88,12 +92,10 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 
 for npcId in range(31494,31508):
-    CREATED.addTalkId(npcId)
-    STARTED.addTalkId(npcId)
-    COMPLETED.addTalkId(npcId)
+    QUEST.addTalkId(npcId)
     QUEST.addStartNpc(npcId)
 
 for npcId in range(31488,31494) :
-    STARTED.addTalkId(npcId)
+    QUEST.addTalkId(npcId)
 
 print "importing quests: 635: In The Dimensional Rift"

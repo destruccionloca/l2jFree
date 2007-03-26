@@ -3,7 +3,7 @@ import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-
+qn = "1005_unseal"
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
@@ -800,9 +800,10 @@ class Quest (JQuest) :
 
     return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (Self,npc,player):
 
    npcId = npc.getNpcId()
+   st = player.getQuestState(qn)
    htmltext = "<html><head><body>I have nothing to say to you.</body></html>"
    st.set("cond","0")
    st.setState(STARTED)
@@ -817,7 +818,7 @@ QUEST.setInitialState(CREATED)
 
 QUEST.addStartNpc(31126)
 
-STARTED.addTalkId(31126)
+QUEST.addTalkId(31126)
 
 
 

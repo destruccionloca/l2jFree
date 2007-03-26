@@ -4,7 +4,7 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
-
+qn = "118_ToLeadAndBeLed"
 
 #CONFIG
 DEBUG=1
@@ -75,9 +75,12 @@ class Quest (JQuest) :
      st.exitQuest(1)
    return htmltext 
 
- def onTalk (Self,npc,st):
+ def onTalk (Self,npc,player):
    npcId = npc.getNpcId()
    htmltext = "<html><head><body>I have nothing to say to you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
    id = st.getState()
    cond = st.getInt("cond") 
    if id==COMPLETED:
@@ -128,8 +131,8 @@ class Quest (JQuest) :
      if cm_apprentice.isOnline():
         apprentice = cm_apprentice.getPlayerInstance()
         if apprentice :
-           ap_quest=apprentice.getQuestState("118_ToLeadAndBeLed")
-           if ap_quest <> None :
+           ap_quest=apprentice.getQuestState(qn)
+           if ap_quest :
               ap_cond=ap_quest.getInt("cond")
               if ap_cond == 3 :
                  htmltext = "30517-09a.htm"
@@ -154,7 +157,11 @@ class Quest (JQuest) :
      st.exitQuest(1)
    return htmltext
 
- def onKill (Self,npc,st):
+ def onKill (Self,npc,player):
+    st = player.getQuestState(qn)
+    if not st : return
+    if st.getState() != PROGRESS : return
+
     sponsor = st.getPlayer().getSponsor()
     if not sponsor:
       st.exitQuest(1)
@@ -179,7 +186,7 @@ class Quest (JQuest) :
     return
      
 
-QUEST     = Quest(118,"118_ToLeadAndBeLed","To Lead And Be Led") 
+QUEST     = Quest(118,qn,"To Lead And Be Led") 
 CREATED   = State('Start',     QUEST) 
 PROGRESS  = State('Progress',   QUEST) 
 COMPLETED = State('Completed', QUEST) 
@@ -187,11 +194,10 @@ COMPLETED = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(PINTER) 
 
-CREATED.addTalkId(PINTER)
-PROGRESS.addTalkId(PINTER)
+QUEST.addTalkId(PINTER)
 
 for mob in DROPLIST.keys():
-    PROGRESS.addKillId(mob)
+    QUEST.addKillId(mob)
 
 PROGRESS.addQuestDrop(PINTER,BLOOD,1)
 PROGRESS.addQuestDrop(PINTER,LEG,1)

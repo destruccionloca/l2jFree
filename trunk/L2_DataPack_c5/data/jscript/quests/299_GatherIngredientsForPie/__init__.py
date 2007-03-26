@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "299_GatherIngredientsForPie"
+
 #NPC
 LARA = 30063
 BRIGHT = 30466
@@ -54,10 +56,15 @@ class Quest (JQuest) :
      st.exitQuest(1)
    return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
    npcId = npc.getNpcId()
    id = st.getState()
+   if npcId != 30620 and id != STARTED : return htmltext
+
    cond = st.getInt("cond")
    if npcId == EMILY and cond == 0 :
      if st.getPlayer().getLevel() >= 34 and st.getPlayer().getLevel() <= 40 :
@@ -77,7 +84,11 @@ class Quest (JQuest) :
      htmltext = "30620-6.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    npcId = npc.getNpcId()
    count = st.getQuestItemsCount(HONEY_POUCH)
    if int(st.get("cond")) == 1 and count < 100 :
@@ -86,21 +97,23 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","2")
      else :
-       st.playSound("ItemSound.quest_itemget")	
+       st.playSound("ItemSound.quest_itemget")  
    return
 
-QUEST       = Quest(299,"299_GatherIngredientsForPie","Gather Ingredients For A Pie")
+QUEST       = Quest(299,qn,"Gather Ingredients For A Pie")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30620)
-CREATED.addTalkId(30620)
-STARTED.addTalkId(30620)
-STARTED.addTalkId(30063)
-STARTED.addTalkId(30466)
-STARTED.addKillId(WASP_LEADER)
-STARTED.addKillId(WASP_WORKER)
+QUEST.addTalkId(30620)
+
+QUEST.addTalkId(30063)
+QUEST.addTalkId(30466)
+
+QUEST.addKillId(WASP_LEADER)
+QUEST.addKillId(WASP_WORKER)
+
 STARTED.addQuestDrop(WASP_WORKER,HONEY_POUCH,1)
 STARTED.addQuestDrop(EMILY,AVELLAN_SPICE,1)
 STARTED.addQuestDrop(EMILY,FRUIT_BASKET,1)

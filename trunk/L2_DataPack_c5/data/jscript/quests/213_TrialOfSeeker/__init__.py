@@ -5,6 +5,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "213_TrialOfSeeker"
+
 DUFNERS_LETTER_ID,  TERYS_ORDER1_ID,    TERYS_ORDER2_ID,           TERYS_LETTER_ID,      \
 VIKTORS_LETTER_ID,  HAWKEYES_LETTER_ID, MYSTERIOUS_RUNESTONE_ID,   OL_MAHUM_RUNESTONE_ID,\
 TUREK_RUNESTONE_ID, ANT_RUNESTONE_ID,   TURAK_BUGBEAR_RUNESTONE_ID,TERYS_BOX_ID,         \
@@ -84,10 +86,15 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
+   if npcId != 30106 and id != STARTED : return htmltext
+
    if id == CREATED :
      st.set("cond","0")
      st.set("onlyone","0")
@@ -193,7 +200,11 @@ class Quest (JQuest) :
       htmltext = "30526-02.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    npcId = npc.getNpcId()
    required,item,chance,maxqty=DROPLIST[npcId]
    count = st.getQuestItemsCount(item)
@@ -206,7 +217,7 @@ class Quest (JQuest) :
            st.playSound("Itemsound.quest_itemget")
    return
 
-QUEST       = Quest(213,"213_TrialOfSeeker","Trial Of Seeker")
+QUEST       = Quest(213,qn,"Trial Of Seeker")
 CREATED     = State('Start', QUEST)
 STARTING     = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -216,26 +227,24 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30106)
 
-CREATED.addTalkId(30106)
-STARTING.addTalkId(30106)
-COMPLETED.addTalkId(30106)
+QUEST.addTalkId(30106)
 
-STARTED.addTalkId(30064)
-STARTED.addTalkId(30106)
-STARTED.addTalkId(30526)
-STARTED.addTalkId(30684)
-STARTED.addTalkId(30715)
+QUEST.addTalkId(30064)
+QUEST.addTalkId(30106)
+QUEST.addTalkId(30526)
+QUEST.addTalkId(30684)
+QUEST.addTalkId(30715)
 
-STARTED.addKillId(20158)
-STARTED.addKillId(20198)
-STARTED.addKillId(20211)
-STARTED.addKillId(20234)
-STARTED.addKillId(20249)
-STARTED.addKillId(20270)
-STARTED.addKillId(20495)
-STARTED.addKillId(20580)
-STARTED.addKillId(20080)
-STARTED.addKillId(20088)
+QUEST.addKillId(20158)
+QUEST.addKillId(20198)
+QUEST.addKillId(20211)
+QUEST.addKillId(20234)
+QUEST.addKillId(20249)
+QUEST.addKillId(20270)
+QUEST.addKillId(20495)
+QUEST.addKillId(20580)
+QUEST.addKillId(20080)
+QUEST.addKillId(20088)
 
 STARTED.addQuestDrop(30064,TERYS_REPORT_ID,1)
 STARTED.addQuestDrop(30106,DUFNERS_LETTER_ID,1)

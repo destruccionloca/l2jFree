@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "294_CovertBusiness"
+
 BAT_FANG = 1491
 RING_OF_RACCOON = 1508
 ADENA = 57
@@ -23,8 +25,12 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_accept")
     return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    if id == CREATED :
      st.set("cond","0")
@@ -53,7 +59,11 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_finish")
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    if st.getInt("cond") == 1:
      npcId = npc.getNpcId()
      count=st.getQuestItemsCount(BAT_FANG)
@@ -71,7 +81,7 @@ class Quest (JQuest) :
      st.giveItems(BAT_FANG,qty)
    return
 
-QUEST       = Quest(294,"294_CovertBusiness","Covert Business")
+QUEST       = Quest(294,qn,"Covert Business")
 CREATED     = State('Start', QUEST)
 STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -80,13 +90,10 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30534)
 
-CREATED.addTalkId(30534)
-STARTING.addTalkId(30534)
-STARTED.addTalkId(30534)
-COMPLETED.addTalkId(30534)
+QUEST.addTalkId(30534)
 
-STARTED.addKillId(20370)
-STARTED.addKillId(20480)
+QUEST.addKillId(20370)
+QUEST.addKillId(20480)
 
 STARTED.addQuestDrop(20480,BAT_FANG,1)
 

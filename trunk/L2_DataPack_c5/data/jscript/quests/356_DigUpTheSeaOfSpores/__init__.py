@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "356_DigUpTheSeaOfSpores"
+
 #NPC
 GAUEN = 30717
 
@@ -42,8 +44,12 @@ class Quest (JQuest) :
      st.exitQuest(1)
    return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    cond = st.getInt("cond")
    carn=st.getQuestItemsCount(CARNIVORE_SPORE)
@@ -56,7 +62,11 @@ class Quest (JQuest) :
      htmltext = "30717-7.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    npcId = npc.getNpcId()
    carn=st.getQuestItemsCount(CARNIVORE_SPORE)
    herb=st.getQuestItemsCount(HERBIBOROUS_SPORE)
@@ -70,7 +80,7 @@ class Quest (JQuest) :
          st.playSound("ItemSound.quest_middle")
          st.set("cond","2")
      else :
-       st.playSound("ItemSound.quest_itemget")	
+       st.playSound("ItemSound.quest_itemget")
    elif npcId == ROTTING_TREE and herb < 50 :
      st.giveItems(HERBIBOROUS_SPORE,1)
      if herb == 49 :
@@ -81,21 +91,20 @@ class Quest (JQuest) :
          st.playSound("ItemSound.quest_middle")
          st.set("cond","2")
      else:
-       st.playSound("ItemSound.quest_itemget")	
+       st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(356,"356_DigUpTheSeaOfSpores","Dig Up The Sea Of Spores")
+QUEST       = Quest(356,qn,"Dig Up The Sea Of Spores")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(GAUEN)
 
-CREATED.addTalkId(GAUEN)
-STARTED.addTalkId(GAUEN)
+QUEST.addTalkId(GAUEN)
 
-STARTED.addKillId(SPORE_ZOMBIE)
-STARTED.addKillId(ROTTING_TREE)
+QUEST.addKillId(SPORE_ZOMBIE)
+QUEST.addKillId(ROTTING_TREE)
 
 STARTED.addQuestDrop(GAUEN,CARNIVORE_SPORE,1)
 STARTED.addQuestDrop(GAUEN,HERBIBOROUS_SPORE,1)

@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "14_WhereaboutsOfTheArchaeologist"
+
 #NPC
 LIESEL = 31263
 GHOST_OF_ADVENTURER = 31538
@@ -35,8 +37,11 @@ class Quest (JQuest) :
        htmltext = "You don't have required items"
    return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (Self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
    npcId = npc.getNpcId()
    id = st.getState()
    cond = st.getInt("cond")
@@ -52,20 +57,19 @@ class Quest (JQuest) :
        htmltext = "31263-0.htm"
    elif npcId == LIESEL and cond == 1 :
      htmltext = "31263-2.htm"
-   elif npcId == GHOST_OF_ADVENTURER and cond == 1 :
+   elif npcId == GHOST_OF_ADVENTURER and cond == 1 and id == STARTED:
      htmltext = "31538-0.htm"
    return htmltext
 
-QUEST       = Quest(14,"14_WhereaboutsOfTheArchaeologist","Whereabouts Of The Archaeologist")
+QUEST       = Quest(14,qn,"Whereabouts Of The Archaeologist")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 COMPLETED   = State('Completed', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(31263)
-CREATED.addTalkId(31263)
-STARTED.addTalkId(31263)
-STARTED.addTalkId(31538)
+QUEST.addTalkId(31263)
+QUEST.addTalkId(31538)
 
 STARTED.addQuestDrop(7253,LETTER,1)
 

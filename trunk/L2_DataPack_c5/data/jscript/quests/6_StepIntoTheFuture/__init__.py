@@ -5,6 +5,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "6_StepIntoTheFuture"
+
 #NPCs 
 ROXXY      = 30006 
 BAULRO     = 30033 
@@ -46,12 +48,14 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_finish") 
    return htmltext 
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>" 
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
    npcId = npc.getNpcId()
    cond  = st.getInt("cond") 
    id    = st.getState() 
- 
    if id == CREATED :
      st.set("cond","0")
      st.set("id","0") 
@@ -67,19 +71,20 @@ class Quest (JQuest) :
    elif npcId == ROXXY and id == COMPLETED : 
      htmltext = "<html><head><body>I can't supply you with another Giran Scroll of Escape. Sorry traveller.</body></html>" 
    elif npcId == ROXXY and cond == 1 : 
-     htmltext = "30006-04.htm" 
-   elif npcId == BAULRO : 
-     if cond == 1: 
-       htmltext = "30033-01.htm" 
-     elif cond == 2 and st.getQuestItemsCount(BAULRO_LETTER): 
-       htmltext = "30033-03.htm" 
-   elif npcId == SIR_COLLIN and cond == 2 and st.getQuestItemsCount(BAULRO_LETTER) : 
-       htmltext = "30311-02.htm" 
-   elif npcId == ROXXY and cond == 3 : 
-     htmltext = "30006-05.htm" 
+     htmltext = "30006-04.htm"
+   elif id == STARTED :  
+       if npcId == BAULRO : 
+         if cond == 1: 
+           htmltext = "30033-01.htm" 
+         elif cond == 2 and st.getQuestItemsCount(BAULRO_LETTER): 
+           htmltext = "30033-03.htm" 
+       elif npcId == SIR_COLLIN and cond == 2 and st.getQuestItemsCount(BAULRO_LETTER) : 
+           htmltext = "30311-02.htm" 
+       elif npcId == ROXXY and cond == 3 : 
+         htmltext = "30006-05.htm" 
    return htmltext
 
-QUEST     = Quest(6,"6_StepIntoTheFuture","Step into the Future") 
+QUEST     = Quest(6,qn,"Step into the Future") 
 CREATED   = State('Start',     QUEST) 
 STARTED   = State('Started',   QUEST) 
 COMPLETED = State('Completed', QUEST) 
@@ -87,12 +92,10 @@ COMPLETED = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(ROXXY) 
 
-CREATED.addTalkId(ROXXY) 
-COMPLETED.addTalkId(ROXXY) 
+QUEST.addTalkId(ROXXY) 
 
-STARTED.addTalkId(ROXXY) 
-STARTED.addTalkId(BAULRO) 
-STARTED.addTalkId(SIR_COLLIN) 
+QUEST.addTalkId(BAULRO) 
+QUEST.addTalkId(SIR_COLLIN) 
 
 STARTED.addQuestDrop(ROXXY,BAULRO_LETTER,1) 
 

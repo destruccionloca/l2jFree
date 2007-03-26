@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "259_RanchersPlea"
+
 GIANT_SPIDER_SKIN = 1495
 ADENA = 57
 HEALING_POTION = 1061
@@ -40,11 +42,15 @@ class Quest (JQuest) :
         htmltext = "30405-06.htm"
     return htmltext
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
-   if id != STARTED :
+   if npcId != 30497 and id != STARTED : return htmltext
+   if id != STARTED :
      st.set("cond","0")
    if int(st.get("cond"))==0 :
      if st.getPlayer().getLevel() >= 15 :
@@ -71,13 +77,17 @@ class Quest (JQuest) :
          htmltext = "30405-02.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    npcId = npc.getNpcId()
    st.giveItems(GIANT_SPIDER_SKIN,1)
    st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(259,"259_RanchersPlea","Ranchers Plea")
+QUEST       = Quest(259,qn,"Ranchers Plea")
 CREATED     = State('Start', QUEST)
 STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -85,17 +95,13 @@ COMPLETED   = State('Completed', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30497)
+QUEST.addTalkId(30497)
 
-CREATED.addTalkId(30497)
-STARTING.addTalkId(30497)
-COMPLETED.addTalkId(30497)
+QUEST.addTalkId(30405)
 
-STARTED.addTalkId(30405)
-STARTED.addTalkId(30497)
-
-STARTED.addKillId(20103)
-STARTED.addKillId(20106)
-STARTED.addKillId(20108)
+QUEST.addKillId(20103)
+QUEST.addKillId(20106)
+QUEST.addKillId(20108)
 
 STARTED.addQuestDrop(20103,GIANT_SPIDER_SKIN,1)
 

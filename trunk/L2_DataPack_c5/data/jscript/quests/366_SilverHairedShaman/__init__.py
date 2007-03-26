@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "366_SilverHairedShaman"
+
 #NPC
 DIETER=30111
 #Items
@@ -28,8 +30,12 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_finish")
    return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    cond=st.getInt("cond")
    if cond == 0 :
@@ -48,24 +54,27 @@ class Quest (JQuest) :
        htmltext = "30111-4.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   partyMember = self.getRandomPartyMemberState(player,STARTED)
+   if not partyMember : return
+   st = partyMember.getQuestState(qn)
+   
    if st.getRandom(100) < CHANCE + ((npc.getNpcId() - 20985) * 2) :
      st.giveItems(HAIR,1)
      st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(366,"366_SilverHairedShaman","Silver Haired Shaman")
+QUEST       = Quest(366,qn,"Silver Haired Shaman")
 CREATED     = State('Start', QUEST)
-STARTED     = State('Started', QUEST,True)
+STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(DIETER)
 
-CREATED.addTalkId(DIETER)
-STARTED.addTalkId(DIETER)
+QUEST.addTalkId(DIETER)
 
 for mob in range(20986,20989) :
-    STARTED.addKillId(mob)
+    QUEST.addKillId(mob)
 
 STARTED.addQuestDrop(DIETER,HAIR,1)
 

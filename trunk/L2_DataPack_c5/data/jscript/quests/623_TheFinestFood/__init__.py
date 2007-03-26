@@ -5,6 +5,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "623_TheFinestFood"
+
 #NPC
 JEREMY = 31521
 
@@ -46,7 +48,7 @@ class Quest (JQuest) :
         while i < len(REWARDS) :
             item,adena,chance,chance2=REWARDS[i]
             if chance<=random<= chance2 :
-            	break
+              break
             i = i+1
         st.giveItems(57,adena)
         if item :
@@ -59,49 +61,60 @@ class Quest (JQuest) :
         st.exitQuest(1)
    return htmltext
 
- def onTalk (Self,npc,st) :
+ def onTalk (Self,npc,player) :
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
-   cond = st.getInt("cond")
-   leaf = st.getQuestItemsCount(LEAF_OF_FLAVA)
-   meat = st.getQuestItemsCount(BUFFALO_MEAT)
-   horn = st.getQuestItemsCount(ANTELOPE_HORN)
-   if cond == 0 :
-      htmltext = "31521-01.htm"
-   elif cond == 1 :
-      htmltext = "31521-05.htm"
-   elif cond == 2 and leaf == meat == horn == 100 :
-      htmltext = "31521-04.htm"
+   st = player.getQuestState(qn)
+   if st :
+       cond = st.getInt("cond")
+       leaf = st.getQuestItemsCount(LEAF_OF_FLAVA)
+       meat = st.getQuestItemsCount(BUFFALO_MEAT)
+       horn = st.getQuestItemsCount(ANTELOPE_HORN)
+       if cond == 0 :
+          htmltext = "31521-01.htm"
+       elif st.getState() == STARTED :
+           if cond == 1 :
+              htmltext = "31521-05.htm"
+           elif cond == 2 and leaf == meat == horn == 100 :
+              htmltext = "31521-04.htm"
    return htmltext
 
- def onKill (self,npc,st) :
-   cond = st.getInt("cond")
-   item,chance = DROPLIST[npc.getNpcId()]
-   prevItems = st.getQuestItemsCount(item)
-   numItems, chance = divmod(chance*Config.RATE_DROP_QUEST,100)
-   if st.getRandom(100) < chance :
-      numItems = numItems + 1
-   if count < (prevItems + numItems) :
-      numItems = count - prevItems
-   if numItems != 0 :
-      st.giveItems(item,int(numItems))
-      if st.getQuestItemsCount(LEAF_OF_FLAVA) == st.getQuestItemsCount(BUFFALO_MEAT) == st.getQuestItemsCount(ANTELOPE_HORN) == count :
-         st.set("cond","2")
-         st.playSound("ItemSound.quest_middle")
-      else :
-         st.playSound("ItemSound.quest_itemget")
+ def onKill (self,npc,player):
+   # todo: with the current code, a player who has completed up to 2 out of 3
+   # item collections may consume the party drop (i.e. become the selected
+   # player in the random, but get nothing because it was the wrong mob)
+   # this ought to be corrected later...
+   partyMember = self.getRandomPartyMember(player,"1")
+   if not partyMember: return
+   st = partyMember.getQuestState(qn)
+   if st :
+        if st.getState() == STARTED :
+            cond = st.getInt("cond")
+            item,chance = DROPLIST[npc.getNpcId()]
+            prevItems = st.getQuestItemsCount(item)
+            numItems, chance = divmod(chance*Config.RATE_DROP_QUEST,100)
+            if st.getRandom(100) < chance :
+              numItems = numItems + 1
+            if count < (prevItems + numItems) :
+              numItems = count - prevItems
+            if numItems != 0 :
+              st.giveItems(item,int(numItems))
+              if st.getQuestItemsCount(LEAF_OF_FLAVA) == st.getQuestItemsCount(BUFFALO_MEAT) == st.getQuestItemsCount(ANTELOPE_HORN) == count :
+                 st.set("cond","2")
+                 st.playSound("ItemSound.quest_middle")
+              else :
+                 st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(623,"623_TheFinestFood","The Finest Food")
+QUEST       = Quest(623,qn,"The Finest Food")
 CREATED     = State('Start', QUEST)
-STARTED     = State('Started', QUEST,True)
+STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(JEREMY)
-CREATED.addTalkId(JEREMY)
-STARTED.addTalkId(JEREMY)
+QUEST.addTalkId(JEREMY)
 
 for mob in DROPLIST.keys() :
-  STARTED.addKillId(mob)
+  QUEST.addKillId(mob)
 
 for item in range(7199,7202):
     STARTED.addQuestDrop(JEREMY,item,1)

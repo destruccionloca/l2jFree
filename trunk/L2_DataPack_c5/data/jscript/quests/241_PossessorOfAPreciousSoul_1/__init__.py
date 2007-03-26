@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "241_PossessorOfAPreciousSoul_1"
+
 #NPC
 STEDMIEL = 30692
 GABRIELLE = 30753
@@ -42,100 +44,106 @@ class Quest (JQuest) :
    htmltext = event
    cond = st.getInt("cond")
    if event == "31739-4.htm" :
-     if cond == 0 and st.player.isSubClassActive() :
+     if cond == 0 and st.getPlayer().isSubClassActive() :
        st.setState(STARTED)
        st.set("cond","1")
        st.playSound("ItemSound.quest_accept")
    if event == "30753-2.htm" :
-     if cond == 1 and st.player.isSubClassActive() :
+     if cond == 1 and st.getPlayer().isSubClassActive() :
        st.set("cond","2")
        st.playSound("ItemSound.quest_middle")
    if event == "30754-2.htm" :
-     if cond == 2 and st.player.isSubClassActive() :
+     if cond == 2 and st.getPlayer().isSubClassActive() :
        st.set("cond","3")
        st.playSound("ItemSound.quest_middle")
    if event == "31739-8.htm" :
-     if cond == 4 and st.player.isSubClassActive() :
+     if cond == 4 and st.getPlayer().isSubClassActive() :
        st.set("cond","5")
        st.takeItems(LEGEND_OF_SEVENTEEN,1)
        st.playSound("ItemSound.quest_middle")
    if event == "31042-2.htm" :
-     if cond == 5 and st.player.isSubClassActive() :
+     if cond == 5 and st.getPlayer().isSubClassActive() :
        st.set("cond","6")
        st.playSound("ItemSound.quest_middle")
    if event == "31042-5.htm" :
-     if cond == 7 and st.player.isSubClassActive() :
+     if cond == 7 and st.getPlayer().isSubClassActive() :
        st.set("cond","8")
        st.takeItems(MALRUK_SUCCUBUS_CLAW,10)
        st.giveItems(ECHO_CRYSTAL,1)
        st.playSound("ItemSound.quest_middle")
    if event == "31739-12.htm" :
-     if cond == 8 and st.player.isSubClassActive() :
+     if cond == 8 and st.getPlayer().isSubClassActive() :
        st.set("cond","9")
        st.takeItems(ECHO_CRYSTAL,1)
        st.playSound("ItemSound.quest_accept")
    if event == "30692-2.htm" :
-     if cond == 9 and st.player.isSubClassActive() :
+     if cond == 9 and st.getPlayer().isSubClassActive() :
        st.set("cond","10")
        st.giveItems(POETRY_BOOK,1)
        st.playSound("ItemSound.quest_accept")
    if event == "31739-15.htm" :
-     if cond == 10 and st.player.isSubClassActive() :
+     if cond == 10 and st.getPlayer().isSubClassActive() :
        st.set("cond","11")
        st.takeItems(POETRY_BOOK,1)
        st.playSound("ItemSound.quest_accept")
    if event == "31742-2.htm" :
-     if cond == 11 and st.player.isSubClassActive() :
+     if cond == 11 and st.getPlayer().isSubClassActive() :
        st.set("cond","12")
        st.playSound("ItemSound.quest_accept")
    if event == "31744-2.htm" :
-     if cond == 12 and st.player.isSubClassActive() :
+     if cond == 12 and st.getPlayer().isSubClassActive() :
        st.set("cond","13")
        st.playSound("ItemSound.quest_accept")
    if event == "31336-2.htm" :
-     if cond == 13 and st.player.isSubClassActive() :
+     if cond == 13 and st.getPlayer().isSubClassActive() :
        st.set("cond","14")
        st.playSound("ItemSound.quest_accept")
    if event == "31336-5.htm" :
-     if cond == 15 and st.player.isSubClassActive() :
+     if cond == 15 and st.getPlayer().isSubClassActive() :
        st.set("cond","16")
        st.takeItems(CRIMSON_MOSS,5)
        st.giveItems(RAHORAKTIS_MEDICINE,1)
        st.playSound("ItemSound.quest_accept")
    if event == "31743-2.htm" :
-     if cond == 16 and st.player.isSubClassActive() :
+     if cond == 16 and st.getPlayer().isSubClassActive() :
        st.set("cond","17")
        st.takeItems(RAHORAKTIS_MEDICINE,1)
        st.playSound("ItemSound.quest_accept")
    if event == "31742-5.htm" :
-     if cond == 17 and st.player.isSubClassActive() :
+     if cond == 17 and st.getPlayer().isSubClassActive() :
        st.set("cond","18")
        st.playSound("ItemSound.quest_accept")
    if event == "31740-2.htm" :
-     if cond == 18 and st.player.isSubClassActive() :
+     if cond == 18 and st.getPlayer().isSubClassActive() :
        st.set("cond","19")
        st.playSound("ItemSound.quest_accept")
    if event == "31272-2.htm" :
-     if cond == 19 and st.player.isSubClassActive() :
+     if cond == 19 and st.getPlayer().isSubClassActive() :
        st.set("cond","20")
        st.playSound("ItemSound.quest_accept")
    if event == "31272-5.htm" :
-     if cond == 20 and st.player.isSubClassActive() :
+     if cond == 20 and st.getPlayer().isSubClassActive() :
        st.takeItems(LUNARGENT,5)
        st.takeItems(HELLFIRE_OIL,1)
        st.set("cond","21")
        st.playSound("ItemSound.quest_accept")
    if event == "31740-5.htm" :
-     if cond == 21 and st.player.isSubClassActive() :
+     if cond == 21 and st.getPlayer().isSubClassActive() :
        st.giveItems(VIRGILS_LETTER,1)
        st.set("cond","0")
        st.playSound("ItemSound.quest_finish")
        st.setState(COMPLETED)
    return htmltext
 
- def onTalk (Self,npc,st) :
-   htmltext = "<html><body>I have nothing to say you</body></html>"
+ def onTalk (self,npc,player):
+   htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
    npcId = npc.getNpcId()
+   id = st.getState()
+   if npcId != TALIEN and id != STARTED : return htmltext
+
    cond = st.getInt("cond")
    id = st.getState()
    if id == CREATED :
@@ -237,61 +245,73 @@ class Quest (JQuest) :
      st.exitQuest(1)
    return htmltext
 
- def onKill (self,npc,st) :
+ def onKill (self,npc,player):
    npcId = npc.getNpcId()
-   cond = st.getInt("cond")
-   chance = st.getRandom(100)
-   if npcId == BARAHAM and cond == 3 :
-     st.set("cond","4")
-     st.giveItems(LEGEND_OF_SEVENTEEN,1)
-     st.playSound("ItemSound.quest_itemget")
+   if npcId == BARAHAM:
+     # get a random party member who is doing this quest and is at cond == 3  
+     partyMember = self.getRandomPartyMember(player, "3")
+     if partyMember :
+         st = partyMember.getQuestState(qn)
+         st.set("cond","4")
+         st.giveItems(LEGEND_OF_SEVENTEEN,1)
+         st.playSound("ItemSound.quest_itemget")
    if npcId in [20244,20245,20283,21508] :
-     if cond == 6 and CHANCE_FOR_QUEST_ITEMS > chance and st.getQuestItemsCount(MALRUK_SUCCUBUS_CLAW) < 10 :
-       st.giveItems(MALRUK_SUCCUBUS_CLAW,1)
-       st.playSound("ItemSound.quest_itemget")
-       if st.getQuestItemsCount(MALRUK_SUCCUBUS_CLAW) == 10 :
-         st.set("cond","7")
-         st.playSound("ItemSound.quest_middle")
+     # get a random party member who is doing this quest and is at cond == 6  
+     partyMember = self.getRandomPartyMember(player, "6")
+     if partyMember :
+         st = partyMember.getQuestState(qn)
+         chance = st.getRandom(100)
+         if CHANCE_FOR_QUEST_ITEMS > chance and st.getQuestItemsCount(MALRUK_SUCCUBUS_CLAW) < 10 :
+           st.giveItems(MALRUK_SUCCUBUS_CLAW,1)
+           st.playSound("ItemSound.quest_itemget")
+           if st.getQuestItemsCount(MALRUK_SUCCUBUS_CLAW) == 10 :
+             st.set("cond","7")
+             st.playSound("ItemSound.quest_middle")
    if npcId in range(21508,215013) :
-     if cond == 14 and CHANCE_FOR_QUEST_ITEMS > chance and st.getQuestItemsCount(CRIMSON_MOSS) < 5 :
-       st.giveItems(CRIMSON_MOSS,1)
-       st.playSound("ItemSound.quest_itemget")
-       if st.getQuestItemsCount(CRIMSON_MOSS) == 5 :
-         st.set("cond","15")
-         st.playSound("ItemSound.quest_middle")
+     # get a random party member who is doing this quest and is at cond == 14  
+     partyMember = self.getRandomPartyMember(player, "14")
+     if partyMember :
+         st = partyMember.getQuestState(qn)
+         chance = st.getRandom(100)
+         if CHANCE_FOR_QUEST_ITEMS > chance and st.getQuestItemsCount(CRIMSON_MOSS) < 5 :
+           st.giveItems(CRIMSON_MOSS,1)
+           st.playSound("ItemSound.quest_itemget")
+           if st.getQuestItemsCount(CRIMSON_MOSS) == 5 :
+             st.set("cond","15")
+             st.playSound("ItemSound.quest_middle")
    return
 
-QUEST       = Quest(241,"241_PossessorOfAPreciousSoul_1","Possessor Of A Precious Soul - 1")
+QUEST       = Quest(241,qn,"Possessor Of A Precious Soul - 1")
 CREATED     = State('Start', QUEST)
-STARTED     = State('Started', QUEST,True)
+STARTED     = State('Started', QUEST)
 COMPLETED   = State('Completed', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(TALIEN)
-CREATED.addTalkId(TALIEN)
-STARTED.addTalkId(TALIEN)
-STARTED.addTalkId(STEDMIEL)
-STARTED.addTalkId(GABRIELLE)
-STARTED.addTalkId(GILMORE)
-STARTED.addTalkId(KANTABILON)
-STARTED.addTalkId(NOEL)
-STARTED.addTalkId(RAHORAKTI)
-STARTED.addTalkId(CARADINE)
-STARTED.addTalkId(VIRGIL)
-STARTED.addTalkId(KASSANDRA)
-STARTED.addTalkId(OGMAR)
+QUEST.addTalkId(TALIEN)
 
-STARTED.addKillId(BARAHAM)
-STARTED.addKillId(20244)
-STARTED.addKillId(20245)
-STARTED.addKillId(20283)
-STARTED.addKillId(21508)
+QUEST.addTalkId(STEDMIEL)
+QUEST.addTalkId(GABRIELLE)
+QUEST.addTalkId(GILMORE)
+QUEST.addTalkId(KANTABILON)
+QUEST.addTalkId(NOEL)
+QUEST.addTalkId(RAHORAKTI)
+QUEST.addTalkId(CARADINE)
+QUEST.addTalkId(VIRGIL)
+QUEST.addTalkId(KASSANDRA)
+QUEST.addTalkId(OGMAR)
 
-STARTED.addKillId(21508)
-STARTED.addKillId(21509)
-STARTED.addKillId(21510)
-STARTED.addKillId(21511)
-STARTED.addKillId(21512)
+QUEST.addKillId(BARAHAM)
+QUEST.addKillId(20244)
+QUEST.addKillId(20245)
+QUEST.addKillId(20283)
+QUEST.addKillId(21508)
+
+QUEST.addKillId(21508)
+QUEST.addKillId(21509)
+QUEST.addKillId(21510)
+QUEST.addKillId(21511)
+QUEST.addKillId(21512)
 
 STARTED.addQuestDrop(BARAHAM,LEGEND_OF_SEVENTEEN,1)
 STARTED.addQuestDrop(BARAHAM,MALRUK_SUCCUBUS_CLAW,1)

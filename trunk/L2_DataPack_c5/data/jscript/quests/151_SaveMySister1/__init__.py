@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "151_SaveMySister1"
+
 POISON_SAC = 703
 FEVER_MEDICINE = 704
 
@@ -19,9 +21,12 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_accept")
     return htmltext
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (Self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    cond = st.getInt("cond")
    sac = st.getQuestItemsCount(POISON_SAC)
@@ -56,7 +61,11 @@ class Quest (JQuest) :
         htmltext = "30032-02.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return
+   if not st.getState() != STARTED: return
+   
    if not st.getQuestItemsCount(POISON_SAC) and st.getInt("cond") == 1 :
       if st.getRandom(5) == 0 :
          st.giveItems(POISON_SAC,1)
@@ -64,7 +73,7 @@ class Quest (JQuest) :
          st.set("cond","2")
    return
 
-QUEST       = Quest(151,"151_SaveMySister1","Save My Sister1")
+QUEST       = Quest(151,qn,"Save My Sister1")
 CREATED     = State('Start', QUEST)
 STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -72,16 +81,12 @@ COMPLETED   = State('Completed', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30050)
+QUEST.addTalkId(30050)
 
-CREATED.addTalkId(30050)
-STARTING.addTalkId(30050)
-STARTED.addTalkId(30050)
-COMPLETED.addTalkId(30050)
-
-STARTED.addTalkId(30032)
+QUEST.addTalkId(30032)
 
 for mob in [20103,20106,20108] :
-   STARTED.addKillId(mob)
+   QUEST.addKillId(mob)
 
 STARTED.addQuestDrop(30032,FEVER_MEDICINE,1)
 STARTED.addQuestDrop(20108,POISON_SAC,1)

@@ -6,6 +6,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "401_PathToWarrior"
+
 EINS_LETTER_ID = 1138
 WARRIOR_GUILD_MARK_ID = 1139
 RUSTED_BRONZE_SWORD1_ID = 1140
@@ -60,11 +62,15 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
+   htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
 
    npcId = npc.getNpcId()
-   htmltext = "<html><head><body>I have nothing to say you</body></html>"
    id = st.getState()
+   if npcId != 30010 and id != STARTED : return htmltext
+
    if id == CREATED :
      st.setState(STARTING)
      st.set("cond","0")
@@ -107,8 +113,11 @@ class Quest (JQuest) :
           st.playSound("ItemSound.quest_finish")
    return htmltext
 
- def onKill (self,npc,st):
-
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    npcId = npc.getNpcId()
    if npcId in [20035,20042] :
         st.set("id","0")
@@ -132,7 +141,7 @@ class Quest (JQuest) :
 
    return
 
-QUEST       = Quest(401,"401_PathToWarrior","Path To Warrior")
+QUEST       = Quest(401,qn,"Path To Warrior")
 CREATED     = State('Start', QUEST)
 STARTING     = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -142,15 +151,14 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30010)
 
-STARTING.addTalkId(30010)
+QUEST.addTalkId(30010)
 
-STARTED.addTalkId(30010)
-STARTED.addTalkId(30253)
+QUEST.addTalkId(30253)
 
-STARTED.addKillId(20035)
-STARTED.addKillId(20038)
-STARTED.addKillId(20042)
-STARTED.addKillId(20043)
+QUEST.addKillId(20035)
+QUEST.addKillId(20038)
+QUEST.addKillId(20042)
+QUEST.addKillId(20043)
 
 STARTED.addQuestDrop(30253,SIMPLONS_LETTER_ID,1)
 STARTED.addQuestDrop(30253,RUSTED_BRONZE_SWORD2_ID,1)

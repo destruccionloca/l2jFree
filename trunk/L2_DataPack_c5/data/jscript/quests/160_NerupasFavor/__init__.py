@@ -5,6 +5,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "160_NerupasFavor"
+
 SILVERY_SPIDERSILK = 1026
 UNOS_RECEIPT = 1027
 CELS_TICKET = 1028
@@ -24,9 +26,12 @@ class Quest (JQuest) :
         st.giveItems(SILVERY_SPIDERSILK,1)
     return htmltext
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    if id == CREATED :
      if st.getPlayer().getRace().ordinal() != 1 :
@@ -39,7 +44,7 @@ class Quest (JQuest) :
        st.exitQuest(1)
    elif id == COMPLETED :
      htmltext = "<html><head><body>This quest have already been completed.</body></html>"
-   else :
+   elif id == STARTED :
      try :
        cond = int(st.get("cond"))
      except :
@@ -89,23 +94,20 @@ class Quest (JQuest) :
           htmltext = "30370-06.htm"
    return htmltext
 
-QUEST       = Quest(160,"160_NerupasFavor","Nerupas Favor")
+QUEST       = Quest(160,qn,"Nerupas Favor")
 CREATED     = State('Start', QUEST)
-STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
 COMPLETED   = State('Completed', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30370)
 
-CREATED.addTalkId(30370)
-STARTING.addTalkId(30370)
-COMPLETED.addTalkId(30370)
+QUEST.addTalkId(30370)
 
-STARTED.addTalkId(30147)
-STARTED.addTalkId(30149)
-STARTED.addTalkId(30152)
-STARTED.addTalkId(30370)
+QUEST.addTalkId(30147)
+QUEST.addTalkId(30149)
+QUEST.addTalkId(30152)
+QUEST.addTalkId(30370)
 
 STARTED.addQuestDrop(30370,SILVERY_SPIDERSILK,1)
 STARTED.addQuestDrop(30147,UNOS_RECEIPT,1)

@@ -5,6 +5,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "211_TrialOfChallenger"
+
 LETTER_OF_KASH_ID = 2628
 SCROLL_OF_SHYSLASSY_ID = 2631
 WATCHERS_EYE1_ID = 2629
@@ -89,10 +91,15 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
+   if npcId != 30644 and id != STARTED : return htmltext
+
    if id == CREATED :
      st.set("cond","0")
      if npcId == 30644 :
@@ -163,7 +170,10 @@ class Quest (JQuest) :
       st.playSound("Itemsound.quest_middle")
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
    npcId = npc.getNpcId()
    if npcId == 27110 :
         if int(st.get("cond")) == 1 and st.getQuestItemsCount(BROKEN_KEY_ID) == 0 :
@@ -193,7 +203,7 @@ class Quest (JQuest) :
            return "Raldo has spawned"
    return
 
-QUEST       = Quest(211,"211_TrialOfChallenger","Trial Of Challenger")
+QUEST       = Quest(211,qn,"Trial Of Challenger")
 CREATED     = State('Start', QUEST)
 STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -203,20 +213,18 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30644)
 
-CREATED.addTalkId(30644)
-STARTING.addTalkId(30644)
-COMPLETED.addTalkId(30644)
+QUEST.addTalkId(30644)
 
-STARTED.addTalkId(30535)
-STARTED.addTalkId(30644)
-STARTED.addTalkId(30645)
-STARTED.addTalkId(30646)
-STARTED.addTalkId(30647)
+QUEST.addTalkId(30535)
+QUEST.addTalkId(30644)
+QUEST.addTalkId(30645)
+QUEST.addTalkId(30646)
+QUEST.addTalkId(30647)
 
-STARTED.addKillId(27110)
-STARTED.addKillId(27112)
-STARTED.addKillId(27113)
-STARTED.addKillId(27114)
+QUEST.addKillId(27110)
+QUEST.addKillId(27112)
+QUEST.addKillId(27113)
+QUEST.addKillId(27114)
 
 STARTED.addQuestDrop(30647,SCROLL_OF_SHYSLASSY_ID,1)
 STARTED.addQuestDrop(30644,LETTER_OF_KASH_ID,1)

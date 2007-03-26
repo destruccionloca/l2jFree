@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "4_LongLiveLordOfFlame"
+
 HONEY_KHANDAR,BEAR_FUR_CLOAK,BLOODY_AXE,ANCESTOR_SKULL,SPIDER_DUST,DEEP_SEA_ORB = range(1541,1547)
 NPC_GIFTS = {30585:BEAR_FUR_CLOAK,30566:HONEY_KHANDAR,30562:BLOODY_AXE,30560:ANCESTOR_SKULL,30559:SPIDER_DUST,30587:DEEP_SEA_ORB}
 
@@ -20,12 +22,14 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_accept")
     return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
    npcId = npc.getNpcId()
    id = st.getState()
    cond = st.getInt("cond")
-
    if id == COMPLETED :
      htmltext = "<html><head><body>This quest have already been completed.</body></html>"
    elif npcId == 30578 :
@@ -48,7 +52,7 @@ class Quest (JQuest) :
        st.unset("cond")
        st.setState(COMPLETED)
        st.playSound("ItemSound.quest_finish")
-   elif npcId in NPC_GIFTS.keys() and cond == 1 :
+   elif npcId in NPC_GIFTS.keys() and cond == 1 and id == STARTED:
      item=NPC_GIFTS[npcId]
      npc=str(npcId)
      if st.getQuestItemsCount(item) :
@@ -67,7 +71,7 @@ class Quest (JQuest) :
          st.playSound("ItemSound.quest_itemget")
    return htmltext
 
-QUEST     = Quest(4,"4_LongLiveLordOfFlame","Long Live the Paagrio Lord")
+QUEST     = Quest(4,qn,"Long Live the Paagrio Lord")
 CREATED   = State('Start',     QUEST)
 STARTING  = State('Starting',  QUEST)
 STARTED   = State('Started',   QUEST)
@@ -76,17 +80,15 @@ COMPLETED = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30578)
 
-CREATED.addTalkId(30578)
-STARTING.addTalkId(30578)
-COMPLETED.addTalkId(30578)
+QUEST.addTalkId(30578)
 
-STARTED.addTalkId(30559)
-STARTED.addTalkId(30560)
-STARTED.addTalkId(30562)
-STARTED.addTalkId(30566)
-STARTED.addTalkId(30578)
-STARTED.addTalkId(30585)
-STARTED.addTalkId(30587)
+QUEST.addTalkId(30559)
+QUEST.addTalkId(30560)
+QUEST.addTalkId(30562)
+QUEST.addTalkId(30566)
+QUEST.addTalkId(30578)
+QUEST.addTalkId(30585)
+QUEST.addTalkId(30587)
 
 for i in range(1541,1547) :
    STARTED.addQuestDrop(30578,i,1)

@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "261_DreamOfMoneylender1"
+
 GIANT_SPIDER_LEG = 1087
 ADENA = 57
 
@@ -19,10 +21,14 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_accept")
     return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
-   if id == CREATED :
+   if id == CREATED :
      st.set("cond","0")
    if int(st.get("cond"))==0 :
      if st.getPlayer().getLevel() >= 15 :
@@ -42,7 +48,11 @@ class Quest (JQuest) :
        htmltext = "30222-04.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    count = st.getQuestItemsCount(GIANT_SPIDER_LEG)
    if count < 8 :
      st.giveItems(GIANT_SPIDER_LEG,1)
@@ -53,7 +63,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(261,"261_DreamOfMoneylender1","Dream Of Moneylender1")
+QUEST       = Quest(261,qn,"Dream Of Moneylender1")
 CREATED     = State('Start', QUEST)
 STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -62,14 +72,11 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30222)
 
-CREATED.addTalkId(30222)
-STARTING.addTalkId(30222)
-STARTED.addTalkId(30222)
-COMPLETED.addTalkId(30222)
+QUEST.addTalkId(30222)
 
-STARTED.addKillId(20308)
-STARTED.addKillId(20460)
-STARTED.addKillId(20466)
+QUEST.addKillId(20308)
+QUEST.addKillId(20460)
+QUEST.addKillId(20466)
 
 STARTED.addQuestDrop(20460,GIANT_SPIDER_LEG,1)
 

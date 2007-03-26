@@ -5,6 +5,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "222_TestOfDuelist"
+
 MARK_OF_DUELIST_ID,  ORDER_GLUDIO_ID,      ORDER_DION_ID,        ORDER_GIRAN_ID,      ORDER_OREN_ID,      \
 ORDER_ADEN_ID,       PUNCHERS_SHARD_ID,    NOBLE_ANTS_FEELER_ID, DRONES_CHITIN_ID,    DEADSEEKER_FANG_ID, \
 OVERLORD_NECKLACE_ID,CRIMSONBINDS_CHAIN_ID,CHIEFS_AMULET_ID,     TEMPERED_EYE_MEAT_ID,TAMRIN_ORCS_RING_ID,\
@@ -75,9 +77,12 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
    if id == CREATED :
      st.set("step","0")
@@ -124,7 +129,11 @@ class Quest (JQuest) :
           htmltext = "30623-17.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+  st = player.getQuestState(qn)
+  if not st : return 
+  if st.getState() != STARTED : return 
+   
   npcId = npc.getNpcId()
   step,maxcount,item=DROPLIST[npcId]
   count=st.getQuestItemsCount(item)
@@ -136,7 +145,7 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_itemget")
   return
 
-QUEST       = Quest(222,"222_TestOfDuelist","Test Of Duelist")
+QUEST       = Quest(222,qn,"Test Of Duelist")
 CREATED     = State('Start', QUEST)
 STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -146,12 +155,9 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30623)
 
-CREATED.addTalkId(30623)
-STARTING.addTalkId(30623)
-STARTED.addTalkId(30623)
-COMPLETED.addTalkId(30623)
+QUEST.addTalkId(30623)
 
 for i in DROPLIST.keys():
-    STARTED.addKillId(i)
+    QUEST.addKillId(i)
 
 print "importing quests: 222: Test Of Duelist"

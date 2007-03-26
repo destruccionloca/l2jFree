@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "378_MagnificentFeast"
+
 #NPC
 RANSPO = 30594
 
@@ -88,8 +90,13 @@ class Quest (JQuest) :
 
    return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
+   id = st.getState()
    cond=st.getInt("cond")
    if cond == 0 :
      if st.getPlayer().getLevel() >= 20 :
@@ -121,14 +128,13 @@ class Quest (JQuest) :
         htmltext = "30594-9.htm"
    return htmltext
 
-QUEST       = Quest(378,"378_MagnificentFeast","Magnificent Feast")
+QUEST       = Quest(378,qn,"Magnificent Feast")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(RANSPO)
 
-CREATED.addTalkId(RANSPO)
-STARTED.addTalkId(RANSPO)
+QUEST.addTalkId(RANSPO)
 
 print "importing quests: 378: Magnificent Feast"

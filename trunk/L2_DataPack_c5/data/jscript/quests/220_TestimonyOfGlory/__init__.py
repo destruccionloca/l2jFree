@@ -5,6 +5,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "220_TestimonyOfGlory"
+
 # if the cross compatible is turned on,
 # the code will try convert the info of database from old code
 # to a compatible with the new one
@@ -178,11 +180,15 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
-   if id == CREATED :                                       # Check if is starting the quest
+   if npcId != 30514 and id != STARTED : return htmltext
+   if id == CREATED :                                       # Check if is starting the quest
      st.set("cond","0")
      st.set("id","0")
      if npcId == 30514 :
@@ -325,7 +331,6 @@ class Quest (JQuest) :
            elif st.getQuestItemsCount(GLOVE_OF_BURAI) :
                htmltext = "30617-05.htm"
                st.playSound("Itemsound.quest_before_battle")
-               #st.takeItems(GLOVE_OF_BURAI,1)
                st.getPcSpawn().addSpawn(27083,-94292,110781,-3701)
                st.getPcSpawn().addSpawn(27083,-94293,110861,-3701)
            elif st.getQuestItemsCount(MAKUM_BUGBEAR_HEAD) == 2 :
@@ -425,7 +430,11 @@ class Quest (JQuest) :
          htmltext = "30565-01.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return
+   if st.getState() != STARTED : return
+
    npcId = npc.getNpcId()
    cond = int(st.get("cond"))
    if cond == 1 and npcId in DROPLIST_COND_1.keys():
@@ -484,8 +493,8 @@ class Quest (JQuest) :
      if npcId in [ 20778, 20779 ] :
        st.playSound("Itemsound.quest_before_battle")
        #st.getPcSpawn().addSpawn(27086)
-       st.getPcSpawn().addSpawn(27086)
-       return "Revenant of Tantos Chief has spawned"
+       st.getPcSpawn().addSpawn(27086, 11839,-106261,-3550,300000)
+       return "Revenant of Tantos Chief has spawned at X=11839 Y=-106261 Z=-3550"
        # Alternate coord. set:
        #st.getPcSpawn().addSpawn(27086,11567,-106785,-3520)
      elif npcId == 27086 :
@@ -494,7 +503,7 @@ class Quest (JQuest) :
        st.playSound("Itemsound.quest_middle")
    return
 
-QUEST       = Quest(220,"220_TestimonyOfGlory","Testimony Of Glory")
+QUEST       = Quest(220,qn,"Testimony Of Glory")
 CREATED     = State('Start', QUEST)
 STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -504,24 +513,21 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30514)
 
-CREATED.addTalkId(30514)
-STARTING.addTalkId(30514)
-COMPLETED.addTalkId(30514)
+QUEST.addTalkId(30514)
 
-STARTED.addTalkId(30501)
-STARTED.addTalkId(30514)
-STARTED.addTalkId(30515)
-STARTED.addTalkId(30565)
-STARTED.addTalkId(30571)
-STARTED.addTalkId(30615)
-STARTED.addTalkId(30616)
-STARTED.addTalkId(30617)
-STARTED.addTalkId(30618)
-STARTED.addTalkId(30619)
-STARTED.addTalkId(30642)
+QUEST.addTalkId(30501)
+QUEST.addTalkId(30515)
+QUEST.addTalkId(30565)
+QUEST.addTalkId(30571)
+QUEST.addTalkId(30615)
+QUEST.addTalkId(30616)
+QUEST.addTalkId(30617)
+QUEST.addTalkId(30618)
+QUEST.addTalkId(30619)
+QUEST.addTalkId(30642)
 
 for i in DROPLIST_COND_1.keys()+DROPLIST_COND_4.keys()+DROPLIST_COND_6.keys()+[20778,20779,27086] :
-    STARTED.addKillId(i)
+    QUEST.addKillId(i)
 
 STARTED.addQuestDrop(30514,VOKIYANS_ORDER1,1)
 STARTED.addQuestDrop(20563,MANASHEN_SHARD,1)

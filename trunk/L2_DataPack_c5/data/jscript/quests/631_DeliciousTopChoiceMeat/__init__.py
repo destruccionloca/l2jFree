@@ -5,6 +5,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "631_DeliciousTopChoiceMeat"
+
 #NPC
 TUNATUN = 31537
 
@@ -39,49 +41,56 @@ class Quest (JQuest) :
        st.exitQuest(1)
    return htmltext
 
- def onTalk (self,npc,st):
-   npcId = npc.getNpcId()
-   htmltext = "<html><head><body>I have nothing to say you</body></html>"
-   id = st.getState()
-   cond = st.getInt("cond")
-   if cond == 0 :
-     if st.getPlayer().getLevel() >= 65 :
-       htmltext = "31537-01.htm"
-     else:
-       htmltext = "31537-02.htm"
-       st.exitQuest(1)
-   elif cond == 1 :
-     htmltext = "31537-01a.htm"
-   elif cond == 2 and st.getQuestItemsCount(TOP_QUALITY_MEAT) == 120 :
-     htmltext = "31537-04.htm"
-   elif cond == 3 :
-     htmltext = "31537-05.htm"
+ def onTalk (self,npc,player):
+   st = player.getQuestState(qn)
+   if st :
+        npcId = npc.getNpcId()
+        htmltext = "<html><head><body>I have nothing to say you</body></html>"
+        id = st.getState()
+        cond = st.getInt("cond")
+        if cond == 0 :
+            if st.getPlayer().getLevel() >= 65 :
+                htmltext = "31537-01.htm"
+            else:
+                htmltext = "31537-02.htm"
+                st.exitQuest(1)
+        elif id == STARTED :
+            if cond == 1 :
+                htmltext = "31537-01a.htm"
+            elif cond == 2 and st.getQuestItemsCount(TOP_QUALITY_MEAT) == 120 :
+                htmltext = "31537-04.htm"
+            elif cond == 3 :
+                htmltext = "31537-05.htm"
    return htmltext
 
- def onKill (self,npc,st):
-   count = st.getQuestItemsCount(TOP_QUALITY_MEAT)
-   if st.getInt("cond") == 1 and count < 120 :
-     st.giveItems(TOP_QUALITY_MEAT,1)
-     if count == 119 :
-       st.playSound("ItemSound.quest_middle")
-       st.set("cond","2")
-     else:
-       st.playSound("ItemSound.quest_itemget")	
+ def onKill (self,npc,player):
+   partyMember = self.getRandomPartyMember(player, "1")
+   if not partyMember: return
+   st = partyMember.getQuestState(qn)
+   if st :
+        if st.getState() == STARTED :
+            count = st.getQuestItemsCount(TOP_QUALITY_MEAT)
+            if st.getInt("cond") == 1 and count < 120 :
+              st.giveItems(TOP_QUALITY_MEAT,1)
+              if count == 119 :
+                st.playSound("ItemSound.quest_middle")
+                st.set("cond","2")
+              else:
+                st.playSound("ItemSound.quest_itemget")  
    return
 
-QUEST       = Quest(631,"631_DeliciousTopChoiceMeat","Delicious Top Choice Meat")
+QUEST       = Quest(631,qn,"Delicious Top Choice Meat")
 CREATED     = State('Start', QUEST)
-STARTED     = State('Started', QUEST, True)
+STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(TUNATUN)
 
-CREATED.addTalkId(TUNATUN)
-STARTED.addTalkId(TUNATUN)
+QUEST.addTalkId(TUNATUN)
 
-STARTED.addKillId(21451)
-STARTED.addKillId(21470)
-STARTED.addKillId(21489)
+QUEST.addKillId(21451)
+QUEST.addKillId(21470)
+QUEST.addKillId(21489)
 
 STARTED.addQuestDrop(21451,TOP_QUALITY_MEAT,1)
 

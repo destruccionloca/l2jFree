@@ -6,6 +6,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "225_TestOfSearcher"
+
 LUTHERS_LETTER_ID,     ALANKELLS_WARRANT_ID,LEIRYNNS_ORDER1_ID,DELU_TOTEM_ID,  \
 LEIRYNNS_ORDER2_ID,    CHIEF_KALKIS_FANG_ID,LEIRYNNS_REPORT_ID,STRANGE_MAP_ID, \
 LAMBERTS_MAP_ID,       ALANKELLS_LETTER_ID, ALANKELLS_ORDER_ID,WINE_CATALOG_ID,\
@@ -40,7 +42,7 @@ class Quest (JQuest) :
         for var in STATS[0]:
          st.set(var,"1")
         for var in STATS[1]:
-		 st.set(var,"0")
+         st.set(var,"0")
         st.setState(STARTED)
         st.playSound("ItemSound.quest_accept")
         st.giveItems(LUTHERS_LETTER_ID,1)
@@ -73,10 +75,15 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
+   if npcId != 30690 and id != STARTED : return htmltext
+
    if id == CREATED :
      st.set("cond","0")
      st.set("phase","0")
@@ -223,10 +230,14 @@ class Quest (JQuest) :
         if phase==20 :
           htmltext = "30628-01.htm"
         else:
-          htmltext = "<html><head><body>You haven't got a Key for this Chest.</body></html>"	
+          htmltext = "<html><head><body>You haven't got a Key for this Chest.</body></html>"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    npcId = npc.getNpcId()
    var,status,maxcount,chance,itemid=DROPLIST[npcId]
    random = st.getRandom(100)
@@ -247,12 +258,12 @@ class Quest (JQuest) :
      else:
       st.playSound("Itemsound.quest_itemget")
    if npcId==20781 and random<30 and count<maxcount:
-     st.getPcSpawn().addSpawn(27094,npc.getX(),npc.getY(),npc.getZ())
-     return "Delu Lizardman Assassin has spawned"
+     st.getPcSpawn().addSpawn(27094,55841,176464,-2993,300000)
+     return "Delu Lizardman Assassin has spawned at X=55841 Y=176464 Z=-2993"
    return
 
 
-QUEST       = Quest(225,"225_TestOfSearcher","Test Of Searcher")
+QUEST       = Quest(225,qn,"Test Of Searcher")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 COMPLETED   = State('Completed', QUEST)
@@ -260,14 +271,11 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30690)
 
-CREATED.addTalkId(30690)
-COMPLETED.addTalkId(30690)
-
 for npcId in NPC:
- STARTED.addTalkId(npcId)
+ QUEST.addTalkId(npcId)
 
 for mobId in MOB:
- STARTED.addKillId(mobId)
+ QUEST.addKillId(mobId)
 
 for item in range(2784,2809):
     STARTED.addQuestDrop(30690,item,1)

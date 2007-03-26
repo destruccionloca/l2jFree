@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "298_LizardmensConspiracy"
+
 PATROLS_REPORT = 7182
 SHINING_GEM = 7183
 SHINING_RED_GEM = 7184
@@ -18,6 +20,8 @@ class Quest (JQuest) :
      st.set("cond","1")
      st.giveItems(PATROLS_REPORT,1)
      st.setState(STARTED)
+     st.set("awaitGem","1")
+     st.set("awaitRedGem","1")
      st.playSound("ItemSound.quest_accept")
    if event == "30344-1.htm" :
      st.takeItems(PATROLS_REPORT,1)
@@ -33,8 +37,11 @@ class Quest (JQuest) :
        htmltext = "You don't have required items"
    return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
    npcId = npc.getNpcId()
    id = st.getState()
    if id == CREATED :
@@ -45,17 +52,22 @@ class Quest (JQuest) :
        htmltext = "30333-0a.htm"
      else:
        st.exitQuest(1)
-   elif npcId == 30344 :
+   elif npcId == 30344 and id == STARTED:
      if cond == 1 :
        htmltext = "30344-0.htm"
      elif cond == 3 :
        htmltext = "30344-2.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
    npcId = npc.getNpcId()
    if npcId in [20926,20927] :
+     partyMember = self.getRandomPartyMember(player,"awaitRedGem","1")
+     if not partyMember : return
+     st = partyMember.getQuestState(qn)
      count = st.getQuestItemsCount(SHINING_RED_GEM)
+     if count == 49 :
+         st.unset("awaitRedGem")
      if count < 50 :
        st.giveItems(SHINING_RED_GEM,1)
        if st.getQuestItemsCount(SHINING_GEM) == 50 and count == 49 :
@@ -64,7 +76,12 @@ class Quest (JQuest) :
        else :
          st.playSound("ItemSound.quest_itemget")
    if npcId in [20922,20923,20924] :
+     partyMember = self.getRandomPartyMember(player,"awaitGem","1")
+     if not partyMember : return
+     st = partyMember.getQuestState(qn)
      count = st.getQuestItemsCount(SHINING_GEM)
+     if count == 49 :
+         st.unset("awaitGem")
      if count < 50 :
        st.giveItems(SHINING_GEM,1)
        if count == 49 and st.getQuestItemsCount(SHINING_RED_GEM) == 50 :
@@ -74,19 +91,19 @@ class Quest (JQuest) :
          st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(298,"298_LizardmensConspiracy","Lizardmen's Conspiracy")
+QUEST       = Quest(298,qn,"Lizardmen's Conspiracy")
 CREATED     = State('Start', QUEST)
-STARTED     = State('Started', QUEST, True)
+STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30333)
 
-CREATED.addTalkId(30333)
-STARTED.addTalkId(30333)
-STARTED.addTalkId(30344)
+QUEST.addTalkId(30333)
+
+QUEST.addTalkId(30344)
 
 for i in range(20922,20928) :
-    STARTED.addKillId(i)
+    QUEST.addKillId(i)
 
 STARTED.addQuestDrop(20926,SHINING_RED_GEM,1)
 STARTED.addQuestDrop(20924,SHINING_GEM,1)

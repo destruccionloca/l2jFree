@@ -7,6 +7,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "215_TrialOfPilgrim"
+
 MARK_OF_PILGRIM_ID = 2721
 BOOK_OF_SAGE_ID = 2722
 VOUCHER_OF_TRIAL_ID = 2723
@@ -74,10 +76,15 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (Self,npc,st):
-   npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+
+   npcId = npc.getNpcId()
    id = st.getState()
+   if npcId != 30648 and id != STARTED : return htmltext
+
    if id == CREATED :
      st.setState(STARTING)
      st.set("cond","0")
@@ -195,7 +202,11 @@ class Quest (JQuest) :
       htmltext = "30612-02.htm"
    return htmltext
 
- def onKill (self,npc,st):
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getPlayer() != STARTED : return 
+   
    npcId = npc.getNpcId()
    if npcId == 27116 :
       if int(st.get("cond")) and int(st.get("cond")) == 3 and st.getQuestItemsCount(ESSENSE_OF_FLAME_ID) == 0 :
@@ -216,7 +227,7 @@ class Quest (JQuest) :
           st.playSound("ItemSound.quest_middle")
    return
 
-QUEST       = Quest(215,"215_TrialOfPilgrim","Trial Of Pilgrim")
+QUEST       = Quest(215,qn,"Trial Of Pilgrim")
 CREATED     = State('Start', QUEST)
 STARTING     = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -226,23 +237,22 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30648)
 
-STARTING.addTalkId(30648)
+QUEST.addTalkId(30648)
 
-STARTED.addTalkId(30036)
-STARTED.addTalkId(30117)
-STARTED.addTalkId(30362)
-STARTED.addTalkId(30550)
-STARTED.addTalkId(30571)
-STARTED.addTalkId(30612)
-STARTED.addTalkId(30648)
-STARTED.addTalkId(30649)
-STARTED.addTalkId(30650)
-STARTED.addTalkId(30651)
-STARTED.addTalkId(30652)
+QUEST.addTalkId(30036)
+QUEST.addTalkId(30117)
+QUEST.addTalkId(30362)
+QUEST.addTalkId(30550)
+QUEST.addTalkId(30571)
+QUEST.addTalkId(30612)
+QUEST.addTalkId(30649)
+QUEST.addTalkId(30650)
+QUEST.addTalkId(30651)
+QUEST.addTalkId(30652)
 
-STARTED.addKillId(27116)
-STARTED.addKillId(27117)
-STARTED.addKillId(27118)
+QUEST.addKillId(27116)
+QUEST.addKillId(27117)
+QUEST.addKillId(27118)
 
 STARTED.addQuestDrop(30612,BOOK_OF_SAGE_ID,1)
 STARTED.addQuestDrop(30648,VOUCHER_OF_TRIAL_ID,1)

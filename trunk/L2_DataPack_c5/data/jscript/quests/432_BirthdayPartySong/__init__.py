@@ -5,6 +5,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "432_BirthdayPartySong"
+
 MELODY_MAESTRO_OCTAVIA_ID = 31043
 RED_CRYSTALS_ID = 7541
 ROUGH_HEWN_ROCK_GOLEMS_ID = 21103
@@ -30,9 +32,12 @@ class Quest (JQuest) :
          st.playSound("ItemSound.quest_finish")
      return htmltext
  
- def onTalk (Self,npc,st):
-     npcId = npc.getNpcId()
+ def onTalk (self,npc,player):
      htmltext = "<html><head><body>I have nothing to say you</body></html>"
+     st = player.getQuestState(qn)
+     if not st : return htmltext
+
+     npcId = npc.getNpcId()
      id = st.getState()
      cond = st.getInt("cond")
      if id == CREATED :
@@ -43,7 +48,11 @@ class Quest (JQuest) :
          htmltext = "31043-04.htm"
      return htmltext
  
- def onKill(self,npc,st):
+ def onKill (self,npc,player):
+     st = player.getQuestState(qn)
+     if not st : return 
+     if st.getState() != STARTED : return 
+
      count = st.getQuestItemsCount(RED_CRYSTALS_ID)
      if st.getInt("cond") == 1 and count < 50 :
              st.giveItems(RED_CRYSTALS_ID,1)
@@ -54,7 +63,7 @@ class Quest (JQuest) :
                  st.playSound("ItemSound.quest_itemget")
      return
  
-QUEST       = Quest(432,"432_BirthdayPartySong","Birthday Party Song")
+QUEST       = Quest(432,qn,"Birthday Party Song")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 COMPLETED   = State('Completed', QUEST)
@@ -62,10 +71,9 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(31043)
 
-CREATED.addTalkId(31043)
-STARTED.addTalkId(31043)
+QUEST.addTalkId(31043)
 
-STARTED.addKillId(21103)
+QUEST.addKillId(21103)
 STARTED.addQuestDrop(21103,RED_CRYSTALS_ID,1)
 
 print "importing quests: 432: Birthday Party Song"

@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
+qn = "416_PathToOrcShaman"
+
 FIRE_CHARM_ID = 1616
 KASHA_BEAR_PELT_ID = 1617
 KASHA_BSPIDER_HUSK_ID = 1618
@@ -83,11 +85,15 @@ class Quest (JQuest) :
     return htmltext
 
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,player):
+   htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
 
    npcId = npc.getNpcId()
-   htmltext = "<html><head><body>I have nothing to say you</body></html>"
    id = st.getState()
+   if npcId != 30502 and id != STARTED : return htmltext
+
    if id == CREATED :
      st.setState(STARTING)
      st.set("cond","0")
@@ -155,8 +161,11 @@ class Quest (JQuest) :
         htmltext = "30593-06.htm"
    return htmltext
 
- def onKill (self,npc,st):
-
+ def onKill (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st : return 
+   if st.getState() != STARTED : return 
+   
    npcId = npc.getNpcId()
    if npcId == 20479 :
         st.set("id","0")
@@ -204,18 +213,18 @@ class Quest (JQuest) :
           n = st.getRandom(10)
           if st.getQuestItemsCount(DURKA_PARASITE_ID) == 5 and n<1 :
             st.takeItems(DURKA_PARASITE_ID,st.getQuestItemsCount(DURKA_PARASITE_ID))
-            st.getPcSpawn().addSpawn(27056,npc.getX(),npc.getY(),npc.getZ())
+            st.getPcSpawn().addSpawn(27056)
             st.playSound("ItemSound.quest_itemget")
           elif st.getQuestItemsCount(DURKA_PARASITE_ID) == 6 and n<2 :
             st.takeItems(DURKA_PARASITE_ID,st.getQuestItemsCount(DURKA_PARASITE_ID))
             st.playSound("ItemSound.quest_itemget")
-            st.getPcSpawn().addSpawn(27056,npc.getX(),npc.getY(),npc.getZ())
+            st.getPcSpawn().addSpawn(27056)
           elif st.getQuestItemsCount(DURKA_PARASITE_ID) == 7 and n<2 :
             st.takeItems(DURKA_PARASITE_ID,st.getQuestItemsCount(DURKA_PARASITE_ID))
             st.playSound("ItemSound.quest_itemget")
-            st.getPcSpawn().addSpawn(27056,npc.getX(),npc.getY(),npc.getZ())
+            st.getPcSpawn().addSpawn(27056)
           elif st.getQuestItemsCount(DURKA_PARASITE_ID) >= 7 :
-            st.getPcSpawn().addSpawn(27056,npc.getX(),npc.getY(),npc.getZ())
+            st.getPcSpawn().addSpawn(27056)
             st.playSound("ItemSound.quest_itemget")
             st.takeItems(DURKA_PARASITE_ID,st.getQuestItemsCount(DURKA_PARASITE_ID))
           else:
@@ -227,18 +236,18 @@ class Quest (JQuest) :
           n = st.getRandom(10)
           if st.getQuestItemsCount(DURKA_PARASITE_ID) == 5 and n<1 :
             st.takeItems(DURKA_PARASITE_ID,st.getQuestItemsCount(DURKA_PARASITE_ID))
-            st.getPcSpawn().addSpawn(27056,npc.getX(),npc.getY(),npc.getZ())
+            st.getPcSpawn().addSpawn(27056)
             st.playSound("ItemSound.quest_itemget")
           elif st.getQuestItemsCount(DURKA_PARASITE_ID) == 6 and n<2 :
             st.takeItems(DURKA_PARASITE_ID,st.getQuestItemsCount(DURKA_PARASITE_ID))
             st.playSound("ItemSound.quest_itemget")
-            st.getPcSpawn().addSpawn(27056,npc.getX(),npc.getY(),npc.getZ())
+            st.getPcSpawn().addSpawn(27056)
           elif st.getQuestItemsCount(DURKA_PARASITE_ID) == 7 and n<2 :
             st.takeItems(DURKA_PARASITE_ID,st.getQuestItemsCount(DURKA_PARASITE_ID))
             st.playSound("ItemSound.quest_itemget")
-            st.getPcSpawn().addSpawn(27056,npc.getX(),npc.getY(),npc.getZ())
+            st.getPcSpawn().addSpawn(27056)
           elif st.getQuestItemsCount(DURKA_PARASITE_ID) >= 7 :
-            st.getPcSpawn().addSpawn(27056,npc.getX(),npc.getY(),npc.getZ())
+            st.getPcSpawn().addSpawn(27056)
             st.playSound("ItemSound.quest_itemget")
             st.takeItems(DURKA_PARASITE_ID,st.getQuestItemsCount(DURKA_PARASITE_ID))
           else:
@@ -254,7 +263,7 @@ class Quest (JQuest) :
           st.set("cond","10")
    return
 
-QUEST       = Quest(416,"416_PathToOrcShaman","Path To Orc Shaman")
+QUEST       = Quest(416,qn,"Path To Orc Shaman")
 CREATED     = State('Start', QUEST)
 STARTING     = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
@@ -264,20 +273,19 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(30585)
 
-STARTING.addTalkId(30585)
+QUEST.addTalkId(30585)
 
-STARTED.addTalkId(30502)
-STARTED.addTalkId(30585)
-STARTED.addTalkId(30592)
-STARTED.addTalkId(30593)
+QUEST.addTalkId(30502)
+QUEST.addTalkId(30592)
+QUEST.addTalkId(30593)
 
-STARTED.addKillId(20335)
-STARTED.addKillId(20038)
-STARTED.addKillId(20415)
-STARTED.addKillId(20043)
-STARTED.addKillId(20478)
-STARTED.addKillId(20479)
-STARTED.addKillId(27056)
+QUEST.addKillId(20335)
+QUEST.addKillId(20038)
+QUEST.addKillId(20415)
+QUEST.addKillId(20043)
+QUEST.addKillId(20478)
+QUEST.addKillId(20479)
+QUEST.addKillId(27056)
 
 STARTED.addQuestDrop(30592,TOTEM_SPIRIT_CLAW_ID,1)
 STARTED.addQuestDrop(30585,FIRE_CHARM_ID,1)
