@@ -19,14 +19,11 @@
 package net.sf.l2j.gameserver.model.quest;
 
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GameTimeController;
-import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2DropData;
@@ -34,7 +31,6 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
-import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.QuestList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -103,7 +99,7 @@ public final class QuestState
 		// add drops from state of the quest
 		if (state != null && !isCompleted()) 
         {
-			Map<Integer, FastList<L2DropData>> new_drops = state.getDrops();
+			FastMap<Integer, FastList<L2DropData>> new_drops = state.getDrops();
             
 			if (new_drops != null) 
             {
@@ -188,7 +184,7 @@ public final class QuestState
         {
 			for (Iterator<FastList<L2DropData>> i = getDrops().values().iterator(); i.hasNext();) 
             {
-				List<L2DropData> lst = i.next();
+				FastList<L2DropData> lst = i.next();
                 
 				for (Iterator<L2DropData> ds = lst.iterator(); ds.hasNext();) 
                 {
@@ -221,8 +217,8 @@ public final class QuestState
 		// add drops from new state
         if (!isCompleted())  
         {
-			Map<Integer, FastList<L2DropData>> newDrops = state.getDrops();
-            
+			FastMap<Integer, FastList<L2DropData>> newDrops = state.getDrops();
+
 			if (newDrops != null)
             {
 				if (getDrops() == null)
@@ -359,21 +355,6 @@ public final class QuestState
         return varint;
     }
     
-    /**
-     * Return true if ID of the L2Attackable attcked is needed for the quest, otherwise, return false.
-     * @param npcId
-     * @return boolean
-     */
-    public boolean waitsForAttack(L2NpcInstance npc) 
-    {
-        for (int k : getState().getAttackIds()) 
-            if (k == npc.getNpcId()) 
-                return true;
-
-        return false;
-    }
-
-    
 	public boolean waitsForEvent(String event) 
     {
 		for (String se : getState().getEvents()) 
@@ -383,34 +364,6 @@ public final class QuestState
         return false;
 	}
 	
-	/**
-	 * Return true if ID of the L2Attackable killed is needed for the quest, otherwise, return false.
-	 * @param npcId
-	 * @return boolean
-	 */
-	public boolean waitsForKill(L2NpcInstance npc) 
-    {
-		for (int k : getState().getKillIds())
-			if (k == npc.getNpcId())
-				return true;
-
-		return false;
-	}
-	
-	/**
-	 * Return true if the L2NpcInstance has to be talked to 
-	 * @param npcId
-	 * @return boolean
-	 */
-	public boolean waitsForTalk(int npcId) 
-    {
-		for (int k : getState().getTalkIds())
-			if (k == npcId)
-				return true;
-
-		return false;
-	}
-
     /**
      * Add player to get notification of characters death
      * @param character : L2Character of the character to get notification of death
@@ -472,7 +425,7 @@ public final class QuestState
 			return;
         
 		// Get drops of the NPC recorded in class variable "drops"
-		List<L2DropData> lst = getDrops().get(npc.getTemplate().npcId);
+		FastList<L2DropData> lst = getDrops().get(npc.getTemplate().npcId);
 		// If drops of the NPC in class variable "drops" exist, add them to parameter "drops"
 		if (lst != null)
 			drops.addAll(lst);
@@ -786,6 +739,8 @@ public final class QuestState
     }
     
     /**
+     * NOTE: This is to be deprecated; replaced by Quest.getPcSpawn(L2PcInstance)
+     * For now, I shall leave it as is 
      * Return a QuestPcSpawn for curren player instance
      */
     public final QuestPcSpawn getPcSpawn()
@@ -800,27 +755,7 @@ public final class QuestState
 	 */
 	public String showHtmlFile(String fileName) 
     {
-        String questId = getQuest().getName();
-
-        //Create handler to file linked to the quest
-        String directory    = getQuest().getDescr().toLowerCase();
-        String content = HtmCache.getInstance().getHtm("data/jscript/" + directory + "/" + questId + "/"+fileName);
-        
-        if (content == null)
-            content = HtmCache.getInstance().getHtmForce("data/jscript/quests/"+questId+"/"+fileName);
-
-        if (getPlayer() != null && getPlayer().getTarget() != null)
-            content = content.replaceAll("%objectId%", String.valueOf(getPlayer().getTarget().getObjectId()));
-
-        //Send message to client if message not empty     
-         if (content != null) 
-         {
-             NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
-             npcReply.setHtml(content);
-             getPlayer().sendPacket(npcReply);
-         }
-         
-         return content;
+		return getQuest().showHtmlFile(getPlayer(), fileName);
 	}
 
 	/**
@@ -841,7 +776,7 @@ public final class QuestState
 			// Go through values of class variable "drops" pointing out mobs that drop for quest
 		    for (Iterator<FastList<L2DropData>> i = getDrops().values().iterator(); i.hasNext();) 
             {
-		    	List<L2DropData> lst = i.next();
+		    	FastList<L2DropData> lst = i.next();
                 
 		    	// Go through values of mobs that drop for quest pointing out drops of the mob
 		    	for (Iterator<L2DropData> ds = lst.iterator(); ds.hasNext();) 

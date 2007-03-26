@@ -22,9 +22,6 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2DropData;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * @author Luis Arias
  *
@@ -32,12 +29,9 @@ import org.apache.commons.logging.LogFactory;
  */
 public class State
 {
-    private final static Log _log = LogFactory.getLog(State.class);
 	// TODO - Begins
 	/** Prototype of empty String list */
 	private static final String[] emptyStrList = new String[0];
-	/** Prototype of empty int list */
-	private static final int[] emptyIntList = new int[0];
 	// TODO - End
 	
 	/** Name of the quest */
@@ -46,10 +40,6 @@ public class State
 	private FastMap<Integer, FastList<L2DropData>> _Drops;
 	private String[] _Events = emptyStrList;
     private String _Name;
-    private int[] _AttackIds = emptyIntList;
-	private int[] _KillIds = emptyIntList;
-	private int[] _TalkIds = emptyIntList;
-	private final boolean _party;
 
 
 	/**
@@ -59,39 +49,13 @@ public class State
 	 */
     public State(String name, Quest quest)
     {
-    	this(name, quest, false);
-    }
-
-    public State(String name, Quest quest, boolean party)
-    {
         _Name = name;
-		_party = party;
 		this._quest = quest;
 		quest.addState(this);
     }
-    
+
     // =========================================================
     // Method - Public
-    /**
-     * Add mob to be attacked in the list at start of the quest.<BR><BR>
-     * @param attackId
-     * @return int : attackId
-     */
-    public int addAttackId(int attackId) {
-        _AttackIds = addToIntArray(_AttackIds, attackId);
-        return attackId;
-    }
-    
-	/**
-	 * Add mob to be killed in the list at start of the quest.<BR><BR>
-	 * @param killId
-	 * @return int : killId
-	 */
-	public int addKillId(int killId) {
-        _KillIds = addToIntArray(_KillIds, killId);
-		return killId;
-	}
-    
     /**
      * Add drop for the quest at this state of the quest 
      * @param npcId : int designating the ID of the NPC
@@ -116,40 +80,12 @@ public class State
                 _Drops.put(npcId, lst);
             }
         } catch (Exception e) {
-            _log.error(e.getMessage(),e);
+            e.printStackTrace();
         }
-    }
-    
-    /**
-     * Add NPC in the list of NPC to be talked
-     * @param talkId : ID of the NPC
-     * @return int : ID of the NPC
-     */
-    public int addTalkId(int talkId) {
-        _TalkIds = addToIntArray(_TalkIds, talkId);
-        return talkId;
-    }
-    
-    // =========================================================
-    // Method - Private
-    private int[] addToIntArray(int[] intArray, int value) {
-        int len = intArray.length;
-        int[] tmp = new int[len+1];
-        for (int i=0; i < len; i++)
-            tmp[i] = intArray[i];
-        tmp[len] = value;
-        return tmp;
     }
     
     // =========================================================
     // Proeprty
-    /**
-     * Return table of all NPC's ID to attack for quest.
-     * @return int[]
-     */
-    int[] getAttackIds() {
-        return _AttackIds;
-    }
 
     /**
      * Return list of drops at this step/state of the quest.
@@ -168,14 +104,6 @@ public class State
     }
 
     /**
-     * Return table of all NPC's ID to kill for quest.
-     * @return int[]
-     */
-    int[] getKillIds() {
-        return _KillIds;
-    }
-    
-    /**
      * Return name of the quest
      * @return String
      */
@@ -184,19 +112,6 @@ public class State
         return _Name;
     }
 	
-	/**
-	 * Return IDs of NPC to be talked for the quest
-	 * @return int[]
-	 */
-	int[] getTalkIds() {
-		return _TalkIds;
-	}
-
-	public boolean isParty()
-	{
-		return _party;
-	}
-
     /**
      * Return name of the quest
      * @return String
