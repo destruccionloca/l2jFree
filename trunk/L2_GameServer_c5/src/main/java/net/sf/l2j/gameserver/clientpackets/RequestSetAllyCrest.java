@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.idfactory.BitSetIDFactory;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -72,6 +73,9 @@ public class RequestSetAllyCrest extends ClientBasePacket
             
             if (activeChar.getClanId() != leaderclan.getClanId() || !activeChar.isClanLeader())
             {   
+	 			// [L2J_JP ADD]
+				SystemMessage sm = new SystemMessage(SystemMessage.FEATURE_ONLY_FOR_ALLIANCE_LEADER);
+				activeChar.sendPacket(sm);
                 return;
             }
             

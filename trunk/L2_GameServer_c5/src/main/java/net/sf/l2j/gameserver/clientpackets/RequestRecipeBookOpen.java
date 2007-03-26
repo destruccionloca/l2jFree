@@ -22,6 +22,7 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.RecipeController;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,7 +53,7 @@ public class RequestRecipeBookOpen extends ClientBasePacket
         
         if (getClient().getActiveChar().getPrivateStoreType() != 0)
         {
-            getClient().getActiveChar().sendMessage("Cannot use recipe book while trading");
+        	getClient().getActiveChar().sendPacket(new SystemMessage(SystemMessage.PRIVATE_STORE_UNDER_WAY));
             return;
         }
         

@@ -25,7 +25,10 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.ZoneType;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -58,6 +61,13 @@ public class Escape implements IUserCommandHandler
         {
         	activeChar.sendMessage("You're in JAIL, you can't escape.");
         	return false;
+        }
+        
+        // [L2J_JP ADD]
+        if(ZoneManager.getInstance().checkIfInZone(ZoneType.ZoneTypeEnum.NoEscape.toString(),activeChar)){
+            activeChar.sendPacket(SystemMessage.sendString("You can not escape from here."));
+            activeChar.sendPacket(new ActionFailed());
+            return false;                   
         }
  
         int unstuckTimer = (activeChar.getAccessLevel() >=REQUIRED_LEVEL? 5000 : Config.UNSTUCK_INTERVAL*1000 );

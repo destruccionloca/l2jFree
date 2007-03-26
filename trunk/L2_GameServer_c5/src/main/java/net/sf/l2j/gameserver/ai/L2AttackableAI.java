@@ -22,6 +22,7 @@ import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
+import java.util.List;
 import java.util.concurrent.Future;
 
 import net.sf.l2j.Config;
@@ -369,6 +370,41 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
                     // Set the AI Intention to AI_INTENTION_ATTACK
                     setIntention(CtrlIntention.AI_INTENTION_ATTACK, hated);
+                    // [L2J_JP ADD]
+                    // following boss
+                    L2MinionInstance minion;
+                    L2MonsterInstance boss;
+                    List<L2MinionInstance> minions;
+                    if (_actor instanceof L2MonsterInstance)
+                    {
+                        boss = (L2MonsterInstance) _actor;
+                        if (boss.hasMinions())
+                        {
+                            minions = boss.getSpawnedMinions();
+                            for (L2MinionInstance m : minions)
+                            {
+                                if(!m.isRunning()) m.setRunning();
+                                m.getAI().startFollow(_actor);
+                            }
+                        }
+                    }
+                    else if (_actor instanceof L2MinionInstance)
+                    {
+                        minion = (L2MinionInstance) _actor;
+                        boss = minion.getLeader();
+                        if(!boss.isRunning()) boss.setRunning();
+                        boss.getAI().startFollow(_actor);
+                        minions = boss.getSpawnedMinions();
+                        for (L2MinionInstance m : minions)
+                        {
+                            if (!(m.getObjectId() == _actor.getObjectId()))
+                            {
+                                if(!m.isRunning()) m.setRunning();
+                                m.getAI().startFollow(_actor);
+                            }
+                        }
+
+                    }
                 }
 
                 return;
@@ -449,7 +485,16 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             //_log.config("Curent pos ("+getX()+", "+getY()+"), moving to ("+x1+", "+y1+").");
             // Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet CharMoveToLocation (broadcast)
             moveTo(x1, y1, z1);
-
+            // [L2J_JP ADD]
+            // following boss
+            if(_actor instanceof L2MonsterInstance)
+            {
+                L2MonsterInstance boss = (L2MonsterInstance)_actor;
+                if(boss.hasMinions())
+                {
+                    boss.callMinions();
+                }
+            }
         }
 
         return;

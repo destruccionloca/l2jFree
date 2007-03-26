@@ -71,6 +71,8 @@ public class AdminEditChar implements IAdminCommandHandler
                 "admin_settitle",
                 "admin_setname",
                 "admin_setsex",
+                "admin_setcolor",
+                "admin_sethero",
                 "admin_fullfood",
                 "admin_remclanwait"
                 };
@@ -318,6 +320,29 @@ public class AdminEditChar implements IAdminCommandHandler
                    player.sendMessage("Your genader has been changed to \""+_sex+"\" by a GM");
                }   
             }   
+            else if (command.startsWith("admin_setcolor"))
+            {
+                try
+                {
+                    String val          = command.substring(15); 
+                    L2Object target     = activeChar.getTarget();
+                    L2PcInstance player = null;
+                    if (activeChar != target && activeChar.getAccessLevel()<REQUIRED_LEVEL2)
+                    	return false;
+                    if (target instanceof L2PcInstance) {
+                        player = (L2PcInstance)target;
+                    } else {
+                        return false;
+                    }
+                    player.getAppearance().setNameColor(Integer.decode("0x"+val));
+                    player.sendMessage("Your name color has been changed by a GM");
+                    player.broadcastUserInfo();
+                }
+                catch (StringIndexOutOfBoundsException e)
+                {   //Case of empty color
+                    activeChar.sendMessage("You need to specify the new color.");
+                }
+            }  
             else if (command.startsWith("admin_fullfood"))
             {
                L2Object target = activeChar.getTarget();
@@ -331,6 +356,25 @@ public class AdminEditChar implements IAdminCommandHandler
                    activeChar.sendPacket(new SystemMessage(SystemMessage.INCORRECT_TARGET));
                }
             }
+            // [L2J_JP ADD START]
+            else if (command.startsWith("admin_sethero"))
+            {
+                L2Object target = activeChar.getTarget();
+                L2PcInstance player = null;
+                if (activeChar != target && activeChar.getAccessLevel()<REQUIRED_LEVEL2)
+                    return false;
+                if (target instanceof L2PcInstance)
+                    player = (L2PcInstance)target;
+                else
+                    return false;
+                player.setHero(player.isHero() ? false : true);
+                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                sm.addString("Admin changed your hero status");
+                player.sendPacket(sm);
+                player.broadcastUserInfo();       
+            }
+            // [L2J_JP ADD END]
+           
             return true;
         }
         

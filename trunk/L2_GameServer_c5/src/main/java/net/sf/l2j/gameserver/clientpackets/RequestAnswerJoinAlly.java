@@ -78,8 +78,7 @@ public class RequestAnswerJoinAlly extends ClientBasePacket
 			// we must double check this cause of hack
 			if (clan.CheckAllyJoinCondition(requestor, activeChar))
 	        {
-		        //TODO: Need correct message id
-				requestor.sendPacket(new SystemMessage(SystemMessage.INVITED_A_FRIEND));
+				requestor.sendPacket(new SystemMessage(SystemMessage.YOU_INVITED_FOR_ALLIANCE));
 
 				activeChar.sendPacket(new SystemMessage(SystemMessage.YOU_ACCEPTED_ALLIANCE));
 

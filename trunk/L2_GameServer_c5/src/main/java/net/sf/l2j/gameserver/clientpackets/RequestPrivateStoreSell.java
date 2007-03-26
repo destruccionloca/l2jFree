@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
@@ -39,7 +40,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public class RequestPrivateStoreSell extends ClientBasePacket
 {
-//  private static final String _C__96_SENDPRIVATESTOREBUYBUYLIST = "[C] 96 SendPrivateStoreBuyBuyList";
     private static final String _C__96_REQUESTPRIVATESTORESELL = "[C] 96 RequestPrivateStoreSell";
     private final static Log _log = LogFactory.getLog(RequestPrivateStoreSell.class.getName());
     
@@ -111,11 +111,12 @@ public class RequestPrivateStoreSell extends ClientBasePacket
         
         if (storePlayer.getAdena() < _price)
         {
-            sendPacket(new ActionFailed());
-            storePlayer.sendMessage("You have not enough adena, canceling PrivateBuy.");
-            storePlayer.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
-            storePlayer.broadcastUserInfo();
-            return;
+			// [L2J_JP EDIT]
+			sendPacket(new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA));
+			sendPacket(new ActionFailed());
+			storePlayer.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
+			storePlayer.broadcastUserInfo();
+			return;
         }
         
         if (!storeList.PrivateStoreSell(player, _items, _price))

@@ -31,18 +31,23 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
+import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.Manager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.model.L2Multisell;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
+import net.sf.l2j.gameserver.model.base.Experience;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.SignsSky;
 import net.sf.l2j.gameserver.serverpackets.SunRise;
 import net.sf.l2j.gameserver.serverpackets.SunSet;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -61,7 +66,8 @@ public class AdminAdmin implements IAdminCommandHandler {
                                            "admin_gmliston","admin_gmlistoff","admin_silence",
                                            "admin_atmosphere","admin_diet","admin_tradeoff",
                                            "admin_reload", "admin_set", "admin_config_server","admin_config_server2",
-                                           "admin_saveolymp","admin_manualhero"};
+                                           "admin_saveolymp","admin_manualhero", "admin_summon", "admin_unsummon",
+                                           "admin_config_reload"};
 	private static final int REQUIRED_LEVEL = Config.GM_MENU;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
@@ -298,6 +304,31 @@ public class AdminAdmin implements IAdminCommandHandler {
                 activeChar.sendMessage("Usage: //set <parameter> <value>");
             }
         }
+		//[L2J_JP_ADD
+        else if(command.startsWith("admin_summon"))
+        {
+            StringTokenizer st = new StringTokenizer(command);
+            st.nextToken();
+            try{
+                int npcId = Integer.parseInt(st.nextToken());
+                if(npcId != 0)
+                	adminSummon(activeChar, npcId);
+            }catch(Exception e){
+                activeChar.sendMessage("Usage:  //summon npcid");
+            }
+        }
+        else if(command.startsWith("admin_unsummon"))
+        {
+            if (activeChar.getPet() != null)
+                activeChar.getPet().unSummon(activeChar);
+        }
+        // [L2J_JP ADD] reload configuration file
+        else if(command.startsWith("admin_config_reload"))
+        {
+            Config.load();
+            activeChar.sendMessage("gameserver config reloaded");
+        }
+		
 		return true;
 	}
 
@@ -540,5 +571,43 @@ public class AdminAdmin implements IAdminCommandHandler {
 
         adminReply.setHtml(replyMSG.toString());
         activeChar.sendPacket(adminReply); 
+    }
+	
+	
+	//[L2J_JP_ADD]
+    public void adminSummon(L2PcInstance activeChar, int npcId){
+        if (activeChar.getPet() != null) {
+            SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+            activeChar.sendPacket(sm);
+            activeChar.getPet().unSummon(activeChar);
+        }
+        
+        L2NpcTemplate summonTemplate = NpcTable.getInstance().getTemplate(npcId);
+        L2SummonInstance summon = new L2SummonInstance(IdFactory.getInstance().getNextId(), summonTemplate, activeChar, null);
+        
+        summon.setTitle(activeChar.getName());
+        summon.setExpPenalty(0);
+        if (summon.getLevel() >= Experience.LEVEL.length)
+        {
+            summon.getStat().setExp(Experience.LEVEL[Experience.LEVEL.length - 1]);
+        }
+        else
+        {
+            summon.getStat().setExp(Experience.LEVEL[(summon.getLevel() % Experience.LEVEL.length)]);
+        }
+        summon.getStat().setExp(0);
+        summon.setCurrentHp(summon.getMaxHp());
+        summon.setCurrentMp(summon.getMaxMp());
+        summon.setHeading(activeChar.getHeading());
+        summon.setRunning();
+        activeChar.setPet(summon);
+            
+        L2World.getInstance().storeObject(summon);
+        summon.spawnMe(activeChar.getX()+50, activeChar.getY()+100, activeChar.getZ());
+            
+        summon.setFollowStatus(true);
+        summon.setShowSummonAnimation(false); // addVisibleObject created the info packets with summon animation
+                                              // if someone comes into range now, the animation shouldnt show any more
+        activeChar.sendPacket(new PetInfo(summon));
     }
 }

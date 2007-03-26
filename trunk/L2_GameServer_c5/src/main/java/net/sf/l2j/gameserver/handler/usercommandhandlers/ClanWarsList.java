@@ -47,7 +47,7 @@ public class ClanWarsList implements IUserCommandHandler
 		L2Clan clan = activeChar.getClan();
 		if (clan == null)
 		{
-			activeChar.sendMessage("You are not in a clan.");
+			activeChar.sendPacket(new SystemMessage(SystemMessage.YOU_ARE_NOT_A_CLAN_MEMBER));
 			return false;	
 		}
 		

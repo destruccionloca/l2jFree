@@ -126,7 +126,8 @@ public class Say2 extends ClientBasePacket
         if (activeChar.isChatBanned())
         {
             {
-                activeChar.sendMessage("You may not chat while a chat ban is in effect.");
+				// [L2J_JP EDIT]
+				activeChar.sendPacket(new SystemMessage(SystemMessage.CHATTING_IS_CURRENTLY_PROHIBITED));
                 return;
             }
         }

@@ -26,10 +26,12 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+import net.sf.l2j.gameserver.model.entity.ZoneType;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.FriendList;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
@@ -67,6 +69,24 @@ public class Logout extends ClientBasePacket
         
         if (player == null)
             return;
+
+        // [L2J_JP ADD START]
+        if (!(player.isGM()))
+        {
+            if(ZoneManager.getInstance().checkIfInZone(ZoneType.ZoneTypeEnum.NoEscape.toString(),player)){
+                player.sendPacket(SystemMessage.sendString("You can not log out in here."));
+                player.sendPacket(new ActionFailed());
+                return;                   
+            }
+        }
+	
+        if(player.isFlying())
+        {
+            player.sendPacket(SystemMessage.sendString("You can not log out while flying."));
+            player.sendPacket(new ActionFailed());
+            return;                   
+        }
+        // [L2J_JP ADD END]
 
         if(AttackStanceTaskManager.getInstance().getAttackStanceTask(player))
         {

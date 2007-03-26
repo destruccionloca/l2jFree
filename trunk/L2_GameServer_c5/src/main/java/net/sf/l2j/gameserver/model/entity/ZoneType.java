@@ -29,6 +29,7 @@ public class ZoneType
         Underground,
         Water, 
         NoLanding,
+        NoEscape,
         Jail,
         JailSpawn,
         MotherTree,

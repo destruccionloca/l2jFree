@@ -18,6 +18,13 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.LineNumberReader;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
@@ -56,6 +63,7 @@ public class AdminTeleport implements IAdminCommandHandler
     private static final Log _log = LogFactory.getLog(AdminTeleport.class.getName());
     
     private static String[] _adminCommands = {
+    	"admin_bookmark", // L2JP_JP ADD
         "admin_show_moves",
         "admin_show_moves_other",
         "admin_show_teleport",
@@ -64,6 +72,8 @@ public class AdminTeleport implements IAdminCommandHandler
         "admin_move_to",
         "admin_teleport_character",
         "admin_recall",
+        "admin_recall_pt", //[L2J_JP ADD - TSL]
+        "admin_recall_all", //[L2J_JP ADD - TSL]
         "admin_walk",
         "teleportto",
         "recall",
@@ -84,7 +94,10 @@ public class AdminTeleport implements IAdminCommandHandler
     public boolean useAdminCommand(String command, L2PcInstance activeChar) {
         if (!Config.ALT_PRIVILEGES_ADMIN)
             if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
-        
+        if (command.startsWith("admin_bookmark"))// L2J_JP ADD
+        {
+            bookmark(activeChar, command.substring(15));
+        }
         if (command.equals("admin_teleto"))
         {
             activeChar.setTeleMode(1);
@@ -190,6 +203,42 @@ public class AdminTeleport implements IAdminCommandHandler
             catch (StringIndexOutOfBoundsException e)
             { }
         }
+        // [L2J_JP ADD START - TSL]
+        else if (command.startsWith("admin_recall_pt "))
+        {
+            try
+            {
+                String targetName = command.substring(16);
+                L2PcInstance player = L2World.getInstance().getPlayer(targetName);
+                if (activeChar.getAccessLevel()>=REQUIRED_LEVEL2)
+                {
+                	if (player.getParty() != null)
+                	{
+						for (L2PcInstance character : player.getParty().getPartyMembers())
+						{
+							if (character == activeChar) continue;
+		            	    teleportCharacter(character, activeChar.getX(), activeChar.getY(), activeChar.getZ());
+						}
+                	}
+					else
+						activeChar.sendMessage("Wrong or Player is not in PT.");
+                }
+            }
+            catch (StringIndexOutOfBoundsException e)
+            { }
+        }
+        else if (command.equals("admin_recall_all"))
+        {
+            if (activeChar.getAccessLevel()>=REQUIRED_LEVEL2)
+            {
+				for (L2PcInstance character : L2World.getInstance().getAllPlayers())
+				{
+					if (character == activeChar) continue;
+					teleportCharacter(character, activeChar.getX(), activeChar.getY(), activeChar.getZ());
+				}
+            }
+        }
+        // [L2J_JP ADD END - TSL]
         else if (command.startsWith("admin_failed"))
         {
             SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
@@ -351,6 +400,65 @@ public class AdminTeleport implements IAdminCommandHandler
     private boolean checkLevel(int level) 
     {
         return (level >= REQUIRED_LEVEL);
+    }
+
+    // L2J_JP ADD
+    private void bookmark(L2PcInstance activeChar, String Name){
+        File file = new File(Config.DATAPACK_ROOT+"/"+"data/html/admin/tele/bookmark.txt");
+        LineNumberReader lnr = null;
+        String bookmarks = "";
+        try
+        {
+            int i=0;
+            String line = null;
+            lnr = new LineNumberReader(new FileReader(file));
+            while ( (line = lnr.readLine()) != null)
+            {
+                StringTokenizer st = new StringTokenizer(line,"\r\n");
+                if (st.hasMoreTokens())
+                {   
+                    bookmarks += st.nextToken();
+                    i++;
+                }
+            }
+            if(Name.equals("show")){
+                FileInputStream fis = null;
+                fis = new FileInputStream(new File(Config.DATAPACK_ROOT+"/"+"data/html/admin/tele/bookmarks.htm"));
+                byte[] raw = new byte[fis.available()];
+                fis.read(raw);
+                String content = new String(raw, "UTF-8");
+                content = content.replaceAll("%bookmarks%", bookmarks);
+                NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+                adminReply.setHtml(content);
+                activeChar.sendPacket(adminReply);
+                fis.close();
+            }else{
+                FileWriter save = new FileWriter(file);
+                bookmarks += "<tr><td width=\"270\"><a action=\"bypass -h admin_move_to "+activeChar.getX()+" "+activeChar.getY()+" "+activeChar.getZ()+"\">"+Name+"</a></td></tr>\r\n";
+                save.write(bookmarks);
+                save.close();
+                bookmark(activeChar, "show");
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            activeChar.sendMessage("bookmarks.htm not found");
+        }
+        catch (IOException e1)
+        {
+            e1.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                lnr.close();
+            }
+            catch (Exception e2)
+            {
+                // nothing
+            }
+        }
     }
     
     private void teleportTo(L2PcInstance activeChar, String Cords)

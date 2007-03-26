@@ -19,19 +19,15 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.Iterator;
-import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
-
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.knownlist.MonsterKnownList;
-import net.sf.l2j.gameserver.serverpackets.Earthquake;
-import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.MinionList;
 
@@ -54,7 +50,8 @@ public class L2MonsterInstance extends L2Attackable
     private ScheduledFuture minionMaintainTask = null;
     
     private static final int MONSTER_MAINTENANCE_INTERVAL = 1000;
-    private Future _SocialTask;
+    // [L2J_JP ADD SANDMAN]
+    private ScheduledFuture hideTask;
     
     /**
      * Constructor of L2MonsterInstance (use L2Character and L2NpcInstance constructor).<BR><BR>
@@ -72,6 +69,11 @@ public class L2MonsterInstance extends L2Attackable
         super(objectId, template);
 		this.getKnownList();	// init knownlist
         minionList  = new MinionList(this);
+        // [L2J_JP ADD]
+        if (this.getNpcId() == 29002)   // Queen Ant Larva is invulnerable.
+        {
+            this.setIsInvul(true);
+        }
     }   
 
     public final MonsterKnownList getKnownList()
@@ -111,6 +113,19 @@ public class L2MonsterInstance extends L2Attackable
     public void OnSpawn()
     {
         super.OnSpawn();
+
+        // [L2J_JP ADD SANDMAN]
+        // in Restless Forest
+        // They are repeat themselves it visible or invisible.
+        switch (this.getNpcId())
+        {
+            case 21548:
+            case 21551:
+            case 21552:
+                hideTask = ThreadPoolManager.getInstance().scheduleEffect(new doHide(this), (this.getSpawn().getRespawnDelay()));
+                break;
+
+        }
         
         if (getTemplate().getMinionData() != null)
             try
@@ -146,35 +161,6 @@ public class L2MonsterInstance extends L2Attackable
             }
             catch ( NullPointerException e )
             {
-            }
-            /*
-             * used for npc social actions
-             */
-            switch (getTemplate().npcId)
-            {
-                case 29020://Baium
-                {
-                    Earthquake eq = new Earthquake(this.getX(),this.getY(),this.getZ(),30,10);
-                    broadcastPacket(eq);
-                    SocialAction sa = new SocialAction(getObjectId(),2);
-                    broadcastPacket(sa);
-                    _SocialTask = ThreadPoolManager.getInstance().scheduleEffect(new Social(12372), 15000);
-                    return;
-                        }
-                case 29028://Valakas
-                {
-                    SocialAction sa = new SocialAction(getObjectId(),3);
-                    broadcastPacket(sa);
-                    _SocialTask = ThreadPoolManager.getInstance().scheduleEffect(new Social(12899), 26000);
-                    return;
-                }
-                case 29019://Antharas
-                {
-                    SocialAction sa = new SocialAction(getObjectId(),3);
-                    broadcastPacket(sa);
-                    _SocialTask = ThreadPoolManager.getInstance().scheduleEffect(new Social(12211), 15000);
-                    return;
-                }                
             }
     }
     
@@ -293,6 +279,10 @@ public class L2MonsterInstance extends L2Attackable
     
     public void deleteMe()
     {
+        // [L2J_JP ADD SANDMAN]
+        if(hideTask != null)
+            hideTask.cancel(true);
+    	
         if (hasMinions())
         {
             if (minionMaintainTask != null)
@@ -301,42 +291,6 @@ public class L2MonsterInstance extends L2Attackable
             DeleteSpawnedMinions();
         }
         super.deleteMe();
-    }
-
-    private class Social implements Runnable
-    {
-        private int _bossid;
-        Social(int bossid)
-        {
-          _bossid=bossid;
-            // run task
-        }
-    
-        public void run()
-        {
-            switch (_bossid)
-            {
-                case 12372://Baium
-                {
-                    SocialAction sa = new SocialAction(getObjectId(),3);
-                    broadcastPacket(sa);
-                    return;
-                }
-                case 12899://Valakas
-                {
-                    SocialAction sa = new SocialAction(getObjectId(),2);
-                    broadcastPacket(sa);
-                    return;
-                }
-                case 12211://Antharas
-                {
-                    SocialAction sa = new SocialAction(getObjectId(),2);
-                    broadcastPacket(sa);
-                    return;
-                }
-            }
-    
-        }
     }
 
     public void DeleteSpawnedMinions()
@@ -350,5 +304,56 @@ public class L2MonsterInstance extends L2Attackable
            getSpawnedMinions().remove(minion);
         }
        minionList.clearRespawnList();
+    }
+    // [L2J_JP ADD SANDMAN START]
+    public void hideMe()
+    {
+        if(hasMinions())
+        {
+            if (minionMaintainTask != null)
+                minionMaintainTask.cancel(true);
+
+            DeleteSpawnedMinions();
+        }
+        super.deleteMe();
+    }
+    
+    public void shownMe()
+    {
+        if(!(this.isDead()))
+            this.spawnMe();
+    }
+    
+    private class doHide implements Runnable
+    {
+        private L2MonsterInstance _me;
+        private ScheduledFuture shownTask;
+        
+        public doHide(L2MonsterInstance actor)
+        {
+            _me = actor;
+        }
+        
+        public void run()
+        {
+            _me.hideMe();
+            shownTask = ThreadPoolManager.getInstance().scheduleGeneral(new doShown(_me),_me.getSpawn().getRespawnDelay());
+        }
+    }
+    
+    private class doShown implements Runnable
+    {
+        private L2MonsterInstance _me;
+        
+        public doShown(L2MonsterInstance actor)
+        {
+            _me = actor;
+        }
+        
+        public void run()
+        {
+            if(_me.getSpawn().IsRespawnable())
+                _me.shownMe();
+        }
     }
 }

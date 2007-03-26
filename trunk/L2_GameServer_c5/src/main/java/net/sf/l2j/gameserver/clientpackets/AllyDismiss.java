@@ -97,7 +97,7 @@ public class AllyDismiss extends ClientBasePacket
         		L2Clan.PENALTY_TYPE_CLAN_DISMISSED); //24*60*60*1000 = 86400000
         clan.updateClanInDB();
         
-        player.sendPacket(new SystemMessage(SystemMessage.YOU_HAVE_EXPELED_A_CLAN));
+        player.sendPacket(new SystemMessage(SystemMessage.YOU_HAVE_WITHDRAWN_FROM_ALLIANCE));
     }
     
     public String getType()

@@ -77,7 +77,8 @@ public class SystemMessage extends ServerBasePacket
 	public static final int EARNED_ADENA = 52;
 	public static final int DISSAPEARED_ITEM = 301;
 	public static final int DISSAPEARED_ADENA = 672;
-
+	
+	public static final int CHATTING_IS_CURRENTLY_PROHIBITED = 966;
 	public static final int SOUL_CRYSTAL_ABSORBING_SUCCEEDED = 974;
 	public static final int SOUL_CRYSTAL_ABSORBING_FAILED = 975;
 	public static final int SOUL_CRYSTAL_BROKE = 976;
@@ -107,6 +108,7 @@ public class SystemMessage extends ServerBasePacket
 	
 	public static final int SOULSHOTS_GRADE_MISMATCH = 0x151;
 	public static final int NOT_ENOUGH_SOULSHOTS = 0x152;
+	public static final int PRIVATE_STORE_UNDER_WAY = 340;
     public static final int ENABLED_SOULSHOT = 342;
 	public static final int CANNOT_USE_SOULSHOTS = 0x153;
 	public static final int SPIRITSHOTS_GRADE_MISMATCH = 530;
