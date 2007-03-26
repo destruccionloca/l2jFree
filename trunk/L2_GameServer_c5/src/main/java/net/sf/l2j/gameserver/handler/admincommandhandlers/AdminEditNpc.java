@@ -24,18 +24,16 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
-import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
+import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2DropCategory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -49,13 +47,16 @@ import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author terry
  *
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class AdminEditNpc implements IAdminCommandHandler {
-    private final static Log _log = LogFactory.getLog(AdminEditChar.class.getName());
+	private final static Log _log = LogFactory.getLog(AdminEditNpc.class.getName());
     private final static int PAGE_LIMIT = 7;
     
     private static String[] _adminCommands = {
@@ -191,7 +192,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
                     }
                     catch(Exception e)
                     {
-                        _log.warn("admin_edit_drop parements error: " + command);
+                        _log.info("admin_edit_drop parements error: " + command);
                     }
                 }
                 else
@@ -248,7 +249,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
                     }
                     catch(Exception e)
                     {
-                        _log.warn("admin_add_drop parements error: " + command);
+                        _log.info("admin_add_drop parements error: " + command);
                     }
                 }
                 else
@@ -591,6 +592,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         	con = L2DatabaseFactory.getInstance().getConnection();
 	        PreparedStatement stmt = con.prepareStatement("DELETE FROM merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
 	        stmt.execute();
+
 	        stmt.close();
         }catch (SQLException esql) {esql.printStackTrace();}
     }
@@ -690,6 +692,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 	        adminReply.replace("%pAtk%", String.valueOf(npc.basePAtk));
 	        adminReply.replace("%pDef%", String.valueOf(npc.basePDef));
 	        adminReply.replace("%mAtk%", String.valueOf(npc.baseMAtk));
+
 	        adminReply.replace("%mDef%", String.valueOf(npc.baseMDef));
 	        adminReply.replace("%pAtkSpd%", String.valueOf(npc.basePAtkSpd));
 	        adminReply.replace("%aggro%", String.valueOf(npc.aggroRange));

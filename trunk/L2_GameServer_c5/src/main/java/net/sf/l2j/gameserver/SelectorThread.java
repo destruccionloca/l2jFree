@@ -367,7 +367,8 @@ public final class SelectorThread extends IOThread {
 		} catch (IOException e) {
             try
             {
-                _log.debug("Error on network write, player "+con.getClient().getActiveChar().getName()+" disconnected?");
+            	if(_log.isDebugEnabled())
+            		_log.debug("Error on network write, player "+con.getClient().getActiveChar().getName()+" disconnected?");
                 if(con.getClient().getActiveChar().getPet() != null)
                 	con.getClient().getActiveChar().getPet().unSummon(con.getClient().getActiveChar());
                 if(con.getClient().getActiveChar().isInOlympiadMode())
@@ -375,7 +376,8 @@ public final class SelectorThread extends IOThread {
             }
             catch(NullPointerException npe)
             {
-                _log.info("Error on network write, player disconnected? (nullpointer, couldn't get player name)");
+            	if(_log.isDebugEnabled())
+            		_log.info("Error on network write, player disconnected? (nullpointer, couldn't get player name)");
             }
             
             if (con != null) closeClient(con);
@@ -475,12 +477,14 @@ public final class SelectorThread extends IOThread {
 			try
 			{
 				con.getClient().getActiveChar().getInventory().updateDatabase();
-                ClientThread.saveCharToDisk(con.getClient().getActiveChar()); 
-				_log.info("Error on network read, player "+con.getClient().getActiveChar().getName()+" disconnected?");
+                ClientThread.saveCharToDisk(con.getClient().getActiveChar());
+                if(_log.isDebugEnabled())
+                	_log.info("Error on network read, player "+con.getClient().getActiveChar().getName()+" disconnected?");
 			}
 			catch(NullPointerException npe)
 			{
-				_log.info("Error on network read, player disconnected? (nullpointer, couldn't get player name)");
+				if(_log.isDebugEnabled())
+					_log.info("Error on network read, player disconnected? (nullpointer, couldn't get player name)");
 			}
             
 			if(con != null)
