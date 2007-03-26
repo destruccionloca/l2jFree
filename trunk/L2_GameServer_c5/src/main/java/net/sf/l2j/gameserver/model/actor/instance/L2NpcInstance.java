@@ -815,7 +815,7 @@ public class L2NpcInstance extends L2Character
         } 
         else 
         {
-            if (isBusy())
+        	if (isBusy() && getBusyMessage().length()>0)
             {
                 player.sendPacket( new ActionFailed() );
                 
