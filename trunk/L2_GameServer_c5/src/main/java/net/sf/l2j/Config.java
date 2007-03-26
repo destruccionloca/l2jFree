@@ -1331,8 +1331,8 @@ public final class Config {
                 HERB_AUTO_DESTROY_TIME          = Integer.parseInt(optionsSettings.getProperty("AutoDestroyHerbTime","15"))*1000;
                 PROTECTED_ITEMS                 = optionsSettings.getProperty("ListOfProtectedItems");
                 LIST_PROTECTED_ITEMS = new FastList<Integer>();
-                for (String id : PROTECTED_ITEMS.split(",")) {
-                    LIST_PROTECTED_ITEMS.add(Integer.parseInt(id));
+                for (String id : PROTECTED_ITEMS.trim().split(",")) {
+                    LIST_PROTECTED_ITEMS.add(Integer.parseInt(id.trim()));
                      }
                 DESTROY_DROPPED_PLAYER_ITEM     = Boolean.valueOf(optionsSettings.getProperty("DestroyPlayerDroppedItem", "false"));
                 DESTROY_EQUIPABLE_PLAYER_ITEM   = Boolean.valueOf(optionsSettings.getProperty("DestroyEquipableItem", "false"));
@@ -1622,17 +1622,12 @@ public final class Config {
 	            MAX_PVTSTORE_SLOTS_OTHER = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreSlotsOther", "4"));
 	            
 	            STORE_SKILL_COOLTIME = Boolean.parseBoolean(otherSettings.getProperty("StoreSkillCooltime", "true"));
-                
-	            PET_RENT_NPC =  otherSettings.getProperty("ListPetRentNpc", "30827");
-	            LIST_PET_RENT_NPC = new FastList<Integer>();
-	            for (String id : PET_RENT_NPC.split(",")) {
-	                LIST_PET_RENT_NPC.add(Integer.parseInt(id));
-	            }
+
 	            NONDROPPABLE_ITEMS        = otherSettings.getProperty("ListOfNonDroppableItems", "1147,425,1146,461,10,2368,7,6,2370,2369,5598");
 	            
 	            LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
-	            for (String id : NONDROPPABLE_ITEMS.split(",")) {
-	                LIST_NONDROPPABLE_ITEMS.add(Integer.parseInt(id));
+	            for (String id : NONDROPPABLE_ITEMS.trim().split(",")) {
+	                LIST_NONDROPPABLE_ITEMS.add(Integer.parseInt(id.trim()));
 	            }
                 
 	            ANNOUNCE_MAMMON_SPAWN = Boolean.parseBoolean(otherSettings.getProperty("AnnounceMammonSpawn", "True"));
@@ -1650,9 +1645,9 @@ public final class Config {
                 
                 ALLOWED_NPC_TYPES  = otherSettings.getProperty("AllowedNPCTypes");
                 LIST_ALLOWED_NPC_TYPES = new FastList<String>();
-                for (String npc_type : ALLOWED_NPC_TYPES.split(",")) 
+                for (String npc_type : ALLOWED_NPC_TYPES.trim().split(",")) 
                 {
-                    LIST_ALLOWED_NPC_TYPES.add(npc_type);
+                    LIST_ALLOWED_NPC_TYPES.add(npc_type.trim());
                 }                
 	        }
 	        catch (Exception e)
@@ -1783,8 +1778,8 @@ public final class Config {
                 ALT_GAME_CREATION_SP_RATE=Double.parseDouble(altSettings.getProperty("AltGameCreationRateSp", "1"));
                 ALT_GAME_NUMBER_OF_CUMULATED_BUFF= Integer.parseInt(altSettings.getProperty("AltNbCumulatedBuff", "24"));
 	            ALT_GAME_SKILL_LEARN    = Boolean.parseBoolean(altSettings.getProperty("AltGameSkillLearn", "false"));
-	            ALT_GAME_CANCEL_BOW     = altSettings.getProperty("AltGameCancelByHit", "Cast").equalsIgnoreCase("bow") || altSettings.getProperty("AltGameCancelByHit", "Cast").equalsIgnoreCase("all");
-	            ALT_GAME_CANCEL_CAST    = altSettings.getProperty("AltGameCancelByHit", "Cast").equalsIgnoreCase("cast") || altSettings.getProperty("AltGameCancelByHit", "Cast").equalsIgnoreCase("all");
+	            ALT_GAME_CANCEL_BOW     = altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("bow") || altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");
+	            ALT_GAME_CANCEL_CAST    = altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("cast") || altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");
 	            ALT_GAME_SHIELD_BLOCKS  = Boolean.parseBoolean(altSettings.getProperty("AltShieldBlocks", "false"));
                 ALT_PERFECT_SHLD_BLOCK  = Integer.parseInt(altSettings.getProperty("AltPerfectShieldBlockRate", "10"));
                 ALT_GAME_DELEVEL        = Boolean.parseBoolean(altSettings.getProperty("Delevel", "true"));
@@ -1807,7 +1802,7 @@ public final class Config {
 	            SPAWN_WYVERN_MANAGER      = Boolean.valueOf(altSettings.getProperty("SpawnWyvernManager", "True"));
 	            SPAWN_CLASS_MASTER      = Boolean.valueOf(altSettings.getProperty("SpawnClassMaster", "False"));
 	            CLASS_MASTER_STRIDER_UPDATE = Boolean.valueOf(altSettings.getProperty("ClassMasterUpdateStrider", "False")); 
-	            if (!altSettings.getProperty("ConfigClassMaster").equalsIgnoreCase("False"))
+	            if (!altSettings.getProperty("ConfigClassMaster").trim().equalsIgnoreCase("False"))
 	            	CLASS_MASTER_SETTINGS_LINE = altSettings.getProperty("ConfigClassMaster");
 	            
 	            CLASS_MASTER_SETTINGS = new ClassMasterSettings(CLASS_MASTER_SETTINGS_LINE);
@@ -1828,8 +1823,8 @@ public final class Config {
 	            FAIL_FAKEDEATH 										= Boolean.parseBoolean(altSettings.getProperty("FailFakeDeath", "true"));
 	            ALT_FLYING_WYVERN_IN_SIEGE 							= Boolean.parseBoolean(altSettings.getProperty("AltFlyingWyvernInSiege", "false"));
 	            SP_BOOK_NEEDED          							= Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
-	            AUTO_LOOT               							= altSettings.getProperty("AutoLoot").equalsIgnoreCase("True");
-                AUTO_LOOT_HERBS         							= altSettings.getProperty("AutoLootHerbs").equalsIgnoreCase("True");
+	            AUTO_LOOT               							= altSettings.getProperty("AutoLoot").trim().equalsIgnoreCase("True");
+                AUTO_LOOT_HERBS         							= altSettings.getProperty("AutoLootHerbs").trim().equalsIgnoreCase("True");
                 ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE    = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanBeKilledInPeaceZone", "false"));
                 ALT_GAME_KARMA_PLAYER_CAN_SHOP                      = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanShop", "true"));
                 ALT_GAME_KARMA_PLAYER_CAN_USE_GK                    = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseGK", "false"));
@@ -2048,12 +2043,12 @@ public final class Config {
 	            KARMA_NONDROPPABLE_ITEMS        = pvpSettings.getProperty("ListOfNonDroppableItems", "57,1147,425,1146,461,10,2368,7,6,2370,2369");
 	            
 	            KARMA_LIST_NONDROPPABLE_PET_ITEMS = new FastList<Integer>();
-	            for (String id : KARMA_NONDROPPABLE_PET_ITEMS.split(",")) {
+	            for (String id : KARMA_NONDROPPABLE_PET_ITEMS.trim().split(",")) {
 	                KARMA_LIST_NONDROPPABLE_PET_ITEMS.add(Integer.parseInt(id));
 	            }
 	            
 	            KARMA_LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
-	            for (String id : KARMA_NONDROPPABLE_ITEMS.split(",")) {
+	            for (String id : KARMA_NONDROPPABLE_ITEMS.trim().split(",")) {
 	                KARMA_LIST_NONDROPPABLE_ITEMS.add(Integer.parseInt(id));
 	            }
 	            
@@ -2116,12 +2111,12 @@ public final class Config {
                 
                 String gmTrans = gmSettings.getProperty("GMDisableTransaction", "False");
                 
-                if (!gmTrans.equalsIgnoreCase("false"))
+                if (!gmTrans.trim().equalsIgnoreCase("false"))
                 {
-                    String[] params = gmTrans.split(",");
+                    String[] params = gmTrans.trim().split(",");
                     GM_DISABLE_TRANSACTION = true;
-                    GM_TRANSACTION_MIN = Integer.parseInt(params[0]);
-                    GM_TRANSACTION_MAX = Integer.parseInt(params[1]);
+                    GM_TRANSACTION_MIN = Integer.parseInt(params[0].trim());
+                    GM_TRANSACTION_MAX = Integer.parseInt(params[1].trim());
                 }
                 else
                 {
