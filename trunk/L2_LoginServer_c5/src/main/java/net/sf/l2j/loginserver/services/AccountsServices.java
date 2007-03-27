@@ -33,7 +33,7 @@ import java.util.List;
 import net.sf.l2j.loginserver.beans.Accounts;
 import net.sf.l2j.loginserver.dao.AccountsDAO;
 import net.sf.l2j.loginserver.services.exception.AccountModificationException;
-import net.sf.l2j.util.Base64;
+import net.sf.l2j.tools.codec.Base64;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

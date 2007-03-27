@@ -43,9 +43,9 @@ import net.sf.l2j.loginserver.serverpackets.PlayOk;
 import net.sf.l2j.loginserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.loginserver.serverpackets.ServerList;
 import net.sf.l2j.loginserver.services.exception.HackingException;
+import net.sf.l2j.tools.math.ScrambledKeyPair;
+import net.sf.l2j.tools.util.Util;
 import net.sf.l2j.util.NewCrypt;
-import net.sf.l2j.util.ScrambledKeyPair;
-import net.sf.l2j.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -116,8 +116,8 @@ public class ClientThread extends Thread
 		try
 		{
 			ScrambledKeyPair srambledPair = LoginManager.getInstance().getScrambledRSAKeyPair();
-			_privateKey = (RSAPrivateKey) srambledPair.pair.getPrivate();
-			Init startPacket = new Init(srambledPair.scrambledModulus);
+			_privateKey = (RSAPrivateKey) srambledPair.getPair().getPrivate();
+			Init startPacket = new Init(srambledPair.getScrambledModulus());
 			_out.write(startPacket.getLength() & 0xff);
 			_out.write(startPacket.getLength() >> 8 &0xff);
 			_out.write(startPacket.getContent());

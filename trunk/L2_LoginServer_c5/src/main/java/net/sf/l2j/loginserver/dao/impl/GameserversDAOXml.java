@@ -27,7 +27,6 @@ package net.sf.l2j.loginserver.dao.impl;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,13 +35,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javolution.xml.pull.XmlPullParserException;
-import javolution.xml.pull.XmlPullParserImpl;
 import net.sf.l2j.loginserver.beans.Gameservers;
 import net.sf.l2j.loginserver.dao.GameserversDAO;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.dom4j.Attribute;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
@@ -75,22 +77,36 @@ public class GameserversDAOXml implements GameserversDAO
                 // just for eclipse development, we have to search in dist folder
                 in = new FileInputStream("dist/servername.xml");
             }
-            XmlPullParserImpl xpp = new XmlPullParserImpl();
-            xpp.setInput(in);
-            for (int e = xpp.getEventType(); e != XmlPullParserImpl.END_DOCUMENT; e = xpp.next())
+            
+            SAXReader reader = new SAXReader();
+            Document document = reader.read(in);            
+            
+            Element root = document.getRootElement();
+
+            // Find all servers_list (should have only one)
+            for ( Iterator i = root.elementIterator( "server" ); i.hasNext(); ) 
             {
-                if (e == XmlPullParserImpl.START_TAG)
-                {
-                    if(xpp.getName().toString().equals("server"))
+                Element server = (Element) i.next();
+                Integer id=null;
+                String name=null;
+                // For each server, read the attributes
+                for ( Iterator iAttr = server.attributeIterator(); iAttr.hasNext(); ) {
+                    Attribute attribute = (Attribute) iAttr.next();
+                    if ( attribute.getName().equals("id"))
                     {
-                        Integer id = new Integer(xpp.getAttributeValue(null,"id").toString());
-                        String name = xpp.getAttributeValue(null,"name").toString();
-                        Gameservers gs = new Gameservers();
-                        gs.setServerId(id);
-                        gs.setServerName(name);
-                        
-                        serverNames.put(id,gs);
+                        id = new Integer(attribute.getValue()); 
                     }
+                    else if ( attribute.getName().equals("name") )
+                    {
+                        name = attribute.getValue();
+                    }
+                }
+                if ( id != null && name != null )
+                {
+                    Gameservers gs = new Gameservers();
+                    gs.setServerId(id);
+                    gs.setServerName(name);
+                    serverNames.put(id,gs);
                 }
             }
             _log.info("Loaded "+serverNames.size()+" server names");
@@ -98,14 +114,9 @@ public class GameserversDAOXml implements GameserversDAO
         catch (FileNotFoundException e)
         {
             _log.warn("servername.xml could not be loaded : " + e.getMessage());
-        }
-        catch (IOException ioe)
+        } catch (DocumentException e)
         {
-            ioe.printStackTrace();
-        }
-        catch (XmlPullParserException xppe)
-        {
-            xppe.printStackTrace();
+            _log.warn("servername.xml could not be loaded : " + e.getMessage());
         }
         finally
         {

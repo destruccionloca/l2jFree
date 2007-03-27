@@ -30,8 +30,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javolution.util.FastList;
-
-import net.sf.l2j.util.Net;
+import net.sf.l2j.tools.network.Net;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
@@ -45,7 +44,7 @@ public class BanManager
 {
     private static BanManager _instance = null;
     private static final Log _log = LogFactory.getLog(BanManager.class);
-    private static FastList<Net> _bannedIPs = new FastList<Net>();
+    private static List<Net> _bannedIPs = new FastList<Net>();
     public static String BAN_LIST = "config/banned_ip.cfg";
     private static final String ENCODING = "UTF-8";
     

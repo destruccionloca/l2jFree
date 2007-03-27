@@ -58,7 +58,7 @@ public class GameServerManagerTest extends TestCase
      */
     public void testIsLoaded ()
     {
-        assertEquals(gsManager.getServers().size(),127);
+        assertEquals(127,gsManager.getServers().size());
     }
     
     public void testGSStatus ()

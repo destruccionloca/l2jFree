@@ -26,15 +26,15 @@
 package net.sf.l2j.loginserver.beans;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import javolution.util.FastList;
-
 import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.loginserver.manager.GameServerManager;
 import net.sf.l2j.loginserver.thread.GameServerThread;
-import net.sf.l2j.util.Net;
+import net.sf.l2j.tools.network.Net;
 
 /**
  *  
@@ -160,7 +160,7 @@ public class GameServer
 	{
 	    private String _hostName;
 	    private String _hostAddress;
-	    private FastList<Net> _nets = new FastList<Net>();
+	    private List<Net> _nets = new FastList<Net>();
 	    
 	    public GameServerNetConfig(String hostName)
 	    {

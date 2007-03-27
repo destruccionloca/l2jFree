@@ -20,7 +20,7 @@ import net.sf.l2j.loginserver.beans.Accounts;
 import net.sf.l2j.loginserver.manager.GameServerManager;
 import net.sf.l2j.loginserver.manager.LoginManager;
 import net.sf.l2j.loginserver.thread.LoginServerThread;
-import net.sf.l2j.util.Base64;
+import net.sf.l2j.tools.codec.Base64;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

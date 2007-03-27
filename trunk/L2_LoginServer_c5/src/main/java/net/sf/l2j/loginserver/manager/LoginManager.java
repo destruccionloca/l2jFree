@@ -41,8 +41,8 @@ import net.sf.l2j.loginserver.services.exception.AccountModificationException;
 import net.sf.l2j.loginserver.services.exception.HackingException;
 import net.sf.l2j.loginserver.thread.GameServerListener;
 import net.sf.l2j.loginserver.thread.GameServerThread;
-import net.sf.l2j.util.Base64;
-import net.sf.l2j.util.ScrambledKeyPair;
+import net.sf.l2j.tools.codec.Base64;
+import net.sf.l2j.tools.math.ScrambledKeyPair;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

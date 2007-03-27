@@ -20,6 +20,8 @@ package net.sf.l2j.util;
 
 import java.io.IOException;
 
+import net.sf.l2j.tools.security.BlowfishEngine;
+
 
 /**
  * This class ...

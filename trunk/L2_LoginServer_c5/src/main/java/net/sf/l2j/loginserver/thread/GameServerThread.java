@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Vector;
 
 import javolution.util.FastList;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.LoginServer;
 import net.sf.l2j.loginserver.beans.SessionKey;
@@ -49,8 +48,8 @@ import net.sf.l2j.loginserver.loginserverpackets.PlayerAuthResponse;
 import net.sf.l2j.loginserver.manager.GameServerManager;
 import net.sf.l2j.loginserver.manager.LoginManager;
 import net.sf.l2j.loginserver.serverpackets.ServerBasePacket;
+import net.sf.l2j.tools.util.Util;
 import net.sf.l2j.util.NewCrypt;
-import net.sf.l2j.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

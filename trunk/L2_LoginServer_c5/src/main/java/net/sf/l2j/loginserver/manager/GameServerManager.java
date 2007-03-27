@@ -52,7 +52,7 @@ import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.loginserver.serverpackets.ServerList;
 import net.sf.l2j.loginserver.services.GameserversServices;
 import net.sf.l2j.loginserver.thread.GameServerThread;
-import net.sf.l2j.util.HexUtil;
+import net.sf.l2j.tools.util.HexUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

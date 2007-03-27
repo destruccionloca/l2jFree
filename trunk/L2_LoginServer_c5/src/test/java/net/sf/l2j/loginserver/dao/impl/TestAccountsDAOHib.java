@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.l2j.loginserver.beans.Accounts;
-import net.sf.l2j.tools.hibernate.ADAOTestCase;
+import net.sf.l2j.tools.db.hibernate.ADAOTestCase;
 
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatDtdDataSet;
