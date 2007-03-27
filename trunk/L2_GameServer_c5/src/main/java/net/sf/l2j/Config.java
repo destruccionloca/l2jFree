@@ -154,6 +154,8 @@ public final class Config {
     public static boolean ALT_DISABLE_RAIDBOSS_PETRIFICATION;
     /** Own Stat Point Distribution */
     public static boolean ALT_STATPOINT_DISTRIBUTION;
+    /** Critical Cap */
+    public static int ALT_CRITICAL_CAP;
     
  	/** Alternative game skill learning */
     public static boolean ALT_GAME_SKILL_LEARN;
@@ -1900,6 +1902,7 @@ public final class Config {
                 ALT_DIFF_CUTOFF                                     = Integer.parseInt(altSettings.getProperty("MobPCExpCutoff", "-10"));
                 ALT_DISABLE_RAIDBOSS_PETRIFICATION                  = Boolean.parseBoolean(altSettings.getProperty("DisableRaidBossPetrification", "false"));
                 ALT_STATPOINT_DISTRIBUTION                          = Boolean.parseBoolean(altSettings.getProperty("AltStatPointDistribution", "false"));
+                ALT_CRITICAL_CAP								 	= Integer.parseInt(altSettings.getProperty("AltCriticalCap", "500"));
                 
                 WEDDING_PRICE                                       = Integer.parseInt(altSettings.getProperty("WeddingPrice", "500000"));
                 WEDDING_PUNISH_INFIDELITY                           = Boolean.parseBoolean(altSettings.getProperty("WeddingPunishInfidelity", "true"));                
