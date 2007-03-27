@@ -319,4 +319,74 @@
 <production id="2409" count="1"/> 
 </item> 
 
+<!-- Unseal Apella Helm -->  
+<item id="46"> 
+<ingredient id="7870" count="1"/> 
+<ingredient id="5575" count="100000"/> 
+<production id="7860" count="1"/> 
+</item> 
+
+<!-- Unseal Apella Sandals --> 
+<item id="47"> 
+<ingredient id="7879" count="1"/> 
+<ingredient id="5575" count="100000"/> 
+<production id="7869" count="1"/> 
+</item> 
+
+<!-- Unseal Apella Silk Gloves --> 
+<item id="48"> 
+<ingredient id="7878" count="1"/> 
+<ingredient id="5575" count="100000"/> 
+<production id="7868" count="1"/> 
+</item> 
+
+<!-- Unseal Apella Doublet --> 
+<item id="49"> 
+<ingredient id="7877" count="1"/> 
+<ingredient id="5575" count="350000"/> 
+<production id="7867" count="1"/> 
+</item> 
+
+<!-- Unseal Apella Boots --> 
+<item id="50"> 
+<ingredient id="7876" count="1"/> 
+<ingredient id="5575" count="100000"/> 
+<production id="7866" count="1"/> 
+</item> 
+
+<!-- Unseal Apella Leather Gloves --> 
+<item id="51"> 
+<ingredient id="7875" count="1"/> 
+<ingredient id="5575" count="100000"/> 
+<production id="7865" count="1"/> 
+</item> 
+
+<!-- Unseal Apella Brigandine --> 
+<item id="52"> 
+<ingredient id="7874" count="1"/> 
+<ingredient id="5575" count="350000"/> 
+<production id="7864" count="1"/> 
+</item> 
+
+<!-- Unseal Apella Solleret --> 
+<item id="53"> 
+<ingredient id="7873" count="1"/> 
+<ingredient id="5575" count="100000"/> 
+<production id="7863" count="1"/> 
+</item> 
+
+<!-- Unseal Apella Gauntlet --> 
+<item id="54"> 
+<ingredient id="7872" count="1"/> 
+<ingredient id="5575" count="100000"/> 
+<production id="7862" count="1"/> 
+</item> 
+
+<!-- Unseal Apella Plate Armor --> 
+<item id="55"> 
+<ingredient id="7871" count="1"/> 
+<ingredient id="5575" count="350000"/> 
+<production id="7861" count="1"/> 
+</item>
+
 </list>

@@ -1320,6 +1320,7 @@
     <add stat="waterRes" val="30" order="0x40"/> 
     <add stat="earthRes" val="30" order="0x40"/> 
     <add stat="stunRes" val="20" order="0x40"/> 
+    <add stat="cancelRes" val="30" order="0x40"/>
   </effect>   
 </for>
 </skill>
