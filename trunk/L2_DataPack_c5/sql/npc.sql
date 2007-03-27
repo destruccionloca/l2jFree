@@ -1,24 +1,3 @@
--- MySQL dump 10.10
---
--- Host: localhost    Database: l2jdb
--- ------------------------------------------------------
--- Server version	5.0.27-community-nt
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `npc`
---
-
 DROP TABLE IF EXISTS `npc`;
 CREATE TABLE `npc` (
   `id` decimal(11,0) NOT NULL default '0',
@@ -69,8 +48,6 @@ CREATE TABLE `npc` (
 -- Dumping data for table `npc`
 --
 
-
-/*!40000 ALTER TABLE `npc` DISABLE KEYS */;
 LOCK TABLES `npc` WRITE;
 INSERT INTO `npc` VALUES (20001, 20001, 'Gremlin', 0, '', 0, 'Monster.gremlin', 10.00, 15.00, 1, 'male', 'L2Monster', 40, 62, 44, 3.16, 0.91, 40, 43, 30, 21, 35, 10, 29, 2, 9, 39, 3, 32, 278, 0, 253, 0, 0, 0, 20, 50, NULL, 0, 0, 0);
 INSERT INTO `npc` VALUES (20002, 20002, 'Rabbit', 0, '', 0, 'Monster.rabbit', 5.00, 4.50, 1, 'male', 'L2Monster', 40, 62, 44, 3.16, 0.91, 40, 43, 30, 21, 35, 10, 29, 2, 9, 39, 3, 32, 278, 0, 253, 0, 0, 0, 50, 80, NULL, 0, 0, 0);
@@ -6788,14 +6765,3 @@ INSERT INTO `npc` VALUES (35367, 35367, 'Daven', 0, 'Messenger', 0, 'NPC.e_elmor
 INSERT INTO `npc` VALUES (35513, 35513, 'Sherman', 0, 'Messenger', 0, 'NPC.e_elmore_guard_Mhuman', 10.00, 20.00, 93, 'male', 'L2SiegeNpc', 40, 350000, 44, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 30, 2, 4, 40, 3, 31, 253, 0, 333, 0, 0, 0, 22, 55, '', 0, 0, 0);
 INSERT INTO `npc` VALUES (35559, 35559, 'Daguerre', 0, 'Messenger', 0, 'NPC.e_elmore_guard_Mhuman', 10.00, 23.00, 93, 'male', 'L2SiegeNpc', 40, 350000, 44, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 30, 2, 4, 40, 3, 31, 253, 0, 333, 0, 0, 0, 22, 55, '', 0, 0, 0);
 UNLOCK TABLES;
-/*!40000 ALTER TABLE `npc` ENABLE KEYS */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
