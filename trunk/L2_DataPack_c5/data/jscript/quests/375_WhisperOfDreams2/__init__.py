@@ -80,7 +80,7 @@ class Quest (JQuest) :
    return htmltext
  
  def onKill (self,npc,player) :
-    npcid = npc.getNpcId()
+    npcId = npc.getNpcId()
     item, partyCond  = DROPLIST[npcid]
     partyMember = self.getRandomPartyMember(player, partyCond, "1")
     if not partyMember : return
