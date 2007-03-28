@@ -3917,7 +3917,7 @@ public final class L2PcInstance extends L2PlayableInstance
                         
                         // announce to player
                         if(Config.ALT_ANNOUNCE_PK_NORMAL_MESSAGE)
-                        	Announcements.getInstance().announceToAll(announcetext);
+                        	Announcements.getInstance().announceToPlayers(announcetext);
                         else
                         	Announcements.getInstance().announceToAll(announcetext);
                     }
@@ -3932,7 +3932,7 @@ public final class L2PcInstance extends L2PlayableInstance
             else if (pk != null && Config.ALT_ANNOUNCE_PK && !ZoneManager.getInstance().checkIfInZonePvP(this))
             {
             	if(Config.ALT_ANNOUNCE_PK_NORMAL_MESSAGE)
-            		Announcements.getInstance().announceToAll(pk.getName()+" has defeated "+this.getName());
+            		Announcements.getInstance().announceToPlayers(pk.getName()+" has defeated "+this.getName());
             	else
             		Announcements.getInstance().announceToAll(pk.getName()+" has defeated "+this.getName());
             }
