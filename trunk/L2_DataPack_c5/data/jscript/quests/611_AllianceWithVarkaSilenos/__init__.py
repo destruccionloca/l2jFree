@@ -76,7 +76,7 @@ def decreaseAlliance(st) :
       st.takeItems(Varka_Alliance_Five,-1)
       st.giveItems(Varka_Alliance_Four,1)
 
-def giveReward(st) :
+def giveReward(st,npc) :
     npcId = npc.getNpcId()
     cond = st.getInt("cond")
     id = st.getInt("id")
@@ -382,10 +382,10 @@ class Quest (JQuest) :
                                   st.playSound("ItemSound.quest_itemget")
                       else :
                           if st.getRandom(2) == 1 :
-                              giveReward(st)
+                              giveReward(st,npc)
                   else :
                       if st.getRandom(2) == 1 :
-                          giveReward(st)
+                          giveReward(st,npc)
               elif npcId in Varka_Silenos :
                   decreaseAlliance(st)
                   party = st.getPlayer().getParty()

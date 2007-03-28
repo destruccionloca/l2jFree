@@ -79,6 +79,7 @@ class Quest (JQuest) :
    if id == CREATED :
      st.set("cond","0")
    if st.getPlayer().isSubClassActive() :
+     cond = st.getInt("cond")
      if npcId == CARADINE and cond == 0 and st.getQuestItemsCount(CARADINE_LETTER) == 1 :
        if id == COMPLETED :
          htmltext = "<html><head><body>This quest have already been completed.</body></html>"

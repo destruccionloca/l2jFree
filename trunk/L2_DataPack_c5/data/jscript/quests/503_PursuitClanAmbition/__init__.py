@@ -507,6 +507,7 @@ class Quest (JQuest) :
       if clan:
         leader=clan.getLeader().getPlayerInstance()
         if leader :
+          st = player.getQuestState(qn)
           if st.getPlayer().isInsideRadius(leader, 1600, 1, 0) :
             leader_st = leader.getQuestState(qn)
     

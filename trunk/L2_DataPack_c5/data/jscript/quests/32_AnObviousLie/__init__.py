@@ -137,6 +137,7 @@ class Quest (JQuest) :
 
  def onKill (self,npc,player):
    st = player.getQuestState(qn)
+   htmltext = "<html><head><body>I have nothing to say you</body></html>"
    if not st : return htmltext
    if st.getState() : return
    
