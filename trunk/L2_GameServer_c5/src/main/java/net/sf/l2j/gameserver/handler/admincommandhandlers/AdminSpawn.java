@@ -333,7 +333,10 @@ public class AdminSpawn implements IAdminCommandHandler
         } 
         return true;
     }
-
+    
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.handler.IAdminCommandHandler#getAdminCommandList()
+     */
     public String[] getAdminCommandList()
     {
     	String[] _adminCommandsOnly = new String[_adminCommands.length];

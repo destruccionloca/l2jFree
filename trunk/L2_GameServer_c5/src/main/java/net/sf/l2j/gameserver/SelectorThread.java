@@ -782,7 +782,7 @@ public final class SelectorThread extends IOThread {
             byteCount.clear();
             packetHistory.clear();
             byteHistory.clear();
-            
+            Config.TEST_CAPTUREPACKETS = true;
             packetMonitor   = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(
                 new Runnable()
                 {
@@ -803,8 +803,8 @@ public final class SelectorThread extends IOThread {
             {
                 packetMonitor.cancel(true);
             }
-            
             dumpPacketHistory();
+            Config.TEST_CAPTUREPACKETS = false;
         }
     }
     

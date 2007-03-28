@@ -165,9 +165,6 @@ public class Mdam implements ISkillHandler
                     SystemMessage sm = new SystemMessage(SystemMessage.YOU_DID_S1_DMG);
                     sm.addNumber(damage);
                     activeChar.sendPacket(sm);
-                    if (((L2PcInstance)activeChar).getStatTrack() != null) 
-                       ((L2PcInstance)activeChar).getStatTrack().increaseDamageDealt(damage);
-                    
                 }
                 if (target instanceof L2PcInstance) //aura flare de-buff.
                 {

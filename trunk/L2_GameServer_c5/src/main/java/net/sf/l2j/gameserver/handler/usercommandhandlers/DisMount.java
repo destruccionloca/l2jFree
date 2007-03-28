@@ -40,11 +40,7 @@ public class DisMount implements IUserCommandHandler
     {
         if (id != COMMAND_IDS[0]) return false;
 
-        if (activeChar.isRentedPet())
-        {
-        	activeChar.stopRentPet();
-        }
-        else if (activeChar.isMounted())
+        if (activeChar.isMounted())
         {
             if (activeChar.isFlying())activeChar.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
 			Ride dismount = new Ride(activeChar.getObjectId(), Ride.ACTION_DISMOUNT, 0);

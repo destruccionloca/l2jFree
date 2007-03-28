@@ -137,7 +137,6 @@ import net.sf.l2j.gameserver.model.entity.events.VIP;
 import net.sf.l2j.gameserver.model.entity.faction.FactionMember;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
-import net.sf.l2j.gameserver.script.stat.StatTrack;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ChangeWaitType;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
@@ -164,7 +163,6 @@ import net.sf.l2j.gameserver.serverpackets.PrivateStoreListBuy;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreListSell;
 import net.sf.l2j.gameserver.serverpackets.QuestList;
 import net.sf.l2j.gameserver.serverpackets.RecipeShopSellList;
-import net.sf.l2j.gameserver.serverpackets.Ride;
 import net.sf.l2j.gameserver.serverpackets.SendTradeDone;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
@@ -352,8 +350,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /** List with the recomendations that I've give */
     private FastList<Integer> _recomChars = new FastList<Integer>();
-    
-    private StatTrack _statTrack;
 
     /** The random number of the L2PcInstance */
     //private static final Random _rnd = new Random();
@@ -458,7 +454,6 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _tradeRefusal = false; // Trade refusal
     private boolean _exchangeRefusal = false; // Exchange refusal
 
-    public boolean _exploring = false;
 
     // this is needed to find the inviting player for Party response
     // there can only be one active party request at once
@@ -480,8 +475,6 @@ public final class L2PcInstance extends L2PlayableInstance
     private String _accountName;
 
     private final FastMap<Integer, String> _chars = new FastMap<Integer, String>();
-
-    public byte _updateKnownCounter = 0;
 
     /** The table containing all L2RecipeList of the L2PcInstance */
     private FastMap<Integer, L2RecipeList> _dwarvenRecipeBook = new FastMap<Integer, L2RecipeList>();
@@ -597,7 +590,6 @@ public final class L2PcInstance extends L2PlayableInstance
     private long _lastAccess;
     private int _boatId;
 
-    private ScheduledFuture _taskRentPet;
     private ScheduledFuture _taskWater;
     private L2BoatInstance _boat;
     private Point3D _inBoatPosition;
@@ -815,9 +807,6 @@ public final class L2PcInstance extends L2PlayableInstance
         if (!Config.WAREHOUSE_CACHE)
             getWarehouse();
         getFreight().restore();
-        getStatTrack(); //Init Stat Tracker
-        if (getStatTrack() != null)
-            getStatTrack().wake(this); //Start Stat Tracking
     }
 
     private L2PcInstance(int objectId)
@@ -946,10 +935,6 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void logout()
     {
-       if (getStatTrack() != null)
-           getStatTrack().sleep(); //Shut down the Stat Tracker.
-       _statTrack = null; //Garbage Collection
-
         // Close the connection with the client
         if (_connection != null) _connection.close();
     }
@@ -1611,8 +1596,6 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void setKarma(int karma)
     {
-        if (karma > _karma) 
-            if (getStatTrack() != null) getStatTrack().increaseKarma(karma - _karma);
         if (karma < 0) karma = 0;
         if (_karma == 0 && karma > 0)
         {
@@ -3737,18 +3720,6 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         // Kill the L2PcInstance
         super.doDie(killer);
-       
-        // Stattracking.
-        if (getStatTrack() != null) 
-        {
-            if (killer instanceof L2MonsterInstance)
-                getStatTrack().increaseMonsterDeaths();
-            else if (killer instanceof L2PcInstance)
-                if (getPvpFlag() == 1)
-                    getStatTrack().increasePvPDeaths();
-                else
-                    getStatTrack().increasePKDeaths();
-        }
 
         if (isCursedWeaponEquiped())
         {
@@ -3946,7 +3917,7 @@ public final class L2PcInstance extends L2PlayableInstance
                         
                         // announce to player
                         if(Config.ALT_ANNOUNCE_PK_NORMAL_MESSAGE)
-                        	Announcements.getInstance().announceToPlayers(announcetext);
+                        	Announcements.getInstance().announceToAll(announcetext);
                         else
                         	Announcements.getInstance().announceToAll(announcetext);
                     }
@@ -3963,7 +3934,7 @@ public final class L2PcInstance extends L2PlayableInstance
             	if(Config.ALT_ANNOUNCE_PK_NORMAL_MESSAGE)
             		Announcements.getInstance().announceToAll(pk.getName()+" has defeated "+this.getName());
             	else
-            		Announcements.getInstance().announceToPlayers(pk.getName()+" has defeated "+this.getName());
+            		Announcements.getInstance().announceToAll(pk.getName()+" has defeated "+this.getName());
             }
         }
 
@@ -3988,11 +3959,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			if(FourSepulchersManager.getInstance().IsPartyAnnihilated(this))
 			{
-				Future AnnihilatedTask = 
-					ThreadPoolManager.getInstance().scheduleEffect(new onAnnihilated(this),5000);
+				ThreadPoolManager.getInstance().scheduleEffect(new onAnnihilated(this),5000);
 			}
 		}
-        stopRentPet();
         stopWaterTask();
         stopJailTask(true);
     }
@@ -4165,8 +4134,6 @@ public final class L2PcInstance extends L2PlayableInstance
         if (ArenaManager.getInstance().getArenaIndex(this.getX(), this.getY()) != -1
             || ArenaManager.getInstance().getArenaIndex(target.getX(), target.getY()) != -1)
         {
-            if (getStatTrack() != null)
-               getStatTrack().increasePvPKills();            
             return;
         }
 
@@ -4183,9 +4150,6 @@ public final class L2PcInstance extends L2PlayableInstance
             if (Config.FACTION_ENABLED)
                 if (targetPlayer.getSide() != getSide() && targetPlayer.getSide()!=0 && getSide()!=0 && Config.FACTION_KILL_REWARD)
                     increaseFactionKillPoints(targetPlayer.getLevel(),false);
-            // save stats
-            if (getStatTrack() != null)
-                getStatTrack().increasePvPKills();
         }
         else
         // Target player doesn't have pvp flag set
@@ -4196,9 +4160,6 @@ public final class L2PcInstance extends L2PlayableInstance
                 {
                     // give faction pk points
                     increaseFactionKillPoints(targetPlayer.getLevel(),true);                    
-                    // save stats
-                    if (getStatTrack() != null)
-                        getStatTrack().increasePvPKills();
                     // no karma
                     return;
                 }
@@ -4212,9 +4173,6 @@ public final class L2PcInstance extends L2PlayableInstance
                     {
                         // 'Both way war' -> 'PvP Kill' 
                         increasePvpKills();
-                        if (getStatTrack() != null)
-                           getStatTrack().increasePvPKills();
-                        return;
                     }
                 }
             }
@@ -4225,16 +4183,12 @@ public final class L2PcInstance extends L2PlayableInstance
                 if (Config.KARMA_AWARD_PK_KILL)
                 {
                     increasePvpKills();
-                    if (getStatTrack() != null)
-                        getStatTrack().increasePvPKills();                        
                 }
             }
             else
             // Target player doesn't have karma
             {
                 increasePkKillsAndKarma(targetPlayer.getLevel());
-                if (getStatTrack() != null)
-                    getStatTrack().increasePvPKills();                
             }
         }
     }
@@ -4313,9 +4267,6 @@ public final class L2PcInstance extends L2PlayableInstance
         // Add karma to attacker and increase its PK counter
         setPkKills(getPkKills() + 1);
         setKarma(getKarma() + newKarma);
-        
-        if (getStatTrack() != null)
-            getStatTrack().increasePKKills();
         
         // Send a Server->Client UserInfo packet to attacker with its Karma and PK Counter
         sendPacket(new UserInfo(this));
@@ -4414,9 +4365,6 @@ public final class L2PcInstance extends L2PlayableInstance
                 lostExp = Math.round((getStat().getExpForLevel(lvl+1) - getStat().getExpForLevel(lvl)) * percentLost /100);
             else
                 lostExp = Math.round((getStat().getExpForLevel(Experience.MAX_LEVEL) - getStat().getExpForLevel(Experience.MAX_LEVEL - 1)) * percentLost /100);
-            if (getStatTrack() != null)
-                getStatTrack().reduceXP(lostExp);
-            
         }
                                                                                                                  
         // Get the Experience before applying penalty
@@ -4512,7 +4460,6 @@ public final class L2PcInstance extends L2PlayableInstance
         stopHpMpRegeneration();
         stopWarnUserTakeBreak();
         stopWaterTask();
-        stopRentPet();
     }
 
     /**
@@ -7663,14 +7610,6 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
-    class RentPetTask implements Runnable
-    {
-        public void run()
-        {
-            stopRentPet();
-        }
-    }
-
     public ScheduledFuture _taskforfish;
 
     class WaterTask implements Runnable
@@ -8663,37 +8602,6 @@ public final class L2PcInstance extends L2PlayableInstance
                                                                                                 new WarnUserTakeBreak(),
                                                                                                 7200000,
                                                                                                 7200000);
-    }
-
-    public void stopRentPet()
-    {
-        if (_taskRentPet != null)
-        {
-            // if the rent of a wyvern expires while over a flying zone, tp to down before unmounting
-            if (checkLandingState() && getMountType() == 2)
-                teleToLocation(MapRegionTable.TeleportWhereType.Town);
-            _taskRentPet.cancel(false);
-            Ride dismount = new Ride(getObjectId(), Ride.ACTION_DISMOUNT, 0);
-            sendPacket(dismount);
-            broadcastPacket(dismount);
-            _taskRentPet = null;
-            setMountType(0);
-        }
-    }
-
-    public void startRentPet(int seconds)
-    {
-        if (_taskRentPet == null)
-            _taskRentPet = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new RentPetTask(),
-                                                                                      seconds * 1000,
-                                                                                      seconds * 1000);
-    }
-
-    public boolean isRentedPet()
-    {
-        if (_taskRentPet != null) return true;
-
-        return false;
     }
 
     public void stopWaterTask()
@@ -10521,11 +10429,5 @@ public final class L2PcInstance extends L2PlayableInstance
    public void removeTimeStamp(int s)
    {
        ReuseTimeStamps.remove(s);
-   }
-
-   public StatTrack getStatTrack() 
-   {
-       if (_statTrack == null) _statTrack = StatTrack.findStat(this);
-       return _statTrack;
    }
 }

@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
  * 
  *
  */
-public class PlayerCastleDoors implements IVoicedCommandHandler
+public class CastleDoors implements IVoicedCommandHandler
 {
     private static String[] _voicedCommands = { "open", "close"}; 
 

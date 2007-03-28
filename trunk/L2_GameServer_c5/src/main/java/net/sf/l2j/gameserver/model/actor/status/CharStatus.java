@@ -106,8 +106,6 @@ public class CharStatus
 
     	if (getActiveChar() instanceof L2PcInstance)
     	{
-            if (((L2PcInstance)getActiveChar()).getStatTrack() != null)
-                ((L2PcInstance)getActiveChar()).getStatTrack().increaseDamageTaken((int) value);
             if (getActiveChar().isDead() && !getActiveChar().isFakeDeath())
                 return; // Disabled == null check so skills like Body to Mind work again untill another solution is found
     	} else 
@@ -337,10 +335,6 @@ public class CharStatus
         {
             // Get the Max HP of the L2Character
             double maxHp = getActiveChar().getStat().getMaxHp();
-            
-            if (getActiveChar() instanceof L2PcInstance && newHp > maxHp) 
-               if (((L2PcInstance)getActiveChar()).getStatTrack() != null)
-                   ((L2PcInstance)getActiveChar()).getStatTrack().increaseHealthGain(newHp-maxHp);
 
             if (newHp >= maxHp)
             {

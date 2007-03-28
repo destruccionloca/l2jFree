@@ -109,7 +109,7 @@ public class PcKnownList extends PlayableKnownList
             }
             else if (object instanceof L2NpcInstance)
             {
-                if (Config.CHECK_KNOWN) getActiveChar().sendMessage("Added NPC: "+((L2NpcInstance) object).getName());
+                if (Config.TEST_KNOWNLIST && getActiveChar().isGM()) getActiveChar().sendMessage("Knownlist, added NPC: "+((L2NpcInstance) object).getName());
                 getActiveChar().sendPacket(new NpcInfo((L2NpcInstance) object, getActiveChar()));
             }
             else if (object instanceof L2Summon)
@@ -206,7 +206,7 @@ public class PcKnownList extends PlayableKnownList
             if (!super.removeKnownObject(object)) return false;
         // Send Server-Client Packet DeleteObject to the L2PcInstance
         getActiveChar().sendPacket(new DeleteObject(object));                  
-       if (Config.CHECK_KNOWN && object instanceof L2NpcInstance) getActiveChar().sendMessage("Removed NPC: "+((L2NpcInstance)object).getName());
+       if (Config.TEST_KNOWNLIST && getActiveChar().isGM() && object instanceof L2NpcInstance) getActiveChar().sendMessage("Knownlist,removed NPC: "+((L2NpcInstance)object).getName());
         return true;
     }
     

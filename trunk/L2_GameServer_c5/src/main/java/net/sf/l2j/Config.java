@@ -60,6 +60,19 @@ public final class Config {
     /** Set if this server is a test server used for development */
     public static boolean TEST_SERVER;
 
+    /**
+     *  Internal properties for developers tests only 
+     */
+    public static boolean       TEST_KNOWNLIST = false;
+    
+    public static boolean       TEST_CAPTUREPACKETS = false;
+    /**  
+	 * Counting of amount of packets per minute  
+	 */  
+	public static boolean  COUNT_PACKETS           = false;
+	public static boolean  DUMP_PACKET_COUNTS      = false;
+    public static int      DUMP_INTERVAL_SECONDS   = 60;
+    
     /** Game Server ports */
     public static int PORT_GAME;
     /** Login Server port */
@@ -687,6 +700,8 @@ public final class Config {
     public static int           NAME_PER_ROW_COMMUNITYBOARD;
 
     /** Fun engines parameters */
+    public static String TVT_EVEN_TEAMS;
+    public static String CTF_EVEN_TEAMS;
     public static boolean CTF_ALLOW_INTERFERENCE;
     public static boolean CTF_ALLOW_POTIONS;
     public static boolean CTF_ALLOW_SUMMON;
@@ -728,8 +743,6 @@ public final class Config {
     public static final String  FUN_ENGINES_FILE             = "./config/fun_engines.properties";
     
     public static final String	SAY_FILTER_FILE				= "./config/sayfilter.txt";
-    
-    public static boolean       CHECK_KNOWN;
     
     public static int           GAME_SERVER_LOGIN_PORT;
     public static String        GAME_SERVER_LOGIN_HOST;
@@ -848,7 +861,6 @@ public final class Config {
     	}
     	
     }
-    
 
     public static String        SERVER_VERSION;
     public static String        SERVER_BUILD_DATE;
@@ -942,13 +954,6 @@ public final class Config {
     public static boolean   CHAR_VIP_SKIP_SKILLS_CHECK;
     public static boolean   CHAR_VIP_COLOR_ENABLED;
     public static int       CHAR_VIP_COLOR;
-
-    /**  
-	 * Counting of amount of packets per minute  
-	 */  
-	public static boolean  COUNT_PACKETS           = false;
-	public static boolean  DUMP_PACKET_COUNTS      = false;
-    public static int      DUMP_INTERVAL_SECONDS   = 60;
     
 	public static enum IdFactoryType
     {
@@ -1143,17 +1148,6 @@ public final class Config {
     public static boolean GRIDS_ALWAYS_ON;
     public static int GRID_NEIGHBOR_TURNON_TIME;
     public static int GRID_NEIGHBOR_TURNOFF_TIME;  
-    /** Extension Options */
-    public static String TVT_EVEN_TEAMS;
-    public static String CTF_EVEN_TEAMS;
-    
-    public static boolean ENABLE_STATS;
-    public static int STATS_UPDATE_TIME;
-    public static int STATS_SAVE_TIME;
-    public static int LEADERBOARD_REFRESH; //in hours
-    public static int MAX_LEADERBOARD;
-    public static boolean LEADERBOARD_ANNOUNCE;
-    public static boolean LEADERBOARD_ADD_ANNOUNCE;    
 
     /** Skill Tree check on EnterWorld */
     public static boolean CHECK_SKILLS_ON_ENTER;
@@ -1469,33 +1463,16 @@ public final class Config {
                 // ---------------------------------------------------
                 // Configuration values not found in config files
                 // ---------------------------------------------------
-                
-                PATH_NODE_RADIUS                = Integer.parseInt(optionsSettings.getProperty("PathNodeRadius", "50"));
-                NEW_NODE_ID                     = Integer.parseInt(optionsSettings.getProperty("NewNodeId", "7952"));
-                SELECTED_NODE_ID                = Integer.parseInt(optionsSettings.getProperty("NewNodeId", "7952"));
-                LINKED_NODE_ID                  = Integer.parseInt(optionsSettings.getProperty("NewNodeId", "7952"));
-                NEW_NODE_TYPE                   = optionsSettings.getProperty("NewNodeType", "npc");
-
+ 
                 COUNT_PACKETS                   = Boolean.valueOf(optionsSettings.getProperty("CountPacket", "false"));  
                 DUMP_PACKET_COUNTS              = Boolean.valueOf(optionsSettings.getProperty("DumpPacketCounts", "false"));
                 DUMP_INTERVAL_SECONDS           = Integer.parseInt(optionsSettings.getProperty("PacketDumpInterval", "60"));
                 
                 MINIMUM_UPDATE_DISTANCE         = Integer.parseInt(optionsSettings.getProperty("MaximumUpdateDistance", "50"));
                 MINIMUN_UPDATE_TIME             = Integer.parseInt(optionsSettings.getProperty("MinimumUpdateTime", "500"));
-                CHECK_KNOWN                     = Boolean.valueOf(optionsSettings.getProperty("CheckKnownList", "false"));
                 KNOWNLIST_FORGET_DELAY          = Integer.parseInt(optionsSettings.getProperty("KnownListForgetDelay", "10000"));
-                ENABLE_STATS                    = Boolean.valueOf(optionsSettings.getProperty("EnableStats","false"));
-                STATS_UPDATE_TIME               = Integer.parseInt(optionsSettings.getProperty("StatUpdateTime","15"));
-                STATS_SAVE_TIME                 = Integer.parseInt(optionsSettings.getProperty("StatSaveTime","300"));
-                LEADERBOARD_REFRESH                = Integer.parseInt(optionsSettings.getProperty("LeaderboardUpdateTime","12"));
-                MAX_LEADERBOARD                    = Integer.parseInt(optionsSettings.getProperty("MaxLeaderboardSize","10"));
-                if (MAX_LEADERBOARD > 20) {
-                   MAX_LEADERBOARD = 20; _log.warn("Leaderboards: Cannot have more than 20 Entries on a Leaderboard! Setting to 20.");
-                }
-                LEADERBOARD_ANNOUNCE           = Boolean.valueOf(optionsSettings.getProperty("AnnounceLeaderboards","false"));
-                LEADERBOARD_ADD_ANNOUNCE       = Boolean.valueOf(optionsSettings.getProperty("AddLeaderboardAnnounce","false"));
-                CHECK_SKILLS_ON_ENTER		   = Boolean.valueOf(optionsSettings.getProperty("CheckSkillsOnEnter","false"));
                 
+                CHECK_SKILLS_ON_ENTER		   = Boolean.valueOf(optionsSettings.getProperty("CheckSkillsOnEnter","false"));
             }
             catch (Exception e)
             {
@@ -2280,7 +2257,6 @@ public final class Config {
 
         else if (pName.equalsIgnoreCase("MaximumUpdateDistance")) MINIMUM_UPDATE_DISTANCE = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("MinimumUpdateTime")) MINIMUN_UPDATE_TIME = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("CheckKnownList")) CHECK_KNOWN = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("KnownListForgetDelay")) KNOWNLIST_FORGET_DELAY = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("ShowGMLogin")) SHOW_GM_LOGIN = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("HideGMStatus")) HIDE_GM_STATUS = Boolean.valueOf(pValue);

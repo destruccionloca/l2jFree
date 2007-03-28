@@ -85,10 +85,6 @@ public class Mount implements IUserCommandHandler
                 pet.unSummon(activeChar);
             }
         }
-        else if (activeChar.isRentedPet())
-        {
-        	activeChar.stopRentPet();
-        }
         else if (activeChar.isMounted())
         {
             if (activeChar.isFlying())activeChar.removeSkill(SkillTable.getInstance().getInfo(4289, 1));

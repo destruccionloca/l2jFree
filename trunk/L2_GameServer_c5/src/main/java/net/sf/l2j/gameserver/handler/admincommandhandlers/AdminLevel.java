@@ -1,14 +1,4 @@
 /*
- * $Header: AdminTest.java, 25/07/2005 17:15:21 luisantonioa Exp $
- *
- * $Author: luisantonioa $
- * $Date: 25/07/2005 17:15:21 $
- * $Revision: 1 $
- * $Log: AdminTest.java,v $
- * Revision 1  25/07/2005 17:15:21  luisantonioa
- * Added copyright notice
- *
- * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
@@ -38,12 +28,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 public class AdminLevel implements IAdminCommandHandler
 {
     private static final int REQUIRED_LEVEL = Config.GM_CHAR_EDIT;
-   /* public static final String[] ADMIN_COMMANDS =
-    {
-        "admin_add_level",
-        "admin_set_level",
-        "admin_setlevel"
-    };*/
+
     private static String[][] _adminCommands = {
     	{"admin_remlevel",                                 // remove level amount from your target
     		

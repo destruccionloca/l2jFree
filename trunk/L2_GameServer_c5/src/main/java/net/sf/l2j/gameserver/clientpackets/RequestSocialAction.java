@@ -83,7 +83,8 @@ public class RequestSocialAction extends ClientBasePacket
 				!activeChar.isAllSkillsDisabled() &&
 				activeChar.getAI().getIntention()==CtrlIntention.AI_INTENTION_IDLE)
 		{
-			if (_log.isDebugEnabled()) _log.debug("Social Action:" + _actionId);
+			//if (_log.isDebugEnabled()) 
+				_log.info("Social Action:" + _actionId);
 			
 			SocialAction atk = new SocialAction(activeChar.getObjectId(), _actionId);
 			

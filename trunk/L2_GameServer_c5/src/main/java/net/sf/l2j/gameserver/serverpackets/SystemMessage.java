@@ -42,7 +42,8 @@ public class SystemMessage extends ServerBasePacket
 	// server related
 	public static final int  THE_SERVER_WILL_BE_COMING_DOWN_IN_S1_SECONDS = 1;                                                
 	public static final int  THE_NPC_SERVER_IS_CURRENTLY_DOWN = 542; 	                                                      
-	public static final int  THE_NPC_SERVER_IS_NOT_OPERATING_AT_THIS_TIME = 1278;                                             
+	public static final int  THE_NPC_SERVER_IS_NOT_OPERATING_AT_THIS_TIME = 1278;         
+	public static final int  NOT_WORKING_PLEASE_TRY_AGAIN_LATER = 213;
 	
 	//PeaceZones
 	public static final int TARGET_IN_PEACEZONE = 85;

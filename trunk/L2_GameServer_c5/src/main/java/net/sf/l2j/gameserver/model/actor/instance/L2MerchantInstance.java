@@ -30,7 +30,6 @@ import net.sf.l2j.gameserver.serverpackets.BuyList;
 import net.sf.l2j.gameserver.serverpackets.MultiSellList;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
-import net.sf.l2j.gameserver.serverpackets.Ride;
 import net.sf.l2j.gameserver.serverpackets.SellList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.WearList;
@@ -154,21 +153,6 @@ public class L2MerchantInstance extends L2FolkInstance
         {
             showSellWindow(player);
         }
-        else if (actualCommand.equalsIgnoreCase("RentPet"))
-        {
-            if (Config.ALLOW_RENTPET)
-            {
-                if (st.countTokens() < 1)
-                {
-                    showRentPetWindow(player);
-                }
-                else
-                {
-                    int val = Integer.parseInt(st.nextToken());
-                    tryRentPet(player, val);
-                }
-            }
-        }
         else if (actualCommand.equalsIgnoreCase("Wear") && Config.ALLOW_WEAR)
         {
             if (st.countTokens() < 1) return;
@@ -207,59 +191,6 @@ public class L2MerchantInstance extends L2FolkInstance
 
             super.onBypassFeedback(player, command);
         }
-    }
-
-    public void showRentPetWindow(L2PcInstance player)
-    {
-        if (!Config.LIST_PET_RENT_NPC.contains(getTemplate().npcId)) return;
-
-        TextBuilder html1 = new TextBuilder("<html><body>Pet Manager:<br>");
-        html1.append("You can rent a wyvern or strider for adena.<br>My prices:<br1>");
-        html1.append("<table border=0><tr><td>Ride</td></tr>");
-        html1.append("<tr><td>Wyvern</td><td>Strider</td></tr>");
-        html1.append("<tr><td><a action=\"bypass -h npc_%objectId%_RentPet 1\">30 sec/1800 adena</a></td><td><a action=\"bypass -h npc_%objectId%_RentPet 11\">30 sec/900 adena</a></td></tr>");
-        html1.append("<tr><td><a action=\"bypass -h npc_%objectId%_RentPet 2\">1 min/7200 adena</a></td><td><a action=\"bypass -h npc_%objectId%_RentPet 12\">1 min/3600 adena</a></td></tr>");
-        html1.append("<tr><td><a action=\"bypass -h npc_%objectId%_RentPet 3\">10 min/720000 adena</a></td><td><a action=\"bypass -h npc_%objectId%_RentPet 13\">10 min/360000 adena</a></td></tr>");
-        html1.append("<tr><td><a action=\"bypass -h npc_%objectId%_RentPet 4\">30 min/6480000 adena</a></td><td><a action=\"bypass -h npc_%objectId%_RentPet 14\">30 min/3240000 adena</a></td></tr>");
-        html1.append("</table>");
-        html1.append("</body></html>");
-
-        insertObjectIdAndShowChatWindow(player, html1.toString());
-    }
-
-    public void tryRentPet(L2PcInstance player, int val)
-    {
-        if (player == null || player.getPet() != null || player.isMounted() || player.isRentedPet())
-            return;
-
-        int petId;
-        double price = 1;
-        int cost[] = {1800, 7200, 720000, 6480000};
-        int ridetime[] = {30, 60, 600, 1800};
-
-        if (val > 10)
-        {
-            petId = 12526;
-            val -= 10;
-            price /= 2;
-        }
-        else
-        {
-            petId = 12621;
-        }
-
-        if (val < 1 || val > 4) return;
-
-        price *= cost[val - 1];
-        int time = ridetime[val - 1];
-
-        if (!player.reduceAdena("Rent", (int) price, player.getLastFolkNPC(), true)) return;
-
-        Ride mount = new Ride(player.getObjectId(), Ride.ACTION_MOUNT, petId);
-        player.broadcastPacket(mount);
-
-        player.setMountType(mount.getMountType());
-        player.startRentPet(time);
     }
 
     public void onActionShift(ClientThread client)

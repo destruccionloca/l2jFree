@@ -183,8 +183,7 @@ import net.sf.l2j.gameserver.handler.usercommandhandlers.Loc;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.Mount;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.PartyInfo;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.Time;
-import net.sf.l2j.gameserver.handler.voicedcommandhandlers.PlayerCastleDoors;
-import net.sf.l2j.gameserver.handler.voicedcommandhandlers.stats;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.CastleDoors;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Wedding;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
@@ -565,8 +564,7 @@ public class GameServer
         _log.info("UserCommandHandler: Loaded " + _userCommandHandler.size() + " handlers.");
 
         _voicedCommandHandler = VoicedCommandHandler.getInstance();
-        _voicedCommandHandler.registerVoicedCommandHandler(new stats());
-        _voicedCommandHandler.registerVoicedCommandHandler(new PlayerCastleDoors());
+        _voicedCommandHandler.registerVoicedCommandHandler(new CastleDoors());
         if(Config.ALLOW_WEDDING)
             _voicedCommandHandler.registerVoicedCommandHandler(new Wedding());
         

@@ -1,6 +1,5 @@
 package net.sf.l2j.gameserver.model.actor.stat;
 
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
 
@@ -20,11 +19,6 @@ public class PlayableStat extends CharStat
     // Method - Public
     public boolean addExp(long value)
     {
-       if (_ActiveChar != null)
-           if (_ActiveChar instanceof L2PcInstance)
-               if (((L2PcInstance)_ActiveChar).getStatTrack() != null)
-                   ((L2PcInstance)_ActiveChar).getStatTrack().increaseXP(value);
-
         if ((getExp() + value) < 0 || getExp() == (getExpForLevel(Experience.MAX_LEVEL) - 1)) 
             return true;
         

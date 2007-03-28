@@ -35,8 +35,8 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class AdminMammon implements IAdminCommandHandler
 {
 
-    private static String[] _adminCommands = {"admin_mammon_find", "admin_mammon_respawn",
-                                              "admin_msg"};
+    private static String[] _adminCommands = {"admin_mammon_find", "admin_mammon_respawn"
+                                              };
     private static final int REQUIRED_LEVEL = Config.GM_MENU;
 
     private boolean _isSealValidation = SevenSigns.getInstance().isSealValidationPeriod();
@@ -113,25 +113,7 @@ public class AdminMammon implements IAdminCommandHandler
             activeChar.sendMessage("The Blacksmith of Mammon will respawn in "
                 + (blackRespawn / 60000) + " minute(s).");
         }
-        // Used for testing SystemMessage IDs	- Use //msg <ID>
-        else if (command.startsWith("admin_msg"))
-        {
-            int msgId = -1;
-
-            try
-            {
-                msgId = Integer.parseInt(command.substring(10).trim());
-            }
-            catch (Exception e)
-            {
-                activeChar.sendMessage("Command format: //msg <SYSTEM_MSG_ID>");
-                return true;
-            }
-
-            activeChar.sendPacket(new SystemMessage(msgId));
-        }
-
-        return true;
+         return true;
     }
 
     public String[] getAdminCommandList()

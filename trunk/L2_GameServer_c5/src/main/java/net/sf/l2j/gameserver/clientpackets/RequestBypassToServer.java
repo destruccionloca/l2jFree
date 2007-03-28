@@ -37,7 +37,6 @@ import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.entity.events.VIP;
-import net.sf.l2j.gameserver.script.stat.LeaderboardEngine;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
 import org.apache.commons.logging.Log;
@@ -235,10 +234,6 @@ public class RequestBypassToServer extends ClientBasePacket
                 else
                     player.processQuestEvent(p.substring(0, idx), p.substring(idx).trim());
             }
-            else if (_command.startsWith("leaderboard_")) 
-            {
-               LeaderboardEngine.getInstance().processBypass(activeChar, _command.substring(12));
-            }            
         } catch (Exception e) {
             _log.warn("Bad RequestBypassToServer: ", e);
         }
