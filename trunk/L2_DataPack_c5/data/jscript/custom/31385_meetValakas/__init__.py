@@ -4,6 +4,8 @@ from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 from net.sf.l2j.gameserver.instancemanager import BossActionTaskManager
 
+qn = "31385_meetValakas" 
+
 # Main Quest Code
 class Quest (JQuest):
 
@@ -12,9 +14,10 @@ class Quest (JQuest):
   def onEvent (self,event,st):
     return
 
-  def onTalk (self,npc,st):
+  def onTalk (self,npc,player): 
+    st = player.getQuestState(qn)       
     npcId = npc.getNpcId()
-    if npcId == 31385 :    # 火山の心臓
+    if npcId == 31385 :
       if st.getInt("ok"):
         if BossActionTaskManager.getInstance().CanIntoValakasLair():
             BossActionTaskManager.getInstance().SetValakasSpawnTask()
@@ -25,13 +28,13 @@ class Quest (JQuest):
       else:
         st.exitQuest(1)
         return "Conditions are not right to enter to Lair of Valakas."
-    elif npcId == 31540 :    # クライン
-      if st.getQuestItemsCount(7267) > 0 :    # 使い捨て浮遊石
+    elif npcId == 31540 :
+      if st.getQuestItemsCount(7267) > 0 :
         st.takeItems(7267,1)
         st.getPlayer().teleToLocation(183831,-115457,-3296)
         st.set("ok","1")
       else :
-        return '<html><head><body>ヴァラカスの監視者 クライン:<br>必要なアイテムを持っていません。</body></html>'
+        return '<html><head><body>-</body></html>'
     return
 
 # Quest class and state definition
@@ -44,7 +47,7 @@ QUEST.setInitialState(CREATED)
 # Quest NPC starter initialization
 QUEST.addStartNpc(31540)
 QUEST.addStartNpc(31385)
-CREATED.addTalkId(31540)
-CREATED.addTalkId(31385)
+QUEST.addTalkId(31540)
+QUEST.addTalkId(31385)
 
 print "importing custom data: 31385_meetValakas"
