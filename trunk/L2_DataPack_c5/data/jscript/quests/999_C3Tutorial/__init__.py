@@ -94,8 +94,8 @@ class Quest (JQuest) :
    if id == CREATED :
      st.setState(STARTING)
      st.set("onlyone","0")
-   if id == COMPLETED and onlyone == 1:
-     if npcId in [30600, 30601, 30602, 30598, 30599] :
+   if npcId in [30600, 30601, 30602, 30598, 30599] :
+     if id == COMPLETED and onlyone == 1:
        st.set("onlyone","2")
        if st.getPlayer().getClassId().isMage() :
          st.giveItems(SPIRITSHOT_NOVICE,100)
