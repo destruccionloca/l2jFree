@@ -4,7 +4,7 @@ import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-
+qn = "998_christmasgift"
 BLACK_WOLF_PELT_ID = 1482
 BW_GRADE_ID = 148
 BA_GRADE_ID = 2381
@@ -32,6 +32,7 @@ class Quest (JQuest) :
 
 
  def onTalk (Self,npc,st):
+
    npcId = npc.getNpcId()
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
    id = st.getState()
@@ -42,7 +43,7 @@ class Quest (JQuest) :
      st.set("id","0")
    if npcId == 12618 and int(st.get("cond"))==0 :
       if int(st.get("cond")) < 15 :
-        if st.getPlayer().getLevel() < 20 :
+        if st.getPlayer().getLevel() < 19 :
           htmltext = "12618-01.htm"
           st.exitQuest(1)
         else:
@@ -52,7 +53,7 @@ class Quest (JQuest) :
         htmltext = "12618-01.htm"
         st.exitQuest(1)
    elif npcId == 12618 and int(st.get("cond")) :
-      if st.getPlayer().getLevel() < 20 :
+      if st.getPlayer().getLevel() < 19 :
         htmltext = "12618-04.htm"
       else:
         if int(st.get("id")) != 291 :
@@ -80,9 +81,19 @@ class Quest (JQuest) :
             st.giveItems(DA_GRADE_ID,1)
           else:
             st.giveItems(COAL_ID,50)
+
    return htmltext
 
-QUEST       = Quest(998,"998_christmasgift","Christmas Gift")
+ def onTalk (Self,npc,player):
+
+   npcId = npc.getNpcId()
+   st = player.getQuestState(qn)
+   htmltext = "<html><head><body>I have nothing to say to you.</body></html>"
+   st.set("cond","0")
+   st.setState(STARTED)
+   return "12618-01.htm"
+
+QUEST       = Quest(998,qn,"Christmas Gift")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 COMPLETED   = State('Completed', QUEST)
@@ -90,6 +101,5 @@ COMPLETED   = State('Completed', QUEST)
 
 QUEST.setInitialState(CREATED)
 
-QUEST.addStartNpc(12618)
-
-STARTED.addTalkId(12618)
+QUEST.addStartNpc(31864)
+QUEST.addTalkId(31864)

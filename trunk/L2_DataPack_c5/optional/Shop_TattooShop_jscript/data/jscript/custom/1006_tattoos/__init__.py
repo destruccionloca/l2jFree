@@ -3,13 +3,13 @@ import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-
+qn = "1006_tattoos"
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
  def onEvent (self,event,st) :
-    htmltext = event
+    htmltext = event  
 
 # TattooOpower
     if event == "1":
@@ -137,14 +137,16 @@ class Quest (JQuest) :
 
     return htmltext
 
- def onTalk (Self,npc,st):
+ def onTalk (Self,npc,player):
 
    npcId = npc.getNpcId()
+   st = player.getQuestState(qn)
    htmltext = "<html><head><body>I have nothing to say to you.</body></html>"
+   st.set("cond","0")
    st.setState(STARTED)
    return "1.htm"
 
-QUEST       = Quest(1006,"1006_tattoos","custom")
+QUEST       = Quest(1006,qn,"custom")
 CREATED     = State('Start',     QUEST)
 STARTED     = State('Started',   QUEST)
 COMPLETED   = State('Completed', QUEST)
@@ -153,5 +155,5 @@ QUEST.setInitialState(CREATED)
 
 QUEST.addStartNpc(8227)
 
-STARTED.addTalkId(8227)
+QUEST.addTalkId(8227)
 

@@ -6,6 +6,7 @@
 ### ----------------------------------------------------------------------------------
 
 ### Settings
+qn = "5011_l2day"
 QuestId     = 5011
 QuestName   = "l2day"
 QuestDesc   = "custom"
@@ -69,8 +70,10 @@ class Quest (JQuest) :
 
     return htmltext
 
- def onTalk (Self,npcId,st):
-   htmltext = "<html><head><body>I have nothing to say to you</body></html>"
+ def onTalk (Self,npcId,player):
+   st = player.getQuestState(qn)
+   htmltext = "<html><head><body>I have nothing to say to you.</body></html>"
+   st.set("cond","0")
    st.setState(STARTED)
    return InitialHtml
 
@@ -84,4 +87,4 @@ QUEST.setInitialState(CREATED)
 
 QUEST.addStartNpc(27102)
 # pako the cat
-STARTED.addTalkId(27102)
+QUEST.addTalkId(27102)

@@ -5,6 +5,7 @@
 ### ---------------------------------------------------------------------------
 
 ### Settings
+qn = "6009_marks"
 NPC         = [7097]
 QuestId     = 6009
 QuestName   = "marks"
@@ -120,9 +121,10 @@ class Quest (JQuest) :
  def onEvent (self,event,st) :
     return do_RequestEvent(event,st)
 
- def onTalk (Self,npc,st):
+ def onTalk (Self,npc,player):
 
    npcId = npc.getNpcId()
+   st = player.getQuestState(qn)
    htmltext = "<html><head><body>I have nothing to say with you</body></html>"
    id = st.getState()
    st.setState(STARTED)
@@ -146,6 +148,6 @@ for item in NPC:
    QUEST.addStartNpc(item)
 
 ### Quest NPC initialization
-   STARTED.addTalkId(item)
+   QUEST.addTalkId(item)
 
 print  ": Loaded " + str(len(Items)) + " item(s)"
