@@ -29,7 +29,7 @@ class Quest (JQuest) :
          if x and y and z:
             if st.getQuestItemsCount(TOKEN):
               st.takeItems(TOKEN,1)
-              st.getPlayer().teleToLocation(x,y,z)
+              player.teleToLocation(x,y,z)
             else:
               st.exitQuest(1)
               return "Incorrect item count"

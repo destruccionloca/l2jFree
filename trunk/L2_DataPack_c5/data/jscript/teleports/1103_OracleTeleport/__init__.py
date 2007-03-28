@@ -27,24 +27,24 @@ class Quest (JQuest) :
     ##################
     if npcId in TOWN_DAWN: 
        st.setState(STARTED)
-       st.set("X",str(int(st.getPlayer().getX())))
-       st.set("Y",str(int(st.getPlayer().getY())))
-       st.set("Z",str(int(st.getPlayer().getZ())))
-       st.getPlayer().teleToLocation(-80157,111344,-4901)
+       st.set("X",str(int(player.getX())))
+       st.set("Y",str(int(player.getY())))
+       st.set("Z",str(int(player.getZ())))
+       player.teleToLocation.teleToLocation(-80157,111344,-4901)
     ##################
     # Dusk Locations #
     ##################
     elif npcId in TOWN_DUSK: 
        st.setState(STARTED)
-       st.set("X",str(int(st.getPlayer().getX())))
-       st.set("Y",str(int(st.getPlayer().getY())))
+       st.set("X",str(int(player.getX())))
+       st.set("Y",str(int(player.getY())))
        st.set("Z",str(int(st.getPlayer().getZ())))
-       st.getPlayer().teleToLocation(-81261,86531,-5157)
+       player.teleToLocation(-81261,86531,-5157)
     #######################
     # Oracle of Dusk/Dawn #
     #######################
     elif npcId in TEMPLE_PRIEST and xx+yy+zz and st.getState() == STARTED :
-       st.getPlayer().teleToLocation(xx,yy,zz) 
+       player.teleToLocation(xx,yy,zz) 
        st.exitQuest(1)
     return
    
