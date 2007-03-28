@@ -2589,6 +2589,11 @@ public abstract class L2Character extends L2Object
        
        setIsFakeDeath(false);
        setIsFallsdown(false); // [L2J_JP_ADD]
+       // if this is a player instance, start the grace period for this character (grace from mobs only)!
+       if (this instanceof L2PcInstance)
+       {
+    	   ((L2PcInstance) this).setRecentFakeDeath(true);
+       }       
        ChangeWaitType revive = new ChangeWaitType(this,ChangeWaitType.WT_STOP_FAKEDEATH);
        broadcastPacket(revive); 
        getAI().notifyEvent(CtrlEvent.EVT_THINK, null);

@@ -166,6 +166,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                 return false;
             if (me.getFactionId() == "ketra" && ((L2PcInstance)target).isAlliedWithKetra())
                 return false;
+        	// check if the target is within the grace period for JUST getting up from fake death
+        	if (((L2PcInstance)target).isRecentFakeDeath())
+        		return false;            
         }
         
         // Check if the actor is a L2GuardInstance

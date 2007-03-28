@@ -1063,6 +1063,7 @@ public final class Config {
     
     /** Player Protection control */
     public static int   PLAYER_SPAWN_PROTECTION;
+    public static int   PLAYER_FAKEDEATH_UP_PROTECTION;
 
     /** Define Party XP cutoff point method - Possible values: level and percentage */
     public static String  PARTY_XP_CUTOFF_METHOD;
@@ -1606,8 +1607,11 @@ public final class Config {
 
                 /* Player protection after teleport or login */
                 PLAYER_SPAWN_PROTECTION = Integer.parseInt(otherSettings.getProperty("PlayerSpawnProtection", "0"));
+                
+                /* Player protection after recovering from fake death (works against mobs only) */
+                PLAYER_FAKEDEATH_UP_PROTECTION = Integer.parseInt(otherSettings.getProperty("PlayerFakeDeathUpProtection", "0"));	            
 	            
-	            /* Defines some Party XP related values */
+                /* Defines some Party XP related values */
 	            PARTY_XP_CUTOFF_METHOD  = otherSettings.getProperty("PartyXpCutoffMethod", "percentage");
 	            PARTY_XP_CUTOFF_PERCENT = Double.parseDouble(otherSettings.getProperty("PartyXpCutoffPercent", "3."));
                 PARTY_RANGE             = Integer.parseInt(otherSettings.getProperty("PartyRange", "1000"));
@@ -2328,6 +2332,7 @@ public final class Config {
         else if (pName.equalsIgnoreCase("UnstuckInterval")) UNSTUCK_INTERVAL = Integer.parseInt(pValue);
 
         else if (pName.equalsIgnoreCase("PlayerSpawnProtection")) PLAYER_SPAWN_PROTECTION = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("PlayerFakeDeathUpProtection")) PLAYER_FAKEDEATH_UP_PROTECTION = Integer.parseInt(pValue);
 
         else if (pName.equalsIgnoreCase("PartyXpCutoffMethod")) PARTY_XP_CUTOFF_METHOD = pValue;
         else if (pName.equalsIgnoreCase("PartyXpCutoffPercent")) PARTY_XP_CUTOFF_PERCENT = Double.parseDouble(pValue);
