@@ -140,6 +140,7 @@ class Quest (JQuest) :
      partyMember = self.getRandomPartyMember(player,"awaitBook","1")
      if partyMember :
         st = partyMember.getQuestState(qn) 
+        drop = st.getRandom(100)
         if drop < DROP_RATE_2  and not st.getQuestItemsCount(MST_BK):
            st.giveItems(MST_BK,1)
            st.unset("awaitBook")
