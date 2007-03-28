@@ -160,11 +160,9 @@ class Quest (JQuest) :
          partyMember =  partyMember1
      # if there exist party members from both states, choose one randomly
      else :
-         if selectedPartyMember.getQuestState(qn).getRandom(2) :
+         if partyMember.getQuestState(qn).getRandom(2) :
              partyMember = partyMember2
      st = partyMember.getQuestState(qn)  
-     
-     drop = st.getRandom(100)
      if drop < DROP_RATE :
         st.giveItems(ANC_SCROLL,1)
         st.playSound("ItemSound.quest_itemget")
