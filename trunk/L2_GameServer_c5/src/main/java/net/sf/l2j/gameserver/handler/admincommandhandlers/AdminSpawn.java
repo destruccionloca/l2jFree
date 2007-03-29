@@ -18,8 +18,8 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import java.util.StringTokenizer;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
@@ -32,6 +32,7 @@ import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -65,6 +66,13 @@ public class AdminSpawn implements IAdminCommandHandler
 			"Usage spawndelay <sec>",
 			"Options:",
 			"<sec> - set default respawn time in seconds"
+	    },
+     	{"admin_delay",									   // respawn delay for spawn commands
+			
+			"Set respawn delay for targeted NPC and save in DB.",
+			"Usage delay <sec>",
+			"Options:",
+			"<sec> - set respawn time in seconds"
 	    },
      	{"admin_spawnlist",									       // get list of NPC spawns
 			
@@ -259,6 +267,37 @@ public class AdminSpawn implements IAdminCommandHandler
         	}	
         	activeChar.sendMessage("Current default respawn delay is "+ Config.STANDARD_RESPAWN_DELAY + " seconds.");
         }
+        else if (cmd.equals("admin_delay"))
+        {
+        	int delay = 0;
+        	L2NpcInstance target = null;
+        	
+        	if (activeChar.getTarget() instanceof L2NpcInstance)
+        		target = ((L2NpcInstance)activeChar.getTarget());
+        	
+        	if (st.hasMoreTokens() && target != null)
+        	{
+        		try
+            	{ 
+            		delay = Integer.parseInt(st.nextToken());
+            		
+            		L2Spawn spawn = target.getSpawn();
+            		
+            		if (spawn.IsRespawnable())
+            		{
+            			SpawnTable.getInstance().deleteSpawn(spawn, true);
+            			spawn.setRespawnDelay(delay);
+            			SpawnTable.getInstance().addNewSpawn(spawn, true);
+            		}
+            		
+            		activeChar.sendMessage("Respawn delay  for "+target.getName()+" changed to "+delay+" seconds.");
+            	}
+            	catch (Exception e)
+            	{
+            		showAdminCommandHelp(activeChar,cmd);
+            	}
+        	}	
+        }        
         else if (cmd.equals("admin_spawn") || cmd.equals("admin_cspawn") || cmd.equals("admin_otspawn"))
         {
         	int npcId = 0;
