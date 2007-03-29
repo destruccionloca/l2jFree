@@ -232,21 +232,16 @@ class Quest (JQuest) :
       htmltext = "Trade has been canceled."
     
     if htmltext != event:
-      st.setState(COMPLETED)
       st.exitQuest(1)
-
     return htmltext
 
- def onTalk (Self,npc,st):
-
-   npcId = npc.getNpcId()
-   st.getQuestState(qn)
-   htmltext = "<html><head><body>I have nothing to say to you.</body></html>"
-   st.set("cond","0")
+ def onTalk (self,npc,player):
+   st = player.getQuestState(qn)
+   if not st: return 
    st.setState(STARTED)
    return "1.htm"
 
-QUEST       = Quest(1003,"1003_reseal","Blacksmith")
+QUEST       = Quest(1003,qn,"Blacksmith")
 CREATED     = State('Start',     QUEST)
 STARTED     = State('Started',   QUEST)
 COMPLETED   = State('Completed', QUEST)
