@@ -538,10 +538,17 @@ public class L2Clan
         {
             if(_level >= 2)
             {
-                _Forum = ForumsBBSManager.getInstance().getForumByName("ClanRoot").GetChildByName(_name);
-               if(_Forum == null)
+            	try
+            	{
+	                _Forum = ForumsBBSManager.getInstance().getForumByName("ClanRoot").GetChildByName(_name);
+	               if(_Forum == null)
+	                {
+	                    _Forum = ForumsBBSManager.getInstance().CreateNewForum(_name,ForumsBBSManager.getInstance().getForumByName("ClanRoot"),Forum.CLAN,Forum.CLANMEMBERONLY,getClanId());
+	                }
+            	}
+                catch (Exception e)
                 {
-                    _Forum = ForumsBBSManager.getInstance().CreateNewForum(_name,ForumsBBSManager.getInstance().getForumByName("ClanRoot"),Forum.CLAN,Forum.CLANMEMBERONLY,getClanId());
+                    _log.warn("error while creating forum "+e);
                 }
             }
         }
