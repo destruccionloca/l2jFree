@@ -1671,10 +1671,9 @@ public final class L2PcInstance extends L2PlayableInstance
                 	super.removeSkill(getKnownSkill(4270));
                 
                 super.updateEffectIcons();
-                UserInfo ui = new UserInfo(this);
-                broadcastPacket(ui);
+                broadcastUserInfo();
                 StatusUpdate su = new StatusUpdate(getObjectId());
-                broadcastPacket(su);
+                sendPacket(su);
             }
         }
     }
