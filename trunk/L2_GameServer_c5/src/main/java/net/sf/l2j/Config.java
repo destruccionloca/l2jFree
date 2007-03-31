@@ -723,6 +723,11 @@ public final class Config {
     public static final String  CONFIGURATION_FILE          = "./config/server.properties";
     /** Properties file for game server options */
     public static final String  OPTIONS_FILE                = "./config/options.properties";
+    /** Properties file clan settings */
+    public static final String  CLANS_FILE                	= "./config/clans.properties";
+    /** Properties file olympiad settings */
+    public static final String  OLYMPIAD_FILE             	= "./config/olympiad.properties";
+    
     /** Properties file for the ID factory */
     public static final String  ID_CONFIG_FILE				= "./config/idfactory.properties";
     public static final String  OTHER_CONFIG_FILE			= "./config/other.properties";
@@ -1308,6 +1313,55 @@ public final class Config {
 	            _log.error(e.getMessage(),e);
 	            throw new Error("Failed to Load "+CONFIGURATION_FILE+" File.");
 	        }
+	        try
+	        {
+                Properties olympiadSettings	= new Properties();
+                InputStream is              = new FileInputStream(new File(OLYMPIAD_FILE));
+                olympiadSettings.load(is);
+                is.close();
+	        	
+                ALT_OLY_START_TIME                                  = Integer.parseInt(olympiadSettings.getProperty("AltOlyStartTime", "20"));
+                ALT_OLY_MIN                                         = Integer.parseInt(olympiadSettings.getProperty("AltOlyMin","00"));
+                ALT_OLY_CPERIOD                                     = Integer.parseInt(olympiadSettings.getProperty("AltOlyPeriod","14100000"));
+                ALT_OLY_BATTLE                                      = Integer.parseInt(olympiadSettings.getProperty("AltOlyBattle","180000"));
+                ALT_OLY_BWAIT                                       = Integer.parseInt(olympiadSettings.getProperty("AltOlyBWait","600000"));
+                ALT_OLY_IWAIT                                       = Integer.parseInt(olympiadSettings.getProperty("AltOlyPwait","300000"));
+                ALT_OLY_WPERIOD                                     = Integer.parseInt(olympiadSettings.getProperty("AltOlyWperiod","604800000"));
+                ALT_OLY_VPERIOD                                     = Integer.parseInt(olympiadSettings.getProperty("AltOlyVperiod","86400000"));
+	        	
+	        }
+	        catch (Exception e)
+	        {
+	            _log.error(e.getMessage(),e);
+	            throw new Error("Failed to Load "+CONFIGURATION_FILE+" File.");
+	        }
+	        
+	        try
+	        {
+                Properties clansSettings	= new Properties();
+                InputStream is              = new FileInputStream(new File(CLANS_FILE));
+                clansSettings.load(is);
+                is.close();
+	        	
+                ALT_CLAN_MEMBERS_FOR_WAR                            = Integer.parseInt(clansSettings.getProperty("AltClanMembersForWar", "15"));
+                ALT_CLAN_JOIN_DAYS                                  = Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAClan", "5"));
+                ALT_CLAN_CREATE_DAYS                                = Integer.parseInt(clansSettings.getProperty("DaysBeforeCreateAClan", "10"));                
+                ALT_CLAN_DISSOLVE_DAYS      						= Integer.parseInt(clansSettings.getProperty("DaysToPassToDissolveAClan", "7"));
+                ALT_ALLY_JOIN_DAYS_WHEN_LEAVED       				= Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAllyWhenLeaved", "1"));
+                ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED    				= Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAllyWhenDismissed", "1"));
+                ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED  				= Integer.parseInt(clansSettings.getProperty("DaysBeforeAcceptNewClanWhenDismissed", "1"));
+                ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED  				= Integer.parseInt(clansSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
+                ALT_MAX_NUM_OF_CLANS_IN_ALLY                        = Integer.parseInt(clansSettings.getProperty("AltMaxNumOfClansInAlly", "3"));
+                CLAN_LEADER_COLOR_ENABLED     			       		= Boolean.parseBoolean(clansSettings.getProperty("ClanLeaderColorEnabled", "True"));
+                CLAN_LEADER_COLORED                  				= ClanLeaderColored.valueOf(clansSettings.getProperty("ClanLeaderColored", "name"));
+                CLAN_LEADER_COLOR                                   = Integer.decode("0x" + clansSettings.getProperty("ClanLeaderColor", "00FFFF"));
+                CLAN_LEADER_COLOR_CLAN_LEVEL                        = Integer.parseInt(clansSettings.getProperty("ClanLeaderColorAtClanLevel", "1"));
+	        }
+	        catch (Exception e)
+	        {
+	            _log.error(e.getMessage(),e);
+	            throw new Error("Failed to Load "+CONFIGURATION_FILE+" File.");
+	        }
 
             try 
             {
@@ -1472,7 +1526,13 @@ public final class Config {
                 MINIMUN_UPDATE_TIME             = Integer.parseInt(optionsSettings.getProperty("MinimumUpdateTime", "500"));
                 KNOWNLIST_FORGET_DELAY          = Integer.parseInt(optionsSettings.getProperty("KnownListForgetDelay", "10000"));
                 
-                CHECK_SKILLS_ON_ENTER		   = Boolean.valueOf(optionsSettings.getProperty("CheckSkillsOnEnter","false"));
+                CHECK_SKILLS_ON_ENTER		   	= Boolean.valueOf(optionsSettings.getProperty("CheckSkillsOnEnter","false"));
+                
+                ALT_DEV_NO_QUESTS               = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoQuests", "False"));
+                ALT_DEV_NO_SPAWNS               = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoSpawns", "False"));
+                ALT_POLYMORPH                   = Boolean.parseBoolean(optionsSettings.getProperty("AltPolymorph", "False"));
+
+                
             }
             catch (Exception e)
             {
@@ -1823,28 +1883,10 @@ public final class Config {
                 ALT_GAME_SUBCLASS_WITHOUT_QUESTS                    = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
                 ALT_GAME_VIEWNPC                    				= Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
                 ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE                  = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
-                ALT_MAX_NUM_OF_CLANS_IN_ALLY                        = Integer.parseInt(altSettings.getProperty("AltMaxNumOfClansInAlly", "3"));
                 DWARF_RECIPE_LIMIT                                  = Integer.parseInt(altSettings.getProperty("DwarfRecipeLimit","50"));
                 COMMON_RECIPE_LIMIT                                 = Integer.parseInt(altSettings.getProperty("CommonRecipeLimit","50"));
-                ALT_CLAN_MEMBERS_FOR_WAR                            = Integer.parseInt(altSettings.getProperty("AltClanMembersForWar", "15"));
-                ALT_CLAN_JOIN_DAYS                                  = Integer.parseInt(altSettings.getProperty("DaysBeforeJoinAClan", "5"));
-                ALT_CLAN_CREATE_DAYS                                = Integer.parseInt(altSettings.getProperty("DaysBeforeCreateAClan", "10"));                
-                ALT_CLAN_DISSOLVE_DAYS      						= Integer.parseInt(altSettings.getProperty("DaysToPassToDissolveAClan", "7"));
-                ALT_ALLY_JOIN_DAYS_WHEN_LEAVED       				= Integer.parseInt(altSettings.getProperty("DaysBeforeJoinAllyWhenLeaved", "1"));
-                ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED    				= Integer.parseInt(altSettings.getProperty("DaysBeforeJoinAllyWhenDismissed", "1"));
-                ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED  				= Integer.parseInt(altSettings.getProperty("DaysBeforeAcceptNewClanWhenDismissed", "1"));
-                ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED  				= Integer.parseInt(altSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
                 
                 ALT_STRICT_HERO_SYSTEM                              = Boolean.parseBoolean(altSettings.getProperty("StrictHeroSystem", "True"));
-
-                ALT_OLY_START_TIME                                  = Integer.parseInt(altSettings.getProperty("AltOlyStartTime", "20"));
-                ALT_OLY_MIN                                         = Integer.parseInt(altSettings.getProperty("AltOlyMin","00"));
-                ALT_OLY_CPERIOD                                     = Integer.parseInt(altSettings.getProperty("AltOlyPeriod","14100000"));
-                ALT_OLY_BATTLE                                      = Integer.parseInt(altSettings.getProperty("AltOlyBattle","180000"));
-                ALT_OLY_BWAIT                                       = Integer.parseInt(altSettings.getProperty("AltOlyBWait","600000"));
-                ALT_OLY_IWAIT                                       = Integer.parseInt(altSettings.getProperty("AltOlyPwait","300000"));
-                ALT_OLY_WPERIOD                                     = Integer.parseInt(altSettings.getProperty("AltOlyWperiod","604800000"));
-                ALT_OLY_VPERIOD                                     = Integer.parseInt(altSettings.getProperty("AltOlyVperiod","86400000"));
 
                 ALT_LOTTERY_PRIZE                                   = Integer.parseInt(altSettings.getProperty("AltLotteryPrize","50000"));
                 ALT_LOTTERY_TICKET_PRICE                            = Integer.parseInt(altSettings.getProperty("AltLotteryTicketPrice","2000"));
@@ -1853,16 +1895,8 @@ public final class Config {
                 ALT_LOTTERY_3_NUMBER_RATE                           = Float.parseFloat(altSettings.getProperty("AltLottery3NumberRate","0.2"));
                 ALT_LOTTERY_2_AND_1_NUMBER_PRIZE                    = Integer.parseInt(altSettings.getProperty("AltLottery2and1NumberPrize","200"));
 
-                ALT_DEV_NO_QUESTS                                   = Boolean.parseBoolean(altSettings.getProperty("AltDevNoQuests", "False"));
-                ALT_DEV_NO_SPAWNS                                   = Boolean.parseBoolean(altSettings.getProperty("AltDevNoSpawns", "False"));
-                ALT_POLYMORPH                                       = Boolean.parseBoolean(altSettings.getProperty("AltPolymorph", "False"));
-
                 ALT_STRICT_SEVENSIGNS                               = Boolean.parseBoolean(altSettings.getProperty("StrictSevenSigns", "True"));
                 
-                CLAN_LEADER_COLOR_ENABLED     			       		= Boolean.parseBoolean(altSettings.getProperty("ClanLeaderColorEnabled", "True"));
-                CLAN_LEADER_COLORED                  				= ClanLeaderColored.valueOf(altSettings.getProperty("ClanLeaderColored", "name"));
-                CLAN_LEADER_COLOR                                   = Integer.decode("0x" + altSettings.getProperty("ClanLeaderColor", "00FFFF"));
-                CLAN_LEADER_COLOR_CLAN_LEVEL                        = Integer.parseInt(altSettings.getProperty("ClanLeaderColorAtClanLevel", "1"));
                 ALT_BUFF_TIME                                       = Integer.parseInt(altSettings.getProperty("AltBuffTime", "1"));
                 ALT_DANCE_TIME                                      = Integer.parseInt(altSettings.getProperty("AltDanceTime", "1"));
 	            SPAWN_SIEGE_GUARD 									= Boolean.parseBoolean(altSettings.getProperty("SpawnSiegeGuard", "true"));
