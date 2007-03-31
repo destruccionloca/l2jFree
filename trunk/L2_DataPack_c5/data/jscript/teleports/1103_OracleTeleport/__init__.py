@@ -30,7 +30,7 @@ class Quest (JQuest) :
        st.set("X",str(int(player.getX())))
        st.set("Y",str(int(player.getY())))
        st.set("Z",str(int(player.getZ())))
-       player.teleToLocation.teleToLocation(-80157,111344,-4901)
+       player.teleToLocation(-80157,111344,-4901)
     ##################
     # Dusk Locations #
     ##################

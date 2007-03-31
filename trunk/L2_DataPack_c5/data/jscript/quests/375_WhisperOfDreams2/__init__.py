@@ -81,7 +81,7 @@ class Quest (JQuest) :
  
  def onKill (self,npc,player) :
     npcId = npc.getNpcId()
-    item, partyCond  = DROPLIST[npcid]
+    item, partyCond  = DROPLIST[npcId]
     partyMember = self.getRandomPartyMember(player, partyCond, "1")
     if not partyMember : return
     st = partyMember.getQuestState(qn)
