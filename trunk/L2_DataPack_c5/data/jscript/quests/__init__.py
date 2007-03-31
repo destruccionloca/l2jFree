@@ -221,6 +221,7 @@ __all__ = [
 '614_SlayTheEnemyCommander_Varka',
 '615_MagicalPowerOfFirePart1',
 '616_MagicalPowerOfFirePart2',
+'619_RelicsoftheOldEmpire',
 '621_EggDelivery',
 '622_DeliveryOfSpecialLiquor',
 '623_TheFinestFood',
