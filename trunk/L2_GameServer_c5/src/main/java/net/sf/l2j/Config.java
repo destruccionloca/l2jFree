@@ -51,7 +51,36 @@ import org.apache.commons.logging.LogFactory;
 public final class Config {
 
 	protected static Log _log = LogFactory.getLog(Config.class.getName());
-    /** Enable/disable assertions */
+
+    /** Configuration files names are self explaining*/
+    public static final String  CONFIGURATION_FILE          = "./config/server.properties";
+    public static final String  OPTIONS_FILE                = "./config/options.properties";
+    public static final String  CLANS_FILE                	= "./config/clans.properties";
+    public static final String  OLYMPIAD_FILE             	= "./config/olympiad.properties";
+    public static final String  LOTTERY_FILE             	= "./config/lottery.properties";
+    public static final String  WEDDING_FILE             	= "./config/wedding.properties";
+    public static final String  CHAMPIONS_FILE             	= "./config/champions.properties";
+    public static final String  SEPULCHURS_FILE            	= "./config/sepulchurs.properties";
+    public static final String  ID_CONFIG_FILE				= "./config/idfactory.properties";
+    public static final String  OTHER_CONFIG_FILE			= "./config/other.properties";
+    public static final String  RATES_CONFIG_FILE           = "./config/rates.properties";
+    public static final String  ENCHANT_CONFIG_FILE         = "./config/enchant.properties";
+    public static final String  ALT_SETTINGS_FILE			= "./config/altsettings.properties";
+    public static final String  PVP_CONFIG_FILE				= "./config/pvp.properties";
+    public static final String  GM_ACCESS_FILE				= "./config/GMAccess.properties";
+    public static final String  TELNET_FILE					= "./config/telnet.properties";
+    public static final String  VERSION_FILE				= "./config/l2j-version.properties";
+    public static final String  SIEGE_CONFIGURATION_FILE	= "./config/siege.properties";
+    public static final String  HEXID_FILE					= "./config/hexid.txt";
+    public static final String  COMMAND_PRIVILEGES_FILE     = "./config/command-privileges.properties";
+    public static final String  SEVENSIGNS_FILE             = "./config/sevensigns.properties";
+    public static final String  CLANHALL_CONFIG_FILE        = "./config/clanhall.properties";
+    public static final String  FUN_ENGINES_FILE            = "./config/fun_engines.properties";
+    public static final String	SAY_FILTER_FILE				= "./config/sayfilter.txt";
+	
+	
+	
+	/** Enable/disable assertions */
     public static boolean ASSERT;
 
     /** Enable/disable DEVELOPER TREATMENT  */
@@ -717,37 +746,6 @@ public final class Config {
     public static boolean DM_ALLOW_SUMMON;
     public static boolean DM_ON_START_REMOVE_ALL_EFFECTS;
     public static boolean DM_ON_START_UNSUMMON_PET;
-
-    /** Configuration files */
-    /** Properties file for game server (connection and ingame) configurations */
-    public static final String  CONFIGURATION_FILE          = "./config/server.properties";
-    /** Properties file for game server options */
-    public static final String  OPTIONS_FILE                = "./config/options.properties";
-    /** Properties file clan settings */
-    public static final String  CLANS_FILE                	= "./config/clans.properties";
-    /** Properties file olympiad settings */
-    public static final String  OLYMPIAD_FILE             	= "./config/olympiad.properties";
-    
-    /** Properties file for the ID factory */
-    public static final String  ID_CONFIG_FILE				= "./config/idfactory.properties";
-    public static final String  OTHER_CONFIG_FILE			= "./config/other.properties";
-    /** Properties file for rates configurations */
-    public static final String  RATES_CONFIG_FILE           = "./config/rates.properties";
-    public static final String  ENCHANT_CONFIG_FILE         = "./config/enchant.properties";
-    public static final String  ALT_SETTINGS_FILE			= "./config/altsettings.properties";
-    public static final String  PVP_CONFIG_FILE				= "./config/pvp.properties";
-    public static final String  GM_ACCESS_FILE				= "./config/GMAccess.properties";
-    public static final String  TELNET_FILE					= "./config/telnet.properties";
-    public static final String  VERSION_FILE				= "./config/l2j-version.properties";
-    public static final String  SIEGE_CONFIGURATION_FILE	= "./config/siege.properties";
-    public static final String  HEXID_FILE					= "./config/hexid.txt";
-    public static final String  COMMAND_PRIVILEGES_FILE     = "./config/command-privileges.properties";
-    public static final String  SEVENSIGNS_FILE             = "./config/sevensigns.properties";
-    public static final String  CLANHALL_CONFIG_FILE          = "./config/clanhall.properties";
-    /** Properties file for fun engines */
-    public static final String  FUN_ENGINES_FILE             = "./config/fun_engines.properties";
-    
-    public static final String	SAY_FILTER_FILE				= "./config/sayfilter.txt";
     
     public static int           GAME_SERVER_LOGIN_PORT;
     public static String        GAME_SERVER_LOGIN_HOST;
@@ -1333,7 +1331,7 @@ public final class Config {
 	        catch (Exception e)
 	        {
 	            _log.error(e.getMessage(),e);
-	            throw new Error("Failed to Load "+CONFIGURATION_FILE+" File.");
+	            throw new Error("Failed to Load "+OLYMPIAD_FILE+" File.");
 	        }
 	        
 	        try
@@ -1360,9 +1358,97 @@ public final class Config {
 	        catch (Exception e)
 	        {
 	            _log.error(e.getMessage(),e);
-	            throw new Error("Failed to Load "+CONFIGURATION_FILE+" File.");
+	            throw new Error("Failed to Load "+CLANS_FILE+" File.");
 	        }
 
+	        try
+	        {
+                Properties championsSettings = new Properties();
+                InputStream is               = new FileInputStream(new File(CHAMPIONS_FILE));
+                championsSettings.load(is);
+                is.close();
+                
+                CHAMPION_FREQUENCY      = Integer.parseInt(championsSettings.getProperty("ChampionFrequency", "0"));
+                CHAMPION_HP             = Integer.parseInt(championsSettings.getProperty("ChampionHp", "7"));
+                CHAMPION_REWARDS        = Integer.parseInt(championsSettings.getProperty("ChampionRewards", "8"));
+                CHAMPION_EXP_SP        	= Integer.parseInt(championsSettings.getProperty("ChampionExpSP", "8"));
+                CHAMPION_BOSS           = Boolean.parseBoolean(championsSettings.getProperty("ChampionBoss", "false"));
+                CHAMPION_LEVEL        	= Integer.parseInt(championsSettings.getProperty("ChampionMinLevel", "1"));
+                CHAMPION_MINIONS        = Boolean.parseBoolean(championsSettings.getProperty("ChampionMinions", "false"));
+	        }
+	        catch (Exception e)
+	        {
+	            _log.error(e.getMessage(),e);
+	            throw new Error("Failed to Load "+CHAMPIONS_FILE+" File.");
+	        }
+
+	        try
+	        {
+                Properties lotterySettings = new Properties();
+                InputStream is               = new FileInputStream(new File(LOTTERY_FILE));
+                lotterySettings.load(is);
+                is.close();
+                
+                ALT_LOTTERY_PRIZE                                   = Integer.parseInt(lotterySettings.getProperty("AltLotteryPrize","50000"));
+                ALT_LOTTERY_TICKET_PRICE                            = Integer.parseInt(lotterySettings.getProperty("AltLotteryTicketPrice","2000"));
+                ALT_LOTTERY_5_NUMBER_RATE                           = Float.parseFloat(lotterySettings.getProperty("AltLottery5NumberRate","0.6"));
+                ALT_LOTTERY_4_NUMBER_RATE                           = Float.parseFloat(lotterySettings.getProperty("AltLottery4NumberRate","0.2"));
+                ALT_LOTTERY_3_NUMBER_RATE                           = Float.parseFloat(lotterySettings.getProperty("AltLottery3NumberRate","0.2"));
+                ALT_LOTTERY_2_AND_1_NUMBER_PRIZE                    = Integer.parseInt(lotterySettings.getProperty("AltLottery2and1NumberPrize","200"));
+	        }
+	        catch (Exception e)
+	        {
+	            _log.error(e.getMessage(),e);
+	            throw new Error("Failed to Load "+LOTTERY_FILE+" File.");
+	        }
+	        
+	        try
+	        {
+                Properties sepulchursSettings = new Properties();
+                InputStream is               = new FileInputStream(new File(SEPULCHURS_FILE));
+                sepulchursSettings.load(is);
+                is.close();
+                
+                FS_TIME_ATTACK 										= Integer.parseInt(sepulchursSettings.getProperty("TimeOfAttack", "50"));
+                FS_TIME_COOLDOWN 									= Integer.parseInt(sepulchursSettings.getProperty("TimeOfCoolDown", "5"));
+                FS_TIME_ENTRY 										= Integer.parseInt(sepulchursSettings.getProperty("TimeOfEntry", "3"));
+                FS_TIME_WARMUP 										= Integer.parseInt(sepulchursSettings.getProperty("TimeOfWarmUp", "2"));
+                FS_PARTY_MEMBER_COUNT 								= Integer.parseInt(sepulchursSettings.getProperty("NumberOfNecessaryPartyMembers", "4"));
+                if(FS_TIME_ATTACK <= 0) FS_TIME_ATTACK = 50;
+                if(FS_TIME_COOLDOWN <= 0) FS_TIME_COOLDOWN = 5;
+                if(FS_TIME_ENTRY <= 0) FS_TIME_ENTRY = 3;
+                if(FS_TIME_ENTRY <= 0) FS_TIME_ENTRY = 3;
+                if(FS_TIME_ENTRY <= 0) FS_TIME_ENTRY = 3;
+                
+	        }
+	        catch (Exception e)
+	        {
+	            _log.error(e.getMessage(),e);
+	            throw new Error("Failed to Load "+SEPULCHURS_FILE+" File.");
+	        }
+	        
+	        try
+	        {
+                Properties weddingSettings = new Properties();
+                InputStream is               = new FileInputStream(new File(WEDDING_FILE));
+                weddingSettings.load(is);
+                is.close();
+                
+                WEDDING_PRICE                                       = Integer.parseInt(weddingSettings.getProperty("WeddingPrice", "500000"));
+                WEDDING_PUNISH_INFIDELITY                           = Boolean.parseBoolean(weddingSettings.getProperty("WeddingPunishInfidelity", "true"));                
+                WEDDING_TELEPORT                                    = Boolean.parseBoolean(weddingSettings.getProperty("WeddingTeleport", "true"));
+                WEDDING_TELEPORT_PRICE                              = Integer.parseInt(weddingSettings.getProperty("WeddingTeleportPrice", "500000"));
+                WEDDING_TELEPORT_INTERVAL                           = Integer.parseInt(weddingSettings.getProperty("WeddingTeleportInterval", "120"));
+                WEDDING_SAMESEX                                     = Boolean.parseBoolean(weddingSettings.getProperty("WeddingAllowSameSex", "true"));
+                WEDDING_FORMALWEAR                                  = Boolean.parseBoolean(weddingSettings.getProperty("WeddingFormalWear", "true"));
+                WEDDING_DIVORCE_COSTS                               = Integer.parseInt(weddingSettings.getProperty("WeddingDivorceCosts", "20"));
+	        }
+	        catch (Exception e)
+	        {
+	            _log.error(e.getMessage(),e);
+	            throw new Error("Failed to Load "+WEDDING_FILE+" File.");
+	        }
+	        
             try 
             {
                 Properties optionsSettings    = new Properties();
@@ -1858,13 +1944,6 @@ public final class Config {
 	            ALT_GAME_SKILL_HIT_RATE = Float.parseFloat(altSettings.getProperty("AltGameSkillHitRate", "1."));
                 CHANCE_BREAK            = Integer.parseInt(altSettings.getProperty("ChanceToBreak", "10"));
                 CHANCE_LEVEL            = Integer.parseInt(altSettings.getProperty("ChanceToLevel", "32"));
-                CHAMPION_FREQUENCY      = Integer.parseInt(altSettings.getProperty("ChampionFrequency", "0"));
-                CHAMPION_HP             = Integer.parseInt(altSettings.getProperty("ChampionHp", "7"));
-                CHAMPION_REWARDS        = Integer.parseInt(altSettings.getProperty("ChampionRewards", "8"));
-                CHAMPION_EXP_SP        = Integer.parseInt(altSettings.getProperty("ChampionExpSP", "8"));
-                CHAMPION_BOSS           							= Boolean.parseBoolean(altSettings.getProperty("ChampionBoss", "false"));
-                CHAMPION_LEVEL        								= Integer.parseInt(altSettings.getProperty("ChampionMinLevel", "1"));
-                CHAMPION_MINIONS           							= Boolean.parseBoolean(altSettings.getProperty("ChampionMinions", "false"));
 	            IS_CRAFTING_ENABLED     							= Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
 	            FAIL_FAKEDEATH 										= Boolean.parseBoolean(altSettings.getProperty("FailFakeDeath", "true"));
 	            ALT_FLYING_WYVERN_IN_SIEGE 							= Boolean.parseBoolean(altSettings.getProperty("AltFlyingWyvernInSiege", "false"));
@@ -1887,14 +1966,6 @@ public final class Config {
                 COMMON_RECIPE_LIMIT                                 = Integer.parseInt(altSettings.getProperty("CommonRecipeLimit","50"));
                 
                 ALT_STRICT_HERO_SYSTEM                              = Boolean.parseBoolean(altSettings.getProperty("StrictHeroSystem", "True"));
-
-                ALT_LOTTERY_PRIZE                                   = Integer.parseInt(altSettings.getProperty("AltLotteryPrize","50000"));
-                ALT_LOTTERY_TICKET_PRICE                            = Integer.parseInt(altSettings.getProperty("AltLotteryTicketPrice","2000"));
-                ALT_LOTTERY_5_NUMBER_RATE                           = Float.parseFloat(altSettings.getProperty("AltLottery5NumberRate","0.6"));
-                ALT_LOTTERY_4_NUMBER_RATE                           = Float.parseFloat(altSettings.getProperty("AltLottery4NumberRate","0.2"));
-                ALT_LOTTERY_3_NUMBER_RATE                           = Float.parseFloat(altSettings.getProperty("AltLottery3NumberRate","0.2"));
-                ALT_LOTTERY_2_AND_1_NUMBER_PRIZE                    = Integer.parseInt(altSettings.getProperty("AltLottery2and1NumberPrize","200"));
-
                 ALT_STRICT_SEVENSIGNS                               = Boolean.parseBoolean(altSettings.getProperty("StrictSevenSigns", "True"));
                 
                 ALT_BUFF_TIME                                       = Integer.parseInt(altSettings.getProperty("AltBuffTime", "1"));
@@ -1919,15 +1990,6 @@ public final class Config {
                 ALT_STATPOINT_DISTRIBUTION                          = Boolean.parseBoolean(altSettings.getProperty("AltStatPointDistribution", "false"));
                 ALT_CRITICAL_CAP								 	= Integer.parseInt(altSettings.getProperty("AltCriticalCap", "500"));
                 
-                WEDDING_PRICE                                       = Integer.parseInt(altSettings.getProperty("WeddingPrice", "500000"));
-                WEDDING_PUNISH_INFIDELITY                           = Boolean.parseBoolean(altSettings.getProperty("WeddingPunishInfidelity", "true"));                
-                WEDDING_TELEPORT                                    = Boolean.parseBoolean(altSettings.getProperty("WeddingTeleport", "true"));
-                WEDDING_TELEPORT_PRICE                              = Integer.parseInt(altSettings.getProperty("WeddingTeleportPrice", "500000"));
-                WEDDING_TELEPORT_INTERVAL                           = Integer.parseInt(altSettings.getProperty("WeddingTeleportInterval", "120"));
-                WEDDING_SAMESEX                                     = Boolean.parseBoolean(altSettings.getProperty("WeddingAllowSameSex", "true"));
-                WEDDING_FORMALWEAR                                  = Boolean.parseBoolean(altSettings.getProperty("WeddingFormalWear", "true"));
-                WEDDING_DIVORCE_COSTS                               = Integer.parseInt(altSettings.getProperty("WeddingDivorceCosts", "20"));
-                
                 ALT_CRAFT_ALLOW_CRAFT                               = Boolean.parseBoolean(altSettings.getProperty("CraftManagerDwarvenCraft", "True"));
                 ALT_CRAFT_ALLOW_COMMON                              = Boolean.parseBoolean(altSettings.getProperty("CraftManagerCommonCraft", "False"));
                 ALT_CRAFT_ALLOW_CRYSTALLIZE                         = Boolean.parseBoolean(altSettings.getProperty("CraftManagerCrystallize", "True"));
@@ -1941,16 +2003,6 @@ public final class Config {
                 CAPACITY_OF_LAIR_OF_VALAKAS 						= Integer.parseInt(altSettings.getProperty("CapacityOfLairOfValakas", "200"));
                 APPTIME_OF_VALAKAS 									= Integer.parseInt(altSettings.getProperty("AppTimeOfValakas", "20"));
                 APPTIME_OF_ANTHARAS 								= Integer.parseInt(altSettings.getProperty("AppTimeOfAntharas", "10"));
-                FS_TIME_ATTACK 										= Integer.parseInt(altSettings.getProperty("TimeOfAttack", "50"));
-                FS_TIME_COOLDOWN 									= Integer.parseInt(altSettings.getProperty("TimeOfCoolDown", "5"));
-                FS_TIME_ENTRY 										= Integer.parseInt(altSettings.getProperty("TimeOfEntry", "3"));
-                FS_TIME_WARMUP 										= Integer.parseInt(altSettings.getProperty("TimeOfWarmUp", "2"));
-                FS_PARTY_MEMBER_COUNT 								= Integer.parseInt(altSettings.getProperty("NumberOfNecessaryPartyMembers", "4"));
-                if(FS_TIME_ATTACK <= 0) FS_TIME_ATTACK = 50;
-                if(FS_TIME_COOLDOWN <= 0) FS_TIME_COOLDOWN = 5;
-                if(FS_TIME_ENTRY <= 0) FS_TIME_ENTRY = 3;
-                if(FS_TIME_ENTRY <= 0) FS_TIME_ENTRY = 3;
-                if(FS_TIME_ENTRY <= 0) FS_TIME_ENTRY = 3;
                 if (NURSEANT_RESPAWN_DELAY < 15) NURSEANT_RESPAWN_DELAY = 15;
                 else if (NURSEANT_RESPAWN_DELAY > 120) NURSEANT_RESPAWN_DELAY = 120;
                 NURSEANT_RESPAWN_DELAY = NURSEANT_RESPAWN_DELAY * 1000;
