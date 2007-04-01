@@ -1595,7 +1595,7 @@ public abstract class L2Skill
                         target = (L2SummonInstance) obj;
                     else continue;
                     
-                    if (!GeoData.getInstance().canSeeTarget(activeChar, target))
+                    if (!(target instanceof L2DoorInstance) && !GeoData.getInstance().canSeeTarget(activeChar, target))
                         continue;
                     
                     if (!target.isAlikeDead()) // If target is not dead/fake death and not self
@@ -1966,7 +1966,7 @@ public abstract class L2Skill
 
                     if (!Util.checkIfInRange(radius, target, obj, true)) continue;
                     
-                    if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
+                    if (!(target instanceof L2DoorInstance) && !GeoData.getInstance().canSeeTarget(activeChar, obj))
                         continue;
                     
                     if(obj instanceof L2PcInstance && src != null)

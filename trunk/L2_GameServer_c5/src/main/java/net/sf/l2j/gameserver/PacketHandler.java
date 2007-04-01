@@ -687,24 +687,40 @@ public class PacketHandler
                     case 0x0f:
                     	msg = new RequestExOustFromMPCC(data, client);
                     	break;
-                    //case 0x10:
-                    	//msg = new RequestExPledgeCrestLarge(data, client);
-                    	//break;
-                    //case 0x11:
-                    	//msg = new RequestExSetPledgeCrestLarge(data, client);
-                    	//break;
+                    case 0x10:
+                    	msg = new RequestExPledgeCrestLarge(data, client);
+                    	break;
+                    case 0x11:
+                    	msg = new RequestExSetPledgeCrestLarge(data, client);
+                    	break;
                     case 0x12:
                     	msg = new RequestOlympiadObserverEnd(data, client);
                     	break;
                     case 0x13:
                     	msg = new RequestOlympiadMatchList(data, client);
                     	break;
+                    case 0x14:
+                        msg = new RequestAskJoinPartyRoom(data, client);
+                        break;
+                    case 0x15:
+                        msg = new AnswerJoinPartyRoom(data, client);
+                        break;
+                    case 0x16:
+                        msg = new RequestListPartyMatchingWaitingRoom(data, client);
+                        break;
+                    case 0x17:
+                        msg = new RequestExitPartyMatchingWaitingRoom(data, client);
+                        break;
+                    case 0x18:
+                        msg = new RequestGetBossRecord(data, client);
+                        break;
+                    case 0x19:
+                        msg = new RequestPledgeSetAcademyMaster(data, client);
+                        break;
                     case 0x1a:
-                        //_log.warn("RequestPledgePowerGradeList");
                         msg = new RequestPledgePowerGradeList(data, client);
                         break;
                     case 0x1b:
-                        //_log.warn("RequestPledgeMemberPowerInfo");
                         msg = new RequestPledgeMemberPowerInfo(data, client);
                         break;
                     case 0x1c:

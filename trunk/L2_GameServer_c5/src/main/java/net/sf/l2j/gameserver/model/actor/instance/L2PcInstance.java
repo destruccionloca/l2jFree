@@ -6930,7 +6930,7 @@ public final class L2PcInstance extends L2PlayableInstance
             return;
         }
         // GeoData Los Check here
-        if (!GeoData.getInstance().canSeeTarget(this, target))
+        if (!(target instanceof L2DoorInstance) && !GeoData.getInstance().canSeeTarget(this, target))
         {
             sendPacket(new SystemMessage(SystemMessage.CANT_SEE_TARGET));
             sendPacket(new ActionFailed());
