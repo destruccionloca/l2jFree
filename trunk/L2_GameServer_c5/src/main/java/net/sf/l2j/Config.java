@@ -89,6 +89,12 @@ public final class Config {
 	public static int 			PACKET_LIMIT;
 	public static int 			PACKET_TIME_LIMIT;
     public static File    		DATAPACK_ROOT;					// Datapack root directory
+    public static IOType        IO_TYPE;
+    public static int           PATH_NODE_RADIUS;
+    public static int           NEW_NODE_ID;
+    public static int           SELECTED_NODE_ID;
+    public static int           LINKED_NODE_ID;
+    public static String        NEW_NODE_TYPE;
     //*******************************************************************************************    
     public static void loadconfiguration()
     {
@@ -722,10 +728,178 @@ public final class Config {
     //  *******************************************************************************************
     public static final String  OTHER_CONFIG_FILE			= "./config/other.properties";
     //  *******************************************************************************************
+    public static boolean 			ALT_PRIVILEGES_ADMIN;
+    public static boolean 			ALT_PRIVILEGES_SECURE_CHECK;
+    public static int 				ALT_PRIVILEGES_DEFAULT_LEVEL;
+    public static boolean 			JAIL_IS_PVP;						// Jail config	
+    public static boolean 			JAIL_DISABLE_CHAT;					// Jail config
+    public static String  			ALLOWED_NPC_TYPES;
+    public static FastList<String> 	LIST_ALLOWED_NPC_TYPES = new FastList<String>();// List of NPC types that won't allow casting
+    public static int           	WYVERN_SPEED;
+    public static int           	STRIDER_SPEED;
+    public static boolean       	ALLOW_WYVERN_UPGRADER;
+    public static boolean 			PETITIONING_ALLOWED;
+    public static int 				MAX_PETITIONS_PER_PLAYER;
+    public static int 				MAX_PETITIONS_PENDING;
+    public static boolean 			STORE_SKILL_COOLTIME;				// Store skills cooltime on char exit/relogin
+    public static boolean 			ANNOUNCE_MAMMON_SPAWN;
+    public static double  			RESPAWN_RESTORE_CP;					// Percent CP is restore on respawn
+    public static double  			RESPAWN_RESTORE_HP;					// Percent HP is restore on respawn
+    public static double  			RESPAWN_RESTORE_MP;					// Percent MP is restore on respawn
+ 	public static boolean 			RESPAWN_RANDOM_ENABLED;				// Allow randomizing of the respawn point in towns. 
+ 	public static int 				RESPAWN_RANDOM_MAX_OFFSET;			// The maximum offset from the base respawn point to allow.
+    public static int  				MAX_PVTSTORE_SLOTS_DWARF;			// Maximum number of available slots for pvt stores (sell/buy) - Dwarves
+    public static int  				MAX_PVTSTORE_SLOTS_OTHER;			// Maximum number of available slots for pvt stores (sell/buy) - Others
+    public static String  			PARTY_XP_CUTOFF_METHOD;				// Define Party XP cutoff point method - Possible values: level and percentage
+    public static int 				PARTY_XP_CUTOFF_LEVEL;				// Define the cutoff point value for the "level" method
+    public static double  			PARTY_XP_CUTOFF_PERCENT;			// Define the cutoff point value for the "percentage" method
+    public static int 				PARTY_RANGE;						// Range of Members to get exp/drops 
+    public static int 				MAX_PARTY_LEVEL_DIFFERENCE;			// Maximum level difference between party members in levels  
+    public static double   			RAID_HP_REGEN_MULTIPLIER;			// Multiplier for Raid boss HP regeneration
+    public static double   			RAID_MP_REGEN_MULTIPLIER;			// Mulitplier for Raid boss MP regeneration
+    public static double   			RAID_DEFENCE_MULTIPLIER;			// Multiplier for Raid boss defense multiplier
+    public static double   			RAID_MINION_RESPAWN_TIMER;			// Raid Boss Minin Spawn Timer
+    public static float   			RAID_MIN_RESPAWN_MULTIPLIER;		// Mulitplier for Raid boss minimum time respawn
+    public static float   			RAID_MAX_RESPAWN_MULTIPLIER;		// Mulitplier for Raid boss maximum time respawn  
+    public static int 				STARTING_ADENA;						// Amount of adenas when starting a new character
+    public static boolean 			DEEPBLUE_DROP_RULES;				// Deep Blue Mobs' Drop Rules Enabled
+    public static int     			UNSTUCK_INTERVAL;
+    public static int   			PLAYER_SPAWN_PROTECTION;			// Player Protection control
+    public static int   			PLAYER_FAKEDEATH_UP_PROTECTION;
+    public static double  			NPC_HP_REGEN_MULTIPLIER;			// NPC regen multipliers
+    public static double  			NPC_MP_REGEN_MULTIPLIER;			// NPC regen multipliers
+    public static double  			PLAYER_HP_REGEN_MULTIPLIER;			// Player regen multipliers
+    public static double  			PLAYER_MP_REGEN_MULTIPLIER;			// Player regen multipliers
+    public static double  			PLAYER_CP_REGEN_MULTIPLIER;			// Player regen multipliers
+    /**
+     * Allow lesser effects to be canceled if stronger effects are used when effects of the same stack group are used.<br> 
+     * New effects that are added will be canceled if they are of lesser priority to the old one.
+     */
+    public static boolean 			EFFECT_CANCELING;
+    public static String  			NONDROPPABLE_ITEMS;
+    public static FastList<Integer> LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
+    public static String  			PET_RENT_NPC;
+    public static FastList<Integer> LIST_PET_RENT_NPC = new FastList<Integer>();
+    public static int       		ADD_MAX_LOAD;						// Weight limit
+    public static boolean   		LEVEL_ADD_LOAD;
+    public static int           	WAREHOUSE_SLOTS_NO_DWARF;			// Warehouse slots limits
+    public static int           	WAREHOUSE_SLOTS_DWARF;				// Warehouse slots limits
+    public static int           	WAREHOUSE_SLOTS_CLAN;				// Warehouse slots limits
+    public static int           	FREIGHT_SLOTS;						// Freight slots limits
+    public static int           	INVENTORY_MAXIMUM_NO_DWARF;			// Inventory slots limits
+    public static int           	INVENTORY_MAXIMUM_DWARF;			// Inventory slots limits
+    public static int           	INVENTORY_MAXIMUM_GM;				// Inventory slots limits
+    //  *******************************************************************************************    
     //  *******************************************************************************************
     public static void loadotherconfig()
     {
-    	
+    	_log.info("loading " + OTHER_CONFIG_FILE);
+        try
+        {
+            Properties otherSettings    = new Properties();
+            InputStream is              = new FileInputStream(new File(OTHER_CONFIG_FILE));
+            otherSettings.load(is);
+            is.close();
+            
+            DEEPBLUE_DROP_RULES = Boolean.parseBoolean(otherSettings.getProperty("UseDeepBlueDropRules", "True"));
+            EFFECT_CANCELING    = Boolean.valueOf(otherSettings.getProperty("CancelLesserEffect", "True"));
+            WYVERN_SPEED        = Integer.parseInt(otherSettings.getProperty("WyvernSpeed", "100"));         
+            STRIDER_SPEED       = Integer.parseInt(otherSettings.getProperty("StriderSpeed", "80"));
+            ALLOW_WYVERN_UPGRADER     = Boolean.valueOf(otherSettings.getProperty("AllowWyvernUpgrader", "False"));
+            
+            /* Inventory slots limits */
+            INVENTORY_MAXIMUM_NO_DWARF  = Integer.parseInt(otherSettings.getProperty("MaximumSlotsForNoDwarf", "80"));
+            INVENTORY_MAXIMUM_DWARF  = Integer.parseInt(otherSettings.getProperty("MaximumSlotsForDwarf", "100"));
+            INVENTORY_MAXIMUM_GM    = Integer.parseInt(otherSettings.getProperty("MaximumSlotsForGMPlayer", "250"));
+          
+            /* Config weight limit */
+            ADD_MAX_LOAD = Integer.parseInt(otherSettings.getProperty("AddWeightLimit", "0"));
+            LEVEL_ADD_LOAD = Boolean.valueOf(otherSettings.getProperty("IncreaseWeightLimitByLevel", "false"));
+            
+            /* Inventory slots limits */
+            WAREHOUSE_SLOTS_NO_DWARF = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForNoDwarf", "100"));
+            WAREHOUSE_SLOTS_DWARF = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForDwarf", "120"));
+            WAREHOUSE_SLOTS_CLAN = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForClan", "150"));
+            FREIGHT_SLOTS       = Integer.parseInt(otherSettings.getProperty("MaximumFreightSlots", "20"));
+            
+            /* if different from 100 (ie 100%) heal rate is modified acordingly */
+            NPC_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("NPCHpRegenMultiplier", "100")) /100;
+            NPC_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("NPCMpRegenMultiplier", "100")) /100;
+
+            PLAYER_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerHpRegenMultiplier", "100")) /100;
+            PLAYER_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerMpRegenMultiplier", "100")) /100;
+            PLAYER_CP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerCpRegenMultiplier", "100")) /100;
+            
+            RAID_HP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidHpRegenMultiplier", "100")) /100;
+            RAID_MP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidMpRegenMultiplier", "100")) /100; 
+            RAID_DEFENCE_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidDefenceMultiplier", "100")) /100;    
+            RAID_MINION_RESPAWN_TIMER  = Integer.parseInt(otherSettings.getProperty("RaidMinionRespawnTime", "300000"));                
+
+            RAID_MIN_RESPAWN_MULTIPLIER = Float.parseFloat(otherSettings.getProperty("RaidMinRespawnMultiplier", "1.0"));
+            RAID_MAX_RESPAWN_MULTIPLIER = Float.parseFloat(otherSettings.getProperty("RaidMaxRespawnMultiplier", "1.0"));
+
+            STARTING_ADENA      = Integer.parseInt(otherSettings.getProperty("StartingAdena", "100"));
+            UNSTUCK_INTERVAL    = Integer.parseInt(otherSettings.getProperty("UnstuckInterval", "300"));
+
+            /* Player protection after teleport or login */
+            PLAYER_SPAWN_PROTECTION = Integer.parseInt(otherSettings.getProperty("PlayerSpawnProtection", "0"));
+            
+            /* Player protection after recovering from fake death (works against mobs only) */
+            PLAYER_FAKEDEATH_UP_PROTECTION = Integer.parseInt(otherSettings.getProperty("PlayerFakeDeathUpProtection", "0"));	            
+            
+            /* Defines some Party XP related values */
+            PARTY_XP_CUTOFF_METHOD  = otherSettings.getProperty("PartyXpCutoffMethod", "percentage");
+            PARTY_XP_CUTOFF_PERCENT = Double.parseDouble(otherSettings.getProperty("PartyXpCutoffPercent", "3."));
+            PARTY_RANGE             = Integer.parseInt(otherSettings.getProperty("PartyRange", "1000"));
+            PARTY_XP_CUTOFF_LEVEL   = Integer.parseInt(otherSettings.getProperty("PartyXpCutoffLevel", "30"));
+            MAX_PARTY_LEVEL_DIFFERENCE = Integer.parseInt(otherSettings.getProperty("PartyMaxLevelDifference", "20"));
+            
+            /* Amount of HP, MP, and CP is restored */
+            RESPAWN_RESTORE_CP = Double.parseDouble(otherSettings.getProperty("RespawnRestoreCP", "0")) / 100;
+            RESPAWN_RESTORE_HP = Double.parseDouble(otherSettings.getProperty("RespawnRestoreHP", "70")) / 100;
+            RESPAWN_RESTORE_MP = Double.parseDouble(otherSettings.getProperty("RespawnRestoreMP", "70")) / 100;
+            
+         	RESPAWN_RANDOM_ENABLED = Boolean.parseBoolean(otherSettings.getProperty("RespawnRandomInTown", "False")); 
+         	RESPAWN_RANDOM_MAX_OFFSET = Integer.parseInt(otherSettings.getProperty("RespawnRandomMaxOffset", "50")); 
+            
+            /* Maximum number of available slots for pvt stores */
+            MAX_PVTSTORE_SLOTS_DWARF = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreSlotsDwarf", "5"));
+            MAX_PVTSTORE_SLOTS_OTHER = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreSlotsOther", "4"));
+            
+            STORE_SKILL_COOLTIME = Boolean.parseBoolean(otherSettings.getProperty("StoreSkillCooltime", "true"));
+
+            NONDROPPABLE_ITEMS        = otherSettings.getProperty("ListOfNonDroppableItems", "1147,425,1146,461,10,2368,7,6,2370,2369,5598");
+            
+            LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
+            for (String id : NONDROPPABLE_ITEMS.trim().split(",")) {
+                LIST_NONDROPPABLE_ITEMS.add(Integer.parseInt(id.trim()));
+            }
+            
+            ANNOUNCE_MAMMON_SPAWN = Boolean.parseBoolean(otherSettings.getProperty("AnnounceMammonSpawn", "True"));
+            
+            ALT_PRIVILEGES_ADMIN = Boolean.parseBoolean(otherSettings.getProperty("AltPrivilegesAdmin", "False"));
+            ALT_PRIVILEGES_SECURE_CHECK = Boolean.parseBoolean(otherSettings.getProperty("AltPrivilegesSecureCheck", "True"));
+            ALT_PRIVILEGES_DEFAULT_LEVEL = Integer.parseInt(otherSettings.getProperty("AltPrivilegesDefaultLevel", "100"));
+
+            PETITIONING_ALLOWED = Boolean.parseBoolean(otherSettings.getProperty("PetitioningAllowed", "True"));
+            MAX_PETITIONS_PER_PLAYER = Integer.parseInt(otherSettings.getProperty("MaxPetitionsPerPlayer", "5"));
+            MAX_PETITIONS_PENDING = Integer.parseInt(otherSettings.getProperty("MaxPetitionsPending", "25"));                
+            
+            JAIL_IS_PVP       = Boolean.valueOf(otherSettings.getProperty("JailIsPvp", "True"));
+            JAIL_DISABLE_CHAT = Boolean.valueOf(otherSettings.getProperty("JailDisableChat", "True"));
+            
+            ALLOWED_NPC_TYPES  = otherSettings.getProperty("AllowedNPCTypes");
+            LIST_ALLOWED_NPC_TYPES = new FastList<String>();
+            for (String npc_type : ALLOWED_NPC_TYPES.trim().split(",")) 
+            {
+                LIST_ALLOWED_NPC_TYPES.add(npc_type.trim());
+            }                
+        }
+        catch (Exception e)
+        {
+            _log.error(e);
+            throw new Error("Failed to Load "+OTHER_CONFIG_FILE+" File.");
+        }
     }
     
     
@@ -1009,10 +1183,229 @@ public final class Config {
     //  *******************************************************************************************    
     public static final String  ALT_SETTINGS_FILE			= "./config/altsettings.properties";
     //  *******************************************************************************************
+    public static boolean 			ALT_GAME_CREATION;					// Alternative game crafting
+    public static double 			ALT_GAME_CREATION_SPEED;			// Alternative game crafting speed mutiplier - default 0 (fastest but still not instant)
+    public static double 			ALT_GAME_CREATION_XP_RATE;			// Alternative game crafting XP rate multiplier - default 1
+    public static double 			ALT_GAME_CREATION_SP_RATE;			// Alternative game crafting SP rate multiplier - default 1
+    public static int 				ALT_GAME_NUMBER_OF_CUMULATED_BUFF;	// Alternative number of cumulated buff
+    public static boolean 			ALT_DISABLE_RAIDBOSS_PETRIFICATION;	// Disable Raidboss Petrification
+    public static boolean 			ALT_STATPOINT_DISTRIBUTION;			// Own Stat Point Distribution
+    public static int 				ALT_CRITICAL_CAP;					// Critical Cap
+    public static boolean 			ALT_GAME_SKILL_LEARN;				// Alternative game skill learning
+    public static boolean 			ALT_GAME_CANCEL_BOW;				// Cancel attack bow by hit
+    public static boolean 			ALT_GAME_CANCEL_CAST;				// Cancel cast by hit
+    public static boolean 			ALT_GAME_TIREDNESS;					// Alternative game - use tiredness, instead of CP
+    public static boolean 			ALT_GAME_SHIELD_BLOCKS;				// Alternative shield defence
+    public static int 				ALT_PERFECT_SHLD_BLOCK;				// Alternative Perfect shield defence rate
+    public static boolean 			ALT_GAME_MOB_ATTACK_AI;				// Alternative game mob ATTACK AI
+    public static float 			ALT_INSTANT_KILL_EFFECT_2;			// Rate of Instant kill effect 2(CP no change ,HP =1,no kill
+    public static String 			ALT_GAME_SKILL_FORMULAS;			// Alternative success rate formulas for skills such root/sleep/stun
+    public static float 			ALT_DAGGER_DMG_VS_HEAVY;			// Alternative damage for dagger skills VS heavy
+    public static float 			ALT_DAGGER_DMG_VS_ROBE;				// Alternative damage for dagger skills VS robe
+    public static float 			ALT_DAGGER_DMG_VS_LIGHT;			// Alternative damage for dagger skills VS light
+    public static boolean 			ALT_DAGGER_FORMULA;					// Alternative success rate formulas for skills such dagger/critical skills and blows
+    public static float 			ALT_ATTACK_DELAY;					// Alternative config for next hit delay
+    public static int 				ALT_DAGGER_RATE;					// Alternative success rate for dagger blow,MAX value 100 (100% rate)
+    public static int 				ALT_DAGGER_FAIL_RATE;				// Alternative fail rate for dagger blow,MAX value 100 (100% rate)
+    public static int 				ALT_DAGGER_RATE_BEHIND;				// Alternative increasement to success rate for dagger/critical skills if activeChar is Behind the target
+    public static int 				ALT_DAGGER_RATE_FRONT;				// Alternative increasement to success rate for dagger/critical skills if activeChar is in Front of target
+    public static boolean 			ALT_GAME_FREIGHTS;					// Alternative freight modes - Freights can be withdrawed from any village
+    public static int 				ALT_GAME_FREIGHT_PRICE;				// Alternative freight modes - Sets the price value for each freightened item
+    public static float 			ALT_GAME_SKILL_HIT_RATE;			// Fast or slow multiply coefficient for skill hit time
+    public static boolean 			ALT_GAME_DELEVEL;					// Alternative gameing - loss of XP on death
+    public static boolean 			ALT_GAME_MAGICFAILURES;				// Alternative gameing - magic dmg failures
+    public static boolean 			ALT_GAME_FREE_TELEPORT;				// Alternative gaming - allow free teleporting around the world.
+    public static boolean 			ALT_RECOMMEND;						// Disallow recommend character twice or more a day ?
+    public static boolean 			ALT_GAME_SUBCLASS_WITHOUT_QUESTS;	// Alternative gaming - allow sub-class addition without quest completion.
+    public static boolean 			ALT_GAME_VIEWNPC;					// View npc stats/drop by shift-cliking it for nongm-players    
+    public static boolean 			ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE;	// Alternative gaming - all new characters always are newbies.
+    public static boolean 			ALT_STRICT_HERO_SYSTEM;				// Strict Hero Mode
+    public static boolean 			ALT_STRICT_SEVENSIGNS;				// Strict Seven Signs
+    public static boolean 			SP_BOOK_NEEDED;						// Spell Book needed to learn skill
+    public static int 				ALT_BUFF_TIME;
+    public static int 				ALT_DANCE_TIME;
+    public static int 				MAX_PATK_SPEED;						// Config for limit physical attack speed
+    public static int 				MAX_MATK_SPEED;						// Config for limit magical attack speed
+    public static float 			ALT_MAGES_PHYSICAL_DAMAGE_MULTI;	// Config for damage multiplies
+    public static float 			ALT_MAGES_MAGICAL_DAMAGE_MULTI;		// Config for damage multiplies
+    public static float 			ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI;	// Config for damage multiplies
+    public static float 			ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI;	// Config for damage multiplies
+    public static float 			ALT_PETS_PHYSICAL_DAMAGE_MULTI;		// Config for damage multiplies
+    public static float 			ALT_PETS_MAGICAL_DAMAGE_MULTI;		// Config for damage multiplies
+    public static float 			ALT_NPC_PHYSICAL_DAMAGE_MULTI;		// Config for damage multiplies
+    public static float 			ALT_NPC_MAGICAL_DAMAGE_MULTI;		// Config for damage multiplies
+    public static int 				ALT_URN_TEMP_FAIL;					// Config for URN temp fail
+    public static int 				ALT_BUFFER_HATE;					// Buffer Hate
+    public static int 				ALT_DIFF_CUTOFF;					// No exp cutoff
+    public static boolean       	SPAWN_WYVERN_MANAGER;
+    public static boolean       	SPAWN_CLASS_MASTER;
+    public static boolean			CLASS_MASTER_STRIDER_UPDATE;
+    public static String        	CLASS_MASTER_SETTINGS_LINE;
+    public static ClassMasterSettings  CLASS_MASTER_SETTINGS;
+    public static double 			ALT_CRAFT_PRICE;                    // reference price multiplier
+    public static int 				ALT_CRAFT_DEFAULT_PRICE;       	    // default price, in case reference is 0
+    public static boolean 			ALT_CRAFT_ALLOW_CRAFT;             	// allow to craft dwarven recipes
+    public static boolean 			ALT_CRAFT_ALLOW_CRYSTALLIZE;      	// allow to break items
+    public static boolean 			ALT_CRAFT_ALLOW_COMMON;            	// allow to craft common craft recipes
+    public static boolean 			AUTO_LOOT;							// Accept auto-loot ?
+    public static boolean 			AUTO_LOOT_HERBS;
+    public static boolean 			SPAWN_SIEGE_GUARD;					// Config for spawn siege guards 
+	public static int 				TIME_IN_A_DAY_OF_OPEN_A_DOOR;		
+	public static int 				TIME_OF_OPENING_A_DOOR;
+	public static int 				ACTIVITY_TIME_OF_BOSS;
+	public static int 				NURSEANT_RESPAWN_DELAY;
+	public static int 				CAPACITY_OF_LAIR_OF_VALAKAS;
+	public static int 				APPTIME_OF_VALAKAS;
+	public static int 				APPTIME_OF_ANTHARAS;
+    public static int 				DWARF_RECIPE_LIMIT;					// Recipebook limits
+    public static int 				COMMON_RECIPE_LIMIT;  
+    public static int 				CHANCE_BREAK;						// Chance For Soul Crystal to Break
+    public static int 				CHANCE_LEVEL;						// Chance For Soul Crystal to Level
+    public static boolean 			ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE;// Karma Punishment
+    public static boolean 			ALT_GAME_KARMA_PLAYER_CAN_SHOP;
+    public static boolean 			ALT_GAME_KARMA_PLAYER_CAN_USE_GK;	// Allow player with karma to use GK ?    
+    public static boolean 			ALT_GAME_KARMA_PLAYER_CAN_TELEPORT;
+    public static boolean 			ALT_GAME_KARMA_PLAYER_CAN_TRADE;
+    public static boolean 			ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE;
+    public static int 				ALT_PLAYER_PROTECTION_LEVEL;		// Player Protection Level    
+    public static boolean 			AUTO_LEARN_SKILLS;					// Config for Auto Learn Skills
+    public static boolean 			GRADE_PENALTY;						// Disable Grade penalty
+    public static boolean       	IS_CRAFTING_ENABLED;				// Crafting Enabled?
+    public static boolean   		FAIL_FAKEDEATH;						// Config for Fake Death Fail Feature
+    public static boolean 			ALT_FLYING_WYVERN_IN_SIEGE;			// Config for Wyvern enable flying in siege **/
+    //  *******************************************************************************************    
+    //  *******************************************************************************************    
     //  *******************************************************************************************
     public static void loadaltconfig()
     {
-    	
+    	_log.info("loading " + ALT_SETTINGS_FILE);
+        try
+        {
+            Properties altSettings  = new Properties();
+            InputStream is          = new FileInputStream(new File(ALT_SETTINGS_FILE));  
+            altSettings.load(is);
+            is.close();
+            
+            ALT_GAME_TIREDNESS      = Boolean.parseBoolean(altSettings.getProperty("AltGameTiredness", "false"));
+            ALT_GAME_CREATION       = Boolean.parseBoolean(altSettings.getProperty("AltGameCreation", "false"));
+            ALT_GAME_CREATION_SPEED = Double.parseDouble(altSettings.getProperty("AltGameCreationSpeed", "1"));
+            ALT_GAME_CREATION_XP_RATE=Double.parseDouble(altSettings.getProperty("AltGameCreationRateXp", "1"));
+            ALT_GAME_CREATION_SP_RATE=Double.parseDouble(altSettings.getProperty("AltGameCreationRateSp", "1"));
+            ALT_GAME_NUMBER_OF_CUMULATED_BUFF= Integer.parseInt(altSettings.getProperty("AltNbCumulatedBuff", "24"));
+            ALT_GAME_SKILL_LEARN    = Boolean.parseBoolean(altSettings.getProperty("AltGameSkillLearn", "false"));
+            ALT_GAME_CANCEL_BOW     = altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("bow") || altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");
+            ALT_GAME_CANCEL_CAST    = altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("cast") || altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");
+            ALT_GAME_SHIELD_BLOCKS  = Boolean.parseBoolean(altSettings.getProperty("AltShieldBlocks", "false"));
+            ALT_PERFECT_SHLD_BLOCK  = Integer.parseInt(altSettings.getProperty("AltPerfectShieldBlockRate", "10"));
+            ALT_GAME_DELEVEL        = Boolean.parseBoolean(altSettings.getProperty("Delevel", "true"));
+            ALT_GAME_MAGICFAILURES  = Boolean.parseBoolean(altSettings.getProperty("MagicFailures", "false"));
+            ALT_GAME_MOB_ATTACK_AI  = Boolean.parseBoolean(altSettings.getProperty("AltGameMobAttackAI", "false"));
+            ALT_GAME_SKILL_FORMULAS = altSettings.getProperty("AltGameSkillFormulas", "none");
+            ALT_INSTANT_KILL_EFFECT_2 = Float.parseFloat(altSettings.getProperty("InstantKillEffect2", "2"));
+            ALT_DAGGER_DMG_VS_HEAVY = Float.parseFloat(altSettings.getProperty("DaggerVSHeavy", "2.50"));
+            ALT_DAGGER_DMG_VS_ROBE  = Float.parseFloat(altSettings.getProperty("DaggerVSRobe", "2.00"));
+            ALT_DAGGER_DMG_VS_LIGHT = Float.parseFloat(altSettings.getProperty("DaggerVSLight", "1.80"));
+            ALT_DAGGER_FORMULA      = Boolean.parseBoolean(altSettings.getProperty("AltGameDaggerFormula", "false"));
+            ALT_DAGGER_RATE         = Integer.parseInt(altSettings.getProperty("AltCancelRate", "85"));
+            ALT_DAGGER_FAIL_RATE    = Integer.parseInt(altSettings.getProperty("AltFailRate", "15"));
+            ALT_DAGGER_RATE_BEHIND  = Integer.parseInt(altSettings.getProperty("AltSuccessRateBehind", "20"));
+            ALT_DAGGER_RATE_FRONT   = Integer.parseInt(altSettings.getProperty("AltSuccessRateFront", "5"));
+            ALT_ATTACK_DELAY        = Float.parseFloat(altSettings.getProperty("AltAttackDelay", "1.00"));
+            ALT_GAME_EXPONENT_XP    = Float.parseFloat(altSettings.getProperty("AltGameExponentXp", "0."));
+            ALT_GAME_EXPONENT_SP    = Float.parseFloat(altSettings.getProperty("AltGameExponentSp", "0."));
+            
+            SPAWN_WYVERN_MANAGER      = Boolean.valueOf(altSettings.getProperty("SpawnWyvernManager", "True"));
+            SPAWN_CLASS_MASTER      = Boolean.valueOf(altSettings.getProperty("SpawnClassMaster", "False"));
+            CLASS_MASTER_STRIDER_UPDATE = Boolean.valueOf(altSettings.getProperty("ClassMasterUpdateStrider", "False")); 
+            if (!altSettings.getProperty("ConfigClassMaster").trim().equalsIgnoreCase("False"))
+            	CLASS_MASTER_SETTINGS_LINE = altSettings.getProperty("ConfigClassMaster");
+            
+            CLASS_MASTER_SETTINGS = new ClassMasterSettings(CLASS_MASTER_SETTINGS_LINE);
+            
+            ALT_GAME_FREIGHTS       = Boolean.parseBoolean(altSettings.getProperty("AltGameFreights", "false"));
+            ALT_GAME_FREIGHT_PRICE  = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
+            ALT_GAME_SKILL_HIT_RATE = Float.parseFloat(altSettings.getProperty("AltGameSkillHitRate", "1."));
+            CHANCE_BREAK            = Integer.parseInt(altSettings.getProperty("ChanceToBreak", "10"));
+            CHANCE_LEVEL            = Integer.parseInt(altSettings.getProperty("ChanceToLevel", "32"));
+            IS_CRAFTING_ENABLED     							= Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
+            FAIL_FAKEDEATH 										= Boolean.parseBoolean(altSettings.getProperty("FailFakeDeath", "true"));
+            ALT_FLYING_WYVERN_IN_SIEGE 							= Boolean.parseBoolean(altSettings.getProperty("AltFlyingWyvernInSiege", "false"));
+            SP_BOOK_NEEDED          							= Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
+            AUTO_LOOT               							= altSettings.getProperty("AutoLoot").trim().equalsIgnoreCase("True");
+            AUTO_LOOT_HERBS         							= altSettings.getProperty("AutoLootHerbs").trim().equalsIgnoreCase("True");
+            ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE    = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanBeKilledInPeaceZone", "false"));
+            ALT_GAME_KARMA_PLAYER_CAN_SHOP                      = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanShop", "true"));
+            ALT_GAME_KARMA_PLAYER_CAN_USE_GK                    = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseGK", "false"));
+            ALT_GAME_KARMA_PLAYER_CAN_TELEPORT                  = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTeleport", "true"));
+            ALT_GAME_KARMA_PLAYER_CAN_TRADE                     = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTrade", "true"));
+            ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE             = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseWareHouse", "true"));
+            ALT_PLAYER_PROTECTION_LEVEL                         = Integer.parseInt(altSettings.getProperty("AltPlayerProtectionLevel","0"));
+            ALT_GAME_FREE_TELEPORT                              = Boolean.parseBoolean(altSettings.getProperty("AltFreeTeleporting", "False"));
+            ALT_RECOMMEND                                       = Boolean.parseBoolean(altSettings.getProperty("AltRecommend", "False"));
+            ALT_GAME_SUBCLASS_WITHOUT_QUESTS                    = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
+            ALT_GAME_VIEWNPC                    				= Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
+            ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE                  = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
+            DWARF_RECIPE_LIMIT                                  = Integer.parseInt(altSettings.getProperty("DwarfRecipeLimit","50"));
+            COMMON_RECIPE_LIMIT                                 = Integer.parseInt(altSettings.getProperty("CommonRecipeLimit","50"));
+            
+            ALT_STRICT_HERO_SYSTEM                              = Boolean.parseBoolean(altSettings.getProperty("StrictHeroSystem", "True"));
+            ALT_STRICT_SEVENSIGNS                               = Boolean.parseBoolean(altSettings.getProperty("StrictSevenSigns", "True"));
+            
+            ALT_BUFF_TIME                                       = Integer.parseInt(altSettings.getProperty("AltBuffTime", "1"));
+            ALT_DANCE_TIME                                      = Integer.parseInt(altSettings.getProperty("AltDanceTime", "1"));
+            SPAWN_SIEGE_GUARD 									= Boolean.parseBoolean(altSettings.getProperty("SpawnSiegeGuard", "true"));
+            AUTO_LEARN_SKILLS 									= Boolean.parseBoolean(altSettings.getProperty("AutoLearnSkills", "false"));
+            MAX_PATK_SPEED 										= Integer.parseInt(altSettings.getProperty("MaxPAtkSpeed", "0"));
+            MAX_MATK_SPEED                                      = Integer.parseInt(altSettings.getProperty("MaxMAtkSpeed", "0"));
+            ALT_MAGES_PHYSICAL_DAMAGE_MULTI                     = Float.parseFloat(altSettings.getProperty("AltPDamageMages", "1.00"));
+            ALT_MAGES_MAGICAL_DAMAGE_MULTI                      = Float.parseFloat(altSettings.getProperty("AltMDamageMages", "1.00"));
+            ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI                  = Float.parseFloat(altSettings.getProperty("AltPDamageFighters", "1.00"));
+            ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI                   = Float.parseFloat(altSettings.getProperty("AltMDamageFighters", "1.00"));
+            ALT_PETS_PHYSICAL_DAMAGE_MULTI                      = Float.parseFloat(altSettings.getProperty("AltPDamagePets", "1.00"));
+            ALT_PETS_MAGICAL_DAMAGE_MULTI                       = Float.parseFloat(altSettings.getProperty("AltMDamagePets", "1.00"));
+            ALT_NPC_PHYSICAL_DAMAGE_MULTI                       = Float.parseFloat(altSettings.getProperty("AltPDamageNpc", "1.00"));
+            ALT_NPC_MAGICAL_DAMAGE_MULTI                        = Float.parseFloat(altSettings.getProperty("AltMDamageNpc", "1.00"));
+            ALT_BUFFER_HATE                                     = Integer.parseInt(altSettings.getProperty("BufferHate", "4"));                
+            GRADE_PENALTY										= Boolean.parseBoolean(altSettings.getProperty("GradePenalty", "true"));
+            ALT_URN_TEMP_FAIL                                   = Integer.parseInt(altSettings.getProperty("UrnTempFail", "10"));
+            ALT_DIFF_CUTOFF                                     = Integer.parseInt(altSettings.getProperty("MobPCExpCutoff", "-10"));
+            ALT_DISABLE_RAIDBOSS_PETRIFICATION                  = Boolean.parseBoolean(altSettings.getProperty("DisableRaidBossPetrification", "false"));
+            ALT_STATPOINT_DISTRIBUTION                          = Boolean.parseBoolean(altSettings.getProperty("AltStatPointDistribution", "false"));
+            ALT_CRITICAL_CAP								 	= Integer.parseInt(altSettings.getProperty("AltCriticalCap", "500"));
+            
+            ALT_CRAFT_ALLOW_CRAFT                               = Boolean.parseBoolean(altSettings.getProperty("CraftManagerDwarvenCraft", "True"));
+            ALT_CRAFT_ALLOW_COMMON                              = Boolean.parseBoolean(altSettings.getProperty("CraftManagerCommonCraft", "False"));
+            ALT_CRAFT_ALLOW_CRYSTALLIZE                         = Boolean.parseBoolean(altSettings.getProperty("CraftManagerCrystallize", "True"));
+            ALT_CRAFT_PRICE                                     = Float.parseFloat(altSettings.getProperty("CraftManagerPriceMultiplier", "0.1"));
+            ALT_CRAFT_DEFAULT_PRICE                             = Integer.parseInt(altSettings.getProperty("CraftManagerDefaultPrice", "50000"));
+            
+            TIME_IN_A_DAY_OF_OPEN_A_DOOR 						= Integer.parseInt(altSettings.getProperty("TimeInADayOfOpenADoor", "0"));
+            TIME_OF_OPENING_A_DOOR 								= Integer.parseInt(altSettings.getProperty("TimeOfOpeningADoor", "5"));
+            ACTIVITY_TIME_OF_BOSS 								= Integer.parseInt(altSettings.getProperty("ActivityTimeOfBoss", "120"));
+            NURSEANT_RESPAWN_DELAY 								= Integer.parseInt(altSettings.getProperty("NurseAntRespawnDelay", "15"));
+            CAPACITY_OF_LAIR_OF_VALAKAS 						= Integer.parseInt(altSettings.getProperty("CapacityOfLairOfValakas", "200"));
+            APPTIME_OF_VALAKAS 									= Integer.parseInt(altSettings.getProperty("AppTimeOfValakas", "20"));
+            APPTIME_OF_ANTHARAS 								= Integer.parseInt(altSettings.getProperty("AppTimeOfAntharas", "10"));
+            if (NURSEANT_RESPAWN_DELAY < 15) NURSEANT_RESPAWN_DELAY = 15;
+            else if (NURSEANT_RESPAWN_DELAY > 120) NURSEANT_RESPAWN_DELAY = 120;
+            NURSEANT_RESPAWN_DELAY = NURSEANT_RESPAWN_DELAY * 1000;
+            if (ACTIVITY_TIME_OF_BOSS < 120) ACTIVITY_TIME_OF_BOSS = 120;
+            else if (ACTIVITY_TIME_OF_BOSS > 720) ACTIVITY_TIME_OF_BOSS = 720;
+            ACTIVITY_TIME_OF_BOSS = ACTIVITY_TIME_OF_BOSS * 60000;
+            if (CAPACITY_OF_LAIR_OF_VALAKAS < 9) CAPACITY_OF_LAIR_OF_VALAKAS = 9;
+            else if (CAPACITY_OF_LAIR_OF_VALAKAS > 360) CAPACITY_OF_LAIR_OF_VALAKAS = 360;
+            if (APPTIME_OF_VALAKAS < 5) APPTIME_OF_VALAKAS = 5;
+            else if (APPTIME_OF_VALAKAS > 60) APPTIME_OF_VALAKAS = 60;
+            APPTIME_OF_VALAKAS = APPTIME_OF_VALAKAS * 60000;
+            if (APPTIME_OF_ANTHARAS < 5) APPTIME_OF_ANTHARAS = 5;
+            else if (APPTIME_OF_ANTHARAS > 60) APPTIME_OF_ANTHARAS = 60;
+            APPTIME_OF_ANTHARAS = APPTIME_OF_ANTHARAS * 60000;
+        }
+        catch (Exception e)
+        {
+            _log.error(e);
+            throw new Error("Failed to Load "+ALT_SETTINGS_FILE+" File.");
+        }
     }
     
     
@@ -1478,199 +1871,6 @@ public final class Config {
     }
     //  *******************************************************************************************    
     
-	
-    
-    /** Accept auto-loot ? */
-    public static boolean AUTO_LOOT;
-    public static boolean AUTO_LOOT_HERBS;
-
-    /** Alternative game crafting */
-    public static boolean ALT_GAME_CREATION;
-    /** Alternative game crafting speed mutiplier - default 0 (fastest but still not instant) */
-    public static double ALT_GAME_CREATION_SPEED;
-    /** Alternative game crafting XP rate multiplier - default 1*/
-    public static double ALT_GAME_CREATION_XP_RATE;
-    /** Alternative game crafting SP rate multiplier - default 1*/
-    public static double ALT_GAME_CREATION_SP_RATE;
-    /**Alternative number of cumulated buff */
-    public static int ALT_GAME_NUMBER_OF_CUMULATED_BUFF;
-    /** Disable Raidboss Petrification */
-    public static boolean ALT_DISABLE_RAIDBOSS_PETRIFICATION;
-    /** Own Stat Point Distribution */
-    public static boolean ALT_STATPOINT_DISTRIBUTION;
-    /** Critical Cap */
-    public static int ALT_CRITICAL_CAP;
-    
- 	/** Alternative game skill learning */
-    public static boolean ALT_GAME_SKILL_LEARN;
-    /** Cancel attack bow by hit */
-    public static boolean ALT_GAME_CANCEL_BOW;
-    /** Cancel cast by hit */
-    public static boolean ALT_GAME_CANCEL_CAST;
-    
-    /** Alternative game - use tiredness, instead of CP */
-    public static boolean ALT_GAME_TIREDNESS;
-
-    /** Alternative shield defence */
-    public static boolean ALT_GAME_SHIELD_BLOCKS;
-    
-    /** Alternative Perfect shield defence rate */
-    public static int ALT_PERFECT_SHLD_BLOCK;
-
-    /** Alternative game mob ATTACK AI */
-    public static boolean ALT_GAME_MOB_ATTACK_AI;
-    
-    /** Rate of Instant kill effect 2(CP no change ,HP =1,no kill)*/
-    public static float ALT_INSTANT_KILL_EFFECT_2;
-    
-    /** Alternative success rate formulas for skills such root/sleep/stun */
-    public static String ALT_GAME_SKILL_FORMULAS;
-    /** Alternative damage for dagger skills VS heavy*/
-    public static float ALT_DAGGER_DMG_VS_HEAVY;
-    /** Alternative damage for dagger skills VS robe*/
-    public static float ALT_DAGGER_DMG_VS_ROBE;
-    /** Alternative damage for dagger skills VS light*/
-    public static float ALT_DAGGER_DMG_VS_LIGHT;
-    /** Alternative success rate formulas for skills such dagger/critical skills and blows */
-     public static boolean ALT_DAGGER_FORMULA;
-    /** Alternative config for next hit delay */
-    public static float ALT_ATTACK_DELAY;
-    /** Alternative success rate for dagger blow,MAX value 100 (100% rate) */
-    public static int ALT_DAGGER_RATE;
-    /** Alternative fail rate for dagger blow,MAX value 100 (100% rate) */
-    public static int ALT_DAGGER_FAIL_RATE;
-    /** Alternative increasement to success rate for dagger/critical skills if activeChar is Behind the target */
-     public static int ALT_DAGGER_RATE_BEHIND;
-    /** Alternative increasement to success rate for dagger/critical skills if activeChar is in Front of target */
-    public static int ALT_DAGGER_RATE_FRONT;
-    
-    /** Alternative freight modes - Freights can be withdrawed from any village */
-    public static boolean ALT_GAME_FREIGHTS;
-    /** Alternative freight modes - Sets the price value for each freightened item */
-    public static int ALT_GAME_FREIGHT_PRICE;
-
-    /** Fast or slow multiply coefficient for skill hit time */
-    public static float ALT_GAME_SKILL_HIT_RATE;
-
-    
-
-    /** Alternative gameing - loss of XP on death */
-    public static boolean ALT_GAME_DELEVEL;
-
-    /** Alternative gameing - magic dmg failures */
-    public static boolean ALT_GAME_MAGICFAILURES;
-    
-    
-    /** Alternative gaming - allow free teleporting around the world. */
-    public static boolean ALT_GAME_FREE_TELEPORT;
-    
-    /** Disallow recommend character twice or more a day ? */
-    public static boolean ALT_RECOMMEND;
-    
-    /** Alternative gaming - allow sub-class addition without quest completion. */
-    public static boolean ALT_GAME_SUBCLASS_WITHOUT_QUESTS;
-    
-    /** View npc stats/drop by shift-cliking it for nongm-players */
-    public static boolean ALT_GAME_VIEWNPC;    
-    
-
-    /** Alternative gaming - all new characters always are newbies. */
-    public static boolean ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE;
-    
-    /** Strict Hero Mode */
-    public static boolean ALT_STRICT_HERO_SYSTEM;
-    /** Strict Seven Signs */
-    public static boolean ALT_STRICT_SEVENSIGNS;
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-    /** Spell Book needed to learn skill */
-    public static boolean SP_BOOK_NEEDED;
-    
-    
-    
-    
-    
-    
-
-    
-    public static boolean ALT_PRIVILEGES_ADMIN;
-    public static boolean ALT_PRIVILEGES_SECURE_CHECK;
-    public static int ALT_PRIVILEGES_DEFAULT_LEVEL;
-        
-    public static int ALT_BUFF_TIME;
-    public static int ALT_DANCE_TIME;
-    /** Config for limit attack speed */
-    public static int MAX_PATK_SPEED;
-    public static int MAX_MATK_SPEED;
-    /** Config for damage multiplies */
-    public static float ALT_MAGES_PHYSICAL_DAMAGE_MULTI;
-    public static float ALT_MAGES_MAGICAL_DAMAGE_MULTI;
-    public static float ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI;
-    public static float ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI;
-    public static float ALT_PETS_PHYSICAL_DAMAGE_MULTI;
-    public static float ALT_PETS_MAGICAL_DAMAGE_MULTI;
-    public static float ALT_NPC_PHYSICAL_DAMAGE_MULTI;
-    public static float ALT_NPC_MAGICAL_DAMAGE_MULTI;
-    
-    /** Config for URN temp fail */
-    public static int ALT_URN_TEMP_FAIL;
-
-    /** Buffer Hate **/
-    public static int ALT_BUFFER_HATE;
-    
-    /** No exp cutoff */
-    public static int ALT_DIFF_CUTOFF;
-    
-
-    public static boolean PETITIONING_ALLOWED;
-    public static int MAX_PETITIONS_PER_PLAYER;
-    public static int MAX_PETITIONS_PENDING;
-
-    /** Config for spawn siege guard**/
-    public static boolean SPAWN_SIEGE_GUARD; 
-
-    /** Crafting Npc */
-    public static double ALT_CRAFT_PRICE;                    // reference price multiplier
-    public static int ALT_CRAFT_DEFAULT_PRICE;               // default price, in case reference is 0
-    public static boolean ALT_CRAFT_ALLOW_CRAFT;             // allow to craft dwarven recipes
-    public static boolean ALT_CRAFT_ALLOW_CRYSTALLIZE;       // allow to break items
-    public static boolean ALT_CRAFT_ALLOW_COMMON;            // allow to craft common craft recipes
-    
-    
-    /** Jail config **/
-    public static boolean JAIL_IS_PVP;
-    public static boolean JAIL_DISABLE_CHAT;
-
-    public static String  ALLOWED_NPC_TYPES;
-    //  /** List of NPC types that won't allow casting */
-    public static FastList<String> LIST_ALLOWED_NPC_TYPES = new FastList<String>();
-    
-    // Pets
-    public static int           WYVERN_SPEED;
-    public static int           STRIDER_SPEED;
-    public static boolean       ALLOW_WYVERN_UPGRADER;
-
-    public static IOType        IO_TYPE;
-    public static int           PATH_NODE_RADIUS;
-    public static int           NEW_NODE_ID;
-    public static int           SELECTED_NODE_ID;
-    public static int           LINKED_NODE_ID;
-    public static String        NEW_NODE_TYPE;
-    
-    public static boolean       SPAWN_WYVERN_MANAGER;
-    public static boolean       SPAWN_CLASS_MASTER;
-    public static boolean		CLASS_MASTER_STRIDER_UPDATE;
-    public static String        CLASS_MASTER_SETTINGS_LINE;
-    public static ClassMasterSettings  CLASS_MASTER_SETTINGS;
-    
     public static class  ClassMasterSettings
     {
     	private FastMap<Integer,FastMap<Integer,Integer>> _claimItems;
@@ -1761,49 +1961,6 @@ public final class Config {
     	
     }
     
-    /** Crafting Enabled? */
-    public static boolean       IS_CRAFTING_ENABLED;
-    /** Config for Fake Death Fail Feature **/
-    public static boolean   	FAIL_FAKEDEATH;
-    /** Config for Wyvern enable flying in siege **/
-    public static boolean 		ALT_FLYING_WYVERN_IN_SIEGE;
-    
-    /** Inventory slots limits */
-    public static int           INVENTORY_MAXIMUM_NO_DWARF;
-    public static int           INVENTORY_MAXIMUM_DWARF;
-    public static int           INVENTORY_MAXIMUM_GM;
-    
-    /** Weight limit */
-    public static int       ADD_MAX_LOAD;
-    public static boolean   LEVEL_ADD_LOAD;
-   
-    /** Warehouse slots limits */
-    public static int           WAREHOUSE_SLOTS_NO_DWARF;
-    public static int           WAREHOUSE_SLOTS_DWARF;
-    public static int           WAREHOUSE_SLOTS_CLAN;
-    public static int           FREIGHT_SLOTS;
-
-    public static String  NONDROPPABLE_ITEMS;
-    public static FastList<Integer> LIST_NONDROPPABLE_ITEMS       = new FastList<Integer>();
-
-    public static String  PET_RENT_NPC;
-    public static FastList<Integer> LIST_PET_RENT_NPC   = new FastList<Integer>();
-
-    /** Karma Punishment */
-    public static boolean ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE;
-    public static boolean ALT_GAME_KARMA_PLAYER_CAN_SHOP;
-    /** Allow player with karma to use GK ? */
-    public static boolean ALT_GAME_KARMA_PLAYER_CAN_USE_GK;    
-    public static boolean ALT_GAME_KARMA_PLAYER_CAN_TELEPORT;
-    public static boolean ALT_GAME_KARMA_PLAYER_CAN_TRADE;
-    public static boolean ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE;
-    /** Player Protection Level */
-    public static int ALT_PLAYER_PROTECTION_LEVEL;    
-    /** Config for Auto Learn Skills */
-    public static boolean AUTO_LEARN_SKILLS;
-    /** Disable Grade penalty */
-    public static boolean GRADE_PENALTY;
-    
     /** Enumeration for type of maps object */
     public static enum ObjectMapType
     {
@@ -1817,375 +1974,45 @@ public final class Config {
         L2ObjectHashSet,
         WorldObjectSet
     }
-
-    /**
-     * Allow lesser effects to be canceled if stronger effects are used when effects of the same stack group are used.<br> 
-     * New effects that are added will be canceled if they are of lesser priority to the old one.
-     */
-    public static boolean EFFECT_CANCELING;
-    
-    /** Chance For Soul Crystal to Break **/
-    public static int CHANCE_BREAK;
-    /** Chance For Soul Crystal to Level **/
-    public static int CHANCE_LEVEL;
-    
-    // NPC regen multipliers
-    public static double  NPC_HP_REGEN_MULTIPLIER;
-    public static double  NPC_MP_REGEN_MULTIPLIER;
-    
-    // Player regen multipliers
-    public static double  PLAYER_HP_REGEN_MULTIPLIER;
-    public static double  PLAYER_MP_REGEN_MULTIPLIER;
-    public static double  PLAYER_CP_REGEN_MULTIPLIER;
-    
-    // Raid Boss multipliers
-    /** Multiplier for Raid boss HP regeneration */ 
-    public static double   RAID_HP_REGEN_MULTIPLIER;
-    /** Mulitplier for Raid boss MP regeneration */
-    public static double   RAID_MP_REGEN_MULTIPLIER;
-    /** Multiplier for Raid boss defense multiplier */
-    public static double   RAID_DEFENCE_MULTIPLIER;
-    /** Raid Boss Minin Spawn Timer */
-    public static double   RAID_MINION_RESPAWN_TIMER;
-
-    /** Mulitplier for Raid boss minimum time respawn */
-    public static float   RAID_MIN_RESPAWN_MULTIPLIER;
-    /** Mulitplier for Raid boss maximum time respawn */
-    public static float   RAID_MAX_RESPAWN_MULTIPLIER;  
-
-    /** Amount of adenas when starting a new character */
-    public static int STARTING_ADENA;
-    
-    /** Deep Blue Mobs' Drop Rules Enabled */
-    public static boolean DEEPBLUE_DROP_RULES;
-    public static int     UNSTUCK_INTERVAL;
-    
-    /** Player Protection control */
-    public static int   PLAYER_SPAWN_PROTECTION;
-    public static int   PLAYER_FAKEDEATH_UP_PROTECTION;
-
-    /** Define Party XP cutoff point method - Possible values: level and percentage */
-    public static String  PARTY_XP_CUTOFF_METHOD;
-    /** Define the cutoff point value for the "level" method */
-    public static int PARTY_XP_CUTOFF_LEVEL;
-    /** Define the cutoff point value for the "percentage" method */
-    public static double  PARTY_XP_CUTOFF_PERCENT;
-    /** Range of Members to get exp/drops **/
-    public static int PARTY_RANGE; 
-    /** Maximum level difference between party members in levels **/
-    public static int MAX_PARTY_LEVEL_DIFFERENCE; 
-    
-    /** Percent CP is restore on respawn */
-    public static double  RESPAWN_RESTORE_CP;
-    /** Percent HP is restore on respawn */
-    public static double  RESPAWN_RESTORE_HP;
-    /** Percent MP is restore on respawn */
-    public static double  RESPAWN_RESTORE_MP;
- 	/** Allow randomizing of the respawn point in towns. */ 
- 	public static boolean RESPAWN_RANDOM_ENABLED; 
- 	/** The maximum offset from the base respawn point to allow. */ 
- 	public static int RESPAWN_RANDOM_MAX_OFFSET;
- 	
-    /** Maximum number of available slots for pvt stores (sell/buy) - Dwarves */
-    public static int  MAX_PVTSTORE_SLOTS_DWARF;
-    /** Maximum number of available slots for pvt stores (sell/buy) - Others */
-    public static int  MAX_PVTSTORE_SLOTS_OTHER;
-    
-    /** Store skills cooltime on char exit/relogin */
-    public static boolean STORE_SKILL_COOLTIME;
-    
-    public static boolean ANNOUNCE_MAMMON_SPAWN;
-    
-    /** Recipebook limits */
-    public static int DWARF_RECIPE_LIMIT;
-
-    public static int COMMON_RECIPE_LIMIT;  
     
     public static boolean FACTION_ENABLED = false;
     public static boolean FACTION_KILL_REWARD = false;
     public static int FACTION_KILL_RATE = 1000;
     public static int FACTION_QUEST_RATE = 1;
-    
-	/** Chance that an item will succesfully be enchanted */
-	public static int TIME_IN_A_DAY_OF_OPEN_A_DOOR;
-	public static int TIME_OF_OPENING_A_DOOR;
-	/** Config for boss controler **/
-	public static int ACTIVITY_TIME_OF_BOSS;
-	public static int NURSEANT_RESPAWN_DELAY;
-	public static int CAPACITY_OF_LAIR_OF_VALAKAS;
-	public static int APPTIME_OF_VALAKAS;
-	public static int APPTIME_OF_ANTHARAS;
 	
-
 	public static void load()
 	{
 			_log.info("loading gameserver config");
+			loadversionconfig();
 			loadconfiguration();
+			loadhexid();
+			loadratesconfig();
+			loadenchantconfig();
+			loadpvpconfig();
+			loadtelnetconfig();
+			loadoptionsconfig();
+			loadotherconfig();
+			loadaltconfig();
 			loadolympiadconfig();
 			loadclansconfig();
 			loadchampionsconfig();
 			loadlotteryconfig();
 			loadsepulchursconfig();
-			loadratesconfig();
-			loadenchantconfig();
-			loadpvpconfig();
 			loadclanhallconfig();
 			loadidfactoryconfig();
-			loadversionconfig();
-			loadhexid();
 			loadfunenginesconfig();
 			loadsevensignsconfig();
 			loadgmaccess();
-			loadtelnetconfig();
-			loadoptionsconfig();
-			
-	        
-	        // other
-	        try
-	        {
-	            Properties otherSettings    = new Properties();
-	            InputStream is              = new FileInputStream(new File(OTHER_CONFIG_FILE));
-	            otherSettings.load(is);
-	            is.close();
-	            
-	            DEEPBLUE_DROP_RULES = Boolean.parseBoolean(otherSettings.getProperty("UseDeepBlueDropRules", "True"));
-	            EFFECT_CANCELING    = Boolean.valueOf(otherSettings.getProperty("CancelLesserEffect", "True"));
-	            WYVERN_SPEED        = Integer.parseInt(otherSettings.getProperty("WyvernSpeed", "100"));         
-	            STRIDER_SPEED       = Integer.parseInt(otherSettings.getProperty("StriderSpeed", "80"));
-	            ALLOW_WYVERN_UPGRADER     = Boolean.valueOf(otherSettings.getProperty("AllowWyvernUpgrader", "False"));
-	            
-	            /* Inventory slots limits */
-                INVENTORY_MAXIMUM_NO_DWARF  = Integer.parseInt(otherSettings.getProperty("MaximumSlotsForNoDwarf", "80"));
-                INVENTORY_MAXIMUM_DWARF  = Integer.parseInt(otherSettings.getProperty("MaximumSlotsForDwarf", "100"));
-	            INVENTORY_MAXIMUM_GM    = Integer.parseInt(otherSettings.getProperty("MaximumSlotsForGMPlayer", "250"));
-              
-                /* Config weight limit */
-                ADD_MAX_LOAD = Integer.parseInt(otherSettings.getProperty("AddWeightLimit", "0"));
-                LEVEL_ADD_LOAD = Boolean.valueOf(otherSettings.getProperty("IncreaseWeightLimitByLevel", "false"));
-                
-                /* Inventory slots limits */
-                WAREHOUSE_SLOTS_NO_DWARF = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForNoDwarf", "100"));
-                WAREHOUSE_SLOTS_DWARF = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForDwarf", "120"));
-                WAREHOUSE_SLOTS_CLAN = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForClan", "150"));
-                FREIGHT_SLOTS       = Integer.parseInt(otherSettings.getProperty("MaximumFreightSlots", "20"));
-	            
-                /* if different from 100 (ie 100%) heal rate is modified acordingly */
-                NPC_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("NPCHpRegenMultiplier", "100")) /100;
-                NPC_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("NPCMpRegenMultiplier", "100")) /100;
-
-                PLAYER_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerHpRegenMultiplier", "100")) /100;
-                PLAYER_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerMpRegenMultiplier", "100")) /100;
-                PLAYER_CP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("PlayerCpRegenMultiplier", "100")) /100;
-                
-                RAID_HP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidHpRegenMultiplier", "100")) /100;
-                RAID_MP_REGEN_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidMpRegenMultiplier", "100")) /100; 
-                RAID_DEFENCE_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidDefenceMultiplier", "100")) /100;    
-                RAID_MINION_RESPAWN_TIMER  = Integer.parseInt(otherSettings.getProperty("RaidMinionRespawnTime", "300000"));                
-
-                RAID_MIN_RESPAWN_MULTIPLIER = Float.parseFloat(otherSettings.getProperty("RaidMinRespawnMultiplier", "1.0"));
-                RAID_MAX_RESPAWN_MULTIPLIER = Float.parseFloat(otherSettings.getProperty("RaidMaxRespawnMultiplier", "1.0"));
-
-	            STARTING_ADENA      = Integer.parseInt(otherSettings.getProperty("StartingAdena", "100"));
-	            UNSTUCK_INTERVAL    = Integer.parseInt(otherSettings.getProperty("UnstuckInterval", "300"));
-
-                /* Player protection after teleport or login */
-                PLAYER_SPAWN_PROTECTION = Integer.parseInt(otherSettings.getProperty("PlayerSpawnProtection", "0"));
-                
-                /* Player protection after recovering from fake death (works against mobs only) */
-                PLAYER_FAKEDEATH_UP_PROTECTION = Integer.parseInt(otherSettings.getProperty("PlayerFakeDeathUpProtection", "0"));	            
-	            
-                /* Defines some Party XP related values */
-	            PARTY_XP_CUTOFF_METHOD  = otherSettings.getProperty("PartyXpCutoffMethod", "percentage");
-	            PARTY_XP_CUTOFF_PERCENT = Double.parseDouble(otherSettings.getProperty("PartyXpCutoffPercent", "3."));
-                PARTY_RANGE             = Integer.parseInt(otherSettings.getProperty("PartyRange", "1000"));
-	            PARTY_XP_CUTOFF_LEVEL   = Integer.parseInt(otherSettings.getProperty("PartyXpCutoffLevel", "30"));
-	            MAX_PARTY_LEVEL_DIFFERENCE = Integer.parseInt(otherSettings.getProperty("PartyMaxLevelDifference", "20"));
-	            
-	            /* Amount of HP, MP, and CP is restored */
-	            RESPAWN_RESTORE_CP = Double.parseDouble(otherSettings.getProperty("RespawnRestoreCP", "0")) / 100;
-	            RESPAWN_RESTORE_HP = Double.parseDouble(otherSettings.getProperty("RespawnRestoreHP", "70")) / 100;
-	            RESPAWN_RESTORE_MP = Double.parseDouble(otherSettings.getProperty("RespawnRestoreMP", "70")) / 100;
-	            
-	         	RESPAWN_RANDOM_ENABLED = Boolean.parseBoolean(otherSettings.getProperty("RespawnRandomInTown", "False")); 
-	         	RESPAWN_RANDOM_MAX_OFFSET = Integer.parseInt(otherSettings.getProperty("RespawnRandomMaxOffset", "50")); 
-	            
-	            /* Maximum number of available slots for pvt stores */
-	            MAX_PVTSTORE_SLOTS_DWARF = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreSlotsDwarf", "5"));
-	            MAX_PVTSTORE_SLOTS_OTHER = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreSlotsOther", "4"));
-	            
-	            STORE_SKILL_COOLTIME = Boolean.parseBoolean(otherSettings.getProperty("StoreSkillCooltime", "true"));
-
-	            NONDROPPABLE_ITEMS        = otherSettings.getProperty("ListOfNonDroppableItems", "1147,425,1146,461,10,2368,7,6,2370,2369,5598");
-	            
-	            LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
-	            for (String id : NONDROPPABLE_ITEMS.trim().split(",")) {
-	                LIST_NONDROPPABLE_ITEMS.add(Integer.parseInt(id.trim()));
-	            }
-                
-	            ANNOUNCE_MAMMON_SPAWN = Boolean.parseBoolean(otherSettings.getProperty("AnnounceMammonSpawn", "True"));
-                
-                ALT_PRIVILEGES_ADMIN = Boolean.parseBoolean(otherSettings.getProperty("AltPrivilegesAdmin", "False"));
-                ALT_PRIVILEGES_SECURE_CHECK = Boolean.parseBoolean(otherSettings.getProperty("AltPrivilegesSecureCheck", "True"));
-                ALT_PRIVILEGES_DEFAULT_LEVEL = Integer.parseInt(otherSettings.getProperty("AltPrivilegesDefaultLevel", "100"));
-
-                PETITIONING_ALLOWED = Boolean.parseBoolean(otherSettings.getProperty("PetitioningAllowed", "True"));
-                MAX_PETITIONS_PER_PLAYER = Integer.parseInt(otherSettings.getProperty("MaxPetitionsPerPlayer", "5"));
-                MAX_PETITIONS_PENDING = Integer.parseInt(otherSettings.getProperty("MaxPetitionsPending", "25"));                
-                
-                JAIL_IS_PVP       = Boolean.valueOf(otherSettings.getProperty("JailIsPvp", "True"));
-                JAIL_DISABLE_CHAT = Boolean.valueOf(otherSettings.getProperty("JailDisableChat", "True"));
-                
-                ALLOWED_NPC_TYPES  = otherSettings.getProperty("AllowedNPCTypes");
-                LIST_ALLOWED_NPC_TYPES = new FastList<String>();
-                for (String npc_type : ALLOWED_NPC_TYPES.trim().split(",")) 
-                {
-                    LIST_ALLOWED_NPC_TYPES.add(npc_type.trim());
-                }                
-	        }
-	        catch (Exception e)
-	        {
-                _log.error(e);
-	            throw new Error("Failed to Load "+OTHER_CONFIG_FILE+" File.");
-	        }
-	        // alternative settings
-	        try
-	        {
-	            Properties altSettings  = new Properties();
-	            InputStream is          = new FileInputStream(new File(ALT_SETTINGS_FILE));  
-	            altSettings.load(is);
-	            is.close();
-	            
-	            ALT_GAME_TIREDNESS      = Boolean.parseBoolean(altSettings.getProperty("AltGameTiredness", "false"));
-	            ALT_GAME_CREATION       = Boolean.parseBoolean(altSettings.getProperty("AltGameCreation", "false"));
-	            ALT_GAME_CREATION_SPEED = Double.parseDouble(altSettings.getProperty("AltGameCreationSpeed", "1"));
-	            ALT_GAME_CREATION_XP_RATE=Double.parseDouble(altSettings.getProperty("AltGameCreationRateXp", "1"));
-                ALT_GAME_CREATION_SP_RATE=Double.parseDouble(altSettings.getProperty("AltGameCreationRateSp", "1"));
-                ALT_GAME_NUMBER_OF_CUMULATED_BUFF= Integer.parseInt(altSettings.getProperty("AltNbCumulatedBuff", "24"));
-	            ALT_GAME_SKILL_LEARN    = Boolean.parseBoolean(altSettings.getProperty("AltGameSkillLearn", "false"));
-	            ALT_GAME_CANCEL_BOW     = altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("bow") || altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");
-	            ALT_GAME_CANCEL_CAST    = altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("cast") || altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");
-	            ALT_GAME_SHIELD_BLOCKS  = Boolean.parseBoolean(altSettings.getProperty("AltShieldBlocks", "false"));
-                ALT_PERFECT_SHLD_BLOCK  = Integer.parseInt(altSettings.getProperty("AltPerfectShieldBlockRate", "10"));
-                ALT_GAME_DELEVEL        = Boolean.parseBoolean(altSettings.getProperty("Delevel", "true"));
-	            ALT_GAME_MAGICFAILURES  = Boolean.parseBoolean(altSettings.getProperty("MagicFailures", "false"));
-	            ALT_GAME_MOB_ATTACK_AI  = Boolean.parseBoolean(altSettings.getProperty("AltGameMobAttackAI", "false"));
-	            ALT_GAME_SKILL_FORMULAS = altSettings.getProperty("AltGameSkillFormulas", "none");
-                ALT_INSTANT_KILL_EFFECT_2 = Float.parseFloat(altSettings.getProperty("InstantKillEffect2", "2"));
-                ALT_DAGGER_DMG_VS_HEAVY = Float.parseFloat(altSettings.getProperty("DaggerVSHeavy", "2.50"));
-                ALT_DAGGER_DMG_VS_ROBE  = Float.parseFloat(altSettings.getProperty("DaggerVSRobe", "2.00"));
-                ALT_DAGGER_DMG_VS_LIGHT = Float.parseFloat(altSettings.getProperty("DaggerVSLight", "1.80"));
-                ALT_DAGGER_FORMULA      = Boolean.parseBoolean(altSettings.getProperty("AltGameDaggerFormula", "false"));
-                ALT_DAGGER_RATE         = Integer.parseInt(altSettings.getProperty("AltCancelRate", "85"));
-                ALT_DAGGER_FAIL_RATE    = Integer.parseInt(altSettings.getProperty("AltFailRate", "15"));
-                ALT_DAGGER_RATE_BEHIND  = Integer.parseInt(altSettings.getProperty("AltSuccessRateBehind", "20"));
-                ALT_DAGGER_RATE_FRONT   = Integer.parseInt(altSettings.getProperty("AltSuccessRateFront", "5"));
-                ALT_ATTACK_DELAY        = Float.parseFloat(altSettings.getProperty("AltAttackDelay", "1.00"));
-                ALT_GAME_EXPONENT_XP    = Float.parseFloat(altSettings.getProperty("AltGameExponentXp", "0."));
-	            ALT_GAME_EXPONENT_SP    = Float.parseFloat(altSettings.getProperty("AltGameExponentSp", "0."));
-	            
-	            SPAWN_WYVERN_MANAGER      = Boolean.valueOf(altSettings.getProperty("SpawnWyvernManager", "True"));
-	            SPAWN_CLASS_MASTER      = Boolean.valueOf(altSettings.getProperty("SpawnClassMaster", "False"));
-	            CLASS_MASTER_STRIDER_UPDATE = Boolean.valueOf(altSettings.getProperty("ClassMasterUpdateStrider", "False")); 
-	            if (!altSettings.getProperty("ConfigClassMaster").trim().equalsIgnoreCase("False"))
-	            	CLASS_MASTER_SETTINGS_LINE = altSettings.getProperty("ConfigClassMaster");
-	            
-	            CLASS_MASTER_SETTINGS = new ClassMasterSettings(CLASS_MASTER_SETTINGS_LINE);
-	            
-	            ALT_GAME_FREIGHTS       = Boolean.parseBoolean(altSettings.getProperty("AltGameFreights", "false"));
-	            ALT_GAME_FREIGHT_PRICE  = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
-	            ALT_GAME_SKILL_HIT_RATE = Float.parseFloat(altSettings.getProperty("AltGameSkillHitRate", "1."));
-                CHANCE_BREAK            = Integer.parseInt(altSettings.getProperty("ChanceToBreak", "10"));
-                CHANCE_LEVEL            = Integer.parseInt(altSettings.getProperty("ChanceToLevel", "32"));
-	            IS_CRAFTING_ENABLED     							= Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
-	            FAIL_FAKEDEATH 										= Boolean.parseBoolean(altSettings.getProperty("FailFakeDeath", "true"));
-	            ALT_FLYING_WYVERN_IN_SIEGE 							= Boolean.parseBoolean(altSettings.getProperty("AltFlyingWyvernInSiege", "false"));
-	            SP_BOOK_NEEDED          							= Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
-	            AUTO_LOOT               							= altSettings.getProperty("AutoLoot").trim().equalsIgnoreCase("True");
-                AUTO_LOOT_HERBS         							= altSettings.getProperty("AutoLootHerbs").trim().equalsIgnoreCase("True");
-                ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE    = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanBeKilledInPeaceZone", "false"));
-                ALT_GAME_KARMA_PLAYER_CAN_SHOP                      = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanShop", "true"));
-                ALT_GAME_KARMA_PLAYER_CAN_USE_GK                    = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseGK", "false"));
-                ALT_GAME_KARMA_PLAYER_CAN_TELEPORT                  = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTeleport", "true"));
-                ALT_GAME_KARMA_PLAYER_CAN_TRADE                     = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTrade", "true"));
-                ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE             = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseWareHouse", "true"));
-                ALT_PLAYER_PROTECTION_LEVEL                         = Integer.parseInt(altSettings.getProperty("AltPlayerProtectionLevel","0"));
-                ALT_GAME_FREE_TELEPORT                              = Boolean.parseBoolean(altSettings.getProperty("AltFreeTeleporting", "False"));
-                ALT_RECOMMEND                                       = Boolean.parseBoolean(altSettings.getProperty("AltRecommend", "False"));
-                ALT_GAME_SUBCLASS_WITHOUT_QUESTS                    = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
-                ALT_GAME_VIEWNPC                    				= Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
-                ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE                  = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
-                DWARF_RECIPE_LIMIT                                  = Integer.parseInt(altSettings.getProperty("DwarfRecipeLimit","50"));
-                COMMON_RECIPE_LIMIT                                 = Integer.parseInt(altSettings.getProperty("CommonRecipeLimit","50"));
-                
-                ALT_STRICT_HERO_SYSTEM                              = Boolean.parseBoolean(altSettings.getProperty("StrictHeroSystem", "True"));
-                ALT_STRICT_SEVENSIGNS                               = Boolean.parseBoolean(altSettings.getProperty("StrictSevenSigns", "True"));
-                
-                ALT_BUFF_TIME                                       = Integer.parseInt(altSettings.getProperty("AltBuffTime", "1"));
-                ALT_DANCE_TIME                                      = Integer.parseInt(altSettings.getProperty("AltDanceTime", "1"));
-	            SPAWN_SIEGE_GUARD 									= Boolean.parseBoolean(altSettings.getProperty("SpawnSiegeGuard", "true"));
-	            AUTO_LEARN_SKILLS 									= Boolean.parseBoolean(altSettings.getProperty("AutoLearnSkills", "false"));
-	            MAX_PATK_SPEED 										= Integer.parseInt(altSettings.getProperty("MaxPAtkSpeed", "0"));
-                MAX_MATK_SPEED                                      = Integer.parseInt(altSettings.getProperty("MaxMAtkSpeed", "0"));
-                ALT_MAGES_PHYSICAL_DAMAGE_MULTI                     = Float.parseFloat(altSettings.getProperty("AltPDamageMages", "1.00"));
-                ALT_MAGES_MAGICAL_DAMAGE_MULTI                      = Float.parseFloat(altSettings.getProperty("AltMDamageMages", "1.00"));
-                ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI                  = Float.parseFloat(altSettings.getProperty("AltPDamageFighters", "1.00"));
-                ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI                   = Float.parseFloat(altSettings.getProperty("AltMDamageFighters", "1.00"));
-                ALT_PETS_PHYSICAL_DAMAGE_MULTI                      = Float.parseFloat(altSettings.getProperty("AltPDamagePets", "1.00"));
-                ALT_PETS_MAGICAL_DAMAGE_MULTI                       = Float.parseFloat(altSettings.getProperty("AltMDamagePets", "1.00"));
-                ALT_NPC_PHYSICAL_DAMAGE_MULTI                       = Float.parseFloat(altSettings.getProperty("AltPDamageNpc", "1.00"));
-                ALT_NPC_MAGICAL_DAMAGE_MULTI                        = Float.parseFloat(altSettings.getProperty("AltMDamageNpc", "1.00"));
-                ALT_BUFFER_HATE                                     = Integer.parseInt(altSettings.getProperty("BufferHate", "4"));                
-	            GRADE_PENALTY										= Boolean.parseBoolean(altSettings.getProperty("GradePenalty", "true"));
-                ALT_URN_TEMP_FAIL                                   = Integer.parseInt(altSettings.getProperty("UrnTempFail", "10"));
-                ALT_DIFF_CUTOFF                                     = Integer.parseInt(altSettings.getProperty("MobPCExpCutoff", "-10"));
-                ALT_DISABLE_RAIDBOSS_PETRIFICATION                  = Boolean.parseBoolean(altSettings.getProperty("DisableRaidBossPetrification", "false"));
-                ALT_STATPOINT_DISTRIBUTION                          = Boolean.parseBoolean(altSettings.getProperty("AltStatPointDistribution", "false"));
-                ALT_CRITICAL_CAP								 	= Integer.parseInt(altSettings.getProperty("AltCriticalCap", "500"));
-                
-                ALT_CRAFT_ALLOW_CRAFT                               = Boolean.parseBoolean(altSettings.getProperty("CraftManagerDwarvenCraft", "True"));
-                ALT_CRAFT_ALLOW_COMMON                              = Boolean.parseBoolean(altSettings.getProperty("CraftManagerCommonCraft", "False"));
-                ALT_CRAFT_ALLOW_CRYSTALLIZE                         = Boolean.parseBoolean(altSettings.getProperty("CraftManagerCrystallize", "True"));
-                ALT_CRAFT_PRICE                                     = Float.parseFloat(altSettings.getProperty("CraftManagerPriceMultiplier", "0.1"));
-                ALT_CRAFT_DEFAULT_PRICE                             = Integer.parseInt(altSettings.getProperty("CraftManagerDefaultPrice", "50000"));
-                
-                TIME_IN_A_DAY_OF_OPEN_A_DOOR 						= Integer.parseInt(altSettings.getProperty("TimeInADayOfOpenADoor", "0"));
-                TIME_OF_OPENING_A_DOOR 								= Integer.parseInt(altSettings.getProperty("TimeOfOpeningADoor", "5"));
-                ACTIVITY_TIME_OF_BOSS 								= Integer.parseInt(altSettings.getProperty("ActivityTimeOfBoss", "120"));
-                NURSEANT_RESPAWN_DELAY 								= Integer.parseInt(altSettings.getProperty("NurseAntRespawnDelay", "15"));
-                CAPACITY_OF_LAIR_OF_VALAKAS 						= Integer.parseInt(altSettings.getProperty("CapacityOfLairOfValakas", "200"));
-                APPTIME_OF_VALAKAS 									= Integer.parseInt(altSettings.getProperty("AppTimeOfValakas", "20"));
-                APPTIME_OF_ANTHARAS 								= Integer.parseInt(altSettings.getProperty("AppTimeOfAntharas", "10"));
-                if (NURSEANT_RESPAWN_DELAY < 15) NURSEANT_RESPAWN_DELAY = 15;
-                else if (NURSEANT_RESPAWN_DELAY > 120) NURSEANT_RESPAWN_DELAY = 120;
-                NURSEANT_RESPAWN_DELAY = NURSEANT_RESPAWN_DELAY * 1000;
-                if (ACTIVITY_TIME_OF_BOSS < 120) ACTIVITY_TIME_OF_BOSS = 120;
-                else if (ACTIVITY_TIME_OF_BOSS > 720) ACTIVITY_TIME_OF_BOSS = 720;
-                ACTIVITY_TIME_OF_BOSS = ACTIVITY_TIME_OF_BOSS * 60000;
-                if (CAPACITY_OF_LAIR_OF_VALAKAS < 9) CAPACITY_OF_LAIR_OF_VALAKAS = 9;
-                else if (CAPACITY_OF_LAIR_OF_VALAKAS > 360) CAPACITY_OF_LAIR_OF_VALAKAS = 360;
-                if (APPTIME_OF_VALAKAS < 5) APPTIME_OF_VALAKAS = 5;
-                else if (APPTIME_OF_VALAKAS > 60) APPTIME_OF_VALAKAS = 60;
-                APPTIME_OF_VALAKAS = APPTIME_OF_VALAKAS * 60000;
-                if (APPTIME_OF_ANTHARAS < 5) APPTIME_OF_ANTHARAS = 5;
-                else if (APPTIME_OF_ANTHARAS > 60) APPTIME_OF_ANTHARAS = 60;
-                APPTIME_OF_ANTHARAS = APPTIME_OF_ANTHARAS * 60000;
-	        }
-	        catch (Exception e)
-	        {
-                _log.error(e);
-	            throw new Error("Failed to Load "+ALT_SETTINGS_FILE+" File.");
-	        }
-	        
 			loadsayfilter();
 	}
 	
-        /**
+    /**
      * Set a new value to a game parameter from the admin console.
      * @param pName (String) : name of the parameter to change
      * @param pValue (String) : new value of the parameter
      * @return boolean : true if modification has been made
      * @link useAdminCommand
-         */
+     */
     public static boolean setParameterValue(String pName, String pValue)
     {
         // Server settings
@@ -2493,5 +2320,4 @@ public final class Config {
             _log.warn("Failed to save hex id to "+fileName+" File.");
         }
 	}
-	
 }
