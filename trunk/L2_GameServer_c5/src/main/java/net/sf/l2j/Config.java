@@ -79,15 +79,16 @@ public final class Config {
     public static String 		DATABASE_PASSWORD;				// Database password
     public static int 			DATABASE_MAX_CONNECTIONS;		// Maximum number of connections to the database
     public static int   		MAXIMUM_ONLINE_USERS;			// Maximum number of players allowed to play simultaneously on server
-    public static String  		DEFAULT_GLOBAL_CHAT;			// Global chat state
-    public static String  		DEFAULT_TRADE_CHAT;				// Trade chat state
-    public static boolean 		EVERYBODY_HAS_ADMIN_RIGHTS;		// For test servers - everybody has admin rights
     public enum 				IOType {nio,aio4j}				// io type WARNING aio4j is not working properly atm
     public static boolean    	SAFE_REBOOT = false;			// Safe mode will disable some feature during restart/shutdown to prevent exploit
     public static boolean 		NETWORK_TRAFFIC_OPTIMIZATION;
     public static int     		NETWORK_TRAFFIC_OPTIMIZATION_MS;
     public static int           MIN_PROTOCOL_REVISION;			// protocol revision
     public static int           MAX_PROTOCOL_REVISION;
+	public static boolean 		FLOOD_PROTECTION = false;
+	public static int 			PACKET_LIMIT;
+	public static int 			PACKET_TIME_LIMIT;
+    public static File    		DATAPACK_ROOT;					// Datapack root directory
     //*******************************************************************************************    
     public static void loadconfiguration()
     {
@@ -146,8 +147,6 @@ public final class Config {
             MAX_CHARACTERS_NUMBER_PER_ACCOUNT = Integer.parseInt(serverSettings.getProperty("CharMaxNumber", "0"));
             LOGIN_TRY_BEFORE_BAN    = Integer.parseInt(serverSettings.getProperty("LoginTryBeforeBan", "10"));
             GAMESERVER_HOSTNAME     = serverSettings.getProperty("GameserverHostname");
-            DEFAULT_GLOBAL_CHAT          = serverSettings.getProperty("GlobalChat", "ON");
-            DEFAULT_TRADE_CHAT           = serverSettings.getProperty("TradeChat", "ON");
 			DATAPACK_ROOT    = new File(serverSettings.getProperty("DatapackRoot", ".")).getCanonicalFile();
             MIN_PROTOCOL_REVISION   = Integer.parseInt(serverSettings.getProperty("MinProtocolRevision", "694"));
             MAX_PROTOCOL_REVISION   = Integer.parseInt(serverSettings.getProperty("MaxProtocolRevision", "709"));
@@ -734,10 +733,275 @@ public final class Config {
     //  *******************************************************************************************    
     public static final String  OPTIONS_FILE                = "./config/options.properties";
     //  *******************************************************************************************
+    public static boolean 				ASSERT;							// Enable/disable assertions
+    public static boolean 				DEVELOPER;						// Enable/disable DEVELOPER TREATMENT	
+    public static boolean 				TEST_SERVER;					// Set if this server is a test server used for development
+    public static boolean       		TEST_KNOWNLIST = false;			// Internal properties for developers tests only
+    public static boolean       		TEST_CAPTUREPACKETS = false;	// Internal properties for developers tests only
+	public static boolean  				COUNT_PACKETS           = false; // Counting of amount of packets per minute
+	public static boolean  				DUMP_PACKET_COUNTS      = false;
+    public static int      				DUMP_INTERVAL_SECONDS   = 60;
+    public static boolean 				ALLOW_WEDDING;
+    public static boolean 				SERVER_LIST_BRACKET;			// Displays [] in front of server name ?
+    public static boolean 				SERVER_LIST_CLOCK;				// Displays a clock next to the server name ?
+    public static boolean 				SERVER_LIST_TESTSERVER;			// Display test server in the list of servers ?
+    public static boolean 				SERVER_GMONLY;					// Set the server as gm only at startup ?
+    public static int 					THREAD_P_EFFECTS;				// Thread pool size effect
+    public static int 					THREAD_P_GENERAL;				// Thread pool size general
+    public static int 					GENERAL_PACKET_THREAD_CORE_SIZE;// Packet max thread
+    public static int 					URGENT_PACKET_THREAD_CORE_SIZE;
+    public static int 					GENERAL_THREAD_CORE_SIZE;		// General max thread
+    public static int 					AI_MAX_THREAD;					// AI max thread
+    public static boolean 				EVERYBODY_HAS_ADMIN_RIGHTS;		// For test servers - everybody has admin rights
+    public static boolean 				AUTODELETE_INVALID_QUEST_DATA;	// Auto-delete invalid quest data ?
+    public static boolean       		FORCE_INVENTORY_UPDATE;
+    public static boolean 				SHOW_L2J_LICENSE;				// Show License at login
+    public static boolean 				SHOW_HTML_WELCOME;				// Show html window at login
+    public static boolean 				USE_SAY_FILTER;					// Config for use chat filter
+    public static ArrayList<String> 	FILTER_LIST = new ArrayList<String>();
+    public static int     				AUTODESTROY_ITEM_AFTER;			// Time after which item will auto-destroy
+    public static int     				HERB_AUTO_DESTROY_TIME;			// Auto destroy herb time
+    public static String  				PROTECTED_ITEMS;
+    public static FastList<Integer> 	LIST_PROTECTED_ITEMS = new FastList<Integer>();	// List of items that will not be destroyed
+    public static boolean   			DESTROY_DROPPED_PLAYER_ITEM;	// Auto destroy nonequipable items dropped by players
+    public static boolean   			DESTROY_EQUIPABLE_PLAYER_ITEM;	// Auto destroy equipable items dropped by players
+    public static boolean   			SAVE_DROPPED_ITEM;				// Save items on ground for restoration on server restart
+    public static boolean   			EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD;// Empty table ItemsOnGround after load all items
+    public static int       			SAVE_DROPPED_ITEM_INTERVAL;		// Time interval to save into db items on ground
+    public static boolean   			CLEAR_DROPPED_ITEM_TABLE;		// Clear all items stored in ItemsOnGround table
+    public static boolean 				PRECISE_DROP_CALCULATION;		// Accept precise drop calculation ?
+    public static boolean 				MULTIPLE_ITEM_DROP;				// Accept multi-items drop ?
+    /** This is setting of experimental Client <--> Server Player coordinates synchronization<br>
+     * <b><u>Valeurs :</u></b>
+     * <li>0 - no synchronization at all</li>
+     * <li>1 - parcial synchronization Client --> Server only * using this option it is difficult for players 
+     *         to bypass obstacles</li>
+     * <li>2 - parcial synchronization Server --> Client only</li>
+     * <li>3 - full synchronization Client <--> Server</li>
+     * <li>-1 - Old system: will synchronize Z only</li>
+     */
+    public static int     				COORD_SYNCHRONIZE;
+    public static int     				DELETE_DAYS;
+    public static int 					MAX_DRIFT_RANGE;				// Maximum range mobs can randomly go from spawn point
+    public static boolean 				ALLOWFISHING;
+    public static boolean 				ALLOW_MANOR;					// Allow Manor system
+    public static boolean 				ALLOW_GUARDS;					// Allow guards against aggressive monsters
+    public static boolean 				GEODATA;						// GeoData On/Off
+    public static boolean 				FORCE_GEODATA;					// Force loading GeoData to psychical memory
+    public static L2WalkerAllowed 		ALLOW_L2WALKER_CLIENT;
+    public static boolean       		AUTOBAN_L2WALKER_ACC;
+    public static int           		L2WALKER_REVISION;
+    public static boolean       		ALLOW_DISCARDITEM;
+    public static boolean       		ALLOW_FREIGHT;
+    public static boolean       		ALLOW_WAREHOUSE;
+    public static boolean         		WAREHOUSE_CACHE;				// Allow warehouse cache?
+    public static int             		WAREHOUSE_CACHE_TIME;			// How long store WH datas
+    public static boolean 	    		ALLOW_WEAR;
+    public static int           		WEAR_DELAY;
+    public static int           		WEAR_PRICE;    
+    public static boolean 	    		ALLOW_LOTTERY;
+    public static boolean 	    		ALLOW_RACE;
+    public static boolean 	    		ALLOW_WATER;
+    public static boolean       		ALLOW_RENTPET;
+    public static boolean 	    		ALLOW_BOAT;
+    public static boolean        		ALLOW_CURSED_WEAPONS;			// Allow cursed weapons ?
+    public static String 				FISHINGMODE;
+    public static enum L2WalkerAllowed{True, False, GM}					// Allow L2Walker client
+    public static String  				DEFAULT_GLOBAL_CHAT;			// Global chat state
+    public static String  				DEFAULT_TRADE_CHAT;				// Trade chat state
+    public static boolean 				LOG_CHAT;						// Logging Chat Window
+    public static boolean 				LOG_ITEMS;
+    public static int 					DEFAULT_PUNISH;					// Default punishment for illegal actions
+    public static int 					DEFAULT_PUNISH_PARAM;			// Parameter for default punishment    
+    public static int 					MINIMUM_UPDATE_DISTANCE;
+    public static int 					KNOWNLIST_FORGET_DELAY;
+    public static int 					MINIMUN_UPDATE_TIME;
+    public static boolean 				LAZY_CACHE;
+    public static boolean 				GM_AUDIT;
+    public static String        		COMMUNITY_TYPE;					// Community Board
+    public static String        		BBS_DEFAULT;    
+    public static boolean       		SHOW_LEVEL_COMMUNITYBOARD;
+    public static boolean       		SHOW_STATUS_COMMUNITYBOARD;
+    public static int           		NAME_PAGE_SIZE_COMMUNITYBOARD;
+    public static int           		NAME_PER_ROW_COMMUNITYBOARD;
+    public static int           		ZONE_TOWN;						// Zone Setting
+    public static int           		MIN_NPC_ANIMATION;				// random animation interval
+    public static int           		MAX_NPC_ANIMATION;
+    public static boolean       		SHOW_NPC_LVL;					// Show L2Monster level and aggro ?
+    public static int           		PACKET_LIFETIME;
+    public static long          		PACKET_EXECUTIONTIME;
+    public static boolean				BYPASS_VALIDATION;
+    public static boolean 				GAMEGUARD_ENFORCE;
+    public static boolean 				GAMEGUARD_PROHIBITACTION;    
+    public static boolean 				ONLINE_PLAYERS_AT_STARTUP;		// Show Online Players announce
+    public static int  					ONLINE_PLAYERS_ANNOUNCE_INTERVAL; 
+    public static boolean 				GRIDS_ALWAYS_ON;				// Grid Options
+    public static int 					GRID_NEIGHBOR_TURNON_TIME;		// Grid Options
+    public static int 					GRID_NEIGHBOR_TURNOFF_TIME;  	// Grid Options
+    public static boolean 				CHECK_SKILLS_ON_ENTER;			// Skill Tree check on EnterWorld
+    public static boolean   			CHAR_VIP_SKIP_SKILLS_CHECK;		// VIP Characters configuration
+    public static boolean   			CHAR_VIP_COLOR_ENABLED;			// VIP Characters configuration
+    public static int       			CHAR_VIP_COLOR;					// VIP Characters configuration
+    public static boolean 				ALT_DEV_NO_QUESTS;				// Alt Settings for devs
+    public static boolean 				ALT_DEV_NO_SPAWNS;				// Alt Settings for devs
+    public static boolean 				ALT_POLYMORPH;					// Alt Settings for devs
     //  *******************************************************************************************
     public static void loadoptionsconfig()
     {
-    	
+    	_log.info("loading " + OPTIONS_FILE);
+        try 
+        {
+            Properties optionsSettings    = new Properties();
+            InputStream is               = new FileInputStream(new File(OPTIONS_FILE));
+            optionsSettings.load(is);
+            is.close();
+
+            EVERYBODY_HAS_ADMIN_RIGHTS      = Boolean.parseBoolean(optionsSettings.getProperty("EverybodyHasAdminRights", "false"));
+                         
+            ASSERT                          = Boolean.parseBoolean(optionsSettings.getProperty("Assert", "false"));
+            DEVELOPER                       = Boolean.parseBoolean(optionsSettings.getProperty("Developer", "false"));
+            TEST_SERVER                     = Boolean.parseBoolean(optionsSettings.getProperty("TestServer", "false"));
+            SERVER_LIST_TESTSERVER          = Boolean.parseBoolean(optionsSettings.getProperty("TestServer", "false"));
+                         
+            SERVER_LIST_BRACKET             = Boolean.valueOf(optionsSettings.getProperty("ServerListBrackets", "false"));
+            SERVER_LIST_CLOCK               = Boolean.valueOf(optionsSettings.getProperty("ServerListClock", "false"));
+            SERVER_GMONLY                   = Boolean.valueOf(optionsSettings.getProperty("ServerGMOnly", "false"));
+            
+            AUTODESTROY_ITEM_AFTER          = Integer.parseInt(optionsSettings.getProperty("AutoDestroyDroppedItemAfter", "0"));
+            HERB_AUTO_DESTROY_TIME          = Integer.parseInt(optionsSettings.getProperty("AutoDestroyHerbTime","15"))*1000;
+            PROTECTED_ITEMS                 = optionsSettings.getProperty("ListOfProtectedItems");
+            LIST_PROTECTED_ITEMS = new FastList<Integer>();
+            for (String id : PROTECTED_ITEMS.trim().split(",")) {
+                LIST_PROTECTED_ITEMS.add(Integer.parseInt(id.trim()));
+                 }
+            DESTROY_DROPPED_PLAYER_ITEM     = Boolean.valueOf(optionsSettings.getProperty("DestroyPlayerDroppedItem", "false"));
+            DESTROY_EQUIPABLE_PLAYER_ITEM   = Boolean.valueOf(optionsSettings.getProperty("DestroyEquipableItem", "false"));
+            SAVE_DROPPED_ITEM               = Boolean.valueOf(optionsSettings.getProperty("SaveDroppedItem", "false"));
+            EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD = Boolean.valueOf(optionsSettings.getProperty("EmptyDroppedItemTableAfterLoad", "false"));
+            SAVE_DROPPED_ITEM_INTERVAL      = Integer.parseInt(optionsSettings.getProperty("SaveDroppedItemInterval", "0"))*60000;
+            CLEAR_DROPPED_ITEM_TABLE        = Boolean.valueOf(optionsSettings.getProperty("ClearDroppedItemTable", "false"));
+
+            PRECISE_DROP_CALCULATION        = Boolean.valueOf(optionsSettings.getProperty("PreciseDropCalculation", "True"));
+            MULTIPLE_ITEM_DROP              = Boolean.valueOf(optionsSettings.getProperty("MultipleItemDrop", "True"));
+          
+            COORD_SYNCHRONIZE               = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));
+         
+            ALLOW_WAREHOUSE                 = Boolean.valueOf(optionsSettings.getProperty("AllowWarehouse", "True"));
+            WAREHOUSE_CACHE                 = Boolean.valueOf(optionsSettings.getProperty("WarehouseCache", "False"));
+            WAREHOUSE_CACHE_TIME            = Integer.parseInt(optionsSettings.getProperty("WarehouseCacheTime", "15"));
+            ALLOW_FREIGHT                   = Boolean.valueOf(optionsSettings.getProperty("AllowFreight", "True"));
+            ALLOW_WEAR                      = Boolean.valueOf(optionsSettings.getProperty("AllowWear", "False"));
+            WEAR_DELAY                      = Integer.parseInt(optionsSettings.getProperty("WearDelay", "5"));
+            WEAR_PRICE                      = Integer.parseInt(optionsSettings.getProperty("WearPrice", "10"));
+            ALLOW_LOTTERY                   = Boolean.valueOf(optionsSettings.getProperty("AllowLottery", "False"));
+            ALLOW_RACE                      = Boolean.valueOf(optionsSettings.getProperty("AllowRace", "False"));
+            ALLOW_WATER                     = Boolean.valueOf(optionsSettings.getProperty("AllowWater", "False"));
+            ALLOW_RENTPET                   = Boolean.valueOf(optionsSettings.getProperty("AllowRentPet", "False"));
+            ALLOW_DISCARDITEM               = Boolean.valueOf(optionsSettings.getProperty("AllowDiscardItem", "True"));
+            ALLOWFISHING                    = Boolean.valueOf(optionsSettings.getProperty("AllowFishing", "False"));
+            ALLOW_MANOR                     = Boolean.valueOf(optionsSettings.getProperty("AllowManor", "False"));
+            ALLOW_BOAT                      = Boolean.valueOf(optionsSettings.getProperty("AllowBoat", "False"));
+            ALLOW_CURSED_WEAPONS            = Boolean.valueOf(optionsSettings.getProperty("AllowCursedWeapons", "False"));
+            ALLOW_WEDDING                   = Boolean.valueOf(optionsSettings.getProperty("AllowWedding", "False"));
+            ALLOW_GUARDS        			= Boolean.valueOf(optionsSettings.getProperty("AllowGuards", "False"));
+            FISHINGMODE                     = optionsSettings.getProperty("FishingMode", "water");                
+           
+            ALLOW_L2WALKER_CLIENT           = L2WalkerAllowed.valueOf(optionsSettings.getProperty("AllowL2Walker", "False"));
+            L2WALKER_REVISION               = Integer.parseInt(optionsSettings.getProperty("L2WalkerRevision", "537"));
+            AUTOBAN_L2WALKER_ACC            = Boolean.valueOf(optionsSettings.getProperty("AutobanL2WalkerAcc", "False"));
+           
+            DEFAULT_GLOBAL_CHAT             = optionsSettings.getProperty("GlobalChat", "ON");
+            DEFAULT_TRADE_CHAT              = optionsSettings.getProperty("TradeChat", "ON");
+        
+            LOG_CHAT                        = Boolean.valueOf(optionsSettings.getProperty("LogChat", "false"));
+            LOG_ITEMS                       = Boolean.valueOf(optionsSettings.getProperty("LogItems", "false"));
+                         
+            GM_AUDIT                        = Boolean.valueOf(optionsSettings.getProperty("GMAudit", "False"));
+
+            COMMUNITY_TYPE                  = optionsSettings.getProperty("CommunityType", "old").toLowerCase();
+            BBS_DEFAULT                     = optionsSettings.getProperty("BBSDefault", "_bbshome");
+            SHOW_LEVEL_COMMUNITYBOARD       = Boolean.valueOf(optionsSettings.getProperty("ShowLevelOnCommunityBoard", "False"));
+            SHOW_STATUS_COMMUNITYBOARD      = Boolean.valueOf(optionsSettings.getProperty("ShowStatusOnCommunityBoard", "True"));
+            NAME_PAGE_SIZE_COMMUNITYBOARD   = Integer.parseInt(optionsSettings.getProperty("NamePageSizeOnCommunityBoard", "50"));
+            NAME_PER_ROW_COMMUNITYBOARD     = Integer.parseInt(optionsSettings.getProperty("NamePerRowOnCommunityBoard", "5"));
+                         
+            ZONE_TOWN                       = Integer.parseInt(optionsSettings.getProperty("ZoneTown", "0"));
+                         
+            MAX_DRIFT_RANGE                 = Integer.parseInt(optionsSettings.getProperty("MaxDriftRange", "300"));
+
+            MIN_NPC_ANIMATION               = Integer.parseInt(optionsSettings.getProperty("MinNPCAnimation", "0"));
+            MAX_NPC_ANIMATION               = Integer.parseInt(optionsSettings.getProperty("MaxNPCAnimation", "0"));
+                         
+            SHOW_NPC_LVL                    = Boolean.valueOf(optionsSettings.getProperty("ShowNpcLevel", "False"));
+
+            FORCE_INVENTORY_UPDATE          = Boolean.valueOf(optionsSettings.getProperty("ForceInventoryUpdate", "False"));
+
+            AUTODELETE_INVALID_QUEST_DATA   = Boolean.valueOf(optionsSettings.getProperty("AutoDeleteInvalidQuestData", "False"));
+                         
+            THREAD_P_EFFECTS                = Integer.parseInt(optionsSettings.getProperty("ThreadPoolSizeEffects", "6"));
+            THREAD_P_GENERAL                = Integer.parseInt(optionsSettings.getProperty("ThreadPoolSizeGeneral", "15"));
+            GENERAL_PACKET_THREAD_CORE_SIZE = Integer.parseInt(optionsSettings.getProperty("GeneralPacketThreadCoreSize", "4"));
+            URGENT_PACKET_THREAD_CORE_SIZE  = Integer.parseInt(optionsSettings.getProperty("UrgentPacketThreadCoreSize", "2"));
+            GENERAL_THREAD_CORE_SIZE        = Integer.parseInt(optionsSettings.getProperty("GeneralThreadCoreSize", "4"));
+            AI_MAX_THREAD                   = Integer.parseInt(optionsSettings.getProperty("AiMaxThread", "10"));
+                         
+            DELETE_DAYS                     = Integer.parseInt(optionsSettings.getProperty("DeleteCharAfterDays", "7"));
+                         
+            DEFAULT_PUNISH                  = Integer.parseInt(optionsSettings.getProperty("DefaultPunish", "2"));
+            DEFAULT_PUNISH_PARAM            = Integer.parseInt(optionsSettings.getProperty("DefaultPunishParam", "0"));
+
+            LAZY_CACHE                      = Boolean.valueOf(optionsSettings.getProperty("LazyCache", "False"));
+
+            PACKET_LIFETIME                 = Integer.parseInt(optionsSettings.getProperty("PacketLifeTime", "0"));
+            PACKET_EXECUTIONTIME            = Long.parseLong(optionsSettings.getProperty("PacketExecutionTime", "0"));
+            
+            BYPASS_VALIDATION               = Boolean.valueOf(optionsSettings.getProperty("BypassValidation", "False"));
+                         
+            GAMEGUARD_ENFORCE               = Boolean.valueOf(optionsSettings.getProperty("GameGuardEnforce", "False"));
+            GAMEGUARD_PROHIBITACTION        = Boolean.valueOf(optionsSettings.getProperty("GameGuardProhibitAction", "False"));
+            GRIDS_ALWAYS_ON                 = Boolean.parseBoolean(optionsSettings.getProperty("GridsAlwaysOn", "False"));
+            GRID_NEIGHBOR_TURNON_TIME       = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOnTime", "30"));
+            GRID_NEIGHBOR_TURNOFF_TIME      = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOffTime", "300"));    
+                             
+            GEODATA                         = Boolean.parseBoolean(optionsSettings.getProperty("GeoData", "False"));
+            FORCE_GEODATA                   = Boolean.parseBoolean(optionsSettings.getProperty("ForceGeoData", "True"));
+            
+            SHOW_L2J_LICENSE                = Boolean.parseBoolean(optionsSettings.getProperty("ShowL2JLicense", "false"));
+            SHOW_HTML_WELCOME               = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLWelcome", "false"));
+            USE_SAY_FILTER                  = Boolean.parseBoolean(optionsSettings.getProperty("UseSayFilter", "false"));
+            
+            CHAR_VIP_SKIP_SKILLS_CHECK		= Boolean.parseBoolean(optionsSettings.getProperty("CharViPSkipSkillsCheck", "false"));
+            CHAR_VIP_COLOR_ENABLED			= Boolean.parseBoolean(optionsSettings.getProperty("CharViPAllowColor", "false"));
+            CHAR_VIP_COLOR					= Integer.decode("0x" + optionsSettings.getProperty("CharViPNameColor", "00CCFF"));
+            
+            ONLINE_PLAYERS_AT_STARTUP = Boolean.parseBoolean(optionsSettings.getProperty("ShowOnlinePlayersAtStartup","True"));
+            ONLINE_PLAYERS_ANNOUNCE_INTERVAL = Integer.parseInt(optionsSettings.getProperty("OnlinePlayersAnnounceInterval","900000"));
+            
+            // ---------------------------------------------------
+            // Configuration values not found in config files
+            // ---------------------------------------------------
+
+            COUNT_PACKETS                   = Boolean.valueOf(optionsSettings.getProperty("CountPacket", "false"));  
+            DUMP_PACKET_COUNTS              = Boolean.valueOf(optionsSettings.getProperty("DumpPacketCounts", "false"));
+            DUMP_INTERVAL_SECONDS           = Integer.parseInt(optionsSettings.getProperty("PacketDumpInterval", "60"));
+            
+            MINIMUM_UPDATE_DISTANCE         = Integer.parseInt(optionsSettings.getProperty("MaximumUpdateDistance", "50"));
+            MINIMUN_UPDATE_TIME             = Integer.parseInt(optionsSettings.getProperty("MinimumUpdateTime", "500"));
+            KNOWNLIST_FORGET_DELAY          = Integer.parseInt(optionsSettings.getProperty("KnownListForgetDelay", "10000"));
+            
+            CHECK_SKILLS_ON_ENTER		   	= Boolean.valueOf(optionsSettings.getProperty("CheckSkillsOnEnter","false"));
+            
+            ALT_DEV_NO_QUESTS               = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoQuests", "False"));
+            ALT_DEV_NO_SPAWNS               = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoSpawns", "False"));
+            ALT_POLYMORPH                   = Boolean.parseBoolean(optionsSettings.getProperty("AltPolymorph", "False"));
+
+            
+        }
+        catch (Exception e)
+        {
+            _log.error(e.getMessage(),e);
+            throw new Error("Failed to Load "+OPTIONS_FILE+" File.");
+        }
     }
     
     
@@ -982,7 +1246,6 @@ public final class Config {
     //  *******************************************************************************************    
     public static final String  COMMAND_PRIVILEGES_FILE     = "./config/command-privileges.properties";
     //  *******************************************************************************************
-    //  *******************************************************************************************
     
     
     
@@ -1216,59 +1479,6 @@ public final class Config {
     //  *******************************************************************************************    
     
 	
-	/** Enable/disable assertions */
-    public static boolean ASSERT;
-
-    /** Enable/disable DEVELOPER TREATMENT  */
-    public static boolean DEVELOPER;
-
-    /** Set if this server is a test server used for development */
-    public static boolean TEST_SERVER;
-
-    /**
-     *  Internal properties for developers tests only 
-     */
-    public static boolean       TEST_KNOWNLIST = false;
-    
-    public static boolean       TEST_CAPTUREPACKETS = false;
-    /**  
-	 * Counting of amount of packets per minute  
-	 */  
-	public static boolean  COUNT_PACKETS           = false;
-	public static boolean  DUMP_PACKET_COUNTS      = false;
-    public static int      DUMP_INTERVAL_SECONDS   = 60;
-
-    public static boolean ALLOW_WEDDING;
-    
-    // Setting for serverList
-    /** Displays [] in front of server name ? */
-    public static boolean SERVER_LIST_BRACKET;
-    /** Displays a clock next to the server name ? */
-    public static boolean SERVER_LIST_CLOCK;
-    /** Display test server in the list of servers ? */
-    public static boolean SERVER_LIST_TESTSERVER;
-    /** Set the server as gm only at startup ? */
-    public static boolean SERVER_GMONLY;
-    // Thread pools size
-    /** Thread pool size effect */
-    public static int THREAD_P_EFFECTS;
-    /** Thread pool size general */
-    public static int THREAD_P_GENERAL;
-    /** Packet max thread */
-    public static int GENERAL_PACKET_THREAD_CORE_SIZE;
-    public static int URGENT_PACKET_THREAD_CORE_SIZE;
-    /** General max thread */
-    public static int GENERAL_THREAD_CORE_SIZE;
-    /** AI max thread */
-    public static int AI_MAX_THREAD;
-    
-    /* Show License at login */
-    public static boolean SHOW_L2J_LICENSE;
-    /* Show html window at login */
-    public static boolean SHOW_HTML_WELCOME;
-    /** Config for use chat filter **/
-    public static boolean USE_SAY_FILTER;
-    public static ArrayList<String> FILTER_LIST = new ArrayList<String>();
     
     /** Accept auto-loot ? */
     public static boolean AUTO_LOOT;
@@ -1372,17 +1582,24 @@ public final class Config {
     /** Strict Seven Signs */
     public static boolean ALT_STRICT_SEVENSIGNS;
 
-    /** Alt Settings for devs */
-    public static boolean ALT_DEV_NO_QUESTS;
-    public static boolean ALT_DEV_NO_SPAWNS;
-
-    public static boolean ALT_POLYMORPH;
+    
+    
+    
+    
+    
+    
+    
+    
 
     /** Spell Book needed to learn skill */
     public static boolean SP_BOOK_NEEDED;
-    /** Logging Chat Window */
-    public static boolean LOG_CHAT;
-    public static boolean LOG_ITEMS;
+    
+    
+    
+    
+    
+    
+
     
     public static boolean ALT_PRIVILEGES_ADMIN;
     public static boolean ALT_PRIVILEGES_SECURE_CHECK;
@@ -1420,65 +1637,6 @@ public final class Config {
     /** Config for spawn siege guard**/
     public static boolean SPAWN_SIEGE_GUARD; 
 
-    /** Time after which item will auto-destroy */
-    public static int     AUTODESTROY_ITEM_AFTER;
-    /** Auto destroy herb time */
-    public static int     HERB_AUTO_DESTROY_TIME;
-    
-    public static String  PROTECTED_ITEMS;
-    /** List of items that will not be destroyed */
-    public static FastList<Integer> LIST_PROTECTED_ITEMS = new FastList<Integer>();
-        
-    /** Auto destroy nonequipable items dropped by players */
-    public static boolean   DESTROY_DROPPED_PLAYER_ITEM;
-    /** Auto destroy equipable items dropped by players */
-    public static boolean   DESTROY_EQUIPABLE_PLAYER_ITEM;
-    /** Save items on ground for restoration on server restart */
-    public static boolean   SAVE_DROPPED_ITEM;
-    /** Empty table ItemsOnGround after load all items */
-    public static boolean   EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD;
-    /** Time interval to save into db items on ground */
-    public static int       SAVE_DROPPED_ITEM_INTERVAL;
-    /** Clear all items stored in ItemsOnGround table */
-    public static boolean   CLEAR_DROPPED_ITEM_TABLE;
-
-    /** Accept precise drop calculation ? */
-    public static boolean PRECISE_DROP_CALCULATION;
-
-    /** Accept multi-items drop ? */
-    public static boolean MULTIPLE_ITEM_DROP;
-
-    /** This is setting of experimental Client <--> Server Player coordinates synchronization<br>
-     * <b><u>Valeurs :</u></b>
-     * <li>0 - no synchronization at all</li>
-     * <li>1 - parcial synchronization Client --> Server only * using this option it is difficult for players 
-     *         to bypass obstacles</li>
-     * <li>2 - parcial synchronization Server --> Client only</li>
-     * <li>3 - full synchronization Client <--> Server</li>
-     * <li>-1 - Old system: will synchronize Z only</li>
-     */
-    public static int     COORD_SYNCHRONIZE;
-    
-    public static int     DELETE_DAYS;
-    
-
-    /** Datapack root directory */
-    public static File    DATAPACK_ROOT;
-
-    /** Maximum range mobs can randomly go from spawn point */
-    public static int MAX_DRIFT_RANGE;
-    
-    public static boolean ALLOWFISHING;
-    /** Allow Manor system */
-    public static boolean ALLOW_MANOR;
-    /** Allow guards against aggressive monsters */
-    public static boolean ALLOW_GUARDS;
-    
-    /** GeoData On/Off */
-    public static boolean GEODATA;
-    /** Force loading GeoData to psychical memory */
-    public static boolean FORCE_GEODATA;
-
     /** Crafting Npc */
     public static double ALT_CRAFT_PRICE;                    // reference price multiplier
     public static int ALT_CRAFT_DEFAULT_PRICE;               // default price, in case reference is 0
@@ -1490,64 +1648,15 @@ public final class Config {
     /** Jail config **/
     public static boolean JAIL_IS_PVP;
     public static boolean JAIL_DISABLE_CHAT;
-    
-    public static String FISHINGMODE;
 
-    // Allow L2Walker client
-    public static enum L2WalkerAllowed
-    {
-        True,
-        False,
-        GM
-    }
-
-    public static L2WalkerAllowed ALLOW_L2WALKER_CLIENT;
-    public static boolean       AUTOBAN_L2WALKER_ACC;
-    public static int           L2WALKER_REVISION;
-
-    public static boolean       ALLOW_DISCARDITEM;
-    public static boolean       ALLOW_FREIGHT;
-    public static boolean       ALLOW_WAREHOUSE;
-    
-    /** Allow warehouse cache? */
-    public static boolean         WAREHOUSE_CACHE;
-    /** How long store WH datas */
-    public static int             WAREHOUSE_CACHE_TIME;
-    
-    public static boolean 	    ALLOW_WEAR;
-    public static int           WEAR_DELAY;
-    public static int           WEAR_PRICE;    
-    public static boolean 	    ALLOW_LOTTERY;
-    public static boolean 	    ALLOW_RACE;
-    public static boolean 	    ALLOW_WATER;
-    public static boolean       ALLOW_RENTPET;
-    public static boolean 	    ALLOW_BOAT;
-    /** Allow cursed weapons ? */
-    public static boolean        ALLOW_CURSED_WEAPONS;
-    
     public static String  ALLOWED_NPC_TYPES;
     //  /** List of NPC types that won't allow casting */
     public static FastList<String> LIST_ALLOWED_NPC_TYPES = new FastList<String>();
     
-    public static int           PACKET_LIFETIME;
-    public static long          PACKET_EXECUTIONTIME;
-
     // Pets
     public static int           WYVERN_SPEED;
     public static int           STRIDER_SPEED;
     public static boolean       ALLOW_WYVERN_UPGRADER;
-
-    // random animation interval
-    public static int           MIN_NPC_ANIMATION;
-    public static int           MAX_NPC_ANIMATION;
-
-    // Community Board
-    public static String        COMMUNITY_TYPE;
-    public static String        BBS_DEFAULT;    
-    public static boolean       SHOW_LEVEL_COMMUNITYBOARD;
-    public static boolean       SHOW_STATUS_COMMUNITYBOARD;
-    public static int           NAME_PAGE_SIZE_COMMUNITYBOARD;
-    public static int           NAME_PER_ROW_COMMUNITYBOARD;
 
     public static IOType        IO_TYPE;
     public static int           PATH_NODE_RADIUS;
@@ -1555,8 +1664,7 @@ public final class Config {
     public static int           SELECTED_NODE_ID;
     public static int           LINKED_NODE_ID;
     public static String        NEW_NODE_TYPE;
-    public static boolean       FORCE_INVENTORY_UPDATE;
-
+    
     public static boolean       SPAWN_WYVERN_MANAGER;
     public static boolean       SPAWN_CLASS_MASTER;
     public static boolean		CLASS_MASTER_STRIDER_UPDATE;
@@ -1652,13 +1760,6 @@ public final class Config {
     	}
     	
     }
-
-    
-    /** Show L2Monster level and aggro ? */
-    public static boolean       SHOW_NPC_LVL;
-    
-    /** Zone Setting */
-    public static int           ZONE_TOWN;
     
     /** Crafting Enabled? */
     public static boolean       IS_CRAFTING_ENABLED;
@@ -1681,16 +1782,12 @@ public final class Config {
     public static int           WAREHOUSE_SLOTS_DWARF;
     public static int           WAREHOUSE_SLOTS_CLAN;
     public static int           FREIGHT_SLOTS;
-    
-    
-    
 
     public static String  NONDROPPABLE_ITEMS;
     public static FastList<Integer> LIST_NONDROPPABLE_ITEMS       = new FastList<Integer>();
 
     public static String  PET_RENT_NPC;
     public static FastList<Integer> LIST_PET_RENT_NPC   = new FastList<Integer>();
-    
 
     /** Karma Punishment */
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE;
@@ -1706,11 +1803,6 @@ public final class Config {
     public static boolean AUTO_LEARN_SKILLS;
     /** Disable Grade penalty */
     public static boolean GRADE_PENALTY;
-    
-    /** VIP Characters configuration */
-    public static boolean   CHAR_VIP_SKIP_SKILLS_CHECK;
-    public static boolean   CHAR_VIP_COLOR_ENABLED;
-    public static int       CHAR_VIP_COLOR;
     
     /** Enumeration for type of maps object */
     public static enum ObjectMapType
@@ -1731,10 +1823,6 @@ public final class Config {
      * New effects that are added will be canceled if they are of lesser priority to the old one.
      */
     public static boolean EFFECT_CANCELING;
-
-    /** Auto-delete invalid quest data ? */
-    public static boolean AUTODELETE_INVALID_QUEST_DATA;
-    
     
     /** Chance For Soul Crystal to Break **/
     public static int CHANCE_BREAK;
@@ -1805,45 +1893,13 @@ public final class Config {
     
     /** Store skills cooltime on char exit/relogin */
     public static boolean STORE_SKILL_COOLTIME;
-	
-    /** Default punishment for illegal actions */
-    public static int DEFAULT_PUNISH;
-    /** Parameter for default punishment */
-    public static int DEFAULT_PUNISH_PARAM;    
-    
-    public static int MINIMUM_UPDATE_DISTANCE;
-    public static int KNOWNLIST_FORGET_DELAY;
-    public static int MINIMUN_UPDATE_TIME;
     
     public static boolean ANNOUNCE_MAMMON_SPAWN;
-    public static boolean LAZY_CACHE;
-    
-    public static boolean	BYPASS_VALIDATION;
-    public static boolean GM_AUDIT;
-    
-	public static boolean FLOOD_PROTECTION = false;
-	public static int PACKET_LIMIT;
-	public static int PACKET_TIME_LIMIT;
-    
-    public static boolean GAMEGUARD_ENFORCE;
-    public static boolean GAMEGUARD_PROHIBITACTION;    
-    
-    /** Show Online Players announce */
-    public static boolean ONLINE_PLAYERS_AT_STARTUP;
-    public static int  ONLINE_PLAYERS_ANNOUNCE_INTERVAL; 
     
     /** Recipebook limits */
     public static int DWARF_RECIPE_LIMIT;
 
     public static int COMMON_RECIPE_LIMIT;  
-
-    /** Grid Options */
-    public static boolean GRIDS_ALWAYS_ON;
-    public static int GRID_NEIGHBOR_TURNON_TIME;
-    public static int GRID_NEIGHBOR_TURNOFF_TIME;  
-
-    /** Skill Tree check on EnterWorld */
-    public static boolean CHECK_SKILLS_ON_ENTER;
     
     public static boolean FACTION_ENABLED = false;
     public static boolean FACTION_KILL_REWARD = false;
@@ -1881,160 +1937,8 @@ public final class Config {
 			loadsevensignsconfig();
 			loadgmaccess();
 			loadtelnetconfig();
+			loadoptionsconfig();
 			
-            try 
-            {
-                Properties optionsSettings    = new Properties();
-                InputStream is               = new FileInputStream(new File(OPTIONS_FILE));
-                optionsSettings.load(is);
-                is.close();
-
-                EVERYBODY_HAS_ADMIN_RIGHTS      = Boolean.parseBoolean(optionsSettings.getProperty("EverybodyHasAdminRights", "false"));
-                             
-                ASSERT                          = Boolean.parseBoolean(optionsSettings.getProperty("Assert", "false"));
-                DEVELOPER                       = Boolean.parseBoolean(optionsSettings.getProperty("Developer", "false"));
-                TEST_SERVER                     = Boolean.parseBoolean(optionsSettings.getProperty("TestServer", "false"));
-                SERVER_LIST_TESTSERVER          = Boolean.parseBoolean(optionsSettings.getProperty("TestServer", "false"));
-                             
-                SERVER_LIST_BRACKET             = Boolean.valueOf(optionsSettings.getProperty("ServerListBrackets", "false"));
-                SERVER_LIST_CLOCK               = Boolean.valueOf(optionsSettings.getProperty("ServerListClock", "false"));
-                SERVER_GMONLY                   = Boolean.valueOf(optionsSettings.getProperty("ServerGMOnly", "false"));
-                
-                AUTODESTROY_ITEM_AFTER          = Integer.parseInt(optionsSettings.getProperty("AutoDestroyDroppedItemAfter", "0"));
-                HERB_AUTO_DESTROY_TIME          = Integer.parseInt(optionsSettings.getProperty("AutoDestroyHerbTime","15"))*1000;
-                PROTECTED_ITEMS                 = optionsSettings.getProperty("ListOfProtectedItems");
-                LIST_PROTECTED_ITEMS = new FastList<Integer>();
-                for (String id : PROTECTED_ITEMS.trim().split(",")) {
-                    LIST_PROTECTED_ITEMS.add(Integer.parseInt(id.trim()));
-                     }
-                DESTROY_DROPPED_PLAYER_ITEM     = Boolean.valueOf(optionsSettings.getProperty("DestroyPlayerDroppedItem", "false"));
-                DESTROY_EQUIPABLE_PLAYER_ITEM   = Boolean.valueOf(optionsSettings.getProperty("DestroyEquipableItem", "false"));
-                SAVE_DROPPED_ITEM               = Boolean.valueOf(optionsSettings.getProperty("SaveDroppedItem", "false"));
-                EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD = Boolean.valueOf(optionsSettings.getProperty("EmptyDroppedItemTableAfterLoad", "false"));
-                SAVE_DROPPED_ITEM_INTERVAL      = Integer.parseInt(optionsSettings.getProperty("SaveDroppedItemInterval", "0"))*60000;
-                CLEAR_DROPPED_ITEM_TABLE        = Boolean.valueOf(optionsSettings.getProperty("ClearDroppedItemTable", "false"));
-
-                PRECISE_DROP_CALCULATION        = Boolean.valueOf(optionsSettings.getProperty("PreciseDropCalculation", "True"));
-                MULTIPLE_ITEM_DROP              = Boolean.valueOf(optionsSettings.getProperty("MultipleItemDrop", "True"));
-              
-                COORD_SYNCHRONIZE               = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));
-             
-                ALLOW_WAREHOUSE                 = Boolean.valueOf(optionsSettings.getProperty("AllowWarehouse", "True"));
-                WAREHOUSE_CACHE                 = Boolean.valueOf(optionsSettings.getProperty("WarehouseCache", "False"));
-                WAREHOUSE_CACHE_TIME            = Integer.parseInt(optionsSettings.getProperty("WarehouseCacheTime", "15"));
-                ALLOW_FREIGHT                   = Boolean.valueOf(optionsSettings.getProperty("AllowFreight", "True"));
-                ALLOW_WEAR                      = Boolean.valueOf(optionsSettings.getProperty("AllowWear", "False"));
-                WEAR_DELAY                      = Integer.parseInt(optionsSettings.getProperty("WearDelay", "5"));
-                WEAR_PRICE                      = Integer.parseInt(optionsSettings.getProperty("WearPrice", "10"));
-                ALLOW_LOTTERY                   = Boolean.valueOf(optionsSettings.getProperty("AllowLottery", "False"));
-                ALLOW_RACE                      = Boolean.valueOf(optionsSettings.getProperty("AllowRace", "False"));
-                ALLOW_WATER                     = Boolean.valueOf(optionsSettings.getProperty("AllowWater", "False"));
-                ALLOW_RENTPET                   = Boolean.valueOf(optionsSettings.getProperty("AllowRentPet", "False"));
-                ALLOW_DISCARDITEM               = Boolean.valueOf(optionsSettings.getProperty("AllowDiscardItem", "True"));
-                ALLOWFISHING                    = Boolean.valueOf(optionsSettings.getProperty("AllowFishing", "False"));
-                ALLOW_MANOR                     = Boolean.valueOf(optionsSettings.getProperty("AllowManor", "False"));
-                ALLOW_BOAT                      = Boolean.valueOf(optionsSettings.getProperty("AllowBoat", "False"));
-                ALLOW_CURSED_WEAPONS            = Boolean.valueOf(optionsSettings.getProperty("AllowCursedWeapons", "False"));
-                ALLOW_WEDDING                   = Boolean.valueOf(optionsSettings.getProperty("AllowWedding", "False"));
-                ALLOW_GUARDS        			= Boolean.valueOf(optionsSettings.getProperty("AllowGuards", "False"));
-                FISHINGMODE                     = optionsSettings.getProperty("FishingMode", "water");                
-               
-                ALLOW_L2WALKER_CLIENT           = L2WalkerAllowed.valueOf(optionsSettings.getProperty("AllowL2Walker", "False"));
-                L2WALKER_REVISION               = Integer.parseInt(optionsSettings.getProperty("L2WalkerRevision", "537"));
-                AUTOBAN_L2WALKER_ACC            = Boolean.valueOf(optionsSettings.getProperty("AutobanL2WalkerAcc", "False"));
-               
-                DEFAULT_GLOBAL_CHAT             = optionsSettings.getProperty("GlobalChat", "ON");
-                DEFAULT_TRADE_CHAT              = optionsSettings.getProperty("TradeChat", "ON");
-            
-                LOG_CHAT                        = Boolean.valueOf(optionsSettings.getProperty("LogChat", "false"));
-                LOG_ITEMS                       = Boolean.valueOf(optionsSettings.getProperty("LogItems", "false"));
-                             
-                GM_AUDIT                        = Boolean.valueOf(optionsSettings.getProperty("GMAudit", "False"));
-
-                COMMUNITY_TYPE                  = optionsSettings.getProperty("CommunityType", "old").toLowerCase();
-                BBS_DEFAULT                     = optionsSettings.getProperty("BBSDefault", "_bbshome");
-                SHOW_LEVEL_COMMUNITYBOARD       = Boolean.valueOf(optionsSettings.getProperty("ShowLevelOnCommunityBoard", "False"));
-                SHOW_STATUS_COMMUNITYBOARD      = Boolean.valueOf(optionsSettings.getProperty("ShowStatusOnCommunityBoard", "True"));
-                NAME_PAGE_SIZE_COMMUNITYBOARD   = Integer.parseInt(optionsSettings.getProperty("NamePageSizeOnCommunityBoard", "50"));
-                NAME_PER_ROW_COMMUNITYBOARD     = Integer.parseInt(optionsSettings.getProperty("NamePerRowOnCommunityBoard", "5"));
-                             
-                ZONE_TOWN                       = Integer.parseInt(optionsSettings.getProperty("ZoneTown", "0"));
-                             
-                MAX_DRIFT_RANGE                 = Integer.parseInt(optionsSettings.getProperty("MaxDriftRange", "300"));
-
-                MIN_NPC_ANIMATION               = Integer.parseInt(optionsSettings.getProperty("MinNPCAnimation", "0"));
-                MAX_NPC_ANIMATION               = Integer.parseInt(optionsSettings.getProperty("MaxNPCAnimation", "0"));
-                             
-                SHOW_NPC_LVL                    = Boolean.valueOf(optionsSettings.getProperty("ShowNpcLevel", "False"));
-
-                FORCE_INVENTORY_UPDATE          = Boolean.valueOf(optionsSettings.getProperty("ForceInventoryUpdate", "False"));
-
-                AUTODELETE_INVALID_QUEST_DATA   = Boolean.valueOf(optionsSettings.getProperty("AutoDeleteInvalidQuestData", "False"));
-                             
-                THREAD_P_EFFECTS                = Integer.parseInt(optionsSettings.getProperty("ThreadPoolSizeEffects", "6"));
-                THREAD_P_GENERAL                = Integer.parseInt(optionsSettings.getProperty("ThreadPoolSizeGeneral", "15"));
-                GENERAL_PACKET_THREAD_CORE_SIZE = Integer.parseInt(optionsSettings.getProperty("GeneralPacketThreadCoreSize", "4"));
-                URGENT_PACKET_THREAD_CORE_SIZE  = Integer.parseInt(optionsSettings.getProperty("UrgentPacketThreadCoreSize", "2"));
-                GENERAL_THREAD_CORE_SIZE        = Integer.parseInt(optionsSettings.getProperty("GeneralThreadCoreSize", "4"));
-                AI_MAX_THREAD                   = Integer.parseInt(optionsSettings.getProperty("AiMaxThread", "10"));
-                             
-                DELETE_DAYS                     = Integer.parseInt(optionsSettings.getProperty("DeleteCharAfterDays", "7"));
-                             
-                DEFAULT_PUNISH                  = Integer.parseInt(optionsSettings.getProperty("DefaultPunish", "2"));
-                DEFAULT_PUNISH_PARAM            = Integer.parseInt(optionsSettings.getProperty("DefaultPunishParam", "0"));
-
-                LAZY_CACHE                      = Boolean.valueOf(optionsSettings.getProperty("LazyCache", "False"));
-
-                PACKET_LIFETIME                 = Integer.parseInt(optionsSettings.getProperty("PacketLifeTime", "0"));
-                PACKET_EXECUTIONTIME            = Long.parseLong(optionsSettings.getProperty("PacketExecutionTime", "0"));
-                
-                BYPASS_VALIDATION               = Boolean.valueOf(optionsSettings.getProperty("BypassValidation", "False"));
-                             
-                GAMEGUARD_ENFORCE               = Boolean.valueOf(optionsSettings.getProperty("GameGuardEnforce", "False"));
-                GAMEGUARD_PROHIBITACTION        = Boolean.valueOf(optionsSettings.getProperty("GameGuardProhibitAction", "False"));
-                GRIDS_ALWAYS_ON                 = Boolean.parseBoolean(optionsSettings.getProperty("GridsAlwaysOn", "False"));
-                GRID_NEIGHBOR_TURNON_TIME       = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOnTime", "30"));
-                GRID_NEIGHBOR_TURNOFF_TIME      = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOffTime", "300"));    
-                                 
-                GEODATA                         = Boolean.parseBoolean(optionsSettings.getProperty("GeoData", "False"));
-                FORCE_GEODATA                   = Boolean.parseBoolean(optionsSettings.getProperty("ForceGeoData", "True"));
-                
-                SHOW_L2J_LICENSE                = Boolean.parseBoolean(optionsSettings.getProperty("ShowL2JLicense", "false"));
-                SHOW_HTML_WELCOME               = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLWelcome", "false"));
-                USE_SAY_FILTER                  = Boolean.parseBoolean(optionsSettings.getProperty("UseSayFilter", "false"));
-                
-                CHAR_VIP_SKIP_SKILLS_CHECK		= Boolean.parseBoolean(optionsSettings.getProperty("CharViPSkipSkillsCheck", "false"));
-                CHAR_VIP_COLOR_ENABLED			= Boolean.parseBoolean(optionsSettings.getProperty("CharViPAllowColor", "false"));
-                CHAR_VIP_COLOR					= Integer.decode("0x" + optionsSettings.getProperty("CharViPNameColor", "00CCFF"));
-                
-                ONLINE_PLAYERS_AT_STARTUP = Boolean.parseBoolean(optionsSettings.getProperty("ShowOnlinePlayersAtStartup","True"));
-                ONLINE_PLAYERS_ANNOUNCE_INTERVAL = Integer.parseInt(optionsSettings.getProperty("OnlinePlayersAnnounceInterval","900000"));
-                
-                // ---------------------------------------------------
-                // Configuration values not found in config files
-                // ---------------------------------------------------
- 
-                COUNT_PACKETS                   = Boolean.valueOf(optionsSettings.getProperty("CountPacket", "false"));  
-                DUMP_PACKET_COUNTS              = Boolean.valueOf(optionsSettings.getProperty("DumpPacketCounts", "false"));
-                DUMP_INTERVAL_SECONDS           = Integer.parseInt(optionsSettings.getProperty("PacketDumpInterval", "60"));
-                
-                MINIMUM_UPDATE_DISTANCE         = Integer.parseInt(optionsSettings.getProperty("MaximumUpdateDistance", "50"));
-                MINIMUN_UPDATE_TIME             = Integer.parseInt(optionsSettings.getProperty("MinimumUpdateTime", "500"));
-                KNOWNLIST_FORGET_DELAY          = Integer.parseInt(optionsSettings.getProperty("KnownListForgetDelay", "10000"));
-                
-                CHECK_SKILLS_ON_ENTER		   	= Boolean.valueOf(optionsSettings.getProperty("CheckSkillsOnEnter","false"));
-                
-                ALT_DEV_NO_QUESTS               = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoQuests", "False"));
-                ALT_DEV_NO_SPAWNS               = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoSpawns", "False"));
-                ALT_POLYMORPH                   = Boolean.parseBoolean(optionsSettings.getProperty("AltPolymorph", "False"));
-
-                
-            }
-            catch (Exception e)
-            {
-                _log.error(e.getMessage(),e);
-                throw new Error("Failed to Load "+OPTIONS_FILE+" File.");
-            }
 	        
 	        // other
 	        try
