@@ -65,7 +65,7 @@ public class AdminAdmin implements IAdminCommandHandler {
  private static String[] _adminCommands = {"admin_admin","admin_admin2","admin_play_sounds","admin_play_sound",
                                            "admin_gmliston","admin_gmlistoff","admin_silence",
                                            "admin_atmosphere","admin_diet","admin_tradeoff",
-                                           "admin_reload", "admin_set", "admin_config_server","admin_config_server2",
+                                           "admin_reload", "admin_reload_config", "admin_set", "admin_config_server","admin_config_server2",
                                            "admin_saveolymp","admin_manualhero", "admin_summon", "admin_unsummon",
                                            "admin_config_reload"};
 	private static final int REQUIRED_LEVEL = Config.GM_MENU;
@@ -217,6 +217,101 @@ public class AdminAdmin implements IAdminCommandHandler {
                 else
                     activeChar.sendMessage("tradeoff currently disabled");
             }            
+        }
+        else if(command.startsWith("admin_reload"))
+        {
+            StringTokenizer st = new StringTokenizer(command);
+            st.nextToken();
+
+            try
+            {
+                String type = st.nextToken();
+
+                if(type.equals("rates"))
+                {
+                    Config.loadratesconfig();
+                    activeChar.sendMessage("rates config reloaded");
+                }
+                else if(type.equals("enchant"))
+                {
+                    Config.loadenchantconfig();
+                    activeChar.sendMessage("enchant config reloaded");
+                }
+                else if(type.equals("pvp"))
+                {
+                    Config.loadpvpconfig();
+                    activeChar.sendMessage("pvp config reloaded");
+                }
+                else if(type.equals("options"))
+                {
+                    Config.loadoptionsconfig();
+                    activeChar.sendMessage("options config reloaded");
+                }
+                else if(type.equals("other"))
+                {
+                    Config.loadotherconfig();
+                    activeChar.sendMessage("other config reloaded");
+                }
+                else if(type.equals("alt"))
+                {
+                    Config.loadaltconfig();
+                    activeChar.sendMessage("alt config reloaded");
+                }
+                else if(type.equals("olympiad"))
+                {
+                    Config.loadolympiadconfig();
+                    activeChar.sendMessage("olympiad config reloaded");
+                }
+                else if(type.equals("clans"))
+                {
+                    Config.loadclansconfig();
+                    activeChar.sendMessage("clans config reloaded");
+                }
+                else if(type.equals("champions"))
+                {
+                    Config.loadchampionsconfig();
+                    activeChar.sendMessage("champions config reloaded");
+                }
+                else if(type.equals("lottery"))
+                {
+                    Config.loadlotteryconfig();
+                    activeChar.sendMessage("lottery config reloaded");
+                }
+                else if(type.equals("sepulchurs"))
+                {
+                    Config.loadsepulchursconfig();
+                    activeChar.sendMessage("sepulchurs config reloaded");
+                }
+                else if(type.equals("clanhall"))
+                {
+                    Config.loadclanhallconfig();
+                    activeChar.sendMessage("clanhall config reloaded");
+                }
+                else if(type.equals("funengines"))
+                {
+                    Config.loadfunenginesconfig();
+                    activeChar.sendMessage("funegines config reloaded");
+                }
+                else if(type.equals("sevensigns"))
+                {
+                    Config.loadsevensignsconfig();
+                    activeChar.sendMessage("sevensigns config reloaded");
+                }
+                else if(type.equals("gmaccess"))
+                {
+                    Config.loadgmaccess();
+                    activeChar.sendMessage("gmaccess config reloaded");
+                }
+                else if(type.equals("sayfilter"))
+                {
+                    Config.loadsayfilter();
+                    activeChar.sendMessage("sayfilter reloaded");
+                }
+            }
+            catch(Exception e)
+            {
+                activeChar.sendMessage("Usage:  //reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmaccess|sayfilter>");
+            }
         }
         else if(command.startsWith("admin_reload"))
         {
