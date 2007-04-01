@@ -179,6 +179,8 @@ public final class Config {
             throw new Error("Failed to Load "+CONFIGURATION_FILE+" File.");
         }
     }
+
+    
     
     //*******************************************************************************************    
     public static final String  OLYMPIAD_FILE             	= "./config/olympiad.properties";
@@ -219,6 +221,8 @@ public final class Config {
 	    }
     }
 
+    
+    
     //*******************************************************************************************    
     public static final String  CLANS_FILE                	= "./config/clans.properties";
     //*******************************************************************************************
@@ -268,6 +272,8 @@ public final class Config {
 	    }
     }
 
+    
+    
     //*******************************************************************************************    
     public static final String  CHAMPIONS_FILE             	= "./config/champions.properties";
     //*******************************************************************************************
@@ -303,6 +309,8 @@ public final class Config {
 	        throw new Error("Failed to Load "+CHAMPIONS_FILE+" File.");
 	    }
     }
+
+    
     
     //  *******************************************************************************************    
     public static final String  LOTTERY_FILE             	= "./config/lottery.properties";
@@ -338,6 +346,8 @@ public final class Config {
         }
     }
 
+    
+    
     //  *******************************************************************************************
     public static final String  WEDDING_FILE             	= "./config/wedding.properties";
     //  *******************************************************************************************
@@ -375,6 +385,8 @@ public final class Config {
             throw new Error("Failed to Load "+WEDDING_FILE+" File.");
         }
     }
+
+    
     
     //  *******************************************************************************************
     public static final String  SEPULCHURS_FILE            	= "./config/sepulchurs.properties";
@@ -413,14 +425,273 @@ public final class Config {
             throw new Error("Failed to Load "+SEPULCHURS_FILE+" File.");
         }
     }
+
     
-    public static final String  OPTIONS_FILE                = "./config/options.properties";
+    
+    //  *******************************************************************************************
+    public static final String  RATES_CONFIG_FILE           = "./config/rates.properties";    
+    //  *******************************************************************************************
+    public static float   	RATE_XP;
+    public static float   	RATE_SP;
+    public static float   	RATE_PARTY_XP;
+    public static float   	RATE_PARTY_SP;
+    public static float   	RATE_QUESTS_REWARD;
+    public static float   	RATE_DROP_ADENA;
+    public static float   	RATE_CONSUMABLE_COST;
+    public static float   	RATE_CRAFT_COST;
+    public static float   	RATE_DROP_ITEMS;
+    public static float   	RATE_DROP_SPOIL;
+    public static float   	RATE_DROP_QUEST;
+    public static float   	RATE_KARMA_EXP_LOST;	
+    public static float   	RATE_SIEGE_GUARDS_PRICE;
+    public static float   	RATE_RUN_SPEED;
+    public static float   	ALT_GAME_EXPONENT_XP;     // Alternative Xp/Sp rewards, if not 0, then calculated as 2^((mob.level-player.level) / coef
+    public static float   	ALT_GAME_EXPONENT_SP;
+    public static int   	PLAYER_DROP_LIMIT;
+    public static int   	PLAYER_RATE_DROP;
+    public static int   	PLAYER_RATE_DROP_ITEM;
+    public static int   	PLAYER_RATE_DROP_EQUIP;    
+    public static int   	PLAYER_RATE_DROP_EQUIP_WEAPON;    
+    public static float     PET_XP_RATE; 
+ 	public static float     PET_FOOD_RATE;
+    public static float   	RATE_DROP_COMMON_HERBS;
+    public static float   	RATE_DROP_MP_HP_HERBS;
+    public static float   	RATE_DROP_GREATER_HERBS;
+    public static float   	RATE_DROP_SUPERIOR_HERBS;
+    public static float   	RATE_DROP_SPECIAL_HERBS;
+    public static int   	KARMA_DROP_LIMIT;
+    public static int   	KARMA_RATE_DROP;
+    public static int   	KARMA_RATE_DROP_ITEM;
+    public static int   	KARMA_RATE_DROP_EQUIP;    
+    public static int   	KARMA_RATE_DROP_EQUIP_WEAPON;    
+    public static boolean 	CAN_SPOIL_LOWER_LEVEL_MOBS;
+    public static boolean 	CAN_DELEVEL_AND_SPOIL_MOBS;
+    public static float   	MAXIMUM_PLAYER_AND_MOB_LEVEL_DIFFERENCE;
+    public static float   	BASE_SPOIL_RATE;
+    public static float   	MINIMUM_SPOIL_RATE;
+    public static float   	SPOIL_LEVEL_DIFFERENCE_LIMIT;
+    public static float   	SPOIL_LEVEL_DIFFERENCE_MULTIPLIER;
+    public static int     	LAST_LEVEL_SPOIL_IS_LEARNED;
+    //  *******************************************************************************************
+    public static void loadratesfile()
+    {
+    	_log.info("loading " + RATES_CONFIG_FILE);
+        try
+        {
+            Properties ratesSettings    = new Properties();
+            InputStream is              = new FileInputStream(new File(RATES_CONFIG_FILE));
+            ratesSettings.load(is);
+            is.close();
+            
+            RATE_XP                         = Float.parseFloat(ratesSettings.getProperty("RateXp", "1."));
+            RATE_SP                         = Float.parseFloat(ratesSettings.getProperty("RateSp", "1."));
+            RATE_PARTY_XP                   = Float.parseFloat(ratesSettings.getProperty("RatePartyXp", "1."));
+            RATE_PARTY_SP                   = Float.parseFloat(ratesSettings.getProperty("RatePartySp", "1."));
+            RATE_QUESTS_REWARD              = Float.parseFloat(ratesSettings.getProperty("RateQuestsReward", "1."));
+            RATE_DROP_ADENA                 = Float.parseFloat(ratesSettings.getProperty("RateDropAdena", "1."));
+            RATE_CONSUMABLE_COST            = Float.parseFloat(ratesSettings.getProperty("RateConsumableCost", "1."));
+            RATE_CRAFT_COST                 = Float.parseFloat(ratesSettings.getProperty("RateCraftCost","1."));
+            RATE_DROP_ITEMS                 = Float.parseFloat(ratesSettings.getProperty("RateDropItems", "1."));
+            RATE_DROP_SPOIL                 = Float.parseFloat(ratesSettings.getProperty("RateDropSpoil", "1."));
+            RATE_DROP_QUEST                 = Float.parseFloat(ratesSettings.getProperty("RateDropQuest", "1."));
+            RATE_RUN_SPEED                  = Float.parseFloat(ratesSettings.getProperty("RateRunSpeed", "1."));
+            RATE_KARMA_EXP_LOST             = Float.parseFloat(ratesSettings.getProperty("RateKarmaExpLost", "1."));    
+            RATE_SIEGE_GUARDS_PRICE         = Float.parseFloat(ratesSettings.getProperty("RateSiegeGuardsPrice", "1."));
+
+            RATE_DROP_COMMON_HERBS          = Float.parseFloat(ratesSettings.getProperty("RateCommonHerbs", "15."));
+            RATE_DROP_MP_HP_HERBS           = Float.parseFloat(ratesSettings.getProperty("RateHpMpHerbs", "10."));                
+            RATE_DROP_GREATER_HERBS         = Float.parseFloat(ratesSettings.getProperty("RateGreaterHerbs", "4."));
+            RATE_DROP_SUPERIOR_HERBS        = Float.parseFloat(ratesSettings.getProperty("RateSuperiorHerbs", "0.8"))*10;                
+            RATE_DROP_SPECIAL_HERBS         = Float.parseFloat(ratesSettings.getProperty("RateSpecialHerbs", "0.2"))*10;
+            
+            PLAYER_DROP_LIMIT               = Integer.parseInt(ratesSettings.getProperty("PlayerDropLimit", "3"));
+            PLAYER_RATE_DROP                = Integer.parseInt(ratesSettings.getProperty("PlayerRateDrop", "5"));
+            PLAYER_RATE_DROP_ITEM           = Integer.parseInt(ratesSettings.getProperty("PlayerRateDropItem", "70"));
+            PLAYER_RATE_DROP_EQUIP          = Integer.parseInt(ratesSettings.getProperty("PlayerRateDropEquip", "25"));
+            PLAYER_RATE_DROP_EQUIP_WEAPON   = Integer.parseInt(ratesSettings.getProperty("PlayerRateDropEquipWeapon", "5"));
+
+            PET_XP_RATE                     = Float.parseFloat(ratesSettings.getProperty("PetXpRate", "1."));
+            PET_FOOD_RATE                   = Float.parseFloat(ratesSettings.getProperty("PetFoodRate", "1")); 
+
+            KARMA_DROP_LIMIT                = Integer.parseInt(ratesSettings.getProperty("KarmaDropLimit", "10"));
+            KARMA_RATE_DROP                 = Integer.parseInt(ratesSettings.getProperty("KarmaRateDrop", "70"));
+            KARMA_RATE_DROP_ITEM            = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropItem", "50"));
+            KARMA_RATE_DROP_EQUIP           = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropEquip", "40"));
+            KARMA_RATE_DROP_EQUIP_WEAPON    = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropEquipWeapon", "10"));
+           
+           CAN_SPOIL_LOWER_LEVEL_MOBS              = Boolean.parseBoolean(ratesSettings.getProperty("CanSpoilLowerLevelMobs", "false"));
+           CAN_DELEVEL_AND_SPOIL_MOBS              = Boolean.parseBoolean(ratesSettings.getProperty("CanDelevelToSpoil", "true"));                       
+           MAXIMUM_PLAYER_AND_MOB_LEVEL_DIFFERENCE = Float.parseFloat(ratesSettings.getProperty("MaximumPlayerAndMobLevelDifference", "9."));
+           BASE_SPOIL_RATE                         = Float.parseFloat(ratesSettings.getProperty("BasePercentChanceOfSpoilSuccess", "40."));
+           MINIMUM_SPOIL_RATE                      = Float.parseFloat(ratesSettings.getProperty("MinimumPercentChanceOfSpoilSuccess", "3."));
+           SPOIL_LEVEL_DIFFERENCE_LIMIT            = Float.parseFloat(ratesSettings.getProperty("SpoilLevelDifferenceLimit", "5."));
+           SPOIL_LEVEL_DIFFERENCE_MULTIPLIER       = Float.parseFloat(ratesSettings.getProperty("SpoilLevelMultiplier", "7."));
+           LAST_LEVEL_SPOIL_IS_LEARNED             = Integer.parseInt(ratesSettings.getProperty("LastLevelSpoilIsLearned", "72"));
+        }
+        catch (Exception e) {
+            _log.error(e);
+            throw new Error("Failed to Load "+RATES_CONFIG_FILE+" File.");
+        }
+    }
+
+    
+    
+    //  *******************************************************************************************
+    public static final String  ENCHANT_CONFIG_FILE         = "./config/enchant.properties";    
+    //  *******************************************************************************************
+    public static int 		ENCHANT_CHANCE_WEAPON;
+    public static int 		ENCHANT_CHANCE_ARMOR;
+    public static int 		ENCHANT_CHANCE_JEWELRY;
+    public static int 		ENCHANT_CHANCE_WEAPON_CRYSTAL;
+    public static int 		ENCHANT_CHANCE_ARMOR_CRYSTAL;
+    public static int 		ENCHANT_CHANCE_JEWELRY_CRYSTAL;
+    public static int 		ENCHANT_CHANCE_WEAPON_BLESSED;
+    public static int 		ENCHANT_CHANCE_ARMOR_BLESSED;
+    public static int 		ENCHANT_CHANCE_JEWELRY_BLESSED;
+    public static boolean 	ENCHANT_BREAK_WEAPON;			// If an enchant fails - will the item break or only reset to 0?
+    public static boolean 	ENCHANT_BREAK_ARMOR;
+    public static boolean 	ENCHANT_BREAK_JEWELRY;
+    public static boolean 	ENCHANT_BREAK_WEAPON_CRYSTAL;
+    public static boolean 	ENCHANT_BREAK_ARMOR_CRYSTAL;
+    public static boolean 	ENCHANT_BREAK_JEWELRY_CRYSTAL;
+    public static boolean 	ENCHANT_BREAK_WEAPON_BLESSED;
+    public static boolean 	ENCHANT_BREAK_ARMOR_BLESSED;
+    public static boolean 	ENCHANT_BREAK_JEWELRY_BLESSED;
+    public static boolean 	ENCHANT_HERO_WEAPONS;			// Enchant hero weapons?
+    public static boolean 	ENCHANT_DWARF_SYSTEM; 			// Dwarf enchant System?
+    public static int 		ENCHANT_MAX_WEAPON;				// Maximum level of enchantment
+    public static int 		ENCHANT_MAX_ARMOR;
+    public static int 		ENCHANT_MAX_JEWELRY;
+    public static int 		ENCHANT_SAFE_MAX;				// maximum level of safe enchantment
+    public static int 		ENCHANT_SAFE_MAX_FULL;
+    //  *******************************************************************************************    
+    public static void loadenchantfile()
+    {
+    	_log.info("loading " + ENCHANT_CONFIG_FILE);
+        try
+        {
+            Properties enchantSettings  = new Properties();
+            InputStream is              = new FileInputStream(new File(ENCHANT_CONFIG_FILE));
+            enchantSettings.load(is);
+            is.close();
+            
+            /* chance to enchant an item normal scroll*/
+            ENCHANT_CHANCE_WEAPON  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeapon", "65"));
+            ENCHANT_CHANCE_ARMOR  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceArmor", "65"));
+            ENCHANT_CHANCE_JEWELRY  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceJewelry", "65"));
+            /* item may break normal scroll*/
+            ENCHANT_BREAK_WEAPON  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakWeapon", "True"));
+            ENCHANT_BREAK_ARMOR  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakArmor", "True"));
+            ENCHANT_BREAK_JEWELRY  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakJewelry", "True"));
+            /* chance to enchant an item crystal scroll */
+            ENCHANT_CHANCE_WEAPON_CRYSTAL  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeaponCrystal", "75"));
+            ENCHANT_CHANCE_ARMOR_CRYSTAL  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceArmorCrystal", "75"));
+            ENCHANT_CHANCE_JEWELRY_CRYSTAL  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceJewelryCrystal", "75"));
+            /* item may break crystal scroll */
+            ENCHANT_BREAK_WEAPON_CRYSTAL  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakWeaponCrystal", "True"));
+            ENCHANT_BREAK_ARMOR_CRYSTAL  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakArmorCrystal", "True"));
+            ENCHANT_BREAK_JEWELRY_CRYSTAL  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakJewelryCrystal", "True"));
+            /* chance to enchant an item blessed scroll */
+            ENCHANT_CHANCE_WEAPON_BLESSED  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeaponBlessed", "65"));
+            ENCHANT_CHANCE_ARMOR_BLESSED  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceArmorBlessed", "65"));
+            ENCHANT_CHANCE_JEWELRY_BLESSED  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceJewelryBlessed", "65"));
+            /* item may break blessed scroll */
+            ENCHANT_BREAK_WEAPON_BLESSED  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakWeaponBlessed", "False"));
+            ENCHANT_BREAK_ARMOR_BLESSED  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakArmorBlessed", "False"));
+            ENCHANT_BREAK_JEWELRY_BLESSED  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakJewelryBlessed", "True"));
+            /* enchat hero weapons? */
+            ENCHANT_HERO_WEAPONS  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantHeroWeapons", "False"));
+            /* enchant dwarf system */
+            ENCHANT_DWARF_SYSTEM  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantDwarfSystem", "False"));
+            /* limit on enchant */
+            ENCHANT_MAX_WEAPON = Integer.parseInt(enchantSettings.getProperty("EnchantMaxWeapon", "255"));
+            ENCHANT_MAX_ARMOR = Integer.parseInt(enchantSettings.getProperty("EnchantMaxArmor", "255"));
+            ENCHANT_MAX_JEWELRY = Integer.parseInt(enchantSettings.getProperty("EnchantMaxJewelry", "255"));
+            /* limit of safe enchant */
+            ENCHANT_SAFE_MAX = Integer.parseInt(enchantSettings.getProperty("EnchantSafeMax", "3"));
+            ENCHANT_SAFE_MAX_FULL = Integer.parseInt(enchantSettings.getProperty("EnchantSafeMaxFull", "4"));   
+        }
+        catch (Exception e) {
+            _log.error(e.getMessage(),e);
+            throw new Error("Failed to Load "+ENCHANT_CONFIG_FILE+" File.");
+        }
+    }
+
+    
+    
+    //  *******************************************************************************************    
+    public static final String  PVP_CONFIG_FILE             = "./config/pvp.properties";
+    //  *******************************************************************************************    
+    public static int     			KARMA_MIN_KARMA;
+    public static int     			KARMA_MAX_KARMA;
+    public static int     			KARMA_XP_DIVIDER;
+    public static int     			KARMA_LOST_BASE;
+    public static boolean 			KARMA_DROP_GM;
+    public static boolean 			KARMA_AWARD_PK_KILL;
+    public static int     			KARMA_PK_LIMIT;
+    public static String  			KARMA_NONDROPPABLE_PET_ITEMS;
+    public static String  			KARMA_NONDROPPABLE_ITEMS;
+    public static FastList<Integer> KARMA_LIST_NONDROPPABLE_PET_ITEMS   = new FastList<Integer>();
+    public static FastList<Integer> KARMA_LIST_NONDROPPABLE_ITEMS       = new FastList<Integer>();
+    public static int 				PVP_TIME;    
+    public static boolean 			ALT_PLAYER_CAN_DROP_ADENA;		// Player can drop adena ?
+    public static boolean 			ALT_ANNOUNCE_PK;				// Announce Pks ?
+    public static boolean 			ALT_ANNOUNCE_PK_NORMAL_MESSAGE;
+    public static int  				PLAYER_RATE_DROP_ADENA;
+    //  *******************************************************************************************    
+    public static void loadpvpfile()
+    {
+    	_log.info("loading " + PVP_CONFIG_FILE);
+        try
+        {
+            Properties pvpSettings      = new Properties();
+            InputStream is              = new FileInputStream(new File(PVP_CONFIG_FILE));  
+            pvpSettings.load(is);
+            is.close();
+            
+            /* KARMA SYSTEM */
+            KARMA_MIN_KARMA     = Integer.parseInt(pvpSettings.getProperty("MinKarma", "240"));
+            KARMA_MAX_KARMA     = Integer.parseInt(pvpSettings.getProperty("MaxKarma", "10000"));
+            KARMA_XP_DIVIDER    = Integer.parseInt(pvpSettings.getProperty("XPDivider", "260"));
+            KARMA_LOST_BASE     = Integer.parseInt(pvpSettings.getProperty("BaseKarmaLost", "0"));
+            
+            KARMA_DROP_GM               = Boolean.parseBoolean(pvpSettings.getProperty("CanGMDropEquipment", "false"));
+            KARMA_AWARD_PK_KILL         = Boolean.parseBoolean(pvpSettings.getProperty("AwardPKKillPVPPoint", "true"));
+            
+            KARMA_PK_LIMIT                      = Integer.parseInt(pvpSettings.getProperty("MinimumPKRequiredToDrop", "5"));
+            
+            KARMA_NONDROPPABLE_PET_ITEMS    = pvpSettings.getProperty("ListOfPetItems", "2375,3500,3501,3502,4422,4423,4424,4425,6648,6649,6650");          
+            KARMA_NONDROPPABLE_ITEMS        = pvpSettings.getProperty("ListOfNonDroppableItems", "57,1147,425,1146,461,10,2368,7,6,2370,2369");
+            
+            KARMA_LIST_NONDROPPABLE_PET_ITEMS = new FastList<Integer>();
+            for (String id : KARMA_NONDROPPABLE_PET_ITEMS.trim().split(",")) {
+                KARMA_LIST_NONDROPPABLE_PET_ITEMS.add(Integer.parseInt(id));
+            }
+            
+            KARMA_LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
+            for (String id : KARMA_NONDROPPABLE_ITEMS.trim().split(",")) {
+                KARMA_LIST_NONDROPPABLE_ITEMS.add(Integer.parseInt(id));
+            }
+            
+            PVP_TIME = Integer.parseInt(pvpSettings.getProperty("PvPTime", "15000"));
+            ALT_PLAYER_CAN_DROP_ADENA= Boolean.parseBoolean(pvpSettings.getProperty("PlayerCanDropAdena", "false"));
+            PLAYER_RATE_DROP_ADENA  = Integer.parseInt(pvpSettings.getProperty("PlayerRateDropAdena", "1"));
+            ALT_ANNOUNCE_PK = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePk", "false"));
+            ALT_ANNOUNCE_PK_NORMAL_MESSAGE = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePkNormalMessage", "false"));
+        }
+        catch (Exception e)
+        {
+            _log.error(e);
+            throw new Error("Failed to Load "+PVP_CONFIG_FILE+" File.");
+        }
+    }
+
+    
+    
     public static final String  ID_CONFIG_FILE				= "./config/idfactory.properties";
     public static final String  OTHER_CONFIG_FILE			= "./config/other.properties";
-    public static final String  RATES_CONFIG_FILE           = "./config/rates.properties";
-    public static final String  ENCHANT_CONFIG_FILE         = "./config/enchant.properties";
+    public static final String  OPTIONS_FILE                = "./config/options.properties";    
     public static final String  ALT_SETTINGS_FILE			= "./config/altsettings.properties";
-    public static final String  PVP_CONFIG_FILE				= "./config/pvp.properties";
     public static final String  GM_ACCESS_FILE				= "./config/GMAccess.properties";
     public static final String  TELNET_FILE					= "./config/telnet.properties";
     public static final String  VERSION_FILE				= "./config/l2j-version.properties";
@@ -560,16 +831,7 @@ public final class Config {
     /** Fast or slow multiply coefficient for skill hit time */
     public static float ALT_GAME_SKILL_HIT_RATE;
 
-    /** Rate Common herbs */
-    public static float   RATE_DROP_COMMON_HERBS;
-    /** Rate MP/HP herbs */
-    public static float   RATE_DROP_MP_HP_HERBS;
-    /** Rate Common herbs */
-    public static float   RATE_DROP_GREATER_HERBS;
-    /** Rate Common herbs */
-    public static float   RATE_DROP_SUPERIOR_HERBS;
-    /** Rate Common herbs */
-    public static float   RATE_DROP_SPECIAL_HERBS;
+    
 
     /** Alternative gameing - loss of XP on death */
     public static boolean ALT_GAME_DELEVEL;
@@ -767,52 +1029,8 @@ public final class Config {
     public static int MAX_PETITIONS_PER_PLAYER;
     public static int MAX_PETITIONS_PENDING;
 
-    /** Rate control */
-    public static float   RATE_XP;
-    public static float   RATE_SP;
-    public static float   RATE_PARTY_XP;
-    public static float   RATE_PARTY_SP;
-    public static float   RATE_QUESTS_REWARD;
-    public static float   RATE_DROP_ADENA;
-    public static float   RATE_CONSUMABLE_COST;
-    public static float   RATE_CRAFT_COST;
-    public static float   RATE_DROP_ITEMS;
-    public static float   RATE_DROP_SPOIL;
-    public static float   RATE_DROP_QUEST;
-    public static float   RATE_KARMA_EXP_LOST;	
-    public static float   RATE_SIEGE_GUARDS_PRICE;
-    public static float   RATE_RUN_SPEED;
-    /*Alternative Xp/Sp rewards, if not 0, then calculated as 2^((mob.level-player.level) / coef)*/
-    public static float   ALT_GAME_EXPONENT_XP;
-    public static float   ALT_GAME_EXPONENT_SP;
     /** Config for spawn siege guard**/
     public static boolean SPAWN_SIEGE_GUARD; 
-
-    /** Player can drop adena ? */
-    public static boolean ALT_PLAYER_CAN_DROP_ADENA;
-    
-    /** Announce Pks ? */
-    public static boolean ALT_ANNOUNCE_PK;
-    public static boolean ALT_ANNOUNCE_PK_NORMAL_MESSAGE;
-    
-    /** Player Drop Rate control */
-    public static int   PLAYER_DROP_LIMIT;
-    public static int   PLAYER_RATE_DROP;
-    public static int   PLAYER_RATE_DROP_ITEM;
-    public static int   PLAYER_RATE_DROP_EQUIP;    
-    public static int   PLAYER_RATE_DROP_EQUIP_WEAPON;    
-    public static int   PLAYER_RATE_DROP_ADENA;
-    
-	/** Pet Rates (Multipliers) */ 	
-	public static float         PET_XP_RATE; 
- 	public static float         PET_FOOD_RATE;
-
-    /** Karma Drop Rate control */
-    public static int   KARMA_DROP_LIMIT;
-    public static int   KARMA_RATE_DROP;
-    public static int   KARMA_RATE_DROP_ITEM;
-    public static int   KARMA_RATE_DROP_EQUIP;    
-    public static int   KARMA_RATE_DROP_EQUIP_WEAPON;    
 
     /** Time after which item will auto-destroy */
     public static int     AUTODESTROY_ITEM_AFTER;
@@ -1097,29 +1315,8 @@ public final class Config {
     public static int           WAREHOUSE_SLOTS_CLAN;
     public static int           FREIGHT_SLOTS;
     
-    /** Spoil Rates */
-    public static boolean CAN_SPOIL_LOWER_LEVEL_MOBS;
-    public static boolean CAN_DELEVEL_AND_SPOIL_MOBS;
-    public static float   MAXIMUM_PLAYER_AND_MOB_LEVEL_DIFFERENCE;
-    public static float   BASE_SPOIL_RATE;
-    public static float   MINIMUM_SPOIL_RATE;
-    public static float   SPOIL_LEVEL_DIFFERENCE_LIMIT;
-    public static float   SPOIL_LEVEL_DIFFERENCE_MULTIPLIER;
-    public static int     LAST_LEVEL_SPOIL_IS_LEARNED;
     
-    /** Karma System Variables */
-    public static int     KARMA_MIN_KARMA;
-    public static int     KARMA_MAX_KARMA;
-    public static int     KARMA_XP_DIVIDER;
-    public static int     KARMA_LOST_BASE;
-    public static boolean KARMA_DROP_GM;
-    public static boolean KARMA_AWARD_PK_KILL;
-    public static int     KARMA_PK_LIMIT;
     
-    public static String  KARMA_NONDROPPABLE_PET_ITEMS;
-    public static String  KARMA_NONDROPPABLE_ITEMS;
-    public static FastList<Integer> KARMA_LIST_NONDROPPABLE_PET_ITEMS   = new FastList<Integer>();
-    public static FastList<Integer> KARMA_LIST_NONDROPPABLE_ITEMS       = new FastList<Integer>();
 
     public static String  NONDROPPABLE_ITEMS;
     public static FastList<Integer> LIST_NONDROPPABLE_ITEMS       = new FastList<Integer>();
@@ -1127,7 +1324,6 @@ public final class Config {
     public static String  PET_RENT_NPC;
     public static FastList<Integer> LIST_PET_RENT_NPC   = new FastList<Integer>();
     
-    public static int PVP_TIME;    
 
     /** Karma Punishment */
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE;
@@ -1189,42 +1385,11 @@ public final class Config {
     /** Auto-delete invalid quest data ? */
     public static boolean AUTODELETE_INVALID_QUEST_DATA;
     
-    /** Chance that an item will succesfully be enchanted */
-    public static int ENCHANT_CHANCE_WEAPON;
-    public static int ENCHANT_CHANCE_ARMOR;
-    public static int ENCHANT_CHANCE_JEWELRY;
-    public static int ENCHANT_CHANCE_WEAPON_CRYSTAL;
-    public static int ENCHANT_CHANCE_ARMOR_CRYSTAL;
-    public static int ENCHANT_CHANCE_JEWELRY_CRYSTAL;
-    public static int ENCHANT_CHANCE_WEAPON_BLESSED;
-    public static int ENCHANT_CHANCE_ARMOR_BLESSED;
-    public static int ENCHANT_CHANCE_JEWELRY_BLESSED;
-    /** If an enchant fails - will the item break or only reset to 0? */
-    public static boolean ENCHANT_BREAK_WEAPON;
-    public static boolean ENCHANT_BREAK_ARMOR;
-    public static boolean ENCHANT_BREAK_JEWELRY;
-    public static boolean ENCHANT_BREAK_WEAPON_CRYSTAL;
-    public static boolean ENCHANT_BREAK_ARMOR_CRYSTAL;
-    public static boolean ENCHANT_BREAK_JEWELRY_CRYSTAL;
-    public static boolean ENCHANT_BREAK_WEAPON_BLESSED;
-    public static boolean ENCHANT_BREAK_ARMOR_BLESSED;
-    public static boolean ENCHANT_BREAK_JEWELRY_BLESSED;
     
     /** Chance For Soul Crystal to Break **/
     public static int CHANCE_BREAK;
     /** Chance For Soul Crystal to Level **/
     public static int CHANCE_LEVEL;
-    /** Enchant hero weapons? */
-    public static boolean ENCHANT_HERO_WEAPONS;
-    /* Dwarf enchant System? */
-    public static boolean ENCHANT_DWARF_SYSTEM;
-    /** Maximum level of enchantment */
-    public static int ENCHANT_MAX_WEAPON;
-    public static int ENCHANT_MAX_ARMOR;
-    public static int ENCHANT_MAX_JEWELRY;
-    /** maximum level of safe enchantment */
-    public static int ENCHANT_SAFE_MAX;
-    public static int ENCHANT_SAFE_MAX_FULL;
     
     // NPC regen multipliers
     public static double  NPC_HP_REGEN_MULTIPLIER;
@@ -1396,6 +1561,9 @@ public final class Config {
 			loadchampionsfile();
 			loadlotteryfile();
 			loadsepulchursfile();
+			loadratesfile();
+			loadenchantfile();
+			loadpvpfile();
 
 	        
             try 
@@ -1736,114 +1904,6 @@ public final class Config {
                 _log.error(e);
 	            throw new Error("Failed to Load "+OTHER_CONFIG_FILE+" File.");
 	        }
-	        
-	        // rates
-	        try
-	        {
-                Properties ratesSettings    = new Properties();
-                InputStream is              = new FileInputStream(new File(RATES_CONFIG_FILE));
-                ratesSettings.load(is);
-	            is.close();
-	            
-                RATE_XP                         = Float.parseFloat(ratesSettings.getProperty("RateXp", "1."));
-                RATE_SP                         = Float.parseFloat(ratesSettings.getProperty("RateSp", "1."));
-                RATE_PARTY_XP                   = Float.parseFloat(ratesSettings.getProperty("RatePartyXp", "1."));
-                RATE_PARTY_SP                   = Float.parseFloat(ratesSettings.getProperty("RatePartySp", "1."));
-                RATE_QUESTS_REWARD              = Float.parseFloat(ratesSettings.getProperty("RateQuestsReward", "1."));
-                RATE_DROP_ADENA                 = Float.parseFloat(ratesSettings.getProperty("RateDropAdena", "1."));
-                RATE_CONSUMABLE_COST            = Float.parseFloat(ratesSettings.getProperty("RateConsumableCost", "1."));
-                RATE_CRAFT_COST                 = Float.parseFloat(ratesSettings.getProperty("RateCraftCost","1."));
-                RATE_DROP_ITEMS                 = Float.parseFloat(ratesSettings.getProperty("RateDropItems", "1."));
-                RATE_DROP_SPOIL                 = Float.parseFloat(ratesSettings.getProperty("RateDropSpoil", "1."));
-                RATE_DROP_QUEST                 = Float.parseFloat(ratesSettings.getProperty("RateDropQuest", "1."));
-                RATE_RUN_SPEED                  = Float.parseFloat(ratesSettings.getProperty("RateRunSpeed", "1."));
-                RATE_KARMA_EXP_LOST             = Float.parseFloat(ratesSettings.getProperty("RateKarmaExpLost", "1."));    
-                RATE_SIEGE_GUARDS_PRICE         = Float.parseFloat(ratesSettings.getProperty("RateSiegeGuardsPrice", "1."));
-
-                RATE_DROP_COMMON_HERBS          = Float.parseFloat(ratesSettings.getProperty("RateCommonHerbs", "15."));
-                RATE_DROP_MP_HP_HERBS           = Float.parseFloat(ratesSettings.getProperty("RateHpMpHerbs", "10."));                
-                RATE_DROP_GREATER_HERBS         = Float.parseFloat(ratesSettings.getProperty("RateGreaterHerbs", "4."));
-                RATE_DROP_SUPERIOR_HERBS        = Float.parseFloat(ratesSettings.getProperty("RateSuperiorHerbs", "0.8"))*10;                
-                RATE_DROP_SPECIAL_HERBS         = Float.parseFloat(ratesSettings.getProperty("RateSpecialHerbs", "0.2"))*10;
-                
-                PLAYER_DROP_LIMIT               = Integer.parseInt(ratesSettings.getProperty("PlayerDropLimit", "3"));
-                PLAYER_RATE_DROP                = Integer.parseInt(ratesSettings.getProperty("PlayerRateDrop", "5"));
-                PLAYER_RATE_DROP_ITEM           = Integer.parseInt(ratesSettings.getProperty("PlayerRateDropItem", "70"));
-                PLAYER_RATE_DROP_EQUIP          = Integer.parseInt(ratesSettings.getProperty("PlayerRateDropEquip", "25"));
-                PLAYER_RATE_DROP_EQUIP_WEAPON   = Integer.parseInt(ratesSettings.getProperty("PlayerRateDropEquipWeapon", "5"));
-
-                PET_XP_RATE                     = Float.parseFloat(ratesSettings.getProperty("PetXpRate", "1."));
-                PET_FOOD_RATE                   = Float.parseFloat(ratesSettings.getProperty("PetFoodRate", "1")); 
-
-                KARMA_DROP_LIMIT                = Integer.parseInt(ratesSettings.getProperty("KarmaDropLimit", "10"));
-                KARMA_RATE_DROP                 = Integer.parseInt(ratesSettings.getProperty("KarmaRateDrop", "70"));
-                KARMA_RATE_DROP_ITEM            = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropItem", "50"));
-                KARMA_RATE_DROP_EQUIP           = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropEquip", "40"));
-                KARMA_RATE_DROP_EQUIP_WEAPON    = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropEquipWeapon", "10"));
-               
-               CAN_SPOIL_LOWER_LEVEL_MOBS              = Boolean.parseBoolean(ratesSettings.getProperty("CanSpoilLowerLevelMobs", "false"));
-               CAN_DELEVEL_AND_SPOIL_MOBS              = Boolean.parseBoolean(ratesSettings.getProperty("CanDelevelToSpoil", "true"));                       
-               MAXIMUM_PLAYER_AND_MOB_LEVEL_DIFFERENCE = Float.parseFloat(ratesSettings.getProperty("MaximumPlayerAndMobLevelDifference", "9."));
-               BASE_SPOIL_RATE                         = Float.parseFloat(ratesSettings.getProperty("BasePercentChanceOfSpoilSuccess", "40."));
-               MINIMUM_SPOIL_RATE                      = Float.parseFloat(ratesSettings.getProperty("MinimumPercentChanceOfSpoilSuccess", "3."));
-               SPOIL_LEVEL_DIFFERENCE_LIMIT            = Float.parseFloat(ratesSettings.getProperty("SpoilLevelDifferenceLimit", "5."));
-               SPOIL_LEVEL_DIFFERENCE_MULTIPLIER       = Float.parseFloat(ratesSettings.getProperty("SpoilLevelMultiplier", "7."));
-               LAST_LEVEL_SPOIL_IS_LEARNED             = Integer.parseInt(ratesSettings.getProperty("LastLevelSpoilIsLearned", "72"));
-	        }
-	        catch (Exception e) {
-                _log.error(e);
-                throw new Error("Failed to Load "+RATES_CONFIG_FILE+" File.");
-	        }
-            
-            // enchants
-            try
-            {
-                Properties enchantSettings  = new Properties();
-                InputStream is              = new FileInputStream(new File(ENCHANT_CONFIG_FILE));
-                enchantSettings.load(is);
-                is.close();
-                
-                /* chance to enchant an item normal scroll*/
-                ENCHANT_CHANCE_WEAPON  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeapon", "65"));
-                ENCHANT_CHANCE_ARMOR  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceArmor", "65"));
-                ENCHANT_CHANCE_JEWELRY  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceJewelry", "65"));
-                /* item may break normal scroll*/
-                ENCHANT_BREAK_WEAPON  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakWeapon", "True"));
-                ENCHANT_BREAK_ARMOR  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakArmor", "True"));
-                ENCHANT_BREAK_JEWELRY  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakJewelry", "True"));
-                /* chance to enchant an item crystal scroll */
-                ENCHANT_CHANCE_WEAPON_CRYSTAL  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeaponCrystal", "75"));
-                ENCHANT_CHANCE_ARMOR_CRYSTAL  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceArmorCrystal", "75"));
-                ENCHANT_CHANCE_JEWELRY_CRYSTAL  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceJewelryCrystal", "75"));
-                /* item may break crystal scroll */
-                ENCHANT_BREAK_WEAPON_CRYSTAL  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakWeaponCrystal", "True"));
-                ENCHANT_BREAK_ARMOR_CRYSTAL  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakArmorCrystal", "True"));
-                ENCHANT_BREAK_JEWELRY_CRYSTAL  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakJewelryCrystal", "True"));
-                /* chance to enchant an item blessed scroll */
-                ENCHANT_CHANCE_WEAPON_BLESSED  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeaponBlessed", "65"));
-                ENCHANT_CHANCE_ARMOR_BLESSED  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceArmorBlessed", "65"));
-                ENCHANT_CHANCE_JEWELRY_BLESSED  = Integer.parseInt(enchantSettings.getProperty("EnchantChanceJewelryBlessed", "65"));
-                /* item may break blessed scroll */
-                ENCHANT_BREAK_WEAPON_BLESSED  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakWeaponBlessed", "False"));
-                ENCHANT_BREAK_ARMOR_BLESSED  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakArmorBlessed", "False"));
-                ENCHANT_BREAK_JEWELRY_BLESSED  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakJewelryBlessed", "True"));
-                /* enchat hero weapons? */
-                ENCHANT_HERO_WEAPONS  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantHeroWeapons", "False"));
-                /* enchant dwarf system */
-                ENCHANT_DWARF_SYSTEM  = Boolean.parseBoolean(enchantSettings.getProperty("EnchantDwarfSystem", "False"));
-                /* limit on enchant */
-                ENCHANT_MAX_WEAPON = Integer.parseInt(enchantSettings.getProperty("EnchantMaxWeapon", "255"));
-                ENCHANT_MAX_ARMOR = Integer.parseInt(enchantSettings.getProperty("EnchantMaxArmor", "255"));
-                ENCHANT_MAX_JEWELRY = Integer.parseInt(enchantSettings.getProperty("EnchantMaxJewelry", "255"));
-                /* limit of safe enchant */
-                ENCHANT_SAFE_MAX = Integer.parseInt(enchantSettings.getProperty("EnchantSafeMax", "3"));
-                ENCHANT_SAFE_MAX_FULL = Integer.parseInt(enchantSettings.getProperty("EnchantSafeMaxFull", "4"));   
-            }
-            catch (Exception e) {
-                _log.error(e.getMessage(),e);
-                throw new Error("Failed to Load "+ENCHANT_CONFIG_FILE+" File.");
-            }
-	        
 	        // alternative settings
 	        try
 	        {
@@ -2042,50 +2102,6 @@ public final class Config {
                 _log.error(e.getMessage(),e);
                 throw new Error("Failed to Load "+CLANHALL_CONFIG_FILE+" File.");
             }
-	        
-	        // pvp config
-	        try
-	        {
-	            Properties pvpSettings      = new Properties();
-	            InputStream is              = new FileInputStream(new File(PVP_CONFIG_FILE));  
-	            pvpSettings.load(is);
-	            is.close();
-	            
-	            /* KARMA SYSTEM */
-	            KARMA_MIN_KARMA     = Integer.parseInt(pvpSettings.getProperty("MinKarma", "240"));
-	            KARMA_MAX_KARMA     = Integer.parseInt(pvpSettings.getProperty("MaxKarma", "10000"));
-	            KARMA_XP_DIVIDER    = Integer.parseInt(pvpSettings.getProperty("XPDivider", "260"));
-	            KARMA_LOST_BASE     = Integer.parseInt(pvpSettings.getProperty("BaseKarmaLost", "0"));
-	            
-	            KARMA_DROP_GM               = Boolean.parseBoolean(pvpSettings.getProperty("CanGMDropEquipment", "false"));
-	            KARMA_AWARD_PK_KILL         = Boolean.parseBoolean(pvpSettings.getProperty("AwardPKKillPVPPoint", "true"));
-	            
-	            KARMA_PK_LIMIT                      = Integer.parseInt(pvpSettings.getProperty("MinimumPKRequiredToDrop", "5"));
-	            
-                KARMA_NONDROPPABLE_PET_ITEMS    = pvpSettings.getProperty("ListOfPetItems", "2375,3500,3501,3502,4422,4423,4424,4425,6648,6649,6650");          
-	            KARMA_NONDROPPABLE_ITEMS        = pvpSettings.getProperty("ListOfNonDroppableItems", "57,1147,425,1146,461,10,2368,7,6,2370,2369");
-	            
-	            KARMA_LIST_NONDROPPABLE_PET_ITEMS = new FastList<Integer>();
-	            for (String id : KARMA_NONDROPPABLE_PET_ITEMS.trim().split(",")) {
-	                KARMA_LIST_NONDROPPABLE_PET_ITEMS.add(Integer.parseInt(id));
-	            }
-	            
-	            KARMA_LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
-	            for (String id : KARMA_NONDROPPABLE_ITEMS.trim().split(",")) {
-	                KARMA_LIST_NONDROPPABLE_ITEMS.add(Integer.parseInt(id));
-	            }
-	            
-	            PVP_TIME = Integer.parseInt(pvpSettings.getProperty("PvPTime", "15000"));
-                ALT_PLAYER_CAN_DROP_ADENA= Boolean.parseBoolean(pvpSettings.getProperty("PlayerCanDropAdena", "false"));
-                PLAYER_RATE_DROP_ADENA  = Integer.parseInt(pvpSettings.getProperty("PlayerRateDropAdena", "1"));
-                ALT_ANNOUNCE_PK = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePk", "false"));
-                ALT_ANNOUNCE_PK_NORMAL_MESSAGE = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePkNormalMessage", "false"));
-	        }
-	        catch (Exception e)
-	        {
-                _log.error(e);
-	            throw new Error("Failed to Load "+PVP_CONFIG_FILE+" File.");
-	        }
 	        
 	        // access levels
 	        try
