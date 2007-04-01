@@ -52,15 +52,369 @@ public final class Config {
 
 	protected static Log _log = LogFactory.getLog(Config.class.getName());
 
-    /** Configuration files names are self explaining*/
+    //*******************************************************************************************	
     public static final String  CONFIGURATION_FILE          = "./config/server.properties";
-    public static final String  OPTIONS_FILE                = "./config/options.properties";
-    public static final String  CLANS_FILE                	= "./config/clans.properties";
+    //*******************************************************************************************
+    public static int           GAME_SERVER_LOGIN_PORT;
+    public static String        GAME_SERVER_LOGIN_HOST;
+    public static String        INTERNAL_HOSTNAME;
+    public static String        INTERNAL_NETWORKS;
+    public static String        EXTERNAL_HOSTNAME;
+    public static String        OPTIONAL_NETWORKS;
+	public static int 			REQUEST_ID; 					// ID for request to the server
+	public static boolean 		RESERVE_HOST_ON_LOGIN = false;
+	public static boolean 		ACCEPT_ALTERNATE_ID; 			// Accept alternate ID for server ?
+    public static Pattern 		CNAME_PATTERN;	 				// Character name template
+    public static Pattern 		PET_NAME_PATTERN;  				// Pet name template
+    public static Pattern 		CLAN_ALLY_NAME_PATTERN;			// Clan and ally name template      
+    public static Pattern 		TITLE_PATTERN;    				// Clan title template
+    public static int 			MAX_CHARACTERS_NUMBER_PER_ACCOUNT; // Maximum number of characters per account
+    public static int 			PORT_GAME;						// Game Server ports
+    public static int 			PORT_LOGIN;						// Login Server port
+    public static int 			LOGIN_TRY_BEFORE_BAN;			// Number of trys of login before ban
+    public static String 		GAMESERVER_HOSTNAME;			// Hostname of the Game Server
+    public static String 		DATABASE_DRIVER;				// Driver to access to database
+    public static String 		DATABASE_URL;					// Path to access to database
+    public static String 		DATABASE_LOGIN;					// Database login
+    public static String 		DATABASE_PASSWORD;				// Database password
+    public static int 			DATABASE_MAX_CONNECTIONS;		// Maximum number of connections to the database
+    public static int   		MAXIMUM_ONLINE_USERS;			// Maximum number of players allowed to play simultaneously on server
+    public static String  		DEFAULT_GLOBAL_CHAT;			// Global chat state
+    public static String  		DEFAULT_TRADE_CHAT;				// Trade chat state
+    public static boolean 		EVERYBODY_HAS_ADMIN_RIGHTS;		// For test servers - everybody has admin rights
+    public enum 				IOType {nio,aio4j}				// io type WARNING aio4j is not working properly atm
+    public static boolean    	SAFE_REBOOT = false;			// Safe mode will disable some feature during restart/shutdown to prevent exploit
+    public static boolean 		NETWORK_TRAFFIC_OPTIMIZATION;
+    public static int     		NETWORK_TRAFFIC_OPTIMIZATION_MS;
+    public static int           MIN_PROTOCOL_REVISION;			// protocol revision
+    public static int           MAX_PROTOCOL_REVISION;
+    //*******************************************************************************************    
+    public static void loadconfigurationfile()
+    {
+    	_log.info("loading " + CONFIGURATION_FILE);
+	    try {
+	        Properties serverSettings    = new Properties();
+			InputStream is               = new FileInputStream(new File(CONFIGURATION_FILE));
+			serverSettings.load(is);
+			is.close();
+			
+			GAME_SERVER_LOGIN_HOST  = serverSettings.getProperty("LoginHost","127.0.0.1");
+			GAME_SERVER_LOGIN_PORT  = Integer.parseInt(serverSettings.getProperty("LoginPort","9013"));
+			REQUEST_ID              = Integer.parseInt(serverSettings.getProperty("RequestServerID","0"));
+			ACCEPT_ALTERNATE_ID     = Boolean.parseBoolean(serverSettings.getProperty("AcceptAlternateID","True"));
+            PORT_GAME               = Integer.parseInt(serverSettings.getProperty("GameserverPort", "7777"));
+            PORT_LOGIN              = Integer.parseInt(serverSettings.getProperty("LoginserverPort", "2106"));
+            try
+            {
+            	CNAME_PATTERN 		    = Pattern.compile(serverSettings.getProperty("CnameTemplate", "[A-Za-z0-9\\-]{3,16}"));
+            }
+            catch (PatternSyntaxException e)
+            {
+                _log.warn("Character name pattern is wrong!",e);
+                CNAME_PATTERN  = Pattern.compile("[A-Za-z0-9\\-]{3,16}");
+            }
+            
+            try
+            {
+            	PET_NAME_PATTERN        = Pattern.compile(serverSettings.getProperty("PetNameTemplate", "[A-Za-z0-9\\-]{3,16}"));
+            }
+            catch (PatternSyntaxException e)
+            {
+                _log.warn("Pet name pattern is wrong!",e);
+                PET_NAME_PATTERN  = Pattern.compile("[A-Za-z0-9\\-]{3,16}");
+            }
+            
+            try
+            {
+            	CLAN_ALLY_NAME_PATTERN  = Pattern.compile(serverSettings.getProperty("ClanAllyNameTemplate", "[A-Za-z0-9 \\-]{3,16}"));
+            }
+            catch (PatternSyntaxException e)
+            {
+                _log.warn("Clan and ally name pattern is wrong!",e);
+                CLAN_ALLY_NAME_PATTERN  = Pattern.compile("[A-Za-z0-9 \\-]{3,16}");
+            }
+            
+            try
+            {
+            	TITLE_PATTERN           = Pattern.compile(serverSettings.getProperty("TitleTemplate", "[A-Za-z0-9 \\\\[\\\\]\\(\\)\\<\\>\\|\\!]{3,16}"));
+            }
+            catch (PatternSyntaxException e)
+            {
+                _log.warn("Character title pattern is wrong!",e);
+                TITLE_PATTERN  = Pattern.compile("[A-Za-z0-9 \\\\[\\\\]\\(\\)\\<\\>\\|\\!]{3,16}");
+            }
+            MAX_CHARACTERS_NUMBER_PER_ACCOUNT = Integer.parseInt(serverSettings.getProperty("CharMaxNumber", "0"));
+            LOGIN_TRY_BEFORE_BAN    = Integer.parseInt(serverSettings.getProperty("LoginTryBeforeBan", "10"));
+            GAMESERVER_HOSTNAME     = serverSettings.getProperty("GameserverHostname");
+            DEFAULT_GLOBAL_CHAT          = serverSettings.getProperty("GlobalChat", "ON");
+            DEFAULT_TRADE_CHAT           = serverSettings.getProperty("TradeChat", "ON");
+			DATAPACK_ROOT    = new File(serverSettings.getProperty("DatapackRoot", ".")).getCanonicalFile();
+            MIN_PROTOCOL_REVISION   = Integer.parseInt(serverSettings.getProperty("MinProtocolRevision", "694"));
+            MAX_PROTOCOL_REVISION   = Integer.parseInt(serverSettings.getProperty("MaxProtocolRevision", "709"));
+            if (MIN_PROTOCOL_REVISION > MAX_PROTOCOL_REVISION)
+            {
+            	throw new Error("MinProtocolRevision is bigger than MaxProtocolRevision in server configuration file.");
+            }
+            INTERNAL_HOSTNAME   = serverSettings.getProperty("InternalHostname", "127.0.0.1");
+            INTERNAL_NETWORKS   = serverSettings.getProperty("InternalNetworks", "");
+            EXTERNAL_HOSTNAME   = serverSettings.getProperty("ExternalHostname", "127.0.0.1");
+            OPTIONAL_NETWORKS   = serverSettings.getProperty("OptionalNetworks", "");
+            IO_TYPE                 = IOType.valueOf(serverSettings.getProperty("IOType", "nio"));
+            MAXIMUM_ONLINE_USERS        = Integer.parseInt(serverSettings.getProperty("MaximumOnlineUsers", "100"));
+            DATABASE_DRIVER             = serverSettings.getProperty("Driver", "com.mysql.jdbc.Driver");
+            DATABASE_URL                = serverSettings.getProperty("URL", "jdbc:mysql://localhost/l2jdb");
+            DATABASE_LOGIN              = serverSettings.getProperty("Login", "root");
+            DATABASE_PASSWORD           = serverSettings.getProperty("Password", "");
+            DATABASE_MAX_CONNECTIONS    = Integer.parseInt(serverSettings.getProperty("MaximumDbConnections", "10"));
+            SAFE_REBOOT  = Boolean.valueOf(serverSettings.getProperty("SafeReboot", "False"));
+            NETWORK_TRAFFIC_OPTIMIZATION     = Boolean.valueOf(serverSettings.getProperty("NetworkTrafficOptimization", "False"));
+            NETWORK_TRAFFIC_OPTIMIZATION_MS  = Integer.parseInt(serverSettings.getProperty("NetworkTrafficOptimizationMs", "1100"));
+            FLOOD_PROTECTION     = Boolean.valueOf(serverSettings.getProperty("FloodProtection", "False"));
+            PACKET_LIMIT    	 = Integer.parseInt(serverSettings.getProperty("PacketLimit", "500"));
+            PACKET_TIME_LIMIT    = Integer.parseInt(serverSettings.getProperty("PacketTimeLimit", "1100"));
+        }
+        catch (Exception e)
+        {
+            _log.error(e.getMessage(),e);
+            throw new Error("Failed to Load "+CONFIGURATION_FILE+" File.");
+        }
+    }
+    
+    //*******************************************************************************************    
     public static final String  OLYMPIAD_FILE             	= "./config/olympiad.properties";
-    public static final String  LOTTERY_FILE             	= "./config/lottery.properties";
-    public static final String  WEDDING_FILE             	= "./config/wedding.properties";
+    //*******************************************************************************************
+    public static int ALT_OLY_START_TIME;	// Olympiad Compitition Starting time
+    public static int ALT_OLY_MIN;			// Olympiad Compition Min
+    public static int ALT_OLY_CPERIOD;		// Olympaid Comptetition Period
+    public static int ALT_OLY_BATTLE;		// Olympiad Battle Period
+    public static int ALT_OLY_BWAIT;		// Olympiad Battle Wait
+    public static int ALT_OLY_IWAIT;		// Olympiad Inital Wait
+    public static int ALT_OLY_WPERIOD;		// Olympaid Weekly Period
+    public static int ALT_OLY_VPERIOD;		// Olympaid Validation Period
+    //*******************************************************************************************    
+    public static void loadolympiadfile()
+    {
+    	_log.info("loading " + OLYMPIAD_FILE);    	
+	    try
+	    {
+	        Properties olympiadSettings	= new Properties();
+	        InputStream is              = new FileInputStream(new File(OLYMPIAD_FILE));
+	        olympiadSettings.load(is);
+	        is.close();
+	    	
+	        ALT_OLY_START_TIME                                  = Integer.parseInt(olympiadSettings.getProperty("AltOlyStartTime", "20"));
+	        ALT_OLY_MIN                                         = Integer.parseInt(olympiadSettings.getProperty("AltOlyMin","00"));
+	        ALT_OLY_CPERIOD                                     = Integer.parseInt(olympiadSettings.getProperty("AltOlyPeriod","14100000"));
+	        ALT_OLY_BATTLE                                      = Integer.parseInt(olympiadSettings.getProperty("AltOlyBattle","180000"));
+	        ALT_OLY_BWAIT                                       = Integer.parseInt(olympiadSettings.getProperty("AltOlyBWait","600000"));
+	        ALT_OLY_IWAIT                                       = Integer.parseInt(olympiadSettings.getProperty("AltOlyPwait","300000"));
+	        ALT_OLY_WPERIOD                                     = Integer.parseInt(olympiadSettings.getProperty("AltOlyWperiod","604800000"));
+	        ALT_OLY_VPERIOD                                     = Integer.parseInt(olympiadSettings.getProperty("AltOlyVperiod","86400000"));
+	    	
+	    }
+	    catch (Exception e)
+	    {
+	        _log.error(e.getMessage(),e);
+	        throw new Error("Failed to Load "+OLYMPIAD_FILE+" File.");
+	    }
+    }
+
+    //*******************************************************************************************    
+    public static final String  CLANS_FILE                	= "./config/clans.properties";
+    //*******************************************************************************************
+    public static int 		ALT_CLAN_MEMBERS_FOR_WAR;				// Number of members needed to request a clan war
+    public static int 		ALT_CLAN_JOIN_DAYS;						// Number of days before joining a new clan
+    public static int 		ALT_CLAN_CREATE_DAYS;					// Number of days before creating a new clan
+    public static int 		ALT_CLAN_DISSOLVE_DAYS;					// Number of days it takes to dissolve a clan
+    public static int 		ALT_ALLY_JOIN_DAYS_WHEN_LEAVED;			// Number of days before joining a new alliance when clan voluntarily leave an alliance
+    public static int 		ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED;		// Number of days before joining a new alliance when clan was dismissed from an alliance
+    public static int 		ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED; 	// Number of days before accepting a new clan for alliance when clan was dismissed from an alliance
+    public static int 		ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED;	// Number of days before creating a new alliance when dissolved an alliance
+    public static int 		ALT_MAX_NUM_OF_CLANS_IN_ALLY;			// Maximum number of clans in ally
+    public static enum ClanLeaderColored{name,title}				// Clan leader name color
+    public static boolean   CLAN_LEADER_COLOR_ENABLED;
+    public static ClanLeaderColored       CLAN_LEADER_COLORED;
+    public static int       CLAN_LEADER_COLOR;
+    public static int       CLAN_LEADER_COLOR_CLAN_LEVEL;
+    //*******************************************************************************************    
+    public static void loadclansfile()
+    {
+    	_log.info("loading " + CLANS_FILE);
+	    try
+	    {
+	        Properties clansSettings	= new Properties();
+	        InputStream is              = new FileInputStream(new File(CLANS_FILE));
+	        clansSettings.load(is);
+	        is.close();
+	    	
+	        ALT_CLAN_MEMBERS_FOR_WAR                            = Integer.parseInt(clansSettings.getProperty("AltClanMembersForWar", "15"));
+	        ALT_CLAN_JOIN_DAYS                                  = Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAClan", "5"));
+	        ALT_CLAN_CREATE_DAYS                                = Integer.parseInt(clansSettings.getProperty("DaysBeforeCreateAClan", "10"));                
+	        ALT_CLAN_DISSOLVE_DAYS      						= Integer.parseInt(clansSettings.getProperty("DaysToPassToDissolveAClan", "7"));
+	        ALT_ALLY_JOIN_DAYS_WHEN_LEAVED       				= Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAllyWhenLeaved", "1"));
+	        ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED    				= Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAllyWhenDismissed", "1"));
+	        ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED  				= Integer.parseInt(clansSettings.getProperty("DaysBeforeAcceptNewClanWhenDismissed", "1"));
+	        ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED  				= Integer.parseInt(clansSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
+	        ALT_MAX_NUM_OF_CLANS_IN_ALLY                        = Integer.parseInt(clansSettings.getProperty("AltMaxNumOfClansInAlly", "3"));
+	        CLAN_LEADER_COLOR_ENABLED     			       		= Boolean.parseBoolean(clansSettings.getProperty("ClanLeaderColorEnabled", "True"));
+	        CLAN_LEADER_COLORED                  				= ClanLeaderColored.valueOf(clansSettings.getProperty("ClanLeaderColored", "name"));
+	        CLAN_LEADER_COLOR                                   = Integer.decode("0x" + clansSettings.getProperty("ClanLeaderColor", "00FFFF"));
+	        CLAN_LEADER_COLOR_CLAN_LEVEL                        = Integer.parseInt(clansSettings.getProperty("ClanLeaderColorAtClanLevel", "1"));
+	    }
+	    catch (Exception e)
+	    {
+	        _log.error(e.getMessage(),e);
+	        throw new Error("Failed to Load "+CLANS_FILE+" File.");
+	    }
+    }
+
+    //*******************************************************************************************    
     public static final String  CHAMPIONS_FILE             	= "./config/champions.properties";
+    //*******************************************************************************************
+    public static int 		CHAMPION_FREQUENCY;	// Frequency of spawn
+    public static int 		CHAMPION_HP;		// Hp multiplier
+    public static int 		CHAMPION_REWARDS;	// Drop/Spoil rewards multiplier
+    public static int 		CHAMPION_EXP_SP;	// Exp/Sp rewards multiplier
+    public static boolean 	CHAMPION_BOSS;		// Boss is champion
+    public static int 		CHAMPION_LEVEL;		// Champion min level
+    public static boolean 	CHAMPION_MINIONS; 	// set Minions to champions when leader champion
+    //*******************************************************************************************    
+    public static void loadchampionsfile()
+    {
+    	_log.info("loading " + CHAMPIONS_FILE);    	
+	    try
+	    {
+	        Properties championsSettings = new Properties();
+	        InputStream is               = new FileInputStream(new File(CHAMPIONS_FILE));
+	        championsSettings.load(is);
+	        is.close();
+	        
+	        CHAMPION_FREQUENCY      = Integer.parseInt(championsSettings.getProperty("ChampionFrequency", "0"));
+	        CHAMPION_HP             = Integer.parseInt(championsSettings.getProperty("ChampionHp", "7"));
+	        CHAMPION_REWARDS        = Integer.parseInt(championsSettings.getProperty("ChampionRewards", "8"));
+	        CHAMPION_EXP_SP        	= Integer.parseInt(championsSettings.getProperty("ChampionExpSP", "8"));
+	        CHAMPION_BOSS           = Boolean.parseBoolean(championsSettings.getProperty("ChampionBoss", "false"));
+	        CHAMPION_LEVEL        	= Integer.parseInt(championsSettings.getProperty("ChampionMinLevel", "1"));
+	        CHAMPION_MINIONS        = Boolean.parseBoolean(championsSettings.getProperty("ChampionMinions", "false"));
+	    }
+	    catch (Exception e)
+	    {
+	        _log.error(e.getMessage(),e);
+	        throw new Error("Failed to Load "+CHAMPIONS_FILE+" File.");
+	    }
+    }
+    
+    //  *******************************************************************************************    
+    public static final String  LOTTERY_FILE             	= "./config/lottery.properties";
+    //  *******************************************************************************************
+    public static int 	ALT_LOTTERY_PRIZE;				// Initial Lottery prize
+    public static int 	ALT_LOTTERY_TICKET_PRICE;		// Lottery Ticket Price
+    public static float ALT_LOTTERY_5_NUMBER_RATE;		// What part of jackpot amount should receive characters who pick 5 wining numbers
+    public static float ALT_LOTTERY_4_NUMBER_RATE;		// What part of jackpot amount should receive characters who pick 4 wining numbers
+    public static float ALT_LOTTERY_3_NUMBER_RATE;		// What part of jackpot amount should receive characters who pick 3 wining numbers
+    public static int ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;	// How much adena receive characters who pick two or less of the winning number
+    //  *******************************************************************************************
+    public static void loadlotteryfile()
+    {
+    	_log.info("loading " + LOTTERY_FILE);
+        try
+        {
+            Properties lotterySettings = new Properties();
+            InputStream is               = new FileInputStream(new File(LOTTERY_FILE));
+            lotterySettings.load(is);
+            is.close();
+            
+            ALT_LOTTERY_PRIZE                                   = Integer.parseInt(lotterySettings.getProperty("AltLotteryPrize","50000"));
+            ALT_LOTTERY_TICKET_PRICE                            = Integer.parseInt(lotterySettings.getProperty("AltLotteryTicketPrice","2000"));
+            ALT_LOTTERY_5_NUMBER_RATE                           = Float.parseFloat(lotterySettings.getProperty("AltLottery5NumberRate","0.6"));
+            ALT_LOTTERY_4_NUMBER_RATE                           = Float.parseFloat(lotterySettings.getProperty("AltLottery4NumberRate","0.2"));
+            ALT_LOTTERY_3_NUMBER_RATE                           = Float.parseFloat(lotterySettings.getProperty("AltLottery3NumberRate","0.2"));
+            ALT_LOTTERY_2_AND_1_NUMBER_PRIZE                    = Integer.parseInt(lotterySettings.getProperty("AltLottery2and1NumberPrize","200"));
+        }
+        catch (Exception e)
+        {
+            _log.error(e.getMessage(),e);
+            throw new Error("Failed to Load "+LOTTERY_FILE+" File.");
+        }
+    }
+
+    //  *******************************************************************************************
+    public static final String  WEDDING_FILE             	= "./config/wedding.properties";
+    //  *******************************************************************************************
+    public static int 		WEDDING_PRICE;
+    public static boolean 	WEDDING_PUNISH_INFIDELITY;
+    public static boolean 	WEDDING_TELEPORT;
+    public static int 		WEDDING_TELEPORT_PRICE;
+    public static int 		WEDDING_TELEPORT_INTERVAL;
+    public static boolean 	WEDDING_SAMESEX;
+    public static boolean 	WEDDING_FORMALWEAR;
+    public static int 		WEDDING_DIVORCE_COSTS;
+    //  *******************************************************************************************
+    public static void loadweddingfile()
+    {
+    	_log.info("loading " + WEDDING_FILE);
+        try
+        {
+            Properties weddingSettings = new Properties();
+            InputStream is               = new FileInputStream(new File(WEDDING_FILE));
+            weddingSettings.load(is);
+            is.close();
+            
+            WEDDING_PRICE                                       = Integer.parseInt(weddingSettings.getProperty("WeddingPrice", "500000"));
+            WEDDING_PUNISH_INFIDELITY                           = Boolean.parseBoolean(weddingSettings.getProperty("WeddingPunishInfidelity", "true"));                
+            WEDDING_TELEPORT                                    = Boolean.parseBoolean(weddingSettings.getProperty("WeddingTeleport", "true"));
+            WEDDING_TELEPORT_PRICE                              = Integer.parseInt(weddingSettings.getProperty("WeddingTeleportPrice", "500000"));
+            WEDDING_TELEPORT_INTERVAL                           = Integer.parseInt(weddingSettings.getProperty("WeddingTeleportInterval", "120"));
+            WEDDING_SAMESEX                                     = Boolean.parseBoolean(weddingSettings.getProperty("WeddingAllowSameSex", "true"));
+            WEDDING_FORMALWEAR                                  = Boolean.parseBoolean(weddingSettings.getProperty("WeddingFormalWear", "true"));
+            WEDDING_DIVORCE_COSTS                               = Integer.parseInt(weddingSettings.getProperty("WeddingDivorceCosts", "20"));
+        }
+        catch (Exception e)
+        {
+            _log.error(e.getMessage(),e);
+            throw new Error("Failed to Load "+WEDDING_FILE+" File.");
+        }
+    }
+    
+    //  *******************************************************************************************
     public static final String  SEPULCHURS_FILE            	= "./config/sepulchurs.properties";
+    //  *******************************************************************************************
+	public static int FS_TIME_ATTACK;
+	public static int FS_TIME_COOLDOWN;
+	public static int FS_TIME_ENTRY;
+	public static int FS_TIME_WARMUP;
+	public static int FS_PARTY_MEMBER_COUNT;
+    //  *******************************************************************************************
+    public static void loadsepulchursfile()
+    {
+    	_log.info("loading " + SEPULCHURS_FILE);
+        try
+        {
+            Properties sepulchursSettings = new Properties();
+            InputStream is               = new FileInputStream(new File(SEPULCHURS_FILE));
+            sepulchursSettings.load(is);
+            is.close();
+            
+            FS_TIME_ATTACK 										= Integer.parseInt(sepulchursSettings.getProperty("TimeOfAttack", "50"));
+            FS_TIME_COOLDOWN 									= Integer.parseInt(sepulchursSettings.getProperty("TimeOfCoolDown", "5"));
+            FS_TIME_ENTRY 										= Integer.parseInt(sepulchursSettings.getProperty("TimeOfEntry", "3"));
+            FS_TIME_WARMUP 										= Integer.parseInt(sepulchursSettings.getProperty("TimeOfWarmUp", "2"));
+            FS_PARTY_MEMBER_COUNT 								= Integer.parseInt(sepulchursSettings.getProperty("NumberOfNecessaryPartyMembers", "4"));
+            if(FS_TIME_ATTACK <= 0) FS_TIME_ATTACK = 50;
+            if(FS_TIME_COOLDOWN <= 0) FS_TIME_COOLDOWN = 5;
+            if(FS_TIME_ENTRY <= 0) FS_TIME_ENTRY = 3;
+            if(FS_TIME_ENTRY <= 0) FS_TIME_ENTRY = 3;
+            if(FS_TIME_ENTRY <= 0) FS_TIME_ENTRY = 3;
+            
+        }
+        catch (Exception e)
+        {
+            _log.error(e.getMessage(),e);
+            throw new Error("Failed to Load "+SEPULCHURS_FILE+" File.");
+        }
+    }
+    
+    public static final String  OPTIONS_FILE                = "./config/options.properties";
     public static final String  ID_CONFIG_FILE				= "./config/idfactory.properties";
     public static final String  OTHER_CONFIG_FILE			= "./config/other.properties";
     public static final String  RATES_CONFIG_FILE           = "./config/rates.properties";
@@ -101,30 +455,8 @@ public final class Config {
 	public static boolean  COUNT_PACKETS           = false;
 	public static boolean  DUMP_PACKET_COUNTS      = false;
     public static int      DUMP_INTERVAL_SECONDS   = 60;
-    
-    /** Game Server ports */
-    public static int PORT_GAME;
-    /** Login Server port */
-    public static int PORT_LOGIN;
-    /** Number of trys of login before ban */
-    public static int LOGIN_TRY_BEFORE_BAN;
-    /** Hostname of the Game Server */
-    public static String GAMESERVER_HOSTNAME;
-    
-    // Access to database
-    /** Driver to access to database */
-    public static String DATABASE_DRIVER;
-    /** Path to access to database */
-    public static String DATABASE_URL;
-    /** Database login */ 
-    public static String DATABASE_LOGIN;
-    /** Database password */
-    public static String DATABASE_PASSWORD;
-    /** Maximum number of connections to the database */
-    public static int DATABASE_MAX_CONNECTIONS;
-    
-    /** Maximum number of players allowed to play simultaneously on server */
-    public static int   MAXIMUM_ONLINE_USERS;
+
+    public static boolean ALLOW_WEDDING;
     
     // Setting for serverList
     /** Displays [] in front of server name ? */
@@ -135,10 +467,6 @@ public final class Config {
     public static boolean SERVER_LIST_TESTSERVER;
     /** Set the server as gm only at startup ? */
     public static boolean SERVER_GMONLY;
-    /** Safe mode will disable some feature during restart/shutdown to prevent exploit **/
-    public static boolean    SAFE_REBOOT = false;
-    public static boolean NETWORK_TRAFFIC_OPTIMIZATION;
-    public static int     NETWORK_TRAFFIC_OPTIMIZATION_MS;
     // Thread pools size
     /** Thread pool size effect */
     public static int THREAD_P_EFFECTS;
@@ -164,24 +492,6 @@ public final class Config {
     public static boolean AUTO_LOOT;
     public static boolean AUTO_LOOT_HERBS;
 
-    /** Character name template */
-    public static Pattern CNAME_PATTERN;
-    /** Pet name template */
-    public static Pattern PET_NAME_PATTERN;    
-    /** Clan and ally name template */
-    public static Pattern CLAN_ALLY_NAME_PATTERN;      
-    /** Clan title template */
-    public static Pattern TITLE_PATTERN;
-    
-    /** Maximum number of characters per account */
-    public static int MAX_CHARACTERS_NUMBER_PER_ACCOUNT;
-
-    /** Global chat state */
-    public static String  DEFAULT_GLOBAL_CHAT;
-    /** Trade chat state */
-    public static String  DEFAULT_TRADE_CHAT;
-    /** For test servers - everybody has admin rights */
-    public static boolean EVERYBODY_HAS_ADMIN_RIGHTS;
     /** Alternative game crafting */
     public static boolean ALT_GAME_CREATION;
     /** Alternative game crafting speed mutiplier - default 0 (fastest but still not instant) */
@@ -261,22 +571,6 @@ public final class Config {
     /** Rate Common herbs */
     public static float   RATE_DROP_SPECIAL_HERBS;
 
-    /** Named mobs. Random spawning mobs with multiples of health and rewards. */
-    /** Frequency of spawn */
-    public static int CHAMPION_FREQUENCY;
-    /** Hp multiplier */
-    public static int CHAMPION_HP;
-    /** Drop/Spoil rewards multiplier */
-    public static int CHAMPION_REWARDS;
-    /** Exp/Sp rewards multiplier */
-    public static int CHAMPION_EXP_SP;
-    /** Boss is champion */
-    public static boolean CHAMPION_BOSS;
-    /** Champion min level */
-    public static int CHAMPION_LEVEL;
-    /** set Minions to champions when leader champion */
-    public static boolean CHAMPION_MINIONS;
-
     /** Alternative gameing - loss of XP on death */
     public static boolean ALT_GAME_DELEVEL;
 
@@ -330,84 +624,20 @@ public final class Config {
 
     /** Festival Chest Spawn */
     public static long ALT_FESTIVAL_CHEST_SPAWN;
-    
-    /** Number of members needed to request a clan war */
-    public static int ALT_CLAN_MEMBERS_FOR_WAR;
-
-    /** Number of days before joining a new clan */
-    public static int ALT_CLAN_JOIN_DAYS;
-    /** Number of days before creating a new clan */
-    public static int ALT_CLAN_CREATE_DAYS;
-    /** Number of days it takes to dissolve a clan */
-    public static int ALT_CLAN_DISSOLVE_DAYS;
-    /** Number of days before joining a new alliance when clan voluntarily leave an alliance */
-    public static int ALT_ALLY_JOIN_DAYS_WHEN_LEAVED;
-    /** Number of days before joining a new alliance when clan was dismissed from an alliance */
-    public static int ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED;
-    /** Number of days before accepting a new clan for alliance when clan was dismissed from an alliance */
-    public static int ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED;
-    /** Number of days before creating a new alliance when dissolved an alliance */
-    public static int ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED;
 
     /** Alternative gaming - all new characters always are newbies. */
     public static boolean ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE;
     
     /** Strict Hero Mode */
     public static boolean ALT_STRICT_HERO_SYSTEM;
-    
-    /** Olympiad Compitition Starting time */
-    public static int ALT_OLY_START_TIME;
-    
-    /** Olympiad Compition Min */
-    public static int ALT_OLY_MIN;
-    
-    /** Olympaid Comptetition Period */
-    public static int ALT_OLY_CPERIOD;
-    
-    /** Olympiad Battle Period */
-    public static int ALT_OLY_BATTLE;
-    
-    /** Olympiad Battle Wait */
-    public static int ALT_OLY_BWAIT;
-    
-    /** Olympiad Inital Wait */
-    public static int ALT_OLY_IWAIT;
-    
-    /** Olympaid Weekly Period */
-    public static int ALT_OLY_WPERIOD;
-    
-    /** Olympaid Validation Period */
-    public static int ALT_OLY_VPERIOD;
-    
     /** Strict Seven Signs */
     public static boolean ALT_STRICT_SEVENSIGNS;
-    
-    /** Initial Lottery prize */
-    public static int ALT_LOTTERY_PRIZE;
-    
-    /** Lottery Ticket Price */
-    public static int ALT_LOTTERY_TICKET_PRICE;
-    
-    /** What part of jackpot amount should receive characters who pick 5 wining numbers */
-    public static float ALT_LOTTERY_5_NUMBER_RATE;
-    
-    /** What part of jackpot amount should receive characters who pick 4 wining numbers */
-    public static float ALT_LOTTERY_4_NUMBER_RATE;
-    
-    /** What part of jackpot amount should receive characters who pick 3 wining numbers */
-    public static float ALT_LOTTERY_3_NUMBER_RATE;
-    
-    /** How much adena receive characters who pick two or less of the winning number */
-    public static int ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;
 
     /** Alt Settings for devs */
     public static boolean ALT_DEV_NO_QUESTS;
     public static boolean ALT_DEV_NO_SPAWNS;
 
     public static boolean ALT_POLYMORPH;
-
-    /** Maximum number of clans in ally */
-    public static int ALT_MAX_NUM_OF_CLANS_IN_ALLY;
 
     /** Spell Book needed to learn skill */
     public static boolean SP_BOOK_NEEDED;
@@ -643,17 +873,6 @@ public final class Config {
     /** Force loading GeoData to psychical memory */
     public static boolean FORCE_GEODATA;
 
-    /** Wedding system */
-    public static boolean ALLOW_WEDDING;
-    public static int WEDDING_PRICE;
-    public static boolean WEDDING_PUNISH_INFIDELITY;
-    public static boolean WEDDING_TELEPORT;
-    public static int WEDDING_TELEPORT_PRICE;
-    public static int WEDDING_TELEPORT_INTERVAL;
-    public static boolean WEDDING_SAMESEX;
-    public static boolean WEDDING_FORMALWEAR;
-    public static int WEDDING_DIVORCE_COSTS;
-
     /** Crafting Npc */
     public static double ALT_CRAFT_PRICE;                    // reference price multiplier
     public static int ALT_CRAFT_DEFAULT_PRICE;               // default price, in case reference is 0
@@ -712,10 +931,6 @@ public final class Config {
     public static int           STRIDER_SPEED;
     public static boolean       ALLOW_WYVERN_UPGRADER;
 
-    // protocol revision
-    public static int           MIN_PROTOCOL_REVISION;
-    public static int           MAX_PROTOCOL_REVISION;
-
     // random animation interval
     public static int           MIN_NPC_ANIMATION;
     public static int           MAX_NPC_ANIMATION;
@@ -746,21 +961,7 @@ public final class Config {
     public static boolean DM_ALLOW_SUMMON;
     public static boolean DM_ON_START_REMOVE_ALL_EFFECTS;
     public static boolean DM_ON_START_UNSUMMON_PET;
-    
-    public static int           GAME_SERVER_LOGIN_PORT;
-    public static String        GAME_SERVER_LOGIN_HOST;
 
-    public static String        INTERNAL_HOSTNAME;
-    public static String        INTERNAL_NETWORKS;
-    public static String        EXTERNAL_HOSTNAME;
-    public static String        OPTIONAL_NETWORKS;
-    
-    /** IO_Type */
-    public enum IOType {
-        nio,
-        aio4j
-    }
-    
     public static IOType        IO_TYPE;
     public static int           PATH_NODE_RADIUS;
     public static int           NEW_NODE_ID;
@@ -942,16 +1143,6 @@ public final class Config {
     public static boolean AUTO_LEARN_SKILLS;
     /** Disable Grade penalty */
     public static boolean GRADE_PENALTY;
-    /** Clan leader name color */
-    public static enum ClanLeaderColored
-    {
-        name,
-        title
-    }
-    public static boolean   CLAN_LEADER_COLOR_ENABLED;
-    public static ClanLeaderColored       CLAN_LEADER_COLORED;
-    public static int       CLAN_LEADER_COLOR;
-    public static int       CLAN_LEADER_COLOR_CLAN_LEVEL;
     
     /** VIP Characters configuration */
     public static boolean   CHAR_VIP_SKIP_SKILLS_CHECK;
@@ -1110,11 +1301,6 @@ public final class Config {
     
     /** Hexadecimal ID of the game server */
 	public static byte[] HEX_ID;
-    /** Accept alternate ID for server ? */
-	public static boolean ACCEPT_ALTERNATE_ID;
-    /** ID for request to the server */
-	public static int REQUEST_ID;
-	public static boolean RESERVE_HOST_ON_LOGIN = false;
     
     public static int MINIMUM_UPDATE_DISTANCE;
     public static int KNOWNLIST_FORGET_DELAY;
@@ -1200,254 +1386,17 @@ public final class Config {
 	public static int APPTIME_OF_VALAKAS;
 	public static int APPTIME_OF_ANTHARAS;
 	
-	// [L2J_JP ADD SANDMAN]
-	public static int FS_TIME_ATTACK;
-	public static int FS_TIME_COOLDOWN;
-	public static int FS_TIME_ENTRY;
-	public static int FS_TIME_WARMUP;
-	public static int FS_PARTY_MEMBER_COUNT;
 
 	public static void load()
 	{
 			_log.info("loading gameserver config");
-		    try {
-		        Properties serverSettings    = new Properties();
-				InputStream is               = new FileInputStream(new File(CONFIGURATION_FILE));
-				serverSettings.load(is);
-				is.close();
-				
-				GAME_SERVER_LOGIN_HOST  = serverSettings.getProperty("LoginHost","127.0.0.1");
-				GAME_SERVER_LOGIN_PORT  = Integer.parseInt(serverSettings.getProperty("LoginPort","9013"));
-				
-				REQUEST_ID              = Integer.parseInt(serverSettings.getProperty("RequestServerID","0"));
-				ACCEPT_ALTERNATE_ID     = Boolean.parseBoolean(serverSettings.getProperty("AcceptAlternateID","True"));
-				
-	            PORT_GAME               = Integer.parseInt(serverSettings.getProperty("GameserverPort", "7777"));
-	            PORT_LOGIN              = Integer.parseInt(serverSettings.getProperty("LoginserverPort", "2106"));
-	            
-	            try
-	            {
-	            	CNAME_PATTERN 		    = Pattern.compile(serverSettings.getProperty("CnameTemplate", "[A-Za-z0-9\\-]{3,16}"));
-	            }
-	            catch (PatternSyntaxException e)
-	            {
-	                _log.warn("Character name pattern is wrong!",e);
-	                CNAME_PATTERN  = Pattern.compile("[A-Za-z0-9\\-]{3,16}");
-	            }
-	            
-	            try
-	            {
-	            	PET_NAME_PATTERN        = Pattern.compile(serverSettings.getProperty("PetNameTemplate", "[A-Za-z0-9\\-]{3,16}"));
-	            }
-	            catch (PatternSyntaxException e)
-	            {
-	                _log.warn("Pet name pattern is wrong!",e);
-	                PET_NAME_PATTERN  = Pattern.compile("[A-Za-z0-9\\-]{3,16}");
-	            }
-	            
-	            try
-	            {
-	            	CLAN_ALLY_NAME_PATTERN  = Pattern.compile(serverSettings.getProperty("ClanAllyNameTemplate", "[A-Za-z0-9 \\-]{3,16}"));
-	            }
-	            catch (PatternSyntaxException e)
-	            {
-	                _log.warn("Clan and ally name pattern is wrong!",e);
-	                CLAN_ALLY_NAME_PATTERN  = Pattern.compile("[A-Za-z0-9 \\-]{3,16}");
-	            }
-	            
-	            try
-	            {
-	            	TITLE_PATTERN           = Pattern.compile(serverSettings.getProperty("TitleTemplate", "[A-Za-z0-9 \\\\[\\\\]\\(\\)\\<\\>\\|\\!]{3,16}"));
-	            }
-	            catch (PatternSyntaxException e)
-	            {
-	                _log.warn("Character title pattern is wrong!",e);
-	                TITLE_PATTERN  = Pattern.compile("[A-Za-z0-9 \\\\[\\\\]\\(\\)\\<\\>\\|\\!]{3,16}");
-	            }
-	            
-                MAX_CHARACTERS_NUMBER_PER_ACCOUNT = Integer.parseInt(serverSettings.getProperty("CharMaxNumber", "0"));
-	            LOGIN_TRY_BEFORE_BAN    = Integer.parseInt(serverSettings.getProperty("LoginTryBeforeBan", "10"));
-	            GAMESERVER_HOSTNAME     = serverSettings.getProperty("GameserverHostname");
+			loadconfigurationfile();
+			loadolympiadfile();
+			loadclansfile();
+			loadchampionsfile();
+			loadlotteryfile();
+			loadsepulchursfile();
 
-                DEFAULT_GLOBAL_CHAT          = serverSettings.getProperty("GlobalChat", "ON");
-                DEFAULT_TRADE_CHAT           = serverSettings.getProperty("TradeChat", "ON");
-	
-				DATAPACK_ROOT    = new File(serverSettings.getProperty("DatapackRoot", ".")).getCanonicalFile();
-	
-	            MIN_PROTOCOL_REVISION   = Integer.parseInt(serverSettings.getProperty("MinProtocolRevision", "694"));
-	            MAX_PROTOCOL_REVISION   = Integer.parseInt(serverSettings.getProperty("MaxProtocolRevision", "709"));
-	            
-	            if (MIN_PROTOCOL_REVISION > MAX_PROTOCOL_REVISION)
-	            {
-	            	throw new Error("MinProtocolRevision is bigger than MaxProtocolRevision in server configuration file.");
-	            }
-	            
-                INTERNAL_HOSTNAME   = serverSettings.getProperty("InternalHostname", "127.0.0.1");
-                INTERNAL_NETWORKS   = serverSettings.getProperty("InternalNetworks", "");
-                EXTERNAL_HOSTNAME   = serverSettings.getProperty("ExternalHostname", "127.0.0.1");
-                OPTIONAL_NETWORKS   = serverSettings.getProperty("OptionalNetworks", "");
-                
-                IO_TYPE                 = IOType.valueOf(serverSettings.getProperty("IOType", "nio"));
-	            
-	            MAXIMUM_ONLINE_USERS        = Integer.parseInt(serverSettings.getProperty("MaximumOnlineUsers", "100"));
-                
-	            DATABASE_DRIVER             = serverSettings.getProperty("Driver", "com.mysql.jdbc.Driver");
-	            DATABASE_URL                = serverSettings.getProperty("URL", "jdbc:mysql://localhost/l2jdb");
-	            DATABASE_LOGIN              = serverSettings.getProperty("Login", "root");
-	            DATABASE_PASSWORD           = serverSettings.getProperty("Password", "");
-	            DATABASE_MAX_CONNECTIONS    = Integer.parseInt(serverSettings.getProperty("MaximumDbConnections", "10"));
-                
-                SAFE_REBOOT  = Boolean.valueOf(serverSettings.getProperty("SafeReboot", "False"));
-                
-                NETWORK_TRAFFIC_OPTIMIZATION     = Boolean.valueOf(serverSettings.getProperty("NetworkTrafficOptimization", "False"));
-                NETWORK_TRAFFIC_OPTIMIZATION_MS  = Integer.parseInt(serverSettings.getProperty("NetworkTrafficOptimizationMs", "1100"));
-                
-                FLOOD_PROTECTION     = Boolean.valueOf(serverSettings.getProperty("FloodProtection", "False"));
-                PACKET_LIMIT    	 = Integer.parseInt(serverSettings.getProperty("PacketLimit", "500"));
-                PACKET_TIME_LIMIT    = Integer.parseInt(serverSettings.getProperty("PacketTimeLimit", "1100"));
-	        }
-	        catch (Exception e)
-	        {
-	            _log.error(e.getMessage(),e);
-	            throw new Error("Failed to Load "+CONFIGURATION_FILE+" File.");
-	        }
-	        try
-	        {
-                Properties olympiadSettings	= new Properties();
-                InputStream is              = new FileInputStream(new File(OLYMPIAD_FILE));
-                olympiadSettings.load(is);
-                is.close();
-	        	
-                ALT_OLY_START_TIME                                  = Integer.parseInt(olympiadSettings.getProperty("AltOlyStartTime", "20"));
-                ALT_OLY_MIN                                         = Integer.parseInt(olympiadSettings.getProperty("AltOlyMin","00"));
-                ALT_OLY_CPERIOD                                     = Integer.parseInt(olympiadSettings.getProperty("AltOlyPeriod","14100000"));
-                ALT_OLY_BATTLE                                      = Integer.parseInt(olympiadSettings.getProperty("AltOlyBattle","180000"));
-                ALT_OLY_BWAIT                                       = Integer.parseInt(olympiadSettings.getProperty("AltOlyBWait","600000"));
-                ALT_OLY_IWAIT                                       = Integer.parseInt(olympiadSettings.getProperty("AltOlyPwait","300000"));
-                ALT_OLY_WPERIOD                                     = Integer.parseInt(olympiadSettings.getProperty("AltOlyWperiod","604800000"));
-                ALT_OLY_VPERIOD                                     = Integer.parseInt(olympiadSettings.getProperty("AltOlyVperiod","86400000"));
-	        	
-	        }
-	        catch (Exception e)
-	        {
-	            _log.error(e.getMessage(),e);
-	            throw new Error("Failed to Load "+OLYMPIAD_FILE+" File.");
-	        }
-	        
-	        try
-	        {
-                Properties clansSettings	= new Properties();
-                InputStream is              = new FileInputStream(new File(CLANS_FILE));
-                clansSettings.load(is);
-                is.close();
-	        	
-                ALT_CLAN_MEMBERS_FOR_WAR                            = Integer.parseInt(clansSettings.getProperty("AltClanMembersForWar", "15"));
-                ALT_CLAN_JOIN_DAYS                                  = Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAClan", "5"));
-                ALT_CLAN_CREATE_DAYS                                = Integer.parseInt(clansSettings.getProperty("DaysBeforeCreateAClan", "10"));                
-                ALT_CLAN_DISSOLVE_DAYS      						= Integer.parseInt(clansSettings.getProperty("DaysToPassToDissolveAClan", "7"));
-                ALT_ALLY_JOIN_DAYS_WHEN_LEAVED       				= Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAllyWhenLeaved", "1"));
-                ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED    				= Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAllyWhenDismissed", "1"));
-                ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED  				= Integer.parseInt(clansSettings.getProperty("DaysBeforeAcceptNewClanWhenDismissed", "1"));
-                ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED  				= Integer.parseInt(clansSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
-                ALT_MAX_NUM_OF_CLANS_IN_ALLY                        = Integer.parseInt(clansSettings.getProperty("AltMaxNumOfClansInAlly", "3"));
-                CLAN_LEADER_COLOR_ENABLED     			       		= Boolean.parseBoolean(clansSettings.getProperty("ClanLeaderColorEnabled", "True"));
-                CLAN_LEADER_COLORED                  				= ClanLeaderColored.valueOf(clansSettings.getProperty("ClanLeaderColored", "name"));
-                CLAN_LEADER_COLOR                                   = Integer.decode("0x" + clansSettings.getProperty("ClanLeaderColor", "00FFFF"));
-                CLAN_LEADER_COLOR_CLAN_LEVEL                        = Integer.parseInt(clansSettings.getProperty("ClanLeaderColorAtClanLevel", "1"));
-	        }
-	        catch (Exception e)
-	        {
-	            _log.error(e.getMessage(),e);
-	            throw new Error("Failed to Load "+CLANS_FILE+" File.");
-	        }
-
-	        try
-	        {
-                Properties championsSettings = new Properties();
-                InputStream is               = new FileInputStream(new File(CHAMPIONS_FILE));
-                championsSettings.load(is);
-                is.close();
-                
-                CHAMPION_FREQUENCY      = Integer.parseInt(championsSettings.getProperty("ChampionFrequency", "0"));
-                CHAMPION_HP             = Integer.parseInt(championsSettings.getProperty("ChampionHp", "7"));
-                CHAMPION_REWARDS        = Integer.parseInt(championsSettings.getProperty("ChampionRewards", "8"));
-                CHAMPION_EXP_SP        	= Integer.parseInt(championsSettings.getProperty("ChampionExpSP", "8"));
-                CHAMPION_BOSS           = Boolean.parseBoolean(championsSettings.getProperty("ChampionBoss", "false"));
-                CHAMPION_LEVEL        	= Integer.parseInt(championsSettings.getProperty("ChampionMinLevel", "1"));
-                CHAMPION_MINIONS        = Boolean.parseBoolean(championsSettings.getProperty("ChampionMinions", "false"));
-	        }
-	        catch (Exception e)
-	        {
-	            _log.error(e.getMessage(),e);
-	            throw new Error("Failed to Load "+CHAMPIONS_FILE+" File.");
-	        }
-
-	        try
-	        {
-                Properties lotterySettings = new Properties();
-                InputStream is               = new FileInputStream(new File(LOTTERY_FILE));
-                lotterySettings.load(is);
-                is.close();
-                
-                ALT_LOTTERY_PRIZE                                   = Integer.parseInt(lotterySettings.getProperty("AltLotteryPrize","50000"));
-                ALT_LOTTERY_TICKET_PRICE                            = Integer.parseInt(lotterySettings.getProperty("AltLotteryTicketPrice","2000"));
-                ALT_LOTTERY_5_NUMBER_RATE                           = Float.parseFloat(lotterySettings.getProperty("AltLottery5NumberRate","0.6"));
-                ALT_LOTTERY_4_NUMBER_RATE                           = Float.parseFloat(lotterySettings.getProperty("AltLottery4NumberRate","0.2"));
-                ALT_LOTTERY_3_NUMBER_RATE                           = Float.parseFloat(lotterySettings.getProperty("AltLottery3NumberRate","0.2"));
-                ALT_LOTTERY_2_AND_1_NUMBER_PRIZE                    = Integer.parseInt(lotterySettings.getProperty("AltLottery2and1NumberPrize","200"));
-	        }
-	        catch (Exception e)
-	        {
-	            _log.error(e.getMessage(),e);
-	            throw new Error("Failed to Load "+LOTTERY_FILE+" File.");
-	        }
-	        
-	        try
-	        {
-                Properties sepulchursSettings = new Properties();
-                InputStream is               = new FileInputStream(new File(SEPULCHURS_FILE));
-                sepulchursSettings.load(is);
-                is.close();
-                
-                FS_TIME_ATTACK 										= Integer.parseInt(sepulchursSettings.getProperty("TimeOfAttack", "50"));
-                FS_TIME_COOLDOWN 									= Integer.parseInt(sepulchursSettings.getProperty("TimeOfCoolDown", "5"));
-                FS_TIME_ENTRY 										= Integer.parseInt(sepulchursSettings.getProperty("TimeOfEntry", "3"));
-                FS_TIME_WARMUP 										= Integer.parseInt(sepulchursSettings.getProperty("TimeOfWarmUp", "2"));
-                FS_PARTY_MEMBER_COUNT 								= Integer.parseInt(sepulchursSettings.getProperty("NumberOfNecessaryPartyMembers", "4"));
-                if(FS_TIME_ATTACK <= 0) FS_TIME_ATTACK = 50;
-                if(FS_TIME_COOLDOWN <= 0) FS_TIME_COOLDOWN = 5;
-                if(FS_TIME_ENTRY <= 0) FS_TIME_ENTRY = 3;
-                if(FS_TIME_ENTRY <= 0) FS_TIME_ENTRY = 3;
-                if(FS_TIME_ENTRY <= 0) FS_TIME_ENTRY = 3;
-                
-	        }
-	        catch (Exception e)
-	        {
-	            _log.error(e.getMessage(),e);
-	            throw new Error("Failed to Load "+SEPULCHURS_FILE+" File.");
-	        }
-	        
-	        try
-	        {
-                Properties weddingSettings = new Properties();
-                InputStream is               = new FileInputStream(new File(WEDDING_FILE));
-                weddingSettings.load(is);
-                is.close();
-                
-                WEDDING_PRICE                                       = Integer.parseInt(weddingSettings.getProperty("WeddingPrice", "500000"));
-                WEDDING_PUNISH_INFIDELITY                           = Boolean.parseBoolean(weddingSettings.getProperty("WeddingPunishInfidelity", "true"));                
-                WEDDING_TELEPORT                                    = Boolean.parseBoolean(weddingSettings.getProperty("WeddingTeleport", "true"));
-                WEDDING_TELEPORT_PRICE                              = Integer.parseInt(weddingSettings.getProperty("WeddingTeleportPrice", "500000"));
-                WEDDING_TELEPORT_INTERVAL                           = Integer.parseInt(weddingSettings.getProperty("WeddingTeleportInterval", "120"));
-                WEDDING_SAMESEX                                     = Boolean.parseBoolean(weddingSettings.getProperty("WeddingAllowSameSex", "true"));
-                WEDDING_FORMALWEAR                                  = Boolean.parseBoolean(weddingSettings.getProperty("WeddingFormalWear", "true"));
-                WEDDING_DIVORCE_COSTS                               = Integer.parseInt(weddingSettings.getProperty("WeddingDivorceCosts", "20"));
-	        }
-	        catch (Exception e)
-	        {
-	            _log.error(e.getMessage(),e);
-	            throw new Error("Failed to Load "+WEDDING_FILE+" File.");
-	        }
 	        
             try 
             {
