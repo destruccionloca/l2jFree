@@ -724,6 +724,10 @@ public final class Config {
     public static final String  OTHER_CONFIG_FILE			= "./config/other.properties";
     //  *******************************************************************************************
     //  *******************************************************************************************
+    public static void loadotherconfig()
+    {
+    	
+    }
     
     
     
@@ -731,40 +735,222 @@ public final class Config {
     public static final String  OPTIONS_FILE                = "./config/options.properties";
     //  *******************************************************************************************
     //  *******************************************************************************************
-
+    public static void loadoptionsconfig()
+    {
+    	
+    }
+    
     
     
     //  *******************************************************************************************    
     public static final String  ALT_SETTINGS_FILE			= "./config/altsettings.properties";
     //  *******************************************************************************************
     //  *******************************************************************************************
-
+    public static void loadaltconfig()
+    {
+    	
+    }
+    
     
     
     //  *******************************************************************************************    
     public static final String  GM_ACCESS_FILE				= "./config/GMAccess.properties";
     //  *******************************************************************************************
+    public static int     	GM_ACCESSLEVEL;
+    public static int     	GM_MIN;					// General GM Minimal AccessLevel
+    public static int     	GM_ANNOUNCE;			// General GM AccessLevel to change announcements
+    public static int     	GM_BAN;					// General GM AccessLevel can /ban /unban
+    public static int     	GM_BAN_CHAT;			// General GM AccessLevel can /ban /unban for chat
+    public static int     	GM_CREATE_ITEM;			// General GM AccessLevel can /create_item and /gmshop
+    public static int     	GM_ENCHANT;				// General GM AccessLevel can enchant armor
+    public static int     	GM_DELETE;				// General GM AccessLevel can /delete
+    public static int     	GM_KICK;				// General GM AccessLevel can /kick /disconnect
+    public static int     	GM_MENU;				// General GM AccessLevel for access to GMMenu
+    public static int     	GM_GODMODE;				// General GM AccessLevel to use god mode command
+    public static int     	GM_CHAR_EDIT;			// General GM AccessLevel with character edit rights
+    public static int     	GM_CHAR_EDIT_OTHER;		// General GM AccessLevel with edit rights for other characters
+    public static int     	GM_CHAR_VIEW;			// General GM AccessLevel with character view rights
+    public static int     	GM_NPC_EDIT;			// General GM AccessLevel with NPC edit rights
+    public static int     	GM_NPC_VIEW;
+    public static int     	GM_TELEPORT;			// General GM AccessLevel to teleport to any location
+    public static int     	GM_TELEPORT_OTHER;		// General GM AccessLevel to teleport character to any location
+    public static int     	GM_RESTART;				// General GM AccessLevel to restart server
+    public static int     	GM_MONSTERRACE;			// General GM AccessLevel for MonsterRace
+    public static int     	GM_RIDER;				// General GM AccessLevel to ride Wyvern
+    public static int     	GM_ESCAPE;				// General GM AccessLevel to unstuck without 5min delay
+    public static int     	GM_FIXED;				// General GM AccessLevel to resurect fixed after death
+    public static int     	GM_CREATE_NODES;		// General GM AccessLevel to create Path Nodes
+    public static int     	GM_DOOR;				// General GM AccessLevel to close/open Doors
+    public static int     	GM_RES;					// General GM AccessLevel with Resurrection rights
+    public static int     	GM_PEACEATTACK;			// General GM AccessLevel to attack in the peace zone   
+    public static int     	GM_HEAL;				// General GM AccessLevel to heal
+    public static int     	GM_UNBLOCK;				// General GM AccessLevel to unblock IPs detected as hack IPs
+    public static int 		GM_CACHE;				// General GM AccessLevel to use Cache commands				
+    public static int 		GM_TALK_BLOCK;			// General GM AccessLevel to use test&st commands
+    public static int 		GM_TEST;
+    public static boolean 	GM_DISABLE_TRANSACTION;	// Disable transaction on AccessLevel
+    public static int 		GM_TRANSACTION_MIN;
+    public static int 		GM_TRANSACTION_MAX;
+    public static int     	GM_CAN_GIVE_DAMAGE;		// Minimum level to allow a GM giving damage
+    public static int     	GM_DONT_TAKE_EXPSP;		// Minimum level to don't give Exp/Sp in party
+    public static int     	GM_DONT_TAKE_AGGRO;		// Minimum level to don't take aggro    
+    public static boolean   GM_NAME_COLOR_ENABLED;	// GM name color
+    public static boolean   GM_TITLE_COLOR_ENABLED;
+    public static int       GM_NAME_COLOR;
+    public static int       GM_TITLE_COLOR;
+    public static int       ADMIN_NAME_COLOR;
+    public static int       ADMIN_TITLE_COLOR;
+    public static boolean 	SHOW_GM_LOGIN;			// GM Announce at login
+    public static boolean 	HIDE_GM_STATUS;
+    public static boolean 	GM_STARTUP_INVISIBLE;
+    public static boolean 	GM_STARTUP_SILENCE;
+    public static boolean 	GM_STARTUP_AUTO_LIST;
+    public static int 		STANDARD_RESPAWN_DELAY;	// Standard Respawn Delay
+    public static boolean 	GM_HERO_AURA;			// Place an aura around the GM ?
+    public static boolean 	GM_STARTUP_INVULNERABLE;	// Set the GM invulnerable at startup ?
     //  *******************************************************************************************
+    public static void loadgmaccess()
+    {
+    	_log.info("loading " + GM_ACCESS_FILE);
+        try
+        {
+            Properties gmSettings   = new Properties();
+            InputStream is          = new FileInputStream(new File(GM_ACCESS_FILE));  
+            gmSettings.load(is);
+            is.close();               
+            
+            GM_ACCESSLEVEL  = Integer.parseInt(gmSettings.getProperty("GMAccessLevel", "100"));
+            GM_MIN          = Integer.parseInt(gmSettings.getProperty("GMMinLevel", "100"));
+            GM_ANNOUNCE     = Integer.parseInt(gmSettings.getProperty("GMCanAnnounce", "100"));
+            GM_BAN          = Integer.parseInt(gmSettings.getProperty("GMCanBan", "100"));
+            GM_BAN_CHAT     = Integer.parseInt(gmSettings.getProperty("GMCanBanChat", "100"));
+            GM_CREATE_ITEM  = Integer.parseInt(gmSettings.getProperty("GMCanShop", "100"));
+            GM_DELETE       = Integer.parseInt(gmSettings.getProperty("GMCanDelete", "100"));
+            GM_KICK         = Integer.parseInt(gmSettings.getProperty("GMCanKick", "100"));
+            GM_MENU         = Integer.parseInt(gmSettings.getProperty("GMMenu", "100"));
+            GM_GODMODE      = Integer.parseInt(gmSettings.getProperty("GMGodMode", "100"));
+            GM_CHAR_EDIT    = Integer.parseInt(gmSettings.getProperty("GMCanEditChar", "100"));
+            GM_CHAR_EDIT_OTHER    = Integer.parseInt(gmSettings.getProperty("GMCanEditCharOther", "100"));
+            GM_CHAR_VIEW    = Integer.parseInt(gmSettings.getProperty("GMCanViewChar", "100"));
+            GM_NPC_EDIT     = Integer.parseInt(gmSettings.getProperty("GMCanEditNPC", "100"));
+            GM_NPC_VIEW     = Integer.parseInt(gmSettings.getProperty("GMCanViewNPC", "100"));
+            GM_TELEPORT     = Integer.parseInt(gmSettings.getProperty("GMCanTeleport", "100"));
+            GM_TELEPORT_OTHER     = Integer.parseInt(gmSettings.getProperty("GMCanTeleportOther", "100"));
+            GM_RESTART      = Integer.parseInt(gmSettings.getProperty("GMCanRestart", "100"));
+            GM_MONSTERRACE  = Integer.parseInt(gmSettings.getProperty("GMMonsterRace", "100"));
+            GM_RIDER        = Integer.parseInt(gmSettings.getProperty("GMRider", "100"));
+            GM_ESCAPE       = Integer.parseInt(gmSettings.getProperty("GMFastUnstuck", "100"));
+            GM_FIXED        = Integer.parseInt(gmSettings.getProperty("GMResurectFixed", "100"));
+            GM_CREATE_NODES = Integer.parseInt(gmSettings.getProperty("GMCreateNodes", "100"));
+            GM_DOOR         = Integer.parseInt(gmSettings.getProperty("GMDoor", "100"));
+            GM_RES          = Integer.parseInt(gmSettings.getProperty("GMRes", "100"));
+            GM_PEACEATTACK  = Integer.parseInt(gmSettings.getProperty("GMPeaceAttack", "100"));
+            GM_HEAL         = Integer.parseInt(gmSettings.getProperty("GMHeal", "100"));
+            GM_ENCHANT      = Integer.parseInt(gmSettings.getProperty("GMEnchant", "100"));
+            GM_UNBLOCK      = Integer.parseInt(gmSettings.getProperty("GMUnblock", "100"));
+            GM_CACHE        = Integer.parseInt(gmSettings.getProperty("GMCache", "100"));
+            GM_TALK_BLOCK   = Integer.parseInt(gmSettings.getProperty("GMTalkBlock", "100"));
+            GM_TEST         = Integer.parseInt(gmSettings.getProperty("GMTest", "100"));
+            GM_STARTUP_AUTO_LIST = Boolean.parseBoolean(gmSettings.getProperty("GMStartupAutoList", "True"));
+            GM_HERO_AURA 	= Boolean.parseBoolean(gmSettings.getProperty("GMHeroAura", "True"));
+            GM_STARTUP_INVULNERABLE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvulnerable", "True"));
+            STANDARD_RESPAWN_DELAY = Integer.parseInt(gmSettings.getProperty("StandardRespawnDelay", "0"));
+            
+            String gmTrans = gmSettings.getProperty("GMDisableTransaction", "False");
+            
+            if (!gmTrans.trim().equalsIgnoreCase("false"))
+            {
+                String[] params = gmTrans.trim().split(",");
+                GM_DISABLE_TRANSACTION = true;
+                GM_TRANSACTION_MIN = Integer.parseInt(params[0].trim());
+                GM_TRANSACTION_MAX = Integer.parseInt(params[1].trim());
+            }
+            else
+            {
+                GM_DISABLE_TRANSACTION = false; 
+            }
+            GM_CAN_GIVE_DAMAGE = Integer.parseInt(gmSettings.getProperty("GMCanGiveDamage", "90"));
+            GM_DONT_TAKE_AGGRO = Integer.parseInt(gmSettings.getProperty("GMDontTakeAggro", "90"));
+            GM_DONT_TAKE_EXPSP = Integer.parseInt(gmSettings.getProperty("GMDontGiveExpSp", "90"));
+            
+            GM_NAME_COLOR_ENABLED  = Boolean.parseBoolean(gmSettings.getProperty("GMNameColorEnabled", "True"));
+            GM_NAME_COLOR_ENABLED  = Boolean.parseBoolean(gmSettings.getProperty("GMTitleColorEnabled", "True"));
+            GM_NAME_COLOR          = Integer.decode("0x" + gmSettings.getProperty("GMNameColor", "00FF00"));
+            GM_TITLE_COLOR         = Integer.decode("0x" + gmSettings.getProperty("GMTitleColor", "00FF00"));
+            ADMIN_NAME_COLOR       = Integer.decode("0x" + gmSettings.getProperty("AdminNameColor", "00FF00"));
+            ADMIN_TITLE_COLOR      = Integer.decode("0x" + gmSettings.getProperty("AdminTitleColor", "00FF00"));
+            SHOW_GM_LOGIN 	       = Boolean.parseBoolean(gmSettings.getProperty("ShowGMLogin", "false"));
+            HIDE_GM_STATUS	       = Boolean.parseBoolean(gmSettings.getProperty("HideGMStatus", "false")); 
+            GM_STARTUP_INVISIBLE   = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvisible", "True"));
+            GM_STARTUP_SILENCE     = Boolean.parseBoolean(gmSettings.getProperty("GMStartupSilence", "True"));
+            
+        }
+        catch (Exception e)
+        {
+            _log.error(e);
+            throw new Error("Failed to Load "+GM_ACCESS_FILE+" File.");
+        }
+    }
     
     
     
     //  *******************************************************************************************    
     public static final String  TELNET_FILE					= "./config/telnet.properties";
     //  *******************************************************************************************
+    public static boolean IS_TELNET_ENABLED;	// Is telnet enabled ?
     //  *******************************************************************************************
+    public static void loadtelnetconfig()
+    {
+    	_log.info("loading " + TELNET_FILE);
+        try
+        {
+            Properties telnetSettings   = new Properties();
+            InputStream is              = new FileInputStream(new File(TELNET_FILE));  
+            telnetSettings.load(is);
+            is.close();
+            
+            IS_TELNET_ENABLED   = Boolean.valueOf(telnetSettings.getProperty("EnableTelnet", "false"));
+        }
+        catch (Exception e)
+        {
+            _log.error(e);
+            throw new Error("Failed to Load "+TELNET_FILE+" File.");
+        }
+    }
     
     
     
     //  *******************************************************************************************    
     public static final String  VERSION_FILE				= "./config/l2j-version.properties";
     //  *******************************************************************************************
+    public static String        SERVER_VERSION;
+    public static String        SERVER_BUILD_DATE;
     //  *******************************************************************************************
+    public static void loadversionconfig()
+    {
+    	_log.info("loading " + VERSION_FILE);
+        try
+        {
+            Properties serverVersion    = new Properties();
+            InputStream is              = new FileInputStream(new File(VERSION_FILE));  
+            serverVersion.load(is);
+            is.close();
+            
+            SERVER_VERSION      = serverVersion.getProperty("version", "Unsupported Custom Version.");
+            SERVER_BUILD_DATE   = serverVersion.getProperty("builddate", "Undefined Date.");
+        }
+        catch (Exception e)
+        {
+            //Ignore Properties file if it doesnt exist
+            SERVER_VERSION      = "Unsupported Custom Version.";
+            SERVER_BUILD_DATE   = "Undefined Date.";
+        }
+    }
     
     
     
     //  *******************************************************************************************    
     public static final String  SIEGE_CONFIGURATION_FILE	= "./config/siege.properties";
-    //  *******************************************************************************************
     //  *******************************************************************************************
     
     
@@ -772,7 +958,24 @@ public final class Config {
     //  *******************************************************************************************
     public static final String  HEXID_FILE					= "./config/hexid.txt";
     //  *******************************************************************************************
+	public static byte[] HEX_ID;	// Hexadecimal ID of the game server
     //  *******************************************************************************************
+    public static void loadhexid()
+    {
+    	_log.info("loading " + HEXID_FILE);
+        try
+        {
+            Properties Settings   = new Properties();
+            InputStream is          = new FileInputStream(HEXID_FILE);  
+            Settings.load(is);
+            is.close();  
+            HEX_ID = new BigInteger(Settings.getProperty("HexID"), 16).toByteArray();
+        }
+        catch (Exception e)
+        {
+        	_log.warn("Could not load HexID file ("+HEXID_FILE+"). Hopefully login will give us one.");
+        }
+    }
     
     
     
@@ -786,7 +989,48 @@ public final class Config {
     //  *******************************************************************************************    
     public static final String  SEVENSIGNS_FILE             = "./config/sevensigns.properties";
     //  *******************************************************************************************
+    public static boolean 	ALT_GAME_REQUIRE_CASTLE_DAWN;	// Alternative gaming - player must be in a castle-owning clan or ally to sign up for Dawn.
+    public static boolean 	ALT_GAME_REQUIRE_CLAN_CASTLE;	// Alternative gaming - allow clan-based castle ownage check rather than ally-based.
+    public static int 		ALT_FESTIVAL_MIN_PLAYER;		// Minimum number of player to participate in SevenSigns Festival
+    public static int 		ALT_MAXIMUM_PLAYER_CONTRIB;		// Maximum of player contrib during Festival    
+    public static long 		ALT_FESTIVAL_MANAGER_START;		// Festival Manager start time.
+    public static long 		ALT_FESTIVAL_LENGTH;			// Festival Length
+    public static long 		ALT_FESTIVAL_CYCLE_LENGTH;		// Festival Cycle Length
+    public static long 		ALT_FESTIVAL_FIRST_SPAWN;		// Festival First Spawn
+    public static long 		ALT_FESTIVAL_FIRST_SWARM;		// Festival First Swarm
+    public static long 		ALT_FESTIVAL_SECOND_SPAWN;		// Festival Second Spawn
+    public static long 		ALT_FESTIVAL_SECOND_SWARM;		// Festival Second Swarm
+    public static long 		ALT_FESTIVAL_CHEST_SPAWN;		// Festival Chest Spawn
     //  *******************************************************************************************
+    public static void loadsevensignsconfig()
+    {
+    	_log.info("loading " + SEVENSIGNS_FILE);
+        try
+        {
+            Properties SevenSettings  = new Properties();
+            InputStream is            = new FileInputStream(new File(SEVENSIGNS_FILE));  
+            SevenSettings.load(is);
+            is.close();
+            
+            ALT_GAME_REQUIRE_CASTLE_DAWN    = Boolean.parseBoolean(SevenSettings.getProperty("AltRequireCastleForDawn", "False"));
+            ALT_GAME_REQUIRE_CLAN_CASTLE    = Boolean.parseBoolean(SevenSettings.getProperty("AltRequireClanCastle", "False"));
+            ALT_FESTIVAL_MIN_PLAYER         = Integer.parseInt(SevenSettings.getProperty("AltFestivalMinPlayer", "5"));
+            ALT_MAXIMUM_PLAYER_CONTRIB      = Integer.parseInt(SevenSettings.getProperty("AltMaxPlayerContrib", "1000000"));
+            ALT_FESTIVAL_MANAGER_START      = Long.parseLong(SevenSettings.getProperty("AltFestivalManagerStart", "120000"));
+            ALT_FESTIVAL_LENGTH             = Long.parseLong(SevenSettings.getProperty("AltFestivalLength", "1080000"));
+            ALT_FESTIVAL_CYCLE_LENGTH       = Long.parseLong(SevenSettings.getProperty("AltFestivalCycleLength", "2280000"));
+            ALT_FESTIVAL_FIRST_SPAWN        = Long.parseLong(SevenSettings.getProperty("AltFestivalFirstSpawn", "120000"));
+            ALT_FESTIVAL_FIRST_SWARM        = Long.parseLong(SevenSettings.getProperty("AltFestivalFirstSwarm", "300000"));
+            ALT_FESTIVAL_SECOND_SPAWN       = Long.parseLong(SevenSettings.getProperty("AltFestivalSecondSpawn", "540000"));
+            ALT_FESTIVAL_SECOND_SWARM       = Long.parseLong(SevenSettings.getProperty("AltFestivalSecondSwarm", "720000"));
+            ALT_FESTIVAL_CHEST_SPAWN        = Long.parseLong(SevenSettings.getProperty("AltFestivalChestSpawn", "900000"));
+        }
+        catch (Exception e)
+        {
+            _log.error(e);
+            throw new Error("Failed to Load "+SEVENSIGNS_FILE+" File.");
+        }
+    }
     
     
     
@@ -821,6 +1065,7 @@ public final class Config {
     public static int 	CH_SUPPORT2_FEE;
     public static int 	CH_SUPPORT3_FEE;
     public static int 	CH_SUPPORT4_FEE;
+    //  *******************************************************************************************    
     public static int 	CH_SUPPORT5_FEE;
     //  *******************************************************************************************
     public static void loadclanhallconfig()
@@ -871,15 +1116,75 @@ public final class Config {
     
     
     
-    //  *******************************************************************************************    
-    public static final String  FUN_ENGINES_FILE            = "./config/fun_engines.properties";
     //  *******************************************************************************************
+    
+    
     //  *******************************************************************************************    
+    public static final String  FUN_ENGINES_FILE	= "./config/fun_engines.properties";
+    //  *******************************************************************************************
+    public static String TVT_EVEN_TEAMS;
+    public static String CTF_EVEN_TEAMS;
+    public static boolean CTF_ALLOW_INTERFERENCE;
+    public static boolean CTF_ALLOW_POTIONS;
+    public static boolean CTF_ALLOW_SUMMON;
+    public static boolean CTF_ON_START_REMOVE_ALL_EFFECTS;
+    public static boolean CTF_ON_START_UNSUMMON_PET;
+    public static boolean TVT_ALLOW_INTERFERENCE;
+    public static boolean TVT_ALLOW_POTIONS;
+    public static boolean TVT_ALLOW_SUMMON;
+    public static boolean TVT_ON_START_REMOVE_ALL_EFFECTS;
+    public static boolean TVT_ON_START_UNSUMMON_PET;
+    public static boolean DM_ALLOW_INTERFERENCE;
+    public static boolean DM_ALLOW_POTIONS;
+    public static boolean DM_ALLOW_SUMMON;
+    public static boolean DM_ON_START_REMOVE_ALL_EFFECTS;
+    public static boolean DM_ON_START_UNSUMMON_PET;
+    //  *******************************************************************************************    
+    //  *******************************************************************************************
+    public static void loadfunenginesconfig()
+    {
+    	_log.info("loading " + FUN_ENGINES_FILE);
+        try
+        {
+           Properties funEnginesSettings = new Properties();
+           InputStream is = new FileInputStream(new File(FUN_ENGINES_FILE));  
+           funEnginesSettings.load(is);
+           is.close();
+           
+           CTF_EVEN_TEAMS = funEnginesSettings.getProperty("CTFEvenTeams", "BALANCE");
+           CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowInterference", "false"));
+           CTF_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowPotions", "false"));
+           CTF_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowSummon", "false"));
+           CTF_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFOnStartRemoveAllEffects", "true"));
+           CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFOnStartUnsummonPet", "true"));
+           
+           TVT_EVEN_TEAMS = funEnginesSettings.getProperty("TvTEvenTeams", "BALANCE");
+           TVT_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowInterference", "false"));
+           TVT_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowPotions", "false"));
+           TVT_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowSummon", "false"));
+           TVT_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTOnStartRemoveAllEffects", "true"));
+           TVT_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTOnStartUnsummonPet", "true"));
+        
+           DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowInterference", "false"));
+           DM_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowPotions", "false"));
+           DM_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowSummon", "false"));
+           DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("DMOnStartRemoveAllEffects", "true"));
+           DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("DMOnStartUnsummonPet", "true"));
+        }
+        catch (Exception e)
+        {
+            _log.error(e.getMessage(),e);
+            throw new Error("Failed to Load " + FUN_ENGINES_FILE + " File.");
+        }
+    }
     
     
     
+    //  *******************************************************************************************
+
     //  *******************************************************************************************    
     public static final String	SAY_FILTER_FILE				= "./config/sayfilter.txt";
+    //  *******************************************************************************************    
     //  *******************************************************************************************
     public static void loadsayfilter()
     {
@@ -909,7 +1214,7 @@ public final class Config {
         }
     }
     //  *******************************************************************************************    
-	
+    
 	
 	/** Enable/disable assertions */
     public static boolean ASSERT;
@@ -1044,12 +1349,7 @@ public final class Config {
 
     /** Alternative gameing - magic dmg failures */
     public static boolean ALT_GAME_MAGICFAILURES;
-
-    /** Alternative gaming - player must be in a castle-owning clan or ally to sign up for Dawn. */
-    public static boolean ALT_GAME_REQUIRE_CASTLE_DAWN;
     
-    /** Alternative gaming - allow clan-based castle ownage check rather than ally-based. */
-    public static boolean ALT_GAME_REQUIRE_CLAN_CASTLE;
     
     /** Alternative gaming - allow free teleporting around the world. */
     public static boolean ALT_GAME_FREE_TELEPORT;
@@ -1063,35 +1363,6 @@ public final class Config {
     /** View npc stats/drop by shift-cliking it for nongm-players */
     public static boolean ALT_GAME_VIEWNPC;    
     
-    /** Minimum number of player to participate in SevenSigns Festival */
-    public static int ALT_FESTIVAL_MIN_PLAYER;
-
-    /** Maximum of player contrib during Festival */
-    public static int ALT_MAXIMUM_PLAYER_CONTRIB;    
-   
-    /** Festival Manager start time. */
-    public static long ALT_FESTIVAL_MANAGER_START;
-
-    /** Festival Length */
-    public static long ALT_FESTIVAL_LENGTH;
-
-    /** Festival Cycle Length */
-    public static long ALT_FESTIVAL_CYCLE_LENGTH;
-
-    /** Festival First Spawn */
-    public static long ALT_FESTIVAL_FIRST_SPAWN;
-
-    /** Festival First Swarm */
-    public static long ALT_FESTIVAL_FIRST_SWARM;
-
-    /** Festival Second Spawn */
-    public static long ALT_FESTIVAL_SECOND_SPAWN;
-
-    /** Festival Second Swarm */
-    public static long ALT_FESTIVAL_SECOND_SWARM;
-
-    /** Festival Chest Spawn */
-    public static long ALT_FESTIVAL_CHEST_SPAWN;
 
     /** Alternative gaming - all new characters always are newbies. */
     public static boolean ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE;
@@ -1141,95 +1412,6 @@ public final class Config {
     /** No exp cutoff */
     public static int ALT_DIFF_CUTOFF;
     
-    /***************************************************************************
-     * GM CONFIG General GM AccessLevel *
-     **************************************************************************/
-    public static int     GM_ACCESSLEVEL;
-    /** General GM Minimal AccessLevel */
-    public static int     GM_MIN;
-    /** General GM AccessLevel to change announcements */
-    public static int     GM_ANNOUNCE;
-    /** General GM AccessLevel can /ban /unban */
-    public static int     GM_BAN;
-    /** General GM AccessLevel can /ban /unban for chat */
-    public static int     GM_BAN_CHAT;
-    /** General GM AccessLevel can /create_item and /gmshop */
-    public static int     GM_CREATE_ITEM;
-    /** General GM AccessLevel can enchant armor */
-    public static int     GM_ENCHANT;
-    /** General GM AccessLevel can /delete */
-    public static int     GM_DELETE;
-    /** General GM AccessLevel can /kick /disconnect */
-    public static int     GM_KICK;
-    /** General GM AccessLevel for access to GMMenu */
-    public static int     GM_MENU;
-    /** General GM AccessLevel to use god mode command */
-    public static int     GM_GODMODE;
-    /** General GM AccessLevel with character edit rights */
-    public static int     GM_CHAR_EDIT;
-    /** General GM AccessLevel with edit rights for other characters */
-    public static int     GM_CHAR_EDIT_OTHER;
-    /** General GM AccessLevel with character view rights */
-    public static int     GM_CHAR_VIEW;
-    /** General GM AccessLevel with NPC edit rights */
-    public static int     GM_NPC_EDIT;
-    public static int     GM_NPC_VIEW;
-    /** General GM AccessLevel to teleport to any location */
-    public static int     GM_TELEPORT;
-    /** General GM AccessLevel to teleport character to any location */
-    public static int     GM_TELEPORT_OTHER;
-    /** General GM AccessLevel to restart server */
-    public static int     GM_RESTART;
-    /** General GM AccessLevel for MonsterRace */
-    public static int     GM_MONSTERRACE;
-    /** General GM AccessLevel to ride Wyvern */
-    public static int     GM_RIDER;
-    /** General GM AccessLevel to unstuck without 5min delay */
-    public static int     GM_ESCAPE;
-    /** General GM AccessLevel to resurect fixed after death */
-    public static int     GM_FIXED;
-    /** General GM AccessLevel to create Path Nodes */
-    public static int     GM_CREATE_NODES;
-    /** General GM AccessLevel to close/open Doors */
-    public static int     GM_DOOR;
-    /** General GM AccessLevel with Resurrection rights */
-    public static int     GM_RES;
-    /** General GM AccessLevel to attack in the peace zone */
-    public static int     GM_PEACEATTACK;   
-    /** General GM AccessLevel to heal */
-    public static int     GM_HEAL;
-    /** General GM AccessLevel to unblock IPs detected as hack IPs */
-    public static int     GM_UNBLOCK;
-    /** General GM AccessLevel to use Cache commands */
-    public static int GM_CACHE;
-    /** General GM AccessLevel to use test&st commands */
-    public static int GM_TALK_BLOCK;
-    public static int GM_TEST;
-    /** Disable transaction on AccessLevel **/
-    public static boolean GM_DISABLE_TRANSACTION;
-    public static int GM_TRANSACTION_MIN;
-    public static int GM_TRANSACTION_MAX;
-    /** Minimum level to allow a GM giving damage */
-    public static int     GM_CAN_GIVE_DAMAGE;
-    /** Minimum level to don't give Exp/Sp in party */
-    public static int     GM_DONT_TAKE_EXPSP;
-    /** Minimum level to don't take aggro */
-    public static int     GM_DONT_TAKE_AGGRO;    
-    /** GM name color */
-    public static boolean   GM_NAME_COLOR_ENABLED;
-    public static boolean   GM_TITLE_COLOR_ENABLED;
-    public static int       GM_NAME_COLOR;
-    public static int       GM_TITLE_COLOR;
-    public static int       ADMIN_NAME_COLOR;
-    public static int       ADMIN_TITLE_COLOR;
-    /** GM Announce at login */
-    public static boolean SHOW_GM_LOGIN;
-    public static boolean HIDE_GM_STATUS;
-    public static boolean GM_STARTUP_INVISIBLE;
-    public static boolean GM_STARTUP_SILENCE;
-    public static boolean GM_STARTUP_AUTO_LIST;
-    /** Standard Respawn Delay */
-    public static int STANDARD_RESPAWN_DELAY;
 
     public static boolean PETITIONING_ALLOWED;
     public static int MAX_PETITIONS_PER_PLAYER;
@@ -1367,25 +1549,6 @@ public final class Config {
     public static int           NAME_PAGE_SIZE_COMMUNITYBOARD;
     public static int           NAME_PER_ROW_COMMUNITYBOARD;
 
-    /** Fun engines parameters */
-    public static String TVT_EVEN_TEAMS;
-    public static String CTF_EVEN_TEAMS;
-    public static boolean CTF_ALLOW_INTERFERENCE;
-    public static boolean CTF_ALLOW_POTIONS;
-    public static boolean CTF_ALLOW_SUMMON;
-    public static boolean CTF_ON_START_REMOVE_ALL_EFFECTS;
-    public static boolean CTF_ON_START_UNSUMMON_PET;
-    public static boolean TVT_ALLOW_INTERFERENCE;
-    public static boolean TVT_ALLOW_POTIONS;
-    public static boolean TVT_ALLOW_SUMMON;
-    public static boolean TVT_ON_START_REMOVE_ALL_EFFECTS;
-    public static boolean TVT_ON_START_UNSUMMON_PET;
-    public static boolean DM_ALLOW_INTERFERENCE;
-    public static boolean DM_ALLOW_POTIONS;
-    public static boolean DM_ALLOW_SUMMON;
-    public static boolean DM_ON_START_REMOVE_ALL_EFFECTS;
-    public static boolean DM_ON_START_UNSUMMON_PET;
-
     public static IOType        IO_TYPE;
     public static int           PATH_NODE_RADIUS;
     public static int           NEW_NODE_ID;
@@ -1490,8 +1653,6 @@ public final class Config {
     	
     }
 
-    public static String        SERVER_VERSION;
-    public static String        SERVER_BUILD_DATE;
     
     /** Show L2Monster level and aggro ? */
     public static boolean       SHOW_NPC_LVL;
@@ -1611,9 +1772,6 @@ public final class Config {
     public static boolean DEEPBLUE_DROP_RULES;
     public static int     UNSTUCK_INTERVAL;
     
-    /** Is telnet enabled ? */
-    public static boolean IS_TELNET_ENABLED;
-    
     /** Player Protection control */
     public static int   PLAYER_SPAWN_PROTECTION;
     public static int   PLAYER_FAKEDEATH_UP_PROTECTION;
@@ -1653,20 +1811,12 @@ public final class Config {
     /** Parameter for default punishment */
     public static int DEFAULT_PUNISH_PARAM;    
     
-    /** Hexadecimal ID of the game server */
-	public static byte[] HEX_ID;
-    
     public static int MINIMUM_UPDATE_DISTANCE;
     public static int KNOWNLIST_FORGET_DELAY;
     public static int MINIMUN_UPDATE_TIME;
     
     public static boolean ANNOUNCE_MAMMON_SPAWN;
     public static boolean LAZY_CACHE;
-    
-    /** Place an aura around the GM ? */
-    public static boolean GM_HERO_AURA;
-    /** Set the GM invulnerable at startup ? */
-    public static boolean GM_STARTUP_INVULNERABLE;
     
     public static boolean	BYPASS_VALIDATION;
     public static boolean GM_AUDIT;
@@ -1725,6 +1875,12 @@ public final class Config {
 			loadpvpconfig();
 			loadclanhallconfig();
 			loadidfactoryconfig();
+			loadversionconfig();
+			loadhexid();
+			loadfunenginesconfig();
+			loadsevensignsconfig();
+			loadgmaccess();
+			loadtelnetconfig();
 			
             try 
             {
@@ -1879,41 +2035,6 @@ public final class Config {
                 _log.error(e.getMessage(),e);
                 throw new Error("Failed to Load "+OPTIONS_FILE+" File.");
             }
-	        /*
-	         * Load L2J Version Properties file (if exists)
-	         */
-	        try
-	        {
-	            Properties serverVersion    = new Properties();
-	            InputStream is              = new FileInputStream(new File(VERSION_FILE));  
-	            serverVersion.load(is);
-	            is.close();
-	            
-	            SERVER_VERSION      = serverVersion.getProperty("version", "Unsupported Custom Version.");
-	            SERVER_BUILD_DATE   = serverVersion.getProperty("builddate", "Undefined Date.");
-	        }
-	        catch (Exception e)
-	        {
-	            //Ignore Properties file if it doesnt exist
-	            SERVER_VERSION      = "Unsupported Custom Version.";
-	            SERVER_BUILD_DATE   = "Undefined Date.";
-	        }
-	        
-	        // telnet
-	        try
-	        {
-	            Properties telnetSettings   = new Properties();
-	            InputStream is              = new FileInputStream(new File(TELNET_FILE));  
-	            telnetSettings.load(is);
-	            is.close();
-	            
-	            IS_TELNET_ENABLED   = Boolean.valueOf(telnetSettings.getProperty("EnableTelnet", "false"));
-	        }
-	        catch (Exception e)
-	        {
-                _log.error(e);
-	            throw new Error("Failed to Load "+TELNET_FILE+" File.");
-	        }
 	        
 	        // other
 	        try
@@ -2150,158 +2271,6 @@ public final class Config {
                 _log.error(e);
 	            throw new Error("Failed to Load "+ALT_SETTINGS_FILE+" File.");
 	        }
-            
-           // Seven Signs Config
-            try
-            {
-                Properties SevenSettings  = new Properties();
-                InputStream is            = new FileInputStream(new File(SEVENSIGNS_FILE));  
-                SevenSettings.load(is);
-                is.close();
-                
-                ALT_GAME_REQUIRE_CASTLE_DAWN    = Boolean.parseBoolean(SevenSettings.getProperty("AltRequireCastleForDawn", "False"));
-                ALT_GAME_REQUIRE_CLAN_CASTLE    = Boolean.parseBoolean(SevenSettings.getProperty("AltRequireClanCastle", "False"));
-                ALT_FESTIVAL_MIN_PLAYER         = Integer.parseInt(SevenSettings.getProperty("AltFestivalMinPlayer", "5"));
-                ALT_MAXIMUM_PLAYER_CONTRIB      = Integer.parseInt(SevenSettings.getProperty("AltMaxPlayerContrib", "1000000"));
-                ALT_FESTIVAL_MANAGER_START      = Long.parseLong(SevenSettings.getProperty("AltFestivalManagerStart", "120000"));
-                ALT_FESTIVAL_LENGTH             = Long.parseLong(SevenSettings.getProperty("AltFestivalLength", "1080000"));
-                ALT_FESTIVAL_CYCLE_LENGTH       = Long.parseLong(SevenSettings.getProperty("AltFestivalCycleLength", "2280000"));
-                ALT_FESTIVAL_FIRST_SPAWN        = Long.parseLong(SevenSettings.getProperty("AltFestivalFirstSpawn", "120000"));
-                ALT_FESTIVAL_FIRST_SWARM        = Long.parseLong(SevenSettings.getProperty("AltFestivalFirstSwarm", "300000"));
-                ALT_FESTIVAL_SECOND_SPAWN       = Long.parseLong(SevenSettings.getProperty("AltFestivalSecondSpawn", "540000"));
-                ALT_FESTIVAL_SECOND_SWARM       = Long.parseLong(SevenSettings.getProperty("AltFestivalSecondSwarm", "720000"));
-                ALT_FESTIVAL_CHEST_SPAWN        = Long.parseLong(SevenSettings.getProperty("AltFestivalChestSpawn", "900000"));
-            }
-            catch (Exception e)
-            {
-                _log.error(e);
-                throw new Error("Failed to Load "+SEVENSIGNS_FILE+" File.");
-            }
-            
-	        // access levels
-	        try
-	        {
-	            Properties gmSettings   = new Properties();
-	            InputStream is          = new FileInputStream(new File(GM_ACCESS_FILE));  
-	            gmSettings.load(is);
-	            is.close();               
-	            
-	            GM_ACCESSLEVEL  = Integer.parseInt(gmSettings.getProperty("GMAccessLevel", "100"));
-	            GM_MIN          = Integer.parseInt(gmSettings.getProperty("GMMinLevel", "100"));
-	            GM_ANNOUNCE     = Integer.parseInt(gmSettings.getProperty("GMCanAnnounce", "100"));
-	            GM_BAN          = Integer.parseInt(gmSettings.getProperty("GMCanBan", "100"));
-	            GM_BAN_CHAT     = Integer.parseInt(gmSettings.getProperty("GMCanBanChat", "100"));
-	            GM_CREATE_ITEM  = Integer.parseInt(gmSettings.getProperty("GMCanShop", "100"));
-	            GM_DELETE       = Integer.parseInt(gmSettings.getProperty("GMCanDelete", "100"));
-	            GM_KICK         = Integer.parseInt(gmSettings.getProperty("GMCanKick", "100"));
-	            GM_MENU         = Integer.parseInt(gmSettings.getProperty("GMMenu", "100"));
-	            GM_GODMODE      = Integer.parseInt(gmSettings.getProperty("GMGodMode", "100"));
-	            GM_CHAR_EDIT    = Integer.parseInt(gmSettings.getProperty("GMCanEditChar", "100"));
-	            GM_CHAR_EDIT_OTHER    = Integer.parseInt(gmSettings.getProperty("GMCanEditCharOther", "100"));
-	            GM_CHAR_VIEW    = Integer.parseInt(gmSettings.getProperty("GMCanViewChar", "100"));
-	            GM_NPC_EDIT     = Integer.parseInt(gmSettings.getProperty("GMCanEditNPC", "100"));
-	            GM_NPC_VIEW     = Integer.parseInt(gmSettings.getProperty("GMCanViewNPC", "100"));
-	            GM_TELEPORT     = Integer.parseInt(gmSettings.getProperty("GMCanTeleport", "100"));
-	            GM_TELEPORT_OTHER     = Integer.parseInt(gmSettings.getProperty("GMCanTeleportOther", "100"));
-	            GM_RESTART      = Integer.parseInt(gmSettings.getProperty("GMCanRestart", "100"));
-	            GM_MONSTERRACE  = Integer.parseInt(gmSettings.getProperty("GMMonsterRace", "100"));
-	            GM_RIDER        = Integer.parseInt(gmSettings.getProperty("GMRider", "100"));
-	            GM_ESCAPE       = Integer.parseInt(gmSettings.getProperty("GMFastUnstuck", "100"));
-	            GM_FIXED        = Integer.parseInt(gmSettings.getProperty("GMResurectFixed", "100"));
-	            GM_CREATE_NODES = Integer.parseInt(gmSettings.getProperty("GMCreateNodes", "100"));
-                GM_DOOR         = Integer.parseInt(gmSettings.getProperty("GMDoor", "100"));
-	            GM_RES          = Integer.parseInt(gmSettings.getProperty("GMRes", "100"));
-	            GM_PEACEATTACK  = Integer.parseInt(gmSettings.getProperty("GMPeaceAttack", "100"));
-	            GM_HEAL         = Integer.parseInt(gmSettings.getProperty("GMHeal", "100"));
-	            GM_ENCHANT      = Integer.parseInt(gmSettings.getProperty("GMEnchant", "100"));
-	            GM_UNBLOCK      = Integer.parseInt(gmSettings.getProperty("GMUnblock", "100"));
-                GM_CACHE        = Integer.parseInt(gmSettings.getProperty("GMCache", "100"));
-                GM_TALK_BLOCK   = Integer.parseInt(gmSettings.getProperty("GMTalkBlock", "100"));
-                GM_TEST         = Integer.parseInt(gmSettings.getProperty("GMTest", "100"));
-                GM_STARTUP_AUTO_LIST = Boolean.parseBoolean(gmSettings.getProperty("GMStartupAutoList", "True"));
-                GM_HERO_AURA 	= Boolean.parseBoolean(gmSettings.getProperty("GMHeroAura", "True"));
-                GM_STARTUP_INVULNERABLE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvulnerable", "True"));
-                STANDARD_RESPAWN_DELAY = Integer.parseInt(gmSettings.getProperty("StandardRespawnDelay", "0"));
-                
-                String gmTrans = gmSettings.getProperty("GMDisableTransaction", "False");
-                
-                if (!gmTrans.trim().equalsIgnoreCase("false"))
-                {
-                    String[] params = gmTrans.trim().split(",");
-                    GM_DISABLE_TRANSACTION = true;
-                    GM_TRANSACTION_MIN = Integer.parseInt(params[0].trim());
-                    GM_TRANSACTION_MAX = Integer.parseInt(params[1].trim());
-                }
-                else
-                {
-                    GM_DISABLE_TRANSACTION = false; 
-                }
-                GM_CAN_GIVE_DAMAGE = Integer.parseInt(gmSettings.getProperty("GMCanGiveDamage", "90"));
-                GM_DONT_TAKE_AGGRO = Integer.parseInt(gmSettings.getProperty("GMDontTakeAggro", "90"));
-                GM_DONT_TAKE_EXPSP = Integer.parseInt(gmSettings.getProperty("GMDontGiveExpSp", "90"));
-                
-                GM_NAME_COLOR_ENABLED  = Boolean.parseBoolean(gmSettings.getProperty("GMNameColorEnabled", "True"));
-                GM_NAME_COLOR_ENABLED  = Boolean.parseBoolean(gmSettings.getProperty("GMTitleColorEnabled", "True"));
-                GM_NAME_COLOR          = Integer.decode("0x" + gmSettings.getProperty("GMNameColor", "00FF00"));
-                GM_TITLE_COLOR         = Integer.decode("0x" + gmSettings.getProperty("GMTitleColor", "00FF00"));
-                ADMIN_NAME_COLOR       = Integer.decode("0x" + gmSettings.getProperty("AdminNameColor", "00FF00"));
-                ADMIN_TITLE_COLOR      = Integer.decode("0x" + gmSettings.getProperty("AdminTitleColor", "00FF00"));
-	            SHOW_GM_LOGIN 	       = Boolean.parseBoolean(gmSettings.getProperty("ShowGMLogin", "false"));
-	            HIDE_GM_STATUS	       = Boolean.parseBoolean(gmSettings.getProperty("HideGMStatus", "false")); 
-                GM_STARTUP_INVISIBLE   = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvisible", "True"));
-                GM_STARTUP_SILENCE     = Boolean.parseBoolean(gmSettings.getProperty("GMStartupSilence", "True"));
-                
-	        }
-	        catch (Exception e)
-	        {
-                _log.error(e);
-	            throw new Error("Failed to Load "+GM_ACCESS_FILE+" File.");
-	        }
-            try
-            {
-               Properties funEnginesSettings = new Properties();
-               InputStream is = new FileInputStream(new File(FUN_ENGINES_FILE));  
-               funEnginesSettings.load(is);
-               is.close();
-               
-               CTF_EVEN_TEAMS = funEnginesSettings.getProperty("CTFEvenTeams", "BALANCE");
-               CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowInterference", "false"));
-               CTF_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowPotions", "false"));
-               CTF_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowSummon", "false"));
-               CTF_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFOnStartRemoveAllEffects", "true"));
-               CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFOnStartUnsummonPet", "true"));
-               
-               TVT_EVEN_TEAMS = funEnginesSettings.getProperty("TvTEvenTeams", "BALANCE");
-               TVT_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowInterference", "false"));
-               TVT_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowPotions", "false"));
-               TVT_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowSummon", "false"));
-               TVT_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTOnStartRemoveAllEffects", "true"));
-               TVT_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTOnStartUnsummonPet", "true"));
-            
-               DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowInterference", "false"));
-               DM_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowPotions", "false"));
-               DM_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowSummon", "false"));
-               DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("DMOnStartRemoveAllEffects", "true"));
-               DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("DMOnStartUnsummonPet", "true"));
-            }
-            catch (Exception e)
-            {
-                _log.error(e.getMessage(),e);
-                throw new Error("Failed to Load " + FUN_ENGINES_FILE + " File.");
-            }
-            try
-	        {
-	            Properties Settings   = new Properties();
-	            InputStream is          = new FileInputStream(HEXID_FILE);  
-	            Settings.load(is);
-	            is.close();  
-	            HEX_ID = new BigInteger(Settings.getProperty("HexID"), 16).toByteArray();
-	        }
-	        catch (Exception e)
-	        {
-	        	_log.warn("Could not load HexID file ("+HEXID_FILE+"). Hopefully login will give us one.");
-	        }
-
 	        
 			loadsayfilter();
 	}
