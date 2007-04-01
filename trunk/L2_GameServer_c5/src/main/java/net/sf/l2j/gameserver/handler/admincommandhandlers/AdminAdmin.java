@@ -218,7 +218,7 @@ public class AdminAdmin implements IAdminCommandHandler {
                     activeChar.sendMessage("tradeoff currently disabled");
             }            
         }
-        else if(command.startsWith("admin_reload"))
+        else if(command.startsWith("admin_reload_config"))
         {
             StringTokenizer st = new StringTokenizer(command);
             st.nextToken();
