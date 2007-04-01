@@ -871,6 +871,7 @@ public class L2Attackable extends L2NpcInstance
     public int getHating(L2Character target) 
     {
         if (getAggroListRP().isEmpty()) return 0;
+        if (getAggroListRP().get(target) == null) return 0;
         
         AggroInfo ai = getAggroListRP().get(target);
         if (ai == null) return 0;
