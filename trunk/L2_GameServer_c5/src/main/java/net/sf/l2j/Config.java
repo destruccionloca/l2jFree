@@ -89,7 +89,7 @@ public final class Config {
     public static int           MIN_PROTOCOL_REVISION;			// protocol revision
     public static int           MAX_PROTOCOL_REVISION;
     //*******************************************************************************************    
-    public static void loadconfigurationfile()
+    public static void loadconfiguration()
     {
     	_log.info("loading " + CONFIGURATION_FILE);
 	    try {
@@ -194,7 +194,7 @@ public final class Config {
     public static int ALT_OLY_WPERIOD;		// Olympaid Weekly Period
     public static int ALT_OLY_VPERIOD;		// Olympaid Validation Period
     //*******************************************************************************************    
-    public static void loadolympiadfile()
+    public static void loadolympiadconfig()
     {
     	_log.info("loading " + OLYMPIAD_FILE);    	
 	    try
@@ -241,7 +241,7 @@ public final class Config {
     public static int       CLAN_LEADER_COLOR;
     public static int       CLAN_LEADER_COLOR_CLAN_LEVEL;
     //*******************************************************************************************    
-    public static void loadclansfile()
+    public static void loadclansconfig()
     {
     	_log.info("loading " + CLANS_FILE);
 	    try
@@ -285,7 +285,7 @@ public final class Config {
     public static int 		CHAMPION_LEVEL;		// Champion min level
     public static boolean 	CHAMPION_MINIONS; 	// set Minions to champions when leader champion
     //*******************************************************************************************    
-    public static void loadchampionsfile()
+    public static void loadchampionsconfig()
     {
     	_log.info("loading " + CHAMPIONS_FILE);    	
 	    try
@@ -322,7 +322,7 @@ public final class Config {
     public static float ALT_LOTTERY_3_NUMBER_RATE;		// What part of jackpot amount should receive characters who pick 3 wining numbers
     public static int ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;	// How much adena receive characters who pick two or less of the winning number
     //  *******************************************************************************************
-    public static void loadlotteryfile()
+    public static void loadlotteryconfig()
     {
     	_log.info("loading " + LOTTERY_FILE);
         try
@@ -360,7 +360,7 @@ public final class Config {
     public static boolean 	WEDDING_FORMALWEAR;
     public static int 		WEDDING_DIVORCE_COSTS;
     //  *******************************************************************************************
-    public static void loadweddingfile()
+    public static void loadweddingconfig()
     {
     	_log.info("loading " + WEDDING_FILE);
         try
@@ -397,7 +397,7 @@ public final class Config {
 	public static int FS_TIME_WARMUP;
 	public static int FS_PARTY_MEMBER_COUNT;
     //  *******************************************************************************************
-    public static void loadsepulchursfile()
+    public static void loadsepulchursconfig()
     {
     	_log.info("loading " + SEPULCHURS_FILE);
         try
@@ -473,7 +473,7 @@ public final class Config {
     public static float   	SPOIL_LEVEL_DIFFERENCE_MULTIPLIER;
     public static int     	LAST_LEVEL_SPOIL_IS_LEARNED;
     //  *******************************************************************************************
-    public static void loadratesfile()
+    public static void loadratesconfig()
     {
     	_log.info("loading " + RATES_CONFIG_FILE);
         try
@@ -565,7 +565,7 @@ public final class Config {
     public static int 		ENCHANT_SAFE_MAX;				// maximum level of safe enchantment
     public static int 		ENCHANT_SAFE_MAX_FULL;
     //  *******************************************************************************************    
-    public static void loadenchantfile()
+    public static void loadenchantconfig()
     {
     	_log.info("loading " + ENCHANT_CONFIG_FILE);
         try
@@ -639,7 +639,7 @@ public final class Config {
     public static boolean 			ALT_ANNOUNCE_PK_NORMAL_MESSAGE;
     public static int  				PLAYER_RATE_DROP_ADENA;
     //  *******************************************************************************************    
-    public static void loadpvpfile()
+    public static void loadpvpconfig()
     {
     	_log.info("loading " + PVP_CONFIG_FILE);
         try
@@ -687,22 +687,228 @@ public final class Config {
     }
 
     
-    
+    //  *******************************************************************************************
     public static final String  ID_CONFIG_FILE				= "./config/idfactory.properties";
+    //  *******************************************************************************************
+    public static ObjectMapType   	MAP_TYPE;			// Type of map object
+    public static ObjectSetType   	SET_TYPE;			// Type of set object
+	public static enum IdFactoryType{Compaction, BitSet, Stack}
+    public static IdFactoryType 	IDFACTORY_TYPE;		// ID Factory type
+    public static boolean 			BAD_ID_CHECKING;	// Check for bad ID ?
+    //  *******************************************************************************************
+    public static void loadidfactoryconfig()
+    {
+    	_log.info("loading " + ID_CONFIG_FILE);
+        try
+        {
+            Properties idSettings   = new Properties();
+            InputStream is          = new FileInputStream(new File(ID_CONFIG_FILE));
+            idSettings.load(is);
+            is.close();
+            
+            MAP_TYPE        = ObjectMapType.valueOf(idSettings.getProperty("L2Map", "WorldObjectMap"));
+            SET_TYPE        = ObjectSetType.valueOf(idSettings.getProperty("L2Set", "WorldObjectSet"));
+            IDFACTORY_TYPE  = IdFactoryType.valueOf(idSettings.getProperty("IDFactory", "Compaction"));
+            BAD_ID_CHECKING = Boolean.valueOf(idSettings.getProperty("BadIdChecking", "True"));
+        }
+        catch (Exception e)
+        {
+            _log.error(e);
+            throw new Error("Failed to Load "+ID_CONFIG_FILE+" File.");
+        }
+    }
+
+    
+    
+    //  *******************************************************************************************
     public static final String  OTHER_CONFIG_FILE			= "./config/other.properties";
-    public static final String  OPTIONS_FILE                = "./config/options.properties";    
+    //  *******************************************************************************************
+    //  *******************************************************************************************
+    
+    
+    
+    //  *******************************************************************************************    
+    public static final String  OPTIONS_FILE                = "./config/options.properties";
+    //  *******************************************************************************************
+    //  *******************************************************************************************
+
+    
+    
+    //  *******************************************************************************************    
     public static final String  ALT_SETTINGS_FILE			= "./config/altsettings.properties";
+    //  *******************************************************************************************
+    //  *******************************************************************************************
+
+    
+    
+    //  *******************************************************************************************    
     public static final String  GM_ACCESS_FILE				= "./config/GMAccess.properties";
+    //  *******************************************************************************************
+    //  *******************************************************************************************
+    
+    
+    
+    //  *******************************************************************************************    
     public static final String  TELNET_FILE					= "./config/telnet.properties";
+    //  *******************************************************************************************
+    //  *******************************************************************************************
+    
+    
+    
+    //  *******************************************************************************************    
     public static final String  VERSION_FILE				= "./config/l2j-version.properties";
+    //  *******************************************************************************************
+    //  *******************************************************************************************
+    
+    
+    
+    //  *******************************************************************************************    
     public static final String  SIEGE_CONFIGURATION_FILE	= "./config/siege.properties";
+    //  *******************************************************************************************
+    //  *******************************************************************************************
+    
+    
+    
+    //  *******************************************************************************************
     public static final String  HEXID_FILE					= "./config/hexid.txt";
+    //  *******************************************************************************************
+    //  *******************************************************************************************
+    
+    
+    
+    //  *******************************************************************************************    
     public static final String  COMMAND_PRIVILEGES_FILE     = "./config/command-privileges.properties";
+    //  *******************************************************************************************
+    //  *******************************************************************************************
+    
+    
+    
+    //  *******************************************************************************************    
     public static final String  SEVENSIGNS_FILE             = "./config/sevensigns.properties";
+    //  *******************************************************************************************
+    //  *******************************************************************************************
+    
+    
+    
+    //  *******************************************************************************************    
     public static final String  CLANHALL_CONFIG_FILE        = "./config/clanhall.properties";
+    //  *******************************************************************************************
+    /** Clan Hall function related configs*/
+    public static long 	CH_TELE_FEE_RATIO;
+    public static int 	CH_TELE1_FEE;
+    public static int 	CH_TELE2_FEE;
+    public static int 	CH_TELE3_FEE;
+    public static long 	CH_ITEM_FEE_RATIO;
+    public static int 	CH_ITEM1_FEE;
+    public static int 	CH_ITEM2_FEE;
+    public static int 	CH_ITEM3_FEE;
+    public static long 	CH_MPREG_FEE_RATIO;
+    public static int 	CH_MPREG1_FEE;
+    public static int 	CH_MPREG2_FEE;
+    public static int 	CH_MPREG3_FEE;
+    public static long 	CH_HPREG_FEE_RATIO;
+    public static int 	CH_HPREG1_FEE;
+    public static int 	CH_HPREG2_FEE;
+    public static int 	CH_HPREG3_FEE;
+    public static int 	CH_HPREG4_FEE;
+    public static long 	CH_EXPREG_FEE_RATIO;
+    public static int 	CH_EXPREG1_FEE;
+    public static int 	CH_EXPREG2_FEE;
+    public static int 	CH_EXPREG3_FEE;
+    public static int 	CH_EXPREG4_FEE;
+    public static long 	CH_SUPPORT_FEE_RATIO;
+    public static int 	CH_SUPPORT1_FEE;
+    public static int 	CH_SUPPORT2_FEE;
+    public static int 	CH_SUPPORT3_FEE;
+    public static int 	CH_SUPPORT4_FEE;
+    public static int 	CH_SUPPORT5_FEE;
+    //  *******************************************************************************************
+    public static void loadclanhallconfig()
+    {
+    	_log.info("loading " + CLANHALL_CONFIG_FILE);
+        try
+        {
+            Properties clanhallSettings  = new Properties();
+            InputStream is          = new FileInputStream(new File(CLANHALL_CONFIG_FILE));
+            clanhallSettings.load(is);
+            is.close();
+             
+            CH_TELE_FEE_RATIO                                   = Long.valueOf(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeRation", "86400000"));
+            CH_TELE1_FEE                                        = Integer.valueOf(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeLvl1", "86400000"));
+            CH_TELE2_FEE                                        = Integer.valueOf(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeLvl2", "86400000"));
+            CH_TELE3_FEE                                        = Integer.valueOf(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeLvl3", "86400000"));
+            CH_SUPPORT_FEE_RATIO                                = Long.valueOf(clanhallSettings.getProperty("ClanHallSupportFunctionFeeRation", "86400000"));
+            CH_SUPPORT1_FEE                                     = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl1", "86400000"));
+            CH_SUPPORT2_FEE                                     = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl2", "86400000"));
+            CH_SUPPORT3_FEE                                     = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl3", "86400000"));
+            CH_SUPPORT4_FEE                                     = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl4", "86400000"));
+            CH_SUPPORT5_FEE                                     = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl5", "86400000"));
+            CH_MPREG_FEE_RATIO                                  = Long.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFunctionFeeRation", "86400000"));
+            CH_MPREG1_FEE                                       = Integer.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFeeLvl1", "86400000"));
+            CH_MPREG2_FEE                                       = Integer.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFeeLvl2", "86400000"));
+            CH_MPREG3_FEE                                       = Integer.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFeeLvl3", "86400000"));
+            CH_HPREG_FEE_RATIO                                  = Long.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFunctionFeeRation", "86400000"));
+            CH_HPREG1_FEE                                       = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl1", "86400000"));
+            CH_HPREG2_FEE                                       = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl2", "86400000"));
+            CH_HPREG3_FEE                                       = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl3", "86400000"));
+            CH_HPREG4_FEE                                       = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl4", "86400000"));
+            CH_EXPREG_FEE_RATIO                                 = Long.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFunctionFeeRation", "86400000"));
+            CH_EXPREG1_FEE                                      = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl1", "86400000"));
+            CH_EXPREG2_FEE                                      = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl2", "86400000"));
+            CH_EXPREG3_FEE                                      = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl3", "86400000"));
+            CH_EXPREG4_FEE                                      = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl4", "86400000"));
+            CH_ITEM_FEE_RATIO                                   = Long.valueOf(clanhallSettings.getProperty("ClanHallItemCreationFunctionFeeRation", "86400000"));
+            CH_ITEM1_FEE                                        = Integer.valueOf(clanhallSettings.getProperty("ClanHallItemCreationFunctionFeeLvl1", "86400000"));
+            CH_ITEM2_FEE                                        = Integer.valueOf(clanhallSettings.getProperty("ClanHallItemCreationFunctionFeeLvl2", "86400000"));
+            CH_ITEM3_FEE                                        = Integer.valueOf(clanhallSettings.getProperty("ClanHallItemCreationFunctionFeeLvl3", "86400000"));
+        }
+        catch (Exception e)
+        {
+            _log.error(e.getMessage(),e);
+            throw new Error("Failed to Load "+CLANHALL_CONFIG_FILE+" File.");
+        }
+    }
+    
+    
+    
+    //  *******************************************************************************************    
     public static final String  FUN_ENGINES_FILE            = "./config/fun_engines.properties";
+    //  *******************************************************************************************
+    //  *******************************************************************************************    
+    
+    
+    
+    //  *******************************************************************************************    
     public static final String	SAY_FILTER_FILE				= "./config/sayfilter.txt";
-	
+    //  *******************************************************************************************
+    public static void loadsayfilter()
+    {
+    	_log.info("loading " + SAY_FILTER_FILE);
+        if(USE_SAY_FILTER){
+            try{
+            LineNumberReader lnr = null;
+            File say_filter = new File(SAY_FILTER_FILE);
+            lnr = new LineNumberReader(new BufferedReader(new FileReader(say_filter)));
+            String line = null;
+            while ((line = lnr.readLine()) != null){
+                if (line.trim().length() == 0 || line.startsWith("#"))
+                {
+                    continue;
+                }
+                FILTER_LIST.add(line);
+            }
+            _log.info("Say Filter: Loaded " + FILTER_LIST.size() + " words");
+            }catch (FileNotFoundException e)
+            {
+                _log.warn("sayfilter.txt is missing in config folder");
+            }
+            catch (Exception e)
+            {
+                _log.warn("error loading say filter: " + e);
+            }
+        }
+    }
+    //  *******************************************************************************************    
 	
 	
 	/** Enable/disable assertions */
@@ -1345,18 +1551,6 @@ public final class Config {
     public static boolean   CHAR_VIP_COLOR_ENABLED;
     public static int       CHAR_VIP_COLOR;
     
-	public static enum IdFactoryType
-    {
-	    Compaction,
-        BitSet,
-        Stack
-    }
-    
-    /** ID Factory type */
-    public static IdFactoryType IDFACTORY_TYPE;
-    /** Check for bad ID ? */
-    public static boolean BAD_ID_CHECKING;
-	
     /** Enumeration for type of maps object */
     public static enum ObjectMapType
     {
@@ -1371,11 +1565,6 @@ public final class Config {
         WorldObjectSet
     }
 
-    /** Type of map object */
-    public static ObjectMapType   MAP_TYPE;
-    /** Type of set object */
-    public static ObjectSetType   SET_TYPE;
-    
     /**
      * Allow lesser effects to be canceled if stronger effects are used when effects of the same stack group are used.<br> 
      * New effects that are added will be canceled if they are of lesser priority to the old one.
@@ -1506,36 +1695,6 @@ public final class Config {
     /** Skill Tree check on EnterWorld */
     public static boolean CHECK_SKILLS_ON_ENTER;
     
-    /** Clan Hall function related configs*/
-    public static long CH_TELE_FEE_RATIO;
-    public static int CH_TELE1_FEE;
-    public static int CH_TELE2_FEE;
-    public static int CH_TELE3_FEE;
-    public static long CH_ITEM_FEE_RATIO;
-    public static int CH_ITEM1_FEE;
-    public static int CH_ITEM2_FEE;
-    public static int CH_ITEM3_FEE;
-    public static long CH_MPREG_FEE_RATIO;
-    public static int CH_MPREG1_FEE;
-    public static int CH_MPREG2_FEE;
-    public static int CH_MPREG3_FEE;
-    public static long CH_HPREG_FEE_RATIO;
-    public static int CH_HPREG1_FEE;
-    public static int CH_HPREG2_FEE;
-    public static int CH_HPREG3_FEE;
-    public static int CH_HPREG4_FEE;
-    public static long CH_EXPREG_FEE_RATIO;
-    public static int CH_EXPREG1_FEE;
-    public static int CH_EXPREG2_FEE;
-    public static int CH_EXPREG3_FEE;
-    public static int CH_EXPREG4_FEE;
-    public static long CH_SUPPORT_FEE_RATIO;
-    public static int CH_SUPPORT1_FEE;
-    public static int CH_SUPPORT2_FEE;
-    public static int CH_SUPPORT3_FEE;
-    public static int CH_SUPPORT4_FEE;
-    public static int CH_SUPPORT5_FEE;
-    
     public static boolean FACTION_ENABLED = false;
     public static boolean FACTION_KILL_REWARD = false;
     public static int FACTION_KILL_RATE = 1000;
@@ -1555,17 +1714,18 @@ public final class Config {
 	public static void load()
 	{
 			_log.info("loading gameserver config");
-			loadconfigurationfile();
-			loadolympiadfile();
-			loadclansfile();
-			loadchampionsfile();
-			loadlotteryfile();
-			loadsepulchursfile();
-			loadratesfile();
-			loadenchantfile();
-			loadpvpfile();
-
-	        
+			loadconfiguration();
+			loadolympiadconfig();
+			loadclansconfig();
+			loadchampionsconfig();
+			loadlotteryconfig();
+			loadsepulchursconfig();
+			loadratesconfig();
+			loadenchantconfig();
+			loadpvpconfig();
+			loadclanhallconfig();
+			loadidfactoryconfig();
+			
             try 
             {
                 Properties optionsSettings    = new Properties();
@@ -1691,29 +1851,6 @@ public final class Config {
                 CHAR_VIP_COLOR_ENABLED			= Boolean.parseBoolean(optionsSettings.getProperty("CharViPAllowColor", "false"));
                 CHAR_VIP_COLOR					= Integer.decode("0x" + optionsSettings.getProperty("CharViPNameColor", "00CCFF"));
                 
-                if(USE_SAY_FILTER){
-                    try{
-                    LineNumberReader lnr = null;
-                    File say_filter = new File(SAY_FILTER_FILE);
-                    lnr = new LineNumberReader(new BufferedReader(new FileReader(say_filter)));
-                    String line = null;
-                    while ((line = lnr.readLine()) != null){
-                        if (line.trim().length() == 0 || line.startsWith("#"))
-                        {
-                            continue;
-                        }
-                        FILTER_LIST.add(line);
-                    }
-                    _log.info("Say Filter: Loaded " + FILTER_LIST.size() + " words");
-                    }catch (FileNotFoundException e)
-                    {
-                        _log.warn("sayfilter.txt is missing in config folder");
-                    }
-                    catch (Exception e)
-                    {
-                        _log.warn("error loading say filter: " + e);
-                    }
-                }
                 ONLINE_PLAYERS_AT_STARTUP = Boolean.parseBoolean(optionsSettings.getProperty("ShowOnlinePlayersAtStartup","True"));
                 ONLINE_PLAYERS_ANNOUNCE_INTERVAL = Integer.parseInt(optionsSettings.getProperty("OnlinePlayersAnnounceInterval","900000"));
                 
@@ -1776,25 +1913,6 @@ public final class Config {
 	        {
                 _log.error(e);
 	            throw new Error("Failed to Load "+TELNET_FILE+" File.");
-	        }
-	        
-	        // id factory
-	        try
-	        {
-	            Properties idSettings   = new Properties();
-	            InputStream is          = new FileInputStream(new File(ID_CONFIG_FILE));
-	            idSettings.load(is);
-	            is.close();
-	            
-	            MAP_TYPE        = ObjectMapType.valueOf(idSettings.getProperty("L2Map", "WorldObjectMap"));
-	            SET_TYPE        = ObjectSetType.valueOf(idSettings.getProperty("L2Set", "WorldObjectSet"));
-	            IDFACTORY_TYPE  = IdFactoryType.valueOf(idSettings.getProperty("IDFactory", "Compaction"));
-	            BAD_ID_CHECKING = Boolean.valueOf(idSettings.getProperty("BadIdChecking", "True"));
-	        }
-	        catch (Exception e)
-	        {
-                _log.error(e);
-	            throw new Error("Failed to Load "+ID_CONFIG_FILE+" File.");
 	        }
 	        
 	        // other
@@ -2060,49 +2178,6 @@ public final class Config {
                 throw new Error("Failed to Load "+SEVENSIGNS_FILE+" File.");
             }
             
-            // clanhall settings
-            try
-            {
-                Properties clanhallSettings  = new Properties();
-                InputStream is          = new FileInputStream(new File(CLANHALL_CONFIG_FILE));
-                clanhallSettings.load(is);
-                is.close();
-                 
-                CH_TELE_FEE_RATIO                                   = Long.valueOf(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeRation", "86400000"));
-                CH_TELE1_FEE                                        = Integer.valueOf(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeLvl1", "86400000"));
-                CH_TELE2_FEE                                        = Integer.valueOf(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeLvl2", "86400000"));
-                CH_TELE3_FEE                                        = Integer.valueOf(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeLvl3", "86400000"));
-                CH_SUPPORT_FEE_RATIO                                = Long.valueOf(clanhallSettings.getProperty("ClanHallSupportFunctionFeeRation", "86400000"));
-                CH_SUPPORT1_FEE                                     = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl1", "86400000"));
-                CH_SUPPORT2_FEE                                     = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl2", "86400000"));
-                CH_SUPPORT3_FEE                                     = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl3", "86400000"));
-                CH_SUPPORT4_FEE                                     = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl4", "86400000"));
-                CH_SUPPORT5_FEE                                     = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl5", "86400000"));
-                CH_MPREG_FEE_RATIO                                  = Long.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFunctionFeeRation", "86400000"));
-                CH_MPREG1_FEE                                       = Integer.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFeeLvl1", "86400000"));
-                CH_MPREG2_FEE                                       = Integer.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFeeLvl2", "86400000"));
-                CH_MPREG3_FEE                                       = Integer.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFeeLvl3", "86400000"));
-                CH_HPREG_FEE_RATIO                                  = Long.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFunctionFeeRation", "86400000"));
-                CH_HPREG1_FEE                                       = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl1", "86400000"));
-                CH_HPREG2_FEE                                       = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl2", "86400000"));
-                CH_HPREG3_FEE                                       = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl3", "86400000"));
-                CH_HPREG4_FEE                                       = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl4", "86400000"));
-                CH_EXPREG_FEE_RATIO                                 = Long.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFunctionFeeRation", "86400000"));
-                CH_EXPREG1_FEE                                      = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl1", "86400000"));
-                CH_EXPREG2_FEE                                      = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl2", "86400000"));
-                CH_EXPREG3_FEE                                      = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl3", "86400000"));
-                CH_EXPREG4_FEE                                      = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl4", "86400000"));
-                CH_ITEM_FEE_RATIO                                   = Long.valueOf(clanhallSettings.getProperty("ClanHallItemCreationFunctionFeeRation", "86400000"));
-                CH_ITEM1_FEE                                        = Integer.valueOf(clanhallSettings.getProperty("ClanHallItemCreationFunctionFeeLvl1", "86400000"));
-                CH_ITEM2_FEE                                        = Integer.valueOf(clanhallSettings.getProperty("ClanHallItemCreationFunctionFeeLvl2", "86400000"));
-                CH_ITEM3_FEE                                        = Integer.valueOf(clanhallSettings.getProperty("ClanHallItemCreationFunctionFeeLvl3", "86400000"));
-            }
-            catch (Exception e)
-            {
-                _log.error(e.getMessage(),e);
-                throw new Error("Failed to Load "+CLANHALL_CONFIG_FILE+" File.");
-            }
-	        
 	        // access levels
 	        try
 	        {
@@ -2226,6 +2301,9 @@ public final class Config {
 	        {
 	        	_log.warn("Could not load HexID file ("+HEXID_FILE+"). Hopefully login will give us one.");
 	        }
+
+	        
+			loadsayfilter();
 	}
 	
         /**
