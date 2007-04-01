@@ -139,7 +139,7 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    htmltext = "<html><head><body>I have nothing to say you</body></html>"
    if not st : return htmltext
-   if st.getState() : return
+   if st.getState()<>STARTED : return
    
    chance = st.getRandom(100)
    count = st.getQuestItemsCount(MEDICINAL_HERB)
