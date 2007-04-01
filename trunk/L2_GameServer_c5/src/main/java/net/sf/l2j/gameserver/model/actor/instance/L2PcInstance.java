@@ -1732,16 +1732,9 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         return getTemplate().classId;
     }
-
-    /**
-     * Set the template of the L2PcInstance.<BR><BR>
-     *
-     * @param Id The Identifier of the L2PcTemplate to set to the L2PcInstance
-     *
-     */
-    public void setClassId(int Id)
+    
+    public void academyCheck(int Id)
     {
-        
         if (getLvlJoinedAcademy() != 0 && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third)
         {
             if(getLvlJoinedAcademy() <= 16) _clan.setReputationScore(_clan.getReputationScore()+400, true);
@@ -1761,6 +1754,17 @@ public final class L2PcInstance extends L2PlayableInstance
             getInventory().addItem("Gift",8181,1,this,null); // give academy circlet
             getInventory().updateDatabase(); // update database
         }
+    }
+
+    /**
+     * Set the template of the L2PcInstance.<BR><BR>
+     *
+     * @param Id The Identifier of the L2PcTemplate to set to the L2PcInstance
+     *
+     */
+    public void setClassId(int Id)
+    {
+        academyCheck(Id);
         
         _activeClass = Id;
         L2PcTemplate t = CharTemplateTable.getInstance().getTemplate(Id);

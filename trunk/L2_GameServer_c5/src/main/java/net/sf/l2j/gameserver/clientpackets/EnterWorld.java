@@ -45,6 +45,8 @@ import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.base.ClassLevel;
+import net.sf.l2j.gameserver.model.base.PlayerClass;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2Event;
@@ -61,6 +63,7 @@ import net.sf.l2j.gameserver.serverpackets.HennaInfo;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
+import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListDelete;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListUpdate;
 import net.sf.l2j.gameserver.serverpackets.PledgeSkillList;
 import net.sf.l2j.gameserver.serverpackets.PledgeStatusChanged;
@@ -279,6 +282,9 @@ public class EnterWorld extends ClientBasePacket
         // check player skills
         if(Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
         	activeChar.checkAllowedSkills();
+
+        // check for academy
+        activeChar.academyCheck(activeChar.getClassIndex());
         
         // check for crowns
         CrownManager.getInstance().checkCrowns(activeChar);
