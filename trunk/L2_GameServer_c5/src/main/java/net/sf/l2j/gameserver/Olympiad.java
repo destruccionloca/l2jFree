@@ -1548,6 +1548,9 @@ public class Olympiad
             _playerOne.setTarget(null);
             _playerTwo.setTarget(null);
             
+            _playerOne.setIsInOlympiadMode(true);
+            _playerTwo.setIsInOlympiadMode(true);
+            
             _playerOne.teleToLocation(_stadiumPort[0], _stadiumPort[1], _stadiumPort[2]);
             _playerTwo.teleToLocation(_stadiumPort[0], _stadiumPort[1], _stadiumPort[2]);
             
