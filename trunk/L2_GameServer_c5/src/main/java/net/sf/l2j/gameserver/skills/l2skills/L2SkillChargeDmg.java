@@ -17,6 +17,7 @@
  */
 package net.sf.l2j.gameserver.skills.l2skills;
 
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -98,19 +99,25 @@ public class L2SkillChargeDmg extends L2Skill
 			
 			//boolean dual  = caster.isUsingDualWeapon();
 			boolean shld = Formulas.getInstance().calcShldUse(caster, target);
-			boolean crit = Formulas.getInstance().calcCrit(caster.getCriticalHit(target, this));
+			//boolean crit = Formulas.getInstance().calcCrit(caster.getCriticalHit(target, this));
 			boolean soul = (weapon!= null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER );
 			
 			int damage = (int)Formulas.getInstance().calcPhysDam(
-					caster, target, this, shld, crit, false, soul);
+					caster, target, this, shld, false, false, soul);
 			
 			if (damage > 0)
             {
                 double finalDamage = damage;
                 finalDamage = finalDamage+(modifier*finalDamage);
-				target.reduceCurrentHp(finalDamage, caster);
-				
-				if (crit) caster.sendPacket(new SystemMessage(SystemMessage.CRITICAL_HIT));
+                if (this.isCritical() && Rnd.get(100) < 15)   
+                {  
+                    caster.sendPacket(new SystemMessage(SystemMessage.CRITICAL_HIT));  
+                    finalDamage = finalDamage * 2;  
+                }  
+                if (target.isPetrified())  
+                    {finalDamage= 0;}  
+                target.reduceCurrentHp(finalDamage, caster); 
+
 				
 				SystemMessage sm = new SystemMessage(SystemMessage.YOU_DID_S1_DMG);
 				sm.addNumber((int)finalDamage);
