@@ -2405,7 +2405,11 @@ public class L2NpcInstance extends L2Character
      */
     public void onDecay()
     {
-        // Manage Life Control Tower
+    	 if (isDecayed()) return;
+    	 setDecayed(true);
+    	 
+    	// Manage Life Control Tower
+
         if (this instanceof L2ControlTowerInstance)
             ((L2ControlTowerInstance)this).onDeath();
         
@@ -2464,10 +2468,10 @@ public class L2NpcInstance extends L2Character
   
     public void endDecayTask()
     {
-       if (!isDecayed()) {
-           _isDecayed = true;
-           onDecay();
+    	if (!isDecayed()) 
+    	{
            DecayTaskManager.getInstance().cancelDecayTask(this);
+           onDecay();           
        }
     }
 }
