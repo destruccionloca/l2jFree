@@ -286,17 +286,23 @@ public class AdminSpawn implements IAdminCommandHandler
             		if (spawn.IsRespawnable())
             		{
             			SpawnTable.getInstance().deleteSpawn(spawn, true);
+            			target.deleteMe();
             			spawn.setRespawnDelay(delay);
             			SpawnTable.getInstance().addNewSpawn(spawn, true);
+            			target.setSpawn(spawn);
+            			target.spawnMe();
+            			activeChar.sendMessage("Respawn delay  for "+target.getName()+" changed to "+delay+" seconds.");
             		}
-            		
-            		activeChar.sendMessage("Respawn delay  for "+target.getName()+" changed to "+delay+" seconds.");
+            		else
+            			activeChar.sendMessage("Respawn delay  for "+target.getName()+" cant be changed.");
             	}
             	catch (Exception e)
             	{
             		showAdminCommandHelp(activeChar,cmd);
             	}
-        	}	
+        	}
+        	else
+        		showAdminCommandHelp(activeChar,cmd);
         }        
         else if (cmd.equals("admin_spawn") || cmd.equals("admin_cspawn") || cmd.equals("admin_otspawn"))
         {
@@ -409,7 +415,7 @@ public class AdminSpawn implements IAdminCommandHandler
         if (target == null)
             target = activeChar;
 
-        if (target != activeChar && !checkLevel(activeChar.getAccessLevel()))
+        if (!checkLevel(activeChar.getAccessLevel()))
         	return;
        
         L2NpcTemplate template = NpcTable.getInstance().getTemplate(npcId);
@@ -427,9 +433,9 @@ public class AdminSpawn implements IAdminCommandHandler
         		int x = target.getX();
         		int y = target.getY();
         		int z = target.getZ();
-        		int heading = target.getPosition().getHeading();
+        		int heading = activeChar.getHeading();
         		
-        		if (radius>0 && count >1)
+        		if (radius  >0 && count >1)
         		{
         		    Random _rnd = new Random(); 
 
