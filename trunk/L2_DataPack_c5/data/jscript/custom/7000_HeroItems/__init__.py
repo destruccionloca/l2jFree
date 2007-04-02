@@ -71,7 +71,6 @@ class Quest (JQuest) :
 
  def onTalk (Self,npc,player):
      st = player.getQuestState(qn)
-     id = st.getState()
      htmltext = "<html><head><body>I have nothing to say to you.</body></html>"
      if player.isHero():
         htmltext=render_list("list",0)
