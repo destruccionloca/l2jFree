@@ -232,7 +232,6 @@ public class GameServer
     private final VoicedCommandHandler _voicedCommandHandler;
     private final DoorTable _doorTable;
     private final SevenSigns _sevenSignsEngine;
-    private final AutoChatHandler _autoChatHandler;
     private final AutoSpawnHandler _autoSpawnHandler;
     private LoginServerThread _loginThread;
     
@@ -358,6 +357,8 @@ public class GameServer
         if ( _log.isDebugEnabled())_log.debug("World initialized");
         RandomIntGenerator.getInstance();
         if ( _log.isDebugEnabled())_log.debug("RandomIntGenerator initialized");
+        AutoChatHandler.getInstance();
+        if ( _log.isDebugEnabled())_log.debug("AutoChatHandler initialized");
         SpawnTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("SpawnTable initialized");
         RaidBossSpawnManager.getInstance();
@@ -388,11 +389,10 @@ public class GameServer
         _sevenSignsEngine = SevenSigns.getInstance();
         SevenSignsFestival.getInstance();
         _autoSpawnHandler = AutoSpawnHandler.getInstance();
-        _autoChatHandler = AutoChatHandler.getInstance();
 
         // Spawn the Orators/Preachers if in the Seal Validation period.
         _sevenSignsEngine.spawnSevenSignsNPC();
-        
+
         Olympiad.getInstance();
         if ( _log.isDebugEnabled())_log.debug("Olympiad initialized");
         Hero.getInstance();
@@ -422,9 +422,8 @@ public class GameServer
         
         // Start to announce online players number
         if(Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
-        OnlinePlayers.getInstance();        
+        	OnlinePlayers.getInstance();        
 
-        _log.info("AutoChatHandler: Loaded " + _autoChatHandler.size() + " handlers in total.");
         _log.info("AutoSpawnHandler: Loaded " + _autoSpawnHandler.size() + " handlers in total.");
 
         _itemHandler = ItemHandler.getInstance();

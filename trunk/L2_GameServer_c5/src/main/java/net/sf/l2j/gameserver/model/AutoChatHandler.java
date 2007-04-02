@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
 
@@ -49,7 +50,8 @@ public class AutoChatHandler implements SpawnListener
     private static AutoChatHandler _instance;
 
     private static final long DEFAULT_CHAT_DELAY = 180000; // 3 mins by default
-
+    private static final int  DEFAULT_CHAT_RANGE = 1500; 
+    
     protected FastMap<Integer, AutoChatInstance> _registeredChats;
 
     protected AutoChatHandler()
@@ -65,10 +67,8 @@ public class AutoChatHandler implements SpawnListener
         java.sql.Connection con = null;
         PreparedStatement statement = null;
         PreparedStatement statement2 = null;
-        //PreparedStatement statement3 = null;        
         ResultSet rs = null;
         ResultSet rs2 = null;
-        //ResultSet rs3 = null;
 
         try
         {
@@ -76,34 +76,34 @@ public class AutoChatHandler implements SpawnListener
 
             statement = con.prepareStatement("SELECT * FROM auto_chat ORDER BY groupId ASC");
             rs = statement.executeQuery();
-
+                        
             while (rs.next())
             {
-                numLoaded++;
+            	int groupId = rs.getInt("groupId");
+                int npcId = rs.getInt("npcId");
+                long chatDelay = rs.getLong("chatDelay") * 1000;
+                int chatRange = rs.getInt("chatRange");
+                boolean chatRandom = rs.getBoolean("chatRandom");
+                
+            	numLoaded++;
 
-                statement2 = con.prepareStatement("SELECT * FROM auto_chat_text WHERE groupId=?");
-                statement2.setInt(1, rs.getInt("groupId"));
+            	statement2 = con.prepareStatement("SELECT * FROM auto_chat_text WHERE groupId=?");
+                statement2.setInt(1, groupId);
                 rs2 = statement2.executeQuery();
-                
-//                statement3 = con.prepareStatement("SELECT count(*) as count FROM auto_chat_text WHERE groupId=?");
-//                statement3.setInt(1, rs.getInt("groupId"));
-//                rs3 = statement3.executeQuery();
-//                int rowcount = rs3.getInt("count");
-//                statement3.close();
-                
-                rs2.last();
-//                String[] chatTexts = new String[rowcount];
-                String[] chatTexts = new String[rs2.getRow()];                
-                int i = 0;
-                rs2.first();
+
+                ArrayList<String> chatTexts = new ArrayList<String>();                
 
                 while (rs2.next())
-                {
-                    chatTexts[i] = rs2.getString("chatText");
-                    i++;
-                }
-
-                registerGlobalChat(rs.getInt("npcId"), chatTexts, rs.getLong("chatDelay"));
+                	chatTexts.add(rs2.getString("chatText"));
+ 
+                if (chatTexts.size() > 0)
+                		 registerGlobalChat(npcId, 
+                							chatTexts.toArray(new String[chatTexts.size()]), 
+                							chatDelay, 
+                							chatRange, 
+                							chatRandom);
+                else
+                	_log.warn("AutoChatHandler: Chat group " + groupId + " is empty.");
 
                 statement2.close();
             }
@@ -131,7 +131,11 @@ public class AutoChatHandler implements SpawnListener
 
     public static AutoChatHandler getInstance()
     {
-        if (_instance == null) _instance = new AutoChatHandler();
+        if (_instance == null) 
+        	{
+        		_instance = new AutoChatHandler();
+        		_log.info("AutoChatHandler: Loaded " + _instance.size() + " handlers in total.");
+        	}
 
         return _instance;
     }
@@ -151,9 +155,9 @@ public class AutoChatHandler implements SpawnListener
      * @param int chatDelay (-1 = default delay)
      * @return AutoChatInstance chatInst
      */
-    public AutoChatInstance registerGlobalChat(int npcId, String[] chatTexts, long chatDelay)
+    public AutoChatInstance registerGlobalChat(int npcId, String[] chatTexts, long chatDelay, int chatRange, boolean chatRandom)
     {
-        return registerChat(npcId, null, chatTexts, chatDelay);
+        return registerChat(npcId, null, chatTexts, chatDelay, chatRange, chatRandom);
     }
 
     /**
@@ -168,20 +172,28 @@ public class AutoChatHandler implements SpawnListener
      * @param int chatDelay (-1 = default delay)
      * @return AutoChatInstance chatInst
      */
-    public AutoChatInstance registerChat(L2NpcInstance npcInst, String[] chatTexts, long chatDelay)
+    public AutoChatInstance registerChat(L2NpcInstance npcInst, String[] chatTexts, 
+			 long chatDelay)
     {
-        return registerChat(npcInst.getNpcId(), npcInst, chatTexts, chatDelay);
+    	return registerChat(npcInst.getNpcId(), npcInst, chatTexts, chatDelay, DEFAULT_CHAT_RANGE, false);
+    }
+    
+    public AutoChatInstance registerChat(L2NpcInstance npcInst, String[] chatTexts, 
+    									 long chatDelay, int chatRange, boolean chatRandom)
+    {
+        return registerChat(npcInst.getNpcId(), npcInst, chatTexts, chatDelay, chatRange, chatRandom);
     }
 
     private final AutoChatInstance registerChat(int npcId, L2NpcInstance npcInst, String[] chatTexts,
-                                                long chatDelay)
+                                                long chatDelay, int chatRange, boolean chatRandom)
     {
         AutoChatInstance chatInst = null;
 
         if (chatDelay < 0) chatDelay = DEFAULT_CHAT_DELAY;
+        if (chatRange < 0) chatRange = DEFAULT_CHAT_RANGE;
 
         if (_registeredChats.containsKey(npcId)) chatInst = _registeredChats.get(npcId);
-        else chatInst = new AutoChatInstance(npcId, chatTexts, chatDelay, (npcInst == null));
+        else chatInst = new AutoChatInstance(npcId, chatTexts, chatDelay, chatRange, chatRandom, (npcInst == null));
 
         if (npcInst != null) chatInst.addChatDefinition(npcInst);
 
@@ -253,6 +265,18 @@ public class AutoChatHandler implements SpawnListener
     }
 
     /**
+     * Sets the active state of all auto chat instances of specified NPC ID
+     * 
+     * @param npcId
+     * @param isActive
+     */
+    public void setAutoChatActive(int npcId, boolean isActive)
+    {
+        for (AutoChatInstance chatInst : _registeredChats.values())
+            if (chatInst.getNPCId() == npcId) chatInst.setActive(isActive);
+    }
+    
+    /**
      * Used in conjunction with a SpawnListener, this method is called every time
      * an NPC is spawned in the world.
      * <BR><BR>
@@ -287,8 +311,9 @@ public class AutoChatHandler implements SpawnListener
     {
         protected int _npcId;
         private long _defaultDelay = DEFAULT_CHAT_DELAY;
+        private int _defaultRange = DEFAULT_CHAT_RANGE;
         private String[] _defaultTexts;
-        private boolean _defaultRandom = false;
+        private boolean _defaultRandom;
 
         private boolean _globalChat = false;
         private boolean _isActive;
@@ -296,11 +321,13 @@ public class AutoChatHandler implements SpawnListener
         private FastMap<Integer, AutoChatDefinition> _chatDefinitions = new FastMap<Integer, AutoChatDefinition>();
         public ScheduledFuture _chatTask;
 
-        protected AutoChatInstance(int npcId, String[] chatTexts, long chatDelay, boolean isGlobal)
+        protected AutoChatInstance(int npcId, String[] chatTexts, long chatDelay, int chatRange, boolean chatRandom, boolean isGlobal)
         {
             _defaultTexts = chatTexts;
             _npcId = npcId;
             _defaultDelay = chatDelay;
+            _defaultRange = chatRange;
+            _defaultRandom = chatRandom;
             _globalChat = isGlobal;
 
             if (_log.isDebugEnabled())
@@ -468,6 +495,11 @@ public class AutoChatHandler implements SpawnListener
             return _defaultTexts;
         }
 
+        public int getDefaultRange()
+        {
+            return _defaultRange;
+        }
+        
         public void setDefaultChatDelay(long delayValue)
         {
             _defaultDelay = delayValue;
@@ -478,6 +510,11 @@ public class AutoChatHandler implements SpawnListener
             _defaultTexts = textsValue;
         }
 
+        public void setDefaultRange(int rangeValue)
+        {
+            _defaultRange = rangeValue;
+        }
+        
         public void setDefaultRandom(boolean randValue)
         {
             _defaultRandom = randValue;
@@ -522,6 +559,19 @@ public class AutoChatHandler implements SpawnListener
             if (chatDef != null) chatDef.setRandomChat(randValue);
         }
 
+        /**
+         * Sets specifically to use chat range for the auto chat definition given by its object ID.
+         * 
+         * @param int objectId
+         * @param boolean randValue
+         */
+        public void setChatRange(int objectId, int rangeValue)
+        {
+            AutoChatDefinition chatDef = getChatDefinition(objectId);
+
+            if (chatDef != null) chatDef.setChatRange(rangeValue);
+        }
+        
         /**
          * Sets the activity of ALL auto chat definitions handled by this chat instance.
          * 
@@ -572,6 +622,7 @@ public class AutoChatHandler implements SpawnListener
             protected AutoChatInstance _chatInstance;
 
             private long _chatDelay = 0;
+            private int _chatRange = 0;
             private String[] _chatTexts = null;
             private boolean isActive;
             private boolean _randomChat;
@@ -585,6 +636,7 @@ public class AutoChatHandler implements SpawnListener
                 _randomChat = chatInst.isDefaultRandom();
 
                 _chatDelay = chatDelay;
+                _chatRange = chatInst.getDefaultRange();
                 _chatTexts = chatTexts;
 
                 if (_log.isDebugEnabled())
@@ -633,6 +685,11 @@ public class AutoChatHandler implements SpawnListener
                 _chatDelay = delayValue;
             }
 
+            void setChatRange(int rangeValue)
+            {
+                _chatRange = rangeValue;
+            }
+            
             void setChatTexts(String[] textsValue)
             {
                 _chatTexts = textsValue;
@@ -713,15 +770,9 @@ public class AutoChatHandler implements SpawnListener
                     {
                         L2NpcInstance chatNpc = chatDef._npcInstance;
                         FastList<L2PcInstance> nearbyPlayers = new FastList<L2PcInstance>();
-                        FastList<L2PcInstance> nearbyGMs = new FastList<L2PcInstance>();
-
-                        for (L2Character player : chatNpc.getKnownList().getKnownCharactersInRadius(1500))
-                        {
-                            if (!(player instanceof L2PcInstance)) continue;
-
-                            if (((L2PcInstance) player).isGM()) nearbyGMs.add((L2PcInstance) player);
-                            else nearbyPlayers.add((L2PcInstance) player);
-                        }
+                        
+                        for (L2Character player : chatNpc.getKnownList().getKnownCharactersInRadius(chatDef._chatRange))
+                            if (player instanceof L2PcInstance) nearbyPlayers.add((L2PcInstance) player);
 
                         int maxIndex = chatDef.getChatTexts().length;
                         int lastIndex = rnd.nextInt(maxIndex);
@@ -732,11 +783,8 @@ public class AutoChatHandler implements SpawnListener
                         if (!chatDef.isRandomChat())
                         {
                             lastIndex = chatDef._chatIndex;
-                            lastIndex++;
-
                             if (lastIndex == maxIndex) lastIndex = 0;
-
-                            chatDef._chatIndex = lastIndex;
+                            chatDef._chatIndex = lastIndex + 1;
                         }
 
                         text = chatDef.getChatTexts()[lastIndex];
@@ -745,62 +793,72 @@ public class AutoChatHandler implements SpawnListener
 
                         if (!nearbyPlayers.isEmpty())
                         {
-                            int randomPlayerIndex = rnd.nextInt(nearbyPlayers.size());
-
-                            L2PcInstance randomPlayer = nearbyPlayers.get(randomPlayerIndex);
-
                             final int winningCabal = SevenSigns.getInstance().getCabalHighestScore();
                             int losingCabal = SevenSigns.CABAL_NULL;
 
                             if (winningCabal == SevenSigns.CABAL_DAWN) losingCabal = SevenSigns.CABAL_DUSK;
                             else if (winningCabal == SevenSigns.CABAL_DUSK)
                                 losingCabal = SevenSigns.CABAL_DAWN;
-
-                            if (text.indexOf("%player_random%") > -1)
-                                text = text.replaceAll("%player_random%", randomPlayer.getName());
-
-                            if (text.indexOf("%player_cabal_winner%") > -1)
+                            
+                            if (text.indexOf("%player_") > -1)
                             {
-                                for (L2PcInstance nearbyPlayer : nearbyPlayers)
+                            	ArrayList<Integer> karmaPlayers = new ArrayList<Integer>();
+                            	ArrayList<Integer> winningCabals = new ArrayList<Integer>();
+                            	ArrayList<Integer> losingCabals = new ArrayList<Integer>();
+                            	
+                                for (int i=0; i < nearbyPlayers.size(); i++)
                                 {
+                                	L2PcInstance nearbyPlayer = nearbyPlayers.get(i);
+                                	
+                                    // Get all nearby players with karma
+                                	if (nearbyPlayer.getKarma() > 0)
+                                    	karmaPlayers.add(i);
+                                	
+                                    // Get all nearby Seven Signs winners and loosers
                                     if (SevenSigns.getInstance().getPlayerCabal(nearbyPlayer) == winningCabal)
-                                    {
-                                        text = text.replaceAll("%player_cabal_winner%",
-                                                               nearbyPlayer.getName());
-                                        break;
-                                    }
+                                    	winningCabals.add(i);
+                                    else if (SevenSigns.getInstance().getPlayerCabal(nearbyPlayer) == losingCabal)
+                                    	losingCabals.add(i);
                                 }
-                            }
-
-                            if (text.indexOf("%player_cabal_loser%") > -1)
-                            {
-                                for (L2PcInstance nearbyPlayer : nearbyPlayers)
+                                
+                                if (text.indexOf("%player_random%") > -1)
                                 {
-                                    if (SevenSigns.getInstance().getPlayerCabal(nearbyPlayer) == losingCabal)
-                                    {
-                                        text = text.replaceAll("%player_cabal_loser%",
-                                                               nearbyPlayer.getName());
-                                        break;
-                                    }
+                                	int randomPlayerIndex = rnd.nextInt(nearbyPlayers.size());
+                                	L2PcInstance randomPlayer = nearbyPlayers.get(randomPlayerIndex);
+                                	text = text.replaceAll("%player_random%", randomPlayer.getName());
+                                }
+                                else if (text.indexOf("%player_killer%") > -1 && karmaPlayers.size() > 0)
+                                {
+                                	int randomPlayerIndex = karmaPlayers.get(rnd.nextInt(karmaPlayers.size()));
+                                	L2PcInstance randomPlayer = nearbyPlayers.get(randomPlayerIndex);
+                                    text = text.replaceAll("%player_killer%", randomPlayer.getName());
+                                }
+                                else if (text.indexOf("%player_cabal_winner%") > -1 && winningCabals.size() > 0)
+                                {
+                                	int randomPlayerIndex = winningCabals.get(rnd.nextInt(winningCabals.size()));
+                                	L2PcInstance randomPlayer = nearbyPlayers.get(randomPlayerIndex);
+                                    text = text.replaceAll("%player_cabal_winner%", randomPlayer.getName());
+                                }
+                                else if (text.indexOf("%player_cabal_loser%") > -1 && losingCabals.size() > 0)
+                                {
+                                	int randomPlayerIndex = losingCabals.get(rnd.nextInt(losingCabals.size()));
+                                	L2PcInstance randomPlayer = nearbyPlayers.get(randomPlayerIndex);
+                                    text = text.replaceAll("%player_cabal_loser%", randomPlayer.getName());
                                 }
                             }
                         }
 
                         if (text == null) return;
 
-                        if (text.contains("%player_cabal_loser%")
-                            || text.contains("%player_cabal_winner%")
-                            || text.contains("%player_random%")) return;
+                        if (text.contains("%player_")) return;
 
                         CreatureSay cs = new CreatureSay(chatNpc.getObjectId(), 0, creatureName, text);
 
                         for (L2PcInstance nearbyPlayer : nearbyPlayers)
                             nearbyPlayer.sendPacket(cs);
-                        for (L2PcInstance nearbyGM : nearbyGMs)
-                            nearbyGM.sendPacket(cs);
 
                         if (_log.isDebugEnabled())
-                            _log.debug("AutoChatHandler: Chat propogation for object ID "
+                            _log.info("AutoChatHandler: Chat propogation for object ID "
                                 + chatNpc.getObjectId() + " (" + creatureName + ") with text '" + text
                                 + "' sent to " + nearbyPlayers.size() + " nearby players.");
                     }

@@ -248,7 +248,7 @@ public class SevenSigns
                         if (!AutoSpawnHandler.getInstance().getAutoSpawnInstance(spawnInst.getObjectId(), true).isSpawnActive())
                             AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, true);
                     if (!AutoChatHandler.getInstance().getAutoChatInstance(PREACHER_NPC_ID, false).isActive() && !AutoChatHandler.getInstance().getAutoChatInstance(ORATOR_NPC_ID, false).isActive())
-                        AutoChatHandler.getInstance().setAutoChatActive(true);
+                        AutoChatHandler.getInstance().setAutoChatActive(PREACHER_NPC_ID,true);
                 }
                 else
                     _log.warn("SevenSigns: No spawn found for Preacher of Doom npc(s).");
@@ -265,7 +265,8 @@ public class SevenSigns
                     for (AutoSpawnInstance spawnInst: _preacherSpawns.values())
                         AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, false);
                 
-                AutoChatHandler.getInstance().setAutoChatActive(false);
+                AutoChatHandler.getInstance().setAutoChatActive(ORATOR_NPC_ID,false);
+                AutoChatHandler.getInstance().setAutoChatActive(PREACHER_NPC_ID,false);
             }
             
             if (getSealOwner(SEAL_AVARICE) == getCabalHighestScore() && getSealOwner(SEAL_AVARICE) != CABAL_NULL)
@@ -375,7 +376,8 @@ public class SevenSigns
             for (AutoSpawnInstance spawnInst: _marketeerSpawns.values())
                 AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, false);
             
-            AutoChatHandler.getInstance().setAutoChatActive(false);
+            AutoChatHandler.getInstance().setAutoChatActive(ORATOR_NPC_ID,false);
+            AutoChatHandler.getInstance().setAutoChatActive(PREACHER_NPC_ID,false);
         }
     }
     
