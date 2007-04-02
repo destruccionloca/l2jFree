@@ -55,7 +55,7 @@ class Quest (JQuest) :
    if id == CREATED :
      st.set("cond","0")
    if int(st.get("cond")) == 0:   
-     htmltext = npcId+"-01.htm"
+     htmltext = str(npcId) + "-01.htm"
    elif check(st) :
      htmltext = npcId+"-03.htm"
    elif st.getQuestItemsCount(RED_SOUL_CRYSTAL0_ID) == st.getQuestItemsCount(GREEN_SOUL_CRYSTAL0_ID) == st.getQuestItemsCount(BLUE_SOUL_CRYSTAL0_ID) == 0 :
