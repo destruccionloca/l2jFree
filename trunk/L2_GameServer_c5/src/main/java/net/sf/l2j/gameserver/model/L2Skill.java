@@ -1388,7 +1388,7 @@ public abstract class L2Skill
             
             return null;
         }   
-        /*case TARGET_AURA:
+        case TARGET_AURA:
         {
             int radius = getSkillRadius();
             boolean srcInArena = (ArenaManager.getInstance().getArena(activeChar) != null);
@@ -1442,9 +1442,9 @@ public abstract class L2Skill
                 }
             }
             return targetList.toArray(new L2Character[targetList.size()]);
-        }*/
+        }
         // [L2J_JP ADD SANDMAN]
-        case TARGET_AURA:
+        //case TARGET_AURA:
         case TARGET_AREA:
         {
             return getAreaTargetList(activeChar);
