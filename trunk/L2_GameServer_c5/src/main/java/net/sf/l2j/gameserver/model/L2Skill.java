@@ -1445,15 +1445,15 @@ public abstract class L2Skill
         }
         // [L2J_JP ADD SANDMAN]
         //case TARGET_AURA:
-        case TARGET_AREA:
+        /*case TARGET_AREA:
         {
             return getAreaTargetList(activeChar);
-        }
+        }*/
         case TARGET_MULTIFACE:
         {
             return getMultiFaceTargetList(activeChar);
         }
-        /*case TARGET_AREA:
+        case TARGET_AREA:
         {
             if ((!(target instanceof L2Attackable || target instanceof L2PlayableInstance)) ||  //   Target is not L2Attackable or L2PlayableInstance
                 (this.getCastRange() >= 0 && (target == null || target == activeChar || target.isAlikeDead()))) //target is null or self or dead/faking
@@ -1569,7 +1569,7 @@ public abstract class L2Skill
                 return null;
             
             return targetList.toArray(new L2Character[targetList.size()]);
-        }*/
+        }
         case TARGET_AREA_UNDEAD:
         {
             L2Character cha;
