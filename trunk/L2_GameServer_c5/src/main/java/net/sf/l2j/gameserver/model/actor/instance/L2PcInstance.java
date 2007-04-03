@@ -1735,25 +1735,25 @@ public final class L2PcInstance extends L2PlayableInstance
     
     public void academyCheck(int Id)
     {
-        if (getLvlJoinedAcademy() != 0 && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third)
+        if (this.getPowerGrade() == 9 && this.getPledgeType() ==-1 && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third)
         {
-            if(getLvlJoinedAcademy() <= 16) _clan.setReputationScore(_clan.getReputationScore()+400, true);
-            else if(getLvlJoinedAcademy() >= 39) _clan.setReputationScore(_clan.getReputationScore()+170, true); 
+            if(this.getLvlJoinedAcademy() <= 16) _clan.setReputationScore(_clan.getReputationScore()+400, true);
+            else if(this.getLvlJoinedAcademy() >= 39) _clan.setReputationScore(_clan.getReputationScore()+170, true); 
             else _clan.setReputationScore(_clan.getReputationScore()+(400-(getLvlJoinedAcademy()-16)*10), true);
-            setLvlJoinedAcademy(0);
+            this.setLvlJoinedAcademy(0);
             
             //oust pledge member from the academy, cuz he has finished his 2nd class transfer
+            _clan.removeClanMember(this.getName(), 0);
             SystemMessage msg = new SystemMessage(SystemMessage.CLAN_MEMBER_S1_EXPELLED);
             msg.addString(this.getName());
             _clan.broadcastToOnlineMembers(msg);            
             _clan.broadcastToOnlineMembers(new PledgeShowMemberListDelete(this.getName()));
 
-            _clan.removeClanMember(this.getName(), 0); 
             sendPacket(new SystemMessage(SystemMessage.ACADEMY_MEMBERSHIP_TERMINATED));
             // receive graduation gift
-            getInventory().addItem("Gift",8181,1,this,null); // give academy circlet
-            getInventory().updateDatabase(); // update database
-        }
+            this.getInventory().addItem("Gift",8181,1,this,null); // give academy circlet
+            this.getInventory().updateDatabase(); // update database
+        }        
     }
 
     /**
@@ -1762,8 +1762,8 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param Id The Identifier of the L2PcTemplate to set to the L2PcInstance
      *
      */
-    public void setClassId(int Id)
-    {
+   public void setClassId(int Id)
+   {
         academyCheck(Id);
         
         _activeClass = Id;
