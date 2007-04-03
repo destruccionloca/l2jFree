@@ -100,8 +100,6 @@ public class ClanWarsList implements IUserCommandHandler
 				}
 				activeChar.sendPacket(sm);
 			}
-			//=========================
-			sm = new SystemMessage(SystemMessage.FRIEND_LIST_FOOT);
 			activeChar.sendPacket(sm);
 			rset.close();
 			statement.close();

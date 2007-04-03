@@ -82,7 +82,8 @@ import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
-import net.sf.l2j.gameserver.model.BlockList;
+import net.sf.l2j.gameserver.model.L2BlockList;
+import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.FishData;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.ItemContainer;
@@ -147,6 +148,7 @@ import net.sf.l2j.gameserver.serverpackets.ExFishingEnd;
 import net.sf.l2j.gameserver.serverpackets.ExFishingStart;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadMode;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfo;
+import net.sf.l2j.gameserver.serverpackets.FriendList;
 import net.sf.l2j.gameserver.serverpackets.HennaInfo;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
@@ -561,7 +563,9 @@ public final class L2PcInstance extends L2PlayableInstance
     /** new race ticket **/
     public int _race[] = new int[2];
 
-    private final BlockList _blockList = new BlockList();
+    private final L2BlockList _blockList = new L2BlockList();
+    private final L2FriendList _friendList = new L2FriendList(this);
+    
     private boolean _isConnected = true;
 
     private boolean _fishing = false;
@@ -7921,11 +7925,16 @@ public final class L2PcInstance extends L2PlayableInstance
         return _exchangeRefusal;
     }
 
-    public BlockList getBlockList()
+    public L2BlockList getBlockList()
     {
         return _blockList;
     }
 
+    public L2FriendList getFriendList()
+    {
+        return _friendList;
+    }
+    
     public void setConnected(boolean connected)
     {
         _isConnected = connected;
@@ -9447,7 +9456,13 @@ public final class L2PcInstance extends L2PlayableInstance
 
         for (L2PcInstance player : _SnoopListener)
             player.removeSnooped(this);
-
+        
+        for(String friendName : L2FriendList.getFriendListNames(this))
+        {
+        	L2PcInstance friend = L2World.getInstance().getPlayer(friendName);
+        	if (friend != null) //friend online.
+                friend.sendPacket(new FriendList(friend));                	
+        }
         // Remove L2Object object from _allObjects of L2World
         L2World.getInstance().removeObject(this);
     }

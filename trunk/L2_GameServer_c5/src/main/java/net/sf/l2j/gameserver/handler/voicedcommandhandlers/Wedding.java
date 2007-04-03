@@ -1,11 +1,7 @@
 /* This program is free software; you can redistribute it and/or modify */
 package net.sf.l2j.gameserver.handler.voicedcommandhandlers;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
@@ -15,14 +11,15 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.util.Broadcast;
 
 import org.apache.commons.logging.Log;
@@ -180,38 +177,10 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("You can't ask someone of the same sex for engagement.");
             return false;
         }
-
-        // check if target has player on friendlist
-        boolean FoundOnFriendList = false;
-        int objectId;
-        java.sql.Connection con = null;
-        try 
-        {
-            con = L2DatabaseFactory.getInstance().getConnection();
-            PreparedStatement statement;
-            statement = con.prepareStatement("SELECT friend_id FROM character_friends WHERE char_id=?");
-            statement.setInt(1, ptarget.getObjectId());
-            ResultSet rset = statement.executeQuery();
         
-            while (rset.next())
-            {
-                objectId = rset.getInt("friend_id");
-                if(objectId == activeChar.getObjectId())
-                    FoundOnFriendList = true;
-            }
-        } 
-        catch (Exception e) 
+        if(!L2FriendList.isInFriendList(activeChar, ptarget))
         {
-            _log.warn("could not read friend data:"+e);
-        } 
-        finally 
-        {
-            try {con.close();} catch (Exception e){}
-        }
-        
-        if(!FoundOnFriendList)
-        {
-            activeChar.sendMessage("The player you want to ask to hasn't added you on their friends list.");
+            activeChar.sendMessage("The player you want to ask is not on your friend list.");
             return false;
         }
         

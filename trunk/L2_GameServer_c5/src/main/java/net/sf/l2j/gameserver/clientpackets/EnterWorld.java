@@ -21,12 +21,9 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 import net.sf.l2j.Base64;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.LoginServerThread;
@@ -37,16 +34,15 @@ import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
-import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
+import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Effect;
+import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.base.ClassLevel;
-import net.sf.l2j.gameserver.model.base.PlayerClass;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2Event;
@@ -63,7 +59,6 @@ import net.sf.l2j.gameserver.serverpackets.HennaInfo;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
-import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListDelete;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListUpdate;
 import net.sf.l2j.gameserver.serverpackets.PledgeSkillList;
 import net.sf.l2j.gameserver.serverpackets.PledgeStatusChanged;
@@ -75,8 +70,6 @@ import net.sf.l2j.gameserver.serverpackets.UserInfo;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-//import net.sf.l2j.gameserver.serverpackets.ExStorageMaxCount;
 
 /**
  * Enter World Packet Handler<p>
@@ -227,7 +220,7 @@ public class EnterWorld extends ClientBasePacket
 
         sendPacket(new HennaInfo(activeChar));
         
-        sendPacket(new FriendList(activeChar));
+        sendPacket(new net.sf.l2j.gameserver.serverpackets.FriendList(activeChar));
         
         sendPacket(new ClientSetTime());
                 
@@ -444,41 +437,20 @@ public class EnterWorld extends ClientBasePacket
 	 */
     private void notifyFriends(L2PcInstance cha)
 	{
-		java.sql.Connection con = null;
-		try {
-		    con = L2DatabaseFactory.getInstance().getConnection();
-		    PreparedStatement statement;
-		    statement = con.prepareStatement("SELECT friend_name FROM character_friends WHERE char_id=?");
-		    statement.setInt(1, cha.getObjectId());
-          //statement.setString(2, cha.getName());
-		    ResultSet rset = statement.executeQuery();
-
-            L2PcInstance friend;
-            String friendName;
-            
-            SystemMessage sm = new SystemMessage(SystemMessage.FRIEND_S1_HAS_LOGGED_IN);
-            sm.addString(cha.getName());
-
-            while (rset.next())
+    	SystemMessage sm = new SystemMessage(SystemMessage.S1_FRIEND_HAS_LOGGED_IN);
+        sm.addString(cha.getName());
+        
+        for(String friendName : L2FriendList.getFriendListNames(cha))
+        {
+        	L2PcInstance friend = L2World.getInstance().getPlayer(friendName);
+        	if (friend != null) //friend logged in.
             {
-                friendName = rset.getString("friend_name");
-
-                friend = L2World.getInstance().getPlayer(friendName);
-                
-                if (friend != null) //friend logged in.
-                {
-                    friend.sendPacket(new FriendList(friend));                	
-                    friend.sendPacket(sm);
-                }
-		    }
-            sm = null;            
-        } 
-		catch (Exception e) {
-            _log.warn("could not restore friend data:"+e);
-        } 
-		finally {
-            try {con.close();} catch (Exception e){}
+                friend.sendPacket(new FriendList(friend));                	
+                friend.sendPacket(sm);
+            }
         }
+
+        sm = null;                        
 	}
     
 	/**

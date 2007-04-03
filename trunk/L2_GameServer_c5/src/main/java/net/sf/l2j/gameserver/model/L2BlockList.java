@@ -32,7 +32,6 @@ import java.util.Set;
 
 import javolution.util.FastSet;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
  * This class ...
@@ -40,12 +39,12 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * @version $Revision: 1.2 $ $Date: 2004/06/27 08:12:59 $
  */
 
-public class BlockList
+public class L2BlockList
 {
     private final Set<String> blockSet;
     private boolean blockAll;
     
-    public BlockList()
+    public L2BlockList()
     {
         blockSet    = new FastSet<String>();
         blockAll    = false;
@@ -59,6 +58,11 @@ public class BlockList
         }
     }
    
+    private void removeFromBlockList(String character)
+    {
+    	blockSet.remove(character);
+    }
+    
     private void removeFromBlockList(L2PcInstance character)
     {
         if(character != null)
@@ -67,9 +71,14 @@ public class BlockList
         }
     }
     
+    private boolean isInBlockList(String character)
+    {
+        return blockSet.contains(character);        
+    }
+   
     private boolean isInBlockList(L2PcInstance character)
     {
-        return blockSet.contains(character.getName());        
+        return isInBlockList(character.getName());        
     }
     
     private boolean isBlockAll()
@@ -79,7 +88,7 @@ public class BlockList
     
     public static boolean isBlocked(L2PcInstance listOwner, L2PcInstance character)
     {
-        BlockList blockList = listOwner.getBlockList();
+        L2BlockList blockList = listOwner.getBlockList();
         return blockList.isBlockAll() || blockList.isInBlockList(character);
     }
     
@@ -93,29 +102,32 @@ public class BlockList
         return blockSet;
     }
     
+    private String[] getBlockNames()
+    {
+    	return blockSet.toArray(new String[blockSet.size()]);
+    }
+    
     public static void addToBlockList(L2PcInstance listOwner, L2PcInstance character)
     {
         listOwner.getBlockList().addToBlockList(character);
-        
-        SystemMessage sm = new SystemMessage(SystemMessage.S1_HAS_ADDED_YOU_TO_IGNORE_LIST);
-        sm.addString(listOwner.getName());
-        character.sendPacket(sm);
-        
-        sm = new SystemMessage(SystemMessage.S1_WAS_ADDED_TO_YOUR_IGNORE_LIST);
-        sm.addString(character.getName());
-        listOwner.sendPacket(sm);
+    }
+    
+    public static void removeFromBlockList(L2PcInstance listOwner, String character)
+    {
+        listOwner.getBlockList().removeFromBlockList(character);
     }
     
     public static void removeFromBlockList(L2PcInstance listOwner, L2PcInstance character)
     {
         listOwner.getBlockList().removeFromBlockList(character);
-        
-        SystemMessage sm = new SystemMessage(SystemMessage.S1_WAS_REMOVED_FROM_YOUR_IGNORE_LIST);
-        sm.addString(character.getName());
-        listOwner.sendPacket(sm);
     }
     
     public static boolean isInBlockList(L2PcInstance listOwner, L2PcInstance character)
+    {
+        return listOwner.getBlockList().isInBlockList(character);
+    }
+    
+    public static boolean isInBlockList(L2PcInstance listOwner, String character)
     {
         return listOwner.getBlockList().isInBlockList(character);
     }
@@ -130,11 +142,13 @@ public class BlockList
         listOwner.getBlockList().setBlockAll(newValue);
     }
     
-    public static void sendListToOwner(L2PcInstance listOwner)
+    public static String[] getBlockNames(L2PcInstance listOwner)
     {
-        for (String playerName : listOwner.getBlockList().getBlockList())
-        {
-            listOwner.sendPacket(new SystemMessage(614).addString(playerName));
-        }
+        return listOwner.getBlockList().getBlockNames();
+    }
+    
+    public static Set<String> getBlockList(L2PcInstance listOwner)
+    {
+        return listOwner.getBlockList().getBlockList();
     }
 }

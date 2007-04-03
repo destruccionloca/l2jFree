@@ -19,27 +19,17 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
-import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
- */
 public class RequestFriendDel extends ClientBasePacket{
 	
 	private static final String _C__61_REQUESTFRIENDDEL = "[C] 61 RequestFriendDel";
-	private final static Log _log = LogFactory.getLog(RequestFriendDel.class.getName());
 
 	private final String _name;
 	
@@ -52,76 +42,45 @@ public class RequestFriendDel extends ClientBasePacket{
 	void runImpl()
 	{
 		SystemMessage sm;
-		java.sql.Connection con = null;
 		L2PcInstance activeChar = getClient().getActiveChar();
+		
         if (activeChar == null) 
             return;
         
-		try 
-		{
-		    L2PcInstance friend = L2World.getInstance().getPlayer(_name);
-		    con = L2DatabaseFactory.getInstance().getConnection();
-		    PreparedStatement statement;
-		    ResultSet rset;
-		    if (friend != null)
-            {
-    			statement = con.prepareStatement("SELECT friend_id FROM character_friends WHERE char_id=? and friend_id=?");
-    			statement.setInt(1, activeChar.getObjectId());
-    			statement.setInt(2, friend.getObjectId());
-    			rset = statement.executeQuery();
-    			if (!rset.next())
-                {
-    			    statement.close();
-    			    // Player is not in your friendlist
-    			    sm = new SystemMessage(SystemMessage.S1_NOT_ON_YOUR_FRIENDS_LIST);
-    			    sm.addString(_name);
-    			    activeChar.sendPacket(sm);
-    			    sm = null;
-    			    return;
-    			}
-		    } else 
-            {
-    			statement = con.prepareStatement("SELECT friend_id FROM character_friends, characters WHERE char_id=? AND friend_id=obj_id AND char_name=?");
-    			statement.setInt(1, activeChar.getObjectId());
-    			statement.setString(2, _name);
-    			rset = statement.executeQuery();
-    			if (!rset.next())
-                {
-    				statement.close();
-    				// Player is not in your friendlist
-    				sm = new SystemMessage(SystemMessage.S1_NOT_ON_YOUR_FRIENDS_LIST);
-    				sm.addString(_name);
-    				activeChar.sendPacket(sm);
-    				sm = null;
-    				return;
-    			}
-		    }
-            
-			int objectId = rset.getInt("friend_id");
-			statement.close();
-            rset.close();
-            
-			statement = con.prepareStatement("DELETE FROM character_friends WHERE char_id=? AND friend_id=?");
-			statement.setInt(1, activeChar.getObjectId());
-			statement.setInt(2, objectId);
-			statement.execute();
-			// Player deleted from your friendlist
-			sm = new SystemMessage(SystemMessage.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST);
+        L2PcInstance friend = L2World.getInstance().getPlayer(_name);
+
+        if (friend == activeChar)
+        {
+        	return;
+        }
+        else if (!L2FriendList.isInFriendList(activeChar, _name))
+        { 
+            // Target is not in friend list.
+        	sm = new SystemMessage(SystemMessage.S1_IS_NOT_ON_YOUR_FRIEND_LIST);
 			sm.addString(_name);
 			activeChar.sendPacket(sm);
+		    sm = null;
+        }
+        else if (friend != null)
+        {
+        	L2FriendList.removeFromFriendList(activeChar, friend);
+            // Notify that target deleted from friends list.
+ 			sm = new SystemMessage(SystemMessage.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST);
+			sm.addString(_name);
+			activeChar.sendPacket(sm);
+            // Notify target that requester deleted from friends list.			
+			sm = new SystemMessage(SystemMessage.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST);
+			sm.addString(activeChar.getName());
+			friend.sendPacket(sm);
+        } else
+        {
+        	L2FriendList.removeFromFriendList(activeChar, _name);
+            // Notify that target deleted from friends list.
+ 			sm = new SystemMessage(SystemMessage.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST);
+			sm.addString(_name);
+			activeChar.sendPacket(sm);
+        }
 			sm = null;
-			
-			statement.close();
-		} 
-		catch (Exception e)
-		{
-		    _log.warn( "could not del friend objectid: ", e);
-		}
-		finally
-		{
-		    try { con.close(); } catch (Exception e) {}
-		}
-		
 	}
 	
 	

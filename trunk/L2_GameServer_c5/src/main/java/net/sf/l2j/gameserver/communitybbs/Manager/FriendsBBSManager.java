@@ -21,15 +21,18 @@ package net.sf.l2j.gameserver.communitybbs.Manager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.clientpackets.Say2;
+import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
+import net.sf.l2j.gameserver.serverpackets.AskJoinFriend;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.ShowBoard;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -174,47 +177,30 @@ public class FriendsBBSManager extends BaseBBSManager
     private void showFriendsList(L2PcInstance activeChar)
     {       
         TextBuilder htmlCode = new TextBuilder("<html><body><br>");
-
-        Connection con = null;
-        
-        try
+        //add new friend
+        htmlCode.append("<table border=0>");
+        //htmlCode.append("<tr><td>Add new friend:</td><td><edit var= \"friendname\" width=50></td><td><button value=\"Add Friend\" action=\"bypass -h _bbsgetfav;playeradd;$friendname\" width=70 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
+        htmlCode.append("<tr><td>To add someone to your friendlist type '/addfriend friendname'</td></tr>");
+        htmlCode.append("<tr><td>You can remove someone from your friendlist only when your friend is online</td></tr>");
+        htmlCode.append("</table><br>");
+        //show friendlist
+        htmlCode.append("<table border=0>");
+        htmlCode.append("<tr><td align=left FIXWIDTH=150>Your Friends List</td><td></td></tr>");
+        for(Map.Entry<Integer, String> _friend : L2FriendList.getFriendList(activeChar).entrySet())
         {
-            String sqlQuery = "SELECT friend_id, friend_name FROM character_friends WHERE " +
-                    "char_id=" + activeChar.getObjectId() + " ORDER BY friend_name ASC";
+            int friendId = _friend.getKey();
+            String friendName = _friend.getValue();
             
-            con = L2DatabaseFactory.getInstance().getConnection();
-            PreparedStatement statement = con.prepareStatement(sqlQuery);
-            ResultSet rset = statement.executeQuery(sqlQuery);
-
-            //add new friend
-            htmlCode.append("<table border=0>");
-            //htmlCode.append("<tr><td>Add new friend:</td><td><edit var= \"friendname\" width=50></td><td><button value=\"Add Friend\" action=\"bypass -h _bbsgetfav;playeradd;$friendname\" width=70 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
-            htmlCode.append("<tr><td>To add someone to your friendlist type '/addfriend friendname'</td></tr>");
-            htmlCode.append("<tr><td>You can remove someone from your friendlist only when your friend is online</td></tr>");
-            htmlCode.append("</table><br>");
-            //show friendlist
-            htmlCode.append("<table border=0>");
-            htmlCode.append("<tr><td align=left FIXWIDTH=150>Your Friends List</td><td></td></tr>");
-            while (rset.next()){
-                int friendId = rset.getInt("friend_id");
-                String friendName = rset.getString("friend_name");
-                
-                L2PcInstance friend = (L2PcInstance)L2World.getInstance().findObject(friendId);
-                if (friend == null)
-                    htmlCode.append("<tr><td align=left valign=top FIXWIDTH=150>"+friendName+"</td><td>Offline</td><td></td></tr>");
-                else
-                    htmlCode.append("<tr><td align=left valign=top FIXWIDTH=150><a action=\"bypass _bbsgetfav;playerinfo;" + friendName + "\">"+friendName+"</a></td><td>Online</td><td><a action=\"bypass _bbsgetfav;playerdelete;" + friendName + "\">delete</a></td></tr>");
-            }
-            htmlCode.append("</table>");
-            htmlCode.append("</body></html>");
-            statement.close();
+            L2PcInstance friend = (L2PcInstance)L2World.getInstance().findObject(friendId);
+            if (friend == null)
+                htmlCode.append("<tr><td align=left valign=top FIXWIDTH=150>"+friendName+"</td><td>Offline</td><td></td></tr>");
+            else
+                htmlCode.append("<tr><td align=left valign=top FIXWIDTH=150><a action=\"bypass _bbsgetfav;playerinfo;" + friendName + "\">"+friendName+"</a></td><td>Online</td><td><a action=\"bypass _bbsgetfav;playerdelete;" + friendName + "\">delete</a></td></tr>");
         }
-        catch (Exception e) {
-            //ignore
-        }
-
-        separateAndSend(htmlCode.toString(),activeChar);
-      
+        htmlCode.append("</table>");
+        htmlCode.append("</body></html>");
+        
+        separateAndSend(htmlCode.toString(),activeChar);        	
     }
 
     /**
@@ -222,20 +208,7 @@ public class FriendsBBSManager extends BaseBBSManager
      */
     private void deleteFriend(L2PcInstance activeChar, String name)
     {   
-        L2PcInstance player = L2World.getInstance().getPlayer(name);
-        Connection con = null;
-        try
-        {
-            String sqlQuery = "DELETE FROM character_friends WHERE (char_id="+activeChar.getObjectId()+" AND friend_id="+player.getObjectId()+") OR (char_id="+player.getObjectId()+" AND friend_id="+activeChar.getObjectId()+")";
-            
-            con = L2DatabaseFactory.getInstance().getConnection();
-            PreparedStatement statement = con.prepareStatement(sqlQuery);
-            statement.executeQuery(sqlQuery);
-            statement.close();
-        }
-        catch (Exception e) {
-            //ignore
-        }
+    	L2FriendList.removeFromFriendList(activeChar, name);
     }
     
     /**
@@ -243,41 +216,10 @@ public class FriendsBBSManager extends BaseBBSManager
      */
     private void addFriend(L2PcInstance activeChar, String name)
     {   
-        L2PcInstance player = L2World.getInstance().getPlayer(name);
-        Connection con = null;
-        try
-        {
-            String sqlQuery = "SELECT * FROM character_friends WHERE char_id="+activeChar.getObjectId()+" AND friend_id="+player.getObjectId();
-            con = L2DatabaseFactory.getInstance().getConnection();
-            PreparedStatement statement = con.prepareStatement(sqlQuery);
-            ResultSet rset = statement.executeQuery(sqlQuery);
-            if (rset.getRow() == 0){
-                statement = con.prepareStatement("INSERT INTO character_friends (char_id, friend_id, friend_name) VALUES (?, ?, ?), (?, ?, ?)");
-                statement.setInt(1, activeChar.getObjectId());
-                statement.setInt(2, player.getObjectId());
-                statement.setString(3, player.getName());
-                statement.setInt(4, player.getObjectId());
-                statement.setInt(5, activeChar.getObjectId());
-                statement.setString(6, activeChar.getName());
-                statement.execute();
-                statement.close();
-                SystemMessage msg = new SystemMessage(SystemMessage.INVITED_A_FRIEND);
-                activeChar.sendPacket(msg);
-                
-                //Player added to your friendlist
-                msg = new SystemMessage(SystemMessage.S1_ADDED_TO_FRIENDS);
-                msg.addString(player.getName());
-                activeChar.sendPacket(msg);
-                
-                //has joined as friend.
-                msg = new SystemMessage(SystemMessage.S1_JOINED_AS_FRIEND);
-                msg.addString(activeChar.getName());
-                player.sendPacket(msg);
-            }
-        }
-        catch (Exception e) {
-            //ignore
-        }
+    	L2PcInstance friend = L2World.getInstance().getPlayer(name);
+    	
+	    AskJoinFriend ajf = new AskJoinFriend(activeChar.getName());
+	    friend.sendPacket(ajf);  
     }
     
     /* (non-Javadoc)

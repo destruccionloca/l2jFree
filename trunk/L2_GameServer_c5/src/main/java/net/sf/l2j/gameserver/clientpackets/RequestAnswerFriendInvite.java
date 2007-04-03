@@ -19,15 +19,11 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import java.sql.PreparedStatement;
 
-import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  *  sample
@@ -42,7 +38,6 @@ import org.apache.commons.logging.LogFactory;
 public class RequestAnswerFriendInvite extends ClientBasePacket
 {
 	private static final String _C__5F_REQUESTANSWERFRIENDINVITE = "[C] 5F RequestAnswerFriendInvite";
-	private final static Log _log = LogFactory.getLog(RequestAnswerFriendInvite.class.getName());
 	
 	private final int _response;
 	
@@ -54,60 +49,46 @@ public class RequestAnswerFriendInvite extends ClientBasePacket
 
 	void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar();
-    	if(player != null)
-        {
-    		L2PcInstance requestor = player.getActiveRequester();
-    		if (requestor == null)
-    		    return;
-
-    		if (_response == 1) 
-            {
-        		java.sql.Connection con = null;
-        		try 
-        		{
-        		    con = L2DatabaseFactory.getInstance().getConnection();
-        		    PreparedStatement statement = con.prepareStatement("INSERT INTO character_friends (char_id, friend_id, friend_name) VALUES (?, ?, ?), (?, ?, ?)");
-                    statement.setInt(1, requestor.getObjectId());
-                    statement.setInt(2, player.getObjectId());
-        		    statement.setString(3, player.getName());
-                    statement.setInt(4, player.getObjectId());
-                    statement.setInt(5, requestor.getObjectId());
-                    statement.setString(6, requestor.getName());
-        		    statement.execute();
-        		    statement.close();
-        		    SystemMessage msg = new SystemMessage(SystemMessage.YOU_HAVE_SUCCEEDED_INVITING_FRIEND);
-        			requestor.sendPacket(msg);
-                    
-        			//Player added to your friendlist
-            		msg = new SystemMessage(SystemMessage.S1_ADDED_TO_FRIENDS);
-        			msg.addString(player.getName());
-            		requestor.sendPacket(msg);
-                    
-        			//has joined as friend.
-            		msg = new SystemMessage(SystemMessage.S1_JOINED_AS_FRIEND);
-        			msg.addString(requestor.getName());
-            		player.sendPacket(msg);
-            		msg = null;
-        		} 
-        		catch (Exception e)
-        		{
-        		    _log.warn("could not add friend objectid: "+ e);
-        		}
-        		finally
-        		{
-        		    try { con.close(); } catch (Exception e) {}
-        		}
-    		} else 
-            {
-    			SystemMessage msg = new SystemMessage(SystemMessage.FAILED_TO_INVITE_A_FRIEND);
-    			requestor.sendPacket(msg);
-    			msg = null;
-    		}
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)  
+			return;
+		
+		SystemMessage sm;
+		
+    	L2PcInstance requestor = activeChar.getActiveRequester();
     		
-    		player.setActiveRequester(null);
-    		requestor.onTransactionResponse();
-        }
+    	if (requestor == null)
+    	{
+    		sm = new SystemMessage(SystemMessage.THE_USER_WHO_REQUESTED_TO_BECOME_FRIENDS_IS_NOT_FOUND_IN_THE_GAME);
+    		activeChar.sendPacket(sm);
+    		sm = null;
+    		return;
+    	}
+    	if (_response == 1) 
+        {
+    		sm = new SystemMessage(SystemMessage.YOU_HAVE_SUCCEEDED_IN_INVITING_FRIEND_TO_YOUR_FRIENDS_LIST);
+    		requestor.sendPacket(sm);
+			
+    		L2FriendList.addToFriendList(requestor, activeChar);
+    		
+    		//Player added to requester friends list.                
+    		sm = new SystemMessage(SystemMessage.S1_HAS_BEEN_ADDED_TO_YOUR_FRIENDS_LIST);
+    		sm.addString(activeChar.getName());
+    		requestor.sendPacket(sm);
+    		
+   			//Requester has joined as friend.
+    		sm = new SystemMessage(SystemMessage.S1_HAS_JOINED_AS_A_FRIEND);
+    		sm.addString(requestor.getName());
+    		activeChar.sendPacket(sm);
+		} 
+    	else 
+        {
+			sm = new SystemMessage(SystemMessage.YOU_HAVE_FAILED_TO_ADD_FRIEND_TO_YOUR_FRIENDS_LIST);
+			requestor.sendPacket(sm);
+		}   		
+		sm = null;
+		activeChar.setActiveRequester(null);
+		requestor.onTransactionResponse();
 	}
 
 	/* (non-Javadoc)
