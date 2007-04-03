@@ -91,7 +91,7 @@ public class RequestAnswerJoinPledge extends ClientBasePacket
 				if(requestPacket.getPledgeType() == L2Clan.SUBUNIT_ACADEMY)
 				{
 					activeChar.setPowerGrade(9); // adademy
-					activeChar.setLvlJoinedAcademy(activeChar.getStat().getLevel());
+					activeChar.setLvlJoinedAcademy(activeChar.getLevel());
 				}
 				else
 				{
