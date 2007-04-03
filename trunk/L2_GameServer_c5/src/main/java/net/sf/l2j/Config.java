@@ -186,48 +186,6 @@ public final class Config {
     }
 
     
-    
-    //*******************************************************************************************    
-    public static final String  OLYMPIAD_FILE             	= "./config/olympiad.properties";
-    //*******************************************************************************************
-    public static int ALT_OLY_START_TIME;	// Olympiad Compitition Starting time
-    public static int ALT_OLY_MIN;			// Olympiad Compition Min
-    public static int ALT_OLY_CPERIOD;		// Olympaid Comptetition Period
-    public static int ALT_OLY_BATTLE;		// Olympiad Battle Period
-    public static int ALT_OLY_BWAIT;		// Olympiad Battle Wait
-    public static int ALT_OLY_IWAIT;		// Olympiad Inital Wait
-    public static int ALT_OLY_WPERIOD;		// Olympaid Weekly Period
-    public static int ALT_OLY_VPERIOD;		// Olympaid Validation Period
-    //*******************************************************************************************    
-    public static void loadolympiadconfig()
-    {
-    	_log.info("loading " + OLYMPIAD_FILE);    	
-	    try
-	    {
-	        Properties olympiadSettings	= new Properties();
-	        InputStream is              = new FileInputStream(new File(OLYMPIAD_FILE));
-	        olympiadSettings.load(is);
-	        is.close();
-	    	
-	        ALT_OLY_START_TIME                                  = Integer.parseInt(olympiadSettings.getProperty("AltOlyStartTime", "20"));
-	        ALT_OLY_MIN                                         = Integer.parseInt(olympiadSettings.getProperty("AltOlyMin","00"));
-	        ALT_OLY_CPERIOD                                     = Integer.parseInt(olympiadSettings.getProperty("AltOlyPeriod","14100000"));
-	        ALT_OLY_BATTLE                                      = Integer.parseInt(olympiadSettings.getProperty("AltOlyBattle","180000"));
-	        ALT_OLY_BWAIT                                       = Integer.parseInt(olympiadSettings.getProperty("AltOlyBWait","600000"));
-	        ALT_OLY_IWAIT                                       = Integer.parseInt(olympiadSettings.getProperty("AltOlyPwait","300000"));
-	        ALT_OLY_WPERIOD                                     = Integer.parseInt(olympiadSettings.getProperty("AltOlyWperiod","604800000"));
-	        ALT_OLY_VPERIOD                                     = Integer.parseInt(olympiadSettings.getProperty("AltOlyVperiod","86400000"));
-	    	
-	    }
-	    catch (Exception e)
-	    {
-	        _log.error(e.getMessage(),e);
-	        throw new Error("Failed to Load "+OLYMPIAD_FILE+" File.");
-	    }
-    }
-
-    
-    
     //*******************************************************************************************    
     public static final String  CLANS_FILE                	= "./config/clans.properties";
     //*******************************************************************************************
@@ -1273,6 +1231,14 @@ public final class Config {
     public static boolean       	IS_CRAFTING_ENABLED;				// Crafting Enabled?
     public static boolean   		FAIL_FAKEDEATH;						// Config for Fake Death Fail Feature
     public static boolean 			ALT_FLYING_WYVERN_IN_SIEGE;			// Config for Wyvern enable flying in siege **/
+    public static int 				ALT_OLY_START_TIME;	// Olympiad Compitition Starting time
+    public static int 				ALT_OLY_MIN;			// Olympiad Compition Min
+    public static int 				ALT_OLY_CPERIOD;		// Olympaid Comptetition Period
+    public static int 				ALT_OLY_BATTLE;		// Olympiad Battle Period
+    public static int 				ALT_OLY_BWAIT;		// Olympiad Battle Wait
+    public static int 				ALT_OLY_IWAIT;		// Olympiad Inital Wait
+    public static int 				ALT_OLY_WPERIOD;		// Olympaid Weekly Period
+    public static int 				ALT_OLY_VPERIOD;		// Olympaid Validation Period
     //  *******************************************************************************************    
     //  *******************************************************************************************    
     //  *******************************************************************************************
@@ -1373,6 +1339,15 @@ public final class Config {
             ALT_STATPOINT_DISTRIBUTION                          = Boolean.parseBoolean(altSettings.getProperty("AltStatPointDistribution", "false"));
             ALT_CRITICAL_CAP								 	= Integer.parseInt(altSettings.getProperty("AltCriticalCap", "500"));
             
+            ALT_OLY_START_TIME                                  = Integer.parseInt(altSettings.getProperty("AltOlyStartTime", "20"));
+	        ALT_OLY_MIN                                         = Integer.parseInt(altSettings.getProperty("AltOlyMin","00"));
+	        ALT_OLY_CPERIOD                                     = Integer.parseInt(altSettings.getProperty("AltOlyPeriod","14100000"));
+	        ALT_OLY_BATTLE                                      = Integer.parseInt(altSettings.getProperty("AltOlyBattle","180000"));
+	        ALT_OLY_BWAIT                                       = Integer.parseInt(altSettings.getProperty("AltOlyBWait","600000"));
+	        ALT_OLY_IWAIT                                       = Integer.parseInt(altSettings.getProperty("AltOlyPwait","300000"));
+	        ALT_OLY_WPERIOD                                     = Integer.parseInt(altSettings.getProperty("AltOlyWperiod","604800000"));
+	        ALT_OLY_VPERIOD                                     = Integer.parseInt(altSettings.getProperty("AltOlyVperiod","86400000"));
+	    	
             ALT_CRAFT_ALLOW_CRAFT                               = Boolean.parseBoolean(altSettings.getProperty("CraftManagerDwarvenCraft", "True"));
             ALT_CRAFT_ALLOW_COMMON                              = Boolean.parseBoolean(altSettings.getProperty("CraftManagerCommonCraft", "False"));
             ALT_CRAFT_ALLOW_CRYSTALLIZE                         = Boolean.parseBoolean(altSettings.getProperty("CraftManagerCrystallize", "True"));
@@ -1993,7 +1968,6 @@ public final class Config {
 			loadoptionsconfig();
 			loadotherconfig();
 			loadaltconfig();
-			loadolympiadconfig();
 			loadclansconfig();
 			loadchampionsconfig();
 			loadlotteryconfig();

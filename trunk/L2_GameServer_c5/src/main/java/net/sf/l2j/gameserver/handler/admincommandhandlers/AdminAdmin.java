@@ -257,11 +257,6 @@ public class AdminAdmin implements IAdminCommandHandler {
                     Config.loadaltconfig();
                     activeChar.sendMessage("alt config reloaded");
                 }
-                else if(type.equals("olympiad"))
-                {
-                    Config.loadolympiadconfig();
-                    activeChar.sendMessage("olympiad config reloaded");
-                }
                 else if(type.equals("clans"))
                 {
                     Config.loadclansconfig();
