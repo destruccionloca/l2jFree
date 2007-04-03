@@ -57,9 +57,9 @@ class Quest (JQuest) :
    if int(st.get("cond")) == 0:   
      htmltext = str(npcId) + "-01.htm"
    elif check(st) :
-     htmltext = npcId+"-03.htm"
+     htmltext = str(npcId) + "-03.htm"
    elif st.getQuestItemsCount(RED_SOUL_CRYSTAL0_ID) == st.getQuestItemsCount(GREEN_SOUL_CRYSTAL0_ID) == st.getQuestItemsCount(BLUE_SOUL_CRYSTAL0_ID) == 0 :
-     htmltext = npcId+"-21.htm"
+     htmltext = str(npcId) + "-21.htm"
    return htmltext
 
 QUEST       = Quest(350,qn,"Enhance Your Weapon")
