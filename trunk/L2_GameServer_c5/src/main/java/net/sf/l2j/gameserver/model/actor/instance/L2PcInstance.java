@@ -1735,7 +1735,7 @@ public final class L2PcInstance extends L2PlayableInstance
     
     public void academyCheck(int Id)
     {
-        if (getLvlJoinedAcademy() != 0 && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third)
+        if (((getPowerGrade() == 9 && getPledgeType() ==-1) || getLvlJoinedAcademy() != 0) && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third)
         {
             if(getLvlJoinedAcademy() <= 16) _clan.setReputationScore(_clan.getReputationScore()+400, true);
             else if(getLvlJoinedAcademy() >= 39) _clan.setReputationScore(_clan.getReputationScore()+170, true); 

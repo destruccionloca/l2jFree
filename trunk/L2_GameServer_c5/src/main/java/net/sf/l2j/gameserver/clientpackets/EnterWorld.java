@@ -284,7 +284,7 @@ public class EnterWorld extends ClientBasePacket
         	activeChar.checkAllowedSkills();
 
         // check for academy
-        activeChar.academyCheck(activeChar.getClassIndex());
+        activeChar.academyCheck(activeChar.getClassId().getId());
         
         // check for crowns
         CrownManager.getInstance().checkCrowns(activeChar);
