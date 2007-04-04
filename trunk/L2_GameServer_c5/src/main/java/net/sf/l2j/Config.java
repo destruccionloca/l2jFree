@@ -1971,6 +1971,7 @@ public final class Config {
 			loadclansconfig();
 			loadchampionsconfig();
 			loadlotteryconfig();
+			loadweddingconfig();
 			loadsepulchursconfig();
 			loadclanhallconfig();
 			loadidfactoryconfig();
