@@ -1,3 +1,7 @@
+-- ---------------------------
+-- Table structure for `npc`
+-- ---------------------------
+
 DROP TABLE IF EXISTS `npc`;
 CREATE TABLE `npc` (
   `id` decimal(11,0) NOT NULL default '0',
@@ -3561,8 +3565,8 @@ INSERT INTO `npc` VALUES (31592, 31592, 'Telson', 0, 'Chief Golem Crafter', 0, '
 INSERT INTO `npc` VALUES (31593, 31593, 'Dorothy', 0, 'Golem of Telson', 0, 'Monster.mechanic_golem', 5.00, 19.00, 70, 'male', 'L2Npc', 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 35, 10, 6922, 761, 1314, 470, 780, 382, 278, 0, 253, 0, 0, 0, 80, 120, NULL, 0, 0, 0);
 INSERT INTO `npc` VALUES (31594, 31594, 'Mond', 0, 'Chief Inspector', 0, 'NPC.e_celebrant_MDwarf', 8.00, 19.50, 70, 'male', 'L2Npc', 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 35, 10, 6922, 761, 1314, 470, 780, 382, 278, 0, 253, 0, 0, 0, 50, 120, NULL, 0, 1, 0);
 INSERT INTO `npc` VALUES (31595, 31595, 'Leona Blackbird', 0, '', 0, 'NPC.a_fighterguild_teacher_FHuman', 9.50, 22.40, 70, 'female', 'L2Npc', 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 35, 10, 6922, 761, 1314, 470, 780, 382, 278, 0, 253, 79, 110, 0, 80, 120, NULL, 0, 1, 0);
-INSERT INTO `npc` VALUES (31596, 31596, 'Tobald', 0, 'Master', 0, 'NPC.e_guard_MDwarf', 8.00, 19.00, 70, 'male', 'L2Trainer', 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 35, 10, 6922, 761, 1314, 470, 780, 382, 278, 0, 253, 187, 0, 0, 80, 120, NULL, 0, 1, 0);
-INSERT INTO `npc` VALUES (31597, 31597, 'Tobald', 0, 'Master', 0, 'NPC.e_guard_MDwarf', 8.00, 19.00, 70, 'male', 'L2Trainer', 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 35, 10, 6922, 761, 1314, 470, 780, 382, 278, 0, 253, 187, 0, 0, 50, 120, NULL, 0, 1, 0);
+INSERT INTO `npc` VALUES (31596, 31596, 'Tobald', 0, 'Master', 0, 'NPC.e_guard_MDwarf', 8.00, 19.00, 70, 'male', 'L2Npc', 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 35, 10, 6922, 761, 1314, 470, 780, 382, 278, 0, 253, 187, 0, 0, 80, 120, NULL, 0, 1, 0);
+INSERT INTO `npc` VALUES (31597, 31597, 'Tobald', 0, 'Master', 0, 'NPC.e_guard_MDwarf', 8.00, 19.00, 70, 'male', 'L2Npc', 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 35, 10, 6922, 761, 1314, 470, 780, 382, 278, 0, 253, 187, 0, 0, 50, 120, NULL, 0, 1, 0);
 INSERT INTO `npc` VALUES (31598, 31598, 'Medina Blackheart', 0, '', 0, 'NPC.a_trader_Fdarkelf', 8.00, 24.50, 70, 'female', 'L2Npc', 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 35, 10, 6922, 761, 1314, 470, 780, 382, 278, 0, 253, 206, 0, 0, 80, 120, NULL, 0, 1, 0);
 INSERT INTO `npc` VALUES (31599, 31599, 'Disgraced Knight Waldstein', 0, '', 0, 'NPC.a_fighterguild_master_Mhuman', 8.00, 23.50, 70, 'male', 'L2Npc', 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 35, 10, 6922, 761, 1314, 470, 780, 382, 278, 0, 253, 81, 0, 0, 80, 120, NULL, 0, 1, 0);
 INSERT INTO `npc` VALUES (31600, 31600, 'Pamela Aprodia', 0, '', 0, 'NPC.a_casino_FDarkElf', 8.00, 23.00, 70, 'female', 'L2Npc', 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 35, 10, 6922, 761, 1314, 470, 780, 382, 278, 0, 253, 151, 0, 0, 50, 120, NULL, 0, 1, 0);
@@ -4380,7 +4384,7 @@ INSERT INTO `npc` VALUES (12077, 12077, 'Wolf', 0, '', 0, 'Monster.pet_wolf', 13
 INSERT INTO `npc` VALUES (21084, 21084, 'Bloody Lady', 0, '', 0, 'Monster.bloody_queen', 14.00, 40.00, 60, 'female', 'L2Monster', 40, 3054, 1150, 30.81, 2.45, 40, 43, 30, 21, 35, 10, 4536, 394, 860, 368, 478, 299, 278, 500, 253, 0, 0, 0, 80, 160, 'cave_servant_clan', 400, 0, 0);
 INSERT INTO `npc` VALUES (18003, 18003, 'Bearded Keltir', 0, '', 0, 'Monster.keltir', 9.50, 10.00, 1, 'male', 'L2Monster', 40, 62, 44, 3.16, 0.91, 40, 43, 30, 21, 35, 10, 29, 2, 4, 39, 3, 32, 278, 0, 253, 0, 0, 0, 23, 110, NULL, 0, 0, 0);
 INSERT INTO `npc` VALUES (31844, 31844, 'Aracna', 0, '', 0, 'Monster.aracne', 15.00, 26.00, 50, 'female', 'L2Monster', 40, 3381, 1660, 13.09, 2.14, 60, 57, 73, 76, 35, 80, 3000, 226, 1135, 278, 2360, 452, 409, 0, 2901, 0, 0, 0, 64, 120, 'all_elemental_clan', 300, 0, 0);
-INSERT INTO `npc` VALUES (31845, 31845, 'Bloody Pixy', 0, '', 0, 'Monster.pixy', 5.00, 25.00, 50, 'female', 'L2Guard', 40, 3381, 1660, 13.09, 2.14, 60, 57, 73, 76, 35, 80, 3000, 226, 1135, 278, 2360, 452, 409, 500, 2901, 2, 20, 0, 80, 120, 'all_elemental2_clan', 300, 0, 0);
+INSERT INTO `npc` VALUES (31845, 31845, 'Bloody Pixy', 0, '', 0, 'Monster.pixy', 5.00, 25.00, 50, 'female', 'L2FriendlyMob', 40, 3381, 1660, 13.09, 2.14, 60, 57, 73, 76, 35, 80, 3000, 226, 1135, 278, 2360, 452, 409, 500, 2901, 2, 20, 0, 80, 120, 'all_elemental2_clan', 300, 0, 0);
 INSERT INTO `npc` VALUES (31846, 31846, 'Satyros', 0, '', 0, 'Monster.pan', 14.00, 35.00, 50, 'male', 'L2Monster', 40, 3381, 1660, 13.09, 2.14, 60, 57, 73, 76, 35, 80, 3000, 226, 1135, 278, 2360, 452, 409, 0, 2901, 291, 0, 0, 50, 110, 'all_elemental2_clan', 300, 0, 0);
 INSERT INTO `npc` VALUES (31847, 31847, 'Pan', 0, '', 0, 'Monster.pan', 14.00, 35.00, 50, 'male', 'L2Monster', 40, 3381, 1660, 13.09, 2.14, 60, 57, 73, 76, 35, 80, 3000, 226, 1135, 278, 2360, 452, 409, 0, 2901, 291, 0, 0, 50, 110, 'all_elemental_clan', 300, 0, 0);
 INSERT INTO `npc` VALUES (31848, 31848, 'Pixy', 0, '', 0, 'Monster.pixy', 5.00, 25.00, 50, 'female', 'L2FriendlyMob', 40, 3381, 1660, 13.09, 2.14, 60, 57, 73, 76, 35, 80, 3000, 226, 1135, 278, 2360, 452, 409, 0, 2901, 0, 0, 0, 80, 120, 'all_elemental_clan', 300, 0, 0);

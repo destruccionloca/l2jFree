@@ -120,7 +120,6 @@ INSERT INTO `spawnlist` VALUES (70009, '23_17_NPC_031201_10', 1, 30882, 112668, 
 INSERT INTO `spawnlist` VALUES (70007, '23_17_NPC_031201_10', 1, 30880, 112816, -17856, -1797, 0, 0, 26000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (70008, '23_17_NPC_031201_10', 1, 30881, 112740, -17944, -1797, 0, 0, 20480, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (70010, '23_17_NPC_031201_11', 1, 30886, 111468, -12224, -1781, 0, 0, 20480, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (70020, 'near_gludio_village', 1, 30990, -84143, 244637, -3728, 0, 0, 41000, 5, 0, 0);
 INSERT INTO `spawnlist` VALUES (70029, 'RaceManager', 1, 30995, 12964, 181600, -3567, 0, 0, 12703, 60, 0, 0);
 
 -- --------------------------------------------------------
@@ -2598,6 +2597,7 @@ INSERT INTO `spawnlist` VALUES (58779, 'aden13_npc2418_39', 1, 35447, 144237, 27
 INSERT INTO `spawnlist` VALUES (58780, 'aden13_npc2418_40', 1, 31161, 144462, 28125, -2264, 0, 0, 0, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58781, 'aden13_npc2418_41', 1, 31084, 146983, 26645, -2200, 0, 0, 16500, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58782, 'aden13_npc2418_42', 1, 31091, 147570, 28927, -2264, 0, 0, 33000, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (58783, 'aden13_npc2418_43', 1, 31092, 146986, 29566, -2271, 0, 0, 32500, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58784, 'aden13_npc2418_44', 1, 31431, 144272, 25328, -2124, 0, 0, 16500, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58786, 'aden13_npc2418_45', 1, 31445, 150912, 28112, -2246, 0, 0, 25000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58785, 'aden13_npc2418_45', 1, 31438, 150928, 28384, -2246, 0, 0, 33000, 60, 0, 0);
@@ -2656,6 +2656,7 @@ INSERT INTO `spawnlist` VALUES (58768, 'aden14_npc2320_119', 1, 31000, 146504, 2
 INSERT INTO `spawnlist` VALUES (58691, 'aden14_npc2320_119', 1, 31000, 116780, 75504, -2727, 0, 0, 20000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58767, 'aden14_npc2320_119', 1, 31000, 148408, 28476, -2272, 0, 0, 36884, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58692, 'aden14_npc2320_120', 1, 31169, 116642, 77560, -2688, 0, 0, 45000, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (58693, 'aden14_npc2320_121', 1, 31092, 120493, 76520, -2136, 0, 0, 35500, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58694, 'aden14_npc2320_122', 1, 31168, 115136, 74767, -2608, 0, 0, 62000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58695, 'aden14_npc2320_123', 1, 30704, 120100, 74739, -2372, 0, 0, 31000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58696, 'aden14_npc2320_123', 1, 30705, 120079, 74847, -2374, 0, 0, 31000, 60, 0, 0);
@@ -5021,6 +5022,7 @@ INSERT INTO `spawnlist` VALUES (71592, 'gludin_broadcast', 1, 31031, -81280, 154
 INSERT INTO `spawnlist` VALUES (71593, 'gludio_broadcast', 1, 31031, -13188, 124432, -3110, 0, 0, 16384, 5, 0, 0);
 INSERT INTO `spawnlist` VALUES (71597, 'heine_broadcast', 1, 31031, 109825, 219399, -3470, 0, 0, 16384, 5, 0, 0);
 INSERT INTO `spawnlist` VALUES (71599, 'hunters_broadcast', 1, 31031, 116036, 76319, -2703, 0, 0, 16384, 5, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL,  'monster_race_broadcast', 1, 31031, 13648, 181662, -3563, 0, 0, 49406, 5, 0, 0); 
 INSERT INTO `spawnlist` VALUES (71603, 'monster_race_broadcast', 1, 31031, 13168, 182594, -3500, 0, 0, 16384, 5, 0, 0);
 INSERT INTO `spawnlist` VALUES (71590, 'orc_broadcast', 1, 31031, -44032, -114000, -236, 0, 0, 16384, 5, 0, 0);
 INSERT INTO `spawnlist` VALUES (71598, 'oren_broadcast', 1, 31031, 79998, 55455, -1568, 0, 0, 16384, 5, 0, 0);
@@ -5886,20 +5888,20 @@ INSERT INTO `spawnlist` VALUES (61756, 'CatacombOfTheWitch', 1, 21160, 148843, 8
 -- --------------------------------------------------------
 -- ClanHallNPC
 -- --------------------------------------------------------
-INSERT INTO `spawnlist` VALUES (71581, 'ClanHallNPC', 1, 35574, 39333, -46964, 900, 0, 0, 5178, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (71582, 'ClanHallNPC', 1, 35575, 39152, -47057, 897, 0, 0, 38334, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (71583, 'ClanHallNPC', 1, 35576, 38723, -46225, 900, 0, 0, 10251, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (71584, 'ClanHallNPC', 1, 35577, 38618, -46413, 897, 0, 0, 41275, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (71585, 'ClanHallNPC', 1, 35578, 37808, -45879, 900, 0, 0, 19923, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (71586, 'ClanHallNPC', 1, 35579, 37811, -46092, 897, 0, 0, 46596, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (71580, 'ClanHallNPC', 1, 35573, 39075, -49536, 897, 0, 0, 26119, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (71579, 'ClanHallNPC', 1, 35572, 39259, -49645, 900, 0, 0, 57865, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (71578, 'ClanHallNPC', 1, 35571, 38489, -50118, 897, 0, 0, 22211, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (71576, 'ClanHallNPC', 1, 35569, 37660, -50377, 897, 0, 0, 15876, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (71575, 'ClanHallNPC', 1, 35568, 37655, -50596, 900, 0, 0, 46013, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (71574, 'ClanHallNPC', 1, 35567, 39316, -48316, 897, 0, 0, 29785, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (71573, 'ClanHallNPC', 1, 35566, 39442, -48314, 898, 0, 0, 63334, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (71577, 'ClanHallNPC', 1, 35570, 38589, -50318, 900, 0, 0, 48351, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Clan Hall NPC', 1, 35566, 39442, -48314, 898, 0, 0, 63334, 60, 0, 0); 
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Clan Hall NPC', 1, 35567, 39316, -48316, 897, 0, 0, 29785, 60, 0, 0); 
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Clan Hall NPC', 1, 35568, 37655, -50596, 900, 0, 0, 46013, 60, 0, 0); 
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Clan Hall NPC', 1, 35569, 37660, -50377, 897, 0, 0, 15876, 60, 0, 0); 
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Clan Hall NPC', 1, 35570, 38589, -50318, 900, 0, 0, 48351, 60, 0, 0); 
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Clan Hall NPC', 1, 35571, 38489, -50118, 897, 0, 0, 22211, 60, 0, 0); 
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Clan Hall NPC', 1, 35572, 39259, -49645, 900, 0, 0, 57865, 60, 0, 0); 
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Clan Hall NPC', 1, 35573, 39075, -49536, 897, 0, 0, 26119, 60, 0, 0); 
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Clan Hall NPC', 1, 35574, 39333, -46964, 900, 0, 0, 5178, 60, 0, 0);  
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Clan Hall NPC', 1, 35575, 39152, -47057, 897, 0, 0, 38334, 60, 0, 0); 
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Clan Hall NPC', 1, 35576, 38723, -46225, 900, 0, 0, 10251, 60, 0, 0); 
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Clan Hall NPC', 1, 35577, 38618, -46413, 897, 0, 0, 41275, 60, 0, 0); 
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Clan Hall NPC', 1, 35578, 37808, -45879, 900, 0, 0, 19923, 60, 0, 0); 
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Clan Hall NPC', 1, 35579, 37811, -46092, 897, 0, 0, 46596, 60, 0, 0); 
 
 -- --------------------------------------------------------
 -- ClassChange
@@ -7527,6 +7529,7 @@ INSERT INTO `spawnlist` VALUES (58214, 'dion09_npc2022_028', 1, 30997, 19342, 14
 INSERT INTO `spawnlist` VALUES (58215, 'dion09_npc2022_028', 1, 30997, 17882, 144184, -3051, 0, 0, 54112, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58216, 'dion09_npc2022_030', 1, 31080, 16354, 142870, -2696, 0, 0, 15000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58217, 'dion09_npc2022_031', 1, 31087, 18482, 144626, -3056, 0, 0, 7000, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (58218, 'dion09_npc2022_032', 1, 31092, 16393, 144916, -3016, 0, 0, 30000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58223, 'dion09_npc2022_033', 1, 31427, 19920, 143136, -3041, 0, 0, 4000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58221, 'dion09_npc2022_033', 1, 30509, 20040, 143308, -3047, 0, 0, 63000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58222, 'dion09_npc2022_033', 1, 30642, 20000, 143108, -3045, 0, 0, 63000, 60, 0, 0);
@@ -13709,6 +13712,7 @@ INSERT INTO `spawnlist` VALUES (58369, 'giran11_npc2222_31', 1, 30998, 79296, 14
 INSERT INTO `spawnlist` VALUES (58368, 'giran11_npc2222_31', 1, 30998, 81936, 149584, -3472, 0, 0, 36864, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58371, 'giran11_npc2222_34', 1, 31081, 83369, 149273, -3400, 0, 0, 32500, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58372, 'giran11_npc2222_35', 1, 31088, 81623, 148606, -3464, 0, 0, 32500, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (58373, 'giran11_npc2222_36', 1, 31092, 81360, 150016, -3528, 0, 0, 16000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58374, 'giran11_npc2222_37', 1, 31447, 81776, 145200, -3529, 0, 0, 32000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58375, 'giran11_npc2222_38', 1, 35453, 81876, 145392, -3520, 0, 0, 0, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58376, 'giran11_npc2222_39', 1, 31448, 83680, 145456, -3408, 0, 0, 0, 60, 0, 0);
@@ -15653,15 +15657,7 @@ INSERT INTO `spawnlist` VALUES (59134, 'gludio06_npc1722_064', 1, 30767, 149272,
 INSERT INTO `spawnlist` VALUES (58051, 'gludio06_npc1722_ssq01', 1, 31078, -80555, 150387, -3040, 0, 0, 45000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58052, 'gludio06_npc1722_ssq02', 1, 31085, -82368, 151618, -3120, 0, 0, 48000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58053, 'gludio06_npc1722_ssq03', 1, 31092, -84745, 151732, -3128, 0, 0, 50000, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (58911, 'gludio06_npc1722_ssq03', 1, 31092, 42924, -41424, -2188, 0, 0, 20000, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (59124, 'gludio06_npc1722_ssq03', 1, 31092, 144400, -54048, -2979, 0, 0, 49000, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (58783, 'gludio06_npc1722_ssq03', 1, 31092, 146986, 29566, -2271, 0, 0, 32500, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (58693, 'gludio06_npc1722_ssq03', 1, 31092, 120493, 76520, -2136, 0, 0, 35500, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (58373, 'gludio06_npc1722_ssq03', 1, 31092, 81360, 150016, -3528, 0, 0, 16000, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (58518, 'gludio06_npc1722_ssq03', 1, 31092, 80129, 56947, -1552, 0, 0, 32500, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (58593, 'gludio06_npc1722_ssq03', 1, 31092, 113481, 218450, -3624, 0, 0, 33000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58130, 'gludio06_npc1722_ssq03', 1, 31092, -12345, 121695, -2984, 0, 0, 0, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (58218, 'gludio06_npc1722_ssq03', 1, 31092, 16393, 144916, -3016, 0, 0, 30000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58147, 'gludio08_npc1722_041', 1, 30289, -12784, 121709, -2952, 0, 0, 32768, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58151, 'gludio08_npc1722_042', 1, 30293, -13487, 121541, -2966, 0, 0, 16384, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58150, 'gludio08_npc1722_042', 1, 30344, -13269, 121540, -2966, 0, 0, 16384, 60, 0, 0);
@@ -20019,6 +20015,7 @@ INSERT INTO `spawnlist` VALUES (59101, 'godard02_npc2416_43', 1, 31289, 144228, 
 INSERT INTO `spawnlist` VALUES (59100, 'godard02_npc2416_43', 1, 31288, 144204, -55780, -2965, 0, 0, 2000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (59104, 'godard02_npc2416_44', 1, 31589, 144340, -55752, -2965, 0, 0, 35000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (59105, 'godard02_npc2416_45', 1, 31402, 145704, -57104, -2979, 0, 0, 39000, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (59124, 'godard02_npc2416_53', 1, 31092, 144400, -54048, -2979, 0, 0, 49000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (59125, 'godard02_npc2416_54', 1, 31740, 150144, -57920, -2979, 0, 0, 24000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (59126, 'godard02_npc2416_54', 1, 31741, 150208, -57872, -2979, 0, 0, 26000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (59129, 'godard02_npc2416_56', 1, 31837, 144604, -57124, -2979, 0, 0, 0, 60, 0, 0);
@@ -24912,6 +24909,7 @@ INSERT INTO `spawnlist` VALUES (58589, 'innadril09_npc2324_19', 1, 31067, 110605
 INSERT INTO `spawnlist` VALUES (58590, 'innadril09_npc2324_20', 1, 31148, 106354, 197181, -4200, 0, 0, 48000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58591, 'innadril09_npc2324_21', 1, 31082, 111386, 220908, -3544, 0, 0, 16000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58592, 'innadril09_npc2324_22', 1, 31089, 112486, 220173, -3592, 0, 0, 33000, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (58593, 'innadril09_npc2324_23', 1, 31092, 113481, 218450, -3624, 0, 0, 33000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58594, 'innadril09_npc2324_24', 1, 30913, 108683, 218942, -3674, 0, 0, 32500, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58595, 'innadril09_npc2324_24', 1, 30914, 108656, 219056, -3676, 0, 0, 48500, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58596, 'innadril09_npc2324_24', 1, 30915, 108652, 218856, -3676, 0, 0, 32500, 60, 0, 0);
@@ -25327,6 +25325,20 @@ INSERT INTO `spawnlist` VALUES (41180, 'innadrill05_2225_47', 1, 20803, 83725, 2
 INSERT INTO `spawnlist` VALUES (41179, 'innadrill05_2225_47', 1, 20994, 82920, 250050, -10871, 0, 0, 29618, 110, 0, 0);
 INSERT INTO `spawnlist` VALUES (41178, 'innadrill05_2225_47', 1, 20803, 81219, 250179, -10871, 0, 0, 20571, 94, 0, 0);
 INSERT INTO `spawnlist` VALUES (41156, 'innadrill05_2225_47', 1, 20803, 80395, 252483, -10945, 0, 0, 0, 94, 0, 0);
+
+-- --------------------------------------------------------
+-- Lottery Ticket Seller
+-- --------------------------------------------------------
+INSERT INTO `spawnlist` VALUES (70020, 'Lottery Ticket Seller', 1, 30990, -84143, 244637, -3728, 0, 0, 41000, 5, 0, 0);
+INSERT INTO `spawnlist` VALUES (70030, 'Lottery Ticket Seller', 1, 30990, 111417, 219422, -3544, 0, 0, 48000, 5, 0, 0);
+INSERT INTO `spawnlist` VALUES (70032, 'Lottery Ticket Seller', 1, 30990, 13689, 182576, -3561, 0, 0, 52054, 5, 0, 0);
+INSERT INTO `spawnlist` VALUES (70034, 'Lottery Ticket Seller', 1, 30990, -80785, 149735, -3040, 0, 0, 23000, 5, 0, 0);
+INSERT INTO `spawnlist` VALUES (70035, 'Lottery Ticket Seller', 1, 30990, 117148, 76865, -2688, 0, 0, 34000, 5, 0, 0);
+INSERT INTO `spawnlist` VALUES (70036, 'Lottery Ticket Seller', 1, 30990, 83001, 53224, -1488, 0, 0, 31000, 5, 0, 0);
+INSERT INTO `spawnlist` VALUES (70042, 'Lottery Ticket Seller', 1, 30990, 146738, 25756, -2008, 0, 0, 0, 5, 0, 0);
+INSERT INTO `spawnlist` VALUES (70059, 'Lottery Ticket Seller', 1, 30990, -12676, 122821, -3112, 0, 0, 48000, 5, 0, 0);
+INSERT INTO `spawnlist` VALUES (70063, 'Lottery Ticket Seller', 1, 30990, 15693, 142886, -2696, 0, 0, 16000, 5, 0, 0);
+INSERT INTO `spawnlist` VALUES (70065, 'Lottery Ticket Seller', 1, 30990, 83331, 147905, -3400, 0, 0, 16700, 5, 0, 0);
 
 -- --------------------------------------------------------
 -- lyonn
@@ -29624,6 +29636,7 @@ INSERT INTO `spawnlist` VALUES (58512, 'oren17_npc2219_022', 1, 30178, 79111, 53
 INSERT INTO `spawnlist` VALUES (58515, 'oren17_npc2219_023', 1, 30929, 79769, 55048, -1544, 0, 0, 48500, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58516, 'oren17_npc2219_024', 1, 31083, 83106, 54015, -1488, 0, 0, 32500, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58517, 'oren17_npc2219_025', 1, 31090, 82819, 54657, -1520, 0, 0, 49000, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (58518, 'oren17_npc2219_026', 1, 31092, 80129, 56947, -1552, 0, 0, 32500, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58522, 'oren17_npc2219_027', 1, 31430, 83759, 56143, -1523, 0, 0, 32000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58521, 'oren17_npc2219_027', 1, 30681, 83760, 56096, -1523, 0, 0, 32500, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58520, 'oren17_npc2219_027', 1, 30682, 83712, 56000, -1523, 0, 0, 32000, 60, 0, 0);
@@ -32287,6 +32300,7 @@ INSERT INTO `spawnlist` VALUES (58907, 'rune02_npc2116_49', 1, 31695, 44528, -48
 INSERT INTO `spawnlist` VALUES (58908, 'rune02_npc2116_50', 1, 31694, 45664, -50368, -800, 0, 0, 29000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58909, 'rune02_npc2116_52', 1, 31698, 38208, -48048, 899, 0, 0, 0, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58910, 'rune02_npc2116_53', 1, 31699, 38384, -48064, -1151, 0, 0, 49000, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (58911, 'rune02_npc2116_54', 1, 31092, 42924, -41424, -2188, 0, 0, 20000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58914, 'rune02_npc2116_55', 1, 31744, 32984, -48180, 1780, 0, 0, 33000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58912, 'rune02_npc2116_55', 1, 31742, 32960, -48224, 1780, 0, 0, 33000, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58913, 'rune02_npc2116_55', 1, 31743, 32988, -48268, 1780, 0, 0, 33000, 60, 0, 0);
@@ -34086,6 +34100,10 @@ INSERT INTO `spawnlist` VALUES (58973, 'rune12_npc2216_07', 1, 31662, 77184, -44
 INSERT INTO `spawnlist` VALUES (58974, 'rune12_npc2216_08', 1, 31663, 78832, -61536, -2308, 0, 0, 0, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58975, 'rune12_npc2216_09', 1, 31664, 91840, -52471, -2620, 0, 0, 53787, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (58976, 'rune12_npc2216_10', 1, 31665, 83168, -54320, -2328, 0, 0, 0, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Manor Manager', 1, 31403, 38278, -48426, 896, 0, 0, 1353, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Auctioneer', 1, 30767, 42989, -47791, -798, 0, 0, 1103, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (NULL, 'Rune - Clan Trader', 1, 32024, 45730, -48373, -797, 0, 0, 16205, 60, 0, 0); 
+INSERT INTO `spawnlist` VALUES (NULL, 'Race Manager', 1, 30995, 12964, 181600, -3567, 0, 0, 12703, 60, 0, 0);
 
 -- --------------------------------------------------------
 -- SaintsNecropolis
@@ -36092,23 +36110,15 @@ INSERT INTO `spawnlist` VALUES (71092, 'Town of Schuttgart', 1, 31950, 85779, -1
 -- unset
 -- --------------------------------------------------------
 INSERT INTO `spawnlist` VALUES (70031, 'unset', 1, 31209, 110572, 219501, -3664, 0, 0, 33967, 5, 0, 0);
-INSERT INTO `spawnlist` VALUES (70030, 'unset', 1, 30990, 111417, 219422, -3544, 0, 0, 48000, 5, 0, 0);
-INSERT INTO `spawnlist` VALUES (70034, 'unset', 1, 30990, -80785, 149735, -3040, 0, 0, 23000, 5, 0, 0);
-INSERT INTO `spawnlist` VALUES (70047, 'unset', 1, 31266, 43477, -49561, -792, 0, 0, 58198, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (70046, 'unset', 1, 31758, 148952, -58402, -2976, 0, 0, 7937, 60, 0, 0);
-INSERT INTO `spawnlist` VALUES (70042, 'unset', 1, 30990, 146738, 25756, -2008, 0, 0, 0, 5, 0, 0);
-INSERT INTO `spawnlist` VALUES (70040, 'unset', 1, 31208, 145188, 30448, -2456, 0, 0, 7246, 5, 0, 0);
 INSERT INTO `spawnlist` VALUES (70037, 'unset', 1, 31206, 81947, 54040, -1488, 0, 0, 4092, 5, 0, 0);
-INSERT INTO `spawnlist` VALUES (70036, 'unset', 1, 30990, 83001, 53224, -1488, 0, 0, 31000, 5, 0, 0);
+INSERT INTO `spawnlist` VALUES (70040, 'unset', 1, 31208, 145188, 30448, -2456, 0, 0, 7246, 5, 0, 0);
+INSERT INTO `spawnlist` VALUES (70046, 'unset', 1, 31758, 148952, -58402, -2976, 0, 0, 7937, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (70047, 'unset', 1, 31266, 43477, -49561, -792, 0, 0, 58198, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (70048, 'unset', 1, 31202, -84608, 150809, -3120, 0, 0, 50307, 5, 0, 0);
 INSERT INTO `spawnlist` VALUES (70058, 'unset', 1, 31203, -13909, 123306, -3112, 0, 0, 3355, 5, 0, 0);
-INSERT INTO `spawnlist` VALUES (70059, 'unset', 1, 30990, -12676, 122821, -3112, 0, 0, 48000, 5, 0, 0);
 INSERT INTO `spawnlist` VALUES (70062, 'unset', 1, 31204, 19323, 142878, -3032, 0, 0, 60055, 5, 0, 0);
-INSERT INTO `spawnlist` VALUES (70063, 'unset', 1, 30990, 15693, 142886, -2696, 0, 0, 16000, 5, 0, 0);
 INSERT INTO `spawnlist` VALUES (70064, 'unset', 1, 31205, 81076, 145813, -3528, 0, 0, 50491, 5, 0, 0);
-INSERT INTO `spawnlist` VALUES (70065, 'unset', 1, 30990, 83331, 147905, -3400, 0, 0, 16700, 5, 0, 0);
 INSERT INTO `spawnlist` VALUES (70066, 'unset', 1, 31207, 117439, 76028, -2720, 0, 0, 60372, 5, 0, 0);
-INSERT INTO `spawnlist` VALUES (70035, 'unset', 1, 30990, 117148, 76865, -2688, 0, 0, 34000, 5, 0, 0);
 
 -- --------------------------------------------------------
 -- WorshipersNecropolis

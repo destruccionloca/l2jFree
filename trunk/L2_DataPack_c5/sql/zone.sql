@@ -43,7 +43,8 @@ INSERT INTO `zone` VALUES (3, 'Castle Area', 'Giran', 112509, 143148, 119010, 14
 INSERT INTO `zone` VALUES (4, 'Castle Area', 'Oren', 78585, 35243, 85086, 39484, 0, 0 ,5);                                                                                                                                                                                                                                                                                                             
 INSERT INTO `zone` VALUES (5, 'Castle Area', 'Aden', 144599, 577, 150295, 8521, 0, 0, 0);                                                                                                                                                                                                                                                                                                              
 INSERT INTO `zone` VALUES (6, 'Castle Area', 'Innadril', 113727, 245080, 117971, 251617, 0, 0 ,5);                                                                                                                                                                                                                                                                                                     
-INSERT INTO `zone` VALUES (7, 'Castle Area', 'Goddard', 144023, -51768, 154256, -45106, 0, 0 ,8); -- Y2 should be -51298 & X2 should be 150893 but then Daven gets confused - also needs an n-poly to curve around south wall                                                                                                                                                                          
+INSERT INTO `zone` VALUES (7, 'Castle Area', 'Goddard', 144023, -51298, 150893, -45106, 0, 0 ,8); -- needs an n-poly to curve around south wall
+INSERT INTO `zone` VALUES (7, 'Castle Area', 'Goddard', 154000, -52000, 154500, -51000, 0, 0 ,8); -- so Daven registers sieges to Goddard
 INSERT INTO `zone` VALUES (8, 'Castle Area', 'Rune', 11264, -52736, 18688, -45584, 0, 0, 8); -- needs an n-poly to curve around west & east walls                                                                                                                                                                                                                                                      
 INSERT INTO `zone` VALUES (9, 'Castle Area', 'Schuttgart', 74288, -154128, 80800, -149136, 0, 0, 8); -- needs an n-poly to curve around south wall                                                                                                                                                                                                                                                     
 
@@ -128,17 +129,17 @@ INSERT INTO `zone` VALUES (48, 'Clan Hall', 'Goddard 2', 147238, -56636, 146564,
 INSERT INTO `zone` VALUES (49, 'Clan Hall', 'Goddard 3', 148479, -56473, 148479, -57275, -2773, 0, 1);
 INSERT INTO `zone` VALUES (50, 'Clan Hall', 'Goddard 4', 149717, -55824, 149063, -55350, -2783, 0, 1);
 INSERT INTO `zone` VALUES (34, 'Clan Hall', 'Devastated Castle', 0, 0, 0, 0, 0, 0, 0);
-INSERT INTO `zone` VALUES (51, 'Clan Hall', 'Mont Chamber', 37437, -45872, 38024, -45460, 900, 0, 8);
-INSERT INTO `zone` VALUES (52, 'Clan Hall', 'Astaire Chamber', 38433, -46322, 39062, -45731, 900, 0, 8);
-INSERT INTO `zone` VALUES (53, 'Clan Hall', 'Aria Chamber', 39437, -47141, 39760, -46668, 900, 0, 8);
-INSERT INTO `zone` VALUES (54, 'Clan Hall', 'Yiana Chamber', 39426, -48619, 39820, -47871, 899, 0, 8);
-INSERT INTO `zone` VALUES (55, 'Clan Hall', 'Roien Chamber', 39173, -50020, 39774, -49340, 900, 0, 8);
-INSERT INTO `zone` VALUES (56, 'Clan Hall', 'Luna Chamber', 38401, -50516, 39054, -50404, 900, 0, 8);
-INSERT INTO `zone` VALUES (57, 'Clan Hall', 'Traban Chamber', 37461, -50973, 38006, -50589, 900, 0, 8);
-INSERT INTO `zone` VALUES (58, 'Clan Hall', 'Eisen Hall', 85426, -143448, 86069, -142769, -1342, 0, 8);
-INSERT INTO `zone` VALUES (59, 'Clan Hall', 'Heavy Metal Hall', 86162, -142094, 87003, -141727, -1340, 0, 8);
-INSERT INTO `zone` VALUES (60, 'Clan Hall', 'Molten Ore Hall', 88600, -142111, 87724, -141750, -1341, 0, 8);
-INSERT INTO `zone` VALUES (61, 'Clan Hall', 'Titan Hall', 88500, -143500, 89500, -142880, -1340, 0, 8);
+INSERT INTO `zone` VALUES (51, 'Clan Hall', 'Rune 1', 37461, -50973, 38006, -50589, 900, 0, 8);           
+INSERT INTO `zone` VALUES (52, 'Clan Hall', 'Rune 2', 38401, -50516, 39054, -50404, 900, 0, 8);           
+INSERT INTO `zone` VALUES (53, 'Clan Hall', 'Rune 3', 39173, -50020, 39774, -49340, 900, 0, 8);           
+INSERT INTO `zone` VALUES (54, 'Clan Hall', 'Rune 4', 39426, -48619, 39820, -47871, 899, 0, 8);           
+INSERT INTO `zone` VALUES (55, 'Clan Hall', 'Rune 5', 39437, -47141, 39760, -46668, 900, 0, 8);           
+INSERT INTO `zone` VALUES (56, 'Clan Hall', 'Rune 6', 38433, -46322, 39062, -45731, 900, 0, 8);           
+INSERT INTO `zone` VALUES (57, 'Clan Hall', 'Rune 7', 37437, -45872, 38024, -45460, 900, 0, 8);           
+INSERT INTO `zone` VALUES (58, 'Clan Hall', 'Schuttgart 1', 85426, -143448, 86069, -142769, -1342, 0, 8); 
+INSERT INTO `zone` VALUES (59, 'Clan Hall', 'Schuttgart 2', 86162, -142094, 87003, -141727, -1340, 0, 8); 
+INSERT INTO `zone` VALUES (60, 'Clan Hall', 'Schuttgart 3', 88600, -142111, 87724, -141750, -1341, 0, 8); 
+INSERT INTO `zone` VALUES (61, 'Clan Hall', 'Schuttgart 4', 88500, -143500, 89500, -142880, -1340, 0, 8); 
 INSERT INTO `zone` VALUES (62, 'Clan Hall', 'Hot Springs Guild House', 141414, -124508, 140590, -124706, -1896, 0, 1);
 INSERT INTO `zone` VALUES (63, 'Clan Hall', 'Beast Farm', 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO `zone` VALUES (64, 'Clan Hall', 'Fortress of the Dead', 0, 0, 0, 0, 0, 0, 0);
