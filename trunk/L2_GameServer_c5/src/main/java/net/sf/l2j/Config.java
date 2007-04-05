@@ -527,6 +527,12 @@ public final class Config {
     public static int 		ENCHANT_MAX_JEWELRY;
     public static int 		ENCHANT_SAFE_MAX;				// maximum level of safe enchantment
     public static int 		ENCHANT_SAFE_MAX_FULL;
+    public static int 		ENCHANT_DWARF_1_ENCHANTLEVEL; // Dwarf enchant System Dwarf 1 Enchantlevel?
+    public static int 		ENCHANT_DWARF_2_ENCHANTLEVEL; // Dwarf enchant System Dwarf 2 Enchantlevel?
+    public static int 		ENCHANT_DWARF_3_ENCHANTLEVEL; // Dwarf enchant System Dwarf 3 Enchantlevel?
+    public static int 		ENCHANT_DWARF_1_CHANCE; // Dwarf enchant System Dwarf 1 chance?
+    public static int 		ENCHANT_DWARF_2_CHANCE; // Dwarf enchant System Dwarf 2 chance?
+    public static int 		ENCHANT_DWARF_3_CHANCE; // Dwarf enchant System Dwarf 3 chance?
     //  *******************************************************************************************    
     public static void loadenchantconfig()
     {
@@ -572,7 +578,13 @@ public final class Config {
             ENCHANT_MAX_JEWELRY = Integer.parseInt(enchantSettings.getProperty("EnchantMaxJewelry", "255"));
             /* limit of safe enchant */
             ENCHANT_SAFE_MAX = Integer.parseInt(enchantSettings.getProperty("EnchantSafeMax", "3"));
-            ENCHANT_SAFE_MAX_FULL = Integer.parseInt(enchantSettings.getProperty("EnchantSafeMaxFull", "4"));   
+            ENCHANT_SAFE_MAX_FULL = Integer.parseInt(enchantSettings.getProperty("EnchantSafeMaxFull", "4"));
+            ENCHANT_DWARF_1_ENCHANTLEVEL = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf1Enchnatlevel", "8"));
+            ENCHANT_DWARF_2_ENCHANTLEVEL = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf2Enchnatlevel", "10"));
+            ENCHANT_DWARF_3_ENCHANTLEVEL = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf3Enchnatlevel", "12"));
+            ENCHANT_DWARF_1_CHANCE = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf1Chance", "15"));
+            ENCHANT_DWARF_2_CHANCE = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf2Chance", "15"));
+            ENCHANT_DWARF_3_CHANCE = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf3Chance", "15"));
         }
         catch (Exception e) {
             _log.error(e.getMessage(),e);
@@ -2096,6 +2108,12 @@ public final class Config {
         else if (pName.equalsIgnoreCase("EnchantMaxArmor")) ENCHANT_MAX_ARMOR = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("EnchantSafeMax")) ENCHANT_SAFE_MAX = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("EnchantSafeMaxFull")) ENCHANT_SAFE_MAX_FULL = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("EnchantDwarf1Enchnatlevel")) ENCHANT_DWARF_1_ENCHANTLEVEL = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("EnchantDwarf2Enchnatlevel")) ENCHANT_DWARF_2_ENCHANTLEVEL = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("EnchantDwarf3Enchnatlevel")) ENCHANT_DWARF_3_ENCHANTLEVEL = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("EnchantDwarf1Chance")) ENCHANT_DWARF_1_CHANCE = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("EnchantDwarf2Chance")) ENCHANT_DWARF_2_CHANCE = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("EnchantDwarf3Chance")) ENCHANT_DWARF_3_CHANCE = Integer.parseInt(pValue);
 
         else if (pName.equalsIgnoreCase("NPCHpRegenMultiplier")) NPC_HP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
         else if (pName.equalsIgnoreCase("NPCMpRegenMultiplier")) NPC_MP_REGEN_MULTIPLIER = Double.parseDouble(pValue);

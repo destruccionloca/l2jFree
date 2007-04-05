@@ -262,8 +262,8 @@ public class RequestEnchantItem extends ClientBasePacket
                 }
         }
         
-        if (item.getEnchantLevel() < Config.ENCHANT_SAFE_MAX 
-                || (item.getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR 
+        if (item.getEnchantLevel() < Config.ENCHANT_SAFE_MAX
+                || (item.getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR
                         && item.getEnchantLevel() < Config.ENCHANT_SAFE_MAX_FULL))
             chance = 100;
         
@@ -271,12 +271,12 @@ public class RequestEnchantItem extends ClientBasePacket
         {
             int _charlevel = activeChar.getLevel();
             int _itemlevel = item.getEnchantLevel();
-            
-            if(_charlevel>=20 && _itemlevel <= 5)
-                chance = 100;
-            else if(_charlevel>=40 && _itemlevel <= 10)
-                chance = 100;
-            else if(_charlevel>=70 && _itemlevel <= 15)
+            if(_charlevel>=20 && _itemlevel <= Config.ENCHANT_DWARF_1_ENCHANTLEVEL)     
+                chance = chance + Config.ENCHANT_DWARF_1_CHANCE;
+            else if(_charlevel>=40 && _itemlevel <= Config.ENCHANT_DWARF_2_ENCHANTLEVEL)
+                chance = chance + Config.ENCHANT_DWARF_2_CHANCE;
+            else if(_charlevel>=76 && _itemlevel <= Config.ENCHANT_DWARF_3_ENCHANTLEVEL)
+                chance = chance + Config.ENCHANT_DWARF_3_CHANCE;
                 chance = 100;
         }
         
