@@ -17,9 +17,9 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
-L2J-Datapack SVN Build:
+L2J-Datapack SVN Build:  
 
-Project page: http://l2jdp.com
+Project page: http://www.l2jdp.com
 Forum: http://forum.l2jdp.com
 Wiki: http://www.l2jdp.com/trac/wiki
 Download: The wiki contains guides to get the latest datapack revision from the SVN repository.
@@ -43,11 +43,11 @@ All users:
 For new L2J databases or existing databases where you want to delete character and account information:
 	Create your loginserver and gameserver databases to match the ones in loginserver.properties and server.properties respectively (the default for both is l2jdb.)
 	Method 1: Select your database and run all the batch scripts in the sql folder**
-	Method 2: Edit and run database_installer.bat for windows users, or run database_installer.sh for linux/unix users.
+	Method 2: run database_installer.bat for windows users, or database_installer.sh for linux/unix users.
 
 For existing L2J databases where you want to keep character and account information:
 	Method 1: Select your database and run all the batch scripts in the sql folder** that correspond to tables in your database that are missing or you want to upgrade.
-	Method 2: Edit and run database_installer.bat for windows users, or run database_installer.sh for linux/unix users.
+	Method 2: Run database_installer.bat for windows users, or database_installer.sh for linux/unix users.
 
 IMPORTANT: 	There may also be changes to character data tables, to update these tables run the relevant batch scripts in /sql/updates/
 			Files in /sql/updates/ have the following naming convention (L2J revision date and L2J revision number): YYMMDD-[REVISION].sql
@@ -56,6 +56,7 @@ IMPORTANT: 	There may also be changes to character data tables, to update these 
 **NOTE:	Read readme in the /sql/experimental/ folder.
 
 -the l2j-datapack team
+
     L2JDP, Copyright (C) 2006 
     L2JDP comes with ABSOLUTELY NO WARRANTY.
     This is free software, and you are welcome to redistribute it
