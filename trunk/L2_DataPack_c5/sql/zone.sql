@@ -139,7 +139,6 @@ INSERT INTO `zone` VALUES (58, 'Clan Hall', 'Schuttgart 1', 85426, -143448, 8606
 INSERT INTO `zone` VALUES (59, 'Clan Hall', 'Schuttgart 2', 86162, -142094, 87003, -141727, -1328, 0, 8);
 INSERT INTO `zone` VALUES (60, 'Clan Hall', 'Schuttgart 3', 88600, -142111, 87724, -141750, -1328, 0, 8);
 INSERT INTO `zone` VALUES (61, 'Clan Hall', 'Schuttgart 4', 88500, -143500, 89500, -142880, -1328, 0, 8);
-INSERT INTO `zone` VALUES (61, 'Clan Hall', 'Schuttgart 4', 88500, -143500, 89500, -142880, -1340, 0, 8);
 INSERT INTO `zone` VALUES (62, 'Clan Hall', 'Hot Springs Guild House', 141414, -124508, 140590, -124706, -1896, 0, 1);
 INSERT INTO `zone` VALUES (63, 'Clan Hall', 'Beast Farm', 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO `zone` VALUES (64, 'Clan Hall', 'Fortress of the Dead', 0, 0, 0, 0, 0, 0, 0);
