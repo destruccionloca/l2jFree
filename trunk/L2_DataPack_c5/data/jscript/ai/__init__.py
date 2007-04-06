@@ -4,7 +4,7 @@ __all__ = [
 ]
 print ""
 print "importing scriptable AI ..."
-from group_template import *
-from individual import *
+from data.jscript.ai.group_template import *
+from data.jscript.ai.individual import *
 print"... done"
 print ""
