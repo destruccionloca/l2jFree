@@ -62,12 +62,15 @@ public class RequestAnswerJoinParty extends ClientBasePacket
     			
     		if (_response == 1) 
             {
-    			if(requestor.getParty().getMemberCount() >= 9) 
-             	{ 
-    				player.sendPacket(new SystemMessage(SystemMessage.PARTY_FULL)); 
-    				requestor.sendPacket(new SystemMessage(SystemMessage.PARTY_FULL)); 
-    				return; 
-             	}
+    			if(requestor.getParty()!=null)
+    			{
+	    			if(requestor.getParty().getMemberCount() >= 9) 
+	             	{ 
+	    				player.sendPacket(new SystemMessage(SystemMessage.PARTY_FULL)); 
+	    				requestor.sendPacket(new SystemMessage(SystemMessage.PARTY_FULL)); 
+	    				return; 
+	             	}
+    			}
     			player.joinParty(requestor.getParty());
     		} else
             {
