@@ -257,7 +257,7 @@ INSERT INTO `zone` VALUES (1, 'Monster Derby Track', 'Monster Derby Track', 1160
 
 INSERT INTO `zone` VALUES (1, 'Olympiad Stadia', 'Stadia 1', -19627, -19712, -22024, -22322, -3026, 0, 0);
 INSERT INTO `zone` VALUES (2, 'Olympiad Stadia', 'Stadia 2', -119100, -223705, -121484, -226316, -3331, 0, 0);
-INSERT INTO `zone` VALUES (3, 'Olympiad Stadia', 'Stadia 3', -103690, -210300, -101325, -207724, -3331, 0, 0);
+INSERT INTO `zone` VALUES (3, 'Olympiad Stadia', 'Stadia 3', -103889, -210201, -101325, -207724, -3331, 0, 0);
 INSERT INTO `zone` VALUES (4, 'Olympiad Stadia', 'Stadia 4', -119079, -206078, -121438, -208668, -3331, 0, 0);
 INSERT INTO `zone` VALUES (5, 'Olympiad Stadia', 'Stadia 5', -88700, -226280, -86351, -223722, -3331, 0, 0);
 INSERT INTO `zone` VALUES (6, 'Olympiad Stadia', 'Stadia 6', -80586, -211911, -82939, -214487, -3331, 0, 0);
@@ -275,7 +275,7 @@ INSERT INTO `zone` VALUES (17, 'Olympiad Stadia', 'Stadia 17', -75930, -250175, 
 INSERT INTO `zone` VALUES (18, 'Olympiad Stadia', 'Stadia 18', -70920, -243079, -68547, -240473, -3331, 0, 0);
 INSERT INTO `zone` VALUES (19, 'Olympiad Stadia', 'Stadia 19', -75670, -232712, -78027, -235326, -3331, 0, 0);
 INSERT INTO `zone` VALUES (20, 'Olympiad Stadia', 'Stadia 20', -92632, -249706, -94999, -252316, -3331, 0, 0);
-INSERT INTO `zone` VALUES (21, 'Olympiad Stadia', 'Stadia 21', -87816, -254280, -86332, -256466, -3331, 0, 0);
+INSERT INTO `zone` VALUES (21, 'Olympiad Stadia', 'Stadia 21', -88896, -258868, -86332, -256466, -3331, 0, 0);
 INSERT INTO `zone` VALUES (22, 'Olympiad Stadia', 'Stadia 22', -113332, -211881, -115713, -214513, -3331, 0, 0);
 
 -- -----------------------------------------
