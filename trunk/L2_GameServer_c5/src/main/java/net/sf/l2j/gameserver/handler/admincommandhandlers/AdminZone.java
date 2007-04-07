@@ -65,10 +65,10 @@ public class AdminZone implements IAdminCommandHandler
  
         if (actualCommand.equalsIgnoreCase("admin_zone_check"))
         {
-            for (String name: ZoneType.ZoneTypeName)
+            for (ZoneType.ZoneTypeEnum zt: ZoneType.ZoneTypeEnum.values())
             {
-                if (ZoneManager.getInstance().checkIfInZone(name, activeChar))
-                    activeChar.sendMessage("You are in zone: " + name);
+                if (ZoneManager.getInstance().checkIfInZone(zt.getName(), activeChar))
+                    activeChar.sendMessage("You are in zone: " + zt.getName());
             }
 
             if (ZoneManager.getInstance().checkIfInZonePvP(activeChar))

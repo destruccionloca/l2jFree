@@ -137,7 +137,7 @@ public class Zone
             if (x >= Math.min(coord[0], coord[2]) && x <= Math.max(coord[0], coord[2])
                 && y >= Math.min(coord[1], coord[3]) && y <= Math.max(coord[1], coord[3]))                
             {
-                if (z > coord[4] && z < coord[5])
+                if (z >= coord[4] && z <= coord[5])
                 return coord;                
             }
         }

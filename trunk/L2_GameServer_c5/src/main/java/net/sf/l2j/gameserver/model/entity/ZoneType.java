@@ -14,54 +14,54 @@ public class ZoneType
     // Data Field
     private String _TypeName;
     private FastList<Zone> _Zones;
-
+    
     public static enum ZoneTypeEnum
     {
-        Arena,
-        ArenaSpawn,
-        CastleArea,
-        CastleDefenderSpawn,
-        ClanHall,
-        Peace,
-        SiegeBattleField,
-        Town,
-        TownSpawn,
-        Underground,
-        Water, 
-        NoLanding,
-        NoEscape,
-        Jail,
-        JailSpawn,
-        MotherTree,
-        Recharge,
-        Damage,
-        Fishing,
-        MonsterDerbyTrack,
-        OlympiadStadia,
-        Noobie,
-        FourSepulcher,
-        LairofAntharas,
-        LairofBaium,
-        LairofValakas,
-        LairofLilith,
-        LairofAnakim,
-        LairofZaken
+        Arena ("Arena"),
+        ArenaSpawn ("Arena Spawn"),
+        CastleArea ("Castle Area"),
+        CastleDefenderSpawn ("Castle Defender Spawn"),
+        ClanHall ("Clan Hall"),
+        Peace ("Peace"),
+        SiegeBattleField ("Siege Battlefield"),
+        Town ("Town"),
+        TownSpawn ("Town Spawn"),
+        Underground ("Underground"),
+        Water ("Water"), 
+        NoLanding ("No Landing"),
+        NoEscape ("Jail"),
+        Jail ("Jail"),
+        JailSpawn ("Jail Spawn"),
+        MotherTree ("MotherTree"),
+        Recharge ("Recharge"),
+        Damage ("Damage"),
+        Fishing ("Fishing"),
+        MonsterDerbyTrack ("Monster Derby Track"),
+        OlympiadStadia ("Olympiad Stadia"),
+        Noobie ("Noobie"),
+        FourSepulcher ("FourSepulcher"),
+        LairofAntharas ("LairofAntharas"),
+        LairofBaium ("LairofBaium"),
+        LairofValakas ("LairofValakas"),
+        LairofLilith ("LairofLilith"),
+        LairofAnakim ("LairofAnakim"),
+        LairofZaken ("LairofZaken");
+        
+        private final String _zoneName;
+        
+       	private ZoneTypeEnum (String ZoneName)
+    	{
+       		_zoneName = ZoneName;
+    	}
+    	
+    	public String getName() {
+    		return _zoneName;
+    	}
     }
-    
-    public static String[] ZoneTypeName =
-        {
-             "Arena", "Arena Spawn", "Castle Area",
-             "Castle Defender Spawn", "Clan Hall", "Peace",
-             "Siege Battlefield", "Town", "Town Spawn", "Underground",
-             "Water","No Landing","Jail","Jail Spawn","MotherTree","Recharge","Damage","Fishing",
-             "Monster Derby Track", "Olympiad Stadia", "Noobie", "FourSepulcher",
-             "LairofAntharas","LairofBaium","LairofValakas",
-             "LairofLilith","LairofAnakim","LairofZaken"
-        };
-    
+   
     public static String getZoneTypeName(ZoneTypeEnum zt)
     {
-        return ZoneTypeName[zt.ordinal()];
+        return zt.getName();
     }
 
     // =========================================================
