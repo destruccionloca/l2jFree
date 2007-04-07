@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
 <skill id="1201" levels="33" name="Dryad Root">
@@ -2133,7 +2133,8 @@
   </for>
 </skill>
 <skill id="1297" levels="6" name="Clear Mind">
-  <table name="#Tab-regMp"> 3.2 4.0 4.3 5.1 5.8 6.2 </table>
+  <table name="#Tab-regMp-Walk"> 3.2 4.0 4.3 5.1 5.8 6.2 </table>
+  <table name="#Tab-regMp-Stand"> 2.6 3.2 3.5 4.1 4.7 4.9 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -2141,13 +2142,17 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add order="0x40" stat="regMp" val="#Tab-regMp">
+    <add order="0x40" stat="regMp" val="#Tab-regMp-Walk">
       <and>
+        <player moving="true"/>
+        <player running="false"/>
+      </and> 
+    </add>
+    <add order="0x40" stat="regMp" val="#Tab-regMp-Stand">
+      <and>
+        <player moving="false"/>
         <player resting="false"/>
-        <not>
-          <player running="true"/>
-        </not>
-      </and>
+      </and> 
     </add>
   </for>
 </skill>
