@@ -119,7 +119,13 @@ public class ClanHall
     public boolean checkIfInZone(L2Object obj) { return checkIfInZone(obj.getX(), obj.getY()); }
 
     /** Return true if object is inside the zone */
-    public boolean checkIfInZone(int x, int y) { return getZone().checkIfInZone(x, y); }
+    public boolean checkIfInZone(int x, int y) 
+    { 
+    	if(getZone()!=null)
+    		return getZone().checkIfInZone(x, y);
+    	else
+    		return false;
+    }
 
     public double findDistanceToZone(int x, int y, int z, boolean checkZ) { return getZone().findDistanceToZone(x, y, z, checkZ); }
 	
