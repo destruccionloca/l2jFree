@@ -77,6 +77,7 @@ public abstract class L2Effect
 		STUN_SELF,
         BLUFF,
         BETRAY,
+        NOBLESSE_BLESSING,        
         PETRIFICATION,
         ROTATE, // for bluff skill        
         CANCEL_TARGET,
@@ -86,7 +87,6 @@ public abstract class L2Effect
         ERASE,
         PETRIFIED,
         SILENCE_PHYSICAL,
-        BLESSNOBLESSE,
         LUCKNOBLESSE,
         PSYCHICAL_MUTE,
         TARGET_ME,

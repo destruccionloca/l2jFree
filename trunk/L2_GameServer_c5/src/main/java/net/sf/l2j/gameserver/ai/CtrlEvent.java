@@ -38,8 +38,6 @@ public enum CtrlEvent {
 	EVT_STUNNED,
 	/** Actor starts/stops sleeping */
 	EVT_SLEEPING,
-    /** Actor gets/looses Noblesse Blessing effect */
-    EVT_BLESSNOBLESSE,
     /** Actor gets/looses Noblesse Luck effect */
     EVT_LUCKNOBLESSE,   
     /** Actor is betrayed by its pet */

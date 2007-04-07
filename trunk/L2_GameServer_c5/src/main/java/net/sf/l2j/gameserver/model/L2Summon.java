@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2SummonAI;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
+import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetBabyInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
@@ -50,6 +51,7 @@ public abstract class L2Summon extends L2PlayableInstance
     private final static Log _log = LogFactory.getLog(L2Summon.class.getName());
     
     public static final int SIEGE_GOLEM_ID = 14737;
+    public static final int HOG_CANNON_ID = 14768;
     
     protected int _pkKills;
     private byte _pvpFlag;
@@ -581,48 +583,47 @@ public abstract class L2Summon extends L2PlayableInstance
         
         // Check if this is offensive magic skill
         if (skill.isOffensive())  
-        {
-            if (isInsidePeaceZone(this, target)
-                    && getOwner() != null
-                    && (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
-            {
-                // If summon or target is in a peace zone, send a system message TARGET_IN_PEACEZONE
-                sendPacket(new SystemMessage(SystemMessage.TARGET_IN_PEACEZONE));
-                return;
-            }
+		{
+			if (isInsidePeaceZone(this, target)
+					&& getOwner() != null
+					&& (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
+			{
+				// If summon or target is in a peace zone, send a system message TARGET_IN_PEACEZONE
+	        	sendPacket(new SystemMessage(SystemMessage.TARGET_IN_PEACEZONE));
+				return;
+			}
 
             // Check if the target is attackable
-            if (target instanceof L2DoorInstance)  
-            {
-                if (!target.isAutoAttackable(getOwner())
-                        && getOwner() != null
-                        && (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
-                return;
-            }
-            else
-            {
-                if (!target.isAttackable()
-                        && getOwner() != null
-                        && (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
-                return;
-            }             
+			if (target instanceof L2DoorInstance) 
+        	{
+				if(!((L2DoorInstance)target).isAttackable(getOwner()))
+					return;
+        	}
+			else
+			{
+				if (!target.isAttackable() 
+            		&& getOwner() != null 
+            		&& (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
+				{
+					return;
+				}
 
-            // Check if a Forced ATTACK is in progress on non-attackable target
-            if (!target.isAutoAttackable(this) && !forceUse &&
-                    skill.getTargetType() != SkillTargetType.TARGET_AURA &&
-                    skill.getTargetType() != SkillTargetType.TARGET_CLAN &&
-                    skill.getTargetType() != SkillTargetType.TARGET_ALLY &&
-                    skill.getTargetType() != SkillTargetType.TARGET_PARTY &&
-                    skill.getTargetType() != SkillTargetType.TARGET_SELF && 
-                    this.getNpcId() != SIEGE_GOLEM_ID)
-            {
-                return;
-            }
-        }
+				// Check if a Forced ATTACK is in progress on non-attackable target
+				if (!target.isAutoAttackable(this) && !forceUse &&
+					skill.getTargetType() != SkillTargetType.TARGET_AURA &&
+					skill.getTargetType() != SkillTargetType.TARGET_CLAN &&
+					skill.getTargetType() != SkillTargetType.TARGET_ALLY &&
+					skill.getTargetType() != SkillTargetType.TARGET_PARTY &&
+					skill.getTargetType() != SkillTargetType.TARGET_SELF)
+				{
+					return;
+				}
+			}
+		}
 
-        // Notify the AI with AI_INTENTION_CAST and target
-        getAI().setIntention(CtrlIntention.AI_INTENTION_CAST, skill, target);
-    }
+		// Notify the AI with AI_INTENTION_CAST and target
+		getAI().setIntention(CtrlIntention.AI_INTENTION_CAST, skill, target);
+	}
     
     public void setIsImobilised(boolean value)
     {

@@ -74,8 +74,6 @@ public class SiegeManager
     private FastMap<Integer,FastList<SiegeSpawn>>  _controlTowerSpawnList;
     
     private int _ControlTowerLosePenalty                         = 20000; // Time in ms. Changeable in siege.config
-    private int _Flag_BuyCost                                    = 50000; // Changeable in siege.config
-    private int _Flag_BuyItemId                                  = 57;  // Changeable in siege.config
     private int _Flag_MaxCount                                   = 1; // Changeable in siege.config
     private int _Siege_Clan_MinLevel                             = 4; // Changeable in siege.config
     private int _Siege_Length                                    = 120; // Time in minute. Changeable in siege.config
@@ -185,8 +183,6 @@ public class SiegeManager
             _ControlTowerLosePenalty = Integer.decode(siegeSettings.getProperty("CTLossPenalty", "20000"));
             _Defender_Max_Clans = Integer.decode(siegeSettings.getProperty("DefenderMaxClans", "500"));
             _Defender_RespawnDelay = Integer.decode(siegeSettings.getProperty("DefenderRespawn", "20000"));
-            _Flag_BuyItemId = Integer.decode(siegeSettings.getProperty("FlagItem", "57"));
-            _Flag_BuyCost = Integer.decode(siegeSettings.getProperty("FlagCost", "200000"));
             _Flag_MaxCount = Integer.decode(siegeSettings.getProperty("MaxFlags", "1"));
             _Siege_Clan_MinLevel = Integer.decode(siegeSettings.getProperty("SiegeClanMinLevel", "4"));
             _Siege_Length = Integer.decode(siegeSettings.getProperty("SiegeLength", "120"));
@@ -292,10 +288,6 @@ public class SiegeManager
     public final int getDefenderMaxClans() { return _Defender_Max_Clans; }
 
     public final int getDefenderRespawnDelay() { return (_Defender_RespawnDelay); }
-    
-    public final int getFlagBuyCost() { return _Flag_BuyCost; }
-
-    public final int getFlagBuyItemId() { return _Flag_BuyItemId; }
 
     public final int getFlagMaxCount() { return _Flag_MaxCount; }
 

@@ -56,9 +56,11 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.SkillDat;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetBabyInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.SkillDat;
+import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList;
 import net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList.KnownListAsynchronousUpdateTask;
 import net.sf.l2j.gameserver.model.actor.stat.CharStat;
@@ -1086,7 +1088,7 @@ public abstract class L2Character extends L2Object
             if (this instanceof L2PcInstance) 
             {
             SystemMessage sm = new SystemMessage(SystemMessage.S1_PREPARED_FOR_REUSE);
-            sm.addSkillName(skill.getId());
+            sm.addSkillName(skill.getId(),skill.getLevel());
             sendPacket(sm);
             }
             
@@ -1289,7 +1291,7 @@ public abstract class L2Character extends L2Object
         if (this instanceof L2PcInstance && magicId != 1312)  
         {
             SystemMessage sm = new SystemMessage(SystemMessage.USE_S1);
-            sm.addSkillName(magicId);
+            sm.addSkillName(magicId,skill.getLevel());
             sendPacket(sm);
 		}
 
@@ -1387,12 +1389,13 @@ public abstract class L2Character extends L2Object
         // Stop HP/MP/CP Regeneration task
         getStatus().stopHpMpRegeneration();
 
-        if(isBlessedByNoblesse() && killer.isRaid())
-            stopNoblesse();
-        else
-            // Stop all active skills effects in progress on the L2Character
-            stopAllEffects();
-
+		// Stop all active skills effects in progress on the L2Character, 
+		// if the Character isn't a Noblesse Blessed L2PlayableInstance and killed by a raid boss
+		if (this instanceof L2PlayableInstance && ((L2PlayableInstance)this).isNoblesseBlessed())
+			((L2PlayableInstance)this).stopNoblesseBlessing(null);
+		else
+			stopAllEffects();
+        
         // Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
         broadcastStatusUpdate();
 
@@ -2410,18 +2413,6 @@ public abstract class L2Character extends L2Object
        updateAbnormalEffect();
    }
 
-    public final void startBlessNoblesse()
-    {
-        setIsBlessedByNoblesse(true);
-        getAI().notifyEvent(CtrlEvent.EVT_BLESSNOBLESSE, null);
-    }
-    
-    public final void stopBlessNoblesse()
-    {
-        setIsBlessedByNoblesse(false);
-        getAI().notifyEvent(CtrlEvent.EVT_BLESSNOBLESSE, null);
-    }
-    
     public final void startLuckNoblesse()
     {
         setIsBlessedByNoblesse(true);
@@ -2685,12 +2676,11 @@ public abstract class L2Character extends L2Object
 
     public final void stopNoblesse()
     {
-        stopEffects(L2Effect.EffectType.BLESSNOBLESSE);
+        stopEffects(L2Effect.EffectType.NOBLESSE_BLESSING);
         stopEffects(L2Effect.EffectType.LUCKNOBLESSE);
         setIsBlessedByNoblesse(false);
         setIsLuckByNoblesse(false);
         getAI().notifyEvent(CtrlEvent.EVT_LUCKNOBLESSE, null);
-        getAI().notifyEvent(CtrlEvent.EVT_BLESSNOBLESSE, null);
     }
 
    /**

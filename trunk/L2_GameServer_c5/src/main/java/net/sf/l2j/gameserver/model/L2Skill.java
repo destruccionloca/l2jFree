@@ -214,7 +214,6 @@ public abstract class L2Skill
         MAGE_BANE, 
         WARRIOR_BANE,
         STRSIEGEASSAULT, 
-        BLESSNOBLESSE, 
         LUCKNOBLESSE    (L2SkillCreateItem.class),
         RAID_DESCRIPTION,
         UNSUMMON_ENEMY_PET,
