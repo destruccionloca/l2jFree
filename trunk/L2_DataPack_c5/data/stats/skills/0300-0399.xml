@@ -1033,8 +1033,8 @@
   </for>
 </skill>
 <skill id="355" levels="1" name="Focus Death">
-  <!-- WRONG -->
   <set name="mpConsume" val="36"/>
+  <set name="weaponsAllowed" val="16"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1046,14 +1046,24 @@
   <set name="hitTime" val="2000"/>
   <set name="buffDuration" val="120000"/>
   <for>
-    <effect count="1" name="Buff" time="120" val="0"> 
-      <mul order="0x30" stat="rCrit" val="0.7"/>
-    </effect> 
+  <!-- missing Blow land rate +60% -->
+  <!-- added (+30%) in behind effect to compensate the -30% decreased by second effect -->
+  <effect count="1" name="Buff" time="120" val="0" stackOrder="1" stackType="FoC">
+    <mul order='0x30' stat='rCrit' val='0.7'>
+    </mul>
+    <mul order='0x30' stat='cAtk' val='0.7'>
+    </mul>
+    <mul order='0x30' stat='cAtk' val='2.2'>
+      <and>
+        <player behind='True'/>
+      </and>
+    </mul>
+  </effect>
   </for>
 </skill>
 <skill id="356" levels="1" name="Focus Chance">
-  <!-- WRONG -->
   <set name="mpConsume" val="36"/>
+  <set name="weaponsAllowed" val="16"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1065,11 +1075,22 @@
   <set name="hitTime" val="2000"/>
   <set name="buffDuration" val="120000"/>
   <for>
+  <!-- missing Critical Chance from side +30% -->
+  <!-- added (+30%) in behind effect to compensate the -30% decreased by first effect -->
+  <effect count="1" name="Buff" time="120" val="0" stackOrder="1" stackType="FoC">
+    <mul order='0x30' stat='rCrit' val='0.7'>
+    </mul>
+    <mul order='0x30' stat='rCrit' val='1.9'>
+      <and>
+        <player behind='True'/>
+      </and>
+    </mul>
+  </effect>
   </for>
 </skill>
 <skill id="357" levels="1" name="Focus Power">
-  <!-- WRONG -->
   <set name="mpConsume" val="36"/>
+  <set name="weaponsAllowed" val="16"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1081,6 +1102,17 @@
   <set name="hitTime" val="2000"/>
   <set name="buffDuration" val="120000"/>
   <for>
+  <!-- missing Critical Damage from side +30% -->
+  <!-- added (+30%) in behind effect to compensate the -30% decreased by first effect -->
+  <effect count="1" name="Buff" time="120" val="0" stackOrder="1" stackType="FoC">
+    <mul order='0x30' stat='cAtk' val='0.7'>
+    </mul>
+    <mul order='0x30' stat='cAtk' val='1.9'>
+      <and>
+        <player behind='True'/>
+      </and>
+    </mul>
+  </effect>
   </for>
 </skill>
 <skill id="358" levels="1" name="Bluff">

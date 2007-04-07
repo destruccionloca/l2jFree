@@ -273,7 +273,7 @@
   </for>
 </skill>
 <skill id="112" levels="4" name="Deflect Arrow">
-  <table name="#Tab-bowRes"> 16 19 22 25 </table>
+  <table name="#Tab-bowRes"> 1.16 1.19 1.22 1.25 </table>
   <table name="#mpConsume"> 11 14 19 22 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
@@ -288,7 +288,7 @@
   <set name="effectRange" val="-1"/>
   <for>
     <effect count="1" name="Buff" time="1200" val="0">
-      <add order="0x40" stat="bowWpnRes" val="#Tab-bowRes"/>
+		<mul order="0x30" stat="bowWpnRes" val="#Tab-bowRes"/>
     </effect>
   </for>
 </skill>
