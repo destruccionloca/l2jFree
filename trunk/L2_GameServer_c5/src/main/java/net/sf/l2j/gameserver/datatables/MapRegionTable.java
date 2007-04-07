@@ -245,6 +245,12 @@ public class MapRegionTable
             Castle castle = null;
             ClanHall clanhall = null;
             Zone zone = null;
+            
+            if (teleportWhere == TeleportWhereType.Town)
+            {
+                coord = TownManager.getInstance().getClosestTown(activeChar).getSpawn().get(0);                
+                return new Location(coord[0], coord[1], coord[4]);
+            }
 
             if (player.getClan() != null)
             {
@@ -300,7 +306,7 @@ public class MapRegionTable
             }
 
             // teleport RED PK 5+ to Floran Village
-            if(player.getPkKills() > 5 && player.getKarma() > 1) return new Location(17817, 170079, -3530);
+            //if(player.getPkKills() > 5 && player.getKarma() > 1) return new Location(17817, 170079, -3530);
 			//Karma player land out of city
             if(player.getKarma() > 1)
             {

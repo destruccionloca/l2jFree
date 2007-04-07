@@ -143,7 +143,7 @@ public class TownManager
     {
         int curtown= (MapRegionTable.getInstance().getMapRegion(x, y));
         
-        int[] castleidarray = {0,0,0,0,0,1,0,2,3,4,5,0,0,6,0,8,7,9}; 
+        int[] castleidarray = {0,0,0,0,0,0,0,1,2,3,4,0,5,7,8,6,0,9}; 
         //find an instance of the castle for this town.
         int castleIndex = castleidarray[curtown];
         if ( castleIndex > 0 )
