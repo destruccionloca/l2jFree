@@ -36,16 +36,16 @@ public abstract class ADAOTestCase extends AHibernateTestCase
 		DerbyHelper.startup();
 
 		// Init des properties hibernate
-		System.getProperties().put("hibernate.connection.url", DerbyHelper.PROTOCOL);
-		System.getProperties().put("hibernate.connection.driver_class", DerbyHelper.DRIVER);
-		System.getProperties().put("hibernate.connection.username", DerbyHelper.USER);
-		System.getProperties().put("hibernate.connection.password", DerbyHelper.PASSWORD);
+		System.setProperty("hibernate.connection.url", DerbyHelper.PROTOCOL);
+		System.setProperty("hibernate.connection.driver_class", DerbyHelper.DRIVER);
+		System.setProperty("hibernate.connection.username", DerbyHelper.USER);
+		System.setProperty("hibernate.connection.password", DerbyHelper.PASSWORD);
 
-		System.getProperties().put("hibernate.dialect", DerbyDialect.class.getName());
-		System.getProperties().put("hibernate.show_sql", "true");
-		System.getProperties().put("hibernate.transaction.factory_class", "org.hibernate.transaction.JDBCTransactionFactory");
-        System.getProperties().put("hibernate.cache.provider_class", "org.hibernate.cache.EhCacheProvider");
-
+		System.setProperty("hibernate.dialect", DerbyDialect.class.getName());
+		System.setProperty("hibernate.show_sql", "true");
+		System.setProperty("hibernate.transaction.factory_class", "org.hibernate.transaction.JDBCTransactionFactory");
+        System.setProperty("hibernate.cache.provider_class", "org.hibernate.cache.EhCacheProvider");
+        
 		// Appel du chargement de la factory
 		super.setUp();
 

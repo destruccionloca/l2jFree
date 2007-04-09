@@ -74,7 +74,6 @@ public abstract class AHibernateTestCase extends TestCase
 					files[i] = getBaseForMappings() + files[i];
 				getCfg().addResource(files[i], AHibernateTestCase.class.getClassLoader());
 			}
-
 			setDialect(Dialect.getDialect());
 
 			configure(cfg);
@@ -226,9 +225,9 @@ public abstract class AHibernateTestCase extends TestCase
 		return sessions;
 	}
 
-	public void setDialect(Dialect dialect)
+	public void setDialect(Dialect _dialect)
 	{
-		AHibernateTestCase.dialect = dialect;
+		dialect = _dialect;
 	}
 
 	public Dialect getDialect()
@@ -236,9 +235,9 @@ public abstract class AHibernateTestCase extends TestCase
 		return dialect;
 	}
 
-	public static void setCfg(Configuration cfg)
+	public static void setCfg(Configuration _cfg)
 	{
-		AHibernateTestCase.cfg = cfg;
+		AHibernateTestCase.cfg = _cfg;
 	}
 
 	public static Configuration getCfg()
