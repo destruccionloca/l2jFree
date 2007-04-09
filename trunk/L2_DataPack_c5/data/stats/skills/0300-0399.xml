@@ -474,17 +474,17 @@
   <set name="effectRange" val="-1"/>
   <for>
     <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="#mpConsume_Init">
-      <add order="0x40" stat="cAtk" val="#crit"/>
+      <add order="0x20" stat="cAtk" val="#crit"/>
     </effect>
   </for>
   <enchant1for>
     <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="14"> <!-- temp value -->
-      <add order="0x40" stat="cAtk" val="#ench1crit"/>
+      <add order="0x20" stat="cAtk" val="#ench1crit"/>
     </effect>
   </enchant1for>
   <enchant2for>
     <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="14"> <!-- temp value -->
-      <add order="0x40" stat="cAtk" val="609"/>
+      <add order="0x20" stat="cAtk" val="609"/>
     </effect>
   </enchant2for>
 </skill>

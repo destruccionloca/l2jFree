@@ -215,6 +215,7 @@
   </for>
 </skill>
 <skill id="222" levels="1" name="Fist Fury">
+  <set name="weaponsAllowed" val="1280"/>
   <set name="power" val="0.0"/>
   <set name="mpConsume" val="8"/>
   <set name="target" val="TARGET_SELF"/>
@@ -222,12 +223,11 @@
   <set name="operateType" val="OP_TOGGLE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
-  <cond msg="Dual Fist required.">
-    <using kind="Fist, Dual Fist"/>
-  </cond>
   <for>
     <effect count="0x7fffffff" name="DamOverTime" time="3" val="13">
-      <mul order="0x30" stat="pAtkSpd" val="1.25"/>
+      <mul order="0x30" stat="pAtkSpd" val="1.25">
+      	<using kind="Fist, Dual Fist"/>
+      </mul>
     </effect>
   </for>
 </skill>

@@ -749,6 +749,7 @@
   <table name="#Tab-pDef"> 0.9 0.9 0.9 </table>
   <table name="#mpConsume"> 18 22 27 </table>
   <set name="mpConsume" val="#mpConsume"/>
+  <set name="weaponsAllowed" val="32"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="1500"/>
@@ -762,14 +763,22 @@
   <enchant1 name="buffDuration" val="#buffDuration"/>
   <for>
     <effect name="Buff" time="300" count="1" val="0" stackOrder="#Tab-accCombat" stackType="HawkEye">
-      <add order="0x40" stat="accCombat" val="#Tab-accCombat"/>
-      <mul order="0x30" stat="pDef" val="#Tab-pDef"/>
+      <add order="0x40" stat="accCombat" val="#Tab-accCombat">
+	 	<using kind="Bow"/>
+      </add>
+      <mul order="0x30" stat="pDef" val="#Tab-pDef">
+	 	<using kind="Bow"/>
+      </mul>
     </effect>
   </for>
   <enchant1for>
     <effect name="Buff" time="#ench1time" count="1" val="0" stackOrder="10" stackType="HawkEye">
-      <add order="0x40" stat="accCombat" val="10"/>
-      <mul order="0x30" stat="pDef" val="0.9"/>
+      <add order="0x40" stat="accCombat" val="10">
+	 	<using kind="Bow"/>
+      </add>
+      <mul order="0x30" stat="pDef" val="0.9">
+	 	<using kind="Bow"/>
+      </mul>
     </effect>
   </enchant1for>
 </skill>
