@@ -32,7 +32,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2Registry;
 import net.sf.l2j.loginserver.LoginServer;
 import net.sf.l2j.loginserver.beans.Accounts;
 import net.sf.l2j.loginserver.beans.SessionKey;
@@ -41,6 +40,7 @@ import net.sf.l2j.loginserver.services.exception.AccountModificationException;
 import net.sf.l2j.loginserver.services.exception.HackingException;
 import net.sf.l2j.loginserver.thread.GameServerListener;
 import net.sf.l2j.loginserver.thread.GameServerThread;
+import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.codec.Base64;
 import net.sf.l2j.tools.math.ScrambledKeyPair;
 

@@ -23,13 +23,13 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.util.List;
 
-import org.springframework.orm.ObjectRetrievalFailureException;
-
 import net.sf.l2j.Config;
-import net.sf.l2j.L2Registry;
 import net.sf.l2j.loginserver.beans.Accounts;
 import net.sf.l2j.loginserver.services.AccountsServices;
 import net.sf.l2j.loginserver.services.exception.AccountModificationException;
+import net.sf.l2j.tools.L2Registry;
+
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
  * this main class allow to manage account :
@@ -53,12 +53,12 @@ public class AccountManager
      * @param args
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws Throwable
     {
         // Load config
         Config.load();
         // load application context
-        L2Registry.loadRegistry();
+        L2Registry.loadRegistry(new String[]{"spring.xml"});
 
         AccountManager accountManager = new AccountManager();
 

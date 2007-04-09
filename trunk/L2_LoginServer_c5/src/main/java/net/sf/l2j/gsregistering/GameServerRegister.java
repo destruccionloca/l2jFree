@@ -24,10 +24,10 @@ import java.io.LineNumberReader;
 import java.math.BigInteger;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2Registry;
 import net.sf.l2j.loginserver.beans.GameServer;
 import net.sf.l2j.loginserver.beans.Gameservers;
 import net.sf.l2j.loginserver.manager.GameServerManager;
+import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.util.HexUtil;
 
 public class GameServerRegister
@@ -36,7 +36,7 @@ public class GameServerRegister
 	private static GameServerManager gsServerManager;
 	private boolean _choiceOk;
 
-	public static void main(String[] args) throws IOException
+	public static void main(String[] args) throws Throwable
 	{
         // o Load config
         // -------------
@@ -44,7 +44,7 @@ public class GameServerRegister
         
         // o Load registry
         // ----------------
-        L2Registry.loadRegistry();
+        L2Registry.loadRegistry(new String[]{"spring.xml"});
         
         // Load Game server manager
         // -------------------------

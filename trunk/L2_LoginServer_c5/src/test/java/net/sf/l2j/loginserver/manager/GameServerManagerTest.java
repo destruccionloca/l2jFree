@@ -26,8 +26,8 @@
 package net.sf.l2j.loginserver.manager;
 
 import junit.framework.TestCase;
-import net.sf.l2j.L2Registry;
 import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
+import net.sf.l2j.tools.L2Registry;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

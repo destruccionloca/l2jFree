@@ -24,10 +24,10 @@ import java.io.InputStream;
 import java.util.logging.LogManager;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2Registry;
 import net.sf.l2j.loginserver.manager.GameServerManager;
 import net.sf.l2j.loginserver.thread.LoginServerThread;
 import net.sf.l2j.status.Status;
+import net.sf.l2j.tools.L2Registry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,7 +47,7 @@ public class LoginServer
      * @param args
      * @throws Exception
      */
-    public static void main(String[] args) throws Exception
+    public static void main(String[] args) throws Throwable
     {
         // Local Constants
         // ----------------
@@ -71,7 +71,7 @@ public class LoginServer
         
         // Initialize Application context (registry of beans)
         // ---------------------------------------------------
-        L2Registry.loadRegistry();
+        L2Registry.loadRegistry(new String[]{"spring.xml"});
         
         // o Initialize GameServer Manager
         // ------------------------------

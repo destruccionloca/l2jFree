@@ -31,9 +31,9 @@ import java.net.UnknownHostException;
 
 import junit.framework.TestCase;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2Registry;
 import net.sf.l2j.loginserver.beans.SessionKey;
 import net.sf.l2j.loginserver.services.exception.HackingException;
+import net.sf.l2j.tools.L2Registry;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

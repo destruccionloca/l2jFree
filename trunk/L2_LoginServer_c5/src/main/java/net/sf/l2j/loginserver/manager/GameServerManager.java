@@ -44,7 +44,6 @@ import java.util.Random;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
-import net.sf.l2j.L2Registry;
 import net.sf.l2j.loginserver.beans.GameServer;
 import net.sf.l2j.loginserver.beans.Gameservers;
 import net.sf.l2j.loginserver.beans.GameServer.GameServerNetConfig;
@@ -52,6 +51,7 @@ import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.loginserver.serverpackets.ServerList;
 import net.sf.l2j.loginserver.services.GameserversServices;
 import net.sf.l2j.loginserver.thread.GameServerThread;
+import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.util.HexUtil;
 
 import org.apache.commons.logging.Log;
