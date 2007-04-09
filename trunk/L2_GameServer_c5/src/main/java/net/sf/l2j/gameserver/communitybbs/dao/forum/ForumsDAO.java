@@ -23,13 +23,13 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.dao.forum;
+package net.sf.l2j.gameserver.communitybbs.dao.forum;
 
 import java.util.List;
 import java.util.Set;
 
-import net.sf.l2j.gameserver.model.forum.Forums;
-import net.sf.l2j.gameserver.model.forum.Topic;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Forums;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Topic;
 
 /**
  * Interface for Forums DAO

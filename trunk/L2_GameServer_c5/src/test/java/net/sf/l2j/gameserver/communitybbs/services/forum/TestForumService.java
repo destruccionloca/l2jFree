@@ -23,14 +23,15 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.services.forum;
+package net.sf.l2j.gameserver.communitybbs.services.forum;
 
 import java.util.List;
 
 import junit.framework.TestCase;
-import net.sf.l2j.gameserver.model.forum.Forums;
-import net.sf.l2j.gameserver.model.forum.Posts;
-import net.sf.l2j.gameserver.model.forum.Topic;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Forums;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Posts;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Topic;
+import net.sf.l2j.gameserver.communitybbs.services.forum.ForumService;
 import net.sf.l2j.tools.L2Registry;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -51,7 +52,7 @@ public class TestForumService extends TestCase
     protected void setUp() throws Exception
     {
         super.setUp();
-        context = new ClassPathXmlApplicationContext("classpath*:/**/**/applicationContext-TestMock.xml");
+        context = new ClassPathXmlApplicationContext("classpath*:net/sf/l2j/applicationContext-TestMock.xml");
         L2Registry.setApplicationContext(context);
         __forumService = (ForumService)L2Registry.getBean("ForumService");
     }

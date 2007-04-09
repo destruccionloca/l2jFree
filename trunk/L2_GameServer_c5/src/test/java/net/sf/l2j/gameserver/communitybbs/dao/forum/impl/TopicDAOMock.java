@@ -1,25 +1,25 @@
-package net.sf.l2j.gameserver.dao.forum.impl;
+package net.sf.l2j.gameserver.communitybbs.dao.forum.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.l2j.gameserver.dao.forum.TopicDAO;
-import net.sf.l2j.gameserver.model.forum.Posts;
-import net.sf.l2j.gameserver.model.forum.Topic;
+import net.sf.l2j.gameserver.communitybbs.dao.forum.TopicDAO;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Posts;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Topic;
 
 // Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
 
 
 /**
  * DAO object for domain model class Topic.
- * @see net.sf.l2j.gameserver.model.forum.Topic
+ * @see net.sf.l2j.gameserver.communitybbs.model.forum.Topic
  */
 public class TopicDAOMock implements TopicDAO
 {
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.TopicDAO#createTopic(net.sf.l2j.gameserver.model.forum.Topic)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.TopicDAO#createTopic(net.sf.l2j.gameserver.communitybbs.model.forum.Topic)
 	 */
 	public int createTopic(Topic obj)
 	{
@@ -30,7 +30,7 @@ public class TopicDAOMock implements TopicDAO
 	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.TopicDAO#deleteTopic(net.sf.l2j.gameserver.model.forum.Topic)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.TopicDAO#deleteTopic(net.sf.l2j.gameserver.communitybbs.model.forum.Topic)
 	 */
 	public void deleteTopic(Topic obj)
 	{
@@ -39,7 +39,7 @@ public class TopicDAOMock implements TopicDAO
 	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.TopicDAO#getTopicById(java.lang.Integer)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.TopicDAO#getTopicById(java.lang.Integer)
 	 */
 	public Topic getTopicById(Integer id)
 	{
@@ -55,7 +55,7 @@ public class TopicDAOMock implements TopicDAO
 	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.TopicDAO#getTopicByName(java.lang.String)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.TopicDAO#getTopicByName(java.lang.String)
 	 */
 	public Topic getTopicByName(String name)
 	{
@@ -71,7 +71,7 @@ public class TopicDAOMock implements TopicDAO
 	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.TopicDAO#getPaginatedTopicByForumId(java.lang.Integer, java.lang.Integer, java.lang.Integer)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.TopicDAO#getPaginatedTopicByForumId(java.lang.Integer, java.lang.Integer, java.lang.Integer)
 	 */
 	public List<Topic> getPaginatedTopicByForumId(Integer iPageSize, Integer iIdx, Integer id)
 	{

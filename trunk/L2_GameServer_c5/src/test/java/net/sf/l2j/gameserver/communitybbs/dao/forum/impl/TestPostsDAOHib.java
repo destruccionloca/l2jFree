@@ -1,10 +1,11 @@
-package net.sf.l2j.gameserver.dao.forum.impl;
+package net.sf.l2j.gameserver.communitybbs.dao.forum.impl;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.l2j.gameserver.model.forum.Posts;
+import net.sf.l2j.gameserver.communitybbs.dao.forum.impl.PostsDAOHib;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Posts;
 import net.sf.l2j.tools.db.hibernate.ADAOTestCase;
 
 import org.dbunit.dataset.IDataSet;

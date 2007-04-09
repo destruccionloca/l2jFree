@@ -26,13 +26,13 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Forums;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Posts;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Topic;
+import net.sf.l2j.gameserver.communitybbs.services.forum.ForumService;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.forum.Forums;
-import net.sf.l2j.gameserver.model.forum.Posts;
-import net.sf.l2j.gameserver.model.forum.Topic;
 import net.sf.l2j.gameserver.serverpackets.ShowBoard;
-import net.sf.l2j.gameserver.services.forum.ForumService;
 
 
 public class TopicBBSManager extends BaseBBSManager

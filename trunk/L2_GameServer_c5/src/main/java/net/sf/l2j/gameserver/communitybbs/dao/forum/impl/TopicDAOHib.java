@@ -1,12 +1,13 @@
-package net.sf.l2j.gameserver.dao.forum.impl;
+package net.sf.l2j.gameserver.communitybbs.dao.forum.impl;
 
 import java.util.List;
 import java.util.Set;
 
-import net.sf.l2j.gameserver.dao.forum.TopicDAO;
-import net.sf.l2j.gameserver.model.forum.Forums;
-import net.sf.l2j.gameserver.model.forum.Posts;
-import net.sf.l2j.gameserver.model.forum.Topic;
+import net.sf.l2j.gameserver.communitybbs.dao.forum.TopicDAO;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Forums;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Posts;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Topic;
+import net.sf.l2j.tools.dao.impl.BaseRootDAOHib;
 
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
@@ -16,13 +17,13 @@ import org.hibernate.criterion.Restrictions;
 
 /**
  * Home object for domain model class Topic.
- * @see net.sf.l2j.gameserver.model.forum.Topic
+ * @see net.sf.l2j.gameserver.communitybbs.model.forum.Topic
  */
 public class TopicDAOHib extends BaseRootDAOHib implements TopicDAO
 {
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.TopicDAO#createTopic(net.sf.l2j.gameserver.model.forum.Topic)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.TopicDAO#createTopic(net.sf.l2j.gameserver.communitybbs.model.forum.Topic)
 	 */
 	public int createTopic(Topic obj)
 	{
@@ -30,7 +31,7 @@ public class TopicDAOHib extends BaseRootDAOHib implements TopicDAO
 	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.TopicDAO#deleteTopic(net.sf.l2j.gameserver.model.forum.Topic)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.TopicDAO#deleteTopic(net.sf.l2j.gameserver.communitybbs.model.forum.Topic)
 	 */
 	public void deleteTopic(Topic obj)
 	{
@@ -43,7 +44,7 @@ public class TopicDAOHib extends BaseRootDAOHib implements TopicDAO
 	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.TopicDAO#getTopicById(java.lang.Integer)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.TopicDAO#getTopicById(java.lang.Integer)
 	 */
 	public Topic getTopicById(Integer id)
 	{
@@ -51,7 +52,7 @@ public class TopicDAOHib extends BaseRootDAOHib implements TopicDAO
 	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.TopicDAO#getTopicByName(java.lang.String)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.TopicDAO#getTopicByName(java.lang.String)
 	 */
 	public Topic getTopicByName(String name)
 	{
@@ -59,7 +60,7 @@ public class TopicDAOHib extends BaseRootDAOHib implements TopicDAO
 	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.TopicDAO#getPaginatedTopicById(java.lang.Integer, java.lang.Integer, java.lang.Integer)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.TopicDAO#getPaginatedTopicById(java.lang.Integer, java.lang.Integer, java.lang.Integer)
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Topic> getPaginatedTopicByForumId(Integer iPageSize, Integer iIdx, Integer id)

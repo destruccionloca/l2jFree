@@ -23,17 +23,17 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.services.forum;
+package net.sf.l2j.gameserver.communitybbs.services.forum;
 
 import java.util.List;
 import java.util.Set;
 
-import net.sf.l2j.gameserver.dao.forum.ForumsDAO;
-import net.sf.l2j.gameserver.dao.forum.PostsDAO;
-import net.sf.l2j.gameserver.dao.forum.TopicDAO;
-import net.sf.l2j.gameserver.model.forum.Forums;
-import net.sf.l2j.gameserver.model.forum.Posts;
-import net.sf.l2j.gameserver.model.forum.Topic;
+import net.sf.l2j.gameserver.communitybbs.dao.forum.ForumsDAO;
+import net.sf.l2j.gameserver.communitybbs.dao.forum.PostsDAO;
+import net.sf.l2j.gameserver.communitybbs.dao.forum.TopicDAO;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Forums;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Posts;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Topic;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

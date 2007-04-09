@@ -1,4 +1,4 @@
-package net.sf.l2j.gameserver.model.forum;
+package net.sf.l2j.gameserver.communitybbs.model.forum;
 
 import java.math.BigDecimal;
 import java.util.HashSet;

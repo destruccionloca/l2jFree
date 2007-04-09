@@ -1,20 +1,20 @@
-package net.sf.l2j.gameserver.dao.forum.impl;
+package net.sf.l2j.gameserver.communitybbs.dao.forum.impl;
 
-import net.sf.l2j.gameserver.dao.forum.PostsDAO;
-import net.sf.l2j.gameserver.model.forum.Posts;
+import net.sf.l2j.gameserver.communitybbs.dao.forum.PostsDAO;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Posts;
 
 // Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
 
 
 /**
  * DAO object for domain model class Posts.
- * @see net.sf.l2j.gameserver.model.forum.Posts
+ * @see net.sf.l2j.gameserver.communitybbs.model.forum.Posts
  */
 public class PostsDAOMock implements PostsDAO
 {
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.PostsDAO#modifyPost(net.sf.l2j.gameserver.model.forum.Posts)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.PostsDAO#modifyPost(net.sf.l2j.gameserver.communitybbs.model.forum.Posts)
 	 */
 	public void modifyPost(Posts obj)
 	{
@@ -23,7 +23,7 @@ public class PostsDAOMock implements PostsDAO
 	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.PostsDAO#createPost(net.sf.l2j.gameserver.model.forum.Posts)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.PostsDAO#createPost(net.sf.l2j.gameserver.communitybbs.model.forum.Posts)
 	 */
 	public int createPost(Posts obj)
 	{
@@ -34,7 +34,7 @@ public class PostsDAOMock implements PostsDAO
 	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.PostsDAO#getPostById(java.lang.Integer)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.PostsDAO#getPostById(java.lang.Integer)
 	 */
 	public Posts getPostById(Integer id)
 	{

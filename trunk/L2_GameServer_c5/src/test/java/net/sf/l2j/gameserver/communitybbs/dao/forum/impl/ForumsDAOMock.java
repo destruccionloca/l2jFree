@@ -1,25 +1,25 @@
-package net.sf.l2j.gameserver.dao.forum.impl;
+package net.sf.l2j.gameserver.communitybbs.dao.forum.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.l2j.gameserver.dao.forum.ForumsDAO;
-import net.sf.l2j.gameserver.model.forum.Forums;
-import net.sf.l2j.gameserver.model.forum.Topic;
+import net.sf.l2j.gameserver.communitybbs.dao.forum.ForumsDAO;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Forums;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Topic;
 
 // Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
 
 
 /**
  * DAO object for domain model class Forums.
- * @see net.sf.l2j.gameserver.model.forum.Forums
+ * @see net.sf.l2j.gameserver.communitybbs.model.forum.Forums
  */
 public class ForumsDAOMock implements ForumsDAO
 {
 
     /**
-     * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#getAllForums()
+     * @see net.sf.l2j.gameserver.communitybbs.dao.forum.ForumsDAO#getAllForums()
      */
     @SuppressWarnings("unchecked")
     public List<Forums> getAllForums()
@@ -46,7 +46,7 @@ public class ForumsDAOMock implements ForumsDAO
     
     
     /**
-     * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#createForums(net.sf.l2j.gameserver.model.forum.Forums)
+     * @see net.sf.l2j.gameserver.communitybbs.dao.forum.ForumsDAO#createForums(net.sf.l2j.gameserver.communitybbs.model.forum.Forums)
      */
     public int createForums(Forums obj)
     {
@@ -57,7 +57,7 @@ public class ForumsDAOMock implements ForumsDAO
     }
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#getChildrens(net.sf.l2j.gameserver.model.forum.Forums)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.ForumsDAO#getChildrens(net.sf.l2j.gameserver.communitybbs.model.forum.Forums)
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Forums> getChildrens(Forums obj)
@@ -82,7 +82,7 @@ public class ForumsDAOMock implements ForumsDAO
     	return forums;	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#getChildrens(java.lang.Integer)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.ForumsDAO#getChildrens(java.lang.Integer)
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Forums> getChildrens(Integer forumId)
@@ -107,7 +107,7 @@ public class ForumsDAOMock implements ForumsDAO
     	return forums;	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#getForumById(java.lang.Integer)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.ForumsDAO#getForumById(java.lang.Integer)
 	 */
 	public Forums getForumById(Integer id)
 	{
@@ -127,7 +127,7 @@ public class ForumsDAOMock implements ForumsDAO
 	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#deleteForum(net.sf.l2j.gameserver.model.forum.Forums)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.ForumsDAO#deleteForum(net.sf.l2j.gameserver.communitybbs.model.forum.Forums)
 	 */
 	public void deleteForum(Forums obj)
 	{
@@ -136,7 +136,7 @@ public class ForumsDAOMock implements ForumsDAO
 	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#getChildForumByName(java.lang.Integer, java.lang.String)
+	 * @see net.sf.l2j.gameserver.communitybbs.dao.forum.ForumsDAO#getChildForumByName(java.lang.Integer, java.lang.String)
 	 */
 	public Forums getChildForumByName(Integer forumId, String name)
 	{

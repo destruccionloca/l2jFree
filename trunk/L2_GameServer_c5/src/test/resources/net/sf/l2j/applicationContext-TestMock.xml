@@ -4,17 +4,17 @@
 		"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
 <beans>
-    <bean id="ForumsDAO" class="net.sf.l2j.gameserver.dao.forum.impl.ForumsDAOMock">
+    <bean id="ForumsDAO" class="net.sf.l2j.gameserver.communitybbs.dao.forum.impl.ForumsDAOMock">
 	</bean> 
 
 	
-    <bean id="TopicDAO" class="net.sf.l2j.gameserver.dao.forum.impl.TopicDAOMock">
+    <bean id="TopicDAO" class="net.sf.l2j.gameserver.communitybbs.dao.forum.impl.TopicDAOMock">
 	</bean> 
 
-    <bean id="PostsDAO" class="net.sf.l2j.gameserver.dao.forum.impl.PostsDAOMock">
+    <bean id="PostsDAO" class="net.sf.l2j.gameserver.communitybbs.dao.forum.impl.PostsDAOMock">
 	</bean> 
 
-    <bean id="ForumService" class="net.sf.l2j.gameserver.services.forum.ForumService">
+    <bean id="ForumService" class="net.sf.l2j.gameserver.communitybbs.services.forum.ForumService">
 		<property name="forumsDAO">
 			<ref bean="ForumsDAO" />
 		</property>

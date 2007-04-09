@@ -1,4 +1,4 @@
-package net.sf.l2j.gameserver.model.forum;
+package net.sf.l2j.gameserver.communitybbs.model.forum;
 
 // Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
 

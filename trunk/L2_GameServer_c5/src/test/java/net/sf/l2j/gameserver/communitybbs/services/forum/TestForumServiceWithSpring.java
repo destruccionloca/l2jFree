@@ -23,11 +23,12 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.services.forum;
+package net.sf.l2j.gameserver.communitybbs.services.forum;
 
-import net.sf.l2j.gameserver.model.forum.Forums;
-import net.sf.l2j.gameserver.model.forum.Posts;
-import net.sf.l2j.gameserver.model.forum.Topic;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Forums;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Posts;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Topic;
+import net.sf.l2j.gameserver.communitybbs.services.forum.ForumService;
 import net.sf.l2j.tools.db.spring.ADAOTestWithSpringAndDerby;
 
 /**
@@ -55,7 +56,7 @@ public class TestForumServiceWithSpring extends ADAOTestWithSpringAndDerby
     
     public String getInitialDataSetName()
     {
-        return "net/sf/l2j/gameserver/services/forum/initialForum.xml";
+        return "net/sf/l2j/gameserver/communitybbs/services/forum/initialForum.xml";
     }
 
     public String getRootDirName()
@@ -92,7 +93,7 @@ public class TestForumServiceWithSpring extends ADAOTestWithSpringAndDerby
     {
         __fs.createForum("test", 5, 4, 3, 1);
         
-        assertEqualsDatabaseDataSet("net/sf/l2j/gameserver/services/forum/afterForumCreation.xml");
+        assertEqualsDatabaseDataSet("net/sf/l2j/gameserver/communitybbs/services/forum/afterForumCreation.xml");
     }
    
 }

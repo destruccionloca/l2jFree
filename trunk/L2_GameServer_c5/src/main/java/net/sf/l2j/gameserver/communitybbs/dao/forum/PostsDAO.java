@@ -23,9 +23,9 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.dao.forum;
+package net.sf.l2j.gameserver.communitybbs.dao.forum;
 
-import net.sf.l2j.gameserver.model.forum.Posts;
+import net.sf.l2j.gameserver.communitybbs.model.forum.Posts;
 
 /**
  * Topic DAO to access data for posts
