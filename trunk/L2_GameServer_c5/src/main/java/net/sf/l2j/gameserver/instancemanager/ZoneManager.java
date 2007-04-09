@@ -19,6 +19,7 @@ package net.sf.l2j.gameserver.instancemanager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -184,7 +185,7 @@ public class ZoneManager
     	java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("Select * from zone order by id");
             ResultSet rs = statement.executeQuery();
 

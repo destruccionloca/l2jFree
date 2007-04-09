@@ -23,9 +23,8 @@ package net.sf.l2j;
 
 import java.io.UnsupportedEncodingException;
 
-import net.sf.l2j.Base64;
-
 import junit.framework.TestCase;
+import net.sf.l2j.tools.codec.Base64;
 
 /**
  * Class for Base64 testing

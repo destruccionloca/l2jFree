@@ -23,10 +23,9 @@ import java.sql.ResultSet;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import net.sf.l2j.L2DatabaseFactory;
 
 import org.apache.log4j.Logger;
-
-import net.sf.l2j.L2DatabaseFactory;
 
 /** 
  * @author evill33t
@@ -59,7 +58,7 @@ public class Faction
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
 
             statement = con.prepareStatement("Select * from factions where id = ?");
             statement.setInt(1, getId());
@@ -106,7 +105,7 @@ public class Faction
         {
             PreparedStatement statement;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
 
             statement = con.prepareStatement("update factions set points = ? where id = ?");
             statement.setFloat(1, this._points);

@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.lib;
 
-import net.sf.l2j.util.MTRandom;
+import net.sf.l2j.tools.math.MTRandom;
 import net.sf.l2j.util.RandomIntGenerator;
 
 /**$

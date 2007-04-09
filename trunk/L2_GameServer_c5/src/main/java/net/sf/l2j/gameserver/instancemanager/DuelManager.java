@@ -21,16 +21,15 @@ package net.sf.l2j.gameserver.instancemanager;
 import java.util.Calendar;
 
 import javolution.util.FastList;
-
-import org.apache.log4j.Logger;
-
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ExDuelEnd;
 import net.sf.l2j.gameserver.serverpackets.ExDuelReady;
 import net.sf.l2j.gameserver.serverpackets.ExDuelStart;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
-import net.sf.l2j.gameserver.ThreadPoolManager;
+
+import org.apache.log4j.Logger;
 
 
 /** 

@@ -21,8 +21,8 @@ package net.sf.l2j.gameserver.datatables;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javolution.util.FastMap;
 
+import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.base.ClassId;
@@ -77,7 +77,7 @@ public class CharTemplateTable
 		
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement(
 					"SELECT * FROM class_list, char_templates, lvlupgain" +
 					" WHERE class_list.id = char_templates.classId" +

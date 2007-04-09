@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.datatables;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2PetData;
@@ -70,7 +71,7 @@ public class PetDataTable
         
         try
         { 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("SELECT typeID, level, expMax, hpMax, mpMax, patk, pdef, matk, mdef, acc, evasion, crit, speed, atk_speed, cast_speed, feedMax, feedbattle, feednormal, loadMax, hpregen, mpregen FROM pets_stats");
             ResultSet rset = statement.executeQuery();
             

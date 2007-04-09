@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import net.sf.l2j.gameserver.clientpackets.ClientBasePacket;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.WrappedMessage;
-import net.sf.l2j.util.Util;
+import net.sf.l2j.tools.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -2,6 +2,7 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
@@ -455,7 +456,7 @@ public class PcInventory extends Inventory
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement2 = con.prepareStatement(
                     "SELECT object_id,item_id,loc_data,enchant_level FROM items WHERE owner_id=? AND loc='PAPERDOLL'");
             statement2.setInt(1, objectId);

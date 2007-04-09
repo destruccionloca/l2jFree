@@ -22,6 +22,16 @@ import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ShowBoard;
 
+
+/**
+ * 
+ * This class is the mother class of all class callable in communityBoard 
+ * it define two methods : parseCmd and parseWrite
+ * this methods return html code to the player.
+ * Maybe we could use freemarker to manage external templates one day
+ * To be continued...
+ * 
+ */
 public abstract class BaseBBSManager
 {
 	public abstract void parsecmd(String command, L2PcInstance activeChar);

@@ -21,11 +21,11 @@ import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
 import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.model.L2Character;
-import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
-import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
+import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  *

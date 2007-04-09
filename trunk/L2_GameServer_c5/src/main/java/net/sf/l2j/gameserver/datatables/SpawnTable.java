@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.datatables;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -72,7 +73,7 @@ public class SpawnTable
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay, loc_id, periodOfDay FROM spawnlist ORDER BY id");
             ResultSet rset = statement.executeQuery();
 
@@ -151,6 +152,7 @@ public class SpawnTable
             try
             {
                 con.close();
+                con=null;
             }
             catch (Exception e)
             {
@@ -161,7 +163,7 @@ public class SpawnTable
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay, loc_id, periodOfDay FROM custom_spawnlist ORDER BY id");
             ResultSet rset = statement.executeQuery();
 
@@ -283,7 +285,7 @@ public class SpawnTable
 
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2DatabaseFactory.getInstance().getConnection(con);
                 PreparedStatement statement = con.prepareStatement("INSERT INTO "+(spawn.isCustom()?"custom_spawnlist":"spawnlist")+" (id,count,npc_templateid,locx,locy,locz,heading,respawn_delay,loc_id) values(?,?,?,?,?,?,?,?,?)");
                 statement.setInt(1, spawn.getDbId());
                 statement.setInt(2, spawn.getAmount());
@@ -325,7 +327,7 @@ public class SpawnTable
 
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2DatabaseFactory.getInstance().getConnection(con);
                 PreparedStatement statement = con.prepareStatement("DELETE FROM "+(spawn.isCustom()?"custom_spawnlist":"spawnlist")+" WHERE id=?");
                 statement.setInt(1, spawn.getDbId());
                 statement.execute();

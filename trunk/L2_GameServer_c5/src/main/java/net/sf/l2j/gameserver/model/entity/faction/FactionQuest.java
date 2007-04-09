@@ -70,7 +70,7 @@ public class FactionQuest
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             statement = con.prepareStatement("INSERT INTO character_faction_quests (char_id,faction_quest_id) VALUES (?,?)");
             statement.setInt (1, player.getObjectId());
@@ -96,7 +96,7 @@ public class FactionQuest
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             statement = con.prepareStatement("DELETE FROM character_faction_quests WHERE char_id=? AND faction_quest_id=?");
             statement.setInt (1, player.getObjectId());

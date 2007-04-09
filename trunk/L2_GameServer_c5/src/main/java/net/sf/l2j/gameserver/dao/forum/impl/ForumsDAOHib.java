@@ -1,9 +1,14 @@
 package net.sf.l2j.gameserver.dao.forum.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import net.sf.l2j.gameserver.dao.forum.ForumsDAO;
 import net.sf.l2j.gameserver.model.forum.Forums;
+import net.sf.l2j.gameserver.model.forum.Topic;
+
+import org.hibernate.Hibernate;
+import org.hibernate.criterion.Restrictions;
 
 // Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
 
@@ -48,17 +53,8 @@ public class ForumsDAOHib extends BaseRootDAOHib implements ForumsDAO
 	@SuppressWarnings("unchecked")
 	public List<Forums> getChildrens(Integer forumId)
 	{
-		return getCurrentSession().createQuery(
-				"from " + Forums.class.getName()+ " where forumParent = "+forumId).list();
-	}
-
-	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#getForumByName(java.lang.String)
-	 */
-	public Forums getForumByName(String name)
-	{
-		return (Forums)getCurrentSession().createQuery(
-				"from " + Forums.class.getName()+ " where forumName = '"+name+"'").uniqueResult();
+        return getCurrentSession().createQuery(
+                "from " + Forums.class.getName()+ " where forumParent = "+forumId).list();
 	}
 
 	/**
@@ -82,9 +78,25 @@ public class ForumsDAOHib extends BaseRootDAOHib implements ForumsDAO
 	 */
 	public Forums getChildForumByName(Integer forumId, String name)
 	{
-		return (Forums)getCurrentSession().createQuery(
-				"from " + Forums.class.getName()+ " where forumName = '"+name+"' and forumParent="+forumId).uniqueResult();
+        return (Forums)getCurrentSession().createCriteria(Forums.class)
+                                                .add(Restrictions.eq("forumName", name))
+                                                .add(Restrictions.eq("forumParent", forumId)).uniqueResult();
 	}
+	
+    /**
+     * Initialize the object (force retrieval of associated objects
+     * 
+     * @param obj
+     * @return 
+     */
+    public Set<Topic> getTopicsForForum(Forums obj)
+    {
+        if ( !Hibernate.isInitialized(obj.getTopics()))
+        {
+            getCurrentSession().refresh(obj);
+        }
+        return obj.getTopics();
+    }
 
 
 }

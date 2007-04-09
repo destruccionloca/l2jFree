@@ -28,10 +28,10 @@ package net.sf.l2j.gameserver.services.forum;
 import java.util.List;
 
 import junit.framework.TestCase;
-import net.sf.l2j.L2Registry;
 import net.sf.l2j.gameserver.model.forum.Forums;
 import net.sf.l2j.gameserver.model.forum.Posts;
 import net.sf.l2j.gameserver.model.forum.Topic;
+import net.sf.l2j.tools.L2Registry;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -58,9 +58,7 @@ public class TestForumService extends TestCase
     
     public void testCreateForum()
 	{
-    	Forums parent = new Forums();
-    	parent.setForumId(3);
-    	Forums fils = __forumService.createForum("TestForum", parent , 1, 2, 3);
+    	Forums fils = __forumService.createForum("TestForum", 3 , 1, 2, 3);
     	
     	assertNotNull(fils);
     	assertEquals(fils.getForumName(), "TestForum");
@@ -131,22 +129,6 @@ public class TestForumService extends TestCase
     	
     	assertNull(fils);
 	}      
-    
-    public void testgetForumByName()
-	{
-    	Forums fils = __forumService.getForumByName("good");
-    	
-    	assertNotNull(fils);
-    	assertEquals(fils.getForumId(), 1);
-    	assertEquals(fils.getForumName(), "good");
-	}    
-    
-    public void testgetForumByNameIfNotExistant()
-	{
-    	Forums fils = __forumService.getForumByName("TestFailure");
-    	
-    	assertNull(fils);
-	}    
     
     public void testCreateTopic()
 	{
@@ -246,40 +228,6 @@ public class TestForumService extends TestCase
     	assertNull(fils);
 	}    
     
-    public void testDeletePost()
-	{
-    	Posts post = new Posts();
-    	post.setPostTxt("good");
-    	post.setPostId(1);
-    	
-    	try
-    	{
-    		__forumService.deletePost(post);
-    	}
-    	catch (Throwable e)
-    	{
-    		fail (e.getMessage());
-    	}
-    	assertTrue(true);
-	}    
-
-    public void testDeletePostIfNotExistant()
-	{
-    	Posts post = new Posts();
-    	post.setPostTxt("bad");
-    	post.setPostId(999);
-    	
-    	try
-    	{
-    		__forumService.deletePost(post);
-    		fail("delete succeed");
-    	}
-    	catch (Throwable e)
-    	{
-    		assertNotNull(e);
-    	}
-	}    
-
     public void testModifyPost()
 	{
     	Posts fils = __forumService.getPostById(1);

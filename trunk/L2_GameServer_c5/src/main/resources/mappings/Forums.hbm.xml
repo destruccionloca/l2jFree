@@ -28,6 +28,7 @@
             <column name="forum_owner_id" />
         </property>
         <set name="topics" inverse="true" cascade="all, delete-orphan" outer-join="true" lazy="true">
+        <cache usage="nonstrict-read-write"/>
             <key>
                 <column name="topic_forum_id" not-null="true">
                 </column>

@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
-import net.sf.l2j.util.Point3D;
+import net.sf.l2j.tools.geometry.Point3D;
 
 
 public class RequestMoveToLocationInVehicle extends ClientBasePacket

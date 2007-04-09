@@ -6,9 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.l2j.gameserver.model.forum.Forums;
-import net.sf.l2j.gameserver.model.forum.Posts;
 import net.sf.l2j.gameserver.model.forum.Topic;
-import net.sf.l2j.tools.hibernate.ADAOTestCase;
+import net.sf.l2j.tools.db.hibernate.ADAOTestCase;
 
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatDtdDataSet;
@@ -59,22 +58,11 @@ public class TestForumsDAOHib extends ADAOTestCase
 
 	/**
 	 * Test method for {@link
-	 * net.sf.l2j.gameserver.dao.impl.ForumsDAO#getForumByName(String)}.
-	 */
-    public void testFindByName()
-    {
-    	Forums forum = getForumsDAO().getForumByName("Kyor");
-    	assertNotNull(forum);
-    	assertEquals("Kyor", forum.getForumName());
-    }
-    
-	/**
-	 * Test method for {@link
 	 * net.sf.l2j.gameserver.dao.impl.ForumsDAO#getChildrens(Forums)}.
 	 */
     public void testFindChildrenByEntity()
     {
-    	Forums forum = getForumsDAO().getForumByName("ClanRoot");
+    	Forums forum = getForumsDAO().getForumById(2);
     	assertNotNull(forum);
     	assertEquals("ClanRoot", forum.getForumName());
     	assertEquals(2,getForumsDAO().getChildrens(forum).size());
@@ -86,7 +74,7 @@ public class TestForumsDAOHib extends ADAOTestCase
 	 */
     public void testFindChildrenByName()
     {
-    	Forums forum = getForumsDAO().getForumByName("ClanRoot");
+    	Forums forum = getForumsDAO().getForumById(2);
     	assertNotNull(forum);
     	assertEquals("ClanRoot", forum.getForumName());
     	Forums fils = getForumsDAO().getChildForumByName(forum.getForumId(), "Kyor");
@@ -95,6 +83,20 @@ public class TestForumsDAOHib extends ADAOTestCase
     	assertEquals(forum.getForumId(), fils.getForumParent());
     }
     
+    /**
+     * Test method for {@link
+     * net.sf.l2j.gameserver.dao.impl.ForumsDAO#getChildForumByName(Integer,String)}.
+     */
+    public void testFindChildrenByNameWithQuote()
+    {
+        Forums forum = getForumsDAO().getForumById(2);
+        assertNotNull(forum);
+        assertEquals("ClanRoot", forum.getForumName());
+        // Test should not fail even if there is a quote in the request
+        Forums fils = getForumsDAO().getChildForumByName(forum.getForumId(), "Kyor'Khel");
+        assertNotNull(fils);
+        assertEquals("Kyor'Khel", fils.getForumName());
+    }    
     
 	/**
 	 * Test method for getTopics and getPosts
@@ -201,7 +203,6 @@ public class TestForumsDAOHib extends ADAOTestCase
     	
     	// check that children were erased
     	assertEquals(0,getForumsDAO().getCurrentSession().createQuery("from "+Topic.class.getName()+" where topicForumId="+6).list().size());
-    	assertEquals(0,getForumsDAO().getCurrentSession().createQuery("from "+Posts.class.getName()+" where postForumId="+6).list().size());
     }     
     
     /**
@@ -224,7 +225,7 @@ public class TestForumsDAOHib extends ADAOTestCase
     protected List<IDataSet> getDataSet() throws Exception
     {
     	String [] dataSetNameList = {"forums.xml","topic.xml","posts.xml"};
-    	String dtdName = "database/l2jdb.dtd";
+    	String dtdName = "/l2jdb.dtd";
     	List<IDataSet> dataSetList = new ArrayList<IDataSet>();
 	
     	InputStream inDTD = this.getClass().getResourceAsStream(dtdName);

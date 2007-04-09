@@ -43,17 +43,17 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.OlympiadStadiaManager;
-import net.sf.l2j.gameserver.model.Inventory; 
+import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Effect;
-import net.sf.l2j.gameserver.model.L2ItemInstance; 
+import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.entity.Hero;
-import net.sf.l2j.gameserver.serverpackets.InventoryUpdate; 
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfo;
+import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.StatsSet;
@@ -250,7 +250,8 @@ public class Olympiad
         
         try
         {
-            Connection con = L2DatabaseFactory.getInstance().getConnection();
+            Connection con = null;
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement(OLYMPIAD_LOAD_NOBLES);
             ResultSet rset = statement.executeQuery();
             
@@ -874,7 +875,7 @@ public class Olympiad
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             
             for (Integer nobleId : _nobles.keySet())
@@ -933,7 +934,7 @@ public class Olympiad
          
          try
          {
-             con = L2DatabaseFactory.getInstance().getConnection();
+             con = L2DatabaseFactory.getInstance().getConnection(con);
              PreparedStatement statement;
              ResultSet rset;
              StatsSet hero;
@@ -976,7 +977,7 @@ public class Olympiad
          
          try
          {
-             con = L2DatabaseFactory.getInstance().getConnection();
+             con = L2DatabaseFactory.getInstance().getConnection(con);
              PreparedStatement statement;
              ResultSet rset;
              statement = con.prepareStatement(GET_EACH_CLASS_LEADER);
@@ -1079,7 +1080,7 @@ public class Olympiad
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement(OLYMPIAD_DELETE_ALL);
             statement.execute();
             statement.close();

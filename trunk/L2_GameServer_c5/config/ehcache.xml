@@ -14,15 +14,15 @@
         
     <cache name="net.sf.l2j.gameserver.model.forum.Forums"
         maxElementsInMemory="50"
-        timeToIdleSeconds="600"
-        timeToLiveSeconds="600"
+        timeToIdleSeconds="6000"
+        timeToLiveSeconds="6000"
         overflowToDisk="false"
         />        
 
     <cache name="net.sf.l2j.gameserver.model.forum.Forums.topics"
         maxElementsInMemory="20"
-        timeToIdleSeconds="120"
-        timeToLiveSeconds="120"
+        timeToIdleSeconds="500"
+        timeToLiveSeconds="500"
         overflowToDisk="false"
         />        
         
@@ -35,15 +35,15 @@
 
     <cache name="net.sf.l2j.gameserver.model.forum.Topic.postses"
         maxElementsInMemory="50"
-        timeToIdleSeconds="120"
-        timeToLiveSeconds="120"
+        timeToIdleSeconds="500"
+        timeToLiveSeconds="500"
         overflowToDisk="false"
         />        
                 
     <cache name="net.sf.l2j.gameserver.model.forum.Posts"
         maxElementsInMemory="300"
-        timeToIdleSeconds="120"
-        timeToLiveSeconds="120"
+        timeToIdleSeconds="380"
+        timeToLiveSeconds="380"
         overflowToDisk="false"
         />        
 

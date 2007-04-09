@@ -23,7 +23,6 @@ public class Posts implements java.io.Serializable
     private int postOwnerid;
     private BigDecimal postDate;
     private int postTopicId;
-    private int postForumId;
     private String postTxt;
     
 
@@ -36,28 +35,26 @@ public class Posts implements java.io.Serializable
     
     /** minimal constructor */
     public Posts(int _postId, String _postOwnerName, int _postOwnerid, BigDecimal _postDate,
-                 int _postTopicId, int _postForumId, String _postTxt)
+                 int _postTopicId, String _postTxt)
     {
         this.postId = _postId;
         this.postOwnerName = _postOwnerName;
         this.postOwnerid = _postOwnerid;
         this.postDate = _postDate;
         this.postTopicId = _postTopicId;
-        this.postForumId = _postForumId;
         this.postTxt = _postTxt;
     }
     
 
     /** full constructor */
     public Posts(int _postId, String _postOwnerName, int _postOwnerid, BigDecimal _postDate,
-                 int _postTopicId, int _postForumId, String _postTxt, Topic _topic)
+                 int _postTopicId, String _postTxt, Topic _topic)
     {
         this.postId = _postId;
         this.postOwnerName = _postOwnerName;
         this.postOwnerid = _postOwnerid;
         this.postDate = _postDate;
         this.postTopicId = _postTopicId;
-        this.postForumId = _postForumId;
         this.postTxt = _postTxt;
         this.topic = _topic;
     }
@@ -110,16 +107,6 @@ public class Posts implements java.io.Serializable
     public void setPostTopicId(int _postTopicId)
     {
         this.postTopicId = _postTopicId;
-    }
-
-    public int getPostForumId()
-    {
-        return this.postForumId;
-    }
-
-    public void setPostForumId(int _postForumId)
-    {
-        this.postForumId = _postForumId;
     }
 
     public String getPostTxt()

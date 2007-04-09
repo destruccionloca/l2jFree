@@ -58,7 +58,7 @@ public class FactionMember
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
 
             statement = con.prepareStatement("Select * from faction_members where player_id = ?");
             statement.setInt(1, this._playerId);
@@ -98,7 +98,7 @@ public class FactionMember
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             statement = con.prepareStatement("INSERT INTO faction_members (player_id, facion_id, faction_points, contributions, join_date) VALUES (?, ?, 0, 0, ?)");
             statement.setInt(1, this._playerId);
@@ -125,7 +125,7 @@ public class FactionMember
         this._contributions = 0;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             
             statement = con.prepareStatement("DELETE FROM faction_members WHERE player_id=?");
@@ -147,7 +147,7 @@ public class FactionMember
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             
             statement = con.prepareStatement("UPDATE faction_members SET faction_points=?,contributions=?,faction_id=? WHERE player_id=?");

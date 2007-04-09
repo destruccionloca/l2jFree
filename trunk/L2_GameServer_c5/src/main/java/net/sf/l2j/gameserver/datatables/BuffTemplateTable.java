@@ -2,6 +2,7 @@ package net.sf.l2j.gameserver.datatables;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.templates.L2BuffTemplate;
@@ -56,7 +57,7 @@ public class BuffTemplateTable
         {
             try 
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2DatabaseFactory.getInstance().getConnection(con);
                 PreparedStatement statement = con.prepareStatement("SELECT * FROM buff_templates ORDER BY id, skill_order");
                 ResultSet rset = statement.executeQuery();
                 

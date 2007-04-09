@@ -65,7 +65,7 @@ public class TradeListTable
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement1 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[]
                 { "shop_id", "npc_id" }) + " FROM merchant_shopids");
             ResultSet rset1 = statement1.executeQuery();

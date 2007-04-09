@@ -136,30 +136,12 @@ public class RegionBBSManager extends BaseBBSManager
 		        htmlCode.append("<tr><td><br></td></tr>");
 		    }
 		    
-            long secs = player.getUptime()/1000;
-            long days = secs / 86400;
-            secs = secs - days * 86400;
-            long hours = secs / 3600;
-            secs = secs - hours * 3600;
-            long mins = secs / 60;
-            secs = secs - mins * 60;
-            String _uptime=(days>0?days+"Day(s), ":"")+(hours>0?hours+"h ":"")+mins+"m "+secs+"s";
+		    int uptime = (int)player.getUptime()/1000;
+		    int h = uptime/3600;
+		    int m = (uptime-(h*3600))/60;
+		    int s = ((uptime-(h*3600))-(m*60));
 		    
-		    htmlCode.append("<tr><td>Uptime: "+_uptime+"</td></tr>");
-            
-            if (player.getOnlineTime()>0) 
-            {
-                secs = player.getOnlineTime();
-                days = secs / 86400;
-                secs = secs - days * 86400;
-                hours = secs / 3600;
-                secs = secs - hours * 3600;
-                mins = secs / 60;
-                secs = secs - mins * 60;
-                _uptime=(days>0?days+"Day(s), ":"")+(hours>0?hours+"h ":"")+mins+"m "+secs+"s";
-                htmlCode.append("<tr><td>Total: "+_uptime+"</td></tr>");
-            }
-            
+		    htmlCode.append("<tr><td>Uptime: "+h+"h "+m+"m "+s+"s</td></tr>");
 		    htmlCode.append("<tr><td><br></td></tr>");
 		    
 		    if (player.getClan() != null)

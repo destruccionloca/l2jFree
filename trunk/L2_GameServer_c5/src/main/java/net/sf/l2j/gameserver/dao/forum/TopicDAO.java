@@ -26,7 +26,9 @@
 package net.sf.l2j.gameserver.dao.forum;
 
 import java.util.List;
+import java.util.Set;
 
+import net.sf.l2j.gameserver.model.forum.Posts;
 import net.sf.l2j.gameserver.model.forum.Topic;
 
 /**
@@ -43,4 +45,6 @@ public interface TopicDAO
 	public List<Topic> getPaginatedTopicByForumId (Integer iPageSize, Integer iIdx, Integer id);
 
     public void deleteTopic (Topic obj);
+    
+    public Set<Posts> getPostses (Topic obj);
 }

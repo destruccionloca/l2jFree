@@ -21,9 +21,6 @@
         <property name="postTopicId" type="int">
             <column name="post_topic_id" />
         </property>
-        <property name="postForumId" type="int">
-            <column name="post_forum_id" />
-        </property>
         <property name="postTxt" type="text">
             <column name="post_txt"  />
         </property>

@@ -94,7 +94,7 @@ public class Lottery
         java.sql.Connection con = null;        
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             statement = con.prepareStatement(UPDATE_PRICE);
             statement.setInt(1, getPrize());
@@ -136,7 +136,7 @@ public class Lottery
             PreparedStatement statement;
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2DatabaseFactory.getInstance().getConnection(con);
                 statement = con.prepareStatement(SELECT_LAST_LOTTERY);
                 ResultSet rset = statement.executeQuery();
                 
@@ -226,7 +226,7 @@ public class Lottery
             
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2DatabaseFactory.getInstance().getConnection(con);
                 statement = con.prepareStatement(INSERT_LOTTERY);
                 statement.setInt(1, 1);
                 statement.setInt(2, getId());
@@ -317,7 +317,7 @@ public class Lottery
             PreparedStatement statement;
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2DatabaseFactory.getInstance().getConnection(con);
                 statement = con.prepareStatement(SELECT_LOTTERY_ITEM);
                 statement.setInt(1, getId());
                 ResultSet rset = statement.executeQuery();
@@ -405,7 +405,7 @@ public class Lottery
             
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2DatabaseFactory.getInstance().getConnection(con);
                 statement = con.prepareStatement(UPDATE_LOTTERY);
                 statement.setInt(1, getPrize());
                 statement.setInt(2, newprize);
@@ -483,7 +483,7 @@ public class Lottery
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             statement = con.prepareStatement(SELECT_LOTTERY_TICKET);
             statement.setInt(1, id);
             ResultSet rset = statement.executeQuery();

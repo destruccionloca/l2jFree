@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.instancemanager.BoatManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.GetOnVehicle;
-import net.sf.l2j.util.Point3D;
+import net.sf.l2j.tools.geometry.Point3D;
 
 /**
  * This class ...

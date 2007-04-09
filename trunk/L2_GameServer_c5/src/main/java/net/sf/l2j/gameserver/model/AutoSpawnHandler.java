@@ -96,7 +96,7 @@ public class AutoSpawnHandler
             ResultSet rs = null;
             ResultSet rs2 = null;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
 
             // Restore spawn group data, then the location data.
             statement = con.prepareStatement("SELECT * FROM random_spawn ORDER BY groupId ASC");

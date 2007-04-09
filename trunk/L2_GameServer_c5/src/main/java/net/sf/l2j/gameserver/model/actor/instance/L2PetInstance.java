@@ -722,7 +722,7 @@ public class L2PetInstance extends L2Summon
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("DELETE FROM pets WHERE item_obj_id=?");
             statement.setInt(1, getControlItemId());
             statement.execute();
@@ -817,7 +817,7 @@ public class L2PetInstance extends L2Summon
         try
         {
             L2PetInstance pet = new L2PetInstance(IdFactory.getInstance().getNextId(), template, owner, control);
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("SELECT item_obj_id, name, level, curHp, curMp, exp, sp, karma, pkkills, fed FROM pets WHERE item_obj_id=?");
             statement.setInt(1, control.getObjectId());
             ResultSet rset = statement.executeQuery();
@@ -901,7 +901,7 @@ public class L2PetInstance extends L2Summon
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement(req);
             statement.setString(1, getName());
             statement.setInt(2, getStat().getLevel());

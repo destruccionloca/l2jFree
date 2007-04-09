@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.l2j.gameserver.model.forum.Posts;
-import net.sf.l2j.tools.hibernate.ADAOTestCase;
+import net.sf.l2j.tools.db.hibernate.ADAOTestCase;
 
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatDtdDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
-import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
  * 
@@ -71,29 +70,6 @@ public class TestPostsDAOHib extends ADAOTestCase
     	assertEquals(2,getPostsDAO().createPost(post));
     }   
     
-	/**
-	 * Test method for {@link
-	 * net.sf.l2j.gameserver.dao.impl.PostsDAO#deletePosts()}.
-	 */
-    public void testDeletePost()
-    {
-    	Posts post = getPostsDAO().getPostById(1);
-    	assertNotNull(post);
-    	assertEquals(1, post.getPostId());
-    	
-    	getPostsDAO().deletePost(post);
-    	
-    	try
-    	{
-    		post = getPostsDAO().getPostById(1);
-    		fail("Posts found but it should be deleted.");
-    	}
-    	catch (ObjectRetrievalFailureException e)
-    	{
-    		assertNotNull(e);
-    	}
-    }       
-    
     /**
      * @return the postsDAO
      */
@@ -114,7 +90,7 @@ public class TestPostsDAOHib extends ADAOTestCase
     protected List<IDataSet> getDataSet() throws Exception
     {
     	String [] dataSetNameList = {"forums.xml","topic.xml","posts.xml"};
-    	String dtdName = "database/l2jdb.dtd";
+    	String dtdName = "/l2jdb.dtd";
     	List<IDataSet> dataSetList = new ArrayList<IDataSet>();
 	
     	InputStream inDTD = this.getClass().getResourceAsStream(dtdName);

@@ -637,7 +637,7 @@ public class TvT
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
 
             statement = con.prepareStatement("Select * from tvt");
             rs = statement.executeQuery();
@@ -700,7 +700,7 @@ public class TvT
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             
             statement = con.prepareStatement("Delete from tvt");

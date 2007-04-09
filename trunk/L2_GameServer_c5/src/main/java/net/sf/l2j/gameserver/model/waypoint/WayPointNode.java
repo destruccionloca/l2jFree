@@ -39,7 +39,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
-import net.sf.l2j.util.Point3D;
+import net.sf.l2j.tools.geometry.Point3D;
 
 /**
  * This class ...

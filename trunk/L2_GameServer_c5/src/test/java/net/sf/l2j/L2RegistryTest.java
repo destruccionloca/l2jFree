@@ -22,6 +22,7 @@
 package net.sf.l2j;
 
 import junit.framework.TestCase;
+import net.sf.l2j.tools.L2Registry;
 
 /**
  * Class for L2Registry testing

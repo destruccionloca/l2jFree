@@ -1,10 +1,15 @@
 package net.sf.l2j.gameserver.dao.forum.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import net.sf.l2j.gameserver.dao.forum.TopicDAO;
 import net.sf.l2j.gameserver.model.forum.Forums;
+import net.sf.l2j.gameserver.model.forum.Posts;
 import net.sf.l2j.gameserver.model.forum.Topic;
+
+import org.hibernate.Hibernate;
+import org.hibernate.criterion.Restrictions;
 
 // Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
 
@@ -29,6 +34,7 @@ public class TopicDAOHib extends BaseRootDAOHib implements TopicDAO
 	 */
 	public void deleteTopic(Topic obj)
 	{
+        getCurrentSession().refresh(obj);
 		Forums forums = obj.getForums();
 		forums.getTopics().remove(obj);
 		getCurrentSession().save(forums);
@@ -49,8 +55,7 @@ public class TopicDAOHib extends BaseRootDAOHib implements TopicDAO
 	 */
 	public Topic getTopicByName(String name)
 	{
-		return (Topic)getCurrentSession().createQuery(
-				"from " + Topic.class.getName()+ " where topicName = '"+name+"'").uniqueResult();
+        return (Topic)getCurrentSession().createCriteria(Topic.class).add(Restrictions.eq("topicName", name)).uniqueResult();
 	}
 
 	/**
@@ -62,4 +67,19 @@ public class TopicDAOHib extends BaseRootDAOHib implements TopicDAO
 		return (List <Topic>)getCurrentSession().createQuery(
 				"from " + Topic.class.getName()+ " where topicForumId = "+id).setMaxResults(iPageSize).setFirstResult(iPageSize*iIdx).list();
 	}
+
+    /**
+     * Initialize the object (force retrieval of associated objects
+     * 
+     * @param obj
+     * @return a set of post
+     */
+    public Set<Posts> getPostses(Topic obj)
+    {
+        if ( ! Hibernate.isInitialized(obj.getPostses()))
+        {
+            getCurrentSession().refresh(obj);
+        }
+        return obj.getPostses();
+    }
 }

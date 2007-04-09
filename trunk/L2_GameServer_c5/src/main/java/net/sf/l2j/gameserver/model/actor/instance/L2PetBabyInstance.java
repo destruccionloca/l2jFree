@@ -27,6 +27,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.concurrent.Future;
+
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
@@ -172,7 +173,7 @@ public final class L2PetBabyInstance extends L2PetInstance
         try
         {
             L2PetBabyInstance pet = new L2PetBabyInstance(IdFactory.getInstance().getNextId(), template, owner, control);
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("SELECT item_obj_id, objId, name, level, maxHp, curHp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, str, con, dex, _int, men, wit, exp, sp, karma, pkkills, maxload, fed, max_fed FROM pets WHERE item_obj_id=?");
             statement.setInt(1, control.getObjectId());
             ResultSet rset = statement.executeQuery();

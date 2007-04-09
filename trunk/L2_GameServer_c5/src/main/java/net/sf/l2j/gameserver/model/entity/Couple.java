@@ -58,7 +58,7 @@ public class Couple
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
 
             statement = con.prepareStatement("Select * from couples where id = ?");
             statement.setInt(1, this._Id);
@@ -102,7 +102,7 @@ public class Couple
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             this._Id = IdFactory.getInstance().getNextId();
             statement = con.prepareStatement("INSERT INTO couples (id, player1Id, player2Id, maried, affiancedDate, weddingDate) VALUES (?, ?, ?, ?, ?, ?)");
@@ -130,7 +130,7 @@ public class Couple
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
 
             statement = con.prepareStatement("UPDATE couples set maried = ?, weddingDate = ? where id = ?");
@@ -157,7 +157,7 @@ public class Couple
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             
             statement = con.prepareStatement("DELETE FROM couples WHERE id=?");

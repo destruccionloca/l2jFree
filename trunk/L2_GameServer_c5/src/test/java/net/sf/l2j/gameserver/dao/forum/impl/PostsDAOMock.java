@@ -14,9 +14,9 @@ public class PostsDAOMock implements PostsDAO
 {
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.PostsDAO#changePost(net.sf.l2j.gameserver.model.forum.Posts)
+	 * @see net.sf.l2j.gameserver.dao.forum.PostsDAO#modifyPost(net.sf.l2j.gameserver.model.forum.Posts)
 	 */
-	public void changePost(Posts obj)
+	public void modifyPost(Posts obj)
 	{
 		if ( !obj.getPostTxt().equals("good"))
 			throw new RuntimeException ("Unable to change post mock");
@@ -31,15 +31,6 @@ public class PostsDAOMock implements PostsDAO
 			return 2;
 		else
 			throw new RuntimeException ("Unable to get post mock");
-	}
-
-	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.PostsDAO#deletePost(net.sf.l2j.gameserver.model.forum.Posts)
-	 */
-	public void deletePost(Posts obj)
-	{
-		if ( !obj.getPostTxt().equals("good"))
-			throw new RuntimeException ("Unable to delete post mock");
 	}
 
 	/**

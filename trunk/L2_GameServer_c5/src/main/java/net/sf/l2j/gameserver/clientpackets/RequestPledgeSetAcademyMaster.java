@@ -151,7 +151,7 @@ public class RequestPledgeSetAcademyMaster extends ClientBasePacket
          
          try
          {
-             con = L2DatabaseFactory.getInstance().getConnection();
+             con = L2DatabaseFactory.getInstance().getConnection(con);
              PreparedStatement statement = con.prepareStatement("UPDATE characters SET apprentice=?,sponsor=? WHERE obj_Id=?");
              statement.setInt(1, apprentice);
              statement.setInt(2, sponsor);

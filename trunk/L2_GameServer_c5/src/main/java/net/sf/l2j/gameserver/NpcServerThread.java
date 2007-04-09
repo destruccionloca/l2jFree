@@ -3,12 +3,12 @@ package net.sf.l2j.gameserver;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.ByteBuffer;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 
+import net.sf.l2j.gameserver.npcserverpackets.GsBasePacket;
 import net.sf.l2j.gameserver.npcserverpackets.PacketsQueue;
-import net.sf.l2j.gameserver.npcserverpackets.GsBasePacket;;
 
 /**
  * 

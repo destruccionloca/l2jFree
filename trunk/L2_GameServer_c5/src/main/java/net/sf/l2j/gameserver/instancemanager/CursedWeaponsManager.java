@@ -155,7 +155,7 @@ public class CursedWeaponsManager
             }
             
             // Retrieve the L2PcInstance from the characters table of the database
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             ResultSet rset;
             
@@ -195,7 +195,7 @@ public class CursedWeaponsManager
             con.close();
             
             // Retrieve the L2PcInstance from the characters table of the database
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
 
             for (CursedWeapon cw : _cursedWeapons.values())
             {
@@ -341,7 +341,7 @@ public class CursedWeaponsManager
         Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
 
             // Delete datas
             PreparedStatement statement = con.prepareStatement("DELETE FROM cursed_weapons WHERE itemId = ?");

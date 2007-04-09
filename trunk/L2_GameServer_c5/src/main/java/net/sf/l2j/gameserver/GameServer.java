@@ -28,8 +28,8 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.cache.HtmCache;
-import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
 import net.sf.l2j.gameserver.datatables.ArmorSetsTable;
+import net.sf.l2j.gameserver.datatables.BuffTemplateTable;
 import net.sf.l2j.gameserver.datatables.CharNameTable;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ClanTable;
@@ -38,16 +38,15 @@ import net.sf.l2j.gameserver.datatables.EventDroplist;
 import net.sf.l2j.gameserver.datatables.ExtractableItemsData;
 import net.sf.l2j.gameserver.datatables.FishTable;
 import net.sf.l2j.gameserver.datatables.GmListTable;
-import net.sf.l2j.gameserver.datatables.BuffTemplateTable;
 import net.sf.l2j.gameserver.datatables.HennaTable;
 import net.sf.l2j.gameserver.datatables.HennaTreeTable;
 import net.sf.l2j.gameserver.datatables.HeroSkillTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
-import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.datatables.LevelUpData;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.NobleSkillTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.datatables.SkillSpellbookTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
@@ -71,8 +70,8 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCache;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminChangeAccessLevel;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCreateItem;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCursedWeapons;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDelete;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDMEngine;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDelete;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDoorControl;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEditChar;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEditNpc;
@@ -81,8 +80,8 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEnchant;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEventEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminExpSp;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminFightCalculator;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGeoEditor;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGeodata;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGeoEditor; 
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGm;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGmChat;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminHeal;
@@ -96,8 +95,8 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMammon;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMenu;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMobGroup;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMonsterRace;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPathNode;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPForge;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPathNode;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPetition;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPledge;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPolymorph;
@@ -170,8 +169,8 @@ import net.sf.l2j.gameserver.handler.skillhandlers.Spoil;
 import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.SummonCp;
 import net.sf.l2j.gameserver.handler.skillhandlers.SummonCursedBones;
-import net.sf.l2j.gameserver.handler.skillhandlers.SummonTreasureKey;
 import net.sf.l2j.gameserver.handler.skillhandlers.SummonFriend;
+import net.sf.l2j.gameserver.handler.skillhandlers.SummonTreasureKey;
 import net.sf.l2j.gameserver.handler.skillhandlers.Sweep;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.handler.skillhandlers.Unlock;
@@ -188,10 +187,10 @@ import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Wedding;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CrownManager;
-import net.sf.l2j.gameserver.instancemanager.FactionManager;
-import net.sf.l2j.gameserver.instancemanager.FactionQuestManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
+import net.sf.l2j.gameserver.instancemanager.FactionManager;
+import net.sf.l2j.gameserver.instancemanager.FactionQuestManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.Manager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
@@ -609,9 +608,6 @@ public class GameServer
         ClanTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("Clans initialized");
         
-        ForumsBBSManager.getInstance();
-        if ( _log.isDebugEnabled())_log.debug("BBSManager initialized");
-        
         _log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
 
         // initialize the dynamic extension loader
@@ -635,7 +631,7 @@ public class GameServer
         _log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
     }
     
-    public static void main(String[] args) throws Exception
+    public static void main(String[] args) throws Throwable
     {
     	// Local Constants
         final String LOG_FOLDER = "log"; // Name of folder for log file
@@ -655,7 +651,7 @@ public class GameServer
         LogManager.getLogManager().readConfiguration(is);
         is.close();        
         
-        L2DatabaseFactory.getInstance();
+        L2DatabaseFactory.initInstance();
         gameServer = new GameServer();
         
         if ( Config.IS_TELNET_ENABLED ) {

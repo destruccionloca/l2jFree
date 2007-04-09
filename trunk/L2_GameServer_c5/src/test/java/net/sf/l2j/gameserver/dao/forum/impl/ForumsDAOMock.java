@@ -2,9 +2,11 @@ package net.sf.l2j.gameserver.dao.forum.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import net.sf.l2j.gameserver.dao.forum.ForumsDAO;
 import net.sf.l2j.gameserver.model.forum.Forums;
+import net.sf.l2j.gameserver.model.forum.Topic;
 
 // Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
 
@@ -15,17 +17,6 @@ import net.sf.l2j.gameserver.model.forum.Forums;
  */
 public class ForumsDAOMock implements ForumsDAO
 {
-
-    /**
-     * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#createForums(net.sf.l2j.gameserver.model.forum.Forums)
-     */
-    public int createForums(Forums obj)
-    {
-    	if (obj.getForumName().equals("TestForum"))
-    		return 1;
-    	else
-    		return -1;         
-    }
 
     /**
      * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#getAllForums()
@@ -50,7 +41,19 @@ public class ForumsDAOMock implements ForumsDAO
         forum2.setForumPerm(3);        
         
         forums.add(forum2);
-    	return forums;
+        return forums;
+    }
+    
+    
+    /**
+     * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#createForums(net.sf.l2j.gameserver.model.forum.Forums)
+     */
+    public int createForums(Forums obj)
+    {
+    	if (obj.getForumName().equals("TestForum"))
+    		return 1;
+    	else
+    		return -1;         
     }
 
 	/**
@@ -104,27 +107,6 @@ public class ForumsDAOMock implements ForumsDAO
     	return forums;	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#getForumByName(java.lang.String)
-	 */
-	public Forums getForumByName(String name)
-	{
-        Forums forum1 = new Forums();
-		if ( !name.equals("TestFailure"))
-		{
-	        forum1.setForumId(1);
-	        forum1.setForumName(name);
-	        forum1.setForumOwnerId(3);
-	        forum1.setForumPerm(2);
-		}
-		else
-		{
-			throw new RuntimeException("Unable to find forums (Mock)");
-		}
-        
-		return forum1;
-	}
-
-	/**
 	 * @see net.sf.l2j.gameserver.dao.forum.ForumsDAO#getForumById(java.lang.Integer)
 	 */
 	public Forums getForumById(Integer id)
@@ -174,6 +156,11 @@ public class ForumsDAOMock implements ForumsDAO
 		}
 		return forum1;	
 	}
+
+    public Set<Topic> getTopicsForForum(Forums obj)
+    {
+        return obj.getTopics();
+    }
 
 
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 import net.sf.l2j.gameserver.model.forum.Posts;
 import net.sf.l2j.gameserver.model.forum.Topic;
-import net.sf.l2j.tools.hibernate.ADAOTestCase;
+import net.sf.l2j.tools.db.hibernate.ADAOTestCase;
 
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatDtdDataSet;
@@ -126,7 +126,6 @@ public class TestTopicDAOHib extends ADAOTestCase
     	getTopicDAO().createTopic(topic);
     	
     	Posts posts = new Posts();
-    	posts.setPostForumId(6);
     	posts.setPostId(0);
     	posts.setPostDate(new BigDecimal(122));
     	posts.setPostTopicId(2);
@@ -203,7 +202,7 @@ public class TestTopicDAOHib extends ADAOTestCase
     protected List<IDataSet> getDataSet() throws Exception
     {
     	String [] dataSetNameList = {"forums.xml","topic.xml","posts.xml"};
-    	String dtdName = "database/l2jdb.dtd";
+    	String dtdName = "/l2jdb.dtd";
     	List<IDataSet> dataSetList = new ArrayList<IDataSet>();
 	
     	InputStream inDTD = this.getClass().getResourceAsStream(dtdName);

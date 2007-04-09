@@ -50,8 +50,6 @@ import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2PlayerAI;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.cache.WarehouseCacheManager;
-import net.sf.l2j.gameserver.communitybbs.BB.Forum;
-import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.FishTable;
@@ -73,8 +71,8 @@ import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
-import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
@@ -124,7 +122,7 @@ import net.sf.l2j.gameserver.model.actor.status.PcStatus;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.base.ClassLevel;
 import net.sf.l2j.gameserver.model.base.Experience;
-import net.sf.l2j.gameserver.model.base.PlayerClass; 
+import net.sf.l2j.gameserver.model.base.PlayerClass;
 import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.model.base.SubClass;
 import net.sf.l2j.gameserver.model.entity.Castle;
@@ -189,7 +187,7 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.util.Broadcast;
 import net.sf.l2j.gameserver.util.Util;
-import net.sf.l2j.util.Point3D;
+import net.sf.l2j.tools.geometry.Point3D;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -611,8 +609,6 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _inCrystallize;
 
     private boolean _inCraftMode;
-    private Forum _forumMail;
-    private Forum _forumMemo;
 
     /** Current skill in use */
     private SkillDat _currentSkill;
@@ -1568,7 +1564,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			java.sql.Connection con = null;
 			try
 			{
-				con = L2DatabaseFactory.getInstance().getConnection();
+				con = L2DatabaseFactory.getInstance().getConnection(con);
 				PreparedStatement statement = con.prepareStatement(ADD_CHAR_RECOM);
 				statement.setInt(1, getObjectId());
 				statement.setInt(2, target.getObjectId());
@@ -5080,7 +5076,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("UPDATE characters SET online=?, lastAccess=? WHERE obj_id=?");
             statement.setInt(1, isOnline());
             statement.setLong(2, System.currentTimeMillis());
@@ -5140,7 +5136,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("UPDATE characters SET isIn7sDungeon=?, lastAccess=? WHERE obj_id=?");
             statement.setInt(1, isIn7sDungeon() ? 1 : 0);
             statement.setLong(2, System.currentTimeMillis());
@@ -5172,7 +5168,7 @@ public final class L2PcInstance extends L2PlayableInstance
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             statement = con.prepareStatement("INSERT INTO characters "
                 + "(account_name,obj_Id,char_name,level,maxHp,curHp,maxCp,curCp,maxMp,curMp,"
@@ -5283,7 +5279,7 @@ public final class L2PcInstance extends L2PlayableInstance
         try
         {
             // Retrieve the L2PcInstance from the characters table of the database
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
 
             PreparedStatement statement = con.prepareStatement(RESTORE_CHARACTER);
             statement.setInt(1, objectId);
@@ -5473,68 +5469,6 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     * @return
-     */
-    public Forum getMail()
-    {
-        if (_forumMail == null)
-        {
-            setMail(ForumsBBSManager.getInstance().getForumByName("MailRoot").GetChildByName(getName()));
-            if (_forumMail == null)
-            {
-                ForumsBBSManager.getInstance().CreateNewForum(
-                                                              getName(),
-                                                              ForumsBBSManager.getInstance().getForumByName(
-                                                                                                            "MailRoot"),
-                                                              Forum.MAIL, Forum.OWNERONLY, getObjectId());
-                setMail(ForumsBBSManager.getInstance().getForumByName("MailRoot").GetChildByName(
-                                                                                                 getName()));
-            }
-        }
-        return _forumMail;
-    }
-
-    /**
-     * @param forum
-     */
-    public void setMail(Forum forum)
-    {
-        _forumMail = forum;
-    }
-
-    /**
-     * @return
-     */
-    public Forum getMemo()
-    {
-        if (_forumMemo == null)
-        {
-            setMemo(ForumsBBSManager.getInstance().getForumByName("MemoRoot").GetChildByName(
-                                                                                             _accountName));
-            if (_forumMemo == null)
-            {
-                ForumsBBSManager.getInstance().CreateNewForum(
-                                                              _accountName,
-                                                              ForumsBBSManager.getInstance().getForumByName(
-                                                                                                            "MemoRoot"),
-                                                              Forum.MEMO, Forum.OWNERONLY, getObjectId());
-                setMemo(ForumsBBSManager.getInstance().getForumByName("MemoRoot").GetChildByName(
-                                                                                                 _accountName));
-            }
-
-        }
-        return _forumMemo;
-    }
-
-    /**
-     * @param forum
-     */
-    public void setMemo(Forum forum)
-    {
-        _forumMemo = forum;
-    }
-
-    /**
      * Restores sub-class data for the L2PcInstance, used to check the current
      * class index for the character.
      */
@@ -5544,7 +5478,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement(RESTORE_CHAR_SUBCLASSES);
             statement.setInt(1, player.getObjectId());
 
@@ -5653,7 +5587,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement(RESTORE_CHAR_RECOMS);
 			statement.setInt(1, getObjectId());
 			ResultSet rset = statement.executeQuery();
@@ -5688,7 +5622,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("DELETE FROM character_recipebook WHERE char_id=?");
             statement.setInt(1, getObjectId());
             statement.execute();
@@ -5740,7 +5674,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("SELECT id, type FROM character_recipebook WHERE char_id=?");
             statement.setInt(1, getObjectId());
             ResultSet rset = statement.executeQuery();
@@ -5806,7 +5740,7 @@ public final class L2PcInstance extends L2PlayableInstance
             if (_onlineBeginTime > 0)
                 totalOnlineTime += (System.currentTimeMillis() - _onlineBeginTime) / 1000;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
 
             // Update base class
@@ -5897,7 +5831,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
 
             if (getTotalSubClasses() > 0)
@@ -5942,7 +5876,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
 
             // Delete all current stored effects for char to avoid dupe
@@ -6099,7 +6033,7 @@ public final class L2PcInstance extends L2PlayableInstance
         try
         {
             // Remove or update a L2PcInstance skill from the character_skills table of the database
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
 
             if (oldSkill != null)
@@ -6148,7 +6082,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
 
             if (oldSkill != null && newSkill != null)
@@ -6264,7 +6198,7 @@ public final class L2PcInstance extends L2PlayableInstance
         try
         {
             // Retrieve all skills of this L2PcInstance from the database
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement(RESTORE_SKILLS_FOR_CHAR);
             statement.setInt(1, getObjectId());
             statement.setInt(2, getClassIndex());
@@ -6323,7 +6257,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
 
             ResultSet rset;
@@ -6437,7 +6371,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement(RESTORE_CHAR_HENNAS);
             statement.setInt(1, getObjectId());
             statement.setInt(2, getClassIndex());
@@ -6523,7 +6457,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement(DELETE_CHAR_HENNA);
             statement.setInt(1, getObjectId());
             statement.setInt(2, slot + 1);
@@ -6592,7 +6526,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
                 try
                 {
-                    con = L2DatabaseFactory.getInstance().getConnection();
+                    con = L2DatabaseFactory.getInstance().getConnection(con);
                     PreparedStatement statement = con.prepareStatement(ADD_CHAR_HENNA);
                     statement.setInt(1, getObjectId());
                     statement.setInt(2, henna.getSymbolId());
@@ -8316,7 +8250,7 @@ public final class L2PcInstance extends L2PlayableInstance
         try
         {
             // Store the basic info about this new sub-class.
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement(ADD_CHAR_SUBCLASS);
             statement.setInt(1, getObjectId());
             statement.setInt(2, newClass.getClassId());
@@ -8400,7 +8334,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
 
             // Remove all henna info stored for this sub-class.
@@ -8807,7 +8741,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			java.sql.Connection con = null;
 			try
 			{
-				con = L2DatabaseFactory.getInstance().getConnection();
+				con = L2DatabaseFactory.getInstance().getConnection(con);
 				PreparedStatement statement = con.prepareStatement(DELETE_CHAR_RECOMS);
 				statement.setInt(1, getObjectId());
 				statement.execute();

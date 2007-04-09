@@ -2,8 +2,10 @@ package net.sf.l2j.gameserver.dao.forum.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import net.sf.l2j.gameserver.dao.forum.TopicDAO;
+import net.sf.l2j.gameserver.model.forum.Posts;
 import net.sf.l2j.gameserver.model.forum.Topic;
 
 // Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
@@ -92,6 +94,11 @@ public class TopicDAOMock implements TopicDAO
 		}
 		throw new RuntimeException ("Unable to get topics paginated mock");
 	}
+
+    public Set<Posts> getPostses(Topic obj)
+    {
+        return obj.getPostses();
+    }
 
  
 

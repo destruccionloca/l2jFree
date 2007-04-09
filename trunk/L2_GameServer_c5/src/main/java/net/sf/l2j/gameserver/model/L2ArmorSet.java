@@ -1,6 +1,5 @@
 package net.sf.l2j.gameserver.model;
 
-import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**

@@ -126,7 +126,7 @@ public class VIP {
         java.sql.Connection con = null;
         
         try {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("SELECT endx,endy,endz FROM VIPinfo WHERE teamID = " + _team);
             ResultSet rset = statement.executeQuery();
             rset.next();
@@ -146,7 +146,7 @@ public class VIP {
         }
         
         try {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("SELECT startx,starty,startz FROM VIPinfo WHERE teamID = " + _team);
             ResultSet rset = statement.executeQuery();
             rset.next();

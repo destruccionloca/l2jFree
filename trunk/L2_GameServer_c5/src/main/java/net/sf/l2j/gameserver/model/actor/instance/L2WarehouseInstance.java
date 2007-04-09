@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.Iterator;
+
 import javolution.text.TextBuilder;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;

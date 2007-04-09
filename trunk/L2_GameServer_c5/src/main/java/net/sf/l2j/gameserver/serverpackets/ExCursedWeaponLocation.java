@@ -1,8 +1,7 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 import javolution.util.FastList;
-
-import net.sf.l2j.util.Point3D;
+import net.sf.l2j.tools.geometry.Point3D;
 
 /**
  * Format: (ch) d[ddddd]

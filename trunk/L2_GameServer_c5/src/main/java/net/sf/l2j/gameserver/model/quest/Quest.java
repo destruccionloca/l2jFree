@@ -23,16 +23,15 @@ import java.io.StringWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collection;
-import java.util.Map;
 
-import javolution.util.FastMap;
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.NpcTable;
-import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
@@ -275,7 +274,7 @@ public abstract class Quest
         try
         {
 	    // Get list of quests owned by the player from database
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             
             PreparedStatement invalidQuestData      = con.prepareStatement("DELETE FROM character_quests WHERE char_id=? and name=?");
@@ -379,7 +378,7 @@ public abstract class Quest
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             statement = con.prepareStatement("INSERT INTO character_quests (char_id,name,var,value) VALUES (?,?,?,?)");
             statement.setInt   (1, qs.getPlayer().getObjectId());
@@ -413,7 +412,7 @@ public abstract class Quest
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             statement = con.prepareStatement("UPDATE character_quests SET value=? WHERE char_id=? AND name=? AND var = ?");
             statement.setString(1, value);
@@ -438,7 +437,7 @@ public abstract class Quest
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             statement = con.prepareStatement("DELETE FROM character_quests WHERE char_id=? AND name=? AND var=?");
             statement.setInt   (1, qs.getPlayer().getObjectId());
@@ -461,7 +460,7 @@ public abstract class Quest
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             statement = con.prepareStatement("DELETE FROM character_quests WHERE char_id=? AND name=?");
             statement.setInt   (1, qs.getPlayer().getObjectId());

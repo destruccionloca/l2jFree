@@ -25,6 +25,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
@@ -37,7 +38,6 @@ import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
-import net.sf.l2j.gameserver.ThreadPoolManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -75,7 +75,7 @@ public class ClanTable
         java.sql.Connection con = null;
          try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2DatabaseFactory.getInstance().getConnection(con);
                 PreparedStatement statement = con.prepareStatement("SELECT clan_id FROM clan_data");               
                 ResultSet result = statement.executeQuery();
                 
@@ -244,7 +244,7 @@ public class ClanTable
 	    java.sql.Connection con = null;
 	    try
 	    {
-	        con = L2DatabaseFactory.getInstance().getConnection();
+	        con = L2DatabaseFactory.getInstance().getConnection(con);
 	        PreparedStatement statement = con.prepareStatement("DELETE FROM clan_data WHERE clan_id=?");
 	        statement.setInt(1, clanId);
 	        statement.execute();
@@ -333,7 +333,7 @@ public class ClanTable
      	java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             statement = con.prepareStatement("REPLACE INTO clan_wars (clan1, clan2, wantspeace1, wantspeace2) VALUES(?,?,?,?)");
 			statement.setInt(1, clanId1);
@@ -386,7 +386,7 @@ public class ClanTable
      	java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             statement = con.prepareStatement("DELETE FROM clan_wars WHERE clan1=? AND clan2=?");
             statement.setInt(1,clanId1);

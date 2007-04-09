@@ -37,9 +37,5 @@ public interface PostsDAO
 	
 	public Posts getPostById (Integer id);
 
-	public void changePost (Posts obj);
-	
-    public void deletePost (Posts obj);
-	
-
+	public void modifyPost (Posts obj);
 }

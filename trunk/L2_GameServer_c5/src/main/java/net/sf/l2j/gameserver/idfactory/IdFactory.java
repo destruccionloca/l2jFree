@@ -140,7 +140,7 @@ public abstract class IdFactory
         java.sql.Connection con2 = null;
         try
         {
-            con2 = L2DatabaseFactory.getInstance().getConnection();
+            con2 = L2DatabaseFactory.getInstance().getConnection(con2);
             Statement s2 = con2.createStatement();
             s2.executeUpdate("update characters set online=0");
             if (_log.isDebugEnabled())_log.debug("Updated characters online status.");
@@ -169,7 +169,7 @@ public abstract class IdFactory
         try
         {
             int cleanCount = 0;
-            conn = L2DatabaseFactory.getInstance().getConnection();
+            conn = L2DatabaseFactory.getInstance().getConnection(conn);
             Statement stmt = conn.createStatement();
             
             cleanCount += stmt.executeUpdate("DELETE FROM character_skills WHERE character_skills.char_obj_id NOT IN (SELECT obj_Id FROM characters);");
@@ -228,7 +228,7 @@ public abstract class IdFactory
         java.sql.Connection con = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             
             //create a temporary table
             Statement s = con.createStatement();

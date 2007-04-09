@@ -35,7 +35,7 @@ import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
-import net.sf.l2j.util.Point3D;
+import net.sf.l2j.tools.geometry.Point3D;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -121,7 +121,7 @@ public class CursedWeapon
                 java.sql.Connection con = null;
                 try
                 {
-                    con = L2DatabaseFactory.getInstance().getConnection();
+                    con = L2DatabaseFactory.getInstance().getConnection(con);
                     
                     // Delete the item
                     PreparedStatement statement = con.prepareStatement("DELETE FROM items WHERE owner_id=? AND item_id=?");
@@ -370,7 +370,7 @@ public class CursedWeapon
         PreparedStatement statement = null;
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
 
             // Delete previous datas
             statement = con.prepareStatement("DELETE FROM cursed_weapons WHERE itemId = ?");

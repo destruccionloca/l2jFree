@@ -256,7 +256,7 @@ public class AdminMenu implements IAdminCommandHandler
         java.sql.Connection con = null;
         try
         {           
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             
             String stmt = "Select characters.account_name From characters Where characters.char_name = ?";
             PreparedStatement statement = con.prepareStatement(stmt);

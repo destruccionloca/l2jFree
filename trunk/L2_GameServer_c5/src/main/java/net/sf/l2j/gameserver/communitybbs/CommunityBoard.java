@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.communitybbs.Manager.TopicBBSManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ShowBoard;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.tools.L2Registry;
 
 public class CommunityBoard
 {   
@@ -57,15 +58,18 @@ public class CommunityBoard
             }
             else if(command.startsWith("_bbsmemo"))
             {
-                TopicBBSManager.getInstance().parsecmd(command,activeChar);
+                TopicBBSManager topicBBSManager = (TopicBBSManager)(L2Registry.getBean("TopicBBSManager"));
+                topicBBSManager.parsecmd(command,activeChar);
             }
             else if(command.startsWith("_bbstopics"))
             {
-                TopicBBSManager.getInstance().parsecmd(command,activeChar);
+                TopicBBSManager topicBBSManager = (TopicBBSManager)(L2Registry.getBean("TopicBBSManager"));
+                topicBBSManager.parsecmd(command,activeChar);
             }
             else if(command.startsWith("_bbsposts"))
             {
-                PostBBSManager.getInstance().parsecmd(command,activeChar);
+                PostBBSManager postBBSManager = (PostBBSManager)(L2Registry.getBean("PostBBSManager"));
+                postBBSManager.parsecmd(command,activeChar);
             }
             else if(command.startsWith("_bbstop"))
             {
@@ -116,10 +120,12 @@ public class CommunityBoard
         {
             if (url.equals("Topic"))
             {
-                TopicBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);
+                TopicBBSManager topicBBSManager = (TopicBBSManager)(L2Registry.getBean("TopicBBSManager"));
+                topicBBSManager.parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);
             } else if (url.equals("Post"))
             {
-                PostBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);
+                PostBBSManager postBBSManager = (PostBBSManager)(L2Registry.getBean("PostBBSManager"));
+                postBBSManager.parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);
             } else if (url.equals("Region"))
             {
                 RegionBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);

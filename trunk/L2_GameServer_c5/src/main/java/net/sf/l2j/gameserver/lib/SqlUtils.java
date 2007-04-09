@@ -17,6 +17,7 @@
  */
 package net.sf.l2j.gameserver.lib;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -50,12 +51,12 @@ public class SqlUtils
 		
 		PreparedStatement statement = null;
 		ResultSet rset = null;
-
+        Connection con = null;
 		try
 		{
             query = L2DatabaseFactory.getInstance().prepQuerySelect(new String[] {resultField}, tableName, whereClause, true);
-
-			statement = L2DatabaseFactory.getInstance().getConnection().prepareStatement(query);
+            
+			statement = L2DatabaseFactory.getInstance().getConnection(con).prepareStatement(query);
 			rset = statement.executeQuery();
 		
 			if(rset.next()) res = rset.getInt(1);
@@ -68,6 +69,7 @@ public class SqlUtils
 		{
 			try{ rset.close();  } catch(Exception e) {}
 			try{ statement.close(); } catch(Exception e) {}
+            try{ if ( con != null) con.close(); } catch(Exception e) {}
 		}
 
 		return res;
@@ -80,11 +82,12 @@ public class SqlUtils
         
         PreparedStatement statement = null;
         ResultSet rset = null;
+        Connection con = null;
 
         try
         {
             query = L2DatabaseFactory.getInstance().prepQuerySelect(new String[] {resultField}, tableName, whereClause, false);
-            statement = L2DatabaseFactory.getInstance().getConnection().prepareStatement(query);
+            statement = L2DatabaseFactory.getInstance().getConnection(con).prepareStatement(query);
             rset = statement.executeQuery();
             
             int rows = 0;
@@ -112,6 +115,7 @@ public class SqlUtils
         {
             try{ rset.close();  } catch(Exception e) {}
             try{ statement.close(); } catch(Exception e) {}
+            try{ if ( con != null) con.close(); } catch(Exception e) {}
         }
 
         return res;
@@ -125,13 +129,14 @@ public class SqlUtils
 
 		PreparedStatement statement = null;
 		ResultSet rset = null;
+        Connection con = null;
 
 		Integer res[][] = null;
 
 		try
 		{
             query = L2DatabaseFactory.getInstance().prepQuerySelect(resultFields, usedTables, whereClause, false);
-            statement = L2DatabaseFactory.getInstance().getConnection().prepareStatement(query);
+            statement = L2DatabaseFactory.getInstance().getConnection(con).prepareStatement(query);
 			rset = statement.executeQuery();
 
 			int rows = 0;
@@ -158,6 +163,7 @@ public class SqlUtils
 		{
 			try{ rset.close();  } catch(Exception e) {}
 			try{ statement.close(); } catch(Exception e) {}
+            try{ if ( con != null) con.close(); } catch(Exception e) {}
 		}
 
 		_log.debug("Get all rows in query '" + query + "' in " + (System.currentTimeMillis()-start) + "ms");

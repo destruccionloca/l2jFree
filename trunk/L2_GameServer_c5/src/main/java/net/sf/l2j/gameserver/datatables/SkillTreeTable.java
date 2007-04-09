@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.datatables;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collection;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
@@ -129,7 +130,7 @@ public class SkillTreeTable
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("SELECT * FROM class_list ORDER BY id");
             ResultSet classlist = statement.executeQuery();
             

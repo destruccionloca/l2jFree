@@ -46,7 +46,7 @@ import net.sf.l2j.gameserver.serverpackets.StopRotation;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 
-import org.apache.commons.logging.Log; 
+import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 /**
  * Mother class of all objects AI in the world.<BR><BR>

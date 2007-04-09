@@ -33,6 +33,7 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -1991,6 +1992,8 @@ public final class Config {
 			loadsevensignsconfig();
 			loadgmaccess();
 			loadsayfilter();
+			
+			initDBProperties();
 	}
 	
     /**
@@ -2313,4 +2316,17 @@ public final class Config {
             _log.warn("Failed to save hex id to "+fileName+" File.");
         }
 	}
+    
+    /**
+     * To keep compatibility with old loginserver.properties, add db properties into system properties
+     * Spring will use those values later
+     */
+    public static void initDBProperties() 
+    {
+        System.setProperty("net.sf.l2j.db.driverclass", DATABASE_DRIVER );
+        System.setProperty("net.sf.l2j.db.urldb", DATABASE_URL );
+        System.setProperty("net.sf.l2j.db.user", DATABASE_LOGIN );
+        System.setProperty("net.sf.l2j.db.password", DATABASE_PASSWORD );       
+    }    
+	
 }

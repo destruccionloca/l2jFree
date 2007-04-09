@@ -997,7 +997,6 @@
     post_ownerid CDATA #REQUIRED
     post_date CDATA #REQUIRED
     post_topic_id CDATA #REQUIRED
-    post_forum_id CDATA #REQUIRED
     post_txt CDATA #REQUIRED
 >
 

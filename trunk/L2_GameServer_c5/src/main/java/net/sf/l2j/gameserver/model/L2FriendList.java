@@ -66,7 +66,7 @@ public class L2FriendList
     		
         	try {
     			
-    		    con = L2DatabaseFactory.getInstance().getConnection();
+    		    con = L2DatabaseFactory.getInstance().getConnection(con);
     		    PreparedStatement statement;
     		    statement = con.prepareStatement(RESTORE_FRIENDLIST);
     		    statement.setInt(1, listOwner.getObjectId());
@@ -98,7 +98,7 @@ public class L2FriendList
     		
         	try {
     			
-    		    con = L2DatabaseFactory.getInstance().getConnection();
+    		    con = L2DatabaseFactory.getInstance().getConnection(con);
     		    PreparedStatement statement;
     			statement = con.prepareStatement(ADD_TO_FRIENDLIST);
     			statement.setInt(1, listOwner.getObjectId());
@@ -135,7 +135,7 @@ public class L2FriendList
     		int _friendId = restoreFriendId(_character);
     		
         	try {
-    		    con = L2DatabaseFactory.getInstance().getConnection();
+    		    con = L2DatabaseFactory.getInstance().getConnection(con);
     		    PreparedStatement statement;
     			statement = con.prepareStatement(DELETE_FROM_FRIENDLIST);
     			statement.setInt(1, listOwner.getObjectId());
@@ -167,7 +167,7 @@ public class L2FriendList
 		
     	try {
 			
-		    con = L2DatabaseFactory.getInstance().getConnection();
+		    con = L2DatabaseFactory.getInstance().getConnection(con);
 		    PreparedStatement statement;
 			statement = con.prepareStatement(DELETE_FROM_FRIENDLIST);
 			statement.setInt(1, listOwner.getObjectId());
@@ -202,7 +202,7 @@ public class L2FriendList
 		
     	try {
 			
-		    con = L2DatabaseFactory.getInstance().getConnection();
+		    con = L2DatabaseFactory.getInstance().getConnection(con);
 		    PreparedStatement statement;
 			statement = con.prepareStatement(RESTORE_FRIEND_ID);
 		    statement.setInt(1, listOwner.getObjectId());

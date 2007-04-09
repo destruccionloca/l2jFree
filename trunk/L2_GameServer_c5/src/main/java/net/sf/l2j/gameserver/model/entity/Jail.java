@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.model.entity;
 
 import javolution.util.FastList;
-
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Object;
 

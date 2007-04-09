@@ -41,7 +41,6 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
-import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance; 
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

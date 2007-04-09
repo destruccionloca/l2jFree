@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.instancemanager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -29,7 +30,6 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
-import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -87,7 +87,7 @@ public class ItemsOnGroundManager
                     str = "update itemsonground set drop_time=? where drop_time=-1 and equipable=0";        
                 else if (Config.DESTROY_EQUIPABLE_PLAYER_ITEM) //Recycle all items including equipable
                     str = "update itemsonground set drop_time=? where drop_time=-1";
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2DatabaseFactory.getInstance().getConnection(con);
                 PreparedStatement statement = con.prepareStatement(str);
                 statement.setLong(1, System.currentTimeMillis());
                 statement.execute();
@@ -108,7 +108,7 @@ public class ItemsOnGroundManager
         try
         {
             try {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             Statement s = con.createStatement();
             ResultSet result;
             int count=0;
@@ -186,7 +186,7 @@ public class ItemsOnGroundManager
         java.sql.Connection conn = null;
         try
         {
-            conn = L2DatabaseFactory.getInstance().getConnection();
+            conn = L2DatabaseFactory.getInstance().getConnection(conn);
             PreparedStatement del = conn.prepareStatement("delete from itemsonground");
             del.execute();
             del.close();
@@ -218,7 +218,7 @@ public class ItemsOnGroundManager
 
             java.sql.Connection con = null;
             try {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("insert into itemsonground(object_id,item_id,count,enchant_level,x,y,z,drop_time,equipable) values(?,?,?,?,?,?,?,?,?)");
             statement.setInt(1, item.getObjectId());
             statement.setInt(2, item.getItemId());

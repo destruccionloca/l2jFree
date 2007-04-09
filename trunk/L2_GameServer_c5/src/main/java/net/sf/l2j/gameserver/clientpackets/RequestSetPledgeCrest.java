@@ -115,7 +115,7 @@ public class RequestSetPledgeCrest extends ClientBasePacket
             
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2DatabaseFactory.getInstance().getConnection(con);
                 PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET crest_id = ? WHERE clan_id = ?");
                 statement.setInt(1, newId);
                 statement.setInt(2, clan.getClanId());

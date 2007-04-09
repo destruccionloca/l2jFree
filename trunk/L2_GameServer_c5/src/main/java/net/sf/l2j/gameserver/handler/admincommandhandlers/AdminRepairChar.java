@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -72,10 +73,10 @@ public class AdminRepairChar implements IAdminCommandHandler
             return;
         }
         
-        java.sql.Connection connection = null;
+        Connection connection = null;
         try
         {
-            connection = L2DatabaseFactory.getInstance().getConnection();
+            connection = L2DatabaseFactory.getInstance().getConnection(connection);
             
             PreparedStatement statement = connection.prepareStatement("SELECT obj_id FROM characters where char_name=?");
             statement.setString(1,parts[1]);

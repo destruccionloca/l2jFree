@@ -95,7 +95,7 @@ public final class TaskManager
 
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2DatabaseFactory.getInstance().getConnection(con);
                 PreparedStatement statement = con.prepareStatement(SQL_STATEMENTS[1]);
                 statement.setLong(1, _lastActivation);
                 statement.setInt(2, _id);
@@ -207,7 +207,7 @@ public final class TaskManager
         {
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection();
+                con = L2DatabaseFactory.getInstance().getConnection(con);
                 PreparedStatement statement = con.prepareStatement(SQL_STATEMENTS[0]);
                 ResultSet rset = statement.executeQuery();
 
@@ -354,7 +354,7 @@ public final class TaskManager
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement(SQL_STATEMENTS[2]);
             statement.setString(1, task);
             ResultSet rset = statement.executeQuery();
@@ -407,7 +407,7 @@ public final class TaskManager
 
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement(SQL_STATEMENTS[3]);
             statement.setString(1, task);
             statement.setString(2, type.toString());

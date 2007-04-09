@@ -214,7 +214,7 @@ public class L2ClanMember
         
         try 
         {
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("UPDATE characters SET pledge_rank=? WHERE obj_id=?");
             statement.setLong(1, _powerGrade);
             statement.setInt(2, getObjectId());

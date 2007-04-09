@@ -26,6 +26,7 @@
 package net.sf.l2j.gameserver.services.forum;
 
 import java.util.List;
+import java.util.Set;
 
 import net.sf.l2j.gameserver.dao.forum.ForumsDAO;
 import net.sf.l2j.gameserver.dao.forum.PostsDAO;
@@ -76,35 +77,6 @@ public class ForumService
     {
     	__postsDAO =  postsDAO;
     }       
-    /**
-     * 
-     * @param name
-     * @param parent
-     * @param type
-     * @param perm
-     * @param owner id
-     * @return Forum
-     */
-    public Forums createForum(String name, Forums parent, int type, int perm, int oid) 
-    {
-    	Forums forum;
-		forum = new Forums();
-		forum.setForumParent(parent.getForumId());
-		forum.setForumName(name);
-		forum.setForumType(type);
-		forum.setForumPerm(perm);
-		forum.setForumOwnerId(oid);
-		try
-		{
-			__forumDAO.createForums(forum);
-		}
-		catch (Exception e)
-		{
-			_log.error("Unable to create forum : "+name+". Error : "+e.getMessage());
-			return null;
-		}
-		return forum;
-    }
     
     /**
      * 
@@ -150,24 +122,6 @@ public class ForumService
         catch (Exception e)
         {
             _log.info ("unable to find forum : "+id+". Error : "+e.getMessage());
-            return null;
-        }
-    }       
-    
-    /**
-     * Get Forum information for a specific name
-     * 
-     */
-    public Forums getForumByName(String name)
-    {
-        try
-        {
-            Forums forum = __forumDAO.getForumByName(name);
-            return forum;
-        }
-        catch (Exception e)
-        {
-            _log.info ("unable to find forum : "+name+". Error : "+e.getMessage());
             return null;
         }
     }       
@@ -239,22 +193,44 @@ public class ForumService
     }        
     
     /**
-     * Get all forums
-     * 
+     * Get the number of topics for a forum
+     * @param topic
+     * @param index
+     * @return the posts located at index index or an empty posts
      */
-    public List<Forums> getForums()
+    public Posts getPostByIndexForTopic(Topic topic,int index)
     {
         try
         {
-        	List<Forums> forums = __forumDAO.getAllForums();
-            return forums;
+            Set<Posts> posts = __topicDAO.getPostses(topic);
+            Posts post = (Posts)posts.toArray()[index];
+            return post;
         }
         catch (Exception e)
         {
-            _log.error ("unable to load forums. Error : "+e.getMessage());
-            return null;
+            _log.error ("unable to load post ("+index+") for topic : "+topic.getTopicName()+". Error : "+e.getMessage());
+            return new Posts();
         }
-    }        
+    }      
+    
+    /**
+     * Get the number of topics for a forum
+     * @param obj
+     * @return the size of the topic set 
+     */
+    public int getTopicNumberForForum(Forums obj)
+    {
+        try
+        {
+            Set<Topic> topics = __forumDAO.getTopicsForForum(obj);
+            return topics.size();
+        }
+        catch (Exception e)
+        {
+            _log.error ("unable to load topics for forums : "+obj.getForumName()+". Error : "+e.getMessage());
+            return 0;
+        }
+    }    
     
     /**
      * 
@@ -350,22 +326,6 @@ public class ForumService
     }       
     
     /**
-     * Delete topic
-     * @param Topic
-     */
-    public void deletePost(Posts post )
-    {
-        try
-        {
-        	__postsDAO.deletePost(post);
-        }
-        catch (Exception e)
-        {
-            _log.error ("unable to delete post. Error : "+e.getMessage());
-        }
-    }      
-    
-    /**
      * 
      * @param Posts (without id)
      * @return Posts (with id)
@@ -393,7 +353,7 @@ public class ForumService
     {
 		try
 		{
-			__postsDAO.changePost(post);
+			__postsDAO.modifyPost(post);
 		}
 		catch (Exception e)
 		{

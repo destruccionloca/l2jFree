@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import net.sf.l2j.gameserver.SevenSigns; 
+import net.sf.l2j.gameserver.SevenSigns;
 
 /**
  * sample

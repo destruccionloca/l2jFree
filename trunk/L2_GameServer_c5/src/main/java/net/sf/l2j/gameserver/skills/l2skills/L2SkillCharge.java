@@ -17,8 +17,8 @@
  */
 package net.sf.l2j.gameserver.skills.l2skills;
 
-import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;

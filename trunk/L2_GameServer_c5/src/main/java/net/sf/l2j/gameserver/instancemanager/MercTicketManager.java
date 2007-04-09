@@ -19,6 +19,7 @@ package net.sf.l2j.gameserver.instancemanager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
@@ -170,7 +171,7 @@ public class MercTicketManager
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
 	        statement = con.prepareStatement("SELECT * FROM castle_siege_guards Where isHired = 1");
 	        rs = statement.executeQuery();
 	        

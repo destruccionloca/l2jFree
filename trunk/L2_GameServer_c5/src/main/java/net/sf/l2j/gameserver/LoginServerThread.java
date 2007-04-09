@@ -52,7 +52,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.AuthLoginFail;
 import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
-import net.sf.l2j.util.Util;
+import net.sf.l2j.tools.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

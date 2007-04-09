@@ -20,12 +20,13 @@ package net.sf.l2j.gameserver.instancemanager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import org.apache.log4j.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.entity.faction.Faction;
+
+import org.apache.log4j.Logger;
 
 /** 
  * @author evill33t
@@ -73,7 +74,7 @@ public class FactionManager
             PreparedStatement statement;
             ResultSet rs;
 
-            con = L2DatabaseFactory.getInstance().getConnection();
+            con = L2DatabaseFactory.getInstance().getConnection(con);
 
             statement = con.prepareStatement("Select id from factions order by id");
             rs = statement.executeQuery();

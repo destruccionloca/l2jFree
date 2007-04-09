@@ -23,7 +23,7 @@ import java.nio.ByteBuffer;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.StopMoveInVehicle;
-import net.sf.l2j.util.Point3D;
+import net.sf.l2j.tools.geometry.Point3D;
 
 /**
  * @author Maktakien

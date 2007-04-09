@@ -32,7 +32,7 @@ import java.util.BitSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.util.PrimeFinder;
+import net.sf.l2j.tools.util.PrimeFinder;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

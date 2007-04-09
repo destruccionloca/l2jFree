@@ -17,8 +17,8 @@
  */
 package net.sf.l2j.gameserver.datatables;
 
-import net.sf.l2j.gameserver.model.L2Skill;
 import javolution.util.FastList;
+import net.sf.l2j.gameserver.model.L2Skill;
 
 /**
  *
