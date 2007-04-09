@@ -206,7 +206,7 @@ public class Wedding implements IVoicedCommandHandler
         }
         
         if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() ||
-                activeChar.isInOlympiadMode() || activeChar._inEventCTF || activeChar._inEventTvT)  
+                activeChar.isInOlympiadMode() || activeChar._inEventCTF || activeChar._inEventTvT || activeChar._inEventDM)  
             return false;
 
         // Check if player is inside jail.
@@ -229,6 +229,21 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendPacket(SystemMessage.sendString("You can not escape from jail."));
             return false;
         }
+        
+        // Check if player is in Siege
+        L2Clan activeCharClan  = activeChar.getClan();
+        if(activeCharClan!=null) // character has clan ?
+        {
+            Castle activeCharCastle= CastleManager.getInstance().getCastleByOwner(activeChar.getClan());
+            if(activeCharCastle!=null) // clan has castle ?
+            {
+                if (activeCharCastle.getSiege().getIsInProgress())
+                {
+                    activeChar.sendMessage("You in Siege now and you cant go to your partner!");
+                    return false;
+                }
+            }
+        }
 
         L2PcInstance partner;
         partner = (L2PcInstance)L2World.getInstance().findObject(activeChar.getPartnerId());
@@ -241,7 +256,7 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendPacket(SystemMessage.sendString("Your fiance is in Jail."));
             return false;
         }
-        else if(partner._inEventCTF || partner._inEventTvT){
+        else if(partner._inEventCTF || partner._inEventTvT || partner._inEventDM){
             activeChar.sendPacket(SystemMessage.sendString("Your fiance is in Event now."));
             return false;
         }
