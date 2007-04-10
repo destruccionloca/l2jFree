@@ -259,7 +259,8 @@ INSERT INTO `teleport` VALUES ('Aden(hall) -> out)', 415, 147723, 7916, -475, 0,
 INSERT INTO `teleport` VALUES ('Aden(hall) -> in)', 416, 148580, 4578, -408, 0, 0);
 INSERT INTO `teleport` VALUES ('Aden(hall) -> outofcastle)', 417, 147582, 8753, -496, 0, 0);
 INSERT INTO `teleport` VALUES ('Lair Of Valakas', 420, 208884, -113705, -256, 0, 0);
-INSERT INTO `teleport` VALUES ('Disciples Necropolis -> Anakim/Lilith', 450, 184397, -11957, -5493, 0, 0);
+INSERT INTO `teleport` VALUES ('Disciples Necropolis -> Anakim', 445, 184448, -10112, -5488, 0, 0);
+INSERT INTO `teleport` VALUES ('Disciples Necropolis -> Lilith', 450, 185075, -11993, -5488, 0, 0);
 INSERT INTO `teleport` VALUES ('Anakim/Lilith -> Disciples Necropolis', 451, 183225, -11911, -4897, 0, 0);
 INSERT INTO `teleport` VALUES ('TI -> Dark Elven Village', 1005, 9745, 15606, -4574, 24000, 0);
 INSERT INTO `teleport` VALUES ('TI -> Dwarven Village', 1006, 115113, -178212, -901, 46000, 0);
