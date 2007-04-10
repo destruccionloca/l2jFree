@@ -7661,7 +7661,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         setTarget(null);
         setXYZ(_obsX, _obsY, _obsZ);
-        getAppearance().setInvisible();
+        getAppearance().setVisible();
         setIsInvul(false);
         setIsParalyzed(false);
         
