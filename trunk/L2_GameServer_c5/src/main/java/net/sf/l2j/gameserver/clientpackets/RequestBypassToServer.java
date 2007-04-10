@@ -266,7 +266,7 @@ public class RequestBypassToServer extends ClientBasePacket
         if (path.indexOf("..") != -1)
             return;
 
-        String filename = "data/html/"+path;
+        String filename = "data/html/help/"+path;
         NpcHtmlMessage html = new NpcHtmlMessage(1);
         html.setFile(filename);
         activeChar.sendPacket(html);
