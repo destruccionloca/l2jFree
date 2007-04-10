@@ -1414,23 +1414,24 @@
   </for>
 </skill>
 <skill id="358" levels="1" name="Bluff">
-  <set name="weaponsAllowed" val="16"/>
-  <set name="mpConsume" val="35"/>
-  <set name="power" val="40"/>
-  <set name="target" val="TARGET_ONE"/>
-  <set name="skillType" val="STUN"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="40"/>
-  <set name="effectRange" val="400"/>
-  <set name="reuseDelay" val="30000"/>
-  <set name="skillTime" val="1000"/>
-  <set name="hitTime" val="1000"/>
-  <for>
-    <effect count="1" name="Stun" time="9" val="0">
-      <sub order="0x40" stat="aggression" val="100000"/>
-    </effect>
-    <effect count="1" name="RemoveTarget" time="1" val="0"/>
-  </for>
+ <set name="weaponsAllowed" val="16"/>
+ <set name="magicLvl" val="77"/>
+ <set name="mpConsume" val="35"/>
+ <set name="power" val="40"/> 
+ <set name="target" val="TARGET_ONE"/>
+ <set name="hitTime" val="1500"/>
+ <set name="condition" val="16"/>
+ <set name="reuseDelay" val="30000"/>
+ <set name="skillTime" val="1080"/>
+ <set name="skillType" val="CANCEL_TARGET"/>
+ <set name="operateType" val="OP_ACTIVE"/>
+ <set name="castRange" val="40"/>
+ <set name="effectRange" val="400"/>
+ <set name="skill_landing_percent" val="85"/>
+ <set name="buffDuration" val="3000"/>
+ <for>
+   <effect count="1" name="Bluff" time="3" val="0"/>
+ </for> 
 </skill>
 <skill id="359" levels="1" name="Eye of Hunter">
   <set name="mpConsume" val="70"/>
