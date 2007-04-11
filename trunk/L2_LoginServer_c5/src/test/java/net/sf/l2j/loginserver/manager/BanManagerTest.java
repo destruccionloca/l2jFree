@@ -40,7 +40,7 @@ public class BanManagerTest extends TestCase
     protected void setUp() throws Exception
     {
         super.setUp();
-        BanManager.BAN_LIST = getClass().getResource("banlist.cfg").getFile();
+        BanManager.BAN_LIST = getClass().getResource("banlist.cfg").getFile().replace("%20", " ");
         BanManager.getInstance();
     }
     
