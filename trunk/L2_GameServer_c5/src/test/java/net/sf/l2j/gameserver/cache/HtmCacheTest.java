@@ -54,7 +54,7 @@ public class HtmCacheTest extends TestCase
         HtmCache cache = HtmCache.getInstance();
         
         // load resource
-        String file = getClass().getResource("npcdefault.htm").getFile(); 
+        String file = getClass().getResource("npcdefault.htm").getFile().replace("%20", " "); 
         
         // check if it is loadable
         assertTrue (cache.isLoadable(file));

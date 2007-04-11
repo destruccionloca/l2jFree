@@ -96,7 +96,7 @@ public class AuditLogFormatterTest extends TestCase
             param.add(null);
 
             // Create input stream for log file -- or store file data into memory
-            InputStream is =  new FileInputStream(getClass().getResource("logging.properties").getFile()); 
+            InputStream is =  new FileInputStream(getClass().getResource("logging.properties").getFile().replace("%20", " ")); 
             LogManager.getLogManager().readConfiguration(is);
             is.close();        
             
