@@ -83,6 +83,24 @@
 	</bean> 
 	
 	<!-- 
+		DAO for version
+	 -->
+    <bean id="VersionDAO" class="net.sf.l2j.tools.versionning.dao.impl.VersionDAOJar">
+		<property name="clazz">
+			<value>net.sf.l2j.gameserver.GameServer</value>
+		</property>
+	</bean> 	
+	
+
+	<!-- 
+		Service to manage versions 
+	 -->
+    <bean id="VersionningService" class="net.sf.l2j.tools.versionning.service.VersionningService">
+		<property name="versionDAO">
+			<ref bean="VersionDAO" />
+		</property>
+	</bean> 	
+	<!-- 
 		Service to manage forums 
 	 -->
     <bean id="ForumService" class="net.sf.l2j.gameserver.communitybbs.services.forum.ForumService">

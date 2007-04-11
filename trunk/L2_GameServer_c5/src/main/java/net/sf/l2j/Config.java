@@ -1563,37 +1563,6 @@ public final class Config {
         }
     }
     
-    
-    
-    //  *******************************************************************************************    
-    public static final String  VERSION_FILE				= "./config/l2j-version.properties";
-    //  *******************************************************************************************
-    public static String        SERVER_VERSION;
-    public static String        SERVER_BUILD_DATE;
-    //  *******************************************************************************************
-    public static void loadversionconfig()
-    {
-    	_log.info("loading " + VERSION_FILE);
-        try
-        {
-            Properties serverVersion    = new Properties();
-            InputStream is              = new FileInputStream(new File(VERSION_FILE));  
-            serverVersion.load(is);
-            is.close();
-            
-            SERVER_VERSION      = serverVersion.getProperty("version", "Unsupported Custom Version.");
-            SERVER_BUILD_DATE   = serverVersion.getProperty("builddate", "Undefined Date.");
-        }
-        catch (Exception e)
-        {
-            //Ignore Properties file if it doesnt exist
-            SERVER_VERSION      = "Unsupported Custom Version.";
-            SERVER_BUILD_DATE   = "Undefined Date.";
-        }
-    }
-    
-    
-    
     //  *******************************************************************************************    
     public static final String  SIEGE_CONFIGURATION_FILE	= "./config/siege.properties";
     //  *******************************************************************************************
@@ -1971,7 +1940,6 @@ public final class Config {
 	public static void load()
 	{
 			_log.info("loading gameserver config");
-			loadversionconfig();
 			loadconfiguration();
 			loadhexid();
 			loadratesconfig();

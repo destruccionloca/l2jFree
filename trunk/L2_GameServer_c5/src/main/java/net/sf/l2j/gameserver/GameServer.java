@@ -202,6 +202,9 @@ import net.sf.l2j.gameserver.script.faenor.FaenorScriptEngine;
 import net.sf.l2j.gameserver.taskmanager.TaskManager;
 import net.sf.l2j.gameserver.util.DynamicExtension;
 import net.sf.l2j.status.Status;
+import net.sf.l2j.tools.L2Registry;
+import net.sf.l2j.tools.versionning.model.Version;
+import net.sf.l2j.tools.versionning.service.VersionningService;
 import net.sf.l2j.util.RandomIntGenerator;
 
 import org.apache.commons.logging.Log;
@@ -256,10 +259,15 @@ public class GameServer
         gameServer = this;
         if ( _log.isDebugEnabled())_log.debug("used mem:" + getUsedMemoryMB()+"MB" );
 
-        if (Config.SERVER_VERSION != null)
+        
+        VersionningService versionningService = (VersionningService)L2Registry.getBean("VersionningService");
+        Version version = versionningService.getVersion();
+        if (version!= null)
         {
-            _log.info("L2JFree Server Version:    "+Config.SERVER_VERSION);
-            _log.info("L2JFree Server Build Date: "+Config.SERVER_BUILD_DATE);
+            _log.info("L2JFree Server Version:    "+version.getRevisionNumber());
+            _log.info("L2JFree Jdk used for compilation:    "+version.getBuildJdk());
+            // TODO : add build date to plugin maven build number 
+            //_log.info("L2JFree Server Build Date: "+Config.SERVER_BUILD_DATE);
         }
 
         _idFactory = IdFactory.getInstance();

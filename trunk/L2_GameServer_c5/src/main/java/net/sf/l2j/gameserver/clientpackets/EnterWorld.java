@@ -66,7 +66,10 @@ import net.sf.l2j.gameserver.serverpackets.ShortCutInit;
 import net.sf.l2j.gameserver.serverpackets.SignsSky;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
+import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.codec.Base64;
+import net.sf.l2j.tools.versionning.model.Version;
+import net.sf.l2j.tools.versionning.service.VersionningService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -246,13 +249,15 @@ public class EnterWorld extends ClientBasePacket
 	        sm.addString(LoginServerThread.getInstance().getServerName());
 	        sendPacket(sm);
         
-	        if (Config.SERVER_VERSION != null)
+            VersionningService versionningService = (VersionningService)L2Registry.getBean("VersionningService");
+            Version version = versionningService.getVersion();
+            if (version!= null)
 	        {
 	        	sm = new SystemMessage(SystemMessage.S1_S2);
-	            sm.addString(getText("TDJKIFNlcnZlciBWZXJzaW9uOg==")+"   "+Config.SERVER_VERSION);
+	            sm.addString(getText("TDJKIFNlcnZlciBWZXJzaW9uOg==")+"   "+version.getRevisionNumber());
 	            sendPacket(sm);
 	            sm = new SystemMessage(SystemMessage.S1_S2);
-	            sm.addString(getText("TDJKIFNlcnZlciBCdWlsZCBEYXRlOg==")+" "+Config.SERVER_BUILD_DATE);
+	            sm.addString(getText("TDJKIFNlcnZlciBCdWlsZCBEYXRlOg==")+" "+version.getBuildDate());
 	            sendPacket(sm);
 	        }
         }
