@@ -372,7 +372,9 @@ public final class SelectorThread extends IOThread {
                 if(con.getClient().getActiveChar().getPet() != null)
                 	con.getClient().getActiveChar().getPet().unSummon(con.getClient().getActiveChar());
                 if(con.getClient().getActiveChar().isInOlympiadMode())
-                	Olympiad.getInstance().unRegisterNoble(con.getClient().getActiveChar());                	
+                	Olympiad.getInstance().unRegisterNoble(con.getClient().getActiveChar());
+                if(con.getClient().getActiveChar().isProcessingTransaction())
+                	con.getClient().getActiveChar().cancelActiveTrade();
             }
             catch(NullPointerException npe)
             {
