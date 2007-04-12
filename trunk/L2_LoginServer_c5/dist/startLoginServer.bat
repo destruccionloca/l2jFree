@@ -6,7 +6,7 @@ echo.
 SET OLDCLASSPATH=%CLASSPATH%
 call setenv.bat
 
-java -Xmx64m net.sf.l2j.loginserver.LoginServer
+java -Dfile.encoding=UTF-8 -Xmx64m net.sf.l2j.loginserver.LoginServer
 
 SET CLASSPATH=%OLDCLASSPATH%
 
