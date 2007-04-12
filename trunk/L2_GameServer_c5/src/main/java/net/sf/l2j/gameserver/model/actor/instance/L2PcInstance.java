@@ -935,6 +935,9 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void logout()
     {
+    	//TODO: make this nicer :)
+    	 _activeTradeList = null;
+    	sendPacket(new SendTradeDone(0));
         // Close the connection with the client
         if (_connection != null) _connection.close();
     }
