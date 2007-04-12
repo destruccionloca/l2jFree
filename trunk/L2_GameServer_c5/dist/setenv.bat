@@ -9,7 +9,7 @@ SET CLASSPATH=%CLASSPATH%;commons-collections-2.1.1.jar
 SET CLASSPATH=%CLASSPATH%;ibmaio-20040616.jar
 
 REM jython
-SET CLASSPATH=%CLASSPATH%;jython-2.1.jar
+SET CLASSPATH=%CLASSPATH%;jython-2.1.0.jar
 
 SET CLASSPATH=%CLASSPATH%;bsf-2.0.jar
 SET CLASSPATH=%CLASSPATH%;bsh-2.0.jar
@@ -20,7 +20,7 @@ SET CLASSPATH=%CLASSPATH%;ehcache-1.2.3.jar
 REM for bean use
 SET CLASSPATH=%CLASSPATH%;commons-beanutils-1.7.0.jar
 
-SET CLASSPATH=%CLASSPATH%;commons-lang-2.0.jar
+SET CLASSPATH=%CLASSPATH%;commons-lang-2.1.jar
 
 REM For connection pool
 SET CLASSPATH=%CLASSPATH%;c3p0-0.9.0.4.jar

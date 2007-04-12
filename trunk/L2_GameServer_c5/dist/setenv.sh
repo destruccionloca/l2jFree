@@ -16,12 +16,12 @@ CLASSPATH=${CLASSPATH}:bsh-2.0.jar
 CLASSPATH=${CLASSPATH}:ehcache-1.2.3.jar
 
 #jython
-CLASSPATH=${CLASSPATH}:jython-2.1.jar
+CLASSPATH=${CLASSPATH}:jython-2.1.0.jar
 
 # for bean use
 CLASSPATH=${CLASSPATH}:commons-beanutils-1.7.0.jar
 
-CLASSPATH=${CLASSPATH}:commons-lang-2.0.jar
+CLASSPATH=${CLASSPATH}:commons-lang-2.1.jar
 
 # For connection pool
 CLASSPATH=${CLASSPATH}:c3p0-0.9.0.4.jar
