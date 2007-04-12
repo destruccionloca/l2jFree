@@ -106,7 +106,7 @@ public class PcInventory extends Inventory
        FastList<L2ItemInstance> list = new FastList<L2ItemInstance>();
        for (L2ItemInstance item : _items)
        {
-           if (item.getItemId() == itemId)
+    	   if (!item.isEquipped() && !item.isWear() && item.getItemId() == itemId)
                list.add(item);
        }
 
@@ -122,7 +122,7 @@ public class PcInventory extends Inventory
        FastList<L2ItemInstance> list = new FastList<L2ItemInstance>();
        for (L2ItemInstance item : _items)
        {
-           if ((item.getItemId() == itemId) && (item.getEnchantLevel() == enchantment))
+    	   if (!item.isEquipped() && !item.isWear() && (item.getItemId() == itemId) && (item.getEnchantLevel() == enchantment))
                list.add(item);
         }
 
