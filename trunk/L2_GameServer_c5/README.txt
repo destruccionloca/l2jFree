@@ -23,13 +23,13 @@ $Date: 2006/12/06 19:14:22 $
 
 TOC:
 I.    OVERVIEW
-II.   REQUIREMENTS
-III.  FIRST STARTUP
-IV.   ADMIN/GM's GUIDE
-V.    PLAYER's GUIDE
-VI.   UPDATING
-VII.  TROUBLESHOOTING
-VIII. LEGAL
+II.   LEGAL 
+III.  REQUIREMENTS
+IV.   FIRST STARTUP
+V.    ADMIN/GM's GUIDE
+VI.   PLAYER's GUIDE
+VII.  UPDATING
+VIII. TROUBLESHOOTING
 IX.   CONTACT
 X.    CONTRIBUTING
 XI.   BUG REPORTING
@@ -112,7 +112,7 @@ and get to know the wiki sites.
 They contain all the info you need to setup and run a L2J Server.
 
 L2J Server wiki: Server Guides, How-to's, bugtracker:
-https://opensvn.csie.org/traccgi/l2jc4/trac.cgi/wiki
+https://l2jserver.com/trac/wiki
 
 L2J-Datapack wiki: Datapack Guides, How-to's, bugtracker:
 http://www.l2jdp.com/trac/wiki
@@ -152,7 +152,7 @@ Possible access levels:
 More info can be found in the community wiki.
  
 Admin commands implemented:
-(Please see https://opensvn.csie.org/traccgi/l2jc4/trac.cgi/wiki/GmCommands for more complete list.)
+(Please see https://l2jserver.com/trac/wiki/GmCommands for more complete list.)
 //admin = main GM interface
 //gmchat = will send a message to all online GMs
 //invul = makes your character untouchable
@@ -260,7 +260,7 @@ XI. BUG REPORTING
 ====================
 
 Bugs can be reported on our wiki site.
-https://opensvn.csie.org/traccgi/l2jc4/trac.cgi/newticket
+http://l2jserver.com/trac/newticket
 Basic rules for reporting are:
     Please report only one bug/issue per ticket!!
     You must include the revision (changeset) number when reporting a bug!
@@ -287,6 +287,7 @@ http://forum.l2jserver.com/team.php
 
 Have fun playing L2J ;)
 Dev Team
+
     L2J Server, Copyright (C) 2006 
     L2J Server comes with ABSOLUTELY NO WARRANTY.
     This is free software, and you are welcome to redistribute it
