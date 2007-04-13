@@ -129,6 +129,7 @@ public class AdminMenu implements IAdminCommandHandler
 	                plyr.sendPacket(new LeaveWorld());
 	                plyr.deleteMe();
 	                plyr.store();
+	                plyr.closeNetConnection();
 					sm.addString("You kicked " + plyr.getName() + " from the game.");
 				}
 				else

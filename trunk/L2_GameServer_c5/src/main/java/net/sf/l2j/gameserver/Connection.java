@@ -212,14 +212,9 @@ public final class Connection
         { }
         try
         {
-            LoginServerThread.getInstance().removeWaitingClient(_client);
             if (_client.getActiveChar() != null)
             {
                 _client.onDisconnect();
-            }
-            else if(_client.getLoginName() != null)
-            {
-                LoginServerThread.getInstance().sendLogout(_client.getLoginName());
             }
         } catch (Throwable t) {_log.warn( "", t);}
     }

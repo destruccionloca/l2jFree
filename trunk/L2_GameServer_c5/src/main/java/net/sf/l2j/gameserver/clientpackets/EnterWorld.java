@@ -120,12 +120,17 @@ public class EnterWorld extends ClientBasePacket
         {
             _log.fatal("Possible Hacker Account:"+getClient().getLoginName()+" tried to login with char: "+activeChar.getName() + "of Account:" + getClient().getAccountName(activeChar.getName()));
             activeChar.deleteMe();
+            activeChar.closeNetConnection();
+            return;
         }
         if(!getClient().isAuthed())
         {
             _log.fatal("Possible Hacker Account:"+getClient().getLoginName()+" is not authed");
             activeChar.deleteMe();
+            activeChar.closeNetConnection();
+            return;
         }
+        
         if (activeChar.isGM())
         {
             if (Config.SHOW_GM_LOGIN) 

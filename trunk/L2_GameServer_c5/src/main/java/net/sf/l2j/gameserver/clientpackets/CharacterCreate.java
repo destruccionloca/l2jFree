@@ -200,11 +200,10 @@ public class CharacterCreate extends ClientBasePacket
 				_log.debug("adding starter skill:" + startSkills[i].getId()+ " / "+ startSkills[i].getLevel());
 		}
 		
-		ClientThread.saveCharToDisk(newChar);
 		newChar.deleteMe(); // release the world of this character and it's inventory
+		newChar.store();
 		
 		// send char list
-		
 		CharSelectInfo cl =	new CharSelectInfo(client.getLoginName(), client.getSessionId().playOkID1);
 		client.getConnection().sendPacket(cl);
         client.setCharSelection(cl.getCharInfo());

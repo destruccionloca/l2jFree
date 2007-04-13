@@ -84,6 +84,7 @@ public class AdminBan implements IAdminCommandHandler {
                 plyr.sendPacket(new LeaveWorld());
                 plyr.deleteMe();
                 plyr.store();
+                plyr.closeNetConnection();
             }
         }
         else if (command.startsWith("admin_unban"))

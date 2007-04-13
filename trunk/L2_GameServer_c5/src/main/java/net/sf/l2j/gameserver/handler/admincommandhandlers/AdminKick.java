@@ -76,6 +76,7 @@ public class AdminKick implements IAdminCommandHandler {
             player.sendPacket(new LeaveWorld());
             player.deleteMe();
             player.store();
+            player.closeNetConnection();
             } catch (Throwable t)   {}
     }
     public String[] getAdminCommandList() {

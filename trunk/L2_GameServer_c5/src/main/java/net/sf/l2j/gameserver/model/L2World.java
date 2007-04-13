@@ -30,7 +30,6 @@ import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
-import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 import net.sf.l2j.tools.geometry.Point3D;
 import net.sf.l2j.util.L2ObjectMap;
 
@@ -347,15 +346,10 @@ public final class L2World
             if(tmp!= null)
             {
                 _log.warn("Duplicate character!? Closing both characters ("+player.getName()+")");
-                
-                if (player.getNetConnection() != null)
-                	player.sendPacket(new LeaveWorld());
                 player.deleteMe();
-                
-                if (tmp.getNetConnection() != null)
-                	tmp.sendPacket(new LeaveWorld());
+                player.closeNetConnection();
                 tmp.deleteMe();
-            	
+            	tmp.closeNetConnection();
                 return;
             }
             
