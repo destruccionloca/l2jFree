@@ -2545,16 +2545,47 @@ public final class L2PcInstance extends L2PlayableInstance
         if (item.getCount() > 0)
         {
             // Sends message to client if requested
-            if (sendMessage)
+            if (sendMessage && (!isCastingNow()  && item.getItemType() == L2EtcItemType.HERB || item.getItemType() != L2EtcItemType.HERB))            
             {
                 sendMessageForNewItem(item.getItemId(), item.getCount(), process);
             }
-
-            // Add the item to inventory
-            L2ItemInstance newitem = _inventory.addItem(process, item, this, reference);
             
-            // do treatments after adding this item
-            processAddItem(UpdateIL, newitem);
+            //Auto use herbs - autoloot
+            if (item.getItemType() == L2EtcItemType.HERB) //If item is herb dont add it to iv :]
+            {
+                useHerb(process, item, reference, sendMessage);
+            }            
+            else
+            {
+                // Add the item to inventory
+                L2ItemInstance newitem = _inventory.addItem(process, item, this, reference);
+                
+                // do treatments after adding this item
+                processAddItem(UpdateIL, newitem);
+            }
+        }
+    }
+
+    /**
+     * @param process
+     * @param item
+     * @param reference
+     * @param sendMessage
+     */
+    private void useHerb(String process, L2ItemInstance item, L2Object reference, boolean sendMessage)
+    {
+        if(!isCastingNow()){
+            L2ItemInstance herb = new L2ItemInstance(this._charId, item.getItemId());
+            IItemHandler handler = ItemHandler.getInstance().getItemHandler(herb.getItemId());                
+            if (handler == null)
+                _log.warn("No item handler registered for Herb - item ID " + herb.getItemId() + ".");
+            else{
+                handler.useItem(this, herb);
+                if(_herbstask>=100)_herbstask -=100;
+            }
+        }else{
+            _herbstask += 100;
+            ThreadPoolManager.getInstance().scheduleAi(new HerbTask(process, item.getItemId(), item.getCount(), reference, sendMessage), _herbstask);
         }
     }
     /**
@@ -2567,19 +2598,9 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void addItem(String process, int itemId, int count, L2Object reference, boolean sendMessage, boolean UpdateIL)
     {
-        if (count > 0)
-        {
-            // Sends message to client if requested
-            if (sendMessage)
-            {
-                sendMessageForNewItem(itemId, count, process);
-            }
-
-            // Add the item to inventory
-            L2ItemInstance newitem = _inventory.addItem(process, itemId, count, this, reference);
-            
-            processAddItem(UpdateIL, newitem);
-        }
+        L2ItemInstance item =  ItemTable.getInstance().createDummyItem(itemId);
+        item.setCount(count);
+        this.addItem(process, item, reference, sendMessage,UpdateIL);
     }
 
 	/**
@@ -2601,16 +2622,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 		    CursedWeaponsManager.getInstance().activate(this, newitem);
 		}
-		
-         //Auto use herbs - autoloot
-         if (newitem.getItemType() == L2EtcItemType.HERB)
-         {
-		    IItemHandler handler = ItemHandler.getInstance().getItemHandler(newitem.getItemId());                
-		    if (handler == null) 
-		        _log.warn("No item handler registered for item ID " + newitem.getItemId() + ".");
-		    else 
-		        handler.useItem(this, newitem);
-		}
+
          // If over capacity, drop the item
 		if (!isGM() && !_inventory.validateCapacity(0)) 
 		    dropItem("InvDrop", newitem, null, true);
@@ -10231,6 +10243,37 @@ public final class L2PcInstance extends L2PlayableInstance
 	private double _mpUpdateDecCheck = .0;
 	private double _mpUpdateInterval = .0;
 
+    /** Herbs Task Time **/
+    private int _herbstask = 0;
+    /** Task for Herbs */
+    public class HerbTask implements Runnable
+    {
+        String _process;
+        int _itemId;
+        int _count;
+        L2Object _reference;
+        boolean _sendMessage;
+        HerbTask(String process, int itemId, int count, L2Object reference, boolean sendMessage)
+        {
+            _process = process;
+            _itemId = itemId;
+            _count = count;
+            _reference = reference;
+            _sendMessage = sendMessage;
+        }
+        public void run()
+        {
+            try
+            {
+                addItem(_process, _itemId, _count, _reference, _sendMessage);
+            }
+            catch (Throwable t)
+            {
+                _log.warn("", t);
+            }
+        }
+    }    
+    
     private class JailTask implements Runnable
     {
         L2PcInstance _player;
