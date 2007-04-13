@@ -995,19 +995,12 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         
         // Prevent player from logging out if they are a festival participant
-        // and it is in progress, otherwise notify party members that the player
-        // is not longer a participant.
-        if (isFestivalParticipant()) 
+        // and it is in progress
+		if (isFestivalParticipant() && SevenSignsFestival.getInstance().isFestivalInitialized()) 
         {
-    		if (SevenSignsFestival.getInstance().isFestivalInitialized()) 
-            {
-               sendMessage("You cannot log out while you are a participant in a festival.");
-               sendPacket(new ActionFailed());
-               return false;
-            }
-           
-    		if (getParty() != null)
-    			getParty().broadcastToPartyMembers(SystemMessage.sendString(getName() + " has been removed from the upcoming festival."));
+           sendMessage("You cannot log out while you are a participant in a festival.");
+           sendPacket(new ActionFailed());
+           return false;
         }
 
         if (getPrivateStoreType() != 0)
@@ -9417,11 +9410,18 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             _log.fatal( "deletedMe()", t);
         }
-
+		
         // If a Party is in progress, leave it
         if (isInParty()) try
         {
             leaveParty();
+            // If player is festival participant and it is in progress 
+            // notify party members that the player is not longer a participant.
+            if (isFestivalParticipant() && SevenSignsFestival.getInstance().isFestivalInitialized()) 
+            {
+        		if (getParty() != null)
+        			getParty().broadcastToPartyMembers(SystemMessage.sendString(getName() + " has been removed from the upcoming festival."));
+            }
         }
         catch (Throwable t)
         {

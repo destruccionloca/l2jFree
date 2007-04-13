@@ -248,6 +248,18 @@ public class MapRegionTable
             
             if (teleportWhere == TeleportWhereType.Town)
             {
+                // teleport RED PK 5+ to Floran Village
+                //if(player.getPkKills() > 5 && player.getKarma() > 1) return new Location(17817, 170079, -3530);
+    			//Karma player land out of city
+                if(player.getKarma() > 1 || player.isCursedWeaponEquiped())
+                {
+                    int closest =  getMapRegion(activeChar.getX(), activeChar.getY());
+                    if(closest >= 0 && closest < _pointsWithKarmas.length)
+                       return new Location(_pointsWithKarmas[closest][0], _pointsWithKarmas[closest][1], _pointsWithKarmas[closest][2]);
+                    else
+                       return new Location(17817, 170079, -3530);
+                }
+                
                 coord = TownManager.getInstance().getClosestTown(activeChar).getSpawn().get(0);                
                 return new Location(coord[0], coord[1], coord[4]);
             }
@@ -303,18 +315,6 @@ public class MapRegionTable
                         }
                     }
                 }
-            }
-
-            // teleport RED PK 5+ to Floran Village
-            //if(player.getPkKills() > 5 && player.getKarma() > 1) return new Location(17817, 170079, -3530);
-			//Karma player land out of city
-            if(player.getKarma() > 1)
-            {
-                int closest =  getMapRegion(activeChar.getX(), activeChar.getY());
-                if(closest >= 0 && closest < _pointsWithKarmas.length)
-                   return new Location(_pointsWithKarmas[closest][0], _pointsWithKarmas[closest][1], _pointsWithKarmas[closest][2]);
-                else
-                   return new Location(17817, 170079, -3530);
             }
             
             // Checking if in arena
