@@ -113,18 +113,18 @@ public class EnterWorld extends ClientBasePacket
 		if (L2World.getInstance().findObject(activeChar.getObjectId()) != null) 
         { 
 			if (_log.isDebugEnabled())
-					_log.warn("User already exist in OID map! User "+activeChar.getName()+" is character clone"); 
-                //activeChar.closeNetConnection(); 
+					_log.warn("User already exist in OID map! User "+activeChar.getName()+" is character clone."); 
+			//activeChar.deleteMe();
         }
 		if(!getClient().getLoginName().equalsIgnoreCase(getClient().getAccountName(activeChar.getName())))
         {
             _log.fatal("Possible Hacker Account:"+getClient().getLoginName()+" tried to login with char: "+activeChar.getName() + "of Account:" + getClient().getAccountName(activeChar.getName()));
-            activeChar.closeNetConnection();
+            activeChar.deleteMe();
         }
         if(!getClient().isAuthed())
         {
             _log.fatal("Possible Hacker Account:"+getClient().getLoginName()+" is not authed");
-            activeChar.closeNetConnection();
+            activeChar.deleteMe();
         }
         if (activeChar.isGM())
         {
