@@ -34,6 +34,8 @@ import org.apache.commons.logging.LogFactory;
  *  - load list from DB
  *  - add friend list record and save in DB
  *  - del friend list record and save in DB
+ *
+ * @author G1ta0
  * 
  */
 public class L2FriendList

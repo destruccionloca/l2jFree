@@ -29,6 +29,7 @@ import java.io.LineNumberReader;
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
@@ -715,9 +716,6 @@ public final class Config {
     //  *******************************************************************************************
     public static final String  OTHER_CONFIG_FILE			= "./config/other.properties";
     //  *******************************************************************************************
-    public static boolean 			ALT_PRIVILEGES_ADMIN;
-    public static boolean 			ALT_PRIVILEGES_SECURE_CHECK;
-    public static int 				ALT_PRIVILEGES_DEFAULT_LEVEL;
     public static boolean 			JAIL_IS_PVP;						// Jail config	
     public static boolean 			JAIL_DISABLE_CHAT;					// Jail config
     public static String  			ALLOWED_NPC_TYPES;
@@ -863,10 +861,6 @@ public final class Config {
             }
             
             ANNOUNCE_MAMMON_SPAWN = Boolean.parseBoolean(otherSettings.getProperty("AnnounceMammonSpawn", "True"));
-            
-            ALT_PRIVILEGES_ADMIN = Boolean.parseBoolean(otherSettings.getProperty("AltPrivilegesAdmin", "False"));
-            ALT_PRIVILEGES_SECURE_CHECK = Boolean.parseBoolean(otherSettings.getProperty("AltPrivilegesSecureCheck", "True"));
-            ALT_PRIVILEGES_DEFAULT_LEVEL = Integer.parseInt(otherSettings.getProperty("AltPrivilegesDefaultLevel", "100"));
 
             PETITIONING_ALLOWED = Boolean.parseBoolean(otherSettings.getProperty("PetitioningAllowed", "True"));
             MAX_PETITIONS_PER_PLAYER = Integer.parseInt(otherSettings.getProperty("MaxPetitionsPerPlayer", "5"));
@@ -913,7 +907,6 @@ public final class Config {
     public static int 					URGENT_PACKET_THREAD_CORE_SIZE;
     public static int 					GENERAL_THREAD_CORE_SIZE;		// General max thread
     public static int 					AI_MAX_THREAD;					// AI max thread
-    public static boolean 				EVERYBODY_HAS_ADMIN_RIGHTS;		// For test servers - everybody has admin rights
     public static boolean 				AUTODELETE_INVALID_QUEST_DATA;	// Auto-delete invalid quest data ?
     public static boolean       		FORCE_INVENTORY_UPDATE;
     public static boolean 				SHOW_L2J_LICENSE;				// Show License at login
@@ -1016,9 +1009,7 @@ public final class Config {
             InputStream is               = new FileInputStream(new File(OPTIONS_FILE));
             optionsSettings.load(is);
             is.close();
-
-            EVERYBODY_HAS_ADMIN_RIGHTS      = Boolean.parseBoolean(optionsSettings.getProperty("EverybodyHasAdminRights", "false"));
-                         
+            
             ASSERT                          = Boolean.parseBoolean(optionsSettings.getProperty("Assert", "false"));
             DEVELOPER                       = Boolean.parseBoolean(optionsSettings.getProperty("Developer", "false"));
             TEST_SERVER                     = Boolean.parseBoolean(optionsSettings.getProperty("TestServer", "false"));
@@ -1417,6 +1408,8 @@ public final class Config {
     //  *******************************************************************************************    
     public static final String  GM_ACCESS_FILE				= "./config/GMAccess.properties";
     //  *******************************************************************************************
+    public static boolean 	ALT_PRIVILEGES_ADMIN;
+    public static boolean 	EVERYBODY_HAS_ADMIN_RIGHTS;		// For test servers - everybody has admin rights
     public static int     	GM_ACCESSLEVEL;
     public static int     	GM_MIN;					// General GM Minimal AccessLevel
     public static int     	GM_ANNOUNCE;			// General GM AccessLevel to change announcements
@@ -1479,6 +1472,8 @@ public final class Config {
             InputStream is          = new FileInputStream(new File(GM_ACCESS_FILE));  
             gmSettings.load(is);
             is.close();               
+            ALT_PRIVILEGES_ADMIN = Boolean.parseBoolean(gmSettings.getProperty("AltPrivilegesAdmin", "False"));
+            EVERYBODY_HAS_ADMIN_RIGHTS      = Boolean.parseBoolean(gmSettings.getProperty("EverybodyHasAdminRights", "false"));
             
             GM_ACCESSLEVEL  = Integer.parseInt(gmSettings.getProperty("GMAccessLevel", "100"));
             GM_MIN          = Integer.parseInt(gmSettings.getProperty("GMMinLevel", "100"));
@@ -1612,7 +1607,42 @@ public final class Config {
     //  *******************************************************************************************    
     public static final String  COMMAND_PRIVILEGES_FILE     = "./config/command-privileges.properties";
     //  *******************************************************************************************
-    
+    public static final Map<String, Integer> GM_COMMAND_PRIVILEGES = new FastMap<String, Integer>();
+    //  *******************************************************************************************
+    public static void loadprivilegesconfig()
+    {
+    	_log.info("loading " + COMMAND_PRIVILEGES_FILE);
+        try
+        {
+            Properties CommandPrivileges  = new Properties();
+            InputStream is            = new FileInputStream(new File(COMMAND_PRIVILEGES_FILE));  
+            CommandPrivileges.load(is);
+            is.close();
+            
+            for(Map.Entry<Object, Object> _command : CommandPrivileges.entrySet())
+            {
+            	String command = String.valueOf(_command.getKey());
+            	String commandLevel = String.valueOf(_command.getValue()).trim();
+            	
+            	int accessLevel = GM_ACCESSLEVEL;
+            	
+            	try
+            	{
+            		accessLevel = Integer.parseInt(commandLevel);
+            	} catch (Exception e)
+            	{
+            		_log.warn("Failed to parse command \""+command+"\"!",e );
+            	}
+            	
+            	GM_COMMAND_PRIVILEGES.put(command, accessLevel);
+            }
+        }
+        catch (Exception e)
+        {
+            _log.error(e);
+            throw new Error("Failed to Load "+COMMAND_PRIVILEGES_FILE+" File.");
+        }
+    }
     
     
     //  *******************************************************************************************    
@@ -1975,6 +2005,7 @@ public final class Config {
 			loadfunenginesconfig();
 			loadsevensignsconfig();
 			loadgmaccess();
+			loadprivilegesconfig();
 			loadsayfilter();
 			
 			initDBProperties();

@@ -18,9 +18,7 @@
  */
 package net.sf.l2j.gameserver.handler;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.Properties;
+import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -42,10 +40,6 @@ public class AdminCommandHandler
 	
 	private FastMap<String, IAdminCommandHandler> _datatable;
     
-    //Alt privileges setting
-    private static Log _priviLog = LogFactory.getLog("AltPrivilegesAdmin");
-    private static FastMap<String,Integer> _privileges;
-    
 	public static AdminCommandHandler getInstance()
 	{
 		if (_instance == null)
@@ -66,7 +60,15 @@ public class AdminCommandHandler
 		for (int i = 0; i < ids.length; i++)
 		{
 			if (_log.isDebugEnabled()) _log.debug("Adding handler for command "+ids[i]);
-			_datatable.put(new String(ids[i]), handler);
+			
+			if (_datatable.keySet().contains(new String(ids[i])))
+			{
+				_log.warn("Duplicated command \""+ids[i]+"\" definition in "+ handler.getClass().getName()+".");
+			} else
+				_datatable.put(new String(ids[i]), handler);
+			
+			if (Config.ALT_PRIVILEGES_ADMIN && !Config.GM_COMMAND_PRIVILEGES.containsKey(ids[i]))
+				_log.warn("Command \""+ids[i]+"\" have no access level definition. Can't be used.");
 		}
 	}
 	
@@ -87,80 +89,57 @@ public class AdminCommandHandler
      */
     public int size()
     {
-        return _datatable.size();
+    	return _datatable.size();
     }
     
-    public final boolean checkPrivileges(L2PcInstance player, String adminCommand)
+    public void checkDeprecated()
     {
+    	if (Config.ALT_PRIVILEGES_ADMIN)
+    		for (Object cmd : Config.GM_COMMAND_PRIVILEGES.keySet())
+    		{
+    			String _cmd = String.valueOf(cmd);
+    			if (!_datatable.containsKey(_cmd))
+    				_log.warn("Command \""+_cmd+"\" is no used anymore.");
+    		}
+	}
+    
+    public final boolean checkPrivileges(L2PcInstance player, String command)
+    {
+        // Can execute a admin command if everybody has admin rights
+    	if (Config.EVERYBODY_HAS_ADMIN_RIGHTS)
+    		return true;
+    	
         //Only a GM can execute a admin command
         if (!player.isGM())
             return false;
         
-        //Skip special privileges handler?
-        if (!Config.ALT_PRIVILEGES_ADMIN || Config.EVERYBODY_HAS_ADMIN_RIGHTS)
-            return true;
+        StringTokenizer st = new StringTokenizer(command, " ");
         
-        if (_privileges == null)
-            _privileges = new FastMap<String,Integer>();
+        String cmd = st.nextToken();  // get command
         
-        String command = adminCommand;
-        if (adminCommand.indexOf(" ") != -1) {
-            command = adminCommand.substring(0, adminCommand.indexOf(" "));
-        }
-        
-        //The command not exists
-        if (!_datatable.containsKey(command))
+		//Check command existance
+        if (!_datatable.containsKey(cmd))
             return false;
-        
-        int requireLevel = 0;
-        
-        if (!_privileges.containsKey(command))
+        	
+        //Check command privileges
+        if (Config.ALT_PRIVILEGES_ADMIN)
         {
-            //Try to loaded the command config
-            boolean isLoaded = false;
-            
-            try
-            {
-                Properties Settings   = new Properties();
-                InputStream is          = new FileInputStream(Config.COMMAND_PRIVILEGES_FILE);  
-                Settings.load(is);
-                is.close();
-                
-                String stringLevel = Settings.getProperty(command);
-                
-                if (stringLevel != null)
-                {
-                    isLoaded = true;
-                    requireLevel = Integer.parseInt(stringLevel);
-                }
-            }
-            catch (Exception e) { }
-            
-            //Secure level?
-            if (!isLoaded)
-            {
-                if (Config.ALT_PRIVILEGES_SECURE_CHECK)
-                {
-                    _priviLog.info("The command '" + command + "' haven't got a entry in the configuration file. The command cannot be executed!!");
-                    return false;
-                }
-                
-                requireLevel = Config.ALT_PRIVILEGES_DEFAULT_LEVEL;
-            }
-            
-            _privileges.put(command,requireLevel);
+        	if (Config.GM_COMMAND_PRIVILEGES.containsKey(cmd))
+        	{
+        		if (player.getAccessLevel() >= Config.GM_COMMAND_PRIVILEGES.get(cmd))
+        			return true;
+        	}
+        	else
+        	{
+        		_log.warn("Command \""+cmd+"\" have no access level definition. Can't be used.");
+        		return false;
+        	}
         }
+        /*
         else
-        {
-            requireLevel = _privileges.get(command);
-        }
-        
-        if (player.getAccessLevel() < requireLevel)
-        {
-            _priviLog.warn("<GM>" + player.getName() + ": have not access level to execute the command '" + command +"'");  
-            return false;
-        }
-        
+        	if (!_datatable.get(cmd).checkLevel(player.getAccessLevel()))
+        		return false;	
+        */
         return true;
     }
 }

@@ -75,8 +75,6 @@ public class AdminTeleport implements IAdminCommandHandler
         "admin_recall_pt", //[L2J_JP ADD - TSL]
         "admin_recall_all", //[L2J_JP ADD - TSL]
         "admin_walk",
-        "teleportto",
-        "recall",
         "admin_recall_npc",
         "admin_gonorth",
         "admin_gosouth",

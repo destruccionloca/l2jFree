@@ -545,7 +545,6 @@ public class GameServer
         _adminCommandHandler.registerAdminCommandHandler(new AdminTeleport());
         _adminCommandHandler.registerAdminCommandHandler(new AdminTest());
         _adminCommandHandler.registerAdminCommandHandler(new AdminEnchant());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminMobGroup());
         _adminCommandHandler.registerAdminCommandHandler(new AdminUnblockIp());
         _adminCommandHandler.registerAdminCommandHandler(new AdminZone());
         _adminCommandHandler.registerAdminCommandHandler(new AdminTvTEngine());

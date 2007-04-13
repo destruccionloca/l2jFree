@@ -20,27 +20,20 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
-import net.sf.l2j.gameserver.idfactory.IdFactory;
-import net.sf.l2j.gameserver.model.Experience;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.serverpackets.NpcInfo;
-import net.sf.l2j.gameserver.serverpackets.PetInfo;
-import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.StopMove;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
-import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
 * This class handles following admin commands: 	- invis / invisible = make yourself invisible
@@ -55,8 +48,8 @@ public class AdminEffects implements IAdminCommandHandler
 	   "admin_visible", "admin_earthquake", "admin_bighead", "admin_shrinkhead", "admin_gmspeed",  
 	   "admin_unpara_all", "admin_para_all", "admin_unpara", "admin_para", "admin_polyself",
 	   "admin_unpolyself", "admin_changename", "admin_clearteams", "admin_setteam_close",
-       "admin_setteam", "admin_sethero",
-       "admin_create_adena", "admin_summon123"};
+       "admin_setteam",
+       "admin_create_adena"};
 
    private static final int REQUIRED_LEVEL = Config.GM_GODMODE;
 
@@ -376,73 +369,7 @@ public class AdminEffects implements IAdminCommandHandler
            }
            player.broadcastUserInfo();
        }
-       else if (command.startsWith("admin_sethero"))
-       {
-			L2Object target = activeChar.getTarget();
-			L2PcInstance player = null;
-    	    SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);		
-			if (target instanceof L2PcInstance)
-				player = (L2PcInstance)target;
-			else
-     	      	player = activeChar;
-		
-			if (player.isHero())
-			{
-				player.setHero(false);
-				sm.addString("You are not longer a hero");				
-			}
-			else
-			{
-                player.broadcastPacket(new SocialAction(player.getObjectId(), 16));
-				player.setHero(true);
-				sm.addString("You are now a hero");
-			}
-		    sm.addString("Admin changed your hero status");
-		    player.sendPacket(sm);
-    	   	player.broadcastUserInfo();
-       }
-       else if (command.startsWith("admin_summon123"))
-       {
-		StringTokenizer st = new StringTokenizer(command);
-		try
-		{
-		st.nextToken();
-	        int npcId = Integer.parseInt(st.nextToken());
-	
-	        if (activeChar.getPet() != null)
-	           return false;
-	
-	        float expPenalty = 0.f;
-	
-	        L2NpcTemplate summonTemplate = NpcTable.getInstance().getTemplate(npcId);
-            L2SummonInstance summon = new L2SummonInstance(IdFactory.getInstance().getNextId(), summonTemplate, activeChar, null);
-			
-	        summon.setTitle(activeChar.getName());
-	        summon.setExpPenalty(expPenalty);
-	        if (summon.getLevel() >= Experience.LEVEL.length)
-	        {
-	            summon.getStat().setExp(Experience.LEVEL[Experience.LEVEL.length - 1]);
-	        }
-	        else
-	        {
-	            summon.getStat().setExp(Experience.LEVEL[(summon.getLevel() % Experience.LEVEL.length)]);
-	        }
-			summon.setCurrentHp(summon.getMaxHp());
-			summon.setCurrentMp(summon.getMaxMp());
-			summon.setHeading(activeChar.getHeading());
-			summon.setRunning();
-			activeChar.setPet(summon);
-	    		
-	    	L2World.getInstance().storeObject(summon);
-	        summon.spawnMe(activeChar.getX()+50, activeChar.getY()+100, activeChar.getZ());
-	    		
-	    	summon.setFollowStatus(true);
-	        summon.setShowSummonAnimation(false);
-	        activeChar.sendPacket(new PetInfo(summon));
-		}
-        catch(Exception e){}
-       }
-       else if (command.startsWith("admin_create_adena"))
+        else if (command.startsWith("admin_create_adena"))
        {
 		   	StringTokenizer st = new StringTokenizer(command);
 		   	try
