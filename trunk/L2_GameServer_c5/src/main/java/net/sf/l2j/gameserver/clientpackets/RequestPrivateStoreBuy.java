@@ -22,6 +22,7 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.TradeList;
@@ -70,6 +71,15 @@ public class RequestPrivateStoreBuy extends ClientBasePacket
     {
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
+		
+        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
+        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        {
+			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
+			sendPacket(new ActionFailed());
+			return;
+        }
+		
         L2Object object = L2World.getInstance().findObject(_storePlayerId);
         if (object == null || !(object instanceof L2PcInstance)) return;
         L2PcInstance storePlayer = (L2PcInstance)object;

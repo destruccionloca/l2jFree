@@ -127,7 +127,7 @@ public class AdminShutdown implements IAdminCommandHandler {
 	
 	private void serverShutdown(L2PcInstance activeChar, int seconds, boolean restart)
 	{
-		Shutdown.getInstance().startShutdown(activeChar, seconds, restart);
+		Shutdown.getInstance().startShutdown(activeChar, seconds, restart?Shutdown.shutdownModeType.RESTART:Shutdown.shutdownModeType.SHUTDOWN);
 	}
 	
 	private void serverAbort(L2PcInstance activeChar)

@@ -34,6 +34,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.Olympiad;
+import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
@@ -412,6 +413,15 @@ public abstract class L2Character extends L2Object
      */
     public void teleToLocation(int x, int y, int z, boolean allowRandomOffset)
     {
+        // Restrict teleport during restart/shutdown
+    	if (this instanceof L2PcInstance)
+        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TELEPORT && Shutdown.getCounterInstance() != null 
+        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        {
+            sendMessage("Teleport isn't allowed during restart/shutdown!");
+            return;
+        }
+        
         // Stop movement
         stopMove(null, false);
         this.abortAttack();

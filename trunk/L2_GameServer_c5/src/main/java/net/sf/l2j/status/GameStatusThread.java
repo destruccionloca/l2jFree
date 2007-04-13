@@ -436,7 +436,7 @@ public class GameStatusThread extends Thread
                     try
                     {
                         int val = Integer.parseInt(_usrCommand.substring(9)); 
-                        Shutdown.getInstance().startTelnetShutdown(_csocket.getInetAddress().getHostAddress(), val, false);
+                        Shutdown.getInstance().startShutdown(_csocket.getInetAddress().getHostAddress(), val,Shutdown.shutdownModeType.SHUTDOWN);
                         _print.println("Server Will Shutdown In " + val + " Seconds!");
                         _print.println("Type \"abort\" To Abort Shutdown!");
                     }
@@ -453,7 +453,7 @@ public class GameStatusThread extends Thread
                     try
                     {
                         int val = Integer.parseInt(_usrCommand.substring(8)); 
-                        Shutdown.getInstance().startTelnetShutdown(_csocket.getInetAddress().getHostAddress(), val, true);
+                        Shutdown.getInstance().startShutdown(_csocket.getInetAddress().getHostAddress(), val,Shutdown.shutdownModeType.RESTART);
                         _print.println("Server Will Restart In " + val + " Seconds!");
                         _print.println("Type \"abort\" To Abort Restart!");
                     }
@@ -467,7 +467,7 @@ public class GameStatusThread extends Thread
                 }
                 else if (_usrCommand.startsWith("abort"))
                 {
-                    Shutdown.getInstance().Telnetabort(_csocket.getInetAddress().getHostAddress());
+                    Shutdown.getInstance().abort(_csocket.getInetAddress().getHostAddress());
                     _print.println("OK! - Shutdown/Restart Aborted.");
                 }
                 else if (_usrCommand.equals("quit")) { /* Do Nothing :p - Just here to save us from the "Command Not Understood" Text */ }

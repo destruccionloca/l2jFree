@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
@@ -27,6 +26,7 @@ import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,75 +46,35 @@ public class Shutdown extends Thread
     
     private int secondsShut;    
     
-    private int shutdownMode;
-    public static final int SIGTERM = 0;
-    public static final int GM_SHUTDOWN = 1;
-    public static final int GM_RESTART = 2;
-    public static final int ABORT = 3;
-    private static String[] _modeText = {"SIGTERM", "shutting down", "restarting", "aborting"};
+    private shutdownModeType shutdownMode;
     
-    /**
-     * This function starts a shutdown countdown from Telnet (Copied from Function startShutdown())
-     * 
-     * @param ip            IP Which Issued shutdown command
-     * @param seconds       seconds untill shutdown
-     * @param restart       true if the server will restart after shutdown
-     */
-    
-    public void startTelnetShutdown(String IP, int seconds, boolean restart)
+    public enum shutdownModeType
     {
-        Announcements _an = Announcements.getInstance();
-        _log.warn("IP: " + IP + " issued shutdown command. " + _modeText[shutdownMode] + " in "+seconds+ " seconds!");
-        //_an.announceToAll("Server is " + _modeText[shutdownMode] + " in "+seconds+ " seconds!");
-        
-        if (restart) {
-            shutdownMode = GM_RESTART;
-        } else {
-            shutdownMode = GM_SHUTDOWN;
-        }
-        
-        if(shutdownMode > 0)
-        {
-            _an.announceToAll("Attention players!");
-            _an.announceToAll("Server is " + _modeText[shutdownMode] + " in "+seconds+ " seconds!");
-            if(shutdownMode == 1 || shutdownMode == 2)
-            {
-                _an.announceToAll("Please, avoid to use Gatekeepers/SoE");
-                _an.announceToAll("during server " + _modeText[shutdownMode] + " procedure.");
-            }
-        }
-
-        if (_counterInstance != null) {
-            _counterInstance._abort();
-            _counterInstance = null;
-        }
-        _counterInstance = new Shutdown(seconds, restart);
-        _counterInstance.start();
+    	SIGTERM  ("Terminating"),
+    	SHUTDOWN ("Shutting down"),
+    	RESTART ("Restarting"),
+    	ABORT ("Aborting");
+    	
+    	private final String _modeText;
+    	
+    	shutdownModeType (String modeText)
+    	{
+    		_modeText = modeText;
+    	}
+    	
+    	public String getText()
+    	{
+    		return _modeText;
+    	}
     }
     
     /**
-     * This function aborts a running countdown
-     * 
-     * @param IP            IP Which Issued shutdown command
-     */
-    public void Telnetabort(String IP) {
-        Announcements _an = Announcements.getInstance();
-        _log.warn("IP: " + IP + " issued shutdown ABORT. " + _modeText[shutdownMode] + " has been stopped!");
-        _an.announceToAll("Server aborts " + _modeText[shutdownMode] + " and continues normal operation!");
-
-        if (_counterInstance != null) {
-            _counterInstance._abort();
-            _counterInstance = null;
-        }
-    }
-
-    /**
-     * Default constucter is only used internal to create the shutdown-hook instance
+     * Default constuctor is only used internal to create the shutdown-hook instance
      *
      */
     public Shutdown() {
         secondsShut = -1;
-        shutdownMode = SIGTERM;
+        shutdownMode = shutdownModeType.SIGTERM;
     }
     
     /**
@@ -124,16 +84,12 @@ public class Shutdown extends Thread
      * @param restart   true is the server shall restart after shutdown
      * 
      */
-    public Shutdown(int seconds, boolean restart) {
+    public Shutdown(int seconds, shutdownModeType mode) {
         if (seconds < 0) {
             seconds = 0;
         }
         secondsShut = seconds;
-        if (restart) {
-            shutdownMode = GM_RESTART;
-        } else {
-            shutdownMode = GM_SHUTDOWN;
-        }
+        shutdownMode = mode;
     }
 
     /**
@@ -200,10 +156,10 @@ public class Shutdown extends Thread
             } catch (Throwable t) {}
             // commit data, last chance
             try {
-                L2DatabaseFactory.getInstance().shutdown();
+                //L2DatabaseFactory.getInstance().shutdown();
             } catch (Throwable t) {}
             // server will quit, when this function ends.
-            if (_instance.shutdownMode == GM_RESTART)
+            if (_instance.shutdownMode == shutdownModeType.RESTART)
                 Runtime.getRuntime().halt(2);
             else
                 Runtime.getRuntime().halt(0);
@@ -211,14 +167,14 @@ public class Shutdown extends Thread
             // gm shutdown: send warnings and then call exit to start shutdown sequence
             countdown();
             // last point where logging is operational :(
-            _log.warn("GM shutdown countdown is over. " + _modeText[shutdownMode] + " NOW!");
+            _log.warn("Shutdown countdown is over. " + _instance.shutdownMode.getText() + " NOW!");
             switch (shutdownMode) {
-                case GM_SHUTDOWN:
-                    _instance.setMode(GM_SHUTDOWN);
+                case SHUTDOWN:
+                    _instance.setMode(shutdownModeType.SHUTDOWN);
                     System.exit(0);
                     break;
-                case GM_RESTART:
-                    _instance.setMode(GM_RESTART);
+                case RESTART:
+                    _instance.setMode(shutdownModeType.RESTART);
                     System.exit(2);
                     break;
             }
@@ -232,33 +188,32 @@ public class Shutdown extends Thread
      * @param seconds       seconds until shutdown
      * @param restart       true if the server will restart after shutdown
      */
-    public void startShutdown(L2PcInstance activeChar, int seconds, boolean restart) {
-        Announcements _an = Announcements.getInstance();
-        _log.warn("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") issued shutdown command. " + _modeText[shutdownMode] + " in "+seconds+ " seconds!");
-        
-        if (restart) {
-            shutdownMode = GM_RESTART;
-        } else {
-            shutdownMode = GM_SHUTDOWN;
-        }
-        
-        if(shutdownMode > 0)
-        {
-            _an.announceToAll("Attention players!");
-            _an.announceToAll("Server is " + _modeText[shutdownMode] + " in "+seconds+ " seconds!");
-            if(shutdownMode == 1 || shutdownMode == 2)
-            {
-                _an.announceToAll("Please, avoid to use Gatekeepers/SoE");
-                _an.announceToAll("during server " + _modeText[shutdownMode] + " procedure.");
-            }
-        }
+    public void startShutdown(L2PcInstance activeChar, int seconds, shutdownModeType mode) {
+    	startShutdown(activeChar.getName()+"("+activeChar.getObjectId()+")", seconds, mode); 	
+    }
+    /**
+     * This functions starts a shutdown countdown
+     * 
+     * @param initiator     Who issued the shutdown command
+     * @param seconds       seconds until shutdown
+     * @param restart       true if the server will restart after shutdown
+     */
+    public void startShutdown(String _initiator, int seconds, shutdownModeType mode) 
+    {
+
+        _log.warn(_initiator+" issued shutdown command. " + mode.getText() + " in "+seconds+ " seconds!");
+
+        setMode(mode);
+
+       Announcements.getInstance().announceToAll("Attention players!");
+       Announcements.getInstance().announceToAll("Server is " + shutdownMode.getText().toLowerCase() + " in "+seconds+ " seconds!");
 
         if (_counterInstance != null) {
             _counterInstance._abort();
         }
         
 //       the main instance should only run for shutdown hook, so we start a new instance
-        _counterInstance = new Shutdown(seconds, restart);
+        _counterInstance = new Shutdown(seconds, mode);
         _counterInstance.start();
     }
 
@@ -268,9 +223,17 @@ public class Shutdown extends Thread
      * @param activeChar    GM who issued the abort command
      */
     public void abort(L2PcInstance activeChar) {
-        Announcements _an = Announcements.getInstance();
-        _log.warn("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") issued shutdown ABORT. " + _modeText[shutdownMode] + " has been stopped!");
-        _an.announceToAll("Server aborts " + _modeText[shutdownMode] + " and continues normal operation!");
+    	abort(activeChar.getName()+"("+activeChar.getObjectId()+")");
+    }
+    /**
+     * This function aborts a running countdown
+     * 
+     * @param activeChar    GM who issued the abort command
+     */
+    public void abort(String _initiator) {
+
+        _log.warn(_initiator + " issued shutdown ABORT. " + shutdownMode.getText() + " has been stopped!");
+        Announcements.getInstance().announceToAll("Server aborts " + shutdownMode.getText().toLowerCase() + " and continues normal operation!");
 
         if (_counterInstance != null) {
             _counterInstance._abort();
@@ -279,10 +242,18 @@ public class Shutdown extends Thread
     }
     
     /**
+     * get the current count down
+     * @param mode  what mode shall be set
+     */
+    public int getCountdow() {
+        return secondsShut;
+    }
+    
+    /**
      * set the shutdown mode
      * @param mode  what mode shall be set
      */
-    private void setMode(int mode) {
+    private void setMode(shutdownModeType mode) {
         shutdownMode = mode;
     }
 
@@ -291,7 +262,7 @@ public class Shutdown extends Thread
      *
      */
     private void _abort() {
-        shutdownMode = ABORT;
+        shutdownMode = shutdownModeType.ABORT;
     }
 
     /**
@@ -299,34 +270,35 @@ public class Shutdown extends Thread
      * countdown is aborted if mode changes to ABORT
      */
     private void countdown() {
-        Announcements _an = Announcements.getInstance();
         
         try {
             while (secondsShut > 0) {
                 
-                switch (secondsShut)
-                {
-                    case 540:_an.announceToAll("The server is " + _modeText[shutdownMode] + " in 9 minutes.");break;
-                    case 480:_an.announceToAll("The server is " + _modeText[shutdownMode] + " in 8 minutes.");break;
-                    case 420:_an.announceToAll("The server is " + _modeText[shutdownMode] + " in 7 minutes.");break;
-                    case 360:_an.announceToAll("The server is " + _modeText[shutdownMode] + " in 6 minutes.");break;
-                    case 300:_an.announceToAll("The server is " + _modeText[shutdownMode] + " in 5 minutes.");break;
-                    case 240:_an.announceToAll("The server is " + _modeText[shutdownMode] + " in 4 minutes.");break;
-                    case 180:_an.announceToAll("The server is " + _modeText[shutdownMode] + " in 3 minutes.");break;
-                    case 120:_an.announceToAll("The server is " + _modeText[shutdownMode] + " in 2 minutes.");break;
-                    case 60:
-                        LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_DOWN); //avoids new players from logging in
-                        _an.announceToAll("The server is " + _modeText[shutdownMode] + " in 1 minute.");break;
-                    case 30:_an.announceToAll("The server is " + _modeText[shutdownMode] + " in 30 seconds.");break;
-                    case 5:_an.announceToAll("The server is " + _modeText[shutdownMode] + " in 5 seconds, please delog NOW !");break;
-                }
+                int _seconds;
+                int _minutes;
+                int _hours;
+
+                _seconds = secondsShut;
+                _minutes = Math.round(_seconds / 60);
+                _hours = Math.round(_seconds / 3600);
+                		
+                // announce only every minute after 10 minutes left and every second after 10 seconds
+                if ((_seconds <= 10 || _seconds == _minutes * 60) && (_seconds <= 600) && _hours <=1)
+                	{
+                		SystemMessage sm = new SystemMessage(SystemMessage.THE_SERVER_WILL_BE_COMING_DOWN_IN_S1_SECONDS);
+                		sm.addString(Integer.toString(_seconds));
+                		Announcements.getInstance().announceToAll(sm);
+                	}
                 
+                if (_seconds <= 60 )
+                	LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_DOWN);
+                 
                 secondsShut--;
                     
                 int delay = 1000; //milliseconds    
                 Thread.sleep(delay);
                 
-                if(shutdownMode == ABORT) break;
+                if(shutdownMode == shutdownModeType.ABORT) break;
             }               
         } catch (InterruptedException e) {
             //this will never happen
@@ -338,23 +310,12 @@ public class Shutdown extends Thread
      *
      */
     private void saveData() {
-        Announcements _an = Announcements.getInstance();
-        switch (shutdownMode)
-        {
-            case SIGTERM:
-                _log.info("SIGTERM received. Shutting down NOW!");
-                break;
-            case GM_SHUTDOWN:
-                _log.info("GM shutdown received. Shutting down NOW!");
-                break;
-            case GM_RESTART:
-                _log.info("GM restart received. Restarting NOW!");
-                break;
-                    
-        }
+
+    	_log.info(shutdownMode.toString()+" received. "+shutdownMode.getText()+" NOW!");
+               
         try
         {
-            _an.announceToAll("Server is " + _modeText[shutdownMode] + " NOW!");
+        	Announcements.getInstance().announceToAll("Server is " + shutdownMode.getText().toLowerCase() + " NOW!");
         } catch (Throwable t) {
             _log.info( "", t);
         }
@@ -368,27 +329,28 @@ public class Shutdown extends Thread
 
         // Save Seven Signs data before closing. :)
         SevenSigns.getInstance().saveSevenSignsData(null, true);
-        
+        _log.info("SevenSigns: Data saved.");
         // Save all raidboss status ^_^
         RaidBossSpawnManager.getInstance().cleanUp();
-        _log.info("RaidBossSpawnManager: All raidboss info saved!!");
+        _log.info("RaidBossSpawnManager: All raidboss info saved.");
 
         try
         {
             Olympiad.getInstance().save();
-            _log.info("Olympiad System: Data saved!!");
+            _log.info("Olympiad: Data saved.");
         }
         catch(Exception e){_log.error(e.getMessage(),e);}
 
         // Save Cursed Weapons data before closing.
-        CursedWeaponsManager.getInstance().saveData();    
+        CursedWeaponsManager.getInstance().saveData();
+        _log.info("CursedWeaponsManager: Data saved.");
         // Save items on ground before closing
         if(Config.SAVE_DROPPED_ITEM){
             ItemsOnGroundManager.getInstance().saveInDb();        
             ItemsOnGroundManager.getInstance().cleanUp();
-            _log.info("ItemsOnGroundManager: All items on ground saved!!");
+            _log.info("ItemsOnGroundManager: All items on ground saved.");
         }
-        _log.info("Data saved. All players disconnected, shutting down.");
+        _log.info("Data saved. All players disconnected, "+shutdownMode.getText().toLowerCase()+".");
         
         try {
             int delay = 5000;

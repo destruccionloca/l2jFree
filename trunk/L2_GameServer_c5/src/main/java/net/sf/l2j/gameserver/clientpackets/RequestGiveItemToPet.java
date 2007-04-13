@@ -22,6 +22,7 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
@@ -55,6 +56,21 @@ public class RequestGiveItemToPet extends ClientBasePacket
 		L2PcInstance player = getClient().getActiveChar(); 
         if (player == null || player.getPet() == null || !(player.getPet() instanceof L2PetInstance)) return;
 
+		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
+        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        {
+			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
+			player.sendPacket(new SystemMessage(SystemMessage.NOTHING_HAPPENED));
+            return;
+        }
+		
+        if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+        {
+            player.sendMessage("Transactions are disable for your Access Level");
+            player.sendPacket(new SystemMessage(SystemMessage.NOTHING_HAPPENED));
+            return;
+        }
+        
         // Alt game - Karma punishment
         if (!Config.ALT_GAME_KARMA_PLAYER_CAN_TRADE && player.getKarma() > 0) return;
 

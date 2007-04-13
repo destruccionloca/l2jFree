@@ -22,8 +22,10 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreManageListBuy;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreMsgBuy;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -68,9 +70,18 @@ public class SetPrivateStoreListBuy extends ClientBasePacket
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
         
+		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
+        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        {
+			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
+			sendPacket(new ActionFailed());
+			return;
+        }
+		
         if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
         {
             player.sendMessage("Transactions are disable for your Access Level");
+            sendPacket(new ActionFailed());
             return;
         }
         

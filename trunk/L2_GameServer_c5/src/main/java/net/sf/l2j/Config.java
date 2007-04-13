@@ -82,6 +82,13 @@ public final class Config {
     public static int   		MAXIMUM_ONLINE_USERS;			// Maximum number of players allowed to play simultaneously on server
     public enum 				IOType {nio,aio4j}				// io type WARNING aio4j is not working properly atm
     public static boolean    	SAFE_REBOOT = false;			// Safe mode will disable some feature during restart/shutdown to prevent exploit
+    public static int        	SAFE_REBOOT_TIME = 10;
+    public static boolean    	SAFE_REBOOT_DISABLE_ENCHANT = false;
+    public static boolean    	SAFE_REBOOT_DISABLE_TELEPORT = false;
+    public static boolean    	SAFE_REBOOT_DISABLE_CREATEITEM = false;
+    public static boolean    	SAFE_REBOOT_DISABLE_TRANSACTION = false;
+    public static boolean    	SAFE_REBOOT_DISABLE_PC_ITERACTION = false;
+    public static boolean    	SAFE_REBOOT_DISABLE_NPC_ITERACTION = false;
     public static boolean 		NETWORK_TRAFFIC_OPTIMIZATION;
     public static int     		NETWORK_TRAFFIC_OPTIMIZATION_MS;
     public static int           MIN_PROTOCOL_REVISION;			// protocol revision
@@ -172,7 +179,16 @@ public final class Config {
             DATABASE_LOGIN              = serverSettings.getProperty("Login", "root");
             DATABASE_PASSWORD           = serverSettings.getProperty("Password", "");
             DATABASE_MAX_CONNECTIONS    = Integer.parseInt(serverSettings.getProperty("MaximumDbConnections", "10"));
+            
             SAFE_REBOOT  = Boolean.valueOf(serverSettings.getProperty("SafeReboot", "False"));
+            SAFE_REBOOT_TIME    = Integer.parseInt(serverSettings.getProperty("SafeRebootTime", "10"));
+            SAFE_REBOOT_DISABLE_ENCHANT = Boolean.valueOf(serverSettings.getProperty("SafeRebootDisableEnchant", "False"));
+            SAFE_REBOOT_DISABLE_TELEPORT = Boolean.valueOf(serverSettings.getProperty("SafeRebootDisableTeleport", "False"));
+            SAFE_REBOOT_DISABLE_CREATEITEM = Boolean.valueOf(serverSettings.getProperty("SafeRebootDisableCreateItem", "False"));
+            SAFE_REBOOT_DISABLE_TRANSACTION = Boolean.valueOf(serverSettings.getProperty("SafeRebootDisableTransaction", "False"));
+            SAFE_REBOOT_DISABLE_PC_ITERACTION = Boolean.valueOf(serverSettings.getProperty("SafeRebootDisablePcIteraction", "False"));
+            SAFE_REBOOT_DISABLE_NPC_ITERACTION = Boolean.valueOf(serverSettings.getProperty("SafeRebootDisableNpcIteraction", "False"));
+
             NETWORK_TRAFFIC_OPTIMIZATION     = Boolean.valueOf(serverSettings.getProperty("NetworkTrafficOptimization", "False"));
             NETWORK_TRAFFIC_OPTIMIZATION_MS  = Integer.parseInt(serverSettings.getProperty("NetworkTrafficOptimizationMs", "1100"));
             FLOOD_PROTECTION     = Boolean.valueOf(serverSettings.getProperty("FloodProtection", "False"));

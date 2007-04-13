@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -57,6 +58,14 @@ public class RequestEnchantItem extends ClientBasePacket
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null || _objectId == 0) return;
 
+        // Restrict enchant during restart/shutdown (because of an existing exploit)
+        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_ENCHANT && Shutdown.getCounterInstance() != null 
+        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        {
+            activeChar.sendMessage("Enchant isn't allowed during restart/shutdown!");
+            return;
+        }
+        
         L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_objectId);
         L2ItemInstance scroll = activeChar.getActiveEnchantItem();
         activeChar.setActiveEnchantItem(null);

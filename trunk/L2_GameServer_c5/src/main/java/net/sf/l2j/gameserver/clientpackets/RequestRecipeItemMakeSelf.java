@@ -20,9 +20,12 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.RecipeController;
+import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
  * @author Administrator
@@ -53,6 +56,14 @@ public class RequestRecipeItemMakeSelf extends ClientBasePacket
 		if (activeChar == null)
 		    return;
         
+		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_CREATEITEM && Shutdown.getCounterInstance() != null 
+        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        {
+			activeChar.sendMessage("Item creation isn't allowed during restart/shutdown!");
+			activeChar.sendPacket(new SystemMessage(SystemMessage.NOTHING_HAPPENED));
+            return;
+        }
+		
         if (activeChar.getPrivateStoreType() != 0)
         {
             activeChar.sendMessage("Cannot make items while trading");

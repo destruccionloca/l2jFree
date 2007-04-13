@@ -44,6 +44,7 @@ import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.RecipeController;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
+import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
@@ -3181,6 +3182,16 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void onAction(L2PcInstance player)
     {
+        // Restrict iteractions during restart/shutdown
+        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_PC_ITERACTION && Shutdown.getCounterInstance() != null 
+        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        {
+            sendMessage("Player iteraction disabled during restart/shutdown!");
+            ActionFailed af = new ActionFailed();
+            player.sendPacket(af);
+            return;
+        }
+        
         if ((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.DM_ALLOW_INTERFERENCE) || (DM._started && !Config.CTF_ALLOW_INTERFERENCE))
         {
             if ((_inEventTvT && !player._inEventTvT) || (!_inEventTvT && player._inEventTvT))

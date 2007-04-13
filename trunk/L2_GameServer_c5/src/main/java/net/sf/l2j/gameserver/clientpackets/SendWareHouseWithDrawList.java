@@ -22,6 +22,7 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.ClanWarehouse;
 import net.sf.l2j.gameserver.model.ItemContainer;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -30,6 +31,7 @@ import net.sf.l2j.gameserver.model.PcFreight;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -82,6 +84,15 @@ public class SendWareHouseWithDrawList extends ClientBasePacket
 	{
 		L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
+		
+        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
+        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        {
+			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
+			sendPacket(new ActionFailed());
+			return;
+        }
+		
         ItemContainer warehouse = player.getActiveWarehouse();
         if (warehouse == null) return;
 		L2FolkInstance manager = player.getLastFolkNPC();
@@ -90,6 +101,7 @@ public class SendWareHouseWithDrawList extends ClientBasePacket
         if ((warehouse instanceof PcFreight || warehouse instanceof ClanWarehouse) && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
         {
             player.sendMessage("Transactions are disable for your Access Level");
+            sendPacket(new ActionFailed());
             return;
         }
 

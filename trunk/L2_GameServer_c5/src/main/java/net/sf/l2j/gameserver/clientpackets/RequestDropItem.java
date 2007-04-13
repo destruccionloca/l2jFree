@@ -22,6 +22,7 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -80,6 +81,15 @@ public class RequestDropItem extends ClientBasePacket
 	{
         L2PcInstance activeChar = getClient().getActiveChar();
     	if (activeChar == null) return;
+    	
+		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
+        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        {
+			activeChar.sendMessage("Transactions isn't allowed during restart/shutdown!");
+			activeChar.sendPacket(new SystemMessage(SystemMessage.NOTHING_HAPPENED));
+            return;
+        }
+		
         L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_objectId);
         
         if (item == null 
@@ -125,7 +135,6 @@ public class RequestDropItem extends ClientBasePacket
         	Util.handleIllegalPlayerAction(activeChar,"[RequestDropItem] count > 1 but item is not stackable! ban! oid: "+_objectId+" owner: "+activeChar.getName(),IllegalPlayerAction.PUNISH_KICK);
         	return;
         }
-
         
         if (Config.GM_DISABLE_TRANSACTION && activeChar.getAccessLevel() >= Config.GM_TRANSACTION_MIN && activeChar.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
         {

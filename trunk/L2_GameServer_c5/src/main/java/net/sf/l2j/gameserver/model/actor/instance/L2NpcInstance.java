@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
+import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.cache.HtmCache;
@@ -514,6 +515,16 @@ public class L2NpcInstance extends L2Character
      */
     public void onAction(L2PcInstance player)
     {
+        // Restrict iteractions during restart/shutdown
+        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_NPC_ITERACTION && Shutdown.getCounterInstance() != null 
+        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        {
+            sendMessage("All NPC iteractions disabled during restart/shutdown!");
+            ActionFailed af = new ActionFailed();
+            player.sendPacket(af);
+            return;
+        }
+        
         // Check if the L2PcInstance already target the L2NpcInstance
         if (this != player.getTarget())
         {

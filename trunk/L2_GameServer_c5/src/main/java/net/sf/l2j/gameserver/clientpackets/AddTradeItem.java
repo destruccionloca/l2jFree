@@ -22,9 +22,11 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.TradeOtherAdd;
 import net.sf.l2j.gameserver.serverpackets.TradeOwnAdd;
@@ -60,6 +62,15 @@ public class AddTradeItem extends ClientBasePacket
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
 
+		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
+        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        {
+			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
+			sendPacket(new ActionFailed());
+			player.cancelActiveTrade();
+            return;
+        }
+        
         TradeList trade = player.getActiveTradeList();
         if (trade == null)
         	{

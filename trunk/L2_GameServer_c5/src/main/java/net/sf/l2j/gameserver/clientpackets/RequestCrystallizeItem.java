@@ -22,6 +22,7 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
@@ -71,7 +72,15 @@ public class RequestCrystallizeItem extends ClientBasePacket
             _log.debug("RequestCrystalizeItem: activeChar was null");
             return;
         }
-            
+        
+		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_CREATEITEM && Shutdown.getCounterInstance() != null 
+        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        {
+			activeChar.sendMessage("Item creation isn't allowed during restart/shutdown!");
+			activeChar.sendPacket(new SystemMessage(SystemMessage.NOTHING_HAPPENED));
+            return;
+        }
+		
         if (_count <= 0)
         {
             Util.handleIllegalPlayerAction(activeChar,

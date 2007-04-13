@@ -24,6 +24,7 @@ import java.util.concurrent.Future;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
@@ -125,6 +126,15 @@ public class RequestWearItem extends ClientBasePacket
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
 
+		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
+        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        {
+			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
+			sendPacket(new ActionFailed());
+			player.cancelActiveTrade();
+            return;
+        }
+		
         // If Alternate rule Karma punishment is set to true, forbid Wear to player with Karma
         if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0) return;
 

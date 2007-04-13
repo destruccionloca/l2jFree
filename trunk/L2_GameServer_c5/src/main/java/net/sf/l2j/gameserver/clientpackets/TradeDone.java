@@ -22,9 +22,11 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -52,6 +54,16 @@ public class TradeDone extends ClientBasePacket
 	{
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
+		
+        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
+        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        {
+			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
+			player.cancelActiveTrade();
+			sendPacket(new ActionFailed());
+			return;
+        }
+		
         TradeList trade = player.getActiveTradeList();
         if (trade == null)
         	{
@@ -75,8 +87,9 @@ public class TradeDone extends ClientBasePacket
 	        if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
 	            && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 	        {
-	            player.cancelActiveTrade();
 	            player.sendMessage("Transactions are disable for your Access Level");
+	            player.cancelActiveTrade();
+	            sendPacket(new ActionFailed());
 	            return;
 	        }
 	        trade.Confirm();

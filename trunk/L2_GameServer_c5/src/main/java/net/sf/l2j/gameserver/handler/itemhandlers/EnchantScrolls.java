@@ -44,7 +44,8 @@ public class EnchantScrolls implements IItemHandler
         if(activeChar.isCastingNow()) return;
 
         // Restrict enchant during restart/shutdown (because of an existing exploit)
-        if (Config.SAFE_REBOOT && Shutdown.getCounterInstance() != null)
+        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_ENCHANT && Shutdown.getCounterInstance() != null 
+        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
         {
             activeChar.sendMessage("Enchant isn't allowed during restart/shutdown!");
             return;
