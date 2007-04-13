@@ -51,7 +51,7 @@ public class RequestRestart extends ClientBasePacket
         if (player == null)
             return;
         
-        if (player.logout())
+        if (player.isGM() || player.logout())
         {
             player.sendPacket(new RestartResponse());    
             player.deleteMe();

@@ -50,7 +50,7 @@ public class Logout extends ClientBasePacket
         if (player == null)
             return;
 
-        if (player.logout())
+        if (player.isGM() || player.logout())
         {
             // normally the server would send serveral "delete object" before "leaveWorld"
             // we skip that for now
