@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -125,8 +126,9 @@ public class AdminMenu implements IAdminCommandHandler
 				SystemMessage sm = new SystemMessage(614);
 				if (plyr != null)
 				{
-					//_log.debugr("Player2 "+plyr.getName());
-					plyr.logout();
+	                plyr.sendPacket(new LeaveWorld());
+	                plyr.deleteMe();
+	                plyr.store();
 					sm.addString("You kicked " + plyr.getName() + " from the game.");
 				}
 				else
@@ -147,7 +149,9 @@ public class AdminMenu implements IAdminCommandHandler
                 L2PcInstance plyr = L2World.getInstance().getPlayer(player);
                 if (plyr != null)
                 {
-                    plyr.logout();
+                    plyr.sendPacket(new LeaveWorld());
+                    plyr.deleteMe();
+                    plyr.store();
                 }
                 setAccountAccessLevel(player, activeChar, -100);
             }

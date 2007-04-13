@@ -409,14 +409,10 @@ public class Shutdown extends Thread
         {
             //Logout Character
             try {
-                // save player's stats and effects
-                ClientThread.saveCharToDisk(player);
-                
                 // inform client, that it has been logged out
                 player.sendPacket(new LeaveWorld());
-
-                // make shure to save ALL data
                 player.deleteMe();
+                player.store();
             } catch (Throwable t)   {}
         }
         try { Thread.sleep(1000); } catch (Throwable t) {_log.info( "", t);}

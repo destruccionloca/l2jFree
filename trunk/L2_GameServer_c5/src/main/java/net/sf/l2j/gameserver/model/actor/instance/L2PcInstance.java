@@ -80,18 +80,18 @@ import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
-import net.sf.l2j.gameserver.model.L2BlockList;
-import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.FishData;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.ItemContainer;
 import net.sf.l2j.gameserver.model.L2Attackable;
+import net.sf.l2j.gameserver.model.L2BlockList;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Fishing;
+import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2HennaInstance;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Macro;
@@ -177,6 +177,7 @@ import net.sf.l2j.gameserver.serverpackets.TradeStart;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.Stats;
+import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2ArmorType;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
@@ -929,16 +930,93 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         _inCraftMode = b;
     }
-
+    
     /**
-     * Manage Logout Task.<BR><BR>
+     * Check if logout is possible
+     *
+     * @return logout is possible
      */
-    public void logout()
+    public boolean logout()
     {
-    	if(this.isProcessingTransaction())
-    		this.cancelActiveTrade();
-        // Close the connection with the client
-        if (_connection != null) _connection.close();
+        // [L2J_JP ADD START]
+        if(ZoneManager.getInstance().checkIfInZone(ZoneType.ZoneTypeEnum.NoEscape.toString(),this))
+        {
+            sendPacket(SystemMessage.sendString("You can not log out in here."));
+            sendPacket(new ActionFailed());
+            return false;                   
+        }
+	
+        if(isFlying())
+        {
+   		 sendPacket(SystemMessage.sendString("You can not log out while flying."));
+         sendPacket(new ActionFailed());
+         return false;                   
+    	}
+        // [L2J_JP ADD END]
+        
+        // prevent player to disconnect when in combat
+        if(AttackStanceTaskManager.getInstance().getAttackStanceTask(this))
+        {
+            if (_log.isDebugEnabled()) _log.debug("Player " + getName() + " tried to logout while fighting.");
+            
+            sendPacket(new SystemMessage(SystemMessage.YOU_CANNOT_EXIT_WHILE_IN_COMBAT));
+            sendPacket(new ActionFailed());
+            return false;
+        }
+        
+        // prevent player to disconnect when pet is in combat        
+        if (getPet() != null && !isBetrayed() && (getPet() instanceof L2PetInstance))
+        {
+        	L2PetInstance pet = (L2PetInstance)getPet();
+
+            if (pet.isAttackingNow())
+            {
+            	pet.sendPacket(new SystemMessage(SystemMessage.PET_CANNOT_SENT_BACK_DURING_BATTLE));
+                sendPacket(new ActionFailed());
+                return false;
+            } 
+        }
+        
+        // prevent from player disconnect when in Event
+        if(atEvent) 
+        {
+            sendPacket(SystemMessage.sendString("A superior power doesn't allow you to leave the event."));
+            sendPacket(new ActionFailed());
+            return false;
+        }
+        
+        // prevent from player disconnect when in Olympiad mode
+        if(isInOlympiadMode()) 
+        {
+    		if (_log.isDebugEnabled()) _log.debug("Player " + getName() + " tried to logout while in Olympiad.");
+        	sendPacket(SystemMessage.sendString("You can't disconnect when in Olympiad."));
+        	sendPacket(new ActionFailed());
+        	return false;
+        }
+        
+        // Prevent player from logging out if they are a festival participant
+        // and it is in progress, otherwise notify party members that the player
+        // is not longer a participant.
+        if (isFestivalParticipant()) 
+        {
+    		if (SevenSignsFestival.getInstance().isFestivalInitialized()) 
+            {
+               sendMessage("You cannot log out while you are a participant in a festival.");
+               sendPacket(new ActionFailed());
+               return false;
+            }
+           
+    		if (getParty() != null)
+    			getParty().broadcastToPartyMembers(SystemMessage.sendString(getName() + " has been removed from the upcoming festival."));
+        }
+
+        if (getPrivateStoreType() != 0)
+        {
+            sendMessage("Cannot log out while trading.");
+            return false;
+        }
+        
+        return true;
     }
 
     /**
@@ -9243,7 +9321,17 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void deleteMe()
     {
-		// If the L2PcInstance has Pet, unsummon it
+        try
+        {
+            if(isFlying())
+            	removeSkill(SkillTable.getInstance().getInfo(4289, 1));
+        }
+        catch (Throwable t)
+        {
+            _log.fatal( "deletedMe()", t);
+        }
+        
+        // If the L2PcInstance has Pet, unsummon it
 		if (getPet() != null){
 			try { 
 				//getPet().decayMe();
@@ -9251,6 +9339,10 @@ public final class L2PcInstance extends L2PlayableInstance
 			} catch (Throwable t) {}// returns pet to control item
 		}
 		
+		// Cancel trade
+        if (getActiveRequester() != null)
+        	cancelActiveTrade();
+        
         // Check if the L2PcInstance is in observer mode to set its position to its position before entering in observer mode
         if (inObserverMode()) setXYZ(_obsX, _obsY, _obsZ);
 
@@ -9268,6 +9360,17 @@ public final class L2PcInstance extends L2PlayableInstance
         try
         {
             stopAllTimers();
+        }
+        catch (Throwable t)
+        {
+            _log.fatal( "deletedMe()", t);
+        }
+        
+        // Unregister from Olympiad games
+        try
+        {
+        	if (isInOlympiadMode())
+        		Olympiad.getInstance().unRegisterNoble(this);
         }
         catch (Throwable t)
         {
@@ -9381,8 +9484,8 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             _log.fatal( "deletedMe()", t);
         }
-
-        // Close the connection with the client
+        
+        // Close connection
         try
         {
             setNetConnection(null);
@@ -9391,7 +9494,7 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             _log.fatal( "deletedMe()", t);
         }
-
+        
         if (getClanId() > 0)
             getClan().broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(this), this);
 

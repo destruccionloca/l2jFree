@@ -51,11 +51,10 @@ public abstract class ClientBasePacket extends BasePacket implements Runnable
 			if(!client.checkFloodProtection())
 			{
 		        try {
-		            ClientThread.saveCharToDisk(client.getActiveChar());
 		            client.getActiveChar().sendMessage("Kicked for flooding");
 		            client.getActiveChar().sendPacket(new LeaveWorld());
+		            // Do not store character data...
 		            client.getActiveChar().deleteMe();
-		            client.getActiveChar().logout();
 		            _log.warn("Warning : client " +client.getActiveChar().getName()+ " tryed to flood server !!!");
 		            } catch (Throwable t)   {}
 		 

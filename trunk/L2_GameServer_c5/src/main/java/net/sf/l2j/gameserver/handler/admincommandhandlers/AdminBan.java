@@ -31,6 +31,7 @@ import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -80,7 +81,9 @@ public class AdminBan implements IAdminCommandHandler {
             {
                 account_name = plyr.getAccountName();
                 LoginServerThread.getInstance().sendAccessLevel(account_name, -100);
-                plyr.logout();
+                plyr.sendPacket(new LeaveWorld());
+                plyr.deleteMe();
+                plyr.store();
             }
         }
         else if (command.startsWith("admin_unban"))

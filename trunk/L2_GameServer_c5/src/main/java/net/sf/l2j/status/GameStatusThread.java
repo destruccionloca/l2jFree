@@ -66,6 +66,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
+import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
 import net.sf.l2j.gameserver.util.DynamicExtension;
@@ -419,7 +420,9 @@ public class GameStatusThread extends Thread
                         if(player != null)
                         {
                             player.sendMessage("You are kicked by gm");
-                            player.logout();
+                            player.sendPacket(new LeaveWorld());
+                            player.deleteMe();
+                            player.store();
                             _print.println("Player kicked");
                         }
                     }
