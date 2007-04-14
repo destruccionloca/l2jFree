@@ -54,10 +54,11 @@ public class Logout extends ClientBasePacket
         {
             // normally the server would send serveral "delete object" before "leaveWorld"
             // we skip that for now
-            player.sendPacket(new LeaveWorld());
-            player.deleteMe();
+            sendPacket(new LeaveWorld());
+        	player.deleteMe();
             player.store();
-        	player.closeNetConnection();
+            try { Thread.sleep(1000); } catch (Throwable t) {}
+         	player.closeNetConnection();
         }
     }
 

@@ -105,10 +105,13 @@ public class RequestBuyItem extends ClientBasePacket
         if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0) return;
 
         L2Object target = player.getTarget();
-        if (!player.isGM() && (target == null                               // No target (ie GM Shop)
-                || !(target instanceof L2MerchantInstance || target instanceof L2FishermanInstance || target instanceof L2MercManagerInstance)  // Target not a merchant, fisherman or mercmanager
-                || !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false)     // Distance is too far
-                    )) return;
+        
+        if (!player.isGM() &&                         // Player not GM      
+           (!(target instanceof L2MerchantInstance || // Target not a merchant, fisherman or mercmanager
+              target instanceof L2FishermanInstance || 
+              target instanceof L2MercManagerInstance) || 
+             !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false)))     // Distance is too far
+             return;
 
         boolean ok = true;
         String htmlFolder = new String();
@@ -139,7 +142,7 @@ public class RequestBuyItem extends ClientBasePacket
         
         L2TradeList list = null;
         
-        if (merchant != null)
+        if (merchant != null && !player.isGM())
         {
             FastList<L2TradeList> lists = TradeListTable.getInstance().getBuyListByNpcId(merchant.getNpcId());
             
@@ -162,8 +165,17 @@ public class RequestBuyItem extends ClientBasePacket
         
         if (list == null)
         {
-            Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a false BuyList list_id.",Config.DEFAULT_PUNISH);
-            return;
+        	if (!player.isGM())
+        	{
+        		Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a false BuyList list_id.",Config.DEFAULT_PUNISH);
+        		return;
+        	}
+        	else
+        	{
+        		player.sendMessage("Buylist "+_listId+" empty or not exists.");
+        		sendPacket(new ActionFailed());
+        		return;
+        	}
         }
         
         if (list.isGm() && !player.isGM())
@@ -277,17 +289,27 @@ public class RequestBuyItem extends ClientBasePacket
             sendPacket(new SystemMessage(SystemMessage.SLOTS_FULL));
             return;
         }
-
-        // Charge buyer and add tax to castle treasury if not owned by npc clan
-        if ((subTotal < 0) || !player.reduceAdena("Buy", (int)(subTotal + tax), player.getLastFolkNPC(), false))
+        	
+        if (!player.isGM())
         {
-            sendPacket(new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA));
-            return;
-        }
-
-        if (merchant != null && merchant.getIsInTown() && merchant.getCastle().getOwnerId() > 0)
-            merchant.getCastle().addToTreasury(tax);
-
+            if ((subTotal < 0) || !player.reduceAdena("Buy", (int)(subTotal + tax), merchant, false))
+            {
+                sendPacket(new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA));
+                return;
+            }
+            
+            //  Charge buyer and add tax to castle treasury if not owned by npc clan
+            if (merchant.getIsInTown() && merchant.getCastle().getOwnerId() > 0)
+                merchant.getCastle().addToTreasury(tax);
+        }else
+            //  Check if player is Gm and buying from Gm shop or have proper access level
+        	if (!(list.isGm() || player.getAccessLevel() >= Config.GM_CREATE_ITEM))
+        	{
+    			player.sendMessage("Free shoping isn't allowed with your access level.");
+    			sendPacket(new ActionFailed());
+    			return;
+        	}
+  
         // Proceed the purchase
         for (int i=0; i < _count; i++)
         {
@@ -302,7 +324,7 @@ public class RequestBuyItem extends ClientBasePacket
             }
 
             // Add item to Inventory and adjust update packet
-            player.getInventory().addItem("Buy", itemId, count, player, merchant);
+            player.getInventory().addItem(list.isGm()?"GMShop":"Buy", itemId, count, player, merchant);
 
 
 /* TODO: Disabled until Leaseholders are rewritten ;-)
