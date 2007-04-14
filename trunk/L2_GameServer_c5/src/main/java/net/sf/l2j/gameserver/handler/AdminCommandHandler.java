@@ -128,6 +128,8 @@ public class AdminCommandHandler
         	{
         		if (player.getAccessLevel() >= Config.GM_COMMAND_PRIVILEGES.get(cmd))
         			return true;
+        		else
+        			return false;
         	}
         	else
         	{
@@ -140,6 +142,12 @@ public class AdminCommandHandler
         	if (!_datatable.get(cmd).checkLevel(player.getAccessLevel()))
         		return false;	
         */
-        return true;
-    }
+        if (player.getAccessLevel()>0)
+        	return true;
+        else
+        {
+        	_log.warn("GM "+player.getName()+"("+player.getObjectId()+") have no access level.");
+        	return false;
+        }
+      }
 }
