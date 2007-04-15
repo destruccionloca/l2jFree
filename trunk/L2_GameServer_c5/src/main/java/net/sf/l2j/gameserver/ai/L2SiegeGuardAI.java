@@ -143,9 +143,8 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
         // Check if the target is a L2PcInstance
         if (target instanceof L2PcInstance)
         {
-            // Check if the target isn't in silent move mode AND too far (>100)
-            if (((L2PcInstance) target).isSilentMoving()
-                && !_actor.isInsideRadius(target, 100, false, false)) return false;
+            // Check if the target isn't too far (>100)
+            if (!_actor.isInsideRadius(target, 100, false, false)) return false;
         }
                // Los Check Here
         return (_actor.isAutoAttackable(target) && GeoData.getInstance().canSeeTarget(_actor, target));
