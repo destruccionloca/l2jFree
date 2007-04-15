@@ -4,6 +4,10 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 // Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
 
 /**
@@ -18,7 +22,6 @@ public class Topic implements java.io.Serializable
      * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = 1673919324213673955L;
-    private Forums forums;
     private Set<Posts> postses = new HashSet<Posts>(0);
     
     private int topicId;
@@ -40,7 +43,7 @@ public class Topic implements java.io.Serializable
 
     /** full constructor */
     public Topic(int _topicId, int _topicForumId, String _topicName, BigDecimal _topicDate,
-                 String _topicOwnername, int _topicOwnerid, int _topicType, int _topicReply, Forums _forums)
+                 String _topicOwnername, int _topicOwnerid, int _topicType, int _topicReply)
     {
         this.topicId = _topicId;
         this.topicForumId = _topicForumId;
@@ -50,7 +53,6 @@ public class Topic implements java.io.Serializable
         this.topicOwnerid = _topicOwnerid;
         this.topicType = _topicType;
         this.topicReply = _topicReply;
-        this.forums = _forums;
     }
 
     // Property accessors
@@ -134,15 +136,6 @@ public class Topic implements java.io.Serializable
         this.topicReply = _topicReply;
     }
 
-    public Forums getForums()
-    {
-        return this.forums;
-    }
-
-    public void setForums(Forums _forums)
-    {
-        this.forums =_forums;
-    }
     public Set<Posts> getPostses()
     {
         return this.postses;
@@ -152,16 +145,47 @@ public class Topic implements java.io.Serializable
     {
         this.postses = _postses;
     }    
-//    public int hashCode() {
-//        return HashCodeBuilder.reflectionHashCode(this);
-//    }
-//    
-//    public boolean equals(Object _obj) {
-//        return EqualsBuilder.reflectionEquals(this, _obj);
-//    }
-//    
-//    public String toString() {
-//        return ToStringBuilder.reflectionToString(this);
-//    }         
+    /**
+     * @return the hashcode of the object
+     */
+    public int hashCode() 
+    {
+        return new HashCodeBuilder(17,37)
+                        .append(this.topicOwnerid)
+                        .append(this.topicName)
+                        .append(this.topicDate)
+                        .append(this.topicForumId)
+                        .append(this.topicType)
+                        .toHashCode();
+    }
+    
+    /**
+     * @return true or false if the two objects are equals (not based on post id)
+     * @param obj
+     */
+    public boolean equals(Object _obj) 
+    {
+        if (_obj == null) 
+        {
+            return false;
+        }
+        if (this == _obj) 
+        {
+            return true;
+        }
+        Topic rhs = (Topic) _obj;
+        return new EqualsBuilder()
+                        .appendSuper(super.equals(_obj))
+                        .append(topicOwnerid, rhs.getTopicOwnerid())
+                        .append(topicName, rhs.getTopicName())
+                        .append(topicDate, rhs.getTopicDate())
+                        .append(topicForumId, rhs.getTopicForumId())
+                        .append(topicType, rhs.getTopicType())
+                        .isEquals();        
+    }
+    
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }       
 
 }

@@ -24,9 +24,5 @@
         <property name="postTxt" type="text">
             <column name="post_txt"  />
         </property>
-        <many-to-one name="topic" class="net.sf.l2j.gameserver.communitybbs.model.forum.Topic" update="false" insert="false" fetch="select">
-            <column name="post_topic_id" not-null="true">
-            </column>
-        </many-to-one>
     </class>
 </hibernate-mapping>

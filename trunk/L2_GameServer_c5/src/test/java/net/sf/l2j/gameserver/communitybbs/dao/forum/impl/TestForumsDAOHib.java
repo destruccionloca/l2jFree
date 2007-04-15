@@ -168,7 +168,6 @@ public class TestForumsDAOHib extends ADAOTestCase
     	
     	// add topic
     	forums.getTopics().add(topic);
-    	topic.setForums(forums);
     	
     	getForumsDAO().saveOrUpdate(forums);
     	

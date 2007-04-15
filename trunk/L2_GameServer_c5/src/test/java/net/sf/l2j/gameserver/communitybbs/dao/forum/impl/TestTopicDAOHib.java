@@ -136,7 +136,6 @@ public class TestTopicDAOHib extends ADAOTestCase
     	
     	// add post
     	topic.getPostses().add(posts);
-    	posts.setTopic(topic);
     	
     	getTopicDAO().save(topic);
     	

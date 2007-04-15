@@ -2,6 +2,10 @@ package net.sf.l2j.gameserver.communitybbs.model.forum;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 // Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
 
 /**
@@ -16,7 +20,6 @@ public class Posts implements java.io.Serializable
      * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = -2197088778138212029L;
-    private Topic topic;
     
     private int postId;
     private String postOwnerName;
@@ -45,19 +48,6 @@ public class Posts implements java.io.Serializable
         this.postTxt = _postTxt;
     }
     
-
-    /** full constructor */
-    public Posts(int _postId, String _postOwnerName, int _postOwnerid, BigDecimal _postDate,
-                 int _postTopicId, String _postTxt, Topic _topic)
-    {
-        this.postId = _postId;
-        this.postOwnerName = _postOwnerName;
-        this.postOwnerid = _postOwnerid;
-        this.postDate = _postDate;
-        this.postTopicId = _postTopicId;
-        this.postTxt = _postTxt;
-        this.topic = _topic;
-    }
     // Property accessors
     public int getPostId()
     {
@@ -118,26 +108,44 @@ public class Posts implements java.io.Serializable
     {
         this.postTxt = _postTxt;
     }
-
-    public Topic getTopic()
+    
+    /**
+     * @return the hashcode of the object
+     */
+    public int hashCode() 
     {
-        return this.topic;
+        return new HashCodeBuilder(17,37)
+                        .append(this.postOwnerid)
+                        .append(this.postTopicId)
+                        .append(this.postDate)
+                        .toHashCode();
     }
-
-    public void setTopic(Topic _topic)
+    
+    /**
+     * @return true or false if the two objects are equals (not based on post id)
+     * @param obj
+     */
+    public boolean equals(Object _obj) 
     {
-        this.topic = _topic;
-    }  
-//    public int hashCode() {
-//        return HashCodeBuilder.reflectionHashCode(this);
-//    }
-//    
-//    public boolean equals(Object _obj) {
-//        return EqualsBuilder.reflectionEquals(this, _obj);
-//    }
-//    
-//    public String toString() {
-//        return ToStringBuilder.reflectionToString(this);
-//    }     
+        if (_obj == null) 
+        {
+            return false;
+        }
+        if (this == _obj) 
+        {
+            return true;
+        }
+        Posts rhs = (Posts) _obj;
+        return new EqualsBuilder()
+                        .appendSuper(super.equals(_obj))
+                        .append(postOwnerid, rhs.getPostOwnerid())
+                        .append(postTopicId, rhs.getPostTopicId())
+                        .append(postDate, rhs.getPostDate())
+                        .isEquals();        
+    }
+    
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }     
 
 }

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.l2j.gameserver.communitybbs.dao.forum.TopicDAO;
-import net.sf.l2j.gameserver.communitybbs.model.forum.Forums;
 import net.sf.l2j.gameserver.communitybbs.model.forum.Posts;
 import net.sf.l2j.gameserver.communitybbs.model.forum.Topic;
 import net.sf.l2j.tools.dao.impl.BaseRootDAOHib;
@@ -35,11 +34,6 @@ public class TopicDAOHib extends BaseRootDAOHib implements TopicDAO
 	 */
 	public void deleteTopic(Topic obj)
 	{
-        getCurrentSession().refresh(obj);
-		Forums forums = obj.getForums();
-		forums.getTopics().remove(obj);
-		getCurrentSession().save(forums);
-		obj.setForums(forums);
 		delete(obj);		
 	}
 

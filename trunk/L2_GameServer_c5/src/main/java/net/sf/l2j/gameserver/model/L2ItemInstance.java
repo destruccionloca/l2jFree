@@ -897,7 +897,12 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public String toString()
 	{
-		return ""+_item;
+	    StringBuffer output = new StringBuffer();
+        output.append("item " + this.getObjectId() +":");
+        if (this.getEnchantLevel() > 0) output.append("+" + this.getEnchantLevel() + " ");
+        output.append(this.getItem().getName()); 
+        output.append("(" + this.getCount() + ")");
+        return output.toString();
 	}
     
     public void resetOwnerTimer()
