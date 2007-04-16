@@ -60,7 +60,7 @@ public class TopicDAOHib extends BaseRootDAOHib implements TopicDAO
 	public List<Topic> getPaginatedTopicByForumId(Integer iPageSize, Integer iIdx, Integer id)
 	{
 		return (List <Topic>)getCurrentSession().createQuery(
-				"from " + Topic.class.getName()+ " where topicForumId = "+id).setMaxResults(iPageSize).setFirstResult(iPageSize*iIdx).list();
+				"from " + Topic.class.getName()+ " where topicForumId = :topicId").setInteger("topicId", id).setMaxResults(iPageSize).setFirstResult(iPageSize*iIdx).list();
 	}
 
     /**

@@ -109,6 +109,25 @@ public class ForumService
     }    
     
     /**
+     * Return the list of all forums
+     * 
+     * @return list of all forums
+     */
+    public List<Forums>getAllForums ()
+    {
+        List<Forums> forums=null;
+        try
+        {
+            forums= __forumDAO.getAllForums();
+        }
+        catch (Exception e)
+        {
+            _log.error("Unable to list all forums. Error : "+e.getMessage());
+        }
+        return forums;
+    }
+    
+    /**
      * Get Forum information for a specific id
      * 
      */

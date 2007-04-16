@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 19 f?vr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8 -->
 <hibernate-mapping>
-    <class name="net.sf.l2j.gameserver.communitybbs.model.forum.Forums" table="forums" lazy="false" >
+    <class name="net.sf.l2j.gameserver.communitybbs.model.forum.Forums" table="forums" lazy="true" >
         <cache usage="nonstrict-read-write"/>
         <id name="forumId" type="int" >
             <column name="forum_id" />

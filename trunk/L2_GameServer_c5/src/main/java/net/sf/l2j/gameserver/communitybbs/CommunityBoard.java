@@ -25,6 +25,7 @@ import net.sf.l2j.gameserver.communitybbs.Manager.PostBBSManager;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.communitybbs.Manager.TopBBSManager;
 import net.sf.l2j.gameserver.communitybbs.Manager.TopicBBSManager;
+import net.sf.l2j.gameserver.communitybbs.services.forum.ForumService;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ShowBoard;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -33,6 +34,21 @@ import net.sf.l2j.tools.L2Registry;
 public class CommunityBoard
 {   
     private static CommunityBoard _instance;
+    
+    /**
+     * Private constructor to avoid initialization
+     *
+     */
+    private CommunityBoard()
+    {
+        // initialize Forums cache if you use it
+        if(Config.COMMUNITY_TYPE.equals("full"))
+        {
+            ForumService forumService = (ForumService)(L2Registry.getBean("ForumService"));
+            forumService.getAllForums();
+        }
+    }
+    
     
     public static CommunityBoard getInstance()
     {

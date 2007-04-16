@@ -45,7 +45,7 @@ public class ForumsDAOHib extends BaseRootDAOHib implements ForumsDAO
 	public List<Forums> getChildrens(Forums obj)
 	{
 		return getCurrentSession().createQuery(
-				"from " + Forums.class.getName()+ " where forumParent = "+obj.getForumId()).list();
+				"from " + Forums.class.getName()+ " where forumParent = :forumId").setInteger("forumId", obj.getForumId()).list();
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class ForumsDAOHib extends BaseRootDAOHib implements ForumsDAO
 	public List<Forums> getChildrens(Integer forumId)
 	{
         return getCurrentSession().createQuery(
-                "from " + Forums.class.getName()+ " where forumParent = "+forumId).list();
+                "from " + Forums.class.getName()+ " where forumParent = :forumId").setInteger("forumId", forumId).list();
 	}
 
 	/**
