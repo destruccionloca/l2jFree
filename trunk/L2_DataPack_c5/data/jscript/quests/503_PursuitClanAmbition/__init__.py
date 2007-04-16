@@ -533,7 +533,7 @@ class Quest (JQuest) :
             leader_st.getPcSpawn().addSpawn(30765,120000,["Curse of the gods on the one that defiles the property of the empire!"],60000)
             leader_st.set("ImpGraveKeeper","3")
             self.ImpGraveKepperStat = 1
-          else:
+          elif npcId == 20668:
             leader_st.getPcSpawn().addSpawn(27179)
     return
 
