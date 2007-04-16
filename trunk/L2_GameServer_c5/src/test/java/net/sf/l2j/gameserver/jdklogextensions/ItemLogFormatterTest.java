@@ -108,7 +108,7 @@ public class ItemLogFormatterTest extends TestCase
             System.setErr(psSys);
             
             // Check value
-            assertTrue(by.toString().endsWith("[CHANGE : Pickup , player corwin, Dark Crystal Boots Light Armor, null]"+ System.getProperty("line.separator")));
+            assertTrue(by.toString(),by.toString().endsWith("[CHANGE : Pickup , player corwin, item 216565:Dark Crystal Boots Light Armor(1), null]"+ System.getProperty("line.separator")));
         }
         catch (Exception e)
         {
