@@ -673,7 +673,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
         replyMSG.append("I am sorry, "+player.getName()+", but all attempts to create <font color=\"LEVEL\">"+itemname+"</font> failed. All your materials have been lost.");
         else
         if (failed==0)
-        replyMSG.append("Congratulations, "+player.getName()+", I created "+success+" <font color=\"LEVEL\">"+itemname+"</font> for your!");
+        replyMSG.append("Congratulations, "+player.getName()+", I created "+success+" <font color=\"LEVEL\">"+itemname+"</font> for you!");
         else
         replyMSG.append("Here you go, "+player.getName()+", "+success+" <font color=\"LEVEL\">"+itemname+"</font> successfully created, but "+failed+" broken while craft.");
         
