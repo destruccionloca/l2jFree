@@ -597,9 +597,9 @@ public final class Config {
             /* limit of safe enchant */
             ENCHANT_SAFE_MAX = Integer.parseInt(enchantSettings.getProperty("EnchantSafeMax", "3"));
             ENCHANT_SAFE_MAX_FULL = Integer.parseInt(enchantSettings.getProperty("EnchantSafeMaxFull", "4"));
-            ENCHANT_DWARF_1_ENCHANTLEVEL = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf1Enchnatlevel", "8"));
-            ENCHANT_DWARF_2_ENCHANTLEVEL = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf2Enchnatlevel", "10"));
-            ENCHANT_DWARF_3_ENCHANTLEVEL = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf3Enchnatlevel", "12"));
+            ENCHANT_DWARF_1_ENCHANTLEVEL = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf1Enchantlevel", "8"));
+            ENCHANT_DWARF_2_ENCHANTLEVEL = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf2Enchantlevel", "10"));
+            ENCHANT_DWARF_3_ENCHANTLEVEL = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf3Enchantlevel", "12"));
             ENCHANT_DWARF_1_CHANCE = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf1Chance", "15"));
             ENCHANT_DWARF_2_CHANCE = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf2Chance", "15"));
             ENCHANT_DWARF_3_CHANCE = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf3Chance", "15"));
@@ -2126,9 +2126,9 @@ public final class Config {
         else if (pName.equalsIgnoreCase("EnchantMaxArmor")) ENCHANT_MAX_ARMOR = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("EnchantSafeMax")) ENCHANT_SAFE_MAX = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("EnchantSafeMaxFull")) ENCHANT_SAFE_MAX_FULL = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("EnchantDwarf1Enchnatlevel")) ENCHANT_DWARF_1_ENCHANTLEVEL = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("EnchantDwarf2Enchnatlevel")) ENCHANT_DWARF_2_ENCHANTLEVEL = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("EnchantDwarf3Enchnatlevel")) ENCHANT_DWARF_3_ENCHANTLEVEL = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("EnchantDwarf1Enchantlevel")) ENCHANT_DWARF_1_ENCHANTLEVEL = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("EnchantDwarf2Enchantlevel")) ENCHANT_DWARF_2_ENCHANTLEVEL = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("EnchantDwarf3Enchantlevel")) ENCHANT_DWARF_3_ENCHANTLEVEL = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("EnchantDwarf1Chance")) ENCHANT_DWARF_1_CHANCE = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("EnchantDwarf2Chance")) ENCHANT_DWARF_2_CHANCE = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("EnchantDwarf3Chance")) ENCHANT_DWARF_3_CHANCE = Integer.parseInt(pValue);
