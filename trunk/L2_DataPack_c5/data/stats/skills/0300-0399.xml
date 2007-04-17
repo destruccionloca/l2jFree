@@ -474,17 +474,17 @@
   <set name="effectRange" val="-1"/>
   <for>
     <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="#mpConsume_Init">
-      <add order="0x20" stat="cAtk" val="#crit"/>
+      <add order="0x40" stat="cAtk" val="#crit"/>
     </effect>
   </for>
   <enchant1for>
     <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="14"> <!-- temp value -->
-      <add order="0x20" stat="cAtk" val="#ench1crit"/>
+      <add order="0x40" stat="cAtk" val="#ench1crit"/>
     </effect>
   </enchant1for>
   <enchant2for>
     <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="14"> <!-- temp value -->
-      <add order="0x20" stat="cAtk" val="609"/>
+      <add order="0x40" stat="cAtk" val="609"/>
     </effect>
   </enchant2for>
 </skill>
@@ -980,7 +980,7 @@
       <mul order="0x30" stat="MpConsumeRate" val="0.7"/>
     </effect>
   </for>
-</skill> 
+</skill>
 <skill id="337" levels="1" name="Arcane Power">
   <set name="mpConsume" val="36"/>
   <set name="power" val="0.0"/>
@@ -1060,6 +1060,7 @@
   <set name="hitTime" val="1800"/>
   <set name="isMagic" val="true"/>
   <for>
+    <!-- missing Debuff Resistance +30% -->
     <effect count="1" name="Buff" time="120" val="0">
       <mul order="0x30" stat="maxHp" val="1.5"/>
       <add order="0x40" stat="regHp" val="50"/>
@@ -1163,7 +1164,6 @@
   <set name="num_charges" val="7"/>
 </skill>
 <skill id="347" levels="1" name="Earthquake">
-  <!-- MISSING REMOVING ENEMYS TARGET -->
   <set name="hpConsume" val="340"/>
   <set name="mpConsume" val="87"/>
   <set name="weaponsAllowed" val="64"/>
@@ -1647,10 +1647,10 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <!-- missing Cancel Resistance -->
     <effect self="1" count="1" name="ImobileBuff" time="30" val="0" stackOrder="3" stackType="pDefSpec">
       <add order="0x40" stat="pDef" val="5400"/>
       <add order="0x40" stat="mDef" val="4050"/>
+      <add order="0x40" stat="cancelRes" val="10"/> <!-- value to be confirmed -->
     </effect>
   </for>
 </skill>
