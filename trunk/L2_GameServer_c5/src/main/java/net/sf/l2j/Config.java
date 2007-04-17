@@ -999,6 +999,7 @@ public final class Config {
     public static boolean 				ALT_DEV_NO_QUESTS;				// Alt Settings for devs
     public static boolean 				ALT_DEV_NO_SPAWNS;				// Alt Settings for devs
     public static boolean 				ALT_POLYMORPH;					// Alt Settings for devs
+    public static boolean 				ONLY_GM_ITEMS_FREE;				// Only GM buy items for free
     //  *******************************************************************************************
     public static void loadoptionsconfig()
     {
@@ -1128,6 +1129,8 @@ public final class Config {
             
             ONLINE_PLAYERS_AT_STARTUP = Boolean.parseBoolean(optionsSettings.getProperty("ShowOnlinePlayersAtStartup","True"));
             ONLINE_PLAYERS_ANNOUNCE_INTERVAL = Integer.parseInt(optionsSettings.getProperty("OnlinePlayersAnnounceInterval","900000"));
+            
+            ONLY_GM_ITEMS_FREE				= Boolean.valueOf(optionsSettings.getProperty("OnlyGMItemsFree", "True"));
             
             // ---------------------------------------------------
             // Configuration values not found in config files

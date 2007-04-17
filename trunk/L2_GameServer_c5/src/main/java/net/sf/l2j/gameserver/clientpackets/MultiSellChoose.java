@@ -168,12 +168,13 @@ public class MultiSellChoose extends ClientBasePacket
                 // a) if enchantment is maintained, then get a list of items that exactly match this enchantment
                 if (maintainEnchantment)
                 {
-                    // loop through this list and remove (one by one) each item until the required amount is taken.
-                    L2ItemInstance[] inventoryContents = inv.getAllItemsByItemId(e.getItemId(), _enchantment);
+                	L2ItemInstance[] inventoryContents = inv.getAllItemsByItemId(e.getItemId(), e.getEnchantmentLevel());
+
                     synchronized (inventoryContents)
                     {
-                        for (int i = 0; i < (e.getItemCount() * _amount); i++)
-                            player.destroyItem("Multisell", inventoryContents[i].getObjectId(), 1, player.getTarget(), true);
+        				if (inventoryContents != null && inventoryContents.length > 0)
+			                for (int i = 0; i < (e.getItemCount() * _amount); i++)
+								player.destroyItem("Multisell", inventoryContents[i].getObjectId(), 1, player.getTarget(), true);
                     }
                 }
                 else    // b) enchantment is not maintained.  Get the instances with the LOWEST enchantment level

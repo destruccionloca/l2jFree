@@ -171,6 +171,7 @@ public abstract class L2Skill
         ENCHANT_WEAPON,
         FEED_PET,
         HEAL_PERCENT,
+        HEAL_STATIC,
         LUCK,
         MANADAM,
         MDOT,

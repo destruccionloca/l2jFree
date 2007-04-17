@@ -146,18 +146,25 @@ public class RequestBuyItem extends ClientBasePacket
         {
             FastList<L2TradeList> lists = TradeListTable.getInstance().getBuyListByNpcId(merchant.getNpcId());
             
-            if (lists == null)
+            if(!player.isGM() )
             {
-                Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a false BuyList list_id.",Config.DEFAULT_PUNISH);
-                return;
+        		if (lists == null)
+        		{
+        			Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a false BuyList list_id.",Config.DEFAULT_PUNISH);
+        			return;
+        		}
+        	
+	        	for (L2TradeList tradeList : lists)
+	        	{
+	        		if (tradeList.getListId() == _listId)
+	        		{
+	        			list = tradeList;
+	        		}
+	        	}
             }
-            
-            for (L2TradeList tradeList : lists)
+            else
             {
-                if (tradeList.getListId() == _listId)
-                {
-                    list = tradeList;
-                }
+            	list = TradeListTable.getInstance().getBuyList(_listId);            
             }
         }
         else
@@ -263,6 +270,13 @@ public class RequestBuyItem extends ClientBasePacket
                 _log.warn("ERROR, no price found .. wrong buylist ??");
                 sendPacket(new ActionFailed());
                 return;
+			}
+			
+			if(price == 0 && !player.isGM() && Config.ONLY_GM_ITEMS_FREE)
+			{
+				player.sendMessage("Ohh Cheat dont work? You have a problem now!");
+				Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried buy item for 0 adena.", Config.DEFAULT_PUNISH);
+				return;                
             }
             
             subTotal += (long)count * price;    // Before tax
