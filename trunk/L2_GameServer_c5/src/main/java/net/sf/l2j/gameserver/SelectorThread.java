@@ -369,7 +369,7 @@ public final class SelectorThread extends IOThread {
             {
             	if(_log.isDebugEnabled())
             		_log.debug("Error on network write, player "+con.getClient().getActiveChar().getName()+" disconnected?");
-                // Do not store character data...
+            	con.getClient().getActiveChar().store();
             	con.getClient().getActiveChar().deleteMe();
             }
             catch(NullPointerException npe)
