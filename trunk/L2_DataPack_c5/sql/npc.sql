@@ -52,7 +52,6 @@ CREATE TABLE `npc` (
 -- Dumping data for table `npc`
 --
 
-LOCK TABLES `npc` WRITE;
 INSERT INTO `npc` VALUES (20001, 20001, 'Gremlin', 0, '', 0, 'Monster.gremlin', 10.00, 15.00, 1, 'male', 'L2Monster', 40, 62, 44, 3.16, 0.91, 40, 43, 30, 21, 35, 10, 29, 2, 9, 39, 3, 32, 278, 0, 253, 0, 0, 0, 20, 50, NULL, 0, 0, 0);
 INSERT INTO `npc` VALUES (20002, 20002, 'Rabbit', 0, '', 0, 'Monster.rabbit', 5.00, 4.50, 1, 'male', 'L2Monster', 40, 62, 44, 3.16, 0.91, 40, 43, 30, 21, 35, 10, 29, 2, 9, 39, 3, 32, 278, 0, 253, 0, 0, 0, 50, 80, NULL, 0, 0, 0);
 INSERT INTO `npc` VALUES (20003, 20003, 'Goblin', 0, '', 0, 'Monster.goblin', 10.00, 16.50, 5, 'male', 'L2Monster', 40, 126, 77, 3.16, 0.91, 40, 43, 30, 21, 35, 10, 178, 5, 13, 48, 4, 39, 278, 0, 253, 4, 0, 0, 40, 110, 'goblin_clan', 300, 0, 0);
@@ -6768,4 +6767,3 @@ INSERT INTO `npc` VALUES (35278, 35278, 'Ruford', 0, 'Messenger', 0, 'NPC.a_guar
 INSERT INTO `npc` VALUES (35367, 35367, 'Daven', 0, 'Messenger', 0, 'NPC.e_elmore_guard_Mhuman', 8.00, 23.50, 70, 'male', 'L2SiegeNpc', 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 333, 74, 0, 0, 55, 176, NULL, 0, 1, 0);
 INSERT INTO `npc` VALUES (35513, 35513, 'Sherman', 0, 'Messenger', 0, 'NPC.e_elmore_guard_Mhuman', 10.00, 20.00, 93, 'male', 'L2SiegeNpc', 40, 350000, 44, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 30, 2, 4, 40, 3, 31, 253, 0, 333, 0, 0, 0, 22, 55, '', 0, 0, 0);
 INSERT INTO `npc` VALUES (35559, 35559, 'Daguerre', 0, 'Messenger', 0, 'NPC.e_elmore_guard_Mhuman', 10.00, 23.00, 93, 'male', 'L2SiegeNpc', 40, 350000, 44, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 30, 2, 4, 40, 3, 31, 253, 0, 333, 0, 0, 0, 22, 55, '', 0, 0, 0);
-UNLOCK TABLES;
