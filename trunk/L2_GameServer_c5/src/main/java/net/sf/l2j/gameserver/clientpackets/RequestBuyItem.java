@@ -317,9 +317,9 @@ public class RequestBuyItem extends ClientBasePacket
                 merchant.getCastle().addToTreasury(tax);
         }else
             //  Check if player is Gm and buying from Gm shop or have proper access level
-        	if (!(list.isGm() || player.getAccessLevel() >= Config.GM_CREATE_ITEM))
+        	if (list.isGm() && player.getAccessLevel() < Config.GM_CREATE_ITEM)
         	{
-    			player.sendMessage("Free shoping isn't allowed with your access level.");
+    			player.sendMessage("Shoping from GM Shop isn't allowed with your access level.");
     			sendPacket(new ActionFailed());
     			return;
         	}
