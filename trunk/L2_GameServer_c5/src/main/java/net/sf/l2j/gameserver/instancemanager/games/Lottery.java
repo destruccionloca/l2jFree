@@ -359,7 +359,12 @@ public class Lottery
             }
             finally
             {
-                try { con.close(); } catch (Exception e) {}
+                try 
+                { 
+                    con.close();
+                    con=null;
+                } 
+                catch (Exception e) {}
             }
             
             int prize4 = count4 * Config.ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;
