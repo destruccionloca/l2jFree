@@ -54,8 +54,7 @@ public class LoginServerThread extends FloodProtectedListener
     private static LoginServerThread _instance;
     private static Log           _log = LogFactory.getLog(LoginServerThread.class);
 
-    public static GameServerManager gameserverManager;
-    public LoginManager          loginController;
+    private LoginManager          loginController;
 
     private GameServerListener _gslistener;
 
@@ -92,7 +91,7 @@ public class LoginServerThread extends FloodProtectedListener
     {
         this.interrupt();
         _gslistener.interrupt();
-        gameserverManager.shutDown();
+        GameServerManager.getInstance().shutDown();
         close();
         if(restart)
         {
