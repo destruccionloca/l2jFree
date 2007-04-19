@@ -279,7 +279,7 @@ public final class Config {
 	        CHAMPION_FREQUENCY      = Integer.parseInt(championsSettings.getProperty("ChampionFrequency", "0"));
 	        CHAMPION_HP             = Integer.parseInt(championsSettings.getProperty("ChampionHp", "7"));
 	        CHAMPION_REWARDS        = Integer.parseInt(championsSettings.getProperty("ChampionRewards", "8"));
-	        CHAMPION_EXP_SP        	= Integer.parseInt(championsSettings.getProperty("ChampionExpSP", "8"));
+	        CHAMPION_EXP_SP        	= Integer.parseInt(championsSettings.getProperty("ChampionExpSp", "8"));
 	        CHAMPION_BOSS           = Boolean.parseBoolean(championsSettings.getProperty("ChampionBoss", "false"));
 	        CHAMPION_LEVEL        	= Integer.parseInt(championsSettings.getProperty("ChampionMinLevel", "1"));
 	        CHAMPION_MINIONS        = Boolean.parseBoolean(championsSettings.getProperty("ChampionMinions", "false"));
