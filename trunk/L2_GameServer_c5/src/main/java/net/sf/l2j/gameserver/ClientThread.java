@@ -132,6 +132,9 @@ public final class ClientThread
                     EventData data = new EventData(player.eventX, player.eventY, player.eventZ, player.eventkarma, player.eventpvpkills, player.eventpkkills, player.eventTitle, player.kills, player.eventSitForced);
                     L2Event.connectionLossData.put(player.getName(), data);
                 }
+                
+                player.deleteMe();
+                player.store();
             }
         }
         catch (Exception e1)
