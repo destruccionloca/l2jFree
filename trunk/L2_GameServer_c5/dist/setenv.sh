@@ -51,5 +51,6 @@ CLASSPATH=${CLASSPATH}:mysql-connector-java-3.1.11.jar
 
 # for configuration
 CLASSPATH=${CLASSPATH}:./config/
+CLASSPATH=${CLASSPATH}:.
 
 export CLASSPATH
