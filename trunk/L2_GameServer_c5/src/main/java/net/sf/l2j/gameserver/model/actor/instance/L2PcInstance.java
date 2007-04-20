@@ -3012,8 +3012,30 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         item.dropMe(this, x, y, z);
+        // destroy  item droped from inventory by player when DESTROY_PLAYER_INVENTORY_DROP is set to true
+        if (Config.DESTROY_PLAYER_INVENTORY_DROP)
+        {
+             if (!Config.LIST_PROTECTED_ITEMS.contains(item.getItemId()))
+             {
+             	if ((Config.AUTODESTROY_ITEM_AFTER > 0 && item.getItemType() != L2EtcItemType.HERB) || (Config.HERB_AUTO_DESTROY_TIME > 0 && item.getItemType() == L2EtcItemType.HERB))
+             	{
+							 // check if item is equipable
+             		if ( item.isEquipable() )
+             		{
+							 	// delete only when Configvalue DESTROY_EQUIPABLE_PLAYER_ITEM is set to true
+             			if (Config.DESTROY_EQUIPABLE_PLAYER_ITEM)
+             				ItemsAutoDestroy.getInstance().addItem(item);
+             		}
+             		else
+             		{
+             			ItemsAutoDestroy.getInstance().addItem(item);
+             		}
+             	}
+             }
+             item.setProtected(false);
+        }
         // Avoids it from beeing removed by the auto item destroyer
-        item.setDropTime(0);
+        else item.setDropTime(0);
 
         // Send inventory update packet
         if (!Config.FORCE_INVENTORY_UPDATE)
@@ -10201,19 +10223,19 @@ public final class L2PcInstance extends L2PlayableInstance
     }
     
     /**
+	 * Return True if the L2PcInstance is a ViP.<BR><BR>
+	 */
+	public boolean isCharViP()
+	{
+	    return _charViP;
+	}
+
+	/**
      * Set the _charViP Flag of the L2PcInstance.<BR><BR>
      */
     public void setCharViP(boolean status)
     {
         _charViP = status;
-    }
-
-    /**
-     * Return True if the L2PcInstance is a ViP.<BR><BR>
-     */
-    public boolean isCharViP()
-    {
-        return _charViP;
     }
 
     private ScheduledFuture _jailTask;

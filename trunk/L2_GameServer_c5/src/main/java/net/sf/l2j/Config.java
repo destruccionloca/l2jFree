@@ -918,6 +918,7 @@ public final class Config {
     public static String  				PROTECTED_ITEMS;
     public static FastList<Integer> 	LIST_PROTECTED_ITEMS = new FastList<Integer>();	// List of items that will not be destroyed
     public static boolean   			DESTROY_DROPPED_PLAYER_ITEM;	// Auto destroy nonequipable items dropped by players
+    public static boolean   			DESTROY_PLAYER_INVENTORY_DROP;	// Auto destroy items dropped by players from inventory    
     public static boolean   			DESTROY_EQUIPABLE_PLAYER_ITEM;	// Auto destroy equipable items dropped by players
     public static boolean   			SAVE_DROPPED_ITEM;				// Save items on ground for restoration on server restart
     public static boolean   			EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD;// Empty table ItemsOnGround after load all items
@@ -1028,6 +1029,7 @@ public final class Config {
                 LIST_PROTECTED_ITEMS.add(Integer.parseInt(id.trim()));
                  }
             DESTROY_DROPPED_PLAYER_ITEM     = Boolean.valueOf(optionsSettings.getProperty("DestroyPlayerDroppedItem", "false"));
+            DESTROY_PLAYER_INVENTORY_DROP   = Boolean.valueOf(optionsSettings.getProperty("DestroyPlayerInventoryDrop", "false"));            
             DESTROY_EQUIPABLE_PLAYER_ITEM   = Boolean.valueOf(optionsSettings.getProperty("DestroyEquipableItem", "false"));
             SAVE_DROPPED_ITEM               = Boolean.valueOf(optionsSettings.getProperty("SaveDroppedItem", "false"));
             EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD = Boolean.valueOf(optionsSettings.getProperty("EmptyDroppedItemTableAfterLoad", "false"));
