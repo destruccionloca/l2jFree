@@ -276,7 +276,12 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                         player.sendMessage("You may not add a new sub class before you are level 75 on your previous class.");
                         allowAddition = false;
                     }
-
+                    
+                    if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP){
+                        player.sendMessage("You can't change subclass while in events.");
+                        return;
+                    }
+                    
                     if (Olympiad.getInstance().isRegisteredInComp(player)
                         || player.getOlympiadGameId() > 0)
                     {

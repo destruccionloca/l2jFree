@@ -238,12 +238,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
     
     private void changeClass(L2PcInstance player, int val)
     {
-    	if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP){
-            player.sendMessage("You can't change subclass while in events.");
-            return;
-        }
-    	
-        if (_log.isDebugEnabled()) _log.debug("Changing class to ClassId:" + val);
+    	if (_log.isDebugEnabled()) _log.debug("Changing class to ClassId:" + val);
         player.setClassId(val);
         
         if (player.isSubClassActive()) player.getSubClasses().get(player.getClassIndex()).setClassId(
