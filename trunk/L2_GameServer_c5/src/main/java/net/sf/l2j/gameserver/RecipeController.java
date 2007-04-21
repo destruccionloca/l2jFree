@@ -18,18 +18,12 @@
  */
 package net.sf.l2j.gameserver;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.LineNumberReader;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.WeakHashMap;
 
 import javolution.util.FastList;
-import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.lib.Rnd;
@@ -37,10 +31,11 @@ import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2ManufactureItem;
-import net.sf.l2j.gameserver.model.L2RecipeInstance;
-import net.sf.l2j.gameserver.model.L2RecipeList;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.recipes.model.L2Recipe;
+import net.sf.l2j.gameserver.recipes.model.L2RecipeComponent;
+import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
@@ -51,6 +46,7 @@ import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
+import net.sf.l2j.tools.L2Registry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -59,96 +55,19 @@ public class RecipeController
 {
 	protected static Log _log = LogFactory.getLog(RecipeController.class.getName());
 	
+    /**
+     * Service for recipe list
+     */    
+    private L2RecipeService l2RecipeService=(L2RecipeService) L2Registry.getBean("L2RecipeService");    
+    
 	private static RecipeController _instance;
-	private FastMap<Integer, L2RecipeList> _lists;
 	protected static Map<L2PcInstance, RecipeItemMaker> activeMakers = Collections.synchronizedMap(new WeakHashMap<L2PcInstance, RecipeItemMaker>());
 	
 	public static RecipeController getInstance()
 	{
 		return _instance == null ? _instance = new RecipeController() : _instance;
 	}
-	
-	public RecipeController()
-	{
-		_lists = new FastMap<Integer, L2RecipeList>();
-		String line = null;
-		LineNumberReader lnr = null;
-		
-		try
-		{
-			File recipesData = new File(Config.DATAPACK_ROOT, "data/recipes.csv");
-			lnr = new LineNumberReader(new BufferedReader(new FileReader(recipesData)));
-			
-			while ((line = lnr.readLine()) != null)
-			{
-				if (line.trim().length() == 0 || line.startsWith("#"))
-					continue;
-				
-				parseList(line);
-				
-			}
-			_log.info("RecipeController: Loaded " + _lists.size() + " Recipes.");
-		}
-		catch (Exception e)
-		{
-			if (lnr != null)
-
-				_log.warn( "error while creating recipe controller in linenr: "
-				         + lnr.getLineNumber(), e);
-
-			else
-
-				_log.warn("No recipes were found in data folder");
-
-		}
-		finally
-		{
-			try
-			{
-				lnr.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-	}
-	
-	public int getRecipesCount()
-	{
-		return _lists.size();
-	}
-	
-	public L2RecipeList getRecipeList(int listId)
-	{
-		return _lists.get(listId);
-	}
-	
-	public L2RecipeList getRecipeByItemId(int itemId)
-	{
-		for (int i = 0; i < _lists.size(); i++)
-		{
-			L2RecipeList find = _lists.get(new Integer(i));
-			if (find.getRecipeId() == itemId)
-			{
-				return find;
-			}
-		}
-		return null;
-	}
     
-    public L2RecipeList getRecipeById(int recId)
-    {
-        for (int i = 0; i < _lists.size(); i++)
-        {
-            L2RecipeList find = _lists.get(new Integer(i));
-            if (find.getId() == recId)
-            {
-                return find;
-            }
-        }
-        return null;
-    }
-	
 	public synchronized void requestBookOpen(L2PcInstance player, boolean isDwarvenCraft)
 	{
 		RecipeItemMaker maker = null;
@@ -176,9 +95,9 @@ public class RecipeController
 	public synchronized void requestManufactureItem(L2PcInstance manufacturer, int recipeListId,
 	                                                L2PcInstance player)
 	{
-		L2RecipeList recipeList = getValidRecipeList(player, recipeListId);
-		
-		if (recipeList == null) return;
+        L2Recipe pRecipe = getValidRecipeList(player, recipeListId);
+
+		if (pRecipe == null) return;
 		
 		RecipeItemMaker maker;
 		
@@ -188,7 +107,7 @@ public class RecipeController
 			return;
 		}
 		
-		maker = new RecipeItemMaker(manufacturer, recipeList, player);
+		maker = new RecipeItemMaker(manufacturer, pRecipe, player);
 		if (maker.isValid)
 		{
 			if (Config.ALT_GAME_CREATION)
@@ -202,9 +121,9 @@ public class RecipeController
 	
 	public synchronized void requestMakeItem(L2PcInstance player, int recipeListId)
 	{
-		L2RecipeList recipeList = getValidRecipeList(player, recipeListId);
-		
-		if (recipeList == null)	return;
+        L2Recipe pRecipe = getValidRecipeList(player, recipeListId);
+
+		if (pRecipe == null)	return;
 		
 		RecipeItemMaker maker;
 		
@@ -213,12 +132,12 @@ public class RecipeController
 		{
 			SystemMessage sm = new SystemMessage(614);
 			sm.addString("You are busy creating ");
-			sm.addItemName(recipeList.getItemId());
+			sm.addItemName(pRecipe.getItemId());
 			player.sendPacket(sm);
 			return;
 		}
 		
-		maker = new RecipeItemMaker(player, recipeList, player);
+		maker = new RecipeItemMaker(player, pRecipe, player);
 		if (maker.isValid)
 		{
 			if (Config.ALT_GAME_CREATION)
@@ -230,71 +149,11 @@ public class RecipeController
 		}
 	}
 	
-	private void parseList(String line)
-	{
-		try
-		{
-			StringTokenizer st = new StringTokenizer(line, ";");
-			List<L2RecipeInstance> recipePartList = new FastList<L2RecipeInstance>();
-			
-			//we use common/dwarf for easy reading of the recipes.csv file 
-			String recipeTypeString = st.nextToken();
-			
-			// now parse the string into a boolean 
-			boolean isDwarvenRecipe;
-			
-			if (recipeTypeString.equalsIgnoreCase("dwarven")) isDwarvenRecipe = true;
-			else if (recipeTypeString.equalsIgnoreCase("common")) isDwarvenRecipe = false;
-			else
-			{ //prints a helpfull message 
-				_log.warn("Error parsing recipes.csv, unknown recipe type " + recipeTypeString);
-				return;
-			}
-			
-			String recipeName = st.nextToken();
-			int id = Integer.parseInt(st.nextToken());
-			int recipeId = Integer.parseInt(st.nextToken());
-			int level = Integer.parseInt(st.nextToken());
-			
-			//material
-			StringTokenizer st2 = new StringTokenizer(st.nextToken(), "[],");
-			while (st2.hasMoreTokens())
-			{
-				StringTokenizer st3 = new StringTokenizer(st2.nextToken(), "()");
-				int rpItemId = Integer.parseInt(st3.nextToken());
-				int quantity = Integer.parseInt(st3.nextToken());
-				L2RecipeInstance rp = new L2RecipeInstance(rpItemId, quantity);
-				recipePartList.add(rp);
-			}
-			
-			int itemId = Integer.parseInt(st.nextToken());
-			int count = Integer.parseInt(st.nextToken());
-			
-			//npc fee
-			/*String notdoneyet = */st.nextToken();
-			
-			int mpCost = Integer.parseInt(st.nextToken());
-			int successRate = Integer.parseInt(st.nextToken());
-			
-			L2RecipeList recipeList = new L2RecipeList(id, level, recipeId, recipeName, successRate,
-			                                           mpCost, itemId, count, isDwarvenRecipe);
-			for (L2RecipeInstance recipePart : recipePartList)
-			{
-				recipeList.addRecipe(recipePart);
-			}
-			_lists.put(new Integer(_lists.size()), recipeList);
-		}
-		catch (Exception e)
-		{
-			_log.fatal("Exception in RecipeController.parseList() - " + e);
-		}
-	}
-	
 	public class RecipeItemMaker implements Runnable
 	{
 		public boolean isValid;
 		List<TempItem> items = null;
-		final L2RecipeList recipeList;
+		final L2Recipe recipeList;
 		final L2PcInstance player; // "crafter"
 		final L2PcInstance target; // "customer"		
 		final L2Skill skill;
@@ -307,7 +166,7 @@ public class RecipeController
 		int materialsRefPrice;
 		int delay;
 		
-		public RecipeItemMaker(L2PcInstance pPlayer, L2RecipeList pRecipeList, L2PcInstance pTarget)
+		public RecipeItemMaker(L2PcInstance pPlayer, L2Recipe pRecipeList, L2PcInstance pTarget)
 		{
 			this.player = pPlayer;
 			this.target = pTarget;
@@ -357,7 +216,7 @@ public class RecipeController
 			}
 			
 			// validate recipe list
-			if ((recipeList == null) || (recipeList.getRecipes().length == 0))
+			if ((recipeList == null) || (recipeList.getRecipeComponents().length == 0))
 			{
 				player.sendMessage("No such recipe");
 				player.sendPacket(new ActionFailed());
@@ -625,11 +484,11 @@ public class RecipeController
 		
 		private List<TempItem> listItems(boolean remove)
 		{
-			L2RecipeInstance[] recipes = recipeList.getRecipes();
+			L2RecipeComponent[] recipes = recipeList.getRecipeComponents();
 			Inventory inv = target.getInventory();
 			List<TempItem> materials = new FastList<TempItem>();
 			
-			for (L2RecipeInstance recipe : recipes)
+			for (L2RecipeComponent recipe : recipes)
 			{
 				int quantity = recipeList.isConsumable() ? (int) (recipe.getQuantity() * Config.RATE_CRAFT_COST)
 				                                         : (int) recipe.getQuantity();
@@ -820,16 +679,22 @@ public class RecipeController
 		}
 	}
 	
-	private L2RecipeList getValidRecipeList(L2PcInstance player, int id)
-	{
-		L2RecipeList recipeList = getRecipeList(id - 1);
-		
-		if ((recipeList == null) || (recipeList.getRecipes().length == 0))
-		{
-			player.sendMessage("No recipe for: " + id);
-			player.isInCraftMode(false);
-			return null;
-		}
-		return recipeList;
-	}
+    /**
+     * 
+     * @param player
+     * @param id
+     * @return
+     */
+    private L2Recipe getValidRecipeList(L2PcInstance player, int id)
+    {
+        L2Recipe recipe =  l2RecipeService.getRecipeList(id - 1);
+        
+        if ((recipe == null) || (recipe.getRecipeComponents().length == 0))
+        {
+            player.sendMessage("No recipe for: " + id);
+            player.isInCraftMode(false);
+            return null;
+        }
+        return recipe;
+    }
 }

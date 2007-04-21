@@ -16,31 +16,33 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.model;
+package net.sf.l2j.gameserver.recipes.model;
+
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
- * This class describes a RecipeList componant (1 line of the recipe : Item-Quantity needed).<BR><BR>
+ * This class describes a Recipe component (1 line of the recipe : Item-Quantity needed).<BR><BR>
  */
-public class L2RecipeInstance
+public class L2RecipeComponent
 {
-	/** The Identifier of the item needed in the L2RecipeInstance */
+	/** The Identifier of the item  */
     private int _itemId;
 	
-	/** The item quantity needed in the L2RecipeInstance */
+	/** The item quantity needed  */
     private int _quantity;
     
 	
 	/**
-	 * Constructor of L2RecipeInstance (create a new line in a RecipeList).<BR><BR>
+	 * Constructor of L2RecipeComponent 
 	 */
-    public L2RecipeInstance(int itemId, int quantity)
+    public L2RecipeComponent(int itemId, int quantity)
     {
         _itemId = itemId;
         _quantity = quantity;
     }
     
 	/**
-	 * Return the Identifier of the L2RecipeInstance Item needed.<BR><BR>
+	 * Return the Identifier of the RecipComponent
 	 */
     public int getItemId()
     {
@@ -48,11 +50,32 @@ public class L2RecipeInstance
     }
     
 	/**
-	 * Return the Item quantity needed of the L2RecipeInstance.<BR><BR>
+	 * Return the Item quantity needed 
 	 */
     public int getQuantity()
     {
         return _quantity;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return new HashCodeBuilder(17,37).append(_itemId).toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final L2RecipeComponent other = (L2RecipeComponent) obj;
+        if (_itemId != other._itemId)
+            return false;
+        return true;
     }
 	
 }

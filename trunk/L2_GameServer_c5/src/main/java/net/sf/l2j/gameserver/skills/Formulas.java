@@ -1719,7 +1719,7 @@ public final class Formulas
         }
     }
     
-    public int calcSkillStatModifier(SkillType type, L2Character attacker, L2Character target)
+    private int calcSkillStatModifier(SkillType type, L2Character attacker, L2Character target)
     {
         if (type == null) return 0;
         switch (type)

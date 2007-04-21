@@ -19,9 +19,9 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.Iterator;
+import java.util.Map;
 
 import javolution.text.TextBuilder;
-import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.PcFreight;
@@ -184,7 +184,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
         else
         {
 
-            FastMap<Integer, String> chars = player.getAccountChars();
+            Map<Integer, String> chars = player.getAccountChars();
 
             if (chars.size() < 1)
             {

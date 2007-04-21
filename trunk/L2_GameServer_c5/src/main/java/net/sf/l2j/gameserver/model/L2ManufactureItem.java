@@ -18,7 +18,8 @@
  */
 package net.sf.l2j.gameserver.model;
 
-import net.sf.l2j.gameserver.RecipeController;
+import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
+import net.sf.l2j.tools.L2Registry;
 
 
 /**
@@ -31,13 +32,15 @@ public class L2ManufactureItem
     private int _recipeId;
     private int _cost;
     private boolean _isDwarven;
+    private L2RecipeService __l2RecipeService ;
     
     public L2ManufactureItem(int recipeId, int cost)
     {
+        __l2RecipeService = (L2RecipeService) L2Registry.getBean("L2RecipeService");
         _recipeId = recipeId;
         _cost = cost;
         
-        _isDwarven = RecipeController.getInstance().getRecipeById(_recipeId).isDwarvenRecipe();
+        _isDwarven = __l2RecipeService.getRecipeById(_recipeId).isDwarvenRecipe();
     }
     
     public int getRecipeId()

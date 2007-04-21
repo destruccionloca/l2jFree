@@ -18,11 +18,12 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import net.sf.l2j.gameserver.RecipeController;
-import net.sf.l2j.gameserver.model.L2RecipeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.recipes.model.L2Recipe;
+import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
 import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
+import net.sf.l2j.tools.L2Registry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,7 +44,8 @@ public class RecipeItemMakeInfo extends ServerBasePacket
     private int _id;
     private L2PcInstance _player;
     private boolean _success;
-    private L2RecipeList[] _recipes;
+    private L2Recipe[] _recipes;
+    private L2RecipeService __l2RecipeService = (L2RecipeService) L2Registry.getBean("L2RecipeService");
     
     public RecipeItemMakeInfo(int id, L2PcInstance player, boolean success)
     {
@@ -66,18 +68,18 @@ public class RecipeItemMakeInfo extends ServerBasePacket
 
     final void writeImpl()
     {
-        L2RecipeList recipe = RecipeController.getInstance().getRecipeById(_id);
+        L2Recipe recipe = __l2RecipeService.getRecipeById(_id);
         
         boolean hasRecipe = false;
 
         _recipes = _player.getDwarvenRecipeBook();
-        for (L2RecipeList rl: _recipes)
+        for (L2Recipe rl: _recipes)
         {
             if (rl.getId() == _id)
                 hasRecipe = true;
         }
         _recipes = _player.getCommonRecipeBook();
-        for (L2RecipeList rl: _recipes)
+        for (L2Recipe rl: _recipes)
         {
             if (rl.getId() == _id)
                 hasRecipe = true;

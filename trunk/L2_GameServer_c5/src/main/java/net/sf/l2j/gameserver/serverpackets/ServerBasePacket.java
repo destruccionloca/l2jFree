@@ -114,7 +114,6 @@ public abstract class ServerBasePacket extends BasePacket
 		BasePacket bp = super.setConnection(con);
 		if (bp == this)
         {
-//			if (Config.DEVELOPER) _log.debugr(getType());
 			runImpl();
         }
 		return bp;

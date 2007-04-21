@@ -18,13 +18,14 @@
  */
 package net.sf.l2j.gameserver.handler.itemhandlers;
 
-import net.sf.l2j.gameserver.RecipeController;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
-import net.sf.l2j.gameserver.model.L2RecipeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.recipes.model.L2Recipe;
+import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.tools.L2Registry;
 
 /**
  * This class ...
@@ -35,15 +36,12 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class Recipes implements IItemHandler
 {
     private static int[] _itemIds = null;
-
+    private L2RecipeService __l2RecipeService ;
+    
     public Recipes()
     {
-        RecipeController rc = RecipeController.getInstance();
-        _itemIds = new int[rc.getRecipesCount()];
-        for (int i = 0; i < rc.getRecipesCount(); i++)
-        {
-            _itemIds[i] = rc.getRecipeList(i).getRecipeId();
-        }
+        __l2RecipeService = (L2RecipeService) L2Registry.getBean("L2RecipeService");
+        _itemIds = __l2RecipeService.getRecipeIds();
     }
 
     public void useItem(L2PlayableInstance playable, L2ItemInstance item)
@@ -51,7 +49,7 @@ public class Recipes implements IItemHandler
         if (!(playable instanceof L2PcInstance))
             return;
         L2PcInstance activeChar = (L2PcInstance)playable;
-        L2RecipeList rp = RecipeController.getInstance().getRecipeByItemId(item.getItemId()); 
+        L2Recipe rp = __l2RecipeService.getRecipeByItemId(item.getItemId()); 
         if (activeChar.hasRecipeList(rp.getId())) 
         {
             SystemMessage sm = new SystemMessage(SystemMessage.RECIPE_ALREADY_REGISTERED); 

@@ -100,7 +100,6 @@ import net.sf.l2j.gameserver.model.L2ManufactureList;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2Radar;
-import net.sf.l2j.gameserver.model.L2RecipeList;
 import net.sf.l2j.gameserver.model.L2Request;
 import net.sf.l2j.gameserver.model.L2ShortCut;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -137,6 +136,8 @@ import net.sf.l2j.gameserver.model.entity.events.VIP;
 import net.sf.l2j.gameserver.model.entity.faction.FactionMember;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
+import net.sf.l2j.gameserver.recipes.model.L2Recipe;
+import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ChangeWaitType;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
@@ -189,6 +190,7 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.util.Broadcast;
 import net.sf.l2j.gameserver.util.Util;
+import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.geometry.Point3D;
 
 import org.apache.commons.logging.Log;
@@ -476,11 +478,11 @@ public final class L2PcInstance extends L2PlayableInstance
     private long _uptime;
     private String _accountName;
 
-    private final FastMap<Integer, String> _chars = new FastMap<Integer, String>();
+    private final Map<Integer, String> _chars = new FastMap<Integer, String>();
 
     /** The table containing all L2RecipeList of the L2PcInstance */
-    private FastMap<Integer, L2RecipeList> _dwarvenRecipeBook = new FastMap<Integer, L2RecipeList>();
-    private FastMap<Integer, L2RecipeList> _commonRecipeBook = new FastMap<Integer, L2RecipeList>();
+    private Map<Integer, L2Recipe> _dwarvenRecipeBook = new FastMap<Integer, L2Recipe>();
+    private Map<Integer, L2Recipe> _commonRecipeBook = new FastMap<Integer, L2Recipe>();
 
     private int _mountType;
 
@@ -736,7 +738,7 @@ public final class L2PcInstance extends L2PlayableInstance
         return _connection.getClient().getLoginName();
     }
 
-    public FastMap<Integer, String> getAccountChars()
+    public Map<Integer, String> getAccountChars()
     {
         return _chars;
     }
@@ -1016,17 +1018,17 @@ public final class L2PcInstance extends L2PlayableInstance
     /**
      * Return a table containing all Common L2RecipeList of the L2PcInstance.<BR><BR> 
      */
-    public L2RecipeList[] getCommonRecipeBook()
+    public L2Recipe[] getCommonRecipeBook()
     {
-        return _commonRecipeBook.values().toArray(new L2RecipeList[_commonRecipeBook.values().size()]);
+        return _commonRecipeBook.values().toArray(new L2Recipe[_commonRecipeBook.values().size()]);
     }
 
     /** 
      * Return a table containing all Dwarf L2RecipeList of the L2PcInstance.<BR><BR> 
      */
-    public L2RecipeList[] getDwarvenRecipeBook()
+    public L2Recipe[] getDwarvenRecipeBook()
     {
-        return _dwarvenRecipeBook.values().toArray(new L2RecipeList[_dwarvenRecipeBook.values().size()]);
+        return _dwarvenRecipeBook.values().toArray(new L2Recipe[_dwarvenRecipeBook.values().size()]);
     }
 
     /** 
@@ -1035,7 +1037,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param recipe The L2RecipeList to add to the _recipebook 
      * 
      */
-    public void registerCommonRecipeList(L2RecipeList recipe)
+    public void registerCommonRecipeList(L2Recipe recipe)
     {
         _commonRecipeBook.put(recipe.getId(), recipe);
     }
@@ -1046,7 +1048,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param recipe The L2RecipeList to add to the _recipebook
      *
      */
-    public void registerDwarvenRecipeList(L2RecipeList recipe)
+    public void registerDwarvenRecipeList(L2Recipe recipe)
     {
         _dwarvenRecipeBook.put(recipe.getId(), recipe);
     }
@@ -1845,6 +1847,8 @@ public final class L2PcInstance extends L2PlayableInstance
         
         if (t == null)
         {
+            // TODO why throw an error !!
+            // an error is a very grave problem. A exception or a RuntimeException is enough in most case
             _log.fatal("Missing template for classId: "+Id);
             throw new Error();
         }
@@ -5737,7 +5741,7 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.execute();
             statement.close();
 
-            L2RecipeList[] recipes = getCommonRecipeBook();
+            L2Recipe[] recipes = getCommonRecipeBook();
 
             for (int count = 0; count < recipes.length; count++)
             {
@@ -5779,6 +5783,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     private void restoreRecipeBook()
     {
+        L2RecipeService l2RecipeService = (L2RecipeService) L2Registry.getBean("L2RecipeService");
         java.sql.Connection con = null;
 
         try
@@ -5788,11 +5793,10 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(1, getObjectId());
             ResultSet rset = statement.executeQuery();
 
-            L2RecipeList recipe;
+            L2Recipe recipe;
             while (rset.next())
             {
-                recipe = RecipeController.getInstance().getRecipeList(rset.getInt("id") - 1);
-
+                recipe = l2RecipeService.getRecipeList(rset.getInt("id") - 1) ;
                 if (rset.getInt("type") == 1) registerDwarvenRecipeList(recipe);
                 else registerCommonRecipeList(recipe);
             }

@@ -90,6 +90,12 @@
 			<value>net.sf.l2j.gameserver.GameServer</value>
 		</property>
 	</bean> 	
+
+	<!-- 
+		DAO for recipes
+	 -->
+    <bean id="L2RecipeDAO" class="net.sf.l2j.gameserver.recipes.dao.impl.L2RecipeDAOCsv">
+	</bean> 	
 	
 
 	<!-- 
@@ -113,7 +119,16 @@
 		<property name="postsDAO">
 			<ref bean="PostsDAO" />
 		</property>
-	</bean> 	
+	</bean> 
+	
+	<!-- 
+		Service to manage Recipes 
+	 -->
+    <bean id="L2RecipeService" class="net.sf.l2j.gameserver.recipes.service.L2RecipeService">
+		<property name="l2RecipeDAO">
+			<ref bean="L2RecipeDAO" />
+		</property>
+	</bean> 			
 
 
 	<!--

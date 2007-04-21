@@ -3,10 +3,11 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.gameserver.ClientThread;
-import net.sf.l2j.gameserver.RecipeController;
-import net.sf.l2j.gameserver.model.L2RecipeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.recipes.model.L2Recipe;
+import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
 import net.sf.l2j.gameserver.serverpackets.RecipeBookItemList;
+import net.sf.l2j.tools.L2Registry;
 
 public class RequestRecipeBookDestroy extends ClientBasePacket 
 {
@@ -31,7 +32,8 @@ public class RequestRecipeBookDestroy extends ClientBasePacket
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar != null)
         {
-        	L2RecipeList rp = RecipeController.getInstance().getRecipeList(_RecipeID-1); 
+            L2RecipeService l2RecipeService = (L2RecipeService) L2Registry.getBean("L2RecipeService");
+        	L2Recipe rp =l2RecipeService.getRecipeList(_RecipeID-1) ;
          	if (rp == null) 
          		return;
             activeChar.unregisterRecipeList(_RecipeID);

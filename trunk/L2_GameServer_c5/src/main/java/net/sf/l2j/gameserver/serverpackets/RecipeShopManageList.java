@@ -20,8 +20,8 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import net.sf.l2j.gameserver.model.L2ManufactureItem;
 import net.sf.l2j.gameserver.model.L2ManufactureList;
-import net.sf.l2j.gameserver.model.L2RecipeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 
 /**
  * dd d(dd) d(ddd)
@@ -33,7 +33,7 @@ public class RecipeShopManageList  extends ServerBasePacket
 	private static final String _S__D8_RecipeShopManageList = "[S] d8 RecipeShopManageList";
 	private L2PcInstance _seller;
 	private boolean _isDwarven;
-	private L2RecipeList[] _recipes;
+	private L2Recipe[] _recipes;
 	
 	public RecipeShopManageList(L2PcInstance seller, boolean isDwarven)
 	{
@@ -79,7 +79,7 @@ public class RecipeShopManageList  extends ServerBasePacket
 			
 			for (int i = 0; i < _recipes.length; i++)
 			{
-				L2RecipeList temp = _recipes[i];
+                L2Recipe temp = _recipes[i];
 				writeD(temp.getId());
 				writeD(i+1);
 			}
