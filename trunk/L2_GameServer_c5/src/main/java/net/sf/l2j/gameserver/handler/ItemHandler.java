@@ -21,6 +21,36 @@ package net.sf.l2j.gameserver.handler;
 import java.util.Map;
 import java.util.TreeMap;
 
+import net.sf.l2j.gameserver.handler.itemhandlers.BeastSoulShot;
+import net.sf.l2j.gameserver.handler.itemhandlers.BeastSpiritShot;
+import net.sf.l2j.gameserver.handler.itemhandlers.BlessedSpiritShot;
+import net.sf.l2j.gameserver.handler.itemhandlers.CharChangePotions;
+import net.sf.l2j.gameserver.handler.itemhandlers.ChestKey;
+import net.sf.l2j.gameserver.handler.itemhandlers.CrystalCarol;
+import net.sf.l2j.gameserver.handler.itemhandlers.EnchantScrolls;
+import net.sf.l2j.gameserver.handler.itemhandlers.EnergyStone;
+import net.sf.l2j.gameserver.handler.itemhandlers.ExtractableItems;
+import net.sf.l2j.gameserver.handler.itemhandlers.Firework;
+import net.sf.l2j.gameserver.handler.itemhandlers.FishShots;
+import net.sf.l2j.gameserver.handler.itemhandlers.Guide;
+import net.sf.l2j.gameserver.handler.itemhandlers.Harvester;
+import net.sf.l2j.gameserver.handler.itemhandlers.MercTicket;
+import net.sf.l2j.gameserver.handler.itemhandlers.MysteryPotion;
+import net.sf.l2j.gameserver.handler.itemhandlers.Potions;
+import net.sf.l2j.gameserver.handler.itemhandlers.Recipes;
+import net.sf.l2j.gameserver.handler.itemhandlers.Remedy;
+import net.sf.l2j.gameserver.handler.itemhandlers.RollingDice;
+import net.sf.l2j.gameserver.handler.itemhandlers.ScrollOfEscape;
+import net.sf.l2j.gameserver.handler.itemhandlers.ScrollOfResurrection;
+import net.sf.l2j.gameserver.handler.itemhandlers.Scrolls;
+import net.sf.l2j.gameserver.handler.itemhandlers.Seed;
+import net.sf.l2j.gameserver.handler.itemhandlers.SevenSignsRecord;
+import net.sf.l2j.gameserver.handler.itemhandlers.SoulCrystals;
+import net.sf.l2j.gameserver.handler.itemhandlers.SoulShots;
+import net.sf.l2j.gameserver.handler.itemhandlers.SpiritShot;
+import net.sf.l2j.gameserver.handler.itemhandlers.SummonItems;
+import net.sf.l2j.gameserver.handler.itemhandlers.WorldMap;
+
 /**
  * This class manages handlers of items
  *
@@ -61,6 +91,35 @@ public class ItemHandler
     private ItemHandler()
     {
         _datatable = new TreeMap<Integer, IItemHandler>();
+        this.registerItemHandler(new ScrollOfEscape());
+        this.registerItemHandler(new ScrollOfResurrection());
+        this.registerItemHandler(new SoulShots());
+        this.registerItemHandler(new SpiritShot());
+        this.registerItemHandler(new BeastSoulShot());
+        this.registerItemHandler(new BeastSpiritShot());
+        this.registerItemHandler(new BlessedSpiritShot());
+        this.registerItemHandler(new ChestKey());        
+        this.registerItemHandler(new WorldMap());
+        this.registerItemHandler(new Potions());
+        this.registerItemHandler(new Recipes());
+        this.registerItemHandler(new RollingDice());
+        this.registerItemHandler(new MysteryPotion());
+        this.registerItemHandler(new EnchantScrolls());
+        this.registerItemHandler(new Remedy());
+        this.registerItemHandler(new Guide());
+        this.registerItemHandler(new Scrolls());
+        this.registerItemHandler(new CrystalCarol());
+        this.registerItemHandler(new SoulCrystals());
+        this.registerItemHandler(new SevenSignsRecord());
+        this.registerItemHandler(new CharChangePotions());
+        this.registerItemHandler(new Firework());
+        this.registerItemHandler(new Seed());
+        this.registerItemHandler(new Harvester());
+        this.registerItemHandler(new MercTicket());
+        this.registerItemHandler(new FishShots());
+        this.registerItemHandler(new ExtractableItems());
+        this.registerItemHandler(new SummonItems());      
+        this.registerItemHandler(new EnergyStone());        
     }
     
     /**

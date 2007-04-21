@@ -222,4 +222,33 @@ public class DoorTable
             else if (doorInst.getDoorName().startsWith("aden_tower"))
                 doorInst.setAutoActionDelay(300000);
     }
+    
+    /**
+     * Open some doors
+     *
+     */
+    public void openDoors()
+    {
+        try
+        {
+            getDoor(24190001).openMe();
+            getDoor(24190002).openMe();
+            getDoor(24190003).openMe();
+            getDoor(24190004).openMe();
+            getDoor(23180001).openMe();
+            getDoor(23180002).openMe();
+            getDoor(23180003).openMe();
+            getDoor(23180004).openMe();
+            getDoor(23180005).openMe();
+            getDoor(23180006).openMe();
+            
+            checkAutoOpen();
+        } 
+        catch (NullPointerException e)
+        {
+            _log.warn("There are errors in your Door.csv file. Update door.csv");
+            if (_log.isDebugEnabled())
+               _log.debug(e);
+        }
+    }
 }

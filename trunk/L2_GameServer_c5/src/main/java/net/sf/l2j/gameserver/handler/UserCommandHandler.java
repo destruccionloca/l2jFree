@@ -20,6 +20,15 @@ package net.sf.l2j.gameserver.handler;
 
 import javolution.util.FastMap;
 
+import net.sf.l2j.gameserver.handler.usercommandhandlers.ClanPenalty;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.ClanWarsList;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.DisMount;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.Escape;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.Loc;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.Mount;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.PartyInfo;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.Time;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -48,6 +57,16 @@ public class UserCommandHandler
 	private UserCommandHandler()
 	{
 		_datatable = new FastMap<Integer, IUserCommandHandler>();
+        registerUserCommandHandler(new ClanPenalty());
+        registerUserCommandHandler(new ClanWarsList());
+        registerUserCommandHandler(new DisMount());
+        registerUserCommandHandler(new Mount());        
+        registerUserCommandHandler(new PartyInfo());
+        registerUserCommandHandler(new Loc());
+        registerUserCommandHandler(new Escape());
+        registerUserCommandHandler(new Time());
+        registerUserCommandHandler(new ClanWarsList());
+        
 	}
 	
 	public void registerUserCommandHandler(IUserCommandHandler handler)

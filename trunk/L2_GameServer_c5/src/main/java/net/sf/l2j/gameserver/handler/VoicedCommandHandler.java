@@ -20,6 +20,10 @@ package net.sf.l2j.gameserver.handler;
 
 import javolution.util.FastMap;
 
+import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.CastleDoors;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Wedding;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -48,6 +52,11 @@ public class VoicedCommandHandler
 	private VoicedCommandHandler()
 	{
 		_datatable = new FastMap<String, IVoicedCommandHandler>();
+        registerVoicedCommandHandler(new CastleDoors());
+        if(Config.ALLOW_WEDDING)
+        {
+            registerVoicedCommandHandler(new Wedding());
+        }
 	}
 	
 	public void registerVoicedCommandHandler(IVoicedCommandHandler handler)

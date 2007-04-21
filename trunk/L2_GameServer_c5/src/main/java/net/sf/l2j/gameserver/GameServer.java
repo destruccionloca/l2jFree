@@ -60,130 +60,6 @@ import net.sf.l2j.gameserver.handler.ItemHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.handler.UserCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminAdmin;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminAnnouncements;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminBBS;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminBan;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminBanChat;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCTFEngine;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCache;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminChangeAccessLevel;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCreateItem;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCursedWeapons;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDMEngine;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDelete;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDoorControl;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEditChar;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEditNpc;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEffects;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEnchant;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEventEngine;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminExpSp;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminFightCalculator;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGeoEditor;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGeodata;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGm;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGmChat;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminHeal;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminHelpPage;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminInvul;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminKick;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminKill;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminLevel;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminLogin;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMammon;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMenu;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMobGroup;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMonsterRace;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPForge;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPathNode;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPetition;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPledge;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPolymorph;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRepairChar;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRes;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRideWyvern;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSendHome;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminShop;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminShutdown;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSiege;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSkill;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSpawn;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTarget;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTeleport;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTest;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTvTEngine;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminUnblockIp;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminVIPEngine;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminZone;
-import net.sf.l2j.gameserver.handler.itemhandlers.BeastSoulShot;
-import net.sf.l2j.gameserver.handler.itemhandlers.BeastSpiritShot;
-import net.sf.l2j.gameserver.handler.itemhandlers.BlessedSpiritShot;
-import net.sf.l2j.gameserver.handler.itemhandlers.CharChangePotions;
-import net.sf.l2j.gameserver.handler.itemhandlers.ChestKey;
-import net.sf.l2j.gameserver.handler.itemhandlers.CrystalCarol;
-import net.sf.l2j.gameserver.handler.itemhandlers.EnchantScrolls;
-import net.sf.l2j.gameserver.handler.itemhandlers.EnergyStone;
-import net.sf.l2j.gameserver.handler.itemhandlers.ExtractableItems;
-import net.sf.l2j.gameserver.handler.itemhandlers.Firework;
-import net.sf.l2j.gameserver.handler.itemhandlers.FishShots;
-import net.sf.l2j.gameserver.handler.itemhandlers.Guide;
-import net.sf.l2j.gameserver.handler.itemhandlers.Harvester;
-import net.sf.l2j.gameserver.handler.itemhandlers.MercTicket;
-import net.sf.l2j.gameserver.handler.itemhandlers.MysteryPotion;
-import net.sf.l2j.gameserver.handler.itemhandlers.Potions;
-import net.sf.l2j.gameserver.handler.itemhandlers.Recipes;
-import net.sf.l2j.gameserver.handler.itemhandlers.Remedy;
-import net.sf.l2j.gameserver.handler.itemhandlers.RollingDice;
-import net.sf.l2j.gameserver.handler.itemhandlers.ScrollOfEscape;
-import net.sf.l2j.gameserver.handler.itemhandlers.ScrollOfResurrection;
-import net.sf.l2j.gameserver.handler.itemhandlers.Scrolls;
-import net.sf.l2j.gameserver.handler.itemhandlers.Seed;
-import net.sf.l2j.gameserver.handler.itemhandlers.SevenSignsRecord;
-import net.sf.l2j.gameserver.handler.itemhandlers.SoulCrystals;
-import net.sf.l2j.gameserver.handler.itemhandlers.SoulShots;
-import net.sf.l2j.gameserver.handler.itemhandlers.SpiritShot;
-import net.sf.l2j.gameserver.handler.itemhandlers.SummonItems;
-import net.sf.l2j.gameserver.handler.itemhandlers.WorldMap;
-import net.sf.l2j.gameserver.handler.skillhandlers.BalanceLife;
-import net.sf.l2j.gameserver.handler.skillhandlers.CPperHeal;
-import net.sf.l2j.gameserver.handler.skillhandlers.Charge;
-import net.sf.l2j.gameserver.handler.skillhandlers.ChargeSelf;
-import net.sf.l2j.gameserver.handler.skillhandlers.CombatPointHeal;
-import net.sf.l2j.gameserver.handler.skillhandlers.Continuous;
-import net.sf.l2j.gameserver.handler.skillhandlers.Craft;
-import net.sf.l2j.gameserver.handler.skillhandlers.Crits;
-import net.sf.l2j.gameserver.handler.skillhandlers.Disablers;
-import net.sf.l2j.gameserver.handler.skillhandlers.DrainSoul;
-import net.sf.l2j.gameserver.handler.skillhandlers.Fishing;
-import net.sf.l2j.gameserver.handler.skillhandlers.FishingSkill;
-import net.sf.l2j.gameserver.handler.skillhandlers.Heal;
-import net.sf.l2j.gameserver.handler.skillhandlers.ManaHeal;
-import net.sf.l2j.gameserver.handler.skillhandlers.Manadam;
-import net.sf.l2j.gameserver.handler.skillhandlers.Mdam;
-import net.sf.l2j.gameserver.handler.skillhandlers.Pdam;
-import net.sf.l2j.gameserver.handler.skillhandlers.Recall;
-import net.sf.l2j.gameserver.handler.skillhandlers.Resurrect;
-import net.sf.l2j.gameserver.handler.skillhandlers.SiegeFlag;
-import net.sf.l2j.gameserver.handler.skillhandlers.Spoil;
-import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
-import net.sf.l2j.gameserver.handler.skillhandlers.SummonCp;
-import net.sf.l2j.gameserver.handler.skillhandlers.SummonCursedBones;
-import net.sf.l2j.gameserver.handler.skillhandlers.SummonFriend;
-import net.sf.l2j.gameserver.handler.skillhandlers.SummonTreasureKey;
-import net.sf.l2j.gameserver.handler.skillhandlers.Sweep;
-import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
-import net.sf.l2j.gameserver.handler.skillhandlers.Unlock;
-import net.sf.l2j.gameserver.handler.usercommandhandlers.ClanPenalty;
-import net.sf.l2j.gameserver.handler.usercommandhandlers.ClanWarsList;
-import net.sf.l2j.gameserver.handler.usercommandhandlers.DisMount;
-import net.sf.l2j.gameserver.handler.usercommandhandlers.Escape;
-import net.sf.l2j.gameserver.handler.usercommandhandlers.Loc;
-import net.sf.l2j.gameserver.handler.usercommandhandlers.Mount;
-import net.sf.l2j.gameserver.handler.usercommandhandlers.PartyInfo;
-import net.sf.l2j.gameserver.handler.usercommandhandlers.Time;
-import net.sf.l2j.gameserver.handler.voicedcommandhandlers.CastleDoors;
-import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Wedding;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CrownManager;
@@ -253,54 +129,96 @@ public class GameServer
         return _gameThread;
     }
 
-
-    public GameServer() throws Exception
+    /**
+     * Initiate all managers, singletons, load data 
+     * launch main thread to handle client packets
+     * 
+     * TODO : let singleton be loaded by spring
+     * @throws Throwable
+     */
+    public GameServer() throws Throwable
     {
-        gameServer = this;
+        // Local Constants
+        // ----------------
+        final String LOG_FOLDER = "log"; // Name of folder for log file
+        final String LOG_FOLDER_GAME="game";
+        // Create log folders
+        // -------------------
+        File logFolder = new File(Config.DATAPACK_ROOT, LOG_FOLDER); 
+        logFolder.mkdir();
+        File logFolderGame = new File(logFolder, LOG_FOLDER_GAME); 
+        logFolderGame.mkdir();
+        
+        // o Initialize configuration
+        // ------------------
+        Config.load();
+        
+        // Create input stream for log file
+        // or store file data into memory
+        // -------------------------------
+        InputStream is =  new FileInputStream(new File("./config/logging.properties")); 
+        LogManager.getLogManager().readConfiguration(is);
+        is.close();        
+        
+        // o Init database factory 
+        // TODO : will be replaced by L2Registry.load one day...
+        // -----------------------------------------------------
+        L2DatabaseFactory.initInstance();
+
+        // o Print used memory
+        // --------------------
         if ( _log.isDebugEnabled())_log.debug("used mem:" + getUsedMemoryMB()+"MB" );
 
         
-        VersionningService versionningService = (VersionningService)L2Registry.getBean("VersionningService");
-        Version version = versionningService.getVersion();
-        if (version!= null)
-        {
-            _log.info("L2JFree Server Version:    "+version.getRevisionNumber());
-            _log.info("L2JFree Jdk used for compilation:    "+version.getBuildJdk());
-            // TODO : add build date to plugin maven build number 
-            //_log.info("L2JFree Server Build Date: "+Config.SERVER_BUILD_DATE);
-        }
-
+        // o Initialize the Id factory
+        // the type of id factory is modifiable by configuration
+        // -----------------------------------------------------
         _idFactory = IdFactory.getInstance();
         if (!_idFactory.isInitialized())
         {
             _log.fatal("Could not read object IDs from DB. Please Check Your Data.");
             throw new Exception("Could not initialize the ID factory");
         }
-
+        
+        // o Launch pool of threads
+        // -----------------------
         _threadpools = ThreadPoolManager.getInstance();
         if ( _log.isDebugEnabled())_log.debug("ClientScheduler initialized");
-
+        
+        // o Initialize folders
+        // -------------------
         new File(Config.DATAPACK_ROOT, "data/clans").mkdirs();
         new File(Config.DATAPACK_ROOT, "data/crests").mkdirs();
         new File("pathnode").mkdirs();
 
-        // start game time control early
+        // o start game time control early
+        // ------------------------------
         GameTimeController.getInstance();
         if ( _log.isDebugEnabled())_log.debug("TimeController initialized");
 
-        // keep the references of Singletons to prevent garbage collection
+        // o Initialize a singleton (unusefull...)
+        // TODO rewrite the CharNameTable, no need to 
+        // have a singleton and its methods are misplaced
+        // ----------------------------------------------
         CharNameTable.getInstance();
         
+        // o Load datapack items
+        // ---------------------
         _itemTable = ItemTable.getInstance();
         if (!_itemTable.isInitialized())
         {
-            _log.fatal("Could not find the extraced files. Please Check Your Data.");
+            _log.fatal("Could not find the extracted files. Please Check Your Data.");
             throw new Exception("Could not initialize the item table");
         }
         
+        // o Load extractable items (?)
+        // Load items used for summoning
+        // ------------------------------
         ExtractableItemsData.getInstance();
         SummonItemsData.getInstance();
         
+        // o Load buylist 
+        // --------------
         TradeListTable.getInstance();
         _skillTable = SkillTable.getInstance();
         if (!_skillTable.isInitialized())
@@ -308,33 +226,52 @@ public class GameServer
             _log.fatal("Could not find the extraced files. Please Check Your Data.");
             throw new Exception("Could not initialize the skill table");
         }
-
+        
+        // o Initialize skill tree from dp
+        // --------------------------------
         SkillTreeTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("SkillTreeTable initialized");
+        // o Initialize armor sets from dp
+        // --------------------------------
         ArmorSetsTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("ArmorSetsTable initialized");
+        // o Load fish table
+        // --------------------------------
         FishTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("FishTable initialized");
+        // o Load skill spellbook table
+        // --------------------------------
         SkillSpellbookTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("SkillSpellbookTable initialized");
+        // o Load char templates table
+        // --------------------------------
         CharTemplateTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("ChatTemplateTable initialized");
+        // o Load noble skills table
+        // --------------------------------
         NobleSkillTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("NobleSkillTable initialized");
+        // o Load heroes
+        // -------------
         HeroSkillTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("HeroSkillTable initialized");        
-        //Call to load caches
+        // o Initialize Cache for Html and crest
+        // TODO : use ehcache for those cache
+        // ------------------------------------
         HtmCache.getInstance();
         CrestCache.getInstance();
-
-        _npcTable = NpcTable.getInstance();
         
+        // o Load npcs
+        // ------------
+        _npcTable = NpcTable.getInstance();
         if (!_npcTable.isInitialized())
         {
             _log.fatal("Could not find the extraced files. Please Check Your Data.");
             throw new Exception("Could not initialize the npc table");
         }
         
+        // o Load henna
+        // ------------
         _hennaTable = HennaTable.getInstance();
         
         if (!_hennaTable.isInitialized())
@@ -342,6 +279,8 @@ public class GameServer
            throw new Exception("Could not initialize the Henna Table");
         }
         
+        // o Load henna relation 
+        // ----------------------
         HennaTreeTable.getInstance();
         
         if (!_hennaTable.isInitialized())
@@ -349,6 +288,8 @@ public class GameServer
            throw new Exception("Could not initialize the Henna Tree Table");
         }
         
+        // o Load referential tables 
+        // ------------------------
         BuffTemplateTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("BuffTemplateTable initialized");
         GeoData.getInstance();
@@ -384,17 +325,28 @@ public class GameServer
             if ( _log.isDebugEnabled())_log.debug("ItemsAutoDestroy initialized");
         }
         
+        // o Initialize monster race
+        // TODO : nothing to initialize...
+        // ------------------------
         MonsterRace.getInstance();
         if ( _log.isDebugEnabled())_log.debug("MonsterRace initialized");
         
+        // o Load doors and static objects from dp
+        // ---------------------------------------
         _doorTable = DoorTable.getInstance();
         StaticObjects.getInstance();
         
+        // o Load seven signs engine
+        // ------------------------
         _sevenSignsEngine = SevenSigns.getInstance();
         SevenSignsFestival.getInstance();
+        // o Load random spawn
+        // -------------------
         _autoSpawnHandler = AutoSpawnHandler.getInstance();
+        _log.info("AutoSpawnHandler: Loaded " + _autoSpawnHandler.size() + " handlers in total.");
 
-        // Spawn the Orators/Preachers if in the Seal Validation period.
+        // o Spawn the Orators/Preachers if in the Seal Validation period.
+        // -------------------------------------------------------------
         _sevenSignsEngine.spawnSevenSignsNPC();
 
         Olympiad.getInstance();
@@ -408,14 +360,16 @@ public class GameServer
         CrownManager.getInstance();
         if ( _log.isDebugEnabled())_log.debug("CrownManager initialized");
 
-        // Couple manager
+        // o Couple manager
+        // -----------------
         if(Config.ALLOW_WEDDING)
         {
             CoupleManager.getInstance();
             if ( _log.isDebugEnabled())_log.debug("CoupleManager initialized");
         }
 
-        // Faction manager
+        // o Faction manager
+        // -----------------
         if(Config.FACTION_ENABLED)
         {
             FactionManager.getInstance();
@@ -424,152 +378,34 @@ public class GameServer
             if ( _log.isDebugEnabled())_log.debug("FactionQuestManager initialized");
         }
         
-        // Start to announce online players number
+        // o Start to announce online players number
+        // ---------------------------------------
         if(Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
         	OnlinePlayers.getInstance();        
 
-        _log.info("AutoSpawnHandler: Loaded " + _autoSpawnHandler.size() + " handlers in total.");
-
+        // o Initialize item handlers
+        // --------------------------
         _itemHandler = ItemHandler.getInstance();
-        _itemHandler.registerItemHandler(new ScrollOfEscape());
-        _itemHandler.registerItemHandler(new ScrollOfResurrection());
-        _itemHandler.registerItemHandler(new SoulShots());
-        _itemHandler.registerItemHandler(new SpiritShot());
-        _itemHandler.registerItemHandler(new BeastSoulShot());
-        _itemHandler.registerItemHandler(new BeastSpiritShot());
-        _itemHandler.registerItemHandler(new BlessedSpiritShot());
-        _itemHandler.registerItemHandler(new ChestKey());        
-        _itemHandler.registerItemHandler(new WorldMap());
-        _itemHandler.registerItemHandler(new Potions());
-        _itemHandler.registerItemHandler(new Recipes());
-        _itemHandler.registerItemHandler(new RollingDice());
-        _itemHandler.registerItemHandler(new MysteryPotion());
-        _itemHandler.registerItemHandler(new EnchantScrolls());
-        _itemHandler.registerItemHandler(new Remedy());
-        _itemHandler.registerItemHandler(new Guide());
-        _itemHandler.registerItemHandler(new Scrolls());
-        _itemHandler.registerItemHandler(new CrystalCarol());
-        _itemHandler.registerItemHandler(new SoulCrystals());
-        _itemHandler.registerItemHandler(new SevenSignsRecord());
-        _itemHandler.registerItemHandler(new CharChangePotions());
-        _itemHandler.registerItemHandler(new Firework());
-        _itemHandler.registerItemHandler(new Seed());
-        _itemHandler.registerItemHandler(new Harvester());
-        _itemHandler.registerItemHandler(new MercTicket());
-        _itemHandler.registerItemHandler(new FishShots());
-        _itemHandler.registerItemHandler(new ExtractableItems());
-        _itemHandler.registerItemHandler(new SummonItems());      
-        _itemHandler.registerItemHandler(new EnergyStone());
         _log.info("ItemHandler: Loaded " + _itemHandler.size() + " handlers.");
 
+        // o Initialize skills handlers
+        // --------------------------
         _skillHandler = SkillHandler.getInstance();
-        _skillHandler.registerSkillHandler(new Pdam());
-        _skillHandler.registerSkillHandler(new Crits());
-        _skillHandler.registerSkillHandler(new Mdam());
-        _skillHandler.registerSkillHandler(new Manadam());
-        _skillHandler.registerSkillHandler(new Heal());
-        _skillHandler.registerSkillHandler(new CombatPointHeal());
-        _skillHandler.registerSkillHandler(new ManaHeal());
-        _skillHandler.registerSkillHandler(new BalanceLife());
-        _skillHandler.registerSkillHandler(new Charge());
-        _skillHandler.registerSkillHandler(new ChargeSelf());
-        _skillHandler.registerSkillHandler(new Continuous());
-        _skillHandler.registerSkillHandler(new Resurrect());
-        _skillHandler.registerSkillHandler(new Spoil());
-        _skillHandler.registerSkillHandler(new Sweep());
-        _skillHandler.registerSkillHandler(new Disablers());
-        _skillHandler.registerSkillHandler(new Recall());
-        _skillHandler.registerSkillHandler(new CPperHeal()); 
-        _skillHandler.registerSkillHandler(new SiegeFlag());
-        _skillHandler.registerSkillHandler(new TakeCastle());
-        _skillHandler.registerSkillHandler(new Unlock());
-        _skillHandler.registerSkillHandler(new DrainSoul());
-        _skillHandler.registerSkillHandler(new Craft()); 
-        _skillHandler.registerSkillHandler(new Fishing()); 
-        _skillHandler.registerSkillHandler(new FishingSkill());
-        _skillHandler.registerSkillHandler(new SummonCp());
-        _skillHandler.registerSkillHandler(new SummonCursedBones());
-        _skillHandler.registerSkillHandler(new SummonTreasureKey());
-        _skillHandler.registerSkillHandler(new StrSiegeAssault());
-        _skillHandler.registerSkillHandler(new SummonFriend());
         _log.info("SkillHandler: Loaded " + _skillHandler.size() + " handlers.");
 
+        // o Initialize admin commands handlers
+        // --------------------------------------
         _adminCommandHandler = AdminCommandHandler.getInstance();
-        _adminCommandHandler.registerAdminCommandHandler(new AdminAdmin());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminAnnouncements());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminBan());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminBanChat());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminCache());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminChangeAccessLevel());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminCreateItem());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminDelete());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminDMEngine());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminDoorControl());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminEditChar());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminEditNpc());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminEffects());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminEventEngine());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminExpSp());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminFightCalculator());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminGm());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminGmChat());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminHeal());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminHelpPage());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminInvul());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminKick());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminKill());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminLevel());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminLogin());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminMammon());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminMenu());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminMobGroup());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminMonsterRace());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminPetition());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminPForge());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminBBS());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminPledge());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminPolymorph());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminRepairChar());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminRes());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminRideWyvern());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminSendHome());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminShop());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminShutdown());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminSiege());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminSkill());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminSpawn());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminTarget());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminTeleport());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminTest());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminEnchant());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminUnblockIp());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminZone());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminTvTEngine());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminCTFEngine());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminVIPEngine());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminCursedWeapons());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminGeodata());
-        _adminCommandHandler.registerAdminCommandHandler(new AdminGeoEditor()); 
-        _adminCommandHandler.registerAdminCommandHandler(new AdminPathNode());
         _log.info("AdminCommandHandler: Loaded " + _adminCommandHandler.size() + " handlers.");
 
+        // o Initialize user commands handlers
+        // --------------------------------------
         _userCommandHandler = UserCommandHandler.getInstance();
-        _userCommandHandler.registerUserCommandHandler(new ClanPenalty());
-        _userCommandHandler.registerUserCommandHandler(new ClanWarsList());
-        _userCommandHandler.registerUserCommandHandler(new DisMount());
-        _userCommandHandler.registerUserCommandHandler(new Mount());        
-        _userCommandHandler.registerUserCommandHandler(new PartyInfo());
-        _userCommandHandler.registerUserCommandHandler(new Loc());
-        _userCommandHandler.registerUserCommandHandler(new Escape());
-        _userCommandHandler.registerUserCommandHandler(new Time());
-        _userCommandHandler.registerUserCommandHandler(new ClanWarsList());
         _log.info("UserCommandHandler: Loaded " + _userCommandHandler.size() + " handlers.");
 
+        // o Initialize voiced commands handlers
+        // --------------------------------------
         _voicedCommandHandler = VoicedCommandHandler.getInstance();
-        _voicedCommandHandler.registerVoicedCommandHandler(new CastleDoors());
-        if(Config.ALLOW_WEDDING)
-            _voicedCommandHandler.registerVoicedCommandHandler(new Wedding());
-        
         _log.info("VoicedCommandHandler: Loaded " + _voicedCommandHandler.size() + " handlers.");
 
         TaskManager.getInstance();
@@ -582,82 +418,73 @@ public class GameServer
         PetDataTable.getInstance().loadPetsData(); 
         if ( _log.isDebugEnabled())_log.debug("PetData initialized");
         
+        // Initialize managers
+        // -------------------
         Manager.loadAll();
-
+        
+        // o Register a shutdown hook
+        // ---------------------------
         _shutdownHandler = Shutdown.getInstance();
         Runtime.getRuntime().addShutdownHook(_shutdownHandler);
-
-        try
-        {
-            _doorTable.getDoor(24190001).openMe();
-            _doorTable.getDoor(24190002).openMe();
-            _doorTable.getDoor(24190003).openMe();
-            _doorTable.getDoor(24190004).openMe();
-            _doorTable.getDoor(23180001).openMe();
-            _doorTable.getDoor(23180002).openMe();
-            _doorTable.getDoor(23180003).openMe();
-            _doorTable.getDoor(23180004).openMe();
-            _doorTable.getDoor(23180005).openMe();
-            _doorTable.getDoor(23180006).openMe();
-            
-            _doorTable.checkAutoOpen();
-        } 
-        catch (NullPointerException e)
-        {
-            _log.warn("There are errors in your Door.csv file. Update door.csv");
-            if (_log.isDebugEnabled())
-               _log.debug(e);
-        }
         
+        // o Open doors
+        // ----------
+        _doorTable.openDoors ();
+        
+        // o Load clans
+        // -------------
         ClanTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("Clans initialized");
         
+        // Print id factory infos
+        // ----------------------
+        _log.info("############ GENERAL INFORMATION ###########");
         _log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
 
-        // initialize the dynamic extension loader
+        // o Initialize the dynamic extension loader
+        // -----------------------------------------
         try {
             DynamicExtension.getInstance();
         } catch (Exception ex) {
             _log.warn( "DynamicExtension could not be loaded and initialized", ex);
         }
-
+        
+        // o Call system garbage collector
+        // ------------------------------
         System.gc();
+        
+        // o Print memory infos
         // maxMemory is the upper limit the jvm can use, totalMemory the size of the current allocation pool, freeMemory the unused memory in the allocation pool
         long freeMem = (Runtime.getRuntime().maxMemory()-Runtime.getRuntime().totalMemory()+Runtime.getRuntime().freeMemory()) / 1048576; // 1024 * 1024 = 1048576;
         long totalMem = Runtime.getRuntime().maxMemory() / 1048576;
         _log.info("GameServer Started, free memory "+freeMem+" Mb of "+totalMem+" Mb");
         
+        // o Start main threads
+        // --------------------
         _loginThread = LoginServerThread.getInstance();
         _loginThread.start();
         
         _gameThread = IOThread.getInstance();
         _gameThread.start();
+        
+        // Print general information
+        // --------------------------
         _log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
-    }
-    
-    public static void main(String[] args) throws Throwable
-    {
-    	// Local Constants
-        final String LOG_FOLDER = "log"; // Name of folder for log file
-        final String LOG_FOLDER_GAME="game";
-        /*** Main ***/
-        // Create log folders
-        File logFolder = new File(Config.DATAPACK_ROOT, LOG_FOLDER); 
-        logFolder.mkdir();
-        File logFolderGame = new File(logFolder, LOG_FOLDER_GAME); 
-        logFolderGame.mkdir();
+
+        // o Print versions
+        // -----------------
+        VersionningService versionningService = (VersionningService)L2Registry.getBean("VersionningService");
+        Version version = versionningService.getVersion();
+        if (version!= null)
+        {
+            _log.info("L2JFree Server Version:    "+version.getRevisionNumber());
+            _log.info("L2JFree Jdk used for compilation:    "+version.getBuildJdk());
+            // TODO : add build date to plugin maven build number 
+            //_log.info("L2JFree Server Build Date: "+Config.SERVER_BUILD_DATE);
+        }
         
-        // Initialize info 
-        Config.load();
-        
-        // Create input stream for log file -- or store file data into memory
-        InputStream is =  new FileInputStream(new File("./config/logging.properties")); 
-        LogManager.getLogManager().readConfiguration(is);
-        is.close();        
-        
-        L2DatabaseFactory.initInstance();
-        gameServer = new GameServer();
-        
+        // o Enable telnet server
+        // -----------------------
         if ( Config.IS_TELNET_ENABLED ) {
             statusServer = new Status();
             statusServer.start();
@@ -665,5 +492,18 @@ public class GameServer
         else {
             _log.info("Telnet server is currently disabled.");
         }
+        _log.info("################################################");
+    }
+    
+    /**
+     * Instantiate the gameserver
+     * Main class of the server
+     * 
+     * @param args (empty)
+     * @throws Throwable
+     */
+    public static void main(String[] args) throws Throwable
+    {
+        gameServer = new GameServer();
     }
 }
