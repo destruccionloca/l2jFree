@@ -346,7 +346,9 @@ public final class L2World
             if(tmp!= null)
             {
                 _log.warn("Duplicate character!? Closing both characters ("+player.getName()+")");
+                player.deleteMe();
                 player.closeNetConnection();
+                tmp.deleteMe();
                 tmp.closeNetConnection();
                 return;
             }
