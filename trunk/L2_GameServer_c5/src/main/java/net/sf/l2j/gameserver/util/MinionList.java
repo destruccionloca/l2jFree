@@ -28,6 +28,7 @@
  */
 package net.sf.l2j.gameserver.util;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -187,7 +188,7 @@ public class MinionList
     public void spawnMinions()
     {
         if(master == null || master.isAlikeDead()) return;
-        FastList<L2MinionData> minions = master.getTemplate().getMinionData();
+        List<L2MinionData> minions = master.getTemplate().getMinionData();
 
         synchronized (minionReferences)
         {

@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import javolution.util.FastMap;
+import java.util.Map;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
@@ -442,7 +442,7 @@ public class RequestActionUse extends ClientBasePacket
         
         if (activeSummon != null && !activeChar.isBetrayed())
         {
-            FastMap<Integer, L2Skill> _skills = activeSummon.getTemplate().getSkills();
+            Map<Integer, L2Skill> _skills = activeSummon.getTemplate().getSkills();
             
             if (_skills == null) return;
 
