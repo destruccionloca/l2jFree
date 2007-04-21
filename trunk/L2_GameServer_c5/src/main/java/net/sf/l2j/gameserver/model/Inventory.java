@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2EtcItem;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
@@ -433,6 +434,14 @@ public abstract class Inventory extends ItemContainer
     
     protected abstract ItemLocation getEquipLocation();
 
+    /**
+     * Update inventory and notify the view
+     * @param item the item added in inventory
+     * @param count the amount of item added
+     * @param a status update packed
+     */
+    public abstract void updateInventory (L2ItemInstance item,int count,StatusUpdate playerSU);
+    
     /**
      * Returns the instance of new ChangeRecorder 
      * @return ChangeRecorder

@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.datatables;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -50,7 +51,7 @@ public class NpcTable
 
     private static NpcTable _instance;
 
-    private FastMap<Integer, L2NpcTemplate> _npcs;
+    private Map<Integer, L2NpcTemplate> _npcs;
     private boolean _initialized = false;
 
     public static NpcTable getInstance()
@@ -511,7 +512,7 @@ public class NpcTable
         return _npcs.get(id);
     }
     
-    public  FastMap<Integer, L2NpcTemplate> getAllTemplates()
+    public  Map<Integer, L2NpcTemplate> getAllTemplates()
     {
         return _npcs;
     }

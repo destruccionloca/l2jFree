@@ -33,6 +33,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
@@ -1490,7 +1491,7 @@ public class Olympiad
 			 	}
 			 	
 			 	//remove bsps/sps/ss automation
-			 	FastMap<Integer, Integer> activeSoulShots = player.getAutoSoulShot();
+			 	Map<Integer, Integer> activeSoulShots = player.getAutoSoulShot();
 			 	for (int itemId : activeSoulShots.values()){
 			 		player.removeAutoSoulShot(itemId);
 			 	}                

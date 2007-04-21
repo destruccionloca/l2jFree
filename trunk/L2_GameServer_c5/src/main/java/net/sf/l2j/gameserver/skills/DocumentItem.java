@@ -22,7 +22,7 @@ import java.io.File;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.gameserver.Item;
+import net.sf.l2j.gameserver.items.model.Item;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2ArmorType;
 import net.sf.l2j.gameserver.templates.L2EtcItem;

@@ -26,6 +26,7 @@
 package net.sf.l2j.util;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class EventData
 {
@@ -36,11 +37,11 @@ public class EventData
     public int eventpvpkills;
     public int eventpkkills;
     public String eventTitle;
-    public LinkedList<String> kills = new LinkedList<String>();
+    public List<String> kills = new LinkedList<String>();
     public boolean eventSitForced = false;
 
     public EventData(int pEventX, int pEventY, int pEventZ, int pEventkarma, int pEventpvpkills,
-                     int pEventpkkills, String pEventTitle, LinkedList<String> pKills,
+                     int pEventpkkills, String pEventTitle, List<String> pKills,
                      boolean pEventSitForced)
     {
         this.eventX = pEventX;

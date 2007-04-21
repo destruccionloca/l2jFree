@@ -17,6 +17,8 @@
  */
 package net.sf.l2j.gameserver.model;
 
+import java.util.List;
+
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.lib.Rnd;
@@ -27,7 +29,7 @@ import net.sf.l2j.gameserver.lib.Rnd;
  */
 public class L2DropCategory
 {
-    private FastList<L2DropData> _drops;
+    private List<L2DropData> _drops;
 	private int _categoryChance; // a sum of chances for calculating if an item will be dropped from this category
 	private int _categoryBalancedChance; // sum for balancing drop selection inside categories in high rate servers
     private int _categoryType;
@@ -54,7 +56,7 @@ public class L2DropCategory
         }
     }
     
-    public FastList<L2DropData> getAllDrops()
+    public List<L2DropData> getAllDrops()
     {
         return _drops;
     }

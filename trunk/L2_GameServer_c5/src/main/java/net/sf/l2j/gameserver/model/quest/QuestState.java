@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.model.quest;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -419,13 +420,13 @@ public final class QuestState
 	 * @param npc : L2Attackable killed
 	 * @param drops : List of drops of the L2Attackable
 	 */
-	public void fillQuestDrops(L2NpcInstance npc, FastList<L2DropData> drops)
+	public void fillQuestDrops(L2NpcInstance npc, List<L2DropData> drops)
 	{
 		if (getDrops() == null)
 			return;
         
 		// Get drops of the NPC recorded in class variable "drops"
-		FastList<L2DropData> lst = getDrops().get(npc.getTemplate().npcId);
+		List<L2DropData> lst = getDrops().get(npc.getTemplate().npcId);
 		// If drops of the NPC in class variable "drops" exist, add them to parameter "drops"
 		if (lst != null)
 			drops.addAll(lst);

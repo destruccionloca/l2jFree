@@ -109,7 +109,6 @@ import net.sf.l2j.gameserver.model.MacroList;
 import net.sf.l2j.gameserver.model.PcFreight;
 import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.PcWarehouse;
-import net.sf.l2j.gameserver.model.PetInventory;
 import net.sf.l2j.gameserver.model.ShortCuts;
 import net.sf.l2j.gameserver.model.TradeList;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
@@ -158,7 +157,6 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.ObservationMode;
 import net.sf.l2j.gameserver.serverpackets.ObservationReturn;
 import net.sf.l2j.gameserver.serverpackets.PartySmallWindowUpdate;
-import net.sf.l2j.gameserver.serverpackets.PetInventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListDelete;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListUpdate;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreListBuy;
@@ -353,7 +351,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private long _lastRecomUpdate;
 
     /** List with the recomendations that I've give */
-    private FastList<Integer> _recomChars = new FastList<Integer>();
+    private List<Integer> _recomChars = new FastList<Integer>();
 
     /** The random number of the L2PcInstance */
     //private static final Random _rnd = new Random();
@@ -381,7 +379,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _newbie;
 
     /** The table containing all Quests began by the L2PcInstance */
-    private FastMap<String, QuestState> _quests = new FastMap<String, QuestState>();
+    private Map<String, QuestState> _quests = new FastMap<String, QuestState>();
     
     /** All active Faction Quest */
     //private FastMap<FactionQuestState> _factionquest = new FastMap<FactionQuestState>();
@@ -398,8 +396,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private TradeList _sellList;
     private TradeList _buyList;
     
-    private FastList<L2PcInstance> _SnoopListener = new FastList<L2PcInstance>();
-    private FastList<L2PcInstance> _SnoopedPlayer = new FastList<L2PcInstance>();
+    private List<L2PcInstance> _SnoopListener = new FastList<L2PcInstance>();
+    private List<L2PcInstance> _SnoopedPlayer = new FastList<L2PcInstance>();
 
     /** The Private Store type of the L2PcInstance (STORE_PRIVATE_NONE=0, STORE_PRIVATE_SELL=1, sellmanage=2, STORE_PRIVATE_BUY=3, buymanage=4, STORE_PRIVATE_MANUFACTURE=5) */
     private int _privatestore;
@@ -497,14 +495,14 @@ public final class L2PcInstance extends L2PlayableInstance
 
     protected boolean _inventoryDisable = false;
 
-    protected FastMap<Integer, L2CubicInstance> _cubics = new FastMap<Integer, L2CubicInstance>();
+    protected Map<Integer, L2CubicInstance> _cubics = new FastMap<Integer, L2CubicInstance>();
 
     /** The L2FolkInstance corresponding to the last Folk wich one the player talked. */
     private L2FolkInstance _lastFolkNpc = null;
 
     private boolean _isSilentMoving = false;
 
-    protected FastMap<Integer, Integer> _activeSoulShots = new FastMap<Integer, Integer>().setShared(true);
+    protected Map<Integer, Integer> _activeSoulShots = new FastMap<Integer, Integer>().setShared(true);
     private int _clanPrivileges = 0;
 
     /** Location before entering Observer Mode */
@@ -522,7 +520,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public int eventpvpkills;
     public int eventpkkills;
     public String eventTitle;
-    public LinkedList<String> kills = new LinkedList<String>();
+    public List<String> kills = new LinkedList<String>();
     public boolean eventSitForced = false;
     public boolean atEvent = false;
 
@@ -588,7 +586,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _alliedVarkaKetra = 0;
 
     /** The list of sub-classes this character has. */
-    private FastMap<Integer, SubClass> _subClasses;
+    private Map<Integer, SubClass> _subClasses;
     protected int _baseClass;
     protected int _activeClass;
     protected int _classIndex = 0;
@@ -607,8 +605,8 @@ public final class L2PcInstance extends L2PlayableInstance
     public Point3D _lastServerPosition = new Point3D(0, 0, 0);
 
     /** Bypass validations */
-    private FastList<String> _validBypass = new FastList<String>();
-    private FastList<String> _validBypass2 = new FastList<String>();
+    private List<String> _validBypass = new FastList<String>();
+    private List<String> _validBypass2 = new FastList<String>();
 
     private boolean _inCrystallize;
 
@@ -922,8 +920,6 @@ public final class L2PcInstance extends L2PlayableInstance
         return (getPrivateStoreType() > 0);
     }
 
-    //    public boolean isInCraftMode() { return (getPrivateStoreType() == STORE_PRIVATE_MANUFACTURE); }
-
     public boolean isInCraftMode()
     {
         return _inCraftMode;
@@ -1016,7 +1012,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     * Return a table containing all Common L2RecipeList of the L2PcInstance.<BR><BR> 
+     * Return a table containing all Common L2Recipe of the L2PcInstance.<BR><BR> 
      */
     public L2Recipe[] getCommonRecipeBook()
     {
@@ -1024,7 +1020,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /** 
-     * Return a table containing all Dwarf L2RecipeList of the L2PcInstance.<BR><BR> 
+     * Return a table containing all Dwarf L2Recipe of the L2PcInstance.<BR><BR> 
      */
     public L2Recipe[] getDwarvenRecipeBook()
     {
@@ -1032,7 +1028,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /** 
-     * Add a new L2RecipList to the table _commonrecipebook containing all L2RecipeList of the L2PcInstance <BR><BR> 
+     * Add a new L2Recipe to the table _commonrecipebook containing all L2Recipe of the L2PcInstance <BR><BR> 
      * 
      * @param recipe The L2RecipeList to add to the _recipebook 
      * 
@@ -1043,9 +1039,9 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     * Add a new L2RecipList to the table _recipebook containing all L2RecipeList of the L2PcInstance <BR><BR>
+     * Add a new L2Recipe to the table _recipebook containing all L2Recipe of the L2PcInstance <BR><BR>
      *
-     * @param recipe The L2RecipeList to add to the _recipebook
+     * @param recipe The L2Recipe to add to the _recipebook
      *
      */
     public void registerDwarvenRecipeList(L2Recipe recipe)
@@ -1054,7 +1050,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /** 
-     * @param RecipeID The Identifier of the L2RecipeList to check in the player's recipe books 
+     * @param RecipeID The Identifier of the L2Recipe to check in the player's recipe books 
      * 
      * @return  
      * <b>TRUE</b> if player has the recipe on Common or Dwarven Recipe book else returns <b>FALSE</b> 
@@ -1067,9 +1063,9 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /** 
-     * Tries to remove a L2RecipList from the table _DwarvenRecipeBook or from table _CommonRecipeBook, those table contain all L2RecipeList of the L2PcInstance <BR><BR> 
+     * Tries to remove a L2Recipe from the table _DwarvenRecipeBook or from table _CommonRecipeBook, those table contain all L2Recipe of the L2PcInstance <BR><BR> 
      *
-     * @param RecipeID The Identifier of the L2RecipeList to remove from the _recipebook
+     * @param RecipeID The Identifier of the L2Recipe to remove from the _recipebook
      *
      */
     public void unregisterRecipeList(int recipeId)
@@ -1099,7 +1095,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param drops The table containing all possible drops of the L2NpcInstance
      *
      */
-    public void fillQuestDrops(L2NpcInstance npc, FastList<L2DropData> drops)
+    public void fillQuestDrops(L2NpcInstance npc, List<L2DropData> drops)
     {
         for (QuestState qs : _quests.values())
         {
@@ -1155,7 +1151,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public Quest[] getAllActiveQuests()
     {
-        FastList<Quest> quests = new FastList<Quest>();
+        List<Quest> quests = new FastList<Quest>();
 
         for (QuestState qs : _quests.values())
         {
@@ -1310,7 +1306,12 @@ public final class L2PcInstance extends L2PlayableInstance
 
         return retval;
     }
-
+    
+    /**
+     * TODO move this from L2PcInstance, there is no reason to have this here
+     * @param questId
+     * @param stateId
+     */
     private void showQuestWindow(String questId, String stateId)
     {
         String path = "data/jscript/quests/" + questId + "/" + stateId + ".htm";
@@ -2870,12 +2871,12 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
      * @return L2ItemInstance corresponding to the new item or the updated item in inventory
      */
-    public L2ItemInstance transferItem(String process, int objectId, int count, Inventory target,
+    public L2ItemInstance transferItem(String process, int objectId, int count, Inventory inventory,
                                        L2Object reference)
     {
         L2ItemInstance oldItem = checkItemManipulation(objectId, count, "transfer");
         if (oldItem == null) return null;
-        L2ItemInstance newItem = getInventory().transferItem(process, objectId, count, target, this,
+        L2ItemInstance newItem = getInventory().transferItem(process, objectId, count, inventory, this,
                                                              reference);
         if (newItem == null) return null;
 
@@ -2897,34 +2898,7 @@ public final class L2PcInstance extends L2PlayableInstance
         sendPacket(playerSU);
 
         // Send target update packet
-        if (target instanceof PcInventory)
-        {
-            L2PcInstance targetPlayer = ((PcInventory) target).getOwner();
-            if (!Config.FORCE_INVENTORY_UPDATE)
-            {
-                InventoryUpdate playerIU = new InventoryUpdate();
-
-                if (newItem.getCount() > count) playerIU.addModifiedItem(newItem);
-                else playerIU.addNewItem(newItem);
-
-                targetPlayer.sendPacket(playerIU);
-            }
-            else targetPlayer.sendPacket(new ItemList(targetPlayer, false));
-
-            // Update current load as well
-            playerSU = new StatusUpdate(targetPlayer.getObjectId());
-            playerSU.addAttribute(StatusUpdate.CUR_LOAD, targetPlayer.getCurrentLoad());
-            targetPlayer.sendPacket(playerSU);
-        }
-        else if (target instanceof PetInventory)
-        {
-            PetInventoryUpdate petIU = new PetInventoryUpdate();
-
-            if (newItem.getCount() > count) petIU.addModifiedItem(newItem);
-            else petIU.addNewItem(newItem);
-
-            ((PetInventory) target).getOwner().getOwner().sendPacket(petIU);
-        }
+        inventory.updateInventory(newItem,count,playerSU);
 
         return newItem;
     }
@@ -4157,8 +4131,8 @@ public final class L2PcInstance extends L2PlayableInstance
             while (dropPercent > 0 && Rnd.get(100) < dropPercent && dropCount < dropLimit)
             {
                 int itemDropPercent = 0;
-                FastList<Integer> nonDroppableList = new FastList<Integer>();
-                FastList<Integer> nonDroppableListPet = new FastList<Integer>();
+                List<Integer> nonDroppableList = new FastList<Integer>();
+                List<Integer> nonDroppableListPet = new FastList<Integer>();
 
                 nonDroppableList = Config.KARMA_LIST_NONDROPPABLE_ITEMS;
                 nonDroppableListPet = Config.KARMA_LIST_NONDROPPABLE_PET_ITEMS;
@@ -5631,43 +5605,6 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     *  Puts the the subclass informations into the correct place in the FastList.
-     */
-    /*    private void sortSubClassData(L2PcInstance player)
-     {
-     FastList<SubClass> _dummysubClasses = new FastList<SubClass>();
-     
-     if (player._subClasses == null)
-     return;
-     
-     for(int i=0;i < player._subClasses.size();i++) {
-     _dummysubClasses.add(player._subClasses.get(i));
-     }
-     
-     for(int i=0;i < player._subClasses.size();i++) {
-     SubClass subClass = new SubClass();
-     subClass.setExp(player._subClasses.get(i).getExp());
-     subClass.setClassId(player._subClasses.get(i).getClassId());
-     subClass.setLevel(player._subClasses.get(i).getLevel());
-     subClass.setSp(player._subClasses.get(i).getSp());
-     subClass.setClassIndex(_subClasses.get(i).getClassIndex());
-     
-     if(player._subClasses.get(i).getClassIndex() == 3){
-     _dummysubClasses.set(2, subClass);
-     
-     }
-     else if (player._subClasses.get(i).getClassIndex() == 2)  {
-     _dummysubClasses.set(1, subClass);
-     
-     }
-     else if(player._subClasses.get(i).getClassIndex() == 1) {
-     _dummysubClasses.set(0, subClass); 
-     }
-     }
-     player._subClasses = _dummysubClasses;
-     }*/
-
-    /**
      * Restores secondary data for the L2PcInstance, based on the current class index.
      */
     private void restoreCharData()
@@ -6879,16 +6816,6 @@ public final class L2PcInstance extends L2PlayableInstance
             sendPacket(new ActionFailed());
             return;
         }
-        /*
-        if (isWearingFormalWear() && !skill.isPotion())
-        {
-            sendPacket(new SystemMessage(SystemMessage.CANNOT_USE_ITEMS_SKILLS_WITH_FORMALWEAR));
-
-            sendPacket(new ActionFailed());
-            abortCast();
-            return;
-        }
-        */
         if (inObserverMode())
         {
             sendMessage("Cant use magic in observer mode");
@@ -7278,14 +7205,7 @@ public final class L2PcInstance extends L2PlayableInstance
             sendPacket(new ActionFailed());
             abortCast();
             return;
-        }/*
-         else if (skill.getSkillType() == SkillType.ADVSIEGEFLAG &&
-         !AdvSiegeFlag.checkIfOkToPlaceFlag(this, false))
-         {
-         sendPacket(new ActionFailed());
-         abortCast();
-         return;
-         }*/
+        }
 
         // If all conditions are checked, create a new SkillDat object and set the player _currentSkill
         setCurrentSkill(skill, forceUse, dontMove);
@@ -7562,7 +7482,7 @@ public final class L2PcInstance extends L2PlayableInstance
         _activeSoulShots.remove(itemId);
     }
 
-    public FastMap<Integer, Integer> getAutoSoulShot()
+    public Map<Integer, Integer> getAutoSoulShot()
     {
         return _activeSoulShots;
     }
@@ -8514,7 +8434,7 @@ public final class L2PcInstance extends L2PlayableInstance
         return _classIndex > 0;
     }
 
-    public FastMap<Integer, SubClass> getSubClasses()
+    public Map<Integer, SubClass> getSubClasses()
     {
         if (_subClasses == null) _subClasses = new FastMap<Integer, SubClass>();
 

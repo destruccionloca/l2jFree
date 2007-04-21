@@ -4,10 +4,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javolution.util.FastList;
+import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
 import net.sf.l2j.gameserver.model.TradeList.TradeItem;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
+import net.sf.l2j.gameserver.serverpackets.ItemList;
+import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
 
 public class PcInventory extends Inventory 
@@ -520,5 +524,29 @@ public class PcInventory extends Inventory
     public boolean validateWeight(int weight)
     {
         return (_totalWeight + weight <= _owner.getMaxLoad());
+    }
+
+    /**
+     * @see Inventory#updateInventory()
+     */
+    @Override
+    public void updateInventory(L2ItemInstance newItem,int count,StatusUpdate playerSU)
+    {
+        L2PcInstance targetPlayer = this.getOwner();
+        if (!Config.FORCE_INVENTORY_UPDATE)
+        {
+            InventoryUpdate playerIU = new InventoryUpdate();
+
+            if (newItem.getCount() > count) playerIU.addModifiedItem(newItem);
+            else playerIU.addNewItem(newItem);
+
+            targetPlayer.sendPacket(playerIU);
+        }
+        else targetPlayer.sendPacket(new ItemList(targetPlayer, false));
+
+        // Update current load as well
+        playerSU = new StatusUpdate(targetPlayer.getObjectId());
+        playerSU.addAttribute(StatusUpdate.CUR_LOAD, targetPlayer.getCurrentLoad());
+        targetPlayer.sendPacket(playerSU);
     }
 }
