@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.gameserver.ClientThread;
-import net.sf.l2j.gameserver.RecipeController;
+import net.sf.l2j.gameserver.recipes.manager.CraftManager;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -57,7 +57,7 @@ public class RequestRecipeBookOpen extends ClientBasePacket
             return;
         }
         
-        RecipeController.getInstance().requestBookOpen(getClient().getActiveChar(), isDwarvenCraft);
+        CraftManager.requestBookOpen(getClient().getActiveChar(), isDwarvenCraft);
 	}
 	
     /* (non-Javadoc)

@@ -309,9 +309,6 @@ public class GameServer
             throw new Exception("Could not initialize the skill table");
         }
 
-        RecipeController.getInstance();
-        if ( _log.isDebugEnabled())_log.debug("RecipeController initialized");
-
         SkillTreeTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("SkillTreeTable initialized");
         ArmorSetsTable.getInstance();

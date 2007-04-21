@@ -41,7 +41,6 @@ import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.ItemsAutoDestroy;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.Olympiad;
-import net.sf.l2j.gameserver.RecipeController;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.Shutdown;
@@ -136,6 +135,7 @@ import net.sf.l2j.gameserver.model.entity.events.VIP;
 import net.sf.l2j.gameserver.model.entity.faction.FactionMember;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
+import net.sf.l2j.gameserver.recipes.manager.CraftManager;
 import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -9409,7 +9409,7 @@ public final class L2PcInstance extends L2PlayableInstance
         // Stop crafting, if in progress
         try
         {
-            RecipeController.getInstance().requestMakeItemAbort(this);
+            CraftManager.requestMakeItemAbort(this);
         }
         catch (Throwable t)
         {

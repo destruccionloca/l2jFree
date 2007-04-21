@@ -151,7 +151,7 @@ public class L2Recipe
 	}
 
 	/**
-	 * Return rue if the Item crafted with this L2Recipe is consubable (shot, arrow,...).<BR><BR>
+	 * Return rue if the Item crafted with this L2Recipe is consumable (shot, arrow,...).<BR><BR>
 	 */
 	public boolean isConsumable()
 	{

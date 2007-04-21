@@ -657,6 +657,7 @@ public class AdminAdmin implements IAdminCommandHandler {
 		replyMSG.append("<tr><td><font color=\"LEVEL\">Rate Raid Regen MP</font> = " + Config.RAID_MP_REGEN_MULTIPLIER + "</td><td><edit var=\"menu_command8\" width=40 height=15></td><td><button value=\"Set\" action=\"bypass -h admin_set RaidMpRegenMultiplier $menu_command8\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
 		replyMSG.append("<tr><td><font color=\"LEVEL\">Rate Raid Defence</font> = " + Config.RAID_DEFENCE_MULTIPLIER + "</td><td><edit var=\"menu_command9\" width=40 height=15></td><td><button value=\"Set\" action=\"bypass -h admin_set RaidDefenceMultiplier $menu_command9\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
 		replyMSG.append("<tr><td><font color=\"LEVEL\">Alt Buff Time</font> = " + Config.ALT_BUFF_TIME + "</td><td><edit var=\"menu_command10\" width=40 height=15></td><td><button value=\"Set\" action=\"bypass -h admin_set AltBuffTime $menu_command10\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
+        replyMSG.append("<tr><td><font color=\"LEVEL\">Alt game creation</font> = " + Config.ALT_GAME_CREATION + "</td><td></td><td><button value=\""+ !Config.ALT_GAME_CREATION +"\" action=\"bypass -h admin_set AltGameCreation " + !Config.ALT_GAME_CREATION + "\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
 		replyMSG.append("</table></body></html>");
 
         adminReply.setHtml(replyMSG.toString());

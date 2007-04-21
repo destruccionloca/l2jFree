@@ -22,9 +22,9 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
-import net.sf.l2j.gameserver.RecipeController;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.recipes.manager.CraftManager;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
@@ -76,7 +76,7 @@ public class RequestRecipeItemMakeSelf extends ClientBasePacket
             return;
         }
         
-		RecipeController.getInstance().requestMakeItem(activeChar, _id);
+		CraftManager.requestMakeItem(activeChar, _id);
 	}
 	
     /* (non-Javadoc)
