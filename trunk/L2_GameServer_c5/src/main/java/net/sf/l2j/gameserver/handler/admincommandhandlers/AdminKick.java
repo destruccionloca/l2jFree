@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -65,16 +66,23 @@ public class AdminKick implements IAdminCommandHandler {
                     kickPlayer (player);
                 }
             }
-            activeChar.sendMessage("Kicked "+counter+" players.");
+            activeChar.sendMessage("Kicked "+counter+" players");
         }
         return true;
     }
         
     private void kickPlayer (L2PcInstance player)
     {
-        player.sendPacket(new LeaveWorld());
-        try { Thread.sleep(1000); } catch (Throwable t) {}
-        player.closeNetConnection();
+        try {
+            ClientThread.saveCharToDisk(player);
+            player.sendPacket(new LeaveWorld());
+            player.deleteMe();
+            player.logout();
+            } catch (Throwable t)   {}
+ 
+        try {
+            player.closeNetConnection();
+            } catch (Throwable t)   {} 
     }
     public String[] getAdminCommandList() {
         return _adminCommands;

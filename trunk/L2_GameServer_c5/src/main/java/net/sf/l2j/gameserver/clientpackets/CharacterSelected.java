@@ -94,8 +94,7 @@ public class CharacterSelected extends ClientBasePacket
         
 		if(cha.getAccessLevel() < -1)
 		{
-			// Do not store chracter data...
-			cha.deleteMe();
+			cha.closeNetConnection();
 			return;
 		}
 		//weird but usefull, will send i..
@@ -103,6 +102,94 @@ public class CharacterSelected extends ClientBasePacket
 		CharSelected cs = new CharSelected(cha, getClient().getSessionId().playOkID1);
 		sendPacket(cs);
 	}
+	
+	/*
+	private void playLogFile(Connection connection)
+	{
+		long diff = 0;
+		long first = -1;
+
+		try
+		{
+			LineNumberReader lnr =
+			new LineNumberReader(new FileReader("playback.dat"));
+
+			String line = null;
+			while ((line = lnr.readLine()) != null)
+			{
+				if (line.length() > 0 && line.substring(0, 1).equals("1"))
+				{
+					String timestamp = line.substring(0, 13);
+					long time = Long.parseLong(timestamp);
+					if (first == -1)
+					{
+						long start = System.currentTimeMillis();
+						first = time;
+						diff = start - first;
+					}
+					
+					String cs = line.substring(14, 15);
+					// read packet definition
+					ByteArrayOutputStream bais = new ByteArrayOutputStream();
+
+					while (true)
+					{
+						String temp = lnr.readLine();
+						if (temp.length() < 53)
+						{
+							break;
+						}
+						
+						String bytes = temp.substring(6, 53);
+						StringTokenizer st = new StringTokenizer(bytes);
+						while (st.hasMoreTokens())
+						{
+							String b = st.nextToken();
+							int number = Integer.parseInt(b, 16);
+							bais.write(number);
+						}
+					}
+
+					if (cs.equals("S"))
+					{
+						//wait for timestamp and send packet
+						int wait =
+						(int) (time + diff - System.currentTimeMillis());
+						if (wait > 0)
+						{
+							if (_log.isDebugEnabled()) _log.debug("waiting"+ wait);
+							Thread.sleep(wait);
+						}
+						if (_log.isDebugEnabled()) _log.debug("sending:"+ time);
+						byte[] data = bais.toByteArray();
+						if (data.length != 0)
+						{
+							//connection.sendPacket(data);	
+						}
+						else
+						{
+							if (_log.isDebugEnabled()) _log.debug("skipping broken data");
+						}
+
+					}
+					else
+					{
+						// skip packet
+					}
+				}
+
+			}
+		}
+		catch (FileNotFoundException f)
+		{
+			// should not happen
+		}
+		catch (Exception e)
+		{
+			_log.fatal( "Error:", e);
+		}
+	}
+    */
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()

@@ -23,8 +23,6 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.util.IllegalPlayerAction;
-import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.LoginServerThread;
@@ -115,25 +113,19 @@ public class EnterWorld extends ClientBasePacket
 		if (L2World.getInstance().findObject(activeChar.getObjectId()) != null) 
         { 
 			if (_log.isDebugEnabled())
-					_log.warn("User already exist in OID map! User "+activeChar.getName()+" is character clone."); 
-			//activeChar.deleteMe();
+					_log.warn("User already exist in OID map! User "+activeChar.getName()+" is character clone"); 
+                //activeChar.closeNetConnection(); 
         }
 		if(!getClient().getLoginName().equalsIgnoreCase(getClient().getAccountName(activeChar.getName())))
         {
-            Util.handleIllegalPlayerAction(activeChar, "Possible Hacker Account:" + 
-            		getClient().getLoginName() + " tried to login with char: " + activeChar.getName() + 
-            		"of Account:" + getClient().getAccountName(activeChar.getName() + "."), 
-            		IllegalPlayerAction.PUNISH_KICK);
-            return;
+            _log.fatal("Possible Hacker Account:"+getClient().getLoginName()+" tried to login with char: "+activeChar.getName() + "of Account:" + getClient().getAccountName(activeChar.getName()));
+            activeChar.closeNetConnection();
         }
         if(!getClient().isAuthed())
         {
-            Util.handleIllegalPlayerAction(activeChar, "Possible Hacker Account:" + 
-            		getClient().getLoginName() + " is not authenticated.", 
-            		IllegalPlayerAction.PUNISH_KICK);
-            return;
+            _log.fatal("Possible Hacker Account:"+getClient().getLoginName()+" is not authed");
+            activeChar.closeNetConnection();
         }
-        
         if (activeChar.isGM())
         {
             if (Config.SHOW_GM_LOGIN) 

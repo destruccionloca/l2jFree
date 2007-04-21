@@ -9346,6 +9346,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * <li>Stop Party and Unsummon Pet </li>
      * <li>Update database with items in its inventory and remove them from the world </li>
      * <li>Remove all L2Object from _knownObjects and _knownPlayer of the L2Character then cancel Attak or Cast and notify AI </li>
+     * <li>Close the connection with the client </li><BR><BR>
      *
      */
     public void deleteMe()
@@ -9520,7 +9521,17 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             _log.fatal( "deletedMe()", t);
         }
-        
+
+        // Close the connection with the client
+        try
+        {
+            setNetConnection(null);
+        }
+        catch (Throwable t)
+        {
+            _log.fatal( "deletedMe()", t);
+        }
+
         if (getClanId() > 0)
             getClan().broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(this), this);
 

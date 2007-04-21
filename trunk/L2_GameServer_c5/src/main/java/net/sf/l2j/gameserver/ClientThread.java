@@ -27,6 +27,7 @@ import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.LoginServerThread.SessionKey;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.CharSelectInfoPackage;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -57,7 +58,7 @@ public final class ClientThread
             {
                 L2PcInstance player = ClientThread.this.getActiveChar();
                 if (player != null) {
-                    getActiveChar().store();
+                    saveCharToDisk(player);
                 }
                 else if (getConnection() == null
                         || !getConnection().getChannel().isOpen())
@@ -126,22 +127,30 @@ public final class ClientThread
             L2PcInstance player = _activeChar;
 			if (player != null)  // this should only happen on connection loss
             {
+                
                 // we store all data from players who are disconnected while in an event in order to restore it in the next login
                 if (player.atEvent)
                 {
                     EventData data = new EventData(player.eventX, player.eventY, player.eventZ, player.eventkarma, player.eventpvpkills, player.eventpkkills, player.eventTitle, player.kills, player.eventSitForced);
                     L2Event.connectionLossData.put(player.getName(), data);
                 }
-                
+
+                if (player.isFlying()) 
+                { 
+                   player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
+                }
+
+                // notify the world about our disconnect
                 player.deleteMe();
-                player.store();
                 
-                _activeChar = null;
-                
-                try { Thread.sleep(1000); } catch (Throwable t) {}
-                
-                _connection.close();
+                try
+                {
+                    saveCharToDisk(player);
+                }
+                catch (Exception e2) { /* ignore any problems here */ }
             }
+            _activeChar = null;
+            _connection.close();
         }
         catch (Exception e1)
         {
@@ -149,9 +158,23 @@ public final class ClientThread
         }
         finally
         {
-        	 LoginServerThread.getInstance().removeWaitingClient(this);
-             if(getLoginName() != null)
-                 LoginServerThread.getInstance().sendLogout(getLoginName());
+            // remove the account
+            LoginServerThread.getInstance().sendLogout(getLoginName());
+        }
+    }
+    
+    /**
+     * Save the L2PcInstance to the database.
+     */
+    public static void saveCharToDisk(L2PcInstance cha)
+    {
+        try
+        {
+            cha.store();
+        }
+        catch(Exception e)
+        {
+            _log.warn("Error saving player character: "+e);
         }
     }
 
@@ -160,8 +183,7 @@ public final class ClientThread
         //have to make sure active character must be nulled
         if (getActiveChar() != null)
         {
-        	getActiveChar().deleteMe();
-            getActiveChar().store();
+            saveCharToDisk (getActiveChar());
             if (_log.isDebugEnabled()) _log.debug("active Char saved");
             _activeChar = null;
         }
@@ -192,8 +214,7 @@ public final class ClientThread
         //have to make sure active character must be nulled
         if (getActiveChar() != null)
         {
-        	getActiveChar().deleteMe();
-            getActiveChar().store();
+            saveCharToDisk (getActiveChar());
             if (_log.isDebugEnabled()) _log.debug("active Char saved");
             _activeChar = null;
         }
@@ -232,8 +253,7 @@ public final class ClientThread
         //have to make sure active character must be nulled
         if (getActiveChar() != null)
         {
-        	getActiveChar().deleteMe();
-            getActiveChar().store();
+            saveCharToDisk (getActiveChar());
             if (_log.isDebugEnabled()) _log.debug("active Char saved");
             _activeChar = null;
         }

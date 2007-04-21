@@ -371,11 +371,26 @@ public class Shutdown extends Thread
         {
             //Logout Character
             try {
+                // save player's stats and effects
+                ClientThread.saveCharToDisk(player);
+                
                 // inform client, that it has been logged out
                 player.sendPacket(new LeaveWorld());
-                try { Thread.sleep(1000); } catch (Throwable t) {}
+
+                // make shure to save ALL data
+                player.deleteMe();
+            } catch (Throwable t)   {}
+        }
+        try { Thread.sleep(1000); } catch (Throwable t) {_log.info( "", t);}
+        
+        
+        for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+        {
+            try {
                 player.closeNetConnection();
-            } catch (Throwable t2)   {}
+            } catch (Throwable t)   {
+                // just to make sure we try to kill the connection 
+            }               
         }
     }
 

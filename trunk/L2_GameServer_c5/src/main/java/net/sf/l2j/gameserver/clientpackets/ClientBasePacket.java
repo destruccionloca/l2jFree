@@ -28,8 +28,7 @@ import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.exception.L2JFunctionnalException;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
-import net.sf.l2j.gameserver.util.IllegalPlayerAction;
-import net.sf.l2j.gameserver.util.Util;
+import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -51,9 +50,18 @@ public abstract class ClientBasePacket extends BasePacket implements Runnable
 		{
 			if(!client.checkFloodProtection())
 			{
-	        	 Util.handleIllegalPlayerAction(client.getActiveChar(), "Warning : client " + 
-	        			 client.getActiveChar().getName()+ " tryed to flood server !!!", 
-	             		IllegalPlayerAction.PUNISH_KICK);
+		        try {
+		            ClientThread.saveCharToDisk(client.getActiveChar());
+		            client.getActiveChar().sendMessage("Kicked for flooding");
+		            client.getActiveChar().sendPacket(new LeaveWorld());
+		            client.getActiveChar().deleteMe();
+		            client.getActiveChar().logout();
+		            _log.warn("Warning : client " +client.getActiveChar().getName()+ " tryed to flood server !!!");
+		            } catch (Throwable t)   {}
+		 
+		        try {
+		        	client.getActiveChar().closeNetConnection();
+		            } catch (Throwable t)   {} 
 			}
 		}
 		// ends
