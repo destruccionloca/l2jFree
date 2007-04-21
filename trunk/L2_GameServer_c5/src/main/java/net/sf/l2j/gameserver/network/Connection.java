@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver;
+package net.sf.l2j.gameserver.network;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -24,7 +24,11 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.LoginServerThread;
+import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.clientpackets.ClientBasePacket;
+import net.sf.l2j.gameserver.security.Crypt;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.WrappedMessage;
 import net.sf.l2j.tools.util.Util;

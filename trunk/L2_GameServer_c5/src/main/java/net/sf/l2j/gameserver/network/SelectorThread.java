@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver;
+package net.sf.l2j.gameserver.network;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,6 +35,10 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.xml.XMLObjectWriter;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.GameTimeController;
+import net.sf.l2j.gameserver.Olympiad;
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.clientpackets.ClientBasePacket;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;

@@ -18,8 +18,8 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import net.sf.l2j.gameserver.Connection;
 import net.sf.l2j.gameserver.clientpackets.ClientBasePacket;
+import net.sf.l2j.gameserver.network.Connection;
 
 /**
  * @author mkizub

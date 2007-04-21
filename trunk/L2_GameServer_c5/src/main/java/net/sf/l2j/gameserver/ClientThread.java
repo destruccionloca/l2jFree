@@ -32,6 +32,7 @@ import net.sf.l2j.gameserver.model.CharSelectInfoPackage;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
+import net.sf.l2j.gameserver.network.Connection;
 import net.sf.l2j.util.EventData;
 
 import org.apache.commons.logging.Log;
@@ -119,7 +120,7 @@ public final class ClientThread
                 );
     }
     
-    void onDisconnect()
+    public void onDisconnect()
     {
         try
         {

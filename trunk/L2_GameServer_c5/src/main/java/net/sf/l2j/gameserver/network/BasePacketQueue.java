@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver;
+package net.sf.l2j.gameserver.network;
 
 import java.util.Iterator;
 

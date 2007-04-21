@@ -1,4 +1,4 @@
-package net.sf.l2j.gameserver;
+package net.sf.l2j.gameserver.network;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -7,6 +7,8 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;

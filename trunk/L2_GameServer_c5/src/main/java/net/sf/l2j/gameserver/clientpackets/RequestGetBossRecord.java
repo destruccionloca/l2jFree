@@ -53,7 +53,7 @@ public class RequestGetBossRecord extends ClientBasePacket
     }
 
     /**
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
+     * @see net.sf.l2j.gameserver.network.BasePacket#getType()
      */
     @Override
     public String getType()

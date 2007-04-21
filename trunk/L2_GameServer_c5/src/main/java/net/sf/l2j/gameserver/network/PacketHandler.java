@@ -16,12 +16,13 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver;
+package net.sf.l2j.gameserver.network;
 
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.clientpackets.*;
 import net.sf.l2j.tools.util.Util;
 

@@ -22,9 +22,9 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.BasePacket;
 import net.sf.l2j.gameserver.ClientThread;
-import net.sf.l2j.gameserver.Connection;
+import net.sf.l2j.gameserver.network.BasePacket;
+import net.sf.l2j.gameserver.network.Connection;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

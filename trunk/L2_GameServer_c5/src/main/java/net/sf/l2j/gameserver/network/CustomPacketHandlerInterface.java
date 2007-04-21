@@ -23,10 +23,11 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver;
+package net.sf.l2j.gameserver.network;
 
 import java.nio.ByteBuffer;
 
+import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.clientpackets.ClientBasePacket;
 
 /**

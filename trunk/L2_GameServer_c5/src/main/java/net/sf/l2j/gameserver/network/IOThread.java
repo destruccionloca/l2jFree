@@ -1,7 +1,9 @@
-package net.sf.l2j.gameserver;
+package net.sf.l2j.gameserver.network;
 
 import static net.sf.l2j.gameserver.TaskPriority.PR_NORMAL;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.TaskPriority;
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.clientpackets.ClientBasePacket;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 
