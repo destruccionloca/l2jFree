@@ -570,9 +570,6 @@ public class L2PetInstance extends L2Summon
         getOwner().removeReviving();
         
         super.doRevive();
-
-        // stopDecay
-        DecayTaskManager.getInstance().cancelDecayTask(this);
         super.stopDecay();
         startFeed(false);
     }

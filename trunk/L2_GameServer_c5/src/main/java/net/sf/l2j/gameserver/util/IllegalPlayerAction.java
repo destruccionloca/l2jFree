@@ -30,6 +30,7 @@ package net.sf.l2j.gameserver.util;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.GmListTable;
+import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 import org.apache.commons.logging.Log;
@@ -85,15 +86,15 @@ public final class IllegalPlayerAction implements Runnable
             case PUNISH_BROADCAST:
                 return;
             case PUNISH_KICK:
-            	_actor.deleteMe();
-            	_actor.store();
+            	_actor.sendPacket(new LeaveWorld());
+            	try { Thread.sleep(1000); } catch (Throwable t) {}
             	_actor.closeNetConnection();
                 break;
             case PUNISH_KICKBAN:
+            	_actor.sendPacket(new LeaveWorld());
+            	try { Thread.sleep(1000); } catch (Throwable t) {}
                 _actor.setAccessLevel(-100);
                 _actor.setAccountAccesslevel(-100);
-                _actor.deleteMe();
-                _actor.store();
                 _actor.closeNetConnection();
                 break;
             case PUNISH_JAIL:

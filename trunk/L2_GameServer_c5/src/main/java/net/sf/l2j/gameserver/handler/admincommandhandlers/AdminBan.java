@@ -82,8 +82,7 @@ public class AdminBan implements IAdminCommandHandler {
                 account_name = plyr.getAccountName();
                 LoginServerThread.getInstance().sendAccessLevel(account_name, -100);
                 plyr.sendPacket(new LeaveWorld());
-                plyr.deleteMe();
-                plyr.store();
+                try { Thread.sleep(1000); } catch (Throwable t) {}
                 plyr.closeNetConnection();
             }
         }

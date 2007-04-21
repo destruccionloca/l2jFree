@@ -246,6 +246,15 @@ public class MapRegionTable
             ClanHall clanhall = null;
             Zone zone = null;
             
+            
+            // Checking if in arena
+            Arena arena = ArenaManager.getInstance().getArena(player);
+            if (arena != null && !arena.getSpawn().isEmpty())
+            {
+                coord = arena.getSpawn().get(0);
+                if (coord != null) return new Location(coord[0], coord[1], coord[4]); 
+            }
+            
             if (teleportWhere == TeleportWhereType.Town)
             {
                 // teleport RED PK 5+ to Floran Village
@@ -315,14 +324,6 @@ public class MapRegionTable
                         }
                     }
                 }
-            }
-            
-            // Checking if in arena
-            Arena arena = ArenaManager.getInstance().getArena(player);
-            if (arena != null && !arena.getSpawn().isEmpty())
-            {
-                coord = arena.getSpawn().get(0);
-                if (coord != null) return new Location(coord[0], coord[1], coord[4]); 
             }
         }
 

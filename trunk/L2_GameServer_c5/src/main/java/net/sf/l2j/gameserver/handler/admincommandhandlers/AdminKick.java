@@ -65,19 +65,16 @@ public class AdminKick implements IAdminCommandHandler {
                     kickPlayer (player);
                 }
             }
-            activeChar.sendMessage("Kicked "+counter+" players");
+            activeChar.sendMessage("Kicked "+counter+" players.");
         }
         return true;
     }
         
     private void kickPlayer (L2PcInstance player)
     {
-        try {
-            player.sendPacket(new LeaveWorld());
-            player.deleteMe();
-            player.store();
-            player.closeNetConnection();
-            } catch (Throwable t)   {}
+        player.sendPacket(new LeaveWorld());
+        try { Thread.sleep(1000); } catch (Throwable t) {}
+        player.closeNetConnection();
     }
     public String[] getAdminCommandList() {
         return _adminCommands;

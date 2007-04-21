@@ -135,6 +135,12 @@ public final class ClientThread
                 
                 player.deleteMe();
                 player.store();
+                
+                _activeChar = null;
+                
+                try { Thread.sleep(1000); } catch (Throwable t) {}
+                
+                _connection.close();
             }
         }
         catch (Exception e1)
@@ -146,7 +152,6 @@ public final class ClientThread
         	 LoginServerThread.getInstance().removeWaitingClient(this);
              if(getLoginName() != null)
                  LoginServerThread.getInstance().sendLogout(getLoginName());
-             _activeChar = null;
         }
     }
 

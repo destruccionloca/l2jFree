@@ -23,6 +23,8 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.util.IllegalPlayerAction;
+import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.LoginServerThread;
@@ -118,16 +120,17 @@ public class EnterWorld extends ClientBasePacket
         }
 		if(!getClient().getLoginName().equalsIgnoreCase(getClient().getAccountName(activeChar.getName())))
         {
-            _log.fatal("Possible Hacker Account:"+getClient().getLoginName()+" tried to login with char: "+activeChar.getName() + "of Account:" + getClient().getAccountName(activeChar.getName()));
-            activeChar.deleteMe();
-            activeChar.closeNetConnection();
+            Util.handleIllegalPlayerAction(activeChar, "Possible Hacker Account:" + 
+            		getClient().getLoginName() + " tried to login with char: " + activeChar.getName() + 
+            		"of Account:" + getClient().getAccountName(activeChar.getName() + "."), 
+            		IllegalPlayerAction.PUNISH_KICK);
             return;
         }
         if(!getClient().isAuthed())
         {
-            _log.fatal("Possible Hacker Account:"+getClient().getLoginName()+" is not authed");
-            activeChar.deleteMe();
-            activeChar.closeNetConnection();
+            Util.handleIllegalPlayerAction(activeChar, "Possible Hacker Account:" + 
+            		getClient().getLoginName() + " is not authenticated.", 
+            		IllegalPlayerAction.PUNISH_KICK);
             return;
         }
         
