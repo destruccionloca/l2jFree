@@ -15,6 +15,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2ChestInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -43,7 +44,8 @@ public class ChestKey implements IItemHandler
         if (!(playable instanceof L2PcInstance)) return;
 
         L2PcInstance activeChar = (L2PcInstance) playable;
-        L2Skill skill = SkillTable.getInstance().getInfo(2065, 1);//box key skill
+        // TODO: Box Key Skill
+        // L2Skill skill = SkillTable.getInstance().getInfo(2065, 1);
         int itemId = item.getItemId();
         L2Object target = activeChar.getTarget();
 
@@ -87,8 +89,11 @@ public class ChestKey implements IItemHandler
 
             // Everything is OK
             activeChar.sendMessage("Use " + item.getItem().getName() + ".");
-            activeChar.useMagic(skill, false, false);
-
+            // TODO: Box Key Skill
+            //activeChar.useMagic(skill, false, false);
+        	MagicSkillUser msu = new MagicSkillUser(activeChar, chest, 2065, 1, 300, 0); // Could be wrong ^^
+        	activeChar.broadcastPacket(msu);
+        	
             if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false)) return;
             int openChance = 0;
             int chestGroup = 0;
