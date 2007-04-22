@@ -353,9 +353,12 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 
     private void showVaultWindowWithdraw(L2PcInstance player)
     {
-        player.sendPacket(new ActionFailed());
-        player.setActiveWarehouse(player.getClan().getWarehouse());
-        player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.Clan)); //Or Castle ??
+        if ( player.getClan() != null && player.getClan().getWarehouse() != null )
+        {
+            player.sendPacket(new ActionFailed());
+            player.setActiveWarehouse(player.getClan().getWarehouse());
+            player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.Clan)); //Or Castle ??
+        }
     }
     
     protected int validateCondition(L2PcInstance player)
