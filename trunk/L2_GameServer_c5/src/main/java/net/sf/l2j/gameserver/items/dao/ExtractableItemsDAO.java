@@ -1,4 +1,5 @@
-/* This program is free software; you can redistribute it and/or modify
+/*
+ * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -15,37 +16,32 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.model;
+
+package net.sf.l2j.gameserver.items.dao;
+
+import net.sf.l2j.gameserver.items.model.L2ExtractableItem;
 
 /**
- *
- * @author -Nemesiss-
+ * Interface for manipulation of Extractable Items
+ * 
+ * An extractable item is ....
+ * TODO : complete description
+ * 
  */
-public class L2ExtractableProductItem
+public interface ExtractableItemsDAO
 {
-    private final int       _id;
-    private final int  _ammount;
-    private final int   _chance;
+
+    /**
+     * Retrieve the extractable item by item id
+     * @param itemID
+     * @return a L2ExtractableItem or null if not found
+     */
+    public abstract L2ExtractableItem getExtractableItem(int itemID);
     
-    public L2ExtractableProductItem(int id, int ammount, int chance)
-    {
-        _id = id;
-        _ammount = ammount;
-        _chance = chance;
-    }
-    
-    public int getId()
-    {
-        return _id;
-    }
-    
-    public int getAmmount()
-    { 
-        return _ammount;
-    }
-    
-    public int getChance()
-    {
-        return _chance;
-    }
+    /**
+     * Return all extractable item Ids 
+     * @return array of items ids
+     */
+    public abstract int[] itemIDs();
+
 }

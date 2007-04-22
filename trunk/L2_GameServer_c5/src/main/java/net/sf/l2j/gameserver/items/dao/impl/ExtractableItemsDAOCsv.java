@@ -23,41 +23,55 @@
  * 
  */
 
-package net.sf.l2j.gameserver.datatables;
+package net.sf.l2j.gameserver.items.dao.impl;
 
 import java.io.File;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.model.L2ExtractableItem;
-import net.sf.l2j.gameserver.model.L2ExtractableProductItem;
+import net.sf.l2j.gameserver.items.dao.ExtractableItemsDAO;
+import net.sf.l2j.gameserver.items.model.L2ExtractableItem;
+import net.sf.l2j.gameserver.items.model.L2ExtractableProductItem;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-public class ExtractableItemsData
-{
-    private static final Log _log = LogFactory.getLog(ExtractableItemsData.class.getName());
-    //          FastMap<itemid, L2ExtractableItem>
-    private FastMap<Integer, L2ExtractableItem> _items;
+/**
+ * 
+ * Implementation of extractable items DAO by csv file.
+ * A csv file is composed by line formated as follow : 
+ * 
+ * #ItemID;Production1,Quantity1,Chance1[;Production2,Quantity2,Chance2... ;ProductionN,QuantityN,ChanceN]
+ * 
+ * Line with bad format are ignored.
+ * All lines are keeped in memory, there is no reloading of the files
+ */
+public class ExtractableItemsDAOCsv implements ExtractableItemsDAO
+{   
+    /**
+     * Logger 
+     */
+    private static final Log _log = LogFactory.getLog(ExtractableItemsDAOCsv.class.getName());
     
-    private static ExtractableItemsData _instance = null;
+    /**
+     * Map for all L2ExtractableItem, identified by the item id
+     */
+    private Map<Integer, L2ExtractableItem> _items;
     
-    public static ExtractableItemsData getInstance()
-    {
-        if (_instance == null)
-            _instance = new ExtractableItemsData();
-            
-        return _instance;
-    }
-    
-    public ExtractableItemsData()
-    {
+    /**
+     * Constructor :
+     * read the file and load all data in a private map
+     */
+    public ExtractableItemsDAOCsv()
+    {   
+        // o Local variable initialization
+        // --------------------------------
         _items = new FastMap<Integer,L2ExtractableItem>();
-        
-        Scanner s;
+        int lineCount = 0;
+        Scanner s=null;
 
         try
         {
@@ -65,23 +79,27 @@ public class ExtractableItemsData
         }
         catch (Exception e)
         {
-            _log.error("Extractable items data: Can not find './data/extractable_items.csv'",e);
+            _log.error("Extractable items data: Can not find '"+Config.DATAPACK_ROOT+"/data/extractable_items.csv'");
             return;
         }
         
-        int lineCount = 0;
-        
+        // o Read all lines and parse it
+        // ------------------------------
         while (s.hasNextLine())
         {           
             lineCount++;
             
             String line = s.nextLine();
             
+            // Ignore lines if line empty or starts with a comment
+            // ---------------------------------------------------
             if (line.startsWith("#"))
                 continue;
             else if (line.equals(""))
                 continue;
             
+            // Split line with a separator
+            // ----------------------------
             String[] lineSplit = line.split(";");
             boolean ok = true;
             int itemID = 0;
@@ -99,8 +117,9 @@ public class ExtractableItemsData
             
             if (!ok)
                 continue;
-            
-            FastList<L2ExtractableProductItem> product_temp = new FastList<L2ExtractableProductItem>(); 
+            // Initialize a list to store all product items
+            // ----------------------------------------------
+            List<L2ExtractableProductItem> product_temp = new FastList<L2ExtractableProductItem>(); 
                         
             for (int i=0;i<lineSplit.length-1;i++)
             {
@@ -130,11 +149,15 @@ public class ExtractableItemsData
                 L2ExtractableProductItem product = new L2ExtractableProductItem(production,amount,chance);
                 product_temp.add(product);              
             }
-
+            
+            // coherence check
+            // -----------------
             int fullChances = 0;
             
             for (L2ExtractableProductItem Pi : product_temp)
+            {
                 fullChances += Pi.getChance();
+            }
             
             if (fullChances > 100)
             {
@@ -142,6 +165,7 @@ public class ExtractableItemsData
                 _log.error("        " + line);
                 continue;
             }
+            // Store this extractable item
             L2ExtractableItem product = new L2ExtractableItem(itemID, product_temp);
             _items.put(itemID, product);            
         }
@@ -150,10 +174,16 @@ public class ExtractableItemsData
         _log.info("Extractable items data: Loaded " + _items.size() + " extractable items!");
     }
     
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.datatables.ExtractableItemsDAO#getExtractableItem(int)
+     */
     public L2ExtractableItem getExtractableItem(int itemID)
     {
         return _items.get(itemID);
     }   
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.datatables.ExtractableItemsDAO#itemIDs()
+     */
     public int[] itemIDs()
     {
         int size = _items.size();

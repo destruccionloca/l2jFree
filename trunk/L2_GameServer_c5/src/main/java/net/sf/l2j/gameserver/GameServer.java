@@ -35,7 +35,6 @@ import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.datatables.EventDroplist;
-import net.sf.l2j.gameserver.datatables.ExtractableItemsData;
 import net.sf.l2j.gameserver.datatables.FishTable;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.HennaTable;
@@ -208,14 +207,12 @@ public class GameServer
         _itemTable = ItemTable.getInstance();
         if (!_itemTable.isInitialized())
         {
-            _log.fatal("Could not find the extracted files. Please Check Your Data.");
+            _log.fatal("Items not initialized.");
             throw new Exception("Could not initialize the item table");
         }
         
-        // o Load extractable items (?)
-        // Load items used for summoning
+        // o Load items used for summoning
         // ------------------------------
-        ExtractableItemsData.getInstance();
         SummonItemsData.getInstance();
         
         // o Load buylist 
@@ -224,7 +221,7 @@ public class GameServer
         _skillTable = SkillTable.getInstance();
         if (!_skillTable.isInitialized())
         {
-            _log.fatal("Could not find the extraced files. Please Check Your Data.");
+            _log.fatal("Skills not initialized.");
             throw new Exception("Could not initialize the skill table");
         }
         
@@ -267,7 +264,7 @@ public class GameServer
         _npcTable = NpcTable.getInstance();
         if (!_npcTable.isInitialized())
         {
-            _log.fatal("Could not find the extraced files. Please Check Your Data.");
+            _log.fatal("Npc Table not initialized.");
             throw new Exception("Could not initialize the npc table");
         }
         

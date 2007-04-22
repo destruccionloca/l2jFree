@@ -15,34 +15,37 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.model;
-
-import javolution.util.FastList;
+package net.sf.l2j.gameserver.items.model;
 
 /**
  *
  * @author -Nemesiss-
  */
-public class L2ExtractableItem
+public class L2ExtractableProductItem
 {
-    private final int _itemId;
-    private final L2ExtractableProductItem[] _products;
+    private final int       _id;
+    private final int  _ammount;
+    private final int   _chance;
     
-    public L2ExtractableItem(int itemid, FastList<L2ExtractableProductItem> products)
+    public L2ExtractableProductItem(int id, int ammount, int chance)
     {
-        _itemId = itemid;
-        _products = new L2ExtractableProductItem[products.size()];
-        products.toArray(_products);
+        _id = id;
+        _ammount = ammount;
+        _chance = chance;
     }
     
-    public int getItemId()
+    public int getId()
     {
-        return _itemId;
+        return _id;
     }
     
-    public L2ExtractableProductItem[] getProductItemsArray()
-    {
-        return _products;
+    public int getAmmount()
+    { 
+        return _ammount;
     }
-
+    
+    public int getChance()
+    {
+        return _chance;
+    }
 }

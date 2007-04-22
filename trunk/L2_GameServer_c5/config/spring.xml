@@ -99,6 +99,13 @@
 	
 
 	<!-- 
+		DAO for items
+	 -->
+    <bean id="ExtractableItemsDAO" class="net.sf.l2j.gameserver.items.dao.impl.ExtractableItemsDAOCsv">
+	</bean> 	
+
+
+	<!-- 
 		Service to manage versions 
 	 -->
     <bean id="VersionningService" class="net.sf.l2j.tools.versionning.service.VersionningService">
@@ -127,6 +134,15 @@
     <bean id="L2RecipeService" class="net.sf.l2j.gameserver.recipes.service.L2RecipeService">
 		<property name="l2RecipeDAO">
 			<ref bean="L2RecipeDAO" />
+		</property>
+	</bean> 	
+	
+	<!-- 
+		Service to manage Items 
+	 -->
+    <bean id="ExtractableItemsService" class="net.sf.l2j.gameserver.items.service.ExtractableItemsService">
+		<property name="extractableItemsDAO">
+			<ref bean="ExtractableItemsDAO" />
 		</property>
 	</bean> 			
 

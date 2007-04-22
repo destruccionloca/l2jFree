@@ -296,12 +296,10 @@ public class L2Manor
         }
         catch (FileNotFoundException e)
         {
-            initialized = false;
             _log.warn("seeds.csv is missing in data folder");
         }
         catch (Exception e)
         {
-            initialized = false;
             _log.warn("error while loading seeds: " + e);
         }
         finally
@@ -344,5 +342,4 @@ public class L2Manor
     }
     
     private static FastMap<Integer,SeedData> _seeds;
-    private static boolean initialized = false;
 }
