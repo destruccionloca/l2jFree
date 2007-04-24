@@ -37,7 +37,7 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 public abstract class ADAOTestWithSpringAndDerby extends TestCase {
 	
 	private static final String SPRING_DBEMPTY_XML = "springDBEmpty.xml";
-    private ApplicationContext __applicationContext=null;
+    protected ApplicationContext __applicationContext=null;
     
 	/** Logger commons-logging for this class */
 	private static final Log s_log = LogFactory

@@ -40,6 +40,7 @@ public abstract class ADAOTestCase extends AHibernateTestCase
 		System.setProperty("hibernate.connection.driver_class", DerbyHelper.DRIVER);
 		System.setProperty("hibernate.connection.username", DerbyHelper.USER);
 		System.setProperty("hibernate.connection.password", DerbyHelper.PASSWORD);
+        System.setProperty("hibernate.c3p0.autocommit", "true");
 
 		System.setProperty("hibernate.dialect", DerbyDialect.class.getName());
 		System.setProperty("hibernate.show_sql", "true");
