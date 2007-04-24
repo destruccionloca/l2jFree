@@ -58,12 +58,16 @@ public class L2Registry
     {
         try
         {
-            // init properties for spring 
-            __ctx = new ClassPathXmlApplicationContext(paths);
+            // Load the context if it is not already loaded
+            if (__ctx == null )
+            {
+                // init properties for spring 
+                __ctx = new ClassPathXmlApplicationContext(paths);
+            }
         }
         catch (Throwable e)
         {
-            _log.fatal("Unable to load registry : " + e.getMessage(),e);
+            _log.fatal("Unable to load registry : " + e.getMessage()+" check that you update xml file in config folder !",e);
             throw e;
         }
     }
