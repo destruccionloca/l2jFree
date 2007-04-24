@@ -90,11 +90,10 @@ public class AdminLevel implements IAdminCommandHandler
 				curlevel = target.getLevel();
 			
 				reslevel = cmd.equals("admin_addlevel")?(curlevel + lvl):cmd.equals("admin_remlevel")?(curlevel - lvl):lvl;
-				
 
 				try
 				{
-					xpcur = target.getStat().getExpForLevel(curlevel);
+					xpcur = target.getStat().getExp();
 					xpres = target.getStat().getExpForLevel(reslevel);
 					
 					if (xpcur > xpres)
