@@ -23,10 +23,10 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.1.6.2 $ $Date: 2005/03/27 15:29:39 $
  */
-public class PlaySound extends ServerBasePacket
+public class PlaySound extends L2GameServerPacket
 {
     private static final String _S__98_PlaySound = "[S] 98 PlaySound";
-    private int _fileType;
+    private int _unknown1;
     private String _soundFile;
     private int _unknown3;
     private int _unknown4;
@@ -34,25 +34,9 @@ public class PlaySound extends ServerBasePacket
     private int _unknown6;
     private int _unknown7;
     
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
-    
     public PlaySound(String soundFile)
     {
-        _fileType   = 0;
-        _soundFile  = soundFile;
-        _unknown3   = 0;
-        _unknown4   = 0;
-        _unknown5   = 0;
-        _unknown6   = 0;
-        _unknown7   = 0;
-    }
-    
-    public PlaySound(String soundFile, int fileType)
-    {
-        _fileType   = fileType;
+        _unknown1   = 0;
         _soundFile  = soundFile;
         _unknown3   = 0;
         _unknown4   = 0;
@@ -61,9 +45,9 @@ public class PlaySound extends ServerBasePacket
         _unknown7   = 0;
     }
 
-    public PlaySound(int fileType, String soundFile, int unknown3, int unknown4, int unknown5, int unknown6, int unknown7)
+    public PlaySound(int unknown1, String soundFile, int unknown3, int unknown4, int unknown5, int unknown6, int unknown7)
     {
-        _fileType   = fileType;
+        _unknown1   = unknown1;
         _soundFile  = soundFile;
         _unknown3   = unknown3;
         _unknown4   = unknown4;
@@ -73,13 +57,13 @@ public class PlaySound extends ServerBasePacket
     }
     
     
-    final void writeImpl()
+    protected final void writeImpl()
     {
         writeC(0x98);
-        writeD(_fileType);              //fileType? 0 for quest and ship(sounds\*.uax), 2 for tutorial voice(voice\*.ogg);
+        writeD(_unknown1);              //unknown 0 for quest and ship;
         writeS(_soundFile);
-        writeD(_unknown3);              //unknown 0 for quest and tutorial voice; 1 for ship;
-        writeD(_unknown4);              //0 for quest and tutorial voice; objectId of ship
+        writeD(_unknown3);              //unknown 0 for quest; 1 for ship;
+        writeD(_unknown4);              //0 for quest; objectId of ship
         writeD(_unknown5);              //x
         writeD(_unknown6);              //y
         writeD(_unknown7);				//z

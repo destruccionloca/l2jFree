@@ -23,7 +23,7 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class JoinPledge extends ServerBasePacket
+public class JoinPledge extends L2GameServerPacket
 {
 	private static final String _S__45_JOINPLEDGE = "[S] 33 JoinPledge";
 
@@ -33,14 +33,8 @@ public class JoinPledge extends ServerBasePacket
 	{
 		_pledgeId = pledgeId;
 	}
-
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x33);
 		

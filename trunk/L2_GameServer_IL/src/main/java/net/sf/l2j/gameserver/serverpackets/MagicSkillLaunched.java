@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.model.L2Character;
  * 
  * @version $Revision: 1.4.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class MagicSkillLaunched extends ServerBasePacket
+public class MagicSkillLaunched extends L2GameServerPacket
 {
 	private static final String _S__8E_MAGICSKILLLAUNCHED = "[S] 8E MagicSkillLaunched";
 	private int _chaId;
@@ -59,12 +59,7 @@ public class MagicSkillLaunched extends ServerBasePacket
 		_targetId = cha.getTargetId();
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x76);
 		writeD(_chaId);

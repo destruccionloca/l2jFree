@@ -18,35 +18,54 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+import java.util.List;
+
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * This class ...
- * 
- * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
+ * Format: (c) d[dS]
+ * d: list size
+ * [
+ *   d: char ID
+ *   S: char Name
+ * ]
+ *
+ * @author  -Wooden-
  */
-public class PartySmallWindowDelete extends L2GameServerPacket 
+public class PackageToList extends L2GameServerPacket
 {
-	private static final String _S__66_PARTYSMALLWINDOWDELETE = "[S] 51 PartySmallWindowDelete";
-	private L2PcInstance _member;
+	private static final String _S__C2_PACKAGETOLIST = "[S] C2 PackageToList";
+	private List<L2PcInstance> _players;
 	
-	public PartySmallWindowDelete(L2PcInstance member)
+	// Lecter : i put a char list here, but i'm unsure these really are Pc. I duno how freight work tho...
+	public PackageToList(List<L2PcInstance> players)
 	{
-		_member = member;
-	}
-	
-	protected final void writeImpl()
-	{
-		writeC(0x51);
-		writeD(_member.getObjectId());
-		writeS(_member.getName());
+		_players = players;
 	}
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	/**
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
+	@Override
+	protected
+	void writeImpl()
+	{
+		writeC(0xC2);
+		writeC(_players.size());
+		for(L2PcInstance pc : _players)
+		{
+			writeD(pc.getObjectId()); // you told me char id, i guess this was object id?
+			writeS(pc.getName());
+		}
+	}
+
+	/**
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
 	public String getType()
 	{
-		return _S__66_PARTYSMALLWINDOWDELETE;
+		return _S__C2_PACKAGETOLIST;
 	}
+	
 }

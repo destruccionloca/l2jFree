@@ -24,55 +24,46 @@ import net.sf.l2j.gameserver.model.L2Clan;
  *
  * @author  -Wooden-
  */
-public class PledgeReceiveWarList extends ServerBasePacket
+public class PledgeReceiveWarList extends L2GameServerPacket
 {
-    private static final String _S__FE_3E_PLEDGERECEIVEWARELIST = "[S] FE:3E PledgeReceiveWarList";
-    private L2Clan _clan;
-    public PledgeReceiveWarList(L2Clan clan)
-    {
-        _clan = clan;
-    }
+	private static final String _S__FE_3E_PLEDGERECEIVEWARELIST = "[S] FE:3E PledgeReceiveWarList";
+	private L2Clan _clan;
+	
+	public PledgeReceiveWarList(L2Clan clan)
+	{
+		_clan = clan;
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-     */
-    @Override
-    void runImpl()
-    {
-        // TODO Auto-generated method stub
+	/**
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
+	 */
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xfe);
+		writeH(0x3e);
+		
+		writeD(0x00); // type : 0 = enemy, 1 = attaker
+		writeD(0x00); // page
+		writeD(_clan.getWarList().size());
+		for(Integer i : _clan.getWarList())
+		{
+			L2Clan clan = ClanTable.getInstance().getClan(i);
+			if (clan == null) continue;
+			
+			writeS(clan.getName());
+			writeD(0x01); //??
+			writeD(0x00); //??
+		}
+	}
 
-    }
-
-    /**
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
-     */
-    @Override
-    void writeImpl()
-    {
-        writeC(0xfe);
-        writeH(0x3e);
-        
-        writeD(0x00); // type : 0 = enemy, 1 = attaker
-        writeD(0x00); // page
-        writeD(_clan.getWarList().size());
-        for(Integer i : _clan.getWarList())
-        {
-            L2Clan clan = ClanTable.getInstance().getClan(i);
-            if (clan == null) continue;
-            
-            writeS(clan.getName());
-            writeD(0x01); //??
-            writeD(0x00); //??
-        }
-    }
-
-    /**
-     * @see net.sf.l2j.gameserver.network.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return _S__FE_3E_PLEDGERECEIVEWARELIST;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__FE_3E_PLEDGERECEIVEWARELIST;
+	}
 
 }

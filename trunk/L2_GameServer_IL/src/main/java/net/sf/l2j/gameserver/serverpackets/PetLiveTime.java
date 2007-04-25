@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import net.sf.l2j.gameserver.model.L2Summon;
 
-public class PetLiveTime extends ServerBasePacket
+public class PetLiveTime extends L2GameServerPacket
 {
 
     private static final String _S__D1_PETLIVETIME = "[S] D1 PetLiveTime";
@@ -33,11 +33,7 @@ public class PetLiveTime extends ServerBasePacket
         _maxFed = summon.getMaxFed();
     }
 
-    void runImpl()
-    {
-    }
-
-    void writeImpl()
+    protected void writeImpl()
     {
         writeC(0xD1);
         writeD(_maxFed);

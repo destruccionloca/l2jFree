@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
  * 
  * @version $Revision: 1.1.6.2 $ $Date: 2005/03/27 15:29:39 $
  */
-public class MonRaceInfo extends ServerBasePacket
+public class MonRaceInfo extends L2GameServerPacket
 {
     private static final String _S__DD_MonRaceInfo = "[S] dd MonRaceInfo";
     private int _unknown1;
@@ -55,13 +55,8 @@ public class MonRaceInfo extends ServerBasePacket
     
 //  0xf3;;EtcStatusUpdatePacket;ddddd
     
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
     
-    
-    final void writeImpl()
+    protected final void writeImpl()
     {
         writeC(0xdd);
         
@@ -71,7 +66,7 @@ public class MonRaceInfo extends ServerBasePacket
         
         for (int i=0; i<8; i++)
         {
-            //_log.debugr("MOnster "+(i+1)+" npcid "+_monsters[i].getNpcTemplate().getNpcId());
+            //System.out.println("MOnster "+(i+1)+" npcid "+_monsters[i].getNpcTemplate().getNpcId());
             writeD(_monsters[i].getObjectId());                         //npcObjectID
             writeD(_monsters[i].getTemplate().npcId+1000000);   //npcID   
             writeD(14107);                                              //origin X

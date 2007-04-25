@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.model.L2Summon;
  * @author Yme
  * @version $Revision: 1.3.2.2.2.4 $ $Date: 2005/03/29 23:15:10 $
  */
-public class PetStatusShow extends ServerBasePacket
+public class PetStatusShow extends L2GameServerPacket
 {
 	private static final String _S__C9_PETSTATUSSHOW = "[S] B0 PetStatusShow";
 	private int _summonType;
@@ -35,13 +35,8 @@ public class PetStatusShow extends ServerBasePacket
 	{
 		_summonType = summon.getSummonType();
 	}
-    
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xB0);
 		writeD(_summonType);

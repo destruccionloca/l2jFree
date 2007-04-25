@@ -23,16 +23,11 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class PartySmallWindowDeleteAll extends ServerBasePacket 
+public class PartySmallWindowDeleteAll extends L2GameServerPacket 
 {
 	private static final String _S__65_PARTYSMALLWINDOWDELETEALL = "[S] 50 PartySmallWindowDeleteAll";
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x50);
 	}

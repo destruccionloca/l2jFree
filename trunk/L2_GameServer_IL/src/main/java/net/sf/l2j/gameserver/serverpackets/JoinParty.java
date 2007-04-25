@@ -33,10 +33,10 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class JoinParty extends ServerBasePacket
+public class JoinParty extends L2GameServerPacket
 {
 	private static final String _S__4C_JOINPARTY = "[S] 3a JoinParty";
-	//private final static Log _log = LogFactory.getLog(JoinParty.class.getName());
+	//private static Logger _log = Logger.getLogger(JoinParty.class.getName());
 
 	private int _response;
 
@@ -47,14 +47,8 @@ public class JoinParty extends ServerBasePacket
 	{
 		_response = response;
 	}
-
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x3a);
 		

@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class PartyMatchDetail extends ServerBasePacket
+public class PartyMatchDetail extends L2GameServerPacket
 {
 	private static final String _S__B0_PARTYMATCHDETAIL = "[S] 97 PartyMatchDetail";
 	private L2PcInstance _player;
@@ -46,14 +46,8 @@ public class PartyMatchDetail extends ServerBasePacket
 	{
 		_player = player;
 	}
-
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x97);
 		

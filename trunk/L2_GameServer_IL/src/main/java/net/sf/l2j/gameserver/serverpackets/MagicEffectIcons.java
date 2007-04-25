@@ -18,6 +18,8 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+import java.util.List;
+
 import javolution.util.FastList;
 
 /**
@@ -27,10 +29,10 @@ import javolution.util.FastList;
  * 
  * @version $Revision: 1.3.2.1.2.6 $ $Date: 2005/04/05 19:41:08 $
  */
-public class MagicEffectIcons extends ServerBasePacket
+public class MagicEffectIcons extends L2GameServerPacket
 {
 	private static final String _S__97_MAGICEFFECTICONS = "[S] 7f MagicEffectIcons";
-	private FastList<Effect> _effects;
+	private List<Effect> _effects;
 	
 	class Effect
 	{
@@ -53,19 +55,14 @@ public class MagicEffectIcons extends ServerBasePacket
 	
 	public void addEffect(int skillId, int level, int duration)
 	{
-//		_log.debugr("Adding effect icon id="+skillId+", level="+dat+", duration="+duration);
+//		System.out.println("Adding effect icon id="+skillId+", level="+dat+", duration="+duration);
 		_effects.add(new Effect(skillId, level, duration));		
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x7f);
-//		_log.debugr("Sending "+_effects.size()+" icons");
+//		System.out.println("Sending "+_effects.size()+" icons");
 		
 		writeH(_effects.size());
 	

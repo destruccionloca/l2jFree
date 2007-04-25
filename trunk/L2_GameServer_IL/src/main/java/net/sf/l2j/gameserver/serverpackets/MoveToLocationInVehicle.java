@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * @author Maktakien
  *
  */
-public class MoveToLocationInVehicle extends ServerBasePacket
+public class MoveToLocationInVehicle extends L2GameServerPacket
 {
 	int _pciId;
 	int _boatId;
@@ -55,19 +55,10 @@ public class MoveToLocationInVehicle extends ServerBasePacket
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-	 */
-	@Override
-	void runImpl()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
+	protected
 	void writeImpl()
 	{
 		writeC(0x71);

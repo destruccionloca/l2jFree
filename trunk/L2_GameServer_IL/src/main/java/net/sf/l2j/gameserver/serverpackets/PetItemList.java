@@ -29,7 +29,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.4.2.1.2.4 $ $Date: 2005/03/27 15:29:39 $
  */
-public class PetItemList extends ServerBasePacket 
+public class PetItemList extends L2GameServerPacket 
 {
 	private final static Log _log = LogFactory.getLog(PetItemList.class.getName());
 	private static final String _S__cb_PETITEMLIST = "[S] b2  PetItemList";
@@ -38,23 +38,18 @@ public class PetItemList extends ServerBasePacket
 	public PetItemList(L2PetInstance cha)
 	{
 		_cha = cha;
-		
-	}	
-	
-	final void runImpl()
-	{
 		if (_log.isDebugEnabled())
 		{
 			L2ItemInstance[] items = _cha.getInventory().getItems();
 			for (L2ItemInstance temp : items)
 			{
-				_log.debug("item:" + temp.getItem().getName() +
+				_log.info("item:" + temp.getItem().getName() +
 						" type1:" + temp.getItem().getType1() + " type2:" + temp.getItem().getType2());
 			}
 		}
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xB2);
 		

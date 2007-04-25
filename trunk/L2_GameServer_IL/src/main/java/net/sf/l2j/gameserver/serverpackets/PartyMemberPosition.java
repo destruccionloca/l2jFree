@@ -10,7 +10,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * @author zabbix
  *
  */
-public class PartyMemberPosition extends ServerBasePacket
+public class PartyMemberPosition extends L2GameServerPacket
 {
 	L2Party _party;
 
@@ -19,11 +19,7 @@ public class PartyMemberPosition extends ServerBasePacket
 		_party = actor.getParty();
 	}
 
-	void runImpl()
-	{
-	}
-
-	void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0xa7);
 		writeD(_party.getMemberCount());

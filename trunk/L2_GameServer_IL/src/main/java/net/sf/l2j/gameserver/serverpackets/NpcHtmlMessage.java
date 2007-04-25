@@ -18,12 +18,11 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+import java.util.logging.Logger;
+
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.clientpackets.RequestBypassToServer;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -129,34 +128,40 @@ import org.apache.commons.logging.LogFactory;
  *
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class NpcHtmlMessage extends ServerBasePacket
+public class NpcHtmlMessage extends L2GameServerPacket
 {
 	// d S
 	// d is usually 0, S is the html text starting with <html> and ending with </html>
 	//
 	private static final String _S__1B_NPCHTMLMESSAGE = "[S] 0f NpcHtmlMessage";
-	private final static Log _log = LogFactory.getLog(RequestBypassToServer.class.getName());
-    private int _NpcObjId;
+	private static Logger _log = Logger.getLogger(RequestBypassToServer.class.getName());
+	private int _NpcObjId;
 	private String _html;
 
 	/**
 	 * @param _characters
 	 */
-    public NpcHtmlMessage(int npcObjId, String text)
+	public NpcHtmlMessage(int npcObjId, String text)
 	{
-        _NpcObjId = npcObjId;
+		_NpcObjId = npcObjId;
 		setHtml(text);
 	}
-    public NpcHtmlMessage(int npcObjId)
+	
+	public NpcHtmlMessage(int npcObjId)
 	{
-        _NpcObjId = npcObjId;
+		_NpcObjId = npcObjId;
+	}
+	
+	public void runImpl()
+	{
+		this.buildBypassCache(this.getClient().getActiveChar());
 	}
 	
 	public void setHtml(String text)
 	{
         if(text.length() > 8192)
 		{
-			_log.warn("Html is too long! this will crash the client!");
+			_log.warning("Html is too long! this will crash the client!");
 			_html = "<html><body>Html was too long</body></html>";
 			return;
 		}
@@ -170,7 +175,7 @@ public class NpcHtmlMessage extends ServerBasePacket
 		if (content == null)
 		{
 			setHtml("<html><body>My Text is missing:<br>"+path+"</body></html>");
-			_log.warn("missing html page "+path);
+			_log.warning("missing html page "+path);
 			return false;
 		}
         
@@ -182,20 +187,9 @@ public class NpcHtmlMessage extends ServerBasePacket
 	{
 		_html = _html.replaceAll(pattern, value);
 	}
-    
-    public String getHTML()
-    {
-        return _html;
-    }
-
-	final void runImpl()
-	{
-		buildBypassCache();
-	}
 	
-	public final void buildBypassCache()
+	public final void buildBypassCache(L2PcInstance activeChar)
 	{
-        L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null)
             return;
         
@@ -220,13 +214,13 @@ public class NpcHtmlMessage extends ServerBasePacket
 		}		
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x0f);
 
-        writeD(_NpcObjId);
+		writeD(_NpcObjId);
 		writeS(_html);
-        writeD(0x00);
+		writeD(0x00);
 	}
 	
 	/* (non-Javadoc)

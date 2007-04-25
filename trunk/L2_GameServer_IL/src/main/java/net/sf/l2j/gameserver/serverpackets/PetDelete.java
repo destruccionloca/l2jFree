@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.serverpackets;
 
 /**
  */
-public class PetDelete extends ServerBasePacket
+public class PetDelete extends L2GameServerPacket
 {
 	private static final String _S__CF_PETDELETE = "[S] b6 PetDelete";
 	private int _petId;
@@ -32,12 +32,7 @@ public class PetDelete extends ServerBasePacket
 		_petnum= petnum;
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xb6);
 		writeD(_petId);// dont really know what these two are since i never needed them

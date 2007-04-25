@@ -27,7 +27,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.2.2.3.2.6 $ $Date: 2005/03/27 15:29:57 $
  */
-public class PrivateStoreListSell extends ServerBasePacket
+public class PrivateStoreListSell extends L2GameServerPacket
 {
 //	private static final String _S__B4_PRIVATEBUYLISTSELL = "[S] 9b PrivateBuyListSell";
 	private static final String _S__B4_PRIVATESTORELISTSELL = "[S] 9b PrivateStoreListSell";
@@ -42,49 +42,21 @@ public class PrivateStoreListSell extends ServerBasePacket
 	{
 		_player = player;
 		_storePlayer = storePlayer;
+		_playerAdena = _player.getAdena();
+		_items = _storePlayer.getSellList().getItems();
+		_packageSale = _storePlayer.getSellList().isPackaged();
 	}
 	
 	// lease shop
 	public PrivateStoreListSell(L2PcInstance player, L2MerchantInstance storeMerchant)
 	{
 		_player = player;
-//		_storePlayer = seller;
-	}
-	
-	final void runImpl()
-	{
 		_playerAdena = _player.getAdena();
-//		_storePlayer.getSellList().updateItems();
 		_items = _storePlayer.getSellList().getItems();
 		_packageSale = _storePlayer.getSellList().isPackaged();
-/*		} else {
-			L2MerchantInstance seller = (L2MerchantInstance)_seller;
-			_sellList = new FastList<TradeItem>();
-			for (L2ItemInstance inst : seller.listLeaseItems()) {
-				if (inst.getCount() <= 0)
-					continue;
-				TradeItem ti = new TradeItem();
-				ti.setObjectId(inst.getObjectId());
-				ti.setItemId(inst.getItemId());
-				ti.setOwnersPrice(exchangeWithLeaseHolder ? 0 : inst.getPriceToSell());
-				ti.setCount(inst.getCount());
-				ti.setEnchantLevel(inst.getEnchantLevel());
-				_sellList.add(ti);
-			}
-			if (exchangeWithLeaseHolder) {
-				L2ItemInstance inst = seller.getLeaseAdena();
-				TradeItem ti = new TradeItem();
-				ti.setObjectId(inst.getObjectId());
-				ti.setItemId(inst.getItemId());
-				ti.setOwnersPrice(0);
-				ti.setCount(inst.getCount());
-				ti.setEnchantLevel(inst.getEnchantLevel());
-				_sellList.add(ti);
-			}
-		}*/
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x9b);
 		writeD(_storePlayer.getObjectId());

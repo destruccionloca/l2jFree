@@ -18,6 +18,8 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+import java.util.List;
+
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
@@ -45,26 +47,22 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.6.2.1.2.5 $ $Date: 2005/03/27 15:29:57 $
  */
-public class PartySmallWindowAll extends ServerBasePacket
+public class PartySmallWindowAll extends L2GameServerPacket
 {
 	private static final String _S__63_PARTYSMALLWINDOWALL = "[S] 4e PartySmallWindowAll";
-	private FastList<L2PcInstance> _partyMembers = new FastList<L2PcInstance>();
+	private List<L2PcInstance> _partyMembers = new FastList<L2PcInstance>();
 	
-	public void setPartyList(FastList<L2PcInstance> party) {
+	public void setPartyList(List<L2PcInstance> party)
+	{
 		_partyMembers = party;
 	}
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x4e);
 		L2PcInstance player =  getClient().getActiveChar();
         writeD(_partyMembers.get(0).getObjectId()); // c3 party leader id
-        writeD(_partyMembers.get(0).getParty().getLootDistribution()); //c3 party loot type (0,1,2,....)
+        writeD(_partyMembers.get(0).getParty().getLootDistribution());//c3 party loot type (0,1,2,....)
 		writeD(_partyMembers.size()-1);
 		
 		for(int i = 0; i < _partyMembers.size(); i++) 

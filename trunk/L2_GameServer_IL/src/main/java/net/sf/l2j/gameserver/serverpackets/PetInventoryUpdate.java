@@ -18,7 +18,10 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+import java.util.List;
+
 import javolution.util.FastList;
+import net.sf.l2j.gameserver.model.ItemInfo;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 
 import org.apache.commons.logging.Log;
@@ -31,43 +34,45 @@ import org.apache.commons.logging.LogFactory;
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/27 15:29:57 $
  * Rebuild 23.2.2006 by Advi
 */
-public class PetInventoryUpdate extends ServerBasePacket{
-	private final static Log _log = LogFactory.getLog(InventoryUpdate.class.getName());
+public class PetInventoryUpdate extends L2GameServerPacket
+{
+	private final static Log _log = LogFactory.getLog(PetInventoryUpdate.class.getName());
 	private static final String _S__37_INVENTORYUPDATE = "[S] b3 InventoryUpdate";
-	private FastList<ItemInfo> _items;
-
-	public PetInventoryUpdate()
-	{
-		_items = new FastList<ItemInfo>();
-	}	
+	private List<ItemInfo> _items;
 	
 	/**
 	 * @param items
 	 */
-	public PetInventoryUpdate(FastList<ItemInfo> items)
+	public PetInventoryUpdate(List<ItemInfo> items)
 	{
 		_items = items;
+		if (_log.isDebugEnabled())
+		{
+			this.showDebug();
+		}
 	}
-
+	
+	public PetInventoryUpdate()
+	{
+		this(new FastList<ItemInfo>());
+	}
+	
 	public void addItem(L2ItemInstance item) { _items.add(new ItemInfo(item)); }
 	public void addNewItem(L2ItemInstance item) { _items.add(new ItemInfo(item, 1)); }
 	public void addModifiedItem(L2ItemInstance item) { _items.add(new ItemInfo(item, 2)); }
 	public void addRemovedItem(L2ItemInstance item) { _items.add(new ItemInfo(item, 3)); }
-	public void addItems(FastList<L2ItemInstance> items) { for (L2ItemInstance item : items) _items.add(new ItemInfo(item)); }
+	public void addItems(List<L2ItemInstance> items) { for (L2ItemInstance item : items) _items.add(new ItemInfo(item)); }
 
-	final void runImpl()
+	private void showDebug()
 	{
-		if (_log.isDebugEnabled())
+		for (ItemInfo item : _items)
 		{
-			for (ItemInfo item : _items)
-			{
-				_log.debug("oid:" + Integer.toHexString(item.getObjectId()) +
-						" item:" + item.getItem().getName()+" last change:" + item.getChange());
-			}
+			_log.info("oid:" + Integer.toHexString(item.getObjectId()) +
+					" item:" + item.getItem().getName()+" last change:" + item.getChange());
 		}
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xb3);
 		int count = _items.size(); 

@@ -21,19 +21,15 @@ package net.sf.l2j.gameserver.serverpackets;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * This class ...
  * 
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/03/27 15:29:39 $
  */
-public class PledgeShowMemberListAdd extends ServerBasePacket
+public class PledgeShowMemberListAdd extends L2GameServerPacket
 {
-	private static final String _S__6A_PLEDGESHOWMEMBERLISTADD = "[S] 55 PledgeShowMemberListAdd";
-    protected static final Log _log = LogFactory.getLog(PledgeShowMemberListAdd.class.getName());
-    private String _name;
+	private static final String _S__55_PLEDGESHOWMEMBERLISTADD = "[S] 55 PledgeShowMemberListAdd";
+	private String _name;
     private int _lvl;
     private int _classId;
     private int _isOnline;
@@ -60,41 +56,19 @@ public class PledgeShowMemberListAdd extends ServerBasePacket
         }
         catch(Exception e)
         {
-            _log.warn("null pouinter exception on: "+cm.getName());
-        }
-    }
-    
-    public PledgeShowMemberListAdd(L2ClanMember cm, int online)
-    {
-        try
-        {
-        _name = cm.getName();
-        _lvl = cm.getLevel();
-        _classId = cm.getClassId();
-        _isOnline = online;
-        _pledgeType = cm.getPledgeType();
-        }
-        catch(Exception e)
-        {
-            _log.warn("null pouinter exception on: "+cm.getName());
         }
     }
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x55);
 		writeS(_name);
 		writeD(_lvl);
 		writeD(_classId);
 		writeD(0); 
-		writeD(0);
+		writeD(1);
 		writeD(_isOnline); // 1=online 0=offline
-        writeD(_pledgeType);
+		writeD(_pledgeType); 
 	}
 
 	/* (non-Javadoc)
@@ -102,7 +76,7 @@ public class PledgeShowMemberListAdd extends ServerBasePacket
 	 */
 	public String getType()
 	{
-		return _S__6A_PLEDGESHOWMEMBERLISTADD;
+		return _S__55_PLEDGESHOWMEMBERLISTADD;
 	}
 
 }

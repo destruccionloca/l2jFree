@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.serverpackets;
 import java.util.List;
 
 import javolution.util.FastList;
+import net.sf.l2j.gameserver.model.ItemInfo;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 
 import org.apache.commons.logging.Log;
@@ -52,77 +53,80 @@ import org.apache.commons.logging.LogFactory;
  * Rebuild 23.2.2006 by Advi
  */
 
-public class InventoryUpdate extends ServerBasePacket
+public class InventoryUpdate extends L2GameServerPacket
 {
     private final static Log _log = LogFactory.getLog(InventoryUpdate.class.getName());
-    private static final String _S__37_INVENTORYUPDATE = "[S] 27 InventoryUpdate";
+	private static final String _S__37_INVENTORYUPDATE = "[S] 27 InventoryUpdate";
+	
+    private List<ItemInfo> _items;
     
-    private FastList<ItemInfo> _items;
-    
-    public InventoryUpdate()
-    {
-        _items = new FastList<ItemInfo>();
-    }   
-    
-    /**
-     * @param items
-     */
-    public InventoryUpdate(FastList<ItemInfo> items)
-    {
-        _items = items;
-    }
+	public InventoryUpdate()
+	{
+		_items = new FastList<ItemInfo>();
+		if (_log.isDebugEnabled())
+		{
+			this.showDebug();
+		}
+	}	
+	
+	/**
+	 * @param items
+	 */
+	public InventoryUpdate(List<ItemInfo> items)
+	{
+		_items = items;
+		if (_log.isDebugEnabled())
+		{
+			this.showDebug();
+		}
+	}
 
-    public void addItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item)); }
-    public void addNewItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item, 1)); }
-    public void addModifiedItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item, 2)); }
-    public void addRemovedItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item, 3)); }
-    public void addItems(List<L2ItemInstance> name) { if (name != null) for (L2ItemInstance item : name) if (item != null) _items.add(new ItemInfo(item)); }
-    
-    final void runImpl()
-    {
-        if (_log.isDebugEnabled())
-        {
-            for (ItemInfo item : _items)
-            {
-                _log.debug("oid:" + Integer.toHexString(item.getObjectId()) +
-                        " item:" + item.getItem().getName()+" last change:" + item.getChange());
-            }
-        }
-    }
-    
-    final void writeImpl()
-    {
-        writeC(0x27);
-        int count = _items.size(); 
-        writeH(count);
-        for (ItemInfo item : _items)
-        {
-            writeH(item.getChange());               // Update type : 01-add, 02-modify, 03-remove   
-            writeH(item.getItem().getType1());      // Item Type 1 : 00-weapon/ring/earring/necklace, 01-armor/shield, 04-item/questitem/adena
-            writeD(item.getObjectId());             // ObjectId 
-            writeD(item.getItem().getItemId());     // ItemId
-            writeD(item.getCount());                // Quantity
-            writeH(item.getItem().getType2());      // Item Type 2 : 00-weapon, 01-shield/armor, 02-ring/earring/necklace, 03-questitem, 04-adena, 05-item
-            writeH(item.getCustomType1());          // Filler (always 0)
-            writeH(item.getEquipped());             // Equipped    : 00-No, 01-yes
-            //writeH(temp.getItem().getBodyPart()); // rev 377  Slot    0006-lr.ear  0008-neck  0030-lr.finger  0040-head  0080-??  0100-l.hand  0200-gloves  0400-chest  0800-pants  1000-feet  2000-??  4000-r.hand  8000-r.hand
-            writeD(item.getItem().getBodyPart());   // Slot        : 0006-lr.ear, 0008-neck, 0030-lr.finger, 0040-head, 0100-l.hand, 0200-gloves, 0400-chest, 0800-pants, 1000-feet, 4000-r.hand, 8000-r.hand
-            writeH(item.getEnchant());              // Enchant level (pet level shown in control item)
-            writeH(item.getCustomType2());          // Pet name exists or not shown in control item
-            if (getClient().getRevision() >= 729) // chaotic throne
-            {
-                writeH(0);
-                writeH(0);
-                writeD(0);
-            }
-        }
-    }
+	public void addItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item)); }
+	public void addNewItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item, 1)); }
+	public void addModifiedItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item, 2)); }
+	public void addRemovedItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item, 3)); }
+	public void addItems(List<L2ItemInstance> items) { if (items != null) for (L2ItemInstance item : items) if (item != null) _items.add(new ItemInfo(item)); }
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    public String getType()
-    {
-        return _S__37_INVENTORYUPDATE;
-    }
+	private void showDebug()
+	{
+		for (ItemInfo item : _items)
+		{
+			_log.fine("oid:" + Integer.toHexString(item.getObjectId()) +
+					" item:" + item.getItem().getName()+" last change:" + item.getChange());
+		}
+	}
+	
+	protected final void writeImpl()
+	{
+		writeC(0x27);
+		int count = _items.size(); 
+		writeH(count);
+		for (ItemInfo item : _items)
+		{
+			writeH(item.getChange());               // Update type : 01-add, 02-modify, 03-remove	
+			writeH(item.getItem().getType1());      // Item Type 1 : 00-weapon/ring/earring/necklace, 01-armor/shield, 04-item/questitem/adena
+			
+			writeD(item.getObjectId());             // ObjectId 
+			writeD(item.getItem().getItemId());     // ItemId
+			writeD(item.getCount());                // Quantity
+			writeH(item.getItem().getType2());      // Item Type 2 : 00-weapon, 01-shield/armor, 02-ring/earring/necklace, 03-questitem, 04-adena, 05-item
+			writeH(item.getCustomType1());          // Filler (always 0)
+			writeH(item.getEquipped());             // Equipped    : 00-No, 01-yes
+			writeD(item.getItem().getBodyPart());	// Slot        : 0006-lr.ear, 0008-neck, 0030-lr.finger, 0040-head, 0100-l.hand, 0200-gloves, 0400-chest, 0800-pants, 1000-feet, 4000-r.hand, 8000-r.hand
+			writeH(item.getEnchant());	            // Enchant level (pet level shown in control item)
+			writeH(item.getCustomType2());          // Pet name exists or not shown in control item
+			
+			writeH(0x00); // C6
+			writeH(0x00); // C6
+			writeD(-1); // C6
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	public String getType()
+	{
+		return _S__37_INVENTORYUPDATE;
+	}
 }

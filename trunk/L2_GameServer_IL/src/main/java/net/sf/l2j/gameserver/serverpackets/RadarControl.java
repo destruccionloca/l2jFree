@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-public class RadarControl extends ServerBasePacket
+public class RadarControl extends L2GameServerPacket
 {
     private static final String _S__EB_RadarControl = "[S] EB RadarControl";
     private int _showRadar;
@@ -39,13 +39,8 @@ public class RadarControl extends ServerBasePacket
         _Y = y;
         _Z = z;
     }
-
-    final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
     {
         writeC(0xEB);
         writeD(_showRadar);

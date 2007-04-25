@@ -25,48 +25,43 @@ import net.sf.l2j.gameserver.model.L2Clan;
  * 
  * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class PledgeShowInfoUpdate extends ServerBasePacket
+public class PledgeShowInfoUpdate extends L2GameServerPacket
 {
-    private static final String _S__A1_PLEDGESHOWINFOUPDATE = "[S] 88 PledgeShowInfoUpdate";
-    private L2Clan _clan;
-    
-    public PledgeShowInfoUpdate(L2Clan clan)
-    {
-        _clan = clan;
-    }   
-    
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
-    
-    final void writeImpl()
-    {
-        //ddddddddddSdd
-        writeC(0x88);
-        //sending empty data so client will ask all the info in response ;)
-        writeD(_clan.getClanId());
-        writeD(0);
-        writeD(_clan.getLevel()); //clan level
-        writeD(0);
-        writeD(0);
-        writeD(0); // displayed in the "tree" view (with the clan skills)
-        writeD(0x00); // clan reputation score
-        writeD(0);
-        writeD(0);
-        
-        writeD(0); //c5
-        writeS("bili"); //c5
-        writeD(0); //c5
-        writeD(0); //c5
-    }
+	private static final String _S__A1_PLEDGESHOWINFOUPDATE = "[S] 88 PledgeShowInfoUpdate";
+	private L2Clan _clan;
+	
+	public PledgeShowInfoUpdate(L2Clan clan)
+	{
+		_clan = clan;
+	}
+	
+	protected final void writeImpl()
+	{
+		//ddddddddddSdd
+		writeC(0x88);
+		//sending empty data so client will ask all the info in response ;)
+		writeD(_clan.getClanId());
+		writeD(0);
+		writeD(_clan.getLevel()); //clan level
+		writeD(_clan.getHasCastle()); 
+		writeD(_clan.getHasHideout()); 
+		writeD(0); // displayed in the "tree" view (with the clan skills)
+		writeD(_clan.getReputationScore()); // clan reputation score
+		writeD(0);
+		writeD(0);
+		
+		writeD(0); //c5
+		writeS("bili"); //c5
+		writeD(0); //c5
+		writeD(0); //c5
+	}
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    public String getType()
-    {
-        return _S__A1_PLEDGESHOWINFOUPDATE;
-    }
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	public String getType()
+	{
+		return _S__A1_PLEDGESHOWINFOUPDATE;
+	}
 
 }

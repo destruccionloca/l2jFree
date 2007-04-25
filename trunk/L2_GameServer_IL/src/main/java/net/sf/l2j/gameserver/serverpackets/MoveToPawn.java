@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.L2Character;
  * 
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/04/06 16:13:46 $
  */
-public class MoveToPawn extends ServerBasePacket
+public class MoveToPawn extends L2GameServerPacket
 {
 	private static final String _S__75_MOVETOPAWN = "[S] 60 MoveToPawn";
 	private int _chaId;
@@ -49,12 +49,7 @@ public class MoveToPawn extends ServerBasePacket
 		_z = cha.getZ();
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x60);
 		

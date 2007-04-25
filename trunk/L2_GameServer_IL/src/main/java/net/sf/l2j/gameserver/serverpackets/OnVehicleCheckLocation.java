@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
  * @author Maktakien
  *
  */
-public class OnVehicleCheckLocation extends ServerBasePacket
+public class OnVehicleCheckLocation extends L2GameServerPacket
 {
 	private L2BoatInstance _boat;
 	private int _x;
@@ -45,19 +45,10 @@ public class OnVehicleCheckLocation extends ServerBasePacket
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-	 */
-	@Override
-	void runImpl()
-	{
-//		 TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
+	protected
 	void writeImpl()
 	{
 		

@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 
-import net.sf.l2j.gameserver.recipes.model.L2Recipe;
+import net.sf.l2j.gameserver.model.L2RecipeList;
 
 
 /**
@@ -30,10 +30,10 @@ import net.sf.l2j.gameserver.recipes.model.L2Recipe;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class RecipeBookItemList extends ServerBasePacket
+public class RecipeBookItemList extends L2GameServerPacket
 {
 	private static final String _S__D6_RECIPEBOOKITEMLIST = "[S] D6 RecipeBookItemList";
-	private L2Recipe[] _recipes;
+	private L2RecipeList[] _recipes;
 	private boolean _IsDwarvenCraft; 
  	private int _maxMp;
 	
@@ -43,17 +43,12 @@ public class RecipeBookItemList extends ServerBasePacket
 	 	_maxMp = maxMp;
 	}
 	
-	public void addRecipes(L2Recipe[] recipeBook)
+	public void addRecipes(L2RecipeList[] recipeBook)
 	{
 		_recipes = recipeBook;
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xD6);
 		
@@ -70,7 +65,7 @@ public class RecipeBookItemList extends ServerBasePacket
 			
 			for (int i = 0; i < _recipes.length; i++)
 			{
-                L2Recipe temp = _recipes[i];
+				L2RecipeList temp = _recipes[i];
 				writeD(temp.getId());
 				writeD(i+1);
 			}

@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.L2Clan;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class PledgeStatusChanged extends ServerBasePacket
+public class PledgeStatusChanged extends L2GameServerPacket
 {
 	private static final String _S__CD_PLEDGESTATUS_CHANGED = "[S] CD PledgeStatusChanged";
 	private L2Clan _clan;
@@ -39,20 +39,17 @@ public class PledgeStatusChanged extends ServerBasePacket
 	public PledgeStatusChanged(L2Clan clan)
 	{
 		_clan = clan;
-	}	
-	
-	final void runImpl()
-	{
-		// no long-running tasks
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xcd);
 		writeD(_clan.getLeaderId());
 		writeD(_clan.getClanId());
         writeD(0);
         writeD(_clan.getLevel());
+        writeD(0);
+        writeD(0);
         writeD(0);
 	}
 	

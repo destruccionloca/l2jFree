@@ -25,47 +25,42 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * @author -Wooden-
  * 
  */
-public class PledgeShowMemberListUpdate extends ServerBasePacket
+public class PledgeShowMemberListUpdate extends L2GameServerPacket
 {
-    private static final String _S__54_PLEDGESHOWMEMBERLISTUPDATE = "[S] 54 PledgeShowMemberListUpdate";
-    private L2PcInstance _player;
-    private int _pledgeType;
-    private int _hasSponsor;
-    
-    public PledgeShowMemberListUpdate(L2PcInstance player)
-    {
-        _player = player;
-        _pledgeType = player.getPledgeType();
-        if (_pledgeType == L2Clan.SUBUNIT_ACADEMY) 
-            _hasSponsor = _player.getSponsor() != 0 ? 1 : 0;
-        else 
-            _hasSponsor = 0;
-    }   
-    
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
-    
-    final void writeImpl()
-    {
-        writeC(0x54);
-        writeS(_player.getName());
-        writeD(_player.getLevel());
-        writeD(_player.getClassId().getId());
-        writeD(0); 
-        writeD(_player.getObjectId());
-        writeD(_player.isOnline()); // 1=online 0=offline
-        writeD(_pledgeType);
-        writeD(_hasSponsor); 
-    }
+	private static final String _S__54_PLEDGESHOWMEMBERLISTUPDATE = "[S] 54 PledgeShowMemberListUpdate";
+	private L2PcInstance _player;
+	private int _pledgeType;
+	private int _hasSponsor;
+	
+	public PledgeShowMemberListUpdate(L2PcInstance player)
+	{
+		_player = player;
+		_pledgeType = player.getPledgeType();
+		if (_pledgeType == L2Clan.SUBUNIT_ACADEMY) 
+			_hasSponsor = _player.getSponsor() != 0 ? 1 : 0;
+		else 
+			_hasSponsor = 0;
+	}
+	
+	protected final void writeImpl()
+	{
+		writeC(0x54);
+		writeS(_player.getName());
+		writeD(_player.getLevel());
+		writeD(_player.getClassId().getId());
+		writeD(0); 
+		writeD(_player.getObjectId());
+		writeD(_player.isOnline()); // 1=online 0=offline
+		writeD(_pledgeType);
+		writeD(_hasSponsor); 
+	}
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    public String getType()
-    {
-        return _S__54_PLEDGESHOWMEMBERLISTUPDATE;
-    }
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	public String getType()
+	{
+		return _S__54_PLEDGESHOWMEMBERLISTUPDATE;
+	}
 
 }

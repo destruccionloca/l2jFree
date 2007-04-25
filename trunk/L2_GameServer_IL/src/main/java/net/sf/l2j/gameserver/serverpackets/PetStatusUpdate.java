@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
  * 
  * @version $Revision: 1.5.2.3.2.5 $ $Date: 2005/03/29 23:15:10 $
  */
-public class PetStatusUpdate extends ServerBasePacket
+public class PetStatusUpdate extends L2GameServerPacket
 {
 	private static final String _S__CE_PETSTATUSSHOW = "[S] B5 PetStatusUpdate";
 	
@@ -37,20 +37,17 @@ public class PetStatusUpdate extends ServerBasePacket
 	public PetStatusUpdate(L2Summon summon)
 	{
         _summon = summon;
-	}
-	
-	final void runImpl()
-	{
-		_maxHp = _summon.getMaxHp();
+        _maxHp = _summon.getMaxHp();
 		_maxMp = _summon.getMaxMp();
-		if (_summon instanceof L2PetInstance) {
+		if (_summon instanceof L2PetInstance)
+		{
 			L2PetInstance pet = (L2PetInstance)_summon;
 			_curFed = pet.getCurrentFed(); // how fed it is
 			_maxFed = pet.getMaxFed(); //max fed it can be
 		}
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xb5);
 		writeD(_summon.getSummonType());

@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.4.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class ObservationReturn extends ServerBasePacket
+public class ObservationReturn extends L2GameServerPacket
 {
 	// ddSS
 	private static final String _S__E0_OBSERVRETURN = "[S] E0 ObservationReturn";
@@ -40,14 +40,9 @@ public class ObservationReturn extends ServerBasePacket
 	{
 		_char = observer;
 	}
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
 
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC( 0xe0 ); 
 		writeD( _char.getObsX() ); 

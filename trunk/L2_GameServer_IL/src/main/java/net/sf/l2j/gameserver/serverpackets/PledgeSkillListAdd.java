@@ -18,62 +18,42 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-
 /**
- * 
+ * Format: (ch) dd
  *
- * sample
- * 0000: 9c c10c0000 48 00 61 00 6d 00 62 00 75 00 72    .....H.a.m.b.u.r
- * 0010: 00 67 00 00 00 00000000 00000000 00000000 00000000 00000000 00000000 
- * 00 00 
- * 00000000                                           ...
- 
- * format   dd C5 ???
- * 
- * genarally used for updating one of the skills (to show the skill emediatelly it has been earned)
- * 
- * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
+ * @author  -Wooden-
  */
-public class PledgeSkillListAdd extends ServerBasePacket
+public class PledgeSkillListAdd extends L2GameServerPacket
 {
-	private static final String _S__FE_3a_PLEDGESKILLLIST = "[S] FE:3a PledgeSkillListAdd";
-    private static int _val1;
-    private static int _val2;
+	private static final String _S__FE_3A_PLEDGESKILLLISTADD = "[S] FE:3A PledgeSkillListAdd";
+	private int _id;
+	private int _lvl;
+	
+	public PledgeSkillListAdd(int id, int lvl)
+	{
+		_id = id;
+		_lvl = lvl;
+	}
 
-	
-	public PledgeSkillListAdd(int val1, int val2)
-	{
-		//_clan = clan;
-        _val1 = val1;
-        _val2 = val2;
-	}	
-	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
-	{
-        writeC(0xFE);
-        writeH(0x3a);
-		//writeS("tomciaaa");
-		//writeS("Hier");
-        //for (int i=0; i<10; i++)
-        //{
-            writeD(_val1);//skill id
-            writeD(_val2);//skill lvl
-        //}
-        //writeS("tomciaaa");
-        //writeS("Hier");
-	}
-	
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	/**
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xfe);
+		writeH(0x3a);
+		
+		writeD(_id);
+		writeD(_lvl);
+	}
+
+	/**
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
 	public String getType()
 	{
-		return _S__FE_3a_PLEDGESKILLLIST;
+		return _S__FE_3A_PLEDGESKILLLISTADD;
 	}
-
 }

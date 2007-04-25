@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
  * 
  * @version $Revision: 1.6.2.5.2.12 $ $Date: 2005/03/31 09:19:16 $
  */
-public class PetInfo extends ServerBasePacket
+public class PetInfo extends L2GameServerPacket
 {
 	//private final static Log _log = LogFactory.getLog(PetInfo.class.getName());
 	
@@ -45,12 +45,7 @@ public class PetInfo extends ServerBasePacket
 	 */
 	public PetInfo(L2Summon summon)
 	{
-        _summon = summon;
-	}
-
-
-	final void runImpl()
-	{
+		_summon = summon;
 		_isSummoned = _summon.isShowSummonAnimation();
 		_x = _summon.getX();
 		_y = _summon.getY();
@@ -72,7 +67,7 @@ public class PetInfo extends ServerBasePacket
 		}
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xb1);
 		writeD(_summon.getSummonType()); 

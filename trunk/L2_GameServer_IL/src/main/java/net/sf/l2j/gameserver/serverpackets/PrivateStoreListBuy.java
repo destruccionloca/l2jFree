@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.7.2.2.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class PrivateStoreListBuy extends ServerBasePacket
+public class PrivateStoreListBuy extends L2GameServerPacket
 {
 //	private static final String _S__D1_PRIVATEBUYLISTBUY = "[S] b8 PrivateBuyListBuy";
 	private static final String _S__D1_PRIVATESTORELISTBUY = "[S] b8 PrivateStoreListBuy";
@@ -39,16 +39,12 @@ public class PrivateStoreListBuy extends ServerBasePacket
 	{
 		_storePlayer = storePlayer;
 		_player = player;
-	}
-	
-	final void runImpl()
-	{
 		_playerAdena = _player.getAdena();
 		_storePlayer.getSellList().updateItems(); // Update SellList for case inventory content has changed
 		_items = _storePlayer.getBuyList().getAvailableItems(_player.getInventory());
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xb8);
 		writeD(_storePlayer.getObjectId());

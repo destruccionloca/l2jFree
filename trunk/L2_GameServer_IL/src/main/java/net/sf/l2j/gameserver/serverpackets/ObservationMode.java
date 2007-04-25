@@ -25,7 +25,7 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.4.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class ObservationMode extends ServerBasePacket
+public class ObservationMode extends L2GameServerPacket
 {
 	// ddSS
 	private static final String _S__DF_OBSERVMODE = "[S] DF ObservationMode";
@@ -41,14 +41,9 @@ public class ObservationMode extends ServerBasePacket
 		_y = y;
 		_z = z;
 	}
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
 
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xdf);
 		writeD(_x); 

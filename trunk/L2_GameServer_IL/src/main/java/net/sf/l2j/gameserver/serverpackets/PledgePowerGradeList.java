@@ -33,23 +33,17 @@ import net.sf.l2j.gameserver.model.L2Clan.RankPrivs;
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class PledgePowerGradeList extends ServerBasePacket
+public class PledgePowerGradeList extends L2GameServerPacket
 {
 	private static final String _S__FE_3B_PLEDGEPOWERGRADELIST = "[S] FE:3B PledgePowerGradeList";
     private RankPrivs[] _privs;
 	
 	public PledgePowerGradeList(RankPrivs[] privs)
 	{
-		//_clan = clan;
         _privs = privs;
-	}	
-	
-	final void runImpl()
-	{
-		// no long-running tasks
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
         writeC(0xFE);
         writeH(0x3b);
@@ -58,7 +52,7 @@ public class PledgePowerGradeList extends ServerBasePacket
         {
             writeD(_privs[i].getRank());
             writeD(_privs[i].getParty());
-            //_log.warn("rank: "+_privs[i].getRank()+" party: "+_privs[i].getParty());
+            //_log.warning("rank: "+_privs[i].getRank()+" party: "+_privs[i].getParty());
         }
         
 	}

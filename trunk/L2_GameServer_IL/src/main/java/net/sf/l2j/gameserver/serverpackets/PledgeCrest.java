@@ -35,7 +35,7 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/03/27 15:29:57 $
  */
-public class PledgeCrest extends ServerBasePacket
+public class PledgeCrest extends L2GameServerPacket
 {
 	private static final String _S__84_PLEDGECREST = "[S] 6c PledgeCrest";
 	private int _crestId;
@@ -47,13 +47,9 @@ public class PledgeCrest extends ServerBasePacket
 		_crestId = crestId;
         _data = data;
         _crestSize = _data.length;
-	}	
-	
-	final void runImpl()
-	{
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x6c);
 		writeD(_crestId);

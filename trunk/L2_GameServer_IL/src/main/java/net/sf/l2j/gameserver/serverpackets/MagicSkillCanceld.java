@@ -23,21 +23,18 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class MagicSkillCanceld extends ServerBasePacket {
+public class MagicSkillCanceld extends L2GameServerPacket
+{
 	private static final String _S__5B_MAGICSKILLCANCELD = "[S] 49 MagicSkillCanceld";
 	
 	private int _objectId;
 
-	public MagicSkillCanceld (int objectId) {
+	public MagicSkillCanceld (int objectId)
+	{
 		_objectId = objectId; 
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x49);
 		writeD(_objectId);

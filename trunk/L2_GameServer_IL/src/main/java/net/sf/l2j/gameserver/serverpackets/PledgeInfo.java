@@ -29,39 +29,27 @@ import net.sf.l2j.gameserver.model.L2Clan;
  * 00 00 
  * 00000000                                           ...
  
- * format   dSS C4
- * format   dSddddddSd C5 
+ *  
+ * format   dSddddddSd 
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class PledgeInfo extends ServerBasePacket
+public class PledgeInfo extends L2GameServerPacket
 {
 	private static final String _S__9C_PLEDGEINFO = "[S] 9C PledgeInfo";
 	private L2Clan _clan;
-    
-    public PledgeInfo(L2Clan clan)
+	
+	public PledgeInfo(L2Clan clan)
 	{
 		_clan = clan;
-	}	
-	
-	final void runImpl()
-	{
-		// no long-running tasks
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x83);
 		writeD(_clan.getClanId());
 		writeS(_clan.getName());
-        writeD(_clan.getAllyId());
-        writeD(_clan.getAllyId());
-        writeD(_clan.getAllyId());
-        writeD(_clan.getAllyId());
-        writeD(_clan.getAllyId());
-        writeD(_clan.getAllyId());
 		writeS(_clan.getAllyName());
-        writeD(0);
 	}
 	
 	/* (non-Javadoc)

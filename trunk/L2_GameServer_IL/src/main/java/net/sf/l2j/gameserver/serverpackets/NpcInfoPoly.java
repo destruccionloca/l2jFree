@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  * 
  * @version $Revision: 1.7.2.4.2.9 $ $Date: 2005/04/11 10:05:54 $
  */
-public class NpcInfoPoly extends ServerBasePacket
+public class NpcInfoPoly extends L2GameServerPacket
 {
 	//   ddddddddddddddddddffffdddcccccSSddd dddddc
 	     
@@ -70,10 +70,6 @@ public class NpcInfoPoly extends ServerBasePacket
 			
 		}
 		
-	}
-		
-	final void runImpl()
-	{
 		if(_obj instanceof L2ItemInstance)
         {
 			_x = _obj.getX();
@@ -113,7 +109,7 @@ public class NpcInfoPoly extends ServerBasePacket
 		}
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x16);
 		writeD(_obj.getObjectId());

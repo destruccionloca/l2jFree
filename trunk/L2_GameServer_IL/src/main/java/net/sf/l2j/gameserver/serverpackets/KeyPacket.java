@@ -23,39 +23,28 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class KeyPacket extends ServerBasePacket
+public final class KeyPacket extends L2GameServerPacket
 {
 	private static final String _S__01_KEYPACKET = "[S] 01 KeyPacket";
 	
 	private byte[] _key;
 	
-	public void setKey(byte[] key)
+	public KeyPacket(byte[] key)
 	{
-		_key = new byte[10];
-		_key[0] = 0x00;
-		_key[1] = 0x01;
-		_key[2] = key[0];
-		_key[3] = key[1];
-		_key[4] = key[2];
-		_key[5] = key[3];
-		_key[6] = key[4];
-		_key[7] = key[5];
-		_key[8] = key[6];
-		_key[9] = key[7];
-	}
-
-	final void runImpl()
-	{
-		// no long-running tasks
+		_key = key;
 	}
 	
-	final void writeImpl()
+	public void writeImpl()
 	{
+		writeC(0x00);
+		writeC(0x01);
 		writeB(_key);
+		writeD(0x01);
+		writeD(0x01);
 	}
 	
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#getType()
 	 */
 	public String getType()
 	{

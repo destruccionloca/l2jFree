@@ -52,92 +52,80 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.4.2.1.2.4 $ $Date: 2005/03/27 15:29:57 $
  */
-public class ItemList extends ServerBasePacket
+public class ItemList extends L2GameServerPacket
 {
     private final static Log _log = LogFactory.getLog(ItemList.class.getName());
-    private static final String _S__27_ITEMLIST = "[S] 1b ItemList";
-    private L2ItemInstance[] _items;
-    private boolean _showWindow;
+	private static final String _S__27_ITEMLIST = "[S] 1b ItemList";
+	private L2ItemInstance[] _items;
+	private boolean _showWindow;
 
-    public ItemList(L2PcInstance cha, boolean showWindow)
-    {
-        _items = cha.getInventory().getItems();
-        _showWindow = showWindow;
-    }   
+	public ItemList(L2PcInstance cha, boolean showWindow)
+	{
+		_items = cha.getInventory().getItems();
+		_showWindow = showWindow;
+		if (_log.isDebugEnabled())
+		{
+			this.showDebug();
+		}
+	}	
 
-    public ItemList(L2ItemInstance[] items, boolean showWindow)
-    {
-        _items = items;
-        _showWindow = showWindow;
-    }   
+	public ItemList(L2ItemInstance[] items, boolean showWindow)
+	{
+		_items = items;
+		_showWindow = showWindow;
+		if (_log.isDebugEnabled())
+		{
+			this.showDebug();
+		}
+	}	
+	
+	private void showDebug()
+	{
+		for (L2ItemInstance temp : _items)
+		{
+			_log.info("item:" + temp.getItem().getName() +
+					" type1:" + temp.getItem().getType1() + " type2:" + temp.getItem().getType2());
+		}
+	}
+	
+	protected final void writeImpl()
+	{
+		writeC(0x1b);
+		writeH(_showWindow ? 0x01 : 0x00);
+		
+		int count = _items.length; 
+		writeH(count);
 
-    final void runImpl()
-    {
-        // no long-running tasks
-        if (_log.isDebugEnabled())
-        {
-            for (L2ItemInstance temp : _items)
-            {
-                _log.debug("item:" + temp.getItem().getName() +
-                        " type1:" + temp.getItem().getType1() + " type2:" + temp.getItem().getType2());
-            }
-        }
-    }
-    
-    final void writeImpl()
-    {
-        writeC(0x1b);
-        if (_showWindow)
-        {
-            writeH(0x01);
-        }
-        else
-        {
-            writeH(0x00);
-        }
-        
-        int count = _items.length; 
-        writeH(count);
-
-        for (L2ItemInstance temp : _items)
-        {
-            if (temp == null || temp.getItem() == null)
-                continue;
-            
-            writeH(temp.getItem().getType1()); // item type1
-            writeD(temp.getObjectId());
-            writeD(temp.getItemId());
-            writeD(temp.getCount());
-            writeH(temp.getItem().getType2());  // item type2
-            writeH(temp.getCustomType1());  // item type3
-            if (temp.isEquipped())
-            {
-                writeH(0x01);
-            }
-            else
-            {
-                writeH(0x00);
-            }
-            writeD(temp.getItem().getBodyPart());   // rev 415  slot    0006-lr.ear  0008-neck  0030-lr.finger  0040-head  0080-??  0100-l.hand  0200-gloves  0400-chest  0800-pants  1000-feet  2000-??  4000-r.hand  8000-r.hand
-//          writeH(temp.getItem().getBodyPart());   // rev 377  slot    0006-lr.ear  0008-neck  0030-lr.finger  0040-head  0080-??  0100-l.hand  0200-gloves  0400-chest  0800-pants  1000-feet  2000-??  4000-r.hand  8000-r.hand
-            writeH(temp.getEnchantLevel()); // enchant level
-            //race tickets
-            writeH(temp.getCustomType2());  // item type3
-
-            if (getClient().getRevision() >= 729) // chaotic throne
-            {
-                writeH(0);
-                writeH(0);
-                writeD(0);
-            }
-        }
-    }
-    
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    public String getType()
-    {
-        return _S__27_ITEMLIST;
-    }
+		for (L2ItemInstance temp : _items)
+		{
+			if (temp == null || temp.getItem() == null)
+				continue;
+			
+			writeH(temp.getItem().getType1()); // item type1
+			
+			writeD(temp.getObjectId());
+			writeD(temp.getItemId());
+			writeD(temp.getCount());
+			writeH(temp.getItem().getType2());	// item type2
+			writeH(temp.getCustomType1());	// item type3
+			writeH(temp.isEquipped() ? 0x01 : 0x00);
+			writeD(temp.getItem().getBodyPart());
+			
+			writeH(temp.getEnchantLevel());	// enchant level
+			//race tickets
+			writeH(temp.getCustomType2());	// item type3
+			
+			writeH(0x00); // C6
+			writeH(0x00); // C6
+			writeD(-1); // C6
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	public String getType()
+	{
+		return _S__27_ITEMLIST;
+	}
 }

@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class MoveOnVehicle extends ServerBasePacket
+public class MoveOnVehicle extends L2GameServerPacket
 {
     private static final String _S__71_MOVEONVEICLE = "[S] 71 MoveOnVehicle";
     private int _id;
@@ -48,12 +48,7 @@ public class MoveOnVehicle extends ServerBasePacket
         _z = z;
     }
     
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
-    
-    final void writeImpl()
+    protected final void writeImpl()
     {
         writeC(0x71);
         
