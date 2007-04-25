@@ -1217,7 +1217,7 @@ Description(s):
 	<add val='84' order='0x40' stat='rCrit'/>
   </for>
 </skill>
-<skill id="3567" levels="1" name="Special Ability: Focus">
+<skill id="3567" levels="2" name="Special Ability: Focus">
 <!--
   Description(s):
       Increases critical attack success rate and damage inflicted during PvP.

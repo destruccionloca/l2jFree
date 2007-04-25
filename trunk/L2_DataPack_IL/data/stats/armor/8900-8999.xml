@@ -1,104 +1,104 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE list SYSTEM "armors.dtd">
-<!-- Lineage2: Interlude Hair Accessories by KID (L2j-b Project) -->
 <list>
-<item id='8910' name="black_feather_face">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8910' name="Black Feather Mask">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8911' name="black_half_face">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8911' name="Black Half-Mask">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8912' name="cluster_of_flower">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8912' name="Single Stem Flower">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8913' name="butterfly_hearpin">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8913' name="Butterfly Hairpin">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8914' name="gold_circlet">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8914' name="Luxurious Gold Circlet">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8915' name="gold_circlet">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8915' name="Luxurious Silver Circlet">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8916' name="one_eye">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8916' name="Eye Patch">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8917' name="goddess_circlet">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8917' name="Goddess Circlet">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8918' name="middle_ages">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8918' name="Leather Cap">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8919' name="middle_ages">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8919' name="Commodore\'s Hat - Event Use">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8920' name="angel_circlet">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8920' name="Angel Halo">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8921' name="demon_circlet">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8921' name="Demon Circlet">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8922' name="sea_robber">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8922' name="Pirate Hat">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8923' name="scar">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8923' name="Scar">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8936' name="santas_antler">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8936' name="Santa\'s Antlers">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8947' name="rabbit_ear">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8947' name="L2 Day: Rabbit Ears">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8948' name="hair_ring">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8948' name="L2 Day: Little Angel Wings">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8949' name="hair_feeler">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8949' name="L2 Day: Fairy Antennae">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8950' name="archer_hat">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8950' name="L2 Day: Feathered Hat">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
-
-<item id='8951' name="dwarf_goggle">
-  <for />
-	<add val='0' order='0x10' stat='pDef' />
+<item id='8951' name="L2 Day: Artisan\'s Goggles">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
 </list>

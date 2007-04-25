@@ -2,7 +2,7 @@
 <!DOCTYPE list SYSTEM "weapons.dtd">
 <!-- Lineage2: Interlude Weapons by SqueezeD -->
 <list>
-<item id='9129' name='Shadow Weapon: Shield of Nightmare'>
+<item id='9129' name="Shadow Weapon: Shield of Nightmare">
   <for>
     <sub val='8' order='0x10' stat='rEvas'/>
     <set val='256' order='0x08' stat='sDef'/>
@@ -10,49 +10,45 @@
     <enchant val='0' order='0x0C' stat='sDef'/>
   </for>
 </item>
-
-<item id='9136' name='Sword of Valakas 1-Handed'>
+<item id='9136' name="Sword of Valakas (1-Handed)">
   <for>
-    <set val='140' order='0x08' stat='pAtk'/>
-    <set val='122' order='0x08' stat='mAtk'/>
+    <set val='156' order='0x08' stat='pAtk'/>
+    <set val='10' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
-    <add val='0' order='0x40' stat='accCombat'/>
-    <set val='325' order='0x08' stat='pAtkSpd'/>
-    <enchant val='0' order='0x0C' stat='pAtk'/>
-    <enchant val='0' order='0x0C' stat='mAtk'/>
-  </for>
-</item>
-
-<item id='9137' name='Sword of Valakas 2-Handed'>
-  <for>
-    <set val='275' order='0x08' stat='pAtk'/>
-    <set val='112' order='0x08' stat='mAtk'/>
-    <set val='4' order='0x08' stat='rCrit'/>
-    <add val='4' order='0x40' stat='accCombat'/>
+    <set val='0' order='0x10' stat='accCombat'/>
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-
-<item id='9140' name='Cupids Bow'>
+<item id='9137' name="Sword of Valakas (2-Handed)">
   <for>
-    <set val='440' order='0x08' stat='pAtk'/>
-    <set val='107' order='0x08' stat='mAtk'/>
+    <set val='78' order='0x08' stat='pAtk'/>
+    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='8' order='0x08' stat='rCrit'/>
+    <set val='0' order='0x10' stat='accCombat'/>
+    <set val='325' order='0x08' stat='pAtkSpd'/>
+    <enchant val='0' order='0x0C' stat='pAtk'/>
+    <enchant val='0' order='0x0C' stat='mAtk'/>
+  </for>
+</item>
+<item id='9140' name="Cupid\'s Bow">
+  <for>
+    <set val='1' order='0x08' stat='pAtk'/>
+    <set val='1' order='0x08' stat='mAtk'/>
     <set val='12' order='0x08' stat='rCrit'/>
-    <add val='-3' order='0x40' stat='accCombat'/>
+    <set val='-3' order='0x10' stat='accCombat'/>
     <set val='293' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-
-<item id='9141' name='Cupids Bow - Event'>
+<item id='9141' name="Cupid\'s Bow - Event Use">
   <for>
-    <set val='440' order='0x08' stat='pAtk'/>
-    <set val='107' order='0x08' stat='mAtk'/>
+    <set val='1' order='0x08' stat='pAtk'/>
+    <set val='1' order='0x08' stat='mAtk'/>
     <set val='12' order='0x08' stat='rCrit'/>
-    <add val='-3' order='0x40' stat='accCombat'/>
+    <set val='-3' order='0x10' stat='accCombat'/>
     <set val='293' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
