@@ -51,9 +51,9 @@ import net.sf.l2j.gameserver.loginserverpackets.PlayerAuthResponse;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.Connection;
-import net.sf.l2j.gameserver.security.NewCrypt;
 import net.sf.l2j.gameserver.serverpackets.AuthLoginFail;
 import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
+import net.sf.l2j.tools.security.NewCrypt;
 import net.sf.l2j.tools.util.Util;
 
 import org.apache.commons.logging.Log;
@@ -110,8 +110,13 @@ public class LoginServerThread extends Thread
 		_hexID = Config.HEX_ID;
 		if(_hexID == null)
 		{
+            _requestID = Config.REQUEST_ID;
 			_hexID = generateHex(16);
 		}
+        else
+        {
+            _requestID = Config.SERVER_ID;
+        }        
 		_acceptAlternate = Config.ACCEPT_ALTERNATE_ID;
 		_requestID = Config.REQUEST_ID;
 		_reserveHost = Config.RESERVE_HOST_ON_LOGIN;
@@ -203,7 +208,8 @@ public class LoginServerThread extends Thread
 					System.arraycopy(incoming, 2, decrypt, 0, decrypt.length);
 					// decrypt if we have a key
 					decrypt = _blowfish.decrypt(decrypt);
-					checksumOk = _blowfish.checksum(decrypt);
+                    checksumOk = NewCrypt.verifyChecksum(decrypt);
+
 
 					if (!checksumOk)
 					{
@@ -260,7 +266,7 @@ public class LoginServerThread extends Thread
 							AuthResponse aresp = new AuthResponse(decrypt);
 							_serverID = aresp.getServerId();
 							_serverName = aresp.getServerName();
-							Config.saveHexid(hexToString(_hexID));
+							Config.saveHexid(_serverID,hexToString(_hexID));
 							_log.info("Registered on login as Server "+_serverID+" : "+_serverName);
 							ServerStatus st = new ServerStatus();
 							if(Config.SERVER_LIST_BRACKET)
@@ -475,7 +481,7 @@ public class LoginServerThread extends Thread
 	private void sendPacket(GameServerBasePacket sl) throws IOException
 	{
 		byte[] data = sl.getContent();
-		_blowfish.checksum(data);
+        NewCrypt.appendChecksum(data);
 		if (_log.isDebugEnabled()) _log.debug("[S]\n"+Util.printData(data));
 		data = _blowfish.crypt(data);
 

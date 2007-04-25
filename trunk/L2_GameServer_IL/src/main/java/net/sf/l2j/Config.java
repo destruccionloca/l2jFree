@@ -1589,6 +1589,8 @@ public final class Config {
     public static final String  HEXID_FILE					= "./config/hexid.txt";
     //  *******************************************************************************************
 	public static byte[] HEX_ID;	// Hexadecimal ID of the game server
+    /** Server ID used with the HexID */
+    public static int SERVER_ID;
     //  *******************************************************************************************
     public static void loadhexid()
     {
@@ -1599,6 +1601,7 @@ public final class Config {
             InputStream is          = new FileInputStream(HEXID_FILE);  
             Settings.load(is);
             is.close();  
+            SERVER_ID = Integer.parseInt(Settings.getProperty("ServerID"));
             HEX_ID = new BigInteger(Settings.getProperty("HexID"), 16).toByteArray();
         }
         catch (Exception e)
@@ -2301,41 +2304,42 @@ public final class Config {
 	// it has no instancies
 	private Config() {}
 
-	/**
+    /**
      * Save hexadecimal ID of the server in the properties file.
-	 * @param string (String) : hexadecimal ID of the server to store
+     * @param string (String) : hexadecimal ID of the server to store
      * @see HEXID_FILE
      * @see saveHexid(String string, String fileName)
      * @link LoginServerThread
-	 */
-	public static void saveHexid(String string)
-	{
-		saveHexid(string,HEXID_FILE);
-	}
+     */
+    public static void saveHexid(int serverId, String string)
+    {
+        Config.saveHexid(serverId, string, HEXID_FILE);
+    }
 	
-	/**
+    /**
      * Save hexadecimal ID of the server in the properties file.
-     * @param string (String) : hexadecimal ID of the server to store
+     * @param hexId (String) : hexadecimal ID of the server to store
      * @param fileName (String) : name of the properties file
-	 */
-	public static void saveHexid(String string, String fileName)
-	{
-		try
+     */
+    public static void saveHexid(int serverId, String hexId, String fileName)
+    {
+        try
         {
-            Properties hexSetting    = new Properties();
+            Properties hexSetting = new Properties();
             File file = new File(fileName);
             //Create a new empty file only if it doesn't exist
             file.createNewFile();
             OutputStream out = new FileOutputStream(file);
-            hexSetting.setProperty("HexID",string);
-			hexSetting.store(out,"the hexID to auth into login");
-			out.close();
+            hexSetting.setProperty("ServerID",String.valueOf(serverId));
+            hexSetting.setProperty("HexID",hexId);
+            hexSetting.store(out,"the hexID to auth into login");
+            out.close();
         }
         catch (Exception e)
         {
             _log.warn("Failed to save hex id to "+fileName+" File.");
         }
-	}
+    }    
     
     /**
      * To keep compatibility with old loginserver.properties, add db properties into system properties
