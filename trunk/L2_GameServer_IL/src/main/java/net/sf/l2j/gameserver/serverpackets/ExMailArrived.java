@@ -24,24 +24,15 @@ package net.sf.l2j.gameserver.serverpackets;
  * @author -Wooden-
  *
  */
-class ExMailArrived extends ServerBasePacket
+class ExMailArrived extends L2GameServerPacket
 {
 	private static final String _S__FE_2D_EXMAILARRIVED = "[S] FE:2D ExMailArrived";
-
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-	 */
-	@Override
-	void runImpl()
-	{
-		// no long running tasks
-		
-	}
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
+	protected
 	void writeImpl()
 	{
 		writeC(0xfe);

@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * @author Maktakien
  *
  */
-public class GetOffVehicle extends ServerBasePacket
+public class GetOffVehicle extends L2GameServerPacket
 {
 	private int _x;
 	private int _y;
@@ -47,25 +47,19 @@ public class GetOffVehicle extends ServerBasePacket
 		_x = x;
 		_y = y;
 		_z = z;
-	}
-
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-	 */
-	@Override
-	void runImpl()
-	{
-		if (_pci == null) return;
 		
-		_pci.setInBoat(false);
-		_pci.setBoat(null);
+		if (_pci != null)
+		{
+			_pci.setInBoat(false);
+			_pci.setBoat(null);
+		}
 	}
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
-	void writeImpl()
+	protected void writeImpl()
 	{
 		if (_boat == null || _pci == null) return;
 

@@ -25,41 +25,23 @@ import net.sf.l2j.gameserver.model.L2HennaInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 
-public class HennaInfo extends ServerBasePacket
+public class HennaInfo extends L2GameServerPacket
 {
+	private static final String _S__E4_HennaInfo = "[S] E4 HennaInfo";
 
-		private static final String _S__E4_HennaInfo = "[S] E4 HennaInfo";
-		
-		
-		//private int _id;
-		private L2PcInstance _player;
-		
-		public HennaInfo(L2PcInstance player)
-		{
-			_player = player;                   
-		}
-		final void runImpl()
-		{
-			// no long-running tasks
-		}
-		
-    
-		final void writeImpl()
-		{
-			
+	//private int _id;
+	private L2PcInstance _player;
+
+	public HennaInfo(L2PcInstance player)
+	{
+		_player = player;                   
+	}
+
+
+	protected final void writeImpl()
+	{
+
 		writeC(0xe4);
-		//writeC(_henna.getStatINT());    //equip INT
-		//writeC(_henna.getStatSTR());   //equip STR
-		//writeC(_henna.getStatCON());    //equip CON
-		//writeC(_henna.getStatMEM());		//equip MEM
-		//writeC(_henna.getStatDEX());		//equip DEX
-		//writeC(_henna.getStatWIT());		//equip WIT
-		
-		
-		//writeD(3);		//maybe totol number of slot
-		//writeD(_slot);     //slot 1
-		//writeD(_henna.getSymbolId());		//symbolId
-		//writeD(_slot);		//??
 
 		writeC(_player.getHennaStatINT());    //equip INT
 		writeC(_player.getHennaStatSTR());   //equip STR
@@ -67,38 +49,26 @@ public class HennaInfo extends ServerBasePacket
 		writeC(_player.getHennaStatMEN());		//equip MEM
 		writeC(_player.getHennaStatDEX());		//equip DEX
 		writeC(_player.getHennaStatWIT());		//equip WIT
-
-		/*
-		int cnt = 0;
-		L2HennaInstance[] h = new L2HennaInstance[3];
-		for (int i=0;i<3;i++){
-			h[i] =_player.getHenna(i+1); 
-			if (h[i]!=null)cnt++;
-		}
-		writeD(cnt);
 		
-		for (int i=0;i<3;i++){
-			if (h[i]!=null){
-				writeD(3);
-				writeD(h[i].getSymbolId());
-			}
-		}
-		*/
-        if (getClient().getRevision() >= 729) 
-            writeD(0); 
+		writeD(0x00); //c6
+		writeD(0x00); //c6
+		
 		writeD(3);
-		for (int i=0;i<3;i++){
+		for (int i = 0; i < 3; i++)
+		{
 			L2HennaInstance h = _player.getHenna(i+1);
-			if (h!=null){
+			if (h != null)
+			{
 				writeD(3);
 				writeD(h.getSymbolId());
 			}
-			else {
+			else 
+			{
 				writeD(3);
 				writeD(0);
 			}
 		}
-		}
+	}
 
 
 	/* (non-Javadoc)

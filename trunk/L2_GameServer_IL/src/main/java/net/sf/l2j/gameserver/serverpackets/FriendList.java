@@ -38,7 +38,7 @@ import java.util.Map;
  * @author Tempy
  *
  */
-public class FriendList extends ServerBasePacket
+public class FriendList extends L2GameServerPacket
 {
 	private static final String _S__FA_FRIENDLIST = "[S] FA FriendList";
 	
@@ -49,12 +49,7 @@ public class FriendList extends ServerBasePacket
         _cha = cha;
     }
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+    protected final void writeImpl()
 	{
 		if (_cha == null)  
 			return;  

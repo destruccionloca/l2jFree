@@ -7,10 +7,15 @@ package net.sf.l2j.gameserver.serverpackets;
  * @author zabbix
  * Lets drink to code!
  */
-public class GameGuardQuery extends ServerBasePacket
+public class GameGuardQuery extends L2GameServerPacket
 {
     private static final String _S__F9_GAMEGUARDQUERY = "[S] F9 GameGuardQuery";
 
+    public GameGuardQuery()
+    {
+    	
+    }
+    
     public void runImpl()
     {
         // Lets make user as gg-unauthorized

@@ -34,28 +34,25 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class ExDuelStart extends ServerBasePacket
+public class ExDuelStart extends L2GameServerPacket
 {
 	private static final String _S__4B_ExDuelAskStart_0X4B = "[S] 39 ExDuelStart 0x4b";
-	//private final static Log _log = LogFactory.getLog(ExDuelAskStart.class.getName());
+	private int _unk1;
 
 	/**
 	 * @param int objectId of the target
 	 * @param int 
 	 */
-	public ExDuelStart()
+	public ExDuelStart(int unk1)
 	{
+		_unk1 = unk1;
 	}
 
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0xfe);
-        writeH(77);
+        writeH(0x4c);
+        writeD(_unk1);
 	}
 	
 	/* (non-Javadoc)

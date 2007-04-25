@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * Format: (ch)ddddddd
  * d: Number of Inventory Slots
  * d: Number of Warehouse Slots
- * d: Number of Freight Slots (unconfirmed) (200 for a low level dwarf)
+ * d: Number of Freight Slots (unconfirmed) (200 for a low level dwarf) 
  * d: Private Sell Store Slots (unconfirmed) (4 for a low level dwarf)
  * d: Private Buy Store Slots (unconfirmed) (5 for a low level dwarf)
  * d: Dwarven Recipe Book Slots
@@ -32,10 +32,10 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * @author -Wooden-
  * format from KenM
  */
-public class ExStorageMaxCount extends ServerBasePacket
+public class ExStorageMaxCount extends L2GameServerPacket
 {
 	private static final String _S__FE_2E_EXSTORAGEMAXCOUNT = "[S] FE:2E ExStorageMaxCount";
-    private L2PcInstance _character;
+	private L2PcInstance _character;
 	private int _inventory;
 	private int _warehouse;
 	private int _freight;
@@ -44,33 +44,23 @@ public class ExStorageMaxCount extends ServerBasePacket
 	private int _receipeD;
 	private int _recipe;
 	
-    public ExStorageMaxCount(L2PcInstance character)
+	public ExStorageMaxCount(L2PcInstance character)
 	{
-       _character = character;     
-       _inventory = _character.GetInventoryLimit();
+		_character = character;		
+		_inventory = _character.GetInventoryLimit();
         _warehouse = _character.GetWareHouseLimit();
-       _privateSell = _character.GetPrivateSellStoreLimit();
-       _privateBuy = _character.GetPrivateBuyStoreLimit();
-       _freight = _character.GetFreightLimit();  
-       _receipeD = _character.GetDwarfRecipeLimit();  
-       _recipe = _character.GetCommonRecipeLimit();
-	}
-	
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-	 */
-	@Override
-	void runImpl()
-	{
-		// TODO Auto-generated method stub
-		
+		_privateSell = _character.GetPrivateSellStoreLimit();
+		_privateBuy = _character.GetPrivateBuyStoreLimit();
+		_freight = _character.GetFreightLimit();  
+		_receipeD = _character.GetDwarfRecipeLimit();  
+		_recipe = _character.GetCommonRecipeLimit();
 	}
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
-	void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0xfe);
 		writeH(0x2e);

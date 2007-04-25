@@ -24,24 +24,15 @@ package net.sf.l2j.gameserver.serverpackets;
  * @version $Revision: $ $Date: $
  * @author  Luca Baldi
  */
-public class ExQuestInfo extends ServerBasePacket
+public class ExQuestInfo extends L2GameServerPacket
 {
     private static final String _S__FE_19_EXQUESTINFO = "[S] FE:19 EXQUESTINFO";
-    
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-     */
-    @Override
-    void runImpl()
-    {
-        // no long running
-    }
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
      */
     @Override
-    void writeImpl()
+	protected void writeImpl()
     {
         writeC(0xfe);
         writeH(0x19);       

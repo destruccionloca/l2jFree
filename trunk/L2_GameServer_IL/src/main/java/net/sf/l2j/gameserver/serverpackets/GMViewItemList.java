@@ -26,9 +26,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class GMViewItemList extends ServerBasePacket
+public class GMViewItemList extends L2GameServerPacket
 {
-	//private final static Log _log = LogFactory.getLog(GMViewItemList.class.getName());
+	//private static Logger _log = Logger.getLogger(GMViewItemList.class.getName());
 	private static final String _S__AD_GMVIEWITEMLIST = "[S] 94 GMViewItemList";
 	private L2ItemInstance[] _items;
 	private L2PcInstance _cha;
@@ -41,15 +41,9 @@ public class GMViewItemList extends ServerBasePacket
 		_items = cha.getInventory().getItems();
 		_playerName = cha.getName();
 		_cha = cha;
-	}	
-
-
-	final void runImpl()
-	{
-		// no long-running tasks
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x94);
 		writeS(_playerName);
@@ -57,24 +51,26 @@ public class GMViewItemList extends ServerBasePacket
 		writeH(0x01); // show window ??
 		writeH(_items.length);
 		
-	for (L2ItemInstance temp : _items)
-	{
-		if (temp == null || temp.getItem() == null)
-			continue;
-            
-		writeH(temp.getItem().getType1()); // item type1
-		writeD(temp.getObjectId());
-		writeD(temp.getItemId());
-		writeD(temp.getCount());
-		writeH(temp.getItem().getType2());  // item type2
-		writeH(temp.getCustomType1());  // item type3
-		writeH(temp.isEquipped() ? 0x01 : 0x00);
-		writeD(temp.getItem().getBodyPart());   // rev 415  slot    0006-lr.ear  0008-neck  0030-lr.finger  0040-head  0080-??  0100-l.hand  0200-gloves  0400-chest  0800-pants  1000-feet  2000-??  4000-r.hand  8000-r.hand
-		//writeH(temp.getItem().getBodyPart());   // rev 377  slot    0006-lr.ear  0008-neck  0030-lr.finger  0040-head  0080-??  0100-l.hand  0200-gloves  0400-chest  0800-pants  1000-feet  2000-??  4000-r.hand  8000-r.hand
-		writeH(temp.getEnchantLevel()); // enchant level
-		//race tickets
-		writeH(temp.getCustomType2());  // item type3
-        }
+		for (L2ItemInstance temp : _items)
+		{
+			if (temp == null || temp.getItem() == null)
+				continue;
+
+			writeH(temp.getItem().getType1());
+			
+			writeD(temp.getObjectId());
+			writeD(temp.getItemId());
+			writeD(temp.getCount());
+			writeH(temp.getItem().getType2());
+			writeH(temp.getCustomType1()); 
+			writeH(temp.isEquipped() ? 0x01 : 0x00);
+			writeD(temp.getItem().getBodyPart());
+			writeH(temp.getEnchantLevel());
+			writeH(temp.getCustomType2());
+			writeH(0x00); // C6
+			writeH(0x00); // C6
+			writeD(-1); // C6
+		}
 	}
 	
 	/* (non-Javadoc)

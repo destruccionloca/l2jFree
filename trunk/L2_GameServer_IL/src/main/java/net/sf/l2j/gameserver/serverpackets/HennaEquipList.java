@@ -24,7 +24,7 @@ package net.sf.l2j.gameserver.serverpackets;
 import net.sf.l2j.gameserver.model.L2HennaInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-public class HennaEquipList extends ServerBasePacket
+public class HennaEquipList extends L2GameServerPacket
 {
     private static final String _S__E2_HennaEquipList = "[S] E2 HennaEquipList";
     
@@ -38,17 +38,11 @@ public class HennaEquipList extends ServerBasePacket
     }
     
     
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
-    
-    
-    final void writeImpl()
+    protected final void writeImpl()
     {
         writeC(0xe2);
         writeD(_player.getAdena());          //activeChar current amount of aden
-        writeD(3);     //avaliable equip slot
+        writeD(3);     //available equip slot
         //writeD(10);    // total amount of symbol available which depends on difference classes
         writeD(_hennaEquipList.length);
         

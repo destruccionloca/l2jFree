@@ -27,7 +27,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class GMViewPledgeInfo extends ServerBasePacket
+public class GMViewPledgeInfo extends L2GameServerPacket
 {
 	private static final String _S__A9_GMVIEWPLEDGEINFO = "[S] 90 GMViewPledgeInfo";
 	private L2Clan _clan;
@@ -37,27 +37,21 @@ public class GMViewPledgeInfo extends ServerBasePacket
 	{
 		_clan = clan;
 		_activeChar = activeChar;
-	}	
-	
-	final void runImpl()
-	{
-		// no long-running tasks
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x90);
 		writeS(_activeChar.getName());
 		writeD(_clan.getClanId());
-        writeD(0x00);
 		writeS(_clan.getName());
 		writeS(_clan.getLeaderName());
 		writeD(_clan.getCrestId()); // -> no, it's no longer used (nuocnam) fix by game
 		writeD(_clan.getLevel());
 		writeD(_clan.getHasCastle());
-		writeD(_clan.getHasHideout());		
-        writeD(_clan.getRank()); //writeD(0);
-        writeD(_clan.getReputationScore()); //writeD(_activeChar.getLevel());
+		writeD(_clan.getHasHideout());
+		writeD(0);
+		writeD(_activeChar.getLevel()); 
 		writeD(0);
 		writeD(0);
 		
@@ -76,8 +70,7 @@ public class GMViewPledgeInfo extends ServerBasePacket
             writeD(members[i].getClassId());
             writeD(0); 
             writeD(1);
-            writeD(members[i].isOnline() ? members[i].getObjectId() : 0);
-            writeD(0);
+		writeD(members[i].isOnline() ? members[i].getObjectId() : 0);
 		}		
 	}
 

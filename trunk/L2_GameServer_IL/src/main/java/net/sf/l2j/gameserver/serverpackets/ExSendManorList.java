@@ -31,7 +31,7 @@ import javolution.util.FastList;
  * @author -Wooden-
  *
  */
-public class ExSendManorList extends ServerBasePacket
+public class ExSendManorList extends L2GameServerPacket
 {
     private static final String _S__FE_1B_EXSENDMANORLIST = "[S] FE:1B ExSendManorList";
     FastList<String> _manors;
@@ -44,20 +44,10 @@ public class ExSendManorList extends ServerBasePacket
     
     
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-     */
-    @Override
-    void runImpl()
-    {
-        // no long running tasks
-        
-    }
-
-    /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
      */
     @Override
-    void writeImpl()
+    protected void writeImpl()
     {
         writeC(0xFE);
         writeH(0x1B);

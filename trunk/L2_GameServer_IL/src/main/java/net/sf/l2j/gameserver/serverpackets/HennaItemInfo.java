@@ -25,9 +25,8 @@ import net.sf.l2j.gameserver.model.L2HennaInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 
-public class HennaItemInfo extends ServerBasePacket
+public class HennaItemInfo extends L2GameServerPacket
 {
-    
     private static final String _S__E3_HennaItemInfo = "[S] E3 HennaItemInfo";
     
     private L2PcInstance _player;
@@ -39,12 +38,7 @@ public class HennaItemInfo extends ServerBasePacket
         _player = player;
     }
     
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
-    
-    final void writeImpl()
+    protected final void writeImpl()
     {
         
         writeC(0xe3);

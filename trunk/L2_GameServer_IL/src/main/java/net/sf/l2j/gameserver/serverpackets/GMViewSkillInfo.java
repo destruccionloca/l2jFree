@@ -22,7 +22,7 @@ package net.sf.l2j.gameserver.serverpackets;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-public class GMViewSkillInfo extends ServerBasePacket
+public class GMViewSkillInfo extends L2GameServerPacket
 {
 	private static final String _S__91_GMViewSkillInfo = "[S] 91 GMViewSkillInfo";
 	private L2PcInstance _cha;
@@ -35,13 +35,8 @@ public class GMViewSkillInfo extends ServerBasePacket
 		if (_skills.length == 0)
 			_skills = new L2Skill[0];
 	}
-	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x91);
 		writeS(_cha.getName());
@@ -57,7 +52,6 @@ public class GMViewSkillInfo extends ServerBasePacket
 		}
 	}
 	
-
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */

@@ -1,5 +1,4 @@
-/*
- * This program is free software; you can redistribute it and/or modify
+/* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -18,63 +17,32 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-
 /**
- * @author Maktakien
- *
+ * Format: ch
+ * Trigger packet
+ * @author  KenM
  */
-public class GetOnVehicle extends L2GameServerPacket
+public class ExShowVariationMakeWindow extends L2GameServerPacket
 {
+	private static final String _S__FE_50_EXSHOWVARIATIONMAKEWINDOW = "[S] FE:50 ExShowVariationMakeWindow";
 
-	private int _x;
-	private int _y;
-	private int _z;
-	private L2PcInstance _pci;
-	private L2BoatInstance _boat;
 	/**
-	 * @param activeChar
-	 * @param boat
-	 * @param x
-	 * @param y
-	 * @param z
-	 */
-	public GetOnVehicle(L2PcInstance activeChar, L2BoatInstance boat, int x, int y, int z)
-	{
-		_pci = activeChar;
-		_boat = boat;
-		_x = x;
-		_y = y;
-		_z = z;
-		
-		_pci.setInBoat(true);
-		_pci.setBoat(_boat);
-	}
-
-	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
 	protected void writeImpl()
 	{
-		writeC(0x5c);
-		writeD(_pci.getObjectId());
-		writeD(_boat.getObjectId());
-        writeD(_x);
-        writeD(_y);
-        writeD(_z);
-		
+		writeC(0xfe);
+		writeH(0x50);
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see net.sf.l2j.gameserver.BasePacket#getType()
 	 */
 	@Override
 	public String getType()
 	{
-		// TODO Auto-generated method stub
-		return "[S] 5C GetOnVehicle";
+		return _S__FE_50_EXSHOWVARIATIONMAKEWINDOW;
 	}
 
 }

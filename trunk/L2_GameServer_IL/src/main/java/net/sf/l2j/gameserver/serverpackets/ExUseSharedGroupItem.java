@@ -1,5 +1,4 @@
-/*
- * This program is free software; you can redistribute it and/or modify
+/* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -18,63 +17,45 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-
 /**
- * @author Maktakien
- *
+ * Format: ch dddd
+ * @author KenM
  */
-public class GetOnVehicle extends L2GameServerPacket
+public class ExUseSharedGroupItem extends L2GameServerPacket
 {
-
-	private int _x;
-	private int _y;
-	private int _z;
-	private L2PcInstance _pci;
-	private L2BoatInstance _boat;
-	/**
-	 * @param activeChar
-	 * @param boat
-	 * @param x
-	 * @param y
-	 * @param z
-	 */
-	public GetOnVehicle(L2PcInstance activeChar, L2BoatInstance boat, int x, int y, int z)
+	private static final String _S__FE_49_EXUSESHAREDGROUPITEM = "[S] FE:49 ExUseSharedGroupItem";
+	private int _unk1, _unk2, _unk3, _unk4;
+	
+	public ExUseSharedGroupItem(int unk1, int unk2, int unk3, int unk4)
 	{
-		_pci = activeChar;
-		_boat = boat;
-		_x = x;
-		_y = y;
-		_z = z;
-		
-		_pci.setInBoat(true);
-		_pci.setBoat(_boat);
+		_unk1 = unk1;
+		_unk2 = unk2;
+		_unk3 = unk3;
+		_unk4 = unk4;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
 	protected void writeImpl()
 	{
-		writeC(0x5c);
-		writeD(_pci.getObjectId());
-		writeD(_boat.getObjectId());
-        writeD(_x);
-        writeD(_y);
-        writeD(_z);
+		writeC(0xfe);
+		writeH(0x49);
 		
+		writeD(_unk1);
+		writeD(_unk2);
+		writeD(_unk3);
+		writeD(_unk4);
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see net.sf.l2j.gameserver.BasePacket#getType()
 	 */
 	@Override
 	public String getType()
 	{
-		// TODO Auto-generated method stub
-		return "[S] 5C GetOnVehicle";
+		return _S__FE_49_EXUSESHAREDGROUPITEM;
 	}
 
 }

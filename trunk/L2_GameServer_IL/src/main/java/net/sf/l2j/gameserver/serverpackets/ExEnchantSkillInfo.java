@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import javolution.util.FastList;
 
-public class ExEnchantSkillInfo extends ServerBasePacket
+public class ExEnchantSkillInfo extends L2GameServerPacket
 {
     private static final String _S__FE_18_EXENCHANTSKILLINFO = "[S] FE:18 ExEnchantSkillInfo";
     private FastList<Req> _reqs;
@@ -62,19 +62,10 @@ public class ExEnchantSkillInfo extends ServerBasePacket
     }
 
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-     */
-    @Override
-    void runImpl()
-    {
-        // --
-    }
-
-    /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
      */
     @Override
-    void writeImpl()
+	protected void writeImpl()
     {
         writeC(0xfe);
         writeH(0x18);

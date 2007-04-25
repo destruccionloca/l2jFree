@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.model.L2Character;
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $ 
  */
-public class FinishRotation extends ServerBasePacket
+public class FinishRotation extends L2GameServerPacket
 {
 	private static final String _S__78_FINISHROTATION = "[S] 63 FinishRotation";
 	private int _heading;
@@ -38,12 +38,7 @@ public class FinishRotation extends ServerBasePacket
 		_heading = cha.getHeading();
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x63);
 		writeD(_objectId);

@@ -1,5 +1,4 @@
-/*
- * This program is free software; you can redistribute it and/or modify
+/* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -19,55 +18,38 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 /**
- * This class ...
- * 
- * @author tomciaaa
- * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
+ * Format: ch d
+ * @author  KenM
  */
-public class ExRedSky extends ServerBasePacket
+public class ExRedSky extends L2GameServerPacket
 {
-	private static final String _S__FE_40_EXREDSKY = "[S] FE:40 ExRedSky";
+	private static final String _S__FE_40_EXREDSKYPACKET = "[S] FE:40 ExRedSkyPacket";
 	private int _duration;
-	//private int _type;
-    //private int _v3;
-    //private int _v4;
-    //private int _v5;
-
-	/**
-	 * 0xfe:0x40 ExRedSky         not known 
-	 * @param _characters
-	 */
-	public ExRedSky(int duration/*, int type, int v3, int v4, int v5*/)
+	
+	public ExRedSky(int duration)
 	{
 		_duration = duration;
-		//_type = type;
-        //_v3 = v3;
-        //_v4 = v4;
-        //_v5 = v5;
 	}
 
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	/**
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
+	 */
+	@Override
+	protected
+	void writeImpl()
 	{
 		writeC(0xFE);
-		writeH(0x40);     // sub id
+		writeH(0x40);
 		writeD(_duration);
-		//writeD(_type);
-        //writeD(_v3);
-        //writeD(_v4);
-        //writeD(_v5);
 	}
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	/**
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
-		return _S__FE_40_EXREDSKY;
+		return _S__FE_40_EXREDSKYPACKET;
 	}
+
 }

@@ -28,48 +28,38 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * @author -Wooden-
  *
  */
-public class ExFishingEnd extends ServerBasePacket
+public class ExFishingEnd extends L2GameServerPacket
 {
-    private static final String _S__FE_14_EXFISHINGEND = "[S] FE:14 ExFishingEnd";
-    private boolean _win;
-    L2Character _character;
-    
-    public ExFishingEnd(boolean win, L2PcInstance character)
-    {
-        _win = win;
-        _character = character;
-    }
+	private static final String _S__FE_14_EXFISHINGEND = "[S] FE:14 ExFishingEnd";
+	private boolean _win;
+	L2Character _character;
+	
+	public ExFishingEnd(boolean win, L2PcInstance character)
+	{
+		_win = win;
+		_character = character;
+	}
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-     */
-    @Override
-    void runImpl()
-    {
-        // no long running tasks
-        
-    }
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
+	 */
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xfe);
+		writeH(0x14);
+		writeD(_character.getObjectId());
+		writeC(_win ? 1 : 0);
+		
+	}
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
-     */
-    @Override
-    void writeImpl()
-    {
-        writeC(0xfe);
-        writeH(0x14);
-        writeD(_character.getObjectId());
-        writeC(_win ? 1 : 0);
-        
-    }
-
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return _S__FE_14_EXFISHINGEND;
-    }
-    
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__FE_14_EXFISHINGEND;
+	}
+	
 }

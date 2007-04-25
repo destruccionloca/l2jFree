@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.4.2.1.2.5 $ $Date: 2005/03/27 15:29:39 $
  */
-public class ExDuelUpdateUserInfo extends ServerBasePacket 
+public class ExDuelUpdateUserInfo extends L2GameServerPacket 
 {
 	private static final String _S__67_PARTYSMALLWINDOWUPDATE = "[S] 52 ExDuelUpdateUserInfo";
 	private L2PcInstance _member;
@@ -35,12 +35,7 @@ public class ExDuelUpdateUserInfo extends ServerBasePacket
 		_member = member;
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0xfe);
         writeH(75);

@@ -18,12 +18,14 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+import java.util.List;
+
 import javolution.util.FastList;
 
-public class ExEnchantSkillList extends ServerBasePacket
+public class ExEnchantSkillList extends L2GameServerPacket
 {
     private static final String _S__FE_17_EXENCHANTSKILLLIST = "[S] FE:17 ExEnchantSkillList";
-    private FastList<Skill> _skills;
+    private List<Skill> _skills;
 
     class Skill
     {
@@ -52,20 +54,10 @@ public class ExEnchantSkillList extends ServerBasePacket
     }
 
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-     */
-    @Override
-    void runImpl()
-    {
-        //there are no long-running tasks
-
-    }
-
-    /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
      */
     @Override
-    void writeImpl()
+	protected void writeImpl()
     {
         writeC(0xfe);
         writeH(0x17);

@@ -27,40 +27,35 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @author godson
  */
-public class ExOlympiadMode extends ServerBasePacket
+public class ExOlympiadMode extends L2GameServerPacket
 {
-    // chc
-    private static final String _S__FE_2B_OLYMPIADMODE = "[S] FE:2B ExOlympiadMode";
-    private static int _mode;
-    
+	// chc
+	private static final String _S__FE_2B_OLYMPIADMODE = "[S] FE:2B ExOlympiadMode";
+	private static int _mode;
+	
 
-    /**
-     * @param _mode (0 = return, 3 = spectate)
-     */
-    public ExOlympiadMode(int mode)
-    {
-        _mode = mode;
-    }
+	/**
+	 * @param _mode (0 = return, 3 = spectate)
+	 */
+	public ExOlympiadMode(int mode)
+	{
+		_mode = mode;
+	}
+	
 
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
-    
-
-    final void writeImpl()
-    {
-        writeC(0xfe);
-        writeH(0x2b);
-        writeC(_mode);
-    }
-    
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    public String getType()
-    {
-        return _S__FE_2B_OLYMPIADMODE;
-    }
+	protected final void writeImpl()
+	{
+		writeC(0xfe);
+		writeH(0x2b);
+		writeC(_mode);
+	}
+	
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	public String getType()
+	{
+		return _S__FE_2B_OLYMPIADMODE;
+	}
 }
-    
+	

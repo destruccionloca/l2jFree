@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $ 
  */
-public class GetItem extends ServerBasePacket
+public class GetItem extends L2GameServerPacket
 {
 	private static final String _S__17_GETITEM = "[S] 0d GetItem";
 	private L2ItemInstance _item;
@@ -40,12 +40,7 @@ public class GetItem extends ServerBasePacket
 		_playerId = playerId;
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x0d);
 		writeD(_playerId);

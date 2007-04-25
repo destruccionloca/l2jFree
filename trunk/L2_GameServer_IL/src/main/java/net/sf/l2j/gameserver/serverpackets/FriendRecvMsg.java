@@ -30,7 +30,7 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @author Tempy
  */
-public class FriendRecvMsg extends ServerBasePacket
+public class FriendRecvMsg extends L2GameServerPacket
 {
 	private static final String _S__FD_FRIENDRECVMSG = "[S] FD FriendRecvMsg";
 	
@@ -44,12 +44,7 @@ public class FriendRecvMsg extends ServerBasePacket
 		_message = message;
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xfd);
 		
