@@ -8,6 +8,8 @@ SET CLASSPATH=%CLASSPATH%;commons-collections-2.1.1.jar
 
 SET CLASSPATH=%CLASSPATH%;ibmaio-20040616.jar
 
+SET CLASSPATH=%CLASSPATH%;mmocore-1.0.0.jar
+
 REM jython
 SET CLASSPATH=%CLASSPATH%;jython-2.1.0.jar
 

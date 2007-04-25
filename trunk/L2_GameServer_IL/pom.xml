@@ -117,6 +117,11 @@
 			<version>1.0.3</version>
 		</dependency>
 		<dependency>
+			<groupId>com.l2jserver.mmocore</groupId>
+			<artifactId>mmocore</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
 			<groupId>l2jfree</groupId>
 			<artifactId>l2j-test-tools</artifactId>
 			<version>1.0.1</version>
