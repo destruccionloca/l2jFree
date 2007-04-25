@@ -24,6 +24,9 @@ import java.io.InputStream;
 import java.util.Calendar;
 import java.util.logging.LogManager;
 
+import com.l2jserver.mmocore.network.SelectorServerConfig;
+import com.l2jserver.mmocore.network.SelectorThread;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.cache.CrestCache;
@@ -73,7 +76,8 @@ import net.sf.l2j.gameserver.model.AutoChatHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Hero;
-import net.sf.l2j.gameserver.network.IOThread;
+import net.sf.l2j.gameserver.network.L2GameClient;
+import net.sf.l2j.gameserver.network.L2GamePacketHandler;
 import net.sf.l2j.gameserver.script.faenor.FaenorScriptEngine;
 import net.sf.l2j.gameserver.taskmanager.TaskManager;
 import net.sf.l2j.gameserver.util.DynamicExtension;
@@ -94,7 +98,7 @@ import org.apache.commons.logging.LogFactory;
 public class GameServer
 {
     private static final Log _log = LogFactory.getLog(GameServer.class.getName());
-    private final IOThread _gameThread;
+    private final SelectorThread<L2GameClient> _selectorThread;
     private final SkillTable _skillTable;
     private final ItemTable _itemTable;
     private final NpcTable _npcTable;
@@ -124,9 +128,9 @@ public class GameServer
         return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/1048576; // 1024 * 1024 = 1048576;
     }
 
-    public IOThread getSelectorThread()
+    public SelectorThread<L2GameClient> getSelectorThread()
     {
-        return _gameThread;
+    	return _selectorThread;
     }
 
     /**
@@ -462,8 +466,11 @@ public class GameServer
         _loginThread = LoginServerThread.getInstance();
         _loginThread.start();
         
-        _gameThread = IOThread.getInstance();
-        _gameThread.start();
+		SelectorServerConfig ssc = new SelectorServerConfig(Config.PORT_GAME);
+		L2GamePacketHandler gph = new L2GamePacketHandler();
+		_selectorThread = new SelectorThread<L2GameClient>(ssc, gph, gph, gph);
+		_selectorThread.openServerSocket();
+		_selectorThread.start();
         
         // Print general information
         // --------------------------

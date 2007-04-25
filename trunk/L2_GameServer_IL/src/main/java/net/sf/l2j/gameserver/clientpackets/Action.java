@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
-import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
@@ -36,30 +34,23 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.7.4.4 $ $Date: 2005/03/27 18:46:19 $
  */
-public class Action extends ClientBasePacket
+public final class Action extends L2GameClientPacket
 {
 	private static final String ACTION__C__04 = "[C] 04 Action";
 	private final static Log _log = LogFactory.getLog(Action.class.getName());
 	
 	// cddddc
-	private final int _objectId;
+	private int _objectId;
 	@SuppressWarnings("unused")
-    private final int _originX;
+    private int _originX;
 	@SuppressWarnings("unused")
-    private final int _originY;
+    private int _originY;
 	@SuppressWarnings("unused")
-    private final int _originZ;
-	private final int _actionId;
+    private int _originZ;
+	private int _actionId;
 
-	/** urgent messages, execute immediatly */
-    public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
-	
-	/**
-	 * @param decrypt
-	 */
-	public Action(ByteBuffer buf, ClientThread client)
+	protected void readImpl()
 	{
-		super(buf, client);
 		_objectId  = readD();   // Target object Identifier
 		_originX   = readD();
 		_originY   = readD();
@@ -67,7 +58,7 @@ public class Action extends ClientBasePacket
 		_actionId  = readC();   // Action identifier : 0-Simple click, 1-Shift click
 	}
 
-	void runImpl()
+	protected void runImpl()
 	{
 		if (_log.isDebugEnabled()) _log.debug("Action:" + _actionId);
 		if (_log.isDebugEnabled()) _log.debug("oid:" + _objectId);
@@ -85,7 +76,7 @@ public class Action extends ClientBasePacket
 		if (obj == null) { 
 			// pressing e.g. pickup many times quickly would get you here 
         	//_log.warn("Character: " + activeChar.getName() + " request action with non existent ObjectID:" + _objectId);
-        	sendPacket(new ActionFailed());
+			this.getClient().sendPacket(new ActionFailed());
         	return;
 		}
         // Check if the target is valid, if the player haven't a shop or isn't the requester of a transaction (ex : FriendInvite, JoinAlly, JoinParty...)
@@ -105,7 +96,7 @@ public class Action extends ClientBasePacket
 				default:
 					// Ivalid action detected (probably client cheating), log this
 					_log.warn("Character: " + activeChar.getName() + " requested invalid action: " + _actionId);
-					sendPacket(new ActionFailed());
+					this.getClient().sendPacket(new ActionFailed());
 					break;					
 			}
 		}

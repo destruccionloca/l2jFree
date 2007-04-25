@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  */
-public class AllyInfo extends ServerBasePacket
+public class AllyInfo extends L2GameServerPacket
 {
 	//private final static Log _log = LogFactory.getLog(AllyInfo.class.getName());
 	private static final String _S__7A_FRIENDLIST = "[S] 7a AllyInfo";
@@ -37,12 +37,7 @@ public class AllyInfo extends ServerBasePacket
 		_cha=cha;
 	}	
 
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 	    L2PcInstance activeChar = getClient().getActiveChar();
 	    if (activeChar == null) return;

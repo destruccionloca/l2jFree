@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-public class BeginRotation extends ServerBasePacket
+public class BeginRotation extends L2GameServerPacket
 {
 	private static final String _S__77_BEGINROTATION = "[S] 62 BeginRotation";
 	private int _charId;
@@ -34,12 +34,7 @@ public class BeginRotation extends ServerBasePacket
 		_side = side;
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x62);
 		writeD(_charId);

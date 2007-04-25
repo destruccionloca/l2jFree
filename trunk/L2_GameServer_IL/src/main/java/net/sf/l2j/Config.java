@@ -53,7 +53,17 @@ import org.apache.commons.logging.LogFactory;
 public final class Config {
 
 	protected static Log _log = LogFactory.getLog(Config.class.getName());
+    // Server version
+    /** Server version */
+    public static String     SERVER_VERSION;
+    /** Date of server build */
+    public static String     SERVER_BUILD_DATE;
+    
+    // Datapack version
+    /** Datapack version */
+    public static String     DATAPACK_VERSION;
 
+	
     //*******************************************************************************************	
     public static final String  CONFIGURATION_FILE          = "./config/server.properties";
     //*******************************************************************************************

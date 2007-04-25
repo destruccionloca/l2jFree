@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.model.L2Character;
  * 
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/03/27 15:29:57 $
  */
-public class ChangeMoveType extends ServerBasePacket
+public class ChangeMoveType extends L2GameServerPacket
 {
 	private static final String _S__3E_CHANGEMOVETYPE = "[S] 3E ChangeMoveType";
 	public static int WALK = 0;
@@ -45,12 +45,7 @@ public class ChangeMoveType extends ServerBasePacket
 		_running = cha.isRunning();
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x2e);
 		writeD(_chaId);

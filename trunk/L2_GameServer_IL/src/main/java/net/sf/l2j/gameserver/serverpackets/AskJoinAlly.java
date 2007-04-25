@@ -34,7 +34,7 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class AskJoinAlly extends ServerBasePacket
+public class AskJoinAlly extends L2GameServerPacket
 {
 	private static final String _S__a8_ASKJOINALLY_0Xa8 = "[S] a8 AskJoinAlly 0xa8";
 	//private final static Log _log = LogFactory.getLog(AskJoinAlly.class.getName());
@@ -48,15 +48,10 @@ public class AskJoinAlly extends ServerBasePacket
 	public AskJoinAlly(int requestorId, String requestorName)
 	{
 		_requestorName = requestorName;
-    		_requestorId = requestorId;
+    	_requestorId = requestorId;
 	}
 
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xa8);
     		writeD(_requestorId);

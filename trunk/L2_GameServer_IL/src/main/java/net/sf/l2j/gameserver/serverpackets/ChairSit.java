@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class ChairSit extends ServerBasePacket
+public class ChairSit extends L2GameServerPacket
 {
     private static final String _S__e1_CHAIRSIT = "[S] e1 ChairSit";
     
@@ -42,14 +42,8 @@ public class ChairSit extends ServerBasePacket
         _activeChar = player;
         _staticObjectId = staticObjectId;
     }
-
-
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
     
-    final void writeImpl()
+    protected final void writeImpl()
     {
         writeC(0xe1);
         writeD(_activeChar.getObjectId());

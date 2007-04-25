@@ -36,7 +36,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
  * 
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/27 18:46:18 $
  */
-public class Die extends ServerBasePacket
+public class Die extends L2GameServerPacket
 {
     private static final String _S__0B_DIE = "[S] 06 Die";
     private int _chaId;
@@ -65,14 +65,8 @@ public class Die extends ServerBasePacket
             _sweepable = ((L2Attackable)cha).isSweepActive();
         
     }
-
-
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
     
-    final void writeImpl()
+    protected final void writeImpl()
     {
         if (_fake)
             return;

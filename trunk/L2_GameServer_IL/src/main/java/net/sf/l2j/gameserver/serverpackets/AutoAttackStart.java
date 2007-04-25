@@ -24,7 +24,7 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class AutoAttackStart extends ServerBasePacket
+public class AutoAttackStart extends L2GameServerPacket
 {
 	// dh
 	
@@ -38,14 +38,8 @@ public class AutoAttackStart extends ServerBasePacket
 	{
 		_targetId = targetId;
 	}
-
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x2b);
 		writeD(_targetId);

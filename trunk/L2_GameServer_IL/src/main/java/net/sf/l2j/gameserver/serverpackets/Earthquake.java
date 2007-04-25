@@ -22,7 +22,7 @@ package net.sf.l2j.gameserver.serverpackets;
  * format   dddddd
  * 
  */
-public class Earthquake extends ServerBasePacket
+public class Earthquake extends L2GameServerPacket
 {
 	private static final String _S__C4_EARTHQUAKE = "[S] C4 Earthquake";
 	private int _x;
@@ -43,12 +43,7 @@ public class Earthquake extends ServerBasePacket
 		_duration = duration;
 	}
 
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xc4);
 		writeD(_x);

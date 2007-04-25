@@ -21,10 +21,10 @@ package net.sf.l2j.gameserver.serverpackets;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.4.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class CharDeleteFail extends ServerBasePacket
+public class CharDeleteFail extends L2GameServerPacket
 {
 	private static final String _S__34_CHARDELETEFAIL = "[S] 24 CharDeleteFail";
 
@@ -39,12 +39,7 @@ public class CharDeleteFail extends ServerBasePacket
 		_error = errorCode;
 	}
 
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x24);
 		writeD(_error);

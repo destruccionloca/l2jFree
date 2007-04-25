@@ -24,7 +24,7 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.1.4.2 $ $Date: 2005/03/27 15:29:40 $
  */
-public class Dice extends ServerBasePacket
+public class Dice extends L2GameServerPacket
 {
 	private static final String _S__D4_Dice = "[S] D4 Dice";
 	private int _playerId;
@@ -47,13 +47,8 @@ public class Dice extends ServerBasePacket
 		_y =y;
 		_z =z;
 	}
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xD4);
 		writeD(_playerId);  //object id of player

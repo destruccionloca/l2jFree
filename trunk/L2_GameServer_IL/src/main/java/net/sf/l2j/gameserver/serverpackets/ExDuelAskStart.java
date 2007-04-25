@@ -34,7 +34,7 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class ExDuelAskStart extends ServerBasePacket
+public class ExDuelAskStart extends L2GameServerPacket
 {
 	private static final String _S__4B_ExDuelAskStart_0X4B = "[S] 39 ExDuelAskStart 0x4b";
 	//private final static Log _log = LogFactory.getLog(ExDuelAskStart.class.getName());
@@ -52,12 +52,7 @@ public class ExDuelAskStart extends ServerBasePacket
 		_duelMode = itemDistribution;
 	}
 
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0xfe);
         writeH(75);

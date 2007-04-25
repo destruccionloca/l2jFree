@@ -27,7 +27,7 @@ import java.util.List;
  * @author Maktakien
  *
  */
-public class AdminForgePacket extends ServerBasePacket
+public class AdminForgePacket extends L2GameServerPacket
 {
 	List<Part> _parts = new ArrayList<Part>();
 	
@@ -47,21 +47,12 @@ public class AdminForgePacket extends ServerBasePacket
 	{
 	
 	}
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-	 */
-	@Override
-	void runImpl()
-	{
-		// TODO Auto-generated method stub
-		
-	}
 	
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
-	void writeImpl()
+	protected void writeImpl()
 	{
 		for(Part p : _parts)
 		{

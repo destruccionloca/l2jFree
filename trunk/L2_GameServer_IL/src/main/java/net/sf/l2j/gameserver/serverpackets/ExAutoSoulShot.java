@@ -23,7 +23,7 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class ExAutoSoulShot extends ServerBasePacket
+public class ExAutoSoulShot extends L2GameServerPacket
 {
 	private static final String _S__FE_12_EXAUTOSOULSHOT = "[S] FE:12 ExAutoSoulShot";
 	private int _itemId;
@@ -38,14 +38,8 @@ public class ExAutoSoulShot extends ServerBasePacket
 		_itemId = itemId;
 		_type = type;
 	}
-
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xFE);
 		writeH(0x12);     // sub id

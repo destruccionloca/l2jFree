@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.L2Character;
  * 
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/03/27 15:29:57 $
  */
-public class ChangeWaitType extends ServerBasePacket
+public class ChangeWaitType extends L2GameServerPacket
 {
 	private static final String _S__3F_CHANGEWAITTYPE = "[S] 2F ChangeWaitType";
 	private L2Character _cha;
@@ -49,17 +49,14 @@ public class ChangeWaitType extends ServerBasePacket
 		_cha = cha;
 		_objectId = cha.getObjectId();
 		_moveType = newMoveType;
-	}
-	
-	final void runImpl()
-	{
+		
 		_x = _cha.getX();
 		_y = _cha.getY();
 		_z = _cha.getZ();
 		_cha = null;
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x2f);
 		writeD(_objectId);

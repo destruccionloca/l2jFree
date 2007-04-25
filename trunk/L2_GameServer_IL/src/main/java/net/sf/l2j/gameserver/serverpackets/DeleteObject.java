@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.model.L2Object;
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class DeleteObject extends ServerBasePacket
+public class DeleteObject extends L2GameServerPacket
 {
 	private static final String _S__1E_DELETEOBJECT = "[S] 12 DeleteObject";
 	private int _objectId;
@@ -38,12 +38,7 @@ public class DeleteObject extends ServerBasePacket
 		_objectId = obj.getObjectId();
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x12);
 		writeD(_objectId);

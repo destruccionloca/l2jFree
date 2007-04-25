@@ -1,25 +1,20 @@
 package net.sf.l2j.gameserver.serverpackets;
 
-public class ChooseInventoryItem extends ServerBasePacket
+public class ChooseInventoryItem extends L2GameServerPacket
 {
 	private static final String _S__6F_CHOOSEINVENTORYITEM = "[S] 6f ChooseInventoryItem";
 
-    private int ItemID;
-       
-    public ChooseInventoryItem(int Item)
-    {
-        ItemID=Item;
-    }
-
-	final void runImpl()
+	private int ItemID;
+	   
+	public ChooseInventoryItem(int Item)
 	{
-		// no long-running tasks
+		ItemID=Item;
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x6f);
-        writeD(ItemID);
+		writeD(ItemID);
 	}
 
 	/* (non-Javadoc)

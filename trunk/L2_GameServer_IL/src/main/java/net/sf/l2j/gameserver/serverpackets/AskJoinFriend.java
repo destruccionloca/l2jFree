@@ -34,7 +34,7 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class AskJoinFriend extends ServerBasePacket
+public class AskJoinFriend extends L2GameServerPacket
 {
 	private static final String _S__7d_ASKJoinFriend_0X7d = "[S] 7d AskJoinFriend 0x7d";
 	//private final static Log _log = LogFactory.getLog(AskJoinFriend.class.getName());
@@ -53,12 +53,7 @@ public class AskJoinFriend extends ServerBasePacket
 //		_itemDistribution = itemDistribution;
 	}
 
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x7d);
 		writeS(_requestorName);

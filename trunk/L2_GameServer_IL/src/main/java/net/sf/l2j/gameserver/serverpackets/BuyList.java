@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import java.util.List;
 
-import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2TradeList;
@@ -60,7 +59,7 @@ import net.sf.l2j.gameserver.templates.L2Item;
  * 
  * @version $Revision: 1.4.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class BuyList extends ServerBasePacket
+public final class BuyList extends L2GameServerPacket
 {
 	private static final String _S__1D_BUYLIST = "[S] 11 BuyList";
 	private int _listId;
@@ -85,19 +84,14 @@ public class BuyList extends ServerBasePacket
 		_TaxRate = taxRate;
 	}	
 	
-	public BuyList(FastList<L2ItemInstance> lst, int listId, int currentMoney)
+	public BuyList(List<L2ItemInstance> lst, int listId, int currentMoney)
 	{
 		_listId = listId;
 		_list = lst.toArray(new L2ItemInstance[lst.size()]);
 		_money = currentMoney;
-	}	
-	
-	final void runImpl()
-	{
-		// no long-running tasks
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x11);
 		writeD(_money);		// current money
@@ -129,7 +123,7 @@ public class BuyList extends ServerBasePacket
 				writeH(0x00);
 			}
 			
-			if (item.getItemId() >= 3960 && item.getItemId() <= 4026)//Config.RATE_SIEGE_GUARDS_PRICE-//' 
+            if (item.getItemId() >= 3960 && item.getItemId() <= 4026)//Config.RATE_SIEGE_GUARDS_PRICE-//'
                 writeD((int)(item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * (1 + _TaxRate)));
             else
                 writeD((int)(item.getPriceToSell() * (1 + _TaxRate)));

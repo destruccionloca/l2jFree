@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.model.L2Object;
  * 
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/03/27 15:29:39 $
  */
-public class Attack extends ServerBasePacket
+public class Attack extends L2GameServerPacket
 {
     private class Hit 
     {
@@ -104,13 +104,7 @@ public class Attack extends ServerBasePacket
 		return hits.length > 0;
 	}
 
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x05);
 

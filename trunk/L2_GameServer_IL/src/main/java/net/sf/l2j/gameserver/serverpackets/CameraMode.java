@@ -1,6 +1,6 @@
 package net.sf.l2j.gameserver.serverpackets;
 
-public class CameraMode extends ServerBasePacket
+public class CameraMode extends L2GameServerPacket
 {
     int _mode;
 
@@ -16,8 +16,6 @@ public class CameraMode extends ServerBasePacket
     {
         _mode = mode;
     }
-    
-    public void runImpl(){}
     
     public void writeImpl()
     {

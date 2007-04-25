@@ -34,7 +34,7 @@ import javolution.util.FastList;
  * 
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/03/27 15:29:39 $
  */
-public class AquireSkillInfo extends ServerBasePacket
+public class AquireSkillInfo extends L2GameServerPacket
 {
     private static final String _S__A4_AQUIRESKILLINFO = "[S] 8b AquireSkillInfo";
     private FastList<Req> _reqs;
@@ -70,12 +70,7 @@ public class AquireSkillInfo extends ServerBasePacket
         _reqs.add(new Req(type, id, count, unk));
     }
     
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
-    
-    final void writeImpl()
+    protected final void writeImpl()
     {
         writeC(0x8b);
         writeD(_id);

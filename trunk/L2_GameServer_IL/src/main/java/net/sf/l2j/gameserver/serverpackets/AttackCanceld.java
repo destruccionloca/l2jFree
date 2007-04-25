@@ -25,21 +25,18 @@ package net.sf.l2j.gameserver.serverpackets;
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
 @Deprecated
-public class AttackCanceld extends ServerBasePacket {
+public class AttackCanceld extends L2GameServerPacket
+{
 	private static final String _S__0A_MAGICSKILLCANCELD = "[S] 0a AttackCanceld";
 	
 	private int _objectId;
 
-	public AttackCanceld (int objectId) {
+	public AttackCanceld (int objectId)
+	{
 		_objectId = objectId; 
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x0a);
 		writeD(_objectId);

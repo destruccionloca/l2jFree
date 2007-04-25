@@ -44,7 +44,7 @@ import javolution.util.FastList;
  * 0030: 00 d4 00 00 00 01 00 00 00 06 00 00 00 08 52 00    ..............R.
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/27 15:29:57 $ 
  */
-public class AquireSkillList extends ServerBasePacket
+public class AquireSkillList extends L2GameServerPacket
 {
 	//private static Logger _log = Logger.getLogger(AquireSkillList.class.getName());
     public enum skillType
@@ -88,12 +88,7 @@ public class AquireSkillList extends ServerBasePacket
 		_skills.add(new Skill(id, nextLevel, maxLevel, spCost, requirements));
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x8a);
         writeD(_fishingskills.ordinal());   //c4 : C5 : 0: usuall  1: fishing 2: clans

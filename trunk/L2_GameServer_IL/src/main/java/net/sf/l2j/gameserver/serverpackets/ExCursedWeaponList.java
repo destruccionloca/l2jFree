@@ -1,36 +1,27 @@
 package net.sf.l2j.gameserver.serverpackets;
 
-import javolution.util.FastList;
+import java.util.List;
 
 /**
  * Format: (ch) d[d]
  *
  * @author  -Wooden-
  */
-public class ExCursedWeaponList extends ServerBasePacket
+public class ExCursedWeaponList extends L2GameServerPacket
 {
 	private static final String _S__FE_45_EXCURSEDWEAPONLIST = "[S] FE:45 ExCursedWeaponList";
-	private FastList<Integer> _cursedWeaponIds;
+	private List<Integer> _cursedWeaponIds;
 	
-	public ExCursedWeaponList(FastList<Integer> cursedWeaponIds)
+	public ExCursedWeaponList(List<Integer> cursedWeaponIds)
 	{
 		_cursedWeaponIds = cursedWeaponIds;
-	}
-	
-	/**
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-	 */
-	@Override
-	void runImpl()
-	{
-		// no long running task		
 	}
 
 	/**
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
-	void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0xfe);
 		writeH(0x45);
@@ -43,7 +34,7 @@ public class ExCursedWeaponList extends ServerBasePacket
 	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.network.BasePacket#getType()
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
 	 */
 	@Override
 	public String getType()

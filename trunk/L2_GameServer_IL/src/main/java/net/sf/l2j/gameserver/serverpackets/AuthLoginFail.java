@@ -24,7 +24,7 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class AuthLoginFail extends ServerBasePacket
+public class AuthLoginFail extends L2GameServerPacket
 {
 	private static final String _S__12_AUTHLOGINFAIL = "[S] 14 AuthLoginFail";
 	public static int NO_TEXT = 0;
@@ -48,14 +48,8 @@ public class AuthLoginFail extends ServerBasePacket
 	{
 		_reason = reason;
 	}
-
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x14);
 		writeD(_reason); 

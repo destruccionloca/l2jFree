@@ -22,39 +22,34 @@ package net.sf.l2j.gameserver.serverpackets;
  * @author Dezmond_snz
  * Format: cdddsdd
  */
-public class ConfirmDlg extends ServerBasePacket
+public class ConfirmDlg extends L2GameServerPacket
 {
-    private static final String _S__ED_CONFIRMDLG = "[S] ed ConfirmDlg";
-    private int _requestId;
-    private String _Name;
+	private static final String _S__ED_CONFIRMDLG = "[S] ed ConfirmDlg";
+	private int _requestId;
+	private String _Name;
 
-    public ConfirmDlg(int requestId, String requestorName)
-    {
-        _requestId = requestId;
-        _Name = requestorName;
-    }
+	public ConfirmDlg(int requestId, String requestorName)
+	{
+		_requestId = requestId;
+		_Name = requestorName;
+	}
+	
+	protected final void writeImpl()
+	{
+		writeC(0xed);
+		writeD(_requestId);
+		writeD(0x02); // ??
+		writeD(0x00); // ??
+		writeS(_Name);
+		writeD(0x01); // ??
+		writeD(0x00); // ??
+	}
 
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
-    
-    final void writeImpl()
-    {
-        writeC(0xed);
-        writeD(_requestId);
-        writeD(0x02); // ??
-        writeD(0x00); // ??
-        writeS(_Name);
-        writeD(0x01); // ??
-        writeD(0x00); // ??
-    }
-
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    public String getType()
-    {
-        return _S__ED_CONFIRMDLG;
-    }
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	public String getType()
+	{
+		return _S__ED_CONFIRMDLG;
+	}
 }

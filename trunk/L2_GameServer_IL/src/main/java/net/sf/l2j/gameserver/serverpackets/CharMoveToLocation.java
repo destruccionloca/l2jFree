@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.model.L2Character;
  * 
  * @version $Revision: 1.3.4.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class CharMoveToLocation extends ServerBasePacket
+public class CharMoveToLocation extends L2GameServerPacket
 {
 	private static final String _S__01_CHARMOVETOLOCATION = "[S] 01 CharMoveToLocation";
 	private int _objectId, _x, _y, _z, _xDst, _yDst, _zDst;
@@ -45,12 +45,7 @@ public class CharMoveToLocation extends ServerBasePacket
 		_zDst = cha.getZdestination();
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x01);
 		

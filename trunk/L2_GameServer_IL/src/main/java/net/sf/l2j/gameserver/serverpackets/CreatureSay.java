@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.4.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class CreatureSay extends ServerBasePacket
+public class CreatureSay extends L2GameServerPacket
 {
 	// ddSS
 	private static final String _S__4A_CREATURESAY = "[S] 4A CreatureSay";
@@ -42,15 +42,10 @@ public class CreatureSay extends ServerBasePacket
 		_textType = messageType;
 		_charName = charName;
 		_text = text;
-		setLifeTime(0);
+		//setLifeTime(0);
 	}
 
-	final void runImpl()
-	{
-		// no long running
-	}	
-
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x4a);
 		writeD(_objectId);
@@ -59,7 +54,7 @@ public class CreatureSay extends ServerBasePacket
 		writeS(_text);
 		
 		L2PcInstance _pci = getClient().getActiveChar();
-		if(_pci != null)
+		if (_pci != null)
 		{
 			_pci.broadcastSnoop(_textType,_charName,_text);
 		}

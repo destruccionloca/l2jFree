@@ -1,18 +1,21 @@
 package net.sf.l2j.gameserver.serverpackets;
 
+import java.util.List;
+
 import javolution.util.FastList;
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2TradeList;
 
 
-public class BuyListSeed extends ServerBasePacket
+public final class BuyListSeed extends L2GameServerPacket
 {
     private static final String _S__E8_BUYLISTSEED = "[S] E8 BuyListSeed";
     
-    //private final static Log _log = LogFactory.getLog(BuyListSeed.class.getName());
+    //private static Logger _log = Logger.getLogger(BuyListSeed.class.getName());
     
     private int _listId;
-    private FastList<L2ItemInstance> _list = new FastList<L2ItemInstance>();
+    private List<L2ItemInstance> _list = new FastList<L2ItemInstance>();
     private int _money;
     private int _castle;
 
@@ -24,12 +27,9 @@ public class BuyListSeed extends ServerBasePacket
         _castle = castleId;
     }
     
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
+    
     //;BuyListSeedPacket;ddh(h dddhh [dhhh] d)
-    final void writeImpl()
+    protected final void writeImpl()
     {
         writeC(0xe8);
         
@@ -43,8 +43,7 @@ public class BuyListSeed extends ServerBasePacket
             writeH(item.getItem().getType1());          // item->type1
             writeD(item.getObjectId());                 // objectId
             writeD(item.getItemId());                   // item id
-            // CastleManager.getInstance().getCastle(_castle).getSeedProduction()
-            writeD(item.getCount()); // items count
+            writeD(CastleManager.getInstance().getCastle(_castle).getSeedProduction(item.getItemId())); // items count
             writeH(item.getItem().getType2());          // item->type2
             writeH(0x00);                               // unknown :)
         
