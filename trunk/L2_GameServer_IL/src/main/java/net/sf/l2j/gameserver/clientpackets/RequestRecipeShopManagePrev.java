@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.RecipeShopSellList;
@@ -35,7 +35,7 @@ public class RequestRecipeShopManagePrev extends ClientBasePacket{
 	//private final static Log _log = LogFactory.getLog(RequestPrivateStoreManage.class.getName());
 	
 	
-	public RequestRecipeShopManagePrev(ByteBuffer buf, ClientThread client)
+	public RequestRecipeShopManagePrev(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 	}

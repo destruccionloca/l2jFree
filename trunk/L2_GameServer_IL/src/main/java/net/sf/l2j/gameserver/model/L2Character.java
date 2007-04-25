@@ -72,7 +72,9 @@ import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.Attack;
 import net.sf.l2j.gameserver.serverpackets.ChangeMoveType;
 import net.sf.l2j.gameserver.serverpackets.ChangeWaitType;
+import net.sf.l2j.gameserver.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadSpelledInfo;
+import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.serverpackets.MagicEffectIcons;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillCanceld;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillLaunched;
@@ -82,7 +84,6 @@ import net.sf.l2j.gameserver.serverpackets.NpcInfo;
 import net.sf.l2j.gameserver.serverpackets.PartySpelled;
 import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.Revive;
-import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -290,9 +291,10 @@ public abstract class L2Character extends L2Object
      * In order to inform other players of state modification on the L2Character, server just need to go through _knownPlayers to send Server->Client Packet<BR><BR>
      *
      */
-    public final void broadcastPacket(ServerBasePacket mov)
+    public final void broadcastPacket(L2GameServerPacket mov)
     {
-        sendPacket(mov);
+        if (!(mov instanceof CharInfo))
+            sendPacket(mov);
         
         if (getKnownList().getKnownPlayers() == null) return;
         
@@ -396,7 +398,7 @@ public abstract class L2Character extends L2Object
      * <B><U> Overriden in </U> :</B><BR><BR>
      * <li> L2PcInstance</li><BR><BR>
      */
-    public void sendPacket(@SuppressWarnings("unused") ServerBasePacket mov)
+    public void sendPacket(@SuppressWarnings("unused") L2GameServerPacket mov)
     {
         // default implementation
     }

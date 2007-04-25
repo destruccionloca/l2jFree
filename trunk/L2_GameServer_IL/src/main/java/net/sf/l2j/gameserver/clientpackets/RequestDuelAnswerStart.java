@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -44,7 +44,7 @@ public class RequestDuelAnswerStart extends ClientBasePacket
     private final int _duelType;
     private final int _unk1;
 	
-	public RequestDuelAnswerStart(ByteBuffer buf, ClientThread client)
+	public RequestDuelAnswerStart(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
         _duelType = readD();

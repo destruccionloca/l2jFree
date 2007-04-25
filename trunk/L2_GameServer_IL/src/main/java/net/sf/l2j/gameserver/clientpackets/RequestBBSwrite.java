@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.communitybbs.CommunityBoard;
 /**
  * Format SSSSSS
@@ -42,7 +42,7 @@ public class RequestBBSwrite extends ClientBasePacket
 	 * @param buf
 	 * @param client
 	 */
-	public RequestBBSwrite(ByteBuffer buf, ClientThread client)
+	public RequestBBSwrite(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_url = readS();

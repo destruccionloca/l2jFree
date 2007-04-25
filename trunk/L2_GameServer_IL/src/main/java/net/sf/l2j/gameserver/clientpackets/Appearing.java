@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
@@ -43,7 +43,7 @@ public class Appearing extends ClientBasePacket
 	/**
 	 * @param decrypt
 	 */
-	public Appearing(ByteBuffer buf, ClientThread client)
+	public Appearing(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		// this is just a trigger packet. it has no content

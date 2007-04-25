@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 
 /**
@@ -36,7 +36,7 @@ public class RequestItemList extends ClientBasePacket
 	 * format:		c
 	 * @param rawPacket
 	 */
-	public RequestItemList(ByteBuffer buf, ClientThread client)
+	public RequestItemList(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 	}

@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.serverpackets.CharTemplates;
@@ -44,7 +44,7 @@ public class NewCharacter extends ClientBasePacket
 	 * format:		c
 	 * @param rawPacket
 	 */
-	public NewCharacter(ByteBuffer buf, ClientThread client)
+	public NewCharacter(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		// packet contains no data so just create answer

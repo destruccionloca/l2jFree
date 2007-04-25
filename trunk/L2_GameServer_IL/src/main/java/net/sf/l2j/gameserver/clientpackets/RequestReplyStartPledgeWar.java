@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -37,7 +37,7 @@ public class RequestReplyStartPledgeWar extends ClientBasePacket
     
     private final int _answer;
             
-    public RequestReplyStartPledgeWar(ByteBuffer buf, ClientThread client)
+    public RequestReplyStartPledgeWar(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         @SuppressWarnings("unused") String _reqName = readS();

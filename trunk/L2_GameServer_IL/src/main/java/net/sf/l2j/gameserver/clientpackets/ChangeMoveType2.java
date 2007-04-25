@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -45,7 +45,7 @@ public class ChangeMoveType2 extends ClientBasePacket
 	 * format:		cd
 	 * @param decrypt
 	 */
-	public ChangeMoveType2(ByteBuffer buf, ClientThread client)
+	public ChangeMoveType2(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_typeRun = readD() == 1;

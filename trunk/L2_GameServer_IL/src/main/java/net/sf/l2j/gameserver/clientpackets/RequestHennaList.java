@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.HennaTreeTable;
 import net.sf.l2j.gameserver.model.L2HennaInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -44,7 +44,7 @@ public class RequestHennaList extends ClientBasePacket
      * format:		cd
      * @param decrypt
      */
-    public RequestHennaList(ByteBuffer buf, ClientThread client)
+    public RequestHennaList(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _unknown = readD(); // ??

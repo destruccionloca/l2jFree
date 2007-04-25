@@ -23,7 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -45,7 +45,7 @@ public class RequestPledgeSetAcademyMaster extends ClientBasePacket
      * @param buf
      * @param client
      */
-    public RequestPledgeSetAcademyMaster(ByteBuffer buf, ClientThread client)
+    public RequestPledgeSetAcademyMaster(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _set = readD();

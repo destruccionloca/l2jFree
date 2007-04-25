@@ -3,7 +3,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
@@ -52,7 +52,7 @@ public class RequestBuySeed extends ClientBasePacket {
      * format:      cdd (dd) 
      * @param decrypt
      */
-    public RequestBuySeed(ByteBuffer buf, ClientThread client){
+    public RequestBuySeed(ByteBuffer buf, L2GameClient client){
         super(buf, client);
         _listId = readD();
         _count = readD();

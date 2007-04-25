@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -44,7 +44,7 @@ public class RequestGiveItemToPet extends ClientBasePacket
 	private final int _objectId;
 	private final int _amount;
 	
-	public RequestGiveItemToPet(ByteBuffer buf, ClientThread client)
+	public RequestGiveItemToPet(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_objectId = readD();

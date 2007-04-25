@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.RecipeItemMakeInfo;
 
 /**
@@ -31,13 +31,13 @@ public class RequestRecipeItemMakeInfo extends ClientBasePacket
 	//private final static Log _log = LogFactory.getLog(RequestSellItem.class.getName());
 
 	private final int _id;
-	private final ClientThread _client;
+	private final L2GameClient _client;
 	/**
 	 * packet type id 0xac
 	 * format:		cd
 	 * @param decrypt
 	 */
-	public RequestRecipeItemMakeInfo(ByteBuffer buf, ClientThread client)
+	public RequestRecipeItemMakeInfo(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_id = readD();

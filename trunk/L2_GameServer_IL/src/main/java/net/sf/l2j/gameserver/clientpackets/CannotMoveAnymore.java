@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -59,7 +59,7 @@ public class CannotMoveAnymore extends ClientBasePacket
 	 * format:		cdddd
 	 * @param decrypt
 	 */
-	public CannotMoveAnymore(ByteBuffer buf, ClientThread client)
+	public CannotMoveAnymore(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_x = readD();

@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.recipes.manager.CraftManager;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -39,7 +39,7 @@ public class RequestRecipeBookOpen extends ClientBasePacket
 	 * packet format rev656  cd
 	 * @param decrypt
 	 */
-	public RequestRecipeBookOpen(ByteBuffer buf, ClientThread client)
+	public RequestRecipeBookOpen(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
         isDwarvenCraft = (readD() == 0);

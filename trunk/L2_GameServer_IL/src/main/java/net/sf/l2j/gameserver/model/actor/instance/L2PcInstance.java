@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -133,7 +134,7 @@ import net.sf.l2j.gameserver.model.entity.events.VIP;
 import net.sf.l2j.gameserver.model.entity.faction.FactionMember;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
-import net.sf.l2j.gameserver.network.Connection;
+import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.recipes.manager.CraftManager;
 import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
@@ -151,6 +152,8 @@ import net.sf.l2j.gameserver.serverpackets.FriendList;
 import net.sf.l2j.gameserver.serverpackets.HennaInfo;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
+import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
+import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillCanceld;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -164,7 +167,6 @@ import net.sf.l2j.gameserver.serverpackets.PrivateStoreListSell;
 import net.sf.l2j.gameserver.serverpackets.QuestList;
 import net.sf.l2j.gameserver.serverpackets.RecipeShopSellList;
 import net.sf.l2j.gameserver.serverpackets.SendTradeDone;
-import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.ShortCutInit;
 import net.sf.l2j.gameserver.serverpackets.Snoop;
@@ -239,6 +241,25 @@ public final class L2PcInstance extends L2PlayableInstance
     public static final int STORE_PRIVATE_MANUFACTURE = 5;
     public static final int STORE_PRIVATE_PACKAGE_SELL = 8;
 
+    private final int RELATION_PVP_FLAG      = 0x00002; // pvp ???
+    private final int RELATION_HAS_KARMA     = 0x00004; // karma ???
+    private final int RELATION_UNKNOWN_1     = 0x00008; // ???
+    private final int RELATION_UNKNOWN_2     = 0x00010; // ???
+    private final int RELATION_UNKNOWN_3     = 0x00020; // siege flags ???
+    private final int RELATION_UNKNOWN_4     = 0x00040; // siege flags ???
+    private final int RELATION_UNKNOWN_5     = 0x00080; // siege flags ???
+    private final int RELATION_UNKNOWN_6     = 0x00100; // siege flags ???
+    private final int RELATION_UNKNOWN_7     = 0x00200; // siege flags ???
+    private final int RELATION_UNKNOWN_8     = 0x00400; // siege flags ???
+    private final int RELATION_UNKNOWN_9     = 0x00800; // siege flags ???
+    private final int RELATION_UNKNOWN_10    = 0x01000; // siege flags ???
+    private final int RELATION_UNKNOWN_11    = 0x02000; // ???
+    private final int RELATION_UNKNOWN_12    = 0x04000; // ???
+    private final int RELATION_MUTUAL_WAR    = 0x08000; // double fist
+    private final int RELATION_1SIDED_WAR    = 0x10000; // single fist
+    private final int RELATION_UNKNOWN_13    = 0x20000; // ???
+    private final int RELATION_UNKNOWN_14    = 0x40000; // ???    
+    
     /** The table containing all minimum level needed for each Expertise (None, D, C, B, A, S)*/
     private static final int[] EXPERTISE_LEVELS = {SkillTreeTable.getInstance().getExpertiseLevel(0), //NONE
                                                    SkillTreeTable.getInstance().getExpertiseLevel(1), //D
@@ -304,10 +325,12 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
-    private Connection _connection;
-
+    private L2GameClient _client;
+    
     private PcAppearance _appearance;
 
+    public final ReentrantLock _soulShotLock = new ReentrantLock();
+    
     /** The Identifier of the L2PcInstance */
     private int _charId = 0x00030b7a;
 
@@ -566,7 +589,6 @@ public final class L2PcInstance extends L2PlayableInstance
     private final L2BlockList _blockList = new L2BlockList();
     private final L2FriendList _friendList = new L2FriendList(this);
     
-    private boolean _isConnected = true;
 
     private boolean _fishing = false;
     private int _fishx = 0;
@@ -732,10 +754,31 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public String getAccountName()
     {
-        if (_connection == null) return "";
-        return _connection.getClient().getLoginName();
+        return getClient().getAccountName();
     }
 
+    public int getRelation(L2PcInstance target)
+    {
+        int result = 0;
+        
+        if (getPvpFlag() != 0)
+            result |= RELATION_PVP_FLAG;
+        
+        if (getKarma() > 0)
+            result |= RELATION_HAS_KARMA;
+        
+        if (getClan() != null && target.getClan() != null)
+        if (target.getPledgeType() != L2Clan.SUBUNIT_ACADEMY)
+                if (target.getClan().isAtWarWith(getClan().getClanId())) {
+                    result |= RELATION_1SIDED_WAR;
+                    if (getClan().isAtWarWith(target.getClan().getClanId()))
+                        result |= RELATION_MUTUAL_WAR;
+            }
+        
+        return result;
+    }
+        
+    
     public Map<Integer, String> getAccountChars()
     {
         return _chars;
@@ -3126,19 +3169,19 @@ public final class L2PcInstance extends L2PlayableInstance
  	}
     
     /**
-     * Return the active connection with the client.<BR><BR>
+     * Get the client owner of this char.<BR><BR>
      */
-    public Connection getNetConnection()
+    public L2GameClient getClient()
     {
-        return _connection;
+        return _client;
     }
 
     /**
      * Set the active connection with the client.<BR><BR>
      */
-    public void setNetConnection(Connection connection)
+    public void setClient(L2GameClient client)
     {
-        _connection = connection;
+        _client = client;
     }
 
     /**
@@ -3146,7 +3189,10 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void closeNetConnection()
     {
-        if (getNetConnection() != null) getNetConnection().close();
+        if (_client != null)
+        {
+           _client.close(new LeaveWorld());
+        }
     }
 
     /**
@@ -3448,8 +3494,13 @@ public final class L2PcInstance extends L2PlayableInstance
     /**
      * Send a Server->Client packet StatusUpdate to the L2PcInstance.<BR><BR>
      */
-    public void sendPacket(ServerBasePacket packet)
+    public void sendPacket(L2GameServerPacket packet)
     {
+        
+        if (_client != null)
+        {
+            _client.sendPacket(packet);
+        }        
         if (_isConnected)
         {
             try
@@ -5078,8 +5129,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void setAccountAccesslevel(int level)
     {
-        if (_connection != null) LoginServerThread.getInstance().sendAccessLevel(getAccountName(), level);
-        else _log.info("Couldnt set the player's account access level");
+        LoginServerThread.getInstance().sendAccessLevel(getAccountName(),level);
     }
 
     /**

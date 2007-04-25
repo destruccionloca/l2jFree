@@ -19,7 +19,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 
 /**
  * Format: (ch) dSdS
@@ -33,7 +33,7 @@ public class RequestPledgeReorganizeMember extends ClientBasePacket
 	 * @param buf
 	 * @param client
 	 */
-	public RequestPledgeReorganizeMember(ByteBuffer buf, ClientThread client)
+	public RequestPledgeReorganizeMember(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		// TODO get a cpature and get the definition

@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.exception.L2JFunctionnalException;
 import net.sf.l2j.gameserver.exception.clientpackets.MultiSellChooseException;
@@ -37,7 +37,7 @@ public class MultiSellChoose extends ClientBasePacket
     private int _enchantment;
     private int _transactionTax;    // local handling of taxation
     
-    public MultiSellChoose(ByteBuffer buf, ClientThread client)
+    public MultiSellChoose(ByteBuffer buf, L2GameClient client)
     {
         super(buf,client);
         _listId = readD();

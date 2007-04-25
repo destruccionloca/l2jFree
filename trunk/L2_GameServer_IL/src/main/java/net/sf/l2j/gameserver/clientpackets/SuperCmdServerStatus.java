@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 
 /**
  * Format ch
@@ -36,7 +36,7 @@ class SuperCmdServerStatus extends ClientBasePacket
 	 * @param buf
 	 * @param client
 	 */
-	protected SuperCmdServerStatus(ByteBuffer buf, ClientThread client)
+	protected SuperCmdServerStatus(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		// trigger packet

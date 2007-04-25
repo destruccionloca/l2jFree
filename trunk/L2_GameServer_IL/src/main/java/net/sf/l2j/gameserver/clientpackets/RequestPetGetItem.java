@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
@@ -41,7 +41,7 @@ public class RequestPetGetItem extends ClientBasePacket
 	
 	private final int _objectId;
 	
-	public RequestPetGetItem(ByteBuffer buf, ClientThread client)
+	public RequestPetGetItem(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_objectId = readD();

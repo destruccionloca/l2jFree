@@ -24,7 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
@@ -39,7 +39,7 @@ public class DlgAnswer extends ClientBasePacket
     private int _messageId;
     private int _answer, _unk;
     
-    public DlgAnswer(ByteBuffer buf, ClientThread client)
+    public DlgAnswer(ByteBuffer buf, L2GameClient client)
     {
         super(buf,client);
         _messageId = readD();

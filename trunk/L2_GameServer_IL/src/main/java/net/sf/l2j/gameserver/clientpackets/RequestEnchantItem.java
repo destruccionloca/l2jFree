@@ -3,7 +3,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.Inventory;
@@ -44,7 +44,7 @@ public class RequestEnchantItem extends ClientBasePacket
      * format:      cd
      * @param decrypt
      */
-    public RequestEnchantItem(ByteBuffer buf, ClientThread client)
+    public RequestEnchantItem(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _objectId = 0;

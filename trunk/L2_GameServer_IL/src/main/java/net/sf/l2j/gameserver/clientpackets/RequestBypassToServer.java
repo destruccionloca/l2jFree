@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.communitybbs.CommunityBoard;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
@@ -58,7 +58,7 @@ public class RequestBypassToServer extends ClientBasePacket
     /**
      * @param decrypt
      */
-    public RequestBypassToServer(ByteBuffer buf, ClientThread client)
+    public RequestBypassToServer(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _command = readS();

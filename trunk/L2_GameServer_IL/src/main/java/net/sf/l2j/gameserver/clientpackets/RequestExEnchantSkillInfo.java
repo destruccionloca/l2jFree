@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
 import net.sf.l2j.gameserver.model.L2EnchantSkillLearn;
@@ -51,7 +51,7 @@ public class RequestExEnchantSkillInfo extends ClientBasePacket
      * @param buf
      * @param client
      */
-    public RequestExEnchantSkillInfo(ByteBuffer buf, ClientThread client)
+    public RequestExEnchantSkillInfo(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _skillID = readD();

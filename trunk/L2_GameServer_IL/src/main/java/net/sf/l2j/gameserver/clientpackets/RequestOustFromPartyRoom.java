@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 
 /**
  * format (ch) d
@@ -37,7 +37,7 @@ public class RequestOustFromPartyRoom extends ClientBasePacket
 	 * @param buf
 	 * @param client
 	 */
-	public RequestOustFromPartyRoom(ByteBuffer buf, ClientThread client)
+	public RequestOustFromPartyRoom(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_id = readD();

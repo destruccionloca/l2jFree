@@ -22,7 +22,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.network.BasePacket;
 import net.sf.l2j.gameserver.network.Connection;
 
@@ -129,7 +129,7 @@ public abstract class ServerBasePacket extends BasePacket
 			try
 			{
 				if (_log.isDebugEnabled()) {
-					ClientThread client = getClient();
+					L2GameClient client = getClient();
 					_log.debug(getType()+" >>> "+(client==null?"null":client.getLoginName()));
 				}
 				writeImpl();

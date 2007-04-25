@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
@@ -49,7 +49,7 @@ public class RequestSocialAction extends ClientBasePacket
 	 * format:		cd
 	 * @param decrypt
 	 */
-	public RequestSocialAction(ByteBuffer buf, ClientThread client)
+	public RequestSocialAction(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_actionId  = readD();

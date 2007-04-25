@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 
 /**
@@ -32,7 +32,7 @@ public class RequestGmList extends ClientBasePacket
 {
 	private static final String _C__81_REQUESTGMLIST = "[C] 81 RequestGmList";
 
-	public RequestGmList(ByteBuffer buf, ClientThread client)
+	public RequestGmList(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 	}

@@ -2,7 +2,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -21,7 +21,7 @@ public class RequestSurrenderPledgeWar extends ClientBasePacket
     L2Clan _clan;
     L2PcInstance player;
     
-    public RequestSurrenderPledgeWar(ByteBuffer buf, ClientThread client)
+    public RequestSurrenderPledgeWar(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _pledgeName  = readS();

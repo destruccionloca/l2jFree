@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 
 /**
  * Format: (ch) d
@@ -35,7 +35,7 @@ public class AnswerJoinPartyRoom extends ClientBasePacket
      * @param buf
      * @param client
      */
-    public AnswerJoinPartyRoom(ByteBuffer buf, ClientThread client)
+    public AnswerJoinPartyRoom(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _requesterID = readD();

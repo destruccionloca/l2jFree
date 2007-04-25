@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 
 /**
  * This class ...
@@ -51,7 +51,7 @@ public class RequestPartyMatchConfig extends ClientBasePacket
 	 * format:		cdddS 
 	 * @param decrypt
 	 */
-	public RequestPartyMatchConfig(ByteBuffer buf, ClientThread client)
+	public RequestPartyMatchConfig(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_automaticRegistration    = readD();

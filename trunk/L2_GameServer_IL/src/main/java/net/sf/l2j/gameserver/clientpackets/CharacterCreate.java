@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.datatables.CharNameTable;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
@@ -74,7 +74,7 @@ public class CharacterCreate extends ClientBasePacket
 	/**
 	 * @param decrypt
 	 */
-	public CharacterCreate(ByteBuffer buf, ClientThread client)
+	public CharacterCreate(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		
@@ -145,7 +145,7 @@ public class CharacterCreate extends ClientBasePacket
 		initNewChar(getClient(), newChar);
 	}
 	
-	private void initNewChar(ClientThread client, L2PcInstance newChar)
+	private void initNewChar(L2GameClient client, L2PcInstance newChar)
 	{   
 		if (_log.isDebugEnabled()) _log.debug("Character init start");
 		L2World.getInstance().storeObject(newChar);
@@ -200,7 +200,7 @@ public class CharacterCreate extends ClientBasePacket
 				_log.debug("adding starter skill:" + startSkills[i].getId()+ " / "+ startSkills[i].getLevel());
 		}
 		
-		ClientThread.saveCharToDisk(newChar);
+		L2GameClient.saveCharToDisk(newChar);
 		newChar.deleteMe(); // release the world of this character and it's inventory
 		
 		// send char list

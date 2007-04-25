@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -38,7 +38,7 @@ public class ObserverReturn extends ClientBasePacket
 	/**
 	 * @param decrypt
 	 */
-	public ObserverReturn(ByteBuffer buf, ClientThread client)
+	public ObserverReturn(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		//_objectId  = readD();

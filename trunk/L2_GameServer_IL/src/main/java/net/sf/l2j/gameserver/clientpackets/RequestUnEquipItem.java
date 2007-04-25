@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
@@ -48,7 +48,7 @@ public class RequestUnEquipItem extends ClientBasePacket
 	 * format:		cd 
 	 * @param decrypt
 	 */
-	public RequestUnEquipItem(ByteBuffer buf, ClientThread client)
+	public RequestUnEquipItem(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_slot = readD();

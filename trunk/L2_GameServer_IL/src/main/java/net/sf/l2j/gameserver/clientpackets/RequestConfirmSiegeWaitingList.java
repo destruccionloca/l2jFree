@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -42,7 +42,7 @@ public class RequestConfirmSiegeWaitingList extends ClientBasePacket{
     private final int _CastleId;
     private final int _ClanId;
     
-    public RequestConfirmSiegeWaitingList(ByteBuffer buf, ClientThread client)
+    public RequestConfirmSiegeWaitingList(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _CastleId = readD();

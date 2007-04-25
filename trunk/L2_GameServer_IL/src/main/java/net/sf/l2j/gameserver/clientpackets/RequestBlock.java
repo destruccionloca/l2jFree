@@ -2,7 +2,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2BlockList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -26,7 +26,7 @@ public class RequestBlock extends ClientBasePacket
    private Integer _type;
    private L2PcInstance _target;
    
-   public RequestBlock(ByteBuffer buf, ClientThread client)
+   public RequestBlock(ByteBuffer buf, L2GameClient client)
    {
        super(buf, client);
        _type = readD(); //0x00 - block, 0x01 - unblock, 0x03 - allblock, 0x04 - allunblock

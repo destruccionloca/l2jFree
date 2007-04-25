@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.SkillSpellbookTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
@@ -55,7 +55,7 @@ public class RequestAquireSkillInfo extends ClientBasePacket
      * 
      * @param rawPacket
      */
-    public RequestAquireSkillInfo(ByteBuffer buf, ClientThread client)
+    public RequestAquireSkillInfo(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _id = readD();

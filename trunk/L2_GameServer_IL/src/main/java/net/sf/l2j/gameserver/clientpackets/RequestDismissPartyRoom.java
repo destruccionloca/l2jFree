@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,7 +41,7 @@ public class RequestDismissPartyRoom extends ClientBasePacket
 	 * @param buf
 	 * @param client
 	 */
-	public RequestDismissPartyRoom(ByteBuffer buf, ClientThread client)
+	public RequestDismissPartyRoom(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_data1 = readD();

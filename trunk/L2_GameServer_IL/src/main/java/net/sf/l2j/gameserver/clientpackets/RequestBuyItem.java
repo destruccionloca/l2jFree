@@ -22,7 +22,7 @@ import java.nio.ByteBuffer;
 import javolution.util.FastList;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
@@ -75,7 +75,7 @@ public class RequestBuyItem extends ClientBasePacket
      * format:      cdd (dd) 
      * @param decrypt
      */
-    public RequestBuyItem(ByteBuffer buf, ClientThread client)
+    public RequestBuyItem(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _listId = readD();

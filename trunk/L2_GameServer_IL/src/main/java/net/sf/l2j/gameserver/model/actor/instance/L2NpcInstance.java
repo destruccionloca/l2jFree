@@ -24,7 +24,7 @@ import java.util.StringTokenizer;
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
@@ -639,7 +639,7 @@ public class L2NpcInstance extends L2Character
      * @param client The thread that manage the player that pessed Shift and click on the L2NpcInstance
      * 
      */
-    public void onActionShift(ClientThread client)
+    public void onActionShift(L2GameClient client)
     {
         // Get the L2PcInstance corresponding to the thread
         L2PcInstance player = client.getActiveChar();

@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreMsgBuy;
 
@@ -35,7 +35,7 @@ public class SetPrivateStoreMsgBuy extends ClientBasePacket{
 	
 	private final String _storeMsg;
 	
-	public SetPrivateStoreMsgBuy(ByteBuffer buf, ClientThread client)
+	public SetPrivateStoreMsgBuy(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_storeMsg = readS();

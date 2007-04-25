@@ -382,7 +382,7 @@ public class LoginServerThread extends Thread
 		}
 	}
 
-	public void addWaitingClientAndSendRequest(String acc, ClientThread client, SessionKey key)
+	public void addWaitingClientAndSendRequest(String acc, L2GameClient client, SessionKey key)
 	{
 		if (_log.isDebugEnabled()) _log.debug(key);
 		WaitingClient wc = new WaitingClient(acc, client, key);
@@ -402,7 +402,7 @@ public class LoginServerThread extends Thread
 		}
 	}
 
-	public void removeWaitingClient(ClientThread client)
+	public void removeWaitingClient(L2GameClient client)
 	{
        WaitingClient toRemove = null;
        synchronized(_waitingClients)
@@ -620,10 +620,10 @@ public class LoginServerThread extends Thread
 	{
 		public int timestamp;
 		public String account;
-		public ClientThread clientThread;
+		public L2GameClient clientThread;
 		public SessionKey session;
 
-		public WaitingClient(String acc, ClientThread client, SessionKey key)
+		public WaitingClient(String acc, L2GameClient client, SessionKey key)
 		{
 			account = acc;
 			timestamp = GameTimeController.getGameTicks();

@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 
 /**
  * Format: (ch)
@@ -36,7 +36,7 @@ public class RequestListPartyMatchingWaitingRoom extends ClientBasePacket
      * @param buf
      * @param client
      */
-    public RequestListPartyMatchingWaitingRoom(ByteBuffer buf, ClientThread client)
+    public RequestListPartyMatchingWaitingRoom(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
     }

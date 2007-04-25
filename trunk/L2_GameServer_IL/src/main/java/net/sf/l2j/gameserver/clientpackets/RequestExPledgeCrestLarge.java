@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.serverpackets.ExPledgeCrestLarge;
 
@@ -43,7 +43,7 @@ public class RequestExPledgeCrestLarge extends ClientBasePacket
 	 * @param buf
 	 * @param client
 	 */
-	public RequestExPledgeCrestLarge(ByteBuffer buf, ClientThread client)
+	public RequestExPledgeCrestLarge(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_crestId = readD();

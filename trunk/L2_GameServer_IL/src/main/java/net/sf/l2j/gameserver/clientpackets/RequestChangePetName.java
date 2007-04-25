@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.PetNameTable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Summon;
@@ -40,7 +40,7 @@ public class RequestChangePetName extends ClientBasePacket{
 	
 	private final String _name;
 	
-	public RequestChangePetName(ByteBuffer buf, ClientThread client)
+	public RequestChangePetName(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_name = readS();

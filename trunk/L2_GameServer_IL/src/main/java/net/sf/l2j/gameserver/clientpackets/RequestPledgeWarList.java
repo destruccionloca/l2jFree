@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.PledgeReceiveWarList;
 
@@ -38,7 +38,7 @@ public class RequestPledgeWarList extends ClientBasePacket
      * @param buf
      * @param client
      */
-    public RequestPledgeWarList(ByteBuffer buf, ClientThread client)
+    public RequestPledgeWarList(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _unk1 = readD();

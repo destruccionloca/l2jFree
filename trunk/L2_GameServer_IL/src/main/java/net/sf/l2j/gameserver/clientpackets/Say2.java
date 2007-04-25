@@ -22,7 +22,7 @@ import java.nio.ByteBuffer;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
@@ -91,7 +91,7 @@ public class Say2 extends ClientBasePacket
      * format:      cSd (S)
      * @param decrypt
      */
-    public Say2(ByteBuffer buf, ClientThread client)
+    public Say2(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _text = readS();

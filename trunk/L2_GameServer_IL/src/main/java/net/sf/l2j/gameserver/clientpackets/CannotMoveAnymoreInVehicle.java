@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.StopMoveInVehicle;
 import net.sf.l2j.tools.geometry.Point3D;
@@ -40,7 +40,7 @@ public class CannotMoveAnymoreInVehicle extends ClientBasePacket
 	 * @param buf
 	 * @param client
 	 */
-	public CannotMoveAnymoreInVehicle(ByteBuffer buf, ClientThread client)
+	public CannotMoveAnymoreInVehicle(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_boatid = readD();

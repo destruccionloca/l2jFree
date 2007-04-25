@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.serverpackets.PledgeReceivePowerInfo;
@@ -41,7 +41,7 @@ public class RequestPledgeMemberPowerInfo extends ClientBasePacket
 	private final int _not_known;
     private final String _target;
 	
-	public RequestPledgeMemberPowerInfo(ByteBuffer buf, ClientThread client)
+	public RequestPledgeMemberPowerInfo(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
         _not_known  = readD();

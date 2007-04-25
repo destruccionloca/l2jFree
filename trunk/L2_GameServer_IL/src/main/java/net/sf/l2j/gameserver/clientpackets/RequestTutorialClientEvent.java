@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 
 /*
  * events:
@@ -47,7 +47,7 @@ public class RequestTutorialClientEvent extends ClientBasePacket
     private static final String _C__7E_REQUESTTUTORIALCLIENTEVENT = "[C] 7E RequestTutorialClientEvent";
     private int _event;
     
-    public RequestTutorialClientEvent(ByteBuffer buf, ClientThread client)
+    public RequestTutorialClientEvent(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _event = readC(); // event

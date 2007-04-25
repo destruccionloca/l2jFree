@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.instancemanager.BoatManager;
@@ -44,7 +44,7 @@ public class RequestMoveToLocationInVehicle extends ClientBasePacket
 	 * @param buf
 	 * @param client
 	 */
-	public RequestMoveToLocationInVehicle(ByteBuffer buf, ClientThread client)
+	public RequestMoveToLocationInVehicle(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		int _x, _y, _z;

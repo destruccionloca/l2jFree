@@ -2,7 +2,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
@@ -20,7 +20,7 @@ public class RequestRecipeBookDestroy extends ClientBasePacket
     * Unknown Packet:ad
     * 0000: ad 02 00 00 00
     */
-    public RequestRecipeBookDestroy(ByteBuffer buf, ClientThread client)
+    public RequestRecipeBookDestroy(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
 

@@ -24,7 +24,7 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Announcements;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSigns;
@@ -95,7 +95,7 @@ public class EnterWorld extends ClientBasePacket
 	/**
 	 * @param decrypt
 	 */
-	public EnterWorld(ByteBuffer buf, ClientThread client)
+	public EnterWorld(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		// this is just a trigger packet. it has no content

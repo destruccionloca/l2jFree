@@ -22,7 +22,7 @@ import java.nio.ByteBuffer;
 import java.util.Map;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
@@ -63,7 +63,7 @@ public class RequestActionUse extends ClientBasePacket
      * format:      cddc
      * @param rawPacket
      */
-    public RequestActionUse(ByteBuffer buf, ClientThread client)
+    public RequestActionUse(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _actionId     = readD();

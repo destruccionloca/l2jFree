@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListDelete;
@@ -36,7 +36,7 @@ public class RequestWithdrawalPledge extends ClientBasePacket
 {
 	private static final String _C__26_REQUESTWITHDRAWALPLEDGE = "[C] 26 RequestWithdrawalPledge";
 
-	public RequestWithdrawalPledge(ByteBuffer buf, ClientThread client)
+	public RequestWithdrawalPledge(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 	}

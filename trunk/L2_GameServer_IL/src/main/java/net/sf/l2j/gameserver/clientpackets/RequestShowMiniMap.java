@@ -20,7 +20,7 @@
 
  import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ShowMiniMap;
  /**
@@ -36,7 +36,7 @@ public class RequestShowMiniMap extends ClientBasePacket
 	private static final String _C__cd_REQUESTSHOWMINIMAP = "[C] cd RequestShowMiniMap";
 	/**
 	 */
-	public RequestShowMiniMap(ByteBuffer buf, ClientThread client)
+	public RequestShowMiniMap(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 	}

@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
@@ -51,7 +51,7 @@ public class Logout extends ClientBasePacket
     /**
      * @param decrypt
      */
-    public Logout(ByteBuffer buf, ClientThread client)
+    public Logout(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         // this is just a trigger packet. it has no content
@@ -154,7 +154,7 @@ public class Logout extends ClientBasePacket
         player.deleteMe();
 
         //save character
-        ClientThread.saveCharToDisk(player);
+        L2GameClient.saveCharToDisk(player);
         
         // normally the server would send serveral "delete object" before "leaveWorld"
         // we skip that for now

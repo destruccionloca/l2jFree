@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ItemTable;
@@ -92,7 +92,7 @@ public class RequestWearItem extends ClientBasePacket
      * Decrypt the RequestWearItem Client->Server Packet and Create _items table containing all ItemID to Wear.<BR><BR>
      * 
      */
-    public RequestWearItem(ByteBuffer buf, ClientThread client)
+    public RequestWearItem(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         

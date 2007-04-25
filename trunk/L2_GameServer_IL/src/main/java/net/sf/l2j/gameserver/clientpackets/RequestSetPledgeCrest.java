@@ -23,7 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.idfactory.BitSetIDFactory;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -46,7 +46,7 @@ public class RequestSetPledgeCrest extends ClientBasePacket
 	private final int _length;
 	private final byte[] _data;
 	
-	public RequestSetPledgeCrest(ByteBuffer buf, ClientThread client)
+	public RequestSetPledgeCrest(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_length  = readD();

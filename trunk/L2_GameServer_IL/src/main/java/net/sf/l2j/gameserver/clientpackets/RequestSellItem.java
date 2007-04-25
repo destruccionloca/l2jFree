@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -71,7 +71,7 @@ public class RequestSellItem extends ClientBasePacket
 	 * format:		cdd (ddd)
 	 * @param decrypt
 	 */
-	public RequestSellItem(ByteBuffer buf, ClientThread client)
+	public RequestSellItem(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_listId = readD();

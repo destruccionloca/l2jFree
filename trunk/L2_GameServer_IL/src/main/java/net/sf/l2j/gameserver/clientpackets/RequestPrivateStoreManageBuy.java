@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreManageListBuy;
@@ -35,7 +35,7 @@ public class RequestPrivateStoreManageBuy extends ClientBasePacket{
 	//private final static Log _log = LogFactory.getLog(RequestPrivateStoreBuyManage.class.getName());
 	
 	
-	public RequestPrivateStoreManageBuy(ByteBuffer buf, ClientThread client)
+	public RequestPrivateStoreManageBuy(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 	}

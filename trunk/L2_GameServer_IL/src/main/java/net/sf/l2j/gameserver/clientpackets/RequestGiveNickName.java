@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -43,7 +43,7 @@ public class RequestGiveNickName extends ClientBasePacket
 	private String _target;
 	private final String _title;
 	
-	public RequestGiveNickName(ByteBuffer buf, ClientThread client)
+	public RequestGiveNickName(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_target = readS();

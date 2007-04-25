@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
@@ -64,7 +64,7 @@ public class MoveBackwardToLocation extends ClientBasePacket
      * packet type id 0x01
      * @param decrypt
      */
-    public MoveBackwardToLocation(ByteBuffer buf, ClientThread client)
+    public MoveBackwardToLocation(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _targetX  = readD();

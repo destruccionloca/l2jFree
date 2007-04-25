@@ -5,7 +5,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
@@ -22,7 +22,7 @@ public class RequestLinkHtml extends ClientBasePacket
 	private static final String REQUESTLINKHTML__C__20 = "[C] 20 RequestLinkHtml";
 	private String _link;
 
-	public RequestLinkHtml(ByteBuffer buf, ClientThread client)
+	public RequestLinkHtml(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf,client);
 	}

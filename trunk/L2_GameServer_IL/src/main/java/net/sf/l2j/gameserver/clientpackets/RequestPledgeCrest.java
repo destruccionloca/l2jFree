@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.serverpackets.PledgeCrest;
 
@@ -44,7 +44,7 @@ public class RequestPledgeCrest extends ClientBasePacket
 	 * 
 	 * @param rawPacket
 	 */
-	public RequestPledgeCrest(ByteBuffer buf, ClientThread client)
+	public RequestPledgeCrest(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_crestId = 0;

@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -34,7 +34,7 @@ public class RequestDismissAlly extends ClientBasePacket
 	private static final String _C__86_REQUESTDISMISSALLY = "[C] 86 RequestDismissAlly";
 	//static Logger _log = Logger.getLogger(RequestDismissAlly.class.getName());
 
-	public RequestDismissAlly(ByteBuffer buf, ClientThread client)
+	public RequestDismissAlly(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 	}

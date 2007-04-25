@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -52,7 +52,7 @@ public class RequestRecordInfo extends ClientBasePacket
     /** urgent messages, execute immediatly */
     public TaskPriority getPriority() { return TaskPriority.PR_NORMAL; }
 
-    public RequestRecordInfo(ByteBuffer buf, ClientThread client)
+    public RequestRecordInfo(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
     }

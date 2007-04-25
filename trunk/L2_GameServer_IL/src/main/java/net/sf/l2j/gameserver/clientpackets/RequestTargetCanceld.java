@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2Character;
 
 /**
@@ -40,7 +40,7 @@ public class RequestTargetCanceld extends ClientBasePacket
 	 * packet format rev656  ch
 	 * @param rawPacket
 	 */
-	public RequestTargetCanceld(ByteBuffer buf, ClientThread client)
+	public RequestTargetCanceld(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
         _unselect = readH();

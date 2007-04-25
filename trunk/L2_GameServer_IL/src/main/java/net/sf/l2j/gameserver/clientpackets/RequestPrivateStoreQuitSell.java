@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -33,7 +33,7 @@ public class RequestPrivateStoreQuitSell extends ClientBasePacket
 	private static final String _C__76_REQUESTPRIVATESTOREQUITSELL = "[C] 76 RequestPrivateStoreQuitSell";
 	//private final static Log _log = LogFactory.getLog(RequestPrivateStoreQuitSell.class.getName());
 	
-	public RequestPrivateStoreQuitSell(ByteBuffer buf, ClientThread client)
+	public RequestPrivateStoreQuitSell(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 	}

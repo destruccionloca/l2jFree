@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.PartyMatchDetail;
@@ -50,7 +50,7 @@ public class RequestPartyMatchDetail extends ClientBasePacket
 	 * packet format rev650  	cdd
 	 * @param decrypt
 	 */
-	public RequestPartyMatchDetail(ByteBuffer buf, ClientThread client)
+	public RequestPartyMatchDetail(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_objectId = readD();

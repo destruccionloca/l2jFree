@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Clan.RankPrivs;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -35,7 +35,7 @@ public class RequestPledgePowerGradeList extends ClientBasePacket
     static Log _log = LogFactory.getLog(ManagePledgePower.class.getName());
     private static final String _C__C0_REQUESTPLEDGEPOWER = "[C] C0 RequestPledgePowerGradeList";
     
-    public RequestPledgePowerGradeList(ByteBuffer buf, ClientThread client)
+    public RequestPledgePowerGradeList(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         //_log.warn("plegdepowergradelist send, requested");

@@ -40,7 +40,7 @@ import java.util.StringTokenizer;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.Shutdown;
@@ -422,7 +422,7 @@ public class GameStatusThread extends Thread
                         {
                             player.sendMessage("You are kicked by gm");
                             try {
-                                ClientThread.saveCharToDisk(player);
+                                L2GameClient.saveCharToDisk(player);
                                 player.sendPacket(new LeaveWorld());
                                 player.deleteMe();
                                 player.logout();

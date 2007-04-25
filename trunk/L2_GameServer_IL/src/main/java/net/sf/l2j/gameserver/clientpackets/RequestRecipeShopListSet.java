@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2ManufactureItem;
 import net.sf.l2j.gameserver.model.L2ManufactureList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -37,7 +37,7 @@ public class RequestRecipeShopListSet extends ClientBasePacket{
 	
 	private final int _count;
 	private final int[] _items; // count*2
-	public RequestRecipeShopListSet(ByteBuffer buf, ClientThread client)
+	public RequestRecipeShopListSet(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_count = readD();

@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.TradeList;
@@ -49,7 +49,7 @@ public class AddTradeItem extends ClientBasePacket
     private final int _objectId;
     private final int _count;
 
-    public AddTradeItem(ByteBuffer buf, ClientThread client)
+    public AddTradeItem(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _tradeId = readD();

@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.StopRotation;
 
 /**
@@ -48,7 +48,7 @@ public class FinishRotating extends ClientBasePacket
 	 * format:		cdd
 	 * @param decrypt
 	 */
-	public FinishRotating(ByteBuffer buf, ClientThread client)
+	public FinishRotating(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_degree = readD();

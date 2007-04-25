@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -49,7 +49,7 @@ public class RequestJoinParty extends ClientBasePacket
 	private final String _name;
 	private final int _itemDistribution;
 
-    public RequestJoinParty(ByteBuffer buf, ClientThread client)
+    public RequestJoinParty(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 

@@ -2,7 +2,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
@@ -27,7 +27,7 @@ public class RequestPetUseItem extends ClientBasePacket
      * format:      cd
      * @param decrypt
      */
-    public RequestPetUseItem(ByteBuffer buf, ClientThread client)
+    public RequestPetUseItem(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _objectId = readD();

@@ -22,7 +22,7 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
@@ -57,7 +57,7 @@ public class UseItem extends ClientBasePacket
      * format:      cd
      * @param decrypt
      */
-    public UseItem(ByteBuffer buf, ClientThread client)
+    public UseItem(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _objectId = readD();

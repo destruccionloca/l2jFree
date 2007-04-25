@@ -5,7 +5,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,7 +20,7 @@ public class DummyPacket extends ClientBasePacket
 	
 	private int _packetId;
 	
-	public DummyPacket(ByteBuffer buf, ClientThread client, int packetId)
+	public DummyPacket(ByteBuffer buf, L2GameClient client, int packetId)
 	{
 		super(buf,client);
 		_packetId = packetId;

@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -44,7 +44,7 @@ public class RequestPetition extends ClientBasePacket
 	private final String _content;
 	private final int _type;       // 1 = on : 0 = off;
 
-	public RequestPetition(ByteBuffer buf, ClientThread client)
+	public RequestPetition(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_content = readS();

@@ -23,7 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.idfactory.BitSetIDFactory;
@@ -48,7 +48,7 @@ public class RequestSetAllyCrest extends ClientBasePacket
     
     private final byte[] _data;
     
-    public RequestSetAllyCrest(ByteBuffer buf, ClientThread client)
+    public RequestSetAllyCrest(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _length  = readD();

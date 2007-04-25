@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -48,7 +48,7 @@ public class AttackRequest extends ClientBasePacket
 	/**
 	 * @param decrypt
 	 */
-	public AttackRequest(ByteBuffer buf, ClientThread client)
+	public AttackRequest(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		

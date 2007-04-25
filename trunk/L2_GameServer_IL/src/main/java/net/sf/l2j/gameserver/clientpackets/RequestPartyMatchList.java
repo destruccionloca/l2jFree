@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 import java.util.Collection;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.PartyMatchList;
@@ -62,7 +62,7 @@ public class RequestPartyMatchList extends ClientBasePacket
 	 * format:		cd 
 	 * @param decrypt
 	 */
-	public RequestPartyMatchList(ByteBuffer buf, ClientThread client)
+	public RequestPartyMatchList(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_status = readD();

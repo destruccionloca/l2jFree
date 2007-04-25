@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2Macro;
 import net.sf.l2j.gameserver.model.L2Macro.L2MacroCmd;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -60,7 +60,7 @@ public class RequestMakeMacro extends ClientBasePacket
 	 * format:		cdSSScc (ccdcS)
 	 * @param decrypt
 	 */
-	public RequestMakeMacro(ByteBuffer buf, ClientThread client)
+	public RequestMakeMacro(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		int _id = readD();

@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Party;
@@ -51,7 +51,7 @@ public class RequestRestart extends ClientBasePacket
      * format:      c
      * @param decrypt
      */
-    public RequestRestart(ByteBuffer buf, ClientThread client)
+    public RequestRestart(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
     }
@@ -154,7 +154,7 @@ public class RequestRestart extends ClientBasePacket
         player.getInventory().updateDatabase();
         player.deleteMe();
 
-        ClientThread.saveCharToDisk(getClient().getActiveChar());
+        L2GameClient.saveCharToDisk(getClient().getActiveChar());
 
         RestartResponse response = new RestartResponse();
         sendPacket(response);    

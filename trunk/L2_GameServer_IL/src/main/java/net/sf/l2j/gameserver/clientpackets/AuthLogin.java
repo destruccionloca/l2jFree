@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.LoginServerThread.SessionKey;
@@ -52,7 +52,7 @@ public class AuthLogin extends ClientBasePacket
 	/**
 	 * @param decrypt
 	 */
-	public AuthLogin(ByteBuffer buf, ClientThread client)
+	public AuthLogin(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 
@@ -75,7 +75,7 @@ public class AuthLogin extends ClientBasePacket
 			_log.info("key:" + key);
 		}
 		
-		ClientThread client = getClient();
+		L2GameClient client = getClient();
         //This packet could be send again (by stupid cheaters) - so GS should wait till LS will confirm again
         client.setAuthed(false);
 		client.setLoginName(_loginName);

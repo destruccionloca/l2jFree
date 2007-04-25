@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
@@ -58,7 +58,7 @@ public class RequestRestartPoint extends ClientBasePacket
      * format:		c
      * @param decrypt
      */
-    public RequestRestartPoint(ByteBuffer buf, ClientThread client)
+    public RequestRestartPoint(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         requestedPointType = readD();

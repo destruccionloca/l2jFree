@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
@@ -40,7 +40,7 @@ public class RequestJoinSiege extends ClientBasePacket{
     private final int _IsAttacker;
     private final int _IsJoining;
     
-    public RequestJoinSiege(ByteBuffer buf, ClientThread client)
+    public RequestJoinSiege(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _CastleId = readD();

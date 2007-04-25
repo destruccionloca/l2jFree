@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
@@ -49,7 +49,7 @@ public class RequestPrivateStoreSell extends ClientBasePacket
     private int _price;
     private ItemRequest[] _items;
     
-    public RequestPrivateStoreSell (ByteBuffer buf, ClientThread client)
+    public RequestPrivateStoreSell (ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _storePlayerId = readD();

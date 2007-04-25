@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -49,7 +49,7 @@ public class RequestMagicSkillUse extends ClientBasePacket
 	 * format:		cddc
 	 * @param rawPacket
 	 */
-	public RequestMagicSkillUse(ByteBuffer buf, ClientThread client)
+	public RequestMagicSkillUse(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
         

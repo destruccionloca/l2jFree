@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.quest.Quest;
@@ -46,7 +46,7 @@ public class RequestQuestAbort extends ClientBasePacket
     /**
      * packet type id 0x64<p>
      */
-    public RequestQuestAbort(ByteBuffer buf, ClientThread client)
+    public RequestQuestAbort(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
         _QuestID = readD();

@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.QuestList;
 
 /**
@@ -38,7 +38,7 @@ public class RequestQuestList extends ClientBasePacket
      * format:      c<p>
      * @param decrypt
      */
-    public RequestQuestList(ByteBuffer buf, ClientThread client)
+    public RequestQuestList(ByteBuffer buf, L2GameClient client)
     {
         super(buf, client);
     }

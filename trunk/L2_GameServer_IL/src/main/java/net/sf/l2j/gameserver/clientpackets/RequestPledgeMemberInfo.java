@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.serverpackets.PledgeReceiveMemberInfo;
@@ -37,7 +37,7 @@ public class RequestPledgeMemberInfo extends ClientBasePacket
     private final int _pledgeType;
     private final String _target;
 	
-	public RequestPledgeMemberInfo(ByteBuffer buf, ClientThread client)
+	public RequestPledgeMemberInfo(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
         _pledgeType  = readD();

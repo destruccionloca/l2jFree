@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.GMAudit;
@@ -41,7 +41,7 @@ public class SendBypassBuildCmd extends ClientBasePacket
 
 	private final String _command;
 	
-	public SendBypassBuildCmd(ByteBuffer buf, ClientThread client)
+	public SendBypassBuildCmd(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_command = readS();

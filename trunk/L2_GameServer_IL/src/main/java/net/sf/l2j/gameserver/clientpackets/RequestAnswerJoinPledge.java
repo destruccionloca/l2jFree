@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.ClientThread;
+import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.JoinPledge;
@@ -41,7 +41,7 @@ public class RequestAnswerJoinPledge extends ClientBasePacket
 
 	private final int _answer;
 
-	public RequestAnswerJoinPledge(ByteBuffer buf, ClientThread client)
+	public RequestAnswerJoinPledge(ByteBuffer buf, L2GameClient client)
 	{
 		super(buf, client);
 		_answer  = readD();
