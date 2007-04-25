@@ -1,0 +1,2 @@
+-- use INSERT INTO `npc` if you dont have l2jfree server
+INSERT INTO `custom_npc` VALUES ('7099', '25522', 'GM Shop', '1', '{Your NPC Title}', '1', 'NPC.a_traderA_FHuman', '20.00', '25.00', '70', 'male', 'L2Merchant', '40', '3862', '1493', '13.43', '3.09', '40', '43', '30', '21', '35', '10', '0', '0', '1314', '470', '780', '382', '278', '0', '253', '0', '0', '0', '80', '120', null, '0', '0', '0');

@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "skills.dtd">
+<list>
+<!-- Done by KID -->
+<skill id="5000" levels="1" name="Alfred - Super Strike">
+  <set name="mpConsume" val="108"/>
+  <set name="hitTime" val="2000"/>
+  <set name="skillTime" val="2000"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1000"/>
+</skill>
+
+<skill id="5001" levels="1" name="Alfred - Life Drain">
+  <set name="mpConsume" val="108"/>
+  <set name="hitTime" val="2500"/>
+  <set name="skillTime" val="2500"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="750"/>
+</skill>
+
+<skill id="5002" levels="1" name="Giselle - Vampiric Rage">
+  <set name="mpConsume" val="49"/>
+  <set name="hitTime" val="2000"/>
+  <set name="skillTime" val="2000"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5003" levels="1" name="Giselle - Tempest">
+  <set name="mpConsume" val="108"/>
+  <set name="hitTime" val="5000"/>
+  <set name="skillTime" val="5000"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="500"/>
+</skill>
+
+<skill id="5004" levels="1" name="Dimensional Shock">
+  <set name="hitTime" val="5800"/>
+  <set name="skillTime" val="5800"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5005" levels="1" name="Frintessa Pause">
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="900"/>
+</skill>
+
+<skill id="5006" levels="1" name="Frintessa Music">
+  <set name="hitTime" val="34000"/>
+  <set name="skillTime" val="34000"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5007" levels="5" name="Frintessa Heal Music">
+<!-- skill_lvl:
+	1. Frintessa Heal Music
+	2. Frintessa Rampage Music
+	3. Frintessa Power Music
+	4. Frintessa Plague Music
+	5. Frintessa Psycho Music -->
+  <table name="#shTime"> 32000 32000 32000 31000 35000 </table>
+  <set name="hitTime" val="#shTime"/>
+  <set name="skillTime" val="#shTime"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5008" levels="5" name="Frintessa AreaData Heal">
+<!-- skill_lvl:
+	1. Frintessa AreaData Heal
+	2. Frintessa AreaData Rampage
+	3. Frintessa AreaData Power
+	4. Performance of Despair
+	5. Performance of Chaos -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5009" levels="1" name="Frintessa Ghost Fighter">
+  <set name="hitTime" val="2500"/>
+  <set name="skillTime" val="2500"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="150"/>
+</skill>
+
+<skill id="5010" levels="1" name="Frintessa Ghost Mage">
+  <set name="hitTime" val="2500"/>
+  <set name="skillTime" val="2500"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="500"/>
+</skill>
+
+<skill id="5011" levels="1" name="Frintezza Ghost Bomb">
+  <set name="hitTime" val="1000"/>
+  <set name="skillTime" val="1000"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5012" levels="1" name="Frintessa Ghost Bomb">
+  <set name="hitTime" val="1500"/>
+  <set name="skillTime" val="1500"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+</skill>
+
+<skill id="5013" levels="1" name="Frintessa Ghost Drain">
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+</skill>
+
+<skill id="5014" levels="3" name="Frintessa Daemon Attack">
+  <set name="hitTime" val="1290"/>
+  <set name="skillTime" val="1290"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="150"/>
+</skill>
+
+<skill id="5015" levels="6" name="Frintessa Daemon Charge">
+  <set name="hitTime" val="1500"/>
+  <set name="skillTime" val="1500"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="150"/>
+</skill>
+
+<skill id="5016" levels="6" name="Yoke of Scarlet">
+  <set name="hitTime" val="3000"/>
+  <set name="skillTime" val="3000"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="500"/>
+</skill>
+
+<skill id="5017" levels="1" name="Frintessa Daemon Morph">
+  <set name="hitTime" val="2000"/>
+  <set name="skillTime" val="2000"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5018" levels="2" name="Frintessa Daemon Field">
+  <set name="hitTime" val="7000"/>
+  <set name="skillTime" val="7000"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5019" levels="1" name="Frintessa Daemon Drain">
+  <set name="hitTime" val="6000"/>
+  <set name="skillTime" val="6000"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5020" levels="1" name="Forced Action">
+  <set name="hitTime" val="2000"/>
+  <set name="skillTime" val="2000"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="400"/>
+</skill>
+
+<skill id="5021" levels="12" name="Inspiration of Einhasad">
+  <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="hitTime" val="3200"/>
+  <set name="skillTime" val="3200"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="400"/>
+</skill>
+
+<skill id="5022" levels="12" name="Decrease Speed">
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+</skill>
+
+<skill id="5023" levels="12" name="Hold">
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+</skill>
+
+<skill id="5024" levels="12" name="Decrease Atk.Speed">
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+</skill>
+
+<skill id="5025" levels="1" name="Raid Boss - Level 30">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5026" levels="1" name="Raid Boss - Level 39">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5027" levels="1" name="Raid Boss - Level 37">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5028" levels="1" name="Raid Boss - Level 53">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5029" levels="1" name="Raid Boss - Level 52">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5030" levels="1" name="Raid Boss - Level 59">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5031" levels="1" name="Raid Boss - Level 80">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5032" levels="1" name="Raid Boss - Level 87">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5033" levels="1" name="Raid Boss - Level 87">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5034" levels="1" name="Raid Boss - Level 73">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5035" levels="1" name="Raid Boss - Level 76">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5036" levels="1" name="Raid Boss - Level 60">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5037" levels="3" name="Decrease Casting Speed">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5038" levels="1" name="Summon PVP Penalty">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5039" levels="1" name="NPC - Ultra Bomb">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5040" levels="12" name="NPC - Healing Potion">
+  <table name="#mpConsume"> 2 2 2 2 2 2 2 242 252 259 262 262 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+</skill>
+
+<skill id="5041" levels="1" name="Charm of Courage">
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5042" levels="12" name="NPC Dispel Bomb">
+  <table name="#mpConsume"> 21 33 47 64 82 101 118 126 133 137 140 142 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5043" levels="12" name="NPC Super Sonic Blaster">
+  <table name="#mpConsume"> 7 11 16 22 28 34 40 42 45 46 47 48 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="1890"/>
+  <set name="hitTime" val="1890"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+</skill>
+
+<skill id="5044" levels="2" name="NPC Ultimate Defence">
+  <table name="#mpConsume"> 10 21 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="1000"/>
+  <set name="hitTime" val="1000"/>  
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5045" levels="12" name="Castle Power Strike">
+  <table name="#mpConsume"> 43 48 55 61 68 73 79 84 89 92 94 95 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="2000"/>
+  <set name="hitTime" val="2000"/>  
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+</skill>
+
+<skill id="5046" levels="12" name="Castle Power Shot">
+  <table name="#mpConsume"> 85 95 109 121 135 145 157 168 177 183 187 189 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5047" levels="12" name="Castle Spinning Slasher">
+  <table name="#mpConsume"> 43 48 55 61 68 73 79 84 89 92 94 95 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5048" levels="12" name="Castle Burst Shot">
+  <table name="#mpConsume"> 127 143 164 181 202 218 236 252 265 274 280 283 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5049" levels="12" name="Castle Blow">
+  <table name="#mpConsume"> 43 48 55 61 68 73 79 84 89 92 94 95 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="2000"/>
+  <set name="hitTime" val="2000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+</skill>
+
+<skill id="5050" levels="12" name="Castle DD Fire">
+  <table name="#mpConsume"> 36 39 45 50 55 60 65 69 73 75 77 78 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5051" levels="12" name="Castle Self AE Fire">
+  <table name="#mpConsume"> 54 59 68 75 83 90 98 104 109 113 115 117 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5052" levels="12" name="Castle Long AE Fire">
+  <table name="#mpConsume"> 54 59 68 75 83 90 98 104 109 113 115 117 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5053" levels="12" name="Castle DD Water">
+  <table name="#mpConsume"> 36 39 45 50 55 60 65 69 73 75 77 78 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5054" levels="12" name="Castle Self AE Water">
+  <table name="#mpConsume"> 54 59 68 75 83 90 98 104 109 113 115 117 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5055" levels="12" name="Castle Long AE Water">
+  <table name="#mpConsume"> 36 39 45 50 55 60 65 69 73 75 77 78 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5056" levels="12" name="Castle DD Wind">
+  <table name="#mpConsume"> 36 39 45 50 55 60 65 69 73 75 77 78 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5057" levels="12" name="Castle Self AE Wind">
+  <table name="#mpConsume"> 54 59 68 75 83 90 98 104 109 113 115 117 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5058" levels="12" name="Castle Long AE Wind">
+  <table name="#mpConsume"> 54 59 68 75 83 90 98 104 109 113 115 117 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5059" levels="12" name="Castle DD Earth">
+  <table name="#mpConsume"> 36 39 45 50 55 60 65 69 73 75 77 78 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5060" levels="12" name="Castle Self AE Earth">
+  <table name="#mpConsume"> 54 59 68 75 83 90 98 104 109 113 115 117 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5061" levels="12" name="Castle Long AE Earth">
+  <table name="#mpConsume"> 54 59 68 75 83 90 98 104 109 113 115 117 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5062" levels="12" name="Castle DD Holy">
+  <table name="#mpConsume"> 36 39 45 50 55 60 65 69 73 75 77 78 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5063" levels="12" name="Castle Self AE Holy">
+  <table name="#mpConsume"> 54 59 68 75 83 90 98 104 109 113 115 117 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5064" levels="12" name="Castle Long AE Holy">
+  <table name="#mpConsume"> 54 59 68 75 83 90 98 104 109 113 115 117 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5065" levels="12" name="Castle DD Unholy">
+  <table name="#mpConsume"> 36 39 45 50 55 60 65 69 73 75 77 78 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5066" levels="12" name="Castle Self AE Unholy">
+  <table name="#mpConsume"> 54 59 68 75 83 90 98 104 109 113 115 117 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+</skill>
+
+<skill id="5067" levels="12" name="Castle Long AE Unholy">
+  <table name="#mpConsume"> 54 59 68 75 83 90 98 104 109 113 115 117 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5068" levels="12" name="Decrease Speed">
+  <table name="#mpConsume"> 54 59 68 75 83 90 98 104 109 113 115 117 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5069" levels="12" name="Decrease Atk.Spd.">
+  <table name="#mpConsume"> 36 39 45 50 55 60 65 69 73 75 77 78 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="2000"/>
+  <set name="hitTime" val="2000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5070" levels="12" name="Decrease Casting Spd">
+  <table name="#mpConsume"> 36 39 45 50 55 60 65 69 73 75 77 78 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="2000"/>
+  <set name="hitTime" val="2000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5071" levels="12" name="Decrease P.Atk">
+  <table name="#mpConsume"> 36 39 45 50 55 60 65 69 73 75 77 78 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="2000"/>
+  <set name="hitTime" val="2000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5072" levels="12" name="Decrease M. Atk.">
+  <table name="#mpConsume"> 36 39 45 50 55 60 65 69 73 75 77 78 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="skillTime" val="2000"/>
+  <set name="hitTime" val="2000"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+
+<skill id="5073" levels="12" name="Quest Trap - Power Shot">
+  <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="1500"/>  
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+</skill>
+</list>

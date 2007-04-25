@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "armors.dtd">
+<list>
+<item id='8541' name="Pet armor Little Harness">
+  <for>
+    <add val='10' order='0x10' stat='mDef' />
+    <add val='25' order='0x10' stat='pDef' />
+  </for>
+</item>
+<item id='8552' name="Red Mask of Victory">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+<item id='8557' name="Blue Party Hat for Event">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+<item id='8558' name="Soaring Bird">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+<item id='8559' name="Flower Cap">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+<item id='8560' name="Bear Cap">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+<item id='8561' name="Pig Cap">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+<item id='8562' name="Jester Cap">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+<item id='8563' name="Magic Cap">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+<item id='8564' name="Dandy Cap">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+<item id='8565' name="Romantic Chaperon">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+<item id='8566' name="Iron Circlet">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+<item id='8567' name="Valakas Circlet">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+<item id='8568' name="Antaras Circlet">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+<item id='8569' name="Half Face">
+<for />
+    <add val='0' order='0x10' stat='pDef' />
+</item>
+</list>

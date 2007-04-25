@@ -1,0 +1,1287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "skills.dtd">
+<list>
+<skill id="3001" levels="1" name="int_1">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3002" levels="1" name="int_2">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3003" levels="1" name="str_2">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3004" levels="1" name="maxmp_5">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3005" levels="1" name="Bleed">
+  <set name="save" val="4"/>
+  <set name="power" val="5.0"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="BLEED"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="20000"/>
+  <set name="castRange" val="-1"/>
+  <for>
+	<effect count="4" name="DamOverTime" time="5" val="22"/>
+  </for>
+</skill>
+<skill id="3006" levels="1" name="Equip Set Items">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3007" levels="6" name="Special Ability: Guidance">
+<!---
+  Descriptions:
+  Increases Accuracy.
+-->
+  <table name="#val"> 6.88 6.07 5.72 5.37 5.02 4.68 </table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+	<add val='#val' order='0x40' stat='accCombat'/>
+  </for>
+</skill>
+<skill id="3008" levels="6" name="Special Ability: Guidance">
+<!---
+  Descriptions:
+   Increases Accuracy.
+-->
+  <table name="#val"> 5.42 5.12 4.82 4.53 4.24 3.95 </table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+	<add val='#val' order='0x40' stat='accCombat'/>
+  </for>
+</skill>
+<skill id="3009" levels="6" name="Special Ability: Evasion">
+<!---
+  Descriptions:
+   Increases Evasion.
+-->
+  <table name="#val"> 2.95 2.82 2.68 2.55 2.41 2.28</table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+	<add val='#val' order='0x40' stat='rEvas'/>
+  </for>
+</skill>
+<skill id="3010" levels="6" name="Special Ability: Focus">
+<!---
+  Descriptions:
+   Increases critical attack rate.
+-->
+  <table name="#val"> 86 82 77 73 68 64 </table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+	<add val='#val' order='0x40' stat='rCrit'/>
+  </for>
+</skill>
+<skill id="3011" levels="6" name="Special Ability: Focus">
+<!---
+  Descriptions:
+   Increases critical attack rate.
+-->
+  <table name="#val"> 90 85 81 76 71 67 </table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+	<add val='#val' order='0x40' stat='rCrit'/>
+  </for>
+</skill>
+<skill id="3012" levels="6" name="Special Ability: Anger">
+<!---
+  Descriptions:
+   Decreases MaxHP and increases P. Atk.
+-->
+  <table name="#patk"> 20.44 22.64 24.77 26.78 28.59 30.12</table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <add val='#patk' order='0x40' stat='pAtk'/>
+    <mul val='0.85' order='0x30' stat='maxHp'/>
+  </for>
+</skill>
+<skill id="3013" levels="4" name="Special Ability: Health">
+<!---
+  Descriptions:
+   Increases MaxHP.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <mul val='1.25' order='0x30' stat='maxHp'/>
+  </for>
+</skill>
+<skill id="3014" levels="2" name="Special Ability: Mana Up">
+<!---
+  Descriptions:
+   Increases MaxMP.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <mul val='1.3' order='0x30' stat='maxMp'/>
+  </for>
+</skill>
+<skill id="3016" levels="6" name="Special Ability: Critical Stun">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: Temporarily stuns target into paralysis.
+  6: Temporarily stuns target into paralysis.
+  created 2005-05-29 23:34:30
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3018" levels="6" name="Special Ability: Back Blow">
+<!---
+  TODO
+  Descriptions:
+  1: Increases critical attack rate when attacking a target from behind.
+  6: Increases critical attack rate when attacking a target from behind.
+  created 2005-05-29 23:34:30
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3019" levels="6" name="Special Ability: Back Blow">
+<!---
+  TODO
+  Descriptions:
+  1: Increases critical attack rate when attacking a target from behind.
+  6: Increases critical attack rate when attacking a target from behind.
+  created 2005-05-29 23:34:30
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3020" levels="6" name="Special Ability: Critical Bleed">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: A wound appears and HP falls. Effect 5.
+  6: A wound appears and HP falls. Effect 7.
+  created 2005-05-29 23:34:30
+-->
+  <table name="#power"> 5.0 5.0 6.0 5.0 6.0 7.0 </table>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3021" levels="6" name="Special Ability: Critical Bleed">
+<!--- Done by SarutrA - SqueezeD -->
+  <table name="#magicLvl"> 24 32 49 58 66 70 </table>
+  <table name="#dmg"> 13 17 22 27 31 34 </table>
+  <table name="#power"> 3.0 4.0 5.0 6.0 7.0 8.0 </table>
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="lvlDepend" val="2"/>
+  <set name="save" val="4"/>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="BLEED"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+  <set name="effectRange" val="400"/>
+  <for>
+    <effect count="4" name="DamOverTime" time="5" val="#dmg" abnormal="bleeding"/>
+  </for>
+</skill>
+<skill id="3022" levels="7" name="Special Ability: Critical Drain">
+<!--- Done by SarutrA - SqueezeD -->
+  <table name="#magicLvl"> 68 69 70 71 72 73 74 </table>
+  <table name="#power"> 90.0 92.0 94.0 96.0 98.0 100.0 102.0 </table>
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="element" val="6"/>
+  <set name="skillType" val="DRAIN"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
+  <!-- Drain-specific: absorb 20% from target's damage -->
+  <set name="absorbPart" val="0.2"/> <!-- absorbs 20% or damage -->
+  <set name="absorbAbs" val="0"/> <!-- Drain absorbs absolute values from corpses only -->
+  <for>
+  </for>
+</skill>
+<skill id="3023" levels="6" name="Special Ability: Critical Damage">
+<!---
+  Descriptions: 
+    Causes additional damage when launching a critical attack.
+-->
+  <table name="#val"> 174 194 213 231 247 262</table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <add val='#val' order='0x40' stat='cAtk'/>
+  </for>
+</skill>
+<skill id="3024" levels="6" name="Special Ability: Critical Poison">
+<!--- Done by SarutrA - SqueezeD -->
+  <table name="#magicLvl"> 20 30 44 52 62 72 </table>
+  <table name="#dmg"> 18 24 31 38 44 48 </table>
+  <table name="#power"> 3.0 4.0 5.0 6.0 7.0 8.0 </table>
+  <set name="save" val="3"/>
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="power" val="#power"/>
+  <set name="lvlDepend" val="1"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="POISON"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
+  <for>
+    <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="poison"/>
+  </for>
+</skill>
+<skill id="3025" levels="6" name="Special Ability: Critical Anger">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  created 2005-05-29 23:34:30
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3026" levels="6" name="Special Ability: Critical Anger">
+<!---
+  TODO
+  Descriptions:
+  1: Causes additional damage during a critical attack while reducing one's own HP.
+  6: Causes additional damage during a critical attack while reducing one's own HP.
+  created 2005-05-29 23:34:30
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3027" levels="6" name="Special Ability: Rsk. Focus">
+<!---
+  Descriptions:
+   When HP gets decreased, critical attack rate increases.
+-->
+  <table name="#val"> 138 130 123 115 107 99</table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <add order='0x40' stat='rCrit' val='#val'>
+		<and>
+         <player hp='60'/>
+		</and>
+	</add>
+  </for>
+</skill>
+<skill id="3028" levels="6" name="Special Ability: Rsk. Evasion">
+<!---
+  Descriptions: 
+    Evasion increases when HP falls.
+-->
+  <table name="#val"> 7.63 7.29 6.95 6.6 6.24 5.87 </table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <add order='0x40' stat='rEvas' val='#val'>
+      <and>
+        <player hp='60'/>
+      </and>
+    </add>
+  </for>
+</skill>
+<skill id="3029" levels="6" name="Special Ability: Rsk. Evasion">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: Evasion increases when HP falls.
+  6: Evasion increases when HP falls.
+  created 2005-05-29 23:34:31
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3030" levels="6" name="Special Ability: Rsk. Evasion">
+<!---
+  Descriptions:
+   Evasion increases when HP falls.
+-->
+  <table name="#val"> 7.63 7.29 6.95 6.6 6.24 5.87 </table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <add order='0x40' stat='rEvas' val='#val'>
+      <and>
+        <player hp='60'/>
+      </and>
+    </add>
+  </for>
+</skill>
+<skill id="3031" levels="6" name="Special Ability: Rsk. Evasion">
+<!---
+  Descriptions:
+   Evasion increases when HP falls.
+-->
+  <table name="#val"> 7.63 7.29 6.95 6.6 6.24 5.87</table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <add order='0x40' stat='rEvas' val='#val'>
+      <and>
+        <player hp='60'/>
+      </and>
+    </add>
+  </for>
+</skill>
+<skill id="3032" levels="6" name="Special Ability: Rsk. Haste">
+<!---
+  Descriptions:
+    ATK Spd increases when HP falls.
+-->
+  <table name="#val"> 1.13 1.12 1.12 1.11 1.10 1.09</table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <mul order='0x30' stat='pAtkSpd' val='#val'>
+      <and>
+        <player hp='60'/>
+      </and>
+    </mul>
+  </for>
+</skill>
+<skill id="3033" levels="6" name="Special Ability: Rsk. Haste">
+<!---
+  Descriptions:
+    ATK Spd increases when HP falls.
+-->
+  <table name="#val"> 1.13 1.12 1.12 1.11 1.10 1.09</table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <mul order='0x30' stat='pAtkSpd' val='#val'>
+      <and>
+        <player hp='60'/>
+      </and>
+    </mul>
+  </for>
+</skill>
+<skill id="3034" levels="6" name="Special Ability: Rsk. Haste">
+<!---
+  Descriptions:
+   ATK Spd increases when HP falls.
+-->
+  <table name="#val"> 1.13 1.12 1.12 1.11 1.10 1.09</table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <mul order='0x30' stat='pAtkSpd' val='#val'>
+      <and>
+        <player hp="60"/>
+      </and>
+    </mul>
+  </for>
+</skill>
+<skill id="3035" levels="6" name="Special Ability: Mighty Mortal">
+<!---
+  TODO
+  Descriptions:
+  1: Increases the success rate of Mortal Blow and Deadly Blow.
+  6: Increases the success rate of Mortal Blow and Deadly Blow.
+  created 2005-05-29 23:34:31
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3036" levels="6" name="Special Ability: Haste">
+<!---
+  Descriptions:
+   Increases ATK Spd.
+-->
+  <table name="#val">1.08 1.07 1.07 1.07 1.06 1.06</table> 
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+	<mul val='#val' order='0x30' stat='pAtkSpd'/>
+  </for>
+</skill>
+<skill id="3037" levels="6" name="Special Ability: Haste">
+<!---
+  Descriptions:
+   Increases ATK Spd.
+-->
+  <table name="#val"> 1.08 1.07 1.07 1.07 1.06 1.06</table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+	<mul val='#val' order='0x30' stat='pAtkSpd'/>
+  </for>
+</skill>
+<skill id="3038" levels="6" name="Special Ability: Haste">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: Increases ATK Spd.
+  6: Increases ATK Spd.
+  created 2005-05-29 23:34:31
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3039" levels="6" name="Special Ability: Critical Drain">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  created 2005-05-29 23:34:31
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <for>
+  </for>
+</skill>
+<skill id="3040" levels="6" name="Special Ability: Critical Poison">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: Causes poisoning. Effect 5.
+  6: Causes poisoning. Effect 7.
+  created 2005-05-29 23:34:31
+-->
+  <table name="#power"> 5.0 5.0 6.0 6.0 6.0 7.0 </table>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <for>
+  </for>
+</skill>
+<skill id="3041" levels="6" name="Special Ability: Critical Poison">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: Causes poisoning. Effect 5.
+  6: Causes poisoning. Effect 7.
+  created 2005-05-29 23:34:31
+-->
+  <table name="#power"> 5.0 5.0 6.0 6.0 6.0 7.0 </table>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <for>
+  </for>
+</skill>
+<skill id="3042" levels="20" name="Critical Damage Duel 4">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: Inflicts additional damage during a critical attack.
+  20: Enhances critical attack. Increases damage inflicted during PvP.
+  created 2005-05-29 23:34:31
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3043" levels="6" name="Special Ability: Critical Damage">
+<!---
+  Descriptions: 
+    Causes additional damage when launching a critical attack.
+-->
+  <table name="#val"> 140 160 140 140 140 140</table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <add val='#val' order='0x40' stat='cAtk'/>
+  </for>
+</skill>
+<skill id="3044" levels="20" name="Focus Duel 4">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: Increases critical attack rate.
+  20: Enhances critical attack. Increases damage inflicted during PvP.
+  created 2005-05-29 23:34:31
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3045" levels="20" name="Haste Duel 4">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: Increases ATK Spd.
+  20: Increases Atk. Spd. Increases damage inflicted during PvP.
+  created 2005-05-29 23:34:31
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3046" levels="20" name="Guidance Duel 4">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: Increases Accuracy.
+  20: Increases Accuracy. Increases damage inflicted during PvP.
+  created 2005-05-29 23:34:31
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3047" levels="2" name="Special Ability: Acumen">
+<!---
+  Descriptions:
+  1: Increases Casting Spd.
+  2: Increases Casting Spd. Increases damage inflicted during PvP.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <mul val='1.15' order='0x30' stat='mAtkSpd'/>
+  </for>
+</skill>
+<skill id="3048" levels="2" name="Special Ability: Conversion">
+<!---
+  Descriptions:
+  1: Increases the maximum MP by a certain success rate and decreases the maximum HP by a certain success rate.
+  2: Reduces maximum HP and increases maximum MP. Increases damage inflicted during PvP.
+  created 2005-05-29 23:34:31
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+	<mul val='0.6' order='0x30' stat='maxHp'/>
+	<mul val='1.6' order='0x30' stat='maxMp'/>
+  </for>
+</skill>
+<skill id="3049" levels="2" name="Special Ability: Increase Critical">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  created 2005-05-29 23:34:31
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1000"/>
+  <for>
+  </for>
+</skill>
+<skill id="3050" levels="1" name="Special Ability: Focus">
+<!---
+  Descriptions:
+   Enhances critical attack. Increases damage inflicted during PvP.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <add val='61' order='0x40' stat='rCrit'/>
+  </for>
+</skill>
+<skill id="3051" levels="1" name="Special Ability: Focus">
+<!---
+  Descriptions:
+  1: Enhances critical attack. Increases damage inflicted during PvP.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <add val='67' order='0x40' stat='rCrit'/>
+  </for>
+</skill>
+<skill id="3052" levels="2" name="Special Ability: Critical Bleed">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: A wound appears and HP falls. Effect 7.
+  2: A wound appears and HP falls. Effect 7.
+  created 2005-05-29 23:34:31
+-->
+  <table name="#power"> 7.0 7.0 </table>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3053" levels="2" name="Special Ability: Critical Bleed">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: A wound appears and HP falls. Effect 7.
+  2: A wound appears and HP falls. Effect 7.
+  created 2005-05-29 23:34:31
+-->
+  <table name="#power"> 7.0 7.0 </table>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3054" levels="2" name="Special Ability: Critical Bleed">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: A wound appears and HP falls. Effect 7.
+  2: A wound appears and HP falls. Effect 7.
+  created 2005-05-29 23:34:31
+-->
+  <table name="#power"> 7.0 7.0 </table>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3055" levels="2" name="Special Ability: Critical Bleed">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: A wound appears and HP falls. Effect 7.
+  2: A wound appears and HP falls. Effect 7.
+  created 2005-05-29 23:34:31
+-->
+  <table name="#power"> 7.0 7.0 </table>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3056" levels="2" name="Special Ability: Rsk. Haste">
+<!---
+  Descriptions:
+  1: ATK Spd. increases when HP falls.
+  2: Atk. Spd. increases when HP falls. Increases damage inflicted during PvP.
+-->
+  <table name="#val"> 1.11 1.13 </table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <mul order='0x30' stat='pAtkSpd' val='1.11'>
+      <and>
+        <player hp='60'/>
+      </and>
+    </mul>
+  </for>
+</skill>
+<skill id="3057" levels="2" name="Special Ability: Anger">
+<!---
+  Descriptions:
+  1: Decreases maximum HP and increases P. Atk. Increases damage inflicted during PvP.
+  2: Decreases maximum HP and increases P. Atk. Increases damage inflicted during PvP.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <add val='32' order='0x40' stat='pAtk'/>
+    <mul val='0.85' order='0x30' stat='maxHp'/>
+  </for>
+</skill>
+<skill id="3058" levels="2" name="Special Ability: Anger">
+<!---
+  Descriptions:
+  1: Decreases maximum HP and increases P. Atk. Increases damage inflicted during PvP.
+  2: Decreases maximum HP and increases P. Atk. Increases damage inflicted during PvP
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <add val='38' order='0x40' stat='pAtk'/>
+    <mul val='0.85' order='0x30' stat='maxHp'/>
+  </for>
+</skill>
+<skill id="3059" levels="2" name="Special Ability: Critical Drain">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  created 2005-05-29 23:34:31
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <for>
+  </for>
+</skill>
+<skill id="3060" levels="2" name="Special Ability: Critical Drain">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  created 2005-05-29 23:34:31
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <for>
+  </for>
+</skill>
+<skill id="3061" levels="2" name="Special Ability: Critical Poison">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: Causes poisoning. Effect 7.
+  2: Causes poisoning. Effect 7.
+  created 2005-05-29 23:34:31
+-->
+  <table name="#power"> 7.0 7.0 </table>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <for>
+  </for>
+</skill>
+<skill id="3062" levels="2" name="Special Ability: Critical Poison">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: Causes poisoning. Effect 7.
+  2: Causes poisoning. Effect 7.
+  created 2005-05-29 23:34:31
+-->
+  <table name="#power"> 7.0 7.0 </table>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <for>
+  </for>
+</skill>
+<skill id="3063" levels="1" name="Special Ability: Back Blow">
+<!---
+  Automatically generated from C3 client files.
+  Need to be checked/fixed.
+  Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+  Descriptions:
+  1: Increases critical attack rate when attacking a target from behind. Increases damage inflicted during PvP.
+  created 2005-05-29 23:34:31
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3064" levels="1" name="Special Ability: Guidance">
+<!---
+  Descriptions:
+  1: Increases Accuracy. Increases damage inflicted during PvP.
+-->  
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+	<add val='4' order='0x40' stat='accCombat'/>
+  </for>
+</skill>
+<skill id="3065" levels="1" name="Special Ability: Guidance">
+<!---
+  Descriptions:
+  1: Increases Accuracy. Increases damage inflicted during PvP.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <add val='5.41' order='0x40' stat='accCombat'/>
+  </for>
+</skill>
+<skill id="3066" levels="2" name="Special Ability: Critical Damage">
+<!---
+  Descriptions:
+  1: Increases damage during a critical attack. Increases damage inflicted during PvP.
+  2: Increases damage during a critical attack. Increases damage inflicted during PvP.
+-->
+  <table name="#val"> 200 370 </table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+	<add val='#val' order='0x40' stat='cAtk'/>
+  </for>
+</skill>
+<skill id="3067" levels="2" name="Special Ability: Critical Damage">
+<!---
+  Descriptions:
+  1: Increases damage during a critical attack. Increases damage inflicted during PvP.
+  2: Increases damage during a critical attack. Increases damage inflicted during PvP.
+-->
+  <table name="#val"> 297 326 </table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+	<add val='#val' order='0x40' stat='cAtk'/>
+  </for>
+</skill>
+<skill id="3068" levels="2" name="Special Ability: Haste">
+<!---
+  Descriptions:
+  1: Increases ATK Spd.
+  2: Increases Atk. Spd. Increases damage inflicted during PvP.
+-->
+  <table name="#val"> 1.06 1.07 </table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+	<mul val='#val' order='0x30' stat='pAtkSpd'/>
+  </for>
+</skill>
+<skill id="3069" levels="1" name="Special Ability: Risky Evasion">
+<!---
+  Descriptions:
+  1: Evasion increases when HP falls.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <add order='0x40' stat='rEvas' val='6'>
+      <and>
+        <player hp='60'/>
+      </and>
+    </add>
+  </for>
+</skill>
+<skill id="3070" levels="2" name="Special Ability: Critical Stun">
+<!--
+  Done by SarutrA - SqueezeD
+  Description(s):
+      Instantly throws enemy into a state of shock, immobilizing them.
+-->
+  <set name="magicLvl" val="90"/>
+  <set name="lvlDepend" val="1"/>
+  <set name="save" val="4"/>
+  <set name="power" val="800"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="overHit" val="true"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="effectType" val="STUN"/>
+  <set name="effectPower" val="30"/>
+  <for>
+	<effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
+  </for>
+</skill>
+<skill id="3071" levels="2" name="Special Ability: Rsk. Focus">
+<!---
+  Descriptions:
+  1: Critical attack rate increases when HP falls.
+  2: Critical attack rate increases when HP falls. Increases damage inflicted during PvP.
+-->
+  <table name="#val"> 120 130 </table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <add order='0x40' stat='rCrit' val='#val'>
+		<and>        
+            <player hp='60'/>
+		</and>
+	</add>
+  </for>
+</skill>
+<skill id="3072" levels="2" name="Special Ability: Empower">
+<!---
+  Descriptions:
+  1: Increases M. Atk. Increases damage inflicted during PvP.
+  2: Increases M. Atk. Increases damage inflicted during PvP.
+-->
+  <table name="#val"> 24 30 </table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+	<add val='#val' order='0x40' stat='mAtk'/>
+  </for>
+</skill>
+<skill id="3073" levels="2" name="Special Ability: Magic Power">
+<!---
+  Descriptions:
+  1: Increases MP consumption rate and M. Atk. Increases damage inflicted during PvP.
+  2: Increases MP consumption rate and M. Atk. Increases damage inflicted during PvP.
+-->
+  <table name="#val"> 153 167 </table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <add val='#val' order='0x40' stat='mAtk'/>
+    <mul val='1.15' order='0x30' stat='MpConsume'/> 
+  </for>
+</skill>
+<skill id="3074" levels="2" name="Special Ability: Magic Silence">
+<!--- Done by SarutrA - SqueezeD -->
+  <set name="save" val="2"/>
+  <set name="magicLvl" val="74"/>
+  <set name="power" val="80"/>
+  <set name="lvlDepend" val="2"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="MUTE"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <set name="effectRange" val="900"/>
+  <for>
+    <effect count="1" name="Mute" time="30" val="0" stackOrder="1" stackType="silence"/>
+  </for>
+</skill>
+<skill id="3075" levels="2" name="Special Ability: Magic Paralyze">
+<!--- Done by SarutrA - SqueezeD -->
+  <set name="save" val="4"/>
+  <set name="magicLvl" val="74"/>
+  <set name="power" val="60"/>
+  <set name="lvlDepend" val="1"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="PARALYZE"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
+  <for>
+    <effect count="1" name="Paralyze" time="30" val="0" stackOrder="1" stackType="Paralyze"/>
+  </for>
+</skill>
+<skill id="3076" levels="6" name="Special Ability: Empower">
+<!---
+  Descriptions:
+  1: Increases M. Atk. Increases damage inflicted during PvP.
+  2: Increases M. Atk. Increases damage inflicted during PvP.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+	<add val='60' order='0x40' stat='mAtk'/>
+  </for>
+</skill>
+<skill id="3077" levels="6" name="Special Ability: Magic Power">
+<!---
+  Descriptions:
+  1: Increases MP consumption rate and M. Atk. Increases damage inflicted during PvP.
+  2: Increases MP consumption rate and M. Atk. Increases damage inflicted during PvP.
+-->
+  <table name="#val"> 99 112 1 1 1 1 </table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <add val='#val' order='0x40' stat='mAtk'/>
+    <mul val='1.15' order='0x30' stat='MpConsume'/> 
+  </for>
+</skill>
+<skill id="3078" levels="6" name="Special Ability: Magic Silence">
+<!--- Done by SarutrA - SqueezeD -->
+  <set name="save" val="2"/>
+  <set name="magicLvl" val="74"/>
+  <set name="power" val="80"/>
+  <set name="lvlDepend" val="2"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="MUTE"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <set name="effectRange" val="900"/>
+  <for>
+    <effect count="1" name="Mute" time="30" val="0" stackOrder="1" stackType="silence"/>
+  </for>
+</skill>
+<skill id="3079" levels="6" name="Special Ability: Magic Paralyze">
+<!--- Done by SarutrA - SqueezeD -->
+  <set name="save" val="4"/>
+  <set name="magicLvl" val="74"/>
+  <set name="power" val="60"/>
+  <set name="lvlDepend" val="1"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="PARALYZE"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
+  <for>
+    <effect count="1" name="Paralyze" time="30" val="0" stackOrder="1" stackType="Paralyze"/>
+  </for>
+</skill>
+</list>

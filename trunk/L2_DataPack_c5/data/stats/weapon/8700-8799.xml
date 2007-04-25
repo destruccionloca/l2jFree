@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE list SYSTEM "weapons.dtd">
+<!-- Lineage2: Interlude Weapons by KID (L2j-b Project) -->
+<list>
+<item id='8763' name="seize_mace">
+  <for>
+	<set val='0' order='0x08' stat='pAtk'/>
+	<set val='0' order='0x08' stat='mAtk'/>
+	<set val='0' order='0x08' stat='rCrit'/>
+	<add val='0' order='0x40' stat='accCombat'/>
+	<set val='379' order='0x08' stat='pAtkSpd'/>
+  </for>
+</item>
+
+<item id='8788' name="sirr_blade">
+  <for>
+	<set val='251' order='0x08' stat='pAtk'/>
+	<set val='121' order='0x08' stat='mAtk'/>
+	<set val='8' order='0x08' stat='rCrit'/>
+	<add val='0' order='0x40' stat='accCombat'/>
+	<set val='379' order='0x08' stat='pAtkSpd'/>
+	<enchant val='0' order='0x0C' stat='pAtk'/>
+	<enchant val='0' order='0x0C' stat='mAtk'/>
+  </for>
+</item>
+
+<item id='8789' name="sirr_blade">
+  <for>
+	<set val='251' order='0x08' stat='pAtk'/>
+	<set val='121' order='0x08' stat='mAtk'/>
+	<set val='8' order='0x08' stat='rCrit'/>
+	<add val='0' order='0x40' stat='accCombat'/>
+	<set val='379' order='0x08' stat='pAtkSpd'/>
+	<enchant val='0' order='0x0C' stat='pAtk'/>
+	<enchant val='0' order='0x0C' stat='mAtk'/>
+  </for>
+</item>
+
+<item id='8790' name="sirr_blade">
+  <for>
+	<set val='251' order='0x08' stat='pAtk'/>
+	<set val='121' order='0x08' stat='mAtk'/>
+	<set val='8' order='0x08' stat='rCrit'/>
+	<add val='0' order='0x40' stat='accCombat'/>
+	<set val='379' order='0x08' stat='pAtkSpd'/>
+	<enchant val='0' order='0x0C' stat='pAtk'/>
+	<enchant val='0' order='0x0C' stat='mAtk'/>
+  </for>
+</item>
+
+<item id='8791' name="sword_of_ipos">
+  <for>
+	<set val='305' order='0x08' stat='pAtk'/>
+	<set val='121' order='0x08' stat='mAtk'/>
+	<set val='8' order='0x08' stat='rCrit'/>
+	<add val='0' order='0x40' stat='accCombat'/>
+	<set val='325' order='0x08' stat='pAtkSpd'/>
+	<enchant val='0' order='0x0C' stat='pAtk'/>
+	<enchant val='0' order='0x0C' stat='mAtk'/>
+  </for>
+</item>
+
+<item id='8792' name="sword_of_ipos">
+  <for>
+	<set val='305' order='0x08' stat='pAtk'/>
+	<set val='121' order='0x08' stat='mAtk'/>
+	<set val='8' order='0x08' stat='rCrit'/>
+	<add val='0' order='0x40' stat='accCombat'/>
+	<set val='325' order='0x08' stat='pAtkSpd'/>
+	<enchant val='0' order='0x0C' stat='pAtk'/>
+	<enchant val='0' order='0x0C' stat='mAtk'/>
+  </for>
+</item>
+
+<item id='8793' name="sword_of_ipos">
+  <for>
+	<set val='305' order='0x08' stat='pAtk'/>
+	<set val='121' order='0x08' stat='mAtk'/>
+	<set val='8' order='0x08' stat='rCrit'/>
+	<add val='0' order='0x40' stat='accCombat'/>
+	<set val='325' order='0x08' stat='pAtkSpd'/>
+	<enchant val='0' order='0x0C' stat='pAtk'/>
+	<enchant val='0' order='0x0C' stat='mAtk'/>
+  </for>
+</item>
+
+<item id='8794' name="barakiel_axe">
+  <for>
+	<set val='251' order='0x08' stat='pAtk'/>
+	<set val='121' order='0x08' stat='mAtk'/>
+	<set val='4' order='0x08' stat='rCrit'/>
+	<add val='4' order='0x40' stat='accCombat'/>
+	<set val='379' order='0x08' stat='pAtkSpd'/>
+	<enchant val='0' order='0x0C' stat='pAtk'/>
+	<enchant val='0' order='0x0C' stat='mAtk'/>
+  </for>
+</item>
+
+<item id='8795' name="barakiel_axe">
+  <for>
+	<set val='251' order='0x08' stat='pAtk'/>
+	<set val='121' order='0x08' stat='mAtk'/>
+	<set val='4' order='0x08' stat='rCrit'/>
+	<add val='4' order='0x40' stat='accCombat'/>
+	<set val='379' order='0x08' stat='pAtkSpd'/>
+	<enchant val='0' order='0x0C' stat='pAtk'/>
+	<enchant val='0' order='0x0C' stat='mAtk'/>
+  </for>
+</item>
+
+<item id='8796' name="barakiel_axe">
+  <for>
+	<set val='251' order='0x08' stat='pAtk'/>
+	<set val='121' order='0x08' stat='mAtk'/>
+	<set val='4' order='0x08' stat='rCrit'/>
+	<add val='4' order='0x40' stat='accCombat'/>
+	<set val='379' order='0x08' stat='pAtkSpd'/>
+	<enchant val='0' order='0x0C' stat='pAtk'/>
+	<enchant val='0' order='0x0C' stat='mAtk'/>
+  </for>
+</item>
+
+<item id='8797' name="tuning_fork_of_behemoth">
+  <for>
+	<set val='305' order='0x08' stat='pAtk'/>
+	<set val='121' order='0x08' stat='mAtk'/>
+	<set val='4' order='0x08' stat='rCrit'/>
+	<add val='4' order='0x40' stat='accCombat'/>
+	<set val='325' order='0x08' stat='pAtkSpd'/>
+	<enchant val='0' order='0x0C' stat='pAtk'/>
+	<enchant val='0' order='0x0C' stat='mAtk'/>
+  </for>
+</item>
+
+<item id='8798' name="tuning_fork_of_behemoth">
+  <for>
+	<set val='305' order='0x08' stat='pAtk'/>
+	<set val='121' order='0x08' stat='mAtk'/>
+	<set val='4' order='0x08' stat='rCrit'/>
+	<add val='4' order='0x40' stat='accCombat'/>
+	<set val='325' order='0x08' stat='pAtkSpd'/>
+	<enchant val='0' order='0x0C' stat='pAtk'/>
+	<enchant val='0' order='0x0C' stat='mAtk'/>
+  </for>
+</item>
+
+<item id='8799' name="tuning_fork_of_behemoth">
+  <for>
+	<set val='305' order='0x08' stat='pAtk'/>
+	<set val='121' order='0x08' stat='mAtk'/>
+	<set val='4' order='0x08' stat='rCrit'/>
+	<add val='4' order='0x40' stat='accCombat'/>
+	<set val='325' order='0x08' stat='pAtkSpd'/>
+	<enchant val='0' order='0x0C' stat='pAtk'/>
+	<enchant val='0' order='0x0C' stat='mAtk'/>
+  </for>
+</item>
+</list>
