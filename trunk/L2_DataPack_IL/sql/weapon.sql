@@ -1466,6 +1466,14 @@ UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 4 WHERE item_id = 6582
 UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 2 WHERE item_id = 6581; -- Forgotten Blade 'haste'
 UPDATE weapon  SET item_skill_id = 3010, item_skill_lvl = 5 WHERE item_id = 6583; -- Forgotten Blade 'focus'
 
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 6 WHERE item_id = 8788; -- Sirra''s Blade - Haste
+UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 4 WHERE item_id = 8789; -- Sirra''s Blade - Health
+UPDATE weapon SET onCrit_skill_id = 3024 , onCrit_skill_lvl = 6 , onCrit_skill_chance = 15 WHERE item_id = 8790; -- Sirra''s Blade 'critical_poison'
+
+UPDATE weapon  SET item_skill_id = 3050, item_skill_lvl = 1 WHERE item_id = 8791; -- Sword of Ipos - Focus
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 6 WHERE item_id = 8792; -- Sword of Ipos - Haste
+UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 4 WHERE item_id = 8793; -- Sword of Ipos - Health
+
   -- ---------------------------------     passive weapon SAs     ------------------------------------
                                          --    blunts   --
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 1 WHERE item_id = 4726; -- big hammer 'health' 
@@ -1527,6 +1535,13 @@ UPDATE weapon SET onCrit_skill_id = 3022, onCrit_skill_lvl = 7, onCrit_skill_cha
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 1 WHERE item_id = 6597; -- Dragon Hunter 'health' 
 UPDATE weapon  SET item_skill_id = 3569, item_skill_lvl = 1 WHERE item_id = 6596; -- Dragon Hunter 'HP Regeneration'
 
+UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 4 WHERE item_id = 8794; -- Barakiel''s Axe - Health
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 6 WHERE item_id = 8795; -- Barakiel''s Axe - Haste
+UPDATE weapon  SET item_skill_id = 3050, item_skill_lvl = 1 WHERE item_id = 8796; -- Barakiel''s Axe - Focus
+
+UPDATE weapon  SET item_skill_id = 3050, item_skill_lvl = 1 WHERE item_id = 8797; -- Behemoth''s Tuning Fork - Focus
+UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 4 WHERE item_id = 8798; -- Behemoth''s Tuning Fork - Health
+UPDATE weapon  SET item_skill_id = 3057, item_skill_lvl = 1 WHERE item_id = 8799; -- Behemoth''s Tuning Fork - Anger
 
 -- UPDATE weapon  SET item_skill_id = , item_skill_lvl = WHERE item_id = ;
   -- ---------------------------------     passive weapon SAs     ------------------------------------
@@ -1571,7 +1586,7 @@ UPDATE weapon  SET item_skill_id = 3051, item_skill_lvl = 1 WHERE item_id = 5614
 UPDATE weapon SET onCrit_skill_id = 3021, onCrit_skill_lvl =5 , onCrit_skill_chance = 12 WHERE item_id = 5616; -- bloody orchid 'critical bleed';
 
 UPDATE weapon  SET item_skill_id = 3011, item_skill_lvl = 5 WHERE item_id = 4786; -- hell knife 'focus' 
-UPDATE weapon  SET item_skill_id = 3019, item_skill_lvl = 5 WHERE item_id = 4787; -- hell knife 'back blow' 
+UPDATE weapon  SET item_skill_id = 3018, item_skill_lvl = 5 WHERE item_id = 4787; -- hell knife 'back blow' 
 UPDATE weapon  SET item_skill_id = 3035, item_skill_lvl = 5 WHERE item_id = 4788; -- hell knife 'might mortal' 
 
 UPDATE weapon  SET item_skill_id = 3064, item_skill_lvl = 1 WHERE item_id = 5617; -- soul separator 'guidance'
@@ -1587,6 +1602,9 @@ UPDATE weapon SET onCrit_skill_id = 3022, onCrit_skill_lvl = 7, onCrit_skill_cha
 UPDATE weapon  SET item_skill_id = 3572, item_skill_lvl = 1 WHERE item_id = 6590; -- Angel Slayer 'critical damage'
 UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 4 WHERE item_id = 6592; -- Angel Slayer 'haste';
 
+UPDATE weapon  SET item_skill_id = 3050, item_skill_lvl = 1 WHERE item_id = 8800; -- Naga Storm - Focus 
+UPDATE weapon  SET item_skill_id = 3066, item_skill_lvl = 1 WHERE item_id = 8801; -- Naga Storm - Critical Damage
+UPDATE weapon  SET item_skill_id = 3018, item_skill_lvl = 5 WHERE item_id = 8802; -- Naga Storm - back blow 
 
   -- ---------------------------------     passive weapon SAs     ------------------------------------
                                          --    fists    --
@@ -1628,6 +1646,10 @@ UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 3 WHERE item_id = 5625
 
 UPDATE weapon  SET item_skill_id = 3565, item_skill_lvl = 1 WHERE item_id = 6602; -- demon splinter 'focus'
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 4 WHERE item_id = 6603; -- demon splinter 'health'
+
+UPDATE weapon  SET item_skill_id = 3032, item_skill_lvl = 4 WHERE item_id = 8809; -- Sobekk''s Hurricane - Rsk. Haste
+UPDATE weapon  SET item_skill_id = 3037, item_skill_lvl = 6 WHERE item_id = 8810; -- Sobekk''s Hurricane - Haste
+UPDATE weapon  SET onCrit_skill_id = 3022, onCrit_skill_lvl = 5 , onCrit_skill_chance = 10 WHERE item_id = 8811; -- Sobekk''s Hurricane 'critical drain';
 
    -- ---------------------------------     passive weapon SAs     ------------------------------------
                                             --    bows    --
@@ -1674,6 +1696,8 @@ UPDATE weapon  SET item_skill_id = 3567, item_skill_lvl = 1 WHERE item_id = 7577
 UPDATE weapon SET onCrit_skill_id = 3574, onCrit_skill_lvl =1 , onCrit_skill_chance = 10 WHERE item_id = 6595; -- Shining Bow Critical Slow
 UPDATE weapon  SET item_skill_id = 3567, item_skill_lvl = 1 WHERE item_id = 6594; -- Shining Bow 'focus'
 -- UPDATE weapon  SET item_skill_id = , item_skill_lvl = WHERE item_id = 6593; -- Shining Bow 'cheap shot'
+
+UPDATE weapon  SET item_skill_id = 3050, item_skill_lvl = 1 WHERE item_id = 8807; -- Shyeed''s Bow - Focus 
 
   -- ---------------------------------     passive weapon SAs     ------------------------------------
                                            --    pole    --
@@ -1730,7 +1754,7 @@ UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 4 WHERE item_id = 6599
 UPDATE weapon  SET item_skill_id = 3602, item_skill_lvl = 5 WHERE item_id = 6600; -- Saint Spear 'guidance'
 UPDATE weapon  SET item_skill_id = 3068, item_skill_lvl = 2 WHERE item_id = 6601; -- Saint Spear 'haste'
 
-
+UPDATE weapon SET onCrit_skill_id = 3070, onCrit_skill_lvl =1 , onCrit_skill_chance = 25 WHERE item_id = 8803; -- Tiphon''s Spear - Critical Stun
   -- ---------------------------------     passive weapon SAs     ------------------------------------
                                            --    staff    --
 UPDATE weapon SET onCast_skill_id = 1044, onCast_skill_lvl = 1 , onCast_skill_chance = 30 WHERE item_id = 4864 ; -- heavy doom hammer 'magic_regeneration'
@@ -1801,9 +1825,8 @@ UPDATE weapon SET onCast_skill_id = 3577, onCast_skill_lvl = 1, onCast_skill_cha
 UPDATE weapon  SET item_skill_id = 3076, item_skill_lvl = 1 WHERE item_id = 6587; -- Imperial Staff 'Empower'
 UPDATE weapon  SET item_skill_id = 3576, item_skill_lvl = 1 WHERE item_id = 6588; -- Imperial Staff 'MP Regeneration'
 
--- UPDATE weapon  SET item_skill_id = , item_skill_lvl = WHERE item_id = ; --  
   -- ---------------------------------     passive weapon SAs     ------------------------------------
-                                           --    big swords    --
+                                     --    big swords / blunts   --
 
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 3 WHERE item_id = 5644; -- dragon slayer 'health'
 UPDATE weapon SET onCrit_skill_id = 3021, onCrit_skill_lvl = 5, onCrit_skill_chance = 24 WHERE item_id = 5645; -- dragon slayer 'bleed'
@@ -1813,14 +1836,26 @@ UPDATE weapon  SET item_skill_id = 3601, item_skill_lvl = 9 WHERE item_id = 6605
 UPDATE weapon  SET item_skill_id = 3013, item_skill_lvl = 4 WHERE item_id = 6606; -- heavens divider 'health'
 UPDATE weapon  SET item_skill_id = 3566, item_skill_lvl = 1 WHERE item_id = 6607; -- heavens divider 'focus'
 
--- ---------------------------------   active onCrit weapons SA ---------------------------------------
--- UPDATE weapon SET onCrit_skill_id = , onCrit_skill_lvl = , onCrit_skill_chance = WHERE item_id = ; --
+UPDATE weapon  SET item_skill_id = 3014, item_skill_lvl = 1 WHERE item_id = 8812; -- Themis'' Tongue - Mana Up
+UPDATE weapon SET onCast_skill_id = 1035, onCast_skill_lvl = 2, onCast_skill_chance = 50 WHERE item_id = 8813; -- Themis'' Tongue - Magic Mental Shield
+UPDATE weapon SET onCast_skill_id = 1077, onCast_skill_lvl = 3, onCast_skill_chance = 20 WHERE item_id = 8814; -- Themis'' Tongue - Magic Focus
+
 UPDATE weapon SET onCrit_skill_id = 3070 , onCrit_skill_lvl = 1 , onCrit_skill_chance = 25 WHERE item_id = 25; -- demon_splinter_crt._stun
 
+UPDATE weapon  SET item_skill_id = 3048, item_skill_lvl = 2 WHERE item_id = 8815; -- Cabrio''s Hand - Conversion
+UPDATE weapon  SET item_skill_id = 3014, item_skill_lvl = 1 WHERE item_id = 8816; -- Cabrio''s Hand - Mana Up
+UPDATE weapon  SET onCast_skill_id = 3078 , onCast_skill_lvl = 2 , onCast_skill_chance = 10 WHERE item_id = 8817; -- Cabrio''s Hand 'magic_silence'
 
--- ---------------------------------   active onCast weapons SA  -------------------------------------
+UPDATE weapon  SET item_skill_id = 3014, item_skill_lvl = 1 WHERE item_id = 8818; -- Daimon Crystal - Mana Up
+UPDATE weapon  SET item_skill_id = 3047, item_skill_lvl = 2 WHERE item_id = 8819; -- Daimon Crystal - Acumen
+UPDATE weapon SET onCast_skill_id = 1035, onCast_skill_lvl = 2, onCast_skill_chance = 50 WHERE item_id = 8820; -- Daimon Crystal - Magic Mental Shield
 
--- UPDATE weapon SET onCast_skill_id = , onCast_skill_lvl = , onCast_skill_chance = WHERE item_id = ; --
+-- ---------------------------------------------------------------------------------------------------
+-- UPDATE weapon  SET item_skill_id = , item_skill_lvl = WHERE item_id = ; --  
+-- UPDATE weapon  SET onCast_skill_id = , onCast_skill_lvl = , onCast_skill_chance = WHERE item_id = ; --
+-- UPDATE weapon  SET onCrit_skill_id = , onCrit_skill_lvl = , onCrit_skill_chance = WHERE item_id = ; --
+-- ---------------------------------------------------------------------------------------------------
+
 
 -- ---------------------------------   Infinity Weapons  -------------------------------------
 -- Infinity Blade --
