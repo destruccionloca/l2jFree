@@ -7859,6 +7859,23 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
     
+    public void setChatBannedForAnnounce(boolean isBanned)
+    {
+        _chatBanned = isBanned;
+
+        stopBanChatTask();
+        if (isChatBanned())
+        {
+            sendMessage("Server admin making announce now, you can't chat.");
+            _BanChatTask = ThreadPoolManager.getInstance().scheduleGeneral(new SchedChatUnban(this), _banchat_timer);
+        }
+        else
+        {
+            sendMessage("Your chat ban has been lifted.");            
+            setBanChatTimer(0);
+        }
+    }
+    
     public void setBanChatTimer(long timer)
     {
         _banchat_timer = timer;

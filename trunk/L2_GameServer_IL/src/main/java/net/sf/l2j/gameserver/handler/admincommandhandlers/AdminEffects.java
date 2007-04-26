@@ -48,7 +48,7 @@ public class AdminEffects implements IAdminCommandHandler
 	   "admin_visible", "admin_earthquake", "admin_bighead", "admin_shrinkhead", "admin_gmspeed",  
 	   "admin_unpara_all", "admin_para_all", "admin_unpara", "admin_para", "admin_polyself",
 	   "admin_unpolyself", "admin_changename", "admin_clearteams", "admin_setteam_close",
-       "admin_setteam",
+       "admin_setteam", "admin_unbanchat_all", "admin_banchat_all",
        "admin_create_adena"};
 
    private static final int REQUIRED_LEVEL = Config.GM_GODMODE;
@@ -170,6 +170,35 @@ public class AdminEffects implements IAdminCommandHandler
                {
             	   player.stopAbnormalEffect((short)0x0400);
             	   player.setIsParalyzed(false);
+               }
+           }
+           catch (Exception e)
+           {
+           }
+       }
+       if (command.startsWith("admin_banchat_all"))
+       {
+           try
+           {
+               for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
+               {
+            	   if (!player.isGM())
+            	   {
+                	   player.setChatBannedForAnnounce(true);
+            	   }
+               }
+           }
+           catch (Exception e)
+           {
+           }
+       }
+       if (command.startsWith("admin_unbanchat_all"))
+       {
+           try
+           {
+               for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
+               {
+            	   player.setChatBannedForAnnounce(false);
                }
            }
            catch (Exception e)
