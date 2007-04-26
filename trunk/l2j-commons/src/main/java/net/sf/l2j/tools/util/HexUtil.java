@@ -91,4 +91,29 @@ public class HexUtil
         }
     }    
     
+    /**
+     * Save hexadecimal ID of the server in the properties file.
+     * @param hexId (String) : hexadecimal ID of the server to store
+     * @param fileName (String) : name of the properties file
+     */
+    public static void saveHexid(int serverId, String hexId, String fileName)
+    {
+        try
+        {
+            Properties hexSetting = new Properties();
+            File file = new File(fileName);
+            //Create a new empty file only if it doesn't exist
+            file.createNewFile();
+            OutputStream out = new FileOutputStream(file);
+            hexSetting.setProperty("ServerID",String.valueOf(serverId));
+            hexSetting.setProperty("HexID",hexId);
+            hexSetting.store(out,"the hexID to auth into login");
+            out.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }    
+    
 }
