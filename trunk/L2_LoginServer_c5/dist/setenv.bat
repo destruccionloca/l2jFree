@@ -43,3 +43,4 @@ SET CLASSPATH=%CLASSPATH%;mysql-connector-java-3.1.11.jar
 
 REM for configuration
 SET CLASSPATH=%CLASSPATH%;./config/
+SET CLASSPATH=%CLASSPATH%;.
