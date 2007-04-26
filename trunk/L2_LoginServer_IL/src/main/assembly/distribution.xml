@@ -24,6 +24,16 @@
       <includes>
       	<include>*.*</include>
       </includes>
+      <excludes>
+      	<exclude>log4j.xml</exclude>
+      </excludes>
+    </fileSet>    
+    <fileSet>
+      <directory>config/</directory>
+      <outputDirectory>dist/</outputDirectory>
+      <includes>
+      	<include>log4j.xml</include>
+      </includes>
     </fileSet>    
   </fileSets>
 </assembly>

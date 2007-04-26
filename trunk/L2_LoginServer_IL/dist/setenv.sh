@@ -9,7 +9,7 @@ CLASSPATH=${CLASSPATH}:commons-collections-2.1.1.jar
 # for second level cache (hibernate)
 CLASSPATH=${CLASSPATH}:ehcache-1.2.3.jar
 
-CLASSPATH=${CLASSPATH}:mmocore-1.0.0.jar
+CLASSPATH=${CLASSPATH}:mmocore-1.0.1.jar
 
 # for bean use
 CLASSPATH=${CLASSPATH}:commons-beanutils-1.7.0.jar
@@ -31,7 +31,7 @@ CLASSPATH=${CLASSPATH}:dom4j-1.6.1.jar
 CLASSPATH=${CLASSPATH}:javolution-1.5.4.2.6.jar
 
 # main jar
-CLASSPATH=${CLASSPATH}:l2j-commons-1.0.2.jar
+CLASSPATH=${CLASSPATH}:l2j-commons-1.0.4-SNAPSHOT.jar
 CLASSPATH=${CLASSPATH}:l2j-loginserver-1.0.0.jar
 
 # spring 
