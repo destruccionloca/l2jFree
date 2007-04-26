@@ -27,10 +27,10 @@ CREATE TABLE `weapon` (
   `durability` decimal(3,0) default NULL,
   `price` decimal(11,0) default NULL,
   `crystal_count` int(4) default NULL,
-  `sellable` varchar(5) NOT NULL default 'true';,
-  `dropable` varchar(5) NOT NULL default 'true';,
-  `destroyable` varchar(5) NOT NULL default 'true';,
-  `tradeable` varchar(5) NOT NULL default 'true';,
+  `sellable` varchar(5) NOT NULL default 'true',
+  `dropable` varchar(5) NOT NULL default 'true',
+  `destroyable` varchar(5) NOT NULL default 'true',
+  `tradeable` varchar(5) NOT NULL default 'true',
   PRIMARY KEY  (`item_id`)
 ) DEFAULT CHARSET=utf8;
 
