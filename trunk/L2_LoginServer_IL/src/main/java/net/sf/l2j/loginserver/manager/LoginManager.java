@@ -21,19 +21,27 @@ package net.sf.l2j.loginserver.manager;
 import java.math.BigDecimal;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
+import java.security.interfaces.RSAPrivateKey;
 import java.security.spec.RSAKeyGenParameterSpec;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.crypto.Cipher;
+
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 import net.sf.l2j.Config;
-import net.sf.l2j.loginserver.LoginServer;
+import net.sf.l2j.loginserver.L2LoginClient;
+import net.sf.l2j.loginserver.L2LoginServer;
 import net.sf.l2j.loginserver.beans.Accounts;
+import net.sf.l2j.loginserver.beans.BanInfo;
 import net.sf.l2j.loginserver.beans.SessionKey;
 import net.sf.l2j.loginserver.services.AccountsServices;
 import net.sf.l2j.loginserver.services.exception.AccountModificationException;
@@ -79,7 +87,11 @@ public class LoginManager
 	private long _lastKeyPairUpdate;
 	private Random _rnd;
     private AccountsServices _service = null;
-	
+    protected byte[][] _blowfishKeys;
+    private static final int BLOWFISH_KEYS = 20;
+    protected Set<L2LoginClient> _clients = new FastSet<L2LoginClient>();
+
+    private Map<InetAddress, BanInfo> _bannedIps = new FastMap<InetAddress, BanInfo>().setShared(true);
 
 	/**
      * Private constructor to avoid direct instantiation. 
@@ -87,38 +99,107 @@ public class LoginManager
 	 */
 	private LoginManager()
 	{
-		_log.info("LoginManager initiating");
-		_logins = new FastMap<String, SessionKey>();
-		_accountsInLoginServer = new FastMap<String, Socket>();
-		_hackProtection = new FastMap<String, Integer>();
-		_lastPassword = new FastMap<String, String>();
-		_keyPairToUpdate = new AtomicInteger(0);
-		_keyPairs = new ScrambledKeyPair[10];
-        _service = (AccountsServices)L2Registry.getBean("AccountsServices");
-        
 		try
-		{
-			_keyGen = KeyPairGenerator.getInstance("RSA");
-			RSAKeyGenParameterSpec spec = new RSAKeyGenParameterSpec(1024,RSAKeyGenParameterSpec.F4);
-			_keyGen.initialize(spec);
-		}
-		catch (GeneralSecurityException e)
-		{
-			_log.fatal("Error in RSA setup:" + e);
-			_log.info("Server shutting down now");
-			System.exit(2);
-		}
-		_rnd = new Random();
-        if (_log.isDebugEnabled())_log.debug("LoginController : RSA keygen initiated");
-		//generate the initial set of keys
-		for(int i = 0; i < 10; i++)
-		{
-			_keyPairs[i] = new ScrambledKeyPair(_keyGen.generateKeyPair());
-		}
-		_lastKeyPairUpdate = System.currentTimeMillis();
-		_log.info("Stored 10 KeyPair for RSA communication");
+        {
+            _log.info("LoginManager initiating");
+            _logins = new FastMap<String, SessionKey>();
+            _accountsInLoginServer = new FastMap<String, Socket>();
+            _hackProtection = new FastMap<String, Integer>();
+            _lastPassword = new FastMap<String, String>();
+            _keyPairToUpdate = new AtomicInteger(0);
+            _keyPairs = new ScrambledKeyPair[10];
+            _service = (AccountsServices)L2Registry.getBean("AccountsServices");
+            
+            try
+            {
+            	_keyGen = KeyPairGenerator.getInstance("RSA");
+            	RSAKeyGenParameterSpec spec = new RSAKeyGenParameterSpec(1024,RSAKeyGenParameterSpec.F4);
+            	_keyGen.initialize(spec);
+            }
+            catch (GeneralSecurityException e)
+            {
+            	_log.fatal("Error in RSA setup:" + e);
+            	_log.info("Server shutting down now");
+            	System.exit(2);
+            }
+            _rnd = new Random();
+            if (_log.isDebugEnabled())_log.debug("LoginController : RSA keygen initiated");
+            //generate the initial set of keys
+            for(int i = 0; i < 10; i++)
+            {
+            	_keyPairs[i] = new ScrambledKeyPair(_keyGen.generateKeyPair());
+            }
+            _lastKeyPairUpdate = System.currentTimeMillis();
+            _log.info("Stored 10 KeyPair for RSA communication");
+            
+            this.testCipher((RSAPrivateKey) _keyPairs[0].getPair().getPrivate());
+            
+            // Store keys for blowfish communication
+            this.generateBlowFishKeys();
+        } 
+        catch (GeneralSecurityException e)
+        {
+            _log.fatal("FATAL: Failed initializing LoginManager. Reason: "+e.getMessage(),e);
+            System.exit(1);
+        }
+        
 	}
+    
+    /**
+     * This is mostly to force the initialization of the Crypto Implementation, avoiding it being done on runtime when its first needed.<BR>
+     * In short it avoids the worst-case execution time on runtime by doing it on loading.
+     * @param key Any private RSA Key just for testing purposes.
+     * @throws GeneralSecurityException if a underlying exception was thrown by the Cipher
+     */
+    private void testCipher(RSAPrivateKey key) throws GeneralSecurityException
+    {
+        // avoid worst-case execution, KenM
+        Cipher rsaCipher = Cipher.getInstance("RSA/ECB/nopadding");
+        rsaCipher.init(Cipher.DECRYPT_MODE, key);
+    }    
 	
+    /**
+     * 
+     *
+     */
+    private void generateBlowFishKeys()
+    {
+        _blowfishKeys = new byte[BLOWFISH_KEYS][16];
+
+        for (int i = 0; i < BLOWFISH_KEYS; i++)
+        {
+            for (int j = 0; j < _blowfishKeys[i].length; j++)
+            {
+                _blowfishKeys[i][j] = (byte) (_rnd.nextInt(255)+1);
+            }
+        }
+        _log.info("Stored "+_blowfishKeys.length+" keys for Blowfish communication");
+    }    
+    
+    /**
+     * @return Returns a random key
+     */
+    public byte[] getBlowfishKey()
+    {
+        return _blowfishKeys[(int) (Math.random()*BLOWFISH_KEYS)];
+    }
+    
+    public void addLoginClient(L2LoginClient client)
+    {
+        synchronized (_clients)
+        {
+            _clients.add(client);
+        }
+    }
+
+    public void removeLoginClient(L2LoginClient client)
+    {
+        synchronized (_clients)
+        {
+            _clients.remove(client);
+        }
+    }    
+    
     /**
      * @return LoginManager singleton
      */
@@ -518,8 +599,8 @@ public class LoginManager
         		
                 _logLogin.info("created new account for "+ user);
 
-                if ( LoginServer.statusServer != null )
-        			LoginServer.statusServer.SendMessageToTelnets("Account created for player "+user);
+                if ( L2LoginServer.statusServer != null )
+        			L2LoginServer.statusServer.SendMessageToTelnets("Account created for player "+user);
         		
         		return true;
         		
@@ -550,7 +631,82 @@ public class LoginManager
         }
                 
 	}
+    
+    /**
+     * Adds the address to the ban list of the login server, with the given duration.
+     * 
+     * @param address The Address to be banned.
+     * @param expiration Timestamp in miliseconds when this ban expires
+     * @throws UnknownHostException if the address is invalid.
+     */
+    public void addBanForAddress(String address, long expiration) throws UnknownHostException
+    {
+        InetAddress netAddress = InetAddress.getByName(address);
+        _bannedIps.put(netAddress, new BanInfo(netAddress,  expiration));
+    }
+    
+    /**
+     * Adds the address to the ban list of the login server, with the given duration.
+     * 
+     * @param address The Address to be banned.
+     * @param duration is miliseconds
+     */
+    public void addBanForAddress(InetAddress address, long duration)
+    {
+        _bannedIps.put(address, new BanInfo(address,  System.currentTimeMillis() + duration));
+    }    
+    
+    public boolean isBannedAddres(InetAddress address)
+    {
+        BanInfo bi = _bannedIps.get(address);
+        if (bi != null)
+        {
+            if (bi.hasExpired())
+            {
+                _bannedIps.remove(address);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        return false;
+    }    
 	
+    public Map<InetAddress, BanInfo> getBannedIps()
+    {
+        return _bannedIps;
+    }
+
+
+    /**
+     * Remove the specified address from the ban list
+     * @param address The address to be removed from the ban list
+     * @return true if the ban was removed, false if there was no ban for this ip
+     */
+    public boolean removeBanForAddress(InetAddress address)
+    {
+        return _bannedIps.remove(address) != null;
+    }
+    
+    /**
+     * Remove the specified address from the ban list
+     * @param address The address to be removed from the ban list
+     * @return true if the ban was removed, false if there was no ban for this ip or the address was invalid.
+     */
+    public boolean removeBanForAddress(String address)
+    {
+        try
+        {
+            return this.removeBanForAddress(InetAddress.getByName(address));
+        }
+        catch (UnknownHostException e)
+        {
+            return false;
+        }
+    }
+    
 	/**
      * 
      * @param ipAddress

@@ -26,6 +26,7 @@
 package net.sf.l2j.loginserver.services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import net.sf.l2j.loginserver.beans.Gameservers;
@@ -119,5 +120,14 @@ public class GameserversServices
         {
             _log.warn("Error while deleting gameserver :" + e, e);
         }
+    }
+
+    /**
+     * @param entities
+     * @see net.sf.l2j.loginserver.dao.GameserversDAO#removeAll()
+     */
+    public void removeAll()
+    {
+        __dao.removeAll();
     }    
 }

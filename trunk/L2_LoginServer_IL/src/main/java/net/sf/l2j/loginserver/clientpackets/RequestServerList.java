@@ -18,49 +18,72 @@
  */
 package net.sf.l2j.loginserver.clientpackets;
 
+import net.sf.l2j.loginserver.serverpackets.ServerList;
+import net.sf.l2j.loginserver.serverpackets.LoginFail.LoginFailReason;
+
 /**
  * Format: ddc
  * d: fist part of session id
  * d: second part of session id
  * c: ?
- * 
- * (session ID is sent in LoginOk packet and fixed to 0x55555555 0x44444444)
  */
-public class RequestServerList extends ClientBasePacket
+public class RequestServerList extends L2LoginClientPacket
 {
-	private int _data1;
-	private int _data2;
-	private int _data3;
-	
-	/**
-	 * @return
-	 */
-	public int getData1()
-	{
-		return _data1;
-	}
+    private int _skey1;
+    private int _skey2;
+    private int _data3;
+    
+    /**
+     * @return
+     */
+    public int getSessionKey1()
+    {
+        return _skey1;
+    }
 
-	/**
-	 * @return
-	 */
-	public int getData2()
-	{
-		return _data2;
-	}
+    /**
+     * @return
+     */
+    public int getSessionKey2()
+    {
+        return _skey2;
+    }
 
-	/**
-	 * @return
-	 */
-	public int getData3()
-	{
-		return _data3;
-	}
-	
-	public RequestServerList(byte[] rawPacket)
-	{
-		super(rawPacket);
-		_data1  = readD();
-		_data2  = readD();
-		_data3 =  readC();
-	}
+    /**
+     * @return
+     */
+    public int getData3()
+    {
+        return _data3;
+    }
+    
+    public boolean readImpl()
+    {
+        if (this.getAvaliableBytes() >= 8)
+        {
+            _skey1  = readD(); // loginOk 1
+            _skey2  = readD(); // loginOk 2
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * @see com.l2jserver.mmocore.network.ReceivablePacket#run()
+     */
+    @Override
+    public void run()
+    {
+        if (this.getClient().getSessionKey().checkLoginPair(_skey1, _skey2))
+        {
+            this.getClient().sendPacket(new ServerList(this.getClient()));
+        }
+        else
+        {
+            this.getClient().close(LoginFailReason.REASON_ACCESS_FAILED);
+        }
+    }
 }

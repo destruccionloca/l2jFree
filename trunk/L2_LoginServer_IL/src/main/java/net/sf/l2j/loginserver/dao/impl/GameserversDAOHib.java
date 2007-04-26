@@ -112,4 +112,12 @@ public class GameserversDAOHib extends BaseRootDAOHib implements GameserversDAO
     {
         removeObject(Gameservers.class, id);        
     }
+
+    /* (non-Javadoc)
+     * @see net.sf.l2j.loginserver.dao.GameserversDAO#removeAll()
+     */
+    public void removeAll()
+    {
+        getCurrentSession().createQuery("delete from " + Gameservers.class);
+    }
 }

@@ -218,4 +218,14 @@ public class GameserversDAOXml implements GameserversDAO
         removeGameserverByServerId(gs.getServerId());
         createGameserver(gs);
     }
+
+
+    
+    /* (non-Javadoc)
+     * @see net.sf.l2j.loginserver.dao.GameserversDAO#removeAll()
+     */
+    public void removeAll()
+    {
+        serverNames.clear();
+    }
 }

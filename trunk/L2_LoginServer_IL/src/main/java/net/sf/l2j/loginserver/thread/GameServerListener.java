@@ -17,72 +17,47 @@
  */
 package net.sf.l2j.loginserver.thread;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
-
-import javolution.util.FastList;
-import net.sf.l2j.Config;
-import net.sf.l2j.loginserver.LoginServer;
+import java.util.logging.Logger;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * This class waits fro incomming connections from GameServers
- * and launches (@link GameServerThread GameServerThreads}
- * 
- * @author luisantonioa, -Wooden-
- */
+import javolution.util.FastList;
+import net.sf.l2j.Config;
 
+/**
+ *
+ * @author  KenM
+ */
 public class GameServerListener extends FloodProtectedListener
 {
-	private static final Log _log = LogFactory.getLog(LoginServer.class.getName());
-	
-	private List<GameServerThread> _gameServerThreads;
-	private static GameServerListener _instance;
-	
-	public static GameServerListener getInstance()
-	{
-		if (_instance == null)
-		{
-			_instance = new GameServerListener();
-		}
-		return _instance;
-	}
-	
-	public GameServerListener()
-	{
-		super(Config.GAME_SERVER_LOGIN_HOST,Config.GAME_SERVER_LOGIN_PORT);
-		_log.info("Ok, Listening for gameServer on port "+Config.GAME_SERVER_LOGIN_PORT);
-		_gameServerThreads = new FastList<GameServerThread>();
-	}
-	
-	/**
-	 * @return Returns the gameServerThreads.
-	 */
-	public List<GameServerThread> getGameServerThreads()
-	{
-		return _gameServerThreads;
-	}
-	
-	/**
-	 * Removes a GameServerThread from the list
-	 */
-	public void removeGameServer(GameServerThread gst)
-	{
-		_gameServerThreads.remove(gst);
-	}
-	
-	
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.loginserver.thread.FloodProtectedListener#addClient(java.net.Socket)
-	 */
-	@Override
-	public void addClient(Socket s)
-	{
-		GameServerThread gst = new GameServerThread(s);
-		_gameServerThreads.add(gst);
-		
-	}
-	
+    private static Log _log = LogFactory.getLog(GameServerListener.class.getName());
+    private static List<GameServerThread> _gameServers = new FastList<GameServerThread>();
+    
+    public GameServerListener() throws IOException
+    {
+        super(Config.GAME_SERVER_LOGIN_HOST, Config.GAME_SERVER_LOGIN_PORT);
+    }
+
+    /**
+     * @see net.sf.l2j.loginserver.FloodProtectedListener#addClient(java.net.Socket)
+     */
+    @Override
+    public void addClient(Socket s)
+    {
+        if (_log.isDebugEnabled())
+        {
+            _log.info("Received gameserver connection from: "+s.getInetAddress().getHostAddress());
+        }
+        GameServerThread gst = new GameServerThread(s);
+        _gameServers.add(gst);
+    }
+    
+    public void removeGameServer(GameServerThread gst)
+    {
+        _gameServers.remove(gst);
+    }
 }

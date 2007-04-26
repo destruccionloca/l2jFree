@@ -18,50 +18,86 @@
  */
 package net.sf.l2j.loginserver.clientpackets;
 
+import net.sf.l2j.Config;
+import net.sf.l2j.loginserver.LoginController;
+import net.sf.l2j.loginserver.SessionKey;
+import net.sf.l2j.loginserver.serverpackets.PlayOk;
+import net.sf.l2j.loginserver.serverpackets.LoginFail.LoginFailReason;
+
 /**
  * Fromat is ddc
  * d: first part of session id
  * d: second part of session id
  * c: server ID
- * 
- * (session ID is sent in LoginOk packet and fixed to 0x55555555 0x44444444)
  */
-public class RequestServerLogin extends ClientBasePacket
+public class RequestServerLogin extends L2LoginClientPacket
 {
-	private int _data1;
-	private int _data2;
-	private int _server_id;
-	
-	/**
-	 * @return
-	 */
-	public int getData1()
-	{
-		return _data1;
-	}
+    private int _skey1;
+    private int _skey2;
+    private int _serverId;
+    
+    /**
+     * @return
+     */
+    public int getSessionKey1()
+    {
+        return _skey1;
+    }
 
-	/**
-	 * @return
-	 */
-	public int getData2()
-	{
-		return _data2;
-	}
+    /**
+     * @return
+     */
+    public int getSessionKey2()
+    {
+        return _skey2;
+    }
 
-	/**
-	 * @return
-	 */
-	public int getServerID()
-	{
-		return _server_id;
-	}
+    /**
+     * @return
+     */
+    public int getServerID()
+    {
+        return _serverId;
+    }
 
-	public RequestServerLogin(byte[] rawPacket)
-	{
-		super(rawPacket);
-		_data1 = readD();
-		_data2 = readD();
-		
-		_server_id = readC();//=  rawPacket[9] &0xff;
-	}
+    public boolean readImpl()
+    {
+        if (this.getAvaliableBytes() >= 9)
+        {
+            _skey1 = readD();
+            _skey2 = readD();
+            _serverId = readC();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * @see com.l2jserver.mmocore.network.ReceivablePacket#run()
+     */
+    @Override
+    public void run()
+    {
+        SessionKey sk = this.getClient().getSessionKey();
+        
+        // if we didnt showed the license we cant check these values
+        if (!Config.SHOW_LICENCE || sk.checkLoginPair(_skey1, _skey2))
+        {
+            if (LoginController.getInstance().isLoginPossible(this.getClient().getAccessLevel(), _serverId))
+            {
+                this.getClient().sendPacket(new PlayOk(sk));
+            }
+            else
+            {
+                this.getClient().close(LoginFailReason.REASON_ACCESS_FAILED);
+            }
+        }
+        else
+        {
+            this.getClient().close(LoginFailReason.REASON_ACCESS_FAILED);
+        }
+    }
 }

@@ -20,7 +20,7 @@ package net.sf.l2j.loginserver.loginserverpackets;
 
 import java.io.IOException;
 
-import net.sf.l2j.loginserver.LoginServer;
+import net.sf.l2j.loginserver.L2LoginServer;
 import net.sf.l2j.loginserver.serverpackets.ServerBasePacket;
 
 /**
@@ -33,8 +33,8 @@ public class KickPlayer extends ServerBasePacket
 	{
 		writeC(0x04);
 		writeS(account);
-		if ( LoginServer.statusServer != null )
-			LoginServer.statusServer.SendMessageToTelnets("Player "+account+" was kicked.");
+		if ( L2LoginServer.statusServer != null )
+			L2LoginServer.statusServer.SendMessageToTelnets("Player "+account+" was kicked.");
 	}
 	
 	/* (non-Javadoc)

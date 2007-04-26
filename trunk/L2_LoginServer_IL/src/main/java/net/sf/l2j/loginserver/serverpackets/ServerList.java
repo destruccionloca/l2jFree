@@ -23,7 +23,10 @@ import java.net.UnknownHostException;
 import java.util.List;
 
 import javolution.util.FastList;
+import net.sf.l2j.loginserver.L2LoginClient;
+import net.sf.l2j.loginserver.beans.GameServerInfo;
 import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
+import net.sf.l2j.loginserver.manager.GameServerManager;
 
 /**
  * ServerList
@@ -50,183 +53,99 @@ import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
  * is less than half the maximum. as Normal between half and 4/5
  * and Full when there's more than 4/5 of the maximum number of players
  */
-public class ServerList extends ServerBasePacket
+public final class ServerList extends L2LoginServerPacket
 {
-	// cc (cddcchhcd)
+    private List<ServerData> _servers;
 
-	// 04 
-	// 10
-	// 05
-	 
-	// 01 
-	// dc 4c 0c 33 
-	// 61 1e 00 00 
-	// 0f 
-	// 01 
-	// f7 0a 
-	// 7c 15 
-	// 01 
-	
-	// 02 
-	// dc 4c 0c 69 
-	// 61 1e 00 00 
-	// 0f 
-	// 01 
-	// 3c 09
-	// 7c 15
-	// 01
-	
-	private List<ServerData> 	_servers;
-	private boolean				_listDone =  false;
-	 
-//	private byte[] _content = {
-//		(byte)0x04,
-//		(byte)0x02,			// number of servers in list
-//		(byte)0x00,			// login server num ... seems to be unused
-//				
-//		(byte)0x01,									// server id
-//		(byte)0xc0,(byte)0xa8,(byte)0x00,(byte)0x01,   // 192.68.0.1
-//		
-//		(byte)0x61,(byte)0x1e,(byte)0x00,(byte)0x00,   // port 7777
-//		(byte)0x12,
-//		(byte)0x01,
-//		(byte)0xf7,(byte)0x0a,
-//		
-//		(byte)0x7c,(byte)0x15,
-//		(byte)0x01,
-//
-//		(byte)0x02,									// server id
-//		(byte)0xc0,(byte)0xa8,(byte)0x00,(byte)0x01,   // 192.68.0.1
-//		
-//		(byte)0x61,(byte)0x1e,(byte)0x00,(byte)0x00,   // port 7777
-//		(byte)0x0f,				// age limit
-//		(byte)0x00,				// pvp possible
-//		(byte)0x00,(byte)0x00,	// current player count
-//
-//		(byte)0x10,(byte)0x27,  // max players
-//		(byte)0x01,		// testing == 0
-//		
-//		0x00,0x00,0x00,0x00,	// align and checksum
-//		0x00,
-//		
-//		0x00,0x00,0x00,
-//		0x00,0x00,0x00,0x00,
-//		0x00
-//	};	
+    class ServerData
+    {
+        String ip;
+        int port;
+        boolean pvp;
+        int currentPlayers;
+        int maxPlayers;
+        boolean testServer;
+        boolean brackets;
+        boolean clock;
+        int status;
+        public int server_id;
 
-	class ServerData
-	{
-		String ip;
-		int port;
-		boolean pvp;
-		int currentPlayers;
-		int maxPlayers;
-		boolean testServer;
-		boolean brackets;
-		boolean clock;
-		int status;
-		public int server_id;
-		
-		ServerData(String Ip, int Port, boolean Pvp, boolean TestServer, int CurrentPlayers, int MaxPlayers, boolean Brackets, boolean Clock, int Status, int Server_id)
-		{
-			this.ip = Ip;
-			this.port = Port;
-			this.pvp = Pvp;
-			this.testServer = TestServer;
-			this.currentPlayers = CurrentPlayers;
-			this.maxPlayers = MaxPlayers;
-			this.brackets = Brackets;
-			this.clock = Clock;
-			this.status = Status;
-			this.server_id = Server_id;
-		}
-	}
-	
+        ServerData(String pIp, int pPort, boolean pPvp, boolean pTestServer, int pCurrentPlayers,
+                int pMaxPlayers, boolean pBrackets, boolean pClock, int pStatus, int pServer_id)
+                {
+            this.ip = pIp;
+            this.port = pPort;
+            this.pvp = pPvp;
+            this.testServer = pTestServer;
+            this.currentPlayers = pCurrentPlayers;
+            this.maxPlayers = pMaxPlayers;
+            this.brackets = pBrackets;
+            this.clock = pClock;
+            this.status = pStatus;
+            this.server_id = pServer_id;
+                }
+    }
 
+    public ServerList(L2LoginClient client)
+    {
+        _servers = new FastList<ServerData>();
+        for (GameServerInfo gsi : GameServerManager.getInstance().getRegisteredGameServers().values())
+        {
+            this.addServer(client.usesInternalIP() ? gsi.getInternalHost() : gsi.getExternalHost(), gsi.getPort(), gsi.isPvp(), gsi.isTestServer(), gsi.getCurrentPlayerCount(), gsi.getMaxPlayers(), gsi.isShowingBrackets(), gsi.isShowingClock(), gsi.getStatus(), gsi.getId());
+        }
+    }
 
-	public ServerList() 
-	{
-		_servers = new FastList<ServerData>(); 
-	}
-	
-	public void addServer(String ip, int port, boolean pvp, boolean testServer, int currentPlayer, int maxPlayer, boolean brackets, boolean clock, int status, int server_id)
-	{
-		_servers.add(new ServerData(ip, port, pvp, testServer, currentPlayer, maxPlayer, brackets, clock, status, server_id));
-	}
-	
-	public byte[] getContent()
-	{
-		if(!_listDone) // list should only be done once even if there are multiple getContent calls
-		{
-			writeC(0x04);
-			writeC(_servers.size());
-			writeC(0x00);
-			for (int i = 0; i < _servers.size(); i++) 
-			{
-				ServerData server = _servers.get(i);
-				
-				writeC(server.server_id+1);	// server id
-				try 
-				{
-					InetAddress i4 = InetAddress.getByName(server.ip);
-					byte[] raw = i4.getAddress();
-					writeC(raw[0] &0xff);
-					writeC(raw[1] &0xff);
-					writeC(raw[2] &0xff);
-					writeC(raw[3] &0xff);
-				} 
-				catch (UnknownHostException e) 
-				{
-					e.printStackTrace();
-					writeC(127);
-					writeC(0);
-					writeC(0);
-					writeC(1);
-				}
-				
-				writeD(server.port);
-				writeC(0x0f);	// age limit
-				if (server.pvp)
-				{
-					writeC(0x01);
-				}
-				else
-				{
-					writeC(0x00);
-				}
-				
-				writeH(server.currentPlayers);
-				writeH(server.maxPlayers);
-				if(server.status == ServerStatus.STATUS_DOWN)
-				{
-					writeC(0x00);
-				}
-				else
-				{
-					writeC(0x01);
-				}
-				int bits = 0;
-				if (server.testServer)
-				{
-					bits |= 0x04; 
-				}
-				if(server.clock)
-				{
-					bits |= 0x02;
-				}
-				writeD(bits);
-				if(server.brackets)
-				{
-					writeC(0x01);
-				}
-				else
-				{
-					writeC(0x00);
-				}
-			}
-			_listDone  = true;
-		}
-		
-		return getBytes();
-	}
+    public void addServer(String ip, int port, boolean pvp, boolean testServer, int currentPlayer,
+            int maxPlayer, boolean brackets, boolean clock, int status, int server_id)
+    {
+        _servers.add(new ServerData(ip, port, pvp, testServer, currentPlayer, maxPlayer, brackets,
+                clock, status, server_id));
+    }
+
+    public void write()
+    {
+        writeC(0x04);
+        writeC(_servers.size());
+        writeC(_servers.size()-1);
+        for (ServerData server : _servers)
+        {
+            writeC(server.server_id); // server id
+
+            try
+            {
+                InetAddress i4 = InetAddress.getByName(server.ip);
+                byte[] raw = i4.getAddress();
+                writeC(raw[0] & 0xff);
+                writeC(raw[1] & 0xff);
+                writeC(raw[2] & 0xff);
+                writeC(raw[3] & 0xff);
+            }
+            catch (UnknownHostException e)
+            {
+                e.printStackTrace();
+                writeC(127);
+                writeC(0);
+                writeC(0);
+                writeC(1);
+            }
+
+            writeD(server.port);
+            writeC(0x00); // age limit
+            writeC(server.pvp ? 0x01 : 0x00);
+            writeH(server.currentPlayers);
+            writeH(server.maxPlayers);
+            writeC(server.status == ServerStatus.STATUS_DOWN ? 0x00 : 0x01);
+            int bits = 0;
+            if (server.testServer)
+            {
+                bits |= 0x04;
+            }
+            if (server.clock)
+            {
+                bits |= 0x02;
+            }
+            writeD(bits);
+            writeC(server.brackets ? 0x01 : 0x00);
+        }
+    }
 }

@@ -84,6 +84,11 @@ public interface GameserversDAO
     public void removeAll(Collection entities) ;
         
     /**
+     * Delete all gameserver
+     */
+    public void removeAll() ;    
+    
+    /**
      * Persist an entire collection
      */
     public void createOrUpdateAll(Collection entities) ;    

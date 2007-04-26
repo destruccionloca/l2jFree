@@ -44,8 +44,8 @@ import net.sf.l2j.loginserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.loginserver.serverpackets.ServerList;
 import net.sf.l2j.loginserver.services.exception.HackingException;
 import net.sf.l2j.tools.math.ScrambledKeyPair;
+import net.sf.l2j.tools.security.NewCrypt;
 import net.sf.l2j.tools.util.Util;
-import net.sf.l2j.util.NewCrypt;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

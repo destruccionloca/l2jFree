@@ -22,23 +22,51 @@ package net.sf.l2j.loginserver.serverpackets;
  * Fromat: d
  * d: the failure reason
  */
-public class LoginFail extends ServerBasePacket
+public final class LoginFail extends L2LoginServerPacket
 {
-	public static int REASON_ACCOUNT_BANNED = 0x09;
-	public static int REASON_ACCOUNT_IN_USE = 0x07;
-	public static int REASON_ACCESS_FAILED = 0x04;
-	public static int REASON_USER_OR_PASS_WRONG = 0x03;
-	public static int REASON_PASS_WRONG = 0x02;
-	public static int REASON_SYSTEM_ERROR = 0x01;
-	
-	public LoginFail(int reason) 
-	{
-		writeC(0x01);
-		writeD(reason);	
-	}
-	
-	public byte[] getContent()
-	{
-		return getBytes();
-	}
+    public static enum LoginFailReason
+    {
+        REASON_SYSTEM_ERROR         (0x01),
+        REASON_PASS_WRONG           (0x02),
+        REASON_USER_OR_PASS_WRONG   (0x03),
+        REASON_ACCESS_FAILED        (0x04),
+        REASON_ACCOUNT_IN_USE       (0x07),
+        REASON_ACCOUNT_BANNED       (0x09);
+        
+        private final int _code;
+        
+        LoginFailReason(int code)
+        {
+            _code = code;
+        }
+        
+        public final int getCode()
+        {
+            return _code;
+        }
+    }
+    /*public static int REASON_ACCOUNT_BANNED = 0x09;
+    public static int REASON_ACCOUNT_IN_USE = 0x07;
+    public static int REASON_ACCESS_FAILED = 0x04;
+    public static int REASON_USER_OR_PASS_WRONG = 0x03;
+    public static int REASON_PASS_WRONG = 0x02;
+    public static int REASON_SYSTEM_ERROR = 0x01;*/
+    
+    private LoginFailReason _reason;
+    
+    
+    public LoginFail(LoginFailReason reason) 
+    {
+        _reason = reason;
+    }
+
+    /**
+     * @see com.l2jserver.mmocore.network.SendablePacket#write()
+     */
+    @Override
+    protected void write()
+    {
+        writeC(0x01);
+        writeD(_reason.getCode());
+    }
 }
