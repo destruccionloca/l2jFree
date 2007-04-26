@@ -20,13 +20,12 @@ package net.sf.l2j.loginserver.thread;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
-import java.util.logging.Logger;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *

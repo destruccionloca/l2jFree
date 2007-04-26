@@ -26,7 +26,6 @@
 package net.sf.l2j.loginserver.manager;
 
 import junit.framework.TestCase;
-import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.tools.L2Registry;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -59,18 +58,5 @@ public class GameServerManagerTest extends TestCase
     public void testIsLoaded ()
     {
         assertEquals(127,gsManager.getServers().size());
-    }
-    
-    public void testGSStatus ()
-    {        
-        assertEquals(gsManager.getGameServerStatus(1),ServerStatus.OFF);
-        gsManager.setStatus(ServerStatus.ON, 1);
-        assertEquals(gsManager.getGameServerStatus(1),ServerStatus.ON);
-    }
-    
-    public void testFindIdFree ()
-    {
-        // Check that Id 0 is not in use and is the first free id
-        assertEquals(gsManager.findFreeID(), 0);
     }
 }

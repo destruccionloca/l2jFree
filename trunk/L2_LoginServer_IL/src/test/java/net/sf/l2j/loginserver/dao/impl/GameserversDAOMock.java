@@ -145,4 +145,9 @@ public class GameserversDAOMock  implements GameserversDAO
         
     }
 
+
+	public void removeAll() {
+		referential.clear();
+	}
+
 }

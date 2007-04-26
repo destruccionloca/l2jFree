@@ -20,18 +20,15 @@ package net.sf.l2j.loginserver.manager;
 
 import java.math.BigDecimal;
 import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.spec.RSAKeyGenParameterSpec;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.crypto.Cipher;
 
@@ -41,12 +38,12 @@ import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.L2LoginClient;
 import net.sf.l2j.loginserver.L2LoginServer;
 import net.sf.l2j.loginserver.beans.Accounts;
-import net.sf.l2j.loginserver.beans.BanInfo;
+import net.sf.l2j.loginserver.beans.FailedLoginAttempt;
+import net.sf.l2j.loginserver.beans.GameServerInfo;
 import net.sf.l2j.loginserver.beans.SessionKey;
 import net.sf.l2j.loginserver.services.AccountsServices;
 import net.sf.l2j.loginserver.services.exception.AccountModificationException;
 import net.sf.l2j.loginserver.services.exception.HackingException;
-import net.sf.l2j.loginserver.thread.GameServerListener;
 import net.sf.l2j.loginserver.thread.GameServerThread;
 import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.codec.Base64;
@@ -73,26 +70,41 @@ public class LoginManager
 	
 	private static LoginManager _instance;
 	
-	//TODO: use 2 id maps (server selection + login ok)
-	/** this map contains the session ids that belong to one account */
-	private Map<String, SessionKey> _logins;
-	/** this map contains the connections of the players that are in the loginserver*/
-	private Map<String, Socket> _accountsInLoginServer;
-    /** this map contains the number of failed connection for an adress*/
-	private Map<String, Integer> _hackProtection;
-	private Map<String, String> _lastPassword;
-	private KeyPairGenerator _keyGen;
+	/** Clients that are on the LS but arent assocated with a account yet*/
+	protected Set<L2LoginClient> _clients = new FastSet<L2LoginClient>();
+	
+	/** Authed Clients on LoginServer*/
+	protected Map<String, L2LoginClient> _loginServerClients = new FastMap<String, L2LoginClient>().setShared(true);
+	
+	/** Keep trace of login attempt for an inetadress*/
+	private Map<InetAddress, FailedLoginAttempt> _hackProtection;
+
 	private ScrambledKeyPair[] _keyPairs;
-	private AtomicInteger _keyPairToUpdate;
-	private long _lastKeyPairUpdate;
-	private Random _rnd;
-    private AccountsServices _service = null;
+
+	private Random _rnd = new Random();;
+
     protected byte[][] _blowfishKeys;
+
     private static final int BLOWFISH_KEYS = 20;
-    protected Set<L2LoginClient> _clients = new FastSet<L2LoginClient>();
 
-    private Map<InetAddress, BanInfo> _bannedIps = new FastMap<InetAddress, BanInfo>().setShared(true);
+    private AccountsServices _service = null;
 
+    /**
+     * Load the 
+     * @throws GeneralSecurityException
+     */
+	public static void load() throws GeneralSecurityException
+	{
+		if (_instance == null)
+		{
+			_instance = new LoginManager();
+		}
+		else
+		{
+			throw new IllegalStateException("LoginManager can only be loaded a single time.");
+		}
+	}    
+    
 	/**
      * Private constructor to avoid direct instantiation. 
      * Initialize a key generator.
@@ -102,35 +114,34 @@ public class LoginManager
 		try
         {
             _log.info("LoginManager initiating");
-            _logins = new FastMap<String, SessionKey>();
-            _accountsInLoginServer = new FastMap<String, Socket>();
-            _hackProtection = new FastMap<String, Integer>();
-            _lastPassword = new FastMap<String, String>();
-            _keyPairToUpdate = new AtomicInteger(0);
+            
+    		_hackProtection = new FastMap<InetAddress, FailedLoginAttempt>();
+            
             _keyPairs = new ScrambledKeyPair[10];
+
             _service = (AccountsServices)L2Registry.getBean("AccountsServices");
+            
+    		KeyPairGenerator keygen = null;
             
             try
             {
-            	_keyGen = KeyPairGenerator.getInstance("RSA");
+            	keygen = KeyPairGenerator.getInstance("RSA");
             	RSAKeyGenParameterSpec spec = new RSAKeyGenParameterSpec(1024,RSAKeyGenParameterSpec.F4);
-            	_keyGen.initialize(spec);
+            	keygen.initialize(spec);
             }
             catch (GeneralSecurityException e)
             {
             	_log.fatal("Error in RSA setup:" + e);
             	_log.info("Server shutting down now");
-            	System.exit(2);
+            	System.exit(1);
             }
-            _rnd = new Random();
-            if (_log.isDebugEnabled())_log.debug("LoginController : RSA keygen initiated");
-            //generate the initial set of keys
-            for(int i = 0; i < 10; i++)
-            {
-            	_keyPairs[i] = new ScrambledKeyPair(_keyGen.generateKeyPair());
-            }
-            _lastKeyPairUpdate = System.currentTimeMillis();
-            _log.info("Stored 10 KeyPair for RSA communication");
+            
+    		//generate the initial set of keys
+    		for (int i = 0; i < 10; i++)
+    		{
+    			_keyPairs[i] = new ScrambledKeyPair(keygen.generateKeyPair());
+    		}
+    		_log.info("Cached 10 KeyPairs for RSA communication");
             
             this.testCipher((RSAPrivateKey) _keyPairs[0].getPair().getPrivate());
             
@@ -205,111 +216,130 @@ public class LoginManager
      */
 	public static LoginManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new LoginManager();
-		}
-		
 		return _instance;
 	}
 	
     /**
      * 
      * @param account
-     * @param _csocket
-     * @return
+     * @param client
+     * @return a SessionKey
      */
-	public SessionKey assignSessionKeyToLogin(String account, Socket _csocket)
+	public SessionKey assignSessionKeyToLogin(String account, L2LoginClient client)
 	{
 		SessionKey key;
 		
 		key = new SessionKey(_rnd.nextInt(),_rnd.nextInt(), _rnd.nextInt(), _rnd.nextInt());
-		_logins.put(account, key);
-		_accountsInLoginServer.put(account, _csocket);
+		_loginServerClients.put(account, client);
 		return key;
 	}
 	
-    /**
-     * 
-     * @param account
-     */
-	public void removeAccountFromGameServer(String account)
+	public void removeAuthedLoginClient(String account)
 	{
-		if (account != null)
-		{
-			_logins.remove(account);
-		}
+		_loginServerClients.remove(account);
 	}
-	
-    /**
-     * 
-     * @param account
-     */
-	public void removeAccountFromLoginServer(String account)
-	{
-		if (account != null)
-		{
-			_accountsInLoginServer.remove(account);
-		}
-	}
-	
-    /**
-     * 
-     * @param account
-     * @return true or false is account is logged
-     */
+
 	public boolean isAccountInLoginServer(String account)
 	{
-		return _accountsInLoginServer.containsKey(account);
+		return _loginServerClients.containsKey(account);
 	}
 	
-    /**
-     * 
-     * @param account
-     * @return true or false is account is logged on any gameserver
-     */
+	public SessionKey assignSessionKeyToClient(String account, L2LoginClient client)
+	{
+		SessionKey key;
+
+		key = new SessionKey(_rnd.nextInt(), _rnd.nextInt(), _rnd.nextInt(), _rnd.nextInt());
+		_loginServerClients.put(account, client);
+		return key;
+	}	
+	
+	public GameServerInfo getAccountOnGameServer(String account)
+	{
+		Collection<GameServerInfo> serverList = GameServerManager.getInstance().getRegisteredGameServers().values();
+		for (GameServerInfo gsi : serverList)
+		{
+			GameServerThread gst = gsi.getGameServerThread();
+			if (gst != null && gst.hasAccountOnGameServer(account))
+			{
+				return gsi;
+			}
+		}
+		return null;
+	}	
+	
 	public boolean isAccountInAnyGameServer(String account)
 	{
-		List<GameServerThread> gslist = GameServerListener.getInstance().getGameServerThreads();
-		synchronized (gslist)
+		Collection<GameServerInfo> serverList = GameServerManager.getInstance().getRegisteredGameServers().values();
+		for (GameServerInfo gsi : serverList)
 		{
-			for(GameServerThread gs : gslist)
+			GameServerThread gst = gsi.getGameServerThread();
+			if (gst != null && gst.hasAccountOnGameServer(account))
 			{
-				if(gs.isPlayerInGameServer(account))
-					return true;
+				return true;
 			}
 		}
 		return false;
 	}
 	
-    /**
-     * 
-     * @param account
-     * @return gs id for an account
-     */
-	public int getGameServerIDforAccount(String account)
+	public boolean tryAuthLogin(String account, String password, L2LoginClient client) throws HackingException
 	{
-		List<GameServerThread> gslist = GameServerListener.getInstance().getGameServerThreads();
-		synchronized (gslist)
+		boolean ret = false;
+		if (!this.isAccountInAnyGameServer(account))
 		{
-			for(GameServerThread gs : gslist)
+			ret = this.loginValid(account, password, client);
+
+			// was auth ok?
+			if (ret)
 			{
-				if(gs.isPlayerInGameServer(account))
-					return gs.getServerID();
+				// dont allow 2 simultaneous login
+				synchronized (_loginServerClients)
+				{
+					if (!_loginServerClients.containsKey(account))
+					{
+						_loginServerClients.put(account, client);
+						ret = true;
+					}
+				}
+
+				// was login successful?
+				if (ret)
+				{
+					// remove him from the non-authed list
+					this.removeLoginClient(client);
+				}
 			}
 		}
-		return -1;
+		return ret;
+	}	
+	
+	public L2LoginClient getAuthedClient(String account)
+	{
+		return _loginServerClients.get(account);
 	}
 	
-    /**
-     * 
-     * @param account
-     * @return session key for an account
-     */
 	public SessionKey getKeyForAccount(String account)
 	{
-		return _logins.get(account);
+		L2LoginClient client = _loginServerClients.get(account);
+		if (client != null)
+		{
+			return client.getSessionKey();
+		}
+		return null;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isLoginPossible(int access, int serverId)
+	{
+		GameServerInfo gsi = GameServerManager.getInstance().getRegisteredGameServerById(serverId);
+		if (gsi != null && gsi.isAuthed())
+		{
+			return (gsi.getCurrentPlayerCount() < gsi.getMaxPlayers() || access >= 50);
+		}
+		return false;
+	}	
 	
 	
     /**
@@ -317,16 +347,12 @@ public class LoginManager
      * @param ServerID
      * @return online player count for a server
      */
-	public int getOnlinePlayerCount(int ServerID)
+	public int getOnlinePlayerCount(int serverId)
 	{
-		List<GameServerThread> gslist = GameServerListener.getInstance().getGameServerThreads();
-		synchronized (gslist)
+		GameServerInfo gsi = GameServerManager.getInstance().getRegisteredGameServerById(serverId);
+		if (gsi != null && gsi.isAuthed())
 		{
-			for(GameServerThread gs : gslist)
-			{
-				if(gs.getServerID() == ServerID)
-					return gs.getCurrentPlayers();
-			}
+			return gsi.getCurrentPlayerCount();
 		}
 		return 0;
 	}
@@ -336,30 +362,16 @@ public class LoginManager
      * @param ServerID
      * @return max allowed online player for a server
 	 */
-    public int getMaxAllowedOnlinePlayers(int ServerID)
+	public int getMaxAllowedOnlinePlayers(int id)
 	{
-		List<GameServerThread> gslist = GameServerListener.getInstance().getGameServerThreads();
-		synchronized (gslist)
+		GameServerInfo gsi = GameServerManager.getInstance().getRegisteredGameServerById(id);
+		if (gsi != null)
 		{
-			for(GameServerThread gs : gslist)
-			{
-				if(gs.getServerID() == ServerID)
-					return gs.getMaxPlayers();
-			}
+			return gsi.getMaxPlayers();
 		}
 		return 0;
 	}
 
-	/**
-     *  
-     * @param loginName
-     * @return connection socket for a account
-	 */
-	public Socket getLoginServerConnection(String loginName)
-	{
-		return _accountsInLoginServer.get(loginName);
-	}
-	
     /**
      * 
      * @param user
@@ -414,20 +426,9 @@ public class LoginManager
 	 */
 	public ScrambledKeyPair getScrambledRSAKeyPair()
 	{
-		// ensure that the task will update the keypair only after a keypair is returned.
-		synchronized (_keyPairs)
-		{
-			if ((System.currentTimeMillis() - _lastKeyPairUpdate) > 1000 * 60) // update a key every minutes
-			{
-				if(_keyPairToUpdate.get() == 10)
-					_keyPairToUpdate.set(0);
-				UpdateKeyPairTask task = new UpdateKeyPairTask(_keyPairToUpdate.getAndIncrement());
-				task.start();
-				_lastKeyPairUpdate = System.currentTimeMillis();
-			}
-			return _keyPairs[_rnd.nextInt(10)];
-		}
+		return _keyPairs[_rnd.nextInt(10)];
 	}
+	
 	
 	/**
 	 * user name is not case sensitive any more
@@ -436,25 +437,24 @@ public class LoginManager
 	 * @param address
 	 * @return
 	 */
-	public boolean loginValid(String user, String password, InetAddress address) throws HackingException
+	public boolean loginValid(String user, String password, L2LoginClient client) 
+	{
+		InetAddress address = client.getConnection().getSocketChannel().socket().getInetAddress();
+		return loginValid(user,password,address);
+	}	
+	
+	/**
+	 * user name is not case sensitive any more
+	 * @param user
+	 * @param password
+	 * @param address
+	 * @return
+	 */
+	public boolean loginValid(String user, String password, InetAddress address) 
 	{
 		boolean ok = false;
 		
-        // o get Last information of connection
-        // -----------------------------------
-		Integer failedConnects  = _hackProtection.get(address.getHostAddress());
-		String lastPassword = _lastPassword.get(address.getHostAddress());
-		
         _logLoginTries.info("User trying to connect  '"+user+"' "+address.getHostAddress());
-		
-        // o Check max number of failed connection
-        // -------------------------------------
-		if (failedConnects != null && failedConnects > Config.LOGIN_TRY_BEFORE_BAN)
-		{
-			_log.warn("hacking detected from ip:"+address.getHostAddress()+" .. adding IP to banlist");
-			failedConnects++;
-			throw new HackingException(address.getHostAddress(), failedConnects);
-		}
 		
 		try
 		{			
@@ -503,7 +503,7 @@ public class LoginManager
         // -------------------------
 		if (!ok)
 		{
-            handleBadLogin(user, password, address, failedConnects, lastPassword);
+            handleBadLogin(user, password, address);
 		}
         // else...
 		else
@@ -523,7 +523,6 @@ public class LoginManager
         // for long running servers, this should prevent blocking 
         // of users that mistype their passwords once every day :)
         _hackProtection.remove(address.getHostAddress());
-        _lastPassword.remove(address.getHostAddress());
         if (_logLogin.isDebugEnabled())_log.debug("login successfull for '"+user+"' "+address.getHostAddress());
     }
 
@@ -534,25 +533,29 @@ public class LoginManager
      * @param user
      * @param password
      * @param address
-     * @param failedConnects
-     * @param lastPassword
      */
-    private void handleBadLogin(String user, String password, InetAddress address, Integer failedConnects, String lastPassword)
+    private void handleBadLogin(String user, String password, InetAddress address)
     {
         _logLoginFailed.info("login failed for user : '"+user+"' "+address.getHostAddress());
         
-        // add 1 to the failed counter for this IP 
-        int failedCount = 1;
-        if (failedConnects != null)
-        {
-        	failedCount = failedConnects.intValue() + 1;
-        }
-        
-        if(!password.equals(lastPassword))
-        {
-        	_hackProtection.put(address.getHostAddress(), new Integer(failedCount));
-        	_lastPassword.put(address.getHostAddress(), password);
-        }
+		FailedLoginAttempt failedAttempt = _hackProtection.get(address);
+		int failedCount;
+		if (failedAttempt == null)
+		{
+			_hackProtection.put(address, new FailedLoginAttempt(address, password));
+			failedCount = 1;
+		}
+		else
+		{
+			failedAttempt.increaseCounter(password);
+			failedCount = failedAttempt.getCount();
+		}
+
+		if (failedCount >= Config.LOGIN_TRY_BEFORE_BAN)
+		{
+			// TODO Configurable ban duration (10 mins for now)
+			BanManager.getInstance().addBanForAddress(address, 10*60*1000);
+		}
     }
 
     /**
@@ -632,119 +635,5 @@ public class LoginManager
                 
 	}
     
-    /**
-     * Adds the address to the ban list of the login server, with the given duration.
-     * 
-     * @param address The Address to be banned.
-     * @param expiration Timestamp in miliseconds when this ban expires
-     * @throws UnknownHostException if the address is invalid.
-     */
-    public void addBanForAddress(String address, long expiration) throws UnknownHostException
-    {
-        InetAddress netAddress = InetAddress.getByName(address);
-        _bannedIps.put(netAddress, new BanInfo(netAddress,  expiration));
-    }
-    
-    /**
-     * Adds the address to the ban list of the login server, with the given duration.
-     * 
-     * @param address The Address to be banned.
-     * @param duration is miliseconds
-     */
-    public void addBanForAddress(InetAddress address, long duration)
-    {
-        _bannedIps.put(address, new BanInfo(address,  System.currentTimeMillis() + duration));
-    }    
-    
-    public boolean isBannedAddres(InetAddress address)
-    {
-        BanInfo bi = _bannedIps.get(address);
-        if (bi != null)
-        {
-            if (bi.hasExpired())
-            {
-                _bannedIps.remove(address);
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-        return false;
-    }    
-	
-    public Map<InetAddress, BanInfo> getBannedIps()
-    {
-        return _bannedIps;
-    }
-
-
-    /**
-     * Remove the specified address from the ban list
-     * @param address The address to be removed from the ban list
-     * @return true if the ban was removed, false if there was no ban for this ip
-     */
-    public boolean removeBanForAddress(InetAddress address)
-    {
-        return _bannedIps.remove(address) != null;
-    }
-    
-    /**
-     * Remove the specified address from the ban list
-     * @param address The address to be removed from the ban list
-     * @return true if the ban was removed, false if there was no ban for this ip or the address was invalid.
-     */
-    public boolean removeBanForAddress(String address)
-    {
-        try
-        {
-            return this.removeBanForAddress(InetAddress.getByName(address));
-        }
-        catch (UnknownHostException e)
-        {
-            return false;
-        }
-    }
-    
-	/**
-     * 
-     * @param ipAddress
-     * @return true if ip was correctly unblocked, false if not or if ip was not blocked
-	 */
-	public boolean unblockIp(String ipAddress)
-	{
-		int tries = 0;
-		
-		if (_hackProtection.containsKey(ipAddress))
-			tries = _hackProtection.get(ipAddress);
-		
-		if (tries > Config.LOGIN_TRY_BEFORE_BAN)
-		{
-			_hackProtection.remove(ipAddress);
-			_log.warn("Removed host from hacklist! IP number: " + ipAddress);
-			return true;
-		}
-		
-		return false;
-	}
-	
-	private class UpdateKeyPairTask extends Thread
-	{
-		private int _keyPairId;
-		
-		public UpdateKeyPairTask(int keyPairId)
-		{
-			_keyPairId = keyPairId;
-		}
-		
-		public void run()
-		{
-			_keyPairs[_keyPairId] = new ScrambledKeyPair(_keyGen.generateKeyPair());
-            
-            if (_log.isDebugEnabled())_log.debug("Updated a RSA key");
-		}
-	}
-	
 
 }

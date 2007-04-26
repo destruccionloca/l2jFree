@@ -16,10 +16,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.loginserver.L2LoginServer;
 import net.sf.l2j.loginserver.beans.Accounts;
+import net.sf.l2j.loginserver.manager.BanManager;
 import net.sf.l2j.loginserver.manager.GameServerManager;
 import net.sf.l2j.loginserver.manager.LoginManager;
-import net.sf.l2j.loginserver.thread.LoginServerThread;
 import net.sf.l2j.tools.codec.Base64;
 
 import org.apache.commons.logging.Log;
@@ -244,17 +245,15 @@ public class LoginStatusThread extends Thread
                 }
                 else if (_usrCommand.equals("status"))
                 {
-                	for(String str : GameServerManager.getInstance().status())
-                	{
-                		_print.println(str);
-                	}
+                	// TODO enhance the output
+					_print.println("Registered Server Count: "+GameServerManager.getInstance().getRegisteredGameServers().size());
                 }
                 else if (_usrCommand.startsWith("unblock"))
                 {
                     try
                     {
                         _usrCommand = _usrCommand.substring(8);
-                        if (LoginServerThread.getInstance().unblockIp(_usrCommand))
+                        if (BanManager.getInstance().removeBanForAddress(_usrCommand))
                         {
                             _log.warn("IP removed via TELNET by host: " + _csocket.getInetAddress().getHostAddress());
                             _print.println("The IP " + _usrCommand + " has been removed from the hack protection list!");
@@ -271,14 +270,14 @@ public class LoginStatusThread extends Thread
                 }
                 else if (_usrCommand.startsWith("shutdown"))
                 {
-                    LoginServerThread.getInstance().shutdown(false);
+                	L2LoginServer.getInstance().shutdown(false);
                 	_print.println("Bye Bye!");
     	            _print.flush();
                 	_csocket.close();
                 }
                 else if (_usrCommand.startsWith("restart"))
                 {
-                    LoginServerThread.getInstance().shutdown(true);
+                	L2LoginServer.getInstance().shutdown(true);
                 	_print.println("Bye Bye!");
     	            _print.flush();
                 	_csocket.close();

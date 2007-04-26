@@ -29,42 +29,33 @@ import net.sf.l2j.loginserver.beans.SessionKey;
  * d: ?
  * d: ?
  * d: ?
+ * b: 16 bytes - unknown
  */
-public class LoginOk extends ServerBasePacket
+public final class LoginOk extends L2LoginServerPacket
 {
-	// format 	dddddddd
-	//
-	// 03 
-	// 14 16 0d 00    
-	// 9c 77 ed 03   session id
-	// 00 00 00 00 
-	// 00 00 00 00 
-	// ea 03 00 00 
-	// 00 00 00 00 
-	// 00 00 00 00
-	 
-	// 02 00 00 00 
-	// 00 00 00 00 
-	// 00 00 00 00 
-	// 60 62 e0 00 00 00 00 
+	private int _loginOk1, _loginOk2;
 	
 	public LoginOk(SessionKey sessionKey) 
 	{
+		_loginOk1 = sessionKey.loginOkID1;
+		_loginOk2 = sessionKey.loginOkID2;
+	}
+
+	/**
+	 * @see com.l2jserver.mmocore.network.SendablePacket#write()
+	 */
+	@Override
+	protected void write()
+	{
 		writeC(0x03);
-		//writeD(0x55555555); // fist part of session id
-		//writeD(0x44444444);	// second part of session id
-		writeD(sessionKey.loginOkID1);
-		writeD(sessionKey.loginOkID2);
+		writeD(_loginOk1);
+		writeD(_loginOk2);
 		writeD(0x00);
 		writeD(0x00);
 		writeD(0x000003ea);
 		writeD(0x00);
 		writeD(0x00);
-		writeD(0x02);
-	}
-	
-	public byte[] getContent()
-	{
-		return getBytes();
+		writeD(0x00);
+		writeB(new byte[16]);
 	}
 }

@@ -18,6 +18,8 @@
  */
 package net.sf.l2j.loginserver.gameserverpackets;
 
+import java.util.logging.Logger;
+
 import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
 
 /**
@@ -35,14 +37,15 @@ import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
  */
 public class GameServerAuth extends ClientBasePacket
 {
+	protected static Logger _log = Logger.getLogger(GameServerAuth.class.getName());
 	private byte[] _hexID;
 	private int _desiredID;
 	private boolean _hostReserved;
 	private boolean _acceptAlternativeID;
-	private int _max_palyers;
+	private int _maxPlayers;
 	private int _port;
-	private String _gsNetConfig1;
-	private String _gsNetConfig2;
+	private String _externalHost;
+	private String _internalHost;
 	
 	/**
 	 * @param decrypt
@@ -53,10 +56,10 @@ public class GameServerAuth extends ClientBasePacket
 		_desiredID = readC();
 		_acceptAlternativeID = (readC() == 0 ? false : true); 
 		_hostReserved = (readC() == 0 ? false : true);
-		_gsNetConfig1 = readS();
-		_gsNetConfig2 = readS();
+		_externalHost = readS();
+		_internalHost = readS();
 		_port = readH();
-		_max_palyers = readD();
+		_maxPlayers = readD();
 		int size = readD();
 		_hexID = readB(size);
 	}
@@ -85,38 +88,27 @@ public class GameServerAuth extends ClientBasePacket
 	}
 
 	/**
-	 * @return Returns the max_palyers.
+	 * @return Returns the max players.
 	 */
-	public int getMax_palyers()
+	public int getMaxPlayers()
 	{
-		return _max_palyers;
+		return _maxPlayers;
 	}
 
 	/**
-	 * @return Returns the gameserver netconfig string.
+	 * @return Returns the externalHost.
 	 */
-	public String getNetConfig()
+	public String getExternalHost()
 	{
-		String _netConfig = "";
-		
-		//	network configuration string formed on server
-		if (_gsNetConfig1.contains(";") || _gsNetConfig1.contains(","))
-		{
-			_netConfig = _gsNetConfig1;
-		}
-		else // make network config string
-		{
-			if (_gsNetConfig2.length()>0) // internal hostname and default internal networks
-			{
-				_netConfig = _gsNetConfig2 + "," + "10.0.0.0/8,192.168.0.0/16" + ";";
-			}
-			if (_gsNetConfig1.length()>0) // external hostname and all avaible addresses by default
-			{
-				_netConfig += _gsNetConfig1 + "," + "0.0.0.0/0" + ";";
-			}
-		}
-		
-		return _netConfig;
+		return _externalHost;
+	}
+
+	/**
+	 * @return Returns the internalHost.
+	 */
+	public String getInternalHost()
+	{
+		return _internalHost;
 	}
 	
 	/**

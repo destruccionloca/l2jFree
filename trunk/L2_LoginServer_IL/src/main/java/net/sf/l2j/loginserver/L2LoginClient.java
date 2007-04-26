@@ -174,11 +174,6 @@ public final class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 		_account = account;
 	}
 	
-	public void setAccessLevel(int accessLevel)
-	{
-		_accessLevel = accessLevel;
-	}
-	
 	public int getAccessLevel()
 	{
 		return _accessLevel;

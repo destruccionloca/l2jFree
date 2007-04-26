@@ -25,22 +25,34 @@ import org.apache.commons.logging.LogFactory;
  * Fromat: d
  * d: response
  */
-public class GGAuth extends ServerBasePacket
-
+public final class GGAuth extends L2LoginServerPacket
 {
-    private static final Log    _log = LogFactory.getLog(GGAuth.class.getName());
+    static Log _log = LogFactory.getLog(GGAuth.class.getName());
     public static int SKIP_GG_AUTH_REQUEST = 0x0b;
+    
+    private int _response;
     
     public GGAuth(int response) 
     {
-        writeC(0x0b);
-        writeD(response); 
-        if (_log.isDebugEnabled())_log.debug("Reason " + "Hex: "+(Integer.toHexString(response)));
+    	_response = response;
+        if (_log.isDebugEnabled())
+        {
+            _log.warn("Reason Hex: "+(Integer.toHexString(response)));
+        }
     }
     
-    public byte[] getContent()
-    {
-        return getBytes();
-    }
+	/**
+	 * @see com.l2jserver.mmocore.network.SendablePacket#write()
+	 */
+	@Override
+	protected void write()
+	{
+		writeC(0x0b);
+        writeD(_response); 
+        writeD(0x00);
+        writeD(0x00);
+        writeD(0x00);
+        writeD(0x00);
+	}
 }
 

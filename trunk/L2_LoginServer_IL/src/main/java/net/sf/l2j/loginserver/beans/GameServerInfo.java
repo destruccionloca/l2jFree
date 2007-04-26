@@ -25,16 +25,7 @@
  */
 package net.sf.l2j.loginserver.beans;
 
-import java.math.BigInteger;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.StringTokenizer;
-
-import javolution.util.FastList;
-import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
-import net.sf.l2j.loginserver.manager.GameServerManager;
 import net.sf.l2j.loginserver.thread.GameServerThread;
-import net.sf.l2j.tools.network.Net;
 
 /**
  *  

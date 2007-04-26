@@ -23,10 +23,14 @@ import java.security.GeneralSecurityException;
 
 import javax.crypto.Cipher;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.L2LoginClient;
 import net.sf.l2j.loginserver.L2LoginClient.LoginClientState;
 import net.sf.l2j.loginserver.beans.GameServerInfo;
+import net.sf.l2j.loginserver.manager.BanManager;
 import net.sf.l2j.loginserver.manager.LoginManager;
 import net.sf.l2j.loginserver.serverpackets.LoginOk;
 import net.sf.l2j.loginserver.serverpackets.ServerList;
@@ -40,6 +44,8 @@ import net.sf.l2j.loginserver.services.exception.HackingException;
  */
 public class RequestAuthLogin extends L2LoginClientPacket
 {
+	private final static Log _log = LogFactory.getLog(RequestAuthLogin.class);
+	
     private byte[] _raw = new byte[128];
 	
     private String _user;
@@ -153,7 +159,7 @@ public class RequestAuthLogin extends L2LoginClientPacket
         {
             InetAddress address = this.getClient().getConnection().getSocketChannel().socket().getInetAddress();
             // TODO Make the duration configurable
-            lc.addBanForAddress(address, 5*60*1000);
+            BanManager.getInstance().addBanForAddress(address, 5*60*1000);
             _log.info("Banned ("+address+") for "+(5*60)+" seconds, due to "+e.getConnects()+" incorrect login attempts.");
         }
     }    

@@ -50,7 +50,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
     <appender name="CON" class="org.apache.log4j.ConsoleAppender">
         <param name="Threshold" value="DEBUG"/>
         <param name="Target" value="System.out"/>
-        <layout class="net.sf.l2j.log4jextension.ExtendedPatternLayout">
+        <layout class="net.sf.l2j.tools.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="%p : %m %s %n"/>
         </layout>
     </appender>    
@@ -63,7 +63,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
         <param name="Append" value="true"/>
         <param name="MaxFileSize" value="500KB"/>
         <param name="MaxBackupIndex" value="5"/>
-        <layout class="net.sf.l2j.log4jextension.ExtendedPatternLayout">
+        <layout class="net.sf.l2j.tools.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="%d{yyyy.MM.dd HH:mm:ss,SSS} %p %t %c %m %s %n"/>
         </layout>
     </appender>
@@ -76,7 +76,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
         <param name="Append" value="true"/>
         <param name="MaxFileSize" value="500KB"/>
         <param name="MaxBackupIndex" value="5"/>
-        <layout class="net.sf.l2j.log4jextension.ExtendedPatternLayout">
+        <layout class="net.sf.l2j.tools.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="%d{yyyy.MM.dd HH:mm:ss,SSS} %p %t %c %m %s %n"/>
         </layout>
     </appender>
@@ -89,7 +89,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
         <param name="Append" value="true"/>
         <param name="MaxFileSize" value="500KB"/>
         <param name="MaxBackupIndex" value="5"/>
-        <layout class="net.sf.l2j.log4jextension.ExtendedPatternLayout">
+        <layout class="net.sf.l2j.tools.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="%d{yyyy.MM.dd HH:mm:ss,SSS} %p %t %c %m %s %n"/>
         </layout>
     </appender>
@@ -101,7 +101,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
         <param name="Append" value="true"/>
         <param name="MaxFileSize" value="500KB"/>
         <param name="MaxBackupIndex" value="5"/>
-        <layout class="net.sf.l2j.log4jextension.ExtendedPatternLayout">
+        <layout class="net.sf.l2j.tools.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="[%d{yy.MM.dd HH:mm:ss}] %p : %m %n"/>
         </layout>
     </appender>
@@ -113,7 +113,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
         <param name="Append" value="true"/>
         <param name="MaxFileSize" value="500KB"/>
         <param name="MaxBackupIndex" value="5"/>
-        <layout class="net.sf.l2j.log4jextension.ExtendedPatternLayout">
+        <layout class="net.sf.l2j.tools.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="[%d{yy.MM.dd HH:mm:ss}] %p : %m %n"/>
         </layout>
     </appender>        

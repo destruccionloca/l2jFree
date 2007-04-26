@@ -22,13 +22,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.math.BigInteger;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.Server;
-import net.sf.l2j.loginserver.beans.GameServerInfo;
 import net.sf.l2j.loginserver.beans.Gameservers;
 import net.sf.l2j.loginserver.manager.GameServerManager;
 import net.sf.l2j.tools.L2Registry;
@@ -95,7 +90,7 @@ public class GameServerRegister
                 if (_choice.equals("y"))
                 {
                     GameServerRegister.cleanRegisteredGameServersFromDB();
-                    GameServerManager.getRegisteredGameServers().clear();
+                    gsServerManager.getRegisteredGameServers().clear();
                 }
                 else
                 {
@@ -138,15 +133,14 @@ public class GameServerRegister
             }
             else
             {
-                if(gsServerManager.isIDfree(id))
+				if (gsServerManager.hasRegisteredGameServerOnId(id))
                 {
                     byte[] hex = HexUtil.generateHex(16);
 
-                    gsServerManager.registerServerOnDB(hexId, id, "");
+                    gsServerManager.registerServerOnDB(hex, id, "");
                     HexUtil.saveHexid(id, new BigInteger(hex).toString(16),"hexid(server "+id+").txt");
                     System.out.println("Server Registered hexid saved to 'hexid(server "+id+").txt'");
                     System.out.println("Put this file in the /config folder of your gameserver and rename it to 'hexid.txt'");
-                    return;
                     _choiceOk=true;
                 }
                 else
@@ -168,7 +162,7 @@ public class GameServerRegister
     {
         for(Gameservers gs : gsServerManager.getServers())
         {
-            System.out.println("Server: id:"+gs.getServerId()+" - "+gs.getServerName() +" - In Use: "+(GameServerManager.hasRegisteredGameServerOnId(gs.getServerId()) ? "YES" : "NO"));
+            System.out.println("Server: id:"+gs.getServerId()+" - "+gs.getServerName() +" - In Use: "+(gsServerManager.hasRegisteredGameServerOnId(gs.getServerId()) ? "YES" : "NO"));
         }
         System.out.println("You can also see servername.xml");
     }    
@@ -176,25 +170,6 @@ public class GameServerRegister
     
     public static void cleanRegisteredGameServersFromDB()
     {
-        GameServerManager.getInstance().
-        
-        java.sql.Connection con = null;
-        PreparedStatement statement = null;
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection();
-            statement = con.prepareStatement("DELETE FROM gameservers");
-            statement.executeUpdate();
-            statement.close();
-        }
-        catch (SQLException e)
-        {
-            System.out.println("SQL error while cleaning registered servers: "+e);
-        }
-        finally
-        {
-            try {statement.close();} catch (Exception e) {}
-            try { con.close();} catch (Exception e) {}
-        }
+        GameServerManager.getInstance().deleteAllServer();
     }    
 }

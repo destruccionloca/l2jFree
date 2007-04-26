@@ -22,7 +22,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import net.sf.l2j.loginserver.manager.LoginManager;
+import net.sf.l2j.loginserver.manager.BanManager;
 import net.sf.l2j.loginserver.serverpackets.Init;
 
 import com.l2jserver.mmocore.network.IAcceptFilter;
@@ -67,7 +67,7 @@ public class SelectorHelper implements IMMOExecutor<L2LoginClient>, IClientFacto
 	 */
 	public boolean accept(SocketChannel sc)
 	{
-		return !LoginManager.getInstance().isBannedAddres(sc.socket().getInetAddress());
+		return !BanManager.getInstance().isBannedAddres(sc.socket().getInetAddress());
 	}
 
 }

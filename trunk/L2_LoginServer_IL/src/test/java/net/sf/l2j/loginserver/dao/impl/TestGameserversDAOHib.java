@@ -205,6 +205,18 @@ public class TestGameserversDAOHib extends ADAOTestCase
 
        assertEquals(1,list.size());
    } 
+
+  public void testRemoveAll() throws Exception {
+      
+	  testAddAllAndRemove();
+	  
+	  dao.removeAll();
+	  
+	  dao.getCurrentSession().flush();
+	  List list ;
+	  list = dao.getAllGameservers();
+	  assertEquals(0,list.size());
+  } 
   
   public void testAddAllAndRemove() throws Exception {
       

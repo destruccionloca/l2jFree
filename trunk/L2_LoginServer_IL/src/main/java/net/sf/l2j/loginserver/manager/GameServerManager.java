@@ -33,11 +33,9 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.RSAKeyGenParameterSpec;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Map.Entry;
 
 import javolution.util.FastMap;
 import net.sf.l2j.loginserver.beans.GameServerInfo;
@@ -57,24 +55,19 @@ import org.apache.commons.logging.LogFactory;
 public class GameServerManager
 {
     private static final Log _log = LogFactory.getLog(GameServerManager.class);
-
-    private GameserversServices _gsServices = null;
-    private GameserversServices _gsServicesXml = null;
-
     private static GameServerManager __instance = null;
-    
-    //
-    private static Map<Integer, String> _serverNames = new FastMap<Integer, String>();
 
-    
     // Game Server from database
     private Map<Integer, GameServerInfo> _gameServers = new FastMap<Integer, GameServerInfo>().setShared(true);
 
     // RSA Config
     private static final int KEYS_SIZE = 10;
-    private long _last_IP_Update;
     private KeyPair[] _keyPairs;
-    private Random _rnd;
+    private Random _rnd= new Random();;
+
+	private GameserversServices _gsServices = null;
+    private GameserversServices _gsServicesXml = null;
+
 
     /**
      * Return singleton 
@@ -118,10 +111,6 @@ public class GameServerManager
         // --------------
         load();
 
-        // o Initialize last ip update time
-        // --------------------------------
-        _last_IP_Update = System.currentTimeMillis();
-        
         // o Load RSA keys
         // ---------------
         this.loadRSAKeys();
@@ -166,12 +155,13 @@ public class GameServerManager
         // avoid two servers registering with the same "free" id
         synchronized (_gameServers)
         {
-            for (Entry<Integer,String> entry : _serverNames.entrySet())
+        	List<Gameservers> serverNames = _gsServicesXml.getAllGameservers();
+        	for (Gameservers entry : serverNames)
             {
-                if (!_gameServers.containsKey(entry.getKey()))
+                if (!_gameServers.containsKey(entry.getServerId()))
                 {
-                    _gameServers.put(entry.getKey(), gsi);
-                    gsi.setId(entry.getKey());
+                    _gameServers.put(entry.getServerId(), gsi);
+                    gsi.setId(entry.getServerId());
                     return true;
                 }
             }
@@ -207,13 +197,8 @@ public class GameServerManager
     
     public String getServerNameById(int id)
     {
-        return this.getServerNames().get(id);
+        return _gsServicesXml.getGameserverName(id);
     }
-    
-    public Map<Integer, String> getServerNames()
-    {
-        return _serverNames;
-    }    
     
     /**
      * Load Gameserver from DAO
@@ -222,17 +207,13 @@ public class GameServerManager
     private void load()
     {
         List<Gameservers> listGs = _gsServices.getAllGameservers();
-        Iterator<Gameservers> it = listGs.iterator();
-        int id = 0;
         GameServerInfo gsi;
-        while (it.hasNext())
+        for (Gameservers gsFromDAO : listGs)
         {
-            Gameservers gsFromDAO = it.next();
-            id = gsFromDAO.getServerId();
-            gsi = new GameServerInfo(id, HexUtil.stringToHex(gsFromDAO.getHexid()));
-            _gameServers.put(id, gsi);
+            gsi = new GameServerInfo(gsFromDAO.getServerId(), HexUtil.stringToHex(gsFromDAO.getHexid()));
+            _gameServers.put(gsFromDAO.getServerId(), gsi);
         }
-        _log.info("GameServerManager: Loaded " + listGs.size() + " servers (max id:" + id + ")");
+        _log.info("GameServerManager: Loaded " + listGs.size() );
     }
 
 

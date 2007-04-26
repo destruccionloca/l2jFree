@@ -54,6 +54,11 @@ public class SessionKey
         return "PlayOk: "+playOkID1+" "+playOkID2+" LoginOk:"+loginOkID1+" "+loginOkID2;
     }
     
+	public boolean checkLoginPair(int loginOk1, int loginOk2)
+	{
+		return loginOkID1 == loginOk1 && loginOkID2 == loginOk2;
+	}    
+    
     /**
      * <p>Returns true if keys are equal.</p>
      * <p>Only checks the PlayOk part of the session key if server doesnt show the licence when player logs in.</p>

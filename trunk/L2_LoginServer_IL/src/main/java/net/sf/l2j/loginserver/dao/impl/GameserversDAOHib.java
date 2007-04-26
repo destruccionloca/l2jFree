@@ -118,6 +118,6 @@ public class GameserversDAOHib extends BaseRootDAOHib implements GameserversDAO
      */
     public void removeAll()
     {
-        getCurrentSession().createQuery("delete from " + Gameservers.class);
+    	removeAll(getAllGameservers());
     }
 }

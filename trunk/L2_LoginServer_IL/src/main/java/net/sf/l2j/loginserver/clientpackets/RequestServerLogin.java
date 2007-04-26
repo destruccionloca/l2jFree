@@ -19,8 +19,8 @@
 package net.sf.l2j.loginserver.clientpackets;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.loginserver.LoginController;
-import net.sf.l2j.loginserver.SessionKey;
+import net.sf.l2j.loginserver.beans.SessionKey;
+import net.sf.l2j.loginserver.manager.LoginManager;
 import net.sf.l2j.loginserver.serverpackets.PlayOk;
 import net.sf.l2j.loginserver.serverpackets.LoginFail.LoginFailReason;
 
@@ -86,7 +86,7 @@ public class RequestServerLogin extends L2LoginClientPacket
         // if we didnt showed the license we cant check these values
         if (!Config.SHOW_LICENCE || sk.checkLoginPair(_skey1, _skey2))
         {
-            if (LoginController.getInstance().isLoginPossible(this.getClient().getAccessLevel(), _serverId))
+            if (LoginManager.getInstance().isLoginPossible(this.getClient().getAccessLevel(), _serverId))
             {
                 this.getClient().sendPacket(new PlayOk(sk));
             }

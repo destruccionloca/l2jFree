@@ -32,7 +32,6 @@ import java.net.UnknownHostException;
 import junit.framework.TestCase;
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.beans.SessionKey;
-import net.sf.l2j.loginserver.services.exception.HackingException;
 import net.sf.l2j.tools.L2Registry;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -55,6 +54,11 @@ public class LoginManagerTest extends TestCase
         super.setUp();
         context = new ClassPathXmlApplicationContext("classpath*:/**/**/applicationContext-TestMock.xml");
         L2Registry.setApplicationContext(context);
+        
+        if ( LoginManager.getInstance() == null )
+        {
+        	LoginManager.load();
+        }
         loginManager = LoginManager.getInstance();
     }
 
@@ -67,7 +71,6 @@ public class LoginManagerTest extends TestCase
         assertNotNull(sk);
 
         assertTrue(loginManager.isAccountInLoginServer("player1"));
-        assertEquals(loginManager.getKeyForAccount("player1"), sk);
     }
 
     /**
@@ -77,8 +80,7 @@ public class LoginManagerTest extends TestCase
     {
         loginManager.assignSessionKeyToLogin("player1", null);
 
-        loginManager.removeAccountFromGameServer("player1");
-        loginManager.removeAccountFromLoginServer("player1");
+        loginManager.removeAuthedLoginClient("player1");
 
         assertTrue(!loginManager.isAccountInLoginServer("player1"));
         assertNull(loginManager.getKeyForAccount("player1"));
@@ -116,7 +118,7 @@ public class LoginManagerTest extends TestCase
             assertFalse(loginManager.loginValid("player1", "testpwd", client.getInetAddress()));
             assertTrue(loginManager.loginValid("player1", "testpwd1", client.getInetAddress()));
         }
-        catch (HackingException e)
+        catch (Exception e)
         {
             fail(e.getMessage());
         }
@@ -148,19 +150,17 @@ public class LoginManagerTest extends TestCase
         }
         try
         {
-            // First try, failed connect = 0
+            // First try, failed connect = 1
             assertFalse(loginManager.loginValid("player1", "testpwd", client.getInetAddress()));
-            // 2nd try, failed connect = 1
+            assertFalse(BanManager.getInstance().isBannedAddres(client.getInetAddress()));
+            // 2nd try, failed connect = 2
             assertFalse(loginManager.loginValid("player1", "testpwd2", client.getInetAddress()));
-            // 3rd try, failed connect = 2
+            assertFalse(BanManager.getInstance().isBannedAddres(client.getInetAddress()));
+            // 3rd try, failed connect = 3 => ban ip
             assertFalse(loginManager.loginValid("player1", "testpwd3", client.getInetAddress()));
-            // 4th try, failed connect = 3
-            assertFalse(loginManager.loginValid("player1", "testpwd4", client.getInetAddress()));
-            // 5th try, failed connect = 4 and is > Config.LOGIN_TRY_BEFORE_BAN => ban ip
-            assertFalse(loginManager.loginValid("player1", "testpwd5", client.getInetAddress()));
-            fail ("not banned");
+            assertTrue(BanManager.getInstance().isBannedAddres(client.getInetAddress()));
         }
-        catch (HackingException e)
+        catch (Exception e)
         {
             assertNotNull(e);
         }
@@ -172,7 +172,7 @@ public class LoginManagerTest extends TestCase
             }
         }
         // don't forget to unban client to avoid perturbation on other tests
-        loginManager.unblockIp(client.getInetAddress().getHostAddress());
+        BanManager.getInstance().removeBanForAddress(client.getInetAddress().getHostAddress());
     }
     
     public void testAutoCreateAccount () throws IOException
@@ -196,7 +196,7 @@ public class LoginManagerTest extends TestCase
         {
             assertTrue(loginManager.loginValid("unknownplayer", "pwdforplayer", client.getInetAddress()));
         }
-        catch (HackingException e)
+        catch (Exception e)
         {
             fail(e.getMessage());
         }

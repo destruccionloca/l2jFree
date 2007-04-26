@@ -25,6 +25,10 @@
  */
 package net.sf.l2j.loginserver.manager;
 
+import java.io.FileWriter;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import junit.framework.TestCase;
 
 /**
@@ -41,38 +45,49 @@ public class BanManagerTest extends TestCase
     {
         super.setUp();
         BanManager.BAN_LIST = getClass().getResource("banlist.cfg").getFile().replace("%20", " ");
+
+        // intialize a file for the test
+        FileWriter fw = new FileWriter(BanManager.BAN_LIST);
+        fw.write("#comment\n");
+        fw.write("\n127.0.0.1 "+ System.currentTimeMillis() + 10000);
+        fw.write("\n192.168.0.1 "+ System.currentTimeMillis() + 10000);
+        fw.write("\n176.12.12.12 "+ System.currentTimeMillis() + 10000);
+        fw.close();
+        
         BanManager.getInstance();
     }
     
-    public void testLoadBanList ()
+    public void testLoadBanList () throws UnknownHostException
     {
         BanManager bm = BanManager.getInstance();
         assertEquals(3,bm.getNbOfBannedIp());
-        assertTrue(bm.isIpBanned("127.0.0.1"));
+        InetAddress netAddress = InetAddress.getByName("127.0.0.1");
+        assertTrue(bm.isBannedAddres(netAddress));
     }
     
-    public void testUnBan ()
+    public void testUnBan () throws UnknownHostException
     {
         BanManager bm = BanManager.getInstance();
-        assertTrue(bm.isIpBanned("127.0.0.1"));
+        InetAddress netAddress = InetAddress.getByName("127.0.0.1");
+        assertTrue(bm.isBannedAddres(netAddress));
         
-        bm.unBanIP("127.0.0.1");
-        assertTrue(!bm.isIpBanned("127.0.0.1")); 
+        bm.removeBanForAddress("127.0.0.1");
+        assertTrue(!bm.isBannedAddres(netAddress)); 
     }
     
     public void testBanIp () throws Exception
     {
         BanManager bm = BanManager.getInstance();
-        if ( bm.isIpBanned("127.0.0.1"))
+        InetAddress netAddress = InetAddress.getByName("127.0.0.1");
+        if (bm.isBannedAddres(netAddress))
         {
-            bm.unBanIP("127.0.0.1");
+            bm.removeBanForAddress("127.0.0.1");
         }
         
-        bm.addBannedIP("127.0.0.1",0);
-        assertTrue(bm.isIpBanned("127.0.0.1"));
-        // TODO the following should work
-        //Thread.sleep(2000);
+        bm.addBanForAddress(netAddress, 2000);
+        assertTrue(bm.isBannedAddres(netAddress));
+        Thread.sleep(3000);
         // check that account is unban
-        //assertTrue(!bm.isIpBanned("127.0.0.1"));
+        assertTrue(!bm.isBannedAddres(netAddress));
     }
 }

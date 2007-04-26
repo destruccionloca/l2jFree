@@ -27,6 +27,7 @@ import java.util.logging.LogManager;
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.manager.BanManager;
 import net.sf.l2j.loginserver.manager.GameServerManager;
+import net.sf.l2j.loginserver.manager.LoginManager;
 import net.sf.l2j.loginserver.thread.GameServerListener;
 import net.sf.l2j.status.Status;
 import net.sf.l2j.tools.L2Registry;
@@ -43,13 +44,21 @@ import com.l2jserver.mmocore.network.SelectorThread;
  */
 public class L2LoginServer
 {
-    private static Log _log = LogFactory.getLog(L2LoginServer.class);
-    public static Status statusServer;
+	/** Protocol revision */
+	public static final int PROTOCOL_REV = 0x0102;
+	
+	/**instance */
     private static L2LoginServer _instance;
-    private SelectorThread<L2LoginClient> _selectorThread;
+    /**Logger */
+    private static Log _log = LogFactory.getLog(L2LoginServer.class);
+    /**the gameserver listener store all gameserver connected to the client*/
     private GameServerListener _gameServerListener;
+    private SelectorThread<L2LoginClient> _selectorThread;
+    public static Status statusServer;
     
-    
+    /**
+     * @return the instance of L2LoginServer
+     */
     public static L2LoginServer getInstance()
     {
         return _instance;
@@ -92,15 +101,90 @@ public class L2LoginServer
         // ---------------------------------------------------
         L2Registry.loadRegistry(new String[]{"spring.xml"});
         
+        
+        // o Initialize LoginManager
+        // -------------------------
+        LoginManager.load();        
+        
         // o Initialize GameServer Manager
         // ------------------------------
         GameServerManager.getInstance();
         
         // o Initialize ban list
         // ----------------------
-        BanManager.getInstance();        
+        BanManager.getInstance();
+        
+        // o Initialize SelectorThread
+        // ----------------------------
+        initNetworkLayer();
+        
+        // o Initialize GS listener
+        // ----------------------------
+        initGSListener();        
+        
+        // o Start status telnet server
+        // --------------------------
+        initTelnetServer();
+        
+        // o Start the server
+        // ------------------
+        startServer();
+        _log.info("Login Server ready on port "+Config.PORT_LOGIN);        
+    }
 
-        SelectorServerConfig ssc = new SelectorServerConfig(Config.PORT_LOGIN);
+	/**
+	 * 
+	 */
+	private void startServer() {
+		try
+        {
+            _selectorThread.openServerSocket();
+        }
+        catch (IOException e)
+        {
+            _log.fatal("FATAL: Failed to open server socket. Reason: "+e.getMessage(),e);
+            System.exit(1);
+        }
+        _selectorThread.start();
+	}
+
+	/**
+	 * @throws IOException
+	 */
+	private void initTelnetServer() throws IOException {
+		if (Config.IS_TELNET_ENABLED)
+        {
+            statusServer = new Status();
+            statusServer.start();
+        }
+        else
+        {
+            _log.info("Telnet server is currently disabled.");
+        }
+	}
+
+	/**
+	 * 
+	 */
+	private void initGSListener() {
+		try
+        {
+            _gameServerListener = new GameServerListener();
+            _gameServerListener.start();
+            _log.info("Listening for GameServers on "+Config.GAME_SERVER_LOGIN_HOST+":"+Config.GAME_SERVER_LOGIN_PORT);
+        }
+        catch (IOException e)
+        {
+            _log.fatal("FATAL: Failed to start the Game Server Listener. Reason: "+e.getMessage(),e);
+            System.exit(1);
+        }
+	}
+
+	/**
+	 * 
+	 */
+	private void initNetworkLayer() {
+		SelectorServerConfig ssc = new SelectorServerConfig(Config.PORT_LOGIN);
         L2LoginPacketHandler loginPacketHandler = new L2LoginPacketHandler();
         SelectorHelper sh = new SelectorHelper();
         try
@@ -113,42 +197,19 @@ public class L2LoginServer
             _log.fatal("FATAL: Failed to open Selector. Reason: "+e.getMessage(),e);
             System.exit(1);
         }
-        
-        try
-        {
-            _gameServerListener = new GameServerListener();
-            _gameServerListener.start();
-            _log.info("Listening for GameServers on "+Config.GAME_SERVER_LOGIN_HOST+":"+Config.GAME_SERVER_LOGIN_PORT);
-        }
-        catch (IOException e)
-        {
-            _log.fatal("FATAL: Failed to start the Game Server Listener. Reason: "+e.getMessage(),e);
-            System.exit(1);
-        }        
-        
-        // Start status telnet server
-        // --------------------------
-        if (Config.IS_TELNET_ENABLED)
-        {
-            statusServer = new Status();
-            statusServer.start();
-        }
-        else
-        {
-            _log.info("Telnet server is currently disabled.");
-        }
-        
-        try
-        {
-            _selectorThread.openServerSocket();
-        }
-        catch (IOException e)
-        {
-            _log.fatal("FATAL: Failed to open server socket. Reason: "+e.getMessage(),e);
-            System.exit(1);
-        }
-        _selectorThread.start();
-        _log.info("Login Server ready on port "+Config.PORT_LOGIN);        
-    }
+	}
+    
+	public Status getStatusServer()
+	{
+		return statusServer;
+	}
 
+	public GameServerListener getGameServerListener() {
+		return _gameServerListener;
+	}    
+	
+	public void shutdown(boolean restart)
+	{
+		Runtime.getRuntime().exit(restart ? 2 : 0);
+	}
 }

@@ -27,10 +27,13 @@ package net.sf.l2j.loginserver.manager;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
+import java.util.Map;
 
-import javolution.util.FastList;
-import net.sf.l2j.tools.network.Net;
+import javolution.util.FastMap;
+import net.sf.l2j.loginserver.beans.BanInfo;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
@@ -44,7 +47,9 @@ public class BanManager
 {
     private static BanManager _instance = null;
     private static final Log _log = LogFactory.getLog(BanManager.class);
-    private static List<Net> _bannedIPs = new FastList<Net>();
+	/** Banned ips */
+	private Map<InetAddress, BanInfo> _bannedIps = new FastMap<InetAddress, BanInfo>().setShared(true);
+    
     public static String BAN_LIST = "config/banned_ip.cfg";
     private static final String ENCODING = "UTF-8";
     
@@ -62,43 +67,6 @@ public class BanManager
         else return _instance;
     }
     
-    public void addBannedIP(String ip, int incorrectCount)
-    {
-        _bannedIPs.add(new Net(ip));
-        int time = incorrectCount * incorrectCount * 1000;
-        _log.info("Banning ip "+ip+" for "+time/1000.0+" seconds.");
-        ThreadPoolManager.getInstance().scheduleGeneral(new UnbanTask(ip), time);
-    }    
-    
-    /**
-     * 
-     * @param ip
-     */
-    private void addBannedIP(String ip)
-    {
-        _bannedIPs.add(new Net(ip));
-    }
-    
-    /**
-     * Remove banned ip or network
-     * @param ip
-     */
-    public void unBanIP(String ip)
-    {
-    	Net _unban = new Net(ip);
-    	for (Net _net : _bannedIPs)
-        	if(_net.equal(_unban)) _bannedIPs.remove(_net);
-    }
-    
-    /**
-     * Remove all ip from banned list (in memory, not in file)
-     *
-     */
-    public void purgeBanlist ()
-    {
-        _bannedIPs.clear();
-    }
-    
     private BanManager()
     {
     	load();
@@ -111,7 +79,7 @@ public class BanManager
     {
         try
         {
-        	_bannedIPs.clear();
+        	_bannedIps.clear();
             // try to read banned list
             File file = new File(BAN_LIST);
             List lines = FileUtils.readLines(file, ENCODING);            
@@ -131,6 +99,123 @@ public class BanManager
         {
             _log.warn("error while reading banned file:" + e);
         }
+    }    
+    
+    /**
+     * 
+     * @param ip
+     */
+    private void addBannedIP(String line)
+    {
+        String[] parts;
+		// split comments if any
+		parts = line.split("#");
+		
+		// discard comments in the line, if any
+		line = parts[0];
+		
+		parts = line.split(" ");
+		
+		String address = parts[0];
+		
+		long duration = 0;
+		
+		if (parts.length > 1)
+		{
+			try
+			{
+				duration = Long.parseLong(parts[1]);
+			}
+			catch (NumberFormatException e)
+			{
+				_log.warn("Skipped: Incorrect ban duration ("+parts[1]+") on Line: "+line);
+				return;
+			}
+		}
+		
+		try
+		{
+			addBanForAddress(address, duration);
+		}
+		catch (UnknownHostException e)
+		{
+			_log.warn("Skipped: Invalid address ("+parts[0]+") on Line: "+line);
+		}
+    }
+    
+    /**
+     * Adds the address to the ban list of the login server, with the given duration.
+     * 
+     * @param address The Address to be banned.
+     * @param expiration Timestamp in miliseconds when this ban expires
+     * @throws UnknownHostException if the address is invalid.
+     */
+    public void addBanForAddress(String address, long expiration) throws UnknownHostException
+    {
+        InetAddress netAddress = InetAddress.getByName(address);
+        _bannedIps.put(netAddress, new BanInfo(netAddress,  expiration));
+    }
+        
+    /**
+     * Adds the address to the ban list of the login server, with the given duration.
+     * 
+     * @param address The Address to be banned.
+     * @param duration is miliseconds
+     */
+    public void addBanForAddress(InetAddress address, long duration)
+    {
+        _bannedIps.put(address, new BanInfo(address,  System.currentTimeMillis() + duration));
+    }    
+    
+    public boolean isBannedAddres(InetAddress address)
+    {
+        BanInfo bi = _bannedIps.get(address);
+        if (bi != null)
+        {
+            if (bi.hasExpired())
+            {
+                _bannedIps.remove(address);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        return false;
+    }    
+	
+    public Map<InetAddress, BanInfo> getBannedIps()
+    {
+        return _bannedIps;
+    }
+
+
+    /**
+     * Remove the specified address from the ban list
+     * @param address The address to be removed from the ban list
+     * @return true if the ban was removed, false if there was no ban for this ip
+     */
+    public boolean removeBanForAddress(InetAddress address)
+    {
+        return _bannedIps.remove(address) != null;
+    }
+    
+    /**
+     * Remove the specified address from the ban list
+     * @param address The address to be removed from the ban list
+     * @return true if the ban was removed, false if there was no ban for this ip or the address was invalid.
+     */
+    public boolean removeBanForAddress(String address)
+    {
+        try
+        {
+            return this.removeBanForAddress(InetAddress.getByName(address));
+        }
+        catch (UnknownHostException e)
+        {
+            return false;
+        }
     }
     
     /**
@@ -139,43 +224,7 @@ public class BanManager
      */
     public int getNbOfBannedIp ()
     {
-       return _bannedIPs.size(); 
+       return _bannedIps.size(); 
     }
-    
-    
-    /**
-     * Check if ip is in banned list
-     * @param ip
-     * @return true or false if ip is banned or not
-     */
-    public boolean isIpBanned (String ip)
-    {
-    	boolean _isBanned = false;
-    	
-        for (Net _net : _bannedIPs)
-        	if(_net.isInNet(ip)) _isBanned = true;
-        
-        return _isBanned;
-    }
-    
 
-    /**
-     * 
-     * This runnable manage unban task for an ip
-     * 
-     */
-    private class UnbanTask implements Runnable
-    {
-    	String _ip;
-        public UnbanTask(String ip)
-        {
-        	_ip = ip;
-        	addBannedIP(ip);
-        }
-        public void run()
-        {
-            BanManager.getInstance().unBanIP(_ip);
-        }
-        
-    }    
 }

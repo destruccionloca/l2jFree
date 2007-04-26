@@ -21,26 +21,26 @@ package net.sf.l2j.loginserver.serverpackets;
 import net.sf.l2j.loginserver.beans.SessionKey;
 
 /**
- * <p>This packet tells the client that he can enter the selected gameserver and gives him a part of the session key.</p>
- * <p>Format: f<ul>
- * <li>f: the loginOk session key</li>
- * </ul></p>
+ * 
  */
-public class PlayOk extends ServerBasePacket
+public final class PlayOk extends L2LoginServerPacket
 {
-
-	/**
-	 * 
-	 */
+	private int _playOk1, _playOk2;
+	
 	public PlayOk(SessionKey sessionKey) 
 	{
-		writeC(0x07);
-		writeD(sessionKey.playOkID1); 
-		writeD(sessionKey.playOkID2);
+		_playOk1 = sessionKey.playOkID1;
+		_playOk2 = sessionKey.playOkID2;
 	}
-	
-	public byte[] getContent()
+
+	/**
+	 * @see com.l2jserver.mmocore.network.SendablePacket#write()
+	 */
+	@Override
+	protected void write()
 	{
-		return getBytes();
+		writeC(0x07);
+		writeD(_playOk1); 
+		writeD(_playOk2);
 	}
 }

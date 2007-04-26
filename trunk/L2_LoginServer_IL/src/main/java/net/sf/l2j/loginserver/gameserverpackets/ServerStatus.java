@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.loginserver.gameserverpackets;
 
+import net.sf.l2j.loginserver.beans.GameServerInfo;
 import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
 import net.sf.l2j.loginserver.manager.GameServerManager;
 
@@ -57,54 +58,38 @@ public class ServerStatus extends ClientBasePacket
 	public ServerStatus(byte[] decrypt, int serverID)
 	{
 		super(decrypt);
-		int size = readD();
-		for(int i = 0; i < size; i++)
+		
+		GameServerInfo gsi = GameServerManager.getInstance().getRegisteredGameServerById(serverID);
+		
+		if (gsi != null)
 		{
-			int type = readD();
-			int value = readD();
-			switch(type)
+			int size = readD();
+			for(int i = 0; i < size; i++)
 			{
-				case SERVER_LIST_STATUS:
-					GameServerManager.getInstance().setStatus(value, serverID);
-					if (_log.isDebugEnabled())_log.debug("ServerList Status ("+value+")");
-					break;
-				case SERVER_LIST_CLOCK:
-					if(value == ON)
-					{
-						GameServerManager.getInstance().setClock(true, serverID);
-					}
-					else
-					{
-						GameServerManager.getInstance().setClock(false, serverID);
-					}
-					if (_log.isDebugEnabled())_log.debug("ServerList Clock ("+value+")");
-					break;
-				case SERVER_LIST_SQUARE_BRACKET:
-					if(value == ON)
-					{
-						GameServerManager.getInstance().setBracket(true, serverID);
-					}
-					else
-					{
-						GameServerManager.getInstance().setBracket(false, serverID);
-					}
-					if (_log.isDebugEnabled())_log.debug("ServerList Bracket ("+value+")");
-					break;
-				case TEST_SERVER:
-					if(value == ON)
-					{
-						GameServerManager.getInstance().setTestServer(true, serverID);
-					}
-					else
-					{
-						GameServerManager.getInstance().setTestServer(false, serverID);
-					}
-                    if (_log.isDebugEnabled())_log.debug("ServerList test server ("+value+")");
-					break;
-				case MAX_PLAYERS:
-					GameServerManager.getInstance().setMaxPlayers(value, serverID);
-                    if (_log.isDebugEnabled())_log.debug("ServerMaxPlayer ("+value+")");
-					break;
+				int type = readD();
+				int value = readD();
+				switch(type)
+				{
+					case SERVER_LIST_STATUS:
+						gsi.setStatus(value);
+						break;
+					case SERVER_LIST_CLOCK:
+						gsi.setShowingClock(value == ON);
+						if (_log.isDebugEnabled())_log.debug("ServerList Clock ("+value+")");
+						break;
+					case SERVER_LIST_SQUARE_BRACKET:
+						gsi.setShowingBrackets(value == ON);
+						if (_log.isDebugEnabled())_log.debug("ServerList Bracket ("+value+")");
+						break;
+					case TEST_SERVER:
+						gsi.setTestServer(value == ON);
+	                    if (_log.isDebugEnabled())_log.debug("ServerList test server ("+value+")");
+						break;
+					case MAX_PLAYERS:
+						gsi.setMaxPlayers(value);
+	                    if (_log.isDebugEnabled())_log.debug("ServerMaxPlayer ("+value+")");
+						break;
+				}
 			}
 		}
 	}
