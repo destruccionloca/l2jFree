@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.loginserver.loginserverpackets;
 
-import net.sf.l2j.tools.TaskPriority;
+import net.sf.l2j.tools.task.TaskPriority;
 
 
 /**
