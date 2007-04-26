@@ -264,6 +264,7 @@
     <add val='78' order='0x10' stat='pDef'/>
     <add val='345' order='0x60' stat='maxMp'/>  
     <enchant val='0' order='0x0C' stat='pDef'/>
+  </for>
 </item>
 <item id='9078' name="Shadow Weapon: Stockings of Zubei">
   <for>
