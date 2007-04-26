@@ -19,14 +19,12 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 import java.util.Calendar;
+import java.util.logging.Logger;
 
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Shows the Siege Info<BR>
@@ -44,13 +42,13 @@ import org.apache.commons.logging.LogFactory;
  * S = Owner AllyName<BR>
  * d = current time (seconds)<BR>
  * d = Siege time (seconds) (0 for selectable)<BR>
- * d = (UNKNOW) Siege Time Select Related
+ * d = (UNKNOW) Siege Time Select Related?
  * @author KenM
  */
-public class SiegeInfo extends ServerBasePacket
+public class SiegeInfo extends L2GameServerPacket
 {
     private static final String _S__C9_SIEGEINFO = "[S] c9 SiegeInfo";
-    private final static Log _log = LogFactory.getLog(SiegeInfo.class.getName());
+    private static Logger _log = Logger.getLogger(SiegeInfo.class.getName());
     private Castle _Castle;
     
     public SiegeInfo(Castle castle)
@@ -58,12 +56,7 @@ public class SiegeInfo extends ServerBasePacket
         _Castle = castle;
     }
 
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
-
-    final void writeImpl()
+    protected final void writeImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null) return;
@@ -83,7 +76,7 @@ public class SiegeInfo extends ServerBasePacket
                 writeS(owner.getAllyName());    // Ally Name
             }
             else
-                _log.warn("Null owner for castle: " + _Castle.getName());
+                _log.warning("Null owner for castle: " + _Castle.getName());
         }
         else
         {

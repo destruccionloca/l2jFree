@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.model.L2Object;
  *
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class TeleportToLocation extends ServerBasePacket
+public class TeleportToLocation extends L2GameServerPacket
 {
 	private static final String _S__38_TELEPORTTOLOCATION = "[S] 28 TeleportToLocation";
 	private int _targetId;
@@ -47,14 +47,8 @@ public class TeleportToLocation extends ServerBasePacket
 		_y = y;
 		_z = z;
 	}
-
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x28);
 		writeD(_targetId);

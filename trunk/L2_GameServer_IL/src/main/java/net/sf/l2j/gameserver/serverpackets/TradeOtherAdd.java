@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.model.TradeList;
  * @author Yme
  * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class TradeOtherAdd extends ServerBasePacket
+public class TradeOtherAdd extends L2GameServerPacket
 {
 	private static final String _S__31_TRADEOTHERADD = "[S] 21 TradeOtherAdd";
 	private TradeList.TradeItem _item;
@@ -34,14 +34,9 @@ public class TradeOtherAdd extends ServerBasePacket
 	public TradeOtherAdd(TradeList.TradeItem item)
 	{
 		_item = item;
-	}	
-	
-	final void runImpl()
-	{
-		// no long-running tasks
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x21);
 		

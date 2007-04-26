@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class RecipeShopMsg extends ServerBasePacket
+public class RecipeShopMsg extends L2GameServerPacket
 {
 	private static final String _S__DB_RecipeShopMsg = "[S] db RecipeShopMsg";
 	private L2PcInstance _cha;
@@ -35,12 +35,7 @@ public class RecipeShopMsg extends ServerBasePacket
 		_cha = player;
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xdb);
 		writeD(_cha.getObjectId());

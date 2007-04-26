@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.L2Character;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class ValidateLocation extends ServerBasePacket
+public class ValidateLocation extends L2GameServerPacket
 {
 	private static final String _S__76_SETTOLOCATION = "[S] 61 ValidateLocation";
 	private int _chaId;
@@ -46,12 +46,7 @@ public class ValidateLocation extends ServerBasePacket
 		_heading = cha.getHeading();
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x61);
 		

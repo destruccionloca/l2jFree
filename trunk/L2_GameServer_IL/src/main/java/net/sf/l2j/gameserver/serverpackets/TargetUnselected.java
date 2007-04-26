@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.model.L2Character;
  *
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class TargetUnselected extends ServerBasePacket
+public class TargetUnselected extends L2GameServerPacket
 {
 	private static final String _S__3A_TARGETUNSELECTED = "[S] 2A TargetUnselected";
 	private int _targetId;
@@ -47,14 +47,8 @@ public class TargetUnselected extends ServerBasePacket
 		_y = cha.getY();
 		_z = cha.getZ();
 	}
-
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x2a);
 		writeD(_targetId);

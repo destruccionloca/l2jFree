@@ -1,3 +1,4 @@
+
 package net.sf.l2j.gameserver.serverpackets;
 
 import net.sf.l2j.gameserver.model.L2Character;
@@ -6,7 +7,7 @@ import net.sf.l2j.gameserver.model.L2Character;
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class ValidateLocationInVehicle extends ServerBasePacket
+public class ValidateLocationInVehicle extends L2GameServerPacket
 {
     private static final String _S__73_ValidateLocationInVehicle = "[S] 73 ValidateLocationInVehicle";
     private L2Character _player;
@@ -20,14 +21,8 @@ public class ValidateLocationInVehicle extends ServerBasePacket
     {
         _player = player;
     }
-
-
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
     
-    final void writeImpl()
+    protected final void writeImpl()
     {
         writeC(0x73);
         writeD(_player.getObjectId());

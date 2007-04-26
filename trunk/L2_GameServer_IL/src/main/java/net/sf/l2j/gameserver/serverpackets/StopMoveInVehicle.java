@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * @author Maktakien
  *
  */
-public class StopMoveInVehicle  extends ServerBasePacket
+public class StopMoveInVehicle  extends L2GameServerPacket
 {
 
 	private L2PcInstance _pci;
@@ -40,20 +40,10 @@ public class StopMoveInVehicle  extends ServerBasePacket
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-	 */
-	@Override
-	void runImpl()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
-	void writeImpl()
+	protected void writeImpl()
 	{		
 		writeC(0x72);
 		writeD(_pci.getObjectId());

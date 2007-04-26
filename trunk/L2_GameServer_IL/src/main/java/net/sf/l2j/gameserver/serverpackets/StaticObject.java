@@ -24,7 +24,7 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
 
-public class StaticObject extends ServerBasePacket
+public class StaticObject extends L2GameServerPacket
 {
 
         private static final String _S__99_StaticObjectPacket = "[S] 99 StaticObjectPacket";
@@ -41,12 +41,7 @@ public class StaticObject extends ServerBasePacket
             
         }
         
-        final void runImpl()
-        {
-            // no long-running tasks
-        }
-        
-        final void writeImpl()
+        protected final void writeImpl()
         {
             
             writeC(0x99);

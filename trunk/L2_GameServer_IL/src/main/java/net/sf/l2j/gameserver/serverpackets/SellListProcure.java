@@ -1,5 +1,8 @@
 package net.sf.l2j.gameserver.serverpackets;
 
+import java.util.List;
+import java.util.Map;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
@@ -7,15 +10,15 @@ import net.sf.l2j.gameserver.model.CropProcure;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-public class SellListProcure extends ServerBasePacket
+public class SellListProcure extends L2GameServerPacket
 {
     private static final String _S__E9_SELLLISTPROCURE = "[S] E9 SellListProcure";
-    //private final static Log _log = LogFactory.getLog(SellListProcure.class.getName());
+    //private static Logger _log = Logger.getLogger(SellListProcure.class.getName());
     
     private final L2PcInstance _char;
     private int _money;
-    private FastMap<L2ItemInstance,Integer> _sellList = new FastMap<L2ItemInstance,Integer>();
-    private FastList<CropProcure> _procureList = new FastList<CropProcure>();
+    private Map<L2ItemInstance,Integer> _sellList = new FastMap<L2ItemInstance,Integer>();
+    private List<CropProcure> _procureList = new FastList<CropProcure>();
     private int _castle;
     
     public SellListProcure(L2PcInstance player, int castleId)
@@ -24,24 +27,17 @@ public class SellListProcure extends ServerBasePacket
         _char = player;
         _castle = castleId;
         _procureList =  CastleManager.getInstance().getCastle(_castle).getCropProcure();
-    }
-    
-    final void runImpl()
-    {
         for(CropProcure c : _procureList)
         {
             L2ItemInstance item = _char.getInventory().getItemByItemId(c.getId());
             if(item != null && c.getAmount() > 0)
             {
-        if(c.getAmount() < item.getCount() ) {_sellList.put(item,c.getAmount()); }
-        else {
-                        _sellList.put(item,item.getCount());
-        }
+                _sellList.put(item,c.getAmount());
             }
         }
     }
     
-    final void writeImpl()
+    protected final void writeImpl()
     {
         writeC(0xE9);
         writeD(_money);         // money

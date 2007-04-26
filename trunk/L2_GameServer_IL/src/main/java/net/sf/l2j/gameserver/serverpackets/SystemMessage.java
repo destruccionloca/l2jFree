@@ -25,7 +25,7 @@ import java.util.Vector;
  * 
  * @version $Revision: 1.18.2.5.2.8 $ $Date: 2005/04/05 19:41:08 $
  */
-public class SystemMessage extends ServerBasePacket
+public class SystemMessage extends L2GameServerPacket
 {
 	// d d (d S/d d/d dd)
 	//      |--------------> 0 - String  1-number 2-textref npcname (1000000-1002655)  3-textref itemname 4-textref skills 5-??	
@@ -891,12 +891,7 @@ public class SystemMessage extends ServerBasePacket
         return this;
 	}
 
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x64);
 

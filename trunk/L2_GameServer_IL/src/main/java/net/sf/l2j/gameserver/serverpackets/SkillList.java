@@ -39,7 +39,7 @@ import java.util.Vector;
  * 
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/27 15:29:39 $
  */
-public class SkillList extends ServerBasePacket
+public class SkillList extends L2GameServerPacket
 {
     private static final String _S__6D_SKILLLIST = "[S] 58 SkillList";
     private Vector<Skill> _skills;
@@ -68,12 +68,7 @@ public class SkillList extends ServerBasePacket
         _skills.add(new Skill(id, level, passive));
     }
 
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
-
-    final void writeImpl()
+    protected final void writeImpl()
     {
         writeC(0x58);
         writeD(_skills.size());
@@ -84,8 +79,7 @@ public class SkillList extends ServerBasePacket
             writeD(temp.passive ? 1 : 0);
             writeD(temp.level);
             writeD(temp.id);
-            if (getClient().getRevision() >= 690)
-                writeC(0x00);  // c5            
+            writeC(0x00); //c5
         }
     }
 

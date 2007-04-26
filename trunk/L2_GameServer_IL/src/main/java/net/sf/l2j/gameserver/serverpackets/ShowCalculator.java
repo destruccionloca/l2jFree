@@ -26,7 +26,7 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class ShowCalculator extends ServerBasePacket
+public class ShowCalculator extends L2GameServerPacket
 {
 	private static final String _S__DC_SHOWCALCULATOR = "[S] dc ShowCalculator";
 	private int _calculatorId;
@@ -37,14 +37,8 @@ public class ShowCalculator extends ServerBasePacket
 	{
 		_calculatorId = calculatorId;
 	}
-
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xdc);
 		writeD(_calculatorId);

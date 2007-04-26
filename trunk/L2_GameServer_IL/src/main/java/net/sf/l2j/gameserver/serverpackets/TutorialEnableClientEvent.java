@@ -25,7 +25,7 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @author  DaDummy
  */
-public class TutorialEnableClientEvent extends ServerBasePacket
+public class TutorialEnableClientEvent extends L2GameServerPacket
 {
     private static final String _S__A2_TUTORIALENABLECLIENTEVENT = "[S] a2 TutorialEnableClientEvent";
     private int _event;
@@ -36,20 +36,10 @@ public class TutorialEnableClientEvent extends ServerBasePacket
     }
     
     /**
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-     */
-    @Override
-    void runImpl()
-    {
-        // TODO Auto-generated method stub
-
-    }
-
-    /**
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
      */
     @Override
-    void writeImpl()
+    protected final void writeImpl()
     {
         writeC(0xA2);
         writeC(_event);

@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-public class Ride extends ServerBasePacket
+public class Ride extends L2GameServerPacket
 {
     private static final String _S__86_Ride = "[S] 86 Ride";
     public static final int ACTION_MOUNT = 1;
@@ -55,7 +55,7 @@ public class Ride extends ServerBasePacket
         return _rideType;
     }
 
-    final void runImpl()
+    public void runImpl()
     {
         L2PcInstance cha = getClient().getActiveChar();
         if (cha == null) return;
@@ -135,7 +135,7 @@ public class Ride extends ServerBasePacket
         }
     }
 
-    final void writeImpl()
+    protected final void writeImpl()
     {
         L2PcInstance cha = getClient().getActiveChar();
         if (cha == null) return;        

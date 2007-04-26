@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.model.L2Macro;
  * format:		cdhcdSSScc (ccdcS)
  * @param decrypt
  */
-public class SendMacroList extends ServerBasePacket 
+public class SendMacroList extends L2GameServerPacket 
 {
 	private static final String _S__E7_SENDMACROLIST = "[S] E7 SendMacroList";
 
@@ -43,12 +43,7 @@ public class SendMacroList extends ServerBasePacket
 		_macro = macro;
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xE7);
 		

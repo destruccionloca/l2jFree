@@ -23,24 +23,15 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @author  DaDummy
  */
-public class TutorialCloseHtml extends ServerBasePacket
+public class TutorialCloseHtml extends L2GameServerPacket
 {
     private static final String _S__A3_TUTORIALCLOSEHTML = "[S] a3 TutorialCloseHtml";
-
-    /**
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-     */
-    @Override
-    void runImpl()
-    {
-
-    }
 
     /**
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
      */
     @Override
-    void writeImpl()
+    protected final void writeImpl()
     {
         writeC(0xA3);
     }

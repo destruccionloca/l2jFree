@@ -31,7 +31,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.4.2.3.2.4 $ $Date: 2005/03/27 15:29:39 $
  */
-public class SellList extends ServerBasePacket
+public class SellList extends L2GameServerPacket
 {
 	private static final String _S__10_SELLLIST = "[S] 10 SellList";
 	private final static Log _log = LogFactory.getLog(SellList.class.getName());
@@ -45,6 +45,7 @@ public class SellList extends ServerBasePacket
 		_char = player;
 		_lease = null;
 		_money = _char.getAdena();
+		this.doLease();
 	}
 	
 	public SellList(L2PcInstance player, L2MerchantInstance lease)
@@ -52,9 +53,10 @@ public class SellList extends ServerBasePacket
 		_char = player;
 		_lease = lease;
 		_money = _char.getAdena();
+		this.doLease();
 	}
 	
-	final void runImpl()
+	private void doLease()
 	{
 		if (_lease == null)
 		{
@@ -66,13 +68,14 @@ public class SellList extends ServerBasePacket
                                 item.getObjectId() != _char.getPet().getControlItemId()))      // Pet is summoned and not the item that summoned the pet
 				{
 					_selllist.add(item);
-					if (_log.isDebugEnabled()) _log.debug("item added to selllist: " + item.getItem().getName());
+					if (_log.isDebugEnabled()) 
+						_log.info("item added to selllist: " + item.getItem().getName());
 				}
 			}
 		}
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x10);
 		writeD(_money);
@@ -94,7 +97,7 @@ public class SellList extends ServerBasePacket
 			writeH(0x00);
 			
 			if (_lease == null)
-				writeD(item.getItem().getReferencePrice()/2);
+				writeD(item.getItem().getReferencePrice()/2); // wtf??? there is no conditional part in SellList!! this d should allways be here 0.o! fortunately the lease stuff are never ever use so the if allways exectues
 		}
 	}
 

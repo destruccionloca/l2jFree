@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class SpawnItem extends ServerBasePacket
+public class SpawnItem extends L2GameServerPacket
 {
 	private static final String _S__15_SPAWNITEM = "[S] 15 SpawnItem";
 	private int _objectId;
@@ -53,12 +53,7 @@ public class SpawnItem extends ServerBasePacket
 		_count = item.getCount();
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x0b);
 		writeD(_objectId);

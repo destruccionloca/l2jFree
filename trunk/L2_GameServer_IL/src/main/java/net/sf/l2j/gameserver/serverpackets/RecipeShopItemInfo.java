@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * ddddd
  * @version $Revision: 1.1.2.3.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class RecipeShopItemInfo  extends ServerBasePacket
+public class RecipeShopItemInfo  extends L2GameServerPacket
 {
 	
 	private static final String _S__DA_RecipeShopItemInfo = "[S] da RecipeShopItemInfo";
@@ -39,12 +39,7 @@ public class RecipeShopItemInfo  extends ServerBasePacket
 		_recipeId = recipeId;
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
         if (!(L2World.getInstance().findObject(_shopId) instanceof L2PcInstance))
             return;

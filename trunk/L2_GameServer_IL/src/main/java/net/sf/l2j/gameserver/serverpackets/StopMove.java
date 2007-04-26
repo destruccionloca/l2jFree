@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.model.L2Character;
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class StopMove extends ServerBasePacket
+public class StopMove extends L2GameServerPacket
 {
 	private static final String _S__59_STOPMOVE = "[S] 47 StopMove";
 	private int _objectId;
@@ -55,14 +55,8 @@ public class StopMove extends ServerBasePacket
 		_z = z;
 		_heading = heading;
 	}
-
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x47);
 		writeD(_objectId);

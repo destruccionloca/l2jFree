@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.SevenSigns;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class ShowMiniMap extends ServerBasePacket
+public class ShowMiniMap extends L2GameServerPacket
 {
 	private static final String _S__b6_SHOWMINIMAP = "[S] 9d ShowMiniMap";
 	private int _mapId;
@@ -39,18 +39,12 @@ public class ShowMiniMap extends ServerBasePacket
 	{
 		_mapId = mapId;
 	}
-
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x9d);
 		writeD(_mapId);
-		writeD(SevenSigns.getInstance().getCurrentPeriod()); 
+		writeD(SevenSigns.getInstance().getCurrentPeriod());
 	}
 
 	/* (non-Javadoc)

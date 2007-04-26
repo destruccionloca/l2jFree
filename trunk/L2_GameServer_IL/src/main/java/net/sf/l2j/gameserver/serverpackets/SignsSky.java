@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.SevenSigns;
  * 
  * @author Tempy
  */
-public class SignsSky extends ServerBasePacket
+public class SignsSky extends L2GameServerPacket
 {
     private static final String _S__F8_SignsSky = "[S] F8 SignsSky";
 
@@ -48,12 +48,7 @@ public class SignsSky extends ServerBasePacket
         _state = state;
     }
 
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
-
-    final void writeImpl()
+    protected final void writeImpl()
     {
         writeC(0xf8);
 

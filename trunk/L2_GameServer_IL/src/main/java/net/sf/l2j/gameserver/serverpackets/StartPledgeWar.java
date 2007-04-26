@@ -1,6 +1,6 @@
 package net.sf.l2j.gameserver.serverpackets;
 
-public class StartPledgeWar extends ServerBasePacket
+public class StartPledgeWar extends L2GameServerPacket
 {
     private static final String _S__65_STARTPLEDGEWAR = "[S] 65 StartPledgeWar";
     private String _pledgeName;
@@ -12,9 +12,7 @@ public class StartPledgeWar extends ServerBasePacket
         _char = charName;
     }
     
-    final void runImpl(){}
-    
-    final void writeImpl()
+    protected final void writeImpl()
     {
         writeC(0x65);
         writeS(_char);

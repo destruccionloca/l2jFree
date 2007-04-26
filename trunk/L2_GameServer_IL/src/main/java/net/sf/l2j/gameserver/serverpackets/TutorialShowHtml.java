@@ -18,56 +18,21 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import net.sf.l2j.gameserver.cache.HtmCache;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-public class TutorialShowHtml extends ServerBasePacket
+public class TutorialShowHtml extends L2GameServerPacket
 {
-    private final static Log _log = LogFactory.getLog(TutorialShowHtml.class.getName());
 	private static final String _S__A0_TUTORIALSHOWHTML = "[S] a0 TutorialShowHtml";
 	private String _html;
 	
-    public TutorialShowHtml()
-    {
-    }
-    
 	public TutorialShowHtml(String html)
 	{
-        _html = html;
-	}
-	
-    public void setFile(String path)
-    {
-        _html = HtmCache.getInstance().getHtmForce(path);
-    }
-    
-    public void replace(String pattern, String value)
-    {
-        _html = _html.replaceAll(pattern, value);
-    }
-    
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-	 */
-	@Override
-	void runImpl()
-	{
-        // html code must not exceed 8192 bytes 
-        if(_html.length() > 8192)
-        {
-            _log.warn("Html is too long! this will crash the client!");
-            _html = "<html><body>Html was too long</body></html>";
-            return;
-        }
+		_html = html;
 	}
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
-	void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0xa0);
 		writeS(_html);

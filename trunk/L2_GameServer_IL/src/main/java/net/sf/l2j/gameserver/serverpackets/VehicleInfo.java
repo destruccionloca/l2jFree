@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
  * @author Maktakien
  *
  */
-public class VehicleInfo  extends ServerBasePacket
+public class VehicleInfo  extends L2GameServerPacket
 {
 	 private L2BoatInstance _boat;
 	/**
@@ -37,19 +37,10 @@ public class VehicleInfo  extends ServerBasePacket
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
-	 */
-	@Override
-	void runImpl()
-	{
-		
-	}
-
-	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
-	void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0x59);
 		writeD(_boat.getObjectId());

@@ -23,7 +23,8 @@ package net.sf.l2j.gameserver.serverpackets;
  * 
  * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class SendTradeDone extends ServerBasePacket{
+public class SendTradeDone extends L2GameServerPacket
+{
 	private static final String _S__32_SENDTRADEDONE = "[S] 22 SendTradeDone";
 	private int _num;
 	
@@ -31,13 +32,8 @@ public class SendTradeDone extends ServerBasePacket{
 	{
 		_num = num;
 	}
-
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x22);
 		writeD(_num);

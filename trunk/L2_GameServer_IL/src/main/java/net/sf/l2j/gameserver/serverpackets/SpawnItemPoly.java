@@ -35,7 +35,7 @@ import net.sf.l2j.gameserver.model.L2Object;
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class SpawnItemPoly extends ServerBasePacket
+public class SpawnItemPoly extends L2GameServerPacket
 {
 	private static final String _S__15_SPAWNITEM = "[S] 15 SpawnItem";
 	private int _objectId;
@@ -45,7 +45,8 @@ public class SpawnItemPoly extends ServerBasePacket
 
 	public SpawnItemPoly(L2Object object)
 	{
-		if(object instanceof L2ItemInstance){
+		if(object instanceof L2ItemInstance)
+		{
 		    L2ItemInstance item = (L2ItemInstance) object;
 	    	_objectId = object.getObjectId();
 	    	_itemId = object.getPoly().getPolyId();
@@ -55,7 +56,8 @@ public class SpawnItemPoly extends ServerBasePacket
 	    	_stackable = item.isStackable() ? 0x01 : 0x00;
 	     	_count = item.getCount();
 		}
-		else {
+		else
+		{
 			_objectId = object.getObjectId();
 			_itemId = object.getPoly().getPolyId();
 			_x = object.getX();
@@ -66,12 +68,7 @@ public class SpawnItemPoly extends ServerBasePacket
 		}
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x0b);
 		writeD(_objectId);

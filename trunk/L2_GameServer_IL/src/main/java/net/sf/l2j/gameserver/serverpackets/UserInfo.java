@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  * 0000: 04 03 15 00 00 77 ff 00 00 80 f1 ff ff 00 00 00    .....w..........
@@ -58,12 +59,13 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * dddddSdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddffffddddSdddddcccddh (h) c dc hhdh ddddc c dcc cddd d (from 654)
  * but it actually reads
  * dddddSdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddffffddddSdddddcccddh (h) c dc *dddddddd* hhdh ddddc dcc cddd d
- *                                                                                  *...*: here i am not sure at least it looks like it reads that much data (32 bytes), not sure about the format inside because it is not read thanks to the ususal parsing function
- * dddddSddddQddddddddddddddddddddddddddddddddddddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddffffddddSdddddcccddh chaotic throne
+ * 																					*...*: here i am not sure at least it looks like it reads that much data (32 bytes), not sure about the format inside because it is not read thanks to the ususal parsing function
+ * 
+ * dddddSddddQddddddddddddddddddddddddddddddddddddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddffffddddSdddddcccddh [h] c dc d hhdh ddddc c dcc cddd d c dd d d
 
  * @version $Revision: 1.14.2.4.2.12 $ $Date: 2005/04/11 10:05:55 $
  */
-public class UserInfo extends ServerBasePacket
+public class UserInfo extends L2GameServerPacket
 {
     private static final String _S__04_USERINFO = "[S] 04 UserInfo";
     private L2PcInstance _cha;
@@ -71,13 +73,13 @@ public class UserInfo extends ServerBasePacket
             _flyWalkSpd;
     private float moveMultiplier;
 
+    /**
+     * @param _characters
+     */
     public UserInfo(L2PcInstance cha)
     {
         _cha = cha;
-    }
-
-    final void runImpl()
-    {
+        
         moveMultiplier = _cha.getMovementSpeedMultiplier();
         _runSpd = (int) (_cha.getRunSpeed() / moveMultiplier);
         _walkSpd = (int) (_cha.getWalkSpeed() / moveMultiplier);
@@ -85,7 +87,7 @@ public class UserInfo extends ServerBasePacket
         _swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
     }
 
-    final void writeImpl()
+    protected final void writeImpl()
     {
         writeC(0x04);
 
@@ -103,7 +105,6 @@ public class UserInfo extends ServerBasePacket
 
         writeD(_cha.getLevel());
         writeQ(_cha.getExp());
-        
         writeD(_cha.getSTR());
         writeD(_cha.getDEX());
         writeD(_cha.getCON());
@@ -126,9 +127,7 @@ public class UserInfo extends ServerBasePacket
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_NECK));
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_RFINGER));
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_LFINGER));
-
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_HEAD));
-
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_RHAND));
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_LHAND));
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_GLOVES));
@@ -138,16 +137,14 @@ public class UserInfo extends ServerBasePacket
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_BACK));
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_LRHAND));
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
-        if (getClient().getRevision() >= 729)
-            writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_CLOAK));
-
-        writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_DHAIR));
+        writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
+        
+        writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_REAR));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_LEAR));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_NECK));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_RFINGER));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_LFINGER));
-
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_LHAND));
@@ -158,45 +155,46 @@ public class UserInfo extends ServerBasePacket
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_BACK));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
-        if (getClient().getRevision() >= 729)
-        {
-            writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_CLOAK));            
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);
-            writeH(0);            
-        }
-
+        writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_FACE));
+        
+        // c6 new h's
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        // end of c6 new h's
+        
         writeD(_cha.getPAtk(null));
         writeD(_cha.getPAtkSpd());
         writeD(_cha.getPDef(null));
@@ -242,9 +240,13 @@ public class UserInfo extends ServerBasePacket
         writeD((_cha.getAccessLevel() > 0) ? 1 : 0); // builder level 
 
         String title = _cha.getTitle();
-        if (_cha.getAppearance().getInvisible()&& _cha.isGM()) title = "Invisible";
+        if (_cha.getAppearance().getInvisible() && _cha.isGM()) title = "Invisible";
         if (_cha.getPoly().isMorphed())
-            title += " - " + NpcTable.getInstance().getTemplate(_cha.getPoly().getPolyId()).name;
+        {
+        	L2NpcTemplate polyObj = NpcTable.getInstance().getTemplate(_cha.getPoly().getPolyId());
+        	if(polyObj != null)
+        		title += " - " + polyObj.name;
+        }
         writeS(title);
 
         writeD(_cha.getClanId());
@@ -265,7 +267,7 @@ public class UserInfo extends ServerBasePacket
         writeC(0x00); //1-find party members
 
         writeD(_cha.getAbnormalEffect());
-        writeC(0x11);
+        writeC(0x00);
 
         writeD(_cha.getClanPrivileges());
 
@@ -281,32 +283,36 @@ public class UserInfo extends ServerBasePacket
         writeC(_cha.isMounted() ? 0 : _cha.getEnchantEffect());
 
         if(_cha.getTeam()==1)
-           writeC(0x01); //team circle around feet 1= Blue, 2 = red
+        	writeC(0x01); //team circle around feet 1= Blue, 2 = red
         else if(_cha.getTeam()==2)
-           writeC(0x02); //team circle around feet 1= Blue, 2 = red
+        	writeC(0x02); //team circle around feet 1= Blue, 2 = red
         else
-           writeC(0x00); //team circle around feet 1= Blue, 2 = red
+        	writeC(0x00); //team circle around feet 1= Blue, 2 = red
 
         writeD(_cha.getClanCrestLargeId());
         writeC(_cha.isNoble() ? 1 : 0); //0x01: symbol on char menu ctrl+I  
-        writeC((_cha.isHero() || (_cha.isGM() && Config.GM_HERO_AURA)) ? 1 : 0); //0x01: Hero Aura & hero icon
+        writeC((_cha.isHero() || (_cha.isGM() && Config.GM_HERO_AURA)) ? 1 : 0); //0x01: Hero Aura
 
         writeC(_cha.isFishing() ? 1 : 0); //Fishing Mode
         writeD(_cha.GetFishx()); //fishing x  
         writeD(_cha.GetFishy()); //fishing y
         writeD(_cha.GetFishz()); //fishing z
-
         writeD(_cha.getAppearance().getNameColor());
-        writeC(_cha.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window
-        writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
-        writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_FACE));
-        writeD(_cha.getPledgeClass()); //C5 ??
+        
+		//new c5 
+       	writeC(_cha.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window 
+        
+        writeD(_cha.getPledgeClass()); //changes the text above CP on Status Window
         writeD(0x00); // ??
+        
         writeD(_cha.getAppearance().getTitleColor());
+        
+        //writeD(0x00); // ??
+        
         if (_cha.isCursedWeaponEquiped())
-            writeD(CursedWeaponsManager.getInstance().getLevel(_cha.getCursedWeaponEquipedId()));
+        	writeD(CursedWeaponsManager.getInstance().getLevel(_cha.getCursedWeaponEquipedId()));
         else
-            writeD(0x00);
+        	writeD(0x00);
     }
 
     /* (non-Javadoc)

@@ -18,15 +18,15 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import javolution.util.FastList;
+import java.util.List;
 
-public class ShowBoard extends ServerBasePacket
+public class ShowBoard extends L2GameServerPacket
 {
 	private static final String _S__6E_SHOWBOARD = "[S] 6e ShowBoard";
 
 	private String _htmlCode;	
 	private String _id;
-	private FastList<String> _arg;
+	private List<String> _arg;
 
 	public ShowBoard(String htmlCode, String id)
 	{
@@ -34,7 +34,7 @@ public class ShowBoard extends ServerBasePacket
 		_htmlCode = htmlCode; // html code must not exceed 8192 bytes 
 	}
 
-	public ShowBoard(FastList<String> arg)
+	public ShowBoard(List<String> arg)
 	{
 		_id = "1002";
 		_htmlCode = null;
@@ -79,12 +79,7 @@ public class ShowBoard extends ServerBasePacket
 		return data;
 	}
 
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x6e);
 		writeC(0x01); //c4 1 to show community 00 to hide 
@@ -98,7 +93,8 @@ public class ShowBoard extends ServerBasePacket
 		writeS("bypass bbs_add_fav"); // add fav.	
 		if (!_id.equals("1002"))
 		{
-			byte data[] = new byte[2 + _id.getBytes().length * 2];
+			byte data[] = new byte[2 + 2 + 2 + _id.getBytes().length * 2 + 2
+				* ((_htmlCode != null) ? _htmlCode.getBytes().length : 0)];
 			int i = 0;
 			for (int j = 0; j < _id.getBytes().length; j++, i += 2)
 			{
@@ -107,9 +103,25 @@ public class ShowBoard extends ServerBasePacket
 			}
 			data[i] = 8;
 			i++;
-			data[i] = 0;			
-            writeB(data);
-            writeS(_htmlCode); // current page			
+			data[i] = 0;
+			i++;
+			if (_htmlCode == null)
+			{
+
+			}
+			else
+			{
+				for (int j = 0; j < _htmlCode.getBytes().length; i += 2, j++)
+				{
+					data[i] = _htmlCode.getBytes()[j];
+					data[i + 1] = 0;
+				}
+			}
+			data[i] = 0;
+			i++;
+			data[i] = 0;
+			//writeS(_htmlCode); // current page
+			writeB(data);
 		}
 		else
 		{

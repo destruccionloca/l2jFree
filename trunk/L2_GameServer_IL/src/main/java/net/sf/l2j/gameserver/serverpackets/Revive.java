@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.model.L2Object;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:40 $
  */
-public class Revive extends ServerBasePacket
+public class Revive extends L2GameServerPacket
 {
 	private static final String _S__0C_REVIVE = "[S] 07 Revive";
 	private int _objectId;
@@ -38,12 +38,7 @@ public class Revive extends ServerBasePacket
 		_objectId = obj.getObjectId();
 	}
 	
-	final void runImpl()
-	{
-		// no long-running tasks
-	}
-	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x07);
 		writeD(_objectId);

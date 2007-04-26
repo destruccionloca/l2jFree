@@ -24,13 +24,12 @@ import net.sf.l2j.gameserver.network.Connection;
 /**
  * @author mkizub
  */
-public class WrappedMessage extends ServerBasePacket
+public class WrappedMessage extends L2GameServerPacket
 {
     final byte[] data;
 
     public WrappedMessage(byte[] pData, Connection con)
     {
-        super(con);
         this.data = pData;
     }
 
@@ -49,12 +48,7 @@ public class WrappedMessage extends ServerBasePacket
         return null;
     }
 
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
-
-    final void writeImpl()
+    public void writeImpl()
     {
         writeB(data);
     }

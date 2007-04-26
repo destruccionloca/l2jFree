@@ -34,7 +34,7 @@ import java.util.Vector;
  * 
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/27 15:29:39 $
  */
-public class StatusUpdate extends ServerBasePacket
+public class StatusUpdate extends L2GameServerPacket
 {
     private static final String _S__1A_STATUSUPDATE = "[S] 0e StatusUpdate";
     public static int LEVEL = 0x01;
@@ -83,9 +83,9 @@ public class StatusUpdate extends ServerBasePacket
          * 
          */
         public int id;
-        public long value;
+        public int value;
 
-        Attribute(int pId, long pValue)
+        Attribute(int pId, int pValue)
         {
             this.id = pId;
             this.value = pValue;
@@ -102,17 +102,8 @@ public class StatusUpdate extends ServerBasePacket
     {
         _attributes.add(new Attribute(id, level));
     }
-    public void addAttribute(int id, long level)
-    {
-        _attributes.add(new Attribute(id, level));
-    }
 
-    final void runImpl()
-    {
-        // no long-running tasks
-    }
-
-    final void writeImpl()
+    protected final void writeImpl()
     {
         writeC(0x0e);
         writeD(_objectId);
@@ -121,11 +112,9 @@ public class StatusUpdate extends ServerBasePacket
         for (int i = 0; i < _attributes.size(); i++)
         {
             Attribute temp = _attributes.get(i);
+
             writeD(temp.id);
-            if(temp.id == EXP)
-                writeQ(temp.value);
-            else
-                writeD((int)temp.value);
+            writeD(temp.value);
         }
     }
 

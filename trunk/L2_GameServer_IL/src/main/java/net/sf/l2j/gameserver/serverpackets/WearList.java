@@ -20,13 +20,12 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import java.util.List;
 
-import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.templates.L2Item;
 
-public class WearList extends ServerBasePacket
+public class WearList extends L2GameServerPacket
 {
 	private static final String _S__EF_WEARLIST = "[S] EF WearList";
 	private int _listId;
@@ -43,19 +42,14 @@ public class WearList extends ServerBasePacket
 		_expertise = expertiseIndex;
 	}	
 	
-	public WearList(FastList<L2ItemInstance> lst, int listId, int currentMoney)
+	public WearList(List<L2ItemInstance> lst, int listId, int currentMoney)
 	{
 		_listId = listId;
 		_list = lst.toArray(new L2ItemInstance[lst.size()]);
 		_money = currentMoney;
-	}	
-	
-	final void runImpl()
-	{
-		// no long-running tasks
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0xef);
 		writeC(0xc0);	// ?

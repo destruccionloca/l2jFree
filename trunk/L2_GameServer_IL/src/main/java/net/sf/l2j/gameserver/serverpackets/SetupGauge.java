@@ -26,7 +26,7 @@ package net.sf.l2j.gameserver.serverpackets;
  *
  * @version $Revision: 1.4.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class SetupGauge extends ServerBasePacket
+public class SetupGauge extends L2GameServerPacket
 {
 	private static final String _S__85_SETUPGAUGE = "[S] 6d SetupGauge";
 	public static final int BLUE = 0; 
@@ -40,14 +40,9 @@ public class SetupGauge extends ServerBasePacket
 	{
 		_dat1 = dat1;// color  0-blue   1-red  2-cyan  3-
 		_time = time;
-	}	
-	
-	final void runImpl()
-	{
-		// no long-running tasks
 	}
 	
-	final void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x6d);
 		writeD(_dat1);
