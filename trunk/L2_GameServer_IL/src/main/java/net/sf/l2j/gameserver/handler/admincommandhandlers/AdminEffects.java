@@ -180,10 +180,11 @@ public class AdminEffects implements IAdminCommandHandler
        {
            try
            {
-               for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
+        	   for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
                {
             	   if (!player.isGM())
             	   {
+            		   player.setBanChatTimer(120 * 60000); //setting max 2 min
                 	   player.setChatBannedForAnnounce(true);
             	   }
                }
