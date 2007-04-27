@@ -52,6 +52,7 @@ public class BanManagerTest extends TestCase
         fw.write("\n127.0.0.1 "+ System.currentTimeMillis() + 10000);
         fw.write("\n192.168.0.1 "+ System.currentTimeMillis() + 10000);
         fw.write("\n176.12.12.12 "+ System.currentTimeMillis() + 10000);
+        fw.write("\n132.12.12.12 ");
         fw.close();
         
         BanManager.getInstance();
@@ -60,7 +61,7 @@ public class BanManagerTest extends TestCase
     public void testLoadBanList () throws UnknownHostException
     {
         BanManager bm = BanManager.getInstance();
-        assertEquals(3,bm.getNbOfBannedIp());
+        assertEquals(4,bm.getNbOfBannedIp());
         InetAddress netAddress = InetAddress.getByName("127.0.0.1");
         assertTrue(bm.isBannedAddres(netAddress));
     }
@@ -75,6 +76,13 @@ public class BanManagerTest extends TestCase
         assertTrue(!bm.isBannedAddres(netAddress)); 
     }
     
+    public void testEternalBan () throws UnknownHostException
+    {
+        BanManager bm = BanManager.getInstance();
+        InetAddress netAddress = InetAddress.getByName("132.12.12.12");
+        assertTrue(bm.isBannedAddres(netAddress));
+    }
+    
     public void testBanIp () throws Exception
     {
         BanManager bm = BanManager.getInstance();
@@ -84,9 +92,9 @@ public class BanManagerTest extends TestCase
             bm.removeBanForAddress("127.0.0.1");
         }
         
-        bm.addBanForAddress(netAddress, 2000);
+        bm.addBanForAddress(netAddress, 1000);
         assertTrue(bm.isBannedAddres(netAddress));
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         // check that account is unban
         assertTrue(!bm.isBannedAddres(netAddress));
     }

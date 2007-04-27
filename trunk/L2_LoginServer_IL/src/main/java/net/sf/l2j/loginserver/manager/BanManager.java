@@ -42,6 +42,9 @@ import org.apache.commons.logging.LogFactory;
 /**
  * This class manage ban list
  * 
+ * Ban list is stored in a file BAN_LIST before the startup. The BanManager load this file on startup and store for each ban
+ * the ip and the expiration time (the date when this ban is finished). If the expiration is 0, the ban is eternal.
+ * 
  */
 public class BanManager
 {
@@ -102,8 +105,10 @@ public class BanManager
     }    
     
     /**
-     * 
-     * @param ip
+     * Store a ban ip in memory. 
+     * Read a line, ignore comment and split it to get the ip and the expiration
+     * If no expiration was found, this is a eternal ban 
+     * @param line
      */
     private void addBannedIP(String line)
     {
@@ -167,12 +172,18 @@ public class BanManager
         _bannedIps.put(address, new BanInfo(address,  System.currentTimeMillis() + duration));
     }    
     
+    /**
+     * Check if an Ip is banned
+     * 
+     * @param address
+     * @return true if ip is banned or false otherwise
+     */
     public boolean isBannedAddres(InetAddress address)
     {
         BanInfo bi = _bannedIps.get(address);
         if (bi != null)
         {
-            if (bi.hasExpired())
+            if (!bi.isBanEternal() && bi.hasExpired())
             {
                 _bannedIps.remove(address);
                 return false;
@@ -185,6 +196,10 @@ public class BanManager
         return false;
     }    
 	
+    /**
+     * get all banned ips
+     * @return a map of banned ip
+     */
     public Map<InetAddress, BanInfo> getBannedIps()
     {
         return _bannedIps;

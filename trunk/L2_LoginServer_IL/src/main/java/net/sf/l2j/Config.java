@@ -46,6 +46,8 @@ public final class Config {
     public static int PORT_LOGIN;
     /** Number of trys of login before ban */
     public static int LOGIN_TRY_BEFORE_BAN;
+    /** Duration of ban after LOGIN_TRY_BEFORE_BAN login failure */
+    public static int BAN_DURATION_AFTER_LOGIN_FAILURE;
     /** Hostname of the Game Server */
     public static String GAMESERVER_HOSTNAME;
     
@@ -122,6 +124,7 @@ public final class Config {
             ACCEPT_NEW_GAMESERVER = Boolean.parseBoolean(serverSettings.getProperty("AcceptNewGameServer","True"));
             
             LOGIN_TRY_BEFORE_BAN = Integer.parseInt(serverSettings.getProperty("LoginTryBeforeBan", "10"));
+            BAN_DURATION_AFTER_LOGIN_FAILURE = Integer.parseInt(serverSettings.getProperty("BanDurationAfterLoginFailure", "600"));
             GM_MIN               = Integer.parseInt(serverSettings.getProperty("GMMinLevel", "100"));
 
             DATABASE_DRIVER          = serverSettings.getProperty("Driver", "com.mysql.jdbc.Driver");
