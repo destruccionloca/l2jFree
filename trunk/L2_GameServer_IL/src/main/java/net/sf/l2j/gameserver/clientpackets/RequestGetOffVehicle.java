@@ -18,12 +18,9 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.instancemanager.BoatManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.GetOffVehicle;
 
 
@@ -31,27 +28,26 @@ import net.sf.l2j.gameserver.serverpackets.GetOffVehicle;
  * @author Maktakien
  *
  */
-public class RequestGetOffVehicle extends ClientBasePacket
+public class RequestGetOffVehicle extends L2GameClientPacket
 {
 	 private int _id, _x, _y, _z;
 	/**
 	 * @param buf
 	 * @param client
 	 */
-	public RequestGetOffVehicle(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_id  = readD();
-		_x  = readD();
-		_y  = readD();
-		_z  = readD();
-	}
+        protected void readImpl()
+        {
+            _id  = readD();
+            _x  = readD();
+            _y  = readD();
+            _z  = readD();
+        }
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	void runImpl()
+    protected void runImpl()
 	{	
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if(activeChar == null)

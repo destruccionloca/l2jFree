@@ -18,38 +18,25 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**
  * This class ...
  * 
  * @version $Revision: 1.7.4.4 $ $Date: 2005/03/27 18:46:19 $
  */
-public class ObserverReturn extends ClientBasePacket
+public class ObserverReturn extends L2GameClientPacket
 {
 	private static final String OBSRETURN__C__04 = "[C] b8 ObserverReturn";
 	//private final static Log _log = LogFactory.getLog(Action.class.getName());
 	
 	// cddddc
 
-	/**
-	 * @param decrypt
-	 */
-	public ObserverReturn(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		//_objectId  = readD();
-		//_originX   = readD();
-		//_originY   = readD();
-		//_originZ   = readD();
-		//_actionId  = readC();// 0 for simple click  1 for shift click
-		/* writeC( 20 c2 fe ff de 5a 02 f0 97 f3 ff ff 5c 07 00);*/
-	}
+    protected void readImpl()
+    {
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

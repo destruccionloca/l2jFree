@@ -27,19 +27,18 @@ import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 
-public class RequestFriendDel extends ClientBasePacket{
+public class RequestFriendDel extends L2GameClientPacket{
 	
 	private static final String _C__61_REQUESTFRIENDDEL = "[C] 61 RequestFriendDel";
 
-	private final String _name;
+	private String _name;
 	
-	public RequestFriendDel(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_name = readS();
-	}
+    protected void readImpl()
+    {
+        _name = readS();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		SystemMessage sm;
 		L2PcInstance activeChar = getClient().getActiveChar();

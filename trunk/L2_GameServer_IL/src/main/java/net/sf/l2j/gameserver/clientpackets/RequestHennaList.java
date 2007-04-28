@@ -18,12 +18,9 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.datatables.HennaTreeTable;
 import net.sf.l2j.gameserver.model.L2HennaInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.HennaEquipList;
 
 /**
@@ -31,7 +28,7 @@ import net.sf.l2j.gameserver.serverpackets.HennaEquipList;
  * 
  * @author Tempy
  */
-public class RequestHennaList extends ClientBasePacket
+public class RequestHennaList extends L2GameClientPacket
 {
     private static final String _C__BA_RequestHennaList = "[C] ba RequestHennaList";
 
@@ -44,13 +41,12 @@ public class RequestHennaList extends ClientBasePacket
      * format:		cd
      * @param decrypt
      */
-    public RequestHennaList(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _unknown = readD(); // ??
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null) return;

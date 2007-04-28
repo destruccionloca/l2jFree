@@ -18,10 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreManageListSell;
 
@@ -30,18 +27,17 @@ import net.sf.l2j.gameserver.serverpackets.PrivateStoreManageListSell;
  * 
  * @version $Revision: 1.2.2.1.2.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestPrivateStoreManageSell extends ClientBasePacket
+public class RequestPrivateStoreManageSell extends L2GameClientPacket
 {
 	private static final String _C__73_REQUESTPRIVATESTOREMANAGESELL = "[C] 73 RequestPrivateStoreManageSell";
 	//private final static Log _log = LogFactory.getLog(RequestPrivateStoreManage.class.getName());
 	
 	
-	public RequestPrivateStoreManageSell(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-	}
+    protected void readImpl()
+    {
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null) return;

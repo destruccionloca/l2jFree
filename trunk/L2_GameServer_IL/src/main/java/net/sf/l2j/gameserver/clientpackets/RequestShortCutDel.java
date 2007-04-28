@@ -18,42 +18,33 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**
  * This class ...
  * 
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestShortCutDel extends ClientBasePacket
+public class RequestShortCutDel extends L2GameClientPacket
 {
 	private static final String _C__35_REQUESTSHORTCUTDEL = "[C] 35 RequestShortCutDel";
 	
-	private final int _slot;
-	private final int _page;
+	private int _slot;
+	private int _page;
 	
 	/**
 	 * packet type id 0x35
 	 * format:		cd
 	 * @param rawPacket
 	 */
-	public RequestShortCutDel(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		int id = readD();
-		if (getClient().getRevision() >= 514) {
-			_slot = id % 12;
-			_page = id / 12;
-		} else {
-			_slot = id % 10;
-			_page = id / 10;
-		}
-	}
+    protected void readImpl()
+    {
+        int id = readD();
+        _slot = id % 12;
+        _page = id / 12;
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

@@ -18,16 +18,13 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**
  * format (ch) d
  * @author -Wooden-
  *
  */
-public class RequestOustFromPartyRoom extends ClientBasePacket
+public class RequestOustFromPartyRoom extends L2GameClientPacket
 {
 	private static final String _C__D0_01_REQUESTOUSTFROMPARTYROOM = "[C] D0:01 RequestOustFromPartyRoom";	
 	@SuppressWarnings("unused")
@@ -37,17 +34,16 @@ public class RequestOustFromPartyRoom extends ClientBasePacket
 	 * @param buf
 	 * @param client
 	 */
-	public RequestOustFromPartyRoom(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_id = readD();
-	}
+    protected void readImpl()
+    {
+        _id = readD();
+    }
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	void runImpl()
+    protected void runImpl()
 	{
 		// TODO Auto-generated method stub
 

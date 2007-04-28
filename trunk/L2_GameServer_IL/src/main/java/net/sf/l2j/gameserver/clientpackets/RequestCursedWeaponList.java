@@ -29,16 +29,15 @@ import net.sf.l2j.gameserver.serverpackets.ExCursedWeaponList;
  * Format: (ch)
  * @author  -Wooden-
  */
-public class RequestCursedWeaponList extends ClientBasePacket
+public class RequestCursedWeaponList extends L2GameClientPacket
 {
     private static final String _C__D0_22_REQUESTCURSEDWEAPONLIST = "[C] D0:22 RequestCursedWeaponList";
     /**
      * @param buf
      * @param client
      */
-    public RequestCursedWeaponList(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         //nothing to read it's just a trigger
     }
 
@@ -46,7 +45,7 @@ public class RequestCursedWeaponList extends ClientBasePacket
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
     @Override
-    void runImpl()
+    protected void runImpl()
     {
         L2Character activeChar = getClient().getActiveChar();
         if (activeChar == null)

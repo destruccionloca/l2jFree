@@ -18,11 +18,8 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.SkillList;
 
 /**
@@ -30,32 +27,31 @@ import net.sf.l2j.gameserver.serverpackets.SkillList;
  * 
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestSkillList extends ClientBasePacket
+public class RequestSkillList extends L2GameClientPacket
 {
 	private static final String _C__3F_REQUESTSKILLLIST = "[C] 3F RequestSkillList";
 	//private final static Log _log = LogFactory.getLog(RequestSkillList.class.getName());
     @SuppressWarnings("unused")
-	private final int _unk1;
+	private int _unk1;
     @SuppressWarnings("unused")
-	private final int _unk2;
+	private int _unk2;
     @SuppressWarnings("unused")
-	private final int _unk3;
+	private int _unk3;
 
 	/**
 	 * packet type id 0x3f
 	 * format:		c
 	 * @param rawPacket
 	 */
-	public RequestSkillList(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
+    protected void readImpl()
+    {
         //TODO analyse unk1-unk3
         _unk1 = readD();
         _unk2 = readD();
         _unk3 = readD();
 	}
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance cha = getClient().getActiveChar();
         

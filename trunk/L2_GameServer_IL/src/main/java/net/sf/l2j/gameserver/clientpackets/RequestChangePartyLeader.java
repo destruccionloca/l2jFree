@@ -18,30 +18,27 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**
  * This class ...
  * 
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestChangePartyLeader extends ClientBasePacket{
+public class RequestChangePartyLeader extends L2GameClientPacket{
 	
 	private static final String _C__EE_REQUESTCHANGEPARTYLEADER = "[C] EE RequestChangePartyLeader";
 	//private final static Log _log = LogFactory.getLog(RequestJoinParty.class.getName());
 
-	private final String _name;
+	private String _name;
 	
-	public RequestChangePartyLeader(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_name = readS();
-	}
+    
+    protected void readImpl()
+    {
+        _name = readS();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

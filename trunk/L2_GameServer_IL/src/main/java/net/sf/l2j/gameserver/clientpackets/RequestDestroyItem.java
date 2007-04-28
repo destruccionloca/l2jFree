@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 
 import net.sf.l2j.Config;
@@ -28,7 +27,6 @@ import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -43,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.7.2.4.2.6 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestDestroyItem extends ClientBasePacket
+public class RequestDestroyItem extends L2GameClientPacket
 {
 
 	private static final String _C__59_REQUESTDESTROYITEM = "[C] 59 RequestDestroyItem";
@@ -64,9 +62,8 @@ public class RequestDestroyItem extends ClientBasePacket
 	 * format:		cdd  
 	 * @param decrypt
 	 */
-	public RequestDestroyItem(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
+    protected void readImpl()
+    {
 		_objectId = 0;
 		_count = 0;
 
@@ -76,7 +73,7 @@ public class RequestDestroyItem extends ClientBasePacket
 	    } catch (Exception e) {}
 	}
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

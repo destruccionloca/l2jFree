@@ -31,7 +31,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Dezmond_snz
  * Format: cddd
  */
-public class DlgAnswer extends ClientBasePacket
+public class DlgAnswer extends L2GameClientPacket
 {
     private static final String _C__C5_DLGANSWER = "[C] C5 DlgAnswer";
     private final static Log _log = LogFactory.getLog(DlgAnswer.class.getName());
@@ -39,9 +39,8 @@ public class DlgAnswer extends ClientBasePacket
     private int _messageId;
     private int _answer, _unk;
     
-    public DlgAnswer(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf,client);
         _messageId = readD();
         _answer = readD();
         _unk = readD();

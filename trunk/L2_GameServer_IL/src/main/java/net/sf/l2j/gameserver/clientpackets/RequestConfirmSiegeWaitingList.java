@@ -33,24 +33,23 @@ import net.sf.l2j.gameserver.serverpackets.SiegeDefenderList;
  * 
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestConfirmSiegeWaitingList extends ClientBasePacket{
+public class RequestConfirmSiegeWaitingList extends L2GameClientPacket{
     
     private static final String _C__a5_RequestConfirmSiegeWaitingList = "[C] a5 RequestConfirmSiegeWaitingList";
     //private final static Log _log = LogFactory.getLog(RequestConfirmSiegeWaitingList.class.getName());
 
-    private final int _Approved;
-    private final int _CastleId;
-    private final int _ClanId;
+    private int _Approved;
+    private int _CastleId;
+    private int _ClanId;
     
-    public RequestConfirmSiegeWaitingList(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _CastleId = readD();
         _ClanId = readD();
         _Approved = readD();
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if(activeChar == null) return;

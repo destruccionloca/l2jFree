@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.AllyInfo;
 
 /**
@@ -28,7 +25,7 @@ import net.sf.l2j.gameserver.serverpackets.AllyInfo;
  * 
  * @version $Revision: 1479 $ $Date: 2005-11-09 00:47:42 +0100 (mer., 09 nov. 2005) $
  */
-public class RequestAllyInfo extends ClientBasePacket
+public class RequestAllyInfo extends L2GameClientPacket
 {
 	private static final String _C__8E_REQUESTALLYINFO = "[C] 8E RequestAllyInfo";
 	/**
@@ -36,12 +33,12 @@ public class RequestAllyInfo extends ClientBasePacket
 	 * format:		c
 	 * @param rawPacket
 	 */
-	public RequestAllyInfo(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-	}
+    public void readImpl()
+    {
+        
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		AllyInfo ai = new AllyInfo(getClient().getActiveChar());
 		sendPacket(ai);

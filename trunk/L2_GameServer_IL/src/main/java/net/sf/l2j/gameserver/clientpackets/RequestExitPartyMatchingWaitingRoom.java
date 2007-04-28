@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**
  * Format: (ch)
@@ -28,24 +25,20 @@ import net.sf.l2j.gameserver.network.L2GameClient;
  * @author  -Wooden-
  * 
  */
-public class RequestExitPartyMatchingWaitingRoom extends ClientBasePacket
+public class RequestExitPartyMatchingWaitingRoom extends L2GameClientPacket
 {
     private static final String _C__D0_17_REQUESTEXITPARTYMATCHINGWAITINGROOM = "[C] D0:17 RequestExitPartyMatchingWaitingRoom";
 
-    /**
-     * @param buf
-     * @param client
-     */
-    public RequestExitPartyMatchingWaitingRoom(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
+        //trigger
     }
 
     /**
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
     @Override
-    void runImpl()
+    protected void runImpl()
     {
         // TODO
         System.out.println("C5: RequestExitPartyMatchingWaitingRoom");

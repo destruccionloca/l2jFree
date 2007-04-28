@@ -31,29 +31,28 @@ import net.sf.l2j.gameserver.recipes.manager.CraftManager;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class RequestRecipeShopMakeItem extends ClientBasePacket 
+public class RequestRecipeShopMakeItem extends L2GameClientPacket 
 {
     private static final String _C__AF_REQUESTRECIPESHOPMAKEITEM = "[C] B6 RequestRecipeShopMakeItem";
 	//private final static Log _log = LogFactory.getLog(RequestSellItem.class.getName());
 
-	private final int _id;
-	private final int _recipeId;
+	private int _id;
+	private int _recipeId;
 	@SuppressWarnings("unused")
-    private final int _unknow;
+    private int _unknow;
 	/**
 	 * packet type id 0xac
 	 * format:		cd
 	 * @param decrypt
 	 */
-	public RequestRecipeShopMakeItem(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_id = readD();
-		_recipeId = readD();
-		_unknow = readD();
-	}
+    protected void readImpl()
+    {
+        _id = readD();
+        _recipeId = readD();
+        _unknow = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

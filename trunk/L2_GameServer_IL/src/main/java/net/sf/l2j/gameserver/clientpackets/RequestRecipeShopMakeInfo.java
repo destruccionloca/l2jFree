@@ -18,10 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.RecipeShopItemInfo;
 
 /**
@@ -29,22 +26,21 @@ import net.sf.l2j.gameserver.serverpackets.RecipeShopItemInfo;
  * cdd
  * @version $Revision: 1.1.2.1.2.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestRecipeShopMakeInfo extends ClientBasePacket{
+public class RequestRecipeShopMakeInfo extends L2GameClientPacket{
     private static final String _C__B5_RequestRecipeShopMakeInfo = "[C] b5 RequestRecipeShopMakeInfo";
     //private final static Log _log = LogFactory.getLog(RequestRecipeShopMakeInfo.class.getName());
     
     @SuppressWarnings("unused")
-    private final int _playerObjectId;
-    private final int _recipeId;
+    private int _playerObjectId;
+    private int _recipeId;
     
-    public RequestRecipeShopMakeInfo(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _playerObjectId = readD();
         _recipeId = readD();
-	}
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
         L2PcInstance player = getClient().getActiveChar();
 	if (player == null)

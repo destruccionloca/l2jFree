@@ -29,27 +29,23 @@ import org.apache.commons.logging.LogFactory;
  * @author -Wooden-
  *
  */
-public class RequestExOustFromMPCC extends ClientBasePacket
+public class RequestExOustFromMPCC extends L2GameClientPacket
 {
 	private final static Log _log = LogFactory.getLog(RequestExOustFromMPCC.class.getName());
 	private static final String _C__D0_0F_REQUESTEXOUSTFROMMPCC = "[C] D0:0F RequestExOustFromMPCC";
 	private String _name;
 
-	/**
-	 * @param buf
-	 * @param client
-	 */
-	public RequestExOustFromMPCC(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_name = readS();
-	}
+    protected void readImpl()
+    {
+        _name = readS();
+    }
+
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	void runImpl()
+    protected void runImpl()
 	{
 		// TODO Auto-generated method stub
 		_log.info("This packet is not well known : RequestExOustFromMPCC");

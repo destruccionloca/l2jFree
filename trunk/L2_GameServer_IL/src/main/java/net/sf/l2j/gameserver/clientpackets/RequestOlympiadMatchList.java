@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**
  * format ch
@@ -29,24 +26,23 @@ import net.sf.l2j.gameserver.network.L2GameClient;
  * @author -Wooden-
  *
  */
-public class RequestOlympiadMatchList extends ClientBasePacket
+public class RequestOlympiadMatchList extends L2GameClientPacket
 {
 	private static final String _C__D0_13_REQUESTOLYMPIADMATCHLIST = "[C] D0:13 RequestOlympiadMatchList";
 	/**
 	 * @param buf
 	 * @param client
 	 */
-	public RequestOlympiadMatchList(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		// trigger packet
-	}
+    protected void readImpl()
+    {
+        // trigger packet
+    }
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	void runImpl()
+    protected void runImpl()
 	{
 		// TODO Auto-generated method stub
 		

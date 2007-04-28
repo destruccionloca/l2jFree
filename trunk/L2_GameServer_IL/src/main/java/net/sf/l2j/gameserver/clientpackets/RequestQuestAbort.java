@@ -18,13 +18,10 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.QuestList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -36,23 +33,22 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestQuestAbort extends ClientBasePacket
+public class RequestQuestAbort extends L2GameClientPacket
 {
     private static final String _C__64_REQUESTQUESTABORT = "[C] 64 RequestQuestAbort";
     private final static Log _log = LogFactory.getLog(RequestQuestAbort.class.getName());
 
     
-    private final int _QuestID;
+    private int _QuestID;
     /**
      * packet type id 0x64<p>
      */
-    public RequestQuestAbort(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _QuestID = readD();
     }
-
-    void runImpl()
+    
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null)

@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.cache.HtmCache;
@@ -30,7 +28,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2MercManagerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MerchantInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -43,12 +40,12 @@ import net.sf.l2j.gameserver.util.Util;
  * 
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestSellItem extends ClientBasePacket
+public class RequestSellItem extends L2GameClientPacket
 {
 	private static final String _C__1E_REQUESTSELLITEM = "[C] 1E RequestSellItem";
 	//private final static Log _log = LogFactory.getLog(RequestSellItem.class.getName());
 
-	private final int _listId;
+	private int _listId;
 	private int _count;
 	private int[] _items; // count*3
 	/**
@@ -71,32 +68,31 @@ public class RequestSellItem extends ClientBasePacket
 	 * format:		cdd (ddd)
 	 * @param decrypt
 	 */
-	public RequestSellItem(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_listId = readD();
-		_count = readD();
-		if (_count <= 0)
-		{
-		    _count = 0; _items = null;
-		    return;
-		}
-		_items = new int[_count * 3];
-		for (int i = 0; i < _count; i++)
-		{
-			int objectId = readD(); _items[i * 3 + 0] = objectId;
-			int itemId   = readD(); _items[i * 3 + 1] = itemId;
-			long cnt      = readD(); 
-			if (cnt > Integer.MAX_VALUE || cnt <= 0)
-			{
-			    _count = 0; _items = null;
-			    return;
-			}
-			_items[i * 3 + 2] = (int)cnt;
-		}
-	}
+    protected void readImpl()
+    {
+        _listId = readD();
+        _count = readD();
+        if (_count <= 0  || _count * 12 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+        {
+            _count = 0; _items = null;
+            return;
+        }
+        _items = new int[_count * 3];
+        for (int i = 0; i < _count; i++)
+        {
+            int objectId = readD(); _items[i * 3 + 0] = objectId;
+            int itemId   = readD(); _items[i * 3 + 1] = itemId;
+            long cnt      = readD(); 
+            if (cnt > Integer.MAX_VALUE || cnt <= 0)
+            {
+                _count = 0; _items = null;
+                return;
+            }
+            _items[i * 3 + 2] = (int)cnt;
+        }
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;

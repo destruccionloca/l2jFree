@@ -33,12 +33,12 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.5.2.8.2.8 $ $Date: 2005/04/02 10:43:04 $
  */
-public class ProtocolVersion extends ClientBasePacket
+public class ProtocolVersion extends L2GameClientPacket
 {
 	private static final String _C__00_PROTOCOLVERSION = "[C] 00 ProtocolVersion";
 	static Log _log = LogFactory.getLog(ProtocolVersion.class.getName());
     
-    private final long _version;
+    private long _version;
 
 	/**
 	 * packet type id 0x00
@@ -46,9 +46,8 @@ public class ProtocolVersion extends ClientBasePacket
 	 *  
 	 * @param rawPacket
 	 */
-	public ProtocolVersion(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
+    protected void readImpl()
+    {
 		_version  = readD();
 		// ignore the rest
 		while (buf.hasRemaining()) buf.get();
@@ -57,7 +56,7 @@ public class ProtocolVersion extends ClientBasePacket
 	/** urgent messages, execute immediatly */
 	public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
 	
-	void runImpl()
+    protected void runImpl()
 	{
 		// this packet is never encrypted
 		if (_version == -2)

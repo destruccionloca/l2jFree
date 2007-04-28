@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -26,7 +25,6 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
@@ -34,20 +32,15 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * @author  -Wooden-
  * 
  */
-public class RequestPledgeSetAcademyMaster extends ClientBasePacket
+public class RequestPledgeSetAcademyMaster extends L2GameClientPacket
 {
     private static final String _C__D0_19_REQUESTSETPLEADGEACADEMYMASTER = "[C] D0:19 RequestPledgeSetAcademyMaster";
     private String _currPlayerName;
     private int _set; // 1 set, 0 delete
     private String _targetPlayerName;
 
-    /**
-     * @param buf
-     * @param client
-     */
-    public RequestPledgeSetAcademyMaster(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _set = readD();
         _currPlayerName = readS();
         _targetPlayerName = readS();
@@ -57,7 +50,7 @@ public class RequestPledgeSetAcademyMaster extends ClientBasePacket
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
     @Override
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         L2Clan clan = activeChar.getClan();

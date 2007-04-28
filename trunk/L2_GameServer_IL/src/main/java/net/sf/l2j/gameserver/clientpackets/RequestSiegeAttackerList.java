@@ -18,11 +18,8 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.entity.Castle;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.SiegeAttackerList;
 
 /**
@@ -30,20 +27,19 @@ import net.sf.l2j.gameserver.serverpackets.SiegeAttackerList;
  * 
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestSiegeAttackerList extends ClientBasePacket{
+public class RequestSiegeAttackerList extends L2GameClientPacket{
     
     private static final String _C__a2_RequestSiegeAttackerList = "[C] a2 RequestSiegeAttackerList";
     //private final static Log _log = LogFactory.getLog(RequestJoinParty.class.getName());
 
-    private final int _CastleId;
+    private int _CastleId;
     
-    public RequestSiegeAttackerList(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _CastleId = readD();
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         Castle castle = CastleManager.getInstance().getCastle(_CastleId);
         if (castle == null) return;

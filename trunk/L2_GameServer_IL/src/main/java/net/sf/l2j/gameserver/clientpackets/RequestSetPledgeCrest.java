@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -27,7 +26,6 @@ import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.idfactory.BitSetIDFactory;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -38,22 +36,23 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.2.2.1.2.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestSetPledgeCrest extends ClientBasePacket
+public class RequestSetPledgeCrest extends L2GameClientPacket
 {
 	private static final String _C__53_REQUESTSETPLEDGECREST = "[C] 53 RequestSetPledgeCrest";
 	static Log _log = LogFactory.getLog(RequestSetPledgeCrest.class.getName());
 			
-	private final int _length;
-	private final byte[] _data;
+	private int _length;
+	private byte[] _data;
 	
-	public RequestSetPledgeCrest(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_length  = readD();
-		_data = readB(_length);
-	}
+    
+    protected void readImpl()
+    {
+        _length  = readD();
+        _data = new byte[_length];
+        readB(_data);
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		

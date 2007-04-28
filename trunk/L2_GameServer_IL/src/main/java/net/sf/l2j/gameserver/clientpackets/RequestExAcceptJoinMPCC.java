@@ -18,10 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.network.L2GameClient;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,27 +25,22 @@ import org.apache.commons.logging.LogFactory;
  * @author -Wooden-
  *
  */
-public class RequestExAcceptJoinMPCC extends ClientBasePacket
+public class RequestExAcceptJoinMPCC extends L2GameClientPacket
 {
 	private final static Log _log = LogFactory.getLog(RequestExAcceptJoinMPCC.class.getName());
 	private static final String _C__D0_0E_REQUESTEXASKJOINMPCC = "[C] D0:0E RequestExAcceptJoinMPCC";
 	private int _data;
 
-	/**
-	 * @param buf
-	 * @param client
-	 */
-	public RequestExAcceptJoinMPCC(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_data = readD();
-	}
+    protected void readImpl()
+    {
+        _data = readD();
+    }
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	void runImpl()
+    protected void runImpl()
 	{
 		// TODO Auto-generated method stub
 		_log.info("This packet is not well known : RequestExAcceptJoinMPCC");

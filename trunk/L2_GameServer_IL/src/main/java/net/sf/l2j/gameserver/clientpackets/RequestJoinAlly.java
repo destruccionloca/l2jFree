@@ -32,20 +32,19 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * 
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestJoinAlly extends ClientBasePacket{
+public class RequestJoinAlly extends L2GameClientPacket{
 	
 	private static final String _C__82_REQUESTJOINALLY = "[C] 82 RequestJoinAlly";
 	//private static Logger _log = Logger.getLogger(RequestJoinAlly.class.getName());
 
-	private final int _id;
+	private int _id;
 	
-	public RequestJoinAlly(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_id = readD();
-	}
+    protected void readImpl()
+    {
+        _id = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

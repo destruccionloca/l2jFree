@@ -18,12 +18,9 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
@@ -36,26 +33,25 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.6.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestSocialAction extends ClientBasePacket
+public class RequestSocialAction extends L2GameClientPacket
 {
 	private static final String _C__1B_REQUESTSOCIALACTION = "[C] 1B RequestSocialAction";
 	private final static Log _log = LogFactory.getLog(RequestSocialAction.class.getName());
 	
 	// format  cd
-	private final int _actionId;
+	private int _actionId;
 	
 	/**
 	 * packet type id 0x1b
 	 * format:		cd
 	 * @param decrypt
 	 */
-	public RequestSocialAction(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_actionId  = readD();
-	}
+    protected void readImpl()
+    {
+        _actionId  = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

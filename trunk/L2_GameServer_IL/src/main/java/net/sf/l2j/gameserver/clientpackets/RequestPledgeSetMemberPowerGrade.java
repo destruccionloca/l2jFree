@@ -18,30 +18,23 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**
  * Format: (ch) Sd
  * @author  -Wooden-
  * 
  */
-public class RequestPledgeSetMemberPowerGrade extends ClientBasePacket
+public class RequestPledgeSetMemberPowerGrade extends L2GameClientPacket
 {
     private static final String _C__D0_1C_REQUESTPLEDGESETMEMBERPOWERGRADE = "[C] D0:1C RequestPledgeSetMemberPowerGrade";
     private int _powerGrade;
     private String _member;
-    /**
-     * @param buf
-     * @param client
-     */
-    public RequestPledgeSetMemberPowerGrade(ByteBuffer buf, L2GameClient client)
+
+    protected void readImpl()
     {
-        super(buf, client);
         _member = readS();
         _powerGrade = readD();
     }
@@ -50,7 +43,7 @@ public class RequestPledgeSetMemberPowerGrade extends ClientBasePacket
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
     @Override
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if(activeChar == null)

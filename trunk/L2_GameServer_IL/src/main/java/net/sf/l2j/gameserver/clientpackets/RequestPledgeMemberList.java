@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
  * 
  * @version $Revision: 1.5.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestPledgeMemberList extends ClientBasePacket
+public class RequestPledgeMemberList extends L2GameClientPacket
 {
 	private static final String _C__3C_REQUESTPLEDGEMEMBERLIST = "[C] 3C RequestPledgeMemberList";
 	//private final static Log _log = LogFactory.getLog(RequestPledgeMemberList.class.getName());

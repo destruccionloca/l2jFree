@@ -30,17 +30,16 @@ import net.sf.l2j.gameserver.serverpackets.PrivateStoreManageListBuy;
  * 
  * @version $Revision: 1.2.2.1.2.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestPrivateStoreManageBuy extends ClientBasePacket{
+public class RequestPrivateStoreManageBuy extends L2GameClientPacket{
 	private static final String _C__90_REQUESTPRIVATESTOREMANAGEBUY = "[C] 90 RequestPrivateStoreManageBuy";
 	//private final static Log _log = LogFactory.getLog(RequestPrivateStoreBuyManage.class.getName());
 	
 	
-	public RequestPrivateStoreManageBuy(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-	}
+    protected void readImpl()
+    {
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null) return;

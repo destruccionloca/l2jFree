@@ -47,24 +47,22 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.12.4.5 $ $Date: 2005/04/11 10:06:11 $
  */
-public class RequestBypassToServer extends ClientBasePacket
+public class RequestBypassToServer extends L2GameClientPacket
 {
     private static final String _C__21_REQUESTBYPASSTOSERVER = "[C] 21 RequestBypassToServer";
     private final static Log _log = LogFactory.getLog(RequestBypassToServer.class.getName());
 
     // S
-    private final String _command;
+    private String _command;
 
-    /**
-     * @param decrypt
-     */
-    public RequestBypassToServer(ByteBuffer buf, L2GameClient client)
+
+    protected void readImpl()
     {
-        super(buf, client);
         _command = readS();
     }
 
-    void runImpl()
+
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         

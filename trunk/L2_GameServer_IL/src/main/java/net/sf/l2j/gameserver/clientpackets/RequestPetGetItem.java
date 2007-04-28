@@ -33,21 +33,20 @@ import net.sf.l2j.gameserver.serverpackets.ActionFailed;
  * 
  * @version $Revision: 1.2.4.4 $ $Date: 2005/03/29 23:15:33 $
  */
-public class RequestPetGetItem extends ClientBasePacket
+public class RequestPetGetItem extends L2GameClientPacket
 {
 
 	//private final static Log _log = LogFactory.getLog(RequestPetGetItem.class.getName());
 	private static final String _C__8f_REQUESTPETGETITEM= "[C] 8F RequestPetGetItem";
 	
-	private final int _objectId;
+	private int _objectId;
 	
-	public RequestPetGetItem(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_objectId = readD();
-	}
+    protected void readImpl()
+    {
+        _objectId = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2World world = L2World.getInstance();
 		L2ItemInstance item = (L2ItemInstance)world.findObject(_objectId);

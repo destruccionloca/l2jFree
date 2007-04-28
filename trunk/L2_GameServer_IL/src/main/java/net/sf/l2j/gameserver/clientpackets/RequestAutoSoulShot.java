@@ -18,11 +18,8 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ExAutoSoulShot;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -34,28 +31,27 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.0.0.0 $ $Date: 2005/07/11 15:29:30 $
  */
-public class RequestAutoSoulShot extends ClientBasePacket
+public class RequestAutoSoulShot extends L2GameClientPacket
 {
     private static final String _C__CF_REQUESTAUTOSOULSHOT = "[C] CF RequestAutoSoulShot";
     private final static Log _log = LogFactory.getLog(RequestAutoSoulShot.class.getName());
 
     // format  cd
-    private final int _itemId;
-    private final int _type; // 1 = on : 0 = off;
+    private int _itemId;
+    private int _type; // 1 = on : 0 = off;
 
     /**
      * packet type id 0xcf
      * format:      chdd
      * @param decrypt
      */
-    public RequestAutoSoulShot(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _itemId = readD();
         _type = readD();
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         

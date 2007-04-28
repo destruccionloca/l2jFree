@@ -32,16 +32,12 @@ import net.sf.l2j.tools.geometry.Point3D;
  * Format: (ch)
  * @author  -Wooden-
  */
-public class RequestCursedWeaponLocation extends ClientBasePacket
+public class RequestCursedWeaponLocation extends L2GameClientPacket
 {
     private static final String _C__D0_23_REQUESTCURSEDWEAPONLOCATION = "[C] D0:23 RequestCursedWeaponLocation";
-    /**
-     * @param buf
-     * @param client
-     */
-    public RequestCursedWeaponLocation(ByteBuffer buf, L2GameClient client)
+
+    protected void readImpl()
     {
-        super(buf, client);
         //nothing to read it's just a trigger
     }
 
@@ -49,7 +45,7 @@ public class RequestCursedWeaponLocation extends ClientBasePacket
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
     @Override
-    void runImpl()
+    protected void runImpl()
     {
         L2Character activeChar = getClient().getActiveChar();
         if (activeChar == null)

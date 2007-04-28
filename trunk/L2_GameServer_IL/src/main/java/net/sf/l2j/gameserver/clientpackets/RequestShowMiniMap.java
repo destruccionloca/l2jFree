@@ -18,10 +18,7 @@
  */
  package net.sf.l2j.gameserver.clientpackets;
 
- import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
+ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ShowMiniMap;
  /**
  * sample
@@ -31,17 +28,17 @@ import net.sf.l2j.gameserver.serverpackets.ShowMiniMap;
  * 
  * @version $Revision: 1 $ $Date: 2005/04/10 00:17:44 $
  */
-public class RequestShowMiniMap extends ClientBasePacket
+public class RequestShowMiniMap extends L2GameClientPacket
 {
 	private static final String _C__cd_REQUESTSHOWMINIMAP = "[C] cd RequestShowMiniMap";
 	/**
 	 */
-	public RequestShowMiniMap(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-	}
+    protected void readImpl()
+    {
+        // trigger
+    }
 
-	final void runImpl()
+    protected final void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

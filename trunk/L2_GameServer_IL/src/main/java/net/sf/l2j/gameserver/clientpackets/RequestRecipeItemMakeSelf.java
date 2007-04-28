@@ -33,24 +33,23 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class RequestRecipeItemMakeSelf extends ClientBasePacket 
+public class RequestRecipeItemMakeSelf extends L2GameClientPacket 
 {
     private static final String _C__AF_REQUESTRECIPEITEMMAKESELF = "[C] AF RequestRecipeItemMakeSelf";
 	//private final static Log _log = LogFactory.getLog(RequestSellItem.class.getName());
 
-	private final int _id;
+	private int _id;
 	/**
 	 * packet type id 0xac
 	 * format:		cd
 	 * @param decrypt
 	 */
-	public RequestRecipeItemMakeSelf(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_id = readD();
-	}
+    protected void readImpl()
+    {
+        _id = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

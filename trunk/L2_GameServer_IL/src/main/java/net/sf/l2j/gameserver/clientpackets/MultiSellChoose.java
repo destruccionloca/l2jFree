@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.ItemTable;
@@ -15,7 +13,6 @@ import net.sf.l2j.gameserver.model.L2Multisell.MultiSellIngredient;
 import net.sf.l2j.gameserver.model.L2Multisell.MultiSellListContainer;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -26,7 +23,7 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class MultiSellChoose extends ClientBasePacket
+public class MultiSellChoose extends L2GameClientPacket
 {
     private static final String _C__A7_MULTISELLCHOOSE = "[C] A7 MultiSellChoose";
     private final static Log _log = LogFactory.getLog(MultiSellChoose.class.getName());
@@ -37,9 +34,8 @@ public class MultiSellChoose extends ClientBasePacket
     private int _enchantment;
     private int _transactionTax;    // local handling of taxation
     
-    public MultiSellChoose(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf,client);
         _listId = readD();
         _entryId = readD();
         _amount = readD();

@@ -18,10 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.cache.CrestCache;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.AllyCrest;
 
 import org.apache.commons.logging.Log;
@@ -32,24 +29,23 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.3.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestAllyCrest extends ClientBasePacket
+public class RequestAllyCrest extends L2GameClientPacket
 {
 	private static final String _C__88_REQUESTALLYCREST = "[C] 88 RequestAllyCrest";
 	private final static Log _log = LogFactory.getLog(RequestAllyCrest.class.getName());
 
-	private final int _crestId;
+	private int _crestId;
 	/**
 	 * packet type id 0x88 format: cd
 	 * 
 	 * @param rawPacket
 	 */
-	public RequestAllyCrest(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_crestId = readD();
-	}
+    protected void readImpl()
+    {
+        _crestId = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		if (_log.isDebugEnabled()) _log.debug("allycrestid " + _crestId + " requested");
         

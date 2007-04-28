@@ -36,22 +36,21 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * @author -Wooden-, TempyIncursion
  *
  */
-public class RequestPetition extends ClientBasePacket
+public class RequestPetition extends L2GameClientPacket
 {
 	private static final String _C__7F_RequestPetition = "[C] 7F RequestPetition";
 	//private final static Log _log = LogFactory.getLog(RequestPetition.class.getName());
 
-	private final String _content;
-	private final int _type;       // 1 = on : 0 = off;
+	private String _content;
+	private int _type;       // 1 = on : 0 = off;
 
-	public RequestPetition(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_content = readS();
-		_type    = readD();
-	}
+    protected void readImpl()
+    {
+        _content = readS();
+        _type    = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

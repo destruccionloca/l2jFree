@@ -18,52 +18,44 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.instancemanager.BoatManager;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.tools.geometry.Point3D;
 
 
-public class RequestMoveToLocationInVehicle extends ClientBasePacket
+public class RequestMoveToLocationInVehicle extends L2GameClientPacket
 {
 	private final Point3D _pos = new Point3D(0,0,0);
 	private final Point3D _origin_pos = new Point3D(0,0,0);
-	private final int _BoatId;
+	private int _BoatId;
 	
 	public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
 
-	/**
-	 * @param buf
-	 * @param client
-	 */
-	public RequestMoveToLocationInVehicle(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		int _x, _y, _z;
-		_BoatId  = readD();   //objectId of boat
-		_x = readD();
-		_y = readD();
-		_z = readD();
-		_pos.setXYZ(_x, _y, _z);
-		_x = readD();
-		_y = readD();
-		_z = readD();
-		_origin_pos.setXYZ(_x, _y, _z);  
-	}
+    protected void readImpl()
+    {
+        int _x, _y, _z;
+        _BoatId  = readD();   //objectId of boat
+        _x = readD();
+        _y = readD();
+        _z = readD();
+        _pos.setXYZ(_x, _y, _z);
+        _x = readD();
+        _y = readD();
+        _z = readD();
+        _origin_pos.setXYZ(_x, _y, _z);  
+    }
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();		
 		if (activeChar == null)

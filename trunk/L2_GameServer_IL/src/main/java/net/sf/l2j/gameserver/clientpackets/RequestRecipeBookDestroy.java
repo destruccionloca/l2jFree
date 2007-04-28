@@ -9,7 +9,7 @@ import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
 import net.sf.l2j.gameserver.serverpackets.RecipeBookItemList;
 import net.sf.l2j.tools.L2Registry;
 
-public class RequestRecipeBookDestroy extends ClientBasePacket 
+public class RequestRecipeBookDestroy extends L2GameClientPacket 
 {
     private static final String _C__AC_REQUESTRECIPEBOOKDESTROY = "[C] AD RequestRecipeBookDestroy";
     //private final static Log _log = LogFactory.getLog(RequestSellItem.class.getName());
@@ -20,14 +20,12 @@ public class RequestRecipeBookDestroy extends ClientBasePacket
     * Unknown Packet:ad
     * 0000: ad 02 00 00 00
     */
-    public RequestRecipeBookDestroy(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
-
         _RecipeID = readD();
     }
             
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar != null)

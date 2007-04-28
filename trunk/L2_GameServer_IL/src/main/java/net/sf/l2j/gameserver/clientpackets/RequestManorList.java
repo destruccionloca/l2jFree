@@ -18,11 +18,8 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ExSendManorList;
 
 /**
@@ -32,16 +29,15 @@ import net.sf.l2j.gameserver.serverpackets.ExSendManorList;
  * @author -Wooden-
  *
  */
-public class RequestManorList extends ClientBasePacket
+public class RequestManorList extends L2GameClientPacket
 {
     private static final String _C__FE_08_REQUESTMANORLIST = "[S] FE:08 RequestManorList";
     /**
      * @param buf
      * @param client
      */
-    public RequestManorList(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         // just a trigger
     }
 
@@ -49,7 +45,7 @@ public class RequestManorList extends ClientBasePacket
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
     @Override
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
         FastList<String> ManorsName = new FastList<String>();

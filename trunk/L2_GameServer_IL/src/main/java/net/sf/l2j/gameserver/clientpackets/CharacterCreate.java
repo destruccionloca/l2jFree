@@ -49,34 +49,33 @@ import org.apache.commons.logging.LogFactory;
  * @version $Revision: 1.9.2.3.2.8 $ $Date: 2005/03/27 15:29:30 $
  */
 @SuppressWarnings("unused")
-public class CharacterCreate extends ClientBasePacket
+public class CharacterCreate extends L2GameClientPacket
 {
 	private static final String _C__0B_CHARACTERCREATE = "[C] 0B CharacterCreate";
 	private final static Log _log = LogFactory.getLog(CharacterCreate.class.getName());
 	
 	// cSdddddddddddd
-	private final String _name;
-    private final int _race;
-    private final byte _sex;
-	private final int _classId;
-	private final int _int;
-	private final int _str;
-	private final int _con;
-	private final int _men;
-	private final int _dex;
-	private final int _wit;
-	private final byte _hairStyle;
-	private final byte _hairColor;
-	private final byte _face;
+	private String _name;
+    private int _race;
+    private byte _sex;
+	private int _classId;
+	private int _int;
+	private int _str;
+	private int _con;
+	private int _men;
+	private int _dex;
+	private int _wit;
+	private byte _hairStyle;
+	private byte _hairColor;
+	private byte _face;
 	
 	public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
 	
 	/**
 	 * @param decrypt
 	 */
-	public CharacterCreate(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
+    protected void readImpl()
+    {
 		
 		_name      = readS();
 		_race      = readD();
@@ -93,9 +92,9 @@ public class CharacterCreate extends ClientBasePacket
 		_face      = (byte)readD();
 	}
 
-	void runImpl()
+    protected void runImpl()
 	{
-        if (CharNameTable.getInstance().accountCharNumber(getClient().getLoginName()) >= Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT && Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT != 0)
+        if (CharNameTable.getInstance().accountCharNumber(getClient().getAccountName()) >= Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT && Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT != 0)
         {
             if (_log.isDebugEnabled())
                 _log.debug("Max number of characters reached. Creation failed.");
@@ -132,7 +131,7 @@ public class CharacterCreate extends ClientBasePacket
 		}
 		
 		int objectId = IdFactory.getInstance().getNextId();
-		L2PcInstance newChar = L2PcInstance.create(objectId, template, getClient().getLoginName(),_name, _hairStyle, _hairColor, _face, _sex!=0);
+		L2PcInstance newChar = L2PcInstance.create(objectId, template, getClient().getAccountName(),_name, _hairStyle, _hairColor, _face, _sex!=0);
 		newChar.setCurrentHp(template.baseHpMax);
 		newChar.setCurrentCp(template.baseCpMax);
 		newChar.setCurrentMp(template.baseMpMax);
@@ -205,7 +204,7 @@ public class CharacterCreate extends ClientBasePacket
 		
 		// send char list
 		
-		CharSelectInfo cl =	new CharSelectInfo(client.getLoginName(), client.getSessionId().playOkID1);
+		CharSelectInfo cl =	new CharSelectInfo(client.getAccountName(), client.getSessionId().playOkID1);
 		client.getConnection().sendPacket(cl);
         client.setCharSelection(cl.getCharInfo());
         if (_log.isDebugEnabled()) _log.debug("Character init end");

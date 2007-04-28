@@ -34,24 +34,20 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.8.2.1.2.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class CharacterDelete extends ClientBasePacket
+public class CharacterDelete extends L2GameClientPacket
 {
 	private static final String _C__0C_CHARACTERDELETE = "[C] 0C CharacterDelete";
 	private final static Log _log = LogFactory.getLog(CharacterDelete.class.getName());
 
 	// cd
-	private final int _charSlot;
+	private int _charSlot;
 
-	/**
-	 * @param decrypt
-	 */
-	public CharacterDelete(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_charSlot = readD();
-	}
+    protected void readImpl()
+    {
+        _charSlot = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		if (_log.isDebugEnabled()) _log.debug("deleting slot:" + _charSlot);
 

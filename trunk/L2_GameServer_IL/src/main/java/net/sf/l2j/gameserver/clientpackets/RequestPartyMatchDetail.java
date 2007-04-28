@@ -31,14 +31,14 @@ import net.sf.l2j.gameserver.serverpackets.PartyMatchDetail;
  * @version $Revision: 1.1.4.3 $ $Date: 2005/03/27 15:29:30 $
  */
 
-public class RequestPartyMatchDetail extends ClientBasePacket
+public class RequestPartyMatchDetail extends L2GameClientPacket
 {
 	private static final String _C__71_REQUESTPARTYMATCHDETAIL = "[C] 71 RequestPartyMatchDetail";
 	//private final static Log _log = LogFactory.getLog(RequestPartyMatchDetail.class.getName());
 
-	private final int _objectId;
+	private int _objectId;
     @SuppressWarnings("unused")
-	private final int _unk1;
+	private int _unk1;
 	/**
 	 * packet type id 0x71
 	 * 
@@ -50,15 +50,14 @@ public class RequestPartyMatchDetail extends ClientBasePacket
 	 * packet format rev650  	cdd
 	 * @param decrypt
 	 */
-	public RequestPartyMatchDetail(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_objectId = readD();
+    protected void readImpl()
+    {
+        _objectId = readD();
         //TODO analyse value unk1
         _unk1 = readD();
-	}
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance player = (L2PcInstance) L2World.getInstance().findObject(_objectId);
 		if (player == null)

@@ -18,15 +18,13 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
+import net.sf.l2j.gameserver.network.BasePacket.ItemRequest;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
@@ -39,22 +37,21 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.2.2.1.2.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestPrivateStoreSell extends ClientBasePacket
+public class RequestPrivateStoreSell extends L2GameClientPacket
 {
     private static final String _C__96_REQUESTPRIVATESTORESELL = "[C] 96 RequestPrivateStoreSell";
     private final static Log _log = LogFactory.getLog(RequestPrivateStoreSell.class.getName());
     
-    private final int _storePlayerId;
+    private int _storePlayerId;
     private int _count;
     private int _price;
     private ItemRequest[] _items;
     
-    public RequestPrivateStoreSell (ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _storePlayerId = readD();
         _count = readD();
-        if (_count < 0)
+        if (_count < 0  || _count * 20 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
             _count = 0;
         _items = new ItemRequest[_count];
 
@@ -92,7 +89,7 @@ public class RequestPrivateStoreSell extends ClientBasePacket
         _price = (int)priceTotal;
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;

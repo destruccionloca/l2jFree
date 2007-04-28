@@ -21,20 +21,15 @@ package net.sf.l2j.gameserver.clientpackets;
  * Format(ch) d
  * @author  -Wooden-
  */
-public class RequestRefineCancel extends ClientBasePacket
+public class RequestRefineCancel extends L2GameClientPacket
 {
 	private static final String _C__D0_2E_REQUESTREFINECANCEL = "[C] D0:2E RequestRefineCancel";
 	private int _unk;
 	
-	public void RequestRefineCancel()
-	{
-		
-	}
-	
-	protected void readImpl()
-	{
-		_unk = readD();
-	}
+    protected void readImpl()
+    {
+        _unk = readD();
+    }
 
 	/**
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()

@@ -18,12 +18,10 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ManufactureItem;
 import net.sf.l2j.gameserver.model.L2ManufactureList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.RecipeShopMsg;
 
 /**
@@ -31,25 +29,26 @@ import net.sf.l2j.gameserver.serverpackets.RecipeShopMsg;
  * cd(dd)
  * @version $Revision: 1.1.2.3.2.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestRecipeShopListSet extends ClientBasePacket{
+public class RequestRecipeShopListSet extends L2GameClientPacket{
 	private static final String _C__B2_RequestRecipeShopListSet = "[C] b2 RequestRecipeShopListSet";
 	//private final static Log _log = LogFactory.getLog(RequestRecipeShopListSet.class.getName());
 	
-	private final int _count;
-	private final int[] _items; // count*2
-	public RequestRecipeShopListSet(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_count = readD();
-		_items = new int[_count * 2];
+	private int _count;
+	private int[] _items; // count*2
+    protected void readImpl()
+    {
+        _count = readD();
+        if (_count < 0  || _count * 8 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+            _count = 0;
+        _items = new int[_count * 2];
         for (int x = 0; x < _count ; x++)
         {
             int recipeID = readD(); _items[x*2 + 0] = recipeID;
             int cost     = readD(); _items[x*2 + 1] = cost;
         }
-	}
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)

@@ -18,10 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**
  * format ch
@@ -30,24 +27,25 @@ import net.sf.l2j.gameserver.network.L2GameClient;
  * @author -Wooden-
  *
  */
-public class RequestOlympiadObserverEnd extends ClientBasePacket
+public class RequestOlympiadObserverEnd extends L2GameClientPacket
 {
 	private static final String _C__D0_12_REQUESTOLYMPIADOBSERVEREND = "[C] D0:12 RequestOlympiadObserverEnd";
 	/**
 	 * @param buf
 	 * @param client
 	 */
-	public RequestOlympiadObserverEnd(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-	}
+    protected void readImpl()
+    {
+        // trigger
+    }
+
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
     
-	void runImpl()
+    protected void runImpl()
 	{
        L2PcInstance activeChar = getClient().getActiveChar();
        if (activeChar == null)

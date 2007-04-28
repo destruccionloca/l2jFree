@@ -18,11 +18,8 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.L2ShortCut;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ShortCutRegister;
 
 /**
@@ -30,38 +27,33 @@ import net.sf.l2j.gameserver.serverpackets.ShortCutRegister;
  * 
  * @version $Revision: 1.3.4.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestShortCutReg extends ClientBasePacket
+public class RequestShortCutReg extends L2GameClientPacket
 {
 	private static final String _C__33_REQUESTSHORTCUTREG = "[C] 33 RequestShortCutReg";
 
-	private final int _type;
-	private final int _id;
-	private final int _slot;
-	private final int _page;
-	private final int _unk;
+	private int _type;
+	private int _id;
+	private int _slot;
+	private int _page;
+	private int _unk;
 	/**
 	 * packet type id 0x33
 	 * format:		cdddd
 	 * @param rawPacket
 	 */
-	public RequestShortCutReg(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_type = readD();
-		int slot = readD();
-		_id = readD();
-		_unk = readD();
-		
-		if (getClient().getRevision() >= 514) {
-			_slot = slot % 12;
-			_page = slot / 12;
-		} else {
-			_slot = slot % 10;
-			_page = slot / 10;
-		}
-	}
+    protected void readImpl()
+    {
+        _type = readD();
+        int slot = readD();
+        _id = readD();
+        _unk = readD();
 
-	void runImpl()
+        _slot = slot % 12;
+        _page = slot / 12;
+
+    }
+
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

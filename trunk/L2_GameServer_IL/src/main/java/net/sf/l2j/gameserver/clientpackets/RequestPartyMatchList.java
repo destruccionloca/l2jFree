@@ -18,12 +18,10 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
 import java.util.Collection;
 
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.PartyMatchList;
 
 import org.apache.commons.logging.Log;
@@ -35,22 +33,22 @@ import org.apache.commons.logging.LogFactory;
  * @version $Revision: 1.1.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
 
-public class RequestPartyMatchList extends ClientBasePacket
+public class RequestPartyMatchList extends L2GameClientPacket
 {
 	private static final String _C__70_REQUESTPARTYMATCHLIST = "[C] 70 RequestPartyMatchList";
 	private final static Log _log = LogFactory.getLog(RequestPartyMatchList.class.getName());
 
-	private final int _status;
+	private int _status;
     @SuppressWarnings("unused")
-	private final int _unk1;
+	private int _unk1;
     @SuppressWarnings("unused")
-	private final int _unk2;
+	private int _unk2;
     @SuppressWarnings("unused")
-	private final int _unk3;
+	private int _unk3;
     @SuppressWarnings("unused")
-	private final int _unk4;
+	private int _unk4;
     @SuppressWarnings("unused")
-	private final String _unk5;
+	private String _unk5;
 	/**
 	 * packet type id 0x70
 	 * 
@@ -62,9 +60,8 @@ public class RequestPartyMatchList extends ClientBasePacket
 	 * format:		cd 
 	 * @param decrypt
 	 */
-	public RequestPartyMatchList(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
 	{
-		super(buf, client);
 		_status = readD();
         //TODO analyse values _unk1-unk5
         _unk1 = readD();
@@ -74,7 +71,7 @@ public class RequestPartyMatchList extends ClientBasePacket
         _unk5 = readS();
 	}
 
-	void runImpl()
+    protected void runImpl()
 	{
 		if (_status == 1)
 		{

@@ -18,11 +18,8 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.SSQStatus;
 
 /**
@@ -33,19 +30,18 @@ import net.sf.l2j.gameserver.serverpackets.SSQStatus;
  * 
  * @author Tempy
  */
-public class RequestSSQStatus extends ClientBasePacket
+public class RequestSSQStatus extends L2GameClientPacket
 {
     private static final String _C__C7_RequestSSQStatus = "[C] C7 RequestSSQStatus";
     
     private int _page;
     
-    public RequestSSQStatus(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _page = readC();
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar(); 
         if (activeChar == null)

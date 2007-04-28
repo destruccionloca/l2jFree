@@ -18,29 +18,25 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**
  * This class ...
  * cS
  * @version $Revision: 1.1.2.2.2.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestRecipeShopMessageSet extends ClientBasePacket{
+public class RequestRecipeShopMessageSet extends L2GameClientPacket{
     private static final String _C__B1_RequestRecipeShopMessageSet = "[C] b1 RequestRecipeShopMessageSet";
     //private final static Log _log = LogFactory.getLog(RequestRecipeShopMessageSet.class.getName());
     
-    private final String _name;
+    private String _name;
     
-    public RequestRecipeShopMessageSet(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _name = readS();
-	}
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
         L2PcInstance player = getClient().getActiveChar();
 	if (player == null)

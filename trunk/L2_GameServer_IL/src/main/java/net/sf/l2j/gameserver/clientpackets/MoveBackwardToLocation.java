@@ -37,7 +37,7 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
  * 
  * @version $Revision: 1.11.2.4.2.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class MoveBackwardToLocation extends ClientBasePacket
+public class MoveBackwardToLocation extends L2GameClientPacket
 {
     //private static Logger _log = Logger.getLogger(MoveBackwardToLocation.class.getName());
     // cdddddd
@@ -45,11 +45,11 @@ public class MoveBackwardToLocation extends ClientBasePacket
     private       int _targetY;
     private       int _targetZ;
     @SuppressWarnings("unused")
-    private final int _originX;
+    private int _originX;
     @SuppressWarnings("unused")
-    private final int _originY;
+    private int _originY;
     @SuppressWarnings("unused")
-    private final int _originZ;
+    private int _originZ;
     private       int _moveMovement;
     
     //For geodata
@@ -64,23 +64,22 @@ public class MoveBackwardToLocation extends ClientBasePacket
      * packet type id 0x01
      * @param decrypt
      */
-    public MoveBackwardToLocation(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _targetX  = readD();
         _targetY  = readD();
         _targetZ  = readD();
         _originX  = readD();
         _originY  = readD();
         _originZ  = readD();
-        if (Config.allowL2Walker(client.getActiveChar()) && client.getRevision() == Config.L2WALKER_REVISION) {
+        if (Config.allowL2Walker(getClient().getActiveChar()) && getClient().getRevision() == Config.L2WALKER_REVISION) {
             _moveMovement = 1;
         } else
             _moveMovement = readD(); // is 0 if cursor keys are used  1 if mouse is used
     }
 
     
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null)

@@ -40,23 +40,22 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.7.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestDuelStart extends ClientBasePacket
+public class RequestDuelStart extends L2GameClientPacket
 {
 	private static final String _C__29_REQUESTJOINPARTY = "[C] 29 RequestDuelStart";
 	private final static Log _log = LogFactory.getLog(RequestJoinParty.class.getName());
 	
-	private final String _name;
-	private final int _duelType;
+	private String _name;
+	private int _duelType;
 
-    public RequestDuelStart(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
+    protected void readImpl()
+    {
 
         _name = readS();
         _duelType = readD();
 	}
 
-	void runImpl()
+    protected void runImpl()
 	{
         L2PcInstance requestor = getClient().getActiveChar();
         L2PcInstance target = L2World.getInstance().getPlayer(_name);

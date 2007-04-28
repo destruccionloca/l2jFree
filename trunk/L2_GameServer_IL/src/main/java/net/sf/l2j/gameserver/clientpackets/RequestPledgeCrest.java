@@ -32,7 +32,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.4.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestPledgeCrest extends ClientBasePacket
+public class RequestPledgeCrest extends L2GameClientPacket
 {
 	private final static Log _log = LogFactory.getLog(RequestPledgeCrest.class.getName());
 	private static final String _C__68_REQUESTPLEDGECREST = "[C] 68 RequestPledgeCrest";
@@ -44,16 +44,15 @@ public class RequestPledgeCrest extends ClientBasePacket
 	 * 
 	 * @param rawPacket
 	 */
-	public RequestPledgeCrest(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
 	{
-		super(buf, client);
 		_crestId = 0;
 		try {
 		    _crestId = readD();
 		} catch (Exception e) {};
 	}
 
-	void runImpl()
+    protected void runImpl()
 	{
 		if (_crestId == 0)
 		    return;

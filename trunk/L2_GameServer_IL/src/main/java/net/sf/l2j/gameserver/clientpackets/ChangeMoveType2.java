@@ -18,21 +18,18 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**
  * This class ...
  * 
  * @version $Revision: 1.1.4.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class ChangeMoveType2 extends ClientBasePacket
+public class ChangeMoveType2 extends L2GameClientPacket
 {
 	private static final String _C__1C_CHANGEMOVETYPE2 = "[C] 1C ChangeMoveType2";
 
-	private final boolean _typeRun;
+	private boolean _typeRun;
 	
 	/**
 	 * packet type id 0x1c
@@ -45,13 +42,12 @@ public class ChangeMoveType2 extends ClientBasePacket
 	 * format:		cd
 	 * @param decrypt
 	 */
-	public ChangeMoveType2(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_typeRun = readD() == 1;
-	}
+    protected void readImpl()
+    {
+        _typeRun = readD() == 1;
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)

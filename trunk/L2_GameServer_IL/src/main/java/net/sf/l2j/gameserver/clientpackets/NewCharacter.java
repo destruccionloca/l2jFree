@@ -34,7 +34,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.3.4.5 $ $Date: 2005/03/27 15:29:30 $
  */
-public class NewCharacter extends ClientBasePacket
+public class NewCharacter extends L2GameClientPacket
 {
 	private static final String _C__0E_NEWCHARACTER = "[C] 0E NewCharacter";
 	private final static Log _log = LogFactory.getLog(NewCharacter.class.getName());
@@ -44,13 +44,12 @@ public class NewCharacter extends ClientBasePacket
 	 * format:		c
 	 * @param rawPacket
 	 */
-	public NewCharacter(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		// packet contains no data so just create answer
-	}
+    protected void readImpl()
+    {
+        
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		if (_log.isDebugEnabled()) _log.debug("CreateNewChar");
 		

@@ -18,21 +18,18 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.L2Macro;
 import net.sf.l2j.gameserver.model.L2Macro.L2MacroCmd;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class RequestMakeMacro extends ClientBasePacket
+public class RequestMakeMacro extends L2GameClientPacket
 {
 
-	private final L2Macro _macro;
+	private L2Macro _macro;
     private int _commands_lenght = 0;
     private final static Log _log = LogFactory.getLog(ClientBasePacket.class);
         
@@ -60,9 +57,8 @@ public class RequestMakeMacro extends ClientBasePacket
 	 * format:		cdSSScc (ccdcS)
 	 * @param decrypt
 	 */
-	public RequestMakeMacro(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
 	{
-		super(buf, client);
 		int _id = readD();
         String _name = readS();
 		String _desc = readS();
@@ -85,7 +81,7 @@ public class RequestMakeMacro extends ClientBasePacket
 		_macro = new L2Macro(_id, _icon, _name, _desc, _acronym, commands);
 	}
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance  player = getClient().getActiveChar(); 
 		if (player == null)

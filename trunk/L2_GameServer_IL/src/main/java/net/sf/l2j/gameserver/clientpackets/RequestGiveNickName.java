@@ -35,22 +35,22 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestGiveNickName extends ClientBasePacket
+public class RequestGiveNickName extends L2GameClientPacket
 {
 	private static final String _C__55_REQUESTGIVENICKNAME = "[C] 55 RequestGiveNickName";
 	static Log _log = LogFactory.getLog(RequestGiveNickName.class.getName());
 	
 	private String _target;
-	private final String _title;
+	private String _title;
 	
-	public RequestGiveNickName(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_target = readS();
-		_title  = readS();
-	}
+    protected void readImpl()
+    {
+        _target = readS();
+        _title  = readS();
+    }
 
-	void runImpl()
+
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

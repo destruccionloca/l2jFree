@@ -1,17 +1,14 @@
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.L2BlockList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class RequestBlock extends ClientBasePacket
+public class RequestBlock extends L2GameClientPacket
 {
    private static final String _C__A0_REQUESTBLOCK = "[C] A0 RequestBlock";
    private final static Log _log = LogFactory.getLog(L2PcInstance.class.getName());
@@ -26,9 +23,8 @@ public class RequestBlock extends ClientBasePacket
    private Integer _type;
    private L2PcInstance _target;
    
-   public RequestBlock(ByteBuffer buf, L2GameClient client)
+   protected void readImpl()
    {
-       super(buf, client);
        _type = readD(); //0x00 - block, 0x01 - unblock, 0x03 - allblock, 0x04 - allunblock
 
        if( _type == BLOCK || _type == UNBLOCK )
@@ -38,7 +34,7 @@ public class RequestBlock extends ClientBasePacket
        }
    }
    
-   void runImpl()
+   protected void runImpl()
    {
        L2PcInstance activeChar = getClient().getActiveChar();
        

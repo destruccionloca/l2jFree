@@ -28,13 +28,13 @@ import net.sf.l2j.gameserver.serverpackets.StopRotation;
  * 
  * @version $Revision: 1.1.4.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class FinishRotating extends ClientBasePacket
+public class FinishRotating extends L2GameClientPacket
 {
 	private static final String _C__4B_FINISHROTATING = "[C] 4B FinishRotating";
 
-	private final int _degree;
+	private int _degree;
 	@SuppressWarnings("unused")
-    private final int _unknown;
+    private int _unknown;
 	
 	/**
 	 * packet type id 0x4a
@@ -48,14 +48,13 @@ public class FinishRotating extends ClientBasePacket
 	 * format:		cdd
 	 * @param decrypt
 	 */
-	public FinishRotating(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
+    protected void readImpl()
+    {
 		_degree = readD();
 		_unknown = readD();
 	}
 
-	void runImpl()
+    protected void runImpl()
 	{
 		if (getClient().getActiveChar() == null)
 		    return;

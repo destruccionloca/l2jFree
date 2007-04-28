@@ -36,26 +36,24 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.5.4.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestPledgeInfo extends ClientBasePacket
+public class RequestPledgeInfo extends L2GameClientPacket
 {
 	private static final String _C__66_REQUESTPLEDGEINFO = "[C] 66 RequestPledgeInfo";
 	private final static Log _log = LogFactory.getLog(RequestPledgeInfo.class.getName());
 	
-	private final int _clanId;
+	private int _clanId;
 	
 	/**
 	 * packet type id 0x66
 	 * format:		cd
 	 * @param rawPacket
 	 */
-	public RequestPledgeInfo(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-        //_clanId = getClient().getActiveChar().getClanId();
-		_clanId  = readD();
-	}
+    protected void readImpl()
+    {
+        _clanId = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		if (_log.isDebugEnabled()) _log.debug("infos for clan " + _clanId + " requested");
 

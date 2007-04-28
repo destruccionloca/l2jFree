@@ -30,7 +30,7 @@ import org.apache.commons.logging.LogFactory;
  * @author  -Wooden-
  * 
  */
-public class RequestPCCafeCouponUse extends ClientBasePacket
+public class RequestPCCafeCouponUse extends L2GameClientPacket
 {
     private final static Log _log = LogFactory.getLog(RequestPCCafeCouponUse.class.getName());
     private static final String _C__D0_20_REQUESTPCCAFECOUPONUSE = "[C] D0:20 RequestPCCafeCouponUse";
@@ -40,9 +40,8 @@ public class RequestPCCafeCouponUse extends ClientBasePacket
      * @param buf
      * @param client
      */
-    public RequestPCCafeCouponUse(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _str = readS();
     }
 
@@ -50,7 +49,7 @@ public class RequestPCCafeCouponUse extends ClientBasePacket
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
     @Override
-    void runImpl()
+    protected void runImpl()
     {
         // TODO
         _log.debug("C5: RequestPCCafeCouponUse: S: "+_str);

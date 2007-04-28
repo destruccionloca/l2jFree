@@ -28,25 +28,25 @@ import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
  * 
  * @version $Revision: 1.4.2.1.2.2 $ $Date: 2005/03/27 15:29:29 $
  */
-public class CharacterRestore extends ClientBasePacket
+public class CharacterRestore extends L2GameClientPacket
 {
 	private static final String _C__62_CHARACTERRESTORE = "[C] 62 CharacterRestore";
 	//private final static Log _log = LogFactory.getLog(CharacterRestore.class.getName());
 
 	// cd
 	@SuppressWarnings("unused")
-    private final int _charSlot;
+    private int _charSlot;
 
 	/**
 	 * @param decrypt
 	 */
-	public CharacterRestore(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_charSlot = readD();
-	}
+    protected void readImpl()
+    {
+        _charSlot = readD();
+    }
 
-	void runImpl()
+
+    protected void runImpl()
 	{
 	    try 
 	    {

@@ -18,12 +18,9 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.AskJoinParty;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -41,23 +38,22 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.7.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestJoinParty extends ClientBasePacket
+public class RequestJoinParty extends L2GameClientPacket
 {
 	private static final String _C__29_REQUESTJOINPARTY = "[C] 29 RequestJoinParty";
 	private final static Log _log = LogFactory.getLog(RequestJoinParty.class.getName());
 	
-	private final String _name;
-	private final int _itemDistribution;
+	private String _name;
+	private int _itemDistribution;
 
-    public RequestJoinParty(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-
+    protected void readImpl()
+    {
         _name = readS();
         _itemDistribution = readD();
-	}
+    }
 
-	void runImpl()
+
+    protected void runImpl()
 	{
         L2PcInstance requestor = getClient().getActiveChar();
         L2PcInstance target = L2World.getInstance().getPlayer(_name);

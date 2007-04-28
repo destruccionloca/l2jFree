@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
@@ -12,7 +10,6 @@ import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2ManorManagerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MerchantInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -28,10 +25,10 @@ import org.apache.commons.logging.LogFactory;
  * Date: Jan 12, 2006
  * Time: 22:13 PM GMT+1
  */
-public class RequestBuySeed extends ClientBasePacket {
+public class RequestBuySeed extends L2GameClientPacket {
     private static final String _C__C4_REQUESTBUYSEED = "[C] C4 RequestBuySeed";
     private final static Log _log = LogFactory.getLog(RequestBuySeed.class.getName());
-    private final int _listId;
+    private int _listId;
     private int _count;
     private int[] _items;
     /**
@@ -52,8 +49,8 @@ public class RequestBuySeed extends ClientBasePacket {
      * format:      cdd (dd) 
      * @param decrypt
      */
-    public RequestBuySeed(ByteBuffer buf, L2GameClient client){
-        super(buf, client);
+    protected void readImpl()
+    {
         _listId = readD();
         _count = readD();
         if(_count * 2 < 0) _count = 0;
@@ -72,7 +69,7 @@ public class RequestBuySeed extends ClientBasePacket {
         }
     }
     
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;

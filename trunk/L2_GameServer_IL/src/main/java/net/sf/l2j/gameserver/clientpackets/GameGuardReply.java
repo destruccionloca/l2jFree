@@ -13,16 +13,16 @@ import net.sf.l2j.gameserver.network.L2GameClient;
  * 0000: 45 00 01 00 1e 37 a2 f5 00 00 00 00 00 00 00 00    E....7..........
  */
 
-public class GameGuardReply extends ClientBasePacket
+public class GameGuardReply extends L2GameClientPacket
 {
     private static final String _C__CA_GAMEGUARDREPLY = "[C] CA GameGuardReply";
 
-    public GameGuardReply(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf,client);
+        
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         

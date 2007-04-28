@@ -18,13 +18,10 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 
 import org.apache.commons.logging.Log;
@@ -35,31 +32,28 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.7.2.1.2.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestMagicSkillUse extends ClientBasePacket
+public class RequestMagicSkillUse extends L2GameClientPacket
 {
 	private static final String _C__2F_REQUESTMAGICSKILLUSE = "[C] 2F RequestMagicSkillUse";
 	private final static Log _log = LogFactory.getLog(RequestMagicSkillUse.class.getName());
 
-	private final int _magicId;
-	private final boolean _ctrlPressed;
-	private final boolean _shiftPressed;
+	private int _magicId;
+	private boolean _ctrlPressed;
+	private boolean _shiftPressed;
 	
 	/**
 	 * packet type id 0x2f
 	 * format:		cddc
 	 * @param rawPacket
 	 */
-	public RequestMagicSkillUse(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-        
-       _magicId      = readD();              // Identifier of the used skill
-       _ctrlPressed  = readD() != 0;         // True if it's a ForceAttack : Ctrl pressed
-       _shiftPressed = readC() != 0;         // True if Shift pressed
-        
-	}
+    protected void readImpl()
+    {
+        _magicId      = readD();              // Identifier of the used skill
+        _ctrlPressed  = readD() != 0;         // True if it's a ForceAttack : Ctrl pressed
+        _shiftPressed = readC() != 0;         // True if Shift pressed
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 	    //    Get the current L2PcInstance of the player
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -84,15 +78,12 @@ public class RequestMagicSkillUse extends ClientBasePacket
            // _log.debug("  range:"+skill.getCastRange()+" targettype:"+skill.getTargetType()+" optype:"+skill.getOperateType()+" power:"+skill.getPower());
            // _log.debug("  reusedelay:"+skill.getReuseDelay()+" hittime:"+skill.getHitTime());
            // _log.debug("  currentState:"+activeChar.getCurrentState());   //for debug
-		    if (getClient().getRevision() >=729) //A temp sollution b4 we get the right packet, to make it with ctrl again
-                activeChar.useMagic(skill, _shiftPressed, false);
-		    else
-		        activeChar.useMagic(skill, _ctrlPressed, _shiftPressed);
+	        activeChar.useMagic(skill, _ctrlPressed, _shiftPressed);
 		}
 		else
 		{
 			activeChar.sendPacket(new ActionFailed());
-			if (_log.isDebugEnabled()) _log.warn("No skill Id "+_magicId+" found!");
+			if (_log.isDebugEnabled()) _log.debug("No skill Id "+_magicId+" found!");
 		}
 	}
 

@@ -18,12 +18,9 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.AskJoinPledge;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -32,21 +29,20 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * 
  * @version $Revision: 1.3.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestJoinPledge extends ClientBasePacket
+public class RequestJoinPledge extends L2GameClientPacket
 {
 	private static final String _C__24_REQUESTJOINPLEDGE = "[C] 24 RequestJoinPledge";
 
-	private final int _target;
-	private final int _pledgetype;
-	
-	public RequestJoinPledge(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_target  = readD();
-		_pledgetype = readD();
-	}
+    private int _target;
+    private int _pledgetype;
+    
+    protected void readImpl()
+    {
+        _target  = readD();
+        _pledgetype = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

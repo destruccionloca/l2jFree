@@ -18,26 +18,23 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.datatables.GmListTable;
-import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**
  * This class handles RequestGmLista packet triggered by /gmlist command
  * 
  * @version $Revision: 1.1.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestGmList extends ClientBasePacket
+public class RequestGmList extends L2GameClientPacket
 {
 	private static final String _C__81_REQUESTGMLIST = "[C] 81 RequestGmList";
 
-	public RequestGmList(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-	}
+    protected void readImpl()
+    {
+        
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		if (getClient().getActiveChar() == null)
 		    return;

@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -27,7 +25,6 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
@@ -45,25 +42,24 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.2.2.3.2.5 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestCrystallizeItem extends ClientBasePacket
+public class RequestCrystallizeItem extends L2GameClientPacket
 {
 	private static final String _C__72_REQUESTDCRYSTALLIZEITEM = "[C] 72 RequestCrystallizeItem";
 
 	private final static Log _log = LogFactory.getLog(RequestCrystallizeItem.class
 			.getName());
 
-	private final int _objectId;
+	private int _objectId;
 
 	private int _count;
 
-	public RequestCrystallizeItem(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_objectId = readD();
-		_count = readD();
-	}
+    protected void readImpl()
+    {
+        _objectId = readD();
+        _count = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
         

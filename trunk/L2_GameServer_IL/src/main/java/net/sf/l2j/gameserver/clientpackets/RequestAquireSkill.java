@@ -50,29 +50,28 @@ import org.apache.commons.logging.LogFactory;
 * 
 * @version $Revision: 1.7.2.1.2.4 $ $Date: 2005/03/27 15:29:30 $
 */
-public class RequestAquireSkill extends ClientBasePacket
+public class RequestAquireSkill extends L2GameClientPacket
 {
     private static final String _C__6C_REQUESTAQUIRESKILL = "[C] 6C RequestAquireSkill";
     private final static Log _log = LogFactory.getLog(RequestAquireSkill.class.getName());
     
-    private final int _id;
-    private final int _level;
-    private final int _skillType;
+    private int _id;
+    private int _level;
+    private int _skillType;
     
     /**
      * packet type id 0x6c
      * format rev650:       cddd
      * @param rawPacket
      */
-    public RequestAquireSkill(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _id = readD();
         _level = readD();
         _skillType = readD();
     }
     
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
         if (player == null)

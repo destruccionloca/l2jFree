@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.SkillSpellbookTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
@@ -30,7 +28,6 @@ import net.sf.l2j.gameserver.model.L2SkillLearn;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.AquireSkillInfo;
 
 import org.apache.commons.logging.Log;
@@ -41,29 +38,28 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.5.2.1.2.5 $ $Date: 2005/04/06 16:13:48 $
  */
-public class RequestAquireSkillInfo extends ClientBasePacket
+public class RequestAquireSkillInfo extends L2GameClientPacket
 {
     private static final String _C__6B_REQUESTAQUIRESKILLINFO = "[C] 6B RequestAquireSkillInfo";
     private final static Log _log = LogFactory.getLog(RequestAquireSkillInfo.class.getName());
 
-    private final int _id;
-    private final int _level;
-	private final int _skillType;
+    private int _id;
+    private int _level;
+	private int _skillType;
 
     /**
      * packet type id 0x6b packet format rev650 cddd
      * 
      * @param rawPacket
      */
-    public RequestAquireSkillInfo(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _id = readD();
         _level = readD();
-		_skillType = readD();// normal(0) learn or fisherman(1)
+        _skillType = readD();
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         

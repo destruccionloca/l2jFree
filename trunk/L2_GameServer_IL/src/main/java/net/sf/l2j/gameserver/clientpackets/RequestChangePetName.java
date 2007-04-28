@@ -18,13 +18,10 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.PetNameTable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Summon;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.NpcInfo;
 import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -34,19 +31,18 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * 
  * @version $Revision: 1.3.4.4 $ $Date: 2005/04/06 16:13:48 $
  */
-public class RequestChangePetName extends ClientBasePacket{
+public class RequestChangePetName extends L2GameClientPacket{
 	private static final String REQUESTCHANGEPETNAME__C__89 = "[C] 89 RequestChangePetName";
 	//private final static Log _log = LogFactory.getLog(RequestChangePetName.class.getName());
 	
-	private final String _name;
+	private String _name;
 	
-	public RequestChangePetName(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_name = readS();
-	}
+    protected void readImpl()
+    {
+        _name = readS();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2Character activeChar = getClient().getActiveChar();
 		if (activeChar == null)

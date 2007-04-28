@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * 
  * @version $Revision: 1.3.4.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestFriendList extends ClientBasePacket
+public class RequestFriendList extends L2GameClientPacket
 {
 	private static final String _C__60_REQUESTFRIENDLIST = "[C] 60 RequestFriendList";
 	
@@ -41,12 +41,12 @@ public class RequestFriendList extends ClientBasePacket
 	 * @param rawPacket
 	 */
 	
-	public RequestFriendList(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-	}
+    protected void readImpl()
+    {
+        // trigger
+    }
 	
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		

@@ -19,12 +19,9 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.datatables.HennaTable;
 import net.sf.l2j.gameserver.model.L2HennaInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.HennaItemInfo;
 import net.sf.l2j.gameserver.templates.L2Henna;
 
@@ -33,11 +30,11 @@ import net.sf.l2j.gameserver.templates.L2Henna;
  * 
  * @version $Revision$ $Date$
  */
-public class RequestHennaItemInfo extends ClientBasePacket
+public class RequestHennaItemInfo extends L2GameClientPacket
 {
 	private static final String _C__BB_RequestHennaItemInfo = "[C] bb RequestHennaItemInfo";
 	//private final static Log _log = LogFactory.getLog(RequestHennaItemInfo.class.getName());
-	private final int SymbolId;
+	private int SymbolId;
 	// format  cd
 	
 	/**
@@ -45,13 +42,11 @@ public class RequestHennaItemInfo extends ClientBasePacket
 	 * format:		cd
 	 * @param decrypt
 	 */
-	public RequestHennaItemInfo(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		SymbolId  = readD();
-	}
-
-	void runImpl()
+    protected void readImpl()
+    {
+        SymbolId  = readD();
+    }
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

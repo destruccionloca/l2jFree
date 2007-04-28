@@ -49,29 +49,28 @@ import org.apache.commons.logging.LogFactory;
  *
  * @version $Revision: 1.11.2.7.2.9 $ $Date: 2005/04/06 16:13:48 $
  */
-public class RequestActionUse extends ClientBasePacket
+public class RequestActionUse extends L2GameClientPacket
 {
     private static final String _C__45_REQUESTACTIONUSE = "[C] 45 RequestActionUse";
     private final static Log _log = LogFactory.getLog(RequestActionUse.class.getName());
 
-    private final int _actionId;
-    private final boolean _ctrlPressed;
-    private final boolean _shiftPressed;
+    private int _actionId;
+    private boolean _ctrlPressed;
+    private boolean _shiftPressed;
     
     /**
      * packet type id 0x45
      * format:      cddc
      * @param rawPacket
      */
-    public RequestActionUse(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _actionId     = readD();
         _ctrlPressed  = (readD() == 1);
         _shiftPressed = (readC() == 1);
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         

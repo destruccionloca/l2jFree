@@ -32,19 +32,18 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * 
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestFriendInvite extends ClientBasePacket{
+public class RequestFriendInvite extends L2GameClientPacket{
 	
 	private static final String _C__5E_REQUESTFRIENDINVITE = "[C] 5E RequestFriendInvite";
 
 	private String _name;
 	
-	public RequestFriendInvite(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_name = readS();
-	}
+    protected void readImpl()
+    {
+        _name = readS();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		SystemMessage sm;
 		L2PcInstance activeChar = getClient().getActiveChar();

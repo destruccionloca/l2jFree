@@ -25,20 +25,20 @@ import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 
-public class RequestEvaluate extends ClientBasePacket {
+public class RequestEvaluate extends L2GameClientPacket {
 	private static final String _C__B9_REQUESTEVALUATE = "[C] B9 RequestEvaluate";
 
 	//private final static Log _log = LogFactory.getLog(RequestEvaluate.class.getName());
 
 	@SuppressWarnings("unused")
-    private final int _targetid;
+    private int _targetid;
 
-	public RequestEvaluate(ByteBuffer buf, L2GameClient client) {
-		super(buf, client);
-		_targetid = readD();
-	}
+    protected void readImpl()
+    {
+        _targetid = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		SystemMessage sm;
 		L2PcInstance activeChar = getClient().getActiveChar();

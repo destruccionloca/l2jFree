@@ -18,36 +18,32 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ManagePledgePower;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class RequestPledgePower extends ClientBasePacket
+public class RequestPledgePower extends L2GameClientPacket
 {
     static Log _log = LogFactory.getLog(ManagePledgePower.class.getName());
     private static final String _C__C0_REQUESTPLEDGEPOWER = "[C] C0 RequestPledgePower";
-    private final int _rank;
-    private final int _action;
-    private final int _privs;
+    private int _rank;
+    private int _action;
+    private int _privs;
     
-    public RequestPledgePower(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _rank = readD();
         _action = readD();
-        if(_action == 2)
+        if (_action == 2)
         {
             _privs = readD();
         }
         else _privs = 0;
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;

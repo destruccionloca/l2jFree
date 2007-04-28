@@ -18,35 +18,32 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.network.L2GameClient;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.RecipeItemMakeInfo;
 
 /**
  */
-public class RequestRecipeItemMakeInfo extends ClientBasePacket 
+public class RequestRecipeItemMakeInfo extends L2GameClientPacket 
 {
     private static final String _C__AE_REQUESTRECIPEITEMMAKEINFO = "[C] AE RequestRecipeItemMakeInfo";
 	//private final static Log _log = LogFactory.getLog(RequestSellItem.class.getName());
 
-	private final int _id;
-	private final L2GameClient _client;
+	private int _id;
+	private L2PcInstance _cha;
 	/**
 	 * packet type id 0xac
 	 * format:		cd
 	 * @param decrypt
 	 */
-	public RequestRecipeItemMakeInfo(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_id = readD();
-		_client = client;
-	}
+    protected void readImpl()
+    {
+        _id = readD();
+        _cha = this.getClient().getActiveChar();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
-		RecipeItemMakeInfo response = new RecipeItemMakeInfo(_id, _client.getActiveChar());
+		RecipeItemMakeInfo response = new RecipeItemMakeInfo(_id, _cha);
 		sendPacket(response);
 	}
 	

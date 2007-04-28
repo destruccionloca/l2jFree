@@ -18,6 +18,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.exception.L2JFunctionnalException;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 
@@ -53,7 +54,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 	
 	protected abstract void readImpl();
 	
-	public void run()
+	public void run() 
 	{
 		try
 		{
@@ -76,7 +77,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 		}
 	}
 	
-	protected abstract void runImpl();
+	protected abstract void runImpl()  throws L2JFunctionnalException;
 	
 	protected final void sendPacket(L2GameServerPacket gsp)
 	{

@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.QuestList;
 
 /**
@@ -28,7 +25,7 @@ import net.sf.l2j.gameserver.serverpackets.QuestList;
  * 
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestQuestList extends ClientBasePacket
+public class RequestQuestList extends L2GameClientPacket
 {
     private static final String _C__63_REQUESTQUESTLIST = "[C] 63 RequestQuestList";
     //private final static Log _log = LogFactory.getLog(RequestQuestList.class.getName());
@@ -38,12 +35,12 @@ public class RequestQuestList extends ClientBasePacket
      * format:      c<p>
      * @param decrypt
      */
-    public RequestQuestList(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
+        // trigger
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         QuestList ql = new QuestList();
         sendPacket(ql);

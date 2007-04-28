@@ -34,20 +34,19 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  *
  * @version $Revision: 1.4.2.1.2.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestAnswerJoinPledge extends ClientBasePacket
+public class RequestAnswerJoinPledge extends L2GameClientPacket
 {
 	private static final String _C__25_REQUESTANSWERJOINPLEDGE = "[C] 25 RequestAnswerJoinPledge";
 	//private static Logger _log = Logger.getLogger(RequestAnswerJoinPledge.class.getName());
 
-	private final int _answer;
+	private int _answer;
 
-	public RequestAnswerJoinPledge(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_answer  = readD();
-	}
+    protected void readImpl()
+    {
+        _answer  = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

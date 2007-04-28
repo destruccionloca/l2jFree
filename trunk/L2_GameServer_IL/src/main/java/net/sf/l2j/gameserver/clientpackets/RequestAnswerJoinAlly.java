@@ -18,11 +18,8 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
@@ -35,20 +32,19 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  *
  * @version $Revision: 1.7.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestAnswerJoinAlly extends ClientBasePacket
+public class RequestAnswerJoinAlly extends L2GameClientPacket
 {
 	private static final String _C__83_REQUESTANSWERJOINALLY = "[C] 83 RequestAnswerJoinAlly";
 	//private static Logger _log = Logger.getLogger(RequestAnswerJoinAlly.class.getName());
 
-	private final int _response;
+	private int _response;
 
-	public RequestAnswerJoinAlly(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_response = readD();
-	}
+    protected void readImpl()
+    {
+        _response = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

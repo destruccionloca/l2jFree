@@ -18,13 +18,10 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.datatables.HennaTable;
 import net.sf.l2j.gameserver.model.L2HennaInstance;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Henna;
@@ -34,11 +31,11 @@ import net.sf.l2j.gameserver.templates.L2Henna;
  * 
  * @version $Revision$ $Date$
  */
-public class RequestHennaEquip extends ClientBasePacket
+public class RequestHennaEquip extends L2GameClientPacket
 {
 	private static final String _C__BC_RequestHennaEquip = "[C] bc RequestHennaEquip";
 	//private final static Log _log = LogFactory.getLog(RequestHennaEquip.class.getName());
-	private final int SymbolId;
+	private int SymbolId;
 	// format  cd
 	
 	/**
@@ -46,13 +43,12 @@ public class RequestHennaEquip extends ClientBasePacket
 	 * format:		cd
 	 * @param decrypt
 	 */
-	public RequestHennaEquip(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		SymbolId  = readD();
-	}
+    protected void readImpl()
+    {
+        SymbolId  = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
         

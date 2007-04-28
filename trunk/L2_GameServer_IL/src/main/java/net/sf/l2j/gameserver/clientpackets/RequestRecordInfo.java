@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -31,7 +29,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.serverpackets.DoorInfo;
 import net.sf.l2j.gameserver.serverpackets.DoorStatusUpdate;
@@ -45,19 +42,19 @@ import net.sf.l2j.gameserver.serverpackets.StaticObject;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.serverpackets.VehicleInfo;
 
-public class RequestRecordInfo extends ClientBasePacket
+public class RequestRecordInfo extends L2GameClientPacket
 {
     private static final String _0__CF_REQUEST_RECORD_INFO = "[0] CF RequestRecordInfo";
 
     /** urgent messages, execute immediatly */
     public TaskPriority getPriority() { return TaskPriority.PR_NORMAL; }
 
-    public RequestRecordInfo(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
+        // trigger
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance _activeChar = getClient().getActiveChar();
 

@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.network.L2GameClient;
  * @author -Wooden-
  *
  */
-public class RequestProcureCropList extends ClientBasePacket
+public class RequestProcureCropList extends L2GameClientPacket
 {
 	private static final String _C__D0_09_REQUESTPROCURECROPLIST = "[C] D0:09 RequestProcureCropList";
 	
@@ -42,24 +42,25 @@ public class RequestProcureCropList extends ClientBasePacket
 	 * @param buf
 	 * @param client
 	 */
-	public RequestProcureCropList(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		int size = readD();
-		for(int i = 0; i < size; i++)
-		{
-			readD();
-			readD();
-			readD();
-			readD();
-		}
-	}
+    protected void readImpl()
+    {
+        int size = readD();
+        if(size*16 > _buf.remaining())
+            size=0;
+        for(int i = 0; i < size; i++)
+        {
+            readD();
+            readD();
+            readD();
+            readD();
+        }
+    }
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	void runImpl()
+    protected void runImpl()
 	{
 		// TODO Auto-generated method stub
 

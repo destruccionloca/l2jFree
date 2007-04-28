@@ -18,12 +18,9 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.instancemanager.BoatManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.GetOnVehicle;
 import net.sf.l2j.tools.geometry.Point3D;
 
@@ -32,11 +29,11 @@ import net.sf.l2j.tools.geometry.Point3D;
  * 
  * @version $Revision: 1.1.4.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestGetOnVehicle extends ClientBasePacket
+public class RequestGetOnVehicle extends L2GameClientPacket
 {
     private static final String _C__5C_GETONVEHICLE = "[C] 5C GetOnVehicle";
 
-    private final int _id, _x, _y, _z;
+    private int _id, _x, _y, _z;
     
     /**
      * packet type id 0x4a
@@ -50,16 +47,15 @@ public class RequestGetOnVehicle extends ClientBasePacket
      * format:      cdd
      * @param decrypt
      */
-    public RequestGetOnVehicle(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _id = readD();
         _x = readD();
         _y = readD();
         _z = readD();
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null) return;

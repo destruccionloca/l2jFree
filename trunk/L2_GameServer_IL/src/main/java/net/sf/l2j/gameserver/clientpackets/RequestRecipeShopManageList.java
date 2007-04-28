@@ -31,17 +31,17 @@ import net.sf.l2j.gameserver.serverpackets.RecipeShopManageList;
  * 
  * @version $Revision: 1.1.2.1.2.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestRecipeShopManageList extends ClientBasePacket{
+public class RequestRecipeShopManageList extends L2GameClientPacket{
 	private static final String _C__B0_RequestRecipeShopManageList = "[C] b0 RequestRecipeShopManageList";
 	//private final static Log _log = LogFactory.getLog(RequestPrivateStoreManage.class.getName());
 	
 	
-	public RequestRecipeShopManageList(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-	}
+    protected void readImpl()
+    {
+        // trigger
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)

@@ -18,14 +18,12 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
 import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListDelete;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -34,20 +32,19 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  *
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestOustPledgeMember extends ClientBasePacket
+public class RequestOustPledgeMember extends L2GameClientPacket
 {
 	private static final String _C__27_REQUESTOUSTPLEDGEMEMBER = "[C] 27 RequestOustPledgeMember";
 	static Logger _log = Logger.getLogger(RequestOustPledgeMember.class.getName());
 
-	private final String _target;
+	private String _target;
 
-	public RequestOustPledgeMember(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_target  = readS();
-	}
+    protected void readImpl()
+    {
+        _target  = readS();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

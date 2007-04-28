@@ -42,16 +42,16 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.11.2.1.2.7 $ $Date: 2005/04/02 21:25:21 $
  */
-public class RequestDropItem extends ClientBasePacket
+public class RequestDropItem extends L2GameClientPacket
 {
 	private static final String _C__12_REQUESTDROPITEM = "[C] 12 RequestDropItem";
 	private final static Log _log = LogFactory.getLog(RequestDropItem.class.getName());
 
-	private final int _objectId;
-	private final int _count;
-	private final int _x;
-	private final int _y;
-	private final int _z;
+	private int _objectId;
+	private int _count;
+	private int _x;
+	private int _y;
+	private int _z;
 	/**
 	 * packet type id 0x12
 	 * 
@@ -67,9 +67,8 @@ public class RequestDropItem extends ClientBasePacket
 	 * format:		cdd ddd 
 	 * @param decrypt
 	 */
-	public RequestDropItem(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
+    protected void readImpl()
+    {
 		_objectId = readD();
 		_count    = readD();
 		_x        = readD();
@@ -77,7 +76,7 @@ public class RequestDropItem extends ClientBasePacket
 		_z        = readD();
 	}
 
-	void runImpl()
+    protected void runImpl()
 	{
         L2PcInstance activeChar = getClient().getActiveChar();
     	if (activeChar == null) return;

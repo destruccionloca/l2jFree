@@ -49,7 +49,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.12.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestBuyItem extends ClientBasePacket
+public class RequestBuyItem extends L2GameClientPacket
 {
     private static final String _C__1F_REQUESTBUYITEM = "[C] 1F RequestBuyItem";
     private final static Log _log = LogFactory.getLog(RequestBuyItem.class.getName());
@@ -75,12 +75,11 @@ public class RequestBuyItem extends ClientBasePacket
      * format:      cdd (dd) 
      * @param decrypt
      */
-    public RequestBuyItem(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _listId = readD();
         _count = readD();
-        if(_count * 2 < 0) _count = 0;
+        if(_count * 2 < 0 || _count * 8 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET) _count = 0;
 
         _items = new int[_count * 2];
         for (int i = 0; i < _count; i++)
@@ -96,7 +95,7 @@ public class RequestBuyItem extends ClientBasePacket
         }
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;

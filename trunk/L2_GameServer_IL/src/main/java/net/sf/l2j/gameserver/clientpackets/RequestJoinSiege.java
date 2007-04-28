@@ -31,24 +31,23 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * 
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestJoinSiege extends ClientBasePacket{
+public class RequestJoinSiege extends L2GameClientPacket{
     
     private static final String _C__a4_RequestJoinSiege = "[C] a4 RequestJoinSiege";
     //private final static Log _log = LogFactory.getLog(RequestJoinSiege.class.getName());
 
-    private final int _CastleId;
-    private final int _IsAttacker;
-    private final int _IsJoining;
+    private int _CastleId;
+    private int _IsAttacker;
+    private int _IsJoining;
     
-    public RequestJoinSiege(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _CastleId = readD();
         _IsAttacker = readD();
         _IsJoining = readD();
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if(activeChar == null) return;

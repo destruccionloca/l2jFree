@@ -29,12 +29,12 @@ import net.sf.l2j.gameserver.network.L2GameClient;
  * 
  * @version $Revision: 1.2.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestShowBoard extends ClientBasePacket
+public class RequestShowBoard extends L2GameClientPacket
 {
 	private static final String _C__57_REQUESTSHOWBOARD = "[C] 57 RequestShowBoard";
 
 	@SuppressWarnings("unused")
-    private final int _unknown;
+    private int _unknown;
 	/**
 	 * packet type id 0x57
 	 * 
@@ -46,13 +46,12 @@ public class RequestShowBoard extends ClientBasePacket
 	 * format:		cd
 	 * @param decrypt
 	 */
-	public RequestShowBoard(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_unknown = readD();
-	}
+    protected void readImpl()
+    {
+        _unknown = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		CommunityBoard.getInstance().handleCommands(getClient(), Config.BBS_DEFAULT);
 	}

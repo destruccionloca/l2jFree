@@ -1,11 +1,8 @@
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-public class RequestDeleteMacro extends ClientBasePacket
+public class RequestDeleteMacro extends L2GameClientPacket
 {  
 	private int _id;
 	
@@ -22,13 +19,12 @@ public class RequestDeleteMacro extends ClientBasePacket
 	 * format:		cd
 	 * @param decrypt
 	 */
-	public RequestDeleteMacro(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
+    protected void readImpl()
+    {
 		_id = readD();
 	}
 	
-	void runImpl()
+    protected void runImpl()
 	{
 		if (getClient().getActiveChar() == null)
 		    return;

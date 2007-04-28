@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.serverpackets.ItemList;
  * 
  * @version $Revision: 1.3.4.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestItemList extends ClientBasePacket
+public class RequestItemList extends L2GameClientPacket
 {
 	private static final String _C__0F_REQUESTITEMLIST = "[C] 0F RequestItemList";
 	/**
@@ -36,12 +36,12 @@ public class RequestItemList extends ClientBasePacket
 	 * format:		c
 	 * @param rawPacket
 	 */
-	public RequestItemList(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-	}
+    protected void readImpl()
+    {
+        // trigger
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
         if (getClient() != null && getClient().getActiveChar() != null && !getClient().getActiveChar().isInvetoryDisabled())
         {

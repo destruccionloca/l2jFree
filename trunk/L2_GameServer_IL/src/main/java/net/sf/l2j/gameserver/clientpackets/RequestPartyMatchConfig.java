@@ -28,14 +28,14 @@ import net.sf.l2j.gameserver.network.L2GameClient;
  * @version $Revision: 1.1.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
 
-public class RequestPartyMatchConfig extends ClientBasePacket
+public class RequestPartyMatchConfig extends L2GameClientPacket
 {
 	private static final String _C__6F_REQUESTPARTYMATCHCONFIG = "[C] 6F RequestPartyMatchConfig";
 	//private final static Log _log = LogFactory.getLog(RequestPartyMatchConfig.class.getName());
 
-	private final int _automaticRegistration;
-	private final int _showLevel;
-	private final int _showClass;
+	private int _automaticRegistration;
+	private int _showLevel;
+	private int _showClass;
 	private String _memo;
 	/**
 	 * packet type id 0x6f
@@ -51,29 +51,29 @@ public class RequestPartyMatchConfig extends ClientBasePacket
 	 * format:		cdddS 
 	 * @param decrypt
 	 */
-	public RequestPartyMatchConfig(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_automaticRegistration    = readD();
-		_showLevel                = readD();
-		_showClass                = readD();
+    protected void readImpl()
+    {
+        _automaticRegistration    = readD();
+        _showLevel                = readD();
+        _showClass                = readD();
         
         /*
          *  TODO: Check if this this part of the packet has been 
          *  removed by latest versions.
          *
-		try
+        try
         {
             _memo                 = readS();
         }
-		catch (BufferUnderflowException e)
+        catch (BufferUnderflowException e)
         {
             _memo                 = "";
-            _log.warn("Memo field non existant in packet. Notify devs.",e);
+            _log.warning("Memo field non existant in packet. Notify devs.");
+            e.printStackTrace();
         }*/
-	}
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		if (getClient().getActiveChar() == null)
 		    return;

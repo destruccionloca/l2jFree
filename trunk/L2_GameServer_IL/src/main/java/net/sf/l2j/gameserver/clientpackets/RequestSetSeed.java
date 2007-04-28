@@ -18,10 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.network.L2GameClient;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -30,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
  * @author -Wooden-
  *
  */
-public class RequestSetSeed extends ClientBasePacket
+public class RequestSetSeed extends L2GameClientPacket
 {
 	private final static Log _log = LogFactory.getLog(RequestSetSeed.class.getName());
 	private static final String _C__D0_0A_REQUESTSETSEED = "[C] D0:0A RequestSetSeed";
@@ -41,24 +37,23 @@ public class RequestSetSeed extends ClientBasePacket
 	 * @param buf
 	 * @param client
 	 */
-	public RequestSetSeed(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_data1 = readD(); //??
-		int size = readD();
-		for(int i = 0; i < size; i++)
-		{
-			_list[i][0] = readD();
-			_list[i][1] = readD();
-			_list[i][2] = readD();
-		}
-	}
+    protected void readImpl()
+    {
+        _data1 = readD(); //??
+        int size = readD();
+        for(int i = 0; i < size; i++)
+        {
+            _list[i][0] = readD();
+            _list[i][1] = readD();
+            _list[i][2] = readD();
+        }
+    }
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	void runImpl()
+    protected void runImpl()
 	{
 		// TODO Auto-generated method stub
 		_log.info("This packet is not well known : RequestSetSeed");

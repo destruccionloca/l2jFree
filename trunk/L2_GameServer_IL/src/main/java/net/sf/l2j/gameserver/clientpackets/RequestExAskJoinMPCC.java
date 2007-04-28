@@ -29,27 +29,22 @@ import net.sf.l2j.gameserver.network.L2GameClient;
  * @author -Wooden-
  *
  */
-public class RequestExAskJoinMPCC extends ClientBasePacket
+public class RequestExAskJoinMPCC extends L2GameClientPacket
 {
 	//private final static Log _log = LogFactory.getLog(RequestExAskJoinMPCC.class.getName());
 	private static final String _C__D0_0D_REQUESTEXASKJOINMPCC = "[C] D0:0D RequestExAskJoinMPCC";
 	private String _name;
 	
-	/**
-	 * @param buf
-	 * @param client
-	 */
-	public RequestExAskJoinMPCC(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_name = readS();
-	}
+    protected void readImpl()
+    {
+        _name = readS();
+    }
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if(activeChar == null)

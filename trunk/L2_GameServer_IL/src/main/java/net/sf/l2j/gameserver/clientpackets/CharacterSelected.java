@@ -18,10 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.CharSelected;
 
@@ -33,29 +30,28 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.5.2.1.2.5 $ $Date: 2005/03/27 15:29:30 $
  */
-public class CharacterSelected extends ClientBasePacket
+public class CharacterSelected extends L2GameClientPacket
 {
 	private static final String _C__0D_CHARACTERSELECTED = "[C] 0D CharacterSelected";
 	private final static Log _log = LogFactory.getLog(CharacterSelected.class.getName());
 
 	// cd
-	private final int _charSlot;
+	private int _charSlot;
 	
 	@SuppressWarnings("unused")
-	private final int _unk1; 	// new in C4
+	private int _unk1; 	// new in C4
 	@SuppressWarnings("unused")
-	private final int _unk2;	// new in C4
+	private int _unk2;	// new in C4
 	@SuppressWarnings("unused")
-	private final int _unk3;	// new in C4
+	private int _unk3;	// new in C4
 	@SuppressWarnings("unused")
-	private final int _unk4;	// new in C4
+	private int _unk4;	// new in C4
 
 	/**
 	 * @param decrypt
 	 */
-	public CharacterSelected(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
+    protected void readImpl()
+    {
 		_charSlot = readD();
 		_unk1 = readH();
 		_unk2 = readD();
@@ -63,7 +59,7 @@ public class CharacterSelected extends ClientBasePacket
 		_unk4 = readD();
 	}
 
-	void runImpl()
+    protected void runImpl()
 	{
 		// if there is a playback.dat file in the current directory, it will
 		// be sent to the client instead of any regular packets

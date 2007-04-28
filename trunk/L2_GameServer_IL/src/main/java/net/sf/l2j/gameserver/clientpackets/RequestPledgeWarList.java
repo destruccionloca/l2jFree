@@ -29,18 +29,14 @@ import net.sf.l2j.gameserver.serverpackets.PledgeReceiveWarList;
  * @author  -Wooden-
  * 
  */
-public class RequestPledgeWarList extends ClientBasePacket
+public class RequestPledgeWarList extends L2GameClientPacket
 {
     private static final String _C__D0_1E_REQUESTPLEDGEWARLIST = "[C] D0:1E RequestPledgeWarList";
     private int _unk1;
     private int _tab;
-    /**
-     * @param buf
-     * @param client
-     */
-    public RequestPledgeWarList(ByteBuffer buf, L2GameClient client)
+
+    protected void readImpl()
     {
-        super(buf, client);
         _unk1 = readD();
         _tab = readD();
     }
@@ -49,7 +45,7 @@ public class RequestPledgeWarList extends ClientBasePacket
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
     @Override
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if(activeChar == null)

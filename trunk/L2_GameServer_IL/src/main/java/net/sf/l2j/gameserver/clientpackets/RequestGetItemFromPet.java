@@ -18,12 +18,9 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
@@ -34,25 +31,24 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.3.4.4 $ $Date: 2005/03/29 23:15:33 $
  */
-public class RequestGetItemFromPet extends ClientBasePacket
+public class RequestGetItemFromPet extends L2GameClientPacket
 {
 	private static final String REQUESTGETITEMFROMPET__C__8C = "[C] 8C RequestGetItemFromPet";
 	private final static Log _log = LogFactory.getLog(RequestGetItemFromPet.class.getName());
 
-	private final int _objectId;
-	private final int _amount;
+	private int _objectId;
+	private int _amount;
 	@SuppressWarnings("unused")
-    private final int _unknown;
+    private int _unknown;
 	
-	public RequestGetItemFromPet(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_objectId = readD();
-		_amount   = readD();
-		_unknown  = readD();// = 0 for most trades
-	}
+    protected void readImpl()
+    {
+        _objectId = readD();
+        _amount   = readD();
+        _unknown  = readD();// = 0 for most trades
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar(); 
         if (player == null || player.getPet() == null || !(player.getPet() instanceof L2PetInstance)) return;

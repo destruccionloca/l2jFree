@@ -27,11 +27,11 @@ import net.sf.l2j.gameserver.network.L2GameClient;
  * 
  * @version $Revision: 1.1.4.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class ChangeWaitType2 extends ClientBasePacket
+public class ChangeWaitType2 extends L2GameClientPacket
 {
 	private static final String _C__1D_CHANGEWAITTYPE2 = "[C] 1D ChangeWaitType2";
 
-	private final boolean _typeStand;
+	private boolean _typeStand;
 	
 	/**
 	 * packet type id 0x1d
@@ -44,13 +44,12 @@ public class ChangeWaitType2 extends ClientBasePacket
 	 * format:		cd
 	 * @param decrypt
 	 */
-	public ChangeWaitType2(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_typeStand = (readD() == 1);
-	}
+    protected void readImpl()
+    {
+        _typeStand = (readD() == 1);
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 	    if(getClient() != null && getClient().getActiveChar() != null)
 	    {

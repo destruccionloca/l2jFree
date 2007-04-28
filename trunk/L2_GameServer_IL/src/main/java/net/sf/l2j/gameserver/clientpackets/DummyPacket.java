@@ -14,17 +14,16 @@ import org.apache.commons.logging.LogFactory;
  * @author zabbix
  * Lets drink to code!
  */
-public class DummyPacket extends ClientBasePacket
+public class DummyPacket extends L2GameClientPacket
 {
 	private final static Log _log = LogFactory.getLog(DummyPacket.class.getName());
 	
 	private int _packetId;
 	
-	public DummyPacket(ByteBuffer buf, L2GameClient client, int packetId)
-	{
-		super(buf,client);
-		_packetId = packetId;
-	}
+    protected void readImpl()
+    {
+        
+    }
 
 	public void runImpl()
 	{

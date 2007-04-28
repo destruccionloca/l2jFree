@@ -27,26 +27,25 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class RequestRecipeBookOpen extends ClientBasePacket 
+public class RequestRecipeBookOpen extends L2GameClientPacket 
 {
     private static final String _C__AC_REQUESTRECIPEBOOKOPEN = "[C] AC RequestRecipeBookOpen";
 	private final static Log _log = LogFactory.getLog(RequestRecipeBookOpen.class.getName());
     
-    private final boolean isDwarvenCraft;
+    private boolean isDwarvenCraft;
 
 	/**
 	 * packet type id 0xac
 	 * packet format rev656  cd
 	 * @param decrypt
 	 */
-	public RequestRecipeBookOpen(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
 	{
-		super(buf, client);
         isDwarvenCraft = (readD() == 0);
         if (_log.isDebugEnabled()) _log.info("RequestRecipeBookOpen : " + (isDwarvenCraft ? "dwarvenCraft" : "commonCraft"));
 	}
 
-	void runImpl()
+    protected void runImpl()
 	{
 	    if (getClient().getActiveChar() == null)
 	        return;

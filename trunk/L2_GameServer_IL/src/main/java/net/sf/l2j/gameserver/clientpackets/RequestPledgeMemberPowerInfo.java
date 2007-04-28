@@ -18,11 +18,8 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.PledgeReceivePowerInfo;
 
 import org.apache.commons.logging.Log;
@@ -33,23 +30,21 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.3.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestPledgeMemberPowerInfo extends ClientBasePacket
+public class RequestPledgeMemberPowerInfo extends L2GameClientPacket
 {
 	private static final String _C__24_REQUESTJOINPLEDGE = "[C] 24 RequestPledgeMemberPowerInfo";
 	static Log _log = LogFactory.getLog(RequestJoinPledge.class.getName());
 
-	private final int _not_known;
-    private final String _target;
+	private int _unk1;
+    private String _target;
 	
-	public RequestPledgeMemberPowerInfo(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-        _not_known  = readD();
+    protected void readImpl()
+    {
+        _unk1 = readD();
         _target = readS();
-        //_log.warn("1.pledge member power info packet started: "+_target);
-	}
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2Clan clan = getClient().getActiveChar().getClan();
         if (clan != null)

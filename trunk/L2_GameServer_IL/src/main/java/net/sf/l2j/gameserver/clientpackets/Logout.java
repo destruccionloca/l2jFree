@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
@@ -41,7 +39,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.9.4.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class Logout extends ClientBasePacket
+public class Logout extends L2GameClientPacket
 {
     private static final String _C__09_LOGOUT = "[C] 09 Logout";
     private final static Log _log = LogFactory.getLog(Logout.class.getName());
@@ -51,13 +49,12 @@ public class Logout extends ClientBasePacket
     /**
      * @param decrypt
      */
-    public Logout(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
-        // this is just a trigger packet. it has no content
+
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         // Dont allow leaving if player is fighting
         L2PcInstance player = getClient().getActiveChar();

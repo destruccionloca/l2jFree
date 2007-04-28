@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.util.Util;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class RequestEnchantItem extends ClientBasePacket
+public class RequestEnchantItem extends L2GameClientPacket
 {
     protected static final Log _log = LogFactory.getLog(Inventory.class.getName());
     private static final String _C__58_REQUESTENCHANTITEM = "[C] 58 RequestEnchantItem";
@@ -44,16 +44,15 @@ public class RequestEnchantItem extends ClientBasePacket
      * format:      cd
      * @param decrypt
      */
-    public RequestEnchantItem(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _objectId = 0;
         try {
         _objectId = readD();
         } catch (Exception e) {}
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null || _objectId == 0) return;

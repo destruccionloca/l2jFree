@@ -29,17 +29,17 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  *
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestDismissAlly extends ClientBasePacket
+public class RequestDismissAlly extends L2GameClientPacket
 {
 	private static final String _C__86_REQUESTDISMISSALLY = "[C] 86 RequestDismissAlly";
 	//static Logger _log = Logger.getLogger(RequestDismissAlly.class.getName());
 
-	public RequestDismissAlly(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-	}
+    protected void readImpl()
+    {
+        // trigger packet
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

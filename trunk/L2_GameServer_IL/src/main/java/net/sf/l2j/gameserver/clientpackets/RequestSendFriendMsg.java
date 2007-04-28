@@ -18,12 +18,9 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.FriendRecvMsg;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -41,7 +38,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Tempy
  * 
  */
-public class RequestSendFriendMsg extends ClientBasePacket
+public class RequestSendFriendMsg extends L2GameClientPacket
 {
     private static final String _C__CC_REQUESTSENDMSG = "[C] CC RequestSendMsg";
 	private static Log _logChat = LogFactory.getLog("chat");
@@ -49,14 +46,13 @@ public class RequestSendFriendMsg extends ClientBasePacket
     private String _message;
     private String _reciever;
     
-    public RequestSendFriendMsg(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _message = readS();
         _reciever = readS();
     }
 
-    void runImpl()
+    protected void runImpl()
     {
     	L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null) return;

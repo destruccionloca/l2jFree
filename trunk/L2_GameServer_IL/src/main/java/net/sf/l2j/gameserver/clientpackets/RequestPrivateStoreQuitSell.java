@@ -28,17 +28,17 @@ import net.sf.l2j.gameserver.network.L2GameClient;
  * 
  * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestPrivateStoreQuitSell extends ClientBasePacket
+public class RequestPrivateStoreQuitSell extends L2GameClientPacket
 {
 	private static final String _C__76_REQUESTPRIVATESTOREQUITSELL = "[C] 76 RequestPrivateStoreQuitSell";
 	//private final static Log _log = LogFactory.getLog(RequestPrivateStoreQuitSell.class.getName());
 	
-	public RequestPrivateStoreQuitSell(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-	}
+    protected void readImpl()
+    {
+        // trigger
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null) return;

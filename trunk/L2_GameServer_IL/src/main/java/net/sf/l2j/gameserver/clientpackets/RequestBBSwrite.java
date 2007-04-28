@@ -27,7 +27,7 @@ import net.sf.l2j.gameserver.network.L2GameClient;
  * @author -Wooden-
  *
  */
-public class RequestBBSwrite extends ClientBasePacket
+public class RequestBBSwrite extends L2GameClientPacket
 {
 	private static final String _C__22_REQUESTBBSWRITE = "[C] 22 RequestBBSwrite";
 	private String _url;
@@ -42,9 +42,8 @@ public class RequestBBSwrite extends ClientBasePacket
 	 * @param buf
 	 * @param client
 	 */
-	public RequestBBSwrite(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
+    protected void readImpl()
+    {
 		_url = readS();
 		_arg1 = readS();
 		_arg2 = readS();
@@ -57,7 +56,7 @@ public class RequestBBSwrite extends ClientBasePacket
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	void runImpl()
+    protected void runImpl()
 	{
 		CommunityBoard.getInstance().handleWriteCommands(getClient(),_url,_arg1,_arg2, _arg3, _arg4, _arg5);
 	}

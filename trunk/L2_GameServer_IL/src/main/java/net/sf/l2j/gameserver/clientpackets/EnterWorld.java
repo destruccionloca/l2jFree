@@ -83,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.16.2.1.2.7 $ $Date: 2005/03/29 23:15:33 $
  */
-public class EnterWorld extends ClientBasePacket
+public class EnterWorld extends L2GameClientPacket
 {
 	private static final String _C__03_ENTERWORLD = "[C] 03 EnterWorld";
 	private final static Log _log = LogFactory.getLog(EnterWorld.class.getName());
@@ -95,13 +95,12 @@ public class EnterWorld extends ClientBasePacket
 	/**
 	 * @param decrypt
 	 */
-	public EnterWorld(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		// this is just a trigger packet. it has no content
-	}
+    protected void readImpl()
+    {
+        // this is just a trigger packet. it has no content
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

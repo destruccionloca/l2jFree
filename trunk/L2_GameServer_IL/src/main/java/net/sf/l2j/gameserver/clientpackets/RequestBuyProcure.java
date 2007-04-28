@@ -27,10 +27,10 @@ import org.apache.commons.logging.LogFactory;
  * Date: Jan 12, 2006
  * Time: 22:13 PM GMT+1
  */
-public class RequestBuyProcure extends ClientBasePacket {
+public class RequestBuyProcure extends L2GameClientPacket {
     private static final String _C__C3_REQUESTBUYPROCURE = "[C] C3 RequestBuyProcure";
     private final static Log _log = LogFactory.getLog(RequestBuyProcure.class.getName());
-    private final int _listId;
+    private int _listId;
     private int _count;
     private int[] _items;
     private FastList<CropProcure> _procureList = new FastList<CropProcure>();
@@ -64,8 +64,8 @@ public class RequestBuyProcure extends ClientBasePacket {
      * format:      cdd (dd) 
      * @param decrypt
      */
-    public RequestBuyProcure(ByteBuffer buf, L2GameClient client){
-        super(buf, client);
+    protected void readImpl()
+    {
         _listId = readD();
         _count = readD();
         if(_count * 2 < 0) _count = 0;
@@ -85,7 +85,7 @@ public class RequestBuyProcure extends ClientBasePacket {
         }
     }
     
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;

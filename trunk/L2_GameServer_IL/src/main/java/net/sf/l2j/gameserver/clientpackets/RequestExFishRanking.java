@@ -31,25 +31,21 @@ import org.apache.commons.logging.LogFactory;
  * @author  -Wooden-
  * 
  */
-public class RequestExFishRanking extends ClientBasePacket
+public class RequestExFishRanking extends L2GameClientPacket
 {
     private static final String _C__D0_1F_REQUESTEXFISHRANKING = "[C] D0:1F RequestExFishRanking";
     private final static Log _log = LogFactory.getLog(RequestExFishRanking.class.getName());
     
-    /**
-     * @param buf
-     * @param client
-     */
-    public RequestExFishRanking(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
+        // trigger
     }
 
     /**
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
     @Override
-    void runImpl()
+    protected void runImpl()
     {
         _log.debug("C5: RequestExFishRanking");
     }

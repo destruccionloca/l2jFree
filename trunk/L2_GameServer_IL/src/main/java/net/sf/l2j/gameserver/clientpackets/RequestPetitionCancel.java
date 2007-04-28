@@ -36,19 +36,18 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * 
  * @author -Wooden-, TempyIncursion
  */
-public class RequestPetitionCancel extends ClientBasePacket
+public class RequestPetitionCancel extends L2GameClientPacket
 {
 	private static final String _C__80_REQUEST_PETITIONCANCEL = "[C] 80 RequestPetitionCancel";
 	
 	//private int _unknown;
 	
-	public RequestPetitionCancel(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		//_unknown = readD(); This is pretty much a trigger packet.
-	}
+    protected void readImpl()
+    {
+        //_unknown = readD(); This is pretty much a trigger packet.
+    }
 	
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null)

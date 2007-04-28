@@ -42,32 +42,28 @@ import org.apache.commons.logging.LogFactory;
  * @author -Wooden-
  *
  */
-public class RequestExSetPledgeCrestLarge extends ClientBasePacket
+public class RequestExSetPledgeCrestLarge extends L2GameClientPacket
 {
 	private static final String _C__D0_11_REQUESTEXSETPLEDGECRESTLARGE = "[C] D0:11 RequestExSetPledgeCrestLarge";
 	static Log _log = LogFactory.getLog(RequestExSetPledgeCrestLarge.class.getName());
 	private int _size;
 	private byte[] _data;
 
-	/**
-	 * @param buf
-	 * @param client
-	 */
-	public RequestExSetPledgeCrestLarge(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_size = readD();
-		if(_size > 0) // client CAN send a RequestExSetPledgeCrestLarge with the size set to 0 then format is just chd
-		{
-			_data = readB(_size);
-		}
-	}
+    protected void readImpl()
+    {
+        _size = readD();
+        if(_size > 0) // client CAN send a RequestExSetPledgeCrestLarge with the size set to 0 then format is just chd
+        {
+            _data = new byte[_size];
+            readB(_data);;
+        }
+    }
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null) return;

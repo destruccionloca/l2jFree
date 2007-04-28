@@ -18,11 +18,8 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.GMViewCharacterInfo;
 import net.sf.l2j.gameserver.serverpackets.GMViewItemList;
 import net.sf.l2j.gameserver.serverpackets.GMViewPledgeInfo;
@@ -38,13 +35,13 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.1.2.2.2.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestGMCommand extends ClientBasePacket
+public class RequestGMCommand extends L2GameClientPacket
 {
 	private static final String _C__6E_REQUESTGMCOMMAND = "[C] 6e RequestGMCommand";
 	static Log _log = LogFactory.getLog(RequestGMCommand.class.getName());
 			
-	private final String _targetName;
-	private final int _command;
+	private String _targetName;
+	private int _command;
     //private final int _unknown;
 	/**
 	 * packet type id 0x00
@@ -52,15 +49,15 @@ public class RequestGMCommand extends ClientBasePacket
 	 *  
 	 * @param rawPacket
 	 */
-	public RequestGMCommand(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_targetName = readS();
-		_command    = readD();
-		//_unknown  = readD();
-	}
+    protected void readImpl()
+    {
+        _targetName = readS();
+        _command    = readD();
+        //_unknown  = readD();
+    }
 
-	void runImpl()
+
+    protected void runImpl()
 	{
 		L2PcInstance player = L2World.getInstance().getPlayer(_targetName);
 

@@ -25,29 +25,24 @@ import net.sf.l2j.gameserver.network.L2GameClient;
  * Format: (ch) dSdS
  * @author  -Wooden-
  */
-public class RequestPledgeReorganizeMember extends ClientBasePacket
+public class RequestPledgeReorganizeMember extends L2GameClientPacket
 {
 	private static final String _C__D0_24_REQUESTPLEDGEREORGANIZEMEMBER = "[C] D0:24 RequestPledgeReorganizeMember";
 	
-	/**
-	 * @param buf
-	 * @param client
-	 */
-	public RequestPledgeReorganizeMember(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		// TODO get a cpature and get the definition
-		readD();
-		readS();
-		readD();
-		readS();
-	}
+
+    protected void readImpl()
+    {
+        readD();
+        readS();
+        readD();
+        readS();
+    }
 
 	/**
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	void runImpl()
+    protected void runImpl()
 	{
 		// TODO Auto-generated method stub
 

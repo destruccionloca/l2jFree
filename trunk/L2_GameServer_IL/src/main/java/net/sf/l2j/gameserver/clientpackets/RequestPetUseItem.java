@@ -16,24 +16,23 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class RequestPetUseItem extends ClientBasePacket
+public class RequestPetUseItem extends L2GameClientPacket
 {
     private final static Log _log = LogFactory.getLog(RequestPetUseItem.class.getName());
     private static final String _C__8A_REQUESTPETUSEITEM = "[C] 8a RequestPetUseItem";
     
-    private final int _objectId;
+    private int _objectId;
     /**
      * packet type id 0x8a
      * format:      cd
      * @param decrypt
      */
-    public RequestPetUseItem(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _objectId = readD();
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         

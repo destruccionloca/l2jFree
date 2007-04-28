@@ -27,17 +27,13 @@ import net.sf.l2j.gameserver.network.L2GameClient;
  * @author  -Wooden-
  * 
  */
-public class RequestAskJoinPartyRoom extends ClientBasePacket
+public class RequestAskJoinPartyRoom extends L2GameClientPacket
 {
     private static final String _C__D0_14_REQUESTASKJOINPARTYROOM = "[C] D0:14 RequestAskJoinPartyRoom";
     private String _player; // not tested, just guessed
-    /**
-     * @param buf
-     * @param client
-     */
-    public RequestAskJoinPartyRoom(ByteBuffer buf, L2GameClient client)
+
+    protected void readImpl()
     {
-        super(buf, client);
         _player = readS();
     }
 
@@ -45,7 +41,7 @@ public class RequestAskJoinPartyRoom extends ClientBasePacket
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
     @Override
-    void runImpl()
+    protected void runImpl()
     {
         // TODO
         System.out.println("C5:RequestAskJoinPartyRoom: S: "+_player);
