@@ -103,7 +103,7 @@ def craft_stone(st,progress) :
        st.playSound("ItemSound.quest_itemget")
        return "420_maria_5.htm"
 
-def craft_stone(st,progress) :
+def check_eggs(st, npc, progress) :
     whom = int(st.get("dragon"))
     if   whom == 1 : eggs = EX_EGG
     elif whom == 2 : eggs = ZW_EGG
