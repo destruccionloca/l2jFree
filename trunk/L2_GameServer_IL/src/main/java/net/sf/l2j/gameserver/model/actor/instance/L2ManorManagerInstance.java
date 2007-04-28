@@ -10,7 +10,6 @@ import net.sf.l2j.gameserver.model.L2Manor;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.SeedProduction;
 import net.sf.l2j.gameserver.serverpackets.BuyListSeed;
-import net.sf.l2j.gameserver.serverpackets.ExShowSeedInfo;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SellListProcure;

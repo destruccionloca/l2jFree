@@ -23,9 +23,8 @@ package net.sf.l2j.gameserver.cache;
 
 import java.io.File;
 
-import net.sf.l2j.Config;
-
 import junit.framework.TestCase;
+import net.sf.l2j.Config;
 
 /**
  * Class for HtmCache testing

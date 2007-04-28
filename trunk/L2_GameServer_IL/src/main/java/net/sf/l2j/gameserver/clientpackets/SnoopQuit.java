@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
@@ -28,21 +25,16 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * @author -Wooden-
  * 
  */
-public class SnoopQuit extends ClientBasePacket
+public class SnoopQuit extends L2GameClientPacket
 {
 	private static final String _C__AB_SNOOPQUIT = "[C] AB SnoopQuit";
 
 	private int _snoopID;
 
-	/**
-	 * @param buf
-	 * @param client
-	 */
-	public SnoopQuit(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_snoopID = readD();
-	}
+    protected void readImpl()
+    {
+        _snoopID = readD();
+    }
 
 	/*
 	 * (non-Javadoc)
@@ -50,7 +42,7 @@ public class SnoopQuit extends ClientBasePacket
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance player = (L2PcInstance) L2World.getInstance().findObject(
 				_snoopID);

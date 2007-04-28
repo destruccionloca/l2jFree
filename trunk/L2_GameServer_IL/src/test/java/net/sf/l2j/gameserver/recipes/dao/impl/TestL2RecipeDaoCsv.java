@@ -3,10 +3,10 @@ package net.sf.l2j.gameserver.recipes.dao.impl;
 import java.io.File;
 import java.util.Arrays;
 
+import junit.framework.TestCase;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.model.L2RecipeComponent;
-import junit.framework.TestCase;
 
 public class TestL2RecipeDaoCsv extends TestCase
 {

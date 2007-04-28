@@ -18,10 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
@@ -43,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.13.4.7 $ $Date: 2005/03/27 15:29:30 $
  */
-public class ValidatePosition extends ClientBasePacket
+public class ValidatePosition extends L2GameClientPacket
 {
     private final static Log _log = LogFactory.getLog(ValidatePosition.class.getName());
     private static final String _C__48_VALIDATEPOSITION = "[C] 48 ValidatePosition";
@@ -51,20 +48,19 @@ public class ValidatePosition extends ClientBasePacket
     /** urgent messages, execute immediatly */
     public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
     
-    private final int _x;
-    private final int _y;
-    private final int _z;
-    private final int _heading;
+    private int _x;
+    private int _y;
+    private int _z;
+    private int _heading;
     @SuppressWarnings("unused")
-    private final int _data;
+    private int _data;
     /**
      * packet type id 0x48
      * format:      cddddd
      * @param decrypt
      */
-    public ValidatePosition(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _x  = readD();
         _y  = readD();
         _z  = readD();
@@ -72,7 +68,7 @@ public class ValidatePosition extends ClientBasePacket
         _data  = readD();
     }
     
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null || activeChar.isTeleporting()) return;

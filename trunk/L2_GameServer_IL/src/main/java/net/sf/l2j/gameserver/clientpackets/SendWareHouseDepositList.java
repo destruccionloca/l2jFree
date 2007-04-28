@@ -18,10 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.ClanWarehouse;
 import net.sf.l2j.gameserver.model.ItemContainer;
@@ -47,7 +44,7 @@ import org.apache.commons.logging.LogFactory;
  *  
  * @version $Revision: 1.3.4.5 $ $Date: 2005/04/11 10:06:09 $
  */
-public class SendWareHouseDepositList extends ClientBasePacket
+public class SendWareHouseDepositList extends L2GameClientPacket
 {
 	private static final String _C__31_SENDWAREHOUSEDEPOSITLIST = "[C] 31 SendWareHouseDepositList";
 	private final static Log _log = LogFactory.getLog(SendWareHouseDepositList.class.getName());
@@ -55,25 +52,26 @@ public class SendWareHouseDepositList extends ClientBasePacket
 	private int _count;
 	private int[] _items;
 	
-	public SendWareHouseDepositList(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_count = readD();
-		_items = new int[_count * 2];
-		for (int i=0; i < _count; i++)
-		{
-			int objectId = readD(); _items[i * 2 + 0] = objectId;
-			long cnt    = readD(); 
-			if (cnt > Integer.MAX_VALUE || cnt < 0)
-			{
-			    _count = 0; _items = null;
-			    return;
-			}
-			_items[i * 2 + 1] = (int)cnt;
-		}
-	}
+    protected void readImpl()
+    {
+        _count = readD();
+        if (_count < 0  || _count * 8 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+            _count = 0;
+        _items = new int[_count * 2];
+        for (int i=0; i < _count; i++)
+        {
+            int objectId = readD(); _items[i * 2 + 0] = objectId;
+            long cnt    = readD(); 
+            if (cnt > Integer.MAX_VALUE || cnt < 0)
+            {
+                _count = 0; _items = null;
+                return;
+            }
+            _items[i * 2 + 1] = (int)cnt;
+        }
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;

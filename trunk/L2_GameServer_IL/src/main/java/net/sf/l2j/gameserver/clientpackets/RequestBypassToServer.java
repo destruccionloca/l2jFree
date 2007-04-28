@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.communitybbs.CommunityBoard;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
@@ -37,6 +36,7 @@ import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.entity.events.VIP;
+import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
 import org.apache.commons.logging.Log;

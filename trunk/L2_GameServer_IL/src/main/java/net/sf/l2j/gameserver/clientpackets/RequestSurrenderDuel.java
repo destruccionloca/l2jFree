@@ -20,9 +20,9 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**
  *  sample
@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.7.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestSurrenderDuel extends ClientBasePacket
+public class RequestSurrenderDuel extends L2GameClientPacket
 {
 	private static final String _C__2A_REQUESTANSWERPARTY = "[C] 2A RequestSurrenderDuel";
 	//private final static Log _log = LogFactory.getLog(RequestAnswerJoinParty.class.getName());
@@ -43,12 +43,11 @@ public class RequestSurrenderDuel extends ClientBasePacket
     private final int _duelType;
     private final int _unk1;*/
 	
-	public RequestSurrenderDuel(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
 	{
-        super(buf, client);
 	}
 
-	void runImpl()
+    protected void runImpl()
 	{
 	    L2PcInstance player = getClient().getActiveChar();
 	    if(player != null && player.isDuelling()>0)

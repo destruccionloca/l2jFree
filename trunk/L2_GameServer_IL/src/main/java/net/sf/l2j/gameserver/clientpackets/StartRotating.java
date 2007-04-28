@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.BeginRotation;
 
 /**
@@ -28,12 +25,12 @@ import net.sf.l2j.gameserver.serverpackets.BeginRotation;
  * 
  * @version $Revision: 1.1.4.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class StartRotating extends ClientBasePacket
+public class StartRotating extends L2GameClientPacket
 {
 	private static final String _C__4A_STARTROTATING = "[C] 4A StartRotating";
 
-	private final int _degree;
-	private final int _side;
+	private int _degree;
+	private int _side;
 	/**
 	 * packet type id 0x4a
 	 * 
@@ -46,14 +43,13 @@ public class StartRotating extends ClientBasePacket
 	 * format:		cdd
 	 * @param decrypt
 	 */
-	public StartRotating(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_degree = readD();
-		_side = readD();
-	}
+    protected void readImpl()
+    {
+        _degree = readD();
+        _side = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		if (getClient().getActiveChar() == null)
 		    return;

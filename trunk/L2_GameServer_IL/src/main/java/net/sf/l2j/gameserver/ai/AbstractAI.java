@@ -40,7 +40,6 @@ import net.sf.l2j.gameserver.serverpackets.CharMoveToLocation;
 import net.sf.l2j.gameserver.serverpackets.Die;
 import net.sf.l2j.gameserver.serverpackets.MoveToLocationInVehicle;
 import net.sf.l2j.gameserver.serverpackets.MoveToPawn;
-import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.StopMove;
 import net.sf.l2j.gameserver.serverpackets.StopRotation;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;

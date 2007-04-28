@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
 import net.sf.l2j.gameserver.handler.UserCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -34,12 +31,12 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.1.2.1.2.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestUserCommand extends ClientBasePacket
+public class RequestUserCommand extends L2GameClientPacket
 {
 	private static final String _C__AA_REQUESTUSERCOMMAND = "[C] aa RequestUserCommand";
 	static Log _log = LogFactory.getLog(RequestUserCommand.class.getName());
 			
-	private final int _command;
+	private int _command;
 	
 	/**
 	 * packet type id 0xaa
@@ -47,13 +44,12 @@ public class RequestUserCommand extends ClientBasePacket
 	 *  
 	 * @param rawPacket
 	 */
-	public RequestUserCommand(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_command = readD();
-	}
+    protected void readImpl()
+    {
+        _command = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
         L2PcInstance player = getClient().getActiveChar();
 	if (player == null)

@@ -18,10 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.GMAudit;
@@ -33,21 +30,20 @@ import net.sf.l2j.gameserver.util.Util;
  * 
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:29 $
  */
-public class SendBypassBuildCmd extends ClientBasePacket
+public class SendBypassBuildCmd extends L2GameClientPacket
 {
 	private static final String _C__5B_SENDBYPASSBUILDCMD = "[C] 5b SendBypassBuildCmd";
 	public final static int GM_MESSAGE = 9;
 	public final static int ANNOUNCEMENT = 10;
 
-	private final String _command;
+	private String _command;
 	
-	public SendBypassBuildCmd(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_command = readS();
-	}
+    protected void readImpl()
+    {
+        _command = readS();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
         if(activeChar == null)

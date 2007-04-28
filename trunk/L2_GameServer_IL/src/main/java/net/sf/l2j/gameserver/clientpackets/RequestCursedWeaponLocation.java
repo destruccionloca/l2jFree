@@ -20,10 +20,10 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import javolution.util.FastList;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.CursedWeapon;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ExCursedWeaponLocation;
 import net.sf.l2j.gameserver.serverpackets.ExCursedWeaponLocation.CursedWeaponInfo;
 import net.sf.l2j.tools.geometry.Point3D;

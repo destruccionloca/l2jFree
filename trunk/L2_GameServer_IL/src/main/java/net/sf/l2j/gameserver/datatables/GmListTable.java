@@ -22,7 +22,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;

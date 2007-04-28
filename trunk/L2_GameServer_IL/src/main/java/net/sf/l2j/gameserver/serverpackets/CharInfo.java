@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.clientpackets.Action;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.Inventory;

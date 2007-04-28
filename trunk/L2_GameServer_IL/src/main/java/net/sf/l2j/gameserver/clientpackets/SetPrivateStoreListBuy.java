@@ -18,10 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -35,7 +32,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * 
  * @version $Revision: 1.2.2.1.2.5 $ $Date: 2005/03/27 15:29:30 $
  */
-public class SetPrivateStoreListBuy extends ClientBasePacket
+public class SetPrivateStoreListBuy extends L2GameClientPacket
 {
     private static final String _C__91_SETPRIVATESTORELISTBUY = "[C] 91 SetPrivateStoreListBuy";
 
@@ -44,10 +41,15 @@ public class SetPrivateStoreListBuy extends ClientBasePacket
     private int _count;
     private int[] _items; // count * 3
     
-    public SetPrivateStoreListBuy(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _count = readD();
+        if (_count <= 0  || _count * 12 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+        {
+            _count = 0; 
+            _items = null;
+            return;
+        }
         _items = new int[_count * 3];
         for (int x = 0; x < _count; x++)
         {
@@ -65,7 +67,7 @@ public class SetPrivateStoreListBuy extends ClientBasePacket
         }
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;

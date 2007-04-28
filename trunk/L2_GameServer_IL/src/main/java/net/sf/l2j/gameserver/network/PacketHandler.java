@@ -22,7 +22,6 @@ import java.nio.ByteBuffer;
 import java.util.LinkedList;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.clientpackets.*;
 import net.sf.l2j.tools.util.Util;
 

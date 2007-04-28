@@ -21,26 +21,25 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-public class AllyDismiss extends ClientBasePacket
+public class AllyDismiss extends L2GameClientPacket
 {
     private static final String _C__85_ALLYDISMISS = "[C] 85 AllyDismiss";
     //private static Logger _log = Logger.getLogger(AllyDismiss.class.getName());
     
-    String _clanName;
+    private String _clanName;
     
-    public AllyDismiss(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _clanName = readS();
     }
     
-    void runImpl()
+    protected void runImpl()
     {
         if (_clanName == null)
         {

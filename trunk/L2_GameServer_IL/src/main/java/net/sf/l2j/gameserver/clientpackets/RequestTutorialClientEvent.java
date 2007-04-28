@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.L2GameClient;
 
 /*
  * events:
@@ -42,14 +39,13 @@ import net.sf.l2j.gameserver.L2GameClient;
  * 
  * @author  DaDummy
  */
-public class RequestTutorialClientEvent extends ClientBasePacket
+public class RequestTutorialClientEvent extends L2GameClientPacket
 {
     private static final String _C__7E_REQUESTTUTORIALCLIENTEVENT = "[C] 7E RequestTutorialClientEvent";
     private int _event;
     
-    public RequestTutorialClientEvent(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _event = readC(); // event
         readC(); // unknown
         readC(); // unknown
@@ -60,7 +56,7 @@ public class RequestTutorialClientEvent extends ClientBasePacket
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
     @Override
-    void runImpl()
+    protected void runImpl()
     {
         // TODO Auto-generated method stub
 

@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver;
 
-import java.nio.ByteBuffer;
 
 
 /**

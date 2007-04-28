@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.l2j.gameserver.communitybbs.dao.forum.impl.ForumsDAOHib;
 import net.sf.l2j.gameserver.communitybbs.model.forum.Forums;
 import net.sf.l2j.gameserver.communitybbs.model.forum.Topic;
 import net.sf.l2j.tools.db.hibernate.ADAOTestCase;

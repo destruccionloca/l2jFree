@@ -18,10 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.ClanWarehouse;
 import net.sf.l2j.gameserver.model.ItemContainer;
@@ -47,7 +44,7 @@ import org.apache.commons.logging.LogFactory;
  * WootenGil rox :P
  * @version $Revision: 1.2.2.1.2.4 $ $Date: 2005/03/29 23:15:16 $
  */
-public class SendWareHouseWithDrawList extends ClientBasePacket
+public class SendWareHouseWithDrawList extends L2GameClientPacket
 {
 	private static final String _C__32_SENDWAREHOUSEWITHDRAWLIST = "[C] 32 SendWareHouseWithDrawList";
 	private final static Log _log = LogFactory.getLog(SendWareHouseWithDrawList.class.getName());
@@ -55,32 +52,31 @@ public class SendWareHouseWithDrawList extends ClientBasePacket
 	private int _count;
 	private int[] _items;
 	
-	public SendWareHouseWithDrawList(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_count = readD();
-		if (_count < 0)
-		{
-		    _count = 0; 
-		    _items = null;
-		    return;
-		}
-		_items = new int[_count * 2];
-		for (int i=0; i < _count; i++)
-		{
-			int objectId = readD();
-			_items[i * 2 + 0] = objectId;
-			long cnt    = readD(); 
-			if (cnt > Integer.MAX_VALUE || cnt < 0)
-			{
-			    _count = 0; _items = null;
-			    return;
-			}
-			_items[i * 2 + 1] = (int)cnt;
-		}
-	}
+    protected void readImpl()
+    {
+        _count = readD();
+        if (_count < 0  || _count * 8 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+        {
+            _count = 0; 
+            _items = null;
+            return;
+        }
+        _items = new int[_count * 2];
+        for (int i=0; i < _count; i++)
+        {
+            int objectId = readD();
+            _items[i * 2 + 0] = objectId;
+            long cnt    = readD(); 
+            if (cnt > Integer.MAX_VALUE || cnt < 0)
+            {
+                _count = 0; _items = null;
+                return;
+            }
+            _items[i * 2 + 1] = (int)cnt;
+        }
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;

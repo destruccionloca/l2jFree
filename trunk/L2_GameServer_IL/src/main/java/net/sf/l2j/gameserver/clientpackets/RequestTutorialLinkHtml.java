@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.L2GameClient;
 
 /**
  * 7B 74 00 75 00 74 00 6F 00 72 00 69 00 61 00 6C 
@@ -31,14 +28,13 @@ import net.sf.l2j.gameserver.L2GameClient;
  * 
  * @author  DaDummy
  */
-public class RequestTutorialLinkHtml extends ClientBasePacket
+public class RequestTutorialLinkHtml extends L2GameClientPacket
 {
     private static final String _C__7B_REQUESTTUTORIALLINKHTML = "[C] 7B equestTutorialLinkHtml";
     private String _link;
 
-    public RequestTutorialLinkHtml(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _link = readS(); // link
     }
     
@@ -46,7 +42,7 @@ public class RequestTutorialLinkHtml extends ClientBasePacket
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
     @Override
-    void runImpl()
+    protected void runImpl()
     {
         // TODO Auto-generated method stub
 

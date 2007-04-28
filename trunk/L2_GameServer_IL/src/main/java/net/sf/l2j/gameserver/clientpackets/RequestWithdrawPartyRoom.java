@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.L2GameClient;
+import net.sf.l2j.gameserver.network.L2GameClient;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,29 +30,24 @@ import org.apache.commons.logging.LogFactory;
  * @author -Wooden-
  *
  */
-public class RequestWithdrawPartyRoom extends ClientBasePacket
+public class RequestWithdrawPartyRoom extends L2GameClientPacket
 {
 	private final static Log _log = LogFactory.getLog(RequestWithdrawPartyRoom.class.getName());
 	private static final String _C__D0_02_REQUESTWITHDRAWPARTYROOM = "[C] D0:02 RequestWithdrawPartyRoom";
 	private int _data1;
 	private int _data2;
 	
-	/**
-	 * @param buf
-	 * @param client
-	 */
-	public RequestWithdrawPartyRoom(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_data1 = readD();
-		_data2 = readD();
-	}
+    protected void readImpl()
+    {
+        _data1 = readD();
+        _data2 = readD();
+    }
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	void runImpl()
+    protected void runImpl()
 	{
 		// TODO Auto-generated method stub
 		_log.info("This packet is not well known : RequestWithdrawPartyRoom");

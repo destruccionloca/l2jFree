@@ -24,9 +24,6 @@ import java.io.InputStream;
 import java.util.Calendar;
 import java.util.logging.LogManager;
 
-import com.l2jserver.mmocore.network.SelectorServerConfig;
-import com.l2jserver.mmocore.network.SelectorThread;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.cache.CrestCache;
@@ -89,6 +86,9 @@ import net.sf.l2j.util.RandomIntGenerator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.l2jserver.mmocore.network.SelectorServerConfig;
+import com.l2jserver.mmocore.network.SelectorThread;
 
 /**
  * This class ...

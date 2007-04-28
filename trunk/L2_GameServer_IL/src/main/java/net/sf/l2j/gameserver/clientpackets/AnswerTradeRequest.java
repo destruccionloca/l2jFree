@@ -18,10 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -34,19 +31,18 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * 
  * @version $Revision: 1.5.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class AnswerTradeRequest extends ClientBasePacket{
+public class AnswerTradeRequest extends L2GameClientPacket{
 	private static final String _C__40_ANSWERTRADEREQUEST = "[C] 40 AnswerTradeRequest";
 	//private final static Log _log = LogFactory.getLog(AnswerTradeRequest.class.getName());
 	
-	private final int _response;
-	
-	public AnswerTradeRequest(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_response = readD();
-	}
+    private int _response;
+    
+    protected void readImpl()
+    {
+        _response = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;

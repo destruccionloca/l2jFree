@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.L2GameClient;
 
 /**
  * Format ch
@@ -29,28 +26,24 @@ import net.sf.l2j.gameserver.L2GameClient;
  * @author -Wooden-
  *
  */
-class SuperCmdServerStatus extends ClientBasePacket
+class SuperCmdServerStatus extends L2GameClientPacket
 {
 	private static final String _C__39_02_SUPERCMDSERVERSTATUS = "[C] 39:02 SuperCmdServerStatus";
-	/**
-	 * @param buf
-	 * @param client
-	 */
-	protected SuperCmdServerStatus(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		// trigger packet
-	}
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
-	@Override
-	void runImpl()
-	{
-		// TODO Auto-generated method stub
-		
-	}
+    protected void readImpl()
+    {
+        // trigger packet
+    }
+
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+     */
+    @Override
+    protected void runImpl()
+    {
+        // TODO Auto-generated method stub
+        
+    }
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.BasePacket#getType()

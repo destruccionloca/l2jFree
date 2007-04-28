@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.communitybbs;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.communitybbs.Manager.ClanBBSManager;
 import net.sf.l2j.gameserver.communitybbs.Manager.PostBBSManager;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
@@ -27,6 +26,7 @@ import net.sf.l2j.gameserver.communitybbs.Manager.TopBBSManager;
 import net.sf.l2j.gameserver.communitybbs.Manager.TopicBBSManager;
 import net.sf.l2j.gameserver.communitybbs.services.forum.ForumService;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ShowBoard;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.tools.L2Registry;

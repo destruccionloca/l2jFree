@@ -18,10 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -35,7 +32,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * 
  * @version $Revision: 1.2.2.1.2.5 $ $Date: 2005/03/27 15:29:30 $
  */
-public class SetPrivateStoreListSell extends ClientBasePacket
+public class SetPrivateStoreListSell extends L2GameClientPacket
 {
     private static final String _C__74_SETPRIVATESTORELISTSELL = "[C] 74 SetPrivateStoreListSell";
     //private final static Log _log = LogFactory.getLog(SetPrivateStoreListSell.class.getName());
@@ -43,36 +40,36 @@ public class SetPrivateStoreListSell extends ClientBasePacket
     private int _count;
     private boolean _packageSale;
     private int[] _items; // count * 3
-    public SetPrivateStoreListSell(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super( buf, client);
         _packageSale = (readD() == 1);
         _count = readD();
-		if (_count <= 0)
-		{
-		    _count = 0; 
-		    _items = null;
-		    return;
-		}
+        if (_count <= 0  || _count * 12 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+        {
+            _count = 0; 
+            _items = null;
+            return;
+        }
         _items = new int[_count * 3];
         for (int x = 0; x < _count ; x++)
         {
-			int objectId = readD();
-			_items[x * 3 + 0] = objectId; 
+            int objectId = readD();
+            _items[x * 3 + 0] = objectId; 
             long cnt      = readD(); 
             if (cnt > Integer.MAX_VALUE || cnt < 0)
             {
-			    _count = 0; 
-			    _items = null;
+                _count = 0; 
+                _items = null;
                 return;
             }
             _items[x * 3 + 1] = (int)cnt; 
-			int price    = readD(); 
-			_items[x * 3 + 2] = price; 
+            int price    = readD(); 
+            _items[x * 3 + 2] = price; 
         }
     }
 
-    void runImpl()
+
+    protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;

@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -31,35 +28,31 @@ import net.sf.l2j.gameserver.serverpackets.ActionFailed;
  * 
  * @version $Revision: 1.7.2.1.2.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class AttackRequest extends ClientBasePacket
+public class AttackRequest extends L2GameClientPacket
 {
-	// cddddc
-	private final int _objectId;
-	@SuppressWarnings("unused")
-    private final int _originX;
-	@SuppressWarnings("unused")
-    private final int _originY;
-	@SuppressWarnings("unused")
-    private final int _originZ;
-	@SuppressWarnings("unused")
-    private final int _attackId;
+    // cddddc
+    private int _objectId;
+    @SuppressWarnings("unused")
+    private int _originX;
+    @SuppressWarnings("unused")
+    private int _originY;
+    @SuppressWarnings("unused")
+    private int _originZ;
+    @SuppressWarnings("unused")
+    private int _attackId;
 
-	private static final String _C__0A_ATTACKREQUEST = "[C] 0A AttackRequest";
-	/**
-	 * @param decrypt
-	 */
-	public AttackRequest(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		
-		_objectId  = readD();
-		_originX  = readD();
-		_originY  = readD();
-		_originZ  = readD();
-		_attackId  = readC(); 	 // 0 for simple click   1 for shift-click
-	}
+    private static final String _C__0A_ATTACKREQUEST = "[C] 0A AttackRequest";
+    
+    protected void readImpl()
+    {
+        _objectId  = readD();
+        _originX  = readD();
+        _originY  = readD();
+        _originZ  = readD();
+        _attackId  = readC();    // 0 for simple click   1 for shift-click
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		L2Object target = L2World.getInstance().findObject(_objectId);

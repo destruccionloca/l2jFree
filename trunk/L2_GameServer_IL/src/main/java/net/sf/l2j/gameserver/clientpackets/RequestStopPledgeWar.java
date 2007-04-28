@@ -1,8 +1,5 @@
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -11,20 +8,19 @@ import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class RequestStopPledgeWar extends ClientBasePacket
+public class RequestStopPledgeWar extends L2GameClientPacket
 {
 	private static final String _C__4F_REQUESTSTOPPLEDGEWAR = "[C] 4F RequestStopPledgeWar";
 	private final static Log _log = LogFactory.getLog(RequestStopPledgeWar.class.getName());
 
 	String _pledgeName;
 
-	public RequestStopPledgeWar(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_pledgeName = readS();
-	}
-
-	void runImpl()
+    protected void readImpl()
+    {
+        _pledgeName = readS();
+    }
+    
+    protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null) return;

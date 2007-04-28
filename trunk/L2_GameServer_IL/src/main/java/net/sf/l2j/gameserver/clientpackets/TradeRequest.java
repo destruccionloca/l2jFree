@@ -21,11 +21,11 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SendTradeRequest;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -39,20 +39,20 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class TradeRequest extends ClientBasePacket
+public class TradeRequest extends L2GameClientPacket
 {
 	private static final String TRADEREQUEST__C__15 = "[C] 15 TradeRequest";
 	private final static Log _log = LogFactory.getLog(TradeRequest.class.getName());
 	
-	private final int _objectId;
+	private int _objectId;
 	
-	public TradeRequest(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_objectId = readD();
-	}
+    protected void readImpl()
+    {
+        _objectId = readD();
+    }
 
-	void runImpl()
+
+    protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;

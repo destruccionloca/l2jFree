@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.model;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
@@ -28,6 +27,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList;
 import net.sf.l2j.gameserver.model.actor.poly.ObjectPoly;
 import net.sf.l2j.gameserver.model.actor.position.ObjectPosition;
+import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.GetItem;
 

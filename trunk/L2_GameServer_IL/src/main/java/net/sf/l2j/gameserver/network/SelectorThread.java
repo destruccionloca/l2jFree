@@ -35,14 +35,12 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.xml.XMLObjectWriter;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.clientpackets.ClientBasePacket;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
-import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 
 import org.apache.commons.logging.Log;

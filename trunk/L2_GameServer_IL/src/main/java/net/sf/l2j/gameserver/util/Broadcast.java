@@ -31,7 +31,6 @@ package net.sf.l2j.gameserver.util;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

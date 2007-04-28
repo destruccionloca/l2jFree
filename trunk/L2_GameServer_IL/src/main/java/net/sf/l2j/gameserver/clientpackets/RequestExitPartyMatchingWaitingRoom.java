@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.L2GameClient;
+import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**
  * Format: (ch)

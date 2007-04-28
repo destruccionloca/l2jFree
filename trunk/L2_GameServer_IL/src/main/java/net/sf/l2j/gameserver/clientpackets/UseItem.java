@@ -18,11 +18,9 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
@@ -45,25 +43,24 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.18.2.7.2.9 $ $Date: 2005/03/27 15:29:30 $
  */
-public class UseItem extends ClientBasePacket
+public class UseItem extends L2GameClientPacket
 {
     private final static Log _log = LogFactory.getLog(UseItem.class.getName());
     private static final String _C__14_USEITEM = "[C] 14 UseItem";
 
-    private final int _objectId;
+    private int _objectId;
 
     /**
      * packet type id 0x14
      * format:      cd
      * @param decrypt
      */
-    public UseItem(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _objectId = readD();
     }
 
-    void runImpl()
+    protected void runImpl()
     {
 
         L2PcInstance activeChar = getClient().getActiveChar();

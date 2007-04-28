@@ -27,7 +27,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ExDuelEnd;
 import net.sf.l2j.gameserver.serverpackets.ExDuelReady;
 import net.sf.l2j.gameserver.serverpackets.ExDuelStart;
-import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 
 import org.apache.log4j.Logger;
 

@@ -18,12 +18,10 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.concurrent.Future;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ItemTable;
@@ -50,7 +48,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.12.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestWearItem extends ClientBasePacket
+public class RequestWearItem extends L2GameClientPacket
 {
     private static final String _C__C6_REQUESTWEARITEM = "[C] C6 RequestWearItem";
     protected static Log _log = LogFactory.getLog(RequestWearItem.class.getName());
@@ -58,7 +56,7 @@ public class RequestWearItem extends ClientBasePacket
     protected Future _removeWearItemsTask;
     
     @SuppressWarnings("unused")
-    private final int _unknow;
+    private int _unknow;
     
     /** List of ItemID to Wear */
     private int _listId;
@@ -67,10 +65,10 @@ public class RequestWearItem extends ClientBasePacket
     private int _count;
     
     /** Table of ItemId containing all Item to Wear */
-    private final int[] _items;
+    private int[] _items;
     
     /** Player that request a Try on */
-    protected final L2PcInstance _player;
+    protected L2PcInstance _player;
     
     
     class RemoveWearItemsTask implements Runnable
@@ -92,19 +90,17 @@ public class RequestWearItem extends ClientBasePacket
      * Decrypt the RequestWearItem Client->Server Packet and Create _items table containing all ItemID to Wear.<BR><BR>
      * 
      */
-    public RequestWearItem(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
-        
         // Read and Decrypt the RequestWearItem Client->Server Packet
         _player = getClient().getActiveChar();
         _unknow = readD();
         _listId = readD(); // List of ItemID to Wear
-		_count = readD();  // Number of Item to Wear
+        _count = readD();  // Number of Item to Wear
         
-		if (_count < 0) _count = 0;
-		if (_count > 100) _count = 0;
-
+        if (_count < 0) _count = 0;
+        if (_count > 100) _count = 0; // prevent too long lists
+        
         // Create _items table that will contain all ItemID to Wear
         _items = new int[_count];
         
@@ -121,7 +117,7 @@ public class RequestWearItem extends ClientBasePacket
      * Launch Wear action.<BR><BR>
      * 
      */
-    void runImpl()
+    protected void runImpl()
     {
 		// Get the current player and return if null
         L2PcInstance player = getClient().getActiveChar();

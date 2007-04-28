@@ -20,33 +20,33 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**
  * This class ...
  * 
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestTargetCanceld extends ClientBasePacket
+public class RequestTargetCanceld extends L2GameClientPacket
 {
 	private static final String _C__37_REQUESTTARGETCANCELD = "[C] 37 RequestTargetCanceld";
 	//private final static Log _log = LogFactory.getLog(RequestTargetCanceld.class.getName());
     
-    private final int _unselect; 
+    private int _unselect; 
 
 	/**
 	 * packet type id 0x37
 	 * packet format rev656  ch
 	 * @param rawPacket
 	 */
-	public RequestTargetCanceld(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
+    protected void readImpl()
+    {
         _unselect = readH();
-	}
+    }
 
-	void runImpl()
+
+    protected void runImpl()
 	{
 		L2Character activeChar = getClient().getActiveChar();
         if (activeChar != null)

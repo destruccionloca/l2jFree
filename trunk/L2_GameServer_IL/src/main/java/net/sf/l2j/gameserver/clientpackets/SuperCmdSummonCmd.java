@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.L2GameClient;
 
 /**
  * Format chS
@@ -30,26 +27,20 @@ import net.sf.l2j.gameserver.L2GameClient;
  * @author -Wooden-
  *
  */
-class SuperCmdSummonCmd extends ClientBasePacket
+class SuperCmdSummonCmd extends L2GameClientPacket
 {
 	private static final String _C__39_01_SUPERCMDSUMMONCMD = "[C] 39:01 SuperCmdSummonCmd";
 	@SuppressWarnings("unused")
 	private String _summonName;
-	/**
-	 * @param buf
-	 * @param client
-	 */
-	protected SuperCmdSummonCmd(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_summonName = readS();
-	}
-
+    protected void readImpl()
+    {
+        _summonName = readS();
+    }
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	void runImpl()
+    protected void runImpl()
 	{
 		// TODO Auto-generated method stub
 		

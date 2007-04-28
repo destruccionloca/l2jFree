@@ -17,16 +17,14 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.util.logging.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 
-import com.l2jserver.mmocore.network.ReceivablePacket;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.l2jserver.mmocore.network.ReceivablePacket;
 
 /**
  * Packets received by the game server from clients

@@ -20,8 +20,8 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.L2GameClient;
 
 
 /**
@@ -30,17 +30,18 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestWithDrawalParty extends ClientBasePacket
+public class RequestWithDrawalParty extends L2GameClientPacket
 {
 	private static final String _C__2B_REQUESTWITHDRAWALPARTY = "[C] 2B RequestWithDrawalParty";
 	//private final static Log _log = LogFactory.getLog(RequestWithDrawalParty.class.getName());
 	
-	public RequestWithDrawalParty(ByteBuffer buf, L2GameClient client)
-	{	
-		super(buf, client);
-	}
+    
+    protected void readImpl()
+    {
+        //trigger
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)

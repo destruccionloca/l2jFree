@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.handler;
 
 import javolution.util.FastMap;
-
 import net.sf.l2j.gameserver.handler.usercommandhandlers.ClanPenalty;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.ClanWarsList;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.DisMount;

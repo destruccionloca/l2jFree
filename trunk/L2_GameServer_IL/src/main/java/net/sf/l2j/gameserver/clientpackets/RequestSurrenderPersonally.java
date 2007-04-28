@@ -1,8 +1,5 @@
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -12,7 +9,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class RequestSurrenderPersonally extends ClientBasePacket
+public class RequestSurrenderPersonally extends L2GameClientPacket
 {
     private static final String _C__69_REQUESTSURRENDERPERSONALLY = "[C] 69 RequestSurrenderPersonally";
     private final static Log _log = LogFactory.getLog(RequestSurrenderPledgeWar.class.getName());
@@ -21,13 +18,12 @@ public class RequestSurrenderPersonally extends ClientBasePacket
     L2Clan _clan;
     L2PcInstance player;
     
-    public RequestSurrenderPersonally(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _pledgeName  = readS();
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         player = getClient().getActiveChar();
 	if (player == null)

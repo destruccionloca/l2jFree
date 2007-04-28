@@ -21,22 +21,22 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-public class AllyLeave extends ClientBasePacket
+public class AllyLeave extends L2GameClientPacket
 {
     private static final String _C__84_ALLYLEAVE = "[C] 84 AllyLeave";
     //private static Logger _log = Logger.getLogger(AllyLeave.class.getName());
     
-    public AllyLeave(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
     }
     
-    void runImpl()
+    
+    protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
         if (player == null)

@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
@@ -33,26 +30,22 @@ import net.sf.l2j.gameserver.serverpackets.UserInfo;
  * 
  * @version $Revision: 1.3.4.4 $ $Date: 2005/03/29 23:15:33 $
  */
-public class Appearing extends ClientBasePacket
+public class Appearing extends L2GameClientPacket
 {
 	private static final String _C__30_APPEARING = "[C] 30 Appearing";
 	//private final static Log _log = LogFactory.getLog(Appearing.class.getName());
 
 	// c
 
-	/**
-	 * @param decrypt
-	 */
-	public Appearing(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		// this is just a trigger packet. it has no content
-	}
+    protected void readImpl()
+    {
+        
+    }
 	
 	/** urgent messages, execute immediatly */
     public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
         if(activeChar == null) return;

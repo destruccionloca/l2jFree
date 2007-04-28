@@ -18,26 +18,19 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.L2GameClient;
 
 /**
  * Format: (ch) d
  * @author  -Wooden-
  * 
  */
-public class AnswerJoinPartyRoom extends ClientBasePacket
+public class AnswerJoinPartyRoom extends L2GameClientPacket
 {
     private static final String _C__D0_15_ANSWERJOINPARTYROOM = "[C] D0:15 AnswerJoinPartyRoom";
     private int _requesterID; // not tested, just guessed
-    /**
-     * @param buf
-     * @param client
-     */
-    public AnswerJoinPartyRoom(ByteBuffer buf, L2GameClient client)
+    
+    protected void readImpl()
     {
-        super(buf, client);
         _requesterID = readD();
     }
 
@@ -45,7 +38,7 @@ public class AnswerJoinPartyRoom extends ClientBasePacket
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
     @Override
-    void runImpl()
+    protected void runImpl()
     {
         // TODO
         System.out.println("C5:AnswerJoinPartyRoom: d: "+_requesterID);

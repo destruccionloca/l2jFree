@@ -42,7 +42,6 @@ import net.sf.l2j.gameserver.model.base.Experience;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
-import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.SignsSky;
 import net.sf.l2j.gameserver.serverpackets.SunRise;
 import net.sf.l2j.gameserver.serverpackets.SunSet;

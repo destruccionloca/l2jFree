@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
@@ -35,26 +32,25 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.8.2.3.2.7 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestUnEquipItem extends ClientBasePacket
+public class RequestUnEquipItem extends L2GameClientPacket
 {
 	private static final String _C__11_REQUESTUNEQUIPITEM = "[C] 11 RequestUnequipItem";
 	private final static Log _log = LogFactory.getLog(RequestUnEquipItem.class.getName());
 
 	// cd
-	private final int _slot;
+	private int _slot;
 	
 	/**
 	 * packet type id 0x11
 	 * format:		cd 
 	 * @param decrypt
 	 */
-	public RequestUnEquipItem(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_slot = readD();
-	}
+    protected void readImpl()
+    {
+        _slot = readD();
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		if (_log.isDebugEnabled()) 
             _log.debug("request unequip slot " + _slot);

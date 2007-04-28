@@ -20,32 +20,27 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.L2GameClient;
+import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**
  * Format: (c) d
  * 
  * @author DaDummy
  */
-public class RequestTutorialQuestionMark extends ClientBasePacket
+public class RequestTutorialQuestionMark extends L2GameClientPacket
 {
     private static final String _C__7D_REQUESTTUTORIALQUESTIONMARK = "[C] 7D RequestTutorialQuestionMark";
     private int _id;
 
-    /**
-     * @param buf
-     * @param client
-     */
-    public RequestTutorialQuestionMark(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _id = readD(); // id
     }
     /**
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
     @Override
-    void runImpl()
+    protected void runImpl()
     {
         // TODO Auto-generated method stub
 

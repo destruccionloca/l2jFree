@@ -24,7 +24,6 @@ import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Announcements;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSigns;
@@ -49,6 +48,7 @@ import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.quest.Quest;
+import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ClientSetTime;
 import net.sf.l2j.gameserver.serverpackets.Die;
 import net.sf.l2j.gameserver.serverpackets.ExStorageMaxCount;

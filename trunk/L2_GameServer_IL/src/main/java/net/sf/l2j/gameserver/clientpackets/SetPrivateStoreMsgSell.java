@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreMsgSell;
 
@@ -29,19 +26,18 @@ import net.sf.l2j.gameserver.serverpackets.PrivateStoreMsgSell;
  * 
  * @version $Revision: 1.2.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class SetPrivateStoreMsgSell extends ClientBasePacket{
+public class SetPrivateStoreMsgSell extends L2GameClientPacket{
 	private static final String _C__77_SETPRIVATESTOREMSGSELL = "[C] 77 SetPrivateStoreMsgSell";
 	//private final static Log _log = LogFactory.getLog(SetPrivateStoreMsgSell.class.getName());
 	
-	private final String _storeMsg;
+	private String _storeMsg;
 	
-	public SetPrivateStoreMsgSell(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_storeMsg = readS();
-	}
-
-	void runImpl()
+    protected void readImpl()
+    {
+        _storeMsg = readS();
+    }
+	
+    protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null || player.getSellList() == null) return;

@@ -27,7 +27,7 @@ package net.sf.l2j.gameserver;
 
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.clientpackets.ClientBasePacket;
+import net.sf.l2j.gameserver.clientpackets.L2GameClientPacket;
 import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**

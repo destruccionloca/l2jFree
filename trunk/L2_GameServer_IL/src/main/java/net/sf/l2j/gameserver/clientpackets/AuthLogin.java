@@ -18,12 +18,10 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.LoginServerThread.SessionKey;
+import net.sf.l2j.gameserver.network.L2GameClient;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,41 +31,38 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.9.2.3.2.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class AuthLogin extends ClientBasePacket
+public class AuthLogin extends L2GameClientPacket
 {
 	private static final String _C__08_AUTHLOGIN = "[C] 08 AuthLogin";
 	private final static Log _log = LogFactory.getLog(AuthLogin.class.getName());
 	
-	// loginName + keys must match what the loginserver used.  
-	private final String _loginName;
-	/*private final long _key1;
-	private final long _key2;
-	private final long _key3;
-	private final long _key4;*/
-	private int _playKey1;
-	private int _playKey2;
-	private int _loginKey1;
-	private int _loginKey2;
-	
-	/**
-	 * @param decrypt
-	 */
-	public AuthLogin(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-
-		_loginName = readS().toLowerCase();
-		_playKey2 = readD();
-		_playKey1 = readD();
-		_loginKey1 = readD();
-		_loginKey2 = readD();
-		while (buf.hasRemaining()) buf.get();
-	}
+    // loginName + keys must match what the loginserver used.  
+    private String _loginName;
+    /*private final long _key1;
+    private final long _key2;
+    private final long _key3;
+    private final long _key4;*/
+    private int _playKey1;
+    private int _playKey2;
+    private int _loginKey1;
+    private int _loginKey2;
+    
+    /**
+     * @param decrypt
+     */
+    protected void readImpl()
+    {
+        _loginName = readS().toLowerCase();
+        _playKey2 = readD();
+        _playKey1 = readD();
+        _loginKey1 = readD();
+        _loginKey2 = readD();
+    }
 
 	/** urgent messages, execute immediatly */
     public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
 	
-	void runImpl()
+    protected void runImpl()
 	{
 		SessionKey key = new SessionKey(_loginKey1, _loginKey2, _playKey1, _playKey2);
 		if (_log.isDebugEnabled()) {
@@ -76,12 +71,13 @@ public class AuthLogin extends ClientBasePacket
 		}
 		
 		L2GameClient client = getClient();
-        //This packet could be send again (by stupid cheaters) - so GS should wait till LS will confirm again
-        client.setAuthed(false);
-		client.setLoginName(_loginName);
-		LoginServerThread.getInstance().addGameServerLogin(_loginName,getConnection());
-		
-		LoginServerThread.getInstance().addWaitingClientAndSendRequest(_loginName,client,key);
+        // avoid potential exploits
+        if (client.getAccountName() == null)
+        {
+            client.setAccountName(_loginName);
+            LoginServerThread.getInstance().addGameServerLogin(_loginName, client);
+            LoginServerThread.getInstance().addWaitingClientAndSendRequest(_loginName, client, key);
+        }
 	}
 
     

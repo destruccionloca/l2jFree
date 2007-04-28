@@ -28,7 +28,6 @@ package net.sf.l2j.gameserver.communitybbs.services.forum;
 import net.sf.l2j.gameserver.communitybbs.model.forum.Forums;
 import net.sf.l2j.gameserver.communitybbs.model.forum.Posts;
 import net.sf.l2j.gameserver.communitybbs.model.forum.Topic;
-import net.sf.l2j.gameserver.communitybbs.services.forum.ForumService;
 import net.sf.l2j.tools.db.spring.ADAOTestWithSpringAndDerby;
 
 /**

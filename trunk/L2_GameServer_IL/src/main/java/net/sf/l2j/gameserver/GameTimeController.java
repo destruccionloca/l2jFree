@@ -23,8 +23,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
-import javolution.util.FastList;
 
+import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.datatables.DoorTable;

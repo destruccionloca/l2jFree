@@ -39,7 +39,6 @@ import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListDeleteAll;
 import net.sf.l2j.gameserver.serverpackets.PledgeSkillListAdd;
-import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;

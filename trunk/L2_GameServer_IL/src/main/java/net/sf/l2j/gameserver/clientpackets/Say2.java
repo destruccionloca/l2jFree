@@ -18,11 +18,9 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
@@ -41,7 +39,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.16.2.12.2.7 $ $Date: 2005/04/11 10:06:11 $
  */
-public class Say2 extends ClientBasePacket
+public class Say2 extends L2GameClientPacket
 {
     private static final String _C__38_SAY2 = "[C] 38 Say2";
     private final static Log _log = LogFactory.getLog(Say2.class.getName());
@@ -91,15 +89,14 @@ public class Say2 extends ClientBasePacket
      * format:      cSd (S)
      * @param decrypt
      */
-    public Say2(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         _text = readS();
         _type = readD();
-        _target = (_type == TELL) ? readS() : null;  
+        _target = (_type == TELL) ? readS() : null;
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         if (_log.isDebugEnabled()) 
             _log.info("Say2: Msg Type = '" + _type + "' Text = '" + _text + "'.");

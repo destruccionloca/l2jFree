@@ -34,7 +34,6 @@ import net.sf.l2j.gameserver.serverpackets.PartySmallWindowAll;
 import net.sf.l2j.gameserver.serverpackets.PartySmallWindowDelete;
 import net.sf.l2j.gameserver.serverpackets.PartySmallWindowDeleteAll;
 import net.sf.l2j.gameserver.serverpackets.PartySmallWindowUpdate;
-import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.util.Util;

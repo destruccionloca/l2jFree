@@ -21,9 +21,9 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListDelete;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -32,16 +32,16 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  *
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestWithdrawalPledge extends ClientBasePacket
+public class RequestWithdrawalPledge extends L2GameClientPacket
 {
 	private static final String _C__26_REQUESTWITHDRAWALPLEDGE = "[C] 26 RequestWithdrawalPledge";
 
-	public RequestWithdrawalPledge(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-	}
+    protected void readImpl()
+    {
+        // trigger
+    }
 
-	void runImpl()
+    protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

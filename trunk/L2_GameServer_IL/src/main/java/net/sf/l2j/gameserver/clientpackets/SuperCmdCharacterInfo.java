@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
-import net.sf.l2j.gameserver.L2GameClient;
 
 /**
  * Format chS
@@ -30,27 +27,22 @@ import net.sf.l2j.gameserver.L2GameClient;
  * @author -Wooden-
  *
  */
-class SuperCmdCharacterInfo extends ClientBasePacket
+public final class SuperCmdCharacterInfo extends L2GameClientPacket
 {
 	private static final String _C__39_00_SUPERCMDCHARACTERINFO = "[C] 39:00 SuperCmdCharacterInfo";
 	@SuppressWarnings("unused")
 	private String _characterName;
 
-	/**
-	 * @param buf
-	 * @param client
-	 */
-	protected SuperCmdCharacterInfo(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-		_characterName = readS();
-	}
+    protected void readImpl()
+    {
+        _characterName = readS();
+    }
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	void runImpl()
+    protected void runImpl()
 	{
 		// TODO Auto-generated method stub
 		

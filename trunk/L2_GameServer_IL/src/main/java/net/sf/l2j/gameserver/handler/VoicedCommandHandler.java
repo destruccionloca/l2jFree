@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.handler;
 
 import javolution.util.FastMap;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.CastleDoors;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Wedding;

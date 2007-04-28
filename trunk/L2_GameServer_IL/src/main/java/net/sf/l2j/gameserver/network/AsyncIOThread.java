@@ -7,10 +7,8 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 
 import org.apache.commons.logging.Log;

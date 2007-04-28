@@ -18,10 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.L2GameClient;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.TradeList;
@@ -39,25 +36,29 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.5.2.2.2.5 $ $Date: 2005/03/27 15:29:29 $
  */
-public class AddTradeItem extends ClientBasePacket
+public class AddTradeItem extends L2GameClientPacket
 {
     private static final String _C__16_ADDTRADEITEM = "[C] 16 AddTradeItem";
     private final static Log _log = LogFactory.getLog(AddTradeItem.class.getName());
 
     @SuppressWarnings("unused")
-    private final int _tradeId;
-    private final int _objectId;
-    private final int _count;
+    private int _tradeId;
+    private int _objectId;
+    private int _count;
 
-    public AddTradeItem(ByteBuffer buf, L2GameClient client)
+    public AddTradeItem()
     {
-        super(buf, client);
+    }    
+    
+    protected void readImpl()
+    {
         _tradeId = readD();
         _objectId = readD();
         _count = readD();
-    }
+    }    
 
-    void runImpl()
+
+    protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
