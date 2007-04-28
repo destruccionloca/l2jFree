@@ -333,7 +333,6 @@ class Quest (JQuest) :
         st.giveItems(item,numItems)
         if numItems != 0 :
            st.playSound("ItemSound.quest_itemget")
-        break
      return
 
 # Quest class and state definition
