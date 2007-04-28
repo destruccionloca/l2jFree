@@ -574,7 +574,7 @@ public class AdminAdmin implements IAdminCommandHandler {
 		replyMSG.append("<button value=\"Polyself ID\" action=\"bypass -h admin_polyself $menu_command\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 		replyMSG.append("<button value=\"Unpolyself\" action=\"bypass -h admin_unpolyself\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 		replyMSG.append("<br>");
-		replyMSG.append("<button value=\"Summon GMPet\" action=\"bypass -h admin_summon123 $menu_command\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+		replyMSG.append("<button value=\"Summon GM Pet\" action=\"bypass -h admin_summon $menu_command\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 		replyMSG.append("<button value=\"Weight on\" action=\"bypass -h admin_diet off\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 		replyMSG.append("<button value=\"Weight off\" action=\"bypass -h admin_diet on\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 		replyMSG.append("<button value=\"Paralyze\" action=\"bypass -h admin_para\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
