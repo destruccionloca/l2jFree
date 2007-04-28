@@ -5885,7 +5885,7 @@ INSERT INTO `etcitem` VALUES (8617, 'Spellbook: Word of Invitation', 'false', 's
 INSERT INTO `etcitem` VALUES (8618, 'Ancient Book - Divine Inspiration (Modern Language Version)', 'false', 'none', 120, 'normal', 'paper', 'none', 0, 0, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none');
 INSERT INTO `etcitem` VALUES (8619, 'Ancient Book - Divine Inspiration (Original Language Version)', 'false', 'none', 120, 'normal', 'paper', 'none', 0, 0, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none');
 INSERT INTO `etcitem` VALUES (8620, 'Ancient Book - Divine Inspiration (Manuscript)', 'false', 'none', 120, 'normal', 'paper', 'none', 0, 0, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none');
-INSERT INTO `etcitem` VALUES (8621, 'Ancient Book - Divine Inspiration (Original Version)', 'false', 'none', 120, 'normal', 'paper', 'none', 0, 0, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none');
+INSERT INTO `etcitem` VALUES (8621, 'Ancient Book - Divine Inspiration (Original Version)', 'false', 'none', 120, 'normal', 'paper', 'none', 0, 0, 0, 'false', 'false', 'true', 'false', 'C5Item', 'none');
 INSERT INTO `etcitem` VALUES (8622, 'Elixir of Life (No Grade)', 'false', 'potion', 5, 'stackable', 'liquid', 'none', 0, 0, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none');
 INSERT INTO `etcitem` VALUES (1038, 'Rumiel''s 1st Poem', 'false', 'quest', 0, 'stackable', 'steel', 'none', 100, 0, 0, 'false', 'false', 'true', 'false', 'rumiels_poem_1', 'none');
 INSERT INTO `etcitem` VALUES (1037, 'Fruit of The Mother Tree', 'false', 'quest', 0, 'stackable', 'steel', 'none', 100, 0, 0, 'false', 'false', 'true', 'false', 'mothertree_fruit', 'none');
@@ -6630,12 +6630,12 @@ INSERT INTO `etcitem` VALUES (8551, 'Box of Cheerleading Gear Used to encourage 
 INSERT INTO `etcitem` VALUES (8553, 'Red Mask of Victory, Fabric', 'false', 'recipe', 60, 'stackable', 'paper', 'none', 0, 0, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none');
 INSERT INTO `etcitem` VALUES (8555, 'Echo Crystal - Viva Victory Korea', 'false', 'none', 10, 'stackable', 'paper', 'none', 0, 0, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none');
 INSERT INTO `etcitem` VALUES (8556, 'Dewdrop of Destruction', 'false', 'none', 3, 'stackable', 'gold', 'none', 0, 0, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none');
-INSERT INTO `etcitem` VALUES (8570, 'Event Gift Box', 'false', 'none', 20, 'stackable', 'steel', 'none', 0, 0, 0, 'false', 'true', 'true', 'true', 'C5Item', 'none');
-INSERT INTO `etcitem` VALUES (8571, 'Event Gift Box', 'false', 'none', 20, 'stackable', 'steel', 'none', 0, 0, 0, 'false', 'true', 'true', 'true', 'C5Item', 'none');
-INSERT INTO `etcitem` VALUES (8572, 'Event Gift Box', 'false', 'none', 20, 'stackable', 'steel', 'none', 0, 0, 0, 'false', 'true', 'true', 'true', 'C5Item', 'none');
-INSERT INTO `etcitem` VALUES (8573, 'Event Gift Box', 'false', 'none', 20, 'stackable', 'steel', 'none', 0, 0, 0, 'false', 'true', 'true', 'true', 'C5Item', 'none');
-INSERT INTO `etcitem` VALUES (8574, 'Event Gift Box', 'false', 'none', 20, 'stackable', 'steel', 'none', 0, 0, 0, 'false', 'true', 'true', 'true', 'C5Item', 'none');
-INSERT INTO `etcitem` VALUES (8575, 'Event Gift Box', 'false', 'none', 20, 'stackable', 'steel', 'none', 0, 0, 0, 'false', 'true', 'true', 'true', 'C5Item', 'none');
+INSERT INTO `etcitem` VALUES (8570, 'Event Gift Box', 'false', 'none', 20, 'stackable', 'steel', 'none', 0, 0, 0, 'false', 'false', 'true', 'false', 'C5Item', 'none');
+INSERT INTO `etcitem` VALUES (8571, 'Event Gift Box', 'false', 'none', 20, 'stackable', 'steel', 'none', 0, 0, 0, 'false', 'false', 'true', 'false', 'C5Item', 'none');
+INSERT INTO `etcitem` VALUES (8572, 'Event Gift Box', 'false', 'none', 20, 'stackable', 'steel', 'none', 0, 0, 0, 'false', 'false', 'true', 'false', 'C5Item', 'none');
+INSERT INTO `etcitem` VALUES (8573, 'Event Gift Box', 'false', 'none', 20, 'stackable', 'steel', 'none', 0, 0, 0, 'false', 'false', 'true', 'false', 'C5Item', 'none');
+INSERT INTO `etcitem` VALUES (8574, 'Event Gift Box', 'false', 'none', 20, 'stackable', 'steel', 'none', 0, 0, 0, 'false', 'false', 'true', 'false', 'C5Item', 'none');
+INSERT INTO `etcitem` VALUES (8575, 'Event Gift Box', 'false', 'none', 20, 'stackable', 'steel', 'none', 0, 0, 0, 'false', 'false', 'true', 'false', 'C5Item', 'none');
 INSERT INTO `etcitem` VALUES (8593, 'Weapon Exchange Coupon - D Grade', 'false', 'scroll', 1, 'normal', 'paper', 'none', 0, 0, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none');
 INSERT INTO `etcitem` VALUES (8595, 'Scroll: Recovery (Grade D)', 'false', 'scroll', 10, 'stackable', 'paper', 'd', 0, 0, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none');
 INSERT INTO `etcitem` VALUES (8596, 'Scroll: Recovery (Grade C)', 'false', 'scroll', 10, 'stackable', 'paper', 'c', 0, 0, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none');

@@ -761,7 +761,7 @@ INSERT INTO `armor` VALUES (8562, 'Jester Cap', 'hair', 'false', 'none', 10, 'wo
 INSERT INTO `armor` VALUES (8563, 'Magic Cap', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
 INSERT INTO `armor` VALUES (8564, 'Dandy Cap', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
 INSERT INTO `armor` VALUES (8565, 'Romantic Chaperon', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
-INSERT INTO `armor` VALUES (8566, 'Iron Circlet', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
+INSERT INTO `armor` VALUES (8566, 'Iron Circlet', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false', 0, 0, 'false', 'true', 'false');
 INSERT INTO `armor` VALUES (8567, 'Valakas Circlet', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
 INSERT INTO `armor` VALUES (8568, 'Antaras Circlet', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
 INSERT INTO `armor` VALUES (8569, 'Half Face', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
@@ -776,7 +776,7 @@ INSERT INTO `armor` VALUES (8915, 'Luxurious Silver Circlet', 'hair', 'false', '
 INSERT INTO `armor` VALUES (8916, 'Eye Patch', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
 INSERT INTO `armor` VALUES (8917, 'Goddess Circlet', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
 INSERT INTO `armor` VALUES (8918, 'Leather Cap', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
-INSERT INTO `armor` VALUES (8919, 'Commodore''s Hat - Event Use', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
+INSERT INTO `armor` VALUES (8919, 'Commodore''s Hat - Event Use', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'false', 0, 0, 'false', 'true', 'false');
 INSERT INTO `armor` VALUES (8920, 'Angel Halo', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
 INSERT INTO `armor` VALUES (8921, 'Demon Circlet', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
 INSERT INTO `armor` VALUES (8922, 'Pirate Hat', 'hair', 'false', 'none', 10, 'wood', 'none', 0, 90, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
@@ -1013,7 +1013,7 @@ INSERT INTO `armor` VALUES (8557, 'Blue Party Hat', 'dhair', 'false', 'none', 10
 INSERT INTO `armor` VALUES (8558, 'Eva''s Mark', 'face', 'false', 'none', 10, 'steel', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
 INSERT INTO `armor` VALUES (8660, 'Demon Horns', 'hair', 'false', 'none', 10, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
 INSERT INTO `armor` VALUES (8661, 'Mask of Spirits', 'face', 'false', 'none', 10, 'paper', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
-INSERT INTO `armor` VALUES (8662, 'Fairy Antennae - For Event', 'hair', 'false', 'none', 10, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
+INSERT INTO `armor` VALUES (8662, 'Fairy Antennae - For Event', 'hair', 'false', 'none', 10, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 0, 0, 'false', 'true', 'false');
 INSERT INTO `armor` VALUES (9145, 'Little Angel Wings - For Event', 'hair', 'false', 'none', 10, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 0, 0, 'false', 'false', 'true');
 INSERT INTO `armor` VALUES (9158, 'Gold Circlet - For Event', 'dhair', 'false', 'none', 10, 'steel', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
 INSERT INTO `armor` VALUES (9159, 'Silver Circlet - For Event', 'dhair', 'false', 'none', 10, 'steel', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 0, 0, 'true', 'true', 'true');
