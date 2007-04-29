@@ -766,6 +766,8 @@ public final class Config {
     public static double  			PLAYER_HP_REGEN_MULTIPLIER;			// Player regen multipliers
     public static double  			PLAYER_MP_REGEN_MULTIPLIER;			// Player regen multipliers
     public static double  			PLAYER_CP_REGEN_MULTIPLIER;			// Player regen multipliers
+    public static int               MAX_ITEM_IN_PACKET;
+    
     /**
      * Allow lesser effects to be canceled if stronger effects are used when effects of the same stack group are used.<br> 
      * New effects that are added will be canceled if they are of lesser priority to the old one.
@@ -816,6 +818,7 @@ public final class Config {
             WAREHOUSE_SLOTS_DWARF = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForDwarf", "120"));
             WAREHOUSE_SLOTS_CLAN = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForClan", "150"));
             FREIGHT_SLOTS       = Integer.parseInt(otherSettings.getProperty("MaximumFreightSlots", "20"));
+            MAX_ITEM_IN_PACKET = Math.max(INVENTORY_MAXIMUM_NO_DWARF, Math.max(INVENTORY_MAXIMUM_DWARF, INVENTORY_MAXIMUM_GM));
             
             /* if different from 100 (ie 100%) heal rate is modified acordingly */
             NPC_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("NPCHpRegenMultiplier", "100")) /100;

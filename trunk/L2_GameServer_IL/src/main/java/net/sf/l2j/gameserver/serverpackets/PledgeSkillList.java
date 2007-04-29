@@ -18,6 +18,8 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+import java.util.Vector;
+
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Skill;
 
@@ -30,12 +32,32 @@ public class PledgeSkillList extends L2GameServerPacket
 {
 	private static final String _S__FE_39_PLEDGESKILLLIST = "[S] FE:39 PledgeSkillList";
 	private L2Clan _clan;
-	
+	private Vector<Skill> _skill;
+    
+    // Really strange place to put this code ??
+    class Skill
+    {
+        public int id;
+        public int level;
+        Skill ( int pId, int pLevel)
+        {
+            id = pId;
+            level = pLevel;
+        }
+        
+    }
+    
 	public PledgeSkillList(L2Clan clan)
 	{
 		_clan = clan;
+        _skill = new Vector<Skill>();
 	}
 
+    public void addSkill (int id, int level)
+    {
+        _skill.add(new Skill(id,level));
+    }
+    
 	/**
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */

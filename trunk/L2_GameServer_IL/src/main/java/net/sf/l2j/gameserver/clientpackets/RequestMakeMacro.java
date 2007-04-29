@@ -31,7 +31,7 @@ public class RequestMakeMacro extends L2GameClientPacket
 
 	private L2Macro _macro;
     private int _commands_lenght = 0;
-    private final static Log _log = LogFactory.getLog(ClientBasePacket.class);
+    private final static Log _log = LogFactory.getLog(RequestMakeMacro.class);
         
 	private static final String _C__C1_REQUESTMAKEMACRO = "[C] C1 RequestMakeMacro";
 	

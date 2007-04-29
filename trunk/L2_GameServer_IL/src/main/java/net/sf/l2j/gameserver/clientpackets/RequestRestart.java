@@ -41,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.11.2.1.2.4 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestRestart extends ClientBasePacket
+public class RequestRestart extends L2GameClientPacket
 {
     private static final String _C__46_REQUESTRESTART = "[C] 46 RequestRestart";
     private final static Log _log = LogFactory.getLog(RequestRestart.class.getName());
@@ -51,12 +51,12 @@ public class RequestRestart extends ClientBasePacket
      * format:      c
      * @param decrypt
      */
-    public RequestRestart(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
+        // trigger
     }
 
-    void runImpl()
+    protected void runImpl()
     {
 
         L2PcInstance player = getClient().getActiveChar();
@@ -161,7 +161,7 @@ public class RequestRestart extends ClientBasePacket
 
         getClient().setActiveChar(null);
         // send char list
-        CharSelectInfo cl = new CharSelectInfo(getClient().getLoginName(),
+        CharSelectInfo cl = new CharSelectInfo(getClient().getAccountName(),
                                                getClient().getSessionId().playOkID1);
         sendPacket(cl);
         getClient().setCharSelection(cl.getCharInfo());

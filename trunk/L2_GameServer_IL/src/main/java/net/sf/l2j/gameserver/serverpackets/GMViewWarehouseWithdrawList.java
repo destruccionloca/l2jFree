@@ -20,6 +20,9 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -33,7 +36,7 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
  */
 public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 {
-	private static Logger _log = Logger.getLogger(GMViewWarehouseWithdrawList.class.getName());
+	private static Log _log = LogFactory.getLog(GMViewWarehouseWithdrawList.class.getName());
 	private static final String _S__95_GMViewWarehouseWithdrawList = "[S] 95 GMViewWarehouseWithdrawList";
 	private L2ItemInstance[] _items;
 	@SuppressWarnings("unused")
@@ -49,10 +52,10 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 		_playerName = _cha.getName();
         _money = _cha.getAdena();
         
-        if (Config.DEBUG)
+        if (_log.isDebugEnabled())
         {
 	        for (L2ItemInstance item : _items)
-	            _log.fine("item:" + item.getItem().getName() +
+	            _log.debug("item:" + item.getItem().getName() +
 	                     " type1:" + item.getItem().getType1() + " type2:" + item.getItem().getType2());
         }
 	}

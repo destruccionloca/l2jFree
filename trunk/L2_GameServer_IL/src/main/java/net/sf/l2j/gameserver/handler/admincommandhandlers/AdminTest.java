@@ -30,11 +30,12 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.SelectorThread;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
+
+import com.l2jserver.mmocore.network.SelectorThread;
 
 public class AdminTest implements IAdminCommandHandler
 {
@@ -188,18 +189,8 @@ public class AdminTest implements IAdminCommandHandler
         {
             if (Config.IO_TYPE == Config.IOType.nio)
             {
-            	if (st.hasMoreTokens() && st.nextToken().equalsIgnoreCase("dump"))
-            	{
-            		SelectorThread.dumpPacketHistory();
-                    activeChar.sendMessage("Packet history saved.");
-            	} else
-            	{
-            		if (Config.TEST_CAPTUREPACKETS == false)
-            			SelectorThread.startPacketMonitor();
-            		else
-            			SelectorThread.stopPacketMonitor();
-            		activeChar.sendMessage("Packet monitor is "+(Config.TEST_CAPTUREPACKETS?"enabled":"disabled")+".");
-            	}
+                //.dumpPacketHistory();
+                activeChar.sendMessage("command not working");
             }
             else
             {

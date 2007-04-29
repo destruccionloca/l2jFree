@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ExDuelEnd;
 import net.sf.l2j.gameserver.serverpackets.ExDuelReady;
 import net.sf.l2j.gameserver.serverpackets.ExDuelStart;
+import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 
 import org.apache.log4j.Logger;
 
@@ -292,7 +293,7 @@ public class DuelManager
             else if (index >= 0) return _Duels.get(index);
         return null;
     }
-    public void broadcastToOpponents(int duelId, L2PcInstance player, ServerBasePacket msg)
+    public void broadcastToOpponents(int duelId, L2PcInstance player, L2GameServerPacket msg)
     {
         Duel duel = getDuel(duelId, player.getParty()!=null);
         if (duel.getPlayer(player.getTeam()==2).getParty()!=null)

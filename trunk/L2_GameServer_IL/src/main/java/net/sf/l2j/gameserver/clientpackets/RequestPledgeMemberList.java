@@ -18,11 +18,8 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
 
 /**
@@ -40,12 +37,12 @@ public class RequestPledgeMemberList extends L2GameClientPacket
 	 * format:		c
 	 * @param rawPacket
 	 */
-	public RequestPledgeMemberList(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
-	}
+    protected void readImpl()
+    {
+        // trigger
+    }
 
-	void runImpl()
+	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null) return;

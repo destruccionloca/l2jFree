@@ -76,7 +76,7 @@ public class L2BlockList
         return blockSet.contains(character);        
     }
    
-    private boolean isInBlockList(L2PcInstance character)
+    public boolean isInBlockList(L2PcInstance character)
     {
         return isInBlockList(character.getName());        
     }

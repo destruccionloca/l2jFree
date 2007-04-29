@@ -263,7 +263,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
         if (player.getActiveEnchantItem() != null)
         {
             _log.info("Player " + player.getName() + " trying to use enchant exploit, ban this player!");
-            player.getNetConnection().close();
+            player.closeNetConnection();
             return;
         }
 

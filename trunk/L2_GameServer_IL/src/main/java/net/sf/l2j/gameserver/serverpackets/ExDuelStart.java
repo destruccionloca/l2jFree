@@ -39,7 +39,16 @@ public class ExDuelStart extends L2GameServerPacket
 	private static final String _S__4B_ExDuelAskStart_0X4B = "[S] 39 ExDuelStart 0x4b";
 	private int _unk1;
 
-	/**
+    /**
+     * 
+     */
+    public ExDuelStart()
+    {
+        // TODO find the good value
+        _unk1 = 0;
+    }
+    
+    /**
 	 * @param int objectId of the target
 	 * @param int 
 	 */

@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -100,7 +101,7 @@ public class GmListTable
         return _gmList;
     }
 	
-	public static void broadcastToGMs(ServerBasePacket packet) {
+	public static void broadcastToGMs(L2GameServerPacket packet) {
 		for (L2PcInstance gm : getInstance().listOnlineGms()) {
             gm.sendPacket(packet);
 		}

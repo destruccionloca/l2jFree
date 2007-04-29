@@ -38,6 +38,7 @@ import net.sf.l2j.gameserver.serverpackets.AutoAttackStart;
 import net.sf.l2j.gameserver.serverpackets.AutoAttackStop;
 import net.sf.l2j.gameserver.serverpackets.CharMoveToLocation;
 import net.sf.l2j.gameserver.serverpackets.Die;
+import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.serverpackets.MoveToLocationInVehicle;
 import net.sf.l2j.gameserver.serverpackets.MoveToPawn;
 import net.sf.l2j.gameserver.serverpackets.StopMove;
@@ -551,7 +552,7 @@ abstract class AbstractAI implements Ctrl
             _accessor.moveTo(pawn.getX(), pawn.getY(), pawn.getZ(), offset);
 
             // Send a Server->Client packet MoveToPawn/CharMoveToLocation to the actor and all L2PcInstance in its _knownPlayers
-            ServerBasePacket msg;
+            L2GameServerPacket msg;
 
             if (pawn instanceof L2Character) msg = new MoveToPawn(_actor, (L2Character) pawn, offset);
             else msg = new CharMoveToLocation(_actor);

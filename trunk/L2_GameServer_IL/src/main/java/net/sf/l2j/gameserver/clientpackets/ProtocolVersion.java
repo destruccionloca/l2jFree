@@ -18,11 +18,8 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.TaskPriority;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.KeyPacket;
 
 import org.apache.commons.logging.Log;
@@ -49,8 +46,6 @@ public class ProtocolVersion extends L2GameClientPacket
     protected void readImpl()
     {
 		_version  = readD();
-		// ignore the rest
-		while (buf.hasRemaining()) buf.get();
 	}
 
 	/** urgent messages, execute immediatly */
@@ -63,32 +58,27 @@ public class ProtocolVersion extends L2GameClientPacket
 		{
             if (_log.isDebugEnabled()) _log.info("Ping received");
 			// this is just a ping attempt from the new C2 client
-			getConnection().close();
-			return;
+			getClient().closeNow();
 		}
         else if (_version < Config.MIN_PROTOCOL_REVISION)
         {
-            _log.info("Client (" + getClient().getLoginName() + ") Protocol Revision:" + _version + " is too low. only "+Config.MIN_PROTOCOL_REVISION+" and "+Config.MAX_PROTOCOL_REVISION+" are supported. Closing connection.");
-            _log.info("Login name name: "+getClient().getLoginName());
+            _log.info("Client (" + getClient().getAccountName() + ") Protocol Revision:" + _version + " is too low. only "+Config.MIN_PROTOCOL_REVISION+" and "+Config.MAX_PROTOCOL_REVISION+" are supported. Closing connection.");
+            _log.info("Login name name: "+getClient().getAccountName());
             _log.warn("Wrong Protocol Version "+_version);
-			getConnection().close();
-			return;
+            getClient().closeNow();
         }
         else if (_version > Config.MAX_PROTOCOL_REVISION)
         {
             _log.info("Client Protocol Revision:" + _version + " is too high. only "+Config.MIN_PROTOCOL_REVISION+" and "+Config.MAX_PROTOCOL_REVISION+" are supported. Closing connection.");
             _log.warn("Wrong Protocol Version "+_version);
-            getConnection().close();
-			return;
+            getClient().closeNow();
         }
-        getClient().setRevision((int)_version);
-        if (_log.isDebugEnabled()) _log.debug("Client Protocol Revision is ok:"+_version);
-        
-		KeyPacket pk = new KeyPacket();
-		pk.setKey(getConnection().getCryptKey());
-		sendPacket(pk);
-
-		getConnection().activateCryptKey();
+        else
+        {
+            if (_log.isDebugEnabled()) _log.debug("Client Protocol Revision is ok:"+_version);
+    		KeyPacket pk = new KeyPacket(this.getClient().enableCrypt());
+    		sendPacket(pk);
+        }
 	}
 	
 	/* (non-Javadoc)

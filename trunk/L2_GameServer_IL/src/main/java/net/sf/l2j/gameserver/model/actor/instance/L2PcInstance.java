@@ -3501,17 +3501,6 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             _client.sendPacket(packet);
         }        
-        if (_isConnected)
-        {
-            try
-            {
-                if (_connection != null) _connection.sendPacket(packet);
-            }
-            catch (Exception e)
-            {
-                _log.info( "", e);
-            }
-        }
     }
 
     /**
@@ -7969,11 +7958,6 @@ public final class L2PcInstance extends L2PlayableInstance
         return _friendList;
     }
     
-    public void setConnected(boolean connected)
-    {
-        _isConnected = connected;
-    }
-
     public void setHero(boolean hero)
     {
     	if (hero && _baseClass==_activeClass)    	
@@ -9512,7 +9496,7 @@ public final class L2PcInstance extends L2PlayableInstance
         // Close the connection with the client
         try
         {
-            setNetConnection(null);
+            this.closeNetConnection();
         }
         catch (Throwable t)
         {

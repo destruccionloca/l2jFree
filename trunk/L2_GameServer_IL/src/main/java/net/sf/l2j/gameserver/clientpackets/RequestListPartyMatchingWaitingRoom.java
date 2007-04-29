@@ -28,24 +28,21 @@ import net.sf.l2j.gameserver.network.L2GameClient;
  * @author  -Wooden-
  * 
  */
-public class RequestListPartyMatchingWaitingRoom extends ClientBasePacket
+public class RequestListPartyMatchingWaitingRoom extends L2GameClientPacket
 {
     private static final String _C__D0_16_REQUESTLISTPARTYMATCHINGWAITINGROOM = "[C] D0:16 RequestListPartyMatchingWaitingRoom";
 
-    /**
-     * @param buf
-     * @param client
-     */
-    public RequestListPartyMatchingWaitingRoom(ByteBuffer buf, L2GameClient client)
+
+    protected void readImpl()
     {
-        super(buf, client);
+        // trigger
     }
 
     /**
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
      */
     @Override
-    void runImpl()
+    protected void runImpl()
     {
         // TODO
         System.out.println("C5: RequestListPartyMatchingWaitingRoom");

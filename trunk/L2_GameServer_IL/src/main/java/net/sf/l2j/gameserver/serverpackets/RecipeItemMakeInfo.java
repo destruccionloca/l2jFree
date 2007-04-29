@@ -18,12 +18,13 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.logging.Logger;
-
-import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.RecipeController;
-import net.sf.l2j.gameserver.model.L2RecipeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.recipes.model.L2Recipe;
+import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
+import net.sf.l2j.tools.L2Registry;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -36,11 +37,13 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class RecipeItemMakeInfo extends L2GameServerPacket
 {
     private static final String _S__D7_RECIPEITEMMAKEINFO = "[S] D7 RecipeItemMakeInfo";
-    private static Logger _log = Logger.getLogger(RecipeItemMakeInfo.class.getName());
+    private static Log _log = LogFactory.getLog(RecipeItemMakeInfo.class.getName());
 
     private int _id;
     private L2PcInstance _player;
     private boolean _success;
+    private L2Recipe[] _recipes;
+    private L2RecipeService __l2RecipeService=(L2RecipeService)L2Registry.getBean("L2RecipeService"); 
 
     public RecipeItemMakeInfo(int id, L2PcInstance player, boolean success)
     {
@@ -58,7 +61,7 @@ public class RecipeItemMakeInfo extends L2GameServerPacket
 
     protected final void writeImpl()
     {
-        L2RecipeList recipe = RecipeController.getInstance().getRecipeById(_id);
+        L2Recipe recipe = __l2RecipeService.getRecipeById(_id);
 
         if (recipe != null)
         {
@@ -70,7 +73,7 @@ public class RecipeItemMakeInfo extends L2GameServerPacket
             writeD(_player.getMaxMp());
             writeD(_success ? 1 : 0); // item creation success/failed  
         }
-        else if (Config.DEBUG) _log.info("No recipe found with ID = " + _id);
+        else if (_log.isDebugEnabled()) _log.info("No recipe found with ID = " + _id);
     }
 
     /* (non-Javadoc)

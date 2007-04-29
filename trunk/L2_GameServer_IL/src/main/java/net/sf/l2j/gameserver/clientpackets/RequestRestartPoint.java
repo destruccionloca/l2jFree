@@ -45,7 +45,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.7.2.3.2.6 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestRestartPoint extends ClientBasePacket
+public class RequestRestartPoint extends L2GameClientPacket
 {
     private static final String _C__6d_REQUESTRESTARTPOINT = "[C] 6d RequestRestartPoint";
     private final static Log _log = LogFactory.getLog(RequestRestartPoint.class.getName());	
@@ -58,9 +58,8 @@ public class RequestRestartPoint extends ClientBasePacket
      * format:		c
      * @param decrypt
      */
-    public RequestRestartPoint(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         requestedPointType = readD();
     }
     
@@ -167,7 +166,7 @@ public class RequestRestartPoint extends ClientBasePacket
         }
     }
     
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         

@@ -35,19 +35,18 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * 
  * @version $Revision: 1.7.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestAnswerFriendInvite extends ClientBasePacket
+public class RequestAnswerFriendInvite extends L2GameClientPacket
 {
 	private static final String _C__5F_REQUESTANSWERFRIENDINVITE = "[C] 5F RequestAnswerFriendInvite";
 	
-	private final int _response;
-	
-	public RequestAnswerFriendInvite(ByteBuffer buf, L2GameClient client)
-	{
-		super(buf, client);
+	private int _response;
+    
+    protected void readImpl()
+    {
 		_response = readD();
 	}
 
-	void runImpl()
+	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)  

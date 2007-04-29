@@ -18,15 +18,10 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.PledgeInfo;
-import net.sf.l2j.gameserver.serverpackets.PledgeReceivePowerInfo;
-import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -70,12 +65,12 @@ public class RequestPledgeInfo extends L2GameClientPacket
         {
             activeChar.sendPacket(pc);
             
-            if (clan.getClanId() == activeChar.getClanId())
-            {
-                PledgeShowMemberListAll pm = new PledgeShowMemberListAll(clan, activeChar);
-                activeChar.sendPacket(pm);
-                activeChar.sendPacket(new PledgeReceivePowerInfo(activeChar));
-            }
+//            if (clan.getClanId() == activeChar.getClanId())
+//            {
+//                PledgeShowMemberListAll pm = new PledgeShowMemberListAll(clan, activeChar);
+//                activeChar.sendPacket(pm);
+//                activeChar.sendPacket(new PledgeReceivePowerInfo(activeChar));
+//            }
         }
 	}
 

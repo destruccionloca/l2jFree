@@ -30,6 +30,8 @@ import java.security.KeyFactory;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.RSAKeyGenParameterSpec;
 import java.security.spec.RSAPublicKeySpec;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javolution.util.FastList;
@@ -50,8 +52,8 @@ import net.sf.l2j.gameserver.loginserverpackets.LoginServerFail;
 import net.sf.l2j.gameserver.loginserverpackets.PlayerAuthResponse;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.Connection;
 import net.sf.l2j.gameserver.network.L2GameClient;
+import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
 import net.sf.l2j.gameserver.serverpackets.AuthLoginFail;
 import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
 import net.sf.l2j.tools.security.NewCrypt;
@@ -95,8 +97,8 @@ public class LoginServerThread extends Thread
 	private int							_serverID;
 	private boolean 					_reserveHost;
 	private int							_maxPlayer;
-	private FastList<WaitingClient>			_waitingClients;
-	private FastMap<String, Connection>		_accountsInGameServer;
+	private List<WaitingClient>			_waitingClients;
+	private Map<String, L2GameClient>		_accountsInGameServer;
 	private int							_status;
 	private String						_serverName;
 	private String						_gsNetConfig1; // External host for old login server
@@ -143,7 +145,7 @@ public class LoginServerThread extends Thread
 		}
 		
 		_waitingClients = new FastList<WaitingClient>();
-		_accountsInGameServer = new FastMap<String, Connection>();
+		_accountsInGameServer = new FastMap<String, L2GameClient>();
 		_maxPlayer = Config.MAXIMUM_ONLINE_USERS;
 	}
 
@@ -335,17 +337,17 @@ public class LoginServerThread extends Thread
 									if (_log.isDebugEnabled())_log.debug("Login accepted player "+wcToRemove.account+" waited("+(GameTimeController.getGameTicks()-wcToRemove.timestamp)+"ms)");
 									PlayerInGame pig = new PlayerInGame(par.getAccount());
                                     sendPacket(pig);
-                                    wcToRemove.clientThread.setAuthed(true);
-									CharSelectInfo cl = new CharSelectInfo(wcToRemove.account, wcToRemove.clientThread.getSessionId().playOkID1);
-									wcToRemove.clientThread.getConnection().sendPacket(cl);
-									wcToRemove.clientThread.setSessionId(wcToRemove.session);
-									wcToRemove.clientThread.setCharSelection(cl.getCharInfo());
+                                    wcToRemove.gameClient.setState(GameClientState.AUTHED);
+									CharSelectInfo cl = new CharSelectInfo(wcToRemove.account, wcToRemove.gameClient.getSessionId().playOkID1);
+									wcToRemove.gameClient.getConnection().sendPacket(cl);
+									wcToRemove.gameClient.setSessionId(wcToRemove.session);
+									wcToRemove.gameClient.setCharSelection(cl.getCharInfo());
 								}
 								else
 								{
 									_log.warn("session key is not correct. closing connection");
-									wcToRemove.clientThread.getConnection().sendPacket(new AuthLoginFail(1));
-                                    wcToRemove.clientThread.getConnection().close(); 
+									wcToRemove.gameClient.getConnection().sendPacket(new AuthLoginFail(1));
+                                    wcToRemove.gameClient.closeNow(); 
 								}
 								_waitingClients.remove(wcToRemove);
 							}
@@ -409,7 +411,7 @@ public class LoginServerThread extends Thread
        {
            for(WaitingClient c :_waitingClients)
            {
-               if(c.clientThread == client)
+               if(c.gameClient == client)
                {
                    toRemove = c;
                }
@@ -434,9 +436,9 @@ public class LoginServerThread extends Thread
 		}
 	}
 
-	public void addGameServerLogin(String account, Connection connection)
+	public void addGameServerLogin(String account, L2GameClient client)
 	{
-		_accountsInGameServer.put(account, connection);
+		_accountsInGameServer.put(account, client);
 	}
 
 	public void sendAccessLevel(String account, int level)
@@ -461,7 +463,7 @@ public class LoginServerThread extends Thread
 	{
 		if(_accountsInGameServer.get(account) != null)
 		{
-			_accountsInGameServer.get(account).close();
+			_accountsInGameServer.get(account).closeNow();
 			LoginServerThread.getInstance().sendLogout(account); //mieux vaux 2 fois q'une...
 		}
 	}
@@ -620,14 +622,14 @@ public class LoginServerThread extends Thread
 	{
 		public int timestamp;
 		public String account;
-		public L2GameClient clientThread;
+		public L2GameClient gameClient;
 		public SessionKey session;
 
 		public WaitingClient(String acc, L2GameClient client, SessionKey key)
 		{
 			account = acc;
 			timestamp = GameTimeController.getGameTicks();
-			clientThread = client;
+			gameClient = client;
 			session = key;			
 		}
 	}

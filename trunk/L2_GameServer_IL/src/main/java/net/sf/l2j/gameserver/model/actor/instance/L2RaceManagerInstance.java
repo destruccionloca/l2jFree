@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.model.actor.knownlist.RaceManagerKnownList;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.DeleteObject;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
+import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.serverpackets.MonRaceInfo;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
@@ -214,7 +215,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
         }
     }
 
-    protected void broadcast(ServerBasePacket pkt)
+    protected void broadcast(L2GameServerPacket pkt)
     {
         for (L2RaceManagerInstance manager : managers)
         {

@@ -7,7 +7,7 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.L2GameClient;
 
-public class RequestReplySurrenderPledgeWar extends ClientBasePacket
+public class RequestReplySurrenderPledgeWar extends L2GameClientPacket
 {
     private static final String _C__52_REQUESTREPLYSURRENDERPLEDGEWAR = "[C] 52 RequestReplySurrenderPledgeWar";
     //private final static Log _log = LogFactory.getLog(RequestReplySurrenderPledgeWar.class.getName());
@@ -16,14 +16,13 @@ public class RequestReplySurrenderPledgeWar extends ClientBasePacket
     L2Clan _clan;
     L2PcInstance player;
     
-    public RequestReplySurrenderPledgeWar(ByteBuffer buf, L2GameClient client)
+    protected void readImpl()
     {
-        super(buf, client);
         @SuppressWarnings("unused") String _reqName = readS();
         _answer  = readD();
     }
 
-    void runImpl()
+    protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null)

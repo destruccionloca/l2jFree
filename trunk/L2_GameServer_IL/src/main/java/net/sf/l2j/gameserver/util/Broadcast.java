@@ -31,6 +31,7 @@ package net.sf.l2j.gameserver.util;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -55,7 +56,7 @@ public final class Broadcast
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packet to this L2Character (to do this use method toSelfAndKnownPlayers)</B></FONT><BR><BR>
      *
      */
-    public static void toPlayersTargettingMyself(L2Character character, ServerBasePacket mov)
+    public static void toPlayersTargettingMyself(L2Character character, L2GameServerPacket mov)
     {
         if (_log.isDebugEnabled()) _log.debug("players to notify:" + character.getKnownList().getKnownPlayers().size() + " packet:"+mov.getType());
 
@@ -78,7 +79,7 @@ public final class Broadcast
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packet to this L2Character (to do this use method toSelfAndKnownPlayers)</B></FONT><BR><BR>
      *
      */
-    public static void toKnownPlayers(L2Character character, ServerBasePacket mov)
+    public static void toKnownPlayers(L2Character character, L2GameServerPacket mov)
     {
         if (_log.isDebugEnabled()) _log.debug("players to notify:" + character.getKnownList().getKnownPlayers().size() + " packet:"+mov.getType());
 
@@ -102,7 +103,7 @@ public final class Broadcast
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packet to this L2Character (to do this use method toSelfAndKnownPlayers)</B></FONT><BR><BR>
      *
      */
-    public static void toKnownPlayersInRadius(L2Character character, ServerBasePacket mov, int radius)
+    public static void toKnownPlayersInRadius(L2Character character, L2GameServerPacket mov, int radius)
     {
     	if (radius < 0)
     		radius = 1500;
@@ -125,7 +126,7 @@ public final class Broadcast
      * In order to inform other players of state modification on the L2Character, server just need to go through _knownPlayers to send Server->Client Packet<BR><BR>
      *
      */
-    public static void toSelfAndKnownPlayers(L2Character character, ServerBasePacket mov)
+    public static void toSelfAndKnownPlayers(L2Character character, L2GameServerPacket mov)
     {
     	if (character instanceof L2PcInstance)
     		character.sendPacket(mov);
@@ -134,7 +135,7 @@ public final class Broadcast
     }
     
     // To improve performance we are comparing values of radius^2 instead of calculating sqrt all the time
-    public static void toSelfAndKnownPlayersInRadius(L2Character character, ServerBasePacket mov, long radiusSq)
+    public static void toSelfAndKnownPlayersInRadius(L2Character character, L2GameServerPacket mov, long radiusSq)
     {
            if (radiusSq < 0) radiusSq = 360000;
 
@@ -155,7 +156,7 @@ public final class Broadcast
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packet to this L2Character (to do this use method toSelfAndKnownPlayers)</B></FONT><BR><BR>
      *
      */
-    public static void toAllOnlinePlayers(ServerBasePacket mov)
+    public static void toAllOnlinePlayers(L2GameServerPacket mov)
     {
         if (_log.isDebugEnabled()) _log.debug("Players to notify: " + L2World.getInstance().getAllPlayersCount() + " (with packet " + mov.getType() + ")");
         

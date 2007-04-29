@@ -29,10 +29,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.clientpackets.ClientBasePacket;
+import net.sf.l2j.gameserver.clientpackets.L2GameClientPacket;
+import net.sf.l2j.gameserver.network.L2GameClient;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.l2jserver.mmocore.network.ReceivablePacket;
 
 /**
  * <p>This class is made to handle all the ThreadPools used in L2j.</p>
@@ -178,16 +181,21 @@ public class ThreadPoolManager
 		} catch (RejectedExecutionException e) { return null; /* shutdown, ignore */ }
 	}
 	
-	public void executePacket(ClientBasePacket pkt)
+	public void executePacket(ReceivablePacket<L2GameClient> pkt)
 	{
 		_generalPacketsThreadPool.execute(pkt);
 	}
 	
-	public void executeUrgentPacket(ClientBasePacket pkt)
+	public void executeUrgentPacket(ReceivablePacket<L2GameClient> pkt)
 	{
 		_urgentPacketsThreadPool.execute(pkt);
 	}
-	
+
+    public void executeIOPacket(ReceivablePacket<L2GameClient> pkt)
+    {
+        _urgentPacketsThreadPool.execute(pkt);
+    }
+    
 	public void executeTask(Runnable r)
 	{
 		_generalThreadPool.execute(r);

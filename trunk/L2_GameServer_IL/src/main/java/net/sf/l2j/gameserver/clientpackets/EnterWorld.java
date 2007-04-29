@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-import java.nio.ByteBuffer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Announcements;
@@ -48,7 +47,6 @@ import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.quest.Quest;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ClientSetTime;
 import net.sf.l2j.gameserver.serverpackets.Die;
 import net.sf.l2j.gameserver.serverpackets.ExStorageMaxCount;
@@ -111,20 +109,19 @@ public class EnterWorld extends L2GameClientPacket
 
 		if (L2World.getInstance().findObject(activeChar.getObjectId()) != null) 
         { 
-			if (_log.isDebugEnabled())
-					_log.warn("User already exist in OID map! User "+activeChar.getName()+" is character clone"); 
+				_log.warn("User already exist in OID map! User "+activeChar.getName()+" is character clone"); 
                 //activeChar.closeNetConnection(); 
         }
-		if(!getClient().getLoginName().equalsIgnoreCase(getClient().getAccountName(activeChar.getName())))
-        {
-            _log.fatal("Possible Hacker Account:"+getClient().getLoginName()+" tried to login with char: "+activeChar.getName() + "of Account:" + getClient().getAccountName(activeChar.getName()));
-            activeChar.closeNetConnection();
-        }
-        if(!getClient().isAuthed())
-        {
-            _log.fatal("Possible Hacker Account:"+getClient().getLoginName()+" is not authed");
-            activeChar.closeNetConnection();
-        }
+//		if(!getClient().getAccountName().equalsIgnoreCase(getClient().getAccountName(activeChar.getName())))
+//        {
+//            _log.fatal("Possible Hacker Account:"+getClient().getAccountName()+" tried to login with char: "+activeChar.getName() + "of Account:" + getClient().getAccountName(activeChar.getName()));
+//            activeChar.closeNetConnection();
+//        }
+//        if(!getClient().isAuthed())
+//        {
+//            _log.fatal("Possible Hacker Account:"+getClient().getAccountName()+" is not authed");
+//            activeChar.closeNetConnection();
+//        }
         if (activeChar.isGM())
         {
             if (Config.SHOW_GM_LOGIN) 
@@ -385,7 +382,7 @@ public class EnterWorld extends L2GameClientPacket
         QuestList ql = new QuestList();
         activeChar.sendPacket(ql);
         
-        activeChar.setClientRevision(getClient().getRevision());
+//        activeChar.setClientRevision(getClient().getRevision());
 	}
 
 
@@ -511,9 +508,10 @@ public class EnterWorld extends L2GameClientPacket
         L2Clan clan = activeChar.getClan();
         if (clan != null)
         {
-            PledgeSkillList response = new PledgeSkillList();
+            PledgeSkillList response = new PledgeSkillList(clan);
             L2Skill[] skills = clan.getAllSkills();
             
+            // TODO why this code ???
             for (int i = 0; i < skills.length; i++)
             {
                 L2Skill s = skills[i];
