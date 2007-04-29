@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.ItemTable;
@@ -11,7 +9,6 @@ import net.sf.l2j.gameserver.model.L2Manor;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2ManorManagerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -29,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class RequestBuyProcure extends L2GameClientPacket {
     private static final String _C__C3_REQUESTBUYPROCURE = "[C] C3 RequestBuyProcure";
-    private final static Log _log = LogFactory.getLog(RequestBuyProcure.class.getName());
+//    private final static Log _log = LogFactory.getLog(RequestBuyProcure.class.getName());
     private int _listId;
     private int _count;
     private int[] _items;

@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.nio.ByteBuffer;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.datatables.CharNameTable;
