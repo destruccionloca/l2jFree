@@ -561,7 +561,8 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <for>
-    <effect count="1" name="NoblesseBless" time="3600" val="0"/>
+    <effect count="1" name="NoblesseBless" time="3600" val="0" >
+  </effect>
   </for>
 </skill>
 <skill id="1324" levels="1" name="Summon CP Potion">
@@ -578,7 +579,7 @@
   <set name="create_item_id" val="5592"/>
   <set name="create_item_count" val="20"/>
 </skill>
-<skill id="1325" levels="1" name="Fortune of Noblesse" enchantLevels1="0" enchantLevels2="0"> 
+<skill id="1325" levels="1" name="Fortune of Noblesse" enchantLevels1="0" enchantLevels2="0">
   <set name="mpConsume" val="69"/> 
   <set name="power" val="0.0"/> 
   <set name="target" val="TARGET_ONE"/> 
@@ -592,11 +593,11 @@
   <set name="castRange" val="-1"/> 
   <set name="effectRange" val="-1"/> 
   <for>  
-  <effect count="1" name="LuckNoblesse" time="1200" val="0" > 
-  </effect> 
-  </for>         
-</skill> 
-<skill id="1326" levels="1" name="Harmony of Noblesse">  
+  <effect count="1" name="LuckNoblesse" time="1200" val="0" >
+  </effect>
+  </for>
+</skill>
+<skill id="1326" levels="1" name="Harmony of Noblesse">
   <set name="mpInitialConsume" val="10"/>
   <set name="mpConsume" val="40"/>
   <set name="power" val="250"/>
