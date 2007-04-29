@@ -157,9 +157,8 @@ class Quest (JQuest) :
 
  def onKill (self,npc,player):
    st = player.getQuestState(qn)
-   if not st : return 
+   if not st : return
    if st.getState() != STARTED : return 
-   
    if st.getInt("cond")==1 and st.getRandom(100) < 25 and st.getQuestItemsCount(BLUE_GEM) == 0 :
       st.giveItems(BLUE_GEM,1)
       st.playSound("ItemSound.quest_itemget")
@@ -172,10 +171,9 @@ STARTING    = State('Starting', QUEST)
 STARTED     = State('Started', QUEST)
 COMPLETED   = State('Completed', QUEST)
 
-
 QUEST.setInitialState(CREATED)
 
-for startNpc in [30008,30009,30017,30019,30129,30131,30404,30401,30403,30402,30018,30021,30020,30370,30400,30528,30530,30573,30575]:
+for startNpc in [30008,30009,30017,30019,30131,30573,30575,30370,30528,30530,30400,30401,30402,30403,30404]:
   QUEST.addStartNpc(startNpc)
   QUEST.addTalkId(startNpc)
 
@@ -184,6 +182,4 @@ for npc in [30600, 30601, 30602, 30598, 30599]:
 
 QUEST.addKillId(18342)
 QUEST.addKillId(20001)
-QUEST.addKillId(27198)
-
 print "importing quests: 999: C5 Tutorial"
