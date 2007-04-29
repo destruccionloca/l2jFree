@@ -84,7 +84,7 @@ import net.sf.l2j.gameserver.model.FishData;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.ItemContainer;
 import net.sf.l2j.gameserver.model.L2Attackable;
-import net.sf.l2j.gameserver.model.L2BlockList;
+import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
@@ -586,7 +586,7 @@ public final class L2PcInstance extends L2PlayableInstance
     /** new race ticket **/
     public int _race[] = new int[2];
 
-    private final L2BlockList _blockList = new L2BlockList();
+    private final BlockList _blockList = new BlockList();
     private final L2FriendList _friendList = new L2FriendList(this);
     
 
@@ -7948,7 +7948,7 @@ public final class L2PcInstance extends L2PlayableInstance
         return _exchangeRefusal;
     }
 
-    public L2BlockList getBlockList()
+    public BlockList getBlockList()
     {
         return _blockList;
     }

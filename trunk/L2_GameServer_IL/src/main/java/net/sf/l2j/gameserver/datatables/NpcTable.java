@@ -20,7 +20,9 @@ package net.sf.l2j.gameserver.datatables;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -516,4 +518,76 @@ public class NpcTable
     {
         return _npcs;
     }
+    
+    public L2NpcTemplate getTemplateByName(String name)
+    {
+        for (L2NpcTemplate npcTemplate : _npcs.values())
+            if (npcTemplate.name.equalsIgnoreCase(name))
+                return npcTemplate;
+
+        return null;
+    }
+
+    public L2NpcTemplate[] getAllOfLevel(int lvl)
+    {
+        List<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+
+        for (L2NpcTemplate t : _npcs.values())
+            if (t.level == lvl)
+                list.add(t);
+
+        return list.toArray(new L2NpcTemplate[list.size()]);
+    }
+
+    public L2NpcTemplate[] getAllMonstersOfLevel(int lvl)
+    {
+        List<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+
+        for (L2NpcTemplate t : _npcs.values())
+            if (t.level == lvl && "L2Monster".equals(t.type))
+                list.add(t);
+
+        return list.toArray(new L2NpcTemplate[list.size()]);
+    }
+
+    public L2NpcTemplate[] getAllNpcStartingWith(String letter)
+    {
+        List<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+
+        for (L2NpcTemplate t : _npcs.values())
+            if (t.name.startsWith(letter) && "L2Npc".equals(t.type))
+                list.add(t);
+
+        return list.toArray(new L2NpcTemplate[list.size()]);
+    }
+
+    /**
+     * @param classType
+     * @return
+     */
+    public Set<Integer> getAllNpcOfClassType(String classType)
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /**
+     * @param class1
+     * @return
+     */
+    public Set<Integer> getAllNpcOfL2jClass(Class clazz)
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /**
+     * @param aiType
+     * @return
+     */
+    public Set<Integer> getAllNpcOfAiType(String aiType)
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }    
 }

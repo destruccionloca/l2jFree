@@ -158,7 +158,7 @@ public class RequestActionUse extends L2GameClientPacket
                         return;
                     }
 
-                    if (target.isAutoAttackable(activeChar) || _ctrlPressed || (getClient().getRevision() >= 729 && _shiftPressed)) //A temp sollution b4 we get the right packet, to make it with ctrl again
+                    if (target.isAutoAttackable(activeChar) || _ctrlPressed /*|| (getClient().getRevision() >= 729 && _shiftPressed)*/) //A temp sollution b4 we get the right packet, to make it with ctrl again
                     {
                         if (target instanceof L2DoorInstance)  
                         { 
@@ -461,9 +461,9 @@ public class RequestActionUse extends L2GameClientPacket
             }
             
             activeSummon.setTarget(target);
-            if (getClient().getRevision()>=729) //A temp sollution b4 we get the right packet, to make it with ctrl again
-                activeSummon.useMagic(skill, _shiftPressed, false);
-            else
+//            if (getClient().getRevision()>=729) //A temp sollution b4 we get the right packet, to make it with ctrl again
+//                activeSummon.useMagic(skill, _shiftPressed, false);
+//            else
                 activeSummon.useMagic(skill, _ctrlPressed, _shiftPressed);
         }
     }

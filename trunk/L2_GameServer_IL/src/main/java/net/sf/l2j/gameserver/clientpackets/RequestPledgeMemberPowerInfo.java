@@ -52,7 +52,7 @@ public class RequestPledgeMemberPowerInfo extends L2GameClientPacket
             L2ClanMember cm = clan.getClanMember(_target);
             if (cm != null && cm.isOnline())
             {
-                getClient().getActiveChar().sendPacket(new PledgeReceivePowerInfo(cm.getPlayerInstance()));
+                getClient().getActiveChar().sendPacket(new PledgeReceivePowerInfo(cm));
                 //_log.warn("Everything is Ok with this packet: "+_target);
             }            
             //else 

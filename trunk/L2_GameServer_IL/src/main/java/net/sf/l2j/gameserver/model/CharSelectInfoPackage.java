@@ -37,7 +37,7 @@ public class CharSelectInfoPackage
     private int _race=0;
     private int _classId=0;
     private int _baseClassId=0;
-    private int _deleteTimer=0;
+    private long _deleteTimer=0;
     private long _lastAccess=0L;
     private int _face=0;
     private int _hairStyle=0;
@@ -119,11 +119,11 @@ public class CharSelectInfoPackage
     {
         _currentMp = currentMp;
     }
-    public int getDeleteTimer()
+    public long getDeleteTimer()
     {
         return _deleteTimer;
     }
-    public void setDeleteTimer(int deleteTimer)
+    public void setDeleteTimer(long deleteTimer)
     {
         _deleteTimer = deleteTimer;
     }

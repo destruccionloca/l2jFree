@@ -27,7 +27,7 @@ public class DummyPacket extends L2GameClientPacket
 
 	public void runImpl()
 	{
-		_log.warn("DummyPacket " + _packetId + " (Length = " + getLength() + ") recieved.");
+		_log.warn("DummyPacket " + _packetId + " received.");
 		//getClient().getConnection().close();
 	}
 

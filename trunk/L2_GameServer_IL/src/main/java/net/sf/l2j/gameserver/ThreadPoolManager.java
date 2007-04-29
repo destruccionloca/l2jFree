@@ -29,7 +29,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.clientpackets.L2GameClientPacket;
 import net.sf.l2j.gameserver.network.L2GameClient;
 
 import org.apache.commons.logging.Log;
@@ -80,7 +79,7 @@ public class ThreadPoolManager
 	private ThreadPoolExecutor _generalPacketsThreadPool;
 	private ThreadPoolExecutor _urgentPacketsThreadPool;
 	// will be really used in the next AI implementation.
-	//private ThreadPoolExecutor _aiThreadPool;
+	private ThreadPoolExecutor _aiThreadPool;
 	private ThreadPoolExecutor _generalThreadPool;
 	
 	// temp
@@ -117,9 +116,9 @@ public class ThreadPoolManager
 		                                                   new PriorityThreadFactory("General Pool",Thread.NORM_PRIORITY));
 		
 		// will be really used in the next AI implementation.
-		/*_aiThreadPool = new ThreadPoolExecutor(1, Config.AI_MAX_THREAD,
+		_aiThreadPool = new ThreadPoolExecutor(1, Config.AI_MAX_THREAD,
 			                                      10L, TimeUnit.SECONDS,
-			                                      new LinkedBlockingQueue<Runnable>());*/
+			                                      new LinkedBlockingQueue<Runnable>());
 		
 		_aiScheduledThreadPool = new ScheduledThreadPoolExecutor(Config.AI_MAX_THREAD, new PriorityThreadFactory("AISTPool", Thread.NORM_PRIORITY));
 	}
@@ -200,6 +199,11 @@ public class ThreadPoolManager
 	{
 		_generalThreadPool.execute(r);
 	}
+    
+    public void executeAi(Runnable r)
+    {
+        _aiThreadPool.execute(r);
+    }    
 	
 	public String[] getStats()
 	{

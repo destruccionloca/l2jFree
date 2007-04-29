@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
-import net.sf.l2j.gameserver.model.L2BlockList;
+import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
@@ -162,7 +162,7 @@ public class Say2 extends L2GameClientPacket
                 L2PcInstance receiver = L2World.getInstance().getPlayer(_target);
                 
                 if (receiver != null && 
-                        !L2BlockList.isBlocked(receiver, activeChar))
+                        !BlockList.isBlocked(receiver, activeChar))
                 {   
                     if (!receiver.getMessageRefusal())
                     {
@@ -280,7 +280,7 @@ public class Say2 extends L2GameClientPacket
             if (activeChar.isHero())
             {
                 for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-                    if (!L2BlockList.isBlocked(player, activeChar))
+                    if (!BlockList.isBlocked(player, activeChar))
                         player.sendPacket(cs);
             }
             break;

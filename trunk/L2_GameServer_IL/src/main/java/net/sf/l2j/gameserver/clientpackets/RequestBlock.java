@@ -1,6 +1,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
-import net.sf.l2j.gameserver.model.L2BlockList;
+import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -63,7 +63,7 @@ public class RequestBlock extends L2GameClientPacket
                    return;
                }
                
-               L2BlockList.addToBlockList(activeChar, _target);
+               BlockList.addToBlockList(activeChar, _target);
                
                sm = new SystemMessage(SystemMessage.S1_WAS_ADDED_TO_YOUR_IGNORE_LIST);
                sm.addString(_target.getName());
@@ -77,13 +77,13 @@ public class RequestBlock extends L2GameClientPacket
            }
            case UNBLOCK:
            {
-        	   if (L2BlockList.isInBlockList(activeChar, _name))
+        	   if (BlockList.isInBlockList(activeChar, _target))
         	   {
         		   if (_target == null)
                    {
-                	   L2BlockList.removeFromBlockList(activeChar, _name);
+                       BlockList.removeFromBlockList(activeChar, _target);
                    } else
-                	   L2BlockList.removeFromBlockList(activeChar, _target);
+                       BlockList.removeFromBlockList(activeChar, _target);
                    
         		   sm = new SystemMessage(SystemMessage.S1_WAS_REMOVED_FROM_YOUR_IGNORE_LIST);
                    sm.addString(_name);
@@ -94,23 +94,21 @@ public class RequestBlock extends L2GameClientPacket
            case BLOCKLIST:
            {
         	   sm = new SystemMessage(SystemMessage.BLOCK_LIST_HEADER);
-               activeChar.sendPacket(sm);
-        	   for (String blockname : L2BlockList.getBlockNames(activeChar))
-        		   activeChar.sendMessage(blockname);
+               BlockList.sendListToOwner(activeChar);               
                break;
            }
            case ALLBLOCK:
            {
     		   sm = new SystemMessage(SystemMessage.MESSAGE_REFUSAL_MODE);
                activeChar.sendPacket(sm);
-               L2BlockList.setBlockAll(activeChar, true);
+               BlockList.setBlockAll(activeChar, true);
                break;
            }
            case ALLUNBLOCK:
            {
         	   sm = new SystemMessage(SystemMessage.MESSAGE_ACCEPTANCE_MODE);
                activeChar.sendPacket(sm);
-               L2BlockList.setBlockAll(activeChar, false);
+               BlockList.setBlockAll(activeChar, false);
                break;
            }
            default:
