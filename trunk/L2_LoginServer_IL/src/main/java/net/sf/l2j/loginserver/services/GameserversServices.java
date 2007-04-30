@@ -81,7 +81,7 @@ public class GameserversServices
         {
             return __dao.getGameserverByServerId(id).getServerName();
         }
-        catch (DataAccessException e)
+        catch (Exception e)
         {
             _log.warn("Unable to retrieve gameserver : " + id,e);
             return null;

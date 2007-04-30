@@ -64,7 +64,8 @@ public class GameServerRegister
     private void displayMenu() throws IOException 
     {
         System.out.println("Welcome to l2j GameServer Registering");
-        System.out.println("Enter The id of the server you want to register or type help to get a list of ids:");
+        System.out.println("Enter The id of the server you want to register");
+        System.out.println("Type 'help' to get a list of ids.");
         System.out.println("Type 'clean' to unregister all currently registered gameservers on this LoginServer.");
         LineNumberReader _in = new LineNumberReader(new InputStreamReader(System.in));
         
@@ -133,7 +134,7 @@ public class GameServerRegister
             }
             else
             {
-				if (gsServerManager.hasRegisteredGameServerOnId(id))
+				if (!gsServerManager.hasRegisteredGameServerOnId(id))
                 {
                     byte[] hex = HexUtil.generateHex(16);
 
