@@ -8,7 +8,7 @@ CLASSPATH=${CLASSPATH}:commons-collections-2.1.1.jar
 
 CLASSPATH=${CLASSPATH}:ibmaio-20040616.jar
 
-CLASSPATH=${CLASSPATH}:mmocore-1.0.0.jar
+CLASSPATH=${CLASSPATH}:mmocore-1.0.1.jar
 
 CLASSPATH=${CLASSPATH}:bsf-2.0.jar
 CLASSPATH=${CLASSPATH}:bsh-2.0.jar
