@@ -98,11 +98,11 @@ public class LoginServerThread extends Thread
 	private boolean 					_reserveHost;
 	private int							_maxPlayer;
 	private List<WaitingClient>			_waitingClients;
-	private Map<String, L2GameClient>		_accountsInGameServer;
+	private Map<String, L2GameClient>	_accountsInGameServer;
 	private int							_status;
 	private String						_serverName;
-	private String						_gsNetConfig1; // External host for old login server
-	private String						_gsNetConfig2; // Internal host for old login server
+	private String						_gameExternalHost; // External host for old login server
+	private String						_gameInternalHost; // Internal host for old login server
 
 	public LoginServerThread()
 	{
@@ -121,32 +121,31 @@ public class LoginServerThread extends Thread
             _requestID = Config.SERVER_ID;
         }        
 		_acceptAlternate = Config.ACCEPT_ALTERNATE_ID;
-		_requestID = Config.REQUEST_ID;
 		_reserveHost = Config.RESERVE_HOST_ON_LOGIN;
-		_gsNetConfig1 = Config.EXTERNAL_HOSTNAME; 
-		_gsNetConfig2 = Config.INTERNAL_HOSTNAME; 
+		_gameExternalHost = Config.EXTERNAL_HOSTNAME; 
+		_gameInternalHost = Config.INTERNAL_HOSTNAME; 
+        _waitingClients = new FastList<WaitingClient>();
+        _accountsInGameServer = new FastMap<String, L2GameClient>();
+        _maxPlayer = Config.MAXIMUM_ONLINE_USERS;
 		
 		// if defined internal or optional networks, then form config string for new login server
 		// optional netwoks (router);internal networks(if defined);external public host(default for all connections)
 		if (Config.INTERNAL_NETWORKS.length()>0 || Config.OPTIONAL_NETWORKS.length()>0)  
 		{
-			_gsNetConfig1 = "";
+			_gameExternalHost = "";
 			
 			if (Config.OPTIONAL_NETWORKS.length()>0)
-				_gsNetConfig1 = Config.OPTIONAL_NETWORKS + ";";
+				_gameExternalHost = Config.OPTIONAL_NETWORKS + ";";
 
 			if (Config.INTERNAL_HOSTNAME.length()>0 && Config.INTERNAL_NETWORKS.length()>0)
-				_gsNetConfig1 += Config.INTERNAL_HOSTNAME + "," + Config.INTERNAL_NETWORKS + ";";
+				_gameExternalHost += Config.INTERNAL_HOSTNAME + "," + Config.INTERNAL_NETWORKS + ";";
 			
 			if (Config.EXTERNAL_HOSTNAME.length()>0)
-				_gsNetConfig1 += Config.EXTERNAL_HOSTNAME + "," + "0.0.0.0/0";
+				_gameExternalHost += Config.EXTERNAL_HOSTNAME + "," + "0.0.0.0/0";
 			
-			_gsNetConfig2 = "";
+			_gameInternalHost = "";
 		}
 		
-		_waitingClients = new FastList<WaitingClient>();
-		_accountsInGameServer = new FastMap<String, L2GameClient>();
-		_maxPlayer = Config.MAXIMUM_ONLINE_USERS;
 	}
 
 	public static LoginServerThread getInstance()
@@ -256,7 +255,7 @@ public class LoginServerThread extends Thread
 							//now, only accept paket with the new encryption
 							_blowfish = new NewCrypt(_blowfishKey);
 							if (_log.isDebugEnabled())_log.info("Changed blowfish key");
-							AuthRequest ar = new AuthRequest(_requestID, _acceptAlternate, _hexID, _gsNetConfig1, _gsNetConfig2, _gamePort, _reserveHost, _maxPlayer);
+							AuthRequest ar = new AuthRequest(_requestID, _acceptAlternate, _hexID, _gameExternalHost, _gameInternalHost, _gamePort, _reserveHost, _maxPlayer);
 							sendPacket(ar);
 							if (_log.isDebugEnabled())_log.debug("Sent AuthRequest to login");
 							break;
