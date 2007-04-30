@@ -217,7 +217,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  	<add order='0x40' stat='rCrit' val="dmg">
+  	<add order='0x40' stat='rCrit' val="#dmg">
       <and>
         <player behind='True'/>
       </and>
