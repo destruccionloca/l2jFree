@@ -337,9 +337,9 @@ public class LoginServerThread extends Thread
 									PlayerInGame pig = new PlayerInGame(par.getAccount());
                                     sendPacket(pig);
                                     wcToRemove.gameClient.setState(GameClientState.AUTHED);
+                                    wcToRemove.gameClient.setSessionId(wcToRemove.session);
 									CharSelectInfo cl = new CharSelectInfo(wcToRemove.account, wcToRemove.gameClient.getSessionId().playOkID1);
-									wcToRemove.gameClient.getConnection().sendPacket(cl);
-									wcToRemove.gameClient.setSessionId(wcToRemove.session);
+                                    wcToRemove.gameClient.getConnection().sendPacket(cl);
 									wcToRemove.gameClient.setCharSelection(cl.getCharInfo());
 								}
 								else
