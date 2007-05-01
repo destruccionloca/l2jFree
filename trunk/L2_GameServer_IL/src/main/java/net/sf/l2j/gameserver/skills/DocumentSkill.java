@@ -82,7 +82,7 @@ final class DocumentSkill extends DocumentBase {
         }
 		catch (RuntimeException e)
         {
-            _log.log(Level.SEVERE, "Error in table: "+name+" of Skill Id "+currentSkill.id, e);
+            _log.fatal("Error in table: "+name+" of Skill Id "+currentSkill.id, e);
             return "";
         }
 	}

@@ -1163,9 +1163,6 @@ public final class Config {
             
             ALT_DEV_NO_QUESTS               = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoQuests", "False"));
             ALT_DEV_NO_SPAWNS               = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoSpawns", "False"));
-            ALT_POLYMORPH                   = Boolean.parseBoolean(optionsSettings.getProperty("AltPolymorph", "False"));
-
-            
         }
         catch (Exception e)
         {
