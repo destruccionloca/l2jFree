@@ -26,7 +26,6 @@ import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
@@ -212,15 +211,6 @@ public final class L2World
     public final int getAllVisibleObjectsCount()
     {
         return _allObjects.size();
-    }
-    
-    /**
-     * Return a table containing all GMs.<BR><BR>
-     * 
-     */
-    public L2PcInstance[] getAllGMs()
-    {
-        return GmListTable.getInstance().getAllGms();
     }
     
     /**
@@ -497,7 +487,7 @@ public final class L2World
             return null;
         
         // Create an FastList in order to contain all visible L2Object
-        FastList<L2Object> result = new FastList<L2Object>();
+        List<L2Object> result = new FastList<L2Object>();
         
         // Create a FastList containing all regions around the current region
         List<L2WorldRegion> _regions = reg.getSurroundingRegions();

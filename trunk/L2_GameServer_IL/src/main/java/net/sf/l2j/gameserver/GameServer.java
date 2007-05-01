@@ -75,6 +75,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.L2GamePacketHandler;
+import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.script.faenor.FaenorScriptEngine;
 import net.sf.l2j.gameserver.taskmanager.TaskManager;
 import net.sf.l2j.gameserver.util.DynamicExtension;
@@ -478,7 +479,7 @@ public class GameServer
 
         // o Print versions
         // -----------------
-        VersionningService versionningService = (VersionningService)L2Registry.getBean("VersionningService");
+        VersionningService versionningService = (VersionningService)L2Registry.getBean(IServiceRegistry.VERSIONNING);
         Version version = versionningService.getVersion();
         if (version!= null)
         {

@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -42,7 +43,7 @@ import net.sf.l2j.tools.L2Registry;
 
 public class ExtractableItems implements IItemHandler
 {
-    private ExtractableItemsService extractableItemsService = (ExtractableItemsService)L2Registry.getBean("ExtractableItemsService");
+    private ExtractableItemsService extractableItemsService = (ExtractableItemsService)L2Registry.getBean(IServiceRegistry.EXTRACTABLE_ITEM);
     
     
     /* (non-Javadoc)

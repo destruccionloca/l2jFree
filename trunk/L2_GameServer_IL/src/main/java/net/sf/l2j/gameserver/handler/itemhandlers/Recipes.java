@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
+import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.tools.L2Registry;
 
@@ -40,7 +41,7 @@ public class Recipes implements IItemHandler
     
     public Recipes()
     {
-        __l2RecipeService = (L2RecipeService) L2Registry.getBean("L2RecipeService");
+        __l2RecipeService = (L2RecipeService) L2Registry.getBean(IServiceRegistry.RECIPE);
         _itemIds = __l2RecipeService.getRecipeIds();
     }
 

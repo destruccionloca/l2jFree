@@ -3,6 +3,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
+import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.RecipeBookItemList;
 import net.sf.l2j.tools.L2Registry;
 
@@ -27,7 +28,7 @@ public class RequestRecipeBookDestroy extends L2GameClientPacket
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar != null)
         {
-            L2RecipeService l2RecipeService = (L2RecipeService) L2Registry.getBean("L2RecipeService");
+            L2RecipeService l2RecipeService = (L2RecipeService) L2Registry.getBean(IServiceRegistry.RECIPE);
         	L2Recipe rp =l2RecipeService.getRecipeList(_RecipeID-1) ;
          	if (rp == null) 
          		return;

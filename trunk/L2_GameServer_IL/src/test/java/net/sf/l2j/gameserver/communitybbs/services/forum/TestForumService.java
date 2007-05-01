@@ -31,6 +31,7 @@ import junit.framework.TestCase;
 import net.sf.l2j.gameserver.communitybbs.model.forum.Forums;
 import net.sf.l2j.gameserver.communitybbs.model.forum.Posts;
 import net.sf.l2j.gameserver.communitybbs.model.forum.Topic;
+import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.tools.L2Registry;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -53,7 +54,7 @@ public class TestForumService extends TestCase
         super.setUp();
         context = new ClassPathXmlApplicationContext("classpath*:net/sf/l2j/applicationContext-TestMock.xml");
         L2Registry.setApplicationContext(context);
-        __forumService = (ForumService)L2Registry.getBean("ForumService");
+        __forumService = (ForumService)L2Registry.getBean(IServiceRegistry.FORUM);
     }
     
     public void testCreateForum()

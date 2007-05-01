@@ -16,13 +16,20 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.events;
+
+package net.sf.l2j.gameserver.registry;
 
 /**
- * @author Layane
- *
+ * 
+ * Use to store constant name of service in registry
+ * Store it avoid copy paste error and is better for refactoring 
+ * when it's needed (or for search)
  */
-public interface IEventParams
+public interface IServiceRegistry
 {
-
-}
+    public static String FORUM = "ForumService";
+    public static String VERSIONNING = "VersionningService";
+    public static String RECIPE = "L2RecipeService";
+    public static String EXTRACTABLE_ITEM = "ExtractableItemsService";
+    public static String CHAR_RECOMMENDATIONS = "CharRecommendationService";
+}   

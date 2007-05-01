@@ -28,6 +28,7 @@ package net.sf.l2j.gameserver.communitybbs.services.forum;
 import net.sf.l2j.gameserver.communitybbs.model.forum.Forums;
 import net.sf.l2j.gameserver.communitybbs.model.forum.Posts;
 import net.sf.l2j.gameserver.communitybbs.model.forum.Topic;
+import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.tools.db.spring.ADAOTestWithSpringAndDerby;
 
 /**
@@ -43,7 +44,7 @@ public class TestForumServiceWithSpring extends ADAOTestWithSpringAndDerby
     protected void setUp() throws Exception
     {
         super.setUp();
-        __fs = (ForumService)getBean("ForumService");
+        __fs = (ForumService)getBean(IServiceRegistry.FORUM);
         assertNotNull(__fs);
     }
     

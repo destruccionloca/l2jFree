@@ -23,6 +23,7 @@
     character_macroses*,
     character_quests*,
     character_recipebook*,
+    character_recommends*,
     character_shortcuts*,
     character_skills*,
     character_skills_save*,
@@ -351,6 +352,12 @@
     type CDATA #REQUIRED
 >
 
+<!ELEMENT character_recommends EMPTY>
+<!ATTLIST character_recommends
+    char_id CDATA #REQUIRED
+    target_id CDATA #REQUIRED
+>
+
 <!ELEMENT character_shortcuts EMPTY>
 <!ATTLIST character_shortcuts
     char_obj_id CDATA #REQUIRED
@@ -399,80 +406,6 @@
     obj_Id CDATA #REQUIRED
     char_name CDATA #REQUIRED
     level CDATA #IMPLIED
-    maxHp CDATA #IMPLIED
-    curHp CDATA #IMPLIED
-    maxCp CDATA #IMPLIED
-    curCp CDATA #IMPLIED
-    maxMp CDATA #IMPLIED
-    curMp CDATA #IMPLIED
-    acc CDATA #IMPLIED
-    crit CDATA #IMPLIED
-    evasion CDATA #IMPLIED
-    mAtk CDATA #IMPLIED
-    mDef CDATA #IMPLIED
-    mSpd CDATA #IMPLIED
-    pAtk CDATA #IMPLIED
-    pDef CDATA #IMPLIED
-    pSpd CDATA #IMPLIED
-    runSpd CDATA #IMPLIED
-    walkSpd CDATA #IMPLIED
-    str CDATA #IMPLIED
-    con CDATA #IMPLIED
-    dex CDATA #IMPLIED
-    _int CDATA #IMPLIED
-    men CDATA #IMPLIED
-    wit CDATA #IMPLIED
-    face CDATA #IMPLIED
-    hairStyle CDATA #IMPLIED
-    hairColor CDATA #IMPLIED
-    sex CDATA #IMPLIED
-    heading CDATA #IMPLIED
-    x CDATA #IMPLIED
-    y CDATA #IMPLIED
-    z CDATA #IMPLIED
-    movement_multiplier CDATA #IMPLIED
-    attack_speed_multiplier CDATA #IMPLIED
-    colRad CDATA #IMPLIED
-    colHeight CDATA #IMPLIED
-    exp CDATA #IMPLIED
-    sp CDATA #IMPLIED
-    karma CDATA #IMPLIED
-    pvpkills CDATA #IMPLIED
-    pkkills CDATA #IMPLIED
-    clanid CDATA #IMPLIED
-    maxload CDATA #IMPLIED
-    race CDATA #IMPLIED
-    classid CDATA #IMPLIED
-    base_class CDATA #REQUIRED
-    deletetime CDATA #IMPLIED
-    cancraft CDATA #IMPLIED
-    title CDATA #IMPLIED
-    allyId CDATA #IMPLIED
-    rec_have CDATA #REQUIRED
-    rec_left CDATA #REQUIRED
-    accesslevel CDATA #IMPLIED
-    online CDATA #IMPLIED
-    char_slot CDATA #IMPLIED
-    newbie CDATA #IMPLIED
-    lastAccess CDATA #IMPLIED
-    clan_privs CDATA #IMPLIED
-    wantspeace CDATA #IMPLIED
-    deleteclan CDATA #IMPLIED
-    isin7sdungeon CDATA #REQUIRED
-    onlinetime CDATA #IMPLIED
-    in_jail CDATA #IMPLIED
-    jail_timer CDATA #IMPLIED
-    nobless CDATA #IMPLIED
-    varka CDATA #IMPLIED
-    ketra CDATA #IMPLIED
-    equiped_with_zariche CDATA #REQUIRED
-    zariche_pk CDATA #REQUIRED
-    zariche_time CDATA #REQUIRED
-    Pledge_class CDATA #REQUIRED
-    pledge_type CDATA #REQUIRED
-    pledge_rank CDATA #REQUIRED
-    apprentice CDATA #REQUIRED
-    accademy_lvl CDATA #REQUIRED
 >
 
 <!ELEMENT clan_data EMPTY>
@@ -1215,4 +1148,5 @@
     z2 CDATA #REQUIRED
     taxById CDATA #REQUIRED
 >
+
 

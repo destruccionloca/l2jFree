@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
+import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.RecipeBookItemList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.tools.L2Registry;
@@ -36,7 +37,7 @@ public class CraftManager
     /**
      * Service for recipe list
      */    
-    private static L2RecipeService l2RecipeService= (L2RecipeService) L2Registry.getBean("L2RecipeService");
+    private static L2RecipeService l2RecipeService= (L2RecipeService) L2Registry.getBean(IServiceRegistry.RECIPE);
 
     /**
      * map with all recipe maker

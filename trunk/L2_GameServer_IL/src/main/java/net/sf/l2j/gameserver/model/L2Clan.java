@@ -33,6 +33,7 @@ import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.serverpackets.PledgeReceiveSubPledgeCreated;
@@ -540,7 +541,7 @@ public class L2Clan
             if(_level >= 2)
             {
             	// TODO to refactor, maybe use an observable pattern
-            	ForumService fs = (ForumService)L2Registry.getBean("ForumService");
+                ForumService fs = (ForumService)L2Registry.getBean(IServiceRegistry.FORUM);
                 _Forum = fs.getForumForClanAndCreateIfNotAvailable(_name, getClanId()); 
             }
         }
