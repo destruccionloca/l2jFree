@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
+import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -80,6 +81,11 @@ public class CharacterSelected extends L2GameClientPacket
 			sendPacket(new ActionFailed());
 			return;
 		}
+		if (L2World.getInstance().findObject(cha.getObjectId()) != null) 
+        { 
+				_log.warn("User already exist in OID map! User "+cha.getName()+" is character clone"); 
+                //activeChar.closeNetConnection(); 
+        }
         
         cha.setClient(this.getClient());
         getClient().setActiveChar(cha);

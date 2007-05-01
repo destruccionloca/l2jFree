@@ -91,7 +91,6 @@ public final class Config {
     public static String 		DATABASE_PASSWORD;				// Database password
     public static int 			DATABASE_MAX_CONNECTIONS;		// Maximum number of connections to the database
     public static int   		MAXIMUM_ONLINE_USERS;			// Maximum number of players allowed to play simultaneously on server
-    public enum 				IOType {nio,aio4j}				// io type WARNING aio4j is not working properly atm
     public static boolean    	SAFE_REBOOT = false;			// Safe mode will disable some feature during restart/shutdown to prevent exploit
     public static int        	SAFE_REBOOT_TIME = 10;
     public static boolean    	SAFE_REBOOT_DISABLE_ENCHANT = false;
@@ -108,7 +107,6 @@ public final class Config {
 	public static int 			PACKET_LIMIT;
 	public static int 			PACKET_TIME_LIMIT;
     public static File    		DATAPACK_ROOT;					// Datapack root directory
-    public static IOType        IO_TYPE;
     public static int           PATH_NODE_RADIUS;
     public static int           NEW_NODE_ID;
     public static int           SELECTED_NODE_ID;
@@ -183,7 +181,6 @@ public final class Config {
             INTERNAL_NETWORKS   = serverSettings.getProperty("InternalNetworks", "");
             EXTERNAL_HOSTNAME   = serverSettings.getProperty("ExternalHostname", "127.0.0.1");
             OPTIONAL_NETWORKS   = serverSettings.getProperty("OptionalNetworks", "");
-            IO_TYPE                 = IOType.valueOf(serverSettings.getProperty("IOType", "nio"));
             MAXIMUM_ONLINE_USERS        = Integer.parseInt(serverSettings.getProperty("MaximumOnlineUsers", "100"));
             DATABASE_DRIVER             = serverSettings.getProperty("Driver", "com.mysql.jdbc.Driver");
             DATABASE_URL                = serverSettings.getProperty("URL", "jdbc:mysql://localhost/l2jdb");
@@ -1012,7 +1009,6 @@ public final class Config {
     public static int       			CHAR_VIP_COLOR;					// VIP Characters configuration
     public static boolean 				ALT_DEV_NO_QUESTS;				// Alt Settings for devs
     public static boolean 				ALT_DEV_NO_SPAWNS;				// Alt Settings for devs
-    public static boolean 				ALT_POLYMORPH;					// Alt Settings for devs
     public static boolean 				ONLY_GM_ITEMS_FREE;				// Only GM buy items for free
     //  *******************************************************************************************
     public static void loadoptionsconfig()

@@ -108,11 +108,6 @@ public class EnterWorld extends L2GameClientPacket
 		    return;
         }
 
-		if (L2World.getInstance().findObject(activeChar.getObjectId()) != null) 
-        { 
-				_log.warn("User already exist in OID map! User "+activeChar.getName()+" is character clone"); 
-                //activeChar.closeNetConnection(); 
-        }
 //		if(!getClient().getAccountName().equalsIgnoreCase(getClient().getAccountName(activeChar.getName())))
 //        {
 //            _log.fatal("Possible Hacker Account:"+getClient().getAccountName()+" tried to login with char: "+activeChar.getName() + "of Account:" + getClient().getAccountName(activeChar.getName()));
