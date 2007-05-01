@@ -129,7 +129,6 @@ public class UseItem extends L2GameClientPacket
 
             if (item.isEquipable())
             {
-<<<<<<< .mine
 				// No unequipping/equipping while the player is in special conditions
 				if (activeChar.isStunned() || activeChar.isSleeping() || activeChar.isParalyzed()
 						|| activeChar.isAlikeDead())
@@ -139,14 +138,8 @@ public class UseItem extends L2GameClientPacket
 				}
 
 				int bodyPart = item.getItem().getBodyPart();
-                // No unequipping/equipping while the player is in special conditions
-                if (activeChar.isStunned() || activeChar.isSleeping() || activeChar.isParalyzed()
-                        || activeChar.isAlikeDead())
-                {
-                    activeChar.sendMessage("Your status does not allow you to do that.");
-                    return;
-                }
-                // Prevent player to remove the weapon on special conditions
+
+				// Prevent player to remove the weapon on special conditions
                 if ((activeChar.isAttackingNow() || activeChar.isCastingNow() || activeChar.isMounted())
                         && (bodyPart == L2Item.SLOT_LR_HAND 
                             || bodyPart == L2Item.SLOT_L_HAND 
