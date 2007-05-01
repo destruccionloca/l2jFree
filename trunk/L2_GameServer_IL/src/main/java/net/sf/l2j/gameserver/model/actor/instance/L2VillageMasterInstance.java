@@ -382,7 +382,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
                     subsAvailable = getAvailableSubClasses(player);
 
-                    if (!subsAvailable.isEmpty())
+                    if (subsAvailable != null && !subsAvailable.isEmpty())
                     {
                         for (PlayerClass subClass : subsAvailable)
                             content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 7 "
