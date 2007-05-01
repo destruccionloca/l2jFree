@@ -45,10 +45,7 @@ public class RequestSkillList extends L2GameClientPacket
 	 */
     protected void readImpl()
     {
-        //TODO analyse unk1-unk3
-        _unk1 = readD();
-        _unk2 = readD();
-        _unk3 = readD();
+        // this is just a trigger packet. it has no content
 	}
 
     protected void runImpl()
