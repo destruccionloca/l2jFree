@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.CharSelected;
 
@@ -71,12 +72,6 @@ public class CharacterSelected extends L2GameClientPacket
 		// HAVE TO CREATE THE L2PCINSTANCE HERE TO SET AS ACTIVE
 		if (_log.isDebugEnabled()) _log.debug("selected slot:" + _charSlot);
 
-//        if(!getClient().getAccountName(_charSlot).equalsIgnoreCase(getClient().getLoginName()))
-//        {
-//            _log.fatal("HACKER: Account " + getClient().getAccountName() + " tried to login with char of account "+getClient().getAccountName(_charSlot));
-//            getClient().closeNow();
-//        }
-        
 		//loadup character from disk
 		L2PcInstance cha = getClient().loadCharFromDisk(_charSlot);
 		if(cha == null)
@@ -86,7 +81,8 @@ public class CharacterSelected extends L2GameClientPacket
 			return;
 		}
         
-		getClient().setActiveChar(cha);
+        cha.setClient(this.getClient());
+        getClient().setActiveChar(cha);
         
 		if(cha.getAccessLevel() < -1)
 		{
@@ -95,6 +91,7 @@ public class CharacterSelected extends L2GameClientPacket
 		}
 		//weird but usefull, will send i..
 		//cha.setAccessLevel(cha.getAccessLevel());
+        this.getClient().setState(GameClientState.IN_GAME);
 		CharSelected cs = new CharSelected(cha, getClient().getSessionId().playOkID1);
 		sendPacket(cs);
 	}

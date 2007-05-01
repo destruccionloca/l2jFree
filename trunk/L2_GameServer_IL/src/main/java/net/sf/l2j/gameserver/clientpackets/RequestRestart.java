@@ -19,12 +19,14 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.SevenSignsFestival;
+import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
 import net.sf.l2j.gameserver.network.L2GameClient;
+import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
 import net.sf.l2j.gameserver.serverpackets.RestartResponse;
@@ -148,16 +150,27 @@ public class RequestRestart extends L2GameClientPacket
             player.getActiveRequester().onTradeCancel(player);
             player.onTradeCancel(player.getActiveRequester());
         }
-        
         player.getInventory().updateDatabase();
-        player.deleteMe();
 
+        L2GameClient client = this.getClient();
+
+        // detach the client from the char so that the connection isnt closed in the deleteMe
+        player.setClient(null);
+        
+        RegionBBSManager.getInstance().changeCommunityBoard();
+        
+        player.deleteMe();
         L2GameClient.saveCharToDisk(getClient().getActiveChar());
+
+        // removing player from the world
+        getClient().setActiveChar(null);
+        
+        // return the client to the authed status
+        client.setState(GameClientState.AUTHED);
 
         RestartResponse response = new RestartResponse();
         sendPacket(response);    
-
-        getClient().setActiveChar(null);
+        
         // send char list
         CharSelectInfo cl = new CharSelectInfo(getClient().getAccountName(),
                                                getClient().getSessionId().playOkID1);
