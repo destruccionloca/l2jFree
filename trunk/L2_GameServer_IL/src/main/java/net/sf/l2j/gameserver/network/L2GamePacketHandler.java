@@ -18,6 +18,7 @@
 package net.sf.l2j.gameserver.network;
 
 import java.nio.ByteBuffer;
+import java.util.concurrent.RejectedExecutionException;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
@@ -92,6 +93,9 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 					case 0x62:
 						msg = new CharacterRestore();
 						break;
+					case 0x68:
+						msg = new RequestPledgeCrest();
+						break;						
 					default:
 						this.printDebug(opcode, buf, state, client);
 						break;
@@ -828,13 +832,24 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 	
 	public void execute(ReceivablePacket<L2GameClient> rp)
 	{
-		if (rp.getClient().getState() == GameClientState.IN_GAME)
+		try
 		{
-			ThreadPoolManager.getInstance().executePacket(rp);
+			if (rp.getClient().getState() == GameClientState.IN_GAME)
+			{
+				ThreadPoolManager.getInstance().executePacket(rp);
+			}
+			else
+			{
+				ThreadPoolManager.getInstance().executeIOPacket(rp);
+			}
 		}
-		else
+		catch (RejectedExecutionException e)
 		{
-			ThreadPoolManager.getInstance().executeIOPacket(rp);
+			// if the server is shutdown we ignore
+			if (!ThreadPoolManager.getInstance().isShutdown())
+			{
+				_log.fatal("Failed executing: "+rp.getClass().getSimpleName()+" for Client: "+rp.getClient().toString());
+			}
 		}
 	}
 }

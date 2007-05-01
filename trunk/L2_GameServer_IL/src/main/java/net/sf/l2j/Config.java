@@ -917,7 +917,7 @@ public final class Config {
     public static int 					THREAD_P_EFFECTS;				// Thread pool size effect
     public static int 					THREAD_P_GENERAL;				// Thread pool size general
     public static int 					GENERAL_PACKET_THREAD_CORE_SIZE;// Packet max thread
-    public static int 					URGENT_PACKET_THREAD_CORE_SIZE;
+    public static int 					IO_PACKET_THREAD_CORE_SIZE;
     public static int 					GENERAL_THREAD_CORE_SIZE;		// General max thread
     public static int 					AI_MAX_THREAD;					// AI max thread
     public static boolean 				AUTODELETE_INVALID_QUEST_DATA;	// Auto-delete invalid quest data ?
@@ -1109,7 +1109,7 @@ public final class Config {
             THREAD_P_EFFECTS                = Integer.parseInt(optionsSettings.getProperty("ThreadPoolSizeEffects", "6"));
             THREAD_P_GENERAL                = Integer.parseInt(optionsSettings.getProperty("ThreadPoolSizeGeneral", "15"));
             GENERAL_PACKET_THREAD_CORE_SIZE = Integer.parseInt(optionsSettings.getProperty("GeneralPacketThreadCoreSize", "4"));
-            URGENT_PACKET_THREAD_CORE_SIZE  = Integer.parseInt(optionsSettings.getProperty("UrgentPacketThreadCoreSize", "2"));
+            IO_PACKET_THREAD_CORE_SIZE      = Integer.parseInt(optionsSettings.getProperty("UrgentPacketThreadCoreSize", "2"));
             GENERAL_THREAD_CORE_SIZE        = Integer.parseInt(optionsSettings.getProperty("GeneralThreadCoreSize", "4"));
             AI_MAX_THREAD                   = Integer.parseInt(optionsSettings.getProperty("AiMaxThread", "10"));
                          

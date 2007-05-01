@@ -55,19 +55,26 @@ public class SendWareHouseDepositList extends L2GameClientPacket
     protected void readImpl()
     {
         _count = readD();
+		
+		// check packet list size        
         if (_count < 0  || _count * 8 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+        {
             _count = 0;
+        }
+        
         _items = new int[_count * 2];
         for (int i=0; i < _count; i++)
         {
-            int objectId = readD(); _items[i * 2 + 0] = objectId;
-            long cnt    = readD(); 
+			int objectId = readD();
+			_items[i * 2 + 0] = objectId;
+			long cnt = readD(); 
             if (cnt > Integer.MAX_VALUE || cnt < 0)
             {
-                _count = 0; _items = null;
+			    _count = 0;
+			    _items = null;
                 return;
             }
-            _items[i * 2 + 1] = (int)cnt;
+			_items[i * 2 + 1] = (int) cnt;
         }
     }
 
@@ -113,7 +120,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 			L2ItemInstance item = player.checkItemManipulation(objectId, count, "deposit");
             if (item == null)
             	{
-            	_log.warn("Error depositing a warehouse object for char " + player.getName());
+            	_log.warn("Error depositing a warehouse object for char "+player.getName()+" (validity check)");
                 _items[i * 2 + 0] = 0;
                 _items[i * 2 + 1] = 0;                
             	continue;
@@ -162,7 +169,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 
             if (oldItem == null)
             {
-                _log.warn("Error depositing a warehouse object for char " + player.getName());
+            	_log.warn("Error depositing a warehouse object for char "+player.getName()+" (olditem == null)");
                 continue;
             }            
 
@@ -175,7 +182,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 			L2ItemInstance newItem = player.getInventory().transferItem("Warehouse", objectId, count, warehouse, player, player.getLastFolkNPC());
             if (newItem == null)
             {
-            	_log.warn("Error depositing a warehouse object for char " + player.getName());
+            	_log.warn("Error depositing a warehouse object for char "+player.getName()+" (newitem == null)");
             	continue;
             }
 
