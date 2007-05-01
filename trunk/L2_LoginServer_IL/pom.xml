@@ -83,7 +83,7 @@
 		<dependency>
 			<groupId>l2jfree</groupId>
 			<artifactId>l2j-commons</artifactId>
-			<version>1.0.4-SNAPSHOT</version>
+			<version>1.0.4</version>
 		</dependency>
 		<dependency>
 			<groupId>com.l2jserver.mmocore</groupId>
@@ -93,7 +93,7 @@
 		<dependency>
 			<groupId>l2jfree</groupId>
 			<artifactId>l2j-test-tools</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.2</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -152,11 +152,6 @@
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
-					<filters>
-						<filter>
-							src/main/assembly/filter.properties
-						</filter>
-					</filters>
 					<descriptors>
 						<descriptor>
 							src/main/assembly/distribution.xml
