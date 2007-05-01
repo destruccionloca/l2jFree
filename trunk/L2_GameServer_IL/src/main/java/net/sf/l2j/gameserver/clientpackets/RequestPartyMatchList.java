@@ -63,12 +63,6 @@ public class RequestPartyMatchList extends L2GameClientPacket
     protected void readImpl()
 	{
 		_status = readD();
-        //TODO analyse values _unk1-unk5
-        _unk1 = readD();
-        _unk2 = readD();
-        _unk3 = readD();
-        _unk4 = readD();
-        _unk5 = readS();
 	}
 
     protected void runImpl()
