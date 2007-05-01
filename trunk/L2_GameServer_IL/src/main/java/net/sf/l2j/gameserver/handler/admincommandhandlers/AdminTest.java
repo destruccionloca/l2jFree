@@ -76,13 +76,6 @@ public class AdminTest implements IAdminCommandHandler
     		"Options:",
     		"msgID - Id of client system message you want to see",
      	},
-    	{"admin_social",                                 
-    		
-    		"Test social action or NPC animation.",
-    		"Usage: social id",
-    		"Options:",
-    		"id - Id of social action you want to test",
-     	},
     	{"admin_mp",                                 
     		
     		"Enable/disable client-server packets monitor.",
@@ -150,22 +143,6 @@ public class AdminTest implements IAdminCommandHandler
                 else
                 	activeChar.sendMessage("Skill id "+skillId+" not found.");
         	}
-            else
-            	showAdminCommandHelp(activeChar,cmd);
-        }
-        else if (cmd.equals("admin_social"))
-        {
-        	int socId = -1;
-       	
-            try
-            {
-            	socId = Integer.parseInt(st.nextToken());
-            }
-            catch(Exception e)
-            {
-            }
-            if (socId >= 0)
-            	adminTestSocial(activeChar,socId);
             else
             	showAdminCommandHelp(activeChar,cmd);
         }
