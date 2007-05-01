@@ -454,9 +454,9 @@ public class LoginManager
 	{
 		boolean ok = false;
 		
-        _logLoginTries.info("User trying to connect  '"+user+"' "+address.getHostAddress());
-		
-		try
+        _logLoginTries.info("User trying to connect  '"+user+"' "+(address == null ? "null" : address.getHostAddress()));
+
+        try
 		{			
 			
             // o Convert password in utf8 byte array
