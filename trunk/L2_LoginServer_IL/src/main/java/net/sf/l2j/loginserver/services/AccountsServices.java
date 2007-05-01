@@ -234,6 +234,11 @@ public class AccountsServices
             _log.warn (e.getMessage());
             return null;
         }
+        catch (Exception e)
+        {
+            _log.warn ("The account ["+id+"] was not found in account table."+e.getMessage());
+            return null;
+        }        
     }        
     
     
