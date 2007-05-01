@@ -41,7 +41,7 @@ REM for performance usage
 SET CLASSPATH=%CLASSPATH%;javolution-1.5.4.2.6.jar
 
 REM main jar
-SET CLASSPATH=%CLASSPATH%;l2j-commons-1.0.4-SNAPSHOT.jar
+SET CLASSPATH=%CLASSPATH%;l2j-commons-1.0.4.jar
 SET CLASSPATH=%CLASSPATH%;l2j-gameserver-1.0.0.jar
 
 REM spring 
