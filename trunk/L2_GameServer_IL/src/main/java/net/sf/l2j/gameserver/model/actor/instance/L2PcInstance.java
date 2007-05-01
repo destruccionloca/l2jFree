@@ -5721,7 +5721,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
             for (int count = 0; count < recipes.length; count++)
             {
-                statement = con.prepareStatement("INSERT INTO character_recipebook (char_id, id, type) values(?,?,0)");
+                statement = con.prepareStatement("REPLACE INTO character_recipebook (char_id, id, type) values(?,?,0)");
                 statement.setInt(1, getObjectId());
                 statement.setInt(2, recipes[count].getId());
                 statement.execute();
@@ -5731,7 +5731,7 @@ public final class L2PcInstance extends L2PlayableInstance
             recipes = getDwarvenRecipeBook();
             for (int count = 0; count < recipes.length; count++)
             {
-                statement = con.prepareStatement("INSERT INTO character_recipebook (char_id, id, type) values(?,?,1)");
+                statement = con.prepareStatement("REPLACE INTO character_recipebook (char_id, id, type) values(?,?,1)");
                 statement.setInt(1, getObjectId());
                 statement.setInt(2, recipes[count].getId());
                 statement.execute();

@@ -66,12 +66,6 @@ public class RequestDuelStart extends L2GameClientPacket
             return;
         }
         
-        if(target.getClientRevision() < 729)
-        {
-            requestor.sendMessage("A player with C5 Client cant be asked for duell");
-            return;
-        }
-        
         if (target.isCursedWeaponEquiped() || requestor.isCursedWeaponEquiped())
         {
             requestor.sendMessage("A player wielding a Cursed Weapon can't participate in a duel");
