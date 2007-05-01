@@ -129,40 +129,22 @@ public class UseItem extends L2GameClientPacket
 
             if (item.isEquipable())
             {
-                // Don't allow weapon/shield equipment if mounted
+                // No unequipping/equipping while the player is in special conditions
+                if (activeChar.isStunned() || activeChar.isSleeping() || activeChar.isParalyzed()
+                        || activeChar.isAlikeDead())
+                {
+                    activeChar.sendMessage("Your status does not allow you to do that.");
+                    return;
+                }
+                
 				int bodyPart = item.getItem().getBodyPart();
-                if (activeChar.isMounted() 
 
-                	&& (bodyPart == L2Item.SLOT_LR_HAND 
-                        || bodyPart == L2Item.SLOT_L_HAND 
-                        || bodyPart == L2Item.SLOT_R_HAND))
+                // Prevent player to remove the weapon on special conditions (mount something)
+                if ((activeChar.isAttackingNow() || activeChar.isCastingNow() || activeChar.isMounted()))                    
                 {
                     return;
                 }
                 
-                // Prevent player to remove the weapon on special conditions
-                if ((activeChar.isStunned() || activeChar.isSleeping() || activeChar.isAttackingNow()
-                        || activeChar.isCastingNow() || activeChar.isParalyzed() || activeChar.isAlikeDead())
-                        && (bodyPart == L2Item.SLOT_LR_HAND 
-                            || bodyPart == L2Item.SLOT_L_HAND 
-                            || bodyPart == L2Item.SLOT_R_HAND))
-                {
-                    return;
-                }
-                
-                /* Since c5 you can equip weapon again
-                // Don't allow weapon/shield equipment if wearing formal wear
-                if (activeChar.isWearingFormalWear()
-                	&& (bodyPart == L2Item.SLOT_LR_HAND 
-                            || bodyPart == L2Item.SLOT_L_HAND 
-                            || bodyPart == L2Item.SLOT_R_HAND))
-                {
-                        SystemMessage sm = new SystemMessage(SystemMessage.CANNOT_USE_ITEMS_SKILLS_WITH_FORMALWEAR);
-                        activeChar.sendPacket(sm);
-                        return;
-
-                }
-                */
                 // Don't allow weapon/shield equipment if a cursed weapon is equiped
                 if (activeChar.isCursedWeaponEquiped()
                        && ((bodyPart == L2Item.SLOT_LR_HAND 

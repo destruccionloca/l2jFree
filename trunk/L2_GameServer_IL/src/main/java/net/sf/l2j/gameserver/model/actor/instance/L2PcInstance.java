@@ -20,12 +20,12 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -50,6 +50,9 @@ import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2PlayerAI;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.cache.WarehouseCacheManager;
+import net.sf.l2j.gameserver.characters.model.recommendation.CharRecommendation;
+import net.sf.l2j.gameserver.characters.model.recommendation.CharRecommendationStatus;
+import net.sf.l2j.gameserver.characters.service.CharRecommendationService;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.FishTable;
@@ -80,11 +83,11 @@ import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.FishData;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.ItemContainer;
 import net.sf.l2j.gameserver.model.L2Attackable;
-import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
@@ -138,6 +141,7 @@ import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.recipes.manager.CraftManager;
 import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
+import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ChangeWaitType;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
@@ -228,10 +232,6 @@ public final class L2PcInstance extends L2PlayableInstance
     private static final String DELETE_CHAR_HENNA = "DELETE FROM character_hennas WHERE char_obj_id=? AND slot=? AND class_index=?";
     private static final String DELETE_CHAR_HENNAS = "DELETE FROM character_hennas WHERE char_obj_id=? AND class_index=?";
     private static final String DELETE_CHAR_SHORTCUTS = "DELETE FROM character_shortcuts WHERE char_obj_id=? AND class_index=?";
-
-	private static final String RESTORE_CHAR_RECOMS = "SELECT char_id,target_id FROM character_recommends WHERE char_id=?";
-	private static final String ADD_CHAR_RECOM = "INSERT INTO character_recommends (char_id,target_id) VALUES (?,?)";
-	private static final String DELETE_CHAR_RECOMS = "DELETE FROM character_recommends WHERE char_id=?";
 
     public static final int REQUEST_TIMEOUT = 15;
 
@@ -364,18 +364,15 @@ public final class L2PcInstance extends L2PlayableInstance
     
     private boolean _inClanHall;
 
-    /** The number of recommandation obtained by the L2PcInstance */
-    private int _recomHave; // how much I was recommended by others
-
-    /** The number of recommandation that the L2PcInstance can give */
-    private int _recomLeft; // how many recomendations I can give to others
-
-    /** Date when recom points were updated last time */
-    private long _lastRecomUpdate;
-
-    /** List with the recomendations that I've give */
-    private List<Integer> _recomChars = new FastList<Integer>();
-
+    /** service for recommendations manipulation */
+    private CharRecommendationService charRecommendationService = (CharRecommendationService)L2Registry.getBean(IServiceRegistry.CHAR_RECOMMENDATIONS);
+    
+    /** 
+     * Char recommendation status (how many recom I have, how many I can give etc...
+     * WARNING : Use the getter to retrieve it, if not you risk to have a null pointer exception 
+     */
+    private CharRecommendationStatus charRecommendationStatus ;
+    
     /** The random number of the L2PcInstance */
     //private static final Random _rnd = new Random();
     private final int _baseLoad;
@@ -1625,89 +1622,21 @@ public final class L2PcInstance extends L2PlayableInstance
         return _inventory.getTotalWeight();
     }
 
-    /**
-     * Return the number of recommandation obtained by the L2PcInstance.<BR><BR>
-     */
-
-    public long getLastRecomUpdate()
-    {
-        return _lastRecomUpdate;
-    }
-    public void setLastRecomUpdate(long date)
-    {
-        _lastRecomUpdate = date;
-    }
-
-    public int getRecomHave()
-    {
-        return _recomHave;
-    }
-
-    /**
-     * Increment the number of recommandation obtained by the L2PcInstance (Max : 255).<BR><BR>
-     */
-    protected void incRecomHave()
-    {
-        if (_recomHave < 255) _recomHave++;
-    }
-
-    /**
-     * Set the number of recommandation obtained by the L2PcInstance (Max : 255).<BR><BR>
-     */
-    public void setRecomHave(int value)
-    {
-        if (value > 255) _recomHave = 255;
-        else if (value < 0) _recomHave = 0;
-        else _recomHave = value;
-    }
-
-    /**
-     * Return the number of recommandation that the L2PcInstance can give.<BR><BR>
-     */
-    public int getRecomLeft()
-    {
-        return _recomLeft;
-    }
-
-    /**
-     * Increment the number of recommandation that the L2PcInstance can give.<BR><BR>
-     */
-    protected void decRecomLeft()
-    {
-        if (_recomLeft > 0) _recomLeft--;
-    }
-
+ 
     public void giveRecom(L2PcInstance target)
     {
 		if (Config.ALT_RECOMMEND)
 		{
-			java.sql.Connection con = null;
-			try
-			{
-				con = L2DatabaseFactory.getInstance().getConnection(con);
-				PreparedStatement statement = con.prepareStatement(ADD_CHAR_RECOM);
-				statement.setInt(1, getObjectId());
-				statement.setInt(2, target.getObjectId());
-				statement.execute();
-				statement.close();
-			}
-			catch (Exception e)
-			{
-				_log.warn("could not update char recommendations:"+e);
-			}
-			finally
-			{
-				try { con.close(); } catch (Exception e) {}
-			}
+            charRecommendationService.addRecommendation(getObjectId(), target.getObjectId());
 		}    	
-        target.incRecomHave();
-        decRecomLeft();
-        _recomChars.add(target.getObjectId());
+        target.getCharRecommendationStatus().incRecomHave();
+        getCharRecommendationStatus().decRecomLeft();
+        getCharRecommendationStatus().getRecomChars().add(target.getObjectId());
     }
 
     public boolean canRecom(L2PcInstance target)
     {
-    	return !_recomChars.contains(target.getObjectId());
+        return !getCharRecommendationStatus().getRecomChars().contains(target.getObjectId());
     }
 
     /**
@@ -5513,7 +5442,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 player.setCharViP((rset.getInt("charViP")==1) ? true : false);
                 player.setPledgeType(rset.getInt("subpledge"));
                 player.setRank(rset.getInt("pledge_rank"));
-                player.setLastRecomUpdate(rset.getLong("last_recom_date"));
+                player.getCharRecommendationStatus().setLastRecomUpdate(rset.getLong("last_recom_date"));
                 player.setApprentice(rset.getInt("apprentice"));
                 player.setSponsor(rset.getInt("sponsor"));
                 if (player.getClan()!=null)
@@ -5672,30 +5601,11 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	private void restoreRecom()
 	{
-		java.sql.Connection con = null;
-		
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement(RESTORE_CHAR_RECOMS);
-			statement.setInt(1, getObjectId());
-			ResultSet rset = statement.executeQuery();
-			while (rset.next())
-			{
-				_recomChars.add(rset.getInt("target_id"));
-			}
-			
-			rset.close();
-			statement.close();
-		}
-		catch (Exception e)
-		{
-			_log.warn("could not restore recommendations: "+e);
-		}
-		finally
-		{
-			try { con.close(); } catch (Exception e) {}
-		}
+        Set<CharRecommendation> recommendations = charRecommendationService.getRecommendations(getObjectId());
+        for ( CharRecommendation recommendation : recommendations)
+        {
+            getCharRecommendationStatus().getRecomChars().add(recommendation.getTargetId());
+        }
 	}
 
     /**
@@ -5759,7 +5669,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     private void restoreRecipeBook()
     {
-        L2RecipeService l2RecipeService = (L2RecipeService) L2Registry.getBean("L2RecipeService");
+        L2RecipeService l2RecipeService = (L2RecipeService) L2Registry.getBean(IServiceRegistry.RECIPE);
         java.sql.Connection con = null;
 
         try
@@ -5859,8 +5769,8 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(23, getKarma());
             statement.setInt(24, getPvpKills());
             statement.setInt(25, getPkKills());
-            statement.setInt(26, getRecomHave());
-            statement.setInt(27, getRecomLeft());
+            statement.setInt(26, getCharRecommendationStatus().getRecomHave());
+            statement.setInt(27, getCharRecommendationStatus().getRecomLeft());
             statement.setInt(28, getClanId());
             statement.setInt(29, getMaxLoad());
             statement.setInt(30, getRace().ordinal());
@@ -5886,7 +5796,7 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(44, isNoble() ? 1 : 0);
             statement.setLong(45, getPowerGrade());
             statement.setInt(46, getPledgeType());
-            statement.setLong(47,getLastRecomUpdate());
+            statement.setLong(47,getCharRecommendationStatus().getLastRecomUpdate());
             statement.setInt(48,getLvlJoinedAcademy());
             statement.setLong(49,getApprentice());
             statement.setLong(50,getSponsor());
@@ -8806,70 +8716,23 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private void checkRecom(int recsHave, int recsLeft)
     {
-        Calendar check = Calendar.getInstance();
-        check.setTimeInMillis(_lastRecomUpdate);
-        check.add(Calendar.DAY_OF_MONTH,1);
-        
-        Calendar min = Calendar.getInstance();
-
-        _recomHave = recsHave;
-        _recomLeft = recsLeft;
-        
-        if (getStat().getLevel() < 10 || check.after(min) )
-            return;
-        
-        restartRecom();
+        CharRecommendationStatus charRecomStatus = getCharRecommendationStatus();
+        charRecomStatus.setRecomHave(recsHave);
+        charRecomStatus.setRecomLeft(recsLeft);
+        if ( charRecommendationService.needToResetRecommendations (charRecomStatus,getStat().getLevel()))
+        {
+            restartRecom();
+        }
     }
     
     public void restartRecom()
     {
 		if (Config.ALT_RECOMMEND)
 		{
-			java.sql.Connection con = null;
-			try
-			{
-				con = L2DatabaseFactory.getInstance().getConnection(con);
-				PreparedStatement statement = con.prepareStatement(DELETE_CHAR_RECOMS);
-				statement.setInt(1, getObjectId());
-				statement.execute();
-				statement.close();
-
-				_recomChars.clear();
-			}
-			catch (Exception e)
-			{
-				_log.warn("could not clear char recommendations: "+e);
-			}
-			finally
-			{
-				try { con.close(); } catch (Exception e) {}
-			}
+            charRecommendationService.removeAllRecommendations(getObjectId());
 		}
         
-        if (getStat().getLevel() < 20) 
-        {
-            _recomLeft = 3;
-            _recomHave--;
-        }
-        else if (getStat().getLevel() < 40) 
-        {
-            _recomLeft = 6;
-            _recomHave -= 2;
-        }
-        else
-        {
-            _recomLeft = 9;
-            _recomHave -= 3;
-        }
-        
-        if (_recomHave < 0) 
-            _recomHave = 0;
-        
-        // If we have to update last update time, but it's now before 13, we should set it to yesterday
-        Calendar update = Calendar.getInstance();
-        if(update.get(Calendar.HOUR_OF_DAY) < 13) update.add(Calendar.DAY_OF_MONTH,-1);
-        update.set(Calendar.HOUR_OF_DAY,13);
-        _lastRecomUpdate = update.getTimeInMillis();
+        charRecommendationService.initCharRecommendationStatus (getStat().getLevel(),getCharRecommendationStatus());
     }
 
     public int getBoatId()
@@ -10390,4 +10253,24 @@ public final class L2PcInstance extends L2PlayableInstance
    {
        ReuseTimeStamps.remove(s);
    }
+   
+   /**
+    * @return the charRecommendationStatus (create it if null)
+    */
+   public CharRecommendationStatus getCharRecommendationStatus()
+   {
+       if ( charRecommendationStatus == null )
+       {
+           charRecommendationStatus = new CharRecommendationStatus();
+       }
+       return charRecommendationStatus;
+   }
+   
+   /**
+    * @param charRecommendationStatus the charRecommendationStatus to set
+    */
+   public void setCharRecommendationStatus(CharRecommendationStatus charRecommendationStatus)
+   {
+       this.charRecommendationStatus = charRecommendationStatus;
+   }   
 }

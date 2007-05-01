@@ -250,8 +250,8 @@ public class CharInfo extends L2GameServerPacket
 			writeC(0x00);	// find party members
 			
 	        writeD(_cha.getAbnormalEffect());
-			writeC(_cha.getRecomLeft());                       //Changed by Thorgrim
-			writeH(_cha.getRecomHave()); //Blue value for name (0 = white, 255 = pure blue)
+			writeC(_cha.getCharRecommendationStatus().getRecomLeft());                       //Changed by Thorgrim
+			writeH(_cha.getCharRecommendationStatus().getRecomHave()); //Blue value for name (0 = white, 255 = pure blue)
 			writeD(_cha.getClassId().getId());
 			
 			writeD(_maxCp);

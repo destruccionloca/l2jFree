@@ -213,7 +213,7 @@ public class AdminEditChar implements IAdminCommandHandler
                 else
                     return false;
 
-                player.setRecomHave(player.getRecomHave() + 1);
+                player.getCharRecommendationStatus().setRecomHave(player.getCharRecommendationStatus().getRecomHave() + 1);
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                 sm.addString("You have been recommended by a GM");
                 player.sendPacket(sm);
@@ -234,7 +234,7 @@ public class AdminEditChar implements IAdminCommandHandler
                     } else {
                         return false;
                     }
-                    player.setRecomHave(player.getRecomHave() + recVal);
+                    player.getCharRecommendationStatus().setRecomHave(player.getCharRecommendationStatus().getRecomHave() + recVal);
                     SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                     sm.addString("You have been recommended by a GM");
                     player.sendPacket(sm);

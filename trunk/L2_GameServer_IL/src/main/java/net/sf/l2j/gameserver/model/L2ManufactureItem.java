@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.model;
 
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
+import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.tools.L2Registry;
 
 
@@ -36,7 +37,7 @@ public class L2ManufactureItem
     
     public L2ManufactureItem(int recipeId, int cost)
     {
-        __l2RecipeService = (L2RecipeService) L2Registry.getBean("L2RecipeService");
+        __l2RecipeService = (L2RecipeService) L2Registry.getBean(IServiceRegistry.RECIPE);
         _recipeId = recipeId;
         _cost = cost;
         

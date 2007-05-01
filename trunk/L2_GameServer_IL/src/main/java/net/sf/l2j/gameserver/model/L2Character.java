@@ -4108,85 +4108,6 @@ public abstract class L2Character extends L2Object
                 return (dx*dx + dy*dy) <= radius * radius;
         }
     }
-       
-// /**
-//  * event that is called when the destination coordinates are reached
-//  */
-// public void onTargetReached()
-// {
-//     L2Character pawn = getPawnTarget();
-//
-//     if (pawn != null)
-//     {
-//         int x = pawn.getX(), y=pawn.getY(),z = pawn.getZ();
-//
-//         double distance = getDistance(x,y);
-//         if (getCurrentState() == STATE_FOLLOW)
-//         {
-//             calculateMovement(x,y,z,distance);
-//             return;
-//         }
-//
-//         //          takes care of moving away but distance is 0 so i won't follow problem
-//
-//
-//         if (((distance > getAttackRange()) && (getCurrentState() == STATE_ATTACKING)) || (pawn.isMoving() && getCurrentState() != STATE_ATTACKING))
-//         {
-//             calculateMovement(x,y,z,distance);
-//             return;
-//         }
-//
-//     }
-//     //       update x,y,z with the current calculated position
-//     stopMove();
-//
-//     if (_log.isDebugEnabled())
-//         _log.debug(this.getName() +":: target reached at: x "+getX()+" y "+getY()+ " z:" + getZ());
-//
-//     if (getPawnTarget() != null)
-//     {
-//
-//         setPawnTarget(null);
-//         setMovingToPawn(false);
-//     }
-// }
-//
-// public void setTo(int x, int y, int z, int heading)
-// {
-//     setX(x);
-//     setY(y);
-//     setZ(z);
-//     setHeading(heading);
-//     updateCurrentWorldRegion(); //TODO: maybe not needed here
-//     if (isMoving())
-//     {
-//         setCurrentState(STATE_IDLE);
-//         StopMove setto = new StopMove(this);
-//         broadcastPacket(setto);
-//     }
-//     else
-//     {
-//         ValidateLocation setto = new ValidateLocation(this);
-//         broadcastPacket(setto);
-//     }
-//
-//     FinishRotation fr = new FinishRotation(this);
-//     broadcastPacket(fr);
-// }
-
-
-// protected void startCombat()
-// {
-//     if (_currentAttackTask == null )//&& !isInCombat())
-//     {
-//         _currentAttackTask = ThreadPoolManager.getInstance().scheduleMed(new AttackTask(), 0);
-//     }
-//     else
-//     {
-//         _log.info("multiple attacks want to start in parallel. prevented.");
-//     }
-// }
-//
 
    /**
     * Return the Weapon Expertise Penalty of the L2Character.<BR><BR>
@@ -4518,35 +4439,6 @@ public abstract class L2Character extends L2Object
                        _log.warn("Skill 4515 at level 99 is missing in DP.");
                }
            }
-            
-            /* COMMENTED OUT BY nexus - 2006-08-17
-             * 
-             * We must not discharge the soulshouts at the onHitTimer method,
-             * as this can cause unwanted soulshout consumption if the attacker
-             * recharges the soulshot right after an attack request but before
-             * his hit actually lands on the target.
-             * 
-             * The soulshot discharging has been moved to the doAttack method:
-             * As soon as we know that we didn't missed the hit there, then we
-             * must discharge any charged soulshots.
-             */
-            /*
-            L2ItemInstance weapon = getActiveWeaponInstance();
-
-            if (!miss)
-            {
-                if (this instanceof L2Summon && !(this instanceof L2PetInstance))
-                {
-                    if (((L2Summon)this).getChargedSoulShot() != L2ItemInstance.CHARGED_NONE)
-                        ((L2Summon)this).setChargedSoulShot(L2ItemInstance.CHARGED_NONE);
-                }
-                else
-                {
-                    if (weapon != null && weapon.getChargedSoulshot() != L2ItemInstance.CHARGED_NONE)
-                        weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
-                }
-            }
-            */
             
             return;
         }
@@ -5520,15 +5412,6 @@ public abstract class L2Character extends L2Object
        else return;
    }
 
-// public void checkPvPFlag()
-//   {
-//     if (_log.isDebugEnabled()) _log.debug("Checking PvpFlag");
-//     _PvPRegTask = ThreadPoolManager.getInstance().scheduleLowAtFixedRate(
-//             new PvPFlag(), 1000, 5000);
-//     _PvPRegActive = true;
-//     //  _log.debug("PvP recheck");
-// }
-//
 
    /**
     * Return a Random Damage in function of the weapon.<BR><BR>

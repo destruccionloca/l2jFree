@@ -121,14 +121,6 @@ public final class L2World
 
         _allObjects.put(object);
     }
-    
-    public long timeStoreObject(L2Object object)
-    {
-        long time   = System.currentTimeMillis();
-        _allObjects.put(object);
-        time        -= System.currentTimeMillis();
-        return time;
-    }
 
     /**
      * Remove L2Object object from _allObjects of L2World.<BR><BR>

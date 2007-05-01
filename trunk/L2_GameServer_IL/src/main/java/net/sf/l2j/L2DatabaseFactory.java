@@ -46,13 +46,21 @@ public class L2DatabaseFactory
     private static L2DatabaseFactory _instance;
     private ProviderType _Provider_Type;
 	
-    // =========================================================
-    // Constructor
+    /**
+     * Private constructor to avoid direct initialization
+     * Load the registry if it does not already exist
+     * Initialize the provider Type    
+     * @throws Throwable if the registry wasn't load
+     */
 	private L2DatabaseFactory() throws Throwable
 	{
 		try
 		{
-			L2Registry.loadRegistry(new String[]{"spring.xml"});
+            
+            if ( L2Registry.getApplicationContext() == null )
+            {
+                L2Registry.loadRegistry(new String[]{"spring.xml"});
+            }
             
             if (Config.DATABASE_DRIVER.toLowerCase().contains("microsoft"))
                 _Provider_Type = ProviderType.MsSql;
@@ -112,7 +120,7 @@ public class L2DatabaseFactory
     
     /**
      * This method just return the singleton _instance
-     * Don't forge to call initialize in the main of the program
+     * Don't forget to call initialize in the main of the program
      * before using this method
      * @return L2DatabaseFactory
      * @see net.sf.l2j.L2DatabaseFactory.initInstance

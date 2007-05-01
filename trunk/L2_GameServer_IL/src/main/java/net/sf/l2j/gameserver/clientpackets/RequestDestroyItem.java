@@ -79,9 +79,9 @@ public class RequestDestroyItem extends L2GameClientPacket
 		if (activeChar == null)
 		    return;
 		
-		if(_count <= 0)
+		if(_count < 0)
 		{
-			Util.handleIllegalPlayerAction(activeChar,"[RequestDestroyItem] count <= 0! ban! oid: "+_objectId+" owner: "+activeChar.getName(),Config.DEFAULT_PUNISH);
+			Util.handleIllegalPlayerAction(activeChar,"[RequestDestroyItem] count < 0! ban! oid: "+_objectId+" owner: "+activeChar.getName(),Config.DEFAULT_PUNISH);
 			return;
 		}
 		

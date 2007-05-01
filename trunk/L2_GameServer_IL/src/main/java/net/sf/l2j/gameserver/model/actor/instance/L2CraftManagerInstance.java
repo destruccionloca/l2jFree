@@ -14,6 +14,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.model.L2RecipeComponent;
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
+import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.MultiSellList;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -42,7 +43,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
     public L2CraftManagerInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-        __l2RecipeService = (L2RecipeService) L2Registry.getBean("L2RecipeService");
+        __l2RecipeService = (L2RecipeService) L2Registry.getBean(IServiceRegistry.RECIPE);
     }
     
     public void onAction(L2PcInstance player)

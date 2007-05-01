@@ -41,7 +41,6 @@
 			   <prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
 			   <prop key="hibernate.show_sql">true</prop>
 			   <prop key="hibernate.hbm2ddl.auto">create-drop</prop>			   
-			   <prop key="hibernate.HBM2DDL.AUTO">create-drop</prop>
 			   <prop key="hibernate.cache.use_query_cache">true</prop>
 			   <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
 			</props>
@@ -74,6 +73,9 @@
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
+	</bean> 
+
+    <bean id="CharRecommendationsDAO" class="net.sf.l2j.gameserver.characters.dao.impl.CharRecommendationsDAOJdbc">
 	</bean> 
 	
 	<!-- 

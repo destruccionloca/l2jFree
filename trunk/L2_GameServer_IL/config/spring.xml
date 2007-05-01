@@ -104,6 +104,11 @@
     <bean id="ExtractableItemsDAO" class="net.sf.l2j.gameserver.items.dao.impl.ExtractableItemsDAOCsv">
 	</bean> 	
 
+	<!-- 
+		DAO for characters
+	 -->
+    <bean id="CharRecommendationsDAO" class="net.sf.l2j.gameserver.characters.dao.impl.CharRecommendationsDAOJdbc">
+	</bean> 
 
 	<!-- 
 		Service to manage versions 
@@ -127,6 +132,15 @@
 			<ref bean="PostsDAO" />
 		</property>
 	</bean> 
+	
+	<!-- 
+		Service to manage characters 
+	 -->	
+    <bean id="CharRecommendationService" class="net.sf.l2j.gameserver.characters.service.CharRecommendationService">
+		<property name="charRecommendationsDAO">
+			<ref bean="CharRecommendationsDAO" />
+		</property>
+	</bean>
 	
 	<!-- 
 		Service to manage Recipes 

@@ -47,6 +47,7 @@ import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.quest.Quest;
+import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.ClientSetTime;
 import net.sf.l2j.gameserver.serverpackets.Die;
 import net.sf.l2j.gameserver.serverpackets.ExStorageMaxCount;
@@ -245,7 +246,7 @@ public class EnterWorld extends L2GameClientPacket
 	        sm.addString(LoginServerThread.getInstance().getServerName());
 	        sendPacket(sm);
         
-            VersionningService versionningService = (VersionningService)L2Registry.getBean("VersionningService");
+            VersionningService versionningService = (VersionningService)L2Registry.getBean(IServiceRegistry.VERSIONNING);
             Version version = versionningService.getVersion();
             if (version!= null)
 	        {
@@ -307,17 +308,6 @@ public class EnterWorld extends L2GameClientPacket
 		
 		PetitionManager.getInstance().checkPetitionMessages(activeChar);
 				
-		// send user info again .. just like the real client
-        // sendPacket(ui);
-/*
-        if (activeChar.getClanId() != 0 && activeChar.getClan() != null)
-        {
-            if(activeChar.isClanLeader()) 
-                activeChar.setClanPrivileges(L2Clan.CP_ALL);
-            sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
-            sendPacket(new PledgeStatusChanged(activeChar.getClan()));
-            sendPacket(new PledgeReceivePowerInfo(activeChar));
-    	}*/
         if (activeChar.getClanId() != 0 && activeChar.getClan() != null)
         {
             sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
@@ -381,8 +371,6 @@ public class EnterWorld extends L2GameClientPacket
 
         QuestList ql = new QuestList();
         activeChar.sendPacket(ql);
-        
-//        activeChar.setClientRevision(getClient().getRevision());
 	}
 
 
