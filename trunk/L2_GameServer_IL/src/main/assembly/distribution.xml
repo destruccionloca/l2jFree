@@ -25,5 +25,12 @@
       	<include>*.*</include>
       </includes>
     </fileSet>    
+    <fileSet>
+      <directory>doc/</directory>
+      <outputDirectory>dist/doc/</outputDirectory>
+      <includes>
+      	<include>*.*</include>
+      </includes>
+    </fileSet>    
   </fileSets>
 </assembly>
