@@ -1917,7 +1917,7 @@ INSERT INTO `etcitem` VALUES (6391, 'Pollen', 'false', 'none', 0, 'stackable', '
 INSERT INTO `etcitem` VALUES (6390, 'Large Squash Seed', 'false', 'none', 0, 'stackable', 'paper', 'none', 0, 0, 0, 'true', 'false', 'true', 'true', 'C4Item', 'none');
 INSERT INTO `etcitem` VALUES (6389, 'Squash Seed', 'false', 'none', 0, 'stackable', 'paper', 'none', 0, 0, 0, 'true', 'false', 'true', 'true', 'C4Item', 'none');
 INSERT INTO `etcitem` VALUES (6388, 'Lord of the Manor''s Certificate of Approval', 'false', 'none', 0, 'stackable', 'liquid', 'none', 0, 0, 0, 'true', 'true', 'true', 'true', 'C4Item', 'none');
-INSERT INTO `etcitem` VALUES (6353, 'Blue Gemstone', 'false', 'none', 0, 'stackable', 'liquid', 'none', 0, 0, 0, 'true', 'true', 'true', 'true', 'blue_gem', 'none');
+INSERT INTO `etcitem` VALUES (6353, 'Blue Gemstone', 'false', 'quest', 0, 'stackable', 'liquid', 'none', 0, 0, 0, 'true', 'true', 'true', 'true', 'blue_gem', 'none');
 INSERT INTO `etcitem` VALUES (6350, 'Amulet: Pa''agrio''s Honor', 'false', 'spellbook', 120, 'normal', 'paper', 'none', 0, 8700, 0, 'true', 'true', 'true', 'true', 'sb_honor_of_paagrio1', 'none');
 INSERT INTO `etcitem` VALUES (6322, 'Sage''s Stone', 'false', 'quest', 0, 'stackable', 'crystal', 'none', 100, 0, 0, 'false', 'false', 'true', 'false', 'philosophers_stone', 'none');
 INSERT INTO `etcitem` VALUES (6321, 'True Gold', 'false', 'quest', 0, 'stackable', 'crystal', 'none', 100, 0, 0, 'false', 'false', 'true', 'false', 'false_gold', 'none');
