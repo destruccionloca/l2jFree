@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.cache.HtmCache;
+import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
@@ -352,6 +353,8 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.sendPacket(new SystemMessage(SystemMessage.CLAN_MEMBERSHIP_TERMINATED));
 		}
 
+        RegionBBSManager.getInstance().changeCommunityBoard();
+        
         if(Config.GAMEGUARD_ENFORCE)
             activeChar.sendPacket(new GameGuardQuery());
         

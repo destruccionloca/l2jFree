@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.SevenSignsFestival;
+import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Party;
@@ -146,6 +147,8 @@ public class Logout extends L2GameClientPacket
             player.getActiveRequester().onTradeCancel(player);
             player.onTradeCancel(player.getActiveRequester());
         }
+        
+        RegionBBSManager.getInstance().changeCommunityBoard();
         
         player.getInventory().updateDatabase();
         player.deleteMe();

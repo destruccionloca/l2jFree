@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -80,12 +81,15 @@ public class AdminEffects implements IAdminCommandHandler
            activeChar.decayMe();
            activeChar.spawnMe();
           
+            RegionBBSManager.getInstance().changeCommunityBoard();
            //activeChar.teleToLocation(activeChar.getX(), activeChar.getY(), activeChar.getZ());
        }
        if (command.equals("admin_vis")||command.equals("admin_visible"))
        {
     	   activeChar.getAppearance().setVisible();
     	   activeChar.broadcastUserInfo();
+           
+            RegionBBSManager.getInstance().changeCommunityBoard();
        }
        if (command.startsWith("admin_earthquake"))
        {

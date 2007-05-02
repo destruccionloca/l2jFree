@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -52,6 +53,8 @@ public class AdminKick implements IAdminCommandHandler {
                 if (player != null)
                 {
                     kickPlayer (player);
+                    RegionBBSManager.getInstance().changeCommunityBoard();
+
                 }
             }
         }
