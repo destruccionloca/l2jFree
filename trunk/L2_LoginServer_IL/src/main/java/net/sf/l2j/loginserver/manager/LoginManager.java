@@ -18,11 +18,13 @@
  */
 package net.sf.l2j.loginserver.manager;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.InetAddress;
 import java.security.GeneralSecurityException;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.spec.RSAKeyGenParameterSpec;
 import java.util.Collection;
@@ -42,7 +44,9 @@ import net.sf.l2j.loginserver.beans.FailedLoginAttempt;
 import net.sf.l2j.loginserver.beans.GameServerInfo;
 import net.sf.l2j.loginserver.beans.SessionKey;
 import net.sf.l2j.loginserver.services.AccountsServices;
+import net.sf.l2j.loginserver.services.exception.AccountBannedException;
 import net.sf.l2j.loginserver.services.exception.AccountModificationException;
+import net.sf.l2j.loginserver.services.exception.AccountWrongPasswordException;
 import net.sf.l2j.loginserver.services.exception.HackingException;
 import net.sf.l2j.loginserver.thread.GameServerThread;
 import net.sf.l2j.tools.L2Registry;
@@ -281,33 +285,56 @@ public class LoginManager
 		return false;
 	}
 	
-	public boolean tryAuthLogin(String account, String password, L2LoginClient client) throws HackingException
+    /**
+     * 
+     * @param account
+     * @param password
+     * @param client
+     * @return true if validation succeed or false if we have technical problems
+     * @throws HackingException if we detect a hacking attempt
+     * @throws AccountBannedException if the use was banned
+     * @throws AccountWrongPasswordException if the password was wrong
+     */
+	public boolean tryAuthLogin(String account, String password, L2LoginClient client) 
+    throws HackingException, AccountBannedException, AccountWrongPasswordException
 	{
 		boolean ret = false;
 		if (!this.isAccountInAnyGameServer(account))
 		{
-			ret = this.loginValid(account, password, client);
+			try
+            {
+                ret = this.loginValid(account, password, client);
+                
+                // dont allow 2 simultaneous login
+                synchronized (_loginServerClients)
+                {
+                    if (!_loginServerClients.containsKey(account))
+                    {
+                        _loginServerClients.put(account, client);
+                        ret = true;
+                    }
+                }
 
-			// was auth ok?
-			if (ret)
-			{
-				// dont allow 2 simultaneous login
-				synchronized (_loginServerClients)
-				{
-					if (!_loginServerClients.containsKey(account))
-					{
-						_loginServerClients.put(account, client);
-						ret = true;
-					}
-				}
-
-				// was login successful?
-				if (ret)
-				{
-					// remove him from the non-authed list
-					this.removeLoginClient(client);
-				}
-			}
+                // was login successful?
+                if (ret)
+                {
+                    // remove him from the non-authed list
+                    this.removeLoginClient(client);
+                }
+                
+            } 
+            catch (NoSuchAlgorithmException e)
+            {
+                _log.error("could not check password:"+e);
+            } 
+            catch (UnsupportedEncodingException e)
+            {
+                _log.error("could not check password:"+e);
+            } 
+            catch (AccountModificationException e)
+            {
+                _log.warn("could not check password:"+e);
+            } 
 		}
 		return ret;
 	}	
@@ -430,9 +457,15 @@ public class LoginManager
 	 * @param user
 	 * @param password
 	 * @param address
-	 * @return
+     * @return true if all operations succeed
+     * @throws NoSuchAlgorithmException if SHA is not supported
+     * @throws UnsupportedEncodingException if UTF-8 is not supported
+     * @throws AccountModificationException  if we were unable to modify the account
+     * @throws AccountBannedException  if account is banned
+     * @throws AccountWrongPasswordException if the password is wrong
 	 */
 	public boolean loginValid(String user, String password, L2LoginClient client) 
+    throws NoSuchAlgorithmException, UnsupportedEncodingException, AccountModificationException, AccountBannedException, AccountWrongPasswordException
 	{
 		InetAddress address = client.getConnection().getSocketChannel().socket().getInetAddress();
 		return loginValid(user,password,address);
@@ -443,73 +476,68 @@ public class LoginManager
 	 * @param user
 	 * @param password
 	 * @param address
-	 * @return
+	 * @return true if all operations succeed
+	 * @throws NoSuchAlgorithmException if SHA is not supported
+	 * @throws UnsupportedEncodingException if UTF-8 is not supported
+	 * @throws AccountModificationException  if we were unable to modify the account
+	 * @throws AccountBannedException  if account is banned
+	 * @throws AccountWrongPasswordException if the password is wrong
 	 */
 	public boolean loginValid(String user, String password, InetAddress address) 
+    throws NoSuchAlgorithmException, UnsupportedEncodingException, AccountModificationException, AccountBannedException, AccountWrongPasswordException  
 	{
-		boolean ok = false;
-		
         _logLoginTries.info("User trying to connect  '"+user+"' "+(address == null ? "null" : address.getHostAddress()));
 
-        try
-		{			
-			
-            // o Convert password in utf8 byte array
-            // ----------------------------------
-            MessageDigest md = MessageDigest.getInstance("SHA");
-            byte[] raw = password.getBytes("UTF-8");
-            byte[] hash = md.digest(raw);            
-            
-            // o find Account
-            // -------------
-			Accounts acc = _service.getAccountById(user);
-            
-            // If account is not found
-            // try to create it if AUTO_CREATE_ACCOUNTS is activated
-            // or return false
-            // ------------------------------------------------------
-			if (acc == null)
-			{
-				return handleAccountNotFound(user, address, hash);
-			}
-            // If account is found
-            // check password and update last ip/last active
-            // ---------------------------------------------
-            else
+        // o Convert password in utf8 byte array
+        // ----------------------------------
+        MessageDigest md = MessageDigest.getInstance("SHA");
+        byte[] raw = password.getBytes("UTF-8");
+        byte[] hash = md.digest(raw);            
+        
+        // o find Account
+        // -------------
+		Accounts acc = _service.getAccountById(user);
+        
+        // If account is not found
+        // try to create it if AUTO_CREATE_ACCOUNTS is activated
+        // or return false
+        // ------------------------------------------------------
+		if (acc == null)
+		{
+			return handleAccountNotFound(user, address, hash);
+		}
+        // If account is found
+        // check ban state
+        // check password and update last ip/last active
+        // ---------------------------------------------
+        else
+        {
+            // check the account is not ban
+            if ( acc.getAccessLevel() < 0 )
             {
-                ok = checkPassword(hash,acc);
-    			if (ok)
-    			{
-    				acc.setLastactive(new BigDecimal(System.currentTimeMillis()));
-                    if ( address != null )
-                    {
-                        acc.setLastIp(address.getHostAddress());
-                    }
-                    _service.addOrUpdateAccount(acc);
-    			}
+                throw new AccountBannedException (user);
             }
-		}
-		catch (Exception e)
-		{
-			// digest algo not found ??
-			// out of bounds should not be possible
-			_log.warn("could not check password:"+e);
-			ok = false;
-		} 
+            try
+            {
+                checkPassword(hash,acc);
+    			acc.setLastactive(new BigDecimal(System.currentTimeMillis()));
+                if ( address != null )
+                {
+                    acc.setLastIp(address.getHostAddress());
+                }
+                _service.addOrUpdateAccount(acc);
+                handleGoodLogin(user, address);
+            }
+            // If password are different
+            // -------------------------
+            catch (AccountWrongPasswordException e)
+            {
+                handleBadLogin(user, password, address);
+                throw e;
+            }
+        }
 		
-        // If password are different
-        // -------------------------
-		if (!ok)
-		{
-            handleBadLogin(user, password, address);
-		}
-        // else...
-		else
-		{
-			handleGoodLogin(user, address);
-		}
-		
-		return ok;
+		return true;
 	}
 
     /**
@@ -566,14 +594,12 @@ public class LoginManager
     /**
      * @param hash
      * @param acc 
-     * @return true if password are identical
+     * @throws AccountWrongPasswordException if password is wrong 
      */
-    private boolean checkPassword(byte[] hash, Accounts acc)
+    private void checkPassword(byte[] hash, Accounts acc) 
+    throws AccountWrongPasswordException
     {
-        boolean ok;
         if (_log.isDebugEnabled() )_log.debug("account exists");
-        
-        ok = true;
         
         byte[] expected = Base64.decode(acc.getPassword());
         
@@ -581,11 +607,9 @@ public class LoginManager
         {
         	if (hash[i] != expected[i])
         	{
-        		ok = false;
-        		break;
+        		throw new AccountWrongPasswordException(acc.getLogin());
         	}
         }
-        return ok;
     }
 
     /**

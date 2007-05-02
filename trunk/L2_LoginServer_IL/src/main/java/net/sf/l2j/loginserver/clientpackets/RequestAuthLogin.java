@@ -23,9 +23,6 @@ import java.security.GeneralSecurityException;
 
 import javax.crypto.Cipher;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.L2LoginClient;
 import net.sf.l2j.loginserver.L2LoginClient.LoginClientState;
@@ -35,7 +32,12 @@ import net.sf.l2j.loginserver.manager.LoginManager;
 import net.sf.l2j.loginserver.serverpackets.LoginOk;
 import net.sf.l2j.loginserver.serverpackets.ServerList;
 import net.sf.l2j.loginserver.serverpackets.LoginFail.LoginFailReason;
+import net.sf.l2j.loginserver.services.exception.AccountBannedException;
+import net.sf.l2j.loginserver.services.exception.AccountWrongPasswordException;
 import net.sf.l2j.loginserver.services.exception.HackingException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Format: x
@@ -151,7 +153,7 @@ public class RequestAuthLogin extends L2LoginClientPacket
                 }
                 else
                 {
-                    client.close(LoginFailReason.REASON_USER_OR_PASS_WRONG);
+                    client.close(LoginFailReason.REASON_SYSTEM_ERROR);
                 }
             }
         }
@@ -160,6 +162,14 @@ public class RequestAuthLogin extends L2LoginClientPacket
             InetAddress address = this.getClient().getConnection().getSocketChannel().socket().getInetAddress();
             BanManager.getInstance().addBanForAddress(address, Config.BAN_DURATION_AFTER_LOGIN_FAILURE*1000);
             _log.info("Banned ("+address+") for "+Config.BAN_DURATION_AFTER_LOGIN_FAILURE+" seconds, due to "+e.getConnects()+" incorrect login attempts.");
+        }
+        catch (AccountBannedException e)
+        {
+            client.close(LoginFailReason.REASON_ACCOUNT_BANNED);
+        } 
+        catch (AccountWrongPasswordException e)
+        {
+            client.close(LoginFailReason.REASON_USER_OR_PASS_WRONG);
         }
     }    
 

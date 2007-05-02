@@ -51,6 +51,7 @@ public class AccountsDAOMock  implements AccountsDAO
     public AccountsDAOMock()
     {
         referential.put("player1", new Accounts("player1","UqW5IPUACYelC13kW52+69qJwxQ=",new BigDecimal(0),new Integer(100),"127.0.0.1"));
+        referential.put("player2", new Accounts("player2","UqW5IPUACYelC13kW52+69qJwxQ=",new BigDecimal(0),new Integer(-1),"127.0.0.2"));
     }
     
 

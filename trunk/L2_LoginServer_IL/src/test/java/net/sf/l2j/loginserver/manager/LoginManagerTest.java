@@ -33,6 +33,8 @@ import java.net.UnknownHostException;
 import junit.framework.TestCase;
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.beans.SessionKey;
+import net.sf.l2j.loginserver.services.exception.AccountBannedException;
+import net.sf.l2j.loginserver.services.exception.AccountWrongPasswordException;
 import net.sf.l2j.tools.L2Registry;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -97,86 +99,72 @@ public class LoginManagerTest extends TestCase
         assertTrue(!loginManager.isGM("player1"));
     }
 
-    public void testConnection() throws IOException
+    public void testAccountBanned () throws Exception
     {
-        Socket client=null;
         Config.LOGIN_TRY_BEFORE_BAN = 3;
+        
+        InetAddress netAddress = InetAddress.getByName("123.123.123.123");
         try
         {
-            // just for test, open a socket on something
-            client = new Socket("www.google.com", 80);
+            loginManager.loginValid("player2", "testpwd", netAddress);
+            fail ("the user is banned should fail");
         }
-        catch (UnknownHostException e1)
+        catch (AccountBannedException e)
         {
-            fail(e1.getMessage());
+            assertNotNull(e.getMessage(),e);
         }
-        catch (IOException e1)
-        {
-            fail(e1.getMessage());
-        }
+    }
+    public void testConnection() throws Exception
+    {
+        Config.LOGIN_TRY_BEFORE_BAN = 3;
+        
+        InetAddress netAddress = InetAddress.getByName("123.123.123.123");
         try
         {
-            assertFalse(loginManager.loginValid("player1", "testpwd", client.getInetAddress()));
-            assertTrue(loginManager.loginValid("player1", "testpwd1", client.getInetAddress()));
+            loginManager.loginValid("player1", "testpwd", netAddress);
+            fail ("the password should fail");
+        }
+        catch (AccountWrongPasswordException e)
+        {
+            assertNotNull(e.getMessage(),e);
+        }
+            
+        try
+        {
+            assertTrue(loginManager.loginValid("player1", "testpwd1", netAddress));
         }
         catch (Exception e)
         {
             fail(e.getMessage());
         }
-        finally
-        {
-            if (client != null)
-            {
-                client.close();
-            }
-        }
     }
     
     public void testHackingAttempt() throws IOException
     {
-        Socket client=null;
         Config.LOGIN_TRY_BEFORE_BAN = 3;
-        try
-        {
-            // just for test, open a socket on something
-            client = new Socket("www.google.com", 80);
-        }
-        catch (UnknownHostException e1)
-        {
-            fail(e1.getMessage());
-        }
-        catch (IOException e1)
-        {
-            fail(e1.getMessage());
-        }
+        InetAddress netAddress = InetAddress.getByName("123.123.123.123");
+
         try
         {
             // First try, failed connect = 1
-            assertFalse(loginManager.loginValid("player1", "testpwd", client.getInetAddress()));
-            assertFalse(BanManager.getInstance().isBannedAddres(client.getInetAddress()));
+            assertFalse(loginManager.loginValid("player1", "testpwd", netAddress));
+            assertFalse(BanManager.getInstance().isBannedAddres(netAddress));
             // 2nd try, failed connect = 2
-            assertFalse(loginManager.loginValid("player1", "testpwd2", client.getInetAddress()));
-            assertFalse(BanManager.getInstance().isBannedAddres(client.getInetAddress()));
+            assertFalse(loginManager.loginValid("player1", "testpwd2", netAddress));
+            assertFalse(BanManager.getInstance().isBannedAddres(netAddress));
             // 3rd try, failed connect = 3 => ban ip
-            assertFalse(loginManager.loginValid("player1", "testpwd3", client.getInetAddress()));
-            assertTrue(BanManager.getInstance().isBannedAddres(client.getInetAddress()));
+            assertFalse(loginManager.loginValid("player1", "testpwd3", netAddress));
+            assertTrue(BanManager.getInstance().isBannedAddres(netAddress));
         }
         catch (Exception e)
         {
             assertNotNull(e);
         }
-        finally
-        {
-            if (client != null)
-            {
-                client.close();
-            }
-        }
         // don't forget to unban client to avoid perturbation on other tests
-        BanManager.getInstance().removeBanForAddress(client.getInetAddress().getHostAddress());
+        BanManager.getInstance().removeBanForAddress(netAddress.getHostAddress());
     }
     
-    public void testLoginWithNullAdress ()
+    public void testLoginWithNullAdress () throws Exception
     {
         InetAddress address = null;
         assertFalse(loginManager.loginValid("unknownplayer", "pwdforplayer", address));
