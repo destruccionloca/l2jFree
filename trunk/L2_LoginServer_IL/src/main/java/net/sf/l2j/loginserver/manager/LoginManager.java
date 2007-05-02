@@ -411,12 +411,7 @@ public class LoginManager
      */
     public Accounts getAccount (String user)
     {
-        Accounts acc = _service.getAccountById(user);
-        if ( acc != null )
-            return acc;
-        else
-            return null;
-                
+        return _service.getAccountById(user);
     }
 	
 	/**
@@ -486,7 +481,10 @@ public class LoginManager
     			if (ok)
     			{
     				acc.setLastactive(new BigDecimal(System.currentTimeMillis()));
-                    acc.setLastIp(address.getHostAddress());
+                    if ( address != null )
+                    {
+                        acc.setLastIp(address.getHostAddress());
+                    }
                     _service.addOrUpdateAccount(acc);
     			}
             }
@@ -522,8 +520,11 @@ public class LoginManager
     {
         // for long running servers, this should prevent blocking 
         // of users that mistype their passwords once every day :)
-        _hackProtection.remove(address.getHostAddress());
-        if (_logLogin.isDebugEnabled())_log.debug("login successfull for '"+user+"' "+address.getHostAddress());
+        if ( address != null )
+        {
+            _hackProtection.remove(address.getHostAddress());
+        }
+        if (_logLogin.isDebugEnabled())_log.debug("login successfull for '"+user+"' "+(address == null ? "null" : address.getHostAddress()));
     }
 
     /**
@@ -536,26 +537,30 @@ public class LoginManager
      */
     private void handleBadLogin(String user, String password, InetAddress address)
     {
-        _logLoginFailed.info("login failed for user : '"+user+"' "+address.getHostAddress());
+        _logLoginFailed.info("login failed for user : '"+user+"' "+(address == null ? "null" : address.getHostAddress()));
         
-		FailedLoginAttempt failedAttempt = _hackProtection.get(address);
-		int failedCount;
-		if (failedAttempt == null)
-		{
-			_hackProtection.put(address, new FailedLoginAttempt(address, password));
-			failedCount = 1;
-		}
-		else
-		{
-			failedAttempt.increaseCounter(password);
-			failedCount = failedAttempt.getCount();
-		}
-
-		if (failedCount >= Config.LOGIN_TRY_BEFORE_BAN)
-		{
-			// TODO Configurable ban duration (10 mins for now)
-			BanManager.getInstance().addBanForAddress(address, 10*60*1000);
-		}
+        // In special case, adress is null, so this protection is useless
+        if (address != null )
+        {
+    		FailedLoginAttempt failedAttempt = _hackProtection.get(address);
+    		int failedCount;
+    		if (failedAttempt == null)
+    		{
+    			_hackProtection.put(address, new FailedLoginAttempt(address, password));
+    			failedCount = 1;
+    		}
+    		else
+    		{
+    			failedAttempt.increaseCounter(password);
+    			failedCount = failedAttempt.getCount();
+    		}
+    
+    		if (failedCount >= Config.LOGIN_TRY_BEFORE_BAN)
+    		{
+    			// TODO Configurable ban duration (10 mins for now)
+    			BanManager.getInstance().addBanForAddress(address, 10*60*1000);
+    		}
+        }
     }
 
     /**
@@ -597,7 +602,7 @@ public class LoginManager
         {
         	if ((user.length() >= 2) && (user.length() <= 14))
         	{
-                acc = new Accounts(user,Base64.encodeBytes(hash),new BigDecimal(System.currentTimeMillis()),0,address.getHostAddress());
+                acc = new Accounts(user,Base64.encodeBytes(hash),new BigDecimal(System.currentTimeMillis()),0,(address == null ? "null" : address.getHostAddress()));
         		_service.addOrUpdateAccount(acc);
         		
                 _logLogin.info("created new account for "+ user);
