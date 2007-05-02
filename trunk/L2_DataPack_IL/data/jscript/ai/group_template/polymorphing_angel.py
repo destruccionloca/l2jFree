@@ -1,5 +1,6 @@
 import sys
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
+from net.sf.l2j.gameserver.ai import CtrlIntention
 
 # Angel spawns...when one of the angels in the keys dies, the other angel will spawn.
 
@@ -20,8 +21,12 @@ class polymorphing_angel(JQuest) :
 
     def onKill (self,npc,player):
         npcId = npc.getNpcId()
+        heading=npc.getHeading()
         if self.AngelSpawns.has_key(npcId) :
-            self.getPcSpawn(player).addSpawn(self.AngelSpawns[npcId],npc.getX(),npc.getY(),npc.getZ())
+            objId = self.getPcSpawn(player).addSpawn(self.AngelSpawns[npcId],npc.getX(),npc.getY(),npc.getZ())
+            newNpc = self.getPcSpawn(player).getSpawn(objId).getLastSpawn()
+            newNpc.setHeading(heading)
+            newNpc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, player);
         return 
 
 # now call the constructor (starts up the ai)
