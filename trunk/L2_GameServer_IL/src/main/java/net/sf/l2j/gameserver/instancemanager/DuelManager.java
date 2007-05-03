@@ -104,10 +104,10 @@ public class DuelManager
         public L2PcInstance getPlayer(boolean first)
         {
             if (first) return _player1;
-            else  return _player1;
+            else  return _player2;
         }
     }
-    protected static Logger _log = Logger.getLogger(CoupleManager.class.getName());
+    protected static Logger _log = Logger.getLogger(DuelManager.class.getName());
 
     // =========================================================
     private static DuelManager _Instance;
@@ -206,10 +206,13 @@ public class DuelManager
     }
     public void endDuel(int duelId, boolean party, int looser)
     {
-        if (duelId==0)
+        if (duelId < 0)
             return;
         Duel duel = getDuel(duelId, party);
-        _Duels.remove(duel);
+        if (party)
+        	_PartyDuels.remove(duel);
+        else
+        	_Duels.remove(duel);
         L2PcInstance player = duel.getPlayer(true);
         if (player.getParty()!=null)
         {
@@ -227,6 +230,10 @@ public class DuelManager
                     pm.setPvpKills(pm.getPvpKills());
                     pm.sendMessage("You have won the duel!");
                 }
+                else if (looser==1)
+                {
+                    pm.sendMessage("You have lost the duel!");
+                }
                 pm.broadcastUserInfo();
             }
         }
@@ -243,6 +250,10 @@ public class DuelManager
             {
                 player.setPvpKills(player.getPvpKills());
                 player.sendMessage("You have won the duel!");
+            }
+            else if (looser==1)
+            {
+                player.sendMessage("You have lost the duel!");
             }
             player.broadcastUserInfo();
         }
@@ -263,6 +274,10 @@ public class DuelManager
                     pm.setPvpKills(pm.getPvpKills());
                     pm.sendMessage("You have won the duel!");
                 }
+                else if (looser==2)
+                {
+                    pm.sendMessage("You have lost the duel!");
+                }
                 pm.broadcastUserInfo();
             }
         }
@@ -280,6 +295,10 @@ public class DuelManager
                 player.setPvpKills(player.getPvpKills());
                 player.sendMessage("You have won the duel!");
             }
+            else if (looser==2)
+            {
+                player.sendMessage("You have lost the duel!");
+            }
             player.broadcastUserInfo();
         }
     }
@@ -295,11 +314,12 @@ public class DuelManager
     }
     public void broadcastToOpponents(int duelId, L2PcInstance player, L2GameServerPacket msg)
     {
-        Duel duel = getDuel(duelId, player.getParty()!=null);
-        if (duel.getPlayer(player.getTeam()==2).getParty()!=null)
+    	/*Duel duel = getDuel(duelId, player.getParty()!=null);
+        if (player !=null && duel.getPlayer(player.getTeam()==2).getParty()!=null)
             for (L2PcInstance op : duel.getPlayer(player.getTeam()==2).getParty().getPartyMembers())
                 op.sendPacket(msg);
-        else duel.getPlayer(player.getTeam()==2).sendPacket(msg);
+        else 
+        	if (player !=null)duel.getPlayer(player.getTeam()==2).sendPacket(msg);*/
     }
     private int getDuelIndex(int id, boolean party)
     {
