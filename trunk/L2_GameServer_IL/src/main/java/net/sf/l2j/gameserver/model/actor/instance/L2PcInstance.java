@@ -4181,7 +4181,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (target == null) return;
         if (!(target instanceof L2PlayableInstance)) return;
-      /*  if (_inEventCTF || _inEventTvT || _inEventVIP) return;*/
+        if (_inEventCTF || _inEventTvT || _inEventVIP || _inEventDM || isDuelling()>0) return;
 
         L2PcInstance targetPlayer = null;
         if (target instanceof L2PcInstance) targetPlayer = (L2PcInstance) target;
@@ -4251,6 +4251,10 @@ public final class L2PcInstance extends L2PlayableInstance
                     increasePvpKills();
                 }
             }
+            if (targetPlayer._inEventDM || targetPlayer._inEventCTF || targetPlayer._inEventTvT || targetPlayer._inEventVIP || targetPlayer.isDuelling()>0)
+            {
+                increasePkKillsAndKarma(targetPlayer.getLevel());
+            }
             else
             // Target player doesn't have karma
             {
@@ -4279,7 +4283,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void increasePvpKills()
     {
-        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF))
+        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF) || isDuelling()>0)
             return;
 
         // Add karma to attacker and increase its PK counter
@@ -4364,7 +4368,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void updatePvPStatus()
     {
-        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (_inEventVIP && VIP._started) || isDuelling()!= 0 )
+        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (_inEventVIP && VIP._started))
             return;
 
         if (getPvpFlag() == 0) startPvPFlag();
