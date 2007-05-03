@@ -387,8 +387,9 @@ public class L2Party {
         {
             if (isLeader(player)) 
             {
-				removePartyMember(player);
-                DuelManager.getInstance().endDuel(player.isDuelling(),true, player.getTeam());
+            	if(player.isDuelling()>0)
+            		DuelManager.getInstance().endDuel(player.isDuelling(),true, player.getTeam());
+                removePartyMember(player);
                 if (getPartyMembers().size() > 1)
                 {
     				SystemMessage msg = new SystemMessage(SystemMessage.S1_HAS_BECOME_A_PARTY_LEADER);

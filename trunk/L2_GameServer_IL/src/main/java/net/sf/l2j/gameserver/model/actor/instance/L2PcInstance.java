@@ -3155,6 +3155,13 @@ public final class L2PcInstance extends L2PlayableInstance
             return;
         }
         
+        if ( (isDuelling()>0 && player.isDuelling()==0) || (isDuelling()==0 && player.isDuelling()>0) )
+        {
+            ActionFailed af = new ActionFailed();
+            player.sendPacket(af);
+            return;
+        }
+        
         if ((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.DM_ALLOW_INTERFERENCE) || (DM._started && !Config.CTF_ALLOW_INTERFERENCE))
         {
             if ((_inEventTvT && !player._inEventTvT) || (!_inEventTvT && player._inEventTvT))
@@ -3207,7 +3214,7 @@ public final class L2PcInstance extends L2PlayableInstance
             else
             {
                 // Check if this L2PcInstance is autoAttackable
-                if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started) || (player._inEventDM && DM._started) || (player._inEventVIP && VIP._started))
+                if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started) || (player._inEventDM && DM._started) || (player._inEventVIP && VIP._started) || player.isDuelling()>0)
                 {
                     // Player with lvl < 21 can't attack a cursed weapon holder
                     // And a cursed weapon holder  can't attack players with lvl < 21
@@ -4250,10 +4257,6 @@ public final class L2PcInstance extends L2PlayableInstance
                 {
                     increasePvpKills();
                 }
-            }
-            if (targetPlayer._inEventDM || targetPlayer._inEventCTF || targetPlayer._inEventTvT || targetPlayer._inEventVIP || targetPlayer.isDuelling()>0)
-            {
-                increasePkKillsAndKarma(targetPlayer.getLevel());
             }
             else
             // Target player doesn't have karma
