@@ -144,6 +144,8 @@ public class DuelManager
                         pm.setTeam(2);
                         pm.sendPacket(ready);
                         pm.sendPacket(start);
+                        pm.broadcastUserInfo();
+                        pm.broadcastStatusUpdate();
                     }
                     for (L2PcInstance pm : plyr1.getParty().getPartyMembers())
                     {
@@ -151,11 +153,6 @@ public class DuelManager
                         pm.setTeam(1);
                         pm.sendPacket(ready);
                         pm.sendPacket(start);
-                        pm.broadcastUserInfo();
-                        pm.broadcastStatusUpdate();
-                    }
-                    for (L2PcInstance pm : plyr2.getParty().getPartyMembers())
-                    {
                         pm.broadcastUserInfo();
                         pm.broadcastStatusUpdate();
                     }
@@ -209,15 +206,17 @@ public class DuelManager
         if (duelId < 0)
             return;
         Duel duel = getDuel(duelId, party);
-        if (party)
-        	_PartyDuels.remove(duel);
-        else
-        	_Duels.remove(duel);
+        
         L2PcInstance player = duel.getPlayer(true);
         if (player.getParty()!=null)
         {
             for (L2PcInstance pm : player.getParty().getPartyMembers())
             {
+            	pm.setTarget(null);
+            	pm.breakAttack();
+            	pm.breakCast();
+            	pm.abortAttack();
+            	pm.abortCast();
                 pm.setDuelling(0);
                 pm.setCurrentCp(pm.getMaxCp());
                 pm.setCurrentHp(pm.getMaxHp()/2);
@@ -239,6 +238,11 @@ public class DuelManager
         }
         else
         {
+        	player.setTarget(null);
+        	player.breakAttack();
+        	player.breakCast();
+        	player.abortAttack();
+        	player.abortCast();
             player.setDuelling(0);
             player.setCurrentCp(player.getMaxCp());
             player.setCurrentHp(player.getMaxHp()/2);
@@ -262,6 +266,11 @@ public class DuelManager
         {
             for (L2PcInstance pm : player.getParty().getPartyMembers())
             {
+            	pm.setTarget(null);
+            	pm.breakAttack();
+            	pm.breakCast();
+            	pm.abortAttack();
+            	pm.abortCast();
                 pm.setDuelling(0);
                 pm.setCurrentCp(pm.getMaxCp());
                 pm.setCurrentHp(pm.getMaxHp()/2);
@@ -283,6 +292,11 @@ public class DuelManager
         }
         else
         {
+        	player.setTarget(null);
+        	player.breakAttack();
+        	player.breakCast();
+        	player.abortAttack();
+        	player.abortCast();
             player.setDuelling(0);
             player.setCurrentCp(player.getMaxCp());
             player.setCurrentHp(player.getMaxHp()/2);
@@ -301,6 +315,10 @@ public class DuelManager
             }
             player.broadcastUserInfo();
         }
+        if (party)
+        	_PartyDuels.remove(duel);
+        else
+        	_Duels.remove(duel);
     }
     public Duel getDuel(int duelId, boolean party)
     {
