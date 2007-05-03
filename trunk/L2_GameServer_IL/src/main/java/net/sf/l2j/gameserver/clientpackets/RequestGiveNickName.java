@@ -54,7 +54,7 @@ public class RequestGiveNickName extends L2GameClientPacket
 		    return;
 		
 		//Can the player change/give a title?
-		else if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_GIVE_TITLE) == L2Clan.CP_CL_GIVE_TITLE) 
+		if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_GIVE_TITLE) == L2Clan.CP_CL_GIVE_TITLE) 
 		{	
 			if (activeChar.getClan().getLevel() < 3)
 			{
