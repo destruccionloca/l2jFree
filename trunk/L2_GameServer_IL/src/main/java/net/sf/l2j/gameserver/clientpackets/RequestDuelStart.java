@@ -93,6 +93,18 @@ public class RequestDuelStart extends L2GameClientPacket
 			requestor.sendPacket(msg);
 			return;
 		}
+		
+		if (target._inEventCTF || target._inEventDM || target._inEventTvT || target._inEventVIP)
+		{
+			requestor.sendMessage("You can't duel with event player.");
+			return;
+		}
+		
+		if (requestor._inEventCTF || requestor._inEventDM || requestor._inEventTvT || requestor._inEventVIP)
+		{
+			requestor.sendMessage("You can't duel when in event.");
+			return;
+		}
 
         if (target.isInOlympiadMode() || requestor.isInOlympiadMode())
             return;        
