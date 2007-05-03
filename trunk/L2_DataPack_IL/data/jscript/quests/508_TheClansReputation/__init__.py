@@ -1,16 +1,15 @@
-#####################################################################
-#                                                                   #
-#   "The Clan's Reputation"                                         #
-#   "Raise the Clan's Reputation"                                   #
-#   "Sir Eric Rodemai in Aden Castle Town is looking                #
-#   for a brave adventurer to raise the clan's reputation."         #
-#   "Clan Leader, Clan Level 5 and above"                           #
-#                                                                   #
-#   Start NPC: Sir Eric Rodemai[30868]                              #
-#                                                                   #
-#   fixed and completed by chris_00 @katmai and DrLecter            #
-#                                                                   #
-#####################################################################
+##############################################################                                                                                       #
+#   "The Clan's Reputation"                                  #
+#   "Raise the Clan's Reputation"                            #
+#   "Sir Eric Rodemai in Aden Castle Town is looking         #
+#   for a brave adventurer to raise the clan's reputation."  #
+#   "Clan Leader, Clan Level 5 and above"                    #
+#                                                            #
+#   Start NPC: Sir Eric Rodemai[30868]                       #
+#                                                            #
+#   fixed and completed by chris_00 @katmai and DrLecter     #
+#   final fix by Umbra                                       #
+##############################################################
 import sys
 from net.sf.l2j.gameserver.model.quest        import State
 from net.sf.l2j.gameserver.model.quest        import QuestState
@@ -99,7 +98,7 @@ class Quest (JQuest) :
      id = st.getState()
      if id == CREATED and cond == 0 :
         htmltext =  "30868-0c.htm"
-     elif id == STARTED and cond == 1 :
+     elif id == STARTED and cond == 1 and raid in REWARDS_LIST.keys():
         npc,item=REWARDS_LIST[raid]
         count = st.getQuestItemsCount(item)
         if not count :
@@ -118,16 +117,16 @@ class Quest (JQuest) :
   else:
    clan = player.getClan()
    if clan:
-    leader=clan.getLeader()
+    leader = clan.getLeader()
     if leader :
-     pleader=getPlayerInstance()
+     pleader = leader.getPlayerInstance()
      if pleader :
       if player.isInsideRadius(pleader, 1600, 1, 0) :
        st = pleader.getQuestState(qn)
   if not st : return
   if st.getInt("cond") == 1 and st.getState() == STARTED :
    raid,item = REWARDS_LIST[st.getInt("raid")]
-   npcId=npc.getNpcId()
+   npcId = npc.getNpcId()
    if npcId == raid and not st.getQuestItemsCount(item) :
       st.giveItems(item,1)
       st.playSound("ItemSound.quest_middle")
