@@ -23,6 +23,8 @@ import java.sql.ResultSet;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2TradeList;
@@ -43,6 +45,24 @@ public class TradeListTable
 	private int _nextListId;
 	private FastMap<Integer, L2TradeList> _lists;
 
+    /** Task launching the function for restore count of Item (Clan Hall) */
+    public class RestoreCount implements Runnable
+    {
+    	private int timer;
+    	public RestoreCount(int time){
+    		timer = time;
+    	}
+        public void run()
+        {
+        	try {
+            	restoreCount(timer);
+            	dataTimerSave(timer);
+            	ThreadPoolManager.getInstance().scheduleGeneral(new RestoreCount(timer), (long)timer*60*60*1000);
+        	}
+        	catch (Throwable t) {}
+        }
+    }
+
 	public static TradeListTable getInstance()
 	{
 		if (_instance == null)
@@ -62,7 +82,9 @@ public class TradeListTable
 	private void load()
 	{
         java.sql.Connection con = null;
-
+		/*
+		 * Initialize Shop buylist
+		 */
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -71,8 +93,8 @@ public class TradeListTable
             ResultSet rset1 = statement1.executeQuery();
             while (rset1.next())
             {
-                PreparedStatement statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[]
-                    { "item_id", "price", "shop_id", "order" }) + " FROM merchant_buylists WHERE shop_id=? ORDER BY "
+                PreparedStatement statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {
+                		"item_id", "price", "shop_id", "order", "count", "time", "currentCount" }) + " FROM merchant_buylists WHERE shop_id=? ORDER BY "
                         + L2DatabaseFactory.getInstance().safetyString(new String[]
                             { "order" }) + " ASC");
                 statement.setString(1, String.valueOf(rset1.getInt("shop_id")));
@@ -94,10 +116,23 @@ public class TradeListTable
                     {
                         _itemId = rset.getInt("item_id");
                         _price = rset.getInt("price");
+						int count = rset.getInt("count");
+						int currentCount = rset.getInt("currentCount");
+						int time = rset.getInt("time");
+                        
                         L2ItemInstance buyItem = ItemTable.getInstance().createDummyItem(_itemId);
                         if (buyItem == null) continue;
                         _itemCount++;
+						if(count > -1)
+							buyItem.setCountDecrease(true);
                         buyItem.setPriceToSell(_price);
+						buyItem.setTime(time);
+						buyItem.setInitCount(count);
+						if(currentCount>-1)
+							buyItem.setCount(currentCount);
+						else
+							buyItem.setCount(count);
+                        
                         buylist.addItem(buyItem);
                         if (!buylist.isGm() && buyItem.getReferencePrice()>_price)
                             _log.warn("TradeListTable: Reference price of item " + _itemId + " in  buylist " + buylist.getListId() + " higher then sell price.");
@@ -122,6 +157,31 @@ public class TradeListTable
             statement1.close();
 
             _log.info("TradeListTable: Loaded " + _lists.size() + " Buylists.");
+			/*
+			 *  Restore Task for reinitialyze count of buy item
+			 */
+			try
+			{
+				int time=0; 
+				long savetimer=0;
+				long currentMillis = System.currentTimeMillis();
+				PreparedStatement statement2 = con.prepareStatement("SELECT DISTINCT time, savetimer FROM merchant_buylists WHERE time <> 0 ORDER BY time");
+				ResultSet rset2 = statement2.executeQuery();
+				while (rset2.next()){
+					time = rset2.getInt("time");
+					savetimer = rset2.getLong("savetimer");
+					if(savetimer-currentMillis>0)
+						ThreadPoolManager.getInstance().scheduleGeneral(new RestoreCount(time), savetimer-System.currentTimeMillis());
+					else
+						ThreadPoolManager.getInstance().scheduleGeneral(new RestoreCount(time), 0);
+				}
+				rset2.close();
+				statement2.close();
+			}catch (Exception e)
+			{
+				_log.warn("TradeController: Could not restore Timer for Item count.");
+				e.printStackTrace();
+			}             
         } catch (Exception e)
         {
             // problem with initializing buylists, go to next one
@@ -164,5 +224,58 @@ public class TradeListTable
 		}
 
 		return lists;
+	}
+
+	protected void restoreCount(int time)
+	{
+		if(_lists==null)return;
+		for (L2TradeList list : _lists.values())
+		{
+			list.restoreCount(time);
+		}
+	}
+	protected void dataTimerSave(int time){
+		java.sql.Connection con = null;
+		long timerSave = System.currentTimeMillis()+(long)time*60*60*1000;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("UPDATE merchant_buylists SET savetimer =? WHERE time =?");
+			statement.setLong(1, timerSave);
+			statement.setInt(2, time);
+			statement.executeUpdate();
+            statement.close();
+        } catch (Exception e) {
+			_log.fatal("TradeController: Could not update Timer save in Buylist" );
+		} finally {
+			try { con.close(); } catch (Exception e) {}
+		}
+	}
+	public void dataCountStore(){
+		java.sql.Connection con = null;
+		int listId;
+		try
+		{
+			if(_lists==null)return;
+			for (L2TradeList list : _lists.values()){
+				listId = list.getListId();
+				if(list==null)continue;
+				for(L2ItemInstance Item :list.getItems()){
+					if(Item.getCount()<Item.getInitCount()){
+						con = L2DatabaseFactory.getInstance().getConnection(con);
+						PreparedStatement statement = con.prepareStatement("UPDATE merchant_buylists SET currentCount =? WHERE item_id =? && shop_id = ?");
+						statement.setInt(1, Item.getCount());
+						statement.setInt(2, Item.getItemId());
+						statement.setInt(3, listId);
+						statement.executeUpdate();
+			            statement.close();
+					}
+				}
+			}
+        } catch (Exception e) {
+			_log.fatal("TradeController: Could not store Count Item" );
+		} finally {
+			try { con.close(); } catch (Exception e) {}
+		}
 	}
 }

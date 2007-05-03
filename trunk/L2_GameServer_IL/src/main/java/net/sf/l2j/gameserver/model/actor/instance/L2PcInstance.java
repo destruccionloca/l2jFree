@@ -44,6 +44,7 @@ import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.Shutdown;
+import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
@@ -127,6 +128,7 @@ import net.sf.l2j.gameserver.model.base.PlayerClass;
 import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.model.base.SubClass;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
@@ -145,6 +147,7 @@ import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ChangeWaitType;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
+import net.sf.l2j.gameserver.serverpackets.ClanHallDecoration;
 import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.serverpackets.ExAutoSoulShot;
 import net.sf.l2j.gameserver.serverpackets.ExDuelUpdateUserInfo;
@@ -1544,9 +1547,19 @@ public final class L2PcInstance extends L2PlayableInstance
     
     public void revalidateInClanHall()
     {
-        //if (ClanHallManager.getInstance().getClanHall(getX(), getY()) != null)
-        //        setIsInClanHall((ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ClanHall),this)) && (ClanHallManager.getInstance().getClanHall(getX(), getY()).getOwnerId() == getClanId()));
-        setIsInClanHall((ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ClanHall),this)));         
+		ClanHall clanHall;
+        if (ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ClanHall), this)){
+        	clanHall = ClanHallManager.getInstance().getClanHall(getX(), getY());
+	    	if(clanHall != null){
+        		ClanHallDecoration bl = new ClanHallDecoration(clanHall);
+	    		sendPacket(bl);
+	    	}
+    	}
+ 		if(this.getClan() == null) return;
+ 		int clanHallIndex = this.getClan().getHasHideout();
+ 		if( clanHallIndex == 0 ) return;
+		clanHall = ClanHallManager.getInstance().getClanHall(clanHallIndex); 
+		if(clanHall != null) setIsInClanHall(clanHall.checkIfInZone(this.getX(),this.getY()));
     }
 
     public void revalidateZone()

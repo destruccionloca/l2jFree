@@ -25,6 +25,7 @@ import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2TradeList;
+import net.sf.l2j.gameserver.model.actor.instance.L2ClanHallManagerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FishermanInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MercManagerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MerchantInstance;
@@ -105,7 +106,8 @@ public class RequestBuyItem extends L2GameClientPacket
         if (!player.isGM() &&                         // Player not GM      
            (!(target instanceof L2MerchantInstance || // Target not a merchant, fisherman or mercmanager
               target instanceof L2FishermanInstance || 
-              target instanceof L2MercManagerInstance) || 
+              target instanceof L2MercManagerInstance) ||
+              target instanceof L2ClanHallManagerInstance ||              
              !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false)))     // Distance is too far
              return;
 
@@ -120,6 +122,8 @@ public class RequestBuyItem extends L2GameClientPacket
                 htmlFolder = "fisherman";
             else if (target instanceof L2MercManagerInstance)
             	ok = true;
+        	else if (target instanceof L2ClanHallManagerInstance)
+         		ok = true;
             else
                 ok = false;
         }
@@ -332,6 +336,9 @@ public class RequestBuyItem extends L2GameClientPacket
                 Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a false BuyList list_id.",Config.DEFAULT_PUNISH);
                 return;
             }
+
+			if(list.countDecrease(itemId))
+				list.decreaseCount(itemId,count);
 
             // Add item to Inventory and adjust update packet
             player.getInventory().addItem(list.isGm()?"GMShop":"Buy", itemId, count, player, merchant);

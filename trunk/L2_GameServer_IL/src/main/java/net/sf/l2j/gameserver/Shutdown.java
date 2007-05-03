@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
@@ -334,7 +335,8 @@ public class Shutdown extends Thread
         // Save all raidboss status ^_^
         RaidBossSpawnManager.getInstance().cleanUp();
         _log.info("RaidBossSpawnManager: All raidboss info saved.");
-
+        TradeListTable.getInstance().dataCountStore();
+        _log.info("TradeController: All count Item Saved");
         try
         {
             Olympiad.getInstance().save();
