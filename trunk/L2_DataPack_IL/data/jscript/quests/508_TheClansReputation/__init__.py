@@ -1,4 +1,4 @@
-##############################################################                                                                                       #
+##############################################################
 #   "The Clan's Reputation"                                  #
 #   "Raise the Clan's Reputation"                            #
 #   "Sir Eric Rodemai in Aden Castle Town is looking         #
@@ -70,7 +70,7 @@ class Quest (JQuest) :
     if cond == 0 :
       st.set("cond","1")
       st.setState(STARTED)
-  elif event.isdigit() and int(event) in REWARDS_LIST.keys():
+  elif event.isdigit() :
     st.set("raid",event)
     htmltext="30868-"+event+".htm"
     x,y,z=RADAR[int(event)]
