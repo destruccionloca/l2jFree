@@ -325,7 +325,7 @@ public class AutoChatHandler implements SpawnListener
         {
             _defaultTexts = chatTexts;
             _npcId = npcId;
-            _defaultDelay = chatDelay;
+            _defaultDelay = (chatDelay<=0 ? DEFAULT_CHAT_DELAY : chatDelay);
             _defaultRange = chatRange;
             _defaultRandom = chatRandom;
             _globalChat = isGlobal;
@@ -621,8 +621,8 @@ public class AutoChatHandler implements SpawnListener
 
             protected AutoChatInstance _chatInstance;
 
-            private long _chatDelay = 0;
-            private int _chatRange = 0;
+            private long _chatDelay = DEFAULT_CHAT_DELAY;
+            private int _chatRange = DEFAULT_CHAT_RANGE;
             private String[] _chatTexts = null;
             private boolean isActive;
             private boolean _randomChat;
@@ -635,7 +635,7 @@ public class AutoChatHandler implements SpawnListener
                 _chatInstance = chatInst;
                 _randomChat = chatInst.isDefaultRandom();
 
-                _chatDelay = chatDelay;
+                _chatDelay = (chatDelay<=0 ? DEFAULT_CHAT_DELAY : chatDelay );
                 _chatRange = chatInst.getDefaultRange();
                 _chatTexts = chatTexts;
 
