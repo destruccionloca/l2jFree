@@ -78,8 +78,7 @@ def decreaseAlliance(st) :
       st.takeItems(Ketra_Alliance_Five,-1)
       st.giveItems(Ketra_Alliance_Four,1)
 
-def giveReward(st,npc) :
-    npcId = npc.getNpcId()
+def giveReward(st,npcId) :
     cond = st.getInt("cond")
     id = st.getInt("id")
     VBadgeS = st.getQuestItemsCount(Varka_Badge_Soldier)
@@ -384,16 +383,16 @@ class Quest (JQuest) :
                                   st.playSound("ItemSound.quest_itemget")
                       else :
                           if st.getRandom(2) == 1 :
-                              giveReward(st,npc)
+                              giveReward(st,npcId)
                   else :
                       if st.getRandom(2) == 1 :
-                          giveReward(st,npc)
+                          giveReward(st,npcId)
               elif npcId in Ketra_Orcs :
                   decreaseAlliance(st)
                   party = st.getPlayer().getParty()
                   if party :
                       for player in party.getPartyMembers().toArray() :
-                          pst = player.getQuestState("605_AllianceWithKetraOrcs")
+                          pst = player.getQuestState(qn)
                           if pst :
                               decreaseAlliance(pst)
    return

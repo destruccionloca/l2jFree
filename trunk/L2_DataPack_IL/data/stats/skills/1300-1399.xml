@@ -1010,7 +1010,7 @@
       <mul order="0x30" stat="runSpd" val="0.9"/>
       <mul order="0x30" stat="pAtkSpd" val="0.9"/>
       <mul order="0x30" stat="mAtkSpd" val="0.7"/>
-     <sub order="0x40" stat="windRes" val="20"/>
+      <sub order="0x40" stat="windRes" val="20"/>
     </effect>
   </for>
 </skill>
