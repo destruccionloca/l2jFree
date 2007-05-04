@@ -479,15 +479,10 @@ public class GameServer
 
         // o Print versions
         // -----------------
-        VersionningService versionningService = (VersionningService)L2Registry.getBean(IServiceRegistry.VERSIONNING);
-        Version version = versionningService.getVersion();
-        if (version!= null)
-        {
-            _log.info("L2JFree Server Version:    "+version.getRevisionNumber());
-            _log.info("L2JFree Jdk used for compilation:    "+version.getBuildJdk());
-            // TODO : add build date to plugin maven build number 
-            //_log.info("L2JFree Server Build Date: "+Config.SERVER_BUILD_DATE);
-        }
+        _log.info("L2JFree Server Version:    "+ getVersionNumber());
+        _log.info("L2JFree Jdk used for compilation:    "+getBuildJdk());
+        // TODO : add build date to plugin maven build number 
+        //_log.info("L2JFree Server Build Date: "+Config.SERVER_BUILD_DATE);
         
         // o Enable telnet server
         // -----------------------
@@ -500,7 +495,40 @@ public class GameServer
         }
         _log.info("################################################");
     }
+
+    /**
+     * @return the revision number 
+     */
+    public static String getVersionNumber()
+    {
+        VersionningService versionningService = (VersionningService)L2Registry.getBean(IServiceRegistry.VERSIONNING);
+        Version version = versionningService.getVersion();
+        if ( version != null )
+        {
+            return version.getRevisionNumber();
+        }
+        else
+        {
+            return "-1";
+        }
+    }
     
+    /**
+     * @return the build jdk
+     */
+    public static String getBuildJdk()
+    {
+        VersionningService versionningService = (VersionningService)L2Registry.getBean(IServiceRegistry.VERSIONNING);
+        Version version = versionningService.getVersion();
+        if ( version != null )
+        {
+            return version.getBuildJdk();
+        }
+        else
+        {
+            return "-1";
+        }
+    }    
     /**
      * Instantiate the gameserver
      * Main class of the server

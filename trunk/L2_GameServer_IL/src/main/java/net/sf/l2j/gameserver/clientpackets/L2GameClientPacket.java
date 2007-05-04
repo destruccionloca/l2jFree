@@ -17,7 +17,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.exception.L2JFunctionnalException;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
@@ -46,8 +46,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 		}
 		catch (Throwable t)
 		{
-			_log.fatal("Client: "+getClient().toString()+" - Failed reading: "+this.getType()+" - L2J Server Version: "+Config.SERVER_VERSION+" - DP Revision: "+Config.DATAPACK_VERSION);
-			t.printStackTrace();
+			_log.fatal("Client: "+getClient().toString()+" - Failed reading: "+this.getType()+" - L2J Server Version: "+GameServer.getVersionNumber(),t);
 		}
 		return false;
 	}
@@ -72,8 +71,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 		}
 		catch (Throwable t)
 		{
-			_log.fatal("Client: "+getClient().toString()+" - Failed running: "+this.getType()+" - L2J Server Version: "+Config.SERVER_VERSION+" - DP Revision: "+Config.DATAPACK_VERSION);
-			t.printStackTrace();
+			_log.fatal("Client: "+getClient().toString()+" - Failed running: "+this.getType()+" - L2J Server Version: "+GameServer.getVersionNumber(),t);
 		}
 	}
 	
