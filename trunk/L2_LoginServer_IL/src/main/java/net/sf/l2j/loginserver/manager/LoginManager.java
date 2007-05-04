@@ -643,26 +643,5 @@ public class LoginManager
         _logLogin.warn("account missing for user "+user);
         return false;
     }
-	
-    /**
-     * 
-     * @param user
-     * @return true if user is banned (check access level in DB)
-     */
-	public boolean loginBanned(String user)
-	{
-        Accounts acc = _service.getAccountById(user);
-        if (acc != null )
-        {
-            return (acc.getAccessLevel() < 0 );
-        }
-        else
-        {
-            _log.warn("could not check ban state.");
-            return false;            
-        }
-                
-	}
-    
 
 }
