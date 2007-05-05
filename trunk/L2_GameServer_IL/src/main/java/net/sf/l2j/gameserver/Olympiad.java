@@ -1672,18 +1672,18 @@ public class Olympiad
             ******************************************************************************************
             */
 
-						// PlayerOne has relogged during combat - he will loose the battle
-						if (_playerOne.isOnline() == 0)
-						{
+            // PlayerOne has relogged during combat - he will loose the battle
+            if (_playerOne.isOnline() == 0)
+            {
             	hpDiffOne = 10000; // set a static value, so that no tie is possible, except both players are gone
-	            _log.info("Messages Olympiad: " + _playerOne.getName() + " has left/relogged during combat.");
-						}
-						// PlayerTwo has relogged during combat - he will loose the battle
-						if (_playerTwo.isOnline() == 0)
-						{
+            	_log.info("Messages Olympiad: " + _playerOne.getName() + " has left/relogged during combat.");
+            }
+            // PlayerTwo has relogged during combat - he will loose the battle
+            if (_playerTwo.isOnline() == 0)
+            {
             	hpDiffTwo = 10000; // set a static value, so that no tie is possible, except both players are gone
-	            if (_log.isDebugEnabled()) _log.debug("Messages Olympiad: " + _playerTwo.getName() + " has left/relogged during combat.");
-						}
+            	_log.info("Messages Olympiad: " + _playerTwo.getName() + " has left/relogged during combat.");
+            }
 
             /*
             ******************************************************************************************
