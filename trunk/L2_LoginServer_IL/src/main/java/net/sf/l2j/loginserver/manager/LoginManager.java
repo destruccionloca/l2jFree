@@ -305,13 +305,16 @@ public class LoginManager
             {
                 ret = this.loginValid(account, password, client);
                 
-                // dont allow 2 simultaneous login
-                synchronized (_loginServerClients)
+                if ( ret ) 
                 {
-                    if (!_loginServerClients.containsKey(account))
+                    // dont allow 2 simultaneous login
+                    synchronized (_loginServerClients)
                     {
-                        _loginServerClients.put(account, client);
-                        ret = true;
+                        if (!_loginServerClients.containsKey(account))
+                        {
+                            _loginServerClients.put(account, client);
+                            ret = true;
+                        }
                     }
                 }
 
