@@ -1634,6 +1634,64 @@ public class Olympiad
             if (_playerOne == null && _playerTwo == null)
             	return;
             
+            /*
+            ******************************************************************************************
+            OLYMPIAD MODUS CHANGE by Padme
+            ******************************************************************************************
+
+            ******************************************************************************************
+            FIRST CHANGE:
+            check first if one player is dead
+            then the other player is the winner - no doubt about it!
+            when both are dead there is a tie - hey - dead - no breathe anymore
+            ******************************************************************************************
+            */
+            
+            if ( _playerOne.isDead() && _playerTwo.isDead() )
+            {
+            	hpDiffOne = 0;
+            	hpDiffTwo = 0;
+            }
+            else if ( _playerOne.isDead() )
+            {
+            	hpDiffTwo = 0;
+	            if (_log.isDebugEnabled()) _log.debug("Messages Olympiad: " + _playerOne.getName() + " is dead he has lost the match.");
+            }
+            else if ( _playerTwo.isDead() )
+            {
+            	hpDiffOne = 0;
+	            if (_log.isDebugEnabled()) _log.debug("Messages Olympiad: " + _playerTwo.getName() + " is dead he has lost the match.");
+            }
+            
+            /*
+            ******************************************************************************************
+            SECOND CHANGE:
+            If one player is not in the olympiad stadium (relog/exit the game or something else)
+            then the other player has won the match
+            when both player are outside the stadium, theres a tie
+            ******************************************************************************************
+            */
+
+						// PlayerOne has relogged during combat - he will loose the battle
+						if (_playerOne.isOnline() == 0)
+						{
+            	hpDiffOne = 10000; // set a static value, so that no tie is possible, except both players are gone
+	            _log.info("Messages Olympiad: " + _playerOne.getName() + " has left/relogged during combat.");
+						}
+						// PlayerTwo has relogged during combat - he will loose the battle
+						if (_playerTwo.isOnline() == 0)
+						{
+            	hpDiffTwo = 10000; // set a static value, so that no tie is possible, except both players are gone
+	            if (_log.isDebugEnabled()) _log.debug("Messages Olympiad: " + _playerTwo.getName() + " has left/relogged during combat.");
+						}
+
+            /*
+            ******************************************************************************************
+            ******************************************************************************************
+            ******************************************************************************************
+            */
+
+
             if (hpDiffOne < hpDiffTwo || _playerTwo == null)
             {
     			int pointDiff;
@@ -1643,6 +1701,7 @@ public class Olympiad
                 
                 _sm.addString(_playerOne.getName());
                 broadcastMessage(_sm, true);
+		            if (_log.isDebugEnabled()) _log.debug("Messages Olympiad: " + _playerOne.getName() + " has won the Match vs " + _playerTwo.getName() + ".");
             }
             else if (hpDiffTwo < hpDiffOne || _playerOne == null)
             {
@@ -1653,11 +1712,13 @@ public class Olympiad
                 
                 _sm.addString(_playerTwo.getName());
                 broadcastMessage(_sm, true);
+                if (_log.isDebugEnabled()) _log.debug("Messages Olympiad: " + _playerTwo.getName() + " has won the Match vs " + _playerOne.getName() + ".");
             }
             else
             {
                 _sm = new SystemMessage(SystemMessage.THE_GAME_ENDED_IN_A_TIE);
                 broadcastMessage(_sm, true);
+                if (_log.isDebugEnabled()) _log.debug("Messages Olympiad: " + _playerOne.getName() + " vs " + _playerTwo.getName() + " ended in a tie.");
             }
             
             playerOneStat.set(COMP_DONE, playerOnePlayed + 1);
