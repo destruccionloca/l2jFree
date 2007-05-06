@@ -51,7 +51,8 @@ public class RequestStartPledgeWar extends L2GameClientPacket
         L2Clan clan = ClanTable.getInstance().getClanByName(_pledgeName);
         if (clan == null)
         {
-            player.sendMessage("No such clan.");
+        	SystemMessage sm = new SystemMessage(1565);
+            player.sendPacket(sm);
             player.sendPacket(new ActionFailed());
             return;
         }
@@ -72,7 +73,16 @@ public class RequestStartPledgeWar extends L2GameClientPacket
             sm = null;
             return;
         }
-
+        else if (_clan.isAtWarWith(clan.getClanId()))
+        {
+            SystemMessage sm = new SystemMessage(628);
+            sm.addString(clan.getName());
+            player.sendPacket(sm);
+            player.sendPacket(new ActionFailed());
+            sm = null;
+            return;
+        }
+        
         _log.warn("RequestStartPledgeWar, leader: " + clan.getLeaderName() + " clan: "
             + _clan.getName());
 
