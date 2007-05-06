@@ -1,5 +1,4 @@
-/*
- * This program is free software; you can redistribute it and/or modify
+/* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -23,60 +22,83 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
- *  sample
- *  2a 
- *  01 00 00 00
- * 
- *  format  chddd
- * 
- * 
- * @version $Revision: 1.7.4.2 $ $Date: 2005/03/27 15:29:30 $
+ * Format:(ch) ddd
+ * @author  -Wooden-
  */
-public class RequestDuelAnswerStart extends L2GameClientPacket
+public final class RequestDuelAnswerStart extends L2GameClientPacket
 {
-	private static final String _C__2A_REQUESTANSWERPARTY = "[C] 2A RequestDuelAnswerStart";
-	//private final static Log _log = LogFactory.getLog(RequestAnswerJoinParty.class.getName());
-	
+	private static final String _C__D0_28_REQUESTDUELANSWERSTART = "[C] D0:28 RequestDuelAnswerStart";
+	private int _partyDuel;
+	private int _unk1;
 	private int _response;
-    private int _duelType;
-    private int _unk1;
 	
-    protected void readImpl()
-    {
-        _duelType = readD();
-        _unk1=readD();
+	protected void readImpl()
+	{
+		_partyDuel = readD();
+		_unk1 = readD();
 		_response = readD();
 	}
 
-    protected void runImpl()
+	/**
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+	 */
+	@Override
+	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-        if(player != null)
-        {
-            L2PcInstance requestor = player.getActiveRequester();
-            if (requestor == null)
-                return;	
-            
-            if (_response == 1) 
-            {
-                DuelManager.getInstance().createDuel(requestor, player, (_duelType==1));
-            }
-            else
-            {
-                SystemMessage msg = new SystemMessage(SystemMessage.PLAYER_DECLINED);
-                requestor.sendPacket(msg);
-                msg = null;
-            }            
-            player.setActiveRequester(null);
-            requestor.onTransactionResponse();
-        }
+		if (player == null) return;
+		
+		L2PcInstance requestor = player.getActiveRequester();
+		if (requestor == null) return;
+		
+		if (_response == 1)
+		{
+			SystemMessage msg1 = null, msg2 = null;
+			if (_partyDuel == 1)
+			{
+				msg1 = new SystemMessage(SystemMessage.YOU_HAVE_ACCEPTED_S1S_CHALLENGE_TO_A_PARTY_DUEL_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS);
+				msg1.addString(requestor.getName());
+				
+				msg2 = new SystemMessage(SystemMessage.S1_HAS_ACCEPTED_YOUR_CHALLENGE_TO_DUEL_AGAINST_THEIR_PARTY_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS);
+				msg2.addString(player.getName());
+			}
+			else
+			{
+				msg1 = new SystemMessage(SystemMessage.YOU_HAVE_ACCEPTED_S1S_CHALLENGE_TO_A_DUEL_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS);
+				msg1.addString(requestor.getName());
+				
+				msg2 = new SystemMessage(SystemMessage.S1_HAS_ACCEPTED_YOUR_CHALLENGE_TO_A_DUEL_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS);
+				msg2.addString(player.getName());
+			}
+			
+			player.sendPacket(msg1);
+			requestor.sendPacket(msg2);
+			
+			DuelManager.getInstance().addDuel(requestor, player, _partyDuel);
+		}
+		else
+		{
+			SystemMessage msg = null;
+			if (_partyDuel == 1) msg = new SystemMessage(SystemMessage.THE_OPPOSING_PARTY_HAS_DECLINED_YOUR_CHALLENGE_TO_A_DUEL);
+			else
+			{
+				msg = new SystemMessage(SystemMessage.S1_HAS_DECLINED_YOUR_CHALLENGE_TO_A_DUEL);
+				msg.addString(player.getName());
+			}
+    		requestor.sendPacket(msg);
+		}
+		
+		player.setActiveRequester(null);
+    	requestor.onTransactionResponse();
 	}
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	/**
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
-		return _C__2A_REQUESTANSWERPARTY;
+		return _C__D0_28_REQUESTDUELANSWERSTART;
 	}
+
 }

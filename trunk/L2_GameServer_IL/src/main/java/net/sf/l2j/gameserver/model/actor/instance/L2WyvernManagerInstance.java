@@ -61,6 +61,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
             if(player.getInventory().getItemByItemId(1460) != null &&
                     player.getInventory().getItemByItemId(1460).getCount() >= 10)
             {
+            	if(!player.disarmWeapons()) return;
                 player.getInventory().destroyItemByItemId("WyvernManager", 1460, 10, player, this);
                 
                 if (player.isMounted())

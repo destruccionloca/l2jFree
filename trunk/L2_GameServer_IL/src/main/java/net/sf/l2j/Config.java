@@ -638,6 +638,8 @@ public final class Config {
     public static boolean 			ALT_ANNOUNCE_PK;				// Announce Pks ?
     public static boolean 			ALT_ANNOUNCE_PK_NORMAL_MESSAGE;
     public static int  				PLAYER_RATE_DROP_ADENA;
+    public static int 				PVP_NORMAL_TIME; 				// Duration (in ms) while a player stay in PVP mode after hitting an innocent    
+    public static int 				PVP_PVP_TIME;					// Duration (in ms) while a player stay in PVP mode after hitting a purple player       
     //  *******************************************************************************************    
     public static void loadpvpconfig()
     {
@@ -672,12 +674,13 @@ public final class Config {
             for (String id : KARMA_NONDROPPABLE_ITEMS.trim().split(",")) {
                 KARMA_LIST_NONDROPPABLE_ITEMS.add(Integer.parseInt(id));
             }
-            
-            PVP_TIME = Integer.parseInt(pvpSettings.getProperty("PvPTime", "15000"));
             ALT_PLAYER_CAN_DROP_ADENA= Boolean.parseBoolean(pvpSettings.getProperty("PlayerCanDropAdena", "false"));
             PLAYER_RATE_DROP_ADENA  = Integer.parseInt(pvpSettings.getProperty("PlayerRateDropAdena", "1"));
             ALT_ANNOUNCE_PK = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePk", "false"));
             ALT_ANNOUNCE_PK_NORMAL_MESSAGE = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePkNormalMessage", "false"));
+            PVP_NORMAL_TIME = Integer.parseInt(pvpSettings.getProperty("PvPVsNormalTime", "15000"));
+            PVP_PVP_TIME = Integer.parseInt(pvpSettings.getProperty("PvPVsPvPTime", "30000"));
+            PVP_TIME = PVP_NORMAL_TIME;
         }
         catch (Exception e)
         {

@@ -1,5 +1,4 @@
-/*
- * This program is free software; you can redistribute it and/or modify
+/* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -21,43 +20,47 @@ package net.sf.l2j.gameserver.serverpackets;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * This class ...
- * 
- * @version $Revision: 1.4.2.1.2.5 $ $Date: 2005/03/27 15:29:39 $
+ * Format: ch Sddddddddd
+ * @author  KenM
  */
-public class ExDuelUpdateUserInfo extends L2GameServerPacket 
+public class ExDuelUpdateUserInfo extends L2GameServerPacket
 {
-	private static final String _S__67_PARTYSMALLWINDOWUPDATE = "[S] 52 ExDuelUpdateUserInfo";
-	private L2PcInstance _member;
-	
-	public ExDuelUpdateUserInfo(L2PcInstance member)
+	private static final String _S__FE_4F_EXDUELUPDATEUSERINFO = "[S] FE:4F ExDuelUpdateUserInfo";
+	private L2PcInstance _cha;
+
+	public ExDuelUpdateUserInfo(L2PcInstance cha)
 	{
-		_member = member;
-	}
-	
-	protected void writeImpl()
-	{
-		writeC(0xfe);
-        writeH(75);
-		writeS(_member.getName());
-        writeD(_member.getObjectId());
-        writeD(_member.getClassId().getId());
-        writeD(_member.getLevel());
-		
-		writeD((int) _member.getStatus().getCurrentHp());
-		writeD(_member.getStat().getMaxHp());
-		writeD((int) _member.getStatus().getCurrentMp());
-		writeD(_member.getStat().getMaxMp());
-        
-        writeD((int) _member.getStatus().getCurrentCp());
-        writeD(_member.getStat().getMaxCp());
+		_cha = cha;
 	}
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	/**
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
+	@Override
+	protected
+	void writeImpl()
+	{
+		writeC(0xfe);
+		writeH(0x4f);
+		writeS(_cha.getName());
+		writeD(_cha.getObjectId());
+		writeD(_cha.getClassId().getId());
+		writeD(_cha.getLevel());
+		writeD((int)_cha.getStatus().getCurrentHp());
+		writeD(_cha.getStat().getMaxHp());
+		writeD((int)_cha.getStatus().getCurrentMp());
+		writeD(_cha.getStat().getMaxMp());
+		writeD((int)_cha.getStatus().getCurrentCp());
+		writeD(_cha.getStat().getMaxCp());
+	}
+
+	/**
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
 	public String getType()
 	{
-		return _S__67_PARTYSMALLWINDOWUPDATE;
+		return _S__FE_4F_EXDUELUPDATEUSERINFO;
 	}
+
 }

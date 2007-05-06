@@ -487,7 +487,8 @@ public abstract class L2Character extends L2Object
         if (isAlikeDead() || target == null || (this instanceof L2NpcInstance && target.isAlikeDead()) 
                 || (this instanceof L2PcInstance && target.isDead() && !target.isFakeDeath())
                 || !getKnownList().knowsObject(target)
-                || (this instanceof L2PcInstance && isDead()))
+                || (this instanceof L2PcInstance && isDead())
+                || (target instanceof L2PcInstance && ((L2PcInstance)target).getDuelState() == ((L2PcInstance)target).DUELSTATE_DEAD))
         {
             // If L2PcInstance is dead or the target is dead, the action is stoped
             getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
@@ -1876,38 +1877,42 @@ public abstract class L2Character extends L2Object
     }
 
     /** Task lauching the function stopPvPFlag() */
-    class PvPFlag implements Runnable
-    {
-        public void run()
-        {
-            try
-            {
-                // _log.debug("Checking pvp time: " + getlastPvpAttack());
-                // "lastattack: " _lastAttackTime "currenttime: "
-                // System.currentTimeMillis());
-                if (Math.abs(System.currentTimeMillis()-getlastPvpAttack()) > Config.PVP_TIME)
-                {
-                    //  _log.debug("Stopping PvP");
-                    stopPvPFlag();
-                }
-                else if (Math.abs(System.currentTimeMillis()-getlastPvpAttack()) > Config.PVP_TIME - 5000)
-                {
-                    updatePvPFlag(2);
-                }
-                else
-                {
-                    updatePvPFlag(1);
-                    // Start a new PvP timer check
-                    //checkPvPFlag();
-                }
-            }
-            catch (Exception e)
-            {
-                _log.warn( "error in pvp flag task:", e);
-            }
-        }
-    }
-    // =========================================================
+	class PvPFlag implements Runnable
+	{
+		public PvPFlag()
+		{
+			
+		}
+		
+		public void run()
+		{
+			try
+			{
+				// _log.fine("Checking pvp time: " + getlastPvpAttack());
+				// "lastattack: " _lastAttackTime "currenttime: "
+				// System.currentTimeMillis());
+				if (System.currentTimeMillis() > getPvpFlagLasts())
+				{
+					//  _log.fine("Stopping PvP");
+					stopPvPFlag();
+				}
+				else if (System.currentTimeMillis() > (getPvpFlagLasts() - 5000))
+				{
+					updatePvPFlag(2);
+				}
+				else
+				{
+					updatePvPFlag(1);
+					// Start a new PvP timer check
+					//checkPvPFlag();
+				}
+			}
+			catch (Exception e)
+			{
+				_log.warn("error in pvp flag task:", e);
+			}
+		}
+	}    // =========================================================
 
 
     
@@ -5366,16 +5371,16 @@ public abstract class L2Character extends L2Object
 
    private Future _PvPRegTask;
 
-   private long _lastPvpAttack;
+   private long _pvpFlagLasts;
 
-   public void setlastPvpAttack(long time)
+   public void setPvpFlagLasts(long time)
    {
-       _lastPvpAttack = time;
+		_pvpFlagLasts = time;
    }
 
-   public long getlastPvpAttack()
+   public long getPvpFlagLasts()
    {
-       return _lastPvpAttack;
+		return _pvpFlagLasts;
    }
 
    public void startPvPFlag()

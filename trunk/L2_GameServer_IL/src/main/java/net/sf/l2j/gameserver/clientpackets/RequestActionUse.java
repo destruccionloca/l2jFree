@@ -257,6 +257,7 @@ public class RequestActionUse extends L2GameClientPacket
                     }
                     else if (!pet.isDead() && !activeChar.isMounted())
                     {
+					if(!activeChar.disarmWeapons()) return;
                         Ride mount = new Ride(activeChar.getObjectId(), Ride.ACTION_MOUNT, pet.getTemplate().npcId);
                         activeChar.broadcastPacket(mount);
                         activeChar.setMountType(mount.getMountType());

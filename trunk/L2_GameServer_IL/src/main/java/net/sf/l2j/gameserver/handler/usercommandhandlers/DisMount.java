@@ -21,8 +21,12 @@ package net.sf.l2j.gameserver.handler.usercommandhandlers;
 
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
+import net.sf.l2j.gameserver.model.Inventory;
+import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.Ride;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Broadcast;
 
 /**
@@ -36,13 +40,17 @@ public class DisMount implements IUserCommandHandler
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#useUserCommand(int, net.sf.l2j.gameserver.model.L2PcInstance)
      */
-    public boolean useUserCommand(int id, L2PcInstance activeChar)
+    public synchronized boolean useUserCommand(int id, L2PcInstance activeChar)
     {
         if (id != COMMAND_IDS[0]) return false;
 
-        if (activeChar.isMounted())
+        if (activeChar.isRentedPet())
         {
-            if (activeChar.isFlying())activeChar.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
+        	activeChar.stopRentPet();
+        }
+        else if (activeChar.isMounted())
+        {
+        	if (activeChar.isFlying())activeChar.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
 			Ride dismount = new Ride(activeChar.getObjectId(), Ride.ACTION_DISMOUNT, 0);
 			Broadcast.toSelfAndKnownPlayersInRadius(activeChar, dismount, 810000/*900*/);
             activeChar.setMountType(0);

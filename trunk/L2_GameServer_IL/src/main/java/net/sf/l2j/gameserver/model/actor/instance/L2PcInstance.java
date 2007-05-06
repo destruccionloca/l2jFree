@@ -155,6 +155,7 @@ import net.sf.l2j.gameserver.serverpackets.ExFishingEnd;
 import net.sf.l2j.gameserver.serverpackets.ExFishingStart;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadMode;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfo;
+import net.sf.l2j.gameserver.serverpackets.ExDuelUpdateUserInfo;
 import net.sf.l2j.gameserver.serverpackets.FriendList;
 import net.sf.l2j.gameserver.serverpackets.HennaInfo;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
@@ -173,6 +174,7 @@ import net.sf.l2j.gameserver.serverpackets.PrivateStoreListBuy;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreListSell;
 import net.sf.l2j.gameserver.serverpackets.QuestList;
 import net.sf.l2j.gameserver.serverpackets.RecipeShopSellList;
+import net.sf.l2j.gameserver.serverpackets.Ride;
 import net.sf.l2j.gameserver.serverpackets.SendTradeDone;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.ShortCutInit;
@@ -603,6 +605,18 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _inOlympiadMode = false;
     private int _olympiadGameId = -1;
     private int _olympiadSide = -1;
+    
+    /** Duel */
+    public final int DUELSTATE_NODUEL		= 0;
+    public final int DUELSTATE_DUELLING		= 1;
+    public final int DUELSTATE_DEAD			= 2;
+    public final int DUELSTATE_WINNER		= 3;
+    public final int DUELSTATE_INTERRUPTED	= 4;
+
+    private boolean _isInDuel = false;
+    private int _duelState = DUELSTATE_NODUEL;
+    private int _duelId = 0;
+    private int _noDuelReason = 0;
 
     /** ally with ketra or varka related vars*/
     private int _alliedVarkaKetra = 0;
@@ -615,7 +629,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private long _lastAccess;
     private int _boatId;
-
+    
+    private ScheduledFuture _taskRentPet;
     private ScheduledFuture _taskWater;
     private L2BoatInstance _boat;
     private Point3D _inBoatPosition;
@@ -656,8 +671,6 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _engageid = 0;
     private boolean _maryrequest = false;
     private boolean _maryaccepted = false;
-    
-    private int _isDuelling = 0;
     
     private int _clientRevision = 0;
     
@@ -3072,8 +3085,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (item.isWear())
         {
-            Util.handleIllegalPlayerAction(this, "Warning!! Character " + getName() + " tried to  "
-                + action + "  weared item: " + item.getObjectId(), Config.DEFAULT_PUNISH);
+        	// cannot drop/trade wear-items
             return null;
         }
 
@@ -3168,13 +3180,6 @@ public final class L2PcInstance extends L2PlayableInstance
             return;
         }
         
-        if ( (isDuelling()>0 && player.isDuelling()==0) || (isDuelling()==0 && player.isDuelling()>0) )
-        {
-            ActionFailed af = new ActionFailed();
-            player.sendPacket(af);
-            return;
-        }
-        
         if ((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.DM_ALLOW_INTERFERENCE) || (DM._started && !Config.CTF_ALLOW_INTERFERENCE))
         {
             if ((_inEventTvT && !player._inEventTvT) || (!_inEventTvT && player._inEventTvT))
@@ -3227,7 +3232,7 @@ public final class L2PcInstance extends L2PlayableInstance
             else
             {
                 // Check if this L2PcInstance is autoAttackable
-                if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started) || (player._inEventDM && DM._started) || (player._inEventVIP && VIP._started) || player.isDuelling()>0)
+                if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started) || (player._inEventDM && DM._started) || (player._inEventVIP && VIP._started))
                 {
                     // Player with lvl < 21 can't attack a cursed weapon holder
                     // And a cursed weapon holder  can't attack players with lvl < 21
@@ -3358,10 +3363,10 @@ public final class L2PcInstance extends L2PlayableInstance
                 }
             }
         }
-        if (isDuelling()>0)
+        if (isInDuel())
         {
-            ExDuelUpdateUserInfo update = new ExDuelUpdateUserInfo(this);
-            DuelManager.getInstance().broadcastToOpponents(isDuelling(),this, update);
+        	ExDuelUpdateUserInfo update = new ExDuelUpdateUserInfo(this);
+        	DuelManager.getInstance().broadcastToOppositTeam(this, update);
         }
     }
 
@@ -4201,7 +4206,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (target == null) return;
         if (!(target instanceof L2PlayableInstance)) return;
-        if (_inEventCTF || _inEventTvT || _inEventVIP || _inEventDM || isDuelling()>0) return;
+        if (_inEventCTF || _inEventTvT || _inEventVIP || _inEventDM ) return;
 
         L2PcInstance targetPlayer = null;
         if (target instanceof L2PcInstance) targetPlayer = (L2PcInstance) target;
@@ -4299,7 +4304,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void increasePvpKills()
     {
-        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF) || isDuelling()>0)
+        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF))
             return;
 
         // Add karma to attacker and increase its PK counter
@@ -4387,22 +4392,29 @@ public final class L2PcInstance extends L2PlayableInstance
         if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (_inEventVIP && VIP._started))
             return;
 
-        if (getPvpFlag() == 0) startPvPFlag();
-        if (getPvpFlag() != 0) setlastPvpAttack(System.currentTimeMillis()); //update last pvp ATTACK controller
+		if (ZoneManager.getInstance().checkIfInZonePvP(this)) return;
+		setPvpFlagLasts(System.currentTimeMillis() + Config.PVP_NORMAL_TIME);
+		
+		if (getPvpFlag() == 0)
+			startPvPFlag();
     }
 
-    public void updatePvPStatus(L2Character target)
-    {
-        if (checkIfPvP(target) && (!ZoneManager.getInstance().checkIfInZonePvP(this) || // Player is not inside pvp zone or
-            !ZoneManager.getInstance().checkIfInZonePvP(target)) // Target player is not inside pvp zone
-             && 
-             (
-             (target instanceof L2PcInstance && !(((L2PcInstance) target).getKarma() > 0)) // Target is a player and target doesn't have Karma (Attacking a PK doesn't flag you.)
-             || 
-             (target instanceof L2Summon && !(((L2Summon)target).getOwner().getKarma()  > 0)) // Target is a Summon and Owner of the summon doesn't have karma
-             ))
-             updatePvPStatus();
-    }
+	public void updatePvPStatus(L2Character target)
+	{
+		if (target instanceof L2PcInstance)
+		{
+			if ((isInDuel() && ((L2PcInstance)target).getDuelId() == getDuelId())) return;
+			if ((!ZoneManager.getInstance().checkIfInZonePvP(this) || !ZoneManager.getInstance().checkIfInZonePvP(target)) && ((L2PcInstance)target).getKarma() == 0)
+			{
+				if (checkIfPvP(target))
+					setPvpFlagLasts(System.currentTimeMillis() + Config.PVP_PVP_TIME);
+				else
+					setPvpFlagLasts(System.currentTimeMillis() + Config.PVP_NORMAL_TIME);
+				if (getPvpFlag() == 0)
+					startPvPFlag();
+			}
+		}
+	}
 
     /**
      * Restore the specified % of experience this L2PcInstance has
@@ -4843,6 +4855,89 @@ public final class L2PcInstance extends L2PlayableInstance
 			return getObjectId() == getClan().getLeaderId();
 		}
     }
+
+	/**
+	 * Disarm the player's weapon and shield.<BR><BR>
+	 */
+	public synchronized boolean disarmWeapons()
+	{
+        // Don't allow disarming a cursed weapon
+        if (isCursedWeaponEquiped()) return false;
+
+        // Unequip the weapon
+        L2ItemInstance wpn = getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
+        if (wpn == null) wpn = getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
+        if (wpn != null)
+        {
+        	if (wpn.isWear())
+        		return false;
+        	
+            L2ItemInstance[] unequiped = getInventory().unEquipItemInBodySlotAndRecord(wpn.getItem().getBodyPart());
+            InventoryUpdate iu = new InventoryUpdate();
+            for (int i = 0; i < unequiped.length; i++)
+                iu.addModifiedItem(unequiped[i]);
+            sendPacket(iu);
+
+            abortAttack();
+            refreshExpertisePenalty();
+            broadcastUserInfo();
+
+            // this can be 0 if the user pressed the right mousebutton twice very fast
+            if (unequiped.length > 0)
+            {
+                SystemMessage sm = null;
+                if (unequiped[0].getEnchantLevel() > 0)
+                {
+                    sm = new SystemMessage(SystemMessage.EQUIPMENT_S1_S2_REMOVED);
+                    sm.addNumber(unequiped[0].getEnchantLevel());
+                    sm.addItemName(unequiped[0].getItemId());
+                }
+                else
+                {
+                    sm = new SystemMessage(SystemMessage.S1_DISARMED);
+                    sm.addItemName(unequiped[0].getItemId());
+                }
+                sendPacket(sm);
+            }
+        }
+        
+        // Unequip the shield
+        L2ItemInstance sld = getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND);
+        if (sld != null)
+        {
+        	if (sld.isWear())
+        		return false;
+        	
+            L2ItemInstance[] unequiped = getInventory().unEquipItemInBodySlotAndRecord(sld.getItem().getBodyPart());
+            InventoryUpdate iu = new InventoryUpdate();
+            for (int i = 0; i < unequiped.length; i++)
+                iu.addModifiedItem(unequiped[i]);
+            sendPacket(iu);
+
+            abortAttack();
+            refreshExpertisePenalty();
+            broadcastUserInfo();
+
+            // this can be 0 if the user pressed the right mousebutton twice very fast
+            if (unequiped.length > 0)
+            {
+                SystemMessage sm = null;
+                if (unequiped[0].getEnchantLevel() > 0)
+                {
+                    sm = new SystemMessage(SystemMessage.EQUIPMENT_S1_S2_REMOVED);
+                    sm.addNumber(unequiped[0].getEnchantLevel());
+                    sm.addItemName(unequiped[0].getItemId());
+                }
+                else
+                {
+                    sm = new SystemMessage(SystemMessage.S1_DISARMED);
+                    sm.addItemName(unequiped[0].getItemId());
+                }
+                sendPacket(sm);
+            }
+        }
+        return true;
+	}
 
     /**
      * Reduce the number of arrows owned by the L2PcInstance and send it Server->Client Packet InventoryUpdate or ItemList (to unequip if the last arrow was consummed).<BR><BR>
@@ -6696,10 +6791,6 @@ public final class L2PcInstance extends L2PlayableInstance
         // Check if the attacker is not in the same party
         if (getParty() != null && getParty().getPartyMembers().contains(attacker)) return false;
         
-        // If attacker belngs to another team, auto attack it
-        if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).isDuelling() == isDuelling())
-            if (((L2PcInstance)attacker).getTeam() != getTeam()) return true;
-
         // Check if the attacker is not in the same clan
         if (getClan() != null && attacker != null && getClan().isMember(attacker.getName()))
             return false;
@@ -6722,6 +6813,11 @@ public final class L2PcInstance extends L2PlayableInstance
         // Check if the attacker is a L2PcInstance
         if (attacker instanceof L2PcInstance)
         {
+			// is AutoAttackable if both players are in the same duel and the duel is still going on
+			if ( getDuelState() == DUELSTATE_DUELLING
+					&& getDuelId() == ((L2PcInstance)attacker).getDuelId() )
+				return true;
+			
             // Check if the L2PcInstance is in an arena or a siege area
             if (ZoneManager.getInstance().checkIfInZonePvP(this)
                 && ZoneManager.getInstance().checkIfInZonePvP(attacker)) return true;
@@ -7205,26 +7301,40 @@ public final class L2PcInstance extends L2PlayableInstance
         if ((_inEventTvT && TvT._started) || (_inEventDM && DM._started) || (_inEventCTF && CTF._started) || (_inEventVIP && VIP._started))
             return true;
         
-        // check for PC->PC Pvp status
-        if (target != null && // target not null and
-            target != this && // target is not self and
-            target instanceof L2PcInstance && // target is L2PcInstance and
-            skill.isPvpSkill() && // pvp skill and
-            !ZoneManager.getInstance().checkIfInZonePvP(this) && // Pc is not in PvP zone
-            !ZoneManager.getInstance().checkIfInZonePvP(target) // target is not in PvP zone
-        )
-        {
-            if(this.getClan() != null && ((L2PcInstance)target).getClan() != null)
-            {
-                if(this.getClan().isAtWarWith(((L2PcInstance)target).getClan().getClanId()))
-                    return true; // in clan war player can attack whites even with sleep etc.
-            }
-            if (
-                    ((L2PcInstance) target).getPvpFlag() == 0 && //   target's pvp flag is not set and
-                    ((L2PcInstance) target).getKarma() == 0 //   target has no karma
-            ) return false;
-        }
-        return true;
+		// check for PC->PC Pvp status
+		if (
+				target != null &&                                           			// target not null and
+				target != this &&                                           			// target is not self and
+				target instanceof L2PcInstance &&                           			// target is L2PcInstance and
+				!(isInDuel() && ((L2PcInstance)target).getDuelId() == getDuelId()) &&	// self is not in a duel and attacking opponent
+				!ZoneManager.getInstance().checkIfInZonePvP(this) &&        			// Pc is not in PvP zone
+				!ZoneManager.getInstance().checkIfInZonePvP(target)         			// target is not in PvP zone
+		)
+		{
+			if(skill.isPvpSkill()) // pvp skill
+			{
+				if(this.getClan() != null && ((L2PcInstance)target).getClan() != null)
+				{
+					if(this.getClan().isAtWarWith(((L2PcInstance)target).getClan().getClanId()))
+						return true; // in clan war player can attack whites even with sleep etc.
+				}
+				if (
+						((L2PcInstance)target).getPvpFlag() == 0 &&             //   target's pvp flag is not set and
+						((L2PcInstance)target).getKarma() == 0                  //   target has no karma
+					)
+					return false;
+			}
+			else if (getCurrentSkill() != null && !getCurrentSkill().isCtrlPressed() && skill.isOffensive())
+			{
+				if (
+						((L2PcInstance)target).getPvpFlag() == 0 &&             //   target's pvp flag is not set and
+						((L2PcInstance)target).getKarma() == 0                  //   target has no karma
+					)
+					return false;
+			}
+		}
+		
+		return true;
     }
 
     /**
@@ -7559,6 +7669,14 @@ public final class L2PcInstance extends L2PlayableInstance
             else stopWarnUserTakeBreak();
         }
     }
+
+	class RentPetTask implements Runnable
+	{
+		public void run()
+		{
+			stopRentPet();
+		}
+	}
 
     public ScheduledFuture _taskforfish;
 
@@ -7924,6 +8042,86 @@ public final class L2PcInstance extends L2PlayableInstance
                super.removeSkill(s); //Just Remove skills without deleting from Sql 
        _noble = val;
     }
+
+	public boolean isInDuel()
+	{
+		return _isInDuel;
+	}
+	
+	public int getDuelId()
+	{
+		return _duelId;
+	}
+	
+	public void setDuelState(int mode)
+	{
+		_duelState = mode;
+	}
+	
+	public int getDuelState()
+	{
+		return _duelState;
+	}
+	
+	/**
+	 * Sets up the duel state using a non 0 duelId. 
+	 * @param duelId 0=not in a duel
+	 */
+	public void setIsInDuel(int duelId)
+	{
+		if (duelId > 0)
+		{
+			_isInDuel = true;
+			_duelState = DUELSTATE_DUELLING;
+			_duelId = duelId;
+		}
+		else
+		{
+			if (_duelState == DUELSTATE_DEAD) enableAllSkills();
+			_isInDuel = false;
+			_duelState = DUELSTATE_NODUEL;
+			_duelId = 0;
+		}
+	}
+	
+	/**
+	 * This returns a SystemMessage stating why
+	 * the player is not available for duelling.
+	 * @return S1_CANNOT_DUEL... message
+	 */
+	public SystemMessage getNoDuelReason()
+	{
+		// This is somewhat hacky - but that case should never happen anyway...
+		if (_noDuelReason == 0) _noDuelReason = SystemMessage.THERE_IS_NO_OPPONENT_TO_RECEIVE_YOUR_CHALLENGE_FOR_A_DUEL;
+
+		SystemMessage sm = new SystemMessage(_noDuelReason);
+		sm.addString(getName());
+		_noDuelReason = 0;
+		return sm;
+	}
+	
+	/**
+	 * Checks if this player might join / start a duel.
+	 * To get the reason use getNoDuelReason() after calling this function. 
+	 * @return true if the player might join/start a duel.
+	 */
+	public boolean canDuel()
+	{
+		if (isInCombat() || isInJail()) { _noDuelReason = SystemMessage.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_ENGAGED_IN_BATTLE; return false; }
+		if (isDead() || isAlikeDead() || (getStatus().getCurrentHp() < getStat().getMaxHp()/2 || getStatus().getCurrentMp() < getStat().getMaxMp()/2)) { _noDuelReason = SystemMessage.S1_CANNOT_DUEL_BECAUSE_S1S_HP_OR_MP_IS_BELOW_50_PERCENT; return false; }
+		if (isInDuel()) { _noDuelReason = SystemMessage.S1_CANNOT_DUEL_BECAUSE_S1_IS_ALREADY_ENGAGED_IN_A_DUEL; return false;}
+		if (isInOlympiadMode()) { _noDuelReason = SystemMessage.S1_CANNOT_DUEL_BECAUSE_S1_IS_PARTICIPATING_IN_THE_OLYMPIAD; return false; }
+		if (isCursedWeaponEquiped()) { _noDuelReason = SystemMessage.S1_CANNOT_DUEL_BECAUSE_S1_IS_IN_A_CHAOTIC_STATE; return false; }
+		if (getPrivateStoreType() != STORE_PRIVATE_NONE) { _noDuelReason = SystemMessage.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_ENGAGED_IN_A_PRIVATE_STORE_OR_MANUFACTURE; return false; }
+		if (isMounted() || isInBoat()) { _noDuelReason = SystemMessage.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_RIDING_A_BOAT_WYVERN_OR_STRIDER; return false; }
+		if (isFishing()) { _noDuelReason = SystemMessage.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_FISHING; return false; }
+		if (getInPvpZone() || ZoneManager.getInstance().checkIfInZonePeace(this) || SiegeManager.getInstance().checkIfInZone(this))
+		{
+			_noDuelReason = SystemMessage.S1_CANNOT_MAKE_A_CHALLANGE_TO_A_DUEL_BECAUSE_S1_IS_CURRENTLY_IN_A_DUEL_PROHIBITED_AREA;
+			return false;
+		}
+		return true;
+	}
 
     public boolean isNoble()
     {
@@ -8576,6 +8774,36 @@ public final class L2PcInstance extends L2PlayableInstance
                                                                                                 7200000);
     }
 
+	public void stopRentPet()
+	{
+		if (_taskRentPet != null)
+		{
+			// if the rent of a wyvern expires while over a flying zone, tp to down before unmounting
+			if (checkLandingState() && getMountType()==2)
+				teleToLocation(MapRegionTable.TeleportWhereType.Town);
+			_taskRentPet.cancel(true);
+			Ride dismount = new Ride(getObjectId(), Ride.ACTION_DISMOUNT, 0);
+			sendPacket(dismount);
+			broadcastPacket(dismount);
+			_taskRentPet = null;
+			setMountType(0);
+		}
+	}
+	
+	public void startRentPet(int seconds)
+	{
+		if (_taskRentPet == null)
+			_taskRentPet = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new RentPetTask(), seconds * 1000, seconds * 1000);
+	}
+	
+	public boolean isRentedPet()
+	{
+		if (_taskRentPet != null)
+			return true;
+			
+		return false;
+	}
+
     public void stopWaterTask()
     {
         if (_taskWater != null)
@@ -8768,8 +8996,6 @@ public final class L2PcInstance extends L2PlayableInstance
     public void doRevive()
     {
         super.doRevive();
-        if(isInParty() && isDuelling()>0)
-            getParty().setDefeatedPartyMembers(getParty().getDefeatedPartyMembers()-1);
         updateEffectIcons();
         _ReviveRequested = 0;
         _RevivePower = 0;
@@ -8999,16 +9225,6 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (isPetrified())
         {value=0;}
-        if (isDuelling()>0 && ((L2PcInstance)attacker).getTeam()==0)
-        {
-            attacker.sendMessage("No hitting of duelling players!  Carry this sign of disgrace as a punishment!");
-            attacker.startAbnormalEffect((short)0x2000);
-        }
-        else if (isDuelling()>0 && ((L2PcInstance)attacker).getTeam()==getTeam())
-        {
-            attacker.sendMessage("You bastard, how dare you hit your ally! Carry this sign of disgrace as a punishment!");
-            attacker.startAbnormalEffect((short)0x2000);
-        }
         getStatus().reduceHp(value, attacker, awake);
     }
 
@@ -9119,8 +9335,7 @@ public final class L2PcInstance extends L2PlayableInstance
         
         if (item.isWear())
         {
-            Util.handleIllegalPlayerAction(this, "Warning!! Character " + getName() + " tried to "
-                + action + " weared item: " + item.getObjectId(), Config.DEFAULT_PUNISH);
+        	// cannot drop/trade wear-items
             return false;
         }
 
@@ -9974,15 +10189,6 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
-    public int isDuelling()
-    {
-        return _isDuelling;
-    }
-    public void setDuelling(int duelling)
-    {
-        _isDuelling = duelling;
-    }
-    
     public void setClientRevision(int clientrev)
     {
         _clientRevision = clientrev;

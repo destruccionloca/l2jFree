@@ -1,5 +1,4 @@
-/*
- * This program is free software; you can redistribute it and/or modify
+/* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -18,47 +17,36 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-
-
 /**
- *
- * sample
- * <p>
- * 4b 
- * c1 b2 e0 4a 
- * 00 00 00 00
- * <p>
- * 
- * format
- * cdd
- * 
- * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
+ * Format: ch d
+ * @author  KenM
  */
 public class ExDuelEnd extends L2GameServerPacket
 {
-	private static final String _S__4B_ExDuelAskStart_0X4B = "[S] 39 ExDuelEnd 0x4b";
-	//private final static Log _log = LogFactory.getLog(ExDuelAskStart.class.getName());
-
-	/**
-	 * @param int objectId of the target
-	 * @param int 
-	 */
-	public ExDuelEnd()
+	private static final String _S__FE_4E_EXDUELEND = "[S] FE:4E ExDuelEnd";
+	private int _unk1;
+	
+	public ExDuelEnd(int unk1)
 	{
+		_unk1 = unk1;
 	}
-
+	
+	@Override
 	protected void writeImpl()
 	{
 		writeC(0xfe);
-        writeH(78);
+		writeH(0x4e);
+		
+		writeD(_unk1);
 	}
-	
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+
+	/**
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
-		return _S__4B_ExDuelAskStart_0X4B;
+		return _S__FE_4E_EXDUELEND;
 	}
 
 }

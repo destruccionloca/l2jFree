@@ -1,5 +1,4 @@
-/*
- * This program is free software; you can redistribute it and/or modify
+/* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -18,54 +17,43 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-
-
 /**
- *
- * sample
- * <p>
- * 4b 
- * c1 b2 e0 4a 
- * 00 00 00 00
- * <p>
- * 
- * format
- * cdd
- * 
- * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
+ * Format: ch Sd
+ * @author  KenM
  */
 public class ExDuelAskStart extends L2GameServerPacket
 {
-	private static final String _S__4B_ExDuelAskStart_0X4B = "[S] 39 ExDuelAskStart 0x4b";
-	//private final static Log _log = LogFactory.getLog(ExDuelAskStart.class.getName());
-
+	private static final String _S__FE_4B_EXDUELASKSTART = "[S] FE:4B ExDuelAskStart";
+	
 	private String _requestorName;
-	private int _duelMode;
-
-	/**
-	 * @param int objectId of the target
-	 * @param int 
-	 */
-	public ExDuelAskStart(String requestorName, int itemDistribution)
+	private int _partyDuel;
+	
+	public ExDuelAskStart(String requestor, int partyDuel)
 	{
-		_requestorName = requestorName;
-		_duelMode = itemDistribution;
+		_requestorName = requestor;
+		_partyDuel = partyDuel;
 	}
 
+	/**
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
+	 */
+	@Override
 	protected void writeImpl()
 	{
 		writeC(0xfe);
-        writeH(75);
+		writeH(0x4b);
+		
 		writeS(_requestorName);
-		writeD(_duelMode);
-	}
-	
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
-	public String getType()
-	{
-		return _S__4B_ExDuelAskStart_0X4B;
+		writeD(_partyDuel);
 	}
 
+	/**
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__FE_4B_EXDUELASKSTART;
+	}
+	
 }

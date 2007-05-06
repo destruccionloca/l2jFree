@@ -56,7 +56,6 @@ public class L2Party {
 	private int _partyLvl = 0;
 	private int _itemDistribution = 0;
 	private int _itemLastLoot = 0;
-    private int _defeatedPartyMembers = 0;      //Used by duel engine to avoid looping through all party members after one of them is killed
 	
 	public static final int ITEM_LOOTER = 0;
 	public static final int ITEM_RANDOM = 1;
@@ -299,9 +298,10 @@ public class L2Party {
 			
 			if (player.isFestivalParticipant())
 				SevenSignsFestival.getInstance().updateParticipants(player, this);
-            if (player.isDuelling()> 0)
-                player.setDuelling(0);
-            
+
+			if(player.isInDuel())
+				DuelManager.getInstance().onRemoveFromParty(player);
+			
 			SystemMessage msg = new SystemMessage(SystemMessage.YOU_LEFT_PARTY);
 			player.sendPacket(msg);
 			player.sendPacket(new PartySmallWindowDeleteAll());
@@ -315,11 +315,8 @@ public class L2Party {
 			if (getPartyMembers().size() == 1)
 			{
 				getPartyMembers().get(0).setParty(null);
-                if (getPartyMembers().get(0).isDuelling()>0)
-                {
-                    DuelManager.getInstance().endDuel(getPartyMembers().get(0).isDuelling(),true,getPartyMembers().get(0).getTeam());
-                    getPartyMembers().get(0).setDuelling(0);
-                }
+				if (getPartyMembers().get(0).isInDuel())
+					DuelManager.getInstance().onRemoveFromParty(getPartyMembers().get(0));
 			}
 		}
 	}
@@ -333,7 +330,7 @@ public class L2Party {
 	{
 		L2PcInstance player = getPlayerByName(name);
 		
-        if (player != null && player.isDuelling()==0)
+		if (player != null && !player.isInDuel())
 		{
 			if (getPartyMembers().contains(player))
 			{
@@ -387,8 +384,6 @@ public class L2Party {
         {
             if (isLeader(player)) 
             {
-            	if(player.isDuelling()>0)
-            		DuelManager.getInstance().endDuel(player.isDuelling(),true, player.getTeam());
                 removePartyMember(player);
                 if (getPartyMembers().size() > 1)
                 {
@@ -425,7 +420,6 @@ public class L2Party {
 			if (isLeader(player)) 
             {
 				removePartyMember(player);
-                DuelManager.getInstance().endDuel(player.isDuelling(),true, player.getTeam());
                 if (getPartyMembers().size() > 1)
                 {
                    SystemMessage msg = new SystemMessage(SystemMessage.S1_HAS_BECOME_A_PARTY_LEADER);
@@ -768,13 +762,4 @@ public class L2Party {
     
     public int getLootDistribution() { return _itemDistribution; }
     
-    public int getDefeatedPartyMembers()
-    {
-        return _defeatedPartyMembers;
-    }
-    
-    public void setDefeatedPartyMembers(int defeatedMembersCount)
-    {
-        _defeatedPartyMembers = defeatedMembersCount;
-    }
 }
