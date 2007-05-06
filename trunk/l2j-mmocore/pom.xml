@@ -1,0 +1,83 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  
+	<parent>
+		<artifactId>l2jfreeParent</artifactId>
+		<groupId>l2jfree</groupId>
+		<version>1.0.0</version>
+	</parent>
+    
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>l2j-mmocore</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0.3-SNAPSHOT</version>
+  <name>mmocore</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>javolution</groupId>
+      <artifactId>javolution</artifactId>
+      <version>1.5.4.2.6</version>
+    </dependency>   
+  </dependencies>
+  
+	<pluginRepositories>
+		<pluginRepository>
+			<id>Maven Snapshots</id>
+			<url>http://snapshots.maven.codehaus.org/maven2/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</pluginRepository>
+
+		<pluginRepository>
+			<id>central l2j</id>
+			<name>Mirror Central L2j</name>
+			<url>http://www.l2jfree.com:9091/repository/l2jm2/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<repositories>
+		<repository>
+			<id>central l2j backup</id>
+			<name>Backup Mirror Central L2j</name>
+			<url>http://www.l2jfree.com:9091/repository/l2jm2/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>central l2j</id>
+			<name>Mirror Central L2j</name>
+			<url>http://www.l2jfree.com:9092/repository/l2jm2/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+
+
+	</repositories>
+        
+        
+</project>
