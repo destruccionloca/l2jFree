@@ -20,9 +20,9 @@ CREATE TABLE IF NOT EXISTS `armor` (
   `price` int(11) NOT NULL default '0',
   `crystal_count` int(4) default NULL,
   `sellable` varchar(5) default NULL,
-  `dropable` varchar(5) default NULL,
-  `destroyable` varchar(5) default NULL,
-  `tradeable` varchar(5) default NULL,
+  `dropable` varchar(5) NOT NULL default 'true',
+  `destroyable` varchar(5) NOT NULL default 'true',
+  `tradeable` varchar(5) NOT NULL default 'true',
   `item_skill_id` decimal(11,0) NOT NULL default '0',
   `item_skill_lvl` decimal(11,0) NOT NULL default '0',
   PRIMARY KEY  (`item_id`)
