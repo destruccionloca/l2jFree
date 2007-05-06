@@ -685,3 +685,7 @@ INSERT INTO `teleport` (`Description`, `id`, `loc_x`, `loc_y`, `loc_z`, `price`,
 ('Clan Hall --> North of Goddard Castle Town', 12047, 147731, -58930, -2976, 0, 0),
 ('Clan Hall --> East of Goddard Castle Town', 12048, 150561, -57489, -2976, 0, 0),
 ('Clan Hall --> West of Goddard Castle Town', 12049, 144866, -57464, -2976, 0, 0);
+
+INSERT INTO teleport VALUES 
+('Pagan Temple - > exit', 11999, -16307, -36591, -10725, 0, 0),
+('Pagan Chapel - > exit', 11998, -16359, -43803, -10725, 0, 0);
