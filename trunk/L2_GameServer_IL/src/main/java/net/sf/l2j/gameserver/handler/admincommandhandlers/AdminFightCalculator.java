@@ -215,14 +215,14 @@ public class AdminFightCalculator implements IAdminCommandHandler {
 			if (_miss1) miss1++;
 			boolean _shld1 = f.calcShldUse(npc1, npc2);
 			if (_shld1) shld1++;
-			boolean _crit1 = f.calcCrit(npc1, npc2, npc1.getCriticalHit(npc2, null));
+			boolean _crit1 = f.calcCrit(npc1, npc2, npc1.getStat().getCriticalHit(npc2, null));
 			if (_crit1) crit1++;
 			
-			double _patk1 = npc1.getPAtk(npc2);
+			double _patk1 = npc1.getStat().getPAtk(npc2);
 			_patk1 += rnd.nextDouble()* npc1.getRandomDamage(npc2);
 			patk1 += _patk1;
 			
-			double _pdef1 = npc1.getPDef(npc2);
+			double _pdef1 = npc1.getStat().getPDef(npc2);
 			pdef1 += _pdef1;
 
 			if (!_miss1) {
@@ -239,14 +239,14 @@ public class AdminFightCalculator implements IAdminCommandHandler {
 			if (_miss2) miss2++;
 			boolean _shld2 = f.calcShldUse(npc2, npc1);
 			if (_shld2) shld2++;
-			boolean _crit2 = f.calcCrit(npc2, npc1, npc2.getCriticalHit(npc1, null));
+			boolean _crit2 = f.calcCrit(npc2, npc1, npc2.getStat().getCriticalHit(npc1, null));
 			if (_crit2) crit2++;
 			
-			double _patk2 = npc2.getPAtk(npc1);
+			double _patk2 = npc2.getStat().getPAtk(npc1);
 			_patk2 += rnd.nextDouble()* npc2.getRandomDamage(npc1);
 			patk2 += _patk2;
 			
-			double _pdef2 = npc2.getPDef(npc1);
+			double _pdef2 = npc2.getStat().getPDef(npc1);
 			pdef2 += _pdef2;
 
 			if (!_miss2) {
@@ -274,10 +274,10 @@ public class AdminFightCalculator implements IAdminCommandHandler {
 		int tdmg1 = (int)(sAtk1 * dmg1);
 		int tdmg2 = (int)(sAtk2 * dmg2);
 		// HP restored per 100 seconds
-		double maxHp1 = npc1.getMaxHp();
+		double maxHp1 = npc1.getStat().getMaxHp();
 		int hp1 = (int)(f.calcHpRegen(npc1) * 100000 / f.getRegeneratePeriod(npc1));
 
-		double maxHp2 = npc2.getMaxHp();
+		double maxHp2 = npc2.getStat().getMaxHp();
 		int hp2 = (int)(f.calcHpRegen(npc2) * 100000 / f.getRegeneratePeriod(npc2));
 
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);

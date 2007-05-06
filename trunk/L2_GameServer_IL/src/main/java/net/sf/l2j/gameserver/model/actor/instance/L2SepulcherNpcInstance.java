@@ -142,8 +142,8 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
             {   
                 // Send a Server->Client packet StatusUpdate of the L2NpcInstance to the L2PcInstance to update its HP bar
                 StatusUpdate su = new StatusUpdate(getObjectId());
-                su.addAttribute(StatusUpdate.CUR_HP, (int)getCurrentHp() );
-                su.addAttribute(StatusUpdate.MAX_HP, getMaxHp() );
+                su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp() );
+                su.addAttribute(StatusUpdate.MAX_HP,getStat().getMaxHp() );
                 player.sendPacket(su);
             }
             
@@ -234,7 +234,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
             case 31485:
             case 31486:
             case 31487:
-                reduceCurrentHp(getMaxHp() + 1, player);
+                getStatus().reduceHp(getStat().getMaxHp() + 1, player);
                 if(_SpawnMonsterTask != null) _SpawnMonsterTask.cancel(true);
                 _SpawnMonsterTask = 
                 	ThreadPoolManager.getInstance().scheduleEffect(new SpawnMonster(getNpcId()),3500); 
@@ -253,7 +253,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
             case 31465:
             case 31466:
             case 31467:
-                reduceCurrentHp(getMaxHp() + 1, player);
+                getStatus().reduceHp(getStat().getMaxHp() + 1, player);
 				player.addItem("Quest", _HallsKey, 1, player, true);
                 break;
 

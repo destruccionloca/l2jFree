@@ -116,7 +116,7 @@ public class L2SkillChargeDmg extends L2Skill
                 }  
                 if (target.isPetrified())  
                     {finalDamage= 0;}  
-                target.reduceCurrentHp(finalDamage, caster); 
+                target.getStatus().reduceHp(finalDamage, caster); 
 
 				
 				SystemMessage sm = new SystemMessage(SystemMessage.YOU_DID_S1_DMG);

@@ -85,12 +85,12 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 			stopSleeping(null);
 		if (isPetrified())
         {i= 0;}
-        i = getCurrentHp() - i;
+        i = getStatus().getCurrentHp() - i;
 		
 		if (i < 0)
 			i = 0;
 		
-		setCurrentHp(i);
+        getStatus().setCurrentHp(i);
 		
 		if (isDead())
 		{
@@ -113,7 +113,7 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 			doDie(attacker);
 			
 			// now reset currentHp to zero
-			setCurrentHp(0);
+            getStatus().setCurrentHp(0);
 		}
 	}
 

@@ -421,7 +421,7 @@ public class Disablers implements ISkillHandler
                 		skill.getEffects(activeChar, target);
 
                 		double aggdiff = ((L2Attackable)target).getHating(activeChar) 
-                									- target.calcStat(Stats.AGGRESSION, ((L2Attackable)target).getHating(activeChar), target, skill); 
+                									- target.getStat().calcStat(Stats.AGGRESSION, ((L2Attackable)target).getHating(activeChar), target, skill); 
                 		
                 		if (skill.getPower() > 0)
                 			target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, null, -(int) skill.getPower());

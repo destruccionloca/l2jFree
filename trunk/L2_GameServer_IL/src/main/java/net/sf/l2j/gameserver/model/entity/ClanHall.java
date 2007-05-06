@@ -193,11 +193,11 @@ public class ClanHall
 	    for (int i = 0; i < getDoors().size(); i++)
         {
             L2DoorInstance door = getDoors().get(i);
-            if (door.getCurrentHp() <= 0)
+            if (door.getStatus().getCurrentHp() <= 0)
             {
                 door.decayMe();	// Kill current if not killed already
                 door = DoorTable.parseList(_DoorDefault.get(i));
-                if (isDoorWeak) door.setCurrentHp(door.getMaxHp() / 2);
+                if (isDoorWeak) door.getStatus().setCurrentHp(door.getStat().getMaxHp() / 2);
     			door.spawnMe(door.getX(), door.getY(),door.getZ());
     			getDoors().set(i, door);
             }

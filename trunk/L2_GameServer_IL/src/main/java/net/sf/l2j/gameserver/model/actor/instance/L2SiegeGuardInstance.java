@@ -162,8 +162,8 @@ public final class L2SiegeGuardInstance extends L2Attackable
 			//if ((isAutoAttackable(player))||(this instanceof L2SiegeGuardInstance))
 			//{	
 				StatusUpdate su = new StatusUpdate(getObjectId());
-				su.addAttribute(StatusUpdate.CUR_HP, (int)getCurrentHp() );
-				su.addAttribute(StatusUpdate.MAX_HP, getMaxHp() );
+				su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp() );
+				su.addAttribute(StatusUpdate.MAX_HP,getStat().getMaxHp() );
 				player.sendPacket(su);
 			//}
 			

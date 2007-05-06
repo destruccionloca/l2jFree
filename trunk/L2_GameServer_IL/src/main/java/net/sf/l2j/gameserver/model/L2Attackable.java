@@ -380,7 +380,7 @@ public class L2Attackable extends L2NpcInstance
         }
         
         // Reduce the current HP of the L2Attackable and launch the doDie Task if necessary
-        super.reduceCurrentHp(damage, attacker, awake);
+        super.getStatus().reduceHp(damage, attacker, awake);
     }
     
     public synchronized void setHaveToDrop(boolean value) {
@@ -554,7 +554,7 @@ public class L2Attackable extends L2NpcInstance
                 }
                 
                 // We must avoid "over damage", if any
-                if (damage > getMaxHp()) damage = getMaxHp();
+                if (damage > getStat().getMaxHp()) damage = getStat().getMaxHp();
                 
                 // If there's NO party in progress
                 if (attackerParty == null)
@@ -592,7 +592,7 @@ public class L2Attackable extends L2NpcInstance
                             exp *= Config.CHAMPION_EXP_SP;
                             sp *= Config.CHAMPION_EXP_SP;
                         }
-                        attacker.addExpAndSp(Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null)),(int)attacker.calcStat(Stats.EXPSP_RATE, sp, null, null));
+                        attacker.addExpAndSp(Math.round(attacker.getStat().calcStat(Stats.EXPSP_RATE, exp, null, null)),(int)attacker.getStat().calcStat(Stats.EXPSP_RATE, sp, null, null));
                     }
                 }
                 else
@@ -628,10 +628,10 @@ public class L2Attackable extends L2NpcInstance
                     }
                     
                     // If the party didn't killed this L2Attackable alone
-                    if (partyDmg < getMaxHp()) partyMul = ((float)partyDmg / (float)getMaxHp());
+                    if (partyDmg < getStat().getMaxHp()) partyMul = ((float)partyDmg / (float)getStat().getMaxHp());
                     
                     // Avoid "over damage"
-                    if (partyDmg > getMaxHp()) partyDmg = getMaxHp();
+                    if (partyDmg > getStat().getMaxHp()) partyDmg = getStat().getMaxHp();
 
                     int newLevel = 0;
                     for (L2Character member : rewardedMembers)
@@ -738,8 +738,8 @@ public class L2Attackable extends L2NpcInstance
 
                     if(targetList != null && targetList.length != 0 && (targetList[0] instanceof L2PcInstance || targetList[0] instanceof L2SummonInstance || targetList[0] instanceof L2PetInstance))
                     {
-                        if ((getMaxHp()/5) < target.getLastHealAmount())
-                            target.setLastHealAmount((getMaxHp()/5));
+                        if ((getStat().getMaxHp()/5) < target.getLastHealAmount())
+                            target.setLastHealAmount((getStat().getMaxHp()/5));
                         
                         addDamageHate(actor, 0, (int)(target.getLastHealAmount()/divisor));
 
@@ -769,8 +769,8 @@ public class L2Attackable extends L2NpcInstance
                     {
                         if (member == actor)
                         {
-                            if ((getMaxHp()/3) < (int)(((getHating(target)-getHating(actor))+800)/divisor))
-                                addDamageHate(actor, 0, (getMaxHp()/3));
+                            if ((getStat().getMaxHp()/3) < (int)(((getHating(target)-getHating(actor))+800)/divisor))
+                                addDamageHate(actor, 0, (getStat().getMaxHp()/3));
                             else
                                 addDamageHate(actor, 0, (int)(((getHating(target)-getHating(actor))+800)/divisor));
 
@@ -1586,7 +1586,7 @@ public class L2Attackable extends L2NpcInstance
     {
         // Calculate the over-hit damage
         // Ex: mob had 10 HP left, over-hit skill did 50 damage total, over-hit damage is 40
-        double overhitDmg = ((getCurrentHp() - damage) * (-1));
+        double overhitDmg = ((getStatus().getCurrentHp() - damage) * (-1));
         if (overhitDmg < 0)
         {
             // we didn't killed the mob with the over-hit strike. (it wasn't really an over-hit strike)
@@ -1679,14 +1679,14 @@ public class L2Attackable extends L2NpcInstance
         // If the L2Character attacker isn't already in the _absorbersList of this L2Attackable, add it
         if (ai == null)
         {
-            ai = new AbsorberInfo(attacker, crystalId, getCurrentHp());
+            ai = new AbsorberInfo(attacker, crystalId, getStatus().getCurrentHp());
             _absorbersList.put(attacker, ai);
         }
         else
         {
             ai.absorber = attacker;
             ai.crystalId = crystalId;
-            ai.absorbedHP = getCurrentHp();
+            ai.absorbedHP = getStatus().getCurrentHp();
         }
         
         // Set this L2Attackable as absorbed
@@ -1742,7 +1742,7 @@ public class L2Attackable extends L2NpcInstance
                 isSuccess = false;
             
             // Check if the soul crystal was used when HP of this L2Attackable wasn't higher than half of it
-            if (ai != null && ai.absorbedHP > (getMaxHp()/2))
+            if (ai != null && ai.absorbedHP > (getStat().getMaxHp()/2))
                 isSuccess = false;
             
             if (!isSuccess) {             
@@ -1964,10 +1964,10 @@ public class L2Attackable extends L2NpcInstance
         long sp;
 
         if(diff < -5) diff = -5; // makes possible to use ALT_GAME_EXPONENT configuration
-        xp = (long)getExpReward() * damage / getMaxHp(); 
+        xp = (long)getExpReward() * damage / getStat().getMaxHp(); 
         if (Config.ALT_GAME_EXPONENT_XP != 0) xp *= Math.pow(2., -diff / Config.ALT_GAME_EXPONENT_XP);
 
-        sp = (long)getSpReward() * damage / getMaxHp();
+        sp = (long)getSpReward() * damage / getStat().getMaxHp();
         if (Config.ALT_GAME_EXPONENT_SP != 0) sp *= Math.pow(2., -diff / Config.ALT_GAME_EXPONENT_SP);
         
         if (Config.ALT_GAME_EXPONENT_XP == 0 && Config.ALT_GAME_EXPONENT_SP == 0)
@@ -2004,7 +2004,7 @@ public class L2Attackable extends L2NpcInstance
     public long calculateOverhitExp(long normalExp)
     {
         // Get the percentage based on the total of extra (over-hit) damage done relative to the total (maximum) ammount of HP on the L2Attackable
-        double overhitPercentage = ((getOverhitDamage() * 100) / getMaxHp());
+        double overhitPercentage = ((getOverhitDamage() * 100) / getStat().getMaxHp());
         
         // Over-hit damage percentages are limited to 25% max
         if (overhitPercentage > 25)

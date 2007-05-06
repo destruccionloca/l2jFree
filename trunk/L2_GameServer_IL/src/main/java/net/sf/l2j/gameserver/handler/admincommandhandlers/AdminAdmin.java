@@ -687,8 +687,8 @@ public class AdminAdmin implements IAdminCommandHandler {
             summon.getStat().setExp(Experience.LEVEL[(summon.getLevel() % Experience.LEVEL.length)]);
         }
         summon.getStat().setExp(0);
-        summon.setCurrentHp(summon.getMaxHp());
-        summon.setCurrentMp(summon.getMaxMp());
+        summon.getStatus().setCurrentHp(summon.getStat().getMaxHp());
+        summon.getStatus().setCurrentMp(summon.getStat().getMaxMp());
         summon.setHeading(activeChar.getHeading());
         summon.setRunning();
         activeChar.setPet(summon);

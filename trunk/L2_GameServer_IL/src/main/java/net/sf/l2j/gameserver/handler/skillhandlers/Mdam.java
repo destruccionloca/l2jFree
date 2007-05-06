@@ -121,7 +121,7 @@ public class Mdam implements ISkillHandler
                 continue;
             }
 
-            boolean mcrit = Formulas.getInstance().calcMCrit(activeChar.getMCriticalHit(target, skill));
+            boolean mcrit = Formulas.getInstance().calcMCrit(activeChar.getStat().getMCriticalHit(target, skill));
             int damage = (int) Formulas.getInstance().calcMagicDam(activeChar, target, skill, ss, bss, mcrit);
             
             if (skill.isCritical() && !mcrit)
@@ -212,7 +212,7 @@ public class Mdam implements ISkillHandler
                 }
                 if (target.isPetrified())
                 {damage=0;}
-                target.reduceCurrentHp(damage, activeChar);
+                target.getStatus().reduceHp(damage, activeChar);
             }
         }
         // self Effect :]
@@ -227,7 +227,7 @@ public class Mdam implements ISkillHandler
         if (skill.isSuicideAttack())
         {
            activeChar.doDie(null);
-           activeChar.setCurrentHp(0);
+           activeChar.getStatus().setCurrentHp(0);
         }        
     }
 

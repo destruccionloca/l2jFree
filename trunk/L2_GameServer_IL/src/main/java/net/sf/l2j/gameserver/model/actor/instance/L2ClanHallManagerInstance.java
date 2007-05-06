@@ -149,7 +149,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                     if(getClanHall().getFunction(ClanHall.FUNC_SUPPORT).getLvl() == 0)
                     	return;
                     html.setFile("data/html/clanHallManager/support"+getClanHall().getFunction(ClanHall.FUNC_SUPPORT).getLvl()+".htm");
-                    html.replace("%mp%", String.valueOf(getCurrentMp()));
+                    html.replace("%mp%", String.valueOf(getStatus().getCurrentMp()));
                     sendHtmlMessage(player, html);
                 }
                 else if (val.equalsIgnoreCase("back"))
@@ -561,7 +561,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                         if(getClanHall().getFunction(ClanHall.FUNC_SUPPORT).getLvl() == 0)
                         	return;
                         html.setFile("data/html/clanHallManager/support"+getClanHall().getFunction(ClanHall.FUNC_SUPPORT).getLvl()+".htm");
-                        html.replace("%mp%", String.valueOf(getCurrentMp()));
+                        html.replace("%mp%", String.valueOf(getStatus().getCurrentMp()));
                         sendHtmlMessage(player, html);
                     }
                     catch (Exception e)

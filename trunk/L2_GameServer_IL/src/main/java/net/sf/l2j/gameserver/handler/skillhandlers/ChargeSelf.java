@@ -65,14 +65,14 @@ public class ChargeSelf implements ISkillHandler
                 continue;
             boolean dual = activeChar.isUsingDualWeapon();
             boolean shld = Formulas.getInstance().calcShldUse(activeChar, target);
-            boolean crit = Formulas.getInstance().calcCrit(activeChar, target, activeChar.getCriticalHit(target, skill));
+            boolean crit = Formulas.getInstance().calcCrit(activeChar, target, activeChar.getStat().getCriticalHit(target, skill));
             boolean soul = (weapon!= null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER );
            
             skill.getEffects(activeChar, activeChar);
             damage = (int) Formulas.getInstance().calcPhysDam(activeChar, target, skill, shld, crit, dual, soul);
             if (target.isPetrified())
             {damage = 0;}
-            target.reduceCurrentHp(damage, activeChar);
+            target.getStatus().reduceHp(damage, activeChar);
             if (activeChar instanceof L2PcInstance)
             {
                 SystemMessage sm = new SystemMessage(SystemMessage.YOU_DID_S1_DMG);

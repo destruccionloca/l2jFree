@@ -106,39 +106,39 @@ public class Crits implements ISkillHandler
                 }
             else if (!Config.ALT_DAGGER_FORMULA )
             {
-                crit = Formulas.getInstance().calcCrit(activeChar, target, activeChar.getCriticalHit(target, skill));
+                crit = Formulas.getInstance().calcCrit(activeChar, target, activeChar.getStat().getCriticalHit(target, skill));
             }
             boolean soul = (weapon!= null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER );
             if (target instanceof L2PcInstance && skill.getId() == 30 && crit) 
             {
                 double Hpdamage = 0;
                 damage = (int)Formulas.getInstance().calcPhysDam(activeChar, target, skill, shld, crit, dual, soul);
-                if (damage >= (target.getCurrentHp() + target.getCurrentCp()))
+                if (damage >= (target.getStatus().getCurrentHp() + target.getStatus().getCurrentCp()))
                 {
                     if (target.isPetrified())
                     {
                         damage = 0;
                     }
                     else
-                        target.reduceCurrentHp(damage, activeChar);
+                        target.getStatus().reduceHp(damage, activeChar);
                 }
                 else 
                 {
-                    if (damage >= target.getCurrentHp())
+                    if (damage >= target.getStatus().getCurrentHp())
                     {
                         if (!target.isPetrified())
                         {
-                            target.setCurrentHp(0);
+                            target.getStatus().setCurrentHp(0);
                             target.doDie(activeChar);
                         }
                     }
-                    else if (damage <= target.getCurrentHp())
+                    else if (damage <= target.getStatus().getCurrentHp())
                     {
                         
-                        Hpdamage = (target.getCurrentHp() - damage);
+                        Hpdamage = (target.getStatus().getCurrentHp() - damage);
                         if (!target.isPetrified())
                         {
-                            target.setCurrentHp(Hpdamage);
+                            target.getStatus().setCurrentHp(Hpdamage);
                         }
                         else
                         {
@@ -150,9 +150,9 @@ public class Crits implements ISkillHandler
                     smsg.addString(activeChar.getName());
                     target.sendPacket(smsg);
                     }
-                    if (target.getCurrentHp() <= 0)
+                    if (target.getStatus().getCurrentHp() <= 0)
                     {
-                        target.setCurrentHp(0);
+                        target.getStatus().setCurrentHp(0);
                         target.doDie(activeChar);
                     }
                 }
@@ -164,7 +164,7 @@ public class Crits implements ISkillHandler
                     damage = 0;
                 if (target.isPetrified())
                     damage = 0;
-                target.reduceCurrentHp(damage, activeChar);
+                target.getStatus().reduceHp(damage, activeChar);
             }
             else damage = (int)Formulas.getInstance().calcPhysDam(activeChar, target, skill, shld, crit, dual, soul);
             if (skill.isCritical() && !crit)
@@ -227,7 +227,7 @@ public class Crits implements ISkillHandler
                     {
                         if (!target.isPetrified())
                         {
-                            target.setCurrentCp(1);
+                            target.getStatus().setCurrentCp(1);
                             damage=0;
                         }
                     }
@@ -235,20 +235,20 @@ public class Crits implements ISkillHandler
                     {
                         if (!target.isPetrified())
                         {
-                            target.setCurrentHp(1);
+                            target.getStatus().setCurrentHp(1);
                             damage=0;
                         }
                     }
                     else if (target instanceof L2PcInstance && skill.getId() != 30)
                     {
                         if (!target.isPetrified())
-                            target.setCurrentCp(1);
+                            target.getStatus().setCurrentCp(1);
                     }
                     else if (target instanceof L2NpcInstance)
                     {
                         if (!target.isPetrified() && !target.isRaid() && ((L2NpcInstance) target).getTemplate().npcId != 35062) 
                         {
-                            target.setCurrentHp(0);
+                            target.getStatus().setCurrentHp(0);
                             target.doDie(activeChar);
                         }
                     }
@@ -265,7 +265,7 @@ public class Crits implements ISkillHandler
             {
                 if (target.isPetrified())
                     damage= 0;
-                target.reduceCurrentHp(damage, activeChar);
+                target.getStatus().reduceHp(damage, activeChar);
             }
             if (soul && weapon!= null)
                     weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE); 

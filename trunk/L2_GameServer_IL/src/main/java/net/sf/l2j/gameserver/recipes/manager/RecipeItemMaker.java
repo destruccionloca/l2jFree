@@ -149,7 +149,7 @@ public class RecipeItemMaker implements Runnable
             totalItems += i.getQuantity();
         }
         // initial mana check requires MP as written on recipe
-        if (player.getCurrentMp() < manaRequired)
+        if (player.getStatus().getCurrentMp() < manaRequired)
         {
             target.sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_MP));
             abort();
@@ -215,7 +215,7 @@ public class RecipeItemMaker implements Runnable
         {
             
             if (!validateMp()) return;              // check mana               
-            player.reduceCurrentMp(manaRequired);   // use some mp
+            player.getStatus().reduceMp(manaRequired);   // use some mp
             updateCurMp();                          // update craft window mp bar
             
             grabSomeItems(); // grab (equip) some more items with a nice msg to player
@@ -224,7 +224,7 @@ public class RecipeItemMaker implements Runnable
             if(!items.isEmpty())
             {
                 // divided by RATE_CONSUMABLES_COST to remove craft time increase on higher consumables rates 
-                delay = (int) (Config.ALT_GAME_CREATION_SPEED * player.getMReuseRate(skill)
+                delay = (int) (Config.ALT_GAME_CREATION_SPEED * player.getStat().getMReuseRate(skill)
                         * GameTimeController.TICKS_PER_SECOND / Config.RATE_CRAFT_COST)
                         * GameTimeController.MILLIS_IN_TICK;
                 
@@ -253,7 +253,7 @@ public class RecipeItemMaker implements Runnable
 
     private void finishCrafting()
     {
-        if(!Config.ALT_GAME_CREATION) player.reduceCurrentMp(manaRequired);
+        if(!Config.ALT_GAME_CREATION) player.getStatus().reduceMp(manaRequired);
         
         // first take adena for manufacture
         if ((target != player) && price > 0) // customer must pay for services
@@ -312,7 +312,7 @@ public class RecipeItemMaker implements Runnable
     private void updateCurMp()
     {
         StatusUpdate su = new StatusUpdate(target.getObjectId());
-        su.addAttribute(StatusUpdate.CUR_MP, (int) target.getCurrentMp());
+        su.addAttribute(StatusUpdate.CUR_MP, (int) target.getStatus().getCurrentMp());
         target.sendPacket(su);
     }
     
@@ -347,7 +347,7 @@ public class RecipeItemMaker implements Runnable
     
     private boolean validateMp()
     {
-        if (player.getCurrentMp() < manaRequired)
+        if (player.getStatus().getCurrentMp() < manaRequired)
         {
             // rest (wait for MP)
             if (Config.ALT_GAME_CREATION)
@@ -480,9 +480,9 @@ public class RecipeItemMaker implements Runnable
             // you can use ALT_GAME_CREATION_XP_RATE/SP to
             // modify XP/SP gained (default = 1)   
             
-            player.addExpAndSp((int) player.calcStat(Stats.EXPSP_RATE, exp * Config.ALT_GAME_CREATION_XP_RATE  
+            player.addExpAndSp((int) player.getStat().calcStat(Stats.EXPSP_RATE, exp * Config.ALT_GAME_CREATION_XP_RATE  
                                                      * Config.ALT_GAME_CREATION_SPEED, null, null)
-                              ,(int) player.calcStat(Stats.EXPSP_RATE, sp * Config.ALT_GAME_CREATION_SP_RATE   
+                              ,(int) player.getStat().calcStat(Stats.EXPSP_RATE, sp * Config.ALT_GAME_CREATION_SP_RATE   
                                                      * Config.ALT_GAME_CREATION_SPEED, null, null));
         }
         updateMakeInfo(true); // success

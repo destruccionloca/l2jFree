@@ -544,7 +544,7 @@ public class L2PetInstance extends L2Summon
         }
         if (isPetrified())
         {damage=0;}
-        super.reduceCurrentHp(damage, attacker);
+        super.getStatus().reduceHp(damage, attacker);
     }
     
     public synchronized void doDie(L2Character killer) {
@@ -840,7 +840,7 @@ public class L2PetInstance extends L2Summon
 
            	pet.getStatus().setCurrentHp(curHp);
             pet.getStatus().setCurrentMp(curMp);
-            pet.getStatus().setCurrentCp(pet.getMaxCp());    
+            pet.getStatus().setCurrentCp(pet.getStat().getMaxCp());    
 
             // hack for zero food
         	if (curFed == 0)
@@ -968,7 +968,7 @@ public class L2PetInstance extends L2Summon
     public synchronized void unSummon (L2PcInstance owner)
     {
         stopFeed();
-        stopHpMpRegeneration();
+        getStatus().stopHpMpRegeneration();
         super.unSummon(owner);
         
 		if(!isDead()){

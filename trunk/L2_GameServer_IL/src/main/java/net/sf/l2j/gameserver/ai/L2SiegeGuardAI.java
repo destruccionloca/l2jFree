@@ -77,7 +77,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
         _attack_timeout = Integer.MAX_VALUE;
         _globalAggro = -10; // 10 seconds timeout of ATTACK after respawn
 
-        attackRange = ((L2Attackable) _actor).getPhysicalAttackRange();
+        attackRange = ((L2Attackable) _actor).getStat().getPhysicalAttackRange();
     }
 
     public void run()
@@ -307,7 +307,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
             _actor.setTarget(_attack_target);
             skills = _actor.getAllSkills();
             dist_2 = _actor.getPlanDistanceSq(_attack_target.getX(), _attack_target.getY());
-            range = _actor.getPhysicalAttackRange();
+            range = _actor.getStat().getPhysicalAttackRange();
         }
         catch (NullPointerException e)
         {
@@ -340,7 +340,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                     if (((sk.getSkillType() == L2Skill.SkillType.BUFF || sk.getSkillType() == L2Skill.SkillType.HEAL) || (dist_2 >= castRange * castRange / 9)
                         && (dist_2 <= castRange * castRange) && (castRange > 70))
                         && !_actor.isSkillDisabled(sk.getId())
-                        && _actor.getCurrentMp() >= _actor.getStat().getMpConsume(sk) && !sk.isPassive())
+                        && _actor.getStatus().getCurrentMp() >= _actor.getStat().getMpConsume(sk) && !sk.isPassive())
                     {
                         L2Object OldTarget = _actor.getTarget();
                         if (sk.getSkillType() == L2Skill.SkillType.BUFF
@@ -348,7 +348,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                         {
                             boolean useSkillSelf = true;
                             if (sk.getSkillType() == L2Skill.SkillType.HEAL
-                                && _actor.getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
+                                && _actor.getStatus().getCurrentHp() > (int) (_actor.getStat().getMaxHp() / 1.5))
                             {
                                 useSkillSelf = false;
                                 break;
@@ -377,7 +377,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                 }
 
             // Check if the L2SiegeGuardInstance is attacking, knows the target and can't run
-            if (!(_actor.isAttackingNow()) && (_actor.getRunSpeed() == 0)
+            if (!(_actor.isAttackingNow()) && (_actor.getStat().getRunSpeed() == 0)
                 && (_actor.getKnownList().knowsObject(_attack_target)))
             {
             	// Cancel the target
@@ -449,7 +449,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                     int castRange = sk.getCastRange();
                     
                     if (castRange * castRange >= dist_2 && castRange <= 70 && !sk.isPassive()
-                        && _actor.getCurrentMp() >= _actor.getStat().getMpConsume(sk)
+                        && _actor.getStatus().getCurrentMp() >= _actor.getStat().getMpConsume(sk)
                         && !_actor.isSkillDisabled(sk.getId()))
                     {
                         L2Object OldTarget = _actor.getTarget();
@@ -458,7 +458,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                         {
                             boolean useSkillSelf = true;
                             if (sk.getSkillType() == L2Skill.SkillType.HEAL
-                                && _actor.getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
+                                && _actor.getStatus().getCurrentHp() > (int) (_actor.getStat().getMaxHp() / 1.5))
                             {
                                 useSkillSelf = false;
                                 break;

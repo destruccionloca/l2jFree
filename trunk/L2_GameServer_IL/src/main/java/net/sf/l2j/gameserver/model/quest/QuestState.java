@@ -652,8 +652,8 @@ public final class QuestState
 	 */
 	public void addExpAndSp(int exp, int sp) 
     {
-	    getPlayer().addExpAndSp((int)getPlayer().calcStat(Stats.EXPSP_RATE, exp * Config.RATE_QUESTS_REWARD, null, null), 
-                           (int)getPlayer().calcStat(Stats.EXPSP_RATE, sp * Config.RATE_QUESTS_REWARD, null, null));
+	    getPlayer().addExpAndSp((int)getPlayer().getStat().calcStat(Stats.EXPSP_RATE, exp * Config.RATE_QUESTS_REWARD, null, null), 
+                           (int)getPlayer().getStat().calcStat(Stats.EXPSP_RATE, sp * Config.RATE_QUESTS_REWARD, null, null));
 	}
 	
 	/**

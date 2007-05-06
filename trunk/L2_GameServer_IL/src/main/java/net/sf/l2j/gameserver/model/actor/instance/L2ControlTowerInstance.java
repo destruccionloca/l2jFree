@@ -54,8 +54,8 @@ public class L2ControlTowerInstance extends L2NpcInstance {
             player.sendPacket(my);
             
             StatusUpdate su = new StatusUpdate(getObjectId());
-            su.addAttribute(StatusUpdate.CUR_HP, (int)getCurrentHp() );
-            su.addAttribute(StatusUpdate.MAX_HP, getMaxHp() );
+            su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp() );
+            su.addAttribute(StatusUpdate.MAX_HP,getStat().getMaxHp() );
             player.sendPacket(su);
             
             player.sendPacket(new ValidateLocation(this));

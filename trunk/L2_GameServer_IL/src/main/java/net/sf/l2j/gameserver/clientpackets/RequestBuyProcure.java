@@ -15,9 +15,6 @@ import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.util.Util;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 /*
  * Done by L2Emuproject team
  * User: Scar69

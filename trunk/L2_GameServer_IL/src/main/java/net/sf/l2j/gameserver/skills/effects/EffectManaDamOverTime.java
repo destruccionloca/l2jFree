@@ -42,7 +42,7 @@ class EffectManaDamOverTime extends L2Effect
 		
 		double manaDam = calc();
 		
-		if(manaDam > getEffected().getCurrentMp())
+		if(manaDam > getEffected().getStatus().getCurrentMp())
 		{
 			if(getSkill().isToggle())
 			{
@@ -52,7 +52,7 @@ class EffectManaDamOverTime extends L2Effect
 			}
 		}
 		
-		getEffected().reduceCurrentMp(manaDam);
+		getEffected().getStatus().reduceMp(manaDam);
 		return true;
 	}
 }

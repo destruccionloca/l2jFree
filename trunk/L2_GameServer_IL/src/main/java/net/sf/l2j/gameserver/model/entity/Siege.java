@@ -1207,7 +1207,7 @@ public class Siege
         	L2ArtefactInstance art;
         	
         	art = new L2ArtefactInstance(IdFactory.getInstance().getNextId(), NpcTable.getInstance().getTemplate(_sp.getNpcId()));
-        	art.setCurrentHpMp(art.getMaxHp(), art.getMaxMp());
+        	art.getStatus().setCurrentHpMp(art.getStat().getMaxHp(), art.getStat().getMaxMp());
         	art.setHeading(_sp.getLocation().getHeading());
         	art.spawnMe(_sp.getLocation().getX(),_sp.getLocation().getY(),_sp.getLocation().getZ() + 50);
         	
@@ -1235,7 +1235,7 @@ public class Siege
             template.addResist(Stats.DAGGER_WPN_RES,100);
             
             ct = new L2ControlTowerInstance(IdFactory.getInstance().getNextId(), template);
-            ct.setCurrentHpMp(ct.getMaxHp(), ct.getMaxMp());
+            ct.getStatus().setCurrentHpMp(ct.getStat().getMaxHp(), ct.getStat().getMaxMp());
             ct.spawnMe(_sp.getLocation().getX(),_sp.getLocation().getY(),_sp.getLocation().getZ() + 20);
         	
             _ControlTowers.add(ct);

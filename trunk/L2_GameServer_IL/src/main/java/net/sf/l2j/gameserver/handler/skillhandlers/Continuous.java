@@ -136,7 +136,7 @@ public class Continuous implements ISkillHandler
             }
             if (skill.getSkillType() == L2Skill.SkillType.MANADAM)
             {
-                target.reduceCurrentMp(skill.getPower());
+                target.getStatus().reduceMp(skill.getPower());
                 if (target instanceof L2Attackable){
                     target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar,50);}
             }

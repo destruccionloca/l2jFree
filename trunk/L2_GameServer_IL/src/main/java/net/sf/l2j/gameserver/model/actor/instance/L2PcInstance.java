@@ -246,22 +246,22 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private final int RELATION_PVP_FLAG      = 0x00002; // pvp ???
     private final int RELATION_HAS_KARMA     = 0x00004; // karma ???
-    private final int RELATION_UNKNOWN_1     = 0x00008; // ???
-    private final int RELATION_UNKNOWN_2     = 0x00010; // ???
-    private final int RELATION_UNKNOWN_3     = 0x00020; // siege flags ???
-    private final int RELATION_UNKNOWN_4     = 0x00040; // siege flags ???
-    private final int RELATION_UNKNOWN_5     = 0x00080; // siege flags ???
-    private final int RELATION_UNKNOWN_6     = 0x00100; // siege flags ???
-    private final int RELATION_UNKNOWN_7     = 0x00200; // siege flags ???
-    private final int RELATION_UNKNOWN_8     = 0x00400; // siege flags ???
-    private final int RELATION_UNKNOWN_9     = 0x00800; // siege flags ???
-    private final int RELATION_UNKNOWN_10    = 0x01000; // siege flags ???
-    private final int RELATION_UNKNOWN_11    = 0x02000; // ???
-    private final int RELATION_UNKNOWN_12    = 0x04000; // ???
+//    private final int RELATION_UNKNOWN_1     = 0x00008; // ???
+//    private final int RELATION_UNKNOWN_2     = 0x00010; // ???
+//    private final int RELATION_UNKNOWN_3     = 0x00020; // siege flags ???
+//    private final int RELATION_UNKNOWN_4     = 0x00040; // siege flags ???
+//    private final int RELATION_UNKNOWN_5     = 0x00080; // siege flags ???
+//    private final int RELATION_UNKNOWN_6     = 0x00100; // siege flags ???
+//    private final int RELATION_UNKNOWN_7     = 0x00200; // siege flags ???
+//    private final int RELATION_UNKNOWN_8     = 0x00400; // siege flags ???
+//    private final int RELATION_UNKNOWN_9     = 0x00800; // siege flags ???
+//    private final int RELATION_UNKNOWN_10    = 0x01000; // siege flags ???
+//    private final int RELATION_UNKNOWN_11    = 0x02000; // ???
+//    private final int RELATION_UNKNOWN_12    = 0x04000; // ???
     private final int RELATION_MUTUAL_WAR    = 0x08000; // double fist
     private final int RELATION_1SIDED_WAR    = 0x10000; // single fist
-    private final int RELATION_UNKNOWN_13    = 0x20000; // ???
-    private final int RELATION_UNKNOWN_14    = 0x40000; // ???    
+//    private final int RELATION_UNKNOWN_13    = 0x20000; // ???
+//    private final int RELATION_UNKNOWN_14    = 0x40000; // ???    
     
     /** The table containing all minimum level needed for each Expertise (None, D, C, B, A, S)*/
     private static final int[] EXPERTISE_LEVELS = {SkillTreeTable.getInstance().getExpertiseLevel(0), //NONE
@@ -805,12 +805,12 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	private void initPcStatusUpdateValues()
 	{
-		_cpUpdateInterval = getMaxCp() / 352.0;
-		_cpUpdateIncCheck = getMaxCp();
-		_cpUpdateDecCheck = getMaxCp() - _cpUpdateInterval;
-		_mpUpdateInterval = getMaxMp() / 352.0;
-		_mpUpdateIncCheck = getMaxMp();
-		_mpUpdateDecCheck = getMaxMp() - _mpUpdateInterval;
+		_cpUpdateInterval = getStat().getMaxCp() / 352.0;
+		_cpUpdateIncCheck = getStat().getMaxCp();
+		_cpUpdateDecCheck = getStat().getMaxCp() - _cpUpdateInterval;
+		_mpUpdateInterval = getStat().getMaxMp() / 352.0;
+		_mpUpdateIncCheck = getStat().getMaxMp();
+		_mpUpdateDecCheck = getStat().getMaxMp() - _mpUpdateInterval;
 	}
 
     /**
@@ -1693,7 +1693,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public int getMaxLoad()
     {
-        return (int)calcStat(Stats.MAX_LOAD, _baseLoad, this, null)+Config.ADD_MAX_LOAD;
+        return (int)getStat().calcStat(Stats.MAX_LOAD, _baseLoad, this, null)+Config.ADD_MAX_LOAD;
     }
 
     public int getexpertisePenalty()
@@ -3253,16 +3253,16 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	private boolean needCpUpdate(int barPixels)
 	{
-		double currentCp = getCurrentCp();
+		double currentCp = getStatus().getCurrentCp();
 
-	    if (currentCp <= 1.0 || getMaxCp() < barPixels)
+	    if (currentCp <= 1.0 || getStat().getMaxCp() < barPixels)
 	        return true;
 
 	    if (currentCp <= _cpUpdateDecCheck || currentCp >= _cpUpdateIncCheck)
 	    {
-	    	if (currentCp == getMaxCp())
+	    	if (currentCp == getStat().getMaxCp())
 	    	{
-	    		_cpUpdateIncCheck = getMaxCp();
+	    		_cpUpdateIncCheck = getStat().getMaxCp();
 	    		_cpUpdateDecCheck = _cpUpdateIncCheck - _cpUpdateInterval;
 	    	}
 	    	else
@@ -3286,16 +3286,16 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	private boolean needMpUpdate(int barPixels)
 	{
-		double currentMp = getCurrentMp();
+		double currentMp = getStatus().getCurrentMp();
 
-	    if (currentMp <= 1.0 || getMaxMp() < barPixels)
+	    if (currentMp <= 1.0 || getStat().getMaxMp() < barPixels)
 	        return true;
 
 	    if (currentMp <= _mpUpdateDecCheck || currentMp >= _mpUpdateIncCheck)
 	    {
-	    	if (currentMp == getMaxMp())
+	    	if (currentMp == getStat().getMaxMp())
 	    	{
-	    		_mpUpdateIncCheck = getMaxMp();
+	    		_mpUpdateIncCheck = getStat().getMaxMp();
 	    		_mpUpdateDecCheck = _mpUpdateIncCheck - _mpUpdateInterval;
 	    	}
 	    	else
@@ -3331,17 +3331,17 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // Send the Server->Client packet StatusUpdate with current HP, MP and CP to this L2PcInstance
         StatusUpdate su = new StatusUpdate(getObjectId());
-        su.addAttribute(StatusUpdate.CUR_HP, (int) getCurrentHp());
-        su.addAttribute(StatusUpdate.CUR_MP, (int) getCurrentMp());
-        su.addAttribute(StatusUpdate.CUR_CP, (int) getCurrentCp());
-        su.addAttribute(StatusUpdate.MAX_CP, getMaxCp());
+        su.addAttribute(StatusUpdate.CUR_HP, (int) getStatus().getCurrentHp());
+        su.addAttribute(StatusUpdate.CUR_MP, (int) getStatus().getCurrentMp());
+        su.addAttribute(StatusUpdate.CUR_CP, (int) getStatus().getCurrentCp());
+        su.addAttribute(StatusUpdate.MAX_CP, getStat().getMaxCp());
         sendPacket(su);
 
 		// Check if a party is in progress and party window update is usefull
 		if (isInParty() && (needCpUpdate(352) || super.needHpUpdate(352) || needMpUpdate(352)))
 		{
 			if (_log.isDebugEnabled())
-				_log.info("Send status for party window of " + getObjectId() + "(" + getName() + ") to his party. CP: " + getCurrentCp() + " HP: " + getCurrentHp() + " MP: " + getCurrentMp());
+				_log.info("Send status for party window of " + getObjectId() + "(" + getName() + ") to his party. CP: " + getStatus().getCurrentCp() + " HP: " + getStatus().getCurrentHp() + " MP: " + getStatus().getCurrentMp());
             // Send the Server->Client packet PartySmallWindowUpdate with current HP, MP and Level to all other L2PcInstance of the Party
             PartySmallWindowUpdate update = new PartySmallWindowUpdate(this);
             getParty().broadcastToPartyMembers(this, update);
@@ -3671,14 +3671,14 @@ public final class L2PcInstance extends L2PlayableInstance
             // Remove the L2PcInstance from the _statusListener of the old target if it was a L2Character
             if (oldTarget instanceof L2Character)
             {
-                ((L2Character) oldTarget).removeStatusListener(this);
+                ((L2Character) oldTarget).getStatus().removeStatusListener(this);
             }
         }
 
         // Add the L2PcInstance to the _statusListener of the new target if it's a L2Character
         if (newTarget != null && newTarget instanceof L2Character)
         {
-            ((L2Character) newTarget).addStatusListener(this);
+            ((L2Character) newTarget).getStatus().addStatusListener(this);
             TargetSelected my = new TargetSelected(getObjectId(), newTarget.getObjectId(), getX(),
                                                    getY(), getZ());
             broadcastPacket(my);
@@ -4529,8 +4529,8 @@ public final class L2PcInstance extends L2PlayableInstance
     public void increaseLevel()
     {
         // Set the current HP and MP of the L2Character, Launch/Stop a HP/MP/CP Regeneration Task and send StatusUpdate packet to all other L2PcInstance to inform (exclusive broadcast)
-        setCurrentHpMp(getMaxHp(), getMaxMp());
-        setCurrentCp(getMaxCp());
+        getStatus().setCurrentHpMp(getStat().getMaxHp(), getStat().getMaxMp());
+        getStatus().setCurrentCp(getStat().getMaxCp());
     }
 
     /**
@@ -4543,7 +4543,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void stopAllTimers()
     {
-        stopHpMpRegeneration();
+        getStatus().stopHpMpRegeneration();
         stopWarnUserTakeBreak();
         stopWaterTask();
     }
@@ -5258,29 +5258,29 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(2, getObjectId());
             statement.setString(3, getName());
             statement.setInt(4, getLevel());
-            statement.setInt(5, getMaxHp());
-            statement.setDouble(6, getCurrentHp());
-            statement.setInt(7, getMaxCp());
-            statement.setDouble(8, getCurrentCp());
-            statement.setInt(9, getMaxMp());
-            statement.setDouble(10, getCurrentMp());
-            statement.setInt(11, getAccuracy());
-            statement.setInt(12, getCriticalHit(null, null));
-            statement.setInt(13, getEvasionRate(null));
-            statement.setInt(14, getMAtk(null, null));
-            statement.setInt(15, getMDef(null, null));
+            statement.setInt(5,getStat().getMaxHp());
+            statement.setDouble(6, getStatus().getCurrentHp());
+            statement.setInt(7, getStat().getMaxCp());
+            statement.setDouble(8, getStatus().getCurrentCp());
+            statement.setInt(9, getStat().getMaxMp());
+            statement.setDouble(10, getStatus().getCurrentMp());
+            statement.setInt(11, getStat().getAccuracy());
+            statement.setInt(12, getStat().getCriticalHit(null, null));
+            statement.setInt(13, getStat().getEvasionRate(null));
+            statement.setInt(14, getStat().getMAtk(null, null));
+            statement.setInt(15, getStat().getMDef(null, null));
             statement.setInt(16, getMAtkSpd());
-            statement.setInt(17, getPAtk(null));
-            statement.setInt(18, getPDef(null));
+            statement.setInt(17, getStat().getPAtk(null));
+            statement.setInt(18, getStat().getPDef(null));
             statement.setInt(19, getPAtkSpd());
-            statement.setInt(20, getRunSpeed());
-            statement.setInt(21, getWalkSpeed());
-            statement.setInt(22, getSTR());
-            statement.setInt(23, getCON());
-            statement.setInt(24, getDEX());
-            statement.setInt(25, getINT());
-            statement.setInt(26, getMEN());
-            statement.setInt(27, getWIT());
+            statement.setInt(20, getStat().getRunSpeed());
+            statement.setInt(21, getStat().getWalkSpeed());
+            statement.setInt(22, getStat().getSTR());
+            statement.setInt(23, getStat().getCON());
+            statement.setInt(24, getStat().getDEX());
+            statement.setInt(25, getStat().getINT());
+            statement.setInt(26, getStat().getMEN());
+            statement.setInt(27, getStat().getWIT());
             statement.setInt(28, getAppearance().getFace());
             statement.setInt(29, getAppearance().getHairStyle());
             statement.setInt(30, getAppearance().getHairColor());
@@ -5415,11 +5415,11 @@ public final class L2PcInstance extends L2PlayableInstance
                 player.setUptime(System.currentTimeMillis());
 
                 currentHp = rset.getDouble("curHp");
-                player.setCurrentHp(rset.getDouble("curHp"));
+                player.getStatus().setCurrentHp(rset.getDouble("curHp"));
                 currentCp = rset.getDouble("curCp");
-                player.setCurrentCp(rset.getDouble("curCp"));
+                player.getStatus().setCurrentCp(rset.getDouble("curCp"));
                 currentMp = rset.getDouble("curMp");
-                player.setCurrentMp(rset.getDouble("curMp"));
+                player.getStatus().setCurrentMp(rset.getDouble("curMp"));
 
                 //Check recs
                 player.checkRecom(rset.getInt("rec_have"), rset.getInt("rec_left"));
@@ -5519,9 +5519,9 @@ public final class L2PcInstance extends L2PlayableInstance
             player.rewardSkills();
 
             // Restore current Cp, HP and MP values
-            player.setCurrentCp(currentCp);
-            player.setCurrentHp(currentHp);
-            player.setCurrentMp(currentMp);
+            player.getStatus().setCurrentCp(currentCp);
+            player.getStatus().setCurrentHp(currentHp);
+            player.getStatus().setCurrentMp(currentMp);
 
             // Update the overloaded status of the L2PcInstance
             player.refreshOverloaded();
@@ -5765,18 +5765,18 @@ public final class L2PcInstance extends L2PlayableInstance
             // Update base class
             statement = con.prepareStatement(UPDATE_CHARACTER);
             statement.setInt(1, level);
-            statement.setInt(2, getMaxHp());
-            statement.setDouble(3, getCurrentHp());
-            statement.setInt(4, getMaxCp());
-            statement.setDouble(5, getCurrentCp());
-            statement.setInt(6, getMaxMp());
-            statement.setDouble(7, getCurrentMp());
-            statement.setInt(8, getSTR());
-            statement.setInt(9, getCON());
-            statement.setInt(10, getDEX());
-            statement.setInt(11, getINT());
-            statement.setInt(12, getMEN());
-            statement.setInt(13, getWIT());
+            statement.setInt(2,getStat().getMaxHp());
+            statement.setDouble(3, getStatus().getCurrentHp());
+            statement.setInt(4, getStat().getMaxCp());
+            statement.setDouble(5, getStatus().getCurrentCp());
+            statement.setInt(6, getStat().getMaxMp());
+            statement.setDouble(7, getStatus().getCurrentMp());
+            statement.setInt(8, getStat().getSTR());
+            statement.setInt(9, getStat().getCON());
+            statement.setInt(10, getStat().getDEX());
+            statement.setInt(11, getStat().getINT());
+            statement.setInt(12, getStat().getMEN());
+            statement.setInt(13, getStat().getWIT());
             statement.setInt(14, getAppearance().getFace());
             statement.setInt(15, getAppearance().getHairStyle());
             statement.setInt(16, getAppearance().getHairColor());
@@ -6909,7 +6909,7 @@ public final class L2PcInstance extends L2PlayableInstance
         //************************************* Check Consumables *******************************************
 
         // Check if the caster has enough MP
-        if (getCurrentMp() < getStat().getMpConsume(skill) + getStat().getMpInitialConsume(skill))
+        if (getStatus().getCurrentMp() < getStat().getMpConsume(skill) + getStat().getMpInitialConsume(skill))
         {
             // Send a System Message to the caster
             sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_MP));
@@ -6920,7 +6920,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         // Check if the caster has enough HP
-        if (getCurrentHp() <= skill.getHpConsume())
+        if (getStatus().getCurrentHp() <= skill.getHpConsume())
         {
             // Send a System Message to the caster
             sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_HP));
@@ -7566,7 +7566,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         public void run()
         {
-            double reduceHp = getMaxHp() / 100;
+            double reduceHp =getStat().getMaxHp() / 100;
 
             if (reduceHp < 1) reduceHp = 1;
 
@@ -8538,8 +8538,8 @@ public final class L2PcInstance extends L2PlayableInstance
         restoreHenna();
         sendPacket(new HennaInfo(this));
 
-        setCurrentHpMp(getMaxHp(), getMaxMp());
-        setCurrentCp(getMaxCp());
+        getStatus().setCurrentHpMp(getStat().getMaxHp(), getStat().getMaxMp());
+        getStatus().setCurrentCp(getStat().getMaxCp());
         updateStats();
 
         // Clear resurrect xp calculation
@@ -8803,7 +8803,7 @@ public final class L2PcInstance extends L2PlayableInstance
        if((Pet && getPet() != null && getPet().isDead()) || (!Pet && isDead()))
        {
            _ReviveRequested = 1;
-           _RevivePower = Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), Reviver.getWIT()); 
+           _RevivePower = Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), Reviver.getStat().getWIT()); 
            _RevivePet = Pet;
            sendPacket(new ConfirmDlg(SystemMessage.RESSURECTION_REQUEST,Reviver.getName()));
        }
@@ -10141,7 +10141,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void restoreHPMP()
     {
-        setCurrentHpMp(getMaxHp(), getMaxMp());
+        getStatus().setCurrentHpMp(getStat().getMaxHp(), getStat().getMaxMp());
     }
     
     public boolean isCursedWeaponEquiped()

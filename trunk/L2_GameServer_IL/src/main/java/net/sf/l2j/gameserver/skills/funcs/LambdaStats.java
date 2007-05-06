@@ -57,11 +57,11 @@ public final class LambdaStats extends Lambda {
 		case PLAYER_MAX_HP:
 			if (env._player == null)
 				return 1;
-			return env._player.getMaxHp();
+			return env._player.getStat().getMaxHp();
 		case PLAYER_MAX_MP:
 			if (env._player == null)
 				return 1;
-			return env._player.getMaxMp();
+			return env._player.getStat().getMaxMp();
 		}
 		return 0;
 	}

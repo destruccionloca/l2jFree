@@ -42,7 +42,6 @@ public class RecipeItemMakeInfo extends L2GameServerPacket
     private int _id;
     private L2PcInstance _player;
     private boolean _success;
-    private L2Recipe[] _recipes;
     private L2RecipeService __l2RecipeService=(L2RecipeService)L2Registry.getBean("L2RecipeService"); 
 
     public RecipeItemMakeInfo(int id, L2PcInstance player, boolean success)
@@ -69,8 +68,8 @@ public class RecipeItemMakeInfo extends L2GameServerPacket
 
             writeD(_id);
             writeD(recipe.isDwarvenRecipe() ? 0 : 1); // 0 = Dwarven - 1 = Common 
-            writeD((int) _player.getCurrentMp());
-            writeD(_player.getMaxMp());
+            writeD((int) _player.getStatus().getCurrentMp());
+            writeD(_player.getStat().getMaxMp());
             writeD(_success ? 1 : 0); // item creation success/failed  
         }
         else if (_log.isDebugEnabled()) _log.info("No recipe found with ID = " + _id);

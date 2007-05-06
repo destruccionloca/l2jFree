@@ -136,9 +136,9 @@ public class AdminKill implements IAdminCommandHandler
     private void kill(L2PcInstance activeChar, L2Character target)
     {
         if (target instanceof L2PcInstance)
-            target.reduceCurrentHp(target.getMaxHp() + target.getMaxCp() + 1, activeChar);
+            target.getStatus().reduceHp(target.getStat().getMaxHp() + target.getStat().getMaxCp() + 1, activeChar);
         else
-            target.reduceCurrentHp(target.getMaxHp() + 1, activeChar);
+            target.getStatus().reduceHp(target.getStat().getMaxHp() + 1, activeChar);
 
         if (_log.isDebugEnabled()) 
             _log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+")"+

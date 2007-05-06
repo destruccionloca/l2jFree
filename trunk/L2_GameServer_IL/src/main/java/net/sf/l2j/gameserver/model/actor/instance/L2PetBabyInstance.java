@@ -189,7 +189,7 @@ public final class L2PetBabyInstance extends L2PetInstance
 
             pet.getStatus().setCurrentHp(rset.getDouble("curHp"));
             pet.getStatus().setCurrentMp(rset.getDouble("curMp"));
-            pet.getStatus().setCurrentCp(pet.getMaxCp());
+            pet.getStatus().setCurrentCp(pet.getStat().getMaxCp());
 
             pet.setKarma(rset.getInt("karma"));
             pet.setPkKills(rset.getInt("pkkills"));

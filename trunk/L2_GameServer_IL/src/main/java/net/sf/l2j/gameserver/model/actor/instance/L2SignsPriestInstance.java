@@ -24,8 +24,6 @@ import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.cache.HtmCache;
-import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -577,34 +575,6 @@ public class L2SignsPriestInstance extends L2FolkInstance
         {
             super.onBypassFeedback(player, command);
         }
-    }
-
-    private final boolean getPlayerAllyHasCastle(L2PcInstance player)
-    {
-        L2Clan playerClan = player.getClan();
-
-        // The player is not in a clan, so return false.
-        if (playerClan == null) return false;
-
-        // If castle ownage check is clan-based rather than ally-based,
-        // check if the player's clan has a castle and return the result.
-        if (!Config.ALT_GAME_REQUIRE_CLAN_CASTLE)
-        {
-            int allyId = playerClan.getAllyId();
-
-            // The player's clan is not in an alliance, so return false.
-            if (allyId != 0)
-            {
-                // Check if another clan in the same alliance owns a castle,
-                // by traversing the list of clans and act accordingly.
-                L2Clan[] clanList = ClanTable.getInstance().getClans();
-
-                for (L2Clan clan : clanList)
-                    if (clan.getAllyId() == allyId) if (clan.getHasCastle() > 0) return true;
-            }
-        }
-
-        return (playerClan.getHasCastle() > 0);
     }
 
     private void showChatWindow(L2PcInstance player, int val, String suffix, boolean isDescription)

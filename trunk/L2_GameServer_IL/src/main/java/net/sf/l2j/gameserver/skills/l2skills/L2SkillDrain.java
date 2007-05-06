@@ -91,15 +91,15 @@ public class L2SkillDrain extends L2Skill {
                 }
             }
 
-			boolean mcrit = Formulas.getInstance().calcMCrit(activeChar.getMCriticalHit(target, this));
+			boolean mcrit = Formulas.getInstance().calcMCrit(activeChar.getStat().getMCriticalHit(target, this));
 			int damage = (int)Formulas.getInstance().calcMagicDam(
 					activeChar, target, this, ss, bss, mcrit);
             if (target.isPetrified()){
             damage= 0;}
 			double hpAdd = absorbAbs + absorbPart * damage;
-			double hp = ((activeChar.getCurrentHp() + hpAdd) > activeChar.getMaxHp() ? activeChar.getMaxHp() : (activeChar.getCurrentHp() + hpAdd));
+			double hp = ((activeChar.getStatus().getCurrentHp() + hpAdd) > activeChar.getStat().getMaxHp() ? activeChar.getStat().getMaxHp() : (activeChar.getStatus().getCurrentHp() + hpAdd));
 			
-            activeChar.setCurrentHp(hp); 
+            activeChar.getStatus().setCurrentHp(hp); 
             
 			StatusUpdate suhp = new StatusUpdate(activeChar.getObjectId()); 
 			suhp.addAttribute(StatusUpdate.CUR_HP, (int)hp); 
@@ -111,7 +111,7 @@ public class L2SkillDrain extends L2Skill {
 
                 if (target.isPetrified())
                 {damage= 0;}
-                target.reduceCurrentHp(damage, activeChar);
+                target.getStatus().reduceHp(damage, activeChar);
                 
                 // Manage attack or cast break of the target (calculating rate, sending message...)
                 if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))

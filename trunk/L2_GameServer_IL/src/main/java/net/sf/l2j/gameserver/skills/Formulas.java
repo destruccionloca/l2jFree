@@ -194,7 +194,7 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            env.value *= STRbonus[env._player.getSTR()] * env._player.getLevelMod();
+            env.value *= STRbonus[env._player.getStat().getSTR()] * env._player.getLevelMod();
         }
     }
     
@@ -213,7 +213,7 @@ public final class Formulas
  
         public void calc(Env env)
         {
-            double intb = INTbonus[env._player.getINT()];
+            double intb = INTbonus[env._player.getStat().getINT()];
             double lvlb = env._player.getLevelMod();
             env.value *= (lvlb * lvlb) * (intb * intb);
         }
@@ -243,7 +243,7 @@ public final class Formulas
                 if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_REAR) != null) env.value -= 9;
                 if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_NECK) != null) env.value -= 13;
             }
-            env.value *= MENbonus[env._player.getMEN()] * env._player.getLevelMod();
+            env.value *= MENbonus[env._player.getStat().getMEN()] * env._player.getLevelMod();
         }
     }
 
@@ -318,7 +318,7 @@ public final class Formulas
         {
             L2Character p = env._player;
             //[Square(DEX)]*6 + lvl + weapon hitbonus;
-            env.value += Math.sqrt(p.getDEX()) * 6;
+            env.value += Math.sqrt(p.getStat().getDEX()) * 6;
             env.value += p.getLevel();
             if( p instanceof L2Summon) env.value += (p.getLevel() < 60) ? 4 : 5;
         }
@@ -342,7 +342,7 @@ public final class Formulas
         {
             L2Character p = env._player;
             //[Square(DEX)]*6 + lvl;
-            env.value += Math.sqrt(p.getDEX()) * 6;
+            env.value += Math.sqrt(p.getStat().getDEX()) * 6;
             env.value += p.getLevel();
         }
     }
@@ -368,7 +368,7 @@ public final class Formulas
             else if (p instanceof L2PcInstance && p.getActiveWeaponInstance() == null) env.value = 40;
             else
             {
-                env.value *= DEXbonus[p.getDEX()];
+                env.value *= DEXbonus[p.getStat().getDEX()];
                 env.value *= 10;
                 if(env.value > 500)
                     env.value = 500;                
@@ -393,7 +393,7 @@ public final class Formulas
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env._player;
-            env.value *= DEXbonus[p.getDEX()];
+            env.value *= DEXbonus[p.getStat().getDEX()];
         }
     }
     
@@ -414,7 +414,7 @@ public final class Formulas
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env._player;
-            env.value *= DEXbonus[p.getDEX()];
+            env.value *= DEXbonus[p.getStat().getDEX()];
         }
     }
     
@@ -435,7 +435,7 @@ public final class Formulas
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env._player;
-            env.value *= WITbonus[p.getWIT()];
+            env.value *= WITbonus[p.getStat().getWIT()];
         }
     }
     
@@ -614,7 +614,7 @@ public final class Formulas
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env._player;
-            env.value *= CONbonus[p.getCON()];
+            env.value *= CONbonus[p.getStat().getCON()];
         }
     }
     
@@ -660,7 +660,7 @@ public final class Formulas
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env._player;
-            env.value *= CONbonus[p.getCON()];
+            env.value *= CONbonus[p.getStat().getCON()];
         }
     }
     
@@ -706,7 +706,7 @@ public final class Formulas
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env._player;
-            env.value *= MENbonus[p.getMEN()];
+            env.value *= MENbonus[p.getStat().getMEN()];
         }
     }
     
@@ -882,12 +882,12 @@ public final class Formulas
             else if (!player.isMoving()) init *= 1.1; // Staying
             else if (player.isRunning()) init *= 0.7; // Running
             // Add CON bonus
-            init *= cha.getLevelMod() * CONbonus[cha.getCON()];
+            init *= cha.getLevelMod() * CONbonus[cha.getStat().getCON()];
        }
 
         if (init < 1) init = 1;
 
-        return cha.calcStat(Stats.REGENERATE_HP_RATE, init, null, null) * hpRegenMultiplier + hpRegenBonus;
+        return cha.getStat().calcStat(Stats.REGENERATE_HP_RATE, init, null, null) * hpRegenMultiplier + hpRegenBonus;
     }
     
     /**
@@ -936,12 +936,12 @@ public final class Formulas
             else if (player.isRunning()) init *= 0.7; // Running
 
             // Add MEN bonus
-            init *= cha.getLevelMod() * MENbonus[cha.getMEN()];
+            init *= cha.getLevelMod() * MENbonus[cha.getStat().getMEN()];
        }
 
         if (init < 1) init = 1;
 
-        return cha.calcStat(Stats.REGENERATE_MP_RATE, init, null, null) * mpRegenMultiplier + mpRegenBonus;
+        return cha.getStat().calcStat(Stats.REGENERATE_MP_RATE, init, null, null) * mpRegenMultiplier + mpRegenBonus;
     }
     
     /**
@@ -972,10 +972,10 @@ public final class Formulas
         }
         
         // Apply CON bonus
-        init *= cha.getLevelMod() * CONbonus[cha.getCON()];
+        init *= cha.getLevelMod() * CONbonus[cha.getStat().getCON()];
         if (init < 1) init = 1;
 
-        return cha.calcStat(Stats.REGENERATE_CP_RATE, init, null, null) * cpRegenMultiplier + cpRegenBonus;
+        return cha.getStat().calcStat(Stats.REGENERATE_CP_RATE, init, null, null) * cpRegenMultiplier + cpRegenBonus;
     }
     
     @SuppressWarnings("deprecation")
@@ -1038,8 +1038,8 @@ public final class Formulas
                    return 0;
        }
 
-        double damage = attacker.getPAtk(target);
-        double defence = target.getPDef(attacker);
+        double damage = attacker.getStat().getPAtk(target);
+        double defence = target.getStat().getPDef(attacker);
         if (ss) damage *= 2;
         if (skill != null)
         {
@@ -1062,7 +1062,7 @@ public final class Formulas
             switch (weapon.getItemType())
             {
                 case BOW:
-                    defence = target.calcStat(Stats.BOW_WPN_RES, defence, target, null);
+                    defence = target.getStat().calcStat(Stats.BOW_WPN_RES, defence, target, null);
                     if (target instanceof L2NpcInstance)
                     {
                         Integer resistBow = ((L2NpcInstance) target).getTemplate().getResist(Stats.BOW_WPN_RES);
@@ -1071,7 +1071,7 @@ public final class Formulas
                     break;
                 case BLUNT:
                 case BIGBLUNT:
-                    defence = target.calcStat(Stats.BLUNT_WPN_RES, defence, target, null);
+                    defence = target.getStat().calcStat(Stats.BLUNT_WPN_RES, defence, target, null);
                     if (target instanceof L2NpcInstance)
                     {
                         Integer resistBlunt = ((L2NpcInstance) target).getTemplate().getResist(Stats.BLUNT_WPN_RES);
@@ -1079,7 +1079,7 @@ public final class Formulas
                     }
                     break;
                 case DAGGER:
-                    defence = target.calcStat(Stats.DAGGER_WPN_RES, defence, target, null);
+                    defence = target.getStat().calcStat(Stats.DAGGER_WPN_RES, defence, target, null);
                     if (target instanceof L2NpcInstance)
                     {
                         Integer resistDagger = ((L2NpcInstance) target).getTemplate().getResist(Stats.DAGGER_WPN_RES);
@@ -1087,32 +1087,32 @@ public final class Formulas
                     }
                     break;
                 case DUAL:
-                    defence = target.calcStat(Stats.DUAL_WPN_RES, defence, target, null);
+                    defence = target.getStat().calcStat(Stats.DUAL_WPN_RES, defence, target, null);
                     break;
                 case DUALFIST:
-                    defence = target.calcStat(Stats.DUALFIST_WPN_RES, defence, target, null);
+                    defence = target.getStat().calcStat(Stats.DUALFIST_WPN_RES, defence, target, null);
                     break;
                 case ETC:
-                    defence = target.calcStat(Stats.ETC_WPN_RES, defence, target, null);
+                    defence = target.getStat().calcStat(Stats.ETC_WPN_RES, defence, target, null);
                     break;
                 case FIST:
-                    defence = target.calcStat(Stats.FIST_WPN_RES, defence, target, null);
+                    defence = target.getStat().calcStat(Stats.FIST_WPN_RES, defence, target, null);
                     break;
                 case POLE:
-                    defence = target.calcStat(Stats.POLE_WPN_RES, defence, target, null);
+                    defence = target.getStat().calcStat(Stats.POLE_WPN_RES, defence, target, null);
                     break;
                 case SWORD:
-                    defence = target.calcStat(Stats.SWORD_WPN_RES, defence, target, null);
+                    defence = target.getStat().calcStat(Stats.SWORD_WPN_RES, defence, target, null);
                     break;
                 case BIGSWORD: //TODO: have a proper resitance for Big swords
-                    defence = target.calcStat(Stats.SWORD_WPN_RES, defence, target, null);
+                    defence = target.getStat().calcStat(Stats.SWORD_WPN_RES, defence, target, null);
                     break;
             }
         }
-        if (crit) damage += attacker.getCriticalDmg(target, damage);
+        if (crit) damage += attacker.getStat().getCriticalDmg(target, damage);
         if (shld && !Config.ALT_GAME_SHIELD_BLOCKS)
         {
-            defence += target.getShldDef();
+            defence += target.getStat().getShldDef();
         }
         //if (!(attacker instanceof L2RaidBossInstance) && 
         /*
@@ -1135,7 +1135,7 @@ public final class Formulas
         //      damage += _rnd.nextDouble()* attacker.getRandomDamage(target);
         //      }
         if (shld && Config.ALT_GAME_SHIELD_BLOCKS)
-        {           damage -= target.getShldDef();
+        {           damage -= target.getStat().getShldDef();
             if (damage < 0) damage = 0;
         }
         if (target instanceof L2PcInstance && weapon != null && weapon.getItemType() == L2WeaponType.DAGGER && skill != null)
@@ -1156,28 +1156,28 @@ public final class Formulas
         {
             int raceId = ((L2NpcInstance) attacker).getTemplate().race;
             //Skill Race : Undead
-            if (raceId == 4290) damage /= attacker.getPDefUndead(target);
+            if (raceId == 4290) damage /= attacker.getStat().getPDefUndead(target);
             //Skill Valakas
-            if ( ((L2NpcInstance) attacker).getTemplate().idTemplate == 12899)  damage /= attacker.getPDefValakas(target); 
+            if ( ((L2NpcInstance) attacker).getTemplate().idTemplate == 12899)  damage /= attacker.getStat().getPDefValakas(target); 
             
         }
         if (target instanceof L2NpcInstance)
         {
             int raceId = ((L2NpcInstance) target).getTemplate().race;
             //Skill Race : Undead
-            if (raceId == 4290) damage *= attacker.getPAtkUndead(target);
+            if (raceId == 4290) damage *= attacker.getStat().getPAtkUndead(target);
             //Skill Race : Beast
-            if (raceId == 4292) damage *= attacker.getPAtkMonsters(target);
+            if (raceId == 4292) damage *= attacker.getStat().getPAtkMonsters(target);
             //Skill Race : Animal
-            if (raceId == 4293) damage *= attacker.getPAtkAnimals(target);
+            if (raceId == 4293) damage *= attacker.getStat().getPAtkAnimals(target);
             //Skill Race : Plant
-            if (raceId == 4294) damage *= attacker.getPAtkPlants(target);
+            if (raceId == 4294) damage *= attacker.getStat().getPAtkPlants(target);
             //Skill Race : Dragon
-            if (raceId == 4299) damage *= attacker.getPAtkDragons(target);
+            if (raceId == 4299) damage *= attacker.getStat().getPAtkDragons(target);
             //Skill Race : Bug
-            if (raceId == 4301) damage *= attacker.getPAtkInsects(target);
+            if (raceId == 4301) damage *= attacker.getStat().getPAtkInsects(target);
             //Skill Valakas
-            if ( ((L2NpcInstance) target).getTemplate().idTemplate == 12899) damage *= attacker.getPAtkValakas(target); 
+            if ( ((L2NpcInstance) target).getTemplate().idTemplate == 12899) damage *= attacker.getStat().getPAtkValakas(target); 
         }
         if (shld)
         {
@@ -1201,9 +1201,9 @@ public final class Formulas
 				&& (target instanceof L2PcInstance || target instanceof L2Summon))
 		{
 			if(skill == null)
-				damage *= attacker.calcStat(Stats.PVP_PHYSICAL_DMG, 1, null, null);
+				damage *= attacker.getStat().calcStat(Stats.PVP_PHYSICAL_DMG, 1, null, null);
 			else
-				damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);	
+				damage *= attacker.getStat().calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);	
 		}
 
         if (attacker instanceof L2PcInstance){
@@ -1228,8 +1228,8 @@ public final class Formulas
                return 0;
        }
                
-        double mAtk = attacker.getMAtk(target, skill);
-        double mDef = target.getMDef(attacker, skill);
+        double mAtk = attacker.getStat().getMAtk(target, skill);
+        double mDef = target.getStat().getMDef(attacker, skill);
         if (bss) mAtk *= 4;
         else if (ss) mAtk *= 2;
 
@@ -1289,9 +1289,9 @@ public final class Formulas
 				&& (target instanceof L2PcInstance || target instanceof L2Summon))
         {
             if(skill.isMagic())
-                damage *= attacker.calcStat(Stats.PVP_MAGICAL_DMG, 1, null, null);
+                damage *= attacker.getStat().calcStat(Stats.PVP_MAGICAL_DMG, 1, null, null);
             else
-                damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
+                damage *= attacker.getStat().calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
         }        
 
         if (attacker instanceof L2PcInstance){
@@ -1352,10 +1352,10 @@ public final class Formulas
         init += Math.sqrt(13*dmg);    
 
         // Chance is affected by target MEN
-        init -= (MENbonus[target.getMEN()] * 100 - 100);
+        init -= (MENbonus[target.getStat().getMEN()] * 100 - 100);
 
         // Calculate all modifiers for ATTACK_CANCEL
-        double rate = target.calcStat(Stats.ATTACK_CANCEL, init, null, null); 
+        double rate = target.getStat().calcStat(Stats.ATTACK_CANCEL, init, null, null); 
 
         // Adjust the rate to be between 1 and 99
         if (rate > 99) rate = 99;
@@ -1411,7 +1411,7 @@ public final class Formulas
         // accuracy+dexterity => probability to hit in percents
         int acc_attacker;
         int evas_target;
-        acc_attacker = attacker.getAccuracy();
+        acc_attacker = attacker.getStat().getAccuracy();
         if(attacker instanceof L2PcInstance)
         {
             if(attacker.isBehindTarget())
@@ -1425,7 +1425,7 @@ public final class Formulas
             if(GameTimeController.getInstance().isNowNight())
                 acc_attacker -=10;
         }
-        evas_target = target.getEvasionRate(attacker);
+        evas_target = target.getStat().getEvasionRate(attacker);
         int d = (int) (10 * Math.pow(1.1, evas_target - acc_attacker));
         if(d > 75) d = 75; // max chance
         if(d < 5) d = 5;  // min chance
@@ -1435,8 +1435,8 @@ public final class Formulas
     /** Returns true if shield defence successfull */
     public boolean calcShldUse(L2Character attacker, L2Character target) 
     {
-        int shldRate = (int)(target.calcStat(Stats.SHIELD_RATE, 0, attacker, null) * DEXbonus[target.getDEX()]);
-        int shldAngle = (int)target.calcStat(Stats.SHIELD_ANGLE, 60, null, null);
+        int shldRate = (int)(target.getStat().calcStat(Stats.SHIELD_RATE, 0, attacker, null) * DEXbonus[target.getStat().getDEX()]);
+        int shldAngle = (int)target.getStat().calcStat(Stats.SHIELD_ANGLE, 60, null, null);
     
         if(shldRate == 0) return false;
         
@@ -1468,14 +1468,14 @@ public final class Formulas
         }
         else
         if (skill.isActive() && skill.isOffensive())
-            defence = target.getMDef(actor, skill);
+            defence = target.getStat().getMDef(actor, skill);
         if (actor instanceof L2PcInstance) 
         {
-            attack = 3.7 * actor.getMAtk(target, skill); 
+            attack = 3.7 * actor.getStat().getMAtk(target, skill); 
         }
         else
         {
-            attack = 2 * actor.getMAtk(target, skill); 
+            attack = 2 * actor.getStat().getMAtk(target, skill); 
         }
         double d = attack - defence;
         d /= attack + defence;
@@ -1511,10 +1511,10 @@ public final class Formulas
             case STUN:
                 // For normal Stun Attack, with skillType = STUN
                 pDef = 1;
-                pDef = target.calcStat(Stats.STUN_RES, pDef, target, null);
+                pDef = target.getStat().calcStat(Stats.STUN_RES, pDef, target, null);
                 value = 4800 + (int) (50 * (player.getLevel() - target.getLevel()) + 5100 * ((float) skill.getLevel() / maxLevel));
                 if (pDef > 0) value /= pDef;
-                modifier = 10 * target.getCON() / 3;
+                modifier = 10 * target.getStat().getCON() / 3;
                 if (modifier > 0) value /= modifier;
                 value *= ssmodifier;
                 value /= 100;
@@ -1530,28 +1530,28 @@ public final class Formulas
             case MDOT:
             case MANADAM:
             case CONFUSION:
-                mAtk = player.getMAtk(target, skill);
-                mDef = target.getMDef(player, skill);
+                mAtk = player.getStat().getMAtk(target, skill);
+                mDef = target.getStat().getMDef(player, skill);
                 value = 3000 + (int) (7000 * ((float) skill.getLevel() / maxLevel));
                 if (mDef > 0 && mAtk > 0) value *= 0.6 * mAtk / mDef;
-                modifier = 20 * target.getMEN() / 3;
+                modifier = 20 * target.getStat().getMEN() / 3;
                 //_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
                 break;
             case MUTE:
-                mAtk = player.getMAtk(target, skill);
-                mDef = target.getMDef(player, skill);
+                mAtk = player.getStat().getMAtk(target, skill);
+                mDef = target.getStat().getMDef(player, skill);
                 value = 3000 + (int) (7000 * ((float) skill.getLevel() / maxLevel));
                 if (mDef > 0 && mAtk > 0) value *= 0.6 * mAtk / mDef;
-                modifier = 20 * target.getMEN() / 3;
+                modifier = 20 * target.getStat().getMEN() / 3;
                 //_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
                 break;
             case MDAM:                
             case PARALYZE:
-                mAtk = player.getMAtk(target, skill);
-                mDef = target.getMDef(player, skill);
+                mAtk = player.getStat().getMAtk(target, skill);
+                mDef = target.getStat().getMDef(player, skill);
                 value = 5000 + (int) (5000 * ((float) skill.getLevel() / maxLevel));
                 if (mDef > 0 && mAtk > 0) value *= 0.6 * mAtk / mDef;
-                modifier = 20 * target.getMEN() / 3;
+                modifier = 20 * target.getStat().getMEN() / 3;
                 if (modifier > 0) value /= modifier;
                 value *= ssmodifier;
                 value /= 100;
@@ -1566,12 +1566,12 @@ public final class Formulas
                 //_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
                 break;
             case SLEEP:
-                mAtk = player.getMAtk(target, skill);
-                mDef = target.getMDef(player, skill);
+                mAtk = player.getStat().getMAtk(target, skill);
+                mDef = target.getStat().getMDef(player, skill);
                 value = 5000 + (int) (5000 * ((float) skill.getLevel() / maxLevel));
-                mDef = target.calcStat(Stats.SLEEP_RES, mDef, target, null);
+                mDef = target.getStat().calcStat(Stats.SLEEP_RES, mDef, target, null);
                 if (mDef > 0 && mAtk > 0) value *= 0.6 * mAtk / mDef;
-                modifier = 20 * target.getWIT() / 3;
+                modifier = 20 * target.getStat().getWIT() / 3;
                 if (modifier > 0) value /= modifier;
                 value *= ssmodifier;
                 value /= 100;
@@ -1586,12 +1586,12 @@ public final class Formulas
                 //_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
                 break;
             case CANCEL:
-                mAtk = player.getMAtk(target, skill);
-                mDef = target.getMDef(player, skill);
+                mAtk = player.getStat().getMAtk(target, skill);
+                mDef = target.getStat().getMDef(player, skill);
                 value = 5000 + (int) (5000 * ((float) skill.getLevel() / maxLevel));
-                mDef = target.calcStat(Stats.CANCEL_RES, mDef, target, null);
+                mDef = target.getStat().calcStat(Stats.CANCEL_RES, mDef, target, null);
                 if (mDef > 0 && mAtk > 0) value *= 0.6 * mAtk / mDef;
-                modifier = 20 * target.getWIT() / 3;
+                modifier = 20 * target.getStat().getWIT() / 3;
                 if (modifier > 0) value /= modifier;
                 value *= ssmodifier;
                 value /= 100;
@@ -1609,12 +1609,12 @@ public final class Formulas
                 //_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
                 break;
             case ROOT:
-                mAtk = player.getMAtk(target, skill);
-                mDef = target.getMDef(player, skill);
+                mAtk = player.getStat().getMAtk(target, skill);
+                mDef = target.getStat().getMDef(player, skill);
                 value = 5000 + (int) (5000 * ((float) skill.getLevel() / maxLevel));
-                mDef = target.calcStat(Stats.ROOT_RES, mDef, target, null);
+                mDef = target.getStat().calcStat(Stats.ROOT_RES, mDef, target, null);
                 if (mDef > 0 && mAtk > 0) value *= 0.6 * mAtk / mDef;
-                modifier = 10 * target.getWIT() / 3;
+                modifier = 10 * target.getStat().getWIT() / 3;
                 if (modifier > 0) value /= modifier;
                 value *= ssmodifier;
                 value /= 100;
@@ -1631,10 +1631,10 @@ public final class Formulas
                 // For normal Stun attack with skillType = PDAM
                 //pAtk = (int)skill.getPower();
                 pDef = 1;
-                pDef = target.calcStat(Stats.STUN_RES, pDef, target, null);
+                pDef = target.getStat().calcStat(Stats.STUN_RES, pDef, target, null);
                 value = 5000 + (int) (50 * (player.getLevel() - target.getLevel())+ 5000 * ((float) skill.getLevel() / maxLevel));
                 if (pDef > 0) value /= pDef;
-                modifier = 10 * target.getCON() / 3;
+                modifier = 10 * target.getStat().getCON() / 3;
                 if (modifier > 0) value /= modifier;
                 value *= ssmodifier;
                 value /= 100;
@@ -1696,24 +1696,24 @@ public final class Formulas
         switch (type)
         {
             case BLEED:
-                return (int) target.calcStat(Stats.BLEED_RES, 0, target, null);
+                return (int) target.getStat().calcStat(Stats.BLEED_RES, 0, target, null);
             case POISON:
-                return (int) target.calcStat(Stats.POISON_RES, 0, target, null);
+                return (int) target.getStat().calcStat(Stats.POISON_RES, 0, target, null);
             case STUN:
-                return (int) target.calcStat(Stats.STUN_RES, 0, target, null);
+                return (int) target.getStat().calcStat(Stats.STUN_RES, 0, target, null);
             case PARALYZE:
-                return (int) target.calcStat(Stats.PARALYZE_RES, 0, target, null);
+                return (int) target.getStat().calcStat(Stats.PARALYZE_RES, 0, target, null);
             case ROOT:
-                return (int) target.calcStat(Stats.ROOT_RES, 0, target, null);
+                return (int) target.getStat().calcStat(Stats.ROOT_RES, 0, target, null);
             case SLEEP:
-                return (int) target.calcStat(Stats.SLEEP_RES, 0, target, null);
+                return (int) target.getStat().calcStat(Stats.SLEEP_RES, 0, target, null);
             case MUTE:
-                return (int) target.calcStat(Stats.MUTE_RES, 0, target, null); 
+                return (int) target.getStat().calcStat(Stats.MUTE_RES, 0, target, null); 
             case FEAR:
             case CONFUSION:
-                return (int) target.calcStat(Stats.CONFUSION_RES, 0, target, null);
+                return (int) target.getStat().calcStat(Stats.CONFUSION_RES, 0, target, null);
             case CANCEL:
-                return (int) target.calcStat(Stats.CANCEL_RES, 0, target, null);
+                return (int) target.getStat().calcStat(Stats.CANCEL_RES, 0, target, null);
             default:
                 return 0;
         }
@@ -1725,9 +1725,9 @@ public final class Formulas
         switch (type)
         {
             case STUN:
-                return (int) ((Math.sqrt(CONbonus[target.getCON()]) * 100 - 100) - (Math.sqrt(STRbonus[attacker.getSTR()]) * 100 - 100));
+                return (int) ((Math.sqrt(CONbonus[target.getStat().getCON()]) * 100 - 100) - (Math.sqrt(STRbonus[attacker.getStat().getSTR()]) * 100 - 100));
             case POISON:
-                return (int) (Math.sqrt(CONbonus[target.getCON()]) * 100 - 100);
+                return (int) (Math.sqrt(CONbonus[target.getStat().getCON()]) * 100 - 100);
             case ROOT:
             case SLEEP:
             case MUTE:
@@ -1735,7 +1735,7 @@ public final class Formulas
             case PARALYZE:
             case CANCEL:
             case DEBUFF:
-                return (int) (Math.sqrt(MENbonus[target.getMEN()]) * 100 - 100);
+                return (int) (Math.sqrt(MENbonus[target.getStat().getMEN()]) * 100 - 100);
             default:
                 return 0;
         }
@@ -1805,8 +1805,8 @@ public final class Formulas
         
         int rate = value + statmodifier + lvlmodifier + resmodifier;
         if (skill.isMagic())
-            rate += (int) (Math.pow((double) attacker.getMAtk(target, skill)
-                / target.getMDef(attacker, skill), 0.2) * 100) - 100;
+            rate += (int) (Math.pow((double) attacker.getStat().getMAtk(target, skill)
+                / target.getStat().getMDef(attacker, skill), 0.2) * 100) - 100;
 
         if (rate > 99) rate = 99;
         else if (rate < 1) rate = 1;
@@ -1828,8 +1828,8 @@ public final class Formulas
                 + ", "
                 + resmodifier
                 + ", "
-                + ((int) (Math.pow((double) attacker.getMAtk(target, skill)
-                    / target.getMDef(attacker, skill), 0.2) * 100) - 100) + ", " + ssmodifier + " ==> "
+                + ((int) (Math.pow((double) attacker.getStat().getMAtk(target, skill)
+                    / target.getStat().getMDef(attacker, skill), 0.2) * 100) - 100) + ", " + ssmodifier + " ==> "
                 + rate);
             return (Rnd.get(100) <= rate);
     }
@@ -1851,9 +1851,9 @@ public final class Formulas
         int skillLevel = skill.getLevel();
         int attackerLevel = activeChar.getLevel();
         int targetLevel = target.getLevel();
-        int CONModifier = (100 - target.getCON());
-        int DEXModifier = (90 - target.getDEX());
-        int WITModifier = (80 - target.getWIT());
+        int CONModifier = (100 - target.getStat().getCON());
+        int DEXModifier = (90 - target.getStat().getDEX());
+        int WITModifier = (80 - target.getStat().getWIT());
         int powerModifier = Math.round(skillPower / 100);
         int levelModifier = Math.round(skillLevel / 2);
         int baseRate = (attackerLevel - targetLevel) + powerModifier + levelModifier;
@@ -1962,9 +1962,9 @@ public final class Formulas
            boolean ss, boolean bss)
     {
        //Mana Burnt = (SQR(M.Atk)*Power*(Target Max MP/97))/M.Def
-       double mAtk = attacker.getMAtk(target, skill);
-       double mDef = target.getMDef(attacker, skill);
-       double mp = target.getMaxMp();
+       double mAtk = attacker.getStat().getMAtk(target, skill);
+       double mDef = target.getStat().getMDef(attacker, skill);
+       double mp = target.getStat().getMaxMp();
        if (bss) mAtk *= 4;
        else if (ss) mAtk *= 2;
 
