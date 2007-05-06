@@ -129,6 +129,7 @@ import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.model.base.SubClass;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
+import net.sf.l2j.gameserver.model.entity.Duel;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
@@ -607,16 +608,13 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _olympiadSide = -1;
     
     /** Duel */
-    public final int DUELSTATE_NODUEL		= 0;
-    public final int DUELSTATE_DUELLING		= 1;
-    public final int DUELSTATE_DEAD			= 2;
-    public final int DUELSTATE_WINNER		= 3;
-    public final int DUELSTATE_INTERRUPTED	= 4;
-
+    private int _duelState = Duel.DUELSTATE_NODUEL;
     private boolean _isInDuel = false;
-    private int _duelState = DUELSTATE_NODUEL;
     private int _duelId = 0;
     private int _noDuelReason = 0;
+
+    /** Dice */
+    private long _nextRollDiceTime=0;
 
     /** ally with ketra or varka related vars*/
     private int _alliedVarkaKetra = 0;
@@ -4220,7 +4218,10 @@ public final class L2PcInstance extends L2PlayableInstance
             CursedWeaponsManager.getInstance().increaseKills(_cursedWeaponEquipedId);
             return;
         }
-        
+
+		// If in duel and you kill (only can kill l2summon), do nothing
+		if (this.isInDuel() && targetPlayer.isInDuel()) return;
+
         // If in Arena, do nothing
         if (ArenaManager.getInstance().getArenaIndex(this.getX(), this.getY()) != -1
             || ArenaManager.getInstance().getArenaIndex(target.getX(), target.getY()) != -1)
@@ -4448,7 +4449,11 @@ public final class L2PcInstance extends L2PlayableInstance
         final int lvl = getLevel();
 
         //The death steal you some Exp
-        double percentLost = -0.07 * lvl + 6.5;
+		double percentLost = 7.0;
+		if (getLevel() >= 76)
+			percentLost = 2.0;
+		else if (getLevel() >= 40)
+			percentLost = 4.0;
 
         if (getKarma() > 0) percentLost *= Config.RATE_KARMA_EXP_LOST;
 
@@ -6814,7 +6819,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (attacker instanceof L2PcInstance)
         {
 			// is AutoAttackable if both players are in the same duel and the duel is still going on
-			if ( getDuelState() == DUELSTATE_DUELLING
+        	if ( getDuelState() == Duel.DUELSTATE_DUELLING
 					&& getDuelId() == ((L2PcInstance)attacker).getDuelId() )
 				return true;
 			
@@ -8072,14 +8077,14 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (duelId > 0)
 		{
 			_isInDuel = true;
-			_duelState = DUELSTATE_DUELLING;
+			_duelState = Duel.DUELSTATE_DUELLING;
 			_duelId = duelId;
 		}
 		else
 		{
-			if (_duelState == DUELSTATE_DEAD) enableAllSkills();
+			if (_duelState == Duel.DUELSTATE_DEAD) enableAllSkills();
 			_isInDuel = false;
-			_duelState = DUELSTATE_NODUEL;
+			_duelState = Duel.DUELSTATE_NODUEL;
 			_duelId = 0;
 		}
 	}
@@ -8121,6 +8126,16 @@ public final class L2PcInstance extends L2PlayableInstance
 			return false;
 		}
 		return true;
+	}
+
+	public long getRollDiceTime()
+	{
+		return _nextRollDiceTime;
+	}
+	
+	public void setRollDiceTime(long nextTime)
+	{
+		_nextRollDiceTime = nextTime;
 	}
 
     public boolean isNoble()

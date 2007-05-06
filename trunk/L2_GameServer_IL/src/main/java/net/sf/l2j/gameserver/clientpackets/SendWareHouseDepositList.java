@@ -126,17 +126,16 @@ public class SendWareHouseDepositList extends L2GameClientPacket
             	continue;
             	}
 
-            if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST) return;
-            
             if(Config.ALT_STRICT_HERO_SYSTEM)
             {
                
                 if (item.isHeroitem())
                     continue;
             }
-
-			// Calculate needed adena and slots
-			if (item.getItemId() == 57) currentAdena -= count;
+            
+            if ((warehouse instanceof PcFreight || warehouse instanceof ClanWarehouse) && !item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST) return;
+            // Calculate needed adena and slots
+            if (item.getItemId() == 57) currentAdena -= count;
             if (!item.isStackable()) slots += count;
             else if (warehouse.getItemByItemId(item.getItemId()) == null) slots++;
 		}

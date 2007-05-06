@@ -301,7 +301,7 @@ public class CursedWeaponsManager
     }
     
     
-    public void announce(SystemMessage sm)
+    public static void announce(SystemMessage sm)
     {
         for (L2PcInstance player : L2World.getInstance().getAllPlayers())
         {
@@ -320,7 +320,7 @@ public class CursedWeaponsManager
 
         for (CursedWeapon cw : _cursedWeapons.values())
         {
-            if (player.getObjectId() == cw.getPlayerId())
+        	if (cw.isActivated() && player.getObjectId() == cw.getPlayerId())
             {
                 cw.setPlayer(player);
                 cw.setItem(player.getInventory().getItemByItemId(cw.getItemId()));
@@ -336,7 +336,7 @@ public class CursedWeaponsManager
         }
     }
 
-    public void removeFromDb(int itemId)
+    public static void removeFromDb(int itemId)
     {
         Connection con = null;
         try

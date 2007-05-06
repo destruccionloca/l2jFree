@@ -65,6 +65,7 @@ import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList;
 import net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList.KnownListAsynchronousUpdateTask;
 import net.sf.l2j.gameserver.model.actor.stat.CharStat;
 import net.sf.l2j.gameserver.model.actor.status.CharStatus;
+import net.sf.l2j.gameserver.model.entity.Duel;
 import net.sf.l2j.gameserver.model.entity.Zone;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
 import net.sf.l2j.gameserver.model.quest.QuestState;
@@ -488,7 +489,7 @@ public abstract class L2Character extends L2Object
                 || (this instanceof L2PcInstance && target.isDead() && !target.isFakeDeath())
                 || !getKnownList().knowsObject(target)
                 || (this instanceof L2PcInstance && isDead())
-                || (target instanceof L2PcInstance && ((L2PcInstance)target).getDuelState() == ((L2PcInstance)target).DUELSTATE_DEAD))
+                || (target instanceof L2PcInstance && ((L2PcInstance)target).getDuelState() == Duel.DUELSTATE_DEAD))
         {
             // If L2PcInstance is dead or the target is dead, the action is stoped
             getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
@@ -5201,7 +5202,7 @@ public abstract class L2Character extends L2Object
                     {
                         if (skill.isOffensive() && skill != null)
                         {
-                            if ((player instanceof L2PcInstance || player instanceof L2Summon )&& activeChar.checkIfPvP(player)) 
+                        	if (player instanceof L2PcInstance || player instanceof L2Summon) 
                             {
                                 player.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
                                 activeChar.updatePvPStatus(player);

@@ -111,8 +111,15 @@ public class ScrollOfEscape implements IItemHandler
             activeChar.sendPacket(SystemMessage.sendString("You can not use SOE during Observation Mode."));
             return;
         }
-        
-    //activeChar.abortCast();
+
+		// Check to see if player is in a duel
+		if (activeChar.isInDuel())
+		{
+			activeChar.sendPacket(SystemMessage.sendString("You cannot use escape skills during a duel."));
+		    return;
+		}
+
+		//activeChar.abortCast();
         activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
         //SoE Animation section
         activeChar.setTarget(activeChar);

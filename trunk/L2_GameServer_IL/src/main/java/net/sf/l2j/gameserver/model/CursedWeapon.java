@@ -173,12 +173,12 @@ public class CursedWeapon
         }
         
         // Delete infos from table if any
-        CursedWeaponsManager.getInstance().removeFromDb(_itemId);
+        CursedWeaponsManager.removeFromDb(_itemId);
         
         SystemMessage sm = new SystemMessage(SystemMessage.S1_HAS_DISAPPEARED);
         sm.addString(_name);
         sm.addItemName(_itemId);
-        CursedWeaponsManager.getInstance().announce(sm);
+        CursedWeaponsManager.announce(sm);
         
         // Reset  state
         cancelTask();
@@ -253,7 +253,7 @@ public class CursedWeapon
         SystemMessage sm = new SystemMessage(SystemMessage.S2_WAS_DROPPED_IN_THE_S1_REGION);
 		sm.addZoneName(player.getX(), player.getY(), player.getZ()); // Region Name
 		sm.addItemName(_itemId);
-        CursedWeaponsManager.getInstance().announce(sm); // in the Hot Spring region
+		CursedWeaponsManager.announce(sm); // in the Hot Spring region
     }
     
    /**
@@ -357,7 +357,7 @@ public class CursedWeapon
         sm = new SystemMessage(SystemMessage.THE_OWNER_OF_S2_HAS_APPEARED_IN_THE_S1_REGION);
 		sm.addZoneName(_player.getX(), _player.getY(), _player.getZ()); // Region Name
 		sm.addItemName(_item.getItemId());
-        CursedWeaponsManager.getInstance().announce(sm);
+		CursedWeaponsManager.announce(sm);
     }
     
     public void saveData()

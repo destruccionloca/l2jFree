@@ -18,6 +18,8 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
+import java.nio.BufferUnderflowException;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.TaskPriority;
@@ -69,10 +71,14 @@ public class MoveBackwardToLocation extends L2GameClientPacket
         _originX  = readD();
         _originY  = readD();
         _originZ  = readD();
-//        if (Config.allowL2Walker(getClient().getActiveChar()) && getClient().getRevision() == Config.L2WALKER_REVISION) {
-//            _moveMovement = 1;
-//        } else
-            _moveMovement = readD(); // is 0 if cursor keys are used  1 if mouse is used
+		try
+		{
+			_moveMovement = readD(); // is 0 if cursor keys are used  1 if mouse is used
+		}
+		catch (BufferUnderflowException e)
+		{
+			// ignore for now
+		}
     }
 
     

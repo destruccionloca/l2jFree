@@ -67,23 +67,9 @@ public class RequestJoinParty extends L2GameClientPacket
             return;
         }
         
-        if (target.isCursedWeaponEquiped() || requestor.isCursedWeaponEquiped())
-        {
-            requestor.sendMessage("A player wielding a Cursed Weapon can't participate in a party");
-            return;
-        }
-
-        if (target.isDuelling()>0 || requestor.isDuelling()>0)
-        {
-            requestor.sendMessage("A player wielding a already in a duel can't participate in a party");
-            return;
-        }
-
-        SystemMessage msg;
-        
 		if (target.isInParty()) 
         {
-			msg = new SystemMessage(SystemMessage.S1_IS_ALREADY_IN_PARTY);
+			SystemMessage msg = new SystemMessage(SystemMessage.S1_IS_ALREADY_IN_PARTY);
 			msg.addString(target.getName());
 			requestor.sendPacket(msg);
 			return;
@@ -91,22 +77,29 @@ public class RequestJoinParty extends L2GameClientPacket
 
 		if (target == requestor) 
         {
-			msg = new SystemMessage(SystemMessage.INCORRECT_TARGET);
-			msg.addString(target.getName());
-			requestor.sendPacket(msg);
+			requestor.sendPacket(new SystemMessage(SystemMessage.INCORRECT_TARGET));
 			return;
 		}
-		
-		if (target.isInJail() || requestor.isInJail())   
-		{  
-			SystemMessage sm = SystemMessage.sendString("Player is in Jail");  
-			requestor.sendPacket(sm);  
-			return;  
-		}
 
-        if (target.isInOlympiadMode() || requestor.isInOlympiadMode())
-            return;        
+		if (target.isCursedWeaponEquiped() || requestor.isCursedWeaponEquiped()) 
+        {
+			requestor.sendPacket(new SystemMessage(SystemMessage.INCORRECT_TARGET));
+			return;
+		}
         
+		if (target.isInJail() || requestor.isInJail()) 
+        {
+			SystemMessage sm = SystemMessage.sendString("Player is in Jail");
+			requestor.sendPacket(sm);
+			return;
+		}
+        
+        if (target.isInOlympiadMode() || requestor.isInOlympiadMode())
+            return;
+        
+        if (target.isInDuel() || requestor.isInDuel())
+            return;
+		
 		if (!requestor.isInParty())
             //asker has no party
 			createNewParty(target, requestor);
