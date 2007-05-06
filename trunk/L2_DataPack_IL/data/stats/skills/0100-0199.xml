@@ -375,7 +375,7 @@
   1640000 1680000 1720000 1760000 1800000 1840000 1880000 1920000 1960000 2000000
   2040000 2080000 2120000 2160000 2200000 2240000 2280000 2320000 2360000 2400000
   </table>
-  <table name="#Tab-bowRes"> 16 19 22 25 </table>
+  <table name="#Tab-bowRes"> 1.16 1.19 1.22 1.25 </table>
   <table name="#mpConsume"> 11 14 19 22 </table>
   <table name="#ench2MpConsume">
   21 21 20 20 19 19 18 18 17 17
@@ -397,12 +397,12 @@
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <for>
     <effect count="1" name="Buff" time="1200" val="0">
-      <add order="0x40" stat="bowWpnRes" val="#Tab-bowRes"/>
+      <mul order="0x30" stat="bowWpnRes" val="#Tab-bowRes"/>
     </effect>
   </for>
   <enchant1for>
     <effect count="1" name="Buff" time="#ench1time" val="0">
-      <add order="0x40" stat="bowWpnRes" val="25"/>
+      <mul order="0x30" stat="bowWpnRes" val="1.25"/>
     </effect>
   </enchant1for>
 </skill>
@@ -767,20 +767,20 @@
   <for>
     <effect name="Buff" time="300" count="1" val="0" stackOrder="#Tab-accCombat" stackType="HawkEye">
       <add order="0x40" stat="accCombat" val="#Tab-accCombat">
-	 	<using kind="Bow"/>
+        <using kind="Bow"/>
       </add>
       <mul order="0x30" stat="pDef" val="#Tab-pDef">
-	 	<using kind="Bow"/>
+        <using kind="Bow"/>
       </mul>
     </effect>
   </for>
   <enchant1for>
     <effect name="Buff" time="#ench1time" count="1" val="0" stackOrder="10" stackType="HawkEye">
       <add order="0x40" stat="accCombat" val="10">
-	 	<using kind="Bow"/>
+        <using kind="Bow"/>
       </add>
       <mul order="0x30" stat="pDef" val="0.9">
-	 	<using kind="Bow"/>
+        <using kind="Bow"/>
       </mul>
     </effect>
   </enchant1for>

@@ -1060,7 +1060,7 @@
   <for>
   <!-- MDOT effect needs fixing - DRAIN appears to not allow MDOT to land [28/12/2006] -->
     <effect count="5" name="ManaDamOverTime" time="2" val="40">
-          <sub order="0x40" stat="darkRes" val="30"/>
+      <sub order="0x40" stat="darkRes" val="30"/>
     </effect>
   </for>
 </skill>
@@ -1305,7 +1305,7 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="30" stackType="MagicDefUpAtr">
+    <effect count="1" name="Buff" time="1200" val="0">
       <add stat="waterRes" val="20" order="0x40"/>
       <add stat="fireRes" val="30" order="0x40"/>
       <add stat="windRes" val="20" order="0x40"/>
@@ -2289,24 +2289,24 @@
   </for>
 </skill>
 <skill id="1396" levels="10" name="Magical Backfire">
-<!-- Done by KID [C5] --> 
-  <table name="#mpConsume"> 52 54 55 58 60 62 64 65 67 69 </table> 
-  <table name="#mpConsumeRate"> 1.04 1.05 1.06 1.07 1.08 1.09 1.10 1.11 1.13 1.15 </table> 
-  <set name="mpConsume" val="#mpConsume"/> 
-  <set name="hitTime" val="4000"/> 
-  <set name="skillTime" val="4000"/> 
-  <set name="reuseDelay" val="27000"/> 
-  <set name="target" val="TARGET_ONE"/> 
-  <set name="skillType" val="DEBUFF"/> 
-  <set name="operateType" val="OP_ACTIVE"/> 
-  <set name="castRange" val="600"/> 
-  <set name="effectRange" val="1100"/> 
-  <set name="isMagic" val="true"/> 
-  <for> 
-    <effect count="1" name="Buff" time="30" val="0"> 
-       <mul order="0x50" stat="MpConsumeRate" val="#mpConsumeRate"/> 
-    </effect> 
-  </for>  
+<!-- Done by KID [C5] -->
+  <table name="#mpConsume"> 52 54 55 58 60 62 64 65 67 69 </table>
+  <table name="#mpConsumeRate"> 1.04 1.05 1.06 1.07 1.08 1.09 1.10 1.11 1.13 1.15 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="hitTime" val="4000"/>
+  <set name="skillTime" val="4000"/>
+  <set name="reuseDelay" val="27000"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="DEBUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
+  <set name="isMagic" val="true"/>
+  <for>
+    <effect count="1" name="Buff" time="30" val="0">
+      <mul order="0x30" stat="MpConsumeRate" val="#mpConsumeRate"/>
+    </effect>
+  </for>
 </skill>
 <skill id="1397" levels="3" name="Clarity">
   <table name="#mpConsume"> 54 62 69 </table>
