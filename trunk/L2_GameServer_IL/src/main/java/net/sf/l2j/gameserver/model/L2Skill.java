@@ -689,31 +689,31 @@ public abstract class L2Skill
         */
         if (_skillType == SkillType.DEATHLINK || _skillType == SkillType.FATALCOUNTER)
         {
-        if (activeChar.getStatus().getCurrentHp() >= activeChar.getStat().getMaxHp()*0.29)
+        if (activeChar.getCurrentHp() >= activeChar.getMaxHp()*0.29)
             return _power * 1.1;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getStat().getMaxHp()*0.26)
+        else if (activeChar.getCurrentHp() >= activeChar.getMaxHp()*0.26)
             return _power * 1.19;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getStat().getMaxHp()*0.23)
+        else if (activeChar.getCurrentHp() >= activeChar.getMaxHp()*0.23)
             return _power * 1.215;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getStat().getMaxHp()*0.21)
+        else if (activeChar.getCurrentHp() >= activeChar.getMaxHp()*0.21)
             return _power * 1.22;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getStat().getMaxHp()*0.16)
+        else if (activeChar.getCurrentHp() >= activeChar.getMaxHp()*0.16)
             return _power * 1.23;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getStat().getMaxHp()*0.13)
+        else if (activeChar.getCurrentHp() >= activeChar.getMaxHp()*0.13)
             return _power * 1.24;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getStat().getMaxHp()*0.09)
+        else if (activeChar.getCurrentHp() >= activeChar.getMaxHp()*0.09)
             return _power * 1.35;
-        else if (activeChar.getStatus().getCurrentHp() <= 300)
+        else if (activeChar.getCurrentHp() <= 300)
             return _power * 1.8;
-        else if (activeChar.getStatus().getCurrentHp() <= 200)
+        else if (activeChar.getCurrentHp() <= 200)
             return _power * 2.1;
-        else if (activeChar.getStatus().getCurrentHp() <= 170)
+        else if (activeChar.getCurrentHp() <= 170)
             return _power * 2.2;
-        else if (activeChar.getStatus().getCurrentHp() <= 150)
+        else if (activeChar.getCurrentHp() <= 150)
             return _power * 2.3;
-        else if (activeChar.getStatus().getCurrentHp() <= 130)
+        else if (activeChar.getCurrentHp() <= 130)
             return _power * 2.5;
-        else if (activeChar.getStatus().getCurrentHp() <= 100)
+        else if (activeChar.getCurrentHp() <= 100)
             return _power * 2.8;
         }
         return _power;
@@ -1612,6 +1612,36 @@ public abstract class L2Skill
             if (targetList.size() == 0) return null;
             return targetList.toArray(new L2Character[targetList.size()]);
         }        
+        /*case TARGET_MULTIFACE:
+        {
+            if ((!(target instanceof L2Attackable) && !(target instanceof L2PcInstance)))
+            {
+                activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
+                return null;
+            }
+
+            if (onlyFirst == false) targetList.add(target);
+            else return new L2Character[] {target};
+
+            int radius = getSkillRadius();
+
+            for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
+            {
+                if (obj == null) continue;
+                if (!Util.checkIfInRange(radius, activeChar, obj, true)) continue;
+
+                if (obj instanceof L2Attackable && obj != target) targetList.add((L2Character) obj);
+
+                if (targetList.size() == 0)
+                {
+                    activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_CANT_FOUND));
+                    return null;
+                }
+            }
+            return targetList.toArray(new L2Character[targetList.size()]);
+            //TODO multiface targets all around right now.  need it to just get targets
+            //the character is facing.
+        }*/
         case TARGET_PARTY:
         {
             if (onlyFirst)

@@ -88,7 +88,7 @@ public class CraftManager
         
         if (maker == null)
         {
-            RecipeBookItemList response = new RecipeBookItemList(isDwarvenCraft, player.getStat().getMaxMp());
+            RecipeBookItemList response = new RecipeBookItemList(isDwarvenCraft, player.getMaxMp());
             response.addRecipes(isDwarvenCraft  ? player.getDwarvenRecipeBook()
                                                 : player.getCommonRecipeBook());
             player.sendPacket(response);

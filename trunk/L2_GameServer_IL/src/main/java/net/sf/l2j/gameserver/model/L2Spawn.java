@@ -558,7 +558,7 @@ public class L2Spawn
         }
         
         // Set the HP and MP of the L2NpcInstance to the max
-        mob.getStatus().setCurrentHpMp(mob.getStat().getMaxHp(), mob.getStat().getMaxMp());
+        mob.setCurrentHpMp(mob.getMaxHp(), mob.getMaxMp());
         
         // Set the heading of the L2NpcInstance (random heading if not defined)
         if (getHeading() == -1)

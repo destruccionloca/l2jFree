@@ -84,7 +84,7 @@ public class Pdam implements ISkillHandler
 
             boolean dual = activeChar.isUsingDualWeapon();
             boolean shld = Formulas.getInstance().calcShldUse(activeChar, target);
-            boolean crit = Formulas.getInstance().calcCrit(activeChar, target, activeChar.getStat().getCriticalHit(target, skill));
+            boolean crit = Formulas.getInstance().calcCrit(activeChar, target, activeChar.getCriticalHit(target, skill));
             boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER);
             
             if (skill.ignoreShld()) shld = false;
@@ -156,28 +156,28 @@ public class Pdam implements ISkillHandler
                             L2PcInstance player = (L2PcInstance)target;
                             if (!player.isInvul())
                             {
-                                player.getStatus().setCurrentCp(1); // Set CP to 1
+                                player.setCurrentCp(1); // Set CP to 1
                                 player.reduceCurrentHp(damage, activeChar);
                             }
                        }
                        else if (target instanceof L2MonsterInstance) // If is a monster remove first damage and after 50% of current hp
                        {
-                          target.getStatus().reduceHp(damage, activeChar);
-                          target.getStatus().reduceHp(target.getStatus().getCurrentHp()/2, activeChar);
+                          target.reduceCurrentHp(damage, activeChar);
+                          target.reduceCurrentHp(target.getCurrentHp()/2, activeChar);
                        }
                     }
                     else //2nd lethal effect activate (cp,hp to 1 or if target is npc then hp to 1)
                     {
                          // If is a monster damage is (CurrentHp - 1) so HP = 1
                         if (target instanceof L2NpcInstance)
-                            target.getStatus().reduceHp(target.getStatus().getCurrentHp()-1, activeChar);
+                            target.reduceCurrentHp(target.getCurrentHp()-1, activeChar);
                         else if (target instanceof L2PcInstance) // If is a active player set his HP and CP to 1
                         {
                             L2PcInstance player = (L2PcInstance)target;
                             if (!player.isInvul())
                             {
-                                player.getStatus().setCurrentHp(1);
-                                player.getStatus().setCurrentCp(1);
+                                player.setCurrentHp(1);
+                                player.setCurrentCp(1);
                             }
                         }
                     }
@@ -194,13 +194,13 @@ public class Pdam implements ISkillHandler
                             L2PcInstance player = (L2PcInstance)target;
                             if (!player.isInvul())
                             {
-                               if (damage >= player.getStatus().getCurrentHp()) 
+                               if (damage >= player.getCurrentHp()) 
                                {
-                                   player.getStatus().setCurrentHp(0);
+                                   player.setCurrentHp(0);
                                    player.doDie(activeChar);
                                }
                                else 
-                                  player.getStatus().setCurrentHp(player.getStatus().getCurrentHp() - damage);
+                                  player.setCurrentHp(player.getCurrentHp() - damage);
                             }
 	                		
 	                		SystemMessage smsg = new SystemMessage(SystemMessage.S1_GAVE_YOU_S2_DMG);
@@ -210,11 +210,11 @@ public class Pdam implements ISkillHandler
 	                		
                         }
                         else
-                            target.getStatus().reduceHp(damage, activeChar);
+                            target.reduceCurrentHp(damage, activeChar);
                     }
                     else
                     {
-                        target.getStatus().reduceHp(damage, activeChar);
+                        target.reduceCurrentHp(damage, activeChar);
                     }
                 }
             }
@@ -270,7 +270,7 @@ public class Pdam implements ISkillHandler
         if (skill.isSuicideAttack())
         {
             activeChar.doDie(null);
-            activeChar.getStatus().setCurrentHp(0);
+            activeChar.setCurrentHp(0);
         }
     }
 

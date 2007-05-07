@@ -91,7 +91,7 @@ public class Heal implements ISkillHandler
             
             if (skill.getSkillType() == SkillType.HEAL_PERCENT)
             {
-                hp = target.getStat().getMaxHp() * hp / 100.0;
+                hp = target.getMaxHp() * hp / 100.0;
             }
             else
             {
@@ -128,7 +128,7 @@ public class Heal implements ISkillHandler
                 if (weaponInst == null && activeChar instanceof L2PetBabyInstance)
                 {
                     L2Summon activeSummon = (L2Summon)activeChar; 
-                    int matk = activeSummon.getStat().getMAtk(null,null); 
+                    int matk = activeSummon.getMAtk(null,null); 
                     hp = skill.getPower() + Math.ceil(Math.sqrt(((activeSummon.getLevel()/skill.getPower())*matk)));  
                     if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
                     {
@@ -147,11 +147,11 @@ public class Heal implements ISkillHandler
                 double fullHP = 0;
                 for (int member = 0; member < targets.length; member++)
                 {
-                    fullHP += target.getStatus().getCurrentHp();
+                    fullHP += target.getCurrentHp();
                 }
                 for (int member = 0; member < targets.length; member++)
                 {
-                target.getStatus().setCurrentHp(fullHP/targets.length);
+                target.setCurrentHp(fullHP/targets.length);
                 }
             }
                 /*{
@@ -179,12 +179,12 @@ public class Heal implements ISkillHandler
             if (skill.getSkillType() == SkillType.HEAL_STATIC)
             	hp = skill.getPower();
             else if (skill.getSkillType() != SkillType.HEAL_PERCENT && skill.getSkillType() != SkillType.BALANCE_HEAL)
-                hp *= target.getStat().calcStat(Stats.HEAL_EFFECTIVNESS, 100, null, null) / 100;
+                hp *= target.calcStat(Stats.HEAL_EFFECTIVNESS, 100, null, null) / 100;
             
-            target.getStatus().setCurrentHp(hp + target.getStatus().getCurrentHp()); 
+            target.setCurrentHp(hp + target.getCurrentHp()); 
             target.setLastHealAmount((int)hp);            
             StatusUpdate su = new StatusUpdate(target.getObjectId());
-            su.addAttribute(StatusUpdate.CUR_HP, (int)target.getStatus().getCurrentHp());
+            su.addAttribute(StatusUpdate.CUR_HP, (int)target.getCurrentHp());
             target.sendPacket(su);            
             if (target instanceof L2PcInstance)
             {

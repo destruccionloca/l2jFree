@@ -164,6 +164,7 @@ public abstract class L2Character extends L2Object
     private long timePreviousBroadcastStatusUpdate          = 0;
     private L2CharTemplate _Template;                       // The link on the L2CharTemplate object containing generic and static properties of this L2Character type (ex : Max HP, Speed...)
     private String _Title;
+    private String _aiClass = "default";
     private boolean _champion = false;
 	private double _hpUpdateIncCheck = .0;
 	private double _hpUpdateDecCheck = .0;
@@ -236,9 +237,9 @@ public abstract class L2Character extends L2Object
 	
 	protected void initCharStatusUpdateValues()
 	{        
-        _hpUpdateInterval = getStat().getMaxHp()/352.0; // MAX_HP div MAX_HP_BAR_PX
-		_hpUpdateIncCheck = getStat().getMaxHp();
-		_hpUpdateDecCheck = getStat().getMaxHp()-_hpUpdateInterval;        
+        _hpUpdateInterval = getMaxHp()/352.0; // MAX_HP div MAX_HP_BAR_PX
+		_hpUpdateIncCheck = getMaxHp();
+		_hpUpdateDecCheck = getMaxHp()-_hpUpdateInterval;        
     }
 
     // =========================================================
@@ -320,16 +321,16 @@ public abstract class L2Character extends L2Object
 	 */
 	protected boolean needHpUpdate(int barPixels)
 	{
-		double currentHp = getStatus().getCurrentHp();
+		double currentHp = getCurrentHp();
 
-		if (currentHp <= 1.0 || getStat().getMaxHp() < barPixels)
+		if (currentHp <= 1.0 || getMaxHp() < barPixels)
 	        return true;
 
 	    if (currentHp <= _hpUpdateDecCheck || currentHp >= _hpUpdateIncCheck)
 	    {
-	    	if (currentHp == getStat().getMaxHp())
+	    	if (currentHp == getMaxHp())
 	    	{
-	    		_hpUpdateIncCheck = getStat().getMaxHp();
+	    		_hpUpdateIncCheck = getMaxHp();
 	    		_hpUpdateDecCheck = _hpUpdateIncCheck - _hpUpdateInterval;
 	    	}
 	    	else
@@ -369,7 +370,7 @@ public abstract class L2Character extends L2Object
 			return;
 
 		if (_log.isDebugEnabled())
-			_log.info("Broadcast Status Update for " + getObjectId() + "(" + getName() + "). HP: " +getStatus().getCurrentHp());
+			_log.info("Broadcast Status Update for " + getObjectId() + "(" + getName() + "). HP: " + getCurrentHp());
 
         if(Config.NETWORK_TRAFFIC_OPTIMIZATION)
         {
@@ -380,8 +381,8 @@ public abstract class L2Character extends L2Object
         }
         // Create the Server->Client packet StatusUpdate with current HP and MP
         StatusUpdate su = new StatusUpdate(getObjectId());
-		su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp());
-		su.addAttribute(StatusUpdate.CUR_MP, (int)getStatus().getCurrentMp());
+		su.addAttribute(StatusUpdate.CUR_HP, (int)getCurrentHp());
+		su.addAttribute(StatusUpdate.CUR_MP, (int)getCurrentMp());
 
         // Go through the StatusListener
         // Send the Server->Client packet StatusUpdate with current HP and MP
@@ -582,7 +583,7 @@ public abstract class L2Character extends L2Object
                     int saMpConsume = (int)getStat().calcStat(Stats.MP_CONSUME, 0, null, null);
                     int mpConsume = saMpConsume == 0 ? weaponItem.getMpConsume() : saMpConsume; 
 
-                    if (getStatus().getCurrentMp() < mpConsume)
+                    if (getCurrentMp() < mpConsume)
                     {
                         // If L2PcInstance doesn't have enough MP, stop the attack
                         
@@ -630,7 +631,7 @@ public abstract class L2Character extends L2Object
 
         // Reduce the current CP if TIREDNESS configuration is activated
         if (Config.ALT_GAME_TIREDNESS) 
-            getStatus().setCurrentCp(getStatus().getCurrentCp() - 10);
+            setCurrentCp(getCurrentCp() - 10);
 
         // Recharge any active auto soulshot tasks for player (or player's summon if one exists).
         if (this instanceof L2PcInstance) 
@@ -711,11 +712,11 @@ public abstract class L2Character extends L2Object
                 if (player.isCursedWeaponEquiped())
                 {                    
                     if (!target.isInvul()) 
-                        target.getStatus().setCurrentCp(0);
+                        target.setCurrentCp(0);
                 } else if (player.isHero())
                 {
                     if (target instanceof L2PcInstance && ((L2PcInstance)target).isCursedWeaponEquiped())                        
-                        target.getStatus().setCurrentCp(0); // If Zariche is hitted by a Hero, Cp is reduced to 0
+                        target.setCurrentCp(0); // If Zariche is hitted by a Hero, Cp is reduced to 0
                 }
             }
         }
@@ -1315,8 +1316,8 @@ public abstract class L2Character extends L2Object
 		if (initmpcons > 0)
 		{
 			StatusUpdate su = new StatusUpdate(getObjectId());
-			getStatus().reduceMp(getStat().calcStat(Stats.MP_CONSUME_RATE,initmpcons,null,null));
-			su.addAttribute(StatusUpdate.CUR_MP, (int) getStatus().getCurrentMp());
+			getStatus().reduceMp(calcStat(Stats.MP_CONSUME_RATE,initmpcons,null,null));
+			su.addAttribute(StatusUpdate.CUR_MP, (int) getCurrentMp());
 			sendPacket(su);
         }
 
@@ -1435,8 +1436,8 @@ public abstract class L2Character extends L2Object
         {
             setIsPendingRevive(false);
 
-            _Status.setCurrentCp(getStat().getMaxCp() * Config.RESPAWN_RESTORE_CP);
-            _Status.setCurrentHp(getStat().getMaxHp() * Config.RESPAWN_RESTORE_HP);
+            _Status.setCurrentCp(getMaxCp() * Config.RESPAWN_RESTORE_CP);
+            _Status.setCurrentHp(getMaxHp() * Config.RESPAWN_RESTORE_HP);
             //_Status.setCurrentMp(getMaxMp() * Config.RESPAWN_RESTORE_MP);
             
             // Start broadcast status 
@@ -1563,7 +1564,7 @@ public abstract class L2Character extends L2Object
     public final void setIsAffraid(boolean value) { _IsAffraid = value; }
 
     /** Return True if the L2Character is dead or use fake death.  */
-    public final boolean isAlikeDead() { return isFakeDeath() || !(getStatus().getCurrentHp() > 0.5); }
+    public final boolean isAlikeDead() { return isFakeDeath() || !(getCurrentHp() > 0.5); }
 
     /** Return True if the L2Character can't use its skills (ex : stun, sleep...). */
     public final boolean isAllSkillsDisabled() { return _allSkillsDisabled || isStunned() || isSleeping() || isParalyzed(); }
@@ -1577,7 +1578,7 @@ public abstract class L2Character extends L2Object
     public final void setIsConfused(boolean value) { _IsConfused = value; }
 
     /** Return True if the L2Character is dead. */
-    public final boolean isDead() { return !(isFakeDeath()) && !(getStatus().getCurrentHp() > 0.5); }
+    public final boolean isDead() { return !(isFakeDeath()) && !(getCurrentHp() > 0.5); }
 
     public final boolean isFakeDeath() { return _IsFakeDeath; }
     public final void setIsFakeDeath(boolean value) { _IsFakeDeath = value; }
@@ -2365,7 +2366,7 @@ public abstract class L2Character extends L2Object
         /* Aborts any attacks/casts if fake dead */
         abortAttack();
         abortCast();
-        getStatus().stopHpMpRegeneration();
+        stopHpMpRegeneration();
         StopMove sm = new StopMove(this);
         broadcastPacket(sm);
         ActionFailed af = new ActionFailed();
@@ -4343,8 +4344,8 @@ public abstract class L2Character extends L2Object
                         int reflectedDamage = (int)(reflectPercent / 100. * damage);
                         damage -= reflectedDamage;
                        
-                        if(reflectedDamage > target.getStat().getMaxHp()) // to prevent extreme damage when hitting a low lvl char...
-                            reflectedDamage = target.getStat().getMaxHp();
+                        if(reflectedDamage > target.getMaxHp()) // to prevent extreme damage when hitting a low lvl char...
+                            reflectedDamage = target.getMaxHp();
                        
                         getStatus().reduceHp(reflectedDamage, target, true);
 
@@ -4367,7 +4368,7 @@ public abstract class L2Character extends L2Object
                     
                     if (absorbPercent > 0)
                     {
-                        int maxCanAbsorb = (int)(this.getStat().getMaxHp() - this.getStatus().getCurrentHp());
+                        int maxCanAbsorb = (int)(this.getMaxHp() - this.getCurrentHp());
                         int absorbDamage = (int)(absorbPercent / 100. * damage);
                         
                         if (absorbDamage > maxCanAbsorb) 
@@ -4375,7 +4376,7 @@ public abstract class L2Character extends L2Object
                         
                         if (absorbDamage > 0)
                         {
-                            getStatus().setCurrentHp(getStatus().getCurrentHp() + absorbDamage);
+                            setCurrentHp(getCurrentHp() + absorbDamage);
 
                             // Custom messages - nice but also more network load
                            /*
@@ -4394,19 +4395,19 @@ public abstract class L2Character extends L2Object
                     
                     if (absorbCPPercent > 0)
                     {
-                        int maxCanAbsorb = (int)(this.getStat().getMaxCp() - this.getStatus().getCurrentCp());
+                        int maxCanAbsorb = (int)(this.getMaxCp() - this.getCurrentCp());
                         int absorbDamage = (int)(absorbCPPercent / 100. * damage);
                         
                         if (absorbDamage > maxCanAbsorb) 
                             absorbDamage = maxCanAbsorb; // Can't absord more than max cp
                         
-                        getStatus().setCurrentCp(getStatus().getCurrentCp() + absorbDamage);
+                        setCurrentCp(getCurrentCp() + absorbDamage);
                     }
                 }
 
                 if (isPetrified())
                 {damage=0;}
-                target.getStatus().reduceHp(damage, this);
+                target.reduceCurrentHp(damage, this);
 
                 // Notify AI with EVT_ATTACKED
                 target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, this);
@@ -4972,8 +4973,8 @@ public abstract class L2Character extends L2Object
            double mpConsume = getStat().getMpConsume(skill);
            if (mpConsume > 0)
            {
-               getStatus().reduceMp(getStat().calcStat(Stats.MP_CONSUME_RATE,skill.getMpConsume(),null,null));
-               su.addAttribute(StatusUpdate.CUR_MP, (int) getStatus().getCurrentMp());
+               getStatus().reduceMp(calcStat(Stats.MP_CONSUME_RATE,skill.getMpConsume(),null,null));
+               su.addAttribute(StatusUpdate.CUR_MP, (int) getCurrentMp());
                isSendStatus = true;
            }
 
@@ -4982,13 +4983,13 @@ public abstract class L2Character extends L2Object
            {
                double consumeHp;
                
-				consumeHp = getStat().calcStat(Stats.HP_CONSUME_RATE,skill.getHpConsume(),null,null);
-				if(consumeHp+1 >= getStatus().getCurrentHp())
-					consumeHp = getStatus().getCurrentHp()-1.0;
+				consumeHp = calcStat(Stats.HP_CONSUME_RATE,skill.getHpConsume(),null,null);
+				if(consumeHp+1 >= getCurrentHp())
+					consumeHp = getCurrentHp()-1.0;
                
                getStatus().reduceHp(consumeHp, this);
  
-               su.addAttribute(StatusUpdate.CUR_HP, (int) getStatus().getCurrentHp());
+               su.addAttribute(StatusUpdate.CUR_HP, (int) getCurrentHp());
                isSendStatus = true;
            }
            
@@ -5435,27 +5436,53 @@ public abstract class L2Character extends L2Object
    {
        return "mob "+this.getObjectId();
    }
+   
+   public int getAttackEndTime()
+   {
+       return _attackEndTime;
+   }
 
    /**
     * Not Implemented.<BR><BR>
     */
    public abstract int getLevel();
+   // =========================================================
+
+   
+   
+   
+   
    
    // =========================================================
    // Stat - NEED TO REMOVE ONCE L2CHARSTAT IS COMPLETE
    // Property - Public
+   public final double calcStat(Stats stat, double init, L2Character target, L2Skill skill) { return getStat().calcStat(stat, init, target, skill); }
+
+   // Property - Public
+   public int getAccuracy() { return getStat().getAccuracy(); }
+   public final float getAttackSpeedMultiplier() { return getStat().getAttackSpeedMultiplier(); }
+   //public final int getAtkCancel() { return getStat().getAtkCancel(); }
+   public int getCON() { return getStat().getCON(); }
+   public int getDEX() { return getStat().getDEX(); }
+   public final double getCriticalDmg(L2Character target, double init) { return getStat().getCriticalDmg(target, init); }
+   public int getCriticalHit(L2Character target, L2Skill skill) { return getStat().getCriticalHit(target, skill); }
+   public int getEvasionRate(L2Character target) { return getStat().getEvasionRate(target); }
+   public int getINT() { return getStat().getINT(); }
+   public final int getMagicalAttackRange(L2Skill skill) { return getStat().getMagicalAttackRange(skill); }
+   public final int getMaxCp() { return getStat().getMaxCp(); }
+   public int getMAtk(L2Character target, L2Skill skill) { return getStat().getMAtk(target, skill); }
    public int getMAtkSps(L2Character target, L2Skill skill)
    {
-       int matk = (int)getStat().calcStat(Stats.MAGIC_ATTACK, _Template.baseMAtk, target, skill);
-       L2ItemInstance weaponInst = getActiveWeaponInstance();
-       if (weaponInst != null)
-       {
-           if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-               matk *= 4;
-           else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-               matk *= 2;
-       }
-       return matk;
+   int matk = (int)calcStat(Stats.MAGIC_ATTACK, _Template.baseMAtk, target, skill);
+   L2ItemInstance weaponInst = getActiveWeaponInstance();
+   if (weaponInst != null)
+   {
+   if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
+   matk *= 4;
+   else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
+   matk *= 2;
+   }
+   return matk;
    } 
    public int getMAtkSpd()
    {
@@ -5468,6 +5495,19 @@ public abstract class L2Character extends L2Object
        return _matkspd; 
    }
    
+   public int getMaxMp() { return getStat().getMaxMp(); }
+   public int getMaxHp() { return getStat().getMaxHp(); }
+   public final int getMCriticalHit(L2Character target, L2Skill skill) { return getStat().getMCriticalHit(target, skill); }
+   public int getMDef(L2Character target, L2Skill skill) { return getStat().getMDef(target, skill); }
+   public int getMEN() { return getStat().getMEN(); }
+   public double getMReuseRate(L2Skill skill) { return getStat().getMReuseRate(skill); }
+   public float getMovementSpeedMultiplier() { return getStat().getMovementSpeedMultiplier(); }
+   public int getPAtk(L2Character target) { return getStat().getPAtk(target); }
+   public double getPAtkAnimals(L2Character target) { return getStat().getPAtkAnimals(target); }
+   public double getPAtkDragons(L2Character target) { return getStat().getPAtkDragons(target); }
+   public double getPAtkInsects(L2Character target) { return getStat().getPAtkInsects(target); }
+   public double getPAtkMonsters(L2Character target) { return getStat().getPAtkMonsters(target); }
+   public double getPAtkPlants(L2Character target) { return getStat().getPAtkPlants(target); } 
    public int getPAtkSpd() 
    {
        int _patkspd = getStat().getPAtkSpd();
@@ -5478,8 +5518,41 @@ public abstract class L2Character extends L2Object
        }
        return _patkspd; 
    }
+   public double getPAtkUndead(L2Character target) { return getStat().getPAtkUndead(target); }
+   public double getPDefUndead(L2Character target) { return getStat().getPDefUndead(target); }
+   public double getPAtkValakas(L2Character target) { return getStat().getPAtkValakas(target); }
+   public double getPDefValakas(L2Character target) { return getStat().getPDefValakas(target); }
+   public int getPDef(L2Character target) { return getStat().getPDef(target); }
+   public final int getPhysicalAttackRange() { return getStat().getPhysicalAttackRange(); }
+   public int getRunSpeed() { return getStat().getRunSpeed(); }
+   public final int getShldDef() { return getStat().getShldDef(); }
+   public int getSTR() { return getStat().getSTR(); }
+   public final int getWalkSpeed() { return getStat().getWalkSpeed(); }
+   public int getWIT() { return getStat().getWIT(); }
    // =========================================================
 
+
+   // =========================================================
+   // Status - NEED TO REMOVE ONCE L2CHARTATUS IS COMPLETE
+   // Method - Public
+   public void addStatusListener(L2Character object) { getStatus().addStatusListener(object); }
+   public void reduceCurrentHp(double i, L2Character attacker) { reduceCurrentHp(i, attacker, true); }
+   public void reduceCurrentHp(double i, L2Character attacker, boolean awake) { getStatus().reduceHp(i, attacker, awake); }
+   public void reduceCurrentMp(double i) { getStatus().reduceMp(i); }
+   public void removeStatusListener(L2Character object) { getStatus().removeStatusListener(object); }
+   protected synchronized void stopHpMpRegeneration() { getStatus().stopHpMpRegeneration(); }
+
+   // Property - Public
+   public final double getCurrentCp() { return getStatus().getCurrentCp(); }
+   public final void setCurrentCp(Double newCp) { setCurrentCp((double) newCp); }
+   public final void setCurrentCp(double newCp) { getStatus().setCurrentCp(newCp); }
+   public final double getCurrentHp() { return getStatus().getCurrentHp(); }
+   public final void setCurrentHp(double newHp) { getStatus().setCurrentHp(newHp); }
+   public final void setCurrentHpMp(double newHp, double newMp){ getStatus().setCurrentHpMp(newHp, newMp); }
+   public final double getCurrentMp() { return getStatus().getCurrentMp(); }
+   public final void setCurrentMp(Double newMp) { setCurrentMp((double)newMp); }
+   public final void setCurrentMp(double newMp) { getStatus().setCurrentMp(newMp); }
+   // =========================================================
    public void setChampion(boolean champ)
    {
        _champion = champ;
@@ -5494,7 +5567,16 @@ public abstract class L2Character extends L2Object
    {
       sendPacket(SystemMessage.sendString(message));
    }
-
+    
+   public void setAiClass(String aiClass)
+   {
+       _aiClass = aiClass;
+   }
+   
+   public String getAiClass()
+   {
+       return _aiClass;
+   }
 
    public L2Character getLastBuffer()
    {
@@ -5522,7 +5604,7 @@ public abstract class L2Character extends L2Object
      */
     public boolean reflectSkill(L2Skill skill)
     {
-        double reflect = getStat().calcStat(skill.isMagic() ? Stats.REFLECT_SKILL_MAGIC : Stats.REFLECT_SKILL_PHYSIC, 0, null, null);
+        double reflect = calcStat(skill.isMagic() ? Stats.REFLECT_SKILL_MAGIC : Stats.REFLECT_SKILL_PHYSIC, 0, null, null);
         if( Rnd.get(100) < reflect)
             return true;
         

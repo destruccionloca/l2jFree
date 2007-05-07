@@ -40,14 +40,14 @@ class EffectManaHealOverTime extends L2Effect
 		if(getEffected().isDead())
 			return false;
 		
-		double mp = getEffected().getStatus().getCurrentMp(); 
-		double maxmp = getEffected().getStat().getMaxMp();
+		double mp = getEffected().getCurrentMp(); 
+		double maxmp = getEffected().getMaxMp();
 		mp += calc(); 
 		if(mp > maxmp)
 		{
 			mp = maxmp;
 		}
-		getEffected().getStatus().setCurrentMp(mp); 
+		getEffected().setCurrentMp(mp); 
 		StatusUpdate sump = new StatusUpdate(getEffected().getObjectId()); 
 		sump.addAttribute(StatusUpdate.CUR_MP, (int)mp); 
 		getEffected().sendPacket(sump);

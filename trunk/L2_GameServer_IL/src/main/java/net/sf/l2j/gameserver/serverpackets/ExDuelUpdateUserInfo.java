@@ -25,42 +25,42 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class ExDuelUpdateUserInfo extends L2GameServerPacket
 {
-	private static final String _S__FE_4F_EXDUELUPDATEUSERINFO = "[S] FE:4F ExDuelUpdateUserInfo";
-	private L2PcInstance _cha;
+    private static final String _S__FE_4F_EXDUELUPDATEUSERINFO = "[S] FE:4F ExDuelUpdateUserInfo";
+    private L2PcInstance _cha;
 
-	public ExDuelUpdateUserInfo(L2PcInstance cha)
-	{
-		_cha = cha;
-	}
+    public ExDuelUpdateUserInfo(L2PcInstance cha)
+    {
+        _cha = cha;
+    }
 
-	/**
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
-	 */
-	@Override
-	protected
-	void writeImpl()
-	{
-		writeC(0xfe);
-		writeH(0x4f);
-		writeS(_cha.getName());
-		writeD(_cha.getObjectId());
-		writeD(_cha.getClassId().getId());
-		writeD(_cha.getLevel());
-		writeD((int)_cha.getStatus().getCurrentHp());
-		writeD(_cha.getStat().getMaxHp());
-		writeD((int)_cha.getStatus().getCurrentMp());
-		writeD(_cha.getStat().getMaxMp());
-		writeD((int)_cha.getStatus().getCurrentCp());
-		writeD(_cha.getStat().getMaxCp());
-	}
+    /**
+     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
+     */
+    @Override
+    protected
+    void writeImpl()
+    {
+        writeC(0xfe);
+        writeH(0x4f);
+        writeS(_cha.getName());
+        writeD(_cha.getObjectId());
+        writeD(_cha.getClassId().getId());
+        writeD(_cha.getStat().getLevel());
+        writeD((int)_cha.getStatus().getCurrentHp());
+        writeD(_cha.getStat().getMaxHp());
+        writeD((int)_cha.getStatus().getCurrentMp());
+        writeD(_cha.getStat().getMaxMp());
+        writeD((int)_cha.getStatus().getCurrentCp());
+        writeD(_cha.getStat().getMaxCp());
+    }
 
-	/**
-	 * @see net.sf.l2j.gameserver.BasePacket#getType()
-	 */
-	@Override
-	public String getType()
-	{
-		return _S__FE_4F_EXDUELUPDATEUSERINFO;
-	}
+    /**
+     * @see net.sf.l2j.gameserver.BasePacket#getType()
+     */
+    @Override
+    public String getType()
+    {
+        return _S__FE_4F_EXDUELUPDATEUSERINFO;
+    }
 
 }

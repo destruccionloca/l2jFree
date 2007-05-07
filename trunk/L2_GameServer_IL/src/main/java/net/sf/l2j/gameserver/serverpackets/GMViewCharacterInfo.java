@@ -44,9 +44,9 @@ public class GMViewCharacterInfo extends L2GameServerPacket
 
 	protected final void writeImpl()
 	{
-		float moveMultiplier = _cha.getStat().getMovementSpeedMultiplier();
-        int _runSpd = (int) (_cha.getStat().getRunSpeed() / moveMultiplier);
-        int _walkSpd = (int) (_cha.getStat().getWalkSpeed() / moveMultiplier);
+		float moveMultiplier = _cha.getMovementSpeedMultiplier();
+        int _runSpd = (int) (_cha.getRunSpeed() / moveMultiplier);
+        int _walkSpd = (int) (_cha.getWalkSpeed() / moveMultiplier);
 
 		writeC(0x8f);
 
@@ -61,16 +61,16 @@ public class GMViewCharacterInfo extends L2GameServerPacket
 		writeD(_cha.getClassId().getId());
 		writeD(_cha.getLevel());
 		writeQ(_cha.getExp());
-		writeD(_cha.getStat().getSTR());
-		writeD(_cha.getStat().getDEX());
-		writeD(_cha.getStat().getCON());
-		writeD(_cha.getStat().getINT());
-		writeD(_cha.getStat().getWIT());
-		writeD(_cha.getStat().getMEN());
-		writeD(_cha.getStat().getMaxHp());
-		writeD((int) _cha.getStatus().getCurrentHp());
-		writeD(_cha.getStat().getMaxMp());
-		writeD((int)_cha.getStatus().getCurrentMp());
+		writeD(_cha.getSTR());
+		writeD(_cha.getDEX());
+		writeD(_cha.getCON());
+		writeD(_cha.getINT());
+		writeD(_cha.getWIT());
+		writeD(_cha.getMEN());
+		writeD(_cha.getMaxHp());
+		writeD((int) _cha.getCurrentHp());
+		writeD(_cha.getMaxMp());
+		writeD((int)_cha.getCurrentMp());
 		writeD(_cha.getSp());
 		writeD(_cha.getCurrentLoad());
 		writeD(_cha.getMaxLoad());
@@ -112,56 +112,18 @@ public class GMViewCharacterInfo extends L2GameServerPacket
 		writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
 		writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_FACE));
 
-        // c6 new h's
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        // end of c6 new h's
-		
-		writeD(_cha.getStat().getPAtk(null));
+		writeD(_cha.getPAtk(null));
 		writeD(_cha.getPAtkSpd());
-		writeD(_cha.getStat().getPDef(null));
-		writeD(_cha.getStat().getEvasionRate(null));
-		writeD(_cha.getStat().getAccuracy());
-		writeD(_cha.getStat().getCriticalHit(null, null));
-		writeD(_cha.getStat().getMAtk(null, null));
+		writeD(_cha.getPDef(null));
+		writeD(_cha.getEvasionRate(null));
+		writeD(_cha.getAccuracy());
+		writeD(_cha.getCriticalHit(null, null));
+		writeD(_cha.getMAtk(null, null));
 
 		writeD(_cha.getMAtkSpd());
 		writeD(_cha.getPAtkSpd());
 
-		writeD(_cha.getStat().getMDef(null, null));
+		writeD(_cha.getMDef(null, null));
 
 		writeD(_cha.getPvpFlag()); // 0-non-pvp  1-pvp = violett name
 		writeD(_cha.getKarma());
@@ -175,7 +137,7 @@ public class GMViewCharacterInfo extends L2GameServerPacket
         writeD(_runSpd);
         writeD(_walkSpd);
 		writeF(moveMultiplier);
-		writeF(_cha.getStat().getAttackSpeedMultiplier()); //2.9);//
+		writeF(_cha.getAttackSpeedMultiplier()); //2.9);//
 		writeF(_cha.getTemplate().collisionRadius);  // scale
 		writeF(_cha.getTemplate().collisionHeight); // y offset ??!? fem dwarf 4033
 		writeD(_cha.getAppearance().getHairStyle());
@@ -197,8 +159,8 @@ public class GMViewCharacterInfo extends L2GameServerPacket
 		writeH(_cha.getCharRecommendationStatus().getRecomHave()); //Blue value for name (0 = white, 255 = pure blue)
 		writeD(_cha.getClassId().getId());
 		writeD(0x00); // special effects? circles around player...
-		writeD(_cha.getStat().getMaxCp());
-		writeD((int) _cha.getStatus().getCurrentCp());
+		writeD(_cha.getMaxCp());
+		writeD((int) _cha.getCurrentCp());
 		
        	writeC(_cha.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window 
        	

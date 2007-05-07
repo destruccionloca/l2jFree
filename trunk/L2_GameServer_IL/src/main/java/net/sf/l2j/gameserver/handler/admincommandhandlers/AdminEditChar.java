@@ -514,26 +514,26 @@ public class AdminEditChar implements IAdminCommandHandler
         
             // Character Stats 
             replyMSG.append("<table width=270>");
-            replyMSG.append("<tr><td width=20>HP</td><td width=115>" + (int)player.getStatus().getCurrentHp() + " / " + player.getStat().getMaxHp() + "</td><td width=20>CP </td><td width=115>" + (int)player.getStatus().getCurrentCp() + " / " + player.getStat().getMaxCp() + "</td></tr>");
-            replyMSG.append("<tr><td width=20>MP</td><td width=115>" + (int)player.getStatus().getCurrentMp() + " / " + player.getStat().getMaxMp() + "</td><td width=20>Load</td><td width=115>" + player.getCurrentLoad() + " / " + player.getMaxLoad() + "</td></tr>");
+            replyMSG.append("<tr><td width=20>HP</td><td width=115>" + (int)player.getCurrentHp() + " / " + player.getMaxHp() + "</td><td width=20>CP </td><td width=115>" + (int)player.getCurrentCp() + " / " + player.getMaxCp() + "</td></tr>");
+            replyMSG.append("<tr><td width=20>MP</td><td width=115>" + (int)player.getCurrentMp() + " / " + player.getMaxMp() + "</td><td width=20>Load</td><td width=115>" + player.getCurrentLoad() + " / " + player.getMaxLoad() + "</td></tr>");
             replyMSG.append("<tr><td width=20>XP</td><td width=115>" + (int)player.getExp()+"</td><td width=40>SP</td><td width=70>" + player.getSp() + "</td></tr>");
             replyMSG.append("<tr><td width=20></td><td width=115>"+(int)player.getStat().getExpForLevel(player.getLevel()+1)+ "</td><td width=40></td><td width=70></td></tr>");
             replyMSG.append("</table>");
             replyMSG.append("<br>");
             
             replyMSG.append("<table width=260>");       
-            replyMSG.append("<tr><td width=70>P. Atk.</td><td width=40>" + player.getStat().getPAtk(null) + "</td><td width=70>M. Atk:</td><td width=40>" + player.getStat().getMAtk(null, null) + "</td></tr>");
-            replyMSG.append("<tr><td width=70>P. Def.</td><td width=40>" + player.getStat().getPDef(null) + "</td><td width=70>M. Def:</td><td width=40>" + player.getStat().getMDef(null, null) + "</td></tr>");
-            replyMSG.append("<tr><td width=70>Accuracy</td><td width=40>" + player.getStat().getAccuracy() + "</td><td width=70>Evasion</td><td width=40>" + player.getStat().getEvasionRate(null) + "</td></tr>");
-            replyMSG.append("<tr><td width=70>Critical</td><td width=40>" + player.getStat().getCriticalHit(null,null) + "</td><td width=70>Speed</td><td width=40>" + player.getStat().getRunSpeed() + "</td></tr>");
+            replyMSG.append("<tr><td width=70>P. Atk.</td><td width=40>" + player.getPAtk(null) + "</td><td width=70>M. Atk:</td><td width=40>" + player.getMAtk(null, null) + "</td></tr>");
+            replyMSG.append("<tr><td width=70>P. Def.</td><td width=40>" + player.getPDef(null) + "</td><td width=70>M. Def:</td><td width=40>" + player.getMDef(null, null) + "</td></tr>");
+            replyMSG.append("<tr><td width=70>Accuracy</td><td width=40>" + player.getAccuracy() + "</td><td width=70>Evasion</td><td width=40>" + player.getEvasionRate(null) + "</td></tr>");
+            replyMSG.append("<tr><td width=70>Critical</td><td width=40>" + player.getCriticalHit(null,null) + "</td><td width=70>Speed</td><td width=40>" + player.getRunSpeed() + "</td></tr>");
             replyMSG.append("<tr><td width=70>Atk. Spd.</td><td width=40>" + player.getPAtkSpd() + "</td><td width=70>Casting Spd.</td><td width=40>" + player.getMAtkSpd() + "</td></tr>");
             replyMSG.append("<tr><td width=70>Shld. Def.</td><td width=40>" + player.getStat().getShldDef()+ "</td><td width=70>Shld. Rate</td><td width=40>" + player.getStat().calcStat(Stats.SHIELD_RATE, 0, null, null) + "</td></tr>");
             replyMSG.append("</table>");
             replyMSG.append("<br>");
             
             replyMSG.append("<table width=270>");
-            replyMSG.append("<tr><td width=45>STR</td><td width=45>" + player.getStat().getSTR() + "</td><td width=45>DEX</td><td width=45>" + player.getStat().getDEX() + "</td><td width=45>CON</td><td width=45>" + player.getStat().getCON() + "</td></tr>");
-            replyMSG.append("<tr><td width=45>INT</td><td width=45>" + player.getStat().getINT() + "</td><td width=45>WIT</td><td width=45>" + player.getStat().getWIT() + "</td><td width=45>MEN</td><td width=45>" + player.getStat().getMEN() + "</td></tr>");
+            replyMSG.append("<tr><td width=45>STR</td><td width=45>" + player.getSTR() + "</td><td width=45>DEX</td><td width=45>" + player.getDEX() + "</td><td width=45>CON</td><td width=45>" + player.getCON() + "</td></tr>");
+            replyMSG.append("<tr><td width=45>INT</td><td width=45>" + player.getINT() + "</td><td width=45>WIT</td><td width=45>" + player.getWIT() + "</td><td width=45>MEN</td><td width=45>" + player.getMEN() + "</td></tr>");
             replyMSG.append("</table>");
             replyMSG.append("<br>");
             
@@ -603,9 +603,9 @@ public class AdminEditChar implements IAdminCommandHandler
                 if (player == null)
                 return;
             
-                int hpval = (int)player.getStatus().getCurrentHp();
-                int mpval = (int)player.getStatus().getCurrentMp();
-                int cpval = (int)player.getStatus().getCurrentCp();
+                int hpval = (int)player.getCurrentHp();
+                int mpval = (int)player.getCurrentMp();
+                int cpval = (int)player.getCurrentCp();
                 int karmaval = player.getKarma();
                 int pvpflagval = player.getPvpFlag();
                 int pvpkillsval = player.getPvpKills();
@@ -672,9 +672,9 @@ public class AdminEditChar implements IAdminCommandHandler
                                "  Karma: " + karmaval + "  PvP Flag: " + pvpflagval + " PvP/PK " + pvpkillsval + "/" + pkkillsval + 
                                "  Class: " + player.getTemplate().className + " (" + classidval + ")");
             
-            player.getStatus().setCurrentHp(hpval);
-            player.getStatus().setCurrentMp(mpval);
-            player.getStatus().setCurrentCp(cpval);
+            player.setCurrentHp(hpval);
+            player.setCurrentMp(mpval);
+            player.setCurrentCp(cpval);
             player.setKarma(karmaval);
             player.setPvpFlag(pvpflagval);
             player.setPvpKills(pvpkillsval);
@@ -690,11 +690,11 @@ public class AdminEditChar implements IAdminCommandHandler
                 
             StatusUpdate su = new StatusUpdate(player.getObjectId());
             su.addAttribute(StatusUpdate.CUR_HP, hpval);
-            su.addAttribute(StatusUpdate.MAX_HP, player.getStat().getMaxHp());
+            su.addAttribute(StatusUpdate.MAX_HP, player.getMaxHp());
             su.addAttribute(StatusUpdate.CUR_MP, mpval);
-            su.addAttribute(StatusUpdate.MAX_MP, player.getStat().getMaxMp());
+            su.addAttribute(StatusUpdate.MAX_MP, player.getMaxMp());
             su.addAttribute(StatusUpdate.CUR_CP, cpval);
-            su.addAttribute(StatusUpdate.MAX_CP, player.getStat().getMaxCp());
+            su.addAttribute(StatusUpdate.MAX_CP, player.getMaxCp());
             su.addAttribute(StatusUpdate.KARMA, karmaval);
             su.addAttribute(StatusUpdate.PVP_FLAG, pvpflagval);
             player.sendPacket(su);
@@ -742,11 +742,11 @@ public class AdminEditChar implements IAdminCommandHandler
             replyMSG.append("<br>");
 
             replyMSG.append("<table width=260>");
-            replyMSG.append("<tr><td width=50>HP</td><td width=70>" + (int)player.getStatus().getCurrentHp() + " / " + player.getStat().getMaxHp() + "</td><td width=20></td><td width=80><edit var=\"hp\" width=70></td>");
+            replyMSG.append("<tr><td width=50>HP</td><td width=70>" + (int)player.getCurrentHp() + " / " + player.getMaxHp() + "</td><td width=20></td><td width=80><edit var=\"hp\" width=70></td>");
             replyMSG.append("<td width=40><button value=\"Set\" action=\"bypass -h admin_save_stats hp $hp\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
-            replyMSG.append("<tr><td width=50>MP</td><td width=70>" + (int)player.getStatus().getCurrentMp() + "/" + player.getStat().getMaxMp() + "</td><td width=20></td><td width=80><edit var=\"mp\" width=70></td>");
+            replyMSG.append("<tr><td width=50>MP</td><td width=70>" + (int)player.getCurrentMp() + "/" + player.getMaxMp() + "</td><td width=20></td><td width=80><edit var=\"mp\" width=70></td>");
             replyMSG.append("<td width=40><button value=\"Set\" action=\"bypass -h admin_save_stats mp $mp\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
-            replyMSG.append("<tr><td width=50>CP</td><td width=70>" + (int)player.getStatus().getCurrentCp() + " / " + player.getStat().getMaxCp() + "</td><td width=20></td><td width=80><edit var=\"cp\" width=70></td>");
+            replyMSG.append("<tr><td width=50>CP</td><td width=70>" + (int)player.getCurrentCp() + " / " + player.getMaxCp() + "</td><td width=20></td><td width=80><edit var=\"cp\" width=70></td>");
             replyMSG.append("<td width=40><button value=\"Set\" action=\"bypass -h admin_save_stats cp $cp\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
             replyMSG.append("<tr><td width=50>XP</td><td width=70>" + player.getExp()+ "</td><td width=20><button value=\"[ - ]\" action=\"bypass -h" + " admin_remove_exp_sp $xp 0\" width=20 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td><td width=80><edit var=\"xp\" width=70></td>");
             replyMSG.append("<td width=40><button value=\"[ + ]\" action=\"bypass -h admin_add_exp_sp $xp 0\" width=20 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");

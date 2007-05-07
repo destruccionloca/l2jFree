@@ -60,7 +60,7 @@ class EffectDamOverTime extends L2Effect
             }
                          if(damage > 300) damage = 300; 
 		} 
-		if (damage >= getEffected().getStatus().getCurrentHp())
+		if (damage >= getEffected().getCurrentHp())
 		{
 			if (getSkill().isToggle())
 			{
@@ -72,7 +72,7 @@ class EffectDamOverTime extends L2Effect
             // ** This is just hotfix, needs better solution **
             // 1947: "DOT skills shouldn't kill"
             // Well, some of them should ;-)
-            if (getSkill().getId() != 4082) damage = getEffected().getStatus().getCurrentHp() - 1;
+            if (getSkill().getId() != 4082) damage = getEffected().getCurrentHp() - 1;
 		}
 
         boolean awake = !(getEffected() instanceof L2Attackable)
@@ -80,17 +80,17 @@ class EffectDamOverTime extends L2Effect
         							&& getSkill().isToggle());
         
         if(getSkill().getSkillType() == SkillType.POISON &&
-                getEffected().getStatus().getCurrentHp() > damage)
+                getEffected().getCurrentHp() > damage)
         {
             if (getEffected().isPetrified())
             {damage= 0;}
-            getEffected().getStatus().reduceHp(damage, getEffector(),awake);
+            getEffected().reduceCurrentHp(damage, getEffector(),awake);
         }
         else
         {
             if (getEffected().isPetrified())
             {damage= 0;}
-            getEffected().getStatus().reduceHp(damage, getEffector(),awake);
+            getEffected().reduceCurrentHp(damage, getEffector(),awake);
         }
 		
 		return true;

@@ -48,8 +48,8 @@ public class RecipeShopItemInfo  extends L2GameServerPacket
 		writeC(0xda);
 		writeD(_shopId);
 		writeD(_recipeId);
-		writeD(manufacturer != null ? (int)manufacturer.getStatus().getCurrentMp() : 0);
-		writeD(manufacturer != null ? (int)manufacturer.getStat().getMaxMp() : 0);
+		writeD(manufacturer != null ? (int)manufacturer.getCurrentMp() : 0);
+		writeD(manufacturer != null ? (int)manufacturer.getMaxMp() : 0);
 		writeD(0xffffffff);
 	}
 	

@@ -301,12 +301,12 @@ public class Castle
         for (int i = 0; i < getDoors().size(); i++)
         {
             L2DoorInstance door = getDoors().get(i);
-            if (door.getStatus().getCurrentHp() <= 0)
+            if (door.getCurrentHp() <= 0)
             {
                 door.decayMe(); // Kill current if not killed already
                 door = DoorTable.parseList(_DoorDefault.get(i));
                 if (isDoorWeak)
-                    door.getStatus().setCurrentHp(door.getStat().getMaxHp() / 2);
+                    door.setCurrentHp(door.getMaxHp() / 2);
                 door.spawnMe(door.getX(), door.getY(),door.getZ());
                 getDoors().set(i, door);
             }
@@ -325,7 +325,7 @@ public class Castle
         
         if (door != null && door.getDoorId() == doorId)
         {
-            door.getStatus().setCurrentHp(door.getStat().getMaxHp() + hp);
+            door.setCurrentHp(door.getMaxHp() + hp);
 
             saveDoorUpgrade(doorId, hp, pDef, mDef);
             return;

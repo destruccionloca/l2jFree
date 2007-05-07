@@ -35,6 +35,8 @@ import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
 
+import com.l2jserver.mmocore.network.SelectorThread;
+
 public class AdminTest implements IAdminCommandHandler
 {
     private static final int REQUIRED_LEVEL = Config.GM_TEST;

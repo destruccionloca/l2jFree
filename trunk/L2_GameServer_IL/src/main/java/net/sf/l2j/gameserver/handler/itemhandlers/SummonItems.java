@@ -140,8 +140,8 @@ public class SummonItems implements IItemHandler
             
             if (!petSummon.isRespawned())
             {
-                petSummon.getStatus().setCurrentHp(petSummon.getStat().getMaxHp());
-                petSummon.getStatus().setCurrentMp(petSummon.getStat().getMaxMp());
+                petSummon.setCurrentHp(petSummon.getMaxHp());
+                petSummon.setCurrentMp(petSummon.getMaxMp());
                 petSummon.getStat().setExp(petSummon.getExpForThisLevel());
                 petSummon.setCurrentFed(petSummon.getMaxFed());
             }

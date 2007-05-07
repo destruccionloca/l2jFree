@@ -599,7 +599,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                 _actor.setTarget(getAttackTarget());
                 skills = _actor.getAllSkills();
                 dist2 = _actor.getPlanDistanceSq(getAttackTarget().getX(), getAttackTarget().getY());
-                range = _actor.getStat().getPhysicalAttackRange();
+                range = _actor.getPhysicalAttackRange();
             }
             catch (NullPointerException e)
             {
@@ -669,7 +669,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                         if (((sk.getSkillType() == L2Skill.SkillType.BUFF || sk.getSkillType() == L2Skill.SkillType.HEAL) || (dist2 >= castRange * castRange / 9)
                             && (dist2 <= castRange * castRange) && (castRange > 70))
                             && !_actor.isSkillDisabled(sk.getId())
-                            && _actor.getStatus().getCurrentMp() >= _actor.getStat().getMpConsume(sk)
+                            && _actor.getCurrentMp() >= _actor.getStat().getMpConsume(sk)
                             && !sk.isPassive()
                             && Rnd.nextInt(100) <= 5)
                         {
@@ -679,7 +679,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                             {
                                 boolean useSkillSelf = true;
                                 if (sk.getSkillType() == L2Skill.SkillType.HEAL
-                                    && _actor.getStatus().getCurrentHp() > (int) (_actor.getStat().getMaxHp() / 1.5))
+                                    && _actor.getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
                                 {
                                     useSkillSelf = false;
                                     break;
@@ -724,7 +724,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                     for (L2Skill sk : skills)
                     {
                         if (/*sk.getCastRange() >= dist && sk.getCastRange() <= 70 && */!sk.isPassive()
-                            && _actor.getStatus().getCurrentMp() >= _actor.getStat().getMpConsume(sk)
+                            && _actor.getCurrentMp() >= _actor.getStat().getMpConsume(sk)
                             && !_actor.isSkillDisabled(sk.getId()) && (Rnd.nextInt(100) <= 8 
                             || (_actor instanceof L2PenaltyMonsterInstance && Rnd.nextInt(100) <= 20)))
                         {
@@ -734,7 +734,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                             {
                                 useSkillSelf = true;
                                 if (sk.getSkillType() == L2Skill.SkillType.HEAL
-                                    && _actor.getStatus().getCurrentHp() > (int) (_actor.getStat().getMaxHp() / 1.5))
+                                    && _actor.getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
                                 {
                                     useSkillSelf = false;
                                     break;

@@ -268,8 +268,8 @@ public class L2MerchantInstance extends L2FolkInstance
             if (isAutoAttackable(player))
             {
                 StatusUpdate su = new StatusUpdate(getObjectId());
-                su.addAttribute(StatusUpdate.CUR_HP, (int) getStatus().getCurrentHp());
-                su.addAttribute(StatusUpdate.MAX_HP,getStat().getMaxHp());
+                su.addAttribute(StatusUpdate.CUR_HP, (int) getCurrentHp());
+                su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
                 player.sendPacket(su);
             }
 
@@ -282,8 +282,8 @@ public class L2MerchantInstance extends L2FolkInstance
             html1.append("<tr><td>Template ID: " + getTemplate().npcId + "</td></tr>");
             html1.append("<tr><td><br></td></tr>");
 
-            html1.append("<tr><td>HP: " + getStatus().getCurrentHp() + "</td></tr>");
-            html1.append("<tr><td>MP: " + getStatus().getCurrentMp() + "</td></tr>");
+            html1.append("<tr><td>HP: " + getCurrentHp() + "</td></tr>");
+            html1.append("<tr><td>MP: " + getCurrentMp() + "</td></tr>");
             html1.append("<tr><td>Level: " + getLevel() + "</td></tr>");
             html1.append("<tr><td><br></td></tr>");
 

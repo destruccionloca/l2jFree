@@ -191,7 +191,7 @@ public class L2Event
             SpawnTable.getInstance().addNewSpawn(spawn, false);
 
             spawn.init();
-            spawn.getLastSpawn().getStatus().setCurrentHp(999999999);
+            spawn.getLastSpawn().setCurrentHp(999999999);
             spawn.getLastSpawn().setName("event inscriptor");
             spawn.getLastSpawn().setTitle(L2Event.eventName);
             spawn.getLastSpawn().isEventMob = true;

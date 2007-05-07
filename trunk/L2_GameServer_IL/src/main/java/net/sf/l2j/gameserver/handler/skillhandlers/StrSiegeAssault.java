@@ -86,7 +86,7 @@ public class StrSiegeAssault implements ISkillHandler
                 
                 boolean dual  = activeChar.isUsingDualWeapon();
                 boolean shld = Formulas.getInstance().calcShldUse(activeChar, target);
-                boolean crit = Formulas.getInstance().calcCrit(activeChar, target, activeChar.getStat().getCriticalHit(target, skill));
+                boolean crit = Formulas.getInstance().calcCrit(activeChar, target, activeChar.getCriticalHit(target, skill));
                 boolean soul = (weapon!= null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER );
                 
                 if(!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0)
@@ -109,7 +109,7 @@ public class StrSiegeAssault implements ISkillHandler
                 name += target.getLevel()+" lvl";
                 _log.info(activeChar.getName()+"("+activeChar.getObjectId()+") "+activeChar.getLevel()+" lvl did damage "+damage+" with skill "+skill.getName()+"("+skill.getId()+") to "+name);
             }
-                    target.getStatus().reduceHp(damage, activeChar);
+                    target.reduceCurrentHp(damage, activeChar);
                     if (soul && weapon!= null)
                         weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);                
 

@@ -92,8 +92,8 @@ public class AdminHeal implements IAdminCommandHandler {
 
     private void handleHeal(L2Character target)
     {
-        target.getStatus().setCurrentHpMp(target.getStat().getMaxHp(), target.getStat().getMaxMp());
+        target.setCurrentHpMp(target.getMaxHp(), target.getMaxMp());
         if (target instanceof L2PcInstance)
-            target.getStatus().setCurrentCp(target.getStat().getMaxCp());
+            target.setCurrentCp(target.getMaxCp());
     }
 }

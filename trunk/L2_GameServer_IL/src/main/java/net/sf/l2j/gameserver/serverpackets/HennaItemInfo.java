@@ -49,18 +49,18 @@ public class HennaItemInfo extends L2GameServerPacket
         writeD(1);      //able to draw or not 0 is false and 1 is true 
         writeD(_player.getAdena());
         
-        writeD(_player.getStat().getINT());   //current INT
-        writeC(_player.getStat().getINT()+ _henna.getStatINT());    //equip INT
-        writeD(_player.getStat().getSTR());   //current STR
-        writeC(_player.getStat().getSTR()+ _henna.getStatSTR());   //equip STR
-        writeD(_player.getStat().getCON());   //current CON
-        writeC(_player.getStat().getCON()+ _henna.getStatCON());    //equip CON
-        writeD(_player.getStat().getMEN());    //current MEM
-        writeC(_player.getStat().getMEN()+ _henna.getStatMEM());		//equip MEM
-        writeD(_player.getStat().getDEX());     //current DEX
-        writeC(_player.getStat().getDEX()+ _henna.getStatDEX());		//equip DEX
-        writeD(_player.getStat().getWIT());     //current WIT
-        writeC(_player.getStat().getWIT()+ _henna.getStatWIT());		//equip WIT
+        writeD(_player.getINT());   //current INT
+        writeC(_player.getINT()+ _henna.getStatINT());    //equip INT
+        writeD(_player.getSTR());   //current STR
+        writeC(_player.getSTR()+ _henna.getStatSTR());   //equip STR
+        writeD(_player.getCON());   //current CON
+        writeC(_player.getCON()+ _henna.getStatCON());    //equip CON
+        writeD(_player.getMEN());    //current MEM
+        writeC(_player.getMEN()+ _henna.getStatMEM());		//equip MEM
+        writeD(_player.getDEX());     //current DEX
+        writeC(_player.getDEX()+ _henna.getStatDEX());		//equip DEX
+        writeD(_player.getWIT());     //current WIT
+        writeC(_player.getWIT()+ _henna.getStatWIT());		//equip WIT
     }
     
     /* (non-Javadoc)

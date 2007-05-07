@@ -128,7 +128,33 @@ public class Hero
                 statement2.setInt(1, charId);
                 rset2 = statement2.executeQuery();
                 
-                initRelationBetweenHeroAndClan(rset2, hero);
+                if (rset2.next())
+                {
+                    int clanId = rset2.getInt("clanid");
+                    int allyId = rset2.getInt("allyId");
+                    
+                    String clanName = "";
+                    String allyName = "";
+                    int clanCrest = 0;
+                    int allyCrest = 0;
+                    
+                    if (clanId > 0)
+                    {
+                        clanName = ClanTable.getInstance().getClan(clanId).getName();
+                        clanCrest = ClanTable.getInstance().getClan(clanId).getCrestId();
+                        
+                        if (allyId > 0)
+                        {
+                            allyName = ClanTable.getInstance().getClan(clanId).getAllyName();
+                            allyCrest = ClanTable.getInstance().getClan(clanId).getAllyCrestId();
+                        }
+                    }
+                    
+                    hero.set(CLAN_CREST, clanCrest);
+                    hero.set(CLAN_NAME, clanName);
+                    hero.set(ALLY_CREST, allyCrest);
+                    hero.set(ALLY_NAME, allyName);
+                }
                 
                 rset2.close();
                 statement2.close();
@@ -155,7 +181,33 @@ public class Hero
                 statement2.setInt(1, charId);
                 rset2 = statement2.executeQuery();
                 
-                initRelationBetweenHeroAndClan(rset2, hero);
+                if (rset2.next())
+                {
+                    int clanId = rset2.getInt("clanid");
+                    int allyId = rset2.getInt("allyId");
+                    
+                    String clanName = "";
+                    String allyName = "";
+                    int clanCrest = 0;
+                    int allyCrest = 0;
+                    
+                    if (clanId > 0)
+                    {
+                        clanName = ClanTable.getInstance().getClan(clanId).getName();
+                        clanCrest = ClanTable.getInstance().getClan(clanId).getCrestId();
+                        
+                        if (allyId > 0)
+                        {
+                            allyName = ClanTable.getInstance().getClan(clanId).getAllyName();
+                            allyCrest = ClanTable.getInstance().getClan(clanId).getAllyCrestId();
+                        }
+                    }
+                    
+                    hero.set(CLAN_CREST, clanCrest);
+                    hero.set(CLAN_NAME, clanName);
+                    hero.set(ALLY_CREST, allyCrest);
+                    hero.set(ALLY_NAME, allyName);
+                }
                 
                 rset2.close();
                 statement2.close();
@@ -176,42 +228,6 @@ public class Hero
         
         _log.info("Hero System: Loaded " + _heroes.size() + " Heroes.");
         _log.info("Hero System: Loaded " + _completeHeroes.size() + " all time Heroes.");
-    }
-
-    /**
-     * @param resultSet
-     * @param hero
-     * @throws SQLException
-     */
-    private void initRelationBetweenHeroAndClan(ResultSet resultSet, StatsSet hero) throws SQLException
-    {
-        if (resultSet.next())
-        {
-            int clanId = resultSet.getInt("clanid");
-            int allyId = resultSet.getInt("allyId");
-            
-            String clanName = "";
-            String allyName = "";
-            int clanCrest = 0;
-            int allyCrest = 0;
-            
-            if (clanId > 0)
-            {
-                clanName = ClanTable.getInstance().getClan(clanId).getName();
-                clanCrest = ClanTable.getInstance().getClan(clanId).getCrestId();
-                
-                if (allyId > 0)
-                {
-                    allyName = ClanTable.getInstance().getClan(clanId).getAllyName();
-                    allyCrest = ClanTable.getInstance().getClan(clanId).getAllyCrestId();
-                }
-            }
-            
-            hero.set(CLAN_CREST, clanCrest);
-            hero.set(CLAN_NAME, clanName);
-            hero.set(ALLY_CREST, allyCrest);
-            hero.set(ALLY_NAME, allyName);
-        }
     }
     
     public Map<Integer, StatsSet> getHeroes()
@@ -395,7 +411,33 @@ public class Hero
                         statement2.setInt(1, heroId);
                         ResultSet rset2 = statement2.executeQuery();
                         
-                        initRelationBetweenHeroAndClan(rset2, hero);
+                        if (rset2.next())
+                        {
+                            int clanId = rset2.getInt("clanid");
+                            int allyId = rset2.getInt("allyId");
+                            
+                            String clanName = "";
+                            String allyName = "";
+                            int clanCrest = 0;
+                            int allyCrest = 0;
+                            
+                            if (clanId > 0)
+                            {
+                                clanName = ClanTable.getInstance().getClan(clanId).getName();
+                                clanCrest = ClanTable.getInstance().getClan(clanId).getCrestId();
+                                
+                                if (allyId > 0)
+                                {
+                                    allyName = ClanTable.getInstance().getClan(clanId).getAllyName();
+                                    allyCrest = ClanTable.getInstance().getClan(clanId).getAllyCrestId();
+                                }
+                            }
+                            
+                            hero.set(CLAN_CREST, clanCrest);
+                            hero.set(CLAN_NAME, clanName);
+                            hero.set(ALLY_CREST, allyCrest);
+                            hero.set(ALLY_NAME, allyName);
+                        }
                         
                         rset2.close();
                         statement2.close();

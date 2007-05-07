@@ -543,8 +543,8 @@ public class L2NpcInstance extends L2Character
             {	
                 // Send a Server->Client packet StatusUpdate of the L2NpcInstance to the L2PcInstance to update its HP bar
                 StatusUpdate su = new StatusUpdate(getObjectId());
-                su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp() );
-                su.addAttribute(StatusUpdate.MAX_HP,getStat().getMaxHp() );
+                su.addAttribute(StatusUpdate.CUR_HP, (int)getCurrentHp() );
+                su.addAttribute(StatusUpdate.MAX_HP, getMaxHp() );
                 player.sendPacket(su);
             }
             
@@ -667,8 +667,8 @@ public class L2NpcInstance extends L2Character
             {	
                 // Send a Server->Client packet StatusUpdate of the L2NpcInstance to the L2PcInstance to update its HP bar
                 StatusUpdate su = new StatusUpdate(getObjectId());
-                su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp() );
-                su.addAttribute(StatusUpdate.MAX_HP,getStat().getMaxHp() );
+                su.addAttribute(StatusUpdate.CUR_HP, (int)getCurrentHp() );
+                su.addAttribute(StatusUpdate.MAX_HP, getMaxHp() );
                 player.sendPacket(su);
             }
             
@@ -692,19 +692,19 @@ public class L2NpcInstance extends L2Character
             
             html1.append("<font color=\"LEVEL\">Combat</font>");
             html1.append("<table border=\"0\" width=\"100%\">");
-            html1.append("<tr><td>Current HP</td><td>"+getStatus().getCurrentHp()+"</td><td>Current MP</td><td>"+getStatus().getCurrentMp()+"</td></tr>");
-            html1.append("<tr><td>Max.HP</td><td>"+(int)(getStat().getMaxHp()/getStat().calcStat(Stats.MAX_HP , 1, this, null))+"*"+getStat().calcStat(Stats.MAX_HP , 1, this, null)+"</td><td>Max.MP</td><td>"+getStat().getMaxMp()+"</td></tr>");
-            html1.append("<tr><td>P.Atk.</td><td>"+getStat().getPAtk(null)+"</td><td>M.Atk.</td><td>"+getStat().getMAtk(null,null)+"</td></tr>");
-            html1.append("<tr><td>P.Def.</td><td>"+getStat().getPDef(null)+"</td><td>M.Def.</td><td>"+getStat().getMDef(null,null)+"</td></tr>");
-            html1.append("<tr><td>Accuracy</td><td>"+getStat().getAccuracy()+"</td><td>Evasion</td><td>"+getStat().getEvasionRate(null)+"</td></tr>");
-            html1.append("<tr><td>Critical</td><td>"+getStat().getCriticalHit(null,null)+"</td><td>Speed</td><td>"+getStat().getRunSpeed()+"</td></tr>");
+            html1.append("<tr><td>Current HP</td><td>"+getCurrentHp()+"</td><td>Current MP</td><td>"+getCurrentMp()+"</td></tr>");
+            html1.append("<tr><td>Max.HP</td><td>"+(int)(getMaxHp()/getStat().calcStat(Stats.MAX_HP , 1, this, null))+"*"+getStat().calcStat(Stats.MAX_HP , 1, this, null)+"</td><td>Max.MP</td><td>"+getMaxMp()+"</td></tr>");
+            html1.append("<tr><td>P.Atk.</td><td>"+getPAtk(null)+"</td><td>M.Atk.</td><td>"+getMAtk(null,null)+"</td></tr>");
+            html1.append("<tr><td>P.Def.</td><td>"+getPDef(null)+"</td><td>M.Def.</td><td>"+getMDef(null,null)+"</td></tr>");
+            html1.append("<tr><td>Accuracy</td><td>"+getAccuracy()+"</td><td>Evasion</td><td>"+getEvasionRate(null)+"</td></tr>");
+            html1.append("<tr><td>Critical</td><td>"+getCriticalHit(null,null)+"</td><td>Speed</td><td>"+getRunSpeed()+"</td></tr>");
             html1.append("<tr><td>Atk.Speed</td><td>"+getPAtkSpd()+"</td><td>Cast.Speed</td><td>"+getMAtkSpd()+"</td></tr>");
             html1.append("</table><br>");
             
             html1.append("<font color=\"LEVEL\">Basic Stats</font>");
             html1.append("<table border=\"0\" width=\"100%\">");
-            html1.append("<tr><td>STR</td><td>"+getStat().getSTR()+"</td><td>DEX</td><td>"+getStat().getDEX()+"</td><td>CON</td><td>"+getStat().getCON()+"</td></tr>");
-            html1.append("<tr><td>INT</td><td>"+getStat().getINT()+"</td><td>WIT</td><td>"+getStat().getWIT()+"</td><td>MEN</td><td>"+getStat().getMEN()+"</td></tr>");
+            html1.append("<tr><td>STR</td><td>"+getSTR()+"</td><td>DEX</td><td>"+getDEX()+"</td><td>CON</td><td>"+getCON()+"</td></tr>");
+            html1.append("<tr><td>INT</td><td>"+getINT()+"</td><td>WIT</td><td>"+getWIT()+"</td><td>MEN</td><td>"+getMEN()+"</td></tr>");
             html1.append("</table>");
             
             html1.append("<br><center><table><tr><td><button value=\"Edit NPC\" action=\"bypass -h admin_edit_npc " + getTemplate().npcId + "\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"><br1></td>");
@@ -735,8 +735,8 @@ public class L2NpcInstance extends L2Character
             {	
                 // Send a Server->Client packet StatusUpdate of the L2NpcInstance to the L2PcInstance to update its HP bar
                 StatusUpdate su = new StatusUpdate(getObjectId());
-                su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp() );
-                su.addAttribute(StatusUpdate.MAX_HP,getStat().getMaxHp() );
+                su.addAttribute(StatusUpdate.CUR_HP, (int)getCurrentHp() );
+                su.addAttribute(StatusUpdate.MAX_HP, getMaxHp() );
                 player.sendPacket(su);
             }
             
@@ -745,19 +745,19 @@ public class L2NpcInstance extends L2Character
             
             html1.append("<br><center><font color=\"LEVEL\">[Combat Stats]</font></center>");
             html1.append("<table border=0 width=\"100%\">");
-            html1.append("<tr><td>Max.HP</td><td>"+(int)(getStat().getMaxHp()/getStat().calcStat(Stats.MAX_HP , 1, this, null))+"*"+(int) getStat().calcStat(Stats.MAX_HP , 1, this, null)+"</td><td>Max.MP</td><td>"+getStat().getMaxMp()+"</td></tr>");
-            html1.append("<tr><td>P.Atk.</td><td>"+getStat().getPAtk(null)+"</td><td>M.Atk.</td><td>"+getStat().getMAtk(null,null)+"</td></tr>");
-            html1.append("<tr><td>P.Def.</td><td>"+getStat().getPDef(null)+"</td><td>M.Def.</td><td>"+getStat().getMDef(null,null)+"</td></tr>");
-            html1.append("<tr><td>Accuracy</td><td>"+getStat().getAccuracy()+"</td><td>Evasion</td><td>"+getStat().getEvasionRate(null)+"</td></tr>");
-            html1.append("<tr><td>Critical</td><td>"+getStat().getCriticalHit(null,null)+"</td><td>Speed</td><td>"+getStat().getRunSpeed()+"</td></tr>");
+            html1.append("<tr><td>Max.HP</td><td>"+(int)(getMaxHp()/getStat().calcStat(Stats.MAX_HP , 1, this, null))+"*"+(int) getStat().calcStat(Stats.MAX_HP , 1, this, null)+"</td><td>Max.MP</td><td>"+getMaxMp()+"</td></tr>");
+            html1.append("<tr><td>P.Atk.</td><td>"+getPAtk(null)+"</td><td>M.Atk.</td><td>"+getMAtk(null,null)+"</td></tr>");
+            html1.append("<tr><td>P.Def.</td><td>"+getPDef(null)+"</td><td>M.Def.</td><td>"+getMDef(null,null)+"</td></tr>");
+            html1.append("<tr><td>Accuracy</td><td>"+getAccuracy()+"</td><td>Evasion</td><td>"+getEvasionRate(null)+"</td></tr>");
+            html1.append("<tr><td>Critical</td><td>"+getCriticalHit(null,null)+"</td><td>Speed</td><td>"+getRunSpeed()+"</td></tr>");
             html1.append("<tr><td>Atk.Speed</td><td>"+getPAtkSpd()+"</td><td>Cast.Speed</td><td>"+getMAtkSpd()+"</td></tr>");
             html1.append("<tr><td>Race</td><td>"+getTemplate().race+"</td><td></td><td></td></tr>");
             html1.append("</table>");
 
             html1.append("<br><center><font color=\"LEVEL\">[Basic Stats]</font></center>");
             html1.append("<table border=0 width=\"100%\">");
-            html1.append("<tr><td>STR</td><td>"+getStat().getSTR()+"</td><td>DEX</td><td>"+getStat().getDEX()+"</td><td>CON</td><td>"+getStat().getCON()+"</td></tr>");
-            html1.append("<tr><td>INT</td><td>"+getStat().getINT()+"</td><td>WIT</td><td>"+getStat().getWIT()+"</td><td>MEN</td><td>"+getStat().getMEN()+"</td></tr>");
+            html1.append("<tr><td>STR</td><td>"+getSTR()+"</td><td>DEX</td><td>"+getDEX()+"</td><td>CON</td><td>"+getCON()+"</td></tr>");
+            html1.append("<tr><td>INT</td><td>"+getINT()+"</td><td>WIT</td><td>"+getWIT()+"</td><td>MEN</td><td>"+getMEN()+"</td></tr>");
             html1.append("</table>");
             
             html1.append("<br><center><font color=\"LEVEL\">[Drop Info]</font></center>");
@@ -880,7 +880,7 @@ public class L2NpcInstance extends L2Character
 	                        SpawnTable.getInstance().addNewSpawn(spawn, false);
 	                        
 	                        spawn.init();
-	                        spawn.getLastSpawn().getStatus().setCurrentHp(999999999);
+	                        spawn.getLastSpawn().setCurrentHp(999999999);
 	                        spawn.getLastSpawn().setName("baal");
 	                        spawn.getLastSpawn().setTitle("hell's god");
 	                        spawn.getLastSpawn().isEventMob = true;
@@ -907,7 +907,7 @@ public class L2NpcInstance extends L2Character
 	                            player.sendPacket(adminReply);
 	                        } else 
 	                        {
-	                            summon.getStatus().reduceHp(summon.getStatus().getCurrentHp(), player);
+	                            summon.reduceCurrentHp(summon.getCurrentHp(), player);
 	                        }
 	                        ThreadPoolManager.getInstance().scheduleGeneral(new destroyTemporalNPC(spawn), 15000);
 	                    
@@ -968,7 +968,7 @@ public class L2NpcInstance extends L2Character
 	                        SpawnTable.getInstance().addNewSpawn(spawn, false);
 	                        
 	                        spawn.init();
-	                        spawn.getLastSpawn().getStatus().setCurrentHp(999999999);
+	                        spawn.getLastSpawn().setCurrentHp(999999999);
 	                        spawn.getLastSpawn().setName("mercebu");
 	                        spawn.getLastSpawn().setTitle("baal's son");
 	                        
@@ -997,7 +997,7 @@ public class L2NpcInstance extends L2Character
 	                            player.sendPacket(adminReply);
 	                        } else 
 	                        {
-	                            summon.getStatus().reduceHp(summon.getStatus().getCurrentHp(), player);
+	                            summon.reduceCurrentHp(summon.getCurrentHp(), player);
 	                        }
 	                        
 	                        ThreadPoolManager.getInstance().scheduleGeneral(new destroyTemporalNPC(spawn), 15000);
@@ -1286,7 +1286,7 @@ public class L2NpcInstance extends L2Character
                     if (_buff.forceCast() || player.getEffect(_buff.getSkill()) == null)
                     {
                     	// regeneration ^^
-                        getStatus().setCurrentHpMp(getStat().getMaxHp(), getStat().getMaxMp());
+                    	setCurrentHpMp(getMaxHp(), getMaxMp());
                         
                     	// yes, its not for all skills right, but atleast player will know 
                     	// for what he paid =)
@@ -1910,7 +1910,7 @@ public class L2NpcInstance extends L2Character
         int neededmoney = 100;
         SystemMessage sm;
         if (!player.reduceAdena("RestoreCP", neededmoney, player.getLastFolkNPC(), true)) return;
-        player.getStatus().setCurrentCp(getStatus().getCurrentCp()+5000);
+        player.setCurrentCp(getCurrentCp()+5000);
         //cp restored
         sm = new SystemMessage(1405);
         sm.addString(player.getName());

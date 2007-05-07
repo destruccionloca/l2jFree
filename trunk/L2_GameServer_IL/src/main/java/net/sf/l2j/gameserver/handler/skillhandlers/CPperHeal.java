@@ -49,10 +49,10 @@ public class CPperHeal implements ISkillHandler
         {
             target = (L2Character)targets[index];
             
-            double percp = target.getStat().getMaxCp()*skill.getPower();
-            target.getStatus().setCurrentCp(target.getStatus().getCurrentCp()-percp);             
+            double percp = target.getMaxCp()*skill.getPower();
+            target.setCurrentCp(target.getCurrentCp()-percp);             
             StatusUpdate sucp = new StatusUpdate(target.getObjectId()); 
-            sucp.addAttribute(StatusUpdate.CUR_CP, (int)target.getStatus().getCurrentCp()); 
+            sucp.addAttribute(StatusUpdate.CUR_CP, (int)target.getCurrentCp()); 
             target.sendPacket(sucp); 
             //Missing system message?? 
         }

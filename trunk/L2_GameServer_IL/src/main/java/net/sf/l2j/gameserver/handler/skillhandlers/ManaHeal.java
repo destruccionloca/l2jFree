@@ -56,10 +56,10 @@ public class ManaHeal implements ISkillHandler
             double mp = skill.getPower();
             if (skill.getSkillType() == SkillType.MANAHEAL_PERCENT){
                //double mp = skill.getPower();
-             mp = target.getStat().getMaxMp() * mp / 100.0;
+             mp = target.getMaxMp() * mp / 100.0;
             }
             else {
-             mp = (skill.getSkillType() == SkillType.MANARECHARGE) ? target.getStat().calcStat(Stats.RECHARGE_MP_RATE,mp, null, null) : mp;
+             mp = (skill.getSkillType() == SkillType.MANARECHARGE) ? target.calcStat(Stats.RECHARGE_MP_RATE,mp, null, null) : mp;
             } 
             //int cLev = activeChar.getLevel();
             //hp += skill.getPower()/*+(Math.sqrt(cLev)*cLev)+cLev*/;
@@ -77,9 +77,9 @@ public class ManaHeal implements ISkillHandler
             else if (actChar.getLevel() + 10 <= target.getLevel())
                 mp = mp*0.1;
             }
-            target.getStatus().setCurrentMp(mp+target.getStatus().getCurrentMp()); 
+            target.setCurrentMp(mp+target.getCurrentMp()); 
             StatusUpdate sump = new StatusUpdate(target.getObjectId()); 
-            sump.addAttribute(StatusUpdate.CUR_MP, (int)target.getStatus().getCurrentMp()); 
+            sump.addAttribute(StatusUpdate.CUR_MP, (int)target.getCurrentMp()); 
             target.sendPacket(sump); 
             
             if (actChar instanceof L2PcInstance && actChar != target)

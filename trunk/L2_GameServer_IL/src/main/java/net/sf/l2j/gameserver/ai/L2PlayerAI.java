@@ -190,7 +190,7 @@ public class L2PlayerAI extends L2CharacterAI
             }
             return;
         }
-        if (maybeMoveToPawn(target, _actor.getStat().getPhysicalAttackRange())) return;
+        if (maybeMoveToPawn(target, _actor.getPhysicalAttackRange())) return;
 
         _accessor.doAttack(target);
         return;
@@ -214,7 +214,7 @@ public class L2PlayerAI extends L2CharacterAI
         // if (_log.isDebugEnabled()) _log.warn("L2PlayerAI: thinkCast -> valid target: " + _cast_target);
 
         if (target != null && _skill.isOffensive()) 
-            if (maybeMoveToPawn(target, _actor.getStat().getMagicalAttackRange(_skill))) return;
+            if (maybeMoveToPawn(target, _actor.getMagicalAttackRange(_skill))) return;
         
         if (_skill.getSkillTime() > 50) clientStopMoving(null);
 

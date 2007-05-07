@@ -63,7 +63,7 @@ public class Unlock implements ISkillHandler
                     chest.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
                     return;
                 }
-                if (chest.getStatus().getCurrentHp() <= 0 || chest.open())
+                if (chest.getCurrentHp() <= 0 || chest.open())
                 {
                     activeChar.sendPacket(new ActionFailed());
                     return;

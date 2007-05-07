@@ -149,7 +149,7 @@ public class L2ControllableMobAI extends L2AttackableAI
             {
                 if (_actor.isInsideRadius(getAttackTarget(), sk.getCastRange(), false, true) //sk.getCastRange() * sk.getCastRange() >= dist2
                         && !_actor.isSkillDisabled(sk.getId())
-                        && _actor.getStatus().getCurrentMp() > _actor.getStat().getMpConsume(sk)) 
+                        && _actor.getCurrentMp() > _actor.getStat().getMpConsume(sk)) 
                 {
                     _accessor.doCast(sk);
                     return;
@@ -192,7 +192,7 @@ public class L2ControllableMobAI extends L2AttackableAI
         try {
             skills = _actor.getAllSkills();
             dist2 = _actor.getPlanDistanceSq(target.getX(), target.getY());
-            range = _actor.getStat().getPhysicalAttackRange();
+            range = _actor.getPhysicalAttackRange();
             max_range = range;
         } 
         catch (NullPointerException e) {
@@ -208,7 +208,7 @@ public class L2ControllableMobAI extends L2AttackableAI
                 
                 if (castRange * castRange >= dist2
                         && !_actor.isSkillDisabled(sk.getId())
-                        && _actor.getStatus().getCurrentMp() > _actor.getStat().getMpConsume(sk)) 
+                        && _actor.getCurrentMp() > _actor.getStat().getMpConsume(sk)) 
                 {
                     _accessor.doCast(sk);
                     return;
@@ -243,7 +243,7 @@ public class L2ControllableMobAI extends L2AttackableAI
             _actor.setTarget(getForcedTarget());
             skills = _actor.getAllSkills();
             dist2 = _actor.getPlanDistanceSq(getForcedTarget().getX(), getForcedTarget().getY());
-            range = _actor.getStat().getPhysicalAttackRange();
+            range = _actor.getPhysicalAttackRange();
             max_range = range;
         } 
         catch (NullPointerException e) {
@@ -259,7 +259,7 @@ public class L2ControllableMobAI extends L2AttackableAI
                 
                 if (castRange * castRange >= dist2
                         && !_actor.isSkillDisabled(sk.getId())
-                        && _actor.getStatus().getCurrentMp() > _actor.getStat().getMpConsume(sk)) 
+                        && _actor.getCurrentMp() > _actor.getStat().getMpConsume(sk)) 
                 {
                     _accessor.doCast(sk);
                     return;
@@ -269,7 +269,7 @@ public class L2ControllableMobAI extends L2AttackableAI
             }
             
             if (!isNotMoving())
-                moveToPawn(getForcedTarget(), _actor.getStat().getPhysicalAttackRange()/*range*/);
+                moveToPawn(getForcedTarget(), _actor.getPhysicalAttackRange()/*range*/);
             
             return;
         }
@@ -333,7 +333,7 @@ public class L2ControllableMobAI extends L2AttackableAI
                 _actor.setTarget(getAttackTarget());
                 skills = _actor.getAllSkills();
                 dist2 = _actor.getPlanDistanceSq(getAttackTarget().getX(), getAttackTarget().getY());
-                range = _actor.getStat().getPhysicalAttackRange();
+                range = _actor.getPhysicalAttackRange();
                 max_range = range;
             } 
             catch (NullPointerException e) {
@@ -349,7 +349,7 @@ public class L2ControllableMobAI extends L2AttackableAI
                     
                     if (castRange * castRange >= dist2
                             && !_actor.isSkillDisabled(sk.getId())
-                            && _actor.getStatus().getCurrentMp() > _actor.getStat().getMpConsume(sk)) 
+                            && _actor.getCurrentMp() > _actor.getStat().getMpConsume(sk)) 
                     {
                         _accessor.doCast(sk);
                         return;
@@ -387,7 +387,7 @@ public class L2ControllableMobAI extends L2AttackableAI
                     
                     if (castRange * castRange >= dist2
                             && !_actor.isSkillDisabled(sk.getId())
-                            && _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)) 
+                            && _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk)) 
                     {
                         _accessor.doCast(sk);
                         return;

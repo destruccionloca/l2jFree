@@ -56,7 +56,7 @@ public class L2SummonAI extends L2CharacterAI
             setAttackTarget(null);
             return;
         }
-        if (maybeMoveToPawn(getAttackTarget(), _actor.getStat().getPhysicalAttackRange())) return;
+        if (maybeMoveToPawn(getAttackTarget(), _actor.getPhysicalAttackRange())) return;
         clientStopMoving(null);
         _accessor.doAttack(getAttackTarget());
         return;
@@ -70,7 +70,7 @@ public class L2SummonAI extends L2CharacterAI
             setCastTarget(null);
             return;
         }
-        if (maybeMoveToPawn(getCastTarget(), _actor.getStat().getMagicalAttackRange(_skill))) return;
+        if (maybeMoveToPawn(getCastTarget(), _actor.getMagicalAttackRange(_skill))) return;
         clientStopMoving(null);
         summon.setFollowStatus(false);
         setIntention(AI_INTENTION_IDLE);

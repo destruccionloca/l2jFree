@@ -70,14 +70,14 @@ final class EffectSilentMove extends L2Effect
 		
 		double manaDam = calc();
 		
-		if(manaDam > getEffected().getStatus().getCurrentMp())
+		if(manaDam > getEffected().getCurrentMp())
 		{
 			SystemMessage sm = new SystemMessage(140);
 			getEffected().sendPacket(sm);
 			return false;
 		}
 		
-		getEffected().getStatus().reduceMp(manaDam);
+		getEffected().reduceCurrentMp(manaDam);
 		return true;
 	}
 	

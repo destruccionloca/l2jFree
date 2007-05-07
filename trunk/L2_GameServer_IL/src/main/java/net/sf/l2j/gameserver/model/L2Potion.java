@@ -64,7 +64,7 @@ public class L2Potion extends L2Object
 			{
 				synchronized(_hpLock)
 				{
-					double nowHp = _instance.getStatus().getCurrentHp();
+					double nowHp = _instance.getCurrentHp();
 					if(_duration == 0)
 					{
 						stopPotionHpRegeneration();
@@ -72,7 +72,7 @@ public class L2Potion extends L2Object
 					if (_duration != 0)
 					{
 						nowHp     += _effect;
-						_instance.getStatus().setCurrentHp(nowHp);
+						_instance.setCurrentHp(nowHp);
 						_duration = _duration - (_milliseconds / 1000);
 						setCurrentHpPotion2();
 					}
@@ -116,21 +116,21 @@ public class L2Potion extends L2Object
 		switch (_potion)
 		{
 			case (1540): 
-				double nowHp = activeChar.getStatus().getCurrentHp();
+				double nowHp = activeChar.getCurrentHp();
 				nowHp+=435;
-				if (nowHp>= activeChar.getStat().getMaxHp())
+				if (nowHp>= activeChar.getMaxHp())
 				{
-					nowHp = activeChar.getStat().getMaxHp();
+					nowHp = activeChar.getMaxHp();
 				}
-				activeChar.getStatus().setCurrentHp(nowHp);
+				activeChar.setCurrentHp(nowHp);
 			case (728):	
-				double nowMp = activeChar.getStat().getMaxMp();
+				double nowMp = activeChar.getMaxMp();
 				nowMp+=435;
-				if (nowMp>= activeChar.getStat().getMaxMp())
+				if (nowMp>= activeChar.getMaxMp())
 				{
-					nowMp = activeChar.getStat().getMaxMp();
+					nowMp = activeChar.getMaxMp();
 				}
-				activeChar.getStatus().setCurrentMp(nowMp);
+				activeChar.setCurrentMp(nowMp);
 				break;
 			case (726):
 				_milliseconds = 500;
@@ -156,7 +156,7 @@ public class L2Potion extends L2Object
 			{
 				synchronized(_mpLock)
 				{
-					double nowMp = _instance.getStatus().getCurrentMp();
+					double nowMp = _instance.getCurrentMp();
 					if(_duration == 0)
 					{
 						stopPotionMpRegeneration();
@@ -164,7 +164,7 @@ public class L2Potion extends L2Object
 					if (_duration != 0)
 					{
 						nowMp+=_effect;
-						_instance.getStatus().setCurrentMp(nowMp);
+						_instance.setCurrentMp(nowMp);
 						_duration=(_duration-(_milliseconds/1000));
 						setCurrentMpPotion2();
 						

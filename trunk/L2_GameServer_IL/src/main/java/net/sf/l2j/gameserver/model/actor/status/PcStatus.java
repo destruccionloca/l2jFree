@@ -63,10 +63,10 @@ public class PcStatus extends PlayableStatus
                 int tDmg = (int)value * (int)getActiveChar().getStat().calcStat(Stats.TRANSFER_DAMAGE_PERCENT, 0, null, null) /100;
                 
                 // Only transfer dmg up to current HP, it should not be killed
-                if (summon.getStatus().getCurrentHp() < tDmg) tDmg = (int)summon.getStatus().getCurrentHp() - 1;
+                if (summon.getCurrentHp() < tDmg) tDmg = (int)summon.getCurrentHp() - 1;
                 if (tDmg > 0)
                 {
-                    summon.getStatus().reduceHp(tDmg, attacker);
+                    summon.reduceCurrentHp(tDmg, attacker);
                     value -= tDmg;
                     realValue = value;
                 }

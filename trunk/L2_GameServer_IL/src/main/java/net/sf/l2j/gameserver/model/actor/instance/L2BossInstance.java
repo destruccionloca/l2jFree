@@ -233,7 +233,7 @@ public final class L2BossInstance extends L2MonsterInstance
         switch (getTemplate().npcId)
         {
             case 29014: // Orfen
-                if ((getStatus().getCurrentHp() - damage) < getStat().getMaxHp() / 2 && !getTeleported())
+                if ((getCurrentHp() - damage) < getMaxHp() / 2 && !getTeleported())
                 {
                     clearAggroList();
                     getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
@@ -295,7 +295,7 @@ public final class L2BossInstance extends L2MonsterInstance
     
     protected void KillTarget()
     {        	
-    	_TargetForKill.reduceCurrentHp(100000 + Rnd.get(_TargetForKill.getStat().getMaxHp()/2,_TargetForKill.getStat().getMaxHp()),this);
+    	_TargetForKill.reduceCurrentHp(100000 + Rnd.get(_TargetForKill.getMaxHp()/2,_TargetForKill.getMaxHp()),this);
     }
 
     private class RespawnNurseAnts implements Runnable

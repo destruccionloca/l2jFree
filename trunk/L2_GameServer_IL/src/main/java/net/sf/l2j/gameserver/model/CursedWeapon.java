@@ -338,8 +338,8 @@ public class CursedWeapon
         _player.sendPacket(sm);
         
         // Fully heal player
-        _player.getStatus().setCurrentHpMp(_player.getStat().getMaxHp(), _player.getStat().getMaxMp());
-        _player.getStatus().setCurrentCp(_player.getStat().getMaxCp());
+        _player.setCurrentHpMp(_player.getMaxHp(), _player.getMaxMp());
+        _player.setCurrentCp(_player.getMaxCp());
 
         // Refresh inventory
         if (!Config.FORCE_INVENTORY_UPDATE)

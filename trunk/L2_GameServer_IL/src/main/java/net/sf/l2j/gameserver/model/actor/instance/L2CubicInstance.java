@@ -293,11 +293,11 @@ public class L2CubicInstance
                                         if ((x * x) + (y * y) + (z * z) > range * range) continue;
 
                                         //member is in cubic casting range, check if he need heal and if he have the lowest HP                               
-                                        if (partyMember.getStatus().getCurrentHp() < partyMember.getStat().getMaxHp())
+                                        if (partyMember.getCurrentHp() < partyMember.getMaxHp())
                                         {
-                                            if (percentleft > (partyMember.getStatus().getCurrentHp() / partyMember.getStat().getMaxHp()))
+                                            if (percentleft > (partyMember.getCurrentHp() / partyMember.getMaxHp()))
                                             {
-                                                percentleft = (partyMember.getStatus().getCurrentHp() / partyMember.getStat().getMaxHp());
+                                                percentleft = (partyMember.getCurrentHp() / partyMember.getMaxHp());
                                                 target = partyMember;
                                             }
                                         }
@@ -307,7 +307,7 @@ public class L2CubicInstance
                         }
                         else
                         {
-                            if (_owner.getStatus().getCurrentHp() < _owner.getStat().getMaxHp()) target = _owner;
+                            if (_owner.getCurrentHp() < _owner.getMaxHp()) target = _owner;
                         }
                         if (target != null)
                         {

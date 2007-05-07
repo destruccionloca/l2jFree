@@ -53,12 +53,12 @@ public class PetInfo extends L2GameServerPacket
 		_heading = _summon.getHeading();
 		_mAtkSpd = _summon.getMAtkSpd();
 		_pAtkSpd = _summon.getPAtkSpd();
-		_runSpd = _summon.getStat().getRunSpeed();
-		_walkSpd = _summon.getStat().getWalkSpeed();
+		_runSpd = _summon.getRunSpeed();
+		_walkSpd = _summon.getWalkSpeed();
 		_swimRunSpd = _flRunSpd = _flyRunSpd = _runSpd;
 		_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
-		_maxHp = _summon.getStat().getMaxHp();
-		_maxMp = _summon.getStat().getMaxMp();
+		_maxHp = _summon.getMaxHp();
+		_maxMp = _summon.getMaxMp();
 		if (_summon instanceof L2PetInstance) 
         {
 			L2PetInstance pet = (L2PetInstance)_summon;
@@ -109,9 +109,9 @@ public class PetInfo extends L2GameServerPacket
 		writeD(_summon.getKarma());  // hmm karma ??
 		writeD(_curFed); // how fed it is
 		writeD(_maxFed); //max fed it can be
-		writeD((int)_summon.getStatus().getCurrentHp());//current hp
+		writeD((int)_summon.getCurrentHp());//current hp
 		writeD(_maxHp);// max hp
-		writeD((int)_summon.getStatus().getCurrentMp());//current mp
+		writeD((int)_summon.getCurrentMp());//current mp
 		writeD(_maxMp);//max mp
 		writeD(_summon.getStat().getSp()); //sp
 		writeD(_summon.getLevel());// lvl 
@@ -120,13 +120,13 @@ public class PetInfo extends L2GameServerPacket
 		writeQ(_summon.getExpForNextLevel());// 100% absoulte value
 		writeD(_summon.getCurrentLoad());//weight
 		writeD(_summon.getMaxLoad());//max weight it can carry
-		writeD(_summon.getStat().getPAtk(null));//patk
-		writeD(_summon.getStat().getPDef(null));//pdef
-		writeD(_summon.getStat().getMAtk(null,null));//matk
-		writeD(_summon.getStat().getMDef(null,null));//mdef
-		writeD(_summon.getStat().getAccuracy());//accuracy
-		writeD(_summon.getStat().getEvasionRate(null));//evasion
-		writeD(_summon.getStat().getCriticalHit(null,null));//critical
+		writeD(_summon.getPAtk(null));//patk
+		writeD(_summon.getPDef(null));//pdef
+		writeD(_summon.getMAtk(null,null));//matk
+		writeD(_summon.getMDef(null,null));//mdef
+		writeD(_summon.getAccuracy());//accuracy
+		writeD(_summon.getEvasionRate(null));//evasion
+		writeD(_summon.getCriticalHit(null,null));//critical
 		writeD(_runSpd);//speed
 		writeD(_summon.getPAtkSpd());//atkspeed
 		writeD(_summon.getMAtkSpd());//casting speed

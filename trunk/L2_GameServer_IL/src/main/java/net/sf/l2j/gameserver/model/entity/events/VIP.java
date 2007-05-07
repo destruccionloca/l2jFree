@@ -217,7 +217,7 @@ public class VIP {
             SpawnTable.getInstance().addNewSpawn(_endSpawn, false);
             
             _endSpawn.init();
-            _endSpawn.getLastSpawn().getStatus().setCurrentHp(999999999);
+            _endSpawn.getLastSpawn().setCurrentHp(999999999);
             _endSpawn.getLastSpawn().setTitle("VIP Npc");
             _endSpawn.getLastSpawn()._isEventVIPNPCEnd = true;
             _endSpawn.getLastSpawn().isAggressive();
@@ -236,7 +236,7 @@ public class VIP {
             SpawnTable.getInstance().addNewSpawn(_joinSpawn, false);
             
             _joinSpawn.init();
-            _joinSpawn.getLastSpawn().getStatus().setCurrentHp(999999999);
+            _joinSpawn.getLastSpawn().setCurrentHp(999999999);
             _joinSpawn.getLastSpawn().setTitle("VIP Npc");
             _joinSpawn.getLastSpawn()._isEventVIPNPC = true;
             _joinSpawn.getLastSpawn().isAggressive();

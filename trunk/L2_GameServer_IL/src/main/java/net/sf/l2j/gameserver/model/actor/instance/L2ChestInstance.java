@@ -64,7 +64,7 @@ public final class L2ChestInstance extends L2Attackable
     public void doDie(L2Character killer)
     {
         if(!isSpoil()) killer.setTarget(null);
-        getStatus().setCurrentHpMp(0,0);
+		setCurrentHpMp(0,0);
 		super.doDie(killer);
     }
 

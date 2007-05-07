@@ -160,8 +160,8 @@ public class RaidBossSpawnManager {
                 raidboss.setRaidStatus(StatusEnum.ALIVE);
                 
                 StatsSet info = new StatsSet();
-                info.set("currentHP", raidboss.getStatus().getCurrentHp());
-                info.set("currentMP", raidboss.getStatus().getCurrentMp());
+                info.set("currentHP", raidboss.getCurrentHp());
+                info.set("currentMP", raidboss.getCurrentMp());
                 info.set("respawnTime", 0L);
                 
                 _storedInfo.put(bossId, info);
@@ -192,8 +192,8 @@ public class RaidBossSpawnManager {
             long respawn_delay = Rnd.get((int)(RespawnMinDelay*1000*Config.RAID_MIN_RESPAWN_MULTIPLIER),(int)(RespawnMaxDelay*1000*Config.RAID_MAX_RESPAWN_MULTIPLIER));
             respawnTime = Calendar.getInstance().getTimeInMillis() + respawn_delay;
             
-            info.set("currentHP", boss.getStat().getMaxHp());
-            info.set("currentMP", boss.getStat().getMaxMp());
+            info.set("currentHP", boss.getMaxHp());
+            info.set("currentMP", boss.getMaxMp());
             info.set("respawnTime", respawnTime);
             
             _log.info("RaidBossSpawnManager: Updated " + boss.getName() + " respawn time to " + respawnTime);
@@ -209,8 +209,8 @@ public class RaidBossSpawnManager {
         {  
             boss.setRaidStatus(StatusEnum.ALIVE);
 
-            info.set("currentHP", boss.getStatus().getCurrentHp());
-            info.set("currentMP", boss.getStatus().getCurrentMp());
+            info.set("currentHP", boss.getCurrentHp());
+            info.set("currentMP", boss.getCurrentMp());
             info.set("respawnTime", 0L);
         }
         
@@ -239,8 +239,8 @@ public class RaidBossSpawnManager {
             
             if (raidboss != null)
             {
-                raidboss.getStatus().setCurrentHp(currentHP);
-                raidboss.getStatus().setCurrentMp(currentMP);
+                raidboss.setCurrentHp(currentHP);
+                raidboss.setCurrentMp(currentMP);
                 raidboss.setRaidStatus(StatusEnum.ALIVE);
                 
                 _bosses.put(bossId, raidboss);
@@ -447,8 +447,8 @@ public class RaidBossSpawnManager {
     public void notifySpawnNightBoss(L2RaidBossInstance raidboss)
     {
         StatsSet info = new StatsSet();
-        info.set("currentHP", raidboss.getStatus().getCurrentHp());
-        info.set("currentMP", raidboss.getStatus().getCurrentMp());
+        info.set("currentHP", raidboss.getCurrentHp());
+        info.set("currentMP", raidboss.getCurrentMp());
         info.set("respawnTime", 0L);
         
         raidboss.setRaidStatus(StatusEnum.ALIVE);
