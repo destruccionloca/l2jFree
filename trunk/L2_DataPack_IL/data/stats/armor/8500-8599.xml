@@ -61,6 +61,15 @@
   <for>
     <add val='0' order='0x10' stat='pDef'/>
   </for>
+<item id='8567' name="Valakas Circlet">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
+</item>
+<item id='8568' name="Antaras Circlet">
+  <for>
+    <add val='0' order='0x10' stat='pDef'/>
+  </for>
 </item>
 <item id='8569' name="Half Face Mask">
   <for>
