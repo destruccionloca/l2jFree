@@ -44,7 +44,6 @@ import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.Shutdown;
-import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
@@ -75,6 +74,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
@@ -156,7 +156,6 @@ import net.sf.l2j.gameserver.serverpackets.ExFishingEnd;
 import net.sf.l2j.gameserver.serverpackets.ExFishingStart;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadMode;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfo;
-import net.sf.l2j.gameserver.serverpackets.ExDuelUpdateUserInfo;
 import net.sf.l2j.gameserver.serverpackets.FriendList;
 import net.sf.l2j.gameserver.serverpackets.HennaInfo;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
@@ -249,22 +248,22 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private final int RELATION_PVP_FLAG      = 0x00002; // pvp ???
     private final int RELATION_HAS_KARMA     = 0x00004; // karma ???
-    private final int RELATION_UNKNOWN_1     = 0x00008; // ???
-    private final int RELATION_UNKNOWN_2     = 0x00010; // ???
-    private final int RELATION_UNKNOWN_3     = 0x00020; // siege flags ???
-    private final int RELATION_UNKNOWN_4     = 0x00040; // siege flags ???
-    private final int RELATION_UNKNOWN_5     = 0x00080; // siege flags ???
-    private final int RELATION_UNKNOWN_6     = 0x00100; // siege flags ???
-    private final int RELATION_UNKNOWN_7     = 0x00200; // siege flags ???
-    private final int RELATION_UNKNOWN_8     = 0x00400; // siege flags ???
-    private final int RELATION_UNKNOWN_9     = 0x00800; // siege flags ???
-    private final int RELATION_UNKNOWN_10    = 0x01000; // siege flags ???
-    private final int RELATION_UNKNOWN_11    = 0x02000; // ???
-    private final int RELATION_UNKNOWN_12    = 0x04000; // ???
+//    private final int RELATION_UNKNOWN_1     = 0x00008; // ???
+//    private final int RELATION_UNKNOWN_2     = 0x00010; // ???
+//    private final int RELATION_UNKNOWN_3     = 0x00020; // siege flags ???
+//    private final int RELATION_UNKNOWN_4     = 0x00040; // siege flags ???
+//    private final int RELATION_UNKNOWN_5     = 0x00080; // siege flags ???
+//    private final int RELATION_UNKNOWN_6     = 0x00100; // siege flags ???
+//    private final int RELATION_UNKNOWN_7     = 0x00200; // siege flags ???
+//    private final int RELATION_UNKNOWN_8     = 0x00400; // siege flags ???
+//    private final int RELATION_UNKNOWN_9     = 0x00800; // siege flags ???
+//    private final int RELATION_UNKNOWN_10    = 0x01000; // siege flags ???
+//    private final int RELATION_UNKNOWN_11    = 0x02000; // ???
+//    private final int RELATION_UNKNOWN_12    = 0x04000; // ???
     private final int RELATION_MUTUAL_WAR    = 0x08000; // double fist
     private final int RELATION_1SIDED_WAR    = 0x10000; // single fist
-    private final int RELATION_UNKNOWN_13    = 0x20000; // ???
-    private final int RELATION_UNKNOWN_14    = 0x40000; // ???    
+//    private final int RELATION_UNKNOWN_13    = 0x20000; // ???
+//    private final int RELATION_UNKNOWN_14    = 0x40000; // ???    
     
     /** The table containing all minimum level needed for each Expertise (None, D, C, B, A, S)*/
     private static final int[] EXPERTISE_LEVELS = {SkillTreeTable.getInstance().getExpertiseLevel(0), //NONE
