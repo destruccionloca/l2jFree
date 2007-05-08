@@ -63,10 +63,18 @@ public class NpcInfo extends L2GameServerPacket
         if (cha.getTemplate().serverSideName)
         	_name = cha.getTemplate().name;
 
-    	if (cha.getTemplate().serverSideTitle)
+        if (cha.isChampion() )
+        {
+            _title = ("Champion"); 
+        }
+        else if (cha.getTemplate().serverSideTitle)
+        {
     		_title = cha.getTemplate().title;
+        }
     	else
+        {
     		_title = cha.getTitle();
+        }
     	
         if (Config.SHOW_NPC_LVL && _cha instanceof L2MonsterInstance)
 	    {
