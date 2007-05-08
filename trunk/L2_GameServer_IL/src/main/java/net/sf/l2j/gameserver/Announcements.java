@@ -19,9 +19,10 @@
 package net.sf.l2j.gameserver;
 
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.util.Date;
 import java.util.List;
@@ -180,7 +181,7 @@ public class Announcements
 		{
 			int i=0;
 			String line = null;
-			lnr = new LineNumberReader(new FileReader(file));
+            lnr = new LineNumberReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
 			while ( (line = lnr.readLine()) != null)
 			{
 				StringTokenizer st = new StringTokenizer(line,"\n\r");
