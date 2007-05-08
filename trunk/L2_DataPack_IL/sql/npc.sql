@@ -3103,55 +3103,55 @@ INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSide
 	(22133,22133,'Guardian of the Grail',0,'',0,'Monster.will_o_wisp',13.00,22.00,80,'male','L2Monster',80,4858,2296,13.43,3.09,40,43,30,21,20,10,11031,1351,2199,625,1373,521,278,500,333,0,0,0,88,132,NULL,0,0,0),
 	(22134,22134,'Guardian of the Holy Land',0,'',0,'Monster3.solina_priest',20.00,35.00,80,'male','L2Monster',80,4900,2339,13.43,3.09,40,43,30,21,20,10,11131,1401,2269,635,1413,531,278,0,333,8214,0,0,88,132,NULL,0,0,0),
 	(22135,22135,'Beholder of Light',0,'',0,'Monster3.apostle_grail',20.00,43.00,80,'male','L2Monster',80,4900,2339,13.43,3.09,40,43,30,21,20,10,11131,1401,2269,635,1413,531,278,500,333,8221,0,0,88,132,NULL,0,0,0),
-	(22136,22136,'Gatekeeper Zombie',0,'',0,'Monster3.zombie_gateguard',20.00,30.00,83,'male','L2Monster',80,4717,2168,13.43,3.09,40,43,30,21,20,10,1000,100,1719,4500,2288,780,300,300,555,8217,0,0,0,0,NULL,0,0,0),
-	(22137,22137,'Penance Guard',0,'',0,'Monster3.zombie_gateguard_brd',44.00,29.00,80,'male','L2Monster',80,4608,1567,13.43,3.09,40,43,30,21,20,10,6912,329,2475,1127,1544,780,300,300,555,8217,0,0,0,0,NULL,0,1,0),
-	(22138,22138,'Chapel Guard',0,'',0,'Monster3.zombie_gateguard_brd',44.00,29.00,80,'male','L2Monster',80,4812,2439,13.43,3.09,40,43,30,21,20,10,7218,344,2475,793,1144,780,300,300,600,8217,0,0,0,0,NULL,0,1,0),
-	(22139,22139,'Old Aristocrat''s Soldier',0,'',0,'Monster3.zombie_enlisted_man',20.00,21.00,80,'male','L2Monster',80,4609,2439,13.43,3.09,40,43,26,21,20,10,55302,2633,1719,1108,1144,780,300,0,555,8216,0,0,61,180,NULL,0,1,0),
-	(22140,22140,'Zombie Worker',0,'',0,'Monster3.zombie_laborer',20.00,23.00,80,'male','L2Monster',80,4551,2439,13.43,3.09,40,43,25,21,20,10,54609,2600,1886,1108,1144,780,300,0,555,8218,0,0,61,130,NULL,0,1,0),
-	(22141,22141,'Forgotten Victim',0,'',0,'Monster3.zombie_laborer',20.00,23.00,80,'male','L2Monster',80,4551,2439,13.43,3.09,40,43,25,21,20,10,54609,2600,1886,1108,1144,780,300,0,555,8219,0,0,61,180,NULL,0,1,0),
-	(22142,22142,'Triol''s Layperson',0,'',0,'Monster3.heretic_privates_a',20.00,28.00,80,'male','L2Monster',80,4609,3566,13.43,3.09,40,43,30,21,20,10,69129,3292,1652,793,1144,780,300,300,555,8207,8207,0,61,180,NULL,0,0,0),
-	(22143,22143,'Triol''s Believer',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,3731,2439,13.43,3.09,40,43,30,21,20,10,55965,2665,1652,793,1211,780,300,0,555,8208,0,0,61,180,NULL,0,0,0),
-	(22144,22144,'Resurrected Temple Knight',0,'',0,'Monster3.zombie_enlisted_man',20.00,23.00,80,'male','L2Monster',80,4664,4599,13.43,3.09,40,43,26,21,20,10,55965,2665,1698,1108,1144,780,550,300,555,0,0,0,61,180,NULL,0,1,0),
-	(22145,22145,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20.00,23.00,80,'male','L2Monster',80,4609,2499,13.43,3.09,40,43,30,21,20,10,55302,2633,1719,793,1144,780,300,0,555,0,0,0,61,180,NULL,0,1,0),
-	(22146,22146,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4766,4599,13.43,3.09,40,43,30,21,20,10,71496,3405,1719,793,1211,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
-	(22147,22147,'Ritual Offering',0,'',0,'Monster3.zombie_enlisted_man',20.00,23.00,80,'male','L2Monster',80,4717,4599,13.43,3.09,40,43,30,21,20,10,56598,2695,1517,793,1144,780,400,0,555,0,0,0,61,180,NULL,0,1,0),
-	(22148,22148,'Triol''s Believer',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,5830,4599,13.43,3.09,40,43,30,21,20,10,69957,3321,1719,793,1144,780,300,300,555,8207,0,0,61,180,NULL,0,0,0),
-	(22149,22149,'Ritual Offering',0,'',0,'Monster3.zombie_enlisted_man',20.00,23.00,80,'male','L2Monster',80,4664,4599,13.43,3.09,40,43,30,21,20,10,55965,2665,1517,793,1144,780,400,0,555,0,0,0,61,180,NULL,0,1,0),
-	(22150,22150,'Triol''s Believer',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4717,4599,13.43,3.09,40,43,30,21,20,10,56598,2695,1719,793,1144,780,300,300,555,8207,0,0,61,180,NULL,0,0,0),
-	(22151,22151,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4814,4599,13.43,3.09,40,43,30,21,20,10,72207,3438,1719,793,1144,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
-	(22152,22152,'Temple Guard',0,'',0,'Monster3.zombie_em_knight',20.00,23.00,80,'male','L2Monster',80,4767,2699,13.43,3.09,40,43,30,21,20,10,57198,2724,1869,793,1144,780,500,300,555,0,8219,0,61,180,NULL,0,1,0),
-	(22153,22153,'Temple Guard Captain',0,'',0,'Monster3.zombie_em_knight',20.00,23.00,80,'male','L2Monster',80,4767,3201,13.43,3.09,40,43,30,21,20,10,57198,2724,1899,793,1144,780,350,300,555,8218,0,0,61,180,NULL,0,1,0),
-	(22154,22154,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20.00,23.00,85,'male','L2Monster',80,4814,3201,13.43,3.09,40,43,31,21,20,10,57765,2751,1719,677,1144,780,300,0,555,0,0,0,61,180,NULL,0,1,0),
-	(22155,22155,'Triol''s High Priest',0,'',0,'Monster3.heretic_priest_a',20.00,20.00,80,'male','L2Monster',80,4814,5505,13.43,3.09,40,43,30,21,20,10,72207,3438,1883,793,1244,780,300,300,555,8206,8206,0,61,180,NULL,0,0,0),
-	(22156,22156,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4858,4599,13.43,3.09,40,43,30,21,20,10,58296,2776,1719,793,1144,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
-	(22157,22157,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4814,4599,13.43,3.09,40,43,30,21,20,10,57765,2751,1719,793,1144,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
-	(22158,22158,'Triol''s Believer',0,'',0,'Monster3.heretic_privates_a',20.00,28.00,80,'male','L2Monster',80,4814,4599,13.43,3.09,40,43,30,21,20,10,57765,2751,1650,793,1214,780,300,300,555,8207,8207,0,61,180,NULL,0,0,0),
-	(22159,22159,'Triol''s High Priest',0,'',0,'Monster3.heretic_priest_a',20.00,20.00,80,'male','L2Monster',80,4858,5505,13.43,3.09,40,43,30,21,20,10,72870,3470,1883,793,1144,780,300,300,555,8206,8206,0,61,180,NULL,0,0,0),
-	(22160,22160,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4858,4599,13.43,3.09,40,43,30,21,20,10,58296,2776,1719,793,1144,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
-	(22161,22161,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20.00,23.00,80,'male','L2Monster',80,4814,2439,13.43,3.09,40,43,30,21,20,10,57765,2751,1719,793,1144,780,300,0,555,0,0,0,61,180,NULL,0,1,0),
-	(22162,22162,'Triol''s Believer',0,'',0,'Monster3.heretic_privates_a',20.00,28.00,80,'male','L2Monster',80,4814,4599,13.43,3.09,40,43,30,21,20,10,57765,2751,1883,793,1214,780,300,300,555,8207,8207,0,61,180,NULL,0,0,0),
-	(22163,22163,'Triol''s High Priest',0,'',0,'Monster3.heretic_priest',20.00,20.00,80,'male','L2Monster',80,4858,5605,13.43,3.09,40,43,30,21,20,10,72870,3470,1719,793,1144,780,300,300,555,8206,0,0,61,180,NULL,0,0,0),
-	(22164,22164,'Triol''s Believer',0,'',0,'Monster3.heretic_privates_a',20.00,28.00,80,'male','L2Monster',80,4858,4599,13.43,3.09,40,43,30,21,20,10,58296,2776,1916,793,1301,780,300,300,555,8207,8207,0,61,180,NULL,0,0,0),
-	(22165,22165,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4814,4599,13.43,3.09,40,43,30,21,20,10,57765,2751,1719,793,1144,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
-	(22166,22166,'Triol''s Believer',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4814,4599,13.43,3.09,40,43,30,21,20,10,57765,2751,1916,793,1301,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
-	(22167,22167,'Triol''s High Priest',0,'',0,'Monster3.heretic_priest_a',20.00,20.00,80,'male','L2Monster',80,4900,6505,13.43,3.09,40,43,30,21,20,10,73494,3500,1883,793,1144,780,300,300,555,8206,8206,0,61,180,NULL,0,0,0),
-	(22168,22168,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4900,4599,13.43,3.09,40,43,30,21,20,10,58794,2800,1719,793,1144,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
-	(22169,22169,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20.00,23.00,80,'male','L2Monster',80,4858,2439,13.43,3.09,40,43,30,21,20,10,58296,2776,1719,793,1144,780,300,0,555,0,0,0,61,180,NULL,0,1,0),
-	(22170,22170,'Triol''s Believer',0,'',0,'Monster3.heretic_privates_a',20.00,28.00,80,'male','L2Monster',80,4858,4599,13.43,3.09,40,43,30,21,20,10,58296,2776,2033,793,1301,780,300,300,555,8207,8207,0,61,180,NULL,0,0,0),
-	(22171,22171,'Triol''s High Priest',0,'',0,'Monster3.heretic_priest',20.00,20.00,80,'male','L2Monster',80,4900,5605,13.43,3.09,40,43,30,21,20,10,73494,3500,1719,793,1144,780,300,300,555,8206,0,0,61,180,NULL,0,0,0),
-	(22172,22172,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20.00,23.00,80,'male','L2Monster',80,4858,2439,13.43,3.09,40,43,30,21,20,10,58296,2776,1719,793,1144,780,300,0,555,0,0,0,61,180,NULL,0,1,0),
-	(22173,22173,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4858,4599,13.43,3.09,40,43,30,21,20,10,58296,2776,1719,793,1144,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
-	(22174,22174,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4814,4325,13.43,3.09,40,43,30,21,20,10,57765,2751,1719,793,1144,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
-	(22175,22175,'Andreas'' Captain of the Royal Guard',0,'',0,'Monster3.zombie_em_knight',20.00,22.00,80,'male','L2Monster',80,4812,430,13.43,3.09,40,43,30,21,20,10,3609,172,1719,793,1144,780,500,500,555,8218,0,0,61,180,NULL,0,1,0),
-	(22176,22176,'Andreas'' Royal Guards',0,'',0,'Monster3.zombie_em_knight',20.00,23.00,85,'male','L2Monster',80,4812,430,13.43,3.09,40,43,25,21,20,10,3609,172,2475,1108,1144,780,300,500,555,8207,0,0,61,180,NULL,0,1,0),
-	(22188,22188,'Andreas'' Captain of the Royal Guard',0,'',0,'Monster3.heretic_priest_120p',20.00,23.00,87,'male','L2Monster',80,4899,4599,13.43,3.09,40,43,31,21,20,10,44094,2100,2682,960,1566,780,300,500,555,8206,0,0,61,180,NULL,0,0,0),
-	(22189,22189,'Andreas'' Royal Guards',0,'',0,'Monster3.heretic_privates_120p',22.00,34.00,86,'male','L2Monster',80,4858,2439,13.43,3.09,40,43,32,21,20,10,29148,1388,2682,960,1566,780,460,500,555,8208,0,0,61,180,NULL,0,0,0),
-	(22190,22190,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20.00,23.00,86,'male','L2Monster',80,4858,2439,13.43,3.09,40,43,30,21,20,10,29148,1388,1883,793,1144,780,300,0,555,0,0,0,61,180,NULL,0,1,0),
-	(22191,22191,'Andreas'' Captain of the Royal Guard',0,'',0,'Monster3.heretic_priest_120p',20.00,23.00,87,'male','L2Monster',80,7350,4560,13.43,3.09,40,43,30,21,20,10,44097,2100,1719,793,1144,780,300,300,555,8206,0,0,61,180,NULL,0,0,0),
+	(22136,22136,'Gatekeeper Zombie',0,'',0,'Monster3.zombie_gateguard',20.00,30.00,83,'male','L2Monster',80,4717,2168,13.43,3.09,40,43,30,21,20,10,250,25,1719,4500,2288,780,300,300,555,8217,0,0,0,0,NULL,0,0,0),
+	(22137,22137,'Penance Guard',0,'',0,'Monster3.zombie_gateguard_brd',44.00,29.00,80,'male','L2Monster',80,4608,1567,13.43,3.09,40,43,30,21,20,10,13824,658,2475,1127,1544,780,300,300,555,8217,0,0,0,0,NULL,0,1,0),
+	(22138,22138,'Chapel Guard',0,'',0,'Monster3.zombie_gateguard_brd',44.00,29.00,80,'male','L2Monster',80,4812,2439,13.43,3.09,40,43,30,21,20,10,14436,688,2475,793,1144,780,300,300,600,8217,0,0,0,0,NULL,0,1,0),
+	(22139,22139,'Old Aristocrat''s Soldier',0,'',0,'Monster3.zombie_enlisted_man',20.00,21.00,80,'male','L2Monster',80,4609,2439,13.43,3.09,40,43,26,21,20,10,13826,658,1719,1108,1144,780,300,0,555,8216,0,0,61,180,NULL,0,1,0),
+	(22140,22140,'Zombie Worker',0,'',0,'Monster3.zombie_laborer',20.00,23.00,80,'male','L2Monster',80,4551,2439,13.43,3.09,40,43,25,21,20,10,13652,650,1886,1108,1144,780,300,0,555,8218,0,0,61,130,NULL,0,1,0),
+	(22141,22141,'Forgotten Victim',0,'',0,'Monster3.zombie_laborer',20.00,23.00,80,'male','L2Monster',80,4551,2439,13.43,3.09,40,43,25,21,20,10,13652,650,1886,1108,1144,780,300,0,555,8219,0,0,61,180,NULL,0,1,0),
+	(22142,22142,'Triol''s Layperson',0,'',0,'Monster3.heretic_privates_a',20.00,28.00,80,'male','L2Monster',80,4609,3566,13.43,3.09,40,43,30,21,20,10,13826,658,1652,793,1144,780,300,300,555,8207,8207,0,61,180,NULL,0,0,0),
+	(22143,22143,'Triol''s Believer',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,3731,2439,13.43,3.09,40,43,30,21,20,10,11193,533,1652,793,1211,780,300,0,555,8208,0,0,61,180,NULL,0,0,0),
+	(22144,22144,'Resurrected Temple Knight',0,'',0,'Monster3.zombie_enlisted_man',20.00,23.00,80,'male','L2Monster',80,4664,4599,13.43,3.09,40,43,26,21,20,10,13991,666,1698,1108,1144,780,550,300,555,0,0,0,61,180,NULL,0,1,0),
+	(22145,22145,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20.00,23.00,80,'male','L2Monster',80,4609,2499,13.43,3.09,40,43,30,21,20,10,13826,658,1719,793,1144,780,300,0,555,0,0,0,61,180,NULL,0,1,0),
+	(22146,22146,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4766,4599,13.43,3.09,40,43,30,21,20,10,14299,681,1719,793,1211,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
+	(22147,22147,'Ritual Offering',0,'',0,'Monster3.zombie_enlisted_man',20.00,23.00,80,'male','L2Monster',80,4717,4599,13.43,3.09,40,43,30,21,20,10,14150,674,1517,793,1144,780,400,0,555,0,0,0,61,180,NULL,0,1,0),
+	(22148,22148,'Triol''s Believer',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,5830,4599,13.43,3.09,40,43,30,21,20,10,17489,830,1719,793,1144,780,300,300,555,8207,0,0,61,180,NULL,0,0,0),
+	(22149,22149,'Ritual Offering',0,'',0,'Monster3.zombie_enlisted_man',20.00,23.00,80,'male','L2Monster',80,4664,4599,13.43,3.09,40,43,30,21,20,10,13991,666,1517,793,1144,780,400,0,555,0,0,0,61,180,NULL,0,1,0),
+	(22150,22150,'Triol''s Believer',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4717,4599,13.43,3.09,40,43,30,21,20,10,14150,674,1719,793,1144,780,300,300,555,8207,0,0,61,180,NULL,0,0,0),
+	(22151,22151,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4814,4599,13.43,3.09,40,43,30,21,20,10,14441,688,1719,793,1144,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
+	(22152,22152,'Temple Guard',0,'',0,'Monster3.zombie_em_knight',20.00,23.00,80,'male','L2Monster',80,4767,2699,13.43,3.09,40,43,30,21,20,10,14300,681,1869,793,1144,780,500,300,555,0,8219,0,61,180,NULL,0,1,0),
+	(22153,22153,'Temple Guard Captain',0,'',0,'Monster3.zombie_em_knight',20.00,23.00,80,'male','L2Monster',80,4767,3201,13.43,3.09,40,43,30,21,20,10,14300,681,1899,793,1144,780,350,300,555,8218,0,0,61,180,NULL,0,1,0),
+	(22154,22154,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20.00,23.00,85,'male','L2Monster',80,4814,3201,13.43,3.09,40,43,31,21,20,10,14441,688,1719,677,1144,780,300,0,555,0,0,0,61,180,NULL,0,1,0),
+	(22155,22155,'Triol''s High Priest',0,'',0,'Monster3.heretic_priest_a',20.00,20.00,80,'male','L2Monster',80,4814,5505,13.43,3.09,40,43,30,21,20,10,14441,688,1883,793,1244,780,300,300,555,8206,8206,0,61,180,NULL,0,0,0),
+	(22156,22156,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4858,4599,13.43,3.09,40,43,30,21,20,10,14574,694,1719,793,1144,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
+	(22157,22157,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4814,4599,13.43,3.09,40,43,30,21,20,10,14441,688,1719,793,1144,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
+	(22158,22158,'Triol''s Believer',0,'',0,'Monster3.heretic_privates_a',20.00,28.00,80,'male','L2Monster',80,4814,4599,13.43,3.09,40,43,30,21,20,10,14441,688,1650,793,1214,780,300,300,555,8207,8207,0,61,180,NULL,0,0,0),
+	(22159,22159,'Triol''s High Priest',0,'',0,'Monster3.heretic_priest_a',20.00,20.00,80,'male','L2Monster',80,4858,5505,13.43,3.09,40,43,30,21,20,10,14574,694,1883,793,1144,780,300,300,555,8206,8206,0,61,180,NULL,0,0,0),
+	(22160,22160,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4858,4599,13.43,3.09,40,43,30,21,20,10,14574,694,1719,793,1144,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
+	(22161,22161,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20.00,23.00,80,'male','L2Monster',80,4814,2439,13.43,3.09,40,43,30,21,20,10,14441,688,1719,793,1144,780,300,0,555,0,0,0,61,180,NULL,0,1,0),
+	(22162,22162,'Triol''s Believer',0,'',0,'Monster3.heretic_privates_a',20.00,28.00,80,'male','L2Monster',80,4814,4599,13.43,3.09,40,43,30,21,20,10,14441,688,1883,793,1214,780,300,300,555,8207,8207,0,61,180,NULL,0,0,0),
+	(22163,22163,'Triol''s High Priest',0,'',0,'Monster3.heretic_priest',20.00,20.00,80,'male','L2Monster',80,4858,5605,13.43,3.09,40,43,30,21,20,10,14574,694,1719,793,1144,780,300,300,555,8206,0,0,61,180,NULL,0,0,0),
+	(22164,22164,'Triol''s Believer',0,'',0,'Monster3.heretic_privates_a',20.00,28.00,80,'male','L2Monster',80,4858,4599,13.43,3.09,40,43,30,21,20,10,14574,694,1916,793,1301,780,300,300,555,8207,8207,0,61,180,NULL,0,0,0),
+	(22165,22165,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4814,4599,13.43,3.09,40,43,30,21,20,10,14441,688,1719,793,1144,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
+	(22166,22166,'Triol''s Believer',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4814,4599,13.43,3.09,40,43,30,21,20,10,14441,688,1916,793,1301,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
+	(22167,22167,'Triol''s High Priest',0,'',0,'Monster3.heretic_priest_a',20.00,20.00,80,'male','L2Monster',80,4900,6505,13.43,3.09,40,43,30,21,20,10,14699,700,1883,793,1144,780,300,300,555,8206,8206,0,61,180,NULL,0,0,0),
+	(22168,22168,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4900,4599,13.43,3.09,40,43,30,21,20,10,14699,700,1719,793,1144,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
+	(22169,22169,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20.00,23.00,80,'male','L2Monster',80,4858,2439,13.43,3.09,40,43,30,21,20,10,14574,694,1719,793,1144,780,300,0,555,0,0,0,61,180,NULL,0,1,0),
+	(22170,22170,'Triol''s Believer',0,'',0,'Monster3.heretic_privates_a',20.00,28.00,80,'male','L2Monster',80,4858,4599,13.43,3.09,40,43,30,21,20,10,14574,694,2033,793,1301,780,300,300,555,8207,8207,0,61,180,NULL,0,0,0),
+	(22171,22171,'Triol''s High Priest',0,'',0,'Monster3.heretic_priest',20.00,20.00,80,'male','L2Monster',80,4900,5605,13.43,3.09,40,43,30,21,20,10,14699,700,1719,793,1144,780,300,300,555,8206,0,0,61,180,NULL,0,0,0),
+	(22172,22172,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20.00,23.00,80,'male','L2Monster',80,4858,2439,13.43,3.09,40,43,30,21,20,10,14574,694,1719,793,1144,780,300,0,555,0,0,0,61,180,NULL,0,1,0),
+	(22173,22173,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4858,4599,13.43,3.09,40,43,30,21,20,10,14574,694,1719,793,1144,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
+	(22174,22174,'Triol''s Priest',0,'',0,'Monster3.heretic_privates',20.00,28.00,80,'male','L2Monster',80,4814,4325,13.43,3.09,40,43,30,21,20,10,14441,688,1719,793,1144,780,300,300,555,8208,0,0,61,180,NULL,0,0,0),
+	(22175,22175,'Andreas'' Captain of the Royal Guard',0,'',0,'Monster3.zombie_em_knight',20.00,22.00,80,'male','L2Monster',80,4812,430,13.43,3.09,40,43,30,21,20,10,14436,688,1719,793,1144,780,500,500,555,8218,0,0,61,180,NULL,0,1,0),
+	(22176,22176,'Andreas'' Royal Guards',0,'',0,'Monster3.zombie_em_knight',20.00,23.00,85,'male','L2Monster',80,4812,430,13.43,3.09,40,43,25,21,20,10,14436,688,2475,1108,1144,780,300,500,555,8207,0,0,61,180,NULL,0,1,0),
+	(22188,22188,'Andreas'' Captain of the Royal Guard',0,'',0,'Monster3.heretic_priest_120p',20.00,23.00,87,'male','L2Monster',80,4899,4599,13.43,3.09,40,43,31,21,20,10,14698,700,2682,960,1566,780,300,500,555,8206,0,0,61,180,NULL,0,0,0),
+	(22189,22189,'Andreas'' Royal Guards',0,'',0,'Monster3.heretic_privates_120p',22.00,34.00,86,'male','L2Monster',80,4858,2439,13.43,3.09,40,43,32,21,20,10,14574,694,2682,960,1566,780,460,500,555,8208,0,0,61,180,NULL,0,0,0),
+	(22190,22190,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20.00,23.00,86,'male','L2Monster',80,4858,2439,13.43,3.09,40,43,30,21,20,10,14574,694,1883,793,1144,780,300,0,555,0,0,0,61,180,NULL,0,1,0),
+	(22191,22191,'Andreas'' Captain of the Royal Guard',0,'',0,'Monster3.heretic_priest_120p',20.00,23.00,87,'male','L2Monster',80,7350,4560,13.43,3.09,40,43,30,21,20,10,22049,1050,1719,793,1144,780,300,300,555,8206,0,0,61,180,NULL,0,0,0),
 	(22192,22192,'Andreas'' Royal Guards',0,'',0,'Monster3.heretic_privates_120p',20.00,23.00,86,'male','L2Monster',80,9716,2439,13.43,3.09,40,43,30,21,20,10,29148,1388,1719,793,1144,780,300,500,555,8206,0,0,61,180,NULL,0,0,0),
 	(22193,22193,'Andreas'' Royal Guards',0,'',0,'Monster3.heretic_privates_120p',20.00,23.00,86,'male','L2Monster',80,9716,2439,13.43,3.09,40,43,30,21,20,10,29148,1388,1719,793,1144,780,600,500,555,8206,0,0,61,180,NULL,0,0,0),
-	(22194,22194,'Penance Guard',0,'',0,'Monster3.zombie_gateguard_slp',44.00,27.00,80,'male','L2Monster',80,4608,1566,13.43,3.09,40,43,30,21,20,10,6912,329,2475,1108,1544,780,300,300,555,8217,0,0,0,0,NULL,0,1,0),
-	(22195,22195,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20.00,31.00,99,'male','L2Monster',80,100000,9999,13.43,3.09,40,43,30,21,20,10,12331,2001,3109,755,1893,651,278,0,333,0,0,0,88,132,NULL,0,0,0),
+	(22194,22194,'Penance Guard',0,'',0,'Monster3.zombie_gateguard_slp',44.00,27.00,80,'male','L2Monster',80,4608,1566,13.43,3.09,40,43,30,21,20,10,13824,658,2475,1108,1544,780,300,300,555,8217,0,0,0,0,NULL,0,1,0),
+	(22195,22195,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20.00,31.00,99,'male','L2Monster',80,100000,9999,13.43,3.09,40,43,30,21,20,10,3083,500,3109,755,1893,651,278,0,333,0,0,0,88,132,NULL,0,0,0),
 	(22196,22196,'Velociraptor',0,'',0,'Monster3.velociraptor',19.00,47.20,86,'male','L2Monster',80,25106,2296,13.43,3.09,40,43,30,21,20,10,11031,1351,2199,625,1373,521,278,1000,333,0,0,0,88,188,'dino',500,0,0),
 	(22197,22197,'Velociraptor',0,'',0,'Monster3.velociraptor',19.00,47.20,86,'male','L2Monster',80,12553,2296,13.43,3.09,40,43,30,21,20,10,11031,1351,2199,625,1373,521,278,1000,333,0,0,0,88,188,'dino',500,0,0),
 	(22198,22198,'Velociraptor',0,'',0,'Monster3.velociraptor',19.00,47.20,86,'male','L2Monster',80,25106,2296,13.43,3.09,40,43,30,21,20,10,11031,1351,2199,625,1373,521,278,1000,333,0,0,0,88,188,'dino',500,0,0),
@@ -4128,7 +4128,6 @@ INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSide
 	(30035,30035,'Harrys',0,'Magister',0,'NPC.a_mageguild_teacher_MHuman',8.00,23.00,70,'male','L2Trainer',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,NULL,0,1,0),
 	(30036,30036,'Petron',0,'Priest',0,'NPC.a_sanctuary_teacher_MHuman',8.00,23.00,70,'male','L2Trainer',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,NULL,0,1,0),
 	(30037,30037,'Levian',0,'High Priestess',0,'NPC.a_sanctuary_teacher_FHuman',8.00,22.50,70,'female','L2VillageMaster',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,NULL,0,1,0),
-	(30038,30175,'Andromeda', 1,'Wedding Priest',1,'NPC.a_casino_FDarkElf',8.00,23.00,70,'female','L2WeddingManager',40,3862,1493,11.85,2.78,40,43,30,21,35,10,5879,590,1314,470,780,382,278,0,253,0,0,0,80,120,NULL,0,1,0),
 	(30039,30039,'Gilbert',0,'Captain',0,'NPC.a_guard_MHuman',8.00,24.00,80,'male','L2Guard',40,4551,1859,13.43,3.09,40,43,30,21,20,10,0,0,1814,576,1144,468,278,1000,333,129,102,0,55,176,NULL,0,1,0),
 	(30040,30040,'Leon',0,'Guard',0,'NPC.a_guard_MHuman',8.00,24.00,80,'male','L2Guard',1100,4551,1859,13.43,3.09,40,43,30,21,20,10,0,0,4031,576,1144,468,249,1000,333,275,0,0,55,176,NULL,0,1,0),
 	(30041,30041,'Arnold',0,'Guard',0,'NPC.a_guard_MHuman',8.00,24.00,80,'male','L2Guard',1100,4551,1859,13.43,3.09,40,43,30,21,20,10,0,0,4031,576,1144,468,249,1000,333,275,0,0,55,176,NULL,0,1,0),
@@ -6006,7 +6005,7 @@ INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSide
 	(35060,35060,'Nephilim Mercenary',0,'',0,'Monster3.Kight_of_Dawn',10.00,41.50,75,'male','L2Npc',40,189460,855,641.88,2.35,84,71,73,76,70,80,562,1,5261,1047,3228,425,526,0,3819,0,0,0,105,315,'mercenary_siege_clan',1200,1,0),
 	(35061,35061,'Nephilim Mercenary',0,'',0,'Monster3.Elite_Mage',23.00,40.50,72,'male','L2Npc',40,185726,800,640.80,2.35,84,71,73,76,70,80,518,1,4792,983,2909,399,613,0,3819,7,0,0,81,315,'mercenary_siege_clan',1200,1,0),
 	(35062,35062,'Headquarters',0,'',0,'Deco.flag_a',21.00,82.00,1,'etc','L2Npc',40,158000,989,3.16,0.91,40,43,30,21,20,10,0,0,652,753,358,295,423,0,333,0,0,0,55,132,NULL,0,1,0),
-	(35063,35063,'Gludio Holy Artifact',0,'',0,'NPC.castle_kent_statue_jewel',15.00,23.00,70,'etc','L2Artefact',40,55449,3958,11.85,2.78,40,43,30,21,20,10,422,1,4308,418,619,340,278,0,333,79,0,0,88,132,'gludio_siege_clan',1200,1,0),
+	(35063,35063,'Gludio Holy Artifact',0,'',0,'NPC.castle_kent_statue_jewel',25.00,98.00,20,'etc','L2Artefact',40,541,213,3.95,1.21,40,43,30,21,20,10,40,10,57,94,23,76,282,0,333,0,0,0,55,0,NULL,0,1,0),
 	(35064,35064,'Baron Lewin Waldner',0,'',0,'NPC.a_lord_MHuman',7.00,23.00,65,'male','L2SiegeGuard',40,55449,3958,11.85,2.78,40,43,30,21,20,10,422,1,4308,418,619,340,278,0,333,79,0,0,55,132,'gludio_siege_clan',1200,1,0),
 	(35065,35065,'Cronenberg',0,'Sir',0,'NPC.a_royal_guardA_MHuman',7.00,24.00,62,'male','L2SiegeGuard',40,51515,3653,11.85,2.78,40,43,30,21,20,10,384,1,3777,388,532,315,278,0,333,142,0,0,55,132,'gludio_siege_clan',1200,1,0),
 	(35066,35066,'Royal Knight',0,'Gludio',0,'NPC.a_royal_guardA_MHuman',7.00,24.00,60,'male','L2SiegeGuard',40,24436,3452,10.27,2.45,40,43,30,21,20,10,360,1,1721,368,478,299,278,0,333,76,2497,0,55,132,'gludio_siege_clan',1200,1,0),
@@ -6264,8 +6263,8 @@ INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSide
 	(35318,35318,'Solinus',0,'Mercenary Manager',0,'NPC.a_common_peopleA_MHuman',8.00,21.50,70,'male','L2MercManager',40,3862,1493,11.85,2.78,40,43,30,21,20,10,490,10,1335,470,780,382,278,0,333,0,0,0,55,132,NULL,0,1,0),
 	(35319,35319,'Manor Manager',0,'Innadril',0,'NPC.a_chamberlain_MHuman',9.50,22.50,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,NULL,0,1,0),
 	(35320,35320,'Raybell',0,'Sir',0,'NPC.a_guard_MHuman',8.00,24.00,70,'male','L2SiegeNpc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,490,10,1314,470,780,382,282,0,333,74,0,0,55,176,NULL,0,1,0),
-	(35322,35322,'Altar of Fire',0,'',0,'NPC.godad_holything',8.00,24.00,56,'male','L2Artefact',40,3633,1019,1.90,1.21,40,43,30,21,20,10,313,10,706,662,382,268,282,0,333,0,0,0,55,132,'aden_siege_clan',600,1,0),
-	(35323,35323,'Altar of Water',0,'',0,'NPC.godad_holything',24.00,65.00,20,'etc','L2Artefact',40,558,213,1.90,1.21,40,43,30,21,20,10,0,0,57,97,23,79,278,0,333,0,0,0,55,132,NULL,0,1,0),
+	(35322,35322,'Altar of Fire',0,'',0,'NPC.godad_holything',25.00,65.00,20,'etc','L2Artefact',40,541,213,3.95,1.21,40,43,30,21,20,10,40,10,57,94,23,76,282,0,333,0,0,0,55,0,NULL,0,1,0),
+	(35323,35323,'Altar of Water',0,'',0,'NPC.godad_holything',25.00,65.00,20,'etc','L2Artefact',40,541,213,3.95,1.21,40,43,30,21,20,10,40,10,57,94,23,76,282,0,333,0,0,0,55,0,NULL,0,1,0),
 	(35324,35324,'Heinz',0,'Royal Guard Captain',0,'NPC.e_elmore_guard_Mhuman',8.00,23.50,62,'male','L2SiegeGuard',40,51515,3653,11.85,2.78,40,43,30,21,20,10,384,1,3777,388,532,315,278,0,333,142,0,0,55,132,'godad_siege_clan',1200,1,0),
 	(35325,35325,'Duke Mora Ken Abygail',0,'',0,'NPC.a_lord_MHuman',8.00,24.00,56,'male','L2SiegeNpc',40,2725,1019,10.27,2.45,40,43,30,21,20,10,313,10,706,331,382,268,282,0,333,0,0,0,55,132,'godad_siege_clan',600,1,0),
 	(35326,35326,'Royal Knight',0,'Goddard',0,'NPC.a_royal_guardA_MHuman',8.00,24.00,56,'male','L2SiegeGuard',40,24436,1019,10.27,2.45,40,43,30,21,20,10,313,10,706,331,382,268,282,0,333,76,2497,0,55,132,'godad_siege_clan',600,1,0),
@@ -6691,6 +6690,329 @@ Where
 id
 in
 (18196,18197,18198,18199,18200,18201,18202,18203,18204,18205,18206,18207,18208,18209,18210,18211,18256);
+
+update `npc` set `type` = 'L2Minion' where id = 29064;
+
+-- EXP / SP fix for Minons
+update `npc` set `exp` = 2712, `sp` = 128 where `id` = 25002;
+update `npc` set `exp` = 2712, `sp` = 128 where `id` = 25003;
+update `npc` set `exp` = 4108, `sp` = 220 where `id` = 25005;
+update `npc` set `exp` = 4108, `sp` = 220 where `id` = 25006;
+update `npc` set `exp` = 8072, `sp` = 528 where `id` = 25008;
+update `npc` set `exp` = 8072, `sp` = 528 where `id` = 25009;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25011;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25012;
+update `npc` set `exp` = 11528, `sp` = 852 where `id` = 25014;
+update `npc` set `exp` = 11528, `sp` = 852 where `id` = 25015;
+update `npc` set `exp` = 16712, `sp` = 1428 where `id` = 25017;
+update `npc` set `exp` = 16712, `sp` = 1428 where `id` = 25018;
+update `npc` set `exp` = 5228, `sp` = 300 where `id` = 25021;
+update `npc` set `exp` = 5228, `sp` = 300 where `id` = 25022;
+update `npc` set `exp` = 5228, `sp` = 300 where `id` = 25024;
+update `npc` set `exp` = 5228, `sp` = 300 where `id` = 25025;
+update `npc` set `exp` = 11060, `sp` = 808 where `id` = 25027;
+update `npc` set `exp` = 11060, `sp` = 808 where `id` = 25028;
+update `npc` set `exp` = 12980, `sp` = 1004 where `id` = 25030;
+update `npc` set `exp` = 12980, `sp` = 1004 where `id` = 25031;
+update `npc` set `exp` = 19660, `sp` = 1800 where `id` = 25033;
+update `npc` set `exp` = 19660, `sp` = 1800 where `id` = 25034;
+update `npc` set `exp` = 22852, `sp` = 2260 where `id` = 25036;
+update `npc` set `exp` = 22852, `sp` = 2260 where `id` = 25037;
+update `npc` set `exp` = 3676, `sp` = 188 where `id` = 25039;
+update `npc` set `exp` = 3676, `sp` = 188 where `id` = 25040;
+update `npc` set `exp` = 5552, `sp` = 324 where `id` = 25042;
+update `npc` set `exp` = 5552, `sp` = 324 where `id` = 25043;
+update `npc` set `exp` = 10160, `sp` = 720 where `id` = 25045;
+update `npc` set `exp` = 10160, `sp` = 720 where `id` = 25046;
+update `npc` set `exp` = 11060, `sp` = 808 where `id` = 25048;
+update `npc` set `exp` = 11060, `sp` = 808 where `id` = 25049;
+update `npc` set `exp` = 19660, `sp` = 1800 where `id` = 25052;
+update `npc` set `exp` = 19660, `sp` = 1800 where `id` = 25053;
+update `npc` set `exp` = 26256, `sp` = 2800 where `id` = 25055;
+update `npc` set `exp` = 26256, `sp` = 2800 where `id` = 25056;
+update `npc` set `exp` = 9296, `sp` = 636 where `id` = 25058;
+update `npc` set `exp` = 9296, `sp` = 636 where `id` = 25059;
+update `npc` set `exp` = 2900, `sp` = 140 where `id` = 25061;
+update `npc` set `exp` = 2900, `sp` = 140 where `id` = 25062;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25065;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25066;
+update `npc` set `exp` = 12488, `sp` = 952 where `id` = 25068;
+update `npc` set `exp` = 12488, `sp` = 952 where `id` = 25069;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25071;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25072;
+update `npc` set `exp` = 22204, `sp` = 2160 where `id` = 25074;
+update `npc` set `exp` = 22204, `sp` = 2160 where `id` = 25075;
+update `npc` set `exp` = 3088, `sp` = 152 where `id` = 25077;
+update `npc` set `exp` = 3088, `sp` = 152 where `id` = 25078;
+update `npc` set `exp` = 4108, `sp` = 220 where `id` = 25080;
+update `npc` set `exp` = 1329218, `sp` = 122342 where `id` = 25081;
+update `npc` set `exp` = 6932, `sp` = 432 where `id` = 25083;
+update `npc` set `exp` = 6932, `sp` = 432 where `id` = 25084;
+update `npc` set `exp` = 8876, `sp` = 600 where `id` = 25086;
+update `npc` set `exp` = 8876, `sp` = 600 where `id` = 25087;
+update `npc` set `exp` = 16148, `sp` = 1364 where `id` = 25090;
+update `npc` set `exp` = 16148, `sp` = 1364 where `id` = 25091;
+update `npc` set `exp` = 22852, `sp` = 2260 where `id` = 25093;
+update `npc` set `exp` = 22852, `sp` = 2260 where `id` = 25094;
+update `npc` set `exp` = 3892, `sp` = 204 where `id` = 25096;
+update `npc` set `exp` = 3892, `sp` = 204 where `id` = 25097;
+update `npc` set `exp` = 8876, `sp` = 600 where `id` = 25100;
+update `npc` set `exp` = 8876, `sp` = 600 where `id` = 25101;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25104;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25105;
+update `npc` set `exp` = 18452, `sp` = 1644 where `id` = 25107;
+update `npc` set `exp` = 18452, `sp` = 1644 where `id` = 25108;
+update `npc` set `exp` = 25556, `sp` = 2684 where `id` = 25110;
+update `npc` set `exp` = 25556, `sp` = 2684 where `id` = 25111;
+update `npc` set `exp` = 4108, `sp` = 220 where `id` = 25113;
+update `npc` set `exp` = 4108, `sp` = 220 where `id` = 25114;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25116;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25117;
+update `npc` set `exp` = 11528, `sp` = 852 where `id` = 25120;
+update `npc` set `exp` = 11528, `sp` = 852 where `id` = 25121;
+update `npc` set `exp` = 14524, `sp` = 1172 where `id` = 25123;
+update `npc` set `exp` = 14524, `sp` = 1172 where `id` = 25124;
+update `npc` set `exp` = 4916, `sp` = 276 where `id` = 25129;
+update `npc` set `exp` = 4916, `sp` = 276 where `id` = 25130;
+update `npc` set `exp` = 11528, `sp` = 852 where `id` = 25132;
+update `npc` set `exp` = 11528, `sp` = 852 where `id` = 25133;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25135;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25136;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25138;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25139;
+update `npc` set `exp` = 19660, `sp` = 1800 where `id` = 25141;
+update `npc` set `exp` = 19660, `sp` = 1800 where `id` = 25142;
+update `npc` set `exp` = 29156, `sp` = 3304 where `id` = 25144;
+update `npc` set `exp` = 29156, `sp` = 3304 where `id` = 25145;
+update `npc` set `exp` = 2356, `sp` = 104 where `id` = 25147;
+update `npc` set `exp` = 2356, `sp` = 104 where `id` = 25148;
+update `npc` set `exp` = 3088, `sp` = 152 where `id` = 25150;
+update `npc` set `exp` = 3088, `sp` = 152 where `id` = 25151;
+update `npc` set `exp` = 5552, `sp` = 324 where `id` = 25153;
+update `npc` set `exp` = 5552, `sp` = 324 where `id` = 25154;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25156;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25157;
+update `npc` set `exp` = 13484, `sp` = 1060 where `id` = 25160;
+update `npc` set `exp` = 13484, `sp` = 1060 where `id` = 25161;
+update `npc` set `exp` = 3088, `sp` = 152 where `id` = 25167;
+update `npc` set `exp` = 3088, `sp` = 152 where `id` = 25168;
+update `npc` set `exp` = 6572, `sp` = 404 where `id` = 25171;
+update `npc` set `exp` = 6572, `sp` = 404 where `id` = 25172;
+update `npc` set `exp` = 9296, `sp` = 636 where `id` = 25174;
+update `npc` set `exp` = 9296, `sp` = 636 where `id` = 25175;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25177;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25178;
+update `npc` set `exp` = 16712, `sp` = 1428 where `id` = 25180;
+update `npc` set `exp` = 16712, `sp` = 1428 where `id` = 25181;
+update `npc` set `exp` = 19660, `sp` = 1800 where `id` = 25183;
+update `npc` set `exp` = 19660, `sp` = 1800 where `id` = 25184;
+update `npc` set `exp` = 5552, `sp` = 324 where `id` = 25186;
+update `npc` set `exp` = 5552, `sp` = 324 where `id` = 25187;
+update `npc` set `exp` = 5228, `sp` = 300 where `id` = 25190;
+update `npc` set `exp` = 5228, `sp` = 300 where `id` = 25191;
+update `npc` set `exp` = 8468, `sp` = 564 where `id` = 25193;
+update `npc` set `exp` = 8468, `sp` = 564 where `id` = 25194;
+update `npc` set `exp` = 24188, `sp` = 2464 where `id` = 25200;
+update `npc` set `exp` = 24188, `sp` = 2464 where `id` = 25201;
+update `npc` set `exp` = 25556, `sp` = 2684 where `id` = 25203;
+update `npc` set `exp` = 25556, `sp` = 2684 where `id` = 25204;
+update `npc` set `exp` = 26968, `sp` = 2920 where `id` = 25206;
+update `npc` set `exp` = 26968, `sp` = 2920 where `id` = 25207;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25209;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25210;
+update `npc` set `exp` = 5884, `sp` = 348 where `id` = 25212;
+update `npc` set `exp` = 5884, `sp` = 348 where `id` = 25213;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25215;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25216;
+update `npc` set `exp` = 11528, `sp` = 852 where `id` = 25218;
+update `npc` set `exp` = 11528, `sp` = 852 where `id` = 25219;
+update `npc` set `exp` = 24868, `sp` = 2572 where `id` = 25221;
+update `npc` set `exp` = 24868, `sp` = 2572 where `id` = 25222;
+update `npc` set `exp` = 5552, `sp` = 324 where `id` = 25224;
+update `npc` set `exp` = 5552, `sp` = 324 where `id` = 25225;
+update `npc` set `exp` = 17860, `sp` = 1572 where `id` = 25227;
+update `npc` set `exp` = 17860, `sp` = 1572 where `id` = 25228;
+update `npc` set `exp` = 15056, `sp` = 1236 where `id` = 25231;
+update `npc` set `exp` = 15056, `sp` = 1236 where `id` = 25232;
+update `npc` set `exp` = 24188, `sp` = 2464 where `id` = 25236;
+update `npc` set `exp` = 24188, `sp` = 2464 where `id` = 25237;
+update `npc` set `exp` = 20912, `sp` = 1972 where `id` = 25239;
+update `npc` set `exp` = 20912, `sp` = 1972 where `id` = 25240;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25242;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25243;
+update `npc` set `exp` = 28416, `sp` = 3172 where `id` = 25246;
+update `npc` set `exp` = 28416, `sp` = 3172 where `id` = 25247;
+update `npc` set `exp` = 26256, `sp` = 2800 where `id` = 25250;
+update `npc` set `exp` = 26256, `sp` = 2800 where `id` = 25251;
+update `npc` set `exp` = 22852, `sp` = 2260 where `id` = 25253;
+update `npc` set `exp` = 22852, `sp` = 2260 where `id` = 25254;
+update `npc` set `exp` = 16712, `sp` = 1428 where `id` = 25257;
+update `npc` set `exp` = 16712, `sp` = 1428 where `id` = 25258;
+update `npc` set `exp` = 9296, `sp` = 636 where `id` = 25261;
+update `npc` set `exp` = 9296, `sp` = 636 where `id` = 25262;
+update `npc` set `exp` = 20912, `sp` = 1972 where `id` = 25264;
+update `npc` set `exp` = 0, `sp` = 0 where `id` = 25265;
+update `npc` set `exp` = 26256, `sp` = 2800 where `id` = 25267;
+update `npc` set `exp` = 26256, `sp` = 2800 where `id` = 25268;
+update `npc` set `exp` = 22852, `sp` = 2260 where `id` = 25270;
+update `npc` set `exp` = 22852, `sp` = 2260 where `id` = 25271;
+update `npc` set `exp` = 6742, `sp` = 730 where `id` = 25274;
+update `npc` set `exp` = 6742, `sp` = 730 where `id` = 25275;
+update `npc` set `exp` = 11528, `sp` = 852 where `id` = 25278;
+update `npc` set `exp` = 11528, `sp` = 852 where `id` = 25279;
+update `npc` set `exp` = 29908, `sp` = 3440 where `id` = 25284;
+update `npc` set `exp` = 29908, `sp` = 3440 where `id` = 25285;
+update `npc` set `exp` = 29908, `sp` = 3440 where `id` = 25287;
+update `npc` set `exp` = 29908, `sp` = 3440 where `id` = 25288;
+update `npc` set `exp` = 29908, `sp` = 3440 where `id` = 25289;
+update `npc` set `exp` = 28416, `sp` = 3172 where `id` = 25291;
+update `npc` set `exp` = 28416, `sp` = 3172 where `id` = 25292;
+update `npc` set `exp` = 28416, `sp` = 3172 where `id` = 25294;
+update `npc` set `exp` = 28416, `sp` = 3172 where `id` = 25295;
+update `npc` set `exp` = 25556, `sp` = 2684 where `id` = 25297;
+update `npc` set `exp` = 25556, `sp` = 2684 where `id` = 25298;
+update `npc` set `exp` = 29908, `sp` = 3440 where `id` = 25300;
+update `npc` set `exp` = 29908, `sp` = 3440 where `id` = 25301;
+update `npc` set `exp` = 33008, `sp` = 4024 where `id` = 25303;
+update `npc` set `exp` = 33008, `sp` = 4024 where `id` = 25304;
+update `npc` set `exp` = 35436, `sp` = 4504 where `id` = 25307;
+update `npc` set `exp` = 35436, `sp` = 4504 where `id` = 25308;
+update `npc` set `exp` = 29908, `sp` = 3440 where `id` = 25310;
+update `npc` set `exp` = 29908, `sp` = 3440 where `id` = 25311;
+update `npc` set `exp` = 33008, `sp` = 4024 where `id` = 25313;
+update `npc` set `exp` = 33008, `sp` = 4024 where `id` = 25314;
+update `npc` set `exp` = 35436, `sp` = 4504 where `id` = 25317;
+update `npc` set `exp` = 35436, `sp` = 4504 where `id` = 25318;
+update `npc` set `exp` = 33808, `sp` = 4180 where `id` = 25320;
+update `npc` set `exp` = 33808, `sp` = 4180 where `id` = 25321;
+update `npc` set `exp` = 20280, `sp` = 1884 where `id` = 25323;
+update `npc` set `exp` = 20280, `sp` = 1884 where `id` = 25324;
+update `npc` set `exp` = 22852, `sp` = 2260 where `id` = 25326;
+update `npc` set `exp` = 22852, `sp` = 2260 where `id` = 25327;
+update `npc` set `exp` = 6922, `sp` = 761 where `id` = 25329;
+update `npc` set `exp` = 6922, `sp` = 761 where `id` = 25330;
+update `npc` set `exp` = 6922, `sp` = 761 where `id` = 25331;
+update `npc` set `exp` = 6922, `sp` = 761 where `id` = 25332;
+update `npc` set `exp` = 346100, `sp` = 38050 where `id` = 25340;
+update `npc` set `exp` = 346100, `sp` = 38050 where `id` = 25341;
+update `npc` set `exp` = 346100, `sp` = 38050 where `id` = 25343;
+update `npc` set `exp` = 346100, `sp` = 38050 where `id` = 25344;
+update `npc` set `exp` = 346100, `sp` = 38050 where `id` = 25345;
+update `npc` set `exp` = 346100, `sp` = 38050 where `id` = 25347;
+update `npc` set `exp` = 346100, `sp` = 38050 where `id` = 25348;
+update `npc` set `exp` = 346100, `sp` = 38050 where `id` = 25350;
+update `npc` set `exp` = 346100, `sp` = 38050 where `id` = 25351;
+update `npc` set `exp` = 4108, `sp` = 220 where `id` = 25353;
+update `npc` set `exp` = 5552, `sp` = 324 where `id` = 25355;
+update `npc` set `exp` = 5552, `sp` = 324 where `id` = 25356;
+update `npc` set `exp` = 2356, `sp` = 104 where `id` = 25358;
+update `npc` set `exp` = 2356, `sp` = 104 where `id` = 25359;
+update `npc` set `exp` = 3276, `sp` = 164 where `id` = 25361;
+update `npc` set `exp` = 2712, `sp` = 128 where `id` = 25363;
+update `npc` set `exp` = 2712, `sp` = 128 where `id` = 25364;
+update `npc` set `exp` = 2712, `sp` = 128 where `id` = 25367;
+update `npc` set `exp` = 2712, `sp` = 128 where `id` = 25368;
+update `npc` set `exp` = 3088, `sp` = 152 where `id` = 25370;
+update `npc` set `exp` = 3088, `sp` = 152 where `id` = 25371;
+update `npc` set `exp` = 2356, `sp` = 104 where `id` = 25374;
+update `npc` set `exp` = 2240, `sp` = 100 where `id` = 25376;
+update `npc` set `exp` = 2240, `sp` = 100 where `id` = 25377;
+update `npc` set `exp` = 2240, `sp` = 100 where `id` = 25379;
+update `npc` set `exp` = 2240, `sp` = 100 where `id` = 25381;
+update `npc` set `exp` = 2240, `sp` = 100 where `id` = 25382;
+update `npc` set `exp` = 5228, `sp` = 300 where `id` = 25384;
+update `npc` set `exp` = 5884, `sp` = 348 where `id` = 25386;
+update `npc` set `exp` = 5884, `sp` = 348 where `id` = 25387;
+update `npc` set `exp` = 5552, `sp` = 324 where `id` = 25389;
+update `npc` set `exp` = 5552, `sp` = 324 where `id` = 25390;
+update `npc` set `exp` = 4616, `sp` = 256 where `id` = 25393;
+update `npc` set `exp` = 9296, `sp` = 636 where `id` = 25396;
+update `npc` set `exp` = 9296, `sp` = 636 where `id` = 25397;
+update `npc` set `exp` = 5552, `sp` = 324 where `id` = 25399;
+update `npc` set `exp` = 5552, `sp` = 324 where `id` = 25400;
+update `npc` set `exp` = 4616, `sp` = 256 where `id` = 25402;
+update `npc` set `exp` = 4616, `sp` = 256 where `id` = 25403;
+update `npc` set `exp` = 4916, `sp` = 276 where `id` = 25405;
+update `npc` set `exp` = 4916, `sp` = 276 where `id` = 25406;
+update `npc` set `exp` = 16712, `sp` = 1428 where `id` = 25408;
+update `npc` set `exp` = 16712, `sp` = 1428 where `id` = 25409;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25411;
+update `npc` set `exp` = 10160, `sp` = 720 where `id` = 25413;
+update `npc` set `exp` = 10160, `sp` = 720 where `id` = 25414;
+update `npc` set `exp` = 5552, `sp` = 324 where `id` = 25416;
+update `npc` set `exp` = 5552, `sp` = 324 where `id` = 25417;
+update `npc` set `exp` = 8876, `sp` = 600 where `id` = 25419;
+update `npc` set `exp` = 10604, `sp` = 760 where `id` = 25421;
+update `npc` set `exp` = 10604, `sp` = 760 where `id` = 25422;
+update `npc` set `exp` = 14524, `sp` = 1172 where `id` = 25424;
+update `npc` set `exp` = 14524, `sp` = 1172 where `id` = 25425;
+update `npc` set `exp` = 3088, `sp` = 152 where `id` = 25427;
+update `npc` set `exp` = 3088, `sp` = 152 where `id` = 25428;
+update `npc` set `exp` = 3088, `sp` = 152 where `id` = 25430;
+update `npc` set `exp` = 8876, `sp` = 600 where `id` = 25432;
+update `npc` set `exp` = 8876, `sp` = 600 where `id` = 25433;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25435;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25436;
+update `npc` set `exp` = 8876, `sp` = 600 where `id` = 25439;
+update `npc` set `exp` = 8876, `sp` = 600 where `id` = 25440;
+update `npc` set `exp` = 9296, `sp` = 636 where `id` = 25442;
+update `npc` set `exp` = 9296, `sp` = 636 where `id` = 25443;
+update `npc` set `exp` = 19660, `sp` = 1800 where `id` = 25445;
+update `npc` set `exp` = 19660, `sp` = 1800 where `id` = 25446;
+update `npc` set `exp` = 23516, `sp` = 2360 where `id` = 25448;
+update `npc` set `exp` = 23516, `sp` = 2360 where `id` = 25449;
+update `npc` set `exp` = 28416, `sp` = 3172 where `id` = 25451;
+update `npc` set `exp` = 28416, `sp` = 3172 where `id` = 25452;
+update `npc` set `exp` = 22852, `sp` = 2260 where `id` = 25454;
+update `npc` set `exp` = 22852, `sp` = 2260 where `id` = 25455;
+update `npc` set `exp` = 11060, `sp` = 808 where `id` = 25457;
+update `npc` set `exp` = 11060, `sp` = 808 where `id` = 25458;
+update `npc` set `exp` = 11060, `sp` = 808 where `id` = 25459;
+update `npc` set `exp` = 12000, `sp` = 904 where `id` = 25461;
+update `npc` set `exp` = 12000, `sp` = 904 where `id` = 25462;
+update `npc` set `exp` = 14524, `sp` = 1172 where `id` = 25464;
+update `npc` set `exp` = 14524, `sp` = 1172 where `id` = 25465;
+update `npc` set `exp` = 14524, `sp` = 1172 where `id` = 25466;
+update `npc` set `exp` = 19052, `sp` = 1720 where `id` = 25468;
+update `npc` set `exp` = 19052, `sp` = 1720 where `id` = 25469;
+update `npc` set `exp` = 20280, `sp` = 1884 where `id` = 25471;
+update `npc` set `exp` = 20280, `sp` = 1884 where `id` = 25472;
+update `npc` set `exp` = 12488, `sp` = 952 where `id` = 25474;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25476;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25477;
+update `npc` set `exp` = 19660, `sp` = 1800 where `id` = 25479;
+update `npc` set `exp` = 19660, `sp` = 1800 where `id` = 25480;
+update `npc` set `exp` = 12980, `sp` = 1004 where `id` = 25482;
+update `npc` set `exp` = 12980, `sp` = 1004 where `id` = 25483;
+update `npc` set `exp` = 11528, `sp` = 852 where `id` = 25485;
+update `npc` set `exp` = 11528, `sp` = 852 where `id` = 25486;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25488;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25489;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25491;
+update `npc` set `exp` = 7304, `sp` = 464 where `id` = 25492;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25494;
+update `npc` set `exp` = 14000, `sp` = 1116 where `id` = 25495;
+update `npc` set `exp` = 12488, `sp` = 952 where `id` = 25497;
+update `npc` set `exp` = 9296, `sp` = 636 where `id` = 25499;
+update `npc` set `exp` = 9296, `sp` = 636 where `id` = 25500;
+update `npc` set `exp` = 1154, `sp` = 64 where `id` = 25502;
+update `npc` set `exp` = 1154, `sp` = 64 where `id` = 25503;
+update `npc` set `exp` = 1733, `sp` = 108 where `id` = 25505;
+update `npc` set `exp` = 30, `sp` = 2 where `id` = 25507;
+update `npc` set `exp` = 30, `sp` = 2 where `id` = 25508;
+update `npc` set `exp` = 30, `sp` = 2 where `id` = 25510;
+update `npc` set `exp` = 440000, `sp` = 40000 where `id` = 25511;
+update `npc` set `exp` = 33008, `sp` = 4024 where `id` = 25515;
+update `npc` set `exp` = 33008, `sp` = 4024 where `id` = 25516;
+update `npc` set `exp` = 30, `sp` = 2 where `id` = 25518;
+update `npc` set `exp` = 30, `sp` = 2 where `id` = 25519;
+update `npc` set `exp` = 6742, `sp` = 730 where `id` = 25525;
+update `npc` set `exp` = 6742, `sp` = 730 where `id` = 25526;
+update `npc` set `exp` = 295, `sp` = 10 where `id` = 27037;
+update `npc` set `exp` = 1081, `sp` = 59 where `id` = 27111;
+update `npc` set `exp` = 1471, `sp` = 1 where `id` = 29003;
+update `npc` set `exp` = 440000, `sp` = 40000 where `id` = 29063;
+update `npc` set `exp` = 440000, `sp` = 40000 where `id` = 29064;
 
 INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`) VALUES
 	(25164,25164,'Pet of Skylancer',0,'Raid Fighter',0,'Monster.skeleton_archer',11.00,27.00,69,'male','L2Minion',500,21176,1493,223.73,8.75,40,43,30,41,35,10,22852,2260,19755,1840,15424,747,249,0,227,279,0,0,80,120,NULL,0,1,0),
