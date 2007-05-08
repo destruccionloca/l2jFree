@@ -11,7 +11,6 @@ CREATE TABLE merchant_shopids (
 --
 -- Dumping data for table `merchant_shopids`
 --
-
 -- General Shops
 
 INSERT INTO merchant_shopids VALUES (1,'30001');
@@ -241,11 +240,14 @@ INSERT INTO merchant_shopids VALUES (5804,'31044');
 INSERT INTO merchant_shopids VALUES (5805,'31044');
 INSERT INTO merchant_shopids VALUES (5806,'31045');
 INSERT INTO merchant_shopids VALUES (5807,'31045');
+INSERT INTO merchant_shopids VALUES (350071,'35007');
 INSERT INTO merchant_shopids VALUES (351021,'35102');
 INSERT INTO merchant_shopids VALUES (351441,'35144');
 INSERT INTO merchant_shopids VALUES (351861,'35186');
 INSERT INTO merchant_shopids VALUES (352281,'35228');
 INSERT INTO merchant_shopids VALUES (352761,'35276');
+INSERT INTO merchant_shopids VALUES (353181,'35318');
+INSERT INTO merchant_shopids VALUES (353651,'35365');
 
 -- Fishermens
 
@@ -358,6 +360,7 @@ INSERT INTO merchant_shopids VALUES (9057,'gm');
 INSERT INTO merchant_shopids VALUES (9058,'gm');
 INSERT INTO merchant_shopids VALUES (9059,'gm');
 INSERT INTO merchant_shopids VALUES (9060,'gm');
+INSERT INTO merchant_shopids VALUES (9061,'gm');
 INSERT INTO merchant_shopids VALUES (9062,'gm');
 INSERT INTO merchant_shopids VALUES (9063,'gm');
 INSERT INTO merchant_shopids VALUES (9064,'gm');
@@ -482,6 +485,8 @@ INSERT INTO merchant_shopids VALUES (300511,'gm');
 INSERT INTO merchant_shopids VALUES (300510,'gm');
 INSERT INTO merchant_shopids VALUES (300410,'gm');
 INSERT INTO merchant_shopids VALUES (300542,'gm');
+INSERT INTO merchant_shopids VALUES (71031, 'gm');
+INSERT INTO merchant_shopids VALUES (71032, 'gm');
 --
 -- Clan Halls Item creation
 --
@@ -572,3 +577,6 @@ INSERT INTO merchant_shopids VALUES (335463, '35463');
 INSERT INTO merchant_shopids VALUES (135461, '35461');
 INSERT INTO merchant_shopids VALUES (235461, '35461');
 INSERT INTO merchant_shopids VALUES (335461, '35461');
+
+-- correction
+delete from `merchant_shopids` where shop_id in (350071,9061);
