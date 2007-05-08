@@ -5585,7 +5585,7 @@ INSERT INTO `merchant_buylists` VALUES (734, 1800, 147, 19, -1, -1, 0, 0);
 INSERT INTO `merchant_buylists` VALUES (736, 600, 147, 20, -1, -1, 0, 0);
 INSERT INTO `merchant_buylists` VALUES (1829, 750, 147, 21, -1, -1, 0, 0);
 INSERT INTO `merchant_buylists` VALUES (5194, 375, 147, 22, -1, -1, 0, 0);
-INSERT INTO `merchant_buylists` VALUES (8153, 1500, 147, 23, -1, -1, 0, 0);
+INSERT INTO `merchant_buylists` VALUES (8153, 2000, 147, 23, -1, -1, 0, 0);
 INSERT INTO `merchant_buylists` VALUES (17, 3, 147, 24, -1, -1, 0, 0);
 INSERT INTO `merchant_buylists` VALUES (1341, 4, 147, 25, -1, -1, 0, 0);
 INSERT INTO `merchant_buylists` VALUES (1342, 7, 147, 26, -1, -1, 0, 0);
