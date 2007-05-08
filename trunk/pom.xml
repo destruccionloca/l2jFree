@@ -4,7 +4,7 @@
 	<groupId>l2jfree</groupId>
 	<artifactId>l2jfreeParent</artifactId>
 	<name>l2jfreeParent</name>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>pom</packaging>
 
 	<scm>
