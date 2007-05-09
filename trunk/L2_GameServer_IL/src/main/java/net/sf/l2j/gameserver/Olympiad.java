@@ -534,20 +534,22 @@ public class Olympiad
             noble.sendMessage("Only your main can unregister");
             return false;
         }*/
+        /*
         if (!_nonClassBasedRegisters.contains(noble))
         {
             sm = new SystemMessage(SystemMessage.YOU_HAVE_NOT_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_A_GAME);
             noble.sendPacket(sm);
             return false;
         }
+        */
         
-        if (!_classBasedRegisters.containsKey(noble.getClassId().getId()))
+        if (!_classBasedRegisters.containsKey(noble.getClassId().getId()) && !_nonClassBasedRegisters.contains(noble))
         {
             sm = new SystemMessage(SystemMessage.YOU_HAVE_NOT_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_A_GAME);
             noble.sendPacket(sm);
             return false;
         }
-        else
+        else if (_classBasedRegisters.containsKey(noble.getClassId().getId()))
         {
             FastList<L2PcInstance> classed = _classBasedRegisters.get(noble.getClassId().getId());
             if (!classed.contains(noble))
