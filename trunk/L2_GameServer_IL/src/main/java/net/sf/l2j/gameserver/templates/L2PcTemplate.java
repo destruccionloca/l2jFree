@@ -36,7 +36,6 @@ public class L2PcTemplate extends L2CharTemplate {
 	
 	public final Race   race;
 	public final String className;
-	public final int    baseLoad;
 	
 	public final int    spawnX;
 	public final int    spawnY;
@@ -59,7 +58,6 @@ public class L2PcTemplate extends L2CharTemplate {
 		classId   = ClassId.values()[set.getInteger("classId")];
 		race      = Race.values()[set.getInteger("raceId")];
 		className = set.getString("className");
-		baseLoad  = set.getInteger("baseLoad");
 		
 		spawnX    = set.getInteger("spawnX");
 		spawnY    = set.getInteger("spawnY");

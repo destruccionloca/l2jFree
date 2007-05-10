@@ -380,7 +380,6 @@ public final class L2PcInstance extends L2PlayableInstance
     
     /** The random number of the L2PcInstance */
     //private static final Random _rnd = new Random();
-    private final int _baseLoad;
     private int _curWeightPenalty = 0;
 
     private long _deleteTimer;
@@ -847,7 +846,6 @@ public final class L2PcInstance extends L2PlayableInstance
         initPcStatusUpdateValues();
         
         _accountName = accountName;
-        _baseLoad     = template.baseLoad;
         _appearance   = app;
         
         // Create an AI
@@ -872,8 +870,6 @@ public final class L2PcInstance extends L2PlayableInstance
         this.getStatus();		// init status
         super.initCharStatusUpdateValues();
         initPcStatusUpdateValues();
-        
-        _baseLoad = 0;
     }
 
 	public final PcKnownList getKnownList()
@@ -1703,7 +1699,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public int getMaxLoad()
     {
-        return (int)calcStat(Stats.MAX_LOAD, _baseLoad, this, null)+Config.ADD_MAX_LOAD;
+        return (int)calcStat(Stats.MAX_LOAD, 69000, this, null) + Config.ADD_MAX_LOAD;
     }
 
     public int getexpertisePenalty()
@@ -1723,10 +1719,11 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void refreshOverloaded()
     {
-        if (getMaxLoad() > 0 && !_dietMode)
+    	int maxLoad = getMaxLoad();
+        if (maxLoad > 0 && !_dietMode)
         {
-            setIsOverloaded(getCurrentLoad() > getMaxLoad());
-            int weightproc = getCurrentLoad() * 1000 / getMaxLoad();
+            setIsOverloaded(getCurrentLoad() > maxLoad);
+            int weightproc = getCurrentLoad() * 1000 / maxLoad;
             int newWeightPenalty;
             if (weightproc < 500) newWeightPenalty = 0;
             else if (weightproc < 666) newWeightPenalty = 1;

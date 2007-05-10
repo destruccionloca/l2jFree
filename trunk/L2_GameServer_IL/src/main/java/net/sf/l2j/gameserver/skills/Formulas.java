@@ -439,6 +439,27 @@ public final class Formulas
         }
     }
     
+    static class FuncMaxLoad extends Func
+    {
+        static final FuncMaxLoad _fms_instance = new FuncMaxLoad();
+        
+        static Func getInstance() 
+        {
+            return _fms_instance;
+        }
+        
+        private FuncMaxLoad()
+        {
+            super(Stats.MAX_LOAD, 0x30, null);
+        }
+        
+        public void calc(Env env)
+        {
+            L2PcInstance p = (L2PcInstance) env._player;
+            env.value *= CONbonus[p.getCON()];
+        }
+    }
+    
     
     static class FuncHennaSTR extends Func
     {
@@ -790,7 +811,7 @@ public final class Formulas
             //cha.addStatFunc(FuncMultLevelMod.getInstance(Stats.POWER_DEFENCE));
             //cha.addStatFunc(FuncMultLevelMod.getInstance(Stats.MAGIC_DEFENCE));
             if(Config.LEVEL_ADD_LOAD)
-                cha.addStatFunc(FuncMultLevelMod.getInstance(Stats.MAX_LOAD));            
+                cha.addStatFunc(FuncMultLevelMod.getInstance(Stats.MAX_LOAD));
             cha.addStatFunc(FuncPAtkMod.getInstance());
             cha.addStatFunc(FuncMAtkMod.getInstance());
             cha.addStatFunc(FuncPDefMod.getInstance());
@@ -801,6 +822,7 @@ public final class Formulas
             cha.addStatFunc(FuncPAtkSpeed.getInstance());
             cha.addStatFunc(FuncMAtkSpeed.getInstance());
             cha.addStatFunc(FuncMoveSpeed.getInstance());
+            cha.addStatFunc(FuncMaxLoad.getInstance());
             
             cha.addStatFunc(FuncHennaSTR.getInstance());
             cha.addStatFunc(FuncHennaDEX.getInstance());
@@ -1483,213 +1505,6 @@ public final class Formulas
         return d > 0;
     }
 
-    public boolean calcSkillSuccessOld(L2Character player, L2Character target, L2Skill skill,
-                                      boolean ss, boolean sps, boolean bss)
-    {
-        if (Config.ALT_GAME_SKILL_FORMULAS.equalsIgnoreCase("alt")
-            || Config.ALT_GAME_SKILL_FORMULAS.equalsIgnoreCase("true"))         
-            return calcAltSkillSuccess(player, target, skill);
-        
-        if (target instanceof L2RaidBossInstance) return false;
-        
-        SkillType type = skill.getSkillType();
-        
-        boolean success = false;
-        int rate = 0;
-        int check = Rnd.get(100);
-        double modifier = 1;
-        double ssmodifier = 1;
-        int value = 1;
-        int maxLevel = SkillTable.getInstance().getMaxLevel(skill.getId(), skill.getLevel());
-        double /*pAtk,*/pDef, mAtk, mDef;
-        if (bss) ssmodifier *= 2;
-        else if (sps) ssmodifier *= 1.5;
-        else if (ss) ssmodifier *= 1.5;
- 
-        switch (type)       
-        {
-            case STUN:
-                // For normal Stun Attack, with skillType = STUN
-                pDef = 1;
-                pDef = target.calcStat(Stats.STUN_RES, pDef, target, null);
-                value = 4800 + (int) (50 * (player.getLevel() - target.getLevel()) + 5100 * ((float) skill.getLevel() / maxLevel));
-                if (pDef > 0) value /= pDef;
-                modifier = 10 * target.getCON() / 3;
-                if (modifier > 0) value /= modifier;
-                value *= ssmodifier;
-                value /= 100;
-                if (!(target instanceof L2RaidBossInstance))
-                {
-                    //min success
-                    if (value < 40) value = 40;
-                    //max success
-                    if (value > 99) value = 99;
-                }
-                rate = value;
-                break;
-            case MDOT:
-            case MANADAM:
-            case CONFUSION:
-                mAtk = player.getMAtk(target, skill);
-                mDef = target.getMDef(player, skill);
-                value = 3000 + (int) (7000 * ((float) skill.getLevel() / maxLevel));
-                if (mDef > 0 && mAtk > 0) value *= 0.6 * mAtk / mDef;
-                modifier = 20 * target.getMEN() / 3;
-                //_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
-                break;
-            case MUTE:
-                mAtk = player.getMAtk(target, skill);
-                mDef = target.getMDef(player, skill);
-                value = 3000 + (int) (7000 * ((float) skill.getLevel() / maxLevel));
-                if (mDef > 0 && mAtk > 0) value *= 0.6 * mAtk / mDef;
-                modifier = 20 * target.getMEN() / 3;
-                //_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
-                break;
-            case MDAM:                
-            case PARALYZE:
-                mAtk = player.getMAtk(target, skill);
-                mDef = target.getMDef(player, skill);
-                value = 5000 + (int) (5000 * ((float) skill.getLevel() / maxLevel));
-                if (mDef > 0 && mAtk > 0) value *= 0.6 * mAtk / mDef;
-                modifier = 20 * target.getMEN() / 3;
-                if (modifier > 0) value /= modifier;
-                value *= ssmodifier;
-                value /= 100;
-                if (!(target instanceof L2RaidBossInstance))
-                {
-                    //min success
-                    if (value < 35) value = 35;
-                    //max success
-                    if (value > 90) value = 90;
-                    rate = value;
-                }
-                //_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
-                break;
-            case SLEEP:
-                mAtk = player.getMAtk(target, skill);
-                mDef = target.getMDef(player, skill);
-                value = 5000 + (int) (5000 * ((float) skill.getLevel() / maxLevel));
-                mDef = target.calcStat(Stats.SLEEP_RES, mDef, target, null);
-                if (mDef > 0 && mAtk > 0) value *= 0.6 * mAtk / mDef;
-                modifier = 20 * target.getWIT() / 3;
-                if (modifier > 0) value /= modifier;
-                value *= ssmodifier;
-                value /= 100;
-                if (!(target instanceof L2RaidBossInstance))
-                {
-                    //min success
-                    if (value < 45) value = 45;
-                    //max success
-                    if (value > 90) value = 90;
-                }
-                rate = value;
-                //_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
-                break;
-            case CANCEL:
-                mAtk = player.getMAtk(target, skill);
-                mDef = target.getMDef(player, skill);
-                value = 5000 + (int) (5000 * ((float) skill.getLevel() / maxLevel));
-                mDef = target.calcStat(Stats.CANCEL_RES, mDef, target, null);
-                if (mDef > 0 && mAtk > 0) value *= 0.6 * mAtk / mDef;
-                modifier = 20 * target.getWIT() / 3;
-                if (modifier > 0) value /= modifier;
-                value *= ssmodifier;
-                value /= 100;
-                if (!(target instanceof L2RaidBossInstance))
-                {
-                    //min success
-                    if (value < 45) value = 45;
-                    //max success
-                    if (value > 90) value = 90;
-                }
-                
-                //rate *= (100 - player.calcStat(Stats.CANCEL_RES, 0, target, null))/100; //TODO check this
-                
-                rate = value;
-                //_log.debug(player.getName()+" matk:"+mAtk+",mdef="+mDef+",value="+value+",modifier="+modifier+",maxlevel="+maxLevel+",level="+skill.getLevel());
-                break;
-            case ROOT:
-                mAtk = player.getMAtk(target, skill);
-                mDef = target.getMDef(player, skill);
-                value = 5000 + (int) (5000 * ((float) skill.getLevel() / maxLevel));
-                mDef = target.calcStat(Stats.ROOT_RES, mDef, target, null);
-                if (mDef > 0 && mAtk > 0) value *= 0.6 * mAtk / mDef;
-                modifier = 10 * target.getWIT() / 3;
-                if (modifier > 0) value /= modifier;
-                value *= ssmodifier;
-                value /= 100;
-                if (!(target instanceof L2RaidBossInstance))
-                {
-                    //min success
-                    if (value < 35) value = 35;
-                    //max success
-                    if (value > 90) value = 90;
-                }
-                rate = value;
-                break;
-            default:
-                // For normal Stun attack with skillType = PDAM
-                //pAtk = (int)skill.getPower();
-                pDef = 1;
-                pDef = target.calcStat(Stats.STUN_RES, pDef, target, null);
-                value = 5000 + (int) (50 * (player.getLevel() - target.getLevel())+ 5000 * ((float) skill.getLevel() / maxLevel));
-                if (pDef > 0) value /= pDef;
-                modifier = 10 * target.getCON() / 3;
-                if (modifier > 0) value /= modifier;
-                value *= ssmodifier;
-                value /= 100;
-                if (!(target instanceof L2RaidBossInstance))
-                {
-                    //min success
-                    if (value < 35) value = 35;
-                    //max success
-                    if (value > 90) value = 90;
-                }
-                rate = value;
-                //          pDef = target.getPDef(player);
-                //          pDef = target.calcStat(Stats.STUN_RES,pDef,target,null);
-                //          value = 30 * 100 + (int)(70 * 100 * ((float)skill.getLevel()/maxLevel));
-                //          value = 100 * 100;
-                //          if (pDef > 0 && pAtk > 0)
-                //          value *= 0.6 * pAtk/pDef;
-                //          modifier    = 100 * target.getCON()/30;
-                break;
-        }
-        
-        if (modifier == 0)
-        {
-            _log.warn("Name: " + target.getName()
-                + " has bad base stat value. Fix datapack or notify dp ppl");
-            modifier = 1;
-        }
-        
-        if (rate == 0)
-            rate = (int) (((player.getLevel() - target.getLevel()) + (int) (value / modifier)) * ssmodifier);        
-        //_log.debug(player.getName()+" rate:"+rate);
-        
-        
-        if (rate > 100) rate = 100;
-        else if (rate < 0) rate = 0;
-        
-        if (target instanceof L2RaidBossInstance)
-        {
-            int cLevel = player.getLevel();
-            int tLevel = target.getLevel();
-            int rRate = 1;
-            if (cLevel > tLevel)
-            {
-                rRate = cLevel - tLevel;
-                if (rRate > 9) rate /= rRate;
-                if (rate < 1) rate = 0;
-            }
-        }
-        
-        if (check > rate) success = false;
-        else success = true;
-        
-        return success;
-    }
-    
     public int calcSkillResistance(SkillType type, L2Character target)
     {
         if (type == null) return 0;
