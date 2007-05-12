@@ -3974,8 +3974,10 @@ public final class L2PcInstance extends L2PlayableInstance
                         boolean isKillerPc = (killer instanceof L2PcInstance);
                         if (isKillerPc && ((L2PcInstance)killer).getClan() != null && getClan() != null && _clan.isAtWarWith(((L2PcInstance) killer).getClanId()) && ((L2PcInstance)killer).getClan().isAtWarWith(_clan.getClanId()))
                         {
-                            ((L2PcInstance) killer).getClan().setReputationScore(((L2PcInstance) killer).getClan().getReputationScore()+2, true);
-                            _clan.setReputationScore(_clan.getReputationScore()-2, true);
+		                    if (getClan().getReputationScore() > 0) // when your reputation score is 0 or below, the other clan cannot acquire any reputation points
+		                		((L2PcInstance) killer).getClan().setReputationScore(((L2PcInstance) killer).getClan().getReputationScore()+2, true);
+		                    if (((L2PcInstance)killer).getClan().getReputationScore() > 0) // when the opposing sides reputation score is 0 or below, your clans reputation score does not decrease
+		                    	_clan.setReputationScore(_clan.getReputationScore()-2, true);
                         }
                         if (Config.ALT_GAME_DELEVEL)
                         {
@@ -4860,7 +4862,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	/**
 	 * Disarm the player's weapon and shield.<BR><BR>
 	 */
-	public synchronized boolean disarmWeapons()
+    public boolean disarmWeapons()
 	{
         // Don't allow disarming a cursed weapon
         if (isCursedWeaponEquiped()) return false;
