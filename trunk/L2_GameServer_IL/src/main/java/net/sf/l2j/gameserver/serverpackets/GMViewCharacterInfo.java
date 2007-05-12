@@ -111,6 +111,44 @@ public class GMViewCharacterInfo extends L2GameServerPacket
 		writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
 		writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
 		writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_FACE));
+		
+		//c6 new h's
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		writeH(0x00);
+		// end of c6 new h's
 
 		writeD(_cha.getPAtk(null));
 		writeD(_cha.getPAtkSpd());

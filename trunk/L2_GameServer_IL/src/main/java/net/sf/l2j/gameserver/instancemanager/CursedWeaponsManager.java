@@ -273,9 +273,15 @@ public class CursedWeaponsManager
     {
         if(Config.ALLOW_CURSED_WEAPONS)
         {
-        CursedWeapon cw = _cursedWeapons.get(item.getItemId());
+        	CursedWeapon cw = _cursedWeapons.get(item.getItemId());
         
-        cw.activate(player, item);
+        	if (player.isCursedWeaponEquiped()) // cannot own 2 cursed swords
+        	{
+        		CursedWeapon cw2 = _cursedWeapons.get(player.getCursedWeaponEquipedId());
+        		cw2.increaseKills();
+        		cw.endOfLife();
+        	}
+        	else cw.activate(player, item);
         }
     }
     
