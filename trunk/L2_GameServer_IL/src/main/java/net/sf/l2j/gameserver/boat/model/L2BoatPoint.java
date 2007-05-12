@@ -17,20 +17,19 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-package net.sf.l2j.gameserver.registry;
+package net.sf.l2j.gameserver.boat.model;
 
-/**
- * 
- * Use to store constant name of service in registry
- * Store it avoid copy paste error and is better for refactoring 
- * when it's needed (or for search)
- */
-public interface IServiceRegistry
+public class L2BoatPoint
 {
-    public static String FORUM = "ForumService";
-    public static String VERSIONNING = "VersionningService";
-    public static String RECIPE = "L2RecipeService";
-    public static String EXTRACTABLE_ITEM = "ExtractableItemsService";
-    public static String CHAR_RECOMMENDATIONS = "CharRecommendationService";
-    public static String BOAT = "BoatService";
-}   
+    public int speed1;
+
+    public int speed2;
+
+    public int x;
+
+    public int y;
+
+    public int z;
+
+    public int time;
+}

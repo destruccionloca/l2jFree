@@ -465,7 +465,7 @@ public class NpcTable
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            FastMap<String, Object> set = npc.getSet();
+            Map<String, Object> set = npc.getSet();
 
             String name = "";
             String values = "";

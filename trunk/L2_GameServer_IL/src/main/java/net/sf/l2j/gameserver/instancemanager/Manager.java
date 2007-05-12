@@ -23,7 +23,6 @@ public class Manager
 	{
 		ArenaManager.getInstance();
 		AuctionManager.getInstance();
-		BoatManager.getInstance();
 		CastleManager.getInstance();
 		ClanHallManager.getInstance();
 		MercTicketManager.getInstance();

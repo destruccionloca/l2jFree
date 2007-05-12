@@ -111,6 +111,14 @@
 	</bean> 
 
 	<!-- 
+		DAO for Boats
+	 -->
+    <bean id="BoatTrajetDAO" class="net.sf.l2j.gameserver.boat.dao.impl.BoatTrajetDAOCsv">
+	</bean> 
+    <bean id="BoatDAO" class="net.sf.l2j.gameserver.boat.dao.impl.BoatDAOCsv">
+	</bean> 
+
+	<!-- 
 		Service to manage versions 
 	 -->
     <bean id="VersionningService" class="net.sf.l2j.tools.versionning.service.VersionningService">
@@ -157,6 +165,18 @@
     <bean id="ExtractableItemsService" class="net.sf.l2j.gameserver.items.service.ExtractableItemsService">
 		<property name="extractableItemsDAO">
 			<ref bean="ExtractableItemsDAO" />
+		</property>
+	</bean> 			
+
+	<!-- 
+		Service to manage Boats 
+	 -->
+    <bean id="BoatService" class="net.sf.l2j.gameserver.boat.service.BoatService">
+		<property name="boatDAO">
+			<ref bean="BoatDAO" />
+		</property>
+		<property name="boatTrajetDAO">
+			<ref bean="BoatTrajetDAO" />
 		</property>
 	</bean> 			
 

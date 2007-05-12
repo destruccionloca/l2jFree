@@ -163,7 +163,7 @@ public class ObjectKnownList
             )
                 if (object instanceof L2BoatInstance && getActiveObject() instanceof L2PcInstance) 
                 {
-                    if(((L2BoatInstance)(object)).GetVehicleDeparture() == null )
+                    if(((L2BoatInstance)(object)).getVehicleDeparture() == null )
                     {
                         //
                     }

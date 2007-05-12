@@ -695,7 +695,7 @@ public final class Config {
     //  *******************************************************************************************
     public static ObjectMapType   	MAP_TYPE;			// Type of map object
     public static ObjectSetType   	SET_TYPE;			// Type of set object
-	public static enum IdFactoryType{Compaction, BitSet, Stack}
+	public static enum IdFactoryType{Compaction, BitSet, Stack, Increment}
     public static IdFactoryType 	IDFACTORY_TYPE;		// ID Factory type
     public static boolean 			BAD_ID_CHECKING;	// Check for bad ID ?
     //  *******************************************************************************************

@@ -26,6 +26,7 @@ import java.util.logging.LogManager;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.boat.service.BoatService;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.ArmorSetsTable;
@@ -338,6 +339,11 @@ public class GameServer
         // ---------------------------------------
         _doorTable = DoorTable.getInstance();
         StaticObjects.getInstance();
+
+        // o Load boat datas
+        // -----------------
+        BoatService boatService =(BoatService)L2Registry.getBean(IServiceRegistry.BOAT);
+        boatService.loadBoatDatas();
         
         // o Load seven signs engine
         // ------------------------

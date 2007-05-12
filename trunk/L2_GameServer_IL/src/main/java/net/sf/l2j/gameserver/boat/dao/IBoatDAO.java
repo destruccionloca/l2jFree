@@ -17,20 +17,33 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-package net.sf.l2j.gameserver.registry;
+package net.sf.l2j.gameserver.boat.dao;
+
+import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 
 /**
  * 
- * Use to store constant name of service in registry
- * Store it avoid copy paste error and is better for refactoring 
- * when it's needed (or for search)
+ * DAO to access to boat 
+ * 
  */
-public interface IServiceRegistry
+public interface IBoatDAO
 {
-    public static String FORUM = "ForumService";
-    public static String VERSIONNING = "VersionningService";
-    public static String RECIPE = "L2RecipeService";
-    public static String EXTRACTABLE_ITEM = "ExtractableItemsService";
-    public static String CHAR_RECOMMENDATIONS = "CharRecommendationService";
-    public static String BOAT = "BoatService";
-}   
+    /**
+     * return a L2BoatInstance associated with this id
+     * @param boatId
+     * @return a L2BoatInstance
+     */
+    public L2BoatInstance getBoat (int boatId);
+
+    /**
+     * return the number of loaded boats
+     * @return the number of boat
+     */
+    public int getNumberOfBoat ();
+    
+    /**
+     * load all boats from data source (file or database)
+     */
+    public void load ();
+
+}

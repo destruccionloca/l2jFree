@@ -56,7 +56,6 @@ public class L2DatabaseFactory
 	{
 		try
 		{
-            
             if ( L2Registry.getApplicationContext() == null )
             {
                 L2Registry.loadRegistry(new String[]{"spring.xml"});

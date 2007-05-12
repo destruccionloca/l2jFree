@@ -129,13 +129,15 @@ public abstract class IdFactory
             case Stack:
                 _instance   = new StackIDFactory();
                 break;
+            case Increment:
+                _instance   = new IncrementIDFactory();
         }
     }
 
     /**
      * Sets all character offline
      */
-    private void setAllCharacterOffline()
+    protected void setAllCharacterOffline()
     {
         java.sql.Connection con2 = null;
         try
@@ -163,7 +165,7 @@ public abstract class IdFactory
     /**
      * Cleans up Database
      */
-    private void cleanUpDB()
+    protected void cleanUpDB()
     {
         java.sql.Connection conn = null;
         try

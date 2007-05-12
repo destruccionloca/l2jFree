@@ -18,10 +18,12 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import net.sf.l2j.gameserver.instancemanager.BoatManager;
+import net.sf.l2j.gameserver.boat.service.BoatService;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.GetOnVehicle;
+import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.geometry.Point3D;
 
 /**
@@ -34,7 +36,9 @@ public class RequestGetOnVehicle extends L2GameClientPacket
     private static final String _C__5C_GETONVEHICLE = "[C] 5C GetOnVehicle";
 
     private int _id, _x, _y, _z;
-    
+
+    private static BoatService boatService = (BoatService)L2Registry.getBean(IServiceRegistry.BOAT);
+
     /**
      * packet type id 0x4a
      * 
@@ -60,7 +64,7 @@ public class RequestGetOnVehicle extends L2GameClientPacket
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null) return;
         
-        L2BoatInstance boat = BoatManager.getInstance().GetBoat(_id);
+        L2BoatInstance boat = boatService.getBoat(_id);
         if (boat == null) return;
         
         GetOnVehicle Gon = new GetOnVehicle(activeChar,boat,_x,_y,_z);
