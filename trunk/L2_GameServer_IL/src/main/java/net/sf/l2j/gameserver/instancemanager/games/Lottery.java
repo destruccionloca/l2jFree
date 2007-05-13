@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager.games;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -91,7 +92,7 @@ public class Lottery
     public void increasePrize(int count)
     {
         _prize += count;
-        java.sql.Connection con = null;        
+        Connection con = null;        
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -125,14 +126,29 @@ public class Lottery
     
     private class startLottery implements Runnable
     {
-    	protected startLottery()
-    	{
-    		// Do nothing
-    	}
-    	
+        protected startLottery()
+        {
+            // Do nothing
+        }
+        
         public void run()
         {
-            java.sql.Connection con = null;
+            if ( restoreLotteryData() )
+            {
+                announceLottery();
+                
+                scheduleEndOfLottery();
+                
+                createNewLottery();
+            }
+        }
+
+        /**
+         * 
+         */
+        private boolean restoreLotteryData()
+        {
+            Connection con = null;
             PreparedStatement statement;
             try
             {
@@ -157,7 +173,7 @@ public class Lottery
                         if (_enddate <= System.currentTimeMillis() + 2 * MINUTE)
                         {
                             (new finishLottery()).run();
-                            return;
+                            return false;
                         }
                         
                         if (_enddate > System.currentTimeMillis())
@@ -177,7 +193,7 @@ public class Lottery
                                                                                 - System.currentTimeMillis()
                                                                                 - 10 * MINUTE);
                             }
-                            return;
+                            return false;
                         }
                     }
                 }
@@ -192,7 +208,14 @@ public class Lottery
             {
                 try { con.close(); } catch (Exception e) {}
             }
-            
+            return true;
+        }
+
+        /**
+         * 
+         */
+        private void announceLottery()
+        {
             if (_log.isDebugEnabled()) _log.info("Lottery: Starting ticket sell for lottery #" + getId() + ".");
             _isSellingTickets = true;
             _isStarted = true;
@@ -200,6 +223,13 @@ public class Lottery
             Announcements.getInstance().announceToAll(
                                                       "Lottery tickets are now available for Lucky Lottery #"
                                                       + getId() + ".");
+        }
+
+        /**
+         * 
+         */
+        private void scheduleEndOfLottery()
+        {
             Calendar finishtime = Calendar.getInstance();
             finishtime.setTimeInMillis(_enddate);
             finishtime.set(Calendar.MINUTE, 0);
@@ -223,7 +253,15 @@ public class Lottery
                                                             - 10 * MINUTE);
             ThreadPoolManager.getInstance().scheduleGeneral(new finishLottery(),
                                                             _enddate - System.currentTimeMillis());
-            
+        }
+
+        /**
+         * @param statement
+         */
+        private void createNewLottery( )
+        {
+            Connection con = null;
+            PreparedStatement statement;
             try
             {
                 con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -249,11 +287,11 @@ public class Lottery
     
     private class stopSellingTickets implements Runnable
     {
-    	protected stopSellingTickets()
-    	{
-    		// Do nothing
-    	}
-    	
+        protected stopSellingTickets()
+        {
+            // Do nothing
+        }
+        
         public void run()
         {
             if (_log.isDebugEnabled()) _log.info("Lottery: Stopping ticket sell for lottery #" + getId() + ".");
@@ -265,11 +303,11 @@ public class Lottery
     
     private class finishLottery implements Runnable
     {
-    	protected finishLottery()
-    	{
-    		// Do nothing
-    	}
-    	
+        protected finishLottery()
+        {
+            // Do nothing
+        }
+        
         public void run()
         {
             if (_log.isDebugEnabled()) _log.info("Lottery: Ending lottery #" + getId() + ".");
@@ -293,7 +331,7 @@ public class Lottery
                 luckynums[i] = luckynum;
             }
             
-            if (_log.isDebugEnabled()) _log.info("Lottery: The lucky numbers are "
+            if (_log.isDebugEnabled()) _log.debug("Lottery: The lucky numbers are "
                                         + luckynums[0] + ", " + luckynums[1] + ", "
                                         + luckynums[2] + ", " + luckynums[3] + ", " + luckynums[4] + ".");
             
@@ -306,14 +344,14 @@ public class Lottery
                 else type2 += Math.pow(2, luckynums[i] - 17);
             }
             
-            if (_log.isDebugEnabled()) _log.info("Lottery: Encoded lucky numbers are " + enchant + ", " + type2);
+            if (_log.isDebugEnabled()) _log.debug("Lottery: Encoded lucky numbers are " + enchant + ", " + type2);
             
             int count1 = 0;
             int count2 = 0;
             int count3 = 0;
             int count4 = 0;
             
-            java.sql.Connection con = null;
+            Connection con = null;
             PreparedStatement statement;
             try
             {
@@ -407,11 +445,12 @@ public class Lottery
                 sm.addNumber(getPrize());
                 Announcements.getInstance().announceToAll(sm);
             }
-            
+            Connection con2 = null;
             try
             {
-                con = L2DatabaseFactory.getInstance().getConnection(con);
-                statement = con.prepareStatement(UPDATE_LOTTERY);
+                
+                con2 = L2DatabaseFactory.getInstance().getConnection(con2);
+                statement = con2.prepareStatement(UPDATE_LOTTERY);
                 statement.setInt(1, getPrize());
                 statement.setInt(2, newprize);
                 statement.setInt(3, enchant);
@@ -429,7 +468,7 @@ public class Lottery
             }
             finally
             {
-                try { con.close(); } catch (Exception e) {}
+                try { con2.close(); } catch (Exception e) {}
             }
             
             ThreadPoolManager.getInstance().scheduleGeneral(new startLottery(), 1 * MINUTE);
@@ -483,7 +522,7 @@ public class Lottery
     {
         int res[] = {0, 0};
         
-        java.sql.Connection con = null;
+        Connection con = null;
         PreparedStatement statement;
         
         try
