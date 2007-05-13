@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
-<skill id="400" levels="10" name="Tribunal">
+<skill id="400" levels="10" name="Tribunal" enchantLevels1="30">
   <table name="#mpConsume"> 55 58 62 64 66 68 70 72 74 76</table>
-  <table name="#power"> 240.0 262.0 284.0 308.0 332.0 357.0 382.0 407.0 432.0 457.0</table>
+  <table name="#power"> 642 732 796 861 929 998 1068 1139 1209 1279</table>
   <table name="#rCrit"> 0.7 0.7 0.7 0.7 0.7 0.7 0.6 0.6 0.6 0.5 </table>
+  <table name="#ench1Power"> 1290 1302 1313 1325 1336 1348 1359 1371 1382 1394 1405 1417 1428 1440 1451 1463 1474 1486 1497 1509 1520 1532 1543 1555 1566 1578 1589 1601 1612 1624 </table>  
   <set name="weaponsAllowed" val="18444"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
@@ -21,16 +22,18 @@
   <set name="effectRange" val="400"/>
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="40"/>
+  <enchant1 name="power" val="#ench1Power"/>
   <for>
     <effect count="1" name="Buff" time="10" val="0">
       <mul order="0x30" stat="rCrit" val="#rCrit"/>
     </effect>
   </for>
 </skill>
-<skill id="401" levels="10" name="Judgment">
+<skill id="401" levels="10" name="Judgment" enchantLevels1="30">
   <table name="#mpConsume"> 55 58 62 64 66 68 70 72 74 76</table>
-  <table name="#power"> 306.0 349.0 379.0 410.0 443.0 457.0 509.0 542.0 576.0 609.0</table>
+  <table name="#power"> 642 732 796 861 929 998 1068 1139 1209 1279</table>
   <table name="#cAtk"> 0.75 0.75 0.75 0.75 0.75 0.7 0.7 0.7 0.7 0.65 </table>
+  <table name="#ench1Power"> 1290 1302 1313 1325 1336 1348 1359 1371 1382 1394 1405 1417 1428 1440 1451 1463 1474 1486 1497 1509 1520 1532 1543 1555 1566 1578 1589 1601 1612 1624 </table>  
   <set name="weaponsAllowed" val="18444"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
@@ -47,6 +50,7 @@
   <set name="effectRange" val="400"/>
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="40"/>
+  <enchant1 name="power" val="#ench1Power"/>
   <for>
      <effect count="1" name="Buff" time="10" val="0">
        <mul order="0x30" stat="cAtk" val="#cAtk"/>
