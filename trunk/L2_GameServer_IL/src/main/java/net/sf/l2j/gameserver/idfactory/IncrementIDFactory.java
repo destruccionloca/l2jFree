@@ -83,4 +83,10 @@ public class IncrementIDFactory extends IdFactory
     {
         // Do nothing
     }
+
+    @Override
+    public int getCurrentId()
+    {
+        return _curId;
+    }
 }

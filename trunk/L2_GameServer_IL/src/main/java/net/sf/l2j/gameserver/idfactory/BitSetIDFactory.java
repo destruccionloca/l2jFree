@@ -165,4 +165,11 @@ public class BitSetIDFactory extends IdFactory
         newBitSet.or(freeIds);
         freeIds             = newBitSet;
     }
+
+    @Override
+    public int getCurrentId()
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

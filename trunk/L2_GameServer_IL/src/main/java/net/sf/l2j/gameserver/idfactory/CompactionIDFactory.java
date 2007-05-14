@@ -155,4 +155,10 @@ public class CompactionIDFactory extends IdFactory
     {
         return _freeSize + LAST_OID - FIRST_OID;
     }
+
+    @Override
+    public int getCurrentId()
+    {
+        return _curOID;
+    }
 }

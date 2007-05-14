@@ -295,5 +295,7 @@ public abstract class IdFactory
 	 */
 	public abstract void releaseId(int id);
     
+    public abstract int getCurrentId();
+    
     public abstract int size();
 }

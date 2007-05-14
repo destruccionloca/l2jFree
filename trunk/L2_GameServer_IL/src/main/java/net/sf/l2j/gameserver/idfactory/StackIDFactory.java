@@ -158,4 +158,10 @@ public class StackIDFactory extends IdFactory
     {
         return FREE_OBJECT_ID_SIZE - _curOID + FIRST_OID + _freeOIDStack.size();
     }
+
+    @Override
+    public int getCurrentId()
+    {
+        return 0;
+    }
 }
