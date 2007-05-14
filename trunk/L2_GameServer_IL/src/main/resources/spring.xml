@@ -7,7 +7,8 @@
 
 	<!-- Add ability to read system properties -->
 	<bean id="propertyConfigurer"
-		  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/>
+		  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    </bean>
 		  
 	<bean id="dataSource"
 		class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
@@ -29,7 +30,7 @@
 
 		<property name="initialPoolSize"><value>3</value></property>		
         <property name="minPoolSize"><value>1</value></property>
-        <property name="maxPoolSize"><value>20</value></property>
+        <property name="maxPoolSize"><value>${net.sf.l2j.db.maximum.db.connection}</value></property>
 
         <property name="maxStatementsPerConnection"><value>100</value></property>
         <property name="autoCommitOnClose"><value>true</value></property>

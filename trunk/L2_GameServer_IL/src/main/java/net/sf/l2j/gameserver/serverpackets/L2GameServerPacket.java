@@ -17,7 +17,7 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.network.L2GameClient;
 
 import org.apache.commons.logging.Log;
@@ -45,7 +45,7 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 		}
 		catch (Throwable t)
 		{
-			_log.fatal("Client: "+this.getClient().toString()+" - Failed writing: "+this.getType()+" - L2J Server Version: "+Config.SERVER_VERSION+" - DP Revision: "+Config.DATAPACK_VERSION);
+			_log.fatal("Client: "+this.getClient().toString()+" - Failed writing: "+this.getType()+" - L2J Server Version: "+GameServer.getVersionNumber());
 			t.printStackTrace();
 		}
 	}

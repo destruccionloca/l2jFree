@@ -52,17 +52,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class Config {
 
-	protected static Log _log = LogFactory.getLog(Config.class.getName());
-    // Server version
-    /** Server version */
-    public static String     SERVER_VERSION;
-    /** Date of server build */
-    public static String     SERVER_BUILD_DATE;
-    
-    // Datapack version
-    /** Datapack version */
-    public static String     DATAPACK_VERSION;
-
+	private final static Log _log = LogFactory.getLog(Config.class.getName());
 	
     //*******************************************************************************************	
     public static final String  CONFIGURATION_FILE          = "./config/server.properties";
@@ -107,7 +97,6 @@ public final class Config {
 	public static int 			PACKET_LIMIT;
 	public static int 			PACKET_TIME_LIMIT;
     public static File    		DATAPACK_ROOT;					// Datapack root directory
-    public static int           PATH_NODE_RADIUS;
     public static int           NEW_NODE_ID;
     public static int           SELECTED_NODE_ID;
     public static int           LINKED_NODE_ID;
@@ -903,12 +892,7 @@ public final class Config {
     //  *******************************************************************************************
     public static boolean 				ASSERT;							// Enable/disable assertions
     public static boolean 				DEVELOPER;						// Enable/disable DEVELOPER TREATMENT	
-    public static boolean 				TEST_SERVER;					// Set if this server is a test server used for development
     public static boolean       		TEST_KNOWNLIST = false;			// Internal properties for developers tests only
-    public static boolean       		TEST_CAPTUREPACKETS = false;	// Internal properties for developers tests only
-	public static boolean  				COUNT_PACKETS           = false; // Counting of amount of packets per minute
-	public static boolean  				DUMP_PACKET_COUNTS      = false;
-    public static int      				DUMP_INTERVAL_SECONDS   = 60;
     public static boolean 				ALLOW_WEDDING;
     public static boolean 				SERVER_LIST_BRACKET;			// Displays [] in front of server name ?
     public static boolean 				SERVER_LIST_CLOCK;				// Displays a clock next to the server name ?
@@ -981,9 +965,6 @@ public final class Config {
     public static boolean 				LOG_ITEMS;
     public static int 					DEFAULT_PUNISH;					// Default punishment for illegal actions
     public static int 					DEFAULT_PUNISH_PARAM;			// Parameter for default punishment    
-    public static int 					MINIMUM_UPDATE_DISTANCE;
-    public static int 					KNOWNLIST_FORGET_DELAY;
-    public static int 					MINIMUN_UPDATE_TIME;
     public static boolean 				LAZY_CACHE;
     public static boolean 				GM_AUDIT;
     public static String        		COMMUNITY_TYPE;					// Community Board
@@ -1026,7 +1007,6 @@ public final class Config {
             
             ASSERT                          = Boolean.parseBoolean(optionsSettings.getProperty("Assert", "false"));
             DEVELOPER                       = Boolean.parseBoolean(optionsSettings.getProperty("Developer", "false"));
-            TEST_SERVER                     = Boolean.parseBoolean(optionsSettings.getProperty("TestServer", "false"));
             SERVER_LIST_TESTSERVER          = Boolean.parseBoolean(optionsSettings.getProperty("TestServer", "false"));
                          
             SERVER_LIST_BRACKET             = Boolean.valueOf(optionsSettings.getProperty("ServerListBrackets", "false"));
@@ -1149,14 +1129,6 @@ public final class Config {
             // ---------------------------------------------------
             // Configuration values not found in config files
             // ---------------------------------------------------
-
-            COUNT_PACKETS                   = Boolean.valueOf(optionsSettings.getProperty("CountPacket", "false"));  
-            DUMP_PACKET_COUNTS              = Boolean.valueOf(optionsSettings.getProperty("DumpPacketCounts", "false"));
-            DUMP_INTERVAL_SECONDS           = Integer.parseInt(optionsSettings.getProperty("PacketDumpInterval", "60"));
-            
-            MINIMUM_UPDATE_DISTANCE         = Integer.parseInt(optionsSettings.getProperty("MaximumUpdateDistance", "50"));
-            MINIMUN_UPDATE_TIME             = Integer.parseInt(optionsSettings.getProperty("MinimumUpdateTime", "500"));
-            KNOWNLIST_FORGET_DELAY          = Integer.parseInt(optionsSettings.getProperty("KnownListForgetDelay", "10000"));
             
             CHECK_SKILLS_ON_ENTER		   	= Boolean.valueOf(optionsSettings.getProperty("CheckSkillsOnEnter","false"));
             
@@ -2149,9 +2121,6 @@ public final class Config {
 
         else if (pName.equalsIgnoreCase("ZoneTown")) ZONE_TOWN = Integer.parseInt(pValue);
 
-        else if (pName.equalsIgnoreCase("MaximumUpdateDistance")) MINIMUM_UPDATE_DISTANCE = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("MinimumUpdateTime")) MINIMUN_UPDATE_TIME = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("KnownListForgetDelay")) KNOWNLIST_FORGET_DELAY = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("ShowGMLogin")) SHOW_GM_LOGIN = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("HideGMStatus")) HIDE_GM_STATUS = Boolean.valueOf(pValue);
 
@@ -2403,6 +2372,7 @@ public final class Config {
         System.setProperty("net.sf.l2j.db.urldb", DATABASE_URL );
         System.setProperty("net.sf.l2j.db.user", DATABASE_LOGIN );
         System.setProperty("net.sf.l2j.db.password", DATABASE_PASSWORD );       
+        System.setProperty("net.sf.l2j.db.maximum.db.connection", Integer.toString(DATABASE_MAX_CONNECTIONS) );
     }    
 	
 }
