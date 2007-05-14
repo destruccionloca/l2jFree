@@ -116,11 +116,13 @@ public class ShortCuts
     {
         L2ShortCut old = _shortCuts.remove(slot+page*12);
         
+        L2ItemInstance item = null;
 		if (old != null)
-			deleteShortCutFromDb(old);
+        {
+            deleteShortCutFromDb(old);
+            item = _owner.getInventory().getItemByObjectId(old.getId());
+        }
 
-		L2ItemInstance item = _owner.getInventory().getItemByObjectId(old.getId());
-        
         if ((item != null) && (item.getItemType() == L2EtcItemType.SHOT))
         {
         	_owner.removeAutoSoulShot(item.getItemId());
