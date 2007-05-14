@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
+import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
@@ -62,111 +63,119 @@ public class ScrollOfResurrection implements IItemHandler
         boolean petScroll = (itemId == 6387 || itemId == 737);
 
         // SoR Animation section 
-        L2Character target = (L2Character)activeChar.getTarget(); 
-
-        if (target != null && target.isDead())
+        L2Object object = activeChar.getTarget();
+        if ( object  instanceof L2Character  )
         {
-            L2PcInstance targetPlayer = null;
-            
-            if (target instanceof L2PcInstance) 
-                targetPlayer = (L2PcInstance)target;
-            
-            L2PetInstance targetPet = null;
-            
-            if (target instanceof L2PetInstance) 
-                targetPet = (L2PetInstance)target;
-            
-            if (targetPlayer != null || targetPet != null)
+            L2Character target = (L2Character) object; 
+    
+            if (target != null && target.isDead())
             {
-                boolean condGood = true;
+                L2PcInstance targetPlayer = null;
                 
-                //check target is not in a active siege zone
-                Castle castle = null;
-
-                if (targetPlayer != null)
-                    castle = CastleManager.getInstance().getCastle(targetPlayer.getX(),targetPlayer.getY());
-                else
-                    castle = CastleManager.getInstance().getCastle(targetPet.getX(),targetPet.getY());
+                if (target instanceof L2PcInstance) 
+                    targetPlayer = (L2PcInstance)target;
                 
-                if (castle != null
-                        && castle.getSiege().getIsInProgress())
+                L2PetInstance targetPet = null;
+                
+                if (target instanceof L2PetInstance) 
+                    targetPet = (L2PetInstance)target;
+                
+                if (targetPlayer != null || targetPet != null)
                 {
-                    condGood = false;
-                    activeChar.sendPacket(new SystemMessage(SystemMessage.CANNOT_BE_RESURRECTED_DURING_SIEGE));
-                }
-                
-                if (targetPet != null)
-                {
-                    if (targetPet.getOwner() != activeChar)
+                    boolean condGood = true;
+                    
+                    //check target is not in a active siege zone
+                    Castle castle = null;
+    
+                    if (targetPlayer != null)
+                        castle = CastleManager.getInstance().getCastle(targetPlayer.getX(),targetPlayer.getY());
+                    else
+                        castle = CastleManager.getInstance().getCastle(targetPet.getX(),targetPet.getY());
+                    
+                    if (castle != null
+                            && castle.getSiege().getIsInProgress())
                     {
-                       if (targetPet.getOwner().isReviveRequested())
-                       {
-                           if (targetPet.getOwner().isRevivingPet())
-                               activeChar.sendPacket(new SystemMessage(1513)); // Resurrection is already been proposed.
-                           else
-                               activeChar.sendPacket(new SystemMessage(1515)); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
+                        condGood = false;
+                        activeChar.sendPacket(new SystemMessage(SystemMessage.CANNOT_BE_RESURRECTED_DURING_SIEGE));
+                    }
+                    
+                    if (targetPet != null)
+                    {
+                        if (targetPet.getOwner() != activeChar)
+                        {
+                           if (targetPet.getOwner().isReviveRequested())
+                           {
+                               if (targetPet.getOwner().isRevivingPet())
+                                   activeChar.sendPacket(new SystemMessage(1513)); // Resurrection is already been proposed.
+                               else
+                                   activeChar.sendPacket(new SystemMessage(1515)); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
+                                condGood = false;
+                           }
+                        }
+                        else if (!petScroll)
+                        {
                             condGood = false;
-                       }
+                            activeChar.sendMessage("You do not have the correct scroll");
+                        }
                     }
-                    else if (!petScroll)
+                    else
                     {
-                        condGood = false;
-                        activeChar.sendMessage("You do not have the correct scroll");
-                    }
-                }
-                else
-                {
-                    if (targetPlayer.isFestivalParticipant()) // Check to see if the current player target is in a festival.
-                    {
-                        condGood = false;
-                        activeChar.sendPacket(SystemMessage.sendString("You may not resurrect participants in a festival."));
-                    }
-                    if (targetPlayer.isReviveRequested())
-                    {
-                       if (targetPlayer.isRevivingPet())
-                           activeChar.sendPacket(new SystemMessage(1511)); // While a pet is attempting to resurrect, it cannot help in resurrecting its master.
-                       else
-                           activeChar.sendPacket(new SystemMessage(1513)); // Resurrection is already been proposed.
-                        condGood = false;
-                    }
-                    else if (!humanScroll)
-                    {
-                        condGood = false;
-                        activeChar.sendMessage("You do not have the correct scroll");
-                    }
-                }
-                
-                if (condGood)
-                {
-                    if (!activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false))
-                        return;
-                    
-                    int skillId = 0;
-                    int skillLevel = 1;
-
-                    switch (itemId) {
-                        case  737: skillId = 2014; break; // Scroll of Resurrection
-                        case 3936: skillId = 2049; break; // Blessed Scroll of Resurrection
-                        case 3959: skillId = 2062; break; // L2Day - Blessed Scroll of Resurrection
-                        case 6387: skillId = 2179; break; // Blessed Scroll of Resurrection: For Pets
+                        if (targetPlayer.isFestivalParticipant()) // Check to see if the current player target is in a festival.
+                        {
+                            condGood = false;
+                            activeChar.sendPacket(SystemMessage.sendString("You may not resurrect participants in a festival."));
+                        }
+                        if (targetPlayer.isReviveRequested())
+                        {
+                           if (targetPlayer.isRevivingPet())
+                               activeChar.sendPacket(new SystemMessage(1511)); // While a pet is attempting to resurrect, it cannot help in resurrecting its master.
+                           else
+                               activeChar.sendPacket(new SystemMessage(1513)); // Resurrection is already been proposed.
+                            condGood = false;
+                        }
+                        else if (!humanScroll)
+                        {
+                            condGood = false;
+                            activeChar.sendMessage("You do not have the correct scroll");
+                        }
                     }
                     
-                    if (skillId != 0)
+                    if (condGood)
                     {
-                        L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel); 
-                        activeChar.useMagic(skill, true, true);
-                        /* Micht : Unusefull, already done in useMagic()
-                        MagicSkillUser msu = new MagicSkillUser(activeChar, skillId, skillLevel, skill.getHitTime(),0); 
-                        activeChar.broadcastPacket(msu); 
-                        SetupGauge sg = new SetupGauge(0, skill.getHitTime()); 
-                        activeChar.sendPacket(sg);
-                        */
-
-                        SystemMessage sm = new SystemMessage(SystemMessage.S1_DISAPPEARED);
-                        sm.addItemName(itemId);
-                        activeChar.sendPacket(sm);
+                        if (!activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false))
+                            return;
+                        
+                        int skillId = 0;
+                        int skillLevel = 1;
+    
+                        switch (itemId) {
+                            case  737: skillId = 2014; break; // Scroll of Resurrection
+                            case 3936: skillId = 2049; break; // Blessed Scroll of Resurrection
+                            case 3959: skillId = 2062; break; // L2Day - Blessed Scroll of Resurrection
+                            case 6387: skillId = 2179; break; // Blessed Scroll of Resurrection: For Pets
+                        }
+                        
+                        if (skillId != 0)
+                        {
+                            L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel); 
+                            activeChar.useMagic(skill, true, true);
+                            /* Micht : Unusefull, already done in useMagic()
+                            MagicSkillUser msu = new MagicSkillUser(activeChar, skillId, skillLevel, skill.getHitTime(),0); 
+                            activeChar.broadcastPacket(msu); 
+                            SetupGauge sg = new SetupGauge(0, skill.getHitTime()); 
+                            activeChar.sendPacket(sg);
+                            */
+    
+                            SystemMessage sm = new SystemMessage(SystemMessage.S1_DISAPPEARED);
+                            sm.addItemName(itemId);
+                            activeChar.sendPacket(sm);
+                        }
                     }
                 }
+            }
+            else
+            {
+                activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
             }
         }
         else
