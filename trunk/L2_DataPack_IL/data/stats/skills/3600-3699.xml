@@ -574,7 +574,7 @@ Description(s):
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="0"/>
-  <set name="reuseDelay" val="180000"/> <!-- Unknown --!>
+  <set name="reuseDelay" val="180000"/> <!-- Unknown -->
   <set name="skillTime" val="1500"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
