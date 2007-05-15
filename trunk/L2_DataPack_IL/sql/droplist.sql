@@ -6814,7 +6814,6 @@ INSERT INTO `droplist` VALUES
 (20671,4043,1,1,2,3130), -- Asofe
 (20671,4973,1,1,2,1017), -- Recipe: Earring of Black Ore (70%)
 (20671,5276,1,1,2,126), -- Recipe: Greater Spiritshot (A) Compressed Package(100%)
-(20671,8616,1,1,2,10000), -- Spellbook: Summon Friend
 (20672,4052,1,1,-1,68521), -- Earring of Black Ore Piece
 (20672,4070,1,1,-1,69281), -- Stockings of Zubei Fabric
 (20672,4154,1,1,-1,22904), -- Recipe: Doom Shield
