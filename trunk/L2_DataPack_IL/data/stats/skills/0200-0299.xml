@@ -1600,7 +1600,7 @@
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <for>
     <effect name="Buff" time="120" count="1" val="0">
-      <mul order="0x30" stat="cAtk" val="1.5"/>
+      <mul order="0x30" stat="cAtk" val="1.4"/>
     </effect>
   </for>
   <enchant1for>
