@@ -40,6 +40,7 @@ import net.sf.l2j.gameserver.skills.conditions.ConditionLogicOr;
 import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerHp;
 import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerHpPercentage;
 import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerLevel;
+import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerMp;
 import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerRace;
 import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerState;
 import net.sf.l2j.gameserver.skills.conditions.ConditionSkillStats;
@@ -386,6 +387,11 @@ abstract class DocumentBase
             {
             	double rate = Double.parseDouble(getValue(a.getNodeValue(), null));
                 cond = joinAnd(cond, new ConditionPlayerHpPercentage(rate));
+            }
+            else if ("mp".equalsIgnoreCase(a.getNodeName()))
+            {
+            	int mp = Integer.decode(getValue(a.getNodeValue(), null));
+                cond = joinAnd(cond, new ConditionPlayerMp(mp));
             }
             else if ("seed_fire".equalsIgnoreCase(a.getNodeName()))
             {

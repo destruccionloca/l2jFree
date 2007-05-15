@@ -18,10 +18,12 @@
  */
 package net.sf.l2j.gameserver.skills.effects;
 
+import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Summon;
+import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -95,11 +97,13 @@ final class EffectFear extends L2Effect {
         posX += signx*FEAR_RANGE;
 		posY += signy*FEAR_RANGE;
 
+		Location destiny = GeoData.getInstance().moveCheck(getEffected().getX(), getEffected().getY(), getEffected().getZ(), posX, posY, posZ);
         getEffected().setRunning();
         
         getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,
-                 new L2CharPosition(posX,posY,posZ,0));
+                 new L2CharPosition(destiny.getX(),destiny.getY(),destiny.getZ(),0));
         
+        destiny = null;
         return true;
     }
 }
