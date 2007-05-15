@@ -83,7 +83,8 @@ class Quest (JQuest) :
    id = st.getState()
    if id == COMPLETED and not npcId in [30600, 30601, 30602, 30598, 30599] : return htmltext
    if id != COMPLETED and npcId in [30600, 30601, 30602, 30598, 30599] : return htmltext
-   cond=st.getInt("cond")
+
+   cond=st.getInt("cond")
    onlyone=st.getInt("onlyone")
    level=st.getPlayer().getLevel()
    npcTyp=0
@@ -173,7 +174,7 @@ COMPLETED   = State('Completed', QUEST)
 
 QUEST.setInitialState(CREATED)
 
-for startNpc in [30008,30009,30017,30019,30131,30573,30575,30370,30528,30530,30400,30401,30402,30403,30404]:
+for startNpc in [30008,30009,30017,30019,30129,30131,30573,30575,30370,30528,30530,30400,30401,30402,30403,30404]:
   QUEST.addStartNpc(startNpc)
   QUEST.addTalkId(startNpc)
 
