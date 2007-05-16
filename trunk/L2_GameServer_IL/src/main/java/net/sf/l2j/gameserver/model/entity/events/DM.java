@@ -659,6 +659,15 @@ public class DM
     {
         if (!_players.contains(player) && _savePlayers.contains(player.getName()))
         {
+        	if (Config.DM_ON_START_REMOVE_ALL_EFFECTS)
+            {
+                for (L2Effect e : player.getAllEffects())
+                {
+                    if (e != null)
+                        e.exit();
+                }
+            }
+        	
             _players.add(player);
             
             player._originalNameColorDM = player.getAppearance().getNameColor();

@@ -922,6 +922,15 @@ public class TvT
     {
         if ((Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && (_teleport || _started)) || (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE")))
         {
+        	if (Config.TVT_ON_START_REMOVE_ALL_EFFECTS)
+            {
+                for (L2Effect e : player.getAllEffects())
+                {
+                    if (e != null)
+                        e.exit();
+                }
+            }
+        	
             player._teamNameTvT = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
             _players.add(player);
             player._originalNameColorTvT = player.getAppearance().getNameColor();
