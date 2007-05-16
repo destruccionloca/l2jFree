@@ -4399,6 +4399,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		if (target instanceof L2PcInstance)
 		{
+			if ((TvT._started && _inEventTvT && ((L2PcInstance)target)._inEventTvT) || (DM._started && _inEventDM && ((L2PcInstance)target)._inEventDM) || (CTF._started && _inEventCTF && ((L2PcInstance)target)._inEventCTF) || (_inEventVIP && VIP._started && ((L2PcInstance)target)._inEventVIP))
+	            return;
+			
 			if ((isInDuel() && ((L2PcInstance)target).getDuelId() == getDuelId())) return;
 			if ((!ZoneManager.getInstance().checkIfInZonePvP(this) || !ZoneManager.getInstance().checkIfInZonePvP(target)) && ((L2PcInstance)target).getKarma() == 0)
 			{
