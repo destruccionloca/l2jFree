@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
+import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -313,13 +314,13 @@ public class Shutdown extends Thread
      */
     private void saveData() {
 
-    	_log.info(shutdownMode.toString()+" received. "+shutdownMode.getText()+" NOW!");
+    	System.out.print(shutdownMode.toString()+" received. "+shutdownMode.getText()+" NOW!\n");
                
         try
         {
         	Announcements.getInstance().announceToAll("Server is " + shutdownMode.getText().toLowerCase() + " NOW!");
         } catch (Throwable t) {
-            _log.info( "", t);
+            System.out.print(t);
         }
                 
         // we cannt abort shutdown anymore, so i removed the "if" 
@@ -331,29 +332,31 @@ public class Shutdown extends Thread
 
         // Save Seven Signs data before closing. :)
         SevenSigns.getInstance().saveSevenSignsData(null, true);
-        _log.info("SevenSigns: Data saved.");
-        // Save all raidboss status ^_^
+        System.out.print("SevenSigns: Data saved.\n");
+        // Save all raidboss status ^_^        
+        RaidPointsManager.getInstance().cleanUp();
+        System.out.print("RaidPointsManager: All character raid points saved.\n");
         RaidBossSpawnManager.getInstance().cleanUp();
-        _log.info("RaidBossSpawnManager: All raidboss info saved.");
+        System.out.print("RaidBossSpawnManager: All raidboss info saved.\n");
         TradeListTable.getInstance().dataCountStore();
-        _log.info("TradeController: All count Item Saved");
+        System.out.print("TradeController: All count Item Saved.\n");
         try
         {
             Olympiad.getInstance().save();
-            _log.info("Olympiad: Data saved.");
+            System.out.print("Olympiad: Data saved.\n");
         }
         catch(Exception e){_log.error(e.getMessage(),e);}
 
         // Save Cursed Weapons data before closing.
         CursedWeaponsManager.getInstance().saveData();
-        _log.info("CursedWeaponsManager: Data saved.");
+        System.out.print("CursedWeaponsManager: Data saved.\n");
         // Save items on ground before closing
         if(Config.SAVE_DROPPED_ITEM){
             ItemsOnGroundManager.getInstance().saveInDb();        
             ItemsOnGroundManager.getInstance().cleanUp();
-            _log.info("ItemsOnGroundManager: All items on ground saved.");
+            System.out.print("ItemsOnGroundManager: All items on ground saved.\n");
         }
-        _log.info("Data saved. All players disconnected, "+shutdownMode.getText().toLowerCase()+".");
+        System.out.print("Data saved. All players disconnected, "+shutdownMode.getText().toLowerCase()+".\n");
         
         try {
             int delay = 5000;
@@ -361,6 +364,7 @@ public class Shutdown extends Thread
         } 
         catch (InterruptedException e) {
             //never happens :p
+        	//yes but it happends some times :(
         }
     }
 

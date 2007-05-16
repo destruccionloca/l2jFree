@@ -97,6 +97,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		}
         
 		activeChar.sendPacket(iu);
+		iu = null;
 		
 		activeChar.abortAttack();
 		

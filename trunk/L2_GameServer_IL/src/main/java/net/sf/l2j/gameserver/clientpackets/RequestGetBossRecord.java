@@ -18,6 +18,12 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.ExGetBossRecord;
+import net.sf.l2j.gameserver.serverpackets.ExGetBossRecord.BossRecordInfo;
 
 /**
  * Format: (ch) d
@@ -35,7 +41,7 @@ public class RequestGetBossRecord extends L2GameClientPacket
      */
     protected void readImpl()
     {
-        _bossID = readD();
+        _bossID = readD(); // always 0?
     }
 
     /**
@@ -44,8 +50,30 @@ public class RequestGetBossRecord extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-        // TODO
-        System.out.println("C5: RequestGetBossRecord: d: "+_bossID);
+    	L2PcInstance activeChar = getClient().getActiveChar();
+		int totalPoints = 0;
+		int ranking = 0;
+		if(_bossID != 0) System.out.print("[C] D0:18 RequestGetBossRecord _bossID=" + _bossID);
+		if(activeChar == null)
+			return;
+
+		FastList<BossRecordInfo> list = new FastList<BossRecordInfo>();
+		FastMap<Integer, Integer> points = RaidPointsManager.getInstance().getPointsByOwnerId(activeChar.getObjectId());
+		if(points != null && !points.isEmpty())
+			for(int bossId : points.keySet())
+				switch(bossId)
+				{
+					case -1:
+						ranking = points.get(bossId);
+						break;
+					case 0:
+						totalPoints = points.get(bossId);
+						break;
+					default:
+						list.add(new BossRecordInfo(bossId, points.get(bossId), 0));
+				}
+
+		activeChar.sendPacket(new ExGetBossRecord(ranking, totalPoints, list));
     }
 
     /**

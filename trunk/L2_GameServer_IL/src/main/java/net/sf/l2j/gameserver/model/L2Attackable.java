@@ -33,8 +33,10 @@ import net.sf.l2j.gameserver.datatables.EventDroplist;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.EventDroplist.DateDrop;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
+import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MinionInstance;
@@ -227,6 +229,12 @@ public class L2Attackable extends L2NpcInstance
     public final FastMap<L2Character, AggroInfo> getAggroList()
     {       
         return _aggroList;
+    }
+    
+    private FastMap<L2Character, AggroInfo> _damageContributors = new FastMap<L2Character, AggroInfo>().setShared(true);
+    public final FastMap<L2Character, AggroInfo> getDamageContributors()
+    {
+        return _damageContributors;
     }
     
     /** Table containing all Items that a Dwarf can Sweep on this L2Attackable */ 
@@ -510,7 +518,7 @@ public class L2Attackable extends L2NpcInstance
                     rewards.put(ddealer, reward);
                 }
             }
-        }       
+        }
         if (!rewards.isEmpty())
         {
             L2Party attackerParty;
@@ -676,9 +684,34 @@ public class L2Attackable extends L2NpcInstance
                     if (partyDmg > 0) attackerParty.distributeXpAndSp(exp, sp, rewardedMembers, lastAttacker);
                 }
             }
-        }
+        }        
         
         rewards = null;
+        
+        
+        // rewarding with Raid Points according to % of hate from all which are making raid
+        if(this instanceof L2RaidBossInstance || this instanceof L2BossInstance)
+        {
+        	int points;
+        	long total_damage = 0;
+        	for (AggroInfo info : getDamageContributors().values())
+            {
+                if (info == null) continue;
+        		total_damage += info.hate;
+        	}
+        	for (AggroInfo info : getDamageContributors().values())
+            {
+                if (info == null) continue;
+        		points = (int)Math.round(100.0 * total_damage / info.hate);
+        		RaidPointsManager.getInstance().addPoints(info.attacker.getObjectId(), getNpcId(), points);
+        		SystemMessage sms = new SystemMessage(1725); // You have earned $s1 raid point(s).
+                sms.addNumber(points);
+                info.attacker.sendPacket(sms);
+                sms = null;
+        	}
+        	RaidPointsManager.getInstance().calculateRanking();
+        }
+
         }
         // Manage Base, Quests and Sweep drops of the L2Attackable
         if (getHaveToDrop()) doItemDrop(lastAttacker);
@@ -813,6 +846,21 @@ public class L2Attackable extends L2NpcInstance
             
             // Add the attaker L2Character and the AggroInfo object in the _aggroList of the L2Attackable
             getAggroListRP().put(attacker, ai);
+        }
+        
+        L2PcInstance _attacker = attacker instanceof L2PcInstance?(L2PcInstance)attacker:((L2Summon)attacker).getOwner();
+        AggroInfo damageContrib = getDamageContributors().get(_attacker);
+        if (damageContrib != null) 
+        {
+            damageContrib.damage += damage;
+            damageContrib.hate += aggro;
+        } 
+        else 
+        {
+            damageContrib = new AggroInfo(_attacker);
+            damageContrib.damage = damage;
+            damageContrib.hate = aggro;
+            getDamageContributors().put(_attacker, damageContrib);
         }
         
         // Set the intention to the L2Attackable to AI_INTENTION_ACTIVE
@@ -1150,6 +1198,7 @@ public class L2Attackable extends L2NpcInstance
 
          return 0;
      }
+     
      public void doItemDrop(L2Character lastAttacker)
      {
          doItemDrop(getTemplate(),lastAttacker);
@@ -1521,6 +1570,14 @@ public class L2Attackable extends L2NpcInstance
     public void clearAggroList()
     {
         getAggroList().clear();
+    }
+    
+    /**
+     * Clear the _DamageContributors of the L2Attackable.<BR><BR>
+     */
+    public void clearDamageContributors()
+    {
+        getDamageContributors().clear();
     }
     
     /**
@@ -2033,6 +2090,8 @@ public class L2Attackable extends L2NpcInstance
         setSpoil(false);
         // Clear all aggro char from list
         clearAggroList();
+        // Clear all damage dealers info from list
+        clearDamageContributors();
 
         _sweepItems = null;
         resetAbsorbList();

@@ -17,41 +17,65 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+import javolution.util.FastList;
+
 /**
  * Format: ch ddd [ddd]
- * @author  KenM
+ * 
+ * @author KenM
  */
-public class ExGetBossRecord extends L2GameServerPacket
-{
+public class ExGetBossRecord extends L2GameServerPacket {
 	private static final String _S__FE_33_EXGETBOSSRECORD = "[S] FE:33 ExGetBossRecord";
-	private int _unk1, _unk2;
-	
-	public ExGetBossRecord(int val1, int val2)
-	{
-		_unk1 = val1;
-		_unk2 = val2;
+
+	private FastList<BossRecordInfo> _bossRecordInfo;
+
+	private int _ranking;
+
+	private int _totalPoints;
+
+	public ExGetBossRecord(int ranking, int totalScore, FastList<BossRecordInfo> bossRecordInfo) {
+		_ranking = ranking; // char ranking
+		_totalPoints = totalScore; // char total points
+		_bossRecordInfo = bossRecordInfo;
 	}
 
 	/**
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
-	protected void writeImpl()
-	{
+	protected void writeImpl() {
 		writeC(0xFE);
 		writeH(0x33);
-		writeD(_unk1);
-		writeD(_unk2);
-		writeD(0x00); //list size
+		writeD(_ranking); // char ranking
+		writeD(_totalPoints); // char total points
+
+		writeD(_bossRecordInfo.size()); // list size
+		for (BossRecordInfo w : _bossRecordInfo) {
+			writeD(w._bossId);
+			writeD(w._points);
+			writeD(w._unk1);// don`t know
+		}
 	}
 
 	/**
 	 * @see net.sf.l2j.gameserver.BasePacket#getType()
 	 */
 	@Override
-	public String getType()
-	{
+	public String getType() {
 		return _S__FE_33_EXGETBOSSRECORD;
 	}
 
+	public static class BossRecordInfo {
+		public int _bossId;
+
+		public int _points;
+
+		public int _unk1;
+
+		public BossRecordInfo(int bossId, int points, int unk1) {
+			_bossId = bossId;
+			_points = points;
+			_unk1 = unk1;
+		}
+	}
 }
