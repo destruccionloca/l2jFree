@@ -233,7 +233,7 @@ public final class L2BossInstance extends L2MonsterInstance
         switch (getTemplate().npcId)
         {
             case 29014: // Orfen
-                if ((getCurrentHp() - damage) < getMaxHp() / 2 && !getTeleported())
+                if ((getStatus().getCurrentHp() - damage) < getMaxHp() / 2 && !getTeleported())
                 {
                     clearAggroList();
                     getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);

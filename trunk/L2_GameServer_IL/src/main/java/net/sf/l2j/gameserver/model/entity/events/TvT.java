@@ -233,7 +233,7 @@ public class TvT
             SpawnTable.getInstance().addNewSpawn(_npcSpawn, false);
 
             _npcSpawn.init();
-            _npcSpawn.getLastSpawn().setCurrentHp(999999999);
+            _npcSpawn.getLastSpawn().getStatus().setCurrentHp(999999999);
             _npcSpawn.getLastSpawn().setTitle(_eventName);
             _npcSpawn.getLastSpawn()._isEventMobTvT = true;
             _npcSpawn.getLastSpawn().isAggressive();

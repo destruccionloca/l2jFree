@@ -63,10 +63,10 @@ public class Manadam implements ISkillHandler
 			{
 				double damage = Formulas.getInstance().calcManaDam(activeChar, target, skill, ss, bss);
 				
-				double mp = ( damage > target.getCurrentMp() ? target.getCurrentMp() : damage);
-				target.setCurrentMp(target.getCurrentMp() - mp);
+				double mp = ( damage > target.getStatus().getCurrentMp() ? target.getStatus().getCurrentMp() : damage);
+				target.getStatus().setCurrentMp(target.getStatus().getCurrentMp() - mp);
 				StatusUpdate sump = new StatusUpdate(target.getObjectId());
-				sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getCurrentMp());
+				sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getStatus().getCurrentMp());
 				// [L2J_JP EDIT START - TSL]
 				target.sendPacket(sump);
 				SystemMessage sm = new SystemMessage(SystemMessage.S2_MP_HAS_BEEN_DRAINED_BY_S1);

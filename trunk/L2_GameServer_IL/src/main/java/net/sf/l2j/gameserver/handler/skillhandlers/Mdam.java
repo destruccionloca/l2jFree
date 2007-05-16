@@ -227,7 +227,7 @@ public class Mdam implements ISkillHandler
         if (skill.isSuicideAttack())
         {
            activeChar.doDie(null);
-           activeChar.setCurrentHp(0);
+           activeChar.getStatus().setCurrentHp(0);
         }        
     }
 

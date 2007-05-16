@@ -149,7 +149,7 @@ public class RecipeItemMaker implements Runnable
             totalItems += i.getQuantity();
         }
         // initial mana check requires MP as written on recipe
-        if (player.getCurrentMp() < manaRequired)
+        if (player.getStatus().getCurrentMp() < manaRequired)
         {
             target.sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_MP));
             abort();
@@ -224,7 +224,7 @@ public class RecipeItemMaker implements Runnable
             if(!items.isEmpty())
             {
                 // divided by RATE_CONSUMABLES_COST to remove craft time increase on higher consumables rates 
-                delay = (int) (Config.ALT_GAME_CREATION_SPEED * player.getMReuseRate(skill)
+                delay = (int) (Config.ALT_GAME_CREATION_SPEED * player.getStat().getMReuseRate(skill)
                         * GameTimeController.TICKS_PER_SECOND / Config.RATE_CRAFT_COST)
                         * GameTimeController.MILLIS_IN_TICK;
                 
@@ -312,7 +312,7 @@ public class RecipeItemMaker implements Runnable
     private void updateCurMp()
     {
         StatusUpdate su = new StatusUpdate(target.getObjectId());
-        su.addAttribute(StatusUpdate.CUR_MP, (int) target.getCurrentMp());
+        su.addAttribute(StatusUpdate.CUR_MP, (int) target.getStatus().getCurrentMp());
         target.sendPacket(su);
     }
     
@@ -347,7 +347,7 @@ public class RecipeItemMaker implements Runnable
     
     private boolean validateMp()
     {
-        if (player.getCurrentMp() < manaRequired)
+        if (player.getStatus().getCurrentMp() < manaRequired)
         {
             // rest (wait for MP)
             if (Config.ALT_GAME_CREATION)

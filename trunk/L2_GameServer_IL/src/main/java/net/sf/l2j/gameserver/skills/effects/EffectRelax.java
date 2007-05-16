@@ -62,7 +62,7 @@ class EffectRelax extends L2Effect
 		if(!((L2PcInstance)getEffected()).isSitting())
             retval = false;
 		
-		if (getEffected().getCurrentHp()+1 > getEffected().getMaxHp()) {
+		if (getEffected().getStatus().getCurrentHp()+1 > getEffected().getMaxHp()) {
 			if(getSkill().isToggle())
 			{
 				SystemMessage sm = new SystemMessage(614);
@@ -76,7 +76,7 @@ class EffectRelax extends L2Effect
 		
 		double manaDam = calc();
 		
-		if(manaDam > getEffected().getCurrentMp())
+		if(manaDam > getEffected().getStatus().getCurrentMp())
 		{
 			if(getSkill().isToggle())
 			{

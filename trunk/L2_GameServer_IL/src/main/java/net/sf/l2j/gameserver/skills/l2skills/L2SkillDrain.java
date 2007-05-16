@@ -97,9 +97,9 @@ public class L2SkillDrain extends L2Skill {
             if (target.isPetrified()){
             damage= 0;}
 			double hpAdd = absorbAbs + absorbPart * damage;
-			double hp = ((activeChar.getCurrentHp() + hpAdd) > activeChar.getMaxHp() ? activeChar.getMaxHp() : (activeChar.getCurrentHp() + hpAdd));
+			double hp = ((activeChar.getStatus().getCurrentHp() + hpAdd) > activeChar.getMaxHp() ? activeChar.getMaxHp() : (activeChar.getStatus().getCurrentHp() + hpAdd));
 			
-            activeChar.setCurrentHp(hp); 
+            activeChar.getStatus().setCurrentHp(hp); 
             
 			StatusUpdate suhp = new StatusUpdate(activeChar.getObjectId()); 
 			suhp.addAttribute(StatusUpdate.CUR_HP, (int)hp); 

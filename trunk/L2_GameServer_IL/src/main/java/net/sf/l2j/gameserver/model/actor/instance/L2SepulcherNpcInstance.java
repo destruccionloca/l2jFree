@@ -142,7 +142,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
             {   
                 // Send a Server->Client packet StatusUpdate of the L2NpcInstance to the L2PcInstance to update its HP bar
                 StatusUpdate su = new StatusUpdate(getObjectId());
-                su.addAttribute(StatusUpdate.CUR_HP, (int)getCurrentHp() );
+                su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp() );
                 su.addAttribute(StatusUpdate.MAX_HP, getMaxHp() );
                 player.sendPacket(su);
             }

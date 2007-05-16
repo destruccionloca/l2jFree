@@ -84,7 +84,7 @@ public class BalanceLife implements ISkillHandler
 			}
 
 			fullHP += target.getMaxHp();
-			currentHPs += target.getCurrentHp();
+			currentHPs += target.getStatus().getCurrentHp();
         }
 
 		double percentHP = currentHPs / fullHP;
@@ -94,15 +94,15 @@ public class BalanceLife implements ISkillHandler
 			target = (L2Character) targets[index];
 
 			double newHP = target.getMaxHp() * percentHP;
-			double totalHeal = newHP - target.getCurrentHp();
+			double totalHeal = newHP - target.getStatus().getCurrentHp();
 
-			target.setCurrentHp(newHP);
+			target.getStatus().setCurrentHp(newHP);
 
 			if (totalHeal > 0)
 				target.setLastHealAmount((int) totalHeal);
 
 			StatusUpdate su = new StatusUpdate(target.getObjectId());
-			su.addAttribute(StatusUpdate.CUR_HP, (int) target.getCurrentHp());
+			su.addAttribute(StatusUpdate.CUR_HP, (int) target.getStatus().getCurrentHp());
 			target.sendPacket(su);
 
 			SystemMessage sm = new SystemMessage(614);

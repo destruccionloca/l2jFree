@@ -1595,9 +1595,9 @@ public class Olympiad
                 player.setIsInOlympiadMode(false);
                 player.setOlympiadSide(-1);
                 player.setOlympiadGameId(-1);
-                player.setCurrentCp(player.getMaxCp());
-                player.setCurrentHp(player.getMaxHp());
-                player.setCurrentMp(player.getMaxMp());
+                player.getStatus().setCurrentCp(player.getMaxCp());
+                player.getStatus().setCurrentHp(player.getMaxHp());
+                player.getStatus().setCurrentMp(player.getMaxMp());
                 player.getStatus().startHpMpRegeneration();
 
                 //Add clan skill
@@ -1625,8 +1625,8 @@ public class Olympiad
             int playerOnePoints = playerOneStat.getInteger(POINTS);
             int playerTwoPoints = playerTwoStat.getInteger(POINTS);
             
-            double playerOneHp = _playerOne.getCurrentHp();
-            double playerTwoHp = _playerTwo.getCurrentHp();
+            double playerOneHp = _playerOne.getStatus().getCurrentHp();
+            double playerTwoHp = _playerTwo.getStatus().getCurrentHp();
             
             double hpDiffOne = _playerOne.getMaxHp() - playerOneHp;
             double hpDiffTwo = _playerTwo.getMaxHp() - playerTwoHp;
@@ -1745,9 +1745,9 @@ public class Olympiad
             for (L2PcInstance player : _players)
             {
                 //Set HP/CP/MP to Max
-                player.setCurrentCp(player.getMaxCp());
-                player.setCurrentHp(player.getMaxHp());
-                player.setCurrentMp(player.getMaxMp());
+                player.getStatus().setCurrentCp(player.getMaxCp());
+                player.getStatus().setCurrentHp(player.getMaxHp());
+                player.getStatus().setCurrentMp(player.getMaxMp());
 
                 //Buff ww to both
                 L2Skill skill;

@@ -81,7 +81,7 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 			player.sendPacket(my);
 			
             StatusUpdate su = new StatusUpdate(getObjectId());
-            su.addAttribute(StatusUpdate.CUR_HP, (int)getCurrentHp() );
+            su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp() );
             su.addAttribute(StatusUpdate.MAX_HP, getMaxHp() );
             player.sendPacket(su);
 			

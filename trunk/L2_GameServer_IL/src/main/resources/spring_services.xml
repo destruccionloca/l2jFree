@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+		"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	<!-- 
+		Service to manage versions 
+	 -->
+    <bean id="VersionningService" class="net.sf.l2j.tools.versionning.service.VersionningService">
+		<property name="versionDAO">
+			<ref bean="VersionDAO" />
+		</property>
+	</bean> 	
+	<!-- 
+		Service to manage forums 
+	 -->
+    <bean id="ForumService" class="net.sf.l2j.gameserver.communitybbs.services.forum.ForumService">
+		<property name="forumsDAO">
+			<ref bean="ForumsDAO" />
+		</property>
+		<property name="topicDAO">
+			<ref bean="TopicDAO" />
+		</property>
+		<property name="postsDAO">
+			<ref bean="PostsDAO" />
+		</property>
+	</bean> 
+	
+	<!-- 
+		Service to manage characters 
+	 -->	
+    <bean id="CharRecommendationService" class="net.sf.l2j.gameserver.characters.service.CharRecommendationService">
+		<property name="charRecommendationsDAO">
+			<ref bean="CharRecommendationsDAO" />
+		</property>
+	</bean>
+	
+	<!-- 
+		Service to manage Recipes 
+	 -->
+    <bean id="L2RecipeService" class="net.sf.l2j.gameserver.recipes.service.L2RecipeService">
+		<property name="l2RecipeDAO">
+			<ref bean="L2RecipeDAO" />
+		</property>
+	</bean> 	
+	
+	<!-- 
+		Service to manage Items 
+	 -->
+    <bean id="ExtractableItemsService" class="net.sf.l2j.gameserver.items.service.ExtractableItemsService">
+		<property name="extractableItemsDAO">
+			<ref bean="ExtractableItemsDAO" />
+		</property>
+	</bean> 			
+
+	<!-- 
+		Service to manage Boats 
+	 -->
+    <bean id="BoatService" class="net.sf.l2j.gameserver.boat.service.BoatService">
+		<property name="boatDAO">
+			<ref bean="BoatDAO" />
+		</property>
+		<property name="boatTrajetDAO">
+			<ref bean="BoatTrajetDAO" />
+		</property>
+	</bean> 			
+
+</beans>

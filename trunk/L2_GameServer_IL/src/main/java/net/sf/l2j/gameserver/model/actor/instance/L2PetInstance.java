@@ -968,7 +968,7 @@ public class L2PetInstance extends L2Summon
     public synchronized void unSummon (L2PcInstance owner)
     {
         stopFeed();
-        stopHpMpRegeneration();
+        getStatus().stopHpMpRegeneration();
         super.unSummon(owner);
         
 		if(!isDead()){

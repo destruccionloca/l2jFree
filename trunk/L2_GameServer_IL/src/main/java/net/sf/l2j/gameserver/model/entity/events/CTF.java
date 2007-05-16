@@ -258,7 +258,7 @@ public class CTF
             SpawnTable.getInstance().addNewSpawn(_npcSpawn, false);
 
             _npcSpawn.init();
-            _npcSpawn.getLastSpawn().setCurrentHp(999999999);
+            _npcSpawn.getLastSpawn().getStatus().setCurrentHp(999999999);
             _npcSpawn.getLastSpawn().setTitle(_eventName);
             _npcSpawn.getLastSpawn()._isEventMobCTF = true;
             _npcSpawn.getLastSpawn().isAggressive();
@@ -679,7 +679,7 @@ public class CTF
             SpawnTable.getInstance().addNewSpawn(_flagSpawns.get(index), false);
 
             _flagSpawns.get(index).init();
-            _flagSpawns.get(index).getLastSpawn().setCurrentHp(999999999);
+            _flagSpawns.get(index).getLastSpawn().getStatus().setCurrentHp(999999999);
             _flagSpawns.get(index).getLastSpawn().setTitle(teamName);
             _flagSpawns.get(index).getLastSpawn()._isEventMobCTF = false;
             _flagSpawns.get(index).getLastSpawn().decayMe();

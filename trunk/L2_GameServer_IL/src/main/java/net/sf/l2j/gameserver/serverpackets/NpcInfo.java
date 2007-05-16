@@ -92,7 +92,7 @@ public class NpcInfo extends L2GameServerPacket
 		_mAtkSpd = _cha.getMAtkSpd();
 		_pAtkSpd = _cha.getPAtkSpd();
 		_runSpd = _cha.getRunSpeed();
-		_walkSpd = _cha.getWalkSpeed();
+		_walkSpd = _cha.getStat().getWalkSpeed();
 		_swimRunSpd = _flRunSpd = _flyRunSpd = _runSpd;
 		_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
 	}
@@ -120,7 +120,7 @@ public class NpcInfo extends L2GameServerPacket
 		_mAtkSpd = _cha.getMAtkSpd();
 		_pAtkSpd = _cha.getPAtkSpd();
 		_runSpd = _cha.getRunSpeed();
-		_walkSpd = _cha.getWalkSpeed();
+		_walkSpd = _cha.getStat().getWalkSpeed();
 		_swimRunSpd = _flRunSpd = _flyRunSpd = _runSpd;
 		_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
 	}

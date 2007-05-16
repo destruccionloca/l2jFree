@@ -58,7 +58,10 @@ public class L2DatabaseFactory
 		{
             if ( L2Registry.getApplicationContext() == null )
             {
-                L2Registry.loadRegistry(new String[]{"spring.xml"});
+                L2Registry.loadRegistry(new String[]{"spring_dao.xml",
+                                                     "spring_services.xml",
+                                                     "spring_tech.xml",
+                                                     "spring_manager.xml"});
             }
             
             if (Config.DATABASE_DRIVER.toLowerCase().contains("microsoft"))

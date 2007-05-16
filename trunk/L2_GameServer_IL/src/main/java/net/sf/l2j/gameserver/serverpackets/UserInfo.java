@@ -80,9 +80,9 @@ public class UserInfo extends L2GameServerPacket
     {
         _cha = cha;
         
-        moveMultiplier = _cha.getMovementSpeedMultiplier();
+        moveMultiplier = _cha.getStat().getMovementSpeedMultiplier();
         _runSpd = (int) (_cha.getRunSpeed() / moveMultiplier);
-        _walkSpd = (int) (_cha.getWalkSpeed() / moveMultiplier);
+        _walkSpd = (int) (_cha.getStat().getWalkSpeed() / moveMultiplier);
         _swimRunSpd = _flRunSpd = _flyRunSpd = _runSpd;
         _swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
     }
@@ -105,16 +105,16 @@ public class UserInfo extends L2GameServerPacket
 
         writeD(_cha.getLevel());
         writeQ(_cha.getExp());
-        writeD(_cha.getSTR());
-        writeD(_cha.getDEX());
-        writeD(_cha.getCON());
+        writeD(_cha.getStat().getSTR());
+        writeD(_cha.getStat().getDEX());
+        writeD(_cha.getStat().getCON());
         writeD(_cha.getINT());
-        writeD(_cha.getWIT());
-        writeD(_cha.getMEN());
+        writeD(_cha.getStat().getWIT());
+        writeD(_cha.getStat().getMEN());
         writeD(_cha.getMaxHp());
-        writeD((int) _cha.getCurrentHp());
+        writeD((int) _cha.getStatus().getCurrentHp());
         writeD(_cha.getMaxMp());
-        writeD((int) _cha.getCurrentMp());
+        writeD((int) _cha.getStatus().getCurrentMp());
         writeD(_cha.getSp());
         writeD(_cha.getCurrentLoad());
         writeD(_cha.getMaxLoad());
@@ -220,7 +220,7 @@ public class UserInfo extends L2GameServerPacket
         writeD(_flyRunSpd);
         writeD(_flyWalkSpd);
         writeF(moveMultiplier);
-        writeF(_cha.getAttackSpeedMultiplier());
+        writeF(_cha.getStat().getAttackSpeedMultiplier());
 
         L2Summon pet = _cha.getPet();
         if (_cha.getMountType() != 0 && pet != null)
@@ -279,7 +279,7 @@ public class UserInfo extends L2GameServerPacket
         writeD(_cha.getClassId().getId());
         writeD(0x00); // special effects? circles around player...
         writeD(_cha.getMaxCp());
-        writeD((int) _cha.getCurrentCp());
+        writeD((int) _cha.getStatus().getCurrentCp());
         writeC(_cha.isMounted() ? 0 : _cha.getEnchantEffect());
 
         if(_cha.getTeam()==1)

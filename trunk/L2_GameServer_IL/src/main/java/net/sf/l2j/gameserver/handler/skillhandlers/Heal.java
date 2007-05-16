@@ -147,11 +147,11 @@ public class Heal implements ISkillHandler
                 double fullHP = 0;
                 for (int member = 0; member < targets.length; member++)
                 {
-                    fullHP += target.getCurrentHp();
+                    fullHP += target.getStatus().getCurrentHp();
                 }
                 for (int member = 0; member < targets.length; member++)
                 {
-                target.setCurrentHp(fullHP/targets.length);
+                target.getStatus().setCurrentHp(fullHP/targets.length);
                 }
             }
                 /*{
@@ -181,10 +181,10 @@ public class Heal implements ISkillHandler
             else if (skill.getSkillType() != SkillType.HEAL_PERCENT && skill.getSkillType() != SkillType.BALANCE_HEAL)
                 hp *= target.calcStat(Stats.HEAL_EFFECTIVNESS, 100, null, null) / 100;
             
-            target.setCurrentHp(hp + target.getCurrentHp()); 
+            target.getStatus().setCurrentHp(hp + target.getStatus().getCurrentHp()); 
             target.setLastHealAmount((int)hp);            
             StatusUpdate su = new StatusUpdate(target.getObjectId());
-            su.addAttribute(StatusUpdate.CUR_HP, (int)target.getCurrentHp());
+            su.addAttribute(StatusUpdate.CUR_HP, (int)target.getStatus().getCurrentHp());
             target.sendPacket(su);            
             if (target instanceof L2PcInstance)
             {

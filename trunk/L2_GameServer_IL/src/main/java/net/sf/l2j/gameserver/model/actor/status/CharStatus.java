@@ -1,5 +1,24 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.model.actor.status;
 
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.Future;
@@ -22,17 +41,26 @@ import net.sf.l2j.gameserver.skills.Formulas;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * Represent the status of a character.
+ * 
+ * Each L2Character and its subclass should use a CharStatus (or a subclass of CharStatus) 
+ * to manipulate its status (hp and mp for example).
+ * 
+ * If a subclass of L2Character needs to add treatment to some methods, this subclass have to use
+ * a subclass of CharStatus and redefine the proper method. 
+ * And don't forget to override the getStatus() !!
+ * 
+ */
 public class CharStatus
 {
     protected static Log _log = LogFactory.getLog(CharStatus.class.getName());
 
-    // =========================================================
-    // Data Field
     private L2Character _ActiveChar;
     private double _CurrentCp               = 0; //Current CP of the L2Character
     private double _CurrentHp               = 0; //Current HP of the L2Character
     private double _CurrentMp               = 0; //Current MP of the L2Character
-    private FastList<Double> _HpStatusWatch     = new FastList<Double>();
+    private List<Double> _HpStatusWatch     = new FastList<Double>();
 
     /** Array containing all clients that need to be notified about hp/mp updates of the L2Character */
     private Set<L2Character> _StatusListener;
@@ -43,16 +71,15 @@ public class CharStatus
     private static final byte REGEN_FLAG_HP  = 1;
     private static final byte REGEN_FLAG_MP  = 2;
     
-    // =========================================================
-    // Constructor
     public CharStatus(L2Character activeChar)
     {
         _ActiveChar = activeChar;
     }
 
-    // =========================================================
-    // Method - Public
-    /** Add the decimal value of a percent (current hp/max hp) when a status update should kick in */
+    /** 
+     * Add the decimal value of a percent (current hp/max hp) when a status update should kick in
+     * @param percenAsDecimal 
+     */
     public final void addHpStatusWatch(double percenAsDecimal)
     {
         _HpStatusWatch.add(percenAsDecimal);
@@ -82,7 +109,9 @@ public class CharStatus
             getStatusListener().add(object);
         }
     }
-
+    /**
+     * @param value the cp to remove
+     */
     public final void reduceCp(int value)
     {
         if (getCurrentCp() > value)
@@ -99,11 +128,24 @@ public class CharStatus
      *
      * @param i The HP decrease value
      * @param attacker The L2Character who attacks
-     * @param awake The awake state (If True : stop sleeping)
      *
      */
-    public void reduceHp(double value, L2Character attacker) { reduceHp(value, attacker, true); }
+    public void reduceHp(double value, L2Character attacker) 
+    { 
+        reduceHp(value, attacker, true); 
+    }
 
+    /**
+     * Reduce the current HP of the L2Character and launch the doDie Task if necessary.<BR><BR>
+     *
+     * <B><U> Overriden in </U> :</B><BR><BR>
+     * <li> L2Attackable : Update the attacker AggroInfo of the L2Attackable _aggroList</li><BR><BR>
+     *
+     * @param i The HP decrease value
+     * @param attacker The L2Character who attacks
+     * @param awake The awake state (If True : stop sleeping)
+     *
+     */    
     public void reduceHp(double value, L2Character attacker, boolean awake)
     {
         if (getActiveChar().isInvul()) return;
@@ -215,7 +257,9 @@ public class CharStatus
             }
         }
     }
-
+    /**
+     * @param value the mp to remove
+     */
     public final void reduceMp(double value)
     {
         value = getCurrentMp() - value;
@@ -292,22 +336,35 @@ public class CharStatus
         }
     }
     
-    // =========================================================
-    // Method - Private
-
-    // =========================================================
-    // Property - Public
     public L2Character getActiveChar()
     {        
         return _ActiveChar;
     }
     
-    public final double getCurrentCp() { return _CurrentCp; }
-    
-    public final void setCurrentCp(double newCp) {
-    	setCurrentCp(newCp, true);
+    /**
+     * 
+     * @return the current cp
+     */
+    public final double getCurrentCp() 
+    { 
+        return _CurrentCp; 
     }
     
+    /**
+     * 
+     * @param newCp the cp to set
+     */
+    public final void setCurrentCp(double newCp) 
+    {
+        setCurrentCp(newCp, true);
+    }
+    
+    
+    /**
+     * 
+     * @param newCp the cp to set
+     * @param broadcastPacket if we had to send a system message
+     */
     public final void setCurrentCp(double newCp, boolean broadcastPacket)
     {
         synchronized (getActiveChar())
@@ -342,12 +399,28 @@ public class CharStatus
         	getActiveChar().broadcastStatusUpdate();
     }
 
-    public final double getCurrentHp() { return _CurrentHp; }
+    /** 
+    * @return the current hp
+    */
+   public final double getCurrentHp() 
+   { 
+    return _CurrentHp; 
+   }
+   
+   /**
+    * 
+    * @param newHp the hp to set
+    */
+   public final void setCurrentHp(double newHp) 
+   {
+    setCurrentHp(newHp, true);
+   }
     
-    public final void setCurrentHp(double newHp) {
-    	setCurrentHp(newHp, true);
-    }
-    
+   /**
+    * 
+    * @param newHp the hp to set
+    * @param broadcastPacket if we have to broadcast the information
+    */   
     public final void setCurrentHp(double newHp, boolean broadcastPacket)
     {
         synchronized (getActiveChar())
@@ -392,17 +465,39 @@ public class CharStatus
         	getActiveChar().broadcastStatusUpdate();
     }
 
+    /**
+     * 
+     * @param newHp the hp to set
+     * @param newMp the mp to set
+     */
     public final void setCurrentHpMp(double newHp, double newMp)
     {
         setCurrentHp(newHp,false);
         setCurrentMp(newMp,true); //send the StatusUpdate only once
     }
     
-    public final double getCurrentMp() { return _CurrentMp; }
-    
-    public final void setCurrentMp(double newMp) {
-    	setCurrentMp(newMp, true);
+    /**
+     * 
+     * @return the current mp
+     */
+    public final double getCurrentMp() 
+    { 
+        return _CurrentMp; 
     }
+    
+    /**
+     * 
+     * @param newMp the mp to set
+     */
+    public final void setCurrentMp(double newMp) {
+        setCurrentMp(newMp, true);
+    }
+    
+    /**
+     * 
+     * @param newMp the mp to set
+     * @param broadcastPacket true if we have to broadcast information
+     */
     public final void setCurrentMp(double newMp, boolean broadcastPacket)
     {
         synchronized (getActiveChar())
@@ -446,12 +541,23 @@ public class CharStatus
      * @return The list of L2Character to inform or null if empty
      *
      */
-    public final Set<L2Character> getStatusListener() { return _StatusListener; }
-    private final void setStatusListener(Set<L2Character> value) { _StatusListener = value; }
+    public final Set<L2Character> getStatusListener() 
+    { 
+        return _StatusListener; 
+    }
     
-    // =========================================================
-    // Runnable
-    /** Task of HP/MP/CP regeneration */
+    /**
+     * @see getStatusListener
+     * @param value a set of L2Character that needs to be informed of HP/MP updates of this L2Character
+     */    
+    private final void setStatusListener(Set<L2Character> value) 
+    { 
+        _StatusListener = value; 
+    }
+    
+    /** 
+     * Task of HP/MP/CP regeneration 
+    */
     class RegenTask implements Runnable
     {
         public void run()

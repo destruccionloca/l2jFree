@@ -44,14 +44,14 @@ class EffectHealOverTime extends L2Effect
 		if(getEffected() instanceof L2DoorInstance)
 			return false;
 		
-		double hp = getEffected().getCurrentHp(); 
+		double hp = getEffected().getStatus().getCurrentHp(); 
 		double maxhp = getEffected().getMaxHp();
 		hp += calc(); 
 		if(hp > maxhp)
 		{
 			hp = maxhp;
 		}
-		getEffected().setCurrentHp(hp); 
+		getEffected().getStatus().setCurrentHp(hp); 
 		StatusUpdate suhp = new StatusUpdate(getEffected().getObjectId()); 
 		suhp.addAttribute(StatusUpdate.CUR_HP, (int)hp); 
 		getEffected().sendPacket(suhp);

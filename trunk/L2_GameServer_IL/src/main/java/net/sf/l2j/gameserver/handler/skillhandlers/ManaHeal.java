@@ -77,9 +77,9 @@ public class ManaHeal implements ISkillHandler
             else if (actChar.getLevel() + 10 <= target.getLevel())
                 mp = mp*0.1;
             }
-            target.setCurrentMp(mp+target.getCurrentMp()); 
+            target.getStatus().setCurrentMp(mp+target.getStatus().getCurrentMp()); 
             StatusUpdate sump = new StatusUpdate(target.getObjectId()); 
-            sump.addAttribute(StatusUpdate.CUR_MP, (int)target.getCurrentMp()); 
+            sump.addAttribute(StatusUpdate.CUR_MP, (int)target.getStatus().getCurrentMp()); 
             target.sendPacket(sump); 
             
             if (actChar instanceof L2PcInstance && actChar != target)

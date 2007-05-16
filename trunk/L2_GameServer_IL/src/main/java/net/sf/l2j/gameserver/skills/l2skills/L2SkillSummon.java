@@ -175,8 +175,8 @@ public class L2SkillSummon extends L2Skill {
         {
             summon.getStat().setExp(Experience.LEVEL[(summon.getLevel() % Experience.LEVEL.length)]);
         }
-		summon.setCurrentHp(summon.getMaxHp());
-		summon.setCurrentMp(summon.getMaxMp());
+		summon.getStatus().setCurrentHp(summon.getMaxHp());
+		summon.getStatus().setCurrentMp(summon.getMaxMp());
 		summon.setHeading(activeChar.getHeading());
     	summon.setRunning();
 		activeChar.setPet(summon);

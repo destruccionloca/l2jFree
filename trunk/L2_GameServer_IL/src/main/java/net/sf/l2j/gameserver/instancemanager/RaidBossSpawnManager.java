@@ -160,8 +160,8 @@ public class RaidBossSpawnManager {
                 raidboss.setRaidStatus(StatusEnum.ALIVE);
                 
                 StatsSet info = new StatsSet();
-                info.set("currentHP", raidboss.getCurrentHp());
-                info.set("currentMP", raidboss.getCurrentMp());
+                info.set("currentHP", raidboss.getStatus().getCurrentHp());
+                info.set("currentMP", raidboss.getStatus().getCurrentMp());
                 info.set("respawnTime", 0L);
                 
                 _storedInfo.put(bossId, info);
@@ -209,8 +209,8 @@ public class RaidBossSpawnManager {
         {  
             boss.setRaidStatus(StatusEnum.ALIVE);
 
-            info.set("currentHP", boss.getCurrentHp());
-            info.set("currentMP", boss.getCurrentMp());
+            info.set("currentHP", boss.getStatus().getCurrentHp());
+            info.set("currentMP", boss.getStatus().getCurrentMp());
             info.set("respawnTime", 0L);
         }
         
@@ -239,8 +239,8 @@ public class RaidBossSpawnManager {
             
             if (raidboss != null)
             {
-                raidboss.setCurrentHp(currentHP);
-                raidboss.setCurrentMp(currentMP);
+                raidboss.getStatus().setCurrentHp(currentHP);
+                raidboss.getStatus().setCurrentMp(currentMP);
                 raidboss.setRaidStatus(StatusEnum.ALIVE);
                 
                 _bosses.put(bossId, raidboss);
@@ -447,8 +447,8 @@ public class RaidBossSpawnManager {
     public void notifySpawnNightBoss(L2RaidBossInstance raidboss)
     {
         StatsSet info = new StatsSet();
-        info.set("currentHP", raidboss.getCurrentHp());
-        info.set("currentMP", raidboss.getCurrentMp());
+        info.set("currentHP", raidboss.getStatus().getCurrentHp());
+        info.set("currentMP", raidboss.getStatus().getCurrentMp());
         info.set("respawnTime", 0L);
         
         raidboss.setRaidStatus(StatusEnum.ALIVE);

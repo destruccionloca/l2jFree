@@ -182,7 +182,7 @@ public class DoorTable
 		L2CharTemplate template = new L2CharTemplate(npcDat);
 		L2DoorInstance door = new L2DoorInstance(IdFactory.getInstance().getNextId(),template, id, name, unlockable);
 		
-		door.setCurrentHpMp(door.getMaxHp(), door.getMaxMp());
+		door.getStatus().setCurrentHpMp(door.getMaxHp(), door.getMaxMp());
 		door.setOpen(1);
 		door.setXYZInvisible(x,y,z);
 

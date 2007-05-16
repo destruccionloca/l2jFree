@@ -235,7 +235,7 @@ public class MinionList
             monster.setChampion(true);
         
         // Set the Minion HP, MP and Heading
-        monster.setCurrentHpMp(monster.getMaxHp(), monster.getMaxMp());
+        monster.getStatus().setCurrentHpMp(monster.getMaxHp(), monster.getMaxMp());
         monster.setHeading(master.getHeading());
 
         // Set the Minion leader to this RaidBoss

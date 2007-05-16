@@ -1586,7 +1586,7 @@ public class L2Attackable extends L2NpcInstance
     {
         // Calculate the over-hit damage
         // Ex: mob had 10 HP left, over-hit skill did 50 damage total, over-hit damage is 40
-        double overhitDmg = ((getCurrentHp() - damage) * (-1));
+        double overhitDmg = ((getStatus().getCurrentHp() - damage) * (-1));
         if (overhitDmg < 0)
         {
             // we didn't killed the mob with the over-hit strike. (it wasn't really an over-hit strike)
@@ -1679,14 +1679,14 @@ public class L2Attackable extends L2NpcInstance
         // If the L2Character attacker isn't already in the _absorbersList of this L2Attackable, add it
         if (ai == null)
         {
-            ai = new AbsorberInfo(attacker, crystalId, getCurrentHp());
+            ai = new AbsorberInfo(attacker, crystalId, getStatus().getCurrentHp());
             _absorbersList.put(attacker, ai);
         }
         else
         {
             ai.absorber = attacker;
             ai.crystalId = crystalId;
-            ai.absorbedHP = getCurrentHp();
+            ai.absorbedHP = getStatus().getCurrentHp();
         }
         
         // Set this L2Attackable as absorbed

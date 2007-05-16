@@ -63,7 +63,7 @@ public class L2GroupSpawn extends L2Spawn
 				newlocz = getLocz();
 			}
 			
-			mob.setCurrentHpMp(mob.getMaxHp(), mob.getMaxMp());
+			mob.getStatus().setCurrentHpMp(mob.getMaxHp(), mob.getMaxMp());
 			
 			if (getHeading() == -1)
 				mob.setHeading(Rnd.nextInt(61794));	

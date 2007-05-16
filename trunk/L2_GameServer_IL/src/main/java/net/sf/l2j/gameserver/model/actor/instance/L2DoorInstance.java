@@ -245,7 +245,7 @@ public class L2DoorInstance extends L2Character
     
     public int getDamage() 
     {
-        int dmg = 6 - (int)Math.ceil(getCurrentHp() / getMaxHp() * 6);
+        int dmg = 6 - (int)Math.ceil(getStatus().getCurrentHp() / getMaxHp() * 6);
         if (dmg > 6)
             return 6;
         if (dmg < 0)
@@ -415,7 +415,7 @@ public class L2DoorInstance extends L2Character
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder html1 = new TextBuilder("<html><body><table border=0>");
             html1.append("<tr><td>S.Y.L. Says:</td></tr>");
-            html1.append("<tr><td>Current HP  "+getCurrentHp()+ "</td></tr>");
+            html1.append("<tr><td>Current HP  "+getStatus().getCurrentHp()+ "</td></tr>");
             html1.append("<tr><td>Max HP      "+getMaxHp()+"</td></tr>");
 
             html1.append("<tr><td>Object ID: " + getObjectId() + "</td></tr>");

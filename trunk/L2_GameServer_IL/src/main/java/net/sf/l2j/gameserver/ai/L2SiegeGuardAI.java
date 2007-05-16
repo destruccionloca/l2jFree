@@ -340,7 +340,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                     if (((sk.getSkillType() == L2Skill.SkillType.BUFF || sk.getSkillType() == L2Skill.SkillType.HEAL) || (dist_2 >= castRange * castRange / 9)
                         && (dist_2 <= castRange * castRange) && (castRange > 70))
                         && !_actor.isSkillDisabled(sk.getId())
-                        && _actor.getCurrentMp() >= _actor.getStat().getMpConsume(sk) && !sk.isPassive())
+                        && _actor.getStatus().getCurrentMp() >= _actor.getStat().getMpConsume(sk) && !sk.isPassive())
                     {
                         L2Object OldTarget = _actor.getTarget();
                         if (sk.getSkillType() == L2Skill.SkillType.BUFF
@@ -348,7 +348,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                         {
                             boolean useSkillSelf = true;
                             if (sk.getSkillType() == L2Skill.SkillType.HEAL
-                                && _actor.getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
+                                && _actor.getStatus().getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
                             {
                                 useSkillSelf = false;
                                 break;
@@ -449,7 +449,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                     int castRange = sk.getCastRange();
                     
                     if (castRange * castRange >= dist_2 && castRange <= 70 && !sk.isPassive()
-                        && _actor.getCurrentMp() >= _actor.getStat().getMpConsume(sk)
+                        && _actor.getStatus().getCurrentMp() >= _actor.getStat().getMpConsume(sk)
                         && !_actor.isSkillDisabled(sk.getId()))
                     {
                         L2Object OldTarget = _actor.getTarget();
@@ -458,7 +458,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                         {
                             boolean useSkillSelf = true;
                             if (sk.getSkillType() == L2Skill.SkillType.HEAL
-                                && _actor.getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
+                                && _actor.getStatus().getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
                             {
                                 useSkillSelf = false;
                                 break;

@@ -77,10 +77,10 @@ public class CharInfo extends L2GameServerPacket
     	_heading = _cha.getHeading();
     	_mAtkSpd = _cha.getMAtkSpd();
     	_pAtkSpd = _cha.getPAtkSpd();
-    	_moveMultiplier  = _cha.getMovementSpeedMultiplier();
-    	_attackSpeedMultiplier = _cha.getAttackSpeedMultiplier();
+    	_moveMultiplier  = _cha.getStat().getMovementSpeedMultiplier();
+    	_attackSpeedMultiplier = _cha.getStat().getAttackSpeedMultiplier();
     	_runSpd         = (int)(_cha.getRunSpeed()/_moveMultiplier);
-    	_walkSpd        = (int)(_cha.getWalkSpeed()/_moveMultiplier);    	_swimRunSpd = _flRunSpd = _flyRunSpd = _runSpd;
+    	_walkSpd        = (int)(_cha.getStat().getWalkSpeed()/_moveMultiplier);    	_swimRunSpd = _flRunSpd = _flyRunSpd = _runSpd;
     	_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
     	_maxCp = _cha.getMaxCp();
     }
@@ -218,8 +218,8 @@ public class CharInfo extends L2GameServerPacket
 			writeD(_flWalkSpd);
 			writeD(_flyRunSpd);
 			writeD(_flyWalkSpd);
-			writeF(_cha.getMovementSpeedMultiplier()); // _cha.getProperMultiplier()
-			writeF(_cha.getAttackSpeedMultiplier()); // _cha.getAttackSpeedMultiplier()
+			writeF(_cha.getStat().getMovementSpeedMultiplier()); // _cha.getProperMultiplier()
+			writeF(_cha.getStat().getAttackSpeedMultiplier()); // _cha.getAttackSpeedMultiplier()
 			writeF(_cha.getBaseTemplate().collisionRadius);
 			writeF(_cha.getBaseTemplate().collisionHeight);
 	
@@ -255,7 +255,7 @@ public class CharInfo extends L2GameServerPacket
 			writeD(_cha.getClassId().getId());
 			
 			writeD(_maxCp);
-			writeD((int) _cha.getCurrentCp());
+			writeD((int) _cha.getStatus().getCurrentCp());
 	        writeC(_cha.isMounted() ? 0 : _cha.getEnchantEffect());
 			
 	        if(_cha.getTeam()==1)

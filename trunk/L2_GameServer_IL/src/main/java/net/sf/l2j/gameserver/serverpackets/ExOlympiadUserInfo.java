@@ -55,9 +55,9 @@ public class ExOlympiadUserInfo extends L2GameServerPacket
 		writeD(_player.getObjectId());
 		writeS(_player.getName());
 		writeD(_player.getClassId().getId());
-		writeD((int)_player.getCurrentHp());
+		writeD((int)_player.getStatus().getCurrentHp());
 		writeD(_player.getMaxHp());
-		writeD((int)_player.getCurrentCp());
+		writeD((int)_player.getStatus().getCurrentCp());
 		writeD(_player.getMaxCp());
 	}
 	

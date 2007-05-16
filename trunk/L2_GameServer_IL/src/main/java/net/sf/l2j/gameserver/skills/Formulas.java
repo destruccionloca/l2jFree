@@ -192,7 +192,7 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            env.value *= STRbonus[env._player.getSTR()] * env._player.getLevelMod();
+            env.value *= STRbonus[env._player.getStat().getSTR()] * env._player.getLevelMod();
         }
     }
     
@@ -241,7 +241,7 @@ public final class Formulas
                 if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_REAR) != null) env.value -= 9;
                 if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_NECK) != null) env.value -= 13;
             }
-            env.value *= MENbonus[env._player.getMEN()] * env._player.getLevelMod();
+            env.value *= MENbonus[env._player.getStat().getMEN()] * env._player.getLevelMod();
         }
     }
 
@@ -316,7 +316,7 @@ public final class Formulas
         {
             L2Character p = env._player;
             //[Square(DEX)]*6 + lvl + weapon hitbonus;
-            env.value += Math.sqrt(p.getDEX()) * 6;
+            env.value += Math.sqrt(p.getStat().getDEX()) * 6;
             env.value += p.getLevel();
             if( p instanceof L2Summon) env.value += (p.getLevel() < 60) ? 4 : 5;
         }
@@ -340,7 +340,7 @@ public final class Formulas
         {
             L2Character p = env._player;
             //[Square(DEX)]*6 + lvl;
-            env.value += Math.sqrt(p.getDEX()) * 6;
+            env.value += Math.sqrt(p.getStat().getDEX()) * 6;
             env.value += p.getLevel();
         }
     }
@@ -366,7 +366,7 @@ public final class Formulas
             else if (p instanceof L2PcInstance && p.getActiveWeaponInstance() == null) env.value = 40;
             else
             {
-                env.value *= DEXbonus[p.getDEX()];
+                env.value *= DEXbonus[p.getStat().getDEX()];
                 env.value *= 10;
                 if(env.value > 500)
                     env.value = 500;                
@@ -391,7 +391,7 @@ public final class Formulas
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env._player;
-            env.value *= DEXbonus[p.getDEX()];
+            env.value *= DEXbonus[p.getStat().getDEX()];
         }
     }
     
@@ -412,7 +412,7 @@ public final class Formulas
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env._player;
-            env.value *= DEXbonus[p.getDEX()];
+            env.value *= DEXbonus[p.getStat().getDEX()];
         }
     }
     
@@ -433,7 +433,7 @@ public final class Formulas
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env._player;
-            env.value *= WITbonus[p.getWIT()];
+            env.value *= WITbonus[p.getStat().getWIT()];
         }
     }
     
@@ -454,7 +454,7 @@ public final class Formulas
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env._player;
-            env.value *= CONbonus[p.getCON()];
+            env.value *= CONbonus[p.getStat().getCON()];
         }
     }
     
@@ -633,7 +633,7 @@ public final class Formulas
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env._player;
-            env.value *= CONbonus[p.getCON()];
+            env.value *= CONbonus[p.getStat().getCON()];
         }
     }
     
@@ -679,7 +679,7 @@ public final class Formulas
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env._player;
-            env.value *= CONbonus[p.getCON()];
+            env.value *= CONbonus[p.getStat().getCON()];
         }
     }
     
@@ -725,7 +725,7 @@ public final class Formulas
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env._player;
-            env.value *= MENbonus[p.getMEN()];
+            env.value *= MENbonus[p.getStat().getMEN()];
         }
     }
     
@@ -902,7 +902,7 @@ public final class Formulas
             else if (!player.isMoving()) init *= 1.1; // Staying
             else if (player.isRunning()) init *= 0.7; // Running
             // Add CON bonus
-            init *= cha.getLevelMod() * CONbonus[cha.getCON()];
+            init *= cha.getLevelMod() * CONbonus[cha.getStat().getCON()];
        }
 
         if (init < 1) init = 1;
@@ -956,7 +956,7 @@ public final class Formulas
             else if (player.isRunning()) init *= 0.7; // Running
 
             // Add MEN bonus
-            init *= cha.getLevelMod() * MENbonus[cha.getMEN()];
+            init *= cha.getLevelMod() * MENbonus[cha.getStat().getMEN()];
        }
 
         if (init < 1) init = 1;
@@ -992,7 +992,7 @@ public final class Formulas
         }
         
         // Apply CON bonus
-        init *= cha.getLevelMod() * CONbonus[cha.getCON()];
+        init *= cha.getLevelMod() * CONbonus[cha.getStat().getCON()];
         if (init < 1) init = 1;
 
         return cha.calcStat(Stats.REGENERATE_CP_RATE, init, null, null) * cpRegenMultiplier + cpRegenBonus;
@@ -1132,7 +1132,7 @@ public final class Formulas
         if (crit) damage += attacker.getCriticalDmg(target, damage);
         if (shld && !Config.ALT_GAME_SHIELD_BLOCKS)
         {
-            defence += target.getShldDef();
+            defence += target.getStat().getShldDef();
         }
         //if (!(attacker instanceof L2RaidBossInstance) && 
         /*
@@ -1155,7 +1155,7 @@ public final class Formulas
         //      damage += _rnd.nextDouble()* attacker.getRandomDamage(target);
         //      }
         if (shld && Config.ALT_GAME_SHIELD_BLOCKS)
-        {           damage -= target.getShldDef();
+        {           damage -= target.getStat().getShldDef();
             if (damage < 0) damage = 0;
         }
         if (target instanceof L2PcInstance && weapon != null && weapon.getItemType() == L2WeaponType.DAGGER && skill != null)
@@ -1176,28 +1176,28 @@ public final class Formulas
         {
             int raceId = ((L2NpcInstance) attacker).getTemplate().race;
             //Skill Race : Undead
-            if (raceId == 4290) damage /= attacker.getPDefUndead(target);
+            if (raceId == 4290) damage /= attacker.getStat().getPDefUndead(target);
             //Skill Valakas
-            if ( ((L2NpcInstance) attacker).getTemplate().idTemplate == 12899)  damage /= attacker.getPDefValakas(target); 
+            if ( ((L2NpcInstance) attacker).getTemplate().idTemplate == 12899)  damage /= attacker.getStat().getPDefValakas(target); 
             
         }
         if (target instanceof L2NpcInstance)
         {
             int raceId = ((L2NpcInstance) target).getTemplate().race;
             //Skill Race : Undead
-            if (raceId == 4290) damage *= attacker.getPAtkUndead(target);
+            if (raceId == 4290) damage *= attacker.getStat().getPAtkUndead(target);
             //Skill Race : Beast
-            if (raceId == 4292) damage *= attacker.getPAtkMonsters(target);
+            if (raceId == 4292) damage *= attacker.getStat().getPAtkMonsters(target);
             //Skill Race : Animal
-            if (raceId == 4293) damage *= attacker.getPAtkAnimals(target);
+            if (raceId == 4293) damage *= attacker.getStat().getPAtkAnimals(target);
             //Skill Race : Plant
-            if (raceId == 4294) damage *= attacker.getPAtkPlants(target);
+            if (raceId == 4294) damage *= attacker.getStat().getPAtkPlants(target);
             //Skill Race : Dragon
-            if (raceId == 4299) damage *= attacker.getPAtkDragons(target);
+            if (raceId == 4299) damage *= attacker.getStat().getPAtkDragons(target);
             //Skill Race : Bug
-            if (raceId == 4301) damage *= attacker.getPAtkInsects(target);
+            if (raceId == 4301) damage *= attacker.getStat().getPAtkInsects(target);
             //Skill Valakas
-            if ( ((L2NpcInstance) target).getTemplate().idTemplate == 12899) damage *= attacker.getPAtkValakas(target); 
+            if ( ((L2NpcInstance) target).getTemplate().idTemplate == 12899) damage *= attacker.getStat().getPAtkValakas(target); 
         }
         if (shld)
         {
@@ -1372,7 +1372,7 @@ public final class Formulas
         init += Math.sqrt(13*dmg);    
 
         // Chance is affected by target MEN
-        init -= (MENbonus[target.getMEN()] * 100 - 100);
+        init -= (MENbonus[target.getStat().getMEN()] * 100 - 100);
 
         // Calculate all modifiers for ATTACK_CANCEL
         double rate = target.calcStat(Stats.ATTACK_CANCEL, init, null, null); 
@@ -1455,7 +1455,7 @@ public final class Formulas
     /** Returns true if shield defence successfull */
     public boolean calcShldUse(L2Character attacker, L2Character target) 
     {
-        int shldRate = (int)(target.calcStat(Stats.SHIELD_RATE, 0, attacker, null) * DEXbonus[target.getDEX()]);
+        int shldRate = (int)(target.calcStat(Stats.SHIELD_RATE, 0, attacker, null) * DEXbonus[target.getStat().getDEX()]);
         int shldAngle = (int)target.calcStat(Stats.SHIELD_ANGLE, 60, null, null);
     
         if(shldRate == 0) return false;
@@ -1538,9 +1538,9 @@ public final class Formulas
         switch (type)
         {
             case STUN:
-                return (int) ((Math.sqrt(CONbonus[target.getCON()]) * 100 - 100) - (Math.sqrt(STRbonus[attacker.getSTR()]) * 100 - 100));
+                return (int) ((Math.sqrt(CONbonus[target.getStat().getCON()]) * 100 - 100) - (Math.sqrt(STRbonus[attacker.getStat().getSTR()]) * 100 - 100));
             case POISON:
-                return (int) (Math.sqrt(CONbonus[target.getCON()]) * 100 - 100);
+                return (int) (Math.sqrt(CONbonus[target.getStat().getCON()]) * 100 - 100);
             case ROOT:
             case SLEEP:
             case MUTE:
@@ -1548,7 +1548,7 @@ public final class Formulas
             case PARALYZE:
             case CANCEL:
             case DEBUFF:
-                return (int) (Math.sqrt(MENbonus[target.getMEN()]) * 100 - 100);
+                return (int) (Math.sqrt(MENbonus[target.getStat().getMEN()]) * 100 - 100);
             default:
                 return 0;
         }
@@ -1664,9 +1664,9 @@ public final class Formulas
         int skillLevel = skill.getLevel();
         int attackerLevel = activeChar.getLevel();
         int targetLevel = target.getLevel();
-        int CONModifier = (100 - target.getCON());
-        int DEXModifier = (90 - target.getDEX());
-        int WITModifier = (80 - target.getWIT());
+        int CONModifier = (100 - target.getStat().getCON());
+        int DEXModifier = (90 - target.getStat().getDEX());
+        int WITModifier = (80 - target.getStat().getWIT());
         int powerModifier = Math.round(skillPower / 100);
         int levelModifier = Math.round(skillLevel / 2);
         int baseRate = (attackerLevel - targetLevel) + powerModifier + levelModifier;

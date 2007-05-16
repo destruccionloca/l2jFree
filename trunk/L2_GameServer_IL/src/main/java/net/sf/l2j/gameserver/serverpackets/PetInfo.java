@@ -54,7 +54,7 @@ public class PetInfo extends L2GameServerPacket
 		_mAtkSpd = _summon.getMAtkSpd();
 		_pAtkSpd = _summon.getPAtkSpd();
 		_runSpd = _summon.getRunSpeed();
-		_walkSpd = _summon.getWalkSpeed();
+		_walkSpd = _summon.getStat().getWalkSpeed();
 		_swimRunSpd = _flRunSpd = _flyRunSpd = _runSpd;
 		_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
 		_maxHp = _summon.getMaxHp();
@@ -109,9 +109,9 @@ public class PetInfo extends L2GameServerPacket
 		writeD(_summon.getKarma());  // hmm karma ??
 		writeD(_curFed); // how fed it is
 		writeD(_maxFed); //max fed it can be
-		writeD((int)_summon.getCurrentHp());//current hp
+		writeD((int)_summon.getStatus().getCurrentHp());//current hp
 		writeD(_maxHp);// max hp
-		writeD((int)_summon.getCurrentMp());//current mp
+		writeD((int)_summon.getStatus().getCurrentMp());//current mp
 		writeD(_maxMp);//max mp
 		writeD(_summon.getStat().getSp()); //sp
 		writeD(_summon.getLevel());// lvl 

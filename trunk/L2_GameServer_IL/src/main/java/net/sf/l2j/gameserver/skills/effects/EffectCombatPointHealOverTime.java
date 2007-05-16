@@ -40,14 +40,14 @@ class EffectCombatPointHealOverTime extends L2Effect
         if(getEffected().isDead())
             return false;
         
-        double cp = getEffected().getCurrentCp(); 
+        double cp = getEffected().getStatus().getCurrentCp(); 
         double maxcp = getEffected().getMaxCp();
         cp += calc(); 
         if(cp > maxcp)
         {
             cp = maxcp;
         }
-        getEffected().setCurrentCp(cp); 
+        getEffected().getStatus().setCurrentCp(cp); 
         StatusUpdate sump = new StatusUpdate(getEffected().getObjectId()); 
         sump.addAttribute(StatusUpdate.CUR_CP, (int)cp); 
         getEffected().sendPacket(sump);

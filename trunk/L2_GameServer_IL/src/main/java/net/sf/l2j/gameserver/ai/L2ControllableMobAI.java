@@ -149,7 +149,7 @@ public class L2ControllableMobAI extends L2AttackableAI
             {
                 if (_actor.isInsideRadius(getAttackTarget(), sk.getCastRange(), false, true) //sk.getCastRange() * sk.getCastRange() >= dist2
                         && !_actor.isSkillDisabled(sk.getId())
-                        && _actor.getCurrentMp() > _actor.getStat().getMpConsume(sk)) 
+                        && _actor.getStatus().getCurrentMp() > _actor.getStat().getMpConsume(sk)) 
                 {
                     _accessor.doCast(sk);
                     return;
@@ -208,7 +208,7 @@ public class L2ControllableMobAI extends L2AttackableAI
                 
                 if (castRange * castRange >= dist2
                         && !_actor.isSkillDisabled(sk.getId())
-                        && _actor.getCurrentMp() > _actor.getStat().getMpConsume(sk)) 
+                        && _actor.getStatus().getCurrentMp() > _actor.getStat().getMpConsume(sk)) 
                 {
                     _accessor.doCast(sk);
                     return;
@@ -259,7 +259,7 @@ public class L2ControllableMobAI extends L2AttackableAI
                 
                 if (castRange * castRange >= dist2
                         && !_actor.isSkillDisabled(sk.getId())
-                        && _actor.getCurrentMp() > _actor.getStat().getMpConsume(sk)) 
+                        && _actor.getStatus().getCurrentMp() > _actor.getStat().getMpConsume(sk)) 
                 {
                     _accessor.doCast(sk);
                     return;
@@ -349,7 +349,7 @@ public class L2ControllableMobAI extends L2AttackableAI
                     
                     if (castRange * castRange >= dist2
                             && !_actor.isSkillDisabled(sk.getId())
-                            && _actor.getCurrentMp() > _actor.getStat().getMpConsume(sk)) 
+                            && _actor.getStatus().getCurrentMp() > _actor.getStat().getMpConsume(sk)) 
                     {
                         _accessor.doCast(sk);
                         return;
@@ -387,7 +387,7 @@ public class L2ControllableMobAI extends L2AttackableAI
                     
                     if (castRange * castRange >= dist2
                             && !_actor.isSkillDisabled(sk.getId())
-                            && _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk)) 
+                            && _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)) 
                     {
                         _accessor.doCast(sk);
                         return;

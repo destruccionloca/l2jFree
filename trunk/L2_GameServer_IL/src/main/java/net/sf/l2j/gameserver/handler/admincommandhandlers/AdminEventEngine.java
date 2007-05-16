@@ -568,8 +568,8 @@ public class AdminEventEngine implements IAdminCommandHandler {
        Iterator it = linked.iterator();
        while(it.hasNext()){
            try{L2PcInstance character = L2World.getInstance().getPlayer(it.next().toString());
-           character.setCurrentHpMp(character.getMaxHp(), character.getMaxMp());
-           character.setCurrentCp(character.getMaxCp());
+           character.getStatus().setCurrentHpMp(character.getMaxHp(), character.getMaxMp());
+           character.getStatus().setCurrentCp(character.getMaxCp());
            Revive revive = new Revive(character); 
            SocialAction sa = new SocialAction(character.getObjectId(), 15); 
            character.broadcastPacket(sa); 
