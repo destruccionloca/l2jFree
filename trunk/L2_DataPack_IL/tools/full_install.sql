@@ -37,6 +37,7 @@ DROP TABLE IF EXISTS merchant_lease;
 DROP TABLE IF EXISTS olympiad_nobles;
 DROP TABLE IF EXISTS petitions;
 DROP TABLE IF EXISTS pets;
+DROP TABLE IF EXISTS raidboss_points;
 DROP TABLE IF EXISTS raidboss_spawnlist;
 DROP TABLE IF EXISTS record;
 DROP TABLE IF EXISTS seven_signs;
