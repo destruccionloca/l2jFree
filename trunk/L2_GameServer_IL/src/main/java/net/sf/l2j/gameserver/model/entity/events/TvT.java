@@ -269,7 +269,39 @@ public class TvT
                                                                for (L2PcInstance player : TvT._players)
                                                                {
                                                                    if (player !=  null)
+                                                                   {
+                                                                	   if (Config.TVT_ON_START_UNSUMMON_PET)
+                                                                       {
+                                                                		   //Remove Summon's buffs
+                                                                           if (player.getPet() != null)
+                                                                           {
+                                                                               L2Summon summon = player.getPet();
+                                                                               for (L2Effect e : summon.getAllEffects())
+                                                                                   e.exit();
+                                                                               
+                                                                               if (summon instanceof L2PetInstance)
+                                                                                   summon.unSummon(player);
+                                                                           }
+                                                                       }
+
+                                                                       if (Config.TVT_ON_START_REMOVE_ALL_EFFECTS)
+                                                                       {
+                                                                           for (L2Effect e : player.getAllEffects())
+                                                                           {
+                                                                               if (e != null)
+                                                                                   e.exit();
+                                                                           }
+                                                                       }
+                                                                       
+//                                                                     Remove player from his party
+                                                                       if (player.getParty() != null)
+                                                                       {
+                                                                           L2Party party = player.getParty();
+                                                                           party.removePartyMember(player);
+                                                                       }
+                                                                       
                                                                        player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams.indexOf(player._teamNameTvT)));
+                                                                   }
                                                                }
                                                            }
                                                        }, 20000);
@@ -493,31 +525,7 @@ public class TvT
                         player.standUp();
                 }
             }
-        }
-        for (L2PcInstance player : _players)
-        {
-            //Remove Buffs
-            for (L2Effect e : player.getAllEffects())
-                e.exit();
-            
-            //Remove Summon's buffs
-            if (player.getPet() != null)
-            {
-                L2Summon summon = player.getPet();
-                for (L2Effect e : summon.getAllEffects())
-                    e.exit();
-                
-                if (summon instanceof L2PetInstance)
-                    summon.unSummon(player);
-            }
-            
-            //Remove player from his party
-            if (player.getParty() != null)
-            {
-                L2Party party = player.getParty();
-                party.removePartyMember(player);
-            }
-        }
+        }        
     }
     
     public static void dumpData()
@@ -954,19 +962,19 @@ public class TvT
     
     public static void cleanTvT()
     {
-        for (String team : _teams)
+    	for (L2PcInstance player : _players)
+        {
+            removePlayer(player);            
+        }
+    	
+    	for (String team : _teams)
         {
             int index = _teams.indexOf(team);
 
             _teamPlayersCount.set(index, 0);
             _teamKillsCount.set(index, 0);
-        }
+        }        
         
-        for (L2PcInstance player : _players)
-        {
-            removePlayer(player);            
-        }
-
         _topKills = 0;
         _topTeam = new String();
         _players = new Vector<L2PcInstance>();

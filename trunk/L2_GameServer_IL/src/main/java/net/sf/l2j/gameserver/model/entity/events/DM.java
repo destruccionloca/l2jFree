@@ -30,6 +30,7 @@ import java.sql.ResultSet;
 import java.util.Vector;
 
 import javolution.text.TextBuilder;
+import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ThreadPoolManager;
@@ -193,7 +194,38 @@ public class DM
                                                                for (L2PcInstance player : DM._players)
                                                                {
                                                                    if (player !=  null)
+                                                                   {
+                                                                	   if (Config.DM_ON_START_UNSUMMON_PET)
+                                                                       {
+                                                                		   //Remove Summon's buffs
+                                                                           if (player.getPet() != null)
+                                                                           {
+                                                                               L2Summon summon = player.getPet();
+                                                                               for (L2Effect e : summon.getAllEffects())
+                                                                                   e.exit();
+                                                                               
+                                                                               if (summon instanceof L2PetInstance)
+                                                                                   summon.unSummon(player);
+                                                                           }
+                                                                       }
+
+                                                                       if (Config.DM_ON_START_REMOVE_ALL_EFFECTS)
+                                                                       {
+                                                                           for (L2Effect e : player.getAllEffects())
+                                                                           {
+                                                                               if (e != null)
+                                                                                   e.exit();
+                                                                           }
+                                                                       }
+                                                                       
+//                                                                     Remove player from his party
+                                                                       if (player.getParty() != null)
+                                                                       {
+                                                                           L2Party party = player.getParty();
+                                                                           party.removePartyMember(player);
+                                                                       }
                                                                        player.teleToLocation(_playerX, _playerY, _playerZ);
+                                                                   }
                                                                }
                                                            }
                                                        }, 20000);
@@ -374,31 +406,7 @@ public class DM
                         player.standUp();
                 }
             }
-        }
-        for (L2PcInstance player : _players)
-        {
-            //Remove Buffs
-            for (L2Effect e : player.getAllEffects())
-                e.exit();
-            
-            //Remove Summon's buffs
-            if (player.getPet() != null)
-            {
-                L2Summon summon = player.getPet();
-                for (L2Effect e : summon.getAllEffects())
-                    e.exit();
-                
-                if (summon instanceof L2PetInstance)
-                    summon.unSummon(player);
-            }
-            
-            //Remove player from his party
-            if (player.getParty() != null)
-            {
-                L2Party party = player.getParty();
-                party.removePartyMember(player);
-            }
-        }
+        }        
     }
     
     public static void dumpData()

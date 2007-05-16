@@ -300,10 +300,16 @@ public class CTF
                                                                    {
                                                                        if (Config.CTF_ON_START_UNSUMMON_PET)
                                                                        {
-                                                                           L2Summon s = player.getPet();
-
-                                                                           if (s != null)
-                                                                               s.unSummon(player);
+                                                                    	   //Remove Summon's buffs
+                                                                           if (player.getPet() != null)
+                                                                           {
+                                                                               L2Summon summon = player.getPet();
+                                                                               for (L2Effect e : summon.getAllEffects())
+                                                                                   e.exit();
+                                                                               
+                                                                               if (summon instanceof L2PetInstance)
+                                                                                   summon.unSummon(player);
+                                                                           }
                                                                        }
 
                                                                        if (Config.CTF_ON_START_REMOVE_ALL_EFFECTS)
@@ -313,6 +319,13 @@ public class CTF
                                                                                if (e != null)
                                                                                    e.exit();
                                                                            }
+                                                                       }
+                                                                       
+                                                                       //Remove player from his party
+                                                                       if (player.getParty() != null)
+                                                                       {
+                                                                           L2Party party = player.getParty();
+                                                                           party.removePartyMember(player);
                                                                        }
                                                                        
                                                                        player.teleToLocation(_flagsX.get(_teams.indexOf(player._teamNameCTF)), _flagsY.get(_teams.indexOf(player._teamNameCTF)), _flagsZ.get(_teams.indexOf(player._teamNameCTF)),false);
@@ -562,36 +575,17 @@ public class CTF
                         player.standUp();
                 }
             }
-        }
-        for (L2PcInstance player : _players)
-        {
-            //Remove Buffs
-            for (L2Effect e : player.getAllEffects())
-                e.exit();
-            
-            //Remove Summon's buffs
-            if (player.getPet() != null)
-            {
-                L2Summon summon = player.getPet();
-                for (L2Effect e : summon.getAllEffects())
-                    e.exit();
-                
-                if (summon instanceof L2PetInstance)
-                    summon.unSummon(player);
-            }
-            
-            //Remove player from his party
-            if (player.getParty() != null)
-            {
-                L2Party party = player.getParty();
-                party.removePartyMember(player);
-            }
-        }
+        }        
     }
     
     public static void clean()
     {
-        for (String team : _teams)
+    	for (L2PcInstance player : _players)
+        {
+            removePlayer(player);
+        }
+    	
+    	for (String team : _teams)
         {
             int index = _teams.indexOf(team);
 
@@ -599,11 +593,6 @@ public class CTF
             _teamPointsCount.set(index, 0);            
         }
         
-        for (L2PcInstance player : _players)
-        {
-            removePlayer(player);
-        }
-
         _topScore = 0;
         _topTeam = new String();
         _players = new Vector<L2PcInstance>();

@@ -3815,148 +3815,145 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             L2PcInstance pk = null;
 
-            if (killer instanceof L2PcInstance)
+            if ((killer instanceof L2PcInstance &&((L2PcInstance)killer)._inEventTvT) && _inEventTvT)
             {
-               if (((L2PcInstance)killer)._inEventTvT && _inEventTvT)
-               {
-                   if (TvT._teleport || TvT._started)
-                   {
-                       ((L2PcInstance)killer)._countTvTkills++;
-                       if (!(((L2PcInstance)killer)._teamNameTvT.equals(_teamNameTvT)))
-                           TvT.setTeamKillsCount(((L2PcInstance)killer)._teamNameTvT, TvT.teamKillsCount(((L2PcInstance)killer)._teamNameTvT)+1);
+                if (TvT._teleport || TvT._started)
+                {
+                    ((L2PcInstance)killer)._countTvTkills++;
+                    if (!(((L2PcInstance)killer)._teamNameTvT.equals(_teamNameTvT)))
+                        TvT.setTeamKillsCount(((L2PcInstance)killer)._teamNameTvT, TvT.teamKillsCount(((L2PcInstance)killer)._teamNameTvT)+1);
 
-                       sendMessage("You will be revived and teleported to team spot in 20 seconds!");
-                       ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                                       {
-                                                                           public void run()
-                                                                           {
-                                                                               teleToLocation(TvT._teamsX.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsY.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsZ.get(TvT._teams.indexOf(_teamNameTvT)), false);
-                                                                               doRevive();
-                                                                           }
-                                                                       }, 20000);
-                   }
-               }
-               
-               else if (!((L2PcInstance)killer)._inEventTvT && _inEventTvT)
-               {
-                   if (TvT._teleport || TvT._started)
-                   {
-                       sendMessage("You will be revived and teleported to team spot in 20 seconds!");
-                       ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                                       {
-                                                                           public void run()
-                                                                           {
-                                                                               teleToLocation(TvT._teamsX.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsY.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsZ.get(TvT._teams.indexOf(_teamNameTvT)), false);
-                                                                               doRevive();
-                                                                           }
-                                                                       }, 20000);
-                       }
-               }
-               
-               else if (((L2PcInstance)killer)._inEventCTF && _inEventCTF)
-               {
-                   if (CTF._teleport || CTF._started)
-                   {
-                       sendMessage("You will be revived and teleported to team flag in 20 seconds!");
-
-                       if (_haveFlagCTF)
-                       {
-                           CTF._flagsTaken.set(CTF._teams.indexOf(_teamNameHaveFlagCTF), false);
-                           CTF.spawnFlag(_teamNameHaveFlagCTF);
-                           setTitle(_originalTitleCTF);
-                           broadcastUserInfo();
-                           _haveFlagCTF = false;
-                           Announcements.getInstance().announceToAll(CTF._eventName + "(CTF): " + _teamNameHaveFlagCTF + "'s flag returned.");
-                       }
-
-                       ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                                       {
-                                                                           public void run()
-                                                                           {
-                                                                               teleToLocation(CTF._flagsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsZ.get(CTF._teams.indexOf(_teamNameCTF)), false);
-                                                                               doRevive();
-                                                                           }
-                                                                       }, 20000);
-                   }
-               }
-               
-               else if (!((L2PcInstance)killer)._inEventCTF && _inEventCTF)
-               {
-                   if (CTF._teleport || CTF._started)
-                   {
-                       sendMessage("You will be revived and teleported to team flag in 20 seconds!");
-
-                       ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                                       {
-                                                                           public void run()
-                                                                           {
-                                                                               teleToLocation(CTF._flagsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsZ.get(CTF._teams.indexOf(_teamNameCTF)), false);
-                                                                               doRevive();
-                                                                           }
-                                                                       }, 20000);
-                   }
-               }
-               
-               else if (((L2PcInstance)killer)._inEventDM && _inEventDM)
-               {
-                   if (DM._teleport || DM._started)
-                   {
-                       ((L2PcInstance)killer)._countDMkills++;
-                       
-                       sendMessage("You will be revived and teleported to spot in 20 seconds!");
-                       ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                                       {
-                                                                           public void run()
-                                                                           {
-                                                                               teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
-                                                                               doRevive();
-                                                                           }
-                                                                       }, 20000);                      
-                   }
-               }
-               else if (!((L2PcInstance)killer)._inEventDM && _inEventDM)
-               {
-                   if (DM._teleport || DM._started)
-                   {
-                       sendMessage("You will be revived and teleported to spot in 20 seconds!");
-                       ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                                       {
-                                                                           public void run()
-                                                                           {
-                                                                               teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
-                                                                               doRevive();
-                                                                           }
-                                                                       }, 20000);                      
-                   }
-               }
-               
-               else if (_inEventVIP) 
-               {
-                    if (VIP._started) {
-                        if (_isTheVIP && ((L2PcInstance)killer)._inEventVIP)
-                            VIP.vipDied();
-                        else if (_isTheVIP && !((L2PcInstance)killer)._inEventVIP){
-                            Announcements.getInstance().announceToAll("VIP Killed by non-event character. VIP going back to initial spawn.");
-                            doRevive();
-                            teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
-                        }
-                        else {                          
-                            sendMessage("You will be revived and teleported to team spot in 20 seconds!");
-                            ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
-                                public void run() {
-                                    doRevive();
-                                    if (_isVIP)
-                                        teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
-                                    else
-                                        teleToLocation(VIP._endX, VIP._endY, VIP._endZ);
-                                }
-                            }, 20000);
-                        }
-                    }
-               }
-               else
-                   pk = (L2PcInstance) killer;
+                    sendMessage("You will be revived and teleported to team spot in 20 seconds!");
+                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                                                                    {
+                                                                        public void run()
+                                                                        {
+                                                                            teleToLocation(TvT._teamsX.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsY.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsZ.get(TvT._teams.indexOf(_teamNameTvT)), false);
+                                                                            doRevive();
+                                                                        }
+                                                                    }, 20000);
+                }
             }
+            
+            else if (_inEventTvT)
+            {
+                if (TvT._teleport || TvT._started)
+                {
+                    sendMessage("You will be revived and teleported to team spot in 20 seconds!");
+                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                                                                    {
+                                                                        public void run()
+                                                                        {
+                                                                            teleToLocation(TvT._teamsX.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsY.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsZ.get(TvT._teams.indexOf(_teamNameTvT)), false);
+                                                                            doRevive();
+                                                                        }
+                                                                    }, 20000);
+                    }
+            }
+            
+            else if ((killer instanceof L2PcInstance && ((L2PcInstance)killer)._inEventCTF) && _inEventCTF)
+            {
+                if (CTF._teleport || CTF._started)
+                {
+                    sendMessage("You will be revived and teleported to team flag in 20 seconds!");
+
+                    if (_haveFlagCTF)
+                    {
+                        CTF._flagsTaken.set(CTF._teams.indexOf(_teamNameHaveFlagCTF), false);
+                        CTF.spawnFlag(_teamNameHaveFlagCTF);
+                        setTitle(_originalTitleCTF);
+                        broadcastUserInfo();
+                        _haveFlagCTF = false;
+                        Announcements.getInstance().announceToAll(CTF._eventName + "(CTF): " + _teamNameHaveFlagCTF + "'s flag returned.");
+                    }
+
+                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                                                                    {
+                                                                        public void run()
+                                                                        {
+                                                                            teleToLocation(CTF._flagsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsZ.get(CTF._teams.indexOf(_teamNameCTF)), false);
+                                                                            doRevive();
+                                                                        }
+                                                                    }, 20000);
+                }
+            }
+            
+            else if (_inEventCTF)
+            {
+                if (CTF._teleport || CTF._started)
+                {
+                    sendMessage("You will be revived and teleported to team flag in 20 seconds!");
+
+                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                                                                    {
+                                                                        public void run()
+                                                                        {
+                                                                            teleToLocation(CTF._flagsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsZ.get(CTF._teams.indexOf(_teamNameCTF)), false);
+                                                                            doRevive();
+                                                                        }
+                                                                    }, 20000);
+                }
+            }
+            
+            else if ((killer instanceof L2PcInstance && ((L2PcInstance)killer)._inEventDM) && _inEventDM)
+            {
+                if (DM._teleport || DM._started)
+                {
+                    ((L2PcInstance)killer)._countDMkills++;
+                    
+                    sendMessage("You will be revived and teleported to spot in 20 seconds!");
+                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                                                                    {
+                                                                        public void run()
+                                                                        {
+                                                                            teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
+                                                                            doRevive();
+                                                                        }
+                                                                    }, 20000);                      
+                }
+            }
+            else if (_inEventDM)
+            {
+                if (DM._teleport || DM._started)
+                {
+                    sendMessage("You will be revived and teleported to spot in 20 seconds!");
+                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                                                                    {
+                                                                        public void run()
+                                                                        {
+                                                                            teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
+                                                                            doRevive();
+                                                                        }
+                                                                    }, 20000);                      
+                }
+            }
+            
+            else if (killer instanceof L2PcInstance && _inEventVIP) 
+            {
+                 if (VIP._started) {
+                     if (_isTheVIP && ((L2PcInstance)killer)._inEventVIP)
+                         VIP.vipDied();
+                     else if (_isTheVIP && !((L2PcInstance)killer)._inEventVIP){
+                         Announcements.getInstance().announceToAll("VIP Killed by non-event character. VIP going back to initial spawn.");
+                         doRevive();
+                         teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
+                     }
+                     else {                          
+                         sendMessage("You will be revived and teleported to team spot in 20 seconds!");
+                         ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+                             public void run() {
+                                 doRevive();
+                                 if (_isVIP)
+                                     teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
+                                 else
+                                     teleToLocation(VIP._endX, VIP._endY, VIP._endZ);
+                             }
+                         }, 20000);
+                     }
+                 }
+            }
+            else if (killer instanceof L2PcInstance)
+                pk = (L2PcInstance) killer;
 
             if (atEvent && pk != null)
             {
