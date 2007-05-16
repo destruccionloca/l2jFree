@@ -264,6 +264,7 @@ $MYG < ../sql/character_friends.sql &> /dev/null
 $MYG < ../sql/character_hennas.sql &> /dev/null
 $MYG < ../sql/character_macroses.sql &> /dev/null
 $MYG < ../sql/character_quests.sql &> /dev/null
+$MYG < ../sql/character_raidpoints &> /dev/null
 $MYG < ../sql/character_recipebook.sql &> /dev/null
 $MYG < ../sql/character_shortcuts.sql &> /dev/null
 $MYG < ../sql/character_skills.sql &> /dev/null
@@ -311,7 +312,6 @@ $MYG < ../sql/pets.sql &> /dev/null
 $MYG < ../sql/pets_stats.sql &> /dev/null
 $MYG < ../sql/pledge_skill_trees.sql &> /dev/null
 $MYG < ../sql/posts.sql &> /dev/null
-$MYG < ../sql/raidboss_points.sql &> /dev/null
 $MYG < ../sql/raidboss_spawnlist.sql &> /dev/null
 $MYG < ../sql/random_spawn.sql &> /dev/null
 $MYG < ../sql/random_spawn_loc.sql &> /dev/null
