@@ -278,7 +278,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                     }
                     
                     if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP){
-                        player.sendMessage("You can't change subclass while in events.");
+                        player.sendMessage("You can't add subclass while in events.");
                         return;
                     }
                     
@@ -359,7 +359,11 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                      * classes then disallow them to change to their most recently added sub-class choice.
                      *
                      * Note: paramOne = classIndex
-                     */ 
+                     */
+                	if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP){  
+                         player.sendMessage("You can't change subclass while in events.");  
+                         return;  
+                    }
 
                     if (Olympiad.getInstance().isRegisteredInComp(player)
                         || player.getOlympiadGameId() > 0)
