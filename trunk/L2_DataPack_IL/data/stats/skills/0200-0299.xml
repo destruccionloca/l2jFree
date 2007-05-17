@@ -1605,7 +1605,7 @@
   </for>
   <enchant1for>
     <effect name="Buff" time="#ench1time" count="1" val="0">
-      <mul order="0x30" stat="cAtk" val="1.5"/>
+      <mul order="0x30" stat="cAtk" val="1.4"/>
     </effect>
   </enchant1for>
 </skill>
