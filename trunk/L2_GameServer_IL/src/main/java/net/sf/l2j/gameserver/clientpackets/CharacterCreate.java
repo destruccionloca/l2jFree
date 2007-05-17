@@ -151,7 +151,7 @@ public class CharacterCreate extends L2GameClientPacket
 		
 		newChar.addAdena("Init", Config.STARTING_ADENA, null, false);
 		
-		newChar.setXYZInvisible(template.spawnX, template.spawnY, template.spawnZ);
+		newChar.getPosition().setXYZInvisible(template.spawnX, template.spawnY, template.spawnZ);
 		newChar.setTitle("");
 		
 		L2ShortCut shortcut;

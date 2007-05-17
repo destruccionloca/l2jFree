@@ -60,14 +60,6 @@ public class ClanHallManager
     {
     }
 
-    // =========================================================
-    // Method - Public
-    /** Return true if object is inside zone */
-    public final boolean checkIfInZone(L2Object obj) { return (getClanHall(obj) != null); }
-
-    /** Return true if object is inside zone */
-    public final boolean checkIfInZone(int x, int y) { return (getClanHall(x, y) != null); }
-
     public void reload()
     {
     	this.getClanHalls().clear();
@@ -130,13 +122,6 @@ public class ClanHallManager
         return null;
     }
 
-    public final ClanHall getClanHall(String name)
-    {
-        int index = getClanHallIndex(name);
-        if (index >= 0) return getClanHalls().get(index);
-        return null;
-    }
-
     public final ClanHall getClanHallByOwner(L2Clan clan)
     {
 	for (ClanHall clanhall : getClanHalls())
@@ -155,8 +140,6 @@ public class ClanHallManager
         }
         return -1;
     }
-
-    public final int getClanHallIndex(L2Object activeObject) { return getClanHallIndex(activeObject.getPosition().getX(), activeObject.getPosition().getY()); }
 
     public final int getClanHallIndex(int x, int y)
     {
@@ -203,18 +186,6 @@ public class ClanHallManager
         return -1;
     }
 
-    public final int getClanHallIndexByOwner(L2Clan clan)
-    {
-        if (clan == null) return -1;
-        
-        ClanHall clanHall;
-        for (int i = 0; i < getClanHalls().size(); i++)
-        {
-            clanHall = getClanHalls().get(i);
-            if (clanHall != null && clanHall.getOwnerId() == clan.getClanId()) return i;
-        }
-        return -1;
-    }
 
     public final FastList<ClanHall> getClanHalls()
     {

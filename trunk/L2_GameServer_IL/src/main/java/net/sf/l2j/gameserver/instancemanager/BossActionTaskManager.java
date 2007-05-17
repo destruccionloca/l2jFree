@@ -320,16 +320,6 @@ public class BossActionTaskManager
         _Baium = null;
     }
 
-    public boolean CanIntoValakasLair()
-    {
-        return (_playersInValakasLair.size() < _CapacityOfLairOfValakas && !_IsValakasSpawned);
-    }
-
-    public boolean CanIntoAntharasLair()
-    {
-        return !_IsAntharasSpawned;
-    }
-
     public void SetAntharasSpawnTask()
     {
         if (_playersInAntharasLair.size() >= 1) return;
@@ -355,11 +345,6 @@ public class BossActionTaskManager
     public void AddPlayerToAntharasLair(L2PcInstance pc)
     {
         if (!_playersInAntharasLair.contains(pc)) _playersInAntharasLair.add(pc);
-    }
-
-    public void AddPlayerToBaiumsLair(L2PcInstance pc)
-    {
-        if (!_playersInBaiumLair.contains(pc)) _playersInBaiumLair.add(pc);
     }
     
     public void AddPlayerToValakasLair(L2PcInstance pc)

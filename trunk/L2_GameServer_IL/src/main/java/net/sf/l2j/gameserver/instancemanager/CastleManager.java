@@ -59,14 +59,6 @@ public class CastleManager
     {
     }
 
-    // =========================================================
-    // Method - Public
-    /** Return true if object is inside zone */
-    public final boolean checkIfInZone(L2Object obj) { return (getCastle(obj) != null); }
-
-    /** Return true if object is inside zone */
-    public final boolean checkIfInZone(int x, int y) { return (getCastle(x, y) != null); }
-
     public final int findNearestCastleIndex(L2Object activeObject)
     {
         int index = getCastleIndex(activeObject);
@@ -160,29 +152,6 @@ public class CastleManager
         return null;
     }
 
-    public final Castle getCastleByTown(int townId)
-    {
-        int index = getCastleIndexByTown(townId);
-        if (index >= 0) return getCastles().get(index);
-        return null;
-    }
-
-    public final Castle getCastleByTown(L2Object activeObject) { return getCastleByTown(activeObject.getPosition().getX(), activeObject.getPosition().getY()); }
-
-    public final Castle getCastleByTown(int x, int y)
-    {
-        int index = getCastleIndexByTown(x, y);
-        if (index >= 0) return getCastles().get(index);
-        return null;
-    }
-
-    public final Castle getCastleByTown(String name)
-    {
-        int index = getCastleIndexByTown(name);
-        if (index >= 0) return getCastles().get(index);
-        return null;
-    }
-
     public final int getCastleIndex(int castleId)
     {
         Castle castle;
@@ -231,17 +200,6 @@ public class CastleManager
         return -1;
     }
 
-    public final int getCastleIndexByTown(int townId)
-    {
-        Castle castle;
-        for (int i = 0; i < getCastles().size(); i++)
-        {
-            castle = getCastles().get(i);
-            if (castle != null && castle.getZoneTown(townId) != null) return i;
-        }
-        return -1;
-    }
-
     public final int getCastleIndexByTown(L2Object activeObject) { return getCastleIndexByTown(activeObject.getX(), activeObject.getY()); }
 
     public final int getCastleIndexByTown(int x, int y)
@@ -251,17 +209,6 @@ public class CastleManager
         {
             castle = getCastles().get(i);
             if (castle != null && castle.checkIfInZoneTowns(x, y)) return i;
-        }
-        return -1;
-    }
-
-    public final int getCastleIndexByTown(String name)
-    {
-        Castle castle;
-        for (int i = 0; i < getCastles().size(); i++)
-        {
-            castle = getCastles().get(i);
-            if (castle != null && castle.getZoneTown(name) != null) return i;
         }
         return -1;
     }

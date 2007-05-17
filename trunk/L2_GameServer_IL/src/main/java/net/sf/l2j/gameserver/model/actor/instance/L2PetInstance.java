@@ -347,6 +347,7 @@ public class L2PetInstance extends L2Summon
      * @param sendMessage : boolean Specifies whether to send message to Client about this action
      * @return boolean informing if the action was successfull
      */
+    @Override
     public boolean destroyItem(String process, int objectId, int count, L2Object reference, boolean sendMessage)
     {
         L2ItemInstance item = _inventory.destroyItem(process, objectId, count, getOwner(), reference);
@@ -384,6 +385,7 @@ public class L2PetInstance extends L2Summon
      * @param sendMessage : boolean Specifies whether to send message to Client about this action
      * @return boolean informing if the action was successfull
      */
+    @Override
     public boolean destroyItemByItemId(String process, int itemId, int count, L2Object reference, boolean sendMessage)
     {
         L2ItemInstance item = _inventory.destroyItemByItemId(process, itemId, count, getOwner(), reference);
@@ -410,6 +412,7 @@ public class L2PetInstance extends L2Summon
         return true;
     }
 
+    @Override
     protected void doPickupItem(L2Object object)
     {
     	
@@ -513,6 +516,7 @@ public class L2PetInstance extends L2Summon
             followOwner();
     }
 
+    @Override
     public void deleteMe(L2PcInstance owner)
     {
         SystemMessage sm = new SystemMessage(SystemMessage.YOUR_PETS_CORPSE_HAS_DECAYED);
@@ -523,6 +527,7 @@ public class L2PetInstance extends L2Summon
         destroyControlItem(owner); //this should also delete the pet from the db
     }
     
+    @Override
     public void reduceCurrentHp(double damage, L2Character attacker)
     {
         // called in combat
@@ -547,6 +552,7 @@ public class L2PetInstance extends L2Summon
         super.reduceCurrentHp(damage, attacker);
     }
     
+    @Override
     public synchronized void doDie(L2Character killer) {
     	
     	SystemMessage sm = new SystemMessage(SystemMessage.MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES);
@@ -562,6 +568,7 @@ public class L2PetInstance extends L2Summon
         if (isRespawned()) deathPenalty();
     }
     
+    @Override
     public void doRevive()
     {
         if (getCurrentFed() > (getMaxFed() / 10))
@@ -573,7 +580,8 @@ public class L2PetInstance extends L2Summon
         super.stopDecay();
         startFeed(false);
     }
-
+    
+    @Override
     public void doRevive(double revivePower)
     {
         // Restore the pet's lost experience, 
@@ -735,22 +743,6 @@ public class L2PetInstance extends L2Summon
         }
     }
     
-    public void dropAllItems()
-    {
-        try
-        {
-            L2ItemInstance[] items = getInventory().getItems();
-            for (int i = 0; (i < items.length); i++)
-            { 
-                dropItemHere(items[i]);
-            }
-        }
-        catch(Exception e)
-        {
-            _log.warn("Pet Drop Error: " + e);
-        }
-    }
-    
     public void dropItemHere(L2ItemInstance dropit)
     {
         dropit = getInventory().dropItem("PetDrop", dropit.getObjectId(), dropit.getCount(), getOwner(), this);
@@ -880,6 +872,7 @@ public class L2PetInstance extends L2Summon
         }
     }
    
+    @Override
     public void store()
     {
         if (getControlItemId() == 0)
@@ -980,7 +973,7 @@ public class L2PetInstance extends L2Summon
     /**
      * Restore the specified % of experience this L2PetInstance has lost.<BR><BR>
      */
-    public void restoreExp(double restorePercent)
+    protected void restoreExp(double restorePercent)
     { 
         if (_expBeforeDeath > 0)
         {   

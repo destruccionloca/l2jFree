@@ -94,7 +94,7 @@ public class TestL2BoatInstance extends TestCase
         L2CharTemplate template = new L2CharTemplate(npcDat);       
         boat = new L2BoatInstance(283222,template,"mock boat");
         boat.getPosition().setHeading(32);
-        boat.setXYZ(1,2,3);
+        boat.getPosition().setXYZ(1,2,3);
 
         int IdWaypoint1 = 1;
         int IdWTicket1 = 2200;

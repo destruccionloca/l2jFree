@@ -113,6 +113,7 @@ public final class L2BossInstance extends L2MonsterInstance
 
     protected int getMaintenanceInterval() { return BOSS_MAINTENANCE_INTERVAL; }
 
+    @Override
     public void doDie(L2Character killer)
     {
         // [L2J_JP ADD START SANDMAN]
@@ -141,16 +142,17 @@ public final class L2BossInstance extends L2MonsterInstance
      * Used by Orfen to set 'teleported' flag, when hp goes to <50%
      * @param flag
      */
-    public void setTeleported(boolean flag)
+    private void setTeleported(boolean flag)
     {
         _teleportedToNest = flag;
     }
     
-    public boolean getTeleported()
+    private boolean getTeleported()
     {
         return _teleportedToNest;
     }
 
+    @Override
     public void OnSpawn()
     {
         // [L2J_JP ADD START SANDMAN]
@@ -224,6 +226,7 @@ public final class L2BossInstance extends L2MonsterInstance
      * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR><BR> 
      * 
      */
+    @Override
     public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
     {
 

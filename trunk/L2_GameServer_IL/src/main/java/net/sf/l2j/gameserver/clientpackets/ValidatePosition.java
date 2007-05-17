@@ -104,7 +104,7 @@ public class ValidatePosition extends L2GameClientPacket
                     || !activeChar.validateMovementHeading(_heading))) // Heading changed on client = possible obstacle
                 {
                     if (_log.isDebugEnabled()) _log.debug(activeChar.getName() + ": Synchronizing position Client --> Server" + (activeChar.isMoving()?" (collision)":" (stay sync)"));
-                    activeChar.setXYZ(_x, _y, _z);
+                    activeChar.getPosition().setXYZ(_x, _y, _z);
                     activeChar.setHeading(_heading);
                 }
                 else if ((Config.COORD_SYNCHRONIZE & 2) == 2 
@@ -135,7 +135,7 @@ public class ValidatePosition extends L2GameClientPacket
             int realZ = activeChar.getZ();
             
             if (Point3D.distanceSquared(activeChar.getPosition().getWorldPosition(), new Point3D(_x, _y, _z)) < 500 * 500)
-                activeChar.setXYZ(activeChar.getX(),activeChar.getY(),_z);
+                activeChar.getPosition().setXYZ(activeChar.getX(),activeChar.getY(),_z);
             int realHeading = activeChar.getHeading();
         
             //activeChar.setHeading(_heading);

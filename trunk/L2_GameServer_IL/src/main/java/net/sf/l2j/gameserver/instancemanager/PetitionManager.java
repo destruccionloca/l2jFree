@@ -249,14 +249,6 @@ public final class PetitionManager
 		_completedPetitions = new FastMap<Integer, Petition>();
 	}
 	
-	public void clearCompletedPetitions()
-	{
-		int numPetitions = getPendingPetitionCount();
-		
-		getCompletedPetitions().clear();
-		_log.info("PetitionManager: Completed petition data cleared. " + numPetitions + " petition(s) removed.");
-	}
-	
 	public void clearPendingPetitions()
 	{
 		int numPetitions = getPendingPetitionCount();

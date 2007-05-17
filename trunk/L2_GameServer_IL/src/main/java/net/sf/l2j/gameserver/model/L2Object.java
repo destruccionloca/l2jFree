@@ -35,43 +35,73 @@ import net.sf.l2j.gameserver.serverpackets.GetItem;
  * Mother class of all objects in the world wich ones is it possible 
  * to interact (PC, NPC, Item...)<BR><BR>
  * 
+ * An object have a visibility, a position and an appearance.
+ * An object know several other objects via ObjectKnownList <br>
+ * 
  * L2Object :<BR><BR>
  * <li>L2Character</li>
  * <li>L2ItemInstance</li>
  * <li>L2Potion</li> 
  * 
  */
-
 public abstract class L2Object
 {
-    // =========================================================
-    // Data Field
-    private boolean _IsVisible;                 // Object visibility
+    /**
+     * Object visibility
+     */
+    private boolean _IsVisible;
+    /**
+     * Objects known by this object
+     */
     private ObjectKnownList _KnownList;
+    /**
+     * Name of this object
+     */
     private String _Name;
-    private int _ObjectId;                      // Object identifier
+    /**
+     * unique identifier
+     */
+    private int _ObjectId;
+    /**
+     * Appearance and type of object 
+     */
     private ObjectPoly _Poly;
+    /**
+     * Position of object
+     */
     private ObjectPosition _Position;
-    
-    // =========================================================
-    // Constructor
+
+    /**
+     * Constructor
+     * @param objectId
+     */
     public L2Object(int objectId)
     {
         _ObjectId = objectId;
     }
     
-    // =========================================================
-    // Event - Public
+    /**
+     * Default action played by this object
+     * @param player
+     */
     public void onAction(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());
     }
 
+    /**
+     * 
+     * @param client
+     */
     public void onActionShift(L2GameClient client)
     {
         client.getActiveChar().sendPacket(new ActionFailed());
     }
     
+    /**
+     * Determine default action on forced attack
+     * @param player
+     */
     public void onForcedAttack(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());
@@ -79,6 +109,8 @@ public abstract class L2Object
 
     /**
      * Do Nothing.<BR><BR>
+     * 
+     * Determine default actions on spawn
      * 
      * <B><U> Overriden in </U> :</B><BR><BR>
      * <li> L2GuardInstance :  Set the home location of its L2GuardInstance </li>
@@ -89,38 +121,36 @@ public abstract class L2Object
     {
     }
 
-    // =========================================================
-    // Position - Should remove to fully move to L2ObjectPosition
-    public final void setXYZ(int x, int y, int z)
-    {
-        getPosition().setXYZ(x, y, z);
-    }
-    
-    public final void setXYZInvisible(int x, int y, int z)
-    {
-        getPosition().setXYZInvisible(x, y, z);
-    }
-
+    /**
+     * get the x coordinate for this object
+     * @return x
+     */
     public final int getX()
     {
         if (Config.ASSERT) assert getPosition().getWorldRegion() != null || _IsVisible;
         return getPosition().getX();
     }
 
+    /**
+     * get the y coordinate for this object
+     * @return y
+     */
     public final int getY()
     {
         if (Config.ASSERT) assert getPosition().getWorldRegion() != null || _IsVisible;
         return getPosition().getY();
     }
 
+    /**
+     * get the z coordinate for this object
+     * @return z
+     */
     public final int getZ()
     {
         if (Config.ASSERT) assert getPosition().getWorldRegion() != null || _IsVisible;
         return getPosition().getZ();
     }
     
-    // =========================================================
-    // Method - Public
     /**
      * Remove a L2Object from the world.<BR><BR>
      *
@@ -216,6 +246,10 @@ public abstract class L2Object
         L2World.getInstance().removeVisibleObject(this, oldregion);
     }
 
+    /**
+     * Refresh the object id (ask to IdFactory to release the old id and get a new one)
+     * @see net.sf.l2j.gameserver.idfactory.IdFactory
+     */
     public void refreshID()
     {
         L2World.getInstance().removeObject(this);
@@ -265,6 +299,26 @@ public abstract class L2Object
         OnSpawn();
     }
 
+    /**
+     * Init the position of a L2Object spawn and add it in the world as a visible object.<BR><BR>
+     *
+     * <B><U> Actions</U> :</B><BR><BR>
+     * <li>Set the x,y,z position of the L2Object spawn and update its _worldregion </li>
+     * <li>Add the L2Object spawn in the _allobjects of L2World </li>
+     * <li>Add the L2Object spawn to _visibleObjects of its L2WorldRegion</li>
+     * <li>Add the L2Object spawn in the world as a <B>visible</B> object</li><BR><BR>
+     * 
+     * <B><U> Assert </U> :</B><BR><BR>
+     * <li> _worldRegion == null <I>(L2Object is invisible at the beginning)</I></li><BR><BR>
+     *  
+     * <B><U> Example of use </U> :</B><BR><BR>
+     * <li> Create Door</li>
+     * <li> Spawn : Monster, Minion, CTs, Summon...</li><BR>
+     * 
+     * @param x
+     * @param y
+     * @param z 
+     */
     public final void spawnMe(int x, int y, int z)
     {
         if (Config.ASSERT) assert getPosition().getWorldRegion() == null;
@@ -297,6 +351,9 @@ public abstract class L2Object
         OnSpawn();
     }
     
+    /**
+     * If the object is visible, decay it. It not, spawn it.
+     */
     public void toggleVisible()
     {
         if (isVisible())
@@ -305,67 +362,99 @@ public abstract class L2Object
             spawnMe();
     }
 
-    // =========================================================
-    // Method - Private
-
-    // =========================================================
-    // Property - Public
+    /**
+     * Tell if this object is attackable or not. 
+     * By default, L2Object are not attackable.
+     * @return
+     */
     public boolean isAttackable()
     {
         return false;
     }
     
+    /**
+     * Return True if the L2Character is autoAttackable
+     * 
+     * @param attacker
+     * @return true if L2Character is autoAttackable, false otherwise
+     */
     public abstract boolean isAutoAttackable(L2Character attacker);
-
-    public boolean isMarker()
-    {
-        return false;
-    }
 
     /**
      * Return the visibilty state of the L2Object. <BR><BR>
      *  
      * <B><U> Concept</U> :</B><BR><BR>
-     * A L2Object is visble if <B>__IsVisible</B>=true and <B>_worldregion</B>!=null <BR><BR>
+     * A L2Object is visble if <B>_worldregion</B>!=null <BR><BR>
      */
     public final boolean isVisible() 
     {
         //return getPosition().getWorldRegion() != null && _IsVisible;
         return getPosition().getWorldRegion() != null;
     }
+    /**
+     * Set the visibilty state of the L2Object. <BR><BR>
+     * (Set world region to null)
+     * @param value
+     */
     public final void setIsVisible(boolean value)
     {
         _IsVisible = value;
-        if (!_IsVisible) getPosition().setWorldRegion(null);
+        if (!_IsVisible) 
+            getPosition().setWorldRegion(null);
     }
-
+    
+    /**
+     * Return the known list of object from this instance
+     * @return an objectKnownList
+     */
     public ObjectKnownList getKnownList()
     {
         if (_KnownList == null) _KnownList = new ObjectKnownList(this);
         return _KnownList;
     }
+    /**
+     * Set the known list 
+     * @param value the knownlist to set
+     */
     public final void setKnownList(ObjectKnownList value) { _KnownList = value; }
-
+    
+    /**
+     * return the name
+     * @return the name
+     */
     public final String getName()
     {
         return _Name;
     }
+    
+    /**
+     * @param value the name to set
+     */
     public final void setName(String value)
     {
         _Name = value;
     }
 
+    /**
+     * @return the object id
+     */
     public final int getObjectId()
     {
         return _ObjectId;
     }
     
+    /**
+     * @return the appearance
+     */
     public final ObjectPoly getPoly()
     {
         if (_Poly == null) _Poly = new ObjectPoly(this);
         return _Poly;
     }
     
+    /**
+     * @return the position
+     */
     public final ObjectPosition getPosition()
     {
         if (_Position == null) _Position = new ObjectPosition(this);
@@ -373,13 +462,16 @@ public abstract class L2Object
     }
 
     /**
-     * returns reference to region this object is in
+     * @return reference to region this object is in
      */
     public L2WorldRegion getWorldRegion() 
     {
         return getPosition().getWorldRegion();
     }
-
+    
+    /**
+     * Basic implementation of toString to print the object id
+     */
     public String toString()
     {
         return "" + getObjectId();

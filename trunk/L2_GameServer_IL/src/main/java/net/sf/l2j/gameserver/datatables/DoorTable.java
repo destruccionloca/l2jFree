@@ -184,7 +184,7 @@ public class DoorTable
 		
 		door.getStatus().setCurrentHpMp(door.getMaxHp(), door.getMaxMp());
 		door.setOpen(1);
-		door.setXYZInvisible(x,y,z);
+		door.getPosition().setXYZInvisible(x,y,z);
 
 		return door;
 	}

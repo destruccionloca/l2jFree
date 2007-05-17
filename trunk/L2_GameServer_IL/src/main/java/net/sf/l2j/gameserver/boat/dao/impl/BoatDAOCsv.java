@@ -151,7 +151,7 @@ public class BoatDAOCsv implements IBoatDAO
             L2CharTemplate template = new L2CharTemplate(npcDat);       
             boat = new L2BoatInstance(IdFactory.getInstance().getNextId(),template,name);
             boat.getPosition().setHeading(heading);
-            boat.setXYZ(xspawn,yspawn,zspawn);
+            boat.getPosition().setXYZ(xspawn,yspawn,zspawn);
             //boat.spawnMe();
     
             int IdWaypoint1 = Integer.parseInt(st.nextToken());

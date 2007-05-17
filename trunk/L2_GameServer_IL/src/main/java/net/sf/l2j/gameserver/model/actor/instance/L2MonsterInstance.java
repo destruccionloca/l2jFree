@@ -85,6 +85,7 @@ public class L2MonsterInstance extends L2Attackable
     /**
      * Return True if the attacker is not another L2MonsterInstance.<BR><BR>
      */
+    @Override
     public boolean isAutoAttackable(L2Character attacker) 
     {
         if (attacker instanceof L2MonsterInstance)
@@ -96,6 +97,7 @@ public class L2MonsterInstance extends L2Attackable
     /**
      * Return True if the L2MonsterInstance is Agressive (aggroRange > 0).<BR><BR>
      */
+    @Override
     public boolean isAggressive()
     {
         return (getTemplate().aggroRange > 0) && !this.isEventMob;
@@ -218,6 +220,7 @@ public class L2MonsterInstance extends L2Attackable
         }
     }
     
+    @Override
     public void doDie(L2Character killer) 
     {
         if (minionMaintainTask != null)
@@ -267,6 +270,7 @@ public class L2MonsterInstance extends L2Attackable
         }
     }
     
+    @Override
     public void deleteMe()
     {
         // [L2J_JP ADD SANDMAN]

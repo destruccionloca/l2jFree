@@ -382,49 +382,6 @@ public class RaidBossSpawnManager {
         }
     }
     
-    public String[] getAllRaidBossStatus()
-    {
-        String[] msg = new String[_bosses == null ? 0 : _bosses.size()];
-        
-        if (_bosses == null)
-        {
-            msg[0] = "None";
-            return msg;
-        }
-        
-        int index = 0;
-        
-        for (int i : _bosses.keySet())
-        {
-            L2RaidBossInstance boss = _bosses.get(i);
-            
-            msg[index] = boss.getName() + ": " + boss.getRaidStatus().name();
-            index++;
-        }
-        
-        return msg;
-    }
-    
-    public String getRaidBossStatus(int bossId)
-    {
-        String msg = "RaidBoss Status....\n";
-        
-        if (_bosses == null)
-        {
-            msg += "None";
-            return msg;
-        }
-        
-        if (_bosses.containsKey(bossId))
-        {
-            L2RaidBossInstance boss = _bosses.get(bossId);
-            
-            msg += boss.getName() + ": " + boss.getRaidStatus().name();
-        }
-        
-        return msg;
-    }
-
     public StatusEnum getRaidBossStatusId(int bossId)
     {
         if (_bosses.containsKey(bossId))

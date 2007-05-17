@@ -60,9 +60,6 @@ public class OlympiadStadiaManager
     /** Return true if object is inside zone */
     public final boolean checkIfInZone(L2Object obj) { return (getOlympiadStadia(obj) != null); }
 
-    /** Return true if object is inside zone */
-    public final boolean checkIfInZone(int x, int y) { return (getOlympiadStadia(x, y) != null); }
-
     public void reload()
     {
         this.getOlympiadStadias().clear();
@@ -77,15 +74,6 @@ public class OlympiadStadiaManager
             getOlympiadStadias().add(new OlympiadStadia(zone.getId()));
     }
 
-    // =========================================================
-    // Property - Public
-    public final OlympiadStadia getOlympiadStadia(int olympiadStadiaId)
-    {
-        int index = getOlympiadStadiaIndex(olympiadStadiaId);
-        if (index >= 0) return getOlympiadStadias().get(index);
-        return null;
-    }
-
     public final OlympiadStadia getOlympiadStadia(L2Object activeObject) { return getOlympiadStadia(activeObject.getPosition().getX(), activeObject.getPosition().getY()); }
 
     public final OlympiadStadia getOlympiadStadia(int x, int y)
@@ -95,26 +83,6 @@ public class OlympiadStadiaManager
         return null;
     }
 
-    public final OlympiadStadia getOlympiadStadia(String name)
-    {
-        int index = getOlympiadStadiaIndex(name);
-        if (index >= 0) return getOlympiadStadias().get(index);
-        return null;
-    }
-
-    public final int getOlympiadStadiaIndex(int olympiadStadiaId)
-    {
-        OlympiadStadia OlympiadStadia;
-        for (int i = 0; i < getOlympiadStadias().size(); i++)
-        {
-            OlympiadStadia = getOlympiadStadias().get(i);
-            if (OlympiadStadia != null && OlympiadStadia.getOlympiadStadiaId() == olympiadStadiaId) return i;
-        }
-        return -1;
-    }
-
-    public final int getOlympiadStadiaIndex(L2Object activeObject) { return getOlympiadStadiaIndex(activeObject.getPosition().getX(), activeObject.getPosition().getY()); }
-
     public final int getOlympiadStadiaIndex(int x, int y)
     {
         OlympiadStadia OlympiadStadia;
@@ -122,17 +90,6 @@ public class OlympiadStadiaManager
         {
             OlympiadStadia = getOlympiadStadias().get(i);
             if (OlympiadStadia != null && OlympiadStadia.checkIfInZone(x, y)) return i;
-        }
-        return -1;
-    }
-
-    public final int getOlympiadStadiaIndex(String name)
-    {
-        OlympiadStadia OlympiadStadia;
-        for (int i = 0; i < getOlympiadStadias().size(); i++)
-        {
-            OlympiadStadia = getOlympiadStadias().get(i);
-            if (OlympiadStadia != null && OlympiadStadia.getName().equalsIgnoreCase(name.trim())) return i;
         }
         return -1;
     }

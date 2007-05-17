@@ -5590,7 +5590,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 // L2World.getInstance().storeObject(player);
 
                 // Set the x,y,z position of the L2PcInstance and make it invisible
-                player.setXYZInvisible(rset.getInt("x"), rset.getInt("y"), rset.getInt("z"));
+                player.getPosition().setXYZInvisible(rset.getInt("x"), rset.getInt("y"), rset.getInt("z"));
 
                 // Retrieve the name and ID of the other characters assigned to this account.
                 PreparedStatement stmt = con.prepareStatement("SELECT obj_Id, char_name FROM characters WHERE account_name=? AND obj_Id<>?");
@@ -5831,7 +5831,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         //update client coords, if these look like true
         if (isInsideRadius(getClientX(), getClientY(), 1000, true))
-            setXYZ(getClientX(), getClientY(), getClientZ());
+            getPosition().setXYZ(getClientX(), getClientY(), getClientZ());
 
         storeCharBase();
         storeCharSub();
@@ -7758,7 +7758,7 @@ public final class L2PcInstance extends L2PlayableInstance
         setIsInvul(true);
         getAppearance().setInvisible();
         sendPacket(new ObservationMode(x, y, z));
-        setXYZ(x, y, z);
+        getPosition().setXYZ(x, y, z);
 
         _observerMode = true;
         broadcastPacket(new CharInfo(this));
@@ -7783,7 +7783,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public void leaveObserverMode()
     {
         setTarget(null);
-        setXYZ(_obsX, _obsY, _obsZ);
+        getPosition().setXYZ(_obsX, _obsY, _obsZ);
         getAppearance().setVisible();
         setIsInvul(false);
         setIsParalyzed(false);
@@ -9152,7 +9152,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (distFraction > 1)
         {
             // Set the position of the L2Character to the destination
-            super.setXYZ(m._xDestination, m._yDestination, m._zDestination);
+            super.getPosition().setXYZ(m._xDestination, m._yDestination, m._zDestination);
 
             // Cancel the move action
             _move = null;
@@ -9160,7 +9160,7 @@ public final class L2PcInstance extends L2PlayableInstance
         else
         {
             // Set the position of the L2Character to estimated after parcial move
-            super.setXYZ(getX() + (int) (dx * distFraction + 0.5), getY()
+            super.getPosition().setXYZ(getX() + (int) (dx * distFraction + 0.5), getY()
                 + (int) (dy * distFraction + 0.5), getZ() + (int) (dz * distFraction));
         }
 
@@ -9456,7 +9456,7 @@ public final class L2PcInstance extends L2PlayableInstance
         	cancelActiveTrade();
         
         // Check if the L2PcInstance is in observer mode to set its position to its position before entering in observer mode
-        if (inObserverMode()) setXYZ(_obsX, _obsY, _obsZ);
+        if (inObserverMode()) getPosition().setXYZ(_obsX, _obsY, _obsZ);
 
         // Set the online Flag to True or False and update the characters table of the database with online status and lastAccess (called when login and logout)
         try

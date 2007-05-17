@@ -1,3 +1,22 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
+
 package net.sf.l2j.gameserver.model.actor.position;
 
 import net.sf.l2j.Config;
@@ -11,27 +30,47 @@ import net.sf.l2j.tools.geometry.Point3D;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * Class that hold the position of a specific L2Object.<br>
+ * 
+ * If you want to add some treatment for a specific subclass of L2Object, you need
+ * to inherit from ObjectPosition and override modify L2Object.getPosition in the new subclass 
+ * of L2Object.
+ */
 public class ObjectPosition
 {
+    /**
+     * Logger 
+     */
     private static final Log _log = LogFactory.getLog(ObjectPosition.class.getName());
 
-    // =========================================================
-    // Data Field
+    /**
+     * Reference of the L2Object that own this ObjectPosition
+     */
     private L2Object _ActiveObject;
+    /**
+     * Heading (Direction of the object)
+     */
     private int _Heading    = 0;
+    /**
+     * The world position with a 3d coordinate (x,y,z)
+     */
     private Point3D _WorldPosition;
-    private L2WorldRegion _WorldRegion;         // Object localization : Used for items/chars that are seen in the world
-    
-    // =========================================================
-    // Constructor
+    /**
+     * Object localization in world : Used for items/chars that are seen in the world
+     */
+    private L2WorldRegion _WorldRegion;  
+
+    /**
+     * Constructor with the L2Object in reference
+     * @param activeObject
+     */
     public ObjectPosition(L2Object activeObject)
     {
         _ActiveObject = activeObject;
         setWorldRegion(L2World.getInstance().getRegion(getWorldPosition()));
     }
     
-    // =========================================================
-    // Method - Public
     /**
      * Set the x,y,z position of the L2Object and if necessary modify its _worldRegion.<BR><BR>
      *
@@ -94,7 +133,7 @@ public class ObjectPosition
     /**
      * checks if current object changed its region, if so, update referencies
      */
-    public void updateWorldRegion() 
+    public final void updateWorldRegion() 
     {
         if (!getActiveObject().isVisible()) return;
 
@@ -110,44 +149,102 @@ public class ObjectPosition
         }
     }
     
-    // =========================================================
-    // Method - Private
-
-    // =========================================================
-    // Property - Public
-    public final L2Object getActiveObject()
+    /**
+     * @return the active object
+     */
+    private final L2Object getActiveObject()
     {
         return _ActiveObject;
     }
     
-    public final int getHeading() { return _Heading; }
-    public final void setHeading(int value) { _Heading = value; }
+    /**
+     * @return the heading
+     */
+    public final int getHeading()
+    {
+        return _Heading;
+    }
 
-    /** Return the x position of the L2Object. */
-    public final int getX() { return getWorldPosition().getX(); }
-    public final void setX(int value) { getWorldPosition().setX(value); }
-    
-    /** Return the y position of the L2Object. */
-    public final int getY() { return getWorldPosition().getY(); }
-    public final void setY(int value) { getWorldPosition().setY(value); }
-    
-    /** Return the z position of the L2Object. */
-    public final int getZ() { return getWorldPosition().getZ(); }
-    public final void setZ(int value) { getWorldPosition().setZ(value); }
+    /**
+     * @param value the heading to set
+     */
+    public final void setHeading(int value)
+    {
+        _Heading = value;
+    }
 
+    /** 
+     * @return the x position of the L2Object. 
+     */
+    public final int getX()
+    {
+        return getWorldPosition().getX();
+    }
+
+    /** 
+     * @return the y position of the L2Object. 
+     */
+    public final int getY()
+    {
+        return getWorldPosition().getY();
+    }
+
+    /**
+     * @return the z position of the L2Object. 
+    */
+    public final int getZ()
+    {
+        return getWorldPosition().getZ();
+    }
+
+    /**
+     * @return the world position (x,y,z)
+     */
     public final Point3D getWorldPosition()
     {
-        if (_WorldPosition == null) _WorldPosition = new Point3D(0, 0, 0);
+        if (_WorldPosition == null)
+            _WorldPosition = new Point3D(0, 0, 0);
         return _WorldPosition;
     }
+
+    /**
+     * Set the world position and revalidate zone if necessary for L2PcInstance
+     * 
+     * @param x
+     * @param y
+     * @param z
+     */
     public final void setWorldPosition(int x, int y, int z)
     {
-        getWorldPosition().setXYZ(x,y,z);
+        getWorldPosition().setXYZ(x, y, z);
         if (getActiveObject() != null && getActiveObject() instanceof L2PcInstance)
-            ((L2PcInstance)getActiveObject()).revalidateZone();
+            ((L2PcInstance) getActiveObject()).revalidateZone();
     }
-    public final void setWorldPosition(Point3D newPosition) { setWorldPosition(newPosition.getX(), newPosition.getY(), newPosition.getZ()); }
+
+    /**
+     * Set the world position
+     * 
+     * @see ObjectPosition#setWorldPosition(int, int, int)
+     * @param newPosition
+     */
+    public final void setWorldPosition(Point3D newPosition)
+    {
+        setWorldPosition(newPosition.getX(), newPosition.getY(), newPosition.getZ());
+    }
     
-    public final L2WorldRegion getWorldRegion() { return _WorldRegion; }
-    public final void setWorldRegion(L2WorldRegion value) { _WorldRegion = value; }
+    /**
+     * @return the world region 
+     */
+    public final L2WorldRegion getWorldRegion()
+    {
+        return _WorldRegion;
+    }
+    
+    /**
+     * @param value the world region to set
+     */
+    public final void setWorldRegion(L2WorldRegion value)
+    {
+        _WorldRegion = value;
+    }
 }
