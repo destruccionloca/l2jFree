@@ -6,7 +6,7 @@ CLASSPATH=${CLASSPATH}:hibernate-3.2.2.ga.jar
 CLASSPATH=${CLASSPATH}:jta-1.0.1B.jar
 CLASSPATH=${CLASSPATH}:commons-collections-2.1.1.jar
 
-CLASSPATH=${CLASSPATH}:mmocore-1.0.2.jar
+CLASSPATH=${CLASSPATH}:l2j-mmocore-1.0.2.jar
 
 CLASSPATH=${CLASSPATH}:bsf-2.0.jar
 CLASSPATH=${CLASSPATH}:bsh-2.0.jar

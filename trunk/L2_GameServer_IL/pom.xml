@@ -117,9 +117,9 @@
 			<version>1.0.6</version>
 		</dependency>
 		<dependency>
-			<groupId>com.l2jserver.mmocore</groupId>
-			<artifactId>mmocore</artifactId>
-			<version>1.0.2</version>
+			<groupId>l2jfree</groupId>
+			<artifactId>l2j-mmocore</artifactId>
+			<version>1.0.4</version>
 		</dependency>
 		<dependency>
 			<groupId>l2jfree</groupId>
@@ -133,7 +133,7 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
 		</dependency>
-	<dependency>
+		<dependency>
 			<groupId>org.apache.bsf</groupId>
 			<artifactId>bsf</artifactId>
 			<version>2.0</version>
