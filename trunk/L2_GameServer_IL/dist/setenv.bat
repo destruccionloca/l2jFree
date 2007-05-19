@@ -6,7 +6,7 @@ SET CLASSPATH=%CLASSPATH%;hibernate-3.2.2.ga.jar
 SET CLASSPATH=%CLASSPATH%;jta-1.0.1B.jar
 SET CLASSPATH=%CLASSPATH%;commons-collections-2.1.1.jar
 
-SET CLASSPATH=%CLASSPATH%;l2j-mmocore-1.0.2.jar
+SET CLASSPATH=%CLASSPATH%;l2j-mmocore-1.0.4.jar
 
 REM jython
 SET CLASSPATH=%CLASSPATH%;jython-2.1.0.jar
