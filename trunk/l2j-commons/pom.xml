@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>l2jfree</groupId>
   <artifactId>l2j-commons</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
   <packaging>jar</packaging>
   <url>http://www.l2jfree.com/</url>
   
@@ -124,7 +124,7 @@
 	<dependency>
       <groupId>c3p0</groupId>
       <artifactId>c3p0</artifactId>
-      <version>0.9.0.4</version>
+      <version>0.9.1.1</version>
     </dependency>
     <dependency>
       <groupId>javolution</groupId>
