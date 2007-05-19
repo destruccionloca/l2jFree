@@ -9,13 +9,13 @@ CLASSPATH=${CLASSPATH}:commons-collections-2.1.1.jar
 # for second level cache (hibernate)
 CLASSPATH=${CLASSPATH}:ehcache-1.2.3.jar
 
-CLASSPATH=${CLASSPATH}:mmocore-1.0.2.jar
+CLASSPATH=${CLASSPATH}:mmocore-1.0.4.jar
 
 # for bean use
 CLASSPATH=${CLASSPATH}:commons-beanutils-1.7.0.jar
 
 # For connection pool
-CLASSPATH=${CLASSPATH}:c3p0-0.9.0.4.jar
+CLASSPATH=${CLASSPATH}:c3p0-0.9.1.1.jar
 
 # for logging usage
 CLASSPATH=${CLASSPATH}:commons-logging-1.1.jar

@@ -60,13 +60,7 @@ public final class Config {
     public static String DATABASE_LOGIN;
     /** Database password */
     public static String DATABASE_PASSWORD;
-    
-    // Thread pools size
-    /** Thread pool size general */
-    public static int THREAD_P_GENERAL;
-    /** General max thread */
-    public static int GENERAL_THREAD_CORE_SIZE;
-    
+
     /** Configuration files */
     /** Properties file for login server configurations */
     public static final String  LOGIN_CONFIGURATION_FILE    = "./config/loginserver.properties";
@@ -76,22 +70,11 @@ public final class Config {
     public static int     GAME_SERVER_LOGIN_PORT;
     public static String     GAME_SERVER_LOGIN_HOST;
 
-	public static int IP_UPDATE_TIME;
-    
-    /**  
-	 * Counting of amount of packets per minute  
-	 */  
-	public static boolean  COUNT_PACKETS           = false;
-	public static boolean  DUMP_PACKET_COUNTS      = false;
-    public static int      DUMP_INTERVAL_SECONDS   = 60;
-    
     /** Is telnet enabled ? */
     public static boolean IS_TELNET_ENABLED;
     
     /** Show licence or not just after login (if false, will directly go to the Server List */
 	public static boolean SHOW_LICENCE;
-	/** Force GameGuard authorization in loginserver */
-	public static boolean FORCE_GGAUTH;
 	
     /** Accept new game server ? */
 	public static boolean ACCEPT_NEW_GAMESERVER;
@@ -133,8 +116,6 @@ public final class Config {
             DATABASE_PASSWORD        = serverSettings.getProperty("Password", "");
             
             SHOW_LICENCE   = Boolean.parseBoolean(serverSettings.getProperty("ShowLicence", "true"));
-            IP_UPDATE_TIME = Integer.parseInt(serverSettings.getProperty("IpUpdateTime","0"));
-            FORCE_GGAUTH   = Boolean.parseBoolean(serverSettings.getProperty("ForceGGAuth", "false"));
             
             AUTO_CREATE_ACCOUNTS = Boolean.parseBoolean(serverSettings.getProperty("AutoCreateAccounts","True"));
             

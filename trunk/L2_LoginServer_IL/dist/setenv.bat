@@ -12,13 +12,13 @@ SET CLASSPATH=%CLASSPATH%;commons-collections-2.1.1.jar
 REM for second level cache (hibernate)
 SET CLASSPATH=%CLASSPATH%;ehcache-1.2.3.jar
 
-SET CLASSPATH=%CLASSPATH%;mmocore-1.0.2.jar
+SET CLASSPATH=%CLASSPATH%;mmocore-1.0.4.jar
 
 REM for bean use
 SET CLASSPATH=%CLASSPATH%;commons-beanutils-1.7.0.jar
 
 REM For connection pool
-SET CLASSPATH=%CLASSPATH%;c3p0-0.9.0.4.jar
+SET CLASSPATH=%CLASSPATH%;c3p0-0.9.1.1.jar
 
 REM for logging usage
 SET CLASSPATH=%CLASSPATH%;commons-logging-1.1.jar

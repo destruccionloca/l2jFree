@@ -27,8 +27,6 @@ package net.sf.l2j.loginserver.manager;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
 
 import junit.framework.TestCase;
 import net.sf.l2j.Config;
@@ -174,36 +172,17 @@ public class LoginManagerTest extends TestCase
     
     public void testAutoCreateAccount () throws IOException
     {
-        Socket client=null;
         Config.AUTO_CREATE_ACCOUNTS = true;
+        InetAddress netAddress = InetAddress.getByName("123.123.123.123");
+        
         try
         {
-            // just for test, open a socket on something
-            client = new Socket("www.google.fr", 80);
-        }
-        catch (UnknownHostException e1)
-        {
-            fail(e1.getMessage());
-        }
-        catch (IOException e1)
-        {
-            fail(e1.getMessage());
-        }
-        try
-        {
-            assertTrue(loginManager.loginValid("unknownplayer", "pwdforplayer", client.getInetAddress()));
+            assertTrue(loginManager.loginValid("unknownplayer", "pwdforplayer", netAddress));
         }
         catch (Exception e)
         {
             fail(e.getMessage());
         }
-        finally
-        {
-            if (client != null)
-            {
-                client.close();
-            }
-        }        
     }
 
 }
