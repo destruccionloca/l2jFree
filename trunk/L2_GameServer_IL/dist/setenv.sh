@@ -24,7 +24,7 @@ CLASSPATH=${CLASSPATH}:commons-beanutils-1.7.0.jar
 CLASSPATH=${CLASSPATH}:commons-lang-2.1.jar
 
 # For connection pool
-CLASSPATH=${CLASSPATH}:c3p0-0.9.0.4.jar
+CLASSPATH=${CLASSPATH}:c3p0-0.9.1.1.jar
 
 # for logging usage
 CLASSPATH=${CLASSPATH}:commons-logging-1.1.jar
@@ -40,7 +40,7 @@ CLASSPATH=${CLASSPATH}:dom4j-1.6.1.jar
 CLASSPATH=${CLASSPATH}:javolution-1.5.4.2.6.jar
 
 # main jar
-CLASSPATH=${CLASSPATH}:l2j-commons-1.0.5.jar
+CLASSPATH=${CLASSPATH}:l2j-commons-1.0.6.jar
 CLASSPATH=${CLASSPATH}:l2j-gameserver-1.0.0.jar
 
 # spring 

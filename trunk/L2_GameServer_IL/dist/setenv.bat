@@ -23,7 +23,7 @@ SET CLASSPATH=%CLASSPATH%;commons-beanutils-1.7.0.jar
 SET CLASSPATH=%CLASSPATH%;commons-lang-2.1.jar
 
 REM For connection pool
-SET CLASSPATH=%CLASSPATH%;c3p0-0.9.0.4.jar
+SET CLASSPATH=%CLASSPATH%;c3p0-0.9.1.1.jar
 
 REM for logging usage
 SET CLASSPATH=%CLASSPATH%;commons-logging-1.1.jar
@@ -39,7 +39,7 @@ REM for performance usage
 SET CLASSPATH=%CLASSPATH%;javolution-1.5.4.2.6.jar
 
 REM main jar
-SET CLASSPATH=%CLASSPATH%;l2j-commons-1.0.5.jar
+SET CLASSPATH=%CLASSPATH%;l2j-commons-1.0.6.jar
 SET CLASSPATH=%CLASSPATH%;l2j-gameserver-1.0.0.jar
 
 REM spring 
