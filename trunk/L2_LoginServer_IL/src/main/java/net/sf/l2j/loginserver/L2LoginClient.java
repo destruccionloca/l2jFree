@@ -28,7 +28,9 @@ import net.sf.l2j.loginserver.crypt.LoginCrypt;
 import net.sf.l2j.loginserver.manager.LoginManager;
 import net.sf.l2j.loginserver.serverpackets.L2LoginServerPacket;
 import net.sf.l2j.loginserver.serverpackets.LoginFail;
-import net.sf.l2j.loginserver.serverpackets.LoginFail.LoginFailReason;
+import net.sf.l2j.loginserver.serverpackets.LoginFailReason;
+import net.sf.l2j.loginserver.serverpackets.PlayFail;
+import net.sf.l2j.loginserver.serverpackets.PlayFailReason;
 import net.sf.l2j.tools.math.ScrambledKeyPair;
 
 import org.apache.commons.logging.Log;
@@ -215,6 +217,12 @@ public final class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 	{
 		this.getConnection().close(lsp);
 	}
+    
+    public void close(PlayFailReason reason) 
+    { 
+        this.getConnection().close(new PlayFail(reason)); 
+    } 
+                  
 	
 	@Override
 	public void onDisconection()

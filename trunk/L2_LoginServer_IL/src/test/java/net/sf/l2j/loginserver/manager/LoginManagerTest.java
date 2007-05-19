@@ -146,13 +146,13 @@ public class LoginManagerTest extends TestCase
         {
             // First try, failed connect = 1
             assertFalse(loginManager.loginValid("player1", "testpwd", netAddress));
-            assertFalse(BanManager.getInstance().isBannedAddres(netAddress));
+            assertFalse(BanManager.getInstance().isBannedAddress(netAddress));
             // 2nd try, failed connect = 2
             assertFalse(loginManager.loginValid("player1", "testpwd2", netAddress));
-            assertFalse(BanManager.getInstance().isBannedAddres(netAddress));
+            assertFalse(BanManager.getInstance().isBannedAddress(netAddress));
             // 3rd try, failed connect = 3 => ban ip
             assertFalse(loginManager.loginValid("player1", "testpwd3", netAddress));
-            assertTrue(BanManager.getInstance().isBannedAddres(netAddress));
+            assertTrue(BanManager.getInstance().isBannedAddress(netAddress));
         }
         catch (Exception e)
         {

@@ -20,7 +20,7 @@ package net.sf.l2j.loginserver.clientpackets;
 
 import net.sf.l2j.loginserver.L2LoginClient.LoginClientState;
 import net.sf.l2j.loginserver.serverpackets.GGAuth;
-import net.sf.l2j.loginserver.serverpackets.LoginFail.LoginFailReason;
+import net.sf.l2j.loginserver.serverpackets.LoginFailReason;
 
 /**
  * @author -Wooden-

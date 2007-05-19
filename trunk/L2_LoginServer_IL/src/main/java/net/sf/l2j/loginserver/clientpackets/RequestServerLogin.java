@@ -21,8 +21,9 @@ package net.sf.l2j.loginserver.clientpackets;
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.beans.SessionKey;
 import net.sf.l2j.loginserver.manager.LoginManager;
+import net.sf.l2j.loginserver.serverpackets.LoginFailReason;
+import net.sf.l2j.loginserver.serverpackets.PlayFailReason;
 import net.sf.l2j.loginserver.serverpackets.PlayOk;
-import net.sf.l2j.loginserver.serverpackets.LoginFail.LoginFailReason;
 
 /**
  * Fromat is ddc
@@ -92,7 +93,7 @@ public class RequestServerLogin extends L2LoginClientPacket
             }
             else
             {
-                this.getClient().close(LoginFailReason.REASON_ACCESS_FAILED);
+                this.getClient().close(PlayFailReason.REASON_TOO_MANY_PLAYERS);
             }
         }
         else

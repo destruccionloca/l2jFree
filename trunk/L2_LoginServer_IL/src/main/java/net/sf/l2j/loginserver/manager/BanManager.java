@@ -178,7 +178,7 @@ public class BanManager
      * @param address
      * @return true if ip is banned or false otherwise
      */
-    public boolean isBannedAddres(InetAddress address)
+    public boolean isBannedAddress(InetAddress address)
     {
         BanInfo bi = _bannedIps.get(address);
         if (bi != null)

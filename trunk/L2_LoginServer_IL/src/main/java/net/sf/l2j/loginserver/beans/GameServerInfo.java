@@ -25,6 +25,7 @@
  */
 package net.sf.l2j.loginserver.beans;
 
+import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.loginserver.thread.GameServerThread;
 
 /**
@@ -59,6 +60,7 @@ public class GameServerInfo
         _id = id;
         _hexId = hexId;
         _gst = gst;
+        _status = ServerStatus.STATUS_DOWN; 
     }
     
     public GameServerInfo(int id, byte[] hexId)
@@ -208,5 +210,6 @@ public class GameServerInfo
         this.setAuthed(false);
         this.setPort(0);
         this.setGameServerThread(null);
+        this.setStatus(ServerStatus.STATUS_DOWN);
     }
 }

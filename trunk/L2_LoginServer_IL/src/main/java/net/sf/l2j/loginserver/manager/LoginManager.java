@@ -43,6 +43,7 @@ import net.sf.l2j.loginserver.beans.Accounts;
 import net.sf.l2j.loginserver.beans.FailedLoginAttempt;
 import net.sf.l2j.loginserver.beans.GameServerInfo;
 import net.sf.l2j.loginserver.beans.SessionKey;
+import net.sf.l2j.loginserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.loginserver.services.AccountsServices;
 import net.sf.l2j.loginserver.services.exception.AccountBannedException;
 import net.sf.l2j.loginserver.services.exception.AccountModificationException;
@@ -366,7 +367,7 @@ public class LoginManager
 		GameServerInfo gsi = GameServerManager.getInstance().getRegisteredGameServerById(serverId);
 		if (gsi != null && gsi.isAuthed())
 		{
-			return (gsi.getCurrentPlayerCount() < gsi.getMaxPlayers() || access >= 50);
+            return ((gsi.getCurrentPlayerCount() < gsi.getMaxPlayers() && gsi.getStatus() != ServerStatus.STATUS_GM_ONLY) || access >= Config.GM_MIN);
 		}
 		return false;
 	}	

@@ -23,42 +23,23 @@ package net.sf.l2j.loginserver.serverpackets;
  * 
  * @version $Revision: 1.2.4.1 $ $Date: 2005/03/27 15:30:11 $
  */
-public class PlayFail extends ServerBasePacket
+public final class PlayFail extends L2LoginServerPacket
 {
-	// format	c
-	//
-	// 07 
-	// 34 0b 00 00 
-	// 14 16 0d 00
-	// align+chksum  
-	// 00 00 00 00 
-	// 00 00 67 07 
-	// 25 1d 6a 6b 66 6b 64                          
-  
-/*		
-		(byte) 0x07,
-		(byte) 0x34,(byte) 0x0b,(byte) 0x00,(byte) 0x00,	
-		(byte) 0x14,(byte) 0x16,(byte) 0x0d,(byte) 0x00,
-		(byte) 0x00,(byte) 0x00,(byte) 0x00,(byte) 0x00,
-		(byte) 0x00,(byte) 0x00,(byte) 0x00,(byte) 0x00,
-		(byte) 0x00,(byte) 0x00,(byte) 0x00,(byte) 0x00,
-		(byte) 0x00,(byte) 0x00,(byte) 0x00	
-	};
-*/
-	public static int REASON_TOO_MANY_PLAYERS = 0x0f; // too many players on server
-	public static int REASON_SYSTEM_ERROR = 0x01; 					// system error
-	public static int REASON_USER_OR_PASS_WRONG = 0x02;
-	public static int REASON3 = 0x03;
-	public static int REASON4 = 0x04;
-	
-	public PlayFail(int reason) 
-	{
-		writeC(0x06);
-		writeC(reason);
-	}
-	
-	public byte[] getContent()
-	{
-		return getBytes();
-	}
+    private final PlayFailReason _reason;
+    
+    
+    public PlayFail(PlayFailReason reason) 
+    {
+        _reason = reason;
+    }
+    
+    /**
+     * @see com.l2jserver.mmocore.network.SendablePacket#write()
+     */
+    @Override
+    protected void write()
+    {
+        writeC(0x06);
+        writeC(_reason.getCode());
+    }
 }
