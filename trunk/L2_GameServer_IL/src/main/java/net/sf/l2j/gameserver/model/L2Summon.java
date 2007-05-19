@@ -59,13 +59,13 @@ public abstract class L2Summon extends L2PlayableInstance
     private int _attackRange = 36; //Melee range
     private boolean _follow = true;
     private boolean _previousFollowStatus = true;
-
-    private boolean _showSummonAnimation;
+    private int _maxLoad;
     
     private int _chargedSoulShot;
     private int _chargedSpiritShot;
     private int _usedSoulShots = 0;
     private int _usedSpiritShots = 0;
+    protected boolean _showSummonAnimation;
     
     public class AIAccessor extends L2Character.AIAccessor
     {
@@ -356,22 +356,7 @@ public abstract class L2Summon extends L2PlayableInstance
     {
         return _owner.isAutoAttackable(attacker);
     }
-    /**
-     * @return Returns the showSummonAnimation.
-     */
-    public boolean isShowSummonAnimation()
-    {
-        return _showSummonAnimation;
-    }
-    
-    /**
-     * @param showSummonAnimation The showSummonAnimation to set.
-     */
-    public void setShowSummonAnimation(boolean showSummonAnimation)
-    {
-        _showSummonAnimation = showSummonAnimation;
-    }
-    
+        
     public int getChargedSoulShot()
     {
         return _chargedSoulShot;
@@ -404,7 +389,12 @@ public abstract class L2Summon extends L2PlayableInstance
     
     public int getMaxLoad()
     {
-        return 0;
+        return _maxLoad;
+    }
+    
+    public void setMaxLoad(int maxLoad) 
+    { 
+        _maxLoad = maxLoad; 
     }
     
     protected void doPickupItem(L2Object object)
@@ -647,4 +637,20 @@ public abstract class L2Summon extends L2PlayableInstance
     {
         _owner = newOwner;
     }
+    
+    /**
+     * @return Returns the showSummonAnimation.
+	 */
+	public boolean isShowSummonAnimation()
+	{
+	    return _showSummonAnimation;
+	}
+
+	/**
+	 * @param showSummonAnimation The showSummonAnimation to set.
+	 */
+	public void setShowSummonAnimation(boolean showSummonAnimation)
+	{
+	    _showSummonAnimation = showSummonAnimation;
+	}
 }

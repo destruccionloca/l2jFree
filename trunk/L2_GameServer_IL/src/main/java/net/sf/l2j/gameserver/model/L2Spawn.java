@@ -471,8 +471,7 @@ public class L2Spawn
 	 */
 	public L2NpcInstance doSpawn()
 	{
-		L2NpcInstance mob = null;		
-	
+		L2NpcInstance mob = null;	
 		try
 		{
 			// Check if the L2Spawn is not a L2Pet or L2Minion spawn
@@ -492,11 +491,9 @@ public class L2Spawn
 			
 			// Check if the Instance is a L2NpcInstance
 			if (!(tmp instanceof L2NpcInstance))
-				return mob;
-			
-			mob = (L2NpcInstance)tmp; 
-
-            return intializeNpcInstance(mob);
+				return mob;			
+			mob = (L2NpcInstance)tmp;
+			return intializeNpcInstance(mob);
 		}
 		catch (Exception e)
 		{

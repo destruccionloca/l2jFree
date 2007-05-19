@@ -4889,8 +4889,9 @@ public abstract class L2Character extends L2Object
         }
         
         // Check if player is using fake death.
-        if (isAlikeDead())
-       {
+        // Potions can be used while faking death.
+        if (isAlikeDead() && !skill.isPotion())
+        {
             setAttackingChar(null);
             setAttackingCharSkill(null);
             getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
@@ -4898,7 +4899,7 @@ public abstract class L2Character extends L2Object
            _castEndTime = 0;
            _castInterruptTime = 0;
            return;
-       }
+        }
 
        // Check if a cast is in progress
        if (isCastingNow())

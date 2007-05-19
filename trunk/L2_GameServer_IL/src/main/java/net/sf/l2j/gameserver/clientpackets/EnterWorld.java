@@ -357,6 +357,9 @@ public class EnterWorld extends L2GameClientPacket
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessage.CLAN_MEMBERSHIP_TERMINATED));
 		}
+		
+		if (activeChar.getClan() != null)  
+			activeChar.sendPacket(new PledgeSkillList(activeChar.getClan()));
 
         RegionBBSManager.getInstance().changeCommunityBoard();
 
