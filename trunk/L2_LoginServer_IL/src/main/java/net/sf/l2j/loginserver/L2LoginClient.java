@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.security.interfaces.RSAPrivateKey;
+import java.util.Random;
 
 import net.sf.l2j.loginserver.beans.SessionKey;
 import net.sf.l2j.loginserver.crypt.LoginCrypt;
@@ -79,6 +80,7 @@ public final class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 		
 		_scrambledPair = LoginManager.getInstance().getScrambledRSAKeyPair();
 		_blowfishKey = LoginManager.getInstance().getBlowfishKey();
+		_sessionId = new Random().nextInt();
 		_connectionStartTime = System.currentTimeMillis();
 		_loginCrypt = new LoginCrypt();
 		_loginCrypt.setKey(_blowfishKey);
