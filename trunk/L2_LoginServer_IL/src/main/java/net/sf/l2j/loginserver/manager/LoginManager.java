@@ -472,6 +472,11 @@ public class LoginManager
     throws NoSuchAlgorithmException, UnsupportedEncodingException, AccountModificationException, AccountBannedException, AccountWrongPasswordException
 	{
 		InetAddress address = client.getConnection().getSocketChannel().socket().getInetAddress();
+		// player disconnected meanwhile 
+        if (address == null) 
+        {
+            return false; 
+        }
 		return loginValid(user,password,address);
 	}	
 	
