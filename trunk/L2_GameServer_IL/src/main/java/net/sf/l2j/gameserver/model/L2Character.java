@@ -242,20 +242,6 @@ public abstract class L2Character extends L2Object
 		_hpUpdateDecCheck = getMaxHp()-_hpUpdateInterval;        
     }
 
-    // =========================================================
-    // Event - Public
-    /**
-     * Remove the L2Character from the world when the decay task is launched.<BR><BR>
-     *
-     * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T REMOVE the object from _allObjects of L2World </B></FONT><BR>
-     * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packets to players</B></FONT><BR><BR>
-     *
-     */
-    public void onDecay()
-    {
-        decayMe();
-    }
-    
     public void onTeleported()
     {
         setIsTeleporting(false);

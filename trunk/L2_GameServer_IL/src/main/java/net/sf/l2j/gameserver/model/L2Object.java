@@ -21,8 +21,6 @@ package net.sf.l2j.gameserver.model;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
-import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
-import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList;
 import net.sf.l2j.gameserver.model.actor.poly.ObjectPoly;
@@ -167,7 +165,7 @@ public abstract class L2Object
      * <li> Delete NPC/PC or Unsummon</li><BR><BR>
      * 
      */
-    public final void decayMe() 
+    public void decayMe() 
     {
         if (Config.ASSERT) assert getPosition().getWorldRegion() != null;
         
@@ -177,22 +175,6 @@ public abstract class L2Object
         {
             _IsVisible = false;
             getPosition().setWorldRegion(null);
-        }
-
-        // if this item is a mercenary ticket, remove the spawns!
-        if (this instanceof L2ItemInstance)
-        {
-            int itemId = ((L2ItemInstance)this).getItemId();
-            if (MercTicketManager.getInstance().getTicketCastleId(itemId) > 0)
-            {
-                MercTicketManager.getInstance().removeTicket((L2ItemInstance)this);
-            }
-            ItemsOnGroundManager.getInstance().removeObject(this);
-        }
-
-        // reset champion status if the thing is a mob
-        if ( this instanceof L2NpcInstance ) {
-            ((L2NpcInstance)this).setChampion(false);
         }
 
         // this can synchronize on others instancies, so it's out of

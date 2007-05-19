@@ -314,13 +314,13 @@ public class Shutdown extends Thread
      */
     private void saveData() {
 
-    	System.out.print(shutdownMode.toString()+" received. "+shutdownMode.getText()+" NOW!\n");
+    	_log.info(shutdownMode.toString()+" received. "+shutdownMode.getText()+" NOW!");
                
         try
         {
         	Announcements.getInstance().announceToAll("Server is " + shutdownMode.getText().toLowerCase() + " NOW!");
         } catch (Throwable t) {
-            System.out.print(t);
+            _log.info( "", t);
         }
                 
         // we cannt abort shutdown anymore, so i removed the "if" 
@@ -332,31 +332,31 @@ public class Shutdown extends Thread
 
         // Save Seven Signs data before closing. :)
         SevenSigns.getInstance().saveSevenSignsData(null, true);
-        System.out.print("SevenSigns: Data saved.\n");
+        _log.info("SevenSigns: Data saved.");
         // Save all raidboss status ^_^        
         RaidPointsManager.getInstance().cleanUp();
-        System.out.print("RaidPointsManager: All character raid points saved.\n");
+        _log.info("RaidPointsManager: All character raid points saved.\n");
         RaidBossSpawnManager.getInstance().cleanUp();
-        System.out.print("RaidBossSpawnManager: All raidboss info saved.\n");
+        _log.info("RaidBossSpawnManager: All raidboss info saved.");
         TradeListTable.getInstance().dataCountStore();
-        System.out.print("TradeController: All count Item Saved.\n");
+        _log.info("TradeController: All count Item Saved");
         try
         {
             Olympiad.getInstance().save();
-            System.out.print("Olympiad: Data saved.\n");
+            _log.info("Olympiad: Data saved.");
         }
         catch(Exception e){_log.error(e.getMessage(),e);}
 
         // Save Cursed Weapons data before closing.
         CursedWeaponsManager.getInstance().saveData();
-        System.out.print("CursedWeaponsManager: Data saved.\n");
+        _log.info("CursedWeaponsManager: Data saved.");
         // Save items on ground before closing
         if(Config.SAVE_DROPPED_ITEM){
             ItemsOnGroundManager.getInstance().saveInDb();        
             ItemsOnGroundManager.getInstance().cleanUp();
-            System.out.print("ItemsOnGroundManager: All items on ground saved.\n");
+            _log.info("ItemsOnGroundManager: All items on ground saved.");
         }
-        System.out.print("Data saved. All players disconnected, "+shutdownMode.getText().toLowerCase()+".\n");
+        _log.info("Data saved. All players disconnected, "+shutdownMode.getText().toLowerCase()+".");
         
         try {
             int delay = 5000;

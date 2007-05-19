@@ -2,7 +2,7 @@ package net.sf.l2j.gameserver.model.actor.knownlist;
 
 import junit.framework.TestCase;
 import net.sf.l2j.gameserver.ConfigHelper;
-import net.sf.l2j.gameserver.model.L2Potion;
+import net.sf.l2j.gameserver.model.L2DummyObject;
 
 public class TestObjectKnownList extends TestCase
 {
@@ -10,7 +10,7 @@ public class TestObjectKnownList extends TestCase
     public void testCreateObjectKnownList ()
     {
         ConfigHelper.configure();
-        L2Potion l2Potion = new L2Potion(5);
+        L2DummyObject l2Potion = new L2DummyObject(5);
         ObjectKnownList objectKnownList = new ObjectKnownList(l2Potion);
         assertNotNull(objectKnownList);
     }
@@ -18,8 +18,8 @@ public class TestObjectKnownList extends TestCase
     public void testKnowsObject ()
     {
         ConfigHelper.configure();
-        L2Potion l2Potion = new L2Potion(5);
-        L2Potion l2Potion2 = new L2Potion(6);
+        L2DummyObject l2Potion = new L2DummyObject(5);
+        L2DummyObject l2Potion2 = new L2DummyObject(6);
         ObjectKnownList objectKnownList = new ObjectKnownList(l2Potion);
         assertNotNull(objectKnownList);
         
@@ -29,8 +29,8 @@ public class TestObjectKnownList extends TestCase
     public void testAddKnownObject ()
     {
         ConfigHelper.configure();
-        L2Potion l2Potion = new L2Potion(5);
-        L2Potion l2Potion2 = new L2Potion(6);
+        L2DummyObject l2Potion = new L2DummyObject(5);
+        L2DummyObject l2Potion2 = new L2DummyObject(6);
         ObjectKnownList objectKnownList = new ObjectKnownList(l2Potion);
         assertNotNull(objectKnownList);
         
@@ -44,8 +44,8 @@ public class TestObjectKnownList extends TestCase
     public void testGetDistanceToObject()
     {
         ConfigHelper.configure();
-        L2Potion l2Potion = new L2Potion(5);
-        L2Potion l2Potion2 = new L2Potion(6);
+        L2DummyObject l2Potion = new L2DummyObject(5);
+        L2DummyObject l2Potion2 = new L2DummyObject(6);
         ObjectKnownList objectKnownList = new ObjectKnownList(l2Potion);
         assertNotNull(objectKnownList);
         assertEquals(0, objectKnownList.getDistanceToForgetObject(l2Potion2));
@@ -55,8 +55,8 @@ public class TestObjectKnownList extends TestCase
     public void testRemoveKnownObject ()
     {
         ConfigHelper.configure();
-        L2Potion l2Potion = new L2Potion(5);
-        L2Potion l2Potion2 = new L2Potion(6);
+        L2DummyObject l2Potion = new L2DummyObject(5);
+        L2DummyObject l2Potion2 = new L2DummyObject(6);
         ObjectKnownList objectKnownList = new ObjectKnownList(l2Potion);
         assertNotNull(objectKnownList);
         
@@ -73,10 +73,10 @@ public class TestObjectKnownList extends TestCase
     public void testRemoveAllKnownObjects ()
     {
         ConfigHelper.configure();
-        L2Potion l2Potion = new L2Potion(5);
-        L2Potion l2Potion2 = new L2Potion(6);
-        L2Potion l2Potion3 = new L2Potion(7);
-        L2Potion l2Potion4 = new L2Potion(8);
+        L2DummyObject l2Potion = new L2DummyObject(5);
+        L2DummyObject l2Potion2 = new L2DummyObject(6);
+        L2DummyObject l2Potion3 = new L2DummyObject(7);
+        L2DummyObject l2Potion4 = new L2DummyObject(8);
         ObjectKnownList objectKnownList = new ObjectKnownList(l2Potion);
         assertNotNull(objectKnownList);
         

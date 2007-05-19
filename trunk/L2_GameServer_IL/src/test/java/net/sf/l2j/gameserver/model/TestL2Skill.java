@@ -35,7 +35,7 @@ import net.sf.l2j.gameserver.templates.StatsSet;
  * Class for L2Skill testing
  * 
  */
-public class L2SkillTest extends TestCase
+public class TestL2Skill extends TestCase
 {   
     /**
      * StatsSet used for test
@@ -90,7 +90,7 @@ public class L2SkillTest extends TestCase
     
     
 	/**
-	 * Test for ticket #5 : http://85.214.19.147/trac/l2j-free/ticket/5
+	 * Test for ticket #5 : http://www.l2jfree.com:8080/trac/l2j-free/ticket/5
      * We check a condition but if condition are on itemOrWeapon, it crashed
 	 */
 	public final void testCheckCondition()

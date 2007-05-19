@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastMap;
@@ -58,18 +59,18 @@ import org.apache.commons.logging.LogFactory;
 public class ItemTable
 {
     private final static Log _log = LogFactory.getLog(ItemTable.class.getName());
-    private static Log _logItems = LogFactory.getLog("item");
+    private final static Log _logItems = LogFactory.getLog("item");
     
-    private static final FastMap<String, Integer> _materials = new FastMap<String, Integer>();
-    private static final FastMap<String, Integer> _crystalTypes = new FastMap<String, Integer>();
-    private static final FastMap<String, L2WeaponType> _weaponTypes = new FastMap<String, L2WeaponType>();
-    private static final FastMap<String, L2ArmorType> _armorTypes = new FastMap<String, L2ArmorType>();
-    private static final FastMap<String, Integer> _slots = new FastMap<String, Integer>();
+    private static final Map<String, Integer> _materials = new FastMap<String, Integer>();
+    private static final Map<String, Integer> _crystalTypes = new FastMap<String, Integer>();
+    private static final Map<String, L2WeaponType> _weaponTypes = new FastMap<String, L2WeaponType>();
+    private static final Map<String, L2ArmorType> _armorTypes = new FastMap<String, L2ArmorType>();
+    private static final Map<String, Integer> _slots = new FastMap<String, Integer>();
     
     private L2Item[] _allTemplates;
-    private FastMap<Integer, L2EtcItem> _etcItems;
-    private FastMap<Integer, L2Armor>   _armors;
-    private FastMap<Integer, L2Weapon>  _weapons;
+    private Map<Integer, L2EtcItem> _etcItems;
+    private Map<Integer, L2Armor>   _armors;
+    private Map<Integer, L2Weapon>  _weapons;
     
     private boolean _initialized = true;
     

@@ -2429,19 +2429,19 @@ public class L2NpcInstance extends L2Character
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T REMOVE the object from _allObjects of L2World </B></FONT><BR>
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packets to players</B></FONT><BR><BR>
      * 
+     * @see net.sf.l2j.gameserver.model.L2Object#decayMe()
      */
-    public void onDecay()
+    @Override
+    public void decayMe()
     {
     	 if (isDecayed()) return;
     	 setDecayed(true);
     	 
-    	// Manage Life Control Tower
-
-        if (this instanceof L2ControlTowerInstance)
-            ((L2ControlTowerInstance)this).onDeath();
-        
+         // reset champion status if the thing is a mob
+         setChampion(false);
+         
         // Remove the L2NpcInstance from the world when the decay task is launched
-        super.onDecay();
+        super.decayMe();
         
         // Decrease its spawn counter
         if (_spawn != null)
@@ -2498,7 +2498,7 @@ public class L2NpcInstance extends L2Character
     	if (!isDecayed()) 
     	{
            DecayTaskManager.getInstance().cancelDecayTask(this);
-           onDecay();           
+           decayMe();           
        }
     }
 }

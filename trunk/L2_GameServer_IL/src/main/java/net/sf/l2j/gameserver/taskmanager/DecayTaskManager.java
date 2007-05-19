@@ -114,7 +114,7 @@ public class DecayTaskManager
                 	
                     if((current - _decayTasks.get(actor)) > forDecay)
                     {
-                        actor.onDecay();
+                        actor.decayMe();
                         _decayTasks.remove(actor);
                     }
                 }

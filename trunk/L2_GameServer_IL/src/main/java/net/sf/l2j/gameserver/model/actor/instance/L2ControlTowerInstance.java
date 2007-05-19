@@ -1,5 +1,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import java.util.List;
+
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
@@ -13,7 +15,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class L2ControlTowerInstance extends L2NpcInstance {
 
-    private FastList<L2Spawn> _Guards; 
+    private List<L2Spawn> _Guards; 
 	
 	public L2ControlTowerInstance(int objectId, L2NpcTemplate template)
 	{
@@ -76,7 +78,19 @@ public class L2ControlTowerInstance extends L2NpcInstance {
 		}
 	}
 
-    public void onDeath()
+    /**
+     * Remove the L2ControlTowerInstance from the world.<BR><BR>
+     * 
+     * <B><U> Actions</U> :</B><BR><BR>
+     * <li>Manage Siege task (killFlag, killCT) </li><BR><BR>
+     * 
+     * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T REMOVE the object from _allObjects of L2World </B></FONT><BR>
+     * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packets to players</B></FONT><BR><BR>
+     * 
+     * @see net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance#decayMe()
+     */
+    @Override    
+    public final void decayMe()
     {
         if (getCastle().getSiege().getIsInProgress())
         {
@@ -88,10 +102,10 @@ public class L2ControlTowerInstance extends L2NpcInstance {
                 {
                     if (spawn == null) continue;
                     spawn.stopRespawn();
-                    //spawn.getLastSpawn().doDie(spawn.getLastSpawn());
                 }
             }
         }
+        super.decayMe();
     }
     
     public void registerGuard(L2Spawn guard)
@@ -99,7 +113,7 @@ public class L2ControlTowerInstance extends L2NpcInstance {
         getGuards().add(guard);
     }
     
-    public final FastList<L2Spawn> getGuards()
+    public final List<L2Spawn> getGuards()
     {
         if (_Guards == null) _Guards = new FastList<L2Spawn>();
         return _Guards;

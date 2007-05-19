@@ -2,7 +2,7 @@ package net.sf.l2j.gameserver.model.actor.position;
 
 import junit.framework.TestCase;
 import net.sf.l2j.gameserver.ConfigHelper;
-import net.sf.l2j.gameserver.model.L2Potion;
+import net.sf.l2j.gameserver.model.L2DummyObject;
 import net.sf.l2j.gameserver.model.L2WorldRegion;
 import net.sf.l2j.tools.geometry.Point3D;
 
@@ -12,7 +12,7 @@ public class TestObjectPosition extends TestCase
     public void testCreateObjectPosition ()
     {
         ConfigHelper.configure();
-        L2Potion l2Potion = new L2Potion(5);
+        L2DummyObject l2Potion = new L2DummyObject(5);
         ObjectPosition objectPosition = new ObjectPosition(l2Potion);
         assertNotNull(objectPosition);
     }
@@ -20,7 +20,7 @@ public class TestObjectPosition extends TestCase
     public void testSetXYZ ()
     {
         ConfigHelper.configure();
-        L2Potion l2Potion = new L2Potion(5);
+        L2DummyObject l2Potion = new L2DummyObject(5);
         ObjectPosition objectPosition = new ObjectPosition(l2Potion);
         assertNotNull(objectPosition);
         
@@ -40,7 +40,7 @@ public class TestObjectPosition extends TestCase
     public void testSetXYZInvisible ()
     {
         ConfigHelper.configure();
-        L2Potion l2Potion = new L2Potion(5);
+        L2DummyObject l2Potion = new L2DummyObject(5);
         ObjectPosition objectPosition = new ObjectPosition(l2Potion);
         assertNotNull(objectPosition);
         
@@ -60,7 +60,7 @@ public class TestObjectPosition extends TestCase
     public void testSetHeading ()
     {
         ConfigHelper.configure();
-        L2Potion l2Potion = new L2Potion(5);
+        L2DummyObject l2Potion = new L2DummyObject(5);
         ObjectPosition objectPosition = new ObjectPosition(l2Potion);
         assertNotNull(objectPosition);
         
@@ -72,7 +72,7 @@ public class TestObjectPosition extends TestCase
     public void testSetWorldPosition ()
     {
         ConfigHelper.configure();
-        L2Potion l2Potion = new L2Potion(5);
+        L2DummyObject l2Potion = new L2DummyObject(5);
         ObjectPosition objectPosition = new ObjectPosition(l2Potion);
         assertNotNull(objectPosition);
         
@@ -92,7 +92,7 @@ public class TestObjectPosition extends TestCase
     public void testSetWorldPositionWithPoint3D ()
     {
         ConfigHelper.configure();
-        L2Potion l2Potion = new L2Potion(5);
+        L2DummyObject l2Potion = new L2DummyObject(5);
         ObjectPosition objectPosition = new ObjectPosition(l2Potion);
         assertNotNull(objectPosition);
         Point3D point3D = new Point3D (0,1,2);
@@ -112,7 +112,7 @@ public class TestObjectPosition extends TestCase
     public void testWorldRegion ()
     {
         ConfigHelper.configure();
-        L2Potion l2Potion = new L2Potion(5);
+        L2DummyObject l2Potion = new L2DummyObject(5);
         ObjectPosition objectPosition = new ObjectPosition(l2Potion);
         assertNotNull(objectPosition);
         Point3D point3D = new Point3D (0,1,2);
