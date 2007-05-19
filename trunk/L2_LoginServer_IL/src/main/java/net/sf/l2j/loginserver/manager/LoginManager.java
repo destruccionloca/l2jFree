@@ -359,7 +359,9 @@ public class LoginManager
 	}
 	
 	/**
-	 * 
+	 * Login is possible if number of player < max player for this GS
+     * and the status of the GS != STATUS_GM_ONLY
+     * All those conditions are not applied if the player is a GM
 	 * @return
 	 */
 	public boolean isLoginPossible(int access, int serverId)

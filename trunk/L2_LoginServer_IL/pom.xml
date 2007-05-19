@@ -71,8 +71,8 @@
 			<version>1.0.6</version>
 		</dependency>
 		<dependency>
-			<groupId>com.l2jserver.mmocore</groupId>
-			<artifactId>mmocore</artifactId>
+			<groupId>l2jfree</groupId>
+			<artifactId>l2j-mmocore</artifactId>
 			<version>1.0.4</version>
 		</dependency>
 		<dependency>
