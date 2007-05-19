@@ -1,7 +1,6 @@
 __all__ = [
 '5007_pet_exchange',
 '5011_l2day',
-'12535_WakeBaium',
 '7000_HeroItems',
 '6050_KetraOrcSupport',
 '6051_VarkaSilenosSupport',
