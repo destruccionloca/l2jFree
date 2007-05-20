@@ -151,6 +151,7 @@ public class ItemTable
         _slots.put("wolf",                 L2Item.SLOT_WOLF);  // for wolf
         _slots.put("hatchling",            L2Item.SLOT_HATCHLING); // for hatchling
         _slots.put("strider",              L2Item.SLOT_STRIDER); // for strider
+        _slots.put("babypet",              L2Item.SLOT_BABYPET); // for babypet
     }
 
     
@@ -345,6 +346,8 @@ public class ItemTable
                 item.set.set("type2", L2Item.TYPE2_PET_WOLF);
             else if (item.set.getInteger("bodypart") == L2Item.SLOT_HATCHLING)
                 item.set.set("type2", L2Item.TYPE2_PET_HATCHLING);
+            else if (item.set.getInteger("bodypart") == L2Item.SLOT_BABYPET)
+                item.set.set("type2", L2Item.TYPE2_PET_BABY);
             else
                 item.set.set("type2", L2Item.TYPE2_PET_STRIDER);
             
@@ -415,6 +418,8 @@ public class ItemTable
                 item.set.set("type2", L2Item.TYPE2_PET_WOLF);
             else if (item.set.getInteger("bodypart") == L2Item.SLOT_HATCHLING)
                 item.set.set("type2", L2Item.TYPE2_PET_HATCHLING);
+            else if (item.set.getInteger("bodypart") == L2Item.SLOT_BABYPET)
+                item.set.set("type2", L2Item.TYPE2_PET_BABY);
             else
                 item.set.set("type2", L2Item.TYPE2_PET_STRIDER);
             

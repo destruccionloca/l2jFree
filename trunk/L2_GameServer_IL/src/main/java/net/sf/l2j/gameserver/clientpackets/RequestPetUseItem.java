@@ -69,6 +69,7 @@ public class RequestPetUseItem extends L2GameClientPacket
     	//check if the item matches the pet
         if ((PetDataTable.isWolf(pet.getNpcId()) && item.getItem().isForWolf()) ||
             (PetDataTable.isHatchling(pet.getNpcId()) && item.getItem().isForHatchling()) ||
+            (PetDataTable.isBaby(pet.getNpcId()) && item.getItem().isForBabyPet()) ||
             (PetDataTable.isStrider(pet.getNpcId()) && item.getItem().isForStrider()))
         {   
         	useItem(pet, item, activeChar);

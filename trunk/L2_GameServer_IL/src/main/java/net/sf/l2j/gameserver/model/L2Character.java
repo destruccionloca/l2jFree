@@ -68,6 +68,7 @@ import net.sf.l2j.gameserver.model.actor.status.CharStatus;
 import net.sf.l2j.gameserver.model.entity.Duel;
 import net.sf.l2j.gameserver.model.entity.Zone;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
+import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.pathfinding.AbstractNodeLoc;
 import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
@@ -1392,7 +1393,7 @@ public abstract class L2Character extends L2Object
         getStatus().stopHpMpRegeneration();
 
 		// Stop all active skills effects in progress on the L2Character, 
-		// if the Character isn't a Noblesse Blessed L2PlayableInstance and killed by a raid boss
+		// if the Character isn't a Noblesse Blessed L2PlayableInstance 
 		if (this instanceof L2PlayableInstance && ((L2PlayableInstance)this).isNoblesseBlessed())
 			((L2PlayableInstance)this).stopNoblesseBlessing(null);
 		else
@@ -5229,10 +5230,14 @@ public abstract class L2Character extends L2Object
                     if (activeWeapon != null && !((L2Character)target).isDead())
                     {
                         if (activeWeapon.getSkillEffects(this, player, skill).length > 0 && this instanceof L2PcInstance)
+                        {
                             this.sendPacket(SystemMessage.sendString("Target affected by weapon special ability!"));
+                        }
                     }
                     
                     // Check Raidboss attack
+                    // Character will be petrified if attacking a raid that's more
+                    // than 8 levels lower                    
                     if (player.isRaid() && getLevel() > player.getLevel() + 8 && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION)
                     {
                         L2Skill tempSkill = SkillTable.getInstance().getInfo(4515, 99);
@@ -5297,7 +5302,20 @@ public abstract class L2Character extends L2Object
                         handler.useSkill(this, skill, targets);
                     else
                         skill.useSkill(this, targets);
-                    
+
+					if ((this instanceof L2PcInstance) || (this instanceof L2Summon))
+					{
+						L2PcInstance caster = (this instanceof L2PcInstance)? (L2PcInstance) this: ((L2Summon)this).getOwner();
+						for (L2Object target : targets)
+						{
+			                if (target instanceof L2NpcInstance)
+			                {
+			                	for (Quest quest: ((L2NpcInstance)target).getTemplate().getEventQuests(Quest.QuestEventType.MOB_TARGETED_BY_SKILL))
+			                		quest.notifySkillUse ( (L2NpcInstance) target, caster, skill);
+			                }
+						}
+					}
+
                     return;
                 }
             }
@@ -5324,7 +5342,21 @@ public abstract class L2Character extends L2Object
                 handler.useSkill(this, skill, targets);
             else
                 skill.useSkill(this, targets);
-            
+			
+			if ((this instanceof L2PcInstance) || (this instanceof L2Summon))
+			{
+				L2PcInstance caster = (this instanceof L2PcInstance)? (L2PcInstance) this: ((L2Summon)this).getOwner();
+				for (L2Object target : targets)
+				{
+	                if (target instanceof L2NpcInstance)
+	                {
+	                	L2NpcInstance npc = (L2NpcInstance) target;
+	                	if (npc.getTemplate().getEventQuests(Quest.QuestEventType.MOB_TARGETED_BY_SKILL) != null)
+		                	for (Quest quest: npc.getTemplate().getEventQuests(Quest.QuestEventType.MOB_TARGETED_BY_SKILL))
+		                		quest.notifySkillUse ( npc, caster, skill);
+	                }
+				}
+			}
         }
         catch (Exception e)
         {

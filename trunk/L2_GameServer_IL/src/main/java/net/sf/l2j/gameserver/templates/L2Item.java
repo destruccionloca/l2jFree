@@ -52,7 +52,7 @@ public abstract class L2Item
     public static final int TYPE2_PET_WOLF = 6;
     public static final int TYPE2_PET_HATCHLING = 7;
     public static final int TYPE2_PET_STRIDER = 8;
-    
+    public static final int TYPE2_PET_BABY = 9;
     
     public static final int SLOT_NONE = 0x0000;
     public static final int SLOT_UNDERWEAR = 0x0001;
@@ -76,6 +76,7 @@ public abstract class L2Item
     public static final int SLOT_WOLF = 0x020000;
     public static final int SLOT_HATCHLING = 0x100000; // ??
     public static final int SLOT_STRIDER = 0x200000; // ??
+    public static final int SLOT_BABYPET = 0x400000;
     public static final int SLOT_FACE = 0x040000;
     public static final int SLOT_DHAIR = 0x080000;
     
@@ -432,6 +433,15 @@ public abstract class L2Item
     public boolean isForWolf()
     {
         return (_type2 == TYPE2_PET_WOLF);
+    }
+
+    /**
+     * Returns if item is for wolf
+     * @return boolean
+     */
+    public boolean isForBabyPet()
+    {
+        return (_type2 == TYPE2_PET_BABY);
     }
 
     /**
