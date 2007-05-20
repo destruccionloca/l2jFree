@@ -76,6 +76,7 @@ public abstract class L2Object
     public L2Object(int objectId)
     {
         _ObjectId = objectId;
+        _Name = "";
     }
     
     /**
