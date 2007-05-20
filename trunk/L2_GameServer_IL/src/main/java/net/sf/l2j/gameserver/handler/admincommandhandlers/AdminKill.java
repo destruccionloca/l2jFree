@@ -137,6 +137,8 @@ public class AdminKill implements IAdminCommandHandler
     {
         if (target instanceof L2PcInstance)
             target.reduceCurrentHp(target.getMaxHp() + target.getMaxCp() + 1, activeChar);
+        else if (target.isChampion())
+            target.reduceCurrentHp(target.getMaxHp()*Config.CHAMPION_HP + 1, activeChar);        
         else
             target.reduceCurrentHp(target.getMaxHp() + 1, activeChar);
 

@@ -264,8 +264,12 @@ public class CharStat
         if (_ActiveChar == null)
             return 1;
         
+        float bonusAtk = 1;
+        if (_ActiveChar.isChampion())
+            bonusAtk = Config.CHAMPION_ATK;        
+        
         // Get the base MAtk of the L2Character
-        double attack = _ActiveChar.getTemplate().baseMAtk;
+        double attack = _ActiveChar.getTemplate().baseMAtk * bonusAtk;
 
         // Get the skill type to calculate its effect in function of base stats
         // of the L2Character target
@@ -337,7 +341,11 @@ public class CharStat
         if (_ActiveChar == null)
             return 1;
         
-        double val = calcStat(Stats.MAGIC_ATTACK_SPEED, _ActiveChar.getTemplate().baseMAtkSpd, null, null);
+        float bonusSpdAtk = 1;
+        if  (_ActiveChar.isChampion())
+            bonusSpdAtk = Config.CHAMPION_SPD_ATK;
+        
+        double val = calcStat(Stats.MAGIC_ATTACK_SPEED, _ActiveChar.getTemplate().baseMAtkSpd * bonusSpdAtk, null, null);
         val /= _ActiveChar.getArmourExpertisePenalty();
         return (int) val;
     }
@@ -506,7 +514,11 @@ public class CharStat
         if (_ActiveChar == null)
             return 1;
         
-        return (int) calcStat(Stats.POWER_ATTACK, _ActiveChar.getTemplate().basePAtk, target, null);
+        float bonusAtk = 1;
+        if  (_ActiveChar.isChampion())
+            bonusAtk = Config.CHAMPION_ATK;        
+        
+        return (int) calcStat(Stats.POWER_ATTACK, _ActiveChar.getTemplate().basePAtk * bonusAtk, target, null);
     }
 
     /** Return the PAtk Modifier against animals. */
@@ -552,7 +564,11 @@ public class CharStat
         if (_ActiveChar == null)
             return 1;
         
-        return (int) (calcStat(Stats.POWER_ATTACK_SPEED, _ActiveChar.getTemplate().basePAtkSpd, null, null) / _ActiveChar.getArmourExpertisePenalty());
+        float bonusSpdAtk = 1;
+        if  (_ActiveChar.isChampion())
+            bonusSpdAtk = Config.CHAMPION_SPD_ATK;        
+        
+        return (int) (calcStat(Stats.POWER_ATTACK_SPEED, _ActiveChar.getTemplate().basePAtkSpd * bonusSpdAtk, null, null) / _ActiveChar.getArmourExpertisePenalty());
     }
 
     /** Return the PAtk Modifier against undead. */

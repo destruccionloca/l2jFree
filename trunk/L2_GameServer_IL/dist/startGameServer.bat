@@ -10,6 +10,8 @@ REM -------------------------------------
 REM Default parameters for a basic server.
 java -Dfile.encoding=UTF-8 -Xmx1024m net.sf.l2j.gameserver.GameServer
 REM
+REM For debug purpose (for devs), use this :
+REM java -Dfile.encoding=UTF-8 -Xmx512m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=7456 net.sf.l2j.gameserver.GameServer 
 REM If you have a big server and lots of memory, you could experiment for example with
 REM java -server -Dfile.encoding=UTF-8 -Xmx1536m -Xms1024m -Xmn512m -XX:PermSize=256m -XX:SurvivorRatio=8 -Xnoclassgc -XX:+AggressiveOpts
 REM -------------------------------------

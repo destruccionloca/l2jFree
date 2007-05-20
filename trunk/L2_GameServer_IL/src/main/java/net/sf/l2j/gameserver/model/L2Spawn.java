@@ -539,7 +539,12 @@ public class L2Spawn
         }
         
         // setting up champion mobs
-        if ( (((mob instanceof L2MonsterInstance) && !((mob instanceof L2BossInstance) || (mob instanceof L2RaidBossInstance))) || ( ((mob instanceof L2BossInstance) || (mob instanceof L2RaidBossInstance))) && Config.CHAMPION_BOSS ) && (Config.CHAMPION_FREQUENCY > 0) && (mob.getLevel() >= Config.CHAMPION_LEVEL) )
+        if ( (  ((mob instanceof L2MonsterInstance) && !((mob instanceof L2BossInstance) 
+                || (mob instanceof L2RaidBossInstance))) 
+                || ( ((mob instanceof L2BossInstance) || (mob instanceof L2RaidBossInstance))) 
+                && Config.CHAMPION_BOSS ) 
+                && (Config.CHAMPION_FREQUENCY > 0) 
+                && (mob.getLevel() >= Config.CHAMPION_MIN_LEVEL) && (mob.getLevel() <= Config.CHAMPION_MAX_LEVEL) )
         {
             if (Rnd.get(100000) <= Config.CHAMPION_FREQUENCY)
             {

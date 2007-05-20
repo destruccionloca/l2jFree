@@ -982,9 +982,18 @@ public class L2Attackable extends L2NpcInstance
          if (Config.DEEPBLUE_DROP_RULES) dropChance = ((drop.getChance() - ((drop.getChance() * levelModifier)/100)) / deepBlueDrop);
 
          if ( this.isChampion() ) {
-             champRate = Config.CHAMPION_REWARDS;
+             
+             if ((drop.getItemId() == 57 || (drop.getItemId() >= 6360 && drop.getItemId() <= 6362)))
+             {
+                 champRate = Config.CHAMPION_ADENA;
+             }             
+             else
+             {
+                 champRate = Config.CHAMPION_REWARDS;
+             }
          }
-         else {
+         else 
+         {
              champRate = 1;
          }
 
@@ -1070,20 +1079,11 @@ public class L2Attackable extends L2NpcInstance
           // Check if we should apply our maths so deep blue mobs will not drop that easy
           if (Config.DEEPBLUE_DROP_RULES) categoryDropChance = ((categoryDropChance - ((categoryDropChance * levelModifier)/100)) / deepBlueDrop);
 
-          if ( this.isChampion() ) 
-          {
-                champRate = Config.CHAMPION_REWARDS;
-          }
-          else 
-          {
-                champRate = 1;
-          }
-
           // Applies Drop rates
           categoryDropChance *= Config.RATE_DROP_ITEMS;
 
           // Round drop chance
-          categoryDropChance = Math.round(categoryDropChance) * champRate;
+          categoryDropChance = Math.round(categoryDropChance);
 
           // Set our limits for chance of drop
           if (categoryDropChance < 1) categoryDropChance = 1;
@@ -1107,11 +1107,26 @@ public class L2Attackable extends L2NpcInstance
               // At least 1 item will be dropped for sure.  So the chance will be adjusted to 100%
               // if smaller.
               
+              if (this.isChampion())
+              {
+                  if ((drop.getItemId() == 57 || (drop.getItemId() >= 6360 && drop.getItemId() <= 6362)))
+                  {
+                      champRate = Config.CHAMPION_ADENA;
+                  } else
+                  {
+                      champRate = Config.CHAMPION_REWARDS;
+                  }
+              } 
+              else
+              {
+                  champRate = 1;
+              }              
+              
               int dropChance = drop.getChance();
               if (drop.getItemId() == 57) dropChance *= Config.RATE_DROP_ADENA;
               else dropChance *= Config.RATE_DROP_ITEMS;
 
-              dropChance = Math.round(dropChance);
+              dropChance = Math.round(dropChance) * champRate;
 
               if (dropChance < L2DropData.MAX_CHANCE)
                   dropChance = L2DropData.MAX_CHANCE;

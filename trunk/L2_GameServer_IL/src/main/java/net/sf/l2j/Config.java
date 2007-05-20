@@ -101,6 +101,16 @@ public final class Config {
     public static int           SELECTED_NODE_ID;
     public static int           LINKED_NODE_ID;
     public static String        NEW_NODE_TYPE;
+    /** JMX Admin */ 
+    /** Properties administration port*/
+    public static  int JMX_TCP_PORT ;
+    /** Properties port adaptor Http*/
+    public static  int JMX_HTTP_PORT ;
+    /** Property Keystore */
+    public static  String JMX_KEYSTORE ;
+    /** Property Keystore Password */
+    public static  String JMX_KEYSTORE_PASSWORD ;
+    
     //*******************************************************************************************    
     public static void loadconfiguration()
     {
@@ -191,6 +201,11 @@ public final class Config {
             FLOOD_PROTECTION     = Boolean.valueOf(serverSettings.getProperty("FloodProtection", "False"));
             PACKET_LIMIT    	 = Integer.parseInt(serverSettings.getProperty("PacketLimit", "500"));
             PACKET_TIME_LIMIT    = Integer.parseInt(serverSettings.getProperty("PacketTimeLimit", "1100"));
+            
+            JMX_TCP_PORT = Integer.parseInt(serverSettings.getProperty("admin_portJMX","-1"));
+            JMX_HTTP_PORT = Integer.parseInt(serverSettings.getProperty("admin_portHTTP","-1"));
+            JMX_KEYSTORE = serverSettings.getProperty("keystore","");
+            JMX_KEYSTORE_PASSWORD = serverSettings.getProperty("keystore_password","");
         }
         catch (Exception e)
         {
@@ -256,10 +271,15 @@ public final class Config {
     //*******************************************************************************************
     public static int 		CHAMPION_FREQUENCY;	// Frequency of spawn
     public static int 		CHAMPION_HP;		// Hp multiplier
+    public static float     CHAMPION_HP_REGEN;  // HP.REG multiplier
+    public static float     CHAMPION_ATK;       // P.ATK & M.ATK multiplier
+    public static float     CHAMPION_SPD_ATK;   // Attack speed utliplier
+    public static int       CHAMPION_ADENA;     // Adena/Sealstone reward multiplier
     public static int 		CHAMPION_REWARDS;	// Drop/Spoil rewards multiplier
     public static int 		CHAMPION_EXP_SP;	// Exp/Sp rewards multiplier
     public static boolean 	CHAMPION_BOSS;		// Boss is champion
-    public static int 		CHAMPION_LEVEL;		// Champion min level
+    public static int       CHAMPION_MIN_LEVEL; // Champion Minimum Level
+    public static int       CHAMPION_MAX_LEVEL; // Champion Maximum Level
     public static boolean 	CHAMPION_MINIONS; 	// set Minions to champions when leader champion
     //*******************************************************************************************    
     public static void loadchampionsconfig()
@@ -274,10 +294,15 @@ public final class Config {
 	        
 	        CHAMPION_FREQUENCY      = Integer.parseInt(championsSettings.getProperty("ChampionFrequency", "0"));
 	        CHAMPION_HP             = Integer.parseInt(championsSettings.getProperty("ChampionHp", "7"));
+            CHAMPION_HP_REGEN       = Float.parseFloat(championsSettings.getProperty("ChampionRegenHp","1."));    
 	        CHAMPION_REWARDS        = Integer.parseInt(championsSettings.getProperty("ChampionRewards", "8"));
-	        CHAMPION_EXP_SP        	= Integer.parseInt(championsSettings.getProperty("ChampionExpSp", "8"));
+            CHAMPION_ADENA          = Integer.parseInt(championsSettings.getProperty("ChampionAdenasRewards", "1"));
+            CHAMPION_ATK            = Float.parseFloat(championsSettings.getProperty("ChampionAtk", "1."));
+            CHAMPION_SPD_ATK        = Float.parseFloat(championsSettings.getProperty("ChampionSpdAtk", "1."));
+            CHAMPION_EXP_SP        	= Integer.parseInt(championsSettings.getProperty("ChampionExpSp", "8"));
 	        CHAMPION_BOSS           = Boolean.parseBoolean(championsSettings.getProperty("ChampionBoss", "false"));
-	        CHAMPION_LEVEL        	= Integer.parseInt(championsSettings.getProperty("ChampionMinLevel", "1"));
+            CHAMPION_MIN_LEVEL      = Integer.parseInt(championsSettings.getProperty("ChampionMinLevel", "20"));
+            CHAMPION_MAX_LEVEL      = Integer.parseInt(championsSettings.getProperty("ChampionMaxLevel", "60"));
 	        CHAMPION_MINIONS        = Boolean.parseBoolean(championsSettings.getProperty("ChampionMinions", "false"));
 	    }
 	    catch (Exception e)
@@ -2095,10 +2120,15 @@ public final class Config {
         else if (pName.equalsIgnoreCase("AllowDiscardItem")) ALLOW_DISCARDITEM = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("ChampionFrequency")) CHAMPION_FREQUENCY = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("ChampionHp")) CHAMPION_HP = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("ChampionHpRegen")) CHAMPION_HP_REGEN = Float.parseFloat(pValue);
+        else if (pName.equalsIgnoreCase("ChampionAtk")) CHAMPION_ATK = Float.parseFloat(pValue);
+        else if (pName.equalsIgnoreCase("ChampionSpdAtk")) CHAMPION_SPD_ATK = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("ChampionRewards")) CHAMPION_REWARDS = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("ChampionAdenasRewards")) CHAMPION_ADENA = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("ChampionExpSp")) CHAMPION_EXP_SP = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("ChampionBoss")) CHAMPION_BOSS = Boolean.valueOf(pValue);
-        else if (pName.equalsIgnoreCase("ChampionMinLevel")) CHAMPION_LEVEL = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("ChampionMinLevel")) CHAMPION_MIN_LEVEL = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("ChampionMaxLevel")) CHAMPION_MAX_LEVEL = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("ChampionMinions")) CHAMPION_MINIONS = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AllowFreight")) ALLOW_FREIGHT = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AllowWarehouse")) ALLOW_WAREHOUSE = Boolean.valueOf(pValue);

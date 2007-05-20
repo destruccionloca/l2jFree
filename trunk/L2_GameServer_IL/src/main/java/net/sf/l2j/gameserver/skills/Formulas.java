@@ -863,6 +863,9 @@ public final class Formulas
         else 
            hpRegenMultiplier=Config.NPC_HP_REGEN_MULTIPLIER;
         
+        if (cha.isChampion())
+            hpRegenMultiplier *= Config.CHAMPION_HP_REGEN;
+        
         if (cha instanceof L2PcInstance)
         {
             L2PcInstance player = (L2PcInstance) cha;
