@@ -9,6 +9,7 @@ from net.sf.l2j.gameserver.instancemanager      import  BossActionTaskManager
 qn = "13001_meetAntharas"
 PORTAL_STONE    = 3865
 HEART           = 13001
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
@@ -34,10 +35,13 @@ class Quest (JQuest) :
 
 QUEST       = Quest(13001,"13001_meetAntharas","custom")
 CREATED     = State('Start',QUEST)
+COMPLETED   = State('Completed',   QUEST)
 
 QUEST.setInitialState(CREATED)
 
+QUEST.addStartNpc(HEART)
 QUEST.addTalkId(HEART)
-CREATED.addTalkId(HEART)
+
+# CREATED.addTalkId(HEART)
 
 print "importing custom data: 13001_meetAntharas"
