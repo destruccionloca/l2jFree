@@ -362,6 +362,11 @@ public class BossActionTaskManager
         if (!_playersInValakasLair.contains(pc)) _playersInValakasLair.add(pc);
     }
 
+    public void AddPlayerToBaiumsLair(L2PcInstance pc)
+    {
+        if (!_playersInBaiumLair.contains(pc)) _playersInBaiumLair.add(pc);
+    }
+    
     public void banishesPlayers(int bossId)
     {
         switch (bossId)
