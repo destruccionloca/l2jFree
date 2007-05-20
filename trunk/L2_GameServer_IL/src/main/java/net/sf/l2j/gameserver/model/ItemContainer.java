@@ -295,11 +295,19 @@ public abstract class ItemContainer
         // Do only log if item leaves it's owner
         if (actor.isGM() && target.getOwner() != actor) // target.getOwner() should never be null
         {
-            // DaDummy: this way we log _every_ gmtransfer with all related info
-            String command = target.getClass().getSimpleName();
-            String params  = target.getOwner().getName() + " - " + String.valueOf(count) + " - " + String.valueOf(sourceitem.getEnchantLevel()) + " - " + String.valueOf(sourceitem.getItemId()) + " - " + sourceitem.getItemName();
-
-            GMAudit.auditGMAction(actor, "transferitem", command, params);
+            try
+            {
+                // DaDummy: this way we log _every_ gmtransfer with all related info
+                String command = target.getClass().getSimpleName();
+                String targetName = target.getOwner().getName(); 
+                String params  = targetName + " - " + String.valueOf(count) + " - " + String.valueOf(sourceitem.getEnchantLevel()) + " - " + String.valueOf(sourceitem.getItemId()) + " - " + sourceitem.getItemName();
+    
+                GMAudit.auditGMAction(actor, "transferitem", command, params);
+            }
+            catch (Exception e)
+            {
+                _log.error("Impossible to log gm action. Please report this error.", e);
+            }
         }
         
         synchronized(sourceitem)
