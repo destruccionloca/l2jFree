@@ -319,7 +319,17 @@ public class BossActionTaskManager
 
         _Baium = null;
     }
-
+    
+    public boolean CanIntoValakasLair()
+    {
+        return (_playersInValakasLair.size() < _CapacityOfLairOfValakas && !_IsValakasSpawned);
+    }
+    
+    public boolean CanIntoAntharasLair()
+    {
+        return !_IsAntharasSpawned;
+    }
+    
     public void SetAntharasSpawnTask()
     {
         if (_playersInAntharasLair.size() >= 1) return;

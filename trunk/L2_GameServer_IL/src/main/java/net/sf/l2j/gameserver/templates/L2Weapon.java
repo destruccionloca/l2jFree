@@ -377,12 +377,12 @@ public final class L2Weapon  extends L2Item
                     handler.useSkill(caster, skill, targets);            
                 else
                     skill.useSkill(caster, targets);
-                
+/*                
                 if ((caster instanceof L2PcInstance) && (target instanceof L2NpcInstance))
                 {
                 	for (Quest quest: ((L2NpcInstance)target).getTemplate().getEventQuests(Quest.QuestEventType.MOB_TARGETED_BY_SKILL))
                 		quest.notifySkillUse ( (L2NpcInstance) target, (L2PcInstance) caster, skill);
-                }
+                }*/
             }
             catch (IOException e)
             {
