@@ -854,6 +854,12 @@ public final class Config {
             MAX_PVTSTORE_SLOTS_OTHER = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreSlotsOther", "4"));
             
             STORE_SKILL_COOLTIME = Boolean.parseBoolean(otherSettings.getProperty("StoreSkillCooltime", "true"));
+            
+            PET_RENT_NPC =  otherSettings.getProperty("ListPetRentNpc", "30827"); 
+            LIST_PET_RENT_NPC = new FastList<Integer>(); 
+            for (String id : PET_RENT_NPC.split(",")) { 
+            	LIST_PET_RENT_NPC.add(Integer.parseInt(id)); 
+            }
 
             NONDROPPABLE_ITEMS        = otherSettings.getProperty("ListOfNonDroppableItems", "1147,425,1146,461,10,2368,7,6,2370,2369,5598");
             
