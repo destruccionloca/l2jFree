@@ -21,11 +21,9 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.nio.BufferUnderflowException;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2CharPosition;
-import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.PartyMemberPosition;
@@ -105,7 +103,7 @@ public class MoveBackwardToLocation extends L2GameClientPacket
             return;
         }
         
-        if (_moveMovement == 0 && !Config.GEODATA) // activeChar.isCastingNow() ||   cursor movement is temporary disabled 
+        if (_moveMovement == 0 && Config.GEODATA < 1) // cursor movement without geodata is disabled 
         {
             activeChar.sendPacket(new ActionFailed());
         }
@@ -121,13 +119,6 @@ public class MoveBackwardToLocation extends L2GameClientPacket
             if (activeChar.isOutOfControl()||((dx*dx+dy*dy) > 98010000)) { // 9900*9900
                 activeChar.sendPacket(new ActionFailed());
                 return;
-            }
-            if (_moveMovement == 0)
-            {
-                Location destiny = GeoData.getInstance().moveCheck(_CurX, _CurY, _CurZ, _targetX, _targetY, _targetZ);
-                _targetX = destiny.getX();
-                _targetY = destiny.getY();
-                _targetZ = destiny.getZ();
             }
             activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,
                     new L2CharPosition(_targetX, _targetY, _targetZ, 0));

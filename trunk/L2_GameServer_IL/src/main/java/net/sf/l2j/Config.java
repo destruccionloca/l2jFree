@@ -969,7 +969,7 @@ public final class Config {
     public static boolean 				ALLOWFISHING;
     public static boolean 				ALLOW_MANOR;					// Allow Manor system
     public static boolean 				ALLOW_GUARDS;					// Allow guards against aggressive monsters
-    public static boolean 				GEODATA;						// GeoData On/Off
+    public static int GEODATA;											// GeoData 0/1/2
     public static boolean 				FORCE_GEODATA;					// Force loading GeoData to psychical memory
     public static L2WalkerAllowed 		ALLOW_L2WALKER_CLIENT;
     public static boolean       		AUTOBAN_L2WALKER_ACC;
@@ -1141,7 +1141,7 @@ public final class Config {
             GRID_NEIGHBOR_TURNON_TIME       = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOnTime", "30"));
             GRID_NEIGHBOR_TURNOFF_TIME      = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOffTime", "300"));    
                              
-            GEODATA                         = Boolean.parseBoolean(optionsSettings.getProperty("GeoData", "False"));
+            GEODATA                         = Integer.parseInt(optionsSettings.getProperty("GeoData", "0"));
             FORCE_GEODATA                   = Boolean.parseBoolean(optionsSettings.getProperty("ForceGeoData", "True"));
             
             SHOW_L2J_LICENSE                = Boolean.parseBoolean(optionsSettings.getProperty("ShowL2JLicense", "false"));

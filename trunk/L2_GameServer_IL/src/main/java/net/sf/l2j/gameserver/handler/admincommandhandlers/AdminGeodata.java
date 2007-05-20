@@ -48,7 +48,7 @@ public class AdminGeodata implements IAdminCommandHandler
             if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) 
                 return false;
         
-        if (!Config.GEODATA)
+        if (Config.GEODATA < 1)
         {
             activeChar.sendMessage("Geo Engine is Turned Off!");                    
             return true;

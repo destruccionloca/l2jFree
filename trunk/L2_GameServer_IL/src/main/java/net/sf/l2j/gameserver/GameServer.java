@@ -77,6 +77,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.L2GamePacketHandler;
+import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.script.faenor.FaenorScriptEngine;
 import net.sf.l2j.gameserver.taskmanager.TaskManager;
@@ -299,6 +300,11 @@ public class GameServer
         if ( _log.isDebugEnabled())_log.debug("BuffTemplateTable initialized");
         GeoData.getInstance();
         if ( _log.isDebugEnabled())_log.debug("GeoData initialized");
+        
+        if (Config.GEODATA == 2)
+        	GeoPathFinding.getInstance();
+        	if ( _log.isDebugEnabled())_log.debug("GeoPathFinding initialized");
+        
         TeleportLocationTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("TeleportLocationTable initialized");
         LevelUpData.getInstance();

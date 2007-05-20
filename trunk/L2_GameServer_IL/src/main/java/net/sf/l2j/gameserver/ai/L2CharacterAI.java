@@ -27,6 +27,8 @@ import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
+import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -876,7 +878,18 @@ public class L2CharacterAI extends AbstractAI
              if (Config.DEBUG)
              _log.warning("L2CharacterAI: maybeMoveToPawn -> moving to catch target. Casting stopped");
              */
-    
+        	
+        	// Caller should be L2Playable and thinkAttack/thinkCast/thinkInteract/thinkPickUp
+        	if (Config.GEODATA > 0 && !GeoData.getInstance().canSeeTarget(_actor, target))
+        	{
+        		if (getFollowTarget() != null) {
+        			// cannot see and follow active
+        			stopFollow();
+        		}
+        		setIntention(AI_INTENTION_IDLE);
+        		return true;
+        	}
+
             if (getFollowTarget() != null) { 
                 // prevent attack-follow into peace zones
                 if(getAttackTarget() != null && _actor instanceof L2PlayableInstance && target instanceof L2PlayableInstance)
