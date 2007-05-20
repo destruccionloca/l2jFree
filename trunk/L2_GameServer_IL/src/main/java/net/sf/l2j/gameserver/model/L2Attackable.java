@@ -44,6 +44,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
@@ -848,19 +849,24 @@ public class L2Attackable extends L2NpcInstance
             getAggroListRP().put(attacker, ai);
         }
         
-        L2PcInstance _attacker = attacker instanceof L2PcInstance?(L2PcInstance)attacker:((L2Summon)attacker).getOwner();
-        AggroInfo damageContrib = getDamageContributors().get(_attacker);
-        if (damageContrib != null) 
+        // we will do some special treatments for _attacker but _attacker is not for sure a L2PlayableInstance...
+        if ( attacker instanceof L2PlayableInstance )
         {
-            damageContrib.damage += damage;
-            damageContrib.hate += aggro;
-        } 
-        else 
-        {
-            damageContrib = new AggroInfo(_attacker);
-            damageContrib.damage = damage;
-            damageContrib.hate = aggro;
-            getDamageContributors().put(_attacker, damageContrib);
+            // attacker L2PcInstance could be the the attacker or the owner of the attacker 
+            L2PcInstance _attacker = attacker instanceof L2PcInstance?(L2PcInstance)attacker:((L2Summon)attacker).getOwner();
+            AggroInfo damageContrib = getDamageContributors().get(_attacker);
+            if (damageContrib != null) 
+            {
+                damageContrib.damage += damage;
+                damageContrib.hate += aggro;
+            } 
+            else 
+            {
+                damageContrib = new AggroInfo(_attacker);
+                damageContrib.damage = damage;
+                damageContrib.hate = aggro;
+                getDamageContributors().put(_attacker, damageContrib);
+            }
         }
         
         // Set the intention to the L2Attackable to AI_INTENTION_ACTIVE
