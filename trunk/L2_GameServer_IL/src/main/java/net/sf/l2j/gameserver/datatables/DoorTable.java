@@ -241,6 +241,7 @@ public class DoorTable
             getDoor(23180004).openMe();
             getDoor(23180005).openMe();
             getDoor(23180006).openMe();
+            getDoor(24210006).openMe(); // Valakas Door
             
             checkAutoOpen();
         } 
