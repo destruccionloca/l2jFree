@@ -177,6 +177,11 @@ public final class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 	{
 		_account = account;
 	}
+    
+    public void setAccessLevel(int accessLevel)
+    {
+        _accessLevel = accessLevel;
+    }    
 	
 	public int getAccessLevel()
 	{
@@ -230,11 +235,6 @@ public final class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 		if (_log.isDebugEnabled())
 		{
 			_log.info("DISCONNECTED: "+this.toString());
-		}
-		
-		if (this.getState() != LoginClientState.AUTHED_LOGIN)
-		{
-			LoginManager.getInstance().removeLoginClient(this);
 		}
 	}
 	

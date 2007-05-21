@@ -30,12 +30,10 @@ import java.security.spec.RSAKeyGenParameterSpec;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 import javax.crypto.Cipher;
 
 import javolution.util.FastMap;
-import javolution.util.FastSet;
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.L2LoginClient;
 import net.sf.l2j.loginserver.L2LoginServer;
@@ -75,9 +73,6 @@ public class LoginManager
 	
 	private static LoginManager _instance;
 	
-	/** Clients that are on the LS but arent assocated with a account yet*/
-	protected Set<L2LoginClient> _clients = new FastSet<L2LoginClient>();
-	
 	/** Authed Clients on LoginServer*/
 	protected Map<String, L2LoginClient> _loginServerClients = new FastMap<String, L2LoginClient>().setShared(true);
 	
@@ -95,7 +90,7 @@ public class LoginManager
     private AccountsServices _service = null;
 
     /**
-     * Load the 
+     * Load the LoginManager
      * @throws GeneralSecurityException
      */
 	public static void load() throws GeneralSecurityException
@@ -200,22 +195,6 @@ public class LoginManager
         return _blowfishKeys[(int) (Math.random()*BLOWFISH_KEYS)];
     }
     
-    public void addLoginClient(L2LoginClient client)
-    {
-        synchronized (_clients)
-        {
-            _clients.add(client);
-        }
-    }
-
-    public void removeLoginClient(L2LoginClient client)
-    {
-        synchronized (_clients)
-        {
-            _clients.remove(client);
-        }
-    }    
-    
     /**
      * @return LoginManager singleton
      */
@@ -317,15 +296,9 @@ public class LoginManager
                             ret = true;
                         }
                     }
+                    // keep access level in the L2LoginClient
+                    client.setAccessLevel(_service.getAccountById(account).getAccessLevel());
                 }
-
-                // was login successful?
-                if (ret)
-                {
-                    // remove him from the non-authed list
-                    this.removeLoginClient(client);
-                }
-                
             } 
             catch (NoSuchAlgorithmException e)
             {
