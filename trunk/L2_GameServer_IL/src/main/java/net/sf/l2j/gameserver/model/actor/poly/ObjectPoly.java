@@ -9,6 +9,9 @@ public class ObjectPoly
     private L2Object _ActiveObject;          
     private int _PolyId;
     private String _PolyType;
+    private int _BaseId;
+    private boolean _FirstMorph;
+
     
     // =========================================================
     // Constructor
@@ -24,6 +27,16 @@ public class ObjectPoly
         setPolyId(Integer.parseInt(polyId));     
         setPolyType(polyType);
     }
+    
+    
+    public void setPolyInfo(String polyType, String polyId,String baseId)
+        {
+        	setPolyId(Integer.parseInt(polyId));     
+        	setPolyType(polyType);
+        	setBaseId(Integer.parseInt(baseId));
+        	setFirstMorph(true);
+        }
+
     
     // =========================================================
     // Method - Private
@@ -42,4 +55,14 @@ public class ObjectPoly
     
     public final String getPolyType() { return _PolyType; }
     public final void setPolyType(String value) { _PolyType = value; }
+    
+    public final void setNotMorphed(){_PolyType = null;}
+    public final boolean isFirstMorph(){return getFirstMorph();};
+             
+    public final int getBaseId() { return _BaseId; }
+    public final void setBaseId(int value) { _BaseId = value; }
+           
+    public final boolean getFirstMorph() { return _FirstMorph; }
+    public final void setFirstMorph(boolean value) { _FirstMorph = value; }
+
 }

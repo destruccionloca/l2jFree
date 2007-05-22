@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2TrainedPetInstance;
 
 /**
  * This class ...
@@ -73,7 +74,11 @@ public class PetInfo extends L2GameServerPacket
 		writeD(_summon.getSummonType()); 
 		writeD(_summon.getObjectId());
         writeD(_summon.getTemplate().idTemplate+1000000);
-        writeD(0);    // 1=attackable 
+		if (_summon instanceof L2TrainedPetInstance) {
+			writeD(1);// 1=attackable 
+		}else{
+			writeD(0);
+		}
 		writeD(_x);
 		writeD(_y);
 		writeD(_z);

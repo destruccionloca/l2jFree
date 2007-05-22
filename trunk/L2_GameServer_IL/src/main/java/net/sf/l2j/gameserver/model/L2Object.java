@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.model;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -28,6 +29,7 @@ import net.sf.l2j.gameserver.model.actor.position.ObjectPosition;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.GetItem;
+import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  * Mother class of all objects in the world wich ones is it possible 
@@ -176,6 +178,27 @@ public abstract class L2Object
         {
             _IsVisible = false;
             getPosition().setWorldRegion(null);
+        }
+        
+        if(this instanceof L2Attackable && getPoly().isMorphed())
+        {
+        	if(!this.getPoly().isFirstMorph())
+        	{
+        		// So the nextrespawn is normal. 
+        		L2NpcTemplate template1 = NpcTable.getInstance().getTemplate(this.getPoly().getBaseId());
+        		((L2Attackable)this).setTemplate(template1);
+        		this.getPoly().setNotMorphed();
+        		((L2Attackable)this).refreshSkills();
+        		
+        	}
+        	else
+        	{
+        		//lets morphit this time
+        		this.getPoly().setFirstMorph(false);
+        		L2NpcTemplate template1 = NpcTable.getInstance().getTemplate(this.getPoly().getPolyId());
+        		((L2Attackable)this).setTemplate(template1);
+        		((L2Attackable)this).refreshSkills();
+        	}
         }
 
         // this can synchronize on others instancies, so it's out of

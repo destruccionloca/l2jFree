@@ -57,6 +57,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2TrainedPetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetBabyInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
@@ -177,7 +178,7 @@ public abstract class L2Character extends L2Object
     private Calculator[] _Calculators;
 
     /** FastMap(Integer, L2Skill) containing all skills of the L2Character */
-    protected final Map<Integer, L2Skill> _Skills;
+    protected Map<Integer, L2Skill> _Skills;
 
     // =========================================================
     // Constructor
@@ -255,9 +256,14 @@ public abstract class L2Character extends L2Object
 
         // Modify the position of the pet if necessary
 		if(getPet() != null){
-			getPet().setFollowStatus(false);
-			getPet().teleToLocation(getPosition().getX() + Rnd.get(-100,100), getPosition().getY() + Rnd.get(-100,100), getPosition().getZ(), false);
-			getPet().setFollowStatus(true);
+			if(getPet() instanceof L2TrainedPetInstance)
+				getPet().unSummon((L2PcInstance)this);
+			else
+			{
+				getPet().setFollowStatus(false);
+				getPet().teleToLocation(getPosition().getX() + Rnd.get(-100,100), getPosition().getY() + Rnd.get(-100,100), getPosition().getZ(), false);
+				getPet().setFollowStatus(true);
+			}
 		}
     }
     
@@ -5664,6 +5670,23 @@ public abstract class L2Character extends L2Object
             return true;
         
         return false;
-    }   
+    }
+    
+	protected void refreshSkills()
+	{
+		_Calculators = NPC_STD_CALCULATOR;
+		setStat(new CharStat(this));
+				
+		_Skills = ((L2NpcTemplate)_Template).getSkills();
+		if (_Skills != null)
+		{
+			for(Map.Entry<Integer, L2Skill> skill : _Skills.entrySet())
+			{
+				//System.out.println(skill.getValue().getName());		
+				addStatFuncs(skill.getValue().getStatFuncs(null, this));
+			}
+		}
+		this.getStatus().setCurrentHpMp(this.getMaxHp(),this.getMaxMp());
+	}
 }
 
