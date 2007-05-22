@@ -4161,7 +4161,8 @@ public final class L2PcInstance extends L2PlayableInstance
                 for (L2ItemInstance itemDrop : getInventory().getItems())
                 {
                     // Don't drop
-                    if (itemDrop.getItemId() == 57 || // Adena
+                    if (itemDrop.isAugmented() ||
+                    	itemDrop.getItemId() == 57 || // Adena
                         itemDrop.getItem().getType2() == L2Item.TYPE2_QUEST || // Quest Items
                         nonDroppableList.contains(itemDrop.getItemId()) || // Item listed in the non droppable item list
                         nonDroppableListPet.contains(itemDrop.getItemId()) || // Item listed in the non droppable pet item list

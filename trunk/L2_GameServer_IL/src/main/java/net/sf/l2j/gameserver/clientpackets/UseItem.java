@@ -207,13 +207,33 @@ public class UseItem extends L2GameClientPacket
                        sm.addItemName(itemId);
                    }
                    activeChar.sendPacket(sm);
-		            
+
+		            // Remove augementation boni on unequip
+		            if (item.isAugmented())
+		            	item.getAugmentation().removeBoni(activeChar);
+
                 	items = activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
                 }
                 else
                 {
                 	int tempBodyPart = item.getItem().getBodyPart();
                 	L2ItemInstance tempItem = activeChar.getInventory().getPaperdollItemByL2ItemId(tempBodyPart);
+                	
+                	// remove augmentation stats for replaced items
+                	// currently weapons only..
+                	if (tempItem != null && tempItem.isAugmented())
+                		tempItem.getAugmentation().removeBoni(activeChar);
+                	else if (tempBodyPart == 0x4000)
+                	{
+                		L2ItemInstance tempItem2 = activeChar.getInventory().getPaperdollItem(7);
+                		if (tempItem2 != null && tempItem2.isAugmented())
+                			tempItem2.getAugmentation().removeBoni(activeChar);
+                		tempItem2 = activeChar.getInventory().getPaperdollItem(8);
+                    	if (tempItem2 != null && tempItem2.isAugmented())
+                    		tempItem2.getAugmentation().removeBoni(activeChar);
+                	}
+                	
+                	//check if the item replaces a wear-item
                 	if (tempItem != null && tempItem.isWear())
                 	{
                 		// dont allow an item to replace a wear-item
@@ -250,7 +270,11 @@ public class UseItem extends L2GameClientPacket
                        sm.addItemName(itemId);
                    }
                    activeChar.sendPacket(sm);
-					
+
+		            // Apply augementation boni on equip
+		            if (item.isAugmented())
+		            	item.getAugmentation().applyBoni(activeChar);
+
 					items = activeChar.getInventory().equipItemAndRecord(item);
                 }
                 sm = null;

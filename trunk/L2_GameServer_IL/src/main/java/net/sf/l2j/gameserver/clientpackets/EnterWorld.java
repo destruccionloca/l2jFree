@@ -52,6 +52,7 @@ import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.quest.Quest;
+import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.serverpackets.ClanHallDecoration;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.ClientSetTime;
@@ -207,7 +208,12 @@ public class EnterWorld extends L2GameClientPacket
                 }
             }
         }
+
+        // apply augmentation boni for equipped items
+        for (L2ItemInstance temp : activeChar.getInventory().getAugmentedItems())
+        	if (temp != null && temp.isEquipped()) temp.getAugmentation().applyBoni(activeChar);
         
+        //Expand Skill		
         ExStorageMaxCount esmc = new ExStorageMaxCount(activeChar);  
         activeChar.sendPacket(esmc);
        

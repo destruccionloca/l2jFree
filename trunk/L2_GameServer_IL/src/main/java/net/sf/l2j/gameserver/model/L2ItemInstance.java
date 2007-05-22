@@ -102,6 +102,9 @@ public final class L2ItemInstance extends L2Object
 	/** Wear Item */
 	private boolean _wear;
 
+	/** Augmented Item */
+	private L2Augmentation _augmentation=null;
+
 	/** Custom item types (used loto, race tickets) */
 	private int _type1;
 	private int _type2;
@@ -479,11 +482,11 @@ public final class L2ItemInstance extends L2Object
     */
    public boolean isDropable()
    {
-       return _item.isDropable();
+	   return isAugmented() ? false : _item.isDropable();
    }
 
    /**
-    * Returns if item is destroy
+    * Returns if item is destroyable
     * @return boolean
     */
    public boolean isDestroyable()
@@ -492,12 +495,12 @@ public final class L2ItemInstance extends L2Object
    }
 
    /**
-    * Returns if item is add trade
+    * Returns if item is tradeable
     * @return boolean
     */
    public boolean isTradeable()
    {
-       return _item.isTradeable();
+	   return isAugmented() ? false : _item.isTradeable();
    }
 
     /**
@@ -595,6 +598,48 @@ public final class L2ItemInstance extends L2Object
 			return ((L2Armor)_item).getPDef();
 		return 0;
 	}
+	
+	/**
+	 * Returns whether this item is augmented or not
+	 * @return true if augmented
+	 */
+	public boolean isAugmented()
+	{
+		return _augmentation == null ? false : true;
+	}
+	
+	/**
+	 * Returns the augmentation object for this item
+	 * @return augmentation
+	 */
+	public L2Augmentation getAugmentation()
+	{
+		return _augmentation;
+	}
+
+	/**
+	 * Sets a new augmentation
+	 * @param augmentation
+	 * @return return true if sucessfull
+	 */
+	public boolean setAugmentation(L2Augmentation augmentation)
+	{
+		// there shall be no previous augmentation..
+		if (_augmentation != null) return false;
+		_augmentation = augmentation;
+		return true;
+	}
+	
+	/**
+	 * Remove the augmentation
+	 *
+	 */
+	public void removeAugmentation()
+	{
+		if (_augmentation == null) return;
+		_augmentation.deleteAugmentationData();
+		_augmentation = null;
+ 	}
 
 	/**
 	 * Returns false cause item can't be attacked
@@ -745,6 +790,19 @@ public final class L2ItemInstance extends L2Object
 			}
 			rs.close();
             statement.close();
+            
+            //load augmentation
+            statement = con.prepareStatement("SELECT attributes,skill,level FROM augmentations WHERE item_id=?");
+            statement.setInt(1, objectId);
+			rs = statement.executeQuery();
+            if (rs.next())
+            {
+            	inst._augmentation = new L2Augmentation(inst, rs.getInt("attributes"), rs.getInt("skill"), rs.getInt("level"), false);
+            }
+            
+            rs.close();
+            statement.close();
+
         } catch (Exception e) {
 			_log.fatal( "Could not restore item "+objectId+" from DB:", e);
 		} finally {
@@ -827,6 +885,9 @@ public final class L2ItemInstance extends L2Object
 			return;
 		if (this._storedInDb)
 			return;
+		
+		// delete augmentation data
+		if (isAugmented()) _augmentation.deleteAugmentationData();
         
 		java.sql.Connection con = null;
 		try

@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.boat.service.BoatService;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.ArmorSetsTable;
+import net.sf.l2j.gameserver.datatables.AugmentationData;
 import net.sf.l2j.gameserver.datatables.BuffTemplateTable;
 import net.sf.l2j.gameserver.datatables.CharNameTable;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
@@ -328,7 +329,9 @@ public class GameServer
         MapRegionTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("MapRegionTable initialized");
         EventDroplist.getInstance();
-        if ( _log.isDebugEnabled())_log.debug("EventDroplist initialized");        
+        if ( _log.isDebugEnabled())_log.debug("EventDroplist initialized");
+        AugmentationData.getInstance();
+        if ( _log.isDebugEnabled())_log.debug("AugmentationData initialized");
         ItemsOnGroundManager.getInstance();
         if ( _log.isDebugEnabled())_log.debug("ItemsOnGroundManager initialized");        
         

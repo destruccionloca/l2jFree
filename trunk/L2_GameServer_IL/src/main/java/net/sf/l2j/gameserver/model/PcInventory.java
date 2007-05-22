@@ -143,6 +143,19 @@ public class PcInventory extends Inventory
         for (L2ItemInstance item : _items)
             if (item != null && item.isAvailable(getOwner(), allowAdena)) list.add(item);
 
+		return list.toArray(new L2ItemInstance[list.size()]);
+	}
+	
+	/**
+	 * Get all augmented items
+	 * @return
+	 */
+	public L2ItemInstance[] getAugmentedItems()
+	{
+		FastList<L2ItemInstance> list = new FastList<L2ItemInstance>();
+		for (L2ItemInstance item : _items)
+			if (item != null && item.isAugmented()) list.add(item);
+
         return list.toArray(new L2ItemInstance[list.size()]);
     }
 
