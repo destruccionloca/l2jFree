@@ -41,12 +41,16 @@ TALKS={
 30020:[0,["30131-01.htm",0,"30019-03a.htm","30019-04.htm",],1,RECOMMENDATION_02],
 30021:[0,["30131-01.htm",0,"30019-03a.htm","30019-04.htm",],1,RECOMMENDATION_02],
 30009:[0,["30530-01.htm","30009-03.htm",0,"30009-04.htm",],1,RECOMMENDATION_01],
+30011:[0,["30530-01.htm","30009-03.htm",0,"30009-04.htm",],1,RECOMMENDATION_01],
+30012:[0,["30530-01.htm","30009-03.htm",0,"30009-04.htm",],1,RECOMMENDATION_01],
+30056:[0,["30530-01.htm","30009-03.htm",0,"30009-04.htm",],1,RECOMMENDATION_01],
 30400:[1,["30131-01.htm","30400-03.htm","30400-03a.htm","30400-04.htm",],1,LEAF_OF_MOTHERTREE],
 30401:[1,["30131-01.htm","30400-03.htm","30400-03a.htm","30400-04.htm",],1,LEAF_OF_MOTHERTREE],
 30402:[1,["30131-01.htm","30400-03.htm","30400-03a.htm","30400-04.htm",],1,LEAF_OF_MOTHERTREE],
 30403:[1,["30131-01.htm","30400-03.htm","30400-03a.htm","30400-04.htm",],1,LEAF_OF_MOTHERTREE],
 30131:[2,["30131-01.htm","30131-03.htm","30131-03a.htm","30131-04.htm",],1,BLOOD_OF_JUNDIN],
 30404:[2,["30131-01.htm","30131-03.htm","30131-03a.htm","30131-04.htm",],1,BLOOD_OF_JUNDIN],
+30574:[3,["30575-01.htm","30575-03.htm","30575-03a.htm","30575-04.htm",],1,VOUCHER_OF_FLAME],
 30575:[3,["30575-01.htm","30575-03.htm","30575-03a.htm","30575-04.htm",],1,VOUCHER_OF_FLAME],
 30530:[4,["30530-01.htm","30530-03.htm",0,"30530-04.htm",],1,LICENSE_OF_MINER]
 }    
@@ -74,24 +78,11 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_finish")
     return htmltext
 
- def onTalk (self,npc,player):
-   htmltext = "<html><head><body>I have no tasks for you right now.</body></html>"
+ def onFirstTalk (self,npc,player):
    st = player.getQuestState(qn)
-   if not st : return htmltext
-
-   npcId = npc.getNpcId()
-   id = st.getState()
-   if id == COMPLETED and not npcId in [30600, 30601, 30602, 30598, 30599] : return htmltext
-   if id != COMPLETED and npcId in [30600, 30601, 30602, 30598, 30599] : return htmltext
-
-   cond=st.getInt("cond")
-   onlyone=st.getInt("onlyone")
-   level=st.getPlayer().getLevel()
-   npcTyp=0
-   if id == CREATED :
-     st.setState(STARTING)
-     st.set("onlyone","0")
-   if npcId in [30600, 30601, 30602, 30598, 30599] :
+   if st :
+     id = st.getState()
+     onlyone=st.getInt("onlyone")
      if id == COMPLETED and onlyone == 1:
        st.set("onlyone","2")
        if st.getPlayer().getClassId().isMage() :
@@ -101,9 +92,23 @@ class Quest (JQuest) :
        st.giveItems(TOKEN,12)
        if st.getRandom(2):
          st.giveItems(SCROLL,2)
-       return
-   else :
-     raceId,htmlfiles,npcTyp,item = TALKS[npcId]
+   return
+
+
+ def onTalk (self,npc,player):
+   htmltext = "<html><head><body>I have no tasks for you right now.</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return htmltext
+   npcId = npc.getNpcId()
+   id = st.getState()
+   cond=st.getInt("cond")
+   onlyone=st.getInt("onlyone")
+   level=st.getPlayer().getLevel()
+   npcTyp=0
+   if id == CREATED :
+     st.setState(STARTING)
+     st.set("onlyone","0")
+   raceId,htmlfiles,npcTyp,item = TALKS[npcId]
    if (level >= 10 or onlyone) and npcTyp == 1:
        htmltext = "30575-05.htm"
    elif onlyone == 0 and level < 10 :
@@ -179,7 +184,7 @@ for startNpc in [30008,30009,30017,30019,30129,30131,30573,30575,30370,30528,305
   QUEST.addTalkId(startNpc)
 
 for npc in [30600, 30601, 30602, 30598, 30599]:
-  QUEST.addTalkId(npc)
+  QUEST.addFirstTalkId(npc)
 
 QUEST.addKillId(18342)
 QUEST.addKillId(20001)

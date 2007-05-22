@@ -537,7 +537,7 @@ class Quest (JQuest) :
         else:
           if npcId == 27181:                # Imperial Gravekeeper
             objId=leader_st.getPcSpawn().addSpawn(30765,120000)
-            npc=st.getPcSpawn().getSpawn(objId).getLastSpawn()
+            npc=leader_st.getPcSpawn().getSpawn(objId).getLastSpawn()
             npc.broadcastPacket(CreatureSay(objId,0,npc.getName(),"Curse of the gods on the one that defiles the property of the empire!"))
             leader_st.set("ImpGraveKeeper","3")
             self.ImpGraveKepperStat = 1

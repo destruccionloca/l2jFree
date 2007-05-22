@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS account_data;
 DROP TABLE IF EXISTS auction;
 DROP TABLE IF EXISTS auction_bid;
 DROP TABLE IF EXISTS auction_watch;
+DROP TABLE IF EXISTS augmentations;
 DROP TABLE IF EXISTS boxaccess;
 DROP TABLE IF EXISTS boxes;
 DROP TABLE IF EXISTS buff_templates;
