@@ -452,41 +452,41 @@
   </enchant1for>
 </skill>
 <skill id="312" levels="20" name="Vicious Stance" enchantLevels1="30" enchantLevels2="30" >
-<!-- by DPGuide -->
-<!-- TODO: c_mp_by_level -->
-<table name="#mpConsume_Init"> 4 5 5 6 7 7 8 9 9 10 10 11 11 12 12 13 13 13 14 14 </table>
-<table name="#crit"> 35 48 64 84 109 139 166 196 229 266 306 349 379 410 443 475 509 542 576 609 </table>
-<table name="#ench1effectcrit">
-615 620 626 631 637 642 648 653 659 664
-670 675 681 686 692 697 702 708 713 719
-724 730 735 741 746 752 757 763 768 774
-</table>
-<table name="#ench2mpConsume">
-0.39 0.39 0.39 0.38 0.38 0.38 0.38 0.37 0.37 0.37
-0.36 0.36 0.36 0.36 0.35 0.35 0.35 0.34 0.34 0.34
-0.34 0.33 0.33 0.33 0.32 0.32 0.32 0.32 0.31 0.31
-</table>
-<set name="power" val="0.0"/>
-<set name="mpInitialConsume" val="#mpConsume_Init"/> <!-- hmm? -->
-<set name="target" val="TARGET_SELF"/>
-<set name="skillType" val="CONT"/>
-<set name="operateType" val="OP_TOGGLE"/>
-<set name="castRange" val="-1"/>
-<set name="effectRange" val="-1"/>
-<enchant1 name="effectcrit" val="#ench1effectcrit"/>
- <enchant2 name="val" val="#ench2mpConsume"/>
-<for>
-<effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="#mpConsume_Init">
-<add order="0x40" stat="cAtk" val="#crit"/>
-</effect>
-</for>
-<enchant1for>
-<add order="0x40" stat="cAtk" val="#ench1effectcrit"/>
-</enchant1for>
-<enchant2for>
-<add order="0x40" stat="cAtk" val="609"/>
-<add order="0x40" stat="cAtk" val="#ench2mpConsume"/>
-</enchant2for>
+	<!-- by DPGuide -->
+	<!-- TODO: c_mp_by_level -->
+	<table name="#mpConsume_Init"> 4 5 5 6 7 7 8 9 9 10 10 11 11 12 12 13 13 13 14 14 </table>
+	<table name="#crit"> 35 48 64 84 109 139 166 196 229 266 306 349 379 410 443 475 509 542 576 609 </table>
+	<table name="#ench1effectcrit">
+	615 620 626 631 637 642 648 653 659 664
+	670 675 681 686 692 697 702 708 713 719
+	724 730 735 741 746 752 757 763 768 774
+	</table>
+	<table name="#ench2mpConsume">
+	0.39 0.39 0.39 0.38 0.38 0.38 0.38 0.37 0.37 0.37
+	0.36 0.36 0.36 0.36 0.35 0.35 0.35 0.34 0.34 0.34
+	0.34 0.33 0.33 0.33 0.32 0.32 0.32 0.32 0.31 0.31
+	</table>
+	<set name="power" val="0.0"/>
+	<set name="mpInitialConsume" val="#mpConsume_Init"/> <!-- hmm? -->
+	<set name="target" val="TARGET_SELF"/>
+	<set name="skillType" val="CONT"/>
+	<set name="operateType" val="OP_TOGGLE"/>
+	<set name="castRange" val="-1"/>
+	<set name="effectRange" val="-1"/>
+	<enchant1 name="effectcrit" val="#ench1effectcrit"/>
+ 	<enchant2 name="val" val="#ench2mpConsume"/>
+		<for>
+			<effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="#mpConsume_Init">
+				<add order="0x40" stat="cAtk" val="#crit"/>
+			</effect>
+		</for>
+	<enchant1for>
+		<add order="0x40" stat="cAtk" val="#ench1effectcrit"/>
+	</enchant1for>
+	<enchant2for>
+		<add order="0x40" stat="cAtk" val="609"/>
+		<add order="0x40" stat="cAtk" val="#ench2mpConsume"/>
+	</enchant2for>
 </skill>
 <skill id="313" levels="8" name="Snipe" enchantLevels1="30" enchantLevels2="30" >
   <table name="#mpConsume"> 28 29 30 31 32 33 34 34 </table>
