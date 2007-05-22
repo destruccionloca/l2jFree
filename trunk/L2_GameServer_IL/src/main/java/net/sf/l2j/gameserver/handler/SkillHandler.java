@@ -23,6 +23,7 @@ import java.util.TreeMap;
 
 import net.sf.l2j.gameserver.handler.skillhandlers.BalanceLife;
 import net.sf.l2j.gameserver.handler.skillhandlers.CPperHeal;
+import net.sf.l2j.gameserver.handler.skillhandlers.BeastFeed;
 import net.sf.l2j.gameserver.handler.skillhandlers.Charge;
 import net.sf.l2j.gameserver.handler.skillhandlers.ChargeSelf;
 import net.sf.l2j.gameserver.handler.skillhandlers.CombatPointHeal;
@@ -100,6 +101,7 @@ public class SkillHandler
         registerSkillHandler(new Unlock());
         registerSkillHandler(new DrainSoul());
         registerSkillHandler(new Craft()); 
+        registerSkillHandler(new BeastFeed());
         registerSkillHandler(new Fishing()); 
         registerSkillHandler(new FishingSkill());
         registerSkillHandler(new SummonCp());

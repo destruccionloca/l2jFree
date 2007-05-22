@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.handler;
 import java.util.Map;
 import java.util.TreeMap;
 
+import net.sf.l2j.gameserver.handler.itemhandlers.BeastSpice;
 import net.sf.l2j.gameserver.handler.itemhandlers.BeastSoulShot;
 import net.sf.l2j.gameserver.handler.itemhandlers.BeastSpiritShot;
 import net.sf.l2j.gameserver.handler.itemhandlers.BlessedSpiritShot;
@@ -118,7 +119,8 @@ public class ItemHandler
         this.registerItemHandler(new MercTicket());
         this.registerItemHandler(new FishShots());
         this.registerItemHandler(new ExtractableItems());
-        this.registerItemHandler(new SummonItems());      
+        this.registerItemHandler(new SummonItems());
+        this.registerItemHandler(new BeastSpice());
         this.registerItemHandler(new EnergyStone());        
     }
     

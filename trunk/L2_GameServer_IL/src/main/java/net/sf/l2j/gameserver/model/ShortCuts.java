@@ -116,19 +116,19 @@ public class ShortCuts
     {
         L2ShortCut old = _shortCuts.remove(slot+page*12);
         
-        L2ItemInstance item = null;
-		if (old != null)
-        {
-            deleteShortCutFromDb(old);
-            item = _owner.getInventory().getItemByObjectId(old.getId());
-        }
-
-        if ((item != null) && (item.getItemType() == L2EtcItemType.SHOT))
-        {
-        	_owner.removeAutoSoulShot(item.getItemId());
-            _owner.sendPacket(new ExAutoSoulShot(item.getItemId(), 0));        	
-        }
-
+		if (old == null)
+			return;
+		deleteShortCutFromDb(old);
+		if (old.getType() == L2ShortCut.TYPE_ITEM)
+		{
+			L2ItemInstance item = _owner.getInventory().getItemByObjectId(old.getId());
+	        
+	        if ((item != null) && (item.getItemType() == L2EtcItemType.SHOT))
+	        {
+	        	_owner.removeAutoSoulShot(item.getItemId());
+	            _owner.sendPacket(new ExAutoSoulShot(item.getItemId(), 0));        	
+	        }
+		}
         _owner.sendPacket(new ShortCutInit(_owner));
 
         for (int shotId : _owner.getAutoSoulShot().values())

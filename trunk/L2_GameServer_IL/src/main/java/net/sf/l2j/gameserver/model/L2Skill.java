@@ -121,7 +121,7 @@ public abstract class L2Skill
         TARGET_GATE,
         TARGET_MOB,
         TARGET_AREA_MOB,
-        TARGET_KNOWNLIST
+        TARGET_KNOWNLIST,
         //TARGET_BOSS
         }
     
@@ -194,6 +194,7 @@ public abstract class L2Skill
         TAKECASTLE,
         UNDEAD_DEFENSE,
         SEED                (L2SkillSeed.class),
+        BEAST_FEED,        
         PARALYZE,
         DRAIN_SOUL,
         COMMON_CRAFT, 
