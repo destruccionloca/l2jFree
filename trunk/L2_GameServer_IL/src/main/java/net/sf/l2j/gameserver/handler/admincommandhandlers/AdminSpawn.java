@@ -369,7 +369,6 @@ public class AdminSpawn implements IAdminCommandHandler
             DayNightSpawnManager.getInstance().cleanUp();
             L2World.getInstance().deleteVisibleNpcSpawns();
             NpcTable.getInstance().cleanUp();
-            SpawnTable.getInstance().cleanUp();
             
             NpcTable.getInstance().reloadAll();
             SpawnTable.getInstance().reloadAll();

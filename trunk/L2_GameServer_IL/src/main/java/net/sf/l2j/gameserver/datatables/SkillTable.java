@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
  * 
  * @version $Revision: 1.8.2.6.2.18 $ $Date: 2005/04/06 16:13:25 $
  */
-public class SkillTable
+public class SkillTable implements SkillTableMBean
 {
 	//private final static Log _log = LogFactory.getLog(SkillTable.class.getName());
 	private static SkillTable _instance;
@@ -128,4 +128,12 @@ public class SkillTable
 
         return weaponsAllowed;
 	}
+
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.datatables.SkillTableMBean#getNbSkills()
+     */
+    public int getNbSkills()
+    {
+        return _skills.size();
+    }
 }

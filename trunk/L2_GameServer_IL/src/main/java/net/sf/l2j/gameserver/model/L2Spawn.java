@@ -164,7 +164,7 @@ public class L2Spawn
 	 * @param mobTemplate The L2NpcTemplate to link to this L2Spawn
 	 * 
 	 */
-	public L2Spawn(L2NpcTemplate mobTemplate) throws SecurityException, ClassNotFoundException
+	public L2Spawn(L2NpcTemplate mobTemplate) throws SecurityException
 	{
 		// Set the _template of the L2Spawn
 		 _template = mobTemplate;
@@ -182,9 +182,15 @@ public class L2Spawn
 		
 		if ((mobTemplate.npcId >= 31046)&&(mobTemplate.npcId <= 31053))
             implementationName = "L2SymbolMaker";
-		
-		// Create the generic constructor of L2NpcInstance managed by this L2Spawn
-		_constructor = Class.forName("net.sf.l2j.gameserver.model.actor.instance." + implementationName + "Instance").getConstructors()[0];
+		try
+        {
+    		// Create the generic constructor of L2NpcInstance managed by this L2Spawn
+    		_constructor = Class.forName("net.sf.l2j.gameserver.model.actor.instance." + implementationName + "Instance").getConstructors()[0];
+        }
+        catch (ClassNotFoundException e)
+        {
+            _log.error("Unable to create a Npc ! "+ e);
+        }
 	}
 
 	/**

@@ -40,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.13.2.2.2.8 $ $Date: 2005/04/06 16:13:25 $
  */
-public class SkillTreeTable
+public class SkillTreeTable implements SkillTreeTableMBean
 {
     private final static Log _log = LogFactory.getLog(SkillTreeTable.class.getName());
     private static SkillTreeTable _instance;
@@ -665,5 +665,46 @@ public class SkillTreeTable
             return enchantSkillLearn.getRate(player);
         }
         return 0;
+    }
+
+    /**
+     * @return the number of dwarf craft skills 
+     */
+    public int getNbDwarfCraftSkillTrees()
+    {
+        return _expandDwarfCraftSkillTrees.size();
+    }
+
+    /**
+     * @return the number of enchant skills 
+     */
+    public int getNbEnchantSkillTrees()
+    {
+        return _enchantSkillTrees.size();
+    }
+
+    /**
+     * @return the number of fishing skills 
+     */
+    public int getNbFishingSkillTrees()
+    {
+        return _fishingSkillTrees.size();
+    }
+    
+    /**
+     * @return the number of skills in the tree 
+     */
+    public int getNbSkillTrees()
+    {
+        return _skillTrees.size();
+    }
+    
+    /**
+     * Reload all skills 
+     * Be carefull when you use it, it consumes resources !
+     */
+    public void reload()
+    {
+        _instance = new SkillTreeTable();        
     }    
 }

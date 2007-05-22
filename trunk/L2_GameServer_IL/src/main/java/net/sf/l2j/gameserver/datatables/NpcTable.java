@@ -47,7 +47,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.8.2.6.2.9 $ $Date: 2005/04/06 16:13:25 $
  */
-public class NpcTable
+public class NpcTable implements NpcTableMBean
 {
     private final static Log _log = LogFactory.getLog(NpcTable.class.getName());
 

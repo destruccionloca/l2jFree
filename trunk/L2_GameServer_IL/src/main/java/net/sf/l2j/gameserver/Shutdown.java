@@ -41,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.2.4.5 $ $Date: 2005/03/27 15:29:09 $
  */
-public class Shutdown extends Thread 
+public class Shutdown extends Thread implements ShutdownMBean 
 {
     private final static Log _log = LogFactory.getLog(Shutdown.class.getName());
     private static Shutdown _instance;
@@ -293,8 +293,17 @@ public class Shutdown extends Thread
                 		Announcements.getInstance().announceToAll(sm);
                 	}
                 
-                if (_seconds <= 60 )
-                	LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_DOWN);
+                try
+                {
+                    if (_seconds <= 60 )
+                    {
+                    	LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_DOWN);
+                    }
+                }
+                catch (Exception e)
+                {
+                    // do nothing, we maybe are not connected to LS anymore
+                }
                  
                 secondsShut--;
                     
@@ -399,6 +408,22 @@ public class Shutdown extends Thread
                 // just to make sure we try to kill the connection 
             }               
         }
+    }
+    
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.ShutdownMBean#processRestart(int)
+     */
+    public void processRestart(int seconds)
+    {
+        startShutdown("Mbean ask restart", seconds, shutdownModeType.RESTART);
+    }
+
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.ShutdownMBean#processShutdown(int)
+     */
+    public void processShutdown(int seconds)
+    {
+        startShutdown("Mbean ask shutdown", seconds, shutdownModeType.SHUTDOWN);
     }
 
 }

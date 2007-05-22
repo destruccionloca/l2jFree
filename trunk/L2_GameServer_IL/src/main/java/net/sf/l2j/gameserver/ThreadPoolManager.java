@@ -67,7 +67,7 @@ import com.l2jserver.mmocore.network.ReceivablePacket;
  * @author -Wooden-
  *
  */
-public class ThreadPoolManager
+public class ThreadPoolManager implements ThreadPoolManagerMBean
 {
 	private static ThreadPoolManager _instance;
     
@@ -431,4 +431,316 @@ public class ThreadPoolManager
 		tb.append("Packet Tp stack traces printed.\r\n");
 		return tb.toString();
 	}
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getEffectsNbActiveThreads()
+     */
+    public int getEffectsNbActiveThreads()
+    {
+        return _effectsScheduledThreadPool.getActiveCount();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getEffectsCorePoolSize()
+     */
+    public int getEffectsCorePoolSize()
+    {
+        return _effectsScheduledThreadPool.getCorePoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getEffectsPoolSize()
+     */
+    public int getEffectsPoolSize()
+    {
+        return _effectsScheduledThreadPool.getPoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getEffectsMaximumPoolSize()
+     */
+    public int getEffectsMaximumPoolSize()
+    {
+        return _effectsScheduledThreadPool.getMaximumPoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getEffectsCompletedTasks()
+     */
+    public long getEffectsCompletedTasks()
+    {
+        return _effectsScheduledThreadPool.getCompletedTaskCount();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getEffectsScheduledTasks()
+     */
+    public long getEffectsScheduledTasks()
+    {
+        return (_effectsScheduledThreadPool.getTaskCount() - _effectsScheduledThreadPool.getCompletedTaskCount());
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralScheduledActiveThreads()
+     */
+    public int getGeneralScheduledActiveThreads()
+    {
+        return _generalScheduledThreadPool.getActiveCount();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralScheduledCorePoolSize()
+     */
+    public int getGeneralScheduledCorePoolSize()
+    {
+        return _generalScheduledThreadPool.getCorePoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralScheduledPoolSize()
+     */
+    public int getGeneralScheduledPoolSize()
+    {
+        return _generalScheduledThreadPool.getPoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralScheduledMaximumPoolSize()
+     */
+    public int getGeneralScheduledMaximumPoolSize()
+    {
+        return _generalScheduledThreadPool.getMaximumPoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralScheduledCompletedTasks()
+     */
+    public long getGeneralScheduledCompletedTasks()
+    {
+        return _generalScheduledThreadPool.getCompletedTaskCount();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralScheduledScheduledTasks()
+     */
+    public long getGeneralScheduledScheduledTasks()
+    {
+        return (_generalScheduledThreadPool.getTaskCount() - _generalScheduledThreadPool.getCompletedTaskCount());
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getAIActiveThreads()
+     */
+    public int getAIActiveThreads()
+    {
+        return _aiScheduledThreadPool.getActiveCount();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getAICorePoolSize()
+     */
+    public int getAICorePoolSize()
+    {
+        return _aiScheduledThreadPool.getCorePoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getAIPoolSize()
+     */
+    public int getAIPoolSize()
+    {
+        return _aiScheduledThreadPool.getPoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getAIMaximumPoolSize()
+     */
+    public int getAIMaximumPoolSize()
+    {
+        return _aiScheduledThreadPool.getMaximumPoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getAICompletedTasks()
+     */
+    public long getAICompletedTasks()
+    {
+        return _aiScheduledThreadPool.getCompletedTaskCount();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getAIScheduledTasks()
+     */
+    public long getAIScheduledTasks()
+    {
+        return (_aiScheduledThreadPool.getTaskCount() - _aiScheduledThreadPool.getCompletedTaskCount());
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getPacketsActiveThreads()
+     */
+    public int getPacketsActiveThreads()
+    {
+        return _generalPacketsThreadPool.getActiveCount();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getPacketsCorePoolSize()
+     */
+    public int getPacketsCorePoolSize()
+    {
+        return _generalPacketsThreadPool.getCorePoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getPacketsMaximumPoolSize()
+     */
+    public int getPacketsMaximumPoolSize()
+    {
+        return _generalPacketsThreadPool.getMaximumPoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getPacketsLargestPoolSize()
+     */
+    public int getPacketsLargestPoolSize()
+    {
+        return _generalPacketsThreadPool.getLargestPoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getPacketsPoolSize()
+     */
+    public int getPacketsPoolSize()
+    {
+        return _generalPacketsThreadPool.getPoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getPacketsCompletedTasks()
+     */
+    public long getPacketsCompletedTasks()
+    {
+        return _generalPacketsThreadPool.getCompletedTaskCount();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getPacketsQueuedTasks()
+     */
+    public long getPacketsQueuedTasks()
+    {
+        return _generalPacketsThreadPool.getQueue().size();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getIoPacketsActiveThreads()
+     */
+    public int getIoPacketsActiveThreads()
+    {
+        return _ioPacketsThreadPool.getActiveCount();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getIoPacketsCorePoolSize()
+     */
+    public int getIoPacketsCorePoolSize()
+    {
+        return _ioPacketsThreadPool.getCorePoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getIoPacketsMaximumPoolSize()
+     */
+    public int getIoPacketsMaximumPoolSize()
+    {
+        return _ioPacketsThreadPool.getMaximumPoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getIoPacketsLargestPoolSize()
+     */
+    public int getIoPacketsLargestPoolSize()
+    {
+        return _ioPacketsThreadPool.getLargestPoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getIoPacketsPoolSize()
+     */
+    public int getIoPacketsPoolSize()
+    {
+        return _ioPacketsThreadPool.getPoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getIoPacketsCompletedTasks()
+     */
+    public long getIoPacketsCompletedTasks()
+    {
+        return _ioPacketsThreadPool.getCompletedTaskCount();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getIoPacketsQueuedTasks()
+     */
+    public long getIoPacketsQueuedTasks()
+    {
+        return _ioPacketsThreadPool.getQueue().size();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralActiveThreads()
+     */
+    public int getGeneralActiveThreads()
+    {
+        return _generalThreadPool.getActiveCount();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralCorePoolSize()
+     */
+    public int getGeneralCorePoolSize()
+    {
+        return _generalThreadPool.getCorePoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralMaximumPoolSize()
+     */
+    public int getGeneralMaximumPoolSize()
+    {
+        return _generalThreadPool.getMaximumPoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralLargestPoolSize()
+     */
+    public int getGeneralLargestPoolSize()
+    {
+        return _generalThreadPool.getLargestPoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralPoolSize()
+     */
+    public int getGeneralPoolSize()
+    {
+        return _generalThreadPool.getPoolSize();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralCompletedTasks()
+     */
+    public long getGeneralCompletedTasks()
+    {
+        return _generalThreadPool.getCompletedTaskCount();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralQueuedTasks()
+     */
+    public long getGeneralQueuedTasks()
+    {
+        return _generalThreadPool.getQueue().size();
+    }
 }

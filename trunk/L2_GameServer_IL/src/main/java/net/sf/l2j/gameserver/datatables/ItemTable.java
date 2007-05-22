@@ -56,7 +56,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.9.2.6.2.9 $ $Date: 2005/04/02 15:57:34 $
  */
-public class ItemTable
+public class ItemTable implements ItemTableMBean
 {
     private final static Log _log = LogFactory.getLog(ItemTable.class.getName());
     private final static Log _logItems = LogFactory.getLog("item");
@@ -817,5 +817,29 @@ public class ItemTable
             _item.setOwnerId(0);
             _item.setItemLootShedule(null);
         }
+    }
+
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.datatables.ItemTableMBean#getNbArmors()
+     */
+    public int getNbArmors()
+    {
+        return _armors.size();
+    }
+
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.datatables.ItemTableMBean#getNbEtcItems()
+     */
+    public int getNbEtcItems()
+    {
+        return _etcItems.size();
+    }
+
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.datatables.ItemTableMBean#getNbWeapons()
+     */
+    public int getNbWeapons()
+    {
+        return _weapons.size();
     }    
 }

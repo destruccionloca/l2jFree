@@ -37,7 +37,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Nightmare
  * @version $Revision: 1.5.2.6.2.7 $ $Date: 2005/03/27 15:29:18 $
  */
-public class SpawnTable
+public class SpawnTable implements SpawnTableMBean
 {
     private final static Log _log = LogFactory.getLog(SpawnTable.class.getName());
 
@@ -135,7 +135,7 @@ public class SpawnTable
                 }
                 else
                 {
-                    _log.warn("SpawnTable: Data missing in NPC/Custom NPC table for ID: "
+                    _log.warn("SpawnTable: Data missing or incorrect in NPC/Custom NPC table for ID: "
                         + rset.getInt("npc_templateid") + ".");
                 }
             }
@@ -224,7 +224,7 @@ public class SpawnTable
                 }
                 else
                 {
-                    _log.warn("SpawnTable: Data missing in NPC/Custom NPC table for ID: "
+                    _log.warn("SpawnTable: Data missing or incorrect in NPC/Custom NPC table for ID: "
                         + rset.getInt("npc_templateid") + ".");
                 }
             }
@@ -352,19 +352,38 @@ public class SpawnTable
         }
     }
 
-    //just wrapper
+    
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.datatables.SpawnTableMBean#reloadAll()
+     */
     public void reloadAll()
     { 
+        cleanUp();
         fillSpawnTable();
     }
 
-    public void cleanUp()
+    /**
+     * Clear all spawns from the cache
+     */
+    private void cleanUp()
     { 
     	_spawntable.clear();
     }
     
+    /**
+     * @param id the id of the spawn npc
+     * @return the template (description) of this spawn
+     */
     public L2Spawn getTemplate(int id)
     {
         return _spawntable.get(id);
+    }
+
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.datatables.SpawnTableMBean#getNpcSpawnCount()
+     */
+    public int getNpcSpawnCount()
+    {
+        return _spawntable.size();
     }
 }

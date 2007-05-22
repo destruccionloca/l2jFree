@@ -6,6 +6,12 @@ SET CLASSPATH=%CLASSPATH%;hibernate-3.2.2.ga.jar
 SET CLASSPATH=%CLASSPATH%;jta-1.0.1B.jar
 SET CLASSPATH=%CLASSPATH%;commons-collections-2.1.1.jar
 
+
+SET CLASSPATH=%CLASSPATH%;jmxremote-1.0.1_03-b57.jar
+SET CLASSPATH=%CLASSPATH%;jmxremote_optional-1.0.1_03-b57.jar
+SET CLASSPATH=%CLASSPATH%;jmxri-1.2.1-b14.jar
+SET CLASSPATH=%CLASSPATH%;jmxtools-1.2.8.jar
+
 SET CLASSPATH=%CLASSPATH%;l2j-mmocore-1.0.4.jar
 
 REM jython

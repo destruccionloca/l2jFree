@@ -6,6 +6,13 @@ CLASSPATH=${CLASSPATH}:hibernate-3.2.2.ga.jar
 CLASSPATH=${CLASSPATH}:jta-1.0.1B.jar
 CLASSPATH=${CLASSPATH}:commons-collections-2.1.1.jar
 
+CLASSPATH=${CLASSPATH}:jmxremote-1.0.1_03-b57.jar
+CLASSPATH=${CLASSPATH}:jmxremote_optional-1.0.1_03-b57.jar
+CLASSPATH=${CLASSPATH}:jmxri-1.2.1-b14.jar
+CLASSPATH=${CLASSPATH}:jmxtools-1.2.8.jar
+
+
+
 CLASSPATH=${CLASSPATH}:l2j-mmocore-1.0.4.jar
 
 CLASSPATH=${CLASSPATH}:bsf-2.0.jar

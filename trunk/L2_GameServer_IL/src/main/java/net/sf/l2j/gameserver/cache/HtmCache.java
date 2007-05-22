@@ -34,7 +34,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Layane
  *
  */
-public class HtmCache
+public class HtmCache implements HtmCacheMBean
 {
     private final static Log _log = LogFactory.getLog(HtmCache.class.getName());
     private static HtmCache _instance;

@@ -204,7 +204,7 @@ public final class Config {
             
             JMX_TCP_PORT = Integer.parseInt(serverSettings.getProperty("admin_portJMX","-1"));
             JMX_HTTP_PORT = Integer.parseInt(serverSettings.getProperty("admin_portHTTP","-1"));
-            JMX_KEYSTORE = serverSettings.getProperty("keystore","");
+            JMX_KEYSTORE = serverSettings.getProperty("keystore","keystore.jks");
             JMX_KEYSTORE_PASSWORD = serverSettings.getProperty("keystore_password","");
         }
         catch (Exception e)
