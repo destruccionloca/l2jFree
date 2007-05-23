@@ -922,8 +922,8 @@ INSERT INTO `armor` VALUES
  ('8660','Demon Horns','hair','false','none','10','wood','none','0','-1','0','0','0','0','0','true','true','true','true','0','0'),
  ('8661','Mask of Spirits','face','false','none','10','paper','none','0','-1','0','0','0','0','0','true','true','true','true','0','0'),
  ('8662','Fairy Antennae - For Event','hair','false','none','10','wood','none','0','-1','0','0','0','0','0','false','false','true','false','0','0'),
- ('8910','Black Feather Mask','dhair','false','none','10','steel','none','0','-1','0','0','0','0','0','true','true','true','true','0','0'),
- ('8911','Black Half-Mask','face','false','none','10','steel','none','0','-1','0','0','0','0','0','true','true','true','true','0','0'),
+ ('8910','Black Feather Mask - For Event','dhair','false','none','10','steel','none','0','-1','0','0','0','0','0','false','false','true','false','0','0'),
+ ('8911','Black Half-Mask - For Event','face','false','none','10','steel','none','0','-1','0','0','0','0','0','false','false','true','false','0','0'),
  ('8912','Single Stem Flower','hair','false','none','10','steel','none','0','-1','0','0','0','0','0','true','true','true','true','0','0'),
  ('8913','Butterfly Hairpin','hair','false','none','10','steel','none','0','-1','0','0','0','0','0','true','true','true','true','0','0'),
  ('8914','Luxurious Gold Circlet','dhair','false','none','10','steel','none','0','-1','0','0','0','0','0','true','true','true','true','0','0'),
@@ -1018,15 +1018,9 @@ INSERT INTO `armor` VALUES
  ('9159','Silver Circlet - For Event','dhair','false','none','10','steel','none','0','-1','0','0','0','0','0','true','true','true','true','0','0'),
  ('9160','Medieval Leather Cap - For Event','dhair','false','none','10','steel','none','0','-1','0','0','0','0','0','true','true','true','true','0','0');
 
--- addon
+-- Add-on
 INSERT INTO `armor` VALUES (9084, 'Shadow Weapon: Dark Crystal Helmet', 'head', 'true', 'none', 570, 'crystal', 'a', 0, 90, 69, 0, 0, 1740000, 139, 'true', 'true', 'true', 'true', 0, 0);
 
--- update
-update armor set dropable = 'false', tradeable = 'false', destroyable = 'false' where item_id=6834;
-update armor set dropable = 'false', tradeable = 'false', destroyable = 'false' where item_id=6835;
-update armor set dropable = 'false', tradeable = 'false', destroyable = 'false' where item_id=6836;
-update armor set dropable = 'false', tradeable = 'false', destroyable = 'false' where item_id=6837;
-update armor set dropable = 'false', tradeable = 'false', destroyable = 'false' where item_id=6838;
-update armor set dropable = 'false', tradeable = 'false', destroyable = 'false' where item_id=6839;
-update armor set dropable = 'false', tradeable = 'false', destroyable = 'false' where item_id=6840;
-update armor set dropable = 'false', tradeable = 'false', destroyable = 'false' where item_id=6841;
+-- Update
+UPDATE armor SET dropable = 'false', tradeable = 'false', destroyable = 'false' WHERE item_id IN 
+( 6834, 6835, 6836, 6837, 6838, 6839, 6840,6841 );

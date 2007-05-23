@@ -1,7 +1,7 @@
 # Made by Mr. Have fun!
 # Version 0.3 by H1GHL4ND3R
 import sys
-from net.sf.l2j import Config
+from net.sf.l2j import Config 
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
@@ -35,9 +35,9 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    id = st.getState()
    if id == CREATED :
-     if st.getPlayer().getRace().ordinal() != 1 :
+     if player.getRace().ordinal() != 1 :
        htmltext = "30370-00.htm"
-     elif st.getPlayer().getLevel() >= 3 :
+     elif player.getLevel() >= 3 :
        htmltext = "30370-03.htm"
        st.set("cond","0")
      else:

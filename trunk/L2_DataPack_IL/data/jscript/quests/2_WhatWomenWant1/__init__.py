@@ -65,9 +65,9 @@ class Quest (JQuest) :
    cond = st.getInt("cond") 
  
    if npcId == ARUJIEN and id == CREATED : 
-     if st.getPlayer().getRace().ordinal() != 1 and st.getPlayer().getRace().ordinal() != 0 : 
+     if player.getRace().ordinal() != 1 and player.getRace().ordinal() != 0 : 
        htmltext = "30223-00.htm" 
-     elif st.getPlayer().getLevel() >= 2 : 
+     elif player.getLevel() >= 2 : 
        htmltext = "30223-02.htm" 
      else: 
        htmltext = "30223-01.htm" 
@@ -86,7 +86,7 @@ class Quest (JQuest) :
      elif st.getQuestItemsCount(GREENIS_LETTER) : 
        htmltext = "30223-10.htm" 
        st.takeItems(GREENIS_LETTER,-1) 
-       st.giveItems(113,1) 
+       st.giveItems(113,1)
        st.set("cond","0") 
        st.setState(COMPLETED) 
        st.playSound("ItemSound.quest_finish")

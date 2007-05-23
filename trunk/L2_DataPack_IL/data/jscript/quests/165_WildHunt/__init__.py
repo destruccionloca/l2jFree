@@ -1,7 +1,7 @@
 # Maked by Mr. Have fun! Version 0.2
 print "importing quests: 165: Wild Hunt"
 import sys
-from net.sf.l2j import Config
+from net.sf.l2j import Config 
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
@@ -40,9 +40,9 @@ class Quest (JQuest) :
      st.set("id","0")
    if npcId == 30348 and int(st.get("cond"))==0 and int(st.get("onlyone"))==0 :
       if int(st.get("cond"))<15 :
-        if st.getPlayer().getRace().ordinal() != 2 :
+        if player.getRace().ordinal() != 2 :
           htmltext = "30348-00.htm"
-        elif st.getPlayer().getLevel() >= 3 :
+        elif player.getLevel() >= 3 :
           htmltext = "30348-02.htm"
           return htmltext
         else:

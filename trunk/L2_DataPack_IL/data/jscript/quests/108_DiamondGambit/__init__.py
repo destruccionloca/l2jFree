@@ -1,6 +1,6 @@
 # Maked by Mr. Have fun! Version 0.2
 import sys
-from net.sf.l2j import Config
+from net.sf.l2j import Config 
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
@@ -58,10 +58,10 @@ class Quest (JQuest) :
    if npcId == 30523 and id == COMPLETED :
       htmltext = "<html><head><body>This quest have already been completed.</body></html>"
    elif npcId == 30523 and int(st.get("cond"))==0 :
-          if st.getPlayer().getRace().ordinal() != 4 :
+          if player.getRace().ordinal() != 4 :
             htmltext = "30523-00.htm"
             st.exitQuest(1)
-          elif st.getPlayer().getLevel() >= 10 :
+          elif player.getLevel() >= 10 :
             htmltext = "30523-02.htm"
             return htmltext
           else:
