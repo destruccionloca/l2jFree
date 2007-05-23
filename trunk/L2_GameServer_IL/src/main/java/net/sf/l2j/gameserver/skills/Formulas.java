@@ -1485,21 +1485,18 @@ public final class Formulas
         if (target.isRaid()
                 && (type == SkillType.CONFUSION || type == SkillType.MUTE || type == SkillType.PARALYZE
                     || type == SkillType.ROOT || type == SkillType.FEAR || type == SkillType.SLEEP
-                    || type == SkillType.STUN || type == SkillType.DEBUFF || type == SkillType.AGGDEBUFF))
-        {
-        return false; 
-        }
+                    || type == SkillType.STUN || type == SkillType.DEBUFF || type == SkillType.AGGDEBUFF)
+                    || Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId()))
+        	return false; 
         else
-        if (skill.isActive() && skill.isOffensive())
-            defence = target.getMDef(actor, skill);
+        	if (skill.isActive() && skill.isOffensive())
+        		defence = target.getMDef(actor, skill);
+        
         if (actor instanceof L2PcInstance) 
-        {
             attack = 3.7 * actor.getMAtk(target, skill); 
-        }
         else
-        {
             attack = 2 * actor.getMAtk(target, skill); 
-        }
+
         double d = attack - defence;
         d /= attack + defence;
         d += 0.5 * Rnd.nextGaussian();
@@ -1571,7 +1568,8 @@ public final class Formulas
         if (target.isRaid()
             && (type == SkillType.CONFUSION || type == SkillType.MUTE || type == SkillType.PARALYZE
                 || type == SkillType.ROOT || type == SkillType.FEAR || type == SkillType.SLEEP
-                || type == SkillType.STUN || type == SkillType.DEBUFF || type == SkillType.AGGDEBUFF))
+                || type == SkillType.STUN || type == SkillType.DEBUFF || type == SkillType.AGGDEBUFF)
+            	|| Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId()))
             return false; // these skills should not work on RaidBoss
         
         int value = (int) skill.getPower();

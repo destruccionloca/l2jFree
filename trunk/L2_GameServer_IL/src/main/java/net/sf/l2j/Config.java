@@ -800,6 +800,8 @@ public final class Config {
     public static int           	INVENTORY_MAXIMUM_NO_DWARF;			// Inventory slots limits
     public static int           	INVENTORY_MAXIMUM_DWARF;			// Inventory slots limits
     public static int           	INVENTORY_MAXIMUM_GM;				// Inventory slots limits
+    public static String			FORBIDDEN_RAID_SKILLS;
+    public static FastList<Integer> FORBIDDEN_RAID_SKILLS_LIST  = new FastList<Integer>();
     //  *******************************************************************************************    
     //  *******************************************************************************************
     public static void loadotherconfig()
@@ -907,7 +909,12 @@ public final class Config {
             for (String npc_type : ALLOWED_NPC_TYPES.trim().split(",")) 
             {
                 LIST_ALLOWED_NPC_TYPES.add(npc_type.trim());
-            }                
+            }
+            
+            FORBIDDEN_RAID_SKILLS = otherSettings.getProperty("ForbiddenRaidSkills", "1064,100");            
+            for (String id : FORBIDDEN_RAID_SKILLS.trim().split(",")) {
+            	FORBIDDEN_RAID_SKILLS_LIST.add(Integer.parseInt(id.trim()));
+            }
         }
         catch (Exception e)
         {
