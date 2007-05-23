@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.List;
 
 import javolution.util.FastList;
+
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
@@ -319,7 +321,7 @@ public final class L2Weapon  extends L2Item
 
         for (L2Skill skill : _skillsOnCrit)
         {
-            if (target.isRaid() && (skill.getSkillType() == SkillType.CONFUSION || skill.getSkillType() == SkillType.MUTE || skill.getSkillType() == SkillType.PARALYZE || skill.getSkillType() == SkillType.ROOT)) 
+            if (target.isRaid() && (skill.getSkillType() == SkillType.CONFUSION || skill.getSkillType() == SkillType.MUTE || skill.getSkillType() == SkillType.PARALYZE || skill.getSkillType() == SkillType.ROOT || Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId()))) 
                 continue; // These skills should not work on RaidBoss
 
             if (!skill.checkCondition(caster, true)) 

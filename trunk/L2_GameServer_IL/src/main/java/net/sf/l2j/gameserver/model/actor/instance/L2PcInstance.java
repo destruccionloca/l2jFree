@@ -4295,6 +4295,7 @@ public final class L2PcInstance extends L2PlayableInstance
                     {
                         // 'Both way war' -> 'PvP Kill' 
                         increasePvpKills();
+                        return;
                     }
                 }
             }
