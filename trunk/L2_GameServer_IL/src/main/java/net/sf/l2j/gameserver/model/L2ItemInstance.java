@@ -886,9 +886,6 @@ public final class L2ItemInstance extends L2Object
 		if (this._storedInDb)
 			return;
 		
-		// delete augmentation data
-		if (isAugmented()) _augmentation.deleteAugmentationData();
-        
 		java.sql.Connection con = null;
 		try
 		{
@@ -962,7 +959,12 @@ public final class L2ItemInstance extends L2Object
 	private void removeFromDb() {
 		if (this._wear)
 			return;
+
 		if (Config.ASSERT) assert this._existsInDb;
+		
+        // delete augmentation data
+        if (isAugmented()) _augmentation.deleteAugmentationData();		
+		
 		java.sql.Connection con = null;
 		try
 		{
