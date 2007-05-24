@@ -1124,7 +1124,6 @@ public abstract class L2Skill
             case AGGREDUCE_CHAR: 
             case CRITS:
             case CHARGE_SELF:
-            case SUMMON:  
             case UNSUMMON_ENEMY_PET:
             case CANCEL_TARGET:
             case BETRAY:
