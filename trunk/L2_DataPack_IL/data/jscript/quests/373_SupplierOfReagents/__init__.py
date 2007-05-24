@@ -1,4 +1,4 @@
-# Supplier of Reagents version 0.1 
+# Supplier of Reagents version 0.1
 # by DrLecter
 print "importing quests:",
 import sys
@@ -53,10 +53,10 @@ ITEMS={
 2464:["armor_t66_g_i00","Avadon Gloves","Gloves"],
 554:["armor_t64_b_i00","Zubei's Boots","Boots"],
 600:["armor_t66_b_i00","Avadon Boots","Boots"],
-601:["armor_t68_b_i00","Blue Wolf Boots","Boots"],
-2439:["armor_t71_b_i00","Boots of Doom","Boots"],
-2475:["armor_t68_g_i00","Blue Wolf Gloves","Gloves"],
-2487:["armor_t71_g_i00","Doom Gloves","Gloves"],
+2439:["armor_t68_b_i00","Blue Wolf Boots","Boots"],
+601:["armor_t71_b_i00","Boots of Doom","Boots"],
+2487:["armor_t68_g_i00","Blue Wolf Gloves","Gloves"],
+2475:["armor_t71_g_i00","Doom Gloves","Gloves"],
 6011:["etc_reagent_red_i00","Wyrm's Blood",""],
 6012:["etc_inf_ore_high_i00","Lava Stone",""],
 6013:["etc_broken_crystal_silver_i00","Moonstone Shard",""],
@@ -72,7 +72,7 @@ ITEMS={
 6023:["etc_powder_white_i00","Moon Dust","Low Level Reagent"],
 6024:["etc_potion_purpel_i00","Necroplasm","Low Level Reagent"],
 6025:["etc_potion_green_i00","Demonplasm","Low Level Reagent"],
-6026:["etc_powder_black_i00","Inferno Dust",""], 
+6026:["etc_powder_black_i00","Inferno Dust",""],
 6027:["etc_dragon_blood_i00","Draconic Essence","High Level Reagent"],
 6028:["etc_dragons_blood_i00","Fire Essence","High Level Reagent"],
 6029:["etc_mithril_ore_i00","Lunargent","High Level Reagent"],
@@ -161,7 +161,7 @@ class Quest (JQuest) :
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
  def onEvent (self,event,st) :
-    id = st.getState() 
+    id = st.getState()
     htmltext = event
     if event == "30166-4.htm" :
        st.setState(STARTED)
@@ -176,7 +176,7 @@ class Quest (JQuest) :
        st.giveItems(5904,1)
        st.playSound("ItemSound.quest_accept")
     elif event == "30166-5.htm" :
-       for i in range(6007,6035)+[6317,5904] : 
+       for i in range(6007,6035)+[6317,5904] :
           st.takeItems(i,-1)
        st.exitQuest(1)
        st.playSound("ItemSound.quest_finish")
@@ -232,7 +232,7 @@ class Quest (JQuest) :
              st.giveItems(item,qty)
              htmltext="31149-3a.htm"
           else :
-             htmltext = "31149-3b.htm" 
+             htmltext = "31149-3b.htm"
     elif event.startswith("x_") :
        x,qty,dst,item=event.split("_")
        if qty=="2": qty="10"
