@@ -281,13 +281,19 @@ $MYG < ../sql/clanhall.sql &> /dev/null
 $MYG < ../sql/clanhall_functions.sql &> /dev/null
 $MYG < ../sql/class_list.sql &> /dev/null
 $MYG < ../sql/couples.sql &> /dev/null
+$MYG < ../sql/ctf.sql &> /dev/null
+$MYG < ../sql/ctf_teams.sql &> /dev/null
 $MYG < ../sql/cursed_Weapons.sql &> /dev/null
+$MYG < ../sql/custom_npc.sql &> /dev/null
+$MYG < ../sql/custom_spawnlist.sql &> /dev/null
+$MYG < ../sql/dm.sql &> /dev/null
 $MYG < ../sql/droplist.sql &> /dev/null
 $MYG < ../sql/etcitem.sql &> /dev/null
 $MYG < ../sql/enchant_skill_trees.sql &> /dev/null
 $MYG < ../sql/fish.sql &> /dev/null
 $MYG < ../sql/fishing_skill_trees.sql &> /dev/null
 $MYG < ../sql/forums.sql &> /dev/null
+$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null
 $MYG < ../sql/games.sql &> /dev/null
 $MYG < ../sql/global_tasks.sql &> /dev/null
 $MYG < ../sql/gm_audit.sql &> /dev/null
@@ -327,17 +333,11 @@ $MYG < ../sql/skill_trees.sql &> /dev/null
 $MYG < ../sql/spawnlist.sql &> /dev/null
 $MYG < ../sql/teleport.sql &> /dev/null
 $MYG < ../sql/topic.sql &> /dev/null
-$MYG < ../sql/weapon.sql &> /dev/null
-$MYG < ../sql/zone.sql &> /dev/null
-$MYG < ../sql/vip.sql &> /dev/null
-$MYG < ../sql/custom_npc.sql &> /dev/null
-$MYG < ../sql/custom_spawnlist.sql &> /dev/null
 $MYG < ../sql/tvt.sql &> /dev/null
 $MYG < ../sql/tvt_teams.sql &> /dev/null
-$MYG < ../sql/ctf.sql &> /dev/null
-$MYG < ../sql/ctf_teams.sql &> /dev/null
-$MYG < ../sql/dm.sql &> /dev/null
-$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null
+$MYG < ../sql/vip.sql &> /dev/null
+$MYG < ../sql/weapon.sql &> /dev/null
+$MYG < ../sql/zone.sql &> /dev/null
 }
 
 finish(){
