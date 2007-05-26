@@ -28,7 +28,6 @@ import net.sf.l2j.gameserver.serverpackets.PartyMemberPosition;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocationInVehicle;
-import net.sf.l2j.tools.geometry.Point3D;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

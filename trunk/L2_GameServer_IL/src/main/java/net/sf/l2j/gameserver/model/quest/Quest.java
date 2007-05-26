@@ -23,6 +23,7 @@ import java.io.StringWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collection;
+import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -53,13 +54,13 @@ public abstract class Quest
 	protected static Log _log = LogFactory.getLog(Quest.class.getName());
 
 	/** HashMap containing events from String value of the event */
-	private static FastMap<String, Quest> allEventsS = new FastMap<String, Quest>();
+	private static Map<String, Quest> allEventsS = new FastMap<String, Quest>();
 
 	private final int _questId;
 	private final String _name;
 	private final String _descr;
     private State initialState;
-    private FastMap<String, State> states;
+    private Map<String, State> states;
 	
 	/**
 	 * Return collection view of the values contains in the allEventS
@@ -121,7 +122,8 @@ public abstract class Quest
 	}
 	
 	/**
-	 * Set the initial state of the quest with parameter "state"
+	 * sets initial state of the quest (each newly created quest will start from this state). 
+     * From Jython call it as Quest.setInitialState(CREATED)
 	 * @param state
 	 */
 	public void setInitialState(State state) {
@@ -140,7 +142,9 @@ public abstract class Quest
 	}
 	
 	/**
-	 * Return initial state of the quest
+	 * returns the initial state of the quest, 
+     * call it as Quest.getInitialState(self) or self.getInitialState(), 
+     * where self is an instance of jython quest.
 	 * @return State
 	 */
 	public State getInitialState() {
@@ -148,7 +152,8 @@ public abstract class Quest
 	}
     
 	/**
-	 * Return name of the quest
+	 * returns name (id) of the quest, call it as Quest.getName(self) or self.getName(), 
+     * where self is an instance of jython quest.
 	 * @return String
 	 */
 	public String getName() {
@@ -156,7 +161,9 @@ public abstract class Quest
 	}
 	
 	/**
-	 * Return description of the quest
+	 * returns description name of the quest, 
+     * call it as Quest.getDescr(self) or self.getDescr(), 
+     * where self is an instance of jython quest.
 	 * @return String
 	 */
 	public String getDescr() {
@@ -220,13 +227,90 @@ public abstract class Quest
 	}
 
 	// these are methods that java calls to invoke scripts
-    @SuppressWarnings("unused") public String onAttack(L2NpcInstance npc, L2PcInstance attacker) { return null; } 
-    @SuppressWarnings("unused") public String onDeath (L2NpcInstance npc, L2Character character, QuestState qs) { return onEvent("", qs); }
-    @SuppressWarnings("unused") public String onEvent(String event, QuestState qs) { return null; } 
-    @SuppressWarnings("unused") public String onKill (L2NpcInstance npc, L2PcInstance killer) { return null; }
-    @SuppressWarnings("unused") public String onTalk (L2NpcInstance npc, L2PcInstance talker) { return null; }
-    @SuppressWarnings("unused") public String onFirstTalk(L2NpcInstance npc, L2PcInstance player) { return null; }
-    @SuppressWarnings("unused") public String onSkillUse (L2NpcInstance npc, L2PcInstance caster, L2Skill skill) { return null; }
+    
+    public String onAttack(L2NpcInstance npc, L2PcInstance attacker)
+    {
+        return null;
+    }
+
+    
+    public String onDeath(L2NpcInstance npc, L2Character character, QuestState qs)
+    {
+        return onEvent("", qs);
+    }
+
+    /**
+     * this method is called from Java code to process quest event in jython script.
+     * 
+     * In the script this method must be declared like
+     * 
+     * def onEvent(self,event,st) :
+     * 
+     * The method onEvent is also called when methods onKill or onTalk are nor defined, event string in this case is empty.
+     * 
+     * @param event is a string, that identified event
+     * @param qs is a state of the quest for current player QuestState
+     * @return
+     */
+    
+    public String onEvent(String event, QuestState qs)
+    {
+        return null;
+    }
+
+    /**
+     * this method is called from Java code when you kill a quest NPC, 
+     * to process quest event in jython script.
+     * 
+     * In the script this method must be declared like
+     * 
+     * def onKill(self,npcId,killer) :
+     * 
+     * The method onKill will be called only when you subscribed to receive 
+     * these events for particular monsters in particular quest State.
+     * To subscribe for the kill event use method addKillId of State.
+     * 
+     * @param npc is an integer ID, that identified NPC being killed
+     * @param killer is the l2pcinstance who killed this npc
+     * @return
+     */
+    
+    public String onKill(L2NpcInstance npc, L2PcInstance killer)
+    {
+        return null;
+    }
+
+    /**
+     * this method is called from Java code when you talk to a quest NPC, 
+     * to process quest event in jython script.
+     * 
+     * In the script this method must be declared like
+     * 
+     * def onTalk(self,npcId,st) :
+     * 
+     * The method onTalk will be called only when you subscribed to receive these events for particular NPC in particular quest State.
+     * To subscribe for the talk event use method addTalkId of State.
+     * 
+     * @param npc is an integer ID, that identified NPC the player talks with
+     * @param talker is the l2pcinstance who talks
+     * @return
+     */
+    public String onTalk(L2NpcInstance npc, L2PcInstance talker)
+    {
+        return null;
+    }
+
+    
+    public String onFirstTalk(L2NpcInstance npc, L2PcInstance player)
+    {
+        return null;
+    }
+
+    
+    public String onSkillUse(L2NpcInstance npc, L2PcInstance caster, L2Skill skill)
+    {
+        return null;
+    }
 	
 	/**
 	 * Show message error to player who has an access level greater than 0

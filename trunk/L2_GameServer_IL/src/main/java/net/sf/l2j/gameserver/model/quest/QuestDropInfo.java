@@ -1,5 +1,7 @@
 package net.sf.l2j.gameserver.model.quest;
 
+import java.util.List;
+
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -47,7 +49,7 @@ public class QuestDropInfo
 
 		if (questState.getDrops() != null)
         {
-			for(FastList<L2DropData> questDrop : questState.getDrops().values())
+			for(List<L2DropData> questDrop : questState.getDrops().values())
 			{
 				// Get drops given by the mob
              if(questDrop == null)

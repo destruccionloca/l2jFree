@@ -19,9 +19,9 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
-import javolution.util.FastList;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -200,7 +200,7 @@ public class L2MonsterInstance extends L2Attackable
     {
         if (minionList.hasMinions())
         {
-            FastList<L2MinionInstance> spawnedMinions = minionList.getSpawnedMinions();
+            List<L2MinionInstance> spawnedMinions = minionList.getSpawnedMinions();
             if (spawnedMinions != null && spawnedMinions.size() > 0)
             {
                 Iterator<L2MinionInstance> itr = spawnedMinions.iterator();
@@ -232,7 +232,7 @@ public class L2MonsterInstance extends L2Attackable
         super.doDie(killer);
     }
     
-    public FastList<L2MinionInstance> getSpawnedMinions()
+    public List<L2MinionInstance> getSpawnedMinions()
     {
         return minionList.getSpawnedMinions();
     }

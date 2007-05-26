@@ -41,7 +41,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
-import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 
 /**
  * This class manages AI of L2Attackable.<BR><BR>

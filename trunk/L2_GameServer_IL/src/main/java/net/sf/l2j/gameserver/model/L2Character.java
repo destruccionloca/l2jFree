@@ -4102,6 +4102,8 @@ public abstract class L2Character extends L2Object
     /**
      * Check if this object is inside the given radius around the given object.<BR><BR>
      * 
+     * If the target is null, we consider that this object is not inside radius 
+     * 
      * @param object   the target
      * @param radius  the radius around the target
      * @param checkZ  should we check Z axis also
@@ -4112,6 +4114,10 @@ public abstract class L2Character extends L2Object
      */
     public final boolean isInsideRadius(L2Object object, int radius, boolean checkZ, boolean strictCheck)
     {
+        if (object == null )
+        {
+            return false;
+        }
         return isInsideRadius(object.getX(), object.getY(), object.getZ(), radius, checkZ, strictCheck);
     }
     /**

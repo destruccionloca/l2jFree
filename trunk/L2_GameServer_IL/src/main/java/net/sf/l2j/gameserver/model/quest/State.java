@@ -18,6 +18,9 @@
  */
 package net.sf.l2j.gameserver.model.quest;
 
+import java.util.List;
+import java.util.Map;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2DropData;
@@ -37,7 +40,7 @@ public class State
 	/** Name of the quest */
     /** Quest object associated to the state */
 	private final Quest _quest;
-	private FastMap<Integer, FastList<L2DropData>> _Drops;
+	private Map<Integer, List<L2DropData>> _Drops;
 	private String[] _Events = emptyStrList;
     private String _Name;
 
@@ -65,13 +68,13 @@ public class State
     public void addQuestDrop(int npcId, int itemId, int chance) {
         try {
             if (_Drops == null)
-                _Drops = new FastMap<Integer, FastList<L2DropData>>();
+                _Drops = new FastMap<Integer, List<L2DropData>>();
             L2DropData d = new L2DropData();
             d.setItemId(itemId);
             d.setChance(chance);
             d.setQuestID(_quest.getName());
             d.addStates(new String[]{_Name});
-            FastList<L2DropData> lst = _Drops.get(npcId);
+            List<L2DropData> lst = _Drops.get(npcId);
             if (lst != null) {
                 lst.add(d);
             } else {
@@ -91,7 +94,7 @@ public class State
      * Return list of drops at this step/state of the quest.
      * @return HashMap
      */
-    FastMap<Integer, FastList<L2DropData>> getDrops() {
+    Map<Integer, List<L2DropData>> getDrops() {
         return _Drops;
     }
     

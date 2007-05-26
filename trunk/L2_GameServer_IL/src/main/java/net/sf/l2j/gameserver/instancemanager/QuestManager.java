@@ -18,6 +18,7 @@
 package net.sf.l2j.gameserver.instancemanager;
 
 import java.io.File;
+import java.util.List;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -105,7 +106,7 @@ public class QuestManager
         return null;
     }
     
-    public final int getQuestIndex(String name)
+    private final int getQuestIndex(String name)
     {
         Quest quest;
         for (int i = 0; i < getQuests().size(); i++)
@@ -116,7 +117,7 @@ public class QuestManager
         return -1;
     }
     
-    public final int getQuestIndex(int questId)
+    private final int getQuestIndex(int questId)
     {
         Quest quest;
         for (int i = 0; i < getQuests().size(); i++)
@@ -127,7 +128,7 @@ public class QuestManager
         return -1;
     }
 
-    public final FastList<Quest> getQuests()
+    public final List<Quest> getQuests()
     {
         if (_Quests == null) _Quests = new FastList<Quest>();
         return _Quests;

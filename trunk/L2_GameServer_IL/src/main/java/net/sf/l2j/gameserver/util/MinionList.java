@@ -29,6 +29,7 @@
 package net.sf.l2j.gameserver.util;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -57,8 +58,8 @@ public class MinionList
     private final static Log _log = LogFactory.getLog(L2MonsterInstance.class.getName());
 
     /** List containing the current spawned minions for this L2MonsterInstance */
-    private final FastList<L2MinionInstance> minionReferences;
-    protected FastMap<Long,Integer> _respawnTasks = new FastMap<Long,Integer>().setShared(true);
+    private final List<L2MinionInstance> minionReferences;
+    protected Map<Long,Integer> _respawnTasks = new FastMap<Long,Integer>().setShared(true);
     private final L2MonsterInstance master;
     private Random _rand;
 
@@ -76,7 +77,7 @@ public class MinionList
         }
     }
 
-    public int countSpawnedMinionsById(int minionId)
+    private int countSpawnedMinionsById(int minionId)
     {
         int count = 0;
         synchronized (minionReferences)
@@ -97,7 +98,7 @@ public class MinionList
         return getSpawnedMinions().size() > 0;
     }
 
-    public FastList<L2MinionInstance> getSpawnedMinions()
+    public List<L2MinionInstance> getSpawnedMinions()
     {
         return minionReferences;
     }
@@ -120,13 +121,6 @@ public class MinionList
         return seenGroups.size();
     }
 
-    public void removeSpawnedMinion(L2MinionInstance minion)
-    {
-        synchronized (minionReferences)
-        {
-            minionReferences.remove(minion);
-        }
-    }
     
     public void moveMinionToRespawnList(L2MinionInstance minion)
     {
@@ -221,7 +215,7 @@ public class MinionList
      * @param minionid The I2NpcTemplate Identifier of the Minion to spawn
      * 
      */
-    public void spawnSingleMinion(int minionid)
+    private void spawnSingleMinion(int minionid)
     {
         _rand = new Random();
         // Get the template of the Minion to spawn

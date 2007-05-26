@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.datatables;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -503,11 +502,6 @@ public class NpcTable implements NpcTableMBean
     {
         return _initialized;
     }
-    
-    public void replaceTemplate(L2NpcTemplate npc)
-    {
-        _npcs.put(npc.npcId, npc);
-    }
 
     public L2NpcTemplate getTemplate(int id)
     {
@@ -517,48 +511,6 @@ public class NpcTable implements NpcTableMBean
     public  Map<Integer, L2NpcTemplate> getAllTemplates()
     {
         return _npcs;
-    }
-    
-    public L2NpcTemplate getTemplateByName(String name)
-    {
-        for (L2NpcTemplate npcTemplate : _npcs.values())
-            if (npcTemplate.name.equalsIgnoreCase(name))
-                return npcTemplate;
-
-        return null;
-    }
-
-    public L2NpcTemplate[] getAllOfLevel(int lvl)
-    {
-        List<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
-
-        for (L2NpcTemplate t : _npcs.values())
-            if (t.level == lvl)
-                list.add(t);
-
-        return list.toArray(new L2NpcTemplate[list.size()]);
-    }
-
-    public L2NpcTemplate[] getAllMonstersOfLevel(int lvl)
-    {
-        List<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
-
-        for (L2NpcTemplate t : _npcs.values())
-            if (t.level == lvl && "L2Monster".equals(t.type))
-                list.add(t);
-
-        return list.toArray(new L2NpcTemplate[list.size()]);
-    }
-
-    public L2NpcTemplate[] getAllNpcStartingWith(String letter)
-    {
-        List<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
-
-        for (L2NpcTemplate t : _npcs.values())
-            if (t.name.startsWith(letter) && "L2Npc".equals(t.type))
-                list.add(t);
-
-        return list.toArray(new L2NpcTemplate[list.size()]);
     }
 
     /**

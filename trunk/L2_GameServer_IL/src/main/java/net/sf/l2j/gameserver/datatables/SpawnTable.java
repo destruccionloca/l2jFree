@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.datatables;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Map;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -43,7 +44,7 @@ public class SpawnTable implements SpawnTableMBean
 
     private static final SpawnTable _instance = new SpawnTable();
 
-    private FastMap<Integer, L2Spawn> _spawntable = new FastMap<Integer, L2Spawn>();
+    private Map<Integer, L2Spawn> _spawntable = new FastMap<Integer, L2Spawn>();
     private int _npcSpawnCount;
     private int _cSpawnCount;
     private int _highestDbId;
@@ -60,11 +61,6 @@ public class SpawnTable implements SpawnTableMBean
             fillSpawnTable();
         else
             _log.debug("Spawns Disabled");
-    }
-
-    public FastMap<Integer, L2Spawn> getSpawnTable()
-    {
-        return _spawntable;
     }
 
     private void fillSpawnTable()
@@ -256,7 +252,7 @@ public class SpawnTable implements SpawnTableMBean
         
     }
 
-    public FastMap<Integer, L2Spawn> getAllTemplates()
+    public Map<Integer, L2Spawn> getAllTemplates()
     {
         return _spawntable;
     }

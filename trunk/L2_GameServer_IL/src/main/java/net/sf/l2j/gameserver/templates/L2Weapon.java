@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javolution.util.FastList;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
@@ -32,9 +31,6 @@ import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
-import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.conditions.ConditionGameChance;
 import net.sf.l2j.gameserver.skills.funcs.Func;
