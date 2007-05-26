@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -58,7 +57,6 @@ public class GameTimeController
     private ScheduledFuture _timerWatcher;
 
     // [L2J_JP ADD]
-    private ScheduledFuture _OpenTask;
 
     /**
      * one ingame day is 240 real minutes
@@ -79,7 +77,7 @@ public class GameTimeController
         _timerWatcher = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new TimerWatcher(), 0, 1000);
         ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new BroadcastSunState(), 0, 600000);
         // [L2J_JP ADD SANDMAN]
-        _OpenTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new OpenPiretesRoom(), 2000, 600000);
+        ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new OpenPiretesRoom(), 2000, 600000);
     }
 
     public boolean isNowNight()
@@ -271,8 +269,6 @@ public class GameTimeController
     class OpenPiretesRoom implements Runnable
     {
 
-        private Future _closeTask;
-        
         public void run()
         {
             DoorTable _doorTable = DoorTable.getInstance();
@@ -286,7 +282,7 @@ public class GameTimeController
                 {
                     _doorTable.getDoor(21240006).openMe();
                     // The door will be closed in '_CloseTime' minutes.
-                    _closeTask = ThreadPoolManager.getInstance().scheduleEffect(new ClosePiretesRoom(),(_CloseTime*60*1000));
+                    ThreadPoolManager.getInstance().scheduleEffect(new ClosePiretesRoom(),(_CloseTime*60*1000));
                 }
                 catch (Exception e)
                 {

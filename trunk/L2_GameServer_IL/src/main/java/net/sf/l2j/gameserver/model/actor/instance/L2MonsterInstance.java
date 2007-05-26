@@ -321,7 +321,6 @@ public class L2MonsterInstance extends L2Attackable
     private class doHide implements Runnable
     {
         private L2MonsterInstance _me;
-        private ScheduledFuture shownTask;
         
         public doHide(L2MonsterInstance actor)
         {
@@ -331,7 +330,7 @@ public class L2MonsterInstance extends L2Attackable
         public void run()
         {
             _me.hideMe();
-            shownTask = ThreadPoolManager.getInstance().scheduleGeneral(new doShown(_me),_me.getSpawn().getRespawnDelay());
+            ThreadPoolManager.getInstance().scheduleGeneral(new doShown(_me),_me.getSpawn().getRespawnDelay());
         }
     }
     

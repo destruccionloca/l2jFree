@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.concurrent.Future;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -94,7 +95,8 @@ public class L2SummonInstance extends L2Summon
 	
 	public void setExpPenalty(float expPenalty)
 	{
-		_expPenalty = expPenalty;
+        float ratePenalty = Config.ALT_GAME_SUMMON_PENALTY_RATE;
+        _expPenalty = (expPenalty* ratePenalty);
 	}
     public float getExpPenalty()
     {

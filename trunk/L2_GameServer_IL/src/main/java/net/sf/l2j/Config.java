@@ -1283,6 +1283,8 @@ public final class Config {
     public static int 				ALT_OLY_IWAIT;		// Olympiad Inital Wait
     public static int 				ALT_OLY_WPERIOD;		// Olympaid Weekly Period
     public static int 				ALT_OLY_VPERIOD;		// Olympaid Validation Period
+    /** Alternative game summon penalty  */
+    public static float ALT_GAME_SUMMON_PENALTY_RATE;    
     //  *******************************************************************************************    
     //  *******************************************************************************************    
     //  *******************************************************************************************
@@ -1419,6 +1421,8 @@ public final class Config {
             if (APPTIME_OF_ANTHARAS < 5) APPTIME_OF_ANTHARAS = 5;
             else if (APPTIME_OF_ANTHARAS > 60) APPTIME_OF_ANTHARAS = 60;
             APPTIME_OF_ANTHARAS = APPTIME_OF_ANTHARAS * 60000;
+            
+            ALT_GAME_SUMMON_PENALTY_RATE = Float.parseFloat(altSettings.getProperty("AltSummonPenaltyRate", "1"));
         }
         catch (Exception e)
         {

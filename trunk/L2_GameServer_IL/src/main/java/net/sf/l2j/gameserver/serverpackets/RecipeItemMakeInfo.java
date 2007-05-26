@@ -42,7 +42,6 @@ public class RecipeItemMakeInfo extends L2GameServerPacket
     private int _id;
     private L2PcInstance _player;
     private boolean _success;
-    private L2Recipe[] _recipes;
     private L2RecipeService __l2RecipeService=(L2RecipeService)L2Registry.getBean("L2RecipeService"); 
 
     public RecipeItemMakeInfo(int id, L2PcInstance player, boolean success)

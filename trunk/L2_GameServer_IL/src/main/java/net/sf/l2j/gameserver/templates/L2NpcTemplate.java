@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.templates;
 
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -31,6 +30,9 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.skills.Stats;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This cl contains all generic data of a L2Spawn object.<BR><BR>
@@ -51,7 +53,7 @@ import net.sf.l2j.gameserver.skills.Stats;
  */
 public final class L2NpcTemplate extends L2CharTemplate
 {
-	protected static Logger _log = Logger.getLogger(Quest.class.getName());
+	private final static Log _log = LogFactory.getLog(L2NpcTemplate.class.getName());
 
     public final int     npcId;
     public final int     idTemplate;
@@ -300,7 +302,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 			}
 			else
 			{
-				_log.warning("Quest event not allowed in multiple quests.  Skipped addition of Event Type \""+EventType+"\" for NPC \""+this.name +"\" and quest \""+q.getName()+"\".");
+				_log.warn("Quest event not allowed in multiple quests.  Skipped addition of Event Type \""+EventType+"\" for NPC \""+this.name +"\" and quest \""+q.getName()+"\".");
 			}
 		}
     }

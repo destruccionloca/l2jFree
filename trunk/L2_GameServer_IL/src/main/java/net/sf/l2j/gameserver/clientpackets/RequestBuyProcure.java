@@ -24,6 +24,8 @@ import net.sf.l2j.gameserver.util.Util;
 public class RequestBuyProcure extends L2GameClientPacket {
     private static final String _C__C3_REQUESTBUYPROCURE = "[C] C3 RequestBuyProcure";
 //    private final static Log _log = LogFactory.getLog(RequestBuyProcure.class.getName());
+    
+    @SuppressWarnings("unused")
     private int _listId;
     private int _count;
     private int[] _items;
@@ -108,12 +110,6 @@ public class RequestBuyProcure extends L2GameClientPacket {
             return;
         }
 
-
-
-
-        long subTotal = 0;
-        int tax = 0;
-        
         // Check for buylist validity and calculates summary values
         int slots = 0;
         int weight = 0;
@@ -124,7 +120,6 @@ public class RequestBuyProcure extends L2GameClientPacket {
         {
             int itemId = _items[i * 2 + 0];
             int count  = _items[i * 2 + 1];
-            int price = 0;
             if (count > Integer.MAX_VALUE)
             {
                 Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase over "+Integer.MAX_VALUE+" items at the same time.",  Config.DEFAULT_PUNISH);
