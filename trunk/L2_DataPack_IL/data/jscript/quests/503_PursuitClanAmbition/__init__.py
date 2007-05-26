@@ -487,7 +487,7 @@ class Quest (JQuest) :
 
   def onAttack(self, npc, player):
     npdId = npc.getNpcId()
-    if (npc.getMaxHp()/2) > npc.getStatus().getStatus().getCurrentHp():
+    if (npc.getMaxHp()/2) > npc.getStatus().getCurrentHp():
       if Rnd.get(100) < 4:
         if self.ImpGraveKepperStat == 1:
           for j in range(2):
