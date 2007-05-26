@@ -633,7 +633,7 @@ public class L2Attackable extends L2NpcInstance
                         
                         // Add L2PcInstance of the party (that have attacked or not) to members that can be rewarded if it's not dead
                         // and in range of the monster.
-                        if (!pl.isDead() && Util.checkIfInRange(1150, this, pl, true)) rewardedMembers.add(pl);
+                        if (!pl.isDead() && Util.checkIfInRange(Config.PARTY_RANGE, this, pl, true)) rewardedMembers.add(pl);
                     }
                     
                     // If the party didn't killed this L2Attackable alone
