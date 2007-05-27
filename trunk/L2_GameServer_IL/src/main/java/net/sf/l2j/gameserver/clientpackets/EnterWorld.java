@@ -218,16 +218,16 @@ public class EnterWorld extends L2GameClientPacket
         activeChar.sendPacket(esmc);
        
         activeChar.getMacroses().sendUpdate();
-        
-        sendPacket(new ItemList(activeChar, false));
 
         sendPacket(new UserInfo(activeChar));
 
-        sendPacket(new ShortCutInit(activeChar));
+		sendPacket(new ShortCutInit(activeChar));
 
         sendPacket(new HennaInfo(activeChar));
         
-        sendPacket(new net.sf.l2j.gameserver.serverpackets.FriendList(activeChar));
+        sendPacket(new FriendList(activeChar));
+        
+        sendPacket(new ItemList(activeChar, false));
         
         sendPacket(new ClientSetTime());
                 
