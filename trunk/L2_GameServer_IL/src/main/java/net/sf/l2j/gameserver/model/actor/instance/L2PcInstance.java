@@ -174,6 +174,7 @@ import net.sf.l2j.gameserver.serverpackets.PrivateStoreListBuy;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreListSell;
 import net.sf.l2j.gameserver.serverpackets.QuestList;
 import net.sf.l2j.gameserver.serverpackets.RecipeShopSellList;
+import net.sf.l2j.gameserver.serverpackets.RelationChanged;
 import net.sf.l2j.gameserver.serverpackets.Ride;
 import net.sf.l2j.gameserver.serverpackets.SendTradeDone;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
@@ -2556,12 +2557,31 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (item.getCount() > 0)
         {
-            // Sends message to client if requested
-            if (sendMessage)
-            {
-                sendMessageForNewItem(item.getItemId(), item.getCount(), process);
-            }
-
+			// Sends message to client if requested
+			if (sendMessage)
+			{
+				if (item.getCount() > 1) 
+				{
+					SystemMessage sm = new SystemMessage(SystemMessage.YOU_PICKED_UP_S1_S2);
+					sm.addItemName(item.getItemId());
+					sm.addNumber(item.getCount());
+					sendPacket(sm);
+				}
+				else if (item.getEnchantLevel() > 0)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessage.YOU_PICKED_UP_A_S1_S2);
+					sm.addNumber(item.getEnchantLevel());
+					sm.addItemName(item.getItemId());
+					sendPacket(sm);
+				}
+				else
+				{
+					SystemMessage sm = new SystemMessage(SystemMessage.YOU_PICKED_UP_S1);
+					sm.addItemName(item.getItemId());
+					sendPacket(sm);
+				}
+			}
+			
             // Add the item to inventory
             L2ItemInstance newitem = _inventory.addItem(process, item, this, reference);
             
@@ -3654,6 +3674,26 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         else 
         {
+			// if item is instance of L2ArmorType or L2WeaponType broadcast an "Attention" system message
+			if(target.getItemType() instanceof L2ArmorType || target.getItemType() instanceof L2WeaponType)
+			{
+				if (target.getEnchantLevel() > 0)
+				{
+					SystemMessage msg = new SystemMessage(SystemMessage.ATTENTION_S1_PICKED_UP_S2_S3);
+					msg.addString(getName());
+					msg.addNumber(target.getEnchantLevel());
+					msg.addItemName(target.getItemId());
+					broadcastPacket(msg, 1400);
+				}
+				else
+				{
+					SystemMessage msg = new SystemMessage(SystemMessage.ATTENTION_S1_PICKED_UP_S2);
+					msg.addString(getName());
+					msg.addItemName(target.getItemId());
+					broadcastPacket(msg, 1400);
+				}
+			}
+        	
             // Check if a Party is in progress
             if (isInParty()) getParty().distributeItem(this, target);
             // Target is adena 
@@ -5238,12 +5278,10 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void setKarmaFlag(int flag)
     {
-        // Send a Server->Client StatusUpdate packet with Karma and PvP Flag to the L2PcInstance and all L2PcInstance to inform (broadcast)
-        StatusUpdate su = new StatusUpdate(getObjectId());
-        su.addAttribute(StatusUpdate.KARMA, getKarma());
-        su.addAttribute(StatusUpdate.PVP_FLAG, flag);
-        sendPacket(su);
-        broadcastPacket(su);
+		sendPacket(new UserInfo(this));
+		for (L2PcInstance player : getKnownList().getKnownPlayers().values()) {
+			player.sendPacket(new RelationChanged(this, getRelation(player), isAutoAttackable(player)));
+		}
     }
 
     /**
@@ -5251,11 +5289,10 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void updateKarma()
     {
-        // Send a Server->Client StatusUpdate packet with Karma to the L2PcInstance
-        StatusUpdate su = new StatusUpdate(getObjectId());
-        su.addAttribute(StatusUpdate.KARMA, getKarma());
-        sendPacket(su);
-        broadcastPacket(su);
+		sendPacket(new UserInfo(this));
+		for (L2PcInstance player : getKnownList().getKnownPlayers().values()) {
+			player.sendPacket(new RelationChanged(this, getRelation(player), isAutoAttackable(player)));
+		}
     }
 
     /**

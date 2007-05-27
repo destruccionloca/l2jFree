@@ -17,6 +17,7 @@ public class CharKnownList extends ObjectKnownList
     // =========================================================
     // Data Field
     private Map<Integer, L2PcInstance> _KnownPlayers;
+    private Map<Integer, Integer> _KnownRelations;
     
     // =========================================================
     // Constructor
@@ -31,7 +32,10 @@ public class CharKnownList extends ObjectKnownList
     public boolean addKnownObject(L2Object object, L2Character dropper)
     {
         if (!super.addKnownObject(object, dropper)) return false;
-        if (object instanceof L2PcInstance) getKnownPlayers().put(object.getObjectId(), (L2PcInstance)object);
+        if (object instanceof L2PcInstance) {
+        	getKnownPlayers().put(object.getObjectId(), (L2PcInstance)object);
+        	getKnownRelations().put(object.getObjectId(), -1);
+        }
         return true;
     }
 
@@ -46,6 +50,7 @@ public class CharKnownList extends ObjectKnownList
     {
         super.removeAllKnownObjects();
         getKnownPlayers().clear();
+        getKnownRelations().clear();        
 
         // Set _target of the L2Character to null
         // Cancel Attack or Cast
@@ -58,7 +63,10 @@ public class CharKnownList extends ObjectKnownList
     public boolean removeKnownObject(L2Object object)
     {
         if (!super.removeKnownObject(object)) return false;
-        if (object instanceof L2PcInstance) getKnownPlayers().remove(object.getObjectId());
+        if (object instanceof L2PcInstance) {
+        	getKnownPlayers().remove(object.getObjectId());
+        	getKnownRelations().remove(object.getObjectId());
+        }
         // If object is targeted by the L2Character, cancel Attack or Cast
         if (object == getActiveChar().getTarget()) getActiveChar().setTarget(null);
 
@@ -119,7 +127,13 @@ public class CharKnownList extends ObjectKnownList
         if (_KnownPlayers == null) _KnownPlayers = new FastMap<Integer, L2PcInstance>().setShared(true);
         return _KnownPlayers;
     }
-    
+
+	public final Map<Integer, Integer> getKnownRelations()
+	{
+	    if (_KnownRelations == null) _KnownRelations = new FastMap<Integer, Integer>().setShared(true);
+	    return _KnownRelations;
+	}
+
     public final Collection<L2PcInstance> getKnownPlayersInRadius(long radius)
     {
         FastList<L2PcInstance> result = new FastList<L2PcInstance>();

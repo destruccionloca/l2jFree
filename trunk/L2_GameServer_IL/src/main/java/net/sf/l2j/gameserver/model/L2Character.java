@@ -88,6 +88,7 @@ import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcInfo;
 import net.sf.l2j.gameserver.serverpackets.PartySpelled;
 import net.sf.l2j.gameserver.serverpackets.PetInfo;
+import net.sf.l2j.gameserver.serverpackets.RelationChanged;
 import net.sf.l2j.gameserver.serverpackets.Revive;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
@@ -96,6 +97,7 @@ import net.sf.l2j.gameserver.serverpackets.StopMove;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.TargetUnselected;
 import net.sf.l2j.gameserver.serverpackets.TeleportToLocation;
+import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.skills.Calculator;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.Stats;
@@ -305,10 +307,48 @@ public abstract class L2Character extends L2Object
         	{
         		if (player == null || player == this) continue;
         		player.sendPacket(mov);
-        		//if(Config.DEVELOPER && !isInsideRadius(player, 3500, false, false)) _log.warn("broadcastPacket: Too far player see event!");
+        		if (mov instanceof CharInfo && this instanceof L2PcInstance) {
+        			int relation = ((L2PcInstance)this).getRelation(player);
+        			if (getKnownList().getKnownRelations().get(player.getObjectId()) != null && getKnownList().getKnownRelations().get(player.getObjectId()) != relation)
+        				player.sendPacket(new RelationChanged((L2PcInstance)this, relation, player.isAutoAttackable(this)));
+        		}
+        		//if(Config.DEVELOPER && !isInsideRadius(player, 3500, false, false)) _log.warning("broadcastPacket: Too far player see event!");
         	}
         } catch (Exception e) { } // this npe catch might not be necessary any more
     }
+
+	/**
+	 * Send a packet to the L2Character AND to all L2PcInstance in the radius (max knownlist radius) from the L2Character.<BR><BR>
+	 *
+	 * <B><U> Concept</U> :</B><BR><BR>
+	 * L2PcInstance in the detection area of the L2Character are identified in <B>_knownPlayers</B>.
+	 * In order to inform other players of state modification on the L2Character, server just need to go through _knownPlayers to send Server->Client Packet<BR><BR>
+	 *
+	 */
+	public final void broadcastPacket(L2GameServerPacket mov, int radiusInKnownlist)
+	{
+		if (!(mov instanceof CharInfo))
+			sendPacket(mov);
+
+		if (getKnownList().getKnownPlayers() == null) return;
+
+		Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values();
+
+		if (knownPlayers == null) return;
+
+		if (_log.isDebugEnabled()) _log.info("players to notify:" + knownPlayers.size() + " packet:"+mov.getType());
+
+        for (L2PcInstance player : knownPlayers)
+        {
+        	if (player == null || player == this || !isInsideRadius(player, radiusInKnownlist, false, false)) continue;
+        	player.sendPacket(mov);
+        	if (mov instanceof CharInfo && this instanceof L2PcInstance) {
+        		int relation = ((L2PcInstance)this).getRelation(player);
+        		if (getKnownList().getKnownRelations().get(player.getObjectId()) != null && getKnownList().getKnownRelations().get(player.getObjectId()) != relation)
+        			player.sendPacket(new RelationChanged((L2PcInstance)this, relation, player.isAutoAttackable(this)));
+        	}
+        }
+	}
 
 	/**
 	 * Returns true if hp update should be done, false if not 
@@ -4649,8 +4689,8 @@ public abstract class L2Character extends L2Object
             if (this instanceof L2PcInstance)
             {
             	_log.warn("Player "+ this.getName() +" at bad coords: (x: " + getX() + ", y: " + getY() + ", z: " + getZ() + ").");
-            	((L2PcInstance)this).sendMessage("Error with your coords, Please ask a GM for help!");
-            	((L2PcInstance)this).teleToLocation(0,0,0, false);
+            	((L2PcInstance)this).sendMessage("Error with your coordinates! Please reboot your game fully!");
+            	((L2PcInstance)this).teleToLocation(80753,145481,-3532, false); // Near Giran luxury shop
             }
             else 
             {
@@ -5500,20 +5540,17 @@ public abstract class L2Character extends L2Object
    }
 
    public void updatePvPFlag(int value) {
-       if (!(this instanceof L2PcInstance))
-           return;
-       L2PcInstance player = (L2PcInstance)this;
-       if (player.getPvpFlag() == value)
-           return;
-       player.setPvpFlag(value);
+		if (!(this instanceof L2PcInstance))
+			return;
+		L2PcInstance player = (L2PcInstance)this;
+		if (player.getPvpFlag() == value)
+			return;
+		player.setPvpFlag(value);
 
-       if (player.getKarma() < 1)
-       {
-       StatusUpdate su = new StatusUpdate(getObjectId());
-       su.addAttribute(StatusUpdate.PVP_FLAG, value);
-       broadcastPacket(su);
-       }
-       else return;
+		player.sendPacket(new UserInfo(player));
+		for (L2PcInstance target : getKnownList().getKnownPlayers().values()) {
+			target.sendPacket(new RelationChanged(player, player.getRelation(player), player.isAutoAttackable(target)));
+		}
    }
 
 

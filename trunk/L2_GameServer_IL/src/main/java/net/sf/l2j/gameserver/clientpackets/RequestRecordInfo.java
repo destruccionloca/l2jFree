@@ -36,6 +36,7 @@ import net.sf.l2j.gameserver.serverpackets.GetOnVehicle;
 import net.sf.l2j.gameserver.serverpackets.NpcInfo;
 import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.PetItemList;
+import net.sf.l2j.gameserver.serverpackets.RelationChanged;
 import net.sf.l2j.gameserver.serverpackets.SpawnItem;
 import net.sf.l2j.gameserver.serverpackets.SpawnItemPoly;
 import net.sf.l2j.gameserver.serverpackets.StaticObject;
@@ -113,12 +114,20 @@ public class RequestRecordInfo extends L2GameClientPacket
 
                     if (otherPlayer.isInBoat())
                     {
-                        otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getPosition().getWorldPosition());
-                        _activeChar.sendPacket(new CharInfo(otherPlayer));
-                        _activeChar.sendPacket(new GetOnVehicle(otherPlayer, otherPlayer.getBoat(), otherPlayer.getInBoatPosition().getX(), otherPlayer.getInBoatPosition().getY(), otherPlayer.getInBoatPosition().getZ()));
+						otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getPosition().getWorldPosition());
+						_activeChar.sendPacket(new CharInfo(otherPlayer));
+						int relation = otherPlayer.getRelation(_activeChar);
+						if (otherPlayer.getKnownList().getKnownRelations().get(_activeChar.getObjectId()) != null && otherPlayer.getKnownList().getKnownRelations().get(_activeChar.getObjectId()) != relation)
+							_activeChar.sendPacket(new RelationChanged(otherPlayer, relation, _activeChar.isAutoAttackable(otherPlayer)));
+						_activeChar.sendPacket(new GetOnVehicle(otherPlayer, otherPlayer.getBoat(), otherPlayer.getInBoatPosition().getX(), otherPlayer.getInBoatPosition().getY(), otherPlayer.getInBoatPosition().getZ()));
                     }
                     else
-                        _activeChar.sendPacket(new CharInfo(otherPlayer));
+					{
+						_activeChar.sendPacket(new CharInfo(otherPlayer));
+						int relation = otherPlayer.getRelation(_activeChar);
+						if (otherPlayer.getKnownList().getKnownRelations().get(_activeChar.getObjectId()) != null && otherPlayer.getKnownList().getKnownRelations().get(_activeChar.getObjectId()) != relation)
+							_activeChar.sendPacket(new RelationChanged(otherPlayer, relation, _activeChar.isAutoAttackable(otherPlayer)));
+					}
                 }
 
                 if (object instanceof L2Character)
