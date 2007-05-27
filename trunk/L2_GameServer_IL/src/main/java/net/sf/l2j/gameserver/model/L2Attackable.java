@@ -622,7 +622,7 @@ public class L2Attackable extends L2NpcInstance
                     // Go through all L2PcInstance in the party
                     for (L2PcInstance pl : attackerParty.getPartyMembers())
                     {
-                        if (pl == null) continue;
+                    	if (pl == null || pl.isDead()) continue;
 
                         // Get the RewardInfo of this L2PcInstance from L2Attackable rewards
                         reward2 = rewards.get(pl);
@@ -2068,7 +2068,11 @@ public class L2Attackable extends L2NpcInstance
         if (Config.ALT_GAME_EXPONENT_XP == 0 && Config.ALT_GAME_EXPONENT_SP == 0)
         {
             if(diff > 5) // formula revised May 07
-            	xp = xp*Math.pow((double)5/6, diff-5);
+            {
+            	double pow = Math.pow((double)5/6, diff-5);
+            	xp = xp*pow;
+            	sp = sp*pow;
+            }
             
             if (xp <= 0)
             {

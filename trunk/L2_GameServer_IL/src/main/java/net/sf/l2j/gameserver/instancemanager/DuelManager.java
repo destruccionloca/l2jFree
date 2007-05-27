@@ -17,16 +17,19 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.util.logging.Logger;
-
 import javolution.util.FastList;
+
+import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Duel;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class DuelManager
 {
-    private static final Logger _log = Logger.getLogger(DuelManager.class.getName());
+	private final static Log _log = LogFactory.getLog(DuelManager.class.getName());
 
     // =========================================================
     private static DuelManager _Instance;
@@ -66,30 +69,12 @@ public class DuelManager
 
     private Duel getDuel(int duelId)
     {
-        //TODO: does that work faster? (it should be..)
         for (FastList.Node<Duel> e = _Duels.head(), end = _Duels.tail(); (e = e.getNext()) != end;)
         {
             if (e.getValue().getId() == duelId) return e.getValue();
         }
-        /*Duel temp=null;
-        for (int i = 0; i < _Duels.size(); i++)
-        {
-            temp = _Duels.get(i);
-            if (temp != null && temp.getId() == duelId) return temp;
-        }*/
         return null;
     }
-
-/*  private int getDuelIndex(int duelId)
-    {
-        Duel temp=null;
-        for (int i = 0; i < _Duels.size(); i++)
-        {
-            temp = _Duels.get(i);
-            if (temp != null && temp.getId() == duelId) return i;
-        }
-        return 0;
-    }*/
 
     // =========================================================
     // Method - Public
@@ -164,7 +149,19 @@ public class DuelManager
         Duel duel = getDuel(player.getDuelId());
         if (duel != null) duel.onPlayerDefeat(player);
     }
-    
+
+	/**
+	 * Registers a debuff which will be removed if the duel ends
+	 * @param player
+	 * @param debuff
+	 */
+	public void onDebuff(L2PcInstance player, L2Effect debuff)
+	{
+		if (player == null || !player.isInDuel() || debuff == null) return;
+		Duel duel = getDuel(player.getDuelId());
+		if (duel != null) duel.onDebuff(player, debuff);
+	}
+
     /**
      * Removes player from duel.
      * @param player - the removed player

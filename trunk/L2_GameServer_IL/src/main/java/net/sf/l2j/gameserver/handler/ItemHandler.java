@@ -37,6 +37,7 @@ import net.sf.l2j.gameserver.handler.itemhandlers.Guide;
 import net.sf.l2j.gameserver.handler.itemhandlers.Harvester;
 import net.sf.l2j.gameserver.handler.itemhandlers.MercTicket;
 import net.sf.l2j.gameserver.handler.itemhandlers.MysteryPotion;
+import net.sf.l2j.gameserver.handler.itemhandlers.PaganKeys;
 import net.sf.l2j.gameserver.handler.itemhandlers.Potions;
 import net.sf.l2j.gameserver.handler.itemhandlers.Recipes;
 import net.sf.l2j.gameserver.handler.itemhandlers.Remedy;
@@ -99,7 +100,8 @@ public class ItemHandler
         this.registerItemHandler(new BeastSoulShot());
         this.registerItemHandler(new BeastSpiritShot());
         this.registerItemHandler(new BlessedSpiritShot());
-        this.registerItemHandler(new ChestKey());        
+        this.registerItemHandler(new ChestKey());
+        this.registerItemHandler(new PaganKeys()); 
         this.registerItemHandler(new WorldMap());
         this.registerItemHandler(new Potions());
         this.registerItemHandler(new Recipes());

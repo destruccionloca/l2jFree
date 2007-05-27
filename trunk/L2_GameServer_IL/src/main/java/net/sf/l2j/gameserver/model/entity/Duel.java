@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.model.entity;
 
 import java.util.Calendar;
-import java.util.logging.Logger;
 import javolution.util.FastList;
 
 import net.sf.l2j.gameserver.ai.CtrlIntention;
@@ -27,6 +26,7 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
+import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ExDuelReady;
@@ -37,10 +37,12 @@ import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class Duel
 {
-	protected static Logger _log = Logger.getLogger(Duel.class.getName());
+	private final static Log _log = LogFactory.getLog(Duel.class.getName());
 
     public static final int DUELSTATE_NODUEL		= 0;
     public static final int DUELSTATE_DUELLING		= 1;
@@ -116,6 +118,7 @@ public class Duel
 		private double _cp;
 		private boolean _paDuel;
 		private int _x, _y, _z;
+		private FastList<L2Effect> _debuffs;
 		
 		public PlayerCondition(L2PcInstance player, boolean partyDuel)
 		{
@@ -145,6 +148,19 @@ public class Duel
 			{
 				TeleportBack();
 			}
+			if (_debuffs != null) // Debuff removal
+			{
+				for (L2Effect temp : _debuffs)
+					if (temp != null) temp.exit();
+			}
+		}
+		
+		public void registerDebuff(L2Effect debuff)
+		{
+			if (_debuffs == null)
+				_debuffs = new FastList<L2Effect>();
+			
+			_debuffs.add(debuff);
 		}
 		
 		public void TeleportBack()
@@ -348,7 +364,6 @@ public class Duel
 			}
 			
 			// Send duel Start packets
-			// TODO: verify: is this done correctly?
 			ExDuelReady ready = new ExDuelReady(1);
 			ExDuelStart start = new ExDuelStart(1);
 			
@@ -366,7 +381,6 @@ public class Duel
 			_playerB.setTeam(2);
 			
 			// Send duel Start packets
-			// TODO: verify: is this done correctly?
 			ExDuelReady ready = new ExDuelReady(0);
 			ExDuelStart start = new ExDuelStart(0);
 			
@@ -637,9 +651,6 @@ public class Duel
 	 */
 	public void endDuel(DuelResultEnum result)
 	{
-		//TODO: remove me
-		//System.out.println("Duel->endDuel("+result+")");
-		
 		if (_playerA == null || _playerB == null)
 		{
 			//clean up
@@ -719,7 +730,6 @@ public class Duel
 		}
 		
 		// Send end duel packet
-		//TODO: verify: is this done correctly?
 		ExDuelEnd duelEnd = null;
 		if (_partyDuel) duelEnd = new ExDuelEnd(1);
 		else duelEnd = new ExDuelEnd(0);
@@ -831,7 +841,7 @@ public class Duel
 		}
 		else
 		{
-			if (player != _playerA && player != _playerB) _log.warning("Error handling duel surrender request by "+player.getName());
+			if (player != _playerA && player != _playerB) _log.warn("Error handling duel surrender request by "+player.getName());
 
 			if (player == _playerA)
 			{
@@ -882,7 +892,7 @@ public class Duel
 		}
 		else
 		{
-			if (player != _playerA && player != _playerB) _log.warning("Error in onPlayerDefeat(): player is not part of this 1vs1 duel");
+			if (player != _playerA && player != _playerB) _log.warn("Error in onPlayerDefeat(): player is not part of this 1vs1 duel");
 
 			if (_playerA == player) _playerB.setDuelState(DUELSTATE_WINNER);
 			else _playerA.setDuelState(DUELSTATE_WINNER);
@@ -922,6 +932,18 @@ public class Duel
 				}
 			}
 			player.setIsInDuel(0);
+		}
+	}
+	
+	public void onDebuff(L2PcInstance player, L2Effect debuff)
+	{
+		for (FastList.Node<PlayerCondition> e = _playerConditions.head(), end = _playerConditions.tail(); (e = e.getNext()) != end;)
+		{
+			if (e.getValue().getPlayer() == player)
+			{
+				e.getValue().registerDebuff(debuff);
+				return;
+			}
 		}
 	}
 }
