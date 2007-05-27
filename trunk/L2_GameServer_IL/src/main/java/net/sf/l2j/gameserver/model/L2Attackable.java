@@ -506,7 +506,7 @@ public class L2Attackable extends L2NpcInstance
                         ddealer = info.attacker;
                 	
                 	// Check if ddealer isn't too far from this (killed monster)
-                	if (!Util.checkIfInRange(1600, this, ddealer, true)) continue;
+                	if (!Util.checkIfInRange(Config.PARTY_RANGE, this, ddealer, true)) continue;
                 	
                     // Calculate real damages (Summoners should get own damage plus summon's damage)                    
                     reward = rewards.get(ddealer);
@@ -630,7 +630,7 @@ public class L2Attackable extends L2NpcInstance
                         // If the L2PcInstance is in the L2Attackable rewards add its damages to party damages
                         if (reward2 != null)
                         {
-                        	if (Util.checkIfInRange(1600, this, pl, true))
+                        	if (Util.checkIfInRange(Config.PARTY_RANGE, this, pl, true))
                         	{
                         		partyDmg += reward2.dmg; // Add L2PcInstance damages to party damages
                         		rewardedMembers.add(pl);
@@ -642,7 +642,7 @@ public class L2Attackable extends L2NpcInstance
                         {
                         	// Add L2PcInstance of the party (that have attacked or not) to members that can be rewarded
                         	// and in range of the monster.
-                        	if (Util.checkIfInRange(1600, this, pl, true))
+                        	if (Util.checkIfInRange(Config.PARTY_RANGE, this, pl, true))
                         	{
                         		rewardedMembers.add(pl);
                         		if (pl.getLevel() > partyLvl) partyLvl = pl.getLevel();
