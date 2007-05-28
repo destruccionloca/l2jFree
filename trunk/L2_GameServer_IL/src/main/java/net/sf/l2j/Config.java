@@ -1454,6 +1454,12 @@ public final class Config {
     public static int     	GM_CHAR_EDIT;			// General GM AccessLevel with character edit rights
     public static int     	GM_CHAR_EDIT_OTHER;		// General GM AccessLevel with edit rights for other characters
     public static int     	GM_CHAR_VIEW;			// General GM AccessLevel with character view rights
+    public static int     	GM_CHAR_VIEW_INFO;			// General GM AccessLevel with character view rights ALT+G
+    public static int     	GM_CHAR_INVENTORY;			// General GM AccessLevel with character view inventory rights ALT+G
+    public static int     	GM_CHAR_CLAN_VIEW;			// General GM AccessLevel with character view clan info rights ALT+G
+    public static int     	GM_CHAR_VIEW_QUEST;			// General GM AccessLevel with character view quest rights ALT+G
+    public static int     	GM_CHAR_VIEW_SKILL;			// General GM AccessLevel with character view skill rights ALT+G
+    public static int     	GM_CHAR_VIEW_WAREHOUSE;			// General GM AccessLevel with character warehouse view rights ALT+G    
     public static int     	GM_NPC_EDIT;			// General GM AccessLevel with NPC edit rights
     public static int     	GM_NPC_VIEW;
     public static int     	GM_TELEPORT;			// General GM AccessLevel to teleport to any location
@@ -1518,6 +1524,12 @@ public final class Config {
             GM_CHAR_EDIT    = Integer.parseInt(gmSettings.getProperty("GMCanEditChar", "100"));
             GM_CHAR_EDIT_OTHER    = Integer.parseInt(gmSettings.getProperty("GMCanEditCharOther", "100"));
             GM_CHAR_VIEW    = Integer.parseInt(gmSettings.getProperty("GMCanViewChar", "100"));
+            GM_CHAR_VIEW_INFO    = Integer.parseInt(gmSettings.getProperty("GMViewCharacterInfo", "100"));
+            GM_CHAR_INVENTORY    = Integer.parseInt(gmSettings.getProperty("GMViewItemList", "100"));
+            GM_CHAR_CLAN_VIEW    = Integer.parseInt(gmSettings.getProperty("GMViewClanInfo", "100"));
+            GM_CHAR_VIEW_QUEST    = Integer.parseInt(gmSettings.getProperty("GMViewQuestList", "100"));
+            GM_CHAR_VIEW_SKILL    = Integer.parseInt(gmSettings.getProperty("GMViewSkillInfo", "100"));
+            GM_CHAR_VIEW_WAREHOUSE    = Integer.parseInt(gmSettings.getProperty("GMViewWarehouseWithdrawList", "100"));
             GM_NPC_EDIT     = Integer.parseInt(gmSettings.getProperty("GMCanEditNPC", "100"));
             GM_NPC_VIEW     = Integer.parseInt(gmSettings.getProperty("GMCanViewNPC", "100"));
             GM_TELEPORT     = Integer.parseInt(gmSettings.getProperty("GMCanTeleport", "100"));
