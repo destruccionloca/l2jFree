@@ -444,6 +444,8 @@ public abstract class L2Skill
     private final boolean _directHpDmg;  // If true then dmg is being make directly 
     private final boolean _isDance;      // If true then casting more dances will cost more MP
     private final int _nextDanceCost;
+    
+    private final int _timeMulti;
 
     private final float _successRate; 
     private final int _minPledgeClass;
@@ -481,14 +483,16 @@ public abstract class L2Skill
         _skillInterruptTime = set.getInteger("skillTime", _skillTime/2);
         _hitTime      = set.getInteger("hitTime", 0);
         _reuseDelay   = set.getInteger("reuseDelay", 0);
+        _skillType    = set.getEnum("skillType", SkillType.class);        
         _isDance      = set.getBool("isDance",false);        
         if(_isDance)
-        {
-            _buffDuration = set.getInteger("buffDuration", 1) * Config.ALT_DANCE_TIME;}
-        else {
-            _buffDuration = set.getInteger("buffDuration", 1) * Config.ALT_BUFF_TIME;
-        }
-        
+            _timeMulti = Config.ALT_DANCE_TIME;
+        else if(_skillType==SkillType.SEED)
+        	_timeMulti = Config.ALT_SEED_TIME;
+        else
+        	_timeMulti = Config.ALT_BUFF_TIME;
+
+        _buffDuration = set.getInteger("buffDuration", 1);        
         _skillRadius  = set.getInteger("skillRadius", 80);
         
         _targetType   = set.getEnum("target", SkillTargetType.class);
@@ -500,7 +504,7 @@ public abstract class L2Skill
         _levelDepend  = set.getInteger("lvlDepend", 0);
         _stat         = set.getEnum  ("stat", Stats.class, null);
         
-        _skillType    = set.getEnum("skillType", SkillType.class);
+
         _effectType   = set.getEnum("effectType", SkillType.class, null);
         _effectPower  = set.getInteger("effectPower", 0);
         _effectLvl = set.getInteger("effectLevel", 0);
@@ -789,9 +793,17 @@ public abstract class L2Skill
      */
     public final int getBuffDuration()
     {
-        return _buffDuration;
+        return _buffDuration * _timeMulti;
     }
 
+    /**
+     * @return Returns the timeMulti.
+     */
+    public final int getTimeMulti()
+    {
+        return _timeMulti;
+    }
+    
     /**
      * @return Returns the castRange.
      */

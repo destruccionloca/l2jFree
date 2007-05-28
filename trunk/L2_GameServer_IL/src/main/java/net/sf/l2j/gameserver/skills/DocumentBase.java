@@ -204,6 +204,7 @@ abstract class DocumentBase
         }
         else
             time = ((L2Skill) template).getBuffDuration() / 1000 / count;
+        time = time * ((L2Skill) template).getTimeMulti();
         boolean self = false;
         if (attrs.getNamedItem("self") != null)
         {
