@@ -297,7 +297,10 @@ public class EnterWorld extends L2GameClientPacket
         if(Config.ONLINE_PLAYERS_AT_STARTUP)
         {
              sm = new SystemMessage(SystemMessage.S1_S2);
-             sm.addString("Players online: ");
+             if (L2World.getInstance().getAllPlayers().size() == 1)
+            	 sm.addString("Player online: ");
+             else
+            	 sm.addString("Players online: ");
              sm.addNumber(L2World.getInstance().getAllPlayers().size());
              sendPacket(sm);
         }        

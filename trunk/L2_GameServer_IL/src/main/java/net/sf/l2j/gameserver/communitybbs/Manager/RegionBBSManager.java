@@ -455,9 +455,12 @@ public class RegionBBSManager extends BaseBBSManager
             htmlCode.append("<td align=left valign=top FIXWIDTH=110><a action=\"bypass _bbsloc;playerinfo;"
                 + player.getName() + "\">");
    
-            if (player.isGM()) htmlCode.append("<font color=\"LEVEL\">" + player.getName()
-                + "</font>");
-            else htmlCode.append(player.getName());
+            if (player.isGM())
+            	htmlCode.append("<font color=\"LEVEL\">" + player.getName() + "</font>");
+            else if (player.isCursedWeaponEquiped() && Config.SHOW_CURSED_WEAPON_OWNER)
+            	htmlCode.append("<font color=\"FF0000\">" + player.getName() + "</font>");
+            else
+            	htmlCode.append(player.getName());
    
             htmlCode.append("</a></td>");
    

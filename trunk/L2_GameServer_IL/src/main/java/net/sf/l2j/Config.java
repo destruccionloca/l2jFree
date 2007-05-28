@@ -1011,6 +1011,7 @@ public final class Config {
     public static boolean       		SHOW_STATUS_COMMUNITYBOARD;
     public static int           		NAME_PAGE_SIZE_COMMUNITYBOARD;
     public static int           		NAME_PER_ROW_COMMUNITYBOARD;
+    public static boolean 				SHOW_CURSED_WEAPON_OWNER;		// Show Owner(s) of Cursed Weapons in CB ?
     public static int           		ZONE_TOWN;						// Zone Setting
     public static int           		MIN_NPC_ANIMATION;				// random animation interval
     public static int           		MAX_NPC_ANIMATION;
@@ -1109,6 +1110,7 @@ public final class Config {
             SHOW_STATUS_COMMUNITYBOARD      = Boolean.valueOf(optionsSettings.getProperty("ShowStatusOnCommunityBoard", "True"));
             NAME_PAGE_SIZE_COMMUNITYBOARD   = Integer.parseInt(optionsSettings.getProperty("NamePageSizeOnCommunityBoard", "50"));
             NAME_PER_ROW_COMMUNITYBOARD     = Integer.parseInt(optionsSettings.getProperty("NamePerRowOnCommunityBoard", "5"));
+            SHOW_CURSED_WEAPON_OWNER        = Boolean.valueOf(optionsSettings.getProperty("ShowCursedWeaponOwner", "False"));
                          
             ZONE_TOWN                       = Integer.parseInt(optionsSettings.getProperty("ZoneTown", "0"));
                          

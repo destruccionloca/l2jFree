@@ -33,6 +33,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
@@ -368,6 +369,8 @@ public class AdminEditChar implements IAdminCommandHandler
                 else
                     return false;
                 player.setHero(player.isHero() ? false : true);
+                if (player.isHero() == true)
+                	player.broadcastPacket(new SocialAction(player.getObjectId(), 16));
                 SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                 sm.addString("Admin changed your hero status");
                 player.sendPacket(sm);
