@@ -77,10 +77,10 @@ class Quest (JQuest) :
    if not st : return htmltext
 
    npcId = npc.getNpcId()
-   htmltext = "<html><head><body>I have nothing to say you</body></html>"
    id = st.getState()
    if npcId != 30118 and id != STARTED : return htmltext
-   if id == CREATED :
+
+   if id == CREATED :
      st.setState(STARTING)
      st.set("cond","0")
      st.set("onlyone","0")
@@ -178,14 +178,12 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    if not st : return 
    if st.getState() != STARTED : return 
-   
    npcId = npc.getNpcId()
    if npcId == 27099 :
     if int(st.get("cond")) == 1 and st.getQuestItemsCount(RIPPED_DIARY) < 7 and st.getQuestItemsCount(BOOK_OF_REFORM) >= 1 :
       if st.getQuestItemsCount(RIPPED_DIARY) == 6 :
         st.set("cond","2")
-        st.getPcSpawn().addSpawn(27128,npc.getX(),npc.getY(),npc.getZ())
-        return "Aruraune has spawned"
+        st.getPcSpawn().addSpawn(27128,npc.getX(),npc.getY(),npc.getZ(),npc.getHeading(),True,300000)
         st.takeItems(RIPPED_DIARY,st.getQuestItemsCount(RIPPED_DIARY))
       else:
         st.giveItems(RIPPED_DIARY,1)
