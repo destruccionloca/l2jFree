@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
+import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.CropProcure;
@@ -223,34 +224,15 @@ public class Castle
                 
                 if (_formerOwner == null)
                     _formerOwner = oldOwner;
-//                int CrownId = CrownTable.getCrownId(getCastleId());
+                
                 oldOwner.setHasCastle(0);                                               // Unset has castle flag for old owner
                 new Announcements().announceToAll(oldOwner.getName() + " has lost " + getName() + " castle!");
 
-                // Remove Lord Crown from Leader
-                if(clan.getLeader().isOnline())
-                {
-                    clan.getLeader().getPlayerInstance().getInventory().destroyItem("Crown",6841,1,clan.getLeader().getPlayerInstance(),null);
-                    clan.getLeader().getPlayerInstance().getInventory().updateDatabase();
-                }
-                else // Leader is offline 
-                {
-                    java.sql.Connection con = null;
-                    try
-                    {
-                        con = L2DatabaseFactory.getInstance().getConnection(con);
-                        PreparedStatement statement = con.prepareStatement("delete from items where owner_id = ? and item_id = ?");
-                        statement.setInt(1, clan.getLeader().getObjectId());
-                        statement.setInt(2, 6841);
-                        statement.execute();
-                        statement.close();
-                    }
-                    catch (Exception e) {} 
-                    finally {try { con.close(); } catch (Exception e) {}}
-                }
+                // remove crowns
+                CrownManager.getInstance().removeCrowns(oldOwner); 
             }                           
         }
-
+        
         updateOwnerInDB(clan);                                                          // Update in database
 
         if (getSiege().getIsInProgress())                                               // If siege in progress
@@ -529,14 +511,15 @@ public class Castle
             statement.close();   
             // ============================================================================
 
-//            int CrownId = CrownTable.getCrownId(getCastleId());
-            
             // Announce to clan memebers
             if (clan != null)
             {
                 clan.setHasCastle(getCastleId()); // Set has castle flag for new owner
                 new Announcements().announceToAll(clan.getName() + " has taken " + getName() + " castle!");
                 clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
+
+                // give crowns
+                CrownManager.getInstance().giveCrowns(clan,this.getCastleId());
                 
                 ThreadPoolManager.getInstance().scheduleGeneral(new CastleUpdater(clan, 1), 3600000);   // Schedule owner tasks to start running 
             }

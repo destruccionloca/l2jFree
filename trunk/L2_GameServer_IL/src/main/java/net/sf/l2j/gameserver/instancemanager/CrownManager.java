@@ -1,8 +1,12 @@
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.PreparedStatement;
+
+import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.datatables.CrownTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
+import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 
@@ -27,6 +31,68 @@ public class CrownManager
         return _Instance;
     }    
     
+    public void removeCrowns(L2Clan clan)
+    {
+    	for(L2ClanMember member: clan.getMembers())
+    	{
+    		if(member.isOnline())
+    		{
+				for(L2ItemInstance item : member.getPlayerInstance().getInventory().getItems())
+				{
+					if(CrownTable.getCrownList().contains(item.getItemId()))
+							member.getPlayerInstance().destroyItem("Removing Crown", item, member.getPlayerInstance(), true);
+							member.getPlayerInstance().getInventory().updateDatabase();
+				}
+    		}
+    		else
+    		{
+				Integer PlayerId = member.getObjectId();
+				
+    			for(Integer CrownId : CrownTable.getCrownList())
+    			{
+                    java.sql.Connection con = null;
+                    try
+                    {
+                        con = L2DatabaseFactory.getInstance().getConnection(con);
+                        PreparedStatement statement = con.prepareStatement("delete from items where owner_id = ? and item_id = ?");
+                        statement.setInt(1, PlayerId);
+                        statement.setInt(2, CrownId);
+                        statement.execute();
+                        statement.close();
+                    }
+                    catch (Exception e) {} 
+                    finally {try { con.close(); } catch (Exception e) {}}
+
+    			}
+    		}
+    	}
+    }
+    
+    public void giveCrowns(L2Clan clan,Integer CastleId)
+    {
+    	if(CastleManager.getInstance().getCastleByOwner(clan)!=null)
+    	{
+	        for (L2ClanMember member : clan.getMembers())
+	        {
+	        	if(member.isOnline())
+	        	{
+		            int CrownId = CrownTable.getCrownId(CastleId); // get crown id
+		
+		            if(clan.getLeader().getObjectId()==member.getObjectId()) // if leader give lord crown and normal crown
+		            {
+		                member.getPlayerInstance().getInventory().addItem("Crown",6841,1,member.getPlayerInstance(),null); // give lord crown
+		                member.getPlayerInstance().getInventory().updateDatabase(); // update database
+		            }
+	                if(CrownId!=0) // give normal crown
+	                {
+	                    member.getPlayerInstance().getInventory().addItem("Crown",CrownId,1,member.getPlayerInstance(),null); // give crown
+	                    member.getPlayerInstance().getInventory().updateDatabase(); // update database
+	                }
+	        	}
+	        }
+    	}
+    }
+    
     public void checkCrowns(L2PcInstance cha)
     {
         // check for crowns
@@ -36,39 +102,24 @@ public class CrownManager
             Castle activeCharCastle= CastleManager.getInstance().getCastleByOwner(cha.getClan());
             if(activeCharCastle!=null) // clan has castle ?
             {
-                for (L2ClanMember member : activeCharClan.getMembers())
-                {
-                    if(member.getObjectId() == cha.getObjectId()) // find member 
-                    {
-                        int CrownId = CrownTable.getCrownId(activeCharCastle.getCastleId()); // get crown id
-        
-                        if(activeCharClan.getLeader().getObjectId()==member.getObjectId()) // if leader give lord crown and normal crown
-                        {
-                            if(cha.getInventory().getItemByItemId(6841)==null) // check if character already has a crown in inventory
-                            {
-                                cha.getInventory().addItem("Crown",6841,1,member.getPlayerInstance(),null); // give lord crown
-                                cha.getInventory().updateDatabase(); // update database
-                            }
-                            if(cha.getInventory().getItemByItemId(CrownId)==null) // check if character already has a crown in inventory
-                            {
-                                if(CrownId!=0) // check for crown id
-                                    cha.getInventory().addItem("Crown",CrownId,1,member.getPlayerInstance(),null); // give castle crown
-                                    cha.getInventory().updateDatabase(); // update database
-                            }
-                        }
-                        else // no leader give normal crown
-                        {
-                            if(cha.getInventory().getItemByItemId(CrownId)==null) // check for crown id in inventory
-                            {
-                                if(CrownId!=0)
-                                {
-                                    cha.getInventory().addItem("Crown",CrownId,1,member.getPlayerInstance(),null); // give crown
-                                    cha.getInventory().updateDatabase(); // update database
-                                }
-                            }
-                        }
-                    }
-                }
+            	int CrownId = CrownTable.getCrownId(CastleManager.getInstance().getCastleByOwner(cha.getClan()).getCastleId()); // get crown id
+            	
+				if(activeCharClan.getLeader().getObjectId()==cha.getObjectId()) // if leader give lord crown and normal crown
+				{
+				    if(cha.getInventory().getItemByItemId(6841)==null) // check if character already has a crown in inventory
+				    {
+				        cha.getInventory().addItem("Crown",6841,1,cha,null); // give lord crown
+				        cha.getInventory().updateDatabase(); // update database
+				    }
+				}
+			    if(cha.getInventory().getItemByItemId(CrownId)==null) // check for crown id in inventory
+			    {
+			        if(CrownId!=0)
+			        {
+			            cha.getInventory().addItem("Crown",CrownId,1,cha,null); // give crown
+			            cha.getInventory().updateDatabase(); // update database
+			        }
+			    }
             }
         }
     }
