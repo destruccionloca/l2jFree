@@ -29,6 +29,7 @@ import java.util.StringTokenizer;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2TeleportLocation;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -180,11 +181,11 @@ public final class L2TeleporterInstance extends L2FolkInstance
                 player.sendPacket(new SystemMessage(707));
                 return;
             }
-            //else if (TownManager.getInstance().townHasCastleInSeige(list.getLocX(), list.getLocY()))
-            //{
-            	//player.sendPacket(new SystemMessage(707));
-                //return;
-            //}
+            else if (TownManager.getInstance().townHasCastleInSeige(list.getLocX(), list.getLocY()))
+            {
+            	player.sendPacket(new SystemMessage(707));
+                return;
+            }
             else if (player.getKarma() > 0 && !Config.ALT_GAME_KARMA_PLAYER_CAN_USE_GK) //karma
             {
                 SystemMessage sm = new SystemMessage(614);
