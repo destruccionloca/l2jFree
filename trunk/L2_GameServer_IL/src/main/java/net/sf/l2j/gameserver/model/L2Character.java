@@ -57,7 +57,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2TrainedPetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetBabyInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
@@ -257,15 +256,11 @@ public abstract class L2Character extends L2Object
         if (_IsPendingRevive) doRevive();
 
         // Modify the position of the pet if necessary
-		if(getPet() != null){
-			if(getPet() instanceof L2TrainedPetInstance)
-				getPet().unSummon((L2PcInstance)this);
-			else
-			{
-				getPet().setFollowStatus(false);
-				getPet().teleToLocation(getPosition().getX() + Rnd.get(-100,100), getPosition().getY() + Rnd.get(-100,100), getPosition().getZ(), false);
-				getPet().setFollowStatus(true);
-			}
+		if(getPet() != null)
+		{
+			getPet().setFollowStatus(false);
+			getPet().teleToLocation(getPosition().getX() + Rnd.get(-100,100), getPosition().getY() + Rnd.get(-100,100), getPosition().getZ(), false);
+			getPet().setFollowStatus(true);
 		}
     }
     

@@ -34,7 +34,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2TrainedPetInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ChairSit;
 import net.sf.l2j.gameserver.serverpackets.RecipeShopManageList;
@@ -142,7 +141,6 @@ public class RequestActionUse extends L2GameClientPacket
                 break;
             case 15:
             case 21: // pet follow/stop
-            	if (pet instanceof L2TrainedPetInstance) return;
                 if (pet != null && !pet.isMovementDisabled() && !activeChar.isBetrayed())
                     pet.setFollowStatus(!pet.getFollowStatus());
                 
@@ -157,8 +155,6 @@ public class RequestActionUse extends L2GameClientPacket
                         activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IN_PEACEZONE));
                         return;
                     }
-
-                    if (pet instanceof L2TrainedPetInstance) return;
 
                     if (target.isAutoAttackable(activeChar) || _ctrlPressed)
                     {
