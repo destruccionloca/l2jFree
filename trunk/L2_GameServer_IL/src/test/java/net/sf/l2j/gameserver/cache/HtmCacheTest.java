@@ -25,6 +25,7 @@ import java.io.File;
 
 import junit.framework.TestCase;
 import net.sf.l2j.Config;
+import net.sf.l2j.Config.CacheType;
 
 /**
  * Class for HtmCache testing
@@ -38,19 +39,37 @@ public class HtmCacheTest extends TestCase
 	 */
 	public final void testLoadInvalidFile()
 	{
-        Config.LAZY_CACHE = true;
-        HtmCache cache = HtmCache.getInstance();
-        assertTrue (!cache.isLoadable("./config"));        
+        Config.TYPE_CACHE = CacheType.ehcache;
+        loadInvalidFile();
+        Config.TYPE_CACHE = CacheType.mapcache;
+        loadInvalidFile();
+        Config.TYPE_CACHE = CacheType.none;
+        loadInvalidFile();
 	}
     
+    private void loadInvalidFile ()
+    {
+        HtmCache cache = HtmCache.getInstance();
+        cache.reload();
+        assertTrue (!cache.isLoadable("./config"));        
+    }
+    
     /**
-     * Test method loadfile with a valid file
+     * Test method loadfile with a valid file and lazy cache
      */
     public final void testLoadValidFile()
     {
-        Config.LAZY_CACHE = true;
         Config.DATAPACK_ROOT = new File (System.getProperty("user.home"));
+        Config.TYPE_CACHE = CacheType.ehcache;
+        loadValidFile();
+        Config.TYPE_CACHE = CacheType.mapcache;
+        loadValidFile();
+    }
+
+    private void loadValidFile()
+    {
         HtmCache cache = HtmCache.getInstance();
+        cache.reload();
         
         // load resource
         String file = getClass().getResource("npcdefault.htm").getFile().replace("%20", " "); 
@@ -69,10 +88,15 @@ public class HtmCacheTest extends TestCase
      */
     public final void testMissingText()
     {
-        Config.LAZY_CACHE = true;
         Config.DATAPACK_ROOT = new File (System.getProperty("user.home"));
-        HtmCache cache = HtmCache.getInstance();
         
+        Config.TYPE_CACHE = CacheType.ehcache;
+        HtmCache cache = HtmCache.getInstance();
+        cache.reload();
+        assertEquals ("<html><body>My text is missing:<br>dummy.htm</body></html>",cache.getHtmForce("dummy.htm"));
+        Config.TYPE_CACHE = CacheType.mapcache;
+        cache = HtmCache.getInstance();
+        cache.reload();
         assertEquals ("<html><body>My text is missing:<br>dummy.htm</body></html>",cache.getHtmForce("dummy.htm"));
     }
 
