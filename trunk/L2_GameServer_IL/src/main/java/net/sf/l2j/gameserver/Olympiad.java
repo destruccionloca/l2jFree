@@ -1191,9 +1191,6 @@ public class Olympiad
                 wait(20000);
             }catch (InterruptedException e){}
             
-            for (L2OlympiadGame instance : _olympiadInstances.values())
-                instance.removals();
-            
             _battleStarted = true;
             
             //Wait 2mins
@@ -1203,6 +1200,7 @@ public class Olympiad
             
             for (L2OlympiadGame instance : _olympiadInstances.values())
             {
+            	instance.removals();
                 instance.additions();
                 instance.sendMessageToPlayers(true);
             }
