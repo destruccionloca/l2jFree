@@ -1191,6 +1191,9 @@ public class Olympiad
                 wait(20000);
             }catch (InterruptedException e){}
             
+            for (L2OlympiadGame instance : _olympiadInstances.values())  
+            	instance.removals();
+            
             _battleStarted = true;
             
             //Wait 2mins
@@ -1200,8 +1203,7 @@ public class Olympiad
             
             for (L2OlympiadGame instance : _olympiadInstances.values())
             {
-            	instance.removals();
-                instance.additions();
+            	instance.additions();
                 instance.sendMessageToPlayers(true);
             }
             
@@ -1494,7 +1496,12 @@ public class Olympiad
 			 	Map<Integer, Integer> activeSoulShots = player.getAutoSoulShot();
 			 	for (int itemId : activeSoulShots.values()){
 			 		player.removeAutoSoulShot(itemId);
-			 	}                
+			 	}
+			 	
+			 	// Set HP/CP/MP to Max
+                player.getStatus().setCurrentCp(player.getMaxCp());
+                player.getStatus().setCurrentHp(player.getMaxHp());
+                player.getStatus().setCurrentMp(player.getMaxMp());
             }
             
             _sm = new SystemMessage(SystemMessage.THE_GAME_WILL_START_IN_S1_SECOND_S);
