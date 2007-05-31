@@ -78,19 +78,7 @@ public class L2ControlTowerInstance extends L2NpcInstance {
 		}
 	}
 
-    /**
-     * Remove the L2ControlTowerInstance from the world.<BR><BR>
-     * 
-     * <B><U> Actions</U> :</B><BR><BR>
-     * <li>Manage Siege task (killFlag, killCT) </li><BR><BR>
-     * 
-     * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T REMOVE the object from _allObjects of L2World </B></FONT><BR>
-     * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packets to players</B></FONT><BR><BR>
-     * 
-     * @see net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance#decayMe()
-     */
-    @Override    
-    public final void decayMe()
+    public void onDeath()
     {
         if (getCastle().getSiege().getIsInProgress())
         {
@@ -102,10 +90,10 @@ public class L2ControlTowerInstance extends L2NpcInstance {
                 {
                     if (spawn == null) continue;
                     spawn.stopRespawn();
+                    //spawn.getLastSpawn().doDie(spawn.getLastSpawn());
                 }
             }
         }
-        super.decayMe();
     }
     
     public void registerGuard(L2Spawn guard)

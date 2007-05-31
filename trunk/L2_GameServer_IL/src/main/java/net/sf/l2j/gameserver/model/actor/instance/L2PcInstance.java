@@ -439,7 +439,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /** The L2Summon of the L2PcInstance */
     private L2Summon _summon = null;
-
+	// apparently, a L2PcInstance CAN have both a summon AND a tamed beast at the same time!!
+	private L2TamedBeastInstance _tamedBeast = null;
+	
     // client radar
     //TODO: This needs to be better intergrated and saved/loaded
     private L2Radar _radar;
@@ -4654,6 +4656,22 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         _summon = summon;
     }
+
+	/**
+	 * Return the L2Summon of the L2PcInstance or null.<BR><BR>
+	 */
+	public L2TamedBeastInstance getTrainedBeast()
+	{
+		return _tamedBeast;
+	}
+	
+	/**
+	 * Set the L2Summon of the L2PcInstance.<BR><BR>
+	 */
+	public void setTrainedBeast(L2TamedBeastInstance tamedBeast)
+	{
+		_tamedBeast = tamedBeast;
+ 	}
 
 	/**
 	 * Return the L2PcInstance requester of a transaction (ex : FriendInvite, JoinAlly, JoinParty...).<BR><BR>
@@ -9208,6 +9226,14 @@ public final class L2PcInstance extends L2PlayableInstance
          		sendPacket(bl); 
          	} 
         }
+		// Modify the position of the tamed beast if necessary (normal pets are handled by super...though
+        // L2PcInstance is the only class that actually has pets!!! )
+		if(getTrainedBeast() != null)
+		{
+			getTrainedBeast().getAI().stopFollow();
+			getTrainedBeast().teleToLocation(getPosition().getX() + Rnd.get(-100,100), getPosition().getY() + Rnd.get(-100,100), getPosition().getZ(), false);
+			getTrainedBeast().getAI().startFollow(this);
+		}        
     }
 
     public final boolean updatePosition(int gameTicks)
@@ -9323,6 +9349,10 @@ public final class L2PcInstance extends L2PlayableInstance
         if (isPetrified())
         {i=0;}
         getStatus().reduceHp(i, attacker);
+        
+    	// notify the tamed beast of attacks
+    	if (getTrainedBeast() != null )
+    		getTrainedBeast().onOwnerGotAttacked(attacker);        
     }
 
     public void reduceCurrentHp(double value, L2Character attacker, boolean awake)
@@ -9330,6 +9360,10 @@ public final class L2PcInstance extends L2PlayableInstance
         if (isPetrified())
         {value=0;}
         getStatus().reduceHp(value, attacker, awake);
+        
+    	// notify the tamed beast of attacks
+    	if (getTrainedBeast() != null )
+    		getTrainedBeast().onOwnerGotAttacked(attacker);        
     }
 
     public void broadcastSnoop(int type, String name, String _text)
