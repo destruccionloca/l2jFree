@@ -124,6 +124,7 @@ public final class MobGroup
                 getMobs().add((L2ControllableMobInstance)spawn.doGroupSpawn());
             }
         }
+        catch (ClassNotFoundException e) {}
         catch (NoSuchMethodException e2) {}
     }
     

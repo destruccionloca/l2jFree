@@ -300,7 +300,7 @@ public class Hero
             	
             	try
             	{
-            		con = L2DatabaseFactory.getInstance().getConnection();
+            		con = L2DatabaseFactory.getInstance().getConnection(con);
             		PreparedStatement statement = con.prepareStatement(GET_CLAN_NAME);
             		statement.setString(1, name);
             		ResultSet rset = statement.executeQuery();
