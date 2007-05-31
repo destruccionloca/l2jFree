@@ -38,6 +38,7 @@ import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Clan;
+import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -473,12 +474,16 @@ public class EnterWorld extends L2GameClientPacket
 		L2Clan clan = activeChar.getClan();
 		if (clan != null)
 		{
-			clan.getClanMember(activeChar.getName()).setPlayerInstance(activeChar);
-			SystemMessage msg = new SystemMessage(SystemMessage.CLAN_MEMBER_S1_LOGGED_IN);
-			msg.addString(activeChar.getName());
-			clan.broadcastToOtherOnlineMembers(msg, activeChar);
-			msg = null;
-			clan.broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(activeChar), activeChar);
+			L2ClanMember clanmember = clan.getClanMember(activeChar.getName());
+			if(clanmember!=null)
+			{
+				clanmember.setPlayerInstance(activeChar);
+				SystemMessage msg = new SystemMessage(SystemMessage.CLAN_MEMBER_S1_LOGGED_IN);
+				msg.addString(activeChar.getName());
+				clan.broadcastToOtherOnlineMembers(msg, activeChar);
+				msg = null;
+				clan.broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(activeChar), activeChar);
+			}
 		}
 	}
 
