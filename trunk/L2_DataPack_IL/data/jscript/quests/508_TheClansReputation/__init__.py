@@ -1,19 +1,21 @@
-##############################################################
-#   "The Clan's Reputation"                                  #
-#   "Raise the Clan's Reputation"                            #
-#   "Sir Eric Rodemai in Aden Castle Town is looking         #
-#   for a brave adventurer to raise the clan's reputation."  #
-#   "Clan Leader, Clan Level 5 and above"                    #
-#                                                            #
-#   Start NPC: Sir Eric Rodemai[30868]                       #
-#                                                            #
-#   fixed and completed by chris_00 @katmai and DrLecter     #
-#   final fix by Umbra                                       #
-##############################################################
+#####################################################################
+#                                                                   #
+#   "The Clan's Reputation"                                         #
+#   "Raise the Clan's Reputation"                                   #
+#   "Sir Eric Rodemai in Aden Castle Town is looking                #
+#   for a brave adventurer to raise the clan's reputation."         #
+#   "Clan Leader, Clan Level 5 and above"                           #
+#                                                                   #
+#   Start NPC: Sir Eric Rodemai[30868]                              #
+#                                                                   #
+#   fixed and completed by chris_00 @katmai and DrLecter            #
+#                                                                   #
+#####################################################################
 import sys
 from net.sf.l2j.gameserver.model.quest        import State
 from net.sf.l2j.gameserver.model.quest        import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
+from net.sf.l2j.gameserver.serverpackets      import SystemMessage
 
 qn="508_TheClansReputation"
 qd="The Clans Reputation"
@@ -71,11 +73,12 @@ class Quest (JQuest) :
       st.set("cond","1")
       st.setState(STARTED)
   elif event.isdigit() :
-    st.set("raid",event)
-    htmltext="30868-"+event+".htm"
-    x,y,z=RADAR[int(event)]
-    if x+y+z: st.addRadar(x,y,z)
-    st.playSound("ItemSound.quest_accept")
+    if int(event) in REWARDS_LIST.keys():
+      st.set("raid",event)
+      htmltext="30868-"+event+".htm"
+      x,y,z=RADAR[int(event)]
+      if x+y+z: st.addRadar(x,y,z)
+      st.playSound("ItemSound.quest_accept")
   elif event == "30868-7.htm" :
     st.playSound("ItemSound.quest_finish")
     st.exitQuest(1)
@@ -98,7 +101,7 @@ class Quest (JQuest) :
      id = st.getState()
      if id == CREATED and cond == 0 :
         htmltext =  "30868-0c.htm"
-     elif id == STARTED and cond == 1 and raid in REWARDS_LIST.keys():
+     elif id == STARTED and cond == 1 and raid in REWARDS_LIST.keys() :
         npc,item=REWARDS_LIST[raid]
         count = st.getQuestItemsCount(item)
         if not count :
@@ -107,7 +110,7 @@ class Quest (JQuest) :
            htmltext = "30868-"+str(raid)+"b.htm"
            st.takeItems(item,1)
            player.getClan().setReputationScore(player.getClan().getReputationScore()+CLAN_POINTS_REWARD,True)
-           player.sendMessage("Your clan gets "+str(CLAN_POINTS_REWARD)+" Reputations Points")
+           player.sendPacket(SystemMessage(1777).addNumber(CLAN_POINTS_REWARD))
   return htmltext
 
  def onKill (self,npc,player) :
@@ -117,16 +120,17 @@ class Quest (JQuest) :
   else:
    clan = player.getClan()
    if clan:
-    leader = clan.getLeader()
+    leader=clan.getLeader()
     if leader :
-     pleader = leader.getPlayerInstance()
+     pleader= leader.getPlayerInstance()
      if pleader :
       if player.isInsideRadius(pleader, 1600, 1, 0) :
        st = pleader.getQuestState(qn)
   if not st : return
-  if st.getInt("cond") == 1 and st.getState() == STARTED :
-   raid,item = REWARDS_LIST[st.getInt("raid")]
-   npcId = npc.getNpcId()
+  option=st.getInt("raid")
+  if st.getInt("cond") == 1 and st.getState() == STARTED and option in REWARDS_LIST.keys():
+   raid,item = REWARDS_LIST[option]
+   npcId=npc.getNpcId()
    if npcId == raid and not st.getQuestItemsCount(item) :
       st.giveItems(item,1)
       st.playSound("ItemSound.quest_middle")

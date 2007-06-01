@@ -1,3 +1,7 @@
+-- 
+-- Table structure for table `custom_npc`
+--
+
 DROP TABLE IF EXISTS `custom_npc`;
 CREATE TABLE `custom_npc` (
   `id` decimal(11,0) NOT NULL default '0',

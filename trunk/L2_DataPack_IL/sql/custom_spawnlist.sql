@@ -1,5 +1,5 @@
 -- 
--- Table structure for table `spawnlist`
+-- Table structure for table `custom_spawnlist`
 --
 
 DROP TABLE IF EXISTS `custom_spawnlist`;
