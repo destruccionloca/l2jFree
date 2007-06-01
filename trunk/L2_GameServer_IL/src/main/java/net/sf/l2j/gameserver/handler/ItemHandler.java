@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.handler.itemhandlers.EnergyStone;
 import net.sf.l2j.gameserver.handler.itemhandlers.ExtractableItems;
 import net.sf.l2j.gameserver.handler.itemhandlers.Firework;
 import net.sf.l2j.gameserver.handler.itemhandlers.FishShots;
-import net.sf.l2j.gameserver.handler.itemhandlers.Guide;
+import net.sf.l2j.gameserver.handler.itemhandlers.Book;
 import net.sf.l2j.gameserver.handler.itemhandlers.Harvester;
 import net.sf.l2j.gameserver.handler.itemhandlers.MercTicket;
 import net.sf.l2j.gameserver.handler.itemhandlers.MysteryPotion;
@@ -109,7 +109,7 @@ public class ItemHandler
         this.registerItemHandler(new MysteryPotion());
         this.registerItemHandler(new EnchantScrolls());
         this.registerItemHandler(new Remedy());
-        this.registerItemHandler(new Guide());
+        this.registerItemHandler(new Book());
         this.registerItemHandler(new Scrolls());
         this.registerItemHandler(new CrystalCarol());
         this.registerItemHandler(new SoulCrystals());

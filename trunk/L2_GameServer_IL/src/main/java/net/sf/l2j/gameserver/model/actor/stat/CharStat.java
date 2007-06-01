@@ -266,7 +266,7 @@ public class CharStat
         
         float bonusAtk = 1;
         if (_ActiveChar.isChampion())
-            bonusAtk = Config.CHAMPION_ATK;        
+            bonusAtk = Config.CHAMPION_SPD_ATK;        
         
         // Get the base MAtk of the L2Character
         double attack = _ActiveChar.getTemplate().baseMAtk * bonusAtk;
