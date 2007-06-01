@@ -74,12 +74,12 @@ public class HtmCache implements HtmCacheMBean
     /**
      * cache for ehcache (only used on Config.TYPE_CACHE=ehcache)
      */
-    private Cache cache;
+    private Cache ehCache;
     
     /**
      * cache for mapcache (only used on Config.TYPE_CACHE=mapcache)
      */
-    private Map<Integer, String> _cache;
+    private Map<Integer, String> mapCache;
     
     /**
      * number of loaded files (only used on Config.TYPE_CACHE=mapcache)
@@ -139,16 +139,16 @@ public class HtmCache implements HtmCacheMBean
     {
         if (Config.TYPE_CACHE == CacheType.none )
         {
-            _cache = new FastMap<Integer, String>();
-            _cache.clear();
+            mapCache = new FastMap<Integer, String>();
+            mapCache.clear();
         	_log.info("Html cache start...");
             parseDir(f);
             _log.info("Cache[HTML]: " + String.format("%.3f",getMemoryUsage())  + " megabytes on " + getLoadedFiles() + " files loaded");
         }
         else if (Config.TYPE_CACHE == CacheType.mapcache )
         {
-            _cache = new FastMap<Integer, String>();
-        	_cache.clear();
+            mapCache = new FastMap<Integer, String>();
+        	mapCache.clear();
         	_loadedFiles = 0;
         	_bytesBuffLen = 0;
             _log.info("Cache[HTML]: Running lazy cache");
@@ -159,7 +159,7 @@ public class HtmCache implements HtmCacheMBean
             cacheManager = CacheManager.getInstance();
             cacheManager.removeCache(CACHENAME);
             cacheManager.addCache(CACHENAME);
-            cache = cacheManager.getCache(CACHENAME);
+            ehCache = cacheManager.getCache(CACHENAME);
             _log.info("Cache[HTML]: Running ehcache");
         }
     }
@@ -187,7 +187,7 @@ public class HtmCache implements HtmCacheMBean
     {
         if ( Config.TYPE_CACHE == CacheType.ehcache )
         {
-            return cache.calculateInMemorySize()/1048576;
+            return ehCache.calculateInMemorySize()/1048576;
         }
         else
         {
@@ -202,7 +202,7 @@ public class HtmCache implements HtmCacheMBean
     {
         if ( Config.TYPE_CACHE == CacheType.ehcache )
         {
-            return cache.getSize();
+            return ehCache.getSize();
         }
         else
         {
@@ -281,7 +281,7 @@ public class HtmCache implements HtmCacheMBean
                 // -------------------------------------------------------
                 if ( Config.TYPE_CACHE == CacheType.ehcache )
                 {
-                    cache.put(new Element(hashcode,content));
+                    ehCache.put(new Element(hashcode,content));
                 }
                 // For mapcache, we store the element in the map and recalculate statistics
                 // ------------------------------------------------------------------------
@@ -290,7 +290,7 @@ public class HtmCache implements HtmCacheMBean
                     // get the old content from the cache
                     // if the file was previously cached, we substract his old size 
                     // to the _bytesBuffLen to keep statistics up to date
-                    String oldContent = _cache.get(hashcode);
+                    String oldContent = mapCache.get(hashcode);
                     if (oldContent == null)
                     {
                         _bytesBuffLen += bytes;
@@ -301,7 +301,7 @@ public class HtmCache implements HtmCacheMBean
                         _bytesBuffLen = _bytesBuffLen - oldContent.length() + bytes;
                     }
                     
-                    _cache.put(hashcode,content);
+                    mapCache.put(hashcode,content);
                 }
                 
                 return content;
@@ -350,22 +350,26 @@ public class HtmCache implements HtmCacheMBean
         // for ehcache, we search in the cache, if we don't find it, we load the file
         if ( Config.TYPE_CACHE == CacheType.ehcache)
         {
-            Element element = cache.get(path.hashCode());
+            Element element = ehCache.get(path.hashCode());
             if (element == null )
             {
                 content = loadFile(new File(Config.DATAPACK_ROOT,path));
+            }
+            else
+            {
+                content = (String)element.getObjectValue();
             }
         }
         // when we don't use a cache, we search in the cache, if we don't find it, we return null
         else if ( Config.TYPE_CACHE == CacheType.none )
         {
-            content = _cache.get(path.hashCode());
+            content = mapCache.get(path.hashCode());
         
         }
         // for mapcache, we search in the cache, if we don't find it, we load the file
         else if ( Config.TYPE_CACHE == CacheType.mapcache )
         {
-            content = _cache.get(path.hashCode());
+            content = mapCache.get(path.hashCode());
             if (content == null )
             {
                 content = loadFile(new File(Config.DATAPACK_ROOT,path));
@@ -383,11 +387,11 @@ public class HtmCache implements HtmCacheMBean
     {
         if ( Config.TYPE_CACHE == CacheType.ehcache)
         {
-            return cache.isElementInMemory(path.hashCode());
+            return ehCache.isElementInMemory(path.hashCode());
         }
         else
         {
-            return _cache.containsKey(path.hashCode());
+            return mapCache.containsKey(path.hashCode());
         }
     }
    

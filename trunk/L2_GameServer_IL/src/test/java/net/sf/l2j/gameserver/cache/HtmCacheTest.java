@@ -99,6 +99,29 @@ public class HtmCacheTest extends TestCase
         cache.reload();
         assertEquals ("<html><body>My text is missing:<br>dummy.htm</body></html>",cache.getHtmForce("dummy.htm"));
     }
+    
+    /**
+     * Test method getHtm with a valid file and lazy cache (map and ehcache)
+     */
+    public final void testCache()
+    {
+        Config.DATAPACK_ROOT = new File (getClass().getResource(".").getFile().replace("%20", " "));
+        Config.TYPE_CACHE = CacheType.ehcache;
+        getHtmInCache();
+        Config.TYPE_CACHE = CacheType.mapcache;
+        getHtmInCache();
+    }    
 
+    private void getHtmInCache()
+    {
+        HtmCache cache = HtmCache.getInstance();
+        cache.reload();
+        
+        assertEquals ("<html><body>I have nothing to say to you<br><a action=\"bypass -h npc_%objectId%_Quest\">Quest</a></body></html>",cache.getHtm("npcdefault.htm"));
+        assertEquals (1, cache.getLoadedFiles() );
+
+        assertEquals ("<html><body>I have nothing to say to you<br><a action=\"bypass -h npc_%objectId%_Quest\">Quest</a></body></html>",cache.getHtm("npcdefault.htm"));
+        assertEquals (1, cache.getLoadedFiles() );
+    }    
 
 }
