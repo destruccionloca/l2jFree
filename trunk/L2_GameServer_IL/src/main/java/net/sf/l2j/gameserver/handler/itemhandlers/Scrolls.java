@@ -37,7 +37,9 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class Scrolls implements IItemHandler
 {
    private static int[] _itemIds = { 3926, 3927, 3928, 3929, 3930, 3931, 3932, 
-                                     3933, 3934, 3935, 4218, 5593, 5594, 5595, 6037 };
+                                     3933, 3934, 3935, 4218, 5593, 5594, 5595,
+                                     6037, 8954, 8955, 8956
+                                   };
 
    public void useItem(L2PlayableInstance playable, L2ItemInstance item)
    {
@@ -66,7 +68,7 @@ public class Scrolls implements IItemHandler
 	    if (itemId == 3926) // Scroll of Guidance XML:2050
 	    {
     		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-		    return;
+    			return;
 			MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2050, 1, 1, 0);
 			activeChar.broadcastPacket(MSU);
 			useScroll(activeChar, 2050, 1);
@@ -74,7 +76,7 @@ public class Scrolls implements IItemHandler
 		else if (itemId == 3927) // Scroll of Death Whipser XML:2051
 		{
     		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-		    return;
+    			return;
 			MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2051, 1, 1, 0);
 			activeChar.broadcastPacket(MSU);
 			useScroll(activeChar, 2051, 1);
@@ -82,7 +84,7 @@ public class Scrolls implements IItemHandler
 		else if (itemId == 3928) // Scroll of Focus XML:2052
 		{
     		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-		    return;
+    			return;
     		MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2052, 1, 1, 0);
     		activeChar.broadcastPacket(MSU);
     		useScroll(activeChar, 2052, 1);
@@ -90,7 +92,7 @@ public class Scrolls implements IItemHandler
 		else if (itemId == 3929) // Scroll of Greater Acumen XML:2053
 		{
     		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-		    return;
+    			return;
     		MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2053, 1, 1, 0);
     		activeChar.broadcastPacket(MSU);
     		useScroll(activeChar, 2053, 1);
@@ -98,7 +100,7 @@ public class Scrolls implements IItemHandler
 		else if (itemId == 3930) // Scroll of Haste XML:2054
 		{
     		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-		    return;
+    			return;
     		MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2054, 1, 1, 0);
     		activeChar.broadcastPacket(MSU);
     		useScroll(activeChar, 2054, 1);
@@ -106,7 +108,7 @@ public class Scrolls implements IItemHandler
 		else if (itemId == 3931) // Scroll of Agility XML:2055
 		{
     		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-		    return;
+    			return;
     		MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2055, 1, 1, 0);
     		activeChar.broadcastPacket(MSU);
     		useScroll(activeChar, 2055, 1);
@@ -114,7 +116,7 @@ public class Scrolls implements IItemHandler
 		else if (itemId == 3932) // Scroll of Mystic Enpower XML:2056
 		{
     		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-		    return;
+    			return;
     		MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2056, 1, 1, 0);
     		activeChar.broadcastPacket(MSU);
     		useScroll(activeChar, 2056, 1);
@@ -122,7 +124,7 @@ public class Scrolls implements IItemHandler
 		else if (itemId == 3933) // Scroll of Might XML:2057
 		{
     		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-		    return;
+    			return;
     		MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2057, 1, 1, 0);
     		activeChar.broadcastPacket(MSU);
     		useScroll(activeChar, 2057, 1);
@@ -130,7 +132,7 @@ public class Scrolls implements IItemHandler
 		else if (itemId == 3934) // Scroll of Wind Walk XML:2058
 		{
     		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-		    return;
+    			return;
     		MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2058, 1, 1, 0);
     		activeChar.broadcastPacket(MSU);
     		useScroll(activeChar, 2058, 1);
@@ -138,7 +140,7 @@ public class Scrolls implements IItemHandler
 		else if (itemId == 3935) // Scroll of Shield XML:2059
 		{
     		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-		    return;
+    			return;
     		MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2059, 1, 1, 0);
     		activeChar.broadcastPacket(MSU);
     		useScroll(activeChar, 2059, 1);
@@ -146,7 +148,7 @@ public class Scrolls implements IItemHandler
 		else if (itemId == 4218) // Scroll of Mana Regeneration XML:2064
 		{
     		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-		    return;
+    			return;
     		MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2064, 1, 1, 0);
     		activeChar.broadcastPacket(MSU);
     		useScroll(activeChar, 2064, 1);
@@ -154,15 +156,42 @@ public class Scrolls implements IItemHandler
 		else if (itemId == 6037) // Scroll of Waking XML:2170
 		{
     		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-		    return;
+    			return;
     		MagicSkillUser MSU = new MagicSkillUser(playable, playable, 2170, 1, 1, 0);
     		activeChar.broadcastPacket(MSU);
     		useScroll(activeChar, 2170, 1);
 		}		
+		else if (itemId == 8954 && activeChar.getLevel() >= 76) // Blue Primeval Crystal by devScarlet & mrTJO
+    	{
+			if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
+    	    	return;
+    		MagicSkillUser MSU = new MagicSkillUser(playable, playable, 2306, 1, 1, 0);
+            activeChar.sendPacket(MSU);
+            activeChar.broadcastPacket(MSU);
+            activeChar.addExpAndSp(0, 50000);
+    	}
+    	else if (itemId == 8955 && activeChar.getLevel() >= 76) // Green Primeval Crystal by devScarlet & mrTJO
+    	{
+    		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
+    	    	return;
+    		MagicSkillUser MSU = new MagicSkillUser(playable, playable, 2306, 2, 1, 0);
+            activeChar.sendPacket(MSU);
+            activeChar.broadcastPacket(MSU);
+            activeChar.addExpAndSp(0, 100000);
+    	}
+    	else if (itemId == 8956 && activeChar.getLevel() >= 76) // Red Primeval Crystal by devScarlet & mrTJO
+    	{
+    		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
+    	    	return;
+    		MagicSkillUser MSU = new MagicSkillUser(playable, playable, 2306, 3, 1, 0);
+            activeChar.sendPacket(MSU);
+            activeChar.broadcastPacket(MSU);
+            activeChar.addExpAndSp(0, 200000);
+    	}	    
         else if (itemId == 5593 || itemId == 5594 || itemId == 5595) // SP Scrolls
         {
     	    if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-		return;
+    	    	return;
             int amountSP = 0;
             
             switch (itemId) {

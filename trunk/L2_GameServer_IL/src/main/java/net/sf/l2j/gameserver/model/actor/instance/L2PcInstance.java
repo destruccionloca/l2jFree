@@ -532,6 +532,9 @@ public final class L2PcInstance extends L2PlayableInstance
     protected Map<Integer, Integer> _activeSoulShots = new FastMap<Integer, Integer>().setShared(true);
     private int _clanPrivileges = 0;
 
+    /** L2PcInstance's pledge class (knight, Baron, etc.)*/
+    private int _pledgeClass = 0;
+    
     /** Location before entering Observer Mode */
     private int _obsX;
     private int _obsY;
@@ -8285,146 +8288,17 @@ public final class L2PcInstance extends L2PlayableInstance
         else return 0;
     }
     
-    /**
-     * @param activeChar
-     * @return
-     */
+    // baron etc
+	public void setPledgeClass(int classId)
+    {
+        _pledgeClass = classId;
+    }
+    
     public int getPledgeClass()
     {
-       int pledgeClass = 0;
-       if (_clan != null)
-       {
-           switch (_clan.getLevel())
-           {
-               case 4:
-                   if (isClanLeader())
-                       pledgeClass = 3;
-                   break;
-               case 5:
-                   if (isClanLeader())
-                       pledgeClass = 4;
-                   else
-                       pledgeClass = 2;
-                   break;
-               case 6:
-                   switch (getPledgeType())
-                   {
-                       case -1:
-                         pledgeClass = 1;
-                         break;
-                       case 100:
-                       case 200:
-                           pledgeClass = 2;
-                           break;
-                       case 0:
-                           if (isClanLeader())
-                               pledgeClass = 5;
-                           else
-                               switch (_clan.getLeaderSubPledge(getName()))
-                               {
-                                   case 100:
-                                   case 200:
-                                       pledgeClass = 4;
-                                       break;
-                                   case -1:
-                                   default:
-                                       pledgeClass = 3;
-                                       break;
-                               }
-                           break;
-                   }
-                   break;
-               case 7:
-                   switch (getPledgeType())
-                   {
-                       case -1:
-                         pledgeClass = 1;
-                         break;
-                       case 100:
-                       case 200:
-                               pledgeClass = 3;
-                           break;
-                       case 1001:
-                       case 1002:
-                       case 2001:
-                       case 2002:
-                               pledgeClass = 2;
-                           break;
-                       case 0:
-                           if (isClanLeader())
-                               pledgeClass = 7;
-                           else
-                               switch (_clan.getLeaderSubPledge(getName()))
-                               {
-                                   case 100:
-                                   case 200:
-                                       pledgeClass = 6;
-                                       break;
-                                   case 1001:
-                                   case 1002:
-                                   case 2001:
-                                   case 2002:
-                                       pledgeClass = 5;
-                                       break;
-                                   case -1:
-                                   default:
-                                       pledgeClass = 4;
-                                       break;
-                               }
-                           break;
-                   }
-                   break;
-               case 8:
-                   switch (getPledgeType())
-                   {
-                       case -1:
-                         pledgeClass = 1;
-                         break;
-                       case 100:
-                       case 200:
-                               pledgeClass = 4;
-                           break;
-                       case 1001:
-                       case 1002:
-                       case 2001:
-                       case 2002:
-                               pledgeClass = 3;
-                           break;
-                       case 0:
-                           if (isClanLeader())
-                               pledgeClass = 8;
-                           else
-                               switch (_clan.getLeaderSubPledge(getName()))
-                               {
-                                   case 100:
-                                   case 200:
-                                       pledgeClass = 7;
-                                       break;
-                                   case 1001:
-                                   case 1002:
-                                   case 2001:
-                                   case 2002:
-                                       pledgeClass = 6;
-                                       break;
-                                   case -1:
-                                   default:
-                                       pledgeClass = 5;
-                                       break;
-                               }
-                           break;
-                   }
-                   break;
-               default:
-                   pledgeClass = 1;
-               break;
-           }
-       }
-       if (pledgeClass < 5 && isNoble())
-           pledgeClass = 5;
-       else if (isHero())
-           pledgeClass = 8;
-       return pledgeClass;
+        return _pledgeClass;
     }
+    
     public void setPledgeType(int typeId)
     {
         _pledgeType = typeId;
