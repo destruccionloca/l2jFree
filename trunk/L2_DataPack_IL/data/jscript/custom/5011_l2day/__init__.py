@@ -88,3 +88,5 @@ QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(27102)
 # pako the cat
 QUEST.addTalkId(27102)
+
+print "done ..."
