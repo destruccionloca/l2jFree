@@ -24,6 +24,7 @@ import java.util.StringTokenizer;
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
+import net.sf.l2j.Config.CacheType;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
@@ -1476,16 +1477,16 @@ public class L2NpcInstance extends L2Character
         
         String temp = "data/html/default/" + pom + ".htm";
         
-        if (!Config.LAZY_CACHE)
+        if (Config.TYPE_CACHE == CacheType.none)
         {
-        	// If not running lazy cache the file must be in the cache or it doesnt exist
-        	if (HtmCache.getInstance().contains(temp))
-        		return temp;
+            // If not running lazy cache the file must be in the cache or it doesnt exist
+            if (HtmCache.getInstance().contains(temp))
+                return temp;
         }
         else
         {
-        	if (HtmCache.getInstance().isLoadable(temp))
-        		return temp;
+            if (HtmCache.getInstance().isLoadable(temp))
+                return temp;
         }
         
         // If the file is not found, the standard message "I have nothing to say to you" is returned
