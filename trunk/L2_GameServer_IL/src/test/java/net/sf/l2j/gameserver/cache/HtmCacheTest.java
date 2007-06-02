@@ -25,6 +25,7 @@ import java.io.File;
 
 import junit.framework.TestCase;
 import net.sf.l2j.Config;
+import net.sf.l2j.Config.CacheType;
 
 /**
  * Class for HtmCache testing
@@ -33,32 +34,59 @@ import net.sf.l2j.Config;
 public class HtmCacheTest extends TestCase
 {   
     
+    @Override
+    protected void setUp() throws Exception
+    {
+        super.setUp();
+        Config.CACHE_MAX_ELEM_IN_MEMORY=3;
+        Config.CACHE_TIMETOIDLESECONDS=5;
+        Config.CACHE_TIMETOLIVESECONDS=10;
+    }
+    
 	/**
 	 * Test method isLoadable
 	 */
 	public final void testLoadInvalidFile()
 	{
-        Config.LAZY_CACHE = true;
-        HtmCache cache = HtmCache.getInstance();
-        assertTrue (!cache.isLoadable("./config"));        
+        Config.DATAPACK_ROOT = new File (getClass().getResource(".").getFile().replace("%20", " "));
+        Config.TYPE_CACHE = CacheType.ehcache;
+        loadInvalidFile();
+        Config.TYPE_CACHE = CacheType.mapcache;
+        loadInvalidFile();
+        Config.TYPE_CACHE = CacheType.none;
+        loadInvalidFile();
 	}
     
+    private void loadInvalidFile ()
+    {
+        HtmCache cache = HtmCache.getInstance();
+        cache.reload();
+        assertTrue (!cache.isLoadable("./config"));        
+    }
+    
     /**
-     * Test method loadfile with a valid file
+     * Test method loadfile with a valid file and lazy cache
      */
     public final void testLoadValidFile()
     {
-        Config.LAZY_CACHE = true;
         Config.DATAPACK_ROOT = new File (System.getProperty("user.home"));
+        Config.TYPE_CACHE = CacheType.ehcache;
+        loadValidFile();
+        Config.TYPE_CACHE = CacheType.mapcache;
+        loadValidFile();
+    }
+
+    private void loadValidFile()
+    {
+        Config.DATAPACK_ROOT = new File (getClass().getResource(".").getFile().replace("%20", " "));
         HtmCache cache = HtmCache.getInstance();
-        
-        // load resource
-        String file = getClass().getResource("npcdefault.htm").getFile().replace("%20", " "); 
+        cache.reload();
         
         // check if it is loadable
-        assertTrue (cache.isLoadable(file));
+        assertTrue (cache.isLoadable("npcdefault.htm"));
         
-        assertEquals ("<html><body>I have nothing to say to you<br><a action=\"bypass -h npc_%objectId%_Quest\">Quest</a></body></html>",cache.loadFile(new File(file)));
+        assertEquals ("<html><body>I have nothing to say to you<br><a action=\"bypass -h npc_%objectId%_Quest\">Quest</a></body></html>",
+                      cache.loadFile(new File(Config.DATAPACK_ROOT,"npcdefault.htm")));
         
         assertEquals (1, cache.getLoadedFiles() );
     }
@@ -69,12 +97,40 @@ public class HtmCacheTest extends TestCase
      */
     public final void testMissingText()
     {
-        Config.LAZY_CACHE = true;
         Config.DATAPACK_ROOT = new File (System.getProperty("user.home"));
-        HtmCache cache = HtmCache.getInstance();
         
+        Config.TYPE_CACHE = CacheType.ehcache;
+        HtmCache cache = HtmCache.getInstance();
+        cache.reload();
+        assertEquals ("<html><body>My text is missing:<br>dummy.htm</body></html>",cache.getHtmForce("dummy.htm"));
+        Config.TYPE_CACHE = CacheType.mapcache;
+        cache = HtmCache.getInstance();
+        cache.reload();
         assertEquals ("<html><body>My text is missing:<br>dummy.htm</body></html>",cache.getHtmForce("dummy.htm"));
     }
+    
+    /**
+     * Test method getHtm with a valid file and lazy cache (map and ehcache)
+     */
+    public final void testCache()
+    {
+        Config.DATAPACK_ROOT = new File (getClass().getResource(".").getFile().replace("%20", " "));
+        Config.TYPE_CACHE = CacheType.ehcache;
+        getHtmInCache();
+        Config.TYPE_CACHE = CacheType.mapcache;
+        getHtmInCache();
+    }    
 
+    private void getHtmInCache()
+    {
+        HtmCache cache = HtmCache.getInstance();
+        cache.reload();
+        
+        assertEquals ("<html><body>I have nothing to say to you<br><a action=\"bypass -h npc_%objectId%_Quest\">Quest</a></body></html>",cache.getHtm("npcdefault.htm"));
+        assertEquals (1, cache.getLoadedFiles() );
+
+        assertEquals ("<html><body>I have nothing to say to you<br><a action=\"bypass -h npc_%objectId%_Quest\">Quest</a></body></html>",cache.getHtm("npcdefault.htm"));
+        assertEquals (1, cache.getLoadedFiles() );
+    }    
 
 }
