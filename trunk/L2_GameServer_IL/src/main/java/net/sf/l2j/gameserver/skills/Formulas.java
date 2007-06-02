@@ -1485,8 +1485,8 @@ public final class Formulas
         if (target.isRaid()
                 && (type == SkillType.CONFUSION || type == SkillType.MUTE || type == SkillType.PARALYZE
                     || type == SkillType.ROOT || type == SkillType.FEAR || type == SkillType.SLEEP
-                    || type == SkillType.STUN || type == SkillType.DEBUFF || type == SkillType.AGGDEBUFF)
-                    || Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId()))
+                    || type == SkillType.STUN || type == SkillType.DEBUFF || type == SkillType.AGGDEBUFF
+                    || Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId())))
         	return false; 
         else
         	if (skill.isActive() && skill.isOffensive())
@@ -1568,8 +1568,8 @@ public final class Formulas
         if (target.isRaid()
             && (type == SkillType.CONFUSION || type == SkillType.MUTE || type == SkillType.PARALYZE
                 || type == SkillType.ROOT || type == SkillType.FEAR || type == SkillType.SLEEP
-                || type == SkillType.STUN || type == SkillType.DEBUFF || type == SkillType.AGGDEBUFF)
-            	|| Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId()))
+                || type == SkillType.STUN || type == SkillType.DEBUFF || type == SkillType.AGGDEBUFF
+            	|| Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId())))
             return false; // these skills should not work on RaidBoss
         
         int value = (int) skill.getPower();
