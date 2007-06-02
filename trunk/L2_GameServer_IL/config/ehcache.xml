@@ -61,13 +61,6 @@
         timeToLiveSeconds="380"
         overflowToDisk="false"
         />        
-        
-    <cache name="net.sf.l2j.datapack.html"
-        maxElementsInMemory="9700"
-        timeToIdleSeconds="3600"
-        timeToLiveSeconds="7200"
-        overflowToDisk="false"
-        />         
 
         
 </ehcache>
