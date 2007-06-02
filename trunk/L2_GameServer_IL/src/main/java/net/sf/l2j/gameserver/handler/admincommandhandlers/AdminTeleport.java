@@ -653,41 +653,13 @@ public class AdminTeleport implements IAdminCommandHandler
                  return;
             }
             
-            int respawnTime = spawn.getRespawnDelay();
-            
-            target.deleteMe();
-            spawn.stopRespawn();
-            SpawnTable.getInstance().deleteSpawn(spawn, true);
-            
-            try
-            {
-                //L2MonsterInstance mob = new L2MonsterInstance(monsterTemplate, template1);
-                
-                spawn = new L2Spawn(template1);
-                spawn.setLocx(activeChar.getX());
-                spawn.setLocy(activeChar.getY());
-                spawn.setLocz(activeChar.getZ());
-                spawn.setAmount(1);
-                spawn.setHeading(activeChar.getHeading());
-                spawn.setRespawnDelay(respawnTime);
-                SpawnTable.getInstance().addNewSpawn(spawn, true);
-                spawn.init();
-                
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-                sm.addString("Created " + template1.name + " on " + target.getObjectId() + ".");
-                activeChar.sendPacket(sm);
-                
-                if (_log.isDebugEnabled())
-                {
-                    _log.debug("Spawn at X="+spawn.getLocx()+" Y="+spawn.getLocy()+" Z="+spawn.getLocz());
-                    _log.warn("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") moved NPC " + target.getObjectId());
-                }
-            }
-            catch (Exception e)
-            {
-                activeChar.sendMessage("Target is not in game.");
-            }
-            
+            target.decayMe();
+            spawn.setLocx(activeChar.getX());
+            spawn.setLocy(activeChar.getY());
+            spawn.setLocz(activeChar.getZ());
+            spawn.setHeading(activeChar.getHeading());
+            spawn.respawnNpc(target);
+            SpawnTable.getInstance().updateSpawn(spawn);
         }
         else
         {

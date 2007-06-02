@@ -313,6 +313,44 @@ public class SpawnTable implements SpawnTableMBean
        }
     }
 
+    public void updateSpawn(L2Spawn spawn)
+    {
+        java.sql.Connection con = null;
+
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection(con);
+            PreparedStatement statement = con.prepareStatement("update spawnlist set count=?,npc_templateid=?,locx=?,locy=?,locz=?,heading=?,respawn_delay=?,loc_id=? where id =?");
+            statement.setInt(1, spawn.getAmount());
+            statement.setInt(2, spawn.getNpcid());
+            statement.setInt(3, spawn.getLocx());
+            statement.setInt(4, spawn.getLocy());
+            statement.setInt(5, spawn.getLocz());
+            statement.setInt(6, spawn.getHeading());
+            statement.setInt(7, spawn.getRespawnDelay() / 1000);
+            statement.setInt(8, spawn.getLocation());
+            statement.setInt(9, spawn.getDbId());
+            
+            statement.execute();
+            statement.close();
+        }
+        catch (Exception e)
+        {
+            // problem with storing spawn
+            _log.warn("SpawnTable: Could not update spawn in the DB:" + e);
+        }
+        finally
+        {
+            try
+            {
+                con.close();
+            }
+            catch (Exception e)
+            {
+            }
+        }
+    }
+
     public void deleteSpawn(L2Spawn spawn, boolean updateDb)
     {
         if (_spawntable.remove(spawn.getId()) == null) return;
