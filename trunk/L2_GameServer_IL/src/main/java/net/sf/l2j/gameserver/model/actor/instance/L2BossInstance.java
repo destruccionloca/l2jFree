@@ -33,6 +33,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
@@ -125,8 +126,13 @@ public final class L2BossInstance extends L2MonsterInstance
 
         switch (getTemplate().getNpcId())
         {
+            case 29019: //Antharas
+                BossActionTaskManager.getInstance().setCubeSpawn(getNpcId());
+                break;
+
             case 29020: //Baium
                 BossActionTaskManager.getInstance().RemoveArcAngel();
+                BossActionTaskManager.getInstance().setCubeSpawn(getNpcId());
                 break;
 
             default:

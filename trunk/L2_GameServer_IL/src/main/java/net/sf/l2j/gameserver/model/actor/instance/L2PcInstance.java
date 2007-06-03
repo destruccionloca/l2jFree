@@ -4120,28 +4120,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (ZoneManager.getInstance().checkIfInZone("FourSepulcher", this) &&
 				(getZ() >= -7250 && getZ() <= -6841) && !isGM())
 		{
-			if(FourSepulchersManager.getInstance().IsPartyAnnihilated(this))
-			{
-				ThreadPoolManager.getInstance().scheduleEffect(new onAnnihilated(this),5000);
-			}
-		}
-        stopWaterTask();
-        stopJailTask(true);
-    }
-
-	// [L2J_JP ADD SANDMAN]
-	private class onAnnihilated implements Runnable
-	{
-		L2PcInstance _player;
-		
-		public onAnnihilated(L2PcInstance player)
-		{
-			_player = player;
-		}
-		
-		public void run()
-		{
-			FourSepulchersManager.getInstance().OnPartyAnnihilated(_player);
+			FourSepulchersManager.getInstance().checkAnnihilated(this);
 		}
 	}
 

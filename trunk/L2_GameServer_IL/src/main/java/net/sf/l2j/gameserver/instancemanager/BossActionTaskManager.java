@@ -77,6 +77,12 @@ public class BossActionTaskManager
     protected Map<Integer,List> _angelSpawn = new FastMap<Integer,List>();
     protected List<L2NpcInstance> _angels = new FastList<L2NpcInstance>();
 
+    private final int _BaiumCubeLocation[][] =
+    	{
+    		{115203,16620,10078,0}
+    	};
+    protected List<L2Spawn> _BaiumCubeSpawn = new FastList<L2Spawn>();
+    protected List<L2NpcInstance> _BaiumCube = new FastList<L2NpcInstance>();
     private final int _AntharasCubeLocation[][] =
     	{
     		{177615, 114941, -7709,0}
@@ -235,6 +241,21 @@ public class BossActionTaskManager
                 _AntharasCubeSpawn.add(spawnDat);
             }
 
+            Cube = NpcTable.getInstance().getTemplate(29055);
+            for(int i = 0;i < _BaiumCubeLocation.length; i++)
+            {
+                spawnDat = new L2Spawn(Cube);
+                spawnDat.setAmount(1);
+                spawnDat.setLocx(_BaiumCubeLocation[i][0]);
+                spawnDat.setLocy(_BaiumCubeLocation[i][1]);
+                spawnDat.setLocz(_BaiumCubeLocation[i][2]);
+                spawnDat.setHeading(_BaiumCubeLocation[i][3]);
+                spawnDat.setRespawnDelay(60);
+                spawnDat.setLocation(0);
+                SpawnTable.getInstance().addNewSpawn(spawnDat, false);
+                _BaiumCubeSpawn.add(spawnDat);
+            }
+
             Cube = NpcTable.getInstance().getTemplate(31759);
             for(int i = 0;i < _ValakasCubeLocation.length; i++)
             {
@@ -385,7 +406,7 @@ public class BossActionTaskManager
 
     protected void banishesPlayersFromAntharasLair()
     {
-    	for(L2PcInstance pc : L2World.getInstance().getAllPlayers())
+    	for(L2PcInstance pc : _playersInAntharasLair)
     	{
     		if(ZoneManager.getInstance().checkIfInZone("LairofAntharas", pc))
     		{
@@ -399,7 +420,7 @@ public class BossActionTaskManager
 
     protected void banishesPlayersFromBaiumLair()
     {
-    	for(L2PcInstance pc : L2World.getInstance().getAllPlayers())
+    	for(L2PcInstance pc : _playersInBaiumLair)
     	{
     		if(ZoneManager.getInstance().checkIfInZone("LairofBaium", pc))
     		{
@@ -413,7 +434,7 @@ public class BossActionTaskManager
     
     protected void banishesPlayersFromValakasLair()
     {
-    	for(L2PcInstance pc : L2World.getInstance().getAllPlayers())
+    	for(L2PcInstance pc : _playersInValakasLair)
     	{
     		if(ZoneManager.getInstance().checkIfInZone("LairofValakas", pc))
     		{
@@ -430,6 +451,12 @@ public class BossActionTaskManager
         switch (bossId)
         {
         	case 29020: //Baium
+            for(L2NpcInstance cube : _BaiumCube)
+            {
+            	cube.getSpawn().stopRespawn();
+            	cube.deleteMe();
+            }
+            _BaiumCube.clear();
         		_npcbaium.getSpawn().setRespawnDelay(600);
         		_npcbaium.getSpawn().startRespawn();
         		_npcbaium.getSpawn().decreaseCount(_npcbaium);
@@ -457,23 +484,29 @@ public class BossActionTaskManager
     }
 
     public void spawnCube(int bossId)
-    {
-        switch (bossId)
-        {
-        	case 29019: // Antharas
-        		for(L2Spawn spawnDat :_AntharasCubeSpawn)
-        		{
-        			_AntharasCube.add(spawnDat.doSpawn());
-        		}
-        		break;
-        	case 29028: // Valakas
-        		for(L2Spawn spawnDat :_ValakasCubeSpawn)
-        		{
-        			_ValakasCube.add(spawnDat.doSpawn());
-        		}
-        		break;
-        }
-    }
+	{
+		switch (bossId)
+		{
+		case 29019: // Antharas
+			for (L2Spawn spawnDat : _AntharasCubeSpawn)
+			{
+				_AntharasCube.add(spawnDat.doSpawn());
+			}
+			break;
+		case 29020: // Baium
+			for (L2Spawn spawnDat : _BaiumCubeSpawn)
+			{
+				_BaiumCube.add(spawnDat.doSpawn());
+			}
+			break;
+		case 29028: // Valakas
+			for (L2Spawn spawnDat : _ValakasCubeSpawn)
+			{
+				_ValakasCube.add(spawnDat.doSpawn());
+			}
+			break;
+		}
+	}
     
     public void setCubeSpawn(int bossId)
     {
@@ -483,6 +516,12 @@ public class BossActionTaskManager
         		_CubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
                     	new CubeSpawn(bossId),15000);
         		break;
+
+        	case 29020: //Baium
+        		_CubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
+                    	new CubeSpawn(bossId),15000);
+        		break;
+
         	case 29028: // Valakas
         		_CubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
                 		new CubeSpawn(bossId),21000);

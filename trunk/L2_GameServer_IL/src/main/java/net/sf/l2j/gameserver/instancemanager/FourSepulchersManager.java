@@ -78,6 +78,8 @@ public class FourSepulchersManager
     protected Future _ChangeEntryTimeTask = null; 
     protected Future _ChaneWarmUpTimeTask = null;
     protected Future _ChangeAttackTimeTask = null;
+    protected Future _OnPartyAnnihilatedTask = null;
+    
     
     
     protected static Map<Integer,Integer> _HallGateKeepers = new FastMap<Integer,Integer>();
@@ -1144,6 +1146,15 @@ public class FourSepulchersManager
     	}
     }
 
+    public void checkAnnihilated(L2PcInstance player)
+    {
+    	if(IsPartyAnnihilated(player))
+    	{
+    		_OnPartyAnnihilatedTask =
+				ThreadPoolManager.getInstance().scheduleEffect(new OnPartyAnnihilatedTask(player),5000);    			
+    	}
+    }
+
     public synchronized boolean IsPartyAnnihilated(L2PcInstance player)
     {
 		if(player.getParty() != null)
@@ -1342,4 +1353,25 @@ public class FourSepulchersManager
             }
         }
     }
+
+	private class OnPartyAnnihilatedTask implements Runnable
+	{
+		L2PcInstance _player;
+		
+		public OnPartyAnnihilatedTask(L2PcInstance player)
+		{
+			_player = player;
+		}
+		
+		public void run()
+		{
+			OnPartyAnnihilated(_player);
+            if(_OnPartyAnnihilatedTask != null)
+            {
+            	_OnPartyAnnihilatedTask.cancel(true);
+            	_OnPartyAnnihilatedTask = null;
+            }
+			
+		}
+	}
 }
