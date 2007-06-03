@@ -1,25 +1,44 @@
 import sys
+from net.sf.l2j.gameserver.model.quest import State
+from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.serverpackets import PlaySound
+from net.sf.l2j.gameserver.instancemanager import BossActionTaskManager
+
+PORTAL_STONE    = 3865
+HEART           = 13001
 
 # Boss: Antharas
-class antharas(JQuest) :
-    def __init__(self,id,name,descr):
-        self.antharas = 29019
-        JQuest.__init__(self,id,name,descr)
+class antharas(JQuest):
 
-    def onKill (self,npc,player):
-        objId=npc.getObjectId()
-        npc.broadcastPacket(PlaySound(1, "BS01_D", 1, objId, npc.getX(), npc.getY(), npc.getZ()))
-        self.getPcSpawn(player).removeAllSpawn()
-        #teleport cube antharas.
-        self.getPcSpawn(player).addSpawn(31859,177615,114941,-7709,900000)
-        return
+  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
-# now call the constructor (starts up the ai)
-QUEST      = antharas(-1,"antharas","ai")
+  def onTalk (self,npc,player):
+    st = player.getQuestState("antharas")
+    npcId = npc.getNpcId()
+    if npcId == HEART:
+      if BossActionTaskManager.getInstance().CanIntoAntharasLair():
+        if st.getQuestItemsCount(PORTAL_STONE) >= 1:
+          st.takeItems(PORTAL_STONE,1)
+          BossActionTaskManager.getInstance().SetAntharasSpawnTask()
+          BossActionTaskManager.getInstance().AddPlayerToAntharasLair(st.player)
+          st.player.teleToLocation(173826,115333,-7708)
+          st.exitQuest(1)
+          return
+        else:
+          st.exitQuest(1)
+          return '<html><body>Heart of Muscai:<br><br>You do not have the proper stones needed for teleport.<br>It is for the teleport where does 1 stone to you need.<br></body></html>'
+      else:       
+        st.exitQuest(1)
+        return '<html><body>Heart of Muscai:<br><br>Antharas has already awoke!<br>You are not possible to enter into Lair of Antharas.<br></body></html>'
 
-QUEST.addKillId(QUEST.antharas)
-QUEST.addAttackId(QUEST.antharas)
+# Quest class and state definition
+QUEST       = antharas(-1, "antharas", "ai")
+CREATED     = State('Start', QUEST)
+
+# Quest initialization
+QUEST.setInitialState(CREATED)
+# Quest NPC starter initialization
+QUEST.addStartNpc(HEART)
+QUEST.addTalkId(HEART)
 
 print "AI: individuals: Antharas...loaded!"
