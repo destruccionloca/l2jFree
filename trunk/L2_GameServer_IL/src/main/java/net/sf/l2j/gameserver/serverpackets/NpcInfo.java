@@ -53,23 +53,23 @@ public class NpcInfo extends L2GameServerPacket
 	public NpcInfo(L2NpcInstance cha, L2Character attacker)
 	{
 		_cha = cha;
-		_idTemplate = cha.getTemplate().idTemplate;
+		_idTemplate = cha.getTemplate().getIdTemplate();
 		_isAttackable = cha.isAutoAttackable(attacker);
-		_rhand = cha.getTemplate().rhand;
-		_lhand = cha.getTemplate().lhand;
+		_rhand = cha.getTemplate().getRhand();
+		_lhand = cha.getTemplate().getLhand();
 		_isSummoned = false;
-        collisionHeight = _cha.getTemplate().collisionHeight;
-        collisionRadius = _cha.getTemplate().collisionRadius;
-        if (cha.getTemplate().serverSideName)
-        	_name = cha.getTemplate().name;
+        collisionHeight = _cha.getTemplate().getCollisionHeight();
+        collisionRadius = _cha.getTemplate().getCollisionRadius();
+        if (cha.getTemplate().isServerSideName())
+        	_name = cha.getTemplate().getName();
 
         if (cha.isChampion() )
         {
             _title = ("Champion"); 
         }
-        else if (cha.getTemplate().serverSideTitle)
+        else if (cha.getTemplate().isServerSideTitle())
         {
-    		_title = cha.getTemplate().title;
+    		_title = cha.getTemplate().getTitle();
         }
     	else
         {
@@ -100,14 +100,14 @@ public class NpcInfo extends L2GameServerPacket
 	public NpcInfo(L2Summon cha, L2Character attacker)
 	{
 		_cha = cha;
-		_idTemplate = cha.getTemplate().idTemplate;
+		_idTemplate = cha.getTemplate().getIdTemplate();
 		_isAttackable = cha.isAutoAttackable(attacker); //(cha.getKarma() > 0);
 		_rhand = 0;
 		_lhand = 0;
 		_isSummoned = cha.isShowSummonAnimation();
-        collisionHeight = _cha.getTemplate().collisionHeight;
-        collisionRadius = _cha.getTemplate().collisionRadius;
-        if (cha.getTemplate().serverSideName || cha instanceof L2PetInstance)
+        collisionHeight = _cha.getTemplate().getCollisionHeight();
+        collisionRadius = _cha.getTemplate().getCollisionRadius();
+        if (cha.getTemplate().isServerSideName() || cha instanceof L2PetInstance)
     	{
             _name = _cha.getName();
     		_title = cha.getTitle();

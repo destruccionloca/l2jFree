@@ -201,7 +201,7 @@ public abstract class L2Summon extends L2PlayableInstance
     
     public final int getNpcId()
     {
-        return getTemplate().npcId;
+        return getTemplate().getNpcId();
     }
     
     public void setPvpFlag(byte pvpFlag)

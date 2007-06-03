@@ -15,7 +15,7 @@ public class NpcStat extends CharStat
     {
         super(activeChar);
 
-        setLevel(getActiveChar().getTemplate().level);
+        setLevel(getActiveChar().getTemplate().getLevel());
     }
 
     // =========================================================
@@ -28,5 +28,5 @@ public class NpcStat extends CharStat
     // Property - Public
     public L2NpcInstance getActiveChar() { return (L2NpcInstance)super.getActiveChar(); }
 
-    public final int getMaxHp() { return (int)calcStat(Stats.MAX_HP, getActiveChar().getTemplate().baseHpMax * (getActiveChar().isChampion()?Config.CHAMPION_HP:1) , null, null); }
+    public final int getMaxHp() { return (int)calcStat(Stats.MAX_HP, getActiveChar().getTemplate().getBaseHpMax() * (getActiveChar().isChampion()?Config.CHAMPION_HP:1) , null, null); }
 }

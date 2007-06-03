@@ -121,7 +121,7 @@ public class CharacterCreate extends L2GameClientPacket
 			_log.debug("charname: " + _name + " classId: " + _classId);
 		
         L2PcTemplate template = CharTemplateTable.getInstance().getTemplate(_classId);
-		if(template == null || template.classBaseLevel > 1) 
+		if(template == null || template.getClassBaseLevel() > 1) 
 		{
 			CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_CREATION_FAILED);
 			sendPacket(ccf);
@@ -130,9 +130,9 @@ public class CharacterCreate extends L2GameClientPacket
 		
 		int objectId = IdFactory.getInstance().getNextId();
 		L2PcInstance newChar = L2PcInstance.create(objectId, template, getClient().getAccountName(),_name, _hairStyle, _hairColor, _face, _sex!=0);
-		newChar.getStatus().setCurrentHp(template.baseHpMax);
-		newChar.getStatus().setCurrentCp(template.baseCpMax);
-		newChar.getStatus().setCurrentMp(template.baseMpMax);
+		newChar.getStatus().setCurrentHp(template.getBaseHpMax());
+		newChar.getStatus().setCurrentCp(template.getBaseCpMax());
+		newChar.getStatus().setCurrentMp(template.getBaseMpMax());
 		//newChar.setMaxLoad(template.baseLoad);
 		
 		// send acknowledgement
@@ -151,7 +151,7 @@ public class CharacterCreate extends L2GameClientPacket
 		
 		newChar.addAdena("Init", Config.STARTING_ADENA, null, false);
 		
-		newChar.getPosition().setXYZInvisible(template.spawnX, template.spawnY, template.spawnZ);
+		newChar.getPosition().setXYZInvisible(template.getSpawnX(), template.getSpawnY(), template.getSpawnZ());
 		newChar.setTitle("");
 		
 		L2ShortCut shortcut;

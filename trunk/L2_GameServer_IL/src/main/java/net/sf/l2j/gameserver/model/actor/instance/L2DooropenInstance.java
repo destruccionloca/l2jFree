@@ -81,7 +81,7 @@ public class L2DooropenInstance extends L2FolkInstance
     public void showMessageWindow(L2PcInstance player)
     {
         //player.sendPacket(new ActionFailed());
-        String filename = "data/html/dooropen/" + getTemplate().npcId + ".htm";
+        String filename = "data/html/dooropen/" + getTemplate().getNpcId() + ".htm";
 
         NpcHtmlMessage html = new NpcHtmlMessage(1);
         html.setFile(filename);

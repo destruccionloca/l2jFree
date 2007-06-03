@@ -87,7 +87,7 @@ public final class L2ChestInstance extends L2Attackable
     }
 
 	public boolean isBox() {
-        return (getTemplate().npcId>=18265 && getTemplate().npcId<=18286);
+        return (getTemplate().getNpcId()>=18265 && getTemplate().getNpcId()<=18286);
     }
     
 	public synchronized boolean open() {
@@ -107,21 +107,21 @@ public final class L2ChestInstance extends L2Attackable
         int trapSkillId = 0;
         int rnd = Rnd.get(120);
 
-        if (getTemplate().level >= 61)
+        if (getTemplate().getLevel() >= 61)
         {
             if (rnd >= 90) trapSkillId = 4139;//explosion
             else if (rnd >= 50) trapSkillId = 4118;//area paralysys 
             else if (rnd >= 20) trapSkillId = 1167;//poison cloud
             else trapSkillId = 223;//sting
         }
-        else if (getTemplate().level >= 41)
+        else if (getTemplate().getLevel() >= 41)
         {
             if (rnd >= 90) trapSkillId = 4139;//explosion
             else if (rnd >= 60) trapSkillId = 96;//bleed 
             else if (rnd >= 20) trapSkillId = 1167;//poison cloud
             else trapSkillId = 4118;//area paralysys
         }
-        else if (getTemplate().level >= 21)
+        else if (getTemplate().getLevel() >= 21)
         {
             if (rnd >= 80) trapSkillId = 4139;//explosion
             else if (rnd >= 50) trapSkillId = 96;//bleed 
@@ -145,7 +145,7 @@ public final class L2ChestInstance extends L2Attackable
     {
         int skillLevel = 1;
 
-        byte lvl = getTemplate().level;
+        byte lvl = getTemplate().getLevel();
         if (lvl > 20 && lvl <= 40) skillLevel = 3;
         else if (lvl > 40 && lvl <= 60) skillLevel = 5;
         else if (lvl > 60) skillLevel = 6;

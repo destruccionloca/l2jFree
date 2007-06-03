@@ -56,7 +56,7 @@ public class L2SummonInstance extends L2Summon
 		super(objectId, template, owner);
         setShowSummonAnimation(true);
 
-        if (owner.getPet()!= null && owner.getPet().getTemplate().npcId == template.npcId )
+        if (owner.getPet()!= null && owner.getPet().getTemplate().getNpcId() == template.getNpcId() )
             return;
         
     	_itemConsumeId = 0;
@@ -85,7 +85,7 @@ public class L2SummonInstance extends L2Summon
     }
     
 	public final int getLevel() {
-		return (getTemplate() != null ? getTemplate().level : 0);
+		return (getTemplate() != null ? getTemplate().getLevel() : 0);
 	}
 	
     public int getSummonType()
@@ -140,7 +140,7 @@ public class L2SummonInstance extends L2Summon
         SystemMessage sm = new SystemMessage(SystemMessage.SUMMON_RECEIVED_DAMAGE_OF_S2_BY_S1);
         if (attacker instanceof L2NpcInstance)
         {
-            sm.addNpcName(((L2NpcInstance)attacker).getTemplate().npcId);
+            sm.addNpcName(((L2NpcInstance)attacker).getTemplate().getNpcId());
         }
         else
         {
@@ -153,7 +153,7 @@ public class L2SummonInstance extends L2Summon
    public synchronized void doDie(L2Character killer)
    {
            if (_log.isDebugEnabled())
-               _log.warn("L2SummonInstance: " + getTemplate().name + " (" + getOwner().getName() + ") has been killed.");
+               _log.warn("L2SummonInstance: " + getTemplate().getName() + " (" + getOwner().getName() + ") has been killed.");
        
         if (_summonLifeTask != null) {
            _summonLifeTask.cancel(true);
@@ -201,7 +201,7 @@ public class L2SummonInstance extends L2Summon
         public void run()
         {
            	if (_log.isDebugEnabled())
-    			_log.warn("L2SummonInstance: " + _summon.getTemplate().name + " (" + _activeChar.getName() + ") run task.");
+    			_log.warn("L2SummonInstance: " + _summon.getTemplate().getName() + " (" + _activeChar.getName() + ") run task.");
 
         	// check if life time of summon is ended
             if (_summon.getItemConsumeStepsElapsed() >= _summon.getItemConsumeSteps()) 
@@ -257,7 +257,7 @@ public class L2SummonInstance extends L2Summon
 	public void unSummon(L2PcInstance owner)
 	{
        	if (_log.isDebugEnabled())
-       		_log.warn("L2SummonInstance: " + getTemplate().name + " (" + owner.getName() + ") unsummoned.");
+       		_log.warn("L2SummonInstance: " + getTemplate().getName() + " (" + owner.getName() + ") unsummoned.");
 
         if (_summonLifeTask != null) {
         	_summonLifeTask.cancel(true);
@@ -279,7 +279,7 @@ public class L2SummonInstance extends L2Summon
 	public boolean destroyItemByItemId(String process, int itemId, int count, L2Object reference, boolean sendMessage)
 	{
        	if (_log.isDebugEnabled())
-			_log.warn("L2SummonInstance: " + getTemplate().name + " (" + getOwner().getName() + ") consume.");
+			_log.warn("L2SummonInstance: " + getTemplate().getName() + " (" + getOwner().getName() + ") consume.");
 	
 		return getOwner().destroyItemByItemId(process, itemId, count, reference, sendMessage);
 	}

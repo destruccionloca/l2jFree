@@ -60,13 +60,13 @@ public class NpcInfoPoly extends L2GameServerPacket
 		_rhand = 0;
 		_lhand = 0;
 		_isSummoned = false;
-        collisionRadius = _template.collisionRadius;
-        collisionHeight = _template.collisionHeight;
+        collisionRadius = _template.getCollisionRadius();
+        collisionHeight = _template.getCollisionHeight();
 		if(_obj instanceof L2Character){
 			_cha = (L2Character) cha;
 			_isAttackable = cha.isAutoAttackable(attacker);
-			_rhand = _template.rhand;
-			_lhand = _template.lhand;
+			_rhand = _template.getRhand();
+			_lhand = _template.getLhand();
 			
 		}
 		

@@ -103,7 +103,7 @@ public class StrSiegeAssault implements ISkillHandler
                 if (target instanceof L2RaidBossInstance)
                 name = "RaidBoss ";
                 if (target instanceof L2NpcInstance)
-                name += target.getName()+"("+((L2NpcInstance)target).getTemplate().npcId+")";
+                name += target.getName()+"("+((L2NpcInstance)target).getTemplate().getNpcId()+")";
                 if (target instanceof L2PcInstance)
                 name = target.getName()+"("+target.getObjectId()+") ";
                 name += target.getLevel()+" lvl";

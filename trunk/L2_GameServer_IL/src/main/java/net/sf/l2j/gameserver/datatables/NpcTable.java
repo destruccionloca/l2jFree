@@ -128,7 +128,7 @@ public class NpcTable implements NpcTableMBean
                     int skillId = npcskills.getInt("skillid");
                     int level = npcskills.getInt("level");
                     
-                    if (npcDat.race == 0)
+                    if (npcDat.getRace() == 0)
                     {
                         if (skillId >= 4290 && skillId <= 4302)
                         {

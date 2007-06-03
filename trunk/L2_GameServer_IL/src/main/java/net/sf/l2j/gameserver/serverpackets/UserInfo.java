@@ -222,13 +222,13 @@ public class UserInfo extends L2GameServerPacket
         L2Summon pet = _cha.getPet();
         if (_cha.getMountType() != 0 && pet != null)
         {
-            writeF(pet.getTemplate().collisionRadius);
-            writeF(pet.getTemplate().collisionHeight);
+            writeF(pet.getTemplate().getCollisionRadius());
+            writeF(pet.getTemplate().getCollisionHeight());
         }
         else
         {
-            writeF(_cha.getBaseTemplate().collisionRadius);
-            writeF(_cha.getBaseTemplate().collisionHeight);
+            writeF(_cha.getBaseTemplate().getCollisionRadius());
+            writeF(_cha.getBaseTemplate().getCollisionHeight());
         }
 
         writeD(_cha.getAppearance().getHairStyle());
@@ -242,7 +242,7 @@ public class UserInfo extends L2GameServerPacket
         {
         	L2NpcTemplate polyObj = NpcTable.getInstance().getTemplate(_cha.getPoly().getPolyId());
         	if(polyObj != null)
-        		title += " - " + polyObj.name;
+        		title += " - " + polyObj.getName();
         }
         writeS(title);
 

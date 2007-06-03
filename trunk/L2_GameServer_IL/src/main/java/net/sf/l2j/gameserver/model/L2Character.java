@@ -1239,7 +1239,7 @@ public abstract class L2Character extends L2Object
             //Prevent usage of skills on NPCs that shouldn't allow this (teleporters, merchants, trainers, etc)
             if ((target instanceof L2NpcInstance))
             {
-                String  mobtype = ((L2NpcInstance)target).getTemplate().type;
+                String  mobtype = ((L2NpcInstance)target).getTemplate().getType();
                        if(!Config.LIST_ALLOWED_NPC_TYPES.contains(mobtype))
                        {
                            SystemMessage sm = new SystemMessage(614);
@@ -1724,7 +1724,7 @@ public abstract class L2Character extends L2Object
     public final void setIsTeleporting(boolean value) { _IsTeleporting = value; }
     public void setIsInvul(boolean b){_isInvul = b;}
     public boolean isInvul(){return _isInvul  || _IsTeleporting;}
-    public boolean isUndead() { return _Template.isUndead; }
+    public boolean isUndead() { return _Template.isUndead(); }
 
 	public CharKnownList getKnownList()
 	{
@@ -4347,7 +4347,7 @@ public abstract class L2Character extends L2Object
     
                 if (this instanceof L2Summon)
                 {
-                    int mobId = ((L2Summon)this).getTemplate().idTemplate;
+                    int mobId = ((L2Summon)this).getTemplate().getIdTemplate();
                     sm.addNpcName(mobId);
                 }
                 else
@@ -5615,7 +5615,7 @@ public abstract class L2Character extends L2Object
    public int getMAtk(L2Character target, L2Skill skill) { return getStat().getMAtk(target, skill); }
    public final int getMAtkSps(L2Character target, L2Skill skill)
    {
-   int matk = (int)calcStat(Stats.MAGIC_ATTACK, _Template.baseMAtk, target, skill);
+   int matk = (int)calcStat(Stats.MAGIC_ATTACK, _Template.getBaseMAtk(), target, skill);
    L2ItemInstance weaponInst = getActiveWeaponInstance();
    if (weaponInst != null)
    {

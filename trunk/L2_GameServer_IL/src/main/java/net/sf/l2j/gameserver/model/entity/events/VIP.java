@@ -255,7 +255,7 @@ public class VIP {
             return "";
         else {
             L2NpcTemplate npctmp = NpcTable.getInstance().getTemplate(id);
-            return npctmp.name;
+            return npctmp.getName();
         }
     }
     

@@ -1228,7 +1228,7 @@ public class Siege
         	
         	L2NpcTemplate template = NpcTable.getInstance().getTemplate(_sp.getNpcId());
         	 
-            template.getStatsSet().set("baseHpMax", _sp.getHp());
+            template.setBaseHpMax(_sp.getHp());
             template.addResist(Stats.POWER_DEFENCE,100);
             template.addResist(Stats.BOW_WPN_RES,100);
             template.addResist(Stats.BLUNT_WPN_RES,100);

@@ -139,7 +139,7 @@ public class CharTemplateTable
 						ct.addItem(rset.getInt("items"+x));
 					}
 				}
-				_templates.put(ct.classId.getId(), ct);				
+				_templates.put(ct.getClassId().getId(), ct);				
 			}
 			
 			rset.close();

@@ -69,7 +69,7 @@ public class MonsterRace
             {
                 for (int j=i-1; j>=0; j--)
                 {
-                    if (monsters[j].getTemplate().npcId == (id + random))
+                    if (monsters[j].getTemplate().getNpcId() == (id + random))
                     {
                         random = Rnd.get(25);
                         continue;
@@ -80,7 +80,7 @@ public class MonsterRace
             try
             {
                 L2NpcTemplate template = NpcTable.getInstance().getTemplate(id+random);
-                _constructor = Class.forName("net.sf.l2j.gameserver.model.actor.instance." + template.type + "Instance").getConstructors()[0];
+                _constructor = Class.forName("net.sf.l2j.gameserver.model.actor.instance." + template.getType() + "Instance").getConstructors()[0];
                 int objectId = IdFactory.getInstance().getNextId();
                 monsters[i] = (L2NpcInstance)_constructor.newInstance(objectId, template);
             } 

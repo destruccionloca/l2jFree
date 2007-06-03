@@ -68,7 +68,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 
 		if (actualCommand.equalsIgnoreCase("goto"))
 		{
-            int npcId = getTemplate().npcId;
+            int npcId = getTemplate().getNpcId();
             
             switch (npcId)
             {

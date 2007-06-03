@@ -431,7 +431,7 @@ public final class QuestState
 			return;
         
 		// Get drops of the NPC recorded in class variable "drops"
-		List<L2DropData> lst = getDrops().get(npc.getTemplate().npcId);
+		List<L2DropData> lst = getDrops().get(npc.getTemplate().getNpcId());
 		// If drops of the NPC in class variable "drops" exist, add them to parameter "drops"
 		if (lst != null)
 			drops.addAll(lst);

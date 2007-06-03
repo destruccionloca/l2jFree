@@ -463,13 +463,13 @@ public class AdminSpawn implements IAdminCommandHandler
                 if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcid()) && 
                 		respawn==true && 
                 		Config.ALT_DEV_NO_SPAWNS==false)
-            	    activeChar.sendMessage("You cannot spawn another instance of " + template.name + ".");
+            	    activeChar.sendMessage("You cannot spawn another instance of " + template.getName() + ".");
                 else
                 {
                 	if(respawn==true && Config.ALT_DEV_NO_SPAWNS==false)
                 	{
                 		if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcid()) != null)
-                			RaidBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template.getStatsSet().getDouble("baseHpMax"), template.getStatsSet().getDouble("baseMpMax"), true);
+                			RaidBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template.getBaseHpMax(), template.getBaseMpMax(), true);
                     else
                         SpawnTable.getInstance().addNewSpawn(spawn, respawn);
                 	}
@@ -477,7 +477,7 @@ public class AdminSpawn implements IAdminCommandHandler
                 		spawn.spawnOne();
                 
                 spawn.init();
-                activeChar.sendMessage("Created " + template.name + " on " + target.getObjectId() + ".");
+                activeChar.sendMessage("Created " + template.getName() + " on " + target.getObjectId() + ".");
                 }
             } 
         }
@@ -527,13 +527,13 @@ public class AdminSpawn implements IAdminCommandHandler
         
         for (L2NpcTemplate t : NpcTable.getInstance().getAllTemplates().values())
         {
-             if (mode.equals("name") && (t.name.toLowerCase().startsWith(string)))
+             if (mode.equals("name") && (t.getName().toLowerCase().startsWith(string)))
                 list.add(t);
              else
-             if (mode.equals("namepart") && (t.name.toLowerCase().contains(string)))
+             if (mode.equals("namepart") && (t.getName().toLowerCase().contains(string)))
                  list.add(t);
              else
-             if (mode.equals("level") && level !=0 && t.level == level)
+             if (mode.equals("level") && level !=0 && t.getLevel() == level)
             	 list.add(t);
         }
         
@@ -577,7 +577,7 @@ public class AdminSpawn implements IAdminCommandHandler
         	replyMSG.append("<tr><td>ID<font color=\"LEVEL\">*</font></td><td>Name<font color=\"LEVEL\">**</font></td><td>Lv</td></tr>");
         	for (int i=start; i < end; i++)
         	{
-        		replyMSG.append("<tr><td><a action=\"bypass -h admin_spawnlist_menu " + result[i].npcId + "\">" + result[i].npcId + "</td><td><a action=\"bypass -h admin_spawn " + result[i].npcId + "\">"+result[i].name+"</a></td><td>"+ result[i].level +"</td></tr>");
+        		replyMSG.append("<tr><td><a action=\"bypass -h admin_spawnlist_menu " + result[i].getNpcId() + "\">" + result[i].getNpcId() + "</td><td><a action=\"bypass -h admin_spawn " + result[i].getNpcId() + "\">"+result[i].getName()+"</a></td><td>"+ result[i].getLevel() +"</td></tr>");
         	}
         	replyMSG.append("</table>");
         	replyMSG.append("<font color=\"LEVEL\">*</font> Click on ID to search NPC spawns.<br1>");
@@ -735,9 +735,9 @@ public class AdminSpawn implements IAdminCommandHandler
     	
         for (L2NpcTemplate t : NpcTable.getInstance().getAllTemplates().values())
         {
-            if (t.name.equalsIgnoreCase(npcName.replace("_", " ")))
+            if (t.getName().equalsIgnoreCase(npcName.replace("_", " ")))
             {
-            	npcId = t.npcId;
+            	npcId = t.getNpcId();
             	break;
             }
         }

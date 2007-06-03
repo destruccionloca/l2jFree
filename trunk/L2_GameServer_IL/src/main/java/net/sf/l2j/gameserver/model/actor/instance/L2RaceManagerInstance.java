@@ -300,7 +300,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
     public void showOdds(L2PcInstance player)
     {
         if (state == ACCEPTING_BETS) return;
-        int npcId = getTemplate().npcId;
+        int npcId = getTemplate().getNpcId();
         String filename, search;
         NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
         filename = getHtmlPath(npcId, 5);
@@ -309,7 +309,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
         {
             int n = i + 1;
             search = "Mob" + n;
-            html.replace(search, MonsterRace.getInstance().getMonsters()[i].getTemplate().name);
+            html.replace(search, MonsterRace.getInstance().getMonsters()[i].getTemplate().getName());
         }
         html.replace("1race", String.valueOf(raceNumber));
         html.replace("%objectId%", String.valueOf(getObjectId()));
@@ -319,7 +319,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
 
     public void showMonsterInfo(L2PcInstance player)
     {
-        int npcId = getTemplate().npcId;
+        int npcId = getTemplate().getNpcId();
         String filename, search;
         NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
         filename = getHtmlPath(npcId, 6);
@@ -328,7 +328,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
         {
             int n = i + 1;
             search = "Mob" + n;
-            html.replace(search, MonsterRace.getInstance().getMonsters()[i].getTemplate().name);
+            html.replace(search, MonsterRace.getInstance().getMonsters()[i].getTemplate().getName());
         }
         html.replace("%objectId%", String.valueOf(getObjectId()));
         player.sendPacket(html);
@@ -338,7 +338,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
     public void showBuyTicket(L2PcInstance player, int val)
     {
         if (state != ACCEPTING_BETS) return;
-        int npcId = getTemplate().npcId;
+        int npcId = getTemplate().getNpcId();
         SystemMessage sm;
         String filename, search, replace;
         NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -350,7 +350,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
             {
                 int n = i + 1;
                 search = "Mob" + n;
-                html.replace(search, MonsterRace.getInstance().getMonsters()[i].getTemplate().name);
+                html.replace(search, MonsterRace.getInstance().getMonsters()[i].getTemplate().getName());
             }
             search = "No1";
             if (val == 0) html.replace(search, "");
@@ -367,7 +367,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
             html.setFile(filename);
             html.replace("0place", "" + player.getRace(0));
             search = "Mob1";
-            replace = MonsterRace.getInstance().getMonsters()[player.getRace(0) - 1].getTemplate().name;
+            replace = MonsterRace.getInstance().getMonsters()[player.getRace(0) - 1].getTemplate().getName();
             html.replace(search, replace);
             search = "0adena";
             if (val == 10) html.replace(search, "");
@@ -384,7 +384,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
             html.setFile(filename);
             html.replace("0place", "" + player.getRace(0));
             search = "Mob1";
-            replace = MonsterRace.getInstance().getMonsters()[player.getRace(0) - 1].getTemplate().name;
+            replace = MonsterRace.getInstance().getMonsters()[player.getRace(0) - 1].getTemplate().getName();
             html.replace(search, replace);
             search = "0adena";
             int price = cost[player.getRace(1) - 1];

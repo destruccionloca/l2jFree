@@ -201,7 +201,7 @@ public class L2MerchantInstance extends L2FolkInstance
 
 	public void showRentPetWindow(L2PcInstance player)
 	{
-	    if (!Config.LIST_PET_RENT_NPC.contains(getTemplate().npcId)) return;
+	    if (!Config.LIST_PET_RENT_NPC.contains(getTemplate().getNpcId())) return;
 	
 	    TextBuilder html1 = new TextBuilder("<html><body>Pet Manager:<br>");
 	    html1.append("You can rent a wyvern or strider for adena.<br>My prices:<br1>");
@@ -279,7 +279,7 @@ public class L2MerchantInstance extends L2FolkInstance
             html1.append("<tr><td><br></td></tr>");
 
             html1.append("<tr><td>Object ID: " + getObjectId() + "</td></tr>");
-            html1.append("<tr><td>Template ID: " + getTemplate().npcId + "</td></tr>");
+            html1.append("<tr><td>Template ID: " + getTemplate().getNpcId() + "</td></tr>");
             html1.append("<tr><td><br></td></tr>");
 
             html1.append("<tr><td>HP: " + getStatus().getCurrentHp() + "</td></tr>");
@@ -292,11 +292,11 @@ public class L2MerchantInstance extends L2FolkInstance
 
             //changed by terry 2005-02-22 21:45
             html1.append("</table><table><tr><td><button value=\"Edit NPC\" action=\"bypass -h admin_edit_npc "
-                + getTemplate().npcId
+                + getTemplate().getNpcId()
                 + "\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
             html1.append("<td><button value=\"Kill\" action=\"bypass -h admin_kill\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
             html1.append("<tr><td><button value=\"Show DropList\" action=\"bypass -h admin_show_droplist "
-                + getTemplate().npcId
+                + getTemplate().getNpcId()
                 + "\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
             html1.append("<td><button value=\"Delete\" action=\"bypass -h admin_delete\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
             html1.append("</table>");
@@ -304,7 +304,7 @@ public class L2MerchantInstance extends L2FolkInstance
             if (player.isGM())
             {
                 html1.append("<button value=\"View Shop\" action=\"bypass -h admin_showShop "
-                    + getTemplate().npcId
+                    + getTemplate().getNpcId()
                     + "\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></br>");
                 html1.append("<button value=\"Lease next week\" action=\"bypass -h npc_" + getObjectId()
                     + "_Lease\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");

@@ -96,7 +96,7 @@ public class L2PetInstance extends L2Summon
     public final L2PetData getPetData()
     {
         if (_Data == null) 
-            _Data = PetDataTable.getInstance().getPetData(getTemplate().npcId, getStat().getLevel());
+            _Data = PetDataTable.getInstance().getPetData(getTemplate().getNpcId(), getStat().getLevel());
         
         return _Data;
     }
@@ -129,7 +129,7 @@ public class L2PetInstance extends L2Summon
                     if (_feedMode)
                         startFeed(false); // normal feed
                 
-                int foodId = PetDataTable.getFoodItemId(getTemplate().npcId);
+                int foodId = PetDataTable.getFoodItemId(getTemplate().getNpcId());
                 if (foodId == 0) return;
 
                 L2ItemInstance food = null;
@@ -235,10 +235,10 @@ public class L2PetInstance extends L2Summon
         // Wolf : Level 15
         // Hatcling : Level 35
         // Tested and confirmed on official servers
-        getStat().setLevel(template.level);
+        getStat().setLevel(template.getLevel());
         
         _inventory = new PetInventory(this);
-        int npcId = template.npcId;
+        int npcId = template.getNpcId();
         _mountable = PetDataTable.isMountable(npcId);
     }
     
@@ -535,7 +535,7 @@ public class L2PetInstance extends L2Summon
             SystemMessage sm = new SystemMessage(SystemMessage.S1_GAME_PET_S2_DMG);
             if (attacker instanceof L2NpcInstance)
             {
-                sm.addNpcName( ((L2NpcInstance)attacker).getTemplate().npcId);
+                sm.addNpcName( ((L2NpcInstance)attacker).getTemplate().getNpcId());
             }
             else
             {
@@ -827,7 +827,7 @@ public class L2PetInstance extends L2Summon
             // hack for zero food
         	if (curFed == 0)
         	{
-        		int foodId = PetDataTable.getFoodItemId(pet.getTemplate().npcId);
+        		int foodId = PetDataTable.getFoodItemId(pet.getTemplate().getNpcId());
                 if (foodId != 0)
                 {
                 	L2ItemInstance food  = pet.getOwner().getInventory().getItemByItemId(foodId);

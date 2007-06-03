@@ -41,7 +41,7 @@ public class L2FolkInstance extends L2NpcInstance
 		if (_log.isDebugEnabled()) 
             _log.debug("SkillList activated on: "+getObjectId());
         
-        int npcId = getTemplate().npcId;
+        int npcId = getTemplate().getNpcId();
         
 		if (_classesToTeach == null)
         {
@@ -123,7 +123,7 @@ public class L2FolkInstance extends L2NpcInstance
     {
         if (_log.isDebugEnabled()) 
             _log.debug("EnchantSkillList activated on: "+getObjectId());
-        int npcId = getTemplate().npcId;
+        int npcId = getTemplate().getNpcId();
         
         if (_classesToTeach == null)
         {

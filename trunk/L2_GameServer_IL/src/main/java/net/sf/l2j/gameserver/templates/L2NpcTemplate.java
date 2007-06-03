@@ -49,37 +49,47 @@ import org.apache.commons.logging.LogFactory;
  * <li>_skills</li>
  * <li>_questsStart</li><BR><BR>
  * 
+ * this template has property that will be set by setters.
+ * <br/>
+ * <br/>
+ * <font color="red">
+ * <b>Property don't change in the time, this is just a template, not the currents status 
+ * of characters !</b>
+ * </font> 
+ * 
  * @version $Revision: 1.1.2.4 $ $Date: 2005/04/02 15:57:51 $
  */
 public final class L2NpcTemplate extends L2CharTemplate
 {
+    /**
+     * Logger
+     */
 	private final static Log _log = LogFactory.getLog(L2NpcTemplate.class.getName());
 
-    public final int     npcId;
-    public final int     idTemplate;
-    public final String  type;
-    public final String  name;
-    public final boolean serverSideName;
-    public final String  title;
-    public final boolean serverSideTitle;
-    public final String  sex;
-    public final byte    level;
-    public final int     rewardExp;
-    public final int     rewardSp;
-    public final int     aggroRange;
-    public final int     rhand;
-    public final int     lhand;
-    public final int     armor;
-    public final String  factionId;
-    public final int     factionRange;
-    public final int     absorb_level;
-    public final int     NPCFaction;
-    public final String  NPCFactionName;
+    private int     npcId;
+    private int     idTemplate;
+    private String  type;
+    private String  name;
+    private boolean serverSideName;
+    private String  title;
+    private boolean serverSideTitle;
+    private String  sex;
+    private byte    level;
+    private int     rewardExp;
+    private int     rewardSp;
+    private int     aggroRange;
+    private int     rhand;
+    private int     lhand;
+    private int     armor;
+    private String  factionId;
+    private int     factionRange;
+    private int     absorbLevel;
+    private int     npcFaction;
+    private String  npcFactionName;
+    private String  jClass;
     
-    private final StatsSet npcStatsSet;
-
     /** fixed skills*/
-    public int     race;
+    private int     race;
     
     /** The table containing all Item that can be dropped by L2NpcInstance using this L2NpcTemplate*/
     private final List<L2DropCategory> _categories = new FastList<L2DropCategory>();   
@@ -87,10 +97,16 @@ public final class L2NpcTemplate extends L2CharTemplate
     /** The table containing all Minions that must be spawn with the L2NpcInstance using this L2NpcTemplate*/
     private final List<L2MinionData>  _minions     = new FastList<L2MinionData>(0);
     
+    /** The list of class that this NpcTemplate can Teach */
     private List<ClassId>             _teachInfo;
+    
+    /** List of skills of this npc */
     private Map<Integer, L2Skill> _skills;
+    
+    /** List of resist stats for this npc*/
     private Map<Stats, Integer> _resists;
-	// contains a list of quests for each event type (questStart, questAttack, questKill, etc)
+	
+    /** contains a list of quests for each event type (questStart, questAttack, questKill, etc)*/
 	private Map<Quest.QuestEventType, Quest[]> _questEvents;
 	
 
@@ -119,25 +135,20 @@ public final class L2NpcTemplate extends L2CharTemplate
         rhand     = set.getInteger("rhand");
         lhand     = set.getInteger("lhand");
         armor     = set.getInteger("armor");
-        String f  = set.getString("factionId", null);
-        if (f == null)
-            factionId = null;
-        else
-            factionId = f.intern();
+        setFactionId(set.getString("factionId", null));
         factionRange  = set.getInteger("factionRange");
-        absorb_level  = set.getInteger("absorb_level", 0);
-        NPCFaction = set.getInteger("NPCFaction", 0);
-        NPCFactionName = set.getString("NPCFactionName", "Devine Clan");
-        //String r = set.getString("race", null);
-        //if (r == null)
-        //  race = null;
-        //else
-        //  race = r.intern();
+        absorbLevel  = set.getInteger("absorb_level", 0);
+        npcFaction = set.getInteger("NPCFaction", 0);
+        npcFactionName = set.getString("NPCFactionName", "Devine Clan");
+        jClass= set.getString("jClass");
         race = 0;
-        npcStatsSet = set;
         _teachInfo = null;
     }
     
+    /**
+     * Add the class id this npc can teach
+     * @param classId
+     */
     public void addTeachInfo(ClassId classId)
     {
         if (_teachInfo == null)
@@ -145,11 +156,19 @@ public final class L2NpcTemplate extends L2CharTemplate
         _teachInfo.add(classId);
     }
     
+    /**
+     * @return the teach infos
+     */
     public List<ClassId> getTeachInfo()
     {
         return _teachInfo;
     }
     
+    /**
+     * Check if this npc can teach to this class
+     * @param classId
+     * @return true if this npc can teach to this class
+     */
     public boolean canTeach(ClassId classId)
     {
         if (_teachInfo == null)
@@ -164,7 +183,12 @@ public final class L2NpcTemplate extends L2CharTemplate
     }
     
     
-   // add a drop to a given category.  If the category does not exist, create it.
+ 
+    /**
+     * add a drop to a given category.  If the category does not exist, create it.
+     * @param drop
+     * @param categoryType
+     */
     public void addDropData(L2DropData drop, int categoryType)
     {
         if (drop.isQuestDrop()) {
@@ -225,6 +249,7 @@ public final class L2NpcTemplate extends L2CharTemplate
     
     /**
      * Return the list of all possible UNCATEGORIZED drops of this L2NpcTemplate.<BR><BR>
+     * @return the drop categories
      */
     public List<L2DropCategory> getDropData()
     {
@@ -313,22 +338,343 @@ public final class L2NpcTemplate extends L2CharTemplate
 		return _questEvents.get(EventType);
     }
     
-    public StatsSet getStatsSet()
-    {
-        return npcStatsSet;
-    }
     public void setRace(int newrace)
     {
         race = newrace;
     }
     
-    public int getNPCFactionId()
+    public int getNpcFaction()
     {
-        return NPCFaction;
+        return npcFaction;
     }
     
-    public String getNPCFactionName()
+    public void setNpcFaction(int npcFaction)
     {
-        return NPCFactionName;
+        this.npcFaction=npcFaction;
+    }    
+    
+    public String getNpcFactionName()
+    {
+        return npcFactionName;
+    }
+
+    /**
+     * @return the absorb_level
+     */
+    public int getAbsorbLevel()
+    {
+        return absorbLevel;
+    }
+
+    /**
+     * @param absorb_level the absorb_level to set
+     */
+    public void setAbsorbLevel(int absorb_level)
+    {
+        this.absorbLevel = absorb_level;
+    }
+
+    /**
+     * @return the aggroRange
+     */
+    public int getAggroRange()
+    {
+        return aggroRange;
+    }
+
+    /**
+     * @param aggroRange the aggroRange to set
+     */
+    public void setAggroRange(int aggroRange)
+    {
+        this.aggroRange = aggroRange;
+    }
+
+    /**
+     * @return the armor
+     */
+    public int getArmor()
+    {
+        return armor;
+    }
+
+    /**
+     * @param armor the armor to set
+     */
+    public void setArmor(int armor)
+    {
+        this.armor = armor;
+    }
+
+    /**
+     * @return the factionId
+     */
+    public String getFactionId()
+    {
+        return factionId;
+    }
+
+    /**
+     * @param factionId the factionId to set
+     */
+    public void setFactionId(String factionId)
+    {
+        this.factionId = ( factionId == null ? null : factionId.intern() );
+    }
+
+    /**
+     * @return the factionRange
+     */
+    public int getFactionRange()
+    {
+        return factionRange;
+    }
+
+    /**
+     * @param factionRange the factionRange to set
+     */
+    public void setFactionRange(int factionRange)
+    {
+        this.factionRange = factionRange;
+    }
+
+    /**
+     * @return the idTemplate
+     */
+    public int getIdTemplate()
+    {
+        return idTemplate;
+    }
+
+    /**
+     * @param idTemplate the idTemplate to set
+     */
+    public void setIdTemplate(int idTemplate)
+    {
+        this.idTemplate = idTemplate;
+    }
+
+    /**
+     * @return the level
+     */
+    public byte getLevel()
+    {
+        return level;
+    }
+
+    /**
+     * @param level the level to set
+     */
+    public void setLevel(byte level)
+    {
+        this.level = level;
+    }
+
+    /**
+     * @return the lhand
+     */
+    public int getLhand()
+    {
+        return lhand;
+    }
+
+    /**
+     * @param lhand the lhand to set
+     */
+    public void setLhand(int lhand)
+    {
+        this.lhand = lhand;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName()
+    {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    /**
+     * @return the npcId
+     */
+    public int getNpcId()
+    {
+        return npcId;
+    }
+
+    /**
+     * @param npcId the npcId to set
+     */
+    public void setNpcId(int npcId)
+    {
+        this.npcId = npcId;
+    }
+
+    /**
+     * @return the rewardExp
+     */
+    public int getRewardExp()
+    {
+        return rewardExp;
+    }
+
+    /**
+     * @param rewardExp the rewardExp to set
+     */
+    public void setRewardExp(int rewardExp)
+    {
+        this.rewardExp = rewardExp;
+    }
+
+    /**
+     * @return the rewardSp
+     */
+    public int getRewardSp()
+    {
+        return rewardSp;
+    }
+
+    /**
+     * @param rewardSp the rewardSp to set
+     */
+    public void setRewardSp(int rewardSp)
+    {
+        this.rewardSp = rewardSp;
+    }
+
+    /**
+     * @return the rhand
+     */
+    public int getRhand()
+    {
+        return rhand;
+    }
+
+    /**
+     * @param rhand the rhand to set
+     */
+    public void setRhand(int rhand)
+    {
+        this.rhand = rhand;
+    }
+
+    /**
+     * @return the serverSideName
+     */
+    public boolean isServerSideName()
+    {
+        return serverSideName;
+    }
+
+    /**
+     * @param serverSideName the serverSideName to set
+     */
+    public void setServerSideName(boolean serverSideName)
+    {
+        this.serverSideName = serverSideName;
+    }
+
+    /**
+     * @return the serverSideTitle
+     */
+    public boolean isServerSideTitle()
+    {
+        return serverSideTitle;
+    }
+
+    /**
+     * @param serverSideTitle the serverSideTitle to set
+     */
+    public void setServerSideTitle(boolean serverSideTitle)
+    {
+        this.serverSideTitle = serverSideTitle;
+    }
+
+    /**
+     * @return the sex
+     */
+    public String getSex()
+    {
+        return sex;
+    }
+
+    /**
+     * @param sex the sex to set
+     */
+    public void setSex(String sex)
+    {
+        this.sex = sex;
+    }
+
+    /**
+     * @return the title
+     */
+    public String getTitle()
+    {
+        return title;
+    }
+
+    /**
+     * @param title the title to set
+     */
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
+    /**
+     * @return the type
+     */
+    public String getType()
+    {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(String type)
+    {
+        this.type = type;
+    }
+
+    /**
+     * @return the race
+     */
+    public int getRace()
+    {
+        return race;
+    }
+
+    /**
+     * @param factionName the nPCFactionName to set
+     */
+    public void setNPCFactionName(String factionName)
+    {
+        npcFactionName = ( factionName == null ? "Devine Clan" : factionName);
+    }
+
+    /**
+     * @return the jClass
+     */
+    public String getJClass()
+    {
+        return jClass;
+    }
+
+    /**
+     * @param class1 the jClass to set
+     */
+    public void setJClass(String class1)
+    {
+        jClass = class1;
     }
 }

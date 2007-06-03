@@ -1826,7 +1826,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public ClassId getClassId()
     {
-        return getTemplate().classId;
+        return getTemplate().getClassId();
     }
     
     public void academyCheck(int Id)
@@ -2143,10 +2143,10 @@ public final class L2PcInstance extends L2PlayableInstance
     public Race getRace()
     {
         if (!isSubClassActive())
-            return getTemplate().race;      
+            return getTemplate().getRace();      
        
         L2PcTemplate charTemp = CharTemplateTable.getInstance().getTemplate(_baseClass);    
-        return charTemp.race;
+        return charTemp.getRace();
     }
 
     public L2Radar getRadar()
@@ -5479,8 +5479,8 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(31, getAppearance().getSex()? 1 : 0);
             statement.setDouble(32, 1/*getMovementMultiplier()*/);
             statement.setDouble(33, 1/*getAttackSpeedMultiplier()*/);
-            statement.setDouble(34, getTemplate().collisionRadius/*getCollisionRadius()*/);
-            statement.setDouble(35, getTemplate().collisionHeight/*getCollisionHeight()*/);
+            statement.setDouble(34, getTemplate().getCollisionRadius());
+            statement.setDouble(35, getTemplate().getCollisionHeight());
 			statement.setLong(36, getExp());
             statement.setInt(37, getSp());
             statement.setInt(38, getKarma());
@@ -7246,7 +7246,7 @@ public final class L2PcInstance extends L2PlayableInstance
             if (dontMove)
             {
                 // Calculate the distance between the L2PcInstance and the target
-                if (skill.getCastRange() > 0 && !isInsideRadius(target, skill.getCastRange()+getTemplate().collisionRadius, false, false))
+                if (skill.getCastRange() > 0 && !isInsideRadius(target, skill.getCastRange()+getTemplate().getCollisionRadius(), false, false))
                 {
                     // Send a System Message to the caster
                     sendPacket(new SystemMessage(SystemMessage.TARGET_TOO_FAR));

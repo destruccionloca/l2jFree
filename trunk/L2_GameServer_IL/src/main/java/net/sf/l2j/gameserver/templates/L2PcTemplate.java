@@ -18,38 +18,46 @@
  */
 package net.sf.l2j.gameserver.templates;
 
+import java.util.List;
+
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.base.Race;
 
 /**
- * @author mkizub
+ * Base template for all type of playable characters 
+ * Override {@link net.sf.l2j.gameserver.templates.L2CharTemplate} to add some properties
+ * specific to pc. 
  *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ * <br/>
+ * <br/>
+ * <font color="red">
+ * <b>Property don't change in the time, this is just a template, not the currents status 
+ * of characters !</b>
+ * </font>
  */
 public class L2PcTemplate extends L2CharTemplate {
 	
 	/** The Class object of the L2PcInstance */
-	public final ClassId classId;
+	private ClassId classId;
 	
-	public final Race   race;
-	public final String className;
+	private Race   race;
+	private String className;
 	
-	public final int    spawnX;
-	public final int    spawnY;
-	public final int    spawnZ;
+	private int    spawnX;
+	private int    spawnY;
+	private int    spawnZ;
 	
-	public final int     classBaseLevel;
-	public final float   lvlHpAdd;
-	public final float   lvlHpMod;
-	public final float   lvlCpAdd;
-	public final float   lvlCpMod;
-	public final float   lvlMpAdd;
-	public final float   lvlMpMod;
+	private int     classBaseLevel;
+	private float   lvlHpAdd;
+	private float   lvlHpMod;
+	private float   lvlCpAdd;
+	private float   lvlCpMod;
+	private float   lvlMpAdd;
+	private float   lvlMpMod;
 	
-	private FastList<L2Item> _items = new FastList<L2Item>();
+	private List<L2Item> _items = new FastList<L2Item>();
 	
 	
 	public L2PcTemplate(StatsSet set)
@@ -91,5 +99,213 @@ public class L2PcTemplate extends L2CharTemplate {
 	{
 		return _items.toArray(new L2Item[_items.size()]);
 	}
+
+    /**
+     * @return the classBaseLevel
+     */
+    public int getClassBaseLevel()
+    {
+        return classBaseLevel;
+    }
+
+    /**
+     * @param classBaseLevel the classBaseLevel to set
+     */
+    public void setClassBaseLevel(int classBaseLevel)
+    {
+        this.classBaseLevel = classBaseLevel;
+    }
+
+    /**
+     * @return the classId
+     */
+    public ClassId getClassId()
+    {
+        return classId;
+    }
+
+    /**
+     * @param classId the classId to set
+     */
+    public void setClassId(ClassId classId)
+    {
+        this.classId = classId;
+    }
+
+    /**
+     * @return the className
+     */
+    public String getClassName()
+    {
+        return className;
+    }
+
+    /**
+     * @param className the className to set
+     */
+    public void setClassName(String className)
+    {
+        this.className = className;
+    }
+
+    /**
+     * @return the lvlCpAdd
+     */
+    public float getLvlCpAdd()
+    {
+        return lvlCpAdd;
+    }
+
+    /**
+     * @param lvlCpAdd the lvlCpAdd to set
+     */
+    public void setLvlCpAdd(float lvlCpAdd)
+    {
+        this.lvlCpAdd = lvlCpAdd;
+    }
+
+    /**
+     * @return the lvlCpMod
+     */
+    public float getLvlCpMod()
+    {
+        return lvlCpMod;
+    }
+
+    /**
+     * @param lvlCpMod the lvlCpMod to set
+     */
+    public void setLvlCpMod(float lvlCpMod)
+    {
+        this.lvlCpMod = lvlCpMod;
+    }
+
+    /**
+     * @return the lvlHpAdd
+     */
+    public float getLvlHpAdd()
+    {
+        return lvlHpAdd;
+    }
+
+    /**
+     * @param lvlHpAdd the lvlHpAdd to set
+     */
+    public void setLvlHpAdd(float lvlHpAdd)
+    {
+        this.lvlHpAdd = lvlHpAdd;
+    }
+
+    /**
+     * @return the lvlHpMod
+     */
+    public float getLvlHpMod()
+    {
+        return lvlHpMod;
+    }
+
+    /**
+     * @param lvlHpMod the lvlHpMod to set
+     */
+    public void setLvlHpMod(float lvlHpMod)
+    {
+        this.lvlHpMod = lvlHpMod;
+    }
+
+    /**
+     * @return the lvlMpAdd
+     */
+    public float getLvlMpAdd()
+    {
+        return lvlMpAdd;
+    }
+
+    /**
+     * @param lvlMpAdd the lvlMpAdd to set
+     */
+    public void setLvlMpAdd(float lvlMpAdd)
+    {
+        this.lvlMpAdd = lvlMpAdd;
+    }
+
+    /**
+     * @return the lvlMpMod
+     */
+    public float getLvlMpMod()
+    {
+        return lvlMpMod;
+    }
+
+    /**
+     * @param lvlMpMod the lvlMpMod to set
+     */
+    public void setLvlMpMod(float lvlMpMod)
+    {
+        this.lvlMpMod = lvlMpMod;
+    }
+
+    /**
+     * @return the race
+     */
+    public Race getRace()
+    {
+        return race;
+    }
+
+    /**
+     * @param race the race to set
+     */
+    public void setRace(Race race)
+    {
+        this.race = race;
+    }
+
+    /**
+     * @return the spawnX
+     */
+    public int getSpawnX()
+    {
+        return spawnX;
+    }
+
+    /**
+     * @param spawnX the spawnX to set
+     */
+    public void setSpawnX(int spawnX)
+    {
+        this.spawnX = spawnX;
+    }
+
+    /**
+     * @return the spawnY
+     */
+    public int getSpawnY()
+    {
+        return spawnY;
+    }
+
+    /**
+     * @param spawnY the spawnY to set
+     */
+    public void setSpawnY(int spawnY)
+    {
+        this.spawnY = spawnY;
+    }
+
+    /**
+     * @return the spawnZ
+     */
+    public int getSpawnZ()
+    {
+        return spawnZ;
+    }
+
+    /**
+     * @param spawnZ the spawnZ to set
+     */
+    public void setSpawnZ(int spawnZ)
+    {
+        this.spawnZ = spawnZ;
+    }
 
 }

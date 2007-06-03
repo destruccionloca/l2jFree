@@ -50,8 +50,8 @@ public class L2FactionManagerInstance extends L2NpcInstance
         String filename = "data/html/npcdefault.htm";
         String replace = "";
  
-        int factionId = getTemplate().getNPCFactionId();
-        String factionName = getTemplate().getNPCFactionName();
+        int factionId = getTemplate().getNpcFaction();
+        String factionName = getTemplate().getNpcFactionName();
         if(factionId!=0)
         {
             filename = "data/html/faction/" + String.valueOf(factionId)  +  "/start.htm";
@@ -64,8 +64,8 @@ public class L2FactionManagerInstance extends L2NpcInstance
     {
         // standard msg
         String filename = "data/html/npcdefault.htm";
-        String factionName = getTemplate().getNPCFactionName();
-        int factionId = getTemplate().getNPCFactionId();
+        String factionName = getTemplate().getNpcFactionName();
+        int factionId = getTemplate().getNpcFaction();
         Faction faction = FactionManager.getInstance().getFactions(factionId);
         int factionPrice = faction.getPrice();
         String replace = "";

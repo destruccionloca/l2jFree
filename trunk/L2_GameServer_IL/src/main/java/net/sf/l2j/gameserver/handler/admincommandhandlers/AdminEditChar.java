@@ -444,7 +444,7 @@ public class AdminEditChar implements IAdminCommandHandler
             replyMSG.append("<tr><td width=80>Name:</td><td width=110>Class:</td><td width=40>Level:</td></tr>");
             for (int i = CharactersStart; i < CharactersEnd; i++)
             {   //Add player info into new Table row
-                replyMSG.append("<tr><td width=80>" + "<a action=\"bypass -h admin_edit " + players[i].getName() + "\">" + players[i].getName() + "</a></td><td width=110>" + players[i].getTemplate().className + "</td><td width=40>" + players[i].getLevel() + "</td></tr>");
+                replyMSG.append("<tr><td width=80>" + "<a action=\"bypass -h admin_edit " + players[i].getName() + "\">" + players[i].getName() + "</a></td><td width=110>" + players[i].getTemplate().getClassName() + "</td><td width=40>" + players[i].getLevel() + "</td></tr>");
             }
             replyMSG.append("</table>");
             replyMSG.append("</body></html>");
@@ -471,7 +471,7 @@ public class AdminEditChar implements IAdminCommandHandler
             
             // Character Player Info
             replyMSG.append("<table width=270>");
-            replyMSG.append("<tr><td width=135><font color=\"LEVEL\">" + player.getName() + "</font></td><td width=135>Lv " + player.getLevel() + " " + player.getTemplate().className+ "</td></tr>");
+            replyMSG.append("<tr><td width=135><font color=\"LEVEL\">" + player.getName() + "</font></td><td width=135>Lv " + player.getLevel() + " " + player.getTemplate().getClassName()+ "</td></tr>");
             replyMSG.append("<tr><td width=135>Account: " + player.getAccountName() + "</td><td width=135>Access Level: " + player.getAccessLevel() + "</td></tr>");
             String _clanName="No Clan";
             if (player.getClanId()>0) _clanName="Clan "+ClanTable.getInstance().getClan(player.getClanId()).getName()+"("+player.getClanId()+")";
@@ -673,7 +673,7 @@ public class AdminEditChar implements IAdminCommandHandler
             player.sendMessage("Admin has changed your stats." +
                                "  HP: " + hpval + "  MP: " + mpval + "  CP: " + cpval +
                                "  Karma: " + karmaval + "  PvP Flag: " + pvpflagval + " PvP/PK " + pvpkillsval + "/" + pkkillsval + 
-                               "  Class: " + player.getTemplate().className + " (" + classidval + ")");
+                               "  Class: " + player.getTemplate().getClassName() + " (" + classidval + ")");
             
             player.getStatus().setCurrentHp(hpval);
             player.getStatus().setCurrentMp(mpval);
@@ -706,7 +706,7 @@ public class AdminEditChar implements IAdminCommandHandler
             activeChar.sendMessage("Changed stats of " + player.getName() + "." +
                                "  HP: " + hpval + "  MP: " + mpval + "  CP: " + cpval + 
                                "  Karma: " + karmaval + "  PvP: " + pvpflagval + " / " + pvpkillsval + 
-                               "  Class: " + player.getTemplate().className + " (" + classidval + ")");
+                               "  Class: " + player.getTemplate().getClassName() + " (" + classidval + ")");
                 
             if (_log.isDebugEnabled())
                 _log.debug("[GM]"+activeChar.getName()+" changed stats of "+player.getName()+". " +
@@ -740,7 +740,7 @@ public class AdminEditChar implements IAdminCommandHandler
             replyMSG.append("<br><br>");
 
             replyMSG.append("<table width=270>");
-            replyMSG.append("<tr><td width=135><font color=\"LEVEL\">" + player.getName() + "</font></td><td width=135>" + player.getClassId().getId() + " " + player.getTemplate().className+ "</td></tr>");
+            replyMSG.append("<tr><td width=135><font color=\"LEVEL\">" + player.getName() + "</font></td><td width=135>" + player.getClassId().getId() + " " + player.getTemplate().getClassName()+ "</td></tr>");
             replyMSG.append("</table>");
             replyMSG.append("<br>");
 
@@ -799,7 +799,7 @@ public class AdminEditChar implements IAdminCommandHandler
             replyMSG.append("<br><br>");
 
             replyMSG.append("<table width=270>");
-            replyMSG.append("<tr><td width=135><font color=\"LEVEL\">" + player.getName() + "</font></td><td width=135>" + player.getClassId().getId() + " " + player.getTemplate().className+ "</td></tr>");
+            replyMSG.append("<tr><td width=135><font color=\"LEVEL\">" + player.getName() + "</font></td><td width=135>" + player.getClassId().getId() + " " + player.getTemplate().getClassName()+ "</td></tr>");
             replyMSG.append("</table>");
             replyMSG.append("<br>");
             
@@ -841,7 +841,7 @@ public class AdminEditChar implements IAdminCommandHandler
                         replyMSG.append("<tr><td width=80>Name</td><td width=110>Class</td><td width=40>Level</td></tr>");
                     
                     CharactersFound++;
-                    replyMSG.append("<tr><td width=80><a action=\"bypass -h admin_edit " + players[i].getName() + "\">" + players[i].getName() + "</a></td><td width=110>" + players[i].getTemplate().className + "</td><td width=40>" + players[i].getLevel() + "</td></tr>");
+                    replyMSG.append("<tr><td width=80><a action=\"bypass -h admin_edit " + players[i].getName() + "\">" + players[i].getName() + "</a></td><td width=110>" + players[i].getTemplate().getClassName() + "</td><td width=40>" + players[i].getLevel() + "</td></tr>");
                 }
             }
             

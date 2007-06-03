@@ -173,14 +173,14 @@ public class L2Spawn
              return;
          
 		 // The Name of the L2NpcInstance type managed by this L2Spawn
-		 String implementationName = _template.type; // implementing class name
+		 String implementationName = _template.getType(); // implementing class name
         
-		if (mobTemplate.npcId == 30995)
+		if (mobTemplate.getNpcId() == 30995)
             implementationName = "L2RaceManager";
 		
 		// if (mobTemplate.npcId == 8050)
 		
-		if ((mobTemplate.npcId >= 31046)&&(mobTemplate.npcId <= 31053))
+		if ((mobTemplate.getNpcId() >= 31046)&&(mobTemplate.getNpcId() <= 31053))
             implementationName = "L2SymbolMaker";
 		try
         {
@@ -254,7 +254,7 @@ public class L2Spawn
 	 */
 	public int getNpcid()
 	{
-		return _template.npcId;
+		return _template.getNpcId();
 	}
 	
 	/**
@@ -481,7 +481,7 @@ public class L2Spawn
 		try
 		{
 			// Check if the L2Spawn is not a L2Pet or L2Minion spawn
-            if (_template.type.equalsIgnoreCase("L2Pet") || _template.type.equalsIgnoreCase("L2Minion"))
+            if (_template.getType().equalsIgnoreCase("L2Pet") || _template.getType().equalsIgnoreCase("L2Minion"))
             {
                 _currentCount++;
 				
@@ -503,7 +503,7 @@ public class L2Spawn
 		}
 		catch (Exception e)
 		{
-			_log.warn( "NPC "+_template.npcId+" class not found", e);
+			_log.warn( "NPC "+_template.getNpcId()+" class not found", e);
 		}
 		return mob;
 	}
@@ -594,7 +594,7 @@ public class L2Spawn
         _lastSpawn = mob;
         
         if (_log.isDebugEnabled()) 
-            _log.debug("spawned Mob ID: "+_template.npcId+" ,at: "+mob.getX()+" x, "+mob.getY()+" y, "+mob.getZ()+" z");
+            _log.debug("spawned Mob ID: "+_template.getNpcId()+" ,at: "+mob.getX()+" x, "+mob.getY()+" y, "+mob.getZ()+" z");
         
         // Increase the current number of L2NpcInstance managed by this L2Spawn 
         _currentCount++;

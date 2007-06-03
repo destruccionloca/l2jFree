@@ -608,10 +608,10 @@ public final class Formulas
         public void calc(Env env)
         {
             L2PcTemplate t = (L2PcTemplate) env._player.getTemplate();
-            int lvl = env._player.getLevel() - t.classBaseLevel;
-            double hpmod = t.lvlHpMod * lvl;
-            double hpmax = (t.lvlHpAdd + hpmod) * lvl;
-            double hpmin = (t.lvlHpAdd * lvl) + hpmod;
+            int lvl = env._player.getLevel() - t.getClassBaseLevel();
+            double hpmod = t.getLvlHpMod() * lvl;
+            double hpmax = (t.getLvlHpAdd() + hpmod) * lvl;
+            double hpmin = (t.getLvlHpAdd() * lvl) + hpmod;
             env.value += (hpmax + hpmin) / 2;
         }
     }
@@ -654,10 +654,10 @@ public final class Formulas
         public void calc(Env env)
         {
             L2PcTemplate t = (L2PcTemplate) env._player.getTemplate();
-            int lvl = env._player.getLevel() - t.classBaseLevel;
-            double cpmod = t.lvlCpMod * lvl;
-            double cpmax = (t.lvlCpAdd + cpmod) * lvl;
-            double cpmin = (t.lvlCpAdd * lvl) + cpmod;
+            int lvl = env._player.getLevel() - t.getClassBaseLevel();
+            double cpmod = t.getLvlCpMod() * lvl;
+            double cpmax = (t.getLvlCpAdd() + cpmod) * lvl;
+            double cpmin = (t.getLvlCpAdd() * lvl) + cpmod;
             env.value += (cpmax + cpmin) / 2;
         }
     }
@@ -700,10 +700,10 @@ public final class Formulas
         public void calc(Env env)
         {
             L2PcTemplate t = (L2PcTemplate) env._player.getTemplate();
-            int lvl = env._player.getLevel() - t.classBaseLevel;
-            double mpmod = t.lvlMpMod * lvl;
-            double mpmax = (t.lvlMpAdd + mpmod) * lvl;
-            double mpmin = (t.lvlMpAdd * lvl) + mpmod;
+            int lvl = env._player.getLevel() - t.getClassBaseLevel();
+            double mpmod = t.getLvlMpMod() * lvl;
+            double mpmax = (t.getLvlMpAdd() + mpmod) * lvl;
+            double mpmin = (t.getLvlMpAdd()* lvl) + mpmod;
             env.value += (mpmax + mpmin) / 2;
         }
     }
@@ -852,7 +852,7 @@ public final class Formulas
      */
     public final double calcHpRegen(L2Character cha)
     {
-        double init = cha.getTemplate().baseHpReg;
+        double init = cha.getTemplate().getBaseHpReg();
         double hpRegenMultiplier;
         double hpRegenBonus = 0;
         
@@ -918,7 +918,7 @@ public final class Formulas
      */
     public final double calcMpRegen(L2Character cha)
     {
-        double init = cha.getTemplate().baseMpReg;
+        double init = cha.getTemplate().getBaseMpReg();
         double mpRegenMultiplier;
         double mpRegenBonus = 0;
         
@@ -972,7 +972,7 @@ public final class Formulas
      */
     public final double calcCpRegen(L2Character cha)
     {
-        double init = cha.getTemplate().baseHpReg;
+        double init = cha.getTemplate().getBaseHpReg();
         double cpRegenMultiplier = Config.PLAYER_CP_REGEN_MULTIPLIER;
         double cpRegenBonus = 0;
 
@@ -1177,16 +1177,16 @@ public final class Formulas
 
         if (attacker instanceof L2NpcInstance)
         {
-            int raceId = ((L2NpcInstance) attacker).getTemplate().race;
+            int raceId = ((L2NpcInstance) attacker).getTemplate().getRace();
             //Skill Race : Undead
             if (raceId == 4290) damage /= attacker.getStat().getPDefUndead(target);
             //Skill Valakas
-            if ( ((L2NpcInstance) attacker).getTemplate().idTemplate == 12899)  damage /= attacker.getStat().getPDefValakas(target); 
+            if ( ((L2NpcInstance) attacker).getTemplate().getIdTemplate() == 12899)  damage /= attacker.getStat().getPDefValakas(target); 
             
         }
         if (target instanceof L2NpcInstance)
         {
-            int raceId = ((L2NpcInstance) target).getTemplate().race;
+            int raceId = ((L2NpcInstance) target).getTemplate().getRace();
             //Skill Race : Undead
             if (raceId == 4290) damage *= attacker.getStat().getPAtkUndead(target);
             //Skill Race : Beast
@@ -1200,7 +1200,7 @@ public final class Formulas
             //Skill Race : Bug
             if (raceId == 4301) damage *= attacker.getStat().getPAtkInsects(target);
             //Skill Valakas
-            if ( ((L2NpcInstance) target).getTemplate().idTemplate == 12899) damage *= attacker.getStat().getPAtkValakas(target); 
+            if ( ((L2NpcInstance) target).getTemplate().getIdTemplate() == 12899) damage *= attacker.getStat().getPAtkValakas(target); 
         }
         if (shld)
         {

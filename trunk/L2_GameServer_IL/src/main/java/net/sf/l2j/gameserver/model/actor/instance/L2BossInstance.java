@@ -123,7 +123,7 @@ public final class L2BossInstance extends L2MonsterInstance
             broadcastPacket(msg);
         }
 
-        switch (getTemplate().npcId)
+        switch (getTemplate().getNpcId())
         {
             case 29020: //Baium
                 BossActionTaskManager.getInstance().RemoveArcAngel();
@@ -233,7 +233,7 @@ public final class L2BossInstance extends L2MonsterInstance
         // [L2J_JP ADD SANDMAN]
         if (this.IsInSocialAction()) return;
 
-        switch (getTemplate().npcId)
+        switch (getTemplate().getNpcId())
         {
             case 29014: // Orfen
                 if ((getStatus().getCurrentHp() - damage) < getMaxHp() / 2 && !getTeleported())

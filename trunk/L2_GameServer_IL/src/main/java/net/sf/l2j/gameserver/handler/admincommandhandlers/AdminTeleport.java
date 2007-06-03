@@ -635,7 +635,7 @@ public class AdminTeleport implements IAdminCommandHandler
         {
             L2NpcInstance target = (L2NpcInstance) obj;
 
-            int monsterTemplate = target.getTemplate().npcId;
+            int monsterTemplate = target.getTemplate().getNpcId();
             L2NpcTemplate template1 = NpcTable.getInstance().getTemplate(monsterTemplate);
             if (template1 == null)
             {

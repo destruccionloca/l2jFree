@@ -79,7 +79,7 @@ public class Mount implements IUserCommandHandler
             else if (!pet.isDead() && !activeChar.isMounted())
             {
             	if(!activeChar.disarmWeapons()) return false;
-                Ride mount = new Ride(activeChar.getObjectId(), Ride.ACTION_MOUNT, pet.getTemplate().npcId);
+                Ride mount = new Ride(activeChar.getObjectId(), Ride.ACTION_MOUNT, pet.getTemplate().getNpcId());
                 Broadcast.toSelfAndKnownPlayersInRadius(activeChar, mount, 810000/*900*/);
                 activeChar.setMountType(mount.getMountType());
                 activeChar.setMountObjectID(pet.getControlItemId());

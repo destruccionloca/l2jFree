@@ -81,19 +81,19 @@ public class SpawnTable implements SpawnTableMBean
                 template1 = NpcTable.getInstance().getTemplate(rset.getInt("npc_templateid"));
                 if (template1 != null)
                 {
-                    if (template1.type.equalsIgnoreCase("L2SiegeGuard"))
+                    if (template1.getType().equalsIgnoreCase("L2SiegeGuard"))
                     {
                         // Don't spawn siege guards
                     }
-                    else if (template1.type.equalsIgnoreCase("L2RaidBoss"))
+                    else if (template1.getType().equalsIgnoreCase("L2RaidBoss"))
                     {
                         // Don't spawn raidbosses
                     }
-                    else if (!Config.SPAWN_CLASS_MASTER && template1.type.equals("L2ClassMaster"))
+                    else if (!Config.SPAWN_CLASS_MASTER && template1.getType().equals("L2ClassMaster"))
                     {
                         // Dont' spawn class masters
                     }
-                    else if (!Config.SPAWN_WYVERN_MANAGER && template1.type.equals("L2WyvernManager"))
+                    else if (!Config.SPAWN_WYVERN_MANAGER && template1.getType().equals("L2WyvernManager"))
                     {
                         // Dont' spawn wyvern managers
                     }
@@ -173,15 +173,15 @@ public class SpawnTable implements SpawnTableMBean
                 template1 = NpcTable.getInstance().getTemplate(rset.getInt("npc_templateid"));
                 if (template1 != null)
                 {
-                    if (template1.type.equalsIgnoreCase("L2SiegeGuard"))
+                    if (template1.getType().equalsIgnoreCase("L2SiegeGuard"))
                     {
                         // Don't spawn siege guards
                     }
-                    else if (template1.type.equalsIgnoreCase("L2RaidBoss"))
+                    else if (template1.getType().equalsIgnoreCase("L2RaidBoss"))
                     {
                         // Don't spawn raidbosses
                     }
-                    else if (!Config.SPAWN_CLASS_MASTER && template1.type.equals("L2ClassMaster"))
+                    else if (!Config.SPAWN_CLASS_MASTER && template1.getType().equals("L2ClassMaster"))
                     {
                         // Dont' spawn class masters
                     }

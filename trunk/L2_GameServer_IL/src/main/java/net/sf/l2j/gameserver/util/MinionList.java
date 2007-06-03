@@ -253,7 +253,7 @@ public class MinionList
         monster.spawnMe(newX, newY, master.getZ());
 
         if (_log.isDebugEnabled())
-            _log.debug("Spawned minion template " + minionTemplate.npcId + " with objid: "
+            _log.debug("Spawned minion template " + minionTemplate.getNpcId() + " with objid: "
                 + monster.getObjectId() + " to boss " + master.getObjectId() + " ,at: " + monster.getX()
                 + " x, " + monster.getY() + " y, " + monster.getZ() + " z");
     }

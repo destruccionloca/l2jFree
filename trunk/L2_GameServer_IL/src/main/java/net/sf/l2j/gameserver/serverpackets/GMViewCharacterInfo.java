@@ -176,8 +176,8 @@ public class GMViewCharacterInfo extends L2GameServerPacket
         writeD(_walkSpd);
 		writeF(moveMultiplier);
 		writeF(_cha.getStat().getAttackSpeedMultiplier()); //2.9);//
-		writeF(_cha.getTemplate().collisionRadius);  // scale
-		writeF(_cha.getTemplate().collisionHeight); // y offset ??!? fem dwarf 4033
+		writeF(_cha.getTemplate().getCollisionRadius());  // scale
+		writeF(_cha.getTemplate().getCollisionHeight()); // y offset ??!? fem dwarf 4033
 		writeD(_cha.getAppearance().getHairStyle());
 		writeD(_cha.getAppearance().getHairColor());
 		writeD(_cha.getAppearance().getFace());
