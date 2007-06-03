@@ -64,7 +64,6 @@
 		<ingredient id="57" count="314"/>
 	</item>
 	<item id="9">
-		<!--  Silver Mold  -->
 		<production id="1886" count="1"/>
 		<ingredient id="2141" count="1"/>
 		<ingredient id="1878" count="5"/>
@@ -73,7 +72,6 @@
 		<ingredient id="57" count="1760"/>
 	</item>
 	<item id="10">
-		<!--  Varnish of Purity --> 
 		<production id="1887" count="1"/>
 		<ingredient id="2142" count="1"/>
 		<ingredient id="1881" count="3"/>
@@ -82,7 +80,6 @@
 		<ingredient id="57" count="1057"/>
 	</item>
 	<item id="11">
-		<!--  Synthethic Cokes  --> 
 		<production id="1888" count="1"/>
 		<ingredient id="2143" count="1"/>
 		<ingredient id="1879" count="3"/>
@@ -98,7 +95,6 @@
 		<ingredient id="392" count="392"/>
 	</item>
 	<item id="13">
-		<!--  Mithril allow  -->
 		<production id="1890" count="1"/>
 		<ingredient id="2145" count="1"/>
 		<ingredient id="1887" count="1"/>
@@ -134,7 +130,6 @@
 		<ingredient id="57" count="3210"/>
 	</item>
 	<item id="17">
-		<!--  Crafted Leather  -->
 		<production id="1894" count="1"/>
 		<ingredient id="2148" count="1"/>
 		<ingredient id="1884" count="4"/>
@@ -151,7 +146,6 @@
 		<ingredient id="57" count="95"/>
 	</item>
 	<item id="19">
-		<!--  Metallic Thread  -->
 		<production id="5549" count="1"/>
 		<ingredient id="5472" count="1"/>
 		<ingredient id="1868" count="10"/>
@@ -176,7 +170,6 @@
 		<ingredient id="57" count="1960"/>
 	</item>
 	<item id="22">
-		<!--  Leolin's Mold  -->
 		<production id="5551" count="1"/>
 		<ingredient id="1884" count="40"/>
 		<ingredient id="5550" count="10"/>
@@ -192,7 +185,6 @@
 		<ingredient id="57" count="51222"/>
 	</item>
 	<item id="24">
-		<!--  Arcsmith's Anvil  -->
 		<production id="5553" count="1"/>
 		<ingredient id="4046" count="3"/>
 		<ingredient id="4040" count="20"/>
