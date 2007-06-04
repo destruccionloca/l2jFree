@@ -18,6 +18,8 @@
  */
 package net.sf.l2j.gameserver.communitybbs.Manager;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,7 +33,9 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GameServer;
+import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.clientpackets.Say2;
+import net.sf.l2j.gameserver.datatables.RecordTable;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -120,7 +124,7 @@ public class RegionBBSManager extends BaseBBSManager
     private void showOldCommunityPI(L2PcInstance activeChar, String name)
     {
         TextBuilder htmlCode = new TextBuilder("<html><body><br>");
-        htmlCode.append("<table border=0><tr><td FIXWIDTH=15></td><td align=center>L2J Community Board<img src=\"sek.cbui355\" width=610 height=1></td></tr><tr><td FIXWIDTH=15></td><td>");        
+        htmlCode.append("<table border=0><tr><td FIXWIDTH=15></td><td align=center>L2J Community Board<img src=\"sek.cbui355\" width=610 height=2></td></tr><tr><td FIXWIDTH=15></td><td>");        
         L2PcInstance player = L2World.getInstance().getPlayer(name);
         
         if (player != null)
@@ -206,7 +210,7 @@ public class RegionBBSManager extends BaseBBSManager
         if (ar1.equals("PM"))
         {           
             TextBuilder htmlCode = new TextBuilder("<html><body><br>");
-            htmlCode.append("<table border=0><tr><td FIXWIDTH=15></td><td align=center>L2J Community Board<img src=\"sek.cbui355\" width=610 height=1></td></tr><tr><td FIXWIDTH=15></td><td>");
+            htmlCode.append("<table border=0><tr><td FIXWIDTH=15></td><td align=center>L2J Community Board<img src=\"sek.cbui355\" width=610 height=2></td></tr><tr><td FIXWIDTH=15></td><td>");
 
             try
             {
@@ -476,7 +480,7 @@ public class RegionBBSManager extends BaseBBSManager
         htmlCode.append("</table><br></td></tr>");
         
         htmlCode.append(trOpen);
-        htmlCode.append("<td><img src=\"sek.cbui355\" width=600 height=1><br></td>");
+        htmlCode.append("<td><img src=\"sek.cbui355\" width=600 height=2><br></td>");
         htmlCode.append(trClose);
         
         htmlCode.append("</table>");
@@ -488,8 +492,20 @@ public class RegionBBSManager extends BaseBBSManager
     private void writeHeader(TextBuilder htmlCode)
     {
         htmlCode.append("<table>");
+
+        RecordTable recordTableInstance = RecordTable.getInstance();
+
+        SimpleDateFormat format = new SimpleDateFormat("H:mm");
+        Calendar cal = Calendar.getInstance();
+        int t = GameTimeController.getInstance().getGameTime();
    
         htmlCode.append(trOpen);
+        htmlCode.append(tdOpen + "Server Time: " + format.format(cal.getTime()) + tdClose);
+        htmlCode.append(colSpacer);
+        cal.set(Calendar.HOUR_OF_DAY, t / 60);
+        cal.set(Calendar.MINUTE, t % 60);
+        htmlCode.append(tdOpen + "Game Time: " + format.format(cal.getTime()) + tdClose);
+        htmlCode.append(colSpacer);
         htmlCode.append("<td align=left valign=top>Server Restarted: " + GameServer.DateTimeServerStarted.getTime() + tdClose);
         htmlCode.append(trClose);
 
@@ -525,7 +541,15 @@ public class RegionBBSManager extends BaseBBSManager
    
         htmlCode.append("<table>");
         htmlCode.append(trOpen);
-        htmlCode.append("<td><img src=\"sek.cbui355\" width=600 height=1><br></td>");
+        htmlCode.append("<td><img src=\"sek.cbui355\" width=600 height=2><br></td>");
+        htmlCode.append(trClose);
+        
+        htmlCode.append(trOpen);
+        htmlCode.append(tdOpen + " Record of Player(s) Online:" +  recordTableInstance.getMaxPlayer() + tdClose);
+        htmlCode.append(trClose);
+
+        htmlCode.append(trOpen);
+        htmlCode.append(tdOpen + " On date : " + recordTableInstance.getDateMaxPlayer() + tdClose);
         htmlCode.append(trClose);
     }
     
