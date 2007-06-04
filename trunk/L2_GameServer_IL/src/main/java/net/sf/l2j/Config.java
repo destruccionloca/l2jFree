@@ -1119,7 +1119,9 @@ public final class Config {
             SHOW_LEVEL_COMMUNITYBOARD       = Boolean.valueOf(optionsSettings.getProperty("ShowLevelOnCommunityBoard", "False"));
             SHOW_STATUS_COMMUNITYBOARD      = Boolean.valueOf(optionsSettings.getProperty("ShowStatusOnCommunityBoard", "True"));
             NAME_PAGE_SIZE_COMMUNITYBOARD   = Integer.parseInt(optionsSettings.getProperty("NamePageSizeOnCommunityBoard", "50"));
+            if (NAME_PAGE_SIZE_COMMUNITYBOARD > 25) NAME_PAGE_SIZE_COMMUNITYBOARD = 25;
             NAME_PER_ROW_COMMUNITYBOARD     = Integer.parseInt(optionsSettings.getProperty("NamePerRowOnCommunityBoard", "5"));
+            if (NAME_PER_ROW_COMMUNITYBOARD > 5) NAME_PAGE_SIZE_COMMUNITYBOARD = 5;
             SHOW_CURSED_WEAPON_OWNER        = Boolean.valueOf(optionsSettings.getProperty("ShowCursedWeaponOwner", "False"));
                          
             ZONE_TOWN                       = Integer.parseInt(optionsSettings.getProperty("ZoneTown", "0"));
