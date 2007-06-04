@@ -1976,7 +1976,8 @@ public class L2Clan
                 break;
             }
             case 5:
-                if(getReputationScore() >= 10000 && getMembersCount() >= 30)
+            {
+            	if(getReputationScore() >= 10000 && getMembersCount() >= Config.MEMBER_FOR_LEVEL_SIX)
                 {
                     setReputationScore(getReputationScore() - 10000, true);
                     SystemMessage cr = new SystemMessage(1787);
@@ -1986,9 +1987,11 @@ public class L2Clan
                     increaseClanLevel = true;
                 }
                 break;
+            }
             	
             case 6:
-                if(getReputationScore() >= 20000 && getMembersCount() >= 80)
+            {
+            	if(getReputationScore() >= 20000 && getMembersCount() >= Config.MEMBER_FOR_LEVEL_SEVEN)
                 {
                     setReputationScore(getReputationScore() - 20000, true);
                     SystemMessage cr = new SystemMessage(1787);
@@ -1998,8 +2001,10 @@ public class L2Clan
                     increaseClanLevel = true;
                 }
                 break;
+            }
             case 7:
-                if(getReputationScore() >= 40000 && getMembersCount() >= 120)
+            {
+            	if(getReputationScore() >= 40000 && getMembersCount() >= Config.MEMBER_FOR_LEVEL_EIGHT)
                 {
                     setReputationScore(getReputationScore() - 40000, true);
                     SystemMessage cr = new SystemMessage(1787);
@@ -2009,6 +2014,7 @@ public class L2Clan
                     increaseClanLevel = true;
                 }
                 break;
+            }
             default:
             	return;
         }

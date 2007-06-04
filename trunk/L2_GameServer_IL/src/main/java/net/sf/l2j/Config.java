@@ -232,6 +232,9 @@ public final class Config {
     public static ClanLeaderColored       CLAN_LEADER_COLORED;
     public static int       CLAN_LEADER_COLOR;
     public static int       CLAN_LEADER_COLOR_CLAN_LEVEL;
+    public static int       MEMBER_FOR_LEVEL_SIX;                   // Number of members to level up a clan to lvl 6
+    public static int       MEMBER_FOR_LEVEL_SEVEN;                 // Number of members to level up a clan to lvl 7
+    public static int       MEMBER_FOR_LEVEL_EIGHT;                 // Number of members to level up a clan to lvl 8
     //*******************************************************************************************    
     public static void loadclansconfig()
     {
@@ -256,6 +259,9 @@ public final class Config {
 	        CLAN_LEADER_COLORED                  				= ClanLeaderColored.valueOf(clansSettings.getProperty("ClanLeaderColored", "name"));
 	        CLAN_LEADER_COLOR                                   = Integer.decode("0x" + clansSettings.getProperty("ClanLeaderColor", "00FFFF"));
 	        CLAN_LEADER_COLOR_CLAN_LEVEL                        = Integer.parseInt(clansSettings.getProperty("ClanLeaderColorAtClanLevel", "1"));
+	        MEMBER_FOR_LEVEL_SIX                                = Integer.parseInt(clansSettings.getProperty("MemberForLevel6", "30"));
+	        MEMBER_FOR_LEVEL_SEVEN                              = Integer.parseInt(clansSettings.getProperty("MemberForLevel7", "80"));
+	        MEMBER_FOR_LEVEL_EIGHT                              = Integer.parseInt(clansSettings.getProperty("MemberForLevel8", "120"));
 	    }
 	    catch (Exception e)
 	    {
