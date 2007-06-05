@@ -1956,6 +1956,7 @@ public final class Config {
     public static String	IRC_NICK;
     public static String	IRC_USER;
     public static String	IRC_NAME;
+    public static String	IRC_LOGIN_COMMAND;
     public static String	IRC_CHANNEL;
     public static String	IRC_FROM_GAME_TYPE;
     public static String	IRC_TO_GAME_TYPE;
@@ -1982,6 +1983,7 @@ public final class Config {
             IRC_NICK											= ircSettings.getProperty("Nick", "l2jfbot");
             IRC_USER											= ircSettings.getProperty("User", "l2jfree");
             IRC_NAME											= ircSettings.getProperty("Name", "l2jfree");
+            IRC_LOGIN_COMMAND									= ircSettings.getProperty("LoginCommand", "");
             IRC_CHANNEL											= ircSettings.getProperty("Channel", "#mychan");
             IRC_ANNOUNCE                           				= Boolean.parseBoolean(ircSettings.getProperty("IrcAnnounces", "false"));
             IRC_FROM_GAME_TYPE									= ircSettings.getProperty("GameToIrcType", "off");            

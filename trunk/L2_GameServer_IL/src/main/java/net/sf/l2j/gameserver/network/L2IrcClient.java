@@ -122,7 +122,10 @@ public class L2IrcClient extends Thread {
 			_log.info("IRC: Connected");
 
 			if(Config.IRC_LOG_CHAT)
-				_logChat.info("IRC: Connected");			
+				_logChat.info("IRC: Connected");
+			
+			if(!Config.IRC_LOGIN_COMMAND.trim().equals(""))
+				send(Config.IRC_LOGIN_COMMAND.trim());
 		}
 		
 		public void onDisconnected() 
