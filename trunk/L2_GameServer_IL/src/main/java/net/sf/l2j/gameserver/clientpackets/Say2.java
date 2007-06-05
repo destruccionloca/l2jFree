@@ -291,6 +291,11 @@ public class Say2 extends L2GameClientPacket
                 for (L2PcInstance player : L2World.getInstance().getAllPlayers())
                     if (!BlockList.isBlocked(player, activeChar))
                         player.sendPacket(cs);
+                
+        		if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("hero"))
+	        	{
+	        		IrcManager.getInstance().getConnection().sendChan("%"+ activeChar.getName() +": " + _text);
+	        	}
             }
             break;
         }           

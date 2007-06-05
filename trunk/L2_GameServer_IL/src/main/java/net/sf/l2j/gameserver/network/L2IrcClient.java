@@ -230,8 +230,15 @@ public class L2IrcClient extends Thread {
 							sendmsg = msg.substring(1,msg.length());
 						else
 							sendmsg = msg;
+
+						Integer ChatType = 1;
 						
-						CreatureSay cs = new CreatureSay(0, (Config.IRC_TO_GAME_DISPLAY.equals("trade"))? 8 : 1, "[IRC] "+u.getNick(), sendmsg);
+						if(Config.IRC_TO_GAME_DISPLAY.equals("trade"))
+							ChatType = 8;
+						if(Config.IRC_TO_GAME_DISPLAY.equals("trade"))
+							ChatType = 17;
+						
+						CreatureSay cs = new CreatureSay(0, ChatType, "[IRC] "+u.getNick(), sendmsg);
 
 		            	for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		            	{
