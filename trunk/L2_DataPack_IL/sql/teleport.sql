@@ -689,3 +689,6 @@ INSERT INTO `teleport` (`Description`, `id`, `loc_x`, `loc_y`, `loc_z`, `price`,
 INSERT INTO teleport VALUES 
 ('Pagan Temple - > exit', 11999, -16307, -36591, -10725, 0, 0),
 ('Pagan Chapel - > exit', 11998, -16359, -43803, -10725, 0, 0);
+
+INSERT INTO teleport VALUES
+('Lair of Sailren -> Primeval Isle Wharf', 20004, 10468, -24569, -3650, 0, 0);

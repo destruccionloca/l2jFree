@@ -450,3 +450,9 @@ INSERT INTO `minions` VALUES
 (22211,22212,1,1),
 (22211,22213,1,1),
 (22211,22222,1,1);
+
+-- Update Velociraptor
+Delete From minions Where boss_id = 22196;
+Delete From minions Where boss_id = 22218;
+INSERT INTO minions (boss_id, minion_id, amount_min, amount_max) VALUES (22196, 22197, 2, 2);
+INSERT INTO minions (boss_id, minion_id, amount_min, amount_max) VALUES (22218, 22197, 2, 2);
