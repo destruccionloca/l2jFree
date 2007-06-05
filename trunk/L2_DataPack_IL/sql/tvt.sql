@@ -16,5 +16,7 @@ CREATE TABLE `tvt` (
   `npcZ` int(11) NOT NULL default '0',
   `rewardId` int(11) NOT NULL default '0',
   `rewardAmount` int(11) NOT NULL default '0',
-  `teamsCount` int(4) NOT NULL default '0'  
+  `teamsCount` int(4) NOT NULL default '0',
+  `joinTime` int(11) NOT NULL default '0',
+  `eventTime` int(11) NOT NULL default '0'
 ) DEFAULT CHARSET=utf8;
