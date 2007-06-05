@@ -369,7 +369,7 @@ public class RegionBBSManager extends BaseBBSManager
             htmlCode.append(trOpen + tdOpen + L2World.getInstance().getAllVisibleObjectsCount()
                 + " Object count"+ tdClose + trClose);
     
-            htmlCode.append(tdOpen + getOnlineCount("gm") + " Player(s) Online" + tdClose + trClose);
+            htmlCode.append(trOpen + tdOpen + getOnlineCount("gm") + " Player(s) Online" + tdClose + trClose);
             htmlCode.append("</table>");
     
             showOnlinePlayers("gm",page, htmlCode);
