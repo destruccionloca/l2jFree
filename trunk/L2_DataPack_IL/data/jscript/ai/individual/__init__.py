@@ -2,5 +2,6 @@ __all__ = [
 'core',
 'antharas',
 'baium',
-'valakas'
+'valakas',
+'sailren'
 ]

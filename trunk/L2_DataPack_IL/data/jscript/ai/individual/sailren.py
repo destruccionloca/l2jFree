@@ -31,13 +31,13 @@ class sailren (JQuest):
         ENTRY_SATAT = SailrenManager.getInstance().canIntoSailrenLair(player)
         if ENTRY_SATAT == 1 or ENTRY_SATAT == 2 :
           st.exitQuest(1)
-          return "<html><head><body>Sailren is already spawned.</body></html>"
+          return "<html><head><body>Shilen's Stone Statue:<br>Sailren is already spawned.</body></html>"
         elif ENTRY_SATAT == 3 :
           st.exitQuest(1)
-          return "<html><head><body>Come back later.</body></html>"
+          return "<html><head><body>Shilen's Stone Statue:<br>Come back later.</body></html>"
         elif ENTRY_SATAT == 4 :
           st.exitQuest(1)
-          return "<html><head><body>You cant enter alone !</body></html>"
+          return "<html><head><body>Shilen's Stone Statue:<br>You cant enter alone !</body></html>"
         elif ENTRY_SATAT == 0 :
           st.takeItems(GAZKH,1)
           SailrenManager.getInstance().setSailrenSpawnTask(VELOCIRAPTOR)
