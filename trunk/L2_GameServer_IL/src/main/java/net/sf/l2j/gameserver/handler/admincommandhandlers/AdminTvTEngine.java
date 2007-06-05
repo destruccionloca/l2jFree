@@ -41,7 +41,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
                                            "admin_tvt_reward", "admin_tvt_reward_amount",
                                            "admin_tvt_team_add", "admin_tvt_team_remove", "admin_tvt_team_pos", "admin_tvt_team_color",
                                            "admin_tvt_join", "admin_tvt_teleport", "admin_tvt_start", "admin_tvt_abort", "admin_tvt_finish",
-                                           "admin_tvt_sit", "admin_tvt_dump", "admin_tvt_save", "admin_tvt_load"};
+                                           "admin_tvt_sit", "admin_tvt_dump", "admin_tvt_save", "admin_tvt_load", "admin_tvt_jointime", "admin_tvt_eventtime", "admin_tvt_autoevent"};
  
  private static final int REQUIRED_LEVEL = 100;
 
@@ -100,6 +100,16 @@ public class AdminTvTEngine implements IAdminCommandHandler {
             TvT._rewardAmount = Integer.valueOf(command.substring(24));
             showMainPage(activeChar);
         }
+        else if (command.startsWith("admin_tvt_jointime "))
+        {
+            TvT._joinTime = Integer.valueOf(command.substring(19));
+            showMainPage(activeChar);
+        }
+        else if (command.startsWith("admin_tvt_eventtime "))
+        {
+            TvT._eventTime = Integer.valueOf(command.substring(20));
+            showMainPage(activeChar);
+        }
         else if (command.startsWith("admin_tvt_team_add "))
         {
             String teamName = command.substring(19);
@@ -129,7 +139,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
             
             if (params.length != 3)
             {
-                activeChar.sendMessage("Wrong usge: //tvt_team_color <colorHex> <teamName>");
+                activeChar.sendMessage("Wrong usege: //tvt_team_color <colorHex> <teamName>");
                 return false;
             }
 
@@ -138,7 +148,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         }
         else if(command.equals("admin_tvt_join"))
         {
-            TvT.startJoin(activeChar);
+        	TvT.startJoin(activeChar);
             showMainPage(activeChar);
         }
         else if (command.equals("admin_tvt_teleport"))
@@ -148,7 +158,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         }
         else if(command.equals("admin_tvt_start"))
         {
-            TvT.startEvent(activeChar);
+        	TvT.startEvent(activeChar);
             showMainPage(activeChar);
         }
         else if(command.equals("admin_tvt_abort"))
@@ -170,6 +180,14 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         else if (command.equals("admin_tvt_load"))
         {
             TvT.loadData();
+            showMainPage(activeChar);
+        }
+        else if (command.equals("admin_tvt_autoevent"))
+        {
+        	if(TvT._joinTime>0 && TvT._eventTime>0)
+        		TvT.autoEvent(activeChar);
+        	else
+        		activeChar.sendMessage("Wrong usege: join time or event time invallid.");
             showMainPage(activeChar);
         }
         else if (command.equals("admin_tvt_save"))
@@ -215,6 +233,9 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         replyMSG.append("<td width=\"100\"><button value=\"Reward\" action=\"bypass -h admin_tvt_reward $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Reward Amount\" action=\"bypass -h admin_tvt_reward_amount $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
+        replyMSG.append("<td width=\"100\"><button value=\"Join Time\" action=\"bypass -h admin_tvt_jointime $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Event Time\" action=\"bypass -h admin_tvt_eventtime $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("</tr></table><br><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Team Add\" action=\"bypass -h admin_tvt_team_add $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Team Color\" action=\"bypass -h admin_tvt_team_color $input1 $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Team Pos\" action=\"bypass -h admin_tvt_team_pos $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
@@ -233,6 +254,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         replyMSG.append("</tr></table><br><br><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Save\" action=\"bypass -h admin_tvt_save\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Load\" action=\"bypass -h admin_tvt_load\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Auto Event\" action=\"bypass -h admin_tvt_autoevent\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><br>");
         replyMSG.append("Current event...<br1>");
         replyMSG.append("    ... name:&nbsp;<font color=\"00FF00\">" + TvT._eventName + "</font><br1>");
@@ -243,6 +265,8 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         replyMSG.append("    ... reward Amount:&nbsp;<font color=\"00FF00\">" + TvT._rewardAmount + "</font><br><br>");
         replyMSG.append("    ... Min lvl:&nbsp;<font color=\"00FF00\">" + TvT._minlvl + "</font><br>");
         replyMSG.append("    ... Max lvl:&nbsp;<font color=\"00FF00\">" + TvT._maxlvl + "</font><br><br>");
+        replyMSG.append("    ... Joining Time:&nbsp;<font color=\"00FF00\">" + TvT._joinTime + "</font><br>");
+        replyMSG.append("    ... Event Timer:&nbsp;<font color=\"00FF00\">" + TvT._eventTime + "</font><br><br>");
         replyMSG.append("Current teams:<br1>");
         replyMSG.append("<center><table border=\"0\">");
         

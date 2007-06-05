@@ -59,7 +59,7 @@ public class RegionBBSManager extends BaseBBSManager
     private final static String trOpen = "<tr>";
     private final static String colSpacer = "<td FIXWIDTH=15></td>";
     private final static String bigButton = "<img src=\"sek.cbui355\" width=600 height=2><br>";
-    private final static String smallButton = "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">";
+    private final static String smallButton = "\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">";
     
 
     /**
@@ -494,7 +494,6 @@ public class RegionBBSManager extends BaseBBSManager
         htmlCode.append("</table>");
    
         htmlCode.append("<table>");
-        htmlCode.append(trOpen + tdOpen + bigButton + tdClose + trClose);
         htmlCode.append(trOpen + tdOpen + "XP Rate: " + Config.RATE_XP + tdClose + colSpacer);
         htmlCode.append(tdOpen + "Party XP Rate: " + Config.RATE_PARTY_XP + tdClose + colSpacer);
         htmlCode.append(tdOpen + "XP Exponent: " + Config.ALT_GAME_EXPONENT_XP + tdClose + trClose);

@@ -85,7 +85,9 @@ public class TvT
                       _rewardAmount = 0,
                       _topKills = 0,
                       _minlvl = 0,
-                      _maxlvl = 0;
+                      _maxlvl = 0,
+                      _joinTime = 0,
+                      _eventTime =0;
 
     public static void setNpcPos(L2PcInstance activeChar)
     {
@@ -195,7 +197,8 @@ public class TvT
     {
         if (!startJoinOk())
         {
-            if (_log.isDebugEnabled())_log.debug("TvT Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() = false");
+        	activeChar.sendMessage("Event not setted propertly.");
+        	if (_log.isDebugEnabled())_log.debug("TvT Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() = false");
             return;
         }
         
@@ -204,7 +207,22 @@ public class TvT
         Announcements.getInstance().announceToAll(_eventName + "(TvT): Joinable in " + _joiningLocationName + "!");
     }
     
-    private static boolean startJoinOk()
+    public static boolean startAutoJoin(L2PcInstance activeChar)
+    {
+        if (!startJoinOk())
+        {
+        	activeChar.sendMessage("Event not setted propertly.");
+        	if (_log.isDebugEnabled())_log.debug("TvT Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() = false");
+            return false;
+        }
+        
+        _joining = true;
+        spawnEventNpc(activeChar);
+        Announcements.getInstance().announceToAll(_eventName + "(TvT): Joinable in " + _joiningLocationName + "!");
+        return true;
+    }
+    
+    public static boolean startJoinOk()
     {
         if (_started || _teleport || _joining || _teams.size() < 2 || _eventName.equals("") ||
             _joiningLocationName.equals("") || _eventDesc.equals("") || _npcId == 0 ||
@@ -293,7 +311,7 @@ public class TvT
                                                                            }
                                                                        }
                                                                        
-//                                                                     Remove player from his party
+                                                                       //Remove player from his party
                                                                        if (player.getParty() != null)
                                                                        {
                                                                            L2Party party = player.getParty();
@@ -306,6 +324,67 @@ public class TvT
                                                            }
                                                        }, 20000);
         _teleport = true;
+    }
+    
+    public static boolean teleportAutoStart()
+    {
+        if (!_joining || _started || _teleport)
+            return false;
+        
+        _joining = false;
+        Announcements.getInstance().announceToAll(_eventName + "(TvT): Teleport to team spot in 20 seconds!");
+
+        if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
+            shuffleTeams();
+        
+        setUserData();
+        ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                                                       {
+                                                           public void run()
+                                                           {
+                                                               TvT.sit();
+                                                               
+                                                               for (L2PcInstance player : TvT._players)
+                                                               {
+                                                                   if (player !=  null)
+                                                                   {
+                                                                	   if (Config.TVT_ON_START_UNSUMMON_PET)
+                                                                       {
+                                                                		   //Remove Summon's buffs
+                                                                           if (player.getPet() != null)
+                                                                           {
+                                                                               L2Summon summon = player.getPet();
+                                                                               for (L2Effect e : summon.getAllEffects())
+                                                                                   e.exit();
+                                                                               
+                                                                               if (summon instanceof L2PetInstance)
+                                                                                   summon.unSummon(player);
+                                                                           }
+                                                                       }
+
+                                                                       if (Config.TVT_ON_START_REMOVE_ALL_EFFECTS)
+                                                                       {
+                                                                           for (L2Effect e : player.getAllEffects())
+                                                                           {
+                                                                               if (e != null)
+                                                                                   e.exit();
+                                                                           }
+                                                                       }
+                                                                       
+                                                                       //Remove player from his party
+                                                                       if (player.getParty() != null)
+                                                                       {
+                                                                           L2Party party = player.getParty();
+                                                                           party.removePartyMember(player);
+                                                                       }
+                                                                       
+                                                                       player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams.indexOf(player._teamNameTvT)));
+                                                                   }
+                                                               }
+                                                           }
+                                                       }, 20000);
+        _teleport = true;
+        return true;
     }
     
     public static void startEvent(L2PcInstance activeChar)
@@ -321,6 +400,119 @@ public class TvT
         Announcements.getInstance().announceToAll(_eventName + "(TvT): Started. Go to kill your enemies!");
         _started = true;
     }
+    
+    public static boolean startAutoEvent(L2PcInstance activeChar)
+    {
+        if (!startEventOk())
+        {
+            if (_log.isDebugEnabled())_log.debug("TvT Engine[startEvent(" + activeChar.getName() + ")]: startEventOk() = false");
+            return false;
+        }
+        
+        _teleport = false;
+        sit();
+        Announcements.getInstance().announceToAll(_eventName + "(TvT): Started. Go to kill your enemies!");
+        _started = true;
+        return true;
+    }
+    
+    public static void autoEvent(L2PcInstance activeChar)
+    {
+    	if(startAutoJoin(activeChar))
+    	{
+    		if(_joinTime > 0) waiter(_joinTime * 60 * 1000); // minutes for join event
+    		else
+    		{
+    			activeChar.sendMessage("Wrong usege: join time invallid.");
+    			abortEvent();
+    			return;
+    		}
+    		if(teleportAutoStart())
+    		{
+    			waiter(1 * 60 * 1000); // 1 min wait time untill start fight after teleported
+    			if(startAutoEvent(activeChar))
+    			{
+    				if( _eventTime>0) waiter(_eventTime * 60 * 1000); // minutes for join event
+    				else
+    	    		{
+    	    			activeChar.sendMessage("Wrong usege: join time invallid.");
+    	    			abortEvent();
+    	    			return;
+    	    		}
+    				finishEvent(activeChar);
+    				loadData();
+    			}
+    		}
+    	}
+    }
+    
+    private static void waiter(long interval)
+	{
+		long startWaiterTime = System.currentTimeMillis();
+		int seconds = (int)(interval / 1000);
+
+		while (startWaiterTime + interval > System.currentTimeMillis())
+		{
+			seconds--; // here because we don't want to see two time announce at the same time
+			
+			if (_joining || _started)
+			{			
+				switch (seconds)
+				{
+					case 3600: // 1 hour left
+						if (_joining)
+							Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 / 60 + " hour(s) till registration close!");
+						else if (_started)
+							Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 / 60 + " hour(s) till event finish!");
+
+						break;
+					case 1800: // 30 minutes left
+					case 900: // 15 minutes left
+					case 600: //  10 minutes left 
+					case 300: // 5 minutes left
+					case 240: // 4 minutes left
+					case 180: // 3 minutes left
+					case 120: // 2 minutes left
+					case 60: // 1 minute left															   
+						if (_joining)
+							Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 + " minute(s) till registration close!");
+						else if (_started)
+							Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 + " minute(s) till event finish!");
+						
+						break;
+					case 30: // 30 seconds left
+					case 15: // 15 seconds left
+					case 10: // 10 seconds left
+					case 5: // 5 seconds left
+					case 4: // 4 seconds left
+					case 3: // 3 seconds left
+					case 2: // 2 seconds left
+					case 1: // 1 seconds left
+						if (_joining)
+							Announcements.getInstance().announceToAll("TvT Event: " + seconds + " second(s) till registration close!");
+						else if (_teleport)
+							Announcements.getInstance().announceToAll("TvT Event: " + seconds + " seconds(s) till start fight!");
+						else if (_started)
+							Announcements.getInstance().announceToAll("TvT Event: " + seconds + " second(s) till event finish!");
+						
+						break;
+				}
+			}
+
+			long startOneSecondWaiterStartTime = System.currentTimeMillis();
+
+			// only the try catch with Thread.sleep(1000) give bad countdown on high wait times
+			while (startOneSecondWaiterStartTime + 1000 > System.currentTimeMillis())
+			{
+				try
+				{
+					Thread.sleep(1);
+				}
+				catch (InterruptedException ie)
+				{}
+			}
+		}
+	}
     
     private static boolean startEventOk()
     {
@@ -638,6 +830,8 @@ public class TvT
         _topKills = 0;
         _minlvl = 0;
         _maxlvl = 0;
+        _joinTime = 0;
+        _eventTime = 0;
         
         java.sql.Connection con = null;
         try
@@ -666,6 +860,8 @@ public class TvT
                 _rewardId = rs.getInt("rewardId");
                 _rewardAmount = rs.getInt("rewardAmount"); 
                 teams = rs.getInt("teamsCount");
+                _joinTime = rs.getInt("joinTime");
+                _eventTime = rs.getInt("eventTime");
             
             }                    
             statement.close();            
@@ -715,7 +911,7 @@ public class TvT
             statement.execute();
             statement.close();
 
-            statement = con.prepareStatement("INSERT INTO tvt (eventName, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, teamsCount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
+            statement = con.prepareStatement("INSERT INTO tvt (eventName, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, teamsCount, joinTime, eventTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
             statement.setString(1, _eventName);
             statement.setString(2, _eventDesc);
             statement.setString(3, _joiningLocationName);
@@ -728,6 +924,8 @@ public class TvT
             statement.setInt(10, _rewardId);
             statement.setInt(11, _rewardAmount);
             statement.setInt(12, _teams.size());
+            statement.setInt(13, _joinTime);
+            statement.setInt(14, _eventTime);
             statement.execute();
             statement.close();
             
