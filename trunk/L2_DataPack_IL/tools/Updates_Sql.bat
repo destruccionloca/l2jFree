@@ -63,6 +63,7 @@ echo UPDATE
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/updates/070409-[1060].sql
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/updates/070504-[1287].sql
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/updates/070519-[1387].sql
+%mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/updates/070605-[1497].sql
 
 :end
 echo Script complete.Duplicte Errors on line 1 occure when u already have the lines at your db.
