@@ -410,13 +410,13 @@ public class RegionBBSManager extends BaseBBSManager
             htmlCode.append("<table border=0 width=600>");
             
             htmlCode.append(trOpen);
-            if (page == 1) htmlCode.append("<td align=right width=190><button value=\"Prev"+smallButton + tdClose);
-            else htmlCode.append("<td align=right width=190><button value=\"Prev\" action=\"bypass _bbsloc;page;"
+            if (page == 1) htmlCode.append("<td align=right width=150><button value=\"Prev"+smallButton + tdClose);
+            else htmlCode.append("<td align=right width=150><button value=\"Prev\" action=\"bypass _bbsloc;page;"
                 + (page - 1) + smallButton + tdClose);
             htmlCode.append(colSpacer + "<td align=center valign=top width=200>Displaying " + (((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD) + 1) + " - "
                 + (((page -1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD) + getOnlinePlayers(page).size()) + " player(s)</td>" + colSpacer);
-            if (getOnlineCount(type) <= (page * Config.NAME_PAGE_SIZE_COMMUNITYBOARD)) htmlCode.append("<td width=190><button value=\"Next"+smallButton+tdClose);
-            else htmlCode.append("<td width=190><button value=\"Next\" action=\"bypass _bbsloc;page;"
+            if (getOnlineCount(type) <= (page * Config.NAME_PAGE_SIZE_COMMUNITYBOARD)) htmlCode.append("<td width=150><button value=\"Next"+smallButton+tdClose);
+            else htmlCode.append("<td width=150><button value=\"Next\" action=\"bypass _bbsloc;page;"
                 + (page + 1) + smallButton+ tdClose);
             htmlCode.append(trClose + "</table>");
         }

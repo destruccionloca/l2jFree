@@ -401,11 +401,11 @@ public class TvT
         _started = true;
     }
     
-    public static boolean startAutoEvent(L2PcInstance activeChar)
+    public static boolean startAutoEvent()
     {
         if (!startEventOk())
         {
-            if (_log.isDebugEnabled())_log.debug("TvT Engine[startEvent(" + activeChar.getName() + ")]: startEventOk() = false");
+            if (_log.isDebugEnabled())_log.debug("TvT Engine[startEvent]: startEventOk() = false");
             return false;
         }
         
@@ -430,17 +430,10 @@ public class TvT
     		if(teleportAutoStart())
     		{
     			waiter(1 * 60 * 1000); // 1 min wait time untill start fight after teleported
-    			if(startAutoEvent(activeChar))
+    			if(startAutoEvent())
     			{
-    				if( _eventTime>0) waiter(_eventTime * 60 * 1000); // minutes for join event
-    				else
-    	    		{
-    	    			activeChar.sendMessage("Wrong usege: join time invallid.");
-    	    			abortEvent();
-    	    			return;
-    	    		}
-    				finishEvent(activeChar);
-    				loadData();
+    				waiter(_eventTime * 60 * 1000); // minutes for event time
+    				finishEvent();
     			}
     		}
     	}
@@ -455,7 +448,7 @@ public class TvT
 		{
 			seconds--; // here because we don't want to see two time announce at the same time
 			
-			if (_joining || _started)
+			if (_joining || _started || _teleport)
 			{			
 				switch (seconds)
 				{
@@ -585,11 +578,11 @@ public class TvT
         }
     }
     
-    public static void finishEvent(L2PcInstance activeChar)
+    public static void finishEvent()
     {
         if (!finishEventOk())
         {
-            if (_log.isDebugEnabled())_log.debug("TvT Engine[finishEvent(" + activeChar.getName() + ")]: finishEventOk() = false");
+            if (_log.isDebugEnabled())_log.debug("TvT Engine[finishEvent]: finishEventOk() = false");
             return;
         }
 
@@ -602,7 +595,7 @@ public class TvT
         else
         {
             Announcements.getInstance().announceToAll(_eventName + "(TvT): " + _topTeam + "'s win the match! " + _topKills + " kills.");
-            rewardTeam(activeChar, _topTeam);
+            rewardTeam(_topTeam);
         }
         
         teleportFinish();
@@ -628,7 +621,7 @@ public class TvT
         }
     }
     
-    public static void rewardTeam(L2PcInstance activeChar, String teamName)
+    public static void rewardTeam(String teamName)
     {
         for (L2PcInstance player : _players)
         {
@@ -639,11 +632,11 @@ public class TvT
                     PcInventory inv = player.getInventory();
                 
                     if (ItemTable.getInstance().createDummyItem(_rewardId).isStackable())
-                        inv.addItem("TvT Event: " + _eventName, _rewardId, _rewardAmount, player, activeChar.getTarget());
+                        inv.addItem("TvT Event: " + _eventName, _rewardId, _rewardAmount, player, null);
                     else
                     {
                         for (int i=0;i<=_rewardAmount-1;i++)
-                            inv.addItem("TvT Event: " + _eventName, _rewardId, 1, player, activeChar.getTarget());
+                            inv.addItem("TvT Event: " + _eventName, _rewardId, 1, player, null);
                     }
                 
                     SystemMessage sm;
@@ -1169,12 +1162,12 @@ public class TvT
     
     public static void cleanTvT()
     {
-    	for (L2PcInstance player : _players)
+    	for (L2PcInstance player : TvT._players)
         {
             removePlayer(player);            
         }
     	
-    	for (String team : _teams)
+    	for (String team : TvT._teams)
         {
             int index = _teams.indexOf(team);
 
@@ -1186,6 +1179,8 @@ public class TvT
         _topTeam = new String();
         _players = new Vector<L2PcInstance>();
         _playersShuffle = new Vector<L2PcInstance>();
+        _savePlayers = new Vector<String>();
+        _savePlayerTeams = new Vector<String>();
 
     }
     
@@ -1207,7 +1202,7 @@ public class TvT
                                                        {
                                                             public void run()
                                                             {                                                                
-                                                                for (L2PcInstance player : _players)
+                                                                for (L2PcInstance player : TvT._players)
                                                                 {
                                                                     if (player !=  null)
                                                                         player.teleToLocation(_npcX, _npcY, _npcZ);

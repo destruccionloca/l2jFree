@@ -169,7 +169,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         }
         else if(command.equals("admin_tvt_finish"))
         {
-            TvT.finishEvent(activeChar);
+            TvT.finishEvent();
             showMainPage(activeChar);
         }
         else if (command.equals("admin_tvt_sit"))
