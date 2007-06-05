@@ -235,7 +235,7 @@ public class L2IrcClient extends Thread {
 						
 						if(Config.IRC_TO_GAME_DISPLAY.equals("trade"))
 							ChatType = 8;
-						if(Config.IRC_TO_GAME_DISPLAY.equals("trade"))
+						if(Config.IRC_TO_GAME_DISPLAY.equals("hero"))
 							ChatType = 17;
 						
 						CreatureSay cs = new CreatureSay(0, ChatType, "[IRC] "+u.getNick(), sendmsg);
