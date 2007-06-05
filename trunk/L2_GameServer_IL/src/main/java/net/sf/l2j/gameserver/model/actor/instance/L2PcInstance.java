@@ -83,6 +83,7 @@ import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
+import net.sf.l2j.gameserver.instancemanager.SailrenManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.FishData;
@@ -4122,6 +4123,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			FourSepulchersManager.getInstance().checkAnnihilated(this);
 		}
+    	if ((ZoneManager.getInstance().checkIfInZone("LairofSailren", this)) && !isGM())
+    	{
+    		SailrenManager.getInstance().checkAnnihilated(this);
+    	}		
 	}
 
     /** UnEnquip on skills with disarm effect **/
@@ -8858,11 +8863,13 @@ public final class L2PcInstance extends L2PlayableInstance
 				&& (getZ() >= -8220 && getZ() <= -4870)
 				&& (System.currentTimeMillis() - getLastAccess() >= 1800000))
 		{
+			if (getQuestState("antharas") != null) getQuestState("antharas").exitQuest(true);
 			teleToLocation(MapRegionTable.TeleportWhereType.Town);
 		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofBaium", this)
 				&& (getZ() >= 10070 && getZ() <= 12480)
 				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
 		{
+			if (getQuestState("baium") != null) getQuestState("baium").exitQuest(true);
 			teleToLocation(MapRegionTable.TeleportWhereType.Town);
 		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofLilith", this)
 				&& (getZ() >= 10070 && getZ() <= 12480)
@@ -8875,13 +8882,16 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			teleToLocation(MapRegionTable.TeleportWhereType.Town);
 		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofZaken", this)
-				&& (getZ() >= 10070 && getZ() <= 12480)
 				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
 		{
 			teleToLocation(MapRegionTable.TeleportWhereType.Town);
-		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofValakas", this)
-				&& (getZ() >= -1640 && getZ() <= 9880))
+		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofValakas", this))
 		{
+    		if (getQuestState("valakas") != null) getQuestState("valakas").exitQuest(true);
+			teleToLocation(MapRegionTable.TeleportWhereType.Town);
+		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofSailren", this))
+		{
+    		if (getQuestState("sailren") != null) getQuestState("sailren").exitQuest(true);
 			teleToLocation(MapRegionTable.TeleportWhereType.Town);
 		}
     }

@@ -1997,7 +1997,42 @@ public final class Config {
             throw new Error("Failed to Load "+IRC_FILE+" File.");
         }
     }
-    
+
+    //  *******************************************************************************************
+    public static final String  SAILREN_FILE             	= "./config/sailren.properties";
+    //  *******************************************************************************************
+    public static boolean FWS_ENABLESINGLEPLAYER;
+    public static int FWS_INTERVALOFSAILRENSPAWN;
+    public static int FWS_INTERVALOFNEXTMONSTER;
+    public static int FWS_ACTIVITYTIMEOFMOBS;    
+    //  *******************************************************************************************
+    public static void loadsailrenconfig()
+    {
+    	_log.info("loading " + SAILREN_FILE);
+        try
+        {
+            Properties sailrenSettings = new Properties();
+            InputStream is               = new FileInputStream(new File(IRC_FILE));
+            sailrenSettings.load(is);
+            is.close();
+
+            FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(sailrenSettings.getProperty("EnableSinglePlayer", "False"));
+            FWS_INTERVALOFSAILRENSPAWN = Integer.parseInt(sailrenSettings.getProperty("IntervalOfSailrenSpawn", "5"));
+            if(FWS_INTERVALOFSAILRENSPAWN <= 0) FWS_INTERVALOFSAILRENSPAWN = 1440;
+            FWS_INTERVALOFSAILRENSPAWN = FWS_INTERVALOFSAILRENSPAWN * 60000;
+            FWS_INTERVALOFNEXTMONSTER = Integer.parseInt(sailrenSettings.getProperty("IntervalOfNextMonster", "1"));
+            if(FWS_INTERVALOFNEXTMONSTER <= 0) FWS_INTERVALOFNEXTMONSTER = 1;
+            FWS_INTERVALOFNEXTMONSTER = FWS_INTERVALOFNEXTMONSTER * 60000;
+            FWS_ACTIVITYTIMEOFMOBS = Integer.parseInt(sailrenSettings.getProperty("ActivityTimeOfMobs", "120"));
+            if(FWS_ACTIVITYTIMEOFMOBS <= 0) FWS_ACTIVITYTIMEOFMOBS = 120;
+            FWS_ACTIVITYTIMEOFMOBS = FWS_ACTIVITYTIMEOFMOBS * 60000;        
+        }
+        catch (Exception e)
+        {
+            _log.error(e.getMessage(),e);
+            throw new Error("Failed to Load "+SAILREN_FILE+" File.");
+        }
+    }
     
     //  *******************************************************************************************
 
@@ -2167,6 +2202,7 @@ public final class Config {
 			loadgmaccess();
 			loadprivilegesconfig();
 			loadircconfig();
+			loadsailrenconfig();
 			loadsayfilter();
 			
 			initDBProperties();
@@ -2439,6 +2475,12 @@ public final class Config {
         else if (pName.equalsIgnoreCase("CTFEvenTeams"))  CTF_EVEN_TEAMS = pValue;
 
         else if (pName.equalsIgnoreCase("FailFakeDeath")) FAIL_FAKEDEATH = Boolean.valueOf(pValue);
+
+        // JP fight with sailren Custom Setting
+        else if (pName.equalsIgnoreCase("EnableSinglePlayer")) FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("IntervalOfSailrenSpawn")) FWS_INTERVALOFSAILRENSPAWN = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("IntervalOfNextMonster")) FWS_INTERVALOFNEXTMONSTER = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("ActivityTimeOfMobs")) FWS_ACTIVITYTIMEOFMOBS = Integer.parseInt(pValue);
 
         else return false;
         return true;

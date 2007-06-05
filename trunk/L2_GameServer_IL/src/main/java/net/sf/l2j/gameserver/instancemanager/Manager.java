@@ -36,6 +36,7 @@ public class Manager
         // [L2J_JP ADD SANDMAN]
         BossActionTaskManager.getInstance().init();
         FourSepulchersManager.getInstance().init();
+        SailrenManager.getInstance().init();        
 	}
 
 	public static void reloadAll()

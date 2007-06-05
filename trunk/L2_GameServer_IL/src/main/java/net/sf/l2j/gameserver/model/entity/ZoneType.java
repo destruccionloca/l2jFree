@@ -45,7 +45,8 @@ public class ZoneType
         LairofValakas ("LairofValakas"),
         LairofLilith ("LairofLilith"),
         LairofAnakim ("LairofAnakim"),
-        LairofZaken ("LairofZaken");
+        LairofZaken ("LairofZaken"),
+        LairofSailren ("LairofSailren");
         
         private final String _zoneName;
         
