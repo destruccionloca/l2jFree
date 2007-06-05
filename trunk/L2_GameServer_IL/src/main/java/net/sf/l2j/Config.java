@@ -1491,6 +1491,7 @@ public final class Config {
     public static int     	GM_RES;					// General GM AccessLevel with Resurrection rights
     public static int     	GM_PEACEATTACK;			// General GM AccessLevel to attack in the peace zone   
     public static int     	GM_HEAL;				// General GM AccessLevel to heal
+    public static int     	GM_IRC;					// General GM AccessLevel to IRC commands
     public static int     	GM_UNBLOCK;				// General GM AccessLevel to unblock IPs detected as hack IPs
     public static int 		GM_CACHE;				// General GM AccessLevel to use Cache commands				
     public static int 		GM_TALK_BLOCK;			// General GM AccessLevel to use test&st commands
@@ -1561,6 +1562,7 @@ public final class Config {
             GM_RES          = Integer.parseInt(gmSettings.getProperty("GMRes", "100"));
             GM_PEACEATTACK  = Integer.parseInt(gmSettings.getProperty("GMPeaceAttack", "100"));
             GM_HEAL         = Integer.parseInt(gmSettings.getProperty("GMHeal", "100"));
+            GM_IRC         	= Integer.parseInt(gmSettings.getProperty("GMIRC", "100"));
             GM_ENCHANT      = Integer.parseInt(gmSettings.getProperty("GMEnchant", "100"));
             GM_UNBLOCK      = Integer.parseInt(gmSettings.getProperty("GMUnblock", "100"));
             GM_CACHE        = Integer.parseInt(gmSettings.getProperty("GMCache", "100"));
@@ -1941,7 +1943,58 @@ public final class Config {
             throw new Error("Failed to Load " + FUN_ENGINES_FILE + " File.");
         }
     }
-    
+
+    //  *******************************************************************************************
+    public static final String  IRC_FILE             	= "./config/irc.properties";
+    //  *******************************************************************************************
+    public static boolean	IRC_ENABLED;
+    public static boolean	IRC_LOG_CHAT;
+    public static boolean 	IRC_SSL;
+    public static String	IRC_SERVER;
+    public static int 		IRC_PORT;
+    public static String	IRC_PASS;    
+    public static String	IRC_NICK;
+    public static String	IRC_USER;
+    public static String	IRC_NAME;
+    public static String	IRC_CHANNEL;
+    public static String	IRC_FROM_GAME_TYPE;
+    public static String	IRC_TO_GAME_TYPE;
+    public static String	IRC_TO_GAME_SPECIAL_CHAR;
+    public static String	IRC_TO_GAME_DISPLAY;
+    public static boolean	IRC_ANNOUNCE;    
+    //  *******************************************************************************************
+    public static void loadircconfig()
+    {
+    	_log.info("loading " + IRC_FILE);
+        try
+        {
+            Properties ircSettings = new Properties();
+            InputStream is               = new FileInputStream(new File(IRC_FILE));
+            ircSettings.load(is);
+            is.close();
+
+            IRC_ENABLED                           				= Boolean.parseBoolean(ircSettings.getProperty("Enable", "false"));                
+            IRC_LOG_CHAT                          				= Boolean.parseBoolean(ircSettings.getProperty("LogChat", "false"));
+            IRC_SSL                                    			= Boolean.parseBoolean(ircSettings.getProperty("SSL", "false"));
+            IRC_SERVER											= ircSettings.getProperty("Server", "localhost");
+            IRC_PORT                                       		= Integer.parseInt(ircSettings.getProperty("Port", "6667"));
+            IRC_PASS											= ircSettings.getProperty("Pass", "localhost");
+            IRC_NICK											= ircSettings.getProperty("Nick", "l2jfbot");
+            IRC_USER											= ircSettings.getProperty("User", "l2jfree");
+            IRC_NAME											= ircSettings.getProperty("Name", "l2jfree");
+            IRC_CHANNEL											= ircSettings.getProperty("Channel", "#mychan");
+            IRC_ANNOUNCE                           				= Boolean.parseBoolean(ircSettings.getProperty("IrcAnnounces", "false"));
+            IRC_FROM_GAME_TYPE									= ircSettings.getProperty("GameToIrcType", "off");            
+            IRC_TO_GAME_TYPE									= ircSettings.getProperty("IrcToGameType", "off");
+            IRC_TO_GAME_SPECIAL_CHAR							= ircSettings.getProperty("IrcToGameSpecialChar", "#");
+            IRC_TO_GAME_DISPLAY									= ircSettings.getProperty("IrcToGameDisplay", "tade");
+        }
+        catch (Exception e)
+        {
+            _log.error(e.getMessage(),e);
+            throw new Error("Failed to Load "+IRC_FILE+" File.");
+        }
+    }
     
     
     //  *******************************************************************************************
@@ -2111,6 +2164,7 @@ public final class Config {
 			loadsevensignsconfig();
 			loadgmaccess();
 			loadprivilegesconfig();
+			loadircconfig();
 			loadsayfilter();
 			
 			initDBProperties();

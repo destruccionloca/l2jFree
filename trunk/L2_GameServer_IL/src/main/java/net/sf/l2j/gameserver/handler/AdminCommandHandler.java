@@ -48,6 +48,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGm;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGmChat;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminHeal;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminHelpPage;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminIRC;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminInvul;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminKick;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminKill;
@@ -163,7 +164,10 @@ public class AdminCommandHandler
         registerAdminCommandHandler(new AdminCursedWeapons());
         registerAdminCommandHandler(new AdminGeodata());
         registerAdminCommandHandler(new AdminGeoEditor()); 
-        registerAdminCommandHandler(new AdminPathNode());	}
+        registerAdminCommandHandler(new AdminPathNode());
+        if(Config.IRC_ENABLED)
+        	registerAdminCommandHandler(new AdminIRC());
+	}
 	
 	public void registerAdminCommandHandler(IAdminCommandHandler handler)
 	{

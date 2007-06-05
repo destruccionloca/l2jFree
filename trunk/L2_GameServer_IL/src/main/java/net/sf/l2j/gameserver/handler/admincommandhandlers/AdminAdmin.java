@@ -297,6 +297,11 @@ public class AdminAdmin implements IAdminCommandHandler {
                     Config.loadgmaccess();
                     activeChar.sendMessage("gmaccess config reloaded");
                 }
+                else if(type.equals("irc"))
+                {
+                    Config.loadircconfig();
+                    activeChar.sendMessage("irc config reloaded");
+                }
                 else if(type.equals("sayfilter"))
                 {
                     Config.loadsayfilter();
@@ -305,7 +310,7 @@ public class AdminAdmin implements IAdminCommandHandler {
             }
             catch(Exception e)
             {
-                activeChar.sendMessage("Usage:  //reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmaccess|sayfilter>");
+                activeChar.sendMessage("Usage:  //reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmaccess|irc|sayfilter>");
             }
         }
         else if(command.startsWith("admin_reload"))

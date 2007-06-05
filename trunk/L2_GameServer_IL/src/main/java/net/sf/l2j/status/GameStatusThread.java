@@ -50,6 +50,7 @@ import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.Manager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -225,6 +226,11 @@ public class GameStatusThread extends Thread
                     _print.println("debug <cmd>         - executes the debug command (see 'help debug').");
                     _print.println("jail <player> [time]");
                     _print.println("unjail <player>");
+                	if(Config.IRC_ENABLED)
+                	{
+                        _print.println("ircc <command>  	- sends a command to irc");
+	                    _print.println("ircm <target ><msg> - sends a message to irc");
+                	}
                     _print.println("quit                - closes telnet session.");
                 }
                 else if(_usrCommand.equals("help debug"))
@@ -551,6 +557,39 @@ public class GameStatusThread extends Thread
                     {
                         if (_log.isDebugEnabled()) _log.debug(e.getMessage(),e);;
                     }
+                }
+                else if (_usrCommand.startsWith("ircc"))
+                {
+                	if(Config.IRC_ENABLED)
+                	{
+	                	_usrCommand = _usrCommand.substring(4);
+	                	try
+	                    {
+	                		IrcManager.getInstance().getConnection().send(_usrCommand);
+	                		
+	                    } catch(Exception e)
+	                    {
+	                        if (_log.isDebugEnabled()) _log.debug(e.getMessage(),e);;
+	                    }
+                	}
+                }
+                else if (_usrCommand.startsWith("ircm"))
+                {
+                	if(Config.IRC_ENABLED)
+                	{
+	                    String val = _usrCommand.substring(4);
+	                	try
+	                	{
+		                    StringTokenizer st = new StringTokenizer(val);
+		                    String name = st.nextToken();
+		                    String message = val.substring(name.length()+1);
+	                		IrcManager.getInstance().getConnection().send(name,message);
+	                		
+	                    } catch(Exception e)
+	                    {
+	                        if (_log.isDebugEnabled()) _log.debug(e.getMessage(),e);;
+	                    }
+                	}
                 }
                 else if (_usrCommand.startsWith("debug") && _usrCommand.length() > 6)
                 {

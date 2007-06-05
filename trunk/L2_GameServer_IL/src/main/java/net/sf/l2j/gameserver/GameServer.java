@@ -69,6 +69,7 @@ import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
 import net.sf.l2j.gameserver.instancemanager.FactionQuestManager;
+import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.Manager;
 import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
@@ -512,6 +513,11 @@ public class GameServer
         else {
             _log.info("Telnet server is currently disabled.");
         }
+        
+        // o Enable Irc server
+        // -------------------
+        if(Config.IRC_ENABLED)
+	        IrcManager.getInstance().getConnection().sendChan("GameServer Started");
         
         // o Starting JMX administration
         // -----------------------------

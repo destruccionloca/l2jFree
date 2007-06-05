@@ -22,6 +22,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.gameserverpackets.ServerStatus;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
+import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
@@ -210,6 +211,9 @@ public class Shutdown extends Thread implements ShutdownMBean
 
        Announcements.getInstance().announceToAll("Attention players!");
        Announcements.getInstance().announceToAll("Server is " + shutdownMode.getText().toLowerCase() + " in "+seconds+ " seconds!");
+       if(Config.IRC_ENABLED && !Config.IRC_ANNOUNCE)
+	        IrcManager.getInstance().getConnection().sendChan("Server is " + shutdownMode.getText().toLowerCase() + " in "+seconds+ " seconds!");
+       
 
         if (_counterInstance != null) {
             _counterInstance._abort();
@@ -237,6 +241,10 @@ public class Shutdown extends Thread implements ShutdownMBean
 
         _log.warn(_initiator + " issued shutdown ABORT. " + shutdownMode.getText() + " has been stopped!");
         Announcements.getInstance().announceToAll("Server aborts " + shutdownMode.getText().toLowerCase() + " and continues normal operation!");
+
+        if(Config.IRC_ENABLED && !Config.IRC_ANNOUNCE)
+	        IrcManager.getInstance().getConnection().sendChan("Server aborts " + shutdownMode.getText().toLowerCase() + " and continues normal operation!");
+        
 
         if (_counterInstance != null) {
             _counterInstance._abort();
@@ -331,7 +339,10 @@ public class Shutdown extends Thread implements ShutdownMBean
         } catch (Throwable t) {
             _log.info( "", t);
         }
-                
+
+        if(Config.IRC_ENABLED && !Config.IRC_ANNOUNCE)
+	        IrcManager.getInstance().getConnection().sendChan("Server is " + shutdownMode.getText().toLowerCase() + " NOW!");
+        
         // we cannt abort shutdown anymore, so i removed the "if" 
         disconnectAllCharacters();
         

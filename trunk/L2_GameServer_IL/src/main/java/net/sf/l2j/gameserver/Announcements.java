@@ -32,6 +32,7 @@ import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.clientpackets.Say2;
+import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.script.DateRange;
@@ -238,6 +239,9 @@ public class Announcements implements AnnouncementsMBean
 	
 	public void announceToAll(String text) {
 		CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, "", text);
+
+		if(Config.IRC_ENABLED && Config.IRC_ANNOUNCE)
+			IrcManager.getInstance().getConnection().sendChan("Announce: " + text);
 		
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{
@@ -245,7 +249,6 @@ public class Announcements implements AnnouncementsMBean
 		}
 	}
 	public void announceToAll(SystemMessage sm) {
-		
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{
 			player.sendPacket(sm);

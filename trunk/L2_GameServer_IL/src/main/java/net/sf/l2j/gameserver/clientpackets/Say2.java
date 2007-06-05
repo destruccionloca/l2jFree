@@ -24,6 +24,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
+import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2World;
@@ -183,6 +184,10 @@ public class Say2 extends L2GameClientPacket
                 }
             break;
         case SHOUT:
+        		if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("shout"))
+	        	{
+	        		IrcManager.getInstance().getConnection().sendChan("!"+ activeChar.getName() +": " + _text);
+	        	}
                 if (Config.DEFAULT_GLOBAL_CHAT.equalsIgnoreCase("on") ||
                         (Config.DEFAULT_GLOBAL_CHAT.equalsIgnoreCase("gm") && activeChar.isGM()))
                 {
@@ -202,13 +207,17 @@ public class Say2 extends L2GameClientPacket
                 }                
                 break;
         case TRADE: 
+	        	if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("trade"))
+	        	{
+	        		IrcManager.getInstance().getConnection().sendChan("+"+ activeChar.getName() +": " + _text);
+	        	}
                 if (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("on") ||
                         (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("gm") && activeChar.isGM()))
-            {
-                for (L2PcInstance player : L2World.getInstance().getAllPlayers())
                 {
+                	for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+                	{
                         player.sendPacket(cs);
-                }
+                	}
                 } else if (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("limited"))
                 {
                     int region = MapRegionTable.getInstance().getMapRegion(activeChar.getX(), activeChar.getY());
