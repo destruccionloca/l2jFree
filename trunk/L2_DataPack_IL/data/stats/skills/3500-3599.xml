@@ -1398,10 +1398,11 @@ Description(s):
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-      <mul order="0x30" stat="sDef" val="1.8"/>
-      <mul val='1.25' order='0x40' stat='maxMp' />
-      <mul val='1.25' order='0x40' stat='maxHp' />
-      <mul val='1.25' order='0x40' stat='maxCp' />
+    <mul val='1.25' order='0x30' stat='maxHp'/>
+    <mul val='1.30' order='0x30' stat='maxMp'/>
+    <mul val='1.50' order='0x30' stat='maxCp'/>
+    <mul val='1.33' order='0x30' stat='rShld'/>
+    <mul val='1.09' order='0x30' stat='reflectDam'/>
   </for>
 </skill>
 <skill id="3579" levels="1" name="Decrease P. Def.">
@@ -1439,10 +1440,10 @@ Description(s):
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul order="0x30" stat="sDef" val="1.8"/>
-    <mul val='1.25' order='0x40' stat='maxMp' />
-    <mul val='1.25' order='0x40' stat='maxHp' />
-    <mul val='1.25' order='0x40' stat='maxCp' />
+    <mul val='1.25' order='0x30' stat='maxHp'/>
+    <mul val='1.30' order='0x30' stat='maxMp'/>
+    <mul val='1.39' order='0x30' stat='rShld'/>
+    <mul val='1.09' order='0x30' stat='reflectDam'/>
   </for>
 </skill>
 <skill id="3581" levels="1" name="Discord">
@@ -1478,11 +1479,12 @@ Description(s):
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.25' order='0x40' stat='maxHp' />
-    <mul val='1.25' order='0x40' stat='maxCp' />
-    <add val='20' order='0x40' stat="rCrit" />
-    <add val='1.5' order='0x40' stat="cAtk" />
-    <mul val='1.10' order='0x40' stat='pAtk'/>    
+    <mul val='1.25' order='0x30' stat='maxHp'/>
+    <mul val='1.50' order='0x30' stat='maxCp'/>
+    <add val='504' order='0x40' stat='cAtk'/>
+    <add val='78.7' order='0x40' stat='rCrit'/>
+    <add val="10" order="0x40" stat="reflectSkillPhysic"/>
+    <add val="10" order="0x40" stat="reflectSkillMagic"/>
   </for>
 </skill>
 <skill id="3583" levels="1" name="Special Ability: Infinity Crusher">
@@ -1498,10 +1500,11 @@ Description(s):
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.25' order='0x40' stat='maxHp' />
-    <mul val='1.25' order='0x40' stat='maxCp' />
-    <mul val='1.10' order='0x40' stat='pAtkSpd' />
-    <mul val='1.10' order='0x40' stat='pAtk'/>
+    <mul val='1.25' order='0x30' stat='maxHp'/>
+    <mul val='1.50' order='0x30' stat='maxCp'/>
+    <mul val='1.07' order='0x30' stat='pAtkSpd'/>
+    <add val="10" order="0x40" stat="reflectSkillPhysic"/>
+    <add val="10" order="0x40" stat="reflectSkillMagic"/>
   </for>
 </skill>
 <skill id="3584" levels="1" name="Shock">
@@ -1539,11 +1542,12 @@ Description(s):
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.25' order='0x40' stat='maxMp' />
-    <mul val='1.25' order='0x40' stat='maxHp' />
-    <mul val='1.25' order='0x40' stat='maxCp' />
-    <mul val='1.5' order='0x40' stat='cAtk' />
-    <mul val='1.10' order='0x40' stat='pAtk'/>
+    <mul val='1.25' order='0x30' stat='maxHp'/>
+    <mul val='1.30' order='0x30' stat='maxMp'/>
+    <mul val='1.50' order='0x30' stat='maxCp'/>
+    <add val='78.7' order='0x40' stat='rCrit'/>
+    <add val="10" order="0x40" stat="reflectSkillPhysic"/>
+    <add val="10" order="0x40" stat="reflectSkillMagic"/>
   </for>
 </skill>
 <skill id="3586" levels="1" name="Physical Skill Restraint">
@@ -1578,11 +1582,10 @@ Description(s):
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.25' order='0x40' stat='maxHp' />
-    <mul val='1.25' order='0x40' stat='maxMp' />
-    <mul val='1.25' order='0x40' stat='maxCp' />
-    <add val='10' order='0x50' stat='rEvas' />
-    <mul val='1.10' order='0x40' stat='pAtk'/>
+    <mul val='1.25' order='0x30' stat='maxHp'/>
+    <mul val='1.30' order='0x30' stat='maxMp'/>
+    <mul val='1.50' order='0x30' stat='maxCp'/>
+    <add val='3.15' order='0x40' stat='rEvas'/>
   </for>
 </skill>
 <skill id="3588" levels="1" name="Shock">
@@ -1620,10 +1623,16 @@ Description(s):
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.25' order='0x40' stat='maxMp' />
-    <mul val='1.25' order='0x40' stat='maxCp' />
-    <mul val='1.10' order='0x40' stat='pAtkSpd' />
-    <mul val='1.20' order='0x40' stat='regMp' />
+    <mul val='1.30' order='0x30' stat='maxMp'/>
+    <mul val='1.50' order='0x30' stat='maxCp'/>
+    <mul val='1.03' order='0x30' stat='pAtkSpd'/>
+    <add val='0.51' order='0x40' stat='regMp'/>
+    <add order='0x40' stat='cAtk' val='220'>
+      <and>
+        <player behind='True'/>
+      </and>
+    </add>
+    <mul val='1.02' order='0x30' stat='absorbDam'/>
   </for>
 </skill>
 <skill id="3590" levels="1" name="Silence">
@@ -1659,11 +1668,12 @@ Description(s):
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.25' order='0x40' stat='maxHp' />
-    <mul val='1.25' order='0x40' stat='maxCp' />
-    <mul val='1.10' order='0x40' stat='pAtkSpd' />
-    <mul val='1.10' order='0x40' stat='pAtk'/>
-    <add order="0x10" stat="accCombat" val="3"/>
+    <mul val='1.25' order='0x30' stat='maxHp'/>
+    <mul val='1.50' order='0x30' stat='maxCp'/>
+    <mul val='1.07' order='0x30' stat='pAtkSpd'/>
+    <add val='4.89' order='0x40' stat='accCombat'/>
+    <add val="10" order="0x40" stat="reflectSkillPhysic"/>
+    <add val="10" order="0x40" stat="reflectSkillMagic"/>
   </for>
 </skill>
 <skill id="3592" levels="1" name="Dispell">
@@ -1693,10 +1703,8 @@ Description(s):
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.25' order='0x40' stat='maxMp' />
-    <mul val='1.25' order='0x40' stat='maxCp' />
-    <mul val='1.20' order='0x40' stat='regMp' />
-    <mul val='0.70' order='0x30' stat='mReuse' />
+    <mul val='1.30' order='0x30' stat='maxMp'/>
+    <mul val='1.50' order='0x30' stat='maxCp'/>
   </for>
 </skill>
 <skill id="3594" levels="1" name="Slow">
@@ -1734,11 +1742,12 @@ Description(s):
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul stat="mCritRate" val="4" order="0x30"/>
-    <mul val='1.25' order='0x40' stat='maxMp' />
-    <mul val='1.25' order='0x40' stat='maxCp' />
-    <mul val='1.5' order='0x40' stat='mAtk' />
-    <mul order='0x50' stat='regMp' val="2"/>
+    <mul val='1.30' order='0x30' stat='maxMp'/>
+    <mul val='1.50' order='0x30' stat='maxCp'/>
+    <add val='29.67' order='0x40' stat='mAtk'/>
+    <mul val='1.54' order='0x30' stat='mCritRate'/>
+    <mul val='0.96' order='0x30' stat='MpConsumeRate'/>
+    <sub val='106' order='0x40' stat='cancel'/>
   </for>
 </skill>
 <skill id="3596" levels="1" name="Full Recover">
@@ -1768,11 +1777,10 @@ Description(s):
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul order="0x30" stat="mAtkSpd" val="1.3"/>
-    <mul val='1.25' order='0x40' stat='maxMp' />
-    <mul val='1.25' order='0x40' stat='maxCp' />
-    <mul val='1.10' order='0x40' stat='mAtk'/>
-    <mul val='2' order='0x50' stat='regMp' />
+    <mul val='1.30' order='0x30' stat='maxMp'/>
+    <mul val='1.50' order='0x30' stat='maxCp'/>
+    <mul val='1.15' order='0x30' stat='mAtkSpd'/>
+    <add val='0.51' order='0x40' stat='regMp'/>
   </for>
 </skill>
 <skill id="3598" levels="1" name="Full Recover">
