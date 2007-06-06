@@ -126,6 +126,9 @@ public class L2IrcClient extends Thread {
 			
 			if(!Config.IRC_LOGIN_COMMAND.trim().equals(""))
 				send(Config.IRC_LOGIN_COMMAND.trim());
+			
+			if(Config.IRC_NICKSERV)
+				send(Config.IRC_NICKSERV_NAME,Config.IRC_NICKSERV_COMMAND);
 		}
 		
 		public void onDisconnected() 
