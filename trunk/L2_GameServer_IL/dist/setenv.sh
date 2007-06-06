@@ -56,6 +56,9 @@ CLASSPATH=${CLASSPATH}:spring-2.0.2.jar
 # For SQL use
 CLASSPATH=${CLASSPATH}:mysql-connector-java-3.1.11.jar
 
+# For irc use
+CLASSPATH=${CLASSPATH}:irclib-1.10.jar
+
 # for configuration
 CLASSPATH=${CLASSPATH}:./config/
 CLASSPATH=${CLASSPATH}:.
