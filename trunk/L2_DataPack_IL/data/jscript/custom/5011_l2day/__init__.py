@@ -85,8 +85,8 @@ COMPLETED   = State('Completed', QUEST)
 
 QUEST.setInitialState(CREATED)
 
-QUEST.addStartNpc(27102)
+QUEST.addStartNpc(31774)
 # pako the cat
-QUEST.addTalkId(27102)
+QUEST.addTalkId(31774)
 
 print "done ..."
