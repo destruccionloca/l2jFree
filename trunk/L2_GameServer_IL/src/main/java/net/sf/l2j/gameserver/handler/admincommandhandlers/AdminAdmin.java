@@ -33,7 +33,6 @@ import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.Manager;
-import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.model.L2Multisell;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -358,11 +357,6 @@ public class AdminAdmin implements IAdminCommandHandler {
                 	ItemTable.getInstance().reload();
                 	activeChar.sendMessage("Item templates reloaded");
                 }
-                else if(type.startsWith("quest"))
-                {
-                	QuestManager.getInstance().reload();
-                	activeChar.sendMessage("All quests reloaded");
-                }
                 else if(type.startsWith("instancemanager"))
                 {
                 	Manager.reloadAll();
@@ -381,7 +375,7 @@ public class AdminAdmin implements IAdminCommandHandler {
             }
             catch(Exception e)
             {
-                activeChar.sendMessage("Usage:  //reload <multisell|teleport|skill|npc|htm|item|quest|instancemanager|teleport|tradelist>");
+                activeChar.sendMessage("Usage:  //reload <multisell|teleport|skill|npc|htm|item|instancemanager|teleport|tradelist>");
             }
         }
 
