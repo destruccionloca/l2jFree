@@ -212,16 +212,6 @@ public class ClanTable
 
 		clan.broadcastToOnlineMembers(new SystemMessage(SystemMessage.CLAN_HAS_DISPERSED));
 
-        if (AuctionManager.getInstance().getAuction(clan.getAuctionBiddedAt()) != null)
-        {
-            AuctionManager.getInstance().getAuction(clan.getAuctionBiddedAt()).cancelBid(clan.getClanId());
-        }
-
-	    if (clan.getHasHideout() != 0)
-	    {
-	    	ClanHallManager.getInstance().getClanHall(clan.getHasHideout()).setOwner(null);
-	    }
-
 	    int castleId = clan.getHasCastle();
 	    if (castleId == 0)
 	    {

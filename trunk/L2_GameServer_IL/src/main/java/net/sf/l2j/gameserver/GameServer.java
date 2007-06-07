@@ -63,17 +63,30 @@ import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.handler.UserCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
+import net.sf.l2j.gameserver.instancemanager.ArenaManager;
+import net.sf.l2j.gameserver.instancemanager.AuctionManager;
+import net.sf.l2j.gameserver.instancemanager.BossActionTaskManager;
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
 import net.sf.l2j.gameserver.instancemanager.FactionQuestManager;
+import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
-import net.sf.l2j.gameserver.instancemanager.Manager;
+import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
+import net.sf.l2j.gameserver.instancemanager.OlympiadStadiaManager;
+import net.sf.l2j.gameserver.instancemanager.PetitionManager;
+import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
+import net.sf.l2j.gameserver.instancemanager.SailrenManager;
+import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.instancemanager.TownManager;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.AutoChatHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler;
 import net.sf.l2j.gameserver.model.L2World;
@@ -112,7 +125,8 @@ public class GameServer
     private final HennaTable _hennaTable;
     private final IdFactory _idFactory;
     public static GameServer gameServer;
-
+    
+    private static ClanHallManager CHManager;
     private final ItemHandler _itemHandler;
     private final SkillHandler _skillHandler;
     private final AdminCommandHandler _adminCommandHandler;
@@ -135,6 +149,10 @@ public class GameServer
         return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/1048576; // 1024 * 1024 = 1048576;
     }
 
+	public ClanHallManager GetCHManager(){
+		return CHManager;
+	}
+    
     public SelectorThread<L2GameClient> getSelectorThread()
     {
     	return _selectorThread;
@@ -443,8 +461,22 @@ public class GameServer
         
         // Initialize managers
         // -------------------
-        Manager.loadAll();
-        
+		ArenaManager.getInstance();
+		AuctionManager.getInstance();
+		CHManager = ClanHallManager.getInstance();
+		CastleManager.getInstance();
+		MercTicketManager.getInstance();
+		//PartyCommandManager.getInstance();
+		PetitionManager.getInstance();
+		QuestManager.getInstance();
+		SiegeManager.getInstance();
+		TownManager.getInstance();
+		ZoneManager.getInstance();
+        OlympiadStadiaManager.getInstance();
+        BossActionTaskManager.getInstance().init();
+        FourSepulchersManager.getInstance().init();
+        SailrenManager.getInstance().init();        
+		
         // o Register a shutdown hook
         // ---------------------------
         _shutdownHandler = Shutdown.getInstance();
@@ -453,11 +485,6 @@ public class GameServer
         // o Open doors
         // ----------
         _doorTable.openDoors ();
-        
-        // o Load clans
-        // -------------
-        ClanTable.getInstance();
-        if ( _log.isDebugEnabled())_log.debug("Clans initialized");
         
         // Print id factory infos
         // ----------------------

@@ -19,26 +19,6 @@ package net.sf.l2j.gameserver.instancemanager;
 
 public class Manager
 {
-	public static void loadAll()
-	{
-		ArenaManager.getInstance();
-		AuctionManager.getInstance();
-		CastleManager.getInstance();
-		ClanHallManager.getInstance();
-		MercTicketManager.getInstance();
-		//PartyCommandManager.getInstance();
-		PetitionManager.getInstance();
-		QuestManager.getInstance();
-		SiegeManager.getInstance();
-		TownManager.getInstance();
-		ZoneManager.getInstance();
-        OlympiadStadiaManager.getInstance();
-        // [L2J_JP ADD SANDMAN]
-        BossActionTaskManager.getInstance().init();
-        FourSepulchersManager.getInstance().init();
-        SailrenManager.getInstance().init();        
-	}
-
 	public static void reloadAll()
 	{
 		ArenaManager.getInstance().reload();

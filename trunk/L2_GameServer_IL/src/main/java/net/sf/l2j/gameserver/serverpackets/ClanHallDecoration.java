@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.model.entity.ClanHall.ClanHallFunction;;
  *
  * @author  Steuf
  */
-public final class ClanHallDecoration extends L2GameServerPacket
+public class ClanHallDecoration extends L2GameServerPacket
 {
 	private static final String _S__F7_AGITDECOINFO = "[S] F7 AgitDecoInfo";
 	private ClanHall clanHall;
