@@ -38,22 +38,10 @@ public class QuestManager
     {
         if (_Instance == null)
         {
-            File jscript;
-            
-            if ( _log.isDebugEnabled())_log.debug("Initializing QuestManager");
+    		System.out.println("Initializing QuestManager");
             _Instance = new QuestManager();
-            
-            jscript = new File(Config.DATAPACK_ROOT, "data/jscript");
-            for (File file : jscript.listFiles())
-            {
-                if (file.isFile() && file.getName().endsWith("$py.class"))
-                    file.delete();
-            }
-            
             if (!Config.ALT_DEV_NO_QUESTS)
-               _Instance.load();
-            else
-                _log.info("QuestManager Disabled");
+            	_Instance.load();
         }
         return _Instance;
     }
@@ -62,7 +50,7 @@ public class QuestManager
     
     // =========================================================
     // Data Field
-    private FastList<Quest> _Quests;
+    private List<Quest> _Quests = new FastList<Quest>();
     
     // =========================================================
     // Constructor
@@ -72,16 +60,27 @@ public class QuestManager
 
     // =========================================================
     // Method - Public
-    // NOT WORKING CORRECTLY BECAUSE BSFMANAGER DOEN'T UNLOAD JYTHON SCRIPT
-    // NEED TO FIND THE SOLUTION BEFORE THIS WILL WORK CORRECLY
-    public final void reload()
+    public final boolean reload(String questFolder)
     {
-    	/* Re-add later just incase problem exist now
-        this.getQuests().clear();
-        this.load();
-        */
+    	return QuestJython.reloadQuest(questFolder);
     }
-
+    
+    /**
+     * Reloads a the quest given by questId.<BR>
+     * <B>NOTICE: Will only work if the quest name is equal the quest folder name</B>
+     * @param questId The id of the quest to be reloaded
+     * @return true if reload was succesful, false otherwise
+     */
+    public final boolean reload(int questId)
+    {
+    	Quest q = this.getQuest(questId);
+    	if (q == null)
+    	{
+    		return false;
+    	}
+    	return QuestJython.reloadQuest(q.getName());
+    }
+    
     // =========================================================
     // Method - Private
     private final void load()
@@ -106,7 +105,7 @@ public class QuestManager
         return null;
     }
     
-    private final int getQuestIndex(String name)
+    public final int getQuestIndex(String name)
     {
         Quest quest;
         for (int i = 0; i < getQuests().size(); i++)
@@ -117,7 +116,7 @@ public class QuestManager
         return -1;
     }
     
-    private final int getQuestIndex(int questId)
+    public final int getQuestIndex(int questId)
     {
         Quest quest;
         for (int i = 0; i < getQuests().size(); i++)
@@ -127,7 +126,23 @@ public class QuestManager
         }
         return -1;
     }
-
+    
+    public final void addQuest(Quest newQuest)
+    {
+    	for (Quest quest : this.getQuests())
+        {
+    		if (quest.getName().equalsIgnoreCase(newQuest.getName()))
+    		{
+    			_log.info("Replaced: "+quest.getName()+" with "+newQuest.getName());
+    			this.getQuests().remove(quest);
+    			this.getQuests().add(newQuest);
+    			return;
+    		}
+        }
+    	
+    	this.getQuests().add(newQuest);
+    }
+    
     public final List<Quest> getQuests()
     {
         if (_Quests == null) _Quests = new FastList<Quest>();

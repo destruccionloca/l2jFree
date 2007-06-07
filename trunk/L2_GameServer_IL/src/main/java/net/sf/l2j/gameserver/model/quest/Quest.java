@@ -55,6 +55,8 @@ public abstract class Quest
 
 	/** HashMap containing events from String value of the event */
 	private static Map<String, Quest> allEventsS = new FastMap<String, Quest>();
+	/** HashMap containing lists of timers from the name of the timer */
+	private static Map<String, FastList<QuestTimer>> allEventTimers = new FastMap<String, FastList<QuestTimer>>();
 
 	private final int _questId;
 	private final String _name;
@@ -82,9 +84,12 @@ public abstract class Quest
 		_name = name;
 		_descr = descr;
         states = new FastMap<String, State>();
-		if (questId != 0) {
-            QuestManager.getInstance().getQuests().add(Quest.this);
-		} else {
+		if (questId != 0)
+		{
+			QuestManager.getInstance().addQuest(Quest.this);
+		}
+		else
+		{
 			allEventsS.put(name, this);
 		}
 	}
@@ -122,8 +127,7 @@ public abstract class Quest
 	}
 	
 	/**
-	 * sets initial state of the quest (each newly created quest will start from this state). 
-     * From Jython call it as Quest.setInitialState(CREATED)
+	 * Set the initial state of the quest with parameter "state"
 	 * @param state
 	 */
 	public void setInitialState(State state) {
@@ -142,9 +146,7 @@ public abstract class Quest
 	}
 	
 	/**
-	 * returns the initial state of the quest, 
-     * call it as Quest.getInitialState(self) or self.getInitialState(), 
-     * where self is an instance of jython quest.
+	 * Return initial state of the quest
 	 * @return State
 	 */
 	public State getInitialState() {
@@ -152,8 +154,7 @@ public abstract class Quest
 	}
     
 	/**
-	 * returns name (id) of the quest, call it as Quest.getName(self) or self.getName(), 
-     * where self is an instance of jython quest.
+	 * Return name of the quest
 	 * @return String
 	 */
 	public String getName() {
@@ -161,9 +162,7 @@ public abstract class Quest
 	}
 	
 	/**
-	 * returns description name of the quest, 
-     * call it as Quest.getDescr(self) or self.getDescr(), 
-     * where self is an instance of jython quest.
+	 * Return description of the quest
 	 * @return String
 	 */
 	public String getDescr() {
@@ -181,6 +180,68 @@ public abstract class Quest
 		return state;
     }
     
+    /**
+     * Add a timer to the quest, if it doesn't exist already
+     * @param name: name of the timer (also passed back as "event" in onAdvEvent)
+     * @param time: time in ms for when to fire the timer
+     * @param npc:  npc associated with this timer (can be null)
+     * @param player: player associated with this timer (can be null)
+     */
+    public void startQuestTimer(String name, long time, L2NpcInstance npc, L2PcInstance player)
+    {
+        // Add quest timer if timer doesn't already exist
+    	FastList<QuestTimer> timers = getQuestTimers(name);
+    	// no timer exists with the same name, at all 
+        if (timers == null)
+        {
+        	timers = new FastList<QuestTimer>();
+            timers.add(new QuestTimer(this, name, time, npc, player));
+        	allEventTimers.put(name, timers);
+        }
+        // a timer with this name exists, but may not be for the same set of npc and player
+        else
+        {
+        	// if there exists a timer with this name, allow the timer only if the [npc, player] set is unique
+        	// nulls act as wildcards
+        	if(getQuestTimer(name, npc, player)==null)
+        		timers.add(new QuestTimer(this, name, time, npc, player));
+        }
+        // ignore the startQuestTimer in all other cases (timer is already started)
+    }
+    
+    public QuestTimer getQuestTimer(String name, L2NpcInstance npc, L2PcInstance player)
+    {
+    	if (allEventTimers.get(name)==null)
+    		return null;
+    	for(QuestTimer timer: allEventTimers.get(name))
+    		if (timer.isMatch(this, name, npc, player))
+    			return timer;
+    	return null;
+    }
+
+    public FastList<QuestTimer> getQuestTimers(String name)
+    {
+    	return allEventTimers.get(name);
+    }
+    
+    public void cancelQuestTimer(String name, L2NpcInstance npc, L2PcInstance player)
+    {
+    	QuestTimer timer = getQuestTimer(name, npc, player);
+    	if (timer != null)
+    		timer.cancel();
+    }
+
+    public void removeQuestTimer(QuestTimer timer)
+    {
+    	if (timer == null)
+    		return;
+    	FastList<QuestTimer> timers = getQuestTimers(timer.getName());
+    	if (timers == null)
+    		return;
+    	timers.remove(timer);    		
+    }
+	
+    
 	// these are methods to call from java
     public final boolean notifyAttack(L2NpcInstance npc, L2PcInstance attacker) {
         String res = null;
@@ -192,10 +253,10 @@ public abstract class Quest
         try { res = onDeath(npc, character, qs); } catch (Exception e) { return showError(qs.getPlayer(), e); }
         return showResult(qs.getPlayer(), res);
     } 
-    public final boolean notifyEvent(String event, QuestState qs) {
+    public final boolean notifyEvent(String event, L2NpcInstance npc, L2PcInstance player) {
         String res = null;
-        try { res = onEvent(event, qs); } catch (Exception e) { return showError(qs.getPlayer(), e); }
-        return showResult(qs.getPlayer(), res);
+        try { res = onAdvEvent(event, npc, player); } catch (Exception e) { return showError(player, e); }
+        return showResult(player, res);
     } 
 	public final boolean notifyKill (L2NpcInstance npc, L2PcInstance killer) {
 		String res = null;
@@ -219,98 +280,31 @@ public abstract class Quest
 		npc.showChatWindow(player);
 		return true;
 	}
-
 	public final boolean notifySkillUse (L2NpcInstance npc, L2PcInstance caster, L2Skill skill) {
 		String res = null;
 		try { res = onSkillUse(npc, caster, skill); } catch (Exception e) { return showError(caster, e); }
 		return showResult(caster, res);
 	}
 
+
 	// these are methods that java calls to invoke scripts
-    
-    public String onAttack(L2NpcInstance npc, L2PcInstance attacker)
+    @SuppressWarnings("unused") public String onAttack(L2NpcInstance npc, L2PcInstance attacker) { return null; } 
+    @SuppressWarnings("unused") public String onDeath (L2NpcInstance npc, L2Character character, QuestState qs) { return onAdvEvent("", npc,qs.getPlayer()); }
+    @SuppressWarnings("unused") public String onAdvEvent(String event, L2NpcInstance npc, L2PcInstance player) 
     {
-        return null;
-    }
+    	// if not overriden by a subclass, then default to the returned value of the simpler (and older) onEvent override
+    	// if the player has a state, use it as parameter in the next call, else return null
+    	QuestState qs = player.getQuestState(getName());
+    	if (qs != null )
+    		return onEvent(event, qs);
 
-    
-    public String onDeath(L2NpcInstance npc, L2Character character, QuestState qs)
-    {
-        return onEvent("", qs);
-    }
-
-    /**
-     * this method is called from Java code to process quest event in jython script.
-     * 
-     * In the script this method must be declared like
-     * 
-     * def onEvent(self,event,st) :
-     * 
-     * The method onEvent is also called when methods onKill or onTalk are nor defined, event string in this case is empty.
-     * 
-     * @param event is a string, that identified event
-     * @param qs is a state of the quest for current player QuestState
-     * @return
-     */
-    
-    public String onEvent(String event, QuestState qs)
-    {
-        return null;
-    }
-
-    /**
-     * this method is called from Java code when you kill a quest NPC, 
-     * to process quest event in jython script.
-     * 
-     * In the script this method must be declared like
-     * 
-     * def onKill(self,npcId,killer) :
-     * 
-     * The method onKill will be called only when you subscribed to receive 
-     * these events for particular monsters in particular quest State.
-     * To subscribe for the kill event use method addKillId of State.
-     * 
-     * @param npc is an integer ID, that identified NPC being killed
-     * @param killer is the l2pcinstance who killed this npc
-     * @return
-     */
-    
-    public String onKill(L2NpcInstance npc, L2PcInstance killer)
-    {
-        return null;
-    }
-
-    /**
-     * this method is called from Java code when you talk to a quest NPC, 
-     * to process quest event in jython script.
-     * 
-     * In the script this method must be declared like
-     * 
-     * def onTalk(self,npcId,st) :
-     * 
-     * The method onTalk will be called only when you subscribed to receive these events for particular NPC in particular quest State.
-     * To subscribe for the talk event use method addTalkId of State.
-     * 
-     * @param npc is an integer ID, that identified NPC the player talks with
-     * @param talker is the l2pcinstance who talks
-     * @return
-     */
-    public String onTalk(L2NpcInstance npc, L2PcInstance talker)
-    {
-        return null;
-    }
-
-    
-    public String onFirstTalk(L2NpcInstance npc, L2PcInstance player)
-    {
-        return null;
-    }
-
-    
-    public String onSkillUse(L2NpcInstance npc, L2PcInstance caster, L2Skill skill)
-    {
-        return null;
-    }
+    	return null; 
+    } 
+    @SuppressWarnings("unused") public String onEvent(String event, QuestState qs) { return null; } 
+    @SuppressWarnings("unused") public String onKill (L2NpcInstance npc, L2PcInstance killer) { return null; }
+    @SuppressWarnings("unused") public String onTalk (L2NpcInstance npc, L2PcInstance talker) { return null; }
+    @SuppressWarnings("unused") public String onFirstTalk(L2NpcInstance npc, L2PcInstance player) { return null; } 
+    @SuppressWarnings("unused") public String onSkillUse (L2NpcInstance npc, L2PcInstance caster, L2Skill skill) { return null; }
 	
 	/**
 	 * Show message error to player who has an access level greater than 0
@@ -392,7 +386,8 @@ public abstract class Quest
 				// Search quest associated with the ID
 				Quest q = QuestManager.getInstance().getQuest(questId);
 				if (q == null) {
-					_log.info("Unknown quest "+questId+" for player "+player.getName());
+					if(_log.isDebugEnabled())
+						_log.info("Unknown quest "+questId+" for player "+player.getName());
 					if (Config.AUTODELETE_INVALID_QUEST_DATA){
                         invalidQuestData.setInt(1, player.getObjectId());
                         invalidQuestData.setString(2, questId);
@@ -412,7 +407,8 @@ public abstract class Quest
 				// Create an object State containing the state of the quest
 				State state = q.states.get(stateId);
 				if (state == null) {
-					_log.info("Unknown state "+state+" in quest "+questId+" for player "+player.getName());
+					if(_log.isDebugEnabled())
+						_log.info("Unknown state "+state+" in quest "+questId+" for player "+player.getName());
 					if (Config.AUTODELETE_INVALID_QUEST_DATA){
 					    invalidQuestData.setInt(1, player.getObjectId());
                         invalidQuestData.setString(2, questId);
@@ -676,8 +672,8 @@ public abstract class Quest
     public L2NpcTemplate addTalkId(int talkId) {
     	return addEventId(talkId, Quest.QuestEventType.QUEST_TALK);
     }
-
-	/**
+    
+    /**
      * Add this quest to the list of quests that the passed npc will respond to for Skill-Use Events.<BR><BR>
      * @param npcId : ID of the NPC
      * @return int : ID of the NPC
@@ -685,7 +681,7 @@ public abstract class Quest
     public L2NpcTemplate addSkillUseId(int npcId) {
     	return addEventId(npcId, Quest.QuestEventType.MOB_TARGETED_BY_SKILL);
     }
-
+    
     /**
      * Return a QuestPcSpawn for the given player instance
      */
@@ -827,7 +823,6 @@ public abstract class Quest
 	 * @param fileName
 	 * @return String : message sent to client 
 	 */
-
 	public String showHtmlFile(L2PcInstance player, String fileName) 
     {
         String questId = getName();

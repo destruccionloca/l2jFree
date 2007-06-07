@@ -67,9 +67,6 @@ public final class QuestState
 	/** List of drops needed for quest according to the mob */
 	private Map<Integer, List<L2DropData>> _drops;
 	
-    /** List of timer for quest */
-    private List<QuestTimer> _questTimers;
-    
     /** Boolean flag letting QuestStateManager know to exit quest when cleaning up */
     private boolean _isExitQuestOnCleanUp = false;
 
@@ -112,9 +109,7 @@ public final class QuestState
     }
 	
     /**
-     * returns the quest instance of this QuestState, 
-     * call it as QuestState.getQuest(self) or self.getQuest(), 
-     * where self is an instance of jython QuestState.
+     * Return the quest
      * @return Quest
      */
 	public Quest getQuest() 
@@ -123,9 +118,7 @@ public final class QuestState
 	}
 	
 	/**
-	 * returns the player instance of this QuestState, 
-     * call it as QuestState.getPlayer(self) or self.getPlayer(), 
-     * where self is an instance of QuestState.
+	 * Return the L2PcInstance
 	 * @return L2PcInstance
 	 */
 	public L2PcInstance getPlayer() 
@@ -214,17 +207,17 @@ public final class QuestState
 		
         // set new state
 		_state = state;
-
+        
 		if(state == null) return null;
-       
+		
 		if(getStateId().equals("Completed")) _isCompleted = true;
-        else _isCompleted = false;
-
+		else _isCompleted = false;
+		
 		// add drops from new state
-        if (!isCompleted())  
+		if (!isCompleted()) 
         {
 			Map<Integer, List<L2DropData>> newDrops = state.getDrops();
-
+            
 			if (newDrops != null)
             {
 				if (getDrops() == null)
@@ -296,12 +289,12 @@ public final class QuestState
 			Quest.updateQuestVarInDb(this, var, val);
 		else
 			Quest.createQuestVarInDb(this, var, val);
-
+		
 		if (var == "cond") {
 			QuestList ql = new QuestList();
 	        getPlayer().sendPacket(ql);
 		}
-
+        
 		return val;
 	}
 
@@ -353,7 +346,8 @@ public final class QuestState
         } 
         catch (Exception e)
         {
-            _log.debug(getPlayer().getName()+": variable "+var+" isn't an integer: " + varint + e);
+        	if(_log.isDebugEnabled())
+        		_log.info(getPlayer().getName()+": variable "+var+" isn't an integer: " + varint + e);
 //	    if (Config.AUTODELETE_INVALID_QUEST_DATA)
 //		exitQuest(true);
         }
@@ -714,9 +708,7 @@ public final class QuestState
      */
     public void startQuestTimer(String name, long time)
     {
-        // Add quest timer if timer doesn't already exist
-        if (getQuestTimer(name) == null)
-            _questTimers.add(new QuestTimer(this, name, time));
+    	getQuest().startQuestTimer(name, time, null, getPlayer());
     }
     
     /**
@@ -725,28 +717,12 @@ public final class QuestState
      */
     public final QuestTimer getQuestTimer(String name)
     {
-        for (int i = 0; i < getQuestTimers().size(); i++)
-            if (getQuestTimers().get(i).getName() == name)
-                return  getQuestTimers().get(i);
-
-        return null;
-    }
-    
-    /**
-     * Return a list of QuestTimer
-     * @return FastList<QuestTimer>
-     */
-    public final List<QuestTimer> getQuestTimers()
-    {
-        if (_questTimers == null)
-            _questTimers = new FastList<QuestTimer>();
-        
-        return _questTimers;
+    	return getQuest().getQuestTimer(name, null, getPlayer());
     }
     
     /**
      * NOTE: This is to be deprecated; replaced by Quest.getPcSpawn(L2PcInstance)
-     * For now, I shall leave it as is 
+     * For now, I shall leave it as is
      * Return a QuestPcSpawn for curren player instance
      */
     public final QuestPcSpawn getPcSpawn()
@@ -754,14 +730,9 @@ public final class QuestState
         return QuestPcSpawnManager.getInstance().getPcSpawn(this.getPlayer());
     }
 
-	/**
-	 * Show HTML file to client
-	 * @param fileName
-	 * @return String : message sent to client 
-	 */
 	public String showHtmlFile(String fileName) 
     {
-		return getQuest().showHtmlFile(getPlayer(), fileName);
+    	return getQuest().showHtmlFile(getPlayer(), fileName);
 	}
 
 	/**
@@ -826,10 +797,4 @@ public final class QuestState
         
 		return this;
 	}
-    
-    public void setNoble(boolean noble)
-    {
-        getPlayer().setNoble(noble);
-        getPlayer().broadcastUserInfo();
-    }    
 }

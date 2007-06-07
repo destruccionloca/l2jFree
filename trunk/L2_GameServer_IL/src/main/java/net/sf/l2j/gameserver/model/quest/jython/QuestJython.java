@@ -6,16 +6,19 @@ import net.sf.l2j.gameserver.model.quest.Quest;
 import org.apache.bsf.BSFException;
 import org.apache.bsf.BSFManager;
 
-public abstract class QuestJython extends Quest {
-
+public abstract class QuestJython extends Quest
+{
+	private static BSFManager _bsf;
+	
 	/**
 	 * Initialize the engine for scripts of quests, luxury shops and blacksmith
 	 */
-	public static void init() {
+	public static void init()
+	{
 		try
 		{
 			// Initialize the engine for loading Jython scripts
-			BSFManager bsf = new BSFManager();
+			_bsf = new BSFManager();
 			// Execution of all the scripts placed in data/jscript
 			// inside the DataPack directory
 
@@ -25,8 +28,27 @@ public abstract class QuestJython extends Quest {
 			  + "sys.path.insert(0,'" + dataPackDirForwardSlashes + "');"
 			  + "import data";
 
-			bsf.exec("jython", "quest", 0, 0, loadingScript);
-		} catch (BSFException e) { _log.error(e.getMessage(),e); }
+			_bsf.exec("jython", "quest", 0, 0, loadingScript);
+		}
+		catch (BSFException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public static boolean reloadQuest(String questFolder)
+	{
+		try
+		{
+			_bsf.exec("jython", "quest", 0, 0, "reload(data.jscript.quests."+questFolder+");");
+			return true;
+		}
+		catch (Exception e)
+		{
+			//System.out.println("Reload Failed");
+			//e.printStackTrace();
+		}
+		return false;
 	}
 
 	/**
@@ -35,7 +57,8 @@ public abstract class QuestJython extends Quest {
 	 * @param name : String designating the name of the quest
 	 * @param descr : String designating the description of the quest
 	 */
-	public QuestJython(int questId, String name, String descr) {
+	public QuestJython(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 	}
 }
