@@ -6843,5 +6843,5 @@ INSERT INTO `npc` VALUES
 	(35009,35009,'Morpheus',0,'Sir',0,'NPC.a_royal_guardA_MHuman',7.00,24.00,72,'male','L2SiegeGuard',40,80268,6260,13.43,3.09,40,43,30,21,35,10,518,1,8479,491,849,399,278,0,253,2,0,0,80,120,'gludio_siege_clan',1200,1,0);
 
 -- Update Sailren
-Update npc set `type` = 'L2RaidBoss' Where id = 29065;	
-Update npc set `type` = 'L2Teleporter' Where id = 32107;
+UPDATE npc SET `type` = 'L2RaidBoss' WHERE id = 29065;	
+UPDATE npc SET `type` = 'L2Teleporter' WHERE id = 32107;
