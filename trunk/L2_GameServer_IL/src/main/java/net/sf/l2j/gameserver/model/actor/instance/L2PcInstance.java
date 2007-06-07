@@ -4529,22 +4529,26 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public void updatePvPStatus(L2Character target)
 	{
-		if (target instanceof L2PcInstance)
-		{
-			if ((TvT._started && _inEventTvT && ((L2PcInstance)target)._inEventTvT) || (DM._started && _inEventDM && ((L2PcInstance)target)._inEventDM) || (CTF._started && _inEventCTF && ((L2PcInstance)target)._inEventCTF) || (_inEventVIP && VIP._started && ((L2PcInstance)target)._inEventVIP))
-	            return;
-			
-			if ((isInDuel() && ((L2PcInstance)target).getDuelId() == getDuelId())) return;
-			if ((!getInPvpZone() || !((L2PcInstance)target).getInPvpZone()) && ((L2PcInstance)target).getKarma() == 0)
-			{
-				if (checkIfPvP(target))
-					setPvpFlagLasts(System.currentTimeMillis() + Config.PVP_PVP_TIME);
-				else
-					setPvpFlagLasts(System.currentTimeMillis() + Config.PVP_NORMAL_TIME);
-				if (getPvpFlag() == 0)
-					startPvPFlag();
-			}
-		}
+		L2PcInstance player_target = null;
+
+        if (target instanceof L2PcInstance)
+        	player_target = (L2PcInstance)target;
+        else if (target instanceof L2Summon)
+        	player_target = ((L2Summon) target).getOwner();
+           
+        if (player_target == null)
+           return;
+        
+        if ((isInDuel() && player_target.getDuelId() == getDuelId())) return;
+        if ((!getInPvpZone() || !player_target.getInPvpZone()) && player_target.getKarma() == 0)
+        {
+        	if (checkIfPvP(player_target))
+        		setPvpFlagLasts(System.currentTimeMillis() + Config.PVP_PVP_TIME);
+        	else
+        		setPvpFlagLasts(System.currentTimeMillis() + Config.PVP_NORMAL_TIME);
+			if (getPvpFlag() == 0)
+				startPvPFlag();
+        }
 	}
 
     /**

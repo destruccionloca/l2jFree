@@ -321,7 +321,7 @@ public class CharStatus
      * <li>Stop the HP/MP/CP Regeneration task </li><BR><BR>
      *
      */
-    public synchronized final void stopHpMpRegeneration()
+    public void stopHpMpRegeneration()
     {
         if (_RegTask != null)
         {
