@@ -99,7 +99,7 @@ public class L2SkillChargeDmg extends L2Skill
 			
 			//boolean dual  = caster.isUsingDualWeapon();
 			boolean shld = Formulas.getInstance().calcShldUse(caster, target);
-			//boolean crit = Formulas.getInstance().calcCrit(caster.getCriticalHit(target, this));
+			boolean crit = Formulas.getInstance().calcCrit(caster.getCriticalHit(target, this));
 			boolean soul = (weapon!= null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER );
 			
 			int damage = (int)Formulas.getInstance().calcPhysDam(
@@ -109,30 +109,18 @@ public class L2SkillChargeDmg extends L2Skill
             {
                 double finalDamage = damage;
                 finalDamage = finalDamage+(modifier*finalDamage);
-                if (this.isCritical() && Rnd.get(100) < 15)   
-                {  
-                    caster.sendPacket(new SystemMessage(SystemMessage.CRITICAL_HIT));  
-                    finalDamage = finalDamage * 2;  
-                }  
-                if (target.isPetrified())  
-                    {finalDamage= 0;}  
-                target.reduceCurrentHp(finalDamage, caster); 
-
+				target.reduceCurrentHp(finalDamage, caster);
 				
-				SystemMessage sm = new SystemMessage(SystemMessage.YOU_DID_S1_DMG);
-				sm.addNumber((int)finalDamage);
-				caster.sendPacket(sm);
+				caster.sendDamageMessage(target, (int)finalDamage, false, crit, false);
 				
 				if (soul && weapon!= null)
 					weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
 			}
             else
             {
-				SystemMessage sm = new SystemMessage(SystemMessage.MISSED_TARGET);
-				caster.sendPacket(sm);
+				caster.sendDamageMessage(target, 0, false, false, true);
 			}
-		}
-        // effect self :]
+		}        // effect self :]
         L2Effect seffect = caster.getEffect(getId());
         if (seffect != null && seffect.isSelfEffect())
         {             

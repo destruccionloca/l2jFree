@@ -217,8 +217,6 @@ public class ObjectPosition
     public final void setWorldPosition(int x, int y, int z)
     {
         getWorldPosition().setXYZ(x, y, z);
-        if (getActiveObject() != null && getActiveObject() instanceof L2PcInstance)
-            ((L2PcInstance) getActiveObject()).revalidateZone();
     }
 
     /**

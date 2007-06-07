@@ -158,14 +158,8 @@ public class Mdam implements ISkillHandler
                     target.breakCast();
                 }
 
-                if (activeChar instanceof L2PcInstance)
-                {
-                    if (mcrit) activeChar.sendPacket(new SystemMessage(1280));
+                activeChar.sendDamageMessage(target, damage, mcrit, false, false);
 
-                    SystemMessage sm = new SystemMessage(SystemMessage.YOU_DID_S1_DMG);
-                    sm.addNumber(damage);
-                    activeChar.sendPacket(sm);
-                }
                 if (target instanceof L2PcInstance) //aura flare de-buff.
                 {
                     if (skill.getId() == 1231)

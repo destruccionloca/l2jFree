@@ -25,7 +25,6 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
@@ -120,27 +119,7 @@ public class L2SkillDrain extends L2Skill {
                     target.breakCast();                 
                 }
                 
-                if (mcrit) activeChar.sendPacket(new SystemMessage(1280));
-                
-                SystemMessage sm = new SystemMessage(SystemMessage.YOU_DID_S1_DMG);
-                sm.addNumber(damage); 
-                activeChar.sendPacket(sm);
-                
-                if (this.hasEffects())
-                {
-                // activate attacked effects, if any
-                target.stopEffect(this.getId());
-                if (target.getEffect(this.getId()) != null)
-                    target.removeEffect(target.getEffect(this.getId()));
-                if (Formulas.getInstance().calcSkillSuccess(activeChar, target, this, false, false, false))
-                {
-                   this.getEffects(activeChar, target);
-                    
-                    SystemMessage sm1 = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT);
-                    sm1.addSkillName(this.getId());
-                    target.sendPacket(sm1);
-                }
-            }
+                activeChar.sendDamageMessage(target, damage, mcrit, false, false);
             }
             // Check to see if we should do the decay right after the cast
             if (target.isDead() && getTargetType() == SkillTargetType.TARGET_CORPSE_MOB && target instanceof L2NpcInstance) {

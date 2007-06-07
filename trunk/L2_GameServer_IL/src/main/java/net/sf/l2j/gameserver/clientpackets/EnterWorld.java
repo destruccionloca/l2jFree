@@ -32,11 +32,9 @@ import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
-import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.L2Effect;
@@ -44,17 +42,14 @@ import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2Event;
-import net.sf.l2j.gameserver.model.entity.ZoneType;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
-import net.sf.l2j.gameserver.serverpackets.ClanHallDecoration;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.ClientSetTime;
 import net.sf.l2j.gameserver.serverpackets.Die;
@@ -373,14 +368,6 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.sendPacket(new PledgeSkillList(activeChar.getClan()));
 
         RegionBBSManager.getInstance().changeCommunityBoard();
-
-        if (ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ClanHall), activeChar)){
-        	ClanHall clanHall = ClanHallManager.getInstance().getClanHall(activeChar.getX(), activeChar.getY());
-	    	if(clanHall != null){
-        		ClanHallDecoration bl = new ClanHallDecoration(clanHall);
-	    		activeChar.sendPacket(bl);
-	    	}
-    	}
 
         if(Config.GAMEGUARD_ENFORCE)
             activeChar.sendPacket(new GameGuardQuery());

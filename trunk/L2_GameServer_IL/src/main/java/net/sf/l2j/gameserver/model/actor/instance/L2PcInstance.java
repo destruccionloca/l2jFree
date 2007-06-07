@@ -81,9 +81,9 @@ import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
+import net.sf.l2j.gameserver.instancemanager.SailrenManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
-import net.sf.l2j.gameserver.instancemanager.SailrenManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.FishData;
@@ -157,6 +157,7 @@ import net.sf.l2j.gameserver.serverpackets.ExFishingEnd;
 import net.sf.l2j.gameserver.serverpackets.ExFishingStart;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadMode;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfo;
+import net.sf.l2j.gameserver.serverpackets.ExSetCompassZoneCode;
 import net.sf.l2j.gameserver.serverpackets.FriendList;
 import net.sf.l2j.gameserver.serverpackets.HennaInfo;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
@@ -357,7 +358,15 @@ public final class L2PcInstance extends L2PlayableInstance
     private byte _pvpFlag;
 
     private boolean _inPvpZone;
-   
+	private boolean _inPeaceZone;
+	private boolean _inSiegeZone;
+	private boolean _inMotherTreeZone;
+	private byte _inClanHall;
+	private int _lastCompassZone; // the last compass zone update send to the client
+	private byte _zoneValidateCounter = 4;
+	
+	private boolean _isIn7sDungeon = false;
+	
     private int _pledgeType = 0;
     
     /** L2PcInstance's pledge rank*/
@@ -365,11 +374,6 @@ public final class L2PcInstance extends L2PlayableInstance
     
     /** Level at which the player joined the clan as an accedemy member*/
     private int _accademyLvl;
-
-    /** ae mother tree */
-    private boolean _inMotherTreeZone;
-    
-    private boolean _inClanHall;
 
     /** service for recommendations manipulation */
     private CharRecommendationService charRecommendationService = (CharRecommendationService)L2Registry.getBean(IServiceRegistry.CHAR_RECOMMENDATIONS);
@@ -519,7 +523,6 @@ public final class L2PcInstance extends L2PlayableInstance
     private L2ItemInstance _activeEnchantItem = null;
 
     private boolean _isOnline = false;
-    private boolean _isIn7sDungeon = false;
 
     protected boolean _inventoryDisable = false;
 
@@ -1493,9 +1496,24 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
-    private void revalidateInPvpZone()
-    {
-        setInPvpZone(ZoneManager.getInstance().checkIfInZonePvP(this));
+	public boolean getInSiegeZone()
+	{
+		return _inSiegeZone;
+	}
+	
+	public void setInSiegeZone(boolean inSiegeZone)
+	{
+		_inSiegeZone = inSiegeZone;
+	}
+	
+	public boolean getInPeaceZone()
+	{
+		return _inPeaceZone;
+	}
+	
+	public void setInPeaceZone(boolean inPeaceZone)
+	{
+		_inPeaceZone = inPeaceZone;
     }
 
     public boolean getInMotherTreeZone()
@@ -1503,18 +1521,21 @@ public final class L2PcInstance extends L2PlayableInstance
         return _inMotherTreeZone;
     }
     
-    public boolean getIsInClanHall()
+    public byte getIsInClanHall()
     {
         return _inClanHall;
     }
     
-    public void setIsInClanHall(boolean inCH)
+    public void setIsInClanHall(byte inCH)
     {
-        if (isGM() && inCH && !_inClanHall) sendMessage("You have entered your clan hall");
-        else if (isGM() && !inCH && _inClanHall) sendMessage("You have left your clan hall");
+    	if (inCH > 1 && _inClanHall == 0)
+    		sendMessage("You have entered your clan hall");
+        else if (inCH == 0 && _inClanHall == 2) 
+        	sendMessage("You have left your clan hall");
+        
         _inClanHall = inCH;
     }
-
+    
     /**
      * Update the _inMotherTreeZone flag and send a message to player.<br><br>
      * @param inMotherTreeZone : true if player is in a mother tree zone
@@ -1558,35 +1579,76 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
-    public void revalidateInMotherTreeZone()
-    {
-        setInMotherTreeZone(ZoneManager.getInstance().checkIfInZone(
-                                                                    ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.MotherTree),
-                                                                    this));
-    }
-    
     public void revalidateInClanHall()
     {
-		ClanHall clanHall;
-        if (ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ClanHall), this)){
-        	clanHall = ClanHallManager.getInstance().getClanHall(getX(), getY());
-	    	if(clanHall != null){
-        		ClanHallDecoration bl = new ClanHallDecoration(clanHall);
-	    		sendPacket(bl);
-	    	}
-    	}
- 		if(this.getClan() == null) return;
- 		int clanHallIndex = this.getClan().getHasHideout();
- 		if( clanHallIndex == 0 ) return;
-		clanHall = ClanHallManager.getInstance().getClanHall(clanHallIndex); 
-		if(clanHall != null) setIsInClanHall(clanHall.checkIfInZone(this.getX(),this.getY()));
+		ClanHall clanHall = ClanHallManager.getInstance().getClanHall(getX(), getY());
+	    if(clanHall != null)
+	    {
+	    	if (getIsInClanHall() > 0) return; // already inside hall, 
+	    									   // assumes there are no 2 adjacent halls
+	    	ClanHallDecoration bl = new ClanHallDecoration(clanHall);
+        	sendPacket(bl);
+        	if(this.getClan() != null && this.getClanId() == clanHall.getOwnerId())
+	    		setIsInClanHall((byte)2); // own
+	    	else 
+	    		setIsInClanHall((byte)1); // visiting    	
+	    }
+	    else setIsInClanHall((byte)0);	// not in clan hall
     }
 
-    public void revalidateZone()
+    public void revalidateZone(boolean force)
     {
-        revalidateInPvpZone();
-        revalidateInMotherTreeZone();
+    	// This function is called very often from movement code
+    	if (force) _zoneValidateCounter = 4;
+    	else 
+    	{
+    		_zoneValidateCounter--;
+    		if (_zoneValidateCounter < 0)
+    			_zoneValidateCounter = 4;
+    		else return;
+    	}
+    	
+    	setInSiegeZone(SiegeManager.getInstance().checkIfInZone(getX(), getY()));
+    	setInPvpZone(getInSiegeZone() || ZoneManager.getInstance().checkIfInZonePvP(this));
+   		setInPeaceZone(ZoneManager.getInstance().checkIfInZonePeace(this));
+   		setInMotherTreeZone(ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.MotherTree), this));
         revalidateInClanHall();
+        
+        if (getInSiegeZone())
+        {
+        	if (_lastCompassZone == ExSetCompassZoneCode.SIEGEWARZONE2) return;
+        	_lastCompassZone = ExSetCompassZoneCode.SIEGEWARZONE2;
+        	ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.SIEGEWARZONE2);
+        	sendPacket(cz);
+        }
+        else if (getInPvpZone())
+        {
+        	if (_lastCompassZone == ExSetCompassZoneCode.PVPZONE) return;
+        	_lastCompassZone = ExSetCompassZoneCode.PVPZONE;
+        	ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.PVPZONE);
+        	sendPacket(cz);
+        }
+        else if (isIn7sDungeon())
+        {
+        	if (_lastCompassZone == ExSetCompassZoneCode.SEVENSIGNSZONE) return;
+        	_lastCompassZone = ExSetCompassZoneCode.SEVENSIGNSZONE;
+        	ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.SEVENSIGNSZONE);
+        	sendPacket(cz);
+        }
+        else if (getInPeaceZone())
+        {
+        	if (_lastCompassZone == ExSetCompassZoneCode.PEACEZONE) return;
+        	_lastCompassZone = ExSetCompassZoneCode.PEACEZONE;
+        	ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.PEACEZONE);
+        	sendPacket(cz);
+        }
+        else
+        {
+        	if (_lastCompassZone == ExSetCompassZoneCode.GENERALZONE) return;
+        	_lastCompassZone = ExSetCompassZoneCode.GENERALZONE;
+        	ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.GENERALZONE);
+        	sendPacket(cz);
+        }        
     }
 
     /**
@@ -4146,7 +4208,7 @@ public final class L2PcInstance extends L2PlayableInstance
             //                      || this.getClan().isAtWarWith(((L2PcInstance)killer).getClanId())
             )) return;
 
-        if (!ZoneManager.getInstance().checkIfInZonePvP(this) && (!isGM() || Config.KARMA_DROP_GM))
+        if (!getInPvpZone() && (!isGM() || Config.KARMA_DROP_GM))
         {
             boolean isKarmaDrop = false;
             boolean isKillerNpc = (killer instanceof L2NpcInstance);
@@ -4289,13 +4351,17 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         // Check if it's pvp
-        if ((checkIfPvP(target) && //   Can pvp and
-            targetPlayer.getPvpFlag() != 0 //   Target player has pvp flag set
-            ) || // or
-            (ZoneManager.getInstance().checkIfInZonePvP(this) && //   Player is inside pvp zone and
-            ZoneManager.getInstance().checkIfInZonePvP(target) //   Target player is inside pvp zone
-            ))
-        {
+		if (
+				(
+						checkIfPvP(target) &&            //   Can pvp and
+						targetPlayer.getPvpFlag() != 0   //   Target player has pvp flag set
+				) ||                                     // or
+				(
+						getInPvpZone() &&         		 //   Player is inside pvp zone and
+						targetPlayer.getInPvpZone() 	 //   Target player is inside pvp zone
+				)
+		)
+		{
             increasePvpKills();
             // give faction pvp points
             if (Config.FACTION_ENABLED)
@@ -4307,6 +4373,7 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             // check factions
             if (Config.FACTION_ENABLED)
+            {
                 if (targetPlayer.getSide() != getSide() && targetPlayer.getSide()!=0 && getSide()!=0 && Config.FACTION_KILL_REWARD)
                 {
                     // give faction pk points
@@ -4314,6 +4381,7 @@ public final class L2PcInstance extends L2PlayableInstance
                     // no karma
                     return;
                 }
+            }
             
             // check about wars
             if (targetPlayer.getClan() != null && this.getClan() != null)
@@ -4328,21 +4396,20 @@ public final class L2PcInstance extends L2PlayableInstance
                     }
                 }
             }
-
+            
             // 'No war' or 'One way war' -> 'Normal PK'
-            if (targetPlayer.getKarma() > 0) // Target player has karma
-            {
-                if (Config.KARMA_AWARD_PK_KILL)
-                {
+			if (targetPlayer.getKarma() > 0)                                        // Target player has karma
+			{
+				if ( Config.KARMA_AWARD_PK_KILL )
+				{
                     increasePvpKills();
-                }
-            }
-            else
-            // Target player doesn't have karma
-            {
+				}
+			}
+			else if (targetPlayer.getPvpFlag() == 0)                                                                    // Target player doesn't have karma
+			{
                 increasePkKillsAndKarma(targetPlayer.getLevel());
-            }
-        }
+			}
+		}
     }
     
     /**
@@ -4453,7 +4520,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (_inEventVIP && VIP._started))
             return;
 
-		if (ZoneManager.getInstance().checkIfInZonePvP(this)) return;
+        if (getInPvpZone()) return;
 		setPvpFlagLasts(System.currentTimeMillis() + Config.PVP_NORMAL_TIME);
 		
 		if (getPvpFlag() == 0)
@@ -4468,7 +4535,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	            return;
 			
 			if ((isInDuel() && ((L2PcInstance)target).getDuelId() == getDuelId())) return;
-			if ((!ZoneManager.getInstance().checkIfInZonePvP(this) || !ZoneManager.getInstance().checkIfInZonePvP(target)) && ((L2PcInstance)target).getKarma() == 0)
+			if ((!getInPvpZone() || !((L2PcInstance)target).getInPvpZone()) && ((L2PcInstance)target).getKarma() == 0)
 			{
 				if (checkIfPvP(target))
 					setPvpFlagLasts(System.currentTimeMillis() + Config.PVP_PVP_TIME);
@@ -6885,7 +6952,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (getClan() != null && attacker != null && getClan().isMember(attacker.getName()))
             return false;
 
-        if(attacker instanceof L2PlayableInstance && ZoneManager.getInstance().checkIfInZonePeace(this)) 
+        if(attacker instanceof L2PlayableInstance && getInPeaceZone())
             return false;
 
         if(attacker instanceof L2PlayableInstance 
@@ -6909,8 +6976,8 @@ public final class L2PcInstance extends L2PlayableInstance
 				return true;
 			
             // Check if the L2PcInstance is in an arena or a siege area
-            if (ZoneManager.getInstance().checkIfInZonePvP(this)
-                && ZoneManager.getInstance().checkIfInZonePvP(attacker)) return true;
+        	if (getInPvpZone() && ((L2PcInstance)attacker).getInPvpZone())
+        		return true;
 
             if (this.getClan() != null)
             {
@@ -7398,8 +7465,8 @@ public final class L2PcInstance extends L2PlayableInstance
 				target != this &&                                           			// target is not self and
 				target instanceof L2PcInstance &&                           			// target is L2PcInstance and
 				!(isInDuel() && ((L2PcInstance)target).getDuelId() == getDuelId()) &&	// self is not in a duel and attacking opponent
-				!ZoneManager.getInstance().checkIfInZonePvP(this) &&        			// Pc is not in PvP zone
-				!ZoneManager.getInstance().checkIfInZonePvP(target)         			// target is not in PvP zone
+				!getInPvpZone() &&        												// Pc is not in PvP zone
+				!((L2PcInstance)target).getInPvpZone()         							// target is not in PvP zone
 		)
 		{
 			if(skill.isPvpSkill()) // pvp skill
@@ -8206,7 +8273,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (getPrivateStoreType() != STORE_PRIVATE_NONE) { _noDuelReason = SystemMessage.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_ENGAGED_IN_A_PRIVATE_STORE_OR_MANUFACTURE; return false; }
 		if (isMounted() || isInBoat()) { _noDuelReason = SystemMessage.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_RIDING_A_BOAT_WYVERN_OR_STRIDER; return false; }
 		if (isFishing()) { _noDuelReason = SystemMessage.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_FISHING; return false; }
-		if (getInPvpZone() || ZoneManager.getInstance().checkIfInZonePeace(this) || SiegeManager.getInstance().checkIfInZone(this))
+		if (getInPvpZone() || getInPeaceZone() || SiegeManager.getInstance().checkIfInZone(this))
 		{
 			_noDuelReason = SystemMessage.S1_CANNOT_MAKE_A_CHALLANGE_TO_A_DUEL_BECAUSE_S1_IS_CURRENTLY_IN_A_DUEL_PROHIBITED_AREA;
 			return false;
@@ -8847,7 +8914,7 @@ public final class L2PcInstance extends L2PlayableInstance
         setInPvpZone(false, false);
         // Reset MotherTree Zone flag withour sending a message to the client
         setInMotherTreeZone(false, false);
-        revalidateZone();
+        revalidateZone(true);
 
 		// [L2J_JP ADD SANDMAN]
 		if (!isGM() && ZoneManager.getInstance().checkIfInZone("FourSepulcher", this) &&
@@ -9082,13 +9149,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (Config.ALLOW_WATER) checkWaterState();
         
-        if (ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ClanHall), this)){ 
-        	ClanHall clanHall = ClanHallManager.getInstance().getClanHall(getX(), getY()); 
-        	if(clanHall != null){ 
-         		ClanHallDecoration bl = new ClanHallDecoration(clanHall); 
-         		sendPacket(bl); 
-         	} 
-        }
 		// Modify the position of the tamed beast if necessary (normal pets are handled by super...though
         // L2PcInstance is the only class that actually has pets!!! )
 		if(getTrainedBeast() != null)
@@ -9146,6 +9206,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // Set the timer of last position update to now
         m._moveTimestamp = gameTicks;
+        
+        revalidateZone(false);
+        
         return (_move == null);
     }
 
@@ -10499,5 +10562,26 @@ public final class L2PcInstance extends L2PlayableInstance
    public void setCharRecommendationStatus(CharRecommendationStatus charRecommendationStatus)
    {
        this.charRecommendationStatus = charRecommendationStatus;
+   }
+
+   public final void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
+   {
+		// Check if hit is missed
+		if (miss)
+		{
+			sendPacket(new SystemMessage(SystemMessage.MISSED_TARGET));
+			return;
+		}
+		
+		// Check if hit is critical
+		if (pcrit)
+			sendPacket(new SystemMessage(SystemMessage.CRITICAL_HIT));
+		if (mcrit)
+			sendPacket(new SystemMessage(SystemMessage.CRITICAL_HIT_MAGIC));
+
+		SystemMessage sm = new SystemMessage(SystemMessage.YOU_DID_S1_DMG);
+		sm.addNumber(damage);
+		sendPacket(sm);
+		
    }   
 }

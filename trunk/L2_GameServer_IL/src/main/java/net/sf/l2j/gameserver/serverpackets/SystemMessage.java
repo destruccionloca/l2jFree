@@ -89,8 +89,9 @@ public class SystemMessage extends L2GameServerPacket
 	public static final int SOUL_CRYSTAL_ABSORBING_FAILED_RESONATION = 977;
 	public static final int SOUL_CRYSTAL_ABSORBING_REFUSED = 978;
 	
-	public static final int YOU_DID_S1_DMG = 0x23;
-	public static final int S1_GAVE_YOU_S2_DMG = 0x24;
+	public static final int YOU_DID_S1_DMG = 35;
+	public static final int S1_GAVE_YOU_S2_DMG = 36;
+	
     public static final int EFFECT_S1_DISAPPEARED = 749;
 	public static final int YOU_EARNED_S1_EXP_AND_S2_SP = 0x5f;
 	public static final int YOU_INCREASED_YOUR_LEVEL = 0x60;
@@ -424,6 +425,8 @@ public class SystemMessage extends L2GameServerPacket
     public static final int NAMING_PETNAME_CONTAINS_INVALID_CHARS = 591;
     
 	//Pets
+	public static final int PET_HIT_FOR_S1_DAMAGE = 1015;
+	public static final int PET_RECEIVED_S2_DAMAGE_BY_S1 = 1016;    
 	public static final int ITEM_NOT_FOR_PETS = 544;
     public static final int DEAD_PET_CANNOT_BE_RETURNED = 589;
 	public static final int CANNOT_GIVE_ITEMS_TO_DEAD_PET = 590;
@@ -431,7 +434,7 @@ public class SystemMessage extends L2GameServerPacket
     public static final int PET_EARNED_S1_EXP = 1014;
     public static final int PET_RECEIVED_DAMAGE_OF_S2_BY_S1 = 1016;
     public static final int PET_CRITICAL_HIT = 1017;
-	public static final int PET_DID_S1_DMG = 1015;
+	public static final int PET_DID_S1_DMG = 1015;    
     public static final int S1_GAME_PET_S2_DMG = 1016;
     public static final int PET_CANNOT_USE_ITEM = 972;
     public static final int YOUR_PET_IS_VERY_HUNGRY = 595;
@@ -466,8 +469,10 @@ public class SystemMessage extends L2GameServerPacket
     //Summoning
     public static final int SUMMON_GAVE_DAMAGE_OF_S1 = 1026;
     public static final int SUMMON_RECEIVED_DAMAGE_OF_S2_BY_S1 = 1027;
-    public static final int SUMMON_CRITICAL_HIT = 1028;
-    public static final int CUBIC_SUMMONING_FAILED = 568;
+    public static final int SUMMON_CRITICAL_HIT = 1028;    
+	public static final int SUMMON_GAVE_DAMAGE_S1 = 1026;
+	public static final int SUMMON_RECEIVED_DAMAGE_S2_BY_S1 = 1027;    
+	public static final int CUBIC_SUMMONING_FAILED = 568;
     public static final int SUMMONING_SERVITOR_COSTS_S2_S1 = 1197;
     public static final int SUMMON_ONLY_ONE = 580;
     public static final int YOU_CANNOT_SUMMON_PLAYERS_WHO_ARE_IN_OLYMPIAD = 1911;

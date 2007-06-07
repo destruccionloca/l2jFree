@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.gameserver.handler.ISkillHandler;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -42,92 +41,91 @@ public class SummonFriend implements ISkillHandler
     private static final Log _log = LogFactory.getLog(SummonFriend.class.getName());
     protected SkillType[] _skillIds = {SkillType.SUMMON_FRIEND};
 
-    public void useSkill(@SuppressWarnings("unused") L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, L2Object[] targets)
-    {
-        if (activeChar instanceof L2PcInstance)
-        {
-            if (((L2PcInstance)activeChar).isInOlympiadMode())
-            {
-                ((L2PcInstance)activeChar).sendPacket(new SystemMessage(SystemMessage.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
-                return;
-            }
+ 	public void useSkill(@SuppressWarnings("unused") L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, L2Object[] targets)
+	{
+ 		if (!(activeChar instanceof L2PcInstance)) return; // currently not implemented for others
+ 		L2PcInstance activePlayer = (L2PcInstance)activeChar;
+ 		
+ 		if (activePlayer.isInOlympiadMode())
+ 		{
+ 			activePlayer.sendPacket(new SystemMessage(SystemMessage.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
+ 			return;
         }
         
+ 		// Checks summoner not in arenas, siege zones, jail
+       	if (activePlayer.getInPvpZone())
+       	{
+       		activePlayer.sendPacket(new SystemMessage(SystemMessage.YOU_CANNOT_SUMMON_IN_COMBAT));
+        	return;
+        }
+       	
         // check for summoner not in raid areas
         L2Object[] objects = L2World.getInstance().getVisibleObjects(activeChar, 5000);
         
         if (objects != null)
         {
-            for (L2Object object : objects)
-            {
-                if (object instanceof L2RaidBossInstance) 
-                {
-                    ((L2PcInstance)activeChar).sendPacket(new SystemMessage(SystemMessage.YOU_MAY_NOT_SUMMON_FROM_YOUR_CURRENT_LOCATION));
+        	for (L2Object object : objects)
+        	{
+        		if (object instanceof L2RaidBossInstance) 
+        		{
+        			activePlayer.sendPacket(new SystemMessage(SystemMessage.YOU_MAY_NOT_SUMMON_FROM_YOUR_CURRENT_LOCATION));
                     return;
-                }
-            }
+        		}
+        	}
         }
         
-        // Checks summoner not in arenas, siege zones, jail
-        if (ZoneManager.getInstance().checkIfInZonePvP(activeChar)) 
+		try 
         {
-            if (activeChar instanceof L2PcInstance)
-                ((L2PcInstance)activeChar).sendPacket(new SystemMessage(SystemMessage.YOU_CANNOT_SUMMON_IN_COMBAT));
-            return;
-        }
+			for (int index = 0; index < targets.length; index++)
+			{
+				if (!(targets[index] instanceof L2Character))
+					continue;
 
-        try 
-        {
-            for (int index = 0; index < targets.length; index++)
-            {
-                if (!(targets[index] instanceof L2Character))
-                    continue;
-
-                L2Character target = (L2Character)targets[index];
-                
-                if (activeChar == target) continue;
+				L2Character target = (L2Character)targets[index];
+				
+				if (activeChar == target) continue;
 
                 if (target instanceof L2PcInstance)
                 {
                     L2PcInstance targetChar = (L2PcInstance)target;
                     
                     // CHECK TARGET CONDITIONS
-                    
+                	
                     //This message naturally doesn't bring up a box...
                     //$s1 wishes to summon you from $s2. Do you accept?
-                    //SystemMessage sm2 = new SystemMessage(1842);
-                    //sm2.addString(activeChar.getName());
-                    //String nearestTown = MapRegionTable.getInstance().getClosestTownName(activeChar);
-                    //sm2.addString(nearestTown);
-                    //targetChar.sendPacket(sm2);
+    				//SystemMessage sm2 = new SystemMessage(1842);
+                	//sm2.addString(activeChar.getName());
+                	//String nearestTown = MapRegionTable.getInstance().getClosestTownName(activeChar);
+                	//sm2.addString(nearestTown);
+                	//targetChar.sendPacket(sm2);
                     
                     // is in same party (not necessary any more) 
                     // if (!(targetChar.getParty() != null && targetChar.getParty().getPartyMembers().contains(activeChar)))
-                    //  continue;
+                    //	continue;
                     
                     if (targetChar.isAlikeDead())
                     {
-                        SystemMessage sm = new SystemMessage(SystemMessage.S1_IS_DEAD_AT_THE_MOMENT_AND_CANNOT_BE_SUMMONED);
-                        sm.addString(targetChar.getName());
-                        activeChar.sendPacket(sm);
-                        continue;
+                    	SystemMessage sm = new SystemMessage(SystemMessage.S1_IS_DEAD_AT_THE_MOMENT_AND_CANNOT_BE_SUMMONED);
+                    	sm.addString(targetChar.getName());
+                    	activeChar.sendPacket(sm);
+                    	continue;
                     }
                     
                     if (targetChar.isInStoreMode())
                     {
-                        SystemMessage sm = new SystemMessage(SystemMessage.S1_CURRENTLY_TRADING_OR_OPERATING_PRIVATE_STORE_AND_CANNOT_BE_SUMMONED);
-                        sm.addString(targetChar.getName());
-                        activeChar.sendPacket(sm);
-                        continue;
+                    	SystemMessage sm = new SystemMessage(SystemMessage.S1_CURRENTLY_TRADING_OR_OPERATING_PRIVATE_STORE_AND_CANNOT_BE_SUMMONED);
+                    	sm.addString(targetChar.getName());
+                    	activeChar.sendPacket(sm);
+                    	continue;
                     }
 
                     // Target cannot be in combat (or dead, but that's checked by TARGET_PARTY)
                     if (targetChar.isRooted() || targetChar.isInCombat()) 
                     {
-                        SystemMessage sm = new SystemMessage(SystemMessage.S1_IS_ENGAGED_IN_COMBAT_AND_CANNOT_BE_SUMMONED);
-                        sm.addString(targetChar.getName());
-                        activeChar.sendPacket(sm);
-                        continue;
+                    	SystemMessage sm = new SystemMessage(SystemMessage.S1_IS_ENGAGED_IN_COMBAT_AND_CANNOT_BE_SUMMONED);
+                    	sm.addString(targetChar.getName());
+                    	activeChar.sendPacket(sm);
+                    	continue;
                     }
                     
                     // Check for the the target's festival status
@@ -138,45 +136,45 @@ public class SummonFriend implements ISkillHandler
                     
                     // Check for the the target's festival status
                     if (targetChar.isFestivalParticipant()) {
-                        activeChar.sendPacket(new SystemMessage(SystemMessage.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
+                    	activeChar.sendPacket(new SystemMessage(SystemMessage.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
                         continue;
                     }
                     
                     // Check for the target's jail status, arenas and siege zones
-                    if (ZoneManager.getInstance().checkIfInZonePvP(targetChar))
+                    if (targetChar.getInPvpZone())
                     {
-                        activeChar.sendPacket(new SystemMessage(SystemMessage.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
+                    	activeChar.sendPacket(new SystemMessage(SystemMessage.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
                         continue;
                     }
                     
                     // Requires a Summoning Crystal
                     if (targetChar.getInventory().getItemByItemId(8615) == null)
                     {
-                        ((L2PcInstance)activeChar).sendMessage("Your target cannot be summoned while he hasn't got a Summoning Crystal");
-                        targetChar.sendMessage("You cannot summoned while you haven't got a Summoning Crystal");
-                        continue;
+                    	((L2PcInstance)activeChar).sendMessage("Your target cannot be summoned while he hasn't got a Summoning Crystal");
+                    	targetChar.sendMessage("You cannot summoned while you haven't got a Summoning Crystal");
+                    	continue;
                     }
                     
                     if (!Util.checkIfInRange(0, activeChar, target, false))
                     {
-                        targetChar.getInventory().destroyItemByItemId("Consume", 8615, 1, targetChar, activeChar);
-                        targetChar.sendPacket(SystemMessage.sendString("You are summoned to a party member."));
-                        
-                        targetChar.teleToLocation(activeChar.getX(),activeChar.getY(),activeChar.getZ(), true);
+                    	targetChar.getInventory().destroyItemByItemId("Consume", 8615, 1, targetChar, activeChar);
+                    	targetChar.sendPacket(SystemMessage.sendString("You are summoned to a party member."));
+                    	
+                    	targetChar.teleToLocation(activeChar.getX(),activeChar.getY(),activeChar.getZ(), true);
                     }
                     else
                     {
-                    
+                	
                     }
                 }
-            }
+			}
         } catch (Throwable e) {
-            if (_log.isDebugEnabled())  _log.debug("",e);
-        }
-    }
+ 	 	 	if (_log.isDebugEnabled()) e.printStackTrace();
+ 	 	}
+ 	}
 
-    public SkillType[] getSkillIds()
-    {
-        return _skillIds;
-    }
+	public SkillType[] getSkillIds()
+	{
+		return _skillIds;
+	}
 }
