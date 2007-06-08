@@ -4537,6 +4537,8 @@ public final class L2PcInstance extends L2PlayableInstance
            
         if (player_target == null)
            return;
+        if ((TvT._started && _inEventTvT && player_target._inEventTvT) || (DM._started && _inEventDM && player_target._inEventDM) || (CTF._started && _inEventCTF && player_target._inEventCTF) || (_inEventVIP && VIP._started && player_target._inEventVIP))  
+           return; 
         
         if ((isInDuel() && player_target.getDuelId() == getDuelId())) return;
         if ((!getInPvpZone() || !player_target.getInPvpZone()) && player_target.getKarma() == 0)
