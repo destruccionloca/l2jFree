@@ -647,13 +647,15 @@ public class L2CharacterAI extends AbstractAI
     	// If the Intention was AI_INTENTION_MOVE_TO, set the Intention to AI_INTENTION_ACTIVE
         if (getIntention() == AI_INTENTION_MOVE_TO) setIntention(AI_INTENTION_ACTIVE);
 
+        // Launch an explore task if necessary
+        if (_accessor.getActor() instanceof L2PcInstance)
+        {
+        	((L2PcInstance) _accessor.getActor()).revalidateZone(true);
+        }
+                   
         // Launch actions corresponding to the Event Think
         onEvtThink();
-        /*if (_actor instanceof L2PcInstance)
-            if (!_actor.isAttackingNow() && !_actor.isCastingNow()
-                && !((L2PcInstance) _actor).isSitting())
-                _actor.broadcastPacket(new CharMoveToLocation(_actor)); */
-        //((L2PcInstance)_actor).sendPacket(new CharMoveToLocation(_actor));
+
         if (_actor instanceof L2BoatInstance)
         {
             ((L2BoatInstance) _actor).evtArrived();
