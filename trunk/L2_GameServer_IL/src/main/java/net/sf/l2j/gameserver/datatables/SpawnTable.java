@@ -320,7 +320,7 @@ public class SpawnTable implements SpawnTableMBean
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("update spawnlist set count=?,npc_templateid=?,locx=?,locy=?,locz=?,heading=?,respawn_delay=?,loc_id=? where id =?");
+            PreparedStatement statement = con.prepareStatement("update "+(spawn.isCustom()?"custom_spawnlist":"spawnlist")+" set count=?,npc_templateid=?,locx=?,locy=?,locz=?,heading=?,respawn_delay=?,loc_id=? where id =?");
             statement.setInt(1, spawn.getAmount());
             statement.setInt(2, spawn.getNpcid());
             statement.setInt(3, spawn.getLocx());
