@@ -3712,6 +3712,7 @@ public abstract class L2Character extends L2Object
        }
        else
        {
+    	   super.getPosition().setXYZ(m._xMoveFrom + (int)(elapsed * m._xSpeedTicks),m._yMoveFrom + (int)(elapsed * m._ySpeedTicks),super.getZ());
     	   if (this instanceof L2PcInstance) ((L2PcInstance)this).revalidateZone(false);
        }
 
