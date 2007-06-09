@@ -25,7 +25,6 @@ import net.sf.l2j.gameserver.ai.L2SummonAI;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PetBabyInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.SummonKnownList;
 import net.sf.l2j.gameserver.model.actor.stat.SummonStat;
@@ -552,11 +551,8 @@ public abstract class L2Summon extends L2PlayableInstance
         if (getStatus().getCurrentMp() < getStat().getMpConsume(skill) + getStat().getMpInitialConsume(skill))
         {
             // Send a System Message to the caster
-            if (getOwner() != null)
-            if (!(this instanceof L2PetBabyInstance))
-            {
-                getOwner().sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_MP));
-            }
+        	if (getOwner() != null)
+        		getOwner().sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_MP));
             return;
         }
         
@@ -564,11 +560,11 @@ public abstract class L2Summon extends L2PlayableInstance
         if (getStatus().getCurrentHp() <= skill.getHpConsume())
         {
             // Send a System Message to the caster
-            if (getOwner() != null)
-                getOwner().sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_HP));
+        	if (getOwner() != null)
+        		getOwner().sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_HP));
             return;
         }
-
+        
         //************************************* Check Summon State *******************************************
         
         // Check if this is offensive magic skill

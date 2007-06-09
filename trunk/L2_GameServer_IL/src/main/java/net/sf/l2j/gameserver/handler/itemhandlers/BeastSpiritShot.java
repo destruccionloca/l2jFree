@@ -21,8 +21,8 @@ package net.sf.l2j.gameserver.handler.itemhandlers;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Summon;
+import net.sf.l2j.gameserver.model.actor.instance.L2BabyPetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PetBabyInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.serverpackets.ExAutoSoulShot;
@@ -47,35 +47,29 @@ public class BeastSpiritShot implements IItemHandler
     	if (playable == null) return;
     	
         L2PcInstance activeOwner = null;
-        L2Summon activePet= null;
-
-        if (playable instanceof L2Summon && !(playable instanceof L2PetBabyInstance))
+        if (playable instanceof L2Summon)
         {
             activeOwner = ((L2Summon)playable).getOwner();
             activeOwner.sendPacket(new SystemMessage(SystemMessage.PET_CANNOT_USE_ITEM));
             return;
+        } else if (playable instanceof L2PcInstance)
+        {
+        	activeOwner = (L2PcInstance)playable;
         }
         
-        if (playable instanceof L2PcInstance)
-        {
-            activeOwner = (L2PcInstance)playable;
-            activePet = activeOwner.getPet();
-        }
-        else if (playable instanceof L2PetBabyInstance ) 
-        {
-            activePet = (L2Summon)playable;
-            activeOwner = activePet.getOwner();
-        }
+        if (activeOwner == null)
+        	return;
+        L2Summon activePet = activeOwner.getPet();
         
         if (activePet == null)
         {
-            activeOwner.sendPacket(new SystemMessage(SystemMessage.PETS_AND_SERVITORS_NOT_AVAIBLE_AT_THIS_TIME));
+            activeOwner.sendPacket(new SystemMessage(574));
             return;
         }
         
         if (activePet.isDead())
         {
-            activeOwner.sendPacket(new SystemMessage(SystemMessage.SOULSHOTS_AND_SPIRITSHOTS_NOT_AVAIBLE_FOR_DEAD_PET_OR_SERVITOR));
+            activeOwner.sendPacket(new SystemMessage(1598));
             return;
         }
 
@@ -86,7 +80,7 @@ public class BeastSpiritShot implements IItemHandler
         L2ItemInstance weaponInst = null;
         L2Weapon weaponItem = null;
         
-        if (activePet instanceof L2PetInstance && !(activePet  instanceof L2PetBabyInstance))
+        if ((activePet instanceof L2PetInstance) && !(activePet instanceof L2BabyPetInstance))
         {
             weaponInst = ((L2PetInstance)activePet).getActiveWeaponInstance();
             weaponItem = ((L2PetInstance)activePet).getActiveWeaponItem();
@@ -104,7 +98,7 @@ public class BeastSpiritShot implements IItemHandler
             }
         
             int shotCount = item.getCount();
-            shotConsumption = weaponItem.getSpiritShotCount();
+           	shotConsumption = weaponItem.getSpiritShotCount();
             
             if (shotConsumption == 0)
             {
@@ -115,7 +109,7 @@ public class BeastSpiritShot implements IItemHandler
             if (!(shotCount > shotConsumption))
             {
                 // Not enough SpiritShots to use.
-                activeOwner.sendPacket(new SystemMessage(SystemMessage.YOU_DONT_HAVE_ENOUGH_SPIRITSHOTS_NEEDED_FOR_PET_SERVITOR));
+                activeOwner.sendPacket(new SystemMessage(1700));
                 return;
             }
 
@@ -157,10 +151,7 @@ public class BeastSpiritShot implements IItemHandler
         activeOwner.sendPacket(new PetInfo(activePet));
         
         // Pet uses the power of spirit.
-        if (activePet instanceof L2PetInstance )
-        	activeOwner.sendPacket(new SystemMessage(SystemMessage.PET_USES_POWER_OF_SPIRIT));
-        else
-        	activeOwner.sendPacket(new SystemMessage(SystemMessage.SERVITOR_USES_POWER_OF_SPIRIT));
+        activeOwner.sendPacket(new SystemMessage(1576));
         
         Broadcast.toSelfAndKnownPlayersInRadius(activeOwner, new MagicSkillUser(activePet, activePet, isBlessed? 2009:2008, 1, 0, 0), 360000/*600*/);
     }

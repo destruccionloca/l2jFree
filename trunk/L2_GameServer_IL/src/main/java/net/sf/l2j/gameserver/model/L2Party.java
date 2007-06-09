@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.serverpackets.PartySmallWindowAdd;
@@ -559,6 +560,7 @@ public class L2Party {
 	 * <li>Add Experience and SP to the L2PcInstance </li><BR><BR>
 	 * 
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T GIVE rewards to L2PetInstance</B></FONT><BR><BR>
+	 * Exception are L2PetInstances that leech from the owner's XP; they get the exp indirectly, via the owner's exp gain<BR>
 	 * 
 	 * @param xpReward The Experience reward to distribute
 	 * @param spReward The SP reward to distribute
@@ -604,6 +606,15 @@ public class L2Party {
 						ToRemove.add(summon);
     				}
     			}                    
+				// Pets that leech xp from the owner (like babypets) do not get rewarded directly
+				if (member.getPet() instanceof L2PetInstance && ((L2PetInstance)member.getPet()).getPetData().getOwnerExpTaken() > 0)
+				{
+					// Remove the L2PetInstance from the rewarded members
+					if (rewardedMembers.contains(member.getPet()))
+					{
+						ToRemove.add(member.getPet());
+					}
+				}				
 				// Calculate and add the EXP and SP reward to the member
 				if (validMembers.contains(member))
 				{

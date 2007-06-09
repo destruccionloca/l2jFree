@@ -28,7 +28,6 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PetBabyInstance;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
@@ -125,22 +124,6 @@ public class Heal implements ISkillHandler
                         activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
                     }
                 }
-                if (weaponInst == null && activeChar instanceof L2PetBabyInstance)
-                {
-                    L2Summon activeSummon = (L2Summon)activeChar; 
-                    int matk = activeSummon.getMAtk(null,null); 
-                    hp = skill.getPower() + Math.ceil(Math.sqrt(((activeSummon.getLevel()/skill.getPower())*matk)));  
-                    if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-                    {
-                        hp *= 1.5;
-                        activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-                    }
-                    else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-                    {
-                        hp *= 1.3;
-                        activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-                    }
-                }
             }
             if (skill.getSkillType() == SkillType.BALANCE_HEAL)
             {
@@ -154,28 +137,6 @@ public class Heal implements ISkillHandler
                 target.getStatus().setCurrentHp(fullHP/targets.length);
                 }
             }
-                /*{
-                double fullCurHp = 0;
-                double HPBalance = 0;
-                double fullMaxHP = 0;
-                for (int member = 0; member < targets.length; member++)
-                {
-                    fullCurHp += target.getCurrentHp();
-                    fullMaxHP += target.getMaxHp();
-                }
-                if (fullCurHp == fullMaxHP)
-                {
-                    activeChar.sendMessage("All party members have full HP.");
-                }
-                else
-                {
-                    HPBalance = fullCurHp/targets.length;
-                    for (int member = 0; member < targets.length; member++)
-                    {  
-                    target.setCurrentHp(HPBalance);
-                    }
-                 }
-            }*/
             if (skill.getSkillType() == SkillType.HEAL_STATIC)
             	hp = skill.getPower();
             else if (skill.getSkillType() != SkillType.HEAL_PERCENT && skill.getSkillType() != SkillType.BALANCE_HEAL)

@@ -795,7 +795,12 @@ public class L2PetInstance extends L2Summon
         java.sql.Connection con = null;
         try
         {
-            L2PetInstance pet = new L2PetInstance(IdFactory.getInstance().getNextId(), template, owner, control);
+			L2PetInstance pet;
+			if (template.getType().compareToIgnoreCase("L2BabyPet")==0)
+				pet = new L2BabyPetInstance(IdFactory.getInstance().getNextId(), template, owner, control);
+			else
+				pet = new L2PetInstance(IdFactory.getInstance().getNextId(), template, owner, control);
+
             con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("SELECT item_obj_id, name, level, curHp, curMp, exp, sp, karma, pkkills, fed FROM pets WHERE item_obj_id=?");
             statement.setInt(1, control.getObjectId());

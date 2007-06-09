@@ -117,18 +117,6 @@ public class Auction
             } catch (Throwable t) { }
         }
     }
-	/** Waiting ClanHallManagerLoaded for endAuction */
-    public class endAuctionTask implements Runnable
-    {
-        public endAuctionTask(){}
-        public void run()
-        {
-            try
-            {
-            	endAuction();
-            } catch (Throwable t) { }
-        }
-    }
     /** Constructor */
 	public Auction(int auctionId)
 	{
@@ -436,7 +424,7 @@ public class Auction
 		    ClanHallManager.getInstance().setOwner(_ItemId, Clan);
     	}else{
     		/** Task waiting ClanHallManager is loaded every 3s */
-            ThreadPoolManager.getInstance().scheduleGeneral(new endAuctionTask(), 3000); 
+    		ThreadPoolManager.getInstance().scheduleGeneral(new AutoEndTask(), 3000); 
     	}
     }
     /** Cancel bid */

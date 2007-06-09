@@ -57,7 +57,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PetBabyInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.SkillDat;
@@ -1318,16 +1317,6 @@ public abstract class L2Character extends L2Object
                     weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
                 }
             }
-        }
-        
-        if (this instanceof L2PetBabyInstance)
-        {
-            if (((L2Summon)this).getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT 
-                || ((L2Summon)this).getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-                {
-                    skillTime = (int)(0.70 * skill.getSkillTime());
-                    skillInterruptTime = (int)(0.70 * skill.getSkillInterruptTime());
-                }
         }
 
         // Set the _castEndTime and _castInterruptTim
