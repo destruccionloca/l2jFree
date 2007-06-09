@@ -28,7 +28,7 @@
 		<pluginRepository>
 			<id>central l2j</id>
 			<name>Mirror Central L2j</name>
-			<url>http://www.l2jfree.com:9091/repository/l2jm2/</url>
+			<url>http://www.l2jfree.com/maven/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -40,20 +40,9 @@
 
 	<repositories>
 		<repository>
-			<id>central l2j backup</id>
-			<name>Backup Mirror Central L2j</name>
-			<url>http://www.l2jfree.com:9091/repository/l2jm2/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
 			<id>central l2j</id>
-			<name>Mirror Central L2j</name>
-			<url>http://www.l2jfree.com:9092/repository/l2jm2/</url>
+			<name>Central L2j</name>
+			<url>http://www.l2jfree.com/maven/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>

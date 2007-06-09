@@ -26,7 +26,7 @@
       <repository>
         <id>central l2j</id>
         <name>Mirror Central L2j</name>
-        <url>http://www.l2jfree.com:9091/repository/l2jm2</url>
+        <url>http://www.l2jfree.com/maven/</url>
         <releases>
           <enabled>true</enabled>
         </releases>
