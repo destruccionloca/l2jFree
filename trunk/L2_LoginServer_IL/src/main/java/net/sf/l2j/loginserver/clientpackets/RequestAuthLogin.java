@@ -29,6 +29,7 @@ import net.sf.l2j.loginserver.L2LoginClient.LoginClientState;
 import net.sf.l2j.loginserver.beans.GameServerInfo;
 import net.sf.l2j.loginserver.manager.BanManager;
 import net.sf.l2j.loginserver.manager.LoginManager;
+import net.sf.l2j.loginserver.manager.LoginManager.AuthLoginResult;
 import net.sf.l2j.loginserver.serverpackets.LoginFailReason;
 import net.sf.l2j.loginserver.serverpackets.LoginOk;
 import net.sf.l2j.loginserver.serverpackets.ServerList;
@@ -118,44 +119,48 @@ public class RequestAuthLogin extends L2LoginClientPacket
         L2LoginClient client = this.getClient();
         try
         {
-            if (lc.tryAuthLogin(_user, _password, this.getClient()))
+            AuthLoginResult result = lc.tryAuthLogin(_user, _password, this.getClient()); 
+            switch (result) 
             {
-                client.setAccount(_user);
-                client.setState(LoginClientState.AUTHED_LOGIN);
-                client.setSessionKey(lc.assignSessionKeyToClient(_user, client));
-                if (Config.SHOW_LICENCE)
-                {
-                    client.sendPacket(new LoginOk(this.getClient().getSessionKey()));
-                }
-                else
-                {
-                    this.getClient().sendPacket(new ServerList(this.getClient()));
-                }
-            }
-            else
-            {
-                L2LoginClient oldClient;
-                GameServerInfo gsi;
-                if ((oldClient = lc.getAuthedClient(_user)) != null)
-                {
-                    // kick the other client
-                    oldClient.close(LoginFailReason.REASON_ACCOUNT_IN_USE);
-                }
-                else if ((gsi = lc.getAccountOnGameServer(_user)) != null)
-                {
-                    client.close(LoginFailReason.REASON_ACCOUNT_IN_USE);
-                    
-                    // kick from there
-                    if (gsi.isAuthed())
+                case AUTH_SUCCESS:
+                    client.setAccount(_user);
+                    client.setState(LoginClientState.AUTHED_LOGIN);
+                    client.setSessionKey(lc.assignSessionKeyToClient(_user, client));
+                    if (Config.SHOW_LICENCE)
                     {
-                        gsi.getGameServerThread().kickPlayer(_user);
+                        client.sendPacket(new LoginOk(this.getClient().getSessionKey()));
                     }
-                }
-                else
-                {
-                    client.close(LoginFailReason.REASON_SYSTEM_ERROR);
-                }
-            }
+                    else
+                    {
+                        this.getClient().sendPacket(new ServerList(this.getClient()));
+                    }
+                    break;
+                case ALREADY_ON_LS:
+                    L2LoginClient oldClient;
+                    if ((oldClient = lc.getAuthedClient(_user)) != null)
+                    {
+                        // kick the other client
+                        oldClient.close(LoginFailReason.REASON_ACCOUNT_IN_USE);
+                    }
+                    break;
+                case ALREADY_ON_GS:
+                    GameServerInfo gsi;
+                    if ((gsi = lc.getAccountOnGameServer(_user)) != null)
+                    {
+                        client.close(LoginFailReason.REASON_ACCOUNT_IN_USE);
+    
+                        // kick from there
+                        if (gsi.isAuthed())
+                        {
+                            gsi.getGameServerThread().kickPlayer(_user);
+                        }
+                    }
+                    break;
+                 case SYSTEM_ERROR:
+                 default : 
+                     client.close(LoginFailReason.REASON_SYSTEM_ERROR);
+                     
+            }            
         }
         catch (HackingException e)
         {

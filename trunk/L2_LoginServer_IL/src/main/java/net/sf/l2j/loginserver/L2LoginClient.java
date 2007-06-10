@@ -44,9 +44,9 @@ import com.l2jserver.mmocore.network.MMOConnection;
  *
  * @author  KenM
  */
-public final class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
+public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 {
-	private static Log _log = LogFactory.getLog(L2LoginClient.class.getName());
+	private static final Log _log = LogFactory.getLog(L2LoginClient.class.getName());
 	
 	public static enum LoginClientState { CONNECTED, AUTHED_GG, AUTHED_LOGIN};
 	
@@ -227,7 +227,11 @@ public final class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
     { 
         this.getConnection().close(new PlayFail(reason)); 
     } 
-                  
+    
+    public InetAddress getInetAddress ()
+    {
+        return this.getConnection().getSocketChannel().socket().getInetAddress();
+    }                  
 	
 	@Override
 	public void onDisconection()

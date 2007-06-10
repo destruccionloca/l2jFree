@@ -89,6 +89,9 @@ public class LoginManager
 
     private AccountsServices _service = null;
 
+    
+    
+    public static enum AuthLoginResult { INVALID_PASSWORD, ACCOUNT_BANNED, ALREADY_ON_LS, ALREADY_ON_GS, AUTH_SUCCESS , SYSTEM_ERROR};
     /**
      * Load the LoginManager
      * @throws GeneralSecurityException
@@ -275,44 +278,51 @@ public class LoginManager
      * @throws AccountBannedException if the use was banned
      * @throws AccountWrongPasswordException if the password was wrong
      */
-	public boolean tryAuthLogin(String account, String password, L2LoginClient client) 
+	public AuthLoginResult tryAuthLogin(String account, String password, L2LoginClient client) 
     throws HackingException, AccountBannedException, AccountWrongPasswordException
 	{
-		boolean ret = false;
-		if (!this.isAccountInAnyGameServer(account))
-		{
-			try
+        AuthLoginResult ret = AuthLoginResult.INVALID_PASSWORD; 
+        
+        try
+        {
+            // check auth
+            if (this.loginValid(account, password, client))
             {
-                ret = this.loginValid(account, password, client);
-                
-                if ( ret ) 
+                // login was successful, verify presence on Gameservers
+                ret = AuthLoginResult.ALREADY_ON_GS;
+                if (!this.isAccountInAnyGameServer(account))
                 {
+                    // account isnt on any GS, verify LS itself
+                    ret = AuthLoginResult.ALREADY_ON_LS;
                     // dont allow 2 simultaneous login
                     synchronized (_loginServerClients)
                     {
                         if (!_loginServerClients.containsKey(account))
                         {
                             _loginServerClients.put(account, client);
-                            ret = true;
+                            ret = AuthLoginResult.AUTH_SUCCESS;
                         }
                     }
                     // keep access level in the L2LoginClient
                     client.setAccessLevel(_service.getAccountById(account).getAccessLevel());
                 }
-            } 
-            catch (NoSuchAlgorithmException e)
-            {
-                _log.error("could not check password:"+e);
-            } 
-            catch (UnsupportedEncodingException e)
-            {
-                _log.error("could not check password:"+e);
-            } 
-            catch (AccountModificationException e)
-            {
-                _log.warn("could not check password:"+e);
-            } 
-		}
+            }
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            _log.error("could not check password:"+e);
+            ret = AuthLoginResult.SYSTEM_ERROR;
+        } 
+        catch (UnsupportedEncodingException e)
+        {
+            _log.error("could not check password:"+e);
+            ret = AuthLoginResult.SYSTEM_ERROR;
+        } 
+        catch (AccountModificationException e)
+        {
+            _log.warn("could not check password:"+e);
+            ret = AuthLoginResult.SYSTEM_ERROR;
+        } 
 		return ret;
 	}	
 	
@@ -446,7 +456,7 @@ public class LoginManager
 	public boolean loginValid(String user, String password, L2LoginClient client) 
     throws NoSuchAlgorithmException, UnsupportedEncodingException, AccountModificationException, AccountBannedException, AccountWrongPasswordException
 	{
-		InetAddress address = client.getConnection().getSocketChannel().socket().getInetAddress();
+		InetAddress address = client.getInetAddress();
 		// player disconnected meanwhile 
         if (address == null) 
         {
