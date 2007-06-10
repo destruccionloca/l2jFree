@@ -30,10 +30,12 @@ import java.security.spec.RSAKeyGenParameterSpec;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import javax.crypto.Cipher;
 
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.L2LoginClient;
 import net.sf.l2j.loginserver.L2LoginServer;
@@ -78,6 +80,9 @@ public class LoginManager
 	
 	/** Keep trace of login attempt for an inetadress*/
 	private Map<InetAddress, FailedLoginAttempt> _hackProtection;
+    
+    /** Clients that are on the LS but arent assocated with a account yet*/
+    protected Set<L2LoginClient> _clients = new FastSet<L2LoginClient>();
 
 	private ScrambledKeyPair[] _keyPairs;
 
@@ -637,5 +642,4 @@ public class LoginManager
         _logLogin.warn("account missing for user "+user);
         return false;
     }
-
 }

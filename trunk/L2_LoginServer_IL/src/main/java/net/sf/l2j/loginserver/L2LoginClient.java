@@ -62,6 +62,7 @@ public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 	private boolean _usesInternalIP;
 	private SessionKey _sessionKey;
 	private int _sessionId;
+    private boolean _joinedGS;
 	
 	private long _connectionStartTime;
 	
@@ -198,6 +199,16 @@ public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 		_sessionKey = sessionKey;
 	}
 	
+    public boolean hasJoinedGS() 
+    {
+        return _joinedGS;
+    }
+    
+    public void setJoinedGS(boolean val) 
+    {
+        _joinedGS = val;
+    }
+    
 	public SessionKey getSessionKey()
 	{
 		return _sessionKey;
@@ -240,6 +251,12 @@ public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 		{
 			_log.info("DISCONNECTED: "+this.toString());
 		}
+        
+        // If player was not on GS, don't forget to remove it from authed login on LS
+        if (!this.hasJoinedGS())
+        {
+            LoginManager.getInstance().removeAuthedLoginClient(this.getAccount());
+        }
 	}
 	
 	public String toString()
