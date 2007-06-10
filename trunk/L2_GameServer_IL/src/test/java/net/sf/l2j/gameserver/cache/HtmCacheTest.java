@@ -132,5 +132,29 @@ public class HtmCacheTest extends TestCase
         assertEquals ("<html><body>I have nothing to say to you<br><a action=\"bypass -h npc_%objectId%_Quest\">Quest</a></body></html>",cache.getHtm("npcdefault.htm"));
         assertEquals (1, cache.getLoadedFiles() );
     }    
+    
+    /**
+     * Test method reload cache with lazy cache (map and ehcache)
+     */
+    public final void testReloadCache()
+    {
+        Config.DATAPACK_ROOT = new File (getClass().getResource(".").getFile().replace("%20", " "));
+        Config.TYPE_CACHE = CacheType.ehcache;
+        reloadCache();
+        Config.TYPE_CACHE = CacheType.mapcache;
+        reloadCache();
+    }  
+    
+    private void reloadCache()
+    {
+        HtmCache cache = HtmCache.getInstance();
+        cache.reload();
+        
+        assertEquals ("<html><body>I have nothing to say to you<br><a action=\"bypass -h npc_%objectId%_Quest\">Quest</a></body></html>",cache.getHtm("npcdefault.htm"));
+        assertEquals (1, cache.getLoadedFiles() );
+        
+        cache.reload();
+        assertEquals (0, cache.getLoadedFiles() );
+    }        
 
 }
