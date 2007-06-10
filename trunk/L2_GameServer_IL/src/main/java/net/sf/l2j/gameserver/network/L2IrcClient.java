@@ -86,19 +86,24 @@ public class L2IrcClient extends Thread {
 	
 	public void send(String Text)
 	{
-		conn.send(Text);
+		if(conn.isConnected())
+			conn.send(Text);
 	}
 	
 	public void send(String target,String Text)
 	{
-		conn.doPrivmsg(target, Text);
+		if(conn.isConnected())
+			conn.doPrivmsg(target, Text);
 	}
 
 	public void sendChan(String Text)
 	{
-		conn.doPrivmsg(channel, Text);
-		if(Config.IRC_LOG_CHAT)
-			_logChat.info("IRC: "+channel +"> text");
+		if(conn.isConnected())
+		{
+			conn.doPrivmsg(channel, Text);
+			if(Config.IRC_LOG_CHAT)
+				_logChat.info("IRC: "+channel +"> text");
+		}
 	}
 	
 	public class TrustManager implements SSLTrustManager {
@@ -116,6 +121,8 @@ public class L2IrcClient extends Thread {
 	 * Treats IRC events.
 	 */
 	public class Listener implements IRCEventListener {
+
+		private boolean isconnected;
 		
 		public void onRegistered() 
 		{
@@ -129,6 +136,8 @@ public class L2IrcClient extends Thread {
 			
 			if(Config.IRC_NICKSERV)
 				send(Config.IRC_NICKSERV_NAME,Config.IRC_NICKSERV_COMMAND);
+			
+			isconnected = true;
 		}
 		
 		public void onDisconnected() 
@@ -136,7 +145,9 @@ public class L2IrcClient extends Thread {
 			_log.info("IRC: Disconnected");
 
 			if(Config.IRC_LOG_CHAT)
-				_logChat.info("IRC: Disconnected");			
+				_logChat.info("IRC: Disconnected");
+			
+			isconnected = false;
 		}
 		
 		public void onError(String msg) 
@@ -289,12 +300,19 @@ public class L2IrcClient extends Thread {
 		{
 			if(_log.isDebugEnabled())
 				_log.info("IRC: Ping Pong");
+			
+			// keep connection alive
+			conn.doPong(p);
 		}
 		
 		public void unknown(String a, String b, String c, String d) 
 		{
 			_log.warn("IRC UNKNOWN: "+ a +" b "+ c +" "+ d);
 		}
+		
+		public boolean isConnected()
+		{
+			return isconnected;
+		}
 	}
-	
 }
