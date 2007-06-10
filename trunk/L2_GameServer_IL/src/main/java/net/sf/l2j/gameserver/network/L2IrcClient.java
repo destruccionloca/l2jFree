@@ -73,37 +73,56 @@ public class L2IrcClient extends Thread {
 	
 	public void connect() throws IOException 
 	{
-		conn.connect();
-		conn.send("JOIN " + channel);
-		setDaemon(true);
+		if(!conn.isConnected())
+		{
+			conn.connect();
+			conn.send("JOIN " + channel);
+			setDaemon(true);
+		}
 	}
 
 	public void disconnect()
 	{
-		conn.close();
-		conn.setDaemon(false);		
+		if(conn.isConnected())
+		{
+			conn.close();
+			if(checkConnection())			
+		}
 	}
 	
 	public void send(String Text)
 	{
-		if(conn.isConnected())
+		if(checkConnection())
 			conn.send(Text);
 	}
 	
 	public void send(String target,String Text)
 	{
-		if(conn.isConnected())
+		if(checkConnection())
 			conn.doPrivmsg(target, Text);
 	}
 
 	public void sendChan(String Text)
 	{
-		if(conn.isConnected())
+		if(checkConnection())
 		{
 			conn.doPrivmsg(channel, Text);
 			if(Config.IRC_LOG_CHAT)
 				_logChat.info("IRC: "+channel +"> text");
 		}
+	}
+
+	public boolean checkConnection()
+	{
+		if(!conn.isConnected())
+		{
+			try {
+				connect();
+			} catch (Exception exc) {
+	          exc.printStackTrace();
+	        }
+		}
+		return conn.isConnected();
 	}
 	
 	public class TrustManager implements SSLTrustManager {
@@ -115,6 +134,7 @@ public class L2IrcClient extends Thread {
 				this.chain = chain;
 				return true;
 		}
+		
 	}
 	
 	/**
