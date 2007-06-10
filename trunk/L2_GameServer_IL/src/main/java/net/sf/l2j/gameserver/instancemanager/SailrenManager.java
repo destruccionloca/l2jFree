@@ -23,6 +23,7 @@
 
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.util.logging.Logger;
 import java.util.concurrent.Future;
 import java.util.List;
 import javolution.util.FastList;
@@ -42,25 +43,30 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * 
  * This class ...
+ * Management for fight with sailren.
  * @version $Revision: $ $Date: $
  * @author  L2J_JP SANDMAN
  */
 public class SailrenManager
 {
-	private final static Log _log = LogFactory.getLog(SailrenManager.class.getName());
+    protected static Logger _log = Logger.getLogger(SailrenManager.class.getName());
     private static SailrenManager _instance = new SailrenManager();
 
+    // config
+    // Properties of fight with sailren.
+    // Whether to enable the entry of a single player.
     protected static final boolean _EnableSinglePlayer = Config.FWS_ENABLESINGLEPLAYER;
+    // Interval of spawn of next Sailren.
     protected static final int _IntervalOfSailrenSpawn = Config.FWS_INTERVALOFSAILRENSPAWN;
+    // Interval of spawn of next monster.
     protected static final int _IntervalOfNextMonster = Config.FWS_INTERVALOFNEXTMONSTER;
+    // Activity time of monsters.
     protected static final int _ActivityTimeOfMobs = Config.FWS_ACTIVITYTIMEOFMOBS;
     
+    // teleport cube location.
     private final int _SailrenCubeLocation[][] =
     	{
     		{27734,-6838,-1982,0}
@@ -68,18 +74,22 @@ public class SailrenManager
     protected List<L2Spawn> _SailrenCubeSpawn = new FastList<L2Spawn>();
     protected List<L2NpcInstance> _SailrenCube = new FastList<L2NpcInstance>();
 
+    // list of players in Sailren's lair.
     protected List<L2PcInstance> _PlayersInSailrenLair = new FastList<L2PcInstance>();
 
-    protected L2Spawn _VelociraptorSpawn;
-    protected L2Spawn _PterosaurSpawn;
-    protected L2Spawn _TyrannoSpawn;
-    protected L2Spawn _SailrenSapwn;
+    // spawn data of monsters
+    protected L2Spawn _VelociraptorSpawn;	// Velociraptor
+    protected L2Spawn _PterosaurSpawn;		// Pterosaur
+    protected L2Spawn _TyrannoSpawn;		// Tyrannosaurus
+    protected L2Spawn _SailrenSapwn;		// Sailren
 
-    protected L2NpcInstance _Velociraptor;
-    protected L2NpcInstance _Pterosaur;
-    protected L2NpcInstance _Tyranno;
-    protected L2NpcInstance _Sailren;
+    // Instance of monsters
+    protected L2NpcInstance _Velociraptor;	// Velociraptor
+    protected L2NpcInstance _Pterosaur;		// Pterosaur
+    protected L2NpcInstance _Tyranno;		// Tyrannosaurus
+    protected L2NpcInstance _Sailren;		// Sailren
     
+    // Tasks
     protected Future _CubeSpawnTask = null;
     protected Future _SailrenSpawnTask = null;
     protected Future _IntervalEndTask = null;
@@ -87,6 +97,7 @@ public class SailrenManager
     protected Future _OnPartyAnnihilatedTask = null;
     protected Future _SocialTask = null;
     
+    // State of sailren's lair.
     protected boolean _IsSailrenSpawned = false;
     protected boolean _IsAlreadyEnteredOtherParty = false;
     protected boolean _IsIntervalForSailrenSpawn = false;
@@ -102,17 +113,21 @@ public class SailrenManager
         return _instance;
     }
 
+    // init.
     public void init()
     {
+    	// init state.
     	_IsSailrenSpawned = false;
     	_IsAlreadyEnteredOtherParty = false;
     	_IsIntervalForSailrenSpawn = false;
     	
+        // setting spawn data of monsters.
         try
         {
             L2NpcTemplate template1;
             
-            template1 = NpcTable.getInstance().getTemplate(22218);
+            // Velociraptor
+            template1 = NpcTable.getInstance().getTemplate(22218); //Velociraptor
             _VelociraptorSpawn = new L2Spawn(template1);
             _VelociraptorSpawn.setLocx(27852);
             _VelociraptorSpawn.setLocy(-5536);
@@ -122,7 +137,8 @@ public class SailrenManager
             _VelociraptorSpawn.setRespawnDelay(_IntervalOfSailrenSpawn * 2);
             SpawnTable.getInstance().addNewSpawn(_VelociraptorSpawn, false);
             
-            template1 = NpcTable.getInstance().getTemplate(22199);
+            // Pterosaur
+            template1 = NpcTable.getInstance().getTemplate(22199); //Pterosaur
             _PterosaurSpawn = new L2Spawn(template1);
             _PterosaurSpawn.setLocx(27852);
             _PterosaurSpawn.setLocy(-5536);
@@ -132,7 +148,8 @@ public class SailrenManager
             _PterosaurSpawn.setRespawnDelay(_IntervalOfSailrenSpawn * 2);
             SpawnTable.getInstance().addNewSpawn(_PterosaurSpawn, false);
             
-            template1 = NpcTable.getInstance().getTemplate(22217);
+            // Tyrannosaurus
+            template1 = NpcTable.getInstance().getTemplate(22217); //Tyrannosaurus
             _TyrannoSpawn = new L2Spawn(template1);
             _TyrannoSpawn.setLocx(27852);
             _TyrannoSpawn.setLocy(-5536);
@@ -142,7 +159,8 @@ public class SailrenManager
             _TyrannoSpawn.setRespawnDelay(_IntervalOfSailrenSpawn * 2);
             SpawnTable.getInstance().addNewSpawn(_TyrannoSpawn, false);
             
-            template1 = NpcTable.getInstance().getTemplate(29065);
+            // Sailren
+            template1 = NpcTable.getInstance().getTemplate(29065); //Sailren
             _SailrenSapwn = new L2Spawn(template1);
             _SailrenSapwn.setLocx(27810);
             _SailrenSapwn.setLocy(-5655);
@@ -155,9 +173,10 @@ public class SailrenManager
         }
         catch (Exception e)
         {
-            _log.warn(e.getMessage());
+            _log.warning(e.getMessage());
         }
 
+        // setting spawn data of teleporte cube.
         try
         {
             L2NpcTemplate Cube = NpcTable.getInstance().getTemplate(31859);
@@ -180,17 +199,19 @@ public class SailrenManager
         }
         catch (Exception e)
         {
-            _log.warn(e.getMessage());
+            _log.warning(e.getMessage());
         }
         
         _log.info("SailrenManager:Init SailrenManager.");
     }
 
+    // getting list of players in sailren's lair.
     public List<L2PcInstance> getPlayersInLair()
 	{
 		return _PlayersInSailrenLair;
 	}
     
+    // whether it is permitted to enter the sailren's lair is confirmed. 
     public int canIntoSailrenLair(L2PcInstance pc)
     {
     	if (_IsSailrenSpawned) return 1;
@@ -200,6 +221,7 @@ public class SailrenManager
     	return 0;
     }
     
+    // set sailren spawn task.
     public void setSailrenSpawnTask(int NpcId)
     {
     	if ((NpcId == 22218) && (_PlayersInSailrenLair.size() >= 1)) return;
@@ -211,11 +233,13 @@ public class SailrenManager
         }
     }
 
+    // add player to list of players in sailren's lair.
     public void addPlayerToSailrenLair(L2PcInstance pc)
     {
         if (!_PlayersInSailrenLair.contains(pc)) _PlayersInSailrenLair.add(pc);
     }
 
+    // teleporting player to sailren's lair.
     public void entryToSailrenLair(L2PcInstance pc)
     {
 		int driftx;
@@ -224,7 +248,7 @@ public class SailrenManager
 		if(canIntoSailrenLair(pc) != 0)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-			sm.addString("--");
+			sm.addString("Entrance was refused because it did not satisfy it. ");
 			pc.sendPacket(sm);
 			_IsAlreadyEnteredOtherParty = false;
 			return;
@@ -239,9 +263,10 @@ public class SailrenManager
 		}
 		else
 		{
-			List<L2PcInstance> members = new FastList<L2PcInstance>();
+			List<L2PcInstance> members = new FastList<L2PcInstance>(); // list of member of teleport candidate.
 			for (L2PcInstance mem : pc.getParty().getPartyMembers())
 			{
+				// teleporting it within alive and the range of recognition of the leader of the party. 
 				if (!mem.isDead() && Util.checkIfInRange(700, pc, mem, true))
 				{
 					members.add(mem);
@@ -258,8 +283,10 @@ public class SailrenManager
 		_IsAlreadyEnteredOtherParty = true;
     }
     
+    // whether the party was annihilated is confirmed. 
     public void checkAnnihilated(L2PcInstance pc)
     {
+    	// It is a teleport later 5 seconds to the port when annihilating.
     	if(isPartyAnnihilated(pc))
     	{
     		_OnPartyAnnihilatedTask =
@@ -267,13 +294,14 @@ public class SailrenManager
     	}
     }
 
+    // whether the party was annihilated is confirmed.
     public synchronized boolean isPartyAnnihilated(L2PcInstance pc)
     {
 		if(pc.getParty() != null)
 		{
 			for(L2PcInstance mem:pc.getParty().getPartyMembers())
 			{
-				if(!mem.isDead())
+				if(!mem.isDead() && ZoneManager.getInstance().checkIfInZone("LairofSailren", pc))
 				{
 					return false;
 				}
@@ -286,6 +314,7 @@ public class SailrenManager
 		}
     }
 
+    // when annihilating or limit of time coming, the compulsion movement players from the sailren's lair.
     public void banishesPlayers()
     {
     	for(L2PcInstance pc : _PlayersInSailrenLair)
@@ -302,10 +331,13 @@ public class SailrenManager
     	_IsAlreadyEnteredOtherParty = false;
     }
     
+    // clean up sailren's lair.
     public void setUnspawn()
 	{
+    	// eliminate players.
     	banishesPlayers();
     	
+    	// delete teleport cube.
 		for (L2NpcInstance cube : _SailrenCube)
 		{
 			cube.getSpawn().stopRespawn();
@@ -313,6 +345,7 @@ public class SailrenManager
 		}
 		_SailrenCube.clear();
 		
+		// not executed tasks is canceled.
 		if(_CubeSpawnTask != null)
 		{
 			_CubeSpawnTask.cancel(true);
@@ -334,15 +367,18 @@ public class SailrenManager
 			_ActivityTimeEndTask = null;
 		}
 
+		// init state of sailren's lair.
 		_IsSailrenSpawned = false;
 		_Velociraptor = null;
 		_Pterosaur = null;
 		_Tyranno = null;
 		_Sailren = null;
 
+		// interval begin.
 		setInetrvalEndTask();
 	}
 
+    // spawn teleport cube.
     public void spawnCube()
     {
 		for (L2Spawn spawnDat : _SailrenCubeSpawn)
@@ -352,18 +388,21 @@ public class SailrenManager
     	_IsIntervalForSailrenSpawn = true;
     }
     
+    // task of teleport cube spawn.
     public void setCubeSpawn()
     {
 		_CubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
             	new CubeSpawn(),10000);
     }
     
+    // task of interval of sailren spawn.
     public void setInetrvalEndTask()
     {
     	_IntervalEndTask = ThreadPoolManager.getInstance().scheduleEffect(
             	new IntervalEnd(),_IntervalOfSailrenSpawn);
     }
     
+    // spawn monster.
     private class SailrenSpawn implements Runnable
     {
     	int _NpcId;
@@ -378,7 +417,7 @@ public class SailrenManager
         	_IsSailrenSpawned = true;
             switch (_NpcId)
             {
-            	case 22218:
+            	case 22218:		// Velociraptor
             		_Velociraptor = _VelociraptorSpawn.doSpawn();
             		_Velociraptor.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,_pos);
             		if(_SocialTask != null)
@@ -398,7 +437,7 @@ public class SailrenManager
                         ThreadPoolManager.getInstance().scheduleEffect(
                         		new ActivityTimeEnd(_Velociraptor),_ActivityTimeOfMobs);
             		break;
-            	case 22199:
+            	case 22199:		// Pterosaur
             		_VelociraptorSpawn.stopRespawn();
             		_Pterosaur = _PterosaurSpawn.doSpawn();
             		_Pterosaur.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,_pos);
@@ -419,7 +458,7 @@ public class SailrenManager
                         ThreadPoolManager.getInstance().scheduleEffect(
                         		new ActivityTimeEnd(_Pterosaur),_ActivityTimeOfMobs);
             		break;
-            	case 22217:
+            	case 22217:		// Tyrannosaurus
             		_PterosaurSpawn.stopRespawn();
             		_Tyranno = _TyrannoSpawn.doSpawn();
             		_Tyranno.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,_pos);
@@ -440,7 +479,7 @@ public class SailrenManager
                         ThreadPoolManager.getInstance().scheduleEffect(
                         		new ActivityTimeEnd(_Tyranno),_ActivityTimeOfMobs);
             		break;
-            	case 29065:
+            	case 29065:		// Sailren
             		_TyrannoSpawn.stopRespawn();
             		_Sailren = _SailrenSapwn.doSpawn();
             		_Sailren.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,_pos);
@@ -473,6 +512,7 @@ public class SailrenManager
         }
     }
 
+    // spawn teleport cube.
     private class CubeSpawn implements Runnable
     {
     	public CubeSpawn()
@@ -485,6 +525,7 @@ public class SailrenManager
         }
     }
     
+    // limit of time coming.
     private class ActivityTimeEnd implements Runnable
     {
     	L2NpcInstance _Mob;
@@ -501,10 +542,12 @@ public class SailrenManager
     			_Mob.getSpawn().stopRespawn();
     			_Mob = null;
     		}
+    	    // clean up sailren's lair.
     		setUnspawn();
     	}
     }
     
+    // interval end.
     private class IntervalEnd implements Runnable
     {
     	public IntervalEnd()
@@ -522,6 +565,7 @@ public class SailrenManager
     	}
     }
     
+    // when annihilating or limit of time coming, the compulsion movement players from the sailren's lair.
 	private class OnPartyAnnihilatedTask implements Runnable
 	{
 		L2PcInstance _player;
@@ -544,6 +588,7 @@ public class SailrenManager
 		}
 	}
 
+	// social.
     private class Social implements Runnable
     {
         private int _action;
