@@ -113,88 +113,87 @@ public class CharSelectInfo extends L2GameServerPacket
 
 			writeD(0x01); // active ??
 
-					writeD(0x00); // x
-					writeD(0x00); // y
-					writeD(0x00); // z
+			writeD(0x00); // x
+			writeD(0x00); // y
+			writeD(0x00); // z
 
-					writeF(charInfoPackage.getCurrentHp()); // hp cur
-					writeF(charInfoPackage.getCurrentMp()); // mp cur
+			writeF(charInfoPackage.getCurrentHp()); // hp cur
+			writeF(charInfoPackage.getCurrentMp()); // mp cur
 
-					writeD(charInfoPackage.getSp());
-					writeQ(charInfoPackage.getExp());
-					writeD(charInfoPackage.getLevel());
+			writeD(charInfoPackage.getSp());
+			writeQ(charInfoPackage.getExp());
+			writeD(charInfoPackage.getLevel());
 
-					writeD(charInfoPackage.getKarma()); // karma
-					writeD(0x00);
-					writeD(0x00);
-					writeD(0x00);
-					writeD(0x00);
-					writeD(0x00);
-					writeD(0x00);
-					writeD(0x00);
-					writeD(0x00);
-					writeD(0x00);
+			writeD(charInfoPackage.getKarma()); // karma
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
 
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_DHAIR));
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_REAR));
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LEAR));
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_NECK));
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_RFINGER));
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LFINGER));
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_HEAD));
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND));
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LHAND));
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_GLOVES));
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_CHEST));
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LEGS));
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_FEET));
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_BACK));
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LRHAND));
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
-					writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_DHAIR));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_REAR));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LEAR));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_NECK));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_RFINGER));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LFINGER));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_HEAD));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LHAND));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_GLOVES));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_CHEST));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LEGS));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_FEET));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_BACK));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LRHAND));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
 
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LEAR));
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_NECK));
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RFINGER));
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LFINGER));
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LHAND));
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES));
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_CHEST));
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
-					writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_FACE));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LEAR));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_NECK));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RFINGER));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LFINGER));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LHAND));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_CHEST));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_FACE));
 
-					writeD(charInfoPackage.getHairStyle());
-					writeD(charInfoPackage.getHairColor());
-					writeD(charInfoPackage.getFace());
+			writeD(charInfoPackage.getHairStyle());
+			writeD(charInfoPackage.getHairColor());
+			writeD(charInfoPackage.getFace());
 
-					writeF(charInfoPackage.getMaxHp()); // hp max
-					writeF(charInfoPackage.getMaxMp()); // mp max
+			writeF(charInfoPackage.getMaxHp()); // hp max
+			writeF(charInfoPackage.getMaxMp()); // mp max
 
-					long deleteTime = charInfoPackage.getDeleteTimer();
-					int deletedays = 0;
-					if (deleteTime > 0)
-						deletedays = (int)((deleteTime-System.currentTimeMillis())/1000);
-					writeD(deletedays); // days left before
-					// delete .. if != 0
-					// then char is inactive
-					writeD(charInfoPackage.getClassId());
-					if (i == _activeId)
-						writeD(0x01);
-					else
-						writeD(0x00); //c3 auto-select char
+			long deleteTime = charInfoPackage.getDeleteTimer();
+			int deletedays = 0;
+			if (deleteTime > 0)
+				deletedays = (int)((deleteTime-System.currentTimeMillis())/1000);
+			writeD(deletedays); // days left before
+			// delete .. if != 0
+			// then char is inactive
+			writeD(charInfoPackage.getClassId());
+			if (i == _activeId)
+				writeD(0x01);
+			else
+				writeD(0x00); //c3 auto-select char
 
-					writeC(charInfoPackage.getEnchantEffect());
+			writeC(charInfoPackage.getEnchantEffect());
 
-					writeH(0x00); //c6
-					writeH(0x00); //c6
+			writeD(charInfoPackage.getAugmentationId());
 		}
 	}
 
@@ -320,7 +319,36 @@ public class CharSelectInfo extends L2GameServerPacket
 			loadCharacterSubclassInfo(charInfopackage, objectId, activeClassId);        
 
 		charInfopackage.setClassId(activeClassId);
+		
+		// Get the augmentation id for equipped weapon
+		int weaponObjId = charInfopackage.getPaperdollObjectId(Inventory.PAPERDOLL_LRHAND);
+		if (weaponObjId < 1)
+			weaponObjId = charInfopackage.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND);
+		
+		if (weaponObjId > 0)
+		{
+			java.sql.Connection con = null;
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection(con);
+				PreparedStatement statement = con.prepareStatement("SELECT attributes FROM augmentations WHERE item_id=?");
+				statement.setInt(1, weaponObjId);
+				ResultSet result = statement.executeQuery();
 
+				if (result.next())
+				{
+					charInfopackage.setAugmentationId(result.getInt("attributes"));
+				}
+
+				result.close();
+				statement.close();
+			}
+			catch (Exception e)
+			{
+				_log.warn("Could not restore augmentation info: " + e);
+			} 
+			finally { try { con.close(); } catch (Exception e) {} }
+		}
 		/*
 		 * Check if the base class is set to zero and alse doesn't match
 		 * with the current active class, otherwise send the base class ID.

@@ -34,6 +34,7 @@ public class CharSelectInfoPackage
     private int _sp =0;
     private int _clanId=0;
     private int _karma =0;
+    private int _augmentationId=0;
     private int _race=0;
     private int _classId=0;
     private int _baseClassId=0;
@@ -245,4 +246,12 @@ public class CharSelectInfoPackage
             return _paperdoll[Inventory.PAPERDOLL_RHAND][2];
         return _paperdoll[Inventory.PAPERDOLL_LRHAND][2];
     }
+    public void setAugmentationId(int augmentationId)
+    {
+    	_augmentationId = augmentationId;
+    }
+    public int getAugmentationId()
+    {
+    	return _augmentationId;
+    }    
 }
