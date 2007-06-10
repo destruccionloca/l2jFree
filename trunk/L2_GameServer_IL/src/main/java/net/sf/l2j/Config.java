@@ -480,6 +480,7 @@ public final class Config {
     public static float   	SPOIL_LEVEL_DIFFERENCE_LIMIT;
     public static float   	SPOIL_LEVEL_DIFFERENCE_MULTIPLIER;
     public static int     	LAST_LEVEL_SPOIL_IS_LEARNED;
+    public static int       RATEBOXSPAWN;
     //  *******************************************************************************************
     public static void loadratesconfig()
     {
@@ -535,6 +536,7 @@ public final class Config {
            SPOIL_LEVEL_DIFFERENCE_LIMIT            = Float.parseFloat(ratesSettings.getProperty("SpoilLevelDifferenceLimit", "5."));
            SPOIL_LEVEL_DIFFERENCE_MULTIPLIER       = Float.parseFloat(ratesSettings.getProperty("SpoilLevelMultiplier", "7."));
            LAST_LEVEL_SPOIL_IS_LEARNED             = Integer.parseInt(ratesSettings.getProperty("LastLevelSpoilIsLearned", "72"));
+           RATEBOXSPAWN                            = Integer.parseInt(ratesSettings.getProperty("RateBoxSpawn", "50"));
         }
         catch (Exception e) {
             _log.error(e);

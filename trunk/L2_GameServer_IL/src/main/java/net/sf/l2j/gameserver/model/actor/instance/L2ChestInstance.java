@@ -20,6 +20,7 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -35,12 +36,14 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 public final class L2ChestInstance extends L2Attackable
 {
     private volatile boolean _isOpen;
+    private boolean _isBox;
     
     public L2ChestInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
     }
 
+    @Override
 	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
 	{
 		if (!isAlikeDead() && isBox())
@@ -50,44 +53,40 @@ public final class L2ChestInstance extends L2Attackable
         }
         super.reduceCurrentHp(damage,attacker,awake);
 	}
-	
+    @Override
     public boolean isAutoAttackable(L2Character attacker)
     {
         return true;
     }
-
+    @Override
     public boolean isAttackable()
     {
         return true;
     }
-
+    @Override
     public void doDie(L2Character killer)
     {
         if(!isSpoil()) killer.setTarget(null);
         getStatus().setCurrentHpMp(0,0);
 		super.doDie(killer);
     }
-
+    @Override
     public boolean isAggressive()
     {
         return false;
     }
-
+    @Override
     public void OnSpawn()
     {
         super.OnSpawn();
         _isOpen = false;
-        setHaveToDrop(true);
-        setMustRewardExpSp(true);
-        if (isBox())
-        {
-            setHaveToDrop(false);
-            setMustRewardExpSp(false);
-        }
+        _isBox = (Rnd.get(100) < Config.RATEBOXSPAWN);
+        // drop will be activated if you call setSpecialDrop
+        setHaveToDrop(false);
     }
 
 	public boolean isBox() {
-        return (getTemplate().getNpcId()>=18265 && getTemplate().getNpcId()<=18286);
+        return _isBox;
     }
     
 	public synchronized boolean open() {
@@ -101,7 +100,10 @@ public final class L2ChestInstance extends L2Attackable
         setHaveToDrop(true);
 	}
 	
-    //cast - trap chest
+    /**
+     * Activate the chest trap and determine the skill inflicted to the player
+     * @param player
+     */
     public void chestTrap(L2Character player)
     {
         int trapSkillId = 0;

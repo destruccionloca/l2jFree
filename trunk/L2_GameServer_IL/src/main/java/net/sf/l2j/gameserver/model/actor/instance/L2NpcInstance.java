@@ -723,7 +723,8 @@ public class L2NpcInstance extends L2Character
             html.setHtml(html1.toString());
             player.sendPacket(html);
         }
-        else if(Config.ALT_GAME_VIEWNPC)
+        // allow to see the stats of npc if option is activated and if not a box
+        else if(Config.ALT_GAME_VIEWNPC && !(this instanceof L2ChestInstance))
         {
             // Set the target of the L2PcInstance player
             player.setTarget(this);
