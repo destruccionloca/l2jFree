@@ -86,7 +86,7 @@ public class L2IrcClient extends Thread {
 		if(conn.isConnected())
 		{
 			conn.close();
-			if(checkConnection())			
+			conn.setDaemon(false);
 		}
 	}
 	
