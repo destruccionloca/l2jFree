@@ -694,6 +694,8 @@ public abstract class L2Character extends L2Object
 
         // Get the Attack Speed of the L2Character (delay (in milliseconds) before next attack)
         int sAtk = calculateAttackSpeed(target, weaponInst);
+        // the hit is calculated to happen halfway to the animation - might need further tuning e.g. in bow case
+        int sAtkHitMoment = sAtk/2;
         _attackEndTime = GameTimeController.getGameTicks();
         _attackEndTime += (sAtk / GameTimeController.MILLIS_IN_TICK);
         _attackEndTime -= 1;
@@ -5142,13 +5144,10 @@ public abstract class L2Character extends L2Object
     {
         if (_disabledSkills == null) return;
         
-        synchronized (_disabledSkills)
-        {
-            _disabledSkills.remove(new Integer(skillId));
-            
-            if (this instanceof L2PcInstance)
-                removeTimeStamp(skillId);
-        }
+        _disabledSkills.remove(new Integer(skillId));
+        
+        if (this instanceof L2PcInstance)
+        	removeTimeStamp(skillId);
    }
 
    /**

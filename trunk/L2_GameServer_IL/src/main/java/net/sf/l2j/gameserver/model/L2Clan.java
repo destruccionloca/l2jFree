@@ -228,8 +228,11 @@ public class L2Clan
         setLeader(member);
         updateClanInDB();
 
+        exLeader.setPledgeClass(exLeader.getClan().getClanMember(exLeader.getObjectId()).calculatePledgeClass(exLeader));
+        exLeader.broadcastUserInfo();
         L2PcInstance newLeader = member.getPlayerInstance();
         newLeader.setClan(this);
+        newLeader.setPledgeClass(member.calculatePledgeClass(newLeader));
         newLeader.setClanPrivileges(L2Clan.CP_ALL);
         if (getLevel() >= 4)
         {
@@ -1222,40 +1225,58 @@ public class L2Clan
     public SubPledge createSubPledge(int pledgeType, String leaderName, String subPledgeName)
     {
     	SubPledge subPledge = null;
-    	
         pledgeType = getAvailablePledgeTypes(pledgeType);
-        if (pledgeType == 0)
+        if (pledgeType == 0 || _leader.getName().equals(leaderName))
         {
             return null;
         }
-        java.sql.Connection con = null;
-        try
+        
+        // Currently price for subpledges is set to 2500 reputation points.
+        // This needs to be confirmed, since possibly it is:
+        // Royal Guard 5000 points per each
+        // Order of Knights 10000 points per each
+        if(getReputationScore() <= 2500 && pledgeType != -1)
         {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("INSERT INTO clan_subpledges (clan_id,sub_pledge_id,name,leader_name) values (?,?,?,?)");
-            statement.setInt(1, getClanId());
-            statement.setInt(2, pledgeType);
-            statement.setString(3, subPledgeName);
-            if (pledgeType != -1)
-                statement.setString(4, leaderName);
-            else
-                statement.setString(4, "");
-            statement.execute();
-            statement.close();
+        	SystemMessage sp = new SystemMessage(1791);
+        	_leader.getPlayerInstance().sendPacket(sp);
+        }
+        else
+        {
+        	java.sql.Connection con = null;
+        	try
+        	{
+        		con = L2DatabaseFactory.getInstance().getConnection(con);
+        		PreparedStatement statement = con.prepareStatement("INSERT INTO clan_subpledges (clan_id,sub_pledge_id,name,leader_name) values (?,?,?,?)");
+        		statement.setInt(1, getClanId());
+        		statement.setInt(2, pledgeType);
+        		statement.setString(3, subPledgeName);
+        		if (pledgeType != -1)
+        			statement.setString(4, leaderName);
+        		else
+        			statement.setString(4, "");
+        		statement.execute();
+        		statement.close();
             
-            subPledge = new SubPledge(pledgeType, subPledgeName, leaderName);
-            _SubPledges.put(pledgeType, subPledge);
+        		subPledge = new SubPledge(pledgeType, subPledgeName, leaderName);
+        		_SubPledges.put(pledgeType, subPledge);
+        		
+        		if(pledgeType != -1)
+        		{
+        			setReputationScore(getReputationScore() - 2500, true);
+        		}
             
-            if (_log.isDebugEnabled()) _log.debug("New sub_clan saved in db: "+getClanId()+"; "+pledgeType);
+        		if (_log.isDebugEnabled()) _log.debug("New sub_clan saved in db: "+getClanId()+"; "+pledgeType);
+        	}
+        	catch (Exception e)
+        	{
+        		_log.warn("error while saving new sub_clan to db "+e);
+        	}
+        	finally
+        	{
+        		try { con.close(); } catch (Exception e) {}
+        	}
         }
-        catch (Exception e)
-        {
-            _log.warn("error while saving new sub_clan to db "+e);
-        }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
+        broadcastToOnlineMembers(new PledgeShowInfoUpdate(_leader.getClan()));
         broadcastToOnlineMembers(new PledgeReceiveSubPledgeCreated(subPledge));
         return subPledge;
     }
