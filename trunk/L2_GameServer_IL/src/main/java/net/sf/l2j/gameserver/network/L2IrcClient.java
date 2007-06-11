@@ -116,7 +116,8 @@ public class L2IrcClient extends Thread {
 	{
 		if(!conn.isConnected())
 		{
-			try {
+			try 
+			{
 				connect();
 			} catch (Exception exc) {
 	          exc.printStackTrace();
@@ -168,6 +169,7 @@ public class L2IrcClient extends Thread {
 				_logChat.info("IRC: Disconnected");
 			
 			isconnected = false;
+			conn.close();			
 		}
 		
 		public void onError(String msg) 
