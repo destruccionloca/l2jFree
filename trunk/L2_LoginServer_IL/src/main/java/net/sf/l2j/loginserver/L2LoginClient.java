@@ -253,7 +253,7 @@ public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 		}
         
         // If player was not on GS, don't forget to remove it from authed login on LS
-        if (!this.hasJoinedGS())
+        if ( this.getState() == LoginClientState.AUTHED_LOGIN && !this.hasJoinedGS())
         {
             LoginManager.getInstance().removeAuthedLoginClient(this.getAccount());
         }
