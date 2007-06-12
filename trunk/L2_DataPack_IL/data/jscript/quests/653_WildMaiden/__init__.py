@@ -17,7 +17,7 @@ SOE = 736
 
 def findNpc(npcId,player) :
     npclist=[]
-    for spawn in SpawnTable.getInstance().getSpawnTable().values():
+    for spawn in SpawnTable.getInstance().getAllTemplates().values():
         if spawn.getNpcid() == npcId:
             instance=spawn.getLastSpawn()
             npclist.append(instance)
