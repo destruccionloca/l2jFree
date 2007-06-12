@@ -255,7 +255,7 @@ public final class Config {
 	        ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED  				= Integer.parseInt(clansSettings.getProperty("DaysBeforeAcceptNewClanWhenDismissed", "1"));
 	        ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED  				= Integer.parseInt(clansSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
 	        ALT_MAX_NUM_OF_CLANS_IN_ALLY                        = Integer.parseInt(clansSettings.getProperty("AltMaxNumOfClansInAlly", "3"));
-	        CLAN_LEADER_COLOR_ENABLED     			       		= Boolean.parseBoolean(clansSettings.getProperty("ClanLeaderColorEnabled", "True"));
+	        CLAN_LEADER_COLOR_ENABLED     			       		= Boolean.parseBoolean(clansSettings.getProperty("ClanLeaderNameColorEnabled", "True"));
 	        CLAN_LEADER_COLORED                  				= ClanLeaderColored.valueOf(clansSettings.getProperty("ClanLeaderColored", "name"));
 	        CLAN_LEADER_COLOR                                   = Integer.decode("0x" + clansSettings.getProperty("ClanLeaderColor", "00FFFF"));
 	        CLAN_LEADER_COLOR_CLAN_LEVEL                        = Integer.parseInt(clansSettings.getProperty("ClanLeaderColorAtClanLevel", "1"));
