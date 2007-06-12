@@ -120,7 +120,7 @@ public class ItemList extends L2GameServerPacket
 			else
 				writeD(0x00);
 			
-			writeD(-1); // C6
+			writeD(temp.getMana());
 		}
 	}
 	

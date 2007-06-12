@@ -274,8 +274,11 @@ public class UseItem extends L2GameClientPacket
 		            // Apply augementation boni on equip
 		            if (item.isAugmented())
 		            	item.getAugmentation().applyBoni(activeChar);
-
-					items = activeChar.getInventory().equipItemAndRecord(item);
+		            
+		            items = activeChar.getInventory().equipItemAndRecord(item);
+		            
+		            // Consume mana - will start a task if required; returns if item is not a shadow item
+		            item.decreaseMana(false);
                 }
                 sm = null;
 

@@ -124,7 +124,7 @@ public abstract class L2Item
     private final boolean _stackable;
     private final int _materialType;
     private final int _crystalType; // default to none-grade 
-    private final int _durability;
+    private final int _duration;
     private final int _bodyPart;
     private final int _referencePrice;
     private final int _crystalCount;
@@ -153,7 +153,7 @@ public abstract class L2Item
      * <LI>_crystallizable</LI>
      * <LI>_stackable</LI>
      * <LI>_materialType & _crystalType & _crystlaCount</LI>
-     * <LI>_durability</LI>
+     * <LI>_duration</LI>
      * <LI>_bodypart</LI>
      * <LI>_referencePrice</LI>
      * <LI>_sellable</LI>
@@ -175,7 +175,7 @@ public abstract class L2Item
         _stackable      = set.getBool("stackable", false);
         _materialType   = set.getInteger("material");
         _crystalType    = set.getInteger("crystal_type", CRYSTAL_NONE); // default to none-grade 
-        _durability     = set.getInteger("durability");
+        _duration     = set.getInteger("duration");
         _bodyPart       = set.getInteger("bodypart");
         _referencePrice = set.getInteger("price");
         _crystalCount   = set.getInteger("crystal_count", 0);
@@ -195,12 +195,12 @@ public abstract class L2Item
     }
     
     /**
-     * Returns the durability of th item
+     * Returns the duration of the item
      * @return int
      */
-    public final int getDurability()
+    public final int getDuration()
     {
-        return _durability;
+        return _duration;
     }
 
     /**
