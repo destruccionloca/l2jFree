@@ -1,6 +1,6 @@
 # Made by Mr. Have fun! - Version 0.3 by DrLecter
 import sys
-from net.sf.l2j import Config
+from net.sf.l2j import Config 
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
@@ -31,7 +31,7 @@ class Quest (JQuest) :
    id = st.getState()
    if id == CREATED :
      st.set("cond","0")
-   if int(st.get("cond"))==0 :
+   if st.getInt("cond")==0 :
      if st.getPlayer().getLevel() >= 3 :
        htmltext = "30001-02.htm"
      else:
@@ -70,8 +70,9 @@ class Quest (JQuest) :
      if numItems != 0 :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","2")
-     else:
-       st.playSound("ItemSound.quest_itemget")
+   else :
+     st.playSound("ItemSound.quest_itemget")
+   st.giveItems(WOLF_PELT,int(numItems))
    return
 
 QUEST       = Quest(258,qn,"Bring Wolf Pelt1")

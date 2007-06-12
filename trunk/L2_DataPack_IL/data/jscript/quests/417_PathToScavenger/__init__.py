@@ -1,4 +1,6 @@
 # Made by Mr. Have fun! Version 0.2
+# Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
+# Visit http://forum.l2jdp.com for more details
 import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
@@ -22,6 +24,7 @@ TARANTULA_PIC = 1654
 HONEY_JAR = 1655
 BEAD = 1656
 BEAD_PARCEL = 1657
+SHADOW_WEAPON_COUPON_DGRADE = 8869
 
 class Quest (JQuest) :
 
@@ -78,11 +81,11 @@ class Quest (JQuest) :
           if int(st.get("id")) / 10 < 2 :
             htmltext = "30519-07.htm"
             st.set("id",str(int(st.get("id"))+1))
-          elif int(st.get("id")) / 10 >= 2 and int(st.get("cond")) == 0 :
+          elif int(st.get("id")) / 10 >= 2 and st.getInt("cond") == 0 :
               htmltext = "30519-09.htm"
               if int(st.get("id")) / 10 < 3 :
                 st.set("id",str(int(st.get("id"))+1))
-          elif int(st.get("id")) / 10 >= 3 and int(st.get("cond")) > 0 :
+          elif int(st.get("id")) / 10 >= 3 and st.getInt("cond") > 0 :
               htmltext = "30519-10.htm"
               st.giveItems(MIONS_LETTER,1)
               st.takeItems(CHALIS_AXE,1)
@@ -261,6 +264,7 @@ class Quest (JQuest) :
           htmltext = "30316-05.htm"
           st.takeItems(SUCCUBUS_UNDIES,1)
           st.giveItems(RING_OF_RAVEN,1)
+          st.giveItems(SHADOW_WEAPON_COUPON_DGRADE,15)
           st.set("cond","0")
           st.setState(COMPLETED)
           st.playSound("ItemSound.quest_finish")
@@ -275,7 +279,7 @@ class Quest (JQuest) :
    
    npcId = npc.getNpcId()
    if npcId == 20777 :
-        if int(st.get("cond")) and st.getQuestItemsCount(BEAR_PIC) == 1 and st.getQuestItemsCount(HONEY_JAR) < 5 :
+        if st.getInt("cond") and st.getQuestItemsCount(BEAR_PIC) == 1 and st.getQuestItemsCount(HONEY_JAR) < 5 :
           if int(st.get("id") > 20) :
             n = ((int(st.get("id"))-20)*10)
             if st.getRandom(100) <= n :
@@ -286,7 +290,7 @@ class Quest (JQuest) :
           else:
             st.set("id",str(int(st.get("id"))+1))
    elif npcId == 27058 :
-        if int(st.get("cond")) and st.getQuestItemsCount(BEAR_PIC) == 1 and st.getQuestItemsCount(HONEY_JAR) < 5 :
+        if st.getInt("cond") and st.getQuestItemsCount(BEAR_PIC) == 1 and st.getQuestItemsCount(HONEY_JAR) < 5 :
           if npc.isSpoil() :
             st.giveItems(HONEY_JAR,1)
             if st.getQuestItemsCount(HONEY_JAR) == 5 :
@@ -295,7 +299,7 @@ class Quest (JQuest) :
             else:
               st.playSound("ItemSound.quest_itemget")
    elif npcId == 20403 :
-        if int(st.get("cond")) and st.getQuestItemsCount(TARANTULA_PIC) == 1 and st.getQuestItemsCount(BEAD) < 20 :
+        if st.getInt("cond") and st.getQuestItemsCount(TARANTULA_PIC) == 1 and st.getQuestItemsCount(BEAD) < 20 :
           if npc.isSpoil() :
             if st.getRandom(2) == 0 :
               st.giveItems(BEAD,1)
@@ -305,7 +309,7 @@ class Quest (JQuest) :
               else:
                 st.playSound("ItemSound.quest_itemget")
    elif npcId == 20508 :
-        if int(st.get("cond")) and st.getQuestItemsCount(TARANTULA_PIC) == 1 and st.getQuestItemsCount(BEAD) < 20 :
+        if st.getInt("cond") and st.getQuestItemsCount(TARANTULA_PIC) == 1 and st.getQuestItemsCount(BEAD) < 20 :
           if npc.isSpoil() :
             if st.getRandom(10) < 6 :
               st.giveItems(BEAD,1)

@@ -95,7 +95,7 @@ class Quest (JQuest) :
    if id == CREATED :
      st.set("cond","0")
      st.set("cornerstones","0")
-   cond = int(st.get("cond"))
+   cond = st.getInt("cond")
    if st.getPlayer().isSubClassActive() :
      if npcId == VIRGIL and cond == 0 and st.getQuestItemsCount(VIRGILS_LETTER) == 1 :
        if id == COMPLETED :
@@ -187,7 +187,7 @@ class Quest (JQuest) :
     partyMember = self.getRandomPartyMember(player,"awaitsDrops","1")
     if not partyMember : return
     st = partyMember.getQuestState(qn)
-    if int(st.get("cond")) == 9 and st.getQuestItemsCount(ORB_oF_BINDING) <= 4 :
+    if st.getInt("cond") == 9 and st.getQuestItemsCount(ORB_oF_BINDING) <= 4 :
       st.giveItems(ORB_oF_BINDING,1)
       st.playSound("ItemSound.quest_itemget")
       if st.getQuestItemsCount(ORB_oF_BINDING) == 5 :
@@ -215,9 +215,9 @@ QUEST.addTalkId(PURE_UNICORN)
 
 QUEST.addKillId(RESTRAINER_OF_GLORY)
 
-STARTED.addQuestDrop(RESTRAINER_OF_GLORY,GOLDEN_HAIR,1)
-STARTED.addQuestDrop(RESTRAINER_OF_GLORY,ORB_oF_BINDING,1)
-STARTED.addQuestDrop(RESTRAINER_OF_GLORY,SORCERY_INGREDIENT,1)
-STARTED.addQuestDrop(RESTRAINER_OF_GLORY,CARADINE_LETTER,1)
+STARTED.addQuestDrop(VIRGIL,GOLDEN_HAIR,1)
+STARTED.addQuestDrop(VIRGIL,ORB_oF_BINDING,1)
+STARTED.addQuestDrop(VIRGIL,SORCERY_INGREDIENT,1)
+STARTED.addQuestDrop(VIRGIL,CARADINE_LETTER,1)
 
 print "importing quests: 242: Possessor Of A Precious Soul - 2"

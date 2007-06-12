@@ -63,7 +63,7 @@ class Quest (JQuest) :
         st.exitQuest(1)
         htmltext="<html><head><body>This quest can only be taken by characters that have a minimum level of %s. Return when you are more experienced.</body></html>" % MIN_LEVEL
     elif id==STARTED:
-      cond=int(st.get("cond"))
+      cond=st.getInt("cond")
       if npcId==LUNDY:
         if cond==1:
           if not st.getQuestItemsCount(WORK_HAMMER):
@@ -93,21 +93,21 @@ class Quest (JQuest) :
     if not st : return 
     if st.getState() != STARTED : return 
     npcId = npc.getNpcId()
-    cond=int(st.get("cond"))
+    cond=st.getInt("cond")
     if cond==2:
       numItems,chance = divmod(100*Config.RATE_QUESTS_REWARD,100)
       if st.getRandom(100) < chance :
-        numItems = numItems +1
+        numItems = numItems +1  
       pieces=st.getQuestItemsCount(GEMSTONE_FRAGMENT)
       if pieces + numItems >= MAX_COUNT :
         numItems = MAX_COUNT - pieces
         if numItems != 0 :
           st.playSound("ItemSound.quest_middle")
           st.set("cond", "3")
-      else :
+      else :  
         st.playSound("ItemSound.quest_itemget")
       st.giveItems(GEMSTONE_FRAGMENT,int(numItems))
-    return
+    return     
 
 QUEST=Quest(44,qn,"Help The Son!")
 CREATED=State('Start', QUEST)

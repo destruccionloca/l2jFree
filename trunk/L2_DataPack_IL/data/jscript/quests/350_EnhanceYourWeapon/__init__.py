@@ -50,16 +50,16 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    if not st : return htmltext
 
-   npcId = npc.getNpcId()
+   npcId = str(npc.getNpcId())
    id = st.getState()
    if id == CREATED :
      st.set("cond","0")
-   if int(st.get("cond")) == 0:   
-     htmltext = str(npcId) + "-01.htm"
+   if st.getInt("cond") == 0:   
+     htmltext = npcId+"-01.htm"
    elif check(st) :
-     htmltext = str(npcId) + "-03.htm"
+     htmltext = npcId+"-03.htm"
    elif st.getQuestItemsCount(RED_SOUL_CRYSTAL0_ID) == st.getQuestItemsCount(GREEN_SOUL_CRYSTAL0_ID) == st.getQuestItemsCount(BLUE_SOUL_CRYSTAL0_ID) == 0 :
-     htmltext = str(npcId) + "-21.htm"
+     htmltext = npcId+"-21.htm"
    return htmltext
 
 QUEST       = Quest(350,qn,"Enhance Your Weapon")

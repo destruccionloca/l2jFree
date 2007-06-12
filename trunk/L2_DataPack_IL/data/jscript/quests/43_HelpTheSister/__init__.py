@@ -63,7 +63,7 @@ class Quest (JQuest) :
         st.exitQuest(1)
         htmltext="<html><head><body>This quest can only be taken by characters that have a minimum level of %s. Return when you are more experienced.</body></html>" % MIN_LEVEL
     elif id==STARTED:
-      cond=int(st.get("cond"))
+      cond=st.getInt("cond")
       if npcId==COOPER:
         if cond==1:
           if not st.getQuestItemsCount(CRAFTED_DAGGER):
@@ -92,21 +92,21 @@ class Quest (JQuest) :
     if st.getState() != STARTED : return
     
     npcId = npc.getNpcId()
-    cond=int(st.get("cond"))
+    cond=st.getInt("cond")
     if cond==2:
       numItems,chance = divmod(100*Config.RATE_QUESTS_REWARD,100)
       if st.getRandom(100) < chance :
-        numItems = numItems +1    
+        numItems = numItems +1  
       pieces=st.getQuestItemsCount(MAP_PIECE)
       if pieces + numItems >= MAX_COUNT :
         numItems = MAX_COUNT - pieces
         if numItems != 0:
           st.playSound("ItemSound.quest_middle")
           st.set("cond", "3")
-      else :
+      else :  
         st.playSound("ItemSound.quest_itemget")
       st.giveItems(MAP_PIECE,int(numItems))
-    return
+    return     
 
 QUEST=Quest(43,qn,"Help The Sister!")
 CREATED=State('Start', QUEST)
