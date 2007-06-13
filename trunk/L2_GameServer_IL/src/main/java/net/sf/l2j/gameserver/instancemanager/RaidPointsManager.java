@@ -32,7 +32,8 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /*
  * code parts from L2_Fortress
@@ -41,13 +42,13 @@ import org.apache.log4j.Logger;
 
 public class RaidPointsManager
 {
-	private static final Logger _log = Logger.getLogger(RaidPointsManager.class.getName());    
+	private static final Log _log = LogFactory.getLog(RaidPointsManager.class.getName());    
     private static RaidPointsManager _instance;
-	protected static FastMap<Integer, FastMap<Integer, Integer>> _points;
+	protected static Map<Integer, Map<Integer, Integer>> _points;
 
 	private RaidPointsManager()
 	{
-		_points = new FastMap<Integer, FastMap<Integer, Integer>>();
+		_points = new FastMap<Integer, Map<Integer, Integer>>();
 		FastList<Integer> _owners = new FastList<Integer>();
 		Connection con = null;
 
@@ -105,12 +106,12 @@ public class RaidPointsManager
 
 	public void calculateRanking()
 	{
-		FastMap<Integer, Integer> tmpRanking = new FastMap<Integer, Integer>();
-		FastMap<Integer, FastMap<Integer, Integer>> tmpPoints = new FastMap<Integer, FastMap<Integer, Integer>>();
+		Map<Integer, Integer> tmpRanking = new FastMap<Integer, Integer>();
+		Map<Integer, Map<Integer, Integer>> tmpPoints = new FastMap<Integer, Map<Integer, Integer>>();
 
 		for(int ownerId : _points.keySet())
 		{
-			FastMap<Integer, Integer> tmpPoint = new FastMap<Integer, Integer>();
+			Map<Integer, Integer> tmpPoint = new FastMap<Integer, Integer>();
 			tmpPoint = _points.get(ownerId);
 			int totalPoints = 0;
 
@@ -142,7 +143,7 @@ public class RaidPointsManager
 		int ranking = 1;
 		for(Map.Entry<Integer, Integer> entry : list)
 		{
-			FastMap<Integer, Integer> tmpPoint = new FastMap<Integer, Integer>();
+			Map<Integer, Integer> tmpPoint = new FastMap<Integer, Integer>();
 			tmpPoint = tmpPoints.get(entry.getKey());
 
 			tmpPoint.remove(-1);
@@ -160,7 +161,7 @@ public class RaidPointsManager
 
 	public synchronized void addPoints(int ownerId, int bossId, int points)
 	{
-		FastMap<Integer, Integer> tmpPoint = new FastMap<Integer, Integer>();
+		Map<Integer, Integer> tmpPoint = new FastMap<Integer, Integer>();
 		tmpPoint = _points.get(ownerId);
 		_points.remove(ownerId);
 
@@ -186,9 +187,10 @@ public class RaidPointsManager
 		for(int ownerId : _points.keySet())
 			try
 			{
+                con = null;
 				con = L2DatabaseFactory.getInstance().getConnection(con);
 
-				FastMap<Integer, Integer> tmpPoint = _points.get(ownerId);
+				Map<Integer, Integer> tmpPoint = _points.get(ownerId);
 				if(tmpPoint == null || tmpPoint.isEmpty())
 					continue;
 
@@ -212,8 +214,7 @@ public class RaidPointsManager
 			}
 			catch (SQLException e)
 			{
-				_log.warn("RaidBossPointsManager: Couldnt update character_raidpoints table");
-				e.printStackTrace();
+				_log.warn("RaidBossPointsManager: Couldnt update character_raidpoints table",e);
 			}
 	        finally
 	        {
@@ -221,12 +222,12 @@ public class RaidPointsManager
 	        }
 	}
 
-	public FastMap<Integer, FastMap<Integer, Integer>> getPoints()
+	public Map<Integer, Map<Integer, Integer>> getPoints()
 	{
 		return _points;
 	}
 
-	public FastMap<Integer, Integer> getPointsByOwnerId(int ownerId)
+	public Map<Integer, Integer> getPointsByOwnerId(int ownerId)
 	{
 		return _points.get(ownerId);
 	}
