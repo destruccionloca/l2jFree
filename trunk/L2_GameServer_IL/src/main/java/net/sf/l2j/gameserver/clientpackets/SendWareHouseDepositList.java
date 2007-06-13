@@ -23,7 +23,6 @@ import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.ClanWarehouse;
 import net.sf.l2j.gameserver.model.ItemContainer;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
-import net.sf.l2j.gameserver.model.PcFreight;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -96,7 +95,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		
 		if ((manager == null || !player.isInsideRadius(manager, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM()) return;
         
-        if ((warehouse instanceof PcFreight || warehouse instanceof ClanWarehouse) && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+        if ((warehouse instanceof ClanWarehouse) && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
         {
             player.sendMessage("Transactions are disable for your Access Level");
             sendPacket(new ActionFailed());
@@ -107,7 +106,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
         if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && player.getKarma() > 0) return;
         
         // Freight price from config or normal price per item slot (30)
-		int fee = _count * (warehouse instanceof PcFreight ? Config.ALT_GAME_FREIGHT_PRICE : 30);
+        int fee = _count * 30;
 		int currentAdena = player.getAdena(); 
         int slots = 0;
 
@@ -133,7 +132,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
                     continue;
             }
             
-            if ((warehouse instanceof PcFreight || warehouse instanceof ClanWarehouse) && !item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST) return;
+            if ((warehouse instanceof ClanWarehouse) && !item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST) return;
             // Calculate needed adena and slots
             if (item.getItemId() == 57) currentAdena -= count;
             if (!item.isStackable()) slots += count;

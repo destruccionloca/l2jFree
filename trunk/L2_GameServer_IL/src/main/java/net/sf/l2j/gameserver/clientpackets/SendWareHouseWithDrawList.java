@@ -24,7 +24,6 @@ import net.sf.l2j.gameserver.model.ClanWarehouse;
 import net.sf.l2j.gameserver.model.ItemContainer;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
-import net.sf.l2j.gameserver.model.PcFreight;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -94,7 +93,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 		L2FolkInstance manager = player.getLastFolkNPC();
 		if ((manager == null || !player.isInsideRadius(manager, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM()) return;
 
-        if ((warehouse instanceof PcFreight || warehouse instanceof ClanWarehouse) && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		if (warehouse instanceof ClanWarehouse && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
         {
             player.sendMessage("Transactions are disable for your Access Level");
             sendPacket(new ActionFailed());
@@ -104,7 +103,10 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
         // Alt game - Karma punishment
         if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && player.getKarma() > 0) return;
         
-        if (warehouse instanceof ClanWarehouse && !((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) == L2Clan.CP_CL_VIEW_WAREHOUSE)) return;
+        if (warehouse instanceof ClanWarehouse && !((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) == L2Clan.CP_CL_VIEW_WAREHOUSE))
+        {
+        	return;
+        }
         
         int weight = 0;
         int slots = 0;

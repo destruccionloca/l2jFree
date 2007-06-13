@@ -5771,6 +5771,10 @@ public final class L2PcInstance extends L2PlayableInstance
             player.getStatus().setCurrentCp(currentCp);
             player.getStatus().setCurrentHp(currentHp);
             player.getStatus().setCurrentMp(currentMp);
+            
+            // Restore pet if exists in the world
+            player.setPet(L2World.getInstance().getPet(player.getObjectId()));
+            if(player.getPet() != null) player.getPet().setOwner(player);
 
             // Update the overloaded status of the L2PcInstance
             player.refreshOverloaded();

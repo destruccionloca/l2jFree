@@ -607,7 +607,8 @@ public class L2Attackable extends L2NpcInstance
                             exp *= Config.CHAMPION_EXP_SP;
                             sp *= Config.CHAMPION_EXP_SP;
                         }
-                        attacker.addExpAndSp(Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null)),(int)attacker.calcStat(Stats.EXPSP_RATE, sp, null, null));
+                        if (!attacker.isDead())
+                        	attacker.addExpAndSp(Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null)),(int)attacker.calcStat(Stats.EXPSP_RATE, sp, null, null));
                     }
                 }
                 else
