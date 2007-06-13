@@ -17,6 +17,8 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+import java.util.List;
+
 import javolution.util.FastList;
 
 /**
@@ -27,13 +29,13 @@ import javolution.util.FastList;
 public class ExGetBossRecord extends L2GameServerPacket {
 	private static final String _S__FE_33_EXGETBOSSRECORD = "[S] FE:33 ExGetBossRecord";
 
-	private FastList<BossRecordInfo> _bossRecordInfo;
+	private List<BossRecordInfo> _bossRecordInfo;
 
 	private int _ranking;
 
 	private int _totalPoints;
 
-	public ExGetBossRecord(int ranking, int totalScore, FastList<BossRecordInfo> bossRecordInfo) {
+	public ExGetBossRecord(int ranking, int totalScore, List<BossRecordInfo> bossRecordInfo) {
 		_ranking = ranking; // char ranking
 		_totalPoints = totalScore; // char total points
 		_bossRecordInfo = bossRecordInfo;

@@ -18,6 +18,9 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
+import java.util.List;
+import java.util.Map;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
@@ -57,8 +60,8 @@ public class RequestGetBossRecord extends L2GameClientPacket
 		if(activeChar == null)
 			return;
 
-		FastList<BossRecordInfo> list = new FastList<BossRecordInfo>();
-		FastMap<Integer, Integer> points = RaidPointsManager.getInstance().getPointsByOwnerId(activeChar.getObjectId());
+		List<BossRecordInfo> list = new FastList<BossRecordInfo>();
+		Map<Integer, Integer> points = RaidPointsManager.getInstance().getPointsByOwnerId(activeChar.getObjectId());
 		if(points != null && !points.isEmpty())
 			for(int bossId : points.keySet())
 				switch(bossId)
