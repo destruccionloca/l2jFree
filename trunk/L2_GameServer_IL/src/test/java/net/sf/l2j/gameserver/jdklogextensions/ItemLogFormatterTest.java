@@ -65,7 +65,7 @@ public class ItemLogFormatterTest extends TestCase
         statsSetForTestItem.set("weight",1);
         statsSetForTestItem.set("crystallizable",true);
         statsSetForTestItem.set("material",1);
-        statsSetForTestItem.set("durability",1);
+        statsSetForTestItem.set("duration",1);
         statsSetForTestItem.set("bodypart",1);
         statsSetForTestItem.set("price",1);
         
