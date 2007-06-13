@@ -16,6 +16,7 @@
   <set name="skillTime" val="1300"/>
   <set name="skillType" val="PDAM"/>
   <set name="overHit" val="true"/>
+  <set name="SSBoost" val="2.0"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="10000"/>
   <set name="castRange" val="40"/>
@@ -44,6 +45,7 @@
   <set name="skillTime" val="1300"/>
   <set name="skillType" val="PDAM"/>
   <set name="overHit" val="true"/>
+  <set name="SSBoost" val="2.0"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="10000"/>
   <set name="castRange" val="40"/>
@@ -182,6 +184,7 @@
 <set name="target" val="TARGET_AURA"/>
 <set name="skillRadius" val="150"/>
 <set name="hitTime" val="3000"/>
+<set name="SSBoost" val="2.0"/>
 <set name="reuseDelay" val="120000"/>
 <set name="skillTime" val="3000"/>
 <set name="skillType" val="DEBUFF"/>
@@ -205,6 +208,7 @@
 <set name="target" val="TARGET_AURA"/>
 <set name="skillRadius" val="150"/>
 <set name="hitTime" val="3000"/>
+<set name="SSBoost" val="2.0"/>
 <set name="reuseDelay" val="120000"/>
 <set name="skillTime" val="3000"/>
 <set name="skillType" val="DEBUFF"/>
