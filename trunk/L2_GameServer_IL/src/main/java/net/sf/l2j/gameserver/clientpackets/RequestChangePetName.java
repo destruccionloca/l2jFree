@@ -52,7 +52,7 @@ public class RequestChangePetName extends L2GameClientPacket{
 		if (pet == null)
 			return;
 
-		if (pet.getName() != null)
+		if (pet.getName() != null && pet.getName().trim().length() != 0)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessage.NAMING_YOU_CANNOT_SET_NAME_OF_THE_PET));
 			return;
