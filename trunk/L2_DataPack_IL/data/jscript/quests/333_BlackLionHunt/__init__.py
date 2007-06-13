@@ -173,7 +173,7 @@ m_no_more_box       = html+morgan+"Freight box...? What box are you talking abou
 m_reward      = html+morgan+"Is there anything I can do for you...?<br><a action=\"bypass -h Quest 333_BlackLionHunt m_give\">Give freight box.</a>"+htmlend
 
 import sys
-from net.sf.l2j import Config
+from net.sf.l2j import Config 
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
@@ -199,7 +199,7 @@ class Quest (JQuest) :
   def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
   def onEvent (self,event,st) :
-    part = int(st.get("part"))
+    part = st.getInt("part")
     if event == "start" :
       st.set("cond","1")
       st.setState(STARTED)
@@ -253,11 +253,11 @@ class Quest (JQuest) :
         while claw > 0:
           n = st.getRandom(5)
           if n < 1 :
-            st.giveItems(ALACRITY_POTION,int(ala_count*Config.RATE_QUESTS_REWARD))
+            st.giveItems(ALACRITY_POTION, int(ala_count*Config.RATE_QUESTS_REWARD))
           elif n < 2 :
-            st.giveItems(SOULSHOT_D,int(soul_count*Config.RATE_QUESTS_REWARD))
+            st.giveItems(SOULSHOT_D, int(soul_count*Config.RATE_QUESTS_REWARD))
           elif n < 3:
-            st.giveItems(SCROLL_ESCAPE,int(soe_count*Config.RATE_QUESTS_REWARD))
+            st.giveItems(SCROLL_ESCAPE, int(soe_count*Config.RATE_QUESTS_REWARD))
           elif n < 4:
             st.giveItems(SPIRITSHOT_D,int(spir_count*Config.RATE_QUESTS_REWARD))
           elif n == 4:
@@ -285,7 +285,7 @@ class Quest (JQuest) :
         st.takeItems(order,1)
       return p_leave_mission
     elif event == "f_info":
-      text = int(st.get("text"))
+      text = st.getInt("text")
       if text<4:
         rnd=int(st.getRandom(20))
         st.set("text",str(text+1))
@@ -485,7 +485,7 @@ class Quest (JQuest) :
           st.exitQuest(1)
           return start_error2
     else: 
-      part=int(st.get("part"))
+      part=st.getInt("part")
       if npcId==NPC[0]:
           if part == 1:
             item = UNDEAD_ASH
@@ -570,7 +570,7 @@ class Quest (JQuest) :
     if playerLevel - mobLevel > 8:
       chancePartItem/=3
       chanceBox/=3
-    if allowDrop and int(st.get("part"))==part :
+    if allowDrop and st.getInt("part")==part :
       if random1<chancePartItem :
         st.giveItems(partItem,1)
         st.playSound("ItemSound.quest_itemget")

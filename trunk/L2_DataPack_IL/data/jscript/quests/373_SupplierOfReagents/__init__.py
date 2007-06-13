@@ -30,7 +30,7 @@ ITEMS={
 6023:["etc_powder_white_i00","Moon Dust","Low Level Reagent"],
 6024:["etc_potion_purpel_i00","Necroplasm","Low Level Reagent"],
 6025:["etc_potion_green_i00","Demonplasm","Low Level Reagent"],
-6026:["etc_powder_black_i00","Inferno Dust",""],
+6026:["etc_powder_black_i00","Inferno Dust",""], 
 6027:["etc_dragon_blood_i00","Draconic Essence","High Level Reagent"],
 6028:["etc_dragons_blood_i00","Fire Essence","High Level Reagent"],
 6029:["etc_mithril_ore_i00","Lunargent","High Level Reagent"],
@@ -82,10 +82,10 @@ MIMIRS_ELIXIR:   [PURE_SILVER,1,TRUE_GOLD,1],
 }
 
 def render_urn(st, page) :
-    stone,ingredient,catalyst = int(st.get("mixing")),int(st.get("ingredient")),int(st.get("catalyst"))
+    stone,ingredient,catalyst = st.getInt("mixing"),st.getInt("ingredient"),st.getInt("catalyst")
     if page == "Start" :
        html = "<html><body>Alchemists Mixing Urn:<br><table border=0 width=300><tr><tr><td width=50%><a action=\"bypass -h Quest 373_SupplierOfReagents U_M_MACT\">MACT Mixing Stone</a></td><td></td></tr><tr><td><a action=\"bypass -h Quest 373_SupplierOfReagents U_I_IACT\">IACT Ingredients</a></td><td>(current: INGR)</td></tr><tr><td><a action=\"bypass -h Quest 373_SupplierOfReagents U_C_CACT\">CACT Catalyst</a></td><td>(current: CATA)</td></tr><tr><td><a action=\"bypass -h Quest 373_SupplierOfReagents 31149-5.htm\">Select Temperature</a></td><td>(current: TEMP)</td></tr><tr><td><a action=\"bypass -h Quest 373_SupplierOfReagents 31149-6.htm\">Mix Ingredients</a></td><td></td></tr></table></body></html>"
-       ingr,cata,temp=int(st.get("ingredient")),int(st.get("catalyst")),st.get("temp")
+       ingr,cata,temp=st.getInt("ingredient"),st.getInt("catalyst"),st.get("temp")
        if ingr : ingr = ITEMS[ingr][1]+"x"+st.get("i_qty")
        else : ingr = "None"
        if cata : cata = ITEMS[cata][1]+"x"+st.get("c_qty")
@@ -113,7 +113,7 @@ class Quest (JQuest) :
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
  def onEvent (self,event,st) :
-    id = st.getState()
+    id = st.getState() 
     htmltext = event
     if event == "30166-4.htm" :
        st.setState(STARTED)
@@ -128,7 +128,7 @@ class Quest (JQuest) :
        st.giveItems(5904,1)
        st.playSound("ItemSound.quest_accept")
     elif event == "30166-5.htm" :
-       for i in range(6007,6035)+[6317,5904] :
+       for i in range(6007,6035)+[6317,5904] : 
           st.takeItems(i,-1)
        st.exitQuest(1)
        st.playSound("ItemSound.quest_finish")
@@ -145,11 +145,11 @@ class Quest (JQuest) :
               else :
                  htmltext = "You don't have a mixing stone."
           elif event[2] == "Retrieve" :
-              if int(st.get("mixing")) :
+              if st.getInt("mixing") :
                  st.set("mixing","0")
                  st.set("temp","0")
                  st.giveItems(MIXING_STONE1,1)
-                 if int(st.get("ingredient")) or int(st.get("catalyst")) :
+                 if st.getInt("ingredient") or st.getInt("catalyst") :
                      htmltext = "31149-2c.htm"
                  else :
                      htmltext = "31149-2a.htm"
@@ -159,20 +159,20 @@ class Quest (JQuest) :
           htmltext = render_urn(st,event)
        elif event[2] == "Retrieve" :
           if event[1] == "I" :
-             item=int(st.get("ingredient"))
-             qty =int(st.get("i_qty"))
+             item=st.getInt("ingredient")
+             qty =st.getInt("i_qty")
              st.set("ingredient","0")
              st.set("i_qty","0")
           elif event[1] == "C" :
-             item=int(st.get("catalyst"))
-             qty =int(st.get("c_qty"))
+             item=st.getInt("catalyst")
+             qty =st.getInt("c_qty")
              st.set("catalyst","0")
              st.set("c_qty","0")
           if item and qty :
              st.giveItems(item,qty)
              htmltext="31149-3a.htm"
           else :
-             htmltext = "31149-3b.htm"
+             htmltext = "31149-3b.htm" 
     elif event.startswith("x_") :
        x,qty,dst,item=event.split("_")
        if qty=="2": qty="10"
@@ -194,10 +194,10 @@ class Quest (JQuest) :
        st.set("temp",event.split("_")[1])
        htmltext = "31149-5a.htm"
     elif event == "31149-6.htm" :
-       if int(st.get("mixing")) :
-          temp=int(st.get("temp"))
+       if st.getInt("mixing") :
+          temp=st.getInt("temp")
           if temp :
-             ingredient,catalyst,iq,cq = int(st.get("ingredient")),int(st.get("catalyst")),int(st.get("i_qty")),int(st.get("c_qty"))
+             ingredient,catalyst,iq,cq = st.getInt("ingredient"),st.getInt("catalyst"),st.getInt("i_qty"),st.getInt("c_qty")
              st.set("ingredient","0")
              st.set("i_qty","0")
              st.set("catalyst","0")
