@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.model;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -170,9 +171,10 @@ public abstract class L2Character extends L2Object
     private String _Title;
     private String _aiClass = "default";
     private boolean _champion = false;
-	private double _hpUpdateIncCheck = .0;
-	private double _hpUpdateDecCheck = .0;
-	private double _hpUpdateInterval = .0;
+	private int _oldHp = 0; // for HP status update comparing
+	private int _oldMp = 0; // for MP status update comparing
+	private int HpPixelBar = 0;
+	private int MpPixelBar = 0;
 	
     /** Table of Calculators containing all used calculator */
     private Calculator[] _Calculators;
@@ -237,14 +239,9 @@ public abstract class L2Character extends L2Object
             _Calculators = new Calculator[Stats.NUM_STATS];
             Formulas.getInstance().addFuncsToNewCharacter(this);
         }
+        HpPixelBar = (int)(getMaxHp() / 352);
+        MpPixelBar = (int)(getMaxMp() / 352);
 	}
-	
-	protected void initCharStatusUpdateValues()
-	{        
-        _hpUpdateInterval = getMaxHp()/352.0; // MAX_HP div MAX_HP_BAR_PX
-		_hpUpdateIncCheck = getMaxHp();
-		_hpUpdateDecCheck = getMaxHp()-_hpUpdateInterval;        
-    }
 	
 	// =========================================================
 	// Event - Public
@@ -362,32 +359,33 @@ public abstract class L2Character extends L2Object
 	 * Returns true if hp update should be done, false if not 
 	 * @return boolean
 	 */
-	protected boolean needHpUpdate(int barPixels)
+	protected boolean needHpUpdate()
 	{
-		double currentHp = getStatus().getCurrentHp();
+		int currentHp = (int) getStatus().getCurrentHp();
 
-		if (currentHp <= 1.0 || getMaxHp() < barPixels)
-	        return true;
+		if(_oldHp != currentHp && Math.abs(currentHp - _oldHp) >= HpPixelBar)
+		{
+			_oldHp = currentHp;
+			return true;
+		}
+		
+	    return false;
+	}
+	
+	/**
+	 * Returns true if mp update should be done, false if not 
+	 * @return boolean
+	 */
+	protected boolean needMpUpdate()
+	{
+		int currentMp = (int) getStatus().getCurrentMp();
 
-	    if (currentHp <= _hpUpdateDecCheck || currentHp >= _hpUpdateIncCheck)
-	    {
-	    	if (currentHp == getMaxHp())
-	    	{
-	    		_hpUpdateIncCheck = getMaxHp();
-	    		_hpUpdateDecCheck = _hpUpdateIncCheck - _hpUpdateInterval;
-	    	}
-	    	else
-	    	{
-	    		double doubleMulti = currentHp / _hpUpdateInterval;
-		    	int intMulti = (int)doubleMulti;
-
-	    		_hpUpdateDecCheck = _hpUpdateInterval * (doubleMulti < intMulti ? intMulti-- : intMulti);
-	    		_hpUpdateIncCheck = _hpUpdateDecCheck + _hpUpdateInterval;
-	    	}
-
-	    	return true;
-	    }
-
+		if(_oldMp != currentMp && Math.abs(currentMp - _oldMp) >= MpPixelBar)
+		{
+			_oldMp = currentMp;
+			return true;
+		}
+		
 	    return false;
 	}
 
@@ -409,9 +407,16 @@ public abstract class L2Character extends L2Object
     {
         if (getStatus().getStatusListener() == null || getStatus().getStatusListener().isEmpty()) return;
         
-        if (!needHpUpdate(352))
-			return;
+        boolean _needHpUpdate = needHpUpdate();
+    	boolean _needMpUpdate = needMpUpdate();
+    	
+    	if(!_needHpUpdate && !_needMpUpdate) return;
 
+        // Send the Server->Client packet StatusUpdate with current HP, MP and CP to this L2PcInstance
+        StatusUpdate su = new StatusUpdate(getObjectId());
+        if (_needHpUpdate) su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp());
+        if (_needMpUpdate) su.addAttribute(StatusUpdate.CUR_MP, (int)getStatus().getCurrentMp());
+        
 		if (_log.isDebugEnabled())
 			_log.info("Broadcast Status Update for " + getObjectId() + "(" + getName() + "). HP: " + getStatus().getCurrentHp());
 
@@ -421,11 +426,7 @@ public abstract class L2Character extends L2Object
             //Minimum time between sending status update. Can be increased a bit for further saves in network traffic 
             if(getStatus().getCurrentHp() > 1 && currTimeMillis - timePreviousBroadcastStatusUpdate < Config.NETWORK_TRAFFIC_OPTIMIZATION_MS) return;
             timePreviousBroadcastStatusUpdate = currTimeMillis;
-        }
-        // Create the Server->Client packet StatusUpdate with current HP and MP
-        StatusUpdate su = new StatusUpdate(getObjectId());
-		su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp());
-		su.addAttribute(StatusUpdate.CUR_MP, (int)getStatus().getCurrentMp());
+        }        
 
         // Go through the StatusListener
         // Send the Server->Client packet StatusUpdate with current HP and MP
@@ -434,6 +435,7 @@ public abstract class L2Character extends L2Object
         if (listeners != null)
             for (L2Character temp : listeners)
                 temp.sendPacket(su);
+        su = null;
     }
 
     /**
@@ -610,8 +612,9 @@ public abstract class L2Character extends L2Object
             ((L2PcInstance)this).sendPacket(new SystemMessage(SystemMessage.CANNOT_ATTACK_WITH_FISHING_POLE));
             getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
  
-             ActionFailed af = new ActionFailed();
-             sendPacket(af);
+            ActionFailed af = new ActionFailed();
+            sendPacket(af);
+            af = null;
             return;
         }
 

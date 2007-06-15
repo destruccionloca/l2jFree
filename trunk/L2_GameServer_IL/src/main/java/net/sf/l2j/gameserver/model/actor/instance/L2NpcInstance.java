@@ -224,7 +224,6 @@ public class L2NpcInstance extends L2Character
         this.getKnownList();    // init knownlist
         this.getStat();         // init stats
         this.getStatus();       // init status
-        super.initCharStatusUpdateValues(); // init status upadte values
         
         if (template == null)
         {
