@@ -30,7 +30,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ShortCutRegister;
-import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
@@ -96,7 +95,7 @@ public class RequestExEnchantSkill extends L2GameClientPacket
         int counts = 0;
         int _requiredSp = 10000000;
         int _requiredExp = 100000;
-        byte _rate = 0;
+        int _rate = 0;
         int _baseLvl = 1;
         
         L2EnchantSkillLearn[] skills = SkillTreeTable.getInstance().getAvailableEnchantSkills(player);
@@ -121,9 +120,9 @@ public class RequestExEnchantSkill extends L2GameClientPacket
             return;
         }
             
-        if (player.getSp() >= _requiredSp)
+        if (player.getStat().getSp() >= _requiredSp)
         {
-            if (player.getExp() >= _requiredExp)
+            if (player.getStat().getExp() - player.getStat().getExpForLevel(player.getStat().getLevel()) >= _requiredExp)
             {
                 if (_skillLvl == 101 || _skillLvl == 141) // only first lvl requires book 
                 {
@@ -160,14 +159,10 @@ public class RequestExEnchantSkill extends L2GameClientPacket
             if (_log.isDebugEnabled()) 
                 _log.info("Learned skill " + _skillID + " for " + _requiredSp + " SP.");
             
-            player.setSp(player.getSp() - _requiredSp);
-            player.setExp(player.getExp() - _requiredExp);
+            player.getStat().setSp(player.getStat().getSp() - _requiredSp);
+            player.getStat().setExp(player.getStat().getExp() - _requiredExp);
             player.updateStats();
             
-            StatusUpdate su = new StatusUpdate(player.getObjectId());
-            su.addAttribute(StatusUpdate.SP, player.getSp());
-            player.sendPacket(su);
-
             SystemMessage ep = new SystemMessage(539);
             ep.addNumber(_requiredExp);
             sendPacket(ep);
