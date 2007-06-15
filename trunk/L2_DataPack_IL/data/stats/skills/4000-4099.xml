@@ -246,7 +246,7 @@
   <set name="skillTime" val="2200"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="buffDuration" val="120000"/>
+  <set name="buffDuration" val="30000"/>
   <set name="castRange" val="500"/>
   <set name="effectRange" val="1000"/>
   <set name="effectType" val="DEBUFF"/>
@@ -267,7 +267,7 @@
   <set name="skillTime" val="1700"/>
   <set name="skillType" val="DEBUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="buffDuration" val="120000"/>
+  <set name="buffDuration" val="30000"/>
   <set name="castRange" val="800"/>
   <set name="effectRange" val="1300"/>
   <for>
@@ -522,7 +522,7 @@
   <set name="skillType" val="MDAM"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="buffDuration" val="120000"/>
+  <set name="buffDuration" val="30000"/>
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <set name="effectType" val="DEBUFF"/>
@@ -1277,7 +1277,7 @@
   <set name="skillType" val="DEBUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="buffDuration" val="120000"/>
+  <set name="buffDuration" val="30000"/>
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1000"/>
   <for>
