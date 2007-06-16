@@ -127,30 +127,13 @@ public class VIP {
         
         try {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("SELECT endx,endy,endz FROM VIPinfo WHERE teamID = " + _team);
+            PreparedStatement statement = con.prepareStatement("SELECT endx,endy,endz,startx,starty,startz FROM VIPinfo WHERE teamID = " + _team);
             ResultSet rset = statement.executeQuery();
             rset.next();
             
             _endX = rset.getInt("endx");
             _endY = rset.getInt("endy");
             _endZ = rset.getInt("endz");
-            
-            rset.close();
-            statement.close();
-        }
-        catch (SQLException e){
-            _log.error("Could not check End LOC for team" + _team + " got: " + e.getMessage());
-        }
-        finally {
-            try { con.close(); } catch (Exception e) {}
-        }
-        
-        try {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("SELECT startx,starty,startz FROM VIPinfo WHERE teamID = " + _team);
-            ResultSet rset = statement.executeQuery();
-            rset.next();
-            
             _startX = rset.getInt("startx");
             _startY = rset.getInt("starty");
             _startZ = rset.getInt("startz");
@@ -159,7 +142,7 @@ public class VIP {
             statement.close();
         }
         catch (SQLException e){
-            _log.error("Could not check Start LOC for team" + _team + " got: " + e.getMessage());
+            _log.error("Could not check End & Start LOC for team" + _team + " got: " + e.getMessage());
         }
         finally {
             try { con.close(); } catch (Exception e) {}
