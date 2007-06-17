@@ -105,7 +105,6 @@ public class StatusUpdate extends L2GameServerPacket
 
     protected final void writeImpl()
     {
-    	if(_attributes.size() < 1) return;
         writeC(0x0e);
         writeD(_objectId);
         writeD(_attributes.size());

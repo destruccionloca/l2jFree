@@ -822,6 +822,16 @@ public final class L2PcInstance extends L2PlayableInstance
         return restore(objectId);
     }
 
+	private void initPcStatusUpdateValues()
+	{
+		_cpUpdateInterval = getMaxCp() / 352.0;
+		_cpUpdateIncCheck = getMaxCp();
+		_cpUpdateDecCheck = getMaxCp() - _cpUpdateInterval;
+		_mpUpdateInterval = getMaxMp() / 352.0;
+		_mpUpdateIncCheck = getMaxMp();
+		_mpUpdateDecCheck = getMaxMp() - _mpUpdateInterval;
+	}
+
     /**
      * Constructor of L2PcInstance (use L2Character constructor).<BR><BR>
      *
@@ -842,7 +852,8 @@ public final class L2PcInstance extends L2PlayableInstance
 		this.getKnownList();	// init knownlist
         this.getStat();			// init stats
         this.getStatus();		// init status
-        CpPixelBar = (int)(getMaxCp() / 352);
+        super.initCharStatusUpdateValues();
+        initPcStatusUpdateValues();
         
         _accountName = accountName;
         _appearance   = app;
@@ -867,7 +878,8 @@ public final class L2PcInstance extends L2PlayableInstance
 		this.getKnownList();	// init knownlist
         this.getStat();			// init stats
         this.getStatus();		// init status
-        CpPixelBar = (int)(getMaxCp() / 352);
+        super.initCharStatusUpdateValues();
+        initPcStatusUpdateValues();
     }
 
 	public final PcKnownList getKnownList()
@@ -1818,6 +1830,8 @@ public final class L2PcInstance extends L2PlayableInstance
                 
                 super.updateEffectIcons();
                 broadcastUserInfo();
+                StatusUpdate su = new StatusUpdate(getObjectId());
+                sendPacket(su);
             }
         }
     }
@@ -2930,10 +2944,16 @@ public final class L2PcInstance extends L2PlayableInstance
             }
         }
 
+        // Send the StatusUpdate Server->Client Packet to the player with new CUR_LOAD (0x0e) information
+        /* duplicate send by broadcastUserInfo
+        StatusUpdate su = new StatusUpdate(getObjectId());
+        su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
+        sendPacket(su);
+        */
+
         // Send the ItemList Server->Client Packet to the player in order to refresh its Inventory
         ItemList il = new ItemList(getInventory().getItems(), true);
         sendPacket(il);
-        il = null;
 
         // Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _KnownPlayers
         broadcastUserInfo();
@@ -3259,7 +3279,6 @@ public final class L2PcInstance extends L2PlayableInstance
             sendMessage("Player iteraction disabled during restart/shutdown!");
             ActionFailed af = new ActionFailed();
             player.sendPacket(af);
-            af = null;
             return;
         }
         
@@ -3352,19 +3371,68 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * Returns true if cp update should be done, false if not
 	 * @return boolean
 	 */
-    protected boolean needCpUpdate()
+	private boolean needCpUpdate(int barPixels)
 	{
-		int currentCp = (int) getStatus().getCurrentCp();
+		double currentCp = getStatus().getCurrentCp();
 
-		if(_oldCp != currentCp && Math.abs(currentCp - _oldCp) >= CpPixelBar)
-		{
-			_oldCp = currentCp;
-			return true;
-		}
-		
+	    if (currentCp <= 1.0 || getMaxCp() < barPixels)
+	        return true;
+
+	    if (currentCp <= _cpUpdateDecCheck || currentCp >= _cpUpdateIncCheck)
+	    {
+	    	if (currentCp == getMaxCp())
+	    	{
+	    		_cpUpdateIncCheck = getMaxCp();
+	    		_cpUpdateDecCheck = _cpUpdateIncCheck - _cpUpdateInterval;
+	    	}
+	    	else
+	    	{
+	    		double doubleMulti = currentCp / _cpUpdateInterval;
+		    	int intMulti = (int)doubleMulti;
+
+	    		_cpUpdateDecCheck = _cpUpdateInterval * (doubleMulti < intMulti ? intMulti-- : intMulti);
+	    		_cpUpdateIncCheck = _cpUpdateDecCheck + _cpUpdateInterval;
+	    	}
+
+	    	return true;
+	    }
+
 	    return false;
 	}
 	
+	/**
+	 * Returns true if mp update should be done, false if not
+	 * @return boolean
+	 */
+	private boolean needMpUpdate(int barPixels)
+	{
+		double currentMp = getStatus().getCurrentMp();
+
+	    if (currentMp <= 1.0 || getMaxMp() < barPixels)
+	        return true;
+
+	    if (currentMp <= _mpUpdateDecCheck || currentMp >= _mpUpdateIncCheck)
+	    {
+	    	if (currentMp == getMaxMp())
+	    	{
+	    		_mpUpdateIncCheck = getMaxMp();
+	    		_mpUpdateDecCheck = _mpUpdateIncCheck - _mpUpdateInterval;
+	    	}
+	    	else
+	    	{
+	    		double doubleMulti = currentMp / _mpUpdateInterval;
+		    	int intMulti = (int)doubleMulti;
+
+	    		_mpUpdateDecCheck = _mpUpdateInterval * (doubleMulti < intMulti ? intMulti-- : intMulti);
+	    		_mpUpdateIncCheck = _mpUpdateDecCheck + _mpUpdateInterval;
+	    	}
+
+	    	return true;
+	    }
+
+	    return false;
+	}
+
     /**
      * Send packet StatusUpdate with current HP,MP and CP to the L2PcInstance and only current HP, MP and Level to all other L2PcInstance of the Party.<BR><BR>
      *
@@ -3377,26 +3445,20 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void broadcastStatusUpdate()
     {
+        //TODO We mustn't send these informations to other players
         // Send the Server->Client packet StatusUpdate with current HP and MP to all L2PcInstance that must be informed of HP/MP updates of this L2PcInstance
         //super.broadcastStatusUpdate();
-    	
-    	boolean _needHpUpdate = needHpUpdate();
-    	boolean _needMpUpdate = needMpUpdate();
-    	boolean _needCpUpdate = needCpUpdate();
-    	
-    	if(!_needCpUpdate && !_needHpUpdate && !_needMpUpdate) return;
 
         // Send the Server->Client packet StatusUpdate with current HP, MP and CP to this L2PcInstance
         StatusUpdate su = new StatusUpdate(getObjectId());
-        if (_needHpUpdate) su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp());
-        if (_needMpUpdate) su.addAttribute(StatusUpdate.CUR_MP, (int)getStatus().getCurrentMp());
-        if (_needCpUpdate) su.addAttribute(StatusUpdate.CUR_CP, (int)getStatus().getCurrentCp());
-        //su.addAttribute(StatusUpdate.MAX_CP, getMaxCp());
+        su.addAttribute(StatusUpdate.CUR_HP, (int) getStatus().getCurrentHp());
+        su.addAttribute(StatusUpdate.CUR_MP, (int) getStatus().getCurrentMp());
+        su.addAttribute(StatusUpdate.CUR_CP, (int) getStatus().getCurrentCp());
+        su.addAttribute(StatusUpdate.MAX_CP, getMaxCp());
         sendPacket(su);
-        su = null;
 
 		// Check if a party is in progress and party window update is usefull
-		if (isInParty())
+		if (isInParty() && (needCpUpdate(352) || super.needHpUpdate(352) || needMpUpdate(352)))
 		{
 			if (_log.isDebugEnabled())
 				_log.info("Send status for party window of " + getObjectId() + "(" + getName() + ") to his party. CP: " + getStatus().getCurrentCp() + " HP: " + getStatus().getCurrentHp() + " MP: " + getStatus().getCurrentMp());
@@ -5287,6 +5349,9 @@ public final class L2PcInstance extends L2PlayableInstance
         refreshExpertisePenalty();
         // Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _KnownPlayers (broadcast)
         broadcastUserInfo();
+
+        // Send a Server->Client StatusUpdate packet with Karma to the L2PcInstance and to all L2PcInstance in its _KnownPlayers (broadcast)
+        updateKarma();
     }
 
     /**
@@ -5721,7 +5786,6 @@ public final class L2PcInstance extends L2PlayableInstance
         catch (Exception e)
         {
             _log.warn("Could not restore char data: " + e);
-            e.printStackTrace();
         }
         finally
         {
@@ -6890,11 +6954,9 @@ public final class L2PcInstance extends L2PlayableInstance
         // Check if the attacker isn't the L2PcInstance Pet
         if (attacker == this || attacker == this.getPet()) return false;
 
+        // TODO: check for friendly mobs
         // Check if the attacker is a L2MonsterInstance
         if (attacker instanceof L2MonsterInstance) return true;
-        
-        // Check if the attacker is a L2FriendlyMobInstance
-        if (attacker instanceof L2FriendlyMobInstance) return false;
 
         // Check if the attacker is not in the same party
         if (getParty() != null && getParty().getPartyMembers().contains(attacker)) return false;
@@ -10319,8 +10381,12 @@ public final class L2PcInstance extends L2PlayableInstance
     private double _RevivePower = 0;
     private boolean _RevivePet = false;
 
-    private int _oldCp = 0; // for CP status update comparing
-    private int CpPixelBar = 0;
+	private double _cpUpdateIncCheck = .0;
+	private double _cpUpdateDecCheck = .0;
+	private double _cpUpdateInterval = .0;
+	private double _mpUpdateIncCheck = .0;
+	private double _mpUpdateDecCheck = .0;
+	private double _mpUpdateInterval = .0;
 
     private class JailTask implements Runnable
     {
