@@ -3898,9 +3898,13 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 if (TvT._teleport || TvT._started)
                 {
-                    ((L2PcInstance)killer)._countTvTkills++;
                     if (!(((L2PcInstance)killer)._teamNameTvT.equals(_teamNameTvT)))
+                    {
+                    	((L2PcInstance)killer)._countTvTkills++;
                         TvT.setTeamKillsCount(((L2PcInstance)killer)._teamNameTvT, TvT.teamKillsCount(((L2PcInstance)killer)._teamNameTvT)+1);
+                    }
+                    else
+                    	((L2PcInstance)killer).sendMessage("You'r teamkiller !!! Teamkills not counting.");
 
                     sendMessage("You will be revived and teleported to team spot in 20 seconds!");
                     ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
