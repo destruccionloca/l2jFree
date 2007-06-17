@@ -1513,16 +1513,14 @@ public final class Formulas
     {
         double defence = 0;
         double attack =0; 
-        SkillType type = skill.getSkillType();
-        if (target.isRaid()
-                && (type == SkillType.CONFUSION || type == SkillType.MUTE || type == SkillType.PARALYZE
-                    || type == SkillType.ROOT || type == SkillType.FEAR || type == SkillType.SLEEP
-                    || type == SkillType.STUN || type == SkillType.DEBUFF || type == SkillType.AGGDEBUFF
-                    || Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId())))
-        	return false; 
-        else
-        	if (skill.isActive() && skill.isOffensive())
-        		defence = target.getMDef(actor, skill);
+        
+        if ( ! target.checkSkillCanAffectMyself(skill))
+        {
+            return false;
+        }
+        
+    	if (skill.isActive() && skill.isOffensive())
+    		defence = target.getMDef(actor, skill);
         
         if (actor instanceof L2PcInstance) 
             attack = 3.7 * actor.getMAtk(target, skill); 
@@ -1597,12 +1595,10 @@ public final class Formulas
         
         SkillType type = skill.getSkillType();
  
-        if (target.isRaid()
-            && (type == SkillType.CONFUSION || type == SkillType.MUTE || type == SkillType.PARALYZE
-                || type == SkillType.ROOT || type == SkillType.FEAR || type == SkillType.SLEEP
-                || type == SkillType.STUN || type == SkillType.DEBUFF || type == SkillType.AGGDEBUFF
-            	|| Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId())))
-            return false; // these skills should not work on RaidBoss
+        if ( ! target.checkSkillCanAffectMyself(skill))
+        {
+            return false;
+        }
         
         int value = (int) skill.getPower();
         int lvlDepend = skill.getLevelDepend();

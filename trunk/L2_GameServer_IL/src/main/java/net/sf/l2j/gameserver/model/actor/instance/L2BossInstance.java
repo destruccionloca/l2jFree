@@ -30,10 +30,10 @@ import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
@@ -156,6 +156,23 @@ public final class L2BossInstance extends L2MonsterInstance
     private boolean getTeleported()
     {
         return _teleportedToNest;
+    }
+    
+    /**
+     * Boss are not affected by some type of skills (confusion, mute, paralyze, root
+     * and a list of skills define in the configuration)
+
+     * @param skill the casted skill
+     * @see L2Character#checkSkillCanAffectMyself(L2Skill)
+     */
+    @Override
+    public boolean checkSkillCanAffectMyself(L2Skill skill)
+    {
+        return  !(skill.getSkillType() == SkillType.CONFUSION 
+                || skill.getSkillType() == SkillType.MUTE 
+                || skill.getSkillType() == SkillType.PARALYZE 
+                || skill.getSkillType() == SkillType.ROOT 
+                || Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId()));
     }
 
     @Override

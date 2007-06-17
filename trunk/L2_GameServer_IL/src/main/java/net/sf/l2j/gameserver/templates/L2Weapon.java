@@ -20,9 +20,8 @@ package net.sf.l2j.gameserver.templates;
 
 import java.io.IOException;
 import java.util.List;
-import javolution.util.FastList;
 
-import net.sf.l2j.Config;
+import javolution.util.FastList;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
@@ -34,8 +33,8 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.quest.Quest;
-import net.sf.l2j.gameserver.skills.conditions.ConditionGameChance;
 import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.skills.conditions.ConditionGameChance;
 import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.skills.funcs.FuncTemplate;
 
@@ -316,13 +315,16 @@ public final class L2Weapon  extends L2Item
     {
         if (_skillsOnCrit == null || !crit)
             return _emptyEffectSet;
-        FastList<L2Effect> effects = new FastList<L2Effect>();
+        List<L2Effect> effects = new FastList<L2Effect>();
 
         for (L2Skill skill : _skillsOnCrit)
         {
-            if (target.isRaid() && (skill.getSkillType() == SkillType.CONFUSION || skill.getSkillType() == SkillType.MUTE || skill.getSkillType() == SkillType.PARALYZE || skill.getSkillType() == SkillType.ROOT || Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId()))) 
-                continue; // These skills should not work on RaidBoss
-
+            // check if this skill can affect the target
+            if (!target.checkSkillCanAffectMyself(skill))
+            {
+                continue;
+            }
+            
             if (!skill.checkCondition(caster, true)) 
                 continue; // Skill condition not met
             
@@ -348,7 +350,7 @@ public final class L2Weapon  extends L2Item
     {
         if (_skillsOnCast == null)
             return _emptyEffectSet;
-        FastList<L2Effect> effects = new FastList<L2Effect>();
+        List<L2Effect> effects = new FastList<L2Effect>();
 
         for (L2Skill skill : _skillsOnCast)
         {

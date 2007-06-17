@@ -18,13 +18,16 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Spawn;
+import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -62,6 +65,23 @@ public final class L2RaidBossInstance extends L2MonsterInstance
     {
         return true; 
     }
+    
+    /**
+     * RaidBoss are not affected by some type of skills (confusion, mute, paralyze, root
+     * and a list of skills define in the configuration)
+
+     * @param skill the casted skill
+     * @see L2Character#checkSkillCanAffectMyself(L2Skill)
+     */
+    @Override
+    public boolean checkSkillCanAffectMyself(L2Skill skill)
+    {
+        return  !(skill.getSkillType() == SkillType.CONFUSION 
+                || skill.getSkillType() == SkillType.MUTE 
+                || skill.getSkillType() == SkillType.PARALYZE 
+                || skill.getSkillType() == SkillType.ROOT 
+                || Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId()));
+    }    
 
     protected int getMaintenanceInterval() { return RAIDBOSS_MAINTENANCE_INTERVAL; }
 	

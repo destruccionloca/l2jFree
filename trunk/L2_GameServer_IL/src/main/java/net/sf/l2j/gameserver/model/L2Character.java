@@ -131,7 +131,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class L2Character extends L2Object
 {
-    final static Log _log = LogFactory.getLog(L2Character.class.getName());
+    private final static Log _log = LogFactory.getLog(L2Character.class.getName());
 
     // =========================================================
     // Data Field
@@ -5700,5 +5700,16 @@ public abstract class L2Character extends L2Object
 	public void sendDamageMessage(@SuppressWarnings("unused") L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
 	{
 	}
+	
+    /**
+     * Check if the skill can affect myself.
+     * This method could be overriden to allow immunization
+     * for some skills and some child of L2Character
+     * @param skill the casted skill
+     */
+    public boolean checkSkillCanAffectMyself(L2Skill skill)
+    {
+        return true;        
+    }
 }
 
