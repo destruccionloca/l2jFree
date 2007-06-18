@@ -7142,6 +7142,16 @@ public final class L2PcInstance extends L2PlayableInstance
             sendPacket(new ActionFailed());
             return;
         }
+        // Are the target and the player in the same duel?
+        if (isInDuel())
+        {
+        	if ( !(target instanceof L2PcInstance && ((L2PcInstance)target).getDuelId() == getDuelId()) )
+        	{
+        		sendMessage("You cannot do this while duelling.");
+        		sendPacket(new ActionFailed());
+        		return;
+        	}
+        }
         // GeoData Los Check here
         if (!(target instanceof L2DoorInstance) && skill.getCastRange() > 0 && !GeoData.getInstance().canSeeTarget(this, target))
         {
