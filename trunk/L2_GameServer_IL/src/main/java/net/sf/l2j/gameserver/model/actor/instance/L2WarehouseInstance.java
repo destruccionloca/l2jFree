@@ -97,19 +97,20 @@ public final class L2WarehouseInstance extends L2FolkInstance
     private void showDepositWindowClan(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());
-        if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) != L2Clan.CP_CL_VIEW_WAREHOUSE)
-        {
-        	player.sendPacket(new SystemMessage(SystemMessage.YOU_DO_NOT_HAVE_THE_RIGHT_TO_USE_CLAN_WAREHOUSE));
-        	return;
-        }
-        else
+        if (player.getClan() != null)
         {
             if (player.getClan().getLevel() == 0)
             {
-                player.sendPacket(new SystemMessage(SystemMessage.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
+                player.sendPacket(new SystemMessage(
+                                                    SystemMessage.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
             }
             else
             {
+                if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) != L2Clan.CP_CL_VIEW_WAREHOUSE)
+                {
+                    player.sendPacket(new SystemMessage(
+                                                        SystemMessage.ONLY_CLAN_LEADER_CAN_RETRIEVE_ITEMS_FROM_CLAN_WAREHOUSE));
+                }
                 player.setActiveWarehouse(player.getClan().getWarehouse());
                 player.tempInvetoryDisable();
                 if (_log.isDebugEnabled()) _log.debug("Showing items to deposit - clan");
