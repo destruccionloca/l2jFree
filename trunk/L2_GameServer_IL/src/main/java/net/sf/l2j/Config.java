@@ -980,6 +980,7 @@ public final class Config {
      */
     public static int     				COORD_SYNCHRONIZE;
     public static int     				DELETE_DAYS;
+    public static int					FLOODPROTECTOR_INITIALSIZE;		// FloodProtector initial capacity
     public static int 					MAX_DRIFT_RANGE;				// Maximum range mobs can randomly go from spawn point
     public static boolean 				ALLOWFISHING;
     public static boolean 				ALLOW_MANOR;					// Allow Manor system
@@ -1147,7 +1148,9 @@ public final class Config {
             AI_MAX_THREAD                   = Integer.parseInt(optionsSettings.getProperty("AiMaxThread", "10"));
                          
             DELETE_DAYS                     = Integer.parseInt(optionsSettings.getProperty("DeleteCharAfterDays", "7"));
-                         
+            
+            FLOODPROTECTOR_INITIALSIZE		= Integer.parseInt(optionsSettings.getProperty("FloodProtectorInitialSize", "50"));
+            
             DEFAULT_PUNISH                  = Integer.parseInt(optionsSettings.getProperty("DefaultPunish", "2"));
             DEFAULT_PUNISH_PARAM            = Integer.parseInt(optionsSettings.getProperty("DefaultPunishParam", "0"));
 

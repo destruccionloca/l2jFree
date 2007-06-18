@@ -18,6 +18,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.GameServer;
+import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.exception.L2JFunctionnalException;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
@@ -57,7 +58,19 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 	{
 		try
 		{
-            this.runImpl();
+			// flood protection
+			if (GameTimeController.getGameTicks() - getClient().packetsSentStartTick > 10)
+			{
+				getClient().packetsSentStartTick = GameTimeController.getGameTicks();
+				getClient().packetsSentInSec = 0;
+			}
+			else
+			{
+				getClient().packetsSentInSec++;
+				if (getClient().packetsSentInSec > 12) return;
+			}
+			
+			this.runImpl();
             if (this instanceof MoveBackwardToLocation 
             	|| this instanceof AttackRequest 
             	|| this instanceof RequestMagicSkillUse)

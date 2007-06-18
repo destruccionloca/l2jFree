@@ -98,6 +98,7 @@ import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.script.faenor.FaenorScriptEngine;
 import net.sf.l2j.gameserver.taskmanager.TaskManager;
 import net.sf.l2j.gameserver.util.DynamicExtension;
+import net.sf.l2j.gameserver.util.FloodProtector;
 import net.sf.l2j.status.Status;
 import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.versionning.model.Version;
@@ -498,6 +499,10 @@ public class GameServer
         } catch (Exception ex) {
             _log.warn( "DynamicExtension could not be loaded and initialized", ex);
         }
+        
+        // o Initialize the FloodProtector
+        // -------------------------------
+        FloodProtector.getInstance();
         
         // o Call system garbage collector
         // ------------------------------

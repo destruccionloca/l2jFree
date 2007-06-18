@@ -68,6 +68,7 @@ import net.sf.l2j.gameserver.serverpackets.ShortCutInit;
 import net.sf.l2j.gameserver.serverpackets.SignsSky;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
+import net.sf.l2j.gameserver.util.FloodProtector;
 import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.codec.Base64;
 import net.sf.l2j.tools.versionning.model.Version;
@@ -110,6 +111,9 @@ public class EnterWorld extends L2GameClientPacket
             _log.warn("EnterWorld failed! activeChar is null..."); 			
 		    return;
         }
+		
+		// Register in flood protector
+		FloodProtector.getInstance().registerNewPlayer(activeChar.getObjectId());
 
 //		if(!getClient().getAccountName().equalsIgnoreCase(getClient().getAccountName(activeChar.getName())))
 //        {
