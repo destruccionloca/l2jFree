@@ -507,9 +507,9 @@
 <!ATTLIST droplist
     mobId CDATA #REQUIRED
     itemId CDATA #REQUIRED
-    min_ CDATA #REQUIRED
-    max_ CDATA #REQUIRED
-    category CDATA #REQUIRED
+    min CDATA #REQUIRED
+    max CDATA #REQUIRED
+    sweep CDATA #REQUIRED
     chance CDATA #REQUIRED
 >
 
@@ -805,7 +805,7 @@
     str CDATA #IMPLIED
     con CDATA #IMPLIED
     dex CDATA #IMPLIED
-    int_ CDATA #IMPLIED
+    int CDATA #IMPLIED
     wit CDATA #IMPLIED
     men CDATA #IMPLIED
     exp CDATA #IMPLIED

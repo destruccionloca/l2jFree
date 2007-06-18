@@ -23,8 +23,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
@@ -46,46 +44,15 @@ import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.ShowBoard;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-/**
- * 
- * This manager extends {@link net.sf.l2j.gameserver.communityBBS.manager.BaseBBSManager} and is used by
- * {@link net.sf.l2j.gameserver.communityBBS.CommunityBoard}. This manager is in charge of print
- * all players in the community board and print some extra informations like RATES, server uptime etc...
- * 
- * The RegionBBSManager needs to be notified when a player leaves or enter the game. 
- * 
- */
 public class RegionBBSManager extends BaseBBSManager
 {
-    /**
-     * Logger for chat to log pm
-     */
     private static Logger _logChat = Logger.getLogger("chat");
-    /**
-     * singleton instance
-     */
     private static RegionBBSManager _Instance = null;
-    /**
-     * number of players online
-     */
     private int _onlineCount = 0;
-    /**
-     * number of gm online
-     */
-    private int _onlineCountGm = 0;
-    /**
-     * map of all online players
-     */
-    private static Map<Integer, List<L2PcInstance>> _onlinePlayers = new FastMap<Integer, List<L2PcInstance>>().setShared(true);
-    /**
-     * map of community pages. The pages are stored to avoid recreating pages on each click on community  board.
-     * The key is the number of the page. The value is a map with... ?
-     */
-    private static Map<Integer, Map<String, String>> _communityPages = new FastMap<Integer, Map<String, String>>().setShared(true);
+    private int _onlineCountGm = 0; 
+    private static FastMap<Integer, FastList<L2PcInstance>> _onlinePlayers = new FastMap<Integer, FastList<L2PcInstance>>().setShared(true);
+    private static FastMap<Integer, FastMap<String, String>> _communityPages = new FastMap<Integer, FastMap<String, String>>().setShared(true);
     
-    /**
-     * constants for html creation
-     */
     private final static String tdClose = "</td>";
     private final static String tdOpen = "<td align=left valign=top>";
     private final static String trClose = "</tr>";
@@ -95,7 +62,7 @@ public class RegionBBSManager extends BaseBBSManager
     
 
     /**
-     * @return a singleton of RegionBBSManager
+     * @return a singleton
      */
     public static RegionBBSManager getInstance()
     {
@@ -106,18 +73,7 @@ public class RegionBBSManager extends BaseBBSManager
         return _Instance;
     }   
     
-    /**
-     * parse the command for RegionBBSManager.
-     * The available commands are : 
-     * 
-     * <pre>
-     *  _bbsloc => print the old community board first page
-     *  _bbsloc;page;i => print the page i
-     *  _bbsloc;playerinfo; => print the player information (should be factorized with FriendManager printFriends)
-     * </pre>
-     * 
-     * @param command
-     * @param activeChar
+    /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.communitybbs.Manager.BaseBBSManager#parsecmd(java.lang.String, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance)
      */
     @Override
@@ -163,26 +119,17 @@ public class RegionBBSManager extends BaseBBSManager
     }
     
     /**
-     * Show player information
      * @param activeChar
-     * @param name 
+     * @param name
      */
     private void showOldCommunityPI(L2PcInstance activeChar, String name)
     {
-        // initialize html
-        // ----------------
         TextBuilder htmlCode = new TextBuilder("<html><body><br>");
         htmlCode.append("<table border=0>"+trOpen + colSpacer+"<td align=center>L2J Community Board<img src=\"sek.cbui355\" width=610 height=2>"+tdClose+trClose+trOpen+colSpacer+tdOpen);        
-
-        // get the player instance of this player name
-        // from L2World 
-        // ----------------------------------------------
         L2PcInstance player = L2World.getInstance().getPlayer(name);
         
         if (player != null)
         {
-            // add sex and level to html
-            // --------------------------
             String sex = "Male";
             if (player.getAppearance().getSex())
             {
@@ -199,9 +146,6 @@ public class RegionBBSManager extends BaseBBSManager
             htmlCode.append(trOpen+tdOpen+"Level: "+levelApprox+tdClose+trClose);
             htmlCode.append(trOpen+tdOpen+"<br>"+tdClose+trClose);
             
-            // show experience, level and experience needed for level up if active char is gm, or 
-            // SHOW_LEVEL_COMMUNITYBOARD = true or player == activechar
-            // ----------------------------------------------------------
             if (activeChar != null && (activeChar.isGM() || player.getObjectId() == activeChar.getObjectId()
                     || Config.SHOW_LEVEL_COMMUNITYBOARD))
             {
@@ -219,8 +163,6 @@ public class RegionBBSManager extends BaseBBSManager
                 htmlCode.append(trOpen+tdOpen+"<br>"+tdClose+trClose);
             }
             
-            // add uptime for this player
-            // ---------------------------
             int uptime = (int)player.getUptime()/1000;
             int h = uptime/3600;
             int m = (uptime-(h*3600))/60;
@@ -229,16 +171,12 @@ public class RegionBBSManager extends BaseBBSManager
             htmlCode.append(trOpen+tdOpen+"Uptime: "+h+"h "+m+"m "+s+"s"+tdClose+trClose);
             htmlCode.append(trOpen+tdOpen+"<br>"+tdClose+trClose);
             
-            // add clan for this player
-            // -------------------------
             if (player.getClan() != null)
             {
                 htmlCode.append(trOpen+tdOpen+"Clan: "+player.getClan().getName()+tdClose+trClose);
                 htmlCode.append(trOpen+tdOpen+"<br>"+tdClose+trClose);
             }
             
-            // add button to send a pm
-            // ------------------------
             htmlCode.append(trOpen+tdOpen+"<multiedit var=\"pm\" width=240 height=40><button value=\"Send PM\" action=\"Write Region PM "+player.getName()+" pm pm pm\" width=110 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">"+tdClose+trClose+trOpen+tdOpen+"<br><button value=\"Back\" action=\"bypass _bbsloc"+smallButton+tdClose+trClose+"</table>");
             htmlCode.append(tdClose+trClose+"</table>");          
             htmlCode.append("</body></html>");
@@ -254,9 +192,7 @@ public class RegionBBSManager extends BaseBBSManager
     }
 
     /**
-     * Print the community board (send the page through different packets to the active char)
      * @param activeChar
-     * @param page number
      */
     private void showOldCommunity(L2PcInstance activeChar,int page)
     {       
@@ -353,23 +289,13 @@ public class RegionBBSManager extends BaseBBSManager
         activeChar.sendPacket(new ShowBoard(null,"103"));
     }
     
-    /**
-     * Public method used to notify the community board that a player enter or leave L2World.
-     * This method retrieves all players in the world, sort them by name, add them to online players
-     * and write community pages to a internal map
-     *
-     */
     public synchronized void changeCommunityBoard()
     {
-        // retrieve all players in the L2World
-        // ------------------------------------
 		Collection<L2PcInstance> players = L2World.getInstance().getAllPlayers();
-		List<L2PcInstance> sortedPlayers = new FastList<L2PcInstance>();
+		FastList<L2PcInstance> sortedPlayers = new FastList<L2PcInstance>();
 		sortedPlayers.addAll(players);
 		players = null;
 		
-        // Sort player list by name
-        // ------------------------
 		Collections.sort(sortedPlayers, new Comparator<L2PcInstance>()
 				{
 					public int compare(L2PcInstance p1, L2PcInstance p2)
@@ -378,20 +304,15 @@ public class RegionBBSManager extends BaseBBSManager
 					}
 				}
 		);
-		// clear map and variables
-        // ------------------------
+		
 		_onlinePlayers.clear();
 		_onlineCount = 0;
 		_onlineCountGm = 0;
 		
-        // add player to online player
-        // ---------------------------
 		for (L2PcInstance player : sortedPlayers)
 		{
 			addOnlinePlayer(player);
 		}
-        // write community page
-        // --------------------
         _communityPages.clear();
         writeCommunityPages();
     }
@@ -400,13 +321,13 @@ public class RegionBBSManager extends BaseBBSManager
     {
         boolean added = false;
         
-        for (List<L2PcInstance> l2pcInstance : _onlinePlayers.values())
+        for (FastList<L2PcInstance> page : _onlinePlayers.values())
         {
-            if (l2pcInstance.size() < Config.NAME_PAGE_SIZE_COMMUNITYBOARD)
+            if (page.size() < Config.NAME_PAGE_SIZE_COMMUNITYBOARD)
             {
-                if (!l2pcInstance.contains(player))
+                if (!page.contains(player))
                 {
-                    l2pcInstance.add(player);
+                    page.add(player);
                     if (!player.getAppearance().getInvisible())
                         _onlineCount++;
                     _onlineCountGm++;
@@ -414,7 +335,7 @@ public class RegionBBSManager extends BaseBBSManager
                 added = true;
                 break;
             }
-            else if (l2pcInstance.contains(player))
+            else if (page.contains(player))
             {
                 added = true;
                 break;
@@ -423,7 +344,7 @@ public class RegionBBSManager extends BaseBBSManager
 
         if (!added)
         {
-            List<L2PcInstance> temp = new FastList<L2PcInstance>();
+            FastList<L2PcInstance> temp = new FastList<L2PcInstance>();
             int page = _onlinePlayers.size()+1;
             if (temp.add(player))
             {
@@ -594,10 +515,6 @@ public class RegionBBSManager extends BaseBBSManager
         
     }
     
-    /**
-     * @param type
-     * @return the number of online player for a specific type (gm or player)
-     */
     private int getOnlineCount(String type)
     {
         if (type.equalsIgnoreCase("gm"))
@@ -606,22 +523,11 @@ public class RegionBBSManager extends BaseBBSManager
             return _onlineCount;
     }
     
-    /**
-     * 
-     * @param page
-     * @return the list of online player
-     */
-    private List<L2PcInstance> getOnlinePlayers(int page)
+    private FastList<L2PcInstance> getOnlinePlayers(int page)
     {
         return _onlinePlayers.get(page);
     }
     
-    /**
-     * Return the community page for this page number and this type
-     * @param page
-     * @param type
-     * @return the html of the page
-     */
     public String getCommunityPage(int page, String type)
     {
         return _communityPages.get(page).get(type);
