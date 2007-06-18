@@ -2,7 +2,7 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
 <skill id="4300" levels="1" name="Race">
-<!---
+<!--
   Automatically generated from C3 client files.
   Need to be checked/fixed.
   Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
@@ -19,7 +19,7 @@
   </for>
 </skill>
 <skill id="4301" levels="1" name="Race">
-<!---
+<!--
   Automatically generated from C3 client files.
   Need to be checked/fixed.
   Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
@@ -36,7 +36,7 @@
   </for>
 </skill>
 <skill id="4302" levels="1" name="Race">
-<!---
+<!--
   Automatically generated from C3 client files.
   Need to be checked/fixed.
   Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
@@ -252,7 +252,7 @@
   </for>
 </skill>
 <skill id="4317" levels="5" name="Increase Rage Might">
-  <!--- TODO RAGE -->
+  <!-- TODO RAGE -->
   <table name="#Tab-pAtk"> 1.15 1.20 1.25 1.30 1.35</table>
   <set name="magicLvl" val="60"/>
   <set name="lvlDepend" val="1"/>
@@ -611,7 +611,7 @@
   </for>
 </skill>
 <skill id="4339" levels="1" name="Mimir's Elixir">
-  <!--- TODO -->
+  <!-- TODO -->
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1357,7 +1357,7 @@
   </for>
 </skill>
 <skill id="4380" levels="1" name="Arena CP Recovery">
-  <!--- TODO -->
+  <!-- TODO -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1367,7 +1367,7 @@
   </for>
 </skill>
 <skill id="4381" levels="1" name="Magic Skill Block">
-  <!--- TODO -->
+  <!-- TODO -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -1391,7 +1391,7 @@
   </for>
 </skill>
 <skill id="4383" levels="1" name="NPC Hate Stone">
-  <!--- TODO -->
+  <!-- TODO -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -1400,7 +1400,7 @@
   </for>
 </skill>
 <skill id="4384" levels="1" name="Scapegoat's Grace">
-  <!--- TODO -->
+  <!-- TODO -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -1410,7 +1410,7 @@
   </for>
 </skill>
 <skill id="4385" levels="1" name="Scapegoat's Grace">
-  <!--- TODO -->
+  <!-- TODO -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -1420,7 +1420,7 @@
   </for>
 </skill>
 <skill id="4386" levels="1" name="Scapegoat's Grace">
-  <!--- TODO -->
+  <!-- TODO -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -1430,7 +1430,7 @@
   </for>
 </skill>
 <skill id="4387" levels="1" name="Scapegoat's Grace">
-  <!--- TODO -->
+  <!-- TODO -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -1464,7 +1464,7 @@
   </for>
 </skill>
 <skill id="4390" levels="1" name="NPC Abnormal Immunity">
-  <!--- TODO -->
+  <!-- TODO -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
