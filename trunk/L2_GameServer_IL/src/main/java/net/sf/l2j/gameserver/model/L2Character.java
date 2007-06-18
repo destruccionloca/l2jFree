@@ -2040,9 +2040,13 @@ public abstract class L2Character extends L2Object
        {
            // Make sure there's no same effect previously  
            for (int i=0; i<_effects.size(); i++)   
-           {   
-               if (_effects.get(i).getSkill().getId() == newEffect.getSkill().getId())   
-                   return;  
+           {
+        	   if (_effects.get(i).getSkill().getId() == newEffect.getSkill().getId())
+        	   {
+        		   // Started scheduled timer needs to be canceled. There could be a nicer fix...
+        		   newEffect.stopEffectTask();
+                   return;
+        	   }
            } 
           
         // Remove first Buff if number of buffs > ALT_GAME_NUMBER_OF_CUMULATED_BUFF
