@@ -1,5 +1,6 @@
 # Maked by Mr. - Version 0.3 by DrLecter
 import sys
+from net.sf.l2j import Config
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
@@ -64,19 +65,20 @@ class Quest (JQuest) :
    if not st : return 
    if st.getState() != STARTED : return 
    
-   count = st.getQuestItemsCount(KASHA_WOLF_FANG)  
+   count = st.getQuestItemsCount(KASHA_WOLF_FANG)
    if count < 50 :
-      if st.getRandom(100) <= 25 and count < 49 :
-         st.giveItems(KASHA_WOLF_FANG,2)
-         count += 2
-      else :
-         st.giveItems(KASHA_WOLF_FANG,1)
-         count += 1
-      if count >= 50 :
-         st.playSound("ItemSound.quest_middle")
-         st.set("cond","2")
-      else:
-         st.playSound("ItemSound.quest_itemget")
+      numItems, chance = divmod(125*Config.RATE_DROP_QUEST,100)
+      if st.getRandom(100) <= chance :
+         numItems += 1
+      numItems = int(numItems)
+      if numItems != 0 :
+         if 50 <= (count + numItems) :
+            numItems = 50 - count
+            st.playSound("ItemSound.quest_middle")
+            st.set("cond","2")
+         else:
+            st.playSound("ItemSound.quest_itemget")
+         st.giveItems(KASHA_WOLF_FANG,numItems)
    return
 
 QUEST       = Quest(271,qn,"Proof Of Valor")

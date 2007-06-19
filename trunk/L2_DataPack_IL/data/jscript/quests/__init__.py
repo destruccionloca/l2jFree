@@ -228,7 +228,7 @@ __all__ = [
 '616_MagicalPowerOfFirePart2',
 '617_GatherTheFlames',
 '618_IntoTheFlame',
-'619_RelicsoftheOldEmpire',
+'619_RelicsOfTheOldEmpire',
 '620_FourGoblets',
 '621_EggDelivery',
 '622_DeliveryOfSpecialLiquor',

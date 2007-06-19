@@ -1,6 +1,7 @@
 # Made by Mr. Have fun! - Version 0.3 by DrLecter
 
 import sys
+from net.sf.l2j import Config
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
@@ -106,17 +107,23 @@ class Quest (JQuest) :
    if st.getState() != STARTED : return 
    npcId = npc.getNpcId()
    if npcId in [20517,20518,20455] :
-      if st.getQuestItemsCount(CECKTINONS_VOUCHER2_ID) == 1 and st.getQuestItemsCount(BONE_FRAGMENT1_ID)<10 :
-         if st.getRandom(10)<3 :
-            st.giveItems(BONE_FRAGMENT1_ID,1)
-            if st.getQuestItemsCount(BONE_FRAGMENT1_ID) == 10 :
-              st.playSound("ItemSound.quest_middle")
-              st.set("cond","4")
+      bones = st.getQuestItemsCount(BONE_FRAGMENT1_ID)
+      if st.getQuestItemsCount(CECKTINONS_VOUCHER2_ID) == 1 and bones < 10 :
+         numItems, chance = divmod(30*Config.RATE_DROP_QUEST,100)
+         if st.getRandom(100) <= chance :
+            numItems += 1
+         numItems = int(numItems)
+         if numItems != 0 :
+            if 10 <= (bones + numItems) :
+               numItems = 10 - bones
+               st.playSound("ItemSound.quest_middle")
+               st.set("cond","4")
             else:
-              st.playSound("ItemSound.quest_itemget")
+               st.playSound("ItemSound.quest_itemget")
+            st.giveItems(BONE_FRAGMENT1_ID,numItems)
    elif npcId in [20015,20020] :
       if st.getQuestItemsCount(PRESERVE_OIL_ID) == 1 :
-         if st.getRandom(10)<3 :
+         if st.getRandom(10)<3*Config.RATE_DROP_QUEST :
             st.set("cond","7")
             st.giveItems(ZOMBIE_HEAD_ID,1)
             st.playSound("ItemSound.quest_middle")
