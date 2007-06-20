@@ -476,7 +476,11 @@ public class GameServer
         OlympiadStadiaManager.getInstance();
         BossActionTaskManager.getInstance().init();
         FourSepulchersManager.getInstance().init();
-        SailrenManager.getInstance().init();        
+        SailrenManager.getInstance().init();  
+        
+        // o Initialize the FloodProtector
+        // -------------------------------
+        FloodProtector.getInstance();
 		
         // o Register a shutdown hook
         // ---------------------------
@@ -499,10 +503,6 @@ public class GameServer
         } catch (Exception ex) {
             _log.warn( "DynamicExtension could not be loaded and initialized", ex);
         }
-        
-        // o Initialize the FloodProtector
-        // -------------------------------
-        FloodProtector.getInstance();
         
         // o Call system garbage collector
         // ------------------------------
@@ -558,7 +558,7 @@ public class GameServer
             AdminSrv.getInstance().registerMbeans();
         }
         
-        _log.info("################################################");
+        _log.info("############################################");
     }
 
     /**
