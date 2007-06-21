@@ -33,7 +33,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
@@ -1117,8 +1119,8 @@ public class Olympiad
     private class OlympiadManager implements Runnable
     {
         private FastMap<Integer, L2OlympiadGame> _olympiadInstances;
-        private FastMap<Integer, FastList<L2PcInstance>> _classBasedParticipants;
-        private FastMap<Integer, FastList<L2PcInstance>> _nonClassBasedParticipants;
+        private HashMap<Integer, FastList<L2PcInstance>> _classBasedParticipants;
+        private HashMap<Integer, FastList<L2PcInstance>> _nonClassBasedParticipants;
         
         public OlympiadManager()
         {
@@ -1269,8 +1271,8 @@ public class Olympiad
         
         private void sortClassBasedOpponents()
         {
-            FastMap<Integer, FastList<L2PcInstance>> result = new FastMap<Integer, FastList<L2PcInstance>>();  
-            _classBasedParticipants = new FastMap<Integer, FastList<L2PcInstance>>();
+            HashMap<Integer, FastList<L2PcInstance>> result = new HashMap<Integer, FastList<L2PcInstance>>();  
+            _classBasedParticipants = new HashMap<Integer, FastList<L2PcInstance>>();
             
             int count = 0;
             
@@ -1303,12 +1305,12 @@ public class Olympiad
             return (_olympiadInstances == null)? null : _olympiadInstances;
         }
         
-        private FastMap<Integer, FastList<L2PcInstance>> pickOpponents(FastList<L2PcInstance> list) throws Exception
+        private HashMap<Integer, FastList<L2PcInstance>> pickOpponents(FastList<L2PcInstance> list) throws Exception
         {
             _rnd = new Random();
             
-            FastMap<Integer, FastList<L2PcInstance>> result = 
-                new FastMap<Integer, FastList<L2PcInstance>>();
+            HashMap<Integer, FastList<L2PcInstance>> result = 
+                new HashMap<Integer, FastList<L2PcInstance>>();
             
             if (list.size() == 0)
                 return result;

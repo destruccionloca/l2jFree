@@ -18,6 +18,8 @@
  */
 package net.sf.l2j.gameserver.datatables;
 
+import java.util.Map;
+
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.skills.SkillsEngine;
@@ -28,12 +30,12 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
  * 
  * @version $Revision: 1.8.2.6.2.18 $ $Date: 2005/04/06 16:13:25 $
  */
-public class SkillTable implements SkillTableMBean
+public class SkillTable
 {
-	//private final static Log _log = LogFactory.getLog(SkillTable.class.getName());
+	//private static Logger _log = Logger.getLogger(SkillTable.class.getName());
 	private static SkillTable _instance;
 	
-	private FastMap<Integer, L2Skill> _skills;
+	private Map<Integer, L2Skill> _skills;
 	private boolean _initialized = true;
     
 	public static SkillTable getInstance()
@@ -59,7 +61,7 @@ public class SkillTable implements SkillTableMBean
 	    return _initialized;
 	}
 	
-    /**
+	/**
      * Provides the skill hash
      * @param skill The L2Skill to be hashed
      * @return SkillTable.getSkillHashCode(skill.getId(), skill.getLevel())
@@ -68,7 +70,7 @@ public class SkillTable implements SkillTableMBean
     {
         return SkillTable.getSkillHashCode(skill.getId(), skill.getLevel());
     }
-   
+	
     /**
      * Centralized method for easier change of the hashing sys
      * @param skillId The Skill Id
@@ -80,19 +82,19 @@ public class SkillTable implements SkillTableMBean
         return skillId*256+skillLevel;
     }
     
-    public L2Skill getInfo(int skillId, int level)
+	public L2Skill getInfo(int skillId, int level)
 	{
-       return _skills.get(SkillTable.getSkillHashCode(skillId, level));
+		return _skills.get(SkillTable.getSkillHashCode(skillId, level));
 	}
 
-    public int getMaxLevel(int magicId, int level)
+	public int getMaxLevel(int magicId, int level)
 	{
 	    L2Skill temp;
         
-	    while (level < 1000) 
+	    while (level < 100) 
 	    {
 	        level++;
-            temp = _skills.get(SkillTable.getSkillHashCode(magicId, level));
+	        temp = _skills.get(SkillTable.getSkillHashCode(magicId, level));
         
 		    if (temp == null)
 		        return level-1;
@@ -128,12 +130,4 @@ public class SkillTable implements SkillTableMBean
 
         return weaponsAllowed;
 	}
-
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.datatables.SkillTableMBean#getNbSkills()
-     */
-    public int getNbSkills()
-    {
-        return _skills.size();
-    }
 }

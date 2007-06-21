@@ -19,6 +19,8 @@
 package net.sf.l2j.gameserver.skills;
 
 import java.io.File;
+import java.util.List;
+import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -44,7 +46,6 @@ import org.apache.commons.logging.LogFactory;
 public class SkillsEngine {
 
     protected static Log _log = LogFactory.getLog(SkillsEngine.class.getName());
-	
 	private static final SkillsEngine _instance = new SkillsEngine();
 	
 	private FastList<File> _armorFiles     = new FastList<File>(); 
@@ -65,7 +66,7 @@ public class SkillsEngine {
 		hashFiles("data/stats/skills", _skillFiles);
 	}
 	
-	private void hashFiles(String dirname, FastList<File> hash)
+	private void hashFiles(String dirname, List<File> hash)
 	{
 		File dir = new File(Config.DATAPACK_ROOT, dirname);
 		if (!dir.exists())
@@ -97,17 +98,17 @@ public class SkillsEngine {
 		return doc.getSkills();
 	}
     
-	public void loadAllSkills(FastMap<Integer, L2Skill> allSkills)
+	public void loadAllSkills(Map<Integer, L2Skill> allSkills)
 	{
 		int count = 0;
 		for (File file : _skillFiles)
 		{
-			FastList<L2Skill> s  = loadSkills(file);
+			List<L2Skill> s  = loadSkills(file);
 			if (s == null)
 				continue;
 			for (L2Skill skill : s)
             {
-                allSkills.put(SkillTable.getSkillHashCode(skill), skill);
+				allSkills.put(SkillTable.getSkillHashCode(skill), skill);
 				count++;
             }
 		}
@@ -124,7 +125,7 @@ public class SkillsEngine {
         return list;
     }
 
-    public FastList<L2Weapon> loadWeapons(FastMap<Integer, Item> weaponData)
+    public List<L2Weapon> loadWeapons(FastMap<Integer, Item> weaponData)
     {
         FastList<L2Weapon> list  = new FastList<L2Weapon>();
         for (L2Item item : loadData(weaponData, _weaponFiles))
@@ -156,7 +157,7 @@ public class SkillsEngine {
         FastList<L2Item> list  = new FastList<L2Item>();
         for (File f : files)
         {
-            DocumentItem document   = new DocumentItem(itemData, f);
+        	DocumentItem document   = new DocumentItem(itemData, f);
             document.parse();
             list.addAll(document.getItemList());
         }

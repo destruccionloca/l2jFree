@@ -118,8 +118,11 @@ public class L2IrcClient extends Thread {
 		{
 			try 
 			{
+				conn.close();
 				connect();
-			} catch (Exception exc) {
+			} 
+			catch (Exception exc) 
+			{
 	          exc.printStackTrace();
 	        }
 		}

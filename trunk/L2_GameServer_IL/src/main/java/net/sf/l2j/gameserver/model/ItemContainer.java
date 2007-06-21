@@ -299,7 +299,9 @@ public abstract class ItemContainer
             {
                 // DaDummy: this way we log _every_ gmtransfer with all related info
                 String command = target.getClass().getSimpleName();
-                String targetName = target.getOwner().getName(); 
+                String targetName = "";
+                if(target.getOwner()!=null)
+                	targetName = target.getOwner().getName();
                 String params  = targetName + " - " + String.valueOf(count) + " - " + String.valueOf(sourceitem.getEnchantLevel()) + " - " + String.valueOf(sourceitem.getItemId()) + " - " + sourceitem.getItemName();
     
                 GMAudit.auditGMAction(actor, "transferitem", command, params);
