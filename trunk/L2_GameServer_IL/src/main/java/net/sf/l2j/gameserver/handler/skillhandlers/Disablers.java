@@ -92,7 +92,7 @@ public class Disablers implements ISkillHandler
         {
             if (weaponInst == null && skill.isOffensive())
             {
-                SystemMessage sm2 = new SystemMessage(614);
+            	SystemMessage sm2 = new SystemMessage(SystemMessage.S1_S2);
                 sm2.addString("You must equip a weapon before casting a spell.");
                 activeChar.sendPacket(sm2);
                 return;
@@ -326,7 +326,7 @@ public class Disablers implements ISkillHandler
                         {
                             if (activeChar instanceof L2PcInstance)
                             {
-                                SystemMessage sm = new SystemMessage(139);
+                            	SystemMessage sm = new SystemMessage(SystemMessage.S1_WAS_UNAFFECTED_BY_S2); 
                                 sm.addString(target.getName());
                                 sm.addSkillName(skill.getDisplayId());
                                 activeChar.sendPacket(sm);
@@ -337,7 +337,7 @@ public class Disablers implements ISkillHandler
                     {
                         if (activeChar instanceof L2PcInstance)
                         {
-                            SystemMessage sm = new SystemMessage(139);
+                        	SystemMessage sm = new SystemMessage(SystemMessage.S1_WAS_UNAFFECTED_BY_S2); 
                             sm.addString(target.getName());
                             sm.addSkillName(skill.getDisplayId());
                             activeChar.sendPacket(sm);
@@ -512,7 +512,7 @@ public class Disablers implements ISkillHandler
                         summonOwner = ((L2Summon)target).getOwner();                        
                         summonPet = summonOwner.getPet();
                         summonPet.unSummon(summonOwner);
-                        SystemMessage sm = new SystemMessage(1667);
+                        SystemMessage sm = new SystemMessage(SystemMessage.LETHAL_STRIKE);
                         summonOwner.sendPacket(sm); 
                     }
                 	else  
@@ -659,7 +659,7 @@ public class Disablers implements ISkillHandler
                         }
                         else
                         {
-                            SystemMessage sm = new SystemMessage(614);
+                        	SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                             sm.addString(skill.getName() + " failed."); 
                             if (activeChar instanceof L2PcInstance)
                                 activeChar.sendPacket(sm);
@@ -683,7 +683,7 @@ public class Disablers implements ISkillHandler
                         }
                         else
                         {
-                            SystemMessage sm = new SystemMessage(614);
+                        	SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                             sm.addString(skill.getName() + " failed."); 
                             if (activeChar instanceof L2PcInstance)
                                 activeChar.sendPacket(sm);

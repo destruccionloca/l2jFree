@@ -61,21 +61,21 @@ public class ClanWarsList implements IUserCommandHandler
 			if (id == 88)
 			{
 				//attack list
-				activeChar.sendPacket(new SystemMessage(1571));
+				activeChar.sendPacket(new SystemMessage(SystemMessage.CLANS_YOU_DECLARED_WAR_ON));
 				statement = con.prepareStatement("select clan_name,clan_id,ally_id,ally_name from clan_data,clan_wars where clan1=? and clan_id=clan2 and clan2 not in (select clan1 from clan_wars where clan2=?)");
 				statement.setInt(1, clan.getClanId());
 				statement.setInt(2, clan.getClanId());
 			} else if (id == 89)
 			{
 				//under attack list
-				activeChar.sendPacket(new SystemMessage(1572));
+				activeChar.sendPacket(new SystemMessage(SystemMessage.CLANS_THAT_HAVE_DECLARED_WAR_ON_YOU));
 				statement = con.prepareStatement("select clan_name,clan_id,ally_id,ally_name from clan_data,clan_wars where clan2=? and clan_id=clan1 and clan1 not in (select clan2 from clan_wars where clan1=?)");
 				statement.setInt(1, clan.getClanId());
 				statement.setInt(2, clan.getClanId());
 			} else // id = 90
 			{
 				//war list
-				activeChar.sendPacket(new SystemMessage(1612));
+				activeChar.sendPacket(new SystemMessage(SystemMessage.WAR_LIST));
 				statement = con.prepareStatement("select clan_name,clan_id,ally_id,ally_name from clan_data,clan_wars where clan1=? and clan_id=clan2 and clan2 in (select clan1 from clan_wars where clan2=?)");
 				statement.setInt(1, clan.getClanId());
 				statement.setInt(2, clan.getClanId());
@@ -88,14 +88,14 @@ public class ClanWarsList implements IUserCommandHandler
 				if (ally_id>0)
 				{
 					//target with ally
-					sm = new SystemMessage(1200);
+					sm = new SystemMessage(SystemMessage.S1_S2_ALLIANCE);
 					sm.addString(clanName);
 					sm.addString(rset.getString("ally_name"));
 				}
 				else
 				{
 					//target without ally
-					sm = new SystemMessage(1202);
+					sm = new SystemMessage(SystemMessage.S1_NO_ALLI_EXISTS);
 					sm.addString(clanName);
 				}
 				activeChar.sendPacket(sm);

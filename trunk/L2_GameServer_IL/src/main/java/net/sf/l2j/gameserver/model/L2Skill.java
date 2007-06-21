@@ -1911,9 +1911,9 @@ public abstract class L2Skill
                             if (targetPlayer.isReviveRequested())
                             {
                                 if (targetPlayer.isRevivingPet())
-                                    player.sendPacket(new SystemMessage(1511)); // While a pet is attempting to resurrect, it cannot help in resurrecting its master.
+                                	player.sendPacket(new SystemMessage(SystemMessage.MASTER_CANNOT_RES)); // While a pet is attempting to resurrect, it cannot help in resurrecting its master.
                                 else
-                                    player.sendPacket(new SystemMessage(1513)); // Resurrection is already been proposed.
+                                	player.sendPacket(new SystemMessage(SystemMessage.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
                                 condGood = false;
                             }
                         }
@@ -2629,7 +2629,7 @@ public abstract class L2Skill
                         {
                             effect.num_charges++;
                             env._target.updateEffectIcons();
-                            SystemMessage sm = new SystemMessage(614);
+                            SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                             sm.addString("Charged to " + effect.num_charges);
                             env._target.sendPacket(sm);
                         }                

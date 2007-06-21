@@ -51,7 +51,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
                		  petItem != null && 
                		  petItem.getEnchantLevel() < 55 )
             	{
-                    SystemMessage sm = new SystemMessage(614);
+            		SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                     sm.addString("Your Strider don't reach the required level.");
                     player.sendPacket(sm);
                     return; 
@@ -80,7 +80,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
             }
             else
             {
-                SystemMessage sm = new SystemMessage(614);
+            	SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                 sm.addString("You need 10 Crystals: B Grade.");
                 player.sendPacket(sm);
                 return;

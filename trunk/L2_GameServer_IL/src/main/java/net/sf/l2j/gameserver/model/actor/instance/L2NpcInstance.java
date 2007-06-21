@@ -1540,7 +1540,7 @@ public class L2NpcInstance extends L2Character
         String content;
         
         if (player.getWeightPenalty()>=3){  
-            player.sendPacket(new SystemMessage(1118));
+        	player.sendPacket(new SystemMessage(SystemMessage.INVENTORY_LESS_THAN_80_PERCENT));
             return;
         }
         
@@ -1715,13 +1715,13 @@ public class L2NpcInstance extends L2Character
             if (!Lottery.getInstance().isStarted())
             {
                 //tickets can't be sold
-                player.sendPacket(new SystemMessage(930));
+            	player.sendPacket(new SystemMessage(SystemMessage.NO_LOTTERY_TICKETS_CURRENT_SOLD));
                 return;
             }
             if (!Lottery.getInstance().isSellableTickets())
             {
                 //tickets can't be sold
-                player.sendPacket(new SystemMessage(784));
+            	player.sendPacket(new SystemMessage(SystemMessage.NO_LOTTERY_TICKETS_AVAILABLE));
                 return;
             }
 
@@ -1779,13 +1779,13 @@ public class L2NpcInstance extends L2Character
             if (!Lottery.getInstance().isStarted())
             {
                 //tickets can't be sold
-                player.sendPacket(new SystemMessage(930));
+            	player.sendPacket(new SystemMessage(SystemMessage.NO_LOTTERY_TICKETS_CURRENT_SOLD));
                 return;
             }
             if (!Lottery.getInstance().isSellableTickets())
             {
                 //tickets can't be sold
-                player.sendPacket(new SystemMessage(784));
+            	player.sendPacket(new SystemMessage(SystemMessage.NO_LOTTERY_TICKETS_AVAILABLE));
                 return;
             }
                  
@@ -1931,7 +1931,7 @@ public class L2NpcInstance extends L2Character
         if (!player.reduceAdena("RestoreCP", neededmoney, player.getLastFolkNPC(), true)) return;
         player.getStatus().setCurrentCp(getStatus().getCurrentCp()+5000);
         //cp restored
-        sm = new SystemMessage(1405);
+        sm = new SystemMessage(SystemMessage.S1_CP_WILL_BE_RESTORED);
         sm.addString(player.getName());
         player.sendPacket(sm);
     }
