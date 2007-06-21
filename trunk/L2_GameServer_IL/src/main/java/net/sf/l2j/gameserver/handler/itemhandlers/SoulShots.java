@@ -83,7 +83,7 @@ public class SoulShots implements IItemHandler
         int saSSCount = (int)activeChar.getStat().calcStat(Stats.SOULSHOT_COUNT, 0, null, null);
         int SSCount = saSSCount == 0 ? weaponItem.getSoulShotCount() : saSSCount; 
 
-		if (!activeChar.destroyItem("Consume", item.getObjectId(), SSCount, null, false))
+        if (!activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), SSCount, null, false))
 		{
             if(activeChar.getAutoSoulShot().containsKey(itemId))
             {
