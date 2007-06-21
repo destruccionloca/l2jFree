@@ -59,7 +59,7 @@ public class L2CabaleBufferInstance extends L2NpcInstance
             {
                 final int playerCabal = SevenSigns.getInstance().getPlayerCabal(player);
                 
-                if (playerCabal == winningCabal && playerCabal != SevenSigns.CABAL_NULL && _caster.getNpcId() == SevenSigns.ORATOR_NPC_ID)
+                if (playerCabal == winningCabal && playerCabal != SevenSigns.CABAL_NULL && _caster.getNpcId() == SevenSigns.ORATOR_NPC_ID && !player.isInvul())
                 {
                     if (!player.isMageClass()) 
                     {
@@ -78,7 +78,7 @@ public class L2CabaleBufferInstance extends L2NpcInstance
                         }
                     }
                 }
-                else if (playerCabal == losingCabal && playerCabal != SevenSigns.CABAL_NULL && _caster.getNpcId() == SevenSigns.PREACHER_NPC_ID)
+                else if (playerCabal == losingCabal && playerCabal != SevenSigns.CABAL_NULL && _caster.getNpcId() == SevenSigns.PREACHER_NPC_ID && !player.isInvul())
                 {
                     if (!player.isMageClass()) 
                     {
