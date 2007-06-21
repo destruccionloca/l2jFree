@@ -1,5 +1,5 @@
-DELETE FROM `spawnlist` WHERE `npc_templateid`='7077';
-INSERT INTO `spawnlist` (`location`, `count`, `npc_templateid`, `locx`, `locy`, `locz`, `randomx`, `randomy`, `heading`, `respawn_delay`, `loc_id`) VALUES 
+DELETE FROM `custom_spawnlist` WHERE `npc_templateid`='7077';
+INSERT INTO `custom_spawnlist` (`location`, `count`, `npc_templateid`, `locx`, `locy`, `locz`, `randomx`, `randomy`, `heading`, `respawn_delay`, `loc_id`) VALUES 
 ('', 1, 7077, 82739, 147829, -3469, 0, 0, 25320, 60, 0),
 ('', 1, 7077, -81617, 150245, -3129, 0, 0, 16059, 60, 0),
 ('', 1, 7077, 22075, 160330, -2691, 0, 0, 35808, 60, 0),
