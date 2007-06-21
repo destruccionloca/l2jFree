@@ -231,7 +231,7 @@ public class EnterWorld extends L2GameClientPacket
         
         sendPacket(new ClientSetTime());
                 
-        SystemMessage sm = new SystemMessage(34);
+        SystemMessage sm = new SystemMessage(SystemMessage.WELCOME_TO_LINEAGE);
         sendPacket(sm);
 
         if (Config.SHOW_L2J_LICENSE)

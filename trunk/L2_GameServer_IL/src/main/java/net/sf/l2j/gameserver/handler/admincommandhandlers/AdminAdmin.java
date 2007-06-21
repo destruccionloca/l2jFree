@@ -468,7 +468,7 @@ public class AdminAdmin implements IAdminCommandHandler {
         }
         else
         {
-            SystemMessage sm = new SystemMessage(614);
+            SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
             sm.addString("Only sky and signsky atmosphere type allowed, damn u!");
             activeChar.sendPacket(sm);
         }
@@ -488,7 +488,7 @@ public class AdminAdmin implements IAdminCommandHandler {
 		activeChar.sendPacket(_snd);
 		activeChar.broadcastPacket(_snd);
 		showMainPage(activeChar);
-		SystemMessage _sm = new SystemMessage(614);
+		SystemMessage _sm = new SystemMessage(SystemMessage.S1_S2);
 		_sm.addString("Playing "+sound+".");
 		activeChar.sendPacket(_sm);
 	}

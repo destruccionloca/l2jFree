@@ -122,7 +122,7 @@ public class AdminMenu implements IAdminCommandHandler
                 String player = st.nextToken();
                 //_log.debugr("Player1 "+player);
                 L2PcInstance plyr = L2World.getInstance().getPlayer(player);
-				SystemMessage sm = new SystemMessage(614);
+                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
 				if (plyr != null)
 				{
 					//_log.debugr("Player2 "+plyr.getName());
@@ -187,7 +187,7 @@ public class AdminMenu implements IAdminCommandHandler
             {
                 obj = plyr;
             }
-			SystemMessage sm = new SystemMessage(614);
+            SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
 			sm.addString("You killed " + plyr.getName() + ".");
 			activeChar.sendPacket(sm);
         }
@@ -199,7 +199,7 @@ public class AdminMenu implements IAdminCommandHandler
 		}
 		else
 		{
-			SystemMessage sm = new SystemMessage(614);
+			SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
 			sm.addString("Incorrect target.");
 			activeChar.sendPacket(sm);
 		}
@@ -208,7 +208,7 @@ public class AdminMenu implements IAdminCommandHandler
     private void teleportCharacter(L2PcInstance player, int x, int y, int z, L2PcInstance activeChar)
     {
         if (player != null) {
-            SystemMessage sm = new SystemMessage(614);
+        	SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
             sm.addString("Admin is teleporting you.");
             player.sendPacket(sm);
 
@@ -225,7 +225,7 @@ public class AdminMenu implements IAdminCommandHandler
 		} 
 		else 
 		{
-			SystemMessage sm = new SystemMessage(614);
+			SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
 			sm.addString("Incorrect target.");
 			activeChar.sendPacket(sm);
 			return;
@@ -233,7 +233,7 @@ public class AdminMenu implements IAdminCommandHandler
 		
 		if (player.getObjectId() == activeChar.getObjectId())
 		{	
-			SystemMessage sm = new SystemMessage(614);
+			SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
 			sm.addString("You cannot self teleport.");
 			activeChar.sendPacket(sm);
 		}
@@ -245,7 +245,7 @@ public class AdminMenu implements IAdminCommandHandler
 			
 			activeChar.teleToLocation(x, y, z);
 		
-			SystemMessage sm = new SystemMessage(614);
+			SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
 			sm.addString("You have teleported to character " + player.getName() + ".");
 			activeChar.sendPacket(sm);
 		}
@@ -265,7 +265,7 @@ public class AdminMenu implements IAdminCommandHandler
             String acc_name = result.getString(1);
             statement.close();
             
-            SystemMessage sm = new SystemMessage(614);            
+            SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);            
             if(acc_name.length() > 0)
             {
                LoginServerThread.getInstance().sendAccessLevel(acc_name, banLevel);

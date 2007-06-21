@@ -275,7 +275,7 @@ public class Say2 extends L2GameClientPacket
         case PETITION_GM:
             if (!PetitionManager.getInstance().isPlayerInConsultation(activeChar))
             {
-                activeChar.sendPacket(new SystemMessage(745));
+					activeChar.sendPacket(new SystemMessage(SystemMessage.YOU_ARE_NOT_IN_PETITION_CHAT));
                 break;
             }
             

@@ -85,7 +85,7 @@ public class Logout extends L2GameClientPacket
         {
             if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while fighting");
             
-            player.sendPacket(new SystemMessage(SystemMessage.YOU_CANNOT_EXIT_WHILE_IN_COMBAT));
+            player.sendPacket(new SystemMessage(SystemMessage.CANT_LOGOUT_WHILE_FIGHTING));
             player.sendPacket(new ActionFailed());
             return;
         }

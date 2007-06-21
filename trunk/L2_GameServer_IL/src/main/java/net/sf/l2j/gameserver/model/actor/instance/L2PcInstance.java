@@ -1015,7 +1015,7 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             if (_log.isDebugEnabled()) _log.debug("Player " + getName() + " tried to logout while fighting.");
             
-            sendPacket(new SystemMessage(SystemMessage.YOU_CANNOT_EXIT_WHILE_IN_COMBAT));
+            sendPacket(new SystemMessage(SystemMessage.CANT_LOGOUT_WHILE_FIGHTING));
             sendPacket(new ActionFailed());
             return false;
         }

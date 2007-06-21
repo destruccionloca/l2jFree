@@ -24,9 +24,9 @@ import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2Character;
-import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -271,7 +271,7 @@ public class AdminEffects implements IAdminCommandHandler
               }
           }
           catch (Exception e) {
-               SystemMessage sm = new SystemMessage(614);
+        	  SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
 
               sm.addString("Use //gmspeed value = [0...4].");
               activeChar.sendPacket(sm);
@@ -382,7 +382,7 @@ public class AdminEffects implements IAdminCommandHandler
                        player.setTeam(0);
                        if (teamVal != 0)
                        {
-                           SystemMessage sm = new SystemMessage(614);
+                    	   SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                            sm.addString("You have joined team " + teamVal);
                            player.sendPacket(sm);
                        }
@@ -400,17 +400,20 @@ public class AdminEffects implements IAdminCommandHandler
            int teamVal = Integer.parseInt(val);
            L2Object target = activeChar.getTarget();
            L2PcInstance player = null;
-           if (target instanceof L2PcInstance) {
+           if (target instanceof L2PcInstance) 
+           {
                player = (L2PcInstance)target;
-           } else {
+           } 
+           else
+           {
                return false;
            }
            player.setTeam(teamVal);
            if (teamVal != 0)
            {
-           SystemMessage sm = new SystemMessage(614);
-           sm.addString("You have joined team " + teamVal);
-           player.sendPacket(sm);
+        	   SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+        	   sm.addString("You have joined team " + teamVal);
+        	   player.sendPacket(sm);
            }
            player.broadcastUserInfo();
        }
