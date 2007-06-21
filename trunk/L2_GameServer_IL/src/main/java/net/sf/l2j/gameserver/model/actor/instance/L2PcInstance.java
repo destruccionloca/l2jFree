@@ -1921,8 +1921,12 @@ public final class L2PcInstance extends L2PlayableInstance
    public void setClassId(int Id)
    {
         academyCheck(Id);
-        
+		if (isSubClassActive())
+		{
+			getSubClasses().get(_classIndex).setClassId(Id);
+		}        
         _activeClass = Id;
+        
         L2PcTemplate t = CharTemplateTable.getInstance().getTemplate(Id);
         
         if (t == null)

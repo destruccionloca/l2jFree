@@ -151,7 +151,7 @@ public class SummonFriend implements ISkillHandler
                     if (targetChar.getInventory().getItemByItemId(8615) == null)
                     {
                     	((L2PcInstance)activeChar).sendMessage("Your target cannot be summoned while he hasn't got a Summoning Crystal");
-                    	targetChar.sendMessage("You cannot summoned while you haven't got a Summoning Crystal");
+                    	targetChar.sendMessage("You cannot be summoned while you haven't got a Summoning Crystal");
                     	continue;
                     }
                     

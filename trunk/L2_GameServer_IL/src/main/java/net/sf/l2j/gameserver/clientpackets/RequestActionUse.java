@@ -286,7 +286,11 @@ public class RequestActionUse extends L2GameClientPacket
                     sendPacket(new ActionFailed());
                     return;
                 }
-                
+				if(activeChar.getPrivateStoreType() != 0)
+				{
+					activeChar.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
+					activeChar.broadcastUserInfo();
+		        }                
                 if (activeChar.isSitting())
                     activeChar.standUp();
                 
@@ -331,7 +335,11 @@ public class RequestActionUse extends L2GameClientPacket
                     sendPacket(new ActionFailed());
                     return;
                 }
-                
+				if(activeChar.getPrivateStoreType() != 0)
+				{
+					activeChar.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
+					activeChar.broadcastUserInfo();
+		        }                
                 if (activeChar.isSitting())
                     activeChar.standUp();
                 

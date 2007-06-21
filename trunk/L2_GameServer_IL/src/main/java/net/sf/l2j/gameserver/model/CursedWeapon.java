@@ -555,6 +555,10 @@ public class CursedWeapon
     {
         return _playerKarma;
     }
+	public int getPlayerPkKills()
+	{
+		return _playerPkKills;
+	}    
     public int getNbKills()
     {
         return _nbKills;
