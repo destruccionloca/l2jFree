@@ -313,7 +313,7 @@
 <item id='8821' name="Shadow Weapon: Two Handed Sword">
   <for>
     <set val='78' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='39' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='0' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -324,7 +324,7 @@
 <item id='8822' name="Shadow Weapon: Crimson Sword">
   <for>
     <set val='64' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='39' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='0' order='0x10' stat='accCombat'/>
     <set val='379' order='0x08' stat='pAtkSpd'/>
@@ -335,7 +335,7 @@
 <item id='8823' name="Shadow Weapon: Spiked Club">
   <for>
     <set val='64' order='0x08' stat='pAtk'/>
-    <set val='20' order='0x08' stat='mAtk'/>
+    <set val='39' order='0x08' stat='mAtk'/>
     <set val='4' order='0x08' stat='rCrit'/>
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='379' order='0x08' stat='pAtkSpd'/>
@@ -346,7 +346,7 @@
 <item id='8824' name="Shadow Weapon: Staff of Magic">
   <for>
     <set val='62' order='0x08' stat='pAtk'/>
-    <set val='20' order='0x08' stat='mAtk'/>
+    <set val='52' order='0x08' stat='mAtk'/>
     <set val='4' order='0x08' stat='rCrit'/>
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -357,7 +357,7 @@
 <item id='8825' name="Shadow Weapon: Kukuri">
   <for>
     <set val='56' order='0x08' stat='pAtk'/>
-    <set val='5' order='0x08' stat='mAtk'/>
+    <set val='39' order='0x08' stat='mAtk'/>
     <set val='12' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='433' order='0x08' stat='pAtkSpd'/>
@@ -368,7 +368,7 @@
 <item id='8826' name="Shadow Weapon: Dagger of Mana">
   <for>
     <set val='45' order='0x08' stat='pAtk'/>
-    <set val='5' order='0x08' stat='mAtk'/>
+    <set val='52' order='0x08' stat='mAtk'/>
     <set val='12' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='433' order='0x08' stat='pAtkSpd'/>
@@ -379,7 +379,7 @@
 <item id='8827' name="Shadow Weapon: Triple-Edged Jamadhr">
   <for>
     <set val='78' order='0x08' stat='pAtk'/>
-    <set val='5' order='0x08' stat='mAtk'/>
+    <set val='39' order='0x08' stat='mAtk'/>
     <set val='4' order='0x08' stat='rCrit'/>
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -391,7 +391,7 @@
   <for>
     <set val='132' order='0x08' stat='pAtk'/>
     <set val='5' order='0x08' stat='mAtk'/>
-    <set val='12' order='0x08' stat='rCrit'/>
+    <set val='39' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='293' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
@@ -401,7 +401,7 @@
 <item id='8829' name="Shadow Weapon: War Hammer">
   <for>
     <set val='64' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='39' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -413,7 +413,7 @@
 <item id='8830' name="Shadow Weapon: Katana">
   <for>
     <set val='122' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='68' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='0' order='0x10' stat='accCombat'/>
     <set val='379' order='0x08' stat='pAtkSpd'/>
@@ -424,7 +424,7 @@
 <item id='8831' name="Shadow Weapon: Bec de Corbin">
   <for>
     <set val='122' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='68' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -436,7 +436,7 @@
 <item id='8832' name="Shadow Weapon: Cursed Staff">
   <for>
     <set val='119' order='0x08' stat='pAtk'/>
-    <set val='20' order='0x08' stat='mAtk'/>
+    <set val='91' order='0x08' stat='mAtk'/>
     <set val='4' order='0x08' stat='rCrit'/>
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -447,7 +447,7 @@
 <item id='8833' name="Shadow Weapon: Stiletto">
   <for>
     <set val='107' order='0x08' stat='pAtk'/>
-    <set val='5' order='0x08' stat='mAtk'/>
+    <set val='68' order='0x08' stat='mAtk'/>
     <set val='12' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='433' order='0x08' stat='pAtkSpd'/>
@@ -458,7 +458,7 @@
 <item id='8834' name="Shadow Weapon: Soulfire Dirk">
   <for>
     <set val='86' order='0x08' stat='pAtk'/>
-    <set val='5' order='0x08' stat='mAtk'/>
+    <set val='91' order='0x08' stat='mAtk'/>
     <set val='12' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='433' order='0x08' stat='pAtkSpd'/>
@@ -469,7 +469,7 @@
 <item id='8835' name="Shadow Weapon: Elemental Bow">
   <for>
     <set val='277' order='0x08' stat='pAtk'/>
-    <set val='5' order='0x08' stat='mAtk'/>
+    <set val='75' order='0x08' stat='mAtk'/>
     <set val='12' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='227' order='0x08' stat='pAtkSpd'/>
@@ -480,7 +480,7 @@
 <item id='8836' name="Shadow Weapon: Dwarven War Hammer">
   <for>
     <set val='122' order='0x08' stat='pAtk'/>
-    <set val='20' order='0x08' stat='mAtk'/>
+    <set val='68' order='0x08' stat='mAtk'/>
     <set val='4' order='0x08' stat='rCrit'/>
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='379' order='0x08' stat='pAtkSpd'/>
@@ -491,7 +491,7 @@
 <item id='8837' name="Shadow Weapon: Sword of Revolution">
   <for>
     <set val='148' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='68' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='0' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -502,7 +502,7 @@
 <item id='8838' name="Shadow Weapon: Knuckle Duster">
   <for>
     <set val='148' order='0x08' stat='pAtk'/>
-    <set val='5' order='0x08' stat='mAtk'/>
+    <set val='68' order='0x08' stat='mAtk'/>
     <set val='4' order='0x08' stat='rCrit'/>
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -513,7 +513,7 @@
 <item id='8839' name="Shadow Weapon: Sword of Delusion">
   <for>
     <set val='139' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='76' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='0' order='0x10' stat='accCombat'/>
     <set val='379' order='0x08' stat='pAtkSpd'/>
@@ -524,7 +524,7 @@
 <item id='8840' name="Shadow Weapon: Poleaxe">
   <for>
     <set val='139' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='76' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -536,7 +536,7 @@
 <item id='8841' name="Shadow Weapon: Stick of Eternity">
   <for>
     <set val='111' order='0x08' stat='pAtk'/>
-    <set val='20' order='0x08' stat='mAtk'/>
+    <set val='101' order='0x08' stat='mAtk'/>
     <set val='4' order='0x08' stat='rCrit'/>
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='379' order='0x08' stat='pAtkSpd'/>
@@ -547,7 +547,7 @@
 <item id='8842' name="Shadow Weapon: Inferno Staff">
   <for>
     <set val='135' order='0x08' stat='pAtk'/>
-    <set val='20' order='0x08' stat='mAtk'/>
+    <set val='101' order='0x08' stat='mAtk'/>
     <set val='4' order='0x08' stat='rCrit'/>
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -558,7 +558,7 @@
 <item id='8843' name="Shadow Weapon: Pa\'agrian Hammer">
   <for>
     <set val='135' order='0x08' stat='pAtk'/>
-    <set val='20' order='0x08' stat='mAtk'/>
+    <set val='101' order='0x08' stat='mAtk'/>
     <set val='4' order='0x08' stat='rCrit'/>
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -569,7 +569,7 @@
 <item id='8844' name="Shadow Weapon: Dark Screamer">
   <for>
     <set val='122' order='0x08' stat='pAtk'/>
-    <set val='5' order='0x08' stat='mAtk'/>
+    <set val='76' order='0x08' stat='mAtk'/>
     <set val='12' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='433' order='0x08' stat='pAtkSpd'/>
@@ -580,7 +580,7 @@
 <item id='8845' name="Shadow Weapon: Akat Long Bow">
   <for>
     <set val='316' order='0x08' stat='pAtk'/>
-    <set val='5' order='0x08' stat='mAtk'/>
+    <set val='84' order='0x08' stat='mAtk'/>
     <set val='12' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='227' order='0x08' stat='pAtkSpd'/>
@@ -591,7 +591,7 @@
 <item id='8846' name="Shadow Weapon: Pa\'agrian Sword">
   <for>
     <set val='169' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='76' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='0' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -602,7 +602,7 @@
 <item id='8847' name="Shadow Weapon: Fisted Blade">
   <for>
     <set val='169' order='0x08' stat='pAtk'/>
-    <set val='5' order='0x08' stat='mAtk'/>
+    <set val='76' order='0x08' stat='mAtk'/>
     <set val='4' order='0x08' stat='rCrit'/>
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -613,7 +613,7 @@
 <item id='8848' name="Shadow Weapon: Stormbringer">
   <for>
     <set val='175' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='78' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='0' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -624,7 +624,7 @@
 <item id='8849' name="Shadow Weapon: Great Sword">
   <for>
     <set val='213' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='91' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='0' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -635,7 +635,7 @@
 <item id='8850' name="Shadow Weapon: Heavy War Axe">
   <for>
     <set val='175' order='0x08' stat='pAtk'/>
-    <set val='20' order='0x08' stat='mAtk'/>
+    <set val='91' order='0x08' stat='mAtk'/>
     <set val='4' order='0x08' stat='rCrit'/>
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='379' order='0x08' stat='pAtkSpd'/>
@@ -646,7 +646,7 @@
 <item id='8851' name="Shadow Weapon: Sprite\'s Staff">
   <for>
     <set val='170' order='0x08' stat='pAtk'/>
-    <set val='20' order='0x08' stat='mAtk'/>
+    <set val='122' order='0x08' stat='mAtk'/>
     <set val='4' order='0x08' stat='rCrit'/>
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -657,7 +657,7 @@
 <item id='8852' name="Shadow Weapon: Keshanberk">
   <for>
     <set val='175' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='91' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='0' order='0x10' stat='accCombat'/>
     <set val='379' order='0x08' stat='pAtkSpd'/>
@@ -668,7 +668,7 @@
 <item id='8853' name="Shadow Weapon: Sword of Valhalla">
   <for>
     <set val='140' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='122' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='0' order='0x10' stat='accCombat'/>
     <set val='379' order='0x08' stat='pAtkSpd'/>
@@ -679,7 +679,7 @@
 <item id='8854' name="Shadow Weapon: Kris">
   <for>
     <set val='153' order='0x08' stat='pAtk'/>
-    <set val='5' order='0x08' stat='mAtk'/>
+    <set val='91' order='0x08' stat='mAtk'/>
     <set val='12' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='433' order='0x08' stat='pAtkSpd'/>
@@ -690,7 +690,7 @@
 <item id='8855' name="Shadow Weapon: Arthro Nail">
   <for>
     <set val='213' order='0x08' stat='pAtk'/>
-    <set val='5' order='0x08' stat='mAtk'/>
+    <set val='91' order='0x08' stat='mAtk'/>
     <set val='4' order='0x08' stat='rCrit'/>
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -701,7 +701,7 @@
 <item id='8856' name="Shadow Weapon: Dark Elven Long Bow">
   <for>
     <set val='397' order='0x08' stat='pAtk'/>
-    <set val='5' order='0x08' stat='mAtk'/>
+    <set val='100' order='0x08' stat='mAtk'/>
     <set val='12' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='227' order='0x08' stat='pAtkSpd'/>
@@ -712,7 +712,7 @@
 <item id='8857' name="Shadow Weapon: Swords of Delusion">
   <for>
     <set val='213' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='91' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='0' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -723,7 +723,7 @@
 <item id='8858' name="Shadow Weapon: Great Axe">
   <for>
     <set val='175' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='91' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -735,7 +735,7 @@
 <item id='8859' name="Shadow Weapon: Tallum Blade">
   <for>
     <set val='213' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='107' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='0' order='0x10' stat='accCombat'/>
     <set val='379' order='0x08' stat='pAtkSpd'/>
@@ -746,7 +746,7 @@
 <item id='8860' name="Shadow Weapon: Halberd">
   <for>
     <set val='213' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='107' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -758,7 +758,7 @@
 <item id='8861' name="Shadow Weapon: Dasparion\'s Staff">
   <for>
     <set val='207' order='0x08' stat='pAtk'/>
-    <set val='20' order='0x08' stat='mAtk'/>
+    <set val='143' order='0x08' stat='mAtk'/>
     <set val='4' order='0x08' stat='rCrit'/>
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -769,7 +769,7 @@
 <item id='8862' name="Shadow Weapon: Bloody Orchid">
   <for>
     <set val='186' order='0x08' stat='pAtk'/>
-    <set val='5' order='0x08' stat='mAtk'/>
+    <set val='107' order='0x08' stat='mAtk'/>
     <set val='12' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='433' order='0x08' stat='pAtkSpd'/>
@@ -780,7 +780,7 @@
 <item id='8863' name="Shadow Weapon: Blood Tornado">
   <for>
     <set val='259' order='0x08' stat='pAtk'/>
-    <set val='5' order='0x08' stat='mAtk'/>
+    <set val='107' order='0x08' stat='mAtk'/>
     <set val='4' order='0x08' stat='rCrit'/>
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -791,7 +791,7 @@
 <item id='8864' name="Shadow Weapon: Carnage Bow">
   <for>
     <set val='440' order='0x08' stat='pAtk'/>
-    <set val='5' order='0x08' stat='mAtk'/>
+    <set val='107' order='0x08' stat='mAtk'/>
     <set val='12' order='0x08' stat='rCrit'/>
     <add val='-3' order='0x10' stat='accCombat'/>
     <set val='293' order='0x08' stat='pAtkSpd'/>
@@ -802,7 +802,7 @@
 <item id='8865' name="Shadow Weapon: Dual Keshanberk">
   <for>
     <set val='259' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='107' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='0' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
@@ -813,7 +813,7 @@
 <item id='8866' name="Shadow Weapon: Meteor Shower">
   <for>
     <set val='213' order='0x08' stat='pAtk'/>
-    <set val='20' order='0x08' stat='mAtk'/>
+    <set val='107' order='0x08' stat='mAtk'/>
     <set val='4' order='0x08' stat='rCrit'/>
     <add val='4' order='0x10' stat='accCombat'/>
     <set val='379' order='0x08' stat='pAtkSpd'/>
@@ -824,7 +824,7 @@
 <item id='8867' name="Shadow Weapon: Inferno Master">
   <for>
     <set val='259' order='0x08' stat='pAtk'/>
-    <set val='10' order='0x08' stat='mAtk'/>
+    <set val='107' order='0x08' stat='mAtk'/>
     <set val='8' order='0x08' stat='rCrit'/>
     <add val='0' order='0x10' stat='accCombat'/>
     <set val='325' order='0x08' stat='pAtkSpd'/>
