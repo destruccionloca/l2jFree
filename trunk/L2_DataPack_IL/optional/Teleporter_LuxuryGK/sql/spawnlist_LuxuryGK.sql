@@ -1,3 +1,4 @@
+-- Note for non-L2JFree users : Use `spawnlist` instead of `custom_spawnlist`
 DELETE FROM `custom_spawnlist` WHERE `npc_templateid`='7077';
 INSERT INTO `custom_spawnlist` (`location`, `count`, `npc_templateid`, `locx`, `locy`, `locz`, `randomx`, `randomy`, `heading`, `respawn_delay`, `loc_id`) VALUES 
 ('', 1, 7077, 82739, 147829, -3469, 0, 0, 25320, 60, 0),
