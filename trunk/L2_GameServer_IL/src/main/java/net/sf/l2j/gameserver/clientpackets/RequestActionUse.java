@@ -149,11 +149,13 @@ public class RequestActionUse extends L2GameClientPacket
             case 22: // pet attack
                 if (target != null && pet != null && pet != target && !pet.isAttackingDisabled() && !activeChar.isBetrayed())
                 {
-                    if (activeChar.getAccessLevel() < Config.GM_PEACEATTACK &&
-                            activeChar.isInsidePeaceZone(pet, target))
+                    if (activeChar.getAccessLevel() < Config.GM_PEACEATTACK && activeChar.isInsidePeaceZone(pet, target))
                     {
-                        activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IN_PEACEZONE));
-                        return;
+                    	if(!activeChar.isInFunEvent() || !target.isInFunEvent())
+                    	{
+                    		activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IN_PEACEZONE));
+                        	return;
+                    	}
                     }
 
                     if (target.isAutoAttackable(activeChar) || _ctrlPressed)

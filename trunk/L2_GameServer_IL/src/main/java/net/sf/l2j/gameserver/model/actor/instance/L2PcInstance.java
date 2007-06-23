@@ -3435,6 +3435,14 @@ public final class L2PcInstance extends L2PlayableInstance
             }
         }
     }
+    
+    public boolean isInFunEvent()
+    {
+    	if (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP))
+    		return true;
+    	else
+    		return false;
+    }
 
 	/**
 	 * Returns true if cp update should be done, false if not
@@ -7033,7 +7041,7 @@ public final class L2PcInstance extends L2PlayableInstance
         // Check if the attacker is not in the same clan
         if (getClan() != null && attacker != null && getClan().isMember(attacker.getName()))
             return false;
-
+        
         if(attacker instanceof L2PlayableInstance && getInPeaceZone())
             return false;
 
@@ -7234,21 +7242,27 @@ public final class L2PcInstance extends L2PlayableInstance
         // Check if this skill is enabled (ex : reuse time)
         if (isSkillDisabled(skill.getId()) && (getAccessLevel() < Config.GM_PEACEATTACK))
         {
-            SystemMessage sm = new SystemMessage(SystemMessage.SKILL_NOT_AVAILABLE);
-            sm.addString(skill.getName());
-            sendPacket(sm);
-
-            // Send a Server->Client packet ActionFailed to the L2PcInstance
-            sendPacket(new ActionFailed());
-            return;
+        	if(!this.isInFunEvent() || !target.isInFunEvent())
+        	{
+	            SystemMessage sm = new SystemMessage(SystemMessage.SKILL_NOT_AVAILABLE);
+	            sm.addString(skill.getName());
+	            sendPacket(sm);
+	
+	            // Send a Server->Client packet ActionFailed to the L2PcInstance
+	            sendPacket(new ActionFailed());
+	            return;
+        	}
         }
 
         // Check if all skills are disabled
         if (isAllSkillsDisabled() && (getAccessLevel() < Config.GM_PEACEATTACK))
         {
-            // Send a Server->Client packet ActionFailed to the L2PcInstance
-            sendPacket(new ActionFailed());
-            return;
+        	if(!this.isInFunEvent() || !target.isInFunEvent())
+        	{
+	            // Send a Server->Client packet ActionFailed to the L2PcInstance
+	            sendPacket(new ActionFailed());
+	            return;
+        	}
         }
 
         //************************************* Check Consumables *******************************************
@@ -7358,18 +7372,24 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             if ((isInsidePeaceZone(this, target)) && (getAccessLevel() < Config.GM_PEACEATTACK) && !(_inEventVIP && VIP._started))
             {
-                // If L2Character or target is in a peace zone, send a system message TARGET_IN_PEACEZONE a Server->Client packet ActionFailed
-                sendPacket(new SystemMessage(SystemMessage.TARGET_IN_PEACEZONE));
-                sendPacket(new ActionFailed());
-                return;
+            	if(!this.isInFunEvent() || !target.isInFunEvent())
+            	{
+	                // If L2Character or target is in a peace zone, send a system message TARGET_IN_PEACEZONE a Server->Client packet ActionFailed
+	                sendPacket(new SystemMessage(SystemMessage.TARGET_IN_PEACEZONE));
+	                sendPacket(new ActionFailed());
+	                return;
+            	}
             }
 
             // Check if the target is attackable
             if (!target.isAttackable() && (getAccessLevel() < Config.GM_PEACEATTACK))
             {
-                // If target is not attackable, send a Server->Client packet ActionFailed
-                sendPacket(new ActionFailed());
-                return;
+            	if(!this.isInFunEvent() || !target.isInFunEvent())
+            	{
+	                // If target is not attackable, send a Server->Client packet ActionFailed
+	                sendPacket(new ActionFailed());
+	                return;
+            	}
             }
 
             // Check if a Forced ATTACK is in progress on non-attackable target
@@ -7490,12 +7510,15 @@ public final class L2PcInstance extends L2PlayableInstance
             default:
                 if (!checkPvpSkill(target, skill) && (getAccessLevel() < Config.GM_PEACEATTACK))
                 {
-                    // Send a System Message to the L2PcInstance
-                    sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
-
-                    // Send a Server->Client packet ActionFailed to the L2PcInstance
-                    sendPacket(new ActionFailed());
-                    return;
+                	if(!this.isInFunEvent() || !target.isInFunEvent())
+                	{
+	                    // Send a System Message to the L2PcInstance
+	                    sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
+	
+	                    // Send a Server->Client packet ActionFailed to the L2PcInstance
+	                    sendPacket(new ActionFailed());
+	                    return;
+                	}
                 }
         }
 

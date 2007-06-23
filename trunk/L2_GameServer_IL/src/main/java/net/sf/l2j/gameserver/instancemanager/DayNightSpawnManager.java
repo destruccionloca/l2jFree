@@ -37,7 +37,6 @@ import org.apache.commons.logging.LogFactory;
 public class DayNightSpawnManager {
     
     private final static Log _log = LogFactory.getLog(DayNightSpawnManager.class.getName());
-    
     private static DayNightSpawnManager _instance;
     private static FastMap<L2Spawn, L2NpcInstance> _dayCreatures;
     private static FastMap<L2Spawn, L2NpcInstance> _nightCreatures;

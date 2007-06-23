@@ -23,6 +23,8 @@ import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;;
 import net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList;
 import net.sf.l2j.gameserver.model.actor.poly.ObjectPoly;
 import net.sf.l2j.gameserver.model.actor.position.ObjectPosition;
@@ -481,5 +483,22 @@ public abstract class L2Object
     public String toString()
     {
         return "" + getObjectId();
+    }
+    
+    public boolean isInFunEvent()
+    {
+    	if(this instanceof L2PcInstance)
+    	{
+    		return ((L2PcInstance)this).isInFunEvent();
+    	}
+    	if(this instanceof L2PetInstance)
+    	{
+    		return ((L2PetInstance)this).getOwner().isInFunEvent();
+    	}
+    	if(this instanceof L2SummonInstance)
+    	{
+    		return ((L2SummonInstance)this).getOwner().isInFunEvent();
+    	}
+    	return false;
     }
 }

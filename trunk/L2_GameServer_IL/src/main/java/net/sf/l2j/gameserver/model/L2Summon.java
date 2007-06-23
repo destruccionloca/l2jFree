@@ -542,7 +542,7 @@ public abstract class L2Summon extends L2PlayableInstance
                 && getOwner() != null
                 && (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
         {
-            return;
+    		return;
         }
 
         //************************************* Check Consumables *******************************************
@@ -574,9 +574,12 @@ public abstract class L2Summon extends L2PlayableInstance
 					&& getOwner() != null
 					&& (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
 			{
-				// If summon or target is in a peace zone, send a system message TARGET_IN_PEACEZONE
-	        	sendPacket(new SystemMessage(SystemMessage.TARGET_IN_PEACEZONE));
-				return;
+            	if(!this.isInFunEvent() || !target.isInFunEvent())
+            	{
+					// If summon or target is in a peace zone, send a system message TARGET_IN_PEACEZONE
+		        	sendPacket(new SystemMessage(SystemMessage.TARGET_IN_PEACEZONE));
+					return;
+            	}
 			}
 
             // Check if the target is attackable

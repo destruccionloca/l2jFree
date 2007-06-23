@@ -95,6 +95,13 @@ public class TvT
         _npcY = activeChar.getY();
         _npcZ = activeChar.getZ();
     }
+
+    public static void setNpcPos(int x,int y,int z)
+    {
+        _npcX = x;
+        _npcY = y;
+        _npcZ = z;
+    }
     
     public static void addTeam(String teamName)
     {
@@ -171,6 +178,18 @@ public class TvT
         _teamsY.set(index, activeChar.getY());
         _teamsZ.set(index, activeChar.getZ());
     }
+
+    public static void setTeamPos(String teamName, int x,int y,int z)
+    {
+        int index = _teams.indexOf(teamName);
+        
+        if (index == -1)
+            return;
+        
+        _teamsX.set(index, x);
+        _teamsY.set(index, y);
+        _teamsZ.set(index, z);
+    }
     
     public static void setTeamColor(String teamName, int color)
     {
@@ -204,6 +223,20 @@ public class TvT
         
         _joining = true;
         spawnEventNpc(activeChar);
+        Announcements.getInstance().announceToAll(_eventName + "(TvT): Joinable in " + _joiningLocationName + "!");
+    }
+
+    public static void startJoin()
+    {
+        if (!startJoinOk())
+        {
+        	_log.warn("Event not setted propertly.");
+        	if (_log.isDebugEnabled())_log.debug("TvT Engine[startJoin(startJoinOk() = false");
+            return;
+        }
+        
+        _joining = true;
+        spawnEventNpc();
         Announcements.getInstance().announceToAll(_eventName + "(TvT): Joinable in " + _joiningLocationName + "!");
     }
     
@@ -263,6 +296,39 @@ public class TvT
         catch (Exception e)
         {
             _log.error("TvT Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: " + e.getMessage());
+        }
+    }
+
+    private static void spawnEventNpc()
+    {
+        L2NpcTemplate tmpl = NpcTable.getInstance().getTemplate(_npcId);
+
+        try
+        {
+            _npcSpawn = new L2Spawn(tmpl);
+
+            _npcSpawn.setLocx(_npcX);
+            _npcSpawn.setLocy(_npcY);
+            _npcSpawn.setLocz(_npcZ);
+            _npcSpawn.setAmount(1);
+            _npcSpawn.setHeading(0);
+            _npcSpawn.setRespawnDelay(1);
+
+            SpawnTable.getInstance().addNewSpawn(_npcSpawn, false);
+
+            _npcSpawn.init();
+            _npcSpawn.getLastSpawn().getStatus().setCurrentHp(999999999);
+            _npcSpawn.getLastSpawn().setTitle(_eventName);
+            _npcSpawn.getLastSpawn()._isEventMobTvT = true;
+            _npcSpawn.getLastSpawn().isAggressive();
+            _npcSpawn.getLastSpawn().decayMe();
+            _npcSpawn.getLastSpawn().spawnMe(_npcSpawn.getLastSpawn().getX(), _npcSpawn.getLastSpawn().getY(), _npcSpawn.getLastSpawn().getZ());
+
+            _npcSpawn.getLastSpawn().broadcastPacket(new MagicSkillUser(_npcSpawn.getLastSpawn(), _npcSpawn.getLastSpawn(), 1034, 1, 1, 1));
+        }
+        catch (Exception e)
+        {
+            _log.error("TvT Engine[spawnEventNpc(exception: " + e.getMessage());
         }
     }
     
