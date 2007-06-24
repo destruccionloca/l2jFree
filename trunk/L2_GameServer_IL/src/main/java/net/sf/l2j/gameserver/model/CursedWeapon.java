@@ -248,7 +248,7 @@ public class CursedWeapon
 
         _isDropped = true;
         SystemMessage sm = new SystemMessage(SystemMessage.S2_WAS_DROPPED_IN_THE_S1_REGION);
-		sm.addZoneName(_player.getX(), _player.getY(), _player.getZ()); // Region Name
+		sm.addZoneName(player.getX(), player.getY(), player.getZ()); // Region Name
 		sm.addItemName(_itemId);
 		CursedWeaponsManager.announce(sm); // in the Hot Spring region
     }
@@ -416,7 +416,7 @@ public class CursedWeapon
         } else
         {
             //Unequip & Drop
-            dropIt(null, null, killer, false);            
+            dropIt(null, _player, killer, false);            
             // Reset player stats
             _player.setKarma(_playerKarma);
             _player.setPkKills(_playerPkKills);
