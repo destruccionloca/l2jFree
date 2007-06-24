@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.TaskPriority;
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.GmListTable;
@@ -42,6 +43,7 @@ import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2Event;
@@ -179,6 +181,7 @@ public class EnterWorld extends L2GameClientPacket
             activeChar.setProtection(true);
         
 		activeChar.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());
+		ThreadPoolManager.getInstance().executeTask(new KnownListAsynchronousUpdateTask(activeChar));
 		
 		if (L2Event.active && L2Event.connectionLossData.containsKey(activeChar.getName()) && L2Event.isOnEvent(activeChar))
 	        L2Event.restoreChar(activeChar);

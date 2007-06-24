@@ -120,6 +120,7 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.appearance.PcAppearance;
 import net.sf.l2j.gameserver.model.actor.knownlist.PcKnownList;
+import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
 import net.sf.l2j.gameserver.model.actor.stat.PcStat;
 import net.sf.l2j.gameserver.model.actor.status.PcStatus;
 import net.sf.l2j.gameserver.model.base.ClassId;
@@ -9251,6 +9252,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public final void onTeleported()
     {
         super.onTeleported();
+        ThreadPoolManager.getInstance().executeTask(new KnownListAsynchronousUpdateTask(activeChar));
 
         if (Config.PLAYER_SPAWN_PROTECTION > 0) setProtection(true);
 
