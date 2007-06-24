@@ -3836,6 +3836,8 @@ public final class L2PcInstance extends L2PlayableInstance
 					msg.addItemName(target.getItemId());
 					broadcastPacket(msg, 1400);
 				}
+				// restoring Augmentation data from DB
+				if(target.getItemType() instanceof L2WeaponType) target.restoreAugmentation();
 			}
         	
             // Check if a Party is in progress

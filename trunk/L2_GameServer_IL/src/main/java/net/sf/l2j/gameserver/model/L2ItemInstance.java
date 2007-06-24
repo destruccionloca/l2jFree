@@ -663,6 +663,34 @@ public final class L2ItemInstance extends L2Object
  	}
 	
 	/**
+	 * Restore the augmentation from DB
+	 *
+	 */
+	public void restoreAugmentation()
+	{
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			// load augmentation
+			PreparedStatement statement = con.prepareStatement("SELECT attributes,skill,level FROM augmentations WHERE item_id=?");
+			statement.setInt(1, getObjectId());
+			ResultSet rs = statement.executeQuery();
+			rs = statement.executeQuery();
+			if (rs.next())
+			{
+				_augmentation = new L2Augmentation(this, rs.getInt("attributes"), rs.getInt("skill"), rs.getInt("level"), false);
+			}        
+			rs.close();
+			statement.close();
+		} catch (Exception e) {
+			_log.fatal( "Could not restore Augmentation data for item "+getObjectId()+" from DB:", e);
+		} finally {
+			try { con.close(); } catch (Exception e) {}
+		}
+ 	}
+	
+	/**
 	 * Used to decrease mana
 	 * (mana means life time for shadow items)
 	 */
@@ -989,19 +1017,9 @@ public final class L2ItemInstance extends L2Object
 			rs.close();
             statement.close();
             
-            //load augmentation
-            statement = con.prepareStatement("SELECT attributes,skill,level FROM augmentations WHERE item_id=?");
-            statement.setInt(1, objectId);
-			rs = statement.executeQuery();
-            if (rs.next())
-            {
-            	inst._augmentation = new L2Augmentation(inst, rs.getInt("attributes"), rs.getInt("skill"), rs.getInt("level"), false);
-            }
-            
-            rs.close();
-            statement.close();
+            inst.restoreAugmentation();
 
-        } catch (Exception e) {
+		} catch (Exception e) {
 			_log.fatal( "Could not restore item "+objectId+" from DB:", e);
 		} finally {
 			try { con.close(); } catch (Exception e) {}
@@ -1162,8 +1180,7 @@ public final class L2ItemInstance extends L2Object
 
 		if (Config.ASSERT) assert this._existsInDb;
 		
-        // delete augmentation data
-        if (isAugmented()) _augmentation.deleteAugmentationData();		
+		_augmentation = null;
 		
 		java.sql.Connection con = null;
 		try

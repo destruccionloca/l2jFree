@@ -791,6 +791,9 @@ public class ItemTable implements ItemTableMBean
                     try { con.close(); } catch (Exception e) {}
                 }
             }
+            
+            // delete augmentation data
+            item.removeAugmentation();
         }
     }
 
