@@ -9252,7 +9252,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public final void onTeleported()
     {
         super.onTeleported();
-        ThreadPoolManager.getInstance().executeTask(new KnownListAsynchronousUpdateTask(activeChar));
+        ThreadPoolManager.getInstance().executeTask(new KnownListAsynchronousUpdateTask(this));
 
         if (Config.PLAYER_SPAWN_PROTECTION > 0) setProtection(true);
 
