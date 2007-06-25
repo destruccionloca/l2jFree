@@ -36,7 +36,6 @@ import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Spawn;
-import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -54,10 +53,6 @@ public class BossActionTaskManager
     protected static Logger _log = Logger.getLogger(BossActionTaskManager.class.getName());
 
     protected static final int _ActivityTimeOfBoss = Config.ACTIVITY_TIME_OF_BOSS;
-    protected static final int _CapacityOfLairOfValakas = Config.CAPACITY_OF_LAIR_OF_VALAKAS;
-    protected static final int _AppTimeOfValakas = Config.APPTIME_OF_VALAKAS;
-
-
     private final int _angellocation[][] = 
     	{
 			{ 113004, 16209, 10076, 60242 },
@@ -82,39 +77,13 @@ public class BossActionTaskManager
     	};
     protected List<L2Spawn> _BaiumCubeSpawn = new FastList<L2Spawn>();
     protected List<L2NpcInstance> _BaiumCube = new FastList<L2NpcInstance>();
-
-    private final int _ValakasCubeLocation[][] =
-    	{
-    		{214880, -116144, -1644, 0},
-    		{213696, -116592, -1644, 0},
-    		{212112, -116688, -1644, 0},
-    		{211184, -115472, -1664, 0},
-    		{210336, -114592, -1644, 0},
-    		{211360, -113904, -1644, 0},
-    		{213152, -112352, -1644, 0},
-    		{214032, -113232, -1644, 0},
-    		{214752, -114592, -1644, 0},
-    		{209824, -115568, -1421, 0},
-    		{210528, -112192, -1403, 0},
-    		{213120, -111136, -1408, 0},
-    		{215184, -111504, -1392, 0},
-    		{215456, -117328, -1392, 0},
-    		{213200, -118160, -1424, 0}
-    	};
-    protected List<L2Spawn> _ValakasCubeSpawn = new FastList<L2Spawn>();
-    protected List<L2NpcInstance> _ValakasCube = new FastList<L2NpcInstance>();
     
     protected List<L2PcInstance> _playersInBaiumLair = new FastList<L2PcInstance>();
-    protected List<L2PcInstance> _playersInValakasLair = new FastList<L2PcInstance>();
 
     protected L2Spawn _BaiumSpawn;
-    protected L2Spawn _ValakasSpawn;
 
     protected L2NpcInstance _npcbaium;
 
-    protected static boolean _IsValakasSpawned = false;
-
-    protected Future _VarakasSpawnTask = null;
     protected Future _CubeSpawnTask = null;
 
     private static BossActionTaskManager _instance = new BossActionTaskManager();
@@ -142,17 +111,6 @@ public class BossActionTaskManager
             _BaiumSpawn.setAmount(1);
             _BaiumSpawn.setRespawnDelay(_ActivityTimeOfBoss * 2);
             SpawnTable.getInstance().addNewSpawn(_BaiumSpawn, false);
-            
-            template1 = NpcTable.getInstance().getTemplate(29028); //Valakas
-            _ValakasSpawn = new L2Spawn(template1);
-            _ValakasSpawn.setLocx(213168);
-            _ValakasSpawn.setLocy(-114578);
-            _ValakasSpawn.setLocz(-1635);
-            _ValakasSpawn.setHeading(22106);
-            _ValakasSpawn.setAmount(1);
-            _ValakasSpawn.setRespawnDelay(_ActivityTimeOfBoss * 2);
-            SpawnTable.getInstance().addNewSpawn(_ValakasSpawn, false);
-            
         }
         catch (Exception e)
         {
@@ -222,21 +180,6 @@ public class BossActionTaskManager
                 SpawnTable.getInstance().addNewSpawn(spawnDat, false);
                 _BaiumCubeSpawn.add(spawnDat);
             }
-
-            Cube = NpcTable.getInstance().getTemplate(31759);
-            for(int i = 0;i < _ValakasCubeLocation.length; i++)
-            {
-                spawnDat = new L2Spawn(Cube);
-                spawnDat.setAmount(1);
-                spawnDat.setLocx(_ValakasCubeLocation[i][0]);
-                spawnDat.setLocy(_ValakasCubeLocation[i][1]);
-                spawnDat.setLocz(_ValakasCubeLocation[i][2]);
-                spawnDat.setHeading(_ValakasCubeLocation[i][3]);
-                spawnDat.setRespawnDelay(60);
-                spawnDat.setLocation(0);
-                SpawnTable.getInstance().addNewSpawn(spawnDat, false);
-                _ValakasCubeSpawn.add(spawnDat);
-            }
         }
         catch (Exception e)
         {
@@ -252,8 +195,6 @@ public class BossActionTaskManager
     	{
     		case 29020: // Baium
     			return _playersInBaiumLair;
-    		case 29028: // Valakas
-    			return _playersInValakasLair;
     		default:
     			return new FastList<L2PcInstance>();
     	}
@@ -305,27 +246,6 @@ public class BossActionTaskManager
 
         _Baium = null;
     }
-    
-    public boolean CanIntoValakasLair()
-    {
-        return (_playersInValakasLair.size() < _CapacityOfLairOfValakas && !_IsValakasSpawned);
-    }
-
-    public void SetValakasSpawnTask()
-    {
-        if (_playersInValakasLair.size() >= 1) return;
-        
-        if (_VarakasSpawnTask == null)
-        {
-            _VarakasSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
-            		new ValakasSpawn(),_AppTimeOfValakas);
-        }
-    }
-
-    public void AddPlayerToValakasLair(L2PcInstance pc)
-    {
-        if (!_playersInValakasLair.contains(pc)) _playersInValakasLair.add(pc);
-    }
 
     public void AddPlayerToBaiumsLair(L2PcInstance pc)
     {
@@ -338,9 +258,6 @@ public class BossActionTaskManager
         {
         	case 29020: //Baium
         		banishesPlayersFromBaiumLair();
-                break;
-            case 29028: // Valakas
-            	banishesPlayersFromValakasLair();
                 break;
         }
     }
@@ -360,20 +277,6 @@ public class BossActionTaskManager
     	_playersInBaiumLair.clear();
     }
     
-    protected void banishesPlayersFromValakasLair()
-    {
-    	for(L2PcInstance pc : _playersInValakasLair)
-    	{
-    		if(ZoneManager.getInstance().checkIfInZone("LairofValakas", pc))
-    		{
-        		int driftX = Rnd.get(-80,80);
-        		int driftY = Rnd.get(-80,80);
-        		pc.teleToLocation(150604 + driftX,-56283 + driftY,-2980);
-    		}
-    	}
-    	_playersInValakasLair.clear();
-    }
-    
     public void setUnspawn(int bossId)
     {
         switch (bossId)
@@ -390,15 +293,6 @@ public class BossActionTaskManager
         		_npcbaium.getSpawn().decreaseCount(_npcbaium);
         		_npcbaium = null;
                 break;
-            case 29028: // Valakas
-            	for(L2NpcInstance cube : _ValakasCube)
-            	{
-            		cube.getSpawn().stopRespawn();
-            		cube.deleteMe();
-            	}
-            	_ValakasCube.clear();
-                _IsValakasSpawned = false;
-                break;
         }
     }
 
@@ -410,12 +304,6 @@ public class BossActionTaskManager
 			for (L2Spawn spawnDat : _BaiumCubeSpawn)
 			{
 				_BaiumCube.add(spawnDat.doSpawn());
-			}
-			break;
-		case 29028: // Valakas
-			for (L2Spawn spawnDat : _ValakasCubeSpawn)
-			{
-				_ValakasCube.add(spawnDat.doSpawn());
 			}
 			break;
 		}
@@ -430,34 +318,9 @@ public class BossActionTaskManager
         		_CubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
                     	new CubeSpawn(bossId),15000);
         		break;
-
-        	case 29028: // Valakas
-        		_CubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
-                		new CubeSpawn(bossId),21000);
-        		break;
         }
     }
-
-    private class ValakasSpawn implements Runnable
-    {
-    	public ValakasSpawn()
-    	{
-    	}
-    	
-        public void run()
-        {
-        	_ValakasSpawn.doSpawn();
-        	
-            _IsValakasSpawned = true;
-            
-            if(_VarakasSpawnTask != null)
-            {
-            	_VarakasSpawnTask.cancel(true);
-            	_VarakasSpawnTask = null;
-            }
-        }
-    }
-
+    
     private class CubeSpawn implements Runnable
     {
     	int _bossId;

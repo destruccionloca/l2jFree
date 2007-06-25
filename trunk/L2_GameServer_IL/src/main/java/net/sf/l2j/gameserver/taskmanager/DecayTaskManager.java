@@ -95,6 +95,9 @@ public class DecayTaskManager
 	                                forDecay = 18000;
 	                                break;
 	                            case 29019:     // Antharas
+	                            case 29066:     // Antharas
+	                            case 29067:     // Antharas
+	                            case 29068:     // Antharas
 	                                forDecay = 12000;
 	                                break;
 	                            case 29014:     // Orfen

@@ -83,6 +83,7 @@ import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SailrenManager;
 import net.sf.l2j.gameserver.instancemanager.AntharasManager;
+import net.sf.l2j.gameserver.instancemanager.ValakasManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
@@ -4265,17 +4266,21 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 		// [L2J_JP ADD SANDMAN]
 		if (ZoneManager.getInstance().checkIfInZone("FourSepulcher", this) &&
-				(getZ() >= -7250 && getZ() <= -6841) && !isGM())
+				(getZ() >= -7250 && getZ() <= -6841))
 		{
 			FourSepulchersManager.getInstance().checkAnnihilated(this);
 		}
-    	if ((ZoneManager.getInstance().checkIfInZone("LairofSailren", this)) && !isGM())
+    	if (ZoneManager.getInstance().checkIfInZone("LairofSailren", this))
     	{
     		SailrenManager.getInstance().checkAnnihilated(this);
     	}
-    	if ((ZoneManager.getInstance().checkIfInZone("LairofAntharas", this)) && !isGM())
+    	if (ZoneManager.getInstance().checkIfInZone("LairofAntharas", this))
     	{
     		AntharasManager.getInstance().checkAnnihilated();
+    	}
+    	if (ZoneManager.getInstance().checkIfInZone("LairofValakas", this))
+    	{
+    		ValakasManager.getInstance().checkAnnihilated();
     	}
 	}
 

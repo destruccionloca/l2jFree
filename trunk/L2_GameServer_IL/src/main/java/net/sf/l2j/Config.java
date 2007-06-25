@@ -2105,6 +2105,45 @@ public final class Config {
         }
     }
     
+
+    //  *******************************************************************************************
+    public static final String  VALAKAS_FILE              = "./config/valakas.properties";
+    //  *******************************************************************************************
+    public static int FWV_INTERVALOFVALAKAS;
+    public static int FWV_APPTIMEOFVALAKAS;
+    public static int FWV_ACTIVITYTIMEOFVALAKAS;
+    public static int FWV_CAPACITYOFLAIR;
+    public static boolean FWV_MOVEATRANDOM;
+    //  *******************************************************************************************
+    public static void loadvalakasconfig()
+    {
+    	_log.info("loading " + VALAKAS_FILE);
+        try
+        {
+            Properties valakasSettings = new Properties();
+            InputStream is               = new FileInputStream(new File(VALAKAS_FILE));
+            valakasSettings.load(is);
+            is.close();
+
+            FWV_INTERVALOFVALAKAS = Integer.parseInt(valakasSettings.getProperty("IntervalOfValakas", "1440"));
+            if(FWV_INTERVALOFVALAKAS < 5 || FWV_INTERVALOFVALAKAS > 1440) FWV_INTERVALOFVALAKAS = 1440;
+            FWV_INTERVALOFVALAKAS = FWV_INTERVALOFVALAKAS * 60000;
+            FWV_APPTIMEOFVALAKAS = Integer.parseInt(valakasSettings.getProperty("AppTimeOfValakas", "20"));
+            if(FWV_APPTIMEOFVALAKAS < 5 || FWV_APPTIMEOFVALAKAS > 60) FWV_APPTIMEOFVALAKAS = 10;
+            FWV_APPTIMEOFVALAKAS = FWV_APPTIMEOFVALAKAS * 60000;
+            FWV_ACTIVITYTIMEOFVALAKAS = Integer.parseInt(valakasSettings.getProperty("ActivityTimeOfValakas", "120"));
+            if(FWV_ACTIVITYTIMEOFVALAKAS < 120 || FWV_ACTIVITYTIMEOFVALAKAS > 720) FWV_ACTIVITYTIMEOFVALAKAS = 120;
+            FWV_ACTIVITYTIMEOFVALAKAS = FWV_ACTIVITYTIMEOFVALAKAS * 60000;
+            FWV_CAPACITYOFLAIR = Integer.parseInt(valakasSettings.getProperty("CapacityOfLairOfValakas", "200"));
+            FWV_MOVEATRANDOM = Boolean.parseBoolean(valakasSettings.getProperty("MoveAtRandom", "True"));
+        }
+        catch (Exception e)
+        {
+            _log.error(e.getMessage(),e);
+            throw new Error("Failed to Load "+VALAKAS_FILE+" File.");
+        }
+    }
+
     //  *******************************************************************************************
     public static final String	SAY_FILTER_FILE				= "./config/sayfilter.txt";
     //  *******************************************************************************************
@@ -2558,6 +2597,14 @@ public final class Config {
         else if (pName.equalsIgnoreCase("IntgervalOfBomberOnWeak")) FWA_INTGERVALOFBOMBERONWEAK = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("IntgervalOfBomberOnNormal")) FWA_INTGERVALOFBOMBERONNORMAL = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("IntgervalOfBomberOnStrong")) FWA_INTGERVALOFBOMBERONSTRONG = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("MoveAtRandom")) FWA_MOVEATRANDOM = Boolean.parseBoolean(pValue);
+
+        // JP fight with Valakas Custom Setting
+        else if (pName.equalsIgnoreCase("IntervalOfValakas")) FWV_INTERVALOFVALAKAS = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("AppTimeOfValakas")) FWV_APPTIMEOFVALAKAS = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("ActivityTimeOfValakas")) FWV_ACTIVITYTIMEOFVALAKAS = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("CapacityOfLairOfValakas")) FWV_CAPACITYOFLAIR = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("MoveAtRandom")) FWV_MOVEATRANDOM = Boolean.parseBoolean(pValue);
 
         // JP fight with sailren Custom Setting
         else if (pName.equalsIgnoreCase("EnableSinglePlayer")) FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(pValue);

@@ -26,6 +26,8 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.BossActionTaskManager;
+import net.sf.l2j.gameserver.instancemanager.AntharasManager;
+import net.sf.l2j.gameserver.instancemanager.ValakasManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -130,10 +132,6 @@ public final class L2BossInstance extends L2MonsterInstance
                 BossActionTaskManager.getInstance().RemoveArcAngel();
                 BossActionTaskManager.getInstance().setCubeSpawn(getNpcId());
                 break;
-
-            default:
-            	BossActionTaskManager.getInstance().setCubeSpawn(getNpcId());
-                break;
         }
         
         // [L2J_JP ADD END SANDMAN]
@@ -176,10 +174,31 @@ public final class L2BossInstance extends L2MonsterInstance
     {
         // [L2J_JP ADD START SANDMAN]
     	getKnownList().getKnownPlayers().clear();
-		for (L2Object object : BossActionTaskManager.getInstance().getPlayersInLair(getNpcId()))
+    	switch (getNpcId())
 		{
-			getKnownList().getKnownPlayers().put(object.getObjectId(), (L2PcInstance)object);
+			case 29019: // Antharas
+			case 29066: // Antharas
+			case 29067: // Antharas
+			case 29068: // Antharas
+				for (L2Object object : AntharasManager.getInstance().getPlayersInLair())
+				{
+					getKnownList().getKnownPlayers().put(object.getObjectId(),(L2PcInstance) object);
+				}
+				break;
+			case 29020: // Baium
+				for (L2Object object : BossActionTaskManager.getInstance().getPlayersInLair(getNpcId()))
+				{
+					getKnownList().getKnownPlayers().put(object.getObjectId(),(L2PcInstance) object);
+				}
+				break;
+			case 29028: // Valakas
+				for (L2Object object : ValakasManager.getInstance().getPlayersInLair())
+				{
+					getKnownList().getKnownPlayers().put(object.getObjectId(),(L2PcInstance) object);
+				}
+				break;
 		}
+        
         switch (getNpcId())
         {
             case 29020: //Baium
@@ -205,20 +224,6 @@ public final class L2BossInstance extends L2MonsterInstance
                 _DeleteTask = 
                 	ThreadPoolManager.getInstance().scheduleEffect(
                 			new DeleteGrandBoss(),_ActivityTimeOfBoss); // Delete Spawn
-                break;
-            }
-            case 29028: //Valakas
-            {
-                setIsInSocialAction(true);
-                SocialAction sa = new SocialAction(getObjectId(), 3);
-                broadcastPacket(sa);
-                _SocialTask = 
-                	ThreadPoolManager.getInstance().scheduleEffect(new Social(2), 26000);
-                _MobiliseTask = 
-                	ThreadPoolManager.getInstance().scheduleEffect(new SetMobilised(),41000);
-                _DeleteTask = 
-                	ThreadPoolManager.getInstance().scheduleEffect(
-                			new DeleteGrandBoss(),_ActivityTimeOfBoss); // Delete Spawn 
                 break;
             }
         }

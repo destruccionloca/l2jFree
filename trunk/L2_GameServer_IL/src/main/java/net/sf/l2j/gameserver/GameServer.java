@@ -87,6 +87,7 @@ import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.SailrenManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
+import net.sf.l2j.gameserver.instancemanager.ValakasManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.AutoChatHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler;
@@ -479,6 +480,7 @@ public class GameServer
         FourSepulchersManager.getInstance().init();
         SailrenManager.getInstance().init();
         AntharasManager.getInstance().init();
+        ValakasManager.getInstance().init();
         
         // o Initialize the FloodProtector
         // -------------------------------
