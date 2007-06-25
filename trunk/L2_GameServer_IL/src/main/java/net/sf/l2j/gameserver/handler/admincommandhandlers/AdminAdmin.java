@@ -307,7 +307,7 @@ public class AdminAdmin implements IAdminCommandHandler {
                 }
                 else if(type.equals("valakas"))
                 {
-                    Config.loadantharasconfig();
+                    Config.loadvalakasconfig();
                     activeChar.sendMessage("valakas config reloaded");
                 }
                 else if(type.equals("sailren"))

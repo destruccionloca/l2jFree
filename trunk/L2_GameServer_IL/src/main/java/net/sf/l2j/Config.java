@@ -1279,8 +1279,6 @@ public final class Config {
 	public static int 				TIME_OF_OPENING_A_DOOR;
 	public static int 				ACTIVITY_TIME_OF_BOSS;
 	public static int 				NURSEANT_RESPAWN_DELAY;
-	public static int 				CAPACITY_OF_LAIR_OF_VALAKAS;
-	public static int 				APPTIME_OF_VALAKAS;
     public static int 				DWARF_RECIPE_LIMIT;					// Recipebook limits
     public static int 				COMMON_RECIPE_LIMIT;  
     public static int 				CHANCE_BREAK;						// Chance For Soul Crystal to Break
@@ -1426,19 +1424,12 @@ public final class Config {
             TIME_OF_OPENING_A_DOOR 								= Integer.parseInt(altSettings.getProperty("TimeOfOpeningADoor", "5"));
             ACTIVITY_TIME_OF_BOSS 								= Integer.parseInt(altSettings.getProperty("ActivityTimeOfBoss", "120"));
             NURSEANT_RESPAWN_DELAY 								= Integer.parseInt(altSettings.getProperty("NurseAntRespawnDelay", "15"));
-            CAPACITY_OF_LAIR_OF_VALAKAS 						= Integer.parseInt(altSettings.getProperty("CapacityOfLairOfValakas", "200"));
-            APPTIME_OF_VALAKAS 									= Integer.parseInt(altSettings.getProperty("AppTimeOfValakas", "20"));
             if (NURSEANT_RESPAWN_DELAY < 15) NURSEANT_RESPAWN_DELAY = 15;
             else if (NURSEANT_RESPAWN_DELAY > 120) NURSEANT_RESPAWN_DELAY = 120;
             NURSEANT_RESPAWN_DELAY = NURSEANT_RESPAWN_DELAY * 1000;
             if (ACTIVITY_TIME_OF_BOSS < 120) ACTIVITY_TIME_OF_BOSS = 120;
             else if (ACTIVITY_TIME_OF_BOSS > 720) ACTIVITY_TIME_OF_BOSS = 720;
             ACTIVITY_TIME_OF_BOSS = ACTIVITY_TIME_OF_BOSS * 60000;
-            if (CAPACITY_OF_LAIR_OF_VALAKAS < 9) CAPACITY_OF_LAIR_OF_VALAKAS = 9;
-            else if (CAPACITY_OF_LAIR_OF_VALAKAS > 360) CAPACITY_OF_LAIR_OF_VALAKAS = 360;
-            if (APPTIME_OF_VALAKAS < 5) APPTIME_OF_VALAKAS = 5;
-            else if (APPTIME_OF_VALAKAS > 60) APPTIME_OF_VALAKAS = 60;
-            APPTIME_OF_VALAKAS = APPTIME_OF_VALAKAS * 60000;
             
             ALT_GAME_SUMMON_PENALTY_RATE = Float.parseFloat(altSettings.getProperty("AltSummonPenaltyRate", "1"));
         }
