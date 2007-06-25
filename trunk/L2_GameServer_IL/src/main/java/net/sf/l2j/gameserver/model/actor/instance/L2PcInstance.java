@@ -8885,6 +8885,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
         getStatus().setCurrentHpMp(getMaxHp(), getMaxMp());
         getStatus().setCurrentCp(getMaxCp());
+        getInventory().restoreEquipedItemsPassiveSkill();
+        getInventory().restoreArmorSetPassiveSkill();
         updateStats();
 
         // Clear resurrect xp calculation

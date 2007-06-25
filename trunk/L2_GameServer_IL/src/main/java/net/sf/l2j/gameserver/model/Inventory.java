@@ -1120,6 +1120,20 @@ public abstract class Inventory extends ItemContainer
            }
        }
     }
+    
+    public void restoreEquipedItemsPassiveSkill()
+    {
+       if(!(getOwner() instanceof L2PcInstance))
+           return;
+       for (int i=0;i<19;i++)
+       {
+    	   if (getPaperdollItem(i) == null) continue;
+    	   for (PaperdollListener listener : _paperdollListeners)
+    	   {
+               listener.notifyEquiped(i, getPaperdollItem(i));
+    	   }
+       }
+    }
 
     /**
      * Get back items in inventory from database
@@ -1172,6 +1186,7 @@ public abstract class Inventory extends ItemContainer
            inv.close();
            statement.close();
            refreshWeight();
+           restoreEquipedItemsPassiveSkill();
            restoreArmorSetPassiveSkill();
        }
        catch (Exception e)
