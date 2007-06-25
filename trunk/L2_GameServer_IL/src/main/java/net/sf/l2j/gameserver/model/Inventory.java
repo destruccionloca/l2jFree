@@ -1118,6 +1118,18 @@ public abstract class Inventory extends ItemContainer
                else
                    _log.warn("Inventory.ArmorSetListener: Incorrect skill: "+armorSet.getShieldSkillId()+".");
            }
+           if(armorSet.isEnchanted6(player)) // has all parts of set enchanted to 6 or more
+           {
+               int skillId = armorSet.getEnchant6skillId();
+               if(skillId > 0)
+               {
+                   L2Skill skille = SkillTable.getInstance().getInfo(skillId,1);
+                   if(skille != null)
+                       player.addSkill(skille, false);
+                   else
+                       _log.warn("Inventory.ArmorSetListener: Incorrect skill: "+armorSet.getEnchant6skillId()+".");
+               }
+           }
        }
     }
     
@@ -1128,10 +1140,7 @@ public abstract class Inventory extends ItemContainer
        for (int i=0;i<19;i++)
        {
     	   if (getPaperdollItem(i) == null) continue;
-    	   for (PaperdollListener listener : _paperdollListeners)
-    	   {
-               listener.notifyEquiped(i, getPaperdollItem(i));
-    	   }
+    	   _paperdollListeners.get(2).notifyEquiped(i, getPaperdollItem(i));  // hardrcoded for ItemPassiveSkillsListener
        }
     }
 
