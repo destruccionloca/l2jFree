@@ -5304,38 +5304,6 @@ public abstract class L2Character extends L2Object
                 }
             }
             
-            ISkillHandler handler = null;
-            
-            // TODO Remove this useless section
-            if(skill.isToggle())
-            {
-                // Check if the skill effects are already in progress on the L2Character
-                if(getEffect(skill.getId()) != null)
-                {
-                    handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
-                    
-                    if (handler != null)
-                        handler.useSkill(this, skill, targets);
-                    else
-                        skill.useSkill(this, targets);
-
-					if ((this instanceof L2PcInstance) || (this instanceof L2Summon))
-					{
-						L2PcInstance caster = (this instanceof L2PcInstance)? (L2PcInstance) this: ((L2Summon)this).getOwner();
-						for (L2Object target : targets)
-						{
-			                if (target instanceof L2NpcInstance)
-			                {
-			                	for (Quest quest: ((L2NpcInstance)target).getTemplate().getEventQuests(Quest.QuestEventType.MOB_TARGETED_BY_SKILL))
-			                		quest.notifySkillUse ( (L2NpcInstance) target, caster, skill);
-			                }
-						}
-					}
-
-                    return;
-                }
-            }
-            
             // Check if over-hit is possible
             if(skill.isOverhit())
             {
@@ -5351,7 +5319,7 @@ public abstract class L2Character extends L2Object
             }
             
             // Get the skill handler corresponding to the skill type (PDAM, MDAM, SWEEP...) started in gameserver
-            handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
+            ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
             
             // Launch the magic skill and calculate its effects
             if (handler != null)
