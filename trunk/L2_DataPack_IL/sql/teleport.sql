@@ -696,9 +696,9 @@ INSERT INTO teleport VALUES
 -- L2J Free Addon
 
 -- Update Boss Manager
-Update npc Set `type` = "L2Teleporter" Where idTemplate = 31759;
-Update npc set `type` = 'L2Teleporter' Where idTemplate = 31859;
-Delete From teleport where id in (20000,20001,20002);
+UPDATE npc SET `type` = "L2Teleporter" WHERE idTemplate = 31759;
+UPDATE npc SET `type` = 'L2Teleporter' WHERE idTemplate = 31859;
+Delete FROM teleport WHERE id IN (20000,20001,20002);
 INSERT INTO teleport VALUES
 	("Lair of Antharas -> Town of Giran", 20000, 83400, 147943, -3404, 0, 0),
 	("Lair of Baium -> Town of Aden", 20001, 146331, 25762, -2018, 0, 0),

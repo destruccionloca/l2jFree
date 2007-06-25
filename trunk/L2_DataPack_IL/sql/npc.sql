@@ -2952,12 +2952,12 @@ INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSide
 	(21821,21821,'Treasure Chest',0,'',0,'Monster.mimic',8.50,8.50,81,'male','L2Chest',40,4608,1896,13.43,3.09,40,43,30,21,20,10,7873,894,1863,587,1182,477,278,0,333,0,0,0,88,181,NULL,0,0,0),
 	(21822,21822,'Treasure Chest',0,'',0,'Monster.mimic',8.50,8.50,84,'male','L2Chest',40,4766,2011,13.43,3.09,40,43,30,21,20,10,8467,996,2006,619,1296,502,278,0,333,0,0,0,88,181,NULL,0,0,0),
 	(21823,21823,'Executor of Sacrificial Offerings',0,'',0,'Monster2.imperial_warlord_zombie',7.00,30.00,80,'male','L2Monster',40,4550,1859,80.58,3.09,40,43,30,21,20,10,12042,1351,1814,576,1144,468,278,0,333,134,6721,0,42,209,'tomb_clan',300,1,0),
-	(21824,21824,'Alpen Kookaburra',0,'',0,'Monster2.rough_ostrich',20.00,31.00,99,'male','L2FeedableBeast',80,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0),
-	(21825,21825,'Alpen Kookaburra',0,'',0,'Monster2.rough_ostrich',20.00,31.00,99,'male','L2FeedableBeast',80,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0),
-	(21826,21826,'Alpen Buffalo',0,'',0,'Monster2.buffalo',20.00,31.00,99,'male','L2FeedableBeast',80,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0),
-	(21827,21827,'Alpen Buffalo',0,'',0,'Monster2.buffalo',20.00,31.00,99,'male','L2FeedableBeast',80,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0),
-	(21828,21828,'Alpen Cougar',0,'',0,'Monster.saber_toothed_tiger',20.00,31.00,99,'male','L2FeedableBeast',80,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0),
-	(21829,21829,'Alpen Cougar',0,'',0,'Monster.saber_toothed_tiger',20.00,31.00,99,'male','L2FeedableBeast',80,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0);
+	(21824,21824,'Alpen Kookaburra',0,'',0,'Monster2.rough_ostrich',20.00,31.00,99,'male','L2FeedableBeast',80,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,1392,5000,746,6000,300,0,333,0,0,0,88,132,NULL,0,0,0),
+	(21825,21825,'Alpen Kookaburra',0,'',0,'Monster2.rough_ostrich',20.00,31.00,99,'male','L2FeedableBeast',80,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,1392,5000,746,6000,300,0,333,0,0,0,88,132,NULL,0,0,0),
+	(21826,21826,'Alpen Buffalo',0,'',0,'Monster2.buffalo',20.00,31.00,99,'male','L2FeedableBeast',80,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,1392,5000,746,6000,300,0,333,0,0,0,88,132,NULL,0,0,0),
+	(21827,21827,'Alpen Buffalo',0,'',0,'Monster2.buffalo',20.00,31.00,99,'male','L2FeedableBeast',80,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,1392,5000,746,6000,300,0,333,0,0,0,88,132,NULL,0,0,0),
+	(21828,21828,'Alpen Cougar',0,'',0,'Monster.saber_toothed_tiger',20.00,31.00,99,'male','L2FeedableBeast',80,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,1392,5000,746,6000,300,0,333,0,0,0,88,132,NULL,0,0,0),
+	(21829,21829,'Alpen Cougar',0,'',0,'Monster.saber_toothed_tiger',20.00,31.00,99,'male','L2FeedableBeast',80,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,1392,5000,746,6000,300,0,333,0,0,0,88,132,NULL,0,0,0);
 
 -- 
 -- work in progress C5 stats - 22xxx mobs
@@ -6636,7 +6636,7 @@ INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSide
 	(35886,35886,'Crothers',0,'Clan Hall Manager',0,'NPC.a_casino_MHuman',8.00,23.00,70,'male','L2ClanHallManager',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,0,NULL,0,1,0);
 
 -- 
--- L2JFree addon
+-- L2J Free Addon
 -- 
 
 UPDATE `npc` SET `type` = 'L2SepulcherNpc' WHERE `id` IN
@@ -6848,7 +6848,7 @@ UPDATE npc SET `type` = 'L2RaidBoss' WHERE id = 29065;
 UPDATE npc SET `type` = 'L2Teleporter' WHERE id = 32107;
 
 -- Update Antharas
-DELETE FROM npc WHERE idTemplate Between 29066 and 29076;
+DELETE FROM npc WHERE idTemplate BETWEEN 29066 AND 29076;
 INSERT INTO `npc` VALUES
 	(29066, 29066, "Antharas", 0, "", 0, "Monster.antaras", 300, 300, 79, "male", "L2Boss", 40, 11506110, 19511, 2092.02, 233.22, 60, 57, 73, 76, 70, 80, 230931687, 25593295, 11698, 7088, 24699, 1442, 333, 0, 3819, 0, 0, 0, 81, 301, "", 0, 0, 13),
 	(29067, 29067, "Antharas", 0, "", 0, "Monster.antaras", 300, 300, 79, "male", "L2Boss", 40, 13090000, 22197, 2380, 265.32, 60, 57, 73, 76, 70, 80, 262720918, 29116376, 13308, 8064, 28099, 1641, 333, 0, 3819, 0, 0, 0, 81, 301, "", 0, 0, 13),
@@ -6863,9 +6863,6 @@ INSERT INTO `npc` VALUES
 	(29076, 29076, "Dragon Bomber", 0, "", 0, "Monster3.antaras_ex_b", 42, 34.5, 78, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, "", 0, 0, 0);
 UPDATE npc SET aggro = 800 WHERE idTemplate IN (29019,29066,29067,29068);
 
-update npc set aggro = 500 where id = 29014;
-update npc set aggro = 500 where id = 29020;
-update npc set aggro = 500 where id = 29021;
-update npc set aggro = 500 where id = 29022;
-update npc set aggro = 800 where id = 29028;
-update npc Set `type` = "L2Teleporter" Where idTemplate = 31759;
+UPDATE npc SET aggro = 500 WHERE id IN (29014,29020,29021,29022);
+UPDATE npc SET aggro = 800 WHERE id = 29028;
+UPDATE npc SET `type` = "L2Teleporter" WHERE idTemplate = 31759;
