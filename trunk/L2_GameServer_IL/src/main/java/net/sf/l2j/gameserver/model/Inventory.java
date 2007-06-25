@@ -212,6 +212,8 @@ public abstract class Inventory extends ItemContainer
                player.removeSkill(passiveSkill, false);
            if(enchant4Skill != null)
                player.removeSkill(enchant4Skill, false);
+           if(item.isAugmented())
+        	   item.getAugmentation().removeBoni(player);
        }
        public void notifyEquiped(int slot, L2ItemInstance item)
        {
@@ -243,6 +245,8 @@ public abstract class Inventory extends ItemContainer
                player.addSkill(passiveSkill, false);
            if(enchant4Skill != null)
                player.addSkill(enchant4Skill, false);
+           if(item.isAugmented())
+        	   item.getAugmentation().applyBoni(player);
 
        }
     }
