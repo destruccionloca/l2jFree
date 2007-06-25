@@ -692,3 +692,10 @@ INSERT INTO teleport VALUES
 
 INSERT INTO teleport VALUES
 ('Lair of Sailren -> Primeval Isle Wharf', 20004, 10468, -24569, -3650, 0, 0);
+
+-- L2J Free Addon
+
+-- Update Antharas
+Update npc set `type` = 'L2Teleporter' Where idTemplate = 31859;
+Delete From teleport where id in (20000);
+INSERT INTO teleport (Description, id, loc_x, loc_y, loc_z, price, fornoble) VALUES ("Lair of Antharas -> Town of Giran", 20000, 83400, 147943, -3404, 0, 0);
