@@ -25,6 +25,7 @@ class sailren (JQuest):
 
   def onTalk (self,npc,player):
     st = player.getQuestState("sailren")
+    if not st : return "<html><head><body>I have no tasks for you</body></html>"
     npcId = npc.getNpcId()
     if npcId == STATUE :
       if st.getQuestItemsCount(GAZKH) :
@@ -49,6 +50,7 @@ class sailren (JQuest):
 
   def onKill (self,npc,player):
     st = player.getQuestState("sailren")
+    if not st: return
     if ZoneManager.getInstance().checkIfInZone("LairofSailren", player) :
       npcId = npc.getNpcId()
       if npcId == VELOCIRAPTOR :
@@ -60,8 +62,6 @@ class sailren (JQuest):
       elif npcId == SAILREN :
         SailrenManager.getInstance().setCubeSpawn()
         st.exitQuest(1)
-    else :
-      st.exitQuest(1)
     return
 
 # Quest class and state definition
