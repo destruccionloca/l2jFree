@@ -83,7 +83,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             
             if(((level >= 20 && jobLevel == 0 ) || 
                 (level >= 40 && jobLevel == 1 ) || 
-                (level >= 75 && jobLevel == 2)) &&
+                (level >= 76 && jobLevel == 2)) &&
                 Config.CLASS_MASTER_SETTINGS.isAllowed(newJobLevel))
             {
             	sb.append("You can change your occupation to following:<br>");
@@ -181,7 +181,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             // check for player level
             if (level < 20 && newJobLevel > 1) return;
             if (level < 40 && newJobLevel > 2) return;
-            if (level < 75 && newJobLevel > 3) return;
+            if (level < 76 && newJobLevel > 3) return;
             // -- prevention ends
 
             // check if player have all required items for class transfer
