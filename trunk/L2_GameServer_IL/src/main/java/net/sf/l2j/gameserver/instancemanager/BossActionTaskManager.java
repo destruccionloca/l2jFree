@@ -55,7 +55,6 @@ public class BossActionTaskManager
 
     protected static final int _ActivityTimeOfBoss = Config.ACTIVITY_TIME_OF_BOSS;
     protected static final int _CapacityOfLairOfValakas = Config.CAPACITY_OF_LAIR_OF_VALAKAS;
-    protected static final int _AppTimeOfAntharas = Config.APPTIME_OF_ANTHARAS;
     protected static final int _AppTimeOfValakas = Config.APPTIME_OF_VALAKAS;
 
 
@@ -83,13 +82,7 @@ public class BossActionTaskManager
     	};
     protected List<L2Spawn> _BaiumCubeSpawn = new FastList<L2Spawn>();
     protected List<L2NpcInstance> _BaiumCube = new FastList<L2NpcInstance>();
-    private final int _AntharasCubeLocation[][] =
-    	{
-    		{177615, 114941, -7709,0}
-    	};
-    protected List<L2Spawn> _AntharasCubeSpawn = new FastList<L2Spawn>();
-    protected List<L2NpcInstance> _AntharasCube = new FastList<L2NpcInstance>();
- 
+
     private final int _ValakasCubeLocation[][] =
     	{
     		{214880, -116144, -1644, 0},
@@ -111,20 +104,16 @@ public class BossActionTaskManager
     protected List<L2Spawn> _ValakasCubeSpawn = new FastList<L2Spawn>();
     protected List<L2NpcInstance> _ValakasCube = new FastList<L2NpcInstance>();
     
-    protected List<L2PcInstance> _playersInAntharasLair = new FastList<L2PcInstance>();
     protected List<L2PcInstance> _playersInBaiumLair = new FastList<L2PcInstance>();
     protected List<L2PcInstance> _playersInValakasLair = new FastList<L2PcInstance>();
 
-    protected L2Spawn _AntharasSpawn;
     protected L2Spawn _BaiumSpawn;
     protected L2Spawn _ValakasSpawn;
 
     protected L2NpcInstance _npcbaium;
 
-    protected static boolean _IsAntharasSpawned = false;
     protected static boolean _IsValakasSpawned = false;
 
-    protected Future _AntharasSpawnTask = null;
     protected Future _VarakasSpawnTask = null;
     protected Future _CubeSpawnTask = null;
 
@@ -147,15 +136,6 @@ public class BossActionTaskManager
         {
             L2NpcTemplate template1;
             
-            template1 = NpcTable.getInstance().getTemplate(29019); //Antharas
-            _AntharasSpawn = new L2Spawn(template1);
-            _AntharasSpawn.setLocx(181323);
-            _AntharasSpawn.setLocy(114850);
-            _AntharasSpawn.setLocz(-7623);
-            _AntharasSpawn.setHeading(32542);
-            _AntharasSpawn.setAmount(1);
-            _AntharasSpawn.setRespawnDelay(_ActivityTimeOfBoss * 2);
-            SpawnTable.getInstance().addNewSpawn(_AntharasSpawn, false);
 
             template1 = NpcTable.getInstance().getTemplate(29020); //Baium
             _BaiumSpawn = new L2Spawn(template1);
@@ -227,19 +207,6 @@ public class BossActionTaskManager
             L2NpcTemplate Cube = NpcTable.getInstance().getTemplate(31859);
             L2Spawn spawnDat;
         	
-            for(int i = 0;i < _AntharasCubeLocation.length; i++)
-            {
-                spawnDat = new L2Spawn(Cube);
-                spawnDat.setAmount(1);
-                spawnDat.setLocx(_AntharasCubeLocation[i][0]);
-                spawnDat.setLocy(_AntharasCubeLocation[i][1]);
-                spawnDat.setLocz(_AntharasCubeLocation[i][2]);
-                spawnDat.setHeading(_AntharasCubeLocation[i][3]);
-                spawnDat.setRespawnDelay(60);
-                spawnDat.setLocation(0);
-                SpawnTable.getInstance().addNewSpawn(spawnDat, false);
-                _AntharasCubeSpawn.add(spawnDat);
-            }
 
             Cube = NpcTable.getInstance().getTemplate(29055);
             for(int i = 0;i < _BaiumCubeLocation.length; i++)
@@ -283,8 +250,6 @@ public class BossActionTaskManager
     {
     	switch(npcId)
     	{
-    		case 29019:	// Antharas
-    			return _playersInAntharasLair;
     		case 29020: // Baium
     			return _playersInBaiumLair;
     		case 29028: // Valakas
@@ -345,22 +310,6 @@ public class BossActionTaskManager
     {
         return (_playersInValakasLair.size() < _CapacityOfLairOfValakas && !_IsValakasSpawned);
     }
-    
-    public boolean CanIntoAntharasLair()
-    {
-        return !_IsAntharasSpawned;
-    }
-    
-    public void SetAntharasSpawnTask()
-    {
-        if (_playersInAntharasLair.size() >= 1) return;
-        
-        if (_AntharasSpawnTask == null)
-        {
-            _AntharasSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
-            		new AntharasSpawn(),_AppTimeOfAntharas);
-        }
-    }
 
     public void SetValakasSpawnTask()
     {
@@ -373,11 +322,6 @@ public class BossActionTaskManager
         }
     }
 
-    public void AddPlayerToAntharasLair(L2PcInstance pc)
-    {
-        if (!_playersInAntharasLair.contains(pc)) _playersInAntharasLair.add(pc);
-    }
-    
     public void AddPlayerToValakasLair(L2PcInstance pc)
     {
         if (!_playersInValakasLair.contains(pc)) _playersInValakasLair.add(pc);
@@ -392,9 +336,6 @@ public class BossActionTaskManager
     {
         switch (bossId)
         {
-        	case 29019: // Antharas
-        		banishesPlayersFromAntharasLair();
-        		break;
         	case 29020: //Baium
         		banishesPlayersFromBaiumLair();
                 break;
@@ -404,19 +345,6 @@ public class BossActionTaskManager
         }
     }
 
-    protected void banishesPlayersFromAntharasLair()
-    {
-    	for(L2PcInstance pc : _playersInAntharasLair)
-    	{
-    		if(ZoneManager.getInstance().checkIfInZone("LairofAntharas", pc))
-    		{
-        		int driftX = Rnd.get(-80,80);
-        		int driftY = Rnd.get(-80,80);
-        		pc.teleToLocation(79959 + driftX,151774 + driftY,-3532);
-    		}
-    	}
-    	_playersInAntharasLair.clear();
-    }
 
     protected void banishesPlayersFromBaiumLair()
     {
@@ -462,15 +390,6 @@ public class BossActionTaskManager
         		_npcbaium.getSpawn().decreaseCount(_npcbaium);
         		_npcbaium = null;
                 break;
-            case 29019: // Antharas
-            	for(L2NpcInstance cube : _AntharasCube)
-            	{
-            		cube.getSpawn().stopRespawn();
-            		cube.deleteMe();
-            	}
-            	_AntharasCube.clear();
-                _IsAntharasSpawned = false;
-                break;
             case 29028: // Valakas
             	for(L2NpcInstance cube : _ValakasCube)
             	{
@@ -487,12 +406,6 @@ public class BossActionTaskManager
 	{
 		switch (bossId)
 		{
-		case 29019: // Antharas
-			for (L2Spawn spawnDat : _AntharasCubeSpawn)
-			{
-				_AntharasCube.add(spawnDat.doSpawn());
-			}
-			break;
 		case 29020: // Baium
 			for (L2Spawn spawnDat : _BaiumCubeSpawn)
 			{
@@ -512,10 +425,6 @@ public class BossActionTaskManager
     {
         switch (bossId)
         {
-        	case 29019: // Antharas
-        		_CubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
-                    	new CubeSpawn(bossId),15000);
-        		break;
 
         	case 29020: //Baium
         		_CubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
@@ -526,26 +435,6 @@ public class BossActionTaskManager
         		_CubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
                 		new CubeSpawn(bossId),21000);
         		break;
-        }
-    }
-    
-    private class AntharasSpawn implements Runnable
-    {
-    	public AntharasSpawn()
-    	{
-    	}
-    	
-        public void run()
-        {
-        	_AntharasSpawn.doSpawn();
-        	
-            _IsAntharasSpawned = true;
-            
-            if(_AntharasSpawnTask != null)
-            {
-            	_AntharasSpawnTask.cancel(true);
-            	_AntharasSpawnTask = null;
-            }
         }
     }
 

@@ -1281,7 +1281,6 @@ public final class Config {
 	public static int 				NURSEANT_RESPAWN_DELAY;
 	public static int 				CAPACITY_OF_LAIR_OF_VALAKAS;
 	public static int 				APPTIME_OF_VALAKAS;
-	public static int 				APPTIME_OF_ANTHARAS;
     public static int 				DWARF_RECIPE_LIMIT;					// Recipebook limits
     public static int 				COMMON_RECIPE_LIMIT;  
     public static int 				CHANCE_BREAK;						// Chance For Soul Crystal to Break
@@ -1429,7 +1428,6 @@ public final class Config {
             NURSEANT_RESPAWN_DELAY 								= Integer.parseInt(altSettings.getProperty("NurseAntRespawnDelay", "15"));
             CAPACITY_OF_LAIR_OF_VALAKAS 						= Integer.parseInt(altSettings.getProperty("CapacityOfLairOfValakas", "200"));
             APPTIME_OF_VALAKAS 									= Integer.parseInt(altSettings.getProperty("AppTimeOfValakas", "20"));
-            APPTIME_OF_ANTHARAS 								= Integer.parseInt(altSettings.getProperty("AppTimeOfAntharas", "10"));
             if (NURSEANT_RESPAWN_DELAY < 15) NURSEANT_RESPAWN_DELAY = 15;
             else if (NURSEANT_RESPAWN_DELAY > 120) NURSEANT_RESPAWN_DELAY = 120;
             NURSEANT_RESPAWN_DELAY = NURSEANT_RESPAWN_DELAY * 1000;
@@ -1441,9 +1439,6 @@ public final class Config {
             if (APPTIME_OF_VALAKAS < 5) APPTIME_OF_VALAKAS = 5;
             else if (APPTIME_OF_VALAKAS > 60) APPTIME_OF_VALAKAS = 60;
             APPTIME_OF_VALAKAS = APPTIME_OF_VALAKAS * 60000;
-            if (APPTIME_OF_ANTHARAS < 5) APPTIME_OF_ANTHARAS = 5;
-            else if (APPTIME_OF_ANTHARAS > 60) APPTIME_OF_ANTHARAS = 60;
-            APPTIME_OF_ANTHARAS = APPTIME_OF_ANTHARAS * 60000;
             
             ALT_GAME_SUMMON_PENALTY_RATE = Float.parseFloat(altSettings.getProperty("AltSummonPenaltyRate", "1"));
         }
@@ -2007,6 +2002,72 @@ public final class Config {
             throw new Error("Failed to Load "+IRC_FILE+" File.");
         }
     }
+    //  *******************************************************************************************
+    public static final String  ANTHARAS_FILE              = "./config/antharas.properties";
+    //  *******************************************************************************************
+    public static int FWA_INTERVALOFANTHARAS;
+    public static int FWA_APPTIMEOFANTHARAS;
+    public static int FWA_ACTIVITYTIMEOFANTHARAS;
+    public static boolean FWA_OLDANTHARAS;
+    public static int FWA_LIMITOFWEAK;
+    public static int FWA_LIMITOFNORMAL;
+    public static int FWA_INTGERVALOFBEHEMOTHONWEAK;
+    public static int FWA_INTGERVALOFBEHEMOTHONNORMAL;
+    public static int FWA_INTGERVALOFBEHEMOTHONSTRONG;
+    public static int FWA_INTGERVALOFBOMBERONWEAK;
+    public static int FWA_INTGERVALOFBOMBERONNORMAL;
+    public static int FWA_INTGERVALOFBOMBERONSTRONG;
+    public static boolean FWA_MOVEATRANDOM;
+    //  *******************************************************************************************
+    public static void loadantharasconfig()
+    {
+    	_log.info("loading " + ANTHARAS_FILE);
+        try
+        {
+            Properties antharasSettings = new Properties();
+            InputStream is               = new FileInputStream(new File(ANTHARAS_FILE));
+            antharasSettings.load(is);
+            is.close();
+
+            FWA_INTERVALOFANTHARAS = Integer.parseInt(antharasSettings.getProperty("IntervalOfAntharas", "1440"));
+            if(FWA_INTERVALOFANTHARAS < 5 || FWA_INTERVALOFANTHARAS > 1440) FWA_INTERVALOFANTHARAS = 1440;
+            FWA_INTERVALOFANTHARAS = FWA_INTERVALOFANTHARAS * 60000;
+            FWA_APPTIMEOFANTHARAS = Integer.parseInt(antharasSettings.getProperty("AppTimeOfAntharas", "10"));
+            if(FWA_APPTIMEOFANTHARAS < 5 || FWA_APPTIMEOFANTHARAS > 60) FWA_APPTIMEOFANTHARAS = 10;
+            FWA_APPTIMEOFANTHARAS = FWA_APPTIMEOFANTHARAS * 60000;
+            FWA_ACTIVITYTIMEOFANTHARAS = Integer.parseInt(antharasSettings.getProperty("ActivityTimeOfAntharas", "120"));
+            if(FWA_ACTIVITYTIMEOFANTHARAS < 120 || FWA_ACTIVITYTIMEOFANTHARAS > 720) FWA_ACTIVITYTIMEOFANTHARAS = 120;
+            FWA_ACTIVITYTIMEOFANTHARAS = FWA_ACTIVITYTIMEOFANTHARAS * 60000;
+            FWA_OLDANTHARAS = Boolean.parseBoolean(antharasSettings.getProperty("OldAntharas", "False"));
+            FWA_LIMITOFWEAK = Integer.parseInt(antharasSettings.getProperty("LimitOfWeak", "299"));
+            FWA_LIMITOFNORMAL = Integer.parseInt(antharasSettings.getProperty("LimitOfNormal", "399"));
+            FWA_INTGERVALOFBEHEMOTHONWEAK = Integer.parseInt(antharasSettings.getProperty("IntgervalOfBehemothOnWeak", "8"));
+            if(FWA_INTGERVALOFBEHEMOTHONWEAK < 1 || FWA_INTGERVALOFBEHEMOTHONWEAK > 10) FWA_INTGERVALOFBEHEMOTHONWEAK = 8;
+            FWA_INTGERVALOFBEHEMOTHONWEAK = FWA_INTGERVALOFBEHEMOTHONWEAK * 60000;
+            FWA_INTGERVALOFBEHEMOTHONNORMAL = Integer.parseInt(antharasSettings.getProperty("IntgervalOfBehemothOnNormal", "5"));
+            if(FWA_INTGERVALOFBEHEMOTHONNORMAL < 1 || FWA_INTGERVALOFBEHEMOTHONNORMAL > 10) FWA_INTGERVALOFBEHEMOTHONNORMAL = 5;
+            FWA_INTGERVALOFBEHEMOTHONNORMAL = FWA_INTGERVALOFBEHEMOTHONNORMAL * 60000;
+            FWA_INTGERVALOFBEHEMOTHONSTRONG = Integer.parseInt(antharasSettings.getProperty("IntgervalOfBehemothOnStrong", "3"));
+            if(FWA_INTGERVALOFBEHEMOTHONSTRONG < 1 || FWA_INTGERVALOFBEHEMOTHONSTRONG > 10) FWA_INTGERVALOFBEHEMOTHONSTRONG = 3;
+            FWA_INTGERVALOFBEHEMOTHONSTRONG = FWA_INTGERVALOFBEHEMOTHONSTRONG * 60000;
+            FWA_INTGERVALOFBOMBERONWEAK = Integer.parseInt(antharasSettings.getProperty("IntgervalOfBomberOnWeak", "6"));
+            if(FWA_INTGERVALOFBOMBERONWEAK < 1 || FWA_INTGERVALOFBOMBERONWEAK > 10) FWA_INTGERVALOFBOMBERONWEAK = 6;
+            FWA_INTGERVALOFBOMBERONWEAK = FWA_INTGERVALOFBOMBERONWEAK * 60000;
+            FWA_INTGERVALOFBOMBERONNORMAL = Integer.parseInt(antharasSettings.getProperty("IntgervalOfBomberOnNormal", "4"));
+            if(FWA_INTGERVALOFBOMBERONNORMAL < 1 || FWA_INTGERVALOFBOMBERONNORMAL > 10) FWA_INTGERVALOFBOMBERONNORMAL = 4;
+            FWA_INTGERVALOFBOMBERONNORMAL = FWA_INTGERVALOFBOMBERONNORMAL * 60000;
+            FWA_INTGERVALOFBOMBERONSTRONG = Integer.parseInt(antharasSettings.getProperty("IntgervalOfBomberOnStrong", "3"));
+            if(FWA_INTGERVALOFBOMBERONSTRONG < 1 || FWA_INTGERVALOFBOMBERONSTRONG > 10) FWA_INTGERVALOFBOMBERONSTRONG = 3;
+            FWA_INTGERVALOFBOMBERONSTRONG = FWA_INTGERVALOFBOMBERONSTRONG * 60000;
+            FWA_MOVEATRANDOM = Boolean.parseBoolean(antharasSettings.getProperty("MoveAtRandom", "True"));
+            }
+            catch (Exception e)
+            {
+            _log.error(e.getMessage(),e);
+            throw new Error("Failed to Load "+ANTHARAS_FILE+" File.");
+        }
+    }
+    
 
     //  *******************************************************************************************
     public static final String  SAILREN_FILE             	= "./config/sailren.properties";
@@ -2022,19 +2083,19 @@ public final class Config {
         try
         {
             Properties sailrenSettings = new Properties();
-            InputStream is               = new FileInputStream(new File(IRC_FILE));
+            InputStream is               = new FileInputStream(new File(SAILREN_FILE));
             sailrenSettings.load(is);
             is.close();
 
             FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(sailrenSettings.getProperty("EnableSinglePlayer", "False"));
-            FWS_INTERVALOFSAILRENSPAWN = Integer.parseInt(sailrenSettings.getProperty("IntervalOfSailrenSpawn", "5"));
-            if(FWS_INTERVALOFSAILRENSPAWN <= 0) FWS_INTERVALOFSAILRENSPAWN = 1440;
+            FWS_INTERVALOFSAILRENSPAWN = Integer.parseInt(sailrenSettings.getProperty("IntervalOfSailrenSpawn", "1440"));
+            if(FWS_INTERVALOFSAILRENSPAWN < 5 || FWS_INTERVALOFSAILRENSPAWN > 1440) FWS_INTERVALOFSAILRENSPAWN = 1440;
             FWS_INTERVALOFSAILRENSPAWN = FWS_INTERVALOFSAILRENSPAWN * 60000;
             FWS_INTERVALOFNEXTMONSTER = Integer.parseInt(sailrenSettings.getProperty("IntervalOfNextMonster", "1"));
-            if(FWS_INTERVALOFNEXTMONSTER <= 0) FWS_INTERVALOFNEXTMONSTER = 1;
+            if(FWS_INTERVALOFNEXTMONSTER < 1 || FWS_INTERVALOFNEXTMONSTER > 10) FWS_INTERVALOFNEXTMONSTER = 1;
             FWS_INTERVALOFNEXTMONSTER = FWS_INTERVALOFNEXTMONSTER * 60000;
             FWS_ACTIVITYTIMEOFMOBS = Integer.parseInt(sailrenSettings.getProperty("ActivityTimeOfMobs", "120"));
-            if(FWS_ACTIVITYTIMEOFMOBS <= 0) FWS_ACTIVITYTIMEOFMOBS = 120;
+            if(FWS_ACTIVITYTIMEOFMOBS < 1 || FWS_ACTIVITYTIMEOFMOBS > 120) FWS_ACTIVITYTIMEOFMOBS = 120;
             FWS_ACTIVITYTIMEOFMOBS = FWS_ACTIVITYTIMEOFMOBS * 60000;        
         }
         catch (Exception e)
@@ -2045,10 +2106,7 @@ public final class Config {
     }
     
     //  *******************************************************************************************
-
-    //  *******************************************************************************************    
     public static final String	SAY_FILTER_FILE				= "./config/sayfilter.txt";
-    //  *******************************************************************************************    
     //  *******************************************************************************************
     public static void loadsayfilter()
     {
@@ -2212,6 +2270,7 @@ public final class Config {
 			loadgmaccess();
 			loadprivilegesconfig();
 			loadircconfig();
+			loadantharasconfig();
 			loadsailrenconfig();
 			loadsayfilter();
 			
@@ -2485,6 +2544,20 @@ public final class Config {
         else if (pName.equalsIgnoreCase("CTFEvenTeams"))  CTF_EVEN_TEAMS = pValue;
 
         else if (pName.equalsIgnoreCase("FailFakeDeath")) FAIL_FAKEDEATH = Boolean.valueOf(pValue);
+
+        // JP fight with Antharas Custom Setting
+        else if (pName.equalsIgnoreCase("IntervalOfAntharas")) FWA_INTERVALOFANTHARAS = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("AppTimeOfAntharas")) FWA_APPTIMEOFANTHARAS = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("ActivityTimeOfAntharas")) FWA_ACTIVITYTIMEOFANTHARAS = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("OldAntharas")) FWA_OLDANTHARAS = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("LimitOfWeak")) FWA_LIMITOFWEAK = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("LimitOfNormal")) FWA_LIMITOFNORMAL = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("IntgervalOfBehemothOnWeak")) FWA_INTGERVALOFBEHEMOTHONWEAK = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("IntgervalOfBehemothOnNormal")) FWA_INTGERVALOFBEHEMOTHONNORMAL = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("IntgervalOfBehemothOnStrong")) FWA_INTGERVALOFBEHEMOTHONSTRONG = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("IntgervalOfBomberOnWeak")) FWA_INTGERVALOFBOMBERONWEAK = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("IntgervalOfBomberOnNormal")) FWA_INTGERVALOFBOMBERONNORMAL = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("IntgervalOfBomberOnStrong")) FWA_INTGERVALOFBOMBERONSTRONG = Integer.parseInt(pValue);
 
         // JP fight with sailren Custom Setting
         else if (pName.equalsIgnoreCase("EnableSinglePlayer")) FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(pValue);

@@ -82,6 +82,7 @@ import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SailrenManager;
+import net.sf.l2j.gameserver.instancemanager.AntharasManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
@@ -4271,7 +4272,11 @@ public final class L2PcInstance extends L2PlayableInstance
     	if ((ZoneManager.getInstance().checkIfInZone("LairofSailren", this)) && !isGM())
     	{
     		SailrenManager.getInstance().checkAnnihilated(this);
-    	}		
+    	}
+    	if ((ZoneManager.getInstance().checkIfInZone("LairofAntharas", this)) && !isGM())
+    	{
+    		AntharasManager.getInstance().checkAnnihilated();
+    	}
 	}
 
     /** UnEnquip on skills with disarm effect **/

@@ -1230,12 +1230,12 @@ public class L2NpcInstance extends L2Character
                 setTarget(player);
                 BossActionTaskManager.getInstance().SetNpcBaiumDecayAction(this);
             }
-            else if (command.equalsIgnoreCase("meet_antharas"))
-            {
-                BossActionTaskManager.getInstance().SetAntharasSpawnTask();
-                BossActionTaskManager.getInstance().AddPlayerToAntharasLair(player);
-                player.teleToLocation(173826,115333,-7708);
-            }
+//            else if (command.equalsIgnoreCase("meet_antharas"))
+//            {
+//                BossActionTaskManager.getInstance().SetAntharasSpawnTask();
+//                BossActionTaskManager.getInstance().AddPlayerToAntharasLair(player);
+//                player.teleToLocation(173826,115333,-7708);
+//            }
             else if (command.equalsIgnoreCase("meet_valakas"))
             {
                 BossActionTaskManager.getInstance().SetValakasSpawnTask();

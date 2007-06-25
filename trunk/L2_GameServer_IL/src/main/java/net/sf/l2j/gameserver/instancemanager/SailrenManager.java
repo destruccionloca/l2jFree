@@ -179,10 +179,9 @@ public class SailrenManager
         // setting spawn data of teleporte cube.
         try
         {
-            L2NpcTemplate Cube = NpcTable.getInstance().getTemplate(31859);
+            L2NpcTemplate Cube = NpcTable.getInstance().getTemplate(32107);
             L2Spawn spawnDat;
         	
-            Cube = NpcTable.getInstance().getTemplate(32107);
             for(int i = 0;i < _SailrenCubeLocation.length; i++)
             {
                 spawnDat = new L2Spawn(Cube);

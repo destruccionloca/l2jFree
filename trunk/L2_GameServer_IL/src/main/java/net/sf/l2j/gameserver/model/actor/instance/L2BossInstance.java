@@ -126,10 +126,6 @@ public final class L2BossInstance extends L2MonsterInstance
 
         switch (getTemplate().getNpcId())
         {
-            case 29019: //Antharas
-                BossActionTaskManager.getInstance().setCubeSpawn(getNpcId());
-                break;
-
             case 29020: //Baium
                 BossActionTaskManager.getInstance().RemoveArcAngel();
                 BossActionTaskManager.getInstance().setCubeSpawn(getNpcId());
@@ -209,20 +205,6 @@ public final class L2BossInstance extends L2MonsterInstance
                 _DeleteTask = 
                 	ThreadPoolManager.getInstance().scheduleEffect(
                 			new DeleteGrandBoss(),_ActivityTimeOfBoss); // Delete Spawn
-                break;
-            }
-            case 29019: //Antharas
-            {
-                setIsInSocialAction(true);
-                SocialAction sa = new SocialAction(getObjectId(), 3);
-                broadcastPacket(sa);
-                _SocialTask = 
-                	ThreadPoolManager.getInstance().scheduleEffect(new Social(2), 15000);
-                _MobiliseTask = 
-                	ThreadPoolManager.getInstance().scheduleEffect(new SetMobilised(),30000);
-                _DeleteTask = 
-                	ThreadPoolManager.getInstance().scheduleEffect(
-                			new DeleteGrandBoss(),_ActivityTimeOfBoss); // Delete Spawn 
                 break;
             }
             case 29028: //Valakas

@@ -300,6 +300,11 @@ public class AdminAdmin implements IAdminCommandHandler {
                     Config.loadircconfig();
                     activeChar.sendMessage("irc config reloaded");
                 }
+                else if(type.equals("antharas"))
+                {
+                    Config.loadantharasconfig();
+                    activeChar.sendMessage("antharas config reloaded");
+                }
                 else if(type.equals("sailren"))
                 {
                     Config.loadsailrenconfig();
@@ -313,7 +318,7 @@ public class AdminAdmin implements IAdminCommandHandler {
             }
             catch(Exception e)
             {
-                activeChar.sendMessage("Usage:  //reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmaccess|irc|sailren|sayfilter>");
+                activeChar.sendMessage("Usage:  //reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmaccess|irc|antharas|sailren|sayfilter>");
             }
         }
         else if(command.startsWith("admin_reload"))

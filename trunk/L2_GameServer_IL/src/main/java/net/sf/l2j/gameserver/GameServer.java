@@ -63,6 +63,7 @@ import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.handler.UserCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
+import net.sf.l2j.gameserver.instancemanager.AntharasManager;
 import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
 import net.sf.l2j.gameserver.instancemanager.BossActionTaskManager;
@@ -476,7 +477,8 @@ public class GameServer
         OlympiadStadiaManager.getInstance();
         BossActionTaskManager.getInstance().init();
         FourSepulchersManager.getInstance().init();
-        SailrenManager.getInstance().init();  
+        SailrenManager.getInstance().init();
+        AntharasManager.getInstance().init();
         
         // o Initialize the FloodProtector
         // -------------------------------
