@@ -3,7 +3,7 @@ import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.instancemanager import BossActionTaskManager
+from net.sf.l2j.gameserver.instancemanager import ValakasManager
 
 # Main Quest Code
 class valakas(JQuest):
@@ -12,14 +12,14 @@ class valakas(JQuest):
 
   def onTalk (self,npc,player):
     st = player.getQuestState("valakas")
+    if not st : return "<html><head><body>I have no tasks for you</body></html>"
     npcId = npc.getNpcId()
     if npcId == 31385 :    # Heart of Volcano
       if st.getInt("ok"):
-        if BossActionTaskManager.getInstance().CanIntoValakasLair():
-          BossActionTaskManager.getInstance().SetValakasSpawnTask()
-          BossActionTaskManager.getInstance().AddPlayerToValakasLair(st.player)
+        if ValakasManager.getInstance().isEnableEnterToLair():
+          ValakasManager.getInstance().setValakasSpawnTask()
+          ValakasManager.getInstance().addPlayerToLair(st.player)
           st.player.teleToLocation(203940,-111840,66)
-          st.exitQuest(1)
           return
         else:
           st.exitQuest(1)
@@ -33,8 +33,15 @@ class valakas(JQuest):
         st.getPlayer().teleToLocation(183831,-115457,-3296)
         st.set("ok","1")
       else :
+        st.exitQuest(1)
         return '<html><head><body>ヴァラカスの監視者 クライン:<br>必要なアイテムを持っていません。</body></html>'
     return
+
+  def onKill (self,npc,player):
+    st = player.getQuestState("valakas")
+    if not st: return
+    ValakasManager.getInstance().setCubeSpawn()
+    st.exitQuest(1)
 
 # Quest class and state definition
 QUEST       = valakas(-1,"valakas","ai")
@@ -47,5 +54,6 @@ QUEST.addStartNpc(31540)
 QUEST.addStartNpc(31385)
 QUEST.addTalkId(31540)
 QUEST.addTalkId(31385)
+QUEST.addKillId(29028)
 
 print "AI: individuals: Valakas...loaded!"

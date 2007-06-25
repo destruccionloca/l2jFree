@@ -6862,3 +6862,10 @@ INSERT INTO `npc` VALUES
 	(29075, 29075, "Dragon Bomber", 0, "", 0, "Monster3.antaras_ex_b_80p", 37, 28, 78, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, "", 0, 0, 0),
 	(29076, 29076, "Dragon Bomber", 0, "", 0, "Monster3.antaras_ex_b", 42, 34.5, 78, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, "", 0, 0, 0);
 UPDATE npc SET aggro = 800 WHERE idTemplate IN (29019,29066,29067,29068);
+
+update npc set aggro = 500 where id = 29014;
+update npc set aggro = 500 where id = 29020;
+update npc set aggro = 500 where id = 29021;
+update npc set aggro = 500 where id = 29022;
+update npc set aggro = 800 where id = 29028;
+update npc Set `type` = "L2Teleporter" Where idTemplate = 31759;
