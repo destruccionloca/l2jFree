@@ -1,3 +1,5 @@
+DELETE FROM `teleport` WHERE `id` >= '50001' AND `id` <= '50174';
+
 INSERT INTO `teleport` VALUES 
 ('Dark Elven Village', 50001, 9745, 15606, -4574, 15000, 0),
 ('Dwarven Village', 50002, 115113, -178212, -901, 15000, 0),
