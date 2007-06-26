@@ -326,18 +326,28 @@ public abstract class ItemContainer
         	}
         	else
         	{
-        		if (sourceitem.getCount() > count) // If possible, only update counts 
+        		if (sourceitem.getCount() > count) // If possible, only update counts
+        		{
         			sourceitem.changeCount(process, -count, actor, reference);
+        			sourceitem.setLastChange(L2ItemInstance.MODIFIED);
+        		}
         		else // Otherwise destroy old item
         		{
             		removeItem(sourceitem);
+            		sourceitem.setLastChange(L2ItemInstance.REMOVED);
                     ItemTable.getInstance().destroyItem(process, sourceitem, actor, reference);
         		}
         		
         		if (targetitem != null) // If possible, only update counts
+        		{
         			targetitem.changeCount(process, count, actor, reference);
-        		else // Otherwise add new item 
+        			targetitem.setLastChange(L2ItemInstance.MODIFIED);
+        		}
+        		else // Otherwise add new item
+        		{
         			targetitem = target.addItem(process, sourceitem.getItemId(), count, actor, reference);
+        			targetitem.setLastChange(L2ItemInstance.ADDED);
+        		}
         	}
     		
     		// Updates database

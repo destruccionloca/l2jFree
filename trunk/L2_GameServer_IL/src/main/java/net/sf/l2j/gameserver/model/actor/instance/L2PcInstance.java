@@ -2960,27 +2960,16 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         L2ItemInstance oldItem = checkItemManipulation(objectId, count, "transfer");
         if (oldItem == null) return null;
-        L2ItemInstance newItem = getInventory().transferItem(process, objectId, count, inventory, this,
-                                                             reference);
+        L2ItemInstance newItem = getInventory().transferItem(process, objectId, count, inventory, this, reference);
         if (newItem == null) return null;
 
-        // Send inventory update packet
-        if (!Config.FORCE_INVENTORY_UPDATE)
+        // Send inventory update packet        
+        inventory.updateInventory(newItem);
+        if (oldItem == newItem)
         {
-            InventoryUpdate playerIU = new InventoryUpdate();
-
-            if (oldItem.getCount() > 0 && oldItem != newItem) playerIU.addModifiedItem(oldItem);
-            else playerIU.addRemovedItem(oldItem);
-
-            sendPacket(playerIU);
+        	oldItem.setLastChange(L2ItemInstance.REMOVED);
+        	_inventory.updateInventory(oldItem);
         }
-        else sendPacket(new ItemList(this, false));
-
-        // Update current load as well
-        StatusUpdate playerSU = new StatusUpdate(getObjectId());
-        playerSU.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-        sendPacket(playerSU);
-        playerSU = null;
 
         return newItem;
     }
