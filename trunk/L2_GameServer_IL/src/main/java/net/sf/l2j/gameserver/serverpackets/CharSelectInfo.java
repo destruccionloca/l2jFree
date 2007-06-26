@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 
-import javolution.util.FastList;
+import java.util.ArrayList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.CharSelectInfoPackage;
 import net.sf.l2j.gameserver.model.Inventory;
@@ -153,7 +153,7 @@ public class CharSelectInfo extends L2GameServerPacket
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
 
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
+			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DHAIR));
 			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
 			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LEAR));
 			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_NECK));
@@ -200,7 +200,7 @@ public class CharSelectInfo extends L2GameServerPacket
 	private CharSelectInfoPackage[] loadCharacterSelectInfo()
 	{
 		CharSelectInfoPackage charInfopackage;
-		List<CharSelectInfoPackage> characterList = new FastList<CharSelectInfoPackage>();
+		List<CharSelectInfoPackage> characterList = new ArrayList<CharSelectInfoPackage>();
 
 		java.sql.Connection con = null;
 

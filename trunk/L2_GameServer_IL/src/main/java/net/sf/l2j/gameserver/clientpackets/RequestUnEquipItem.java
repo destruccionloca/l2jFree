@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 
@@ -87,19 +86,12 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot); 
 		
 		// show the update in the inventory
-		InventoryUpdate iu = new InventoryUpdate();
-        
 		for (int i = 0; i < unequiped.length; i++)
 		{
             activeChar.checkSSMatch(null, unequiped[i]);			
-			iu.addModifiedItem(unequiped[i]);
+            activeChar.getInventory().updateInventory(unequiped[i]);
 		}
-        
-		activeChar.sendPacket(iu);
-		iu = null;
-		
-		activeChar.abortAttack();
-		
+
 		activeChar.refreshExpertisePenalty();
 		activeChar.broadcastUserInfo();
 		

@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import java.util.List;
 
-import javolution.util.FastList;
+import java.util.ArrayList;
 import net.sf.l2j.gameserver.model.ItemInfo;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 
@@ -62,7 +62,7 @@ public class InventoryUpdate extends L2GameServerPacket
     
 	public InventoryUpdate()
 	{
-		_items = new FastList<ItemInfo>();
+		_items = new ArrayList<ItemInfo>();
 		if (_log.isDebugEnabled())
 		{
 			this.showDebug();
