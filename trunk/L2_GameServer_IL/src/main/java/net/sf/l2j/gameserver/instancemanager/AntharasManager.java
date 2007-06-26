@@ -23,7 +23,6 @@
 
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.util.logging.Logger;
 import java.util.concurrent.Future;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +46,9 @@ import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * 
  * This class ...
@@ -56,7 +58,7 @@ import net.sf.l2j.gameserver.model.L2CharPosition;
  */
 public class AntharasManager
 {
-    protected static Logger _log = Logger.getLogger(AntharasManager.class.getName());
+    private final static Log _log = LogFactory.getLog(AntharasManager.class.getName());
     private static AntharasManager _instance = new AntharasManager();
 
     // config
@@ -241,7 +243,7 @@ public class AntharasManager
         }
         catch (Exception e)
         {
-            _log.warning(e.getMessage());
+            _log.warn(e.getMessage());
         }
 
         // setting spawn data of teleport cube.
@@ -265,7 +267,7 @@ public class AntharasManager
         }
         catch (Exception e)
         {
-            _log.warning(e.getMessage());
+            _log.warn(e.getMessage());
         }
         
         _log.info("AntharasManager:Init AntharasManager.");
@@ -512,7 +514,7 @@ public class AntharasManager
             }
             catch (Exception e)
             {
-                _log.warning(e.getMessage());
+                _log.warn(e.getMessage());
             }
             
             if(_BehemothSpawnTask != null)
@@ -566,7 +568,7 @@ public class AntharasManager
             }
             catch (Exception e)
             {
-                _log.warning(e.getMessage());
+                _log.warn(e.getMessage());
             }
             
             // set self destruction.

@@ -23,7 +23,6 @@
 
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.util.logging.Logger;
 import java.util.concurrent.Future;
 import java.util.List;
 import javolution.util.FastList;
@@ -43,6 +42,9 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * 
  * This class ...
@@ -52,7 +54,7 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
  */
 public class SailrenManager
 {
-    protected static Logger _log = Logger.getLogger(SailrenManager.class.getName());
+    private final static Log _log = LogFactory.getLog(SailrenManager.class.getName());
     private static SailrenManager _instance = new SailrenManager();
 
     // config
@@ -173,7 +175,7 @@ public class SailrenManager
         }
         catch (Exception e)
         {
-            _log.warning(e.getMessage());
+            _log.warn(e.getMessage());
         }
 
         // setting spawn data of teleporte cube.
@@ -198,7 +200,7 @@ public class SailrenManager
         }
         catch (Exception e)
         {
-            _log.warning(e.getMessage());
+            _log.warn(e.getMessage());
         }
         
         _log.info("SailrenManager:Init SailrenManager.");
