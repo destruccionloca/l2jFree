@@ -137,9 +137,9 @@ public final class L2ItemInstance extends L2Object
     
 	public static final int UNCHANGED = 0;
 	public static final int ADDED = 1;
-	public static final int REMOVED = 3;
 	public static final int MODIFIED = 2;
-	private int _lastChange = 2;	//1 ??, 2 modified, 3 removed
+	public static final int REMOVED = 3;	
+	private int _lastChange = 2;	//1 added, 2 modified, 3 removed
 	private boolean _existsInDb; // if a record exists in DB.
 	private boolean _storedInDb; // if DB data is up-to-date.
 	

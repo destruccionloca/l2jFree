@@ -530,23 +530,24 @@ public class PcInventory extends Inventory
      * @see Inventory#updateInventory()
      */
     @Override
-    public void updateInventory(L2ItemInstance newItem,int count,StatusUpdate playerSU)
+    public void updateInventory(L2ItemInstance newItem)
     {
+    	if(newItem == null) return;
         L2PcInstance targetPlayer = this.getOwner();
         if (!Config.FORCE_INVENTORY_UPDATE)
         {
             InventoryUpdate playerIU = new InventoryUpdate();
-
-            if (newItem.getCount() > count) playerIU.addModifiedItem(newItem);
-            else playerIU.addNewItem(newItem);
-
+            playerIU.addItem(newItem);
             targetPlayer.sendPacket(playerIU);
+            playerIU = null;
         }
         else targetPlayer.sendPacket(new ItemList(targetPlayer, false));
 
         // Update current load as well
-        playerSU = new StatusUpdate(targetPlayer.getObjectId());
+        if(newItem.getItem().getWeight() <= 0) return;
+        StatusUpdate playerSU = new StatusUpdate(targetPlayer.getObjectId());
         playerSU.addAttribute(StatusUpdate.CUR_LOAD, targetPlayer.getCurrentLoad());
         targetPlayer.sendPacket(playerSU);
+        playerSU = null;
     }
 }

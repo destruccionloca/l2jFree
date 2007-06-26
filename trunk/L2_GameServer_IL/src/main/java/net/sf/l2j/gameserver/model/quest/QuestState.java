@@ -32,10 +32,8 @@ import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.QuestList;
-import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
 
@@ -482,14 +480,6 @@ public final class QuestState
 		if (count <= 0) 
             return;
 
-		// If item for reward is gold (ID=57), modify count with rate for quest reward
-		if (itemId == 57 
-		    && !(getQuest().getQuestIntId()>=217 && getQuest().getQuestIntId()<=233)
-		    && !(getQuest().getQuestIntId()>=401 && getQuest().getQuestIntId()<=418)
-		    ) 
-			count=(int)(count*Config.RATE_QUESTS_REWARD);
-		// Set quantity of item
-		
 		// Add items to player's inventory
 		L2ItemInstance item = getPlayer().getInventory().addItem("Quest", itemId, count, getPlayer(), getPlayer().getTarget());
         
@@ -521,11 +511,7 @@ public final class QuestState
                 getPlayer().sendPacket(smsg);
             }
 		}
-        getPlayer().sendPacket(new ItemList(getPlayer(), false));
-
-        StatusUpdate su = new StatusUpdate(getPlayer().getObjectId());
-        su.addAttribute(StatusUpdate.CUR_LOAD, getPlayer().getCurrentLoad());
-        getPlayer().sendPacket(su);
+		getPlayer().getInventory().updateInventory(item);
 	}
 
     /**

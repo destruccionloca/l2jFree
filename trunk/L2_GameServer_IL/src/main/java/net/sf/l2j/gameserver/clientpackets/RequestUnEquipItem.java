@@ -84,16 +84,14 @@ public class RequestUnEquipItem extends L2GameClientPacket
         if (activeChar.isAttackingNow() || activeChar.isCastingNow()) 
            return;
         
-		L2ItemInstance[] unequiped =
-			activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot); 
+		L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot); 
 		
 		// show the update in the inventory
 		InventoryUpdate iu = new InventoryUpdate();
         
 		for (int i = 0; i < unequiped.length; i++)
 		{
-            activeChar.checkSSMatch(null, unequiped[i]);
-			
+            activeChar.checkSSMatch(null, unequiped[i]);			
 			iu.addModifiedItem(unequiped[i]);
 		}
         

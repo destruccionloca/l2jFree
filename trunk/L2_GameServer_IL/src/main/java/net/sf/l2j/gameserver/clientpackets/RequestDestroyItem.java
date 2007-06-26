@@ -28,8 +28,6 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
-import net.sf.l2j.gameserver.serverpackets.ItemList;
-import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
 
@@ -180,21 +178,7 @@ public class RequestDestroyItem extends L2GameClientPacket
         if(removedItem == null)
            return;
 		
-		if (!Config.FORCE_INVENTORY_UPDATE)
-		{
-			InventoryUpdate iu = new InventoryUpdate();
-			if (removedItem.getCount() == 0) iu.addRemovedItem(removedItem);
-			else iu.addModifiedItem(removedItem);
-	
-			//client.getConnection().sendPacket(iu);
-			activeChar.sendPacket(iu);
-		}
-		else sendPacket(new ItemList(activeChar, true));		
-		
-		StatusUpdate su = new StatusUpdate(activeChar.getObjectId());
-		su.addAttribute(StatusUpdate.CUR_LOAD, activeChar.getCurrentLoad());
-		activeChar.sendPacket(su);
-
+		activeChar.getInventory().updateInventory(removedItem);
 		activeChar.broadcastUserInfo();
 
 		L2World world = L2World.getInstance();

@@ -44,13 +44,10 @@ public class PetInventory extends Inventory
      * 
      */
     @Override
-    public void updateInventory(L2ItemInstance newItem,int count,StatusUpdate playerSU)
+    public void updateInventory(L2ItemInstance newItem)
     {
         PetInventoryUpdate petIU = new PetInventoryUpdate();
-
-        if (newItem.getCount() > count) petIU.addModifiedItem(newItem);
-        else petIU.addNewItem(newItem);
-
+        petIU.addItem(newItem);
         this.getOwner().getOwner().sendPacket(petIU);        
     }
 }

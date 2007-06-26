@@ -95,7 +95,6 @@ public class L2SkillCreateItem extends L2Skill
             smsg.addItemName(item.getItemId());
             activeChar.sendPacket(smsg);
         }        
-        ItemList il = new ItemList(activeChar, false);
-        activeChar.sendPacket(il);
+        activeChar.getInventory().updateInventory(item);
     }
 }

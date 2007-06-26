@@ -71,22 +71,14 @@ public class RequestHennaEquip extends L2GameClientPacket
 		if ((_count >= temp.getAmountDyeRequire())&& (activeChar.getAdena()>= temp.getPrice()) && activeChar.addHenna(temp))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessage.S1_DISAPPEARED);
-			sm.addNumber(temp.getItemIdDye());
+			sm.addItemName(temp.getItemIdDye());
 			activeChar.sendPacket(sm);
-			sm = null;
-			activeChar.sendPacket(new SystemMessage(SystemMessage.SYMBOL_ADDED));
-			
-			//HennaInfo hi = new HennaInfo(temp,activeChar);
-			//activeChar.sendPacket(hi);
-			
-			activeChar.getInventory().reduceAdena("Henna", temp.getPrice(), activeChar, activeChar.getLastFolkNPC());
-			L2ItemInstance dyeToUpdate = activeChar.getInventory().destroyItemByItemId("Henna", temp.getItemIdDye(),temp.getAmountDyeRequire(), activeChar, activeChar.getLastFolkNPC());			
-			
-			//update inventory
-			InventoryUpdate iu = new InventoryUpdate();
-            iu.addModifiedItem(activeChar.getInventory().getAdenaInstance());
-			iu.addModifiedItem(dyeToUpdate);
-			activeChar.sendPacket(iu);
+			sm = null;			
+			activeChar.reduceAdena("Henna", temp.getPrice(), activeChar.getLastFolkNPC(), true);
+			L2ItemInstance dye = activeChar.getInventory().destroyItemByItemId("Henna", temp.getItemIdDye(),temp.getAmountDyeRequire(), activeChar, activeChar.getLastFolkNPC());			
+			// Send inventory update packet
+            activeChar.getInventory().updateInventory(dye);
+            activeChar.sendPacket(new SystemMessage(SystemMessage.SYMBOL_ADDED));
 		}
 		else
         {

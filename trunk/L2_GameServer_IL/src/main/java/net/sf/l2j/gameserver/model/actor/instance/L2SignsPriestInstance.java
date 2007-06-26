@@ -108,27 +108,15 @@ public class L2SignsPriestInstance extends L2FolkInstance
                         break;
                     }
 
-                    L2ItemInstance adenaItem = player.getInventory().getAdenaInstance();
                     if (!player.reduceAdena("SevenSigns", SevenSigns.RECORD_SEVEN_SIGNS_COST, this, true))
                     {
                         player.sendPacket(new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA));
                         break;
                     }
-                    L2ItemInstance recordSevenSigns = player.getInventory().addItem(
-                                                                                    "SevenSigns",
-                                                                                    SevenSigns.RECORD_SEVEN_SIGNS_ID,
-                                                                                    1, player, this);
+                    L2ItemInstance recordSevenSigns = player.getInventory().addItem("SevenSigns", SevenSigns.RECORD_SEVEN_SIGNS_ID, 1, player, this);
 
                     // Send inventory update packet
-                    iu = new InventoryUpdate();
-                    iu.addNewItem(recordSevenSigns);
-                    iu.addItem(adenaItem);
-                    sendPacket(iu);
-
-                    // Update current load as well
-                    su = new StatusUpdate(player.getObjectId());
-                    su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
-                    sendPacket(su);
+                    player.getInventory().updateInventory(recordSevenSigns);
 
                     sm = new SystemMessage(SystemMessage.EARNED_ITEM);
                     sm.addItemName(SevenSigns.RECORD_SEVEN_SIGNS_ID);

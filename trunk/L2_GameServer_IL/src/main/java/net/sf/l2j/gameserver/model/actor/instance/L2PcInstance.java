@@ -2487,14 +2487,8 @@ public final class L2PcInstance extends L2PlayableInstance
                 sendPacket(sm); 
             } 
 
-            // Send update packet 
-            if (!Config.FORCE_INVENTORY_UPDATE) 
-            { 
-                InventoryUpdate iu = new InventoryUpdate(); 
-                iu.addItem(_inventory.getAdenaInstance()); 
-                sendPacket(iu); 
-            } 
-            else sendPacket(new ItemList(this, false)); 
+            // Send update packet
+            _inventory.updateInventory(_inventory.getAdenaInstance());
         } 
      }
     /**
@@ -2519,13 +2513,7 @@ public final class L2PcInstance extends L2PlayableInstance
             _inventory.reduceAdena(process, count, this, reference);
 
             // Send update packet
-            if (!Config.FORCE_INVENTORY_UPDATE)
-            {
-                InventoryUpdate iu = new InventoryUpdate();
-                iu.addItem(adenaItem);
-                sendPacket(iu);
-            }
-            else sendPacket(new ItemList(this, false));
+            _inventory.updateInventory(adenaItem);
 
             if (sendMessage)
             {
@@ -2559,17 +2547,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (count > 0)
         {
             _inventory.addAncientAdena(process, count, this, reference);
-
-            if (!Config.FORCE_INVENTORY_UPDATE)
-            {
-                InventoryUpdate iu = new InventoryUpdate();
-                iu.addItem(_inventory.getAncientAdenaInstance());
-                sendPacket(iu);
-            }
-            else
-            {
-                sendPacket(new ItemList(this, false));
-            }
+            _inventory.updateInventory(_inventory.getAncientAdenaInstance());
         }
     }
 
@@ -2592,20 +2570,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (count > 0)
         {
-            L2ItemInstance ancientAdenaItem = _inventory.getAncientAdenaInstance();
             _inventory.reduceAncientAdena(process, count, this, reference);
-
-            if (!Config.FORCE_INVENTORY_UPDATE)
-            {
-                InventoryUpdate iu = new InventoryUpdate();
-                iu.addItem(ancientAdenaItem);
-                sendPacket(iu);
-            }
-            else
-            {
-                sendPacket(new ItemList(this, false));
-            }
-
+            _inventory.updateInventory(_inventory.getAncientAdenaInstance());
             if (sendMessage)
             {
                 SystemMessage sm = new SystemMessage(SystemMessage.DISSAPEARED_ITEM);
@@ -2798,18 +2764,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         // Send inventory update packet
-        if (!Config.FORCE_INVENTORY_UPDATE)
-        {
-            InventoryUpdate playerIU = new InventoryUpdate();
-            playerIU.addItem(item);
-            sendPacket(playerIU);
-        }
-        else sendPacket(new ItemList(this, false));
-
-        // Update current load as well
-        StatusUpdate su = new StatusUpdate(getObjectId());
-        su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-        sendPacket(su);
+        _inventory.updateInventory(item);
 
         // Sends message to client if requested
         if (sendMessage)
@@ -2843,21 +2798,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         // Send inventory update packet
-        if (!Config.FORCE_INVENTORY_UPDATE)
-        {
-            InventoryUpdate playerIU = new InventoryUpdate();
-            playerIU.addItem(item);
-            sendPacket(playerIU);
-        }
-        else
-        {
-            sendPacket(new ItemList(this, false));
-        }
-
-        // Update current load as well
-        StatusUpdate su = new StatusUpdate(getObjectId());
-        su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-        sendPacket(su);
+        _inventory.updateInventory(item);
 
         // Sends message to client if requested
         if (sendMessage)
@@ -2911,19 +2852,8 @@ public final class L2PcInstance extends L2PlayableInstance
         	_inventory.destroyItem(process, item, this, reference);
         }
         
-		// Send inventory update packet
-		if (!Config.FORCE_INVENTORY_UPDATE)
-		{
-			InventoryUpdate playerIU = new InventoryUpdate();
-			playerIU.addItem(item);
-			sendPacket(playerIU);
-		}
-        else sendPacket(new ItemList(this, false));
-		
-		// Update current load as well
-		StatusUpdate su = new StatusUpdate(getObjectId());
-		su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-		sendPacket(su);
+        // Send inventory update packet
+        _inventory.updateInventory(item);
 		
 		// Sends message to client if requested
 		if (sendMessage)
@@ -2959,18 +2889,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         // Send inventory update packet
-        if (!Config.FORCE_INVENTORY_UPDATE)
-        {
-            InventoryUpdate playerIU = new InventoryUpdate();
-            playerIU.addItem(item);
-            sendPacket(playerIU);
-        }
-        else sendPacket(new ItemList(this, false));
-
-        // Update current load as well
-        StatusUpdate su = new StatusUpdate(getObjectId());
-        su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-        sendPacket(su);
+        _inventory.updateInventory(item);
 
         // Sends message to client if requested
         if (sendMessage)
@@ -3015,13 +2934,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
             }
         }
-
-        // Send the StatusUpdate Server->Client Packet to the player with new CUR_LOAD (0x0e) information
-        /* duplicate send by broadcastUserInfo
-        StatusUpdate su = new StatusUpdate(getObjectId());
-        su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-        sendPacket(su);
-        */
 
         // Send the ItemList Server->Client Packet to the player in order to refresh its Inventory
         ItemList il = new ItemList(getInventory().getItems(), true);
@@ -3068,9 +2980,7 @@ public final class L2PcInstance extends L2PlayableInstance
         StatusUpdate playerSU = new StatusUpdate(getObjectId());
         playerSU.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
         sendPacket(playerSU);
-
-        // Send target update packet
-        inventory.updateInventory(newItem,count,playerSU);
+        playerSU = null;
 
         return newItem;
     }
@@ -3112,18 +3022,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 item.setProtected(true);
                 
         // Send inventory update packet
-        if (!Config.FORCE_INVENTORY_UPDATE)
-        {
-            InventoryUpdate playerIU = new InventoryUpdate();
-            playerIU.addItem(item);
-            sendPacket(playerIU);
-        }
-        else sendPacket(new ItemList(this, false));
-        
-        // Update current load as well
-        StatusUpdate su = new StatusUpdate(getObjectId());
-        su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-        sendPacket(su);
+        _inventory.updateInventory(item);
         
         // Sends message to client if requested
         if (sendMessage)
@@ -3151,7 +3050,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public L2ItemInstance dropItem(String process, int objectId, int count, int x, int y, int z,
                                    L2Object reference, boolean sendMessage)
     {
-        L2ItemInstance invitem = _inventory.getItemByObjectId(objectId);
+    	L2ItemInstance olditem = _inventory.getItemByObjectId(objectId);
         L2ItemInstance item = _inventory.dropItem(process, objectId, count, this, reference);
 
         if (item == null)
@@ -3160,7 +3059,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
             return null;
         }
-
+        
         item.dropMe(this, x, y, z);
         // destroy  item droped from inventory by player when DESTROY_PLAYER_INVENTORY_DROP is set to true
         if (Config.DESTROY_PLAYER_INVENTORY_DROP)
@@ -3186,20 +3085,9 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         // Avoids it from beeing removed by the auto item destroyer
         else item.setDropTime(0);
-
+        
         // Send inventory update packet
-        if (!Config.FORCE_INVENTORY_UPDATE)
-        {
-            InventoryUpdate playerIU = new InventoryUpdate();
-            playerIU.addItem(invitem);
-            sendPacket(playerIU);
-        }
-        else sendPacket(new ItemList(this, false));
-
-        // Update current load as well
-        StatusUpdate su = new StatusUpdate(getObjectId());
-        su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-        sendPacket(su);
+        _inventory.updateInventory(olditem);
 
         // Sends message to client if requested
         if (sendMessage)
@@ -3737,13 +3625,6 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             // dont try to pickup anything that is not an item :)
             _log.warn("trying to pickup wrong target." + getTarget());
-            return;
-        }
-
-        if (isAlikeDead())
-        {
-            // dont try to pickup when dead
-            _log.warn("trying to pickup when dead.");
             return;
         }
 
@@ -5202,24 +5083,15 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (_log.isDebugEnabled()) _log.debug("arrow count:" + (arrows == null ? 0 : arrows.getCount()));
 
-        if (arrows == null || arrows.getCount() == 0)
+        if (arrows == null) return;
+        if (arrows.getCount() == 0)
         {
             getInventory().unEquipItemInSlot(Inventory.PAPERDOLL_LHAND);
             _arrowItem = null;
-
             if (_log.isDebugEnabled()) _log.debug("removed arrows count");
-            sendPacket(new ItemList(this, false));
         }
-        else
-        {
-            if (!Config.FORCE_INVENTORY_UPDATE)
-            {
-                InventoryUpdate iu = new InventoryUpdate();
-                iu.addModifiedItem(arrows);
-                sendPacket(iu);
-            }
-            else sendPacket(new ItemList(this, false));
-        }
+        // Send inventory update packet
+        _inventory.updateInventory(arrows);
     }
 
     /**
@@ -5237,10 +5109,8 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 // Equip arrows needed in left hand
                 getInventory().setPaperdollItem(Inventory.PAPERDOLL_LHAND, _arrowItem);
-
-                // Send a Server->Client packet ItemList to this L2PcINstance to update left hand equipement
-                ItemList il = new ItemList(this, false);
-                sendPacket(il);
+        		// Send inventory update packet
+        		_inventory.updateInventory(_arrowItem);
             }
         }
         else
@@ -6864,8 +6734,8 @@ public final class L2PcInstance extends L2PlayableInstance
         sendPacket(new UserInfo(this));
 
         // Add the recovered dyes to the player's inventory and notify them.
-        getInventory().addItem("Henna", henna.getItemIdDye(), henna.getAmountDyeRequire() / 2, this,
-                               null);
+        L2ItemInstance dye = getInventory().addItem("Henna", henna.getItemIdDye(), henna.getAmountDyeRequire() / 2, this, null);
+        _inventory.updateInventory(dye);
 
         SystemMessage sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
         sm.addItemName(henna.getItemIdDye());

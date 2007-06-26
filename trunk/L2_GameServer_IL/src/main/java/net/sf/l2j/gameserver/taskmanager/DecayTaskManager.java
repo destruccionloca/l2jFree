@@ -78,49 +78,47 @@ public class DecayTaskManager
         {
             Long current = System.currentTimeMillis();
             long forDecay = 0;
-            if (_decayTasks != null)
-                for(L2Character actor : _decayTasks.keySet())
-                {
-                	// [L2J_JP ADD SANDMAN]
-                	if(actor instanceof L2MonsterInstance)
-                	{
-                        if(actor instanceof L2RaidBossInstance)
-                        	forDecay = 30000;
-                        else
-                        {
-	                        L2MonsterInstance monster = (L2MonsterInstance) actor;
-	                        switch(monster.getNpcId())
-	                        {
-	                            case 29028:     // Valakas
-	                                forDecay = 18000;
-	                                break;
-	                            case 29019:     // Antharas
-	                            case 29066:     // Antharas
-	                            case 29067:     // Antharas
-	                            case 29068:     // Antharas
-	                                forDecay = 12000;
-	                                break;
-	                            case 29014:     // Orfen
+            if(_decayTasks.isEmpty()) return;
+            for(L2Character actor : _decayTasks.keySet())
+            {
+            	// [L2J_JP ADD SANDMAN]
+            	if(actor instanceof L2MonsterInstance)
+            	{
+            		if(actor instanceof L2RaidBossInstance)
+            			forDecay = 30000;
+            		else
+            		{
+            			L2MonsterInstance monster = (L2MonsterInstance) actor;
+            			switch(monster.getNpcId())
+            			{
+            				case 29028:     // Valakas
+            						forDecay = 18000;
+            						break;
+            				case 29019:     // Antharas
+            				case 29066:     // Antharas
+            				case 29067:     // Antharas
+            				case 29068:     // Antharas
+            						forDecay = 12000;
+            						break;
+            				case 29014:     // Orfen
+            						forDecay = 150000;
+            						break;
+            				case 29001:     // Queen Ant
 	                                forDecay = 150000;
 	                                break;
-	                            case 29001:     // Queen Ant
-	                                forDecay = 150000;
-	                                break;
-	                            default:
+            				default:
 	                                forDecay = 8500;
-	                        }
-                        }
-                	}
-                	// [L2J_JP EDIT END]
-                    else
-                    	forDecay = 8500;
+            			}
+            		}
+            	}
+            	else forDecay = 8500; // [L2J_JP EDIT END]
                 	
-                    if((current - _decayTasks.get(actor)) > forDecay)
-                    {
-                        actor.decayMe();
-                        _decayTasks.remove(actor);
-                    }
-                }
+            	if((current - _decayTasks.get(actor)) > forDecay)
+            	{
+            		actor.decayMe();
+            		_decayTasks.remove(actor);
+            	}
+            }
         }
     }
 

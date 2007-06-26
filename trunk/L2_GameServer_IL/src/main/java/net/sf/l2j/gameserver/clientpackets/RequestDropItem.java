@@ -25,7 +25,6 @@ import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
-import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.util.IllegalPlayerAction;
@@ -183,15 +182,11 @@ public class RequestDropItem extends L2GameClientPacket
 			InventoryUpdate iu = new InventoryUpdate();
 			for (int i = 0; i < unequiped.length; i++)
 			{
-				activeChar.checkSSMatch(null, unequiped[i]);
-				
+				activeChar.checkSSMatch(null, unequiped[i]);				
 				iu.addModifiedItem(unequiped[i]);
 			}
 			activeChar.sendPacket(iu);
 			activeChar.broadcastUserInfo();
-			
-			ItemList il = new ItemList(activeChar, true);
-			activeChar.sendPacket(il);
 		}
 		
 		L2ItemInstance dropedItem = activeChar.dropItem("Drop", _objectId, _count, _x, _y, _z, null, false);

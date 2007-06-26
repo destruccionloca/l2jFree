@@ -444,7 +444,7 @@ public abstract class Inventory extends ItemContainer
      * @param count the amount of item added
      * @param a status update packed
      */
-    public abstract void updateInventory (L2ItemInstance item,int count,StatusUpdate playerSU);
+    public abstract void updateInventory (L2ItemInstance item);
     
     /**
      * Returns the instance of new ChangeRecorder 

@@ -43,13 +43,6 @@ public class MonsterKnownList extends AttackableKnownList
         {   
             // Notify the L2MonsterInstance AI with EVT_FORGET_OBJECT
             getActiveChar().getAI().notifyEvent(CtrlEvent.EVT_FORGET_OBJECT, object);
-            
-            //TODO Remove this function because it's already done in L2Character.removeKnownObject 
-            // Set the current target to null if the forgotten L2Object was the targeted L2Object
-            // L2Character temp = (L2Character)object;
-            
-            //if (getTarget() == temp)
-            //  setTarget(null);
         }   
     
         if (getActiveChar().isVisible() && getKnownPlayers().isEmpty())
