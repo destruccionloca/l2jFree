@@ -33,6 +33,7 @@ import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
+import net.sf.l2j.gameserver.instancemanager.SQLQueue;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -364,10 +365,7 @@ public class L2PetInstance extends L2Summon
         }
 
         // Send Pet inventory update packet
-        PetInventoryUpdate petIU = new PetInventoryUpdate();
-        petIU.addItem(item);
-        getOwner().sendPacket(petIU);
-
+        _inventory.updateInventory(item);
         if (sendMessage)
         {
             SystemMessage sm = new SystemMessage(SystemMessage.DISSAPEARED_ITEM);
@@ -400,9 +398,7 @@ public class L2PetInstance extends L2Summon
         }
 
         // Send Pet inventory update packet
-        PetInventoryUpdate petIU = new PetInventoryUpdate();
-        petIU.addItem(item);
-        getOwner().sendPacket(petIU);
+        _inventory.updateInventory(item);
 
         if (sendMessage)
         {
