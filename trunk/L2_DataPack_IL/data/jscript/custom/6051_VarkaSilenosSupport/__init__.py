@@ -35,7 +35,7 @@ class Quest (JQuest) :
           st.takeItems(Seed,seeds)
           st.getPlayer().setTarget(st.getPlayer())
           st.getPlayer().doCast(SkillTable.getInstance().getInfo(skillId,level))
-          st.getPlayer().setCurrentMp(a)
+          st.getPlayer().getStatus.setCurrentMp(a)
           htmltext = "a4.htm"
      return
 
