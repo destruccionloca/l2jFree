@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.InetAddress;
 import java.util.Calendar;
 import java.util.logging.LogManager;
 
@@ -523,7 +524,7 @@ public class GameServer
         _loginThread = LoginServerThread.getInstance();
         _loginThread.start();
         
-		SelectorServerConfig ssc = new SelectorServerConfig(Config.PORT_GAME);
+        SelectorServerConfig ssc = new SelectorServerConfig(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
 		L2GamePacketHandler gph = new L2GamePacketHandler();
 		_selectorThread = new SelectorThread<L2GameClient>(ssc, gph, gph, gph);
 		_selectorThread.openServerSocket();
