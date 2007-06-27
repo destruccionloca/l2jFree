@@ -2301,6 +2301,7 @@ public final class Config {
 			loadprivilegesconfig();
 			loadircconfig();
 			loadantharasconfig();
+			loadvalakasconfig();
 			loadsailrenconfig();
 			loadsayfilter();
 			
