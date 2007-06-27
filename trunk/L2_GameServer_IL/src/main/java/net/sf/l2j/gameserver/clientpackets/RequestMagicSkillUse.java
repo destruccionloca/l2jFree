@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 
@@ -72,7 +73,7 @@ public class RequestMagicSkillUse extends L2GameClientPacket
         L2Skill skill = SkillTable.getInstance().getInfo(_magicId, level);
 
         // Check the validity of the skill        
-		if (skill != null)
+		if (skill != null && skill.getSkillType() != SkillType.NOTDONE)
 		{
            // _log.debug("  skill:"+skill.getName() + " level:"+skill.getLevel() + " passive:"+skill.isPassive());
            // _log.debug("  range:"+skill.getCastRange()+" targettype:"+skill.getTargetType()+" optype:"+skill.getOperateType()+" power:"+skill.getPower());

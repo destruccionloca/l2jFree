@@ -4753,7 +4753,8 @@ public abstract class L2Character extends L2Object
                removeStatsOwner(oldSkill);
 
            // Add Func objects of newSkill to the calculator set of the L2Character
-           addStatFuncs(newSkill.getStatFuncs(null, this));
+           if(newSkill.getSkillType() != SkillType.NOTDONE)
+        	   addStatFuncs(newSkill.getStatFuncs(null, this));
        }
 
        return oldSkill;
@@ -4959,6 +4960,12 @@ public abstract class L2Character extends L2Object
             setAttackingCharSkill(null);
             getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
 
+            return;
+        }
+       
+        if(skill.getSkillType() == SkillType.NOTDONE)
+        {
+        	abortCast();    
             return;
         }
 		
