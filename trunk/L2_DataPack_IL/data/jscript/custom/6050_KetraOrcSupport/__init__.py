@@ -29,7 +29,7 @@ class Quest (JQuest) :
     if event in BUFF.keys() :
         skillId,level,horns=BUFF[event]
         if st.getQuestItemsCount(Horn) >= horns :
-            a = st.getPlayer().getCurrentMp()
+            a = st.getPlayer().getStatus.getCurrentMp()
             st.takeItems(Horn,horns)
             st.getPlayer().setTarget(st.getPlayer())
             st.getPlayer().doCast(SkillTable.getInstance().getInfo(skillId,level))

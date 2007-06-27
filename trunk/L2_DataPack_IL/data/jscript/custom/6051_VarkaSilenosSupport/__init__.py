@@ -31,7 +31,7 @@ class Quest (JQuest) :
      if event in BUFF.keys() :
         skillId,level,seeds=BUFF[event]
         if st.getQuestItemsCount(Seed) >= seeds :
-          a = st.getPlayer().getCurrentMp()
+          a = st.getPlayer().getStatus.getCurrentMp()
           st.takeItems(Seed,seeds)
           st.getPlayer().setTarget(st.getPlayer())
           st.getPlayer().doCast(SkillTable.getInstance().getInfo(skillId,level))
