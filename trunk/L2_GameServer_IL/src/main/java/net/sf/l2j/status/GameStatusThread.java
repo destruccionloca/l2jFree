@@ -50,6 +50,8 @@ import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
+import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.Manager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
@@ -226,6 +228,8 @@ public class GameStatusThread extends Thread
                     _print.println("debug <cmd>         - executes the debug command (see 'help debug').");
                     _print.println("jail <player> [time]");
                     _print.println("unjail <player>");
+                     _print.println("reload <...>");
+                     _print.println("reload_config <file>");
                 	if(Config.IRC_ENABLED)
                 	{
                         _print.println("ircc <command>  	- sends a command to irc");
@@ -678,7 +682,8 @@ public class GameStatusThread extends Thread
                 }
                 else if (_usrCommand.startsWith("reload"))
                 {
-                	StringTokenizer st = new StringTokenizer(_usrCommand.substring(7));
+                	StringTokenizer st = new StringTokenizer(_usrCommand);
+                   st.nextToken();
                 	try
                 	{
                 		String type = st.nextToken();
@@ -689,6 +694,12 @@ public class GameStatusThread extends Thread
                 			L2Multisell.getInstance().reload();
                 			_print.print("done\n");
                 		}
+						else if(type.equals("teleport"))
+                        {
+                            _print.print("Reloading teleports... ");
+                            TeleportLocationTable.getInstance().reloadAll();
+                            _print.print("done\n");
+                        }
                 		else if(type.equals("skill"))
                 		{
                 			_print.print("Reloading skills... ");
@@ -702,7 +713,7 @@ public class GameStatusThread extends Thread
                 			NpcTable.getInstance().reloadAll();
                 			_print.print("done\n");
                 		}
-                		else if(type.equals("html"))
+                		else if(type.equals("htm"))
                 		{
                 			_print.print("Reloading html cache... ");
                 			HtmCache.getInstance().reload();
@@ -724,11 +735,142 @@ public class GameStatusThread extends Thread
                 		{
                 			_print.print("Reloading zone tables... ");
                 			ZoneManager.getInstance().reload();
-                			_print.print("done\n");
-                		}
-
+                            _print.print("done\n");
+                	    }
+						else if(type.equals("tradelist"))
+						{
+							_print.print("Reloading trade lists...");
+							TradeListTable.getInstance().reloadAll();
+							_print.print("done\n");
+						}
+                        else
+                        {
+                           _print.println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone>");
+                        }
                 	}
-                	catch(Exception e){}
+                    catch(Exception e)
+                    {
+                        _print.println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone>");
+                    }
+                }
+                else if(_usrCommand.startsWith("admin_reload_config"))
+                {
+                    StringTokenizer st = new StringTokenizer(_usrCommand);
+                    st.nextToken();
+
+                    try
+                    {
+                        String type = st.nextToken();
+		
+                        if(type.equals("rates"))
+                        {
+                            Config.loadRatesConfig();
+                            _print.println("rates config reloaded");
+                        }
+                        else if(type.equals("enchant"))
+                        {
+                            Config.loadEnchantConfig();
+                            _print.println("enchant config reloaded");
+                        }
+                        else if(type.equals("pvp"))
+                        {
+                            Config.loadPvpConfig();
+                            _print.println("pvp config reloaded");
+                        }
+                        else if(type.equals("options"))
+                        {
+                            Config.loadOptionsConfig();
+                            _print.println("options config reloaded");
+                        }
+                        else if(type.equals("other"))
+                        {
+                            Config.loadOtherConfig();
+                            _print.println("other config reloaded");
+                        }
+                        else if(type.equals("alt"))
+                        {
+                            Config.loadAltConfig();
+                            _print.println("alt config reloaded");
+                        }
+                        else if(type.equals("clans"))
+                        {
+                            Config.loadClansConfig();
+                            _print.println("clans config reloaded");
+                        }
+                        else if(type.equals("champions"))
+                        {
+                            Config.loadChampionsConfig();
+                            _print.println("champions config reloaded");
+                        }
+                        else if(type.equals("lottery"))
+                        {
+                            Config.loadLotteryConfig();
+                            _print.println("lottery config reloaded");
+                        }
+                        else if(type.equals("sepulchurs"))
+                        {
+                            Config.loadSepulchursConfig();
+                            _print.println("sepulchurs config reloaded");
+                        }
+                        else if(type.equals("clanhall"))
+                        {
+                            Config.loadClanHallConfig();
+                            _print.println("clanhall config reloaded");
+                        }
+                        else if(type.equals("funengines"))
+                        {
+                            Config.loadFunEnginesConfig();
+                            _print.println("funegines config reloaded");
+                        }
+                        else if(type.equals("sevensigns"))
+                        {
+                            Config.loadSevenSignsConfig();
+                            _print.println("sevensigns config reloaded");
+                        }
+                        else if(type.equals("gmconf"))
+                        {
+                            Config.loadGmAccess();
+                            _print.println("gm config reloaded");
+                        }
+                        else if(type.equals("irc"))
+                        {
+                            Config.loadIrcConfig();
+                            _print.println("irc config reloaded");
+                        }
+                        else if(type.equals("sailren"))
+                        {
+                            Config.loadSailrenConfig();
+                            _print.println("sailren config reloaded");
+                        }
+                        else if(type.equals("antharas"))
+                        {
+                            Config.loadAntharasConfig();
+                            _print.println("antharas config reloaded");
+                        }
+                        else if(type.equals("valakas"))
+                        {
+                            Config.loadValakasConfig();
+                            _print.println("valakas config reloaded");
+                        }
+                        else if(type.equals("sayfilter"))
+                        {
+                            Config.loadSayFilter();
+                            _print.println("sayfilter reloaded");
+                        }
+                        else if(type.equals("access"))
+                        {
+                            Config.loadPrivilegesConfig();
+                            _print.println("access config reloaded");
+                        }
+                        else
+                        {
+                            _print.println("Usage:  //reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|antharas|valakas|sailren|sayfilter>");
+                        }
+                    }
+                    catch(Exception e)
+                    {
+                        _print.println("Usage:  //reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|antharas|valakas|sailren|sayfilter>");
+                    }
                 }
                 else if (_usrCommand.startsWith("gamestat"))
                 {

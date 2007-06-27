@@ -112,7 +112,7 @@ public final class Config {
     public static  String JMX_KEYSTORE_PASSWORD ;
     
     //*******************************************************************************************    
-    public static void loadconfiguration()
+    public static void loadConfiguration()
     {
     	_log.info("loading " + CONFIGURATION_FILE);
 	    try {
@@ -236,7 +236,7 @@ public final class Config {
     public static int       MEMBER_FOR_LEVEL_SEVEN;                 // Number of members to level up a clan to lvl 7
     public static int       MEMBER_FOR_LEVEL_EIGHT;                 // Number of members to level up a clan to lvl 8
     //*******************************************************************************************    
-    public static void loadclansconfig()
+    public static void loadClansConfig()
     {
     	_log.info("loading " + CLANS_FILE);
 	    try
@@ -288,7 +288,7 @@ public final class Config {
     public static int       CHAMPION_MAX_LEVEL; // Champion Maximum Level
     public static boolean 	CHAMPION_MINIONS; 	// set Minions to champions when leader champion
     //*******************************************************************************************    
-    public static void loadchampionsconfig()
+    public static void loadChampionsConfig()
     {
     	_log.info("loading " + CHAMPIONS_FILE);    	
 	    try
@@ -330,7 +330,7 @@ public final class Config {
     public static float ALT_LOTTERY_3_NUMBER_RATE;		// What part of jackpot amount should receive characters who pick 3 wining numbers
     public static int ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;	// How much adena receive characters who pick two or less of the winning number
     //  *******************************************************************************************
-    public static void loadlotteryconfig()
+    public static void loadLotteryConfig()
     {
     	_log.info("loading " + LOTTERY_FILE);
         try
@@ -368,7 +368,7 @@ public final class Config {
     public static boolean 	WEDDING_FORMALWEAR;
     public static int 		WEDDING_DIVORCE_COSTS;
     //  *******************************************************************************************
-    public static void loadweddingconfig()
+    public static void loadWeddingConfig()
     {
     	_log.info("loading " + WEDDING_FILE);
         try
@@ -405,7 +405,7 @@ public final class Config {
 	public static int FS_TIME_WARMUP;
 	public static int FS_PARTY_MEMBER_COUNT;
     //  *******************************************************************************************
-    public static void loadsepulchursconfig()
+    public static void loadSepulchursConfig()
     {
     	_log.info("loading " + SEPULCHURS_FILE);
         try
@@ -482,7 +482,7 @@ public final class Config {
     public static int     	LAST_LEVEL_SPOIL_IS_LEARNED;
     public static int       RATEBOXSPAWN;
     //  *******************************************************************************************
-    public static void loadratesconfig()
+    public static void loadRatesConfig()
     {
     	_log.info("loading " + RATES_CONFIG_FILE);
         try
@@ -581,7 +581,7 @@ public final class Config {
     public static int 		ENCHANT_DWARF_2_CHANCE; // Dwarf enchant System Dwarf 2 chance?
     public static int 		ENCHANT_DWARF_3_CHANCE; // Dwarf enchant System Dwarf 3 chance?
     //  *******************************************************************************************    
-    public static void loadenchantconfig()
+    public static void loadEnchantConfig()
     {
     	_log.info("loading " + ENCHANT_CONFIG_FILE);
         try
@@ -663,7 +663,7 @@ public final class Config {
     public static int 				PVP_NORMAL_TIME; 				// Duration (in ms) while a player stay in PVP mode after hitting an innocent    
     public static int 				PVP_PVP_TIME;					// Duration (in ms) while a player stay in PVP mode after hitting a purple player       
     //  *******************************************************************************************    
-    public static void loadpvpconfig()
+    public static void loadPvpConfig()
     {
     	_log.info("loading " + PVP_CONFIG_FILE);
         try
@@ -721,7 +721,7 @@ public final class Config {
     public static IdFactoryType 	IDFACTORY_TYPE;		// ID Factory type
     public static boolean 			BAD_ID_CHECKING;	// Check for bad ID ?
     //  *******************************************************************************************
-    public static void loadidfactoryconfig()
+    public static void loadIdFactoryConfig()
     {
     	_log.info("loading " + ID_CONFIG_FILE);
         try
@@ -812,7 +812,7 @@ public final class Config {
     public static FastList<Integer> FORBIDDEN_RAID_SKILLS_LIST  = new FastList<Integer>();
     //  *******************************************************************************************    
     //  *******************************************************************************************
-    public static void loadotherconfig()
+    public static void loadOtherConfig()
     {
     	_log.info("loading " + OTHER_CONFIG_FILE);
         try
@@ -1047,7 +1047,7 @@ public final class Config {
     public static boolean 				ALT_DEV_NO_SPAWNS;				// Alt Settings for devs
     public static boolean 				ONLY_GM_ITEMS_FREE;				// Only GM buy items for free
     //  *******************************************************************************************
-    public static void loadoptionsconfig()
+    public static void loadOptionsConfig()
     {
     	_log.info("loading " + OPTIONS_FILE);
         try 
@@ -1308,7 +1308,7 @@ public final class Config {
     //  *******************************************************************************************    
     //  *******************************************************************************************    
     //  *******************************************************************************************
-    public static void loadaltconfig()
+    public static void loadAltConfig()
     {
     	_log.info("loading " + ALT_SETTINGS_FILE);
         try
@@ -1507,7 +1507,7 @@ public final class Config {
     public static boolean 	GM_HERO_AURA;			// Place an aura around the GM ?
     public static boolean 	GM_STARTUP_INVULNERABLE;	// Set the GM invulnerable at startup ?
     //  *******************************************************************************************
-    public static void loadgmaccess()
+    public static void loadGmAccess()
     {
     	_log.info("loading " + GM_ACCESS_FILE);
         try
@@ -1606,7 +1606,7 @@ public final class Config {
     //  *******************************************************************************************
     public static boolean IS_TELNET_ENABLED;	// Is telnet enabled ?
     //  *******************************************************************************************
-    public static void loadtelnetconfig()
+    public static void loadTelnetConfig()
     {
     	_log.info("loading " + TELNET_FILE);
         try
@@ -1638,7 +1638,7 @@ public final class Config {
     /** Server ID used with the HexID */
     public static int SERVER_ID;
     //  *******************************************************************************************
-    public static void loadhexid()
+    public static void loadHexId()
     {
     	_log.info("loading " + HEXID_FILE);
         try
@@ -1663,7 +1663,7 @@ public final class Config {
     //  *******************************************************************************************
     public static final Map<String, Integer> GM_COMMAND_PRIVILEGES = new FastMap<String, Integer>();
     //  *******************************************************************************************
-    public static void loadprivilegesconfig()
+    public static void loadPrivilegesConfig()
     {
     	_log.info("loading " + COMMAND_PRIVILEGES_FILE);
         try
@@ -1715,7 +1715,7 @@ public final class Config {
     public static long 		ALT_FESTIVAL_SECOND_SWARM;		// Festival Second Swarm
     public static long 		ALT_FESTIVAL_CHEST_SPAWN;		// Festival Chest Spawn
     //  *******************************************************************************************
-    public static void loadsevensignsconfig()
+    public static void loadSevenSignsConfig()
     {
     	_log.info("loading " + SEVENSIGNS_FILE);
         try
@@ -1802,7 +1802,7 @@ public final class Config {
     public static int 	CH_FRONT1_FEE;
     public static int 	CH_FRONT2_FEE;    
     //  *******************************************************************************************
-    public static void loadclanhallconfig()
+    public static void loadClanHallConfig()
     {
     	_log.info("loading " + CLANHALL_CONFIG_FILE);
         try
@@ -1897,7 +1897,7 @@ public final class Config {
     public static boolean DM_ON_START_UNSUMMON_PET;
     //  *******************************************************************************************    
     //  *******************************************************************************************
-    public static void loadfunenginesconfig()
+    public static void loadFunEnginesConfig()
     {
     	_log.info("loading " + FUN_ENGINES_FILE);
         try
@@ -1957,7 +1957,7 @@ public final class Config {
     public static String	IRC_TO_GAME_DISPLAY;
     public static boolean	IRC_ANNOUNCE;    
     //  *******************************************************************************************
-    public static void loadircconfig()
+    public static void loadIrcConfig()
     {
     	_log.info("loading " + IRC_FILE);
         try
@@ -2010,7 +2010,7 @@ public final class Config {
     public static int FWA_INTGERVALOFBOMBERONSTRONG;
     public static boolean FWA_MOVEATRANDOM;
     //  *******************************************************************************************
-    public static void loadantharasconfig()
+    public static void loadAntharasConfig()
     {
     	_log.info("loading " + ANTHARAS_FILE);
         try
@@ -2068,7 +2068,7 @@ public final class Config {
     public static int FWS_INTERVALOFNEXTMONSTER;
     public static int FWS_ACTIVITYTIMEOFMOBS;    
     //  *******************************************************************************************
-    public static void loadsailrenconfig()
+    public static void loadSailrenConfig()
     {
     	_log.info("loading " + SAILREN_FILE);
         try
@@ -2106,7 +2106,7 @@ public final class Config {
     public static int FWV_CAPACITYOFLAIR;
     public static boolean FWV_MOVEATRANDOM;
     //  *******************************************************************************************
-    public static void loadvalakasconfig()
+    public static void loadValakasConfig()
     {
     	_log.info("loading " + VALAKAS_FILE);
         try
@@ -2138,7 +2138,7 @@ public final class Config {
     //  *******************************************************************************************
     public static final String	SAY_FILTER_FILE				= "./config/sayfilter.txt";
     //  *******************************************************************************************
-    public static void loadsayfilter()
+    public static void loadSayFilter()
     {
     	_log.info("loading " + SAY_FILTER_FILE);
         if(USE_SAY_FILTER){
@@ -2279,31 +2279,31 @@ public final class Config {
 	public static void load()
 	{
 			_log.info("loading gameserver config");
-			loadconfiguration();
-			loadhexid();
-			loadratesconfig();
-			loadenchantconfig();
-			loadpvpconfig();
-			loadtelnetconfig();
-			loadoptionsconfig();
-			loadotherconfig();
-			loadaltconfig();
-			loadclansconfig();
-			loadchampionsconfig();
-			loadlotteryconfig();
-			loadweddingconfig();
-			loadsepulchursconfig();
-			loadclanhallconfig();
-			loadidfactoryconfig();
-			loadfunenginesconfig();
-			loadsevensignsconfig();
-			loadgmaccess();
-			loadprivilegesconfig();
-			loadircconfig();
-			loadantharasconfig();
-			loadvalakasconfig();
-			loadsailrenconfig();
-			loadsayfilter();
+			loadConfiguration();
+			loadHexId();
+			loadRatesConfig();
+			loadEnchantConfig();
+			loadPvpConfig();
+			loadTelnetConfig();
+			loadOptionsConfig();
+			loadOtherConfig();
+			loadAltConfig();
+			loadClansConfig();
+			loadChampionsConfig();
+			loadLotteryConfig();
+			loadWeddingConfig();
+			loadSepulchursConfig();
+			loadClanHallConfig();
+			loadIdFactoryConfig();
+			loadFunEnginesConfig();
+			loadSevenSignsConfig();
+			loadGmAccess();
+			loadPrivilegesConfig();
+			loadIrcConfig();
+			loadAntharasConfig();
+			loadValakasConfig();
+			loadSailrenConfig();
+			loadSayFilter();
 			
 			initDBProperties();
 	}

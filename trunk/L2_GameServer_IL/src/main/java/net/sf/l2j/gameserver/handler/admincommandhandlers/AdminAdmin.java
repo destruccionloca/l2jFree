@@ -33,6 +33,7 @@ import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.Manager;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Multisell;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -227,103 +228,108 @@ public class AdminAdmin implements IAdminCommandHandler {
 
                 if(type.equals("rates"))
                 {
-                    Config.loadratesconfig();
+                    Config.loadRatesConfig();
                     activeChar.sendMessage("rates config reloaded");
                 }
                 else if(type.equals("enchant"))
                 {
-                    Config.loadenchantconfig();
+                    Config.loadEnchantConfig();
                     activeChar.sendMessage("enchant config reloaded");
                 }
                 else if(type.equals("pvp"))
                 {
-                    Config.loadpvpconfig();
+                    Config.loadPvpConfig();
                     activeChar.sendMessage("pvp config reloaded");
                 }
                 else if(type.equals("options"))
                 {
-                    Config.loadoptionsconfig();
+                    Config.loadOptionsConfig();
                     activeChar.sendMessage("options config reloaded");
                 }
                 else if(type.equals("other"))
                 {
-                    Config.loadotherconfig();
+                    Config.loadOtherConfig();
                     activeChar.sendMessage("other config reloaded");
                 }
                 else if(type.equals("alt"))
                 {
-                    Config.loadaltconfig();
+                    Config.loadAltConfig();
                     activeChar.sendMessage("alt config reloaded");
                 }
                 else if(type.equals("clans"))
                 {
-                    Config.loadclansconfig();
+                    Config.loadClansConfig();
                     activeChar.sendMessage("clans config reloaded");
                 }
                 else if(type.equals("champions"))
                 {
-                    Config.loadchampionsconfig();
+                    Config.loadChampionsConfig();
                     activeChar.sendMessage("champions config reloaded");
                 }
                 else if(type.equals("lottery"))
                 {
-                    Config.loadlotteryconfig();
+                    Config.loadLotteryConfig();
                     activeChar.sendMessage("lottery config reloaded");
                 }
                 else if(type.equals("sepulchurs"))
                 {
-                    Config.loadsepulchursconfig();
+                    Config.loadSepulchursConfig();
                     activeChar.sendMessage("sepulchurs config reloaded");
                 }
                 else if(type.equals("clanhall"))
                 {
-                    Config.loadclanhallconfig();
+                    Config.loadClanHallConfig();
                     activeChar.sendMessage("clanhall config reloaded");
                 }
                 else if(type.equals("funengines"))
                 {
-                    Config.loadfunenginesconfig();
+                    Config.loadFunEnginesConfig();
                     activeChar.sendMessage("funegines config reloaded");
                 }
                 else if(type.equals("sevensigns"))
                 {
-                    Config.loadsevensignsconfig();
+                    Config.loadSevenSignsConfig();
                     activeChar.sendMessage("sevensigns config reloaded");
                 }
-                else if(type.equals("gmaccess"))
+                else if(type.equals("gmconf"))
                 {
-                    Config.loadgmaccess();
-                    activeChar.sendMessage("gmaccess config reloaded");
+                    Config.loadGmAccess();
+                    activeChar.sendMessage("gm config reloaded");
                 }
                 else if(type.equals("irc"))
                 {
-                    Config.loadircconfig();
+                    Config.loadIrcConfig();
                     activeChar.sendMessage("irc config reloaded");
                 }
                 else if(type.equals("antharas"))
                 {
-                    Config.loadantharasconfig();
+                    Config.loadAntharasConfig();
                     activeChar.sendMessage("antharas config reloaded");
                 }
                 else if(type.equals("valakas"))
                 {
-                    Config.loadvalakasconfig();
+                    Config.loadValakasConfig();
                     activeChar.sendMessage("valakas config reloaded");
                 }
                 else if(type.equals("sailren"))
                 {
-                    Config.loadsailrenconfig();
+                    Config.loadSailrenConfig();
                     activeChar.sendMessage("sailren config reloaded");
                 }
                 else if(type.equals("sayfilter"))
                 {
-                    Config.loadsayfilter();
+                    Config.loadSayFilter();
                     activeChar.sendMessage("sayfilter reloaded");
+                }
+                else if(type.equals("access"))
+                {
+                    Config.loadPrivilegesConfig();
+                    activeChar.sendMessage("access config reloaded");
                 }
             }
             catch(Exception e)
             {
-                activeChar.sendMessage("Usage:  //reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmaccess|irc|antharas|valakas|sailren|sayfilter>");
+                activeChar.sendMessage("Usage:  //reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|antharas|valakas|sailren|sayfilter>");
             }
         }
         else if(command.startsWith("admin_reload"))
@@ -340,12 +346,12 @@ public class AdminAdmin implements IAdminCommandHandler {
                     L2Multisell.getInstance().reload();
                     activeChar.sendMessage("multisell reloaded");
                 }
-                else if(type.startsWith("teleport"))
+                else if(type.equals("teleport"))
                 {
                     TeleportLocationTable.getInstance().reloadAll();
                     activeChar.sendMessage("teleport location table reloaded");
                 }
-                else if(type.startsWith("skill"))
+                else if(type.equals("skill"))
                 {
                     SkillTable.getInstance().reload();
                     activeChar.sendMessage("skills reloaded");
@@ -356,35 +362,35 @@ public class AdminAdmin implements IAdminCommandHandler {
                     NpcTable.getInstance().reloadAll();
                     activeChar.sendMessage("npcs reloaded");
                 }
-                else if(type.startsWith("htm"))
+                else if(type.equals("htm"))
                 {
                 	HtmCache.getInstance().reload();
                     activeChar.sendMessage("Cache[HTML]: " + HtmCache.getInstance().getMemoryUsage()  + " megabytes on " + HtmCache.getInstance().getLoadedFiles() + " files loaded");
                 }
-                else if(type.startsWith("item"))
+                else if(type.equals("item"))
                 {
                 	ItemTable.getInstance().reload();
                 	activeChar.sendMessage("Item templates reloaded");
                 }
-                else if(type.startsWith("instancemanager"))
+                else if(type.equals("instancemanager"))
                 {
                 	Manager.reloadAll();
                 	activeChar.sendMessage("All instance manager reloaded");
                 }
-                else if(type.startsWith("teleport"))
-                {
-                    TeleportLocationTable.getInstance().reloadAll();
-                    activeChar.sendMessage("Teleport List Table reloaded.");
-                }
-                else if(type.startsWith("tradelist"))
+                else if(type.equals("tradelist"))
                 {
                     TradeListTable.getInstance().reloadAll();
                     activeChar.sendMessage("TradeList Table reloaded.");
                 }
+				else if(type.equals("zone"))
+                {
+                	ZoneManager.getInstance().reload();
+                    activeChar.sendMessage("Zones reloaded.");
+                }
             }
             catch(Exception e)
             {
-                activeChar.sendMessage("Usage:  //reload <multisell|teleport|skill|npc|htm|item|instancemanager|teleport|tradelist>");
+                activeChar.sendMessage("Usage:  //reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone>");
             }
         }
 
