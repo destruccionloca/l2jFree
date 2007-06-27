@@ -17,13 +17,14 @@
  */
 package net.sf.l2j.gameserver.util;
 
-import java.util.logging.Logger;
-
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.Config;
 
 import javolution.util.FastMap;
 import javolution.util.FastMap.Entry;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Flood protector
@@ -32,7 +33,7 @@ import javolution.util.FastMap.Entry;
  */
 public class FloodProtector
 {
-	private static final Logger _log = Logger.getLogger(FloodProtector.class.getName());
+	private static final Log _log = LogFactory.getLog(FloodProtector.class.getName());
 	private static FloodProtector _Instance;
 
 	public static final FloodProtector getInstance()
