@@ -38,8 +38,15 @@ public class QuestManager
     {
         if (_Instance == null)
         {
+        	File jscript;
     		System.out.println("Initializing QuestManager");
             _Instance = new QuestManager();
+            jscript = new File(Config.DATAPACK_ROOT, "jscript");
+            for (File file : jscript.listFiles())
+            {
+            	if (file.isFile() && file.getName().endsWith("$py.class"))
+            		file.delete();
+            }
             if (!Config.ALT_DEV_NO_QUESTS)
             	_Instance.load();
         }
