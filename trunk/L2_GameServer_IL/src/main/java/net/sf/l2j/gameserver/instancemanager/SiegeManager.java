@@ -149,6 +149,9 @@ public class SiegeManager
                 register = true;
                 break;
             }
+            
+            rs.close();
+            statement.close();            
         }
         catch (Exception e)
         {

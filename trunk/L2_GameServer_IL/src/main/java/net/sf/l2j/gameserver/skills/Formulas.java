@@ -113,7 +113,7 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            env.value += env._player.getLevel() / 3;
+            env.value += env._player.getLevel() / 3.0;
         }
     }
     
@@ -1001,7 +1001,7 @@ public final class Formulas
            L2PcInstance player = (L2PcInstance) cha;
    
            // Calculate correct baseHpReg value for certain level of PC
-           init += (player.getLevel() > 10) ? ((player.getLevel()-1)/10) : 0.5;
+           init += (player.getLevel() > 10) ? ((player.getLevel()-1)/10.0) : 0.5;
            
            // Calculate Movement bonus
            if (player.isSitting()) init *= 1.5;      // Sitting

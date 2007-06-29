@@ -18,16 +18,22 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Party;
+import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.serverpackets.FriendList;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
@@ -153,6 +159,9 @@ public class Logout extends L2GameClientPacket
         player.getInventory().updateDatabase();
         player.deleteMe();
 
+        // notify friends
+		notifyFriends(player);
+        
         //save character
         L2GameClient.saveCharToDisk(player);
         
@@ -160,6 +169,43 @@ public class Logout extends L2GameClientPacket
         // we skip that for now
         sendPacket(new LeaveWorld());
     }
+
+	private void notifyFriends(L2PcInstance cha)
+	{
+		java.sql.Connection con = null;
+	
+		try {
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			statement = con.prepareStatement("SELECT friend_name FROM character_friends WHERE char_id=?");
+			statement.setInt(1, cha.getObjectId());
+			ResultSet rset = statement.executeQuery();
+	
+			L2PcInstance friend;
+			String friendName;
+	
+			while (rset.next())
+			{
+				friendName = rset.getString("friend_name");
+	
+				friend = L2World.getInstance().getPlayer(friendName);
+	
+				if (friend != null) //friend logged in.
+				{
+					friend.sendPacket(new FriendList(friend));
+				}
+			}
+			
+			rset.close();
+			statement.close();
+		} 
+		catch (Exception e) {
+			_log.warn("could not restore friend data:"+e);
+		} 
+		finally {
+			try {con.close();} catch (Exception e){}
+		}
+	}
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()

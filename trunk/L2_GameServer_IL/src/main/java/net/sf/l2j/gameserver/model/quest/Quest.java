@@ -408,7 +408,7 @@ public abstract class Quest
 				State state = q.states.get(stateId);
 				if (state == null) {
 					if(_log.isDebugEnabled())
-						_log.info("Unknown state "+state+" in quest "+questId+" for player "+player.getName());
+						_log.info("Unknown state in quest "+questId+" for player "+player.getName());
 					if (Config.AUTODELETE_INVALID_QUEST_DATA){
 					    invalidQuestData.setInt(1, player.getObjectId());
                         invalidQuestData.setString(2, questId);

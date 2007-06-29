@@ -228,7 +228,7 @@ public final class TaskManager
                 }
 
                 rset.close();
-                rset.close();
+                statement.close();
 
             }
             catch (Exception e)

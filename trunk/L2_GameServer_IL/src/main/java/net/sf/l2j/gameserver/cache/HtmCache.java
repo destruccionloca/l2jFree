@@ -280,7 +280,7 @@ public class HtmCache implements HtmCacheMBean
                 
                 bis.read(raw);
                 content = new String(raw, "UTF-8");
-                content.replaceAll("\r\n","\n");
+                content = content.replaceAll("\r\n","\n");
                 
                 String relpath = Util.getRelativePath(Config.DATAPACK_ROOT,file);
                 int hashcode = relpath.hashCode();

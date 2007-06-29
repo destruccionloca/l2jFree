@@ -131,17 +131,7 @@ public class CursedWeapon
                     {
                         _log.warn("Error while deleting itemId "+ _itemId +" from userId "+ _playerId);
                     }
-                    
-                    /* Yesod: Skill is not stored into database any more.
-                    // Delete the skill
-                    statement = con.prepareStatement("DELETE FROM character_skills WHERE char_obj_id=? AND skill_id=?");
-                    statement.setInt(1, _playerId);
-                    statement.setInt(2, _skillId);
-                    if (statement.executeUpdate() != 1)
-                    {
-                        _log.warn("Error while deleting skillId "+ _skillId +" from userId "+_playerId);
-                    }
-                    */
+                    statement.close();
                     // Restore the karma
                     statement = con.prepareStatement("UPDATE characters SET karma=?, pkkills=? WHERE obj_id=?");
                     statement.setInt(1, _playerKarma);
@@ -151,6 +141,7 @@ public class CursedWeapon
                     {
                         _log.warn("Error while updating karma & pkkills for userId "+_playerId);
                     }
+                    statement.close();
                 }
                 catch (Exception e)
                 {
@@ -302,7 +293,7 @@ public class CursedWeapon
         if (_endTime - System.currentTimeMillis() <= 0)
             endOfLife();
         else 
-            _removeTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new RemoveTask(), _durationLost*12000, _durationLost*12000);
+            _removeTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new RemoveTask(), _durationLost*12000L, _durationLost*12000L);
 
     }
     
@@ -315,8 +306,8 @@ public class CursedWeapon
             dropIt(attackable, player);
             
             // Start the Life Task
-            _endTime = System.currentTimeMillis() + _duration * 60000;
-            _removeTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new RemoveTask(), _durationLost*12000, _durationLost*12000);
+            _endTime = System.currentTimeMillis() + _duration * 60000L;
+            _removeTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new RemoveTask(), _durationLost*12000, _durationLost*12000L);
             
             return true;
         }

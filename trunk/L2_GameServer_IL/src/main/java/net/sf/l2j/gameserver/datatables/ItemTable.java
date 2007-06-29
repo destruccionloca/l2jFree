@@ -237,6 +237,9 @@ public class ItemTable implements ItemTableMBean
                         Item newItem    = readWeapon(rset);
                         weaponData.put(newItem.id, newItem);
                     }
+                    
+                    rset.close();
+                    statement.close();                    
                 }
             }
         }

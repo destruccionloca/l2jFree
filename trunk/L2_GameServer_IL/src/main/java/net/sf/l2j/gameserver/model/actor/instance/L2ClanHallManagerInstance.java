@@ -49,10 +49,10 @@ import org.apache.commons.logging.LogFactory;
 public class L2ClanHallManagerInstance extends L2FolkInstance
 {
     private final static Log _log = LogFactory.getLog(L2ClanHallManagerInstance.class.getName());
-	protected static int Cond_Owner_False = 0;
-    protected static int Cond_All_False = 1;
-    protected static int Cond_Busy_Because_Of_Siege = 2;
-    protected static int Cond_Owner = 3;
+	protected static final int Cond_Owner_False = 0;
+    protected static final int Cond_All_False = 1;
+    protected static final int Cond_Busy_Because_Of_Siege = 2;
+    protected static final int Cond_Owner = 3;
     private int _clanHallId = -1;
 
 	/**

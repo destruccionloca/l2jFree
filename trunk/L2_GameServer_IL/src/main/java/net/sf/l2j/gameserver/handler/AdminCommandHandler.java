@@ -180,7 +180,7 @@ public class AdminCommandHandler
 			{
 				_log.warn("Duplicated command \""+ids[i]+"\" definition in "+ handler.getClass().getName()+".");
 			} else
-				_datatable.put(new String(ids[i]), handler);
+				_datatable.put(ids[i], handler);
 			
 			if (Config.ALT_PRIVILEGES_ADMIN && !Config.GM_COMMAND_PRIVILEGES.containsKey(ids[i]))
 				_log.warn("Command \""+ids[i]+"\" have no access level definition. Can't be used.");
@@ -195,7 +195,7 @@ public class AdminCommandHandler
 		}
 		if (_log.isDebugEnabled())
 			_log.debug("getting handler for command: "+command+
-					" -> "+(_datatable.get(new String(command)) != null));
+					" -> "+(_datatable.get(command) != null));
 		return _datatable.get(command);
 	}
 

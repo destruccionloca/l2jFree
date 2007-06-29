@@ -568,7 +568,7 @@ public class SevenSignsFestival implements SpawnListener
      }
     };
     
-    protected static final int[][][] festivalDawnChestSpawns = 
+    private static final int[][][] festivalDawnChestSpawns =  
     {
      {
          /* Level 31 and Below */ 

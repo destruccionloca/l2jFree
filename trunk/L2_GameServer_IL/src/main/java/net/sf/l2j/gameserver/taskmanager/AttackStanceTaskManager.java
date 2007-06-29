@@ -45,7 +45,7 @@ public class AttackStanceTaskManager
 
     protected FastMap<L2Character,Long> _attackStanceTasks = new FastMap<L2Character,Long>().setShared(true);
     
-    public static AttackStanceTaskManager _instance;
+    private static AttackStanceTaskManager _instance;
     
     public AttackStanceTaskManager()
     {

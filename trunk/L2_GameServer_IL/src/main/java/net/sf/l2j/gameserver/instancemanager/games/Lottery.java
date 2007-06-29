@@ -37,8 +37,8 @@ import org.apache.commons.logging.LogFactory;
 
 public class Lottery
 {
-    public static long SECOND = 1000;
-    public static long MINUTE = 60 * SECOND;
+    public static final long SECOND = 1000;
+    public static final long MINUTE = 60000;
     
     private static Lottery _instance;
     protected static Log _log = LogFactory.getLog(Lottery.class.getName());
@@ -173,6 +173,8 @@ public class Lottery
                         if (_enddate <= System.currentTimeMillis() + 2 * MINUTE)
                         {
                             (new finishLottery()).run();
+                            rset.close();
+                            statement.close();                            
                             return false;
                         }
                         
@@ -193,7 +195,9 @@ public class Lottery
                                                                                 - System.currentTimeMillis()
                                                                                 - 10 * MINUTE);
                             }
-                            return false;
+						    rset.close();
+						    statement.close();
+						    return false;
                         }
                     }
                 }
@@ -537,7 +541,12 @@ public class Lottery
                 int curenchant = rset.getInt("number1") & enchant;
                 int curtype2 = rset.getInt("number2") & type2;
                 
-                if (curenchant == 0 && curtype2 == 0) return res;
+                if (curenchant == 0 && curtype2 == 0)
+                {
+                	rset.close();
+                    statement.close();
+                	return res;
+                }
                 
                 int count = 0;
                 
@@ -575,6 +584,7 @@ public class Lottery
                 if (_log.isDebugEnabled()) _log.warn("count: " + count + ", id: " + id + ", enchant: " + enchant + ", type2: " + type2);
             }
             
+            rset.close();
             statement.close();
         }
         catch (SQLException e)

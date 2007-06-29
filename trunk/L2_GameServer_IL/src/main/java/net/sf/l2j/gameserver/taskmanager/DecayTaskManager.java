@@ -33,7 +33,7 @@ public class DecayTaskManager
 {
     protected FastMap<L2Character,Long> _decayTasks = new FastMap<L2Character,Long>().setShared(true);
 
-    public static DecayTaskManager _instance;
+    private static DecayTaskManager _instance;
     
     public DecayTaskManager()
     {

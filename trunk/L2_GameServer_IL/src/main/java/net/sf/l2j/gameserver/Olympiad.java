@@ -1857,8 +1857,9 @@ public class Olympiad
                     if(pc == null || !pc.inObserverMode()) continue;
                     pc.leaveOlympiadObserverMode();
                 }
+                
+                _spectators.clear();                
             }
-            _spectators.clear();
         }
         
         private void broadcastMessage(SystemMessage sm, boolean toAll)

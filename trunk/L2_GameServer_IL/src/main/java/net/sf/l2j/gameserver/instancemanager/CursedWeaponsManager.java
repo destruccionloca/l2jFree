@@ -229,6 +229,7 @@ public class CursedWeaponsManager
                         {
                             _log.warn("Error while deleting cursed weapon "+itemId+" from userId "+playerId);
                         }
+                        statement.close();
                         
                         // Delete the skill
                         /*
@@ -367,7 +368,7 @@ public class CursedWeaponsManager
                 SystemMessage sm = new SystemMessage(SystemMessage.S2_MINUTE_OF_USAGE_TIME_ARE_LEFT_FOR_S1);
                 sm.addString(cw.getName());
                 //sm.addItemName(cw.getItemId());
-                sm.addNumber((new Long((cw.getEndTime() - System.currentTimeMillis()) / 60000)).intValue());
+                sm.addNumber((int)((cw.getEndTime() - System.currentTimeMillis()) / 60000));
                 player.sendPacket(sm);
             }
         }

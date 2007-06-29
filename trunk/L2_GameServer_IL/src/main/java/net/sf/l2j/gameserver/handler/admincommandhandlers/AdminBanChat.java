@@ -96,7 +96,7 @@ public class AdminBanChat implements IAdminCommandHandler {
             
 			if (banLength > -1)
             {
-                targetPlayer.setBanChatTimer(banLength * 60000);
+                targetPlayer.setBanChatTimer(banLength * 60000L);
                 banLengthStr = " for " + banLength + " minutes.";
             }
 			

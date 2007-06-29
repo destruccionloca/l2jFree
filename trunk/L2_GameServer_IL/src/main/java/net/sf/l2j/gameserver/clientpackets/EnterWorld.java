@@ -454,7 +454,7 @@ public class EnterWorld extends L2GameClientPacket
             }
         }
 
-        sm = null;                        
+        sm = null;
 	}
     
 	/**

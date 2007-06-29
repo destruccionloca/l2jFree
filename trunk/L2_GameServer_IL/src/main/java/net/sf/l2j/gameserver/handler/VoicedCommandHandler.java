@@ -64,7 +64,7 @@ public class VoicedCommandHandler
 		for (int i = 0; i < ids.length; i++)
 		{
 			if (_log.isDebugEnabled()) _log.debug("Adding handler for command "+ids[i]);
-			_datatable.put(new String(ids[i]), handler);
+			_datatable.put(ids[i], handler);
 		}
 	}
 	
@@ -76,7 +76,7 @@ public class VoicedCommandHandler
 		}
 		if (_log.isDebugEnabled())
 			_log.debug("getting handler for command: "+command+
-					" -> "+(_datatable.get(new String(command)) != null));
+					" -> "+(_datatable.get(command) != null));
 		return _datatable.get(command);
 	}
 
