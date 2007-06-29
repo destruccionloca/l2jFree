@@ -23,6 +23,7 @@ import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -69,6 +70,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
     public String _accountName;
     public SessionKey _sessionId;
     public L2PcInstance _activeChar;
+    private ReentrantLock _activeCharLock = new ReentrantLock();
+    
     private boolean _isAuthedGG;
     private long _connectionStartTime;
     private List<Integer> _charSlotMapping = new FastList<Integer>();
@@ -141,10 +144,15 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
         _activeChar = activeChar;
         if (activeChar != null)
         {
-            L2World.getInstance().storeObject(_activeChar);
+        	L2World.getInstance().storeObject(this.getActiveChar());
         }
     }
     
+	public ReentrantLock getActiveCharLock()
+	{
+		return _activeCharLock;
+ 	}
+	
     public void setGameGuardOk(boolean val)
     {
         _isAuthedGG = val;
@@ -179,12 +187,12 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
     public L2PcInstance markToDeleteChar(int charslot) throws Exception
     {
         //have to make sure active character must be nulled
-        if (getActiveChar() != null)
+        /*if (getActiveChar() != null)
         {
             saveCharToDisk (getActiveChar());
             if (_log.isDebugEnabled()) _log.debug("active Char saved");
             _activeChar = null;
-        }
+        }*/
 
         int objid = getObjectIdForSlot(charslot);
         if (objid < 0)
@@ -218,12 +226,12 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
     public L2PcInstance deleteChar(int charslot) throws Exception
     {
         //have to make sure active character must be nulled
-        if (getActiveChar() != null)
+        /*if (getActiveChar() != null)
         {
             saveCharToDisk (getActiveChar());
             if (_log.isDebugEnabled()) _log.debug("active Char saved");
             _activeChar = null;
-        }
+        }*/
     
         int objid = getObjectIdForSlot(charslot);
         if (objid < 0)
@@ -255,12 +263,12 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
     public void markRestoredChar(int charslot) throws Exception
     {   
         //have to make sure active character must be nulled
-        if (getActiveChar() != null)
+        /*if (getActiveChar() != null)
         {
             saveCharToDisk (getActiveChar());
             if (_log.isDebugEnabled()) _log.debug("active Char saved");
             _activeChar = null;
-        }
+        }*/
 
         int objid = getObjectIdForSlot(charslot);
             if (objid < 0)
@@ -520,7 +528,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
                 // we are going to mannually save the char bellow thus we can force the cancel
                 _autoSaveInDB.cancel(true);
                 
-                L2PcInstance player = _activeChar;
+                L2PcInstance player = L2GameClient.this.getActiveChar();
                 if (player != null)  // this should only happen on connection loss
                 {
                     
@@ -543,7 +551,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
                     }
                     catch (Exception e2) { /* ignore any problems here */ }
                 }
-                _activeChar = null;
+                L2GameClient.this.setActiveChar(null);
             }
             catch (Exception e1)
             {
@@ -551,7 +559,6 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
             }
             finally
             {
-                // remove the account
                 LoginServerThread.getInstance().sendLogout(L2GameClient.this.getAccountName());
             }
         }

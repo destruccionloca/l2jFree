@@ -51,7 +51,6 @@ import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.quest.Quest;
-import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.ClientSetTime;
 import net.sf.l2j.gameserver.serverpackets.Die;
@@ -111,6 +110,7 @@ public class EnterWorld extends L2GameClientPacket
 		if (activeChar == null)
         { 
             _log.warn("EnterWorld failed! activeChar is null..."); 			
+            this.getClient().closeNow();
 		    return;
         }
 		

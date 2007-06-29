@@ -69,38 +69,50 @@ public class CharacterSelected extends L2GameClientPacket
 		// be a  [S]0x21 packet
 		// after playback is done, the client will not work correct and need to exit
 		//playLogFile(getConnection()); // try to play log file
-
-		// HAVE TO CREATE THE L2PCINSTANCE HERE TO SET AS ACTIVE
-		if (_log.isDebugEnabled()) _log.debug("selected slot:" + _charSlot);
-
-		//loadup character from disk
-		L2PcInstance cha = getClient().loadCharFromDisk(_charSlot);
-		if(cha == null)
+		// we should always be abble to acquire the lock
+		// but if we cant lock then nothing should be done (ie repeated packet)
+		if (this.getClient().getActiveCharLock().tryLock())
 		{
-			_log.warn("Character could not be loaded (slot:"+_charSlot+")");
-			sendPacket(new ActionFailed());
-			return;
+			try
+			{
+				// should always be null
+				// but if not then this is repeated packet and nothing should be done here
+				if (this.getClient().getActiveChar() == null)
+				{
+					// The L2PcInstance must be created here, so that it can be attached to the L2GameClient
+					if (_log.isDebugEnabled())
+					{
+						_log.info("selected slot:" + _charSlot);
+					}
+					
+					//load up character from disk
+					L2PcInstance cha = getClient().loadCharFromDisk(_charSlot);
+					if (cha == null)
+					{
+						_log.fatal("Character could not be loaded (slot:"+_charSlot+")");
+						sendPacket(new ActionFailed());
+						return;
+					}
+					if (cha.getAccessLevel() < -1)
+					{
+						cha.closeNetConnection();
+						return;
+					}
+					
+					cha.setClient(this.getClient());
+					getClient().setActiveChar(cha);
+					
+					this.getClient().setState(GameClientState.IN_GAME);
+					CharSelected cs = new CharSelected(cha, getClient().getSessionId().playOkID1);
+					sendPacket(cs);
+				}
+			}
+			finally
+			{
+				this.getClient().getActiveCharLock().unlock();
+			}
 		}
-		if (L2World.getInstance().findObject(cha.getObjectId()) != null) 
-        { 
-				_log.warn("User already exist in OID map! User "+cha.getName()+" is character clone"); 
-                //activeChar.closeNetConnection(); 
-        }
-        
-        cha.setClient(this.getClient());
-        getClient().setActiveChar(cha);
-        
-		if(cha.getAccessLevel() < -1)
-		{
-			cha.closeNetConnection();
-			return;
-		}
-		//weird but usefull, will send i..
-		//cha.setAccessLevel(cha.getAccessLevel());
-        this.getClient().setState(GameClientState.IN_GAME);
-		CharSelected cs = new CharSelected(cha, getClient().getSessionId().playOkID1);
-		sendPacket(cs);
-	}
+}
 	
 	/*
 	private void playLogFile(Connection connection)

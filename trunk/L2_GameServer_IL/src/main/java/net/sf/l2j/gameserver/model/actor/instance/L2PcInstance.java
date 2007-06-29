@@ -562,6 +562,13 @@ public final class L2PcInstance extends L2PlayableInstance
     public boolean eventSitForced = false;
     public boolean atEvent = false;
 
+    /** Event Engine parameters */
+    public int _originalNameColor,
+               _countKills,
+               _originalKarma,
+               _eventKills;
+    public boolean _inEvent = false;
+
     /** TvT Engine parameters */
     public String _teamNameTvT;
     public int _originalNameColorTvT,
@@ -10549,5 +10556,19 @@ public final class L2PcInstance extends L2PlayableInstance
 		sm.addNumber(damage);
 		sendPacket(sm);
 		
-   }   
+   }
+	public void saveEventStats()
+	{
+        _originalNameColor = getAppearance().getNameColor();
+        _originalKarma = getKarma();
+        _eventKills = 0;
+	}
+	
+	public void restoreEventStats()
+	{
+    	getAppearance().setNameColor(_originalNameColor);
+    	setKarma(_originalKarma);
+    	_eventKills = 0;
+	}
+   
 }
