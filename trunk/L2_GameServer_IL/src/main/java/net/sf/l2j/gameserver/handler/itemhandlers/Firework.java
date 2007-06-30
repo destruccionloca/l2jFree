@@ -25,6 +25,8 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.util.FloodProtector;
 
 /** 
  * This class ... 
@@ -42,6 +44,14 @@ public class Firework implements IItemHandler
         L2PcInstance activeChar;
         activeChar = (L2PcInstance)playable;
         int itemId = item.getItemId();
+
+        if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_FIREWORK))
+        {
+        	SystemMessage sm = new SystemMessage(SystemMessage.S1_CANNOT_BE_USED);
+        	sm.addItemName(itemId);
+        	activeChar.sendPacket(sm);
+        	return;
+        }
 
         /*
          * Elven Firecracker
@@ -77,7 +87,9 @@ public class Firework implements IItemHandler
             playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
         }
     }
-    public void useFw(L2PcInstance activeChar, int magicId,int level) {
+    
+    public void useFw(L2PcInstance activeChar, int magicId,int level) 
+    {
         L2Skill skill = SkillTable.getInstance().getInfo(magicId,level);
         if (skill != null) {
             activeChar.useMagic(skill, false, false);

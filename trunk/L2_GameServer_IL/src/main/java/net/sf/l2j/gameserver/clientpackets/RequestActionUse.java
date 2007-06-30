@@ -425,6 +425,12 @@ public class RequestActionUse extends L2GameClientPacket
             case 1017: // Cursed Man - Cursed Strike/Stun
                 useSkill(4708);
                 break;
+			case 1039: // Swoop Cannon - Cannon Fodder
+				useSkill(5110);
+				break;
+			case 1040: // Swoop Cannon - Big Bang
+				useSkill(5111);
+				break;                
             default:
                 _log.warn(activeChar.getName()+": unhandled action type "+_actionId);
         }
