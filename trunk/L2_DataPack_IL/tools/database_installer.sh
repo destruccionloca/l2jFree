@@ -5,6 +5,7 @@
 ## Based on Tiago Tagliaferri's script    ##
 ## E-mail: tiago_tagliaferri@msn.com      ##
 ## From "L2J-DataPack"                    ##
+## Modified for L2JFree                   ##
 ############################################
 trap finish 2
 
@@ -151,8 +152,8 @@ echo "#############################################"
 echo ""
 echo "Choose upgrade (u) if you already have an 'accounts' table but no"
 echo "'gameserver' table (ie. your server is a pre LS/GS split version.)"
-echo "Choose skip (s) to skip loginserver DB installation and go to"
-echo "gameserver DB installation/upgrade."
+echo "Choose skip (s) to skip LoginServer database installation and go to"
+echo "GameServer database installation/upgrade."
 echo -ne "LOGINSERVER DB install type: (f) full, (u) upgrade or (s) skip or (q) quit? "
 read LOGINPROMPT
 case "$LOGINPROMPT" in
@@ -165,12 +166,12 @@ esac
 }
 
 logininstall(){
-echo "Deleting loginserver tables for new content."
+echo "Deleting LoginServer tables for new content."
 $MYL < login_install.sql &> /dev/null
 }
 
 loginupgrade(){
-echo "Installing new loginserver content."
+echo "Installing new LoginServer content."
 $MYL < ../sql/accounts.sql &> /dev/null
 $MYL < ../sql/gameservers.sql &> /dev/null
 }
@@ -179,14 +180,14 @@ gsbackup(){
 while :
   do
    echo ""
-   echo -ne "Do you want to make a backup copy of your GSDB? (y/n): "
+   echo -ne "Do you want to make a backup copy of your GameServer database? (y/n): "
    read LSB
    if [ "$LSB" == "Y" -o "$LSB" == "y" ]; then
-     echo "Making a backup of the original gameserver database."
+     echo "Making a backup of the original GameServer database."
      $MYSQLDUMPPATH --add-drop-table -h $GSDBHOST -u $GSUSER --password=$GSPASS $GSDB > gameserver_backup.sql
      if [ $? -ne 0 ];then
      echo ""
-     echo "There was a problem accesing your GS database, either it wasnt created or authentication data is incorrect."
+     echo "There was a problem accesing your GameServer database, either it wasnt created or authentication data is incorrect."
      exit 1
      fi
      break
@@ -224,23 +225,23 @@ echo "WARNING: A full install (f) will destroy all existing character data."
 echo -ne "GAMESERVER DB install type: (f) full install or (u) upgrade or (s) skip or (q) quit?"
 read INSTALLTYPE
 case "$INSTALLTYPE" in
-	"f"|"F") fullinstall; upgradeinstall I;;
-	"u"|"U") upgradeinstall U;;
+	"f"|"F") fullinstall; upgradeinstall I;askupdatedb;;
+	"u"|"U") upgradeinstall U;askupdatedb;;
 	"q"|"Q") finish;;
 	*) asktype;;
 esac
 }
 
 fullinstall(){
-echo "Deleting all gameserver tables for new content."
+echo "Deleting all GameServer tables for new content."
 $MYG < full_install.sql &> /dev/null
 }
 
 upgradeinstall(){
 if [ "$1" == "I" ]; then 
-echo "Installing new gameserver content."
+echo "Installing new GameServer content."
 else
-echo "Upgrading gameserver content"
+echo "Upgrading GameServer content"
 fi
 $MYG < ../sql/account_data.sql &> /dev/null
 $MYG < ../sql/armor.sql &> /dev/null
@@ -253,7 +254,6 @@ $MYG < ../sql/auto_chat.sql &> /dev/null
 $MYG < ../sql/auto_chat_text.sql &> /dev/null
 $MYG < ../sql/boxaccess.sql &> /dev/null
 $MYG < ../sql/boxes.sql &> /dev/null
-$MYG < ../sql/buff_templates.sql &> /dev/null
 $MYG < ../sql/castle.sql &> /dev/null
 $MYG < ../sql/castle_door.sql &> /dev/null
 $MYG < ../sql/castle_doorupgrade.sql &> /dev/null
@@ -265,7 +265,6 @@ $MYG < ../sql/character_friends.sql &> /dev/null
 $MYG < ../sql/character_hennas.sql &> /dev/null
 $MYG < ../sql/character_macroses.sql &> /dev/null
 $MYG < ../sql/character_quests.sql &> /dev/null
-$MYG < ../sql/character_raidpoints.sql &> /dev/null
 $MYG < ../sql/character_recipebook.sql &> /dev/null
 $MYG < ../sql/character_recommends.sql &> /dev/null
 $MYG < ../sql/character_shortcuts.sql &> /dev/null
@@ -281,20 +280,13 @@ $MYG < ../sql/clan_wars.sql &> /dev/null
 $MYG < ../sql/clanhall.sql &> /dev/null
 $MYG < ../sql/clanhall_functions.sql &> /dev/null
 $MYG < ../sql/class_list.sql &> /dev/null
-$MYG < ../sql/couples.sql &> /dev/null
-$MYG < ../sql/ctf.sql &> /dev/null
-$MYG < ../sql/ctf_teams.sql &> /dev/null
 $MYG < ../sql/cursed_Weapons.sql &> /dev/null
-$MYG < ../sql/custom_npc.sql &> /dev/null
-$MYG < ../sql/custom_spawnlist.sql &> /dev/null
-$MYG < ../sql/dm.sql &> /dev/null
 $MYG < ../sql/droplist.sql &> /dev/null
 $MYG < ../sql/enchant_skill_trees.sql &> /dev/null
 $MYG < ../sql/etcitem.sql &> /dev/null
 $MYG < ../sql/fish.sql &> /dev/null
 $MYG < ../sql/fishing_skill_trees.sql &> /dev/null
 $MYG < ../sql/forums.sql &> /dev/null
-$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null
 $MYG < ../sql/games.sql &> /dev/null
 $MYG < ../sql/global_tasks.sql &> /dev/null
 $MYG < ../sql/gm_audit.sql &> /dev/null
@@ -334,12 +326,65 @@ $MYG < ../sql/skill_trees.sql &> /dev/null
 $MYG < ../sql/spawnlist.sql &> /dev/null
 $MYG < ../sql/teleport.sql &> /dev/null
 $MYG < ../sql/topic.sql &> /dev/null
+$MYG < ../sql/weapon.sql &> /dev/null
+$MYG < ../sql/zone.sql &> /dev/null
+echo "Installing L2JFree content"
+$MYG < ../sql/buff_templates.sql &> /dev/null
+$MYG < ../sql/character_raidpoints.sql &> /dev/null
+$MYG < ../sql/couples.sql &> /dev/null
+$MYG < ../sql/ctf.sql &> /dev/null
+$MYG < ../sql/ctf_teams.sql &> /dev/null
+$MYG < ../sql/custom_npc.sql &> /dev/null
+$MYG < ../sql/custom_spawnlist.sql &> /dev/null
+$MYG < ../sql/dm.sql &> /dev/null
+$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null
 $MYG < ../sql/tvt.sql &> /dev/null
 $MYG < ../sql/tvt_teams.sql &> /dev/null
 $MYG < ../sql/version.sql &> /dev/null
 $MYG < ../sql/vip.sql &> /dev/null
-$MYG < ../sql/weapon.sql &> /dev/null
-$MYG < ../sql/zone.sql &> /dev/null
+}
+
+askupdatedb(){
+echo ""
+echo "Do you want to update your database with files in update folder?"
+echo -ne "UPDATE your database: (y) yes or (n) no?"
+read UPDATETYPE
+case "$UPDATETYPE" in
+	"y"|"Y") updatedb;;
+	"n"|"N") finish;;
+	*) asklogin;;
+esac
+}
+
+updatedb(){
+$MYG < ../sql/updates/061120-[14].sql
+$MYG < ../sql/updates/061124-[34].sql
+$MYG < ../sql/updates/061126-[59].sql
+$MYG < ../sql/updates/061207-[150].sql
+$MYG < ../sql/updates/070111.sql
+$MYG < ../sql/updates/070204-[483].sql
+$MYG < ../sql/updates/070206-[531].sql
+$MYG < ../sql/updates/070224-[611].sql
+$MYG < ../sql/updates/070225-[630].sql
+$MYG < ../sql/updates/070301-[671].sql
+$MYG < ../sql/updates/070301-[674].sql
+$MYG < ../sql/updates/070301-[677].sql
+$MYG < ../sql/updates/070303-[697].sql
+$MYG < ../sql/updates/070309-[744].sql
+$MYG < ../sql/updates/070309-[744-2].sql
+$MYG < ../sql/updates/070309-[747].sql
+$MYG < ../sql/updates/070309-[753].sql
+$MYG < ../sql/updates/070311-[796].sq
+$MYG < ../sql/updates/070316-[837].sql
+$MYG < ../sql/updates/070329-[951].sql
+$MYG < ../sql/updates/070402-[1002].sql
+$MYG < ../sql/updates/070409-[1060].sql
+$MYG < ../sql/updates/070504-[1287].sql
+$MYG < ../sql/updates/070519-[1387].sql
+$MYG < ../sql/updates/070605-[1497].sql
+$MYG < ../sql/updates/070607-[1523].sql
+$MYG < ../sql/updates/070610-[1535].sql
+$MYG < ../sql/updates/070612-[1552].sql
 }
 
 finish(){

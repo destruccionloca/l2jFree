@@ -1,98 +1,24 @@
-DROP TABLE IF EXISTS account_data;
-DROP TABLE IF EXISTS armor;
-DROP TABLE IF EXISTS armorsets;
-DROP TABLE IF EXISTS auction;
-DROP TABLE IF EXISTS auction_bid;
-DROP TABLE IF EXISTS auction_watch;
-DROP TABLE IF EXISTS augmentations;
-DROP TABLE IF EXISTS auto_chat;
-DROP TABLE IF EXISTS auto_chat_text;
-DROP TABLE IF EXISTS boxaccess;
-DROP TABLE IF EXISTS boxes;
-DROP TABLE IF EXISTS buff_templates;
-DROP TABLE IF EXISTS castle;
-DROP TABLE IF EXISTS castle_door;
-DROP TABLE IF EXISTS castle_doorupgrade;
-DROP TABLE IF EXISTS castle_manor_procure;
-DROP TABLE IF EXISTS castle_manor_production;
-DROP TABLE IF EXISTS castle_siege_guards;
-DROP TABLE IF EXISTS char_templates;
-DROP TABLE IF EXISTS character_friends;
-DROP TABLE IF EXISTS character_hennas;
-DROP TABLE IF EXISTS character_macroses;
-DROP TABLE IF EXISTS character_quests;
-DROP TABLE IF EXISTS character_raidpoints;
-DROP TABLE IF EXISTS character_recipebook;
-DROP TABLE IF EXISTS character_recommends;
-DROP TABLE IF EXISTS character_shortcuts;
-DROP TABLE IF EXISTS character_skills;
-DROP TABLE IF EXISTS character_skills_save;
-DROP TABLE IF EXISTS character_stats;
-DROP TABLE IF EXISTS character_subclasses;
-DROP TABLE IF EXISTS characters;
-DROP TABLE IF EXISTS clan_data;
-DROP TABLE IF EXISTS clan_privs;
-DROP TABLE IF EXISTS clan_skills;
-DROP TABLE IF EXISTS clan_subpledges;
-DROP TABLE IF EXISTS clan_wars;
-DROP TABLE IF EXISTS clanhall;
-DROP TABLE IF EXISTS clanhall_functions;
-DROP TABLE IF EXISTS class_list;
-DROP TABLE IF EXISTS couples;
-DROP TABLE IF EXISTS ctf;
-DROP TABLE IF EXISTS ctf_teams;
-DROP TABLE IF EXISTS cursed_weapons;
-DROP TABLE IF EXISTS custom_npc;
-DROP TABLE IF EXISTS custom_spawnlist;
-DROP TABLE IF EXISTS dm;
-DROP TABLE IF EXISTS droplist;
-DROP TABLE IF EXISTS enchant_skill_trees;
-DROP TABLE IF EXISTS etcitem;
-DROP TABLE IF EXISTS fish;
-DROP TABLE IF EXISTS fishing_skill_trees;
-DROP TABLE IF EXISTS forums;
-DROP TABLE IF EXISTS four_sepulchers_spawnlist;
-DROP TABLE IF EXISTS games;
-DROP TABLE IF EXISTS global_tasks;
-DROP TABLE IF EXISTS gm_audit;
-DROP TABLE IF EXISTS henna;
-DROP TABLE IF EXISTS henna_trees;
-DROP TABLE IF EXISTS heroes;
-DROP TABLE IF EXISTS items;
-DROP TABLE IF EXISTS itemsonground;
-DROP TABLE IF EXISTS locations;
-DROP TABLE IF EXISTS lvlupgain;
-DROP TABLE IF EXISTS mapregion;
-DROP TABLE IF EXISTS merchant_areas_list;
-DROP TABLE IF EXISTS merchant_buylists;
-DROP TABLE IF EXISTS merchant_lease;
-DROP TABLE IF EXISTS merchant_shopids;
-DROP TABLE IF EXISTS merchants;
-DROP TABLE IF EXISTS minions;
-DROP TABLE IF EXISTS npc;
-DROP TABLE IF EXISTS npcskills;
-DROP TABLE IF EXISTS olympiad_nobles;
-DROP TABLE IF EXISTS petitions;
-DROP TABLE IF EXISTS pets;
-DROP TABLE IF EXISTS pets_stats;
-DROP TABLE IF EXISTS pledge_skill_trees;
-DROP TABLE IF EXISTS posts;
-DROP TABLE IF EXISTS raidboss_spawnlist;
-DROP TABLE IF EXISTS random_spawn;
-DROP TABLE IF EXISTS random_spawn_loc;
-DROP TABLE IF EXISTS record;
-DROP TABLE IF EXISTS seven_signs;
-DROP TABLE IF EXISTS seven_signs_festival;
-DROP TABLE IF EXISTS seven_signs_status;
-DROP TABLE IF EXISTS siege_clans;
-DROP TABLE IF EXISTS skill_learn;
-DROP TABLE IF EXISTS skill_spellbooks;
-DROP TABLE IF EXISTS skill_trees;
-DROP TABLE IF EXISTS spawnlist;
-DROP TABLE IF EXISTS teleport;
-DROP TABLE IF EXISTS topic;
-DROP TABLE IF EXISTS tvt;
-DROP TABLE IF EXISTS tvt_teams;
-DROP TABLE IF EXISTS vip; 
-DROP TABLE IF EXISTS weapon;
-DROP TABLE IF EXISTS zone;
+DROP TABLE IF EXISTS account_data,armor,armorsets,auction,auction_bid,
+                     auction_watch,augmentations,auto_chat,auto_chat_text,
+                     boxaccess,boxes,castle,castle_door,castle_doorupgrade,
+                     castle_manor_procure,castle_manor_production,
+                     castle_siege_guards,char_templates,character_friends,character_hennas,
+                     character_macroses,character_quests,character_recipebook,
+                     character_recommends,character_shortcuts,character_skills,
+                     character_skills_save,character_subclasses,characters,clan_data,
+                     clan_privs,clan_skills,clan_subpledges,clan_wars,clanhall,
+                     clanhall_functions,class_list,cursed_weapons,droplist,
+                     enchant_skill_trees,etcitem,fish,fishing_skill_trees,forums,games,
+                     global_tasks,gm_audit,henna,henna_trees,heroes,items,itemsonground,
+                     locations,lvlupgain,mapregion,merchant_areas_list,merchant_buylists,
+                     merchant_lease,merchant_shopids,merchants,minions,npc,npcskills,
+                     olympiad_nobles,petitions,pets,pets_stats,pledge_skill_trees,posts,
+                     raidboss_spawnlist,random_spawn,random_spawn_loc,record,seven_signs,
+                     seven_signs_festival,seven_signs_status,siege_clans,skill_learn,
+                     skill_spellbooks,skill_trees,spawnlist,teleport,topic,weapon,zone;
+
+DROP TABLE IF EXISTS buff_templates,character_raidpoints,couples,ctf,ctf_teams,
+                     custom_npc,custom_spawnlist,dm,four_sepulchers_spawnlist,
+                     tvt,tvt_teams,version,VIPinfo;
+
+DROP TABLE IF EXISTS temporaryobjecttable,connection_test_table;
