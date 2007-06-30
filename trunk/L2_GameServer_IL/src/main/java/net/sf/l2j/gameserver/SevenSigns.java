@@ -1427,6 +1427,8 @@ public class SevenSigns
                     _log.info("SevenSigns: The " + getCabalName(_previousWinner) + " have won the competition with " + getCurrentScore(_previousWinner) + " points!");
                     break;          
                 case PERIOD_SEAL_VALIDATION: // Reset for New Cycle
+                	
+                	SevenSignsFestival.getInstance().rewardHighestRanked(); // reward highest ranking members from cycle
                     
                     // Ensure a cycle restart when this period ends.
                     _activePeriod = PERIOD_COMP_RECRUITING;

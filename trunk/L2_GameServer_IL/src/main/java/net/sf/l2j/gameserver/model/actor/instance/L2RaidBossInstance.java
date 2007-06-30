@@ -156,7 +156,10 @@ public final class L2RaidBossInstance extends L2MonsterInstance
                 // teleport raid boss home if it's too far from home location
                 L2Spawn bossSpawn = getSpawn();
                 if(!isInsideRadius(bossSpawn.getLocx(),bossSpawn.getLocy(),bossSpawn.getLocz(), 5000, true, false))
+                {
                     teleToLocation(bossSpawn.getLocx(),bossSpawn.getLocy(),bossSpawn.getLocz(), true);
+                    healFull(); // prevents minor exploiting with it
+                }                    
                 minionList.maintainMinions();
             }
         }, 60000, getMaintenanceInterval()+Rnd.get(5000));
@@ -183,4 +186,14 @@ public final class L2RaidBossInstance extends L2MonsterInstance
         super.reduceCurrentHp(damage, attacker, awake);
         
     }
+
+    /**
+     * Restore full Amount of HP and MP 
+     * 
+     */
+    public void healFull()
+    {
+        super.getStatus().setCurrentHp(super.getMaxHp());
+        super.getStatus().setCurrentMp(super.getMaxMp());
+    }    
 }

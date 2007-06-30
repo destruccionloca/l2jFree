@@ -173,6 +173,7 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.ObservationMode;
 import net.sf.l2j.gameserver.serverpackets.ObservationReturn;
 import net.sf.l2j.gameserver.serverpackets.PartySmallWindowUpdate;
+import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListDelete;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListUpdate;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreListBuy;
@@ -1909,7 +1910,8 @@ public final class L2PcInstance extends L2PlayableInstance
             if(getLvlJoinedAcademy() <= 16) _clan.setReputationScore(_clan.getReputationScore()+400, true);
             else if(getLvlJoinedAcademy() >= 39) _clan.setReputationScore(_clan.getReputationScore()+170, true); 
             else _clan.setReputationScore(_clan.getReputationScore()+(400-(getLvlJoinedAcademy()-16)*10), true);
-            setLvlJoinedAcademy(0);
+			_clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
+			setLvlJoinedAcademy(0);
             
             //oust pledge member from the academy, cuz he has finished his 2nd class transfer
             SystemMessage msg = new SystemMessage(SystemMessage.CLAN_MEMBER_S1_EXPELLED);
@@ -1935,20 +1937,12 @@ public final class L2PcInstance extends L2PlayableInstance
    {
         academyCheck(Id);
         
-        _activeClass = Id;
-        
-        L2PcTemplate t = CharTemplateTable.getInstance().getTemplate(Id);
-        
-        if (t == null)
-        {
-            // TODO why throw an error !!
-            // an error is a very grave problem. A exception or a RuntimeException is enough in most case
-            _log.fatal("Missing template for classId: "+Id);
-            throw new Error();
-        }
-        
-        // Set the template of the L2PcInstance
-        setTemplate(t);
+		if (isSubClassActive()) 
+		{ 
+			getSubClasses().get(_classIndex).setClassId(Id); 
+		} 
+		
+		setClassTemplate(Id);
     }
 
     public void CheckIfWeaponIsAllowed()
@@ -8664,6 +8658,22 @@ public final class L2PcInstance extends L2PlayableInstance
         return _classIndex;
     }
 
+	private void setClassTemplate(int classId)
+	{
+		_activeClass = classId;
+
+		L2PcTemplate t = CharTemplateTable.getInstance().getTemplate(classId);
+		
+		if (t == null)
+		{
+			_log.fatal("Missing template for classId: "+classId);
+			throw new Error();
+		}
+		
+		// Set the template of the L2PcInstance
+		setTemplate(t);
+	}
+
     /**
      * Changes the character's class based on the given class index.
      * <BR><BR>
@@ -8682,15 +8692,13 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (classIndex == 0)
         {
-            setClassId(getBaseClass());
+        	setClassTemplate(getBaseClass());
         }
         else
         {
             try
             {
-                setClassId(getSubClasses().get(classIndex).getClassId());
-                if(isInParty())
-                	getParty().recalculatePartyLevel();                
+            	setClassTemplate(getSubClasses().get(classIndex).getClassId());
             }
             catch (Exception e)
             {
@@ -8702,6 +8710,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
         _classIndex = classIndex;
 
+        if(isInParty())
+        	getParty().recalculatePartyLevel();
+        
         /* 
          * Update the character's change in class status.
          * 
