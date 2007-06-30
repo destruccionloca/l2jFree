@@ -146,7 +146,7 @@ class Quest (JQuest) :
      deadlist = leaderst.get("dead_list").split()
      deadlist.append(player.getName())
      leaderst.set("dead_list"," ".join(deadlist))
-     player.reduceCurrentHp(player.getCurrentHp(),player)
+     player.reduceCurrentHp(player.getStatus().getCurrentHp(),player)
      st.giveItems(SYMBOL_OF_LOYALTY,1)
      st.playSound("ItemSound.quest_accept")
    elif event == "30757-05.htm" :
