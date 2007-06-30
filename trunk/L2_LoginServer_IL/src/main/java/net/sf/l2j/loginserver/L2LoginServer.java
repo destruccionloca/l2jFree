@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.logging.LogManager;
 
 import net.sf.l2j.Config;
@@ -129,7 +131,7 @@ public class L2LoginServer
         // o Start the server
         // ------------------
         startServer();
-        _log.info("Login Server ready on port "+Config.PORT_LOGIN);        
+        _log.info("Login Server ready on "+Config.LOGIN_SERVER_HOSTNAME+":"+Config.LOGIN_SERVER_PORT);        
     }
 
 	/**
@@ -171,7 +173,7 @@ public class L2LoginServer
         {
             _gameServerListener = new GameServerListener();
             _gameServerListener.start();
-            _log.info("Listening for GameServers on "+Config.GAME_SERVER_LOGIN_HOST+":"+Config.GAME_SERVER_LOGIN_PORT);
+            _log.info("Listening for GameServers on "+Config.LOGIN_HOSTNAME+":"+Config.LOGIN_PORT);
         }
         catch (IOException e)
         {
@@ -184,7 +186,12 @@ public class L2LoginServer
 	 * 
 	 */
 	private void initNetworkLayer() {
-		SelectorServerConfig ssc = new SelectorServerConfig(Config.PORT_LOGIN);
+		SelectorServerConfig ssc = null;
+		try {
+			ssc = new SelectorServerConfig(InetAddress.getByName(Config.LOGIN_SERVER_HOSTNAME), Config.LOGIN_SERVER_PORT);
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		}
         L2LoginPacketHandler loginPacketHandler = new L2LoginPacketHandler();
         SelectorHelper sh = new SelectorHelper();
         try

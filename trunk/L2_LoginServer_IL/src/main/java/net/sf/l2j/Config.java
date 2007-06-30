@@ -40,16 +40,10 @@ public final class Config {
     /** Enable/disable code 'in progress' */
     public static boolean DEVELOPER;
     
-    /** Game Server ports */
-    public static int PORT_GAME;
-    /** Login Server port */
-    public static int PORT_LOGIN;
     /** Number of trys of login before ban */
     public static int LOGIN_TRY_BEFORE_BAN;
     /** Duration of ban after LOGIN_TRY_BEFORE_BAN login failure */
     public static int BAN_DURATION_AFTER_LOGIN_FAILURE;
-    /** Hostname of the Game Server */
-    public static String GAMESERVER_HOSTNAME;
     
     // Access to database
     /** Driver to access to database */
@@ -66,9 +60,13 @@ public final class Config {
     public static final String  LOGIN_CONFIGURATION_FILE    = "./config/loginserver.properties";
     /** Properties file for the ID factory */
     public static final String  TELNET_FILE					= "./config/telnet.properties";
-    
-    public static int     GAME_SERVER_LOGIN_PORT;
-    public static String     GAME_SERVER_LOGIN_HOST;
+
+    /** Client login port/host */
+    public static String LOGIN_SERVER_HOSTNAME;
+    public static int LOGIN_SERVER_PORT;
+    /** GameServer login port/host */
+    public static String LOGIN_HOSTNAME;
+    public static int LOGIN_PORT;
 
     /** Is telnet enabled ? */
     public static boolean IS_TELNET_ENABLED;
@@ -98,9 +96,10 @@ public final class Config {
             serverSettings.load(is);
             is.close();
             
-            GAME_SERVER_LOGIN_HOST = serverSettings.getProperty("LoginserverHostname","127.0.0.1");
-            GAME_SERVER_LOGIN_PORT = Integer.parseInt(serverSettings.getProperty("LoginPort","9013"));
-            PORT_LOGIN             = Integer.parseInt(serverSettings.getProperty("LoginserverPort", "2106"));
+            LOGIN_SERVER_HOSTNAME = serverSettings.getProperty("LoginServerHostname","0.0.0.0");
+            LOGIN_SERVER_PORT = Integer.parseInt(serverSettings.getProperty("LoginServerPort","2106"));
+            LOGIN_HOSTNAME = serverSettings.getProperty("LoginHostname","127.0.0.1");
+            LOGIN_PORT = Integer.parseInt(serverSettings.getProperty("LoginPort","9014"));
             
             DEVELOPER    = Boolean.parseBoolean(serverSettings.getProperty("Developer", "false"));
             
