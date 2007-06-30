@@ -59,7 +59,6 @@ public class L2MerchantInstance extends L2FolkInstance
     {
         if (_log.isDebugEnabled()) _log.debug("Merchant activated");
         player.sendPacket(new ActionFailed());
-        player.setTarget(this);
         player.setLastFolkNPC(this);
         super.onAction(player);
     }

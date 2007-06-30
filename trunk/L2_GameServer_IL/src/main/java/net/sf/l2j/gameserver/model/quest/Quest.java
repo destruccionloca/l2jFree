@@ -243,32 +243,42 @@ public abstract class Quest
 	
     
 	// these are methods to call from java
-    public final boolean notifyAttack(L2NpcInstance npc, L2PcInstance attacker) {
+    public final boolean notifyAttack(L2NpcInstance npc, L2PcInstance attacker) 
+    {
         String res = null;
         try { res = onAttack(npc, attacker); } catch (Exception e) { return showError(attacker, e); }
         return showResult(attacker, res);
-    } 
-    public final boolean notifyDeath(L2NpcInstance npc, L2Character character, QuestState qs) {
+    }
+    
+    public final boolean notifyDeath(L2Character killer, L2Character victim, QuestState qs) 
+    {
         String res = null;
-        try { res = onDeath(npc, character, qs); } catch (Exception e) { return showError(qs.getPlayer(), e); }
+        try { res = onDeath(killer, victim, qs); } catch (Exception e) { return showError(qs.getPlayer(), e); }
         return showResult(qs.getPlayer(), res);
-    } 
-    public final boolean notifyEvent(String event, L2NpcInstance npc, L2PcInstance player) {
+    }
+    
+    public final boolean notifyEvent(String event, L2NpcInstance npc, L2PcInstance player) 
+    {
         String res = null;
         try { res = onAdvEvent(event, npc, player); } catch (Exception e) { return showError(player, e); }
         return showResult(player, res);
     } 
-	public final boolean notifyKill (L2NpcInstance npc, L2PcInstance killer) {
+    
+	public final boolean notifyKill (L2NpcInstance npc, L2PcInstance killer) 
+	{
 		String res = null;
 		try { res = onKill(npc, killer); } catch (Exception e) { return showError(killer, e); }
 		return showResult(killer, res);
 	}
-	public final boolean notifyTalk (L2NpcInstance npc, QuestState qs) {
+	
+	public final boolean notifyTalk (L2NpcInstance npc, QuestState qs) 
+	{
 		String res = null;
 		try { res = onTalk(npc, qs.getPlayer()); } catch (Exception e) { return showError(qs.getPlayer(), e); }
 		qs.getPlayer().setLastQuestNpcObject(npc.getObjectId());
 		return showResult(qs.getPlayer(), res);
 	}
+	
 	// override the default NPC dialogs when a quest defines this for the given NPC
 	public final boolean notifyFirstTalk (L2NpcInstance npc, L2PcInstance player) {
 		String res = null;
@@ -280,6 +290,7 @@ public abstract class Quest
 		npc.showChatWindow(player);
 		return true;
 	}
+	
 	public final boolean notifySkillUse (L2NpcInstance npc, L2PcInstance caster, L2Skill skill) {
 		String res = null;
 		try { res = onSkillUse(npc, caster, skill); } catch (Exception e) { return showError(caster, e); }
@@ -289,7 +300,14 @@ public abstract class Quest
 
 	// these are methods that java calls to invoke scripts
     @SuppressWarnings("unused") public String onAttack(L2NpcInstance npc, L2PcInstance attacker) { return null; } 
-    @SuppressWarnings("unused") public String onDeath (L2NpcInstance npc, L2Character character, QuestState qs) { return onAdvEvent("", npc,qs.getPlayer()); }
+    @SuppressWarnings("unused") public String onDeath (L2Character killer, L2Character victim, QuestState qs) 
+    { 	
+    	if (killer instanceof L2NpcInstance)
+    		return onAdvEvent("", (L2NpcInstance)killer,qs.getPlayer()); 
+    	else 
+    		return onAdvEvent("", null,qs.getPlayer());
+    }
+    
     @SuppressWarnings("unused") public String onAdvEvent(String event, L2NpcInstance npc, L2PcInstance player) 
     {
     	// if not overriden by a subclass, then default to the returned value of the simpler (and older) onEvent override
@@ -300,6 +318,7 @@ public abstract class Quest
 
     	return null; 
     } 
+    
     @SuppressWarnings("unused") public String onEvent(String event, QuestState qs) { return null; } 
     @SuppressWarnings("unused") public String onKill (L2NpcInstance npc, L2PcInstance killer) { return null; }
     @SuppressWarnings("unused") public String onTalk (L2NpcInstance npc, L2PcInstance talker) { return null; }
@@ -312,7 +331,8 @@ public abstract class Quest
 	 * @param t : Throwable
 	 * @return boolean
 	 */
-	private boolean showError(L2PcInstance player, Throwable t) {
+	private boolean showError(L2PcInstance player, Throwable t) 
+	{
 		_log.warn("", t);
 		if (player.getAccessLevel() > 0) {
 			StringWriter sw = new StringWriter();
@@ -336,7 +356,8 @@ public abstract class Quest
 	 * @param res : String pointing out the message to show at the player
 	 * @return boolean
 	 */
-	private boolean showResult(L2PcInstance player, String res) {
+	private boolean showResult(L2PcInstance player, String res) 
+	{
 		if (res == null)
 			return true;
 		if (res.endsWith(".htm")) {
@@ -361,8 +382,8 @@ public abstract class Quest
 	 * Add state of quests, drops and variables for quests in the HashMap _quest of L2PcInstance
 	 * @param player : Player who is entering the world
 	 */
-	public static void playerEnter(L2PcInstance player) {
-
+	public static void playerEnter(L2PcInstance player) 
+	{
         java.sql.Connection con = null;
         try
         {
@@ -469,7 +490,8 @@ public abstract class Quest
 	 * @param var : String designating the name of the variable for the quest
 	 * @param value : String designating the value of the variable for the quest
 	 */
-	public static void createQuestVarInDb(QuestState qs, String var, String value) {
+	public static void createQuestVarInDb(QuestState qs, String var, String value) 
+	{
         java.sql.Connection con = null;
         try
         {
@@ -503,7 +525,8 @@ public abstract class Quest
 	 * @param var : String designating the name of the variable for quest
 	 * @param value : String designating the value of the variable for quest
 	 */
-    public static void updateQuestVarInDb(QuestState qs, String var, String value) {
+    public static void updateQuestVarInDb(QuestState qs, String var, String value) 
+    {
         java.sql.Connection con = null;
         try
         {
@@ -528,7 +551,8 @@ public abstract class Quest
      * @param qs : object QuestState pointing out the player's quest
      * @param var : String designating the variable characterizing the quest
      */
-	public static void deleteQuestVarInDb(QuestState qs, String var) {
+	public static void deleteQuestVarInDb(QuestState qs, String var) 
+	{
         java.sql.Connection con = null;
         try
         {
@@ -551,7 +575,8 @@ public abstract class Quest
 	 * Delete the player's quest from database.
 	 * @param qs : QuestState pointing out the player's quest
 	 */
-	public static void deleteQuestInDb(QuestState qs) {
+	public static void deleteQuestInDb(QuestState qs) 
+	{
         java.sql.Connection con = null;
         try
         {
@@ -583,7 +608,8 @@ public abstract class Quest
 	 * <LI>val : string corresponding at the ID of the state (in fact, initial state)</LI>
 	 * @param qs : QuestState
 	 */
-	public static void createQuestInDb(QuestState qs) {
+	public static void createQuestInDb(QuestState qs) 
+	{
 		createQuestVarInDb(qs, "<state>", qs.getStateId());
 	}
 	
@@ -595,7 +621,8 @@ public abstract class Quest
 	 * <LI>Save in database the ID state (with or without the star) for the variable called "&lt;state&gt;" of the quest</LI>
 	 * @param qs : QuestState
 	 */
-	public static void updateQuestInDb(QuestState qs) {
+	public static void updateQuestInDb(QuestState qs) 
+	{
 		String val = qs.getStateId();
 		//if (qs.isCompleted())
 		//	val = "*" + val;
@@ -651,7 +678,8 @@ public abstract class Quest
      * @param attackId
      * @return int : attackId
      */
-    public L2NpcTemplate addAttackId(int attackId) {
+    public L2NpcTemplate addAttackId(int attackId) 
+    {
     	return addEventId(attackId, Quest.QuestEventType.MOBGOTATTACKED);
     }
     
@@ -660,7 +688,8 @@ public abstract class Quest
 	 * @param killId
 	 * @return int : killId
 	 */
-	public L2NpcTemplate addKillId(int killId) {
+	public L2NpcTemplate addKillId(int killId) 
+	{
     	return addEventId(killId, Quest.QuestEventType.MOBKILLED);
 	}
 	
@@ -669,7 +698,8 @@ public abstract class Quest
      * @param talkId : ID of the NPC
      * @return int : ID of the NPC
      */
-    public L2NpcTemplate addTalkId(int talkId) {
+    public L2NpcTemplate addTalkId(int talkId) 
+    {
     	return addEventId(talkId, Quest.QuestEventType.QUEST_TALK);
     }
     
@@ -678,7 +708,8 @@ public abstract class Quest
      * @param npcId : ID of the NPC
      * @return int : ID of the NPC
      */
-    public L2NpcTemplate addSkillUseId(int npcId) {
+    public L2NpcTemplate addSkillUseId(int npcId) 
+    {
     	return addEventId(npcId, Quest.QuestEventType.MOB_TARGETED_BY_SKILL);
     }
     

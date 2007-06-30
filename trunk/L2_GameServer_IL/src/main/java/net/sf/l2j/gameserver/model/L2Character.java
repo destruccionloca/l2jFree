@@ -1451,18 +1451,14 @@ public abstract class L2Character extends L2Object
 
         // Notify L2Character AI
         getAI().notifyEvent(CtrlEvent.EVT_DEAD, null);
-
-        if (killer != null)
-        {
-            // Notify Quest of character's death
-            L2NpcInstance npc = null;
-            if (killer instanceof L2NpcInstance) npc = (L2NpcInstance)killer;
-            for (QuestState qs: getNotifyQuestOfDeath())
-            {
-                qs.getQuest().notifyDeath(npc, this, qs);
-            }
-            getNotifyQuestOfDeath().clear();
-        }
+        
+		// Notify Quest of character's death
+		for (QuestState qs: getNotifyQuestOfDeath())
+		{
+			qs.getQuest().notifyDeath( (killer==null?this:killer) , this, qs);
+		}
+		getNotifyQuestOfDeath().clear();
+		        
         getAttackByList().clear();
     }
         
