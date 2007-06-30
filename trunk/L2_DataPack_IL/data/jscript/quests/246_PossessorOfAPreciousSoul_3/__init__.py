@@ -77,15 +77,14 @@ class Quest (JQuest) :
    if npcId != CARADINE and id != STARTED : return htmltext
 
    cond=st.getInt("cond")
-   if st.getPlayer().isSubClassActive() :
-     cond = st.getInt("cond")
+   if player.isSubClassActive() :
      if npcId == CARADINE and cond == 0 and st.getQuestItemsCount(CARADINE_LETTER) == 1 :
        if id == COMPLETED :
          htmltext = "<html><head><body>This quest have already been completed.</body></html>"
-       elif st.getPlayer().getLevel() < 65 : 
+       elif player.getLevel() < 65 : 
          htmltext = "31740-2.htm"
          st.exitQuest(1)
-       elif st.getPlayer().getLevel() >= 65 :
+       elif player.getLevel() >= 65 :
          htmltext = "31740-1.htm"
      if npcId == CARADINE and cond == 1 :
        htmltext = "31740-5.htm"
@@ -153,12 +152,12 @@ class Quest (JQuest) :
                     pst.playSound("ItemSound.quest_middle")
                     pst.set("cond","5")
      else :
-       pst = player.getQuestState(qn)
-       if pst :
-           if pst.getInt("cond") == 4 and pst.getQuestItemsCount(RAIN_SONG) < 1 :
-               pst.giveItems(RAIN_SONG,1)
-               pst.playSound("ItemSound.quest_middle")
-               pst.set("cond","5")
+        pst = player.getQuestState(qn)
+        if pst :
+            if pst.getInt("cond") == 4 and pst.getQuestItemsCount(RAIN_SONG) < 1 :
+                pst.giveItems(RAIN_SONG,1)
+                pst.playSound("ItemSound.quest_middle")
+                pst.set("cond","5")
    return 
 
 QUEST       = Quest(246,qn,"Possessor Of A Precious Soul - 3")

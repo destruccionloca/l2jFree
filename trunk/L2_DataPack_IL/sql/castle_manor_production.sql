@@ -4,7 +4,7 @@ CREATE TABLE `castle_manor_production` (
   `can_produce` int(11) NOT NULL default '0',
   `seed_id` int(11) NOT NULL default '0',
   `seed_price` int(11) NOT NULL default '0'
-) DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `castle_manor_production` VALUES (1, 1000, 7057, 50);
 INSERT INTO `castle_manor_production` VALUES (1, 1000, 7051, 20);

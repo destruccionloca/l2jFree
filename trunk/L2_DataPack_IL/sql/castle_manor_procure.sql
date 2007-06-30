@@ -5,7 +5,7 @@ CREATE TABLE `castle_manor_procure` (
   `can_buy` int(11) NOT NULL default '0',
   `reward_type` int(11) NOT NULL default '0',
   PRIMARY KEY  (`castle_id`,`crop_id`,`reward_type`)
-) DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 INSERT INTO `castle_manor_procure` VALUES (1, 5122, 1000, 2);
