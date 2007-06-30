@@ -77,8 +77,8 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
         
         if (skill == null)
         {
-            _log.warn("skill id " + _id + " level " + _level
-                + " is undefined. aquireSkillInfo failed.");
+        	if(_log.isDebugEnabled())
+        		_log.info("skill id " + _id + " level " + _level + " is undefined. aquireSkillInfo failed.");
             return;
         }
 
