@@ -854,10 +854,10 @@
   <table name="#mpConsume"> 1 </table>
   <table name="#power"> 472 </table>
   <set name="weaponsAllowed" val="32"/>
-  <set name="skillTime" val="1250"/>
+  <set name="skillTime" val="2500"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="reuseDelay" val="100"/>
+  <set name="reuseDelay" val="12000"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="HEAL"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -874,10 +874,10 @@
   <table name="#mpConsume"> 1 </table>
   <table name="#power"> 180.0 </table>
   <set name="weaponsAllowed" val="32"/>
-  <set name="skillTime" val="1250"/>
+  <set name="skillTime" val="2500"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="reuseDelay" val="100"/>
+  <set name="reuseDelay" val="12000"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="MANARECHARGE"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -896,10 +896,10 @@
   <table name="#mpConsume"> 1 </table>
   <table name="#power"> 944 </table>
   <set name="weaponsAllowed" val="32"/>
-  <set name="skillTime" val="2500"/>
+  <set name="skillTime" val="3500"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="reuseDelay" val="200"/>
+  <set name="reuseDelay" val="12000"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="HEAL"/>
   <set name="operateType" val="OP_ACTIVE"/>
