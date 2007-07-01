@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
 import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
@@ -43,6 +44,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
@@ -122,6 +124,7 @@ public abstract class L2Skill
         TARGET_MOB,
         TARGET_AREA_MOB,
         TARGET_KNOWNLIST,
+        TARGET_COUPLE
         //TARGET_BOSS
         }
     
@@ -1357,6 +1360,21 @@ public abstract class L2Skill
             {
                 if (activeChar.getTarget() instanceof L2ArtefactInstance)
                     return new L2Character[] {(L2ArtefactInstance) activeChar.getTarget()};
+            }
+
+            return null;
+        }
+        case TARGET_COUPLE:
+        {
+            if (target != null && target instanceof L2PcInstance)
+            {
+            	int _chaid = activeChar.getObjectId();
+            	int targetId = target.getObjectId();
+                for(Couple cl: CoupleManager.getInstance().getCouples())
+                {
+                   if((cl.getPlayer1Id()==_chaid && cl.getPlayer2Id()==targetId) || (cl.getPlayer2Id()==_chaid && cl.getPlayer1Id()==targetId))
+                	   return new L2Character[]{target};
+                }
             }
 
             return null;
