@@ -858,7 +858,7 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="reuseDelay" val="12000"/>
-  <set name="target" val="TARGET_ONE"/>
+  <set name="target" val="TARGET_COUPLE"/>
   <set name="skillType" val="HEAL"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="750"/>
@@ -878,7 +878,7 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="reuseDelay" val="12000"/>
-  <set name="target" val="TARGET_ONE"/>
+  <set name="target" val="TARGET_COUPLE"/>
   <set name="skillType" val="MANARECHARGE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="750"/>
@@ -900,7 +900,7 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="reuseDelay" val="12000"/>
-  <set name="target" val="TARGET_ONE"/>
+  <set name="target" val="TARGET_COUPLE"/>
   <set name="skillType" val="HEAL"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="750"/>
