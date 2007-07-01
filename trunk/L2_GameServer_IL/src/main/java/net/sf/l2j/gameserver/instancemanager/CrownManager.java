@@ -40,8 +40,10 @@ public class CrownManager
 				for(L2ItemInstance item : member.getPlayerInstance().getInventory().getItems())
 				{
 					if(CrownTable.getCrownList().contains(item.getItemId()))
-							member.getPlayerInstance().destroyItem("Removing Crown", item, member.getPlayerInstance(), true);
-							member.getPlayerInstance().getInventory().updateDatabase();
+					{
+						member.getPlayerInstance().destroyItem("Removing Crown", item, member.getPlayerInstance(), true);
+						member.getPlayerInstance().getInventory().updateDatabase();
+					}
 				}
     		}
     		else

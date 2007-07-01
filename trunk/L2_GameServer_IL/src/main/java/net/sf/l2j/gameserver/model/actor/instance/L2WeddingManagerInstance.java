@@ -106,7 +106,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                     player.setMaryAccepted(true);
                     Couple couple = CoupleManager.getInstance().getCouple(player.getCoupleId());
                     couple.marry();
-                    
+
                     //messages to the couple
                     player.sendMessage("Congratulations you are married!");
                     player.setMaried(true);
@@ -114,6 +114,12 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                     ptarget.sendMessage("Congratulations you are married!"); 
                     ptarget.setMaried(true);
                     ptarget.setMaryRequest(false);
+                    
+                    // give cupid's bows to couple's
+                    player.getInventory().addItem("Cupids Bow",9140,1,player,null); // give cupids bow
+                    player.getInventory().updateDatabase(); // update database
+                    ptarget.getInventory().addItem("Cupids Bow",9140,1,ptarget,null); // give cupids bow
+                    ptarget.getInventory().updateDatabase(); // update database
                     
                     //wedding march
                     MagicSkillUser MSU = new MagicSkillUser(player, player, 2230, 1, 1, 0);

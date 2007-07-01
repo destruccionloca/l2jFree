@@ -204,6 +204,12 @@ public abstract class Inventory extends ItemContainer
            {
                passiveSkill = ((L2Weapon)it).getSkill();
                enchant4Skill= ((L2Weapon)it).getEnchant4Skill();
+               if(it.getItemId()==9140 || it.getItemId()==9141)
+               {
+            	   player.removeSkill(SkillTable.getInstance().getInfo(3260, 1), false);
+                   player.removeSkill(SkillTable.getInstance().getInfo(3261, 1), false);
+                   player.removeSkill(SkillTable.getInstance().getInfo(3262, 1), false);
+               }
            }
            else if(it instanceof L2Armor)
                passiveSkill = ((L2Armor)it).getSkill();
@@ -237,6 +243,13 @@ public abstract class Inventory extends ItemContainer
                
                if(item.getEnchantLevel() >= 4)
                    enchant4Skill= ((L2Weapon)it).getEnchant4Skill();
+               
+               if(it.getItemId()==9140 || it.getItemId()==9141)
+               {
+            	   player.addSkill(SkillTable.getInstance().getInfo(3260, 1), false);
+                   player.addSkill(SkillTable.getInstance().getInfo(3261, 1), false);
+                   player.addSkill(SkillTable.getInstance().getInfo(3262, 1), false);
+               }
            }
            else if(it instanceof L2Armor)
                passiveSkill = ((L2Armor)it).getSkill();
