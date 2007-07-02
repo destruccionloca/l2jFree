@@ -615,7 +615,7 @@ public class Duel
 	{
 		if (!getFinished() || _playerA == null || _playerB == null) return null;
 		if (_playerA.getDuelState() == DUELSTATE_WINNER) return _playerB;
-		else if (_playerA.getDuelState() == DUELSTATE_WINNER) return _playerA;
+		else if (_playerB.getDuelState() == DUELSTATE_WINNER) return _playerA;
 		return null;
 	}
 	
