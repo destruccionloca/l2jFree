@@ -41,10 +41,10 @@ public class ConditionTargetUsesWeaponKind extends Condition
 	public boolean testImpl(Env env) 
 	{
 		
-		if (env._target == null)
+		if (env.target == null)
 			return false;
 		
-		L2Weapon item = env._target.getActiveWeaponItem();
+		L2Weapon item = env.target.getActiveWeaponItem();
 
 		if(item == null)
 			return false;

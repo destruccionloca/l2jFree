@@ -34,7 +34,7 @@ public class ConditionTargetUndead extends Condition
 
     public boolean testImpl(Env env)
     {
-        L2Character target = (L2Character)env._player.getTarget();
+        L2Character target = (L2Character)env.player.getTarget();
 
         if(target == null) return false;
         if (target instanceof L2MonsterInstance) return ((L2MonsterInstance)target).isUndead() == _isUndead;

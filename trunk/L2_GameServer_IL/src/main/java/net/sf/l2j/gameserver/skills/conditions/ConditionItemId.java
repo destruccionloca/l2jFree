@@ -37,8 +37,8 @@ public final class ConditionItemId extends Condition {
 	
 	public boolean testImpl(Env env)
 	{
-		if (env._item == null)
+		if (env.item == null)
 			return false;
-		return env._item.getItemId() == _itemId;
+		return env.item.getItemId() == _itemId;
 	}
 }

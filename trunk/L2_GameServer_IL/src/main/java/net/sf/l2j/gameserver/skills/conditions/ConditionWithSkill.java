@@ -34,7 +34,7 @@ public class ConditionWithSkill extends Condition
 	
 	public boolean testImpl(Env env)
 	{		
-		if (!_skill && env._skill != null)
+		if (!_skill && env.skill != null)
 			return false;
 		return true;
 	}

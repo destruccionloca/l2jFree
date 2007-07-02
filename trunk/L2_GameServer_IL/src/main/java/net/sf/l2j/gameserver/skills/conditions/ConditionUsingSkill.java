@@ -37,8 +37,8 @@ public class ConditionUsingSkill extends Condition {
 	
 	public boolean testImpl(Env env)
 	{
-		if (env._skill == null)
+		if (env.skill == null)
 			return false;
-		return env._skill.getId() == _skillId;
+		return env.skill.getId() == _skillId;
 	}
 }

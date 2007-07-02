@@ -38,6 +38,6 @@ public class ConditionPlayerLevel extends Condition {
 	}
 	
 	public boolean testImpl(Env env) {
-		return env._player.getLevel() >= _level;
+		return env.player.getLevel() >= _level;
 	}
 }

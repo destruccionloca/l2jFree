@@ -75,9 +75,9 @@ public class CharStat
 
         // Create and init an Env object to pass parameters to the Calculator
         Env env = new Env();
-        env._player = _ActiveChar;
-        env._target = target;
-        env._skill = skill;
+        env.player = _ActiveChar;
+        env.target = target;
+        env.skill = skill;
         env.value = init;
 
         // Launch the calculation

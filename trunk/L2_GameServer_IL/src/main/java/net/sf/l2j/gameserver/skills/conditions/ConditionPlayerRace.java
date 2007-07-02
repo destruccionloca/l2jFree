@@ -39,8 +39,8 @@ public class ConditionPlayerRace extends Condition {
 	}
 	
 	public boolean testImpl(Env env) {
-		if (!(env._player instanceof L2PcInstance))
+		if (!(env.player instanceof L2PcInstance))
 			return false;
-		return ((L2PcInstance)env._player).getRace() == _race;
+		return ((L2PcInstance)env.player).getRace() == _race;
 	}
 }

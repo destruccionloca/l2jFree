@@ -40,7 +40,7 @@ public class ConditionTargetAggro extends Condition {
 	}
 	
 	public boolean testImpl(Env env) {
-		L2Character target = env._target;
+		L2Character target = env.target;
 		if (target instanceof L2MonsterInstance)
 		{
 			return ((L2MonsterInstance)target).isAggressive() == _isAggro;

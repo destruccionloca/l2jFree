@@ -113,7 +113,7 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            env.value += env._player.getLevel() / 3.0;
+            env.value += env.player.getLevel() / 3.0;
         }
     }
     
@@ -136,7 +136,7 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            env.value *= env._player.getLevelMod();
+            env.value *= env.player.getLevelMod();
         }
     }
     
@@ -192,7 +192,7 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            env.value *= STRbonus[env._player.getStat().getSTR()] * env._player.getLevelMod();
+            env.value *= STRbonus[env.player.getStat().getSTR()] * env.player.getLevelMod();
         }
     }
     
@@ -211,8 +211,8 @@ public final class Formulas
  
         public void calc(Env env)
         {
-            double intb = INTbonus[env._player.getINT()];
-            double lvlb = env._player.getLevelMod();
+            double intb = INTbonus[env.player.getINT()];
+            double lvlb = env.player.getLevelMod();
             env.value *= (lvlb * lvlb) * (intb * intb);
         }
     }
@@ -232,16 +232,16 @@ public final class Formulas
 
         public void calc(Env env)
         {
-            if (env._player instanceof L2PcInstance)
+            if (env.player instanceof L2PcInstance)
             {
-                L2PcInstance p = (L2PcInstance) env._player;
+                L2PcInstance p = (L2PcInstance) env.player;
                 if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LFINGER) != null) env.value -= 5;
                 if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RFINGER) != null) env.value -= 5;
                 if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LEAR) != null) env.value -= 9;
                 if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_REAR) != null) env.value -= 9;
                 if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_NECK) != null) env.value -= 13;
             }
-            env.value *= MENbonus[env._player.getStat().getMEN()] * env._player.getLevelMod();
+            env.value *= MENbonus[env.player.getStat().getMEN()] * env.player.getLevelMod();
         }
     }
 
@@ -261,9 +261,9 @@ public final class Formulas
  
         public void calc(Env env)
         {
-            if (env._player instanceof L2PcInstance)
+            if (env.player instanceof L2PcInstance)
             {
-                L2PcInstance p = (L2PcInstance) env._player;
+                L2PcInstance p = (L2PcInstance) env.player;
                 if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_HEAD) != null) env.value -= 12;
                 if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST) != null)
                     env.value -= ((p.getClassId().isMage()) ? 15 : 31);
@@ -272,7 +272,7 @@ public final class Formulas
                 if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_GLOVES) != null) env.value -= 8;
                 if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_FEET) != null) env.value -= 7;
             }
-            env.value *= env._player.getLevelMod();
+            env.value *= env.player.getLevelMod();
         }
     }
     
@@ -314,7 +314,7 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            L2Character p = env._player;
+            L2Character p = env.player;
             //[Square(DEX)]*6 + lvl + weapon hitbonus;
             env.value += Math.sqrt(p.getStat().getDEX()) * 6;
             env.value += p.getLevel();
@@ -338,7 +338,7 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            L2Character p = env._player;
+            L2Character p = env.player;
             //[Square(DEX)]*6 + lvl;
             env.value += Math.sqrt(p.getStat().getDEX()) * 6;
             env.value += p.getLevel();
@@ -361,7 +361,7 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            L2Character p = env._player;
+            L2Character p = env.player;
             if( p instanceof L2Summon) env.value = 40;
             else if (p instanceof L2PcInstance && p.getActiveWeaponInstance() == null) env.value = 40;
             else
@@ -390,7 +390,7 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            L2PcInstance p = (L2PcInstance) env._player;
+            L2PcInstance p = (L2PcInstance) env.player;
             env.value *= DEXbonus[p.getStat().getDEX()];
         }
     }
@@ -411,7 +411,7 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            L2PcInstance p = (L2PcInstance) env._player;
+            L2PcInstance p = (L2PcInstance) env.player;
             env.value *= DEXbonus[p.getStat().getDEX()];
         }
     }
@@ -432,7 +432,7 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            L2PcInstance p = (L2PcInstance) env._player;
+            L2PcInstance p = (L2PcInstance) env.player;
             env.value *= WITbonus[p.getStat().getWIT()];
         }
     }
@@ -453,7 +453,7 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            L2PcInstance p = (L2PcInstance) env._player;
+            L2PcInstance p = (L2PcInstance) env.player;
             env.value *= CONbonus[p.getStat().getCON()];
         }
     }
@@ -476,7 +476,7 @@ public final class Formulas
         public void calc(Env env)
         {
             //          L2PcTemplate t = (L2PcTemplate)env._player.getTemplate();
-            L2PcInstance pc = (L2PcInstance) env._player;
+            L2PcInstance pc = (L2PcInstance) env.player;
             if (pc != null) env.value += pc.getHennaStatSTR();
         }
     }
@@ -498,7 +498,7 @@ public final class Formulas
         public void calc(Env env)
         {
             //          L2PcTemplate t = (L2PcTemplate)env._player.getTemplate();
-            L2PcInstance pc = (L2PcInstance) env._player;
+            L2PcInstance pc = (L2PcInstance) env.player;
             if (pc != null) env.value += pc.getHennaStatDEX();
         }
     }
@@ -520,7 +520,7 @@ public final class Formulas
         public void calc(Env env)
         {
             //          L2PcTemplate t = (L2PcTemplate)env._player.getTemplate();
-            L2PcInstance pc = (L2PcInstance) env._player;
+            L2PcInstance pc = (L2PcInstance) env.player;
             if (pc != null) env.value += pc.getHennaStatINT();
         }
     }
@@ -542,7 +542,7 @@ public final class Formulas
         public void calc(Env env)
         {
             //          L2PcTemplate t = (L2PcTemplate)env._player.getTemplate();
-            L2PcInstance pc = (L2PcInstance) env._player;
+            L2PcInstance pc = (L2PcInstance) env.player;
             if (pc != null) env.value += pc.getHennaStatMEN();
         }
     }
@@ -564,7 +564,7 @@ public final class Formulas
         public void calc(Env env)
         {
             //          L2PcTemplate t = (L2PcTemplate)env._player.getTemplate();
-            L2PcInstance pc = (L2PcInstance) env._player;
+            L2PcInstance pc = (L2PcInstance) env.player;
             if (pc != null) env.value += pc.getHennaStatCON();
         }
     }
@@ -586,7 +586,7 @@ public final class Formulas
         public void calc(Env env)
         {
             //          L2PcTemplate t = (L2PcTemplate)env._player.getTemplate();
-            L2PcInstance pc = (L2PcInstance) env._player;
+            L2PcInstance pc = (L2PcInstance) env.player;
             if (pc != null) env.value += pc.getHennaStatWIT();
         }
     }
@@ -607,8 +607,8 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            L2PcTemplate t = (L2PcTemplate) env._player.getTemplate();
-            int lvl = env._player.getLevel() - t.getClassBaseLevel();
+            L2PcTemplate t = (L2PcTemplate) env.player.getTemplate();
+            int lvl = env.player.getLevel() - t.getClassBaseLevel();
             double hpmod = t.getLvlHpMod() * lvl;
             double hpmax = (t.getLvlHpAdd() + hpmod) * lvl;
             double hpmin = (t.getLvlHpAdd() * lvl) + hpmod;
@@ -632,7 +632,7 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            L2PcInstance p = (L2PcInstance) env._player;
+            L2PcInstance p = (L2PcInstance) env.player;
             env.value *= CONbonus[p.getStat().getCON()];
         }
     }
@@ -653,8 +653,8 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            L2PcTemplate t = (L2PcTemplate) env._player.getTemplate();
-            int lvl = env._player.getLevel() - t.getClassBaseLevel();
+            L2PcTemplate t = (L2PcTemplate) env.player.getTemplate();
+            int lvl = env.player.getLevel() - t.getClassBaseLevel();
             double cpmod = t.getLvlCpMod() * lvl;
             double cpmax = (t.getLvlCpAdd() + cpmod) * lvl;
             double cpmin = (t.getLvlCpAdd() * lvl) + cpmod;
@@ -678,7 +678,7 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            L2PcInstance p = (L2PcInstance) env._player;
+            L2PcInstance p = (L2PcInstance) env.player;
             env.value *= CONbonus[p.getStat().getCON()];
         }
     }
@@ -699,8 +699,8 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            L2PcTemplate t = (L2PcTemplate) env._player.getTemplate();
-            int lvl = env._player.getLevel() - t.getClassBaseLevel();
+            L2PcTemplate t = (L2PcTemplate) env.player.getTemplate();
+            int lvl = env.player.getLevel() - t.getClassBaseLevel();
             double mpmod = t.getLvlMpMod() * lvl;
             double mpmax = (t.getLvlMpAdd() + mpmod) * lvl;
             double mpmin = (t.getLvlMpAdd()* lvl) + mpmod;
@@ -724,7 +724,7 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            L2PcInstance p = (L2PcInstance) env._player;
+            L2PcInstance p = (L2PcInstance) env.player;
             env.value *= MENbonus[p.getStat().getMEN()];
         }
     }
@@ -889,7 +889,7 @@ public final class Formulas
                 if (siegeModifier > 0) init *= siegeModifier;
             }
             
-            if (player.getIsInClanHall() == 2)
+            if (player.getIsInClanHall() == 2 && player.getClan() != null)
             {
             	int clanHallIndex = player.getClan().getHasHideout();
             	if (clanHallIndex > 0) 
