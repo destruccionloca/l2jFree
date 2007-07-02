@@ -1246,8 +1246,8 @@ public abstract class L2Skill
 
         if (preCondition == null) return true;
         Env env = new Env();
-        env._player = activeChar;
-        env._skill = this;
+        env.player = activeChar;
+        env.skill = this;
         if (!preCondition.test(env))
         {
             String msg = preCondition.getMessage();
@@ -2573,8 +2573,8 @@ public abstract class L2Skill
         FastList<Func> funcs = new FastList<Func>();
         for (FuncTemplate t : _funcTemplates) {
             Env env = new Env();
-            env._player = player;
-            env._skill = this;
+            env.player = player;
+            env.skill = this;
             Func f = t.getFunc(env, this); // skill is owner
             if (f != null)
                 funcs.add(f);
@@ -2605,9 +2605,9 @@ public abstract class L2Skill
         for (EffectTemplate et : _effectTemplates) 
         {
             Env env = new Env();
-            env._player = effector;
-            env._target = effected;
-            env._skill = this;
+            env.player = effector;
+            env.target = effected;
+            env.skill = this;
             L2Effect e = et.getEffect(env);
             if (e != null)
                 effects.add(e);
@@ -2630,26 +2630,26 @@ public abstract class L2Skill
         for (EffectTemplate et : _effectTemplatesSelf)
         {
             Env env = new Env();
-            env._player = effector;
-            env._target = effector;
-            env._skill = this;
+            env.player = effector;
+            env.target = effector;
+            env.skill = this;
             L2Effect e = et.getEffect(env);
             if (e != null)                
             {
                 //Implements effect charge
                 if (e.getEffectType()== L2Effect.EffectType.CHARGE)
                 {               
-                    env._skill = SkillTable.getInstance().getInfo(8, effector.getSkillLevel(8));
-                    EffectCharge effect = (EffectCharge) env._target.getEffect(L2Effect.EffectType.CHARGE);
+                    env.skill = SkillTable.getInstance().getInfo(8, effector.getSkillLevel(8));
+                    EffectCharge effect = (EffectCharge) env.target.getEffect(L2Effect.EffectType.CHARGE);
                     if (effect != null) 
                     {
                         if (effect.num_charges < _num_charges)
                         {
                             effect.num_charges++;
-                            env._target.updateEffectIcons();
+                            env.target.updateEffectIcons();
                             SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
                             sm.addString("Charged to " + effect.num_charges);
-                            env._target.sendPacket(sm);
+                            env.target.sendPacket(sm);
                         }                
                     }
                     else effects.add(e);
