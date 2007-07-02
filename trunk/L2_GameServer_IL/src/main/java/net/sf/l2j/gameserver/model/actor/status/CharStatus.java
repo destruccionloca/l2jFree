@@ -171,7 +171,7 @@ public class CharStatus
     	    if (getActiveChar().isDead())
                 return; // Disabled == null check so skills like Body to Mind work again untill another solution is found
     	}
-    	if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).isInDuel()) // Duelling player attacks mob
+    	if ((attacker instanceof L2PcInstance && ((L2PcInstance)attacker).isInDuel()) && (getActiveChar() instanceof L2NpcInstance)) // Duelling player attacks mob
     	{
     		((L2PcInstance)attacker).setDuelState(Duel.DUELSTATE_INTERRUPTED);
     	}
