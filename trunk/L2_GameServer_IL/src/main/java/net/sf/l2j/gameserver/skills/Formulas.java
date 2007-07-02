@@ -1551,48 +1551,48 @@ public final class Formulas
             case SLEEP:
                 return (int) target.calcStat(Stats.SLEEP_RES, 0, target, null);
             case MUTE:
-                return (int) target.calcStat(Stats.MUTE_RES, 0, target, null); 
             case FEAR:
+			case BETRAY:
+			case AGGREDUCE_CHAR:
+				return (int) target.calcStat(Stats.DERANGEMENT_RES, 0, target, null);            	
             case CONFUSION:
                 return (int) target.calcStat(Stats.CONFUSION_RES, 0, target, null);
-            case CANCEL:
-                return (int) target.calcStat(Stats.CANCEL_RES, 0, target, null);
+			case DEBUFF:
+			case WEAKNESS:
+				return (int) target.calcStat(Stats.DEBUFF_RES, 0, target, null);
             default:
                 return 0;
         }
     }
     
-    private int calcSkillStatModifier(SkillType type, L2Character attacker, L2Character target)
-    {
-        if (type == null) return 0;
-        switch (type)
-        {
-            case STUN:
-                return (int) ((Math.sqrt(CONbonus[target.getStat().getCON()]) * 100 - 100) - (Math.sqrt(STRbonus[attacker.getStat().getSTR()]) * 100 - 100));
-            case POISON:
-                return (int) (Math.sqrt(CONbonus[target.getStat().getCON()]) * 100 - 100);
-            case ROOT:
-            case SLEEP:
-            case MUTE:
-            case CONFUSION:
-            case PARALYZE:
-            case CANCEL:
-            case DEBUFF:
-                return (int) (Math.sqrt(MENbonus[target.getStat().getMEN()]) * 100 - 100);
-            default:
-                return 0;
-        }
-    }
+	public int calcSkillStatModifier(SkillType type, L2Character target)
+	{
+		if (type == null) return 0;
+		switch (type)
+		{
+			case STUN:
+			case BLEED:
+				return (int) (Math.sqrt(CONbonus[target.getStat().getCON()]) * 100 - 100);
+			case POISON:
+			case SLEEP:
+			case DEBUFF:
+			case WEAKNESS:
+			case ERASE:
+			case ROOT:
+			case MUTE:
+			case FEAR:
+			case BETRAY:
+			case CONFUSION:
+			case AGGREDUCE_CHAR:
+			case PARALYZE:
+				return (int) (Math.sqrt(MENbonus[target.getStat().getMEN()]) * 100 - 100);
+			default:
+				return 0;
+		}
+	}
  
     public boolean calcSkillSuccess(L2Character attacker, L2Character target, L2Skill skill, boolean ss, boolean sps, boolean bss)
     {
-        if (Config.ALT_GAME_SKILL_FORMULAS.equalsIgnoreCase("alt")
-            || Config.ALT_GAME_SKILL_FORMULAS.equalsIgnoreCase("true"))
-            return calcAltSkillSuccess(attacker, target, skill);
-        
-        // Uncomment this if you want to revert to old skill success calculation: 
-        // return calcSkillSuccessOld(attacker, target, skill, ss, sps, bss);
-        
         SkillType type = skill.getSkillType();
  
         if ( ! target.checkSkillCanAffectMyself(skill))
@@ -1637,7 +1637,7 @@ public final class Formulas
         // int lvlmodifier = (skill.getMagicLevel() - target.getLevel()) * lvlDepend;
         int lvlmodifier = ((skill.getMagicLevel() > 0 ? skill.getMagicLevel() : attacker.getLevel()) - target.getLevel())
             * lvlDepend;
-        int statmodifier = -calcSkillStatModifier(type, attacker, target);
+        int statmodifier = -calcSkillStatModifier(type, target);
         int resmodifier = -calcSkillResistance(type, target);
         
         int ssmodifier = 100;
@@ -1682,48 +1682,6 @@ public final class Formulas
 		int rate = Math.round((float)(Math.pow(1.3, lvlDifference) * 100));
 
 		return (Rnd.get(10000) > rate);
-    }
-    
-    public boolean calcAltSkillSuccess(L2Character activeChar, L2Character target, L2Skill skill)
-    {
-        // Get our numbers and base success rate
-        SkillType type = skill.getSkillType();
-        boolean success = true;
-        int skillPower = (int) skill.getPower();
-        int skillLevel = skill.getLevel();
-        int attackerLevel = activeChar.getLevel();
-        int targetLevel = target.getLevel();
-        int CONModifier = (100 - target.getStat().getCON());
-        int DEXModifier = (90 - target.getStat().getDEX());
-        int WITModifier = (80 - target.getStat().getWIT());
-        int powerModifier = Math.round(skillPower / 100);
-        int levelModifier = Math.round(skillLevel / 2);
-        int baseRate = (attackerLevel - targetLevel) + powerModifier + levelModifier;
-        int rate = baseRate;
-        int check = Rnd.get(100);
-        
-        switch (type) 
-        {
-            case STUN:
-                rate += CONModifier; // uses CON Modifier for STUN types
-                break;
-            case ROOT:
-                rate += DEXModifier; // uses DEX Modifier for ROOT types
-                break;
-            case PARALYZE:
-            case SLEEP:
-                rate += WITModifier; // uses WIT Modifier for SLEEP and PARALYZE types
-                break;
-            default:
-                rate += CONModifier; // uses CON Modifier for any other types (like PDAM ones)
-                break;
-        }
- 
-        if (rate > 100) rate = 100; // We shouldn't have more than 100% success rate
-        if (rate < 1) rate = 1; // We shouldn't have less than 1% success rate
-
-        if (check > rate) success = false;
-        return success;
     }
     
     public boolean calculateUnlockChance(L2Skill skill)
