@@ -793,17 +793,8 @@
       <mul order="0x30" stat="mCritRate" val="2.00"/>
       <mul order="0x30" stat="regMp" val="1.2"/>
       <mul order="0x30" stat="runSpd" val="0.80"/>
-      <add order="0x40" stat="sleepRes" val="10"/>
-      <add order="0x40" stat="confusionRes" val="10"/>
-      <add order="0x40" stat="muteRes" val="10"/>
-      <add order="0x40" stat="rootRes" val="10"/>
-      <add order="0x40" stat="paralyzeRes" val="10"/>
-      <add order="0x40" stat="movementRes" val="10"/>
-      <add order="0x40" stat="darkRes" val="10"/>
-      <add order="0x40" stat="bleedRes" val="10"/>
-      <add order="0x40" stat="poisonRes" val="10"/>
-      <add order="0x40" stat="stunRes" val="10"/>
-      <add order="0x40" stat="cancelRes" val="10"/>    
+      <add order="0x40" stat="debuffRes" val="10"/>
+      <!-- <add order="0x40" stat="cancelRes" val="10"/> is the debuffRes have cancelRes ??? -->
     </effect>
   </for>
 </skill>
@@ -829,17 +820,8 @@
       <mul order="0x30" stat="runSpd" val="0.90"/>
       <mul order="0x30" stat="maxHp" val="1.20"/>
       <mul order="0x30" stat="regHp" val="1.20"/>
-      <add order="0x40" stat="sleepRes" val="10"/>
-      <add order="0x40" stat="confusionRes" val="10"/>
-      <add order="0x40" stat="muteRes" val="10"/>
-      <add order="0x40" stat="rootRes" val="10"/>
-      <add order="0x40" stat="paralyzeRes" val="10"/>
-      <add order="0x40" stat="movementRes" val="10"/>
-      <add order="0x40" stat="darkRes" val="10"/>
-      <add order="0x40" stat="bleedRes" val="10"/>
-      <add order="0x40" stat="poisonRes" val="10"/>
-      <add order="0x40" stat="stunRes" val="10"/>
-      <add order="0x40" stat="cancelRes" val="10"/>    
+      <add order="0x40" stat="debuffRes" val="10"/>
+      <!-- <add order="0x40" stat="cancelRes" val="10"/> is the debuffRes have cancelRes ??? -->
     </effect>
   </for>
 </skill>
@@ -872,17 +854,8 @@
          <player behind="True"/>
        </and>
      </mul>
-     <add order="0x40" stat="sleepRes" val="10"/>
-     <add order="0x40" stat="confusionRes" val="10"/>
-     <add order="0x40" stat="muteRes" val="10"/>
-     <add order="0x40" stat="rootRes" val="10"/>
-     <add order="0x40" stat="paralyzeRes" val="10"/>
-     <add order="0x40" stat="movementRes" val="10"/>
-     <add order="0x40" stat="darkRes" val="10"/>
-     <add order="0x40" stat="bleedRes" val="10"/>
-     <add order="0x40" stat="poisonRes" val="10"/>
-     <add order="0x40" stat="stunRes" val="10"/>
-     <add order="0x40" stat="cancelRes" val="10"/>
+     <add order="0x40" stat="debuffRes" val="10"/>
+     <!-- <add order="0x40" stat="cancelRes" val="10"/> is the debuffRes have cancelRes ??? -->
     </effect>
   </for>
 </skill>
@@ -913,17 +886,8 @@
       <mul order="0x30" stat="mDef" val="1.20"/>
       <mul order="0x30" stat="runSpd" val="0.8"/>
       <mul order="0x30" stat="maxHp" val="1.20"/>
-      <add order="0x40" stat="sleepRes" val="20"/>
-      <add order="0x40" stat="confusionRes" val="20"/>
-      <add order="0x40" stat="muteRes" val="20"/>
-      <add order="0x40" stat="rootRes" val="20"/>
-      <add order="0x40" stat="paralyzeRes" val="20"/>
-      <add order="0x40" stat="movementRes" val="20"/>
-      <add order="0x40" stat="darkRes" val="20"/>
-      <add order="0x40" stat="bleedRes" val="20"/>
-      <add order="0x40" stat="poisonRes" val="20"/>
-      <add order="0x40" stat="stunRes" val="20"/>
-      <add order="0x40" stat="cancelRes" val="20"/>
+      <add order="0x40" stat="debuffRes" val="20"/>
+      <!-- <add order="0x40" stat="cancelRes" val="20"/> is the debuffRes have cancelRes ??? -->
     </effect>
   </for>
 </skill>

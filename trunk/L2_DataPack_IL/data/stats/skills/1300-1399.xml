@@ -1360,7 +1360,7 @@
     <mul order="0x30" stat="runSpd" val="0.90"/>
     <mul order="0x30" stat="maxHp" val="1.20"/>
     <mul order="0x30" stat="regHp" val="1.20"/>
-    <<add order="0x40" stat="debuffRes" val="10"/>
+    <add order="0x40" stat="debuffRes" val="10"/>
   </effect>
 </for>
 </skill>
