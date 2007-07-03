@@ -32,6 +32,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
+import net.sf.l2j.gameserver.instancemanager.SQLQueue;
 import net.sf.l2j.gameserver.items.model.Item;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -545,7 +546,7 @@ public class ItemTable implements ItemTableMBean
 
     private void fillArmorsTable()
     {
-        FastList<L2Armor> armorList = SkillsEngine.getInstance().loadArmors(armorData);
+        List<L2Armor> armorList = SkillsEngine.getInstance().loadArmors(armorData);
 
         /*for (Item itemInfo : armorData.values())
             {
@@ -774,24 +775,8 @@ public class ItemTable implements ItemTableMBean
             // if it's a pet control item, delete the pet as well
             if (PetDataTable.isPetItem(item.getItemId()))
             {
-                java.sql.Connection con = null;
-                try
-                {
-                    // Delete the pet in db
-                    con = L2DatabaseFactory.getInstance().getConnection(con);
-                    PreparedStatement statement = con.prepareStatement("DELETE FROM pets WHERE item_obj_id=?");
-                    statement.setInt(1, item.getObjectId());
-                    statement.execute();
-                    statement.close();
-                }
-                catch (Exception e)
-                {
-                    _log.warn( "could not delete pet objectid:", e);
-                }
-                finally
-                {
-                    try { con.close(); } catch (Exception e) {}
-                }
+            	// Delete the pet in db
+            	SQLQueue.getInstance().add("DELETE FROM pets WHERE item_obj_id=" + item.getObjectId() + ";");
             }
             
             // delete augmentation data
