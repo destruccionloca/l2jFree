@@ -79,4 +79,4 @@ QUEST.addKillId(PTEROSAUR)
 QUEST.addKillId(TYRANNOSAURUS)
 QUEST.addKillId(SAILREN)
 
-print "AI: individuals: sailren...loaded!"
+print "AI: individuals: Sailren...loaded!"

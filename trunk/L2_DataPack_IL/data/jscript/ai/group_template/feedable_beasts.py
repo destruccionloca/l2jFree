@@ -9,7 +9,7 @@ from net.sf.l2j.gameserver.model.actor.instance import L2TamedBeastInstance
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 from net.sf.l2j.gameserver.serverpackets import CreatureSay
 from net.sf.l2j.gameserver.serverpackets import SocialAction
-from net.sf.l2j.util import Rnd;
+	from net.sf.l2j.gameserver.lib Rnd
 
 GOLDEN_SPICE = 6643
 CRYSTAL_SPICE = 6644
