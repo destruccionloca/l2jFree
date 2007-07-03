@@ -10,7 +10,7 @@ from net.sf.l2j.gameserver.model import L2Spawn
 from net.sf.l2j.gameserver.ai import CtrlIntention
 from net.sf.l2j.gameserver.ai import CtrlEvent
 from net.sf.l2j.gameserver.serverpackets import MagicSkillUser
-from net.sf.l2j.util import Rnd
+from net.sf.l2j.gameserver.lib import Rnd
 from net.sf.l2j.gameserver.model import L2World
 
 qn = "SagasSuperclass"
