@@ -20,10 +20,12 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.TaskPriority;
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
 import net.sf.l2j.gameserver.serverpackets.PartyMemberPosition;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
@@ -198,6 +200,7 @@ public class ValidatePosition extends L2GameClientPacket
 		    }
 		}
 		// [L2J_JP ADD END]
+		ThreadPoolManager.getInstance().executeTask(new KnownListAsynchronousUpdateTask(activeChar));
     }
     
     /* (non-Javadoc)
