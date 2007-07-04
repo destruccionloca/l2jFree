@@ -425,6 +425,30 @@ public class RequestActionUse extends L2GameClientPacket
             case 1017: // Cursed Man - Cursed Strike/Stun
                 useSkill(4708);
                 break;
+            case 1031: // Feline King - Slash
+                useSkill(5135);
+                break;
+            case 1032: // Feline King - Spinning Slash
+                useSkill(5136);
+                break;
+            case 1033: // Feline King - Grip of the Cat
+                useSkill(5137);
+                break;
+            case 1034: // Magnus the Unicorn - Whiplash
+                useSkill(5138);
+                break;
+            case 1035: // Magnus the Unicorn - Tridal Wave
+                useSkill(5139);
+                break;
+            case 1036: // Spectral Lord - Corpse Kaboom
+                useSkill(5142);
+                break;
+            case 1037: // Spectral Lord - Dicing Death
+                useSkill(5141);
+                break;
+            case 1038: // Spectral Lord - Force Curse
+                useSkill(5140);
+                break;
 			case 1039: // Swoop Cannon - Cannon Fodder
 				if (!(target instanceof L2DoorInstance))
 					useSkill(5110);
@@ -432,7 +456,7 @@ public class RequestActionUse extends L2GameClientPacket
 			case 1040: // Swoop Cannon - Big Bang
 				if (!(target instanceof L2DoorInstance))
 					useSkill(5111);
-				break;                
+				break;
             default:
                 _log.warn(activeChar.getName()+": unhandled action type "+_actionId);
         }
@@ -478,10 +502,7 @@ public class RequestActionUse extends L2GameClientPacket
             }
             
             activeSummon.setTarget(target);
-//            if (getClient().getRevision()>=729) //A temp sollution b4 we get the right packet, to make it with ctrl again
-//                activeSummon.useMagic(skill, _shiftPressed, false);
-//            else
-                activeSummon.useMagic(skill, _ctrlPressed, _shiftPressed);
+            activeSummon.useMagic(skill, _ctrlPressed, _shiftPressed);
         }
     }
 

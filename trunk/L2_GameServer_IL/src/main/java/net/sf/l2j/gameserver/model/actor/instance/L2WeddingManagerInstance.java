@@ -26,6 +26,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -116,10 +117,13 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                     ptarget.setMaryRequest(false);
                     
                     // give cupid's bows to couple's
+                    InventoryUpdate iu = new InventoryUpdate();
                     player.getInventory().addItem("Cupids Bow",9140,1,player,null); // give cupids bow
                     player.getInventory().updateDatabase(); // update database
+                    player.sendPacket(iu);
                     ptarget.getInventory().addItem("Cupids Bow",9140,1,ptarget,null); // give cupids bow
                     ptarget.getInventory().updateDatabase(); // update database
+                    ptarget.sendPacket(iu);
                     
                     //wedding march
                     MagicSkillUser MSU = new MagicSkillUser(player, player, 2230, 1, 1, 0);
