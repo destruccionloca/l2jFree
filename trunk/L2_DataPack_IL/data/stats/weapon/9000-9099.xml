@@ -2,7 +2,7 @@
 <!DOCTYPE list SYSTEM "weapons.dtd">
 <!-- Lineage2: Interlude Weapons by SqueezeD -->
 <list>
-<item id='9000' name="Shadow Weapon: Stormbringer*Stormbringer">
+<item id='9000' name="Shadow Item: Stormbringer*Stormbringer">
   <for>
     <set val='175' order='0x08' stat='pAtk'/>
     <set val='78' order='0x08' stat='mAtk'/>
@@ -13,7 +13,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9001' name="Shadow Weapon: Great Sword">
+<item id='9001' name="Shadow Item: Great Sword">
   <for>
     <set val='213' order='0x08' stat='pAtk'/>
     <set val='91' order='0x08' stat='mAtk'/>
@@ -24,7 +24,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9002' name="Shadow Weapon: Heavy War Axe">
+<item id='9002' name="Shadow Item: Heavy War Axe">
   <for>
     <set val='175' order='0x08' stat='pAtk'/>
     <set val='91' order='0x08' stat='mAtk'/>
@@ -35,7 +35,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9003' name="Shadow Weapon: Sprite\'s Staff">
+<item id='9003' name="Shadow Item: Sprite\'s Staff">
   <for>
     <set val='170' order='0x08' stat='pAtk'/>
     <set val='122' order='0x08' stat='mAtk'/>
@@ -46,7 +46,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9004' name="Shadow Weapon: Keshanberk">
+<item id='9004' name="Shadow Item: Keshanberk">
   <for>
     <set val='175' order='0x08' stat='pAtk'/>
     <set val='91' order='0x08' stat='mAtk'/>
@@ -57,7 +57,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9005' name="Shadow Weapon: Sword of Valhalla">
+<item id='9005' name="Shadow Item: Sword of Valhalla">
   <for>
     <set val='140' order='0x08' stat='pAtk'/>
     <set val='122' order='0x08' stat='mAtk'/>
@@ -68,7 +68,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9006' name="Shadow Weapon: Kris">
+<item id='9006' name="Shadow Item: Kris">
   <for>
     <set val='153' order='0x08' stat='pAtk'/>
     <set val='91' order='0x08' stat='mAtk'/>
@@ -79,7 +79,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9007' name="Shadow Weapon: Arthro Nail">
+<item id='9007' name="Shadow Item: Arthro Nail">
   <for>
     <set val='213' order='0x08' stat='pAtk'/>
     <set val='91' order='0x08' stat='mAtk'/>
@@ -90,7 +90,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9008' name="Shadow Weapon: Dark Elven Long Bow">
+<item id='9008' name="Shadow Item: Dark Elven Long Bow">
   <for>
     <set val='397' order='0x08' stat='pAtk'/>
     <set val='100' order='0x08' stat='mAtk'/>
@@ -101,7 +101,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9009' name="Shadow Weapon: Sword of Delusion*Sword of Delusion">
+<item id='9009' name="Shadow Item: Sword of Delusion*Sword of Delusion">
   <for>
     <set val='213' order='0x08' stat='pAtk'/>
     <set val='91' order='0x08' stat='mAtk'/>
@@ -112,7 +112,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9010' name="Shadow Weapon: Great Axe">
+<item id='9010' name="Shadow Item: Great Axe">
   <for>
     <set val='175' order='0x08' stat='pAtk'/>
     <set val='91' order='0x08' stat='mAtk'/>
@@ -124,7 +124,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9011' name="Shadow Weapon: Tallum Blade">
+<item id='9011' name="Shadow Item: Tallum Blade">
   <for>
     <set val='213' order='0x08' stat='pAtk'/>
     <set val='107' order='0x08' stat='mAtk'/>
@@ -135,7 +135,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9012' name="Shadow Weapon: Halberd">
+<item id='9012' name="Shadow Item: Halberd">
   <for>
     <set val='213' order='0x08' stat='pAtk'/>
     <set val='107' order='0x08' stat='mAtk'/>
@@ -146,7 +146,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9013' name="Shadow Weapon: Dasparion\'s Staff">
+<item id='9013' name="Shadow Item: Dasparion\'s Staff">
   <for>
     <set val='207' order='0x08' stat='pAtk'/>
     <set val='143' order='0x08' stat='mAtk'/>
@@ -157,7 +157,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9014' name="Shadow Weapon: Bloody Orchid">
+<item id='9014' name="Shadow Item: Bloody Orchid">
   <for>
     <set val='186' order='0x08' stat='pAtk'/>
     <set val='107' order='0x08' stat='mAtk'/>
@@ -168,7 +168,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9015' name="Shadow Weapon: Blood Tornado">
+<item id='9015' name="Shadow Item: Blood Tornado">
   <for>
     <set val='259' order='0x08' stat='pAtk'/>
     <set val='107' order='0x08' stat='mAtk'/>
@@ -179,7 +179,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9016' name="Shadow Weapon: Carnage Bow">
+<item id='9016' name="Shadow Item: Carnage Bow">
   <for>
     <set val='440' order='0x08' stat='pAtk'/>
     <set val='107' order='0x08' stat='mAtk'/>
@@ -190,7 +190,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9017' name="Shadow Weapon: Keshanberk*Keshanberk">
+<item id='9017' name="Shadow Item: Keshanberk*Keshanberk">
   <for>
     <set val='259' order='0x08' stat='pAtk'/>
     <set val='107' order='0x08' stat='mAtk'/>
@@ -201,7 +201,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9018' name="Shadow Weapon: Meteor Shower">
+<item id='9018' name="Shadow Item: Meteor Shower">
   <for>
     <set val='213' order='0x08' stat='pAtk'/>
     <set val='107' order='0x08' stat='mAtk'/>
@@ -212,7 +212,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9019' name="Shadow Weapon: Inferno Master">
+<item id='9019' name="Shadow Item: Inferno Master">
   <for>
     <set val='259' order='0x08' stat='pAtk'/>
     <set val='107' order='0x08' stat='mAtk'/>
@@ -223,7 +223,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9020' name="Shadow Weapon: Keshanberk*Damascus">
+<item id='9020' name="Shadow Item: Keshanberk*Damascus">
   <for>
     <set val='275' order='0x08' stat='pAtk'/>
     <set val='112' order='0x08' stat='mAtk'/>
@@ -234,7 +234,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9021' name="Shadow Weapon: Dragon Slayer">
+<item id='9021' name="Shadow Item: Dragon Slayer">
   <for>
     <set val='282' order='0x08' stat='pAtk'/>
     <set val='114' order='0x08' stat='mAtk'/>
@@ -245,7 +245,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9022' name="Shadow Weapon: Sword of Miracles">
+<item id='9022' name="Shadow Item: Sword of Miracles">
   <for>
     <set val='186' order='0x08' stat='pAtk'/>
     <set val='152' order='0x08' stat='mAtk'/>
@@ -256,7 +256,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9023' name="Shadow Weapon: Elysian">
+<item id='9023' name="Shadow Item: Elysian">
   <for>
     <set val='232' order='0x08' stat='pAtk'/>
     <set val='114' order='0x08' stat='mAtk'/>
@@ -267,7 +267,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9024' name="Shadow Weapon: Branch of the Mother Tree">
+<item id='9024' name="Shadow Item: Branch of the Mother Tree">
   <for>
     <set val='226' order='0x08' stat='pAtk'/>
     <set val='152' order='0x08' stat='mAtk'/>
@@ -278,7 +278,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9025' name="Shadow Weapon: Soul Separator">
+<item id='9025' name="Shadow Item: Soul Separator">
   <for>
     <set val='203' order='0x08' stat='pAtk'/>
     <set val='114' order='0x08' stat='mAtk'/>
@@ -289,7 +289,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9026' name="Shadow Weapon: Dragon Grinder">
+<item id='9026' name="Shadow Item: Dragon Grinder">
   <for>
     <set val='282' order='0x08' stat='pAtk'/>
     <set val='114' order='0x08' stat='mAtk'/>
@@ -300,7 +300,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9027' name="Shadow Weapon: Soul Bow">
+<item id='9027' name="Shadow Item: Soul Bow">
   <for>
     <set val='528' order='0x08' stat='pAtk'/>
     <set val='125' order='0x08' stat='mAtk'/>
@@ -311,7 +311,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9028' name="Shadow Weapon: Tallum Glaive">
+<item id='9028' name="Shadow Item: Tallum Glaive">
   <for>
     <set val='232' order='0x08' stat='pAtk'/>
     <set val='114' order='0x08' stat='mAtk'/>
@@ -323,7 +323,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9029' name="Shadow Weapon: Dark Legion">
+<item id='9029' name="Shadow Item: Dark Legion">
   <for>
     <set val='232' order='0x08' stat='pAtk'/>
     <set val='114' order='0x08' stat='mAtk'/>
@@ -334,7 +334,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='9036' name="Shadow Weapon: Bone Shield">
+<item id='9036' name="Shadow Item: Bone Shield">
   <for>
     <sub val='8' order='0x10' stat='rEvas'/>
     <set val='90' order='0x08' stat='sDef'/>
@@ -342,7 +342,7 @@
     <enchant val='0' order='0x0C' stat='sDef'/>
   </for>
 </item>
-<item id='9044' name="Shadow Weapon: Hoplon">
+<item id='9044' name="Shadow Item: Hoplon">
   <for>
     <sub val='8' order='0x10' stat='rEvas'/>
     <set val='128' order='0x08' stat='sDef'/>
@@ -350,7 +350,7 @@
     <enchant val='0' order='0x0C' stat='sDef'/>
   </for>
 </item>
-<item id='9056' name="Shadow Weapon: Composite Shield">
+<item id='9056' name="Shadow Item: Composite Shield">
   <for>
     <sub val='8' order='0x10' stat='rEvas'/>
     <set val='190' order='0x08' stat='sDef'/>
@@ -358,7 +358,7 @@
     <enchant val='0' order='0x0C' stat='sDef'/>
   </for>
 </item>
-<item id='9070' name="Shadow Weapon: Zubei\'s Shield">
+<item id='9070' name="Shadow Item: Zubei\'s Shield">
   <for>
     <sub val='8' order='0x10' stat='rEvas'/>
     <set val='216' order='0x08' stat='sDef'/>
@@ -366,7 +366,7 @@
     <enchant val='0' order='0x0C' stat='sDef'/>
   </for>
 </item>
-<item id='9084' name="Shadow Weapon: Dark Crystal Shield">
+<item id='9084' name="Shadow Item: Dark Crystal Shield">
   <for>
     <sub val='8' order='0x10' stat='rEvas'/>
     <set val='243' order='0x08' stat='sDef'/>
