@@ -933,8 +933,6 @@ public abstract class Inventory extends ItemContainer
                 setPaperdollItem(PAPERDOLL_RHAND, item);
                 break;
             }
-            case L2Item.SLOT_L_EAR:
-            case L2Item.SLOT_R_EAR:
             case L2Item.SLOT_L_EAR | L2Item.SLOT_R_EAR:
             {
                 if (_paperdoll[PAPERDOLL_LEAR] == null)
@@ -953,8 +951,6 @@ public abstract class Inventory extends ItemContainer
                     
                 break;
             }
-            case L2Item.SLOT_L_FINGER:
-            case L2Item.SLOT_R_FINGER:
             case L2Item.SLOT_L_FINGER | L2Item.SLOT_R_FINGER:
             {
                 if (_paperdoll[PAPERDOLL_LFINGER] == null)
