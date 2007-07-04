@@ -40,8 +40,7 @@ public class AdminCache implements IAdminCommandHandler
         "admin_cache_reload_path",
         "admin_cache_reload_file",
         "admin_cache_crest_rebuild",
-        "admin_cache_crest_reload",
-        "admin_cache_crest_fix"
+        "admin_cache_crest_reload"
     };
     
     public String[] getAdminCommandList()
@@ -82,11 +81,6 @@ public class AdminCache implements IAdminCommandHandler
         {
             CrestCache.getInstance().reload();
             activeChar.sendMessage("Cache[Crest]: " + String.format("%.3f",CrestCache.getInstance().getMemoryUsage())  + " megabytes on " + CrestCache.getInstance().getLoadedFiles() + " files loaded");
-        }
-        else if (command.startsWith("admin_cache_crest_fix"))
-        {
-            CrestCache.getInstance().convertOldPedgeFiles();
-            activeChar.sendMessage("Cache[Crest]: crests fixed");
         }
 
         return true;

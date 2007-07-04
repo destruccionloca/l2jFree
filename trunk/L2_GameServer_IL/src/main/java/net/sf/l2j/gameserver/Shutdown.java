@@ -26,7 +26,6 @@ import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
-import net.sf.l2j.gameserver.instancemanager.SQLQueue;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.L2GameClient;
@@ -344,6 +343,7 @@ public class Shutdown extends Thread implements ShutdownMBean
         if(Config.IRC_ENABLED && !Config.IRC_ANNOUNCE)
 	        IrcManager.getInstance().getConnection().sendChan("Server is " + shutdownMode.getText().toLowerCase() + " NOW!");
         
+        // we cannt abort shutdown anymore, so i removed the "if" 
         disconnectAllCharacters();
         
         // Seven Signs data is now saved along with Festival data.
@@ -370,8 +370,12 @@ public class Shutdown extends Thread implements ShutdownMBean
         // Save Cursed Weapons data before closing.
         CursedWeaponsManager.getInstance().saveData();
         _log.info("CursedWeaponsManager: Data saved.");
-        SQLQueue.getInstance().flush();
-        _log.info("SQLQueue: All SQL's processed.");
+        // Save items on ground before closing
+        if(Config.SAVE_DROPPED_ITEM){
+            ItemsOnGroundManager.getInstance().saveInDb();        
+            ItemsOnGroundManager.getInstance().cleanUp();
+            _log.info("ItemsOnGroundManager: All items on ground saved.");
+        }
         _log.info("Data saved. All players disconnected, "+shutdownMode.getText().toLowerCase()+".");
         
         try {

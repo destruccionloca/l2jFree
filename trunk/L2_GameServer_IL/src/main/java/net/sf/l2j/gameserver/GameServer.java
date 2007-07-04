@@ -83,7 +83,6 @@ import net.sf.l2j.gameserver.instancemanager.OlympiadStadiaManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
-import net.sf.l2j.gameserver.instancemanager.SQLQueue;
 import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
 import net.sf.l2j.gameserver.instancemanager.SailrenManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
@@ -357,9 +356,7 @@ public class GameServer
         AugmentationData.getInstance();
         if ( _log.isDebugEnabled())_log.debug("AugmentationData initialized");
         ItemsOnGroundManager.getInstance();
-        if ( _log.isDebugEnabled())_log.debug("ItemsOnGroundManager initialized");
-        SQLQueue.getInstance();
-        if ( _log.isDebugEnabled())_log.debug("SQLQueue initialized");
+        if ( _log.isDebugEnabled())_log.debug("ItemsOnGroundManager initialized");        
         
         if (Config.AUTODESTROY_ITEM_AFTER > 0 || Config.HERB_AUTO_DESTROY_TIME > 0)
         {

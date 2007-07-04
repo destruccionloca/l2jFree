@@ -33,7 +33,6 @@ import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
-import net.sf.l2j.gameserver.instancemanager.SQLQueue;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -714,7 +713,23 @@ public class L2PetInstance extends L2Summon
         }
         
         // pet control item no longer exists, delete the pet from the db
-        SQLQueue.getInstance().add("DELETE FROM pets WHERE item_obj_id=" + getControlItemId() + ";");
+        java.sql.Connection con = null;
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection(con);
+            PreparedStatement statement = con.prepareStatement("DELETE FROM pets WHERE item_obj_id=?");
+            statement.setInt(1, getControlItemId());
+            statement.execute();
+            statement.close();
+        }
+        catch (SQLException e)
+        {
+            _log.warn("could not delete pet:"+e);
+        }
+        finally
+        {
+            try { con.close(); } catch (Exception e) {}
+        }
     }
     
     public void dropItemHere(L2ItemInstance dropit)

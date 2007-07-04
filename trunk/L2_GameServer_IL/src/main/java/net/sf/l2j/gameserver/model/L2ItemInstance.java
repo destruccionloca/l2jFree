@@ -32,7 +32,6 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
-import net.sf.l2j.gameserver.instancemanager.SQLQueue;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.NullKnownList;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -571,8 +570,8 @@ public final class L2ItemInstance extends L2Object
 		// mercenary tickets can only be picked up by the castle owner.
         int _castleId = MercTicketManager.getInstance().getTicketCastleId(_itemId);
            
-        if (_castleId > 0)
-        {
+           if (_castleId > 0)
+           {
                if (player.isCastleLord(_castleId))
                {
                    if (player.isInParty())
@@ -1107,10 +1106,36 @@ public final class L2ItemInstance extends L2Object
 		if (this._wear)
 			return;
 		if (this._storedInDb)
-			return;		
-		SQLQueue.getInstance().add("UPDATE items SET owner_id="+_owner_id+",count="+getCount()+",loc='"+_loc.name()+"',loc_data="+_loc_data+",enchant_level="+getEnchantLevel()+",price_sell="+_price_sell+",price_buy="+_price_buy+",custom_type1="+getCustomType1()+",custom_type2="+getCustomType2()+",mana_left="+getMana()+" WHERE object_id = "+getObjectId()+";");
-		_existsInDb = true;
-		_storedInDb = true;
+			return;
+		
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement(
+					"UPDATE items SET owner_id=?,count=?,loc=?,loc_data=?,enchant_level=?,price_sell=?,price_buy=?,custom_type1=?,custom_type2=?,mana_left=? " +
+					"WHERE object_id = ?");
+			statement.setInt(1, _owner_id);
+			statement.setInt(2, getCount());
+			statement.setString(3, _loc.name());
+			statement.setInt(4, _loc_data);
+			statement.setInt(5, getEnchantLevel());
+			statement.setInt(6, _price_sell);
+			statement.setInt(7, _price_buy);
+			statement.setInt(8, getCustomType1());
+			statement.setInt(9, getCustomType2());
+			statement.setInt(10, getMana());
+			statement.setInt(11, getObjectId());
+			statement.executeUpdate();
+			_existsInDb = true;
+			_storedInDb = true;
+            statement.close();
+        } catch (Exception e) {
+			_log.fatal("Could not update item "+getObjectId()+" in DB: Reason: " +
+                    "Duplicate itemId");
+		} finally {
+			try { con.close(); } catch (Exception e) {}
+		}
 	}
 
 	/**
@@ -1119,13 +1144,37 @@ public final class L2ItemInstance extends L2Object
 	private void insertIntoDb() {
 		if (this._wear)
 			return;
-
 		if (Config.ASSERT) assert !this._existsInDb && this.getObjectId() != 0;
-		
-		SQLQueue.getInstance().add("INSERT INTO items (owner_id,item_id,count,loc,loc_data,enchant_level,price_sell,price_buy,object_id,custom_type1,custom_type2,mana_left) VALUES ("
-				+_owner_id+","+_itemId+","+getCount()+",'"+_loc.name()+"',"+_loc_data+","+getEnchantLevel()+","+_price_sell+","+_price_buy+","+getObjectId()+","+_type1+","+_type2+","+getMana()+");");
-		_existsInDb = true;
-		_storedInDb = true;
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement(
+					"INSERT INTO items (owner_id,item_id,count,loc,loc_data,enchant_level,price_sell,price_buy,object_id,custom_type1,custom_type2,mana_left) " +
+					"VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+			statement.setInt(1, _owner_id);
+			statement.setInt(2, _itemId);
+			statement.setInt(3, getCount());
+			statement.setString(4, _loc.name());
+			statement.setInt(5, _loc_data);
+			statement.setInt(6, getEnchantLevel());
+			statement.setInt(7, _price_sell);
+			statement.setInt(8, _price_buy);
+			statement.setInt(9, getObjectId());
+			statement.setInt(10, _type1);
+			statement.setInt(11, _type2);
+			statement.setInt(12, getMana());
+			
+			statement.executeUpdate();
+			_existsInDb = true;
+			_storedInDb = true;
+            statement.close();
+        } catch (Exception e) {
+			_log.fatal( "Could not insert item "+getObjectId()+" into DB: Reason: " +
+                    "Duplicate itemId" );
+		} finally {
+			try { con.close(); } catch (Exception e) {}
+		}
 	}
 
 	/**
@@ -1138,9 +1187,23 @@ public final class L2ItemInstance extends L2Object
 		if (Config.ASSERT) assert this._existsInDb;
 		
 		_augmentation = null;
-		SQLQueue.getInstance().add("DELETE FROM items WHERE object_id=" + getObjectId() + ";");
-		_existsInDb = false;
-		_storedInDb = false;
+		
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement(
+					"DELETE FROM items WHERE object_id=?");
+			statement.setInt(1, getObjectId());
+			statement.executeUpdate();
+			_existsInDb = false;
+			_storedInDb = false;
+            statement.close();
+        } catch (Exception e) {
+			_log.fatal( "Could not delete item "+getObjectId()+" in DB:", e);
+		} finally {
+			try { con.close(); } catch (Exception e) {}
+		}
 	}
 
 	/**

@@ -29,13 +29,13 @@ import java.io.LineNumberReader;
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
@@ -653,8 +653,8 @@ public final class Config {
     public static int     			KARMA_PK_LIMIT;
     public static String  			KARMA_NONDROPPABLE_PET_ITEMS;
     public static String  			KARMA_NONDROPPABLE_ITEMS;
-    public static List<Integer> KARMA_LIST_NONDROPPABLE_PET_ITEMS   = new ArrayList<Integer>();
-    public static List<Integer> KARMA_LIST_NONDROPPABLE_ITEMS       = new ArrayList<Integer>();
+    public static FastList<Integer> KARMA_LIST_NONDROPPABLE_PET_ITEMS   = new FastList<Integer>();
+    public static FastList<Integer> KARMA_LIST_NONDROPPABLE_ITEMS       = new FastList<Integer>();
     public static int 				PVP_TIME;    
     public static boolean 			ALT_PLAYER_CAN_DROP_ADENA;		// Player can drop adena ?
     public static boolean 			ALT_ANNOUNCE_PK;				// Announce Pks ?
@@ -687,12 +687,12 @@ public final class Config {
             KARMA_NONDROPPABLE_PET_ITEMS    = pvpSettings.getProperty("ListOfPetItems", "2375,3500,3501,3502,4422,4423,4424,4425,6648,6649,6650");          
             KARMA_NONDROPPABLE_ITEMS        = pvpSettings.getProperty("ListOfNonDroppableItems", "57,1147,425,1146,461,10,2368,7,6,2370,2369");
             
-            KARMA_LIST_NONDROPPABLE_PET_ITEMS = new ArrayList<Integer>();
+            KARMA_LIST_NONDROPPABLE_PET_ITEMS = new FastList<Integer>();
             for (String id : KARMA_NONDROPPABLE_PET_ITEMS.trim().split(",")) {
                 KARMA_LIST_NONDROPPABLE_PET_ITEMS.add(Integer.parseInt(id));
             }
             
-            KARMA_LIST_NONDROPPABLE_ITEMS = new ArrayList<Integer>();
+            KARMA_LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
             for (String id : KARMA_NONDROPPABLE_ITEMS.trim().split(",")) {
                 KARMA_LIST_NONDROPPABLE_ITEMS.add(Integer.parseInt(id));
             }
@@ -751,7 +751,7 @@ public final class Config {
     public static boolean 			JAIL_IS_PVP;						// Jail config	
     public static boolean 			JAIL_DISABLE_CHAT;					// Jail config
     public static String  			ALLOWED_NPC_TYPES;
-    public static List<String> 	LIST_ALLOWED_NPC_TYPES = new ArrayList<String>();// List of NPC types that won't allow casting
+    public static FastList<String> 	LIST_ALLOWED_NPC_TYPES = new FastList<String>();// List of NPC types that won't allow casting
     public static int           	WYVERN_SPEED;
     public static int           	STRIDER_SPEED;
     public static boolean       	ALLOW_WYVERN_UPGRADER;
@@ -796,9 +796,9 @@ public final class Config {
      */
     public static boolean 			EFFECT_CANCELING;
     public static String  			NONDROPPABLE_ITEMS;
-    public static List<Integer> LIST_NONDROPPABLE_ITEMS = new ArrayList<Integer>();
+    public static FastList<Integer> LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
     public static String  			PET_RENT_NPC;
-    public static List<Integer> LIST_PET_RENT_NPC = new ArrayList<Integer>();
+    public static FastList<Integer> LIST_PET_RENT_NPC = new FastList<Integer>();
     public static int       		ADD_MAX_LOAD;						// Weight limit
     public static boolean   		LEVEL_ADD_LOAD;
     public static int           	WAREHOUSE_SLOTS_NO_DWARF;			// Warehouse slots limits
@@ -809,7 +809,7 @@ public final class Config {
     public static int           	INVENTORY_MAXIMUM_DWARF;			// Inventory slots limits
     public static int           	INVENTORY_MAXIMUM_GM;				// Inventory slots limits
     public static String			FORBIDDEN_RAID_SKILLS;
-    public static List<Integer> FORBIDDEN_RAID_SKILLS_LIST  = new ArrayList<Integer>();
+    public static FastList<Integer> FORBIDDEN_RAID_SKILLS_LIST  = new FastList<Integer>();
     //  *******************************************************************************************    
     //  *******************************************************************************************
     public static void loadOtherConfig()
@@ -891,14 +891,14 @@ public final class Config {
             STORE_SKILL_COOLTIME = Boolean.parseBoolean(otherSettings.getProperty("StoreSkillCooltime", "true"));
             
             PET_RENT_NPC =  otherSettings.getProperty("ListPetRentNpc", "30827"); 
-            LIST_PET_RENT_NPC = new ArrayList<Integer>(); 
+            LIST_PET_RENT_NPC = new FastList<Integer>(); 
             for (String id : PET_RENT_NPC.split(",")) { 
             	LIST_PET_RENT_NPC.add(Integer.parseInt(id)); 
             }
 
             NONDROPPABLE_ITEMS        = otherSettings.getProperty("ListOfNonDroppableItems", "1147,425,1146,461,10,2368,7,6,2370,2369,5598");
             
-            LIST_NONDROPPABLE_ITEMS = new ArrayList<Integer>();
+            LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
             for (String id : NONDROPPABLE_ITEMS.trim().split(",")) {
                 LIST_NONDROPPABLE_ITEMS.add(Integer.parseInt(id.trim()));
             }
@@ -913,7 +913,7 @@ public final class Config {
             JAIL_DISABLE_CHAT = Boolean.valueOf(otherSettings.getProperty("JailDisableChat", "True"));
             
             ALLOWED_NPC_TYPES  = otherSettings.getProperty("AllowedNPCTypes");
-            LIST_ALLOWED_NPC_TYPES = new ArrayList<String>();
+            LIST_ALLOWED_NPC_TYPES = new FastList<String>();
             for (String npc_type : ALLOWED_NPC_TYPES.trim().split(",")) 
             {
                 LIST_ALLOWED_NPC_TYPES.add(npc_type.trim());
@@ -959,11 +959,14 @@ public final class Config {
     public static int     				AUTODESTROY_ITEM_AFTER;			// Time after which item will auto-destroy
     public static int     				HERB_AUTO_DESTROY_TIME;			// Auto destroy herb time
     public static String  				PROTECTED_ITEMS;
-    public static List<Integer> 	LIST_PROTECTED_ITEMS = new ArrayList<Integer>();	// List of items that will not be destroyed
+    public static FastList<Integer> 	LIST_PROTECTED_ITEMS = new FastList<Integer>();	// List of items that will not be destroyed
     public static boolean   			DESTROY_DROPPED_PLAYER_ITEM;	// Auto destroy nonequipable items dropped by players
     public static boolean   			DESTROY_PLAYER_INVENTORY_DROP;	// Auto destroy items dropped by players from inventory    
     public static boolean   			DESTROY_EQUIPABLE_PLAYER_ITEM;	// Auto destroy equipable items dropped by players
     public static boolean   			SAVE_DROPPED_ITEM;				// Save items on ground for restoration on server restart
+    public static boolean   			EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD;// Empty table ItemsOnGround after load all items
+    public static int       			SAVE_DROPPED_ITEM_INTERVAL;		// Time interval to save into db items on ground
+    public static boolean   			CLEAR_DROPPED_ITEM_TABLE;		// Clear all items stored in ItemsOnGround table
     public static boolean 				PRECISE_DROP_CALCULATION;		// Accept precise drop calculation ?
     public static boolean 				MULTIPLE_ITEM_DROP;				// Accept multi-items drop ?
     /** This is setting of experimental Client <--> Server Player coordinates synchronization<br>
@@ -1065,7 +1068,7 @@ public final class Config {
             AUTODESTROY_ITEM_AFTER          = Integer.parseInt(optionsSettings.getProperty("AutoDestroyDroppedItemAfter", "0"));
             HERB_AUTO_DESTROY_TIME          = Integer.parseInt(optionsSettings.getProperty("AutoDestroyHerbTime","15"))*1000;
             PROTECTED_ITEMS                 = optionsSettings.getProperty("ListOfProtectedItems");
-            LIST_PROTECTED_ITEMS = new ArrayList<Integer>();
+            LIST_PROTECTED_ITEMS = new FastList<Integer>();
             for (String id : PROTECTED_ITEMS.trim().split(",")) {
                 LIST_PROTECTED_ITEMS.add(Integer.parseInt(id.trim()));
                  }
@@ -1073,6 +1076,9 @@ public final class Config {
             DESTROY_PLAYER_INVENTORY_DROP   = Boolean.valueOf(optionsSettings.getProperty("DestroyPlayerInventoryDrop", "false"));            
             DESTROY_EQUIPABLE_PLAYER_ITEM   = Boolean.valueOf(optionsSettings.getProperty("DestroyEquipableItem", "false"));
             SAVE_DROPPED_ITEM               = Boolean.valueOf(optionsSettings.getProperty("SaveDroppedItem", "false"));
+            EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD = Boolean.valueOf(optionsSettings.getProperty("EmptyDroppedItemTableAfterLoad", "false"));
+            SAVE_DROPPED_ITEM_INTERVAL      = Integer.parseInt(optionsSettings.getProperty("SaveDroppedItemInterval", "0"))*60000;
+            CLEAR_DROPPED_ITEM_TABLE        = Boolean.valueOf(optionsSettings.getProperty("ClearDroppedItemTable", "false"));
 
             PRECISE_DROP_CALCULATION        = Boolean.valueOf(optionsSettings.getProperty("PreciseDropCalculation", "True"));
             MULTIPLE_ITEM_DROP              = Boolean.valueOf(optionsSettings.getProperty("MultipleItemDrop", "True"));
