@@ -28,12 +28,12 @@ import org.apache.commons.logging.LogFactory;
 
 public class RequestMakeMacro extends L2GameClientPacket
 {
-
 	private L2Macro _macro;
     private int _commands_lenght = 0;
     private final static Log _log = LogFactory.getLog(RequestMakeMacro.class);
         
 	private static final String _C__C1_REQUESTMAKEMACRO = "[C] C1 RequestMakeMacro";
+	private static final int MAX_MACRO_LENGTH = 12;
 	
 	/**
 	 * packet type id 0xc1
@@ -65,6 +65,8 @@ public class RequestMakeMacro extends L2GameClientPacket
 		String _acronym = readS();
 		int _icon = readC();
 		int _count = readC();
+		if (_count > MAX_MACRO_LENGTH) _count = MAX_MACRO_LENGTH;
+		
 		L2MacroCmd[] commands = new L2MacroCmd[_count];  
         if (_log.isDebugEnabled()) _log.debug("Make macro id:"+_id+"\tname:"+_name+"\tdesc:"+_desc+"\tacronym:"+_acronym+"\ticon:"+_icon+"\tcount:"+_count);
         for (int i = 0; i < _count; i++)

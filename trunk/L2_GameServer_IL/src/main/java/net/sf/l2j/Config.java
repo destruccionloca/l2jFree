@@ -472,14 +472,6 @@ public final class Config {
     public static int   	KARMA_RATE_DROP_ITEM;
     public static int   	KARMA_RATE_DROP_EQUIP;    
     public static int   	KARMA_RATE_DROP_EQUIP_WEAPON;    
-    public static boolean 	CAN_SPOIL_LOWER_LEVEL_MOBS;
-    public static boolean 	CAN_DELEVEL_AND_SPOIL_MOBS;
-    public static float   	MAXIMUM_PLAYER_AND_MOB_LEVEL_DIFFERENCE;
-    public static float   	BASE_SPOIL_RATE;
-    public static float   	MINIMUM_SPOIL_RATE;
-    public static float   	SPOIL_LEVEL_DIFFERENCE_LIMIT;
-    public static float   	SPOIL_LEVEL_DIFFERENCE_MULTIPLIER;
-    public static int     	LAST_LEVEL_SPOIL_IS_LEARNED;
     public static int       RATEBOXSPAWN;
     //  *******************************************************************************************
     public static void loadRatesConfig()
@@ -528,15 +520,7 @@ public final class Config {
             KARMA_RATE_DROP_EQUIP           = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropEquip", "40"));
             KARMA_RATE_DROP_EQUIP_WEAPON    = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropEquipWeapon", "10"));
            
-           CAN_SPOIL_LOWER_LEVEL_MOBS              = Boolean.parseBoolean(ratesSettings.getProperty("CanSpoilLowerLevelMobs", "false"));
-           CAN_DELEVEL_AND_SPOIL_MOBS              = Boolean.parseBoolean(ratesSettings.getProperty("CanDelevelToSpoil", "true"));                       
-           MAXIMUM_PLAYER_AND_MOB_LEVEL_DIFFERENCE = Float.parseFloat(ratesSettings.getProperty("MaximumPlayerAndMobLevelDifference", "9."));
-           BASE_SPOIL_RATE                         = Float.parseFloat(ratesSettings.getProperty("BasePercentChanceOfSpoilSuccess", "40."));
-           MINIMUM_SPOIL_RATE                      = Float.parseFloat(ratesSettings.getProperty("MinimumPercentChanceOfSpoilSuccess", "3."));
-           SPOIL_LEVEL_DIFFERENCE_LIMIT            = Float.parseFloat(ratesSettings.getProperty("SpoilLevelDifferenceLimit", "5."));
-           SPOIL_LEVEL_DIFFERENCE_MULTIPLIER       = Float.parseFloat(ratesSettings.getProperty("SpoilLevelMultiplier", "7."));
-           LAST_LEVEL_SPOIL_IS_LEARNED             = Integer.parseInt(ratesSettings.getProperty("LastLevelSpoilIsLearned", "72"));
-           RATEBOXSPAWN                            = Integer.parseInt(ratesSettings.getProperty("RateBoxSpawn", "50"));
+            RATEBOXSPAWN                    = Integer.parseInt(ratesSettings.getProperty("RateBoxSpawn", "50"));
         }
         catch (Exception e) {
             _log.error(e);
@@ -2461,18 +2445,6 @@ public final class Config {
         else if (pName.equalsIgnoreCase("StoreSkillCooltime")) STORE_SKILL_COOLTIME = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AnnounceMammonSpawn")) ANNOUNCE_MAMMON_SPAWN = Boolean.valueOf(pValue);
         
-        // Spoil settings
-        else if (pName.equalsIgnoreCase("CanSpoilLowerLevelMobs")) CAN_SPOIL_LOWER_LEVEL_MOBS = Boolean.valueOf(pValue);
-        else if (pName.equalsIgnoreCase("CanDelevelToSpoil")) CAN_DELEVEL_AND_SPOIL_MOBS = Boolean.valueOf(pValue);
-
-        else if (pName.equalsIgnoreCase("MaximumPlayerAndMobLevelDifference")) MAXIMUM_PLAYER_AND_MOB_LEVEL_DIFFERENCE = Float.parseFloat(pValue);
-        else if (pName.equalsIgnoreCase("BasePercentChanceOfSpoilSuccess")) BASE_SPOIL_RATE = Float.parseFloat(pValue);
-        else if (pName.equalsIgnoreCase("MinimumPercentChanceOfSpoilSuccess")) MINIMUM_SPOIL_RATE = Float.parseFloat(pValue);
-        else if (pName.equalsIgnoreCase("SpoilLevelDifferenceLimit")) SPOIL_LEVEL_DIFFERENCE_LIMIT = Float.parseFloat(pValue);
-        else if (pName.equalsIgnoreCase("SpoilLevelMultiplier")) SPOIL_LEVEL_DIFFERENCE_MULTIPLIER = Float.parseFloat(pValue);
-
-        else if (pName.equalsIgnoreCase("LastLevelSpoilIsLearned")) LAST_LEVEL_SPOIL_IS_LEARNED = Integer.parseInt(pValue);
-
         // Alternative settings
         else if (pName.equalsIgnoreCase("AltGameTiredness")) ALT_GAME_TIREDNESS = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AltGameCreation")) ALT_GAME_CREATION = Boolean.valueOf(pValue);

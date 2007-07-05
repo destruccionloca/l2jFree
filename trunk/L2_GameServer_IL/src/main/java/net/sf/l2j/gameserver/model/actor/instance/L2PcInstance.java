@@ -7047,7 +7047,11 @@ public final class L2PcInstance extends L2PlayableInstance
         if (getCurrentSkill() != null && isCastingNow())
         {
             // Check if new skill different from current skill in progress
-            if (skill.getId() == getCurrentSkill().getSkillId()) return;
+            if (skill.getId() == getCurrentSkill().getSkillId())
+            {
+            	sendPacket(new ActionFailed());
+            	return;
+            }            	
 
             if (_log.isDebugEnabled() && getQueuedSkill() != null)
                 _log.debug(getQueuedSkill().getSkill().getName() + " is already queued for " + getName()
@@ -7055,6 +7059,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
             // Create a new SkillDat object and queue it in the player _queuedSkill
             setQueuedSkill(skill, forceUse, dontMove);
+            sendPacket(new ActionFailed());
             return;
         }
         if (getQueuedSkill() != null) // wiping out previous values, after casting has been aborted 

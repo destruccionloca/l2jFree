@@ -33,6 +33,7 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.BuffTemplateTable;
+import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
@@ -71,9 +72,9 @@ import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.serverpackets.ExShowVariationMakeWindow;
-import net.sf.l2j.gameserver.serverpackets.ExShowVariationCancelWindow;
 import net.sf.l2j.gameserver.serverpackets.ExQuestInfo;
+import net.sf.l2j.gameserver.serverpackets.ExShowVariationCancelWindow;
+import net.sf.l2j.gameserver.serverpackets.ExShowVariationMakeWindow;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
@@ -1038,7 +1039,7 @@ public class L2NpcInstance extends L2Character
                     
                     if (getCastle().getOwnerId() > 0)
                     {
-                        L2Clan clan = new L2Clan(getCastle().getOwnerId());
+                    	L2Clan clan = ClanTable.getInstance().getClan(getCastle().getOwnerId());
                         html.replace("%clanname%", clan.getName());
                         html.replace("%clanleadername%", clan.getLeaderName());
                     }
