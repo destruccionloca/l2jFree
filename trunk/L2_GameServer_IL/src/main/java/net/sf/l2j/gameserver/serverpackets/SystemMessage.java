@@ -101,6 +101,7 @@ public class SystemMessage extends L2GameServerPacket
 	public static final int LEARNED_SKILL_S1 = 277;
 	public static final int NOT_ENOUGH_SP_TO_LEARN_SKILL = 278;
     public static final int DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN = 607;
+    public static final int NO_MORE_SKILLS_TO_LEARN = 750;
 	
 	public static final int FALL_DAMAGE_S1 = 296;
 	public static final int DROWN_DAMAGE_S1 = 297;
