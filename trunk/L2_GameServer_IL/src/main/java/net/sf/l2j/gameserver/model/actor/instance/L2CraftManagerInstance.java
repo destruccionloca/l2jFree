@@ -11,6 +11,7 @@ import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
+import net.sf.l2j.gameserver.model.L2Multisell;
 import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.model.L2RecipeComponent;
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
@@ -56,8 +57,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
     {
         if (command.startsWith("multisell"))
         {
-            String listId = command.substring(9).trim();
-            player.sendPacket(new MultiSellList(Integer.parseInt(listId),this));
+        	L2Multisell.getInstance().SeparateAndSend(Integer.parseInt(command.substring(9).trim()), player, false, getCastle().getTaxRate());
         } else
         // List player inventory items for crystallization
         if (command.startsWith("Crystallize")) 

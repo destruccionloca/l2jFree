@@ -20,152 +20,194 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.SkillTable;
-import net.sf.l2j.gameserver.lib.Rnd;
-import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.lib.Rnd;
 
 /**
  * This class manages all chest. 
  */
 public final class L2ChestInstance extends L2Attackable
 {
-    private volatile boolean _isOpen;
-    private boolean _isBox;
-    
-    public L2ChestInstance(int objectId, L2NpcTemplate template)
-    {
-        super(objectId, template);
-    }
+	private volatile boolean _isBox;
+	private volatile boolean _isOpenFailed;
+	private volatile boolean _isOpen;
+	private volatile boolean _specialDrop;
+	
+	public L2ChestInstance(int objectId, L2NpcTemplate template)
+	{
+		super(objectId, template);
+		_isBox = true;
+		_isOpen = false;
+		_isOpenFailed = false;
+		_specialDrop = false;
+	}
 
-    @Override
+	
 	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
 	{
-		if (!isAlikeDead() && isBox())
-        {
+		super.reduceCurrentHp(damage,attacker,awake);
+		if (!isAlikeDead() && !_isOpenFailed)
+		{
+			setHaveToDrop(false);
+			setMustRewardExpSp(false);
 			doDie(attacker);
-            return;
-        }
-        super.reduceCurrentHp(damage,attacker,awake);
+		}
 	}
-    @Override
-    public boolean isAutoAttackable(L2Character attacker)
-    {
-        return true;
-    }
-    @Override
-    public boolean isAttackable()
-    {
-        return true;
-    }
-    @Override
-    public void doDie(L2Character killer)
-    {
-        if(!isSpoil()) killer.setTarget(null);
-        getStatus().setCurrentHpMp(0,0);
-		super.doDie(killer);
-    }
-    @Override
-    public boolean isAggressive()
-    {
-        return false;
-    }
-    @Override
-    public void OnSpawn()
-    {
-        super.OnSpawn();
-        _isOpen = false;
-        _isBox = (Rnd.get(100) < Config.RATEBOXSPAWN);
-        // drop will be activated if you call setSpecialDrop
-        setHaveToDrop(false);
-    }
-
-	public boolean isBox() {
-        return _isBox;
-    }
-    
-	public synchronized boolean open() {
-        boolean wasOpen = _isOpen;
-        _isOpen = true;
-        return wasOpen;
-    }
 	
-	public void setSpecialDrop()
+	
+	public boolean isAutoAttackable(L2Character attacker)
 	{
-        setHaveToDrop(true);
+		return true;
+	}
+
+	public boolean isAttackable()
+	{
+		return true;
 	}
 	
-    /**
-     * Activate the chest trap and determine the skill inflicted to the player
-     * @param player
-     */
-    public void chestTrap(L2Character player)
-    {
-        int trapSkillId = 0;
-        int rnd = Rnd.get(120);
+	public boolean isOpenFailed()
+	{
+		return _isOpenFailed;
+	}
 
-        if (getTemplate().getLevel() >= 61)
-        {
-            if (rnd >= 90) trapSkillId = 4139;//explosion
-            else if (rnd >= 50) trapSkillId = 4118;//area paralysys 
-            else if (rnd >= 20) trapSkillId = 1167;//poison cloud
-            else trapSkillId = 223;//sting
-        }
-        else if (getTemplate().getLevel() >= 41)
-        {
-            if (rnd >= 90) trapSkillId = 4139;//explosion
-            else if (rnd >= 60) trapSkillId = 96;//bleed 
-            else if (rnd >= 20) trapSkillId = 1167;//poison cloud
-            else trapSkillId = 4118;//area paralysys
-        }
-        else if (getTemplate().getLevel() >= 21)
-        {
-            if (rnd >= 80) trapSkillId = 4139;//explosion
-            else if (rnd >= 50) trapSkillId = 96;//bleed 
-            else if (rnd >= 20) trapSkillId = 1167;//poison cloud
-            else trapSkillId = 129;//poison
-        }
-        else
-        {
-            if (rnd >= 80) trapSkillId = 4139;//explosion
-            else if (rnd >= 50) trapSkillId = 96;//bleed 
-            else trapSkillId = 129;//poison
-        }
+	public void doDie(L2Character killer)
+	{
+		killer.setTarget(null);
+		getStatus().setCurrentHpMp(0,0);
+		super.doDie(killer);
+	}
 
-        player.sendPacket(new SystemMessage(714)); // Closest matching systemmsg
-        handleCast(player, trapSkillId);
-    }
-    //<--
-    //cast casse
-    //<--
-    private boolean handleCast(L2Character player, int skillId)
-    {
-        int skillLevel = 1;
+	public boolean isAggressive()
+	{
+		return false;
+	}
 
-        byte lvl = getTemplate().getLevel();
-        if (lvl > 20 && lvl <= 40) skillLevel = 3;
-        else if (lvl > 40 && lvl <= 60) skillLevel = 5;
-        else if (lvl > 60) skillLevel = 6;
-        
-        if (player.isDead() 
-            || !player.isVisible()
-            || !player.isInsideRadius(this, getDistanceToWatchObject(player), false, false))
-            return false;
+	public void onSpawn()
+	{
+		super.OnSpawn();
+		_isBox = true;
+		_isOpen = false;
+		_isOpenFailed = false;
+		_specialDrop = false;
+		setMustRewardExpSp(true);
+		setHaveToDrop(true);
+	}
 
-        L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
+	public synchronized boolean isBox() {
+		return _isBox;
+	}
+	
+	public synchronized boolean isOpen() {
+		return _isOpen;
+	}
+	public synchronized void setOpen() {
+		_isOpen = true;
+	}
+	
+	public synchronized void setOpenFailed()
+	{
+		_isOpenFailed = true;
+	}
+	
+	public synchronized boolean isSpecialDrop()
+	{
+		return _specialDrop;
+	}
+	
+	public synchronized void setSpecialDrop()
+	{
+		_specialDrop = true;
+	}
+	
+	public void doItemDrop(L2NpcTemplate npcTemplate, L2Character lastAttacker)
+	{
+		int id = getTemplate().getNpcId();
+		if (id>=18265 && id<=18286)
+			id = id - 18265;
+		else
+			id = id - 21801;
+		
+		if (_specialDrop)
+		{
+			id = id + 18265;
+			super.doItemDrop(NpcTable.getInstance().getTemplate(id),lastAttacker);
+		}
+		else
+		{
+			id = id + 21801;
+			super.doItemDrop(NpcTable.getInstance().getTemplate(id),lastAttacker);
+		}
+	}
+	
+	//cast - trap chest
+	public void chestTrap(L2Character player)
+	{
+		int trapSkillId = 0;
+		int rnd = Rnd.get(120);
 
-        if (player.getEffect(skill) == null)
-        {
-            skill.getEffects(this, player);
-            broadcastPacket(new MagicSkillUser(this, player, skill.getId(), skillLevel,
-                                                skill.getSkillTime(), 0));
-            return true;
-        }
-        return false;
-    }
+		if (getTemplate().getLevel() >= 61)
+		{
+			if (rnd >= 90) trapSkillId = 4139;//explosion
+			else if (rnd >= 50) trapSkillId = 4118;//area paralysys 
+			else if (rnd >= 20) trapSkillId = 1167;//poison cloud
+			else trapSkillId = 223;//sting
+		}
+		else if (getTemplate().getLevel() >= 41)
+		{
+			if (rnd >= 90) trapSkillId = 4139;//explosion
+			else if (rnd >= 60) trapSkillId = 96;//bleed 
+			else if (rnd >= 20) trapSkillId = 1167;//poison cloud
+			else trapSkillId = 4118;//area paralysys
+		}
+		else if (getTemplate().getLevel() >= 21)
+		{
+			if (rnd >= 80) trapSkillId = 4139;//explosion
+			else if (rnd >= 50) trapSkillId = 96;//bleed 
+			else if (rnd >= 20) trapSkillId = 1167;//poison cloud
+			else trapSkillId = 129;//poison
+		}
+		else
+		{
+			if (rnd >= 80) trapSkillId = 4139;//explosion
+			else if (rnd >= 50) trapSkillId = 96;//bleed 
+			else trapSkillId = 129;//poison
+		}
+
+		player.sendPacket(SystemMessage.sendString("There was a trap!"));
+		handleCast(player, trapSkillId);
+	}
+	//<--
+	//cast casse
+	//<--
+	private boolean handleCast(L2Character player, int skillId)
+	{
+		int skillLevel = 1;
+		byte lvl = getTemplate().getLevel();
+		if (lvl > 20 && lvl <= 40) skillLevel = 3;
+		else if (lvl > 40 && lvl <= 60) skillLevel = 5;
+		else if (lvl > 60) skillLevel = 6;
+
+		if (player.isDead() 
+			|| !player.isVisible()
+			|| !player.isInsideRadius(this, getDistanceToWatchObject(player), false, false))
+			return false;
+
+		L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
+
+		if (player.getEffect(skill) == null)
+		{
+			skill.getEffects(this, player);
+			broadcastPacket(new MagicSkillUser(this, player, skill.getId(), skillLevel,
+												skill.getSkillTime(), 0));
+			return true;
+		}
+		return false;
+	}
 }

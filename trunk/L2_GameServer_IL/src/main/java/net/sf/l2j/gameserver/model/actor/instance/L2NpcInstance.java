@@ -52,6 +52,7 @@ import net.sf.l2j.gameserver.model.L2DropCategory;
 import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
+import net.sf.l2j.gameserver.model.L2Multisell;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2Summon;
@@ -78,7 +79,6 @@ import net.sf.l2j.gameserver.serverpackets.ExShowVariationMakeWindow;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
-import net.sf.l2j.gameserver.serverpackets.MultiSellList;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.NpcInfo;
@@ -1139,20 +1139,11 @@ public class L2NpcInstance extends L2Character
             }
             else if (command.startsWith("multisell"))
             {
-                try
-                {
-                    MultiSellList multisell=new MultiSellList(Integer.parseInt(command.substring(9).trim()), this);
-                    
-                    if(multisell!=null) 
-                        player.sendPacket(multisell);
-                } catch (NumberFormatException nfe) 
-                {
-                    _log.warn("Wrong multisell number in \""+command+"\"");
-                }
+            	L2Multisell.getInstance().SeparateAndSend(Integer.parseInt(command.substring(9).trim()), player, false, getCastle().getTaxRate());
             }
             else if (command.startsWith("exc_multisell"))
             {
-                player.sendPacket(new MultiSellList(Integer.parseInt(command.substring(13).trim()), this, true, player));
+            	L2Multisell.getInstance().SeparateAndSend(Integer.parseInt(command.substring(13).trim()), player, true, getCastle().getTaxRate());
             }
             else if (command.startsWith("Augment"))
             {

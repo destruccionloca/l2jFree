@@ -1117,7 +1117,6 @@ public abstract class L2Skill
             case STUN:
             case ROOT:
             case CONFUSION:
-            case UNLOCK:
             case ERASE:
             case FEAR:
             case DRAIN:
@@ -2069,7 +2068,7 @@ public abstract class L2Skill
         {
             if (!(target instanceof L2DoorInstance) && !(target instanceof L2ChestInstance))
             {
-                activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
+                //activeChar.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
                 return null;
             }
 
