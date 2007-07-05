@@ -45,6 +45,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
@@ -619,7 +620,7 @@ public class L2Attackable extends L2NpcInstance
                     partyLvl = 0;
                     
                     // Get all L2Character that can be rewarded in the party
-                    FastList<L2PcInstance> rewardedMembers = new FastList<L2PcInstance>();
+                    FastList<L2PlayableInstance> rewardedMembers = new FastList<L2PlayableInstance>();
                     
                     // Go through all L2PcInstance in the party
                     for (L2PcInstance pl : attackerParty.getPartyMembers())
@@ -649,8 +650,22 @@ public class L2Attackable extends L2NpcInstance
                         		rewardedMembers.add(pl);
                         		if (pl.getLevel() > partyLvl) partyLvl = pl.getLevel();
                         	}
-
                         }
+                        L2PlayableInstance summon = pl.getPet();
+                        if (summon != null && summon instanceof L2PetInstance)
+                        {
+                        	reward2 = rewards.get(summon);
+                        	if (reward2 != null) // Pets are only added if they have done damage
+                            {
+                            	if (Util.checkIfInRange(1600, this, summon, true))
+                            	{
+                            		partyDmg += reward2.dmg; // Add summon damages to party damages
+                            		rewardedMembers.add(summon);
+                            		if (summon.getLevel() > partyLvl) partyLvl = summon.getLevel();
+                            	}
+                            	rewards.remove(summon); // Remove the summon from the L2Attackable rewards
+                            }
+                        }                        
                     }
                     
                     // If the party didn't killed this L2Attackable alone
