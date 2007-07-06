@@ -114,7 +114,7 @@ public class MultiSellChoose extends L2GameClientPacket
             }
             // if this is not a list that maintains enchantment, check the count of all items that have the given id.
             // otherwise, check only the count of items with exactly the needed enchantment level
-    		if( inv.getInventoryItemCount(e.getItemId(), maintainEnchantment? e.getEnchantmentLevel() : -1) < ((e.getMantainIngredient() && !Config.ALT_BLACKSMITH_USE_RECIPES) ? e.getItemCount() : e.getItemCount() * _amount) )
+    		if( inv.getInventoryItemCount(e.getItemId(), maintainEnchantment? e.getEnchantmentLevel() : -1) < ((Config.ALT_BLACKSMITH_USE_RECIPES || !e.getMantainIngredient()) ? (e.getItemCount() * _amount) : e.getItemCount()) )
     		{
     			player.sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_ITEMS));
     			_ingredientsList.clear();
@@ -136,7 +136,7 @@ public class MultiSellChoose extends L2GameClientPacket
 				return;
 			}
 
-			if (!e.getMantainIngredient() && !Config.ALT_BLACKSMITH_USE_RECIPES)
+			if (Config.ALT_BLACKSMITH_USE_RECIPES || !e.getMantainIngredient())
 			{
 				// if it's a stackable item, just reduce the amount from the first (only) instance that is found in the inventory
 				if (itemToTake.isStackable())

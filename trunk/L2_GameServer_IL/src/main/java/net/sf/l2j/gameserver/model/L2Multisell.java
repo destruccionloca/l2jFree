@@ -42,7 +42,7 @@ public class L2Multisell
             }
         }
 
-        _log.warn("[L2Multisell] cant find list with id: " + id);
+        _log.warning("[L2Multisell] cant find list with id: " + id);
         return null;
     }
 
@@ -463,7 +463,7 @@ public class L2Multisell
         File dir = new File(Config.DATAPACK_ROOT, "data/" + dirname);
         if (!dir.exists())
         {
-            _log.warn("Dir " + dir.getAbsolutePath() + " not exists");
+            _log.config("Dir " + dir.getAbsolutePath() + " not exists");
             return;
         }
         File[] files = dir.listFiles();
@@ -493,7 +493,7 @@ public class L2Multisell
             }
             catch (Exception e)
             {
-                _log.fatal("Error loading file " + f, e);
+                _log.log(Level.SEVERE, "Error loading file " + f, e);
             }
             try
             {
@@ -503,7 +503,7 @@ public class L2Multisell
             }
             catch (Exception e)
             {
-                _log.fatal("Error in file " + f, e);
+                _log.log(Level.SEVERE, "Error in file " + f, e);
             }
         }
     }
