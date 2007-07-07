@@ -1143,7 +1143,7 @@ public class L2Clan
        }
        public String getLeaderName()
        {
-    	   return (_leader != null ? _leader.getName() : "");
+    	   return _LeaderName;
        }
        
        public void setLeaderName(String leaderName)
