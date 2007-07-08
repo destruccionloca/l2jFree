@@ -546,7 +546,6 @@ public class AdminAdmin implements IAdminCommandHandler {
 		replyMSG.append("<button value=\"GM Snoop\" action=\"bypass -h admin_snoop $menu_command\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 		replyMSG.append("<button value=\"Dawn Sky\" action=\"bypass -h admin_atmosphere signsky dawn\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 		replyMSG.append("<button value=\"Dusk Sky\" action=\"bypass -h admin_atmosphere signsky dusk\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
-		replyMSG.append("<button value=\"Help & Info\" action=\"bypass -h admin_help admhelp.htm\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 		replyMSG.append("<br>");
 		replyMSG.append("</td></tr></table><br>");
         replyMSG.append("<table><tr><td>");
