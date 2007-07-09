@@ -40,7 +40,7 @@ import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
-import net.sf.l2j.gameserver.instancemanager.BossActionTaskManager;
+import net.sf.l2j.gameserver.instancemanager.BaiumManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.games.Lottery;
@@ -1220,7 +1220,7 @@ public class L2NpcInstance extends L2Character
             else if (command.equalsIgnoreCase("wake_baium"))
             {
                 setTarget(player);
-                BossActionTaskManager.getInstance().SetNpcBaiumDecayAction(this);
+                BaiumManager.getInstance().spawnBaium(this);
             }
             // [J2J_JP ADD END]
         }

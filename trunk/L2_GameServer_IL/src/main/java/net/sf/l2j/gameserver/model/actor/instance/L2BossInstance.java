@@ -25,16 +25,13 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
-import net.sf.l2j.gameserver.instancemanager.BossActionTaskManager;
 import net.sf.l2j.gameserver.instancemanager.AntharasManager;
+import net.sf.l2j.gameserver.instancemanager.BaiumManager;
 import net.sf.l2j.gameserver.instancemanager.ValakasManager;
-import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
-import net.sf.l2j.gameserver.serverpackets.Earthquake;
-import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -58,7 +55,6 @@ public final class L2BossInstance extends L2MonsterInstance
     protected int doTeleport = 0;
     protected L2Object _target;
     protected L2Character _Atacker;
-    protected static final int _ActivityTimeOfBoss = Config.ACTIVITY_TIME_OF_BOSS;
     protected static final int NurseAntRespawnDelay = Config.NURSEANT_RESPAWN_DELAY;
 
     protected Future _SocialTask = null;
@@ -126,14 +122,6 @@ public final class L2BossInstance extends L2MonsterInstance
             broadcastPacket(msg);
         }
 
-        switch (getTemplate().getNpcId())
-        {
-            case 29020: //Baium
-                BossActionTaskManager.getInstance().RemoveArcAngel();
-                BossActionTaskManager.getInstance().setCubeSpawn(getNpcId());
-                break;
-        }
-        
         // [L2J_JP ADD END SANDMAN]
 
         super.doDie(killer);
@@ -173,6 +161,7 @@ public final class L2BossInstance extends L2MonsterInstance
     public void OnSpawn()
     {
         // [L2J_JP ADD START SANDMAN]
+        // get players in lair and update known list.
     	getKnownList().getKnownPlayers().clear();
     	switch (getNpcId())
 		{
@@ -186,7 +175,7 @@ public final class L2BossInstance extends L2MonsterInstance
 				}
 				break;
 			case 29020: // Baium
-				for (L2Object object : BossActionTaskManager.getInstance().getPlayersInLair(getNpcId()))
+				for (L2Object object : BaiumManager.getInstance().getPlayersInLair())
 				{
 					getKnownList().getKnownPlayers().put(object.getObjectId(),(L2PcInstance) object);
 				}
@@ -199,35 +188,6 @@ public final class L2BossInstance extends L2MonsterInstance
 				break;
 		}
         
-        switch (getNpcId())
-        {
-            case 29020: //Baium
-            {
-                setIsImobilised(true);
-                setIsInSocialAction(true);
-                Earthquake eq = new Earthquake(getX(), getY(), getZ(), 30, 10);
-                broadcastPacket(eq);
-                SocialAction sa = new SocialAction(getObjectId(), 2);
-                broadcastPacket(sa);
-                _SocialTask = 
-                	ThreadPoolManager.getInstance().scheduleEffect(new Social(3), 15000);
-                _RecallPcTask = 
-                	ThreadPoolManager.getInstance().scheduleEffect(new RecallPc(), 20000);
-                _SocialTask2 = 
-                	ThreadPoolManager.getInstance().scheduleEffect(new Social(1), 25000);
-                _SocialTask2 = 
-                	ThreadPoolManager.getInstance().scheduleEffect(new KillingPc(), 26000);
-                _CallAngelTask = 
-                	ThreadPoolManager.getInstance().scheduleEffect(new CallArcAngel(),35000);
-                _MobiliseTask = 
-                	ThreadPoolManager.getInstance().scheduleEffect(new SetMobilised(),40000);
-                _DeleteTask = 
-                	ThreadPoolManager.getInstance().scheduleEffect(
-                			new DeleteGrandBoss(),_ActivityTimeOfBoss); // Delete Spawn
-                break;
-            }
-        }
-
         super.OnSpawn();
 
     }
@@ -301,16 +261,7 @@ public final class L2BossInstance extends L2MonsterInstance
     }
 
     // [L2J_JP ADD START SANDMAN]
-    protected void RecallTarget()
-    {
-    	_TargetForKill.teleToLocation(115831, 17248, 10078);
-    }
-    
-    protected void KillTarget()
-    {        	
-    	_TargetForKill.reduceCurrentHp(100000 + Rnd.get(_TargetForKill.getMaxHp()/2,_TargetForKill.getMaxHp()),this);
-    }
-
+    // respawn nurse ants.
     private class RespawnNurseAnts implements Runnable
     {
 
@@ -333,130 +284,6 @@ public final class L2BossInstance extends L2MonsterInstance
             	minionMaintainTask = null;
             }
         }
-    }
-
-    private class DeleteGrandBoss implements Runnable
-    {
-
-        public DeleteGrandBoss()
-        {
-        }
-
-        public void run()
-        {
-            if (hasMinions())
-            {
-                List<L2MinionInstance> _minions = getSpawnedMinions();
-                for (L2MinionInstance m : _minions)
-                {
-                    m.deleteMe();
-                }
-            }
-
-            switch (getNpcId())
-            {
-                case 29020: //Baium
-                	BossActionTaskManager.getInstance().RemoveArcAngel();
-                    break;
-            }
-
-            getSpawn().stopRespawn();
-            deleteMe();
-            
-            BossActionTaskManager.getInstance().banishesPlayers(getNpcId());
-            
-            BossActionTaskManager.getInstance().setUnspawn(getNpcId());
-
-            if(_DeleteTask != null)
-            {
-                _DeleteTask.cancel(true);
-                _DeleteTask = null;
-            }
-        }
-    }
-
-    private class Social implements Runnable
-    {
-        private int _action;
-
-        public Social(int actionId)
-        {
-            _action = actionId;
-        }
-
-        public void run()
-        {
-            SocialAction sa = new SocialAction(getObjectId(), _action);
-            broadcastPacket(sa);
-        }
-    }
-
-    private class SetMobilised implements Runnable
-    {
-        public SetMobilised()
-        {
-        }
-
-        public void run()
-        {
-            setIsImobilised(false);
-            setIsInSocialAction(false);
-            
-            if (_SocialTask != null)
-            {
-            	_SocialTask.cancel(true);
-                _SocialTask = null;
-            }
-            if (_SocialTask2 != null)
-            {
-            	_SocialTask2.cancel(true);
-                _SocialTask2 = null;
-            }
-            if (_SocialTask3 != null)
-            {
-            	_SocialTask3.cancel(true);
-                _SocialTask3 = null;
-            }
-        }
-    }
-    
-    private class CallArcAngel implements Runnable
-    {
-    	public CallArcAngel()
-    	{
-    	}
-
-    	public void run()
-    	{
-    		BossActionTaskManager.getInstance().CallArcAngel();
-    		if(_CallAngelTask != null)
-    		{
-        		_CallAngelTask.cancel(true);
-        		_CallAngelTask = null;
-    		}
-    	}
-    }
-    
-    private class RecallPc implements Runnable
-    {
-    	public RecallPc()
-    	{
-    	}
-    	public void run()
-    	{
-    		RecallTarget();
-    	}
-    }
-    
-    private class KillingPc  implements Runnable
-    {
-    	public KillingPc()
-    	{
-    	}
-    	public void run()
-    	{
-    		KillTarget();
-    	}
     }
     // [L2J_JP ADD END SANDMAN]
 }

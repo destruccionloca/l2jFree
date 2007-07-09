@@ -1406,7 +1406,6 @@ public final class Config {
             
             TIME_IN_A_DAY_OF_OPEN_A_DOOR 						= Integer.parseInt(altSettings.getProperty("TimeInADayOfOpenADoor", "0"));
             TIME_OF_OPENING_A_DOOR 								= Integer.parseInt(altSettings.getProperty("TimeOfOpeningADoor", "5"));
-            ACTIVITY_TIME_OF_BOSS 								= Integer.parseInt(altSettings.getProperty("ActivityTimeOfBoss", "120"));
             NURSEANT_RESPAWN_DELAY 								= Integer.parseInt(altSettings.getProperty("NurseAntRespawnDelay", "15"));
             if (NURSEANT_RESPAWN_DELAY < 15) NURSEANT_RESPAWN_DELAY = 15;
             else if (NURSEANT_RESPAWN_DELAY > 120) NURSEANT_RESPAWN_DELAY = 120;
@@ -2042,7 +2041,38 @@ public final class Config {
             throw new Error("Failed to Load "+ANTHARAS_FILE+" File.");
         }
     }
-    
+
+    //  *******************************************************************************************
+    public static final String  BAIUM_FILE              = "./config/baium.properties";
+    //  *******************************************************************************************
+    public static int FWB_INTERVALOFBAIUM;
+    public static int FWB_ACTIVITYTIMEOFBAIUM;
+    public static boolean FWB_MOVEATRANDOM;
+    //  *******************************************************************************************
+    public static void loadBaiumConfig()
+    {
+    	_log.info("loading " + BAIUM_FILE);
+        try
+        {
+            Properties baiumSettings = new Properties();
+            InputStream is               = new FileInputStream(new File(BAIUM_FILE));
+            baiumSettings.load(is);
+            is.close();
+
+            FWB_INTERVALOFBAIUM = Integer.parseInt(baiumSettings.getProperty("IntervalOfBaium", "1440"));
+            if(FWB_INTERVALOFBAIUM < 5 || FWB_INTERVALOFBAIUM > 1440) FWB_INTERVALOFBAIUM = 1440;
+            FWB_INTERVALOFBAIUM = FWB_INTERVALOFBAIUM * 60000;
+            FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(baiumSettings.getProperty("ActivityTimeOfBaium", "120"));
+            if(FWB_ACTIVITYTIMEOFBAIUM < 120 || FWB_ACTIVITYTIMEOFBAIUM > 720) FWB_ACTIVITYTIMEOFBAIUM = 120;
+            FWB_ACTIVITYTIMEOFBAIUM = FWB_ACTIVITYTIMEOFBAIUM * 60000;
+            FWB_MOVEATRANDOM = Boolean.parseBoolean(baiumSettings.getProperty("MoveAtRandom", "True"));
+            }
+            catch (Exception e)
+            {
+            _log.error(e.getMessage(),e);
+            throw new Error("Failed to Load "+BAIUM_FILE+" File.");
+        }
+    }
 
     //  *******************************************************************************************
     public static final String  SAILREN_FILE             	= "./config/sailren.properties";
@@ -2285,6 +2315,7 @@ public final class Config {
 			loadPrivilegesConfig();
 			loadIrcConfig();
 			loadAntharasConfig();
+			loadBaiumConfig();
 			loadValakasConfig();
 			loadSailrenConfig();
 			loadSayFilter();
@@ -2562,6 +2593,11 @@ public final class Config {
         else if (pName.equalsIgnoreCase("IntgervalOfBomberOnNormal")) FWA_INTGERVALOFBOMBERONNORMAL = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("IntgervalOfBomberOnStrong")) FWA_INTGERVALOFBOMBERONSTRONG = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("MoveAtRandom")) FWA_MOVEATRANDOM = Boolean.parseBoolean(pValue);
+
+        // JP fight with Baium Custom Setting
+        else if (pName.equalsIgnoreCase("IntervalOfBaium")) FWB_INTERVALOFBAIUM = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("ActivityTimeOfBaium")) FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("MoveAtRandom")) FWB_MOVEATRANDOM = Boolean.parseBoolean(pValue);
 
         // JP fight with Valakas Custom Setting
         else if (pName.equalsIgnoreCase("IntervalOfValakas")) FWV_INTERVALOFVALAKAS = Integer.parseInt(pValue);

@@ -66,7 +66,7 @@ import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.AntharasManager;
 import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
-import net.sf.l2j.gameserver.instancemanager.BossActionTaskManager;
+import net.sf.l2j.gameserver.instancemanager.BaiumManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
@@ -476,10 +476,10 @@ public class GameServer
 		TownManager.getInstance();
 		ZoneManager.getInstance();
         OlympiadStadiaManager.getInstance();
-        BossActionTaskManager.getInstance().init();
         FourSepulchersManager.getInstance().init();
         SailrenManager.getInstance().init();
         AntharasManager.getInstance().init();
+        BaiumManager.getInstance().init();
         ValakasManager.getInstance().init();
         
         // o Initialize the FloodProtector

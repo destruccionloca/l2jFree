@@ -73,6 +73,8 @@ import net.sf.l2j.gameserver.handler.skillhandlers.SiegeFlag;
 import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.instancemanager.ArenaManager;
+import net.sf.l2j.gameserver.instancemanager.AntharasManager;
+import net.sf.l2j.gameserver.instancemanager.BaiumManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
@@ -82,9 +84,8 @@ import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SailrenManager;
-import net.sf.l2j.gameserver.instancemanager.AntharasManager;
-import net.sf.l2j.gameserver.instancemanager.ValakasManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.instancemanager.ValakasManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.BlockList;
@@ -4136,23 +4137,29 @@ public final class L2PcInstance extends L2PlayableInstance
             _cubics.clear();
         }
 		// [L2J_JP ADD SANDMAN]
+		// When the player has been annihilated, the player is banished from the Four Sepulcher. 
 		if (ZoneManager.getInstance().checkIfInZone("FourSepulcher", this) &&
 				(getZ() >= -7250 && getZ() <= -6841))
 		{
 			FourSepulchersManager.getInstance().checkAnnihilated(this);
 		}
-    	if (ZoneManager.getInstance().checkIfInZone("LairofSailren", this))
-    	{
-    		SailrenManager.getInstance().checkAnnihilated(this);
-    	}
-    	if (ZoneManager.getInstance().checkIfInZone("LairofAntharas", this))
-    	{
-    		AntharasManager.getInstance().checkAnnihilated();
-    	}
-    	if (ZoneManager.getInstance().checkIfInZone("LairofValakas", this))
-    	{
-    		ValakasManager.getInstance().checkAnnihilated();
-    	}
+		// When the player has been annihilated, the player is banished from the lair. 
+		if (ZoneManager.getInstance().checkIfInZone("LairofSailren", this))
+		{
+			SailrenManager.getInstance().checkAnnihilated(this);
+		}
+		if (ZoneManager.getInstance().checkIfInZone("LairofAntharas", this))
+		{
+			AntharasManager.getInstance().checkAnnihilated();
+		}
+		if (ZoneManager.getInstance().checkIfInZone("LairofValakas", this))
+		{
+			ValakasManager.getInstance().checkAnnihilated();
+		}
+		if (ZoneManager.getInstance().checkIfInZone("LairofBaium", this))
+		{
+			BaiumManager.getInstance().checkAnnihilated();
+		}
 	}
 
     /** UnEnquip on skills with disarm effect **/
