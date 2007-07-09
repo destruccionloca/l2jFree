@@ -6,7 +6,7 @@ import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.instancemanager import BossActionTaskManager
+from net.sf.l2j.gameserver.instancemanager import BaiumManager
 
 # Boss: Baium
 class baium (JQuest):
@@ -15,14 +15,14 @@ class baium (JQuest):
 
   def onTalk (self,npc,player):
     st = player.getQuestState("baium")
+    if not st : return "<html><head><body>I have no tasks for you</body></html>"
     npcId = npc.getNpcId()
     if npcId == 29025 :
       if st.getInt("ok"):
         if not npc.isBusy():
-           npc.onBypassFeedback(st.getPlayer(),"wake_baium")
+           npc.onBypassFeedback(player,"wake_baium")
            npc.setBusy(True)
            npc.setBusyMessage("Attending another player's request")
-           st.exitQuest(1)
       else:
         st.exitQuest(1)
         return "Conditions are not right to wake up Baium"
@@ -30,11 +30,17 @@ class baium (JQuest):
       if st.getQuestItemsCount(4295) : # bloody fabric
         st.takeItems(4295,1)
         player.teleToLocation(113100,14500,10077)
-        BossActionTaskManager.getInstance().AddPlayerToBaiumsLair(st.getPlayer())
+        BaiumManager.getInstance().addPlayerToLair(player)
         st.set("ok","1")
       else :
-        return '<html><head><body>Angelic Vortex:<br>You do not have enough items</body></html>'      
+        return '<html><head><body>Angelic Vortex:<br>You do not have enough items</body></html>'
     return
+
+  def onKill (self,npc,player):
+    st = player.getQuestState("baium")
+    if not st: return
+    BaiumManager.getInstance().setCubeSpawn()
+    st.exitQuest(1)
 
 # Quest class and state definition
 QUEST       = baium(-1, "baium", "ai")
@@ -47,5 +53,6 @@ QUEST.addStartNpc(29025)
 QUEST.addStartNpc(31862)
 QUEST.addTalkId(29025)
 QUEST.addTalkId(31862)
+QUEST.addKillId(29020)
 
 print "AI: individuals: Baium...loaded!"

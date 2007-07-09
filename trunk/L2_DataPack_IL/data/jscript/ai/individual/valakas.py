@@ -30,7 +30,7 @@ class valakas(JQuest):
     elif npcId == 31540 :    # ƒNƒ‰ƒCƒ“
       if st.getQuestItemsCount(7267) > 0 :    # g‚¢Ì‚Ä•‚—VÎ
         st.takeItems(7267,1)
-        st.getPlayer().teleToLocation(183831,-115457,-3296)
+        player.teleToLocation(183831,-115457,-3296)
         st.set("ok","1")
       else :
         st.exitQuest(1)
