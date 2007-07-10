@@ -1261,7 +1261,6 @@ public final class Config {
     public static boolean 			SPAWN_SIEGE_GUARD;					// Config for spawn siege guards 
 	public static int 				TIME_IN_A_DAY_OF_OPEN_A_DOOR;		
 	public static int 				TIME_OF_OPENING_A_DOOR;
-	public static int 				ACTIVITY_TIME_OF_BOSS;
 	public static int 				NURSEANT_RESPAWN_DELAY;
     public static int 				DWARF_RECIPE_LIMIT;					// Recipebook limits
     public static int 				COMMON_RECIPE_LIMIT;  
@@ -1410,9 +1409,6 @@ public final class Config {
             if (NURSEANT_RESPAWN_DELAY < 15) NURSEANT_RESPAWN_DELAY = 15;
             else if (NURSEANT_RESPAWN_DELAY > 120) NURSEANT_RESPAWN_DELAY = 120;
             NURSEANT_RESPAWN_DELAY = NURSEANT_RESPAWN_DELAY * 1000;
-            if (ACTIVITY_TIME_OF_BOSS < 120) ACTIVITY_TIME_OF_BOSS = 120;
-            else if (ACTIVITY_TIME_OF_BOSS > 720) ACTIVITY_TIME_OF_BOSS = 720;
-            ACTIVITY_TIME_OF_BOSS = ACTIVITY_TIME_OF_BOSS * 60000;
             
             ALT_GAME_SUMMON_PENALTY_RATE = Float.parseFloat(altSettings.getProperty("AltSummonPenaltyRate", "1"));
         }
