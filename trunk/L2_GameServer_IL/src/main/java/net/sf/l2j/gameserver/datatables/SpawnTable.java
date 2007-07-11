@@ -62,7 +62,12 @@ public class SpawnTable implements SpawnTableMBean
         else
             _log.debug("Spawns Disabled");
     }
-
+    
+    public Map<Integer, L2Spawn> getSpawnTable()
+    {
+        return _spawntable;
+    }
+    
     private void fillSpawnTable()
     {
         java.sql.Connection con = null;
