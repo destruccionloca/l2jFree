@@ -971,9 +971,6 @@ public final class Config {
     public static boolean 				ALLOW_GUARDS;					// Allow guards against aggressive monsters
     public static int GEODATA;											// GeoData 0/1/2
     public static boolean 				FORCE_GEODATA;					// Force loading GeoData to psychical memory
-    public static L2WalkerAllowed 		ALLOW_L2WALKER_CLIENT;
-    public static boolean       		AUTOBAN_L2WALKER_ACC;
-    public static int           		L2WALKER_REVISION;
     public static boolean       		ALLOW_DISCARDITEM;
     public static boolean       		ALLOW_FREIGHT;
     public static boolean       		ALLOW_WAREHOUSE;
@@ -988,8 +985,6 @@ public final class Config {
     public static boolean       		ALLOW_RENTPET;
     public static boolean 	    		ALLOW_BOAT;
     public static boolean        		ALLOW_CURSED_WEAPONS;			// Allow cursed weapons ?
-    public static String 				FISHINGMODE;
-    public static enum L2WalkerAllowed{True, False, GM}					// Allow L2Walker client
     public static String  				DEFAULT_GLOBAL_CHAT;			// Global chat state
     public static String  				DEFAULT_TRADE_CHAT;				// Trade chat state
     public static boolean 				LOG_CHAT;						// Logging Chat Window
@@ -1087,11 +1082,6 @@ public final class Config {
             ALLOW_CURSED_WEAPONS            = Boolean.valueOf(optionsSettings.getProperty("AllowCursedWeapons", "False"));
             ALLOW_WEDDING                   = Boolean.valueOf(optionsSettings.getProperty("AllowWedding", "False"));
             ALLOW_GUARDS        			= Boolean.valueOf(optionsSettings.getProperty("AllowGuards", "False"));
-            FISHINGMODE                     = optionsSettings.getProperty("FishingMode", "water");                
-           
-            ALLOW_L2WALKER_CLIENT           = L2WalkerAllowed.valueOf(optionsSettings.getProperty("AllowL2Walker", "False"));
-            L2WALKER_REVISION               = Integer.parseInt(optionsSettings.getProperty("L2WalkerRevision", "537"));
-            AUTOBAN_L2WALKER_ACC            = Boolean.valueOf(optionsSettings.getProperty("AutobanL2WalkerAcc", "False"));
            
             DEFAULT_GLOBAL_CHAT             = optionsSettings.getProperty("GlobalChat", "ON");
             DEFAULT_TRADE_CHAT              = optionsSettings.getProperty("TradeChat", "ON");
@@ -2612,18 +2602,6 @@ public final class Config {
         return true;
     }
     
-    /**
-     * Allow the player to use L2Walker ?
-     * @param player (L2PcInstance) : Player trying to use L2Walker
-     * @return boolean : true if (L2Walker allowed as a general rule) or (L2Walker client allowed for GM and 
-     *                   player is a GM)
-     */
-    public static boolean allowL2Walker(L2PcInstance player)
-    {
-        return (ALLOW_L2WALKER_CLIENT == L2WalkerAllowed.True ||
-                (ALLOW_L2WALKER_CLIENT == L2WalkerAllowed.GM && player != null && player.isGM()));
-    }
-	
 	// it has no instancies
 	private Config() {}
 
