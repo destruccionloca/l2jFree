@@ -16620,15 +16620,15 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`,`count`,tim
 (7012,29000,335461,32,1,1),
 (7013,29000,335461,33,1,1);
 
--- correction
+-- L2J Free Corrections
 
-update `merchant_buylists` set `price` = 2000 where `item_id` = 8153 and `price` < 2000;
-update `merchant_buylists` set `price` = 2450 where `item_id` = 1520 and `price` < 2450;
-update `merchant_buylists` set `price` = 750 where `item_id` = 1522 and `price` < 750;
-update `merchant_buylists` set `price` = 1600 where `item_id` = 1856 and `price` < 1600;
-update `merchant_buylists` set `price` = 8000 where `item_id` = 3945 and `price` < 8000;
-update `merchant_buylists` set `price` = 8000 where `item_id` = 3946 and `price` < 8000;
-update `merchant_buylists` set `price` = 21000 where `item_id` = 4493 and `price` < 21000;
-update `merchant_buylists` set `price` = 1800 where `item_id` = 4910 and `price` < 1800;
-update `merchant_buylists` set `price` = 900 where `item_id` = 4916 and `price` < 900;
-update `merchant_buylists` set `price` = 120 where `item_id` = 6037 and `price` < 120;
+UPDATE `merchant_buylists` SET `price` = 120 WHERE `item_id` = 6037 AND `price` < 120;
+UPDATE `merchant_buylists` SET `price` = 750 WHERE `item_id` = 1522 AND `price` < 750;
+UPDATE `merchant_buylists` SET `price` = 900 WHERE `item_id` = 4916 AND `price` < 900;
+UPDATE `merchant_buylists` SET `price` = 1600 WHERE `item_id` = 1856 AND `price` < 1600;
+UPDATE `merchant_buylists` SET `price` = 1800 WHERE `item_id` = 4910 AND `price` < 1800;
+UPDATE `merchant_buylists` SET `price` = 2000 WHERE `item_id` = 8153 AND `price` < 2000;
+UPDATE `merchant_buylists` SET `price` = 2450 WHERE `item_id` = 1520 AND `price` < 2450;
+UPDATE `merchant_buylists` SET `price` = 8000 WHERE `item_id` = 3945 AND `price` < 8000;
+UPDATE `merchant_buylists` SET `price` = 8000 WHERE `item_id` = 3946 AND `price` < 8000;
+UPDATE `merchant_buylists` SET `price` = 21000 WHERE `item_id` = 4493 AND `price` < 21000;
