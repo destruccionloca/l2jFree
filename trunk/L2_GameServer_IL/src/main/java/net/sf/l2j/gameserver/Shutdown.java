@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.L2GameClient;
-import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
+import net.sf.l2j.gameserver.serverpackets.ServerClose;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -401,8 +401,9 @@ public class Shutdown extends Thread implements ShutdownMBean
                 // save player's stats and effects
                 L2GameClient.saveCharToDisk(player);
                 
-                // inform client, that it has been logged out
-                player.sendPacket(new LeaveWorld());
+                // close server
+				ServerClose ql = new ServerClose();
+				player.sendPacket(ql);
 
                 // make shure to save ALL data
                 player.deleteMe();

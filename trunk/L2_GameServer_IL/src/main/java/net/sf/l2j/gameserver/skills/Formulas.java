@@ -1522,9 +1522,7 @@ public final class Formulas
         double attack =0; 
         
         if ( ! target.checkSkillCanAffectMyself(skill))
-        {
             return false;
-        }
         
     	if (skill.isActive() && skill.isOffensive())
     		defence = target.getMDef(actor, skill);
@@ -1600,12 +1598,16 @@ public final class Formulas
  
     public boolean calcSkillSuccess(L2Character attacker, L2Character target, L2Skill skill, boolean ss, boolean sps, boolean bss)
     {
-        SkillType type = skill.getSkillType();
+		SkillType type = skill.getSkillType();
+
+		if (target.isRaid()
+			&& (type == SkillType.CONFUSION || type == SkillType.MUTE || type == SkillType.PARALYZE
+				|| type == SkillType.ROOT || type == SkillType.FEAR || type == SkillType.SLEEP
+				|| type == SkillType.STUN || type == SkillType.DEBUFF || type == SkillType.AGGDEBUFF))
+			return false; // these skills should not work on RaidBoss
  
         if ( ! target.checkSkillCanAffectMyself(skill))
-        {
             return false;
-        }
         
         int value = (int) skill.getPower();
         int lvlDepend = skill.getLevelDepend();

@@ -49,6 +49,7 @@ import net.sf.l2j.gameserver.handler.itemhandlers.Seed;
 import net.sf.l2j.gameserver.handler.itemhandlers.SevenSignsRecord;
 import net.sf.l2j.gameserver.handler.itemhandlers.SoulCrystals;
 import net.sf.l2j.gameserver.handler.itemhandlers.SoulShots;
+import net.sf.l2j.gameserver.handler.itemhandlers.SpecialXMas;
 import net.sf.l2j.gameserver.handler.itemhandlers.SpiritShot;
 import net.sf.l2j.gameserver.handler.itemhandlers.SummonItems;
 import net.sf.l2j.gameserver.handler.itemhandlers.WorldMap;
@@ -121,6 +122,7 @@ public class ItemHandler
         this.registerItemHandler(new MercTicket());
         this.registerItemHandler(new FishShots());
         this.registerItemHandler(new ExtractableItems());
+        this.registerItemHandler(new SpecialXMas());
         this.registerItemHandler(new SummonItems());
         this.registerItemHandler(new BeastSpice());
         this.registerItemHandler(new EnergyStone());        
