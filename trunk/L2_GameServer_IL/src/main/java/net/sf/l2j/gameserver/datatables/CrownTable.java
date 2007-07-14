@@ -78,13 +78,13 @@ public class CrownTable
             case 6:
                 CrownId = 6834;
                 break;
-            // Rune 
+            // Goddard 
             case 7:
-                CrownId = 8182;
+            	CrownId = 6836;
                 break;
-            // Goddard
+            // Rune 
             case 8:
-                CrownId = 6836;
+            	CrownId = 8182;
                 break;
             // Schuttgart
             case 9:

@@ -23,6 +23,8 @@ import net.sf.l2j.gameserver.model.L2ManufactureItem;
 import net.sf.l2j.gameserver.model.L2ManufactureList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.RecipeShopMsg;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
 
 /**
  * This class ...
@@ -53,6 +55,12 @@ public class RequestRecipeShopListSet extends L2GameClientPacket{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 		    return;
+
+		if (player.isInDuel())
+		{
+			player.sendPacket(new SystemMessage(SystemMessage.CANT_CRAFT_DURING_COMBAT));
+			return;
+		}
 
 		if (_count == 0)
 		{

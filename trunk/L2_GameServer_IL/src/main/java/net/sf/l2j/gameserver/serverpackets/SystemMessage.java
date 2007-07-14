@@ -801,7 +801,8 @@ public class SystemMessage extends L2GameServerPacket
  	public static final int NO_FUTHER_RECIPES_CAN_BE_ADDED = 841; 
  	public static final int NOT_AUTHORIZED_TO_REGISTER_RECIPE = 642; 
  	public static final int CANT_ALTER_RECIPEBOOK_WHILE_CRAFTING = 853; 
- 	public static final int CANT_REGISTER_NO_ABILITY_TO_CRAFT = 1061; 
+ 	public static final int CANT_REGISTER_NO_ABILITY_TO_CRAFT = 1061;
+ 	public static final int CANT_CRAFT_DURING_COMBAT = 1135; 
 
      // enter/exit mother tree 
  	public static final int ENTER_SHADOW_MOTHER_TREE = 114; 

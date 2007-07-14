@@ -436,6 +436,12 @@ public class L2CharacterAI extends AbstractAI
         // Set the AI pick up target
         setTarget(object);
 
+        if(object.getX() == 0 && object.getY() == 0) // TODO: Find the drop&spawn bug
+        {
+        	_log.warn("Object in coords 0,0 - using a temporary fix");
+        	object.getPosition().setXYZ(this.getActor().getX(), this.getActor().getY(), this.getActor().getZ()+5);
+        }
+
         // Move the actor to Pawn server side AND client side by sending Server->Client packet MoveToPawn (broadcast)
         moveToPawn(object, 20);
 

@@ -169,6 +169,12 @@ public class CraftManager
      */
     public static void requestMakeItem(L2PcInstance player, int recipeListId)
     {
+		if (player.isInDuel())
+		{
+			player.sendPacket(new SystemMessage(SystemMessage.CANT_CRAFT_DURING_COMBAT));
+			return;
+		}
+
         L2Recipe recipe = getValidRecipeList(player, recipeListId);
         
         if (recipe == null) return;
