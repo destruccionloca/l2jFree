@@ -37,7 +37,6 @@ import java.util.regex.PatternSyntaxException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -472,7 +471,6 @@ public final class Config {
     public static int   	KARMA_RATE_DROP_ITEM;
     public static int   	KARMA_RATE_DROP_EQUIP;    
     public static int   	KARMA_RATE_DROP_EQUIP_WEAPON;    
-    public static int       RATEBOXSPAWN;
     //  *******************************************************************************************
     public static void loadRatesConfig()
     {
@@ -519,8 +517,6 @@ public final class Config {
             KARMA_RATE_DROP_ITEM            = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropItem", "50"));
             KARMA_RATE_DROP_EQUIP           = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropEquip", "40"));
             KARMA_RATE_DROP_EQUIP_WEAPON    = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropEquipWeapon", "10"));
-           
-            RATEBOXSPAWN                    = Integer.parseInt(ratesSettings.getProperty("RateBoxSpawn", "50"));
         }
         catch (Exception e) {
             _log.error(e);

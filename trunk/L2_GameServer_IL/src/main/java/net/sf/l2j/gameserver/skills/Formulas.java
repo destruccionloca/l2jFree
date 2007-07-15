@@ -1801,5 +1801,10 @@ public final class Formulas
            restorePercent = baseRestorePercent;
                    
        return restorePercent;
-    }       
+    }
+    
+    public double getSTRBonus(L2Character activeChar)
+    {
+    	return STRbonus[activeChar.getStat().getSTR()];
+    }    
 }

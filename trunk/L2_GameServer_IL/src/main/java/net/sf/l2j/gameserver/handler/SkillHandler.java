@@ -51,6 +51,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.SummonTreasureKey;
 import net.sf.l2j.gameserver.handler.skillhandlers.Sweep;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.handler.skillhandlers.Unlock;
+import net.sf.l2j.gameserver.handler.skillhandlers.DeluxeKey;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 
@@ -102,6 +103,7 @@ public class SkillHandler
         registerSkillHandler(new DrainSoul());
         registerSkillHandler(new Craft()); 
         registerSkillHandler(new BeastFeed());
+        registerSkillHandler(new DeluxeKey());
         registerSkillHandler(new Fishing()); 
         registerSkillHandler(new FishingSkill());
         registerSkillHandler(new SummonCp());

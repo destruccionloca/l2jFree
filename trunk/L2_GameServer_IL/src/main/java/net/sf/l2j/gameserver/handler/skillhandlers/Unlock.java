@@ -15,14 +15,14 @@ import net.sf.l2j.gameserver.lib.Rnd;
 
 public class Unlock implements ISkillHandler
 {
-	//private static Logger _log = Logger.getLogger(Unlock.class.getName()); 
+	//private static Logger _log = Logger.getLogger(Unlock.class.getName());
 	private static final SkillType[] SKILL_IDS = {SkillType.UNLOCK};
 
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
 	L2Object[] targets)
 	{
 		L2Object[] targetList = skill.getTargetList(activeChar);
-		
+
 		if (targetList == null) return;
 
 		for (int index = 0; index < targetList.length; index++)
@@ -57,7 +57,7 @@ public class Unlock implements ISkillHandler
 			else if (target instanceof L2ChestInstance)
 			{
 				L2ChestInstance chest = (L2ChestInstance) targetList[index];
-				if (chest.getStatus().getCurrentHp() <= 0 || chest.isOpen())
+				if (chest.getStatus().getCurrentHp() <= 0 || chest.isInteracted())
 				{
 					activeChar.sendPacket(new ActionFailed());
 					return;
@@ -123,14 +123,13 @@ public class Unlock implements ISkillHandler
 						}
 							break;
 					}
-					chest.setOpen();
 					if (chestChance == 0)
 					{
 						activeChar.sendPacket(SystemMessage.sendString("Too hard to open for you.."));
 						activeChar.sendPacket(new ActionFailed());
-						if (Rnd.get(100) < chestTrapLimit) chest.chestTrap(activeChar);
+						//if (Rnd.get(100) < chestTrapLimit) chest.chestTrap(activeChar);
+						chest.setInteracted();
 						chest.setMustRewardExpSp(false);
-						chest.setOpenFailed();
 						chest.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
 						return;
 					}
@@ -138,12 +137,12 @@ public class Unlock implements ISkillHandler
 					if (Rnd.get(120) < chestChance)
 					{
 						activeChar.sendPacket(SystemMessage.sendString("You open the chest!"));
-						
+
 						chest.setSpecialDrop();
 						chest.setHaveToDrop(true);
 						chest.setMustRewardExpSp(false);
 						chest.doItemDrop(activeChar);
-						chest.doDie(activeChar);
+						chest.onDecay();
 					}
 					else
 					{
@@ -151,7 +150,7 @@ public class Unlock implements ISkillHandler
 
 						if (Rnd.get(100) < chestTrapLimit) chest.chestTrap(activeChar);
 						chest.setMustRewardExpSp(false);
-						chest.setOpenFailed();
+						chest.setInteracted();
 						chest.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
 					}
 				}

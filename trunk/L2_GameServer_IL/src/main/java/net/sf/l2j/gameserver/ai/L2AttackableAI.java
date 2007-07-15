@@ -812,11 +812,11 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
      */
     protected void onEvtAttacked(L2Character attacker)
     {
-    	if (_actor instanceof L2ChestInstance && !((L2ChestInstance)_actor).isOpenFailed())
+    	/*if (_actor instanceof L2ChestInstance && !((L2ChestInstance)_actor).isOpenFailed())
     	{
     		((L2ChestInstance)_actor).deleteMe();
     		((L2ChestInstance)_actor).getSpawn().startRespawn();
-    	}
+    	}*/
     	
         // Calculate the attack timeout
         _attack_timeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();

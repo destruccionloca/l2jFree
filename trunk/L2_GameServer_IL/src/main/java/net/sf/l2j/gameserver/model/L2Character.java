@@ -1631,7 +1631,7 @@ public abstract class L2Character extends L2Object
     public final boolean isAllSkillsDisabled() { return _allSkillsDisabled || isStunned() || isSleeping() || isParalyzed(); }
 
     /** Return True if the L2Character can't attack (stun, sleep, attackEndTime, fakeDeath, paralyse). */
-    public final boolean isAttackingDisabled() { return isStunned() || isSleeping() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed()  || isFallsdown(); }
+    public boolean isAttackingDisabled() { return isStunned() || isSleeping() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed()  || isFallsdown(); }
 
     public final Calculator[] getCalculators() { return _Calculators; }
     
@@ -1667,7 +1667,7 @@ public abstract class L2Character extends L2Object
     public final void setIsPsychicalMuted(boolean value) { _IsPsychicalMuted = value; }
 
     /** Return True if the L2Character can't move (stun, root, sleep, overload, paralyzed). */
-    public final boolean isMovementDisabled() { return isStunned() || isRooted() || isSleeping() || isOverloaded() || isParalyzed() || isImobilised() || isFakeDeath()  || isFallsdown(); }
+    public boolean isMovementDisabled() { return isStunned() || isRooted() || isSleeping() || isOverloaded() || isParalyzed() || isImobilised() || isFakeDeath()  || isFallsdown(); }
 
     /** Return True if the L2Character can be controlled by the player (confused, affraid). */
     public final boolean isOutOfControl() { return isConfused() || isAffraid(); }
@@ -5348,7 +5348,8 @@ public abstract class L2Character extends L2Object
                                         (((L2PcInstance)player).getPvpFlag() > 0 ||
                                                 ((L2PcInstance)player).getKarma() > 0)) activeChar.updatePvPStatus();
                             }
-                            else if (player instanceof L2Attackable && !(skill.getSkillType() == L2Skill.SkillType.SUMMON)&& !(skill.getSkillType() == L2Skill.SkillType.BEAST_FEED) && !(skill.getSkillType() == L2Skill.SkillType.UNLOCK))
+							else if (player instanceof L2Attackable && !(skill.getSkillType() == L2Skill.SkillType.SUMMON)&& !(skill.getSkillType() == L2Skill.SkillType.BEAST_FEED) && !(skill.getSkillType() == L2Skill.SkillType.UNLOCK)
+									&& !(skill.getSkillType() == L2Skill.SkillType.DELUXE_KEY_UNLOCK))
                                 activeChar.updatePvPStatus();
                         }
                     }
