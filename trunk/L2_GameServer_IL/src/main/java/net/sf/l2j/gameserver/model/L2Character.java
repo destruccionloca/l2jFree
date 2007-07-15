@@ -79,6 +79,7 @@ import net.sf.l2j.gameserver.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadSpelledInfo;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.serverpackets.MagicEffectIcons;
+import net.sf.l2j.gameserver.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillCanceld;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillLaunched;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
@@ -2852,7 +2853,7 @@ public abstract class L2Character extends L2Object
        if (mi == null && ps ==null && os == null)
            return; // nothing to do (should not happen) 
         
-       // Add special effects
+       /*/ Add special effects
         if (player != null && mi != null)
         {
             if (player.getWeightPenalty() > 0)
@@ -2861,7 +2862,7 @@ public abstract class L2Character extends L2Object
                 mi.addEffect(4267, 1, -1);
             if (player.getMessageRefusal())
                 mi.addEffect(4269, 1, -1);
-        }
+        }*/
 
        // Go through all effects if any
        L2Effect[] effects = getAllEffects();
@@ -2895,6 +2896,8 @@ public abstract class L2Character extends L2Object
            else
                player.sendPacket(ps);
        }
+       if (player!=null)
+    	   player.sendPacket(new EtcStatusUpdate(player));       
        if (os != null)
        {
            if (Olympiad.getInstance().getSpectators(player.getOlympiadGameId()) != null)

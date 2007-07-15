@@ -17,6 +17,8 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
 /**
  *
  * @author  Luca Baldi
@@ -25,9 +27,54 @@ public class EtcStatusUpdate extends L2GameServerPacket
 {
 	private static final String _S__F3_ETCSTATUSUPDATE = "[S] f3 EtcStatusUpdate";
 
-	public EtcStatusUpdate()
+	/**
+	 *
+	 * Packet for lvl 3 client buff line
+	 *
+	 * Example:(C4)
+	 * F3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 - empty statusbar
+	 * F3 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 - increased force lvl 1
+	 * F3 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 - weight penalty lvl 1
+	 * F3 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 - chat banned
+	 * F3 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 - Danger Area lvl 1
+	 * F3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 - lvl 1 grade penalty
+	 *
+	 * packet format: cdd //and last three are ddd???
+ 	 *
+	 * Some test results:
+	 * F3 07 00 00 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 - lvl 7 increased force lvl 4 weight penalty
+	 *
+	 * Example:(C5 709)
+	 * F3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 0F 00 00 00 - lvl 1 charm of courage lvl 15 Death Penalty
+	 *
+	 *
+	 * NOTE:
+	 * End of buff:
+	 * You must send empty packet
+	 * F3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+	 * to remove the statusbar or just empty 
+	 */
+
+	int _IcreasedForce = 0;		//4271, 7 lvl
+	int _weightPenalty = 0;		//4270, 4 lvl
+	int _messageRefusal = 0;	//4269, 1 lvl
+	int _isInDangerArea = 0;	//4268, 1 lvl
+	int _expertisePenalty = 0;	//4267, 1 lvl at off c4 server scripts
+	int _charmOfCourage = 0;	//Charm of Courage, "Prevents experience value decreasing if killed during a siege war".
+	int _deathPenalty = 0;		////Death Penalty max lvl 15, "Combat ability is decreased due to death."
+
+	private L2PcInstance _char;
+
+	public EtcStatusUpdate(L2PcInstance active_char)
 	{
-		
+		_char = active_char;
+		_IcreasedForce = 0;
+		_weightPenalty = _char.getWeightPenalty();
+		_messageRefusal = _char.getMessageRefusal() ? 1 : 0;
+		_isInDangerArea = 0;
+		_expertisePenalty = _char.getexpertisePenalty() > 0 ? 1 : 0;
+		_charmOfCourage = 0;
+		_deathPenalty = 0;		
 	}
 
 	/**
@@ -37,13 +84,13 @@ public class EtcStatusUpdate extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xF3);
-		writeD(0x00);
-		writeD(0x00);
-		writeD(0x00);
-		writeD(0x00);
-		writeD(0x00);
-		writeD(0x00);
-		writeD(0x00);
+		writeD(_IcreasedForce);
+		writeD(_weightPenalty);
+		writeD(_messageRefusal);
+		writeD(_isInDangerArea);
+		writeD(_expertisePenalty);
+		writeD(_charmOfCourage);
+		writeD(_deathPenalty);
 	}
 	
 	/**
