@@ -94,41 +94,59 @@ public class Potions implements IItemHandler
 
 	        // Healing and speed potions
         	case 65: // red_potion, xml: 2001
+				if (!isUseable(activeChar,itemId,2001)) 
+					return;
 	            res = usePotion(activeChar, 2001, 1);
 	            break;
         	case 725: // healing_drug, xml: 2002
-        		if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId)) return;
+        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId, 2002))
+        			return;
 	            res = usePotion(activeChar, 2002, 1);
 	            break;
         	case 727: // _healing_potion, xml: 2032
-        		if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId)) return;
+        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId,2032))
+        			return;
  				res = usePotion(activeChar, 2032, 1);
 	            break;
         	case 733: //_Endeavor potion, xml: 2010
+				if (!isUseable(activeChar,itemId,2010)) 
+					return;
 	            res = usePotion(activeChar, 2010, 1);
 	            break;
         	case 734: // quick_step_potion, xml: 2011
+				if (!isUseable(activeChar,itemId,2011)) 
+					return;
 	            res = usePotion(activeChar, 2011, 1);
 	            break;
         	case 735: // swift_attack_potion, xml: 2012
+				if (!isUseable(activeChar,itemId,2012)) 
+					return;
 	            res = usePotion(activeChar, 2012, 1);
 	            break;
         	case 1060: // lesser_healing_potion,
         	case 1073: // beginner's potion, xml:
-        		if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId)) return;
+        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId,2031))
+        			return;
  				res = usePotion(activeChar, 2031, 1);
 	            break;
         	case 1061: // healing_potion, xml: 2032
-        		if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId)) return;
+        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId,2032))
+        			return;
  				res = usePotion(activeChar, 2032, 1);
 	            break;
         	case 1062: // haste_potion, xml: 2033
+				if (!isUseable(activeChar,itemId,2033)) 
+					return;
 	            res = usePotion(activeChar, 2033, 1);
 	            break;
         	case 1374: // adv_quick_step_potion, xml: 2034
+				if (!isUseable(activeChar,itemId,2034)) 
+					return;
 	            res = usePotion(activeChar, 2034, 1);
 	            break;
         	case 1375: // adv_swift_attack_potion, xml: 2035
+				if (!isUseable(activeChar,itemId,2035)) 
+					return;
 	            res = usePotion(activeChar, 2035, 1);
 	            break;
         	case 1539: // greater_healing_potion, xml: 2037
@@ -156,10 +174,9 @@ public class Potions implements IItemHandler
  				res = usePotion(activeChar, 2166, (itemId == 5591) ? 1 : 2);
 	            break;
         	case 6035: // Magic Haste Potion, xml: 2169
-        		res = usePotion(activeChar, 2169, 1);
-        		break;
-        	case 6036: // Greater Magic Haste Potion, xml: 2169
-        		res = usePotion(activeChar, 2169, 2);
+				if (!isUseable(activeChar,itemId,2169)) 
+					return;
+        		res = usePotion(activeChar, 2169, (itemId == 6035) ? 1 : 2);
         		break;
             // ELIXIR 
             case 8622:  
