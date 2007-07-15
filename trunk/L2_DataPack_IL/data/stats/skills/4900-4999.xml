@@ -1048,6 +1048,7 @@ Einhasad's Messenger who came down to monitor behaviors of WATER Dragon Fafurion
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="500"/>
+  <set name="baseCritRate" val="15"/>
 </skill>
 
 <skill id="4995" levels="1" name="Venom - Teleport">

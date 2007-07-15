@@ -1063,6 +1063,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
+  <set name="baseCritRate" val="15"/>
   <!-- charge values -->
   <set name="num_charges" val="4"/>
   <set name="charge_skill_id" val="8"/> <!-- Focus Sonic is the charger -->
@@ -1129,15 +1130,10 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
+  <set name="baseCritRate" val="15"/>
   <enchant1 name="power" val="#ench1Power"/>
   <enchant2 name="power" val="#ench2Power"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
-  <for>
-    <!-- 0x10 appears to be the correct order -->
-    <add order="0x10" stat="rCrit" val="45">
-      <using kind="Dagger" skill="0263"/>
-    </add>
-  </for>
 </skill>
 <skill id="264" levels="1" name="Song of Earth" enchantLevels1="30" enchantLevels2="30" >
   <table name="#ench1time">
@@ -1943,6 +1939,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
+  <set name="baseCritRate" val="15"/>
   <!-- charge values -->
   <set name="num_charges" val="2"/>
   <set name="charge_skill_id" val="50"/> <!-- Force Focus is the charger -->

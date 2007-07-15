@@ -1140,6 +1140,7 @@
   <set name="lethal2" val="1"/>
   <set name="skillTime" val="1800"/>
   <set name="hitTime" val="1800"/>
+  <set name="baseCritRate" val="15"/>
   <for>
   </for>
 </skill>
@@ -1159,6 +1160,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1000"/>
   <set name="num_charges" val="7"/>
+  <set name="baseCritRate" val="15"/>
 </skill>
 <skill id="346" levels="1" name="Raging Force">
   <set name="weaponsAllowed" val="1024"/>
@@ -1176,6 +1178,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1000"/>
   <set name="num_charges" val="7"/>
+  <set name="baseCritRate" val="15"/>
 </skill>
 <skill id="347" levels="1" name="Earthquake">
   <set name="hpConsume" val="340"/>
@@ -1195,6 +1198,7 @@
   <set name="reuseDelay" val="30000"/>
   <set name="skillTime" val="1800"/>
   <set name="hitTime" val="1800"/>
+  <set name="baseCritRate" val="15"/>
   <for>
     <effect count="1" name="RemoveTarget" time="1" val="0">
       <add order="0x40" stat="rCrit" val="20"/>
@@ -1215,6 +1219,7 @@
   <set name="skillTime" val="1800"/>
   <set name="hitTime" val="1800"/>
   <set name="SSBoost" val="2.0"/>
+  <set name="baseCritRate" val="15"/>
   <for>
   </for>
 </skill>
@@ -1347,6 +1352,7 @@
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="40"/>
   <set name="lvlDepend" val="1"/>
+  <set name="baseCritRate" val="15"/>
   <for>
     <effect count="1" name="Buff" time="30" val="0" stackOrder="0.5" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="0.5"/>
@@ -1511,6 +1517,7 @@
   <set name="effectType" val="STUN"/>
   <set name="effectPower" val="40"/>
   <set name="lvlDepend" val="1"/>
+  <set name="baseCritRate" val="15"/>
   <for>
     <effect count="1" name="Stun" time="9" val="0" stackOrder="2" stackType="Stun">
       <mul order="0x30" stat="pDef" val="0.7"/>
@@ -1539,6 +1546,7 @@
   <set name="effectType" val="STUN"/>
   <set name="effectPower" val="40"/>
   <set name="lvlDepend" val="1"/>
+  <set name="baseCritRate" val="15"/>
   <for>
     <effect count="1" name="Stun" time="9" val="0" stackOrder="2" stackType="Stun">
       <mul order="0x30" stat="pDef" val="0.7"/>
