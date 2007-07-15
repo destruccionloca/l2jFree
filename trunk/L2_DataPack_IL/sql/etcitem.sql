@@ -6915,4 +6915,3 @@ INSERT INTO `etcitem` (`item_id`,`name`,`crystallizable`,`item_type`,`weight`,`c
 -- L2JFree changes
 
 UPDATE `etcitem` SET `item_type`='quest' WHERE (`item_id`='6353'); -- Blue Gemstone
-UPDATE armor SET dropable = 'false', tradeable = 'false', destroyable = 'false', price = '0', sellable = 'false' WHERE item_id IN ( 6834, 6835, 6836, 6837, 6838, 6839, 6840, 6841, 8181, 8182, 8183 );
