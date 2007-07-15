@@ -604,6 +604,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="isPotion" val="true"/>
+  <set name="reuseDelay" val="200"/>  
   <for>
   </for>
 </skill>
