@@ -29,7 +29,8 @@ import net.sf.l2j.gameserver.serverpackets.ExDuelReady;
 import net.sf.l2j.gameserver.serverpackets.ExDuelStart;
 import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 /** 
@@ -38,6 +39,8 @@ import org.apache.log4j.Logger;
  */
 public class DuelManager
 {
+    private final static Log _log = LogFactory.getLog(DuelManager.class.getName());
+   
     public class EndDuel implements Runnable
     {
         private int _duelId;
@@ -107,7 +110,6 @@ public class DuelManager
             else  return _player1;
         }
     }
-    protected static Logger _log = Logger.getLogger(CoupleManager.class.getName());
 
     // =========================================================
     private static DuelManager _Instance;

@@ -27,8 +27,8 @@ import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.exception.L2JFunctionnalException;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.BasePacket;
-import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
+import net.sf.l2j.gameserver.serverpackets.ServerBasePacket;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

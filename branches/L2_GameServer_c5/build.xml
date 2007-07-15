@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="L2jFree_GameServer_c5" default="dist" basedir=".">
+	<description>
+        This script will build the L2jFree server.
+
+		This program is free software: you can redistribute it and/or modify
+	    it under the terms of the GNU General Public License as published by
+	    the Free Software Foundation, either version 3 of the License, or
+	    (at your option) any later version.
+
+	    This program is distributed in the hope that it will be useful,
+	    but WITHOUT ANY WARRANTY; without even the implied warranty of
+	    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	    GNU General Public License for more details.
+
+	    You should have received a copy of the GNU General Public License
+	    along with this program.  If not, see http://www.gnu.org/licenses/.
+    </description>
+
+	<property name="src" location="src/main/java/" />
+	<property name="lib" location="lib" />
+	<property name="build" location="target" />
+	<property name="build.classes" location="${build}/classes" />
+	<property name="build.dist" location="${build}/dist" />
+	<property name="build.dist.gameserver" location="${build.dist}/gameserver" />
+
+	<path id="classpath">
+		<fileset dir="${lib}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="init" depends="clean" description="Create the output directories.">
+
+		<mkdir dir="${build}" />
+		<mkdir dir="${build.classes}" />
+		<mkdir dir="${build.dist}" />
+		<mkdir dir="${build.dist.gameserver}" />
+		<mkdir dir="${build.dist.gameserver}/config" />
+		<mkdir dir="${build.dist.gameserver}/lib" />
+		<mkdir dir="${build.dist.gameserver}/log" />
+	</target>
+
+
+	<target name="compile" depends="init" description="Compile the source.">
+
+		<javac destdir="${build.classes}" optimize="on" debug="on" source="1.5" target="1.5" nowarn="off">
+			<src path="${src}" />
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+
+	<target name="jar" depends="compile" description="Create the jar file">
+
+		<jar destfile="${build.dist.gameserver}/l2j-gameserver-1.0.0.jar">
+			<fileset dir="${build.classes}" />
+			<manifest>
+				<attribute name="Main-Class" value="net.sf.l2j.gameserver.GameServer" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="dist" depends="jar">
+
+		<copy todir="${build}">
+			<fileset dir="${build.dist.gameserver}">
+				<include name="l2j-gameserver-1.0.0.jar" />
+			</fileset>
+		</copy>
+
+		<copy todir="${build.dist.gameserver}/lib">
+			<fileset dir="${lib}">
+				<include name="*.*" />
+			</fileset>
+		</copy>
+
+		<copy todir="${build.dist.gameserver}">
+			<fileset dir="${basedir}">
+				<include name="*.txt" />
+			</fileset>
+		</copy>
+
+		<copy todir="${build.dist.gameserver}">
+			<fileset dir="dist">
+				<include name="*.*" />
+			</fileset>
+		</copy>
+
+		<fixcrlf srcdir="${build.dist.gameserver}" eol="lf" eof="remove" includes="**/*.sh">
+		</fixcrlf>
+
+		<copy todir="${build.dist.gameserver}/config">
+			<fileset dir="config">
+				<include name="*.*" />
+			</fileset>
+		</copy>
+
+		<tstamp>
+			<format property="build.tstamp" pattern="yyyyMMdd_HHmm" />
+		</tstamp>
+
+		<zip destfile="${build}/L2jFree_GameServer_${build.tstamp}.zip" basedir="${build.dist}" />
+	</target>
+
+
+	<target name="clean" description="Remove the output directories">
+
+		<delete dir="${build}" />
+	</target>
+</project>

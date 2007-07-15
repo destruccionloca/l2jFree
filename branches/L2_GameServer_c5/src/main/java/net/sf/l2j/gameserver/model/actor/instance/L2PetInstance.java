@@ -195,7 +195,7 @@ public class L2PetInstance extends L2Summon
                 		}
                 	}
                 	// send pet food bar info
-                    getOwner().sendPacket(new PetLiveTime((L2PetInstance)getOwner().getPet()));
+                    getOwner().sendPacket(new PetLiveTime(getOwner().getPet()));
                 }
                 
                 broadcastStatusUpdate();
@@ -452,7 +452,7 @@ public class L2PetInstance extends L2Summon
 
        int weight=ItemTable.getInstance().getTemplate(target.getItemId()).getWeight() * target.getCount();
        
-       if (weight > Integer.MAX_VALUE || weight < 0 || !getInventory().validateWeight((int)weight))
+       if (weight > Integer.MAX_VALUE || weight < 0 || !getInventory().validateWeight(weight))
        {
            sendPacket(new SystemMessage(SystemMessage.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS));
            return;

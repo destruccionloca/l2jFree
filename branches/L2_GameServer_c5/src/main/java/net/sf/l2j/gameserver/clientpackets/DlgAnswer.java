@@ -20,12 +20,12 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Dezmond_snz

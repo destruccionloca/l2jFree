@@ -115,7 +115,7 @@ public class RequestGiveItemToPet extends ClientBasePacket
         	
         int weight = ItemTable.getInstance().getTemplate(itemId).getWeight() * _amount;
         
-        if (weight > Integer.MAX_VALUE || weight < 0 || !pet.getInventory().validateWeight((int)weight))
+        if (weight > Integer.MAX_VALUE || weight < 0 || !pet.getInventory().validateWeight(weight))
         {
             sendPacket(new SystemMessage(SystemMessage.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS));
             return;

@@ -26,7 +26,8 @@ import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.entity.faction.Faction;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /** 
  * @author evill33t
@@ -34,7 +35,7 @@ import org.apache.log4j.Logger;
  */
 public class FactionManager
 {
-    protected static Logger _log = Logger.getLogger(FactionManager.class.getName());
+    private final static Log _log = LogFactory.getLog(FactionManager.class.getName());
 
     // =========================================================
     private static FactionManager _Instance;

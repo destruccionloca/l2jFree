@@ -25,7 +25,8 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /** 
  * @author evill33t
@@ -33,7 +34,7 @@ import org.apache.log4j.Logger;
  */
 public class Faction
 {
-    protected static Logger _log = Logger.getLogger(Faction.class.getName());
+    private final static Log _log = LogFactory.getLog(Faction.class.getName());
     
     private int _Id                             = 0;
     private String _name                        = null;

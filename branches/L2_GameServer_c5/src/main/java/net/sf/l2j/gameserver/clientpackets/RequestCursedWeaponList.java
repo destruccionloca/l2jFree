@@ -18,8 +18,8 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.nio.ByteBuffer;
-import javolution.util.FastList;
 
+import javolution.util.FastList;
 import net.sf.l2j.gameserver.ClientThread;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.L2Character;
