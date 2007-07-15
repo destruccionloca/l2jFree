@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver;
 
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -100,28 +100,28 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		_effectsScheduledThreadPool = new ScheduledThreadPoolExecutor(Config.THREAD_P_EFFECTS, new PriorityThreadFactory("EffectsSTPool", Thread.MIN_PRIORITY));
 		_generalScheduledThreadPool = new ScheduledThreadPoolExecutor(Config.THREAD_P_GENERAL, new PriorityThreadFactory("GerenalSTPool", Thread.NORM_PRIORITY));
+		_aiScheduledThreadPool = new ScheduledThreadPoolExecutor(Config.AI_MAX_THREAD, new PriorityThreadFactory("AISTPool", Thread.NORM_PRIORITY-3));
 		
 		_ioPacketsThreadPool = new ThreadPoolExecutor(Config.IO_PACKET_THREAD_CORE_SIZE, Integer.MAX_VALUE,
 		                                                  5L, TimeUnit.SECONDS,
-		                                                  new LinkedBlockingQueue<Runnable>(),
-		                                                  new PriorityThreadFactory("I/O Packet Pool",Thread.NORM_PRIORITY+1));
+		                                                  new ArrayBlockingQueue<Runnable>(64*Config.MAXIMUM_ONLINE_USERS),
+		                                                  new PriorityThreadFactory("I/O Packet Pool",Thread.NORM_PRIORITY+2));
 		
-        _generalPacketsThreadPool = new ThreadPoolExecutor(Config.GENERAL_PACKET_THREAD_CORE_SIZE, Config.GENERAL_PACKET_THREAD_CORE_SIZE+2,
+		_generalPacketsThreadPool = new ThreadPoolExecutor(Config.GENERAL_PACKET_THREAD_CORE_SIZE, Config.GENERAL_PACKET_THREAD_CORE_SIZE*2,
 		                                                   15L, TimeUnit.SECONDS,
-		                                                   new LinkedBlockingQueue<Runnable>(),
+		                                                   new ArrayBlockingQueue<Runnable>(2048*Config.MAXIMUM_ONLINE_USERS),
 		                                                   new PriorityThreadFactory("Normal Packet Pool",Thread.NORM_PRIORITY+1));
 		
-        _generalThreadPool = new ThreadPoolExecutor(Config.GENERAL_THREAD_CORE_SIZE, Config.GENERAL_THREAD_CORE_SIZE+2,
+		_generalThreadPool = new ThreadPoolExecutor(Config.GENERAL_THREAD_CORE_SIZE, Config.GENERAL_THREAD_CORE_SIZE*2,
 		                                                   5L, TimeUnit.SECONDS,
-		                                                   new LinkedBlockingQueue<Runnable>(),
+		                                                   new ArrayBlockingQueue<Runnable>(1024*Config.MAXIMUM_ONLINE_USERS),
 		                                                   new PriorityThreadFactory("General Pool",Thread.NORM_PRIORITY));
 		
 		// will be really used in the next AI implementation.
-		_aiThreadPool = new ThreadPoolExecutor(1, Config.AI_MAX_THREAD,
+		_aiThreadPool = new ThreadPoolExecutor(Config.AI_MAX_THREAD, Config.AI_MAX_THREAD*2,
 			                                      10L, TimeUnit.SECONDS,
-			                                      new LinkedBlockingQueue<Runnable>());
-		
-		_aiScheduledThreadPool = new ScheduledThreadPoolExecutor(Config.AI_MAX_THREAD, new PriorityThreadFactory("AISTPool", Thread.NORM_PRIORITY));
+			                                      new ArrayBlockingQueue<Runnable>(128*Config.MAXIMUM_ONLINE_USERS),
+			                                      new PriorityThreadFactory("Ai Pool",Thread.NORM_PRIORITY-1));	
 	}
 	
 	public ScheduledFuture scheduleEffect(Runnable r, long delay)
@@ -204,7 +204,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	public String[] getStats()
 	{
 		return new String[] {
-		                     "STP:",
+							 "Scheduled Thread Pools:",
 		                     " + Effects:",
 		                     " |- ActiveThreads:   "+_effectsScheduledThreadPool.getActiveCount(),
 		                     " |- getCorePoolSize: "+_effectsScheduledThreadPool.getCorePoolSize(),
@@ -228,7 +228,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 		                     " |- MaximumPoolSize: "+_aiScheduledThreadPool.getMaximumPoolSize(),
 		                     " |- CompletedTasks:  "+_aiScheduledThreadPool.getCompletedTaskCount(),
 		                     " |- ScheduledTasks:  "+(_aiScheduledThreadPool.getTaskCount() - _aiScheduledThreadPool.getCompletedTaskCount()),
-		                     "TP:",
+		                     "Thread Pools:",
 		                     " + Packets:",
 		                     " |- ActiveThreads:   "+_generalPacketsThreadPool.getActiveCount(),
 		                     " |- getCorePoolSize: "+_generalPacketsThreadPool.getCorePoolSize(),
@@ -257,7 +257,13 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 		                     " |- QueuedTasks:     "+_generalThreadPool.getQueue().size(),
 		                     " | -------",
 		                     " + AI:",
-		                     " |- Not Done"
+		                     " |- ActiveThreads:   "+_aiThreadPool.getActiveCount(),
+		                     " |- getCorePoolSize: "+_aiThreadPool.getCorePoolSize(),
+		                     " |- MaximumPoolSize: "+_aiThreadPool.getMaximumPoolSize(),
+		                     " |- LargestPoolSize: "+_aiThreadPool.getLargestPoolSize(),
+		                     " |- PoolSize:        "+_aiThreadPool.getPoolSize(),
+		                     " |- CompletedTasks:  "+_aiThreadPool.getCompletedTaskCount(),
+		                     " |- QueuedTasks:     "+_aiThreadPool.getQueue().size()
 		};
 	}
 	
