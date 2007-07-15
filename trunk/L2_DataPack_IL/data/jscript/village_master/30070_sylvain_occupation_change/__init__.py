@@ -106,6 +106,8 @@ class Quest (JQuest) :
        htmltext = "30070-31.htm"
      elif ClassId.level() == 2 :    # second occupation elf/human mages
        htmltext = "30070-32.htm"
+     elif ClassId.level() == 3 :    # third occupation elf/human mages
+       htmltext = "30070-32.htm"       
      elif Race == Race.elf :        # elven mystic
        st.setState(STARTED)
        return "30070-01.htm"
