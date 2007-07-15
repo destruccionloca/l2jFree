@@ -680,79 +680,6 @@ public class GameStatusThread extends Thread
                 	}
                 	catch(Exception e){}
                 }
-                else if (_usrCommand.startsWith("reload"))
-                {
-                	StringTokenizer st = new StringTokenizer(_usrCommand);
-                   st.nextToken();
-                	try
-                	{
-                		String type = st.nextToken();
-                		
-                		if(type.equals("multisell"))
-                		{
-                			_print.print("Reloading multisell... ");
-                			L2Multisell.getInstance().reload();
-                			_print.print("done\n");
-                		}
-						else if(type.equals("teleport"))
-                        {
-                            _print.print("Reloading teleports... ");
-                            TeleportLocationTable.getInstance().reloadAll();
-                            _print.print("done\n");
-                        }
-                		else if(type.equals("skill"))
-                		{
-                			_print.print("Reloading skills... ");
-                			SkillTable.getInstance().reload();
-                			_print.print("done\n");
-                		}
-                		else if(type.equals("npc"))
-                		{
-                			_print.print("Reloading npc templates... ");
-                			NpcTable.getInstance().cleanUp();
-                			NpcTable.getInstance().reloadAll();
-                			_print.print("done\n");
-                		}
-                		else if(type.equals("htm"))
-                		{
-                			_print.print("Reloading html cache... ");
-                			HtmCache.getInstance().reload();
-                			_print.print("done\n");
-                		}
-                		else if(type.equals("item"))
-                		{
-                			_print.print("Reloading item templates... ");
-                			ItemTable.getInstance().reload();
-                			_print.print("done\n");
-                		}
-                		else if(type.equals("instancemanager"))
-                		{
-                			_print.print("Reloading instance managers... ");
-                			Manager.reloadAll();
-                			_print.print("done\n");
-                		}
-                		else if(type.equals("zone"))
-                		{
-                			_print.print("Reloading zone tables... ");
-                			ZoneManager.getInstance().reload();
-                            _print.print("done\n");
-                	    }
-						else if(type.equals("tradelist"))
-						{
-							_print.print("Reloading trade lists...");
-							TradeListTable.getInstance().reloadAll();
-							_print.print("done\n");
-						}
-                        else
-                        {
-                           _print.println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone>");
-                        }
-                	}
-                    catch(Exception e)
-                    {
-                        _print.println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone>");
-                    }
-                }
                 else if(_usrCommand.startsWith("reload_config"))
                 {
                     StringTokenizer st = new StringTokenizer(_usrCommand);
@@ -860,6 +787,79 @@ public class GameStatusThread extends Thread
                     catch(Exception e)
                     {
                         _print.println("Usage:  reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter>");
+                    }
+                }
+                else if (_usrCommand.startsWith("reload"))
+                {
+                	StringTokenizer st = new StringTokenizer(_usrCommand);
+                   st.nextToken();
+                	try
+                	{
+                		String type = st.nextToken();
+                		
+                		if(type.equals("multisell"))
+                		{
+                			_print.print("Reloading multisell... ");
+                			L2Multisell.getInstance().reload();
+                			_print.print("done\n");
+                		}
+						else if(type.equals("teleport"))
+                        {
+                            _print.print("Reloading teleports... ");
+                            TeleportLocationTable.getInstance().reloadAll();
+                            _print.print("done\n");
+                        }
+                		else if(type.equals("skill"))
+                		{
+                			_print.print("Reloading skills... ");
+                			SkillTable.getInstance().reload();
+                			_print.print("done\n");
+                		}
+                		else if(type.equals("npc"))
+                		{
+                			_print.print("Reloading npc templates... ");
+                			NpcTable.getInstance().cleanUp();
+                			NpcTable.getInstance().reloadAll();
+                			_print.print("done\n");
+                		}
+                		else if(type.equals("htm"))
+                		{
+                			_print.print("Reloading html cache... ");
+                			HtmCache.getInstance().reload();
+                			_print.print("done\n");
+                		}
+                		else if(type.equals("item"))
+                		{
+                			_print.print("Reloading item templates... ");
+                			ItemTable.getInstance().reload();
+                			_print.print("done\n");
+                		}
+                		else if(type.equals("instancemanager"))
+                		{
+                			_print.print("Reloading instance managers... ");
+                			Manager.reloadAll();
+                			_print.print("done\n");
+                		}
+                		else if(type.equals("zone"))
+                		{
+                			_print.print("Reloading zone tables... ");
+                			ZoneManager.getInstance().reload();
+                            _print.print("done\n");
+                	    }
+						else if(type.equals("tradelist"))
+						{
+							_print.print("Reloading trade lists...");
+							TradeListTable.getInstance().reloadAll();
+							_print.print("done\n");
+						}
+                        else
+                        {
+                           _print.println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone>");
+                        }
+                	}
+                    catch(Exception e)
+                    {
+                        _print.println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone>");
                     }
                 }
                 else if (_usrCommand.startsWith("gamestat"))
