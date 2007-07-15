@@ -60,6 +60,7 @@ public class FloodProtector
 	public static final int PROTECTED_USEITEM	= 0;
 	public static final int PROTECTED_ROLLDICE	= 1;
 	public static final int PROTECTED_FIREWORK	= 2;
+	
 
 	// =========================================================
 	// Constructor

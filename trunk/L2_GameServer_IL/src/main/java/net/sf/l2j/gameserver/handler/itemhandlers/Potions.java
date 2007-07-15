@@ -132,22 +132,27 @@ public class Potions implements IItemHandler
 	            res = usePotion(activeChar, 2035, 1);
 	            break;
         	case 1539: // greater_healing_potion, xml: 2037
-        		if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId)) return;
+        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId, 2037))
+        			return;
  				res = usePotion(activeChar, 2037, 1);
 	            break;
         	case 1540: // quick_healing_potion, xml: 2038
-        		if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId)) return;
+        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId, 2038))
+        			return;
  				res = usePotion(activeChar, 2038, 1);
 	            break;
         	case 5283: // Rice Cake, xml: 2136
-        		if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId)) return;
+        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId,2136)) 
+        			return;
  				MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2136, 1, 1, 0);
 	            activeChar.broadcastPacket(MSU);
 	            res= usePotion(activeChar, 2136, 1);
 	            break;
         	case 5591: // CP and Greater CP
         	case 5592: // Potion
-        		if (!isEffectReplaceable(activeChar, L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME, itemId)) return;
+				// elixir of Mental Strength
+				if (!isUseable(activeChar, L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME, itemId,2166)) 
+					return;
  				res = usePotion(activeChar, 2166, (itemId == 5591) ? 1 : 2);
 	            break;
         	case 6035: // Magic Haste Potion, xml: 2169
@@ -164,6 +169,8 @@ public class Potions implements IItemHandler
             case 8626:  
             case 8627:
             	// elixir of Life
+        		if (!isUseable(activeChar,itemId, 2136)) 
+        			return;
 				if ( 
 						(itemId == 8622 && activeChar.getExpertiseIndex()==0) ||
 						(itemId == 8623 && activeChar.getExpertiseIndex()==1) ||
@@ -187,7 +194,9 @@ public class Potions implements IItemHandler
             case 8631:  
             case 8632:  
             case 8633: 
-                // elixir of Strength 
+                // elixir of Strength
+        		if (!isUseable(activeChar,itemId, 2288)) 
+        			return;
                 if (				
 						(itemId == 8628 && activeChar.getExpertiseIndex()==0) ||
 						(itemId == 8629 && activeChar.getExpertiseIndex()==1) ||
@@ -211,7 +220,9 @@ public class Potions implements IItemHandler
             case 8637:  
             case 8638:  
             case 8639: 
-                // elixir of cp 
+                // elixir of cp
+        		if (!isUseable(activeChar,itemId, 2289)) 
+        			return;
                 if (  
              	 		(itemId == 8634 && activeChar.getExpertiseIndex()==0) ||
 						(itemId == 8635 && activeChar.getExpertiseIndex()==1) ||
@@ -369,7 +380,7 @@ public class Potions implements IItemHandler
         if (res)
             playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
     }
-    
+
     private boolean isEffectReplaceable(L2PcInstance activeChar, Enum effectType, int itemId)
 	{
 		L2Effect[] effects = activeChar.getAllEffects();
@@ -391,6 +402,28 @@ public class Potions implements IItemHandler
 		}
 		return true;
 	}
+
+    private boolean isUseable(L2PcInstance activeChar, int itemId, int skillid)
+    {
+    	if (activeChar.isSkillDisabled(skillid))
+    	{
+    		SystemMessage sm = new SystemMessage(48);
+    		sm.addItemName(itemId);
+    		activeChar.sendPacket(sm);
+    		return false;
+    	}
+    	else
+    		return true;
+    	
+    }
+    
+    private boolean isUseable(L2PcInstance activeChar, Enum effectType, int itemId,int skillid)
+    {
+    	if(!isEffectReplaceable(activeChar,effectType,itemId) || !isUseable(activeChar,itemId,skillid))
+    		return false;
+    	else
+    		return true;
+    }
 
     public boolean usePotion(L2PcInstance activeChar, int magicId, int level)
     {
