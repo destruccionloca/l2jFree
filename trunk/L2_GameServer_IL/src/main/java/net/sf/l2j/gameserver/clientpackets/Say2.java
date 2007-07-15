@@ -184,7 +184,7 @@ public class Say2 extends L2GameClientPacket
                 }
             break;
         case SHOUT:
-            	if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_GLOBAL_CHAT))
+            	if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_GLOBAL_CHAT) && !activeChar.isGM())
             	{
             		activeChar.sendMessage("Not possible to use Global Chat");
             		return;
@@ -213,7 +213,7 @@ public class Say2 extends L2GameClientPacket
                 }                
                 break;
         case TRADE:
-	        	if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_TRADE_CHAT))
+	        	if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_TRADE_CHAT) && !activeChar.isGM())
 	        	{
 	        		activeChar.sendMessage("Not possible to use Trade Chat");
 	        		return;
