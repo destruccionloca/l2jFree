@@ -837,20 +837,10 @@ public class GameStatusThread extends Thread
                             Config.loadIrcConfig();
                             _print.println("irc config reloaded");
                         }
-                        else if(type.equals("sailren"))
+                        else if(type.equals("boss"))
                         {
-                            Config.loadSailrenConfig();
-                            _print.println("sailren config reloaded");
-                        }
-                        else if(type.equals("antharas"))
-                        {
-                            Config.loadAntharasConfig();
-                            _print.println("antharas config reloaded");
-                        }
-                        else if(type.equals("valakas"))
-                        {
-                            Config.loadValakasConfig();
-                            _print.println("valakas config reloaded");
+                            Config.loadBossConfig();
+                            _print.println("boss config reloaded");
                         }
                         else if(type.equals("sayfilter"))
                         {
@@ -864,7 +854,7 @@ public class GameStatusThread extends Thread
                         }
                         else
                         {
-                            _print.println("Usage:  //reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|antharas|valakas|sailren|sayfilter>");
+                            _print.println("Usage:  //reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter>");
                         }
                     }
                     catch(Exception e)
