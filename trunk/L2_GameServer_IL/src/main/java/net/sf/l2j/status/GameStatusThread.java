@@ -753,7 +753,7 @@ public class GameStatusThread extends Thread
                         _print.println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone>");
                     }
                 }
-                else if(_usrCommand.startsWith("admin_reload_config"))
+                else if(_usrCommand.startsWith("reload_config"))
                 {
                     StringTokenizer st = new StringTokenizer(_usrCommand);
                     st.nextToken();
@@ -854,12 +854,12 @@ public class GameStatusThread extends Thread
                         }
                         else
                         {
-                            _print.println("Usage:  //reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter>");
+                            _print.println("Usage:  reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter>");
                         }
                     }
                     catch(Exception e)
                     {
-                        _print.println("Usage:  //reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|antharas|valakas|sailren|sayfilter>");
+                        _print.println("Usage:  reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter>");
                     }
                 }
                 else if (_usrCommand.startsWith("gamestat"))
