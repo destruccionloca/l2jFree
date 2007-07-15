@@ -31,10 +31,10 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.util.FloodProtector;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 /**
  * This class ...
  * 
@@ -184,6 +184,12 @@ public class Say2 extends L2GameClientPacket
                 }
             break;
         case SHOUT:
+            	if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_GLOBAL_CHAT))
+            	{
+            		activeChar.sendMessage("Not possible to use Global Chat");
+            		return;
+            	}
+
         		if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("shout"))
 	        	{
 	        		IrcManager.getInstance().getConnection().sendChan("!"+ activeChar.getName() +": " + _text);
@@ -206,7 +212,13 @@ public class Say2 extends L2GameClientPacket
                     }
                 }                
                 break;
-        case TRADE: 
+        case TRADE:
+	        	if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_TRADE_CHAT))
+	        	{
+	        		activeChar.sendMessage("Not possible to use Trade Chat");
+	        		return;
+	        	}
+        	
 	        	if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("trade"))
 	        	{
 	        		IrcManager.getInstance().getConnection().sendChan("+"+ activeChar.getName() +": " + _text);

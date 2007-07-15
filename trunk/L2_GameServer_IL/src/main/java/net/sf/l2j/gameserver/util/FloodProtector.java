@@ -51,15 +51,17 @@ public class FloodProtector
 
 	// =========================================================
 	// Enum
-	private static final int PROTECTEDACTIONSIZE = 3;
+	private static final int PROTECTEDACTIONSIZE = 5;
 	
 	// reuse delays for protected actions (in game ticks 1 tick = 100ms)
-	private static final int[] REUSEDELAY = new int[]{ 4, 42, 42 };
+	private static final int[] REUSEDELAY = new int[]{ 4, 42, 42, Config.GLOBAL_CHAT_TIME, Config.TRADE_CHAT_TIME };
 
 	// protected actions
-	public static final int PROTECTED_USEITEM	= 0;
-	public static final int PROTECTED_ROLLDICE	= 1;
-	public static final int PROTECTED_FIREWORK	= 2;
+	public static final int PROTECTED_USEITEM		= 0;
+	public static final int PROTECTED_ROLLDICE		= 1;
+	public static final int PROTECTED_FIREWORK		= 2;
+	public static final int PROTECTED_GLOBAL_CHAT	= 3;
+	public static final int PROTECTED_TRADE_CHAT	= 4;
 	
 
 	// =========================================================

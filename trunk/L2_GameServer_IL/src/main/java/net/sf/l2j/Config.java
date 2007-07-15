@@ -982,7 +982,9 @@ public final class Config {
     public static boolean 	    		ALLOW_BOAT;
     public static boolean        		ALLOW_CURSED_WEAPONS;			// Allow cursed weapons ?
     public static String  				DEFAULT_GLOBAL_CHAT;			// Global chat state
+    public static int					GLOBAL_CHAT_TIME;
     public static String  				DEFAULT_TRADE_CHAT;				// Trade chat state
+    public static int					TRADE_CHAT_TIME;
     public static boolean 				LOG_CHAT;						// Logging Chat Window
     public static boolean 				LOG_ITEMS;
     public static int 					DEFAULT_PUNISH;					// Default punishment for illegal actions
@@ -1080,7 +1082,9 @@ public final class Config {
             ALLOW_GUARDS        			= Boolean.valueOf(optionsSettings.getProperty("AllowGuards", "False"));
            
             DEFAULT_GLOBAL_CHAT             = optionsSettings.getProperty("GlobalChat", "ON");
+            GLOBAL_CHAT_TIME				= Integer.parseInt(optionsSettings.getProperty("GlobalChatTime", "1"));
             DEFAULT_TRADE_CHAT              = optionsSettings.getProperty("TradeChat", "ON");
+            TRADE_CHAT_TIME					= Integer.parseInt(optionsSettings.getProperty("TradeChatTime", "1"));            
         
             LOG_CHAT                        = Boolean.valueOf(optionsSettings.getProperty("LogChat", "false"));
             LOG_ITEMS                       = Boolean.valueOf(optionsSettings.getProperty("LogItems", "false"));
