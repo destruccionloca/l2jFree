@@ -1959,175 +1959,109 @@ public final class Config {
         }
     }
     //  *******************************************************************************************
-    public static final String  ANTHARAS_FILE              = "./config/antharas.properties";
+    public static final String  BOSS_FILE              = "./config/boss.properties";
     //  *******************************************************************************************
-    public static int FWA_INTERVALOFANTHARAS;
-    public static int FWA_APPTIMEOFANTHARAS;
-    public static int FWA_ACTIVITYTIMEOFANTHARAS;
-    public static boolean FWA_OLDANTHARAS;
-    public static int FWA_LIMITOFWEAK;
-    public static int FWA_LIMITOFNORMAL;
-    public static int FWA_INTGERVALOFBEHEMOTHONWEAK;
-    public static int FWA_INTGERVALOFBEHEMOTHONNORMAL;
-    public static int FWA_INTGERVALOFBEHEMOTHONSTRONG;
-    public static int FWA_INTGERVALOFBOMBERONWEAK;
-    public static int FWA_INTGERVALOFBOMBERONNORMAL;
-    public static int FWA_INTGERVALOFBOMBERONSTRONG;
-    public static boolean FWA_MOVEATRANDOM;
+    public static int 		FWA_INTERVALOFANTHARAS;
+    public static int 		FWA_APPTIMEOFANTHARAS;
+    public static int 		FWA_ACTIVITYTIMEOFANTHARAS;
+    public static boolean 	FWA_OLDANTHARAS;
+    public static int 		FWA_LIMITOFWEAK;
+    public static int 		FWA_LIMITOFNORMAL;
+    public static int 		FWA_INTGERVALOFBEHEMOTHONWEAK;
+    public static int 		FWA_INTGERVALOFBEHEMOTHONNORMAL;
+    public static int 		FWA_INTGERVALOFBEHEMOTHONSTRONG;
+    public static int 		FWA_INTGERVALOFBOMBERONWEAK;
+    public static int 		FWA_INTGERVALOFBOMBERONNORMAL;
+    public static int 		FWA_INTGERVALOFBOMBERONSTRONG;
+    public static boolean 	FWA_MOVEATRANDOM;
+    public static int 		FWB_INTERVALOFBAIUM;
+    public static int 		FWB_ACTIVITYTIMEOFBAIUM;
+    public static boolean 	FWB_MOVEATRANDOM;
+    public static int 		FWV_INTERVALOFVALAKAS;
+    public static int 		FWV_APPTIMEOFVALAKAS;
+    public static int 		FWV_ACTIVITYTIMEOFVALAKAS;
+    public static int 		FWV_CAPACITYOFLAIR;
+    public static boolean 	FWV_MOVEATRANDOM;
+    public static boolean 	FWS_ENABLESINGLEPLAYER;
+    public static int 		FWS_INTERVALOFSAILRENSPAWN;
+    public static int 		FWS_INTERVALOFNEXTMONSTER;
+    public static int 		FWS_ACTIVITYTIMEOFMOBS;    
+    
     //  *******************************************************************************************
-    public static void loadAntharasConfig()
+    public static void loadBossConfig()
     {
-    	_log.info("loading " + ANTHARAS_FILE);
+    	_log.info("loading " + BOSS_FILE);
         try
         {
-            Properties antharasSettings = new Properties();
-            InputStream is               = new FileInputStream(new File(ANTHARAS_FILE));
-            antharasSettings.load(is);
+            Properties bossSettings = new Properties();
+            InputStream is               = new FileInputStream(new File(BOSS_FILE));
+            bossSettings.load(is);
             is.close();
 
-            FWA_INTERVALOFANTHARAS = Integer.parseInt(antharasSettings.getProperty("IntervalOfAntharas", "1440"));
+            FWA_INTERVALOFANTHARAS = Integer.parseInt(bossSettings.getProperty("IntervalOfAntharas", "1440"));
             if(FWA_INTERVALOFANTHARAS < 5 || FWA_INTERVALOFANTHARAS > 1440) FWA_INTERVALOFANTHARAS = 1440;
             FWA_INTERVALOFANTHARAS = FWA_INTERVALOFANTHARAS * 60000;
-            FWA_APPTIMEOFANTHARAS = Integer.parseInt(antharasSettings.getProperty("AppTimeOfAntharas", "10"));
+            FWA_APPTIMEOFANTHARAS = Integer.parseInt(bossSettings.getProperty("AppTimeOfAntharas", "10"));
             if(FWA_APPTIMEOFANTHARAS < 5 || FWA_APPTIMEOFANTHARAS > 60) FWA_APPTIMEOFANTHARAS = 10;
             FWA_APPTIMEOFANTHARAS = FWA_APPTIMEOFANTHARAS * 60000;
-            FWA_ACTIVITYTIMEOFANTHARAS = Integer.parseInt(antharasSettings.getProperty("ActivityTimeOfAntharas", "120"));
+            FWA_ACTIVITYTIMEOFANTHARAS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfAntharas", "120"));
             if(FWA_ACTIVITYTIMEOFANTHARAS < 120 || FWA_ACTIVITYTIMEOFANTHARAS > 720) FWA_ACTIVITYTIMEOFANTHARAS = 120;
             FWA_ACTIVITYTIMEOFANTHARAS = FWA_ACTIVITYTIMEOFANTHARAS * 60000;
-            FWA_OLDANTHARAS = Boolean.parseBoolean(antharasSettings.getProperty("OldAntharas", "False"));
-            FWA_LIMITOFWEAK = Integer.parseInt(antharasSettings.getProperty("LimitOfWeak", "299"));
-            FWA_LIMITOFNORMAL = Integer.parseInt(antharasSettings.getProperty("LimitOfNormal", "399"));
-            FWA_INTGERVALOFBEHEMOTHONWEAK = Integer.parseInt(antharasSettings.getProperty("IntgervalOfBehemothOnWeak", "8"));
+            FWA_OLDANTHARAS = Boolean.parseBoolean(bossSettings.getProperty("OldAntharas", "False"));
+            FWA_LIMITOFWEAK = Integer.parseInt(bossSettings.getProperty("LimitOfWeak", "299"));
+            FWA_LIMITOFNORMAL = Integer.parseInt(bossSettings.getProperty("LimitOfNormal", "399"));
+            FWA_INTGERVALOFBEHEMOTHONWEAK = Integer.parseInt(bossSettings.getProperty("IntgervalOfBehemothOnWeak", "8"));
             if(FWA_INTGERVALOFBEHEMOTHONWEAK < 1 || FWA_INTGERVALOFBEHEMOTHONWEAK > 10) FWA_INTGERVALOFBEHEMOTHONWEAK = 8;
             FWA_INTGERVALOFBEHEMOTHONWEAK = FWA_INTGERVALOFBEHEMOTHONWEAK * 60000;
-            FWA_INTGERVALOFBEHEMOTHONNORMAL = Integer.parseInt(antharasSettings.getProperty("IntgervalOfBehemothOnNormal", "5"));
+            FWA_INTGERVALOFBEHEMOTHONNORMAL = Integer.parseInt(bossSettings.getProperty("IntgervalOfBehemothOnNormal", "5"));
             if(FWA_INTGERVALOFBEHEMOTHONNORMAL < 1 || FWA_INTGERVALOFBEHEMOTHONNORMAL > 10) FWA_INTGERVALOFBEHEMOTHONNORMAL = 5;
             FWA_INTGERVALOFBEHEMOTHONNORMAL = FWA_INTGERVALOFBEHEMOTHONNORMAL * 60000;
-            FWA_INTGERVALOFBEHEMOTHONSTRONG = Integer.parseInt(antharasSettings.getProperty("IntgervalOfBehemothOnStrong", "3"));
+            FWA_INTGERVALOFBEHEMOTHONSTRONG = Integer.parseInt(bossSettings.getProperty("IntgervalOfBehemothOnStrong", "3"));
             if(FWA_INTGERVALOFBEHEMOTHONSTRONG < 1 || FWA_INTGERVALOFBEHEMOTHONSTRONG > 10) FWA_INTGERVALOFBEHEMOTHONSTRONG = 3;
             FWA_INTGERVALOFBEHEMOTHONSTRONG = FWA_INTGERVALOFBEHEMOTHONSTRONG * 60000;
-            FWA_INTGERVALOFBOMBERONWEAK = Integer.parseInt(antharasSettings.getProperty("IntgervalOfBomberOnWeak", "6"));
+            FWA_INTGERVALOFBOMBERONWEAK = Integer.parseInt(bossSettings.getProperty("IntgervalOfBomberOnWeak", "6"));
             if(FWA_INTGERVALOFBOMBERONWEAK < 1 || FWA_INTGERVALOFBOMBERONWEAK > 10) FWA_INTGERVALOFBOMBERONWEAK = 6;
             FWA_INTGERVALOFBOMBERONWEAK = FWA_INTGERVALOFBOMBERONWEAK * 60000;
-            FWA_INTGERVALOFBOMBERONNORMAL = Integer.parseInt(antharasSettings.getProperty("IntgervalOfBomberOnNormal", "4"));
+            FWA_INTGERVALOFBOMBERONNORMAL = Integer.parseInt(bossSettings.getProperty("IntgervalOfBomberOnNormal", "4"));
             if(FWA_INTGERVALOFBOMBERONNORMAL < 1 || FWA_INTGERVALOFBOMBERONNORMAL > 10) FWA_INTGERVALOFBOMBERONNORMAL = 4;
             FWA_INTGERVALOFBOMBERONNORMAL = FWA_INTGERVALOFBOMBERONNORMAL * 60000;
-            FWA_INTGERVALOFBOMBERONSTRONG = Integer.parseInt(antharasSettings.getProperty("IntgervalOfBomberOnStrong", "3"));
+            FWA_INTGERVALOFBOMBERONSTRONG = Integer.parseInt(bossSettings.getProperty("IntgervalOfBomberOnStrong", "3"));
             if(FWA_INTGERVALOFBOMBERONSTRONG < 1 || FWA_INTGERVALOFBOMBERONSTRONG > 10) FWA_INTGERVALOFBOMBERONSTRONG = 3;
             FWA_INTGERVALOFBOMBERONSTRONG = FWA_INTGERVALOFBOMBERONSTRONG * 60000;
-            FWA_MOVEATRANDOM = Boolean.parseBoolean(antharasSettings.getProperty("MoveAtRandom", "True"));
-            }
-            catch (Exception e)
-            {
-            _log.error(e.getMessage(),e);
-            throw new Error("Failed to Load "+ANTHARAS_FILE+" File.");
-        }
-    }
-
-    //  *******************************************************************************************
-    public static final String  BAIUM_FILE              = "./config/baium.properties";
-    //  *******************************************************************************************
-    public static int FWB_INTERVALOFBAIUM;
-    public static int FWB_ACTIVITYTIMEOFBAIUM;
-    public static boolean FWB_MOVEATRANDOM;
-    //  *******************************************************************************************
-    public static void loadBaiumConfig()
-    {
-    	_log.info("loading " + BAIUM_FILE);
-        try
-        {
-            Properties baiumSettings = new Properties();
-            InputStream is               = new FileInputStream(new File(BAIUM_FILE));
-            baiumSettings.load(is);
-            is.close();
-
-            FWB_INTERVALOFBAIUM = Integer.parseInt(baiumSettings.getProperty("IntervalOfBaium", "1440"));
+            FWA_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True"));
+            FWB_INTERVALOFBAIUM = Integer.parseInt(bossSettings.getProperty("IntervalOfBaium", "1440"));
             if(FWB_INTERVALOFBAIUM < 5 || FWB_INTERVALOFBAIUM > 1440) FWB_INTERVALOFBAIUM = 1440;
             FWB_INTERVALOFBAIUM = FWB_INTERVALOFBAIUM * 60000;
-            FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(baiumSettings.getProperty("ActivityTimeOfBaium", "120"));
+            FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfBaium", "120"));
             if(FWB_ACTIVITYTIMEOFBAIUM < 120 || FWB_ACTIVITYTIMEOFBAIUM > 720) FWB_ACTIVITYTIMEOFBAIUM = 120;
             FWB_ACTIVITYTIMEOFBAIUM = FWB_ACTIVITYTIMEOFBAIUM * 60000;
-            FWB_MOVEATRANDOM = Boolean.parseBoolean(baiumSettings.getProperty("MoveAtRandom", "True"));
-            }
-            catch (Exception e)
-            {
-            _log.error(e.getMessage(),e);
-            throw new Error("Failed to Load "+BAIUM_FILE+" File.");
-        }
-    }
-
-    //  *******************************************************************************************
-    public static final String  SAILREN_FILE             	= "./config/sailren.properties";
-    //  *******************************************************************************************
-    public static boolean FWS_ENABLESINGLEPLAYER;
-    public static int FWS_INTERVALOFSAILRENSPAWN;
-    public static int FWS_INTERVALOFNEXTMONSTER;
-    public static int FWS_ACTIVITYTIMEOFMOBS;    
-    //  *******************************************************************************************
-    public static void loadSailrenConfig()
-    {
-    	_log.info("loading " + SAILREN_FILE);
-        try
-        {
-            Properties sailrenSettings = new Properties();
-            InputStream is               = new FileInputStream(new File(SAILREN_FILE));
-            sailrenSettings.load(is);
-            is.close();
-
-            FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(sailrenSettings.getProperty("EnableSinglePlayer", "False"));
-            FWS_INTERVALOFSAILRENSPAWN = Integer.parseInt(sailrenSettings.getProperty("IntervalOfSailrenSpawn", "1440"));
+            FWB_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True"));
+            FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(bossSettings.getProperty("EnableSinglePlayer", "False"));
+            FWS_INTERVALOFSAILRENSPAWN = Integer.parseInt(bossSettings.getProperty("IntervalOfSailrenSpawn", "1440"));
             if(FWS_INTERVALOFSAILRENSPAWN < 5 || FWS_INTERVALOFSAILRENSPAWN > 1440) FWS_INTERVALOFSAILRENSPAWN = 1440;
             FWS_INTERVALOFSAILRENSPAWN = FWS_INTERVALOFSAILRENSPAWN * 60000;
-            FWS_INTERVALOFNEXTMONSTER = Integer.parseInt(sailrenSettings.getProperty("IntervalOfNextMonster", "1"));
+            FWS_INTERVALOFNEXTMONSTER = Integer.parseInt(bossSettings.getProperty("IntervalOfNextMonster", "1"));
             if(FWS_INTERVALOFNEXTMONSTER < 1 || FWS_INTERVALOFNEXTMONSTER > 10) FWS_INTERVALOFNEXTMONSTER = 1;
             FWS_INTERVALOFNEXTMONSTER = FWS_INTERVALOFNEXTMONSTER * 60000;
-            FWS_ACTIVITYTIMEOFMOBS = Integer.parseInt(sailrenSettings.getProperty("ActivityTimeOfMobs", "120"));
+            FWS_ACTIVITYTIMEOFMOBS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfMobs", "120"));
             if(FWS_ACTIVITYTIMEOFMOBS < 1 || FWS_ACTIVITYTIMEOFMOBS > 120) FWS_ACTIVITYTIMEOFMOBS = 120;
             FWS_ACTIVITYTIMEOFMOBS = FWS_ACTIVITYTIMEOFMOBS * 60000;        
-        }
-        catch (Exception e)
-        {
-            _log.error(e.getMessage(),e);
-            throw new Error("Failed to Load "+SAILREN_FILE+" File.");
-        }
-    }
-    
-
-    //  *******************************************************************************************
-    public static final String  VALAKAS_FILE              = "./config/valakas.properties";
-    //  *******************************************************************************************
-    public static int FWV_INTERVALOFVALAKAS;
-    public static int FWV_APPTIMEOFVALAKAS;
-    public static int FWV_ACTIVITYTIMEOFVALAKAS;
-    public static int FWV_CAPACITYOFLAIR;
-    public static boolean FWV_MOVEATRANDOM;
-    //  *******************************************************************************************
-    public static void loadValakasConfig()
-    {
-    	_log.info("loading " + VALAKAS_FILE);
-        try
-        {
-            Properties valakasSettings = new Properties();
-            InputStream is               = new FileInputStream(new File(VALAKAS_FILE));
-            valakasSettings.load(is);
-            is.close();
-
-            FWV_INTERVALOFVALAKAS = Integer.parseInt(valakasSettings.getProperty("IntervalOfValakas", "1440"));
+            FWV_INTERVALOFVALAKAS = Integer.parseInt(bossSettings.getProperty("IntervalOfValakas", "1440"));
             if(FWV_INTERVALOFVALAKAS < 5 || FWV_INTERVALOFVALAKAS > 1440) FWV_INTERVALOFVALAKAS = 1440;
             FWV_INTERVALOFVALAKAS = FWV_INTERVALOFVALAKAS * 60000;
-            FWV_APPTIMEOFVALAKAS = Integer.parseInt(valakasSettings.getProperty("AppTimeOfValakas", "20"));
+            FWV_APPTIMEOFVALAKAS = Integer.parseInt(bossSettings.getProperty("AppTimeOfValakas", "20"));
             if(FWV_APPTIMEOFVALAKAS < 5 || FWV_APPTIMEOFVALAKAS > 60) FWV_APPTIMEOFVALAKAS = 10;
             FWV_APPTIMEOFVALAKAS = FWV_APPTIMEOFVALAKAS * 60000;
-            FWV_ACTIVITYTIMEOFVALAKAS = Integer.parseInt(valakasSettings.getProperty("ActivityTimeOfValakas", "120"));
+            FWV_ACTIVITYTIMEOFVALAKAS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfValakas", "120"));
             if(FWV_ACTIVITYTIMEOFVALAKAS < 120 || FWV_ACTIVITYTIMEOFVALAKAS > 720) FWV_ACTIVITYTIMEOFVALAKAS = 120;
             FWV_ACTIVITYTIMEOFVALAKAS = FWV_ACTIVITYTIMEOFVALAKAS * 60000;
-            FWV_CAPACITYOFLAIR = Integer.parseInt(valakasSettings.getProperty("CapacityOfLairOfValakas", "200"));
-            FWV_MOVEATRANDOM = Boolean.parseBoolean(valakasSettings.getProperty("MoveAtRandom", "True"));
+            FWV_CAPACITYOFLAIR = Integer.parseInt(bossSettings.getProperty("CapacityOfLairOfValakas", "200"));
+            FWV_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True"));
         }
         catch (Exception e)
         {
             _log.error(e.getMessage(),e);
-            throw new Error("Failed to Load "+VALAKAS_FILE+" File.");
+            throw new Error("Failed to Load "+BOSS_FILE+" File.");
         }
     }
 
@@ -2296,10 +2230,7 @@ public final class Config {
 			loadGmAccess();
 			loadPrivilegesConfig();
 			loadIrcConfig();
-			loadAntharasConfig();
-			loadBaiumConfig();
-			loadValakasConfig();
-			loadSailrenConfig();
+			loadBossConfig();
 			loadSayFilter();
 			
 			initDBProperties();
