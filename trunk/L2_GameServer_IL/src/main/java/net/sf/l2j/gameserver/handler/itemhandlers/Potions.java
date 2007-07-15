@@ -173,7 +173,8 @@ public class Potions implements IItemHandler
 					return;
  				res = usePotion(activeChar, 2166, (itemId == 5591) ? 1 : 2);
 	            break;
-        	case 6035: // Magic Haste Potion, xml: 2169
+        	case 6035:
+        	case 6036: // Magic Haste Potion, xml: 2169
 				if (!isUseable(activeChar,itemId,2169)) 
 					return;
         		res = usePotion(activeChar, 2169, (itemId == 6035) ? 1 : 2);
