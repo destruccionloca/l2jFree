@@ -164,7 +164,7 @@ public class Duel
 		
 		public void TeleportBack()
 		{
-			if (_paDuel) _player.teleToLocation(_x, _y, _z);
+			_player.teleToLocation(_x, _y, _z);
 		}
 		
 		public L2PcInstance getPlayer()
@@ -231,7 +231,7 @@ public class Duel
 					// players need to be teleportet first
 					//TODO: stadia manager needs a function to return an unused stadium for duels
 					// currently only teleports to the same stadium
-					_duel.teleportPlayers(-102495, -209023, -3326);
+					_duel.teleportPlayers(149485, 46718, -3413);
 					
 					// give players 20 seconds to complete teleport and get ready (its ought to be 30 on offical..)
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 20000);
@@ -803,7 +803,7 @@ public class Duel
 
 			// Are the players too far apart?
 			if (!_playerA.isInsideRadius(_playerB, 1600, false, false)) return DuelResultEnum.Canceled;
-
+			
 			// Did one of the players engage in PvP combat?
 			if (isDuelistInPvp(true)) return DuelResultEnum.Canceled;
 

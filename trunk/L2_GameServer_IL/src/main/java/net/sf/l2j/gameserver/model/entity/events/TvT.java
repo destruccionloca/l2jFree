@@ -240,17 +240,16 @@ public class TvT
         Announcements.getInstance().announceToAll(_eventName + "(TvT): Joinable in " + _joiningLocationName + "!");
     }
     
-    public static boolean startAutoJoin(L2PcInstance activeChar)
+    public static boolean startAutoJoin()
     {
         if (!startJoinOk())
         {
-        	activeChar.sendMessage("Event not setted propertly.");
-        	if (_log.isDebugEnabled())_log.debug("TvT Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() = false");
+        	if (_log.isDebugEnabled())_log.debug("TvT Engine[startJoin]: startJoinOk() = false");
             return false;
         }
         
         _joining = true;
-        spawnEventNpc(activeChar);
+        spawnEventNpc();
         Announcements.getInstance().announceToAll(_eventName + "(TvT): Joinable in " + _joiningLocationName + "!");
         return true;
     }
@@ -467,6 +466,16 @@ public class TvT
         _started = true;
     }
     
+    public static void setJoinTime(int time)
+    {
+    	_joinTime = time;
+    }
+    
+    public static void setEventTime(int time)
+    {
+    	_eventTime = time;
+    }
+    
     public static boolean startAutoEvent()
     {
         if (!startEventOk())
@@ -482,24 +491,29 @@ public class TvT
         return true;
     }
     
-    public static void autoEvent(L2PcInstance activeChar)
+    public static void autoEvent()
     {
-    	if(startAutoJoin(activeChar))
+    	if(startAutoJoin())
     	{
     		if(_joinTime > 0) waiter(_joinTime * 60 * 1000); // minutes for join event
     		else
     		{
-    			activeChar.sendMessage("Wrong usege: join time invallid.");
+    			System.out.println("Wrong usege: join time invallid.");
     			abortEvent();
     			return;
     		}
     		if(teleportAutoStart())
     		{
-    			waiter(1 * 60 * 1000); // 1 min wait time untill start fight after teleported
+    			waiter(2 * 60 * 1000); // 1 min wait time untill start fight after teleported
     			if(startAutoEvent())
     			{
     				waiter(_eventTime * 60 * 1000); // minutes for event time
     				finishEvent();
+    			}
+    			else
+    			{
+    				abortEvent();
+        			return;
     			}
     		}
     	}
@@ -599,9 +613,9 @@ public class TvT
             _playersShuffle = playersShuffleTemp; 
             playersShuffleTemp.clear();
             
-          //  if (_playersShuffle.size() < (_teams.size()*2)){
-          //      return false;
-          //  }
+            if (_playersShuffle.size() < (_teams.size()*4)){
+                return false;
+            }
           }
         
         return true;
@@ -739,7 +753,7 @@ public class TvT
     
     public static void abortEvent()
     {
-        if (!_joining && !_teleport && !_started)
+        if (!_joining || !_teleport || !_started)
             return;
         
         _joining = false;
@@ -747,7 +761,8 @@ public class TvT
         _started = false;
         unspawnEventNpc();
         Announcements.getInstance().announceToAll(_eventName + "(TvT): Match aborted!");
-        teleportFinish();
+        if (_teleport || _started)
+        	teleportFinish();
     }
     
     public static void sit()
@@ -1115,6 +1130,7 @@ public class TvT
         player._originalKarmaTvT = player.getKarma();
         player._inEventTvT = true;
         player._countTvTkills = 0;
+        player.saveEventStats();
     }
     
     public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
@@ -1194,6 +1210,7 @@ public class TvT
             player._originalKarmaTvT = player.getKarma();
             player._inEventTvT = true;
             player._countTvTkills = 0;
+            player.saveEventStats();
 
             if (_teleport || _started)
             {
@@ -1219,6 +1236,7 @@ public class TvT
             
             player.getAppearance().setNameColor(player._originalNameColorTvT);
             player.setKarma(player._originalKarmaTvT);
+            player.restoreEventStats();
             player.broadcastUserInfo();
             player._teamNameTvT = new String();
             player._inEventTvT = false;

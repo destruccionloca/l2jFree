@@ -102,12 +102,14 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         }
         else if (command.startsWith("admin_tvt_jointime "))
         {
-            TvT._joinTime = Integer.valueOf(command.substring(19));
+            int time = Integer.valueOf(command.substring(19));
+            TvT.setJoinTime(time);
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_tvt_eventtime "))
         {
-            TvT._eventTime = Integer.valueOf(command.substring(20));
+            int time = Integer.valueOf(command.substring(20));
+            TvT.setEventTime(time);
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_tvt_team_add "))
@@ -185,7 +187,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         else if (command.equals("admin_tvt_autoevent"))
         {
         	if(TvT._joinTime>0 && TvT._eventTime>0)
-        		TvT.autoEvent(activeChar);
+        		TvT.autoEvent();
         	else
         		activeChar.sendMessage("Wrong usege: join time or event time invallid.");
             showMainPage(activeChar);

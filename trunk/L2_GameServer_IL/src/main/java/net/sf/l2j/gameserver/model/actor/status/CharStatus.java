@@ -158,15 +158,24 @@ public class CharStatus
 				if (((L2PcInstance)getActiveChar()).getDuelState() == Duel.DUELSTATE_DEAD) return;
 				else if (((L2PcInstance)getActiveChar()).getDuelState() == Duel.DUELSTATE_WINNER) return;
 				
-				// cancel duel if player got hit by another player, that is not part of the duel or a monster
-				if ( !(attacker instanceof L2SummonInstance) && !(attacker instanceof L2PcInstance
-						&& ((L2PcInstance)attacker).getDuelId() == ((L2PcInstance)getActiveChar()).getDuelId()) )
+				// cancel duel if player got hit by a monster or NPC
+				if ( !(attacker instanceof L2SummonInstance) && !(attacker instanceof L2PcInstance))
+				{
+					((L2PcInstance)getActiveChar()).setDuelState(Duel.DUELSTATE_INTERRUPTED);
+				}
+				// cancel duel if player got hit by another player's summon and that is not part of the duel
+				else if (attacker instanceof L2SummonInstance && !(((L2SummonInstance)attacker).getOwner().getDuelId() == ((L2PcInstance)getActiveChar()).getDuelId()) )
+				{
+					((L2PcInstance)getActiveChar()).setDuelState(Duel.DUELSTATE_INTERRUPTED);
+				}
+				// cancel duel if player got hit by another player that is not part of the duel
+				else if (attacker instanceof L2PcInstance && !(((L2PcInstance)attacker).getDuelId() == ((L2PcInstance)getActiveChar()).getDuelId()) )
 				{
 					((L2PcInstance)getActiveChar()).setDuelState(Duel.DUELSTATE_INTERRUPTED);
 				}
 			}
-
-            if (getActiveChar().isDead() && !getActiveChar().isFakeDeath())
+    		
+    		if (getActiveChar().isDead() && !getActiveChar().isFakeDeath())
                 return; // Disabled == null check so skills like Body to Mind work again untill another solution is found
     	} 
     	else 
@@ -175,12 +184,17 @@ public class CharStatus
                 return; // Disabled == null check so skills like Body to Mind work again untill another solution is found
     	}
     	
-	    if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).isInDuel() &&
-	    		!(getActiveChar() instanceof L2SummonInstance &&
-	    		((L2SummonInstance)getActiveChar()).getOwner().getDuelId() == ((L2PcInstance)attacker).getDuelId()) ) // Duelling player attacks mob
+    	if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).isInDuel() && (getActiveChar() instanceof L2SummonInstance &&
+	    		!(((L2SummonInstance)getActiveChar()).getOwner().getDuelId() == ((L2PcInstance)attacker).getDuelId())) ) // Duelling player attacks summon
     	{
     		((L2PcInstance)attacker).setDuelState(Duel.DUELSTATE_INTERRUPTED);
     	}
+    	
+    	if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).isInDuel() && getActiveChar() instanceof L2NpcInstance ) // Duelling player attacks mob
+    	{
+    		((L2PcInstance)attacker).setDuelState(Duel.DUELSTATE_INTERRUPTED);
+    	}
+
         if (awake && getActiveChar().isSleeping()) getActiveChar().stopSleeping(null);
         if (getActiveChar().isStunned() && Rnd.get(10) == 0) getActiveChar().stopStunning(null);
 
