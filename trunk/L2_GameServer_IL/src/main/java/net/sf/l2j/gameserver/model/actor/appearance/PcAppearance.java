@@ -12,7 +12,7 @@ public class PcAppearance
     private boolean _invisible = false;
     /** The hexadecimal Color of players name (white is 0xFFFFFF) */
     private int _nameColor = 0xFFFFFF;  
-    /** The hexadecimal Color of players name (white is 0xFFFFFF) */
+    /** The hexadecimal Color of players title (light blue is 0xFFFF77) */
     private int _titleColor = 0xFFFF77;
     
     // =========================================================

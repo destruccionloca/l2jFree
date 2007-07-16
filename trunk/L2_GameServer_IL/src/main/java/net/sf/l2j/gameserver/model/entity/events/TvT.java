@@ -504,7 +504,7 @@ public class TvT
     		}
     		if(teleportAutoStart())
     		{
-    			waiter(2 * 60 * 1000); // 1 min wait time untill start fight after teleported
+    			waiter(1 * 60 * 1000); // 1 min wait time untill start fight after teleported
     			if(startAutoEvent())
     			{
     				waiter(_eventTime * 60 * 1000); // minutes for event time
@@ -613,9 +613,9 @@ public class TvT
             _playersShuffle = playersShuffleTemp; 
             playersShuffleTemp.clear();
             
-            if (_playersShuffle.size() < (_teams.size()*4)){
+            /*if (_playersShuffle.size() < (_teams.size()*4)){
                 return false;
-            }
+            }*/
           }
         
         return true;
@@ -753,7 +753,7 @@ public class TvT
     
     public static void abortEvent()
     {
-        if (!_joining || !_teleport || !_started)
+        if (!_joining && !_teleport && !_started)
             return;
         
         _joining = false;
@@ -1231,16 +1231,19 @@ public class TvT
                 _players.remove(player);
                 setTeamPlayersCount(player._teamNameTvT, teamPlayersCount(player._teamNameTvT)-1);                
             }
-            else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
-                _playersShuffle.remove(player);
+            else
+            {
+            	_players.remove(player);
+            	_playersShuffle.remove(player);
+            }
             
             player.getAppearance().setNameColor(player._originalNameColorTvT);
             player.setKarma(player._originalKarmaTvT);
             player.restoreEventStats();
-            player.broadcastUserInfo();
             player._teamNameTvT = new String();
             player._inEventTvT = false;
             player._countTvTkills = 0;
+            player.broadcastUserInfo();
         }
     }
     
@@ -1250,7 +1253,7 @@ public class TvT
         {
             removePlayer(player);            
         }
-    	
+        
     	for (String team : TvT._teams)
         {
             int index = _teams.indexOf(team);
