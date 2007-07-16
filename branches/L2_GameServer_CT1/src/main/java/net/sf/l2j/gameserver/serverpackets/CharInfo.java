@@ -48,6 +48,7 @@ import org.apache.commons.logging.LogFactory;
  *  dddddSdddddddddddddddddddddddddddffffdddSdddddccccccch
  *  dddddSddddddddddddddddddddddddddddffffdddSdddddccccccch (h) c (dchd) ddc dcc c cddd d 
  *  dddddSdddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhddddddddddddddffffdddSdddddccccccch [h] c (ddhd) ddc c ddc cddd d d dd d d d
+ *  dddddSdddddddddddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhddddddddddddddffffdddSdddddccccccch *  
 
  * @version $Revision: 1.7.2.6.2.11 $ $Date: 2005/04/11 10:05:54 $
  */
@@ -174,6 +175,16 @@ public class CharInfo extends L2GameServerPacket
 			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
 			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
 			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_FACE));
+
+			// CT1
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
 			
 			// c6 new h's
 			writeH(0x00);
@@ -194,6 +205,24 @@ public class CharInfo extends L2GameServerPacket
 			writeH(0x00);
 			writeH(0x00);
 			writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LRHAND));
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			
+			// CT1 packets
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
 			writeH(0x00);
 			writeH(0x00);
 			writeH(0x00);

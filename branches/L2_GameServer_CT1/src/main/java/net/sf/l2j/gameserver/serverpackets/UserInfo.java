@@ -62,6 +62,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  * 																					*...*: here i am not sure at least it looks like it reads that much data (32 bytes), not sure about the format inside because it is not read thanks to the ususal parsing function
  * 
  * dddddSddddQddddddddddddddddddddddddddddddddddddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddffffddddSdddddcccddh [h] c dc d hhdh ddddc c dcc cddd d c dd d d
+ * dddddSddddQddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddffffddddSdddddcccddh
 
  * @version $Revision: 1.14.2.4.2.12 $ $Date: 2005/04/11 10:05:55 $
  */
@@ -139,6 +140,16 @@ public class UserInfo extends L2GameServerPacket
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
         writeD(_cha.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
         
+        // CT1
+        writeD(0x00);
+        writeD(0x00);
+        writeD(0x00);
+        writeD(0x00);
+        writeD(0x00);
+        writeD(0x00);
+        writeD(0x00);
+        writeD(0x00);
+        
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_DHAIR));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_REAR));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_LEAR));
@@ -156,6 +167,16 @@ public class UserInfo extends L2GameServerPacket
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
         writeD(_cha.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_FACE));
+        
+        // CT1
+        writeD(0x00);
+        writeD(0x00);
+        writeD(0x00);
+        writeD(0x00);
+        writeD(0x00);
+        writeD(0x00);
+        writeD(0x00);
+        writeD(0x00);
         
         // c6 new h's
         writeH(0x00);
@@ -191,7 +212,25 @@ public class UserInfo extends L2GameServerPacket
         writeH(0x00);
         writeH(0x00);
         // end of c6 new h's
-        
+
+        // CT1
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+
         writeD(_cha.getPAtk(null));
         writeD(_cha.getPAtkSpd());
         writeD(_cha.getPDef(null));

@@ -49,6 +49,7 @@ import org.apache.commons.logging.LogFactory;
  * format   h (hh dddhhhh hh)    revision 377 <BR>
  * format   h (hh dddhhhd hh)   revision 415 <BR><BR>
  *          h (hh dddhhhd hhhhd) rev 729
+ *          h  hh ddddhhhdhhhhddddddddd
  * @version $Revision: 1.3.2.2.2.4 $ $Date: 2005/03/27 15:29:39 $
  * Rebuild 23.2.2006 by Advi
  */
