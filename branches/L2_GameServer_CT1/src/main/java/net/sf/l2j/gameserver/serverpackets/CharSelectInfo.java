@@ -40,7 +40,9 @@ import org.apache.commons.logging.LogFactory;
  */
 public class CharSelectInfo extends L2GameServerPacket
 {
-	// d SdSddddddddddffddddddddddddddddddddddddddddddddddddddddddddddffd
+	// d SdSddddddddddffdQdddddddddddddddddddddddddddddddddddddddddddffd
+	// d SdSddddddddddffdQdddddddddddddddddddddddddddddddddddddddffd ddchhd
+	
 	private static final String _S__1F_CHARSELECTINFO = "[S] 1F CharSelectInfo";
 
 	private final static Log _log = LogFactory.getLog(CharSelectInfo.class.getName());
@@ -152,25 +154,15 @@ public class CharSelectInfo extends L2GameServerPacket
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LRHAND));
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
-
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DHAIR));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LEAR));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_NECK));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RFINGER));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LFINGER));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LHAND));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_CHEST));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_FACE));
-
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			
 			writeD(charInfoPackage.getHairStyle());
 			writeD(charInfoPackage.getHairColor());
 			writeD(charInfoPackage.getFace());
@@ -192,6 +184,9 @@ public class CharSelectInfo extends L2GameServerPacket
 				writeD(0x00); //c3 auto-select char
 
 			writeC(charInfoPackage.getEnchantEffect());
+
+			writeH(0x00); // ??
+			writeH(0x00); // ??			
 
 			writeD(charInfoPackage.getAugmentationId());
 		}

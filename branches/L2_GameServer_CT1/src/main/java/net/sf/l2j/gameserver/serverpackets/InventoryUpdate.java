@@ -110,6 +110,10 @@ public class InventoryUpdate extends L2GameServerPacket
 			writeD(item.getObjectId());             // ObjectId 
 			writeD(item.getItem().getItemId());     // ItemId
 			writeD(item.getCount());                // Quantity
+			
+			//CT1
+			writeD(0x0);                			// Unknown
+			
 			writeH(item.getItem().getType2());      // Item Type 2 : 00-weapon, 01-shield/armor, 02-ring/earring/necklace, 03-questitem, 04-adena, 05-item
 			writeH(item.getCustomType1());          // Filler (always 0)
 			writeH(item.getEquipped());             // Equipped    : 00-No, 01-yes
@@ -119,6 +123,16 @@ public class InventoryUpdate extends L2GameServerPacket
 			
 			writeD(item.getAugemtationBoni());
 			writeD(item.getMana());
+			
+			//CT1
+			writeD(0x0);                			// Unknown
+			writeD(0x0);                			// Unknown
+			writeD(0x0);                			// Unknown
+			writeD(0x0);                			// Unknown
+			writeD(0x0);                			// Unknown
+			writeD(0x0);                			// Unknown
+			writeD(0x0);                			// Unknown
+			writeD(0x0);                			// Unknown			
 		}
 	}
 
