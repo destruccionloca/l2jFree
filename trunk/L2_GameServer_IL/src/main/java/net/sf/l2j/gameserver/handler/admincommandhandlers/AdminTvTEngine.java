@@ -41,7 +41,8 @@ public class AdminTvTEngine implements IAdminCommandHandler {
                                            "admin_tvt_reward", "admin_tvt_reward_amount",
                                            "admin_tvt_team_add", "admin_tvt_team_remove", "admin_tvt_team_pos", "admin_tvt_team_color",
                                            "admin_tvt_join", "admin_tvt_teleport", "admin_tvt_start", "admin_tvt_abort", "admin_tvt_finish",
-                                           "admin_tvt_sit", "admin_tvt_dump", "admin_tvt_save", "admin_tvt_load", "admin_tvt_jointime", "admin_tvt_eventtime", "admin_tvt_autoevent"};
+                                           "admin_tvt_sit", "admin_tvt_dump", "admin_tvt_save", "admin_tvt_load", "admin_tvt_jointime", 
+                                           "admin_tvt_eventtime", "admin_tvt_autoevent","admin_tvt_minplayers","admin_tvt_maxplayers"};
  
  private static final int REQUIRED_LEVEL = 100;
 
@@ -75,6 +76,16 @@ public class AdminTvTEngine implements IAdminCommandHandler {
             TvT._maxlvl = Integer.valueOf(command.substring(17));
             showMainPage(activeChar);
         }
+        else if (command.startsWith("admin_tvt_minplayers "))
+        {
+            TvT._minPlayers = Integer.valueOf(command.substring(21));
+            showMainPage(activeChar);
+        }
+        else if (command.startsWith("admin_tvt_maxplayers "))
+        {
+            TvT._maxPlayers = Integer.valueOf(command.substring(21));
+            showMainPage(activeChar);
+        }
         else if (command.startsWith("admin_tvt_join_loc "))
         {
             TvT._joiningLocationName = command.substring(19);
@@ -102,14 +113,12 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         }
         else if (command.startsWith("admin_tvt_jointime "))
         {
-            int time = Integer.valueOf(command.substring(19));
-            TvT.setJoinTime(time);
+            TvT._joinTime = Integer.valueOf(command.substring(19));
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_tvt_eventtime "))
         {
-            int time = Integer.valueOf(command.substring(20));
-            TvT.setEventTime(time);
+            TvT._eventTime = Integer.valueOf(command.substring(20));
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_tvt_team_add "))
@@ -229,6 +238,10 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         replyMSG.append("<td width=\"100\"><button value=\"Max lvl\" action=\"bypass -h admin_tvt_maxlvl $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Min lvl\" action=\"bypass -h admin_tvt_minlvl $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
+        replyMSG.append("</tr></table><br><table><tr>");
+        replyMSG.append("<td width=\"100\"><button value=\"Max players\" action=\"bypass -h admin_tvt_maxplayers $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Min players\" action=\"bypass -h admin_tvt_minplayers $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("</tr></table><br><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"NPC\" action=\"bypass -h admin_tvt_npc $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"NPC Pos\" action=\"bypass -h admin_tvt_npc_pos\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
@@ -267,6 +280,8 @@ public class AdminTvTEngine implements IAdminCommandHandler {
         replyMSG.append("    ... reward Amount:&nbsp;<font color=\"00FF00\">" + TvT._rewardAmount + "</font><br><br>");
         replyMSG.append("    ... Min lvl:&nbsp;<font color=\"00FF00\">" + TvT._minlvl + "</font><br>");
         replyMSG.append("    ... Max lvl:&nbsp;<font color=\"00FF00\">" + TvT._maxlvl + "</font><br><br>");
+        replyMSG.append("    ... Min Players:&nbsp;<font color=\"00FF00\">" + TvT._minPlayers + "</font><br>");
+        replyMSG.append("    ... Max Players:&nbsp;<font color=\"00FF00\">" + TvT._maxPlayers + "</font><br><br>");
         replyMSG.append("    ... Joining Time:&nbsp;<font color=\"00FF00\">" + TvT._joinTime + "</font><br>");
         replyMSG.append("    ... Event Timer:&nbsp;<font color=\"00FF00\">" + TvT._eventTime + "</font><br><br>");
         replyMSG.append("Current teams:<br1>");
