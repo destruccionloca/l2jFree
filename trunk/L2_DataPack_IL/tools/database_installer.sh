@@ -374,7 +374,7 @@ $MYG < ../sql/updates/070309-[744].sql
 $MYG < ../sql/updates/070309-[744-2].sql
 $MYG < ../sql/updates/070309-[747].sql
 $MYG < ../sql/updates/070309-[753].sql
-$MYG < ../sql/updates/070311-[796].sq
+$MYG < ../sql/updates/070311-[796].sql
 $MYG < ../sql/updates/070316-[837].sql
 $MYG < ../sql/updates/070329-[951].sql
 $MYG < ../sql/updates/070402-[1002].sql
