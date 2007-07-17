@@ -265,9 +265,9 @@ public abstract class L2Character extends L2Object
     {
         setIsTeleporting(false);
 
-		//spawnMe(getPosition().getX(), getPosition().getY(), getPosition().getZ());
+		spawnMe(getPosition().getX(), getPosition().getY(), getPosition().getZ());
 		
-		getPosition().setWorldPosition(getPosition().getX(), getPosition().getY() ,getPosition().getZ());
+		/*getPosition().setWorldPosition(getPosition().getX(), getPosition().getY() ,getPosition().getZ());
         getPosition().setWorldRegion(L2World.getInstance().getRegion(getPosition().getWorldPosition()));
         // Add the L2Object spawn to _visibleObjects and if necessary to _allplayers of its L2WorldRegion
         getPosition().getWorldRegion().addVisibleObject(this);
@@ -282,7 +282,7 @@ public abstract class L2Character extends L2Object
             visible[i].getKnownList().addKnownObject(this, null);
             // Add the object to this ones knownlist
             getKnownList().addKnownObject(visible[i], null);
-        }
+        }*/
 
         if (_IsPendingRevive) doRevive();
 
@@ -512,8 +512,8 @@ public abstract class L2Character extends L2Object
         // Set the x,y,z position of the L2Object and if necessary modify its _worldRegion
         getPosition().setXYZ(x, y, z);
 
-		//decayMe();
-		getPosition().getWorldRegion().removeVisibleObject(this);
+		decayMe();
+		/*getPosition().getWorldRegion().removeVisibleObject(this);
 		
 		// Remove this from everyones knownlist
 		// TODO: for now assuming that only everyone know by this knows this
@@ -524,7 +524,7 @@ public abstract class L2Character extends L2Object
 		
 		// Remove all known objects
 		getKnownList().removeAllKnownObjects();
-
+		 */
         if (!(this instanceof L2PcInstance)) 
             onTeleported();
 		else
@@ -3908,7 +3908,8 @@ public abstract class L2Character extends L2Object
    {
 	   // Get the Move Speed of the L2Character
 	   float speed = getStat().getMoveSpeed();
-	   if (speed <= 0 || isMovementDisabled()) return;
+	   //if (speed <= 0 || isMovementDisabled()) return;
+	   if (speed <= 0) return;
 	   
        // Get current position of the L2Character
        final int curX = super.getX();
