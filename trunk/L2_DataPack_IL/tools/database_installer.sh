@@ -385,6 +385,7 @@ $MYG < ../sql/updates/070605-[1497].sql
 $MYG < ../sql/updates/070607-[1523].sql
 $MYG < ../sql/updates/070610-[1535].sql
 $MYG < ../sql/updates/070612-[1552].sql
+$MYG < ../sql/updates/070717-[1744].sql
 }
 
 finish(){
