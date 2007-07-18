@@ -1,4 +1,4 @@
-- ---------------------------
+-- ---------------------------
 -- Table structure for castle_door
 -- ---------------------------
 DROP TABLE IF EXISTS castle_door;
