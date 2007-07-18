@@ -1059,7 +1059,35 @@ public final class Formulas
 
         return 1.5; // If all is true, then modifer will be 50% more
     }
-    
+
+	/** Calculate blow damage based on cAtk */
+	public double calcBlowDamage(L2Character attacker, L2Character target, L2Skill skill, boolean shld, boolean ss)
+	{
+		double power = skill.getPower();
+		double damage = attacker.getPAtk(target);
+		double defence = target.getPDef(attacker);
+		if(ss)
+			damage *= 2.;
+		if(shld)
+			defence += target.getStat().getShldDef();
+		if(ss && skill.getSSBoost()>0)
+			power *= skill.getSSBoost();
+		
+		//Multiplier should be removed, it's false ??
+		damage += 1.5*attacker.calcStat(Stats.CRITICAL_DAMAGE, damage+power, target, skill);
+		damage *= (double)attacker.getLevel()/target.getLevel();
+		//True with skill ?
+		defence = target.calcStat(Stats.DAGGER_WPN_RES, defence, target, null);
+		if (target instanceof L2NpcInstance)
+		{
+			Integer resistDagger = ((L2NpcInstance) target).getTemplate().getResist(Stats.DAGGER_WPN_RES);
+			damage *= resistDagger.doubleValue() / 100;
+		}
+		damage *= 70. / defence;
+		damage += Rnd.get() * attacker.getRandomDamage(target);
+		return damage < 1 ? 1. : damage;
+	}
+
     /** Calculated damage caused by ATTACK of attacker on target,
      * called separatly for each weapon, if dual-weapon is used.
      *
@@ -1364,10 +1392,19 @@ public final class Formulas
 	/** Returns true in case of critical hit */
 	public final boolean calcCrit(double rate)
 	{
-		int critHit = Rnd.get(1000);
-		return rate > critHit;
+		return rate > Rnd.get(1000);
 	}
-
+	/** Calcul value of blow success */
+	public final boolean calcBlow(L2Character activeChar, L2Character target, int chance)
+	{
+		return activeChar.calcStat(Stats.BLOW_RATE, chance*(1.0+(activeChar.getStat().getDEX()-20)/100), target, null)>Rnd.get(100);
+	}
+	/** Calcul value of lethal chance */
+	public final double calcLethal(L2Character activeChar, L2Character target, int baseLethal)
+	{
+		return activeChar.calcStat(Stats.LETHAL_RATE, (baseLethal*((double)activeChar.getLevel()/target.getLevel())), target, null);
+	}
+	
     /** Returns true in case of critical hit */
     public final boolean calcCrit(L2Character attacker, L2Character target, double rate)
     {
@@ -1385,8 +1422,7 @@ public final class Formulas
     
     public final boolean calcMCrit(double mRate)
     {
-        int mcritHit = Rnd.get(1000);
-        return mRate > mcritHit;
+    	return mRate > Rnd.get(1000);
     }
     
     /** Returns true in case when ATTACK is canceled due to hit */

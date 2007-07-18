@@ -375,6 +375,11 @@ abstract class DocumentBase
                 boolean val = Boolean.valueOf(a.getNodeValue());
                 cond = joinAnd(cond, new ConditionPlayerState(CheckPlayerState.BEHIND, val));
             }
+            else if ("front".equalsIgnoreCase(a.getNodeName()))
+            {
+            	 boolean val = Boolean.valueOf(a.getNodeValue());
+            	 cond = joinAnd(cond, new ConditionPlayerState(CheckPlayerState.FRONT, val));
+            }            
             else if ("flying".equalsIgnoreCase(a.getNodeName()))
             {
                 boolean val = Boolean.valueOf(a.getNodeValue());

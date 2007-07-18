@@ -3995,6 +3995,23 @@ public abstract class L2Character extends L2Object
 				y = destiny.getY();
 				z = destiny.getZ();
 				distance = Math.sqrt((x - curX)*(x - curX) + (y - curY)*(y - curY));
+				// If no distance to go through, the movement is canceled
+				if (distance < 1)
+				{
+					sin = 0;
+					cos = 1;
+					distance = 0;
+					x = curX;
+					y = curY;
+
+					if (_log.isDebugEnabled())
+						_log.info("already in range, no movement needed.");
+
+					// Notify the AI that the L2Character is arrived at destination
+					getAI().notifyEvent(CtrlEvent.EVT_ARRIVED, null);
+
+					return;
+				}
 			}
 			if(Config.GEODATA == 2 && originalDistance-distance > 100) 
 			{
@@ -5437,6 +5454,38 @@ public abstract class L2Character extends L2Object
         return false;
     }
     
+	/**
+	 * Return True if the L2Character is behind the target and can't be seen.<BR><BR>
+	 */
+	public boolean isFrontTarget()
+	{
+        double angleChar, angleTarget, angleDiff, maxAngleDiff = 45;
+
+        if(getTarget() == null)
+			return false;
+
+		if (getTarget() instanceof L2Character)
+		{
+			L2Character target = (L2Character) getTarget();
+            angleChar = Util.calculateAngleFrom(target, this);
+            angleTarget = Util.convertHeadingToDegree(target.getHeading());
+            angleDiff = angleChar - angleTarget;
+            if (angleDiff <= -180 + maxAngleDiff) angleDiff += 180;
+            if (angleDiff >= 180 - maxAngleDiff) angleDiff -= 180;
+            if (Math.abs(angleDiff) <= maxAngleDiff)
+            {
+                if (_log.isDebugEnabled())
+                    _log.info("Char " + this.getName() + " is side " + target.getName());
+                return true;
+            }
+		}
+		else
+		{
+			_log.info("isSideTarget's target not an L2 Character.");
+		}
+		return false;
+	}
+
     /**
      * Return True if the target is front L2Character and can be seen.<BR><BR>
      * degrees = 0..180, front->sides->back

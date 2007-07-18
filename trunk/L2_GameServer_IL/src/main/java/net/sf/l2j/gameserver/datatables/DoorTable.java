@@ -89,7 +89,7 @@ public class DoorTable
 				L2DoorInstance door = parseList(line);
 				_staticItems.put(door.getDoorId(), door);
 				door.spawnMe(door.getX(), door.getY(),door.getZ());
-				ClanHall clanhall = ClanHallManager.getInstance().getClanHall(door.getX(),door.getY(),1500);
+				ClanHall clanhall = ClanHallManager.getInstance().getClanHall(door.getX(),door.getY(),500);
 				if (clanhall != null)
 				{
 				    clanhall.getDoors().add(door);
@@ -126,6 +126,12 @@ public class DoorTable
 		int x = Integer.parseInt(st.nextToken());
 		int y = Integer.parseInt(st.nextToken());
 		int z = Integer.parseInt(st.nextToken());
+		int rangeXMin = Integer.parseInt(st.nextToken());
+		int rangeYMin = Integer.parseInt(st.nextToken());
+		int rangeZMin = Integer.parseInt(st.nextToken());
+		int rangeXMax = Integer.parseInt(st.nextToken());
+		int rangeYMax = Integer.parseInt(st.nextToken());
+		int rangeZMax = Integer.parseInt(st.nextToken());		
 		int hp = Integer.parseInt(st.nextToken());
 		int pdef = Integer.parseInt(st.nextToken());
 		int mdef = Integer.parseInt(st.nextToken());
@@ -133,6 +139,10 @@ public class DoorTable
 		
 		if (st.hasMoreTokens())
 			unlockable = Boolean.parseBoolean(st.nextToken());
+
+		if (rangeXMin > rangeXMax) _log.fatal("Error in door data, ID:"+id);
+		if (rangeYMin > rangeYMax) _log.fatal("Error in door data, ID:"+id);
+		if (rangeZMin > rangeZMax) _log.fatal("Error in door data, ID:"+id);
 
 		StatsSet npcDat = new StatsSet(); 
 		npcDat.set("npcId", id);
@@ -181,7 +191,15 @@ public class DoorTable
 		
 		L2CharTemplate template = new L2CharTemplate(npcDat);
 		L2DoorInstance door = new L2DoorInstance(IdFactory.getInstance().getNextId(),template, id, name, unlockable);
-		
+		door.setRange(rangeXMin, rangeYMin, rangeZMin, rangeXMax, rangeYMax, rangeZMax);
+		try 
+		{
+			door.setMapRegion(MapRegionTable.getInstance().getMapRegion(x,y));
+		} 
+		catch (Exception e) 
+		{ 
+			_log.fatal("Error in door data, ID:"+id); 
+		}		
 		door.getStatus().setCurrentHpMp(door.getMaxHp(), door.getMaxMp());
 		door.setOpen(1);
 		door.getPosition().setXYZInvisible(x,y,z);
@@ -199,6 +217,11 @@ public class DoorTable
 	public L2DoorInstance getDoor(Integer id) 
 	{
 		return _staticItems.get(id);
+	}
+	
+	public void putDoor(L2DoorInstance door) 
+	{
+		_staticItems.put(door.getDoorId(), door);
 	}
 
 	public L2DoorInstance[] getDoors() 
@@ -251,5 +274,36 @@ public class DoorTable
             if (_log.isDebugEnabled())
                _log.debug(e);
         }
+    }
+
+    public boolean checkIfDoorsBetween(int x, int y, int z, int tx, int ty, int tz)
+    {
+    	int region = MapRegionTable.getInstance().getMapRegion(x,y);
+    	for (L2DoorInstance doorInst : getDoors())
+    	{
+    		if (doorInst.getMapRegion() != region) 
+    			continue;
+    		if (doorInst.getXMax() == 0) 
+    			continue;
+
+    		// line segment goes through box
+    		// heavy approximation disabling some shooting angles especially near 2-piece doors
+    		// but most calculations should stop short
+    		// phase 1, x
+    		if (x <= doorInst.getXMax() && tx >= doorInst.getXMin() || tx <= doorInst.getXMax() && x >= doorInst.getXMin())
+    		{
+    			//phase 2, y
+    			if (y <= doorInst.getYMax() && ty >= doorInst.getYMin() || ty <= doorInst.getYMax() && y >= doorInst.getYMin())
+    			{
+    				// phase 3, z (there's a small problem when the other is above/under door level..)
+    				if (z >= doorInst.getZMin() && z <= doorInst.getZMax() && tz >= doorInst.getZMin() && tz <= doorInst.getZMax())
+    				{
+    	    			if (!(doorInst.getStatus().getCurrentHp() <= 0 || doorInst.getOpen() == 0)) 
+    	    				return true; 
+    				}
+    			}
+    		}
+    	}
+    	return false;
     }
 }

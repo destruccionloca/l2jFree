@@ -34,6 +34,7 @@ import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.Location;
@@ -125,6 +126,7 @@ public class GeoEngine extends GeoData
     	int z = cha.getZ()+45;
     	if(cha instanceof L2SiegeGuardInstance) z += 30; // well they don't move closer to balcony fence at the moment :(
     	int z2 = target.getZ()+45;
+    	if (DoorTable.getInstance().checkIfDoorsBetween(cha.getX(),cha.getY(),z,target.getX(),target.getY(),z2)) return false; 
     	if(target instanceof L2DoorInstance) return true; // door coordinates are hinge coords..
     	if(target instanceof L2SiegeGuardInstance) z2 += 30; // well they don't move closer to balcony fence at the moment :(
     	if(cha.getZ() >= target.getZ())
@@ -166,6 +168,8 @@ public class GeoEngine extends GeoData
     @Override
     public Location moveCheck(int x, int y, int z, int tx, int ty, int tz)
     {
+    	if (DoorTable.getInstance().checkIfDoorsBetween(x,y,z,tx,ty,tz)) 
+    		return new Location(x,y,z);    	
     	Location destiny = new Location(tx,ty,tz);
         return MoveCheck(destiny,(x - L2World.MAP_MIN_X) >> 4,(y - L2World.MAP_MIN_Y) >> 4,z,(tx - L2World.MAP_MIN_X) >> 4,(ty - L2World.MAP_MIN_Y) >> 4,tz);
     }    

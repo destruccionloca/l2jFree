@@ -398,6 +398,12 @@ public class Castle
                         + ";" + rs.getInt("x") 
                         + ";" + rs.getInt("y") 
                         + ";" + rs.getInt("z") 
+                        + ";" + rs.getInt("range_xmin") 
+                        + ";" + rs.getInt("range_ymin") 
+                        + ";" + rs.getInt("range_zmin")
+                        + ";" + rs.getInt("range_xmax") 
+                        + ";" + rs.getInt("range_ymax") 
+                        + ";" + rs.getInt("range_zmax")                         
                         + ";" + rs.getInt("hp") 
                         + ";" + rs.getInt("pDef") 
                         + ";" + rs.getInt("mDef"));
@@ -405,6 +411,7 @@ public class Castle
                 L2DoorInstance door = DoorTable.parseList(_DoorDefault.get(_DoorDefault.size() - 1));
                 door.spawnMe(door.getX(), door.getY(),door.getZ());             
                 _Doors.add(door);
+                DoorTable.getInstance().putDoor(door);
             }
 
             statement.close();

@@ -37,6 +37,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -279,7 +280,9 @@ public class CursedWeaponsManager
         {
         if (player.isCursedWeaponEquiped())
             return;
-
+		if (attackable instanceof L2SiegeGuardInstance)
+			return;
+		
         for (CursedWeapon cw : _cursedWeapons.values())
         {
             if (cw.isActive()) continue;

@@ -168,6 +168,7 @@ public abstract class L2Skill
         CHARGEDAM             (L2SkillChargeDmg.class),
         CONFUSE_MOB_ONLY,
         DEATHLINK,
+        BLOW,
         FATALCOUNTER,
         DETECT_WEAKNESS,
         ENCHANT_ARMOR,
@@ -540,7 +541,7 @@ public abstract class L2Skill
         _successRate         = set.getFloat("rate", 1);
         _minPledgeClass     = set.getInteger("minPledgeClass", 0);
 
-        _baseCritRate = set.getInteger("baseCritRate", (_skillType == SkillType.PDAM /* || _skillType == SkillType.BLOW */) ? 0 : -1);
+        _baseCritRate = set.getInteger("baseCritRate", (_skillType == SkillType.PDAM  || _skillType == SkillType.BLOW) ? 0 : -1);
         int l1 = set.getInteger("lethal1",0);
         int l2 = set.getInteger("lethal2",0);
         if( l1 <= l2 || l2 <= 0)
@@ -1128,6 +1129,7 @@ public abstract class L2Skill
             case ROOT:
             case CONFUSION:
             case ERASE:
+            case BLOW:
             case FEAR:
             case DRAIN:
             case SLEEP:
@@ -1232,12 +1234,6 @@ public abstract class L2Skill
     
     public boolean checkCondition(L2Character activeChar, boolean itemOrWeapon)
     {
-        if((getCondition() & L2Skill.COND_BEHIND) != 0)
-        {
-            if (!activeChar.isBehindTarget())
-            return false;
-        }
-        
         if((getCondition() & L2Skill.COND_SHIELD) != 0)
         {
             /*
