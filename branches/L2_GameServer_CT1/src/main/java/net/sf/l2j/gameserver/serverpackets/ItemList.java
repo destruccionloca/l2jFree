@@ -49,7 +49,8 @@ import org.apache.commons.logging.LogFactory;
  * format   h (h dddhhhh hh)    revision 377
  * format   h (h dddhhhd hh)    revision 415
  * format   h (h dddhhhd hhhhd)  729
- * 
+ * format   CHHHDDDHHHDHHDD
+ *           dddhhhdhhdddddddd
  * @version $Revision: 1.4.2.1.2.4 $ $Date: 2005/03/27 15:29:57 $
  */
 public class ItemList extends L2GameServerPacket
@@ -105,12 +106,12 @@ public class ItemList extends L2GameServerPacket
 			
 			writeD(temp.getObjectId());
 			writeD(temp.getItemId());
+			writeD(0x00);
 			writeD(temp.getCount());
 			writeH(temp.getItem().getType2());	// item type2
 			writeH(temp.getCustomType1());	// item type3
 			writeH(temp.isEquipped() ? 0x01 : 0x00);
 			writeD(temp.getItem().getBodyPart());
-
 			writeH(temp.getEnchantLevel());	// enchant level
 			//race tickets
 			writeH(temp.getCustomType2());	// item type3
@@ -121,6 +122,16 @@ public class ItemList extends L2GameServerPacket
 				writeD(0x00);
 			
 			writeD(temp.getMana());
+			
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			
 		}
 	}
 	
