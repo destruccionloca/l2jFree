@@ -101,7 +101,8 @@ public class UserInfo extends L2GameServerPacket
         writeD(_cha.getRace().ordinal());
         writeD(_cha.getAppearance().getSex()? 1 : 0);
 
-        if (_cha.getClassIndex() == 0) writeD(_cha.getClassId().getId());
+        if (_cha.getTestClassId() > -1) writeD (_cha.getTestClassId());
+        else if (_cha.getClassIndex() == 0) writeD(_cha.getClassId().getId());
         else writeD(_cha.getBaseClass());
 
         writeD(_cha.getLevel());

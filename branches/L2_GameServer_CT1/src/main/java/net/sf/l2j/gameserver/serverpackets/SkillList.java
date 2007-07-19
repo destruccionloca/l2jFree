@@ -72,7 +72,6 @@ public class SkillList extends L2GameServerPacket
     {
         writeC(0x58);
         writeD(_skills.size());
-
         for (int i = 0; i < _skills.size(); i++)
         {
             Skill temp = _skills.get(i);
