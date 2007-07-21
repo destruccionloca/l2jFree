@@ -106,8 +106,8 @@ public class RequestBuyItem extends L2GameClientPacket
         if (!player.isGM() &&                         // Player not GM      
            (!(target instanceof L2MerchantInstance || // Target not a merchant, fisherman or mercmanager
               target instanceof L2FishermanInstance || 
-              target instanceof L2MercManagerInstance) ||
-              target instanceof L2ClanHallManagerInstance ||              
+              target instanceof L2MercManagerInstance ||
+              target instanceof L2ClanHallManagerInstance) ||              
              !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false)))     // Distance is too far
              return;
 
