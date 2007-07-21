@@ -24,7 +24,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  * 
  *
@@ -131,7 +130,6 @@ public class ItemList extends L2GameServerPacket
 			writeD(0x00);
 			writeD(0x00);
 			writeD(0x00);
-			
 		}
 	}
 	

@@ -70,6 +70,7 @@ import net.sf.l2j.gameserver.serverpackets.ShortCutInit;
 import net.sf.l2j.gameserver.serverpackets.SignsSky;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
+import net.sf.l2j.gameserver.serverpackets.ExBasicActionList;
 import net.sf.l2j.gameserver.util.FloodProtector;
 import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.codec.Base64;
@@ -232,6 +233,8 @@ public class EnterWorld extends L2GameClientPacket
         sendPacket(new ShortCutInit(activeChar));
         
         sendPacket(new ClientSetTime());
+        
+		sendPacket(new ExBasicActionList());
                 
         SystemMessage sm = new SystemMessage(SystemMessage.WELCOME_TO_LINEAGE);
         sendPacket(sm);
