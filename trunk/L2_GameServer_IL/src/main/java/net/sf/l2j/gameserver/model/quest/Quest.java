@@ -34,6 +34,7 @@ import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
@@ -758,6 +759,8 @@ public abstract class Quest
      * @return L2PcInstance: L2PcInstance for a random party member that matches the specified 
      * 				condition, or null if no match.  If the var is null, any random party 
      * 				member is returned (i.e. no condition is applied).
+     * 				The party member must be within 1500 distance from the target of the reference
+     * 				player, or if no target exists, 1500 distance from the player itself. 
      */
     public L2PcInstance getRandomPartyMember(L2PcInstance player, String var, String value)
     {
@@ -785,10 +788,16 @@ public abstract class Quest
     	// if the player is in a party, gather a list of all matching party members (possibly 
     	// including this player) 
     	FastList<L2PcInstance> candidates = new FastList<L2PcInstance>();
+    	
+    	// get the target for enforcing distance limitations.
+    	L2Object target = player.getTarget();
+    	if (target == null) target = player;
+    	    	
     	for(L2PcInstance partyMember: party.getPartyMembers())
     	{
     		temp = partyMember.getQuestState(getName());
-    		if( (temp != null) && (temp.get(var)!=null) && ((String) temp.get(var)).equalsIgnoreCase(value) )
+    		if( (temp != null) && (temp.get(var)!=null) && ((String) temp.get(var)).equalsIgnoreCase(value) 
+    				&& partyMember.isInsideRadius(target, 1500, true, false))
     			candidates.add(partyMember);
     	}
     	// if there was no match, return null...
@@ -835,10 +844,15 @@ public abstract class Quest
     	// if the player is in a party, gather a list of all matching party members (possibly 
     	// including this player) 
     	FastList<L2PcInstance> candidates = new FastList<L2PcInstance>();
+
+    	// get the target for enforcing distance limitations.
+    	L2Object target = player.getTarget();
+    	if (target == null) target = player;
+    	    	
     	for(L2PcInstance partyMember: party.getPartyMembers())
     	{
     		temp = partyMember.getQuestState(getName());
-    		if( (temp != null) && (temp.getState() == state) )
+    		if( (temp != null) && (temp.getState() == state) && partyMember.isInsideRadius(target, 1500, true, false) )
     			candidates.add(partyMember);
     	}
     	// if there was no match, return null...

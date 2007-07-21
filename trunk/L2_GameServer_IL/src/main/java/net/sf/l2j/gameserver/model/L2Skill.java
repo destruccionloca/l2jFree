@@ -542,19 +542,8 @@ public abstract class L2Skill
         _minPledgeClass     = set.getInteger("minPledgeClass", 0);
 
         _baseCritRate = set.getInteger("baseCritRate", (_skillType == SkillType.PDAM  || _skillType == SkillType.BLOW) ? 0 : -1);
-        int l1 = set.getInteger("lethal1",0);
-        int l2 = set.getInteger("lethal2",0);
-        if( l1 <= l2 || l2 <= 0)
-        {
-           _lethalEffect1 = 0;
-           _lethalEffect2 = 0;
-        }
-        else
-        {
-           _lethalEffect1 = l1;
-           _lethalEffect2 = l2;
-        }
-
+        _lethalEffect1 = set.getInteger("lethal1",0);
+        _lethalEffect2 = set.getInteger("lethal2",0);
         _directHpDmg  = set.getBool("dmgDirectlyToHp",false);
         _nextDanceCost = set.getInteger("nextDanceCost", 0);
         _SSBoost = set.getFloat("SSBoost", 0.f);
