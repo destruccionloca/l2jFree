@@ -1899,7 +1899,10 @@
   <set name="itemConsumeCount" val="#itemConsumeCount"/>
   <set name="itemConsumeIdOT" val="1459"/>
   <set name="itemConsumeCountOT" val="#itemConsumeCountOT"/>
-  <set name="itemConsumeTime" val="240000"/>
+  <set name="itemConsumeSteps" val="4"/>
+  <set name="summonTotalLifeTime" val="1200000"/>
+  <set name="summonTimeLostIdle" val="500"/>
+  <set name="summonTimeLostActive" val="1000"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="15000"/>
@@ -2199,7 +2202,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="0x7fffffff" name="SilentMove" time="1" val="8">
+    <effect count="0x7fffffff" name="SilentMove" abnormal="stealth" time="1" val="8">
       <add order="0x40" stat="regHp" val="5"/>
     </effect>
   </for>
@@ -2260,9 +2263,12 @@
   <set name="mpInitialConsume" val="530"/>
   <set name="itemConsumeIdOT" val="2132"/>
   <set name="itemConsumeCountOT" val="30"/>
-  <set name="itemConsumeTime" val="60000"/>
   <set name="itemConsumeCount" val="120"/>
   <set name="itemConsumeId" val="1460"/>
+  <set name="itemConsumeSteps" val="20"/>
+  <set name="summonTotalLifeTime" val="1200000"/>
+  <set name="summonTimeLostIdle" val="1000"/>
+  <set name="summonTimeLostActive" val="1000"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="300000"/>
