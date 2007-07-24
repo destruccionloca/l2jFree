@@ -75,7 +75,8 @@ public class AdminEditChar implements IAdminCommandHandler
                 "admin_setcolor",
                 "admin_sethero",
                 "admin_fullfood",
-                "admin_remclanwait"
+                "admin_remclanwait",
+                "admin_testclassid"
                 };
 
         private static final int REQUIRED_LEVEL = Config.GM_CHAR_EDIT;
@@ -375,6 +376,28 @@ public class AdminEditChar implements IAdminCommandHandler
                 sm.addString("Admin changed your hero status");
                 player.sendPacket(sm);
                 player.broadcastUserInfo();       
+            }
+            else if (command.startsWith("admin_testclassid"))
+            {
+            	if (activeChar.getTarget() instanceof L2PcInstance)
+            	{
+            		L2PcInstance target = (L2PcInstance)activeChar.getTarget();
+            		
+                    String val = command.substring(18); 
+
+                    try
+                    {
+                    	target.setTestClassId(Integer.parseInt(val));
+                    	target.broadcastUserInfo();
+                    }
+                    catch (Exception e)
+                    {
+                    	activeChar.sendMessage("Please enter a number as classId. | Usage //testclassid [int classid]");
+                    }
+            	}
+            	else
+            		activeChar.sendMessage("You can only change classId of a playercharacter.");
+                
             }
             // [L2J_JP ADD END]
            

@@ -690,6 +690,8 @@ public final class L2PcInstance extends L2PlayableInstance
     
     private int _clientRevision = 0;
     
+    private int _testClassId = -1;
+    
     private FactionMember _faction;
 
     /* Flag to disable equipment/skills while wearing formal wear **/
@@ -10596,4 +10598,13 @@ public final class L2PcInstance extends L2PlayableInstance
     	_eventKills = 0;
 	}
    
+	public int getTestClassId()
+	{
+		return _testClassId;
+	}
+	
+	public void setTestClassId(int classId)
+	{
+		_testClassId = classId;
+	}
 }

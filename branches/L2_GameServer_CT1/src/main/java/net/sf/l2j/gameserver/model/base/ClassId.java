@@ -180,30 +180,65 @@ public enum ClassId
 	doomcryer	      (0x74,  true,   Race.orc,  warcryer),
 
 	fortuneSeeker	  (0x75,  false,  Race.dwarf,  bountyHunter),
-	maestro	          (0x76,  false,  Race.dwarf,  warsmith); 
+	maestro	          (0x76,  false,  Race.dwarf,  warsmith),
+	
+	dummyEntry31      (119, false, null, null),
+	dummyEntry32      (120, false, null, null),
+	dummyEntry33      (121, false, null, null),
+	dummyEntry34      (122, false, null, null),
+	
+	
+	maleSoldier 	  (0x7B, false, Race.kamael, null),
+	femaleSoldier	  (0x7C, false, Race.kamael, null),
+	trooper			  (0x3D, false, Race.kamael, maleSoldier),
+	warder			  (0x3E, false, Race.kamael, femaleSoldier),
+	berserker		  (0x77, false, Race.kamael, trooper),
+	maleSoulbreaker	  (0x78, false, Race.kamael, trooper),
+	femaleSoulbreaker (0x78, false, Race.kamael, null, warder),
+	arbalester		  (0x79, false, Race.kamael, warder),
+	//FIXME: Maybe classids need to be fixed (just my suggestion) ;)
+	inspector		  (0x7A, false, Race.kamael, trooper, warder),	
+	doombringer		  (0x7B, false, Race.kamael, berserker),
+	maleSoulhound	  (0x80, false, Race.kamael, maleSoulbreaker),
+	femaleSoulhound	  (0x7D, false, Race.kamael, femaleSoulbreaker),
+	trickster		  (0x7E, false, Race.kamael, arbalester),
+	judicator		  (0x7F, false, Race.kamael, inspector);
+		
 	
 	/** The Identifier of the Class */
-	private final int     id;
+	private final int     _id;
 	
 	/** True if the class is a mage class */
-	private final boolean isMage;
+	private final boolean _isMage;
 	
 	/** The Race object of the class */
-	private final Race    race;
+	private final Race    _race;
 	
 	/** The parent ClassId or null if this class is a root */
-	private final ClassId parent;
+	private final ClassId _parent;
 	
+	/**  */
+	private final ClassId _parentFemale;
 	
 	/**
 	 * Constructor of ClassId.<BR><BR>
 	 */
-	private ClassId(int _id, boolean _isMage, Race _race, ClassId _parent)
+	private ClassId(int id, boolean isMage, Race race, ClassId parent)
 	{
-		this.id = _id;
-		this.isMage = _isMage;
-		this.race = _race;
-		this.parent = _parent;
+		_id = id;
+		_isMage = isMage;
+		_race = race;
+		_parent = parent;
+		_parentFemale = null;
+	}
+	
+	private ClassId(int id, boolean isMage, Race race, ClassId parent, ClassId parentFemale)
+	{
+		_id = id;
+		_isMage = isMage;
+		_race = race;
+		_parent = parent;
+		_parentFemale = parentFemale;
 	}
 	
 	
@@ -212,7 +247,7 @@ public enum ClassId
 	 */
 	public final int getId()   
 	{ 
-		return id;     
+		return _id;     
 	}
 	
 	/**
@@ -220,7 +255,7 @@ public enum ClassId
 	 */
 	public final boolean isMage()  
 	{ 
-		return isMage; 
+		return _isMage; 
 	}
 	
 	/**
@@ -228,7 +263,7 @@ public enum ClassId
 	 */
 	public final Race getRace() 
 	{ 
-		return race;   
+		return _race;   
 	}
 	
 	/**
@@ -239,14 +274,16 @@ public enum ClassId
 	 */
 	public final boolean childOf(ClassId cid) 
 	{
-		if (parent == null)
+		if (_parent == null && _parentFemale == null)
 			return false;
 		
-		if (parent == cid)
+		if (_parentFemale != null && _parentFemale == cid)
 			return true;
 		
-		return parent.childOf(cid);
+		if (_parent != null && _parent == cid)
+			return true;
 		
+		return _parent.childOf(cid);
 	}
 	
 	/**
@@ -269,10 +306,10 @@ public enum ClassId
 	 */
 	public final int level() 
 	{
-		if (parent == null)
+		if (_parent == null)
 			return 0;
 		
-		return 1 + parent.level();
+		return 1 + _parent.level();
 	}
 	
 	/**
@@ -281,7 +318,18 @@ public enum ClassId
 	 */
 	public final ClassId getParent()
 	{
-		return parent;
+		return _parent;
 	}
 	
+	/**
+	 * Return its parent ClassId<BR><BR>
+	 * 
+	 */
+	public final ClassId getParent(boolean female)
+	{
+		if (female)
+			return _parentFemale;
+		else
+			return _parent;
+	}
 }

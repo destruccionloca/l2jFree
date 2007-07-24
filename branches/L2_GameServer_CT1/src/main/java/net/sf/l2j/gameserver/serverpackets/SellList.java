@@ -88,6 +88,7 @@ public class SellList extends L2GameServerPacket
 			writeH(item.getItem().getType1());
 			writeD(item.getObjectId());
 			writeD(item.getItemId());
+			writeD(0x00);
 			writeD(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(0x00);
@@ -98,6 +99,15 @@ public class SellList extends L2GameServerPacket
 			
 			if (_lease == null)
 				writeD(item.getItem().getReferencePrice()/2); // wtf??? there is no conditional part in SellList!! this d should allways be here 0.o! fortunately the lease stuff are never ever use so the if allways exectues
+			
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
 		}
 	}
 
