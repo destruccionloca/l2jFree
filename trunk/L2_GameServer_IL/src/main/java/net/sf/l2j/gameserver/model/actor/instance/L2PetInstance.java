@@ -526,31 +526,6 @@ public class L2PetInstance extends L2Summon
     }
     
     @Override
-    public void reduceCurrentHp(double damage, L2Character attacker)
-    {
-        // called in combat
-        if (!isDead() && attacker != null)
-        {
-        	SystemMessage sm = new SystemMessage(SystemMessage.PET_RECEIVED_S2_DAMAGE_BY_S1);
-            if (attacker instanceof L2NpcInstance)
-            {
-                sm.addNpcName( ((L2NpcInstance)attacker).getTemplate().getNpcId());
-            }
-            else
-            {
-                sm.addString(attacker.getName());
-            }
-            sm.addNumber((int)damage);
-            
-            getOwner().sendPacket(sm);
-            getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, attacker);
-        }
-        if (isPetrified())
-        {damage=0;}
-        super.reduceCurrentHp(damage, attacker);
-    }
-    
-    @Override
     public synchronized void doDie(L2Character killer) {
     	
     	SystemMessage sm = new SystemMessage(SystemMessage.MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES);
