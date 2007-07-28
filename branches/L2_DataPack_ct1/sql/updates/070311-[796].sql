@@ -1,0 +1,1 @@
+UPDATE `characters` SET `char_name` = REPLACE( `char_name`, ' ', '_');
