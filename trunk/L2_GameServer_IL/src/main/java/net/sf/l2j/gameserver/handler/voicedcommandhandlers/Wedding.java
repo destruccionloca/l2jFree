@@ -50,7 +50,7 @@ public class Wedding implements IVoicedCommandHandler
     
     public boolean Divorce(L2PcInstance activeChar)
     {
-        if(activeChar.getPartnerId()==0)
+        if(activeChar.getPartnerId() == 0)
             return false;
 
         int _partnerId = activeChar.getPartnerId();
@@ -77,7 +77,7 @@ public class Wedding implements IVoicedCommandHandler
             if(partner.isMaried())
                 partner.sendMessage("Your fiance has decided to divorce from you.");
             else
-                partner.sendMessage("Your fiance has decided to disengage.");
+                partner.sendMessage("Your fiance has decided to break the engagement with you.");
 
             // give adena
             if(AdenaAmount>0)
@@ -91,7 +91,7 @@ public class Wedding implements IVoicedCommandHandler
     public boolean Engage(L2PcInstance activeChar)
     {
         // check target
-        if (activeChar.getTarget()==null)
+        if (activeChar.getTarget() == null)
         {
             activeChar.sendMessage("You have no one targeted.");
             return false;
@@ -141,38 +141,31 @@ public class Wedding implements IVoicedCommandHandler
         L2PcInstance ptarget = (L2PcInstance)activeChar.getTarget();
         
         // check if player target himself
-        if(ptarget.getObjectId()==activeChar.getObjectId())
+        if(ptarget.getObjectId() == activeChar.getObjectId())
         {
-            activeChar.sendMessage("Going out with yourself?");
+            activeChar.sendMessage("Is there something wrong with you, are you trying to go out with youself?");
             return false;
         }
 
         if(ptarget.isMaried())
         {
-            activeChar.sendMessage("Already married.");
+            activeChar.sendMessage("Player already married.");
             return false;
         }
 
-        if(ptarget.getPartnerId()!=0)
+        if(ptarget.getPartnerId() != 0)
         {
-            activeChar.sendMessage("Already engaged.");
+            activeChar.sendMessage("Player already engaged.");
             return false;
         }
 
         if(ptarget.isEngageRequest())
         {
-            activeChar.sendMessage("Already asked by someone else.");
-            return false;
-        }
-
-        if(ptarget.getPartnerId()!=0)
-        {
-            activeChar.sendMessage("Is already engaged with someone else.");
+            activeChar.sendMessage("Player already asked by someone else.");
             return false;
         }
         
-        
-        if (ptarget.getAppearance().getSex()==activeChar.getAppearance().getSex() && !Config.WEDDING_SAMESEX)
+        if (ptarget.getAppearance().getSex() == activeChar.getAppearance().getSex() && !Config.WEDDING_SAMESEX)
         {
             activeChar.sendMessage("You can't ask someone of the same sex for engagement.");
             return false;
@@ -180,12 +173,11 @@ public class Wedding implements IVoicedCommandHandler
         
         if(!L2FriendList.isInFriendList(activeChar, ptarget))
         {
-            activeChar.sendMessage("The player you want to ask is not on your friend list.");
+            activeChar.sendMessage("The player you want to ask is not on your friends list, you must first be on each others friends list before you choose to engage.");
             return false;
         }
         
-        ptarget.setEngageRequest(true, activeChar.getObjectId());        
-        //ptarget.sendMessage("Player "+activeChar.getName()+" wants to engage with you.");
+        ptarget.setEngageRequest(true, activeChar.getObjectId());
         ptarget.sendPacket(new ConfirmDlg(614,activeChar.getName()+" asking you to engage. Do you want to start a new relationship?"));
         return true;
     }
@@ -197,87 +189,97 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("You're not married."); 
             return false;
         }
-        
-        if(activeChar.getPartnerId()==0)
+        else if(activeChar.getPartnerId()==0)
         {
-            activeChar.sendMessage("Couldnt find your fiance in Database - Inform a Gamemaster.");
-            _log.error("Married but couldnt find parter for "+activeChar.getName());
+            activeChar.sendMessage("Couldn't find your fiance in Database - Inform a Gamemaster.");
+            _log.error("Married but couldn't find partner for "+activeChar.getName());
             return false;
         }
-        
-        if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() ||
+        else if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() ||
                 activeChar.isInOlympiadMode() || activeChar._inEventCTF || activeChar._inEventTvT || activeChar._inEventDM)  
             return false;
-
-        // Check if player is inside jail.
-        if (JailManager.getInstance().checkIfInZone(activeChar))
-        {
-            activeChar.sendMessage("You're in JAIL, you can't go to your loved one."); 
-            return false;
-        }
- 
         // Check to see if the player is in a festival.
-        if (activeChar.isFestivalParticipant()) 
+        else if (activeChar.isFestivalParticipant()) 
         {
-            activeChar.sendPacket(SystemMessage.sendString("You may not use an escape command in a festival."));
+        	activeChar.sendMessage("You can't escape from a festival.");
             return false;
         }
-        
         // Check to see if player is in jail
-        if (activeChar.isInJail())
+        else if (activeChar.isInJail())
         {
-            activeChar.sendPacket(SystemMessage.sendString("You can not escape from jail."));
+        	activeChar.sendMessage("You can't escape from jail.");
             return false;
         }
-        
         // Check if player is in Siege
-        L2Clan activeCharClan  = activeChar.getClan();
-        if(activeCharClan!=null) // character has clan ?
+        // Character has clan? & Clan has castle? & Siege is in progress?
+        else if(activeChar.getClan() != null 
+        		&& CastleManager.getInstance().getCastleByOwner(activeChar.getClan()) != null 
+        		&& CastleManager.getInstance().getCastleByOwner(activeChar.getClan()).getSiege().getIsInProgress())
         {
-            Castle activeCharCastle= CastleManager.getInstance().getCastleByOwner(activeChar.getClan());
-            if(activeCharCastle!=null) // clan has castle ?
-            {
-                if (activeCharCastle.getSiege().getIsInProgress())
-                {
-                    activeChar.sendMessage("You in Siege now and you cant go to your partner!");
-                    return false;
-                }
-            }
+        	activeChar.sendMessage("You are in siege, you can't go to your partner.");
+        	return false;
+        }
+        // Check if player is in Duel
+        else if (activeChar.isInDuel())
+        {
+        	activeChar.sendMessage("You are in a duel.");
+        	return false;
+        }
+        // Check if player is a Cursed Weapon owner
+        else if (activeChar.isCursedWeaponEquiped())
+        {
+        	activeChar.sendMessage("You are currently holding a cursed weapon..");
+        	return false;
         }
 
         L2PcInstance partner;
         partner = (L2PcInstance)L2World.getInstance().findObject(activeChar.getPartnerId());
-        if(partner ==null)
+        if(partner == null)
         {
-            activeChar.sendPacket(SystemMessage.sendString("Your fiance is not online."));
+        	activeChar.sendMessage("Your partner is not online.");
             return false;
         }
-        else if(partner.isInJail()){
-            activeChar.sendPacket(SystemMessage.sendString("Your fiance is in Jail."));
+        else if(partner.isInJail())
+        {
+        	activeChar.sendMessage("Your partner is in jail.");
             return false;
         }
-        else if(partner._inEventCTF || partner._inEventTvT || partner._inEventDM){
-            activeChar.sendPacket(SystemMessage.sendString("Your fiance is in Event now."));
+        else if(partner._inEventCTF || partner._inEventTvT || partner._inEventDM)
+        {
+        	activeChar.sendMessage("Your partner is in event now.");
             return false;
         }
-        else if(partner.isInOlympiadMode()){
-            activeChar.sendPacket(SystemMessage.sendString("Your fiance is in Olympiad now."));
+        else if(partner.isInOlympiadMode())
+        {
+        	activeChar.sendMessage("Your partner is in Olympiad now.");
             return false;
-        }   
-
+        }
+        else if(partner.isInDuel())
+        {
+        	activeChar.sendMessage("Your partner is in a duel.");
+        	return false;
+        }
+        else if (partner.isFestivalParticipant())
+        {
+        	activeChar.sendMessage("Your partner is in a festival.");
+        	return false;
+        }
         // Check if partner is in Siege
-        L2Clan partnerClan  = partner.getClan();
-        if(partnerClan!=null) // character has clan ?
+        // Character has clan? & Clan has castle? & Siege is in progress?
+        else if(partner.getClan() != null 
+        		&& CastleManager.getInstance().getCastleByOwner(partner.getClan()) != null 
+        		&& CastleManager.getInstance().getCastleByOwner(partner.getClan()).getSiege().getIsInProgress())
         {
-            Castle partnerCastle= CastleManager.getInstance().getCastleByOwner(partner.getClan());
-            if(partnerCastle!=null) // clan has castle ?
-            {
-                if (partnerCastle.getSiege().getIsInProgress())
-                {
-                    activeChar.sendMessage("You partner is in Siege you cant go to him!");
-                    return false;
-                }
-            }
+        	if (partner.getAppearance().getSex())
+        		activeChar.sendMessage("Your partner is in siege, you can't go to her.");
+        	else
+        		activeChar.sendMessage("Your partner is in siege, you can't go to him.");
+        	return false;
+        }
+        else if (partner.isCursedWeaponEquiped())
+        {
+        	activeChar.sendMessage("Your partner is currently holding a cursed weapon.");
+        	return false;
         }
         
         int teleportTimer = Config.WEDDING_TELEPORT_INTERVAL*1000;
@@ -296,7 +298,7 @@ public class Wedding implements IVoicedCommandHandler
         activeChar.sendPacket(sg);
         //End SoE Animation section
 
-        EscapeFinalizer ef = new EscapeFinalizer(activeChar,partner.getX(),partner.getY(),partner.getZ());
+        EscapeFinalizer ef = new EscapeFinalizer(activeChar,partner.getX(),partner.getY(),partner.getZ(),partner.isIn7sDungeon());
         // continue execution later
         activeChar.setSkillCast(ThreadPoolManager.getInstance().scheduleGeneral(ef, teleportTimer));
         activeChar.setSkillCastEndTime(10+GameTimeController.getGameTicks()+teleportTimer/GameTimeController.MILLIS_IN_TICK);
@@ -310,13 +312,15 @@ public class Wedding implements IVoicedCommandHandler
         private int _partnerx;
         private int _partnery;
         private int _partnerz;
+        private boolean _to7sDungeon;
         
-        EscapeFinalizer(L2PcInstance activeChar,int x,int y,int z)
+        EscapeFinalizer(L2PcInstance activeChar, int x, int y, int z, boolean to7sDungeon)
         {
             _activeChar = activeChar;
-            this._partnerx=x;
-            this._partnery=y;
-            this._partnerz=z;
+            _partnerx=x;
+            _partnery=y;
+            _partnerz=z;
+            _to7sDungeon = to7sDungeon;
         }
         
         public void run()
@@ -324,7 +328,7 @@ public class Wedding implements IVoicedCommandHandler
             if (_activeChar.isDead()) 
                 return; 
             
-            _activeChar.setIsIn7sDungeon(false);
+            _activeChar.setIsIn7sDungeon(_to7sDungeon);
             
             _activeChar.enableAllSkills();
             
