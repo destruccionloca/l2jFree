@@ -934,6 +934,8 @@ public final class Config {
     public static boolean       		FORCE_INVENTORY_UPDATE;
     public static boolean 				SHOW_L2J_LICENSE;				// Show License at login
     public static boolean 				SHOW_HTML_WELCOME;				// Show html window at login
+    public static boolean				SHOW_HTML_NEWBIE;
+    public static int					LEVEL_HTML_NEWBIE;				// Show newbie html when player's level is < to define level
     public static boolean 				USE_SAY_FILTER;					// Config for use chat filter
     public static ArrayList<String> 	FILTER_LIST = new ArrayList<String>();
     public static int     				AUTODESTROY_ITEM_AFTER;			// Time after which item will auto-destroy
@@ -1149,6 +1151,8 @@ public final class Config {
             
             SHOW_L2J_LICENSE                = Boolean.parseBoolean(optionsSettings.getProperty("ShowL2JLicense", "false"));
             SHOW_HTML_WELCOME               = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLWelcome", "false"));
+            SHOW_HTML_NEWBIE                = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLNewbie", "False"));
+            LEVEL_HTML_NEWBIE               = Integer.parseInt(optionsSettings.getProperty("LevelShowHTMLNewbie", "10"));
             USE_SAY_FILTER                  = Boolean.parseBoolean(optionsSettings.getProperty("UseSayFilter", "false"));
             
             CHAR_VIP_SKIP_SKILLS_CHECK		= Boolean.parseBoolean(optionsSettings.getProperty("CharViPSkipSkillsCheck", "false"));
