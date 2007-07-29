@@ -197,18 +197,18 @@ public class Wedding implements IVoicedCommandHandler
         }
         else if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() ||
                 activeChar.isInOlympiadMode() || activeChar._inEventCTF || activeChar._inEventTvT || activeChar._inEventDM)  
-            return false;
+        	return false;
         // Check to see if the player is in a festival.
         else if (activeChar.isFestivalParticipant()) 
         {
         	activeChar.sendMessage("You can't escape from a festival.");
-            return false;
+        	return false;
         }
         // Check to see if player is in jail
         else if (activeChar.isInJail())
         {
         	activeChar.sendMessage("You can't escape from jail.");
-            return false;
+        	return false;
         }
         // Check if player is in Siege
         // Character has clan? & Clan has castle? & Siege is in progress?
@@ -237,22 +237,22 @@ public class Wedding implements IVoicedCommandHandler
         if(partner == null)
         {
         	activeChar.sendMessage("Your partner is not online.");
-            return false;
+        	return false;
         }
         else if(partner.isInJail())
         {
         	activeChar.sendMessage("Your partner is in jail.");
-            return false;
+        	return false;
         }
         else if(partner._inEventCTF || partner._inEventTvT || partner._inEventDM)
         {
         	activeChar.sendMessage("Your partner is in event now.");
-            return false;
+        	return false;
         }
         else if(partner.isInOlympiadMode())
         {
         	activeChar.sendMessage("Your partner is in Olympiad now.");
-            return false;
+        	return false;
         }
         else if(partner.isInDuel())
         {
@@ -264,8 +264,6 @@ public class Wedding implements IVoicedCommandHandler
         	activeChar.sendMessage("Your partner is in a festival.");
         	return false;
         }
-        // Check if partner is in Siege
-        // Character has clan? & Clan has castle? & Siege is in progress?
         else if(partner.getClan() != null 
         		&& CastleManager.getInstance().getCastleByOwner(partner.getClan()) != null 
         		&& CastleManager.getInstance().getCastleByOwner(partner.getClan()).getSiege().getIsInProgress())
