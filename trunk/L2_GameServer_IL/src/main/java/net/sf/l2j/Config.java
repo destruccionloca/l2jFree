@@ -1221,6 +1221,7 @@ public final class Config {
     public static boolean 			ALT_STRICT_HERO_SYSTEM;				// Strict Hero Mode
     public static boolean 			ALT_STRICT_SEVENSIGNS;				// Strict Seven Signs
     public static boolean 			SP_BOOK_NEEDED;						// Spell Book needed to learn skill
+    public static boolean 			CLAN_ITEM_NEEDED;					// Clan Item needed to learn clan skills
     public static int 				ALT_BUFF_TIME;
     public static int 				ALT_DANCE_TIME;
     public static int 				ALT_SEED_TIME;
@@ -1338,6 +1339,7 @@ public final class Config {
             FAIL_FAKEDEATH 										= Boolean.parseBoolean(altSettings.getProperty("FailFakeDeath", "true"));
             ALT_FLYING_WYVERN_IN_SIEGE 							= Boolean.parseBoolean(altSettings.getProperty("AltFlyingWyvernInSiege", "false"));
             SP_BOOK_NEEDED          							= Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
+            CLAN_ITEM_NEEDED									= Boolean.parseBoolean(altSettings.getProperty("ClanItemNeeded", "True"));
             AUTO_LOOT               							= altSettings.getProperty("AutoLoot").trim().equalsIgnoreCase("True");
             AUTO_LOOT_HERBS         							= altSettings.getProperty("AutoLootHerbs").trim().equalsIgnoreCase("True");
             ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE    = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanBeKilledInPeaceZone", "false"));
@@ -2444,6 +2446,7 @@ public final class Config {
 
         else if (pName.equalsIgnoreCase("CraftingEnabled")) IS_CRAFTING_ENABLED = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("SpBookNeeded")) SP_BOOK_NEEDED = Boolean.valueOf(pValue);
+        else if (pName.equalsIgnoreCase("ClanItemNeeded")) CLAN_ITEM_NEEDED = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AutoLoot")) AUTO_LOOT = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AutoLootHerbs")) AUTO_LOOT_HERBS = Boolean.valueOf(pValue);
 
