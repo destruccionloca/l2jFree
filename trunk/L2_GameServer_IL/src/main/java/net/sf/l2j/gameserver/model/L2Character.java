@@ -4413,7 +4413,7 @@ public abstract class L2Character extends L2Object
 			// Check Raidboss attack
 			// Character will be petrified if attacking a raid that's more
 			// than 8 levels lower
-			if (target.isRaid())
+        	if (target.isRaid() && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION)
 			{
 				int level = 0;
 				if (this instanceof L2PcInstance)
@@ -4544,25 +4544,6 @@ public abstract class L2Character extends L2Object
             
             if (activeWeapon != null)
                 activeWeapon.getSkillEffects(this, target, crit);
-            
-           if (target.isRaid() && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION)
-           {
-               int level = 0;
-               if (this instanceof L2PcInstance)
-                   level = getLevel();
-               else if (this instanceof L2Summon)
-                   level = ((L2Summon)this).getOwner().getLevel();
-               
-               if (level > target.getLevel() + 8)
-               {
-                   L2Skill skill = SkillTable.getInstance().getInfo(4515, 99);
-                   
-                   if (skill != null)
-                       skill.getEffects(target, this);
-                   else
-                       _log.warn("Skill 4515 at level 99 is missing in DP.");
-               }
-           }
             
             return;
         }

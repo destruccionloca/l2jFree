@@ -99,7 +99,7 @@ public class RequestBuyItem extends L2GameClientPacket
         if (player == null) return;
 
         // Alt game - Karma punishment
-        if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0) return;
+        if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0 && !player.isGM()) return;
 
         L2Object target = player.getTarget();
         
