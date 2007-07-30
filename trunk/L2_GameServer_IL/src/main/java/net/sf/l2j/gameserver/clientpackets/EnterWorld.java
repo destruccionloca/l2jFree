@@ -96,6 +96,7 @@ public class EnterWorld extends L2GameClientPacket
 	public TaskPriority getPriority() { return TaskPriority.PR_URGENT; }
 
 	private static String Welcome_Path = "welcome" ;
+	private static String Newbie_Path = "newbie" ;
 	
 	/**
 	 * @param decrypt
