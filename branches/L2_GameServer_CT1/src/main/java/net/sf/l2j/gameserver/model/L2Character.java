@@ -265,9 +265,9 @@ public abstract class L2Character extends L2Object
     {
         setIsTeleporting(false);
 
-		//spawnMe(getPosition().getX(), getPosition().getY(), getPosition().getZ());
+		spawnMe(getPosition().getX(), getPosition().getY(), getPosition().getZ());
 		
-		getPosition().setWorldPosition(getPosition().getX(), getPosition().getY() ,getPosition().getZ());
+		/*getPosition().setWorldPosition(getPosition().getX(), getPosition().getY() ,getPosition().getZ());
         getPosition().setWorldRegion(L2World.getInstance().getRegion(getPosition().getWorldPosition()));
         // Add the L2Object spawn to _visibleObjects and if necessary to _allplayers of its L2WorldRegion
         getPosition().getWorldRegion().addVisibleObject(this);
@@ -282,7 +282,7 @@ public abstract class L2Character extends L2Object
             visible[i].getKnownList().addKnownObject(this, null);
             // Add the object to this ones knownlist
             getKnownList().addKnownObject(visible[i], null);
-        }
+        }*/
 
         if (_IsPendingRevive) doRevive();
 
@@ -512,8 +512,8 @@ public abstract class L2Character extends L2Object
         // Set the x,y,z position of the L2Object and if necessary modify its _worldRegion
         getPosition().setXYZ(x, y, z);
 
-		//decayMe();
-		getPosition().getWorldRegion().removeVisibleObject(this);
+		decayMe();
+		/*getPosition().getWorldRegion().removeVisibleObject(this);
 		
 		// Remove this from everyones knownlist
 		// TODO: for now assuming that only everyone know by this knows this
@@ -524,7 +524,7 @@ public abstract class L2Character extends L2Object
 		
 		// Remove all known objects
 		getKnownList().removeAllKnownObjects();
-
+		 */
         if (!(this instanceof L2PcInstance)) 
             onTeleported();
 		else
@@ -3908,7 +3908,8 @@ public abstract class L2Character extends L2Object
    {
 	   // Get the Move Speed of the L2Character
 	   float speed = getStat().getMoveSpeed();
-	   if (speed <= 0 || isMovementDisabled()) return;
+	   //if (speed <= 0 || isMovementDisabled()) return;
+	   if (speed <= 0) return;
 	   
        // Get current position of the L2Character
        final int curX = super.getX();
@@ -3994,6 +3995,23 @@ public abstract class L2Character extends L2Object
 				y = destiny.getY();
 				z = destiny.getZ();
 				distance = Math.sqrt((x - curX)*(x - curX) + (y - curY)*(y - curY));
+				// If no distance to go through, the movement is canceled
+				if (distance < 1)
+				{
+					sin = 0;
+					cos = 1;
+					distance = 0;
+					x = curX;
+					y = curY;
+
+					if (_log.isDebugEnabled())
+						_log.info("already in range, no movement needed.");
+
+					// Notify the AI that the L2Character is arrived at destination
+					getAI().notifyEvent(CtrlEvent.EVT_ARRIVED, null);
+
+					return;
+				}
 			}
 			if(Config.GEODATA == 2 && originalDistance-distance > 100) 
 			{
@@ -4395,7 +4413,7 @@ public abstract class L2Character extends L2Object
 			// Check Raidboss attack
 			// Character will be petrified if attacking a raid that's more
 			// than 8 levels lower
-			if (target.isRaid())
+        	if (target.isRaid() && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION)
 			{
 				int level = 0;
 				if (this instanceof L2PcInstance)
@@ -4526,25 +4544,6 @@ public abstract class L2Character extends L2Object
             
             if (activeWeapon != null)
                 activeWeapon.getSkillEffects(this, target, crit);
-            
-           if (target.isRaid() && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION)
-           {
-               int level = 0;
-               if (this instanceof L2PcInstance)
-                   level = getLevel();
-               else if (this instanceof L2Summon)
-                   level = ((L2Summon)this).getOwner().getLevel();
-               
-               if (level > target.getLevel() + 8)
-               {
-                   L2Skill skill = SkillTable.getInstance().getInfo(4515, 99);
-                   
-                   if (skill != null)
-                       skill.getEffects(target, this);
-                   else
-                       _log.warn("Skill 4515 at level 99 is missing in DP.");
-               }
-           }
             
             return;
         }
@@ -5436,6 +5435,38 @@ public abstract class L2Character extends L2Object
         return false;
     }
     
+	/**
+	 * Return True if the L2Character is behind the target and can't be seen.<BR><BR>
+	 */
+	public boolean isFrontTarget()
+	{
+        double angleChar, angleTarget, angleDiff, maxAngleDiff = 45;
+
+        if(getTarget() == null)
+			return false;
+
+		if (getTarget() instanceof L2Character)
+		{
+			L2Character target = (L2Character) getTarget();
+            angleChar = Util.calculateAngleFrom(target, this);
+            angleTarget = Util.convertHeadingToDegree(target.getHeading());
+            angleDiff = angleChar - angleTarget;
+            if (angleDiff <= -180 + maxAngleDiff) angleDiff += 180;
+            if (angleDiff >= 180 - maxAngleDiff) angleDiff -= 180;
+            if (Math.abs(angleDiff) <= maxAngleDiff)
+            {
+                if (_log.isDebugEnabled())
+                    _log.info("Char " + this.getName() + " is side " + target.getName());
+                return true;
+            }
+		}
+		else
+		{
+			_log.info("isSideTarget's target not an L2 Character.");
+		}
+		return false;
+	}
+
     /**
      * Return True if the target is front L2Character and can be seen.<BR><BR>
      * degrees = 0..180, front->sides->back

@@ -168,6 +168,7 @@ public abstract class L2Skill
         CHARGEDAM             (L2SkillChargeDmg.class),
         CONFUSE_MOB_ONLY,
         DEATHLINK,
+        BLOW,
         FATALCOUNTER,
         DETECT_WEAKNESS,
         ENCHANT_ARMOR,
@@ -385,6 +386,15 @@ public abstract class L2Skill
     private final int _itemConsumeOT;
     // item consume id over time
     private final int _itemConsumeIdOT;
+    // how many times to consume an item
+    private final int _itemConsumeSteps;
+    // for summon spells: 
+    // a) What is the total lifetime of summons (in millisecs)
+    private final int _summonTotalLifeTime;
+    // b) how much lifetime is lost per second of idleness (non-fighting) 
+    private final int _summonTimeLostIdle;
+    // c) how much time is lost per second of activity (fighting) 
+    private final int _summonTimeLostActive;    
     // item consume time in milliseconds 
     private final int _itemConsumeTime;
     private final int _castRange;
@@ -482,6 +492,10 @@ public abstract class L2Skill
         _itemConsumeOT = set.getInteger("itemConsumeCountOT", 0);
         _itemConsumeIdOT = set.getInteger("itemConsumeIdOT", 0);
         _itemConsumeTime = set.getInteger("itemConsumeTime", 0);
+        _itemConsumeSteps = set.getInteger("itemConsumeSteps", 0);
+        _summonTotalLifeTime= set.getInteger("summonTotalLifeTime", 1200000);  // 20 minutes default
+        _summonTimeLostIdle= set.getInteger("summonTimeLostIdle", 0);
+        _summonTimeLostActive= set.getInteger("summonTimeLostActive", 0);
         _iRate        = set.getInteger("iRate", 0);
         _iKill        = set.getBool  ("iKill", false);
         _castRange    = set.getInteger("castRange", 0);
@@ -540,20 +554,9 @@ public abstract class L2Skill
         _successRate         = set.getFloat("rate", 1);
         _minPledgeClass     = set.getInteger("minPledgeClass", 0);
 
-        _baseCritRate = set.getInteger("baseCritRate", (_skillType == SkillType.PDAM /* || _skillType == SkillType.BLOW */) ? 0 : -1);
-        int l1 = set.getInteger("lethal1",0);
-        int l2 = set.getInteger("lethal2",0);
-        if( l1 <= l2 || l2 <= 0)
-        {
-           _lethalEffect1 = 0;
-           _lethalEffect2 = 0;
-        }
-        else
-        {
-           _lethalEffect1 = l1;
-           _lethalEffect2 = l2;
-        }
-
+        _baseCritRate = set.getInteger("baseCritRate", (_skillType == SkillType.PDAM  || _skillType == SkillType.BLOW) ? 0 : -1);
+        _lethalEffect1 = set.getInteger("lethal1",0);
+        _lethalEffect2 = set.getInteger("lethal2",0);
         _directHpDmg  = set.getBool("dmgDirectlyToHp",false);
         _nextDanceCost = set.getInteger("nextDanceCost", 0);
         _SSBoost = set.getFloat("SSBoost", 0.f);
@@ -913,7 +916,36 @@ public abstract class L2Skill
     {
         return _itemConsumeIdOT;
     }
-    
+
+    /**
+     * @return Returns the itemConsume count over time.
+     */
+    public final int getItemConsumeSteps()
+    {
+        return _itemConsumeSteps;
+    }
+    /**
+     * @return Returns the itemConsume count over time.
+     */
+    public final int getTotalLifeTime()
+    {
+        return _summonTotalLifeTime;
+    }
+    /**
+     * @return Returns the itemConsume count over time.
+     */
+    public final int getTimeLostIdle()
+    {
+        return _summonTimeLostIdle;
+    }
+    /**
+     * @return Returns the itemConsumeId over time.
+     */
+    public final int getTimeLostActive()
+    {
+        return _summonTimeLostActive;
+     }
+
     /**
      * @return Returns the itemConsume time in milliseconds.
      */
@@ -1128,6 +1160,7 @@ public abstract class L2Skill
             case ROOT:
             case CONFUSION:
             case ERASE:
+            case BLOW:
             case FEAR:
             case DRAIN:
             case SLEEP:
@@ -1232,12 +1265,6 @@ public abstract class L2Skill
     
     public boolean checkCondition(L2Character activeChar, boolean itemOrWeapon)
     {
-        if((getCondition() & L2Skill.COND_BEHIND) != 0)
-        {
-            if (!activeChar.isBehindTarget())
-            return false;
-        }
-        
         if((getCondition() & L2Skill.COND_SHIELD) != 0)
         {
             /*

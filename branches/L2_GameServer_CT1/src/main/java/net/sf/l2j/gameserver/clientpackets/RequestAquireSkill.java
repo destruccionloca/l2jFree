@@ -242,18 +242,21 @@ public class RequestAquireSkill extends L2GameClientPacket
             
             if (player.getClan().getReputationScore() >= repCost)
             {
-                if (!player.destroyItemByItemId("Consume", itemId, 1, trainer, false))
-                {
-                    // Haven't spellbook
-                    player.sendPacket(new SystemMessage(SystemMessage.ITEM_MISSING_TO_LEARN_SKILL));
-                    return;
-                }
-                
-                SystemMessage sm = new SystemMessage(SystemMessage.DISSAPEARED_ITEM);
-                sm.addItemName(itemId);
-                sm.addNumber(1);
-                sendPacket(sm);
-                sm = null;
+            	if (Config.CLAN_ITEM_NEEDED)
+            	{
+            		if (!player.destroyItemByItemId("Consume", itemId, 1, trainer, false))
+            		{
+            			// Haven't item
+            			player.sendPacket(new SystemMessage(SystemMessage.ITEM_MISSING_TO_LEARN_SKILL));
+            			return;
+            		}
+            		
+            		SystemMessage sm = new SystemMessage(SystemMessage.DISSAPEARED_ITEM);
+            		sm.addItemName(itemId);
+            		sm.addNumber(1);
+            		sendPacket(sm);
+            		sm = null;
+            	}
             }
             else
             {

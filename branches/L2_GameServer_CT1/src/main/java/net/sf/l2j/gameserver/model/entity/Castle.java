@@ -211,7 +211,24 @@ public class Castle
     {
         removeDoorUpgrade();
     }
-    
+
+	public void removeOwner(L2Clan clan)
+	{	
+		if (clan != null)
+		{	
+			_formerOwner = clan;
+			clan.setHasCastle(0);
+			new Announcements().announceToAll(clan.getName() + " has lost " +getName() + " castle");
+			clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
+		}
+		
+		updateOwnerInDB(null);
+		if (getSiege().getIsInProgress())
+			getSiege().midVictory();
+		
+		updateClansReputation();
+	}
+
     // This method updates the castle tax rate
     public void setOwner(L2Clan clan)
     {
@@ -398,6 +415,12 @@ public class Castle
                         + ";" + rs.getInt("x") 
                         + ";" + rs.getInt("y") 
                         + ";" + rs.getInt("z") 
+                        + ";" + rs.getInt("range_xmin") 
+                        + ";" + rs.getInt("range_ymin") 
+                        + ";" + rs.getInt("range_zmin")
+                        + ";" + rs.getInt("range_xmax") 
+                        + ";" + rs.getInt("range_ymax") 
+                        + ";" + rs.getInt("range_zmax")                         
                         + ";" + rs.getInt("hp") 
                         + ";" + rs.getInt("pDef") 
                         + ";" + rs.getInt("mDef"));
@@ -405,6 +428,7 @@ public class Castle
                 L2DoorInstance door = DoorTable.parseList(_DoorDefault.get(_DoorDefault.size() - 1));
                 door.spawnMe(door.getX(), door.getY(),door.getZ());             
                 _Doors.add(door);
+                DoorTable.getInstance().putDoor(door);
             }
 
             statement.close();

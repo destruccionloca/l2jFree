@@ -33,6 +33,8 @@ import net.sf.l2j.gameserver.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.serverpackets.ExRedSky;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
+import net.sf.l2j.gameserver.serverpackets.Ride;
+import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.tools.geometry.Point3D;
@@ -343,6 +345,14 @@ public class CursedWeapon
         if (_player.isInParty())
             _player.getParty().oustPartyMember(_player);
 
+		if (_player.isMounted())
+		{
+			Ride dismount = new Ride(_player.getObjectId(), Ride.ACTION_DISMOUNT, 0);
+			_player.broadcastPacket(dismount);
+			_player.setMountType(0);
+			_player.setMountObjectID(0);
+		}
+
         // Add skill
         giveSkill();
         
@@ -370,6 +380,10 @@ public class CursedWeapon
         
         // Refresh player stats
         _player.broadcastUserInfo();
+
+		SocialAction atk = new SocialAction(_player.getObjectId(), 17);
+		
+		_player.broadcastPacket(atk);
 
         sm = new SystemMessage(SystemMessage.THE_OWNER_OF_S2_HAS_APPEARED_IN_THE_S1_REGION);
 		sm.addZoneName(_player.getX(), _player.getY(), _player.getZ()); // Region Name

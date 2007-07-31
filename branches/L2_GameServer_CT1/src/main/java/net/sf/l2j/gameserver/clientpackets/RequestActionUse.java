@@ -185,7 +185,7 @@ public class RequestActionUse extends L2GameClientPacket
                     {
                         activeChar.sendPacket(new SystemMessage(SystemMessage.DEAD_PET_CANNOT_BE_RETURNED));
                     }
-                    else if (pet.isAttackingNow())
+                    else if (pet.isAttackingNow() || pet.isRooted())
                     {
                         activeChar.sendPacket(new SystemMessage(SystemMessage.PET_CANNOT_SENT_BACK_DURING_BATTLE));
                     } 
@@ -223,7 +223,7 @@ public class RequestActionUse extends L2GameClientPacket
                         activeChar.sendPacket(msg);
                         msg = null;
                     }
-                    else if (pet.isInCombat())
+                    else if (pet.isInCombat() || pet.isRooted())
                     {
                         //A strider in battle cannot be ridden
                         SystemMessage msg = new SystemMessage(SystemMessage.STRIDER_IN_BATLLE_CANT_BE_RIDDEN);

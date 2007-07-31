@@ -383,6 +383,20 @@ public class L2CharacterAI extends AbstractAI
             clientActionFailed();
             return;
         }
+        
+        if (_actor.isImobilised() || _actor.isRooted())        	
+        {
+            // Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
+            clientActionFailed();
+            return;
+        }
+
+        // Dead actors can`t follow
+        if (_actor.isDead())
+        {
+        	clientActionFailed();
+        	return;            
+        }
 
         // do not follow yourself
         if (_actor == target)

@@ -97,6 +97,7 @@ public class EnterWorld extends L2GameClientPacket
 	public TaskPriority getPriority() { return TaskPriority.PR_URGENT; }
 
 	private static String Welcome_Path = "welcome" ;
+	private static String Newbie_Path = "newbie" ;
 	
 	/**
 	 * @param decrypt
@@ -280,7 +281,19 @@ public class EnterWorld extends L2GameClientPacket
                 html.setFile(Welcome_Path);
                 sendPacket(html);
             } }
-
+        
+        if (Config.SHOW_HTML_NEWBIE && activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE)
+        {
+        	Newbie_Path = "data/html/newbie.htm";
+        	File mainText = new File(Config.DATAPACK_ROOT, Newbie_Path);
+        	if (mainText.exists())
+        	{
+        		NpcHtmlMessage html = new NpcHtmlMessage(1);
+        		html.setFile(Newbie_Path);
+        		sendPacket(html);
+        	}
+        }
+        
         //set hero status to character if character is Hero
         if (Hero.getInstance().getHeroes() != null &&
                 Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))

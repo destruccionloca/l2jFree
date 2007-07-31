@@ -58,6 +58,8 @@ public enum Stats
     SHIELD_RATE         ("rShld"),
     SHIELD_ANGLE        ("shldAngle"),
     CRITICAL_RATE       ("rCrit" ),
+	BLOW_RATE 			("blowRate" ),
+	LETHAL_RATE 		("lethalRate" ),    
     MCRITICAL_RATE      ("mCritRate"),
     EXPSP_RATE          ("rExp"),
     ATTACK_CANCEL       ("cancel"),

@@ -1658,6 +1658,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         else
         {
+        	if (_lastCompassZone == ExSetCompassZoneCode.GENERALZONE) return;
         	if (_lastCompassZone == ExSetCompassZoneCode.SIEGEWARZONE2) updatePvPStatus();
         	_lastCompassZone = ExSetCompassZoneCode.GENERALZONE;
         	ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.GENERALZONE);
@@ -4081,7 +4082,7 @@ public final class L2PcInstance extends L2PlayableInstance
                         {
                             // Reduce the Experience of the L2PcInstance in function of the calculated Death Penalty
                             // NOTE: deathPenalty +- Exp will update karma
-                            if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 4)
+                        	if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 9)
                                 deathPenalty((pk != null && this.getClan() != null && pk.getClan() != null && pk.getClan().isAtWarWith(this.getClanId())));
                         } else
                         {
@@ -8786,8 +8787,12 @@ public final class L2PcInstance extends L2PlayableInstance
         restoreHenna();
         sendPacket(new HennaInfo(this));
 
-        getStatus().setCurrentHpMp(getMaxHp(), getMaxMp());
-        getStatus().setCurrentCp(getMaxCp());
+        if (getStatus().getCurrentHp() > getMaxHp())
+        	getStatus().setCurrentHp(getMaxHp());
+        if (getStatus().getCurrentMp() > getMaxMp())
+        	getStatus().setCurrentMp(getMaxMp());
+        if (getStatus().getCurrentCp() > getMaxCp())
+        	getStatus().setCurrentCp(getMaxCp());
         getInventory().restoreEquipedItemsPassiveSkill();
         getInventory().restoreArmorSetPassiveSkill();
         updateStats();

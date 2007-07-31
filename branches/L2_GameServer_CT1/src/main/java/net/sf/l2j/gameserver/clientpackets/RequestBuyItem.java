@@ -99,15 +99,15 @@ public class RequestBuyItem extends L2GameClientPacket
         if (player == null) return;
 
         // Alt game - Karma punishment
-        if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0) return;
+        if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0 && !player.isGM()) return;
 
         L2Object target = player.getTarget();
         
         if (!player.isGM() &&                         // Player not GM      
            (!(target instanceof L2MerchantInstance || // Target not a merchant, fisherman or mercmanager
               target instanceof L2FishermanInstance || 
-              target instanceof L2MercManagerInstance) ||
-              target instanceof L2ClanHallManagerInstance ||              
+              target instanceof L2MercManagerInstance ||
+              target instanceof L2ClanHallManagerInstance) ||              
              !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false)))     // Distance is too far
              return;
 
