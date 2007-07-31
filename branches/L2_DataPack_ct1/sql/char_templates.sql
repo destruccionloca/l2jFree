@@ -5,7 +5,7 @@
 DROP TABLE IF EXISTS `char_templates`;
 CREATE TABLE `char_templates` (
   `ClassId` int(11) NOT NULL default '0',
-  `ClassName` varchar(20) NOT NULL default '',
+  `ClassName` varchar(50) NOT NULL default '',
   `RaceId` int(1) NOT NULL default '0',
   `STR` int(2) NOT NULL default '0',
   `CON` int(2) NOT NULL default '0',
@@ -137,3 +137,5 @@ INSERT INTO `char_templates` VALUES (115, 'Dominator', 3, 27, 31, 24, 31, 15, 42
 INSERT INTO `char_templates` VALUES (116, 'Doomcryer', 3, 27, 31, 24, 31, 15, 42, 3, 54, 6, 41, 300, 333, 30, 41, 30, 121, 68000, -56682, -113730, -690, 0, 1.04, 0.898560, 7.0, 27.5, 1.04, 0.898560, 8.0, 25.5, 425, 461, 2368, 5588, 0);
 INSERT INTO `char_templates` VALUES (117, 'Fortune Seeker', 4, 39, 45, 29, 20, 10, 27, 4, 80, 6, 41, 300, 333, 33, 43, 33, 115, 83000, 108512, -174026, -400, 1, 1.09, 1.487196, 9.0, 18.0, 1.09, 1.487196, 5.0, 19.0, 1147, 1146, 10, 2370, 5588);
 INSERT INTO `char_templates` VALUES (118, 'Maestro', 4, 39, 45, 29, 20, 10, 27, 4, 80, 6, 41, 300, 333, 33, 43, 33, 115, 83000, 108512, -174026, -400, 1, 1.09, 1.487196, 9.0, 18.0, 1.09, 1.487196, 5.0, 19.0, 1147, 1146, 10, 2370, 5588);
+INSERT INTO `char_templates` VALUES (123, 'Kamael Soldier Male', 5, 40, 43, 30, 21, 11, 25, 4, 80, 6, 41, 300, 333, 33, 44, 33, 115, 81900, -71338, 258271, -3104, 0, 1.10, 1.188000, 9.0, 23.0, 1.10, 1.188000, 8.0, 23.5, 1147, 1146, 10, 2369, 5588);
+INSERT INTO `char_templates` VALUES (124, 'Kamael Soldier Female', 5, 40, 43, 30, 21, 11, 25, 4, 80, 6, 41, 300, 333, 33, 44, 33, 115, 81900, -71338, 258271, -3104, 0, 1.10, 1.188000, 9.0, 23.0, 1.10, 1.188000, 8.0, 23.5, 1147, 1146, 10, 2369, 5588);       

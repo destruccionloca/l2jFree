@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE list SYSTEM "armors.dtd">
+<!-- The Kamael armors, Done by KID -->
+<list>
+
+<item id='9514' name="sealed_dynasty_blast_plate">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9515' name="sealed_dynasty_gaiter">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9516' name="sealed_dynasty_helmet">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9517' name="sealed_dynasty_gauntlet">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9518' name="sealed_dynasty_boots">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9519' name="sealed_dynasty_leather_mail">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9520' name="sealed_dynasty_leather_legging">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9521' name="sealed_dynasty_leather_helmet">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9522' name="sealed_dynasty_leather_gloves">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9523' name="sealed_dynasty_leather_boots">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9524' name="sealed_dynasty_tunic">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9525' name="sealed_dynasty_hose">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9526' name="sealed_dynasty_circlet">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9527' name="sealed_dynasty_gloves">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9528' name="sealed_dynasty_shoes">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9577' name="- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9578' name="-- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9579' name="-- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9580' name="-- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9581' name="-- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9582' name="--- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9583' name="-- -- - --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9584' name="-- -- -- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9585' name="-- -- -- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9586' name="-- -- -- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9587' name="-- -- -- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9588' name="-- -- --- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9589' name="- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9590' name="-- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9591' name="-- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9592' name="--- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+
+</list>

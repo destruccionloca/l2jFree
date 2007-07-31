@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE list SYSTEM "weapons.dtd">
+<list>
+
+<!-- The Kamael, Done by KID -->
+<item id='9720' name="--- -">
+ <for>
+  <set val='0' order='0x08' stat='physical_attack'/>
+  <set val='0' order='0x08' stat='magical_attack'/>
+  <set val='10' order='0x08' stat='critical_rate'/>
+  <set val='325' order='0x08' stat='attack_speed'/>
+  <enchant val='0' order='0x0C' stat='physical_attack'/>
+  <enchant val='0' order='0x0C' stat='magical_attack'/>
+ </for>
+</item>
+
+</list>

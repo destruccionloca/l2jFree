@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE list SYSTEM "weapons.dtd">
+<list>
+
+<!-- The Kamael, Done by KID -->
+<item id='9638' name="---(---r1)">
+ <for>
+  <set val='0' order='0x08' stat='physical_attack'/>
+  <set val='0' order='0x08' stat='magical_attack'/>
+  <set val='10' order='0x08' stat='critical_rate'/>
+  <set val='325' order='0x08' stat='attack_speed'/>
+  <enchant val='0' order='0x0C' stat='physical_attack'/>
+  <enchant val='0' order='0x0C' stat='magical_attack'/>
+ </for>
+</item>
+
+<item id='9639' name="---(---r2)">
+ <for>
+  <set val='0' order='0x08' stat='physical_attack'/>
+  <set val='0' order='0x08' stat='magical_attack'/>
+  <set val='10' order='0x08' stat='critical_rate'/>
+  <set val='325' order='0x08' stat='attack_speed'/>
+  <enchant val='0' order='0x0C' stat='physical_attack'/>
+  <enchant val='0' order='0x0C' stat='magical_attack'/>
+ </for>
+</item>
+
+<item id='9640' name="---(---r3)">
+ <for>
+  <set val='0' order='0x08' stat='physical_attack'/>
+  <set val='0' order='0x08' stat='magical_attack'/>
+  <set val='10' order='0x08' stat='critical_rate'/>
+  <set val='325' order='0x08' stat='attack_speed'/>
+  <enchant val='0' order='0x0C' stat='physical_attack'/>
+  <enchant val='0' order='0x0C' stat='magical_attack'/>
+ </for>
+</item>
+
+<item id='9641' name="---(---l1)">
+ <for>
+  <set val='0' order='0x08' stat='physical_attack'/>
+  <set val='0' order='0x08' stat='magical_attack'/>
+  <set val='10' order='0x08' stat='critical_rate'/>
+  <set val='325' order='0x08' stat='attack_speed'/>
+  <enchant val='0' order='0x0C' stat='physical_attack'/>
+  <enchant val='0' order='0x0C' stat='magical_attack'/>
+ </for>
+</item>
+
+<item id='9642' name="---(---l2)">
+ <for>
+  <set val='0' order='0x08' stat='physical_attack'/>
+  <set val='0' order='0x08' stat='magical_attack'/>
+  <set val='10' order='0x08' stat='critical_rate'/>
+  <set val='325' order='0x08' stat='attack_speed'/>
+  <enchant val='0' order='0x0C' stat='physical_attack'/>
+  <enchant val='0' order='0x0C' stat='magical_attack'/>
+ </for>
+</item>
+
+<item id='9643' name="---(---l3)">
+ <for>
+  <set val='0' order='0x08' stat='physical_attack'/>
+  <set val='0' order='0x08' stat='magical_attack'/>
+  <set val='10' order='0x08' stat='critical_rate'/>
+  <set val='325' order='0x08' stat='attack_speed'/>
+  <enchant val='0' order='0x0C' stat='physical_attack'/>
+  <enchant val='0' order='0x0C' stat='magical_attack'/>
+ </for>
+</item>
+
+<item id='9644' name="npc--(---)">
+ <for>
+  <set val='0' order='0x08' stat='physical_attack'/>
+  <set val='0' order='0x08' stat='magical_attack'/>
+  <set val='10' order='0x08' stat='critical_rate'/>
+  <set val='325' order='0x08' stat='attack_speed'/>
+  <enchant val='0' order='0x0C' stat='physical_attack'/>
+  <enchant val='0' order='0x0C' stat='magical_attack'/>
+ </for>
+</item>
+
+<item id='9645' name="npc--(--)">
+ <for>
+  <set val='0' order='0x08' stat='physical_attack'/>
+  <set val='0' order='0x08' stat='magical_attack'/>
+  <set val='10' order='0x08' stat='critical_rate'/>
+  <set val='325' order='0x08' stat='attack_speed'/>
+  <enchant val='0' order='0x0C' stat='physical_attack'/>
+  <enchant val='0' order='0x0C' stat='magical_attack'/>
+ </for>
+</item>
+
+<item id='9646' name="npc--(----)">
+ <for>
+  <set val='0' order='0x08' stat='physical_attack'/>
+  <set val='0' order='0x08' stat='magical_attack'/>
+  <set val='10' order='0x08' stat='critical_rate'/>
+  <set val='325' order='0x08' stat='attack_speed'/>
+  <enchant val='0' order='0x0C' stat='physical_attack'/>
+  <enchant val='0' order='0x0C' stat='magical_attack'/>
+ </for>
+</item>
+
+<item id='9656' name="-- -- ---">
+ <for>
+  <set val='0' order='0x08' stat='physical_attack'/>
+  <set val='0' order='0x08' stat='magical_attack'/>
+  <set val='10' order='0x08' stat='critical_rate'/>
+  <set val='325' order='0x08' stat='attack_speed'/>
+  <enchant val='0' order='0x0C' stat='physical_attack'/>
+  <enchant val='0' order='0x0C' stat='magical_attack'/>
+ </for>
+</item>
+
+<item id='9657' name="-- --- ---">
+ <for>
+  <set val='0' order='0x08' stat='physical_attack'/>
+  <set val='0' order='0x08' stat='magical_attack'/>
+  <set val='10' order='0x08' stat='critical_rate'/>
+  <set val='325' order='0x08' stat='attack_speed'/>
+  <enchant val='0' order='0x0C' stat='physical_attack'/>
+  <enchant val='0' order='0x0C' stat='magical_attack'/>
+ </for>
+</item>
+
+<item id='9658' name="-- --- ---">
+ <for>
+  <set val='0' order='0x08' stat='physical_attack'/>
+  <set val='0' order='0x08' stat='magical_attack'/>
+  <set val='10' order='0x08' stat='critical_rate'/>
+  <set val='325' order='0x08' stat='attack_speed'/>
+  <enchant val='0' order='0x0C' stat='physical_attack'/>
+  <enchant val='0' order='0x0C' stat='magical_attack'/>
+ </for>
+</item>
+
+<item id='9659' name="-- ---- ---">
+ <for>
+  <set val='0' order='0x08' stat='physical_attack'/>
+  <set val='0' order='0x08' stat='magical_attack'/>
+  <set val='10' order='0x08' stat='critical_rate'/>
+  <set val='325' order='0x08' stat='attack_speed'/>
+  <enchant val='0' order='0x0C' stat='physical_attack'/>
+  <enchant val='0' order='0x0C' stat='magical_attack'/>
+ </for>
+</item>
+
+<item id='9660' name="---- ---">
+ <for>
+  <set val='0' order='0x08' stat='physical_attack'/>
+  <set val='0' order='0x08' stat='magical_attack'/>
+  <set val='10' order='0x08' stat='critical_rate'/>
+  <set val='325' order='0x08' stat='attack_speed'/>
+  <enchant val='0' order='0x0C' stat='physical_attack'/>
+  <enchant val='0' order='0x0C' stat='magical_attack'/>
+ </for>
+</item>
+
+<item id='9661' name="-- -- ---">
+ <for>
+  <set val='0' order='0x08' stat='physical_attack'/>
+  <set val='0' order='0x08' stat='magical_attack'/>
+  <set val='10' order='0x08' stat='critical_rate'/>
+  <set val='325' order='0x08' stat='attack_speed'/>
+  <enchant val='0' order='0x0C' stat='physical_attack'/>
+  <enchant val='0' order='0x0C' stat='magical_attack'/>
+ </for>
+</item>
+
+</list>

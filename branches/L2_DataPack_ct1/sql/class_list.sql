@@ -3,7 +3,7 @@
 #----------------------------
 DROP TABLE IF EXISTS class_list;
 CREATE TABLE `class_list` (
-  `class_name` varchar(19) NOT NULL default '',
+  `class_name` varchar(50) NOT NULL default '',
   `id` int(10) unsigned NOT NULL default '0',
   `parent_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
@@ -102,4 +102,6 @@ INSERT INTO `class_list` VALUES
 ('D_FortuneSeeker', 117, 55), 
 ('D_Artisan', 56, 53), 
 ('D_Warsmith', 57, 56), 
-('D_Maestro', 118, 57);
+('D_Maestro', 118, 57),
+('Kamael Soldier Male', 123, -1),
+('Kamael Soldier Female', 124, -1);

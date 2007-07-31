@@ -1,0 +1,433 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE list SYSTEM "armors.dtd">
+<!-- The Kamael armors, Done by KID -->
+<list>
+
+<item id='9400' name="----- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9401' name="----- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9402' name="----- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9403' name="--- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9404' name="--- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9405' name="-- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9406' name="--- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9407' name="----- ---(--- --)">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9408' name="----- ---(--- --)">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9409' name="--- -- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9410' name="-- -- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9411' name="-- -- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9412' name="---- -- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9413' name="-- -- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9414' name="--- -- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9415' name="--- -- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9416' name="----- ---- ----">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9417' name="----- ---- ----">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9418' name="----- ---- ----">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9419' name="----- ---- ----">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9420' name="----- ---- ----">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9421' name="----- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9422' name="----- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9423' name="----- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9424' name="----- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9425' name="----- -- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9426' name="----- -- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9427' name="----- -- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9428' name="----- -- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9429' name="----- -- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9430' name="----- -- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9431' name="----- -- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9432' name="----- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9433' name="----- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9434' name="----- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9435' name="----- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9436' name="----- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9437' name="----- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9438' name="----- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9439' name="----- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9440' name="----- --">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9452' name="sealed_dynasty_earring">
+ <for>
+  <add val='0' order='0x10' stat='magical_defence'/>
+ </for>
+</item>
+
+<item id='9453' name="sealed_dynasty_neckalce">
+ <for>
+  <add val='0' order='0x10' stat='magical_defence'/>
+ </for>
+</item>
+
+<item id='9454' name="sealed_dynasty_ring">
+ <for>
+  <add val='0' order='0x10' stat='magical_defence'/>
+ </for>
+</item>
+
+<item id='9455' name="----- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9456' name="----- ----">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9457' name="----- -">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9458' name="----- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9459' name="----- ----">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9460' name="----- -">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9461' name="----- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9462' name="----- ----">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9463' name="----- -">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9464' name="----- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9465' name="----- ----">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9466' name="----- -">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9467' name="----- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9468' name="----- ----">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9469' name="----- -">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9470' name="----- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9471' name="----- ----">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9472' name="----- -">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9473' name="----- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9474' name="----- ----">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9475' name="----- -">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9476' name="----- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9477' name="----- ----">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9478' name="----- -">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9479' name="----- ---">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9480' name="----- ----">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+<item id='9481' name="----- -">
+ <for>
+  <add val='0' order='0x10' stat='physical_defence'/>
+ </for>
+</item>
+
+
+</list>
