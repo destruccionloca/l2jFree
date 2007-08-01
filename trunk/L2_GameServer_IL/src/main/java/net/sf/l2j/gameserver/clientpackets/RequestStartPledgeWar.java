@@ -7,14 +7,11 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 
 public class RequestStartPledgeWar extends L2GameClientPacket
 {
     private static final String _C__4D_REQUESTSTARTPLEDGEWAR = "[C] 4D RequestStartPledgewar";
-    private static final Log _log = LogFactory.getLog(RequestStartPledgeWar.class.getName());
+    //private static final Log _log = LogFactory.getLog(RequestStartPledgeWar.class.getName());
 
     String _pledgeName;
     L2Clan _clan;
@@ -83,8 +80,7 @@ public class RequestStartPledgeWar extends L2GameClientPacket
             return;
         }
         
-        _log.warn("RequestStartPledgeWar, leader: " + clan.getLeaderName() + " clan: "
-            + _clan.getName());
+        //_log.warn("RequestStartPledgeWar, leader: " + clan.getLeaderName() + " clan: " + _clan.getName());
 
         //        L2PcInstance leader = L2World.getInstance().getPlayer(clan.getLeaderName());
 

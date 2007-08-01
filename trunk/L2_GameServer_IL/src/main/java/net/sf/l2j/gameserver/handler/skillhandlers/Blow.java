@@ -17,22 +17,23 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
-import net.sf.l2j.gameserver.handler.ISkillHandler;
-import net.sf.l2j.gameserver.model.L2Skill.SkillType;
-import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
-import net.sf.l2j.gameserver.skills.Formulas;
-import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.handler.ISkillHandler;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
-import net.sf.l2j.gameserver.model.L2Skill;
 
 /**
  *
@@ -130,7 +131,9 @@ public class Blow implements ISkillHandler
 	            activeChar.sendPacket(sm);
 			}
 			//Possibility of a lethal strike
-			if(!target.isRaid())
+			if(!target.isRaid() 
+					&& !(target instanceof L2DoorInstance)
+					&& !(target instanceof L2NpcInstance && ((L2NpcInstance)target).getNpcId() == 35062))
 			{
 				int chance = Rnd.get(100);
 				//2nd lethal effect activate (cp,hp to 1 or if target is npc then hp to 1)

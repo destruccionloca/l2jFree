@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -145,10 +146,12 @@ public class Pdam implements ISkillHandler
                 }
                 
                  // Success of lethal effect
-                int chance;
-                if(!target.isRaid() && ( chance = Rnd.get(100)) < skill.getLethalChance1())
-                {
-                    // 1st lethal effect activate (cp to 1 or if target is npc then hp to 50%)
+                int chance = Rnd.get(100);
+                if(!target.isRaid() 
+                		&& chance < skill.getLethalChance1()
+                		&& !(target instanceof L2DoorInstance)
+    					&& !(target instanceof L2NpcInstance && ((L2NpcInstance)target).getNpcId() == 35062))
+    			{                    // 1st lethal effect activate (cp to 1 or if target is npc then hp to 50%)
                 	if(skill.getLethalChance2() > 0 && chance >= skill.getLethalChance2())
                     {
                        if (target instanceof L2PcInstance) 

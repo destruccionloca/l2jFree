@@ -9,13 +9,10 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
-import net.sf.l2j.gameserver.instancemanager.JailManager;
-import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
@@ -258,6 +255,11 @@ public class Wedding implements IVoicedCommandHandler
         {
         	activeChar.sendMessage("Your partner is in a duel.");
         	return false;
+        }
+        else if(partner.atEvent)
+        {
+            activeChar.sendMessage("Your partner is in an event.");
+            return false;
         }
         else if (partner.isFestivalParticipant())
         {

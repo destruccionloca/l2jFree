@@ -50,7 +50,7 @@ public class RequestPledgeWarList extends L2GameClientPacket
         if (activeChar.getClan() == null) return;
         
         //do we need powers to do that??
-        activeChar.sendPacket(new PledgeReceiveWarList(activeChar.getClan()));
+        activeChar.sendPacket(new PledgeReceiveWarList(activeChar.getClan(),_tab));
     }
 
     /**
