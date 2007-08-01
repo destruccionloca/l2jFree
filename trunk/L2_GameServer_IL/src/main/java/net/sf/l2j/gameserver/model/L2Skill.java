@@ -467,6 +467,8 @@ public abstract class L2Skill
     private final float _successRate; 
     private final int _minPledgeClass;
     
+    private final int _aggroPoints; 
+    
     protected Condition _preCondition;
     protected Condition _itemPreCondition;
     protected FuncTemplate[] _funcTemplates;
@@ -560,6 +562,8 @@ public abstract class L2Skill
         _directHpDmg  = set.getBool("dmgDirectlyToHp",false);
         _nextDanceCost = set.getInteger("nextDanceCost", 0);
         _SSBoost = set.getFloat("SSBoost", 0.f);
+        
+        _aggroPoints = set.getInteger("aggroPoints", 0);
 
         String canLearn = set.getString("canLearn", null);
         if (canLearn == null)
@@ -1045,6 +1049,11 @@ public abstract class L2Skill
     public final float getSSBoost()
     {
     	return _SSBoost;
+    }
+
+    public final int getAggroPoints()
+    {
+    	return _aggroPoints;
     }
 
     public final boolean useSoulShot()

@@ -283,7 +283,15 @@ public class DoorTable
 
     public boolean checkIfDoorsBetween(int x, int y, int z, int tx, int ty, int tz)
     {
-    	int region = MapRegionTable.getInstance().getMapRegion(x,y);
+    	int region;
+    	try 
+    	{ 
+    		 region = MapRegionTable.getInstance().getMapRegion(x,y);
+    	} 
+    	catch (Exception e) 
+    	{ 
+    		return false;
+    	}
     	for (L2DoorInstance doorInst : getDoors())
     	{
     		if (doorInst.getMapRegion() != region) 

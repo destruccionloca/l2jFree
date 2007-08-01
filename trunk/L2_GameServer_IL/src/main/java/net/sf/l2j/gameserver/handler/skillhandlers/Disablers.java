@@ -406,7 +406,7 @@ public class Disablers implements ISkillHandler
                                     if (activeChar.getEffect(skill.getId()) != null)
                                         activeChar.removeEffect(activeChar.getEffect(skill.getId()));
                                     skill.getEffects(activeChar, activeChar);
-                                    target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar,(int) skill.getPower());
+                                    target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int) ((150*skill.getPower())/(target.getLevel()+7)));
                                 }
                             }     
                         }
