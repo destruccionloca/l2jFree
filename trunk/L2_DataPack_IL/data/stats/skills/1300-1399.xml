@@ -5,6 +5,7 @@
   <table name="#mpConsume_Init"> 7 9 11 </table>
   <table name="#mpConsume"> 28 35 44 </table>
   <table name="#negatePower"> 3.0 7.0 9.0 </table>
+  <table name="#aggro"> 379 457 566 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="target" val="TARGET_PET"/>
@@ -18,6 +19,7 @@
   <set name="effectRange" val="1100"/>
   <set name="negateStats" val="POISON BLEED"/>
   <set name="negatePower" val="#negatePower"/>
+  <set name="aggroPoints" val="#aggro"/>
   <for>
   </for>
 </skill>
@@ -35,10 +37,14 @@
   <set name="effectRange" val="1100"/>
   <set name="negateStats" val="ROOT PARALYZE DEBUFF"/>
   <set name="negatePower" val="3.0"/>
+  <set name="aggroPoints" val="582"/>
   <for>
   </for>
 </skill>
 <skill id="1303" levels="2" name="Wild Magic" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#ench1time">
   1240 1280 1320 1360 1400 1440 1480 1520 1560 1600
   1640 1680 1720 1760 1800 1840 1880 1920 1960 2000
@@ -62,6 +68,7 @@
   <table name="#mpConsume_Init"> 12 13 </table>
   <table name="#mpConsume"> 46 52 </table>
   <table name="#mCrit"> 3 4 </table>
+  <table name="#aggro"> 582 635 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
@@ -74,6 +81,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
+  <set name="aggroPoints" val="#aggro"/>
   <enchant1 name="buffDuration" val="#buffDuration"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
@@ -89,6 +97,9 @@
   </enchant1for>
 </skill>
 <skill id="1304" levels="3" name="Advanced Block" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#ench1time">
   1240 1280 1320 1360 1400 1440 1480 1520 1560 1600
   1640 1680 1720 1760 1800 1840 1880 1920 1960 2000
@@ -112,6 +123,7 @@
   <table name="#mpConsume_Init"> 11 13 14 </table>
   <table name="#mpConsume"> 43 49 53 </table>
   <table name="#Tab-sDef"> 1.6 1.8 2 </table>
+  <table name="#aggro"> 549 611 646 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
@@ -125,6 +137,7 @@
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
+  <set name="aggroPoints" val="#aggro"/>
   <enchant1 name="buffDuration" val="#buffDuration"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
@@ -140,6 +153,9 @@
   </enchant1for>
 </skill>
 <skill id="1305" levels="5" name="The Honor of Pa'agrio" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#rateCp"> 616 636 654 671 687 </table>
   <table name="#mpConsume_Init"> 43 45 46 47 48 </table>
   <table name="#mpConsume"> 171 177 182 186 191 </table>
@@ -158,6 +174,7 @@
   724 727 731 734 738 741 744 748 751 755
   758 761 765 768 772 775 778 782 785 789
   </table>
+  <table name="#aggro"> 689 722 743 763 780 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#rateCp"/>
@@ -172,6 +189,7 @@
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/>
   <enchant1 name="power" val="#ench1Power"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
@@ -179,6 +197,9 @@
   </for>
 </skill>
 <skill id="1306" levels="6" name="Ritual of Life" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#ench2MpConsume">
   95 94 93 92 91 90 89 88 87 86
   86 85 84 83 82 81 80 79 78 77
@@ -193,6 +214,7 @@
   <table name="#mpConsume"> 83 86 89 91 93 96 </table>
   <table name="#rateCp"> 745 767 789 811 834 858 </table>
   <table name="#ench1Power"> 863 867 871 875 880 884 888 892 897 901 905 909 913 918 922 926 930 935 939 943 947 952 956 960 964 969 973 977 981 986 </table>
+  <table name="#aggro"> 677 700 722 743 763 780 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#rateCp"/>
@@ -205,6 +227,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
+  <set name="aggroPoints" val="#aggro"/>
   <enchant1 name="power" val="#ench1Power"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
@@ -215,6 +238,7 @@
   <table name="#mpConsume_Init"> 49 52 55 </table>
   <table name="#mpConsume"> 195 207 217 </table>
   <table name="#tab-gainHp"> 1.08 1.10 1.12 </table>
+  <table name="#aggro"> 611 635 655 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
@@ -229,6 +253,7 @@
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/>
   <for>
     <effect name="Buff" time="1200" count="1" val="0">
       <mul order="0x30" stat="gainHp" val="#tab-gainHp"/>
@@ -236,6 +261,9 @@
   </for>
 </skill>
 <skill id="1308" levels="3" name="Chant of Predator" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#ench1time">
   1240 1280 1320 1360 1400 1440 1480 1520 1560 1600
   1640 1680 1720 1760 1800 1840 1880 1920 1960 2000
@@ -259,6 +287,7 @@
   <table name="#mpConsume_Init"> 35 44 51 </table>
   <table name="#mpConsume"> 137 156 201 </table>
   <table name="#Tab-rCrit"> 1.20 1.25 1.30 </table>
+  <table name="#aggro"> 457 566 624 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
@@ -273,6 +302,7 @@
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/>
   <enchant1 name="buffDuration" val="#buffDuration"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
@@ -288,6 +318,9 @@
   </enchant1for>
 </skill>
 <skill id="1309" levels="3" name="Chant of Eagle" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#ench1time">
   1240 1280 1320 1360 1400 1440 1480 1520 1560 1600
   1640 1680 1720 1760 1800 1840 1880 1920 1960 2000
@@ -311,6 +344,7 @@
   <table name="#mpConsume_Init"> 35 43 48 </table>
   <table name="#mpConsume"> 137 170 189 </table>
   <table name="#Tab-accCombat"> 2 3 4 </table>
+  <table name="#aggro"> 457 549 597 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
@@ -325,6 +359,7 @@
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/>
   <enchant1 name="buffDuration" val="#buffDuration"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
@@ -363,6 +398,7 @@
   <table name="#mpConsume_Init"> 31 43 49 55 </table>
   <table name="#mpConsume"> 123 170 195 217 </table>
   <table name="#Tab-absorbDam"> 6 7 8 9 </table>
+  <table name="#aggro"> 418 549 611 655 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
@@ -377,6 +413,7 @@
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/>
   <enchant1 name="buffDuration" val="#buffDuration"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
@@ -392,6 +429,9 @@
   </enchant1for>
 </skill>
 <skill id="1311" levels="6" name="Body Of Avatar" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#ench2MpConsume">
   416 409 402 395 388 381 374 367 360 353
   346 339 332 325 318 310 303 296 289 282
@@ -416,6 +456,7 @@
   1640000 1680000 1720000 1760000 1800000 1840000 1880000 1920000 1960000 2000000
   2040000 2080000 2120000 2160000 2200000 2240000 2280000 2320000 2360000 2400000
   </table>
+  <table name="#aggro"> 457 532 566 597 624 646 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
@@ -430,6 +471,7 @@
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/>
   <enchant1 name="buffDuration" val="#buffDuration"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
@@ -560,6 +602,7 @@
   <set name="buffDuration" val="3600000"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
+  <set name="aggroPoints" val="1"/>
   <for>
     <effect count="1" name="NoblesseBless" time="3600" val="0" >
   </effect>
@@ -580,19 +623,20 @@
   <set name="create_item_count" val="20"/>
 </skill>
 <skill id="1325" levels="1" name="Fortune of Noblesse" enchantLevels1="0" enchantLevels2="0">
-  <set name="mpConsume" val="69"/> 
-  <set name="power" val="0.0"/> 
-  <set name="target" val="TARGET_ONE"/> 
-  <set name="skillRadius" val="900"/> 
-  <set name="reuseDelay" val="20000"/> 
-  <set name="skillTime" val="2000"/> 
-  <set name="skillType" val="BUFF"/> 
-  <set name="isMagic" val="true"/> 
-  <set name="operateType" val="OP_ACTIVE"/> 
-  <set name="buffDuration" val="1200000"/> 
-  <set name="castRange" val="-1"/> 
-  <set name="effectRange" val="-1"/> 
-  <for>  
+  <set name="mpConsume" val="69"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillRadius" val="900"/>
+  <set name="reuseDelay" val="20000"/>
+  <set name="skillTime" val="2000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="1200000"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="659"/>
+  <for>
   <effect count="1" name="LuckNoblesse" time="1200" val="0" >
   </effect>
   </for>
@@ -862,6 +906,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="effectRange" val="-1"/>
   <set name="castRange" val="-1"/>
+  <set name="aggroPoints" val="398"/>
   <for>
   </for>
 </skill>
@@ -929,7 +974,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
-    <effect count="6" name="ManaDamOverTime" time="5" val="24">
+    <effect count="6" name="ManaDamOverTime" time="5" val="24" stackOrder="1" stackType="multiple_debuff">
       <sub order="0x40" stat="cancelRes" val="30"/>
       <mul order="0x30" stat="MpConsumeRate" val="1.30"/>
       <sub order="0x40" stat="debuffRes" val="30"/>
@@ -955,7 +1000,7 @@
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="80"/>
   <for>
-   <effect count="5" name="ManaDamOverTime" time="2" val="40">
+   <effect count="5" name="ManaDamOverTime" time="2" val="40" stackOrder="1" stackType="multiple_debuff">
       <mul order="0x30" stat="runSpd" val="0.9"/>
       <mul order="0x30" stat="pAtkSpd" val="0.7"/>
       <mul order="0x30" stat="mAtkSpd" val="0.9"/>
@@ -982,7 +1027,7 @@
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="80"/>
   <for>
-     <effect count="5" name="ManaDamOverTime" time="2" val="40">
+     <effect count="5" name="ManaDamOverTime" time="2" val="40" stackOrder="1" stackType="multiple_debuff">
       <mul order="0x30" stat="runSpd" val="0.7"/>
       <mul order="0x30" stat="pAtkSpd" val="0.9"/>
       <mul order="0x30" stat="mAtkSpd" val="0.9"/>
@@ -1009,7 +1054,7 @@
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="80"/>
   <for>
-     <effect count="5" name="ManaDamOverTime" time="2" val="40">
+     <effect count="5" name="ManaDamOverTime" time="2" val="40" stackOrder="1" stackType="multiple_debuff">
       <mul order="0x30" stat="runSpd" val="0.9"/>
       <mul order="0x30" stat="pAtkSpd" val="0.9"/>
       <mul order="0x30" stat="mAtkSpd" val="0.7"/>
@@ -1035,7 +1080,7 @@
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="80"/>
   <for>
-     <effect count="5" name="ManaDamOverTime" time="2" val="40">
+     <effect count="5" name="ManaDamOverTime" time="2" val="40" stackOrder="1" stackType="multiple_debuff">
       <sub order="0x40" stat="accCombat" val="6"/>
       <sub order="0x40" stat="holyRes" val="30"/>
     </effect>
@@ -1062,7 +1107,7 @@
   <set name="effectPower" val="80"/>
   <for>
   <!-- MDOT effect needs fixing - DRAIN appears to not allow MDOT to land [28/12/2006] -->
-    <effect count="5" name="ManaDamOverTime" time="2" val="40">
+    <effect count="5" name="ManaDamOverTime" time="2" val="40" stackOrder="1" stackType="multiple_debuff">
       <sub order="0x40" stat="darkRes" val="30"/>
     </effect>
   </for>
@@ -1117,6 +1162,7 @@
   <set name="buffDuration" val="300000"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
+  <set name="aggroPoints" val="666"/>
   <for>
     <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="Servitors_buff">
       <mul stat="pDef" val="1.2" order="0x30"/>
@@ -1144,6 +1190,7 @@
   <set name="buffDuration" val="300000"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
+  <set name="aggroPoints" val="666"/>
   <for>
     <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="Servitors_buff">
       <mul stat="regMp" val="1.2" order="0x30"/>
@@ -1172,6 +1219,7 @@
   <set name="buffDuration" val="300000"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
+  <set name="aggroPoints" val="666"/>
   <for>
     <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="Servitors_buff">
       <add order="0x40" stat="accCombat" val="4"/>
@@ -1206,6 +1254,7 @@
   <set name="buffDuration" val="300000"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
+  <set name="aggroPoints" val="669"/>
   <for>
     <effect count="1" name="Buff" time="300" val="0" stackOrder="2" stackType="Servitors_buff">
       <mul stat="rCrit" val="1.2" order="0x30"/>
@@ -1271,6 +1320,7 @@
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
+  <set name="aggroPoints" val="662"/>
   <for>
     <effect count="1" name="Buff" time="1200" val="0">
       <add stat="waterRes" val="20" order="0x40"/>
@@ -1293,6 +1343,7 @@
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
+  <set name="aggroPoints" val="666"/>
   <for>
     <effect count="1" name="Buff" time="1200" val="0">
       <add stat="darkRes" val="30" order="0x40"/>
@@ -1312,6 +1363,7 @@
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
+  <set name="aggroPoints" val="662"/>
   <for>
     <effect count="1" name="Buff" time="1200" val="0" stackOrder="1" stackType="cancelRes">
       <add stat="cancelRes" val="30" order="0x40"/>
@@ -1320,97 +1372,100 @@
   </for>
 </skill>
 <skill id="1355" levels="1" name="Prophecy of Water">
-<set name="mpInitialConsume" val="15"/>
-<set name="mpConsume" val="57"/>
-<set name="itemConsumeId" val="3031"/>
-<set name="itemConsumeCount" val="5"/>
-<set name="power" val="0.0"/>
-<set name="target" val="TARGET_ONE"/>
-<set name="hitTime" val="4000"/>
-<set name="reuseDelay" val="120000"/>
-<set name="skillTime" val="4000"/>
-<set name="skillType" val="BUFF"/>
-<set name="isMagic" val="true"/>
-<set name="operateType" val="OP_ACTIVE"/>
-<set name="buffDuration" val="300000"/>
-<set name="castRange" val="400"/>
-<set name="effectRange" val="900"/>
-<for>
-  <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="CoV">
-    <mul order="0x30" stat="mAtk" val="1.20"/>
-    <mul order="0x30" stat="mDef" val="1.20"/>
-    <mul order="0x30" stat="mAtkSpd" val="1.20"/>
-    <mul order="0x30" stat="mCritRate" val="2.00"/>
-    <mul order="0x30" stat="regMp" val="1.2"/>
-    <mul order="0x30" stat="runSpd" val="0.80"/>
-    <add order="0x40" stat="debuffRes" val="10"/>
-  </effect>
-</for>
+  <set name="mpInitialConsume" val="15"/>
+  <set name="mpConsume" val="57"/>
+  <set name="itemConsumeId" val="3031"/>
+  <set name="itemConsumeCount" val="5"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="4000"/>
+  <set name="reuseDelay" val="120000"/>
+  <set name="skillTime" val="4000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="300000"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
+  <set name="aggroPoints" val="669"/>
+  <for>
+    <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="CoV">
+      <mul order="0x30" stat="mAtk" val="1.20"/>
+      <mul order="0x30" stat="mDef" val="1.20"/>
+      <mul order="0x30" stat="mAtkSpd" val="1.20"/>
+      <mul order="0x30" stat="mCritRate" val="2.00"/>
+      <mul order="0x30" stat="regMp" val="1.2"/>
+      <mul order="0x30" stat="runSpd" val="0.80"/>
+      <add order="0x40" stat="debuffRes" val="10"/>
+    </effect>
+  </for>
 </skill>
 <skill id="1356" levels="1" name="Prophecy of Fire">
-<set name="mpInitialConsume" val="15"/>
-<set name="mpConsume" val="57"/>
-<set name="itemConsumeId" val="3031"/>
-<set name="itemConsumeCount" val="5"/>
-<set name="power" val="0.0"/>
-<set name="target" val="TARGET_ONE"/>
-<set name="hitTime" val="4000"/>
-<set name="reuseDelay" val="120000"/>
-<set name="skillTime" val="4000"/>
-<set name="skillType" val="BUFF"/>
-<set name="isMagic" val="true"/>
-<set name="operateType" val="OP_ACTIVE"/>
-<set name="buffDuration" val="300000"/>
-<set name="castRange" val="400"/>
-<set name="effectRange" val="900"/>
-<for>
-  <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="CoV">
-    <mul order="0x30" stat="pAtk" val="1.10"/>
-    <mul order="0x30" stat="pDef" val="1.20"/>
-    <add order="0x40" stat="accCombat" val="4"/>
-    <mul order="0x30" stat="pAtkSpd" val="1.20"/>
-    <mul order="0x30" stat="runSpd" val="0.90"/>
-    <mul order="0x30" stat="maxHp" val="1.20"/>
-    <mul order="0x30" stat="regHp" val="1.20"/>
-    <add order="0x40" stat="debuffRes" val="10"/>
-  </effect>
-</for>
+  <set name="mpInitialConsume" val="15"/>
+  <set name="mpConsume" val="57"/>
+  <set name="itemConsumeId" val="3031"/>
+  <set name="itemConsumeCount" val="5"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="4000"/>
+  <set name="reuseDelay" val="120000"/>
+  <set name="skillTime" val="4000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="300000"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
+  <set name="aggroPoints" val="669"/>
+  <for>
+    <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="CoV">
+      <mul order="0x30" stat="pAtk" val="1.10"/>
+      <mul order="0x30" stat="pDef" val="1.20"/>
+      <add order="0x40" stat="accCombat" val="4"/>
+      <mul order="0x30" stat="pAtkSpd" val="1.20"/>
+      <mul order="0x30" stat="runSpd" val="0.90"/>
+      <mul order="0x30" stat="maxHp" val="1.20"/>
+      <mul order="0x30" stat="regHp" val="1.20"/>
+      <add order="0x40" stat="debuffRes" val="10"/>
+    </effect>
+  </for>
 </skill>
 <skill id="1357" levels="1" name="Prophecy of Wind">
-<set name="mpInitialConsume" val="15"/>
-<set name="mpConsume" val="57"/>
-<set name="itemConsumeId" val="3031"/>
-<set name="itemConsumeCount" val="5"/>
-<set name="power" val="0.0"/>
-<set name="target" val="TARGET_ONE"/>
-<set name="hitTime" val="4000"/>
-<set name="reuseDelay" val="120000"/>
-<set name="skillTime" val="4000"/>
-<set name="skillType" val="BUFF"/>
-<set name="isMagic" val="true"/>
-<set name="operateType" val="OP_ACTIVE"/>
-<set name="buffDuration" val="300000"/>
-<set name="castRange" val="400"/>
-<set name="effectRange" val="900"/>
-<for>
-  <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="CoV">
-     <add order="0x40" stat="absorbDam" val="5"/>
-     <add order="0x40" stat="accCombat" val="4"/>
-     <add order="0x40" stat="rEvas" val="4"/>
-     <mul order="0x30" stat="pAtkSpd" val="1.20"/>
-     <mul order="0x30" stat="cAtk" val="1.2">
-       <and>
-         <player behind="True"/>
-       </and>
-     </mul>
-     <mul order="0x30" stat="rCrit" val="1.2">
-       <and>
-         <player behind="True"/>
-       </and>
-     </mul>
-     <add order="0x40" stat="debuffRes" val="10"/>
-  </effect>
-</for>
+  <set name="mpInitialConsume" val="15"/>
+  <set name="mpConsume" val="57"/>
+  <set name="itemConsumeId" val="3031"/>
+  <set name="itemConsumeCount" val="5"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="4000"/>
+  <set name="reuseDelay" val="120000"/>
+  <set name="skillTime" val="4000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="300000"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
+  <set name="aggroPoints" val="669"/>
+  <for>
+    <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="CoV">
+       <add order="0x40" stat="absorbDam" val="5"/>
+       <add order="0x40" stat="accCombat" val="4"/>
+       <add order="0x40" stat="rEvas" val="4"/>
+       <mul order="0x30" stat="pAtkSpd" val="1.20"/>
+       <mul order="0x30" stat="cAtk" val="1.2">
+         <and>
+           <player behind="True"/>
+         </and>
+       </mul>
+       <mul order="0x30" stat="rCrit" val="1.2">
+         <and>
+           <player behind="True"/>
+         </and>
+       </mul>
+       <add order="0x40" stat="debuffRes" val="10"/>
+    </effect>
+  </for>
 </skill>
 <skill id="1358" levels="1" name="Block Shield">
   <!-- needs to remove pDef buffs on target -->
@@ -1525,6 +1580,7 @@
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="666"/>
   <for>
     <effect count="1" name="Buff" time="1200" val="0" stackOrder="1" stackType="cancelRes">
       <add stat="cancelRes" val="30" order="0x40"/>
@@ -1549,6 +1605,7 @@
   <set name="buffDuration" val="300000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="669"/>
   <for>
     <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="CoV">
       <mul order="0x30" stat="pAtk" val="1.1"/>
@@ -1581,6 +1638,7 @@
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="666"/>
   <for>
     <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.5" stackType="cAtk">
       <mul order="0x30" stat="cAtk" val="1.4"/>
@@ -1602,6 +1660,7 @@
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="666"/>
   <for>
     <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.75" stackType="mAtk">
       <mul order="0x30" stat="mAtk" val="1.75"/>

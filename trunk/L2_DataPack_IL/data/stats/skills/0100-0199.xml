@@ -29,6 +29,9 @@
   </for>
 </skill>
 <skill id="101" levels="40" name="Stunning Shot" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#ench2MpConsume"> 116 114 113 111 110 108 107 105 103 102 100 99 97 96 94 93 91 89 88 86 85 83 82 80 79 77 75 74 72 71 </table>
   <table name="#mpConsume"> 49 51 53 56 58 60 60 62 64 66 68 70 71 73 75 77 78 80 82 84 86 87 89 91 93 95 96 98 99 101 103 105 106 108 110 111 113 114 116 117 </table>
   <table name="#magicLvl"> 34 35 36 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 </table>
@@ -63,6 +66,9 @@
   </for>
 </skill>
 <skill id="102" levels="16" name="Entangle" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#ench2MpConsume">
   27 27 27 26 26 26 26 25 25 25
   25 24 24 24 24 24 23 23 23 23
@@ -145,6 +151,7 @@
   <set name="buffDuration" val="600000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="438"/>
   <for>
     <effect count="1" name="Buff" time="600" val="0" stackOrder="1" stackType="detect_weakness">
       <mul order="0x30" stat="pAtk-plants" val="1.2"/>
@@ -153,6 +160,9 @@
   </for>
 </skill>
 <skill id="105" levels="24" name="Freezing Strike" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#ench2MpConsume">
   27 27 26 26 25 25 25 24 24 24
   23 23 22 22 22 21 21 20 20 20
@@ -250,6 +260,7 @@
   <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="438"/>
   <for>
     <effect name="Buff" time="120" count="1" val="0" stackOrder="1" stackType="possession">
       <mul order="0x30" stat="pDef" val="1.30"/>
@@ -260,6 +271,9 @@
   </for>
 </skill>
 <skill id="110" levels="2" name="Ultimate Defense" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#pDef"> 1800 3600 </table>
   <table name="#mDef"> 1350 2700 </table>
   <table name="#ench1pDef">
@@ -288,6 +302,7 @@
   1580000 1560000 1540000 1520000 1500000 1480000 1460000 1440000 1420000 1400000
   1380000 1360000 1340000 1320000 1300000 1280000 1260000 1240000 1220000 1200000
   </table>
+  <table name="#aggro"> 204 438 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -299,6 +314,7 @@
   <set name="buffDuration" val="30000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/>
   <enchant1 name="buffDuration" val="#ench1buffDuration"/>
   <enchant2 name="reuseDelay" val="#ench2reuseDelay"/>
   <for>
@@ -324,6 +340,9 @@
   </enchant2for>
 </skill>
 <skill id="111" levels="2" name="Ultimate Evasion" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#Tab-rEvas"> 20 25 </table>
   <table name="#mpConsume"> 13 25 </table>
   <table name="#ench1time">
@@ -341,6 +360,7 @@
   1580000 1560000 1540000 1520000 1500000 1480000 1460000 1440000 1420000 1400000
   1380000 1360000 1340000 1320000 1300000 1280000 1260000 1240000 1220000 1200000
   </table>
+  <table name="#aggro"> 268 523 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -352,6 +372,7 @@
   <set name="buffDuration" val="30000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/>
   <enchant1 name="buffDuration" val="#ench1buffDuration"/>
   <enchant2 name="reuseDelay" val="#ench2reuseDelay"/>
   <for>
@@ -368,6 +389,9 @@
   </enchant1for>
 </skill>
 <skill id="112" levels="4" name="Deflect Arrow" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#ench1time">
   1240 1280 1320 1360 1400 1440 1480 1520 1560 1600
   1640 1680 1720 1760 1800 1840 1880 1920 1960 2000
@@ -385,6 +409,7 @@
   16 16 16 15 15 14 14 14 13 13
   12 12 12 11 11 10 10 10  9  9
   </table>
+  <table name="#aggro"> 10 20 30 40 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -396,6 +421,7 @@
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/>
   <enchant1 name="buffDuration" val="#buffDuration"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <for>
@@ -425,6 +451,9 @@
   </for>
 </skill>
 <skill id="115" levels="17" name="Power Break" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#ench2MpConsume">
   27 27 27 26 26 26 25 25 25 25
   25 24 24 24 24 23 23 23 23 22
@@ -466,6 +495,9 @@
   </for>
 </skill>
 <skill id="116" levels="14" name="Howl" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#ench1Power">
   40 40 41 41 41 42 42 42 43 43
   43 44 44 44 45 45 45 46 46 46
@@ -549,6 +581,7 @@
   <table name="#mpConsume"> 13 18 22 27 30 33 </table>
   <table name="#Tab-maxHp"> 1.1 1.15 1.2 1.25 1.3 1.35</table>
   <table name="#reg-HP"> 9.1 13 16.6 20 23 25.7</table>
+  <table name="#aggro"> 268 379 467 549 597 635 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#reg-HP"/>
   <set name="target" val="TARGET_SELF"/>
@@ -560,6 +593,7 @@
   <set name="buffDuration" val="600000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/>
   <for>
     <effect count="1" name="Buff" time="600" val="0" stackOrder="#Tab-maxHp" stackType="MaxHPUp">
       <mul order="0x30" stat="maxHp" val="#Tab-maxHp"/>
@@ -567,6 +601,9 @@
   </for>
 </skill>
 <skill id="122" levels="15" name="Hex" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#ench2MpConsume">
   33 33 33 32 32 32 32 31 31 31
   31 30 30 30 30 30 28 28 28 28
@@ -603,6 +640,9 @@
   </for>
 </skill>
 <skill id="123" levels="3" name="Spirit Barrier" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#ench1time">
   1240 1280 1320 1360 1400 1440 1480 1520 1560 1600
   1640 1680 1720 1760 1800 1840 1880 1920 1960 2000
@@ -626,6 +666,7 @@
   <table name="#Tab-mDef"> 1.15 1.23 1.3 </table>
   <table name="#mpConsume_Init"> 4 5 6 </table>
   <table name="#mpConsume"> 14 18 22 </table>
+  <table name="#aggro"> 379 467 549 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
@@ -639,6 +680,7 @@
   <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/>
   <enchant1 name="buffDuration" val="#buffDuration"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
@@ -654,6 +696,9 @@
   </enchant1for>
 </skill>
 <skill id="127" levels="14" name="Hamstring" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#ench2MpConsume"> 33 33 33 32 32 32 32 31 31 31 31 30 30 30 30 30 28 28 28 28 27 27 27 27 26 26 26 26 25 25 </table>
   <table name="#magicLvl"> 43 46 49 52 55 58 60 62 64 66 68 70 72 74 </table>
   <table name="#mpConsume_Init"> 4 5 5 5 5 6 6 6 6 7 7 7 7 7 </table>
@@ -717,6 +762,7 @@
   0.88 0.88 0.89 0.90 0.90 0.91 0.92 0.92 0.93 0.94
   0.94 0.95 0.96 0.96 0.97 0.98 0.98 0.99 1.00 1.00
   </table>
+  <table name="#aggro"> 438 523 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -728,6 +774,7 @@
   <set name="buffDuration" val="300000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/>
   <for>
     <effect name="Buff" time="300" count="1" val="0">
       <mul order="0x30" stat="runSpd" val="0.8"/>
@@ -755,6 +802,7 @@
   <table name="#Tab-accCombat"> 6 8 10 </table>
   <table name="#Tab-pDef"> 0.9 0.9 0.9 </table>
   <table name="#mpConsume"> 18 22 27 </table>
+  <table name="#aggro"> 379 467 549 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="weaponsAllowed" val="32"/>
   <set name="power" val="0.0"/>
@@ -767,6 +815,7 @@
   <set name="buffDuration" val="300000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/>
   <enchant1 name="buffDuration" val="#buffDuration"/>
   <for>
     <effect name="Buff" time="300" count="1" val="0" stackOrder="#Tab-accCombat" stackType="HawkEye">
@@ -818,6 +867,7 @@
   <!-- Done by dc, completed by NewAge -->
   <table name="#Tab-pDef"> 2.0 2.5 3.0 </table>
   <table name="#mpConsume"> 16 19 24 </table>
+  <table name="#aggro"> 341 408 495 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -830,6 +880,7 @@
   <set name="buffDuration" val="90000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/>
   <cond msg="Can be only used when HP is 30% or lower">
     <player hp="30"/>
   </cond>
@@ -1084,6 +1135,7 @@
   <table name="#other"> 1.15 1.20 1.25 </table>
   <table name="#Tab-accCombat"> 4 4 4 </table>
   <table name="#mpConsume"> 14 21 25 </table>
+  <table name="#aggro"> 303 438 523 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -1096,6 +1148,7 @@
   <set name="buffDuration" val="90000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/>
   <cond msg="Can be only used when HP is 30% or lower">
     <player hp="30"/>
   </cond>
@@ -1141,6 +1194,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="181"/>
   <cond>
     <player hp="5"/>
   </cond>
@@ -1148,6 +1202,9 @@
   </for>
 </skill>
 <skill id="190" levels="37" name="Fatal Strike" enchantLevels1="30" enchantLevels2="30" >
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#ench2MpConsume"> 82 81 80 79 77 76 75 74 73 72 70 69 68 67 66 64 63 62 61 60 59 57 56 55 54 53 52 50 49 48 </table>
   <table name="#magicLvl"> 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 </table>
   <table name="#mpConsume"> 40 41 43 43 44 45 47 48 49 51 52 54 55 55 56 58 59 61 62 63 65 66 68 68 69 70 72 73 74 75 77 78 79 80 81 82 83 </table>

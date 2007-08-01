@@ -34,6 +34,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="120000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
    <effect count="1" name="Buff" time="120" val="0">
     <mul order="0x30" stat="rCrit" val="#rCrit"/>
@@ -173,6 +174,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="120000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="120" val="0">
       <mul order="0x30" stat="pAtk" val="#pAtk"/>
@@ -199,6 +201,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="120000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="120" val="0">
       <add order="0x40" stat="absorbDam" val="#Tab-absorbDam"/>
@@ -219,6 +222,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="120000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="120" val="0" stackOrder="#rCrit" stackType="rCrit">
       <mul order="0x30" stat="rCrit" val="#rCrit"/>
@@ -239,6 +243,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="120000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="120" val="0">
       <mul order="0x30" stat="cAtk" val="#cAtk"/>
@@ -273,6 +278,7 @@
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="100"/>
   <for>
   </for>
 </skill>
@@ -318,6 +324,7 @@
   <set name="skillType" val="PASSIVE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="aggroPoints" val="100"/>
   <for>
   </for>
 </skill>
@@ -329,6 +336,7 @@
   <set name="skillType" val="PASSIVE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="aggroPoints" val="100"/>
   <for>
   </for>
 </skill>
@@ -359,6 +367,7 @@
   <set name="effectRange" val="1100"/>
   <set name="negateStats" val="SLEEP"/>
   <set name="negatePower" val="9.0"/>
+  <set name="aggroPoints" val="100"/>
   <for>
   </for>
 </skill>
@@ -476,6 +485,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="5000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="5" val="0" stackOrder="#Tab-pDef" stackType="pDef">
      <mul order="0x30" stat="pDef" val="#Tab-pDef"/>
@@ -496,6 +506,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="5000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="5" val="0" stackOrder="#mDef" stackType="MagicDefUp">
      <mul order="0x30" stat="mDef" val="#mDef"/>
@@ -562,6 +573,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="120000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="120" val="0">
      <mul order="0x30" stat="pDef" val="#pDef"/>
@@ -586,6 +598,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="120000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="120" val="0">
      <mul order="0x30" stat="mAtk" val="#mAtk"/>
@@ -614,6 +627,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="120000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="120" val="0">
      <mul order="0x30" stat="pAtk" val="#pAtk"/>
@@ -642,6 +656,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="120000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="120" val="0">
      <mul order="0x30" stat="mAtk" val="#mAtk"/>
@@ -671,6 +686,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="120000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="120" val="0">
      <mul order="0x30" stat="pAtk" val="#pAtk"/>
@@ -705,6 +721,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="120000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="120" val="0">
      <mul order="0x30" stat="pAtk" val="#pAtk"/>
@@ -734,6 +751,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="120000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="120" val="0">
      <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd"/>
@@ -758,6 +776,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="120000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="120" val="0">
      <mul order="0x30" stat="mAtk" val="#mAtk"/>
@@ -786,6 +805,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="120000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="120" val="0">
      <mul order="0x30" stat="pAtk" val="#pAtk"/>
@@ -870,6 +890,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="5000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="5" val="0" stackOrder="#pAtkSpd" stackType="pAtkSpeedUp">
      <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
@@ -885,6 +906,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="5000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="5" val="0" stackOrder="#rCrit" stackType="rCrit">
      <mul order="0x30" stat="rCrit" val="#rCrit"/>
@@ -900,6 +922,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="5000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="5" val="0" stackOrder="#cAtk" stackType="cAtk">
      <mul order="0x30" stat="cAtk" val="#cAtk"/>
@@ -915,6 +938,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="5000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="5" val="0" stackOrder="#pAtk" stackType="pAtk">
      <mul order="0x30" stat="pAtk" val="#pAtk"/>
@@ -930,6 +954,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="5000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="5" val="0" stackOrder="#pDef" stackType="pDef">
      <mul order="0x30" stat="pDef" val="#pDef"/>
@@ -1663,6 +1688,7 @@
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/> 
+  <set name="aggroPoints" val="100"/>
   <for>
   </for>
 </skill>
@@ -1674,7 +1700,8 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/> 
+  <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="100"/>
   <for>
   </for>
 </skill>
@@ -1686,6 +1713,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="15000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="5" name="Buff" time="15" val="0"> 
        <mul order="0x30" stat="pAtk" val="0.55"/>
@@ -1706,6 +1734,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="15000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="5" name="Buff" time="15" val="0"> 
        <mul order="0x30" stat="pAtk" val="0.20"/>
@@ -1720,6 +1749,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="15000"/>
+  <set name="aggroPoints" val="100"/>
   <for>
     <effect count="5" name="Buff" time="15" val="0"> 
        <mul order="0x30" stat="pDef" val="0.20"/>
@@ -1763,6 +1793,7 @@
   <table name="#time"> 120 120 120 150 165 180 195 210 225 240 255 270 285 </table>
   <table name="#dur"> 120000 120000 120000 150000 165000 180000 195000 210000 225000 240000 255000 270000 285000 </table>
   <table name="#mpConsume"> 122 157 194 202 207 212 215 220 224 229 233 237 242 </table>
+  <table name="#power"> 541 611 659 666 669 673 676 679 681 684 687 689 692 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
@@ -1775,6 +1806,7 @@
   <set name="buffDuration" val="#dur"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#power"/>
   <for>
 	<effect count="1" name="Buff" time="#time" val="0" stackOrder="1" stackType="QueenBuff">
       <mul order="0x30" stat="rCrit" val="#rate"/>
