@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.recipes.manager.CraftManager;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -49,7 +50,7 @@ public class RequestRecipeBookOpen extends L2GameClientPacket
         
         if (getClient().getActiveChar().getPrivateStoreType() != 0)
         {
-        	getClient().getActiveChar().sendPacket(new SystemMessage(SystemMessage.PRIVATE_STORE_UNDER_WAY));
+        	getClient().getActiveChar().sendPacket(new SystemMessage(SystemMessageId.PRIVATE_STORE_UNDER_WAY));
             return;
         }
         

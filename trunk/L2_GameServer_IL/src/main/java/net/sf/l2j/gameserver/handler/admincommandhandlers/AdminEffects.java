@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
@@ -260,7 +261,7 @@ public class AdminEffects implements IAdminCommandHandler
 
               activeChar.stopEffect(7029);
               if (val == 0 && sendMessage) {
-                  SystemMessage sm = new SystemMessage(SystemMessage.EFFECT_S1_DISAPPEARED);
+                  SystemMessage sm = new SystemMessage(SystemMessageId.EFFECT_S1_DISAPPEARED);
                   sm.addSkillName(7029);
                   activeChar.sendPacket(sm);
               }
@@ -271,7 +272,7 @@ public class AdminEffects implements IAdminCommandHandler
               }
           }
           catch (Exception e) {
-        	  SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+        	  SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 
               sm.addString("Use //gmspeed value = [0...4].");
               activeChar.sendPacket(sm);
@@ -344,7 +345,7 @@ public class AdminEffects implements IAdminCommandHandler
             	        	player.broadcastPacket(info1);
         	    		}
         			    
-        			    SystemMessage smA = new SystemMessage(SystemMessage.S1_S2);
+        			    SystemMessage smA = new SystemMessage(SystemMessageId.S1_S2);
         				smA.addString("Changed name from "+ oldName +" to "+ name +".");		
         				activeChar.sendPacket(smA);
                }
@@ -382,7 +383,7 @@ public class AdminEffects implements IAdminCommandHandler
                        player.setTeam(0);
                        if (teamVal != 0)
                        {
-                    	   SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                    	   SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                            sm.addString("You have joined team " + teamVal);
                            player.sendPacket(sm);
                        }
@@ -411,7 +412,7 @@ public class AdminEffects implements IAdminCommandHandler
            player.setTeam(teamVal);
            if (teamVal != 0)
            {
-        	   SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+        	   SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
         	   sm.addString("You have joined team " + teamVal);
         	   player.sendPacket(sm);
            }
@@ -422,33 +423,25 @@ public class AdminEffects implements IAdminCommandHandler
 		   	StringTokenizer st = new StringTokenizer(command);
 		   	try
 		   	{
-		   	st.nextToken();
-		   	int numval = Integer.parseInt(st.nextToken());
+				st.nextToken();
+				int numval = Integer.parseInt(st.nextToken());
 		
-		   	L2Object target = activeChar.getTarget();
-		   	L2PcInstance player = null;
+				L2Object target = activeChar.getTarget();
+				L2PcInstance player = null;
 		
-		   	if (target instanceof L2PcInstance)
-		   		player = (L2PcInstance)target;
-		   	else
-		        	      	player = activeChar;
+				if (target instanceof L2PcInstance)
+					player = (L2PcInstance)target;
+				else
+		           	player = activeChar;
 		
-		   	player.getInventory().addItem("admin_create_adena", 57, numval, activeChar, activeChar);
-		
-		   	SystemMessage sm = new SystemMessage(614);
-		   	sm.addString(activeChar.getName() + " has given " + numval  +" Adena in your inventory.");
-		   	player.sendPacket(sm);
-		
-		   	SystemMessage smAdmin = new SystemMessage(614);
-		   	smAdmin.addString("You have given " + numval + " Adena to " + player.getName());
-		   	activeChar.sendPacket(smAdmin);				
-		   	}
+				player.getInventory().addItem("admin_create_adena", 57, numval, activeChar, activeChar);
+				player.sendMessage(activeChar.getName() + " has given " + numval  +" Adena in your inventory.");
+				activeChar.sendMessage("You have given " + numval + " Adena to " + player.getName());
+			}
 		   	catch (StringIndexOutOfBoundsException e)
 		   	{
-		   	SystemMessage sm = new SystemMessage(614);
-		   	sm.addString("Error while creating Adena.");
-		   	activeChar.sendPacket(sm);
-	   	}
+				activeChar.sendMessage("Error while creating Adena.");
+			}
        }
        else if (command.startsWith("admin_social"))
        {

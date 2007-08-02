@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.RecipeBookItemList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.tools.L2Registry;
@@ -95,7 +96,7 @@ public class CraftManager
             return;
         }
         
-        SystemMessage sm = new SystemMessage(SystemMessage.CANT_ALTER_RECIPEBOOK_WHILE_CRAFTING);
+        SystemMessage sm = new SystemMessage(SystemMessageId.CANT_ALTER_RECIPEBOOK_WHILE_CRAFTING);
         player.sendPacket(sm);
         return;
     }
@@ -171,7 +172,7 @@ public class CraftManager
     {
 		if (player.isInDuel())
 		{
-			player.sendPacket(new SystemMessage(SystemMessage.CANT_CRAFT_DURING_COMBAT));
+			player.sendPacket(new SystemMessage(SystemMessageId.CANT_CRAFT_DURING_COMBAT));
 			return;
 		}
 
@@ -184,7 +185,7 @@ public class CraftManager
         // check if already busy (possible in alt mode only)
         if (CraftManager.isPlayerCrafting(player)) 
         {
-            SystemMessage sm = new SystemMessage(614);
+            SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
             sm.addString("You are busy creating ");
             sm.addItemName(recipe.getItemId());
             player.sendPacket(sm);

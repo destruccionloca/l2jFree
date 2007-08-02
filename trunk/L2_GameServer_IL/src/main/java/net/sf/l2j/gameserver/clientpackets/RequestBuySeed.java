@@ -10,6 +10,7 @@ import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2ManorManagerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MerchantInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -132,7 +133,7 @@ public class RequestBuySeed extends L2GameClientPacket {
             if (count > Integer.MAX_VALUE)
             {
                 Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase over "+Integer.MAX_VALUE+" items at the same time.",  Config.DEFAULT_PUNISH);
-                SystemMessage sm = new SystemMessage(SystemMessage.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
+                SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
                 sendPacket(sm);
                 return;
             }
@@ -188,14 +189,14 @@ public class RequestBuySeed extends L2GameClientPacket {
 
         if (!player.getInventory().validateWeight(weight))
         {
-            sendPacket(new SystemMessage(SystemMessage.WEIGHT_LIMIT_EXCEEDED));
+            sendPacket(new SystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
             return;
         }
 
     
         if (!player.getInventory().validateCapacity(slots))
         {
-            sendPacket(new SystemMessage(SystemMessage.SLOTS_FULL));
+            sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
             return;
         }
 
@@ -203,7 +204,7 @@ public class RequestBuySeed extends L2GameClientPacket {
         // Charge buyer and add tax to castle treasury if not owned by npc clan
         if ((subTotal < 0) || !player.reduceAdena("Buy", (int)(subTotal + tax), player.getLastFolkNPC(), false))
         {
-            sendPacket(new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA));
+            sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
             return;
         }
 

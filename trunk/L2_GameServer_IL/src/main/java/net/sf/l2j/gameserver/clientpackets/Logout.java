@@ -32,6 +32,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
 import net.sf.l2j.gameserver.network.L2GameClient;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.FriendList;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
@@ -73,7 +74,7 @@ public class Logout extends L2GameClientPacket
         if (!(player.isGM()))
         {
             if(ZoneManager.getInstance().checkIfInZone(ZoneType.ZoneTypeEnum.NoEscape.toString(),player)){
-                player.sendPacket(SystemMessage.sendString("You can not log out in here."));
+                player.sendMessage("You can not log out in here.");
                 player.sendPacket(new ActionFailed());
                 return;                   
             }
@@ -81,7 +82,7 @@ public class Logout extends L2GameClientPacket
 	
         if(player.isFlying())
         {
-            player.sendPacket(SystemMessage.sendString("You can not log out while flying."));
+            player.sendMessage("You can not log out while flying.");
             player.sendPacket(new ActionFailed());
             return;                   
         }
@@ -91,7 +92,7 @@ public class Logout extends L2GameClientPacket
         {
             if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while fighting");
             
-            player.sendPacket(new SystemMessage(SystemMessage.CANT_LOGOUT_WHILE_FIGHTING));
+            player.sendPacket(new SystemMessage(SystemMessageId.CANT_LOGOUT_WHILE_FIGHTING));
             player.sendPacket(new ActionFailed());
             return;
         }
@@ -102,7 +103,7 @@ public class Logout extends L2GameClientPacket
 
             if (pet.isAttackingNow())
             {
-            	pet.sendPacket(new SystemMessage(SystemMessage.PET_CANNOT_SENT_BACK_DURING_BATTLE));
+            	pet.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE));
                 player.sendPacket(new ActionFailed());
                 return;
             } 
@@ -111,14 +112,14 @@ public class Logout extends L2GameClientPacket
         }
         
         if(player.atEvent) {
-            player.sendPacket(SystemMessage.sendString("A superior power doesn't allow you to leave the event."));
+            player.sendMessage("A superior power doesn't allow you to leave the event.");
             return;
         }
         
         // prevent from player disconnect when in Olympiad mode
         if(player.isInOlympiadMode()) {
         	if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while in Olympiad");
-            player.sendPacket(SystemMessage.sendString("You can't disconnect when in Olympiad."));
+            player.sendMessage("You can't disconnect when in Olympiad.");
             player.sendPacket(new ActionFailed());
             return;
         }

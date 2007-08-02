@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
@@ -127,14 +128,14 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
         // Item Max Limit Check 
         if (!player.getInventory().validateCapacity(slots))
         {
-            sendPacket(new SystemMessage(SystemMessage.SLOTS_FULL));
+            sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
             return;
         }
         
         // Weight limit Check 
         if (!player.getInventory().validateWeight(weight))
         {
-            sendPacket(new SystemMessage(SystemMessage.WEIGHT_LIMIT_EXCEEDED));
+            sendPacket(new SystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
             return;
         }
         

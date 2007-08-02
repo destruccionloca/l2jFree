@@ -32,6 +32,7 @@ import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ExShowQuestMark;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.QuestList;
@@ -495,7 +496,7 @@ public final class QuestState
 		// If item for reward is gold, send message of gold reward to client
 		if (itemId == 57) 
         {
-			SystemMessage smsg = new SystemMessage(SystemMessage.EARNED_ADENA);
+			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ADENA);
 			smsg.addNumber(count);
 			getPlayer().sendPacket(smsg);
 		} 
@@ -504,13 +505,13 @@ public final class QuestState
         {
             if (count > 1)
             {
-    			SystemMessage smsg = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+    			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
     			smsg.addItemName(item.getItemId());
                 smsg.addNumber(count);
     			getPlayer().sendPacket(smsg);
             } else
             {
-                SystemMessage smsg = new SystemMessage(SystemMessage.EARNED_ITEM);
+                SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ITEM);
                 smsg.addItemName(item.getItemId());
                 getPlayer().sendPacket(smsg);
             }

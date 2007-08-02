@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -46,7 +47,7 @@ public class Harvester implements IItemHandler
                       return;
         if(player.getTarget() == null || !(player.getTarget() instanceof L2MonsterInstance))
         {
-            player.sendPacket(new SystemMessage(SystemMessage.TARGET_IS_INCORRECT));
+            player.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
             return;
         }
 
@@ -74,7 +75,7 @@ public class Harvester implements IItemHandler
                 }
                 if (send)
                 {
-                    SystemMessage smsg = new SystemMessage(SystemMessage.YOU_PICKED_UP_S1_S2);
+                    SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
                     smsg.addNumber(total);
                     smsg.addItemName(cropId);
                     player.sendPacket(smsg);

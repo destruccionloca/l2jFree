@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.L2GameClient;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ServerClose;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -296,7 +297,7 @@ public class Shutdown extends Thread implements ShutdownMBean
                 // announce only every minute after 10 minutes left and every second after 10 seconds
                 if ((_seconds <= 10 || _seconds == _minutes * 60) && (_seconds <= 600) && _hours <=1)
                 	{
-                		SystemMessage sm = new SystemMessage(SystemMessage.THE_SERVER_WILL_BE_COMING_DOWN_IN_S1_SECONDS);
+                		SystemMessage sm = new SystemMessage(SystemMessageId.THE_SERVER_WILL_BE_COMING_DOWN_IN_S1_SECONDS);
                 		sm.addString(Integer.toString(_seconds));
                 		Announcements.getInstance().announceToAll(sm);
                 	}

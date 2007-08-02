@@ -53,7 +53,7 @@ public class RequestStopPledgeWar extends L2GameClientPacket
 
 		//        if (leader.isProcessingRequest())
 		//        {
-		//            SystemMessage sm = new SystemMessage(SystemMessage.S1_IS_BUSY_TRY_LATER);
+		//            SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER);
 		//            sm.addString(leader.getName());
 		//            player.sendPacket(sm);
 		//            return;

@@ -51,6 +51,7 @@ import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.quest.Quest;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.ClientSetTime;
 import net.sf.l2j.gameserver.serverpackets.Die;
@@ -234,24 +235,24 @@ public class EnterWorld extends L2GameClientPacket
         
         sendPacket(new ClientSetTime());
                 
-        SystemMessage sm = new SystemMessage(SystemMessage.WELCOME_TO_LINEAGE);
+        SystemMessage sm = new SystemMessage(SystemMessageId.WELCOME_TO_LINEAGE);
         sendPacket(sm);
 
         if (Config.SHOW_L2J_LICENSE)
         {
-        	sm = new SystemMessage(SystemMessage.S1_S2);
+        	sm = new SystemMessage(SystemMessageId.S1_S2);
 	        sm.addString(getText("VGhpcyBTZXJ2ZXIgaXMgcnVubmluZyBMMko="));
             sm.addString(getText("IHZlcnNpb24gNiBkZXYvdW5zdGFibGU="));
 	        sendPacket(sm);
-	        sm = new SystemMessage(SystemMessage.S1_S2);
+	        sm = new SystemMessage(SystemMessageId.S1_S2);
 	        sm.addString(getText("Y3JlYXRlZCBieSBMMkNoZWYgYW5kIHRoZQ=="));
 	        sm.addString(getText("IEwySiB0ZWFtLg=="));
 	        sendPacket(sm);
-	        sm = new SystemMessage(SystemMessage.S1_S2);
+	        sm = new SystemMessage(SystemMessageId.S1_S2);
 	        sm.addString(getText("dmlzaXQgbDJqc2VydmVyLmNvbQ=="));
 	        sm.addString(getText("ICBmb3Igc3VwcG9ydC4="));
 	        sendPacket(sm);
-	        sm = new SystemMessage(SystemMessage.S1_S2);
+	        sm = new SystemMessage(SystemMessageId.S1_S2);
 	        sm.addString(getText("V2VsY29tZSB0byA="));
 	        sm.addString(LoginServerThread.getInstance().getServerName());
 	        sendPacket(sm);
@@ -260,10 +261,10 @@ public class EnterWorld extends L2GameClientPacket
             Version version = versionningService.getVersion();
             if (version!= null)
 	        {
-	        	sm = new SystemMessage(SystemMessage.S1_S2);
+	        	sm = new SystemMessage(SystemMessageId.S1_S2);
 	            sm.addString(getText("TDJKIFNlcnZlciBWZXJzaW9uOg==")+"   "+version.getRevisionNumber());
 	            sendPacket(sm);
-	            sm = new SystemMessage(SystemMessage.S1_S2);
+	            sm = new SystemMessage(SystemMessageId.S1_S2);
 	            sm.addString(getText("TDJKIFNlcnZlciBCdWlsZCBEYXRlOg==")+" "+version.getBuildDate());
 	            sendPacket(sm);
 	        }
@@ -311,7 +312,7 @@ public class EnterWorld extends L2GameClientPacket
 
         if(Config.ONLINE_PLAYERS_AT_STARTUP)
         {
-             sm = new SystemMessage(SystemMessage.S1_S2);
+             sm = new SystemMessage(SystemMessageId.S1_S2);
              if (L2World.getInstance().getAllPlayers().size() == 1)
             	 sm.addString("Player online: ");
              else
@@ -380,7 +381,7 @@ public class EnterWorld extends L2GameClientPacket
         
 		if (activeChar.getClanJoinExpiryTime() > System.currentTimeMillis())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessage.CLAN_MEMBERSHIP_TERMINATED));
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED));
 		}
 		
 		if (activeChar.getClan() != null)  
@@ -457,7 +458,7 @@ public class EnterWorld extends L2GameClientPacket
 	 */
     private void notifyFriends(L2PcInstance cha)
 	{
-    	SystemMessage sm = new SystemMessage(SystemMessage.S1_FRIEND_HAS_LOGGED_IN);
+    	SystemMessage sm = new SystemMessage(SystemMessageId.FRIEND_S1_HAS_LOGGED_IN);
         sm.addString(cha.getName());
         
         for(String friendName : L2FriendList.getFriendListNames(cha))
@@ -485,7 +486,7 @@ public class EnterWorld extends L2GameClientPacket
 			if(clanmember!=null)
 			{
 				clanmember.setPlayerInstance(activeChar);
-				SystemMessage msg = new SystemMessage(SystemMessage.CLAN_MEMBER_S1_LOGGED_IN);
+				SystemMessage msg = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_LOGGED_IN);
 				msg.addString(activeChar.getName());
 				clan.broadcastToOtherOnlineMembers(msg, activeChar);
 				msg = null;
@@ -505,7 +506,7 @@ public class EnterWorld extends L2GameClientPacket
            
            if (sponsor != null)
            {
-               SystemMessage msg = new SystemMessage(SystemMessage.YOUR_APPRENTICE_S1_HAS_LOGGED_IN);
+               SystemMessage msg = new SystemMessage(SystemMessageId.YOUR_APPRENTICE_S1_HAS_LOGGED_IN);
                msg.addString(activeChar.getName());
                sponsor.sendPacket(msg);
            }
@@ -516,7 +517,7 @@ public class EnterWorld extends L2GameClientPacket
            
            if (apprentice != null)
            {
-               SystemMessage msg = new SystemMessage(SystemMessage.YOUR_SPONSOR_S1_HAS_LOGGED_IN);
+               SystemMessage msg = new SystemMessage(SystemMessageId.YOUR_SPONSOR_S1_HAS_LOGGED_IN);
                msg.addString(activeChar.getName());
                apprentice.sendPacket(msg);
            }

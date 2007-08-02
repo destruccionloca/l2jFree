@@ -35,6 +35,7 @@ import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
@@ -248,7 +249,7 @@ public class SailrenManager
 
 		if(canIntoSailrenLair(pc) != 0)
 		{
-			SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 			sm.addString("Entrance was refused because it did not satisfy it. ");
 			pc.sendPacket(sm);
 			_IsAlreadyEnteredOtherParty = false;

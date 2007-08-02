@@ -45,6 +45,7 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -752,14 +753,14 @@ public class TvT
 
                     if (_rewardAmount > 1)
                     {
-                        sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+                        sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
                         sm.addItemName(_rewardId);
                         sm.addNumber(_rewardAmount);
                         player.sendPacket(sm);
                     }
                     else
                     {
-                        sm = new SystemMessage(SystemMessage.EARNED_ITEM);
+                        sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
                         sm.addItemName(_rewardId);
                         player.sendPacket(sm);
                     }

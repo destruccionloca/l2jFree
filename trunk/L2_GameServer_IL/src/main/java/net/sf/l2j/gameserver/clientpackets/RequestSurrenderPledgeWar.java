@@ -3,6 +3,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -50,7 +51,7 @@ public class RequestSurrenderPledgeWar extends L2GameClientPacket
         }
         
         
-        SystemMessage msg = new SystemMessage(SystemMessage.YOU_HAVE_SURRENDERED_TO_THE_S1_CLAN);
+        SystemMessage msg = new SystemMessage(SystemMessageId.YOU_HAVE_SURRENDERED_TO_THE_S1_CLAN);
         msg.addString(_pledgeName);
         player.sendPacket(msg);
         msg = null;
@@ -66,7 +67,7 @@ public class RequestSurrenderPledgeWar extends L2GameClientPacket
         
         if (leader.isTransactionInProgress())
         {
-            SystemMessage sm = new SystemMessage(SystemMessage.S1_IS_BUSY_TRY_LATER);
+            SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER);
             sm.addString(leader.getName());
             player.sendPacket(sm);
             return;

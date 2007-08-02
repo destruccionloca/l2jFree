@@ -35,6 +35,7 @@ import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -339,7 +340,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
                 else
                 {
         			{
-        				SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+        				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
         				sm.addString("-"); //TODO:
         				player.sendPacket(sm);
         			}

@@ -32,6 +32,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -118,7 +119,7 @@ public final class L2BossInstance extends L2MonsterInstance
         // [L2J_JP ADD START SANDMAN]
         if (killer instanceof L2PlayableInstance)
         {
-            SystemMessage msg = new SystemMessage(1209);
+            SystemMessage msg = new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL);
             broadcastPacket(msg);
         }
 

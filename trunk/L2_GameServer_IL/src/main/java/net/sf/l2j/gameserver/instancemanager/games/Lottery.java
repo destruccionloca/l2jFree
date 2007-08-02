@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -301,7 +302,7 @@ public class Lottery
             if (_log.isDebugEnabled()) _log.info("Lottery: Stopping ticket sell for lottery #" + getId() + ".");
             _isSellingTickets = false;
             
-            Announcements.getInstance().announceToAll(new SystemMessage(SystemMessage.LOTTERY_TICKET_SALES_TEMP_SUSPENDED));
+            Announcements.getInstance().announceToAll(new SystemMessage(SystemMessageId.LOTTERY_TICKET_SALES_TEMP_SUSPENDED));
         }
     }
     
@@ -435,7 +436,7 @@ public class Lottery
             if (count1 > 0)
             {
                 // There are winners.
-                sm = new SystemMessage(SystemMessage.AMOUNT_FOR_WINNER_S1_IS_S2_ADENA_WE_HAVE_S3_PRIZE_WINNER);
+                sm = new SystemMessage(SystemMessageId.AMOUNT_FOR_WINNER_S1_IS_S2_ADENA_WE_HAVE_S3_PRIZE_WINNER);
                 sm.addNumber(getId());
                 sm.addNumber(getPrize());
                 sm.addNumber(count1);
@@ -444,7 +445,7 @@ public class Lottery
             else
             {
                 // There are no winners.
-                sm = new SystemMessage(SystemMessage.AMOUNT_FOR_LOTTERY_S1_IS_S2_ADENA_NO_WINNER);
+                sm = new SystemMessage(SystemMessageId.AMOUNT_FOR_LOTTERY_S1_IS_S2_ADENA_NO_WINNER);
                 sm.addNumber(getId());
                 sm.addNumber(getPrize());
                 Announcements.getInstance().announceToAll(sm);

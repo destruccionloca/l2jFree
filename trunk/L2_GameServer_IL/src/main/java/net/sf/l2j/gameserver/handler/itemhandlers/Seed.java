@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.model.L2Manor;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -64,7 +65,7 @@ public class Seed implements IItemHandler
         
         if(!(_char.getTarget() instanceof L2MonsterInstance))
         {
-            _char.sendPacket(new SystemMessage(SystemMessage.INCORRECT_TARGET));
+            _char.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
             return;
         }
 
@@ -84,11 +85,11 @@ public class Seed implements IItemHandler
                 if(calcSuccess())
                 {
                     _target.setSeeded(item.getItemId(),_char.getLevel());
-                    _char.sendPacket(new SystemMessage(SystemMessage.SEED_SUCCESSFULLY_SOWN));
+                    _char.sendPacket(new SystemMessage(SystemMessageId.SEED_SUCCESSFULLY_SOWN));
                 }
                 else
                 {
-                    _char.sendPacket(new SystemMessage(SystemMessage.SEED_NOT_SOWN));
+                    _char.sendPacket(new SystemMessage(SystemMessageId.SEED_NOT_SOWN));
                 }
 
                 // remove seed from inv & attack target
@@ -98,7 +99,7 @@ public class Seed implements IItemHandler
             }
             else
             {
-                _char.sendPacket(new SystemMessage(SystemMessage.SEED_CANNOT_BE_SOWN_HERE));
+                _char.sendPacket(new SystemMessage(SystemMessageId.SEED_CANNOT_BE_SOWN_HERE));
             }
         }
     }

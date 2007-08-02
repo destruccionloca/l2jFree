@@ -22,6 +22,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -83,13 +85,13 @@ public class GmListTable
 	
 	public void sendListToPlayer (L2PcInstance player){
 		if (_gmList.isEmpty()) {
-			SystemMessage sm = new SystemMessage(SystemMessage.NO_GM_PROVIDING_SERVICE_NOW); //There are not any GMs that are providing customer service currently.
+			SystemMessage sm = new SystemMessage(SystemMessageId.NO_GM_PROVIDING_SERVICE_NOW);
 			player.sendPacket(sm);
 		} else {
-			SystemMessage sm = new SystemMessage(SystemMessage.GM_LIST);
+			SystemMessage sm = new SystemMessage(SystemMessageId.GM_LIST);
 			player.sendPacket(sm);
             for (L2PcInstance gm : _gmList) {
-				sm = new SystemMessage(SystemMessage.GM_S1);
+				sm = new SystemMessage(SystemMessageId.GM_S1);
 				sm.addString(gm.getName());
 				player.sendPacket(sm);
 			}

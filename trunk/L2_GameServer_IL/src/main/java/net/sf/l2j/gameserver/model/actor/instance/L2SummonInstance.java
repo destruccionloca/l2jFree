@@ -26,6 +26,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SetSummonRemainTime;
 import net.sf.l2j.gameserver.serverpackets.PetLiveTime;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -191,7 +192,7 @@ public class L2SummonInstance extends L2Summon
         if (isPetrified())
         {damage=0;}
         super.reduceCurrentHp(damage, attacker);
-        SystemMessage sm = new SystemMessage(SystemMessage.SUMMON_RECEIVED_DAMAGE_S2_BY_S1);
+        SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_RECEIVED_DAMAGE_S2_BY_S1);
         if (attacker instanceof L2NpcInstance)
         {
             sm.addNpcName(((L2NpcInstance)attacker).getTemplate().getNpcId());
@@ -226,16 +227,16 @@ public class L2SummonInstance extends L2Summon
     {
         if (crit)
         {
-            getOwner().sendPacket(new SystemMessage(SystemMessage.SUMMON_CRITICAL_HIT));
+            getOwner().sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT_BY_SUMMONED_MOB));
         }
         
         if (miss)
         {
-            getOwner().sendPacket(new SystemMessage(SystemMessage.MISSED_TARGET));
+            getOwner().sendPacket(new SystemMessage(SystemMessageId.MISSED_TARGET));
         }
         else
         {
-            SystemMessage sm = new SystemMessage(SystemMessage.SUMMON_GAVE_DAMAGE_OF_S1);
+            SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1);
             sm.addNumber(damage);
             getOwner().sendPacket(sm);
         }
@@ -380,9 +381,9 @@ public class L2SummonInstance extends L2Summon
     	if (target.getObjectId() != getOwner().getObjectId())
     	{
     		if (pcrit || mcrit)
-    			getOwner().sendPacket(new SystemMessage(SystemMessage.CRITICAL_HIT_BY_SUMMONED_MOB));
+    			getOwner().sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT_BY_SUMMONED_MOB));
 
-    		SystemMessage sm = new SystemMessage(SystemMessage.SUMMON_GAVE_DAMAGE_S1);
+    		SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1);
     		sm.addNumber(damage);
     		getOwner().sendPacket(sm);
         }

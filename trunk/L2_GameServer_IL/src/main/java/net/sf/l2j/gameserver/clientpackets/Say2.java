@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.FloodProtector;
@@ -120,7 +121,7 @@ public class Say2 extends L2GameClientPacket
         {
             {
 				// [L2J_JP EDIT]
-				activeChar.sendPacket(new SystemMessage(SystemMessage.CHATTING_IS_CURRENTLY_PROHIBITED));
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED));
                 return;
             }
         }
@@ -172,12 +173,12 @@ public class Say2 extends L2GameClientPacket
                     }
                     else
                     {
-                        activeChar.sendPacket(new SystemMessage(SystemMessage.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE));
+                        activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE));
                     }
         }
                 else
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_IS_NOT_ONLINE);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_NOT_ONLINE);
                     sm.addString(_target);        
                     activeChar.sendPacket(sm);
                     sm = null;
@@ -287,7 +288,7 @@ public class Say2 extends L2GameClientPacket
         case PETITION_GM:
             if (!PetitionManager.getInstance().isPlayerInConsultation(activeChar))
             {
-					activeChar.sendPacket(new SystemMessage(SystemMessage.YOU_ARE_NOT_IN_PETITION_CHAT));
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_IN_PETITION_CHAT));
                 break;
             }
             

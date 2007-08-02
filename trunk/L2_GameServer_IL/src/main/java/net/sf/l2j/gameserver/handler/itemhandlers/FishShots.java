@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
@@ -75,7 +76,7 @@ public class FishShots implements IItemHandler
         (grade == L2Item.CRYSTAL_S && FishshotId != 6540)) 
         { 
             //1479 - This fishing shot is not fit for the fishing pole crystal.             
-            activeChar.sendPacket(new SystemMessage(SystemMessage.WRONG_FISHINGSHOT_GRADE));
+            activeChar.sendPacket(new SystemMessage(SystemMessageId.WRONG_FISHINGSHOT_GRADE));
             return; 
         } 
 
@@ -89,7 +90,7 @@ public class FishShots implements IItemHandler
         L2Object oldTarget = activeChar.getTarget();
         activeChar.setTarget(activeChar);
 
-        //activeChar.sendPacket(new SystemMessage(SystemMessage.ENABLED_SPIRITSHOT));
+        //activeChar.sendPacket(new SystemMessage(SystemMessageId.ENABLED_SPIRITSHOT));
         
         MagicSkillUser MSU = new MagicSkillUser(activeChar,_skillIds[grade],1,0,0); 
         Broadcast.toSelfAndKnownPlayers(activeChar, MSU);

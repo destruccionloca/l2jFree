@@ -3,6 +3,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
 import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -41,7 +42,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
         		 !player.isMounted() || 
         		 !PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)))
             {
-                SystemMessage sm = new SystemMessage(SystemMessage.YOU_MAY_ONLY_RIDE_WYVERN_WHILE_RIDING_STRIDER);
+                SystemMessage sm = new SystemMessage(SystemMessageId.YOU_MAY_ONLY_RIDE_WYVERN_WHILE_RIDING_STRIDER);
                 player.sendPacket(sm);
                 sm = null;
                 return;
@@ -51,9 +52,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
                		  petItem != null && 
                		  petItem.getEnchantLevel() < 55 )
             	{
-            		SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-                    sm.addString("Your Strider don't reach the required level.");
-                    player.sendPacket(sm);
+					player.sendMessage("Your Strider don't reach the required level.");
                     return; 
             	}
         	
@@ -80,9 +79,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
             }
             else
             {
-            	SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-                sm.addString("You need 10 Crystals: B Grade.");
-                player.sendPacket(sm);
+                player.sendMessage("You need 10 Crystals: B Grade.");
                 return;
             }
         }

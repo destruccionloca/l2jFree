@@ -9,6 +9,7 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListUpdate;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -106,7 +107,7 @@ public class PcStat extends PlayableStat
     	if ( !super.addExpAndSp(addToExp, addToSp) ) return false;
 
         // Send a Server->Client System Message to the L2PcInstance
-        SystemMessage sm = new SystemMessage(SystemMessage.YOU_EARNED_S1_EXP_AND_S2_SP);
+        SystemMessage sm = new SystemMessage(SystemMessageId.YOU_EARNED_S1_EXP_AND_S2_SP);
         sm.addNumber((int)addToExp);
         sm.addNumber(addToSp);
         getActiveChar().sendPacket(sm);
@@ -120,7 +121,7 @@ public class PcStat extends PlayableStat
 
         // Send a Server->Client System Message to the L2PcInstance
         //TODO: add right System msg
-        SystemMessage sm = new SystemMessage(SystemMessage.YOU_EARNED_S1_EXP_AND_S2_SP);
+        SystemMessage sm = new SystemMessage(SystemMessageId.YOU_EARNED_S1_EXP_AND_S2_SP);
         sm.addNumber((int)addToExp);
         sm.addNumber(addToSp);
         getActiveChar().sendPacket(sm);
@@ -192,7 +193,7 @@ public class PcStat extends PlayableStat
             
             getActiveChar().getStatus().setCurrentCp(getMaxCp());
             getActiveChar().broadcastPacket(new SocialAction(getActiveChar().getObjectId(), 15));
-            getActiveChar().sendPacket(new SystemMessage(SystemMessage.YOU_INCREASED_YOUR_LEVEL));
+            getActiveChar().sendPacket(new SystemMessage(SystemMessageId.YOU_INCREASED_YOUR_LEVEL));
         }
 
         getActiveChar().rewardSkills(); // Give Expertise skill of this level

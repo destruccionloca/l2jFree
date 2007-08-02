@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,10 +46,10 @@ public class DlgAnswer extends L2GameClientPacket
     public void runImpl()
     {
         if(_log.isDebugEnabled())
-            _log.debug(getType()+": Answer acepted. Message ID "+_messageId+", asnwer "+_answer+", unknown field "+_unk);
-        if (_messageId == SystemMessage.RESSURECTION_REQUEST)
+            _log.debug(getType()+": Answer acepted. Message ID "+_messageId+", answer "+_answer+", unknown field "+_unk);
+        if (_messageId == SystemMessageId.RESSURECTION_REQUEST.getId())
             getClient().getActiveChar().ReviveAnswer(_answer);
-        else if (Config.ALLOW_WEDDING && getClient().getActiveChar().isEngageRequest() &&_messageId==614)
+        else if (Config.ALLOW_WEDDING && getClient().getActiveChar().isEngageRequest() &&_messageId == SystemMessageId.S1_S2.getId())
             getClient().getActiveChar().EngageAnswer(_answer);
     }
 

@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.recipes.manager.CraftManager;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -56,7 +57,7 @@ public class RequestRecipeItemMakeSelf extends L2GameClientPacket
         		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
         {
 			activeChar.sendMessage("Item creation isn't allowed during restart/shutdown!");
-			activeChar.sendPacket(new SystemMessage(SystemMessage.NOTHING_HAPPENED));
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
             return;
         }
 		

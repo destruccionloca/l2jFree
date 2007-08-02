@@ -39,6 +39,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.PetInfo;
@@ -122,12 +123,12 @@ public class AdminAdmin implements IAdminCommandHandler {
         	if (activeChar.getMessageRefusal()) // already in message refusal mode
 			{
 				activeChar.setMessageRefusal(false);
-				activeChar.sendPacket(new SystemMessage(SystemMessage.MESSAGE_ACCEPTANCE_MODE));
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.MESSAGE_ACCEPTANCE_MODE));
 			}
 		    else
 	        {
 		    	activeChar.setMessageRefusal(true);
-		    	activeChar.sendPacket(new SystemMessage(SystemMessage.MESSAGE_REFUSAL_MODE));
+		    	activeChar.sendPacket(new SystemMessage(SystemMessageId.MESSAGE_REFUSAL_MODE));
 	        }	    
 		    
 		}
@@ -474,7 +475,7 @@ public class AdminAdmin implements IAdminCommandHandler {
         }
         else
         {
-            SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+            SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
             sm.addString("Only sky and signsky atmosphere type allowed, damn u!");
             activeChar.sendPacket(sm);
         }
@@ -494,7 +495,7 @@ public class AdminAdmin implements IAdminCommandHandler {
 		activeChar.sendPacket(_snd);
 		activeChar.broadcastPacket(_snd);
 		showMainPage(activeChar);
-		SystemMessage _sm = new SystemMessage(SystemMessage.S1_S2);
+		SystemMessage _sm = new SystemMessage(SystemMessageId.S1_S2);
 		_sm.addString("Playing "+sound+".");
 		activeChar.sendPacket(_sm);
 	}
@@ -676,7 +677,7 @@ public class AdminAdmin implements IAdminCommandHandler {
 	//[L2J_JP_ADD]
     public void adminSummon(L2PcInstance activeChar, int npcId){
         if (activeChar.getPet() != null) {
-            SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+            SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
             activeChar.sendPacket(sm);
             activeChar.getPet().unSummon(activeChar);
         }

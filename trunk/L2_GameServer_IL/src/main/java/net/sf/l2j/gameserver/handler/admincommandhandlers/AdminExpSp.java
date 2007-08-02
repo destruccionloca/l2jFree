@@ -24,6 +24,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -58,7 +59,7 @@ public class AdminExpSp implements IAdminCommandHandler {
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{	//Case of empty character name
-				SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 				sm.addString("Error while adding Exp-Sp.");
 				activeChar.sendPacket(sm);
 				//listCharacters(client, 0);
@@ -73,7 +74,7 @@ public class AdminExpSp implements IAdminCommandHandler {
             }
             catch (StringIndexOutOfBoundsException e)
             {   //Case of empty character name
-            	SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+            	SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("Error while removing Exp-Sp.");
                 activeChar.sendPacket(sm);
                 //listCharacters(client, 0);            
@@ -101,7 +102,7 @@ public class AdminExpSp implements IAdminCommandHandler {
 		}
         else
         {
-        	SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+        	SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 			sm.addString("Incorrect target.");
 			activeChar.sendPacket(sm);
 			return;
@@ -126,21 +127,21 @@ public class AdminExpSp implements IAdminCommandHandler {
             catch (NumberFormatException e)
             {
                 //Wrong number (maybe it's too big?)
-            	SystemMessage smA = new SystemMessage(SystemMessage.S1_S2);
+            	SystemMessage smA = new SystemMessage(SystemMessageId.S1_S2);
                 smA.addString("Wrong Number Format");
                 activeChar.sendPacket(smA);
             }
             if(expval != 0 || spval != 0)
             {
         		//Common character information
-            	SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+            	SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
         		sm.addString("Admin is adding you "+expval+" xp and "+spval+" sp.");
         		player.sendPacket(sm);
         		
         		player.addExpAndSp(expval,spval);
         
         		//Admin information	
-        		SystemMessage smA = new SystemMessage(SystemMessage.S1_S2);
+        		SystemMessage smA = new SystemMessage(SystemMessageId.S1_S2);
         		smA.addString("Added "+expval+" xp and "+spval+" sp to "+player.getName()+".");
         		activeChar.sendPacket(smA);
         		if (_log.isDebugEnabled())
@@ -163,7 +164,7 @@ public class AdminExpSp implements IAdminCommandHandler {
         }
         else
         {
-        	SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+        	SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
             sm.addString("Incorrect target.");
             activeChar.sendPacket(sm);
             return;
@@ -188,21 +189,21 @@ public class AdminExpSp implements IAdminCommandHandler {
             catch (NumberFormatException e)
             {
                 //Wrong number (maybe it's too big?)
-            	SystemMessage smA = new SystemMessage(SystemMessage.S1_S2);
+            	SystemMessage smA = new SystemMessage(SystemMessageId.S1_S2);
                 smA.addString("Wrong Number Format");
                 activeChar.sendPacket(smA);
             }
             if(expval != 0 || spval != 0)
             {
                 //Common character information
-            	SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+            	SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("Admin is removing you "+expval+" xp and "+spval+" sp.");
                 player.sendPacket(sm);
                 
                 player.removeExpAndSp(expval,spval);
         
                 //Admin information 
-                SystemMessage smA = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage smA = new SystemMessage(SystemMessageId.S1_S2);
                 smA.addString("Removed "+expval+" xp and "+spval+" sp from "+player.getName()+".");
                 activeChar.sendPacket(smA);
                 if (_log.isDebugEnabled())

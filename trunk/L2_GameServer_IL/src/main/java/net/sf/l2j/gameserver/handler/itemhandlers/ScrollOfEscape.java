@@ -32,6 +32,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
@@ -69,53 +70,53 @@ public class ScrollOfEscape implements IItemHandler
 
 		// [L2J_JP ADD]
 		if(ZoneManager.getInstance().checkIfInZone(ZoneType.ZoneTypeEnum.NoEscape.toString(),activeChar)){
-		    activeChar.sendPacket(SystemMessage.sendString("You can not escape from here."));
+		    activeChar.sendMessage("You can not escape from here.");
 		    activeChar.sendPacket(new ActionFailed());
 		    return;                   
 		}
 
         if (activeChar.isSitting())
         {
-            activeChar.sendPacket(new SystemMessage(SystemMessage.CANT_MOVE_SITTING));
+            activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_MOVE_SITTING));
             return;
         }
         
         if (activeChar.isInOlympiadMode())
         {
-            activeChar.sendPacket(new SystemMessage(SystemMessage.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
+            activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
             return;
         }
         
         // Check to see if the player is in a festival.
         if (activeChar.isFestivalParticipant()) 
         {
-            activeChar.sendPacket(SystemMessage.sendString("You may not use an escape skill in a festival."));
+            activeChar.sendMessage("You may not use an escape skill in a festival.");
             return;
         }
         
         // Check to see if the current player is in TvT , CTF or ViP events.
         if (activeChar._inEventCTF || activeChar._inEventTvT || activeChar._inEventVIP) {
-            activeChar.sendPacket(SystemMessage.sendString("You may not use an escape skill in a Event."));
+            activeChar.sendMessage("You may not use an escape skill in a Event.");
             return;
         }
         
         // Check to see if player is in jail
         if (activeChar.isInJail())
         {
-            activeChar.sendPacket(SystemMessage.sendString("You can not escape from jail."));
+            activeChar.sendMessage("You can not escape from jail.");
             return;
         }
         
         if (activeChar.inObserverMode())
         {
-            activeChar.sendPacket(SystemMessage.sendString("You can not use SOE during Observation Mode."));
+            activeChar.sendMessage("You can not use Scroll of Escape during Observation Mode.");
             return;
         }
 
 		// Check to see if player is in a duel
 		if (activeChar.isInDuel())
 		{
-			activeChar.sendPacket(SystemMessage.sendString("You cannot use escape skills during a duel."));
+			activeChar.sendMessage("You cannot use escape skills during a duel.");
 		    return;
 		}
 
@@ -141,7 +142,7 @@ public class ScrollOfEscape implements IItemHandler
         activeChar.sendPacket(sg);
         //End SoE Animation section
         
-        SystemMessage sm = new SystemMessage(SystemMessage.S1_DISAPPEARED);
+        SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
         sm.addItemName(itemId);
         activeChar.sendPacket(sm);
 
@@ -178,12 +179,12 @@ public class ScrollOfEscape implements IItemHandler
                 }
                 else if(_itemId == 5858) // do nothing
                 {
-                   _activeChar.sendPacket(new SystemMessage(SystemMessage.CLAN_DOES_NOT_OWN_CLAN_HALL));
+                   _activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_HAS_NO_CLAN_HALL));
                     return;
                 }
                 else if(_itemId == 5859) // do nothing
                 {
-                   _activeChar.sendPacket(SystemMessage.sendString("The clan does not own a castle."));
+                   _activeChar.sendMessage("The clan does not own a castle.");
                     return;
                 }
                 else

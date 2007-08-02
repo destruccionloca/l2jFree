@@ -6,6 +6,7 @@ import net.sf.l2j.gameserver.handler.ItemHandler;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.PetItemList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -51,7 +52,7 @@ public class RequestPetUseItem extends L2GameClientPacket
 
         if (activeChar.isAlikeDead() || pet.isDead()) 
         {
-            SystemMessage sm = new SystemMessage(SystemMessage.S1_CANNOT_BE_USED);
+            SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
             sm.addItemName(item.getItemId());
             activeChar.sendPacket(sm);
             return;
@@ -84,7 +85,7 @@ public class RequestPetUseItem extends L2GameClientPacket
         }
         else
         {
-            SystemMessage sm = new SystemMessage(SystemMessage.ITEM_NOT_FOR_PETS);
+            SystemMessage sm = new SystemMessage(SystemMessageId.ITEM_NOT_FOR_PETS);
             activeChar.sendPacket(sm);
         }
         

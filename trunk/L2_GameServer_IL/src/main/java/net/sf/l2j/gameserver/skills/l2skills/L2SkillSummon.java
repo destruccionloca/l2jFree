@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2CubicInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -61,7 +62,7 @@ public class L2SkillSummon extends L2Skill {
 					mastery = 0;
 				int count = player.getCubics().size(); 
 				if (count > mastery) {
-					SystemMessage sm = new SystemMessage(SystemMessage.CUBIC_SUMMONING_FAILED);
+					SystemMessage sm = new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED);
 					activeChar.sendPacket(sm);
 					sm = null;
 					return false;
@@ -69,7 +70,7 @@ public class L2SkillSummon extends L2Skill {
 			} else {
 				if(player.getPet() != null)
 				{
-					SystemMessage sm = new SystemMessage(SystemMessage.SUMMON_ONLY_ONE);
+					SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_ONLY_ONE);
 					activeChar.sendPacket(sm);
 					sm = null;
 					return false;
@@ -86,7 +87,7 @@ public class L2SkillSummon extends L2Skill {
 		L2PcInstance activeChar = (L2PcInstance) caster;
 
 		if (npcId == 0) {
-			SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
             sm.addString("Summon skill "+getId()+" not described yet");
 			activeChar.sendPacket(sm);
 			sm = null;
@@ -116,7 +117,7 @@ public class L2SkillSummon extends L2Skill {
 					if (player.getCubics().size() > mastery) continue;		
                     if (player.getCubics().containsKey(npcId))
                     {
-                    	SystemMessage sm = new SystemMessage(SystemMessage.CUBIC_SUMMONING_FAILED);
+                    	SystemMessage sm = new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED);
             			activeChar.sendPacket(sm);
             			sm = null;
                     }
@@ -137,12 +138,12 @@ public class L2SkillSummon extends L2Skill {
 				if (activeChar.getCubics().size() > mastery) {
 					if (_log.isDebugEnabled())
 						_log.debug("player can't summon any more cubics. ignore summon skill");
-					activeChar.sendPacket(new SystemMessage(SystemMessage.CUBIC_SUMMONING_FAILED));
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED));
 					return;
 				}
                 if (activeChar.getCubics().containsKey(npcId))
                 {
-                	SystemMessage sm = new SystemMessage(SystemMessage.CUBIC_SUMMONING_FAILED);
+                	SystemMessage sm = new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED);
         			activeChar.sendPacket(sm);
         			sm = null;
                     return;

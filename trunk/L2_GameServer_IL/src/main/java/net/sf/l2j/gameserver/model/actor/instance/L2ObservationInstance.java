@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -58,10 +59,8 @@ public final class L2ObservationInstance extends L2FolkInstance
             st.nextToken(); // Bypass cost
 
             if (SiegeManager.getInstance().checkIfInZone(Integer.parseInt(st.nextToken()),
-                                                         Integer.parseInt(st.nextToken()))) doObserve(
-                                                                                                      player,
-                                                                                                      val);
-            else player.sendPacket(new SystemMessage(SystemMessage.ONLY_VIEW_SIEGE));
+                                                         Integer.parseInt(st.nextToken()))) doObserve(player,val);
+            else player.sendPacket(new SystemMessage(SystemMessageId.ONLY_VIEW_SIEGE));
         }
         else if (command.startsWith("observe"))
         {

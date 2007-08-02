@@ -12,6 +12,7 @@ import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Multisell;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.model.L2RecipeComponent;
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
@@ -321,7 +322,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
                 {
                     int _crystalId = 1457 + i;
                 
-                    SystemMessage sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
                     sm.addItemName(_crystalId);
                     sm.addNumber(_crystals.get(i));
                     player.sendPacket(sm);
@@ -617,7 +618,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
                     
                 if (_quantitySuccess>0)
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
                     sm.addItemName(_recipeList.getItemId());
                     sm.addNumber(_quantitySuccess * _recipeList.getCount());
                     player.sendPacket(sm);

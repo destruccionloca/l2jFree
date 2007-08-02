@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 
@@ -52,7 +53,7 @@ public class RequestFriendDel extends L2GameClientPacket{
         else if (!L2FriendList.isInFriendList(activeChar, _name))
         { 
             // Target is not in friend list.
-        	sm = new SystemMessage(SystemMessage.S1_IS_NOT_ON_YOUR_FRIEND_LIST);
+        	sm = new SystemMessage(SystemMessageId.S1_NOT_ON_YOUR_FRIENDS_LIST);
 			sm.addString(_name);
 			activeChar.sendPacket(sm);
 		    sm = null;
@@ -61,18 +62,18 @@ public class RequestFriendDel extends L2GameClientPacket{
         {
         	L2FriendList.removeFromFriendList(activeChar, friend);
             // Notify that target deleted from friends list.
- 			sm = new SystemMessage(SystemMessage.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST);
+ 			sm = new SystemMessage(SystemMessageId.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST);
 			sm.addString(_name);
 			activeChar.sendPacket(sm);
             // Notify target that requester deleted from friends list.			
-			sm = new SystemMessage(SystemMessage.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST);
+			sm = new SystemMessage(SystemMessageId.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST);
 			sm.addString(activeChar.getName());
 			friend.sendPacket(sm);
         } else
         {
         	L2FriendList.removeFromFriendList(activeChar, _name);
             // Notify that target deleted from friends list.
- 			sm = new SystemMessage(SystemMessage.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST);
+ 			sm = new SystemMessage(SystemMessageId.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST);
 			sm.addString(_name);
 			activeChar.sendPacket(sm);
         }

@@ -3,6 +3,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -50,7 +51,7 @@ public class RequestBlock extends L2GameClientPacket
                if (_target == null)
                {
                    // Incorrect player name.
-                   sm = new SystemMessage(SystemMessage.FAILED_TO_REGISTER_TO_IGNORE_LIST);
+                   sm = new SystemMessage(SystemMessageId.FAILED_TO_REGISTER_TO_IGNORE_LIST);
                    activeChar.sendPacket(sm);
                    return;
                }
@@ -58,18 +59,18 @@ public class RequestBlock extends L2GameClientPacket
                if (_target.isGM())
                {
                    // Cannot block a GM character.
-                   sm = new SystemMessage(SystemMessage.YOU_MAY_NOT_IMPOSE_BLOCK_ON_GM);
+                   sm = new SystemMessage(SystemMessageId.YOU_MAY_NOT_IMPOSE_A_BLOCK_ON_GM);
                    activeChar.sendPacket(sm);
                    return;
                }
                
                BlockList.addToBlockList(activeChar, _target);
                
-               sm = new SystemMessage(SystemMessage.S1_WAS_ADDED_TO_YOUR_IGNORE_LIST);
+               sm = new SystemMessage(SystemMessageId.S1_WAS_ADDED_TO_YOUR_IGNORE_LIST);
                sm.addString(_target.getName());
                activeChar.sendPacket(sm);
               
-               sm = new SystemMessage(SystemMessage.S1_HAS_ADDED_YOU_TO_IGNORE_LIST);
+               sm = new SystemMessage(SystemMessageId.S1_HAS_ADDED_YOU_TO_IGNORE_LIST);
                sm.addString(activeChar.getName());
                _target.sendPacket(sm);
                
@@ -85,7 +86,7 @@ public class RequestBlock extends L2GameClientPacket
                    } else
                        BlockList.removeFromBlockList(activeChar, _target);
                    
-        		   sm = new SystemMessage(SystemMessage.S1_WAS_REMOVED_FROM_YOUR_IGNORE_LIST);
+        		   sm = new SystemMessage(SystemMessageId.S1_WAS_REMOVED_FROM_YOUR_IGNORE_LIST);
                    sm.addString(_name);
                    activeChar.sendPacket(sm);
         	   }
@@ -93,20 +94,20 @@ public class RequestBlock extends L2GameClientPacket
            }
            case BLOCKLIST:
            {
-        	   sm = new SystemMessage(SystemMessage.BLOCK_LIST_HEADER);
+        	   sm = new SystemMessage(SystemMessageId.BLOCK_LIST_HEADER);
                BlockList.sendListToOwner(activeChar);               
                break;
            }
            case ALLBLOCK:
            {
-    		   sm = new SystemMessage(SystemMessage.MESSAGE_REFUSAL_MODE);
+    		   sm = new SystemMessage(SystemMessageId.MESSAGE_REFUSAL_MODE);
                activeChar.sendPacket(sm);
                BlockList.setBlockAll(activeChar, true);
                break;
            }
            case ALLUNBLOCK:
            {
-        	   sm = new SystemMessage(SystemMessage.MESSAGE_ACCEPTANCE_MODE);
+        	   sm = new SystemMessage(SystemMessageId.MESSAGE_ACCEPTANCE_MODE);
                activeChar.sendPacket(sm);
                BlockList.setBlockAll(activeChar, false);
                break;

@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
@@ -145,7 +146,7 @@ public class Crits implements ISkillHandler
                             damage =0;
                         }
                     
-                    SystemMessage smsg = new SystemMessage(SystemMessage.S1_GAVE_YOU_S2_DMG);
+                    SystemMessage smsg = new SystemMessage(SystemMessageId.S1_GAVE_YOU_S2_DMG);
                     smsg.addNumber(damage);
                     smsg.addString(activeChar.getName());
                     target.sendPacket(smsg);
@@ -180,7 +181,7 @@ public class Crits implements ISkillHandler
             if (activeChar instanceof L2PcInstance && (damage >= 0) && (skill.getId() == 321 || skill.getId() == 369)) // evade shot-blinding even if no critical set bonus
                 {
                     skill.getEffects(activeChar, activeChar);
-                    SystemMessage sm = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
                     sm.addSkillName(skill.getId());
                     activeChar.sendPacket(sm);
                 }
@@ -191,15 +192,15 @@ public class Crits implements ISkillHandler
                 {
                     if (activeChar instanceof L2PcInstance && weapon.getItemType() != L2WeaponType.DAGGER)
                     {
-                    SystemMessage sm = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT);
-                    sm.addSkillName(skill.getId());
-                    target.sendPacket(sm);
+                        SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
+                        sm.addSkillName(skill.getId());
+                        target.sendPacket(sm);
                     }
                 }
             }
             else if  (!Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, false, false) && (weapon.getItemType() != L2WeaponType.DAGGER) &&  (skill.getId() != 369))
             { 
-                SystemMessage sm = new SystemMessage(139);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
                 sm.addString(target.getName());
                 sm.addSkillName(skill.getId());
                 activeChar.sendPacket(sm);
@@ -253,7 +254,7 @@ public class Crits implements ISkillHandler
                         }
                     }
                     //Your lethal strike was successful!
-                    activeChar.sendPacket(new SystemMessage(1668));
+                    activeChar.sendPacket(new SystemMessage(SystemMessageId.LETHAL_STRIKE_SUCCESSFUL));
                 } 
                 else 
                 {
@@ -273,14 +274,14 @@ public class Crits implements ISkillHandler
             {
                 if (activeChar instanceof L2PcInstance) 
                 {
-                    if (crit) activeChar.sendPacket(new SystemMessage(SystemMessage.CRITICAL_HIT)); 
-                    SystemMessage sm = new SystemMessage(SystemMessage.YOU_DID_S1_DMG); 
+                    if (crit) activeChar.sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT)); 
+                    SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG); 
                     sm.addNumber(damage); 
                     activeChar.sendPacket(sm);
                 }
              } 
             else if (crit && activeChar instanceof L2PcInstance && weapon.getItemType() == L2WeaponType.DAGGER) 
-                activeChar.sendPacket(new SystemMessage(SystemMessage.MISSED_TARGET)); //msg when the blow misses the target
+                activeChar.sendPacket(new SystemMessage(SystemMessageId.MISSED_TARGET)); //msg when the blow misses the target
         }   
     }
     public SkillType[] getSkillIds()

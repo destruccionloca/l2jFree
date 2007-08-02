@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
@@ -115,7 +116,7 @@ public class StrSiegeAssault implements ISkillHandler
 
                     activeChar.sendDamageMessage(target, damage, false, false, false);
                 }
-                else activeChar.sendPacket(SystemMessage.sendString(skill.getName() + " failed."));
+                else activeChar.sendMessage(skill.getName() + " failed.");
             }
         }
         catch (Exception e)
@@ -146,7 +147,7 @@ public class StrSiegeAssault implements ISkillHandler
         if (activeChar == null || !(activeChar instanceof L2PcInstance))
             return false;
         
-        SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+        SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
         L2PcInstance player = (L2PcInstance)activeChar;
 
         if (castle == null || castle.getCastleId() <= 0)

@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
@@ -55,31 +56,31 @@ public class RequestAnswerFriendInvite extends L2GameClientPacket
     		
     	if (requestor == null)
     	{
-    		sm = new SystemMessage(SystemMessage.THE_USER_WHO_REQUESTED_TO_BECOME_FRIENDS_IS_NOT_FOUND_IN_THE_GAME);
+    		sm = new SystemMessage(SystemMessageId.THE_USER_YOU_REQUESTED_IS_NOT_IN_GAME);
     		activeChar.sendPacket(sm);
     		sm = null;
     		return;
     	}
     	if (_response == 1) 
         {
-    		sm = new SystemMessage(SystemMessage.YOU_HAVE_SUCCEEDED_IN_INVITING_FRIEND_TO_YOUR_FRIENDS_LIST);
+    		sm = new SystemMessage(SystemMessageId.YOU_HAVE_SUCCEEDED_INVITING_FRIEND);
     		requestor.sendPacket(sm);
 			
     		L2FriendList.addToFriendList(requestor, activeChar);
     		
     		//Player added to requester friends list.                
-    		sm = new SystemMessage(SystemMessage.S1_HAS_BEEN_ADDED_TO_YOUR_FRIENDS_LIST);
+    		sm = new SystemMessage(SystemMessageId.S1_ADDED_TO_FRIENDS);
     		sm.addString(activeChar.getName());
     		requestor.sendPacket(sm);
     		
    			//Requester has joined as friend.
-    		sm = new SystemMessage(SystemMessage.S1_HAS_JOINED_AS_A_FRIEND);
+    		sm = new SystemMessage(SystemMessageId.S1_JOINED_AS_FRIEND);
     		sm.addString(requestor.getName());
     		activeChar.sendPacket(sm);
 		} 
     	else 
         {
-			sm = new SystemMessage(SystemMessage.YOU_HAVE_FAILED_TO_ADD_FRIEND_TO_YOUR_FRIENDS_LIST);
+			sm = new SystemMessage(SystemMessageId.FAILED_TO_INVITE_A_FRIEND);
 			requestor.sendPacket(sm);
 		}   		
 		sm = null;

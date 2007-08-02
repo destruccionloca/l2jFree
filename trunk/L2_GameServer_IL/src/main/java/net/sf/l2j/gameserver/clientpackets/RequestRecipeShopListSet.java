@@ -22,6 +22,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ManufactureItem;
 import net.sf.l2j.gameserver.model.L2ManufactureList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.RecipeShopMsg;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -58,7 +59,7 @@ public class RequestRecipeShopListSet extends L2GameClientPacket{
 
 		if (player.isInDuel())
 		{
-			player.sendPacket(new SystemMessage(SystemMessage.CANT_CRAFT_DURING_COMBAT));
+			player.sendPacket(new SystemMessage(SystemMessageId.CANT_CRAFT_DURING_COMBAT));
 			return;
 		}
 

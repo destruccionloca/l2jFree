@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.ZoneType;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -58,7 +59,7 @@ public class Recall implements ISkillHandler
         {
             if (((L2PcInstance)activeChar).isInOlympiadMode())
             {
-                ((L2PcInstance)activeChar).sendPacket(new SystemMessage(SystemMessage.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
+                ((L2PcInstance)activeChar).sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
                 return;                
             }
         }
@@ -78,34 +79,34 @@ public class Recall implements ISkillHandler
 
 					// [L2J_JP ADD]
 					if(ZoneManager.getInstance().checkIfInZone(ZoneType.ZoneTypeEnum.NoEscape.toString(),targetChar)){
-					    targetChar.sendPacket(SystemMessage.sendString("You can not escape from here."));
+					    targetChar.sendMessage("You can not escape from here.");
 					    targetChar.sendPacket(new ActionFailed());
 					    break;                   
 					}
 
                     // Check to see if the current player target is in a festival.
                     if (targetChar.isFestivalParticipant()) {
-                        targetChar.sendPacket(SystemMessage.sendString("You may not use an escape skill in a festival."));
+                        targetChar.sendMessage("You may not use an escape skill in a festival.");
                         continue;
                     }
                     
                     //Check to see if the current player target is in TvT , CTF or ViP events.
                     if (targetChar._inEventCTF || targetChar._inEventTvT || targetChar._inEventVIP) {
-                        targetChar.sendPacket(SystemMessage.sendString("You may not use an escape skill in a Event."));
+                        targetChar.sendMessage("You may not use an escape skill in a Event.");
                         continue;
                     }
                     
                     // Check to see if player is in jail
                     if (targetChar.isInJail())
                     {
-                        targetChar.sendPacket(SystemMessage.sendString("You can not escape from jail."));
+                        targetChar.sendMessage("You can not escape from jail.");
                         continue;
                     }
                     
                     // Check to see if player is in a duel
                     if (targetChar.isInDuel())
                     {
-                        targetChar.sendPacket(SystemMessage.sendString("You cannot use escape skills during a duel."));
+                        targetChar.sendMessage("You cannot use escape skills during a duel.");
                         continue;
                     }                    
                 }

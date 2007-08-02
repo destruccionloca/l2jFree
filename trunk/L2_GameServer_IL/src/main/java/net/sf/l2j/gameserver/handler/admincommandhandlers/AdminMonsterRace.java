@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.MonsterRace;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.DeleteObject;
 import net.sf.l2j.gameserver.serverpackets.MonRaceInfo;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
@@ -89,26 +90,23 @@ public class AdminMonsterRace implements IAdminCommandHandler
             state++;
             race.newRace();
             race.newSpeeds();
-            MonRaceInfo spk = new MonRaceInfo(codes[state][0], codes[state][1], race.getMonsters(),
-                                              race.getSpeeds());
+            MonRaceInfo spk = new MonRaceInfo(codes[state][0], codes[state][1], race.getMonsters(), race.getSpeeds());
             activeChar.sendPacket(spk);
             activeChar.broadcastPacket(spk);
         }
         else if (state == 0)
         {
             state++;
-            SystemMessage sm = new SystemMessage(SystemMessage.MONSRACE_RACE_START);
+            SystemMessage sm = new SystemMessage(SystemMessageId.MONSRACE_RACE_START);
             sm.addNumber(0);
             activeChar.sendPacket(sm);
             PlaySound SRace = new PlaySound(1, "S_Race", 0, 0, 0, 0, 0);
             activeChar.sendPacket(SRace);
             activeChar.broadcastPacket(SRace);
-            PlaySound SRace2 = new PlaySound(0, "ItemSound2.race_start", 1, 121209259, 12125, 182487,
-                                             -3559);
+            PlaySound SRace2 = new PlaySound(0, "ItemSound2.race_start", 1, 121209259, 12125, 182487, -3559);
             activeChar.sendPacket(SRace2);
             activeChar.broadcastPacket(SRace2);
-            MonRaceInfo spk = new MonRaceInfo(codes[state][0], codes[state][1], race.getMonsters(),
-                                              race.getSpeeds());
+            MonRaceInfo spk = new MonRaceInfo(codes[state][0], codes[state][1], race.getMonsters(), race.getSpeeds());
             activeChar.sendPacket(spk);
             activeChar.broadcastPacket(spk);
 

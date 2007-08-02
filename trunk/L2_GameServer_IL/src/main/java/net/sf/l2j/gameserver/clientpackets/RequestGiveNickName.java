@@ -22,6 +22,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -58,7 +59,7 @@ public class RequestGiveNickName extends L2GameClientPacket
 		{	
 			if (activeChar.getClan().getLevel() < 3)
 			{
-				SystemMessage sm = new SystemMessage(SystemMessage.CLAN_LVL_3_NEEDED_TO_ENDOWE_TITLE);
+				SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_LVL_3_NEEDED_TO_ENDOWE_TITLE);
                 activeChar.sendPacket(sm);
                 sm = null;
 				return;
@@ -78,7 +79,7 @@ public class RequestGiveNickName extends L2GameClientPacket
                 	if (!Config.TITLE_PATTERN.matcher(_title).matches() || 
                 			_title.length() < 3 || _title.length() > 16 )
                 	{
-                        SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                        SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                         sm.addString("Incorrect title. Please try again.");
                         activeChar.sendPacket(sm);
                         sm = null;
@@ -86,32 +87,31 @@ public class RequestGiveNickName extends L2GameClientPacket
                 	else
                 	{
                 		member.setTitle(_title);
-        				SystemMessage sm = new SystemMessage(SystemMessage.TITLE_CHANGED);
+        				SystemMessage sm = new SystemMessage(SystemMessageId.TITLE_CHANGED);
         				member.sendPacket(sm);
         				sm = null;
     					member.broadcastUserInfo();
     					
     					if (member != activeChar)
     					{
-            				sm = new SystemMessage(SystemMessage.CLAN_MEMBER_S1_TITLE_CHANGED_TO_S2);
+            				sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_TITLE_CHANGED_TO_S2);
             				sm.addString(member.getName());
             				sm.addString(member.getTitle());
             				member.sendPacket(sm);
             				sm = null;
     					}
-    					
                 	}
                 }
                 else
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.PLAYER_NOT_ONLINE);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
                     activeChar.sendPacket(sm);
                     sm = null;
                 }
 			}
             else
             {
-                SystemMessage sm = new SystemMessage(SystemMessage.TARGET_MUST_BE_IN_CLAN);
+                SystemMessage sm = new SystemMessage(SystemMessageId.TARGET_MUST_BE_IN_CLAN);
                 activeChar.sendPacket(sm);
                 sm = null;
             }
@@ -123,7 +123,7 @@ public class RequestGiveNickName extends L2GameClientPacket
             	if (!Config.TITLE_PATTERN.matcher(_title).matches() || 
             			_title.length() < 3 || _title.length() > 16 )
             	{
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                     sm.addString("Incorrect title. Please try again.");
                     activeChar.sendPacket(sm);
                     sm = null;
@@ -131,7 +131,7 @@ public class RequestGiveNickName extends L2GameClientPacket
             	else
             	{
             		activeChar.setTitle(_title);
-                    SystemMessage sm = new SystemMessage(SystemMessage.TITLE_CHANGED);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.TITLE_CHANGED);
                     activeChar.sendPacket(sm);
                     activeChar.broadcastUserInfo();
                     sm = null;

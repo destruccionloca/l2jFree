@@ -72,6 +72,7 @@ import net.sf.l2j.gameserver.model.entity.events.VIP;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.network.L2GameClient;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ExQuestInfo;
 import net.sf.l2j.gameserver.serverpackets.ExShowVariationCancelWindow;
@@ -1151,11 +1152,11 @@ public class L2NpcInstance extends L2Character
                 switch (cmdChoice)
                 {
                     case 1:
-                        player.sendPacket(new SystemMessage(SystemMessage.SELECT_THE_ITEM_TO_BE_AUGMENTED));
+                        player.sendPacket(new SystemMessage(SystemMessageId.SELECT_THE_ITEM_TO_BE_AUGMENTED));
                         player.sendPacket(new ExShowVariationMakeWindow());
                         break;
                     case 2:
-                        player.sendPacket(new SystemMessage(SystemMessage.SELECT_THE_ITEM_FROM_WHICH_YOU_WISH_TO_REMOVE_AUGMENTATION));
+                        player.sendPacket(new SystemMessage(SystemMessageId.SELECT_THE_ITEM_FROM_WHICH_YOU_WISH_TO_REMOVE_AUGMENTATION));
                         player.sendPacket(new ExShowVariationCancelWindow());
                         break;
                 }
@@ -1289,7 +1290,7 @@ public class L2NpcInstance extends L2Character
                         
                         // yes, its not for all skills right, but atleast player will know 
                         // for what he paid =)
-                        SystemMessage sm = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT); 
+                        SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT); 
                         sm.addSkillName(_buff.getSkill().getId());
                         player.sendPacket(sm);
                         sm = null;
@@ -1520,7 +1521,7 @@ public class L2NpcInstance extends L2Character
         String content;
         
         if (player.getWeightPenalty()>=3){  
-        	player.sendPacket(new SystemMessage(SystemMessage.INVENTORY_LESS_THAN_80_PERCENT));
+        	player.sendPacket(new SystemMessage(SystemMessageId.INVENTORY_LESS_THAN_80_PERCENT));
             return;
         }
         
@@ -1695,13 +1696,13 @@ public class L2NpcInstance extends L2Character
             if (!Lottery.getInstance().isStarted())
             {
                 //tickets can't be sold
-            	player.sendPacket(new SystemMessage(SystemMessage.NO_LOTTERY_TICKETS_CURRENT_SOLD));
+            	player.sendPacket(new SystemMessage(SystemMessageId.NO_LOTTERY_TICKETS_CURRENT_SOLD));
                 return;
             }
             if (!Lottery.getInstance().isSellableTickets())
             {
                 //tickets can't be sold
-            	player.sendPacket(new SystemMessage(SystemMessage.NO_LOTTERY_TICKETS_AVAILABLE));
+            	player.sendPacket(new SystemMessage(SystemMessageId.NO_LOTTERY_TICKETS_AVAILABLE));
                 return;
             }
 
@@ -1759,13 +1760,13 @@ public class L2NpcInstance extends L2Character
             if (!Lottery.getInstance().isStarted())
             {
                 //tickets can't be sold
-            	player.sendPacket(new SystemMessage(SystemMessage.NO_LOTTERY_TICKETS_CURRENT_SOLD));
+            	player.sendPacket(new SystemMessage(SystemMessageId.NO_LOTTERY_TICKETS_CURRENT_SOLD));
                 return;
             }
             if (!Lottery.getInstance().isSellableTickets())
             {
                 //tickets can't be sold
-            	player.sendPacket(new SystemMessage(SystemMessage.NO_LOTTERY_TICKETS_AVAILABLE));
+            	player.sendPacket(new SystemMessage(SystemMessageId.NO_LOTTERY_TICKETS_AVAILABLE));
                 return;
             }
                  
@@ -1783,14 +1784,14 @@ public class L2NpcInstance extends L2Character
             }
             if (player.getAdena() < price)
             {
-                     sm = new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA);
+                     sm = new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
                      player.sendPacket(sm);
                      return;
             }
             if (!player.reduceAdena("Loto", price, this, true)) return;
             Lottery.getInstance().increasePrize(price);
 
-            sm = new SystemMessage(SystemMessage.ACQUIRED);
+            sm = new SystemMessage(SystemMessageId.ACQUIRED);
             sm.addNumber(lotonumber);
             sm.addItemName(4442);
             player.sendPacket(sm);
@@ -1872,7 +1873,7 @@ public class L2NpcInstance extends L2Character
             if (item == null || item.getItemId() != 4442 || item.getCustomType1() >= lotonumber) return;
             int[] check = Lottery.getInstance().checkTicket(item);
             
-            sm = new SystemMessage(SystemMessage.DISSAPEARED_ITEM);
+            sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
             sm.addItemName(4442);
             player.sendPacket(sm);
             
@@ -1911,7 +1912,7 @@ public class L2NpcInstance extends L2Character
         if (!player.reduceAdena("RestoreCP", neededmoney, player.getLastFolkNPC(), true)) return;
         player.getStatus().setCurrentCp(getStatus().getCurrentCp()+5000);
         //cp restored
-        sm = new SystemMessage(SystemMessage.S1_CP_WILL_BE_RESTORED);
+        sm = new SystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED);
         sm.addString(player.getName());
         player.sendPacket(sm);
     }
@@ -2137,13 +2138,13 @@ public class L2NpcInstance extends L2Character
                     {
                         if (compWinner == SevenSigns.CABAL_DAWN && (playerCabal != SevenSigns.CABAL_DAWN || sealAvariceOwner != SevenSigns.CABAL_DAWN)) 
                         {
-                            player.sendPacket(new SystemMessage(SystemMessage.CAN_BE_USED_BY_DAWN));
+                            player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
                             filename += "necro_no.htm";
                             break;
                         }
                         else if (compWinner == SevenSigns.CABAL_DUSK && (playerCabal != SevenSigns.CABAL_DUSK || sealAvariceOwner != SevenSigns.CABAL_DUSK))
                         {
-                            player.sendPacket(new SystemMessage(SystemMessage.CAN_BE_USED_BY_DUSK));
+                            player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
                             filename += "necro_no.htm";
                             break;
                         }
@@ -2174,13 +2175,13 @@ public class L2NpcInstance extends L2Character
                     {
                         if (compWinner == SevenSigns.CABAL_DAWN && (playerCabal != SevenSigns.CABAL_DAWN || sealGnosisOwner != SevenSigns.CABAL_DAWN)) 
                         {
-                            player.sendPacket(new SystemMessage(SystemMessage.CAN_BE_USED_BY_DAWN));
+                            player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
                             filename += "cata_no.htm";
                             break;
                         }
                         else if (compWinner == SevenSigns.CABAL_DUSK && (playerCabal != SevenSigns.CABAL_DUSK || sealGnosisOwner != SevenSigns.CABAL_DUSK))
                         {
-                            player.sendPacket(new SystemMessage(SystemMessage.CAN_BE_USED_BY_DUSK));
+                            player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
                             filename += "cata_no.htm";
                             break;
                         }
@@ -2248,14 +2249,14 @@ public class L2NpcInstance extends L2Character
                         case SevenSigns.CABAL_DAWN:
                             if (playerCabal != compWinner || playerCabal != sealAvariceOwner)
                             {
-                                player.sendPacket(new SystemMessage(SystemMessage.CAN_BE_USED_BY_DAWN));
+                                player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
                                 return;
                             }
                             break;
                         case SevenSigns.CABAL_DUSK:
                             if (playerCabal != compWinner || playerCabal != sealAvariceOwner)
                             {
-                                player.sendPacket(new SystemMessage(SystemMessage.CAN_BE_USED_BY_DUSK));
+                                player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
                                 return;
                             }
                             break;
@@ -2271,14 +2272,14 @@ public class L2NpcInstance extends L2Character
                         case SevenSigns.CABAL_DAWN:
                             if (playerCabal != compWinner || playerCabal != sealGnosisOwner)
                             {
-                                player.sendPacket(new SystemMessage(SystemMessage.CAN_BE_USED_BY_DAWN));
+                                player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
                                 return;
                             }
                             break;
                         case SevenSigns.CABAL_DUSK:
                             if (playerCabal != compWinner || playerCabal != sealGnosisOwner)
                             {
-                                player.sendPacket(new SystemMessage(SystemMessage.CAN_BE_USED_BY_DUSK));
+                                player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
                                 return;
                             }
                             break;

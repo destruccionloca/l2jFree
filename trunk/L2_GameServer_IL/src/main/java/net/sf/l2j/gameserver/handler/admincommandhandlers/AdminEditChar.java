@@ -31,6 +31,7 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
@@ -132,7 +133,7 @@ public class AdminEditChar implements IAdminCommandHandler
                 }
                 catch (StringIndexOutOfBoundsException e)
                 {   //Case of empty character name
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                     sm.addString("You didnt enter a character name to find.");
                     activeChar.sendPacket(sm);
                     
@@ -215,7 +216,7 @@ public class AdminEditChar implements IAdminCommandHandler
                     return false;
 
                 player.getCharRecommendationStatus().setRecomHave(player.getCharRecommendationStatus().getRecomHave() + 1);
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("You have been recommended by a GM");
                 player.sendPacket(sm);
                 player.broadcastUserInfo();
@@ -236,7 +237,7 @@ public class AdminEditChar implements IAdminCommandHandler
                         return false;
                     }
                     player.getCharRecommendationStatus().setRecomHave(player.getCharRecommendationStatus().getRecomHave() + recVal);
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                     sm.addString("You have been recommended by a GM");
                     player.sendPacket(sm);
                     player.broadcastUserInfo();
@@ -260,14 +261,14 @@ public class AdminEditChar implements IAdminCommandHandler
                         return false;
                     }
                     player.setTitle(val);
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                     sm.addString("Your title has been changed by a GM");
                     player.sendPacket(sm);
                     player.broadcastUserInfo();
                 }
                 catch (StringIndexOutOfBoundsException e)
                 {   //Case of empty character title
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                     sm.addString("You need to specify the new title.");
                     activeChar.sendPacket(sm);
                 }           
@@ -287,14 +288,14 @@ public class AdminEditChar implements IAdminCommandHandler
                         return false;
                     }
                     player.setName(val);
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                     sm.addString("Your name has been changed by a GM");
                     player.sendPacket(sm);
                     player.broadcastUserInfo();
                 }
                 catch (StringIndexOutOfBoundsException e)
                 {   //Case of empty character name
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                     sm.addString("You need to specify the new name.");
                     activeChar.sendPacket(sm);
                 }           
@@ -354,7 +355,7 @@ public class AdminEditChar implements IAdminCommandHandler
                     targetPet.setCurrentFed(targetPet.getMaxFed());
                }
                else {
-                   activeChar.sendPacket(new SystemMessage(SystemMessage.INCORRECT_TARGET));
+                   activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
                }
             }
             // [L2J_JP ADD START]
@@ -371,7 +372,7 @@ public class AdminEditChar implements IAdminCommandHandler
                 player.setHero(player.isHero() ? false : true);
                 if (player.isHero() == true)
                 	player.broadcastPacket(new SocialAction(player.getObjectId(), 16));
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("Admin changed your hero status");
                 player.sendPacket(sm);
                 player.broadcastUserInfo();       
@@ -578,12 +579,12 @@ public class AdminEditChar implements IAdminCommandHandler
                 player.sendPacket(info2);
                 
                 //Common character information
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("Admin has changed your karma from " + oldKarma + " to " + newKarma + ".");
                 player.sendPacket(sm);
                 
                 //Admin information 
-                SystemMessage smA = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage smA = new SystemMessage(SystemMessageId.S1_S2);
                 smA.addString("Successfully Changed karma for "+player.getName()+" from (" + oldKarma + ") to (" + newKarma + ").");        
                 activeChar.sendPacket(smA);         
                 
@@ -592,7 +593,7 @@ public class AdminEditChar implements IAdminCommandHandler
             }
             else {
                 // tell admin of mistake 
-                SystemMessage smA = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage smA = new SystemMessage(SystemMessageId.S1_S2);
                 smA.addString("You must enter a value for karma greater than or equal to 0.");      
                 activeChar.sendPacket(smA);
                 

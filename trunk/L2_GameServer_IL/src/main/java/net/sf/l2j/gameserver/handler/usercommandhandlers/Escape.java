@@ -56,16 +56,9 @@ public class Escape implements IUserCommandHandler
                 activeChar.isInOlympiadMode()) 
             return false;
 
-        // Check if player is inside jail.
-        if (JailManager.getInstance().checkIfInZone(activeChar))
-        {
-        	activeChar.sendMessage("You're in JAIL, you can't escape.");
-        	return false;
-        }
-        
         // [L2J_JP ADD]
         if(ZoneManager.getInstance().checkIfInZone(ZoneType.ZoneTypeEnum.NoEscape.toString(),activeChar)){
-            activeChar.sendPacket(SystemMessage.sendString("You can not escape from here."));
+            activeChar.sendMessage("You can not escape from here.");
             activeChar.sendPacket(new ActionFailed());
             return false;                   
         }
@@ -75,19 +68,18 @@ public class Escape implements IUserCommandHandler
         // Check to see if the player is in a festival.
         if (activeChar.isFestivalParticipant()) 
         {
-            activeChar.sendPacket(SystemMessage.sendString("You may not use an escape command in a festival."));
+            activeChar.sendMessage("You may not use an escape command in a festival.");
             return false;
         }
         
         // Check to see if player is in jail
         if (activeChar.isInJail())
         {
-            activeChar.sendPacket(SystemMessage.sendString("You can not escape from jail."));
+            activeChar.sendMessage("You can not escape from jail.");
             return false;
         }
         
-        SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-        sm.addString("After " + unstuckTimer/60000 + " min. you be returned to near village.");
+		activeChar.sendMessage("After " + unstuckTimer/60000 + " min. you be returned to near village.");
         
         activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
         //SoE Animation section

@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.AskJoinFriend;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -53,26 +54,26 @@ public class RequestFriendInvite extends L2GameClientPacket{
     	if (friend == null)
         {
     	    //Target is not found in the game.
-    		sm = new SystemMessage(SystemMessage.PLAYER_NOT_ONLINE);
+    		sm = new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
     		activeChar.sendPacket(sm);
     	}
         else if (friend == activeChar)
         {
     	    //You cannot add yourself to your own friend list.
-        	sm = new SystemMessage(SystemMessage.YOU_CANNOT_ADD_YOURSELF_TO_YOUR_OWN_FRIEND_LIST);
+        	sm = new SystemMessage(SystemMessageId.YOU_CANNOT_ADD_YOURSELF_TO_OWN_FRIEND_LIST);
         	activeChar.sendPacket(sm);
     	}
         else if (L2FriendList.isInFriendList(activeChar, friend))
         { 
             // Target is already in friend list.
-        	sm = new SystemMessage(SystemMessage.S1_IS_ALREADY_ON_YOUR_FRIEND_LIST);
+        	sm = new SystemMessage(SystemMessageId.S1_ALREADY_ON_LIST);
 			sm.addString(_name);
 			activeChar.sendPacket(sm);
         }
         else if (!friend.isProcessingRequest())
 		{
 		    activeChar.onTransactionRequest(friend);
-		    sm = new SystemMessage(SystemMessage.S1_HAS_REQUESTED_TO_BECOME_FRIENDS);
+		    sm = new SystemMessage(SystemMessageId.S1_REQUESTED_TO_BECOME_FRIENDS);
 		    sm.addString(activeChar.getName());
 		    friend.sendPacket(sm);
 		    
@@ -81,7 +82,7 @@ public class RequestFriendInvite extends L2GameClientPacket{
     	} 
         else 
         {
-    		sm = new SystemMessage(SystemMessage.S1_IS_BUSY_TRY_LATER);
+    		sm = new SystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER);
 			sm.addString(_name);
 			activeChar.sendPacket(sm);
     	}

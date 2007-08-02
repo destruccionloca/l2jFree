@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -74,7 +75,7 @@ public class AdminHeal implements IAdminCommandHandler {
             catch (StringIndexOutOfBoundsException e)
             {
                 if ( _log.isDebugEnabled() ) _log.debug("Heal error: "+e);
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("Incorrect target/radius specified.");
                 activeChar.sendPacket(sm);
             }

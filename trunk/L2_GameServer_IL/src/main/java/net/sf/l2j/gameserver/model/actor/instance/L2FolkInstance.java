@@ -10,6 +10,7 @@ import net.sf.l2j.gameserver.model.L2EnchantSkillLearn;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2SkillLearn;
 import net.sf.l2j.gameserver.model.base.ClassId;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.AquireSkillList;
 import net.sf.l2j.gameserver.serverpackets.ExEnchantSkillList;
@@ -92,13 +93,13 @@ public class L2FolkInstance extends L2NpcInstance
 		    
 		    if (minlevel > 0)
 		    {
-                SystemMessage sm = new SystemMessage(SystemMessage.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN);
+                SystemMessage sm = new SystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN);
 		        sm.addNumber(minlevel);
 		        player.sendPacket(sm);
             }
 		    else
 		    {
-		        SystemMessage sm = new SystemMessage(SystemMessage.NO_MORE_SKILLS_TO_LEARN);
+		        SystemMessage sm = new SystemMessage(SystemMessageId.NO_MORE_SKILLS_TO_LEARN);
 		        player.sendPacket(sm);
 		    }
 		} 
@@ -165,13 +166,13 @@ public class L2FolkInstance extends L2NpcInstance
         }
         if (counts == 0)
         {
-            player.sendPacket(new SystemMessage(SystemMessage.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT));
+            player.sendPacket(new SystemMessage(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT));
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             int level = player.getLevel();
             
             if (level < 74)
             {
-                SystemMessage sm = new SystemMessage(SystemMessage.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN);
+                SystemMessage sm = new SystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN);
                 sm.addNumber(level);
                 player.sendPacket(sm);
             }

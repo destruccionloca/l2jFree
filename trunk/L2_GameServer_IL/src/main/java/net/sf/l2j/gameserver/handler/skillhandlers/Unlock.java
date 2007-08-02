@@ -8,6 +8,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2ChestInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
@@ -35,7 +36,7 @@ public class Unlock implements ISkillHandler
 				L2DoorInstance door = (L2DoorInstance) target;
 				if (!door.isUnlockable())
 				{
-					activeChar.sendPacket(new SystemMessage(SystemMessage.UNABLE_TO_UNLOCK_DOOR));
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.UNABLE_TO_UNLOCK_DOOR));
 					activeChar.sendPacket(new ActionFailed());
 					return;
 				}
@@ -44,14 +45,14 @@ public class Unlock implements ISkillHandler
 				{
 					door.openMe();
 					door.onOpen();
-					SystemMessage systemmessage = new SystemMessage(SystemMessage.S1_S2);
+					SystemMessage systemmessage = new SystemMessage(SystemMessageId.S1_S2);
 
 					systemmessage.addString("Unlock the door!");
 					activeChar.sendPacket(systemmessage);
 				}
 				else
 				{
-					activeChar.sendPacket(new SystemMessage(SystemMessage.FAILED_TO_UNLOCK_DOOR));
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.FAILED_TO_UNLOCK_DOOR));
 				}
 			}
 			else if (target instanceof L2ChestInstance)
@@ -125,7 +126,7 @@ public class Unlock implements ISkillHandler
 					}
 					if (chestChance == 0)
 					{
-						activeChar.sendPacket(SystemMessage.sendString("Too hard to open for you.."));
+						activeChar.sendMessage("Too hard to open for you.");
 						activeChar.sendPacket(new ActionFailed());
 						//if (Rnd.get(100) < chestTrapLimit) chest.chestTrap(activeChar);
 						chest.setInteracted();
@@ -136,7 +137,7 @@ public class Unlock implements ISkillHandler
 
 					if (Rnd.get(120) < chestChance)
 					{
-						activeChar.sendPacket(SystemMessage.sendString("You open the chest!"));
+						activeChar.sendMessage("You open the chest!");
 
 						chest.setSpecialDrop();
 						chest.setHaveToDrop(true);
@@ -146,7 +147,7 @@ public class Unlock implements ISkillHandler
 					}
 					else
 					{
-						activeChar.sendPacket(SystemMessage.sendString("Unlock failed!"));
+						activeChar.sendMessage("Unlock failed!");
 
 						if (Rnd.get(100) < chestTrapLimit) chest.chestTrap(activeChar);
 						chest.setMustRewardExpSp(false);

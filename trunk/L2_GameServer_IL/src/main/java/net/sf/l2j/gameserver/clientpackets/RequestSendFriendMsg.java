@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.FriendRecvMsg;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -61,7 +62,7 @@ public class RequestSendFriendMsg extends L2GameClientPacket
         
         if (targetPlayer == null && _message != null && activeChar != null) 
         {
-        	activeChar.sendPacket(new SystemMessage(SystemMessage.PLAYER_NOT_ONLINE));
+        	activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME));
         	return;
         }
         

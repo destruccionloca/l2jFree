@@ -46,6 +46,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoxInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
@@ -135,7 +136,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             }
             else
             {
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("Command error:");
                 sm.addString("//show_droplist <npc_id>");
                 activeChar.sendPacket(sm);
@@ -187,7 +188,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
                 if(npcId > 0) {
                     showNpcSkillList(activeChar, npcId, page);
                 } else {
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                     sm.addString("Command error:");
                     sm.addString("//show_skilllist_npc <npc_id> <page> ");
                     activeChar.sendPacket(sm);
@@ -196,7 +197,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             catch (Exception e)
             {
                 // Case of wrong monster data
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("Command error:");
                 sm.addString("//show_skilllist_npc <npc_id> <page>");
                 activeChar.sendPacket(sm);
@@ -236,7 +237,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
                 }
                 else
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                     sm.addString("Command error:");
                     sm.addString("//edit_skill_npc <npc_id> <item_id> [<level>]");
                     activeChar.sendPacket(sm);
@@ -244,7 +245,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             }
             catch (StringIndexOutOfBoundsException e)
             {
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("Command error:");
                 sm.addString("//edit_skill_npc <npc_id> <item_id> [<level>]");
                 activeChar.sendPacket(sm);
@@ -290,7 +291,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
                 }
                 else
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                     sm.addString("Command error:");
                     sm.addString("//add_skill_npc <npc_id> [<level>]");
                     activeChar.sendPacket(sm);
@@ -298,7 +299,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             }
             catch (StringIndexOutOfBoundsException e)
             {
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("Command error:");
                 sm.addString("//add_skill_npc <npc_id> [<level>]");
                 activeChar.sendPacket(sm);
@@ -324,7 +325,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             }
             else
             {
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("Command error:");
                 sm.addString("//del_skill_npc <npc_id> <skill_id>");
                 activeChar.sendPacket(sm);
@@ -368,7 +369,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
                 }
                 else
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                     sm.addString("Command error:");
                     sm.addString("//edit_drop <npc_id> <item_id> <category> [<min> <max> <chance>]");
                     activeChar.sendPacket(sm);
@@ -376,7 +377,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             }
             catch (StringIndexOutOfBoundsException e)
             {
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("Command error:");
                 sm.addString("//edit_drop <npc_id> <item_id> <category> [<min> <max> <chance>]");
                 activeChar.sendPacket(sm);
@@ -425,7 +426,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
                 }
                 else
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                     sm.addString("Command error:");
                     sm.addString("//add_drop <npc_id> [<item_id> <category> <min> <max> <chance>]");
                     activeChar.sendPacket(sm);
@@ -433,7 +434,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             }
             catch (StringIndexOutOfBoundsException e)
             {
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("Command error:");
                 sm.addString("//add_drop <npc_id> [<item_id> <category> <min> <max> <chance>]");
                 activeChar.sendPacket(sm);
@@ -460,7 +461,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             }
             else
             {
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("Command error:");
                 sm.addString("//del_drop <npc_id> <item_id> <category>");
                 activeChar.sendPacket(sm);
@@ -488,7 +489,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
                 else
                 {
                 	try {
-                		SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                		SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 		String msg = "Access:";
                 		for (Object p : box.getAccess())
                 			msg += " "+(String)p;
@@ -1015,7 +1016,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 	    L2NpcTemplate npcData = NpcTable.getInstance().getTemplate(npcId);
 	    if(npcData == null)
 	    {
-	        SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+	        SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 	        sm.addString("unknown npc template id" + npcId);
 	        admin.sendPacket(sm);
 	        return ;
@@ -1165,7 +1166,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 	        }
 	        else
 	        {
-	            SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+	            SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 	            sm.addString("unknown error!");
 	            admin.sendPacket(sm);
 	        }
@@ -1306,7 +1307,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
         L2NpcTemplate npcData = NpcTable.getInstance().getTemplate(npcId);
         if(npcData == null)
         {
-            SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+            SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
             sm.addString("unknown npc template id" + npcId);
             admin.sendPacket(sm);
             return ;
@@ -1481,7 +1482,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
             }
             else
             {
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("unknown error!");
                 admin.sendPacket(sm);
             }
