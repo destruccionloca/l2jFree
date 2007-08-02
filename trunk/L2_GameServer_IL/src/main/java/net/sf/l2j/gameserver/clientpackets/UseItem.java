@@ -253,8 +253,26 @@ public class UseItem extends L2GameClientPacket
                        sm.addItemName(itemId);
                    }
                    activeChar.sendPacket(sm);
+                   
+               		switch(item.getEquipSlot())
+               		{
+	               		case 1:
+	               			bodyPart = L2Item.SLOT_L_EAR;
+	               			break;
+	               		case 2:
+	               			bodyPart = L2Item.SLOT_R_EAR;
+	               			break;
+	               		case 4:
+	               			bodyPart = L2Item.SLOT_L_FINGER;
+	               			break;
+	               		case 5:
+	               			bodyPart = L2Item.SLOT_R_FINGER;
+	               			break;
+	               		default:
+	               			break;
+               		}
 
-                	items = activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
+                   items = activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
                 }
 	            else
                 {
