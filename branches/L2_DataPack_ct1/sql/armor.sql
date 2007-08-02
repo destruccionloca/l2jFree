@@ -1045,7 +1045,7 @@ INSERT INTO `armor` VALUES
  ('9202','Dapper Hat - Firework','dhair','false','none','10','wood','none','0','300','0','0','0','0','0','false','false','true','false','0','0'),
  ('9203','Romantic Chapeau - Firework','dhair','false','none','10','wood','none','0','300','0','0','0','0','0','false','false','true','false','0','0'),
  ('9204','Iron Circlet - Firework','dhair','false','none','10','wood','none','0','300','0','0','0','0','0','false','false','true','false','0','0'),
- ('9208','Phantom Mask - For Events Only','dhair','false','none','10','wood','none','0','-1','0','0','0','0','0','false','false','true','false','0','0'),
+ ('9208','Phantom Mask - For Events Only','dhair','false','none','10','wood','none','0','-1','0','0','0','0','0','false','false','true','false','0','0');
 
 -- Add-on CT1
 INSERT INTO `armor` VALUES 
@@ -1136,7 +1136,7 @@ INSERT INTO `armor` VALUES
 	('9518', 'Sealed Dynasty Boots', 'feet', 'false', 'none', '10', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'false', 'false', 'true', 'false', '0', '0'),
 	('9519', 'Sealed Dynasty Leather', 'chest', 'false', 'none', '10', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'false', 'false', 'true', 'false', '0', '0'),
 	('9520', 'Sealed Dynasty Leather Pants', 'legs', 'false', 'none', '10', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'false', 'false', 'true', 'false', '0', '0'),
-	('9521', 'Sealed Dynasty Leather Helm', 'head', 'false', 'none', '10', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'false', 'false', 'true', 'false', '0', '0')
+	('9521', 'Sealed Dynasty Leather Helm', 'head', 'false', 'none', '10', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'false', 'false', 'true', 'false', '0', '0'),
 	('9522', 'Sealed Dynasty Leather Gloves', 'gloves', 'false', 'none', '10', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'false', 'false', 'true', 'false', '0', '0'),
 	('9523', 'Sealed Dynasty Leather Boots', 'feet', 'false', 'none', '10', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'false', 'false', 'true', 'false', '0', '0'),
 	('9524', 'Sealed Dynasty Robe', 'chest', 'false', 'none', '10', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'false', 'false', 'true', 'false', '0', '0'),
