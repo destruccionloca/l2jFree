@@ -2022,22 +2022,22 @@ public final class Config {
             FWA_OLDANTHARAS = Boolean.parseBoolean(bossSettings.getProperty("OldAntharas", "False"));
             FWA_LIMITOFWEAK = Integer.parseInt(bossSettings.getProperty("LimitOfWeak", "299"));
             FWA_LIMITOFNORMAL = Integer.parseInt(bossSettings.getProperty("LimitOfNormal", "399"));
-            FWA_INTERVALOFBEHEMOTHONWEAK = Integer.parseInt(bossSettings.getProperty("INTERVALOfBehemothOnWeak", "8"));
+            FWA_INTERVALOFBEHEMOTHONWEAK = Integer.parseInt(bossSettings.getProperty("IntervalOfBehemothOnWeak", "8"));
             if(FWA_INTERVALOFBEHEMOTHONWEAK < 1 || FWA_INTERVALOFBEHEMOTHONWEAK > 10) FWA_INTERVALOFBEHEMOTHONWEAK = 8;
             FWA_INTERVALOFBEHEMOTHONWEAK = FWA_INTERVALOFBEHEMOTHONWEAK * 60000;
-            FWA_INTERVALOFBEHEMOTHONNORMAL = Integer.parseInt(bossSettings.getProperty("INTERVALOfBehemothOnNormal", "5"));
+            FWA_INTERVALOFBEHEMOTHONNORMAL = Integer.parseInt(bossSettings.getProperty("IntervalOfBehemothOnNormal", "5"));
             if(FWA_INTERVALOFBEHEMOTHONNORMAL < 1 || FWA_INTERVALOFBEHEMOTHONNORMAL > 10) FWA_INTERVALOFBEHEMOTHONNORMAL = 5;
             FWA_INTERVALOFBEHEMOTHONNORMAL = FWA_INTERVALOFBEHEMOTHONNORMAL * 60000;
-            FWA_INTERVALOFBEHEMOTHONSTRONG = Integer.parseInt(bossSettings.getProperty("INTERVALOfBehemothOnStrong", "3"));
+            FWA_INTERVALOFBEHEMOTHONSTRONG = Integer.parseInt(bossSettings.getProperty("IntervalOfBehemothOnStrong", "3"));
             if(FWA_INTERVALOFBEHEMOTHONSTRONG < 1 || FWA_INTERVALOFBEHEMOTHONSTRONG > 10) FWA_INTERVALOFBEHEMOTHONSTRONG = 3;
             FWA_INTERVALOFBEHEMOTHONSTRONG = FWA_INTERVALOFBEHEMOTHONSTRONG * 60000;
-            FWA_INTERVALOFBOMBERONWEAK = Integer.parseInt(bossSettings.getProperty("INTERVALOfBomberOnWeak", "6"));
+            FWA_INTERVALOFBOMBERONWEAK = Integer.parseInt(bossSettings.getProperty("IntervalOfBomberOnWeak", "6"));
             if(FWA_INTERVALOFBOMBERONWEAK < 1 || FWA_INTERVALOFBOMBERONWEAK > 10) FWA_INTERVALOFBOMBERONWEAK = 6;
             FWA_INTERVALOFBOMBERONWEAK = FWA_INTERVALOFBOMBERONWEAK * 60000;
-            FWA_INTERVALOFBOMBERONNORMAL = Integer.parseInt(bossSettings.getProperty("INTERVALOfBomberOnNormal", "4"));
+            FWA_INTERVALOFBOMBERONNORMAL = Integer.parseInt(bossSettings.getProperty("IntervalOfBomberOnNormal", "4"));
             if(FWA_INTERVALOFBOMBERONNORMAL < 1 || FWA_INTERVALOFBOMBERONNORMAL > 10) FWA_INTERVALOFBOMBERONNORMAL = 4;
             FWA_INTERVALOFBOMBERONNORMAL = FWA_INTERVALOFBOMBERONNORMAL * 60000;
-            FWA_INTERVALOFBOMBERONSTRONG = Integer.parseInt(bossSettings.getProperty("INTERVALOfBomberOnStrong", "3"));
+            FWA_INTERVALOFBOMBERONSTRONG = Integer.parseInt(bossSettings.getProperty("IntervalOfBomberOnStrong", "3"));
             if(FWA_INTERVALOFBOMBERONSTRONG < 1 || FWA_INTERVALOFBOMBERONSTRONG > 10) FWA_INTERVALOFBOMBERONSTRONG = 3;
             FWA_INTERVALOFBOMBERONSTRONG = FWA_INTERVALOFBOMBERONSTRONG * 60000;
             FWA_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True"));
@@ -2512,12 +2512,12 @@ public final class Config {
         else if (pName.equalsIgnoreCase("OldAntharas")) FWA_OLDANTHARAS = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("LimitOfWeak")) FWA_LIMITOFWEAK = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("LimitOfNormal")) FWA_LIMITOFNORMAL = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("INTERVALOfBehemothOnWeak")) FWA_INTERVALOFBEHEMOTHONWEAK = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("INTERVALOfBehemothOnNormal")) FWA_INTERVALOFBEHEMOTHONNORMAL = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("INTERVALOfBehemothOnStrong")) FWA_INTERVALOFBEHEMOTHONSTRONG = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("INTERVALOfBomberOnWeak")) FWA_INTERVALOFBOMBERONWEAK = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("INTERVALOfBomberOnNormal")) FWA_INTERVALOFBOMBERONNORMAL = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("INTERVALOfBomberOnStrong")) FWA_INTERVALOFBOMBERONSTRONG = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("IntervalOfBehemothOnWeak")) FWA_INTERVALOFBEHEMOTHONWEAK = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("IntervalOfBehemothOnNormal")) FWA_INTERVALOFBEHEMOTHONNORMAL = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("IntervalOfBehemothOnStrong")) FWA_INTERVALOFBEHEMOTHONSTRONG = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("IntervalOfBomberOnWeak")) FWA_INTERVALOFBOMBERONWEAK = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("IntervalOfBomberOnNormal")) FWA_INTERVALOFBOMBERONNORMAL = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("IntervalOfBomberOnStrong")) FWA_INTERVALOFBOMBERONSTRONG = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("MoveAtRandom")) FWA_MOVEATRANDOM = Boolean.parseBoolean(pValue);
 
         // JP fight with Baium Custom Setting
