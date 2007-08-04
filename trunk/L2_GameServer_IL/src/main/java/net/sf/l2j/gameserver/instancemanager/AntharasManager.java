@@ -88,18 +88,18 @@ public class AntharasManager
     // Value is minute. Range 1-10
     // Behemoth Dragon
     // Weak
-    protected int _IntgervalOfBehemothOnWeak;
+    protected int _IntervalOfBehemothOnWeak;
     // Normal
-    protected int _IntgervalOfBehemothOnNormal;
+    protected int _IntervalOfBehemothOnNormal;
     // Strong
-    protected int _IntgervalOfBehemothOnStrong;
+    protected int _IntervalOfBehemothOnStrong;
     // Dragon Bomber
     // Weak
-    protected int _IntgervalOfBomberOnWeak;
+    protected int _IntervalOfBomberOnWeak;
     // Normal
-    protected int _IntgervalOfBomberOnNormal;
+    protected int _IntervalOfBomberOnNormal;
     // Strong
-    protected int _IntgervalOfBomberOnStrong;
+    protected int _IntervalOfBomberOnStrong;
 
     // Whether it moves at random after Antharas appears is decided.
     protected boolean _MoveAtRandom = true;
@@ -172,12 +172,12 @@ public class AntharasManager
     	_LimitOfWeak = Config.FWA_LIMITOFWEAK;
     	_LimitOfNormal = Config.FWA_LIMITOFNORMAL;
     	if(_LimitOfWeak >= _LimitOfNormal) _LimitOfNormal = _LimitOfWeak + 1;
-    	_IntgervalOfBehemothOnWeak = Config.FWA_INTGERVALOFBEHEMOTHONWEAK;
-    	_IntgervalOfBehemothOnNormal = Config.FWA_INTGERVALOFBEHEMOTHONNORMAL;
-    	_IntgervalOfBehemothOnStrong = Config.FWA_INTGERVALOFBEHEMOTHONSTRONG;
-    	_IntgervalOfBomberOnWeak = Config.FWA_INTGERVALOFBOMBERONWEAK;
-    	_IntgervalOfBomberOnNormal = Config.FWA_INTGERVALOFBOMBERONNORMAL;
-    	_IntgervalOfBomberOnStrong = Config.FWA_INTGERVALOFBOMBERONSTRONG;
+    	_IntervalOfBehemothOnWeak = Config.FWA_INTERVALOFBEHEMOTHONWEAK;
+    	_IntervalOfBehemothOnNormal = Config.FWA_INTERVALOFBEHEMOTHONNORMAL;
+    	_IntervalOfBehemothOnStrong = Config.FWA_INTERVALOFBEHEMOTHONSTRONG;
+    	_IntervalOfBomberOnWeak = Config.FWA_INTERVALOFBOMBERONWEAK;
+    	_IntervalOfBomberOnNormal = Config.FWA_INTERVALOFBOMBERONNORMAL;
+    	_IntervalOfBomberOnStrong = Config.FWA_INTERVALOFBOMBERONSTRONG;
     	_MoveAtRandom = Config.FWA_MOVEATRANDOM;
     	
     	// initialize status in lair.
@@ -442,18 +442,18 @@ public class AntharasManager
             	// Interval of minions is decided by the number of players that invaded the lair.
             	if(_PlayersInLair.size() <= _LimitOfWeak)	// weak
             	{
-            		intervalOfBehemoth = _IntgervalOfBehemothOnWeak;
-            		intervalOfBomber = _IntgervalOfBomberOnWeak;
+            		intervalOfBehemoth = _IntervalOfBehemothOnWeak;
+            		intervalOfBomber = _IntervalOfBomberOnWeak;
             	}
             	else if(_PlayersInLair.size() >= _LimitOfNormal)	// strong
             	{
-            		intervalOfBehemoth = _IntgervalOfBehemothOnStrong;
-            		intervalOfBomber = _IntgervalOfBomberOnStrong;
+            		intervalOfBehemoth = _IntervalOfBehemothOnStrong;
+            		intervalOfBomber = _IntervalOfBomberOnStrong;
             	}
             	else	//normal
             	{
-            		intervalOfBehemoth = _IntgervalOfBehemothOnNormal;
-            		intervalOfBomber = _IntgervalOfBomberOnNormal;
+            		intervalOfBehemoth = _IntervalOfBehemothOnNormal;
+            		intervalOfBomber = _IntervalOfBomberOnNormal;
             	}
             	
             	// spawn Behemoth.
