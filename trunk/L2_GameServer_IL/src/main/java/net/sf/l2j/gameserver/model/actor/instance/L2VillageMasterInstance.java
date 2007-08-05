@@ -232,10 +232,10 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                         content.append("Which class would you like to switch to?<br>");
 
                         if (baseClassId == player.getActiveClass()) content.append(CharTemplateTable.getClassNameById(baseClassId)
-                            + "&nbsp;<font color=\"LEVEL\">(Base Class)</font><br><br>");
+                            + "&nbsp;<font color=\"LEVEL\">(Base Class)</font><br>");
                         else content.append("<a action=\"bypass -h npc_" + getObjectId()
                             + "_Subclass 5 0\">" + CharTemplateTable.getClassNameById(baseClassId)
-                            + "</a>&nbsp;" + "<font color=\"LEVEL\">(Base Class)</font><br><br>");
+                            + "</a>&nbsp;" + "<font color=\"LEVEL\">(Base Class)</font><br>");
 
                         for (Iterator<SubClass> subList = iterSubClasses(player); subList.hasNext();)
                         {
@@ -746,7 +746,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     {
     	int charClassId = player.getBaseClass();
 
-        if (charClassId >= 88) charClassId = player.getClassId().getParent().ordinal();
+        if (charClassId >= 88) charClassId = ClassId.values()[charClassId].getParent().getId();
 
         final PlayerRace npcRace = getVillageMasterRace();
         final ClassType npcTeachType = getVillageMasterTeachType();
@@ -784,7 +784,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                     if (subClassId >= 88) subClassId = ClassId.values()[subClassId].getParent().getId();
 
                     if (availSub.ordinal() == subClassId
-                        || availSub.ordinal() == player.getBaseClass())
+                        || availSub.ordinal() == charClassId)
                         availSubs.remove(PlayerClass.values()[availSub.ordinal()]);
                 }
 
