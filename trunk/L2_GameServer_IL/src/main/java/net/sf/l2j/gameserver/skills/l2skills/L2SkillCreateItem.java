@@ -37,16 +37,16 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 public class L2SkillCreateItem extends L2Skill
 {
     private static final Random _rnd = new Random();
-    private final int[] _createItem_Id;
+    private final int[] _createItemId;
     private final int _createItemCount;
     private final int _randomCount;
 
     public L2SkillCreateItem(StatsSet set)
     {
         super(set);
-        _createItem_Id = set.getIntegerArray("_createItem_Id");
-        _createItemCount = set.getInteger("_createItemCount", 0);
-        _randomCount = set.getInteger("_randomCount", 1);
+        _createItemId = set.getIntegerArray("create_item_id");
+        _createItemCount = set.getInteger("create_item_count", 0);
+        _randomCount = set.getInteger("random_count", 1);
     }  
 
     /**
@@ -55,7 +55,7 @@ public class L2SkillCreateItem extends L2Skill
     public void useSkill(L2Character activeChar, L2Object[] targets)
     {
         if (activeChar.isAlikeDead()) return;
-        if (_createItem_Id == null || _createItemCount == 0)
+        if (_createItemId == null || _createItemCount == 0)
         {
             SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_NOT_AVAILABLE);
             activeChar.sendPacket(sm);
@@ -66,8 +66,8 @@ public class L2SkillCreateItem extends L2Skill
         {            
             int rnd = _rnd.nextInt(_randomCount) + 1;
             int count = _createItemCount * rnd;
-            int rndid = _rnd.nextInt(_createItem_Id.length);
-            giveItems(player, _createItem_Id[rndid], count);
+            int rndid = _rnd.nextInt(_createItemId.length);
+            giveItems(player, _createItemId[rndid], count);
         }
     }
 
